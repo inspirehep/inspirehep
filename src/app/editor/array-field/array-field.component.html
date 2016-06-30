@@ -1,0 +1,16 @@
+<div>
+  <table class="table table-bordered">
+    <thead class="thead-inverse">
+      <tr>
+        <th *ngFor="let schemaProp of schema.items.properties | mapToIterable; trackBy:trackByFunction">
+          {{schemaProp.key}}
+        </th>
+      </tr>
+    </thead>
+    <tr *ngFor="let element of values; let i = index; trackBy:trackByFunction">
+      <td *ngFor="let schemaProp of schema.items.properties | mapToIterable; trackBy:trackByFunction">
+        <textarea rows="1" [ngModel]="element[schemaProp.key]" (ngModelChange)="valueChange($event, i, schemaProp.key)"></textarea>
+      </td>
+    </tr>
+  </table>
+</div>

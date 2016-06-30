@@ -1,0 +1,23 @@
+<div>
+    <table id="editor" class="table table-striped">
+        <tr *ngFor="let pair of jsonDoc | mapToIterable; trackBy:trackByFunction">
+            <td>
+                <label>{{pair.key | underscoreToSpace}}</label>
+            </td>
+            <td>
+                <div [ngSwitch]="pair.value.constructor.name">
+                    <div *ngSwitchCase="'Array'">
+                        <array-field [(values)]="pair.value" [schema]="schema[pair.key]"></array-field>
+                    </div>
+                    <div *ngSwitchCase="'String'">
+                        <input class="form-control" [(ngModel)]="jsonDoc[pair.key]">
+                        <!-- <string-field [(value)]="jsonDoc[pair.key]"></string-field> -->
+                    </div>
+                    <div *ngSwitchDefault>
+                        #DEBUG: {{pair.value.constructor.name}}
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

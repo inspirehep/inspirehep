@@ -1,0 +1,19 @@
+textarea {
+    width: 50%;
+    padding: 3px;
+    transition: all 0.5s ease;
+    resize: none;
+    border: none;
+    background-color: transparent;
+    
+    // Fill parent's width 
+    width:100%;
+    box-sizing: border-box;         // For IE and modern versions of Chrome
+    -moz-box-sizing: border-box;    // For Firefox   
+    -webkit-box-sizing: border-box; // For Safari
+};
+
+textarea:focus {
+    height: 6em;
+};
+
