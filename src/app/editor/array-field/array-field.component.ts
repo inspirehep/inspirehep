@@ -30,6 +30,16 @@ export class ArrayFieldComponent extends AbstractTrackerComponent {
     this.values[index][key] = event;
     this.valueChangeEmitter.emit(event);
   }
+  /**
+   * @param {number} index - Index of the element that is moved
+   * @param {number} direction - Movement direction. -1 for UP, +1 for DOWN
+   */
+  onMoveElement(index: number, direction: number) {
+    let newIndex = index + direction;
+    let temp = this.values[index];
+    this.values[index] = this.values[newIndex];
+    this.values[newIndex] = temp;
+  }
 
   onAddNewElement() {
     this.values.push({});

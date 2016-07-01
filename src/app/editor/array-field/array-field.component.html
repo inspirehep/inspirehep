@@ -12,10 +12,14 @@
         <td *ngFor="let schemaProp of schema.items.properties | mapToIterable; trackBy:trackByFunction">
           <textarea rows="1" [ngModel]="element[schemaProp.key]" (ngModelChange)="valueChange($event, i, schemaProp.key)"></textarea>
         </td>
+        <td *ngIf="values.length > 1" class="button-holder">
+          <button *ngIf="i > 0" type="button" class="btn btn-primary" (click)="onMoveElement(i, -1)">▲</button>
+          <button *ngIf="i < (values.length - 1)" type="button" class="btn btn-primary" (click)="onMoveElement(i, 1)">▼</button>
+        </td>
       </tr>
     </table>
   </div>
   <div>
-      <button type="button" class="btn btn-primary" (click)="onAddNewElement()">+</button>
+    <button type="button" class="btn btn-primary" (click)="onAddNewElement()">+</button>
   </div>
 </div>
