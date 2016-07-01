@@ -31,6 +31,10 @@ export class ArrayFieldComponent extends AbstractTrackerComponent {
     this.valueChangeEmitter.emit(event);
   }
 
+  onAddNewElement() {
+    this.values.push({});
+  }
+
   ngOnInit() {
 
   }
