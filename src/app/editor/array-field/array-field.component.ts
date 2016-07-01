@@ -41,6 +41,13 @@ export class ArrayFieldComponent extends AbstractTrackerComponent {
     this.values[newIndex] = temp;
   }
 
+  /**
+   * @param {number} index - Index of the element to be deleted
+   */
+  onDeleteElement(index: number) {
+    this.values.splice(index, 1);
+  }
+
   onAddNewElement() {
     this.values.push({});
   }
