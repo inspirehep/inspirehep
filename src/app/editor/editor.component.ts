@@ -8,11 +8,11 @@ import { AbstractTrackerComponent } from './abstract-tracker';
 
 import { RecordService } from './record.service';
 import { JsonUtilService } from './json-util.service';
-import { SchemaEnforcerService } from './schema-enforcer.service';
+import { SchemaRefResolverService } from './schema-ref-resolver.service';
 
 @Component({
   selector: 'editor',
-  providers: [RecordService, JsonUtilService, SchemaEnforcerService],
+  providers: [RecordService, JsonUtilService, SchemaRefResolverService],
   directives: [ArrayFieldComponent],
   pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
   styles: [
@@ -26,23 +26,28 @@ export class EditorComponent extends AbstractTrackerComponent {
   jsonDoc: any = {};
   schema: any = {};
 
-  constructor(private recordService: RecordService, private jsonUtilService: JsonUtilService, private schemaEnforcerService: SchemaEnforcerService) {
+  constructor(private recordService: RecordService, private jsonUtilService: JsonUtilService, private schemaRefResolverService: SchemaRefResolverService) {
     super();
     // FIXME: find a better way to make editor wait until we got the schema
     let record;
+    
+    // FIXME: do not combine Promise and Observable
     this.recordService.fetchRecord('literature', '1404685')
       .flatMap(json => {
         record = this.jsonUtilService.flattenMARCJson(json);
         return this.recordService.fetchSchema(json['$schema']);
-      }).subscribe(schema => {
-        // TODO: Remove this, when record comes from DB not from Elasticsearch
+      }).toPromise().then(schema => {
+        // TODO: Remove this, when record comes from DB not from Elasticsearch and schema is more consistent
         Object.keys(record).forEach((prop) => {
           if (record[prop].constructor.name === 'Array' && schema[prop] == null) {
             delete record[prop];
             console.log(prop);
           }
         });
-        this.schema = schema;
+        // TODO: Remove this when the schema comes already resolved! (WARNING: a lot of http requests!)
+        return this.schemaRefResolverService.resolveRefs(schema);
+      }).then(resolvedSchema =>{
+        this.schema = resolvedSchema;
         this.jsonDoc = record;
       });
   }

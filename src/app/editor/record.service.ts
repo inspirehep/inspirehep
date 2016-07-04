@@ -13,7 +13,7 @@ export class RecordService {
   constructor(private http: Http) { }
 
   fetchRecord(type: string, id: string): Observable<{}> {
-    const apiUrl = `${this.baseApiUrl}/${type}/${id}`;
+    const apiUrl = `${this.baseApiUrl}/${type}/${id}/db`;
     return this.http.get(apiUrl)
       .map(res => res.json().metadata);
   }
