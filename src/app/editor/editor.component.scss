@@ -11,9 +11,13 @@ textarea {
     box-sizing: border-box;         // For IE and modern versions of Chrome
     -moz-box-sizing: border-box;    // For Firefox   
     -webkit-box-sizing: border-box; // For Safari
-};
+}
 
 textarea:focus {
     height: 6em;
-};
+}
 
+td.button-holder {
+  width:1%;
+  white-space:nowrap;
+}
