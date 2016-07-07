@@ -43,7 +43,7 @@ export class JsonUtilService {
               // Do not flatten
               result[prop] = jsonObject[prop];
             } else {
-              // ObjectArray or StringArray
+              // ObjectArray
               // Do not apply the top level array, but apply its elements
               result[prop] = [];
               jsonObject[prop].forEach((object, i) => {
@@ -63,8 +63,8 @@ export class JsonUtilService {
   }
 
   public getType(value: any): string {
-    let type = value.constructor.name
-    if (type === 'Array') {
+    let valueType = value.constructor.name
+    if (valueType === 'Array') {
       if (this.isNotObjectArray(value)) {
         return 'StringArray';
       } else if (this.hasArrayProperty(value[0])) {
@@ -72,7 +72,7 @@ export class JsonUtilService {
       }
       return 'ObjectArray';
     }
-    return type;
+    return valueType;
   }
 
   private hasArrayProperty(json: Object): boolean {

@@ -1,0 +1,1 @@
+export { ArrayInArrayFieldComponent } from './array-in-array-field.component';
