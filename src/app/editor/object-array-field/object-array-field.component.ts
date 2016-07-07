@@ -4,21 +4,17 @@ import { MapToIterablePipe } from '../map-to-iterable.pipe';
 import { AbstractTrackerComponent } from '../abstract-tracker';
 
 @Component({
-  selector: 'array-field',
+  selector: 'object-array-field',
   pipes: [MapToIterablePipe],
-  template: require('./array-field.component.html'),
+  template: require('./object-array-field.component.html'),
   styles: [
-    require('./array-field.component.scss')
+    require('./object-array-field.component.scss')
   ]
 })
-export class ArrayFieldComponent extends AbstractTrackerComponent {
+export class ObjectArrayFieldComponent extends AbstractTrackerComponent {
 
-  /**
-   * Array of objects
-   * where each property of the object is subfield name
-   */
-  @Input() values: {}[];
-  @Input() schema: {};
+  @Input() values: Array<Object>;
+  private _emptyValue: {};
   
   /**
    * Event emitter to bind changes in the component to the model of parent component
@@ -30,11 +26,12 @@ export class ArrayFieldComponent extends AbstractTrackerComponent {
     this.values[index][key] = event;
     this.valueChangeEmitter.emit(event);
   }
+  
   /**
    * @param {number} index - Index of the element that is moved
    * @param {number} direction - Movement direction. -1 for UP, +1 for DOWN
    */
-  onMoveElement(index: number, direction: number) {
+  moveElement(index: number, direction: number) {
     let newIndex = index + direction;
     let temp = this.values[index];
     this.values[index] = this.values[newIndex];
@@ -44,15 +41,28 @@ export class ArrayFieldComponent extends AbstractTrackerComponent {
   /**
    * @param {number} index - Index of the element to be deleted
    */
-  onDeleteElement(index: number) {
+  deleteElement(index: number) {
     this.values.splice(index, 1);
   }
 
-  onAddNewElement() {
-    this.values.push({});
+  addNewElement() {
+    this.values.push(this.emptyValue);
   }
 
-  ngOnInit() {
-
+  /**
+   * Assigns null values to the properties of the copy of an element
+   * and caches it in a private instance variable.
+   */
+  private get emptyValue(): Object {
+    if (!this._emptyValue) {
+      let copy = Object.assign({}, this.values[0]);
+      Object.keys(copy)
+        .filter(prop => copy[prop] != null)
+        .forEach(prop => {
+          copy[prop] = null;
+        });
+      this._emptyValue = copy;
+    }
+    return this._emptyValue;
   }
 }
