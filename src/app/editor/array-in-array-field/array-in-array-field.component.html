@@ -1,0 +1,40 @@
+<div>
+  <div>
+    <table class="table table-bordered">
+      <tbody *ngFor="let value of values; let i = index; trackBy:trackByFunction">
+        <tr *ngFor="let row of value | mapToIterable; trackBy:trackByFunction">
+          <td>
+            <div>
+              <strong>{{row.key}}</strong>
+            </div>
+          </td>
+          <td>
+            <div [ngSwitch]="getType(row.value)">
+              <div *ngSwitchCase="'Object'">
+                <object-field [(value)]="value[row.key]"></object-field>
+              </div>
+              <div *ngSwitchCase="'ObjectArray'">
+                <object-array-field [(values)]="value[row.key]"></object-array-field>
+              </div>
+              <div *ngSwitchCase="'StringArray'">
+                <string-array-field [(values)]="value[row.key]"></string-array-field>
+              </div>
+              <div *ngSwitchDefault>
+                <textarea rows="1" [ngModel]="value[row.key]" (ngModelChange)="valueChange($event, i, row.key)"></textarea>
+              </div>
+            </div>
+          </td>
+        </tr>
+        <!-- UP/DOWN and DELETE buttons for each row -->
+        <tr *ngIf="values.length > 0">
+          <td><button type="button" class="btn btn-danger" (click)="deleteElement(i)">⌫</button></td>
+          <td><button *ngIf="i > 0" type="button" class="btn btn-primary" (click)="moveElement(i, -1)">▲</button>
+          <button *ngIf="i < (values.length - 1)" type="button" class="btn btn-primary" (click)="moveElement(i, 1)">▼</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <button type="button" class="btn btn-primary" (click)="addNewElement()">+</button>
+  </div>
+</div>

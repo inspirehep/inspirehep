@@ -1,0 +1,21 @@
+<div>
+  <div>
+    <table class="table table-bordered">
+      <tr *ngFor="let row of value | mapToIterable; trackBy:trackByFunction">
+        <td>
+          <div>
+            <strong>{{row.key}}</strong>
+          </div>
+        </td>
+        <td>
+          <div>
+            <textarea rows="1" [ngModel]="value[row.key]" (ngModelChange)="valueChange($event, i, row.key)"></textarea>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div>
+    <!-- ADD BUTTON -->
+  </div>
+</div>

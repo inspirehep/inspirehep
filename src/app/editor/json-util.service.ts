@@ -38,11 +38,18 @@ export class JsonUtilService {
       .forEach(prop => {
         switch (jsonObject[prop].constructor.name) {
           case 'Array':
-            // Do not apply the top level array, but apply its elements
-            result[prop] = [];
-            jsonObject[prop].forEach((object, i) => {
-              result[prop][i] = jsonOperator.apply(object);
-            });
+            if (this.hasArrayProperty(jsonObject[prop][0]) || this.isNotObjectArray(jsonObject[prop])) {
+              // ArrayInArray or StringArray
+              // Do not flatten
+              result[prop] = jsonObject[prop];
+            } else {
+              // ObjectArray
+              // Do not apply the top level array, but apply its elements
+              result[prop] = [];
+              jsonObject[prop].forEach((object, i) => {
+                result[prop][i] = jsonOperator.apply(object);
+              });
+            }
             break;
           case 'Object':
             result[prop] = jsonOperator.apply(jsonObject[prop]);
@@ -53,6 +60,28 @@ export class JsonUtilService {
         }
       });
     return result;
+  }
+
+  public getType(value: any): string {
+    let valueType = value.constructor.name
+    if (valueType === 'Array') {
+      if (this.isNotObjectArray(value)) {
+        return 'StringArray';
+      } else if (this.hasArrayProperty(value[0])) {
+        return 'ArrayInArray';
+      }
+      return 'ObjectArray';
+    }
+    return valueType;
+  }
+
+  private hasArrayProperty(json: Object): boolean {
+    return Object.keys(json)
+      .some(prop => json[prop].constructor && json[prop].constructor.name === 'Array');
+  }
+
+  private isNotObjectArray(arr: Array<any>): boolean {
+    return arr.every(element => element.constructor.name !== 'Object');
   }
 }
 

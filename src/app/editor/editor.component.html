@@ -5,13 +5,21 @@
                 <label>{{pair.key | underscoreToSpace}}</label>
             </td>
             <td>
-                <div [ngSwitch]="pair.value.constructor.name">
-                    <div *ngSwitchCase="'Array'">
-                        <array-field [(values)]="pair.value" [schema]="schema[pair.key]"></array-field>
+                <div [ngSwitch]="getType(pair.value)">
+                    <div *ngSwitchCase="'ObjectArray'">
+                        <object-array-field [(values)]="pair.value"></object-array-field>
+                    </div>
+                    <div *ngSwitchCase="'ArrayInArray'">
+                        <array-in-array-field [(values)]="pair.value"></array-in-array-field>
+                    </div>
+                    <div *ngSwitchCase="'StringArray'">
+                        <string-array-field [(values)]="pair.value"></string-array-field>
+                    </div>
+                    <div *ngSwitchCase="'Object'">
+                        <object-field [(value)]="pair.value"></object-field>
                     </div>
                     <div *ngSwitchCase="'String'">
                         <input class="form-control" [(ngModel)]="jsonDoc[pair.key]">
-                        <!-- <string-field [(value)]="jsonDoc[pair.key]"></string-field> -->
                     </div>
                     <div *ngSwitchDefault>
                         #DEBUG: {{pair.value.constructor.name}}
