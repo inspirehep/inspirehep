@@ -58,7 +58,10 @@ export class EditorComponent extends AbstractTrackerComponent {
         Object.keys(record).forEach((prop) => {
           if (record[prop].constructor.name === 'Array' && schema[prop] == null) {
             delete record[prop];
-            console.log(prop);
+            console.log('not in schema => ', prop);
+          } else if (record[prop].constructor.name === 'Object' && schema[prop].properties == null) {
+            delete record[prop];
+            console.log('no .properties => ', prop);
           }
         });
         // TODO: Remove this when the schema comes already resolved! (WARNING: a lot of http requests!)
@@ -75,6 +78,6 @@ export class EditorComponent extends AbstractTrackerComponent {
   }
 
   ngOnInit() {
-    setTimeout(() => console.log(this.jsonDoc), 5000);
+    setTimeout(() => console.log(this.jsonDoc), 8000);
   }
 }

@@ -1,21 +1,23 @@
 <div>
-  <div>
-    <table class="table table-bordered">
-      <tr *ngFor="let row of value | mapToIterable; trackBy:trackByFunction">
-        <td>
-          <div>
-            <strong>{{row.key}}</strong>
-          </div>
-        </td>
-        <td>
-          <div>
-            <textarea rows="1" [ngModel]="value[row.key]" (ngModelChange)="valueChange($event, i, row.key)"></textarea>
-          </div>
-        </td>
-      </tr>
-    </table>
-  </div>
-  <div>
-    <!-- ADD BUTTON -->
-  </div>
+  <table class="table table-bordered">
+    <tr *ngFor="let row of value | mapToIterable; trackBy:trackByFunction">
+      <td>
+        <div>
+          <strong>{{row.key}}</strong>
+        </div>
+      </td>
+      <td>
+        <textarea rows="1" [ngModel]="value[row.key]" (ngModelChange)="valueChange($event, row.key)"></textarea>
+      </td>
+      <td class="button-holder">
+        <button type="button" class="btn btn-danger" (click)="deleteField(key)">⌫</button>
+      </td>
+    </tr>
+    <!-- ADD-FIELD-FROM-SCHEMA -->
+    <tr *ngIf="schema.properties">
+      <td class="button-holder">
+        <add-field-dropdown [(record)]="value" [schema]="schema.properties"></add-field-dropdown>
+      </td>
+    </tr>
+  </table>
 </div>
