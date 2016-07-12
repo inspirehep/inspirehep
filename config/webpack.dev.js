@@ -46,7 +46,7 @@ module.exports = webpackMerge(commonConfig, {
    * See: http://webpack.github.io/docs/configuration.html#devtool
    * See: https://github.com/webpack/docs/wiki/build-performance#sourcemaps
    */
-  devtool: 'cheap-module-source-map',
+  devtool: '#inline-source-map',
 
   /**
    * Options affecting the output of the compilation.
