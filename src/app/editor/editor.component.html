@@ -10,7 +10,7 @@
                         <object-array-field [(values)]="pair.value"></object-array-field>
                     </div>
                     <div *ngSwitchCase="'ArrayInArray'">
-                        <array-in-array-field [(values)]="pair.value"></array-in-array-field>
+                        <array-in-array-field [(values)]="pair.value" [schema]="schema[pair.key]"></array-in-array-field>
                     </div>
                     <div *ngSwitchCase="'StringArray'">
                         <string-array-field [(values)]="pair.value"></string-array-field>

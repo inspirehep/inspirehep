@@ -11,7 +11,7 @@
           <td>
             <div [ngSwitch]="getType(row.value)">
               <div *ngSwitchCase="'Object'">
-                <object-field [(value)]="value[row.key]"></object-field>
+                <object-field [(value)]="value[row.key]" [(schema)]="schema.items.properties[row.key]"></object-field>
               </div>
               <div *ngSwitchCase="'ObjectArray'">
                 <object-array-field [(values)]="value[row.key]"></object-array-field>
@@ -25,11 +25,16 @@
             </div>
           </td>
         </tr>
-        <!-- UP/DOWN and DELETE buttons for each row -->
+        <!-- ADD-FIELD-FROM-SCHEMA, UP/DOWN and DELETE buttons for each row group -->
         <tr *ngIf="values.length > 0">
-          <td><button type="button" class="btn btn-danger" (click)="deleteElement(i)">⌫</button></td>
-          <td><button *ngIf="i > 0" type="button" class="btn btn-primary" (click)="moveElement(i, -1)">▲</button>
-          <button *ngIf="i < (values.length - 1)" type="button" class="btn btn-primary" (click)="moveElement(i, 1)">▼</button></td>
+          <td class="button-holder">
+            <add-field-dropdown [(record)]="values[i]" [schema]="schema.items.properties"></add-field-dropdown>
+            <button type="button" class="btn btn-danger" (click)="deleteElement(i)">⌫</button>
+          </td>
+          <td class="button-holder">
+            <button *ngIf="i > 0" type="button" class="btn btn-primary" (click)="moveElement(i, -1)">▲</button>
+            <button *ngIf="i < (values.length - 1)" type="button" class="btn btn-primary" (click)="moveElement(i, 1)">▼</button>
+          </td>
         </tr>
       </tbody>
     </table>

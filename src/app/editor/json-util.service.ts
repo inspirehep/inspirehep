@@ -62,6 +62,15 @@ export class JsonUtilService {
     return result;
   }
 
+  
+  /**
+   * Returns type of the given value. If it is not an array it returns the exact type.
+   * CUSTOM ARRAY TYPES: StringArray, ArrayInArray, ObjectArray
+   * 
+   * TODO: move this utitiliy somewhere else.
+   * 
+   * @param {any} value - value to be evaluated.
+   */
   public getType(value: any): string {
     let valueType = value.constructor.name
     if (valueType === 'Array') {
