@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 
-
+// TODO: remove this when getting resolved schemas from database is implemented
 @Injectable()
 export class SchemaRefResolverService {
 
@@ -17,6 +17,7 @@ export class SchemaRefResolverService {
   /**
    * This resolves top level $ref properties in schema by getting them via HTTP
    * and attaching to the schema
+   * 
    */
   resolveRefs(schema: {}): Promise<{}> {
     const indexedProps = [];

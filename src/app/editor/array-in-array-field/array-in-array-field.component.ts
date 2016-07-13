@@ -1,14 +1,14 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { MapToIterablePipe } from '../map-to-iterable.pipe';
-
-import { JsonUtilService } from '../json-util.service';
-
 import { AbstractTrackerComponent } from '../abstract-tracker';
 import { AddFieldDropdownComponent } from '../add-field-dropdown';
 import { ObjectFieldComponent } from '../object-field';
 import { ObjectArrayFieldComponent } from '../object-array-field';
 import { StringArrayFieldComponent } from '../string-array-field';
+
+import { MapToIterablePipe } from '../shared/pipes';
+
+import { JsonUtilService } from '../shared/services';
 
 @Component({
   selector: 'array-in-array-field',
@@ -20,20 +20,16 @@ import { StringArrayFieldComponent } from '../string-array-field';
     StringArrayFieldComponent
   ],
   pipes: [MapToIterablePipe],
-  template: require('./array-in-array-field.component.html'),
   styles: [
     require('./array-in-array-field.component.scss')
-  ]
+  ],
+  template: require('./array-in-array-field.component.html')
 })
 export class ArrayInArrayFieldComponent extends AbstractTrackerComponent {
 
   @Input() values: Array<Object>;
   @Input() schema: Object;
 
-  /**
-   * Event emitter to bind changes in the component to the model of parent component
-   * RELATED: http://stackoverflow.com/questions/34608814/bidirectional-data-binding-on-a-component-input-property/34616530#34616530 
-   */
   @Output() valueChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
 
   constructor(private jsonUtilService: JsonUtilService) {

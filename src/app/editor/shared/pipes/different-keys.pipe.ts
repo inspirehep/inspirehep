@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 @Pipe({
   name: 'differentKeys',
-  pure: false, // FIX for http://stackoverflow.com/questions/34456430/ngfor-doesnt-update-data-with-pipe-in-angular2
+  pure: false,
 })
 export class DifferentKeysPipe implements PipeTransform {
   transform(object: Object, other: Object): Array<string> {

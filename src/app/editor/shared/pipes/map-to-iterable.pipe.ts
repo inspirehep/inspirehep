@@ -1,10 +1,10 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Pair } from './pair'
 
 @Pipe({
   name: 'mapToIterable',
   pure:false, // FIX for http://stackoverflow.com/questions/34456430/ngfor-doesnt-update-data-with-pipe-in-angular2
 })
+
 export class MapToIterablePipe implements PipeTransform {
   transform(map: {}, args: any[] = null): any {
     if (!map)
@@ -13,3 +13,11 @@ export class MapToIterablePipe implements PipeTransform {
       .map(key => new Pair<string>(key, map[key]));
   }
 }
+
+class Pair<T> {
+  constructor(public key: string, public value: T) {
+    
+  }
+}
+
+

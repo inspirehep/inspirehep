@@ -1,18 +1,18 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { MapToIterablePipe } from '../map-to-iterable.pipe';
-
 import { AbstractTrackerComponent } from '../abstract-tracker';
 import { AddFieldDropdownComponent } from '../add-field-dropdown';
+
+import { MapToIterablePipe } from '../shared/pipes'
 
 @Component({
   selector: 'object-field',
   directives: [AddFieldDropdownComponent],
   pipes: [MapToIterablePipe],
-  template: require('./object-field.component.html'),
   styles: [
     require('./object-field.component.scss')
-  ]
+  ],
+  template: require('./object-field.component.html')
 })
 export class ObjectFieldComponent extends AbstractTrackerComponent {
 

@@ -1,27 +1,23 @@
 import { Component, Input, ViewEncapsulation} from '@angular/core';
 
-import { MapToIterablePipe } from './map-to-iterable.pipe';
-import { UnderscoreToSpacePipe } from './underscore-to-space.pipe';
-
 import { ObjectArrayFieldComponent } from './object-array-field';
 import { ArrayInArrayFieldComponent } from './array-in-array-field';
 import { StringArrayFieldComponent } from './string-array-field';
 import { AbstractTrackerComponent } from './abstract-tracker';
 import { ObjectFieldComponent } from './object-field';
 
-import { RecordService } from './record.service';
-import { JsonUtilService } from './json-util.service';
-import { SchemaRefResolverService } from './schema-ref-resolver.service';
-import { SchemaEnforcerService } from './schema-enforcer.service';
+import { MapToIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
+
+import {
+  JsonUtilService,
+  RecordFixerService,
+  RecordService,
+  SchemaRefResolverService,
+ } from './shared/services';
 
 @Component({
   selector: 'editor',
-  providers: [
-    RecordService,
-    JsonUtilService,
-    SchemaRefResolverService,
-    SchemaEnforcerService
-  ],
+  encapsulation: ViewEncapsulation.None,
   directives: [
     ObjectArrayFieldComponent,
     ArrayInArrayFieldComponent,
@@ -29,11 +25,16 @@ import { SchemaEnforcerService } from './schema-enforcer.service';
     ObjectFieldComponent
   ],
   pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
+  providers: [
+    RecordFixerService,
+    JsonUtilService,
+    RecordService,
+    SchemaRefResolverService
+  ],
   styles: [
     require('./editor.component.scss')
   ],
   template: require('./editor.component.html'),
-  encapsulation: ViewEncapsulation.None
 })
 export class EditorComponent extends AbstractTrackerComponent {
   // TODO: remove dummy
@@ -43,7 +44,7 @@ export class EditorComponent extends AbstractTrackerComponent {
   constructor(private recordService: RecordService, 
     private jsonUtilService: JsonUtilService, 
     private schemaRefResolverService: SchemaRefResolverService,
-    private schemaEnforcerService: SchemaEnforcerService) {
+    private recordFixerService: RecordFixerService) {
     super();
     // FIXME: find a better way to make editor wait until we got the schema
     let record;
@@ -68,7 +69,7 @@ export class EditorComponent extends AbstractTrackerComponent {
         return this.schemaRefResolverService.resolveRefs(schema);
       }).then(resolvedSchema =>{
         this.schema = resolvedSchema;
-        this.schemaEnforcerService.enforceSchema(record, resolvedSchema);
+        this.recordFixerService.fixRecord(record, resolvedSchema);
         this.jsonDoc = this.jsonUtilService.flattenMARCJson(record);
       });
   }

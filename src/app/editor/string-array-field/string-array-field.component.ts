@@ -4,10 +4,11 @@ import { AbstractTrackerComponent } from '../abstract-tracker';
 
 @Component({
   selector: 'string-array-field',
-  template: require('./string-array-field.component.html'),
   styles: [
     require('./string-array-field.component.scss')
-  ]
+  ],
+  template: require('./string-array-field.component.html'),
+
 })
 export class StringArrayFieldComponent extends AbstractTrackerComponent {
 

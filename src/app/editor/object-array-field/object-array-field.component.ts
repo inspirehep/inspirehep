@@ -1,15 +1,15 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { MapToIterablePipe } from '../map-to-iterable.pipe';
+import { MapToIterablePipe } from '../shared/pipes';
 import { AbstractTrackerComponent } from '../abstract-tracker';
 
 @Component({
   selector: 'object-array-field',
   pipes: [MapToIterablePipe],
-  template: require('./object-array-field.component.html'),
   styles: [
     require('./object-array-field.component.scss')
-  ]
+  ],
+  template: require('./object-array-field.component.html'),
 })
 export class ObjectArrayFieldComponent extends AbstractTrackerComponent {
 
