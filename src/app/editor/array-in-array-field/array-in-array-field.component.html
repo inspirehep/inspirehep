@@ -16,11 +16,11 @@
               <div *ngSwitchCase="'ObjectArray'">
                 <object-array-field [(values)]="value[row.key]"></object-array-field>
               </div>
-              <div *ngSwitchCase="'StringArray'">
-                <string-array-field [(values)]="value[row.key]"></string-array-field>
+              <div *ngSwitchCase="'PrimitiveArray'">
+                <primitive-array-field [(values)]="value[row.key]"></primitive-array-field>
               </div>
               <div *ngSwitchDefault>
-                <textarea rows="1" [ngModel]="value[row.key]" (ngModelChange)="valueChange($event, i, row.key)"></textarea>
+                <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, i, row.key)"></primitive-field>
               </div>
             </div>
           </td>

@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
+import { EmptyValueService } from './empty-value.service';
 
 @Injectable()
 export class RecordFixerService {
 
+  private emptyValueService: EmptyValueService = new EmptyValueService();
+  
   /**
    * Fixes the record for the better UI appearance.
    * Makes use of schema to get types
    */
-  fixRecord(record: {}, schema: {}) {
+  fixRecord(record: Object, schema: Object) {
     Object.keys(schema).filter(field => record[field])
       .forEach(field => {
         // TODO: use getType
@@ -17,7 +20,7 @@ export class RecordFixerService {
           let hasAnyArrayFields = Object.keys(subSchema)
             .some(subField => subSchema[subField].type === 'array');
           if (!hasAnyArrayFields) {
-            // This field will be represented as a table.3
+            // This field will be represented as a table (ObjectArray)
             this.insertEmptyForMissingFields(record[field], subSchema);
           }
         }
@@ -29,11 +32,11 @@ export class RecordFixerService {
    * but not present in given record
    *
    */
-  private insertEmptyForMissingFields(record: [{}], schema: {}) {
+  private insertEmptyForMissingFields(record: Array<Object>, schema: Object) {
     Object.keys(schema).forEach(field => {
       record.filter(element => element[field] == null)
         .forEach(element => {
-          element[field] = '';
+          element[field] = this.emptyValueService.generateEmptyValue(schema[field]);
         });
     });
   }

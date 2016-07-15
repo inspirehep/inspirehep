@@ -1,0 +1,14 @@
+<div [ngSwitch]="valueType">
+  <div *ngSwitchCase="'string'">
+    <textarea rows="1" [ngModel]="value" (ngModelChange)="onValueChange.emit($event)"></textarea>
+  </div>
+  <div *ngSwitchCase="'number'">
+    <input type="number" class="form-control" [ngModel]="value" (ngModelChange)="onValueChange.emit($event)">
+  </div>
+  <div *ngSwitchCase="'boolean'">
+      <input type="checkbox" [ngModel]="value" (ngModelChange)="onValueChange.emit($event)">
+  </div>
+  <div *ngSwitchDefaul>
+    ## Not recognized type: {{valueType}}
+  </div>
+</div>

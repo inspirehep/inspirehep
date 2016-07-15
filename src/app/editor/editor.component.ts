@@ -1,10 +1,12 @@
 import { Component, Input, ViewEncapsulation} from '@angular/core';
 
-import { ObjectArrayFieldComponent } from './object-array-field';
-import { ArrayInArrayFieldComponent } from './array-in-array-field';
-import { StringArrayFieldComponent } from './string-array-field';
 import { AbstractTrackerComponent } from './abstract-tracker';
+import { ArrayInArrayFieldComponent } from './array-in-array-field';
+import { ObjectArrayFieldComponent } from './object-array-field';
 import { ObjectFieldComponent } from './object-field';
+import { PrimitiveArrayFieldComponent } from './primitive-array-field';
+import { PrimitiveFieldComponent } from './primitive-field';
+
 
 import { MapToIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
 
@@ -12,24 +14,23 @@ import {
   JsonUtilService,
   RecordFixerService,
   RecordService,
-  SchemaRefResolverService,
- } from './shared/services';
+} from './shared/services';
 
 @Component({
   selector: 'editor',
   encapsulation: ViewEncapsulation.None,
   directives: [
-    ObjectArrayFieldComponent,
     ArrayInArrayFieldComponent,
-    StringArrayFieldComponent,
+    PrimitiveArrayFieldComponent,
+    PrimitiveFieldComponent,
+    ObjectArrayFieldComponent,
     ObjectFieldComponent
   ],
   pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
   providers: [
-    RecordFixerService,
     JsonUtilService,
     RecordService,
-    SchemaRefResolverService
+    RecordFixerService,
   ],
   styles: [
     require('./editor.component.scss')
@@ -41,37 +42,37 @@ export class EditorComponent extends AbstractTrackerComponent {
   jsonDoc: any = {};
   schema: any = {};
 
-  constructor(private recordService: RecordService, 
-    private jsonUtilService: JsonUtilService, 
-    private schemaRefResolverService: SchemaRefResolverService,
+  constructor(private recordService: RecordService,
+    private jsonUtilService: JsonUtilService,
     private recordFixerService: RecordFixerService) {
     super();
+
     // FIXME: find a better way to make editor wait until we got the schema
     let record;
     
-    // FIXME: do not combine Promise and Observable
     this.recordService.fetchRecord('literature', '1404685')
       .flatMap(json => {
         record = json;
         return this.recordService.fetchSchema(json['$schema']);
-      }).toPromise().then(schema => {
-        // TODO: Remove this, when record comes from DB not from Elasticsearch and schema is more consistent
+      }).subscribe(schema => {
+        // TODO: Remove these delete, when record comes from DB not from Elasticsearch and schema is more consistent
         Object.keys(record).forEach((prop) => {
           if (record[prop].constructor.name === 'Array' && schema[prop] == null) {
             delete record[prop];
+            delete schema[prop];
             console.log('not in schema => ', prop);
-          } else if (record[prop].constructor.name === 'Object' && schema[prop].properties == null) {
-            delete record[prop];
-            console.log('no .properties => ', prop);
           }
         });
-        // TODO: Remove this when the schema comes already resolved! (WARNING: a lot of http requests!)
-        return this.schemaRefResolverService.resolveRefs(schema);
-      }).then(resolvedSchema =>{
-        this.schema = resolvedSchema;
-        this.recordFixerService.fixRecord(record, resolvedSchema);
+        delete record['self']; // ingrone this
+
+        this.recordFixerService.fixRecord(record, schema);
         this.jsonDoc = this.jsonUtilService.flattenMARCJson(record);
-      });
+        this.schema = schema;
+      }, error => console.error(error));
+  }
+
+  onValueChange(event: any, key: string) {
+    this.jsonDoc[key] = event;
   }
 
   getType(value: any): string {

@@ -7,19 +7,19 @@
             <td>
                 <div [ngSwitch]="getType(pair.value)">
                     <div *ngSwitchCase="'ObjectArray'">
-                        <object-array-field [(values)]="pair.value"></object-array-field>
+                        <object-array-field [(values)]="pair.value" [schema]="schema[pair.key]"></object-array-field>
                     </div>
                     <div *ngSwitchCase="'ArrayInArray'">
                         <array-in-array-field [(values)]="pair.value" [schema]="schema[pair.key]"></array-in-array-field>
                     </div>
-                    <div *ngSwitchCase="'StringArray'">
-                        <string-array-field [(values)]="pair.value"></string-array-field>
+                    <div *ngSwitchCase="'PrimitiveArray'">
+                        <primitive-array-field [(values)]="pair.value" [schema]="schema[pair.key]"></primitive-array-field>
                     </div>
                     <div *ngSwitchCase="'Object'">
                         <object-field [(value)]="pair.value"></object-field>
                     </div>
                     <div *ngSwitchCase="'String'">
-                        <input class="form-control" [(ngModel)]="jsonDoc[pair.key]">
+                        <primitive-field [value]="jsonDoc[pair.key]" (onValueChange)="onValueChange($event, pair.key)"></primitive-field>
                     </div>
                     <div *ngSwitchDefault>
                         #DEBUG: {{pair.value.constructor.name}}

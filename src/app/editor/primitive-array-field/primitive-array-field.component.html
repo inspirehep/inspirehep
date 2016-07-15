@@ -3,9 +3,9 @@
     <table class="table table-bordered">
       <tr *ngFor="let value of values; let i = index; trackBy:trackByFunction">
         <td>
-          <textarea rows="1" [ngModel]="values[i]" (ngModelChange)="valueChange($event, i)"></textarea>
+          <primitive-field [value]="values[i]" (onValueChange)="onValueChange($event, i)"></primitive-field>
         </td>
-        
+
         <!-- UP/DOWN and DELETE buttons for each row -->
         <td *ngIf="values.length > 0" class="button-holder">
           <button type="button" class="btn btn-danger" (click)="deleteElement(i)">⌫</button>

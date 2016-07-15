@@ -19,7 +19,8 @@ export class RecordService {
   }
 
   fetchSchema(url: string): Observable<{}> {
-    return this.http.get(url)
+    // TODO: fetch the from url when backend returns resolved schema.
+    return this.http.get('./assets/hep.json')
       .map(res => res.json().properties);
   }
 }
