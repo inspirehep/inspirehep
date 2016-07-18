@@ -61,7 +61,6 @@ export class JsonUtilService {
       });
     return result;
   }
-
   
   /**
    * Returns type of the given value. If it is not an array it returns the exact type.

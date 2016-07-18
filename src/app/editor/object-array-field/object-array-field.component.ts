@@ -22,31 +22,40 @@ export class ObjectArrayFieldComponent extends AbstractArrayFieldComponent {
 
   @Input() values: Array<Object>;
   @Input() schema: Object;
-  private _emptyValue: {};
-  
+
   constructor(public emptyValueService: EmptyValueService) {
     super()
   }
 
-  addNewElement() {
-    let emptyValue = this.emptyValueService.generateEmptyValue(this.schema['items']);
-    this.values.push(emptyValue);
-  }
-
   /**
-   * Assigns null values to the properties of the copy of an element
-   * and caches it in a private instance variable.
+   * @override
+   * Needs different logic, because this component may have flattened model.
    */
-  private get emptyValue(): Object {
+  get emptyValue(): Object {
     if (!this._emptyValue) {
       let copy = Object.assign({}, this.values[0]);
       Object.keys(copy)
         .filter(prop => copy[prop] != null)
         .forEach(prop => {
-          copy[prop] = undefined;
+          let propSchema = this.getInnerSchema(prop);
+          copy[prop] = this.emptyValueService.generateEmptyValue(propSchema);
         });
       this._emptyValue = copy;
     }
-    return this._emptyValue;
+    return Object.assign({}, this._emptyValue);
+  }
+
+  /**
+   * Returns inner schema of unflattened and flattened fields
+   * 
+   * @param {string} fieldPath - dot separated path of the field. EX: 'foo.bar'
+   */
+  private getInnerSchema(fieldPath: string): Object {
+    let props = fieldPath.split('.');
+    let subSchema = this.schema['items'];
+    props.forEach(prop => {
+      subSchema = subSchema['properties'][prop];
+    });
+    return subSchema
   }
 }

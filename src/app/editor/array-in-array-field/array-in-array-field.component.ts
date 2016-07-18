@@ -9,7 +9,7 @@ import { PrimitiveFieldComponent } from '../primitive-field';
 
 import { MapToIterablePipe } from '../shared/pipes';
 
-import { JsonUtilService } from '../shared/services';
+import { EmptyValueService, JsonUtilService } from '../shared/services';
 
 @Component({
   selector: 'array-in-array-field',
@@ -21,7 +21,7 @@ import { JsonUtilService } from '../shared/services';
     PrimitiveArrayFieldComponent
   ],
   pipes: [MapToIterablePipe],
-  providers: [JsonUtilService],
+  providers: [EmptyValueService, JsonUtilService],
   styles: [
     require('./array-in-array-field.component.scss')
   ],
@@ -32,12 +32,8 @@ export class ArrayInArrayFieldComponent extends AbstractArrayFieldComponent {
   @Input() values: Array<Object>;
   @Input() schema: Object;
 
-  constructor(private jsonUtilService: JsonUtilService) {
+  constructor(public emptyValueService: EmptyValueService, private jsonUtilService: JsonUtilService) {
     super();
-  }
-
-  addNewElement() {
-    throw new Error('Not yet implemented');
   }
 
   getType(value: any): string {

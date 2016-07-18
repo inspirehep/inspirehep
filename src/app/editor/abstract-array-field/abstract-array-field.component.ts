@@ -1,5 +1,7 @@
 import { AbstractTrackerComponent } from '../abstract-tracker';
 
+import { EmptyValueService } from '../shared/services';
+
 /**
  * Abstract component to share code of common operations of all array fields
  * 
@@ -10,6 +12,8 @@ export abstract class AbstractArrayFieldComponent extends AbstractTrackerCompone
 
   values: Array<any>;
   schema: Object;
+  emptyValueService: EmptyValueService;
+  protected _emptyValue: any;
 
   /**
    * Called when a property of any element of the values is changed
@@ -33,6 +37,24 @@ export abstract class AbstractArrayFieldComponent extends AbstractTrackerCompone
     let temp = this.values[index];
     this.values[index] = this.values[newIndex];
     this.values[newIndex] = temp;
+  }
+
+  addNewElement() {
+    this.values.push(this.emptyValue);
+  }
+
+  /**
+   * Returns copy of empty value generated via schema.
+   * At first caches the actual value for later use.
+   * After returns a copy of the cache.
+   */
+  get emptyValue(): any {
+    if (!this._emptyValue) {
+      this._emptyValue = this.emptyValueService.generateEmptyValue(this.schema['items']);
+    }
+    // Return a copy if it is an object because objects are passed by reference.
+    return (typeof this._emptyValue === 'object') ? 
+      Object.assign({}, this._emptyValue) : this._emptyValue;
   }
 
   /**

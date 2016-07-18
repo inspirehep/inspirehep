@@ -687,7 +687,8 @@
             },
             "type": "array"
           }
-        }
+        },
+        "type": "object"
       },
       "type": "array"
     },
@@ -754,6 +755,12 @@
           },
           "previous_set": {
             "type": "string"
+          },
+          "set": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         },
         "description": "Local OAI-PMH information"
