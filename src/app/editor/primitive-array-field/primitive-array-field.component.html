@@ -3,7 +3,7 @@
     <table class="table table-bordered">
       <tr *ngFor="let value of values; let i = index; trackBy:trackByFunction">
         <td>
-          <primitive-field [value]="values[i]" (onValueChange)="onValueChange($event, i)"></primitive-field>
+          <primitive-field [value]="values[i]" (onValueChange)="onValueChange($event, i)" [schema]="schema.items"></primitive-field>
         </td>
 
         <!-- UP/DOWN and DELETE buttons for each row -->

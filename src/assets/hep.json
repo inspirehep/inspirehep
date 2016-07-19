@@ -450,7 +450,7 @@
               "type": "string"
             }
           },
-          "url": {
+          "urls": {
             "type": "array",
             "items": {
               "format": "url",

@@ -57,13 +57,12 @@ export class EditorComponent extends AbstractTrackerComponent {
       }).subscribe(schema => {
         // TODO: Remove these delete, when record comes from DB not from Elasticsearch and schema is more consistent
         Object.keys(record).forEach((prop) => {
-          if (record[prop].constructor.name === 'Array' && schema[prop] == null) {
+          if (schema[prop] == null) {
             delete record[prop];
-            delete schema[prop];
             console.log('not in schema => ', prop);
           }
         });
-        delete record['self']; // ingrone this
+        delete record['self']; // ingrone self
 
         this.recordFixerService.fixRecord(record, schema);
         this.jsonDoc = this.jsonUtilService.flattenMARCJson(record);

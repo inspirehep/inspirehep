@@ -39,5 +39,4 @@ export class PrimitiveArrayFieldComponent extends AbstractArrayFieldComponent {
   onValueChange(event: any, index: number) {
     this.values[index] = event;
   }
-
 }
