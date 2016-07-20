@@ -1,9 +1,12 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import { SearchableDropdownComponent } from '../searchable-dropdown';
+
 import { SchemaValidationService } from '../shared/services';
 
 @Component({
   selector: 'primitive-field',
+  directives: [SearchableDropdownComponent],
   providers: [SchemaValidationService],
   styles: [
     require('./primitive-field.component.scss')
@@ -23,27 +26,24 @@ export class PrimitiveFieldComponent {
   }
 
   onModelChange(event: any) {
-    this.onValueChange.emit(event);
     // Validation
-    if (this.schema['type'] === 'string') {
+    if (this.schema['type'] === 'string' && this.schema['enum'] == null) {
       try {
-        this.schemaValidationService.validateStringValue(this.value.toString(), this.schema);
-        this.error = undefined;
+        this.schemaValidationService.validateStringValue(event.toString(), this.schema);
       } catch (error) {
-        this.error = error;
         console.error(error);
       }
     }
+    // TODO: should we make the change even if it is not validated
+    this.onValueChange.emit(event);
   }
 
   get valueType(): string {
     return typeof this.value;
   }
 
-  getErrorClass() {
-    return {
-      'has-error': this.error !== undefined
-    };
+  ngOnInit() {
+    // TODO: remove default after flattened records' schema problem is resolved
+   this.schema = this.schema || {}
   }
-
 }

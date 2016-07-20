@@ -1,7 +1,14 @@
 <div [ngSwitch]="valueType">
-  <div class="form-group" [ngClass]="getErrorClass()">
+  <div>
     <div *ngSwitchCase="'string'">
-      <textarea class="form-control" rows="1" [ngModel]="value" (ngModelChange)="onModelChange($event)"></textarea>
+      <div [ngSwitch]="schema.enum != null">
+        <div *ngSwitchCase="false">
+          <textarea rows="1" [ngModel]="value" (ngModelChange)="onModelChange($event)"></textarea>
+        </div>
+        <div *ngSwitchCase="true">
+          <searchable-dropdown [value]="value" [items]="schema.enum" (onSelect)="onModelChange($event)"></searchable-dropdown>
+        </div>
+      </div>
     </div>
     <div *ngSwitchCase="'number'">
       <input type="number" class="form-control" [ngModel]="value" (ngModelChange)="onModelChange($event)">
@@ -9,7 +16,7 @@
     <div *ngSwitchCase="'boolean'">
       <input type="checkbox" [ngModel]="value" (ngModelChange)="onModelChange($event)">
     </div>
-    <div *ngSwitchDefaul>
+    <div *ngSwitchDefault>
       ## Not recognized type: {{valueType}}
     </div>
   </div>
