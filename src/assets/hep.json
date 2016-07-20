@@ -1,0 +1,1283 @@
+{
+  "description": "An article or thesis or book or...",
+  "title": "Publication",
+  "type": "object",
+  "properties": {
+    "self": {
+      "description": "Url of the record itself",
+      "title": "Url of the record",
+      "properties": {
+        "$ref": {
+          "description": "URL to the referenced resource",
+          "type": "string",
+          "format": "url"
+        }
+      },
+      "required": [
+        "$ref"
+      ],
+      "type": "object"
+    },
+    "funding_info": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "grant_number": {
+            "type": "string",
+            "title": "Grant number"
+          },
+          "agency": {
+            "type": "string",
+            "title": "Agency"
+          },
+          "project_number": {
+            "type": "string",
+            "title": "Project number"
+          }
+        },
+        "title": "Grant information"
+      },
+      "type": "array",
+      "description": "Information related to funding. FIXME: Do we care about this? So far only 349 records were tagged and all for a single EU project.",
+      "title": "Funding information"
+    },
+    "isbns": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "medium": {
+            "description": "Medium (type) of the ISBN.",
+            "type": "string"
+          },
+          "value": {
+            "type": "string",
+            "format": "isbn"
+          },
+          "comment": {
+            "description": "Further information about type.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "report_numbers": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "public_notes": {
+      "uniqueItems": true,
+      "items": {
+        "required": [
+          "value"
+        ],
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "abstracts": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "spires_sysnos": {
+      "uniqueItems": true,
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "description": "List of associated legacy SPIRES IDs"
+    },
+    "earliest_date": {
+      "type": "string",
+      "format": "date",
+      "description": "The earliest date of this record among all types of dates"
+    },
+    "breadcrumb_title": {
+      "type": "string",
+      "description": "The title shown in all page breadcrumbs"
+    },
+    "preprint_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "imprints": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date"
+          },
+          "publisher": {
+            "type": "string"
+          },
+          "place": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "titles": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "title": "Title (and subtitle)"
+      },
+      "type": "array"
+    },
+    "titles_old": {
+      "description": "FIXME: Old 247, shall it still have its own field?",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "title": "Title (and subtitle)"
+      },
+      "type": "array"
+    },
+    "edition": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "edition": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "thesis_supervisor": {
+      "uniqueItems": true,
+      "items": {
+        "required": [
+          "full_name"
+        ],
+        "type": "object",
+        "properties": {
+          "affiliation": {
+            "type": "string"
+          },
+          "full_name": {
+            "type": "string"
+          },
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "thesis": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "defense_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "institutions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "record": {
+                "description": "URI of the matched insitution record.",
+                "properties": {
+                  "$ref": {
+                    "description": "URL to the referenced resource",
+                    "type": "string",
+                    "format": "url"
+                  }
+                },
+                "required": [
+                  "$ref"
+                ],
+                "type": "object"
+              },
+              "name": {
+                "type": "string"
+              },
+              "curated_relation": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "degree_type": {
+          "enum": [
+            "PhD",
+            "Master",
+            "Bachelor",
+            "Diploma",
+            "Habilitation",
+            "Laurea",
+            "Thesis"
+          ],
+          "type": "string",
+          "description": "FIXME: this enum must be reviewed"
+        }
+      }
+    },
+    "hidden_notes": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "FIXME: What's the semantic of this source?"
+          },
+          "cern_reference": {
+            "type": "string",
+            "description": "FIXME: Do we know what this is? do we care?"
+          },
+          "value": {
+            "type": "string"
+          },
+          "cds": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array",
+      "description": "FIXME: what about 595__d??"
+    },
+    "publication_info": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "journal_title": {
+            "type": "string"
+          },
+          "pubinfo_freetext": {
+            "type": "string"
+          },
+          "journal_volume": {
+            "type": "string"
+          },
+          "cnum": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "note": {
+            "type": "string"
+          },
+          "parent_record": {
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object",
+            "description": "URI for the parent this record is part of"
+          },
+          "journal_record": {
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object",
+            "description": "URI for corresponding Journal"
+          },
+          "conference_record": {
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object",
+            "description": "URI for corresponding Conference"
+          },
+          "reportnumber": {
+            "type": "string"
+          },
+          "year": {
+            "minimum": 1000,
+            "type": "integer",
+            "maximum": 2050
+          },
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "journal_issue": {
+            "type": "string"
+          },
+          "page_start": {
+            "type": "string",
+            "description": "First page"
+          },
+          "page_end": {
+            "type": "string",
+            "description": "Last page"
+          },
+          "artid": {
+            "type": "string",
+            "description": "Electronic Article ID"
+          },
+          "conf_acronym": {
+            "type": "string"
+          },
+          "confpaper_info": {
+            "type": "string"
+          },
+          "isbn": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array",
+      "description": "FIXME: Shall we split conference information away? FIXME: shall we move the DOI and ISBN next to where it belongs? So that we can also align erratum and friends?"
+    },
+    "references": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "publisher": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "doi": {
+            "pattern": "(10\\.\\d+(\\.\\d+)?/.+)|(\\w+\\:\\d+\\/\\d+)",
+            "type": "string"
+          },
+          "isbn": {
+            "type": "string",
+            "format": "isbn"
+          },
+          "texkey": {
+            "type": "string"
+          },
+          "report_number": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "format": "url",
+              "type": "string"
+            }
+          },
+          "collaboration": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "title": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "misc": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "editors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "number": {
+            "type": "integer"
+          },
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "maintitle": {
+            "type": "string"
+          },
+          "raw_reference": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "year": {
+            "type": "integer"
+          },
+          "authors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "journal_pubnote": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": ".*,.*,.*(,.*)?"
+            }
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "copyright": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "url"
+          },
+          "material": {
+            "type": "string"
+          },
+          "holder": {
+            "type": "string",
+            "description": "Copyright holder."
+          },
+          "statement": {
+            "type": "string",
+            "description": "FIXME: What's that? there are all sorts of usages on production!"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "field_categories": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "term": {
+            "title": "INSPIRE term",
+            "enum": [
+              "Accelerators",
+              "Astrophysics",
+              "Computing",
+              "Experiment-HEP",
+              "Experiment-Nucl",
+              "General Physics",
+              "Gravitation and Cosmology",
+              "Instrumentation",
+              "Lattice",
+              "Math and Math Physics",
+              "Other",
+              "Phenomenology-HEP",
+              "Theory-HEP",
+              "Theory-Nucl"
+            ],
+            "type": "string"
+          },
+          "_term": {
+            "title": "Original term",
+            "type": "string"
+          },
+          "source": {
+            "enum": [
+              "INSPIRE",
+              "submitter",
+              "curator",
+              "publisher",
+              "magpie"
+            ],
+            "type": "string"
+          },
+          "scheme": {
+            "title": "INSPIRE",
+            "type": "string"
+          },
+          "_scheme": {
+            "title": "Original scheme",
+            "enum": [
+              "INSPIRE",
+              "arXiv",
+              "APS",
+              "PoS",
+              "Elsevier"
+            ],
+            "type": "string"
+          }
+        }
+      },
+      "type": "array",
+      "title": "Research field categories."
+    },
+    "thesaurus_terms": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "classification_scheme": {
+            "type": "string"
+          },
+          "keyword": {
+            "type": "string"
+          },
+          "energy_range": {
+            "minimum": 0,
+            "type": "integer",
+            "description": "FIXME: What... is... that!?",
+            "maximum": 9
+          }
+        }
+      },
+      "type": "array"
+    },
+    "accelerator_experiments": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "curated_relation": {
+            "default": false,
+            "type": "boolean",
+            "description": "Was the experiment actually proofchecked by a cataloguer?"
+          },
+          "experiment": {
+            "type": "string"
+          },
+          "facets_experiment": {
+            "type": "string",
+            "description": "Experiment name to be used on facets."
+          },
+          "accelerator": {
+            "type": "string"
+          },
+          "institution": {
+            "type": "string"
+          },
+          "record": {
+            "description": "URI for the corresponding experiment record.",
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "arxiv_eprints": {
+      "uniqueItems": true,
+      "items": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "pattern": "\\d{4}.\\d{4,5}|\\w+-\\w+/\\d+|\\w+/\\d+"
+          },
+          "categories": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "title_variations": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "title": "Title (and subtitle)"
+      },
+      "type": "array"
+    },
+    "free_keywords": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "core": {
+      "type": "boolean",
+      "description": "Whether this document is CORE and hence need special curation. NOTE: set this explicitly to false, in order to have real noncore."
+    },
+    "book_series": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "volume": {
+            "type": "string",
+            "description": "Specific volume number"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the book series"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "oai_pmh": {
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "previous_set": {
+            "type": "string"
+          },
+          "set": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "description": "Local OAI-PMH information"
+      },
+      "type": "array"
+    },
+    "succeeding_entry": {
+      "type": "object",
+      "properties": {
+        "relationship_code": {
+          "type": "string"
+        },
+        "isbn": {
+          "type": "string"
+        },
+        "record": {
+          "properties": {
+            "$ref": {
+              "description": "URL to the referenced resource",
+              "type": "string",
+              "format": "url"
+            }
+          },
+          "required": [
+            "$ref"
+          ],
+          "type": "object"
+        }
+      },
+      "description": "Reference to previously merged records."
+    },
+    "acquisition_source": {
+      "type": "object",
+      "properties": {
+        "source": {
+          "type": "string",
+          "description": "Source of acquisition"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email of acquisition contact"
+        },
+        "method": {
+          "type": "string",
+          "description": "Method of acquisition"
+        },
+        "date": {
+          "type": "string",
+          "description": "Date of acquisition"
+        },
+        "submission_number": {
+          "type": "string",
+          "description": "Special submission ID"
+        }
+      }
+    },
+    "collaboration": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object"
+          }
+        }
+      },
+      "type": "array"
+    },
+    "authors": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "other_ids": {
+            "items": {
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "title": "Source of ID"
+                },
+                "value": {
+                  "type": "string",
+                  "title": "ID"
+                }
+              },
+              "title": "ID"
+            },
+            "type": "array",
+            "description": "Just in case...",
+            "title": "Other IDs"
+          },
+          "uuid": {
+            "title": "UUID",
+            "description": "Universally unique identifier of the author.",
+            "type": "string",
+            "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+          },
+          "full_name": {
+            "title": "Author name",
+            "type": "string",
+            "description": "author name as it appears in the paper",
+            "format": ".+, .+"
+          },
+          "alternative_name": {
+            "title": "Alternative author name",
+            "type": "string",
+            "description": "FIXME: needed for import only",
+            "format": ".+, .+"
+          },
+          "name_variations": {
+            "title": "Author name variations",
+            "type": "string",
+            "description": "All possible variations of the authors full name."
+          },
+          "affiliations": {
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "properties": {
+                "curated_relation": {
+                  "type": "boolean",
+                  "description": "Did a cataloguer proof-checked the recid?",
+                  "title": "The affiliation is curated?"
+                },
+                "value": {
+                  "type": "string",
+                  "description": "The affiliation as it appears on the paper",
+                  "title": "Name of institution"
+                },
+                "record": {
+                  "description": "URI for the Institution collection record",
+                  "title": "URI for the Institution collection record",
+                  "properties": {
+                    "$ref": {
+                      "description": "URL to the referenced resource",
+                      "type": "string",
+                      "format": "url"
+                    }
+                  },
+                  "required": [
+                    "$ref"
+                  ],
+                  "type": "object"
+                }
+              },
+              "title": "Affiliation"
+            },
+            "type": "array",
+            "title": "Affiliations"
+          },
+          "inspire_id": {
+            "pattern": "INSPIRE-\\d+",
+            "type": "string",
+            "description": "Legacy INSPIRE ID when available",
+            "title": "INSPIRE ID"
+          },
+          "inspire_bai": {
+            "pattern": "(\\w+\\.)+\\d+",
+            "type": "string",
+            "description": "INSPIRE BAI when available",
+            "title": "INSPIRE BibAuthorID"
+          },
+          "curated_relation": {
+            "default": false,
+            "type": "boolean",
+            "description": "Was this signature actually claimed or proof-checked by cataloguer?",
+            "title": "The relation is curated?"
+          },
+          "orcid": {
+            "pattern": "\\d{4}-\\d{4}-\\d{4}-\\d{4}",
+            "title": "ORCID ID",
+            "type": "string",
+            "description": "ORCID Id when available",
+            "format": "orcid"
+          },
+          "role": {
+            "type": "string",
+            "description": "Role of the author within the paper. So far only Editor was captured.",
+            "title": "Role of the person"
+          },
+          "email": {
+            "title": "Email",
+            "type": "string",
+            "format": "email"
+          },
+          "signature_block": {
+            "title": "Phonetic name",
+            "description": "Phonetic notation of the author's name.",
+            "type": "string"
+          },
+          "record": {
+            "description": "URI for the person record",
+            "title": "URI for the person record",
+            "properties": {
+              "$ref": {
+                "description": "URL to the referenced resource",
+                "type": "string",
+                "format": "url"
+              }
+            },
+            "required": [
+              "$ref"
+            ],
+            "type": "object"
+          },
+          "contributor_roles": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "enum": [
+                    "Conceptualization",
+                    "Data curation",
+                    "Formal analysis",
+                    "Funding acquisition",
+                    "Investigation",
+                    "Methodology",
+                    "Project administration",
+                    "Resources",
+                    "Software",
+                    "Supervision",
+                    "Validation",
+                    "Visualization",
+                    "Writing â€“ original draft",
+                    "Writing â€“ review & editing"
+                  ]
+                },
+                "source": {
+                  "type": "string",
+                  "enum": [
+                    "CRediT"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "title": "Author"
+      },
+      "type": "array",
+      "description": "List with all the authors",
+      "title": "Authors"
+    },
+    "classification_number": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "PACS or PDG codes. FIXME: What about better separating these into a PACS field and a PDG field?",
+            "title": "Number"
+          },
+          "standard": {
+            "type": "string",
+            "title": "Standard"
+          },
+          "source": {
+            "type": "string",
+            "title": "Source"
+          }
+        },
+        "title": "Classification number"
+      },
+      "type": "array",
+      "title": "Classification numbers"
+    },
+    "dois": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Issuing of DOI.",
+            "title": "DOI registrant"
+          },
+          "value": {
+            "pattern": "10\\.\\d+(\\.\\d+)?/.+",
+            "type": "string",
+            "title": "DOI"
+          }
+        },
+        "title": "DOI"
+      },
+      "type": "array",
+      "title": "DOIs"
+    },
+    "document_type": {
+      "minItems": 1,
+      "items": {
+        "enum": [
+          "Published",
+          "arXiv",
+          "ConferencePaper",
+          "Thesis",
+          "Review",
+          "Lectures",
+          "Note",
+          "Proceedings",
+          "Introductory",
+          "Book",
+          "BookChapter",
+          "Report"
+        ],
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "type": "array",
+      "title": "Document type"
+    },
+    "collections": {
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "properties": {
+          "primary": {
+            "type": "string"
+          }
+        }
+      },
+      "uniqueItems": true,
+      "type": "array",
+      "title": "Collection"
+    },
+    "citeable": {
+      "type": "boolean",
+      "description": "Whether this document can be cited. FIXME: can this be derived from other properties?",
+      "title": "Citeable?"
+    },
+    "deleted_records": {
+      "type": "array",
+      "items": {
+        "properties": {
+          "$ref": {
+            "description": "URL to the referenced resource",
+            "type": "string",
+            "format": "url"
+          }
+        },
+        "required": [
+          "$ref"
+        ],
+        "type": "object"
+      },
+      "description": "List of deleted records referring to this record",
+      "title": "Deleted Records"
+    },
+    "new_record": {
+      "properties": {
+        "$ref": {
+          "description": "URL to the referenced resource",
+          "type": "string",
+          "format": "url"
+        }
+      },
+      "required": [
+        "$ref"
+      ],
+      "type": "object",
+      "description": "Master record that replaces this record",
+      "title": "New record"
+    },
+    "license": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "imposing": {
+            "type": "string",
+            "description": "FIXME: what is this!?",
+            "title": "Imposing"
+          },
+          "url": {
+            "title": "URL of the license",
+            "type": "string",
+            "format": "url"
+          },
+          "material": {
+            "type": "string",
+            "title": "Material referred by the license"
+          },
+          "license": {
+            "type": "string",
+            "title": "License name"
+          }
+        },
+        "title": "License"
+      },
+      "type": "array",
+      "title": "License information"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "title": "Language"
+      }
+    },
+    "page_nr": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "description": "FIXME: shall it be integer perhaps?",
+        "title": "Number of pages"
+      }
+    },
+    "urls": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "title": "URL",
+            "type": "string",
+            "format": "url"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description from 8564_y field"
+          }
+        },
+        "title": "URL"
+      },
+      "type": "array",
+      "title": "URLs"
+    },
+    "title_translations": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "title": "Title (and subtitle)"
+      },
+      "type": "array"
+    },
+    "corporate_author": {
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "title": "Corporate author"
+      },
+      "type": "array",
+      "title": "Corporate authors"
+    },
+    "external_system_numbers": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "institute": {
+            "type": "string",
+            "title": "Institute"
+          },
+          "obsolete": {
+            "type": "boolean",
+            "title": "Obsolete?"
+          },
+          "value": {
+            "type": "string",
+            "title": "Number"
+          }
+        },
+        "title": "External system number"
+      },
+      "type": "array",
+      "title": "External system numbers"
+    },
+    "persistent_identifiers": {
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Provenance of the persistent identifier"
+          },
+          "type": {
+            "type": "string",
+            "title": "Type of persistent identifier"
+          },
+          "value": {
+            "type": "string",
+            "title": "Value of the persistent identifier"
+          }
+        },
+        "title": "Persistent Identifier"
+      },
+      "type": "array",
+      "title": "Persistent Identifiers"
+    }
+  }
+}

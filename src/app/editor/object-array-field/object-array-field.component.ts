@@ -1,68 +1,61 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { MapToIterablePipe } from '../map-to-iterable.pipe';
-import { AbstractTrackerComponent } from '../abstract-tracker';
+import { AbstractArrayFieldComponent } from '../abstract-array-field';
+import { PrimitiveFieldComponent } from '../primitive-field';
+
+import { MapToIterablePipe } from '../shared/pipes';
+
+import { EmptyValueService } from '../shared/services';
+
 
 @Component({
   selector: 'object-array-field',
+  directives: [PrimitiveFieldComponent],
   pipes: [MapToIterablePipe],
-  template: require('./object-array-field.component.html'),
+  providers: [EmptyValueService],
   styles: [
     require('./object-array-field.component.scss')
-  ]
+  ],
+  template: require('./object-array-field.component.html'),
 })
-export class ObjectArrayFieldComponent extends AbstractTrackerComponent {
+export class ObjectArrayFieldComponent extends AbstractArrayFieldComponent {
 
   @Input() values: Array<Object>;
-  private _emptyValue: {};
-  
-  /**
-   * Event emitter to bind changes in the component to the model of parent component
-   * RELATED: http://stackoverflow.com/questions/34608814/bidirectional-data-binding-on-a-component-input-property/34616530#34616530 
-   */
-  @Output() valueChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
+  @Input() schema: Object;
 
-  valueChange(event: any, index: number, key: string) {
-    this.values[index][key] = event;
-    this.valueChangeEmitter.emit(event);
-  }
-  
-  /**
-   * @param {number} index - Index of the element that is moved
-   * @param {number} direction - Movement direction. -1 for UP, +1 for DOWN
-   */
-  moveElement(index: number, direction: number) {
-    let newIndex = index + direction;
-    let temp = this.values[index];
-    this.values[index] = this.values[newIndex];
-    this.values[newIndex] = temp;
+  constructor(public emptyValueService: EmptyValueService) {
+    super()
   }
 
   /**
-   * @param {number} index - Index of the element to be deleted
+   * @override
+   * Needs different logic, because this component may have flattened model.
    */
-  deleteElement(index: number) {
-    this.values.splice(index, 1);
-  }
-
-  addNewElement() {
-    this.values.push(this.emptyValue);
-  }
-
-  /**
-   * Assigns null values to the properties of the copy of an element
-   * and caches it in a private instance variable.
-   */
-  private get emptyValue(): Object {
+  get emptyValue(): Object {
     if (!this._emptyValue) {
       let copy = Object.assign({}, this.values[0]);
       Object.keys(copy)
         .filter(prop => copy[prop] != null)
         .forEach(prop => {
-          copy[prop] = null;
+          let propSchema = this.getInnerSchema(prop);
+          copy[prop] = this.emptyValueService.generateEmptyValue(propSchema);
         });
       this._emptyValue = copy;
     }
-    return this._emptyValue;
+    return Object.assign({}, this._emptyValue);
+  }
+
+  /**
+   * Returns inner schema of unflattened and flattened fields
+   * 
+   * @param {string} fieldPath - dot separated path of the field. EX: 'foo.bar'
+   */
+  private getInnerSchema(fieldPath: string): Object {
+    let props = fieldPath.split('.');
+    let subSchema = this.schema['items'];
+    props.forEach(prop => {
+      subSchema = subSchema['properties'][prop];
+    });
+    return subSchema
   }
 }

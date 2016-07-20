@@ -1,0 +1,8 @@
+<div class="btn-group" dropdown keyboardNav="true" (onToggle)="onToggle($event)">
+  <input class="form-control" id="simple-btn-keyboard-nav" placeholder="{{value}}" [ngModel]="prefix" (ngModelChange)="onPrefixChange($event)" dropdownToggle>
+  <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
+    <li *ngFor="let item of items | filterByPrefix:prefix" role="menuitem">
+      <a class="dropdown-item" (click)="onItemClick(item)">{{item}}</a>
+    </li>
+  </ul>
+</div>

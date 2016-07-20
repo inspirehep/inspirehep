@@ -39,7 +39,7 @@ export class JsonUtilService {
         switch (jsonObject[prop].constructor.name) {
           case 'Array':
             if (this.hasArrayProperty(jsonObject[prop][0]) || this.isNotObjectArray(jsonObject[prop])) {
-              // ArrayInArray or StringArray
+              // ArrayInArray or Primitive
               // Do not flatten
               result[prop] = jsonObject[prop];
             } else {
@@ -61,21 +61,20 @@ export class JsonUtilService {
       });
     return result;
   }
-
   
   /**
    * Returns type of the given value. If it is not an array it returns the exact type.
-   * CUSTOM ARRAY TYPES: StringArray, ArrayInArray, ObjectArray
+   * CUSTOM ARRAY TYPES: PrimitiveArray, ArrayInArray, ObjectArray
    * 
    * TODO: move this utitiliy somewhere else.
    * 
    * @param {any} value - value to be evaluated.
    */
   public getType(value: any): string {
-    let valueType = value.constructor.name
+    let valueType = value.constructor.name;
     if (valueType === 'Array') {
       if (this.isNotObjectArray(value)) {
-        return 'StringArray';
+        return 'PrimitiveArray';
       } else if (this.hasArrayProperty(value[0])) {
         return 'ArrayInArray';
       }
@@ -90,7 +89,7 @@ export class JsonUtilService {
   }
 
   private isNotObjectArray(arr: Array<any>): boolean {
-    return arr.every(element => element.constructor.name !== 'Object');
+    return arr.every(element => typeof element !== 'object');
   }
 }
 

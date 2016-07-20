@@ -11,16 +11,16 @@
           <td>
             <div [ngSwitch]="getType(row.value)">
               <div *ngSwitchCase="'Object'">
-                <object-field [(value)]="value[row.key]" [(schema)]="schema.items.properties[row.key]"></object-field>
+                <object-field [(value)]="value[row.key]" [schema]="schema.items.properties[row.key]"></object-field>
               </div>
               <div *ngSwitchCase="'ObjectArray'">
-                <object-array-field [(values)]="value[row.key]"></object-array-field>
+                <object-array-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></object-array-field>
               </div>
-              <div *ngSwitchCase="'StringArray'">
-                <string-array-field [(values)]="value[row.key]"></string-array-field>
+              <div *ngSwitchCase="'PrimitiveArray'">
+                <primitive-array-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></primitive-array-field>
               </div>
               <div *ngSwitchDefault>
-                <textarea rows="1" [ngModel]="value[row.key]" (ngModelChange)="valueChange($event, i, row.key)"></textarea>
+                <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, i, row.key)" [schema]="schema.items.properties[row.key]"></primitive-field>
               </div>
             </div>
           </td>

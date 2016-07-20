@@ -1,20 +1,20 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
-import { DifferentKeysPipe } from '../different-keys.pipe';
+import { DifferentKeysPipe } from '../shared/pipes';
 
-import { EmptyValueService } from '../empty-value.service'
+import { EmptyValueService } from '../shared/services';
 
 @Component({
   selector: 'add-field-dropdown',
   directives: [DROPDOWN_DIRECTIVES],
   pipes: [DifferentKeysPipe],
   providers: [EmptyValueService],
-  template: require('./add-field-dropdown.component.html'),
   styles: [
     require('./add-field-dropdown.component.scss')
-  ]
+  ],
+  template: require('./add-field-dropdown.component.html')
 })
 export class AddFieldDropdownComponent  {
 

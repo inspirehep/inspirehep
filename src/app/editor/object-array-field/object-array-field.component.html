@@ -11,7 +11,7 @@
       <tr *ngFor="let row of values; let i = index; trackBy:trackByFunction">
          <!-- Element value -->
         <td *ngFor="let column of row | mapToIterable; trackBy:trackByFunction">
-          <textarea rows="1" [ngModel]="row[column.key]" (ngModelChange)="valueChange($event, i, column.key)"></textarea>
+          <primitive-field [value]="row[column.key]" (onValueChange)="onValueChange($event, i, column.key)" [schema]="schema.items.properties[column.key]"></primitive-field>
         </td>
         
         <!-- UP/DOWN and DELETE buttons for each row -->

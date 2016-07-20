@@ -1,70 +1,39 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { MapToIterablePipe } from '../map-to-iterable.pipe';
-
-import { JsonUtilService } from '../json-util.service';
-
-import { AbstractTrackerComponent } from '../abstract-tracker';
+import { AbstractArrayFieldComponent } from '../abstract-array-field';
 import { AddFieldDropdownComponent } from '../add-field-dropdown';
 import { ObjectFieldComponent } from '../object-field';
 import { ObjectArrayFieldComponent } from '../object-array-field';
-import { StringArrayFieldComponent } from '../string-array-field';
+import { PrimitiveArrayFieldComponent } from '../primitive-array-field';
+import { PrimitiveFieldComponent } from '../primitive-field';
+
+import { MapToIterablePipe } from '../shared/pipes';
+
+import { EmptyValueService, JsonUtilService } from '../shared/services';
 
 @Component({
   selector: 'array-in-array-field',
-  providers: [JsonUtilService],
   directives: [
     AddFieldDropdownComponent,
     ObjectFieldComponent,
     ObjectArrayFieldComponent,
-    StringArrayFieldComponent
+    PrimitiveFieldComponent,
+    PrimitiveArrayFieldComponent
   ],
   pipes: [MapToIterablePipe],
-  template: require('./array-in-array-field.component.html'),
+  providers: [EmptyValueService, JsonUtilService],
   styles: [
     require('./array-in-array-field.component.scss')
-  ]
+  ],
+  template: require('./array-in-array-field.component.html')
 })
-export class ArrayInArrayFieldComponent extends AbstractTrackerComponent {
+export class ArrayInArrayFieldComponent extends AbstractArrayFieldComponent {
 
   @Input() values: Array<Object>;
   @Input() schema: Object;
 
-  /**
-   * Event emitter to bind changes in the component to the model of parent component
-   * RELATED: http://stackoverflow.com/questions/34608814/bidirectional-data-binding-on-a-component-input-property/34616530#34616530 
-   */
-  @Output() valueChangeEmitter: EventEmitter<string> = new EventEmitter<string>();
-
-  constructor(private jsonUtilService: JsonUtilService) {
+  constructor(public emptyValueService: EmptyValueService, private jsonUtilService: JsonUtilService) {
     super();
-  }
-
-  /**
-   * @param {number} index - Index of the element that is moved
-   * @param {number} direction - Movement direction. -1 for UP, +1 for DOWN
-   */
-  moveElement(index: number, direction: number) {
-    let newIndex = index + direction;
-    let temp = this.values[index];
-    this.values[index] = this.values[newIndex];
-    this.values[newIndex] = temp;
-  }
-
-  /**
-   * @param {number} index - Index of the element to be deleted
-   */
-  deleteElement(index: number) {
-    this.values.splice(index, 1);
-  }
-
-  addNewElement() {
-    throw new Error('Not yet implemented');
-  }
-
-  valueChange(event: any, index: number, key: string) {
-    this.values[index][key] = event;
-    this.valueChangeEmitter.emit(event);
   }
 
   getType(value: any): string {

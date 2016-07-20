@@ -7,7 +7,7 @@
         </div>
       </td>
       <td>
-        <textarea rows="1" [ngModel]="value[row.key]" (ngModelChange)="valueChange($event, row.key)"></textarea>
+        <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, row.key)" [schema]=schema.properties[row.key]></primitive-field>
       </td>
       <td class="button-holder">
         <button type="button" class="btn btn-danger" (click)="deleteField(key)">⌫</button>
