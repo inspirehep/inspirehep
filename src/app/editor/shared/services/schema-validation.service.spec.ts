@@ -20,42 +20,24 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Injectable } from '@angular/core';
+import { beforeEachProviders, inject, it } from '@angular/core/testing';
 
-@Injectable()
-export class SchemaValidationService {
+import { SchemaValidationService } from './schema-validation.service';
 
-  /**
-   * Validate string value against schema
-   * 
-   * @throws {Error} if value can not be validated
-   * 
-   * Checks: pattern
-   * 
-   */
-  validateStringValue(value: string, schema: Object) {
-    let pattern = schema['pattern'];
-    if (pattern && value.match(pattern) == null) {
-      throw Error(`Does not match with pattern: ${pattern}`);
-    }
-  }
+describe('SchemaValidationService', () => {
+  
+  const schema = {'type': 'string', 'pattern': '[0-9]'};
+  
+  beforeEachProviders(() => [SchemaValidationService]);
 
-  /**
-   * Validate array value against schema
-   * 
-   * @throws {Error} if array can not be validated
-   * 
-   * Checks: uniqueItems
-   * 
-   */
-  validateArray(array: Array<any>, schema) {
-    if (schema['uniqueItems']) {
-      let hasUniqueItems = (new Set(array)).size === array.length;
-      if (hasUniqueItems) {
-        throw Error(`All items must be unique`);
-      }
-    }
-  }
+  it('should validate pattern for string value', inject([SchemaValidationService], (schemaValidationService: SchemaValidationService) => {
+    let value = '1';
+    expect(() => schemaValidationService.validateStringValue(value, schema)).not.toThrowError();
+  }));
 
+  it('should not validate pattern for string value', inject([SchemaValidationService], (schemaValidationService: SchemaValidationService) => {
+    let value = 'a';
+    expect(() => schemaValidationService.validateStringValue(value, schema)).toThrowError();
+  }));
 
-}
+});
