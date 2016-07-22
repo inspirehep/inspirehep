@@ -1,4 +1,6 @@
 # record-editor
+
+[![Join the chat at https://gitter.im/inspirehep/record-editor](https://badges.gitter.im/inspirehep/record-editor.svg)](https://gitter.im/inspirehep/record-editor?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 
 **Still in early development**
