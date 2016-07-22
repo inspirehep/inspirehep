@@ -28,7 +28,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class RecordService {
   private baseApiUrl: string = 'http://localhost:5000/api';
-  
+
   constructor(private http: Http) { }
 
   fetchRecord(type: string, id: string): Observable<{}> {
@@ -42,4 +42,5 @@ export class RecordService {
     return this.http.get('./assets/hep.json')
       .map(res => res.json().properties);
   }
+
 }
