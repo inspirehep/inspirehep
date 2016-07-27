@@ -20,26 +20,24 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Component, ViewEncapsulation } from '@angular/core';
+import { beforeEachProviders, inject, it } from '@angular/core/testing';
 
-import { EditorComponent } from './editor';
+import { SchemaValidationService } from './schema-validation.service';
 
-/*
- * App Component
- * Top Level Component
- */
-@Component({
-  selector: 'app',
-  pipes: [],
-  providers: [],
-  directives: [EditorComponent],
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styles: [
-    require('./app.component.scss')
-  ],
-  template: require('./app.component.html')
-})
-export class App {
-  constructor() {
-  }
-}
+describe('SchemaValidationService', () => {
+  
+  const schema = {'type': 'string', 'pattern': '[0-9]'};
+  
+  beforeEachProviders(() => [SchemaValidationService]);
+
+  it('should validate pattern for string value', inject([SchemaValidationService], (schemaValidationService: SchemaValidationService) => {
+    let value = '1';
+    expect(() => schemaValidationService.validateStringValue(value, schema)).not.toThrowError();
+  }));
+
+  it('should not validate pattern for string value', inject([SchemaValidationService], (schemaValidationService: SchemaValidationService) => {
+    let value = 'a';
+    expect(() => schemaValidationService.validateStringValue(value, schema)).toThrowError();
+  }));
+
+});
