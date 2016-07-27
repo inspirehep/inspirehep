@@ -24,12 +24,13 @@ import { Component, Input } from '@angular/core';
 
 import { AbstractTrackerComponent } from '../abstract-tracker';
 import { AddFieldDropdownComponent } from '../add-field-dropdown';
+import { PrimitiveFieldComponent } from '../primitive-field'
 
 import { MapToIterablePipe } from '../shared/pipes';
 
 @Component({
   selector: 'object-field',
-  directives: [AddFieldDropdownComponent],
+  directives: [AddFieldDropdownComponent, PrimitiveFieldComponent],
   pipes: [MapToIterablePipe],
   styles: [
     require('./object-field.component.scss')
