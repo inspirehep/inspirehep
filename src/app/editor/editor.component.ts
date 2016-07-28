@@ -72,10 +72,10 @@ export class EditorComponent extends AbstractTrackerComponent {
     // FIXME: find a better way to make editor wait until we got the schema
     let record;
     
-    this.recordService.fetchRecord('literature', '1404685')
+    this.recordService.fetchMockRecord()
       .flatMap(json => {
         record = json;
-        return this.recordService.fetchSchema(json['$schema']);
+        return this.recordService.fetchMockSchema()
       }).subscribe(schema => {
         // TODO: Remove these delete, when record comes from DB not from Elasticsearch and schema is more consistent
         Object.keys(record).forEach((prop) => {

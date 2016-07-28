@@ -37,9 +37,18 @@ export class RecordService {
       .map(res => res.json().metadata);
   }
 
+  fetchMockRecord(): Observable<Object> {
+    return this.http.get('./assets/mock-data/literature.json')
+      .map(res => res.json().metadata);
+  }
+
   fetchSchema(url: string): Observable<{}> {
-    // TODO: fetch the from url when backend returns resolved schema.
-    return this.http.get('./assets/hep.json')
+    return this.http.get(url)
+      .map(res => res.json().properties);
+  }
+
+  fetchMockSchema(): Observable<{}> {
+    return this.http.get('./assets/mock-data/hep.json')
       .map(res => res.json().properties);
   }
 
