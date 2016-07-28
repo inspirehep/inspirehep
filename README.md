@@ -5,6 +5,32 @@ Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 
 **Still in early development**
 
+# USAGE
+
+## Configuration
+
+### Extended Schema
+
+#### x_editor_autocompletion
+
+Configuration for autocompletion of a field from remote source. Field to be autocompleted must have the `x_editor_autocompletion` property
+with configuration object that has the following properties below.
+
+```
+{
+  url: string; (remote source url that returns the autocompletion results)
+  path: string; (path to array of autocompletion results in response from the url, seprated by dot '.')
+  size: number; (maximum number of items to be showed)
+}
+```
+
+Note that:
+
+- query string is appended to `url`, so it should end like `.../foo?bar=`
+- autocompletion results array which is located in `path`, must be a array of objects which have `text` property inside.
+
+# DEVELOPMENT
+
 ## Tech
 
 * Angular 2
@@ -12,7 +38,7 @@ Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 * Sass
 * Typescript
 
-# Quick start
+## Quick start
 **Make sure you have Node version >= 4.0 and NPM >= 3**
 
 ```bash
@@ -41,8 +67,8 @@ npm run surge
 go to [http://0.0.0.0:3000](http://0.0.0.0:3000) or [http://localhost:3000](http://localhost:3000) in your browser
 
 
-# Getting Started
-## Dependencies
+## Getting Started
+### Dependencies
 What you need to run this app:
 * `node` and `npm` (`brew install node`)
 * Ensure you're running the latest versions Node `v4.x.x`+ (or `v5.x.x`) and NPM `3.x.x`+
@@ -55,7 +81,7 @@ Once you have those, you should install these globals with `npm install --global
 * `typings` (`npm install --global typings`)
 * `typescript` (`npm install --global typescript`)
 
-## Installing
+### Installing
 * `fork` this repo
 * `clone` your fork
 * `npm install typings webpack-dev-server rimraf webpack -g` to install required global dependencies
@@ -63,10 +89,10 @@ Once you have those, you should install these globals with `npm install --global
 * `typings install` to install necessary typings
 * `npm run server` to start the dev server in another tab
 
-## Running the app
+### Running the app
 After you have installed all dependencies you can now run the app. Run `npm run server` to start a local server using `webpack-dev-server` which will watch, build (in-memory), and reload for you. The port will be displayed to you as `http://0.0.0.0:3000`
 
-### server
+#### server
 ```bash
 # development
 npm run server
@@ -75,9 +101,9 @@ npm run build:prod
 npm run server:prod
 ```
 
-## Other commands
+### Other commands
 
-### build files
+#### build files
 ```bash
 # development
 npm run build:dev
@@ -85,63 +111,63 @@ npm run build:dev
 npm run build:prod
 ```
 
-### hot module replacement
+#### hot module replacement
 ```bash
 npm run server:dev:hmr
 ```
 
-### watch and build files
+#### watch and build files
 ```bash
 npm run watch
 ```
 
-### run tests
+#### run tests
 ```bash
 npm run test
 ```
 
-### watch and run our tests
+#### watch and run our tests
 ```bash
 npm run watch:test
 ```
 
-### run end-to-end tests
+#### run end-to-end tests
 ```bash
 # make sure you have your server running in another terminal
 npm run e2e
 ```
 
-### run webdriver (for end-to-end)
+#### run webdriver (for end-to-end)
 ```bash
 npm run webdriver:update
 npm run webdriver:start
 ```
 
-### run Protractor's elementExplorer (for end-to-end)
+#### run Protractor's elementExplorer (for end-to-end)
 ```bash
 npm run webdriver:start
 # in another terminal
 npm run e2e:live
 ```
 
-# Configuration
+## Configuration
 Configuration files live in `config/` we are currently using webpack, karma, and protractor for different stages of your application
 
-# Contributing
+## Contributing
 
 Please see [CONTRIBUTING](./github/CONTRIBUTING.md)
 
-# TypeScript Suggestions
+## TypeScript Suggestions
 > To take full advantage of TypeScript with autocomplete you would have to install it globally and use an editor with the correct TypeScript plugins.
 
-## Use latest TypeScript compiler
+### Use latest TypeScript compiler
 TypeScript 1.7.x includes everything you need. Make sure to upgrade, even if you installed TypeScript previously.
 
 ```
 npm install --global typescript
 ```
 
-## Use a TypeScript-aware editor
+### Use a TypeScript-aware editor
 We have good experience using these editors:
 
 * [Visual Studio Code](https://code.visualstudio.com/)
@@ -149,15 +175,15 @@ We have good experience using these editors:
 * [Atom](https://atom.io/) with [TypeScript plugin](https://atom.io/packages/atom-typescript)
 * [Sublime Text](http://www.sublimetext.com/3) with [Typescript-Sublime-Plugin](https://github.com/Microsoft/Typescript-Sublime-plugin#installation)
 
-# Typings
+## Typings
 > When you include a module that doesn't include Type Definitions inside of the module you need to include external Type Definitions with Typings
 
-## Use latest Typings module
+### Use latest Typings module
 ```
 npm install --global typings
 ```
 
-## Custom Type Definitions
+### Custom Type Definitions
 When including 3rd party modules you also need to include the type definition for the module
 if they don't provide one within the module. You can try to install it with typings
 

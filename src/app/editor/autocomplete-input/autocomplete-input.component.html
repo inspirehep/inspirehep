@@ -1,0 +1,10 @@
+<div>
+  <input [ngModel]="value" (ngModelChange)="onModelChange($event)" [typeahead]="dataSource" [typeaheadOptionsLimit]="autocompletionOptions.size"
+    [typeaheadOptionField]="'text'" [typeaheadWaitMs]="200" class="form-control">
+  <div *ngIf="isLoading === true">
+    <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
+  </div>
+  <div *ngIf="hasNoResult === true" class="" style="">
+    <i class="glyphicon glyphicon-remove"></i> Nothing found
+  </div>
+</div>

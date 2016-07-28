@@ -22,13 +22,14 @@
 
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
+import { AutocompleteInputComponent } from '../autocomplete-input';
 import { SearchableDropdownComponent } from '../searchable-dropdown';
 
 import { SchemaValidationService } from '../shared/services';
 
 @Component({
   selector: 'primitive-field',
-  directives: [SearchableDropdownComponent],
+  directives: [AutocompleteInputComponent, SearchableDropdownComponent],
   providers: [SchemaValidationService],
   styles: [
     require('./primitive-field.component.scss')
@@ -61,11 +62,17 @@ export class PrimitiveFieldComponent {
   }
 
   get valueType(): string {
+    if (this.schema['enum']) {
+      return 'enum';
+    } else if (this.schema['x_editor_autocomplete']) {
+      return 'autocomplete';
+    }
+    // integer, string or boolean
     return typeof this.value;
   }
 
   ngOnInit() {
     // TODO: remove default after flattened records' schema problem is resolved
-   this.schema = this.schema || {}
+    this.schema = this.schema || {}
   }
 }
