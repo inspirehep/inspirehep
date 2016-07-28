@@ -502,7 +502,12 @@
           "authors": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "x_editor_autocomplete": {
+                "url": "http://localhost:5000/api/literature/_suggest?size=7&author_name=",
+                "path": "author_name.0.options",
+                "size": 7
+              }
             }
           },
           "journal_pubnote": {

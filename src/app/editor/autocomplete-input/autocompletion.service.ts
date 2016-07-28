@@ -21,34 +21,30 @@
 */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+import { AutocompletionResult, AutocompletionOptions } from './autocompletion.model';
+
 @Injectable()
-export class RecordService {
-  private baseApiUrl: string = 'http://localhost:5000/api';
+export class AutocompletionService {
 
   constructor(private http: Http) { }
 
-  fetchRecord(type: string, id: string): Observable<{}> {
-    const apiUrl = `${this.baseApiUrl}/${type}/${id}/db`;
-    return this.http.get(apiUrl)
-      .map(res => res.json().metadata);
+  private simpleSourceResultsCache: Array<AutocompletionResult>;
+
+  getAutocompletionResults(options: AutocompletionOptions, token: string): Observable<Array<AutocompletionResult>> {
+    return this.http.get(`${options.url}${token}`)
+      .map(res => this.mapResponseToResults(res, options.path));
   }
 
-  fetchMockRecord(): Observable<Object> {
-    return this.http.get('./assets/mock-data/literature.json')
-      .map(res => res.json().metadata);
+  private mapResponseToResults(response: Response, resultsPath: string): Array<AutocompletionResult> {
+    let pathElements = resultsPath.split('.');
+    let responseJson = response.json();
+    pathElements.forEach(pathElement => {
+      responseJson = responseJson[pathElement];
+    });
+    let results: Array<AutocompletionResult> = responseJson;
+    return results;
   }
-
-  fetchSchema(url: string): Observable<{}> {
-    return this.http.get(url)
-      .map(res => res.json().properties);
-  }
-
-  fetchMockSchema(): Observable<{}> {
-    return this.http.get('./assets/mock-data/hep.json')
-      .map(res => res.json().properties);
-  }
-
 }
