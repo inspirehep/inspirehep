@@ -61,7 +61,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-filename
      */
-    filename: '[name].[chunkhash].bundle.js',
+    filename: '[name].bundle.js',
 
     /**
      * The filename of the SourceMaps for the JavaScript files.
@@ -69,7 +69,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-sourcemapfilename
      */
-    sourceMapFilename: '[name].[chunkhash].bundle.map',
+    sourceMapFilename: '[name].bundle.map',
 
     /**
      * The filename of non-entry chunks as relative path
@@ -77,7 +77,7 @@ module.exports = webpackMerge(commonConfig, {
      *
      * See: http://webpack.github.io/docs/configuration.html#output-chunkfilename
      */
-    chunkFilename: '[id].[chunkhash].chunk.js'
+    chunkFilename: '[id].chunk.js'
 
   },
 

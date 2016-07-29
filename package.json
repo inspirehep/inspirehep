@@ -60,7 +60,7 @@
     "postinstall": "npm run typings -- install",
     "preversion": "npm test",
     "version": "npm run build",
-    "postversion": "git push && git push --tags",
+    "postversion": "git push origin && git push origin --tags",
     "surge": "npm run build:dev && surge --domain record-editor.surge.sh ./dist/"
   },
   "dependencies": {
