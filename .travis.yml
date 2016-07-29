@@ -1,7 +1,24 @@
 language: node_js
+
 node_js:
-  - "4"
-  - "5"
-  - "node"
+- '5'
+- node
 
 sudo: false
+
+before_deploy:
+  - 'npm run prebuild:prod'
+  - 'npm run build:prod'
+
+
+deploy:
+  provider: npm
+  skip_cleanup: true
+  email: admin@inspirehep.net
+  api_key:
+    secure: afzLZGZlvOC4zMrZon9H7iTDcVuH5j+fDt4LmP+wm2jLm7Fg9yY2XKIO0psTOwl3Gy/Ej1L9aMab1uRObLp2YgvqcpCWmXKvoWMrnIimcyJPXuQGYflF3GKunoGlSWBD9/76+Ggj5ml26ksUJXOx6NDNhjYRd4jatGQ04ISdkARm7lWPdDQ1S1yKAZLQ2oPFtJKZ9Kq8b7LV95I7YHa2u0r4mi36V3ap++jK7n8s1LQvtgDPky7W1CKfpO29r2Zb69fwo5FJxjdibyJDRuBkuYbyUsNMvCPnxIHduyr5S7yyxU+6wM+CIkVEk/pAbe50xmW5jpEEq+5YlaQVQTvo2lJBZnYh8FsZHVMG78kmDzCwhSstSkQcTEAmQGxlUNwi96DcGAj7e7QNGUyRXbXQhCBy6s900dl8b9J6QQ+gNrsJi8VNE++P13S8EOMoUDc0MH+CsywuIWejnTeyTMr5kuOn/tfQan23N/DZ/A+9HnTs66ZWQOnm8R8vF6gB74QKFwH4pR6rdPC448q9M4qz0GVCt6jRceTgZB88833FI9qPk6IBcREFGLtOlITptItuOG7VniHOVHB1W1j0JIgCF22zFyH7KoWKILC5WF5GG8Uopq7rX0k+BcAsfeiWWCvnqry8yCAaqUtszhYUMB0TH03OlFoyOlDGPZS8OfrHji8=
+  on:
+    tags: true
+    repo: inspirehep/record-editor
+    branch: master
+    node: 5.1.0
