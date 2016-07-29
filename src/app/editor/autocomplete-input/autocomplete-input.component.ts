@@ -44,6 +44,7 @@ export class AutocompleteInputComponent  {
 
   @Input() autocompletionOptions: AutocompletionOptions;
   @Input() value: string;
+  @Input() placeholder: string;
 
   @Output() onValueChange: EventEmitter<string> = new EventEmitter<string>();
 

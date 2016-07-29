@@ -1,6 +1,6 @@
 <div>
   <input [ngModel]="value" (ngModelChange)="onModelChange($event)" [typeahead]="dataSource" [typeaheadOptionsLimit]="autocompletionOptions.size"
-    [typeaheadOptionField]="'text'" [typeaheadWaitMs]="200" class="form-control">
+    [typeaheadOptionField]="'text'" [typeaheadWaitMs]="200" placeholder="{{placeholder}}" class="form-control">
   <div *ngIf="isLoading === true">
     <i class="glyphicon glyphicon-refresh ng-hide" style=""></i>
   </div>

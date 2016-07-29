@@ -435,7 +435,9 @@
           },
           "doi": {
             "pattern": "(10\\.\\d+(\\.\\d+)?/.+)|(\\w+\\:\\d+\\/\\d+)",
-            "type": "string"
+            "type": "string",
+            "title": "DOI",
+            "x_editor_always_show": true
           },
           "isbn": {
             "type": "string",
@@ -501,6 +503,7 @@
           },
           "authors": {
             "type": "array",
+            "x_editor_always_show": true,
             "items": {
               "type": "string",
               "x_editor_autocomplete": {
@@ -609,7 +612,8 @@
               "PoS",
               "Elsevier"
             ],
-            "type": "string"
+            "type": "string",
+            "x_editor_disabled": true
           }
         }
       },
@@ -756,7 +760,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "x_editor_disabled": true
           },
           "previous_set": {
             "type": "string"
@@ -875,7 +880,8 @@
             "title": "UUID",
             "description": "Universally unique identifier of the author.",
             "type": "string",
-            "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}"
+            "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}",
+            "x_editor_hidden": true
           },
           "full_name": {
             "title": "Author name",
@@ -940,7 +946,8 @@
             "pattern": "(\\w+\\.)+\\d+",
             "type": "string",
             "description": "INSPIRE BAI when available",
-            "title": "INSPIRE BibAuthorID"
+            "title": "INSPIRE BibAuthorID",
+            "x_editor_hidden": true
           },
           "curated_relation": {
             "default": false,

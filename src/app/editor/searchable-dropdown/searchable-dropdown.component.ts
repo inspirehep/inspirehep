@@ -39,6 +39,7 @@ export class SearchableDropdownComponent  {
 
   @Input() items: Array<string>;
   @Input() value: string;
+  @Input() disabled: boolean;
   prefix: string = '';
 
   @Output() onSelect: EventEmitter<string> = new EventEmitter<string>();
