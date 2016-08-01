@@ -33,12 +33,8 @@ module.exports = function(config) {
     webpack: testWebpackConfig,
 
     coverageReporter: {
-      dir : 'coverage/',
-      reporters: [
-        { type: 'text-summary' },
-        { type: 'json' },
-        { type: 'html' }
-      ]
+      type: 'lcov', // lcov or lcovonly are required for generating lcov.info files
+      dir: 'coverage/'
     },
 
     // Webpack please don't spam the console when running in karma!
