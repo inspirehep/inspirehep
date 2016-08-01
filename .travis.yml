@@ -1,3 +1,6 @@
+notifications:
+  email: false
+
 language: node_js
 
 node_js:
@@ -20,5 +23,5 @@ deploy:
   on:
     tags: true
     repo: inspirehep/record-editor
-    branch: master
+    all_branches: true
     node: 5.1.0
