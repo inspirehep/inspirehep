@@ -21,45 +21,82 @@
 */
 
 import { Injectable } from '@angular/core';
+
 import { EmptyValueService } from './empty-value.service';
+import { JsonUtilService } from './json-util.service'
 
 @Injectable()
 export class RecordFixerService {
-
-  private emptyValueService: EmptyValueService = new EmptyValueService();
   
-  /**
-   * Fixes the record for the better UI appearance.
-   * Makes use of schema to get types
-   */
+  private emptyValueService: EmptyValueService = new EmptyValueService();
+  private jsonUtilService: JsonUtilService = new JsonUtilService();
+
   fixRecord(record: Object, schema: Object) {
-    Object.keys(schema).filter(field => record[field])
-      .forEach(field => {
-        // TODO: use getType
-        if (schema[field].type === 'array' && schema[field].items.properties) {
-          // Check if the array field has any property that is also an array. (Arrayception)
-          let subSchema = schema[field].items.properties;
-          let hasAnyArrayFields = Object.keys(subSchema)
-            .some(subField => subSchema[subField].type === 'array');
-          if (!hasAnyArrayFields) {
-            // This field will be represented as a table (ObjectArray)
-            this.insertEmptyForMissingFields(record[field], subSchema);
-          }
-        }
-      });
+    Object.keys(schema).forEach(field => this.fix(field, record, schema[field]));
   }
 
   /**
-   * Insert empty values for fields that are in the schema
-   * but not present in given record
-   *
+   * NOTE: the reason that parent and key are passed instead of the direct value
+   * is to be able do some operations that needs the parent such as `delete`.
    */
-  private insertEmptyForMissingFields(record: Array<Object>, schema: Object) {
-    Object.keys(schema).forEach(field => {
-      record.filter(element => element[field] == null)
-        .forEach(element => {
-          element[field] = this.emptyValueService.generateEmptyValue(schema[field]);
+  private fix(key: string | number, parent: Object | Array<any>, schema: Object) {
+    // Fix fields that aren't present.
+    if (!parent[key]) {
+      if (schema['x_editor_always_show']) {
+        parent[key] = this.emptyValueService.generateEmptyValue(schema);
+      }
+    // Fix fields that are present.
+    } else {
+      if (schema['x_editor_hidden']) {
+        delete parent[key];
+        return;
+      }
+      let value = parent[key];
+      
+      if (this.jsonUtilService.getType(value) === 'ObjectArray') {
+        this.fixTableArray(value, schema);
+      }
+
+      // Recursive calls
+      if (schema['type'] === 'object') {
+        Object.keys(schema['properties']).forEach(prop => {
+          this.fix(prop, value, schema['properties'][prop]);
         });
-    });
+      } else if (schema['type'] === 'array') {
+        value.forEach((element, index) => {
+          this.fix(index, value, schema['items']);
+        });
+      }
+    }
+  }
+
+
+
+  /**
+   * Fixes the UI appearance of array fields that will be rendered as a table.
+   *  1. Find all subfields that are present in any item.
+   *  2. Insert empty values if an item doesn't have these subfields
+   * 
+   * Goal is to force all elements to have same subfields so that
+   * table looks ok.
+   */
+  private fixTableArray(array: Array<Object>, schema: Object) {
+    let presentKeys = {};
+     
+     // 1. Step
+     array.forEach(element => {
+       Object.keys(element).forEach(key => {
+         presentKeys[key] = true;
+       });
+     });
+
+     // 2. Step
+     Object.keys(presentKeys).forEach(key => {
+       let emptyElement = this.emptyValueService.generateEmptyValue(schema['items']['properties'][key]);
+       array.filter(element => !element[key])
+        .forEach(element => {
+          element[key] = emptyElement;
+        });
+     });
   }
 }

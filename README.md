@@ -29,6 +29,34 @@ Note that:
 - query string is appended to `url`, so it should end like `.../foo?bar=`
 - autocompletion results array which is located in `path`, must be a array of objects which have `text` property inside.
 
+#### x_editor_hidden
+
+Flag to hide fields in the record from the editor's UI.
+
+```
+boolean
+```
+
+Note that:
+
+- It deletes fields that are set `x_editor_hidden: true` from the record, before rendering the UI.
+
+#### x_editor_disabled
+
+Flag to disable fields that should be displayed in the UI, but aren't supposed to be edited.
+
+```
+boolean
+```
+
+#### x_editor_always_show
+
+Flag to show fields on the UI, even if they aren't present in the record.
+
+```
+boolean
+```
+
 # DEVELOPMENT
 
 ## Tech
