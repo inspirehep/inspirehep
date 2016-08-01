@@ -1,23 +1,28 @@
 <div [ngSwitch]="valueType">
-  <div>
+  <div class="editable-field-container"> 
     <div *ngSwitchCase="'string'">
-      <textarea rows="1" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}" disabled="{{schema.x_editor_disabled}}"></textarea>
+      <textarea rows="1" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}"></textarea>
     </div>
     <div *ngSwitchCase="'enum'">
       <!-- TODO: set placeholder -->
-      <searchable-dropdown [value]="value" [items]="schema.enum" (onSelect)="onModelChange($event)" [disabled]="schema.x_editor_disabled"></searchable-dropdown>
+      <searchable-dropdown [value]="value" [items]="schema.enum" (onSelect)="onModelChange($event)"></searchable-dropdown>
     </div>
     <div *ngSwitchCase="'autocomplete'">
       <autocomplete-input [value]="value"  [autocompletionOptions]="schema.x_editor_autocomplete" (onValueChange)="onModelChange($event)" [placeholder]="schema.title"></autocomplete-input>
     </div>
     <div *ngSwitchCase="'number'">
-      <input type="number" class="form-control" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}" disabled="{{schema.x_editor_disabled}}">
+      <input type="number" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}">
     </div>
     <div *ngSwitchCase="'boolean'">
-      <input type="checkbox" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}" disabled="{{schema.x_editor_disabled}}">
+      <input type="checkbox" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}">
     </div>
     <div *ngSwitchDefault>
       ## Not recognized type: {{valueType}}
+    </div>
+  </div>
+  <div>
+    <div *ngSwitchCase="'disabled'">
+      {{value}}
     </div>
   </div>
 </div>

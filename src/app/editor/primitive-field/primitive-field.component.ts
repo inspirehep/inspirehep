@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 import { AutocompleteInputComponent } from '../autocomplete-input';
 import { SearchableDropdownComponent } from '../searchable-dropdown';
@@ -29,6 +29,7 @@ import { SchemaValidationService } from '../shared/services';
 
 @Component({
   selector: 'primitive-field',
+  encapsulation: ViewEncapsulation.None,
   directives: [AutocompleteInputComponent, SearchableDropdownComponent],
   providers: [SchemaValidationService],
   styles: [
@@ -62,10 +63,12 @@ export class PrimitiveFieldComponent {
   }
 
   get valueType(): string {
-    if (this.schema['enum']) {
-      return 'enum';
+    if (this.schema['x_editor_disabled']) {
+      return 'disabled';
     } else if (this.schema['x_editor_autocomplete']) {
       return 'autocomplete';
+    } else if (this.schema['enum']) {
+      return 'enum';
     }
     // integer, string or boolean
     return typeof this.value;
