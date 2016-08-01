@@ -81,7 +81,6 @@
     "zone.js": "~0.6.12"
   },
   "devDependencies": {
-    "@angularclass/angular2-beta-to-rc-alias": "~0.0.3",
     "angular2-hmr": "~0.7.0",
     "awesome-typescript-loader": "^1.0.0",
     "bootstrap-sass": "^3.3.6",
