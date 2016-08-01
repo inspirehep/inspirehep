@@ -24,4 +24,3 @@ deploy:
     tags: true
     repo: inspirehep/record-editor
     all_branches: true
-    node: 5.1.0
