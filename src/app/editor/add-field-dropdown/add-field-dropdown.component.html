@@ -1,5 +1,5 @@
 <div class="btn-group" dropdown keyboardNav="true">
-  <button id="simple-btn-keyboard-nav" type="button" class="btn btn-primary" dropdownToggle>+ <span class="caret"></span></button>
+  <button id="simple-btn-keyboard-nav" type="button" class="editor-btn-add-subfield" dropdownToggle>Add subfield <span class="caret"></span></button>
   <ul class="dropdown-menu" role="menu" aria-labelledby="simple-btn-keyboard-nav">
     <li *ngFor="let key of schema | differentKeys:record" role="menuitem">
       <a class="dropdown-item" (click)="addFieldFromSchema(key)">{{key}}</a>

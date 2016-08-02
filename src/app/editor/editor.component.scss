@@ -1,4 +1,64 @@
+@import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
+
+#editor {
+  font-size: 13px;
+}
+
+.editor-btn-delete {
+  font-size: 21px;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.2;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+
+  &:hover {
+    color: red;
+    opacity: 0.6;
+  }
+
+  &.editor-btn-delete-text {
+    font-size: 15px;
+    opacity: 0.5;
+  }
+}
+
+.btn-new-field {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1;
+  text-shadow: 0 1px 0 #fff;
+  opacity: 0.4;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
+
+  &:hover {
+    color: green;
+    opacity: 0.6;
+  }
+}
+
+.editor-btn-move-up, .editor-btn-move-down {
+  border: 0;
+  background: transparent;
+  opacity: 0.2;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
 td.button-holder {
-  width:1%;
-  white-space:nowrap;
+  width: 1%;
+  white-space: nowrap;
+}
+
+.add-new-field-container {
+  position: relative;
 }

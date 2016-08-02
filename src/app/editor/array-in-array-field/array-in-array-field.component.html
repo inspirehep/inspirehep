@@ -29,17 +29,17 @@
         <tr *ngIf="values.length > 0">
           <td class="button-holder">
             <add-field-dropdown [(record)]="values[i]" [schema]="schema.items.properties"></add-field-dropdown>
-            <button type="button" class="btn btn-danger" (click)="deleteElement(i)">⌫</button>
+            <button type="button" class="editor-btn-delete editor-btn-delete-text" (click)="deleteElement(i)">Delete field</button>
           </td>
           <td class="button-holder">
-            <button *ngIf="i > 0" type="button" class="btn btn-primary" (click)="moveElement(i, -1)">▲</button>
-            <button *ngIf="i < (values.length - 1)" type="button" class="btn btn-primary" (click)="moveElement(i, 1)">▼</button>
+            <button *ngIf="i > 0" type="button" class="editor-btn-move-up" (click)="moveElement(i, -1)">▲</button>
+            <button *ngIf="i < (values.length - 1)" class="editor-btn-move-down" type="button" (click)="moveElement(i, 1)">▼</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div>
-    <button type="button" class="btn btn-primary" (click)="addNewElement()">+</button>
+  <div class="add-new-field-container">
+    <button type="button" class="btn-new-field" (click)="addNewElement()">Add field</button>
   </div>
 </div>
