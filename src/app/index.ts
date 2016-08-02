@@ -1,4 +1,5 @@
 export * from './app.component';
+export * from './app.routes';
 
 import { AppService } from './app.service';
 

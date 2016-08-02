@@ -21,8 +21,11 @@
 */
 
 import { Component, ViewEncapsulation } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { EditorComponent } from './editor';
+
+
 
 /*
  * App Component
@@ -32,14 +35,11 @@ import { EditorComponent } from './editor';
   selector: 'app',
   pipes: [],
   providers: [],
-  directives: [EditorComponent],
+  directives: [ROUTER_DIRECTIVES],
   encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
   styles: [
     require('./app.component.scss')
   ],
   template: require('./app.component.html')
 })
-export class App {
-  constructor() {
-  }
-}
+export class AppComponent { }

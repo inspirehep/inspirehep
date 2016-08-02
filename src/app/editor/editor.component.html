@@ -1,6 +1,6 @@
 <div>
     <table id="editor" class="table table-striped">
-        <tr *ngFor="let pair of jsonDoc | mapToIterable; trackBy:trackByFunction">
+        <tr *ngFor="let pair of record | mapToIterable; trackBy:trackByFunction">
             <td>
                 <label>{{pair.key | underscoreToSpace}}</label>
             </td>
@@ -19,7 +19,7 @@
                         <object-field [(value)]="pair.value" [schema]="schema[pair.key]"></object-field>
                     </div>
                     <div *ngSwitchCase="'String'">
-                        <primitive-field [value]="jsonDoc[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema[pair.key]"></primitive-field>
+                        <primitive-field [value]="record[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema[pair.key]"></primitive-field>
                     </div>
                     <div *ngSwitchDefault>
                         #DEBUG: {{pair.value.constructor.name}}

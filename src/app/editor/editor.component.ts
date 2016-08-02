@@ -35,7 +35,6 @@ import { MapToIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
 import {
   JsonUtilService,
   RecordFixerService,
-  RecordService,
 } from './shared/services';
 
 @Component({
@@ -51,7 +50,6 @@ import {
   pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
   providers: [
     JsonUtilService,
-    RecordService,
     RecordFixerService,
   ],
   styles: [
@@ -61,46 +59,23 @@ import {
 })
 export class EditorComponent extends AbstractTrackerComponent {
   // TODO: remove dummy
-  jsonDoc: any = {};
-  schema: any = {};
+  @Input() record: Object;
+  @Input() schema: Object;
 
-  constructor(private recordService: RecordService,
-    private jsonUtilService: JsonUtilService,
-    private recordFixerService: RecordFixerService) {
+  constructor(private jsonUtilService: JsonUtilService, private recordFixerService: RecordFixerService) {
     super();
-
-    // FIXME: find a better way to make editor wait until we got the schema
-    let record;
-    
-    this.recordService.fetchMockRecord()
-      .flatMap(json => {
-        record = json;
-        return this.recordService.fetchMockSchema()
-      }).subscribe(schema => {
-        // TODO: Remove these delete, when record comes from DB not from Elasticsearch and schema is more consistent
-        Object.keys(record).forEach((prop) => {
-          if (schema[prop] == null) {
-            delete record[prop];
-            console.log('not in schema => ', prop);
-          }
-        });
-        delete record['self']; // ingrone self
-
-        this.recordFixerService.fixRecord(record, schema);
-        this.jsonDoc = this.jsonUtilService.flattenMARCJson(record);
-        this.schema = schema;
-      }, error => console.error(error));
   }
 
   onValueChange(event: any, key: string) {
-    this.jsonDoc[key] = event;
+    this.record[key] = event;
   }
 
   getType(value: any): string {
     return this.jsonUtilService.getType(value);
   }
 
-  ngOnInit() {
-    setTimeout(() => console.log(this.jsonDoc), 8000);
+  ngOnChanges() {
+    this.recordFixerService.fixRecord(this.record, this.schema);
+    this.record = this.jsonUtilService.flattenMARCJson(this.record);
   }
 }
