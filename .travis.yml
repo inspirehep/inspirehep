@@ -13,6 +13,8 @@ before_deploy:
   - 'npm run prebuild:prod'
   - 'npm run build:prod'
 
+after_success:
+  'npm run coveralls'
 
 deploy:
   provider: npm
