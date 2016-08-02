@@ -1,3 +1,15 @@
-thead {
-  background-color: lightgrey;
+$table-editable-rows-background: #edf6fd;
+
+table.editable-inner-table {
+  tbody {
+    background-color: $table-editable-rows-background;
+  }
+
+  td {
+    padding: 0px !important;
+  }
+
+  thead > tr > th {
+    border-bottom: 0px;
+  }
 }

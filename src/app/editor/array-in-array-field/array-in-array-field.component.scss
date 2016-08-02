@@ -1,3 +1,5 @@
+$array-even-color: #fff8f3;
+
 tbody:nth-child(even) {
-  background-color: lightgray;
+  background-color: $array-even-color;
 }

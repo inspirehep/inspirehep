@@ -1,6 +1,6 @@
 <div>
   <div>
-    <table class="table table-bordered">
+    <table class="table table-bordered editable-inner-table">
       <thead class="thead-inverse">
         <tr>
           <th *ngFor="let column of values[0] | mapToIterable; trackBy:trackByFunction">
@@ -13,18 +13,20 @@
         <td *ngFor="let column of row | mapToIterable; trackBy:trackByFunction">
           <primitive-field [value]="row[column.key]" (onValueChange)="onValueChange($event, i, column.key)" [schema]="schema.items.properties[column.key]"></primitive-field>
         </td>
-        
+
         <!-- UP/DOWN and DELETE buttons for each row -->
         <td *ngIf="values.length > 0" class="button-holder">
-          <button type="button" class="btn btn-danger" (click)="deleteElement(i)">⌫</button>
-          <button *ngIf="i > 0" type="button" class="btn btn-primary" (click)="moveElement(i, -1)">▲</button>
-          <button *ngIf="i < (values.length - 1)" type="button" class="btn btn-primary" (click)="moveElement(i, 1)">▼</button>
+          <button type="button" class="editor-btn-delete" (click)="deleteElement(i)">&times;</button>
+          <button *ngIf="i > 0" type="button" class="editor-btn-move-up" (click)="moveElement(i, -1)">▲</button>
+          <button *ngIf="i < (values.length - 1)" type="button" class="editor-btn-move-down" (click)="moveElement(i, 1)">▼</button>
         </td>
+      </tr>
+      <tr>
       </tr>
     </table>
   </div>
-  <div>
+  <div class="add-new-field-container">
     <!-- ADD button for table -->
-    <button type="button" class="btn btn-primary" (click)="addNewElement()">+</button>
+    <button type="button" class="btn-new-field" (click)="addNewElement()">Add field</button>
   </div>
 </div>

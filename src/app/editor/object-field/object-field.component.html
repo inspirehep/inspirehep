@@ -10,7 +10,7 @@
         <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, row.key)" [schema]=schema.properties[row.key]></primitive-field>
       </td>
       <td class="button-holder">
-        <button type="button" class="btn btn-danger" (click)="deleteField(row.key)">⌫</button>
+        <button type="button" class="editor-btn-delete" (click)="deleteField(row.key)">&times;</button>
       </td>
     </tr>
     <!-- ADD-FIELD-FROM-SCHEMA -->

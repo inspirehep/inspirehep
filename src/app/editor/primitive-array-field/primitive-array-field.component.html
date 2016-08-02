@@ -8,14 +8,14 @@
 
         <!-- UP/DOWN and DELETE buttons for each row -->
         <td *ngIf="values.length > 0" class="button-holder">
-          <button type="button" class="btn btn-danger" (click)="deleteElement(i)">⌫</button>
-          <button *ngIf="i > 0" type="button" class="btn btn-primary" (click)="moveElement(i, -1)">▲</button>
-          <button *ngIf="i < (values.length - 1)" type="button" class="btn btn-primary" (click)="moveElement(i, 1)">▼</button>
+          <button type="button" class="editor-btn-delete" (click)="deleteElement(i)">&times;</button>
+          <button *ngIf="i > 0" type="button" class="editor-btn-move-up" (click)="moveElement(i, -1)">▲</button>
+          <button *ngIf="i < (values.length - 1)" type="button" class="editor-btn-move-down" (click)="moveElement(i, 1)">▼</button>
         </td>
       </tr>
     </table>
   </div>
-  <div>
-    <button type="button" class="btn btn-primary" (click)="addNewElement()">+</button>
+  <div class="add-new-field-container">
+    <button type="button" class="btn-new-field" (click)="addNewElement()">Add item</button>
   </div>
 </div>
