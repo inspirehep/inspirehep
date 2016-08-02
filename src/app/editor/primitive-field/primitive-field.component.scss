@@ -1,4 +1,5 @@
-textarea {
+div.editable-field-container textarea,
+div.editable-field-container input {
     width: 50%;
     padding: 3px;
     transition: all 0.5s ease;
@@ -13,6 +14,10 @@ textarea {
     -webkit-box-sizing: border-box; // For Safari
 }
 
-textarea:focus {
+div.editable-field-container textarea:focus {
     height: 6em;
+}
+
+div.editable-field-container:hover {
+    background: #ffa;
 }

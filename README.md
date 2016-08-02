@@ -54,6 +54,10 @@ Flag to disable fields that should be displayed in the UI, but aren't supposed t
 boolean
 ```
 
+Note that:
+
+- It overrides all other types. For instance, if a field enum and `x_editor_disabled` is set, then it is rendered as simple `div` instead of disabled `enum` component (dropdown).
+
 #### x_editor_always_show
 
 Flag to show fields on the UI, even if they aren't present in the record.
