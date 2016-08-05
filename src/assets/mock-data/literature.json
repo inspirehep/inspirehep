@@ -1,5 +1,6 @@
+
 {
-  "created": "2016-07-11T09:48:39.348556+00:00", 
+  "created": "2016-08-03T13:09:22.255414+00:00", 
   "id": 1404685, 
   "links": {
     "self": "http://localhost:5000/api/literature/1404685"
@@ -64,7 +65,7 @@
         "curated_relation": false, 
         "full_name": "Cristinziani, Markus", 
         "inspire_bai": "M.Cristinziani.1", 
-        "uuid": "6a22d8a1-8856-4d36-bcaf-4a7285bead9f"
+        "uuid": "5cabbef0-ead5-4433-b472-8f63713f92a8"
       }
     ], 
     "collaboration": [
@@ -151,17 +152,6 @@
         "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
       }
     ], 
-    "oai_pmh": [
-      {
-        "id": "oai:inspirehep.net:1404685", 
-        "set": [
-          "CERN", 
-          "INSPIRE:HEP", 
-          "CERN:arXiv", 
-          "CDS"
-        ]
-      }
-    ], 
     "page_nr": [
       "21"
     ], 
@@ -182,43 +172,55 @@
     "references": [
       {
         "authors": [
-          "K. Melnikov"
+          {
+            "full_name": "K. Melnikov"
+          }
         ], 
         "misc": [
           "Theoretical Results on Top Quark Physics, talk at this conference"
         ], 
         "number": 1, 
         "urls": [
-          "https://indico.cern.ch/event/325831/session/10/contribution/30"
+          {
+            "value": "https://indico.cern.ch/event/325831/session/10/contribution/30"
+          }
         ]
       }, 
       {
         "authors": [
-          "A. Meyer"
+          {
+            "full_name": "A. Meyer"
+          }
         ], 
         "misc": [
           "Determination of Top Quark Properties, talk at this conference"
         ], 
         "number": 2, 
         "urls": [
-          "https://indico.cern.ch/event/325831/session/10/contribution/32"
+          {
+            "value": "https://indico.cern.ch/event/325831/session/10/contribution/32"
+          }
         ]
       }, 
       {
         "authors": [
-          "T. Aaltonen et al."
+          {
+            "full_name": "T. Aaltonen"
+          }
         ], 
         "collaboration": [
           "D0 Collaborations"
-        ], 
-        "journal_pubnote": [
-          "Phys.Rev.,D89,072001"
         ], 
         "misc": [
           "(CDF Combination of measurements of the top-quark pair production cross section from the Tevatron Collider"
         ], 
         "number": 3, 
-        "year": 2014
+        "publication_info": {
+          "artid": "072001", 
+          "journal_title": "Phys.Rev.", 
+          "journal_volume": "D89", 
+          "year": 2014
+        }
       }, 
       {
         "collaboration": [
@@ -233,30 +235,35 @@
         "collaboration": [
           "ATLAS Collaboration"
         ], 
-        "journal_pubnote": [
-          "Phys.Rev.,D92,072005"
-        ], 
+        "curated_relation": false, 
         "misc": [
           "Measurements of the top quark branching ratios into channels with leptons and quarks with the ATLAS detector"
         ], 
         "number": 5, 
+        "publication_info": {
+          "artid": "072005", 
+          "journal_title": "Phys.Rev.", 
+          "journal_volume": "D92", 
+          "year": 2015
+        }, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1376287"
-        }, 
-        "year": 2015
+        }
       }, 
       {
         "collaboration": [
           "ATLAS Collaboration"
         ], 
-        "journal_pubnote": [
-          "Phys.Rev.,D91,112013"
-        ], 
         "misc": [
           "Measurement of the top pair production cross section in 8 TeV proton-proton collisions using kinematic information in the lepton+jets final state with ATLAS"
         ], 
         "number": 6, 
-        "year": 2015
+        "publication_info": {
+          "artid": "112013", 
+          "journal_title": "Phys.Rev.", 
+          "journal_volume": "D91", 
+          "year": 2015
+        }
       }, 
       {
         "collaboration": [
@@ -266,14 +273,18 @@
           "ATLAS Combination of ATLAS and CMS top quark pair cross section measurements in the e\u00b5 final state using proton-proton collisions at \u221a s = 8 TeV, ATLAS-CONF-054"
         ], 
         "number": 7, 
-        "report_number": [
-          "CMS-PAS-TOP-14-016"
-        ], 
+        "publication_info": {
+          "reportnumber": "CMS-PAS-TOP-14-016", 
+          "year": 2014
+        }, 
         "urls": [
-          "http://inspirehep.net/record/1319552", 
-          "http://inspirehep.net/record/1319376"
-        ], 
-        "year": 2014
+          {
+            "value": "http://inspirehep.net/record/1319552"
+          }, 
+          {
+            "value": "http://inspirehep.net/record/1319376"
+          }
+        ]
       }, 
       {
         "collaboration": [
@@ -286,42 +297,55 @@
       }, 
       {
         "authors": [
-          "R. Aaij et al."
+          {
+            "full_name": "R. Aaij"
+          }
         ], 
-        "journal_pubnote": [
-          "Phys.Rev.Lett.,115,112001"
-        ], 
+        "curated_relation": false, 
         "misc": [
           "LHCb Collaboration First observation of top quark production in the forward region"
         ], 
         "number": 9, 
+        "publication_info": {
+          "artid": "112001", 
+          "journal_title": "Phys.Rev.Lett.", 
+          "journal_volume": "115", 
+          "year": 2015
+        }, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1374216"
-        }, 
-        "year": 2015
+        }
       }, 
       {
         "authors": [
-          "B. Heinemann"
+          {
+            "full_name": "B. Heinemann"
+          }
         ], 
         "misc": [
           "ATLAS Results from Run2, talk at this conference"
         ], 
         "number": 10, 
         "urls": [
-          "https://indico.cern.ch/event/325831/session/0/contribution/8"
+          {
+            "value": "https://indico.cern.ch/event/325831/session/0/contribution/8"
+          }
         ]
       }, 
       {
         "authors": [
-          "L. Malgeri"
+          {
+            "full_name": "L. Malgeri"
+          }
         ], 
         "misc": [
           "CMS Results from Run2, talk at this conference"
         ], 
         "number": 11, 
         "urls": [
-          "https://indico.cern.ch/event/325831/session/0/contribution/9"
+          {
+            "value": "https://indico.cern.ch/event/325831/session/0/contribution/9"
+          }
         ]
       }, 
       {
@@ -332,105 +356,124 @@
           "Measurement of the t\u00aft production cross-section in pp collisions at \u221a s = 13 TeV using e\u00b5 events with b-tagged jets, ATLAS-CONF-033"
         ], 
         "number": 12, 
-        "urls": [
-          "http://inspirehep.net/record/1385192"
-        ], 
-        "year": 2015
-      }, 
-      {
-        "collaboration": [
-          "CMS Collaboration"
-        ], 
-        "misc": [
-          "Measurement of the top quark pair production cross section in proton-proton collisions at \u221a s = 13 TeV"
-        ], 
-        "number": 13, 
-        "record": {
-          "$ref": "http://localhost:5000/api/literature/1388254"
+        "publication_info": {
+          "year": 2015
         }, 
-        "report_number": [
-          "CMS-PAS-TOP-15-003"
-        ], 
         "urls": [
-          "http://inspirehep.net/record/1388254"
+          {
+            "value": "http://inspirehep.net/record/1385192"
+          }
         ]
       }, 
       {
         "collaboration": [
           "CMS Collaboration"
         ], 
+        "curated_relation": false, 
+        "misc": [
+          "Measurement of the top quark pair production cross section in proton-proton collisions at \u221a s = 13 TeV"
+        ], 
+        "number": 13, 
+        "publication_info": {
+          "reportnumber": "CMS-PAS-TOP-15-003"
+        }, 
+        "record": {
+          "$ref": "http://localhost:5000/api/literature/1388254"
+        }, 
+        "urls": [
+          {
+            "value": "http://inspirehep.net/record/1388254"
+          }
+        ]
+      }, 
+      {
+        "arxiv_eprints": [
+          "arXiv:1505.04480"
+        ], 
+        "collaboration": [
+          "CMS Collaboration"
+        ], 
+        "curated_relation": false, 
         "misc": [
           "Measurement of the differential cross section for top quark pair production in pp collisions at \u221a s = 8 TeV, submitted to Eur. Phys. J. C"
         ], 
         "number": 14, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1370682"
-        }, 
-        "report_number": [
-          "arXiv:1505.04480 [hep-ex]"
-        ]
+        }
       }, 
       {
         "collaboration": [
           "ATLAS Collaboration"
-        ], 
-        "journal_pubnote": [
-          "JHEP,1506,100"
         ], 
         "misc": [
           "Differential top-antitop cross-section measurements as a function of observables constructed from final-state particles using pp collisions at \u221a s = 7 TeV in the ATLAS detector"
         ], 
         "number": 15, 
-        "year": 2015
+        "publication_info": {
+          "artid": "100", 
+          "journal_title": "JHEP", 
+          "journal_volume": "1506", 
+          "page_start": "100", 
+          "year": 2015
+        }
       }, 
       {
+        "arxiv_eprints": [
+          "arXiv:1510.03818"
+        ], 
         "collaboration": [
           "ATLAS Collaboration"
         ], 
+        "curated_relation": false, 
         "misc": [
           "Measurement of the differential cross-section of highly boosted top quarks as a function of their transverse momentum in \u221a s = 8 TeV proton-proton collisions using the ATLAS detector, submitted to PRD"
         ], 
         "number": 16, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1397637"
-        }, 
-        "report_number": [
-          "arXiv:1510.03818 [hep-ex]"
-        ]
+        }
       }, 
       {
         "collaboration": [
           "CMS Collaboration"
         ], 
+        "curated_relation": false, 
         "misc": [
           "Measurement of the differential t\u00aft production cross section for high-pT top quarks in e/\u00b5+jets final states at \u221a s = 8 TeV"
         ], 
         "number": 17, 
+        "publication_info": {
+          "reportnumber": "CMS-PAS-TOP-14-012"
+        }, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1388555"
         }, 
-        "report_number": [
-          "CMS-PAS-TOP-14-012"
-        ], 
         "urls": [
-          "http://inspirehep.net/record/1388555"
+          {
+            "value": "http://inspirehep.net/record/1388555"
+          }
         ]
       }, 
       {
         "authors": [
-          "T. Aaltonen et al."
+          {
+            "full_name": "T. Aaltonen"
+          }
         ], 
         "collaboration": [
           "D0 Collaborations"
-        ], 
-        "journal_pubnote": [
-          "Phys.Rev.Lett.,115,152003"
         ], 
         "misc": [
           "(CDF Tevatron combination of single-top-quark cross sections and determination of the magnitude of the Cabibbo-Kobayashi-Maskawa matrix element Vtb"
         ], 
         "number": 18, 
-        "year": 2015
+        "publication_info": {
+          "artid": "152003", 
+          "journal_title": "Phys.Rev.Lett.", 
+          "journal_volume": "115", 
+          "year": 2015
+        }
       }, 
       {
         "collaboration": [
@@ -440,25 +483,30 @@
           "Measurements of the differential cross section of single top-quark production in the t channel in proton-proton collisions at \u221a s = 8 TeV"
         ], 
         "number": 19, 
-        "report_number": [
-          "CMS-PAS-TOP-14-004"
-        ], 
+        "publication_info": {
+          "reportnumber": "CMS-PAS-TOP-14-004"
+        }, 
         "urls": [
-          "http://inspirehep.net/record/1323200"
+          {
+            "value": "http://inspirehep.net/record/1323200"
+          }
         ]
       }, 
       {
         "collaboration": [
           "ATLAS Collaboration"
         ], 
-        "journal_pubnote": [
-          "Phys.Lett.,B740,118"
-        ], 
         "misc": [
           "Search for s-channel single top-quark production in proton-proton collisions at \u221a s = 8 TeV with the ATLAS detector"
         ], 
         "number": 20, 
-        "year": 2015
+        "publication_info": {
+          "artid": "118", 
+          "journal_title": "Phys.Lett.", 
+          "journal_volume": "B740", 
+          "page_start": "118", 
+          "year": 2015
+        }
       }, 
       {
         "collaboration": [
@@ -468,154 +516,182 @@
           "ATLAS Combination of cross-section measurements for associated production of a single top-quark and a W boson at\u221a s = 8 TeV with the ATLAS and CMS experiments, ATLAS-CONF-052 and"
         ], 
         "number": 21, 
-        "report_number": [
-          "CMS-PAS-TOP-14-009"
-        ], 
+        "publication_info": {
+          "reportnumber": "CMS-PAS-TOP-14-009", 
+          "year": 2014
+        }, 
         "urls": [
-          "http://inspirehep.net/record/1319379", 
-          "http://inspirehep.net/record/1319686"
-        ], 
-        "year": 2014
+          {
+            "value": "http://inspirehep.net/record/1319379"
+          }, 
+          {
+            "value": "http://inspirehep.net/record/1319686"
+          }
+        ]
       }, 
       {
         "authors": [
-          "S. Farrington"
+          {
+            "full_name": "S. Farrington"
+          }
         ], 
         "misc": [
           "Results on the Standard Model Higgs boson, talk at this conference"
         ], 
         "number": 22, 
         "urls": [
-          "https://indico.cern.ch/event/325831/contribution/11"
+          {
+            "value": "https://indico.cern.ch/event/325831/contribution/11"
+          }
         ]
       }, 
       {
         "collaboration": [
           "ATLAS Collaboration"
         ], 
-        "journal_pubnote": [
-          "Phys.Rev.,D91,072007"
-        ], 
         "misc": [
           "Observation of top-quark pair production in association with a photon and measurement of the t\u00aft\u03b3 production cross section in pp collisions at \u221a s = 7 TeVusing the ATLAS detector"
         ], 
         "number": 23, 
-        "year": 2015
+        "publication_info": {
+          "artid": "072007", 
+          "journal_title": "Phys.Rev.", 
+          "journal_volume": "D91", 
+          "year": 2015
+        }
       }, 
       {
+        "arxiv_eprints": [
+          "arXiv:1509.05276"
+        ], 
         "collaboration": [
           "ATLAS Collaboration"
         ], 
+        "curated_relation": false, 
         "misc": [
           "Measurement of the t\u00aftW and t\u00aftZ production cross sections in pp collisions at \u221a s = 8 TeV with the ATLAS detector, accepted by JHEP"
         ], 
         "number": 24, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1393760"
-        }, 
-        "report_number": [
-          "arXiv:1509.05276 [hep-ex]"
-        ]
+        }
       }, 
       {
+        "arxiv_eprints": [
+          "arXiv:1510.01131"
+        ], 
         "collaboration": [
           "CMS Collaboration"
         ], 
+        "curated_relation": false, 
         "misc": [
           "Observation of top quark pairs produced in association with a vector boson in pp collisions at \u221a s = 8 TeV, submitted to JHEP"
         ], 
         "number": 25, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1396140"
-        }, 
-        "report_number": [
-          "arXiv:1510.01131 [hep-ex]"
-        ]
+        }
       }, 
       {
         "collaboration": [
           "CMS Collaboration"
-        ], 
-        "journal_pubnote": [
-          "Phys.Lett.,B746,132"
         ], 
         "misc": [
           "Measurement of the cross section ratio \u03c3t\u00aftb\u00afb/\u03c3t\u00aftjj in pp collisions at \u221a s = 8 TeV"
         ], 
         "number": 26, 
-        "year": 2015
+        "publication_info": {
+          "artid": "132", 
+          "journal_title": "Phys.Lett.", 
+          "journal_volume": "B746", 
+          "page_start": "132", 
+          "year": 2015
+        }
       }, 
       {
         "collaboration": [
           "CMS Collaboration"
         ], 
+        "curated_relation": false, 
         "misc": [
           "Measurement of the t\u00aftb\u00afb cross section and the ratio \u03c3(t\u00aftb\u00afb)/\u03c3(t\u00aftjj) in the lepton+jets final state at 8 TeV with the CMS detector"
         ], 
         "number": 27, 
+        "publication_info": {
+          "reportnumber": "CMS-PAS-TOP-13-016"
+        }, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1385669"
         }, 
-        "report_number": [
-          "CMS-PAS-TOP-13-016"
-        ], 
         "urls": [
-          "http://inspirehep.net/record/1385669"
+          {
+            "value": "http://inspirehep.net/record/1385669"
+          }
         ]
       }, 
       {
+        "arxiv_eprints": [
+          "arXiv:1508.06868"
+        ], 
         "collaboration": [
           "ATLAS Collaboration"
         ], 
+        "curated_relation": false, 
         "misc": [
           "Measurements of fiducial cross-sections for t\u00aft production with one or two additional b-jets in pp collisions at \u221a s = 8 TeV using the ATLAS detector, submitted to Eur. Phys. J. C"
         ], 
         "number": 28, 
         "record": {
           "$ref": "http://localhost:5000/api/literature/1390114"
-        }, 
-        "report_number": [
-          "arXiv:1508.06868 [hep-ex]"
-        ]
+        }
       }, 
       {
         "collaboration": [
           "CMS Collaboration"
         ], 
-        "journal_pubnote": [
-          "JHEP,1411,154"
-        ], 
         "misc": [
           "Search for standard model production of four top quarks in the lepton + jets channel in pp collisions at \u221a s = 8 TeV"
         ], 
         "number": 29, 
-        "year": 2014
+        "publication_info": {
+          "artid": "154", 
+          "journal_title": "JHEP", 
+          "journal_volume": "1411", 
+          "page_start": "154", 
+          "year": 2014
+        }
       }, 
       {
         "collaboration": [
           "ATLAS Collaboration"
-        ], 
-        "journal_pubnote": [
-          "JHEP,1510,150"
         ], 
         "misc": [
           "Analysis of events with b-jets and a pair of leptons of the same charge in pp collisions at \u221a s = 8 TeV with the ATLAS detector"
         ], 
         "number": 30, 
-        "year": 2015
+        "publication_info": {
+          "artid": "150", 
+          "journal_title": "JHEP", 
+          "journal_volume": "1510", 
+          "page_start": "150", 
+          "year": 2015
+        }
       }, 
       {
         "collaboration": [
           "ATLAS Collaboration"
         ], 
-        "journal_pubnote": [
-          "JHEP,1508,105"
-        ], 
         "misc": [
           "Search for production of vector-like quark pairs and of four top quarks in the lepton-plus-jets final state in pp collisions at \u221a s = 8 TeV with the ATLAS detector"
         ], 
         "number": 31, 
-        "year": 2015
+        "publication_info": {
+          "artid": "105", 
+          "journal_title": "JHEP", 
+          "journal_volume": "1508", 
+          "page_start": "105", 
+          "year": 2015
+        }
       }
     ], 
     "report_numbers": [
@@ -716,5 +792,5 @@
       }
     ]
   }, 
-  "updated": "2016-07-11T09:48:39.348562+00:00"
+  "updated": "2016-08-03T13:09:22.255422+00:00"
 }

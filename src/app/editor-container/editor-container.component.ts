@@ -28,15 +28,6 @@ export class EditorContainerComponent {
           record = fetched;
           return this.recordService.fetchMockSchema();
         }).subscribe(schema => {
-          // TODO: Remove these delete, when record comes from DB not from Elasticsearch and schema is more consistent
-          Object.keys(record).forEach((prop) => {
-            if (schema[prop] == null) {
-              delete record[prop];
-              console.log('not in schema => ', prop);
-            }
-          });
-          delete record['self']; // ingrone self
-
           this.record = record;
           this.schema = schema;
         }, error => console.error(error));
