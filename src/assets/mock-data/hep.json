@@ -424,6 +424,7 @@
         "enum": [
           "Published",
           "arXiv",
+          "ActivityReport",
           "ConferencePaper",
           "Thesis",
           "Review",
@@ -448,12 +449,14 @@
           "source": {
             "description": "Issuing of DOI.",
             "title": "DOI registrant",
-            "type": "string"
+            "type": "string",
+            "x_editor_always_show": true
           },
           "value": {
             "pattern": "10\\.\\d+(\\.\\d+)?/.+",
             "title": "DOI",
-            "type": "string"
+            "type": "string",
+            "x_editor_always_show": true
           }
         },
         "title": "DOI",
@@ -485,7 +488,8 @@
         "properties": {
           "institute": {
             "title": "Institute",
-            "type": "string"
+            "type": "string",
+            "x_editor_disabled": true
           },
           "obsolete": {
             "title": "Obsolete?",
@@ -880,7 +884,12 @@
             "items": {
               "properties": {
                 "full_name": {
-                  "type": "string"
+                  "type": "string",
+                  "x_editor_autocomplete": {
+                    "url": "http://localhost:5000/api/literature/_suggest?size=7&author_name=",
+                    "path": "author_name.0.options",
+                    "size": 7
+                  }
                 },
                 "role": {
                   "type": "string"
@@ -888,15 +897,10 @@
               },
               "type": "object"
             },
+            "x_editor_always_show": true,
             "title": "Authors",
             "type": "array",
-            "uniqueItems": true,
-            "x_editor_always_show": true,
-            "x_editor_autocomplete": {
-              "url": "http://localhost:5000/api/literature/_suggest?size=7&author_name=",
-              "path": "author_name.0.options",
-              "size": 7
-            }
+            "uniqueItems": true
           },
           "book_series": {
             "properties": {
@@ -1037,7 +1041,7 @@
             "description": "Referred record"
           },
           "texkey": {
-            "description": "INSPIRE Provided texkey.",
+            "title": "INSPIRE Provided texkey.",
             "type": "string",
             "x_editor_always_show": true
           },
@@ -1149,8 +1153,7 @@
       "items": {
         "properties": {
           "classification_scheme": {
-            "type": "string",
-            "x_editor_hidden": true
+            "type": "string"
           },
           "energy_range": {
             "description": "FIXME: What... is... that!?",
@@ -1221,30 +1224,38 @@
       },
       "type": "object"
     },
-    "thesis_supervisor": {
+    "thesis_supervisors": {
       "items": {
         "properties": {
-          "affiliation": {
-            "type": "string"
-          },
-          "curated_relation": {
-            "type": "boolean"
+          "affiliations": {
+            "items": {
+              "properties": {
+                "curated_relation": {
+                  "type": "boolean"
+                },
+                "record": {
+                  "properties": {
+                    "$ref": {
+                      "description": "URL to the referenced resource",
+                      "format": "url",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "$ref"
+                  ],
+                  "type": "object"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
           },
           "full_name": {
             "type": "string"
-          },
-          "record": {
-            "properties": {
-              "$ref": {
-                "description": "URL to the referenced resource",
-                "format": "url",
-                "type": "string"
-              }
-            },
-            "required": [
-              "$ref"
-            ],
-            "type": "object"
           }
         },
         "required": [

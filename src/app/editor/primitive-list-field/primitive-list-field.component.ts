@@ -28,17 +28,17 @@ import { EmptyValueService } from '../shared/services';
 
 
 @Component({
-  selector: 'primitive-array-field',
+  selector: 'primitive-list-field',
   directives: [PrimitiveFieldComponent],
   providers: [EmptyValueService],
   styles: [
-    require('./primitive-array-field.component.scss')
+    require('./primitive-list-field.component.scss')
   ],
-  template: require('./primitive-array-field.component.html'),
+  template: require('./primitive-list-field.component.html'),
 
 })
 // FIXME: this doesn't have all stuff of AbstractArrayFieldComponent. Maybe, it shouldn't extend it.
-export class PrimitiveArrayFieldComponent extends AbstractArrayFieldComponent {
+export class PrimitiveListFieldComponent extends AbstractArrayFieldComponent {
 
   @Input() values: Array<any>;
   @Input() schema: Object;

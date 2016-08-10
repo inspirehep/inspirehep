@@ -23,42 +23,44 @@
 import { Component, Input } from '@angular/core';
 
 import { AbstractArrayFieldComponent } from '../abstract-array-field';
-import { AddFieldDropdownComponent } from '../add-field-dropdown';
+import { AddFieldToObjectDropdownComponent } from '../add-field-dropdown';
 import { ObjectFieldComponent } from '../object-field';
-import { ObjectArrayFieldComponent } from '../object-array-field';
-import { PrimitiveArrayFieldComponent } from '../primitive-array-field';
+import { TableListFieldComponent } from '../table-list-field';
+import { PrimitiveListFieldComponent } from '../primitive-list-field';
 import { PrimitiveFieldComponent } from '../primitive-field';
 
-import { MapToIterablePipe } from '../shared/pipes';
+import { MapToIterablePipe, UnderscoreToSpacePipe } from '../shared/pipes';
 
-import { EmptyValueService, JsonUtilService } from '../shared/services';
+import { ComponentTypeService, EmptyValueService } from '../shared/services';
 
 @Component({
-  selector: 'array-in-array-field',
+  selector: 'complex-list-field',
   directives: [
-    AddFieldDropdownComponent,
+    AddFieldToObjectDropdownComponent,
     ObjectFieldComponent,
-    ObjectArrayFieldComponent,
+    TableListFieldComponent,
     PrimitiveFieldComponent,
-    PrimitiveArrayFieldComponent
+    PrimitiveListFieldComponent
   ],
-  pipes: [MapToIterablePipe],
-  providers: [EmptyValueService, JsonUtilService],
+  pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
+  providers: [ComponentTypeService, EmptyValueService],
   styles: [
-    require('./array-in-array-field.component.scss')
+    require('./complex-list-field.component.scss')
   ],
-  template: require('./array-in-array-field.component.html')
+  template: require('./complex-list-field.component.html')
 })
-export class ArrayInArrayFieldComponent extends AbstractArrayFieldComponent {
+export class ComplexListFieldComponent extends AbstractArrayFieldComponent {
 
   @Input() values: Array<Object>;
   @Input() schema: Object;
 
-  constructor(public emptyValueService: EmptyValueService, private jsonUtilService: JsonUtilService) {
+  constructor(public emptyValueService: EmptyValueService, private componentTypeService: ComponentTypeService) {
     super();
   }
 
-  getType(value: any): string {
-    return this.jsonUtilService.getType(value);
+  // TODO: cache the types for each field
+  getFieldType(field: string): string {
+    let fieldSchema = this.schema['items']['properties'][field];
+    return this.componentTypeService.getComponentType(fieldSchema);
   }
 }

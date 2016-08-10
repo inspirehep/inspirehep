@@ -1,1 +1,0 @@
-export { PrimitiveArrayFieldComponent } from './primitive-array-field.component';

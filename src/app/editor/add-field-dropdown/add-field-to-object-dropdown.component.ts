@@ -22,31 +22,35 @@
 
 import { Component, Input } from '@angular/core';
 
-import { AbstractTrackerComponent } from '../abstract-tracker';
-import { AddFieldToObjectDropdownComponent } from '../add-field-dropdown';
-import { PrimitiveFieldComponent } from '../primitive-field'
+import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
-import { MapToIterablePipe } from '../shared/pipes';
+import { DifferentKeysPipe } from '../shared/pipes';
+
+import { EmptyValueService } from '../shared/services';
 
 @Component({
-  selector: 'object-field',
-  directives: [AddFieldToObjectDropdownComponent, PrimitiveFieldComponent],
-  pipes: [MapToIterablePipe],
+  selector: 'add-field-dropdown',
+  directives: [DROPDOWN_DIRECTIVES],
+  pipes: [DifferentKeysPipe],
+  providers: [EmptyValueService],
   styles: [
-    require('./object-field.component.scss')
+    require('./add-field-dropdown.component.scss')
   ],
-  template: require('./object-field.component.html')
+  template: require('./add-field-dropdown.component.html')
 })
-export class ObjectFieldComponent extends AbstractTrackerComponent {
+export class AddFieldToObjectDropdownComponent {
 
-  @Input() value: Object;
+  // 'propeties' of an object schema
   @Input() schema: Object;
+  @Input() value: Object;
 
-  onValueChange(event: any, key: string) {
-    this.value[key] = event;
+  constructor(private emptyValueService: EmptyValueService) {
+  
   }
 
-  deleteField(name: string) {
-    delete this.value[name];
+  addFieldFromSchema(name: string) {
+    let subSchema = this.schema[name];
+    this.value[name] = this.emptyValueService.generateEmptyValue(subSchema);
   }
+
 }

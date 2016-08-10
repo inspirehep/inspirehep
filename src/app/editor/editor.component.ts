@@ -23,14 +23,15 @@
 import { Component, Input, ViewEncapsulation} from '@angular/core';
 
 import { AbstractTrackerComponent } from './abstract-tracker';
-import { ArrayInArrayFieldComponent } from './array-in-array-field';
-import { ObjectArrayFieldComponent } from './object-array-field';
+import { ComplexListFieldComponent } from './complex-list-field';
+import { TableListFieldComponent } from './table-list-field';
 import { ObjectFieldComponent } from './object-field';
-import { PrimitiveArrayFieldComponent } from './primitive-array-field';
+import { PrimitiveListFieldComponent } from './primitive-list-field';
 import { PrimitiveFieldComponent } from './primitive-field';
 
-
 import { MapToIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
+
+import { ComponentTypeService } from './shared/services';
 
 import {
   JsonUtilService,
@@ -41,16 +42,17 @@ import {
   selector: 'editor',
   encapsulation: ViewEncapsulation.None,
   directives: [
-    ArrayInArrayFieldComponent,
-    PrimitiveArrayFieldComponent,
+    ComplexListFieldComponent,
+    PrimitiveListFieldComponent,
     PrimitiveFieldComponent,
-    ObjectArrayFieldComponent,
+    TableListFieldComponent,
     ObjectFieldComponent
   ],
   pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
   providers: [
+    ComponentTypeService,
     JsonUtilService,
-    RecordFixerService,
+    RecordFixerService
   ],
   styles: [
     require('./editor.component.scss')
@@ -62,7 +64,7 @@ export class EditorComponent extends AbstractTrackerComponent {
   @Input() record: Object;
   @Input() schema: Object;
 
-  constructor(private jsonUtilService: JsonUtilService, private recordFixerService: RecordFixerService) {
+  constructor(private componentTypeService: ComponentTypeService, private jsonUtilService: JsonUtilService, private recordFixerService: RecordFixerService) {
     super();
   }
 
@@ -70,12 +72,16 @@ export class EditorComponent extends AbstractTrackerComponent {
     this.record[key] = event;
   }
 
-  getType(value: any): string {
-    return this.jsonUtilService.getType(value);
+  getFieldType(field: string): string {
+    let fieldScehma = this.schema[field];
+    return this.componentTypeService.getComponentType(fieldScehma);
   }
 
+  // FIXME: called two times!
   ngOnChanges() {
     this.recordFixerService.fixRecord(this.record, this.schema);
-    this.record = this.jsonUtilService.flattenMARCJson(this.record);
+    this.record = this.jsonUtilService.flattenMARCJson(this.record, this.schema);
+    this.schema = this.jsonUtilService.flattenMARCSchema(this.schema);
+    console.log(this.schema, this.record);
   }
 }
