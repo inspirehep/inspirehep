@@ -21,6 +21,7 @@
 */
 
 import { Injectable } from '@angular/core';
+import { ComponentTypeService } from './component-type.service'
 
 /**
  * WARNING: this doesn't work when the root json object is an array!
@@ -28,90 +29,78 @@ import { Injectable } from '@angular/core';
  */
 @Injectable()
 export class JsonUtilService {
-  /**
-   * TODO: add example input and output to the function doc!
-   * 
-   * @param {{}} jsonObject - The marc json object to be flattened.
-   */
-  flattenMARCJson(jsonObject: {}): {} {
-    return this.modifyMARCJson(jsonObject, new JsonFlattener());
-  }
+
+  private componentTypeService: ComponentTypeService = new ComponentTypeService();
 
   /**
-   * TODO: add example input and output to the function doc!
-   * 
-   * @param {{}} jsonObject - The marc json object to be unflattened.
+   * FIXME: shallow flattening!
    */
-  unflattenMARCJson(jsonObject: {}): {} {
-    return this.modifyMARCJson(jsonObject, new JsonUnFlattener());
-  }
-
-  /**
-   * This skips top level properties (MARC fields) and array type properties of the top level properties (MARC subfields with collection)
-   * and apply the given operator to all the rest.
-   * 
-   * @param {{}} jsonObject - The march json object to be flattened.
-   * @param {JsonOperator} jsonOperator - The operator to be applied to given json object
-   */
-  private modifyMARCJson(jsonObject: {}, jsonOperator: JsonOperator) {
-    const result = {};
-    // TODO: create multiple instances inside forEach function if this operation should be parallel
-    Object.keys(jsonObject)
-      .forEach(prop => {
-        switch (jsonObject[prop].constructor.name) {
-          case 'Array':
-            if (this.hasArrayProperty(jsonObject[prop][0]) || this.isNotObjectArray(jsonObject[prop])) {
-              // ArrayInArray or Primitive
-              // Do not flatten
-              result[prop] = jsonObject[prop];
-            } else {
-              // ObjectArray
-              // Do not apply the top level array, but apply its elements
-              result[prop] = [];
-              jsonObject[prop].forEach((object, i) => {
-                result[prop][i] = jsonOperator.apply(object);
+  flattenMARCSchema(schema: Object): Object {
+    Object.keys(schema)
+      .filter(field => this.componentTypeService.getComponentType(schema[field]) === 'table-list')
+      .forEach(field => {
+        let elementSchema = schema[field]['items'];
+        Object.keys(elementSchema['properties'])
+          .filter(elementProp => elementSchema['properties'][elementProp]['type'] === 'object')
+          .forEach(objectElementProp => {
+            Object.keys(elementSchema['properties'][objectElementProp]['properties'])
+              .forEach(prop => {
+                elementSchema['properties'][`${objectElementProp}.${prop}`] = elementSchema['properties'][objectElementProp]['properties'][prop];
               });
-            }
-            break;
-          case 'Object':
-            result[prop] = jsonOperator.apply(jsonObject[prop]);
-            break;
-          default:
-            result[prop] = jsonObject[prop];
-
-        }
+            delete elementSchema['properties'][objectElementProp];
+          });
       });
-    return result;
+    return schema;
   }
   
   /**
-   * Returns type of the given value. If it is not an array it returns the exact type.
-   * CUSTOM ARRAY TYPES: PrimitiveArray, ArrayInArray, ObjectArray
+   * TODO: add example input and output to the function doc!
    * 
-   * TODO: move this utitiliy somewhere else.
-   * 
-   * @param {any} value - value to be evaluated.
+   * @param {Object} jsonObject - The marc json object to be flattened.
    */
-  public getType(value: any): string {
-    let valueType = value.constructor.name;
-    if (valueType === 'Array') {
-      if (this.isNotObjectArray(value)) {
-        return 'PrimitiveArray';
-      } else if (this.hasArrayProperty(value[0])) {
-        return 'ArrayInArray';
-      }
-      return 'ObjectArray';
-    }
-    return valueType;
+  flattenMARCJson(jsonObject: Object, schema: Object): Object {
+    return this.modifyMARCJson(jsonObject, schema, new JsonFlattener());
   }
 
-  private hasArrayProperty(json: Object): boolean {
-    return Object.keys(json)
-      .some(prop => json[prop].constructor && json[prop].constructor.name === 'Array');
+  /**
+   * TODO: add example input and output to the function doc!
+   * 
+   * @param {Object} jsonObject - The marc json object to be unflattened.
+   */
+  unflattenMARCJson(jsonObject: Object, schema: Object): Object {
+    return this.modifyMARCJson(jsonObject, schema, new JsonUnFlattener());
   }
 
-  private isNotObjectArray(arr: Array<any>): boolean {
-    return arr.every(element => typeof element !== 'object');
+  /**
+   * This skips top level properties (MARC fields) and array type properties of the top level properties (MARC subfields with array of objects as a property)
+   * and apply the given operator to all the rest.
+   * 
+   * @param {Object} jsonObject - The marc json object to be flattened.
+   * @param {Object} schema - The schema to be used to determine if a property of the jsonObject should be flattened, (schema.properties)
+   * @param {JsonOperator} jsonOperator - The operator to be applied to given json object
+   * 
+   */
+  private modifyMARCJson(jsonObject: Object, schema: Object, jsonOperator: JsonOperator): Object {
+    const modifiedJson = {};
+    // TODO: create multiple instances of JsonOperator inside forEach function if this operation should be parallel
+    // FIXME: doesn't flatten table-list in complex-list
+    Object.keys(jsonObject)
+      .forEach(prop => {
+        switch (this.componentTypeService.getComponentType(schema[prop])) {
+          case 'table-list':
+            modifiedJson[prop] = [];
+            jsonObject[prop].forEach((element, i) => {
+              modifiedJson[prop][i] = jsonOperator.apply(element, schema[prop]['items']);
+            });
+            break;
+          case 'object':
+            modifiedJson[prop] = jsonOperator.apply(jsonObject[prop], schema[prop]);
+            break;
+          default:
+            modifiedJson[prop] = jsonObject[prop];
+        }
+      });
+    return modifiedJson;
   }
 }
 
@@ -120,7 +109,7 @@ export class JsonUtilService {
  * Single function utility interface
  */
 interface JsonOperator {
-  apply(jsonObject: {});
+  apply(jsonObject: Object, schema?: Object): Object;
 }
 
 /**
@@ -129,36 +118,31 @@ interface JsonOperator {
  * @extends JsonOperator
  */
 class JsonFlattener implements JsonOperator {
-  private result: {};
+  private result: Object;
 
   /**
-   * @param {{}} jsonObject - The json object to be flattened. 
+   * Flattens only objects!
+   * 
+   * @param {Object} jsonObject - The json object to be flattened. 
+   * @param {Object} schema - The json schema to be flattened.
    */
-  apply(jsonObject: {}): {} {
+  apply(jsonObject: Object, schema: Object): Object {
     this.result = {};
-    this.recurse(jsonObject, '');
-    return this.result
+    this.recurse(jsonObject, '', schema);
+    return this.result;
   }
 
-  private recurse(cur, prop) {
-    switch (cur.constructor.name) {
-      case 'Array':
-        if (cur.length === 0) {
-          this.result[prop] = [];
-        } else {
-          cur.forEach((el, i) => this.recurse(el, prop ? `${prop}.${i}` : `${i}`));
-        }
-        break;
-      case 'Object':
+  private recurse(cur, prop, schema) {
+    switch (schema['type']) {
+      case 'object':
         const keys = Object.keys(cur);
         if (keys.length === 0) {
           this.result[prop] = {};
         } else {
-          Object.keys(cur)
-            .forEach(p => this.recurse(cur[p], prop ? `${prop}.${p}` : p));
+          keys.forEach(p => this.recurse(cur[p], prop ? `${prop}.${p}` : p, schema['properties'][p]));
         }
         break;
-      default: // It is not an object neither an array.
+      default:
         this.result[prop] = cur;
     }
   }
@@ -171,12 +155,13 @@ class JsonFlattener implements JsonOperator {
  */
 class JsonUnFlattener implements JsonOperator {
   /** 
-   * @param {{}} jsonObject - The json object to be unflattened. 
+   * @param {Object} jsonObject - The json object to be unflattened. 
+   * @param {Object} schema - NOT USED!
    */
-  apply(jsonObject: {}) {
-    const result = {};
+  apply(jsonObject: Object, schema: Object): Object {
+    const json = {};
     Object.keys(jsonObject).forEach(p => {
-      let cur = result;
+      let cur = json;
       let prop = '';
       let last = 0;
       let idx;
@@ -189,6 +174,6 @@ class JsonUnFlattener implements JsonOperator {
       } while (idx >= 0);
       cur[prop] = jsonObject[p];
     });
-    return result[''];
+    return { json: json[''] };
   }
 }

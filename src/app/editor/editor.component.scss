@@ -1,11 +1,22 @@
 @import '~bootstrap-sass/assets/stylesheets/_bootstrap.scss';
 
+$text-button-font-size: 13px;
+$button-font-size: 21px;
+
 #editor {
   font-size: 13px;
+
+  td, th {
+    padding: 3px;
+  }
+  
+  td.label-holder {
+    width: 1%;
+  }
 }
 
 .editor-btn-delete {
-  font-size: 21px;
+  font-size: $button-font-size;
   font-weight: bold;
   line-height: 1;
   text-shadow: 0 1px 0 #fff;
@@ -20,13 +31,13 @@
   }
 
   &.editor-btn-delete-text {
-    font-size: 15px;
+    font-size: $text-button-font-size;
     opacity: 0.5;
   }
 }
 
 .btn-new-field {
-  font-size: 15px;
+  font-size: $button-font-size;
   font-weight: bold;
   line-height: 1;
   text-shadow: 0 1px 0 #fff;
@@ -54,9 +65,13 @@
   }
 }
 
-td.button-holder {
-  width: 1%;
-  white-space: nowrap;
+td.button-holder, th.button-holder {
+  width: 65px;
+  vertical-align: middle !important;
+
+  button {
+    padding: 2px;
+  }
 }
 
 .add-new-field-container {

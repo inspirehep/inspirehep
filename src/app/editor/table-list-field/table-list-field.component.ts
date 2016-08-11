@@ -23,29 +23,36 @@
 import { Component, Input } from '@angular/core';
 
 import { AbstractArrayFieldComponent } from '../abstract-array-field';
+import { AddFieldToListDropdownComponent } from '../add-field-dropdown'
+import { ObjectFieldComponent } from '../object-field';
 import { PrimitiveFieldComponent } from '../primitive-field';
+import { PrimitiveListFieldComponent } from '../primitive-list-field';
 
 import { MapToIterablePipe } from '../shared/pipes';
 
-import { EmptyValueService } from '../shared/services';
-
+import { ComponentTypeService, EmptyValueService } from '../shared/services';
 
 @Component({
-  selector: 'object-array-field',
-  directives: [PrimitiveFieldComponent],
-  pipes: [MapToIterablePipe],
-  providers: [EmptyValueService],
-  styles: [
-    require('./object-array-field.component.scss')
+  selector: 'table-list-field',
+  directives: [
+    AddFieldToListDropdownComponent,
+    ObjectFieldComponent,
+    PrimitiveFieldComponent,
+    PrimitiveListFieldComponent
   ],
-  template: require('./object-array-field.component.html'),
+  pipes: [MapToIterablePipe],
+  providers: [ComponentTypeService, EmptyValueService],
+  styles: [
+    require('./table-list-field.component.scss')
+  ],
+  template: require('./table-list-field.component.html'),
 })
-export class ObjectArrayFieldComponent extends AbstractArrayFieldComponent {
+export class TableListFieldComponent extends AbstractArrayFieldComponent {
 
   @Input() values: Array<Object>;
   @Input() schema: Object;
 
-  constructor(public emptyValueService: EmptyValueService) {
+  constructor(private componentTypeService: ComponentTypeService, public emptyValueService: EmptyValueService) {
     super()
   }
 
@@ -59,7 +66,7 @@ export class ObjectArrayFieldComponent extends AbstractArrayFieldComponent {
       Object.keys(copy)
         .filter(prop => copy[prop] != null)
         .forEach(prop => {
-          let propSchema = this.getInnerSchema(prop);
+          let propSchema = this.schema['items']['properties'][prop];
           copy[prop] = this.emptyValueService.generateEmptyValue(propSchema);
         });
       this._emptyValue = copy;
@@ -67,17 +74,9 @@ export class ObjectArrayFieldComponent extends AbstractArrayFieldComponent {
     return Object.assign({}, this._emptyValue);
   }
 
-  /**
-   * Returns inner schema of unflattened and flattened fields
-   * 
-   * @param {string} fieldPath - dot separated path of the field. EX: 'foo.bar'
-   */
-  private getInnerSchema(fieldPath: string): Object {
-    let props = fieldPath.split('.');
-    let subSchema = this.schema['items'];
-    props.forEach(prop => {
-      subSchema = subSchema['properties'][prop];
-    });
-    return subSchema
+  // TODO: cache the types for each field!
+  getFieldType(field: string): string {
+    let fieldSchema = this.schema['items']['properties'][field];
+    return this.componentTypeService.getComponentType(fieldSchema);
   }
 }

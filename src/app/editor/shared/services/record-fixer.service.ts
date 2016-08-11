@@ -23,13 +23,13 @@
 import { Injectable } from '@angular/core';
 
 import { EmptyValueService } from './empty-value.service';
-import { JsonUtilService } from './json-util.service'
+import { ComponentTypeService } from './component-type.service';
 
 @Injectable()
 export class RecordFixerService {
 
   private emptyValueService: EmptyValueService = new EmptyValueService();
-  private jsonUtilService: JsonUtilService = new JsonUtilService();
+  private componentTypeService: ComponentTypeService = new ComponentTypeService();
 
   // TODO: return fixed record!
   fixRecord(record: Object, schema: Object) {
@@ -103,7 +103,7 @@ export class RecordFixerService {
     }
     let value = parent[key];
 
-    if (this.jsonUtilService.getType(value) === 'ObjectArray') {
+    if (this.componentTypeService.getComponentType(schema) === 'table-list') {
       this.fixTableList(value, schema);
     }
 

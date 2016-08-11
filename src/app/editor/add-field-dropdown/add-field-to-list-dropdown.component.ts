@@ -29,7 +29,7 @@ import { DifferentKeysPipe } from '../shared/pipes';
 import { EmptyValueService } from '../shared/services';
 
 @Component({
-  selector: 'add-field-dropdown',
+  selector: 'add-field-to-list-dropdown',
   directives: [DROPDOWN_DIRECTIVES],
   pipes: [DifferentKeysPipe],
   providers: [EmptyValueService],
@@ -38,18 +38,34 @@ import { EmptyValueService } from '../shared/services';
   ],
   template: require('./add-field-dropdown.component.html')
 })
-export class AddFieldDropdownComponent  {
+export class AddFieldToListDropdownComponent  {
 
+  // 'items.properties' of an array of objects schema
   @Input() schema: Object;
-  @Input() record: Object;
+  // WARN: every value of values should have the same properties
+  @Input() values: Array<Object>;
+  // sample value from values, to extract keys
+  value: Object
 
   constructor(private emptyValueService: EmptyValueService) {
-  
+    
   }
 
-  addFieldFromSchema(name: string) {
-    let subSchema = this.schema[name];
-    this.record[name] = this.emptyValueService.generateEmptyValue(subSchema);
+  addFieldFromSchema(field: string) {
+    let fieldSchema = this.schema[field];
+    let emptyValue = this.emptyValueService.generateEmptyValue(fieldSchema);
+    this.values.forEach(value => {
+      if (typeof emptyValue === 'object') {
+        // Object.assign is used to create new reference per value, so that they won't be binded to same variable
+        value[field] = Object.assign({}, emptyValue);
+      } else {
+        value[field] = emptyValue;
+      }
+    });
+  }
+
+  ngOnInit() {
+    this.value = this.values[0];
   }
 
 }

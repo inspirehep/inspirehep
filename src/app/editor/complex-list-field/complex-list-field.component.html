@@ -3,21 +3,21 @@
     <table class="table table-bordered">
       <tbody *ngFor="let value of values; let i = index; trackBy:trackByFunction">
         <tr *ngFor="let row of value | mapToIterable; trackBy:trackByFunction">
-          <td>
+          <td class="label-holder">
             <div>
-              <strong>{{row.key}}</strong>
+              <strong>{{row.key | underscoreToSpace}}</strong>
             </div>
           </td>
           <td>
-            <div [ngSwitch]="getType(row.value)">
-              <div *ngSwitchCase="'Object'">
+            <div [ngSwitch]="getFieldType(row.key)">
+              <div *ngSwitchCase="'object'">
                 <object-field [(value)]="value[row.key]" [schema]="schema.items.properties[row.key]"></object-field>
               </div>
-              <div *ngSwitchCase="'ObjectArray'">
-                <object-array-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></object-array-field>
+              <div *ngSwitchCase="'table-list'">
+                <table-list-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></table-list-field>
               </div>
-              <div *ngSwitchCase="'PrimitiveArray'">
-                <primitive-array-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></primitive-array-field>
+              <div *ngSwitchCase="'primitive-list'">
+                <primitive-list-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></primitive-list-field>
               </div>
               <div *ngSwitchDefault>
                 <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, i, row.key)" [schema]="schema.items.properties[row.key]"></primitive-field>
@@ -28,10 +28,10 @@
         <!-- ADD-FIELD-FROM-SCHEMA, UP/DOWN and DELETE buttons for each row group -->
         <tr *ngIf="values.length > 0">
           <td class="button-holder">
-            <add-field-dropdown [(record)]="values[i]" [schema]="schema.items.properties"></add-field-dropdown>
-            <button type="button" class="editor-btn-delete editor-btn-delete-text" (click)="deleteElement(i)">Delete field</button>
+            <add-field-dropdown [(value)]="values[i]" [schema]="schema.items.properties"></add-field-dropdown>
           </td>
           <td class="button-holder">
+            <button type="button" class="editor-btn-delete" (click)="deleteElement(i)">&times;</button>
             <button *ngIf="i > 0" type="button" class="editor-btn-move-up" (click)="moveElement(i, -1)">▲</button>
             <button *ngIf="i < (values.length - 1)" class="editor-btn-move-down" type="button" (click)="moveElement(i, 1)">▼</button>
           </td>
@@ -40,6 +40,6 @@
     </table>
   </div>
   <div class="add-new-field-container">
-    <button type="button" class="btn-new-field" (click)="addNewElement()">Add field</button>
+    <button type="button" class="btn-new-field" (click)="addNewElement()">+</button>
   </div>
 </div>

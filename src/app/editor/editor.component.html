@@ -1,28 +1,25 @@
 <div>
     <table id="editor" class="table table-striped">
         <tr *ngFor="let pair of record | mapToIterable; trackBy:trackByFunction">
-            <td>
+            <td class="label-holder">
                 <label>{{pair.key | underscoreToSpace}}</label>
             </td>
             <td>
-                <div [ngSwitch]="getType(pair.value)">
-                    <div *ngSwitchCase="'ObjectArray'">
-                        <object-array-field [(values)]="pair.value" [schema]="schema[pair.key]"></object-array-field>
+                <div [ngSwitch]="getFieldType(pair.key)">
+                    <div *ngSwitchCase="'table-list'">
+                        <table-list-field [(values)]="pair.value" [schema]="schema[pair.key]"></table-list-field>
                     </div>
-                    <div *ngSwitchCase="'ArrayInArray'">
-                        <array-in-array-field [(values)]="pair.value" [schema]="schema[pair.key]"></array-in-array-field>
+                    <div *ngSwitchCase="'complex-list'">
+                        <complex-list-field [(values)]="pair.value" [schema]="schema[pair.key]"></complex-list-field>
                     </div>
-                    <div *ngSwitchCase="'PrimitiveArray'">
-                        <primitive-array-field [(values)]="pair.value" [schema]="schema[pair.key]"></primitive-array-field>
+                    <div *ngSwitchCase="'primitive-list'">
+                        <primitive-list-field [(values)]="pair.value" [schema]="schema[pair.key]"></primitive-list-field>
                     </div>
-                    <div *ngSwitchCase="'Object'">
+                    <div *ngSwitchCase="'object'">
                         <object-field [(value)]="pair.value" [schema]="schema[pair.key]"></object-field>
                     </div>
-                    <div *ngSwitchCase="'String'">
-                        <primitive-field [value]="record[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema[pair.key]"></primitive-field>
-                    </div>
                     <div *ngSwitchDefault>
-                        #DEBUG: {{pair.value.constructor.name}}
+                        <primitive-field [value]="record[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema[pair.key]"></primitive-field>
                     </div>
                 </div>
             </td>
