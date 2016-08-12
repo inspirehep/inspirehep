@@ -20,26 +20,11 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Pipe, PipeTransform } from '@angular/core';
+export abstract class AbstractAddFieldDropdownComponent {
+  schema: Object;
+  value: Object;
 
-@Pipe({
-  name: 'mapToIterable',
-  pure:false, // FIX for http://stackoverflow.com/questions/34456430/ngfor-doesnt-update-data-with-pipe-in-angular2
-})
-
-export class MapToIterablePipe implements PipeTransform {
-  transform(map: {}): any {
-    if (!map)
-      return null;
-    return Object.keys(map)
-      .map(key => new Pair<string>(key, map[key]));
+  get disabled(): boolean {
+    return Object.keys(this.schema).length === Object.keys(this.value).length;
   }
 }
-
-class Pair<T> {
-  constructor(public key: string, public value: T) {
-    
-  }
-}
-
-

@@ -43,8 +43,7 @@ export class RecordFixerService {
 
     this.insertEmptyIntoAlwaysShowFields(record, schema);
   }
-
-
+  
   private insertEmptyIntoAlwaysShowFields(record: Object, schema: Object) {
     let paths = new AlwaysShowPathFinder().getPaths(schema);
     paths.forEach(path => {

@@ -1,6 +1,6 @@
 <div>
   <table class="table table-bordered">
-    <tr *ngFor="let row of value | mapToIterable; trackBy:trackByFunction">
+    <tr *ngFor="let row of value | mapToSortedIterable:schema.properties; trackBy:trackByFunction">
       <td>
         <div>
           <strong>{{row.key}}</strong>

@@ -29,7 +29,7 @@ import { TableListFieldComponent } from '../table-list-field';
 import { PrimitiveListFieldComponent } from '../primitive-list-field';
 import { PrimitiveFieldComponent } from '../primitive-field';
 
-import { MapToIterablePipe, UnderscoreToSpacePipe } from '../shared/pipes';
+import { MapToSortedIterablePipe, UnderscoreToSpacePipe } from '../shared/pipes';
 
 import { ComponentTypeService, EmptyValueService } from '../shared/services';
 
@@ -42,7 +42,7 @@ import { ComponentTypeService, EmptyValueService } from '../shared/services';
     PrimitiveFieldComponent,
     PrimitiveListFieldComponent
   ],
-  pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
+  pipes: [MapToSortedIterablePipe, UnderscoreToSpacePipe],
   providers: [ComponentTypeService, EmptyValueService],
   styles: [
     require('./complex-list-field.component.scss')

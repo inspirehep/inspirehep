@@ -28,7 +28,7 @@ import { ObjectFieldComponent } from '../object-field';
 import { PrimitiveFieldComponent } from '../primitive-field';
 import { PrimitiveListFieldComponent } from '../primitive-list-field';
 
-import { MapToIterablePipe } from '../shared/pipes';
+import { MapToSortedIterablePipe } from '../shared/pipes';
 
 import { ComponentTypeService, EmptyValueService } from '../shared/services';
 
@@ -40,7 +40,7 @@ import { ComponentTypeService, EmptyValueService } from '../shared/services';
     PrimitiveFieldComponent,
     PrimitiveListFieldComponent
   ],
-  pipes: [MapToIterablePipe],
+  pipes: [MapToSortedIterablePipe],
   providers: [ComponentTypeService, EmptyValueService],
   styles: [
     require('./table-list-field.component.scss')

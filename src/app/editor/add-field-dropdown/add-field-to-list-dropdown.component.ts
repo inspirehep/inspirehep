@@ -24,6 +24,8 @@ import { Component, Input } from '@angular/core';
 
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
+import { AbstractAddFieldDropdownComponent } from './abstract-add-field-dropdown.component';
+
 import { DifferentKeysPipe } from '../shared/pipes';
 
 import { EmptyValueService } from '../shared/services';
@@ -38,7 +40,7 @@ import { EmptyValueService } from '../shared/services';
   ],
   template: require('./add-field-dropdown.component.html')
 })
-export class AddFieldToListDropdownComponent  {
+export class AddFieldToListDropdownComponent extends AbstractAddFieldDropdownComponent {
 
   // 'items.properties' of an array of objects schema
   @Input() schema: Object;
@@ -48,7 +50,7 @@ export class AddFieldToListDropdownComponent  {
   value: Object
 
   constructor(private emptyValueService: EmptyValueService) {
-    
+    super();
   }
 
   addFieldFromSchema(field: string) {

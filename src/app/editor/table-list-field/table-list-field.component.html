@@ -3,7 +3,7 @@
     <table class="table table-bordered editable-inner-table">
       <thead class="thead-inverse">
         <tr>
-          <th *ngFor="let column of values[0] | mapToIterable; trackBy:trackByFunction">
+          <th *ngFor="let column of values[0] | mapToSortedIterable:schema.items.properties; trackBy:trackByFunction">
             {{column.key}}
           </th>
 
@@ -15,7 +15,7 @@
       </thead>
       <tr *ngFor="let row of values; let i = index; trackBy:trackByFunction">
         <!-- Element value -->
-        <td *ngFor="let column of row | mapToIterable; trackBy:trackByFunction">
+        <td *ngFor="let column of row | mapToSortedIterable:schema.items.properties; trackBy:trackByFunction">
           <div [ngSwitch]="getFieldType(column.key)">
             <div *ngSwitchCase="'primitive-list'" class="list-holder">
               <primitive-list-field [(values)]="row[column.key]" [schema]="schema.items.properties[column.key]"></primitive-list-field>

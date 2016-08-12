@@ -66,6 +66,19 @@ Flag to show fields on the UI, even if they aren't present in the record.
 boolean
 ```
 
+#### x_editor_priortiy
+
+Indicator to be used for sorting all fields on the UI.
+Larger priority fields appears up-most/left-most on the UI.
+
+```
+number
+```
+
+```
+default: 0
+```
+
 # DEVELOPMENT
 
 ## Tech

@@ -3,13 +3,15 @@
   "description": "An article or thesis or book or...",
   "properties": {
     "abstracts": {
+      "x_editor_priority": 100,
       "items": {
         "properties": {
           "source": {
             "type": "string"
           },
           "value": {
-            "type": "string"
+            "type": "string",
+            "x_editor_priority": 50
           }
         },
         "type": "object"
@@ -93,6 +95,7 @@
             "type": "array"
           },
           "value": {
+            "x_editor_priority": 50,
             "pattern": "\\d{4}.\\d{4,5}|\\w+-\\w+/\\d+|\\w+/\\d+",
             "type": "string"
           }
@@ -130,6 +133,7 @@
                   "title": "URI for the Institution collection record"
                 },
                 "value": {
+                  "x_editor_priority": 50,
                   "description": "The affiliation as it appears on the paper",
                   "title": "Name of institution",
                   "type": "string"
@@ -157,6 +161,7 @@
                   "type": "string"
                 },
                 "value": {
+                  "x_editor_priority": 50,
                   "enum": [
                     "Conceptualization",
                     "Data curation",
@@ -231,6 +236,7 @@
                   "type": "string"
                 },
                 "value": {
+                  "x_editor_priority": 50,
                   "title": "ID",
                   "type": "string"
                 }
@@ -314,6 +320,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "description": "PACS or PDG codes. FIXME: What about better separating these into a PACS field and a PDG field?",
             "title": "Number",
             "type": "string"
@@ -343,6 +350,7 @@
             "type": "object"
           },
           "value": {
+            "x_editor_priority": 50,
             "type": "string"
           }
         },
@@ -453,6 +461,7 @@
             "x_editor_always_show": true
           },
           "value": {
+            "x_editor_priority": 50,
             "pattern": "10\\.\\d+(\\.\\d+)?/.+",
             "title": "DOI",
             "type": "string",
@@ -496,6 +505,7 @@
             "type": "boolean"
           },
           "value": {
+            "x_editor_priority": 50,
             "title": "Number",
             "type": "string"
           }
@@ -559,6 +569,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "type": "string"
           }
         },
@@ -607,6 +618,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "type": "string"
           }
         },
@@ -646,6 +658,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "format": "isbn",
             "type": "string"
           }
@@ -729,6 +742,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "title": "Value of the persistent identifier",
             "type": "string"
           }
@@ -751,6 +765,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "type": "string"
           }
         },
@@ -763,6 +778,7 @@
       "uniqueItems": true
     },
     "publication_info": {
+      "x_editor_priority": 90,
       "description": "FIXME: Shall we split conference information away? FIXME: shall we move the DOI and ISBN next to where it belongs? So that we can also align erratum and friends?",
       "items": {
         "properties": {
@@ -1019,6 +1035,7 @@
                   "type": "string"
                 },
                 "value": {
+                  "x_editor_priority": 50,
                   "type": "string"
                 }
               },
@@ -1046,6 +1063,7 @@
             "x_editor_always_show": true
           },
           "titles": {
+            "x_editor_priority": 101,
             "items": {
               "properties": {
                 "source": {
@@ -1070,6 +1088,7 @@
                   "type": "string"
                 },
                 "value": {
+                  "x_editor_priority": 50,
                   "format": "url",
                   "type": "string"
                 }
@@ -1093,6 +1112,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "type": "string"
           }
         },
@@ -1247,6 +1267,7 @@
                   "type": "object"
                 },
                 "value": {
+                  "x_editor_priority": 50,
                   "type": "string"
                 }
               },
@@ -1303,6 +1324,7 @@
       "uniqueItems": true
     },
     "titles": {
+      "x_editor_priority": 101,
       "items": {
         "properties": {
           "source": {
@@ -1345,6 +1367,7 @@
             "type": "string"
           },
           "value": {
+            "x_editor_priority": 50,
             "format": "url",
             "type": "string"
           }

@@ -26,12 +26,12 @@ import { AbstractTrackerComponent } from '../abstract-tracker';
 import { AddFieldToObjectDropdownComponent } from '../add-field-dropdown';
 import { PrimitiveFieldComponent } from '../primitive-field'
 
-import { MapToIterablePipe } from '../shared/pipes';
+import { MapToSortedIterablePipe } from '../shared/pipes';
 
 @Component({
   selector: 'object-field',
   directives: [AddFieldToObjectDropdownComponent, PrimitiveFieldComponent],
-  pipes: [MapToIterablePipe],
+  pipes: [MapToSortedIterablePipe],
   styles: [
     require('./object-field.component.scss')
   ],
