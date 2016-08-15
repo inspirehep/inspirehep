@@ -29,7 +29,7 @@ import { ObjectFieldComponent } from './object-field';
 import { PrimitiveListFieldComponent } from './primitive-list-field';
 import { PrimitiveFieldComponent } from './primitive-field';
 
-import { MapToIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
+import { MapToSortedIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
 
 import { ComponentTypeService } from './shared/services';
 
@@ -48,7 +48,7 @@ import {
     TableListFieldComponent,
     ObjectFieldComponent
   ],
-  pipes: [MapToIterablePipe, UnderscoreToSpacePipe],
+  pipes: [MapToSortedIterablePipe, UnderscoreToSpacePipe],
   providers: [
     ComponentTypeService,
     JsonUtilService,

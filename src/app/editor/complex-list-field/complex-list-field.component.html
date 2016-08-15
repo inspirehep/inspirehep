@@ -2,7 +2,7 @@
   <div>
     <table class="table table-bordered">
       <tbody *ngFor="let value of values; let i = index; trackBy:trackByFunction">
-        <tr *ngFor="let row of value | mapToIterable; trackBy:trackByFunction">
+        <tr *ngFor="let row of value | mapToSortedIterable:schema.items.properties; trackBy:trackByFunction">
           <td class="label-holder">
             <div>
               <strong>{{row.key | underscoreToSpace}}</strong>

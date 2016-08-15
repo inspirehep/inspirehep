@@ -1,6 +1,6 @@
 <div>
     <table id="editor" class="table table-striped">
-        <tr *ngFor="let pair of record | mapToIterable; trackBy:trackByFunction">
+        <tr *ngFor="let pair of record | mapToSortedIterable:schema; trackBy:trackByFunction">
             <td class="label-holder">
                 <label>{{pair.key | underscoreToSpace}}</label>
             </td>

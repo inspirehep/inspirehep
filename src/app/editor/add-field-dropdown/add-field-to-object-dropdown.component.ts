@@ -22,7 +22,10 @@
 
 import { Component, Input } from '@angular/core';
 
+
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+
+import { AbstractAddFieldDropdownComponent } from './abstract-add-field-dropdown.component';
 
 import { DifferentKeysPipe } from '../shared/pipes';
 
@@ -38,19 +41,18 @@ import { EmptyValueService } from '../shared/services';
   ],
   template: require('./add-field-dropdown.component.html')
 })
-export class AddFieldToObjectDropdownComponent {
+export class AddFieldToObjectDropdownComponent extends AbstractAddFieldDropdownComponent {
 
   // 'propeties' of an object schema
   @Input() schema: Object;
   @Input() value: Object;
 
   constructor(private emptyValueService: EmptyValueService) {
-  
+    super();
   }
 
   addFieldFromSchema(name: string) {
     let subSchema = this.schema[name];
     this.value[name] = this.emptyValueService.generateEmptyValue(subSchema);
   }
-
 }
