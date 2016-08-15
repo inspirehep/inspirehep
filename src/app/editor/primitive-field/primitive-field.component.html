@@ -5,7 +5,7 @@
     </div>
     <div *ngSwitchCase="'enum'">
       <!-- TODO: set placeholder -->
-      <searchable-dropdown [value]="value" [items]="schema.enum" (onSelect)="onModelChange($event)"></searchable-dropdown>
+      <searchable-dropdown [value]="value" [items]="schema.enum" [shortcutMap]="schema.x_editor_enum_shortcut_map" (onSelect)="onModelChange($event)"></searchable-dropdown>
     </div>
     <div *ngSwitchCase="'autocomplete'">
       <autocomplete-input [value]="value"  [autocompletionOptions]="schema.x_editor_autocomplete" (onValueChange)="onModelChange($event)" [placeholder]="schema.title"></autocomplete-input>

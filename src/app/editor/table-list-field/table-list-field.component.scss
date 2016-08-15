@@ -5,15 +5,16 @@ table.editable-inner-table {
     background-color: $table-editable-rows-background;
   }
 
-  td {
-    padding: 0px !important;
-  }
-
   thead > tr > th {
     border-bottom: 0px;
   }
 
   div.list-holder {
     padding: 3px;
+  }
+
+  td {
+    padding: 0 0 0 1px !important;
+    vertical-align: middle !important;
   }
 }
