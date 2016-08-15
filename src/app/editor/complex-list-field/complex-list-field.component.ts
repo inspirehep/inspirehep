@@ -22,7 +22,7 @@
 
 import { Component, Input } from '@angular/core';
 
-import { AbstractArrayFieldComponent } from '../abstract-array-field';
+import { AbstractListFieldComponent } from '../abstract-list-field';
 import { AddFieldToObjectDropdownComponent } from '../add-field-dropdown';
 import { ObjectFieldComponent } from '../object-field';
 import { TableListFieldComponent } from '../table-list-field';
@@ -49,10 +49,11 @@ import { ComponentTypeService, EmptyValueService } from '../shared/services';
   ],
   template: require('./complex-list-field.component.html')
 })
-export class ComplexListFieldComponent extends AbstractArrayFieldComponent {
+export class ComplexListFieldComponent extends AbstractListFieldComponent {
 
   @Input() values: Array<Object>;
   @Input() schema: Object;
+  @Input() path: string;
 
   constructor(public emptyValueService: EmptyValueService, private componentTypeService: ComponentTypeService) {
     super();
@@ -63,4 +64,5 @@ export class ComplexListFieldComponent extends AbstractArrayFieldComponent {
     let fieldSchema = this.schema['items']['properties'][field];
     return this.componentTypeService.getComponentType(fieldSchema);
   }
+
 }

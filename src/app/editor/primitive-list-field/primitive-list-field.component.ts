@@ -21,7 +21,7 @@ import { Component, Input } from '@angular/core';
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { AbstractArrayFieldComponent } from '../abstract-array-field';
+import { AbstractListFieldComponent } from '../abstract-list-field';
 import { PrimitiveFieldComponent } from '../primitive-field';
 
 import { EmptyValueService } from '../shared/services';
@@ -37,11 +37,12 @@ import { EmptyValueService } from '../shared/services';
   template: require('./primitive-list-field.component.html'),
 
 })
-// FIXME: this doesn't have all stuff of AbstractArrayFieldComponent. Maybe, it shouldn't extend it.
-export class PrimitiveListFieldComponent extends AbstractArrayFieldComponent {
+// FIXME: this doesn't have all stuff of AbstractListFieldComponent. Maybe, it shouldn't extend it.
+export class PrimitiveListFieldComponent extends AbstractListFieldComponent {
 
   @Input() values: Array<any>;
   @Input() schema: Object;
+  @Input() path: string;
 
   constructor(public emptyValueService: EmptyValueService) {
     super();
@@ -59,5 +60,13 @@ export class PrimitiveListFieldComponent extends AbstractArrayFieldComponent {
    */
   onValueChange(event: any, index: number) {
     this.values[index] = event;
+  }
+
+  /**
+   * Returns path of an element at index.
+   * @override
+   */
+  getValuePath(index: number): string {
+    return `${this.path}.${index}`;
   }
 }

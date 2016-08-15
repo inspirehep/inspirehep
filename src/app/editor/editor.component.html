@@ -7,19 +7,19 @@
             <td>
                 <div [ngSwitch]="getFieldType(pair.key)">
                     <div *ngSwitchCase="'table-list'">
-                        <table-list-field [(values)]="pair.value" [schema]="schema[pair.key]"></table-list-field>
+                        <table-list-field [(values)]="pair.value" [schema]="schema[pair.key]" [path]="pair.key"></table-list-field>
                     </div>
                     <div *ngSwitchCase="'complex-list'">
-                        <complex-list-field [(values)]="pair.value" [schema]="schema[pair.key]"></complex-list-field>
+                        <complex-list-field [(values)]="pair.value" [schema]="schema[pair.key]" [path]="pair.key"></complex-list-field>
                     </div>
                     <div *ngSwitchCase="'primitive-list'">
-                        <primitive-list-field [(values)]="pair.value" [schema]="schema[pair.key]"></primitive-list-field>
+                        <primitive-list-field [(values)]="pair.value" [schema]="schema[pair.key]" [path]="pair.key"></primitive-list-field>
                     </div>
                     <div *ngSwitchCase="'object'">
-                        <object-field [(value)]="pair.value" [schema]="schema[pair.key]"></object-field>
+                        <object-field [(value)]="pair.value" [schema]="schema[pair.key]" [path]="pair.key"></object-field>
                     </div>
                     <div *ngSwitchDefault>
-                        <primitive-field [value]="record[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema[pair.key]"></primitive-field>
+                        <primitive-field [value]="record[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema[pair.key]" [path]="pair.key"></primitive-field>
                     </div>
                 </div>
             </td>

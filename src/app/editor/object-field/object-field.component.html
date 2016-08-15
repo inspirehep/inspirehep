@@ -7,7 +7,7 @@
         </div>
       </td>
       <td>
-        <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, row.key)" [schema]=schema.properties[row.key]></primitive-field>
+        <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, row.key)" [schema]=schema.properties[row.key] [path]="getFieldPath(row.key)"></primitive-field>
       </td>
       <td class="button-holder">
         <button type="button" class="editor-btn-delete" (click)="deleteField(row.key)">&times;</button>

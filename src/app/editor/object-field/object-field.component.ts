@@ -41,6 +41,7 @@ export class ObjectFieldComponent extends AbstractTrackerComponent {
 
   @Input() value: Object;
   @Input() schema: Object;
+  @Input() path: string;
 
   onValueChange(event: any, key: string) {
     this.value[key] = event;
@@ -48,5 +49,9 @@ export class ObjectFieldComponent extends AbstractTrackerComponent {
 
   deleteField(name: string) {
     delete this.value[name];
+  }
+
+  getFieldPath(name: string): string {
+    return `${this.path}.${name}`;
   }
 }

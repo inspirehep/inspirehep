@@ -1,4 +1,4 @@
-<div [ngSwitch]="valueType">
+<div [ngSwitch]="valueType" id="{{path}}">
   <div class="editable-field-container">
     <div *ngSwitchCase="'string'">
       <textarea rows="1" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}"></textarea>

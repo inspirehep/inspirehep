@@ -25,13 +25,13 @@ import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angu
 import { AutocompleteInputComponent } from '../autocomplete-input';
 import { SearchableDropdownComponent } from '../searchable-dropdown';
 
-import { SchemaValidationService } from '../shared/services';
+import { ComponentTypeService, SchemaValidationService } from '../shared/services';
 
 @Component({
   selector: 'primitive-field',
   encapsulation: ViewEncapsulation.None,
   directives: [AutocompleteInputComponent, SearchableDropdownComponent],
-  providers: [SchemaValidationService],
+  providers: [ComponentTypeService, SchemaValidationService],
   styles: [
     require('./primitive-field.component.scss')
   ],
@@ -41,11 +41,12 @@ export class PrimitiveFieldComponent {
 
   @Input() value: string | number | boolean;
   @Input() schema: Object;
-  error: Error;
+  @Input() path: string;
+  errors: Error;
 
   @Output() onValueChange = new EventEmitter<any>();
 
-  constructor(private schemaValidationService: SchemaValidationService) {
+  constructor(private schemaValidationService: SchemaValidationService, private componentTypeService: ComponentTypeService) {
 
   }
 
@@ -63,15 +64,7 @@ export class PrimitiveFieldComponent {
   }
 
   get valueType(): string {
-    if (this.schema['x_editor_disabled']) {
-      return 'disabled';
-    } else if (this.schema['x_editor_autocomplete']) {
-      return 'autocomplete';
-    } else if (this.schema['enum']) {
-      return 'enum';
-    }
-    // integer, string or boolean
-    return typeof this.value;
+    return this.componentTypeService.getComponentType(this.schema);
   }
 
   ngOnInit() {

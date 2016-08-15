@@ -11,16 +11,16 @@
           <td>
             <div [ngSwitch]="getFieldType(row.key)">
               <div *ngSwitchCase="'object'">
-                <object-field [(value)]="value[row.key]" [schema]="schema.items.properties[row.key]"></object-field>
+                <object-field [(value)]="value[row.key]" [schema]="schema.items.properties[row.key]" [path]="getValuePath(i, row.key)"></object-field>
               </div>
               <div *ngSwitchCase="'table-list'">
-                <table-list-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></table-list-field>
+                <table-list-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]" [path]="getValuePath(i, row.key)"></table-list-field>
               </div>
               <div *ngSwitchCase="'primitive-list'">
-                <primitive-list-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]"></primitive-list-field>
+                <primitive-list-field [(values)]="value[row.key]" [schema]="schema.items.properties[row.key]" [path]="getValuePath(i, row.key)"></primitive-list-field>
               </div>
               <div *ngSwitchDefault>
-                <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, i, row.key)" [schema]="schema.items.properties[row.key]"></primitive-field>
+                <primitive-field [value]="value[row.key]" (onValueChange)="onValueChange($event, i, row.key)" [schema]="schema.items.properties[row.key]" [path]="getValuePath(i, row.key)"></primitive-field>
               </div>
             </div>
           </td>
