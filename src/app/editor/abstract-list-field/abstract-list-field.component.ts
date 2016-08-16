@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { AbstractTrackerComponent } from '../abstract-tracker';
+import { AbstractFieldComponent } from '../abstract-field';
 
 import { EmptyValueService } from '../shared/services';
 
@@ -30,7 +30,7 @@ import { EmptyValueService } from '../shared/services';
  * Instance properties declared here only to resolve syntax errors. 
  * Hence they need to be declared in children extending components (with decarators if necessary)
  */
-export abstract class AbstractListFieldComponent extends AbstractTrackerComponent {
+export abstract class AbstractListFieldComponent extends AbstractFieldComponent {
 
   values: Array<any>;
   schema: Object;

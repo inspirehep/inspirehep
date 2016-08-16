@@ -31,7 +31,7 @@ import { PrimitiveFieldComponent } from '../primitive-field';
 
 import { MapToSortedIterablePipe, UnderscoreToSpacePipe } from '../shared/pipes';
 
-import { ComponentTypeService, EmptyValueService } from '../shared/services';
+import { AppGlobalsService, ComponentTypeService, EmptyValueService } from '../shared/services';
 
 @Component({
   selector: 'complex-list-field',
@@ -55,7 +55,9 @@ export class ComplexListFieldComponent extends AbstractListFieldComponent {
   @Input() schema: Object;
   @Input() path: string;
 
-  constructor(public emptyValueService: EmptyValueService, private componentTypeService: ComponentTypeService) {
+  constructor(private componentTypeService: ComponentTypeService,
+    public emptyValueService: EmptyValueService,
+    public appGlobalsService: AppGlobalsService ) {
     super();
   }
 

@@ -34,10 +34,10 @@ export class RecordFixerService {
   // TODO: return fixed record!
   fixRecord(record: Object, schema: Object) {
     Object.keys(record).forEach(field => {
-      if (!schema[field]) {
+      if (!schema['properties'][field]) {
         this.deleteField(record, field);
       } else {
-        this.fix(field, record, schema[field])
+        this.fix(field, record, schema['properties'][field])
       }
     });
 
@@ -45,18 +45,9 @@ export class RecordFixerService {
   }
   
   private insertEmptyIntoAlwaysShowFields(record: Object, schema: Object) {
-    let paths = new AlwaysShowPathFinder().getPaths(schema);
+    let paths = new AlwaysShowPathFinder().getPaths(schema['properties']);
     paths.forEach(path => {
-      /**
-       * HACK:
-       * the function expects schema to be in json-schema format
-       * on the otherhand fetching service returns directly inside of `properties` from the schema
-       * that's why here `properties` is need.
-       * 
-       * Other wise we would have loop over Object.keys(schema) then call the function for each of them.
-       */
-      let rootSchema = { 'properties': schema };
-      this.insertEmptyIntoPath(path, record, rootSchema);
+      this.insertEmptyIntoPath(path, record, schema);
     });
   }
 
@@ -173,7 +164,7 @@ class AlwaysShowPathFinder {
 
 
   getPaths(schema: Object): Array<Array<string>> {
-    // Loop because fetchSchema returns inside of `properties` directly.
+    // Loop because param is actually not schema but inside of `schema.properties` directly.
     Object.keys(schema).forEach(prop => {
       this.find([prop], schema[prop]);
     })

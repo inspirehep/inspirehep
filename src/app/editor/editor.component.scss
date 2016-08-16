@@ -77,3 +77,12 @@ td.button-holder, th.button-holder {
 .add-new-field-container {
   position: relative;
 }
+
+div.error {
+    background: #f2968d;
+}
+
+button.save {
+  @extend .btn-primary;
+  float: right;
+}

@@ -21,32 +21,18 @@
 */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
+import { ReplaySubject, Observable } from 'rxjs';
 
 @Injectable()
-export class RecordService {
+export class AppGlobalsService {
+  private _globalErrorsSubject: ReplaySubject<Object> = new ReplaySubject<Object>(1);
 
-  constructor(private http: Http) { }
-
-  fetchRecord(url: string): Observable<{}> {
-    return this.http.get(url)
-      .map(res => res.json().metadata);
+  set globalErrors(errors: Object) {
+    this._globalErrorsSubject.next(errors);
   }
 
-  fetchMockRecord(): Observable<Object> {
-    return this.http.get('./assets/mock-data/literature.json')
-      .map(res => res.json().metadata);
-  }
-
-  fetchSchema(url: string): Observable<{}> {
-    return this.http.get(url)
-      .map(res => res.json().properties);
-  }
-
-  fetchMockSchema(): Observable<{}> {
-    return this.http.get('./assets/mock-data/hep.json')
-      .map(res => res.json());
+  get globalErrorsSubject(): ReplaySubject<Object> {
+    return this._globalErrorsSubject;
   }
 
 }

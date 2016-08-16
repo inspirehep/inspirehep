@@ -24,12 +24,17 @@ import { Component, Input } from '@angular/core';
 import { AbstractListFieldComponent } from '../abstract-list-field';
 import { PrimitiveFieldComponent } from '../primitive-field';
 
-import { EmptyValueService } from '../shared/services';
+import { TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+
+import { ErrorsToMessagesHtmlPipe } from '../shared/pipes';
+
+import { AppGlobalsService, EmptyValueService } from '../shared/services';
 
 
 @Component({
   selector: 'primitive-list-field',
-  directives: [PrimitiveFieldComponent],
+  directives: [TOOLTIP_DIRECTIVES, PrimitiveFieldComponent],
+  pipes: [ErrorsToMessagesHtmlPipe],
   providers: [EmptyValueService],
   styles: [
     require('./primitive-list-field.component.scss')
@@ -44,7 +49,8 @@ export class PrimitiveListFieldComponent extends AbstractListFieldComponent {
   @Input() schema: Object;
   @Input() path: string;
 
-  constructor(public emptyValueService: EmptyValueService) {
+  constructor(public emptyValueService: EmptyValueService,
+    public appGlobalsService: AppGlobalsService) {
     super();
   }
   
