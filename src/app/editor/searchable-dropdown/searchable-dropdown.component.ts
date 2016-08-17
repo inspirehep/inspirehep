@@ -35,11 +35,13 @@ import { FilterByPrefixPipe } from '../shared/pipes';
   ],
   template: require('./searchable-dropdown.component.html')
 })
-export class SearchableDropdownComponent  {
+export class SearchableDropdownComponent {
 
   @Input() items: Array<string>;
+  @Input() shortcutMap: Object;
   @Input() value: string;
   prefix: string = '';
+  status: { isOpen: boolean } = { isOpen: false };
 
   @Output() onSelect: EventEmitter<string> = new EventEmitter<string>();
 
@@ -47,15 +49,19 @@ export class SearchableDropdownComponent  {
     this.prefix = prefix;
   }
 
-  onToggle(isOpen: boolean) {
-    if (!isOpen) {
-      this.prefix = '';
-    }
-  }
-
   onItemClick(item: string) {
     this.value = item;
     this.onSelect.emit(item);
+  }
+
+  onKeypress(key: string) {
+    if (key === 'Enter') {
+      this.status.isOpen = false;
+      if (this.shortcutMap && this.shortcutMap[this.prefix]) {
+        this.onItemClick(this.shortcutMap[this.prefix]);
+      }
+      this.prefix = '';
+    }
   }
 
 }

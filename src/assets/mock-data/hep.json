@@ -536,6 +536,12 @@
             "x_editor_disabled": true
           },
           "term": {
+            "x_editor_enum_shortcut_map": {
+              "acc": "Accelerators",
+              "ast": "Astrophysics",
+              "eh": "Experiment-HEP",
+              "l": "Lattice"
+            },
             "enum": [
               "Accelerators",
               "Astrophysics",
