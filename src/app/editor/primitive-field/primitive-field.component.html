@@ -1,5 +1,5 @@
-<div [ngSwitch]="valueType">
-  <div class="editable-field-container">
+<div [ngSwitch]="valueType" id="{{path}}">
+  <div class="editable-field-container" [ngClass]="errorNgClass" [tooltipHtml]="errors | errorsToMessagesHtml" tooltipTrigger="mouseenter" [tooltipEnable]="isErrorTooltipEnabled">
     <div *ngSwitchCase="'string'">
       <textarea rows="1" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}"></textarea>
     </div>

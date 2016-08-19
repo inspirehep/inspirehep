@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { AbstractTrackerComponent } from '../abstract-tracker';
+import { AbstractFieldComponent } from '../abstract-field';
 
 import { EmptyValueService } from '../shared/services';
 
@@ -30,10 +30,11 @@ import { EmptyValueService } from '../shared/services';
  * Instance properties declared here only to resolve syntax errors. 
  * Hence they need to be declared in children extending components (with decarators if necessary)
  */
-export abstract class AbstractArrayFieldComponent extends AbstractTrackerComponent {
+export abstract class AbstractListFieldComponent extends AbstractFieldComponent {
 
   values: Array<any>;
   schema: Object;
+  path: string;
   emptyValueService: EmptyValueService;
   protected _emptyValue: any;
 
@@ -84,5 +85,12 @@ export abstract class AbstractArrayFieldComponent extends AbstractTrackerCompone
    */
   deleteElement(index: number) {
     this.values.splice(index, 1);
+  }
+
+  /**
+   * Returns path of the property of an element at index.
+   */
+  getValuePath(index: number, property: string): string {
+    return `${this.path}.${index}.${property}`;
   }
 }

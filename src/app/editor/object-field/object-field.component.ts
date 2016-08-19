@@ -22,11 +22,13 @@
 
 import { Component, Input } from '@angular/core';
 
-import { AbstractTrackerComponent } from '../abstract-tracker';
+import { AbstractFieldComponent } from '../abstract-field';
 import { AddFieldToObjectDropdownComponent } from '../add-field-dropdown';
 import { PrimitiveFieldComponent } from '../primitive-field'
 
 import { MapToSortedIterablePipe } from '../shared/pipes';
+
+import { AppGlobalsService } from '../shared/services';
 
 @Component({
   selector: 'object-field',
@@ -37,10 +39,15 @@ import { MapToSortedIterablePipe } from '../shared/pipes';
   ],
   template: require('./object-field.component.html')
 })
-export class ObjectFieldComponent extends AbstractTrackerComponent {
+export class ObjectFieldComponent extends AbstractFieldComponent {
 
   @Input() value: Object;
   @Input() schema: Object;
+  @Input() path: string;
+
+  constructor(public appGlobalsService: AppGlobalsService) {
+    super();
+  }
 
   onValueChange(event: any, key: string) {
     this.value[key] = event;
@@ -48,5 +55,9 @@ export class ObjectFieldComponent extends AbstractTrackerComponent {
 
   deleteField(name: string) {
     delete this.value[name];
+  }
+
+  getFieldPath(name: string): string {
+    return `${this.path}.${name}`;
   }
 }

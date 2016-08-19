@@ -36,10 +36,10 @@ export class JsonUtilService {
    * FIXME: shallow flattening!
    */
   flattenMARCSchema(schema: Object): Object {
-    Object.keys(schema)
-      .filter(field => this.componentTypeService.getComponentType(schema[field]) === 'table-list')
+    Object.keys(schema['properties'])
+      .filter(field => this.componentTypeService.getComponentType(schema['properties'][field]) === 'table-list')
       .forEach(field => {
-        let elementSchema = schema[field]['items'];
+        let elementSchema = schema['properties'][field]['items'];
         Object.keys(elementSchema['properties'])
           .filter(elementProp => elementSchema['properties'][elementProp]['type'] === 'object')
           .forEach(objectElementProp => {
@@ -59,7 +59,7 @@ export class JsonUtilService {
    * @param {Object} jsonObject - The marc json object to be flattened.
    */
   flattenMARCJson(jsonObject: Object, schema: Object): Object {
-    return this.modifyMARCJson(jsonObject, schema, new JsonFlattener());
+    return this.modifyMARCJson(jsonObject, schema['properties'], new JsonFlattener());
   }
 
   /**
@@ -68,7 +68,7 @@ export class JsonUtilService {
    * @param {Object} jsonObject - The marc json object to be unflattened.
    */
   unflattenMARCJson(jsonObject: Object, schema: Object): Object {
-    return this.modifyMARCJson(jsonObject, schema, new JsonUnFlattener());
+    return this.modifyMARCJson(jsonObject, schema['properties'], new JsonUnFlattener());
   }
 
   /**

@@ -20,15 +20,30 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-export abstract class AbstractTrackerComponent {
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'errorsToMessagesHtml',
+  pure: false
+})
+export class ErrorsToMessagesHtmlPipe implements PipeTransform {
   
   /**
-   * Used for track changes in model
-   * that is used to generate elements via *ngFor
-   * RELATED ISSUE: https://github.com/angular/angular/issues/4402
-   * TODO: Create a base component class that implements track by for all
+   * Transforms an array of error object (with message property)
+   * to html list of error message
+   * 
+   * @param {Object} map - the object to be transformed
+   * @param {Object} schema - the `schema.propeties` of the object to be used for sorting
+   * @return {Array<Pair<any>>} - sorted array of key-value pairs of given map's properties.
    */
-  trackByFunction(index: number, obj: any): any {
-    return index;
+  transform(errors: Array<Object>): string {
+    if (!errors || errors.length === 0) return null;
+
+    return errors
+      .map(error => error['message'])
+      .reduce((pre, cur) => `<li>${pre}</li><li>${cur}</li>`);
   }
 }
+
+
+

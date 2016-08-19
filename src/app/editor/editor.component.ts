@@ -21,8 +21,8 @@
 */
 
 import { Component, Input, ViewEncapsulation} from '@angular/core';
+import { Http } from '@angular/http';
 
-import { AbstractTrackerComponent } from './abstract-tracker';
 import { ComplexListFieldComponent } from './complex-list-field';
 import { TableListFieldComponent } from './table-list-field';
 import { ObjectFieldComponent } from './object-field';
@@ -31,9 +31,9 @@ import { PrimitiveFieldComponent } from './primitive-field';
 
 import { MapToSortedIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
 
-import { ComponentTypeService } from './shared/services';
-
 import {
+  AppGlobalsService,
+  ComponentTypeService,
   JsonUtilService,
   RecordFixerService,
 } from './shared/services';
@@ -50,6 +50,7 @@ import {
   ],
   pipes: [MapToSortedIterablePipe, UnderscoreToSpacePipe],
   providers: [
+    AppGlobalsService,
     ComponentTypeService,
     JsonUtilService,
     RecordFixerService
@@ -59,29 +60,53 @@ import {
   ],
   template: require('./editor.component.html'),
 })
-export class EditorComponent extends AbstractTrackerComponent {
+export class EditorComponent {
   // TODO: remove dummy
   @Input() record: Object;
   @Input() schema: Object;
 
-  constructor(private componentTypeService: ComponentTypeService, private jsonUtilService: JsonUtilService, private recordFixerService: RecordFixerService) {
-    super();
-  }
+
+  constructor(private http: Http,
+    private appGlobalsService: AppGlobalsService,
+    private componentTypeService: ComponentTypeService,
+    private jsonUtilService: JsonUtilService,
+    private recordFixerService: RecordFixerService) { }
 
   onValueChange(event: any, key: string) {
     this.record[key] = event;
   }
 
   getFieldType(field: string): string {
-    let fieldScehma = this.schema[field];
+    let fieldScehma = this.schema['properties'][field];
     return this.componentTypeService.getComponentType(fieldScehma);
   }
 
   // FIXME: called two times!
   ngOnChanges() {
+    // TODO: remove this when this is called only once.
+    if (Object.keys(this.record).length === 0) return;
+
     this.recordFixerService.fixRecord(this.record, this.schema);
     this.record = this.jsonUtilService.flattenMARCJson(this.record, this.schema);
     this.schema = this.jsonUtilService.flattenMARCSchema(this.schema);
     console.log(this.schema, this.record);
+  }
+
+  trackByFunction(index: number, obj: any): any {
+    return index;
+  }
+
+  saveRecord() {
+    // Remote validation before save.
+    let validationUrl = this.schema['x_editor_validation_url'];
+    if (validationUrl) {
+      // TODO: change it post and include record and schema in request when it is not mock.
+      this.http.get(validationUrl).map(res => res.json())
+        .subscribe(validationErrors => { 
+          this.appGlobalsService.globalErrors = validationErrors;
+        });
+    }
+
+    //TODO: implement saving and do it when only validationErrors is empty.
   }
 }

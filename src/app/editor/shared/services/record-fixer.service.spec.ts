@@ -32,9 +32,11 @@ describe('RecordFixerService', () => {
 
   it('should add properties that are marked as x_editor_always_show to a record with depth 1', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      prop: {
-        type: 'string',
-        x_editor_always_show: true,
+      properties: {
+        prop: {
+          type: 'string',
+          x_editor_always_show: true,
+        }
       }
     };
 
@@ -47,12 +49,14 @@ describe('RecordFixerService', () => {
 
   it('should add properties that are marked as x_editor_always_show to a record with depth 2', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      level1: {
-        type: 'object',
-        properties: {
-          prop: {
-            type: 'string',
-            x_editor_always_show: true,
+      properties: {
+        level1: {
+          type: 'object',
+          properties: {
+            prop: {
+              type: 'string',
+              x_editor_always_show: true,
+            }
           }
         }
       }
@@ -69,12 +73,14 @@ describe('RecordFixerService', () => {
 
   it('should add properties that are marked as x_editor_always_show to a record with depth 2 and without defined parent', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      level1: {
-        type: 'object',
-        properties: {
-          prop: {
-            type: 'string',
-            x_editor_always_show: true,
+      properties: {
+        level1: {
+          type: 'object',
+          properties: {
+            prop: {
+              type: 'string',
+              x_editor_always_show: true,
+            }
           }
         }
       }
@@ -89,13 +95,15 @@ describe('RecordFixerService', () => {
 
   it('should add properties that are marked as x_editor_always_show to a record with depth 2 and with array parent', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      level1: {
-        type: 'array',
-        items: {
-          properties: {
-            prop: {
-              type: 'string',
-              x_editor_always_show: true,
+      properties: {
+        level1: {
+          type: 'array',
+          items: {
+            properties: {
+              prop: {
+                type: 'string',
+                x_editor_always_show: true,
+              }
             }
           }
         }
@@ -115,13 +123,15 @@ describe('RecordFixerService', () => {
 
   it('should not overwrite existing properties that are marked as x_editor_always_show to a record with depth 2 and with array parent', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      level1: {
-        type: 'array',
-        items: {
-          properties: {
-            prop: {
-              type: 'string',
-              x_editor_always_show: true,
+      properties: {
+        level1: {
+          type: 'array',
+          items: {
+            properties: {
+              prop: {
+                type: 'string',
+                x_editor_always_show: true,
+              }
             }
           }
         }
@@ -147,9 +157,11 @@ describe('RecordFixerService', () => {
 
   it('should delete properties that are marked as x_editor_hidden in a record with depth 1', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      prop: {
-        type: 'string',
-        x_editor_hidden: true,
+      properties: {
+        prop: {
+          type: 'string',
+          x_editor_hidden: true,
+        }
       }
     };
 
@@ -164,12 +176,14 @@ describe('RecordFixerService', () => {
 
   it('should delete properties that are marked as x_editor_hidden in a record with depth 2', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      level1: {
-        type: 'object',
-        properties: {
-          prop: {
-            type: 'string',
-            x_editor_hidden: true,
+      properties: {
+        level1: {
+          type: 'object',
+          properties: {
+            prop: {
+              type: 'string',
+              x_editor_hidden: true,
+            }
           }
         }
       }
@@ -188,16 +202,18 @@ describe('RecordFixerService', () => {
 
   it('should delete properties that are marked as x_editor_hidden in a record with depth 2 and array parent', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      level1: {
-        type: 'array',
-        items: {
-          properties: {
-            prop: {
-              type: 'string',
-              x_editor_hidden: true,
-            }
-          },
-          type: 'object'
+      properties: {
+        level1: {
+          type: 'array',
+          items: {
+            properties: {
+              prop: {
+                type: 'string',
+                x_editor_hidden: true,
+              }
+            },
+            type: 'object'
+          }
         }
       }
     };
@@ -216,24 +232,26 @@ describe('RecordFixerService', () => {
 
   it('should fix elements of an array in a record, for all to have same properties for proper table-list UI look', inject([RecordFixerService], (recordFixerService: RecordFixerService) => {
     let schema = {
-      object_array: {
-        type: 'array',
-        items: {
-          properties: {
-            prop1: {
-              type: 'string'
+      properties: {
+        object_array: {
+          type: 'array',
+          items: {
+            properties: {
+              prop1: {
+                type: 'string'
+              },
+              prop2: {
+                type: 'string'
+              },
+              prop3: {
+                type: 'string'
+              },
+              prop4: {
+                type: 'string'
+              }
             },
-            prop2: {
-              type: 'string'
-            },
-            prop3: {
-              type: 'string'
-            },
-            prop4: {
-              type: 'string'
-            }
-          },
-          type: 'object'
+            type: 'object'
+          }
         }
       }
     };

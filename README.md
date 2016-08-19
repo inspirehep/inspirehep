@@ -79,6 +79,17 @@ number
 default: 0
 ```
 
+#### x_editor_validation_url
+
+Url to be used for backend validation.
+
+```
+string
+```
+
+Note that:
+  it should return errors in the same format as [remote-validation-response.json](./src/assets/mock-data/remote-validation-response.json) 
+
 # DEVELOPMENT
 
 ## Tech

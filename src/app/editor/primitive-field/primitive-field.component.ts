@@ -21,32 +21,45 @@
 */
 
 import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 
+import { TOOLTIP_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+
+import { AbstractFieldComponent } from '../abstract-field';
 import { AutocompleteInputComponent } from '../autocomplete-input';
 import { SearchableDropdownComponent } from '../searchable-dropdown';
 
-import { SchemaValidationService } from '../shared/services';
+import { ErrorsToMessagesHtmlPipe } from '../shared/pipes';
+import { AppGlobalsService, ComponentTypeService, SchemaValidationService } from '../shared/services';
 
 @Component({
   selector: 'primitive-field',
   encapsulation: ViewEncapsulation.None,
-  directives: [AutocompleteInputComponent, SearchableDropdownComponent],
-  providers: [SchemaValidationService],
+  directives: [TOOLTIP_DIRECTIVES, AutocompleteInputComponent, SearchableDropdownComponent],
+  pipes: [ErrorsToMessagesHtmlPipe],
+  providers: [ComponentTypeService, SchemaValidationService],
   styles: [
     require('./primitive-field.component.scss')
   ],
   template: require('./primitive-field.component.html')
 })
-export class PrimitiveFieldComponent {
+export class PrimitiveFieldComponent extends AbstractFieldComponent {
 
   @Input() value: string | number | boolean;
   @Input() schema: Object;
-  error: Error;
+  @Input() path: string;
 
   @Output() onValueChange = new EventEmitter<any>();
 
-  constructor(private schemaValidationService: SchemaValidationService) {
+  constructor(private schemaValidationService: SchemaValidationService,
+    private componentTypeService: ComponentTypeService,
+    public appGlobalsService: AppGlobalsService) {
+    super();
+  }
 
+  ngOnInit() {
+    super.ngOnInit();
+    this.schema = this.schema || {}
   }
 
   onModelChange(event: any) {
@@ -63,19 +76,6 @@ export class PrimitiveFieldComponent {
   }
 
   get valueType(): string {
-    if (this.schema['x_editor_disabled']) {
-      return 'disabled';
-    } else if (this.schema['x_editor_autocomplete']) {
-      return 'autocomplete';
-    } else if (this.schema['enum']) {
-      return 'enum';
-    }
-    // integer, string or boolean
-    return typeof this.value;
-  }
-
-  ngOnInit() {
-    // TODO: remove default after flattened records' schema problem is resolved
-    this.schema = this.schema || {}
+    return this.componentTypeService.getComponentType(this.schema);
   }
 }

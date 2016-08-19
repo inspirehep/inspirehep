@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/schema#",
   "description": "An article or thesis or book or...",
+  "x_editor_validation_url": "./assets/mock-data/remote-validation-response.json",
   "properties": {
     "abstracts": {
       "x_editor_priority": 100,
