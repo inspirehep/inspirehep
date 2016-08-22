@@ -33,6 +33,18 @@ export class JsonUtilService {
   private componentTypeService: ComponentTypeService = new ComponentTypeService();
 
   /**
+   * Returns value of the property located in dot separated path of json.
+   */
+  getValueInPath(json: any, path: string): any {
+    let pathElements = path.split('.');
+    let value = json;
+    pathElements.forEach(pathElement => {
+      value = value[pathElement];
+    });
+    return value;
+  }
+  
+  /**
    * FIXME: shallow flattening!
    */
   flattenMARCSchema(schema: Object): Object {

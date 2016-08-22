@@ -66,7 +66,7 @@ Flag to show fields on the UI, even if they aren't present in the record.
 boolean
 ```
 
-#### x_editor_priortiy
+#### x_editor_priority
 
 Indicator to be used for sorting all fields on the UI.
 Larger priority fields appears up-most/left-most on the UI.
@@ -89,6 +89,20 @@ string
 
 Note that:
   it should return errors in the same format as [remote-validation-response.json](./src/assets/mock-data/remote-validation-response.json) 
+
+#### x_editor_previews
+
+Configuration for previews to be displayed in previewer (on the right side, below menu).
+
+```
+[
+  {
+    name: string; (name of the tab which preview is displayed)
+    type: string; (type of the preview, such as "pdf")
+    url_path: string; (dot separated path to url in the record)
+  }
+]
+```
 
 # DEVELOPMENT
 
@@ -280,4 +294,4 @@ You can include your type definitions in this file until you create one for the 
 see [typings/registry](https://github.com/typings/registry)
 
 # License
- [MIT](/LICENSE)
+ [GNU GPLv2](/LICENSE)

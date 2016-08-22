@@ -10,7 +10,7 @@
     <div *ngSwitchCase="'autocomplete'">
       <autocomplete-input [value]="value"  [autocompletionOptions]="schema.x_editor_autocomplete" (onValueChange)="onModelChange($event)" [placeholder]="schema.title"></autocomplete-input>
     </div>
-    <div *ngSwitchCase="'number'">
+    <div *ngSwitchCase="'integer'">
       <input type="number" [ngModel]="value" (ngModelChange)="onModelChange($event)" placeholder="{{schema.title}}">
     </div>
     <div *ngSwitchCase="'boolean'">

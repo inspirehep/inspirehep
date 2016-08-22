@@ -1,32 +1,43 @@
-<div>
-    <table id="editor" class="table table-striped">
-        <tr *ngFor="let pair of record | mapToSortedIterable:schema.properties; trackBy:trackByFunction">
-            <td class="label-holder">
-                <label>{{pair.key | underscoreToSpace}}</label>
-            </td>
-            <td>
-                <div [ngSwitch]="getFieldType(pair.key)">
-                    <div *ngSwitchCase="'table-list'">
-                        <table-list-field [(values)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></table-list-field>
+<div class="editor-container">
+    <div class="editor-table-container">
+        <table id="editor" class="table table-striped">
+            <tr *ngFor="let pair of record | mapToSortedIterable:schema.properties; trackBy:trackByFunction">
+                <td class="label-holder">
+                    <label>{{pair.key | underscoreToSpace}}</label>
+                </td>
+                <td>
+                    <div [ngSwitch]="getFieldType(pair.key)">
+                        <div *ngSwitchCase="'table-list'">
+                            <table-list-field [(values)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></table-list-field>
+                        </div>
+                        <div *ngSwitchCase="'complex-list'">
+                            <complex-list-field [(values)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></complex-list-field>
+                        </div>
+                        <div *ngSwitchCase="'primitive-list'">
+                            <primitive-list-field [(values)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></primitive-list-field>
+                        </div>
+                        <div *ngSwitchCase="'object'">
+                            <object-field [(value)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></object-field>
+                        </div>
+                        <div *ngSwitchDefault>
+                            <primitive-field [value]="record[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema.properties[pair.key]"
+                                [path]="pair.key"></primitive-field>
+                        </div>
                     </div>
-                    <div *ngSwitchCase="'complex-list'">
-                        <complex-list-field [(values)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></complex-list-field>
-                    </div>
-                    <div *ngSwitchCase="'primitive-list'">
-                        <primitive-list-field [(values)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></primitive-list-field>
-                    </div>
-                    <div *ngSwitchCase="'object'">
-                        <object-field [(value)]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key"></object-field>
-                    </div>
-                    <div *ngSwitchDefault>
-                        <primitive-field [value]="record[pair.key]" (onValueChange)="onValueChange($event, pair.key)" [schema]="schema.properties[pair.key]" [path]="pair.key"></primitive-field>
-                    </div>
-                </div>
-            </td>
-        </tr>
-    </table>
-    <!-- SAVE BUTTON -->
-    <div>
-        <button type="button" class="btn save" (click)="saveRecord()">Save</button>
+                </td>
+            </tr>
+        </table>
+        <!-- SAVE BUTTON -->
+        <div>
+            <button type="button" class="btn save" (click)="saveRecord()">Save</button>
+        </div>
+    </div>
+    <div class="right-side-container">
+        <div>
+            <h4>MENU will be here</h4>
+        </div>
+        <div>
+            <previewer [previews]="previews"> </previewer>
+        </div>
     </div>
 </div>

@@ -20,6 +20,9 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 import { Subscription } from 'rxjs/Subscription';
+
+import { AbstractTrackerComponent } from '../abstract-tracker';
+
 import { AppGlobalsService } from '../shared/services';
 
 /**
@@ -27,23 +30,14 @@ import { AppGlobalsService } from '../shared/services';
  * WARNING: FieldComponent which extends this class should have AppGlobalsService in their constructor!
  *  EX: constructor(...public appGlobalService: AppGlobalService, ...) {...}
  * 
- * It provides trackByFunction, and handles errors for the component.
+ * It provides trackByFunction from AbstractTrackerComponent, and handles errors for the component.
  */
-export abstract class AbstractFieldComponent {
+export abstract class AbstractFieldComponent extends AbstractTrackerComponent{
 
   path: string;
   errors: Array<Object> = [];
   errorsSubsciption: Subscription;
   appGlobalsService: AppGlobalsService;
-
-  /**
-   * Used for track changes in model
-   * that is used to generate elements via *ngFor
-   * RELATED ISSUE: https://github.com/angular/angular/issues/4402
-   */
-  trackByFunction(index: number, obj: any): any {
-    return index;
-  }
 
   ngOnInit() {
     this.errorsSubsciption = this.appGlobalsService
