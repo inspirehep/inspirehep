@@ -23,11 +23,13 @@
 import { Component, Input, ViewEncapsulation} from '@angular/core';
 import { Http } from '@angular/http';
 
+import { AbstractTrackerComponent } from './abstract-tracker';
 import { ComplexListFieldComponent } from './complex-list-field';
-import { TableListFieldComponent } from './table-list-field';
 import { ObjectFieldComponent } from './object-field';
+import { PreviewerComponent, Preview } from './previewer';
 import { PrimitiveListFieldComponent } from './primitive-list-field';
 import { PrimitiveFieldComponent } from './primitive-field';
+import { TableListFieldComponent } from './table-list-field';
 
 import { MapToSortedIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
 
@@ -43,10 +45,11 @@ import {
   encapsulation: ViewEncapsulation.None,
   directives: [
     ComplexListFieldComponent,
+    ObjectFieldComponent,
+    PreviewerComponent,
     PrimitiveListFieldComponent,
     PrimitiveFieldComponent,
     TableListFieldComponent,
-    ObjectFieldComponent
   ],
   pipes: [MapToSortedIterablePipe, UnderscoreToSpacePipe],
   providers: [
@@ -60,17 +63,20 @@ import {
   ],
   template: require('./editor.component.html'),
 })
-export class EditorComponent {
+export class EditorComponent extends AbstractTrackerComponent {
   // TODO: remove dummy
   @Input() record: Object;
   @Input() schema: Object;
+  previews: Array<any> = [];
 
 
   constructor(private http: Http,
     private appGlobalsService: AppGlobalsService,
     private componentTypeService: ComponentTypeService,
     private jsonUtilService: JsonUtilService,
-    private recordFixerService: RecordFixerService) { }
+    private recordFixerService: RecordFixerService) {
+    super();
+  }
 
   onValueChange(event: any, key: string) {
     this.record[key] = event;
@@ -89,11 +95,22 @@ export class EditorComponent {
     this.recordFixerService.fixRecord(this.record, this.schema);
     this.record = this.jsonUtilService.flattenMARCJson(this.record, this.schema);
     this.schema = this.jsonUtilService.flattenMARCSchema(this.schema);
+    this.previews = this.extractPreviews();
     console.log(this.schema, this.record);
   }
 
-  trackByFunction(index: number, obj: any): any {
-    return index;
+
+  /**
+   * Extracts previews from record using defined path in schema.
+   */
+  private extractPreviews(): Array<any> {
+    let previews = this.schema['x_editor_previews'];
+    if (previews) {
+      previews.forEach(preview => {
+        preview['url'] = this.jsonUtilService.getValueInPath(this.record, preview['url_path']);
+      });
+    }
+    return previews;
   }
 
   saveRecord() {
@@ -102,7 +119,7 @@ export class EditorComponent {
     if (validationUrl) {
       // TODO: change it post and include record and schema in request when it is not mock.
       this.http.get(validationUrl).map(res => res.json())
-        .subscribe(validationErrors => { 
+        .subscribe(validationErrors => {
           this.appGlobalsService.globalErrors = validationErrors;
         });
     }

@@ -1,0 +1,15 @@
+<div>
+  <button type="button" class="btn toggle" (click)="hidden = !hidden">{{toggleButtonActionName}}</button>
+  <tabset [hidden]="hidden">
+    <tab *ngFor="let preview of previews trackBy:trackByFunction" [heading]="preview.name">
+      <div [ngSwitch]="preview.type">
+        <div *ngSwitchCase="'pdf'" class="preview-container">
+          <pdf-viewer [src]="preview.url" [show-all]="true" [original-size]="true" style="display: block;"></pdf-viewer>
+        </div>
+        <div *ngSwitchDefault>
+          ##Unrecognized preview type: {{preview.type}}
+        </div>
+      </div>
+    </tab>
+  </tabset>
+</div>

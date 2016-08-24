@@ -79,10 +79,29 @@ td.button-holder, th.button-holder {
 }
 
 div.error {
-    background: #f2968d;
+  background: #f2968d;
 }
 
 button.save {
   @extend .btn-primary;
   float: right;
+}
+
+$editor-table-container-width: 60%;
+$container-padding: 8px;
+
+div.editor-table-container {
+  float: left;
+  width: $editor-table-container-width;
+  height: 100vh;
+  overflow-y: auto;
+  padding-right: $container-padding
+}
+
+div.right-side-container {
+  float: right;
+  width: 100% - $editor-table-container-width;
+  height: 100vh;
+  padding-left: $container-padding;
+  border-left: 2px solid lightgray;
 }
