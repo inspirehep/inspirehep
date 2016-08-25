@@ -1,7 +1,7 @@
-<div>
+<div [id]="path">
   <div>
     <table class="table table-bordered">
-      <tbody *ngFor="let value of values; let i = index; trackBy:trackByFunction">
+      <tbody *ngFor="let value of values; let i = index; trackBy:trackByFunction" [id]="path + '.' + i">
         <tr *ngFor="let row of value | mapToSortedIterable:schema.items.properties; trackBy:trackByFunction">
           <td class="label-holder">
             <div>

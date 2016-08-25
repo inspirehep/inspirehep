@@ -1,4 +1,4 @@
-<div>
+<div [id]="path">
   <table class="table table-bordered">
     <tr *ngFor="let row of value | mapToSortedIterable:schema.properties; trackBy:trackByFunction">
       <td>
