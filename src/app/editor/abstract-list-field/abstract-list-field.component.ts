@@ -76,7 +76,7 @@ export abstract class AbstractListFieldComponent extends AbstractFieldComponent 
       this._emptyValue = this.emptyValueService.generateEmptyValue(this.schema['items']);
     }
     // Return a copy if it is an object because objects are passed by reference.
-    return (typeof this._emptyValue === 'object') ? 
+    return (typeof this._emptyValue === 'object') ?
       Object.assign({}, this._emptyValue) : this._emptyValue;
   }
 

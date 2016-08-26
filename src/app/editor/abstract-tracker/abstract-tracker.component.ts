@@ -21,7 +21,7 @@
 */
 
 export abstract class AbstractTrackerComponent {
-  
+
   /**
    * Used for track changes in model
    * that is used to generate elements via *ngFor

@@ -29,16 +29,18 @@ import { AutocompletionResult, AutocompletionOptions } from './autocompletion.mo
 @Injectable()
 export class AutocompletionService {
 
-  constructor(private http: Http) { }
-
   private simpleSourceResultsCache: Array<AutocompletionResult>;
 
-  getAutocompletionResults(options: AutocompletionOptions, token: string): Observable<Array<AutocompletionResult>> {
+  constructor(private http: Http) { }
+
+  getAutocompletionResults(options: AutocompletionOptions,
+    token: string): Observable<Array<AutocompletionResult>> {
     return this.http.get(`${options.url}${token}`)
       .map(res => this.mapResponseToResults(res, options.path));
   }
 
-  private mapResponseToResults(response: Response, resultsPath: string): Array<AutocompletionResult> {
+  private mapResponseToResults(response: Response,
+    resultsPath: string): Array<AutocompletionResult> {
     let pathElements = resultsPath.split('.');
     let responseJson = response.json();
     pathElements.forEach(pathElement => {

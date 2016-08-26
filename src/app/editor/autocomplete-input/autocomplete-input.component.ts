@@ -21,7 +21,7 @@
 */
 
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {Observable} from 'rxjs/Observable';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 
 import { TYPEAHEAD_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
@@ -40,7 +40,7 @@ import { AutocompletionOptions } from './autocompletion.model';
   ],
   template: require('./autocomplete-input.component.html')
 })
-export class AutocompleteInputComponent  {
+export class AutocompleteInputComponent {
 
   @Input() autocompletionOptions: AutocompletionOptions;
   @Input() value: string;
@@ -48,15 +48,16 @@ export class AutocompleteInputComponent  {
 
   @Output() onValueChange: EventEmitter<string> = new EventEmitter<string>();
 
-  constructor(private autocompletionService: AutocompletionService) {}
-  
   dataSource: Observable<string>;
 
+  constructor(private autocompletionService: AutocompletionService) { }
+
   ngOnInit() {
-    this.dataSource = Observable.create((observer:any) => {
+    this.dataSource = Observable.create((observer: any) => {
       // Runs on every search
       observer.next(this.value);
-    }).mergeMap((token: string) => this.autocompletionService.getAutocompletionResults(this.autocompletionOptions, token));
+    }).mergeMap((token: string) =>
+      this.autocompletionService.getAutocompletionResults(this.autocompletionOptions, token));
   }
 
   onModelChange(value: string) {

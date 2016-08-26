@@ -28,7 +28,7 @@ import { TreeMenuItemComponent } from './tree-menu-item.component';
 
 import { FilterByPrefixPipe, MapToSortedIterablePipe } from '../shared/pipes';
 
-import { DomUtilService } from '../shared/services'
+import { DomUtilService } from '../shared/services';
 import { WindowHrefService } from './window-href.service.ts';
 
 @Component({
@@ -39,7 +39,7 @@ import { WindowHrefService } from './window-href.service.ts';
   styles: [
     require('./tree-menu.component.scss')
   ],
-  template: require('./tree-menu.component.html'),
+  template: require('./tree-menu.component.html')
 })
 export class TreeMenuComponent extends AbstractTrackerComponent {
 

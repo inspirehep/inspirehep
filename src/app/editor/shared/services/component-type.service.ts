@@ -24,7 +24,7 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class ComponentTypeService {
-  
+
   /**
    * It returns the editor specific type of given schema
    * In other words, which component to use for given schema.
@@ -46,13 +46,14 @@ export class ComponentTypeService {
       return 'enum';
     }
 
-    let schemaType = schema['type']
+    let schemaType = schema['type'];
     if (!schemaType) {
-      return 'raw'
+      return 'raw';
     } else if (schemaType === 'array') {
       let itemSchema = schema['items'];
       if (itemSchema['type'] === 'object') {
-        // complex-array: if it's an object array where at least one property of this object is also an object array.
+        // complex-array: if it's an object array 
+        // where at least one property of this object is also an object array.
         // so object array in an object array. Array<{property: Array<{...}>...}>
         let isComplexArray = Object.keys(itemSchema['properties'])
           .some(prop => {
@@ -68,8 +69,6 @@ export class ComponentTypeService {
         return 'primitive-list';
       }
     }
-
     return schemaType;
   }
 }
-

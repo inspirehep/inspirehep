@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Component, Input, ViewEncapsulation} from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { Http } from '@angular/http';
 
 import { AbstractTrackerComponent } from './abstract-tracker';
@@ -38,7 +38,7 @@ import {
   AppGlobalsService,
   ComponentTypeService,
   JsonUtilService,
-  RecordFixerService,
+  RecordFixerService
 } from './shared/services';
 
 @Component({
@@ -63,7 +63,7 @@ import {
   styles: [
     require('./editor.component.scss')
   ],
-  template: require('./editor.component.html'),
+  template: require('./editor.component.html')
 })
 export class EditorComponent extends AbstractTrackerComponent {
   // TODO: remove dummy
@@ -101,6 +101,19 @@ export class EditorComponent extends AbstractTrackerComponent {
     console.log(this.schema, this.record);
   }
 
+  saveRecord() {
+    // Remote validation before save.
+    let validationUrl = this.schema['x_editor_validation_url'];
+    if (validationUrl) {
+      // TODO: change it post and include record and schema in request when it is not mock.
+      this.http.get(validationUrl).map(res => res.json())
+        .subscribe(validationErrors => {
+          this.appGlobalsService.globalErrors = validationErrors;
+        });
+    }
+
+    // TODO: implement saving and do it when only validationErrors is empty.
+  }
 
   /**
    * Extracts previews from record using defined path in schema.
@@ -113,19 +126,5 @@ export class EditorComponent extends AbstractTrackerComponent {
       });
     }
     return previews;
-  }
-
-  saveRecord() {
-    // Remote validation before save.
-    let validationUrl = this.schema['x_editor_validation_url'];
-    if (validationUrl) {
-      // TODO: change it post and include record and schema in request when it is not mock.
-      this.http.get(validationUrl).map(res => res.json())
-        .subscribe(validationErrors => {
-          this.appGlobalsService.globalErrors = validationErrors;
-        });
-    }
-
-    //TODO: implement saving and do it when only validationErrors is empty.
   }
 }

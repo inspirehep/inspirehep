@@ -30,7 +30,11 @@ import { AutocompleteInputComponent } from '../autocomplete-input';
 import { SearchableDropdownComponent } from '../searchable-dropdown';
 
 import { ErrorsToMessagesHtmlPipe } from '../shared/pipes';
-import { AppGlobalsService, ComponentTypeService, SchemaValidationService } from '../shared/services';
+import {
+  AppGlobalsService,
+  ComponentTypeService,
+  SchemaValidationService
+} from '../shared/services';
 
 @Component({
   selector: 'primitive-field',
@@ -59,12 +63,12 @@ export class PrimitiveFieldComponent extends AbstractFieldComponent {
 
   ngOnInit() {
     super.ngOnInit();
-    this.schema = this.schema || {}
+    this.schema = this.schema || {};
   }
 
   onModelChange(event: any) {
     // Validation
-    if (this.schema['type'] === 'string' && this.schema['enum'] == null) {
+    if (this.schema['type'] === 'string' && this.schema['enum'] === undefined) {
       try {
         this.schemaValidationService.validateStringValue(event.toString(), this.schema);
       } catch (error) {

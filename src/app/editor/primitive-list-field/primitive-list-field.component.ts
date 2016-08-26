@@ -39,8 +39,7 @@ import { AppGlobalsService, EmptyValueService } from '../shared/services';
   styles: [
     require('./primitive-list-field.component.scss')
   ],
-  template: require('./primitive-list-field.component.html'),
-
+  template: require('./primitive-list-field.component.html')
 })
 // FIXME: this doesn't have all stuff of AbstractListFieldComponent. Maybe, it shouldn't extend it.
 export class PrimitiveListFieldComponent extends AbstractListFieldComponent {
@@ -53,7 +52,7 @@ export class PrimitiveListFieldComponent extends AbstractListFieldComponent {
     public appGlobalsService: AppGlobalsService) {
     super();
   }
-  
+
   /**
    * Called when any element of is changed of the values is changed
    * @override

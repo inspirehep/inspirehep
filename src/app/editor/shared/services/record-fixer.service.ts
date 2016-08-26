@@ -37,13 +37,13 @@ export class RecordFixerService {
       if (!schema['properties'][field]) {
         this.deleteField(record, field);
       } else {
-        this.fix(field, record, schema['properties'][field])
+        this.fix(field, record, schema['properties'][field]);
       }
     });
 
     this.insertEmptyIntoAlwaysShowFields(record, schema);
   }
-  
+
   private insertEmptyIntoAlwaysShowFields(record: Object, schema: Object) {
     let paths = new AlwaysShowPathFinder().getPaths(schema['properties']);
     paths.forEach(path => {
@@ -130,7 +130,8 @@ export class RecordFixerService {
     // 1. Step
     array.forEach(element => {
       Object.keys(element)
-        .filter(key => schema['items']['properties'][key]) // Don't include  if not part of schema, will be deleted anyway.
+        // Don't include  if not part of schema, will be deleted anyway.
+        .filter(key => schema['items']['properties'][key])
         .forEach(key => {
           presentKeys[key] = true;
         });
@@ -138,7 +139,8 @@ export class RecordFixerService {
 
     // 2. Step
     Object.keys(presentKeys).forEach(key => {
-      let emptyElement = this.emptyValueService.generateEmptyValue(schema['items']['properties'][key]);
+      let emptyElement = this.emptyValueService
+        .generateEmptyValue(schema['items']['properties'][key]);
       array.filter(element => !element[key])
         .forEach(element => {
           element[key] = emptyElement;
@@ -167,7 +169,7 @@ class AlwaysShowPathFinder {
     // Loop because param is actually not schema but inside of `schema.properties` directly.
     Object.keys(schema).forEach(prop => {
       this.find([prop], schema[prop]);
-    })
+    });
     return this.paths;
   }
 

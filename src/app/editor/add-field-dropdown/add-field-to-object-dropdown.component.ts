@@ -55,4 +55,5 @@ export class AddFieldToObjectDropdownComponent extends AbstractAddFieldDropdownC
     let subSchema = this.schema[name];
     this.value[name] = this.emptyValueService.generateEmptyValue(subSchema);
   }
+
 }
