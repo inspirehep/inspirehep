@@ -29,8 +29,9 @@ export class EmptyValueService {
     'string': '',
     'boolean': false,
     'integer': 0,
-    'number': 0,
-  }
+    'number': 0
+  };
+
   generateEmptyValue(schema: Object): any {
     if (schema['type'] === 'object') {
       let emptyObject = {};

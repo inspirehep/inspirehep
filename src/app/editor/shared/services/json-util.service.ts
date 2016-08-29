@@ -21,7 +21,7 @@
 */
 
 import { Injectable } from '@angular/core';
-import { ComponentTypeService } from './component-type.service'
+import { ComponentTypeService } from './component-type.service';
 
 /**
  * WARNING: this doesn't work when the root json object is an array!
@@ -43,13 +43,14 @@ export class JsonUtilService {
     });
     return value;
   }
-  
+
   /**
    * FIXME: shallow flattening!
    */
   flattenMARCSchema(schema: Object): Object {
     Object.keys(schema['properties'])
-      .filter(field => this.componentTypeService.getComponentType(schema['properties'][field]) === 'table-list')
+      .filter(field => this.componentTypeService
+        .getComponentType(schema['properties'][field]) === 'table-list')
       .forEach(field => {
         let elementSchema = schema['properties'][field]['items'];
         Object.keys(elementSchema['properties'])
@@ -57,14 +58,15 @@ export class JsonUtilService {
           .forEach(objectElementProp => {
             Object.keys(elementSchema['properties'][objectElementProp]['properties'])
               .forEach(prop => {
-                elementSchema['properties'][`${objectElementProp}.${prop}`] = elementSchema['properties'][objectElementProp]['properties'][prop];
+                elementSchema['properties'][`${objectElementProp}.${prop}`] =
+                  elementSchema['properties'][objectElementProp]['properties'][prop];
               });
             delete elementSchema['properties'][objectElementProp];
           });
       });
     return schema;
   }
-  
+
   /**
    * TODO: add example input and output to the function doc!
    * 
@@ -84,17 +86,21 @@ export class JsonUtilService {
   }
 
   /**
-   * This skips top level properties (MARC fields) and array type properties of the top level properties (MARC subfields with array of objects as a property)
+   * This skips top level properties (MARC fields)
+   * and array type properties of the top level properties 
+   *  (MARC subfields with array of objects as a property)
    * and apply the given operator to all the rest.
    * 
    * @param {Object} jsonObject - The marc json object to be flattened.
-   * @param {Object} schema - The schema to be used to determine if a property of the jsonObject should be flattened, (schema.properties)
+   * @param {Object} schema - The schema to be used to determine 
+   *  if a property of the jsonObject should be flattened, (schema.properties)
    * @param {JsonOperator} jsonOperator - The operator to be applied to given json object
    * 
    */
   private modifyMARCJson(jsonObject: Object, schema: Object, jsonOperator: JsonOperator): Object {
     const modifiedJson = {};
-    // TODO: create multiple instances of JsonOperator inside forEach function if this operation should be parallel
+    // TODO: create multiple instances of JsonOperator inside forEach function 
+    //  if this operation should be parallel
     // FIXME: doesn't flatten table-list in complex-list
     Object.keys(jsonObject)
       .forEach(prop => {
@@ -151,7 +157,8 @@ class JsonFlattener implements JsonOperator {
         if (keys.length === 0) {
           this.result[prop] = {};
         } else {
-          keys.forEach(p => this.recurse(cur[p], prop ? `${prop}.${p}` : p, schema['properties'][p]));
+          keys.forEach(p =>
+            this.recurse(cur[p], prop ? `${prop}.${p}` : p, schema['properties'][p]));
         }
         break;
       default:

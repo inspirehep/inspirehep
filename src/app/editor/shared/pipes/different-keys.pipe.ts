@@ -26,7 +26,7 @@ import { Pipe, PipeTransform } from '@angular/core';
  */
 @Pipe({
   name: 'differentKeys',
-  pure: false,
+  pure: false
 })
 export class DifferentKeysPipe implements PipeTransform {
   transform(object: Object, other: Object): Array<string> {

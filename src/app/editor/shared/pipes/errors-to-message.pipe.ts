@@ -27,7 +27,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: false
 })
 export class ErrorsToMessagesHtmlPipe implements PipeTransform {
-  
+
   /**
    * Transforms an array of error object (with message property)
    * to html list of error message
@@ -37,7 +37,7 @@ export class ErrorsToMessagesHtmlPipe implements PipeTransform {
    * @return {Array<Pair<any>>} - sorted array of key-value pairs of given map's properties.
    */
   transform(errors: Array<Object>): string {
-    if (!errors || errors.length === 0) return null;
+    if (!errors || errors.length === 0) return undefined;
 
     return errors
       .map(error => error['message'])

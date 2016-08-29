@@ -26,9 +26,9 @@ import { AbstractTrackerComponent } from '../abstract-tracker';
 
 import { MapToSortedIterablePipe } from '../shared/pipes';
 
-import { DomUtilService } from '../shared/services'
+import { DomUtilService } from '../shared/services';
 import { WindowHrefService } from './window-href.service';
- 
+
 @Component({
   selector: 'tree-menu-item',
   directives: [forwardRef(() => TreeMenuItemComponent)],
@@ -36,7 +36,7 @@ import { WindowHrefService } from './window-href.service';
   styles: [
     require('./tree-menu-item.component.scss')
   ],
-  template: require('./tree-menu-item.component.html'),
+  template: require('./tree-menu-item.component.html')
 })
 export class TreeMenuItemComponent extends AbstractTrackerComponent {
 
@@ -45,7 +45,7 @@ export class TreeMenuItemComponent extends AbstractTrackerComponent {
   @Input() schema: Object;
   @Input() path: string;
   private isCollapsed: boolean = true;
-  private href: string; 
+  private href: string;
 
   constructor(private windowHrefService: WindowHrefService,
     private domUtilService: DomUtilService) {
@@ -58,8 +58,8 @@ export class TreeMenuItemComponent extends AbstractTrackerComponent {
 
   toggle(event: Event) {
     // fix to trigger :focus css after focusAndSelectFirstInputChildById called.
-    event.preventDefault(); 
-    
+    event.preventDefault();
+
     this.isCollapsed = !this.isCollapsed;
     this.domUtilService.focusAndSelectFirstInputChildById(this.path);
     this.domUtilService.flashElementById(this.path);

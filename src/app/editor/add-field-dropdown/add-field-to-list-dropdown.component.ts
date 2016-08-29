@@ -47,7 +47,7 @@ export class AddFieldToListDropdownComponent extends AbstractAddFieldDropdownCom
   // WARN: every value of values should have the same properties
   @Input() values: Array<Object>;
   // sample value from values, to extract keys
-  value: Object
+  value: Object;
 
   constructor(private emptyValueService: EmptyValueService) {
     super();
@@ -58,7 +58,8 @@ export class AddFieldToListDropdownComponent extends AbstractAddFieldDropdownCom
     let emptyValue = this.emptyValueService.generateEmptyValue(fieldSchema);
     this.values.forEach(value => {
       if (typeof emptyValue === 'object') {
-        // Object.assign is used to create new reference per value, so that they won't be binded to same variable
+        // Object.assign is used to create new reference per value, 
+        // so that they won't be binded to same variable
         value[field] = Object.assign({}, emptyValue);
       } else {
         value[field] = emptyValue;

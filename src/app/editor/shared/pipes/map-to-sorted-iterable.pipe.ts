@@ -24,10 +24,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'mapToSortedIterable',
-  pure: false, // FIX for http://stackoverflow.com/questions/34456430/ngfor-doesnt-update-data-with-pipe-in-angular2
+  // http://stackoverflow.com/questions/34456430/ngfor-doesnt-update-data-with-pipe-in-angular2
+  pure: false
 })
 
 export class MapToSortedIterablePipe implements PipeTransform {
+
   /**
    * Transforms an object to sorted array of key-value pairs of its properties.
    * 
@@ -37,13 +39,13 @@ export class MapToSortedIterablePipe implements PipeTransform {
    */
   transform(map: Object, schema: Object): Array<Pair> {
     if (!map)
-      return null;
+      return undefined;
     return Object.keys(map)
       .sort((a, b) => {
         // Sort by x_editor_priority, larger is the first.
         let pa = schema[a]['x_editor_priority'] || 0;
         let pb = schema[b]['x_editor_priority'] || 0;
-        
+
         if (pa > pb) return -1;
         if (pa < pb) return 1;
 
@@ -58,9 +60,5 @@ export class MapToSortedIterablePipe implements PipeTransform {
 
 // TODO: discuss if we should remove Pair and return only keys instead,
 export class Pair {
-  constructor(public key: string, public value: any) {
-
-  }
+  constructor(public key: string, public value: any) {}
 }
-
-

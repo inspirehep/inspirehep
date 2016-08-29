@@ -25,19 +25,25 @@ import { beforeEachProviders, inject, it } from '@angular/core/testing';
 import { SchemaValidationService } from './schema-validation.service';
 
 describe('SchemaValidationService', () => {
-  
-  const schema = {'type': 'string', 'pattern': '[0-9]'};
-  
+
+  const schema = { 'type': 'string', 'pattern': '[0-9]' };
+
   beforeEachProviders(() => [SchemaValidationService]);
 
-  it('should validate pattern for string value', inject([SchemaValidationService], (schemaValidationService: SchemaValidationService) => {
-    let value = '1';
-    expect(() => schemaValidationService.validateStringValue(value, schema)).not.toThrowError();
-  }));
+  it('should validate pattern for string value',
+    inject([SchemaValidationService],
+      (schemaValidationService: SchemaValidationService) => {
+        let value = '1';
+        expect(() => schemaValidationService.validateStringValue(value, schema)).not.toThrowError();
+      }
+    ));
 
-  it('should not validate pattern for string value', inject([SchemaValidationService], (schemaValidationService: SchemaValidationService) => {
-    let value = 'a';
-    expect(() => schemaValidationService.validateStringValue(value, schema)).toThrowError();
-  }));
+  it('should not validate pattern for string value',
+    inject([SchemaValidationService],
+      (schemaValidationService: SchemaValidationService) => {
+        let value = 'a';
+        expect(() => schemaValidationService.validateStringValue(value, schema)).toThrowError();
+      }
+    ));
 
 });

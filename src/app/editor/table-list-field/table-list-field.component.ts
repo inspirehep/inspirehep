@@ -23,7 +23,7 @@
 import { Component, Input } from '@angular/core';
 
 import { AbstractListFieldComponent } from '../abstract-list-field';
-import { AddFieldToListDropdownComponent } from '../add-field-dropdown'
+import { AddFieldToListDropdownComponent } from '../add-field-dropdown';
 import { ObjectFieldComponent } from '../object-field';
 import { PrimitiveFieldComponent } from '../primitive-field';
 import { PrimitiveListFieldComponent } from '../primitive-list-field';
@@ -45,7 +45,7 @@ import { AppGlobalsService, ComponentTypeService, EmptyValueService } from '../s
   styles: [
     require('./table-list-field.component.scss')
   ],
-  template: require('./table-list-field.component.html'),
+  template: require('./table-list-field.component.html')
 })
 export class TableListFieldComponent extends AbstractListFieldComponent {
 
@@ -53,10 +53,10 @@ export class TableListFieldComponent extends AbstractListFieldComponent {
   @Input() schema: Object;
   @Input() path: string;
 
-  constructor(private componentTypeService: ComponentTypeService, 
+  constructor(private componentTypeService: ComponentTypeService,
     public emptyValueService: EmptyValueService,
     public appGlobalsService: AppGlobalsService) {
-    super()
+    super();
   }
 
   /**
@@ -67,7 +67,7 @@ export class TableListFieldComponent extends AbstractListFieldComponent {
     if (!this._emptyValue) {
       let copy = Object.assign({}, this.values[0]);
       Object.keys(copy)
-        .filter(prop => copy[prop] != null)
+        .filter(prop => copy[prop] !== undefined)
         .forEach(prop => {
           let propSchema = this.schema['items']['properties'][prop];
           copy[prop] = this.emptyValueService.generateEmptyValue(propSchema);

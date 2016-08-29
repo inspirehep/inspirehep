@@ -27,12 +27,13 @@ import { AppGlobalsService } from '../shared/services';
 
 /**
  * This is the base class for fields
- * WARNING: FieldComponent which extends this class should have AppGlobalsService in their constructor!
+ * WARNING: 
+ *  FieldComponent which extends this class should have AppGlobalsService in their constructor!
  *  EX: constructor(...public appGlobalService: AppGlobalService, ...) {...}
  * 
  * It provides trackByFunction from AbstractTrackerComponent, and handles errors for the component.
  */
-export abstract class AbstractFieldComponent extends AbstractTrackerComponent{
+export abstract class AbstractFieldComponent extends AbstractTrackerComponent {
 
   path: string;
   errors: Array<Object> = [];
@@ -60,6 +61,6 @@ export abstract class AbstractFieldComponent extends AbstractTrackerComponent{
   }
 
   get isErrorTooltipEnabled(): boolean {
-    return this.errors && this.errors.length > 0
+    return this.errors && this.errors.length > 0;
   }
 }

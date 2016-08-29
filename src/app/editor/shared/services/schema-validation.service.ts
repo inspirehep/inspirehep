@@ -35,7 +35,7 @@ export class SchemaValidationService {
    */
   validateStringValue(value: string, schema: Object) {
     let pattern = schema['pattern'];
-    if (pattern && value.match(pattern) == null) {
+    if (pattern && !value.match(pattern)) {
       throw Error(`Does not match with pattern: ${pattern}`);
     }
   }
@@ -56,6 +56,5 @@ export class SchemaValidationService {
       }
     }
   }
-
 
 }

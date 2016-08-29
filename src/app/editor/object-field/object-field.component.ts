@@ -24,7 +24,7 @@ import { Component, Input } from '@angular/core';
 
 import { AbstractFieldComponent } from '../abstract-field';
 import { AddFieldToObjectDropdownComponent } from '../add-field-dropdown';
-import { PrimitiveFieldComponent } from '../primitive-field'
+import { PrimitiveFieldComponent } from '../primitive-field';
 
 import { MapToSortedIterablePipe } from '../shared/pipes';
 
