@@ -8,7 +8,7 @@
           </th>
 
           <th class="button-holder">
-              <add-field-to-list-dropdown [(values)]="values" [schema]="schema.items.properties"></add-field-to-list-dropdown>
+              <add-field-to-list-dropdown *ngIf="values[0]" [(values)]="values" [value]="values[0]" [schema]="schema.items.properties"></add-field-to-list-dropdown>
           </th>
 
         </tr>
