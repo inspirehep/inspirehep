@@ -1,4 +1,4 @@
-<div>
+<div [id]="path">
   <div>
     <table class="table table-bordered editable-inner-table">
       <thead class="thead-inverse">
@@ -13,7 +13,7 @@
 
         </tr>
       </thead>
-      <tr *ngFor="let row of values; let i = index; trackBy:trackByFunction">
+      <tr *ngFor="let row of values; let i = index; trackBy:trackByFunction" [id]="path + '.' + i">
         <!-- Element value -->
         <td *ngFor="let column of row | mapToSortedIterable:schema.items.properties; trackBy:trackByFunction">
           <div [ngSwitch]="getFieldType(column.key)">

@@ -1,0 +1,11 @@
+<div>
+  <h5>Record Navigation</h5>
+  <div class="well tree-menu-container">
+    <input class="wide" type="text" [(ngModel)]="prefixOrPath" (keypress)="onKeypress($event.key)" placeholder="Search or go">
+    <ul class="menu-item-container">
+      <li *ngFor="let pair of record | mapToSortedIterable:schema.properties; trackBy:trackByFunction" [hidden]="!filter(pair.key)">
+        <tree-menu-item [label]="pair.key" [value]="pair.value" [schema]="schema.properties[pair.key]" [path]="pair.key" [searchPrefix]="searchPrefix"></tree-menu-item>
+      </li>
+    </ul>
+  </div>
+</div>

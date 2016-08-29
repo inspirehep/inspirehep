@@ -30,6 +30,7 @@ import { PreviewerComponent, Preview } from './previewer';
 import { PrimitiveListFieldComponent } from './primitive-list-field';
 import { PrimitiveFieldComponent } from './primitive-field';
 import { TableListFieldComponent } from './table-list-field';
+import { TreeMenuComponent } from './tree-menu';
 
 import { MapToSortedIterablePipe, UnderscoreToSpacePipe } from './shared/pipes';
 
@@ -50,6 +51,7 @@ import {
     PrimitiveListFieldComponent,
     PrimitiveFieldComponent,
     TableListFieldComponent,
+    TreeMenuComponent
   ],
   pipes: [MapToSortedIterablePipe, UnderscoreToSpacePipe],
   providers: [
