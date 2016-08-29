@@ -28,7 +28,7 @@
         <!-- ADD-FIELD-FROM-SCHEMA, UP/DOWN and DELETE buttons for each row group -->
         <tr *ngIf="values.length > 0">
           <td class="button-holder">
-            <add-field-dropdown [(value)]="values[i]" [schema]="schema.items.properties"></add-field-dropdown>
+            <add-field-to-object-dropdown [(value)]="values[i]" [schema]="schema.items.properties"></add-field-to-object-dropdown>
           </td>
           <td class="button-holder">
             <button type="button" class="editor-btn-delete" (click)="deleteElement(i)">&times;</button>

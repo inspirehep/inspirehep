@@ -32,7 +32,7 @@ import { DifferentKeysPipe } from '../shared/pipes';
 import { EmptyValueService } from '../shared/services';
 
 @Component({
-  selector: 'add-field-dropdown',
+  selector: 'add-field-to-object-dropdown',
   directives: [DROPDOWN_DIRECTIVES],
   pipes: [DifferentKeysPipe],
   providers: [EmptyValueService],
