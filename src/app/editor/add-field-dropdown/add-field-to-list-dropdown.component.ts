@@ -47,7 +47,7 @@ export class AddFieldToListDropdownComponent extends AbstractAddFieldDropdownCom
   // WARN: every value of values should have the same properties
   @Input() values: Array<Object>;
   // sample value from values, to extract keys
-  value: Object;
+  @Input() value: Object;
 
   constructor(private emptyValueService: EmptyValueService) {
     super();
@@ -65,10 +65,6 @@ export class AddFieldToListDropdownComponent extends AbstractAddFieldDropdownCom
         value[field] = emptyValue;
       }
     });
-  }
-
-  ngOnInit() {
-    this.value = this.values[0];
   }
 
 }

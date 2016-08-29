@@ -61,20 +61,22 @@ export class TableListFieldComponent extends AbstractListFieldComponent {
 
   /**
    * @override
-   * Needs different logic, because this component may have flattened model.
+   * Needs different logic! because new row supposed to
+   * have same properties as the existing ones.
+   * 
+   * TODO: cache the emptyValue into this._emptyValue so 
+   *  that this empty value will not be generated everytime
+   *  but only when a new column (field) is added.
    */
   get emptyValue(): Object {
-    if (!this._emptyValue) {
-      let copy = Object.assign({}, this.values[0]);
-      Object.keys(copy)
-        .filter(prop => copy[prop] !== undefined)
-        .forEach(prop => {
-          let propSchema = this.schema['items']['properties'][prop];
-          copy[prop] = this.emptyValueService.generateEmptyValue(propSchema);
-        });
-      this._emptyValue = copy;
-    }
-    return Object.assign({}, this._emptyValue);
+    let clone = Object.assign({}, this.values[0]);
+    Object.keys(clone)
+      .filter(prop => clone[prop] !== undefined)
+      .forEach(prop => {
+        let propSchema = this.schema['items']['properties'][prop];
+        clone[prop] = this.emptyValueService.generateEmptyValue(propSchema);
+      });
+    return Object.assign({}, clone);
   }
 
   // TODO: cache the types for each field!
@@ -82,4 +84,5 @@ export class TableListFieldComponent extends AbstractListFieldComponent {
     let fieldSchema = this.schema['items']['properties'][field];
     return this.componentTypeService.getComponentType(fieldSchema);
   }
+
 }

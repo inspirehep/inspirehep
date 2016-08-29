@@ -16,7 +16,7 @@
     <!-- ADD-FIELD-FROM-SCHEMA -->
     <tr *ngIf="schema.properties">
       <td class="button-holder">
-        <add-field-dropdown [(value)]="value" [schema]="schema.properties"></add-field-dropdown>
+        <add-field-to-object-dropdown [(value)]="value" [schema]="schema.properties"></add-field-to-object-dropdown>
       </td>
     </tr>
   </table>
