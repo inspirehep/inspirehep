@@ -32,20 +32,9 @@ import { SearchableDropdownComponent } from './searchable-dropdown.component';
 import { DROPDOWN_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 import { FilterByPrefixPipe } from '../shared/pipes';
 
-// fixed value returned by the pipe.
-const filterResults = ['FilteredByPrefix'];
-
-class MockFilterByPrefixPipe extends FilterByPrefixPipe {
-
-  transform(array: Array<string>, prefix: string): Array<string> {
-    return filterResults;
-  }
-}
-
 describe('SearchableDropdownComponent', () => {
 
-  const providers = [...DROPDOWN_DIRECTIVES,
-    provide(FilterByPrefixPipe, { useClass: MockFilterByPrefixPipe })];
+  const providers = [...DROPDOWN_DIRECTIVES];
   let fixture: ComponentFixture<SearchableDropdownComponent>;
   let component: SearchableDropdownComponent;
   let nativeEl: HTMLElement;
@@ -62,7 +51,7 @@ describe('SearchableDropdownComponent', () => {
 
     nativeEl = fixture.nativeElement;
     inputEl = nativeEl
-      .querySelector('input, textarea') as HTMLInputElement;
+      .querySelector('input') as HTMLInputElement;
   }));
 
   it('should map shortcut to correct value when pressed enter', () => {
@@ -83,27 +72,26 @@ describe('SearchableDropdownComponent', () => {
     expect(component.value).toEqual('shortcut');
   });
 
-  it('should show all if prefix is empty', () => {
+  it('should show all items if prefix is empty', () => {
     // set enum.items
     let items = ['First', 'Second'];
     component.items = items;
     fixture.detectChanges();
-
-    let dropdownItems = nativeEl.querySelectorAll('.dropdown-item');
-    for (let i = 0; i < dropdownItems.length; i++) {
-      expect(dropdownItems.item(i).textContent).toEqual(items[i]);
-    }
+    let dropdownItems = Array.prototype
+      .slice.call(nativeEl.querySelectorAll('.dropdown-item'))
+      .map((item: HTMLElement) => item.textContent);
+    expect(dropdownItems).toEqual(items);
   });
 
   it('should show filtered items by pipe if prefix is not empty', () => {
-    inputEl.value = 'anything';
+    component.items = ['a1', 'a2', 'b1'];
+    let itemsStartsWithA = ['a1', 'a2'];
+    inputEl.value = 'a';
     inputEl.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-
-    let items = filterResults;
-    let dropdownItems = nativeEl.querySelectorAll('.dropdown-item');
-    for (let i = 0; i < dropdownItems.length; i++) {
-      expect(dropdownItems.item(i).textContent).toEqual([i]);
-    }
+    let dropdownItems = Array.prototype
+      .slice.call(nativeEl.querySelectorAll('.dropdown-item'))
+      .map((item: HTMLElement) => item.textContent);
+    expect(dropdownItems).toEqual(itemsStartsWithA);
   });
 });

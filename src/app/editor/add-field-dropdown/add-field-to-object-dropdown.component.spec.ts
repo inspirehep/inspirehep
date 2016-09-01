@@ -47,12 +47,6 @@ const value = {
 const mockDifferentKeys = ['propNotInValueA', 'propNotInValueB'];
 const emptyValue = 'empty-value';
 
-class MockDifferentKeysPipe extends DifferentKeysPipe {
-  transform(object: Object, other: Object): Array<string> {
-    return mockDifferentKeys;
-  }
-}
-
 class MockEmptyValueService extends EmptyValueService {
   generateEmptyValue(schema: Object): any {
     return emptyValue;
@@ -63,8 +57,6 @@ describe('AddFieldToObjectDropdownComponent', () => {
 
   const providers = [
     ...DROPDOWN_DIRECTIVES,
-    EmptyValueService,
-    provide(DifferentKeysPipe, { useClass: MockDifferentKeysPipe }),
     provide(EmptyValueService, { useClass: MockEmptyValueService })
   ];
   let fixture: ComponentFixture<AddFieldToObjectDropdownComponent>;
