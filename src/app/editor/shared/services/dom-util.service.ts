@@ -28,11 +28,10 @@ export class DomUtilService {
   focusAndSelectFirstInputChildById(id: string) {
     let el = document.getElementById(id);
     if (el) {
-      let firstInput = el.querySelectorAll('input, textarea').item(0) as HTMLInputElement;
+      let firstInput = el.querySelector('input, textarea') as HTMLInputElement;
       if (firstInput) {
         firstInput.focus();
         firstInput.select();
-        setTimeout(() => console.log(document.activeElement), 2000);
       }
     }
   }

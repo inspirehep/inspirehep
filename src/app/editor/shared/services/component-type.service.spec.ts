@@ -20,122 +20,110 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { beforeEachProviders, inject, it } from '@angular/core/testing';
+import { addProviders, inject } from '@angular/core/testing';
 
 import { ComponentTypeService } from './component-type.service';
 
 describe('ComponentTypeService', () => {
 
-  beforeEachProviders(() => [ComponentTypeService]);
+  let service: ComponentTypeService;
 
-  it('should return primitive-list', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        type: 'array',
-        items: {
-          type: 'string'
-        }
-      };
-      expect(componentTypeService.getComponentType(schema)).toEqual('primitive-list');
-    }
-  ));
+  beforeEach(() => addProviders([ComponentTypeService]));
 
-  it('should return table-list', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            array_prop: {
-              type: 'array',
-              items: {
-                type: 'string'
-              }
-            },
-            string_prop: {
+  beforeEach(inject([ComponentTypeService], (componentTypeService) => {
+    service = componentTypeService;
+  }));
+
+  it('should return primitive-list', () => {
+    let schema = {
+      type: 'array',
+      items: {
+        type: 'string'
+      }
+    };
+    expect(service.getComponentType(schema)).toEqual('primitive-list');
+  });
+
+  it('should return table-list', () => {
+    let schema = {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          array_prop: {
+            type: 'array',
+            items: {
               type: 'string'
             }
+          },
+          string_prop: {
+            type: 'string'
           }
         }
-      };
-      expect(componentTypeService.getComponentType(schema)).toEqual('table-list');
-    }
-  ));
+      }
+    };
+    expect(service.getComponentType(schema)).toEqual('table-list');
+  });
 
-  it('should return complex-list', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        type: 'array',
-        items: {
-          type: 'object',
-          properties: {
-            prop: {
-              type: 'array',
-              items: {
-                type: 'object',
-                properties: {}
-              }
+  it('should return complex-list', () => {
+    let schema = {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          prop: {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: {}
             }
           }
         }
-      };
-      expect(componentTypeService.getComponentType(schema)).toEqual('complex-list');
-    }
-  ));
+      }
+    };
+    expect(service.getComponentType(schema)).toEqual('complex-list');
+  });
 
-  it('should return raw', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {};
-      expect(componentTypeService.getComponentType(schema)).toEqual('raw');
-    }
-  ));
+  it('should return raw', () => {
+    let schema = {};
+    expect(service.getComponentType(schema)).toEqual('raw');
+  });
 
-  it('should return object', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        type: 'object'
-      };
-      expect(componentTypeService.getComponentType(schema)).toEqual('object');
-    }
-  ));
+  it('should return object', () => {
+    let schema = {
+      type: 'object'
+    };
+    expect(service.getComponentType(schema)).toEqual('object');
+  });
 
-  it('should return autocomplete', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        x_editor_autocomplete: {}
-      };
-      expect(componentTypeService.getComponentType(schema)).toEqual('autocomplete');
-    }
-  ));
+  it('should return autocomplete', () => {
+    let schema = {
+      x_editor_autocomplete: {}
+    };
+    expect(service.getComponentType(schema)).toEqual('autocomplete');
+  });
 
-  it('should return disabled', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        x_editor_disabled: true
-      };
-      expect(componentTypeService.getComponentType(schema)).toEqual('disabled');
-    }
-  ));
+  it('should return disabled', () => {
+    let schema = {
+      x_editor_disabled: true
+    };
+    expect(service.getComponentType(schema)).toEqual('disabled');
+  });
 
-  it('should return enum', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        enum: {}
-      };
-      expect(componentTypeService.getComponentType(schema)).toEqual('enum');
-    }
-  ));
+  it('should return enum', () => {
+    let schema = {
+      enum: {}
+    };
+    expect(service.getComponentType(schema)).toEqual('enum');
+  });
 
-  it('should not return array', inject([ComponentTypeService],
-    (componentTypeService: ComponentTypeService) => {
-      let schema = {
-        type: 'array',
-        items: {
-          type: 'number'
-        }
-      };
-      expect(componentTypeService.getComponentType(schema)).not.toEqual('array');
-    }
-  ));
+  it('should not return array', () => {
+    let schema = {
+      type: 'array',
+      items: {
+        type: 'number'
+      }
+    };
+    expect(service.getComponentType(schema)).not.toEqual('array');
+  });
 });

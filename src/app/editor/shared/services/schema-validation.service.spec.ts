@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { beforeEachProviders, inject, it } from '@angular/core/testing';
+import { addProviders, inject } from '@angular/core/testing';
 
 import { SchemaValidationService } from './schema-validation.service';
 
@@ -28,22 +28,17 @@ describe('SchemaValidationService', () => {
 
   const schema = { 'type': 'string', 'pattern': '[0-9]' };
 
-  beforeEachProviders(() => [SchemaValidationService]);
+  let service: SchemaValidationService;
 
-  it('should validate pattern for string value',
-    inject([SchemaValidationService],
-      (schemaValidationService: SchemaValidationService) => {
-        let value = '1';
-        expect(() => schemaValidationService.validateStringValue(value, schema)).not.toThrowError();
-      }
-    ));
+  beforeEach(() => addProviders([SchemaValidationService]));
 
-  it('should not validate pattern for string value',
-    inject([SchemaValidationService],
-      (schemaValidationService: SchemaValidationService) => {
-        let value = 'a';
-        expect(() => schemaValidationService.validateStringValue(value, schema)).toThrowError();
-      }
-    ));
+  beforeEach(inject([SchemaValidationService], (schemaValidationService) => {
+    service = schemaValidationService;
+  }));
 
+  it('should validate pattern correctly', () => {
+    let value = '1';
+    expect(() => service.validateStringValue('1', schema)).not.toThrowError();
+    expect(() => service.validateStringValue('a', schema)).toThrowError();
+  });
 });

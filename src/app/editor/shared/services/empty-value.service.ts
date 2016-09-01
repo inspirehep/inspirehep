@@ -38,7 +38,8 @@ export class EmptyValueService {
       Object.keys(schema['properties'])
         .filter(prop => {
           let required: Array<string> = schema['required'] || [];
-          return (schema['properties'][prop]['x_editor_always_show'] || required.includes(prop));
+          return (schema['properties'][prop]['x_editor_always_show']
+            || required.indexOf(prop) > -1);
         }).forEach(prop => {
           let propSchema = schema['properties'][prop];
           emptyObject[prop] = this.generateEmptyValue(propSchema);
