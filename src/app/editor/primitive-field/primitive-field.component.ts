@@ -52,6 +52,7 @@ export class PrimitiveFieldComponent extends AbstractFieldComponent {
   @Input() value: string | number | boolean;
   @Input() schema: Object;
   @Input() path: string;
+  valueType: string;
 
   @Output() onValueChange = new EventEmitter<any>();
 
@@ -64,6 +65,7 @@ export class PrimitiveFieldComponent extends AbstractFieldComponent {
   ngOnInit() {
     super.ngOnInit();
     this.schema = this.schema || {};
+    this.valueType = this.componentTypeService.getComponentType(this.schema);
   }
 
   onModelChange(event: any) {
@@ -76,10 +78,8 @@ export class PrimitiveFieldComponent extends AbstractFieldComponent {
       }
     }
     // TODO: should we make the change even if it is not validated
+    this.value = event;
     this.onValueChange.emit(event);
   }
 
-  get valueType(): string {
-    return this.componentTypeService.getComponentType(this.schema);
-  }
 }

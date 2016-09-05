@@ -80,7 +80,7 @@
     "html-webpack-plugin": "^2.22.0",
     "karma-coverage": "^1.1.1",
     "karma-mocha-reporter": "^2.1.0",
-    "ng2-bootstrap": "^1.0.24",
+    "ng2-bootstrap": "1.0.24",
     "ng2-pdf-viewer": "0.0.7",
     "normalize.css": "^4.1.1",
     "phantomjs-prebuilt": "^2.1.9",

@@ -20,25 +20,21 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { addProviders, inject } from '@angular/core/testing';
+import { FilterByPrefixPipe } from './filter-by-prefix.pipe';
 
-import { SchemaValidationService } from './schema-validation.service';
+describe('FilterByPrefixPipe', () => {
+  let pipe: FilterByPrefixPipe;
 
-describe('SchemaValidationService', () => {
-
-  const schema = { 'type': 'string', 'pattern': '[0-9]' };
-
-  let service: SchemaValidationService;
-
-  beforeEach(() => addProviders([SchemaValidationService]));
-
-  beforeEach(inject([SchemaValidationService], (schemaValidationService) => {
-    service = schemaValidationService;
-  }));
-
-  it('should validate pattern correctly', () => {
-    let value = '1';
-    expect(() => service.validateStringValue('1', schema)).not.toThrowError();
-    expect(() => service.validateStringValue('a', schema)).toThrowError();
+  beforeEach(() => {
+    pipe = new FilterByPrefixPipe();
   });
+
+  it('should filter by prefix', () => {
+    let values = ['ab1', 'ab2', 'ac1', 'bc1'];
+    let prefix = 'ab';
+    let filtered = ['ab1', 'ab2'];
+    let pipeResult = pipe.transform(values, prefix);
+    expect(pipeResult).toEqual(filtered);
+  });
+
 });

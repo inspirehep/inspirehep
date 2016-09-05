@@ -20,25 +20,21 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { addProviders, inject } from '@angular/core/testing';
+import { UnderscoreToSpacePipe } from './underscore-to-space.pipe';
 
-import { SchemaValidationService } from './schema-validation.service';
+describe('UnderscoreToSpacePipe', () => {
+  let pipe: UnderscoreToSpacePipe;
 
-describe('SchemaValidationService', () => {
-
-  const schema = { 'type': 'string', 'pattern': '[0-9]' };
-
-  let service: SchemaValidationService;
-
-  beforeEach(() => addProviders([SchemaValidationService]));
-
-  beforeEach(inject([SchemaValidationService], (schemaValidationService) => {
-    service = schemaValidationService;
-  }));
-
-  it('should validate pattern correctly', () => {
-    let value = '1';
-    expect(() => service.validateStringValue('1', schema)).not.toThrowError();
-    expect(() => service.validateStringValue('a', schema)).toThrowError();
+  beforeEach(() => {
+    pipe = new UnderscoreToSpacePipe();
   });
+
+  it('should replace underscores with spaces', () => {
+    let underscored = 'a_b_c';
+    let spaced = 'a b c';
+
+    let pipeResult = pipe.transform(underscored);
+    expect(pipeResult).toEqual(spaced);
+  });
+
 });

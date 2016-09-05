@@ -20,25 +20,47 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { addProviders, inject } from '@angular/core/testing';
+import { DifferentKeysPipe } from './different-keys.pipe';
 
-import { SchemaValidationService } from './schema-validation.service';
+describe('DifferentKeysPipe', () => {
+  let pipe: DifferentKeysPipe;
 
-describe('SchemaValidationService', () => {
-
-  const schema = { 'type': 'string', 'pattern': '[0-9]' };
-
-  let service: SchemaValidationService;
-
-  beforeEach(() => addProviders([SchemaValidationService]));
-
-  beforeEach(inject([SchemaValidationService], (schemaValidationService) => {
-    service = schemaValidationService;
-  }));
-
-  it('should validate pattern correctly', () => {
-    let value = '1';
-    expect(() => service.validateStringValue('1', schema)).not.toThrowError();
-    expect(() => service.validateStringValue('a', schema)).toThrowError();
+  beforeEach(() => {
+    pipe = new DifferentKeysPipe();
   });
+
+  it('should return different keys', () => {
+    let obj1 = {
+      propDiff1: 1,
+      propA: 1,
+      propB: 1,
+      propDiff2: 1
+    };
+
+    let obj2 = {
+      propA: 2,
+      propB: 2
+    };
+
+    let differentKeys = ['propDiff1', 'propDiff2'];
+
+    let pipeResult = pipe.transform(obj1, obj2);
+    expect(pipeResult).toEqual(differentKeys);
+  });
+
+  it('should return empty if keys are same', () => {
+    let obj1 = {
+      propA: 1,
+      propB: 1
+    };
+
+    let obj2 = {
+      propB: 2,
+      propA: 2
+    };
+
+    let pipeResult = pipe.transform(obj1, obj2);
+    expect(pipeResult).toEqual([]);
+  });
+
 });
