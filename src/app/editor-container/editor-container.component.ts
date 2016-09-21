@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { EditorComponent } from '../editor';
+import { EditorComponent } from 'ng2-json-editor/ng2-json-editor';
 
 import { RecordService } from './record.service';
 
@@ -18,7 +18,6 @@ export class EditorContainerComponent {
   private schema: Object = {};
 
   constructor(private router: Router, private recordService: RecordService) { }
-
 
   ngOnInit() {
     this.router.routerState.queryParams.subscribe(params => {
