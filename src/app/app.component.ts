@@ -23,10 +23,6 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
-import { EditorComponent } from './editor';
-
-
-
 /*
  * App Component
  * Top Level Component
