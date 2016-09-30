@@ -20,14 +20,25 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
-@Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
-})
-export class AppComponent { }
+@Injectable()
+export class RecordService {
+
+  constructor(private http: Http) { }
+
+  fetchRecord(type: string, recid: string): Observable<{}> {
+    // TODO: change base url!
+    return this.http.get(`http://localhost:5000/api/${type}/${recid}/db`)
+      .map(res => res.json().metadata);
+  }
+
+  fetchSchema(url: string): Observable<{}> {
+    return this.http.get(url)
+      .map(res => res.json());
+  }
+
+}
