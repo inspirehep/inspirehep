@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {APP_BASE_HREF} from '@angular/common';
 import { HttpModule } from '@angular/http';
 
 import { JsonEditorModule } from 'ng2-json-editor/ng2-json-editor';
@@ -24,6 +25,7 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     JsonEditorModule
   ],
   providers: [
+    {provide: APP_BASE_HREF, useValue: '/editor'},
     ...appRoutingProviders,
     ...SHARED_SERVICES
   ],
