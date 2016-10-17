@@ -11,6 +11,8 @@ sudo: false
 
 before_install: npm install karma-phantomjs-launcher
 
+before_deploy: npm run build
+
 after_success:
   'npm run coveralls'
 
