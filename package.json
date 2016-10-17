@@ -21,9 +21,11 @@
     "test": "ng test --watch=false",
     "pree2e": "webdriver-manager update",
     "e2e": "protractor",
-    "coveralls": "cat coverage/**/lcov.info | coveralls"
+    "coveralls": "cat coverage/**/lcov.info | coveralls",
+    "preversion": "npm test",
+    "version": "npm run build",
+    "postversion": "git push upstream && git push upstream --tags"
   },
-  "private": true,
   "dependencies": {
     "@angular/common": "2.0.0",
     "@angular/compiler": "2.0.0",
