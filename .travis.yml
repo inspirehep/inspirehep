@@ -9,9 +9,7 @@ node_js:
 
 sudo: false
 
-before_deploy:
-  - 'npm run prebuild:prod'
-  - 'npm run build:prod'
+before_install: npm install karma-phantomjs-launcher
 
 after_success:
   'npm run coveralls'

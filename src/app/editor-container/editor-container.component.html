@@ -1,5 +1,5 @@
 <div class="row">
   <div class="col-md-12">
-    <editor [(record)]="record" [schema]="schema"></editor>
+    <json-editor [record]="record" (onRecordChange)="onRecordChange($event)" [schema]="schema"></json-editor>
   </div>
 </div>
