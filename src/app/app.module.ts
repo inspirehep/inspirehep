@@ -11,6 +11,7 @@ import { EditorContainerComponent } from './editor-container';
 import { routing, appRoutingProviders, } from './app.routing';
 
 import { SHARED_PIPES, SHARED_SERVICES } from './shared';
+import { APP_CONFIG, INSPIRE_EDITOR_CONFIG } from './app.config';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/editor'},
+    {provide: APP_CONFIG, useValue: INSPIRE_EDITOR_CONFIG },
     ...appRoutingProviders,
     ...SHARED_SERVICES
   ],

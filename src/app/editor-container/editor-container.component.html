@@ -1,1 +1,2 @@
-<json-editor [record]="record" (onRecordChange)="onRecordChange($event)" [schema]="schema"></json-editor>
+<json-editor *ngIf="record && schema" [record]="record" [schema]="schema" [config]="config" (onRecordChange)="onRecordChange($event)">
+</json-editor>

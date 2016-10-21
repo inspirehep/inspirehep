@@ -20,21 +20,26 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { RecordService } from '../shared/services';
 import 'rxjs/add/operator/mergeMap';
+
+import { APP_CONFIG } from '../app.config';
 
 @Component({
   selector: 're-editor-container',
   templateUrl: './editor-container.component.html'
 })
 export class EditorContainerComponent implements OnInit {
-  private record: Object = {};
-  private schema: Object = {};
+  private config: Object = {};
+  private record: Object;
+  private schema: Object;
 
-  constructor(private route: ActivatedRoute, private recordService: RecordService) { }
+  constructor(private route: ActivatedRoute, private recordService: RecordService, @Inject(APP_CONFIG) config: AppConfig) {
+    this.config = config;
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
