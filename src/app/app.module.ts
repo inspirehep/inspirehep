@@ -7,6 +7,7 @@ import { JsonEditorModule } from 'ng2-json-editor/ng2-json-editor';
 
 import { AppComponent } from './app.component';
 import { EditorContainerComponent } from './editor-container';
+import { EditorToolbarComponent, EditorToolbarSaveComponent } from './editor-toolbar';
 
 import { routing, appRoutingProviders, } from './app.routing';
 
@@ -16,7 +17,9 @@ import { APP_CONFIG, INSPIRE_EDITOR_CONFIG } from './app.config';
 @NgModule({
   declarations: [
     AppComponent,
+    EditorToolbarComponent,
     EditorContainerComponent,
+    EditorToolbarSaveComponent,
     ...SHARED_PIPES
   ],
   imports: [

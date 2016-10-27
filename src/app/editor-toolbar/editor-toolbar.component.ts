@@ -20,35 +20,15 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import { APP_CONFIG } from '../../app.config';
+import { Component, Input } from '@angular/core';
 
-@Injectable()
-export class RecordService {
-  private pidType: string;
-  private pidValue: string;
-  private config: AppConfig;
-
-  constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
-    this.config = config;
-  }
-
-  fetchRecord(type: string, recid: string): Observable<{}> {
-    this.pidType = type;
-    this.pidValue = recid;
-    return this.http.get(this.config.apiUrl(this.pidType, this.pidValue))
-      .map(res => res.json().metadata);
-  }
-
-  fetchSchema(url: string): Observable<{}> {
-    return this.http.get(url)
-      .map(res => res.json());
-  }
-
-  saveRecord(record: Object): Observable<Object> {
-    return this.http.put(this.config.apiUrl(this.pidType, this.pidValue), record).map(res => res.json());
-  }
+@Component({
+  selector: 're-editor-toolbar',
+  templateUrl: './editor-toolbar.component.html',
+  styleUrls: [
+    './editor-toolbar.component.scss'
+  ]
+})
+export class EditorToolbarComponent {
+  @Input() record: Object;
 }
