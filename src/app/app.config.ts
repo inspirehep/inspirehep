@@ -52,9 +52,6 @@ export const INSPIRE_EDITOR_CONFIG: AppConfig = {
     "external_system_numbers.items.properties.value": {
       "x_editor_priority": 1
     },
-    "field_categories.items.properties.term": {
-		  "x_editor_priority": 1
-    },
     "hidden_notes.items.properties.value": {
 		  "x_editor_priority": 1
     },
