@@ -9,6 +9,8 @@ node_js:
 
 sudo: false
 
+before_script: npm run lint
+
 before_install: npm install karma-phantomjs-launcher
 
 before_deploy: npm run build
