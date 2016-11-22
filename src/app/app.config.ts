@@ -13,6 +13,28 @@ export class AppConfig {
           'abstracts.items.properties.value': {
             x_editor_priority: 1
           },
+          'accelerator_experiments.items.properties.experiment': {
+            x_editor_autocomplete: {
+              url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
+              path: 'experiment.0.options',
+              size: 5,
+              onCompletionSelect: (path, completion, store) => {
+                path.splice(-1, 1, 'record', '$ref');
+                store.setIn(path, completion.payload['$ref']);
+                path.splice(-2, 2, 'curated_relation');
+                store.setIn(path, true);
+              }
+            }
+          },
+          'accelerator_experiments.items.properties.record': {
+            x_editor_ref_config: {
+              template: '<span>{{(context | async)?.metadata.titles[0].title}}</span>',
+              lazy: false,
+              headers: [
+                { name: 'Accept', value: 'application/json' }
+              ]
+            }
+          },
           'arxiv_eprints.items.properties.value': {
             x_editor_priority: 1
           },
