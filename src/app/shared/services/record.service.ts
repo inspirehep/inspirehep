@@ -20,11 +20,11 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Injectable, Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import { APP_CONFIG } from '../../app.config';
+import { AppConfig } from '../../app.config';
 
 @Injectable()
 export class RecordService {
@@ -32,7 +32,7 @@ export class RecordService {
   private pidValue: string;
   private config: AppConfig;
 
-  constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
+  constructor(private http: Http, config: AppConfig) {
     this.config = config;
   }
 
