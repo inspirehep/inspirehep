@@ -7,9 +7,21 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  
+
 </head>
 <body>
   <re-app>Loading...</re-app>
+  <script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+      document.getElementsByClassName('editor-parent-container')[0].style.height = (window.innerHeight
+      - parseInt(window.getComputedStyle(document.getElementById('editor-toolbar'), null)
+        .getPropertyValue('min-height'))) + 'px';
+    });
+    window.addEventListener("resize", function() {
+      document.getElementsByClassName('editor-parent-container')[0].style.height = (window.innerHeight
+        - parseInt(window.getComputedStyle(document.getElementById('editor-toolbar'), null)
+          .getPropertyValue('min-height'))) + 'px';
+    });
+  </script>
 </body>
 </html>

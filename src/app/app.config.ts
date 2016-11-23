@@ -1,4 +1,5 @@
 import { OpaqueToken } from '@angular/core';
+import { BASE_URL } from '../environments/environment';
 
 export let APP_CONFIG = new OpaqueToken('app.config');
 
@@ -103,5 +104,9 @@ export const INSPIRE_EDITOR_CONFIG: AppConfig = {
     'urls.items.properties.value': {
       x_editor_priority: 1
     }
+  },
+  baseUrl : BASE_URL.baseUrl,
+  apiUrl : function(pid_type: string , pid_value: string): string {
+    return `${this.baseUrl}/api/${pid_type}/${pid_value}/db`;
   }
 };

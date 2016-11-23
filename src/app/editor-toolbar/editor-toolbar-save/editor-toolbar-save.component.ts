@@ -20,35 +20,23 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Injectable, Inject } from '@angular/core';
-import { Http } from '@angular/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import { APP_CONFIG } from '../../app.config';
+import {
+  Component,
+  Input
+} from '@angular/core';
+import { RecordService } from '../../shared/services';
 
-@Injectable()
-export class RecordService {
-  private pidType: string;
-  private pidValue: string;
-  private config: AppConfig;
+@Component({
+  selector: 're-editor-toolbar-save',
+  templateUrl: './editor-toolbar-save.component.html'
+})
+export class EditorToolbarSaveComponent {
+  @Input() record: Object;
 
-  constructor(private http: Http, @Inject(APP_CONFIG) config: AppConfig) {
-    this.config = config;
-  }
+  constructor(private recordService: RecordService) { }
 
-  fetchRecord(type: string, recid: string): Observable<{}> {
-    this.pidType = type;
-    this.pidValue = recid;
-    return this.http.get(this.config.apiUrl(this.pidType, this.pidValue))
-      .map(res => res.json().metadata);
-  }
-
-  fetchSchema(url: string): Observable<{}> {
-    return this.http.get(url)
-      .map(res => res.json());
-  }
-
-  saveRecord(record: Object): Observable<Object> {
-    return this.http.put(this.config.apiUrl(this.pidType, this.pidValue), record).map(res => res.json());
+  onClickSave(event: Object) {
+    this.recordService.saveRecord(this.record)
+      .subscribe(resp => resp);
   }
 }
