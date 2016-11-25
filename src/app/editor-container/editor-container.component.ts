@@ -20,13 +20,13 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { RecordService } from '../shared/services';
 import 'rxjs/add/operator/mergeMap';
 
-import { APP_CONFIG } from '../app.config';
+import { AppConfig } from '../app.config';
 
 @Component({
   selector: 're-editor-container',
@@ -36,13 +36,13 @@ import { APP_CONFIG } from '../app.config';
   ]
 })
 export class EditorContainerComponent implements OnInit {
-  private config: Object = {};
   private record: Object;
   private schema: Object;
+  private config: Object = {};
 
-  constructor(private route: ActivatedRoute, private recordService: RecordService, @Inject(APP_CONFIG) config: AppConfig) {
-    this.config = config;
-  }
+  constructor(private route: ActivatedRoute,
+    private recordService: RecordService,
+    private appConfig: AppConfig) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -52,6 +52,7 @@ export class EditorContainerComponent implements OnInit {
           record = fetched;
           return this.recordService.fetchSchema(record['$schema']);
         }).subscribe(schema => {
+          this.config = this.appConfig.getConfigForRecord(record);
           this.record = record;
           this.schema = schema;
         }, error => console.error(error));

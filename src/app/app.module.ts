@@ -12,7 +12,7 @@ import { EditorToolbarComponent, EditorToolbarSaveComponent } from './editor-too
 import { routing, appRoutingProviders, } from './app.routing';
 
 import { SHARED_PIPES, SHARED_SERVICES } from './shared';
-import { APP_CONFIG, INSPIRE_EDITOR_CONFIG } from './app.config';
+import { AppConfig } from './app.config';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { APP_CONFIG, INSPIRE_EDITOR_CONFIG } from './app.config';
   ],
   providers: [
     {provide: APP_BASE_HREF, useValue: '/editor'},
-    {provide: APP_CONFIG, useValue: INSPIRE_EDITOR_CONFIG },
+    AppConfig,
     ...appRoutingProviders,
     ...SHARED_SERVICES
   ],
