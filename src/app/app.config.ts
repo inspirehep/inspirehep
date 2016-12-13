@@ -10,8 +10,21 @@ export class AppConfig {
     hep: {
       default: {
         schemaOptions: {
+          '$schema': {
+            x_editor_hidden: true
+          },
+          'control_number': {
+            x_editor_disabled: true
+          },
           'abstracts.items.properties.value': {
             x_editor_priority: 1
+          },
+          'abstracts.items.properties.source': {
+            x_editor_autocomplete: {
+              url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
+              path: 'abstract_source.0.options',
+              size: 5
+            }
           },
           'accelerator_experiments.items.properties.experiment': {
             x_editor_autocomplete: {
