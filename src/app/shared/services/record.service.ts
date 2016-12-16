@@ -24,6 +24,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 import { AppConfig } from '../../app.config';
 
 @Injectable()
@@ -36,19 +37,23 @@ export class RecordService {
     this.config = config;
   }
 
-  fetchRecord(type: string, recid: string): Observable<{}> {
+  fetchRecord(type: string, recid: string): Promise<Object> {
     this.pidType = type;
     this.pidValue = recid;
     return this.http.get(this.config.apiUrl(this.pidType, this.pidValue))
-      .map(res => res.json().metadata);
+      .map(res => res.json().metadata)
+      .toPromise();
   }
 
-  fetchSchema(url: string): Observable<{}> {
+  fetchSchema(url: string): Promise<Object> {
     return this.http.get(url)
-      .map(res => res.json());
+      .map(res => res.json())
+      .toPromise();
   }
 
   saveRecord(record: Object): Observable<Object> {
-    return this.http.put(this.config.apiUrl(this.pidType, this.pidValue), record).map(res => res.json());
+    return this.http
+      .put(this.config.apiUrl(this.pidType, this.pidValue), record)
+      .map(res => res.json());
   }
 }

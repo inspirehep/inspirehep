@@ -46,16 +46,14 @@ export class EditorContainerComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      let record;
       this.recordService.fetchRecord(params['type'], params['recid'])
-        .flatMap(fetched => {
-          record = fetched;
-          return this.recordService.fetchSchema(record['$schema']);
-        }).subscribe(schema => {
-          this.config = this.appConfig.getConfigForRecord(record);
+        .then(record => {
           this.record = record;
+          this.config = this.appConfig.getConfigForRecord(record);
+          return this.recordService.fetchSchema(record['$schema']);
+        }).then(schema => {
           this.schema = schema;
-        }, error => console.error(error));
+        }).catch(error => console.error(error));
     });
   }
 
