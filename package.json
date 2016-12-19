@@ -1,6 +1,6 @@
 {
   "name": "record-editor",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Editor (used in inspirehep.net) for JSON documents with bibliographic metadata",
   "keywords": [
     "angular2",
