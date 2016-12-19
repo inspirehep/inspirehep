@@ -16,7 +16,8 @@ Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 * Webpack
 * Sass
 * Typescript
-* Bootstrap
+* Bootstrap 3
+* [ng2-json-editor](https://github.com/inveniosoftware-contrib/ng2-json-editor)
 
 ## Quick start
 
@@ -33,7 +34,11 @@ npm install
 # start the server
 npm start
 ```
-go to **http://localhost:3000/edit?type=<type>&recid=<recid>**
+go to **http://localhost:4200/editor/:type/:recid** 
+
+please make sure that [inspire-next](https://github.com/inspirehep/inspire-next) is running on [localhost:5000](http://localhost:5000) and
+`CORS` is enabled, you many use [Allow-Control-Allow-Origin: *](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) plugin for Chrome or
+something that is equivalent for your browser.
 
 # License
  [GNU GPLv2](/LICENSE)

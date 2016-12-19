@@ -24,7 +24,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { RecordService } from '../shared/services';
-import 'rxjs/add/operator/mergeMap';
 
 import { AppConfig } from '../app.config';
 
@@ -45,18 +44,17 @@ export class EditorContainerComponent implements OnInit {
     private appConfig: AppConfig) { }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
-      let record;
-      this.recordService.fetchRecord(params['type'], params['recid'])
-        .flatMap(fetched => {
-          record = fetched;
-          return this.recordService.fetchSchema(record['$schema']);
-        }).subscribe(schema => {
-          this.config = this.appConfig.getConfigForRecord(record);
-          this.record = record;
-          this.schema = schema;
-        }, error => console.error(error));
-    });
+    this.route.params
+      .subscribe(params => {
+        this.recordService.fetchRecord(params['type'], params['recid'])
+          .then(record => {
+            this.record = record;
+            this.config = this.appConfig.getConfigForRecord(record);
+            return this.recordService.fetchSchema(record['$schema']);
+          }).then(schema => {
+            this.schema = schema;
+          }).catch(error => console.error(error));
+      });
   }
 
   onRecordChange(record: Object) {
