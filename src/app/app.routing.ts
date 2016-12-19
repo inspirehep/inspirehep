@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { EditorContainerComponent } from './editor-container';
 
 const appRoutes: Routes = [
-  { path: '', component: EditorContainerComponent }
+  { path: ':type/:recid', component: EditorContainerComponent }
 ];
 
 export const appRoutingProviders: Array<any> = [];
