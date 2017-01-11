@@ -28,32 +28,42 @@ import 'rxjs/add/operator/toPromise';
 import { AppConfig } from '../../app.config';
 
 @Injectable()
-export class RecordService {
+export class ApiService {
+  // pid_type and pid_value (see invenio-pidstore)
   private pidType: string;
   private pidValue: string;
-  private config: AppConfig;
+  // workflow object id (see invenio-workflows)
+  private objectId: string;
 
-  constructor(private http: Http, config: AppConfig) {
-    this.config = config;
+  constructor(private http: Http, private config: AppConfig) {
   }
 
-  fetchRecord(type: string, recid: string): Promise<Object> {
-    this.pidType = type;
-    this.pidValue = recid;
-    return this.http.get(this.config.apiUrl(this.pidType, this.pidValue))
-      .map(res => res.json().metadata)
-      .toPromise();
-  }
-
-  fetchSchema(url: string): Promise<Object> {
+  fetchUrl(url: string): Promise<Object> {
     return this.http.get(url)
       .map(res => res.json())
       .toPromise();
   }
 
+  fetchRecord(pidType: string, pidValue: string): Promise<Object> {
+    this.pidType = pidType;
+    this.pidValue = pidValue;
+    return this.fetchUrl(this.config.apiUrl(pidType, pidValue));
+  }
+
+  fetchWorkflowObject(objectId: string): Promise<Object> {
+    this.objectId = objectId;
+    return this.fetchUrl(this.config.holdingPenApiUrl(this.objectId));
+  }
+
   saveRecord(record: Object): Observable<Object> {
     return this.http
       .put(this.config.apiUrl(this.pidType, this.pidValue), record)
+      .map(res => res.json());
+  }
+
+  saveWorkflowObject(record: Object): Observable<Object> {
+    return this.http
+      .put(this.config.holdingPenApiUrl(this.objectId), record)
       .map(res => res.json());
   }
 }

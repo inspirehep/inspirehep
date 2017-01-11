@@ -6,8 +6,10 @@ import { HttpModule } from '@angular/http';
 import { JsonEditorModule } from 'ng2-json-editor/ng2-json-editor';
 
 import { AppComponent } from './app.component';
+import { EditorHoldingPenComponent } from './editor-holdingpen';
 import { EditorContainerComponent } from './editor-container';
 import { EditorToolbarComponent, EditorToolbarSaveComponent } from './editor-toolbar';
+import { EditorHoldingPenToolbarComponent, EditorHoldingPenToolbarSaveComponent } from './editor-holdingpen-toolbar';
 
 import { routing, appRoutingProviders, } from './app.routing';
 
@@ -17,6 +19,9 @@ import { AppConfig } from './app.config';
 @NgModule({
   declarations: [
     AppComponent,
+    EditorHoldingPenComponent,
+    EditorHoldingPenToolbarComponent,
+    EditorHoldingPenToolbarSaveComponent,
     EditorToolbarComponent,
     EditorContainerComponent,
     EditorToolbarSaveComponent,

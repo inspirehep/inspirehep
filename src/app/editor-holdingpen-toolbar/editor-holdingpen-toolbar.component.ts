@@ -20,23 +20,15 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import {
-  Component,
-  Input
-} from '@angular/core';
-import { ApiService } from '../../shared/services';
+import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 're-editor-toolbar-save',
-  templateUrl: './editor-toolbar-save.component.html'
+  selector: 're-holdingpen-toolbar',
+  templateUrl: './editor-holdingpen-toolbar.component.html',
+  styleUrls: [
+    './editor-holdingpen-toolbar.component.scss'
+  ]
 })
-export class EditorToolbarSaveComponent {
-  @Input() record: Object;
-
-  constructor(private apiService: ApiService) { }
-
-  onClickSave(event: Object) {
-    this.apiService.saveRecord(this.record)
-      .subscribe(resp => resp);
-  }
+export class EditorHoldingPenToolbarComponent {
+  @Input() workflowObject: Object;
 }

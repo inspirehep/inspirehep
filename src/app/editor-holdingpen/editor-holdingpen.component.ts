@@ -24,17 +24,18 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../shared/services';
+import 'rxjs/add/operator/mergeMap';
 
 import { AppConfig } from '../app.config';
 
 @Component({
-  templateUrl: './editor-container.component.html',
+  templateUrl: './editor-holdingpen.component.html',
   styleUrls: [
-    './editor-container.component.scss'
+    './editor-holdingpen.component.scss'
   ]
 })
-export class EditorContainerComponent implements OnInit {
-  private record: Object;
+export class EditorHoldingPenComponent implements OnInit {
+  private workflowObject: Object;
   private schema: Object;
   private config: Object;
 
@@ -45,11 +46,11 @@ export class EditorContainerComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe(params => {
-        this.apiService.fetchRecord(params['type'], params['recid'])
-          .then(record => {
-            this.record = record['metadata'];
-            this.config = this.appConfig.getConfigForRecord(this.record);
-            return this.apiService.fetchUrl(this.record['$schema']);
+        this.apiService.fetchWorkflowObject(params['objectid'])
+          .then(workflowObject => {
+            this.workflowObject = workflowObject;
+            this.config = this.appConfig.getConfigForRecord(this.workflowObject['metadata']);
+            return this.apiService.fetchUrl(this.workflowObject['metadata']['$schema']);
           }).then(schema => {
             this.schema = schema;
           }).catch(error => console.error(error));
@@ -57,6 +58,6 @@ export class EditorContainerComponent implements OnInit {
   }
 
   onRecordChange(record: Object) {
-    this.record = record;
+    this.workflowObject['metadata'] = record;
   }
 }
