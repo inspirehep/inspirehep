@@ -292,14 +292,18 @@ export class AppConfig {
     return `${environment.baseUrl}/api/${pidType}/${pidValue}/db`;
   }
 
+  holdingPenApiUrl(objectId: string): string {
+    return `${environment.baseUrl}/api/holdingpen/${objectId}`;
+  }
+
   getConfigForRecord(record: Object): EditorConfig {
     let recordType = this.getRecordType(record);
+    let recordTypeConfig = AppConfig.CONFIGS[recordType] || {};
     if (recordType === 'hep') {
       let hepType = this.getHepType(record);
-      return _.merge(AppConfig.CONFIGS[recordType]['default'], AppConfig.CONFIGS[recordType][hepType]);
-    } else {
-      return AppConfig.CONFIGS[recordType];
+      return _.merge(recordTypeConfig['default'], recordTypeConfig[hepType]);
     }
+    return recordTypeConfig;
   }
 
   private getHepType(record: Object): string {

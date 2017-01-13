@@ -1,0 +1,5 @@
+<re-holdingpen-toolbar [workflowObject]="workflowObject"></re-holdingpen-toolbar>
+<div class="editor-parent-container">
+  <json-editor *ngIf="workflowObject && schema" [record]="workflowObject.metadata" [schema]="schema" [config]="config" (onRecordChange)="onRecordChange($event)">
+  </json-editor>
+</div>

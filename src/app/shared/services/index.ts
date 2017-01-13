@@ -1,9 +1,9 @@
-import { RecordService } from './record.service';
+import { ApiService } from './api.service';
 
 export {
-  RecordService
+  ApiService
 };
 
 export const SHARED_SERVICES = [
-  RecordService
+  ApiService
 ];
