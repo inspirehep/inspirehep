@@ -20,10 +20,14 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
+import { environment } from '../../../environments/environment';
 import {
   Component,
   Input
 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { Http, Response } from '@angular/http';
+import { ModalService } from 'ng2-json-editor/ng2-json-editor';
 import { ApiService } from '../../shared/services';
 
 @Component({
@@ -33,10 +37,31 @@ import { ApiService } from '../../shared/services';
 export class EditorToolbarSaveComponent {
   @Input() record: Object;
 
-  constructor(private apiService: ApiService) { }
+  constructor(
+    private apiService: ApiService,
+    private modalService: ModalService,
+    private domSanitizer: DomSanitizer,
+    private http: Http
+  ) { }
 
   onClickSave(event: Object) {
-    this.apiService.saveRecord(this.record)
-      .subscribe(resp => resp);
+    this.http.post(`${environment.baseUrl}/editor/preview`, this.record)
+      .subscribe((res: Response) => {
+        this.modalService.displayModal({
+          title: 'Preview',
+          bodyHtml: this.domSanitizer.bypassSecurityTrustHtml('<iframe id="iframe-preview"></iframe>'),
+          type: 'confirm',
+          onConfirm: () => {
+            this.apiService.saveRecord(this.record);
+          },
+          onShow: () => {
+            let el = document.getElementById('iframe-preview') as HTMLIFrameElement;
+            let doc = el.contentWindow.document;
+            doc.open();
+            doc.write(res.text());
+            doc.close();
+         }
+        });
+      });
   }
 }
