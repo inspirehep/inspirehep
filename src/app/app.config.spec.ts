@@ -21,26 +21,30 @@
 */
 
 
-import { AppConfig } from './app.config';
+import { AppConfigService } from './app-config.service';
 
-describe('AppConfig', () => {
+describe('AppConfigService', () => {
 
-  let service: AppConfig;
+  let service: AppConfigService;
 
   beforeEach(() => {
-    service = new AppConfig();
+    service = new AppConfigService();
   });
 
   it('should get a merged config for an hep type', () => {
-    AppConfig.CONFIGS = {
+    service.jsonEditorConfigs = {
       hep: {
         default: {
-          a: 'default-a',
-          b: 'default-b'
+          schemaOptions: {
+            a: 'default-a',
+            b: 'default-b'
+          }
         },
         anHepType: {
-          b: 'anHepType-b',
-          c: 'anHepType-c'
+          schemaOptions: {
+            b: 'anHepType-b',
+            c: 'anHepType-c'
+          }
         }
       }
     };
@@ -56,20 +60,24 @@ describe('AppConfig', () => {
     };
 
     let expectedConfig = {
-      a: 'default-a',
-      b: 'anHepType-b',
-      c: 'anHepType-c'
+      schemaOptions: {
+        a: 'default-a',
+        b: 'anHepType-b',
+        c: 'anHepType-c'
+      }
     };
 
     expect(service.getConfigForRecord(record)).toEqual(expectedConfig);
   });
 
   it('should get default config if hep type not found in CONFIGS', () => {
-    AppConfig.CONFIGS = {
+    service.jsonEditorConfigs = {
       hep: {
         default: {
-          a: 'default-a',
-          b: 'default-b'
+          schemaOptions: {
+            a: 'default-a',
+            b: 'default-b'
+          }
         }
       }
     };
@@ -84,18 +92,24 @@ describe('AppConfig', () => {
     };
 
     let expectedConfig = {
-      a: 'default-a',
-      b: 'default-b'
+      schemaOptions: {
+        a: 'default-a',
+        b: 'default-b'
+      }
     };
 
     expect(service.getConfigForRecord(record)).toEqual(expectedConfig);
   });
 
   it('should get config for non hep schema', () => {
-    AppConfig.CONFIGS = {
+    service.jsonEditorConfigs = {
       notHep: {
-        a: 'notHep-a',
-        b: 'notHep-b'
+        default: {
+          schemaOptions: {
+            a: 'notHep-a',
+            b: 'notHep-b'
+          }
+        }
       }
     };
 
@@ -104,8 +118,10 @@ describe('AppConfig', () => {
     };
 
     let expectedConfig = {
-      a: 'notHep-a',
-      b: 'notHep-b'
+      schemaOptions: {
+        a: 'notHep-a',
+        b: 'notHep-b'
+      }
     };
 
     expect(service.getConfigForRecord(record)).toEqual(expectedConfig);

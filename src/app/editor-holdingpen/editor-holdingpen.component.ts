@@ -26,7 +26,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../shared/services';
 import 'rxjs/add/operator/mergeMap';
 
-import { AppConfig } from '../app.config';
+import { AppConfigService } from '../app-config.service';
 
 @Component({
   templateUrl: './editor-holdingpen.component.html',
@@ -41,7 +41,7 @@ export class EditorHoldingPenComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private apiService: ApiService,
-    private appConfig: AppConfig) { }
+    private appConfig: AppConfigService) { }
 
   ngOnInit() {
     this.route.params

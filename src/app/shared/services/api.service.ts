@@ -25,7 +25,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import { AppConfig } from '../../app.config';
+import { AppConfigService } from '../../app-config.service';
 
 @Injectable()
 export class ApiService {
@@ -35,7 +35,7 @@ export class ApiService {
   // workflow object id (see invenio-workflows)
   private objectId: string;
 
-  constructor(private http: Http, private config: AppConfig) {
+  constructor(private http: Http, private config: AppConfigService) {
   }
 
   fetchUrl(url: string): Promise<Object> {
