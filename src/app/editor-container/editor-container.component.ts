@@ -25,7 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../shared/services';
 
-import { AppConfig } from '../app.config';
+import { AppConfigService } from '../app-config.service';
 
 @Component({
   templateUrl: './editor-container.component.html',
@@ -40,7 +40,7 @@ export class EditorContainerComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private apiService: ApiService,
-    private appConfig: AppConfig) { }
+    private appConfig: AppConfigService) { }
 
   ngOnInit() {
     this.route.params

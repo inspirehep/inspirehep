@@ -1,33 +1,35 @@
 import { environment } from '../environments/environment';
 import { Injectable } from '@angular/core';
 
+import { JsonEditorConfig } from 'ng2-json-editor/ng2-json-editor';
+
 import * as _ from 'lodash';
 
 @Injectable()
-export class AppConfig {
+export class AppConfigService {
 
-  static CONFIGS: Object = {
+  jsonEditorConfigs: { [recordType: string]: { [subType: string]: JsonEditorConfig } } = {
     hep: {
       default: {
         schemaOptions: {
           '$schema': {
-            x_editor_hidden: true
+            hidden: true
           },
           'control_number': {
-            x_editor_disabled: true
+            disabled: true
           },
           'abstracts.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'abstracts.items.properties.source': {
-            x_editor_autocomplete: {
+            autocompletionConfig: {
               url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
               path: 'abstract_source.0.options',
               size: 5
             }
           },
           'accelerator_experiments.items.properties.experiment': {
-            x_editor_autocomplete: {
+            autocompletionConfig: {
               url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
               path: 'experiment.0.options',
               size: 5,
@@ -40,7 +42,7 @@ export class AppConfig {
             }
           },
           'accelerator_experiments.items.properties.record': {
-            x_editor_ref_config: {
+            refFieldConfig: {
               template: '<span>{{(context | async)?.metadata.titles[0].title}}</span>',
               lazy: false,
               headers: [
@@ -49,239 +51,240 @@ export class AppConfig {
             }
           },
           'arxiv_eprints.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'authors.items.properties.affiliations.items.properties.curated_relation': {
-            x_editor_hidden: true
+            hidden: true
           },
           'authors.items.properties.affiliations.items.properties.record': {
-            x_editor_hidden: true
+            hidden: true
           },
           'authors.items.properties.affiliations.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'authors.items.properties.full_name': {
-            x_editor_priority: 1
+            priority: 1
           },
           'authors.items.properties.affiliations': {
-            x_editor_priority: 2
+            priority: 2
           },
           'authors.items.properties.curated_relation': {
-            x_editor_hidden: true
+            hidden: true
           },
           'authors.items.properties.uuid': {
-            x_editor_hidden: true
+            hidden: true
           },
           'authors.items.properties.record': {
-            x_editor_hidden: true
+            hidden: true
           },
           'collaboration.items.properties.record': {
-            x_editor_hidden: true
+            hidden: true
           },
           'dois.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'external_system_numbers.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'hidden_notes.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'isbns.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'keywords.items.properties.keyword': {
-            x_editor_priority: 1
+            priority: 1
           },
           'persistent_identifiers.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'public_notes.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'publication_info.items.properties.conference_record': {
-            x_editor_hidden: true
+            hidden: true
           },
           'publication_info.items.properties.curated_relation': {
-            x_editor_hidden: true
+            hidden: true
           },
           'publication_info.items.properties.parent_record': {
-            x_editor_hidden: true
+            hidden: true
           },
           'publication_info.items.properties.journal_record': {
-            x_editor_hidden: true
+            hidden: true
           },
           'publication_info.items.properties.journal_title': {
-            x_editor_priority: 1
+            priority: 1
           },
           'publication_info.items.properties.journal_volume': {
-            x_editor_priority: 2
+            priority: 2
           },
           'publication_info.items.properties.page_start': {
-            x_editor_priority: 3
+            priority: 3
           },
           'publication_info.items.properties.page_end': {
-            x_editor_priority: 4
+            priority: 4
           },
           'publication_info.items.properties.year': {
-            x_editor_priority: 5
+            priority: 5
           },
           'report_numbers.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           },
           'self': {
-            x_editor_hidden: true
+            hidden: true
           },
           'titles.items.properties.title': {
-            x_editor_priority: 1
+            priority: 1
           },
           'urls.items.properties.value': {
-            x_editor_priority: 1
+            priority: 1
           }
-        }
+        },
+        enableAdminModeSwitch: true
       },
       article: {
         schemaOptions: {
           'abstracts': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'abstracts.items.properties.value': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'accelerator_experiments': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'accelerator_experiments.items.properties.experiment': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'authors': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'authors.items.properties.affiliations': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'authors.items.properties.affiliations.items.properties.value': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'authors.items.properties.emails': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'authors.items.properties.full_name': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'collaboration': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'collaboration.items.properties.value': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'copyright': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'copyright.items.properties.statement': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'copyright.items.properties.url': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'hidden_notes': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'hidden_notes.items.properties.value': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'imprints': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'imprints.items.properties.date': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'keywords': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'keywords.items.properties.keyword': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'keywords.items.properties.classification_scheme': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'languages': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'license': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'licence.items.properties.license': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'license.items.properties.url': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'page_nr': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'persistent_identifiers': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'persistent_identifiers.items.properties.type': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'persistent_identifiers.items.properties.value': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'public_notes': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.journal_title': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.journal_volume': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.journal_issue': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.artid': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.notes': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.cnum': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.year': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'publication_info.items.properties.confpaper_info': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'titles': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'titles.items.properties.title': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'title_translations': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'title_translations.items.properties.title': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'urls': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'urls.items.properties.value': {
-            x_editor_always_show: true
+            alwaysShow: true
           },
           'urls.items.properties.descriptionw': {
-            x_editor_always_show: true
+            alwaysShow: true
           }
         }
       }
@@ -298,18 +301,20 @@ export class AppConfig {
 
   getConfigForRecord(record: Object): EditorConfig {
     let recordType = this.getRecordType(record);
-    let recordTypeConfig = AppConfig.CONFIGS[recordType] || {};
+    let recordTypeConfig = this.jsonEditorConfigs[recordType] || {};
+    // Only hep records have sub type at the moment.
     if (recordType === 'hep') {
       let hepType = this.getHepType(record);
       return _.merge(recordTypeConfig['default'], recordTypeConfig[hepType]);
+    } else {
+      return recordTypeConfig['default'];
     }
-    return recordTypeConfig;
   }
 
   private getHepType(record: Object): string {
     let collections: Array<{ primary: string }> = record['collections'];
     return collections.map(collection => collection.primary)
-      .find(primary => AppConfig.CONFIGS['hep'][primary]);
+      .find(primary => this.jsonEditorConfigs['hep'][primary] !== undefined);
   }
 
   private getRecordType(record: Object): string {
