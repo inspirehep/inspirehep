@@ -1,7 +1,7 @@
 import { environment } from '../environments/environment';
 import { Injectable } from '@angular/core';
 
-import { JsonEditorConfig } from 'ng2-json-editor/ng2-json-editor';
+import { JsonEditorConfig } from 'ng2-json-editor';
 
 import * as _ from 'lodash';
 
