@@ -27,7 +27,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Http, Response } from '@angular/http';
-import { ModalService } from 'ng2-json-editor/ng2-json-editor';
+import { ModalService } from 'ng2-json-editor';
 import { ApiService } from '../../shared/services';
 
 @Component({
