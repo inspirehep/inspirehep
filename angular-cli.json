@@ -17,7 +17,9 @@
       "prefix": "re",
       "mobile": false,
       "styles": [
-        "styles.css"
+        "styles.scss",
+        "../node_modules/font-awesome/css/font-awesome.css",
+        "../node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss"
       ],
       "scripts": [],
       "environments": {
@@ -40,7 +42,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
+    "styleExt": "scss",
     "prefixInterfaces": false
   }
 }
