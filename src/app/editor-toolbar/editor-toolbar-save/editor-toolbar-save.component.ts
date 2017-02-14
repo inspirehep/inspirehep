@@ -26,6 +26,7 @@ import {
   Input
 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { Http, Response } from '@angular/http';
 import { ModalService } from 'ng2-json-editor';
 import { ApiService } from '../../shared/services';
@@ -38,6 +39,7 @@ export class EditorToolbarSaveComponent {
   @Input() record: Object;
 
   constructor(
+    private route: ActivatedRoute,
     private apiService: ApiService,
     private modalService: ModalService,
     private domSanitizer: DomSanitizer,
@@ -52,7 +54,17 @@ export class EditorToolbarSaveComponent {
           bodyHtml: this.domSanitizer.bypassSecurityTrustHtml('<iframe id="iframe-preview"></iframe>'),
           type: 'confirm',
           onConfirm: () => {
-            this.apiService.saveRecord(this.record);
+            this.apiService.saveRecord(this.record).subscribe({
+              next: () => {
+                this.route.params
+                  .subscribe(params => {
+                    window.location.href = `/${params['type']}/${params['recid']}`;
+                });
+              },
+              error: (error) => {
+                console.warn(error.json());
+              },
+          });
           },
           onShow: () => {
             let el = document.getElementById('iframe-preview') as HTMLIFrameElement;
