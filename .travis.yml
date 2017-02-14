@@ -4,7 +4,7 @@ notifications:
 language: node_js
 
 node_js:
-- '5'
+- '6.9.1'
 - node
 
 sudo: false
@@ -32,3 +32,4 @@ deploy:
     tags: true
     repo: inspirehep/record-editor
     all_branches: true
+    node: '6.9.1'
