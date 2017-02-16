@@ -40,7 +40,7 @@ describe('AppConfigService', () => {
             b: 'default-b'
           }
         },
-        anHepType: {
+        anheptype: {
           schemaOptions: {
             b: 'anHepType-b',
             c: 'anHepType-c'
