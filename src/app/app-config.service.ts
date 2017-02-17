@@ -12,23 +12,26 @@ export class AppConfigService {
     hep: {
       default: {
         schemaOptions: {
-          '$schema': {
-            hidden: true
-          },
-          'control_number': {
+          '/$schema': {
             disabled: true
           },
-          'abstracts.items.properties.value': {
+          '/control_number': {
+            disabled: true
+          },
+          '/self': {
+            hidden: true
+          },
+          '/abstracts/items/properties/value': {
             priority: 1
           },
-          'abstracts.items.properties.source': {
+          '/abstracts/items/properties/source': {
             autocompletionConfig: {
               url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
               path: 'abstract_source.0.options',
               size: 5
             }
           },
-          'accelerator_experiments.items.properties.experiment': {
+          '/accelerator_experiments/items/properties/experiment': {
             autocompletionConfig: {
               url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
               path: 'experiment.0.options',
@@ -41,7 +44,7 @@ export class AppConfigService {
               }
             }
           },
-          'accelerator_experiments.items.properties.record': {
+          '/accelerator_experiments/items/properties/record': {
             refFieldConfig: {
               template: '<span>{{(context | async)?.metadata.titles[0].title}}</span>',
               lazy: false,
@@ -50,241 +53,81 @@ export class AppConfigService {
               ]
             }
           },
-          'arxiv_eprints.items.properties.value': {
+          '/abstracts/items': {
+            alwaysShow: ['value']
+          },
+          '/accelerator_experiments/items': {
+            alwaysShow: ['experiment']
+          },
+          '/authors/items': {
+            order: ['email', 'full_name', 'affiliations']
+          },
+          '/authors/items/properties/affiliations/items': {
+            alwaysShow: ['value']
+          },
+          '/arxiv_eprints/items': {
+            order: ['value']
+          },
+          '/collaboration/items': {
+            alwaysShow: ['value']
+          },
+          '/copyright/items': {
+            alwaysShow: ['statement', 'url']
+          },
+          '/dois/items': {
+            order: ['value']
+          },
+          '/external_system_numbers/items': {
+            order: ['value']
+          },
+          '/hidden_notes/items': {
+            alwaysShow: ['value']
+          },
+          '/imprints/items': {
+            alwaysShow: ['date']
+          },
+          '/isbns/items': {
+            order: ['value']
+          },
+          '/keywords/items': {
+            alwaysShow: ['classification_scheme', 'keyword']
+          },
+          '/licence/items': {
+            alwaysShow: ['license', 'url']
+          },
+          '/persistent_identifiers/items': {
+            alwaysShow: ['type', 'value']
+          },
+          '/publication_info/items': {
+            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'notes', 'cnum', 'year', 'confpaper_info']
+          },
+          '/titles/items': {
+            alwaysShow: ['title']
+          },
+          '/title_translations/items': {
+            alwaysShow: ['title']
+          },
+          '/keywords/items/properties/keyword': {
             priority: 1
           },
-          'authors.items.properties.affiliations.items.properties.curated_relation': {
-            hidden: true
+          '/public_notes/items': {
+            order: ['value']
           },
-          'authors.items.properties.affiliations.items.properties.record': {
-            hidden: true
+          '/report_numbers/items': {
+            order: ['value']
           },
-          'authors.items.properties.affiliations.items.properties.value': {
-            priority: 1
-          },
-          'authors.items.properties.full_name': {
-            priority: 1
-          },
-          'authors.items.properties.affiliations': {
-            priority: 2
-          },
-          'authors.items.properties.curated_relation': {
-            hidden: true
-          },
-          'authors.items.properties.uuid': {
-            hidden: true
-          },
-          'authors.items.properties.record': {
-            hidden: true
-          },
-          'collaboration.items.properties.record': {
-            hidden: true
-          },
-          'dois.items.properties.value': {
-            priority: 1
-          },
-          'external_system_numbers.items.properties.value': {
-            priority: 1
-          },
-          'hidden_notes.items.properties.value': {
-            priority: 1
-          },
-          'isbns.items.properties.value': {
-            priority: 1
-          },
-          'keywords.items.properties.keyword': {
-            priority: 1
-          },
-          'persistent_identifiers.items.properties.value': {
-            priority: 1
-          },
-          'public_notes.items.properties.value': {
-            priority: 1
-          },
-          'publication_info.items.properties.conference_record': {
-            hidden: true
-          },
-          'publication_info.items.properties.curated_relation': {
-            hidden: true
-          },
-          'publication_info.items.properties.parent_record': {
-            hidden: true
-          },
-          'publication_info.items.properties.journal_record': {
-            hidden: true
-          },
-          'publication_info.items.properties.journal_title': {
-            priority: 1
-          },
-          'publication_info.items.properties.journal_volume': {
-            priority: 2
-          },
-          'publication_info.items.properties.page_start': {
-            priority: 3
-          },
-          'publication_info.items.properties.page_end': {
-            priority: 4
-          },
-          'publication_info.items.properties.year': {
-            priority: 5
-          },
-          'report_numbers.items.properties.value': {
-            priority: 1
-          },
-          'self': {
-            hidden: true
-          },
-          'titles.items.properties.title': {
-            priority: 1
-          },
-          'urls.items.properties.value': {
-            priority: 1
+          '/urls/items': {
+            alwaysShow: ['value', 'description']
           }
         },
         enableAdminModeSwitch: true
       },
-      article: {
+      thesis: {
         schemaOptions: {
-          'abstracts': {
-            alwaysShow: true
-          },
-          'abstracts.items.properties.value': {
-            alwaysShow: true
-          },
-          'accelerator_experiments': {
-            alwaysShow: true
-          },
-          'accelerator_experiments.items.properties.experiment': {
-            alwaysShow: true
-          },
-          'authors': {
-            alwaysShow: true
-          },
-          'authors.items.properties.affiliations': {
-            alwaysShow: true
-          },
-          'authors.items.properties.affiliations.items.properties.value': {
-            alwaysShow: true
-          },
-          'authors.items.properties.emails': {
-            alwaysShow: true
-          },
-          'authors.items.properties.full_name': {
-            alwaysShow: true
-          },
-          'collaboration': {
-            alwaysShow: true
-          },
-          'collaboration.items.properties.value': {
-            alwaysShow: true
-          },
-          'copyright': {
-            alwaysShow: true
-          },
-          'copyright.items.properties.statement': {
-            alwaysShow: true
-          },
-          'copyright.items.properties.url': {
-            alwaysShow: true
-          },
-          'hidden_notes': {
-            alwaysShow: true
-          },
-          'hidden_notes.items.properties.value': {
-            alwaysShow: true
-          },
-          'imprints': {
-            alwaysShow: true
-          },
-          'imprints.items.properties.date': {
-            alwaysShow: true
-          },
-          'keywords': {
-            alwaysShow: true
-          },
-          'keywords.items.properties.keyword': {
-            alwaysShow: true
-          },
-          'keywords.items.properties.classification_scheme': {
-            alwaysShow: true
-          },
-          'languages': {
-            alwaysShow: true
-          },
-          'license': {
-            alwaysShow: true
-          },
-          'licence.items.properties.license': {
-            alwaysShow: true
-          },
-          'license.items.properties.url': {
-            alwaysShow: true
-          },
-          'page_nr': {
-            alwaysShow: true
-          },
-          'persistent_identifiers': {
-            alwaysShow: true
-          },
-          'persistent_identifiers.items.properties.type': {
-            alwaysShow: true
-          },
-          'persistent_identifiers.items.properties.value': {
-            alwaysShow: true
-          },
-          'public_notes': {
-            alwaysShow: true
-          },
-          'publication_info': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.journal_title': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.journal_volume': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.journal_issue': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.artid': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.notes': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.cnum': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.year': {
-            alwaysShow: true
-          },
-          'publication_info.items.properties.confpaper_info': {
-            alwaysShow: true
-          },
-          'titles': {
-            alwaysShow: true
-          },
-          'titles.items.properties.title': {
-            alwaysShow: true
-          },
-          'title_translations': {
-            alwaysShow: true
-          },
-          'title_translations.items.properties.title': {
-            alwaysShow: true
-          },
-          'urls': {
-            alwaysShow: true
-          },
-          'urls.items.properties.value': {
-            alwaysShow: true
-          },
-          'urls.items.properties.descriptionw': {
-            alwaysShow: true
+          '': {
+            alwaysShow: [
+              'thesis_info'
+            ]
           }
         }
       }
@@ -313,7 +156,7 @@ export class AppConfigService {
 
   private getHepType(record: Object): string {
     let collections: Array<{ primary: string }> = record['collections'];
-    return collections.map(collection => collection.primary)
+    return collections.map(collection => collection.primary.toLowerCase())
       .find(primary => this.jsonEditorConfigs['hep'][primary] !== undefined);
   }
 
