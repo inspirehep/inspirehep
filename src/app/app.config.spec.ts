@@ -51,11 +51,10 @@ describe('AppConfigService', () => {
 
     let record = {
       $schema: 'http://foo/bar/hep.json',
-      collections: [
-        { primary: 'Foo' },
-        { primary: 'HEP' },
-        { primary: 'anHepType' },
-        { primary: 'Bar' }
+      document_type: [
+        'foo',
+        'bar',
+        'anheptype'
       ]
     };
 
@@ -84,10 +83,10 @@ describe('AppConfigService', () => {
 
     let record = {
       $schema: 'http://foo/bar/hep.json',
-      collections: [
-        { primary: 'Foo' },
-        { primary: 'HEP' },
-        { primary: 'Bar' }
+      document_type: [
+        'foo',
+        'bar',
+        'xyz'
       ]
     };
 
