@@ -60,7 +60,7 @@ export class AppConfigService {
             alwaysShow: ['experiment']
           },
           '/authors/items': {
-            order: ['email', 'full_name', 'affiliations']
+            order: ['emails', 'full_name', 'affiliations']
           },
           '/authors/items/properties/affiliations/items': {
             alwaysShow: ['value']
@@ -68,7 +68,7 @@ export class AppConfigService {
           '/arxiv_eprints/items': {
             order: ['value']
           },
-          '/collaboration/items': {
+          '/collaborations/items': {
             alwaysShow: ['value']
           },
           '/copyright/items': {
@@ -77,10 +77,10 @@ export class AppConfigService {
           '/dois/items': {
             order: ['value']
           },
-          '/external_system_numbers/items': {
+          '/external_system_identifiers/items': {
             order: ['value']
           },
-          '/hidden_notes/items': {
+          '/_private_notes/items': {
             alwaysShow: ['value']
           },
           '/imprints/items': {
@@ -90,9 +90,9 @@ export class AppConfigService {
             order: ['value']
           },
           '/keywords/items': {
-            alwaysShow: ['classification_scheme', 'keyword']
+            alwaysShow: ['schema', 'value']
           },
-          '/licence/items': {
+          '/license/items': {
             alwaysShow: ['license', 'url']
           },
           '/persistent_identifiers/items': {
@@ -107,7 +107,7 @@ export class AppConfigService {
           '/title_translations/items': {
             alwaysShow: ['title']
           },
-          '/keywords/items/properties/keyword': {
+          '/keywords/items/properties/value': {
             priority: 1
           },
           '/public_notes/items': {
@@ -155,8 +155,8 @@ export class AppConfigService {
   }
 
   private getHepType(record: Object): string {
-    let collections: Array<{ primary: string }> = record['collections'];
-    return collections.map(collection => collection.primary.toLowerCase())
+    let document_types: Array<string> = record['document_type'];
+    return document_types
       .find(primary => this.jsonEditorConfigs['hep'][primary] !== undefined);
   }
 
