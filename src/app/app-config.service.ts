@@ -99,7 +99,19 @@ export class AppConfigService {
             alwaysShow: ['type', 'value']
           },
           '/publication_info/items': {
-            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'notes', 'cnum', 'year', 'confpaper_info']
+            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'confpaper_info']
+          },
+          '/references': {
+            longListNavigatorConfig: {
+              findSingle: (value, expression) => {
+                return value.getIn(['reference', 'number']) === parseInt(expression, 10);
+              },
+              findMultiple: (value, expression) => {
+                return JSON.stringify(value).search(expression) > -1;
+              },
+              itemsPerPage: 5,
+              maxVisiblePageCount: 5
+            }
           },
           '/titles/items': {
             alwaysShow: ['title']
