@@ -12,14 +12,66 @@ export class AppConfigService {
     hep: {
       default: {
         schemaOptions: {
+
+          '': {
+            order: [
+              'document_type',
+              'publication_type',
+              'report_numbers',
+              'special_collections',
+              'languages',
+              'titles',
+              'title_translations',
+              'dois',
+              'arxiv_eprints',
+              'public_notes',
+              'number_of_pages',
+              'abstracts',
+              'publication_info',
+              'persistent_identifiers',
+              'external_system_identifiers',
+              'texkeys',
+              'isbns',
+              'book_series',
+              'edition',
+              'thesis_info',
+              'preprint_date',
+              'imprints',
+              'inspire_categories',
+              'keywords',
+              'energy_ranges',
+              'copyright',
+              'license',
+              'funding_info',
+              '_private_notes',
+              'urls',
+              'succeeding_entry',
+              'new_record',
+              'deleted_records',
+              'acquisition_source',
+              'legacy_creation_date',
+              'core',
+              'citeable',
+              'refereed',
+              'withdrawn',
+              'deleted'
+            ]
+          },
+
           '/$schema': {
-            disabled: true
+            hidden: true
           },
           '/control_number': {
-            disabled: true
+            hidden: true
+          },
+          '/_collections': {
+            hidden: true
           },
           '/self': {
             hidden: true
+          },
+          '/texkeys': {
+            disabled: true
           },
           '/abstracts/items/properties/value': {
             priority: 1
@@ -57,10 +109,24 @@ export class AppConfigService {
             alwaysShow: ['value']
           },
           '/accelerator_experiments/items': {
-            alwaysShow: ['experiment']
+            alwaysShow: ['experiment'],
+            order: ['institution', 'accelerator', 'experiment', 'legacy_name']
+          },
+          '/acquisition_source/properties': {
+            disabled: true,
+            order: ['method', 'source', 'date', 'email', 'orcid'],
+          },
+          '/acquisition_source/properties/internal_uid': {
+            hidden: true
+          },
+          '/acquisition_source/properties/submission_number': {
+            hidden: true
           },
           '/authors/items': {
-            order: ['emails', 'full_name', 'affiliations']
+            order: ['full_name', 'alternative_names', 'affiliations', 'raw_affiliations', 'emails', 'ids', 'inspire_roles', 'credit_roles']
+          },
+          '/authors/items/properties/uuid': {
+            hidden: true
           },
           '/authors/items/properties/affiliations/items': {
             alwaysShow: ['value']
@@ -68,23 +134,32 @@ export class AppConfigService {
           '/arxiv_eprints/items': {
             order: ['value']
           },
+          '/arxiv_eprints/items/properties/value': {
+            disabled: true
+          },
           '/collaborations/items': {
-            alwaysShow: ['value']
+            alwaysShow: ['value'],
+            order: ['value']
           },
           '/copyright/items': {
             alwaysShow: ['statement', 'url']
           },
           '/dois/items': {
-            order: ['value']
+            order: ['value', 'material', 'source']
+          },
+          '/dois/items/properties/value/items': {
+            disabled: true
           },
           '/external_system_identifiers/items': {
             order: ['value']
           },
           '/_private_notes/items': {
-            alwaysShow: ['value']
+            alwaysShow: ['value'],
+            order: ['value']
           },
           '/imprints/items': {
-            alwaysShow: ['date']
+            alwaysShow: ['date'],
+            order: ['publisher', 'place', 'date']
           },
           '/isbns/items': {
             order: ['value']
@@ -96,10 +171,12 @@ export class AppConfigService {
             alwaysShow: ['license', 'url']
           },
           '/persistent_identifiers/items': {
-            alwaysShow: ['type', 'value']
+            alwaysShow: ['value'],
+            order: ['value', 'schema', 'material', 'source']
           },
           '/publication_info/items': {
-            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'confpaper_info']
+            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'confpaper_info'],
+            order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid']
           },
           '/references': {
             longListNavigatorConfig: {
@@ -113,13 +190,21 @@ export class AppConfigService {
               maxVisiblePageCount: 5
             }
           },
+          '/thesis_info/properties/degree_type': {
+            priority: 1
+          },
           '/titles/items': {
-            alwaysShow: ['title']
+            alwaysShow: ['title'],
+            order: ['title']
           },
           '/title_translations/items': {
-            alwaysShow: ['title']
+            alwaysShow: ['title'],
+            order: ['title', 'subtitle', 'language', 'source']
           },
           '/keywords/items/properties/value': {
+            priority: 1
+          },
+          '/license/items/properties/license': {
             priority: 1
           },
           '/public_notes/items': {
@@ -127,6 +212,12 @@ export class AppConfigService {
           },
           '/report_numbers/items': {
             order: ['value']
+          },
+          '/references/properties/reference': {
+            priority: 1
+          },
+          '/references/items/properties/reference': {
+            order: ['number', 'titles', 'authors', 'arxiv_eprints']
           },
           '/urls/items': {
             alwaysShow: ['value', 'description']
