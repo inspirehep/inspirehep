@@ -12,7 +12,6 @@ export class AppConfigService {
     hep: {
       default: {
         schemaOptions: {
-
           '': {
             order: [
               'document_type',
@@ -33,7 +32,6 @@ export class AppConfigService {
               'texkeys',
               'isbns',
               'book_series',
-              'edition',
               'thesis_info',
               'preprint_date',
               'imprints',
@@ -55,9 +53,27 @@ export class AppConfigService {
               'refereed',
               'withdrawn',
               'deleted'
+            ],
+            alwaysShow: [
+              'core',
+              'citeable',
+              'refereed',
+              'withdrawn',
+              'deleted'
             ]
           },
-
+          '/deleted': {
+            toggleColor: '#e74c3c'
+          },
+          '/citeable': {
+            toggleColor: '#3498db'
+          },
+          '/core': {
+            toggleColor: '#27ae60'
+          },
+          '/withdrawn': {
+            toggleColor: '#f1c40f'
+          },
           '/$schema': {
             hidden: true
           },
@@ -147,7 +163,7 @@ export class AppConfigService {
           '/dois/items': {
             order: ['value', 'material', 'source']
           },
-          '/dois/items/properties/value/items': {
+          '/dois/items/properties/value': {
             disabled: true
           },
           '/external_system_identifiers/items': {
@@ -175,7 +191,7 @@ export class AppConfigService {
             order: ['value', 'schema', 'material', 'source']
           },
           '/publication_info/items': {
-            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'confpaper_info'],
+            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year'],
             order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid']
           },
           '/references': {
@@ -213,15 +229,31 @@ export class AppConfigService {
           '/report_numbers/items': {
             order: ['value']
           },
-          '/references/properties/reference': {
-            priority: 1
-          },
           '/references/items/properties/reference': {
+            priority: 1,
             order: ['number', 'titles', 'authors', 'arxiv_eprints']
           },
           '/urls/items': {
             alwaysShow: ['value', 'description']
           }
+        },
+        tabsConfig: {
+          defaultTabName: 'Main',
+          tabs: [
+            {
+              name: 'References',
+              properties: ['references']
+            },
+            {
+              name: 'Authors',
+              properties: [
+                'collaboration',
+                'accelerator_experiments',
+                'authors',
+                'corporate_author'
+              ]
+            }
+          ]
         },
         enableAdminModeSwitch: true
       },
