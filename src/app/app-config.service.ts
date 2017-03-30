@@ -255,7 +255,42 @@ export class AppConfigService {
             }
           ]
         },
-        enableAdminModeSwitch: true
+        enableAdminModeSwitch: true,
+        previews: [
+          {
+            name: 'pdf',
+            type: 'html',
+            getUrl: (record) => {
+              let urls: Array<{ value: string }> = record['urls'];
+              return urls.map(url => url.value)
+                .find(value => value.endsWith('.pdf'));
+            }
+          },
+          {
+            name: 'arXiv',
+            type: 'html',
+            getUrl: (record) => {
+              let ePrints: Array<{ value: string }> = record['arxiv_eprints'];
+              if (ePrints && ePrints.length > 0) {
+                return `http://arxiv.org/abs/${ePrints[0].value}`;
+              } else {
+                return undefined;
+              }
+            }
+          },
+          {
+            name: 'doi',
+            type: 'html',
+            getUrl: (record) => {
+              let dois: Array<{ value: string }> = record['dois'];
+              if (dois && dois.length > 0) {
+                return `http://dx.doi.org/${dois[0].value}`;
+              } else {
+                return undefined;
+              }
+            }
+          }
+        ]
       },
       thesis: {
         schemaOptions: {
