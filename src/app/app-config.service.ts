@@ -247,7 +247,7 @@ export class AppConfigService {
             {
               name: 'Authors',
               properties: [
-                'collaboration',
+                'collaborations',
                 'accelerator_experiments',
                 'authors',
                 'corporate_author'
