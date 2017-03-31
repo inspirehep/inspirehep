@@ -112,15 +112,6 @@ export class AppConfigService {
               }
             }
           },
-          '/accelerator_experiments/items/properties/record': {
-            refFieldConfig: {
-              template: '<span>{{(context | async)?.metadata.titles[0].title}}</span>',
-              lazy: false,
-              headers: [
-                { name: 'Accept', value: 'application/json' }
-              ]
-            }
-          },
           '/abstracts/items': {
             alwaysShow: ['value']
           },
