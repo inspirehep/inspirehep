@@ -193,8 +193,14 @@ export class AppConfigService {
               findMultiple: (value, expression) => {
                 return JSON.stringify(value).search(expression) > -1;
               },
-              itemsPerPage: 5,
+              itemsPerPage: 20,
               maxVisiblePageCount: 5
+            },
+            viewTemplateConfig: {
+                itemTemplateName: 'referenceTemplate',
+                showEditForm: (value) => {
+                  return !(value.hasIn(['record', '$ref']));
+                }
             }
           },
           '/thesis_info/properties/degree_type': {
