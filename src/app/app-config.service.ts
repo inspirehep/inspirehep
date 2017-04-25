@@ -59,7 +59,8 @@ export class AppConfigService {
               'citeable',
               'refereed',
               'withdrawn',
-              'deleted'
+              'deleted',
+              'collaborations'
             ]
           },
           '/deleted': {
@@ -73,6 +74,9 @@ export class AppConfigService {
           },
           '/withdrawn': {
             toggleColor: '#f1c40f'
+          },
+          '/refereed': {
+            toggleColor: '#34495e'
           },
           '/$schema': {
             hidden: true
@@ -90,19 +94,20 @@ export class AppConfigService {
             disabled: true
           },
           '/abstracts/items/properties/value': {
-            priority: 1
+            priority: 1,
+            columnWidth: 80
           },
           '/abstracts/items/properties/source': {
             autocompletionConfig: {
               url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
-              path: 'abstract_source.0.options',
+              path: '/abstract_source/0/options',
               size: 5
             }
           },
           '/accelerator_experiments/items/properties/experiment': {
             autocompletionConfig: {
               url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
-              path: 'experiment.0.options',
+              path: '/experiment/0/options',
               size: 5,
               onCompletionSelect: (path, completion, store) => {
                 path.splice(-1, 1, 'record', '$ref');
@@ -130,7 +135,8 @@ export class AppConfigService {
             hidden: true
           },
           '/authors/items': {
-            order: ['full_name', 'alternative_names', 'affiliations', 'raw_affiliations', 'emails', 'ids', 'inspire_roles', 'credit_roles']
+            order: ['ids', 'full_name', 'alternative_names', 'affiliations', 'raw_affiliations', 'emails', 'inspire_roles', 'credit_roles'],
+            alwaysShow: ['affiliations']
           },
           '/authors/items/properties/uuid': {
             hidden: true
@@ -188,7 +194,7 @@ export class AppConfigService {
           '/references': {
             longListNavigatorConfig: {
               findSingle: (value, expression) => {
-                return value.getIn(['reference', 'number']) === parseInt(expression, 10);
+                return value.getIn(['reference', 'label']) === expression;
               },
               findMultiple: (value, expression) => {
                 return JSON.stringify(value).search(expression) > -1;
@@ -210,11 +216,17 @@ export class AppConfigService {
             alwaysShow: ['title'],
             order: ['title']
           },
+          '/titles/items/properties/source': {
+            columnWidth: 12
+          },
           '/title_translations/items': {
             alwaysShow: ['title'],
             order: ['title', 'subtitle', 'language', 'source']
           },
           '/keywords/items/properties/value': {
+            priority: 1
+          },
+          '/inspire_categories/items/properties/term': {
             priority: 1
           },
           '/license/items/properties/license': {
@@ -228,10 +240,13 @@ export class AppConfigService {
           },
           '/references/items/properties/reference': {
             priority: 1,
-            order: ['number', 'titles', 'authors', 'arxiv_eprints']
+            order: ['label', 'title', 'authors', 'arxiv_eprint']
           },
           '/urls/items': {
             alwaysShow: ['value', 'description']
+          },
+          '/urls/items/properties/value': {
+            priority: 1
           }
         },
         tabsConfig: {
