@@ -267,6 +267,7 @@ export class AppConfigService {
             }
           ]
         },
+        menuMaxDepth: 1,
         enableAdminModeSwitch: true,
         previews: [
           {
