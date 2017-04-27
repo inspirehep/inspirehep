@@ -31,7 +31,7 @@ import { AppConfigService } from '../app-config.service';
 @Component({
   templateUrl: './editor-holdingpen.component.html',
   styleUrls: [
-    './editor-holdingpen.component.scss'
+    '../editor-container/editor-container.component.scss'
   ]
 })
 export class EditorHoldingPenComponent implements OnInit {

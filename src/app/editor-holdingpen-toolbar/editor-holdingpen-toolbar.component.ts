@@ -26,7 +26,7 @@ import { Component, Input } from '@angular/core';
   selector: 're-holdingpen-toolbar',
   templateUrl: './editor-holdingpen-toolbar.component.html',
   styleUrls: [
-    './editor-holdingpen-toolbar.component.scss'
+    '../editor-container/editor-container.component.scss'
   ]
 })
 export class EditorHoldingPenToolbarComponent {

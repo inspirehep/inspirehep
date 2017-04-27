@@ -33,7 +33,10 @@ import { ApiService } from '../../shared/services';
 
 @Component({
   selector: 're-editor-toolbar-save',
-  templateUrl: './editor-toolbar-save.component.html'
+  templateUrl: './editor-toolbar-save.component.html',
+  styleUrls: [
+    '../../editor-container/editor-container.component.scss'
+  ]
 })
 export class EditorToolbarSaveComponent {
   @Input() record: Object;
