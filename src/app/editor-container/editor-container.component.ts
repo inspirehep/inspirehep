@@ -34,8 +34,8 @@ import { AppConfigService } from '../app-config.service';
   ]
 })
 export class EditorContainerComponent implements OnInit {
-  private record: Object;
-  private schema: Object;
+  record: Object;
+  schema: Object;
   private config: Object;
 
   constructor(private route: ActivatedRoute,

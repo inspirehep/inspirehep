@@ -35,8 +35,9 @@ import { AppConfigService } from '../app-config.service';
   ]
 })
 export class EditorHoldingPenComponent implements OnInit {
-  private workflowObject: Object;
-  private schema: Object;
+  workflowObject: Object;
+  schema: Object;
+
   private config: Object;
 
   constructor(private route: ActivatedRoute,
