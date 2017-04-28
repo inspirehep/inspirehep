@@ -26,7 +26,10 @@ import { ApiService } from '../../shared/services';
 
 @Component({
   selector: 're-editor-holdingpen-toolbar-save',
-  templateUrl: './editor-holdingpen-toolbar-save.component.html'
+  templateUrl: './editor-holdingpen-toolbar-save.component.html',
+  styleUrls: [
+    '../../editor-container/editor-container.component.scss'
+  ]
 })
 export class EditorHoldingPenToolbarSaveComponent {
   @Input() workflowObject: {id: string};

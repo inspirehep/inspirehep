@@ -26,7 +26,7 @@ import { Component, Input } from '@angular/core';
   selector: 're-editor-toolbar',
   templateUrl: './editor-toolbar.component.html',
   styleUrls: [
-    './editor-toolbar.component.scss'
+    '../editor-container/editor-container.component.scss'
   ]
 })
 export class EditorToolbarComponent {
