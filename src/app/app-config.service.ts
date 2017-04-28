@@ -144,6 +144,20 @@ export class AppConfigService {
           '/authors/items/properties/affiliations/items': {
             alwaysShow: ['value']
           },
+          '/authors/items/properties/affiliations/items/properties/value': {
+            autocompletionConfig: {
+              url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
+              path: '/affiliation/0/options',
+              size: 5,
+              itemTemplateName: 'affiliationAutocompleteTemplate',
+              onCompletionSelect: (path, completion, store) => {
+                path.splice(-1, 1, 'record', '$ref');
+                store.setIn(path, completion.payload['$ref']);
+                path.splice(-2, 2, 'curated_relation');
+                store.setIn(path, true);
+              }
+            }
+          },
           '/arxiv_eprints/items': {
             order: ['value']
           },
@@ -203,10 +217,10 @@ export class AppConfigService {
               maxVisiblePageCount: 5
             },
             viewTemplateConfig: {
-                itemTemplateName: 'referenceTemplate',
-                showEditForm: (value) => {
-                  return !(value.hasIn(['record', '$ref']));
-                }
+              itemTemplateName: 'referenceTemplate',
+              showEditForm: (value) => {
+                return !(value.hasIn(['record', '$ref']));
+              }
             }
           },
           '/thesis_info/properties/degree_type': {

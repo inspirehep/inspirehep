@@ -11,13 +11,22 @@
   </div>
 </ng-template>
 
+<ng-template let-item="item" #affiliationAutocompleteTemplate>
+  <strong>{{ item.payload.legacy_ICN }}</strong><br>
+  <small>
+    <span *ngIf="isEmpty(item.payload.ICN)">{{item.payload.ICN[0]}}<br></span>
+    <span *ngIf="isEmpty(item.payload.department)">{{item.payload.department[0]}}<br></span>
+    <span *ngIf="isEmpty(item.payload.institution)">{{item.payload.institution[0]}}<br></span>
+  </small>
+</ng-template>
+
 <re-editor-toolbar [record]="record"></re-editor-toolbar>
 <div class="editor-parent-container">
   <json-editor *ngIf="record && schema"
     [record]="record"
     [schema]="schema"
     [config]="config"
-    [templates]="{referenceTemplate: referenceTemplate}"
+    [templates]="{referenceTemplate: referenceTemplate, affiliationAutocompleteTemplate: affiliationAutocompleteTemplate}"
     (onRecordChange)="onRecordChange($event)">
   </json-editor>
 </div>
