@@ -275,8 +275,12 @@ export class AppConfigService {
             type: 'html',
             getUrl: (record) => {
               let urls: Array<{ value: string }> = record['urls'];
-              return urls.map(url => url.value)
+              if (urls && urls.length > 0) {
+                return urls.map(url => url.value)
                 .find(value => value.endsWith('.pdf'));
+              } else {
+                return undefined;
+              }
             }
           },
           {
