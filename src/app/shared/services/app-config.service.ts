@@ -1,9 +1,9 @@
-import { environment } from '../environments/environment';
+import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
-
 import { JsonEditorConfig } from 'ng2-json-editor';
-
 import * as _ from 'lodash';
+
+import { CommonConfigsService } from './common-configs.service';
 
 @Injectable()
 export class AppConfigService {
@@ -95,7 +95,8 @@ export class AppConfigService {
           },
           '/abstracts/items/properties/value': {
             priority: 1,
-            columnWidth: 80
+            columnWidth: 80,
+            latexPreviewEnabled: true
           },
           '/abstracts/items/properties/source': {
             autocompletionConfig: {
@@ -124,7 +125,12 @@ export class AppConfigService {
             alwaysShow: ['experiment'],
             order: ['institution', 'accelerator', 'experiment', 'legacy_name']
           },
-          '/acquisition_source/properties': {
+          '/accelerator_experiments/items/properties/record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
+          },
+          '/acquisition_source': {
             disabled: true,
             order: ['method', 'source', 'date', 'email', 'orcid'],
           },
@@ -133,6 +139,13 @@ export class AppConfigService {
           },
           '/acquisition_source/properties/submission_number': {
             hidden: true
+          },
+          '/authors': {
+            longListNavigatorConfig: {
+              findMultiple: this.commonConfigsService.fullTextSearch,
+              itemsPerPage: 20,
+              maxVisiblePageCount: 5
+            }
           },
           '/authors/items': {
             order: ['ids', 'full_name', 'alternative_names', 'affiliations', 'raw_affiliations', 'emails', 'inspire_roles', 'credit_roles'],
@@ -143,6 +156,11 @@ export class AppConfigService {
           },
           '/authors/items/properties/affiliations/items': {
             alwaysShow: ['value']
+          },
+          '/authors/items/properties/affiliations/items/properties/record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
           },
           '/authors/items/properties/affiliations/items/properties/value': {
             autocompletionConfig: {
@@ -167,6 +185,11 @@ export class AppConfigService {
           '/collaborations/items': {
             alwaysShow: ['value'],
             order: ['value']
+          },
+          '/collaborations/items/properties/record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
           },
           '/copyright/items': {
             alwaysShow: ['statement', 'url']
@@ -205,14 +228,27 @@ export class AppConfigService {
             alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year'],
             order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid']
           },
+          '/publication_info/items/properties/conference_record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
+          },
+          '/publication_info/items/properties/journal_record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
+          },
+          '/publication_info/items/properties/parent_record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
+          },
           '/references': {
             longListNavigatorConfig: {
               findSingle: (value, expression) => {
                 return value.getIn(['reference', 'label']) === expression;
               },
-              findMultiple: (value, expression) => {
-                return JSON.stringify(value).search(expression) > -1;
-              },
+              findMultiple: this.commonConfigsService.fullTextSearch,
               itemsPerPage: 20,
               maxVisiblePageCount: 5
             },
@@ -221,6 +257,16 @@ export class AppConfigService {
               showEditForm: (value) => {
                 return !(value.hasIn(['record', '$ref']));
               }
+            }
+          },
+          '/references/items/properties/record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
+          },
+          '/succeeding_entry/properties/record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
             }
           },
           '/thesis_info/properties/degree_type': {
@@ -261,6 +307,11 @@ export class AppConfigService {
           },
           '/urls/items/properties/value': {
             priority: 1
+          },
+          '/new_record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
           }
         },
         tabsConfig: {
@@ -291,7 +342,7 @@ export class AppConfigService {
               let urls: Array<{ value: string }> = record['urls'];
               if (urls && urls.length > 0) {
                 return urls.map(url => url.value)
-                .find(value => value.endsWith('.pdf'));
+                  .find(value => value.endsWith('.pdf'));
               } else {
                 return undefined;
               }
@@ -335,6 +386,8 @@ export class AppConfigService {
     }
   };
 
+  constructor(private commonConfigsService: CommonConfigsService) { }
+
   apiUrl(pidType: string, pidValue: string): string {
     return `${environment.baseUrl}/api/${pidType}/${pidValue}/db`;
   }
@@ -366,4 +419,5 @@ export class AppConfigService {
     let typeWithFileExt = schemaUrl.split('/').pop();
     return typeWithFileExt.slice(0, typeWithFileExt.lastIndexOf('.'));
   }
+
 }

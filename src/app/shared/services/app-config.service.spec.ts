@@ -22,13 +22,15 @@
 
 
 import { AppConfigService } from './app-config.service';
+import { CommonConfigsService } from './common-configs.service';
+
 
 describe('AppConfigService', () => {
 
   let service: AppConfigService;
 
   beforeEach(() => {
-    service = new AppConfigService();
+    service = new AppConfigService(new CommonConfigsService());
   });
 
   it('should get a merged config for an hep type', () => {

@@ -22,11 +22,9 @@
 
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { ApiService } from '../shared/services';
 import 'rxjs/add/operator/mergeMap';
 
-import { AppConfigService } from '../app-config.service';
+import { ApiService, AppConfigService } from '../shared/services';
 
 @Component({
   templateUrl: './editor-holdingpen.component.html',

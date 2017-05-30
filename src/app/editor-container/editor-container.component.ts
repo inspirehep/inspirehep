@@ -23,9 +23,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { ApiService } from '../shared/services';
-
-import { AppConfigService } from '../app-config.service';
+import { ApiService, AppConfigService } from '../shared/services';
 
 @Component({
   templateUrl: './editor-container.component.html',
