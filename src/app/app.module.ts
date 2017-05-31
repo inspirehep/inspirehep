@@ -14,7 +14,6 @@ import { EditorHoldingPenToolbarComponent, EditorHoldingPenToolbarSaveComponent 
 import { routing, appRoutingProviders, } from './app.routing';
 
 import { SHARED_PIPES, SHARED_SERVICES } from './shared';
-import { AppConfigService } from './app-config.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +34,6 @@ import { AppConfigService } from './app-config.service';
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/editor' },
-    AppConfigService,
     ...appRoutingProviders,
     ...SHARED_SERVICES
   ],
