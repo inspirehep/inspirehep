@@ -43,7 +43,6 @@ export class AppConfigService {
               'funding_info',
               '_private_notes',
               'urls',
-              'succeeding_entry',
               'new_record',
               'deleted_records',
               'acquisition_source',
@@ -132,7 +131,7 @@ export class AppConfigService {
           },
           '/acquisition_source': {
             disabled: true,
-            order: ['method', 'source', 'date', 'email', 'orcid'],
+            order: ['method', 'source', 'datetime', 'email', 'orcid'],
           },
           '/acquisition_source/properties/internal_uid': {
             hidden: true
@@ -260,11 +259,6 @@ export class AppConfigService {
             }
           },
           '/references/items/properties/record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/succeeding_entry/properties/record': {
             refFieldConfig: {
               anchorBuilder: this.commonConfigsService.anchorBuilder
             }
