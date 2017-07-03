@@ -22,7 +22,7 @@
 
 import {Component, Input} from '@angular/core';
 
-import { ApiService } from '../../shared/services';
+import { ApiService, RecordCleanupService } from '../../shared/services';
 
 @Component({
   selector: 're-editor-holdingpen-toolbar-save',
@@ -34,9 +34,11 @@ import { ApiService } from '../../shared/services';
 export class EditorHoldingPenToolbarSaveComponent {
   @Input() workflowObject: {id: string};
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService,
+    private recordCleanupService: RecordCleanupService) { }
 
   onClickSave(event: Object) {
+    this.recordCleanupService.cleanup(this.workflowObject['metadata']);
     this.apiService.saveWorkflowObject(this.workflowObject)
       .subscribe(resp => {
         window.location.href = `/holdingpen/${this.workflowObject.id}`;

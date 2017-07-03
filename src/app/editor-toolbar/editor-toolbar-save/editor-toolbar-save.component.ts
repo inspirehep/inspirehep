@@ -29,7 +29,8 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { Http, Response } from '@angular/http';
 import { ModalService } from 'ng2-json-editor';
-import { ApiService } from '../../shared/services';
+
+import { ApiService, RecordCleanupService } from '../../shared/services';
 
 @Component({
   selector: 're-editor-toolbar-save',
@@ -46,10 +47,12 @@ export class EditorToolbarSaveComponent {
     private apiService: ApiService,
     private modalService: ModalService,
     private domSanitizer: DomSanitizer,
-    private http: Http
+    private http: Http,
+    private recordCleanupService: RecordCleanupService
   ) { }
 
   onClickSave(event: Object) {
+    this.recordCleanupService.cleanup(this.record);
     this.http.post(`${environment.baseUrl}/editor/preview`, this.record)
       .subscribe((res: Response) => {
         this.modalService.displayModal({
