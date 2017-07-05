@@ -1,5 +1,10 @@
-<nav class="navbar navbar-default" id="editor-toolbar">
-  <div class="container-fluid">
+<nav class="navbar navbar-default display-flex" id="editor-toolbar">
+  <div>
     <re-editor-toolbar-save [record]="record"></re-editor-toolbar-save>
+  </div>
+  <span class="vertical-line">
+  </span>
+  <div class="grow navbar-btn">
+    <re-tickets></re-tickets>
   </div>
 </nav>

@@ -407,6 +407,8 @@ export class AppConfigService {
     }
   };
 
+  editorApiUrl = `${environment.baseUrl}/api/editor`;
+
   constructor(private commonConfigsService: CommonConfigsService) { }
 
   apiUrl(pidType: string, pidValue: string): string {
