@@ -38,7 +38,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "lodash": "4.17.2",
-    "ng2-json-editor": "^0.12.0",
+    "ng2-json-editor": "^0.14.0",
     "rxjs": "^5.0.1",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.8.4"

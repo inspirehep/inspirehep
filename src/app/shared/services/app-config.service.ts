@@ -308,6 +308,33 @@ export class AppConfigService {
             }
           }
         },
+        customFormatValidation: {
+          date: {
+            formatChecker: (value) => {
+              let formats = [
+                /^\d{4}$/,
+                /^\d{4}-\d{2}$/,
+                /^\d{4}-\d{2}-\d{2}$/
+              ];
+              return formats
+              .some(format => {
+                if (value.match(format)) {
+                  return Date.parse(value) !== NaN;
+                }
+                return false;
+              });
+            }
+          },
+          'date-time': {
+            formatChecker: (value) => {
+              let regex = /^\d\d\d\d-[0-1]\d-[0-3]\d[t\s][0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?(?:z|[+-]\d\d:\d\d)?$/i;
+              if (value.match(regex)) {
+                return true;
+              };
+              return false;
+            }
+          }
+        },
         tabsConfig: {
           defaultTabName: 'Main',
           tabs: [
