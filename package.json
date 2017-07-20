@@ -16,7 +16,7 @@
   "angular-cli": {},
   "scripts": {
     "start": "ng serve",
-    "build": "ng build --prod",
+    "build": "ng build --prod --output-hashing none",
     "lint": "tslint \"src/**/*.ts\"",
     "test": "ng test --watch=false",
     "pree2e": "webdriver-manager update",
