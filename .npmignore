@@ -7,7 +7,6 @@ npm-debug.log
 *.ts
 *.html
 *.scss
-*.css
 !*.d.ts
 example
 .github
