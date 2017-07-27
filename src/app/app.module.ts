@@ -2,7 +2,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 
+import { PopoverModule } from 'ng2-bootstrap/popover';
+import { ModalModule } from 'ng2-bootstrap/modal';
+import { BsDropdownModule } from 'ng2-bootstrap/dropdown';
 import { JsonEditorModule } from 'ng2-json-editor';
 
 import { AppComponent } from './app.component';
@@ -10,6 +14,8 @@ import { EditorHoldingPenComponent } from './editor-holdingpen';
 import { EditorContainerComponent } from './editor-container';
 import { EditorToolbarComponent, EditorToolbarSaveComponent } from './editor-toolbar';
 import { EditorHoldingPenToolbarComponent, EditorHoldingPenToolbarSaveComponent } from './editor-holdingpen-toolbar';
+import { TicketsComponent, TicketComponent, NewTicketModalComponent } from './tickets';
+import { DropdownInputComponent } from './dropdown-input';
 
 import { routing, appRoutingProviders, } from './app.routing';
 
@@ -24,13 +30,21 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     EditorToolbarComponent,
     EditorContainerComponent,
     EditorToolbarSaveComponent,
+    TicketsComponent,
+    TicketComponent,
+    NewTicketModalComponent,
+    DropdownInputComponent,
     ...SHARED_PIPES
   ],
   imports: [
     BrowserModule,
     HttpModule,
+    FormsModule,
     routing,
-    JsonEditorModule
+    JsonEditorModule,
+    PopoverModule,
+    BsDropdownModule,
+    ModalModule
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/editor' },

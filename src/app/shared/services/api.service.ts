@@ -22,10 +22,14 @@
 
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+
 import { AppConfigService } from './app-config.service';
+import { Ticket } from '../interfaces';
+
 
 @Injectable()
 export class ApiService {
@@ -65,5 +69,37 @@ export class ApiService {
     return this.http
       .put(this.config.holdingPenApiUrl(this.objectId), record)
       .map(res => res.json());
+  }
+
+  fetchRecordTickets(): Promise<Array<Ticket>> {
+    return this.fetchUrl(`${this.config.editorApiUrl}/rt/tickets/${this.pidValue}`);
+  }
+
+  createRecordTicket(ticket: Ticket): Promise<{id: string, link: string}> {
+    ticket.recid = this.pidValue;
+    return this.http
+      .post(`${this.config.editorApiUrl}/rt/tickets/create`, ticket)
+      .map(res => res.json().data)
+      .toPromise();
+  }
+
+  resolveTicket(ticketId: string): Promise<any> {
+    return this.http
+      .get(`${this.config.editorApiUrl}/rt/tickets/${ticketId}/resolve`)
+      .toPromise();
+  }
+
+  fetchRTUsers(): Observable<Array<string>> {
+    return this.http
+      .get(`${this.config.editorApiUrl}/rt/users`)
+      .map(res => res.json())
+      .map((users: Array<{ name: string }>) => users.map(user => user.name));
+  }
+
+  fetchRTQueues(): Observable<Array<string>> {
+    return this.http
+      .get(`${this.config.editorApiUrl}/rt/queues`)
+      .map(res => res.json())
+      .map((queues: Array<{ name: string }>) => queues.map(queue => queue.name));
   }
 }

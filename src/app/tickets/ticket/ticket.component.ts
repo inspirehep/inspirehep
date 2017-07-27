@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -20,16 +20,28 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+
+import { Ticket } from '../../shared/interfaces';
+import { ApiService } from '../../shared/services';
+
 
 @Component({
-  selector: 're-editor-toolbar',
-  templateUrl: './editor-toolbar.component.html',
+  selector: 're-ticket',
+  templateUrl: './ticket.component.html',
   styleUrls: [
-    '../editor-container/editor-container.component.scss',
-    './editor-toolbar.component.scss'
+    './ticket.component.scss'
   ]
 })
-export class EditorToolbarComponent {
-  @Input() record: Object;
+export class TicketComponent {
+  @Input() ticket: Ticket;
+  @Output() resolve = new EventEmitter<void>();
+
+  constructor(private apiService: ApiService) { }
+
+  onResolveClick() {
+    this.apiService
+      .resolveTicket(this.ticket.id)
+      .then(() => this.resolve.emit());
+  }
 }
