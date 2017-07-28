@@ -4,6 +4,7 @@ import { JsonEditorConfig } from 'ng2-json-editor';
 import * as _ from 'lodash';
 
 import { CommonConfigsService } from './common-configs.service';
+import { FieldSplitterService } from './field-splitter.service';
 
 @Injectable()
 export class AppConfigService {
@@ -296,6 +297,43 @@ export class AppConfigService {
             priority: 1,
             order: ['label', 'title', 'authors', 'arxiv_eprint']
           },
+          '/references/items/properties/reference/properties/misc/items': {
+            onValueChange: (path, value, jsonStore, keyStore) => {
+              let splitResult = this.fieldSplitterService.splitReferenceMisc(value);
+              // parent path, ['references', N, 'reference']
+              let parentPath = path.slice(0, -2);
+              splitResult.splits.forEach(split => {
+                // handle array insert
+                let relativePath = split.path;
+                let insertLast = relativePath.findIndex(el => el === '-');
+                if (insertLast > -1) {
+                  let valueToInsert;
+                  let sliceIndex = insertLast + 1;
+                  let insertPath = relativePath.slice(0, sliceIndex);
+                  if (sliceIndex < relativePath.length) {
+                    let afterInsertPath = relativePath.slice(sliceIndex);
+                    let stub = {};
+                    stub[afterInsertPath[afterInsertPath.length - 1]] = split.value;
+                    for (let i = afterInsertPath.length - 2; i >= 0; i--) {
+                      let temp = { [afterInsertPath[i]]: stub };
+                      stub = temp;
+                    }
+                    valueToInsert = stub;
+                  } else {
+                    valueToInsert = split.value;
+                  }
+                  let fullInsertPath = parentPath.concat(insertPath);
+                  jsonStore.addIn(fullInsertPath, valueToInsert);
+                } else {
+                  let toPath = parentPath.concat(split.path);
+                  jsonStore.setIn(toPath, split.value);
+                }
+
+              });
+              jsonStore.setIn(path, splitResult.unsplitted);
+              keyStore.buildKeysMapRecursivelyForPath(jsonStore.getIn(parentPath), parentPath);
+            }
+          },
           '/urls/items': {
             alwaysShow: ['value', 'description']
           },
@@ -409,7 +447,8 @@ export class AppConfigService {
 
   editorApiUrl = `${environment.baseUrl}/api/editor`;
 
-  constructor(private commonConfigsService: CommonConfigsService) { }
+  constructor(private commonConfigsService: CommonConfigsService,
+    private fieldSplitterService: FieldSplitterService) { }
 
   apiUrl(pidType: string, pidValue: string): string {
     return `${environment.baseUrl}/api/${pidType}/${pidValue}/db`;

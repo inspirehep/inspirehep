@@ -1,3 +1,4 @@
+
 /*
  * This file is part of ng2-json-editor.
  * Copyright (C) 2016 CERN.
@@ -23,6 +24,7 @@
 
 import { AppConfigService } from './app-config.service';
 import { CommonConfigsService } from './common-configs.service';
+import { FieldSplitterService } from './field-splitter.service';
 
 
 describe('AppConfigService', () => {
@@ -30,11 +32,11 @@ describe('AppConfigService', () => {
   let service: AppConfigService;
 
   beforeEach(() => {
-    service = new AppConfigService(new CommonConfigsService());
+    service = new AppConfigService(new CommonConfigsService(), new FieldSplitterService());
   });
 
   it('should get a merged config for an hep type', () => {
-    service.jsonEditorConfigs = {
+    let config: any = {
       hep: {
         default: {
           schemaOptions: {
@@ -50,6 +52,7 @@ describe('AppConfigService', () => {
         }
       }
     };
+    service.jsonEditorConfigs = config;
 
     let record = {
       $schema: 'http://foo/bar/hep.json',
@@ -72,7 +75,7 @@ describe('AppConfigService', () => {
   });
 
   it('should get default config if hep type not found in CONFIGS', () => {
-    service.jsonEditorConfigs = {
+    let config: any = {
       hep: {
         default: {
           schemaOptions: {
@@ -82,6 +85,7 @@ describe('AppConfigService', () => {
         }
       }
     };
+    service.jsonEditorConfigs = config;
 
     let record = {
       $schema: 'http://foo/bar/hep.json',
@@ -103,7 +107,7 @@ describe('AppConfigService', () => {
   });
 
   it('should get config for non hep schema', () => {
-    service.jsonEditorConfigs = {
+    let config: any = {
       notHep: {
         default: {
           schemaOptions: {
@@ -113,6 +117,7 @@ describe('AppConfigService', () => {
         }
       }
     };
+    service.jsonEditorConfigs = config;
 
     let record = {
       $schema: 'http://foo/bar/notHep.json'
