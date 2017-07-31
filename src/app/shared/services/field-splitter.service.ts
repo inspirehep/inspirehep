@@ -35,7 +35,7 @@ export class FieldSplitterService {
     i: ['isbn'],
     k: ['texkey'],
     o: ['label'],
-    u: ['urls', '-'],
+    u: ['urls', '-', 'value'],
     r: ['report_number'],
     x: ['arxiv_eprint'],
     v: ['publication_info', 'journal_volume'],
