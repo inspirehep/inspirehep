@@ -400,8 +400,11 @@ export class AppConfigService {
             getUrl: (record) => {
               let urls: Array<{ value: string }> = record['urls'];
               if (urls && urls.length > 0) {
-                return urls.map(url => url.value)
+                let url = urls.map(_url => _url.value)
                   .find(value => value.endsWith('.pdf'));
+                if (url !== undefined) {
+                  return url.replace('http://', '//');
+                }
               } else {
                 return undefined;
               }
@@ -413,7 +416,7 @@ export class AppConfigService {
             getUrl: (record) => {
               let ePrints: Array<{ value: string }> = record['arxiv_eprints'];
               if (ePrints && ePrints.length > 0) {
-                return `http://arxiv.org/abs/${ePrints[0].value}`;
+                return `//arxiv.org/abs/${ePrints[0].value}`;
               } else {
                 return undefined;
               }
@@ -425,7 +428,7 @@ export class AppConfigService {
             getUrl: (record) => {
               let dois: Array<{ value: string }> = record['dois'];
               if (dois && dois.length > 0) {
-                return `http://dx.doi.org/${dois[0].value}`;
+                return `//dx.doi.org/${dois[0].value}`;
               } else {
                 return undefined;
               }
