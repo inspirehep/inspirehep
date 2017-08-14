@@ -58,11 +58,4 @@ export class EditorContainerComponent implements OnInit {
     this.record = record;
   }
 
-  /**
-   * Utility function to check if array is defined and has at least single element inside
-   * Used to simplify template
-   */
-  isEmpty(array: Array<any>): boolean {
-    return array && array.length > 0;
-  }
 }

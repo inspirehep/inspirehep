@@ -1,16 +1,10 @@
-<ng-template let-item="item" #referenceTemplate>
-  <div class="reference-template-container" [ngSwitch]="item.hasIn(['record', '$ref'])">
-    <span *ngSwitchCase="true">
-      <i class="fa fa-check-circle success" aria-hidden="true"></i>
-      <a href="{{item.getIn(['record', '$ref'])}}" target="_blank">{{item | referenceBrief}}</a>
-    </span>
-    <span *ngSwitchDefault>
-      <i class="fa fa-exclamation-triangle warning" aria-hidden="true"></i>
-      {{item | referenceBrief}}
-    </span>
-  </div>
+<ng-template let-reference="item" #referenceTemplate>
+  <re-reference-brief [reference]="reference"></re-reference-brief>
 </ng-template>
 
+<ng-template let-item="item" #affiliationAutocompleteTemplate>
+  <re-affiliation-brief [affiliation]="item.payload"></re-affiliation-brief>
+</ng-template>
 
 <re-holdingpen-toolbar [workflowObject]="workflowObject"></re-holdingpen-toolbar>
 <div class="editor-parent-container">
@@ -18,7 +12,7 @@
     [record]="workflowObject.metadata"
     [schema]="schema"
     [config]="config"
-    [templates]="{referenceTemplate: referenceTemplate}"
+    [templates]="{referenceTemplate: referenceTemplate, affiliationAutocompleteTemplate: affiliationAutocompleteTemplate}"
     (onRecordChange)="onRecordChange($event)">
   </json-editor>
 </div>
