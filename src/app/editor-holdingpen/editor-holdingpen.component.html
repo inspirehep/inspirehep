@@ -6,13 +6,21 @@
   <re-affiliation-brief [affiliation]="item.payload"></re-affiliation-brief>
 </ng-template>
 
+<ng-template #refExtractTemplate>
+    <re-ref-extract-actions></re-ref-extract-actions>
+  </ng-template>
+
 <re-holdingpen-toolbar [workflowObject]="workflowObject"></re-holdingpen-toolbar>
 <div class="editor-parent-container">
   <json-editor *ngIf="workflowObject && schema"
     [record]="workflowObject.metadata"
     [schema]="schema"
     [config]="config"
-    [templates]="{referenceTemplate: referenceTemplate, affiliationAutocompleteTemplate: affiliationAutocompleteTemplate}"
+    [templates]="{
+      referenceTemplate: referenceTemplate,
+      affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
+      refExtractTemplate: refExtractTemplate
+    }"
     (onRecordChange)="onRecordChange($event)">
   </json-editor>
 </div>

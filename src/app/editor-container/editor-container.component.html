@@ -6,13 +6,21 @@
   <re-affiliation-brief [affiliation]="item.payload"></re-affiliation-brief>
 </ng-template>
 
+<ng-template #refExtractTemplate>
+  <re-ref-extract-actions></re-ref-extract-actions>
+</ng-template>
+
 <re-editor-toolbar [record]="record"></re-editor-toolbar>
 <div class="editor-parent-container">
   <json-editor *ngIf="record && schema"
     [record]="record"
     [schema]="schema"
     [config]="config"
-    [templates]="{referenceTemplate: referenceTemplate, affiliationAutocompleteTemplate: affiliationAutocompleteTemplate}"
+    [templates]="{
+      referenceTemplate: referenceTemplate,
+      affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
+      refExtractTemplate: refExtractTemplate
+    }"
     (onRecordChange)="onRecordChange($event)"
     [jsonPatches]="[{}]">
   </json-editor>
