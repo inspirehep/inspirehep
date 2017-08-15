@@ -20,14 +20,15 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 're-holdingpen-toolbar',
   templateUrl: './editor-holdingpen-toolbar.component.html',
   styleUrls: [
     '../editor-container/editor-container.component.scss'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorHoldingPenToolbarComponent {
   @Input() workflowObject: Object;

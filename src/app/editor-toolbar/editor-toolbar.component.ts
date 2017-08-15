@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 're-editor-toolbar',
@@ -28,7 +28,8 @@ import { Component, Input } from '@angular/core';
   styleUrls: [
     '../editor-container/editor-container.component.scss',
     './editor-toolbar.component.scss'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorToolbarComponent {
   @Input() record: Object;

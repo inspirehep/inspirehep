@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/mergeMap';
 
@@ -30,7 +30,8 @@ import { ApiService, AppConfigService } from '../shared/services';
   templateUrl: './editor-holdingpen.component.html',
   styleUrls: [
     '../editor-container/editor-container.component.scss'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorHoldingPenComponent implements OnInit {
   workflowObject: Object;
@@ -38,7 +39,8 @@ export class EditorHoldingPenComponent implements OnInit {
 
   private config: Object;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+    private route: ActivatedRoute,
     private apiService: ApiService,
     private appConfig: AppConfigService) { }
 
@@ -52,6 +54,7 @@ export class EditorHoldingPenComponent implements OnInit {
             return this.apiService.fetchUrl(this.workflowObject['metadata']['$schema']);
           }).then(schema => {
             this.schema = schema;
+            this.changeDetectorRef.markForCheck();
           }).catch(error => console.error(error));
       });
   }
