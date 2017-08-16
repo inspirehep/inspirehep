@@ -145,7 +145,8 @@ export class AppConfigService {
               findMultiple: this.commonConfigsService.fullTextSearch,
               itemsPerPage: 20,
               maxVisiblePageCount: 5
-            }
+            },
+            sortable: true
           },
           '/authors/items': {
             order: ['ids', 'full_name', 'alternative_names', 'affiliations', 'raw_affiliations', 'emails', 'inspire_roles', 'credit_roles'],
@@ -225,7 +226,7 @@ export class AppConfigService {
             order: ['value', 'schema', 'material', 'source']
           },
           '/publication_info/items': {
-            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year'],
+            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'page_start'],
             order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid']
           },
           '/publication_info/items/properties/conference_record': {
