@@ -198,9 +198,6 @@ export class AppConfigService {
           '/dois/items': {
             order: ['value', 'material', 'source']
           },
-          '/dois/items/properties/value': {
-            disabled: true
-          },
           '/external_system_identifiers/items': {
             order: ['value']
           },
