@@ -2,8 +2,10 @@
   font-size: 18px;
 }
 
-.padding-right {
-  padding-right: 10px;
+.fa-list-alt {
+  margin-top: 1px;
+  position: relative;
+  top: 1px;
 }
 
 .btn {
@@ -14,7 +16,16 @@
   color: #ccc;
 }
 
+.menu-item {
+  padding: 4px 10px 1px 10px;
 
-.dropdown-item {
-  cursor: pointer;
+  textarea {
+    padding: 3px 6px;
+    min-width: 460px;
+    min-height: 250px;
+  }
+
+  button {
+    width: 100%;
+  }
 }

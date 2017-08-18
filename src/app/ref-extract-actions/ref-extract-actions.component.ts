@@ -20,7 +20,10 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { JsonStoreService } from 'ng2-json-editor';
+
+import { RefExtractApiService } from '../shared/services';
 
 @Component({
   selector: 're-ref-extract-actions',
@@ -31,5 +34,31 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RefExtractActionsComponent {
+
+  textOrUrl: string;
+  replaceExisting = true;
+
+  private urlRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
+  constructor(private refExtractApiService: RefExtractApiService,
+    private jsonStoreService: JsonStoreService) { }
+
+  onExtractClick() {
+    this.refExtractApiService
+      .refExtract(this.textOrUrl, this.sourceType)
+      .then(references => {
+        if (this.replaceExisting) {
+          this.jsonStoreService.setIn(['references'], references);
+        } else {
+          references.forEach(reference => {
+            this.jsonStoreService.addIn(['references', 0], reference);
+          });
+        }
+      });
+  }
+
+  get sourceType(): 'text' | 'url' {
+    return this.urlRegexp.test(this.textOrUrl) ? 'url' : 'text';
+  }
 
 }
