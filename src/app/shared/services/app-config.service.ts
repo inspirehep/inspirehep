@@ -242,6 +242,7 @@ export class AppConfigService {
             }
           },
           '/references': {
+            sortable: true,
             longListNavigatorConfig: {
               findSingle: (value, expression) => {
                 return value.getIn(['reference', 'label']) === expression;
