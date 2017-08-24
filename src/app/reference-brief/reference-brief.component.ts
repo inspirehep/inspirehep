@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -23,14 +23,13 @@
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 're-editor-toolbar',
-  templateUrl: './editor-toolbar.component.html',
+  selector: 're-reference-brief',
+  templateUrl: './reference-brief.component.html',
   styleUrls: [
-    '../editor-container/editor-container.component.scss',
-    './editor-toolbar.component.scss'
+    './reference-brief.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditorToolbarComponent {
-  @Input() record: Object;
+export class ReferenceBriefComponent {
+  @Input() reference: Object;
 }

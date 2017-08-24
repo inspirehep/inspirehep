@@ -19,23 +19,6 @@ $silver: #bdc3c7;
 $concrete: #95a5a6;
 $asbestos: #7f8c8d;
 
-.fa {
-  &.success {
-    color: $green-sea;
-  }
-
-  &.warning {
-    color: $orange;
-  }
-}
-
-.reference-template-container {
-  background-color: white;
-  box-shadow: 0 0.5px 0 0 #ffffff inset, 0 1px 2px 0 #B3B3B3;
-  padding: 5px;
-  margin-bottom: 5px;
-}
-
 .navbar-default {
   background-color: $wet-asphalt;
   box-shadow: 0 2px 5px 0 rgba(0,0,0,0.2);

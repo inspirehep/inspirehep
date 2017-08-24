@@ -20,17 +20,28 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
-@Component({
-  selector: 're-editor-toolbar',
-  templateUrl: './editor-toolbar.component.html',
-  styleUrls: [
-    '../editor-container/editor-container.component.scss',
-    './editor-toolbar.component.scss'
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class EditorToolbarComponent {
-  @Input() record: Object;
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
+
+import { AppConfigService } from './app-config.service';
+
+
+@Injectable()
+export class RefExtractApiService {
+
+  constructor(private http: Http,
+    private config: AppConfigService) { }
+
+  refExtract(source: string, sourceType: string): Promise<Array<Object>> {
+    let body = { [sourceType]: source };
+    return this.http
+      .post(`${this.config.editorApiUrl}/refextract/${sourceType}`, body)
+      .map(res => res.json())
+      .toPromise();
+  }
+
 }

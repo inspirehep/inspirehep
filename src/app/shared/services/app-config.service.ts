@@ -249,7 +249,8 @@ export class AppConfigService {
               },
               findMultiple: this.commonConfigsService.fullTextSearch,
               itemsPerPage: 40,
-              maxVisiblePageCount: 5
+              maxVisiblePageCount: 5,
+              headerItemTemplateName: 'refExtractTemplate'
             },
             viewTemplateConfig: {
               itemTemplateName: 'referenceTemplate',

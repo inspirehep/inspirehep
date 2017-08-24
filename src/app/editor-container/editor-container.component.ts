@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ApiService, AppConfigService } from '../shared/services';
@@ -29,14 +29,16 @@ import { ApiService, AppConfigService } from '../shared/services';
   templateUrl: './editor-container.component.html',
   styleUrls: [
     './editor-container.component.scss'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorContainerComponent implements OnInit {
   record: Object;
   schema: Object;
-  private config: Object;
+  config: Object;
 
-  constructor(private route: ActivatedRoute,
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+    private route: ActivatedRoute,
     private apiService: ApiService,
     private appConfig: AppConfigService) { }
 
@@ -50,6 +52,7 @@ export class EditorContainerComponent implements OnInit {
             return this.apiService.fetchUrl(this.record['$schema']);
           }).then(schema => {
             this.schema = schema;
+            this.changeDetectorRef.markForCheck();
           }).catch(error => console.error(error));
       });
   }
@@ -58,11 +61,4 @@ export class EditorContainerComponent implements OnInit {
     this.record = record;
   }
 
-  /**
-   * Utility function to check if array is defined and has at least single element inside
-   * Used to simplify template
-   */
-  isEmpty(array: Array<any>): boolean {
-    return array && array.length > 0;
-  }
 }

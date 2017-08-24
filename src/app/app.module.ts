@@ -16,6 +16,9 @@ import { EditorToolbarComponent, EditorToolbarSaveComponent } from './editor-too
 import { EditorHoldingPenToolbarComponent, EditorHoldingPenToolbarSaveComponent } from './editor-holdingpen-toolbar';
 import { TicketsComponent, TicketComponent, NewTicketModalComponent } from './tickets';
 import { DropdownInputComponent } from './dropdown-input';
+import { ReferenceBriefComponent } from './reference-brief';
+import { AffiliationBriefComponent } from './affiliation-brief';
+import { RefExtractActionsComponent } from './ref-extract-actions';
 
 import { routing, appRoutingProviders, } from './app.routing';
 
@@ -34,6 +37,9 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     TicketComponent,
     NewTicketModalComponent,
     DropdownInputComponent,
+    ReferenceBriefComponent,
+    AffiliationBriefComponent,
+    RefExtractActionsComponent,
     ...SHARED_PIPES
   ],
   imports: [
