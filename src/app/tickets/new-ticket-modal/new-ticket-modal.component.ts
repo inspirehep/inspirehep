@@ -22,7 +22,7 @@
 
 import { Component, Input, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
 
-import { ModalDirective } from 'ng2-bootstrap/modal';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { Ticket } from '../../shared/interfaces';
 import { ApiService } from '../../shared/services';
