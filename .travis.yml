@@ -9,7 +9,9 @@ node_js:
 
 sudo: false
 
-before_script: npm run lint
+before_script: 
+  - npm run lint
+  - npm run build
 
 before_install:
   - npm install buffer-shims

@@ -22,6 +22,8 @@
 
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
+import { Map } from 'immutable';
+
 @Component({
   selector: 're-reference-brief',
   templateUrl: './reference-brief.component.html',
@@ -31,5 +33,5 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReferenceBriefComponent {
-  @Input() reference: Object;
+  @Input() reference: Map<string, any>;
 }

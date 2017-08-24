@@ -22,6 +22,8 @@
 
 import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
+import { Affiliation } from '../shared/interfaces';
+
 @Component({
   selector: 're-affiliation-brief',
   templateUrl: './affiliation-brief.component.html',
@@ -31,7 +33,7 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AffiliationBriefComponent {
-  @Input() affiliation: Object;
+  @Input() affiliation: Affiliation;
 
   /**
    * Utility function to check if array is defined and has at least single element inside
