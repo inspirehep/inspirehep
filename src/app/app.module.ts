@@ -4,9 +4,9 @@ import { APP_BASE_HREF } from '@angular/common';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
-import { PopoverModule } from 'ng2-bootstrap/popover';
-import { ModalModule } from 'ng2-bootstrap/modal';
-import { BsDropdownModule } from 'ng2-bootstrap/dropdown';
+import { PopoverModule } from 'ngx-bootstrap/popover';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { JsonEditorModule } from 'ng2-json-editor';
 
 import { AppComponent } from './app.component';
