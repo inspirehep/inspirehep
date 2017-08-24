@@ -38,6 +38,7 @@
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
     "lodash": "4.17.2",
+    "immutable": "^3.8.1",
     "ng2-json-editor": "^0.17.0",
     "ngx-bootstrap": "2.0.0-beta.1",
     "rxjs": "^5.0.1",
