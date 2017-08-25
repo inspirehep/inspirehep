@@ -13,14 +13,13 @@
 <re-holdingpen-toolbar [workflowObject]="workflowObject"></re-holdingpen-toolbar>
 <div class="editor-parent-container">
   <json-editor *ngIf="workflowObject && schema"
-    [record]="workflowObject.metadata"
+    [(record)]="workflowObject.metadata"
     [schema]="schema"
     [config]="config"
     [templates]="{
       referenceTemplate: referenceTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
       refExtractTemplate: refExtractTemplate
-    }"
-    (onRecordChange)="onRecordChange($event)">
+    }">
   </json-editor>
 </div>

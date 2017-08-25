@@ -13,15 +13,14 @@
 <re-editor-toolbar [record]="record"></re-editor-toolbar>
 <div class="editor-parent-container">
   <json-editor *ngIf="record && schema"
-    [record]="record"
+    [(record)]="record"
     [schema]="schema"
     [config]="config"
     [templates]="{
       referenceTemplate: referenceTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
       refExtractTemplate: refExtractTemplate
-    }"
-    (onRecordChange)="onRecordChange($event)">
+    }">
   </json-editor>
 </div>
 

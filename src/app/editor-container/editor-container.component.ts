@@ -56,9 +56,4 @@ export class EditorContainerComponent implements OnInit {
           }).catch(error => console.error(error));
       });
   }
-
-  onRecordChange(record: Object) {
-    this.record = record;
-  }
-
 }
