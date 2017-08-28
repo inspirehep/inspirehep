@@ -58,8 +58,4 @@ export class EditorHoldingPenComponent implements OnInit {
           }).catch(error => console.error(error));
       });
   }
-
-  onRecordChange(record: Object) {
-    this.workflowObject['metadata'] = record;
-  }
 }

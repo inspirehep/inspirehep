@@ -38,17 +38,14 @@ export class TicketsComponent implements OnInit {
 
   displayLimit = 3;
   tickets: Array<Ticket> = [];
-  isHidden = false;
+  isHidden = true;
   constructor(private apiService: ApiService) { }
 
   ngOnInit() {
     this.apiService.fetchRecordTickets()
-      .then(tickets => this.tickets = tickets)
-      .catch(error => {
-        // hide the tickets UI if FORBIDDEN
-        if (error.status === 403) {
-          this.isHidden = true;
-        };
+      .then(tickets => {
+        this.tickets = tickets;
+        this.isHidden = false;
       });
   }
 
