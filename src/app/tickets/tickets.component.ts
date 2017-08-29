@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -32,20 +32,22 @@ import { Ticket } from '../shared/interfaces';
   templateUrl: './tickets.component.html',
   styleUrls: [
     './tickets.component.scss'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TicketsComponent implements OnInit {
 
   displayLimit = 3;
-  tickets: Array<Ticket> = [];
-  isHidden = true;
-  constructor(private apiService: ApiService) { }
+  tickets: Array<Ticket>;
+
+  constructor(private apiService: ApiService,
+    private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.apiService.fetchRecordTickets()
       .then(tickets => {
         this.tickets = tickets;
-        this.isHidden = false;
+        this.changeDetectorRef.markForCheck();
       });
   }
 

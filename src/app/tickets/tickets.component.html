@@ -1,4 +1,4 @@
-<ng-container *ngIf="!isHidden">
+<ng-container *ngIf="tickets">
   <div class="display-inline-flex">
     <ul class="display">
       <li *ngFor="let ticket of tickets | slice:0:displayLimit; let i = index">
