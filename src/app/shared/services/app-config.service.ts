@@ -1,5 +1,7 @@
 import { environment } from '../../../environments/environment';
+
 import { Injectable } from '@angular/core';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { JsonEditorConfig } from 'ng2-json-editor';
 import * as _ from 'lodash';
 
@@ -92,6 +94,12 @@ export class AppConfigService {
           },
           '/texkeys': {
             disabled: true
+          },
+          '/document_type/items': {
+            onValueChange: (path, documentType) => {
+              let hepConfig = _.merge(this.jsonEditorConfigs['hep']['default'], this.jsonEditorConfigs['hep'][documentType]);
+              this.onConfigChange.next(hepConfig);
+            }
           },
           '/abstracts/items/properties/value': {
             priority: 1,
@@ -355,12 +363,12 @@ export class AppConfigService {
                 /^\d{4}-\d{2}-\d{2}$/
               ];
               return formats
-              .some(format => {
-                if (value.match(format)) {
-                  return Date.parse(value) !== NaN;
-                }
-                return false;
-              });
+                .some(format => {
+                  if (value.match(format)) {
+                    return Date.parse(value) !== NaN;
+                  }
+                  return false;
+                });
             }
           },
           'date-time': {
@@ -450,6 +458,8 @@ export class AppConfigService {
 
   editorApiUrl = `${environment.baseUrl}/api/editor`;
 
+  onConfigChange = new ReplaySubject<EditorConfig>();
+
   constructor(private commonConfigsService: CommonConfigsService,
     private fieldSplitterService: FieldSplitterService) { }
 
@@ -466,16 +476,15 @@ export class AppConfigService {
     let recordTypeConfig = this.jsonEditorConfigs[recordType] || {};
     // Only hep records have sub type at the moment.
     if (recordType === 'hep') {
-      let hepType = this.getHepType(record);
+      let hepType = this.getHepType(record['document_type']);
       return _.merge(recordTypeConfig['default'], recordTypeConfig[hepType]);
     } else {
       return recordTypeConfig['default'];
     }
   }
 
-  private getHepType(record: Object): string {
-    let document_types: Array<string> = record['document_type'];
-    return document_types
+  private getHepType(documentTypes: Array<string>): string {
+    return documentTypes
       .find(primary => this.jsonEditorConfigs['hep'][primary] !== undefined);
   }
 

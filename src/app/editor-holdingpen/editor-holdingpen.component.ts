@@ -36,13 +36,12 @@ import { ApiService, AppConfigService } from '../shared/services';
 export class EditorHoldingPenComponent implements OnInit {
   workflowObject: Object;
   schema: Object;
-
-  private config: Object;
+  config: Object;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private appConfig: AppConfigService) { }
+    private appConfigService: AppConfigService) { }
 
   ngOnInit() {
     this.route.params
@@ -50,12 +49,18 @@ export class EditorHoldingPenComponent implements OnInit {
         this.apiService.fetchWorkflowObject(params['objectid'])
           .then(workflowObject => {
             this.workflowObject = workflowObject;
-            this.config = this.appConfig.getConfigForRecord(this.workflowObject['metadata']);
+            this.config = this.appConfigService.getConfigForRecord(this.workflowObject['metadata']);
             return this.apiService.fetchUrl(this.workflowObject['metadata']['$schema']);
           }).then(schema => {
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
           }).catch(error => console.error(error));
+      });
+
+    this.appConfigService.onConfigChange
+      .subscribe(config => {
+        this.config = Object.assign({}, config);
+        this.changeDetectorRef.markForCheck();
       });
   }
 }
