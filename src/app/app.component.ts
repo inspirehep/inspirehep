@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
 @Component({
   selector: 're-app',
@@ -30,4 +30,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
   ],
   templateUrl: 'app.component.html'
 })
-export class AppComponent { }
+export class AppComponent implements OnInit {
+  ngOnInit() {
+    window.addEventListener('beforeunload', (event) => {
+      event.returnValue = true;  // Gecko, Trident, Chrome 34+
+      return true;  // Gecko, WebKit, Chrome <34
+    });
+  }
+}
