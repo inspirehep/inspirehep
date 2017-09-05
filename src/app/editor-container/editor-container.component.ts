@@ -40,7 +40,7 @@ export class EditorContainerComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private appConfig: AppConfigService) { }
+    private appConfigService: AppConfigService) { }
 
   ngOnInit() {
     this.route.params
@@ -48,12 +48,18 @@ export class EditorContainerComponent implements OnInit {
         this.apiService.fetchRecord(params['type'], params['recid'])
           .then(record => {
             this.record = record['metadata'];
-            this.config = this.appConfig.getConfigForRecord(this.record);
+            this.config = this.appConfigService.getConfigForRecord(this.record);
             return this.apiService.fetchUrl(this.record['$schema']);
           }).then(schema => {
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
           }).catch(error => console.error(error));
+      });
+
+    this.appConfigService.onConfigChange
+      .subscribe(config => {
+        this.config = Object.assign({}, config);
+        this.changeDetectorRef.markForCheck();
       });
   }
 }
