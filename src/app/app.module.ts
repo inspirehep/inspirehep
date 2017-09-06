@@ -19,6 +19,7 @@ import { DropdownInputComponent } from './dropdown-input';
 import { ReferenceBriefComponent } from './reference-brief';
 import { AffiliationBriefComponent } from './affiliation-brief';
 import { RefExtractActionsComponent } from './ref-extract-actions';
+import { UndoButtonComponent } from './undo-button';
 
 import { routing, appRoutingProviders, } from './app.routing';
 
@@ -40,6 +41,7 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     ReferenceBriefComponent,
     AffiliationBriefComponent,
     RefExtractActionsComponent,
+    UndoButtonComponent,
     ...SHARED_PIPES
   ],
   imports: [
