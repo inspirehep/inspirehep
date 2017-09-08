@@ -38,6 +38,8 @@ export class EditorContainerComponent implements OnInit {
   record: Object;
   schema: Object;
   config: Object;
+  // `undefined` on current revision
+  revision: Object;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -75,5 +77,25 @@ export class EditorContainerComponent implements OnInit {
         this.config = Object.assign({}, config);
         this.changeDetectorRef.markForCheck();
       });
+  }
+
+  onRecordChange(record: Object) {
+    // update record if the edited one is not revision.
+    if (!this.revision) {
+      this.record = record;
+    } else {
+      this.toastrService.warning('You are changing the revisions and your changes will be lost!', 'Warning');
+    }
+  }
+
+  onRevisionRevert() {
+    this.record = this.revision;
+    this.revision = undefined;
+    this.changeDetectorRef.markForCheck();
+  }
+
+  onRevisionChange(revision: Object) {
+    this.revision = revision;
+    this.changeDetectorRef.markForCheck();
   }
 }

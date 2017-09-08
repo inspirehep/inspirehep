@@ -14,7 +14,7 @@
 
   <ng-template #moreTicketsTemplate>
     <ul class="more">
-      <li *ngFor="let ticket of tickets | slice:displayLimit; let i = index">
+    <li *ngFor="let ticket of tickets | slice:displayLimit; let i = index">
         <re-ticket [ticket]="ticket" (resolve)="onTicketResolve(i + displayLimit)"></re-ticket>
       </li>
     </ul>
