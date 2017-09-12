@@ -4,6 +4,7 @@ import { CommonConfigsService } from './common-configs.service';
 import { RecordCleanupService } from './record-cleanup.service';
 import { FieldSplitterService } from './field-splitter.service';
 import { RefExtractApiService } from './ref-extract-api.service';
+import { BeforeUnloadPromptService } from './before-unload-prompt.service';
 
 export {
   ApiService,
@@ -11,7 +12,8 @@ export {
   CommonConfigsService,
   RecordCleanupService,
   FieldSplitterService,
-  RefExtractApiService
+  RefExtractApiService,
+  BeforeUnloadPromptService
 };
 
 export const SHARED_SERVICES = [
@@ -20,5 +22,6 @@ export const SHARED_SERVICES = [
   CommonConfigsService,
   RecordCleanupService,
   FieldSplitterService,
-  RefExtractApiService
+  RefExtractApiService,
+  BeforeUnloadPromptService
 ];
