@@ -411,7 +411,7 @@ export class AppConfigService {
                 let url = urls.map(_url => _url.value)
                   .find(value => value.endsWith('.pdf'));
                 if (url !== undefined) {
-                  return url.replace('http://', '//');
+                  return url.replace('http://', '//') + '#zoom=100' ;
                 }
               } else {
                 return undefined;
