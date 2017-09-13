@@ -21,6 +21,7 @@
  */
 
 import { Component, Input, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { JsonStoreService } from 'ng2-json-editor';
 
 import { RefExtractApiService } from '../shared/services';
@@ -41,9 +42,12 @@ export class RefExtractActionsComponent {
   private urlRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
   constructor(private refExtractApiService: RefExtractApiService,
-    private jsonStoreService: JsonStoreService) { }
+    private jsonStoreService: JsonStoreService,
+    private toastrService: ToastrService) { }
 
   onExtractClick() {
+    let infoToast = this.toastrService.info('Extracting references...', 'Wait', { timeOut: 0, onActivateTick: true });
+
     this.refExtractApiService
       .refExtract(this.textOrUrl, this.sourceType)
       .then(references => {
@@ -54,6 +58,12 @@ export class RefExtractActionsComponent {
             this.jsonStoreService.addIn(['references', 0], reference);
           });
         }
+
+        this.toastrService.clear(infoToast.toastId);
+        this.toastrService.success(`${references.length} references extracted.`, 'Success');
+      }).catch(error => {
+        this.toastrService.clear(infoToast.toastId);
+        this.toastrService.error('Could not extract references', 'Error');
       });
   }
 

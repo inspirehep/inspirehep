@@ -24,6 +24,8 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/mergeMap';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { ApiService, AppConfigService } from '../shared/services';
 
 @Component({
@@ -41,7 +43,8 @@ export class EditorHoldingPenComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private appConfigService: AppConfigService) { }
+    private appConfigService: AppConfigService,
+    private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.route.params
@@ -54,7 +57,10 @@ export class EditorHoldingPenComponent implements OnInit {
           }).then(schema => {
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
-          }).catch(error => console.error(error));
+          }).catch(error => {
+            console.error(error);
+            this.toastrService.error('Could not load the holdingpen record!', 'Error');
+          });
       });
 
     this.appConfigService.onConfigChange
