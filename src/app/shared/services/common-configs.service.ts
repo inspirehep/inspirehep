@@ -37,6 +37,6 @@ export class CommonConfigsService {
   }
 
   fullTextSearch = (value: any, expression: string) => {
-    return JSON.stringify(value).search(expression) > -1;
+    return JSON.stringify(value).search(new RegExp(expression, 'i')) > -1;
   }
 }
