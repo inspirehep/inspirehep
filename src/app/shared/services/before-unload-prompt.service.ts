@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,24 +18,24 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { BeforeUnloadPromptService } from './shared/services';
+@Injectable()
+export class BeforeUnloadPromptService {
 
-@Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
-})
-export class AppComponent implements OnInit {
-  constructor(private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+  // Event handler that makes browser to show prompt before closing the application
+  private beforeUnloadHandler = function (event) {
+    event.returnValue = true;  // Gecko, Trident, Chrome 34+
+    return true;  // Gecko, WebKit, Chrome <34
+  };
 
-  ngOnInit() {
-    this.beforeUnloadPromptService.register();
+  register() {
+    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+  }
+
+  unregister() {
+    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
   }
 }

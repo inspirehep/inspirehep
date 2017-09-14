@@ -20,9 +20,9 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import {Component, Input} from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { ApiService, RecordCleanupService } from '../../shared/services';
+import { ApiService, RecordCleanupService, BeforeUnloadPromptService } from '../../shared/services';
 
 @Component({
   selector: 're-editor-holdingpen-toolbar-save',
@@ -32,15 +32,17 @@ import { ApiService, RecordCleanupService } from '../../shared/services';
   ]
 })
 export class EditorHoldingPenToolbarSaveComponent {
-  @Input() workflowObject: {id: string};
+  @Input() workflowObject: { id: string };
 
   constructor(private apiService: ApiService,
-    private recordCleanupService: RecordCleanupService) { }
+    private recordCleanupService: RecordCleanupService,
+    private beforeUnloadPromptService: BeforeUnloadPromptService) { }
 
   onClickSave(event: Object) {
     this.recordCleanupService.cleanup(this.workflowObject['metadata']);
     this.apiService.saveWorkflowObject(this.workflowObject)
       .subscribe(resp => {
+        this.beforeUnloadPromptService.unregister();
         window.location.href = `/holdingpen/${this.workflowObject.id}`;
       });
   }
