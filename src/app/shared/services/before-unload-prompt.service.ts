@@ -22,6 +22,8 @@
 
 import { Injectable } from '@angular/core';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable()
 export class BeforeUnloadPromptService {
 
@@ -32,10 +34,14 @@ export class BeforeUnloadPromptService {
   };
 
   register() {
-    window.addEventListener('beforeunload', this.beforeUnloadHandler);
+    if (environment.production) {
+      window.addEventListener('beforeunload', this.beforeUnloadHandler);
+    }
   }
 
   unregister() {
-    window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+    if (environment.production) {
+      window.removeEventListener('beforeunload', this.beforeUnloadHandler);
+    }
   }
 }
