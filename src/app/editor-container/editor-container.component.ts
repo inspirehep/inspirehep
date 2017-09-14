@@ -23,6 +23,8 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { ApiService, AppConfigService } from '../shared/services';
 
 @Component({
@@ -40,7 +42,8 @@ export class EditorContainerComponent implements OnInit {
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private appConfigService: AppConfigService) { }
+    private appConfigService: AppConfigService,
+    private toastrService: ToastrService) { }
 
   ngOnInit() {
     this.route.params
@@ -53,7 +56,10 @@ export class EditorContainerComponent implements OnInit {
           }).then(schema => {
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
-          }).catch(error => console.error(error));
+          }).catch(error => {
+            console.error(error);
+            this.toastrService.error('Could not load the record!', 'Error');
+          });
       });
 
     this.appConfigService.onConfigChange

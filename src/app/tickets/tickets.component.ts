@@ -22,6 +22,8 @@
 
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
+import { ToastrService } from 'ngx-toastr';
+
 import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from '../shared/services';
@@ -41,6 +43,7 @@ export class TicketsComponent implements OnInit {
   tickets: Array<Ticket>;
 
   constructor(private apiService: ApiService,
+    private toastrService: ToastrService,
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
@@ -48,6 +51,13 @@ export class TicketsComponent implements OnInit {
       .then(tickets => {
         this.tickets = tickets;
         this.changeDetectorRef.markForCheck();
+      }).catch(error => {
+        console.error(error);
+        if (error.status === 403) {
+          this.toastrService.error('Logged in user can not access to tickets', 'Forbidden');
+        } else {
+          this.toastrService.error('Could not load the tickets!', 'Error');
+        }
       });
   }
 
