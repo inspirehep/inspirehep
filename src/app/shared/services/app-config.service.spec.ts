@@ -32,7 +32,7 @@ describe('AppConfigService', () => {
   let service: AppConfigService;
 
   beforeEach(() => {
-    service = new AppConfigService(new CommonConfigsService(), new FieldSplitterService());
+    service = new AppConfigService(new CommonConfigsService(new FieldSplitterService()));
   });
 
   it('should get a merged config for an hep type', () => {

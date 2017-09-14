@@ -21,10 +21,15 @@
  */
 
 import { Injectable } from '@angular/core';
-import { RefAnchorAttributes } from 'ng2-json-editor';
+import { RefAnchorAttributes, JsonStoreService, KeysStoreService } from 'ng2-json-editor';
+
+import { FieldSplitterService } from './field-splitter.service';
 
 @Injectable()
 export class CommonConfigsService {
+
+  constructor(private fieldSplitterService: FieldSplitterService) { }
+
   anchorBuilder = (url: string): RefAnchorAttributes => {
     let parts = url.split('/');
     let type = parts[parts.length - 2];
@@ -39,4 +44,52 @@ export class CommonConfigsService {
   fullTextSearch = (value: any, expression: string) => {
     return JSON.stringify(value).search(new RegExp(expression, 'i')) > -1;
   }
+
+  splitPrimitiveReferenceField = (path: Array<any>, value: string, jsonStore: JsonStoreService, keyStore: KeysStoreService) => {
+    let splitResult = this.fieldSplitterService.splitReferenceMisc(value);
+    // parent path, ['references', N, 'reference']
+    let referencePath = path.slice(0, -2);
+    splitResult.splits.forEach(split => {
+      // handle array insert
+      let relativePath = split.path;
+      let insertLast = relativePath.findIndex(el => el === '-');
+      if (insertLast > -1) {
+        let valueToInsert;
+        let sliceIndex = insertLast + 1;
+        let insertPath = relativePath.slice(0, sliceIndex);
+        if (sliceIndex < relativePath.length) {
+          let afterInsertPath = relativePath.slice(sliceIndex);
+          let stub = {};
+          stub[afterInsertPath[afterInsertPath.length - 1]] = split.value;
+          for (let i = afterInsertPath.length - 2; i >= 0; i--) {
+            let temp = { [afterInsertPath[i]]: stub };
+            stub = temp;
+          }
+          valueToInsert = stub;
+        } else {
+          valueToInsert = split.value;
+        }
+        let fullInsertPath = referencePath.concat(insertPath);
+        jsonStore.addIn(fullInsertPath, valueToInsert);
+      } else {
+        let toPath = referencePath.concat(split.path);
+        jsonStore.setIn(toPath, split.value);
+      }
+
+    });
+    // if all of field is splitted, remove it
+    if (!splitResult.unsplitted) {
+      let parentPath = path.slice(0, -1);
+      // remove even it's parent, if the field is the only element in an array
+      if (Number.isInteger(path[path.length - 1]) && jsonStore.getIn(parentPath).size <= 1) {
+        jsonStore.removeIn(parentPath);
+      } else {
+        jsonStore.removeIn(path);
+      }
+    } else {
+      jsonStore.setIn(path, splitResult.unsplitted);
+    }
+    keyStore.buildKeysMapRecursivelyForPath(jsonStore.getIn(referencePath), referencePath);
+  }
+
 }
