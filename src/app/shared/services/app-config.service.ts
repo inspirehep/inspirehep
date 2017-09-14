@@ -65,7 +65,8 @@ export class AppConfigService {
               'refereed',
               'withdrawn',
               'deleted',
-              'collaborations'
+              'collaborations',
+              'references'
             ]
           },
           '/deleted': {
