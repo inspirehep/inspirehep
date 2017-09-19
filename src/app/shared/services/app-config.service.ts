@@ -169,6 +169,11 @@ export class AppConfigService {
           '/authors/items/properties/signature_block': {
             hidden: true
           },
+          '/authors/items/properties/record': {
+            refFieldConfig: {
+              anchorBuilder: this.commonConfigsService.anchorBuilder
+            }
+          },
           '/authors/items/properties/affiliations/items': {
             alwaysShow: ['value'],
             order: ['value', 'record']
