@@ -14,326 +14,417 @@ export class AppConfigService {
     hep: {
       default: {
         schemaOptions: {
-          '': {
-            order: [
-              'document_type',
-              'publication_type',
-              'report_numbers',
-              'special_collections',
-              'languages',
-              'titles',
-              'title_translations',
-              'dois',
-              'arxiv_eprints',
-              'public_notes',
-              'number_of_pages',
-              'abstracts',
-              'publication_info',
-              'persistent_identifiers',
-              'external_system_identifiers',
-              'texkeys',
-              'isbns',
-              'book_series',
-              'thesis_info',
-              'preprint_date',
-              'imprints',
-              'inspire_categories',
-              'keywords',
-              'energy_ranges',
-              'copyright',
-              'license',
-              'funding_info',
-              '_private_notes',
-              'urls',
-              'new_record',
-              'deleted_records',
-              'acquisition_source',
-              'legacy_creation_date',
-              'collaborations',
-              'accelerator_experiments',
-              'authors',
-              'corporate_author',
-              'core',
-              'citeable',
-              'refereed',
-              'withdrawn',
-              'deleted'
-            ],
-            alwaysShow: [
-              'citeable',
-              'refereed',
-              'withdrawn',
-              'deleted',
-              'collaborations',
-              'references'
-            ]
-          },
-          '/deleted': {
-            toggleColor: '#e74c3c'
-          },
-          '/citeable': {
-            toggleColor: '#3498db'
-          },
-          '/core': {
-            toggleColor: '#27ae60'
-          },
-          '/withdrawn': {
-            toggleColor: '#f1c40f'
-          },
-          '/refereed': {
-            toggleColor: '#34495e'
-          },
-          '/$schema': {
-            hidden: true
-          },
-          '/control_number': {
-            hidden: true
-          },
-          '/_collections': {
-            hidden: true
-          },
-          '/self': {
-            hidden: true
-          },
-          '/texkeys': {
-            disabled: true
-          },
-          '/document_type/items': {
-            onValueChange: (path, documentType) => {
-              let hepConfig = _.merge(this.jsonEditorConfigs['hep']['default'], this.jsonEditorConfigs['hep'][documentType]);
-              this.onConfigChange.next(hepConfig);
-            }
-          },
-          '/abstracts/items/properties/value': {
-            priority: 1,
-            columnWidth: 80,
-            latexPreviewEnabled: true
-          },
-          '/abstracts/items/properties/source': {
-            autocompletionConfig: {
-              url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
-              path: '/abstract_source/0/options',
-              size: 5
-            }
-          },
-          '/accelerator_experiments/items/properties/experiment': {
-            autocompletionConfig: {
-              url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
-              path: '/experiment/0/options',
-              size: 5,
-              onCompletionSelect: (path, completion, store) => {
-                path.splice(-1, 1, 'record', '$ref');
-                store.setIn(path, completion.payload['$ref']);
-                path.splice(-2, 2, 'curated_relation');
-                store.setIn(path, true);
-              }
-            }
-          },
-          '/abstracts/items': {
-            alwaysShow: ['value']
-          },
-          '/accelerator_experiments/items': {
-            alwaysShow: ['experiment'],
-            order: ['institution', 'accelerator', 'experiment', 'legacy_name']
-          },
-          '/accelerator_experiments/items/properties/record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/acquisition_source': {
-            disabled: true,
-            order: ['method', 'source', 'datetime', 'email', 'orcid'],
-          },
-          '/acquisition_source/properties/internal_uid': {
-            hidden: true
-          },
-          '/acquisition_source/properties/submission_number': {
-            hidden: true
-          },
-          '/authors': {
-            longListNavigatorConfig: {
-              findMultiple: this.commonConfigsService.fullTextSearch,
-              itemsPerPage: 20,
-              maxVisiblePageCount: 5
+          order: [
+            'document_type',
+            'publication_type',
+            'report_numbers',
+            'special_collections',
+            'languages',
+            'titles',
+            'title_translations',
+            'dois',
+            'arxiv_eprints',
+            'public_notes',
+            'number_of_pages',
+            'abstracts',
+            'publication_info',
+            'persistent_identifiers',
+            'external_system_identifiers',
+            'texkeys',
+            'isbns',
+            'book_series',
+            'thesis_info',
+            'preprint_date',
+            'imprints',
+            'inspire_categories',
+            'keywords',
+            'energy_ranges',
+            'copyright',
+            'license',
+            'funding_info',
+            '_private_notes',
+            'urls',
+            'new_record',
+            'deleted_records',
+            'acquisition_source',
+            'legacy_creation_date',
+            'collaborations',
+            'accelerator_experiments',
+            'authors',
+            'corporate_author',
+            'core',
+            'citeable',
+            'refereed',
+            'withdrawn',
+            'deleted'
+          ],
+          alwaysShow: [
+            'citeable',
+            'refereed',
+            'withdrawn',
+            'deleted',
+            'collaborations',
+            'references'
+          ],
+          properties: {
+            deleted: {
+              toggleColor: '#e74c3c'
             },
-            sortable: true
-          },
-          '/authors/items': {
-            order: ['ids', 'full_name', 'alternative_names', 'affiliations', 'raw_affiliations', 'emails', 'inspire_roles', 'credit_roles'],
-            alwaysShow: ['affiliations']
-          },
-          '/authors/items/properties/uuid': {
-            hidden: true
-          },
-          '/authors/items/properties/signature_block': {
-            hidden: true
-          },
-          '/authors/items/properties/record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/authors/items/properties/affiliations/items': {
-            alwaysShow: ['value'],
-            order: ['value', 'record']
-          },
-          /* To be set after https://github.com/inveniosoftware-contrib/ng2-json-editor/issues/391 is resolved
-          '/authors/items/properties/ids/items/properties/value': {
-            priority: 1
-          },
-          */
-          '/authors/items/properties/affiliations/items/properties/record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/authors/items/properties/affiliations/items/properties/value': {
-            autocompletionConfig: {
-              url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
-              path: '/affiliation/0/options',
-              size: 5,
-              itemTemplateName: 'affiliationAutocompleteTemplate',
-              onCompletionSelect: (path, completion, store) => {
-                path.splice(-1, 1, 'record', '$ref');
-                store.setIn(path, completion.payload['$ref']);
-                path.splice(-2, 2, 'curated_relation');
-                store.setIn(path, true);
+            citeable: {
+              toggleColor: '#3498db'
+            },
+            core: {
+              toggleColor: '#27ae60'
+            },
+            withdrawn: {
+              toggleColor: '#f1c40f'
+            },
+            refereed: {
+              toggleColor: '#34495e'
+            },
+            $schema: {
+              hidden: true
+            },
+            control_number: {
+              hidden: true
+            },
+            _collections: {
+              hidden: true
+            },
+            self: {
+              hidden: true
+            },
+            texkeys: {
+              disabled: true
+            },
+            document_type: {
+              items: {
+                onValueChange: (path, documentType) => {
+                  let hepConfig = _.merge(this.jsonEditorConfigs['hep']['default'], this.jsonEditorConfigs['hep'][documentType]);
+                  this.onConfigChange.next(hepConfig);
+                }
               }
-            }
-          },
-          '/arxiv_eprints/items': {
-            order: ['value']
-          },
-          '/arxiv_eprints/items/properties/value': {
-            disabled: true
-          },
-          '/collaborations/items': {
-            alwaysShow: ['value'],
-            order: ['value']
-          },
-          '/collaborations/items/properties/record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/copyright/items': {
-            alwaysShow: ['statement', 'url']
-          },
-          '/dois/items': {
-            order: ['value', 'material', 'source']
-          },
-          '/external_system_identifiers/items': {
-            order: ['value']
-          },
-          '/_private_notes/items': {
-            alwaysShow: ['value'],
-            order: ['value']
-          },
-          '/imprints/items': {
-            alwaysShow: ['date'],
-            order: ['publisher', 'place', 'date']
-          },
-          '/isbns/items': {
-            order: ['value']
-          },
-          '/keywords/items': {
-            alwaysShow: ['schema', 'value']
-          },
-          '/license/items': {
-            alwaysShow: ['license', 'url']
-          },
-          '/persistent_identifiers/items': {
-            alwaysShow: ['value'],
-            order: ['value', 'schema', 'material', 'source']
-          },
-          '/publication_info/items': {
-            alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'page_start'],
-            order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid']
-          },
-          '/publication_info/items/properties/conference_record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/publication_info/items/properties/journal_record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/publication_info/items/properties/parent_record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/references': {
-            sortable: true,
-            longListNavigatorConfig: {
-              findSingle: (value, expression) => {
-                return value.getIn(['reference', 'label']) === expression;
+            },
+            abstracts: {
+              items: {
+                alwaysShow: ['value'],
+                properties: {
+                  value: {
+                    priority: 1,
+                    columnWidth: 80,
+                    latexPreviewEnabled: true
+                  },
+                  source: {
+                    autocompletionConfig: {
+                      url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
+                      path: '/abstract_source/0/options',
+                      size: 5
+                    }
+                  }
+                }
+              }
+            },
+            accelerator_experiments: {
+              items: {
+                alwaysShow: ['experiment'],
+                order: ['institution', 'accelerator', 'experiment', 'legacy_name'],
+                properties: {
+                  experiment: {
+                    autocompletionConfig: {
+                      url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
+                      path: '/experiment/0/options',
+                      size: 5,
+                      onCompletionSelect: (path, completion, store) => {
+                        path.splice(-1, 1, 'record', '$ref');
+                        store.setIn(path, completion.payload['$ref']);
+                        path.splice(-2, 2, 'curated_relation');
+                        store.setIn(path, true);
+                      }
+                    }
+                  },
+                  record: {
+                    refFieldConfig: {
+                      anchorBuilder: this.commonConfigsService.anchorBuilder
+                    }
+                  }
+                }
+              }
+            },
+            acquisition_source: {
+              disabled: true,
+              order: ['method', 'source', 'datetime', 'email', 'orcid'],
+              properties: {
+                internal_uid: {
+                  hidden: true
+                },
+                submission_number: {
+                  hidden: true
+                }
+              }
+            },
+            authors: {
+              longListNavigatorConfig: {
+                findMultiple: this.commonConfigsService.fullTextSearch,
+                itemsPerPage: 20,
+                maxVisiblePageCount: 5
               },
-              findMultiple: this.commonConfigsService.fullTextSearch,
-              itemsPerPage: 40,
-              maxVisiblePageCount: 5,
-              headerItemTemplateName: 'refExtractTemplate'
-            },
-            viewTemplateConfig: {
-              itemTemplateName: 'referenceTemplate',
-              showEditForm: (value) => {
-                return !(value.hasIn(['record', '$ref']));
+              sortable: true,
+              items: {
+                order: [
+                  'ids',
+                  'full_name',
+                  'alternative_names',
+                  'affiliations',
+                  'raw_affiliations',
+                  'emails',
+                  'inspire_roles',
+                  'credit_roles'
+                ],
+                alwaysShow: ['affiliations'],
+                properties: {
+                  uuid: {
+                    hidden: true
+                  },
+                  signature_block: {
+                    hidden: true
+                  },
+                  affiliations: {
+                    items: {
+                      alwaysShow: ['value'],
+                      order: ['value', 'record'],
+                      properties: {
+                        record: {
+                          refFieldConfig: {
+                            anchorBuilder: this.commonConfigsService.anchorBuilder
+                          }
+                        },
+                        value: {
+                          autocompletionConfig: {
+                            url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
+                            path: '/affiliation/0/options',
+                            size: 5,
+                            itemTemplateName: 'affiliationAutocompleteTemplate',
+                            onCompletionSelect: (path, completion, store) => {
+                              path.splice(-1, 1, 'record', '$ref');
+                              store.setIn(path, completion.payload['$ref']);
+                              path.splice(-2, 2, 'curated_relation');
+                              store.setIn(path, true);
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  ids: {
+                    items: {
+                      anyOf: [
+                        {
+                          properties: {
+                            value: {
+                              priority: 1
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  record: {
+                    refFieldConfig: {
+                      anchorBuilder: this.commonConfigsService.anchorBuilder
+                    }
+                  }
+                }
               }
-            }
-          },
-          '/references/items/properties/record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
-            }
-          },
-          '/thesis_info/properties/degree_type': {
-            priority: 1
-          },
-          '/titles/items': {
-            alwaysShow: ['title'],
-            order: ['title']
-          },
-          '/titles/items/properties/source': {
-            columnWidth: 12
-          },
-          '/title_translations/items': {
-            alwaysShow: ['title'],
-            order: ['title', 'subtitle', 'language', 'source']
-          },
-          '/keywords/items/properties/value': {
-            priority: 1
-          },
-          '/inspire_categories/items/properties/term': {
-            priority: 1
-          },
-          '/license/items/properties/license': {
-            priority: 1
-          },
-          '/public_notes/items': {
-            order: ['value']
-          },
-          '/report_numbers/items': {
-            order: ['value']
-          },
-          '/references/items/properties/reference': {
-            priority: 1,
-            order: ['label', 'title', 'authors', 'arxiv_eprint']
-          },
-          '/references/items/properties/reference/properties/misc/items': {
-            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
-          },
-          '/urls/items': {
-            alwaysShow: ['value', 'description']
-          },
-          '/urls/items/properties/value': {
-            priority: 1
-          },
-          '/new_record': {
-            refFieldConfig: {
-              anchorBuilder: this.commonConfigsService.anchorBuilder
+            },
+            arxiv_eprints: {
+              items: {
+                order: ['value'],
+                properties: {
+                  value: {
+                    disabled: true
+                  }
+                }
+              }
+            },
+            collaborations: {
+              items: {
+                alwaysShow: ['value'],
+                order: ['value'],
+                properties: {
+                  record: {
+                    refFieldConfig: {
+                      anchorBuilder: this.commonConfigsService.anchorBuilder
+                    }
+                  }
+                }
+              }
+            },
+            copyright: {
+              items: {
+                alwaysShow: ['statement', 'url']
+              }
+            },
+            dois: {
+              items: {
+                order: ['value', 'material', 'source']
+              }
+            },
+            external_system_identifiers: {
+              items: {
+                order: ['value']
+              }
+            },
+            _private_notes: {
+              items: {
+                alwaysShow: ['value'],
+                order: ['value']
+              }
+            },
+            imprints: {
+              items: {
+                alwaysShow: ['date'],
+                order: ['publisher', 'place', 'date']
+              }
+            },
+            isbns: {
+              items: {
+                order: ['value']
+              }
+            },
+            keywords: {
+              items: {
+                alwaysShow: ['schema', 'value'],
+                properties: {
+                  value: {
+                    priority: 1
+                  }
+                }
+              }
+            },
+            license: {
+              items: {
+                alwaysShow: ['license', 'url'],
+              }
+            },
+            persistent_identifiers: {
+              items: {
+                alwaysShow: ['value'],
+                order: ['value', 'schema', 'material', 'source']
+              }
+            },
+            publication_info: {
+              items: {
+                alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'page_start'],
+                order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid'],
+                properties: {
+                  conference_record: {
+                    refFieldConfig: {
+                      anchorBuilder: this.commonConfigsService.anchorBuilder
+                    }
+                  },
+                  journal_record: {
+                    refFieldConfig: {
+                      anchorBuilder: this.commonConfigsService.anchorBuilder
+                    }
+                  },
+                  parent_record: {
+                    refFieldConfig: {
+                      anchorBuilder: this.commonConfigsService.anchorBuilder
+                    }
+                  }
+                }
+              }
+            },
+            references: {
+              sortable: true,
+              longListNavigatorConfig: {
+                findSingle: (value, expression) => {
+                  return value.getIn(['reference', 'label']) === expression;
+                },
+                findMultiple: this.commonConfigsService.fullTextSearch,
+                itemsPerPage: 40,
+                maxVisiblePageCount: 5,
+                headerItemTemplateName: 'refExtractTemplate'
+              },
+              viewTemplateConfig: {
+                itemTemplateName: 'referenceTemplate',
+                showEditForm: (value) => {
+                  return !(value.hasIn(['record', '$ref']));
+                }
+              },
+              items: {
+                properties: {
+                  record: {
+                    refFieldConfig: {
+                      anchorBuilder: this.commonConfigsService.anchorBuilder
+                    }
+                  },
+                  reference: {
+                    priority: 1,
+                    order: ['label', 'title', 'authors', 'arxiv_eprint'],
+                    properties: {
+                      misc: {
+                        items: {
+                          onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+            },
+            thesis_info: {
+              properties: {
+                degree_type: {
+                  priority: 1
+                }
+              }
+            },
+            titles: {
+              items: {
+                alwaysShow: ['title'],
+                order: ['title'],
+                properties: {
+                  source: {
+                    columnWidth: 12
+                  }
+                }
+              }
+            },
+            title_translations: {
+              items: {
+                alwaysShow: ['title'],
+                order: ['title', 'subtitle', 'language', 'source']
+              }
+            },
+            inspire_categories: {
+              items: {
+                properties: {
+                  term: {
+                    priority: 1
+                  }
+                }
+              }
+            },
+            public_notes: {
+              items: {
+                order: ['value']
+              }
+            },
+            report_numbers: {
+              items: {
+                order: ['value']
+              }
+            },
+            urls: {
+              items: {
+                alwaysShow: ['value', 'description']
+              }
+            },
+            new_record: {
+              refFieldConfig: {
+                anchorBuilder: this.commonConfigsService.anchorBuilder
+              }
             }
           }
         },
@@ -429,15 +520,14 @@ export class AppConfigService {
       },
       thesis: {
         schemaOptions: {
-          '': {
-            alwaysShow: [
-              'thesis_info'
-            ]
-          }
+          alwaysShow: [
+            'thesis_info'
+          ]
         }
       }
     }
   };
+
 
   editorApiUrl = `${environment.baseUrl}/api/editor`;
 
