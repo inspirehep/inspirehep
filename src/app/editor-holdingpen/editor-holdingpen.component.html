@@ -14,6 +14,7 @@
 <div class="editor-parent-container">
   <json-editor *ngIf="workflowObject && schema"
     [(record)]="workflowObject.metadata"
+    [(jsonPatches)]="workflowObject._extra_data.conflicts"
     [schema]="schema"
     [config]="config"
     [templates]="{
