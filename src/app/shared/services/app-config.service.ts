@@ -367,6 +367,80 @@ export class AppConfigService {
                         items: {
                           onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
                         }
+                      },
+                      arxiv_eprint: {
+                        onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                      },
+                      authors: {
+                        items: {
+                          properties: {
+                            full_name: {
+                              onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                            },
+                            inspire_role: {
+                              items: {
+                                onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                              }
+                            }
+                          }
+                        }
+                      },
+                      imprint: {
+                        properties: {
+                          publisher: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          }
+                        }
+                      },
+                      title: {
+                        properties: {
+                          title: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          }
+                        }
+                      },
+                      dois: {
+                        items: {
+                          onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                        }
+                      },
+                      collaborations: {
+                        items: {
+                          onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                        }
+                      },
+                      isbn: {
+                        onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                      },
+                      report_numbers: {
+                        items: {
+                          onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                        }
+                      },
+                      publication_info: {
+                        properties: {
+                          journal_title: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          },
+                          journal_volume: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          },
+                          journal_issue: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          },
+                          page_start: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          },
+                          page_end: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          },
+                          artid: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          },
+                          cnum: {
+                            onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
+                          },
+                        }
                       }
                     }
                   }
