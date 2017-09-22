@@ -498,7 +498,7 @@ export class AppConfigService {
             getUrl: (record) => {
               let ePrints: Array<{ value: string }> = record['arxiv_eprints'];
               if (ePrints && ePrints.length > 0) {
-                return `//arxiv.org/abs/${ePrints[0].value}`;
+                return `//arxiv.org/pdf/${ePrints[0].value}.pdf#zoom=100`;
               } else {
                 return undefined;
               }
