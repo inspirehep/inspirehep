@@ -91,6 +91,9 @@ export class AppConfigService {
             self: {
               hidden: true
             },
+            _files: {
+              hidden: true
+            },
             texkeys: {
               disabled: true
             },
