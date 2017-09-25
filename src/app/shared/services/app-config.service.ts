@@ -18,7 +18,7 @@ export class AppConfigService {
             'document_type',
             'publication_type',
             'report_numbers',
-            'special_collections',
+            '_collections',
             'languages',
             'titles',
             'title_translations',
@@ -86,9 +86,6 @@ export class AppConfigService {
               hidden: true
             },
             control_number: {
-              hidden: true
-            },
-            _collections: {
               hidden: true
             },
             self: {
