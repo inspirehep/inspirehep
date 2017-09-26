@@ -118,7 +118,7 @@ export class AppConfigService {
                     autocompletionConfig: {
                       url: `${environment.baseUrl}/api/literature/_suggest?abstract_source=`,
                       path: '/abstract_source/0/options',
-                      size: 5
+                      size: 10
                     }
                   }
                 }
@@ -133,7 +133,7 @@ export class AppConfigService {
                     autocompletionConfig: {
                       url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
                       path: '/experiment/0/options',
-                      size: 5,
+                      size: 10,
                       onCompletionSelect: (path, completion, store) => {
                         path.splice(-1, 1, 'record', '$ref');
                         store.setIn(path, completion.payload['$ref']);
@@ -202,7 +202,7 @@ export class AppConfigService {
                           autocompletionConfig: {
                             url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
                             path: '/affiliation/0/options',
-                            size: 5,
+                            size: 20,
                             itemTemplateName: 'affiliationAutocompleteTemplate',
                             onCompletionSelect: (path, completion, store) => {
                               path.splice(-1, 1, 'record', '$ref');
