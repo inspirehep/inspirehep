@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ToastrModule } from 'ngx-toastr';
 import { JsonEditorModule } from 'ng2-json-editor';
 
@@ -22,6 +23,7 @@ import { ReferenceBriefComponent } from './reference-brief';
 import { AffiliationBriefComponent } from './affiliation-brief';
 import { RefExtractActionsComponent } from './ref-extract-actions';
 import { UndoButtonComponent } from './undo-button';
+import { HelpModalButtonComponent } from './help-modal-button';
 
 import { routing, appRoutingProviders, } from './app.routing';
 
@@ -44,6 +46,7 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     AffiliationBriefComponent,
     RefExtractActionsComponent,
     UndoButtonComponent,
+    HelpModalButtonComponent,
     ...SHARED_PIPES
   ],
   imports: [
@@ -55,6 +58,7 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     routing,
     JsonEditorModule,
     PopoverModule,
+    AccordionModule.forRoot(),
     BsDropdownModule,
     ModalModule
   ],

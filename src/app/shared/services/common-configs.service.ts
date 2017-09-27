@@ -46,7 +46,7 @@ export class CommonConfigsService {
   }
 
   splitPrimitiveReferenceField = (path: Array<any>, value: string, jsonStore: JsonStoreService, keyStore: KeysStoreService) => {
-    let splitResult = this.fieldSplitterService.splitReferenceMisc(value);
+    let splitResult = this.fieldSplitterService.splitReferenceField(value);
     // parent path, ['references', N, 'reference']
     let referencePath = path.slice(0, -2);
     splitResult.splits.forEach(split => {

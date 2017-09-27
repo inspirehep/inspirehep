@@ -27,7 +27,7 @@ import { FieldSplitResult } from '../interfaces';
 @Injectable()
 export class FieldSplitterService {
 
-  private REFERENCE_MISC_MAPPINGS = {
+  readonly REFERENCE_MAPPINGS = {
     t: ['title', 'title'],
     j: ['publication_info', 'journal_title'],
     d: ['dois', '-'],
@@ -70,8 +70,8 @@ export class FieldSplitterService {
     return { splits, unsplitted };
   }
 
-  splitReferenceMisc(misc: string): FieldSplitResult {
-    return this.split(misc, this.REFERENCE_MISC_MAPPINGS);
+  splitReferenceField(misc: string): FieldSplitResult {
+    return this.split(misc, this.REFERENCE_MAPPINGS);
   }
 
   private buildRegExp(keys: Array<string>, separator: string): RegExp {
