@@ -47,6 +47,13 @@ export class ApiService {
       .toPromise();
   }
 
+  checkEditorPermission(pidType: string, pidValue: string): Promise<any> {
+    this.editorRecordApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    return this.http
+      .get(`${this.editorRecordApiUrl}/permission`)
+      .toPromise();
+  }
+
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
     this.recordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
     this.editorRecordApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
@@ -89,14 +96,14 @@ export class ApiService {
 
   fetchRTUsers(): Observable<Array<string>> {
     return this.http
-      .get(`${this.editorRecordApiUrl}/rt/users`)
+      .get(`${this.config.editorApiUrl}/rt/users`)
       .map(res => res.json())
       .map((users: Array<{ name: string }>) => users.map(user => user.name));
   }
 
   fetchRTQueues(): Observable<Array<string>> {
     return this.http
-      .get(`${this.editorRecordApiUrl}/rt/queues`)
+      .get(`${this.config.editorApiUrl}/rt/queues`)
       .map(res => res.json())
       .map((queues: Array<{ name: string }>) => queues.map(queue => queue.name));
   }

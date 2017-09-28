@@ -48,8 +48,12 @@ export class EditorContainerComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe(params => {
-        this.apiService.fetchRecord(params['type'], params['recid'])
-          .then(record => {
+        let recType = params['type'];
+        let recId =  params['recid'];
+        this.apiService.checkEditorPermission(recType, recId)
+          .then(() => {
+            return this.apiService.fetchRecord(recType, recId);
+          }).then(record => {
             this.record = record['metadata'];
             this.config = this.appConfigService.getConfigForRecord(this.record);
             return this.apiService.fetchUrl(this.record['$schema']);
@@ -58,7 +62,11 @@ export class EditorContainerComponent implements OnInit {
             this.changeDetectorRef.markForCheck();
           }).catch(error => {
             console.error(error);
-            this.toastrService.error('Could not load the record!', 'Error');
+            if (error.status === 403) {
+              this.toastrService.error(`Logged in user can not access to the record: ${recType}/${recId}`, 'Forbidden');
+            } else {
+              this.toastrService.error('Could not load the record!', 'Error');
+            }
           });
       });
 
