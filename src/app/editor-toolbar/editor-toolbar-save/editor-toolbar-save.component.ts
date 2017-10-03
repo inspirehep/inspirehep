@@ -30,7 +30,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Http, Response } from '@angular/http';
 import { ModalService } from 'ng2-json-editor';
 
-import { ApiService, RecordCleanupService, BeforeUnloadPromptService } from '../../shared/services';
+import { RecordApiService, RecordCleanupService, BeforeUnloadPromptService } from '../../shared/services';
 
 @Component({
   selector: 're-editor-toolbar-save',
@@ -44,7 +44,7 @@ export class EditorToolbarSaveComponent {
 
   constructor(
     private route: ActivatedRoute,
-    private apiService: ApiService,
+    private apiService: RecordApiService,
     private modalService: ModalService,
     private domSanitizer: DomSanitizer,
     private http: Http,

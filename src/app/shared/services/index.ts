@@ -1,27 +1,30 @@
-import { ApiService } from './api.service';
+import { CommonApiService } from './common-api.service';
+import { RecordApiService } from './record-api.service';
+import { HoldingpenApiService } from './holdingpen-api.service';
 import { AppConfigService } from './app-config.service';
 import { CommonConfigsService } from './common-configs.service';
 import { RecordCleanupService } from './record-cleanup.service';
 import { FieldSplitterService } from './field-splitter.service';
-import { RefExtractApiService } from './ref-extract-api.service';
 import { BeforeUnloadPromptService } from './before-unload-prompt.service';
 
 export {
-  ApiService,
+  CommonApiService,
+  HoldingpenApiService,
+  RecordApiService,
   AppConfigService,
   CommonConfigsService,
   RecordCleanupService,
   FieldSplitterService,
-  RefExtractApiService,
   BeforeUnloadPromptService
 };
 
 export const SHARED_SERVICES = [
-  ApiService,
+  CommonApiService,
+  HoldingpenApiService,
+  RecordApiService,
   AppConfigService,
   CommonConfigsService,
   RecordCleanupService,
   FieldSplitterService,
-  RefExtractApiService,
   BeforeUnloadPromptService
 ];

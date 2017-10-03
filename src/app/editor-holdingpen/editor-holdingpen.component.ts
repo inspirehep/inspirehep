@@ -26,7 +26,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { ApiService, AppConfigService } from '../shared/services';
+import { HoldingpenApiService, AppConfigService } from '../shared/services';
 
 @Component({
   templateUrl: './editor-holdingpen.component.html',
@@ -42,7 +42,7 @@ export class EditorHoldingPenComponent implements OnInit {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private apiService: ApiService,
+    private apiService: HoldingpenApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService) { }
 

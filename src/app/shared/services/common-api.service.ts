@@ -29,12 +29,16 @@ import 'rxjs/add/operator/toPromise';
 
 import { AppConfigService } from './app-config.service';
 
-
 @Injectable()
-export class RefExtractApiService {
+export class CommonApiService {
 
-  constructor(private http: Http,
-    private config: AppConfigService) { }
+  constructor(protected http: Http, protected config: AppConfigService) { }
+
+  fetchUrl(url: string): Promise<Object> {
+    return this.http.get(url)
+      .map(res => res.json())
+      .toPromise();
+  }
 
   refExtract(source: string, sourceType: string): Promise<Array<Object>> {
     let body = { [sourceType]: source };
