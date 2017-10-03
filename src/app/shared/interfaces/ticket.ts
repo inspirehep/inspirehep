@@ -6,5 +6,4 @@ export interface Ticket {
   link: string;
   id: string;
   owner: string;
-  recid?: string;
 }

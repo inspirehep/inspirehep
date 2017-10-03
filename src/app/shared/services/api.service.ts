@@ -33,14 +33,13 @@ import { Ticket } from '../interfaces';
 
 @Injectable()
 export class ApiService {
-  // pid_type and pid_value (see invenio-pidstore)
-  private pidType: string;
-  private pidValue: string;
-  // workflow object id (see invenio-workflows)
-  private objectId: string;
+  // urls for currently edited record, iclude pidType and pidValue
+  private recordApiUrl: string;
+  private editorRecordApiUrl: string;
+  // url for currently edited holdingpen object, includes objectId
+  private holdingpenObjectApiUrl: string;
 
-  constructor(private http: Http, private config: AppConfigService) {
-  }
+  constructor(private http: Http, private config: AppConfigService) { }
 
   fetchUrl(url: string): Promise<Object> {
     return this.http.get(url)
@@ -48,44 +47,50 @@ export class ApiService {
       .toPromise();
   }
 
+  checkEditorPermission(pidType: string, pidValue: string): Promise<any> {
+    this.editorRecordApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    return this.http
+      .get(`${this.editorRecordApiUrl}/permission`)
+      .toPromise();
+  }
+
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
-    this.pidType = pidType;
-    this.pidValue = pidValue;
-    return this.fetchUrl(this.config.apiUrl(pidType, pidValue));
+    this.recordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
+    this.editorRecordApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    return this.fetchUrl(this.recordApiUrl);
   }
 
   fetchWorkflowObject(objectId: string): Promise<Object> {
-    this.objectId = objectId;
-    return this.fetchUrl(this.config.holdingPenApiUrl(this.objectId));
+    this.holdingpenObjectApiUrl = `${this.config.holdingpenApiUrl}/${objectId}`;
+    return this.fetchUrl(this.holdingpenObjectApiUrl);
   }
 
   saveRecord(record: Object): Observable<Object> {
     return this.http
-      .put(this.config.apiUrl(this.pidType, this.pidValue), record)
+      .put(this.recordApiUrl, record)
       .map(res => res.json());
   }
 
   saveWorkflowObject(record: Object): Observable<Object> {
     return this.http
-      .put(this.config.holdingPenApiUrl(this.objectId), record)
+      .put(this.holdingpenObjectApiUrl, record)
       .map(res => res.json());
   }
 
   fetchRecordTickets(): Promise<Array<Ticket>> {
-    return this.fetchUrl(`${this.config.editorApiUrl}/rt/tickets/${this.pidValue}`);
+    return this.fetchUrl(`${this.editorRecordApiUrl}/rt/tickets`);
   }
 
-  createRecordTicket(ticket: Ticket): Promise<{id: string, link: string}> {
-    ticket.recid = this.pidValue;
+  createRecordTicket(ticket: Ticket): Promise<{ id: string, link: string }> {
     return this.http
-      .post(`${this.config.editorApiUrl}/rt/tickets/create`, ticket)
+      .post(`${this.editorRecordApiUrl}/rt/tickets/create`, ticket)
       .map(res => res.json().data)
       .toPromise();
   }
 
   resolveTicket(ticketId: string): Promise<any> {
     return this.http
-      .get(`${this.config.editorApiUrl}/rt/tickets/${ticketId}/resolve`)
+      .get(`${this.editorRecordApiUrl}/rt/tickets/${ticketId}/resolve`)
       .toPromise();
   }
 

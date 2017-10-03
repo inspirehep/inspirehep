@@ -602,20 +602,16 @@ export class AppConfigService {
     }
   };
 
+  readonly onConfigChange = new ReplaySubject<EditorConfig>();
 
-  editorApiUrl = `${environment.baseUrl}/api/editor`;
-
-  onConfigChange = new ReplaySubject<EditorConfig>();
+  // generic url to inspire api
+  readonly apiUrl = `${environment.baseUrl}/api`;
+  // url to editor api
+  readonly editorApiUrl = `${this.apiUrl}/editor`;
+  // url to holding api
+  readonly holdingpenApiUrl = `${this.apiUrl}/holdingpen`;
 
   constructor(private commonConfigsService: CommonConfigsService) { }
-
-  apiUrl(pidType: string, pidValue: string): string {
-    return `${environment.baseUrl}/api/${pidType}/${pidValue}/db`;
-  }
-
-  holdingPenApiUrl(objectId: string): string {
-    return `${environment.baseUrl}/api/holdingpen/${objectId}`;
-  }
 
   getConfigForRecord(record: Object): EditorConfig {
     let recordType = this.getRecordType(record);
