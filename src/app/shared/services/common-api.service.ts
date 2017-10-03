@@ -48,4 +48,11 @@ export class CommonApiService {
       .toPromise();
   }
 
+  authorExtract(source: string): Promise<Array<Object>> {
+    return this.http
+      .post(`${this.config.editorApiUrl}/authorlist/text`, { text: source })
+      .map(res => res.json())
+      .toPromise();
+  }
+
 }

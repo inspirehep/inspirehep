@@ -10,6 +10,10 @@
   <re-ref-extract-actions></re-ref-extract-actions>
 </ng-template>
 
+<ng-template #authorExtractTemplate>
+  <re-author-extract-actions></re-author-extract-actions>
+</ng-template>
+
 <re-editor-toolbar [record]="record"></re-editor-toolbar>
 <div class="editor-parent-container">
   <json-editor *ngIf="record && schema"
@@ -19,7 +23,8 @@
     [templates]="{
       referenceTemplate: referenceTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
-      refExtractTemplate: refExtractTemplate
+      refExtractTemplate: refExtractTemplate,
+      authorExtractTemplate: authorExtractTemplate
     }">
   </json-editor>
 </div>

@@ -166,7 +166,8 @@ export class AppConfigService {
               longListNavigatorConfig: {
                 findMultiple: this.commonConfigsService.fullTextSearch,
                 itemsPerPage: 20,
-                maxVisiblePageCount: 5
+                maxVisiblePageCount: 5,
+                headerItemTemplateName: 'authorExtractTemplate'
               },
               sortable: true,
               items: {
