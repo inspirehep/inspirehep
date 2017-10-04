@@ -20,30 +20,35 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
-import { HoldingpenApiService, RecordCleanupService, BeforeUnloadPromptService } from '../../shared/services';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
-@Component({
-  selector: 're-editor-holdingpen-toolbar-save',
-  templateUrl: './editor-holdingpen-toolbar-save.component.html',
-  styleUrls: [
-    '../../editor-container/editor-container.component.scss'
-  ]
-})
-export class EditorHoldingPenToolbarSaveComponent {
-  @Input() workflowObject: { id: string };
+import { AppConfigService } from './app-config.service';
+import { CommonApiService } from './common-api.service';
 
-  constructor(private apiService: HoldingpenApiService,
-    private recordCleanupService: RecordCleanupService,
-    private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+@Injectable()
+export class HoldingpenApiService extends CommonApiService {
 
-  onClickSave(event: Object) {
-    this.recordCleanupService.cleanup(this.workflowObject['metadata']);
-    this.apiService.saveWorkflowObject(this.workflowObject)
-      .subscribe(resp => {
-        this.beforeUnloadPromptService.unregister();
-        window.location.href = `/holdingpen/${this.workflowObject.id}`;
-      });
+  // url for currently edited holdingpen object, includes objectId
+  private holdingpenObjectApiUrl: string;
+
+  constructor(protected http: Http, protected config: AppConfigService) {
+    super(http, config);
+  }
+
+  fetchWorkflowObject(objectId: string): Promise<Object> {
+    this.holdingpenObjectApiUrl = `${this.config.holdingpenApiUrl}/${objectId}`;
+    return this.fetchUrl(this.holdingpenObjectApiUrl);
+  }
+
+
+  saveWorkflowObject(record: Object): Observable<Object> {
+    return this.http
+      .put(this.holdingpenObjectApiUrl, record)
+      .map(res => res.json());
   }
 }

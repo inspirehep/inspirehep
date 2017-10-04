@@ -25,7 +25,7 @@ import { Component, Input, ViewChild, Output, EventEmitter, OnInit } from '@angu
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
 import { Ticket } from '../../shared/interfaces';
-import { ApiService } from '../../shared/services';
+import { RecordApiService } from '../../shared/services';
 
 @Component({
   selector: 're-new-ticket-modal',
@@ -40,7 +40,7 @@ export class NewTicketModalComponent {
 
   newTicket = {} as Ticket;
 
-  constructor(public apiService: ApiService) { }
+  constructor(public apiService: RecordApiService) { }
 
   // invoked by parent component.
   show() {

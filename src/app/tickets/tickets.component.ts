@@ -26,7 +26,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { Observable } from 'rxjs/Observable';
 
-import { ApiService } from '../shared/services';
+import { RecordApiService } from '../shared/services';
 import { Ticket } from '../shared/interfaces';
 
 @Component({
@@ -42,7 +42,7 @@ export class TicketsComponent implements OnInit {
   displayLimit = 3;
   tickets: Array<Ticket>;
 
-  constructor(private apiService: ApiService,
+  constructor(private apiService: RecordApiService,
     private toastrService: ToastrService,
     private changeDetectorRef: ChangeDetectorRef) { }
 

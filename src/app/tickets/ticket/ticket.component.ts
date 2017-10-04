@@ -23,7 +23,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 import { Ticket } from '../../shared/interfaces';
-import { ApiService } from '../../shared/services';
+import { RecordApiService } from '../../shared/services';
 
 
 @Component({
@@ -37,7 +37,7 @@ export class TicketComponent {
   @Input() ticket: Ticket;
   @Output() resolve = new EventEmitter<void>();
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: RecordApiService) { }
 
   onResolveClick() {
     this.apiService

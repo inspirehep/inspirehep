@@ -29,17 +29,28 @@ import 'rxjs/add/operator/toPromise';
 
 import { AppConfigService } from './app-config.service';
 
-
 @Injectable()
-export class RefExtractApiService {
+export class CommonApiService {
 
-  constructor(private http: Http,
-    private config: AppConfigService) { }
+  constructor(protected http: Http, protected config: AppConfigService) { }
+
+  fetchUrl(url: string): Promise<Object> {
+    return this.http.get(url)
+      .map(res => res.json())
+      .toPromise();
+  }
 
   refExtract(source: string, sourceType: string): Promise<Array<Object>> {
     let body = { [sourceType]: source };
     return this.http
       .post(`${this.config.editorApiUrl}/refextract/${sourceType}`, body)
+      .map(res => res.json())
+      .toPromise();
+  }
+
+  authorExtract(source: string): Promise<Array<Object>> {
+    return this.http
+      .post(`${this.config.editorApiUrl}/authorlist/text`, { text: source })
       .map(res => res.json())
       .toPromise();
   }

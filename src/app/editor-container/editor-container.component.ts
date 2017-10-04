@@ -25,7 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { ApiService, AppConfigService } from '../shared/services';
+import { RecordApiService, AppConfigService } from '../shared/services';
 
 @Component({
   templateUrl: './editor-container.component.html',
@@ -41,7 +41,7 @@ export class EditorContainerComponent implements OnInit {
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
-    private apiService: ApiService,
+    private apiService: RecordApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService) { }
 

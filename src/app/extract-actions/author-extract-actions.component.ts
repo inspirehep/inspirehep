@@ -24,51 +24,45 @@ import { Component, Input, ChangeDetectionStrategy, ViewChild } from '@angular/c
 import { ToastrService } from 'ngx-toastr';
 import { JsonStoreService } from 'ng2-json-editor';
 
-import { RefExtractApiService } from '../shared/services';
+import { CommonApiService } from '../shared/services';
 
 @Component({
-  selector: 're-ref-extract-actions',
-  templateUrl: './ref-extract-actions.component.html',
+  selector: 're-author-extract-actions',
+  templateUrl: './extract-actions.component.html',
   styleUrls: [
-    './ref-extract-actions.component.scss'
+    './extract-actions.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RefExtractActionsComponent {
+export class AuthorExtractActionsComponent {
 
-  textOrUrl: string;
+  source: string;
   replaceExisting = true;
 
-  private urlRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-
-  constructor(private refExtractApiService: RefExtractApiService,
+  constructor(private apiService: CommonApiService,
     private jsonStoreService: JsonStoreService,
     private toastrService: ToastrService) { }
 
   onExtractClick() {
-    let infoToast = this.toastrService.info('Extracting references...', 'Wait', { timeOut: 0, onActivateTick: true });
+    let infoToast = this.toastrService.info('Extracting authors...', 'Wait', { timeOut: 0, onActivateTick: true });
 
-    this.refExtractApiService
-      .refExtract(this.textOrUrl, this.sourceType)
-      .then(references => {
+    this.apiService
+      .authorExtract(this.source)
+      .then(authors => {
         if (this.replaceExisting) {
-          this.jsonStoreService.setIn(['references'], references);
+          this.jsonStoreService.setIn(['authors'], authors);
         } else {
-          references.forEach(reference => {
-            this.jsonStoreService.addIn(['references', 0], reference);
+          authors.forEach(author => {
+            this.jsonStoreService.addIn(['authors', 0], author);
           });
         }
 
         this.toastrService.clear(infoToast.toastId);
-        this.toastrService.success(`${references.length} references extracted.`, 'Success');
+        this.toastrService.success(`${authors.length} authors extracted.`, 'Success');
       }).catch(error => {
         this.toastrService.clear(infoToast.toastId);
-        this.toastrService.error('Could not extract references', 'Error');
+        this.toastrService.error('Could not extract authors', 'Error');
       });
-  }
-
-  get sourceType(): 'text' | 'url' {
-    return this.urlRegexp.test(this.textOrUrl) ? 'url' : 'text';
   }
 
 }

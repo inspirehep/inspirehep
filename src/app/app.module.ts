@@ -21,7 +21,7 @@ import { TicketsComponent, TicketComponent, NewTicketModalComponent } from './ti
 import { DropdownInputComponent } from './dropdown-input';
 import { ReferenceBriefComponent } from './reference-brief';
 import { AffiliationBriefComponent } from './affiliation-brief';
-import { RefExtractActionsComponent } from './ref-extract-actions';
+import { RefExtractActionsComponent, AuthorExtractActionsComponent } from './extract-actions';
 import { UndoButtonComponent } from './undo-button';
 import { HelpModalButtonComponent } from './help-modal-button';
 
@@ -45,6 +45,7 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     ReferenceBriefComponent,
     AffiliationBriefComponent,
     RefExtractActionsComponent,
+    AuthorExtractActionsComponent,
     UndoButtonComponent,
     HelpModalButtonComponent,
     ...SHARED_PIPES
