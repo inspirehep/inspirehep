@@ -1,6 +1,6 @@
 {
   "name": "record-editor",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Editor (used in inspirehep.net) for JSON documents with bibliographic metadata",
   "keywords": [
     "angular2",
@@ -27,7 +27,7 @@
     "postversion": "git push upstream && git push upstream --tags"
   },
   "dependencies": {
-    "@angular/animations": "^4.0.0",    
+    "@angular/animations": "^4.0.0",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
     "@angular/core": "^4.0.0",
