@@ -24,6 +24,7 @@ import { AffiliationBriefComponent } from './affiliation-brief';
 import { RefExtractActionsComponent, AuthorExtractActionsComponent } from './extract-actions';
 import { UndoButtonComponent } from './undo-button';
 import { HelpModalButtonComponent } from './help-modal-button';
+import { RecordHistoryComponent } from './record-history';
 
 import { routing, appRoutingProviders, } from './app.routing';
 
@@ -48,6 +49,7 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     AuthorExtractActionsComponent,
     UndoButtonComponent,
     HelpModalButtonComponent,
+    RecordHistoryComponent,
     ...SHARED_PIPES
   ],
   imports: [

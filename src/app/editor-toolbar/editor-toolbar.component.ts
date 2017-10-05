@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 're-editor-toolbar',
@@ -33,4 +33,26 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class EditorToolbarComponent {
   @Input() record: Object;
+
+  displayingRevision = false;
+
+  @Output() revisionChange = new EventEmitter<Object>();
+  @Output() revisionRevert = new EventEmitter<void>();
+
+  onRevisionChange(revision?: Object) {
+    this.revisionChange.emit(revision);
+    if (revision) {
+      // disable save, undo etc. if displaying an older revision
+      this.displayingRevision = true;
+    } else {
+      // enable save, undo etc. if it's back to the current revision
+      this.displayingRevision = false;
+    }
+  }
+
+  onRevisionRevert() {
+    this.revisionRevert.emit();
+    // disable save, undo etc. since displayed revision became current
+    this.displayingRevision = false;
+  }
 }

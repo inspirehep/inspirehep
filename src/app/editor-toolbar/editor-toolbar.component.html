@@ -1,5 +1,5 @@
 <nav class="navbar navbar-default display-flex" id="editor-toolbar">
-  <div>
+  <div [class.re-disabled]="displayingRevision">
     <re-editor-toolbar-save [record]="record"></re-editor-toolbar-save>
     <re-undo-button></re-undo-button> 
     <re-help-modal-button></re-help-modal-button>
@@ -9,4 +9,9 @@
   <div class="grow navbar-btn">
     <re-tickets></re-tickets>
   </div>
+  <span class="vertical-line">
+  </span>
+  <div>
+    <re-record-history (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-history>
+  </div>      
 </nav>

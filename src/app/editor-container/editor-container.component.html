@@ -14,10 +14,11 @@
   <re-author-extract-actions></re-author-extract-actions>
 </ng-template>
 
-<re-editor-toolbar [record]="record"></re-editor-toolbar>
+<re-editor-toolbar [record]="record" (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-editor-toolbar>
 <div class="editor-parent-container">
   <json-editor *ngIf="record && schema"
-    [(record)]="record"
+    [record]="revision || record"
+    (recordChange)="onRecordChange($event)"
     [schema]="schema"
     [config]="config"
     [templates]="{
@@ -28,4 +29,3 @@
     }">
   </json-editor>
 </div>
-

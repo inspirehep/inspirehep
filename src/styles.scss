@@ -34,3 +34,11 @@ re-tickets .more-btn-container > .popover {
     border-bottom-color: $background-color;
   }
 }
+
+.re-disabled {
+  cursor: not-allowed;
+  input, button, a, i, [contenteditable=true] {
+      opacity: .7;
+      pointer-events: none;
+  }
+}
