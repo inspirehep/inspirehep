@@ -66,6 +66,7 @@ export class AppConfigService {
             'collaborations',
             'references'
           ],
+          alwaysShowRegExp: new RegExp('value'),
           properties: {
             deleted: {
               toggleColor: '#e74c3c'
@@ -107,7 +108,6 @@ export class AppConfigService {
             },
             abstracts: {
               items: {
-                alwaysShow: ['value'],
                 properties: {
                   value: {
                     priority: 1,
@@ -191,7 +191,6 @@ export class AppConfigService {
                   },
                   affiliations: {
                     items: {
-                      alwaysShow: ['value'],
                       order: ['value', 'record'],
                       properties: {
                         record: {
@@ -249,7 +248,6 @@ export class AppConfigService {
             },
             collaborations: {
               items: {
-                alwaysShow: ['value'],
                 order: ['value'],
                 properties: {
                   record: {
@@ -277,7 +275,6 @@ export class AppConfigService {
             },
             _private_notes: {
               items: {
-                alwaysShow: ['value'],
                 order: ['value']
               }
             },
@@ -294,7 +291,7 @@ export class AppConfigService {
             },
             keywords: {
               items: {
-                alwaysShow: ['schema', 'value'],
+                alwaysShow: ['schema'],
                 properties: {
                   value: {
                     priority: 1
@@ -309,7 +306,6 @@ export class AppConfigService {
             },
             persistent_identifiers: {
               items: {
-                alwaysShow: ['value'],
                 order: ['value', 'schema', 'material', 'source']
               }
             },
@@ -493,7 +489,7 @@ export class AppConfigService {
             },
             urls: {
               items: {
-                alwaysShow: ['value', 'description']
+                alwaysShow: ['description']
               }
             },
             new_record: {
