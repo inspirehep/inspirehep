@@ -52,6 +52,7 @@ export class CommonApiService {
     return this.http
       .post(`${this.config.editorApiUrl}/authorlist/text`, { text: source })
       .map(res => res.json())
+      .map(json => json.authors)
       .toPromise();
   }
 
