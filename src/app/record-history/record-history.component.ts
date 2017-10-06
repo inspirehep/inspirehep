@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { RecordApiService } from '../shared/services';
 import { RecordRevision } from '../shared/interfaces';
@@ -31,7 +31,8 @@ import { RecordRevision } from '../shared/interfaces';
   templateUrl: './record-history.component.html',
   styleUrls: [
     './record-history.component.scss'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecordHistoryComponent implements OnInit {
 
@@ -41,9 +42,8 @@ export class RecordHistoryComponent implements OnInit {
   revisions: Array<RecordRevision>;
   selectedRevision: RecordRevision;
 
-  constructor(private apiService: RecordApiService) {
-
-  }
+  constructor(private apiService: RecordApiService,
+    private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.fetchRevisions();
@@ -76,6 +76,7 @@ export class RecordHistoryComponent implements OnInit {
       .fetchRevisions()
       .then(revisions => {
         this.revisions = revisions;
+        this.changeDetectorRef.markForCheck();
       });
   }
 }
