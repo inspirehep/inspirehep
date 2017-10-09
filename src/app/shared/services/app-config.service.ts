@@ -375,9 +375,7 @@ export class AppConfigService {
                               onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
                             },
                             inspire_role: {
-                              items: {
-                                onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
-                              }
+                              onValueChange: this.commonConfigsService.splitPrimitiveReferenceField
                             }
                           }
                         }
