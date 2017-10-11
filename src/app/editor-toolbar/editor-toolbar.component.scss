@@ -2,8 +2,9 @@
   display: flex;
 }
 
-.grow {
+.grow-container {
   flex-grow: 1;
+  display: inline-flex;
 }
 
 .vertical-line {

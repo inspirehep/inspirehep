@@ -1,0 +1,22 @@
+$result-cursor-padding: 5px;
+.result-cursor {
+  color: white;
+  padding-left: $result-cursor-padding;
+  padding-right: $result-cursor-padding;
+}
+
+.form-control, .input-group-btn {
+  width: initial;
+}
+
+.search-container {
+  display: inline-flex;
+  & > div {
+    padding-right: 10px;
+  }
+}
+
+input.search {
+  min-width: 300px;
+}
+

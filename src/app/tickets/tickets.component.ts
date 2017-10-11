@@ -39,7 +39,7 @@ import { Ticket } from '../shared/interfaces';
 })
 export class TicketsComponent implements OnInit {
 
-  displayLimit = 3;
+  displayLimit = 1;
   tickets: Array<Ticket>;
 
   constructor(private apiService: RecordApiService,

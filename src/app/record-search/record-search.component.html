@@ -1,0 +1,14 @@
+<div class="search-container">
+  <div class="input-group">
+    <input class="form-control search" [(ngModel)]="searchExpression" (keypress.enter)="search()" placeholder="Search records"
+    />
+    <span class="input-group-btn">
+    <i class="btn btn-default fa fa-search" (click)="search()"></i>
+  </span>
+  </div>
+  <div>
+    <i class="btn btn-default fa fa-chevron-left" (click)="previous()"></i>
+    <span class="result-cursor">1 / 5</span>
+    <i class="btn btn-default fa fa-chevron-right" (click)="next()"></i>
+  </div>
+</div>

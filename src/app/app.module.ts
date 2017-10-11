@@ -29,6 +29,7 @@ import { RecordHistoryComponent } from './record-history';
 import { routing, appRoutingProviders, } from './app.routing';
 
 import { SHARED_PIPES, SHARED_SERVICES } from './shared';
+import { RecordSearchComponent } from './record-search/record-search.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SHARED_PIPES, SHARED_SERVICES } from './shared';
     UndoButtonComponent,
     HelpModalButtonComponent,
     RecordHistoryComponent,
-    ...SHARED_PIPES
+    ...SHARED_PIPES,
+    RecordSearchComponent
   ],
   imports: [
     BrowserModule,
