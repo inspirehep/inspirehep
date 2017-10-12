@@ -1,22 +1,27 @@
-<nav class="navbar navbar-default display-flex" id="editor-toolbar">
-  <div [class.re-disabled]="displayingRevision">
-    <re-editor-toolbar-save [record]="record"></re-editor-toolbar-save>
-    <re-undo-button></re-undo-button>
-    <re-help-modal-button></re-help-modal-button>
-  </div>
-  <span class="vertical-line">
-  </span>
-  <div class="grow-container navbar-btn">
-    <div>
-      <re-record-search></re-record-search>
+<nav class="navbar navbar-default" id="editor-toolbar">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="navbar-header col-md-2">
+        <div [class.re-disabled]="displayingRevision">
+          <re-editor-toolbar-save [record]="record"></re-editor-toolbar-save>
+          <re-undo-button></re-undo-button>
+          <re-help-modal-button></re-help-modal-button>
+        </div>
+      </div>
+
+        <div class="nav navbar-nav col-md-8">
+          <div class="search-form col-md-6">
+            <re-record-search></re-record-search>
+          </div>
+          <div class="search-form col-md-6">
+            <re-tickets></re-tickets>
+          </div>
+        </div>
+     
+        <div class="nav navbar-nav navbar-right col-md-2">
+          <re-record-history (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-history>
+        </div>
+      
     </div>
-    <div>
-      <re-tickets></re-tickets>
-    </div>
-  </div>
-  <span class="vertical-line">
-  </span>
-  <div>
-    <re-record-history (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-history>
   </div>
 </nav>

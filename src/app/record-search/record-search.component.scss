@@ -10,7 +10,6 @@ $result-cursor-padding: 5px;
 }
 
 .search-container {
-  display: inline-flex;
   & > div {
     padding-right: 10px;
   }
@@ -18,5 +17,13 @@ $result-cursor-padding: 5px;
 
 input.search {
   min-width: 300px;
+}
+
+.pull-left {
+	float: left;
+}
+
+.inline {
+	display: inline-block;
 }
 

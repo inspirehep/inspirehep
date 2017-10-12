@@ -2,7 +2,7 @@
   <ng-container *ngIf="!selectedRevision; else  revisionSelectedTemplate">
     <div class="btn-group" dropdown>
 
-      <span class="dropdown-toggle" dropdownToggle>Last on {{revisions[0].updated | date:'medium'}} by {{revisions[0].user_email}}</span>
+      <span class="navbar-text pull-right dropdown-toggle" dropdownToggle>Last on {{revisions[0].updated | date:'medium'}} by {{revisions[0].user_email}}</span>
 
       <ul *dropdownMenu class="dropdown-menu" role="menu">
         <ng-container *ngIf="revisions.length > 1; else hasOnlySingleRevisionTemplate">

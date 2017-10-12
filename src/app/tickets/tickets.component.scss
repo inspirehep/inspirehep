@@ -1,5 +1,4 @@
 .display-inline-flex {
-  display: inline-flex;
   align-items: center;
   height: 100%;
   & > * {
@@ -12,7 +11,7 @@ ul.display {
   padding-left: 0px;
   margin-bottom: 0px;
   li {
-    display: inline-flex;
+    display: inline-block;
   }
 }
 
@@ -28,8 +27,6 @@ ul.display {
 
 ul.more {
   padding-left: 0px;
-  display: flex;
-  flex-direction: column;
   li {
     margin-right: 0px;
     margin-top: 5px;
@@ -47,7 +44,6 @@ button.new-ticket {
   background-color: $orange;
   color: white;
   border: 0px;
-  padding: 6px;
 
   &:hover {
     background-color: lighten($orange, 5%);
