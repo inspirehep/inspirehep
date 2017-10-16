@@ -18,24 +18,32 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
-import { BeforeUnloadPromptService } from './core/services';
+import { HoldingpenApiService, RecordCleanupService, BeforeUnloadPromptService } from '../../core/services';
 
 @Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
+  selector: 're-holdingpen-save-button',
+  templateUrl: './holdingpen-save-button.component.html',
   styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
+    '../../record-editor/editor-container/editor-container.component.scss'
+  ]
 })
-export class AppComponent implements OnInit {
-  constructor(private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+export class HoldingpenSaveButtonComponent {
+  @Input() workflowObject: { id: string };
 
-  ngOnInit() {
-    this.beforeUnloadPromptService.register();
+  constructor(private apiService: HoldingpenApiService,
+    private recordCleanupService: RecordCleanupService,
+    private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+
+  onClickSave(event: Object) {
+    this.recordCleanupService.cleanup(this.workflowObject['metadata']);
+    this.apiService.saveWorkflowObject(this.workflowObject)
+      .subscribe(resp => {
+        this.beforeUnloadPromptService.unregister();
+        window.location.href = `/holdingpen/${this.workflowObject.id}`;
+      });
   }
 }

@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,24 +18,37 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
-import { BeforeUnloadPromptService } from './core/services';
+import { SharedModule } from '../shared';
 
-@Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
+import { EditorContainerComponent } from './editor-container';
+import { RecordToolbarComponent } from './record-toolbar';
+import { RecordSaveButtonComponent } from './record-save-button';
+import { RecordHistoryComponent } from './record-history';
+import { RecordSearchComponent } from './record-search';
+import { TicketsComponent, NewTicketModalComponent, TicketComponent } from './tickets';
+
+@NgModule({
+  imports: [
+    SharedModule,
+    RouterModule
   ],
-  templateUrl: 'app.component.html'
+  declarations: [
+    EditorContainerComponent,
+    RecordToolbarComponent,
+    RecordSaveButtonComponent,
+    RecordHistoryComponent,
+    RecordSearchComponent,
+    TicketsComponent,
+    NewTicketModalComponent,
+    TicketComponent
+  ],
+  exports: [
+    EditorContainerComponent
+  ]
 })
-export class AppComponent implements OnInit {
-  constructor(private beforeUnloadPromptService: BeforeUnloadPromptService) { }
-
-  ngOnInit() {
-    this.beforeUnloadPromptService.register();
-  }
-}
+export class RecordEditorModule { }

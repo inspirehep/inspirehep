@@ -18,24 +18,18 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-
-import { BeforeUnloadPromptService } from './core/services';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
+  selector: 're-holdingpen-toolbar',
+  templateUrl: './holdingpen-toolbar.component.html',
   styleUrls: [
-    'app.component.scss'
+    '../../record-editor/editor-container/editor-container.component.scss'
   ],
-  templateUrl: 'app.component.html'
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
-  constructor(private beforeUnloadPromptService: BeforeUnloadPromptService) { }
-
-  ngOnInit() {
-    this.beforeUnloadPromptService.register();
-  }
+export class HoldingpenToolbarComponent {
+  @Input() workflowObject: Object;
 }

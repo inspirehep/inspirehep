@@ -1,0 +1,27 @@
+<nav class="navbar navbar-default" id="editor-toolbar">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="navbar-header col-md-2">
+        <div [class.re-disabled]="displayingRevision">
+          <re-record-save-button [record]="record"></re-record-save-button>
+          <re-undo-button></re-undo-button>
+          <re-help-modal-button></re-help-modal-button>
+        </div>
+      </div>
+
+        <div class="nav navbar-nav col-md-8">
+          <div class="search-form col-md-6">
+            <re-record-search></re-record-search>
+          </div>
+          <div class="search-form col-md-6">
+            <re-tickets></re-tickets>
+          </div>
+        </div>
+     
+        <div class="nav navbar-nav navbar-right col-md-2">
+          <re-record-history (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-history>
+        </div>
+      
+    </div>
+  </div>
+</nav>

@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,24 +18,28 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
-import { BeforeUnloadPromptService } from './core/services';
+import { Affiliation } from '../../interfaces';
 
 @Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
+  selector: 're-affiliation-brief',
+  templateUrl: './affiliation-brief.component.html',
   styleUrls: [
-    'app.component.scss'
+    './affiliation-brief.component.scss'
   ],
-  templateUrl: 'app.component.html'
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit {
-  constructor(private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+export class AffiliationBriefComponent {
+  @Input() affiliation: Affiliation;
 
-  ngOnInit() {
-    this.beforeUnloadPromptService.register();
+  /**
+   * Utility function to check if array is defined and has at least single element inside
+   * Used to simplify template
+   */
+  isNotEmpty(array: Array<any>): boolean {
+    return array && array.length > 0;
   }
 }

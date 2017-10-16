@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,24 +18,39 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { BeforeUnloadPromptService } from './core/services';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+
+import { RecordSearchService } from '../../core/services';
 
 @Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
+  selector: 're-record-search',
+  templateUrl: './record-search.component.html',
+  styleUrls: ['./record-search.component.scss']
 })
-export class AppComponent implements OnInit {
-  constructor(private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+export class RecordSearchComponent {
 
-  ngOnInit() {
-    this.beforeUnloadPromptService.register();
+  searchExpression: string;
+  recordIds: Array<number>;
+  cursor: number;
+
+  constructor(private recordSearchService: RecordSearchService) { }
+
+  get searchResultCount$(): ReplaySubject<number> {
+    return this.recordSearchService.resultCount$;
   }
+
+  next() {
+    this.cursor++;
+    this.recordSearchService.setCursor(this.cursor);
+  }
+
+  previous() {
+    this.cursor--;
+    this.recordSearchService.setCursor(this.cursor);
+  }
+
 }
