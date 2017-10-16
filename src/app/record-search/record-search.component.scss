@@ -1,8 +1,8 @@
-$result-cursor-padding: 5px;
-.result-cursor {
+$result-text-padding: 5px;
+.result-text {
   color: white;
-  padding-left: $result-cursor-padding;
-  padding-right: $result-cursor-padding;
+  padding-left: $result-text-padding;
+  padding-right: $result-text-padding;
 }
 
 .form-control, .input-group-btn {

@@ -2,11 +2,17 @@
   <input class="form-control search" [(ngModel)]="searchExpression" (keypress.enter)="search()" placeholder="Search records"
   />
   <span class="input-group-btn">
-  <i class="btn btn-default fa fa-search" (click)="search()"></i>
+  <a class="btn btn-default fa fa-search" routerLink="/search?query={{searchExpression}}">
+  </a>
 </span>
 </div>
-<div class="navbar-form col-md-5 inline">
-  <i class="btn btn-default fa fa-chevron-left" (click)="previous()"></i>
-  <span class="result-cursor">1 / 5</span>
-  <i class="btn btn-default fa fa-chevron-right" (click)="next()"></i>
+<div  class="navbar-form col-md-5 inline">
+  <ng-container *ngIf="(searchResultCount$ | async) > 0; else nothingFoundTemplate">
+    <i class="btn btn-default fa fa-chevron-left" (click)="previous()"></i>
+    <span class="result-text">{{cursor + 1}} / {{searchResultCount$ | async}}</span>
+    <i class="btn btn-default fa fa-chevron-right" (click)="next()"></i>
+  </ng-container>
+  <ng-template #nothingFoundTemplate>
+    <span class="result-text form-control-static">Nothing found</span>
+  </ng-template>
 </div>

@@ -20,37 +20,30 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs/Observable';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import 'rxjs/add/operator/do';
 
-import { RecordSearchService } from '../shared/services';
+import { RecordApiService } from './record-api.service';
 
-@Component({
-  selector: 're-record-search',
-  templateUrl: './record-search.component.html',
-  styleUrls: ['./record-search.component.scss']
-})
-export class RecordSearchComponent {
+@Injectable()
+export class RecordSearchService {
+  readonly resultCount$ = new ReplaySubject<number>(1);
+  readonly cursor$ = new ReplaySubject<number>(1);
 
-  searchExpression: string;
-  recordIds: Array<number>;
-  cursor: number;
+  constructor(private apiService: RecordApiService) { }
 
-  constructor(private recordSearchService: RecordSearchService) { }
-
-  get searchResultCount$(): ReplaySubject<number> {
-    return this.recordSearchService.resultCount$;
+  search(query: string): Promise<Array<number>> {
+    return this.apiService.searchRecord(query)
+      .do(results => {
+        this.resultCount$.next(results.length);
+        this.cursor$.next(0);
+      }).toPromise();
   }
 
-  next() {
-    this.cursor++;
-    this.recordSearchService.setCursor(this.cursor);
+  setCursor(cursor: number) {
+    this.cursor$.next(cursor);
   }
-
-  previous() {
-    this.cursor--;
-    this.recordSearchService.setCursor(this.cursor);
-  }
-
 }
