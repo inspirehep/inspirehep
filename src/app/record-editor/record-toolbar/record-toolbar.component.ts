@@ -32,6 +32,7 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, Change
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RecordToolbarComponent {
+  // `undefined` if there is no record being edited
   @Input() record: Object;
 
   displayingRevision = false;

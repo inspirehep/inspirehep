@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
@@ -28,19 +28,22 @@ import { ToastrService } from 'ngx-toastr';
 import { RecordApiService, AppConfigService } from '../../core/services';
 
 @Component({
+  selector: 're-json-editor-wrapper',
   templateUrl: './json-editor-wrapper.component.html',
   styleUrls: [
     './json-editor-wrapper.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JsonEditorWrapperComponent implements OnInit {
+export class JsonEditorWrapperComponent implements OnInit, OnChanges {
+  @Input() recordId?: string;
+  @Input() recordType?: string;
 
-  record: Object;
-  schema: Object;
-  config: Object;
+  record: object;
+  schema: object;
+  config: object;
   // `undefined` on current revision
-  revision: Object;
+  revision: object;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -48,30 +51,23 @@ export class JsonEditorWrapperComponent implements OnInit {
     private appConfigService: AppConfigService,
     private toastrService: ToastrService) { }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if ((changes['recordId'] || changes['recordType']) && this.recordId && this.recordType) {
+      // component loaded and being used by record-search
+      this.fetch(this.recordType, this.recordId);
+    }
+  }
+
   ngOnInit() {
-    this.route.params
-      .subscribe(params => {
-        let recType = params['type'];
-        let recId = params['recid'];
-        this.apiService.checkEditorPermission(recType, recId)
-          .then(() => {
-            return this.apiService.fetchRecord(recType, recId);
-          }).then(record => {
-            this.record = record['metadata'];
-            this.config = this.appConfigService.getConfigForRecord(this.record);
-            return this.apiService.fetchUrl(this.record['$schema']);
-          }).then(schema => {
-            this.schema = schema;
-            this.changeDetectorRef.markForCheck();
-          }).catch(error => {
-            console.error(error);
-            if (error.status === 403) {
-              this.toastrService.error(`Logged in user can not access to the record: ${recType}/${recId}`, 'Forbidden');
-            } else {
-              this.toastrService.error('Could not load the record!', 'Error');
-            }
-          });
-      });
+
+    if (!this.recordId || !this.recordType) {
+      // component loaded via router, @Input() aren't passed
+      this.route.params
+        .filter(params => params['recid'])
+        .subscribe(params => {
+          this.fetch(params['type'], params['recid']);
+        });
+    }
 
     this.appConfigService.onConfigChange
       .subscribe(config => {
@@ -80,7 +76,7 @@ export class JsonEditorWrapperComponent implements OnInit {
       });
   }
 
-  onRecordChange(record: Object) {
+  onRecordChange(record: object) {
     // update record if the edited one is not revision.
     if (!this.revision) {
       this.record = record;
@@ -98,5 +94,36 @@ export class JsonEditorWrapperComponent implements OnInit {
   onRevisionChange(revision: Object) {
     this.revision = revision;
     this.changeDetectorRef.markForCheck();
+  }
+
+  /**
+   * Performs api calls for a single record to be loaded
+   * and __assigns__ fetched data to class properties
+   *
+   * - checks permission
+   * - fetches record
+   * - fetches schema
+   *
+   * - shows toast message when any call fails
+   */
+  private fetch(recordType: string, recordId: string) {
+    this.apiService.checkEditorPermission(recordType, recordId)
+      .then(() => {
+        return this.apiService.fetchRecord(recordType, recordId);
+      }).then(json => {
+        this.record = json['metadata'];
+        this.config = this.appConfigService.getConfigForRecord(this.record);
+        return this.apiService.fetchUrl(this.record['$schema']);
+      }).then(schema => {
+        this.schema = schema;
+        this.changeDetectorRef.markForCheck();
+      }).catch(error => {
+        console.error(error);
+        if (error.status === 403) {
+          this.toastrService.error(`Logged in user can not access to the record: ${recordType}/${recordId}`, 'Forbidden');
+        } else {
+          this.toastrService.error('Could not load the record!', 'Error');
+        }
+      });
   }
 }

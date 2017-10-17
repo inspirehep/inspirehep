@@ -47,6 +47,19 @@ export class TicketsComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.apiService.newRecordFetched$
+      .subscribe(() => this.fetchTickets());
+  }
+
+  onTicketResolve(ticketIndex: number) {
+    this.tickets.splice(ticketIndex, 1);
+  }
+
+  onTicketCreate(ticket: Ticket) {
+    this.tickets.push(ticket);
+  }
+
+  private fetchTickets() {
     this.apiService.fetchRecordTickets()
       .then(tickets => {
         this.tickets = tickets;
@@ -59,13 +72,5 @@ export class TicketsComponent implements OnInit {
           this.toastrService.error('Could not load the tickets!', 'Error');
         }
       });
-  }
-
-  onTicketResolve(ticketIndex: number) {
-    this.tickets.splice(ticketIndex, 1);
-  }
-
-  onTicketCreate(ticket: Ticket) {
-    this.tickets.push(ticket);
   }
 }

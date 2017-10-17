@@ -29,8 +29,9 @@ import { JsonEditorWrapperComponent } from './json-editor-wrapper';
 import { RecordToolbarComponent } from './record-toolbar';
 import { RecordSaveButtonComponent } from './record-save-button';
 import { RecordHistoryComponent } from './record-history';
-import { RecordSearchComponent } from './record-search';
+import { SearchBarComponent } from './search-bar';
 import { TicketsComponent, NewTicketModalComponent, TicketComponent } from './tickets';
+import { RecordSearchComponent } from './record-search';
 
 @NgModule({
   imports: [
@@ -42,10 +43,11 @@ import { TicketsComponent, NewTicketModalComponent, TicketComponent } from './ti
     RecordToolbarComponent,
     RecordSaveButtonComponent,
     RecordHistoryComponent,
-    RecordSearchComponent,
+    SearchBarComponent,
     TicketsComponent,
     NewTicketModalComponent,
-    TicketComponent
+    TicketComponent,
+    RecordSearchComponent
   ],
   exports: [
     JsonEditorWrapperComponent

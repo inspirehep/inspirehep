@@ -20,52 +20,72 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
 import { RecordSearchService } from '../../core/services';
 import { SearchParams } from '../../shared/interfaces';
 
 @Component({
-  selector: 're-record-search',
-  templateUrl: './record-search.component.html',
-  styleUrls: ['./record-search.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 're-search-bar',
+  templateUrl: './search-bar.component.html',
+  styleUrls: ['./search-bar.component.scss']
 })
-export class RecordSearchComponent implements OnInit {
+export class SearchBarComponent implements OnInit {
 
   recordType: string;
-  recordCursor: number;
-  foundRecordIds: Array<number>;
+  query: string;
+  cursor: number;
+  resultCount: number;
 
   constructor(private route: ActivatedRoute,
-    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
     private recordSearchService: RecordSearchService) { }
 
   ngOnInit() {
-
     this.recordSearchService.cursor$
       .subscribe(cursor => {
-        this.recordCursor = cursor;
-        this.changeDetectorRef.markForCheck();
+        this.cursor = cursor;
+      });
+
+    this.recordSearchService.resultCount$
+      .subscribe(resultCount => {
+        this.resultCount = resultCount;
+      });
+
+    this.route.queryParams
+      .subscribe((params: SearchParams) => {
+        this.query = params.query;
       });
 
     this.route.params
       .subscribe(params => {
         this.recordType = params['type'];
-        this.changeDetectorRef.markForCheck();
       });
+  }
 
-    this.route.queryParams
-      .filter((params: SearchParams) => Boolean(params.query))
-      .switchMap((params: SearchParams) => {
-        return this.recordSearchService.search(params.query);
-      }).subscribe(recordIds => {
-        this.foundRecordIds = recordIds;
-        this.changeDetectorRef.markForCheck();
-      });
+  searchOrGo() {
+    const query = this.query;
+    const isQueryNumber = !isNaN(+query);
+    if (isQueryNumber) {
+      // clear previous search results
+      this.recordSearchService.resultCount$.next(undefined);
+      this.router.navigate([`${this.recordType}/${query}`]);
+    } else {
+      this.router.navigate([`${this.recordType}/search`], { queryParams: { query } });
+    }
+  }
+
+  next() {
+    this.cursor++;
+    this.recordSearchService.setCursor(this.cursor);
+  }
+
+  previous() {
+    this.cursor--;
+    this.recordSearchService.setCursor(this.cursor);
   }
 
 }

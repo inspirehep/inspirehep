@@ -20,30 +20,28 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Injectable } from '@angular/core';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-import 'rxjs/add/operator/do';
+import { SearchBarComponent } from './search-bar.component';
 
-import { RecordApiService } from './record-api.service';
+describe('RecordSearchComponent', () => {
+  let component: SearchBarComponent;
+  let fixture: ComponentFixture<SearchBarComponent>;
 
-@Injectable()
-export class RecordSearchService {
-  readonly resultCount$ = new ReplaySubject<number>(1);
-  readonly cursor$ = new ReplaySubject<number>(1);
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [ SearchBarComponent ]
+    })
+    .compileComponents();
+  }));
 
-  constructor(private apiService: RecordApiService) { }
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SearchBarComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
 
-  search(query: string): Observable<Array<number>> {
-    return this.apiService.searchRecord(query)
-      .do(results => {
-        this.resultCount$.next(results.length);
-        this.cursor$.next(0);
-      });
-  }
-
-  setCursor(cursor: number) {
-    this.cursor$.next(cursor);
-  }
-}
+  it('should be created', () => {
+    expect(component).toBeTruthy();
+  });
+});

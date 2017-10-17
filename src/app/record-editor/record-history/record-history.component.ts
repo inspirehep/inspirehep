@@ -46,7 +46,8 @@ export class RecordHistoryComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef) { }
 
   ngOnInit() {
-    this.fetchRevisions();
+    this.apiService.newRecordFetched$
+      .subscribe(() => this.fetchRevisions());
   }
 
   onRevisionClick(revision: RecordRevision) {

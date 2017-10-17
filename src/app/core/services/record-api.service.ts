@@ -23,6 +23,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -38,6 +39,8 @@ export class RecordApiService extends CommonApiService {
   private recordApiUrl: string;
   private editorRecordApiUrl: string;
 
+  readonly newRecordFetched$ = new ReplaySubject<void>(1);
+
   constructor(protected http: Http, protected config: AppConfigService) {
     super(http, config);
   }
@@ -52,6 +55,7 @@ export class RecordApiService extends CommonApiService {
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
     this.recordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
     this.editorRecordApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    this.newRecordFetched$.next(null);
     return this.fetchUrl(this.recordApiUrl);
   }
 
