@@ -28,7 +28,7 @@ import { HoldingpenApiService, RecordCleanupService, BeforeUnloadPromptService }
   selector: 're-holdingpen-save-button',
   templateUrl: './holdingpen-save-button.component.html',
   styleUrls: [
-    '../../record-editor/editor-container/editor-container.component.scss'
+    '../../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss'
   ]
 })
 export class HoldingpenSaveButtonComponent {

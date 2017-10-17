@@ -31,7 +31,7 @@ import { HoldingpenApiService, AppConfigService } from '../core/services';
 @Component({
   templateUrl: './holdingpen-editor.component.html',
   styleUrls: [
-    '../record-editor/editor-container/editor-container.component.scss'
+    '../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

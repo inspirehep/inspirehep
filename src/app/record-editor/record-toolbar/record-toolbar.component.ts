@@ -26,7 +26,7 @@ import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, Change
   selector: 're-record-toolbar',
   templateUrl: './record-toolbar.component.html',
   styleUrls: [
-    '../editor-container/editor-container.component.scss',
+    '../json-editor-wrapper/json-editor-wrapper.component.scss',
     './record-toolbar.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush

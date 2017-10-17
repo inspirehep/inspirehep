@@ -1,12 +1,12 @@
 import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { EditorContainerComponent } from './record-editor/editor-container';
+import { JsonEditorWrapperComponent } from './record-editor/json-editor-wrapper';
 import { HoldingpenEditorComponent } from './holdingpen-editor/holdingpen-editor.component';
 
 const appRoutes: Routes = [
   { path: 'holdingpen/:objectid', component: HoldingpenEditorComponent },
-  { path: ':type/:recid', component: EditorContainerComponent }
+  { path: ':type/:recid', component: JsonEditorWrapperComponent }
 ];
 
 export const appRoutingProviders: Array<any> = [];

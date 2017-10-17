@@ -25,7 +25,7 @@ import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared';
 
-import { EditorContainerComponent } from './editor-container';
+import { JsonEditorWrapperComponent } from './json-editor-wrapper';
 import { RecordToolbarComponent } from './record-toolbar';
 import { RecordSaveButtonComponent } from './record-save-button';
 import { RecordHistoryComponent } from './record-history';
@@ -38,7 +38,7 @@ import { TicketsComponent, NewTicketModalComponent, TicketComponent } from './ti
     RouterModule
   ],
   declarations: [
-    EditorContainerComponent,
+    JsonEditorWrapperComponent,
     RecordToolbarComponent,
     RecordSaveButtonComponent,
     RecordHistoryComponent,
@@ -48,7 +48,7 @@ import { TicketsComponent, NewTicketModalComponent, TicketComponent } from './ti
     TicketComponent
   ],
   exports: [
-    EditorContainerComponent
+    JsonEditorWrapperComponent
   ]
 })
 export class RecordEditorModule { }

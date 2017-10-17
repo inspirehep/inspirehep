@@ -36,7 +36,7 @@ import { RecordApiService, RecordCleanupService, BeforeUnloadPromptService } fro
   selector: 're-record-save-button',
   templateUrl: './record-save-button.component.html',
   styleUrls: [
-    '../editor-container/editor-container.component.scss'
+    '../json-editor-wrapper/json-editor-wrapper.component.scss'
   ]
 })
 export class RecordSaveButtonComponent {

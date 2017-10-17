@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
@@ -28,13 +28,14 @@ import { ToastrService } from 'ngx-toastr';
 import { RecordApiService, AppConfigService } from '../../core/services';
 
 @Component({
-  templateUrl: './editor-container.component.html',
+  templateUrl: './json-editor-wrapper.component.html',
   styleUrls: [
-    './editor-container.component.scss'
+    './json-editor-wrapper.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditorContainerComponent implements OnInit {
+export class JsonEditorWrapperComponent implements OnInit {
+
   record: Object;
   schema: Object;
   config: Object;
@@ -51,7 +52,7 @@ export class EditorContainerComponent implements OnInit {
     this.route.params
       .subscribe(params => {
         let recType = params['type'];
-        let recId =  params['recid'];
+        let recId = params['recid'];
         this.apiService.checkEditorPermission(recType, recId)
           .then(() => {
             return this.apiService.fetchRecord(recType, recId);
