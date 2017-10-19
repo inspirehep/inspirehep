@@ -22,7 +22,7 @@
 
 import { Component, Input } from '@angular/core';
 
-import { HoldingpenApiService, RecordCleanupService, BeforeUnloadPromptService } from '../../core/services';
+import { HoldingpenApiService, RecordCleanupService, DomUtilsService } from '../../core/services';
 
 @Component({
   selector: 're-holdingpen-save-button',
@@ -36,13 +36,13 @@ export class HoldingpenSaveButtonComponent {
 
   constructor(private apiService: HoldingpenApiService,
     private recordCleanupService: RecordCleanupService,
-    private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+    private domUtilsService: DomUtilsService) { }
 
   onClickSave(event: Object) {
     this.recordCleanupService.cleanup(this.workflowObject['metadata']);
     this.apiService.saveWorkflowObject(this.workflowObject)
       .subscribe(resp => {
-        this.beforeUnloadPromptService.unregister();
+        this.domUtilsService.unregisterBeforeUnloadPrompt();
         window.location.href = `/holdingpen/${this.workflowObject.id}`;
       });
   }

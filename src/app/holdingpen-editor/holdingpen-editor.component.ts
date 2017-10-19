@@ -26,7 +26,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { HoldingpenApiService, AppConfigService } from '../core/services';
+import { HoldingpenApiService, AppConfigService, DomUtilsService } from '../core/services';
 
 @Component({
   templateUrl: './holdingpen-editor.component.html',
@@ -44,9 +44,12 @@ export class HoldingpenEditorComponent implements OnInit {
     private route: ActivatedRoute,
     private apiService: HoldingpenApiService,
     private appConfigService: AppConfigService,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    private domUtilsService: DomUtilsService) { }
 
   ngOnInit() {
+    this.domUtilsService.fitEditorHeightFullPage();
+
     this.route.params
       .subscribe(params => {
         this.apiService.fetchWorkflowObject(params['objectid'])

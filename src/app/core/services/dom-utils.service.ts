@@ -25,7 +25,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
-export class BeforeUnloadPromptService {
+export class DomUtilsService {
 
   // Event handler that makes browser to show prompt before closing the application
   private beforeUnloadHandler = function (event) {
@@ -33,15 +33,28 @@ export class BeforeUnloadPromptService {
     return true;  // Gecko, WebKit, Chrome <34
   };
 
-  register() {
+  fitEditorHeightFullPage() {
+    const editorContainer = document.getElementById('editor-container');
+    const editorToolbar = document.getElementById('editor-toolbar');
+    const toolbarHeight = window.getComputedStyle(document.getElementById('editor-toolbar'), null).getPropertyValue('min-height');
+    editorContainer.style.height = (window.innerHeight - parseInt(toolbarHeight, 10)) + 'px';
+  }
+
+  fitEditorHeightFullPageOnResize() {
+    window.addEventListener('resize', () => this.fitEditorHeightFullPage());
+  }
+
+  registerBeforeUnloadPrompt() {
     if (environment.production) {
       window.addEventListener('beforeunload', this.beforeUnloadHandler);
     }
   }
 
-  unregister() {
+  unregisterBeforeUnloadPrompt() {
     if (environment.production) {
       window.removeEventListener('beforeunload', this.beforeUnloadHandler);
     }
   }
+
+
 }

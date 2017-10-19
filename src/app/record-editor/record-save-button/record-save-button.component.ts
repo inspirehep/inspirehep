@@ -30,7 +30,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Http, Response } from '@angular/http';
 import { ModalService } from 'ng2-json-editor';
 
-import { RecordApiService, RecordCleanupService, BeforeUnloadPromptService } from '../../core/services';
+import { RecordApiService, RecordCleanupService, DomUtilsService } from '../../core/services';
 
 @Component({
   selector: 're-record-save-button',
@@ -49,7 +49,7 @@ export class RecordSaveButtonComponent {
     private domSanitizer: DomSanitizer,
     private http: Http,
     private recordCleanupService: RecordCleanupService,
-    private beforeUnloadPromptService: BeforeUnloadPromptService
+    private domUtilsService: DomUtilsService
   ) { }
 
   onClickSave(event: Object) {
@@ -63,7 +63,7 @@ export class RecordSaveButtonComponent {
           onConfirm: () => {
             this.apiService.saveRecord(this.record).subscribe({
               next: () => {
-                this.beforeUnloadPromptService.unregister();
+                this.domUtilsService.unregisterBeforeUnloadPrompt();
                 this.route.params
                   .subscribe(params => {
                     window.location.href = `/${params['type']}/${params['recid']}`;

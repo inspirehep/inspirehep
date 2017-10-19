@@ -22,7 +22,7 @@
 
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { BeforeUnloadPromptService } from './core/services';
+import { DomUtilsService } from './core/services';
 
 @Component({
   selector: 're-app',
@@ -33,9 +33,10 @@ import { BeforeUnloadPromptService } from './core/services';
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-  constructor(private beforeUnloadPromptService: BeforeUnloadPromptService) { }
+  constructor(private domUtilsService: DomUtilsService) { }
 
   ngOnInit() {
-    this.beforeUnloadPromptService.register();
+    this.domUtilsService.registerBeforeUnloadPrompt();
+    this.domUtilsService.fitEditorHeightFullPageOnResize();
   }
 }

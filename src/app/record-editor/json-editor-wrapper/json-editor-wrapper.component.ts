@@ -25,7 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ToastrService } from 'ngx-toastr';
 
-import { RecordApiService, AppConfigService } from '../../core/services';
+import { RecordApiService, AppConfigService, DomUtilsService } from '../../core/services';
 
 @Component({
   selector: 're-json-editor-wrapper',
@@ -49,7 +49,8 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private apiService: RecordApiService,
     private appConfigService: AppConfigService,
-    private toastrService: ToastrService) { }
+    private toastrService: ToastrService,
+    private domUtilService: DomUtilsService) { }
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['recordId'] || changes['recordType']) && this.recordId && this.recordType) {
@@ -59,6 +60,7 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.domUtilService.fitEditorHeightFullPage();
 
     if (!this.recordId || !this.recordType) {
       // component loaded via router, @Input() aren't passed

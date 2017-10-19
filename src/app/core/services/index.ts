@@ -5,7 +5,7 @@ import { AppConfigService } from './app-config.service';
 import { CommonConfigsService } from './common-configs.service';
 import { RecordCleanupService } from './record-cleanup.service';
 import { FieldSplitterService } from './field-splitter.service';
-import { BeforeUnloadPromptService } from './before-unload-prompt.service';
+import { DomUtilsService } from './dom-utils.service';
 import { RecordSearchService } from './record-search.service';
 
 export {
@@ -16,7 +16,7 @@ export {
   CommonConfigsService,
   RecordCleanupService,
   FieldSplitterService,
-  BeforeUnloadPromptService,
+  DomUtilsService,
   RecordSearchService
 };
 
@@ -28,6 +28,6 @@ export const CORE_SERVICES = [
   CommonConfigsService,
   RecordCleanupService,
   FieldSplitterService,
-  BeforeUnloadPromptService,
+  DomUtilsService,
   RecordSearchService
 ];

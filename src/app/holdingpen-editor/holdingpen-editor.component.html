@@ -15,7 +15,7 @@
 </ng-template>
 
 <re-holdingpen-toolbar [workflowObject]="workflowObject"></re-holdingpen-toolbar>
-<div class="editor-parent-container">
+<div id="editor-container">
   <json-editor *ngIf="workflowObject && schema"
     [(record)]="workflowObject.metadata"
     [(jsonPatches)]="workflowObject._extra_data.conflicts"
