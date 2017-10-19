@@ -20,10 +20,11 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { RecordSearchService } from '../../core/services';
 import { SearchParams } from '../../shared/interfaces';
@@ -34,31 +35,31 @@ import { SearchParams } from '../../shared/interfaces';
   styleUrls: ['./record-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecordSearchComponent implements OnInit {
+export class RecordSearchComponent implements OnInit, OnDestroy {
 
   recordType: string;
   recordCursor: number;
   foundRecordIds: Array<number>;
+  private subscriptions: Array<Subscription>;
 
   constructor(private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
     private recordSearchService: RecordSearchService) { }
 
   ngOnInit() {
-
-    this.recordSearchService.cursor$
+    const cursorSub = this.recordSearchService.cursor$
       .subscribe(cursor => {
         this.recordCursor = cursor;
         this.changeDetectorRef.markForCheck();
       });
 
-    this.route.params
+    const paramsSub = this.route.params
       .subscribe(params => {
         this.recordType = params['type'];
         this.changeDetectorRef.markForCheck();
       });
 
-    this.route.queryParams
+    const searchSub = this.route.queryParams
       .filter((params: SearchParams) => Boolean(params.query))
       .switchMap((params: SearchParams) => {
         return this.recordSearchService.search(params.query);
@@ -66,6 +67,12 @@ export class RecordSearchComponent implements OnInit {
         this.foundRecordIds = recordIds;
         this.changeDetectorRef.markForCheck();
       });
+    this.subscriptions = [cursorSub, paramsSub, searchSub];
+  }
+
+  ngOnDestroy() {
+    this.subscriptions
+      .forEach(subscription => subscription.unsubscribe());
   }
 
 }

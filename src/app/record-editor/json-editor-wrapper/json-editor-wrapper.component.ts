@@ -20,8 +20,10 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, OnDestroy, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { Subscription } from 'rxjs/Subscription';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -35,7 +37,7 @@ import { RecordApiService, AppConfigService, DomUtilsService } from '../../core/
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JsonEditorWrapperComponent implements OnInit, OnChanges {
+export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy {
   @Input() recordId?: string;
   @Input() recordType?: string;
 
@@ -44,6 +46,7 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges {
   config: object;
   // `undefined` on current revision
   revision: object;
+  private subscriptions: Array<Subscription>;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -62,20 +65,29 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.domUtilService.fitEditorHeightFullPage();
 
+    this.subscriptions = [];
+
     if (!this.recordId || !this.recordType) {
       // component loaded via router, @Input() aren't passed
-      this.route.params
+      const paramsRecidSub = this.route.params
         .filter(params => params['recid'])
         .subscribe(params => {
           this.fetch(params['type'], params['recid']);
         });
+      this.subscriptions.push(paramsRecidSub);
     }
 
-    this.appConfigService.onConfigChange
+    const configChangeSub = this.appConfigService.onConfigChange
       .subscribe(config => {
         this.config = Object.assign({}, config);
         this.changeDetectorRef.markForCheck();
       });
+    this.subscriptions.push(configChangeSub);
+  }
+
+  ngOnDestroy() {
+    this.subscriptions
+      .forEach(subscription => subscription.unsubscribe());
   }
 
   onRecordChange(record: object) {
