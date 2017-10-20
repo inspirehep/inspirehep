@@ -58,6 +58,7 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['recordId'] || changes['recordType']) && this.recordId && this.recordType) {
       // component loaded and being used by record-search
+      this.record = undefined; // don't display old record while new is loading
       this.fetch(this.recordType, this.recordId);
     }
   }
@@ -121,6 +122,8 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy 
    * - shows toast message when any call fails
    */
   private fetch(recordType: string, recordId: string) {
+    const loadingToaster = this.toastrService.info(
+      `Loading ${recordType}/${recordId}`, 'Wait');
     this.apiService.checkEditorPermission(recordType, recordId)
       .then(() => {
         return this.apiService.fetchRecord(recordType, recordId);
@@ -129,9 +132,11 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy 
         this.config = this.appConfigService.getConfigForRecord(this.record);
         return this.apiService.fetchUrl(this.record['$schema']);
       }).then(schema => {
+        this.toastrService.clear(loadingToaster.toastId);
         this.schema = schema;
         this.changeDetectorRef.markForCheck();
       }).catch(error => {
+        this.toastrService.clear(loadingToaster.toastId);
         console.error(error);
         if (error.status === 403) {
           this.toastrService.error(`Logged in user can not access to the record: ${recordType}/${recordId}`, 'Forbidden');

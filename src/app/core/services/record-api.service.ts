@@ -118,7 +118,7 @@ export class RecordApiService extends CommonApiService {
   }
 
   searchRecord(query: string): Observable<Array<number>> {
-    return Observable.of([]);
+    return Observable.of([1497201, 1498589, 1628596]);
   }
 
 }
