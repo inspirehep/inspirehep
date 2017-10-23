@@ -22,6 +22,8 @@
 
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 
+import { SavePreviewModalService } from '../../core/services';
+
 @Component({
   selector: 're-record-toolbar',
   templateUrl: './record-toolbar.component.html',
@@ -40,7 +42,8 @@ export class RecordToolbarComponent {
   @Output() revisionChange = new EventEmitter<Object>();
   @Output() revisionRevert = new EventEmitter<void>();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) { }
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+    private savePreviewModalService: SavePreviewModalService) { }
 
   onRevisionChange(revision?: Object) {
     this.revisionChange.emit(revision);
@@ -60,5 +63,9 @@ export class RecordToolbarComponent {
     this.displayingRevision = false;
 
     this.changeDetectorRef.markForCheck();
+  }
+
+  onSaveClick() {
+    this.savePreviewModalService.displayPreview({ record: this.record });
   }
 }

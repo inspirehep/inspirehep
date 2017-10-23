@@ -7,9 +7,9 @@
 </div>
 <div *ngIf="resultCount >= 0" class="navbar-form col-md-5 inline">
   <ng-container *ngIf="resultCount > 0; else nothingFoundTemplate">
-    <i class="btn btn-default fa fa-chevron-left" (click)="previous()"></i>
+    <i class="btn btn-default fa fa-chevron-left" (click)="onPreviewClick()"></i>
     <span class="result-text">{{cursor + 1}} / {{resultCount}}</span>
-    <i class="btn btn-default fa fa-chevron-right" (click)="next()"></i>
+    <i class="btn btn-default fa fa-chevron-right" (click)="onNextClick()"></i>
   </ng-container>
   <ng-template #nothingFoundTemplate>
     <span class="result-text form-control-static">Nothing found</span>

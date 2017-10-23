@@ -7,6 +7,7 @@ import { RecordCleanupService } from './record-cleanup.service';
 import { FieldSplitterService } from './field-splitter.service';
 import { DomUtilsService } from './dom-utils.service';
 import { RecordSearchService } from './record-search.service';
+import { SavePreviewModalService } from './save-preview-modal.service';
 
 export {
   CommonApiService,
@@ -17,7 +18,8 @@ export {
   RecordCleanupService,
   FieldSplitterService,
   DomUtilsService,
-  RecordSearchService
+  RecordSearchService,
+  SavePreviewModalService
 };
 
 export const CORE_SERVICES = [
@@ -29,5 +31,6 @@ export const CORE_SERVICES = [
   RecordCleanupService,
   FieldSplitterService,
   DomUtilsService,
-  RecordSearchService
+  RecordSearchService,
+  SavePreviewModalService
 ];

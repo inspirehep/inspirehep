@@ -27,11 +27,11 @@ import { SharedModule } from '../shared';
 
 import { JsonEditorWrapperComponent } from './json-editor-wrapper';
 import { RecordToolbarComponent } from './record-toolbar';
-import { RecordSaveButtonComponent } from './record-save-button';
 import { RecordHistoryComponent } from './record-history';
 import { SearchBarComponent } from './search-bar';
 import { TicketsComponent, NewTicketModalComponent, TicketComponent } from './tickets';
 import { RecordSearchComponent } from './record-search';
+import { SavePreviewModalComponent } from './save-preview-modal';
 
 @NgModule({
   imports: [
@@ -41,13 +41,13 @@ import { RecordSearchComponent } from './record-search';
   declarations: [
     JsonEditorWrapperComponent,
     RecordToolbarComponent,
-    RecordSaveButtonComponent,
     RecordHistoryComponent,
     SearchBarComponent,
     TicketsComponent,
     NewTicketModalComponent,
     TicketComponent,
-    RecordSearchComponent
+    RecordSearchComponent,
+    SavePreviewModalComponent
   ],
   exports: [
     JsonEditorWrapperComponent

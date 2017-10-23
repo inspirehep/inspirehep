@@ -122,10 +122,11 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy 
    * - shows toast message when any call fails
    */
   private fetch(recordType: string, recordId: string) {
-    const loadingToaster = this.toastrService.info(
-      `Loading ${recordType}/${recordId}`, 'Wait');
+    let loadingToaster;
     this.apiService.checkEditorPermission(recordType, recordId)
       .then(() => {
+        loadingToaster = this.toastrService.info(
+          `Loading ${recordType}/${recordId}`, 'Wait');
         return this.apiService.fetchRecord(recordType, recordId);
       }).then(json => {
         this.record = json['metadata'];

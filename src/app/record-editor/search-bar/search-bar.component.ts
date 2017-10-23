@@ -20,13 +20,13 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Subscription } from 'rxjs/Subscription';
 
-import { RecordSearchService } from '../../core/services';
+import { RecordSearchService, SavePreviewModalService } from '../../core/services';
 import { SearchParams } from '../../shared/interfaces';
 
 @Component({
@@ -36,6 +36,8 @@ import { SearchParams } from '../../shared/interfaces';
 })
 export class SearchBarComponent implements OnInit, OnDestroy {
 
+  @Input() record: object;
+
   recordType: string;
   query: string;
   cursor: number;
@@ -44,7 +46,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private recordSearchService: RecordSearchService) { }
+    private recordSearchService: RecordSearchService,
+    private savePreviewModalService: SavePreviewModalService) { }
 
   ngOnInit() {
     const cursorSub = this.recordSearchService.cursor$
@@ -69,7 +72,8 @@ export class SearchBarComponent implements OnInit, OnDestroy {
 
     const paramsRecidSub = this.route.params
       .filter(params => params['recid'])
-      .subscribe(() => {
+      .subscribe((params) => {
+        this.query = params['recid'];
         // clear search when routed to a record directly
         this.recordSearchService.resultCount$.next(undefined);
       });
@@ -92,12 +96,28 @@ export class SearchBarComponent implements OnInit, OnDestroy {
     }
   }
 
-  next() {
+  onNextClick() {
+    this.savePreviewModalService.displayPreview({
+      record: this.record,
+      onCancel: () => this.next(),
+      onConfirm: () => this.next()
+    });
+  }
+
+  onPreviewClick() {
+    this.savePreviewModalService.displayPreview({
+      record: this.record,
+      onCancel: () => this.previous(),
+      onConfirm: () => this.previous()
+    });
+  }
+
+  private next() {
     this.cursor++;
     this.recordSearchService.setCursor(this.cursor);
   }
 
-  previous() {
+  private previous() {
     this.cursor--;
     this.recordSearchService.setCursor(this.cursor);
   }

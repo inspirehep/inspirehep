@@ -44,6 +44,14 @@ export class DomUtilsService {
     window.addEventListener('resize', () => this.fitEditorHeightFullPage());
   }
 
+  writeContentIntoIFrameById(content: string, id: string) {
+    let el = document.getElementById(id) as HTMLIFrameElement;
+    let doc = el.contentWindow.document;
+    doc.open();
+    doc.write(content);
+    doc.close();
+  }
+
   registerBeforeUnloadPrompt() {
     if (environment.production) {
       window.addEventListener('beforeunload', this.beforeUnloadHandler);

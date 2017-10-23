@@ -28,6 +28,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
+import { environment } from '../../../environments/environment';
 import { AppConfigService } from './app-config.service';
 import { CommonApiService } from './common-api.service';
 import { Ticket, RecordRevision } from '../../shared/interfaces';
@@ -59,10 +60,11 @@ export class RecordApiService extends CommonApiService {
     return this.fetchUrl(this.recordApiUrl);
   }
 
-  saveRecord(record: Object): Observable<Object> {
+  saveRecord(record: object): Promise<void> {
     return this.http
       .put(this.recordApiUrl, record)
-      .map(res => res.json());
+      .map(res => res.json())
+      .toPromise();
   }
 
   fetchRecordTickets(): Promise<Array<Ticket>> {
@@ -119,6 +121,13 @@ export class RecordApiService extends CommonApiService {
 
   searchRecord(query: string): Observable<Array<number>> {
     return Observable.of([1497201, 1498589, 1628596]);
+  }
+
+  preview(record: object): Promise<string> {
+    return this.http
+      .post(`${environment.baseUrl}/editor/preview`, record)
+      .map(response => response.text())
+      .toPromise();
   }
 
 }
