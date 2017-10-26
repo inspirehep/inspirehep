@@ -23,6 +23,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/zip';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -40,6 +41,7 @@ export class RecordSearchComponent implements OnInit, OnDestroy {
   recordType: string;
   recordCursor: number;
   foundRecordIds: Array<number>;
+  singleRecordId: number;
   private subscriptions: Array<Subscription>;
 
   constructor(private route: ActivatedRoute,
@@ -67,6 +69,7 @@ export class RecordSearchComponent implements OnInit, OnDestroy {
         this.foundRecordIds = recordIds;
         this.changeDetectorRef.markForCheck();
       });
+
     this.subscriptions = [cursorSub, paramsSub, searchSub];
   }
 

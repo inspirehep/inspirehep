@@ -519,7 +519,7 @@ export class AppConfigService {
               let regex = /^\d\d\d\d-[0-1]\d-[0-3]\d[t\s][0-2]\d:[0-5]\d:[0-5]\d(?:\.\d+)?(?:z|[+-]\d\d:\d\d)?$/i;
               if (value.match(regex)) {
                 return true;
-              };
+              }
               return false;
             }
           }

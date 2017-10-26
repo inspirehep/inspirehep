@@ -47,7 +47,7 @@ export class DropdownInputComponent implements OnInit {
       this._value = value || this.defaultValue;
       this.valueChange.emit(this._value);
     }
-  };
+  }
   private _value: string;
 
   filterExpression = '';

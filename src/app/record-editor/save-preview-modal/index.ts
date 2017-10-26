@@ -1,1 +1,1 @@
-export { SavePreviewModalComponent } from './save-preview-modal.component'
+export { SavePreviewModalComponent } from './save-preview-modal.component';

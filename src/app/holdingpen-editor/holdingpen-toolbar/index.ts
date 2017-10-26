@@ -1,1 +1,1 @@
-export { HoldingpenToolbarComponent } from './holdingpen-toolbar.component'
+export { HoldingpenToolbarComponent } from './holdingpen-toolbar.component';

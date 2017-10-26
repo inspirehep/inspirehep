@@ -1,1 +1,1 @@
-export { RecordToolbarComponent } from './record-toolbar.component'
+export { RecordToolbarComponent } from './record-toolbar.component';
