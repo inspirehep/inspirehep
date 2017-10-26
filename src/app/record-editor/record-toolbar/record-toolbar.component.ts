@@ -66,6 +66,6 @@ export class RecordToolbarComponent {
   }
 
   onSaveClick() {
-    this.savePreviewModalService.displayPreview({ record: this.record });
+    this.savePreviewModalService.displayModal({ record: this.record });
   }
 }

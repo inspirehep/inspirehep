@@ -21,16 +21,16 @@
 */
 
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
 
 import { SavePreviewModalOptions } from '../../shared/interfaces';
 
 @Injectable()
 export class SavePreviewModalService {
 
-  readonly onPreview = new ReplaySubject<SavePreviewModalOptions>(1);
+  readonly onPreview = new Subject<SavePreviewModalOptions>();
 
-  displayPreview(options: SavePreviewModalOptions) {
+  displayModal(options: SavePreviewModalOptions) {
     this.onPreview.next(options);
   }
 }

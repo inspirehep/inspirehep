@@ -21,7 +21,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
@@ -36,9 +36,12 @@ import { Ticket, RecordRevision } from '../../shared/interfaces';
 
 @Injectable()
 export class RecordApiService extends CommonApiService {
-  // urls for currently edited record, iclude pidType and pidValue
-  private recordApiUrl: string;
-  private editorRecordApiUrl: string;
+
+  private currentRecordApiUrl: string;
+  private currentRecordEditorApiUrl: string;
+  private currentCollectionApiUrl: string;
+
+  private readonly returnOnlyIdsHeaders = new Headers({ Accept: 'application/vnd+inspire.ids+json' });
 
   readonly newRecordFetched$ = new ReplaySubject<void>(1);
 
@@ -47,40 +50,41 @@ export class RecordApiService extends CommonApiService {
   }
 
   checkEditorPermission(pidType: string, pidValue: string): Promise<any> {
-    this.editorRecordApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    this.currentRecordEditorApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
     return this.http
-      .get(`${this.editorRecordApiUrl}/permission`)
+      .get(`${this.currentRecordEditorApiUrl}/permission`)
       .toPromise();
   }
 
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
-    this.recordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
-    this.editorRecordApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    this.currentCollectionApiUrl = `${this.config.apiUrl}/${pidType}`
+    this.currentRecordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
+    this.currentRecordEditorApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
-    return this.fetchUrl(this.recordApiUrl);
+    return this.fetchUrl(this.currentRecordApiUrl);
   }
 
   saveRecord(record: object): Promise<void> {
     return this.http
-      .put(this.recordApiUrl, record)
+      .put(this.currentRecordApiUrl, record)
       .map(res => res.json())
       .toPromise();
   }
 
   fetchRecordTickets(): Promise<Array<Ticket>> {
-    return this.fetchUrl(`${this.editorRecordApiUrl}/rt/tickets`);
+    return this.fetchUrl(`${this.currentRecordEditorApiUrl}/rt/tickets`);
   }
 
   createRecordTicket(ticket: Ticket): Promise<{ id: string, link: string }> {
     return this.http
-      .post(`${this.editorRecordApiUrl}/rt/tickets/create`, ticket)
+      .post(`${this.currentRecordEditorApiUrl}/rt/tickets/create`, ticket)
       .map(res => res.json().data)
       .toPromise();
   }
 
   resolveTicket(ticketId: string): Promise<any> {
     return this.http
-      .get(`${this.editorRecordApiUrl}/rt/tickets/${ticketId}/resolve`)
+      .get(`${this.currentRecordEditorApiUrl}/rt/tickets/${ticketId}/resolve`)
       .toPromise();
   }
 
@@ -100,27 +104,30 @@ export class RecordApiService extends CommonApiService {
 
   fetchRevisions(): Promise<Array<RecordRevision>> {
     return this.http
-      .get(`${this.editorRecordApiUrl}/revisions`)
+      .get(`${this.currentRecordEditorApiUrl}/revisions`)
       .map(res => res.json())
       .toPromise();
   }
 
   fetchRevisionData(transactionId: number, recUUID: string): Promise<Object> {
     return this.http
-      .get(`${this.editorRecordApiUrl}/revision/${recUUID}/${transactionId}`)
+      .get(`${this.currentRecordEditorApiUrl}/revision/${recUUID}/${transactionId}`)
       .map(res => res.json())
       .toPromise();
   }
 
   revertToRevision(revisionId: number): Promise<void> {
     return this.http
-      .put(`${this.editorRecordApiUrl}/revisions/revert`, { revision_id: revisionId })
+      .put(`${this.currentRecordEditorApiUrl}/revisions/revert`, { revision_id: revisionId })
       .map(res => res.json())
       .toPromise();
   }
 
   searchRecord(query: string): Observable<Array<number>> {
-    return Observable.of([1497201, 1498589, 1628596]);
+    return this.http
+      .get(`${this.currentCollectionApiUrl}/?q=${query}`, { headers: this.returnOnlyIdsHeaders })
+      .map(res => res.json())
+      .map(json => json.hits.recids);
   }
 
   preview(record: object): Promise<string> {

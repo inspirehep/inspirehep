@@ -1,4 +1,3 @@
-import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { JsonEditorWrapperComponent } from './record-editor/json-editor-wrapper';
@@ -11,7 +10,6 @@ const appRoutes: Routes = [
   { path: ':type/:recid', component: JsonEditorWrapperComponent }
 ];
 
-export const appRoutingProviders: Array<any> = [];
+export const appRoutingProviders = [];
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
-
+export const routing = RouterModule.forRoot(appRoutes);

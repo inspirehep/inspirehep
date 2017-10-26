@@ -97,7 +97,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   onNextClick() {
-    this.savePreviewModalService.displayPreview({
+    this.savePreviewModalService.displayModal({
       record: this.record,
       onCancel: () => this.next(),
       onConfirm: () => this.next()
@@ -105,7 +105,7 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   }
 
   onPreviewClick() {
-    this.savePreviewModalService.displayPreview({
+    this.savePreviewModalService.displayModal({
       record: this.record,
       onCancel: () => this.previous(),
       onConfirm: () => this.previous()
