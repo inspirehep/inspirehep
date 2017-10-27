@@ -23,12 +23,17 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/zip';
+import 'rxjs/add/observable/combineLatest';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
 import { RecordSearchService } from '../../core/services';
 import { SearchParams } from '../../shared/interfaces';
+
+interface RouteType {
+  params: { type: string };
+  queryParams: SearchParams;
+};
 
 @Component({
   selector: 're-record-search',
@@ -41,7 +46,6 @@ export class RecordSearchComponent implements OnInit, OnDestroy {
   recordType: string;
   recordCursor: number;
   foundRecordIds: Array<number>;
-  singleRecordId: number;
   private subscriptions: Array<Subscription>;
 
   constructor(private route: ActivatedRoute,
@@ -55,22 +59,21 @@ export class RecordSearchComponent implements OnInit, OnDestroy {
         this.changeDetectorRef.markForCheck();
       });
 
-    const paramsSub = this.route.params
-      .subscribe(params => {
-        this.recordType = params['type'];
-        this.changeDetectorRef.markForCheck();
-      });
-
-    const searchSub = this.route.queryParams
-      .filter((params: SearchParams) => Boolean(params.query))
-      .switchMap((params: SearchParams) => {
-        return this.recordSearchService.search(params.query);
-      }).subscribe(recordIds => {
+    const searchSub = Observable.combineLatest(
+      this.route.params,
+      this.route.queryParams,
+      (params, queryParams) => {
+        return { params, queryParams };
+      }).do((route: RouteType) => {
+        this.recordType = route.params.type;
+      }).filter((route: RouteType) => Boolean(route.queryParams.query))
+      .switchMap((route: RouteType) => this.recordSearchService.search(route.params.type, route.queryParams.query))
+      .subscribe(recordIds => {
         this.foundRecordIds = recordIds;
         this.changeDetectorRef.markForCheck();
       });
 
-    this.subscriptions = [cursorSub, paramsSub, searchSub];
+    this.subscriptions = [cursorSub, searchSub];
   }
 
   ngOnDestroy() {

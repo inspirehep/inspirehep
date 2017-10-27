@@ -39,7 +39,6 @@ export class RecordApiService extends CommonApiService {
 
   private currentRecordApiUrl: string;
   private currentRecordEditorApiUrl: string;
-  private currentCollectionApiUrl: string;
 
   private readonly returnOnlyIdsHeaders = new Headers({ Accept: 'application/vnd+inspire.ids+json' });
 
@@ -57,7 +56,6 @@ export class RecordApiService extends CommonApiService {
   }
 
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
-    this.currentCollectionApiUrl = `${this.config.apiUrl}/${pidType}`;
     this.currentRecordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
     this.currentRecordEditorApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
@@ -123,9 +121,9 @@ export class RecordApiService extends CommonApiService {
       .toPromise();
   }
 
-  searchRecord(query: string): Observable<Array<number>> {
+  searchRecord(recordType: string, query: string): Observable<Array<number>> {
     return this.http
-      .get(`${this.currentCollectionApiUrl}/?q=${query}`, { headers: this.returnOnlyIdsHeaders })
+      .get(`${this.config.apiUrl}/${recordType}/?q=${query}`, { headers: this.returnOnlyIdsHeaders })
       .map(res => res.json())
       .map(json => json.hits.recids);
   }

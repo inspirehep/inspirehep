@@ -35,8 +35,8 @@ export class RecordSearchService {
 
   constructor(private apiService: RecordApiService) { }
 
-  search(query: string): Observable<Array<number>> {
-    return this.apiService.searchRecord(query)
+  search(recordType: string, query: string): Observable<Array<number>> {
+    return this.apiService.searchRecord(recordType, query)
       .do(results => {
         this.resultCount$.next(results.length);
         this.cursor$.next(0);
