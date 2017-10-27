@@ -24,7 +24,7 @@ import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, Chang
 
 import { RecordApiService } from '../../core/services';
 import { RecordRevision } from '../../shared/interfaces';
-
+import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
   selector: 're-record-history',
@@ -34,7 +34,7 @@ import { RecordRevision } from '../../shared/interfaces';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecordHistoryComponent implements OnInit {
+export class RecordHistoryComponent extends SubscriberComponent implements OnInit {
 
   @Output() revisionChange = new EventEmitter<Object>();
   @Output() revisionRevert = new EventEmitter<void>();
@@ -43,10 +43,13 @@ export class RecordHistoryComponent implements OnInit {
   selectedRevision: RecordRevision;
 
   constructor(private apiService: RecordApiService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit() {
     this.apiService.newRecordFetched$
+      .takeUntil(this.isDestroyed)
       .subscribe(() => this.fetchRevisions());
   }
 

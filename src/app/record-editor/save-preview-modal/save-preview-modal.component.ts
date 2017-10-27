@@ -1,44 +1,42 @@
 import { Component, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, OnInit, OnDestroy } from '@angular/core';
-import 'rxjs/add/operator/switchMap';
-import { Subscription } from 'rxjs/Subscription';
+
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 import { SavePreviewModalService, RecordApiService, DomUtilsService } from '../../core/services';
 import { SavePreviewModalOptions } from '../../shared/interfaces';
+import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
   selector: 're-save-preview-modal',
   templateUrl: './save-preview-modal.component.html',
   styleUrls: ['./save-preview-modal.component.scss']
 })
-export class SavePreviewModalComponent implements OnInit, OnDestroy {
+export class SavePreviewModalComponent extends SubscriberComponent implements OnInit, OnDestroy {
 
   @ViewChild('modal') modal: ModalDirective;
   private options: SavePreviewModalOptions;
   private previewHtml: string;
-  private onPreviewSubscription: Subscription;
 
   constructor(private toastrService: ToastrService,
     private recordPreviewModalService: SavePreviewModalService,
     private apiService: RecordApiService,
     private changeDetectorRef: ChangeDetectorRef,
-    private domUtilsService: DomUtilsService) { }
+    private domUtilsService: DomUtilsService) {
+      super();
+    }
 
   ngOnInit() {
-    this.onPreviewSubscription = this.recordPreviewModalService.onPreview
+    this.recordPreviewModalService.onPreview
       .do(options => {
         this.options = options;
       })
       .switchMap(options => this.apiService.preview(options.record))
+      .takeUntil(this.isDestroyed)
       .subscribe(previewHtml => {
         this.previewHtml = previewHtml;
         this.modal.show();
       });
-  }
-
-  ngOnDestroy() {
-    this.onPreviewSubscription.unsubscribe();
   }
 
   onShown() {

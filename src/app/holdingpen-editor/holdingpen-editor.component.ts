@@ -22,11 +22,12 @@
 
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/mergeMap';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { HoldingpenApiService, AppConfigService, DomUtilsService } from '../core/services';
+import { SubscriberComponent } from '../shared/classes';
+
 
 @Component({
   templateUrl: './holdingpen-editor.component.html',
@@ -35,7 +36,7 @@ import { HoldingpenApiService, AppConfigService, DomUtilsService } from '../core
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HoldingpenEditorComponent implements OnInit {
+export class HoldingpenEditorComponent extends SubscriberComponent implements OnInit {
   workflowObject: Object;
   schema: Object;
   config: Object;
@@ -45,12 +46,15 @@ export class HoldingpenEditorComponent implements OnInit {
     private apiService: HoldingpenApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
-    private domUtilsService: DomUtilsService) { }
+    private domUtilsService: DomUtilsService) {
+      super();
+    }
 
   ngOnInit() {
     this.domUtilsService.fitEditorHeightFullPage();
 
     this.route.params
+      .takeUntil(this.isDestroyed)
       .subscribe(params => {
         this.apiService.fetchWorkflowObject(params['objectid'])
           .then(workflowObject => {
@@ -67,6 +71,7 @@ export class HoldingpenEditorComponent implements OnInit {
       });
 
     this.appConfigService.onConfigChange
+      .takeUntil(this.isDestroyed)
       .subscribe(config => {
         this.config = Object.assign({}, config);
         this.changeDetectorRef.markForCheck();

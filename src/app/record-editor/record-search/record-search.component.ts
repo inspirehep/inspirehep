@@ -20,20 +20,19 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/observable/combineLatest';
+
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 import { RecordSearchService } from '../../core/services';
 import { SearchParams } from '../../shared/interfaces';
+import { SubscriberComponent } from '../../shared/classes';
 
 interface RouteType {
   params: { type: string };
   queryParams: SearchParams;
-};
+}
 
 @Component({
   selector: 're-record-search',
@@ -41,19 +40,21 @@ interface RouteType {
   styleUrls: ['./record-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecordSearchComponent implements OnInit, OnDestroy {
+export class RecordSearchComponent extends SubscriberComponent implements OnInit {
 
   recordType: string;
   recordCursor: number;
   foundRecordIds: Array<number>;
-  private subscriptions: Array<Subscription>;
 
   constructor(private route: ActivatedRoute,
     private changeDetectorRef: ChangeDetectorRef,
-    private recordSearchService: RecordSearchService) { }
+    private recordSearchService: RecordSearchService) {
+    super();
+  }
 
   ngOnInit() {
-    const cursorSub = this.recordSearchService.cursor$
+    this.recordSearchService.cursor$
+      .takeUntil(this.isDestroyed)
       .subscribe(cursor => {
         this.recordCursor = cursor;
         this.changeDetectorRef.markForCheck();
@@ -68,17 +69,11 @@ export class RecordSearchComponent implements OnInit, OnDestroy {
         this.recordType = route.params.type;
       }).filter((route: RouteType) => Boolean(route.queryParams.query))
       .switchMap((route: RouteType) => this.recordSearchService.search(route.params.type, route.queryParams.query))
+      .takeUntil(this.isDestroyed)
       .subscribe(recordIds => {
         this.foundRecordIds = recordIds;
         this.changeDetectorRef.markForCheck();
       });
-
-    this.subscriptions = [cursorSub, searchSub];
-  }
-
-  ngOnDestroy() {
-    this.subscriptions
-      .forEach(subscription => subscription.unsubscribe());
   }
 
 }

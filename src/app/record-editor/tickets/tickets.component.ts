@@ -28,6 +28,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { RecordApiService } from '../../core/services';
 import { Ticket } from '../../shared/interfaces';
+import { SubscriberComponent } from '../../shared/classes';
+
 
 @Component({
   selector: 're-tickets',
@@ -37,17 +39,20 @@ import { Ticket } from '../../shared/interfaces';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TicketsComponent implements OnInit {
+export class TicketsComponent extends SubscriberComponent implements OnInit {
 
   displayLimit = 1;
   tickets: Array<Ticket>;
 
   constructor(private apiService: RecordApiService,
     private toastrService: ToastrService,
-    private changeDetectorRef: ChangeDetectorRef) { }
+    private changeDetectorRef: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit() {
     this.apiService.newRecordFetched$
+      .takeUntil(this.isDestroyed)
       .subscribe(() => this.fetchTickets());
   }
 

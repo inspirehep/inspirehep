@@ -23,6 +23,7 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { Observable } from 'rxjs/Observable';
+import { SubscriberComponent } from '../../classes';
 
 @Component({
   selector: 're-dropdown-input',
@@ -31,7 +32,7 @@ import { Observable } from 'rxjs/Observable';
     './dropdown-input.component.scss'
   ]
 })
-export class DropdownInputComponent implements OnInit {
+export class DropdownInputComponent extends SubscriberComponent implements OnInit {
 
   @Input() items: Array<string> | Observable<Array<string>>;
   @Input() placeholder?: string;
@@ -58,7 +59,9 @@ export class DropdownInputComponent implements OnInit {
     if (Array.isArray(this.items)) {
       this.itemsArray = this.items;
     } else {
-      this.items.subscribe(itemsArray => this.itemsArray = itemsArray);
+      this.items
+        .takeUntil(this.isDestroyed)
+        .subscribe(itemsArray => this.itemsArray = itemsArray);
     }
 
     if (this.defaultValue) {

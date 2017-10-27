@@ -20,14 +20,13 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, OnInit, OnChanges, OnDestroy, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
-import { Subscription } from 'rxjs/Subscription';
 
 import { ToastrService } from 'ngx-toastr';
 
 import { RecordApiService, AppConfigService, DomUtilsService } from '../../core/services';
+import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
   selector: 're-json-editor-wrapper',
@@ -37,7 +36,7 @@ import { RecordApiService, AppConfigService, DomUtilsService } from '../../core/
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy {
+export class JsonEditorWrapperComponent extends SubscriberComponent implements OnInit, OnChanges {
   @Input() recordId?: string;
   @Input() recordType?: string;
 
@@ -46,14 +45,15 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy 
   config: object;
   // `undefined` on current revision
   revision: object;
-  private subscriptions: Array<Subscription>;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: RecordApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
-    private domUtilService: DomUtilsService) { }
+    private domUtilService: DomUtilsService) {
+      super();
+    }
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['recordId'] || changes['recordType']) && this.recordId && this.recordType) {
@@ -66,30 +66,24 @@ export class JsonEditorWrapperComponent implements OnInit, OnChanges, OnDestroy 
   ngOnInit() {
     this.domUtilService.fitEditorHeightFullPage();
 
-    this.subscriptions = [];
-
     if (!this.recordId || !this.recordType) {
       // component loaded via router, @Input() aren't passed
-      const paramsRecidSub = this.route.params
+      this.route.params
         .filter(params => params['recid'])
+        .takeUntil(this.isDestroyed)
         .subscribe(params => {
           this.fetch(params['type'], params['recid']);
         });
-      this.subscriptions.push(paramsRecidSub);
     }
 
-    const configChangeSub = this.appConfigService.onConfigChange
+    this.appConfigService.onConfigChange
+      .takeUntil(this.isDestroyed)
       .subscribe(config => {
         this.config = Object.assign({}, config);
         this.changeDetectorRef.markForCheck();
       });
-    this.subscriptions.push(configChangeSub);
   }
 
-  ngOnDestroy() {
-    this.subscriptions
-      .forEach(subscription => subscription.unsubscribe());
-  }
 
   onRecordChange(record: object) {
     // update record if the edited one is not revision.

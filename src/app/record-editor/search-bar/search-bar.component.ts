@@ -20,21 +20,21 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
-import { Subscription } from 'rxjs/Subscription';
 
 import { RecordSearchService, SavePreviewModalService } from '../../core/services';
 import { SearchParams } from '../../shared/interfaces';
+import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
   selector: 're-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss']
 })
-export class SearchBarComponent implements OnInit, OnDestroy {
+export class SearchBarComponent extends SubscriberComponent implements OnInit {
 
   @Input() record: object;
 
@@ -42,48 +42,48 @@ export class SearchBarComponent implements OnInit, OnDestroy {
   query: string;
   cursor: number;
   resultCount: number;
-  private subscriptions: Array<Subscription>;
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private recordSearchService: RecordSearchService,
-    private savePreviewModalService: SavePreviewModalService) { }
+    private savePreviewModalService: SavePreviewModalService) {
+    super();
+  }
 
   ngOnInit() {
     const cursorSub = this.recordSearchService.cursor$
+      .takeUntil(this.isDestroyed)
       .subscribe(cursor => {
         this.cursor = cursor;
       });
 
     const resultCountSub = this.recordSearchService.resultCount$
+      .takeUntil(this.isDestroyed)
       .subscribe(resultCount => {
         this.resultCount = resultCount;
       });
 
     const queryParamsSub = this.route.queryParams
+      .takeUntil(this.isDestroyed)
       .subscribe((params: SearchParams) => {
         this.query = params.query;
       });
 
     const paramsSub = this.route.params
+      .takeUntil(this.isDestroyed)
       .subscribe(params => {
         this.recordType = params['type'];
       });
 
     const paramsRecidSub = this.route.params
       .filter(params => params['recid'])
+      .takeUntil(this.isDestroyed)
       .subscribe((params) => {
         this.query = params['recid'];
         // clear search when routed to a record directly
         this.recordSearchService.resultCount$.next(undefined);
       });
 
-    this.subscriptions = [cursorSub, resultCountSub, queryParamsSub, paramsSub, paramsRecidSub];
-  }
-
-  ngOnDestroy() {
-    this.subscriptions
-      .forEach(subscription => subscription.unsubscribe());
   }
 
   searchOrGo() {

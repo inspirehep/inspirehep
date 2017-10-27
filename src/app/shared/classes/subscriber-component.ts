@@ -20,29 +20,14 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Injectable } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
-import { Observable } from 'rxjs/Observable';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
+export abstract class SubscriberComponent implements OnDestroy {
+  protected isDestroyed = new Subject<void>();
 
-import { RecordApiService } from './record-api.service';
-
-@Injectable()
-export class RecordSearchService {
-  readonly resultCount$ = new ReplaySubject<number>(1);
-  readonly cursor$ = new ReplaySubject<number>(1);
-
-  constructor(private apiService: RecordApiService) { }
-
-  search(recordType: string, query: string): Observable<Array<number>> {
-    return this.apiService.searchRecord(recordType, query)
-      .do(results => {
-        this.resultCount$.next(results.length);
-        this.cursor$.next(0);
-      });
-  }
-
-  setCursor(cursor: number) {
-    this.cursor$.next(cursor);
+  ngOnDestroy() {
+    this.isDestroyed.next();
+    this.isDestroyed.complete();
   }
 }

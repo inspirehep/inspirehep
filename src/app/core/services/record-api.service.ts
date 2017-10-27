@@ -25,8 +25,6 @@ import { Http, Headers } from '@angular/http';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
 
 import { environment } from '../../../environments/environment';
 import { AppConfigService } from './app-config.service';
