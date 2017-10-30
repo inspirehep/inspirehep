@@ -18,25 +18,35 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
-import { DomUtilsService } from './core/services';
+import { Observable } from 'rxjs/Observable';
 
-@Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
-})
-export class AppComponent implements OnInit {
-  constructor(private domUtilsService: DomUtilsService) { }
+import { AppConfigService } from './app-config.service';
+import { CommonApiService } from './common-api.service';
 
-  ngOnInit() {
-    this.domUtilsService.registerBeforeUnloadPrompt();
-    this.domUtilsService.fitEditorHeightFullPageOnResize();
+@Injectable()
+export class HoldingpenApiService extends CommonApiService {
+
+  // url for currently edited holdingpen object, includes objectId
+  private holdingpenObjectApiUrl: string;
+
+  constructor(protected http: Http, protected config: AppConfigService) {
+    super(http, config);
+  }
+
+  fetchWorkflowObject(objectId: string): Promise<Object> {
+    this.holdingpenObjectApiUrl = `${this.config.holdingpenApiUrl}/${objectId}`;
+    return this.fetchUrl(this.holdingpenObjectApiUrl);
+  }
+
+
+  saveWorkflowObject(record: Object): Observable<Object> {
+    return this.http
+      .put(this.holdingpenObjectApiUrl, record)
+      .map(res => res.json());
   }
 }

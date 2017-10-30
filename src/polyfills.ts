@@ -17,3 +17,13 @@ import 'core-js/es6/reflect';
 
 import 'core-js/es7/reflect';
 import 'zone.js/dist/zone';
+
+// common rxjs imports
+
+import 'rxjs/add/observable/combineLatest';
+
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/takeUntil';
+import 'rxjs/add/operator/toPromise';

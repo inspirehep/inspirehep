@@ -18,25 +18,40 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Http } from '@angular/http';
 
-import { DomUtilsService } from './core/services';
+import { Observable } from 'rxjs/Observable';
 
-@Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
-})
-export class AppComponent implements OnInit {
-  constructor(private domUtilsService: DomUtilsService) { }
+import { AppConfigService } from './app-config.service';
 
-  ngOnInit() {
-    this.domUtilsService.registerBeforeUnloadPrompt();
-    this.domUtilsService.fitEditorHeightFullPageOnResize();
+@Injectable()
+export class CommonApiService {
+
+  constructor(protected http: Http, protected config: AppConfigService) { }
+
+  fetchUrl(url: string): Promise<Object> {
+    return this.http.get(url)
+      .map(res => res.json())
+      .toPromise();
   }
+
+  refExtract(source: string, sourceType: string): Promise<Array<Object>> {
+    let body = { [sourceType]: source };
+    return this.http
+      .post(`${this.config.editorApiUrl}/refextract/${sourceType}`, body)
+      .map(res => res.json())
+      .toPromise();
+  }
+
+  authorExtract(source: string): Promise<Array<Object>> {
+    return this.http
+      .post(`${this.config.editorApiUrl}/authorlist/text`, { text: source })
+      .map(res => res.json())
+      .map(json => json.authors)
+      .toPromise();
+  }
+
 }

@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,25 +18,29 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-import { DomUtilsService } from './core/services';
+import { Ticket } from '../../../shared/interfaces';
+import { RecordApiService } from '../../../core/services';
 
 @Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
+  selector: 're-ticket',
+  templateUrl: './ticket.component.html',
   styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
+    './ticket.component.scss'
+  ]
 })
-export class AppComponent implements OnInit {
-  constructor(private domUtilsService: DomUtilsService) { }
+export class TicketComponent {
+  @Input() ticket: Ticket;
+  @Output() resolve = new EventEmitter<void>();
 
-  ngOnInit() {
-    this.domUtilsService.registerBeforeUnloadPrompt();
-    this.domUtilsService.fitEditorHeightFullPageOnResize();
+  constructor(private apiService: RecordApiService) { }
+
+  onResolveClick() {
+    this.apiService
+      .resolveTicket(this.ticket.id)
+      .then(() => this.resolve.emit());
   }
 }

@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,25 +18,31 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-import { DomUtilsService } from './core/services';
+import { Observable } from 'rxjs/Observable';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 
-@Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
-})
-export class AppComponent implements OnInit {
-  constructor(private domUtilsService: DomUtilsService) { }
+import { RecordApiService } from './record-api.service';
 
-  ngOnInit() {
-    this.domUtilsService.registerBeforeUnloadPrompt();
-    this.domUtilsService.fitEditorHeightFullPageOnResize();
+@Injectable()
+export class RecordSearchService {
+  readonly resultCount$ = new ReplaySubject<number>(1);
+  readonly cursor$ = new ReplaySubject<number>(1);
+
+  constructor(private apiService: RecordApiService) { }
+
+  search(recordType: string, query: string): Observable<Array<number>> {
+    return this.apiService.searchRecord(recordType, query)
+      .do(results => {
+        this.resultCount$.next(results.length);
+        this.cursor$.next(0);
+      });
+  }
+
+  setCursor(cursor: number) {
+    this.cursor$.next(cursor);
   }
 }

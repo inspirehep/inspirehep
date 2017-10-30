@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,25 +18,16 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
-*/
+ */
 
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
+import { OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
-import { DomUtilsService } from './core/services';
+export abstract class SubscriberComponent implements OnDestroy {
+  protected isDestroyed = new Subject<void>();
 
-@Component({
-  selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
-  styleUrls: [
-    'app.component.scss'
-  ],
-  templateUrl: 'app.component.html'
-})
-export class AppComponent implements OnInit {
-  constructor(private domUtilsService: DomUtilsService) { }
-
-  ngOnInit() {
-    this.domUtilsService.registerBeforeUnloadPrompt();
-    this.domUtilsService.fitEditorHeightFullPageOnResize();
+  ngOnDestroy() {
+    this.isDestroyed.next();
+    this.isDestroyed.complete();
   }
 }
