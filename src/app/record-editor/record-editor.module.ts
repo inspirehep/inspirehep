@@ -32,6 +32,7 @@ import { SearchBarComponent } from './search-bar';
 import { TicketsComponent, NewTicketModalComponent, TicketComponent } from './tickets';
 import { RecordSearchComponent } from './record-search';
 import { SavePreviewModalComponent } from './save-preview-modal';
+import { ManualMergeModalComponent } from './manual-merge-modal';
 
 @NgModule({
   imports: [
@@ -47,7 +48,8 @@ import { SavePreviewModalComponent } from './save-preview-modal';
     NewTicketModalComponent,
     TicketComponent,
     RecordSearchComponent,
-    SavePreviewModalComponent
+    SavePreviewModalComponent,
+    ManualMergeModalComponent
   ],
   exports: [
     JsonEditorWrapperComponent

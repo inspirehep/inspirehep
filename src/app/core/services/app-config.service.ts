@@ -627,7 +627,7 @@ export class AppConfigService {
 
   private getRecordType(record: Object): string {
     let schemaUrl: string = record['$schema'];
-    let typeWithFileExt = schemaUrl.split('/').pop();
+    let typeWithFileExt = schemaUrl.slice(schemaUrl.lastIndexOf('/') + 1, schemaUrl.length);
     return typeWithFileExt.slice(0, typeWithFileExt.lastIndexOf('.'));
   }
 
