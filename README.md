@@ -12,33 +12,42 @@ Editor (used in inspirehep.net) for JSON documents with bibliographic metadata
 
 ## Tech
 
-* Angular 2
+* Angular
 * Webpack
 * Sass
 * Typescript
 * Bootstrap 3
 * [ng2-json-editor](https://github.com/inveniosoftware-contrib/ng2-json-editor)
 
-## Quick start
+## Development with [inspire-next](https://github.com/inspirehep/inspire-next)
+
+
+### On `record-editor`
 
 ```bash
-# clone our repo or alternatively your fork
-git clone https://github.com/inspirehep/record-editor.git
-
-# change directory to our repo
-cd record-editor
-
 # install the repo with npm
 npm install
 
-# start the server
+# link the module
+npm link
+
+# start build with watcher
 npm start
 ```
-go to **http://localhost:4200/editor/:type/:recid** 
 
-please make sure that [inspire-next](https://github.com/inspirehep/inspire-next) is running on [localhost:5000](http://localhost:5000) and
-`CORS` is enabled, you many use [Allow-Control-Allow-Origin: *](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi) plugin for Chrome or
-something that is equivalent for your browser.
+### On `inspire-next`
+__inspire-next has to be installed correctly before starting__
+
+- add new line: `ASSETS_DEBUG=True` in `$VIRTUAL_ENV/var/inspirehep-instance/inspirehep.cfg`
+- run `./scripts/clean_assets` where `inspire-next` source code is
+- run `npm link record-editor` at `$VIRTUAL_ENV/var/inspirehep-instance/static`
+- run `honcho start` where `inspire-next` source code is
+
+### On `localhost:5000`
+
+- open editor with any record or workflow object
+- hard refresh the page whenever you want to see the changes
+
 
 # License
  [GNU GPLv2](/LICENSE)

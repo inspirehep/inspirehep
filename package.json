@@ -15,7 +15,7 @@
   "license": "GPL-2.0",
   "angular-cli": {},
   "scripts": {
-    "start": "ng serve",
+    "start": "ng build --watch --progress --extract-css",
     "build": "ng build --prod --output-hashing none",
     "lint": "tslint --project ./src/tsconfig.json \"src/**/*.ts\"",
     "test": "ng test --watch=false",
