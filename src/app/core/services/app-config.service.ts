@@ -459,6 +459,9 @@ export class AppConfigService {
                 alwaysShow: ['title'],
                 order: ['title'],
                 properties: {
+                  title: {
+                    latexPreviewEnabled: true
+                  },
                   source: {
                     columnWidth: 12
                   }
