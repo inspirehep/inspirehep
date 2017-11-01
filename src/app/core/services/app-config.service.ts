@@ -52,6 +52,7 @@ export class AppConfigService {
             'accelerator_experiments',
             'authors',
             'corporate_author',
+            'curated',
             'core',
             'citeable',
             'refereed',
@@ -59,6 +60,7 @@ export class AppConfigService {
             'deleted'
           ],
           alwaysShow: [
+            'curated',
             'citeable',
             'refereed',
             'withdrawn',
@@ -72,7 +74,7 @@ export class AppConfigService {
               toggleColor: '#e74c3c'
             },
             citeable: {
-              toggleColor: '#3498db'
+              toggleColor: '#8e44ad'
             },
             core: {
               toggleColor: '#27ae60'
@@ -82,6 +84,9 @@ export class AppConfigService {
             },
             refereed: {
               toggleColor: '#34495e'
+            },
+            curated: {
+              toggleColor: '#3498db'
             },
             $schema: {
               hidden: true
