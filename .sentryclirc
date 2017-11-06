@@ -1,0 +1,4 @@
+[defaults]
+org = inspire-sentry
+project = record-editor
+url = https://sentry.inspirehep.net

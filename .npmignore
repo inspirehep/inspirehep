@@ -13,6 +13,7 @@ example
 coverage
 !dist
 gulpfile.js
+*.js.map
 
 #################
 ## Test
