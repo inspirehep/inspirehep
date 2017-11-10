@@ -309,6 +309,11 @@ export class AppConfigService {
                 alwaysShow: ['license', 'url'],
               }
             },
+            languages: {
+              items: {
+                enumDisplayValueMap: this.commonConfigsService.isoLanguageMap
+              }
+            },
             persistent_identifiers: {
               items: {
                 order: ['value', 'schema', 'material', 'source']
@@ -471,7 +476,12 @@ export class AppConfigService {
             title_translations: {
               items: {
                 alwaysShow: ['title'],
-                order: ['title', 'subtitle', 'language', 'source']
+                order: ['title', 'subtitle', 'language', 'source'],
+                properties: {
+                  language: {
+                    enumDisplayValueMap: this.commonConfigsService.isoLanguageMap
+                  }
+                }
               }
             },
             inspire_categories: {
