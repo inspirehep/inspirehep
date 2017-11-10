@@ -24,13 +24,16 @@ import { Injectable } from '@angular/core';
 import { RefAnchorAttributes, JsonStoreService, KeysStoreService } from 'ng2-json-editor';
 
 import { FieldSplitterService } from './field-splitter.service';
+import { ISO_LANGUAGE_MAP } from '../../shared/constants';
 
 @Injectable()
 export class CommonConfigsService {
 
   constructor(private fieldSplitterService: FieldSplitterService) { }
 
-  anchorBuilder = (url: string): RefAnchorAttributes => {
+  readonly isoLanguageMap = ISO_LANGUAGE_MAP;
+
+  readonly anchorBuilder = (url: string): RefAnchorAttributes => {
     let parts = url.split('/');
     let type = parts[parts.length - 2];
     if (type !== 'literature') {
@@ -41,11 +44,11 @@ export class CommonConfigsService {
     return { href, display };
   }
 
-  fullTextSearch = (value: any, expression: string) => {
+  readonly fullTextSearch = (value: any, expression: string) => {
     return JSON.stringify(value).search(new RegExp(expression, 'i')) > -1;
   }
 
-  splitPrimitiveReferenceField = (path: Array<any>, value: string, jsonStore: JsonStoreService, keyStore: KeysStoreService) => {
+  readonly splitPrimitiveReferenceField = (path: Array<any>, value: string, jsonStore: JsonStoreService, keyStore: KeysStoreService) => {
     let splitResult = this.fieldSplitterService.splitReferenceField(value);
     // parent path, ['references', N, 'reference']
     let referencePath = path.slice(0, -2);
