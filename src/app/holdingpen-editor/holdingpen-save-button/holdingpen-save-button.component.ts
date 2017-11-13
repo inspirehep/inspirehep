@@ -21,6 +21,7 @@
  */
 
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { HoldingpenApiService, RecordCleanupService, DomUtilsService } from '../../core/services';
 import { SubscriberComponent } from '../../shared/classes';
@@ -35,19 +36,43 @@ import { SubscriberComponent } from '../../shared/classes';
 export class HoldingpenSaveButtonComponent extends SubscriberComponent {
   @Input() workflowObject: { id: string };
 
-  constructor(private apiService: HoldingpenApiService,
+  constructor(private router: Router,
+    private apiService: HoldingpenApiService,
     private recordCleanupService: RecordCleanupService,
     private domUtilsService: DomUtilsService) {
-      super();
-    }
+    super();
+  }
 
   onClickSave(event: Object) {
     this.recordCleanupService.cleanup(this.workflowObject['metadata']);
     this.apiService.saveWorkflowObject(this.workflowObject)
+      .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
+      .filter(() => !this.hasConflicts())
+      .switchMap(() => this.apiService.continueWorkflow())
       .takeUntil(this.isDestroyed)
-      .subscribe(resp => {
-        this.domUtilsService.unregisterBeforeUnloadPrompt();
-        window.location.href = `/holdingpen/${this.workflowObject.id}`;
+      .subscribe(() => {
+        this.router.navigate([`${this.getRecordType()}/${this.getRecordId()}`]);
       });
+  }
+
+  private hasConflicts(): boolean {
+    const conflicts = this.workflowObject['_extra_data']['conflicts'];
+    return conflicts && conflicts.length > 0;
+  }
+
+  // TODO: kinda duplicate, try to reuse single one with app-config.service:getRecordType
+  private getRecordType() {
+    const $schema: string = this.workflowObject['metadata']['$schema'];
+    const schemaNameWithFileExt = $schema.slice($schema.lastIndexOf('/') + 1, $schema.length);
+    const schemaName = schemaNameWithFileExt.slice(0, schemaNameWithFileExt.lastIndexOf('.'));
+
+    if (schemaName === 'hep') {
+      return 'literature';
+    }
+    return schemaName;
+  }
+
+  private getRecordId() {
+    return this.workflowObject['metadata']['control_number'];
   }
 }

@@ -64,5 +64,8 @@ export class DomUtilsService {
     }
   }
 
-
+  openHostRelativeUrlInNewTab(hostRelativeUrl: string) {
+    let newTab = window.open(`${environment.baseUrl}/${hostRelativeUrl}`, '_blank');
+    newTab.focus();
+  }
 }

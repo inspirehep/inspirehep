@@ -31,22 +31,27 @@ import { CommonApiService } from './common-api.service';
 @Injectable()
 export class HoldingpenApiService extends CommonApiService {
 
-  // url for currently edited holdingpen object, includes objectId
-  private holdingpenObjectApiUrl: string;
+  private currentWorkflowObjectApiUrl: string;
 
   constructor(protected http: Http, protected config: AppConfigService) {
     super(http, config);
   }
 
   fetchWorkflowObject(objectId: string): Promise<Object> {
-    this.holdingpenObjectApiUrl = `${this.config.holdingpenApiUrl}/${objectId}`;
-    return this.fetchUrl(this.holdingpenObjectApiUrl);
+    this.currentWorkflowObjectApiUrl = `${this.config.holdingpenApiUrl}/${objectId}`;
+    return this.fetchUrl(this.currentWorkflowObjectApiUrl);
   }
 
 
-  saveWorkflowObject(record: Object): Observable<Object> {
+  saveWorkflowObject(record: object): Observable<void> {
     return this.http
-      .put(this.holdingpenObjectApiUrl, record)
+      .put(this.currentWorkflowObjectApiUrl, record)
+      .map(res => res.json());
+  }
+
+  continueWorkflow(): Observable<void> {
+    return this.http
+      .post(`${this.currentWorkflowObjectApiUrl}/action/resolve`, {})
       .map(res => res.json());
   }
 }

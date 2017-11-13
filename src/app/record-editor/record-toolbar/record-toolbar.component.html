@@ -5,6 +5,7 @@
         <div *ngIf="record" [class.re-disabled]="displayingRevision">
           <button type="button" class="btn btn-default navbar-btn btn-success" (click)="onSaveClick($event)"><i class="fa fa-floppy-o" aria-hidden="true"></i>Save</button>
           <re-undo-button></re-undo-button>
+          <i class="btn fa fa-code-fork" (click)="manualMergeModal.show()"></i>
           <re-help-modal-button></re-help-modal-button>
         </div>
       </div>
@@ -25,3 +26,5 @@
     </div>
   </div>
 </nav>
+
+<re-manual-merge-modal #manualMergeModal></re-manual-merge-modal>

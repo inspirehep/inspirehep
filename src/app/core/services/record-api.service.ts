@@ -37,6 +37,7 @@ export class RecordApiService extends CommonApiService {
 
   private currentRecordApiUrl: string;
   private currentRecordEditorApiUrl: string;
+  private currentRecordId: string;
 
   private readonly returnOnlyIdsHeaders = new Headers({ Accept: 'application/vnd+inspire.ids+json' });
 
@@ -54,6 +55,7 @@ export class RecordApiService extends CommonApiService {
   }
 
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
+    this.currentRecordId = pidValue;
     this.currentRecordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
     this.currentRecordEditorApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
@@ -130,6 +132,18 @@ export class RecordApiService extends CommonApiService {
     return this.http
       .post(`${environment.baseUrl}/editor/preview`, record)
       .map(response => response.text())
+      .toPromise();
+  }
+
+  manualMerge(updateRecordId: string): Promise<number> {
+    let body = {
+      head_recid: this.currentRecordId,
+      update_recid: updateRecordId
+    };
+    return this.http
+      .post(`${this.config.editorApiUrl}/manual_merge`, body)
+      .map(res => res.json())
+      .map(json => json.workflow_object_id)
       .toPromise();
   }
 
