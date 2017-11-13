@@ -43,6 +43,6 @@ deploy:
     tag: dev
     on:
       repo: inspirehep/record-editor
-      branch: master
+      branch: dev-release
       node: '6.9.1'
 
