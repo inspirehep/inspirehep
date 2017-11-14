@@ -25,6 +25,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 
 import { RecordApiService, DomUtilsService } from '../../core/services';
 import { RecordRevision } from '../../shared/interfaces';
@@ -46,6 +47,7 @@ export class ManualMergeModalComponent extends SubscriberComponent implements On
 
   constructor(private router: Router,
     private route: ActivatedRoute,
+    private toastrService: ToastrService,
     private recordApiService: RecordApiService,
     private domUtilsService: DomUtilsService) {
     super();
@@ -65,6 +67,8 @@ export class ManualMergeModalComponent extends SubscriberComponent implements On
       .manualMerge(this.updateRecordId)
       .then(mergeWorkflowObjectId => {
         this.router.navigate([`holdingpen/${mergeWorkflowObjectId}`]);
+      }).catch((error) => {
+        this.toastrService.error('Could not merge!', 'Error');
       });
   }
 
