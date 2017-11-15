@@ -1,48 +1,44 @@
 notifications:
   email: false
-
 language: node_js
-
 node_js:
-- '6.9.1'
+- 6.9.1
 - node
-
 sudo: false
-
-before_script: 
-  - npm run lint
-  - npm run build
-
+before_script:
+- npm run lint
+- npm run build
 before_install:
-  - npm install buffer-shims
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start
-
-before_deploy: npm run build
-
-after_success:
-  'npm run coveralls'
-
+- npm install buffer-shims
+- export CHROME_BIN=chromium-browser
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+before_deploy:
+- node ./write-version.js
+- npm run build
+- "./deploy-sourcemaps.sh"
+after_success: npm run coveralls
 deploy:
-  - provider: npm
-    skip_cleanup: true
-    email: admin@inspirehep.net
-    api_key:
-      secure: afzLZGZlvOC4zMrZon9H7iTDcVuH5j+fDt4LmP+wm2jLm7Fg9yY2XKIO0psTOwl3Gy/Ej1L9aMab1uRObLp2YgvqcpCWmXKvoWMrnIimcyJPXuQGYflF3GKunoGlSWBD9/76+Ggj5ml26ksUJXOx6NDNhjYRd4jatGQ04ISdkARm7lWPdDQ1S1yKAZLQ2oPFtJKZ9Kq8b7LV95I7YHa2u0r4mi36V3ap++jK7n8s1LQvtgDPky7W1CKfpO29r2Zb69fwo5FJxjdibyJDRuBkuYbyUsNMvCPnxIHduyr5S7yyxU+6wM+CIkVEk/pAbe50xmW5jpEEq+5YlaQVQTvo2lJBZnYh8FsZHVMG78kmDzCwhSstSkQcTEAmQGxlUNwi96DcGAj7e7QNGUyRXbXQhCBy6s900dl8b9J6QQ+gNrsJi8VNE++P13S8EOMoUDc0MH+CsywuIWejnTeyTMr5kuOn/tfQan23N/DZ/A+9HnTs66ZWQOnm8R8vF6gB74QKFwH4pR6rdPC448q9M4qz0GVCt6jRceTgZB88833FI9qPk6IBcREFGLtOlITptItuOG7VniHOVHB1W1j0JIgCF22zFyH7KoWKILC5WF5GG8Uopq7rX0k+BcAsfeiWWCvnqry8yCAaqUtszhYUMB0TH03OlFoyOlDGPZS8OfrHji8=
-    on:
-      tags: true
-      repo: inspirehep/record-editor
-      all_branches: true
-      node: '6.9.1'
-  - provider: npm
-    skip_cleanup: true
-    email: admin@inspirehep.net
-    api_key:
-      secure: afzLZGZlvOC4zMrZon9H7iTDcVuH5j+fDt4LmP+wm2jLm7Fg9yY2XKIO0psTOwl3Gy/Ej1L9aMab1uRObLp2YgvqcpCWmXKvoWMrnIimcyJPXuQGYflF3GKunoGlSWBD9/76+Ggj5ml26ksUJXOx6NDNhjYRd4jatGQ04ISdkARm7lWPdDQ1S1yKAZLQ2oPFtJKZ9Kq8b7LV95I7YHa2u0r4mi36V3ap++jK7n8s1LQvtgDPky7W1CKfpO29r2Zb69fwo5FJxjdibyJDRuBkuYbyUsNMvCPnxIHduyr5S7yyxU+6wM+CIkVEk/pAbe50xmW5jpEEq+5YlaQVQTvo2lJBZnYh8FsZHVMG78kmDzCwhSstSkQcTEAmQGxlUNwi96DcGAj7e7QNGUyRXbXQhCBy6s900dl8b9J6QQ+gNrsJi8VNE++P13S8EOMoUDc0MH+CsywuIWejnTeyTMr5kuOn/tfQan23N/DZ/A+9HnTs66ZWQOnm8R8vF6gB74QKFwH4pR6rdPC448q9M4qz0GVCt6jRceTgZB88833FI9qPk6IBcREFGLtOlITptItuOG7VniHOVHB1W1j0JIgCF22zFyH7KoWKILC5WF5GG8Uopq7rX0k+BcAsfeiWWCvnqry8yCAaqUtszhYUMB0TH03OlFoyOlDGPZS8OfrHji8=
-    tag: dev
-    on:
-      repo: inspirehep/record-editor
-      branch: dev-release
-      node: '6.9.1'
-
+- provider: npm
+  skip_cleanup: true
+  email: admin@inspirehep.net
+  api_key:
+    secure: afzLZGZlvOC4zMrZon9H7iTDcVuH5j+fDt4LmP+wm2jLm7Fg9yY2XKIO0psTOwl3Gy/Ej1L9aMab1uRObLp2YgvqcpCWmXKvoWMrnIimcyJPXuQGYflF3GKunoGlSWBD9/76+Ggj5ml26ksUJXOx6NDNhjYRd4jatGQ04ISdkARm7lWPdDQ1S1yKAZLQ2oPFtJKZ9Kq8b7LV95I7YHa2u0r4mi36V3ap++jK7n8s1LQvtgDPky7W1CKfpO29r2Zb69fwo5FJxjdibyJDRuBkuYbyUsNMvCPnxIHduyr5S7yyxU+6wM+CIkVEk/pAbe50xmW5jpEEq+5YlaQVQTvo2lJBZnYh8FsZHVMG78kmDzCwhSstSkQcTEAmQGxlUNwi96DcGAj7e7QNGUyRXbXQhCBy6s900dl8b9J6QQ+gNrsJi8VNE++P13S8EOMoUDc0MH+CsywuIWejnTeyTMr5kuOn/tfQan23N/DZ/A+9HnTs66ZWQOnm8R8vF6gB74QKFwH4pR6rdPC448q9M4qz0GVCt6jRceTgZB88833FI9qPk6IBcREFGLtOlITptItuOG7VniHOVHB1W1j0JIgCF22zFyH7KoWKILC5WF5GG8Uopq7rX0k+BcAsfeiWWCvnqry8yCAaqUtszhYUMB0TH03OlFoyOlDGPZS8OfrHji8=
+  on:
+    tags: true
+    repo: inspirehep/record-editor
+    all_branches: true
+    node: 6.9.1
+- provider: npm
+  skip_cleanup: true
+  email: admin@inspirehep.net
+  api_key:
+    secure: afzLZGZlvOC4zMrZon9H7iTDcVuH5j+fDt4LmP+wm2jLm7Fg9yY2XKIO0psTOwl3Gy/Ej1L9aMab1uRObLp2YgvqcpCWmXKvoWMrnIimcyJPXuQGYflF3GKunoGlSWBD9/76+Ggj5ml26ksUJXOx6NDNhjYRd4jatGQ04ISdkARm7lWPdDQ1S1yKAZLQ2oPFtJKZ9Kq8b7LV95I7YHa2u0r4mi36V3ap++jK7n8s1LQvtgDPky7W1CKfpO29r2Zb69fwo5FJxjdibyJDRuBkuYbyUsNMvCPnxIHduyr5S7yyxU+6wM+CIkVEk/pAbe50xmW5jpEEq+5YlaQVQTvo2lJBZnYh8FsZHVMG78kmDzCwhSstSkQcTEAmQGxlUNwi96DcGAj7e7QNGUyRXbXQhCBy6s900dl8b9J6QQ+gNrsJi8VNE++P13S8EOMoUDc0MH+CsywuIWejnTeyTMr5kuOn/tfQan23N/DZ/A+9HnTs66ZWQOnm8R8vF6gB74QKFwH4pR6rdPC448q9M4qz0GVCt6jRceTgZB88833FI9qPk6IBcREFGLtOlITptItuOG7VniHOVHB1W1j0JIgCF22zFyH7KoWKILC5WF5GG8Uopq7rX0k+BcAsfeiWWCvnqry8yCAaqUtszhYUMB0TH03OlFoyOlDGPZS8OfrHji8=
+  tag: dev
+  on:
+    repo: inspirehep/record-editor
+    branch: dev-release
+    node: 6.9.1
+env:
+  global:
+    secure: TpzL7haNDIxxGGxhpSU7YKFAGjotFsTkvo3m9FcUUWuZumk3+sCkpN94394n+S7t6wTaX/JiVOkA4Ze+jQvyWKE4HVLsNSzuYhWMjgVbO5AlGLRTslmcD3vDB9cQ5AqM/oPYnoM+WmyB4kB70uJ3IpSKmzu0b5ibdei3XSeSMgXP50r2ZaZl0+SDOTobfvDgxv1sHc/x5v4P7LxgXup9FpvtRibysH/MdpEEwCe88CxP9ZdqrM0s/ubtSs1bsgM1frqqeoI06CRZNjULp1YCPHSjm+Iu8FWs0V/JZxhceghAv3Uy26Dben5HftzzCxTC0/H+HyaIJusRzrrJoE78ILp/z94XBQo74LPJFdN0u/c6guaFlp88Fj7ObzXdlX6e36h6Rdu2ULtRnTxb+7N+NKEy2QxKpuVT9ZV3GSkrUQRjjAr64TeidiGyBZwSqh0dblzVAiupdoQSP1W5/e2d/BDCdZIvj0BsLAqTP9GPmNkYerqQQlXFvOqocXmYzDfY1Ia4wl8Ft1Tdz1Fjg0H/UwDRO8e8qyIDQJPS3pbO+YlWF/juOHrLZkN5TGrWSngOIUDxxKjj9MMDjAn3h39/TOh+RIkY37gyY4dPfBju+9QH7ZQEt9zZoegN5FWqWBkgMQR79Bto8UM0XjvK7wA8b2wNLnstj8EDVgrTdS+oke4=

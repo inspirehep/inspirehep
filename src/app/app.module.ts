@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import * as Raven from 'raven-js';
+
+import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { APP_BASE_HREF } from '@angular/common';
@@ -9,12 +11,23 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { ToastrModule } from 'ngx-toastr';
 import { JsonEditorModule } from 'ng2-json-editor';
 
+import { environment } from '../environments/environment';
 import { routing, appRoutingProviders, } from './app.routing';
 import { CoreModule } from './core';
 import { HoldingpenEditorModule } from './holdingpen-editor';
 import { RecordEditorModule } from './record-editor';
 
 import { AppComponent } from './app.component';
+
+Raven
+  .config(environment.sentryPublicDSN, { release: environment.version })
+  .install();
+
+export class RavenErrorHandler implements ErrorHandler {
+  handleError(error: any) {
+    Raven.captureException(error);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -35,6 +48,7 @@ import { AppComponent } from './app.component';
   ],
   providers: [
     { provide: APP_BASE_HREF, useValue: '/editor' },
+    { provide: ErrorHandler, useClass: RavenErrorHandler },
     ...appRoutingProviders,
   ],
   bootstrap: [AppComponent]
