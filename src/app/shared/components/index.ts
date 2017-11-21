@@ -4,6 +4,7 @@ import { AuthorExtractActionsComponent, RefExtractActionsComponent } from './ext
 import { HelpModalButtonComponent } from './help-modal-button';
 import { ReferenceBriefComponent } from './reference-brief';
 import { UndoButtonComponent } from './undo-button';
+import { FileUploadButtonComponent } from './file-upload-button';
 
 export const SHARED_COMPONENTS = [
   AffiliationBriefComponent,
@@ -12,5 +13,6 @@ export const SHARED_COMPONENTS = [
   RefExtractActionsComponent,
   HelpModalButtonComponent,
   ReferenceBriefComponent,
-  UndoButtonComponent
+  UndoButtonComponent,
+  FileUploadButtonComponent
 ];

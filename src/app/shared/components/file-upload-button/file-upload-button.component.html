@@ -1,0 +1,2 @@
+<input #uploader type="file" (change)="onFileSelect($event.target.files[0])" accept="application/pdf" [style.display]="'none'">
+<button type="button" (click)="uploader.click()">Upload</button>
