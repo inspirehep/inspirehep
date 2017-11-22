@@ -9,14 +9,17 @@
       </div>
       <div class="modal-body form-horizontal">
         <div class="form-group">
-          <label class="col-sm-12" for="updateRecordIdInput">Choose the record that should be merged into current one</label>
+          <label class="col-sm-12" for="updateRecordIdInput">Fill in the record id that should be merged into the current record</label>
           <div class="col-sm-12">
             <input type="text" class="form-control" id="updateRecordIdInput" [(ngModel)]="updateRecordId" placeholder="record id">
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-12">
-            <button class="btn btn-default" (click)="onMergeClick()"><i class="fa fa-code-fork"></i> <span>Merge</span></button>
+              <label>The record above will be deleted</label>        
+          </div>
+          <div class="col-sm-12">
+            <button id="mergeButton" class="btn btn-default" (click)="onMergeClick()"><i class="fa fa-code-fork"></i> <span>Merge</span></button>
             <a *ngIf="updateRecordId" class="record-link" href="javascript:void(0)" (click)="openUpdateRecordInNewTab()">Check {{currentRecordType}}/{{updateRecordId}} on inspire</a>
           </div>
         </div>
