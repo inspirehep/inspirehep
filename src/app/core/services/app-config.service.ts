@@ -242,13 +242,9 @@ export class AppConfigService {
               }
             },
             arxiv_eprints: {
+              disabled: true,
               items: {
-                order: ['value'],
-                properties: {
-                  value: {
-                    disabled: true
-                  }
-                }
+                order: ['value']
               }
             },
             collaborations: {
