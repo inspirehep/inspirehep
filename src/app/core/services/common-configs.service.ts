@@ -21,10 +21,11 @@
  */
 
 import { Injectable } from '@angular/core';
-import { RefAnchorAttributes, JsonStoreService, KeysStoreService } from 'ng2-json-editor';
+import { RefAnchorAttributes, JsonStoreService, KeysStoreService, AutocompletionConfig } from 'ng2-json-editor';
 
 import { FieldSplitterService } from './field-splitter.service';
 import { ISO_LANGUAGE_MAP } from '../../shared/constants';
+import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class CommonConfigsService {
@@ -32,6 +33,20 @@ export class CommonConfigsService {
   constructor(private fieldSplitterService: FieldSplitterService) { }
 
   readonly isoLanguageMap = ISO_LANGUAGE_MAP;
+
+  readonly affiliationAutocompletionConfig: AutocompletionConfig = {
+    url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
+    path: '/affiliation/0/options',
+    size: 20,
+    itemTemplateName: 'affiliationAutocompleteTemplate',
+    onCompletionSelect: (path, completion, store) => {
+      path.splice(-1, 1, 'record', '$ref');
+      store.setIn(path, completion.payload['$ref']);
+
+      path.splice(-2, 2, 'curated_relation');
+      store.setIn(path, true);
+    }
+  };
 
   readonly anchorBuilder = (url: string): RefAnchorAttributes => {
     let parts = url.split('/');
@@ -94,5 +109,7 @@ export class CommonConfigsService {
     }
     keyStore.buildKeysMapRecursivelyForPath(jsonStore.getIn(referencePath), referencePath);
   }
+
+
 
 }

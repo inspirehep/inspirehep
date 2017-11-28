@@ -204,18 +204,7 @@ export class AppConfigService {
                           }
                         },
                         value: {
-                          autocompletionConfig: {
-                            url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
-                            path: '/affiliation/0/options',
-                            size: 20,
-                            itemTemplateName: 'affiliationAutocompleteTemplate',
-                            onCompletionSelect: (path, completion, store) => {
-                              path.splice(-1, 1, 'record', '$ref');
-                              store.setIn(path, completion.payload['$ref']);
-                              path.splice(-2, 2, 'curated_relation');
-                              store.setIn(path, true);
-                            }
-                          }
+                          autocompletionConfig: this.commonConfigsService.affiliationAutocompletionConfig
                         }
                       }
                     }
@@ -342,6 +331,15 @@ export class AppConfigService {
                 }
               }
             },
+            record_affiliations: {
+              items: {
+                properties: {
+                  value: {
+                    autocompletionConfig: this.commonConfigsService.affiliationAutocompletionConfig
+                  }
+                }
+              }
+            },
             references: {
               sortable: true,
               longListNavigatorConfig: {
@@ -456,6 +454,13 @@ export class AppConfigService {
               properties: {
                 degree_type: {
                   priority: 1
+                },
+                institutions: {
+                  items: {
+                    properties: {
+                      name: this.commonConfigsService.affiliationAutocompletionConfig
+                    }
+                  }
                 }
               }
             },
