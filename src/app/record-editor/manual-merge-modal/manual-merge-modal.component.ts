@@ -63,11 +63,16 @@ export class ManualMergeModalComponent extends SubscriberComponent implements On
   }
 
   onMergeClick() {
+    let infoToast = this.toastrService.info('Merging records...', 'Wait', { timeOut: 0, onActivateTick: true });
+
     this.recordApiService
       .manualMerge(this.updateRecordId)
       .then(mergeWorkflowObjectId => {
+        this.toastrService.clear(infoToast.toastId);
+
         this.router.navigate([`holdingpen/${mergeWorkflowObjectId}`]);
       }).catch((error) => {
+        this.toastrService.clear(infoToast.toastId);
         this.toastrService.error('Could not merge!', 'Error');
       });
   }
