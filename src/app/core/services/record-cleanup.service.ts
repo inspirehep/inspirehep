@@ -25,7 +25,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class RecordCleanupService {
 
-  cleanup(value: Object) {
+  cleanup(value: object | Array<any>) {
     if (Array.isArray(value)) {
       // backwards loop because elements might be removed
       for (let i = value.length - 1; i >= 0; i--) {
@@ -49,18 +49,18 @@ export class RecordCleanupService {
     }
   }
 
-  private isEmpty(value: any) {
-    // undefined
-    if (value === undefined) {
+  private isEmpty(value: any): boolean {
+    if (value === undefined || value === null) {
       return true;
     }
 
-    // string or object
+    // string, object, array
     let valueType = typeof value;
     if (valueType === 'string' || valueType === 'object') {
       return Object.keys(value).length === 0;
     }
-    // boolean or number
+
+    // boolean, number
     return false;
   }
 }
