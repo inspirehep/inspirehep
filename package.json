@@ -1,6 +1,6 @@
 {
   "name": "record-editor",
-  "version": "0.11.2",
+  "version": "0.11.3",
   "description": "Editor (used in inspirehep.net) for JSON documents with bibliographic metadata",
   "keywords": [
     "angular2",
@@ -14,7 +14,7 @@
   "homepage": "https://github.com/inspirehep/record-editor",
   "license": "GPL-2.0",
   "angular-cli": {},
-  "scripts": { 
+  "scripts": {
     "start": "ng build --watch --progress --extract-css",
     "build": "ng build --prod --sourcemaps --output-hashing none",
     "lint": "tslint --project ./src/tsconfig.json \"src/**/*.ts\"",
