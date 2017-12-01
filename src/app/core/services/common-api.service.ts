@@ -54,4 +54,13 @@ export class CommonApiService {
       .toPromise();
   }
 
+  uploadFile(file: File): Observable<{url: string}> {
+    const fileData = new FormData();
+    fileData.append('file', file, file.name);
+    return this.http
+      .post(`${this.config.editorApiUrl}/upload`, fileData)
+      .map(res => res.json())
+      .map(uploaded => uploaded.path);
+  }
+
 }

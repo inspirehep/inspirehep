@@ -253,6 +253,9 @@ export class AppConfigService {
                 alwaysShow: ['statement', 'url']
               }
             },
+            documents: {
+              titleDropdownItemTemplateNames: ['fileUploadButtonTemplate']
+            },
             dois: {
               items: {
                 order: ['value', 'material', 'source']
