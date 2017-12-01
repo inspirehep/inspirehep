@@ -1,4 +1,3 @@
-
 /*
  * This file is part of ng2-json-editor.
  * Copyright (C) 2016 CERN.
@@ -21,71 +20,24 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-
 import { AppConfigService } from './app-config.service';
-import { CommonConfigsService } from './common-configs.service';
-import { FieldSplitterService } from './field-splitter.service';
-
 
 describe('AppConfigService', () => {
 
   let service: AppConfigService;
 
   beforeEach(() => {
-    service = new AppConfigService(new CommonConfigsService(new FieldSplitterService()));
+    service = new AppConfigService();
   });
 
-  it('should get a merged config for an hep type', () => {
-    let config: any = {
+  it('should return hep if there is no config for document_types', () => {
+    let config = {
       hep: {
-        default: {
-          schemaOptions: {
-            a: 'default-a',
-            b: 'default-b'
-          }
-        },
-        anheptype: {
-          schemaOptions: {
-            b: 'anHepType-b',
-            c: 'anHepType-c'
-          }
-        }
-      }
-    };
-    service.jsonEditorConfigs = config;
-
-    let record = {
-      $schema: 'http://foo/bar/hep.json',
-      document_type: [
-        'foo',
-        'bar',
-        'anheptype'
-      ]
-    };
-
-    let expectedConfig = {
-      schemaOptions: {
-        a: 'default-a',
-        b: 'anHepType-b',
-        c: 'anHepType-c'
+        name: 'hep'
       }
     };
 
-    expect(service.getConfigForRecord(record)).toEqual(expectedConfig);
-  });
-
-  it('should get default config if hep type not found in CONFIGS', () => {
-    let config: any = {
-      hep: {
-        default: {
-          schemaOptions: {
-            a: 'default-a',
-            b: 'default-b'
-          }
-        }
-      }
-    };
-    service.jsonEditorConfigs = config;
+    (service as any).configsByType = config;
 
     let record = {
       $schema: 'http://foo/bar/hep.json',
@@ -97,10 +49,32 @@ describe('AppConfigService', () => {
     };
 
     let expectedConfig = {
-      schemaOptions: {
-        a: 'default-a',
-        b: 'default-b'
+      name: 'hep'
+    };
+
+    expect(service.getConfigForRecord(record)).toEqual(expectedConfig);
+  });
+
+  it('should get config for special hep type', () => {
+    let config = {
+      specialHep: {
+        name: 'specialHep'
       }
+    };
+
+    (service as any).configsByType = config;
+
+    let record = {
+      $schema: 'http://foo/bar/hep.json',
+      document_type: [
+        'foo',
+        'specialHep',
+        'xyz'
+      ]
+    };
+
+    let expectedConfig = {
+      name: 'specialHep'
     };
 
     expect(service.getConfigForRecord(record)).toEqual(expectedConfig);
@@ -109,25 +83,18 @@ describe('AppConfigService', () => {
   it('should get config for non hep schema', () => {
     let config: any = {
       notHep: {
-        default: {
-          schemaOptions: {
-            a: 'notHep-a',
-            b: 'notHep-b'
-          }
-        }
+        name: 'notHep'
       }
     };
-    service.jsonEditorConfigs = config;
+
+    (service as any).configsByType = config;
 
     let record = {
       $schema: 'http://foo/bar/notHep.json'
     };
 
     let expectedConfig = {
-      schemaOptions: {
-        a: 'notHep-a',
-        b: 'notHep-b'
-      }
+      name: 'notHep'
     };
 
     expect(service.getConfigForRecord(record)).toEqual(expectedConfig);

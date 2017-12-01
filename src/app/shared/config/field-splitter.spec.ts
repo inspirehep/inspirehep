@@ -20,15 +20,9 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
 */
 
-import { FieldSplitterService } from './field-splitter.service';
+import { split } from './field-splitter';
 
-describe('FieldSplitterService', () => {
-
-  let service: FieldSplitterService;
-
-  beforeEach(() => {
-    service = new FieldSplitterService();
-  });
+describe('FieldSplitter', () => {
 
   it('should split all the field if there is separator at the beginning of field', () => {
     let field = '$$aFirst$$bSecond$$cThird';
@@ -43,7 +37,7 @@ describe('FieldSplitterService', () => {
       { path: ['to', 'c'], value: 'Third' }
     ];
     let expectedUnsplitted = '';
-    let result = service.split(field, mappings);
+    let result = split(field, mappings);
     expect(result.splits).toEqual(expectedSplits);
     expect(result.unsplitted).toEqual(expectedUnsplitted);
   });
@@ -59,7 +53,7 @@ describe('FieldSplitterService', () => {
       { path: ['to', 'b'], value: 'Second' }
     ];
     let expectedUnsplitted = 'Unsplitted';
-    let result = service.split(field, mappings);
+    let result = split(field, mappings);
     expect(result.splits).toEqual(expectedSplits);
     expect(result.unsplitted).toEqual(expectedUnsplitted);
   });
@@ -73,7 +67,7 @@ describe('FieldSplitterService', () => {
     let expectedSplits = [
       { path: ['to', 'a'], value: 'First$$bSecond' },
     ];
-    let result = service.split(field, mappings);
+    let result = split(field, mappings);
     expect(result.splits).toEqual(expectedSplits);
   });
 

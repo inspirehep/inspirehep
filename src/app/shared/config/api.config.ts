@@ -20,30 +20,8 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
-import { REFERENCE_SPLITTER_MAP } from '../../../shared/constants';
-
-@Component({
-  selector: 're-help-modal-button',
-  templateUrl: './help-modal-button.component.html',
-  styleUrls: [
-    './help-modal-button.component.scss'
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class HelpModalButtonComponent implements OnInit {
-
-  modChar: string;
-  referenceSplitterMap = REFERENCE_SPLITTER_MAP;
-
-  ngOnInit() {
-    this.modChar = this.getOSModChar();
-  }
-
-  private getOSModChar(): string {
-    let platform = navigator.platform.toLowerCase();
-    let isMac = platform.search('mac') > -1;
-    return isMac ? 'cmd' : 'ctrl';
-  }
-}
+export const apiUrl = `${environment.baseUrl}/api`;
+export const editorApiUrl = `${apiUrl}/editor`;
+export const holdingpenApiUrl = `${apiUrl}/holdingpen`;

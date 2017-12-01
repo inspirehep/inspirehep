@@ -25,12 +25,12 @@ import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { AppConfigService } from './app-config.service';
+import { editorApiUrl } from '../../shared/config';
 
 @Injectable()
 export class CommonApiService {
 
-  constructor(protected http: Http, protected config: AppConfigService) { }
+  constructor(protected http: Http) { }
 
   fetchUrl(url: string): Promise<Object> {
     return this.http.get(url)
@@ -41,14 +41,14 @@ export class CommonApiService {
   refExtract(source: string, sourceType: string): Promise<Array<Object>> {
     let body = { [sourceType]: source };
     return this.http
-      .post(`${this.config.editorApiUrl}/refextract/${sourceType}`, body)
+      .post(`${editorApiUrl}/refextract/${sourceType}`, body)
       .map(res => res.json())
       .toPromise();
   }
 
   authorExtract(source: string): Promise<Array<Object>> {
     return this.http
-      .post(`${this.config.editorApiUrl}/authorlist/text`, { text: source })
+      .post(`${editorApiUrl}/authorlist/text`, { text: source })
       .map(res => res.json())
       .map(json => json.authors)
       .toPromise();
@@ -58,7 +58,7 @@ export class CommonApiService {
     const fileData = new FormData();
     fileData.append('file', file, file.name);
     return this.http
-      .post(`${this.config.editorApiUrl}/upload`, fileData)
+      .post(`${editorApiUrl}/upload`, fileData)
       .map(res => res.json())
       .map(uploaded => uploaded.path);
   }
