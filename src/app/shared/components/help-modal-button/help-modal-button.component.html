@@ -94,9 +94,9 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let shortcut of referenceSplitterMappings | keys">
+                <tr *ngFor="let shortcut of referenceSplitterMap | keys">
                   <td>{{shortcut}}</td>
-                  <td>{{referenceSplitterMappings[shortcut].join(', ')}}</td>
+                  <td>{{referenceSplitterMap[shortcut].join(', ')}}</td>
                 </tr>
               </tbody>
             </table>

@@ -25,20 +25,20 @@ import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
-import { AppConfigService } from './app-config.service';
 import { CommonApiService } from './common-api.service';
+import { holdingpenApiUrl } from '../../shared/config';
 
 @Injectable()
 export class HoldingpenApiService extends CommonApiService {
 
   private currentWorkflowObjectApiUrl: string;
 
-  constructor(protected http: Http, protected config: AppConfigService) {
-    super(http, config);
+  constructor(protected http: Http) {
+    super(http);
   }
 
   fetchWorkflowObject(objectId: string): Promise<Object> {
-    this.currentWorkflowObjectApiUrl = `${this.config.holdingpenApiUrl}/${objectId}`;
+    this.currentWorkflowObjectApiUrl = `${holdingpenApiUrl}/${objectId}`;
     return this.fetchUrl(this.currentWorkflowObjectApiUrl);
   }
 

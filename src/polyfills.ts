@@ -21,6 +21,7 @@ import 'zone.js/dist/zone';
 // common rxjs imports
 
 import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/observable/from';
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';

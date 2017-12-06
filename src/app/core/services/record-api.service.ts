@@ -31,6 +31,7 @@ import { AppConfigService } from './app-config.service';
 import { CommonApiService } from './common-api.service';
 import { Ticket, RecordRevision } from '../../shared/interfaces';
 
+import { editorApiUrl, apiUrl } from '../../shared/config';
 
 @Injectable()
 export class RecordApiService extends CommonApiService {
@@ -43,12 +44,12 @@ export class RecordApiService extends CommonApiService {
 
   readonly newRecordFetched$ = new ReplaySubject<void>(1);
 
-  constructor(protected http: Http, protected config: AppConfigService) {
-    super(http, config);
+  constructor(protected http: Http) {
+    super(http);
   }
 
   checkEditorPermission(pidType: string, pidValue: string): Promise<any> {
-    this.currentRecordEditorApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    this.currentRecordEditorApiUrl = `${editorApiUrl}/${pidType}/${pidValue}`;
     return this.http
       .get(`${this.currentRecordEditorApiUrl}/permission`)
       .toPromise();
@@ -56,8 +57,8 @@ export class RecordApiService extends CommonApiService {
 
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
     this.currentRecordId = pidValue;
-    this.currentRecordApiUrl = `${this.config.apiUrl}/${pidType}/${pidValue}/db`;
-    this.currentRecordEditorApiUrl = `${this.config.editorApiUrl}/${pidType}/${pidValue}`;
+    this.currentRecordApiUrl = `${apiUrl}/${pidType}/${pidValue}/db`;
+    this.currentRecordEditorApiUrl = `${editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
     return this.fetchUrl(this.currentRecordApiUrl);
   }
@@ -88,14 +89,14 @@ export class RecordApiService extends CommonApiService {
 
   fetchRTUsers(): Observable<Array<string>> {
     return this.http
-      .get(`${this.config.editorApiUrl}/rt/users`)
+      .get(`${editorApiUrl}/rt/users`)
       .map(res => res.json())
       .map((users: Array<{ name: string }>) => users.map(user => user.name));
   }
 
   fetchRTQueues(): Observable<Array<string>> {
     return this.http
-      .get(`${this.config.editorApiUrl}/rt/queues`)
+      .get(`${editorApiUrl}/rt/queues`)
       .map(res => res.json())
       .map((queues: Array<{ name: string }>) => queues.map(queue => queue.name));
   }
@@ -123,7 +124,7 @@ export class RecordApiService extends CommonApiService {
 
   searchRecord(recordType: string, query: string): Observable<Array<number>> {
     return this.http
-      .get(`${this.config.apiUrl}/${recordType}/?q=${query}`, { headers: this.returnOnlyIdsHeaders })
+      .get(`${apiUrl}/${recordType}/?q=${query}`, { headers: this.returnOnlyIdsHeaders })
       .map(res => res.json())
       .map(json => json.hits.recids);
   }
@@ -141,7 +142,7 @@ export class RecordApiService extends CommonApiService {
       update_recid: updateRecordId
     };
     return this.http
-      .post(`${this.config.editorApiUrl}/manual_merge`, body)
+      .post(`${editorApiUrl}/manual_merge`, body)
       .map(res => res.json())
       .map(json => json.workflow_object_id)
       .toPromise();
