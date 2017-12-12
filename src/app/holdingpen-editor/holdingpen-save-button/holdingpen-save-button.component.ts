@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { HoldingpenApiService, RecordCleanupService, DomUtilsService } from '../../core/services';
@@ -33,8 +33,10 @@ import { SubscriberComponent } from '../../shared/classes';
     '../../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss'
   ]
 })
-export class HoldingpenSaveButtonComponent extends SubscriberComponent {
-  @Input() workflowObject: { id: string };
+export class HoldingpenSaveButtonComponent extends SubscriberComponent implements OnInit  {
+  @Input() workflowObject: object;
+
+  private hadConflictsIntially: boolean;
 
   constructor(private router: Router,
     private apiService: HoldingpenApiService,
@@ -43,36 +45,31 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent {
     super();
   }
 
+  ngOnInit() {
+    this.hadConflictsIntially = this.hasConflicts();
+  }
+
   onClickSave(event: Object) {
     this.recordCleanupService.cleanup(this.workflowObject['metadata']);
     this.apiService.saveWorkflowObject(this.workflowObject)
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
-      .filter(() => !this.hasConflicts())
+      .filter(() => this.shouldContinueWorkflow())
       .switchMap(() => this.apiService.continueWorkflow())
       .takeUntil(this.isDestroyed)
-      .subscribe(() => {
-        this.router.navigate([`${this.getRecordType()}/${this.getRecordId()}`]);
-      });
+      .subscribe();
+  }
+
+  private shouldContinueWorkflow(): boolean {
+    return this.isManualMerge() || (this.hadConflictsIntially && !this.hasConflicts());
+  }
+
+  private isManualMerge(): boolean {
+    const workflowName = this.workflowObject['_workflow']['workflow_name'];
+    return workflowName === 'MERGE';
   }
 
   private hasConflicts(): boolean {
     const conflicts = this.workflowObject['_extra_data']['conflicts'];
     return conflicts && conflicts.length > 0;
-  }
-
-  // TODO: kinda duplicate, try to reuse single one with app-config.service:getRecordType
-  private getRecordType() {
-    const $schema: string = this.workflowObject['metadata']['$schema'];
-    const schemaNameWithFileExt = $schema.slice($schema.lastIndexOf('/') + 1, $schema.length);
-    const schemaName = schemaNameWithFileExt.slice(0, schemaNameWithFileExt.lastIndexOf('.'));
-
-    if (schemaName === 'hep') {
-      return 'literature';
-    }
-    return schemaName;
-  }
-
-  private getRecordId() {
-    return this.workflowObject['metadata']['control_number'];
   }
 }
