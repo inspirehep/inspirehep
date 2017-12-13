@@ -160,7 +160,7 @@ export const coreHep: JsonEditorConfig = {
                 size: 10,
                 onCompletionSelect: (path, completion, store) => {
                   path.splice(-1, 1, 'record', '$ref');
-                  store.setIn(path, completion.payload['$ref']);
+                  store.setIn(path, completion['payload']['$ref']);
                   path.splice(-2, 2, 'curated_relation');
                   store.setIn(path, true);
                 }
