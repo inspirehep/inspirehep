@@ -42,7 +42,6 @@ export class HoldingpenApiService extends CommonApiService {
     return this.fetchUrl(this.currentWorkflowObjectApiUrl);
   }
 
-
   saveWorkflowObject(record: object): Observable<void> {
     return this.http
       .put(this.currentWorkflowObjectApiUrl, record)
