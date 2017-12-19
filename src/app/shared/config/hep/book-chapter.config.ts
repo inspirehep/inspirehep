@@ -22,22 +22,17 @@
 
 import { JsonEditorConfig } from 'ng2-json-editor';
 
-export const thesisHep: JsonEditorConfig = {
+export const bookChapterHep: JsonEditorConfig = {
   schemaOptions: {
     alwaysShow: [
-      'copyright',
-      'isbns',
-      'languages',
-      'license',
-      'title_translations',
-      'thesis_info',
-      'persistent_identifiers'
+      'publication_info'
     ],
     properties: {
-      authors: {
+      publication_info: {
         items: {
           alwaysShow: [
-            'inspire_roles'
+            'parent_isbn',
+            'parent_record',
           ]
         }
       }
