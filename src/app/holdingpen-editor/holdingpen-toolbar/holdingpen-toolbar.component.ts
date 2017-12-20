@@ -32,4 +32,5 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 })
 export class HoldingpenToolbarComponent {
   @Input() workflowObject: Object;
+  @Input() hasProblem: boolean;
 }

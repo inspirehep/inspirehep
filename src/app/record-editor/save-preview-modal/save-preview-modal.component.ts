@@ -23,8 +23,8 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
     private apiService: RecordApiService,
     private changeDetectorRef: ChangeDetectorRef,
     private domUtilsService: DomUtilsService) {
-      super();
-    }
+    super();
+  }
 
   ngOnInit() {
     this.recordPreviewModalService.onPreview
@@ -46,17 +46,31 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
 
   onConfirm() {
     this.apiService.saveRecord(this.options.record)
-      .then(() => {
+      .subscribe(() => {
         this.domUtilsService.unregisterBeforeUnloadPrompt();
         this.modal.hide();
         if (this.options.onConfirm) {
           this.options.onConfirm();
         }
-      })
-      .catch(error => {
-        console.error(error);
-        this.toastrService.error('Could not save the record', 'Error');
+      },
+      (error) => {
+        this.displayErrorToast(error);
+        this.modal.hide();
       });
+  }
+
+  private displayErrorToast(error: Response) {
+    let body;
+    if (error.status === 400) {
+      body = error.json();
+    }
+
+    if (body && body.message) {
+      this.toastrService.error(body.message, 'Error', { closeButton: true, timeOut: 15000 });
+    } else {
+      console.error(error);
+      this.toastrService.error('Could not save the record', 'Error');
+    }
   }
 
   onCancel() {

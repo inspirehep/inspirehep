@@ -2,7 +2,7 @@ import { hep, thesis } from './hep';
 
 export const editorConfigs = {
   hep,
-  thesis,
+  thesis
 };
 
 export * from './api.config';

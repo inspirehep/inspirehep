@@ -14,13 +14,14 @@
   <re-author-extract-actions></re-author-extract-actions>
 </ng-template>
 
-<re-holdingpen-toolbar [workflowObject]="workflowObject"></re-holdingpen-toolbar>
+<re-holdingpen-toolbar [hasProblem]="hasProblem" [workflowObject]="workflowObject"></re-holdingpen-toolbar>
 <div id="editor-container">
   <json-editor *ngIf="workflowObject && schema"
     [(record)]="workflowObject.metadata"
     [(jsonPatches)]="workflowObject._extra_data.conflicts"
     [schema]="schema"
     [config]="config"
+    (validationProblems)="onValidationProblems($event)"    
     [templates]="{
       referenceTemplate: referenceTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,

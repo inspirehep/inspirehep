@@ -22,7 +22,7 @@
 
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { SchemaValidationProblems } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
 import { HoldingpenApiService, AppConfigService, DomUtilsService } from '../core/services';
@@ -40,6 +40,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
   workflowObject: Object;
   schema: Object;
   config: Object;
+  hasProblem = false;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -77,4 +78,10 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
         this.changeDetectorRef.markForCheck();
       });
   }
+
+  onValidationProblems(problems: SchemaValidationProblems) {
+    this.hasProblem = Object.keys(problems)
+      .some(path => problems[path].length > 0);
+  }
+
 }

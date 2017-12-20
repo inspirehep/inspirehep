@@ -35,17 +35,18 @@ import { SavePreviewModalService } from '../../core/services';
 })
 export class RecordToolbarComponent {
   // `undefined` if there is no record being edited
-  @Input() record: Object;
+  @Input() record: object;
+  @Input() hasProblem: boolean;
 
   displayingRevision = false;
 
-  @Output() revisionChange = new EventEmitter<Object>();
+  @Output() revisionChange = new EventEmitter<object>();
   @Output() revisionRevert = new EventEmitter<void>();
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private savePreviewModalService: SavePreviewModalService) { }
 
-  onRevisionChange(revision?: Object) {
+  onRevisionChange(revision?: object) {
     this.revisionChange.emit(revision);
     if (revision) {
       // disable save, undo etc. if displaying an older revision
@@ -67,5 +68,9 @@ export class RecordToolbarComponent {
 
   onSaveClick() {
     this.savePreviewModalService.displayModal({ record: this.record });
+  }
+
+  get saveButtonDisabledAttribute(): string {
+    return this.hasProblem ? 'disabled' : '';
   }
 }

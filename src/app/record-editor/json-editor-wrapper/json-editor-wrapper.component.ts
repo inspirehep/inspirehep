@@ -22,7 +22,7 @@
 
 import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { SchemaValidationProblems } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
 import { RecordApiService, AppConfigService, DomUtilsService } from '../../core/services';
@@ -44,7 +44,8 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
   schema: object;
   config: object;
   // `undefined` on current revision
-  revision: object;
+  revision: object | undefined;
+  hasProblem = false;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -52,8 +53,8 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
     private domUtilService: DomUtilsService) {
-      super();
-    }
+    super();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['recordId'] || changes['recordType']) && this.recordId && this.recordType) {
@@ -84,7 +85,6 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
       });
   }
 
-
   onRecordChange(record: object) {
     // update record if the edited one is not revision.
     if (!this.revision) {
@@ -105,6 +105,11 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
     this.changeDetectorRef.markForCheck();
   }
 
+  onValidationProblems(problems: SchemaValidationProblems) {
+    this.hasProblem = Object.keys(problems)
+      .some(path => problems[path].length > 0);
+  }
+
   /**
    * Performs api calls for a single record to be loaded
    * and __assigns__ fetched data to class properties
@@ -116,11 +121,14 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
    * - shows toast message when any call fails
    */
   private fetch(recordType: string, recordId: string) {
+    // TODO: remove `setTimeout` after https://github.com/angular/angular/pull/18352
     let loadingToaster;
+    setTimeout(() => {
+      loadingToaster = this.toastrService.info(
+        `Loading ${recordType}/${recordId}`, 'Wait');
+    });
     this.apiService.checkEditorPermission(recordType, recordId)
       .then(() => {
-        loadingToaster = this.toastrService.info(
-          `Loading ${recordType}/${recordId}`, 'Wait');
         return this.apiService.fetchRecord(recordType, recordId);
       }).then(json => {
         this.record = json['metadata'];
