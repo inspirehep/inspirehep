@@ -476,7 +476,9 @@ export const coreHep: JsonEditorConfig = {
           institutions: {
             items: {
               properties: {
-                name: affiliationAutocompletionConfig
+                name: {
+                  autocompletionConfig: affiliationAutocompletionConfig
+                }
               }
             }
           }
