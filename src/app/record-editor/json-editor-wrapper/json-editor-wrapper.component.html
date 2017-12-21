@@ -18,7 +18,7 @@
   <re-file-upload-button></re-file-upload-button>
 </ng-template>
 
-<re-record-toolbar [record]="record" [hasProblem]="hasProblem" (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-toolbar>
+<re-record-toolbar (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-toolbar>
 <div id="editor-container">
   <json-editor *ngIf="record && schema"
     [record]="revision || record"

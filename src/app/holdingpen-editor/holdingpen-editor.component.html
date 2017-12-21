@@ -14,10 +14,11 @@
   <re-author-extract-actions></re-author-extract-actions>
 </ng-template>
 
-<re-holdingpen-toolbar [hasProblem]="hasProblem" [workflowObject]="workflowObject"></re-holdingpen-toolbar>
+<re-holdingpen-toolbar></re-holdingpen-toolbar>
 <div id="editor-container">
   <json-editor *ngIf="workflowObject && schema"
-    [(record)]="workflowObject.metadata"
+    [record]="workflowObject.metadata"
+    (recordChange)="onWorkflowMetadataChange($event)"
     [(jsonPatches)]="workflowObject._extra_data.conflicts"
     [schema]="schema"
     [config]="config"

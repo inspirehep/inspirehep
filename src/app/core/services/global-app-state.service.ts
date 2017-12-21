@@ -1,6 +1,6 @@
 /*
  * This file is part of record-editor.
- * Copyright (C) 2016 CERN.
+ * Copyright (C) 2017 CERN.
  *
  * record-editor is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -18,18 +18,24 @@
  * In applying this license, CERN does not
  * waive the privileges and immunities granted to it by virtue of its status
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
- */
+*/
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { SchemaValidationProblems } from 'ng2-json-editor';
 
-@Component({
-  selector: 're-holdingpen-toolbar',
-  templateUrl: './holdingpen-toolbar.component.html',
-  styleUrls: [
-    '../../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss'
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-export class HoldingpenToolbarComponent {
+import { editorConfigs } from '../../shared/config';
+import { onDocumentTypeChange } from '../../shared/config/hep';
 
+@Injectable()
+export class GlobalAppStateService {
+  readonly jsonBeingEdited$ = new Subject<object>();
+  readonly validationProblems$ = new Subject<SchemaValidationProblems>();
+  readonly hasAnyValidationProblem$ = this.validationProblems$
+    .map(problems => this.hasAnyValidationProblem(problems));
+
+  private hasAnyValidationProblem(problems: SchemaValidationProblems): boolean {
+    return Object.keys(problems)
+      .some(path => problems[path].length > 0);
+  }
 }

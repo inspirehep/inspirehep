@@ -25,7 +25,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SchemaValidationProblems } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
-import { RecordApiService, AppConfigService, DomUtilsService } from '../../core/services';
+import { RecordApiService, AppConfigService, DomUtilsService, GlobalAppStateService } from '../../core/services';
 import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
@@ -45,14 +45,14 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
   config: object;
   // `undefined` on current revision
   revision: object | undefined;
-  hasProblem = false;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: RecordApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
-    private domUtilService: DomUtilsService) {
+    private domUtilService: DomUtilsService,
+    private globalAppStateService: GlobalAppStateService) {
     super();
   }
 
@@ -89,8 +89,10 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
     // update record if the edited one is not revision.
     if (!this.revision) {
       this.record = record;
+      this.globalAppStateService
+        .jsonBeingEdited$.next(record);
     } else {
-      this.toastrService.warning('You are changing the revisions and your changes will be lost!', 'Warning');
+      this.toastrService.warning('You are changing the revision and your changes will be lost!', 'Warning');
     }
   }
 
@@ -106,8 +108,8 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
   }
 
   onValidationProblems(problems: SchemaValidationProblems) {
-    this.hasProblem = Object.keys(problems)
-      .some(path => problems[path].length > 0);
+    this.globalAppStateService
+      .validationProblems$.next(problems);
   }
 
   /**
@@ -121,25 +123,25 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
    * - shows toast message when any call fails
    */
   private fetch(recordType: string, recordId: string) {
-    // TODO: remove `setTimeout` after https://github.com/angular/angular/pull/18352
-    let loadingToaster;
-    setTimeout(() => {
-      loadingToaster = this.toastrService.info(
-        `Loading ${recordType}/${recordId}`, 'Wait');
-    });
+    let loadingToastId;
     this.apiService.checkEditorPermission(recordType, recordId)
       .then(() => {
+        // TODO: move toast call out of then after https://github.com/angular/angular/pull/18352
+        loadingToastId = this.toastrService.info(
+          `Loading ${recordType}/${recordId}`, 'Wait').toastId;
         return this.apiService.fetchRecord(recordType, recordId);
       }).then(json => {
         this.record = json['metadata'];
+        this.globalAppStateService
+          .jsonBeingEdited$.next(this.record);
         this.config = this.appConfigService.getConfigForRecord(this.record);
         return this.apiService.fetchUrl(this.record['$schema']);
       }).then(schema => {
-        this.toastrService.clear(loadingToaster.toastId);
+        this.toastrService.clear(loadingToastId);
         this.schema = schema;
         this.changeDetectorRef.markForCheck();
       }).catch(error => {
-        this.toastrService.clear(loadingToaster.toastId);
+        this.toastrService.clear(loadingToastId);
         console.error(error);
         if (error.status === 403) {
           this.toastrService.error(`Logged in user can not access to the record: ${recordType}/${recordId}`, 'Forbidden');
