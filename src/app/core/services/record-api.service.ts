@@ -63,11 +63,10 @@ export class RecordApiService extends CommonApiService {
     return this.fetchUrl(this.currentRecordApiUrl);
   }
 
-  saveRecord(record: object): Promise<void> {
+  saveRecord(record: object): Observable<void> {
     return this.http
       .put(this.currentRecordApiUrl, record)
-      .map(res => res.json())
-      .toPromise();
+      .map(res => res.json());
   }
 
   fetchRecordTickets(): Promise<Array<Ticket>> {

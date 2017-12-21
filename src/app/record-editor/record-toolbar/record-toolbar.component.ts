@@ -20,9 +20,10 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, OnInit } from '@angular/core';
 
-import { SavePreviewModalService } from '../../core/services';
+import { SavePreviewModalService, GlobalAppStateService } from '../../core/services';
+import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
   selector: 're-record-toolbar',
@@ -33,19 +34,42 @@ import { SavePreviewModalService } from '../../core/services';
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class RecordToolbarComponent {
+export class RecordToolbarComponent extends SubscriberComponent implements OnInit {
   // `undefined` if there is no record being edited
-  @Input() record: Object;
+  record: object;
 
   displayingRevision = false;
 
-  @Output() revisionChange = new EventEmitter<Object>();
+  @Output() revisionChange = new EventEmitter<object>();
   @Output() revisionRevert = new EventEmitter<void>();
 
-  constructor(private changeDetectorRef: ChangeDetectorRef,
-    private savePreviewModalService: SavePreviewModalService) { }
+  private hasAnyValidationProblem = false;
 
-  onRevisionChange(revision?: Object) {
+  constructor(private changeDetectorRef: ChangeDetectorRef,
+    private savePreviewModalService: SavePreviewModalService,
+    private globalAppStateService: GlobalAppStateService) {
+    super();
+  }
+
+  ngOnInit() {
+    this.globalAppStateService
+      .hasAnyValidationProblem$
+      .takeUntil(this.isDestroyed)
+      .subscribe(hasAnyValidationProblem => {
+        this.hasAnyValidationProblem = hasAnyValidationProblem;
+        this.changeDetectorRef.markForCheck();
+      });
+
+    this.globalAppStateService
+      .jsonBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe(jsonBeingEdited => {
+        this.record = jsonBeingEdited;
+        this.changeDetectorRef.markForCheck();
+      });
+  }
+
+  onRevisionChange(revision?: object) {
     this.revisionChange.emit(revision);
     if (revision) {
       // disable save, undo etc. if displaying an older revision
@@ -67,5 +91,9 @@ export class RecordToolbarComponent {
 
   onSaveClick() {
     this.savePreviewModalService.displayModal({ record: this.record });
+  }
+
+  get saveButtonDisabledAttribute(): string {
+    return this.hasAnyValidationProblem ? 'disabled' : '';
   }
 }

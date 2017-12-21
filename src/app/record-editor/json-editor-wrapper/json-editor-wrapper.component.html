@@ -18,13 +18,14 @@
   <re-file-upload-button></re-file-upload-button>
 </ng-template>
 
-<re-record-toolbar [record]="record" (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-toolbar>
+<re-record-toolbar (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-toolbar>
 <div id="editor-container">
   <json-editor *ngIf="record && schema"
     [record]="revision || record"
     (recordChange)="onRecordChange($event)"
     [schema]="schema"
     [config]="config"
+    (validationProblems) = "onValidationProblems($event)"
     [templates]="{
       referenceTemplate: referenceTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,

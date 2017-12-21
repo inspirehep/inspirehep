@@ -20,10 +20,11 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
-import { HoldingpenApiService, RecordCleanupService, DomUtilsService } from '../../core/services';
+import { HoldingpenApiService, RecordCleanupService, DomUtilsService, GlobalAppStateService } from '../../core/services';
 import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
@@ -31,22 +32,52 @@ import { SubscriberComponent } from '../../shared/classes';
   templateUrl: './holdingpen-save-button.component.html',
   styleUrls: [
     '../../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss'
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HoldingpenSaveButtonComponent extends SubscriberComponent implements OnInit  {
-  @Input() workflowObject: object;
+export class HoldingpenSaveButtonComponent extends SubscriberComponent implements OnInit {
+  private workflowObject: object;
 
+  private hasAnyValidationProblem = false;
   private hadConflictsIntially: boolean;
 
   constructor(private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
     private apiService: HoldingpenApiService,
     private recordCleanupService: RecordCleanupService,
-    private domUtilsService: DomUtilsService) {
+    private domUtilsService: DomUtilsService,
+    private globalAppStateService: GlobalAppStateService,
+    private toastrService: ToastrService) {
     super();
   }
 
   ngOnInit() {
-    this.hadConflictsIntially = this.hasConflicts();
+    this.globalAppStateService
+      .hasAnyValidationProblem$
+      .takeUntil(this.isDestroyed)
+      .subscribe(hasAnyValidationProblem => {
+        this.hasAnyValidationProblem = hasAnyValidationProblem;
+        this.changeDetectorRef.markForCheck();
+      });
+    this.globalAppStateService
+      .jsonBeingEdited$
+      .first()
+      .map(jsonBeingEdited => this.hasConflicts(jsonBeingEdited))
+      .subscribe(hasConflicts => {
+        this.hadConflictsIntially = hasConflicts;
+      });
+
+    const jsonBeingEdited$ = this.globalAppStateService
+      .jsonBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe(jsonBeingEdited => {
+        this.workflowObject = jsonBeingEdited;
+        this.changeDetectorRef.markForCheck();
+      });
+  }
+
+  get saveButtonDisabledAttribute(): string {
+    return this.hasAnyValidationProblem ? 'disabled' : '';
   }
 
   onClickSave(event: Object) {
@@ -55,12 +86,14 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
       .filter(() => this.shouldContinueWorkflow())
       .switchMap(() => this.apiService.continueWorkflow())
-      .takeUntil(this.isDestroyed)
-      .subscribe();
+      .subscribe({
+        error: (error) => this.displayErrorToast(error)
+      });
   }
 
   private shouldContinueWorkflow(): boolean {
-    return this.isManualMerge() || (this.hadConflictsIntially && !this.hasConflicts());
+    return this.isManualMerge() ||
+      (this.hadConflictsIntially && !this.hasConflicts(this.workflowObject));
   }
 
   private isManualMerge(): boolean {
@@ -68,8 +101,22 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
     return workflowName === 'MERGE';
   }
 
-  private hasConflicts(): boolean {
-    const conflicts = this.workflowObject['_extra_data']['conflicts'];
+  private hasConflicts(workflowObject: object): boolean {
+    const conflicts = workflowObject['_extra_data']['conflicts'];
     return conflicts && conflicts.length > 0;
+  }
+
+  private displayErrorToast(error: Response) {
+    let body;
+    if (error.status === 400) {
+      body = error.json();
+    }
+
+    if (body && body.message) {
+      this.toastrService.error(body.message, 'Error', { closeButton: true, timeOut: 15000 });
+    } else {
+      console.error(error);
+      this.toastrService.error('Could not save the workflow object', 'Error');
+    }
   }
 }

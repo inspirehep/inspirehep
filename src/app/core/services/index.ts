@@ -6,6 +6,7 @@ import { RecordCleanupService } from './record-cleanup.service';
 import { DomUtilsService } from './dom-utils.service';
 import { RecordSearchService } from './record-search.service';
 import { SavePreviewModalService } from './save-preview-modal.service';
+import { GlobalAppStateService } from './global-app-state.service';
 
 export {
   CommonApiService,
@@ -15,7 +16,8 @@ export {
   RecordCleanupService,
   DomUtilsService,
   RecordSearchService,
-  SavePreviewModalService
+  SavePreviewModalService,
+  GlobalAppStateService
 };
 
 export const CORE_SERVICES = [
@@ -26,5 +28,6 @@ export const CORE_SERVICES = [
   RecordCleanupService,
   DomUtilsService,
   RecordSearchService,
-  SavePreviewModalService
+  SavePreviewModalService,
+  GlobalAppStateService
 ];

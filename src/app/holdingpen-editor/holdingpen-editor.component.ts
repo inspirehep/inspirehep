@@ -22,10 +22,10 @@
 
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { SchemaValidationProblems } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
-import { HoldingpenApiService, AppConfigService, DomUtilsService } from '../core/services';
+import { HoldingpenApiService, AppConfigService, DomUtilsService, GlobalAppStateService } from '../core/services';
 import { SubscriberComponent } from '../shared/classes';
 
 
@@ -37,7 +37,7 @@ import { SubscriberComponent } from '../shared/classes';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HoldingpenEditorComponent extends SubscriberComponent implements OnInit {
-  workflowObject: Object;
+  workflowObject: object;
   schema: Object;
   config: Object;
 
@@ -46,9 +46,10 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
     private apiService: HoldingpenApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
-    private domUtilsService: DomUtilsService) {
-      super();
-    }
+    private domUtilsService: DomUtilsService,
+    private globalAppStateService: GlobalAppStateService) {
+    super();
+  }
 
   ngOnInit() {
     this.domUtilsService.fitEditorHeightFullPage();
@@ -59,6 +60,8 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
         this.apiService.fetchWorkflowObject(params['objectid'])
           .then(workflowObject => {
             this.workflowObject = workflowObject;
+            this.globalAppStateService
+              .jsonBeingEdited$.next(workflowObject);
             this.config = this.appConfigService.getConfigForRecord(this.workflowObject['metadata']);
             return this.apiService.fetchUrl(this.workflowObject['metadata']['$schema']);
           }).then(schema => {
@@ -77,4 +80,16 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
         this.changeDetectorRef.markForCheck();
       });
   }
+
+  onValidationProblems(problems: SchemaValidationProblems) {
+    this.globalAppStateService
+      .validationProblems$.next(problems);
+  }
+
+  onWorkflowMetadataChange(workflowMetadata: object) {
+    this.workflowObject['metadata'] = workflowMetadata;
+    this.globalAppStateService
+      .jsonBeingEdited$.next(this.workflowObject);
+  }
+
 }

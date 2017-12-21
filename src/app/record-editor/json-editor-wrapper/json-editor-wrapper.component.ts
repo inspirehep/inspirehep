@@ -22,10 +22,10 @@
 
 import { Component, Input, OnInit, OnChanges, SimpleChanges, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
+import { SchemaValidationProblems } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
-import { RecordApiService, AppConfigService, DomUtilsService } from '../../core/services';
+import { RecordApiService, AppConfigService, DomUtilsService, GlobalAppStateService } from '../../core/services';
 import { SubscriberComponent } from '../../shared/classes';
 
 @Component({
@@ -44,16 +44,17 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
   schema: object;
   config: object;
   // `undefined` on current revision
-  revision: object;
+  revision: object | undefined;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
     private apiService: RecordApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
-    private domUtilService: DomUtilsService) {
-      super();
-    }
+    private domUtilService: DomUtilsService,
+    private globalAppStateService: GlobalAppStateService) {
+    super();
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     if ((changes['recordId'] || changes['recordType']) && this.recordId && this.recordType) {
@@ -84,13 +85,14 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
       });
   }
 
-
   onRecordChange(record: object) {
     // update record if the edited one is not revision.
     if (!this.revision) {
       this.record = record;
+      this.globalAppStateService
+        .jsonBeingEdited$.next(record);
     } else {
-      this.toastrService.warning('You are changing the revisions and your changes will be lost!', 'Warning');
+      this.toastrService.warning('You are changing the revision and your changes will be lost!', 'Warning');
     }
   }
 
@@ -105,6 +107,11 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
     this.changeDetectorRef.markForCheck();
   }
 
+  onValidationProblems(problems: SchemaValidationProblems) {
+    this.globalAppStateService
+      .validationProblems$.next(problems);
+  }
+
   /**
    * Performs api calls for a single record to be loaded
    * and __assigns__ fetched data to class properties
@@ -116,22 +123,25 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
    * - shows toast message when any call fails
    */
   private fetch(recordType: string, recordId: string) {
-    let loadingToaster;
+    let loadingToastId;
     this.apiService.checkEditorPermission(recordType, recordId)
       .then(() => {
-        loadingToaster = this.toastrService.info(
-          `Loading ${recordType}/${recordId}`, 'Wait');
+        // TODO: move toast call out of then after https://github.com/angular/angular/pull/18352
+        loadingToastId = this.toastrService.info(
+          `Loading ${recordType}/${recordId}`, 'Wait').toastId;
         return this.apiService.fetchRecord(recordType, recordId);
       }).then(json => {
         this.record = json['metadata'];
+        this.globalAppStateService
+          .jsonBeingEdited$.next(this.record);
         this.config = this.appConfigService.getConfigForRecord(this.record);
         return this.apiService.fetchUrl(this.record['$schema']);
       }).then(schema => {
-        this.toastrService.clear(loadingToaster.toastId);
+        this.toastrService.clear(loadingToastId);
         this.schema = schema;
         this.changeDetectorRef.markForCheck();
       }).catch(error => {
-        this.toastrService.clear(loadingToaster.toastId);
+        this.toastrService.clear(loadingToastId);
         console.error(error);
         if (error.status === 403) {
           this.toastrService.error(`Logged in user can not access to the record: ${recordType}/${recordId}`, 'Forbidden');
