@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -32,7 +32,8 @@ import { SubscriberComponent } from '../../shared/classes';
 @Component({
   selector: 're-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.scss']
+  styleUrls: ['./search-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchBarComponent extends SubscriberComponent implements OnInit {
 
@@ -45,6 +46,7 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
     private globalAppStateService: GlobalAppStateService,
     private recordSearchService: RecordSearchService,
     private savePreviewModalService: SavePreviewModalService) {
@@ -56,24 +58,28 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
       .takeUntil(this.isDestroyed)
       .subscribe(cursor => {
         this.cursor = cursor;
+        this.changeDetectorRef.markForCheck();
       });
 
     this.recordSearchService.resultCount$
       .takeUntil(this.isDestroyed)
       .subscribe(resultCount => {
         this.resultCount = resultCount;
+        this.changeDetectorRef.markForCheck();
       });
 
     this.route.queryParams
       .takeUntil(this.isDestroyed)
       .subscribe((params: SearchParams) => {
         this.query = params.query;
+        this.changeDetectorRef.markForCheck();
       });
 
     this.route.params
       .takeUntil(this.isDestroyed)
       .subscribe(params => {
         this.recordType = params['type'];
+        this.changeDetectorRef.markForCheck();
       });
 
     this.route.params
@@ -83,6 +89,7 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
         this.query = params['recid'];
         // clear search when routed to a record directly
         this.recordSearchService.resultCount$.next(undefined);
+        this.changeDetectorRef.markForCheck();
       });
     this.globalAppStateService
       .jsonBeingEdited$
