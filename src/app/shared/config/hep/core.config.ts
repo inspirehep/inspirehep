@@ -80,13 +80,23 @@ export const coreHep: JsonEditorConfig = {
       'deleted'
     ],
     alwaysShow: [
-      'curated',
+      '_private_notes',
+      'abstract',
+      'accelerator_experiments',
+      'authors',
       'citeable',
-      'refereed',
-      'withdrawn',
-      'deleted',
       'collaborations',
-      'references'
+      'curated',
+      'deleted',
+      'documents',
+      'dois',
+      'number_of_pages',
+      'public_notes',
+      'urls',
+      'refereed',
+      'references',
+      'report_numbers',
+      'withdrawn'
     ],
     alwaysShowRegExp: new RegExp('value'),
     properties: {
@@ -328,7 +338,7 @@ export const coreHep: JsonEditorConfig = {
       },
       publication_info: {
         items: {
-          alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'cnum', 'year', 'page_start'],
+          alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'year', 'page_start'],
           order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid'],
           properties: {
             conference_record: {
@@ -469,6 +479,12 @@ export const coreHep: JsonEditorConfig = {
         },
       },
       thesis_info: {
+        alwaysShow: [
+          'date',
+          'defense_date',
+          'degree_type',
+          'institutions'
+        ],
         properties: {
           degree_type: {
             priority: 1

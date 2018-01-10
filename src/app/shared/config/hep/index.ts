@@ -24,8 +24,16 @@ import * as _ from 'lodash';
 
 import { coreHep } from './core.config';
 import { thesisHep } from './thesis.config';
+import { bookHep } from './book.config';
+import { bookChapterHep } from './book-chapter.config';
+import { proceedingsHep } from './proceedings.config';
+import { conferencePaperHep } from './conference-paper.config';
 
 export const hep = coreHep;
 export const thesis = _.merge(coreHep, thesisHep);
+export const book = _.merge(coreHep, bookHep);
+export const bookChapter = _.merge(coreHep, bookChapterHep);
+export const proceedings = _.merge(coreHep, proceedingsHep);
+export const conferencePaper = _.merge(coreHep, conferencePaperHep);
 
 export { onDocumentTypeChange } from './utils';
