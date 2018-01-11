@@ -123,7 +123,7 @@ export class RecordApiService extends CommonApiService {
 
   searchRecord(recordType: string, query: string): Observable<Array<number>> {
     return this.http
-      .get(`${apiUrl}/${recordType}/?q=${query}`, { headers: this.returnOnlyIdsHeaders })
+      .get(`${apiUrl}/${recordType}/?q=${query}&size=200`, { headers: this.returnOnlyIdsHeaders })
       .map(res => res.json())
       .map(json => json.hits.recids);
   }
