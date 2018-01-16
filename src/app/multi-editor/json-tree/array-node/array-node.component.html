@@ -1,0 +1,11 @@
+<div *ngFor="let item of value; let i = index; trackBy: trackByIndex">
+    <span [style.margin-left.px]="depth * levelOffsetInPixels">
+      <div *ngIf="i > 0" class="array-bar" [style.margin-left.px]="levelOffsetInPixels"></div>
+      <div *ngIf="(diff && diffKeys.has(i)) || shouldExpandKeys">
+        <re-any-type-node [value]="item" [depth]="depth + 1" [diff]="patchesMap.get(i)" [expanded]="true"></re-any-type-node>
+      </div>
+      <div *ngIf="(!diff || !diffKeys.has(i)) && !shouldExpandKeys">
+          <re-any-type-node [value]="item" [depth]="depth + 1" [expanded]="true"></re-any-type-node>
+      </div>
+    </span>
+  </div>

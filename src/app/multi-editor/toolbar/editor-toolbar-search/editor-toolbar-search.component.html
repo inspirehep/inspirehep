@@ -1,0 +1,9 @@
+<select class="form-control input-sm" name="collections" [ngModel]="selectedCollection" (ngModelChange)="_onCollectionChange($event)">
+  <option *ngFor="let collection of collections" [ngValue]="collection.name"> {{collection.value}} </option>
+</select>
+<div class="input-group">
+  <input type="text" [(ngModel)]="query" class="form-control input-sm" (keyup.enter)="_onSearchRecordClick(query)" placeholder="Search records">
+  <span class="input-group-btn">
+    <button (click)="_onSearchRecordClick(query)" class="btn btn-default search-button" type="button"><i class="fa fa-search fa-3" aria-hidden="true"></i></button>
+  </span>
+</div>

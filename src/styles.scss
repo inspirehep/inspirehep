@@ -42,3 +42,22 @@ re-tickets .more-btn-container > .popover {
       pointer-events: none;
   }
 }
+
+.re-bar {
+  border-top: 1px solid gray;
+  background-color: #dae8ef;
+  margin-top:15px;
+  margin-bottom: 3px;
+  padding-left: 5px;
+}
+
+.pagination {
+  margin:0px ;
+  display: flex;
+  justify-content: flex-end;
+}
+
+re-multi-editor #ng2-json-editor .middle.main-container {
+  padding-right: 15px !important;
+  padding-left: 15px !important;
+}

@@ -1,0 +1,52 @@
+<label>Action</label>
+<div class="btn-group" dropdown>
+  <select class="form-control input-sm" [ngModel]="selectedAction" (ngModelChange)="onActionChange($event)">
+    <option value="Addition">Addition</option>
+    <option value="Deletion">Deletion</option>
+    <option value="Update">Update</option>
+  </select>
+</div>
+<div class="re-bar">
+  Actions
+</div>
+<div class="info-text" [ngSwitch]="selectedAction">
+  <div *ngSwitchCase="'Addition'">
+    <span>Choose the field you'd like to add:</span>
+  </div>
+  <div *ngSwitchCase="'Update'">
+    <span>Choose the field you'd like to replace:</span>
+  </div>
+  <div *ngSwitchCase="'Deletion'">
+    <span>Choose the field you'd like to delete:</span>
+  </div>
+</div>
+<li class="list-unstyled" *ngFor="let action of userActions.actions; let count = index ">
+  <div class="action">
+    <form class="form-inline">
+      <re-action [action]=action></re-action>
+      <div *ngIf="userActions.actions.length > 1" class="form-group">
+        <i class="fa fa-times fa-1" (click)="onRemoveAction(count)" aria-hidden="true"></i>
+      </div>
+    </form>
+  </div>
+</li>
+<button class="button" *ngIf="selectedAction != 'Addition'" (click)="addAction()">
+  <i class="fa fa-plus"></i> Add</button>
+<div class="re-bar">
+  Conditions
+</div>
+<div class="info-text">
+  <span>Only when:</span>
+</div>
+<li class="list-unstyled" *ngFor="let condition of userActions.conditions; let count = index ">
+  <div class="action">
+    <form class="form-inline">
+      <re-conditions class="form-group" [condition]=condition></re-conditions>
+      <div *ngIf="userActions.conditions.length > 1" class="form-group">
+        <i class="fa fa-times fa-1" (click)="onRemoveCondition(count)" aria-hidden="true"></i>
+      </div>
+    </form>
+  </div>
+</li>
+<button class="button" (click)="addCondition()">
+  <i class="fa fa-plus"></i> Add</button>
