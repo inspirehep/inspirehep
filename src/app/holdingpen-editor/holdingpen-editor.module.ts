@@ -22,6 +22,8 @@
 
 import { NgModule } from '@angular/core';
 
+import { HoldingpenEditorRouter } from './holdingpen.router';
+
 import { HoldingpenEditorComponent } from './holdingpen-editor.component';
 import { HoldingpenToolbarComponent } from './holdingpen-toolbar';
 import { HoldingpenSaveButtonComponent } from './holdingpen-save-button';
@@ -30,15 +32,13 @@ import { SharedModule } from '../shared';
 
 @NgModule({
   imports: [
-    SharedModule
+    SharedModule,
+    HoldingpenEditorRouter
   ],
   declarations: [
     HoldingpenEditorComponent,
     HoldingpenToolbarComponent,
     HoldingpenSaveButtonComponent
-  ],
-  exports: [
-    HoldingpenEditorComponent
   ]
 })
 export class HoldingpenEditorModule { }

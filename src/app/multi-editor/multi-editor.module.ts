@@ -7,7 +7,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
-import { multiEditorRouter } from './multi-editor.router';
+import { MultiEditorRouter } from './multi-editor.router';
 
 import { MultiEditorComponent } from './multi-editor.component';
 import { ActionTemplateComponent } from './action';
@@ -56,7 +56,7 @@ import { SHARED_SERVICES, SHARED_PIPES } from './shared';
     JsonEditorModule,
     TypeaheadModule.forRoot(),
     CommonModule,
-    multiEditorRouter
+    MultiEditorRouter
   ],
   providers: SHARED_SERVICES,
 })

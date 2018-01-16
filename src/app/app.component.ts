@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
   constructor(private domUtilsService: DomUtilsService) { }
 
   ngOnInit() {
-    this.domUtilsService.registerBeforeUnloadPrompt();
-    this.domUtilsService.fitEditorHeightFullPageOnResize();
+    // this.domUtilsService.registerBeforeUnloadPrompt();
+    // this.domUtilsService.fitEditorHeightFullPageOnResize();
   }
 }
