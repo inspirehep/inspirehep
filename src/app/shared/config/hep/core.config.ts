@@ -501,6 +501,7 @@ export const coreHep: JsonEditorConfig = {
         }
       },
       titles: {
+        sortable: true,
         items: {
           alwaysShow: ['title'],
           order: ['title'],
