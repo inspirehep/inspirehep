@@ -22,7 +22,7 @@
 
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Condition } from '../shared/interfaces';
-import { AppGlobalsService } from '../shared/services';
+import { CONDITION_MATCH_TYPES } from '../shared/constants';
 
 @Component({
   selector: 're-conditions',
@@ -32,10 +32,10 @@ import { AppGlobalsService } from '../shared/services';
 export class ConditionsComponent {
   @Input() condition: Condition;
 
-  constructor(private appGlobalsService: AppGlobalsService) { }
+  constructor() { }
 
   get matchTypes(): string[] {
-    return this.appGlobalsService.conditionMatchTypes;
+    return CONDITION_MATCH_TYPES;
   }
 
   trackByFunction(index: number): number {

@@ -14,9 +14,6 @@ import { JsonEditorModule } from 'ng2-json-editor';
 import { environment } from '../environments/environment';
 import { AppRouter } from './app.router';
 import { CoreModule } from './core';
-import { HoldingpenEditorModule } from './holdingpen-editor';
-import { RecordEditorModule } from './record-editor';
-import { MultiEditorModule } from './multi-editor';
 
 import { AppComponent } from './app.component';
 

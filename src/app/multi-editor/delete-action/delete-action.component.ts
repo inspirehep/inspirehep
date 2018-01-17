@@ -22,7 +22,7 @@
 
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { Action} from '../shared/interfaces';
-import { AppGlobalsService } from '../shared/services';
+import { ACTION_MATCH_TYPES } from '../shared/constants';
 
 @Component({
   selector: 're-delete-action',
@@ -32,10 +32,10 @@ import { AppGlobalsService } from '../shared/services';
 
 export class DeleteActionComponent {
   @Input() action: Action;
-  constructor(private appGlobalsService: AppGlobalsService) { }
+  constructor() { }
 
   get matchTypes(): string[] {
-    return this.appGlobalsService.actionMatchTypes;
+    return ACTION_MATCH_TYPES;
   }
 
   trackByFunction(index: number): number {

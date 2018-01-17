@@ -122,7 +122,7 @@ describe('SchemaKeysStoreService', () => {
     };
 
     service.buildSchemaKeyStore(schema);
-    let subschema = service.findSubschema('anArray.innerArray');
+    let subschema = service.findSubSchema('anArray.innerArray');
     expect(subschema).toEqual(expectedMap);
   });
 

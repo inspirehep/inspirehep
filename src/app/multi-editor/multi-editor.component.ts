@@ -29,7 +29,7 @@ import { Response } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { SchemaKeysStoreService, QueryService, JsonUtilsService, UserActionsService } from './shared/services';
+import { SchemaKeysStoreService, MultiApiService, JsonFilterService, UserActionsService } from './shared/services';
 import { UserActions } from './shared/interfaces';
 import { Set } from 'immutable';
 import { Subscribable } from 'rxjs/Observable';
@@ -78,9 +78,9 @@ export class MultiEditorComponent implements OnInit {
   constructor(
     private schemaKeysStoreService: SchemaKeysStoreService,
     private changeDetectorRef: ChangeDetectorRef,
-    private queryService: QueryService,
+    private apiService: MultiApiService,
     private userActionsService: UserActionsService,
-    private jsonUtilsService: JsonUtilsService,
+    private jsonFilterService: JsonFilterService,
     private toastr: ToastrService) { }
 
   ngOnInit() {
@@ -91,7 +91,7 @@ export class MultiEditorComponent implements OnInit {
   onSave() {
     let uuids = Object.keys(this.recordSelectionStatus)
       .filter(key => this.recordSelectionStatus[key] !== this.allSelected);
-    this.queryService.save(this.previewedActions, uuids, this.allSelected)
+    this.apiService.save(this.previewedActions, uuids, this.allSelected)
       .subscribe((res) => {
         this.successMessage = res.message;
         this.totalRecords = -1;
@@ -139,13 +139,13 @@ export class MultiEditorComponent implements OnInit {
     } else if (!this.validateActionsKeypaths(this.userActions)) {
       this.toastr.error('Please use valid paths provided by autocompletion');
     } else {
-      this.queryService.previewActions(this.userActions, this.currentPage, this.pageSize)
+      this.apiService.previewActions(this.userActions, this.currentPage, this.pageSize)
         .subscribe((res) => {
           this.records = res.json_records;
           this.jsonPatches = res.json_patches;
           this.validationErrors = res.errors;
           this.previewMode = true;
-          this.filterRecords(this.filterExpressions);
+          this.filterRecords();
           this.changeDetectorRef.markForCheck();
         }, (error) => {
           this.displayErrorMessage(error);
@@ -159,13 +159,13 @@ export class MultiEditorComponent implements OnInit {
   }
 
   private fetchPage() {
-    this.queryService
+    this.apiService
       .fetchPaginatedRecords(this.currentPage, this.pageSize)
       .subscribe((json) => {
         this.records = json.json_records;
         this.uuids = json.uuids;
         this.setSelectionStatusesForNewPageRecords();
-        this.filterRecords(this.filterExpressions);
+        this.filterRecords();
         this.changeDetectorRef.markForCheck();
       }, (error) => {
         this.displayErrorMessage(error);
@@ -179,29 +179,26 @@ export class MultiEditorComponent implements OnInit {
       return false;
     }
   }
-  searchRecords(query: string) {
+  onSearch(query = '') {
     this.lastSearchedCollection = this.selectedCollection;
     this.currentPage = 1;
     this.allSelected = true;
     this.previewMode = false;
     this.recordSelectionStatus = {};
-    if (!query) {
-      query = '';
-    }
     this.lastSearchedQuery = query;
     this.queryCollection(query, this.selectedCollection);
   }
 
   private queryCollection(query: string, collection: string) {
     this.successMessage = undefined;
-    this.searchSubscription = this.queryService.searchRecords(query, this.currentPage, collection, this.pageSize)
+    this.searchSubscription = this.apiService.searchRecords(query, this.currentPage, collection, this.pageSize)
       .subscribe((json) => {
         this.previewMode = false;
         this.records = json.json_records;
         this.totalRecords = json.total_records;
         this.uuids = json.uuids;
         this.setSelectionStatusesForNewPageRecords();
-        this.filterRecords(this.filterExpressions);
+        this.filterRecords();
         this.changeDetectorRef.markForCheck();
       }, (error) => {
         this.displayErrorMessage(error);
@@ -212,7 +209,7 @@ export class MultiEditorComponent implements OnInit {
 
   onCollectionChange(selectedCollection: string) {
     this.selectedCollection = selectedCollection;
-    this.queryService.fetchCollectionSchema(this.selectedCollection)
+    this.apiService.fetchCollectionSchema(this.selectedCollection)
       .subscribe((res) => {
         this.schema = res;
         this.schemaKeysStoreService.buildSchemaKeyStore(this.schema);
@@ -227,17 +224,14 @@ export class MultiEditorComponent implements OnInit {
 
   private filterRecord(record: object): object {
     if (this.filterExpressions && this.filterExpressions.size > 0) {
-      return this.jsonUtilsService.filterObject(record, this.filterExpressions);
+      return this.jsonFilterService.filterObject(record, this.filterExpressions);
     }
     return record;
   }
 
-  private filterRecords(newFilterExpressionArray: Set<string>) {
-    this.filterExpressions = newFilterExpressionArray;
-    this.filteredRecords = new Array();
-    this.records.forEach(item => {
-      this.filteredRecords.push(this.filterRecord(item));
-    });
+  private filterRecords() {
+    this.filteredRecords = this.records
+      .map(item => this.filterRecord(item));
     this.changeDetectorRef.markForCheck();
   }
 
@@ -254,10 +248,10 @@ export class MultiEditorComponent implements OnInit {
 
   private validateActionsKeypaths(userActions: UserActions): boolean {
     let invalid = userActions.actions
-      .some(action => !this.schemaKeysStoreService.findSubschema(action.mainKey));
+      .some(action => !this.schemaKeysStoreService.findSubSchema(action.mainKey));
     if (!invalid) {
       invalid = userActions.conditions
-        .some(action => !this.schemaKeysStoreService.findSubschema(action.key));
+        .some(action => !this.schemaKeysStoreService.findSubSchema(action.key));
     }
     return !invalid;
   }

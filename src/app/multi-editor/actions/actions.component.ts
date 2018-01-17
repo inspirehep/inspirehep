@@ -23,7 +23,9 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ActionTemplateComponent } from '../action';
 import { UserActions } from '../shared/interfaces';
-import { AppGlobalsService, UserActionsService } from '../shared/services';
+import { UserActionsService } from '../shared/services';
+import { ACTION_MATCH_TYPES, CONDITION_MATCH_TYPES } from '../shared/constants';
+
 
 @Component({
   selector: 're-actions',
@@ -35,30 +37,20 @@ export class ActionsComponent implements OnInit {
   selectedAction = 'Addition';
   userActions: UserActions;
 
-  constructor(
-    private appGlobalsService: AppGlobalsService,
-    private userActionsService: UserActionsService) { }
+  constructor(private userActionsService: UserActionsService) { }
 
   ngOnInit() {
     this.userActions = this.userActionsService.getUserActions();
-    this.userActionsService.addAction(this.selectedAction, this.actionMatchTypes[0]);
-    this.userActionsService.addCondition(this.conditionMatchTypes[0]);
-  }
-
-  get actionMatchTypes(): string[] {
-    return this.appGlobalsService.actionMatchTypes;
-  }
-
-  get conditionMatchTypes(): string[] {
-    return this.appGlobalsService.conditionMatchTypes;
+    this.userActionsService.addAction(this.selectedAction, ACTION_MATCH_TYPES[0]);
+    this.userActionsService.addCondition(CONDITION_MATCH_TYPES[0]);
   }
 
   addAction() {
-    this.userActionsService.addAction(this.selectedAction, this.actionMatchTypes[0]);
+    this.userActionsService.addAction(this.selectedAction, ACTION_MATCH_TYPES[0]);
   }
 
   addCondition() {
-    this.userActionsService.addCondition(this.conditionMatchTypes[0]);
+    this.userActionsService.addCondition(CONDITION_MATCH_TYPES[0]);
   }
 
   onRemoveAction(index: number) {
@@ -72,6 +64,6 @@ export class ActionsComponent implements OnInit {
   onActionChange(actionType: string) {
     this.selectedAction = actionType;
     this.userActions.actions = [];
-    this.userActionsService.addAction(this.selectedAction, this.actionMatchTypes[0]);
+    this.userActionsService.addAction(this.selectedAction, ACTION_MATCH_TYPES[0]);
   }
 }

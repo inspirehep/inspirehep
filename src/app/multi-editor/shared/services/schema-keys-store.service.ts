@@ -22,6 +22,7 @@
 
 import { Injectable } from '@angular/core';
 import { fromJS, OrderedSet } from 'immutable';
+import { JSONSchema } from 'ng2-json-editor';
 import * as _ from 'lodash';
 
 import { UserActions } from '../interfaces';
@@ -31,7 +32,7 @@ export class SchemaKeysStoreService {
 
   public readonly separator = '.';
   public schemaKeyStoreMap: { [path: string]: OrderedSet<string> } = {};
-  public schema = {};
+  public schema: JSONSchema = {};
 
   constructor() { }
 
@@ -39,70 +40,71 @@ export class SchemaKeysStoreService {
     if (path === '') {
       return this.schemaKeyStoreMap[''].toArray();
     }
-    return this.schemaKeyStoreMap[`${this.separator}${path}`] ? this.schemaKeyStoreMap[`${this.separator}${path}`].toArray() : [];
+    return this.schemaKeyStoreMap[`${this.separator}${path}`] ?
+      this.schemaKeyStoreMap[`${this.separator}${path}`].toArray() : [];
   }
 
-  public buildSchemaKeyStore(schema: {}) {
+  public buildSchemaKeyStore(schema: JSONSchema) {
     this.schema = schema;
     this.buildSchemaKeyStoreRecursively('', schema);
   }
 
-  private buildSchemaKeyStoreRecursively(path: string, schema: {}) {
+  private buildSchemaKeyStoreRecursively(path: string, schema: JSONSchema) {
 
-    if (schema['type'] === 'object') {
-      let finalKeys = Object.keys(schema['properties']);
+    if (schema.type === 'object') {
+      let finalKeys = Object.keys(schema.properties);
       this.schemaKeyStoreMap[path] = fromJS(finalKeys).toOrderedSet();
       finalKeys
-        .filter(key => this.isObjectOrArraySchema(schema['properties'][key]))
+        .filter(key => this.isObjectOrArraySchema(schema.properties[key]))
         .forEach(key => {
           let newPath = `${path}${this.separator}${key}`;
-          this.buildSchemaKeyStoreRecursively(newPath, schema['properties'][key]);
+          this.buildSchemaKeyStoreRecursively(newPath, schema.properties[key]);
         });
     }
 
-    if (schema['type'] === 'array') {
-      if (schema['items']['type'] === 'object') {
-        let finalKeys = Object.keys(schema['items']['properties']);
+    if (schema.type === 'array') {
+      if (schema.items.type === 'object') {
+        let finalKeys = Object.keys(schema.items.properties);
         this.schemaKeyStoreMap[path] = fromJS(finalKeys).toOrderedSet();
         finalKeys
-          .filter(key => this.isObjectOrArraySchema(schema['items']['properties'][key]))
+          .filter(key => this.isObjectOrArraySchema(schema.items.properties[key]))
           .forEach(key => {
             let newPath = `${path}${this.separator}${key}`;
-            this.buildSchemaKeyStoreRecursively(newPath, schema['items']['properties'][key]);
+            this.buildSchemaKeyStoreRecursively(newPath, schema.items.properties[key]);
           });
       }
     }
   }
 
-  private isObjectOrArraySchema(schema: {}): boolean {
-    return schema['type'] === 'object' || schema['type'] === 'array';
+  private isObjectOrArraySchema(schema: JSONSchema): boolean {
+    return schema.type === 'object' || schema.type === 'array';
   }
 
-  public findSubschema(path: string): object {
+  public findSubSchema(path: string): object {
     let subSchema = this.schema;
     if (path === '') {
       return subSchema;
     }
     let splitPath = path.split(this.separator);
     for (let index in splitPath) {
-      if (subSchema['type'] === 'object') {
-        if (subSchema['properties'][splitPath[index]]) {
-          subSchema = subSchema['properties'][splitPath[index]];
+      if (subSchema.type === 'object') {
+        if (subSchema.properties[splitPath[index]]) {
+          subSchema = subSchema.properties[splitPath[index]];
         } else {
           return null;
         }
-      } else if (subSchema['type'] === 'array') {
-        if (subSchema['items']['properties'][splitPath[index]]) {
-          subSchema = subSchema['items']['properties'][splitPath[index]];
+      } else if (subSchema.type === 'array') {
+        if (subSchema.items.properties[splitPath[index]]) {
+          subSchema = subSchema.items.properties[splitPath[index]];
         } else {
           return null;
         }
       }
     }
-    if (subSchema['type'] === 'array') {
-      subSchema = subSchema['items'];
+    if (subSchema.type === 'array') {
+      subSchema = subSchema.items;
     }
-    if (subSchema['type'] !== 'object') {
+    if (subSchema.type !== 'object') {
       // if primitive key then wrap it
       return {
         type: 'object',

@@ -1,22 +1,18 @@
 import { SchemaKeysStoreService } from './schema-keys-store.service';
-import { QueryService } from './query.service';
-import { AppGlobalsService } from './app-globals.service';
+import { MultiApiService } from './multi-api.service';
 import { UserActionsService } from './user-actions.service';
-import { JsonUtilsService } from './json-utils.service';
+import { JsonFilterService } from './json-filter.service';
 
 export const SHARED_SERVICES = [
   SchemaKeysStoreService,
-  QueryService,
-  AppGlobalsService,
+  MultiApiService,
   UserActionsService,
-  JsonUtilsService
+  JsonFilterService
 ];
 
 export {
   SchemaKeysStoreService,
-  QueryService,
-  AppGlobalsService,
+  MultiApiService,
   UserActionsService,
-  JsonUtilsService
-}
-
+  JsonFilterService
+};

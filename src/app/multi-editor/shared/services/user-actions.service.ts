@@ -21,6 +21,7 @@
  */
 
 import { Injectable } from '@angular/core';
+
 import { UserActions } from '../interfaces';
 
 @Injectable()

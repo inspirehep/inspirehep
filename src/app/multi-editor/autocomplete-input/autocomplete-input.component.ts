@@ -61,23 +61,23 @@ export class AutocompleteInputComponent {
   constructor(
     private schemaKeysStoreService: SchemaKeysStoreService) {
     this.dataSource = Observable
-    .create((observer: any) => {
-      observer.next(this.value);
-    })
-    .map(inputValue => this.getStateForValue(inputValue))
-    .do((state: ParsedAutocompleteInput) => {
-      this.currentPath = state.path;
-    })
-    .mergeMap((state: ParsedAutocompleteInput) => {
-      return Observable.of(
-        this.schemaKeysStoreService.forPath(state.path).filter(item => item.startsWith(state.query))
-      );
-    });
+      .create((observer: any) => {
+        observer.next(this.value);
+      })
+      .map(inputValue => this.getStateForValue(inputValue))
+      .do((state: ParsedAutocompleteInput) => {
+        this.currentPath = state.path;
+      })
+      .mergeMap((state: ParsedAutocompleteInput) => {
+        return Observable.of(
+          this.schemaKeysStoreService.forPath(state.path).filter(item => item.startsWith(state.query))
+        );
+      });
     this.valueChange$
-    .debounceTime(500)
-    .subscribe(value => {
-      this.valueChange.emit(value);
-    });
+      .debounceTime(500)
+      .subscribe(value => {
+        this.valueChange.emit(value);
+      });
   }
 
   modelChange(value: string) {
@@ -95,15 +95,19 @@ export class AutocompleteInputComponent {
   }
 
   selectUserInput(match: TypeaheadMatch) {
-    this.value = this.currentPath !== '' ? `${this.currentPath}${this.schemaKeysStoreService.separator}${match.value}` : match.value;
+    if (this.currentPath !== '') {
+      this.value = `${this.currentPath}${this.schemaKeysStoreService.separator}${match.value}`;
+    } else {
+      this.value = match.value;
+    }
+
     if (!this.tagsEnabled) {
       this.valueChange$.next(this.value);
     }
   }
 
   private getStateForValue(value: string): ParsedAutocompleteInput {
-    let path = '';
-    let query = '';
+    let path, query;
     let separatorIndex = value.lastIndexOf(this.schemaKeysStoreService.separator);
     if (separatorIndex < 0) {
       path = '';
@@ -115,7 +119,7 @@ export class AutocompleteInputComponent {
       path = value.slice(0, separatorIndex);
       query = value.slice(separatorIndex + 1);
     }
-    return {path, query};
+    return { path, query };
   }
 
   private removeValue(value) {

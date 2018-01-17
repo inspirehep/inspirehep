@@ -21,36 +21,36 @@
  */
 
 import { Component, Output, EventEmitter } from '@angular/core';
-import { Collection } from '../../shared/interfaces';
+import { Collection } from '../shared/interfaces';
 
 @Component({
-  selector: 're-editor-toolbar-search',
-  templateUrl: './editor-toolbar-search.component.html',
-  styleUrls: ['./editor-toolbar-search.component.scss']
+  selector: 're-multi-editor-search',
+  templateUrl: './multi-editor-search.component.html',
+  styleUrls: ['./multi-editor-search.component.scss']
 })
-export class EditorToolbarSearchComponent {
+export class MultiEditorSearchComponent {
   selectedCollection = 'hep';
   query = '';
-  @Output() onSearchRecordClick = new EventEmitter<string>();
-  @Output() onCollectionChange = new EventEmitter<string>();
+  @Output() search = new EventEmitter<string>();
+  @Output() collectionChange = new EventEmitter<string>();
 
   readonly collections: Collection[] = [
-    { name: 'hep', value: 'Literature'},
-    { name: 'authors', value: 'Authors'},
-    { name: 'data', value: 'Data'},
-    { name: 'conferences', value: 'Conferences'},
-    { name: 'jobs', value: 'Jobs'},
-    { name: 'institutions', value: 'Institutions'},
-    { name: 'experiments', value: 'Experiments'},
-    { name: 'journals', value: 'Journals'}
+    { name: 'hep', value: 'Literature' },
+    { name: 'authors', value: 'Authors' },
+    { name: 'data', value: 'Data' },
+    { name: 'conferences', value: 'Conferences' },
+    { name: 'jobs', value: 'Jobs' },
+    { name: 'institutions', value: 'Institutions' },
+    { name: 'experiments', value: 'Experiments' },
+    { name: 'journals', value: 'Journals' }
   ];
 
-  _onSearchRecordClick(query) {
-    this.onSearchRecordClick.emit(query);
+  onSearchClick(query: string) {
+    this.search.emit(query);
   }
 
-  _onCollectionChange(collection) {
+  onCollectionChange(collection: string) {
     this.selectedCollection = collection;
-    this.onCollectionChange.emit(collection);
+    this.collectionChange.emit(collection);
   }
 }

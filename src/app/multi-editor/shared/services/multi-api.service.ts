@@ -27,15 +27,18 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/zip';
 
 import { environment } from '../../../../environments/environment';
+import { CommonApiService } from '../../../core/services';
 import { UserActions, QueryResult, RecordsPreview, PaginatedRecords, SubmitMessage } from '../interfaces';
 
 
 @Injectable()
-export class QueryService {
+export class MultiApiService extends CommonApiService {
   private url = `${environment.baseUrl}/api/multieditor`;
   private schemaUrl = `${environment.baseUrl}/schemas/records`;
 
-  constructor(private http: Http) { }
+  constructor(protected http: Http) {
+    super(http);
+  }
 
   save(userActions: UserActions, checkedRecords: string[], allSelected: boolean): Observable<SubmitMessage> {
     return this.http
@@ -68,9 +71,9 @@ export class QueryService {
       .map(res => res.json());
   }
 
-  fetchCollectionSchema(selectedCollection: string): Observable<object> {
+  fetchCollectionSchema(collection: string): Observable<object> {
     return this.http
-      .get(`${this.schemaUrl}/${selectedCollection}.json`)
+      .get(`${this.schemaUrl}/${collection}.json`)
       .map(res => res.json());
   }
 }

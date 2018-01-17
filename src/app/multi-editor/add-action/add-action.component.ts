@@ -23,7 +23,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { SchemaKeysStoreService } from '../shared/services/schema-keys-store.service';
 import { Action } from '../shared/interfaces';
-import { AppGlobalsService } from '../shared/services';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -53,7 +52,7 @@ export class AddActionComponent {
 
   onValueChange(value: string) {
     this.action.mainKey = value;
-    this.subSchema = this.schemaKeysStoreService.findSubschema(this.action.mainKey);
+    this.subSchema = this.schemaKeysStoreService.findSubSchema(this.action.mainKey);
     this.action.value = {};
   }
 

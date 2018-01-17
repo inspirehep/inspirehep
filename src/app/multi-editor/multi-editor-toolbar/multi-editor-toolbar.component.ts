@@ -20,23 +20,24 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Pipe, PipeTransform } from '@angular/core';
-import * as _ from 'lodash';
-import { JsonUtilsService } from '../services/json-utils.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
-
-@Pipe({
-  name: 'tagFilter'
+@Component({
+  selector: 're-multi-editor-toolbar',
+  templateUrl: './multi-editor-toolbar.component.html',
+  styleUrls: ['./multi-editor-toolbar.component.scss']
 })
-export class TagFilterPipe implements PipeTransform {
+export class MultiEditorToolbarComponent {
+  @Input() canSave: boolean;
+  @Output() search = new EventEmitter<string>();
+  @Output() collectionChange = new EventEmitter<string>();
+  @Output() save = new EventEmitter<void>();
 
-  constructor(public jsonUtilsService: JsonUtilsService) { }
-
-  transform(records: Array<{}>, filterExpression: string): any {
-    if (filterExpression) {
-      return this.jsonUtilsService.filterObjectArray(records, filterExpression);
-    }
-    return records;
+  onCollectionChange(collection: string) {
+    this.collectionChange.emit(collection);
   }
 
+  onSsearch(query: string) {
+    this.search.emit(query);
+  }
 }
