@@ -51,7 +51,7 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
     private apiService: RecordApiService,
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
-    private domUtilService: DomUtilsService,
+    private domUtilsService: DomUtilsService,
     private globalAppStateService: GlobalAppStateService) {
     super();
   }
@@ -65,7 +65,9 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
   }
 
   ngOnInit() {
-    this.domUtilService.fitEditorHeightFullPage();
+    this.domUtilsService.registerBeforeUnloadPrompt();
+    this.domUtilsService.fitEditorHeightFullPageOnResize();
+    this.domUtilsService.fitEditorHeightFullPage();
 
     if (!this.recordId || !this.recordType) {
       // component loaded via router, @Input() aren't passed

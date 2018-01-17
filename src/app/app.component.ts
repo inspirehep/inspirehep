@@ -22,21 +22,11 @@
 
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
 
-import { DomUtilsService } from './core/services';
-
 @Component({
   selector: 're-app',
-  encapsulation: ViewEncapsulation.None, // Apply style (bootstrap.scss) to all children
   styleUrls: [
     'app.component.scss'
   ],
   templateUrl: 'app.component.html'
 })
-export class AppComponent implements OnInit {
-  constructor(private domUtilsService: DomUtilsService) { }
-
-  ngOnInit() {
-    // this.domUtilsService.registerBeforeUnloadPrompt();
-    // this.domUtilsService.fitEditorHeightFullPageOnResize();
-  }
-}
+export class AppComponent { }

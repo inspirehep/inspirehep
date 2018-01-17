@@ -52,6 +52,8 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
   }
 
   ngOnInit() {
+    this.domUtilsService.registerBeforeUnloadPrompt();
+    this.domUtilsService.fitEditorHeightFullPageOnResize();
     this.domUtilsService.fitEditorHeightFullPage();
 
     this.route.params
