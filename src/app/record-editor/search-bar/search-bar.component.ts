@@ -38,6 +38,7 @@ import { SubscriberComponent } from '../../shared/classes';
 export class SearchBarComponent extends SubscriberComponent implements OnInit {
 
   record: object;
+  isRecordUpdated: boolean;
 
   recordType: string;
   query: string;
@@ -91,11 +92,20 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
         this.recordSearchService.resultCount$.next(undefined);
         this.changeDetectorRef.markForCheck();
       });
+
     this.globalAppStateService
       .jsonBeingEdited$
       .takeUntil(this.isDestroyed)
       .subscribe(jsonBeingEdited => {
         this.record = jsonBeingEdited;
+      });
+
+    this.globalAppStateService
+      .isJsonUpdated$
+      .distinctUntilChanged()
+      .takeUntil(this.isDestroyed)
+      .subscribe(isJsonUpdated => {
+        this.isRecordUpdated = isJsonUpdated;
       });
   }
 
@@ -110,19 +120,27 @@ export class SearchBarComponent extends SubscriberComponent implements OnInit {
   }
 
   onNextClick() {
-    this.savePreviewModalService.displayModal({
-      record: this.record,
-      onCancel: () => this.next(),
-      onConfirm: () => this.next()
-    });
+    if (this.isRecordUpdated) {
+      this.savePreviewModalService.displayModal({
+        record: this.record,
+        onCancel: () => this.next(),
+        onConfirm: () => this.next()
+      });
+    } else {
+      this.next();
+    }
   }
 
-  onPreviewClick() {
-    this.savePreviewModalService.displayModal({
-      record: this.record,
-      onCancel: () => this.previous(),
-      onConfirm: () => this.previous()
-    });
+  onPreviousClick() {
+    if (this.isRecordUpdated) {
+      this.savePreviewModalService.displayModal({
+        record: this.record,
+        onCancel: () => this.previous(),
+        onConfirm: () => this.previous()
+      });
+    } else {
+      this.previous();
+    }
   }
 
   private next() {

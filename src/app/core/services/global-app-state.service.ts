@@ -30,6 +30,9 @@ import { onDocumentTypeChange } from '../../shared/config/hep';
 @Injectable()
 export class GlobalAppStateService {
   readonly jsonBeingEdited$ = new Subject<object>();
+
+  readonly isJsonUpdated$ = new Subject<boolean>();
+
   readonly validationProblems$ = new Subject<SchemaValidationProblems>();
   readonly hasAnyValidationProblem$ = this.validationProblems$
     .map(problems => this.hasAnyValidationProblem(problems));
