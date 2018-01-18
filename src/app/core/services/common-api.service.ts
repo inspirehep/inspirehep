@@ -21,11 +21,13 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
 import { editorApiUrl } from '../../shared/config';
+import { ApiError } from '../../shared/classes';
+
 
 @Injectable()
 export class CommonApiService {
@@ -46,15 +48,15 @@ export class CommonApiService {
       .toPromise();
   }
 
-  authorExtract(source: string): Promise<Array<Object>> {
+  authorExtract(source: string): Observable<Array<Object>> {
     return this.http
       .post(`${editorApiUrl}/authorlist/text`, { text: source })
+      .catch((error: Response) => Observable.throw(new ApiError(error)))
       .map(res => res.json())
-      .map(json => json.authors)
-      .toPromise();
+      .map(json => json.authors);
   }
 
-  uploadFile(file: File): Observable<{url: string}> {
+  uploadFile(file: File): Observable<{ url: string }> {
     const fileData = new FormData();
     fileData.append('file', file, file.name);
     return this.http
