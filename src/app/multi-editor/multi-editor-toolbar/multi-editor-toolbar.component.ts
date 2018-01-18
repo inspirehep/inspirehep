@@ -37,7 +37,7 @@ export class MultiEditorToolbarComponent {
     this.collectionChange.emit(collection);
   }
 
-  onSsearch(query: string) {
+  onSearch(query: string) {
     this.search.emit(query);
   }
 }

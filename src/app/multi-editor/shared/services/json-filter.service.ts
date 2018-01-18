@@ -64,7 +64,7 @@ export class JsonFilterService {
 
     if (Array.isArray(json[currentPath])) {
       const filtered = json[currentPath]
-        .map(element => this.filterObjectRecursively(element, path, pathIndex + 1))
+        .map(element => this.filterObjectRecursively(element, path, pathIndex + 1));
       return { [currentPath]: filtered };
     } else if (typeof json[currentPath] === 'object') {
       const filtered = this.filterObjectRecursively(json[currentPath], path, pathIndex + 1);
