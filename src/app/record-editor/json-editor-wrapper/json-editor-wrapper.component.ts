@@ -91,6 +91,8 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
       this.record = record;
       this.globalAppStateService
         .jsonBeingEdited$.next(record);
+      this.globalAppStateService
+        .isJsonUpdated$.next(true);
     } else {
       this.toastrService.warning('You are changing the revision and your changes will be lost!', 'Warning');
     }
@@ -134,6 +136,8 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
         this.record = json['metadata'];
         this.globalAppStateService
           .jsonBeingEdited$.next(this.record);
+        this.globalAppStateService
+          .isJsonUpdated$.next(false);
         this.config = this.appConfigService.getConfigForRecord(this.record);
         return this.apiService.fetchUrl(this.record['$schema']);
       }).then(schema => {

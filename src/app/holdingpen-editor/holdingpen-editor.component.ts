@@ -62,6 +62,8 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
             this.workflowObject = workflowObject;
             this.globalAppStateService
               .jsonBeingEdited$.next(workflowObject);
+            this.globalAppStateService
+              .isJsonUpdated$.next(false);
             this.config = this.appConfigService.getConfigForRecord(this.workflowObject['metadata']);
             return this.apiService.fetchUrl(this.workflowObject['metadata']['$schema']);
           }).then(schema => {
@@ -90,6 +92,8 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
     this.workflowObject['metadata'] = workflowMetadata;
     this.globalAppStateService
       .jsonBeingEdited$.next(this.workflowObject);
+    this.globalAppStateService
+      .isJsonUpdated$.next(true);
   }
 
 }
