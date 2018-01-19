@@ -27,6 +27,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { editorApiUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
+import { AuthorExtractResult } from '../../shared/interfaces';
 
 
 @Injectable()
@@ -48,12 +49,11 @@ export class CommonApiService {
       .toPromise();
   }
 
-  authorExtract(source: string): Observable<Array<Object>> {
+  authorExtract(source: string): Observable<AuthorExtractResult> {
     return this.http
       .post(`${editorApiUrl}/authorlist/text`, { text: source })
       .catch((error: Response) => Observable.throw(new ApiError(error)))
-      .map(res => res.json())
-      .map(json => json.authors);
+      .map(res => res.json());
   }
 
   uploadFile(file: File): Observable<{ url: string }> {

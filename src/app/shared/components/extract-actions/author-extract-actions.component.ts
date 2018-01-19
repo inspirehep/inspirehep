@@ -26,6 +26,8 @@ import { JsonStoreService } from 'ng2-json-editor';
 
 import { CommonApiService } from '../../../core/services';
 import { ApiError } from '../../../shared/classes';
+import { AuthorExtractResult } from '../../../shared/interfaces';
+import { DISMISSIBLE_INDEFINITE_TOAST } from '../../../shared/constants';
 
 @Component({
   selector: 're-author-extract-actions',
@@ -54,7 +56,8 @@ export class AuthorExtractActionsComponent {
       .subscribe(authors => this.onExtract(authors), error => this.onError(error));
   }
 
-  private onExtract(authors: Array<object>) {
+  private onExtract(result: AuthorExtractResult) {
+    const authors = result.authors;
     if (this.replaceExisting) {
       this.jsonStoreService.setIn(['authors'], authors);
     } else {
@@ -62,7 +65,15 @@ export class AuthorExtractActionsComponent {
         this.jsonStoreService.addIn(['authors', 0], author);
       });
     }
+
     this.toastrService.clear(this.extractingToast.toastId);
+    const warnings = result.warnings;
+    if (warnings && warnings.length > 0) {
+      warnings.forEach(warning => {
+        this.toastrService
+          .warning(warning, 'Warning', DISMISSIBLE_INDEFINITE_TOAST);
+      });
+    }
     this.toastrService.success(`${authors.length} authors extracted.`, 'Success');
   }
 
@@ -70,12 +81,7 @@ export class AuthorExtractActionsComponent {
     this.toastrService.clear(this.extractingToast.toastId);
     if (error.status === 500 && error.message) {
       this.toastrService
-        .error(error.message, 'Error', {
-          timeOut: 0,
-          extendedTimeOut: 0,
-          closeButton: true,
-          onActivateTick: true
-        });
+        .error(error.message, 'Error', DISMISSIBLE_INDEFINITE_TOAST);
     } else {
       this.toastrService.error('Could not extract authors', 'Error');
     }
