@@ -4,3 +4,4 @@ export { Affiliation } from './affiliation';
 export { RecordRevision } from './record-revision';
 export { SearchParams } from './search-params';
 export { SavePreviewModalOptions } from './save-preview-modal-options';
+export { AuthorExtractResult } from './author-extract-result';
