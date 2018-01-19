@@ -70,7 +70,6 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
         this.tickets = tickets;
         this.changeDetectorRef.markForCheck();
       }).catch(error => {
-        console.error(error);
         if (error.status === 403) {
           this.toastrService.error('Logged in user can not access to tickets', 'Forbidden');
         } else {

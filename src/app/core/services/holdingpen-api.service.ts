@@ -27,6 +27,8 @@ import { Observable } from 'rxjs/Observable';
 
 import { CommonApiService } from './common-api.service';
 import { holdingpenApiUrl } from '../../shared/config';
+import { ApiError } from '../../shared/classes';
+
 
 @Injectable()
 export class HoldingpenApiService extends CommonApiService {
@@ -45,12 +47,14 @@ export class HoldingpenApiService extends CommonApiService {
   saveWorkflowObject(record: object): Observable<void> {
     return this.http
       .put(this.currentWorkflowObjectApiUrl, record)
+      .catch(error => Observable.throw(new ApiError(error)))
       .map(res => res.json());
   }
 
   continueWorkflow(): Observable<void> {
     return this.http
       .post(`${this.currentWorkflowObjectApiUrl}/action/resolve`, {})
+      .catch(error => Observable.throw(new ApiError(error)))
       .map(res => res.json());
   }
 }

@@ -72,7 +72,6 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
           }).catch(error => {
-            console.error(error);
             this.toastrService.error('Could not load the holdingpen record!', 'Error');
           });
       });

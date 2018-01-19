@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { SavePreviewModalService, RecordApiService, DomUtilsService } from '../../core/services';
 import { SavePreviewModalOptions } from '../../shared/interfaces';
-import { SubscriberComponent } from '../../shared/classes';
+import { SubscriberComponent, ApiError } from '../../shared/classes';
 
 @Component({
   selector: 're-save-preview-modal',
@@ -46,31 +46,25 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
 
   onConfirm() {
     this.apiService.saveRecord(this.options.record)
-      .subscribe(() => {
-        this.domUtilsService.unregisterBeforeUnloadPrompt();
-        this.modal.hide();
-        if (this.options.onConfirm) {
-          this.options.onConfirm();
-        }
-      },
-      (error) => {
-        this.displayErrorToast(error);
-        this.modal.hide();
-      });
+      .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
   }
 
-  private displayErrorToast(error: Response) {
-    let body;
-    if (error.status === 400) {
-      body = error.json();
+  private onSaveSuccess() {
+    this.domUtilsService.unregisterBeforeUnloadPrompt();
+    this.modal.hide();
+    if (this.options.onConfirm) {
+      this.options.onConfirm();
     }
+  }
 
-    if (body && body.message) {
-      this.toastrService.error(body.message, 'Error', { closeButton: true, timeOut: 15000 });
+  private onSaveError(error: ApiError) {
+    if (error.message) {
+      this.toastrService.error(error.message, 'Error', { closeButton: true, timeOut: 15000 });
     } else {
-      console.error(error);
       this.toastrService.error('Could not save the record', 'Error');
     }
+
+    this.modal.hide();
   }
 
   onCancel() {
