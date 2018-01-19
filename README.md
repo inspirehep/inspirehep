@@ -43,9 +43,13 @@ __inspire-next has to be installed correctly before starting__
 - run `npm link record-editor` at `$VIRTUAL_ENV/var/inspirehep-instance/static`
 - run `honcho start` where `inspire-next` source code is
 
-### On `localhost:5000`
+### On `localhost:5000/editor`
 
-- open editor with any record or workflow object
+- open editor (navigate to following)
+  - `/record/<type>/<recid>` to edit a record
+  - `/record/<type>/search` to search records to edit
+  - `/holdingpen/<workflow_id>` to edit a workflow object
+  - `/multieditor` to apply edits to multiple records
 - hard refresh the page whenever you want to see the changes
 
 

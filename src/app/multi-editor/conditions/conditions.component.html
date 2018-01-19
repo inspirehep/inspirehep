@@ -1,0 +1,18 @@
+<form class="form-inline">
+  <label class="form-group">Field:</label>
+  <div class="form-group">
+    <re-autocomplete-input type="text" name="key" (valueChange)="condition.key = $event" placeholder="field key">
+    </re-autocomplete-input>
+  </div>
+  <div class="form-group">
+    <div class="btn-group dropdown">
+      <select class="form-control selector input-sm" name="matchSelector" [(ngModel)]="condition.matchType">
+        <option *ngFor="let matchType of matchTypes" [ngValue]="matchType"> {{matchType}} </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <input *ngIf="!(condition.matchType === 'does not exist')" type="text" name="value" [(ngModel)]="condition.value" class="form-control input-sm"
+        placeholder="condition value">
+    </div>
+  </div>
+</form>

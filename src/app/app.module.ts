@@ -12,10 +12,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { JsonEditorModule } from 'ng2-json-editor';
 
 import { environment } from '../environments/environment';
-import { routing, appRoutingProviders, } from './app.routing';
+import { AppRouter } from './app.router';
 import { CoreModule } from './core';
-import { HoldingpenEditorModule } from './holdingpen-editor';
-import { RecordEditorModule } from './record-editor';
 
 import { AppComponent } from './app.component';
 
@@ -41,11 +39,9 @@ export class RavenErrorHandler implements ErrorHandler {
     BrowserModule,
     BrowserAnimationsModule, // needed for ToastrModule
     HttpModule,
-    routing,
+    AppRouter,
     // feature-modules
     CoreModule, // all core services
-    HoldingpenEditorModule,
-    RecordEditorModule,
     AccordionModule.forRoot(),
     // ngx-toastr
     ToastrModule.forRoot({ positionClass: 'toast-bottom-right' }),
@@ -53,7 +49,6 @@ export class RavenErrorHandler implements ErrorHandler {
   providers: [
     { provide: APP_BASE_HREF, useValue: '/editor' },
     { provide: ErrorHandler, useClass: RavenErrorHandler },
-    ...appRoutingProviders,
   ],
   bootstrap: [AppComponent]
 })

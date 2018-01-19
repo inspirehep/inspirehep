@@ -21,9 +21,10 @@
  */
 
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 
 import { SharedModule } from '../shared';
+
+import { RecordEditorRouter } from './record-editor.router';
 
 import { JsonEditorWrapperComponent } from './json-editor-wrapper';
 import { RecordToolbarComponent } from './record-toolbar';
@@ -37,7 +38,7 @@ import { ManualMergeModalComponent } from './manual-merge-modal';
 @NgModule({
   imports: [
     SharedModule,
-    RouterModule
+    RecordEditorRouter
   ],
   declarations: [
     JsonEditorWrapperComponent,
@@ -50,9 +51,6 @@ import { ManualMergeModalComponent } from './manual-merge-modal';
     RecordSearchComponent,
     SavePreviewModalComponent,
     ManualMergeModalComponent
-  ],
-  exports: [
-    JsonEditorWrapperComponent
   ]
 })
 export class RecordEditorModule { }
