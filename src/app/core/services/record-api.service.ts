@@ -30,7 +30,7 @@ import { environment } from '../../../environments/environment';
 import { AppConfigService } from './app-config.service';
 import { CommonApiService } from './common-api.service';
 import { Ticket, RecordRevision } from '../../shared/interfaces';
-
+import { ApiError } from '../../shared/classes';
 import { editorApiUrl, apiUrl } from '../../shared/config';
 
 @Injectable()
@@ -66,7 +66,7 @@ export class RecordApiService extends CommonApiService {
   saveRecord(record: object): Observable<void> {
     return this.http
       .put(this.currentRecordApiUrl, record)
-      .map(res => res.json());
+      .catch(error => Observable.throw(new ApiError(error)));
   }
 
   fetchRecordTickets(): Promise<Array<Ticket>> {

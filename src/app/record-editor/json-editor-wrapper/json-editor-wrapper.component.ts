@@ -146,7 +146,6 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
         this.changeDetectorRef.markForCheck();
       }).catch(error => {
         this.toastrService.clear(loadingToastId);
-        console.error(error);
         if (error.status === 403) {
           this.toastrService.error(`Logged in user can not access to the record: ${recordType}/${recordId}`, 'Forbidden');
         } else {

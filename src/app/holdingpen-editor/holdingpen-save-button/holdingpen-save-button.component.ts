@@ -25,7 +25,7 @@ import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { HoldingpenApiService, RecordCleanupService, DomUtilsService, GlobalAppStateService } from '../../core/services';
-import { SubscriberComponent } from '../../shared/classes';
+import { SubscriberComponent, ApiError } from '../../shared/classes';
 
 @Component({
   selector: 're-holdingpen-save-button',
@@ -106,16 +106,10 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
     return conflicts && conflicts.length > 0;
   }
 
-  private displayErrorToast(error: Response) {
-    let body;
-    if (error.status === 400) {
-      body = error.json();
-    }
-
-    if (body && body.message) {
-      this.toastrService.error(body.message, 'Error', { closeButton: true, timeOut: 15000 });
+  private displayErrorToast(error: ApiError) {
+    if (error.message) {
+      this.toastrService.error(error.message, 'Error', { closeButton: true, timeOut: 15000 });
     } else {
-      console.error(error);
       this.toastrService.error('Could not save the workflow object', 'Error');
     }
   }

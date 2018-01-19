@@ -21,7 +21,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -52,7 +52,7 @@ export class CommonApiService {
   authorExtract(source: string): Observable<AuthorExtractResult> {
     return this.http
       .post(`${editorApiUrl}/authorlist/text`, { text: source })
-      .catch((error: Response) => Observable.throw(new ApiError(error)))
+      .catch(error => Observable.throw(new ApiError(error)))
       .map(res => res.json());
   }
 
