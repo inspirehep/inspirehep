@@ -21,10 +21,11 @@
  */
 
 import { Component, Input, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService, ActiveToast } from 'ngx-toastr';
 import { JsonStoreService } from 'ng2-json-editor';
 
 import { CommonApiService } from '../../../core/services';
+import { ApiError } from '../../../shared/classes';
 
 @Component({
   selector: 're-author-extract-actions',
@@ -38,31 +39,45 @@ export class AuthorExtractActionsComponent {
 
   source: string;
   replaceExisting = true;
+  extractingToast: ActiveToast;
 
   constructor(private apiService: CommonApiService,
     private jsonStoreService: JsonStoreService,
     private toastrService: ToastrService) { }
 
   onExtractClick() {
-    let infoToast = this.toastrService.info('Extracting authors...', 'Wait', { timeOut: 0, onActivateTick: true });
+    this.extractingToast = this.toastrService
+      .info('Extracting authors...', 'Wait', { timeOut: 0, onActivateTick: true });
 
     this.apiService
       .authorExtract(this.source)
-      .then(authors => {
-        if (this.replaceExisting) {
-          this.jsonStoreService.setIn(['authors'], authors);
-        } else {
-          authors.forEach(author => {
-            this.jsonStoreService.addIn(['authors', 0], author);
-          });
-        }
-
-        this.toastrService.clear(infoToast.toastId);
-        this.toastrService.success(`${authors.length} authors extracted.`, 'Success');
-      }).catch(error => {
-        this.toastrService.clear(infoToast.toastId);
-        this.toastrService.error('Could not extract authors', 'Error');
-      });
+      .subscribe(authors => this.onExtract(authors), error => this.onError(error));
   }
 
+  private onExtract(authors: Array<object>) {
+    if (this.replaceExisting) {
+      this.jsonStoreService.setIn(['authors'], authors);
+    } else {
+      authors.forEach(author => {
+        this.jsonStoreService.addIn(['authors', 0], author);
+      });
+    }
+    this.toastrService.clear(this.extractingToast.toastId);
+    this.toastrService.success(`${authors.length} authors extracted.`, 'Success');
+  }
+
+  private onError(error: ApiError) {
+    this.toastrService.clear(this.extractingToast.toastId);
+    if (error.status === 500 && error.message) {
+      this.toastrService
+        .error(error.message, 'Error', {
+          timeOut: 0,
+          extendedTimeOut: 0,
+          closeButton: true,
+          onActivateTick: true
+        });
+    } else {
+      this.toastrService.error('Could not extract authors', 'Error');
+    }
+  }
 }

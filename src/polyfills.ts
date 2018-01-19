@@ -22,6 +22,8 @@ import 'zone.js/dist/zone';
 
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/observable/from';
+import 'rxjs/add/observable/throw';
+
 
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/first';
