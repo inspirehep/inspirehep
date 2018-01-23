@@ -30,6 +30,7 @@ import { ToastrService } from 'ngx-toastr';
 import { RecordApiService, DomUtilsService } from '../../core/services';
 import { RecordRevision } from '../../shared/interfaces';
 import { SubscriberComponent } from '../../shared/classes';
+import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
 @Component({
   selector: 're-manual-merge-modal',
@@ -63,7 +64,7 @@ export class ManualMergeModalComponent extends SubscriberComponent implements On
   }
 
   onMergeClick() {
-    let infoToast = this.toastrService.info('Merging records...', 'Wait', { timeOut: 0, onActivateTick: true });
+    let infoToast = this.toastrService.info('Merging records...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     this.recordApiService
       .manualMerge(this.updateRecordId)

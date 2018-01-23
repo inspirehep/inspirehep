@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SavePreviewModalService, RecordApiService, DomUtilsService } from '../../core/services';
 import { SavePreviewModalOptions } from '../../shared/interfaces';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
+import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
 @Component({
   selector: 're-save-preview-modal',
@@ -59,7 +60,7 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
 
   private onSaveError(error: ApiError) {
     if (error.message) {
-      this.toastrService.error(error.message, 'Error', { closeButton: true, timeOut: 15000 });
+      this.toastrService.error(error.message, 'Error', HOVER_TO_DISMISS_INDEFINITE_TOAST);
     } else {
       this.toastrService.error('Could not save the record', 'Error');
     }
