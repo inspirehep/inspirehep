@@ -27,7 +27,7 @@ import { JsonStoreService } from 'ng2-json-editor';
 import { CommonApiService } from '../../../core/services';
 import { ApiError } from '../../../shared/classes';
 import { AuthorExtractResult } from '../../../shared/interfaces';
-import { DISMISSIBLE_INDEFINITE_TOAST } from '../../../shared/constants';
+import { DISMISSIBLE_INDEFINITE_TOAST, HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../../shared/constants';
 
 @Component({
   selector: 're-author-extract-actions',
@@ -49,7 +49,7 @@ export class AuthorExtractActionsComponent {
 
   onExtractClick() {
     this.extractingToast = this.toastrService
-      .info('Extracting authors...', 'Wait', { timeOut: 0, onActivateTick: true });
+      .info('Extracting authors...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     this.apiService
       .authorExtract(this.source)

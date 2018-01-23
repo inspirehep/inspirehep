@@ -25,6 +25,7 @@ import { JsonStoreService } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
 import { CommonApiService } from '../../../core/services';
+import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../../shared/constants';
 
 @Component({
   selector: 're-file-upload-button',
@@ -42,7 +43,7 @@ export class FileUploadButtonComponent {
 
   onFileSelect(file: File) {
     if (file) {
-      let infoToast = this.toastrService.info('Uploading file...', 'Wait', { timeOut: 0, onActivateTick: true });
+      let infoToast = this.toastrService.info('Uploading file...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
       this.apiService.uploadFile(file)
         .subscribe(uploadedPath => {

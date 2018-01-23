@@ -25,6 +25,7 @@ import { ToastrService } from 'ngx-toastr';
 import { JsonStoreService } from 'ng2-json-editor';
 
 import { CommonApiService } from '../../../core/services';
+import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../../shared/constants';
 
 @Component({
   selector: 're-ref-extract-actions',
@@ -46,7 +47,7 @@ export class RefExtractActionsComponent {
     private toastrService: ToastrService) { }
 
   onExtractClick() {
-    let infoToast = this.toastrService.info('Extracting references...', 'Wait', { timeOut: 0, onActivateTick: true });
+    let infoToast = this.toastrService.info('Extracting references...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     this.apiService
       .refExtract(this.source, this.sourceType)
