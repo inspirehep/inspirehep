@@ -27,7 +27,7 @@ import { Observable } from 'rxjs/Observable';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 
-import { RecordApiService, DomUtilsService } from '../../core/services';
+import { RecordApiService, DomUtilsService, GlobalAppStateService } from '../../core/services';
 import { RecordRevision } from '../../shared/interfaces';
 import { SubscriberComponent } from '../../shared/classes';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
@@ -46,11 +46,14 @@ export class ManualMergeModalComponent extends SubscriberComponent implements On
   updateRecordId: string;
   currentRecordType: string;
 
+  private record: object;
+
   constructor(private router: Router,
     private route: ActivatedRoute,
     private toastrService: ToastrService,
     private recordApiService: RecordApiService,
-    private domUtilsService: DomUtilsService) {
+    private domUtilsService: DomUtilsService,
+    private globalAppStateService: GlobalAppStateService) {
     super();
   }
 
@@ -61,18 +64,26 @@ export class ManualMergeModalComponent extends SubscriberComponent implements On
       .subscribe(recordType => {
         this.currentRecordType = recordType;
       });
+
+    this.globalAppStateService
+      .jsonBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe(jsonBeingEdited => {
+        this.record = jsonBeingEdited;
+      });
   }
 
   onMergeClick() {
     let infoToast = this.toastrService.info('Merging records...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     this.recordApiService
-      .manualMerge(this.updateRecordId)
-      .then(mergeWorkflowObjectId => {
+      .saveRecord(this.record)
+      .switchMap(() => {
+        return this.recordApiService.manualMerge(this.updateRecordId);
+      }).subscribe(mergeWorkflowObjectId => {
         this.toastrService.clear(infoToast.toastId);
-
         this.router.navigate([`holdingpen/${mergeWorkflowObjectId}`]);
-      }).catch((error) => {
+      }, () => {
         this.toastrService.clear(infoToast.toastId);
         this.toastrService.error('Could not merge!', 'Error');
       });
