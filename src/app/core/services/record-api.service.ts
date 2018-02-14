@@ -135,16 +135,15 @@ export class RecordApiService extends CommonApiService {
       .toPromise();
   }
 
-  manualMerge(updateRecordId: string): Promise<number> {
-    let body = {
+  manualMerge(updateRecordId: string): Observable<number> {
+    const body = {
       head_recid: this.currentRecordId,
       update_recid: updateRecordId
     };
     return this.http
       .post(`${editorApiUrl}/manual_merge`, body)
       .map(res => res.json())
-      .map(json => json.workflow_object_id)
-      .toPromise();
+      .map(json => json.workflow_object_id);
   }
 
 }
