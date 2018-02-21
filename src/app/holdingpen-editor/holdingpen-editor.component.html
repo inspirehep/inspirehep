@@ -19,10 +19,11 @@
   <json-editor *ngIf="workflowObject && schema"
     [record]="workflowObject.metadata"
     (recordChange)="onWorkflowMetadataChange($event)"
-    [(jsonPatches)]="workflowObject._extra_data.conflicts"
+    [(jsonPatches)]="workflowExtraData.conflicts"
     [schema]="schema"
     [config]="config"
-    (validationProblems)="onValidationProblems($event)"    
+    [problemMap]="workflowProblems"
+    (validationProblems)="onValidationProblems($event)"
     [templates]="{
       referenceTemplate: referenceTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,

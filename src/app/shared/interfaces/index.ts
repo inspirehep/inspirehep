@@ -5,3 +5,5 @@ export { RecordRevision } from './record-revision';
 export { SearchParams } from './search-params';
 export { SavePreviewModalOptions } from './save-preview-modal-options';
 export { AuthorExtractResult } from './author-extract-result';
+export { WorkflowObject } from './workflow-object';
+export { WorkflowValidationError } from './workflow-validation-error';
