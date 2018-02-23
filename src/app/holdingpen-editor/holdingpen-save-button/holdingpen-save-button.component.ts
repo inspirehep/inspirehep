@@ -26,6 +26,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { HoldingpenApiService, RecordCleanupService, DomUtilsService, GlobalAppStateService } from '../../core/services';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
+import { WorkflowObject } from '../../shared/interfaces';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
 @Component({
@@ -37,7 +38,7 @@ import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HoldingpenSaveButtonComponent extends SubscriberComponent implements OnInit {
-  private workflowObject: object;
+  private workflowObject: WorkflowObject;
 
   private hasAnyValidationProblem = false;
   private hadConflictsIntially: boolean;
@@ -52,6 +53,10 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
     super();
   }
 
+  get jsonBeingEdited$() {
+    return this.globalAppStateService.jsonBeingEdited$;
+  }
+
   ngOnInit() {
     this.globalAppStateService
       .hasAnyValidationProblem$
@@ -60,19 +65,11 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
         this.hasAnyValidationProblem = hasAnyValidationProblem;
         this.changeDetectorRef.markForCheck();
       });
-    this.globalAppStateService
-      .jsonBeingEdited$
-      .first()
-      .map(jsonBeingEdited => this.hasConflicts(jsonBeingEdited))
-      .subscribe(hasConflicts => {
-        this.hadConflictsIntially = hasConflicts;
-      });
 
-    const jsonBeingEdited$ = this.globalAppStateService
-      .jsonBeingEdited$
+    this.jsonBeingEdited$
       .takeUntil(this.isDestroyed)
       .subscribe(jsonBeingEdited => {
-        this.workflowObject = jsonBeingEdited;
+        this.workflowObject = jsonBeingEdited as WorkflowObject;
         this.changeDetectorRef.markForCheck();
       });
   }
@@ -83,28 +80,39 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
 
   onClickSave(event: Object) {
     this.recordCleanupService.cleanup(this.workflowObject['metadata']);
-    this.apiService.saveWorkflowObject(this.workflowObject)
+    if (this.callbackUrl) {
+      this.saveWithCallbackUrl();
+    } else {
+      this.save();
+    }
+  }
+
+  private get callbackUrl(): string | undefined {
+    return this.workflowObject._extra_data ? this.workflowObject._extra_data.callback_url : undefined;
+  }
+
+  private saveWithCallbackUrl() {
+    this.apiService.saveWorkflowObjectWithCallbackUrl(this.workflowObject, this.callbackUrl)
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
-      .filter(() => this.shouldContinueWorkflow())
-      .switchMap(() => this.apiService.continueWorkflow())
-      .subscribe({
-        error: (error) => this.displayErrorToast(error)
+      .subscribe(() => {
+        window.open(`/holdingpen/${this.workflowObject}`);
+      }, (error: ApiError) => {
+        if (error.status === 404) {
+          this.jsonBeingEdited$.next(error.body);
+        } else {
+          this.displayErrorToast(error);
+        }
       });
   }
 
-  private shouldContinueWorkflow(): boolean {
-    return this.isManualMerge() ||
-      (this.hadConflictsIntially && !this.hasConflicts(this.workflowObject));
-  }
-
-  private isManualMerge(): boolean {
-    const workflowName = this.workflowObject['_workflow']['workflow_name'];
-    return workflowName === 'MERGE';
-  }
-
-  private hasConflicts(workflowObject: object): boolean {
-    const conflicts = workflowObject['_extra_data']['conflicts'];
-    return conflicts && conflicts.length > 0;
+  private save() {
+    this.apiService.saveWorkflowObject(this.workflowObject)
+      .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
+      .subscribe(() => {
+        this.toastrService.success(`Workflow object is saved`, 'Success');
+      }, (error) => {
+        this.displayErrorToast(error);
+      });
   }
 
   private displayErrorToast(error: ApiError) {

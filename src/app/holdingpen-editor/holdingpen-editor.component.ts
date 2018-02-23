@@ -76,14 +76,22 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
               .jsonBeingEdited$.next(workflowObject);
             this.globalAppStateService
               .isJsonUpdated$.next(false);
-            this.config = this.appConfigService.getConfigForRecord(this.workflowObject['metadata']);
-            return this.apiService.fetchUrl(this.workflowObject['metadata']['$schema']);
+            this.config = this.appConfigService.getConfigForRecord(this.workflowObject.metadata);
+            return this.apiService.fetchUrl(this.workflowObject.metadata['$schema']);
           }).then(schema => {
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
           }).catch(error => {
             this.toastrService.error('Could not load the holdingpen record!', 'Error');
           });
+      });
+
+    this.globalAppStateService
+      .jsonBeingEdited$
+      .skip(1) // it is set already on the first time
+      .takeUntil(this.isDestroyed)
+      .subscribe(json => {
+        this.workflowObject = json as WorkflowObject;
       });
 
     this.appConfigService.onConfigChange
