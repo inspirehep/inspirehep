@@ -22,11 +22,18 @@
 
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { SchemaValidationProblems } from 'ng2-json-editor';
+import { SchemaValidationProblems, ValidationProblem } from 'ng2-json-editor';
 import { ToastrService } from 'ngx-toastr';
 
-import { HoldingpenApiService, AppConfigService, DomUtilsService, GlobalAppStateService } from '../core/services';
+import {
+  HoldingpenApiService,
+  AppConfigService,
+  DomUtilsService,
+  GlobalAppStateService,
+  WorkflowErrorConverterService
+} from '../core/services';
 import { SubscriberComponent } from '../shared/classes';
+import { WorkflowObject } from '../shared/interfaces';
 
 
 @Component({
@@ -37,9 +44,10 @@ import { SubscriberComponent } from '../shared/classes';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HoldingpenEditorComponent extends SubscriberComponent implements OnInit {
-  workflowObject: object;
+  workflowObject: WorkflowObject;
   schema: Object;
   config: Object;
+  workflowProblems: SchemaValidationProblems;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -47,7 +55,8 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
     private appConfigService: AppConfigService,
     private toastrService: ToastrService,
     private domUtilsService: DomUtilsService,
-    private globalAppStateService: GlobalAppStateService) {
+    private globalAppStateService: GlobalAppStateService,
+    private workflowErrorConverterService: WorkflowErrorConverterService) {
     super();
   }
 
@@ -62,12 +71,13 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
         this.apiService.fetchWorkflowObject(params['objectid'])
           .then(workflowObject => {
             this.workflowObject = workflowObject;
+            this.initWorkflowProblems();
             this.globalAppStateService
               .jsonBeingEdited$.next(workflowObject);
             this.globalAppStateService
               .isJsonUpdated$.next(false);
-            this.config = this.appConfigService.getConfigForRecord(this.workflowObject['metadata']);
-            return this.apiService.fetchUrl(this.workflowObject['metadata']['$schema']);
+            this.config = this.appConfigService.getConfigForRecord(this.workflowObject.metadata);
+            return this.apiService.fetchUrl(this.workflowObject.metadata['$schema']);
           }).then(schema => {
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
@@ -76,12 +86,33 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
           });
       });
 
+    this.globalAppStateService
+      .jsonBeingEdited$
+      .skip(1) // it is set already on the first time
+      .takeUntil(this.isDestroyed)
+      .subscribe(json => {
+        this.workflowObject = json as WorkflowObject;
+      });
+
     this.appConfigService.onConfigChange
       .takeUntil(this.isDestroyed)
       .subscribe(config => {
         this.config = Object.assign({}, config);
         this.changeDetectorRef.markForCheck();
       });
+  }
+
+  private initWorkflowProblems() {
+    const errors = this.workflowExtraData.validation_errors;
+    if (errors && errors.length > 0) {
+      this.workflowProblems = this.workflowErrorConverterService.toValidationProblems(errors);
+    } else {
+      this.workflowProblems = {};
+    }
+  }
+
+  get workflowExtraData() {
+    return this.workflowObject._extra_data || {};
   }
 
   onValidationProblems(problems: SchemaValidationProblems) {

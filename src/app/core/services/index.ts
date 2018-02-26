@@ -7,6 +7,7 @@ import { DomUtilsService } from './dom-utils.service';
 import { RecordSearchService } from './record-search.service';
 import { SavePreviewModalService } from './save-preview-modal.service';
 import { GlobalAppStateService } from './global-app-state.service';
+import { WorkflowErrorConverterService } from './workflow-error-converter.service';
 
 export {
   CommonApiService,
@@ -17,7 +18,8 @@ export {
   DomUtilsService,
   RecordSearchService,
   SavePreviewModalService,
-  GlobalAppStateService
+  GlobalAppStateService,
+  WorkflowErrorConverterService
 };
 
 export const CORE_SERVICES = [
@@ -29,5 +31,6 @@ export const CORE_SERVICES = [
   DomUtilsService,
   RecordSearchService,
   SavePreviewModalService,
-  GlobalAppStateService
+  GlobalAppStateService,
+  WorkflowErrorConverterService
 ];

@@ -21,13 +21,14 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Response } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
 import { CommonApiService } from './common-api.service';
 import { holdingpenApiUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
+import { WorkflowObject } from '../../shared/interfaces';
 
 
 @Injectable()
@@ -39,21 +40,21 @@ export class HoldingpenApiService extends CommonApiService {
     super(http);
   }
 
-  fetchWorkflowObject(objectId: string): Promise<Object> {
+  fetchWorkflowObject(objectId: string): Promise<WorkflowObject> {
     this.currentWorkflowObjectApiUrl = `${holdingpenApiUrl}/${objectId}`;
     return this.fetchUrl(this.currentWorkflowObjectApiUrl);
   }
 
-  saveWorkflowObject(record: object): Observable<void> {
+  saveWorkflowObject(object: WorkflowObject): Observable<void> {
     return this.http
-      .put(this.currentWorkflowObjectApiUrl, record)
+      .put(this.currentWorkflowObjectApiUrl, object)
       .catch(error => Observable.throw(new ApiError(error)))
       .map(res => res.json());
   }
 
-  continueWorkflow(): Observable<void> {
+  saveWorkflowObjectWithCallbackUrl(object: WorkflowObject, callbackUrl: string): Observable<{ message: string }> {
     return this.http
-      .post(`${this.currentWorkflowObjectApiUrl}/action/resolve`, {})
+      .put(callbackUrl, object)
       .catch(error => Observable.throw(new ApiError(error)))
       .map(res => res.json());
   }

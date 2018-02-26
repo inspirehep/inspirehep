@@ -20,22 +20,28 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Response } from '@angular/http';
+import { Injectable } from '@angular/core';
+import { SchemaValidationProblems, ValidationProblem, PathUtilService } from 'ng2-json-editor';
 
-import { DefaultApiErrorBody } from '../interfaces';
+import { WorkflowValidationError  } from '../../shared/interfaces';
 
-export class ApiError<T extends DefaultApiErrorBody = DefaultApiErrorBody> {
-  public readonly body: T;
+@Injectable()
+export class WorkflowErrorConverterService {
 
-  public readonly status: number;
+  constructor(private pathUtilsService: PathUtilService) { }
 
-  constructor(error: Response, parseBody = true) {
-    this.status = error.status;
-    this.body = parseBody ?
-      error.json() : Object.create(null);
-  }
-
-  get message(): string | undefined {
-    return this.body.message;
+  toValidationProblems(errors: Array<WorkflowValidationError>): SchemaValidationProblems {
+    const problemsByPath: SchemaValidationProblems = {};
+    errors.forEach(error => {
+      const path = this.pathUtilsService.toPathString(error.path);
+      const message = error.message;
+      const problem: ValidationProblem = {
+        type: 'Error',
+        message
+      };
+      problemsByPath[path] = problemsByPath[path] || [];
+      problemsByPath[path].push(problem);
+    });
+    return problemsByPath;
   }
 }

@@ -21,10 +21,14 @@
  */
 
 import { NgModule } from '@angular/core';
+import { PathUtilService } from 'ng2-json-editor';
 
 import { CORE_SERVICES } from './services';
 
 @NgModule({
-  providers: CORE_SERVICES
+  providers: [
+    PathUtilService,
+    ...CORE_SERVICES
+  ]
 })
 export class CoreModule { }
