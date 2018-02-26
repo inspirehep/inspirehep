@@ -26,7 +26,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { HoldingpenApiService, RecordCleanupService, DomUtilsService, GlobalAppStateService } from '../../core/services';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
-import { WorkflowObject } from '../../shared/interfaces';
+import { WorkflowObject, WorkflowSaveErrorBody } from '../../shared/interfaces';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
 @Component({
@@ -79,7 +79,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
   }
 
   onClickSave(event: Object) {
-    this.recordCleanupService.cleanup(this.workflowObject['metadata']);
+    this.recordCleanupService.cleanup(this.workflowObject.metadata);
     if (this.callbackUrl) {
       this.saveWithCallbackUrl();
     } else {
@@ -96,9 +96,9 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
       .subscribe(() => {
         window.open(`/holdingpen/${this.workflowObject}`);
-      }, (error: ApiError) => {
-        if (error.status === 404) {
-          this.jsonBeingEdited$.next(error.body);
+      }, (error: ApiError<WorkflowSaveErrorBody>) => {
+        if (error.status === 400 && error.body.error_code === 'VALIDATION_ERROR') {
+          this.jsonBeingEdited$.next(error.body.workflow);
         } else {
           this.displayErrorToast(error);
         }

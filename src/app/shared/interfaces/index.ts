@@ -7,3 +7,5 @@ export { SavePreviewModalOptions } from './save-preview-modal-options';
 export { AuthorExtractResult } from './author-extract-result';
 export { WorkflowObject } from './workflow-object';
 export { WorkflowValidationError } from './workflow-validation-error';
+export { DefaultApiErrorBody } from './default-api-error-body';
+export { WorkflowSaveErrorBody } from './workflow-save-error-body';

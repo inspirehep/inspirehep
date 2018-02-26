@@ -22,10 +22,10 @@
 
 import { Response } from '@angular/http';
 
-export class ApiError {
-  public readonly body: {
-    message?: string
-  };
+import { DefaultApiErrorBody } from '../interfaces';
+
+export class ApiError<T extends DefaultApiErrorBody = DefaultApiErrorBody> {
+  public readonly body: T;
 
   public readonly status: number;
 
