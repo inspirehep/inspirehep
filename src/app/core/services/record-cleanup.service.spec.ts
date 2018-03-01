@@ -46,6 +46,7 @@ describe('RecordCleanupService', () => {
         {},
         [1, ''],
         [],
+        { foo: [{ bar: [] }] },
         { foo: 'bar', empty: '' },
         [{ foo: { empty: '' } }]
       ]
