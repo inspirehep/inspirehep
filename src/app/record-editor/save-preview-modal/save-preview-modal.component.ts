@@ -3,7 +3,7 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, OnIni
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
-import { SavePreviewModalService, RecordApiService, DomUtilsService } from '../../core/services';
+import { SavePreviewModalService, RecordApiService, DomUtilsService, RecordCleanupService } from '../../core/services';
 import { SavePreviewModalOptions } from '../../shared/interfaces';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
@@ -23,7 +23,8 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
     private recordPreviewModalService: SavePreviewModalService,
     private apiService: RecordApiService,
     private changeDetectorRef: ChangeDetectorRef,
-    private domUtilsService: DomUtilsService) {
+    private domUtilsService: DomUtilsService,
+    private recordCleanupService: RecordCleanupService) {
     super();
   }
 
@@ -46,7 +47,9 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
   }
 
   onConfirm() {
-    this.apiService.saveRecord(this.options.record)
+    const record = this.options.record;
+    this.recordCleanupService.cleanup(record);
+    this.apiService.saveRecord(record)
       .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
   }
 
