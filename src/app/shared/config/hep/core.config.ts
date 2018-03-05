@@ -639,7 +639,7 @@ export const coreHep: JsonEditorConfig = {
       getUrl: (record) => {
         let dois: Array<{ value: string }> = record['dois'];
         if (dois && dois.length > 0) {
-          return `//dx.doi.org/${dois[0].value}`;
+          return `//doi.org/${dois[0].value}`;
         } else {
           return undefined;
         }
