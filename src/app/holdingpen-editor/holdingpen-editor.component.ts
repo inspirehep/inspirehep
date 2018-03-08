@@ -71,7 +71,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
         this.apiService.fetchWorkflowObject(params['objectid'])
           .then(workflowObject => {
             this.workflowObject = workflowObject;
-            this.initWorkflowProblems();
+            this.setWorkflowProblems();
             this.globalAppStateService
               .jsonBeingEdited$.next(workflowObject);
             this.globalAppStateService
@@ -92,6 +92,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
       .takeUntil(this.isDestroyed)
       .subscribe(json => {
         this.workflowObject = json as WorkflowObject;
+        this.setWorkflowProblems();
       });
 
     this.appConfigService.onConfigChange
@@ -102,7 +103,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
       });
   }
 
-  private initWorkflowProblems() {
+  private setWorkflowProblems() {
     const errors = this.workflowExtraData.validation_errors;
     if (errors && errors.length > 0) {
       this.workflowProblems = this.workflowErrorConverterService.toValidationProblems(errors);
