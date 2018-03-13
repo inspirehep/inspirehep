@@ -38,10 +38,7 @@ export class AppConfigService {
     const recordType = this.getRecordType(record);
 
     if (recordType === 'hep') {
-      const hepType = this.getHepType(record['document_type']);
-      if (hepType) {
-        return this.configsByType[hepType];
-      }
+      return this.getConfigForHepRecord(record);
     }
 
     return this.configsByType[recordType];
@@ -51,6 +48,16 @@ export class AppConfigService {
     const schemaUrl: string = record['$schema'];
     const typeWithFileExt = schemaUrl.slice(schemaUrl.lastIndexOf('/') + 1, schemaUrl.length);
     return typeWithFileExt.slice(0, typeWithFileExt.lastIndexOf('.'));
+  }
+
+  private getConfigForHepRecord(record: object): JsonEditorConfig {
+    if (record['document_type']) {
+      const hepType = this.getHepType(record['document_type']);
+      if (hepType) {
+        return this.configsByType[hepType];
+      }
+    }
+    return this.configsByType.hep;
   }
 
   /**
