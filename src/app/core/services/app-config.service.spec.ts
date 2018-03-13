@@ -55,6 +55,27 @@ describe('AppConfigService', () => {
     expect(service.getConfigForRecord(record)).toEqual(expectedConfig);
   });
 
+
+  it('should return hep if document_type is not present', () => {
+    let config = {
+      hep: {
+        name: 'hep'
+      }
+    };
+
+    (service as any).configsByType = config;
+
+    let record = {
+      $schema: 'http://foo/bar/hep.json'
+    };
+
+    let expectedConfig = {
+      name: 'hep'
+    };
+
+    expect(service.getConfigForRecord(record)).toEqual(expectedConfig);
+  });
+
   it('should get config for special hep type', () => {
     let config = {
       specialHep: {
