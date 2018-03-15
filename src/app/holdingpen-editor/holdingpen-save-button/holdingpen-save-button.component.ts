@@ -102,9 +102,8 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
       }, (error: ApiError<WorkflowSaveErrorBody>) => {
         if (error.status === 400 && error.body.error_code === 'VALIDATION_ERROR') {
           this.jsonBeingEdited$.next(error.body.workflow);
-        } else {
-          this.displayErrorToast(error);
         }
+        this.displayErrorToast(error);
       });
   }
 
@@ -119,10 +118,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
   }
 
   private displayErrorToast(error: ApiError) {
-    if (error.message) {
-      this.toastrService.error(error.message, 'Error', HOVER_TO_DISMISS_INDEFINITE_TOAST);
-    } else {
-      this.toastrService.error('Could not save the workflow object', 'Error');
-    }
+    const errorMessage = error.message || 'Could not save the workflow object';
+    this.toastrService.error(errorMessage, 'Error');
   }
 }
