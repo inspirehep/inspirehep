@@ -9,3 +9,4 @@ export { WorkflowObject } from './workflow-object';
 export { WorkflowValidationError } from './workflow-validation-error';
 export { DefaultApiErrorBody } from './default-api-error-body';
 export { WorkflowSaveErrorBody } from './workflow-save-error-body';
+export { JsonPatch } from './json-patch';

@@ -6,4 +6,3 @@ export { QueryResult } from './query-result';
 export { RecordsPreview } from './records-preview';
 export { PaginatedRecords } from './paginated-records';
 export { SubmitMessage } from './submit-message';
-export { JsonPatch } from './json-patch';

@@ -41,7 +41,6 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
   private workflowObject: WorkflowObject;
 
   private hasAnyValidationProblem = false;
-  private hadConflictsIntially: boolean;
 
   constructor(private router: Router,
     private changeDetectorRef: ChangeDetectorRef,
@@ -94,17 +93,26 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
   private saveWithCallbackUrl() {
     this.apiService.saveWorkflowObjectWithCallbackUrl(this.workflowObject, this.callbackUrl)
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
-      .subscribe(() => {
-        const referrer = document.referrer;
-        const origin = window.location.origin;
-        const redirectUrl = referrer.startsWith(origin) ? referrer : `/holdingpen/${this.workflowObject.id}`;
-        window.location.href = redirectUrl;
+      .subscribe((body) => {
+        if (this.hasConflicts()) {
+          this.toastrService.success(body.message, 'Success');
+        } else {
+          const referrer = document.referrer;
+          const origin = window.location.origin;
+          const redirectUrl = referrer.startsWith(origin) ? referrer : `/holdingpen/${this.workflowObject.id}`;
+          window.location.href = redirectUrl;
+        }
       }, (error: ApiError<WorkflowSaveErrorBody>) => {
         if (error.status === 400 && error.body.error_code === 'VALIDATION_ERROR') {
           this.jsonBeingEdited$.next(error.body.workflow);
         }
         this.displayErrorToast(error);
       });
+  }
+
+  private hasConflicts(): boolean {
+    const extraData = this.workflowObject._extra_data;
+    return extraData && extraData.conflicts && extraData.conflicts.length > 0;
   }
 
   private save() {

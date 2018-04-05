@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import * as _ from 'lodash';
-import { JsonPatch } from '../shared/interfaces';
+import { JsonPatch } from '../../shared/interfaces';
 
 @Component({
   selector: 're-any-type-node',

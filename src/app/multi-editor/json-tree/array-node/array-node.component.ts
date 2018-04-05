@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { JsonPatch } from '../../shared/interfaces';
+import { JsonPatch } from '../../../shared/interfaces';
 import { AbstractParentNode } from '../abstract-parent-node';
 
 @Component({

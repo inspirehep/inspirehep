@@ -1,4 +1,4 @@
-import { JsonPatch } from '../shared/interfaces';
+import { JsonPatch } from '../../shared/interfaces';
 
 export abstract class AbstractParentNode {
   diff?: JsonPatch[];

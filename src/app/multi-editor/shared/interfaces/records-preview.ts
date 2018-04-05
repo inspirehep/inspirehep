@@ -1,4 +1,4 @@
-import { JsonPatch } from './json-patch';
+import { JsonPatch } from '../../../shared/interfaces';
 
 export interface RecordsPreview {
     json_records: object[];
