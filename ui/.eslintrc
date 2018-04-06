@@ -1,3 +1,33 @@
 {
-  "extends": "airbnb"
+  "extends": "airbnb",
+  "rules": {
+    "react/prefer-stateless-function": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": [
+          "Link"
+        ],
+        "specialLink": [
+          "to",
+          "hrefLeft",
+          "hrefRight"
+        ],
+        "aspects": [
+          "noHref",
+          "invalidHref",
+          "preferButton"
+        ]
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "**/*.test.jsx?"
+        ]
+      }
+    ],
+    "no-else-return": "off"
+  }
 }
