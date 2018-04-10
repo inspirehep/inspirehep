@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App renders initial state 1`] = `
+<div>
+  <Adapter>
+    <Adapter>
+      <Menu
+        className="menu"
+        mode="horizontal"
+        prefixCls="ant-menu"
+        theme="dark"
+      >
+        <MenuItem>
+          <Link
+            replace={false}
+            to="/holdingpen"
+          >
+            Holdingpen
+          </Link>
+        </MenuItem>
+      </Menu>
+    </Adapter>
+    <Adapter>
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/holdingpen"
+      />
+    </Adapter>
+  </Adapter>
+</div>
+`;

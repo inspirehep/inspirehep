@@ -1,12 +1,13 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
-import App from './App';
-import Holdingpen from './holdingpen';
+import App from '../App';
+import Holdingpen from '../holdingpen';
 
 describe('App', () => {
-  it('renders without crashing', () => {
-    shallow(<App />);
+  it('renders initial state', () => {
+    const component = shallow(<App />);
+    expect(component).toMatchSnapshot();
   });
 
   it('navigates to Holdingpen when /holdingpen', () => {
