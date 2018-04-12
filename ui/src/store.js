@@ -10,9 +10,9 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import reducers from './reducers';
 import http from './common/http';
 
+export const thunkMiddleware = thunk.withExtraArgument(http);
 export const history = createHistory();
 const reduxRouterMiddleware = routerMiddleware(history);
-const thunkMiddleware = thunk.withExtraArgument(http);
 
 const getMiddleware = () => {
   if (process.env.NODE_ENV === 'production') {
