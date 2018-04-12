@@ -4,21 +4,34 @@ exports[`App renders initial state 1`] = `
 <div>
   <Adapter>
     <Adapter>
-      <Menu
-        className="menu"
-        mode="horizontal"
-        prefixCls="ant-menu"
-        theme="dark"
+      <Row
+        gutter={0}
       >
-        <MenuItem>
-          <Link
-            replace={false}
-            to="/holdingpen"
+        <Col
+          span={12}
+        >
+          <Menu
+            className="menu"
+            mode="horizontal"
+            prefixCls="ant-menu"
+            theme="dark"
           >
-            Holdingpen
-          </Link>
-        </MenuItem>
-      </Menu>
+            <MenuItem>
+              <Link
+                replace={false}
+                to="/holdingpen"
+              >
+                Holdingpen
+              </Link>
+            </MenuItem>
+          </Menu>
+        </Col>
+        <Col
+          span={12}
+        >
+          <Connect(SearchBox) />
+        </Col>
+      </Row>
     </Adapter>
     <Adapter>
       <Route

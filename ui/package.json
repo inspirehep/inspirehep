@@ -23,6 +23,7 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "axios-mock-adapter": "^1.15.0",
     "babel-plugin-import": "^1.7.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -35,6 +36,7 @@
     "react-app-rewired": "^1.5.0",
     "react-test-renderer": "^16.2.0",
     "redux-devtools-extension": "^2.13.2",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "redux-mock-store": "^1.5.1"
   }
 }
