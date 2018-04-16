@@ -29,7 +29,7 @@ exports[`App renders initial state 1`] = `
         <Col
           span={12}
         >
-          <Connect(SearchBox) />
+          <Connect(Component) />
         </Col>
       </Row>
     </Adapter>
