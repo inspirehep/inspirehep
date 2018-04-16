@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 
+import toJS from '../immutableToJS';
 import SearchBox from '../components/SearchBox';
 import search from '../../actions/search';
 
@@ -9,5 +10,4 @@ const actionsToProps = dispatch => ({
   },
 });
 
-export default connect(null, actionsToProps)(SearchBox);
-
+export default connect(null, actionsToProps)(toJS(SearchBox));
