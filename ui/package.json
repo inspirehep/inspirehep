@@ -2,6 +2,7 @@
   "name": "inspire-next-react",
   "license": "GPL-2.0",
   "version": "0.1.0",
+  "proxy": "http://localhost:5000",
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
@@ -14,6 +15,7 @@
     "axios": "^0.18.0",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
+    "qs": "^6.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
