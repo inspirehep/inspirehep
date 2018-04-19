@@ -4,10 +4,14 @@ import toJS from '../immutableToJS';
 import SearchBox from '../components/SearchBox';
 import search from '../../actions/search';
 
-const dispatchToProps = dispatch => ({
-  onSearch(query) {
-    dispatch(search(query));
+const stateToProps = state => ({
+  defaultValue: state.router.location.query.q,
+});
+
+export const dispatchToProps = dispatch => ({
+  onSearch(value) {
+    dispatch(search({ q: value }));
   },
 });
 
-export default connect(null, dispatchToProps)(toJS(SearchBox));
+export default connect(stateToProps, dispatchToProps)(toJS(SearchBox));

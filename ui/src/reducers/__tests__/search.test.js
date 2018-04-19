@@ -3,6 +3,22 @@ import reducer from '../search';
 import * as types from '../../actions/actionTypes';
 
 describe('search reducer', () => {
+  it('default', () => {
+    const state = reducer(undefined, {});
+    const expected = fromJS({
+      searching: false,
+      scope: {
+        name: 'literature',
+        pathname: 'literature',
+        query: {
+          sort: 'mostrecent',
+          size: 25,
+        },
+      },
+    });
+    expect(state).toEqual(expected);
+  });
+
   it('SEARCHING', () => {
     const state = reducer(Map(), { type: types.SEARCHING });
     const expected = Map({ searching: true });

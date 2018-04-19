@@ -21,7 +21,7 @@ class App extends Component {
                   mode="horizontal"
                 >
                   <Menu.Item>
-                    <Link to="/holdingpen">Holdingpen</Link>
+                    <Link to="/holdingpen/dashboard">Holdingpen</Link>
                   </Menu.Item>
                 </Menu>
               </Col>
