@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBoxContainer renders initial state with initial url query q param 1`] = `
+<div>
+  <span
+    className="ant-input-search ant-input-search-enter-button ant-input-affix-wrapper"
+  >
+    <input
+      className="ant-input"
+      defaultValue="test"
+      disabled={false}
+      onKeyDown={[Function]}
+      placeholder={null}
+      style={null}
+      type="text"
+    />
+    <span
+      className="ant-input-suffix"
+    >
+      <button
+        className="ant-btn ant-input-search-button ant-btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="anticon anticon-search"
+        />
+      </button>
+    </span>
+  </span>
+</div>
+`;

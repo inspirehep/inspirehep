@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import Dashboard from './containers/Dashboard';
+import DashboardPage from './containers/DashboardPage';
+import SearchPage from './containers/SearchPage';
 
 class Holdingpen extends Component {
   render() {
     return (
       <div>
-        <Route exact path="/holdingpen" component={Dashboard} />
+        <Route exact path="/holdingpen" component={SearchPage} />
+        <Route exact path="/holdingpen/dashboard" component={DashboardPage} />
       </div>
     );
   }

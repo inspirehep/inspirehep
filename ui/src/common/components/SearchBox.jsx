@@ -8,6 +8,7 @@ class SearchBox extends Component {
       <div>
         <Input.Search
           placeholder={this.props.placeholder}
+          defaultValue={this.props.defaultValue}
           onSearch={this.props.onSearch}
           enterButton
         />
@@ -17,12 +18,14 @@ class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
+  defaultValue: PropTypes.string,
   placeholder: PropTypes.string,
   onSearch: PropTypes.func,
 };
 
 SearchBox.defaultProps = {
-  placeholder: '',
+  defaultValue: null,
+  placeholder: null,
   onSearch: null,
 };
 

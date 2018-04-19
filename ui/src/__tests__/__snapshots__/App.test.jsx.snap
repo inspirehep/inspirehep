@@ -19,7 +19,7 @@ exports[`App renders initial state 1`] = `
             <MenuItem>
               <Link
                 replace={false}
-                to="/holdingpen"
+                to="/holdingpen/dashboard"
               >
                 Holdingpen
               </Link>
