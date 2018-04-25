@@ -2,6 +2,7 @@
 
 # dependencies
 **/node_modules
+**/__image_snapshots__/__diff_output__
 
 # testing
 /coverage

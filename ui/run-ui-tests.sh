@@ -1,4 +1,8 @@
+#!/bin/bash -xe
 yarn build
 cd ui-tests
-yarn
-yarn test
+sudo chown -R 999 .
+rc=0
+docker-compose run --rm node || rc=$?
+sudo chown -R $USER .
+exit $rc
