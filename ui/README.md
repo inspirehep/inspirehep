@@ -1,7 +1,32 @@
 # inspire-next-react
 
-Prototype UI for [inspirehep/inspire-next](https://github.com/inspirehep/inspire-next) built with React.
+UI for [inspirehep/inspire-next](https://github.com/inspirehep/inspire-next) built with React.
 
+## Roadmap
+
+- Common search components
+- OpenShift integration
+- Exception Dashboard
+- Literature and Author Search
+- ...
+
+## Dependencies
+
+### Runtime
+
+- react (with react-router)
+- redux (with immutable)
+- ant-design
+
+### Development
+
+- react-scripts: provides scripts for running app in dev mode, building for prod and running tests
+  - this provides all setup for webpack, babel etc.
+- jest: for running unit and ui tests
+- enzyme: react testing utilities
+- eslint: linter for js and jsx files (uses airbnb's styleguide)
+- pupeteer: for running ui tests on headless chrome (+ image snapshot testing)
+- docker: ui tests are running inside docker with production build.
 
 ## Testing
 
