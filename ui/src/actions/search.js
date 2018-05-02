@@ -24,16 +24,19 @@ function searchError(error) {
 }
 
 function getSearchUrl(state, query) {
+  const pathname = state.search.getIn(['scope', 'pathname']);
+  const queryString = stringify(query, { indices: false });
+  return `${pathname}?${queryString}`;
+}
+
+function appendQuery(state, query) {
   const locationQuery = state.router.location.query;
   const baseQuery = state.search.getIn(['scope', 'query']).toJS();
-  const pathname = state.search.getIn(['scope', 'pathname']);
-  const newQuery = {
+  return {
     ...locationQuery,
     ...baseQuery,
     ...query,
   };
-  const queryString = stringify(newQuery);
-  return `${pathname}?${queryString}`;
 }
 
 export default function search(query) {
@@ -41,8 +44,9 @@ export default function search(query) {
     dispatch(searching());
 
     const state = getState();
-    const url = getSearchUrl(state, query);
-    if (query) {
+    const newQuery = appendQuery(state, query);
+    const url = getSearchUrl(state, newQuery);
+    if (Object.keys(newQuery).length > 0) {
       dispatch(push(url));
     }
     try {

@@ -1,22 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { getStore } from '../../../fixtures/store';
 import { SEARCHING } from '../../../actions/actionTypes';
 import SearchPage from '../SearchPage';
 
-describe('SearchPage', () => {
-  // TODO: remove
-  it('renders initial state', () => {
-    const component = shallow((
-      <Provider store={getStore()}>
-        <SearchPage />
-      </Provider>
-    ));
-    expect(component).toMatchSnapshot();
-  });
-
+describe('Literature - SearchPage', () => {
   it('dispatches search', () => {
     const store = getStore();
     mount((

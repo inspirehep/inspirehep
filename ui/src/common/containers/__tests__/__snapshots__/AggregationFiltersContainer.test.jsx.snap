@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AggregationFiltersContainer renders initial state with initial url query q param 1`] = `
+<div
+  className="ant-list ant-list-split"
+>
+  <div
+    className="ant-spin-nested-loading"
+    style={null}
+  >
+    <div
+      className="ant-spin-container"
+      key="container"
+    >
+      <div
+        className="ant-list-item"
+      >
+        <div
+          className="ant-list-item-content ant-list-item-content-single"
+        >
+          <div
+            style={
+              Object {
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="ant-list ant-list-split"
+            >
+              <div
+                className="ant-list-header"
+              >
+                <strong>
+                  agg1
+                </strong>
+              </div>
+              <div
+                className="ant-spin-nested-loading"
+                style={null}
+              >
+                <div
+                  className="ant-spin-container"
+                  key="container"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ant-list-item"
+      >
+        <div
+          className="ant-list-item-content ant-list-item-content-single"
+        >
+          <div
+            style={
+              Object {
+                "width": "100%",
+              }
+            }
+          >
+            <div
+              className="ant-list ant-list-split"
+            >
+              <div
+                className="ant-list-header"
+              >
+                <strong>
+                  agg2
+                </strong>
+              </div>
+              <div
+                className="ant-spin-nested-loading"
+                style={null}
+              >
+                <div
+                  className="ant-spin-container"
+                  key="container"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
