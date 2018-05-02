@@ -4,6 +4,7 @@ import { Layout, Menu, Row, Col } from 'antd';
 
 import './App.css';
 import Holdingpen from './holdingpen';
+import Literature from './literature';
 import SearchBoxContainer from './common/containers/SearchBoxContainer';
 
 
@@ -32,7 +33,8 @@ class App extends Component {
           </Layout.Header>
 
           <Layout.Content>
-            <Route exact path="/holdingpen" component={Holdingpen} />
+            <Route path="/holdingpen" component={Holdingpen} />
+            <Route path="/literature" component={Literature} />
           </Layout.Content>
         </Layout>
       </div>

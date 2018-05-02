@@ -23,6 +23,7 @@ const searchScopes = fromJS({
 
 export const initialState = fromJS({
   searching: false,
+  aggregations: {},
   scope: searchScopes.get('literature'),
 });
 
@@ -39,7 +40,8 @@ const searchReducer = (state = initialState, action) => {
     case types.SEARCH_SUCCESS:
       return state
         .set('searching', false)
-        .set('results', fromJS(action.payload));
+        .set('aggregations', fromJS(action.payload.aggregations))
+        .set('results', fromJS(action.payload.hits.hits));
     case types.SEARCH_ERROR:
       return state
         .set('searching', false)

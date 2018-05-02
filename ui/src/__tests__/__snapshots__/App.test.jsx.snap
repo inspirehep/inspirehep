@@ -29,15 +29,18 @@ exports[`App renders initial state 1`] = `
         <Col
           span={12}
         >
-          <Connect(Component) />
+          <Connect(SearchBox) />
         </Col>
       </Row>
     </Adapter>
     <Adapter>
       <Route
         component={[Function]}
-        exact={true}
         path="/holdingpen"
+      />
+      <Route
+        component={[Function]}
+        path="/literature"
       />
     </Adapter>
   </Adapter>
