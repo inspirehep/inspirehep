@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultItem render initial state with all props set 1`] = `
+<Item>
+  <Meta
+    description={
+      <div>
+        description...
+      </div>
+    }
+    title={
+      <strong>
+        title
+      </strong>
+    }
+  />
+  <span>
+    More
+  </span>
+  <span>
+    Content
+  </span>
+</Item>
+`;

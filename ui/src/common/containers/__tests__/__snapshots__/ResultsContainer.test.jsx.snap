@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultsContainer renders initial state  1`] = `
+<div
+  className="ant-list ant-list-vertical ant-list-split"
+>
+  <div
+    className="ant-spin-nested-loading"
+    style={null}
+  >
+    <div
+      className="ant-spin-container"
+      key="container"
+    >
+      <div
+        key="1"
+      >
+        <span>
+          value1
+        </span>
+      </div>
+      <div
+        key="2"
+      >
+        <span>
+          value2
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
