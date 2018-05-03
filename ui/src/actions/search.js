@@ -23,18 +23,20 @@ function searchError(error) {
   };
 }
 
+// TODO: test
 function getSearchUrl(state, query) {
   const pathname = state.search.getIn(['scope', 'pathname']);
   const queryString = stringify(query, { indices: false });
   return `${pathname}?${queryString}`;
 }
 
+// TODO: test
 function appendQuery(state, query) {
   const locationQuery = state.router.location.query;
   const baseQuery = state.search.getIn(['scope', 'query']).toJS();
   return {
-    ...locationQuery,
     ...baseQuery,
+    ...locationQuery,
     ...query,
   };
 }

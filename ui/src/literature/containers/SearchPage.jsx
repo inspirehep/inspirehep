@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
-import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 
+import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
+import PaginationContainer from '../../common/containers/PaginationContainer';
 import search from '../../actions/search';
 
 class SearchPage extends Component {
@@ -17,6 +18,9 @@ class SearchPage extends Component {
         <Row>
           <Col span={6}>
             <AggregationFiltersContainer />
+          </Col>
+          <Col span={18}>
+            <PaginationContainer />
           </Col>
         </Row>
       </div>
