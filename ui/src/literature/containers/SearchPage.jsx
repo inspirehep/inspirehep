@@ -5,6 +5,7 @@ import { Row, Col } from 'antd';
 
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 import PaginationContainer from '../../common/containers/PaginationContainer';
+import SortByContainer from '../../common/containers/SortByContainer';
 import search from '../../actions/search';
 
 class SearchPage extends Component {
@@ -20,7 +21,14 @@ class SearchPage extends Component {
             <AggregationFiltersContainer />
           </Col>
           <Col span={18}>
-            <PaginationContainer />
+            <Row>
+              <Col span={12}>
+                <PaginationContainer />
+              </Col>
+              <Col span={12}>
+                <SortByContainer />
+              </Col>
+            </Row>
           </Col>
         </Row>
       </div>
