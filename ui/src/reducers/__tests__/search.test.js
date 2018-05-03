@@ -8,12 +8,13 @@ describe('search reducer', () => {
     const expected = fromJS({
       searching: false,
       aggregations: Map(),
+      total: 0,
       scope: {
         name: 'literature',
         pathname: 'literature',
         query: {
           sort: 'mostrecent',
-          size: 25,
+          size: '25',
         },
       },
     });
@@ -31,10 +32,16 @@ describe('search reducer', () => {
       aggregations: {},
       hits: {
         hits: ['found'],
+        total: 1,
       },
     };
     const state = reducer(Map(), { type: types.SEARCH_SUCCESS, payload });
-    const expected = fromJS({ searching: false, aggregations: {}, results: payload.hits.hits });
+    const expected = fromJS({
+      searching: false,
+      aggregations: {},
+      total: payload.hits.total,
+      results: payload.hits.hits,
+    });
     expect(state).toEqual(expected);
   });
 

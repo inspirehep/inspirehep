@@ -5,7 +5,7 @@ import * as types from '../actions/actionTypes';
 
 const baseQuery = {
   sort: 'mostrecent',
-  size: 25,
+  size: '25',
 };
 
 const searchScopes = fromJS({
@@ -24,6 +24,7 @@ const searchScopes = fromJS({
 export const initialState = fromJS({
   searching: false,
   aggregations: {},
+  total: 0,
   scope: searchScopes.get('literature'),
 });
 
@@ -41,6 +42,7 @@ const searchReducer = (state = initialState, action) => {
       return state
         .set('searching', false)
         .set('aggregations', fromJS(action.payload.aggregations))
+        .set('total', fromJS(action.payload.hits.total))
         .set('results', fromJS(action.payload.hits.hits));
     case types.SEARCH_ERROR:
       return state
