@@ -17,7 +17,7 @@
     "axios": "^0.18.0",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
-    "math-interval-2": "^1.0.2",
+    "math-interval-2": "^1.1.0",
     "qs": "^6.5.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

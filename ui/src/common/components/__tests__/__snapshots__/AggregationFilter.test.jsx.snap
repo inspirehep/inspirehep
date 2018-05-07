@@ -1,66 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AggregationFilter render initial state with all props set 1`] = `
-<div
-  style={
-    Object {
-      "width": "100%",
-    }
+exports[`AggregationFilter renders CheckboxAggregation if range prop is not set 1`] = `
+<CheckboxAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        key: "bucket1",
+        doc_count: 1,
+      },
+      Immutable.Map {
+        key: "bucket2",
+        doc_count: 2,
+      },
+    ]
   }
->
-  <List
-    bordered={false}
-    dataSource={Array []}
-    header={
-      <strong>
-        Test
-      </strong>
-    }
-    loading={false}
-    pagination={false}
-    prefixCls="ant-list"
-    split={true}
-  >
-    <Item
-      key="bucket1"
-    >
-      <Meta
-        title={
-          <CheckboxItem
-            checked={true}
-            onChange={[Function]}
-          >
-            bucket1
-          </CheckboxItem>
-        }
-      />
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
-        1
-      </Tag>
-    </Item>
-    <Item
-      key="bucket2"
-    >
-      <Meta
-        title={
-          <CheckboxItem
-            checked={false}
-            onChange={[Function]}
-          >
-            bucket2
-          </CheckboxItem>
-        }
-      />
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
-        2
-      </Tag>
-    </Item>
-  </List>
-</div>
+  name="Test"
+  onChange={[Function]}
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+/>
+`;
+
+exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = `
+<RangeAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        key: "bucket1",
+        doc_count: 1,
+      },
+      Immutable.Map {
+        key: "bucket2",
+        doc_count: 2,
+      },
+    ]
+  }
+  countPropName="doc_count"
+  deselectedColor="#fff"
+  height={100}
+  hoverColor="#69c0ff"
+  keyPropName="key_as_string"
+  name="Test"
+  onChange={[Function]}
+  selectedColor="#91d5ff"
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+  width={200}
+/>
 `;
