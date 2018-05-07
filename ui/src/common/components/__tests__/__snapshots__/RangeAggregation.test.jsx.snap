@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RangeAggregation render initial state with all required props set 1`] = `
+<div>
+  <strong>
+    Test
+  </strong>
+  <Button
+    ghost={false}
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+  >
+    Reset
+  </Button>
+  <div
+    style={
+      Object {
+        "margin": 14,
+      }
+    }
+  >
+    <FlexibleXYPlot
+      height={100}
+      margin={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+        }
+      }
+      onMouseLeave={[Function]}
+    >
+      <VerticalRectSeries
+        className=""
+        colorType="literal"
+        data={
+          Array [
+            Object {
+              "color": "#fff",
+              "x": 2010.5,
+              "x0": 2009.5,
+              "y": 1,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2011.5,
+              "x0": 2010.5,
+              "y": 2,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2012.5,
+              "x0": 2011.5,
+              "y": 3,
+            },
+          ]
+        }
+        onNearestX={[Function]}
+        onValueClick={[Function]}
+        stack={false}
+        style={Object {}}
+      />
+    </FlexibleXYPlot>
+    <Slider
+      included={true}
+      marks={
+        Object {
+          "2010": 2010,
+          "2012": 2012,
+        }
+      }
+      max={2012}
+      min={2010}
+      onAfterChange={[Function]}
+      onChange={[Function]}
+      prefixCls="ant-slider"
+      range={true}
+      style={
+        Object {
+          "width": 300,
+        }
+      }
+      tipFormatter={[Function]}
+      tooltipPrefixCls="ant-tooltip"
+      value={
+        Array [
+          2011,
+          2012,
+        ]
+      }
+    />
+  </div>
+</div>
+`;

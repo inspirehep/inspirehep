@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckboxAggregation render initial state with all props set 1`] = `
+<div
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
+  <List
+    bordered={false}
+    dataSource={Array []}
+    header={
+      <strong>
+        Test
+      </strong>
+    }
+    loading={false}
+    pagination={false}
+    prefixCls="ant-list"
+    split={true}
+  >
+    <Item
+      key="bucket1"
+    >
+      <Meta
+        title={
+          <CheckboxItem
+            checked={true}
+            onChange={[Function]}
+          >
+            bucket1
+          </CheckboxItem>
+        }
+      />
+      <Tag
+        closable={false}
+        prefixCls="ant-tag"
+      >
+        1
+      </Tag>
+    </Item>
+    <Item
+      key="bucket2"
+    >
+      <Meta
+        title={
+          <CheckboxItem
+            checked={false}
+            onChange={[Function]}
+          >
+            bucket2
+          </CheckboxItem>
+        }
+      />
+      <Tag
+        closable={false}
+        prefixCls="ant-tag"
+      >
+        2
+      </Tag>
+    </Item>
+  </List>
+</div>
+`;

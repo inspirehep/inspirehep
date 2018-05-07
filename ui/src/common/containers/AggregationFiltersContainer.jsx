@@ -8,18 +8,34 @@ import AggregationFilter from '../components/AggregationFilter';
 import { forceArray } from '../utils';
 import search from '../../actions/search';
 
+const RANGE_AGGREATION_KEY = 'earliest_date';
+
 class AggregationFiltersContainer extends Component {
+  static isRange(aggregationKey) {
+    return aggregationKey === RANGE_AGGREATION_KEY;
+  }
+
+  onAggregationChange(key, selections) {
+    const isRange = AggregationFiltersContainer.isRange(key);
+    let aggregations = selections;
+    if (isRange && aggregations.length > 0) {
+      aggregations = selections.join('--');
+    }
+    this.props.onAggregationChange(key, aggregations);
+  }
+
   render() {
     return (
       <List>
         {this.props.aggregations.entrySeq().map(([aggregationKey, aggregation]) => (
           <List.Item key={aggregationKey}>
             <AggregationFilter
+              range={aggregationKey === RANGE_AGGREATION_KEY}
               name={aggregationKey}
               buckets={aggregation.get('buckets')}
-              selectedKeys={forceArray(this.props.query[aggregationKey])}
+              selected={forceArray(this.props.query[aggregationKey])}
               onChange={
-                (selections) => { this.props.onAggregationChange(aggregationKey, selections); }
+                (selections) => { this.onAggregationChange(aggregationKey, selections); }
               }
             />
           </List.Item>

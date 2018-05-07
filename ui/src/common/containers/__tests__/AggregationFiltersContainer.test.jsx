@@ -30,6 +30,8 @@ describe('AggregationFiltersContainer', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  // TODO: test onAggregationChange when range aggregation
+
   it('dispatches search onAggregationChange', () => {
     const store = getStore();
     const props = dispatchToProps(store.dispatch);

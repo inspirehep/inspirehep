@@ -35,21 +35,21 @@ describe('utils', () => {
   describe('pluckMinMaxPair', () => {
     it('returns min max pair by using getter function on each item', () => {
       const list = fromJS([{ number: 1 }, { number: -1 }, { number: 0 }]);
-      const [min, max] = pluckMinMaxPair(list, item => item.number);
+      const [min, max] = pluckMinMaxPair(list, item => item.get('number'));
       expect(min).toBe(-1);
       expect(max).toBe(1);
     });
 
     it('returns [0, 0] if list is empty', () => {
       const list = fromJS([]);
-      const [min, max] = pluckMinMaxPair(list, item => item.number);
+      const [min, max] = pluckMinMaxPair(list, item => item.get('number'));
       expect(min).toBe(0);
       expect(max).toBe(0);
     });
 
     it('returns min === max if list has single item', () => {
       const list = fromJS([{ number: 1 }]);
-      const [min, max] = pluckMinMaxPair(list, item => item.number);
+      const [min, max] = pluckMinMaxPair(list, item => item.get('number'));
       expect(min).toBe(1);
       expect(max).toBe(1);
     });

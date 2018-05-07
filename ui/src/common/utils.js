@@ -20,3 +20,7 @@ export function pluckMinMaxPair(list, valueGetter) {
   });
   return [min, max];
 }
+
+export function toNumbers(array) {
+  return array && array.map(Number);
+}
