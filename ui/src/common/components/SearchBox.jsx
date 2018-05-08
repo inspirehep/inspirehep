@@ -5,20 +5,21 @@ import { Input } from 'antd';
 class SearchBox extends Component {
   render() {
     return (
-      <div>
-        <Input.Search
-          placeholder={this.props.placeholder}
-          defaultValue={this.props.defaultValue}
-          onSearch={this.props.onSearch}
-          enterButton
-        />
-      </div>
+      <Input.Search
+        style={{ verticalAlign: 'middle' }}
+        addonBefore={this.props.searchScopeName}
+        placeholder={this.props.placeholder}
+        defaultValue={this.props.defaultValue}
+        onSearch={this.props.onSearch}
+        enterButton
+      />
     );
   }
 }
 
 SearchBox.propTypes = {
   defaultValue: PropTypes.string,
+  searchScopeName: PropTypes.string,
   placeholder: PropTypes.string,
   onSearch: PropTypes.func,
 };
@@ -27,6 +28,7 @@ SearchBox.defaultProps = {
   defaultValue: null,
   placeholder: null,
   onSearch: null,
+  searchScopeName: null,
 };
 
 export default SearchBox;
