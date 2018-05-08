@@ -141,9 +141,9 @@ class RangeAggregation extends Component {
       max, min, data, endpoints,
     } = this.state;
     const sliderMarks = { [max]: max, [min]: min };
-    const { width, height, name } = this.props;
+    const { height, name } = this.props;
     return (
-      <div>
+      <div style={{ width: '100%' }}>
         <strong>{name}</strong>
         <Button onClick={this.onResetClick}>Reset</Button>
         <div style={{ margin: 14 }}>
@@ -160,7 +160,6 @@ class RangeAggregation extends Component {
             />
           </FlexibleWidthXYPlot>
           <Slider
-            style={{ width }}
             range
             onChange={this.onSliderChange}
             onAfterChange={this.onAfterChange}
@@ -179,7 +178,6 @@ class RangeAggregation extends Component {
 RangeAggregation.propTypes = {
   onChange: PropTypes.func.isRequired,
   height: PropTypes.number,
-  width: PropTypes.number,
   hoverColor: PropTypes.string,
   name: PropTypes.string.isRequired,
   /* eslint-disable react/no-unused-prop-types */
@@ -197,7 +195,6 @@ RangeAggregation.defaultProps = {
   keyPropName: 'key_as_string',
   countPropName: 'doc_count',
   height: 100,
-  width: 300,
   selectedColor: '#91d5ff',
   deselectedColor: '#fff',
   hoverColor: '#69c0ff',
