@@ -5,6 +5,7 @@ import search from '../../actions/search';
 
 const stateToProps = state => ({
   defaultValue: state.router.location.query.q,
+  searchScopeName: state.search.getIn(['scope', 'name']),
 });
 
 export const dispatchToProps = dispatch => ({
