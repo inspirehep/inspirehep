@@ -9,6 +9,7 @@
   },
   "rules": {
     "react/prefer-stateless-function": "off",
+    "no-param-reassign": ["error", { "props": false }],
     "jsx-a11y/anchor-is-valid": [
       "error",
       {
