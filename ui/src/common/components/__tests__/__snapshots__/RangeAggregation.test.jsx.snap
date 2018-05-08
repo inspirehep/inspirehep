@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RangeAggregation render initial state with all required props set 1`] = `
-<div>
+<div
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
   <strong>
     Test
   </strong>
@@ -77,11 +83,6 @@ exports[`RangeAggregation render initial state with all required props set 1`] =
       onChange={[Function]}
       prefixCls="ant-slider"
       range={true}
-      style={
-        Object {
-          "width": 300,
-        }
-      }
       tipFormatter={[Function]}
       tooltipPrefixCls="ant-tooltip"
       value={
