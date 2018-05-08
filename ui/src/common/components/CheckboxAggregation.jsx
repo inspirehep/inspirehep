@@ -7,7 +7,6 @@ import CheckboxItem from './CheckboxItem';
 
 class CheckboxAggregation extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
-    // TODO: perform conditionally
     let selectionMap;
     if (nextProps.selections) {
       selectionMap = nextProps.selections
@@ -30,7 +29,7 @@ class CheckboxAggregation extends Component {
   onSelectionChange(key, selected) {
     let { selectionMap } = this.state;
     selectionMap = selectionMap.set(key, selected);
-    this.setState({ selectionMap }); // TODO: really needed?
+    this.setState({ selectionMap });
     const selections = selectionMap.keySeq()
       .filter(bucketKey => selectionMap.get(bucketKey))
       .toArray();
