@@ -1,90 +1,45 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AggregationFiltersContainer renders initial state with initial url query q param 1`] = `
-<div
-  className="ant-list ant-list-split"
+<List
+  bordered={false}
+  dataSource={Array []}
+  loading={false}
+  pagination={false}
+  prefixCls="ant-list"
+  split={true}
 >
-  <div
-    className="ant-spin-nested-loading"
-    style={null}
+  <Item
+    key="agg1"
   >
-    <div
-      className="ant-spin-container"
-      key="container"
-    >
-      <div
-        className="ant-list-item"
-      >
-        <div
-          className="ant-list-item-content ant-list-item-content-single"
-        >
-          <div
-            style={
-              Object {
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              className="ant-list ant-list-split"
-            >
-              <div
-                className="ant-list-header"
-              >
-                <strong>
-                  agg1
-                </strong>
-              </div>
-              <div
-                className="ant-spin-nested-loading"
-                style={null}
-              >
-                <div
-                  className="ant-spin-container"
-                  key="container"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div
-        className="ant-list-item"
-      >
-        <div
-          className="ant-list-item-content ant-list-item-content-single"
-        >
-          <div
-            style={
-              Object {
-                "width": "100%",
-              }
-            }
-          >
-            <div
-              className="ant-list ant-list-split"
-            >
-              <div
-                className="ant-list-header"
-              >
-                <strong>
-                  agg2
-                </strong>
-              </div>
-              <div
-                className="ant-spin-nested-loading"
-                style={null}
-              >
-                <div
-                  className="ant-spin-container"
-                  key="container"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    <AggregationFilter
+      buckets={
+        Immutable.List [
+        ]
+      }
+      name="agg1"
+      onChange={[Function]}
+      range={false}
+      selections={
+        Array [
+          "agg1-selected",
+        ]
+      }
+    />
+  </Item>
+  <Item
+    key="agg2"
+  >
+    <AggregationFilter
+      buckets={
+        Immutable.List [
+        ]
+      }
+      name="agg2"
+      onChange={[Function]}
+      range={false}
+      selections={Array []}
+    />
+  </Item>
+</List>
 `;

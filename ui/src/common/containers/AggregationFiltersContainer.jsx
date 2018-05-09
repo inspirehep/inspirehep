@@ -33,7 +33,7 @@ class AggregationFiltersContainer extends Component {
               range={aggregationKey === RANGE_AGGREATION_KEY}
               name={aggregationKey}
               buckets={aggregation.get('buckets')}
-              selected={forceArray(this.props.query[aggregationKey])}
+              selections={forceArray(this.props.query[aggregationKey])}
               onChange={
                 (selections) => { this.onAggregationChange(aggregationKey, selections); }
               }

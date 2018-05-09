@@ -30,8 +30,13 @@ function getSearchUrl(state, query) {
 }
 
 function appendQuery(state, query) {
-  const locationQuery = state.router.location.query;
   const baseQuery = state.search.getIn(['scope', 'query']).toJS();
+  const locationQuery = state.router.location.query;
+
+  if (query && locationQuery.page !== undefined) {
+    locationQuery.page = 1;
+  }
+
   return {
     ...baseQuery,
     ...locationQuery,

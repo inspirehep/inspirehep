@@ -80,6 +80,48 @@ describe('search - async action creator', () => {
     done();
   });
 
+  it('creates SEARCH_SUCCESS and pushes new history state with page=1 if location has page param and there is a new query', async (done) => {
+    const testQueryUrl = 'test?page=1&q=test';
+    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+
+    const expectedActions = [
+      { type: types.SEARCHING },
+      { type: CALL_HISTORY_METHOD, payload: { args: [testQueryUrl], method: 'push' } },
+      { type: types.SEARCH_SUCCESS, payload: {} },
+    ];
+
+    const state = {
+      ...stateWithoutScopeQuery,
+      router: { location: { query: { page: 2 } } },
+    };
+
+    const store = getStoreWithState(state);
+    await store.dispatch(search({ q: 'test' }));
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
+  });
+
+  it('creates SEARCH_SUCCESS and pushes new history state without reseting page=1 if location has page param and there is a new query with page', async (done) => {
+    const testQueryUrl = 'test?page=3';
+    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+
+    const expectedActions = [
+      { type: types.SEARCHING },
+      { type: CALL_HISTORY_METHOD, payload: { args: [testQueryUrl], method: 'push' } },
+      { type: types.SEARCH_SUCCESS, payload: {} },
+    ];
+
+    const state = {
+      ...stateWithoutScopeQuery,
+      router: { location: { query: { page: 2 } } },
+    };
+
+    const store = getStoreWithState(state);
+    await store.dispatch(search({ page: '3' }));
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
+  });
+
   it('creates SEARCH_ERROR when search fails', async (done) => {
     const testQueryUrl = 'test?size=10&q=test';
     mockHttp.onGet(testQueryUrl).networkError();

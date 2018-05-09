@@ -35,13 +35,15 @@ __Always check existing test cases for similar things that you want to test (`Co
 - use [enzyme](), do not use `ReactTestUtils` directly.
 - utilize [enzyme-matchers](https://github.com/FormidableLabs/enzyme-matchers).
 
-## render
+### render
 
-- prefer `mount` over `shallow` to be consistent and sure that you render what you need because often real component is wrapped with an HOC or similar,
-so one level rendering is not going to be enough.
+- prefer `mount` over `shallow` to be consistent and sure that you render what you need.
 - however do not test render results of a child component, test only props of a child component (`toHaveProp()`)
+  - prefer snapshot testing unless explicit `toHaveProp()` assertion is necessary.
 
-### Snapshot
+### snapshot
 
-- use `mount` for small components.
-- use `shallow` like `App` or `*Page` containers or don't use `snapshot` at all.
+- firstly be aware that what is generated, and see it has things that you want to asssert.
+- use `mount` for small components and wrapper containers
+- use `shallow` like `App` or `*Page` containers to assert things like props passed correctly etc.
+  - do not wrap component with `<Provider>` but pass `store` as prop to directly and `.dive()`
