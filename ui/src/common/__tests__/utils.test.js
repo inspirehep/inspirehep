@@ -10,6 +10,12 @@ describe('utils', () => {
       expect(result).toBe(array);
     });
 
+    it('returns undefined if undefined', () => {
+      const array = undefined;
+      const result = forceArray(array);
+      expect(result).toBe(array);
+    });
+
     it('wraps passed with an array if it is not an array', () => {
       const notArray = 1;
       const expected = [1];

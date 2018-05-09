@@ -1,5 +1,6 @@
 export function forceArray(maybeArray) {
-  return Array.isArray(maybeArray) ? maybeArray : [maybeArray];
+  return maybeArray === undefined || Array.isArray(maybeArray)
+    ? maybeArray : [maybeArray];
 }
 
 export function castPropToNumber(prop) {

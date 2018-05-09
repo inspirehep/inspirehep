@@ -1,6 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStore, getStoreWithState } from '../../../fixtures/store';
@@ -22,11 +21,9 @@ describe('AggregationFiltersContainer', () => {
         },
       }),
     });
-    const wrapper = mount((
-      <Provider store={store}>
-        <AggregationFiltersContainer />
-      </Provider>
-    ));
+    const wrapper = shallow((
+      <AggregationFiltersContainer store={store} />
+    )).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
