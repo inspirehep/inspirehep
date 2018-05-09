@@ -15,17 +15,15 @@ class AggregationFilter extends Component {
       selections,
     } = this.props;
 
-    if (range) {
-      return (
+    return range ?
+      (
         <RangeAggregation
           name={name}
           buckets={buckets}
           onChange={onChange}
           selections={selections}
         />
-      );
-    } else {
-      return (
+      ) : (
         <CheckboxAggregation
           name={name}
           buckets={buckets}
@@ -33,7 +31,6 @@ class AggregationFilter extends Component {
           selections={selections}
         />
       );
-    }
   }
 }
 

@@ -8,90 +8,104 @@ exports[`RangeAggregation render initial state with all required props set 1`] =
     }
   }
 >
-  <strong>
-    Test
-  </strong>
-  <Button
-    ghost={false}
-    loading={false}
-    onClick={[Function]}
-    prefixCls="ant-btn"
+  <Row
+    gutter={0}
+    justify="space-between"
+    type="flex"
   >
-    Reset
-  </Button>
-  <div
-    style={
-      Object {
-        "margin": 14,
-      }
-    }
+    <Col>
+      <strong>
+        Test
+      </strong>
+    </Col>
+    <Col>
+      <Button
+        ghost={false}
+        loading={false}
+        onClick={[Function]}
+        prefixCls="ant-btn"
+      >
+        Reset
+      </Button>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
   >
-    <FlexibleXYPlot
-      height={100}
-      margin={
+    <div
+      style={
         Object {
-          "bottom": 0,
-          "left": 0,
-          "right": 0,
-          "top": 0,
+          "margin": 14,
         }
       }
-      onMouseLeave={[Function]}
     >
-      <VerticalRectSeries
-        className=""
-        colorType="literal"
-        data={
+      <FlexibleXYPlot
+        height={100}
+        margin={
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "right": 0,
+            "top": 0,
+          }
+        }
+        onMouseLeave={[Function]}
+      >
+        <VerticalRectSeries
+          className=""
+          colorType="literal"
+          data={
+            Array [
+              Object {
+                "color": "#fff",
+                "x": 2010.5,
+                "x0": 2009.5,
+                "y": 1,
+              },
+              Object {
+                "color": "#91d5ff",
+                "x": 2011.5,
+                "x0": 2010.5,
+                "y": 2,
+              },
+              Object {
+                "color": "#91d5ff",
+                "x": 2012.5,
+                "x0": 2011.5,
+                "y": 3,
+              },
+            ]
+          }
+          onNearestX={[Function]}
+          onValueClick={[Function]}
+          stack={false}
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+      <Slider
+        included={true}
+        marks={
+          Object {
+            "2010": 2010,
+            "2012": 2012,
+          }
+        }
+        max={2012}
+        min={2010}
+        onAfterChange={[Function]}
+        onChange={[Function]}
+        prefixCls="ant-slider"
+        range={true}
+        tipFormatter={[Function]}
+        tooltipPrefixCls="ant-tooltip"
+        value={
           Array [
-            Object {
-              "color": "#fff",
-              "x": 2010.5,
-              "x0": 2009.5,
-              "y": 1,
-            },
-            Object {
-              "color": "#91d5ff",
-              "x": 2011.5,
-              "x0": 2010.5,
-              "y": 2,
-            },
-            Object {
-              "color": "#91d5ff",
-              "x": 2012.5,
-              "x0": 2011.5,
-              "y": 3,
-            },
+            2011,
+            2012,
           ]
         }
-        onNearestX={[Function]}
-        onValueClick={[Function]}
-        stack={false}
-        style={Object {}}
       />
-    </FlexibleXYPlot>
-    <Slider
-      included={true}
-      marks={
-        Object {
-          "2010": 2010,
-          "2012": 2012,
-        }
-      }
-      max={2012}
-      min={2010}
-      onAfterChange={[Function]}
-      onChange={[Function]}
-      prefixCls="ant-slider"
-      range={true}
-      tipFormatter={[Function]}
-      tooltipPrefixCls="ant-tooltip"
-      value={
-        Array [
-          2011,
-          2012,
-        ]
-      }
-    />
-  </div>
+    </div>
+  </Row>
 </div>
 `;
