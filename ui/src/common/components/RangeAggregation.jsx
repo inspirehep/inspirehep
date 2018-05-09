@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FlexibleWidthXYPlot, VerticalRectSeries } from 'react-vis';
-import { Slider, Button } from 'antd';
+import { Slider, Button, Row, Col } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
@@ -144,32 +144,40 @@ class RangeAggregation extends Component {
     const { height, name } = this.props;
     return (
       <div style={{ width: '100%' }}>
-        <strong>{name}</strong>
-        <Button onClick={this.onResetClick}>Reset</Button>
-        <div style={{ margin: 14 }}>
-          <FlexibleWidthXYPlot
-            height={height}
-            margin={NO_MARGIN}
-            onMouseLeave={this.onMouseLeaveHistogram}
-          >
-            <VerticalRectSeries
-              colorType="literal"
-              data={data}
-              onValueClick={this.onBarClick}
-              onNearestX={this.onNearestBar}
+        <Row type="flex" justify="space-between">
+          <Col>
+            <strong>{name}</strong>
+          </Col>
+          <Col>
+            <Button onClick={this.onResetClick}>Reset</Button>
+          </Col>
+        </Row>
+        <Row>
+          <div style={{ margin: 14 }}>
+            <FlexibleWidthXYPlot
+              height={height}
+              margin={NO_MARGIN}
+              onMouseLeave={this.onMouseLeaveHistogram}
+            >
+              <VerticalRectSeries
+                colorType="literal"
+                data={data}
+                onValueClick={this.onBarClick}
+                onNearestX={this.onNearestBar}
+              />
+            </FlexibleWidthXYPlot>
+            <Slider
+              range
+              onChange={this.onSliderChange}
+              onAfterChange={this.onAfterChange}
+              value={endpoints}
+              min={min}
+              max={max}
+              marks={sliderMarks}
+              included={max !== min}
             />
-          </FlexibleWidthXYPlot>
-          <Slider
-            range
-            onChange={this.onSliderChange}
-            onAfterChange={this.onAfterChange}
-            value={endpoints}
-            min={min}
-            max={max}
-            marks={sliderMarks}
-            included={max !== min}
-          />
-        </div>
+          </div>
+        </Row>
       </div>
     );
   }
