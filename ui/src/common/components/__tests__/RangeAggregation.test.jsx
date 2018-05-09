@@ -23,6 +23,7 @@ const mockBuckets = fromJS([
   },
 ]);
 const mockSelections = ['2011', '2012'];
+const mockEndpoints = [2011, 2012];
 
 describe('RangeAggregation', () => {
   it('render initial state with all required props set', () => {
@@ -112,6 +113,24 @@ describe('RangeAggregation', () => {
       const data = RangeAggregation
         .getHistogramData(buckets, endpoints, RangeAggregation.defaultProps);
       expect(data).toEqual(expectedData);
+    });
+  });
+
+  describe('onSliderChange', () => {
+    it('calls sets new endpoints, data on state and clears highlight of previously hovered bar', () => {
+      const onChange = jest.fn();
+      const wrapper = shallow(<RangeAggregation
+        onChange={onChange}
+        buckets={mockBuckets}
+        name="Test"
+        selections={[]}
+      />);
+      const prevData = wrapper.state('data');
+
+      wrapper.instance().onSliderChange(mockEndpoints);
+      expect(wrapper.state('endpoints')).toEqual(mockEndpoints);
+      // TODO: mock getHistogramData
+      expect(wrapper.state('data')).not.toBe(prevData);
     });
   });
 
