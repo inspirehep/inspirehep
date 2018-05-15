@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import SearchLayout from '../../common/SearchLayout';
 
-import ResultItem from '../../common/components/ResultItem';
+import LiteratureItem from '../components/LiteratureItem';
 import search from '../../actions/search';
 
 class SearchPage extends Component {
@@ -16,8 +16,9 @@ class SearchPage extends Component {
     return (
       <SearchLayout
         renderResultItem={result => (
-          <ResultItem
-            title={result.getIn(['metadata', 'titles', 0, 'title'])}
+          <LiteratureItem
+            metadata={result.get('metadata')}
+            display={result.get('display')}
           />
         )}
       />
