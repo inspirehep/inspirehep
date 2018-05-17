@@ -37,22 +37,34 @@ class LiteratureItem extends Component {
 
     return (
       <ResultItem
-        title={(
-          <Link to={`/literatue/${recordId}`}>
+        title={
+          <Link to={`/literature/${recordId}`}>
             <Latex>{title}</Latex>
           </Link>
-        )}
-        description={(
+        }
+        description={
           <div>
             <AuthorList recordId={recordId} authors={authors} />
             <LiteratureDate date={date} />
           </div>
-        )}
+        }
         actions={[
           arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
           <CiteModalAction recordId={recordId} />,
-          citationCount && <ListItemAction iconType="logout" text={`${citationCount} citations`} link={{ to: `/literature/${recordId}#citations` }} />,
-          referenceCount && <ListItemAction iconType="login" text={`${referenceCount} references`} link={{ to: `/literature/${recordId}#references` }} />,
+          citationCount && (
+            <ListItemAction
+              iconType="logout"
+              text={`${citationCount} citations`}
+              link={{ to: `/literature/${recordId}#citations` }}
+            />
+          ),
+          referenceCount && (
+            <ListItemAction
+              iconType="login"
+              text={`${referenceCount} references`}
+              link={{ to: `/literature/${recordId}#references` }}
+            />
+          ),
         ].filter(action => action != null)}
       >
         <PublicationInfoList publicationInfo={publicationInfo} />
@@ -69,6 +81,5 @@ LiteratureItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
   display: PropTypes.instanceOf(Map).isRequired,
 };
-
 
 export default LiteratureItem;

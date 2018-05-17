@@ -1,7 +1,11 @@
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import * as types from '../actions/actionTypes';
+import {
+  SEARCH_REQUEST,
+  SEARCH_ERROR,
+  SEARCH_SUCCESS,
+} from '../actions/actionTypes';
 
 const baseQuery = {
   sort: 'mostrecent',
@@ -22,7 +26,7 @@ const searchScopes = fromJS({
 });
 
 export const initialState = fromJS({
-  searching: false,
+  loading: false,
   aggregations: {},
   total: 0,
   scope: searchScopes.get('literature'),
@@ -36,17 +40,17 @@ const searchReducer = (state = initialState, action) => {
         return state.set('scope', searchScopes.get('holdingpen'));
       }
       return state.set('scope', initialState.get('scope'));
-    case types.SEARCHING:
-      return state.set('searching', true);
-    case types.SEARCH_SUCCESS:
+    case SEARCH_REQUEST:
+      return state.set('loading', true);
+    case SEARCH_SUCCESS:
       return state
-        .set('searching', false)
+        .set('loading', false)
         .set('aggregations', fromJS(action.payload.aggregations))
         .set('total', fromJS(action.payload.hits.total))
         .set('results', fromJS(action.payload.hits.hits));
-    case types.SEARCH_ERROR:
+    case SEARCH_ERROR:
       return state
-        .set('searching', false)
+        .set('loading', false)
         .set('error', fromJS(action.payload));
     default:
       return state;

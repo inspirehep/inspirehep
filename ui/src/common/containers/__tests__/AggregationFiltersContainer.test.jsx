@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStore, getStoreWithState } from '../../../fixtures/store';
-import { SEARCHING } from '../../../actions/actionTypes';
+import { SEARCH_REQUEST } from '../../../actions/actionTypes';
 import AggregationFiltersContainer, { dispatchToProps } from '../AggregationFiltersContainer';
 
 describe('AggregationFiltersContainer', () => {
@@ -53,6 +53,6 @@ describe('AggregationFiltersContainer', () => {
     const props = dispatchToProps(store.dispatch);
     props.onAggregationChange('agg1', ['selected']);
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCHING)).toBe(true);
+    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
   });
 });

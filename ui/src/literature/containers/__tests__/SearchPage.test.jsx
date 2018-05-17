@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { mount } from 'enzyme';
 
 import { getStore } from '../../../fixtures/store';
-import { SEARCHING } from '../../../actions/actionTypes';
+import { SEARCH_REQUEST } from '../../../actions/actionTypes';
 import SearchPage from '../SearchPage';
 
 describe('Literature - SearchPage', () => {
@@ -15,6 +15,6 @@ describe('Literature - SearchPage', () => {
       </Provider>
     ));
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCHING)).toBe(true);
+    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
   });
 });

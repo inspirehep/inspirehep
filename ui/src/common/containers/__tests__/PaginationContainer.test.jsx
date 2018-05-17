@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
-import { SEARCHING } from '../../../actions/actionTypes';
+import { SEARCH_REQUEST } from '../../../actions/actionTypes';
 import PaginationContainer, { dispatchToProps } from '../PaginationContainer';
 
 describe('SearchBoxContainer', () => {
@@ -32,6 +32,6 @@ describe('SearchBoxContainer', () => {
     const props = dispatchToProps(store.dispatch);
     props.onPageChange();
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCHING)).toBe(true);
+    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
   });
 });

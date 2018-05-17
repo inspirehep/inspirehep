@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
-import { SEARCHING } from '../../../actions/actionTypes';
+import { SEARCH_REQUEST } from '../../../actions/actionTypes';
 import SearchBoxContainer, { dispatchToProps } from '../SearchBoxContainer';
 
 describe('SearchBoxContainer', () => {
@@ -21,6 +21,6 @@ describe('SearchBoxContainer', () => {
     const props = dispatchToProps(store.dispatch);
     props.onSearch();
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCHING)).toBe(true);
+    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
   });
 });

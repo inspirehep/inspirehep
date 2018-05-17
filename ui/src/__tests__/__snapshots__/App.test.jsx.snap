@@ -1,39 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App renders initial state 1`] = `
-<div>
-  <Adapter>
-    <Adapter>
-      <Row
-        gutter={0}
-      >
-        <Col
-          span={12}
-        >
-          <Menu
-            className="menu"
-            mode="horizontal"
-            prefixCls="ant-menu"
-            theme="dark"
-          >
-            <MenuItem>
-              <Link
-                replace={false}
-                to="/holdingpen/dashboard"
-              >
-                Holdingpen
-              </Link>
-            </MenuItem>
-          </Menu>
-        </Col>
-        <Col
-          span={12}
-        >
-          <Connect(SearchBox) />
-        </Col>
-      </Row>
-    </Adapter>
-    <Adapter>
+<Row
+  className="__App__"
+  gutter={0}
+  type="flex"
+>
+  <Col
+    span={24}
+  >
+    <Header />
+  </Col>
+  <Col
+    className="mainContent"
+    span={24}
+  >
+    <Switch
+      id="main"
+    >
       <Route
         component={[Function]}
         path="/holdingpen"
@@ -42,7 +26,7 @@ exports[`App renders initial state 1`] = `
         component={[Function]}
         path="/literature"
       />
-    </Adapter>
-  </Adapter>
-</div>
+    </Switch>
+  </Col>
+</Row>
 `;
