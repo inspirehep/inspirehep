@@ -27,7 +27,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   title={
     <Link
       replace={false}
-      to="/literatue/12345"
+      to="/literature/12345"
     >
       <Latex />
     </Link>
@@ -78,7 +78,7 @@ exports[`LiteratureItem does not render citation and reference count if they are
   title={
     <Link
       replace={false}
-      to="/literatue/12345"
+      to="/literature/12345"
     >
       <Latex />
     </Link>
@@ -155,7 +155,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   title={
     <Link
       replace={false}
-      to="/literatue/12345"
+      to="/literature/12345"
     >
       <Latex>
         test

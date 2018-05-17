@@ -38,7 +38,7 @@ describe('search - async action creator', () => {
     mockHttp.onGet(testQueryUrl).replyOnce(200, {});
 
     const expectedActions = [
-      { type: types.SEARCHING },
+      { type: types.SEARCH_REQUEST },
       { type: CALL_HISTORY_METHOD, payload: { args: [testQueryUrl], method: 'push' } },
       { type: types.SEARCH_SUCCESS, payload: {} },
     ];
@@ -54,7 +54,7 @@ describe('search - async action creator', () => {
     mockHttp.onGet(testQueryUrl).replyOnce(200, {});
 
     const expectedActions = [
-      { type: types.SEARCHING },
+      { type: types.SEARCH_REQUEST },
       { type: CALL_HISTORY_METHOD, payload: { args: [testQueryUrl], method: 'push' } },
       { type: types.SEARCH_SUCCESS, payload: {} },
     ];
@@ -70,7 +70,7 @@ describe('search - async action creator', () => {
     mockHttp.onGet(testQueryUrl).replyOnce(200, {});
 
     const expectedActions = [
-      { type: types.SEARCHING },
+      { type: types.SEARCH_REQUEST },
       { type: types.SEARCH_SUCCESS, payload: {} },
     ];
 
@@ -85,7 +85,7 @@ describe('search - async action creator', () => {
     mockHttp.onGet(testQueryUrl).replyOnce(200, {});
 
     const expectedActions = [
-      { type: types.SEARCHING },
+      { type: types.SEARCH_REQUEST },
       { type: CALL_HISTORY_METHOD, payload: { args: [testQueryUrl], method: 'push' } },
       { type: types.SEARCH_SUCCESS, payload: {} },
     ];
@@ -106,7 +106,7 @@ describe('search - async action creator', () => {
     mockHttp.onGet(testQueryUrl).replyOnce(200, {});
 
     const expectedActions = [
-      { type: types.SEARCHING },
+      { type: types.SEARCH_REQUEST },
       { type: CALL_HISTORY_METHOD, payload: { args: [testQueryUrl], method: 'push' } },
       { type: types.SEARCH_SUCCESS, payload: {} },
     ];
@@ -127,7 +127,7 @@ describe('search - async action creator', () => {
     mockHttp.onGet(testQueryUrl).networkError();
 
     const expectedActions = [
-      { type: types.SEARCHING },
+      { type: types.SEARCH_REQUEST },
       { type: CALL_HISTORY_METHOD, payload: { args: [testQueryUrl], method: 'push' } },
       { type: types.SEARCH_ERROR, payload: undefined },
     ];

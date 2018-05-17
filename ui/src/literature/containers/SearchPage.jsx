@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import SearchLayout from '../../common/SearchLayout';
+import SearchLayout from '../../common/layouts/SearchLayout';
 
 import LiteratureItem from '../components/LiteratureItem';
 import search from '../../actions/search';

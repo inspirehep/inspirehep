@@ -1,24 +1,28 @@
 import { push } from 'react-router-redux';
 import { stringify } from 'qs';
 
-import * as types from './actionTypes';
+import {
+  SEARCH_REQUEST,
+  SEARCH_ERROR,
+  SEARCH_SUCCESS,
+} from './actionTypes';
 
 function searching() {
   return {
-    type: types.SEARCHING,
+    type: SEARCH_REQUEST,
   };
 }
 
 function searchSuccess(result) {
   return {
-    type: types.SEARCH_SUCCESS,
+    type: SEARCH_SUCCESS,
     payload: result,
   };
 }
 
 function searchError(error) {
   return {
-    type: types.SEARCH_ERROR,
+    type: SEARCH_ERROR,
     payload: error,
   };
 }
@@ -58,7 +62,6 @@ export default function search(query) {
       const response = await http.get(url, {
         headers: { Accept: 'application/vnd+inspire.brief+json' },
       });
-
       dispatch(searchSuccess(response.data));
     } catch (error) {
       dispatch(searchError(error.data));
