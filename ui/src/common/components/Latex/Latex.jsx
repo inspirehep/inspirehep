@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import katex from 'katex';
 import 'katex/dist/katex.min.css';
 
-import './Latex.css';
+import './Latex.scss';
 
 class Latex extends Component {
   render() {
@@ -16,7 +16,7 @@ class Latex extends Component {
     }
     return (
       // eslint-disable-next-line react/no-danger
-      <span dangerouslySetInnerHTML={{ __html: latex }} />
+      <span className="__Latex__" dangerouslySetInnerHTML={{ __html: latex }} />
     );
   }
 }
