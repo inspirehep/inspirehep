@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import './InlineList.css';
+import './InlineList.scss';
 
 class InlineList extends Component {
   render() {
@@ -10,9 +10,9 @@ class InlineList extends Component {
       items, renderItem, label, suffix,
     } = this.props;
     return items && (
-      <div >
+      <div className="__InlineList__">
         {label && <span>{label}: </span>}
-        <ul className="__InlineList__">
+        <ul>
           {items.map(item => (
             // TODO: use proper key
             <li key={item} style={{ display: 'inline' }}>{renderItem(item)}</li>
