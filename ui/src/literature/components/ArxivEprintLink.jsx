@@ -12,7 +12,7 @@ class ArxivEprintLink extends Component {
 }
 
 ArxivEprintLink.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default ArxivEprintLink;

@@ -11,6 +11,7 @@ class ReportNumberList extends Component {
       <InlineList
         label="Report number"
         items={reportNumbers}
+        extractKey={reportNumber => reportNumber.get('value')}
         renderItem={reportNumber => (
           <span>{reportNumber.get('value')}</span>
         )}

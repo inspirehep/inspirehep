@@ -28,7 +28,7 @@ describe('CheckboxItem', () => {
         </CheckboxItem>
       ));
       wrapper.instance().onChange({ target: { checked: true } });
-      expect(wrapper.instance().state.checked).toBe(true);
+      expect(wrapper.state().checked).toBe(true);
       expect(onChange).toHaveBeenCalledWith(true);
     });
 
@@ -41,7 +41,7 @@ describe('CheckboxItem', () => {
         </CheckboxItem>
       ));
       wrapper.instance().onChange({ target: { checked: true } });
-      expect(wrapper.instance().state.checked).toBe(true);
+      expect(wrapper.state().checked).toBe(true);
     });
   });
 });

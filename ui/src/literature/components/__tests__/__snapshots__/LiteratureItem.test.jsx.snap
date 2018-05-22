@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureItem does not arxiv pdf download action if there is no eprint value 1`] = `
+<ResultItem
+  actions={
+    Array [
+      <CiteModalAction
+        recordId={12345}
+    />,
+    ]
+  }
+  description={
+    <div>
+      <AuthorList
+        authors={
+          Immutable.List [
+          ]
+        }
+        limit={3}
+        recordId={12345}
+      />
+      <LiteratureDate
+        date={null}
+      />
+    </div>
+  }
+  title={<Latex />}
+>
+  <PublicationInfoList
+    publicationInfo={null}
+  />
+  <ArxivEprintList
+    eprints={null}
+  />
+  <DOIList
+    dois={null}
+  />
+  <ReportNumberList
+    reportNumbers={null}
+  />
+  <CollapsableAbstract
+    abstract={null}
+  />
+</ResultItem>
+`;
+
+exports[`LiteratureItem does not render citation and reference count if they are missing 1`] = `
+<ResultItem
+  actions={
+    Array [
+      <CiteModalAction
+        recordId={12345}
+    />,
+    ]
+  }
+  description={
+    <div>
+      <AuthorList
+        authors={
+          Immutable.List [
+          ]
+        }
+        limit={3}
+        recordId={12345}
+      />
+      <LiteratureDate
+        date={null}
+      />
+    </div>
+  }
+  title={<Latex />}
+>
+  <PublicationInfoList
+    publicationInfo={null}
+  />
+  <ArxivEprintList
+    eprints={null}
+  />
+  <DOIList
+    dois={null}
+  />
+  <ReportNumberList
+    reportNumbers={null}
+  />
+  <CollapsableAbstract
+    abstract={null}
+  />
+</ResultItem>
+`;
+
+exports[`LiteratureItem does not render cite, citation count and reference count if control_number is missing 1`] = `
+<ResultItem
+  actions={Array []}
+  description={
+    <div>
+      <LiteratureDate
+        date={null}
+      />
+    </div>
+  }
+  title={<Latex />}
+>
+  <PublicationInfoList
+    publicationInfo={null}
+  />
+  <ArxivEprintList
+    eprints={null}
+  />
+  <DOIList
+    dois={null}
+  />
+  <ReportNumberList
+    reportNumbers={null}
+  />
+  <CollapsableAbstract
+    abstract={null}
+  />
+</ResultItem>
+`;
+
+exports[`LiteratureItem renders with all props set, including sub props 1`] = `
+<ResultItem
+  actions={
+    Array [
+      <ArxivPdfDownloadAction
+        arxivId="1234567890"
+    />,
+      <CiteModalAction
+        recordId={12345}
+    />,
+      <ListItemAction
+        href="/literature/12345#citations"
+        iconType="logout"
+        onClick={undefined}
+        target={undefined}
+        text="1 citations"
+    />,
+      <ListItemAction
+        href="/literature/12345#references"
+        iconType="login"
+        onClick={undefined}
+        target={undefined}
+        text="2 references"
+    />,
+    ]
+  }
+  description={
+    <div>
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              full_name: "Test, Author",
+            },
+          ]
+        }
+        limit={3}
+        recordId={12345}
+      />
+      <LiteratureDate
+        date="Jun 7, 1993"
+      />
+    </div>
+  }
+  title={
+    <Latex>
+      test
+    </Latex>
+  }
+>
+  <PublicationInfoList
+    publicationInfo={null}
+  />
+  <ArxivEprintList
+    eprints={
+      Immutable.List [
+        Immutable.Map {
+          value: "1234567890",
+        },
+      ]
+    }
+  />
+  <DOIList
+    dois={
+      Immutable.List [
+        Immutable.Map {
+          value: "12345679.1234.123",
+        },
+      ]
+    }
+  />
+  <ReportNumberList
+    reportNumbers={
+      Immutable.List [
+        Immutable.Map {
+          value: "ABCD-AB-CD-1234-123",
+        },
+      ]
+    }
+  />
+  <CollapsableAbstract
+    abstract={null}
+  />
+</ResultItem>
+`;

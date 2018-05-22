@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IconText renders with all props set 1`] = `
+<span
+  className="__IconText__"
+>
+  <Icon
+    className="icon"
+    type="info"
+  />
+  Test
+</span>
+`;

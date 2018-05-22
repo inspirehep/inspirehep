@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReportNumberList renders with report numbers 1`] = `
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        value: "ABCD-AB-CD-1234-123",
+      },
+    ]
+  }
+  label="Report number"
+  renderItem={[Function]}
+  suffix={null}
+/>
+`;

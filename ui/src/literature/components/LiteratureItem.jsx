@@ -27,7 +27,7 @@ class LiteratureItem extends Component {
     const citationCount = metadata.get('citation_count');
     const referenceCount = display.get('number_of_references');
 
-    const date = metadata.get('earliest_date');
+    const date = display.get('date');
     const publicationInfo = metadata.get('publication_info');
     const eprints = metadata.get('arxiv_eprints');
     const dois = metadata.get('dois');
@@ -47,14 +47,14 @@ class LiteratureItem extends Component {
           arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
           recordId && <CiteModalAction recordId={recordId} />,
           recordId && citationCount && <ListItemAction iconType="logout" text={`${citationCount} citations`} href={`/literature/${recordId}#citations`} />,
-          recordId && referenceCount && <ListItemAction iconType="login" text={`${referenceCount} references`} href={`/literature/${recordId}#citations`} />,
+          recordId && referenceCount && <ListItemAction iconType="login" text={`${referenceCount} references`} href={`/literature/${recordId}#references`} />,
         ].filter(action => action != null)}
       >
         <PublicationInfoList publicationInfo={publicationInfo} />
         <ArxivEprintList eprints={eprints} />
         <DOIList dois={dois} />
         <ReportNumberList reportNumbers={reportNumbers} />
-        <CollapsableAbstract abstract={abstract} collapsable />
+        <CollapsableAbstract abstract={abstract} />
       </ResultItem>
     );
   }

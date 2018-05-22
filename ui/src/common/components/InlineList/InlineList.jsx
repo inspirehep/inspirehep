@@ -7,15 +7,14 @@ import './InlineList.scss';
 class InlineList extends Component {
   render() {
     const {
-      items, renderItem, label, suffix,
+      items, renderItem, label, suffix, extractKey,
     } = this.props;
     return items && (
       <div className="__InlineList__">
         {label && <span>{label}: </span>}
         <ul>
           {items.map(item => (
-            // TODO: use proper key
-            <li key={item} style={{ display: 'inline' }}>{renderItem(item)}</li>
+            <li key={extractKey(item)}>{renderItem(item)}</li>
           ))}
         </ul>
         {suffix}
@@ -27,6 +26,7 @@ class InlineList extends Component {
 InlineList.propTypes = {
   items: PropTypes.instanceOf(List),
   renderItem: PropTypes.func.isRequired,
+  extractKey: PropTypes.func,
   suffix: PropTypes.node,
   label: PropTypes.string,
 };
@@ -35,6 +35,7 @@ InlineList.defaultProps = {
   label: null,
   items: null,
   suffix: null,
+  extractKey: item => item,
 };
 
 export default InlineList;

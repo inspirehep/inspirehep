@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CiteModalAction renders with recordId 1`] = `
+<div>
+  <ListItemAction
+    iconType="export"
+    onClick={[Function]}
+    text="cite"
+  />
+  <Modal
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="Cite Article"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <div>
+      <Row
+        gutter={0}
+      >
+        <pre />
+      </Row>
+      <Row
+        gutter={0}
+        justify="space-between"
+        type="flex"
+      >
+        <div>
+          <CopyToClipboard>
+            <Button
+              ghost={false}
+              loading={false}
+              prefixCls="ant-btn"
+              style={
+                Object {
+                  "marginRight": 12,
+                }
+              }
+            >
+              <Icon
+                type="copy"
+              />
+               Copy to Clipboard
+            </Button>
+          </CopyToClipboard>
+          <Button
+            ghost={false}
+            loading={false}
+            onClick={[Function]}
+            prefixCls="ant-btn"
+          >
+            <Icon
+              type="download"
+            />
+             Download
+          </Button>
+        </div>
+        <SelectBox
+          defaultValue="bibtex"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "display": "BibTex",
+                "value": "bibtex",
+              },
+              Object {
+                "display": "LaTex (EU)",
+                "value": "latexeu",
+              },
+              Object {
+                "display": "LaTex (US)",
+                "value": "latexus",
+              },
+              Object {
+                "display": "CV (LaTex)",
+                "value": "cvformatlatex",
+              },
+              Object {
+                "display": "CV (html)",
+                "value": "cvformathtml",
+              },
+              Object {
+                "display": "CV (text)",
+                "value": "cvformattext",
+              },
+            ]
+          }
+          width={140}
+        />
+      </Row>
+    </div>
+  </Modal>
+</div>
+`;

@@ -12,6 +12,7 @@ class DOIList extends Component {
       <InlineList
         label="DOI"
         items={dois}
+        extractKey={doi => doi.get('value')}
         renderItem={doi => (
           <DOILink>{doi.get('value')}</DOILink>
         )}

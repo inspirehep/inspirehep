@@ -16,7 +16,7 @@ const FORMAT_SELECT_OPTIONS = [
   { value: 'cvformattext', display: 'CV (text)' },
 ];
 
-const DEFAULT_SELECT_VALUE = 'bibtex';
+export const DEFAULT_SELECT_VALUE = 'bibtex';
 
 class CiteModalAction extends Component {
   constructor(props) {

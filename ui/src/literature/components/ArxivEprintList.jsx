@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import ArxivEprintLink from './ArxivEprintLink';
+import ArxivEprint from './ArxivEprint';
 import InlineList from '../../common/components/InlineList';
 
 class ArxivEprintList extends Component {
@@ -12,13 +12,9 @@ class ArxivEprintList extends Component {
       <InlineList
         label="e-Prints"
         items={eprints}
+        extractKey={eprint => eprint.get('value')}
         renderItem={eprint => (
-          <span>
-            <ArxivEprintLink>
-              {eprint.get('value')}
-            </ArxivEprintLink>
-            {eprint.has('categories') ? <span>[{eprint.getIn(['categories', 0])}]</span> : null}
-          </span>
+          <ArxivEprint eprint={eprint} />
         )}
       />
     );

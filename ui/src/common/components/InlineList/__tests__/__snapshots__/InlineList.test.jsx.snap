@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InlineList does not render if items are null 1`] = `""`;
+
+exports[`InlineList renders with all props set 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Test
+    : 
+  </span>
+  <ul>
+    <li
+      key="1"
+    >
+      <span>
+        foo
+      </span>
+    </li>
+    <li
+      key="2"
+    >
+      <span>
+        bar
+      </span>
+    </li>
+  </ul>
+  <span>
+    Suffix
+  </span>
+</div>
+`;
+
+exports[`InlineList renders with minimal props set 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="foo"
+    >
+      <span>
+        foo
+      </span>
+    </li>
+    <li
+      key="bar"
+    >
+      <span>
+        bar
+      </span>
+    </li>
+  </ul>
+</div>
+`;

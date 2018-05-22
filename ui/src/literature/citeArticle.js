@@ -10,6 +10,7 @@ export default async function (format, recordId) {
     });
     return response.data;
   } catch (error) {
+    // TODO: handle error better maybe?
     return `nothing for format: ${format}`;
   }
 }
