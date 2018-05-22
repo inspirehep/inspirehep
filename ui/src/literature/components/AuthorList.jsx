@@ -3,27 +3,22 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList from '../../common/components/InlineList';
-
+import AuthorLink from './AuthorLink';
 
 class AuthorList extends Component {
   render() {
     const { authors, limit, recordId } = this.props;
     return (
-      <div>
-        <InlineList
-          items={authors.take(limit)}
-          suffix={(authors.size > limit ? <span> et al.</span> : null)}
-          renderItem={author => (
-            <a target="_blank" href={`//inspirehep.net/author/profile/${author.get('full_name')}?recid=${recordId}`}>
-              {author.get('full_name')}
-            </a>
-          )}
-        />
-      </div>
+      <InlineList
+        items={authors.take(limit)}
+        suffix={(authors.size > limit ? <span> et al.</span> : null)}
+        renderItem={author => (
+          <AuthorLink fullName={author.get('full_name')} recordId={recordId} />
+        )}
+      />
     );
   }
 }
-
 
 AuthorList.propTypes = {
   authors: PropTypes.instanceOf(List),

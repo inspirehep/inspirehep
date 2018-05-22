@@ -10,7 +10,7 @@ class Latex extends Component {
     const { children } = this.props;
     let latex;
     try {
-      latex = katex.renderToString(`\\text{${children}}`);
+      latex = children && katex.renderToString(`\\text{${children}}`);
     } catch (error) {
       latex = children;
     }
@@ -22,7 +22,11 @@ class Latex extends Component {
 }
 
 Latex.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node, // Only `string` node
+};
+
+Latex.defaultProps = {
+  children: null,
 };
 
 export default Latex;

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationInfoList renders with publicationInfo 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Published in
+    : 
+  </span>
+  <ul>
+    <li
+      key="Map { \\"journal_title\\": \\"Test Journal\\" }"
+    >
+      <PublicationInfo
+        info={
+          Immutable.Map {
+            journal_title: "Test Journal",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollapsableAbstract does not render if abstract is not passed 1`] = `""`;
+
+exports[`CollapsableAbstract renders callapsed abstract 1`] = `
+<Collapse
+  bordered={false}
+  openAnimation={
+    Object {
+      "appear": [Function],
+      "enter": [Function],
+      "leave": [Function],
+    }
+  }
+  prefixCls="ant-collapse"
+  style={
+    Object {
+      "background": "transparent",
+    }
+  }
+>
+  <CollapsePanel
+    header="Abstract"
+    style={
+      Object {
+        "border": 0,
+      }
+    }
+  >
+    <Latex>
+      This abstract will be collapsed, but can be extended
+    </Latex>
+  </CollapsePanel>
+</Collapse>
+`;

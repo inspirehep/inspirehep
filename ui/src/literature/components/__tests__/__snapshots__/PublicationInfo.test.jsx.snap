@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationInfo renders with journal_title and alll others fields 1`] = `""`;
+
+exports[`PublicationInfo renders with journal_title and alll others fields 2`] = `""`;
+
+exports[`PublicationInfo renders with journal_title present 1`] = `""`;
+
+exports[`PublicationInfo renders with pubinfo_freetext 1`] = `""`;
+
+exports[`PublicationInfo renders without pubinfo_freetext or journal_title 1`] = `""`;

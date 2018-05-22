@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOIList renders with dois 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    DOI
+    : 
+  </span>
+  <ul>
+    <li
+      key="12.1234/1234567890123_1234"
+    >
+      <DOILink>
+        12.1234/1234567890123_1234
+      </DOILink>
+    </li>
+    <li
+      key="99.9999/9999999999999_9999"
+    >
+      <DOILink>
+        99.9999/9999999999999_9999
+      </DOILink>
+    </li>
+  </ul>
+</div>
+`;

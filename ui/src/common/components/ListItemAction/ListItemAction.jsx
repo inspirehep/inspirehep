@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
-import IconText from './IconText';
 
+import IconText from '../IconText';
+import './ListItemAction.scss';
 
 class ListItemAction extends Component {
   render() {
@@ -12,7 +13,7 @@ class ListItemAction extends Component {
 
     return (
       <Button
-        style={{ border: 'none', background: 'transparent' }}
+        className="__ListItemAction__"
         href={href}
         target={target}
         onClick={onClick}

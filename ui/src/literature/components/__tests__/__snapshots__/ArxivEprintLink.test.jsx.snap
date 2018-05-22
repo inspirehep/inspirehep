@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArxivEprintLink renders with arXiv id 1`] = `
+<a
+  href="//arxiv.org/abs/123.123456"
+  target="_blank"
+>
+  123.123456
+</a>
+`;

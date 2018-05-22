@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArxivEprintList renders with arXiv id 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    e-Prints
+    : 
+  </span>
+  <ul>
+    <li
+      key="123.12345"
+    >
+      <ArxivEprint
+        eprint={
+          Immutable.Map {
+            value: "123.12345",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

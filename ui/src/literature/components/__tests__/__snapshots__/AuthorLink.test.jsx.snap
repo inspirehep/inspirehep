@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorLink renders with all props set 1`] = `
+<a
+  href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+  target="_blank"
+>
+  Name, Full
+</a>
+`;

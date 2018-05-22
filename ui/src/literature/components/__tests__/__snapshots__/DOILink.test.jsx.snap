@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOILink renders with doi 1`] = `
+<a
+  href="//doi.org/12.1234/1234567890123_1234"
+  target="_blank"
+>
+  12.1234/1234567890123_1234
+</a>
+`;
