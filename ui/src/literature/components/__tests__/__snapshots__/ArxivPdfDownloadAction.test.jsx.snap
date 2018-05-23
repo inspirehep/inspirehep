@@ -2,9 +2,13 @@
 
 exports[`ArxivPdfDownloadAction renders with arXiv id 1`] = `
 <ListItemAction
-  href="//arxiv.org/pdf/123.12345"
   iconType="download"
-  target="_blank"
+  link={
+    Object {
+      "href": "//arxiv.org/pdf/123.12345",
+      "target": "_blank",
+    }
+  }
   text="pdf"
 />
 `;
