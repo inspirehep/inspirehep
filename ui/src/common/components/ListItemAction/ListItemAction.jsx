@@ -9,7 +9,7 @@ import './ListItemAction.scss';
 class ListItemAction extends Component {
   wrapWithRouterLinkIfToPropSet(component) {
     const { link } = this.props;
-    if (link.to) {
+    if (link && link.to) {
       return (
         <Link className="no-transition" to={link.to}>
           {component}
@@ -27,8 +27,8 @@ class ListItemAction extends Component {
     return (
       <Button
         className="__ListItemAction__"
-        href={link.href}
-        target={link.target}
+        href={link && link.href}
+        target={link && link.target}
         onClick={onClick}
       >
         {this.wrapWithRouterLinkIfToPropSet(<IconText text={text} type={iconType} />)}
@@ -40,6 +40,7 @@ class ListItemAction extends Component {
 ListItemAction.propTypes = {
   iconType: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  // set either `link` or `onClick`
   link: PropTypes.oneOfType([
     PropTypes.shape({ to: PropTypes.string.isRequired }),
     PropTypes.shape({ href: PropTypes.string.isRequired, target: PropTypes.string }),
@@ -49,7 +50,7 @@ ListItemAction.propTypes = {
 
 ListItemAction.defaultProps = {
   onClick: undefined,
-  link: {},
+  link: undefined,
 };
 
 export default ListItemAction;
