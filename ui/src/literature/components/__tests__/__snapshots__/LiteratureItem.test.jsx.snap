@@ -113,17 +113,23 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
         recordId={12345}
     />,
       <ListItemAction
-        href="/literature/12345#citations"
         iconType="logout"
+        link={
+            Object {
+                "to": "/literature/12345#citations",
+              }
+        }
         onClick={undefined}
-        target={undefined}
         text="1 citations"
     />,
       <ListItemAction
-        href="/literature/12345#references"
         iconType="login"
+        link={
+            Object {
+                "to": "/literature/12345#references",
+              }
+        }
         onClick={undefined}
-        target={undefined}
         text="2 references"
     />,
     ]

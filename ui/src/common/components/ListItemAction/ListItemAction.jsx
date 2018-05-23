@@ -1,24 +1,37 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { Button } from 'antd';
 
 import IconText from '../IconText';
 import './ListItemAction.scss';
 
 class ListItemAction extends Component {
+  wrapWithRouterLinkIfToPropSet(component) {
+    const { link } = this.props;
+    if (link.to) {
+      return (
+        <Link className="no-transition" to={link.to}>
+          {component}
+        </Link>
+      );
+    }
+    return component;
+  }
+
   render() {
     const {
-      iconType, text, href, onClick, target,
+      iconType, text, link, onClick,
     } = this.props;
 
     return (
       <Button
         className="__ListItemAction__"
-        href={href}
-        target={target}
+        href={link.href}
+        target={link.target}
         onClick={onClick}
       >
-        <IconText text={text} type={iconType} />
+        {this.wrapWithRouterLinkIfToPropSet(<IconText text={text} type={iconType} />)}
       </Button>
     );
   }
@@ -27,15 +40,16 @@ class ListItemAction extends Component {
 ListItemAction.propTypes = {
   iconType: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
-  href: PropTypes.string,
-  target: PropTypes.string,
+  link: PropTypes.oneOfType([
+    PropTypes.shape({ to: PropTypes.string.isRequired }),
+    PropTypes.shape({ href: PropTypes.string.isRequired, target: PropTypes.string }),
+  ]),
   onClick: PropTypes.func,
 };
 
 ListItemAction.defaultProps = {
   onClick: undefined,
-  href: undefined,
-  target: undefined,
+  link: {},
 };
 
 export default ListItemAction;

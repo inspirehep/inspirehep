@@ -11,8 +11,10 @@ class ArxivPdfDownloadAction extends Component {
       <ListItemAction
         iconType="download"
         text="pdf"
-        href={href}
-        target="_blank"
+        link={{
+          href,
+          target: '_blank',
+        }}
       />
     );
   }

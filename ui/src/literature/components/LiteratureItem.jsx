@@ -51,8 +51,8 @@ class LiteratureItem extends Component {
         actions={[
           arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
           <CiteModalAction recordId={recordId} />,
-          citationCount && <ListItemAction iconType="logout" text={`${citationCount} citations`} href={`/literature/${recordId}#citations`} />,
-          referenceCount && <ListItemAction iconType="login" text={`${referenceCount} references`} href={`/literature/${recordId}#references`} />,
+          citationCount && <ListItemAction iconType="logout" text={`${citationCount} citations`} link={{ to: `/literature/${recordId}#citations` }} />,
+          referenceCount && <ListItemAction iconType="login" text={`${referenceCount} references`} link={{ to: `/literature/${recordId}#references` }} />,
         ].filter(action => action != null)}
       >
         <PublicationInfoList publicationInfo={publicationInfo} />

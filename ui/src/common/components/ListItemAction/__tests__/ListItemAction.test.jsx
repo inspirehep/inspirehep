@@ -4,13 +4,29 @@ import { shallow } from 'enzyme';
 import ListItemAction from '../ListItemAction';
 
 describe('ListItemAction', () => {
-  it('renders with href', () => {
+  it('renders with link (href and target)', () => {
     const wrapper = shallow((
       <ListItemAction
         iconType="info"
         text="Test"
-        href="//example.com"
-        target="_blank"
+        link={{
+          href: '//example.com',
+          target: '_blank',
+        }}
+      />
+    ));
+    expect(wrapper).toMatchSnapshot();
+  });
+
+
+  it('renders with link (to) by using Router.Link', () => {
+    const wrapper = shallow((
+      <ListItemAction
+        iconType="info"
+        text="Test"
+        link={{
+          to: '/relative/link',
+        }}
       />
     ));
     expect(wrapper).toMatchSnapshot();
