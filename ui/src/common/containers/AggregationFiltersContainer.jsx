@@ -27,19 +27,21 @@ class AggregationFiltersContainer extends Component {
   render() {
     return (
       <List>
-        {this.props.aggregations.entrySeq().map(([aggregationKey, aggregation]) => (
-          <List.Item key={aggregationKey}>
-            <AggregationFilter
-              range={aggregationKey === RANGE_AGGREATION_KEY}
-              name={aggregationKey}
-              buckets={aggregation.get('buckets')}
-              selections={forceArray(this.props.query[aggregationKey])}
-              onChange={
-                (selections) => { this.onAggregationChange(aggregationKey, selections); }
-              }
-            />
-          </List.Item>
-        ))}
+        {this.props.aggregations.entrySeq()
+          .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
+          .map(([aggregationKey, aggregation]) => (
+            <List.Item key={aggregationKey}>
+              <AggregationFilter
+                range={aggregationKey === RANGE_AGGREATION_KEY}
+                name={aggregationKey}
+                buckets={aggregation.get('buckets')}
+                selections={forceArray(this.props.query[aggregationKey])}
+                onChange={
+                  (selections) => { this.onAggregationChange(aggregationKey, selections); }
+                }
+              />
+            </List.Item>
+          ))}
       </List>
     );
   }

@@ -13,9 +13,28 @@ describe('AggregationFiltersContainer', () => {
       search: fromJS({
         aggregations: {
           agg1: {
-            buckets: [],
+            buckets: [{}],
           },
           agg2: {
+            buckets: [{}],
+          },
+        },
+      }),
+    });
+    const wrapper = shallow((
+      <AggregationFiltersContainer store={store} />
+    )).dive();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('does not render aggregations with empty buckets', () => {
+    const store = getStoreWithState({
+      search: fromJS({
+        aggregations: {
+          agg: {
+            buckets: [{}],
+          },
+          emptyAgg: {
             buckets: [],
           },
         },
