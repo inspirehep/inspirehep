@@ -4,7 +4,6 @@ exports[`CiteModalAction renders with recordId 1`] = `
 <div>
   <ListItemAction
     iconType="export"
-    link={Object {}}
     onClick={[Function]}
     text="cite"
   />

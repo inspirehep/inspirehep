@@ -1,6 +1,5 @@
 import http from '../common/http';
 
-
 export default async function (format, recordId) {
   try {
     const response = await http.get(`/literature/${recordId}`, {
