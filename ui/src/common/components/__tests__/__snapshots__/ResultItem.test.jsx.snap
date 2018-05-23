@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultItem render initial state with all props set 1`] = `
-<Item>
+<Item
+  className="__ResultItem__"
+>
   <Meta
     description={
       <div>
