@@ -1,3 +1,4 @@
 src/registerServiceWorker.js
 src/setupTests.js
 src/index.js
+ui-tests/node_modules/**/*
