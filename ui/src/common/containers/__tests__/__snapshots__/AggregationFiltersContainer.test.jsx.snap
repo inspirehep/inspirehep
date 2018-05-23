@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AggregationFiltersContainer does not render aggregations with empty buckets 1`] = `
+<List
+  bordered={false}
+  dataSource={Array []}
+  loading={false}
+  pagination={false}
+  prefixCls="ant-list"
+  split={true}
+>
+  <Item
+    key="agg"
+  >
+    <AggregationFilter
+      buckets={
+        Immutable.List [
+          Immutable.Map {
+          },
+        ]
+      }
+      name="agg"
+      onChange={[Function]}
+      range={false}
+      selections={Array []}
+    />
+  </Item>
+</List>
+`;
+
 exports[`AggregationFiltersContainer renders initial state with initial url query q param 1`] = `
 <List
   bordered={false}
@@ -15,6 +43,8 @@ exports[`AggregationFiltersContainer renders initial state with initial url quer
     <AggregationFilter
       buckets={
         Immutable.List [
+          Immutable.Map {
+          },
         ]
       }
       name="agg1"
@@ -33,6 +63,8 @@ exports[`AggregationFiltersContainer renders initial state with initial url quer
     <AggregationFilter
       buckets={
         Immutable.List [
+          Immutable.Map {
+          },
         ]
       }
       name="agg2"
