@@ -6,7 +6,7 @@
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "yarn test:unit && yarn test:ui",
+    "test": "yarn test:unit && yarn test:ui && yarn lint",
     "test:ui": "./run-ui-tests.sh",
     "test:unit": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
