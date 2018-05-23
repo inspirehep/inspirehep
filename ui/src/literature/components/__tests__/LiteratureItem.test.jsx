@@ -52,19 +52,6 @@ describe('LiteratureItem', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('does not render cite, citation count and reference count if control_number is missing', () => {
-    const metadata = fromJS({
-      citation_count: 1,
-    });
-    const display = fromJS({
-      number_of_references: 2,
-    });
-    const wrapper = shallow((
-      <LiteratureItem metadata={metadata} display={display} />
-    ));
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('does not arxiv pdf download action if there is no eprint value', () => {
     const metadata = fromJS({
       control_number: 12345,
