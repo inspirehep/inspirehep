@@ -24,7 +24,14 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
       />
     </div>
   }
-  title={<Latex />}
+  title={
+    <Link
+      replace={false}
+      to="/literatue/12345"
+    >
+      <Latex />
+    </Link>
+  }
 >
   <PublicationInfoList
     publicationInfo={null}
@@ -68,37 +75,14 @@ exports[`LiteratureItem does not render citation and reference count if they are
       />
     </div>
   }
-  title={<Latex />}
->
-  <PublicationInfoList
-    publicationInfo={null}
-  />
-  <ArxivEprintList
-    eprints={null}
-  />
-  <DOIList
-    dois={null}
-  />
-  <ReportNumberList
-    reportNumbers={null}
-  />
-  <CollapsableAbstract
-    abstract={null}
-  />
-</ResultItem>
-`;
-
-exports[`LiteratureItem does not render cite, citation count and reference count if control_number is missing 1`] = `
-<ResultItem
-  actions={Array []}
-  description={
-    <div>
-      <LiteratureDate
-        date={null}
-      />
-    </div>
+  title={
+    <Link
+      replace={false}
+      to="/literatue/12345"
+    >
+      <Latex />
+    </Link>
   }
-  title={<Latex />}
 >
   <PublicationInfoList
     publicationInfo={null}
@@ -163,9 +147,14 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     </div>
   }
   title={
-    <Latex>
-      test
-    </Latex>
+    <Link
+      replace={false}
+      to="/literatue/12345"
+    >
+      <Latex>
+        test
+      </Latex>
+    </Link>
   }
 >
   <PublicationInfoList

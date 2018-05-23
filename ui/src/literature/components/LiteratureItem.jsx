@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
@@ -36,18 +37,22 @@ class LiteratureItem extends Component {
 
     return (
       <ResultItem
-        title={<Latex>{title}</Latex>}
+        title={(
+          <Link to={`/literatue/${recordId}`}>
+            <Latex>{title}</Latex>
+          </Link>
+        )}
         description={(
           <div>
-            {recordId && <AuthorList recordId={recordId} authors={authors} />}
+            <AuthorList recordId={recordId} authors={authors} />
             <LiteratureDate date={date} />
           </div>
         )}
         actions={[
           arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
-          recordId && <CiteModalAction recordId={recordId} />,
-          recordId && citationCount && <ListItemAction iconType="logout" text={`${citationCount} citations`} href={`/literature/${recordId}#citations`} />,
-          recordId && referenceCount && <ListItemAction iconType="login" text={`${referenceCount} references`} href={`/literature/${recordId}#references`} />,
+          <CiteModalAction recordId={recordId} />,
+          citationCount && <ListItemAction iconType="logout" text={`${citationCount} citations`} href={`/literature/${recordId}#citations`} />,
+          referenceCount && <ListItemAction iconType="login" text={`${referenceCount} references`} href={`/literature/${recordId}#references`} />,
         ].filter(action => action != null)}
       >
         <PublicationInfoList publicationInfo={publicationInfo} />
