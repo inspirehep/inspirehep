@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'antd';
 
+import './ResultItem.scss';
+
 class ResultItem extends Component {
   render() {
     const { title, description, actions } = this.props;
     return (
       <List.Item
+        className="__ResultItem__"
         actions={actions}
       >
         <List.Item.Meta
