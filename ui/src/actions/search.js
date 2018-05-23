@@ -26,7 +26,7 @@ function searchError(error) {
 function getSearchUrl(state, query) {
   const pathname = state.search.getIn(['scope', 'pathname']);
   const queryString = stringify(query, { indices: false });
-  return `${pathname}?${queryString}`;
+  return `/${pathname}?${queryString}`;
 }
 
 function appendQuery(state, query) {
