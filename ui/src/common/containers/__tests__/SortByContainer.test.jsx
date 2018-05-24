@@ -1,21 +1,18 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import { SEARCHING } from '../../../actions/actionTypes';
 import SortByContainer, { dispatchToProps } from '../SortByContainer';
 
 describe('SortByContainer', () => {
-  it('renders initial state with initial url query q param', () => {
+  it('renders initial state with initial url query sort param', () => {
     const store = getStoreWithState({
       router: { location: { query: { sort: 'mostrecent' } } },
     });
-    const wrapper = mount((
-      <Provider store={store}>
-        <SortByContainer />
-      </Provider>
-    ));
+    const wrapper = shallow((
+      <SortByContainer store={store} />
+    )).dive();
     expect(wrapper).toMatchSnapshot();
   });
 

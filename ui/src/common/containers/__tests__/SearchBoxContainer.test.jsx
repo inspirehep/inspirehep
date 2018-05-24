@@ -1,6 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import { SEARCHING } from '../../../actions/actionTypes';
@@ -11,11 +10,9 @@ describe('SearchBoxContainer', () => {
     const store = getStoreWithState({
       router: { location: { query: { q: 'test' } } },
     });
-    const wrapper = mount((
-      <Provider store={store}>
-        <SearchBoxContainer />
-      </Provider>
-    ));
+    const wrapper = shallow((
+      <SearchBoxContainer store={store} />
+    )).dive();
     expect(wrapper).toMatchSnapshot();
   });
 

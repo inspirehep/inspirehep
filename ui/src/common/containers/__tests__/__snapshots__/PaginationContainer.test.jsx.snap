@@ -1,82 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchBoxContainer renders initially with all state 1`] = `
-<ul
-  className="ant-pagination "
+<Pagination
+  current={2}
+  onChange={[Function]}
+  pageSize={25}
+  prefixCls="ant-pagination"
+  selectPrefixCls="ant-select"
   style={
     Object {
       "textAlign": "center",
     }
   }
-  unselectable="unselectable"
->
-  <li
-    aria-disabled={false}
-    className=" ant-pagination-prev"
-    onClick={[Function]}
-    onKeyPress={[Function]}
-    tabIndex={0}
-    title="Previous Page"
-  >
-    <a
-      className="ant-pagination-item-link"
-    />
-  </li>
-  <li
-    className="ant-pagination-item ant-pagination-item-1"
-    onClick={[Function]}
-    onKeyPress={[Function]}
-    tabIndex="0"
-    title={1}
-  >
-    <a>
-      1
-    </a>
-  </li>
-  <li
-    className="ant-pagination-item ant-pagination-item-2 ant-pagination-item-active"
-    onClick={[Function]}
-    onKeyPress={[Function]}
-    tabIndex="0"
-    title={2}
-  >
-    <a>
-      2
-    </a>
-  </li>
-  <li
-    className="ant-pagination-item ant-pagination-item-3"
-    onClick={[Function]}
-    onKeyPress={[Function]}
-    tabIndex="0"
-    title={3}
-  >
-    <a>
-      3
-    </a>
-  </li>
-  <li
-    className="ant-pagination-item ant-pagination-item-4"
-    onClick={[Function]}
-    onKeyPress={[Function]}
-    tabIndex="0"
-    title={4}
-  >
-    <a>
-      4
-    </a>
-  </li>
-  <li
-    aria-disabled={false}
-    className=" ant-pagination-next"
-    onClick={[Function]}
-    onKeyPress={[Function]}
-    tabIndex={0}
-    title="Next Page"
-  >
-    <a
-      className="ant-pagination-item-link"
-    />
-  </li>
-</ul>
+  total={100}
+/>
 `;

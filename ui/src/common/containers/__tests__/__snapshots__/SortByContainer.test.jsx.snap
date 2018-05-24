@@ -1,62 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SortByContainer renders initial state with initial url query q param 1`] = `
-<div
-  className="ant-select ant-select-enabled"
-  key="trigger"
-  onBlur={[Function]}
-  onClick={[Function]}
-  onFocus={[Function]}
-  onMouseDown={[Function]}
-  onTouchStart={[Function]}
-  style={
-    Object {
-      "width": 140,
-    }
+exports[`SortByContainer renders initial state with initial url query sort param 1`] = `
+<SelectBox
+  defaultValue="mostrecent"
+  onChange={[Function]}
+  options={
+    Array [
+      Object {
+        "display": "Most Recent",
+        "value": "mostrecent",
+      },
+      Object {
+        "display": "Most Cited",
+        "value": "mostcited",
+      },
+      Object {
+        "display": "Best Match",
+        "value": "bestmatch",
+      },
+    ]
   }
->
-  <div
-    aria-autocomplete="list"
-    aria-expanded={false}
-    aria-haspopup="true"
-    className="ant-select-selection
-              ant-select-selection--single"
-    key="selection"
-    onKeyDown={[Function]}
-    role="combobox"
-    tabIndex={0}
-  >
-    <div
-      className="ant-select-selection__rendered"
-    >
-      <div
-        className="ant-select-selection-selected-value"
-        key="value"
-        style={
-          Object {
-            "display": "block",
-            "opacity": 1,
-          }
-        }
-        title="Most Recent"
-      >
-        Most Recent
-      </div>
-    </div>
-    <span
-      className="ant-select-arrow"
-      key="arrow"
-      onClick={[Function]}
-      style={
-        Object {
-          "WebkitUserSelect": "none",
-          "userSelect": "none",
-        }
-      }
-      unselectable="unselectable"
-    >
-      <b />
-    </span>
-  </div>
-</div>
+  width={140}
+/>
 `;

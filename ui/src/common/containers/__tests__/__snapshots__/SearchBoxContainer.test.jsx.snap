@@ -1,49 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchBoxContainer renders initial state with initial url query q param 1`] = `
-<span
-  className="ant-input-group-wrapper"
+<Search
+  addonBefore="literature"
+  defaultValue="test"
+  enterButton={true}
+  inputPrefixCls="ant-input"
+  onSearch={[Function]}
+  placeholder={null}
+  prefixCls="ant-input-search"
   style={
     Object {
       "verticalAlign": "middle",
     }
   }
->
-  <span
-    className="ant-input-wrapper ant-input-group"
-  >
-    <span
-      className="ant-input-group-addon"
-    >
-      literature
-    </span>
-    <span
-      className="ant-input-search ant-input-search-enter-button ant-input-affix-wrapper"
-      style={null}
-    >
-      <input
-        className="ant-input"
-        defaultValue="test"
-        disabled={false}
-        onKeyDown={[Function]}
-        placeholder={null}
-        style={null}
-        type="text"
-      />
-      <span
-        className="ant-input-suffix"
-      >
-        <button
-          className="ant-btn ant-input-search-button ant-btn-primary"
-          onClick={[Function]}
-          type="button"
-        >
-          <i
-            className="anticon anticon-search"
-          />
-        </button>
-      </span>
-    </span>
-  </span>
-</span>
+/>
 `;
