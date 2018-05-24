@@ -1,6 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
@@ -22,11 +21,9 @@ describe('SearchBoxContainer', () => {
         total: 100,
       }),
     });
-    const wrapper = mount((
-      <Provider store={store}>
-        <PaginationContainer />
-      </Provider>
-    ));
+    const wrapper = shallow((
+      <PaginationContainer store={store} />
+    )).dive();
     expect(wrapper).toMatchSnapshot();
   });
 

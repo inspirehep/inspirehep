@@ -1,6 +1,5 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState } from '../../../fixtures/store';
@@ -22,11 +21,12 @@ describe('ResultsContainer', () => {
         ],
       }),
     });
-    const wrapper = mount((
-      <Provider store={store}>
-        <ResultsContainer renderItem={result => <span>{result.get('value')}</span>} />
-      </Provider>
-    ));
+    const wrapper = shallow((
+      <ResultsContainer
+        store={store}
+        renderItem={result => <span>{result.get('value')}</span>}
+      />
+    )).dive();
     expect(wrapper).toMatchSnapshot();
   });
 });

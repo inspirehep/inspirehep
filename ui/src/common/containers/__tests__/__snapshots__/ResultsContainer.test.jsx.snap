@@ -1,32 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultsContainer renders initial state  1`] = `
-<div
-  className="ant-list ant-list-vertical ant-list-split"
+<List
+  bordered={false}
+  dataSource={Array []}
+  itemLayout="vertical"
+  loading={false}
+  pagination={false}
+  prefixCls="ant-list"
+  split={true}
 >
   <div
-    className="ant-spin-nested-loading"
-    style={null}
+    key="1"
   >
-    <div
-      className="ant-spin-container"
-      key="container"
-    >
-      <div
-        key="1"
-      >
-        <span>
-          value1
-        </span>
-      </div>
-      <div
-        key="2"
-      >
-        <span>
-          value2
-        </span>
-      </div>
-    </div>
+    <span>
+      value1
+    </span>
   </div>
-</div>
+  <div
+    key="2"
+  >
+    <span>
+      value2
+    </span>
+  </div>
+</List>
 `;
