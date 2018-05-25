@@ -10,7 +10,8 @@
     "test:ui": "./run-ui-tests.sh",
     "test:unit": "react-app-rewired test --env=jsdom",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src && eslint ./ui-tests"
+    "lint": "eslint ./src && eslint ./ui-tests",
+    "precommit": "pretty-quick --single-quote --staged"
   },
   "dependencies": {
     "antd": "^3.4.1",
@@ -42,8 +43,11 @@
     "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
+    "husky": "^0.14.3",
     "jest-enzyme": "^6.0.0",
     "node-sass": "^4.9.0",
+    "prettier": "1.12.1",
+    "pretty-quick": "^1.6.0",
     "react-app-rewire-sass-modules": "^1.1.5",
     "react-app-rewired": "1.5.0",
     "react-test-renderer": "^16.2.0",
