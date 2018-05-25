@@ -4,16 +4,17 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 
-import { store, history} from './store';
+import { store, history } from './store';
 import App from './App';
 
-ReactDOM.render((
+ReactDOM.render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/" component={App} />
       </Switch>
     </ConnectedRouter>
-  </Provider>
+  </Provider>,
 
-), document.getElementById('root'));
+  document.getElementById('root')
+);
