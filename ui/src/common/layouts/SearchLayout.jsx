@@ -25,7 +25,7 @@ class SearchLayout extends Component {
 }
 
 SearchLayout.propTypes = {
-  renderResultItem: PropTypes.func.isRequired
+  renderResultItem: PropTypes.func.isRequired,
 };
 
 export default SearchLayout;

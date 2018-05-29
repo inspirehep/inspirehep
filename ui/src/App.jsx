@@ -15,7 +15,7 @@ class App extends Component {
         <Col span={24}>
           <Header />
         </Col>
-        <Col className={'mainContent'} span={24}>
+        <Col className="mainContent" span={24}>
           <Switch id="main">
             <Route path="/holdingpen" component={Holdingpen} />
             <Route path="/literature" component={Literature} />
