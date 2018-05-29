@@ -1,17 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Layout, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 
-import Header from './../partials/Header';
-
-const DefaultLayout = ({sider, content}) => (
+const DefaultLayout = ({ sider, content }) => (
   <Row type="flex">
-    <Col span={6}>
-      {sider}
-    </Col>
-    <Col span={17}>
-      {content}
-    </Col>
+    <Col span={6}>{sider}</Col>
+    <Col span={17}>{content}</Col>
   </Row>
 );
 
