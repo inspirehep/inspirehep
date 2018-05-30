@@ -4,7 +4,9 @@ exports[`AuthorList renders all authors if they are less than the limit wihtout 
 <div
   className="__InlineList__"
 >
-  <ul>
+  <ul
+    className="separate-items"
+  >
     <li
       key="Map { \\"full_name\\": \\"Test, Guy 1\\" }"
     >
@@ -43,6 +45,7 @@ exports[`AuthorList renders only  3 authors and suffixes "et al." if passed more
   }
   label={null}
   renderItem={[Function]}
+  separateItems={true}
   suffix={
     <span>
        et al.
@@ -55,7 +58,9 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et al." if
 <div
   className="__InlineList__"
 >
-  <ul>
+  <ul
+    className="separate-items"
+  >
     <li
       key="Map { \\"full_name\\": \\"Test, Guy 1\\" }"
     >

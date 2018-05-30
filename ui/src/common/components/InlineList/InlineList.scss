@@ -7,7 +7,9 @@
   li {
     display: inline;
   }
-  li:not(:last-child):after {
-    content: "; ";
+  ul.separate-items {
+    li:not(:last-child):after {
+      content: '; ';
+    }
   }
 }

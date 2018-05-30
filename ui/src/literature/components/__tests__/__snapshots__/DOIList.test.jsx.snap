@@ -8,7 +8,9 @@ exports[`DOIList renders with dois 1`] = `
     DOI
     : 
   </span>
-  <ul>
+  <ul
+    className="separate-items"
+  >
     <li
       key="12.1234/1234567890123_1234"
     >
