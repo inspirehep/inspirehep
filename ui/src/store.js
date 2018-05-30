@@ -23,16 +23,18 @@ const getMiddleware = () => {
     return applyMiddleware(
       reduxRouterMiddleware,
       queryParamsParserMiddleware,
-      thunkMiddleware,
-    );
-  } else {
-    return applyMiddleware(
-      createLogger(),
-      reduxRouterMiddleware,
-      queryParamsParserMiddleware,
-      thunkMiddleware,
+      thunkMiddleware
     );
   }
+  return applyMiddleware(
+    createLogger(),
+    reduxRouterMiddleware,
+    queryParamsParserMiddleware,
+    thunkMiddleware
+  );
 };
 
-export const store = createStore(reducers, composeWithDevTools(getMiddleware()));
+export const store = createStore(
+  reducers,
+  composeWithDevTools(getMiddleware())
+);
