@@ -2,6 +2,56 @@
 
 exports[`InlineList does not render if items are null 1`] = `""`;
 
+exports[`InlineList renders item without separator 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className={null}
+  >
+    <li
+      key="foo"
+    >
+      <span>
+        foo
+      </span>
+    </li>
+    <li
+      key="bar"
+    >
+      <span>
+        bar
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`InlineList renders items seperated by default 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items"
+  >
+    <li
+      key="foo"
+    >
+      <span>
+        foo
+      </span>
+    </li>
+    <li
+      key="bar"
+    >
+      <span>
+        bar
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`InlineList renders with all props set 1`] = `
 <div
   className="__InlineList__"
@@ -10,7 +60,9 @@ exports[`InlineList renders with all props set 1`] = `
     Test
     : 
   </span>
-  <ul>
+  <ul
+    className="separate-items"
+  >
     <li
       key="1"
     >
@@ -32,25 +84,34 @@ exports[`InlineList renders with all props set 1`] = `
 </div>
 `;
 
-exports[`InlineList renders with minimal props set 1`] = `
+exports[`InlineList renders with all props set 2`] = `
 <div
   className="__InlineList__"
 >
-  <ul>
+  <span>
+    Test
+    : 
+  </span>
+  <ul
+    className="separate-items"
+  >
     <li
-      key="foo"
+      key="1"
     >
       <span>
         foo
       </span>
     </li>
     <li
-      key="bar"
+      key="2"
     >
       <span>
         bar
       </span>
     </li>
   </ul>
+  <span>
+    Suffix
+  </span>
 </div>
 `;

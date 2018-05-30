@@ -8,7 +8,9 @@ exports[`ArxivEprintList renders with arXiv id 1`] = `
     e-Prints
     : 
   </span>
-  <ul>
+  <ul
+    className="separate-items"
+  >
     <li
       key="123.12345"
     >

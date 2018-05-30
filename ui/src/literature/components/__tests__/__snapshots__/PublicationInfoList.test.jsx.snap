@@ -8,7 +8,9 @@ exports[`PublicationInfoList renders with publicationInfo 1`] = `
     Published in
     : 
   </span>
-  <ul>
+  <ul
+    className="separate-items"
+  >
     <li
       key="Map { \\"journal_title\\": \\"Test Journal\\" }"
     >

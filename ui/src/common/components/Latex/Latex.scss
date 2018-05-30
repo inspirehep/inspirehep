@@ -2,5 +2,8 @@
   .katex {
     white-space: initial;
     font: inherit;
+    span {
+      word-break: break-all;
+    }
   }
 }

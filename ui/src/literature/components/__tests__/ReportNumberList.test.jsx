@@ -11,9 +11,7 @@ describe('ReportNumberList', () => {
         value: 'ABCD-AB-CD-1234-123',
       },
     ]);
-    const wrapper = shallow((
-      <ReportNumberList reportNumbers={reportNumbers} />
-    ));
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = shallow(<ReportNumberList reportNumbers={reportNumbers} />);
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 });
