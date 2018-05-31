@@ -4,15 +4,23 @@ import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
 
 class ExceptionsTable extends Component {
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { exceptions } = nextProps;
+    return {
+      ...prevState,
+      allExceptions: exceptions,
+      filteredExceptions: exceptions,
+    };
+  }
+
   constructor(props) {
     super(props);
     this.state = {
       selectedCollections: null,
-      allExceptions: props.exceptions,
-      filteredExceptions: props.exceptions,
       isErrorFilterDropdownVisible: false,
       isErrorFilterFocused: false,
     };
+
     this.onFilterDropdownVisibleChange = this.onFilterDropdownVisibleChange.bind(
       this
     );
@@ -106,6 +114,7 @@ class ExceptionsTable extends Component {
 }
 
 ExceptionsTable.propTypes = {
+  /* eslint-disable react/no-unused-prop-types */
   exceptions: PropTypes.arrayOf(
     PropTypes.shape({
       collection: PropTypes.string,
@@ -113,6 +122,7 @@ ExceptionsTable.propTypes = {
       recid: PropTypes.number,
     })
   ).isRequired,
+  /* eslint-disable react/no-unused-prop-types */
 };
 
 export default ExceptionsTable;
