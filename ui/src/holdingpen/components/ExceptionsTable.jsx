@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Table, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
+import './ExceptionsTable.scss';
 
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -23,35 +24,36 @@ class ExceptionsTable extends Component {
       isRecidFilterFocused: false,
     };
 
-    this.onFilterDropdownVisibleChange = this.onFilterDropdownVisibleChange.bind(
+    this.onRecidFilterDropdownVisibleChange = this.onRecidFilterDropdownVisibleChange.bind(
+      this
+    );
+    this.onErrorFilterDropdownVisibleChange = this.onErrorFilterDropdownVisibleChange.bind(
+      this
+    );
+    this.onSelectedCollectionsChange = this.onSelectedCollectionsChange.bind(
       this
     );
     this.onErrorSearch = this.onErrorSearch.bind(this);
     this.onRecidSearch = this.onRecidSearch.bind(this);
-    this.onSelectedCollectionsChange = this.onSelectedCollectionsChange.bind(
-      this
-    );
+    this.onColumnSearch = this.onColumnSearch.bind(this);
   }
 
-  onFilterDropdownVisibleChange(visible, columnToBeFiltered) {
-    if (columnToBeFiltered === 'error') {
-      this.setState({
-        isErrorFilterDropdownVisible: visible,
-        isErrorFilterFocused: visible,
-      });
-    } else if (columnToBeFiltered === 'recid') {
-      this.setState({
-        isRecidFilterDropdownVisible: visible,
-        isRecidFilterFocused: visible,
-      });
-    }
+  onErrorFilterDropdownVisibleChange(visible) {
+    this.setState({
+      isErrorFilterDropdownVisible: visible,
+      isErrorFilterFocused: visible,
+    });
+  }
+
+  onRecidFilterDropdownVisibleChange(visible) {
+    this.setState({
+      isRecidFilterDropdownVisible: visible,
+      isRecidFilterFocused: visible,
+    });
   }
 
   onErrorSearch(searchText) {
-    const regExp = new RegExp(searchText, 'gi');
-    const filteredExceptions = this.state.allExceptions.filter(exception =>
-      exception.error.match(regExp)
-    );
+    const filteredExceptions = this.onColumnSearch(searchText, 'error');
     this.setState({
       isErrorFilterDropdownVisible: false,
       filteredExceptions,
@@ -59,14 +61,18 @@ class ExceptionsTable extends Component {
   }
 
   onRecidSearch(searchText) {
-    const regExp = new RegExp(searchText, 'gi');
-    const filteredExceptions = this.state.allExceptions.filter(exception => {
-      const recid = String(exception.recid);
-      return recid.match(regExp);
-    });
+    const filteredExceptions = this.onColumnSearch(searchText, 'recid');
     this.setState({
       isRecidFilterDropdownVisible: false,
       filteredExceptions,
+    });
+  }
+
+  onColumnSearch(searchText, columnToSearch) {
+    const regExp = new RegExp(searchText, 'gi');
+    return this.state.allExceptions.filter(exception => {
+      const record = String(exception[columnToSearch]);
+      return record.match(regExp);
     });
   }
 
@@ -108,7 +114,7 @@ class ExceptionsTable extends Component {
         filterIcon: <Icon type="search" />,
         filterDropdownVisible: this.state.isErrorFilterDropdownVisible,
         onFilterDropdownVisibleChange: visible => {
-          this.onFilterDropdownVisibleChange(visible, 'error');
+          this.onErrorFilterDropdownVisibleChange(visible);
         },
         width: '50%',
         render: text => text.split('\n', 1)[0],
@@ -126,10 +132,10 @@ class ExceptionsTable extends Component {
         filterIcon: <Icon type="search" />,
         filterDropdownVisible: this.state.isRecidFilterDropdownVisible,
         onFilterDropdownVisibleChange: visible => {
-          this.onFilterDropdownVisibleChange(visible, 'recid');
+          this.onRecidFilterDropdownVisibleChange(visible);
         },
         render: text => {
-          const recordLink = `http://inspirehep.net/record/${text}`;
+          const recordLink = `http://inspirehep.net/record/${text}/edit`;
           return <a href={recordLink}>{text}</a>;
         },
       },
@@ -137,14 +143,13 @@ class ExceptionsTable extends Component {
 
     return (
       <Table
+        className="__ExceptionsTable__"
         columns={columns}
         dataSource={this.state.filteredExceptions}
         rowKey="recid"
         pagination={{ pageSize: 25 }}
         onChange={this.onSelectedCollectionsChange}
-        expandedRowRender={record => (
-          <div style={{ margin: 0 }}>{record.error}</div>
-        )}
+        expandedRowRender={record => <pre>{record.error}</pre>}
         bordered
       />
     );
