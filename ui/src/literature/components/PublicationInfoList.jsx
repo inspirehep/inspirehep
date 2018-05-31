@@ -12,6 +12,9 @@ class PublicationInfoList extends Component {
       <InlineList
         label="Published in"
         items={publicationInfo}
+        extractKey={info =>
+          info.get('journal_title') || info.get('pubinfo_freetext')
+        }
         renderItem={info => <PublicationInfo info={info} />}
       />
     );

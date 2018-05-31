@@ -11,9 +11,10 @@ class AuthorList extends Component {
     return (
       <InlineList
         items={authors.take(limit)}
-        suffix={(authors.size > limit ? <span> et al.</span> : null)}
+        suffix={authors.size > limit ? <span> et al.</span> : null}
+        extractKey={author => author.get('full_name')}
         renderItem={author => (
-          <AuthorLink fullName={author.get('full_name')} recordId={recordId} />
+          <AuthorLink author={author} recordId={recordId} />
         )}
       />
     );
@@ -22,13 +23,14 @@ class AuthorList extends Component {
 
 AuthorList.propTypes = {
   authors: PropTypes.instanceOf(List),
-  recordId: PropTypes.number.isRequired,
+  recordId: PropTypes.number,
   limit: PropTypes.number,
 };
 
 AuthorList.defaultProps = {
   authors: List(),
   limit: 3,
+  recordId: undefined,
 };
 
 export default AuthorList;

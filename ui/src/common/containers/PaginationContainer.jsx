@@ -38,7 +38,7 @@ PaginationContainer.propTypes = {
 
 PaginationContainer.defaultProps = {
   page: 1,
-  pageSize: 1,
+  pageSize: 25,
 };
 
 const stateToProps = state => ({
@@ -46,7 +46,6 @@ const stateToProps = state => ({
   pageSize: castPropToNumber(state.router.location.query.size),
   total: state.search.get('total'),
 });
-
 
 export const dispatchToProps = dispatch => ({
   onPageChange(page) {

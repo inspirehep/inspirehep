@@ -12,7 +12,7 @@ exports[`PublicationInfoList renders with publicationInfo 1`] = `
     className="separate-items"
   >
     <li
-      key="Map { \\"journal_title\\": \\"Test Journal\\" }"
+      key="Test Journal"
     >
       <PublicationInfo
         info={

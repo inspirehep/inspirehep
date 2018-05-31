@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExternalSystemIdentifierList renders with external system identifiers 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    View in
+    : 
+  </span>
+  <ul
+    className="separate-items"
+  >
+    <li
+      key="https://cds.cern.ch/record/12345"
+    >
+      <a
+        href="https://cds.cern.ch/record/12345"
+      >
+        CERN Document Server
+      </a>
+    </li>
+    <li
+      key="http://adsabs.harvard.edu/abs/123.1234"
+    >
+      <a
+        href="http://adsabs.harvard.edu/abs/123.1234"
+      >
+        ADS Abstract Service
+      </a>
+    </li>
+  </ul>
+</div>
+`;

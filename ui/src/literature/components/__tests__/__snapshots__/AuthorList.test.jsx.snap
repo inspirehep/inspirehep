@@ -8,18 +8,26 @@ exports[`AuthorList renders all authors if they are less than the limit wihtout 
     className="separate-items"
   >
     <li
-      key="Map { \\"full_name\\": \\"Test, Guy 1\\" }"
+      key="Test, Guy 1"
     >
       <AuthorLink
-        fullName="Test, Guy 1"
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 1",
+          }
+        }
         recordId={12345}
       />
     </li>
     <li
-      key="Map { \\"full_name\\": \\"Test, Guy 2\\" }"
+      key="Test, Guy 2"
     >
       <AuthorLink
-        fullName="Test, Guy 2"
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 2",
+          }
+        }
         recordId={12345}
       />
     </li>
@@ -62,18 +70,26 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et al." if
     className="separate-items"
   >
     <li
-      key="Map { \\"full_name\\": \\"Test, Guy 1\\" }"
+      key="Test, Guy 1"
     >
       <AuthorLink
-        fullName="Test, Guy 1"
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 1",
+          }
+        }
         recordId={12345}
       />
     </li>
     <li
-      key="Map { \\"full_name\\": \\"Test, Guy 2\\" }"
+      key="Test, Guy 2"
     >
       <AuthorLink
-        fullName="Test, Guy 2"
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 2",
+          }
+        }
         recordId={12345}
       />
     </li>

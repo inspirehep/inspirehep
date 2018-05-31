@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferenceItem renders unlinked reference (no recid) 1`] = `
+<div
+  className="ant-list-item"
+>
+  <Meta
+    description={
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              full_name: "Author",
+            },
+          ]
+        }
+        limit={3}
+        recordId={undefined}
+      />
+    }
+    title="Title"
+  />
+  <div
+    className="ant-list-item-content"
+  >
+    <PublicationInfo
+      info={
+        Immutable.Map {
+          journal_title: "Journal",
+        }
+      }
+    />
+    <DOIList
+      dois={
+        Immutable.List [
+          Immutable.Map {
+            value: "123456.12345",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
+
+exports[`ReferenceItem renders with full reference 1`] = `
+<div
+  className="ant-list-item"
+>
+  <Meta
+    description={
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              full_name: "Author",
+            },
+          ]
+        }
+        limit={3}
+        recordId={12345}
+      />
+    }
+    title={
+      <Link
+        replace={false}
+        to="/literature/12345"
+      >
+        <Latex>
+          Title
+        </Latex>
+      </Link>
+    }
+  />
+  <div
+    className="ant-list-item-content"
+  >
+    <PublicationInfo
+      info={
+        Immutable.Map {
+          journal_title: "Journal",
+        }
+      }
+    />
+    <DOIList
+      dois={
+        Immutable.List [
+          Immutable.Map {
+            value: "123456.12345",
+          },
+        ]
+      }
+    />
+  </div>
+</div>
+`;
