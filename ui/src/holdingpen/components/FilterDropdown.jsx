@@ -17,7 +17,7 @@ class FilterDropdown extends Component {
   }
 
   render() {
-    const { placeholder, onErrorSearch } = this.props;
+    const { placeholder, onSearch } = this.props;
     return (
       <div>
         <Input.Search
@@ -25,7 +25,7 @@ class FilterDropdown extends Component {
             this.focusInputIfPropFocusedSet(inputRef);
           }}
           placeholder={placeholder}
-          onSearch={onErrorSearch}
+          onSearch={onSearch}
           enterButton
         />
       </div>
@@ -36,7 +36,7 @@ class FilterDropdown extends Component {
 FilterDropdown.propTypes = {
   placeholder: PropTypes.string,
   focused: PropTypes.bool,
-  onErrorSearch: PropTypes.func.isRequired,
+  onSearch: PropTypes.func.isRequired,
 };
 
 FilterDropdown.defaultProps = {

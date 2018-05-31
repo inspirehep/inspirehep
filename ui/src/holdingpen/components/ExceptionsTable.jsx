@@ -19,22 +19,32 @@ class ExceptionsTable extends Component {
       selectedCollections: null,
       isErrorFilterDropdownVisible: false,
       isErrorFilterFocused: false,
+      isRecidFilterDropdownVisible: false,
+      isRecidFilterFocused: false,
     };
 
     this.onFilterDropdownVisibleChange = this.onFilterDropdownVisibleChange.bind(
       this
     );
     this.onErrorSearch = this.onErrorSearch.bind(this);
+    this.onRecidSearch = this.onRecidSearch.bind(this);
     this.onSelectedCollectionsChange = this.onSelectedCollectionsChange.bind(
       this
     );
   }
 
-  onFilterDropdownVisibleChange(visible) {
-    this.setState({
-      isErrorFilterDropdownVisible: visible,
-      isErrorFilterFocused: visible,
-    });
+  onFilterDropdownVisibleChange(visible, columnToBeFiltered) {
+    if (columnToBeFiltered === 'error') {
+      this.setState({
+        isErrorFilterDropdownVisible: visible,
+        isErrorFilterFocused: visible,
+      });
+    } else if (columnToBeFiltered === 'recid') {
+      this.setState({
+        isRecidFilterDropdownVisible: visible,
+        isRecidFilterFocused: visible,
+      });
+    }
   }
 
   onErrorSearch(searchText) {
@@ -44,6 +54,18 @@ class ExceptionsTable extends Component {
     );
     this.setState({
       isErrorFilterDropdownVisible: false,
+      filteredExceptions,
+    });
+  }
+
+  onRecidSearch(searchText) {
+    const regExp = new RegExp(searchText, 'gi');
+    const filteredExceptions = this.state.allExceptions.filter(exception => {
+      const recid = String(exception.recid);
+      return recid.match(regExp);
+    });
+    this.setState({
+      isRecidFilterDropdownVisible: false,
       filteredExceptions,
     });
   }
@@ -79,7 +101,7 @@ class ExceptionsTable extends Component {
         filterDropdown: (
           <FilterDropdown
             placeholder="Search error"
-            onErrorSearch={this.onErrorSearch}
+            onSearch={this.onErrorSearch}
             focused={this.state.isErrorFilterFocused}
           />
         ),
@@ -88,12 +110,28 @@ class ExceptionsTable extends Component {
         onFilterDropdownVisibleChange: visible => {
           this.onFilterDropdownVisibleChange(visible, 'error');
         },
-        width: '40%',
+        width: '50%',
         render: text => text.split('\n', 1)[0],
       },
       {
         title: 'Record',
         dataIndex: 'recid',
+        filterDropdown: (
+          <FilterDropdown
+            placeholder="Search recid"
+            onSearch={this.onRecidSearch}
+            focused={this.state.isRecidFilterFocused}
+          />
+        ),
+        filterIcon: <Icon type="search" />,
+        filterDropdownVisible: this.state.isRecidFilterDropdownVisible,
+        onFilterDropdownVisibleChange: visible => {
+          this.onFilterDropdownVisibleChange(visible, 'recid');
+        },
+        render: text => {
+          const recordLink = `http://inspirehep.net/record/${text}`;
+          return <a href={recordLink}>{text}</a>;
+        },
       },
     ];
 
@@ -105,7 +143,7 @@ class ExceptionsTable extends Component {
         pagination={{ pageSize: 25 }}
         onChange={this.onSelectedCollectionsChange}
         expandedRowRender={record => (
-          <p style={{ margin: 0 }}>{record.error}</p>
+          <div style={{ margin: 0 }}>{record.error}</div>
         )}
         bordered
       />
