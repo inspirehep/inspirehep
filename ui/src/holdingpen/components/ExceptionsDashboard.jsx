@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-import EntryList from '../../common/components/EntryList';
 import ExceptionsTable from '../components/ExceptionsTable';
+import InlineList from '../../common/components/InlineList';
+import './ExceptionsDashboard.scss';
 
 class ExceptionsDashboard extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -37,14 +38,16 @@ class ExceptionsDashboard extends Component {
       <div>
         <h1>Exceptions Dashboard</h1>
 
-        <Row type="flex" justify="space-around" align="middle">
-          <Col>
-            <EntryList
-              title="Collections"
-              entries={this.state.countEntriesByCollection}
-            />
-          </Col>
-        </Row>
+        <div className="collections">
+          <InlineList
+            items={this.state.countEntriesByCollection}
+            renderItem={([collectionName, collectionCount]) => (
+              <span>
+                {collectionName} {collectionCount}
+              </span>
+            )}
+          />
+        </div>
 
         <Row type="flex" justify="space-around">
           <Col>
