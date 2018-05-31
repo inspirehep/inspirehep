@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'antd';
 
-const { Search } = Input;
-
 class FilterDropdown extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +20,7 @@ class FilterDropdown extends Component {
     const { placeholder, onErrorSearch } = this.props;
     return (
       <div>
-        <Search
+        <Input.Search
           ref={inputRef => {
             this.focusInputIfPropFocusedSet(inputRef);
           }}

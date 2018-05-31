@@ -53,7 +53,6 @@ class ExceptionsTable extends Component {
       {
         title: 'Collection',
         dataIndex: 'collection',
-        key: 'collection',
         filters: [
           { text: 'HEP', value: 'HEP' },
           { text: 'HEPNAMES', value: 'HEPNAMES' },
@@ -69,7 +68,6 @@ class ExceptionsTable extends Component {
       {
         title: 'Error',
         dataIndex: 'error',
-        key: 'error',
         filterDropdown: (
           <FilterDropdown
             placeholder="Search error"
@@ -88,7 +86,6 @@ class ExceptionsTable extends Component {
       {
         title: 'Record',
         dataIndex: 'recid',
-        key: 'record',
       },
     ];
 
@@ -96,6 +93,7 @@ class ExceptionsTable extends Component {
       <Table
         columns={columns}
         dataSource={this.state.filteredExceptions}
+        rowKey="recid"
         pagination={{ pageSize: 25 }}
         onChange={this.onSelectedCollectionsChange}
         expandedRowRender={record => (
