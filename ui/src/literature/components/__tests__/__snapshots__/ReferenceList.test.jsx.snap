@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferenceList does not render without references 1`] = `""`;
+
+exports[`ReferenceList renders with references 1`] = `
+<List
+  bordered={false}
+  dataSource={Array []}
+  footer={
+    <Pagination
+      current={1}
+      onChange={[Function]}
+      pageSize={25}
+      prefixCls="ant-pagination"
+      selectPrefixCls="ant-select"
+      total={2}
+    />
+  }
+  header="References"
+  loading={false}
+  pagination={false}
+  prefixCls="ant-list"
+  split={true}
+>
+  <ReferenceItem
+    key="Reference 1"
+    reference={
+      Immutable.Map {
+        title: "Reference 1",
+      }
+    }
+  />
+  <ReferenceItem
+    key="Reference 2"
+    reference={
+      Immutable.Map {
+        title: "Reference 2",
+      }
+    }
+  />
+</List>
+`;

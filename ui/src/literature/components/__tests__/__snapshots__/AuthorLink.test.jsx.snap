@@ -1,10 +1,60 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthorLink renders with all props set 1`] = `
-<a
-  href="//inspirehep.net/author/profile/Name, Full?recid=12345"
-  target="_blank"
+exports[`AuthorLink renders atuhor with only full_name 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="bottom"
+  prefixCls="ant-tooltip"
+  transitionName="zoom-big-fast"
 >
-  Name, Full
-</a>
+  <a
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+    target="_blank"
+  >
+    Name, Full
+  </a>
+</Tooltip>
+`;
+
+exports[`AuthorLink renders full author without recordId 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="bottom"
+  prefixCls="ant-tooltip"
+  title="Affiliation"
+  transitionName="zoom-big-fast"
+>
+  <a
+    href="//inspirehep.net/author/profile/Name, Full"
+    target="_blank"
+  >
+    Name, Full
+  </a>
+</Tooltip>
+`;
+
+exports[`AuthorLink renders with full author 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="bottom"
+  prefixCls="ant-tooltip"
+  title="Affiliation"
+  transitionName="zoom-big-fast"
+>
+  <a
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+    target="_blank"
+  >
+    Name, Full
+  </a>
+</Tooltip>
 `;

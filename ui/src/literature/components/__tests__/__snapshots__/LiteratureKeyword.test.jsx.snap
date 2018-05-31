@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureKeyword renders with keyword 1`] = `
+<Tag
+  closable={false}
+  color="blue"
+  prefixCls="ant-tag"
+  style={
+    Object {
+      "marginTop": 4,
+    }
+  }
+>
+  <Link
+    replace={false}
+    to="/literature/?q=keyword:\\"CMS\\""
+  >
+    CMS
+  </Link>
+</Tag>
+`;

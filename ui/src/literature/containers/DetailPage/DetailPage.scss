@@ -1,6 +1,13 @@
 .__DetailPage__ {
   .content {
-    // FIXME: add variables 
+    // FIXME: add variables
     background-color: #fff;
+    & > .ant-row {
+      margin-top: 16px;
+    }
+  }
+
+  .vertical-space {
+    margin-top: 8px;
   }
 }
