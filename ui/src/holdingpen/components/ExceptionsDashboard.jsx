@@ -1,26 +1,35 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
-import CategoryCard from '../components/CategoryCard';
+import EntryList from '../../common/components/EntryList';
 import ExceptionsTable from '../components/ExceptionsTable';
 
 class ExceptionsDashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      exceptions: props.exceptions,
-      collections: this.getExceptionsCountByCollection(),
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const { exceptions } = nextProps;
+    const countEntriesByCollection = ExceptionsDashboard.getExceptionCountEntriesByCollection(
+      exceptions
+    );
+    return {
+      ...prevState,
+      countEntriesByCollection,
     };
   }
 
-  getExceptionsCountByCollection() {
-    return this.props.exceptions.reduce((tally, exception) => {
-      if (tally[exception.collection] === undefined) {
-        tally[exception.collection] = 0;
+  static getExceptionCountEntriesByCollection(exceptions) {
+    const countMap = exceptions.reduce((counts, exception) => {
+      if (counts[exception.collection] === undefined) {
+        counts[exception.collection] = 0;
       }
-      tally[exception.collection] += 1;
-      return tally;
+      counts[exception.collection] += 1;
+      return counts;
     }, {});
+    return Object.entries(countMap);
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
   render() {
@@ -30,16 +39,16 @@ class ExceptionsDashboard extends Component {
 
         <Row type="flex" justify="space-around" align="middle">
           <Col>
-            <CategoryCard
+            <EntryList
               title="Collections"
-              categoryCount={this.state.collections}
+              entries={this.state.countEntriesByCollection}
             />
           </Col>
         </Row>
 
         <Row type="flex" justify="space-around">
           <Col>
-            <ExceptionsTable exceptions={this.state.exceptions} />
+            <ExceptionsTable exceptions={this.props.exceptions} />
           </Col>
         </Row>
       </div>
