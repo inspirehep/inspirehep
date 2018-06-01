@@ -1,11 +1,7 @@
 import { push } from 'react-router-redux';
 import { stringify } from 'qs';
 
-import {
-  SEARCH_REQUEST,
-  SEARCH_ERROR,
-  SEARCH_SUCCESS,
-} from './actionTypes';
+import { SEARCH_REQUEST, SEARCH_ERROR, SEARCH_SUCCESS } from './actionTypes';
 
 function searching() {
   return {
@@ -59,9 +55,7 @@ export default function search(query) {
       dispatch(push(url));
     }
     try {
-      const response = await http.get(url, {
-        headers: { Accept: 'application/vnd+inspire.brief+json' },
-      });
+      const response = await http.get(url);
       dispatch(searchSuccess(response.data));
     } catch (error) {
       dispatch(searchError(error.data));
