@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExceptionsDashboard renders with all props set 1`] = `
+<div>
+  <h1>
+    Exceptions Dashboard
+  </h1>
+  <div
+    className="collections"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Array [
+          Array [
+            "Job",
+            1,
+          ],
+          Array [
+            "Hep",
+            2,
+          ],
+          Array [
+            "Conferences",
+            1,
+          ],
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      suffix={null}
+    />
+  </div>
+  <Row
+    gutter={0}
+    justify="space-around"
+    type="flex"
+  >
+    <Col>
+      <ExceptionsTable
+        exceptions={
+          Array [
+            Object {
+              "collection": "Job",
+              "error": "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
+              "recid": 1512550,
+            },
+            Object {
+              "collection": "Hep",
+              "error": "Failed validating u'format' in schema[u'properties'][u'authors'][u'items'][u'properties'][u'emails'][u'items']:",
+              "recid": 1238165,
+            },
+            Object {
+              "collection": "Conferences",
+              "error": "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
+              "recid": 1356791,
+            },
+            Object {
+              "collection": "Hep",
+              "error": "Failed validating u'pattern' in schema[u'properties'][u'persistent_identifiers'][u'items'][u'properties'][u'value']:",
+              "recid": 1635467,
+            },
+          ]
+        }
+      />
+    </Col>
+  </Row>
+</div>
+`;
