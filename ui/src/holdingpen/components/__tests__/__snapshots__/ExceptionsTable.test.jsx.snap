@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ExceptionsTable renders with all props set 1`] = `
+exports[`ExceptionsTable renders filtered results on error search 1`] = `
 <Table
   bordered={true}
   className="__ExceptionsTable__"
@@ -8,36 +8,18 @@ exports[`ExceptionsTable renders with all props set 1`] = `
     Array [
       Object {
         "dataIndex": "collection",
-        "filteredValue": undefined,
         "filters": Array [
-          Object {
-            "text": "Hep",
-            "value": "Hep",
-          },
-          Object {
-            "text": "Hepnames",
-            "value": "Hepnames",
-          },
           Object {
             "text": "Job",
             "value": "Job",
           },
           Object {
-            "text": "Jobhidden",
-            "value": "Jobhidden",
-          },
-          Object {
-            "text": "Conferences",
-            "value": "Conferences",
-          },
-          Object {
-            "text": "Journals",
-            "value": "Journals",
+            "text": "Hep",
+            "value": "Hep",
           },
         ],
         "onFilter": [Function],
         "title": "Collection",
-        "width": 120,
       },
       Object {
         "dataIndex": "error",
@@ -53,14 +35,14 @@ exports[`ExceptionsTable renders with all props set 1`] = `
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
-        "width": "50%",
+        "width": "70%",
       },
       Object {
         "dataIndex": "recid",
         "filterDropdown": <FilterDropdown
           focused={false}
           onSearch={[Function]}
-          placeholder="Search recid"
+          placeholder="Go to recid"
     />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
@@ -76,22 +58,330 @@ exports[`ExceptionsTable renders with all props set 1`] = `
     Array [
       Object {
         "collection": "Job",
-        "error": "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
+        "error": "Foo MyError",
         "recid": 1512550,
       },
       Object {
         "collection": "Hep",
-        "error": "Failed validating u'format' in schema[u'properties'][u'authors'][u'items'][u'properties'][u'emails'][u'items']:",
+        "error": "MyError Bar",
         "recid": 1238165,
       },
+    ]
+  }
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
+`;
+
+exports[`ExceptionsTable renders no results on error search if nothing matches 1`] = `
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
       Object {
-        "collection": "Conferences",
-        "error": "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
-        "recid": 1356791,
+        "dataIndex": "collection",
+        "filters": Array [
+          Object {
+            "text": "Job",
+            "value": "Job",
+          },
+          Object {
+            "text": "Hep",
+            "value": "Hep",
+          },
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={Array []}
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
+`;
+
+exports[`ExceptionsTable renders no results on recid search if there is no exact match 1`] = `
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
+          Object {
+            "text": "Job",
+            "value": "Job",
+          },
+          Object {
+            "text": "Hep",
+            "value": "Hep",
+          },
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={Array []}
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
+`;
+
+exports[`ExceptionsTable renders single exception on recid search if there is exact match 1`] = `
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
+          Object {
+            "text": "Job",
+            "value": "Job",
+          },
+          Object {
+            "text": "Hep",
+            "value": "Hep",
+          },
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "collection": "Job",
+        "error": "Error 1",
+        "recid": 12345,
+      },
+    ]
+  }
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
+`;
+
+exports[`ExceptionsTable renders with exceptions 1`] = `
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
+          Object {
+            "text": "Job",
+            "value": "Job",
+          },
+          Object {
+            "text": "Hep",
+            "value": "Hep",
+          },
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "collection": "Job",
+        "error": "Job Error 1",
+        "recid": 1512550,
       },
       Object {
         "collection": "Hep",
-        "error": "Failed validating u'pattern' in schema[u'properties'][u'persistent_identifiers'][u'items'][u'properties'][u'value']:",
+        "error": "Hep Error 2",
+        "recid": 1238165,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "Hep Error 1",
         "recid": 1635467,
       },
     ]
@@ -100,7 +390,6 @@ exports[`ExceptionsTable renders with all props set 1`] = `
   indentSize={20}
   loading={false}
   locale={Object {}}
-  onChange={[Function]}
   pagination={
     Object {
       "pageSize": 25,
