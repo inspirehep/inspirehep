@@ -75,6 +75,31 @@ describe('ExceptionsTable', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders all exceptions on clear error search', () => {
+    const exceptions = [
+      {
+        collection: 'Job',
+        error: 'Error 1',
+        recid: 1512550,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 2',
+        recid: 1238165,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 3',
+        recid: 1635467,
+      },
+    ];
+    const searchText = '';
+    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    wrapper.instance().onErrorSearch(searchText);
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders no results on recid search if there is no exact match', () => {
     const exceptions = [
       {
@@ -125,6 +150,31 @@ describe('ExceptionsTable', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders all exceptions on clear recid search', () => {
+    const exceptions = [
+      {
+        collection: 'Job',
+        error: 'Error 1',
+        recid: 12345,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 2',
+        recid: 12346,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 3',
+        recid: 54321,
+      },
+    ];
+    const recidText = '';
+    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    wrapper.instance().onRecidSearch(recidText);
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
   describe('getCollectionColumnFilters', () => {
     it('returns collection column filters', () => {
       const exceptions = [
@@ -159,7 +209,7 @@ describe('ExceptionsTable', () => {
       const exception = {
         collection: 'Hep',
       };
-      const result = ExceptionsTable.hasCollection(exception, 'Hep');
+      const result = ExceptionsTable.hasCollection('Hep', exception);
       expect(result).toBe(true);
     });
 
@@ -167,7 +217,7 @@ describe('ExceptionsTable', () => {
       const exception = {
         collection: 'Hep',
       };
-      const result = ExceptionsTable.hasCollection(exception, 'Not Hep');
+      const result = ExceptionsTable.hasCollection('Not Hep', exception);
       expect(result).toBe(false);
     });
   });
