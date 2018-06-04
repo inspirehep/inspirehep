@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'antd';
+import { Row, Col, Tag } from 'antd';
 import ExceptionsTable from '../components/ExceptionsTable';
 import InlineList from '../../common/components/InlineList';
 import './ExceptionsDashboard.scss';
@@ -35,15 +35,16 @@ class ExceptionsDashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div className="__ExceptionsDashboard__">
         <h1>Exceptions Dashboard</h1>
 
-        <div className="collections">
+        <div className="collection-counts">
           <InlineList
+            separateItems={false}
             items={this.state.countEntriesByCollection}
             renderItem={([collectionName, collectionCount]) => (
-              <span>
-                {collectionName} {collectionCount}
+              <span className="space-around">
+                {collectionName} <Tag>{collectionCount}</Tag>
               </span>
             )}
           />

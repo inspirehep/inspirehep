@@ -7,17 +7,31 @@ import './ExceptionsTable.scss';
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { exceptions } = nextProps;
+    const collectionColumnFilters = ExceptionsTable.getCollectionColumnFilters(
+      exceptions
+    );
     return {
       ...prevState,
       allExceptions: exceptions,
       filteredExceptions: exceptions,
+      collectionColumnFilters,
     };
+  }
+
+  static getCollectionColumnFilters(exceptions) {
+    const collectionsMap = exceptions.reduce((acc, exception) => {
+      acc[exception.collection] = true;
+      return acc;
+    }, {});
+    return Object.keys(collectionsMap).map(collection => ({
+      text: collection,
+      value: collection,
+    }));
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      selectedCollections: null,
       isErrorFilterDropdownVisible: false,
       isErrorFilterFocused: false,
       isRecidFilterDropdownVisible: false,
@@ -30,12 +44,8 @@ class ExceptionsTable extends Component {
     this.onErrorFilterDropdownVisibleChange = this.onErrorFilterDropdownVisibleChange.bind(
       this
     );
-    this.onSelectedCollectionsChange = this.onSelectedCollectionsChange.bind(
-      this
-    );
     this.onErrorSearch = this.onErrorSearch.bind(this);
     this.onRecidSearch = this.onRecidSearch.bind(this);
-    this.onColumnSearch = this.onColumnSearch.bind(this);
   }
 
   onErrorFilterDropdownVisibleChange(visible) {
@@ -53,53 +63,40 @@ class ExceptionsTable extends Component {
   }
 
   onErrorSearch(searchText) {
-    const filteredExceptions = this.onColumnSearch(searchText, 'error');
+    const searchRegExp = new RegExp(searchText, 'gi');
+    const { allExceptions } = this.state;
+    const filteredExceptions = allExceptions.filter(exception =>
+      exception.error.match(searchRegExp)
+    );
     this.setState({
       isErrorFilterDropdownVisible: false,
       filteredExceptions,
     });
   }
 
-  onRecidSearch(searchText) {
-    const filteredExceptions = this.onColumnSearch(searchText, 'recid');
+  onRecidSearch(recidText) {
+    const recid = Number(recidText);
+    const { allExceptions } = this.state;
+    // TODO: create a lookup map in order to avoid `findIndex`
+    const exceptionIndex = allExceptions.findIndex(
+      exception => exception.recid === recid
+    );
+    const filteredExceptions = [allExceptions[exceptionIndex]];
     this.setState({
       isRecidFilterDropdownVisible: false,
       filteredExceptions,
     });
   }
 
-  onColumnSearch(searchText, columnToSearch) {
-    const regExp = new RegExp(searchText, 'gi');
-    return this.state.allExceptions.filter(exception => {
-      const record = String(exception[columnToSearch]);
-      return record.match(regExp);
-    });
-  }
-
-  onSelectedCollectionsChange(_, filters) {
-    this.setState({
-      selectedCollections: filters,
-    });
-  }
-
   render() {
-    const selectedCollections = this.state.selectedCollections || {};
+    const { collectionColumnFilters } = this.state;
 
     const columns = [
       {
         title: 'Collection',
         dataIndex: 'collection',
-        filters: [
-          { text: 'Hep', value: 'Hep' },
-          { text: 'Hepnames', value: 'Hepnames' },
-          { text: 'Job', value: 'Job' },
-          { text: 'Jobhidden', value: 'Jobhidden' },
-          { text: 'Conferences', value: 'Conferences' },
-          { text: 'Journals', value: 'Journals' },
-        ],
-        filteredValue: selectedCollections.collection,
-        onFilter: (value, record) => record.collection.includes(value),
-        width: 120,
+        filters: collectionColumnFilters,
+        onFilter: (value, record) => record.collection === value,
       },
       {
         title: 'Error',
@@ -116,7 +113,7 @@ class ExceptionsTable extends Component {
         onFilterDropdownVisibleChange: visible => {
           this.onErrorFilterDropdownVisibleChange(visible);
         },
-        width: '50%',
+        width: '70%',
         render: text => text.split('\n', 1)[0],
       },
       {
@@ -124,7 +121,7 @@ class ExceptionsTable extends Component {
         dataIndex: 'recid',
         filterDropdown: (
           <FilterDropdown
-            placeholder="Search recid"
+            placeholder="Go to recid"
             onSearch={this.onRecidSearch}
             focused={this.state.isRecidFilterFocused}
           />
