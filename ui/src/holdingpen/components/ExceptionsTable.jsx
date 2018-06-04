@@ -12,7 +12,6 @@ class ExceptionsTable extends Component {
     );
     return {
       ...prevState,
-      allExceptions: exceptions,
       filteredExceptions: exceptions,
       collectionColumnFilters,
     };
@@ -29,7 +28,7 @@ class ExceptionsTable extends Component {
     }));
   }
 
-  static hasCollection(exception, collection) {
+  static hasCollection(collection, exception) {
     return exception.collection === collection;
   }
 
@@ -67,9 +66,14 @@ class ExceptionsTable extends Component {
   }
 
   onErrorSearch(searchText) {
+    if (!searchText) {
+      this.onFilterDropdownSearchClear();
+      return;
+    }
+
     const searchRegExp = new RegExp(searchText, 'gi');
-    const { allExceptions } = this.state;
-    const filteredExceptions = allExceptions.filter(exception =>
+    const { exceptions } = this.props;
+    const filteredExceptions = exceptions.filter(exception =>
       exception.error.match(searchRegExp)
     );
     this.setState({
@@ -79,17 +83,30 @@ class ExceptionsTable extends Component {
   }
 
   onRecidSearch(recidText) {
+    if (!recidText) {
+      this.onFilterDropdownSearchClear();
+      return;
+    }
+
+    const { exceptions } = this.props;
     const recid = Number(recidText);
-    const { allExceptions } = this.state;
     // TODO: create a lookup map in order to avoid `findIndex`
-    const exceptionIndex = allExceptions.findIndex(
+    const exceptionIndex = exceptions.findIndex(
       exception => exception.recid === recid
     );
     const filteredExceptions =
-      exceptionIndex >= 0 ? [allExceptions[exceptionIndex]] : [];
+      exceptionIndex >= 0 ? [exceptions[exceptionIndex]] : [];
     this.setState({
       isRecidFilterDropdownVisible: false,
       filteredExceptions,
+    });
+  }
+
+  onFilterDropdownSearchClear() {
+    const { exceptions } = this.props;
+    this.setState({
+      isRecidFilterDropdownVisible: false,
+      filteredExceptions: exceptions,
     });
   }
 
