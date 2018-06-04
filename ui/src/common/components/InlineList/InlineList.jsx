@@ -34,7 +34,7 @@ class InlineList extends Component {
 }
 
 InlineList.propTypes = {
-  items: PropTypes.instanceOf(List),
+  items: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array]),
   renderItem: PropTypes.func.isRequired,
   extractKey: PropTypes.func,
   suffix: PropTypes.node,

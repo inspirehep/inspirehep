@@ -27,6 +27,31 @@ exports[`InlineList renders item without separator 1`] = `
 </div>
 `;
 
+exports[`InlineList renders items (array) without separator 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className={null}
+  >
+    <li
+      key="foo"
+    >
+      <span>
+        foo
+      </span>
+    </li>
+    <li
+      key="bar"
+    >
+      <span>
+        bar
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`InlineList renders items seperated by default 1`] = `
 <div
   className="__InlineList__"
@@ -52,7 +77,7 @@ exports[`InlineList renders items seperated by default 1`] = `
 </div>
 `;
 
-exports[`InlineList renders with all props set 1`] = `
+exports[`InlineList renders with all props set (array) 1`] = `
 <div
   className="__InlineList__"
 >
@@ -84,7 +109,7 @@ exports[`InlineList renders with all props set 1`] = `
 </div>
 `;
 
-exports[`InlineList renders with all props set 2`] = `
+exports[`InlineList renders with all props set 1`] = `
 <div
   className="__InlineList__"
 >
