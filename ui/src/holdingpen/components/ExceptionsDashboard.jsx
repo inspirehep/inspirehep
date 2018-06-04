@@ -36,8 +36,6 @@ class ExceptionsDashboard extends Component {
   render() {
     return (
       <div className="__ExceptionsDashboard__">
-        <h1>Exceptions Dashboard</h1>
-
         <div className="collection-counts">
           <InlineList
             separateItems={false}

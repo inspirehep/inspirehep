@@ -29,6 +29,10 @@ class ExceptionsTable extends Component {
     }));
   }
 
+  static hasCollection(exception, collection) {
+    return exception.collection === collection;
+  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -81,7 +85,8 @@ class ExceptionsTable extends Component {
     const exceptionIndex = allExceptions.findIndex(
       exception => exception.recid === recid
     );
-    const filteredExceptions = [allExceptions[exceptionIndex]];
+    const filteredExceptions =
+      exceptionIndex >= 0 ? [allExceptions[exceptionIndex]] : [];
     this.setState({
       isRecidFilterDropdownVisible: false,
       filteredExceptions,
@@ -96,7 +101,7 @@ class ExceptionsTable extends Component {
         title: 'Collection',
         dataIndex: 'collection',
         filters: collectionColumnFilters,
-        onFilter: (value, record) => record.collection === value,
+        onFilter: ExceptionsTable.hasCollection,
       },
       {
         title: 'Error',
@@ -110,9 +115,7 @@ class ExceptionsTable extends Component {
         ),
         filterIcon: <Icon type="search" />,
         filterDropdownVisible: this.state.isErrorFilterDropdownVisible,
-        onFilterDropdownVisibleChange: visible => {
-          this.onErrorFilterDropdownVisibleChange(visible);
-        },
+        onFilterDropdownVisibleChange: this.onErrorFilterDropdownVisibleChange,
         width: '70%',
         render: text => text.split('\n', 1)[0],
       },
@@ -128,9 +131,7 @@ class ExceptionsTable extends Component {
         ),
         filterIcon: <Icon type="search" />,
         filterDropdownVisible: this.state.isRecidFilterDropdownVisible,
-        onFilterDropdownVisibleChange: visible => {
-          this.onRecidFilterDropdownVisibleChange(visible);
-        },
+        onFilterDropdownVisibleChange: this.onRecidFilterDropdownVisibleChange,
         render: text => {
           const recordLink = `http://inspirehep.net/record/${text}/edit`;
           return <a href={recordLink}>{text}</a>;

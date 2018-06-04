@@ -2,59 +2,173 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import ExceptionsTable from '../ExceptionsTable';
 
-const exceptions = [
-  {
-    collection: 'Job',
-    error:
-      "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
-    recid: 1512550,
-  },
-  {
-    collection: 'Hep',
-    error:
-      "Failed validating u'format' in schema[u'properties'][u'authors'][u'items'][u'properties'][u'emails'][u'items']:",
-    recid: 1238165,
-  },
-  {
-    collection: 'Conferences',
-    error:
-      "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
-    recid: 1356791,
-  },
-  {
-    collection: 'Hep',
-    error:
-      "Failed validating u'pattern' in schema[u'properties'][u'persistent_identifiers'][u'items'][u'properties'][u'value']:",
-    recid: 1635467,
-  },
-];
-
 describe('ExceptionsTable', () => {
-  it('renders with all props set', () => {
+  it('renders with exceptions', () => {
+    const exceptions = [
+      {
+        collection: 'Job',
+        error: 'Job Error 1',
+        recid: 1512550,
+      },
+      {
+        collection: 'Hep',
+        error: 'Hep Error 2',
+        recid: 1238165,
+      },
+      {
+        collection: 'Hep',
+        error: 'Hep Error 1',
+        recid: 1635467,
+      },
+    ];
     const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('should return correct filtered results', () => {
-    const searchText = 'url';
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
-    const expectedFilteredResult = [
+  it('renders filtered results on error search', () => {
+    const exceptions = [
       {
         collection: 'Job',
-        error:
-          "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
+        error: 'Foo MyError',
         recid: 1512550,
       },
       {
-        collection: 'Conferences',
-        error:
-          "Failed validating u'format' in schema[u'properties'][u'urls'][u'items'][u'properties'][u'value']:",
-        recid: 1356791,
+        collection: 'Hep',
+        error: 'MyError Bar',
+        recid: 1238165,
+      },
+      {
+        collection: 'Hep',
+        error: 'Another Thing',
+        recid: 1635467,
       },
     ];
-    const actualFilteredResult = wrapper
-      .instance()
-      .onColumnSearch(searchText, 'error');
-    expect(actualFilteredResult).toEqual(expectedFilteredResult);
+    const searchText = 'MyError';
+    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    wrapper.instance().onErrorSearch(searchText);
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders no results on error search if nothing matches', () => {
+    const exceptions = [
+      {
+        collection: 'Job',
+        error: 'Error 1',
+        recid: 1512550,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 2',
+        recid: 1238165,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 3',
+        recid: 1635467,
+      },
+    ];
+    const searchText = 'Thing';
+    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    wrapper.instance().onErrorSearch(searchText);
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders no results on recid search if there is no exact match', () => {
+    const exceptions = [
+      {
+        collection: 'Job',
+        error: 'Error 1',
+        recid: 12345,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 2',
+        recid: 12346,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 3',
+        recid: 54321,
+      },
+    ];
+    const recidText = '1234';
+    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    wrapper.instance().onRecidSearch(recidText);
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders single exception on recid search if there is exact match', () => {
+    const exceptions = [
+      {
+        collection: 'Job',
+        error: 'Error 1',
+        recid: 12345,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 2',
+        recid: 12346,
+      },
+      {
+        collection: 'Hep',
+        error: 'Error 3',
+        recid: 54321,
+      },
+    ];
+    const recidText = '12345';
+    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    wrapper.instance().onRecidSearch(recidText);
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  describe('getCollectionColumnFilters', () => {
+    it('returns collection column filters', () => {
+      const exceptions = [
+        {
+          collection: 'Hep',
+        },
+        {
+          collection: 'Hep',
+        },
+        {
+          collection: 'Job',
+        },
+      ];
+      const expected = [
+        { text: 'Hep', value: 'Hep' },
+        { text: 'Job', value: 'Job' },
+      ];
+      const result = ExceptionsTable.getCollectionColumnFilters(exceptions);
+      expect(result.sort()).toEqual(expected.sort());
+    });
+
+    it('returns empty array if expections empty', () => {
+      const exceptions = [];
+      const expected = [];
+      const result = ExceptionsTable.getCollectionColumnFilters(exceptions);
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('hasCollection', () => {
+    it('returns true if exception.collection equals to passed collection', () => {
+      const exception = {
+        collection: 'Hep',
+      };
+      const result = ExceptionsTable.hasCollection(exception, 'Hep');
+      expect(result).toBe(true);
+    });
+
+    it('returns false if expcetion.collection does not equal to passed collection', () => {
+      const exception = {
+        collection: 'Hep',
+      };
+      const result = ExceptionsTable.hasCollection(exception, 'Not Hep');
+      expect(result).toBe(false);
+    });
   });
 });
