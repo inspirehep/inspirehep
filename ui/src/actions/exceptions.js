@@ -1,5 +1,8 @@
-import { EXCEPTIONS_REQUEST, EXCEPTIONS_SUCCESS } from './actionTypes';
-import data from '../holdingpen/report-errors.json';
+import {
+  EXCEPTIONS_REQUEST,
+  EXCEPTIONS_SUCCESS,
+  EXCEPTIONS_ERROR,
+} from './actionTypes';
 
 function fetching() {
   return {
@@ -14,9 +17,21 @@ function fetchSuccess(result) {
   };
 }
 
+function fetchError(error) {
+  return {
+    type: EXCEPTIONS_ERROR,
+    payload: error,
+  };
+}
+
 export default function fetch() {
-  return async dispatch => {
+  return async (dispatch, getState, http) => {
     dispatch(fetching());
-    dispatch(fetchSuccess(data));
+    try {
+      const response = await http.get('/migrator/errors');
+      dispatch(fetchSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchError(error.data));
+    }
   };
 }

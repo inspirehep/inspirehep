@@ -17,11 +17,14 @@ const exceptionsReducer = (state = initialState, action) => {
     case EXCEPTIONS_REQUEST:
       return state.set('loading', true);
     case EXCEPTIONS_SUCCESS:
-      return state.set('loading', false).set('data', fromJS(action.payload));
+      return state
+        .set('loading', false)
+        .set('error', fromJS({}))
+        .set('data', fromJS(action.payload.data));
     case EXCEPTIONS_ERROR:
       return state
         .set('loading', false)
-        .set('data', fromJS({}))
+        .set('data', fromJS([]))
         .set('error', fromJS(action.payload));
     default:
       return state;
