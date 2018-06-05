@@ -6,7 +6,7 @@ import AuthorList from '../AuthorList';
 import AuthorLink from '../AuthorLink';
 
 describe('AuthorList', () => {
-  it('renders only  3 authors and suffixes "et al." if passed more', () => {
+  it('renders only p5 authors and suffixes "et al." if passed more', () => {
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
@@ -20,13 +20,14 @@ describe('AuthorList', () => {
       {
         full_name: 'Test, Guy 4',
       },
+      {
+        full_name: 'Test, Guy 5',
+      },
+      {
+        full_name: 'Test, Guy 6',
+      },
     ]);
-    const wrapper = shallow((
-      <AuthorList
-        recordId={12345}
-        authors={authors}
-      />
-    ));
+    const wrapper = shallow(<AuthorList recordId={12345} authors={authors} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -42,13 +43,9 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 3',
       },
     ]);
-    const wrapper = shallow((
-      <AuthorList
-        limit={2}
-        recordId={12345}
-        authors={authors}
-      />
-    ));
+    const wrapper = shallow(
+      <AuthorList limit={2} recordId={12345} authors={authors} />
+    );
     expect(wrapper.dive()).toMatchSnapshot();
   });
 
@@ -61,13 +58,9 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 2',
       },
     ]);
-    const wrapper = shallow((
-      <AuthorList
-        limit={5}
-        recordId={12345}
-        authors={authors}
-      />
-    ));
+    const wrapper = shallow(
+      <AuthorList limit={4} recordId={12345} authors={authors} />
+    );
     expect(wrapper.dive()).toMatchSnapshot();
   });
 
@@ -77,13 +70,9 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 1',
       },
     ]);
-    const wrapper = shallow((
-      <AuthorList
-        limit={5}
-        recordId={12345}
-        authors={authors}
-      />
-    ));
+    const wrapper = shallow(
+      <AuthorList limit={4} recordId={12345} authors={authors} />
+    );
     expect(wrapper.dive().find(AuthorLink).length).toBe(1);
   });
 });

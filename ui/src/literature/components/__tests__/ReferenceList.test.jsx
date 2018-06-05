@@ -8,14 +8,20 @@ describe('ReferenceList', () => {
   it('renders with references', () => {
     const references = fromJS([
       {
-        title: 'Reference 1',
+        titles: [{ title: 'Reference 1' }],
       },
       {
-        title: 'Reference 2',
+        titles: [{ title: 'Reference 2' }],
       },
     ]);
     const wrapper = shallow(<ReferenceList references={references} />);
     expect(wrapper.dive()).toMatchSnapshot();
+  });
+
+  it('renders as loading if set', () => {
+    const references = fromJS([]);
+    const wrapper = shallow(<ReferenceList loading references={references} />);
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('does not render without references', () => {

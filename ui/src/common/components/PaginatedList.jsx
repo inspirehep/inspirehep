@@ -22,6 +22,10 @@ class PaginatedList extends Component {
     return items.slice(startIndex, endIndex);
   }
 
+  static getPaginationRangeInfo(total, range) {
+    return `${range[0]}-${range[1]} of ${total}`;
+  }
+
   constructor(props) {
     super(props);
     this.state = {};
@@ -39,7 +43,7 @@ class PaginatedList extends Component {
   }
 
   renderPagination() {
-    const { pageSize } = this.props;
+    const { pageSize, loading } = this.props;
     const { total, page } = this.state;
     return (
       <Pagination
@@ -47,6 +51,8 @@ class PaginatedList extends Component {
         onChange={this.onPageChange}
         total={total}
         pageSize={pageSize}
+        loading={loading}
+        showTotal={PaginatedList.getPaginationRangeInfo}
       />
     );
   }
@@ -68,6 +74,7 @@ PaginatedList.propTypes = {
   title: PropTypes.node,
   items: PropTypes.instanceOf(Immutable.List),
   renderItem: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
   pageSize: PropTypes.number,
 };
 
@@ -75,6 +82,7 @@ PaginatedList.defaultProps = {
   items: Immutable.List(),
   title: null,
   pageSize: 25,
+  loading: false,
 };
 
 export default PaginatedList;

@@ -29,7 +29,7 @@ AuthorList.propTypes = {
 
 AuthorList.defaultProps = {
   authors: List(),
-  limit: 3,
+  limit: 5,
   recordId: undefined,
 };
 
