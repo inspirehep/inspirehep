@@ -8,15 +8,16 @@ import AuthorList from './AuthorList';
 import DOIList from './DOIList';
 import PublicationInfo from './PublicationInfo';
 import Latex from '../../common/components/Latex';
+import ArxivEprintList from './ArxivEprintList';
 
 class ReferenceItem extends Component {
   static renderTitle(reference) {
-    const recid = reference.get('recid');
-    const title = reference.get('title');
+    const recordId = reference.get('control_number');
+    const title = reference.getIn(['titles', 0, 'title']);
 
-    if (recid && title) {
+    if (recordId && title) {
       return (
-        <Link to={`/literature/${recid}`}>
+        <Link to={`/literature/${recordId}`}>
           <Latex>{title}</Latex>
         </Link>
       );
@@ -26,19 +27,25 @@ class ReferenceItem extends Component {
 
   render() {
     const { reference } = this.props;
+
     return (
       <List.Item>
         <List.Item.Meta
           title={ReferenceItem.renderTitle(reference)}
           description={
             <AuthorList
-              recordId={reference.get('recid')}
+              recordId={reference.get('control_number')}
               authors={reference.get('authors')}
             />
           }
         />
-        <PublicationInfo info={reference.get('publication_info')} />
-        <DOIList dois={reference.get('dois')} />
+        <div>
+          <PublicationInfo
+            info={reference.getIn(['publication_info', 0], Map())}
+          />
+          <ArxivEprintList eprints={reference.get('arxiv_eprints')} />
+          <DOIList dois={reference.get('dois')} />
+        </div>
       </List.Item>
     );
   }

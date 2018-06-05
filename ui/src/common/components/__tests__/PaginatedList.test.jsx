@@ -29,6 +29,19 @@ describe('PaginatedList', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders as loading if set', () => {
+    const items = Range(1, 100).toList();
+    const wrapper = shallow(
+      <PaginatedList
+        loading
+        items={items}
+        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        pageSize={10}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders the new page on page change', () => {
     const items = Range(1, 100).toList();
     const page = 2;
@@ -80,6 +93,16 @@ describe('PaginatedList', () => {
       const pageSize = 3;
       const expected = fromJS([10]);
       const result = PaginatedList.getPageItems(items, page, pageSize);
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('getPaginationRangeInfo', () => {
+    it('returns "pageStart-pageEnd of total"', () => {
+      const range = [1, 5];
+      const total = 10;
+      const expected = '1-5 of 10';
+      const result = PaginatedList.getPaginationRangeInfo(total, range);
       expect(result).toEqual(expected);
     });
   });

@@ -55,7 +55,11 @@ export default function search(query) {
       dispatch(push(url));
     }
     try {
-      const response = await http.get(url);
+      const response = await http.get(url, {
+        headers: {
+          Accept: 'application/vnd+inspire.record.ui+json',
+        },
+      });
       dispatch(searchSuccess(response.data));
     } catch (error) {
       dispatch(searchError(error.data));

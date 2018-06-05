@@ -2,6 +2,19 @@
 
 exports[`ReferenceList does not render without references 1`] = `""`;
 
+exports[`ReferenceList renders as loading if set 1`] = `
+<PaginatedList
+  items={
+    Immutable.List [
+    ]
+  }
+  loading={true}
+  pageSize={25}
+  renderItem={[Function]}
+  title="References"
+/>
+`;
+
 exports[`ReferenceList renders with references 1`] = `
 <List
   bordered={false}
@@ -9,10 +22,12 @@ exports[`ReferenceList renders with references 1`] = `
   footer={
     <Pagination
       current={1}
+      loading={false}
       onChange={[Function]}
       pageSize={25}
       prefixCls="ant-pagination"
       selectPrefixCls="ant-select"
+      showTotal={[Function]}
       total={2}
     />
   }
@@ -26,7 +41,11 @@ exports[`ReferenceList renders with references 1`] = `
     key="Reference 1"
     reference={
       Immutable.Map {
-        title: "Reference 1",
+        titles: Immutable.List [
+          Immutable.Map {
+            title: "Reference 1",
+          },
+        ],
       }
     }
   />
@@ -34,7 +53,11 @@ exports[`ReferenceList renders with references 1`] = `
     key="Reference 2"
     reference={
       Immutable.Map {
-        title: "Reference 2",
+        titles: Immutable.List [
+          Immutable.Map {
+            title: "Reference 2",
+          },
+        ],
       }
     }
   />

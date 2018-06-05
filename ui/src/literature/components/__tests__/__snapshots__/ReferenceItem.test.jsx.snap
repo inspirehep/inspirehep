@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReferenceItem renders unlinked reference (no recid) 1`] = `
+exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
 <div
   className="ant-list-item"
 >
@@ -14,7 +14,7 @@ exports[`ReferenceItem renders unlinked reference (no recid) 1`] = `
             },
           ]
         }
-        limit={3}
+        limit={5}
         recordId={undefined}
       />
     }
@@ -23,22 +23,33 @@ exports[`ReferenceItem renders unlinked reference (no recid) 1`] = `
   <div
     className="ant-list-item-content"
   >
-    <PublicationInfo
-      info={
-        Immutable.Map {
-          journal_title: "Journal",
-        }
-      }
-    />
-    <DOIList
-      dois={
-        Immutable.List [
+    <div>
+      <PublicationInfo
+        info={
           Immutable.Map {
-            value: "123456.12345",
-          },
-        ]
-      }
-    />
+            journal_title: "Journal",
+          }
+        }
+      />
+      <ArxivEprintList
+        eprints={
+          Immutable.List [
+            Immutable.Map {
+              value: "123456",
+            },
+          ]
+        }
+      />
+      <DOIList
+        dois={
+          Immutable.List [
+            Immutable.Map {
+              value: "123456.12345",
+            },
+          ]
+        }
+      />
+    </div>
   </div>
 </div>
 `;
@@ -57,7 +68,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
             },
           ]
         }
-        limit={3}
+        limit={5}
         recordId={12345}
       />
     }
@@ -75,22 +86,33 @@ exports[`ReferenceItem renders with full reference 1`] = `
   <div
     className="ant-list-item-content"
   >
-    <PublicationInfo
-      info={
-        Immutable.Map {
-          journal_title: "Journal",
-        }
-      }
-    />
-    <DOIList
-      dois={
-        Immutable.List [
+    <div>
+      <PublicationInfo
+        info={
           Immutable.Map {
-            value: "123456.12345",
-          },
-        ]
-      }
-    />
+            journal_title: "Journal",
+          }
+        }
+      />
+      <ArxivEprintList
+        eprints={
+          Immutable.List [
+            Immutable.Map {
+              value: "123456",
+            },
+          ]
+        }
+      />
+      <DOIList
+        dois={
+          Immutable.List [
+            Immutable.Map {
+              value: "123456.12345",
+            },
+          ]
+        }
+      />
+    </div>
   </div>
 </div>
 `;

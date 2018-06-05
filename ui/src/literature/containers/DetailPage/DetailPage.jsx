@@ -2,10 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Spin, Row, Col } from 'antd';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
 import './DetailPage.scss';
-import fetchLiterature from '../../../actions/literature';
+import {
+  fetchLiterature,
+  fetchLiteratureReferences,
+} from '../../../actions/literature';
 import Latex from '../../../common/components/Latex';
 import AuthorList from '../../components/AuthorList';
 import ArxivEprintList from '../../components/ArxivEprintList';
@@ -24,11 +27,13 @@ class DetailPage extends Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchLiterature(this.props.match.params.id));
+    const recordId = this.props.match.params.id;
+    this.props.dispatch(fetchLiterature(recordId));
+    this.props.dispatch(fetchLiteratureReferences(recordId));
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, references, loadingReferences } = this.props;
     if (loading) {
       return DetailPage.renderLoadingSpin();
     }
@@ -84,7 +89,10 @@ class DetailPage extends Component {
             <LiteratureKeywordList keywords={keywords} />
           </Row>
           <Row>
-            <ReferenceList />
+            <ReferenceList
+              references={references}
+              loading={loadingReferences}
+            />
           </Row>
         </Col>
       </Row>
@@ -96,12 +104,16 @@ DetailPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
+  references: PropTypes.instanceOf(List).isRequired,
+  loadingReferences: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   loading: state.literature.get('loading'),
   record: state.literature.get('data'),
+  references: state.literature.get('references'),
+  loadingReferences: state.literature.get('loadingReferences'),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 

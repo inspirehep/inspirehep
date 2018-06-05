@@ -2,36 +2,75 @@ import {
   LITERATURE_ERROR,
   LITERATURE_REQUEST,
   LITERATURE_SUCCESS,
+  LITERATURE_REFERENCES_ERROR,
+  LITERATURE_REFERENCES_REQUEST,
+  LITERATURE_REFERENCES_SUCCESS,
 } from './actionTypes';
 
-function fetching() {
+function fetchingLiterature() {
   return {
     type: LITERATURE_REQUEST,
   };
 }
 
-function fetchSuccess(result) {
+function fetchLiteratureSuccess(result) {
   return {
     type: LITERATURE_SUCCESS,
     payload: result,
   };
 }
 
-function fetchError(error) {
+function fetchLiteratureError(error) {
   return {
     type: LITERATURE_ERROR,
     payload: error,
   };
 }
 
-export default function fetch(recordId) {
+function fetchingLiteratureReferences() {
+  return {
+    type: LITERATURE_REFERENCES_REQUEST,
+  };
+}
+
+function fetchLiteratureReferencesSuccess(result) {
+  return {
+    type: LITERATURE_REFERENCES_SUCCESS,
+    payload: result,
+  };
+}
+
+function fetchLiteratureReferencesError(error) {
+  return {
+    type: LITERATURE_REFERENCES_ERROR,
+    payload: error,
+  };
+}
+
+export function fetchLiterature(recordId) {
   return async (dispatch, getState, http) => {
-    dispatch(fetching());
+    dispatch(fetchingLiterature());
     try {
-      const response = await http.get(`/literature/${recordId}`);
-      dispatch(fetchSuccess(response.data));
+      const response = await http.get(`/literature/${recordId}`, {
+        headers: {
+          Accept: 'application/vnd+inspire.record.ui+json',
+        },
+      });
+      dispatch(fetchLiteratureSuccess(response.data));
     } catch (error) {
-      dispatch(fetchError(error.data));
+      dispatch(fetchLiteratureError(error.data));
+    }
+  };
+}
+
+export function fetchLiteratureReferences(recordId) {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingLiteratureReferences());
+    try {
+      const response = await http.get(`/literature/${recordId}/references`);
+      dispatch(fetchLiteratureReferencesSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchLiteratureReferencesError(error.data));
     }
   };
 }
