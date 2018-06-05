@@ -25,7 +25,7 @@ exports[`ExceptionsDashboard renders with all props set 1`] = `
           ],
         ]
       }
-      label={null}
+      label="Collections"
       renderItem={[Function]}
       separateItems={false}
       suffix={null}

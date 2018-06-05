@@ -40,10 +40,11 @@ class ExceptionsDashboard extends Component {
           <InlineList
             separateItems={false}
             items={this.state.countEntriesByCollection}
+            label="Collections"
             renderItem={([collectionName, collectionCount]) => (
-              <span className="space-around">
-                {collectionName} <Tag>{collectionCount}</Tag>
-              </span>
+              <Tag className="space-around">
+                {collectionCount} {collectionName}
+              </Tag>
             )}
           />
         </div>
