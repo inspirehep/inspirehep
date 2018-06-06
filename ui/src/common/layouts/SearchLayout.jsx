@@ -6,6 +6,7 @@ import AggregationFiltersContainer from './../containers/AggregationFiltersConta
 import PaginationContainer from './../containers/PaginationContainer';
 import SortByContainer from './../containers/SortByContainer';
 import ResultsContainer from './../containers/ResultsContainer';
+import NumberOfResultsContainer from '../containers/NumberOfResultsContainer';
 
 class SearchLayout extends Component {
   render() {
@@ -15,6 +16,7 @@ class SearchLayout extends Component {
           <AggregationFiltersContainer />
         </Col>
         <Col span={18}>
+          <NumberOfResultsContainer />
           <PaginationContainer />
           <SortByContainer />
           <ResultsContainer renderItem={this.props.renderResultItem} />

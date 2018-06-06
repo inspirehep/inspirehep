@@ -16,10 +16,7 @@ class SearchPage extends Component {
     return (
       <SearchLayout
         renderResultItem={result => (
-          <LiteratureItem
-            metadata={result.get('metadata')}
-            display={result.get('display')}
-          />
+          <LiteratureItem metadata={result.get('metadata')} />
         )}
       />
     );
