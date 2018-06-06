@@ -59,11 +59,11 @@ class PaginatedList extends Component {
 
   render() {
     const { renderItem, title, items } = this.props;
-    const { pageItems } = this.state;
+    const { pageItems, page } = this.state;
     return (
       items.size > 0 && (
         <List header={title} footer={this.renderPagination()}>
-          {pageItems.map(item => renderItem(item))}
+          {pageItems.map((item, index) => renderItem(item, index, page))}
         </List>
       )
     );

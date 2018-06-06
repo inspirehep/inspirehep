@@ -68,6 +68,22 @@ describe('PaginatedList', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('calls renderItem only pageSize times with item, index and page respectively', () => {
+    const items = fromJS(['item1', 'item2', 'item3']);
+    const pageSize = 2;
+    const renderItem = jest.fn();
+    shallow(
+      <PaginatedList
+        items={items}
+        pageSize={pageSize}
+        renderItem={renderItem}
+      />
+    );
+    // TODO: use `toHaveBeenNthCalledWith` when jest is upgraded
+    expect(renderItem).toHaveBeenCalledWith('item1', 0, 1);
+    expect(renderItem).toHaveBeenLastCalledWith('item2', 1, 1);
+  });
+
   describe('getPageItems', () => {
     it('returns items for a page', () => {
       const items = fromJS([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);

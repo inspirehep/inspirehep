@@ -14,9 +14,12 @@ class ReferenceList extends Component {
           title="References"
           items={references}
           loading={loading}
-          renderItem={reference => (
+          renderItem={(reference, index, page) => (
+            // reference data model doesn't have any identifier, thus we have hack for `key`
             <ReferenceItem
-              key={reference.getIn(['titles', 0, 'title'])}
+              key={
+                reference.getIn(['titles', 0, 'title']) || String(page * index)
+              }
               reference={reference}
             />
           )}
