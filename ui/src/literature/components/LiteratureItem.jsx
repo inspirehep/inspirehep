@@ -18,7 +18,7 @@ import Latex from '../../common/components/Latex';
 
 class LiteratureItem extends Component {
   render() {
-    const { metadata, display } = this.props;
+    const { metadata } = this.props;
 
     const title = metadata.getIn(['titles', 0, 'title']);
     const authors = metadata.get('authors');
@@ -26,9 +26,9 @@ class LiteratureItem extends Component {
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
     const recordId = metadata.get('control_number');
     const citationCount = metadata.get('citation_count');
-    const referenceCount = display.get('number_of_references');
+    const referenceCount = metadata.get('number_of_references');
 
-    const date = display.get('date');
+    const date = metadata.get('date');
     const publicationInfo = metadata.get('publication_info');
     const eprints = metadata.get('arxiv_eprints');
     const dois = metadata.get('dois');
@@ -79,7 +79,6 @@ class LiteratureItem extends Component {
 
 LiteratureItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
-  display: PropTypes.instanceOf(Map).isRequired,
 };
 
 export default LiteratureItem;
