@@ -1,23 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App renders initial state 1`] = `
-<Row
+<Adapter
   className="__App__"
-  gutter={0}
-  type="flex"
 >
-  <Col
-    span={24}
-  >
-    <Header />
-  </Col>
-  <Col
-    className="mainContent"
-    span={24}
+  <Connect(Header) />
+  <Adapter
+    className="content"
   >
     <Switch
       id="main"
     >
+      <Route
+        component={[Function]}
+        exact={true}
+        path="/"
+      />
       <Route
         component={[Function]}
         path="/holdingpen"
@@ -27,6 +25,6 @@ exports[`App renders initial state 1`] = `
         path="/literature"
       />
     </Switch>
-  </Col>
-</Row>
+  </Adapter>
+</Adapter>
 `;

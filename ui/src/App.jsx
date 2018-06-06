@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { Row, Col } from 'antd';
-
-import Header from './common/partials/Header';
+import { Layout } from 'antd';
 
 import './App.scss';
+import Header from './common/layouts/Header';
 import Holdingpen from './holdingpen';
 import Literature from './literature';
+import Home from './home';
 
 class App extends Component {
   render() {
     return (
-      <Row className="__App__" type="flex">
-        <Col span={24}>
-          <Header />
-        </Col>
-        <Col className="mainContent" span={24}>
+      <Layout className="__App__">
+        <Header />
+        <Layout.Content className="content">
           <Switch id="main">
+            <Route exact path="/" component={Home} />
             <Route path="/holdingpen" component={Holdingpen} />
             <Route path="/literature" component={Literature} />
           </Switch>
-        </Col>
-      </Row>
+        </Layout.Content>
+      </Layout>
     );
   }
 }

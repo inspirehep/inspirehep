@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchBoxContainer renders initially with all state 1`] = `
+exports[`PaginationContainer renders initially with all state 1`] = `
 <Pagination
   current={2}
   onChange={[Function]}

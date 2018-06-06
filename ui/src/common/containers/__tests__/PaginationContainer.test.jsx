@@ -6,7 +6,7 @@ import { getStoreWithState, getStore } from '../../../fixtures/store';
 import { SEARCH_REQUEST } from '../../../actions/actionTypes';
 import PaginationContainer, { dispatchToProps } from '../PaginationContainer';
 
-describe('SearchBoxContainer', () => {
+describe('PaginationContainer', () => {
   it('renders initially with all state', () => {
     const store = getStoreWithState({
       router: {
@@ -21,9 +21,7 @@ describe('SearchBoxContainer', () => {
         total: 100,
       }),
     });
-    const wrapper = shallow((
-      <PaginationContainer store={store} />
-    )).dive();
+    const wrapper = shallow(<PaginationContainer store={store} />).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
