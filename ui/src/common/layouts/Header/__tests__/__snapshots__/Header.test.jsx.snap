@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header renders with search box if it is not on home 1`] = `
+<Adapter
+  className="__Header__"
+>
+  <Row
+    align="middle"
+    gutter={16}
+    type="flex"
+  >
+    <Col
+      span={4}
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        INSPIRE
+      </Link>
+    </Col>
+    <Col
+      span={16}
+    >
+      <Connect(SearchBox) />
+    </Col>
+    <Col
+      span={4}
+    >
+      <Menu
+        className="menu"
+        mode="horizontal"
+        prefixCls="ant-menu"
+        theme="dark"
+      >
+        <MenuItem>
+          <Link
+            replace={false}
+            to="/holdingpen/dashboard"
+          >
+            Holdingpen
+          </Link>
+        </MenuItem>
+      </Menu>
+    </Col>
+  </Row>
+</Adapter>
+`;
+
+exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
+<Adapter
+  className="__Header__"
+>
+  <Row
+    align="middle"
+    gutter={16}
+    type="flex"
+  >
+    <Col
+      span={4}
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        INSPIRE
+      </Link>
+    </Col>
+    <Col
+      span={16}
+    />
+    <Col
+      span={4}
+    >
+      <Menu
+        className="menu"
+        mode="horizontal"
+        prefixCls="ant-menu"
+        theme="dark"
+      >
+        <MenuItem>
+          <Link
+            replace={false}
+            to="/holdingpen/dashboard"
+          >
+            Holdingpen
+          </Link>
+        </MenuItem>
+      </Menu>
+    </Col>
+  </Row>
+</Adapter>
+`;

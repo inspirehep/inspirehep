@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders home page 1`] = `
+<div
+  className="__Home__"
+>
+  <div>
+    <Row
+      gutter={0}
+    >
+      <Col
+        offset={4}
+        span={10}
+      >
+        <h3>
+          Discover High-Energy Phytsics content
+        </h3>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        offset={4}
+        span={10}
+      >
+        <div
+          className="large-searchbox"
+        >
+          <Connect(SearchBox) />
+        </div>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        offset={4}
+        span={10}
+      >
+        Query Examples
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col
+        offset={1}
+        span={22}
+      >
+        INSPIRE Labs provides a sneak preview of new features and designs currently under development.
+      </Col>
+    </Row>
+  </div>
+</div>
+`;
