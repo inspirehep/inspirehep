@@ -11,7 +11,6 @@ class ReferenceList extends Component {
     return (
       references && (
         <PaginatedList
-          title="References"
           items={references}
           loading={loading}
           renderItem={(reference, index, page) => (

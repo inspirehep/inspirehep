@@ -4,9 +4,10 @@ import { connect } from 'react-redux';
 import { List } from 'antd';
 import Immutable from 'immutable';
 
-import AggregationFilter from '../components/AggregationFilter';
-import { forceArray } from '../utils';
-import search from '../../actions/search';
+import AggregationFilter from '../../components/AggregationFilter';
+import { forceArray } from '../../utils';
+import search from '../../../actions/search';
+import './AggregationFiltersContainer.scss';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
 
@@ -26,7 +27,7 @@ class AggregationFiltersContainer extends Component {
 
   render() {
     return (
-      <List>
+      <List className="__AggregationFiltersContainer__">
         {this.props.aggregations.entrySeq()
           .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
           .map(([aggregationKey, aggregation]) => (

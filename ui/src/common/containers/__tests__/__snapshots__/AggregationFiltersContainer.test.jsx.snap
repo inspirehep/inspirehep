@@ -3,6 +3,7 @@
 exports[`AggregationFiltersContainer does not render aggregations with empty buckets 1`] = `
 <List
   bordered={false}
+  className="__AggregationFiltersContainer__"
   dataSource={Array []}
   loading={false}
   pagination={false}
@@ -31,6 +32,7 @@ exports[`AggregationFiltersContainer does not render aggregations with empty buc
 exports[`AggregationFiltersContainer renders initial state with initial url query q param 1`] = `
 <List
   bordered={false}
+  className="__AggregationFiltersContainer__"
   dataSource={Array []}
   loading={false}
   pagination={false}
