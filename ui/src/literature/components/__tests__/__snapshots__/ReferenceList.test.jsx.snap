@@ -11,7 +11,7 @@ exports[`ReferenceList renders as loading if set 1`] = `
   loading={true}
   pageSize={25}
   renderItem={[Function]}
-  title="References"
+  title={null}
 />
 `;
 
@@ -31,7 +31,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
       total={2}
     />
   }
-  header="References"
+  header={null}
   loading={false}
   pagination={false}
   prefixCls="ant-list"
@@ -80,7 +80,7 @@ exports[`ReferenceList renders with references 1`] = `
       total={2}
     />
   }
-  header="References"
+  header={null}
   loading={false}
   pagination={false}
   prefixCls="ant-list"

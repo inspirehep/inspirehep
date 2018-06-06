@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Spin, Row, Col } from 'antd';
+import { Card, Spin, Row, Col } from 'antd';
 import { Map, List } from 'immutable';
 
 import './DetailPage.scss';
@@ -62,8 +62,8 @@ class DetailPage extends Component {
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
-        <Col className="content" span={16}>
-          <Row>
+        <Col className="card" span={17}>
+          <Card>
             <h2>
               <Latex>{title}</Latex>
             </h2>
@@ -81,19 +81,21 @@ class DetailPage extends Component {
             <div className="vertical-space">
               <CiteModalAction recordId={recordId} />
             </div>
-          </Row>
-          <Row>
-            <Latex>{abstract}</Latex>
-          </Row>
-          <Row>
-            <LiteratureKeywordList keywords={keywords} />
-          </Row>
-          <Row>
+            <Row>
+              <Latex>{abstract}</Latex>
+            </Row>
+            <Row>
+              <LiteratureKeywordList keywords={keywords} />
+            </Row>
+          </Card>
+        </Col>
+        <Col className="card" span={17}>
+          <Card title="References">
             <ReferenceList
               references={references}
               loading={loadingReferences}
             />
-          </Row>
+          </Card>
         </Col>
       </Row>
     );

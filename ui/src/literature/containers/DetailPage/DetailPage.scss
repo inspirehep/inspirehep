@@ -1,12 +1,10 @@
 .__DetailPage__ {
   .content {
-    // FIXME: add variables
-    background-color: #fff;
-    & > .ant-row {
-      margin-top: 16px;
-    }
+    margin-top: 20px;
   }
-
+  .card {
+    margin: 20px 0;
+  }
   .vertical-space {
     margin-top: 8px;
   }

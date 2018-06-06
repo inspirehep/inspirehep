@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 
 import { getStore, getStoreWithState } from '../../../fixtures/store';
 import { SEARCH_REQUEST } from '../../../actions/actionTypes';
-import AggregationFiltersContainer, { dispatchToProps } from '../AggregationFiltersContainer';
+import AggregationFiltersContainer, { dispatchToProps } from '../AggregationFiltersContainer/AggregationFiltersContainer';
 
 describe('AggregationFiltersContainer', () => {
   it('renders initial state with initial url query q param', () => {
