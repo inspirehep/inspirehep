@@ -18,6 +18,19 @@ describe('ReferenceList', () => {
     expect(wrapper.dive()).toMatchSnapshot();
   });
 
+  it('renders items with (page * index) key if title is absent', () => {
+    const references = fromJS([
+      {
+        publication_info: [{ journal_title: 'Journal 1' }],
+      },
+      {
+        authors: [{ full_name: 'Author 2' }],
+      },
+    ]);
+    const wrapper = shallow(<ReferenceList references={references} />);
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
+
   it('renders as loading if set', () => {
     const references = fromJS([]);
     const wrapper = shallow(<ReferenceList loading references={references} />);

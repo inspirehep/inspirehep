@@ -15,6 +15,55 @@ exports[`ReferenceList renders as loading if set 1`] = `
 />
 `;
 
+exports[`ReferenceList renders items with (page * index) key if title is absent 1`] = `
+<List
+  bordered={false}
+  dataSource={Array []}
+  footer={
+    <Pagination
+      current={1}
+      loading={false}
+      onChange={[Function]}
+      pageSize={25}
+      prefixCls="ant-pagination"
+      selectPrefixCls="ant-select"
+      showTotal={[Function]}
+      total={2}
+    />
+  }
+  header="References"
+  loading={false}
+  pagination={false}
+  prefixCls="ant-list"
+  split={true}
+>
+  <ReferenceItem
+    key="0"
+    reference={
+      Immutable.Map {
+        publication_info: Immutable.List [
+          Immutable.Map {
+            journal_title: "Journal 1",
+          },
+        ],
+      }
+    }
+  />
+  <ReferenceItem
+    key="1"
+    reference={
+      Immutable.Map {
+        authors: Immutable.List [
+          Immutable.Map {
+            full_name: "Author 2",
+          },
+        ],
+      }
+    }
+  />
+</List>
+`;
+
 exports[`ReferenceList renders with references 1`] = `
 <List
   bordered={false}

@@ -6,7 +6,7 @@ import AuthorList from '../AuthorList';
 import AuthorLink from '../AuthorLink';
 
 describe('AuthorList', () => {
-  it('renders only p5 authors and suffixes "et al." if passed more', () => {
+  it('renders only 5 authors and suffixes "et al." if passed more', () => {
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
