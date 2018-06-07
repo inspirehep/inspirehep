@@ -26,5 +26,6 @@ exports[`App renders initial state 1`] = `
       />
     </Switch>
   </Adapter>
+  <Footer />
 </Adapter>
 `;

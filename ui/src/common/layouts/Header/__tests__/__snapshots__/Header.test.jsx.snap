@@ -16,7 +16,10 @@ exports[`Header renders with search box if it is not on home 1`] = `
         replace={false}
         to="/"
       >
-        INSPIRE
+        <img
+          alt="INSPIRE Labs"
+          src="logo.svg"
+        />
       </Link>
     </Col>
     <Col
@@ -63,7 +66,10 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
         replace={false}
         to="/"
       >
-        INSPIRE
+        <img
+          alt="INSPIRE Labs"
+          src="logo.svg"
+        />
       </Link>
     </Col>
     <Col
