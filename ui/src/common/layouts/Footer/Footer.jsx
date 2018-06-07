@@ -33,6 +33,7 @@ const Footer = () => (
         <InlineList
           separateItems={false}
           items={FOOTER_LINKS}
+          extractKey={link => link.href}
           renderItem={link => (
             <a className="footer-link" href={link.href}>
               {link.display}

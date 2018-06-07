@@ -6,12 +6,15 @@ import PropTypes from 'prop-types';
 
 import SearchBoxContainer from './../../containers/SearchBoxContainer';
 import './Header.scss';
+import logo from './logo.svg';
 
 const Header = props => (
   <Layout.Header className="__Header__">
     <Row type="flex" align="middle" gutter={16}>
       <Col span={4}>
-        <Link to="/">INSPIRE</Link>
+        <Link to="/">
+          <img src={logo} alt="INSPIRE Labs" />
+        </Link>
       </Col>
       <Col span={16}>
         {props.shouldDisplaySearchBox && <SearchBoxContainer />}

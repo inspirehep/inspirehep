@@ -1,56 +1,62 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home renders home page 1`] = `
-<div
+<Row
+  align="middle"
   className="__Home__"
+  gutter={0}
+  justify="center"
+  type="flex"
 >
-  <div>
+  <Col
+    span={10}
+  >
     <Row
       gutter={0}
     >
-      <Col
-        offset={4}
-        span={10}
-      >
+      <Col>
         <h3>
-          Discover High-Energy Phytsics content
+          Discover High-Energy Physics content
         </h3>
       </Col>
     </Row>
     <Row
       gutter={0}
     >
-      <Col
-        offset={4}
-        span={10}
-      >
-        <div
-          className="large-searchbox"
-        >
-          <Connect(SearchBox) />
-        </div>
+      <Col>
+        <Connect(SearchBox) />
       </Col>
     </Row>
     <Row
+      className="examples-container"
       gutter={0}
     >
-      <Col
-        offset={4}
-        span={10}
-      >
-        Query Examples
+      <Col>
+        <InlineList
+          extractKey={[Function]}
+          items={
+            Array [
+              "find a richter, b and t quark and date > 1984",
+              "find j phys.rev.,D50,1140",
+            ]
+          }
+          label="Try"
+          renderItem={[Function]}
+          separateItems={true}
+          suffix={null}
+        />
       </Col>
     </Row>
     <Row
+      className="description-container"
       gutter={0}
     >
-      <Col
-        offset={1}
-        span={22}
-      >
-        INSPIRE Labs provides a sneak preview of new features and designs currently under development.
+      <Col>
+        <h3>
+          INSPIRE Labs provides a sneak preview of new features and designs currently under development.
+        </h3>
       </Col>
     </Row>
-  </div>
-</div>
+  </Col>
+</Row>
 `;
