@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer renders 1`] = `
+<Basic
+  className="__Footer__"
+  prefixCls="ant-layout-footer"
+>
+  <Row
+    align="bottom"
+    gutter={0}
+    justify="space-between"
+    type="flex"
+  >
+    <Col
+      span={4}
+    >
+      <a
+        href="//invenio-software.org/"
+      >
+        Powered by Invenio
+      </a>
+    </Col>
+    <Col>
+      <InlineList
+        extractKey={[Function]}
+        items={
+          Array [
+            Object {
+              "display": "Privacy Policy",
+              "href": "//inspirehep.net/info/general/privacy-policy",
+            },
+            Object {
+              "display": "Terms of Use",
+              "href": "//inspirehep.net/info/general/terms-of-use",
+            },
+            Object {
+              "display": "Twitter",
+              "href": "https://twitter.com/inspirehep",
+            },
+            Object {
+              "display": "Blog",
+              "href": "//blog.inspirehep.net",
+            },
+          ]
+        }
+        label={null}
+        renderItem={[Function]}
+        separateItems={false}
+        suffix={null}
+      />
+    </Col>
+  </Row>
+</Basic>
+`;

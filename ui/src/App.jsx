@@ -4,6 +4,8 @@ import { Layout } from 'antd';
 
 import './App.scss';
 import Header from './common/layouts/Header';
+import Footer from './common/layouts/Footer';
+
 import Holdingpen from './holdingpen';
 import Literature from './literature';
 import Home from './home';
@@ -20,6 +22,7 @@ class App extends Component {
             <Route path="/literature" component={Literature} />
           </Switch>
         </Layout.Content>
+        <Footer />
       </Layout>
     );
   }
