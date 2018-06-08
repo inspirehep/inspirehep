@@ -62,7 +62,7 @@ class DetailPage extends Component {
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
-        <Col className="card" span={17}>
+        <Col className="card" span={14}>
           <Card>
             <h2>
               <Latex>{title}</Latex>
@@ -89,7 +89,7 @@ class DetailPage extends Component {
             </Row>
           </Card>
         </Col>
-        <Col className="card" span={17}>
+        <Col className="card" span={14}>
           <Card title="References">
             <ReferenceList
               references={references}
