@@ -16,7 +16,7 @@ class SearchLayout extends Component {
         <Col span={5}>
           <AggregationFiltersContainer />
         </Col>
-        <Col span={15}>
+        <Col span={14}>
           <Row type="flex" align="middle" justify="end">
             <Col span={12}>
               <NumberOfResultsContainer />
