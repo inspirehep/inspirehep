@@ -10,7 +10,7 @@ exports[`Header renders with search box if it is not on home 1`] = `
     type="flex"
   >
     <Col
-      span={4}
+      span={5}
     >
       <Link
         replace={false}
@@ -23,28 +23,57 @@ exports[`Header renders with search box if it is not on home 1`] = `
       </Link>
     </Col>
     <Col
-      span={16}
+      span={10}
     >
       <Connect(SearchBox) />
     </Col>
     <Col
-      span={4}
+      span={9}
     >
-      <Menu
-        className="menu"
-        mode="horizontal"
-        prefixCls="ant-menu"
-        theme="dark"
+      <Row
+        gutter={0}
+        justify="end"
+        type="flex"
       >
-        <MenuItem>
-          <Link
-            replace={false}
-            to="/holdingpen/dashboard"
+        <Col
+          className="nav-item-container"
+        >
+          <DropdownMenu
+            links={
+              Array [
+                Object {
+                  "display": "Holdingpen",
+                  "to": "/holdingpen/dashboard",
+                },
+                Object {
+                  "display": "Reference extractor",
+                  "href": "//inspirehep.net/textmining",
+                },
+                Object {
+                  "display": "Author list",
+                  "href": "/tools/authorlist",
+                },
+                Object {
+                  "display": "Bibliography generator",
+                  "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
+                },
+              ]
+            }
+            title="Tools"
+            titleClassName="nav-item"
+          />
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <a
+            className="nav-item"
+            href="/literature/new"
           >
-            Holdingpen
-          </Link>
-        </MenuItem>
-      </Menu>
+            Submit
+          </a>
+        </Col>
+      </Row>
     </Col>
   </Row>
 </Adapter>
@@ -60,7 +89,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
     type="flex"
   >
     <Col
-      span={4}
+      span={5}
     >
       <Link
         replace={false}
@@ -73,26 +102,55 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
       </Link>
     </Col>
     <Col
-      span={16}
+      span={10}
     />
     <Col
-      span={4}
+      span={9}
     >
-      <Menu
-        className="menu"
-        mode="horizontal"
-        prefixCls="ant-menu"
-        theme="dark"
+      <Row
+        gutter={0}
+        justify="end"
+        type="flex"
       >
-        <MenuItem>
-          <Link
-            replace={false}
-            to="/holdingpen/dashboard"
+        <Col
+          className="nav-item-container"
+        >
+          <DropdownMenu
+            links={
+              Array [
+                Object {
+                  "display": "Holdingpen",
+                  "to": "/holdingpen/dashboard",
+                },
+                Object {
+                  "display": "Reference extractor",
+                  "href": "//inspirehep.net/textmining",
+                },
+                Object {
+                  "display": "Author list",
+                  "href": "/tools/authorlist",
+                },
+                Object {
+                  "display": "Bibliography generator",
+                  "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
+                },
+              ]
+            }
+            title="Tools"
+            titleClassName="nav-item"
+          />
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <a
+            className="nav-item"
+            href="/literature/new"
           >
-            Holdingpen
-          </Link>
-        </MenuItem>
-      </Menu>
+            Submit
+          </a>
+        </Col>
+      </Row>
     </Col>
   </Row>
 </Adapter>
