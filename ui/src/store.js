@@ -27,10 +27,10 @@ const getMiddleware = () => {
     );
   }
   return applyMiddleware(
-    createLogger(),
     reduxRouterMiddleware,
     queryParamsParserMiddleware,
-    thunkMiddleware
+    thunkMiddleware,
+    createLogger()
   );
 };
 
