@@ -1,12 +1,9 @@
 module.exports = {
   server: {
-    command: 'http-server ../build',
+    command: 'node ./server.js',
     port: 8080,
   },
   launch: {
-    args: [
-      '--no-sandbox',
-      '--disable-setuid-sandbox',
-    ],
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
   },
 };

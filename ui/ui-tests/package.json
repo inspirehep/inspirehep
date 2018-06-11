@@ -6,7 +6,7 @@
     "test": "jest"
   },
   "devDependencies": {
-    "http-server": "^0.11.1",
+    "express": "^4.16.3",
     "jest": "^22.4.3",
     "jest-image-snapshot": "^2.4.0",
     "jest-puppeteer": "^2.3.0",

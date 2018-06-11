@@ -1,0 +1,3 @@
+{
+  "/api/literature?q=custom": "literature/customSearch.json"
+}
