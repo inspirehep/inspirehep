@@ -9,12 +9,16 @@ import SearchPage from '../SearchPage';
 describe('Literature - SearchPage', () => {
   it('dispatches search', () => {
     const store = getStore();
-    mount((
+    mount(
       <Provider store={store}>
         <SearchPage />
       </Provider>
-    ));
+    );
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
+    const expectedAction = actions.find(
+      action => action.type === SEARCH_REQUEST
+    );
+    expect(expectedAction).toBeDefined();
+    expect(expectedAction.payload).toBeUndefined();
   });
 });

@@ -10,17 +10,20 @@ describe('SortByContainer', () => {
     const store = getStoreWithState({
       router: { location: { query: { sort: 'mostrecent' } } },
     });
-    const wrapper = shallow((
-      <SortByContainer store={store} />
-    )).dive();
+    const wrapper = shallow(<SortByContainer store={store} />).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
   it('dispatches search onSortChange', () => {
     const store = getStore();
+    const sort = 'mostcited';
     const props = dispatchToProps(store.dispatch);
-    props.onSortChange();
+    props.onSortChange(sort);
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
+    const expectedAction = actions.find(
+      action => action.type === SEARCH_REQUEST
+    );
+    expect(expectedAction).toBeDefined();
+    expect(expectedAction.payload).toEqual({ sort });
   });
 });

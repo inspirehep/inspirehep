@@ -3,9 +3,10 @@ import { stringify } from 'qs';
 
 import { SEARCH_REQUEST, SEARCH_ERROR, SEARCH_SUCCESS } from './actionTypes';
 
-function searching() {
+function searching(query) {
   return {
     type: SEARCH_REQUEST,
+    payload: query,
   };
 }
 
@@ -46,7 +47,7 @@ function appendQuery(state, query) {
 
 export default function search(query) {
   return async (dispatch, getState, http) => {
-    dispatch(searching());
+    dispatch(searching(query));
 
     const state = getState();
     const newQuery = appendQuery(state, query);

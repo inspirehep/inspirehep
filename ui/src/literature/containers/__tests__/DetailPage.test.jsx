@@ -15,12 +15,16 @@ const matchProps = {
 describe('Literature - DetailPage', () => {
   it('dispatches fetch literature record', () => {
     const store = getStore();
-    mount((
+    mount(
       <Provider store={store}>
         <DetailPage match={matchProps} />
       </Provider>
-    ));
+    );
     const actions = store.getActions();
-    expect(actions.some(action => action.type === LITERATURE_REQUEST)).toBe(true);
+    const expectedAction = actions.find(
+      action => action.type === LITERATURE_REQUEST
+    );
+    expect(expectedAction).toBeDefined();
+    expect(expectedAction.payload).toEqual({ recordId: 123 });
   });
 });

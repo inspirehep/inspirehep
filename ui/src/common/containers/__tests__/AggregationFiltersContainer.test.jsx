@@ -4,7 +4,9 @@ import { fromJS } from 'immutable';
 
 import { getStore, getStoreWithState } from '../../../fixtures/store';
 import { SEARCH_REQUEST } from '../../../actions/actionTypes';
-import AggregationFiltersContainer, { dispatchToProps } from '../AggregationFiltersContainer/AggregationFiltersContainer';
+import AggregationFiltersContainer, {
+  dispatchToProps,
+} from '../AggregationFiltersContainer/AggregationFiltersContainer';
 
 describe('AggregationFiltersContainer', () => {
   it('renders initial state with initial url query q param', () => {
@@ -21,9 +23,9 @@ describe('AggregationFiltersContainer', () => {
         },
       }),
     });
-    const wrapper = shallow((
+    const wrapper = shallow(
       <AggregationFiltersContainer store={store} />
-    )).dive();
+    ).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -40,9 +42,9 @@ describe('AggregationFiltersContainer', () => {
         },
       }),
     });
-    const wrapper = shallow((
+    const wrapper = shallow(
       <AggregationFiltersContainer store={store} />
-    )).dive();
+    ).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -53,6 +55,10 @@ describe('AggregationFiltersContainer', () => {
     const props = dispatchToProps(store.dispatch);
     props.onAggregationChange('agg1', ['selected']);
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
+    const expectedAction = actions.find(
+      action => action.type === SEARCH_REQUEST
+    );
+    expect(expectedAction).toBeDefined();
+    expect(expectedAction.payload).toEqual({ agg1: ['selected'] });
   });
 });

@@ -7,9 +7,10 @@ import {
   LITERATURE_REFERENCES_SUCCESS,
 } from './actionTypes';
 
-function fetchingLiterature() {
+function fetchingLiterature(recordId) {
   return {
     type: LITERATURE_REQUEST,
+    payload: { recordId },
   };
 }
 
@@ -49,7 +50,7 @@ function fetchLiteratureReferencesError(error) {
 
 export function fetchLiterature(recordId) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingLiterature());
+    dispatch(fetchingLiterature(recordId));
     try {
       const response = await http.get(`/literature/${recordId}`, {
         headers: {
