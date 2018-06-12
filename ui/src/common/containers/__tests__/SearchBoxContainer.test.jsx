@@ -10,17 +10,20 @@ describe('SearchBoxContainer', () => {
     const store = getStoreWithState({
       router: { location: { query: { q: 'test' } } },
     });
-    const wrapper = shallow((
-      <SearchBoxContainer store={store} />
-    )).dive();
+    const wrapper = shallow(<SearchBoxContainer store={store} />).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
   it('dispatches search onSearch', () => {
     const store = getStore();
+    const value = 'test';
     const props = dispatchToProps(store.dispatch);
-    props.onSearch();
+    props.onSearch(value);
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
+    const expectedAction = actions.find(
+      action => action.type === SEARCH_REQUEST
+    );
+    expect(expectedAction).toBeDefined();
+    expect(expectedAction.payload).toEqual({ q: value });
   });
 });

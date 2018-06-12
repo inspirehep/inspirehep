@@ -27,9 +27,14 @@ describe('PaginationContainer', () => {
 
   it('dispatches search onPageChange', () => {
     const store = getStore();
+    const page = 3;
     const props = dispatchToProps(store.dispatch);
-    props.onPageChange();
+    props.onPageChange(page);
     const actions = store.getActions();
-    expect(actions.some(action => action.type === SEARCH_REQUEST)).toBe(true);
+    const expectedAction = actions.find(
+      action => action.type === SEARCH_REQUEST
+    );
+    expect(expectedAction).toBeDefined();
+    expect(expectedAction.payload).toEqual({ page: 3 });
   });
 });

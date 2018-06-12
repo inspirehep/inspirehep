@@ -23,7 +23,7 @@ describe('literature - async action creators', () => {
     mockHttp.onGet('/literature/123').replyOnce(200, {});
 
     const expectedActions = [
-      { type: LITERATURE_REQUEST },
+      { type: LITERATURE_REQUEST, payload: { recordId: 123 } },
       { type: LITERATURE_SUCCESS, payload: {} },
     ];
 
@@ -37,7 +37,7 @@ describe('literature - async action creators', () => {
     mockHttp.onGet('/literature/123').replyOnce(500, {});
 
     const expectedActions = [
-      { type: LITERATURE_REQUEST },
+      { type: LITERATURE_REQUEST, payload: { recordId: 123 } },
       { type: LITERATURE_ERROR, payload: undefined },
     ];
 
