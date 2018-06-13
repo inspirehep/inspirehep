@@ -2,13 +2,13 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 
 import middleware from '../queryParamsParser';
 
-describe('routerMiddleware', () => {
+describe('queryParamsParser middleware', () => {
   let next;
   let dispatch;
 
   beforeEach(() => {
     next = jest.fn();
-    dispatch = middleware()()(next);
+    dispatch = middleware()(next);
   });
 
   it('parses payload.search into payload.query if location changed and continues', () => {

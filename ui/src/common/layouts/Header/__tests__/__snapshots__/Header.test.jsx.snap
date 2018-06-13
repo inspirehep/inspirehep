@@ -39,7 +39,7 @@ exports[`Header renders with search box if it is not on home 1`] = `
           className="nav-item-container"
         >
           <DropdownMenu
-            links={
+            items={
               Array [
                 Object {
                   "display": "Holdingpen",
@@ -72,6 +72,11 @@ exports[`Header renders with search box if it is not on home 1`] = `
           >
             Submit
           </a>
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <Connect(LoginOrUserDropdownContainer) />
         </Col>
       </Row>
     </Col>
@@ -116,7 +121,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
           className="nav-item-container"
         >
           <DropdownMenu
-            links={
+            items={
               Array [
                 Object {
                   "display": "Holdingpen",
@@ -149,6 +154,11 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
           >
             Submit
           </a>
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <Connect(LoginOrUserDropdownContainer) />
         </Col>
       </Row>
     </Col>

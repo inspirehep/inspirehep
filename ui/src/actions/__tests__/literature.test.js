@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 
-import { getStore, getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import {
   LITERATURE_ERROR,
@@ -34,7 +34,7 @@ describe('literature - async action creators', () => {
       { type: LITERATURE_SUCCESS, payload: {} },
     ];
 
-    const store = getStoreWithState();
+    const store = getStore();
     await store.dispatch(fetchLiterature(123));
     expect(store.getActions()).toEqual(expectedActions);
     done();
@@ -48,7 +48,7 @@ describe('literature - async action creators', () => {
       { type: LITERATURE_ERROR, payload: undefined },
     ];
 
-    const store = getStoreWithState();
+    const store = getStore();
     await store.dispatch(fetchLiterature(123));
     expect(store.getActions()).toEqual(expectedActions);
     done();

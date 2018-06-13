@@ -5,7 +5,7 @@ import DropdownMenu from '../DropdownMenu';
 
 describe('DropdownMenu', () => {
   it('renders links without titleClassName', () => {
-    const links = [
+    const items = [
       {
         display: 'Router Link',
         to: '/router-link',
@@ -13,6 +13,10 @@ describe('DropdownMenu', () => {
       {
         display: 'Non Router Link',
         href: '/non-router-link',
+      },
+      {
+        display: 'Non Router Link Button',
+        onClick: () => null,
       },
       {
         display: 'External Link',
@@ -20,12 +24,12 @@ describe('DropdownMenu', () => {
         target: '_blank',
       },
     ];
-    const wrapper = shallow(<DropdownMenu links={links} title="Test" />);
+    const wrapper = shallow(<DropdownMenu items={items} title="Test" />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders links with titleClassName', () => {
-    const links = [
+    const items = [
       {
         display: 'Router Link',
         to: '/router-link',
@@ -33,6 +37,10 @@ describe('DropdownMenu', () => {
       {
         display: 'Non Router Link',
         href: '/non-router-link',
+      },
+      {
+        display: 'Non Router Link Button',
+        onClick: () => null,
       },
       {
         display: 'External Link',
@@ -41,7 +49,7 @@ describe('DropdownMenu', () => {
       },
     ];
     const wrapper = shallow(
-      <DropdownMenu links={links} title="Test" titleClassName="test-title" />
+      <DropdownMenu items={items} title="Test" titleClassName="test-title" />
     );
     expect(wrapper).toMatchSnapshot();
   });

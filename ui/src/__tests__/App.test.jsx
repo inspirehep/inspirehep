@@ -2,12 +2,14 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
+import { fromJS } from 'immutable';
 
-import { getStore } from '../fixtures/store';
+import { getStore, getStoreWithState } from '../fixtures/store';
 import App from '../App';
 import Holdingpen from '../holdingpen';
 import Home from '../home';
 import Literature from '../literature';
+import User from '../user';
 
 describe('App', () => {
   it('renders initial state', () => {
@@ -15,15 +17,47 @@ describe('App', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to Holdingpen when /holdingpen', () => {
+  it('navigates to Holdingpen when /holdingpen if logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+      }),
+    });
     const wrapper = mount(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/holdingpen']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
     expect(wrapper.find(Holdingpen)).toExist();
+  });
+
+  it('does not navigate to Holdingpen when /holdingpen if not logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: false,
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/holdingpen']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Holdingpen)).not.toExist();
+  });
+
+  it('navigates to User when /user', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/user']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(User)).toExist();
   });
 
   it('navigates to Literature when /literature', () => {

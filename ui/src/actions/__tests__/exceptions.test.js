@@ -1,18 +1,11 @@
 import MockAdapter from 'axios-mock-adapter';
-import { fromJS } from 'immutable';
 
-import { getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import * as types from '../actionTypes';
 import fetch from '../exceptions';
 
 const mockHttp = new MockAdapter(http);
-
-const initState = fromJS({
-  loading: false,
-  data: [],
-  error: {},
-});
 
 describe('exceptions dashboard - async action creator', () => {
   afterEach(() => {
@@ -27,7 +20,7 @@ describe('exceptions dashboard - async action creator', () => {
       { type: types.EXCEPTIONS_SUCCESS, payload: {} },
     ];
 
-    const store = getStoreWithState(initState);
+    const store = getStore();
     await store.dispatch(fetch());
     expect(store.getActions()).toEqual(expectedActions);
     done();
@@ -41,7 +34,7 @@ describe('exceptions dashboard - async action creator', () => {
       { type: types.EXCEPTIONS_ERROR, payload: undefined },
     ];
 
-    const store = getStoreWithState(initState);
+    const store = getStore();
     await store.dispatch(fetch());
     expect(store.getActions()).toEqual(expectedActions);
     done();

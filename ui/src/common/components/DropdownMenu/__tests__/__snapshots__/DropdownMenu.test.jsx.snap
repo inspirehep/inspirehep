@@ -29,6 +29,13 @@ exports[`DropdownMenu renders links with titleClassName 1`] = `
         </MenuItem>
         <MenuItem>
           <a
+            onClick={[Function]}
+          >
+            Non Router Link Button
+          </a>
+        </MenuItem>
+        <MenuItem>
+          <a
             href="//external.link"
             target="_blank"
           >
@@ -78,6 +85,13 @@ exports[`DropdownMenu renders links without titleClassName 1`] = `
             target={undefined}
           >
             Non Router Link
+          </a>
+        </MenuItem>
+        <MenuItem>
+          <a
+            onClick={[Function]}
+          >
+            Non Router Link Button
           </a>
         </MenuItem>
         <MenuItem>

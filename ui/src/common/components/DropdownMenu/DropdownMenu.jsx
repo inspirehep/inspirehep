@@ -4,24 +4,34 @@ import { Link } from 'react-router-dom';
 import { Menu, Dropdown, Icon } from 'antd';
 
 class DropdownMenu extends Component {
-  static renderLink(link) {
-    if (link.to) {
-      return <Link to={link.to}>{link.display}</Link>;
+  static renderAnchorMenuItem(item) {
+    if (item.href) {
+      return (
+        <a target={item.target} href={item.href}>
+          {item.display}
+        </a>
+      );
     }
     return (
-      <a target={link.target} href={link.href}>
-        {link.display}
-      </a>
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+      <a onClick={item.onClick}>{item.display}</a>
     );
   }
 
+  static renderMenuItem(item) {
+    if (item.to) {
+      return <Link to={item.to}>{item.display}</Link>;
+    }
+    return DropdownMenu.renderAnchorMenuItem(item);
+  }
+
   renderMenu() {
-    const { links } = this.props;
+    const { items } = this.props;
     return (
       <Menu>
-        {links.map(link => (
-          <Menu.Item key={link.to || link.href}>
-            {DropdownMenu.renderLink(link)}
+        {items.map(item => (
+          <Menu.Item key={item.display}>
+            {DropdownMenu.renderMenuItem(item)}
           </Menu.Item>
         ))}
       </Menu>
@@ -43,8 +53,9 @@ class DropdownMenu extends Component {
 }
 
 DropdownMenu.propTypes = {
-  links: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
+      onClick: PropTypes.func,
       href: PropTypes.string,
       to: PropTypes.string,
       display: PropTypes.string.isRequired,
