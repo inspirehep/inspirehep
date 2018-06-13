@@ -8,6 +8,7 @@ import SearchBoxContainer from './../../containers/SearchBoxContainer';
 import DropdownMenu from '../../components/DropdownMenu';
 import './Header.scss';
 import logo from './logo.svg';
+import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 
 const TOOL_LINKS = [
   {
@@ -45,13 +46,16 @@ const Header = props => (
             <DropdownMenu
               title="Tools"
               titleClassName="nav-item"
-              links={TOOL_LINKS}
+              items={TOOL_LINKS}
             />
           </Col>
           <Col className="nav-item-container">
             <a className="nav-item" href="/literature/new">
               Submit
             </a>
+          </Col>
+          <Col className="nav-item-container">
+            <LoginOrUserDropdownContainer />
           </Col>
         </Row>
       </Col>

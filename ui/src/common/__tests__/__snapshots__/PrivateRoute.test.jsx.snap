@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrivateRoute redirects to login if not logged in  1`] = `
+<div>
+  User Login Page
+</div>
+`;
+
+exports[`PrivateRoute routes if logged in 1`] = `
+<div>
+  Private Page
+</div>
+`;

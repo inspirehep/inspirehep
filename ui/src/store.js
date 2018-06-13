@@ -9,26 +9,29 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 
 import reducers from './reducers';
 import http from './common/http';
-import queryParamsParser from './middlewares/queryParamsParser';
+import queryParamsParserMiddleware from './middlewares/queryParamsParser';
+import persistUserStateMiddleware, {
+  reHydrateRootStateWithUser,
+} from './middlewares/persistUserState';
 
 export const thunkMiddleware = thunk.withExtraArgument(http);
 
 export const history = createHistory();
 const reduxRouterMiddleware = routerMiddleware(history);
 
-const queryParamsParserMiddleware = queryParamsParser();
-
 const getMiddleware = () => {
   if (process.env.NODE_ENV === 'production') {
     return applyMiddleware(
       reduxRouterMiddleware,
       queryParamsParserMiddleware,
+      persistUserStateMiddleware,
       thunkMiddleware
     );
   }
   return applyMiddleware(
     reduxRouterMiddleware,
     queryParamsParserMiddleware,
+    persistUserStateMiddleware,
     thunkMiddleware,
     createLogger()
   );
@@ -36,5 +39,6 @@ const getMiddleware = () => {
 
 export const store = createStore(
   reducers,
+  reHydrateRootStateWithUser(),
   composeWithDevTools(getMiddleware())
 );
