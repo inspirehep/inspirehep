@@ -52,7 +52,7 @@ export class HoldingpenApiService extends CommonApiService {
       .map(res => res.json());
   }
 
-  saveWorkflowObjectWithCallbackUrl(object: WorkflowObject, callbackUrl: string): Observable<{ message: string }> {
+  saveWorkflowObjectWithCallbackUrl(object: WorkflowObject, callbackUrl: string): Observable<{ message: string, redirect_url?: string }> {
     return this.http
       .put(callbackUrl, object)
       .catch(error => Observable.throw(new ApiError(error)))

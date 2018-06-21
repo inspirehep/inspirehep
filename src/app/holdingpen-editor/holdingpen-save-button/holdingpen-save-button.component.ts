@@ -97,10 +97,14 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
         if (this.hasConflicts()) {
           this.toastrService.success(body.message, 'Success');
         } else {
-          const referrer = document.referrer;
-          const origin = window.location.origin;
-          const redirectUrl = referrer.startsWith(origin) ? referrer : `/holdingpen/${this.workflowObject.id}`;
-          window.location.href = redirectUrl;
+          if (body.redirect_url) {
+            window.location.href = body.redirect_url;
+          } else {
+            const referrer = document.referrer;
+            const origin = window.location.origin;
+            const redirectUrl = referrer.startsWith(origin) ? referrer : `/holdingpen/${this.workflowObject.id}`;
+            window.location.href = redirectUrl;
+          }
         }
       }, (error: ApiError<WorkflowSaveErrorBody>) => {
         if (error.status === 400 && error.body.error_code === 'VALIDATION_ERROR') {
