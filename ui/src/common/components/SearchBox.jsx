@@ -10,6 +10,7 @@ class SearchBox extends Component {
         addonBefore={this.props.searchScopeName}
         placeholder={this.props.placeholder}
         defaultValue={this.props.defaultValue}
+        size="large"
         onSearch={this.props.onSearch}
         enterButton
       />
