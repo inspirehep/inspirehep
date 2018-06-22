@@ -6,8 +6,6 @@ const MOCKS_DIR = path.join(__dirname, './mocks');
 const app = express();
 const routeToFileMap = require('./routes.json');
 
-app.use(express.static(path.join(__dirname, '../build')));
-
 const apiRouter = express.Router();
 apiRouter.get('*', (req, res) => {
   const relativeReponseFilePath = routeToFileMap[req.originalUrl] || req.path;
@@ -15,5 +13,11 @@ apiRouter.get('*', (req, res) => {
 });
 
 app.use('/api', apiRouter);
+
+app.use(express.static(path.join(__dirname, '../build')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '../build/index.html'));
+});
 
 app.listen(8080);
