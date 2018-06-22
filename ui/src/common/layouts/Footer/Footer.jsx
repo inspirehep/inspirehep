@@ -14,6 +14,10 @@ const FOOTER_LINKS = [
     href: '//inspirehep.net/info/general/terms-of-use',
   },
   {
+    display: 'Contact',
+    href: 'mailto:feedback@inspirehep.net',
+  },
+  {
     display: 'Twitter',
     href: 'https://twitter.com/inspirehep',
   },

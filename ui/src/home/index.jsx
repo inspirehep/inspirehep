@@ -15,10 +15,12 @@ class Home extends Component {
   render() {
     return (
       <Row className="__Home__" type="flex" justify="center" align="middle">
-        <Col span={10}>
+        <Col span={18}>
           <Row>
             <Col>
-              <h3>Discover High-Energy Physics content</h3>
+              <h2 class="f2 tc mt5 mb5">
+                Discover High-Energy Physics content
+              </h2>
             </Col>
           </Row>
           <Row>
@@ -39,9 +41,9 @@ class Home extends Component {
           </Row>
           <Row className="description-container">
             <Col>
-              <h3>
-                INSPIRE Labs provides a sneak preview of new features and
-                designs currently under development.
+              <h3 class="f3 tc mt5 mb5">
+                INSPIRE Labs provides a sneak preview of new features currently
+                under development.
               </h3>
             </Col>
           </Row>
