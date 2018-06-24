@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import Loading from './Loading';
 
-class LoadingOrComponent extends Component {
+class LoadingOrChildren extends Component {
   render() {
     if (this.props.loading) {
       return <Loading />;
@@ -12,14 +12,14 @@ class LoadingOrComponent extends Component {
   }
 }
 
-LoadingOrComponent.propTypes = {
+LoadingOrChildren.propTypes = {
   loading: PropTypes.bool,
   children: PropTypes.node,
 };
 
-LoadingOrComponent.defaultProps = {
+LoadingOrChildren.defaultProps = {
   loading: undefined,
   children: undefined,
 };
 
-export default LoadingOrComponent;
+export default LoadingOrChildren;

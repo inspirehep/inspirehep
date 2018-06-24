@@ -26,6 +26,7 @@ class SearchPage extends Component {
 
 SearchPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 const stateToProps = state => ({

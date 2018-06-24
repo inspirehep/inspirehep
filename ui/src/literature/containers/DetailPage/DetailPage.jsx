@@ -9,17 +9,18 @@ import {
   fetchLiterature,
   fetchLiteratureReferences,
 } from '../../../actions/literature';
-import Latex from '../../../common/components/Latex';
-import AuthorList from '../../components/AuthorList';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import DOIList from '../../components/DOIList';
-import PublicationInfoList from '../../components/PublicationInfoList';
-import ReportNumberList from '../../components/ReportNumberList';
-import LiteratureKeywordList from '../../components/LiteratureKeywordList';
+import AuthorList from '../../components/AuthorList';
 import CiteModalAction from '../../components/CiteModalAction';
+import DOIList from '../../components/DOIList';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
-import ReferenceList from '../../components/ReferenceList';
+import Latex from '../../../common/components/Latex';
 import LiteratureDate from '../../components/LiteratureDate';
+import LiteratureKeywordList from '../../components/LiteratureKeywordList';
+import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
+import PublicationInfoList from '../../components/PublicationInfoList';
+import ReferenceList from '../../components/ReferenceList';
+import ReportNumberList from '../../components/ReportNumberList';
 
 class DetailPage extends Component {
   componentWillMount() {
@@ -54,43 +55,45 @@ class DetailPage extends Component {
     const keywords = metadata.get('keywords');
 
     return (
-      <Row className="__DetailPage__" type="flex" justify="center">
-        <Col className="card" span={14}>
-          <Card>
-            <h2>
-              <Latex>{title}</Latex>
-            </h2>
-            <AuthorList recordId={recordId} authors={authors} />
-            <LiteratureDate date={date} />
-            <div className="vertical-space">
-              <PublicationInfoList publicationInfo={publicationInfo} />
-              <ArxivEprintList eprints={eprints} />
-              <DOIList dois={dois} />
-              <ReportNumberList reportNumbers={reportNumbers} />
-              <ExternalSystemIdentifierList
-                externalSystemIdentifiers={externalSystemIdentifiers}
+      <LoadingOrChildren loading={this.props.loading}>
+        <Row className="__DetailPage__" type="flex" justify="center">
+          <Col className="card" span={14}>
+            <Card>
+              <h2>
+                <Latex>{title}</Latex>
+              </h2>
+              <AuthorList recordId={recordId} authors={authors} />
+              <LiteratureDate date={date} />
+              <div className="vertical-space">
+                <PublicationInfoList publicationInfo={publicationInfo} />
+                <ArxivEprintList eprints={eprints} />
+                <DOIList dois={dois} />
+                <ReportNumberList reportNumbers={reportNumbers} />
+                <ExternalSystemIdentifierList
+                  externalSystemIdentifiers={externalSystemIdentifiers}
+                />
+              </div>
+              <div className="vertical-space">
+                <CiteModalAction recordId={recordId} />
+              </div>
+              <Row>
+                <Latex>{abstract}</Latex>
+              </Row>
+              <Row>
+                <LiteratureKeywordList keywords={keywords} />
+              </Row>
+            </Card>
+          </Col>
+          <Col className="card" span={14}>
+            <Card title="References">
+              <ReferenceList
+                references={references}
+                loading={loadingReferences}
               />
-            </div>
-            <div className="vertical-space">
-              <CiteModalAction recordId={recordId} />
-            </div>
-            <Row>
-              <Latex>{abstract}</Latex>
-            </Row>
-            <Row>
-              <LiteratureKeywordList keywords={keywords} />
-            </Row>
-          </Card>
-        </Col>
-        <Col className="card" span={14}>
-          <Card title="References">
-            <ReferenceList
-              references={references}
-              loading={loadingReferences}
-            />
-          </Card>
-        </Col>
-      </Row>
+            </Card>
+          </Col>
+        </Row>
+      </LoadingOrChildren>
     );
   }
 }
