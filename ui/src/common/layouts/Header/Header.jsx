@@ -36,10 +36,10 @@ const Header = props => (
           <img src={logo} alt="INSPIRE Labs" />
         </Link>
       </Col>
-      <Col span={10}>
+      <Col span={14}>
         {props.shouldDisplaySearchBox && <SearchBoxContainer />}
       </Col>
-      <Col span={9}>
+      <Col span={5}>
         <Row type="flex" justify="end">
           <Col className="nav-item-container">
             <DropdownMenu

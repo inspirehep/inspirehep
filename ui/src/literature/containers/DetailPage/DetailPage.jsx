@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, Spin, Row, Col } from 'antd';
+import { Card, Row, Col } from 'antd';
 import { Map, List } from 'immutable';
 
 import './DetailPage.scss';
@@ -22,10 +22,6 @@ import ReferenceList from '../../components/ReferenceList';
 import LiteratureDate from '../../components/LiteratureDate';
 
 class DetailPage extends Component {
-  static renderLoadingSpin() {
-    return <Spin tip="Loading" />;
-  }
-
   componentWillMount() {
     const recordId = this.props.match.params.id;
     this.props.dispatch(fetchLiterature(recordId));
@@ -33,10 +29,7 @@ class DetailPage extends Component {
   }
 
   render() {
-    const { loading, references, loadingReferences } = this.props;
-    if (loading) {
-      return DetailPage.renderLoadingSpin();
-    }
+    const { references, loadingReferences } = this.props;
 
     const { record } = this.props;
     const metadata = record.get('metadata');

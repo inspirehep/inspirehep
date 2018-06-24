@@ -9,15 +9,17 @@ exports[`Home renders home page 1`] = `
   type="flex"
 >
   <Col
-    span={10}
+    span={18}
   >
     <Row
       gutter={0}
     >
       <Col>
-        <h3>
+        <h2
+          className="f2 tc mt5 mb5"
+        >
           Discover High-Energy Physics content
-        </h3>
+        </h2>
       </Col>
     </Row>
     <Row
@@ -52,8 +54,10 @@ exports[`Home renders home page 1`] = `
       gutter={0}
     >
       <Col>
-        <h3>
-          INSPIRE Labs provides a sneak preview of new features and designs currently under development.
+        <h3
+          className="f3 tc mt5 mb5"
+        >
+          INSPIRE Labs provides a sneak preview of new features currently under development.
         </h3>
       </Col>
     </Row>

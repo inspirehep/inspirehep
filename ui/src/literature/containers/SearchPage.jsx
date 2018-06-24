@@ -15,6 +15,7 @@ class SearchPage extends Component {
   render() {
     return (
       <SearchLayout
+        loading={this.props.loading}
         renderResultItem={result => (
           <LiteratureItem metadata={result.get('metadata')} />
         )}
@@ -27,6 +28,9 @@ SearchPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
 };
 
+const stateToProps = state => ({
+  loading: state.search.get('loading'),
+});
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(null, dispatchToProps)(SearchPage);
+export default connect(stateToProps, dispatchToProps)(SearchPage);

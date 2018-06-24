@@ -18,7 +18,7 @@ class Home extends Component {
         <Col span={18}>
           <Row>
             <Col>
-              <h2 class="f2 tc mt5 mb5">
+              <h2 className="f2 tc mt5 mb5">
                 Discover High-Energy Physics content
               </h2>
             </Col>
@@ -41,7 +41,7 @@ class Home extends Component {
           </Row>
           <Row className="description-container">
             <Col>
-              <h3 class="f3 tc mt5 mb5">
+              <h3 className="f3 tc mt5 mb5">
                 INSPIRE Labs provides a sneak preview of new features currently
                 under development.
               </h3>
