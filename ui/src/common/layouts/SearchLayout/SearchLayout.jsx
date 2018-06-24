@@ -7,13 +7,13 @@ import PaginationContainer from './../../containers/PaginationContainer';
 import SortByContainer from './../../containers/SortByContainer';
 import ResultsContainer from './../../containers/ResultsContainer';
 import NumberOfResultsContainer from '../../containers/NumberOfResultsContainer';
-import LoadingOrComponent from '../../components/LoadingOrComponent';
+import LoadingOrChildren from '../../components/LoadingOrChildren';
 import './SearchLayout.scss';
 
 class SearchLayout extends Component {
   render() {
     return (
-      <LoadingOrComponent loading={this.props.loading}>
+      <LoadingOrChildren loading={this.props.loading}>
         <Row
           className="__SearchLayout__"
           gutter={32}
@@ -40,7 +40,7 @@ class SearchLayout extends Component {
             </Row>
           </Col>
         </Row>
-      </LoadingOrComponent>
+      </LoadingOrChildren>
     );
   }
 }

@@ -34,6 +34,10 @@ exports[`Footer renders 1`] = `
               "href": "//inspirehep.net/info/general/terms-of-use",
             },
             Object {
+              "display": "Contact",
+              "href": "mailto:feedback@inspirehep.net",
+            },
+            Object {
               "display": "Twitter",
               "href": "https://twitter.com/inspirehep",
             },

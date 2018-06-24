@@ -3,5 +3,8 @@
 exports[`NumberOfResultsContainer renders initial state  1`] = `
 <span>
   5
+   
+  results
+   found.
 </span>
 `;

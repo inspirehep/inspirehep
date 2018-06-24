@@ -9,6 +9,7 @@ exports[`SearchBoxContainer renders initial state with initial url query q param
   onSearch={[Function]}
   placeholder={null}
   prefixCls="ant-input-search"
+  size="large"
   style={
     Object {
       "verticalAlign": "middle",

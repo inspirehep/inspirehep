@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingOrChildren render with loading 1`] = `<Loading />`;
+
+exports[`LoadingOrChildren render without loading 1`] = `
+<div>
+  <h2>
+    Test
+  </h2>
+</div>
+`;
