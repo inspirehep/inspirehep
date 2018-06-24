@@ -23,12 +23,12 @@ exports[`Header renders with search box if it is not on home 1`] = `
       </Link>
     </Col>
     <Col
-      span={10}
+      span={14}
     >
       <Connect(SearchBox) />
     </Col>
     <Col
-      span={9}
+      span={5}
     >
       <Row
         gutter={0}
@@ -102,10 +102,10 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
       </Link>
     </Col>
     <Col
-      span={10}
+      span={14}
     />
     <Col
-      span={9}
+      span={5}
     >
       <Row
         gutter={0}
