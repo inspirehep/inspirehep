@@ -20,37 +20,6 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
     }
     title="Title"
   />
-  <div
-    className="ant-list-item-content"
-  >
-    <div>
-      <PublicationInfo
-        info={
-          Immutable.Map {
-            journal_title: "Journal",
-          }
-        }
-      />
-      <ArxivEprintList
-        eprints={
-          Immutable.List [
-            Immutable.Map {
-              value: "123456",
-            },
-          ]
-        }
-      />
-      <DOIList
-        dois={
-          Immutable.List [
-            Immutable.Map {
-              value: "123456.12345",
-            },
-          ]
-        }
-      />
-    </div>
-  </div>
 </div>
 `;
 
@@ -77,42 +46,13 @@ exports[`ReferenceItem renders with full reference 1`] = `
         replace={false}
         to="/literature/12345"
       >
+        
+         
         <Latex>
           Title
         </Latex>
       </Link>
     }
   />
-  <div
-    className="ant-list-item-content"
-  >
-    <div>
-      <PublicationInfo
-        info={
-          Immutable.Map {
-            journal_title: "Journal",
-          }
-        }
-      />
-      <ArxivEprintList
-        eprints={
-          Immutable.List [
-            Immutable.Map {
-              value: "123456",
-            },
-          ]
-        }
-      />
-      <DOIList
-        dois={
-          Immutable.List [
-            Immutable.Map {
-              value: "123456.12345",
-            },
-          ]
-        }
-      />
-    </div>
-  </div>
 </div>
 `;

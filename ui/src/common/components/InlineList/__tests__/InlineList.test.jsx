@@ -25,6 +25,18 @@ describe('InlineList', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders wrapper with class', () => {
+    const items = fromJS(['foo', 'bar']);
+    const wrapper = shallow(
+      <InlineList
+        wrapperClassName="di"
+        items={items}
+        renderItem={item => <span>{item}</span>}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders items (array) without separator', () => {
     const items = ['foo', 'bar'];
     const wrapper = shallow(

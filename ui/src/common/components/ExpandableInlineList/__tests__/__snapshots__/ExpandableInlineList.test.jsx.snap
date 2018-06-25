@@ -19,16 +19,14 @@ exports[`ExpandableInlineList renders all onExpandToggle 1`] = `
     renderItem={[Function]}
     separateItems={true}
     suffix={null}
+    wrapperClassName={null}
   />
-  <Button
+  <a
     className="toggle"
-    ghost={false}
-    loading={false}
     onClick={[Function]}
-    prefixCls="ant-btn"
   >
     Hide
-  </Button>
+  </a>
 </div>
 `;
 
@@ -56,16 +54,14 @@ exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] 
     renderItem={[Function]}
     separateItems={true}
     suffix={null}
+    wrapperClassName={null}
   />
-  <Button
+  <a
     className="toggle"
-    ghost={false}
-    loading={false}
     onClick={[Function]}
-    prefixCls="ant-btn"
   >
     Show all (11)
-  </Button>
+  </a>
 </div>
 `;
 
@@ -86,15 +82,13 @@ exports[`ExpandableInlineList renders only limited amount with expand toggle 1`]
     renderItem={[Function]}
     separateItems={true}
     suffix={null}
+    wrapperClassName={null}
   />
-  <Button
+  <a
     className="toggle"
-    ghost={false}
-    loading={false}
     onClick={[Function]}
-    prefixCls="ant-btn"
   >
     Show all (5)
-  </Button>
+  </a>
 </div>
 `;

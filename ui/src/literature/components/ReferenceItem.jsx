@@ -5,24 +5,24 @@ import { List } from 'antd';
 import { Link } from 'react-router-dom';
 
 import AuthorList from './AuthorList';
-import DOIList from './DOIList';
-import PublicationInfo from './PublicationInfo';
 import Latex from '../../common/components/Latex';
-import ArxivEprintList from './ArxivEprintList';
 
 class ReferenceItem extends Component {
   static renderTitle(reference) {
     const recordId = reference.get('control_number');
-    const title = reference.getIn(['titles', 0, 'title']);
+    const title = reference.getIn(['titles', 0, 'title'], '');
+    const label = reference.get('label');
+
+    const labelDisplay = label ? `[${label}] ` : '';
 
     if (recordId && title) {
       return (
         <Link to={`/literature/${recordId}`}>
-          <Latex>{title}</Latex>
+          {labelDisplay} <Latex>{title}</Latex>
         </Link>
       );
     }
-    return title;
+    return `${labelDisplay}${title}`;
   }
 
   render() {
@@ -39,13 +39,6 @@ class ReferenceItem extends Component {
             />
           }
         />
-        <div>
-          <PublicationInfo
-            info={reference.getIn(['publication_info', 0], Map())}
-          />
-          <ArxivEprintList eprints={reference.get('arxiv_eprints')} />
-          <DOIList dois={reference.get('dois')} />
-        </div>
       </List.Item>
     );
   }

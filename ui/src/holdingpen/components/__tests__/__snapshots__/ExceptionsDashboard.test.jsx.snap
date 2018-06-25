@@ -29,6 +29,7 @@ exports[`ExceptionsDashboard renders with all props set 1`] = `
       renderItem={[Function]}
       separateItems={false}
       suffix={null}
+      wrapperClassName={null}
     />
   </div>
   <Row

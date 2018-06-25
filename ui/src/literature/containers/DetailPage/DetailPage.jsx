@@ -17,7 +17,6 @@ import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentif
 import Latex from '../../../common/components/Latex';
 import LiteratureDate from '../../components/LiteratureDate';
 import LiteratureKeywordList from '../../components/LiteratureKeywordList';
-import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import PublicationInfoList from '../../components/PublicationInfoList';
 import ReferenceList from '../../components/ReferenceList';
 import ReportNumberList from '../../components/ReportNumberList';
@@ -55,45 +54,50 @@ class DetailPage extends Component {
     const keywords = metadata.get('keywords');
 
     return (
-      <LoadingOrChildren loading={this.props.loading}>
-        <Row className="__DetailPage__" type="flex" justify="center">
-          <Col className="card" span={14}>
-            <Card>
-              <h2>
-                <Latex>{title}</Latex>
-              </h2>
-              <AuthorList recordId={recordId} authors={authors} />
-              <LiteratureDate date={date} />
-              <div className="vertical-space">
-                <PublicationInfoList publicationInfo={publicationInfo} />
-                <ArxivEprintList eprints={eprints} />
-                <DOIList dois={dois} />
-                <ReportNumberList reportNumbers={reportNumbers} />
-                <ExternalSystemIdentifierList
-                  externalSystemIdentifiers={externalSystemIdentifiers}
-                />
-              </div>
-              <div className="vertical-space">
-                <CiteModalAction recordId={recordId} />
-              </div>
-              <Row>
-                <Latex>{abstract}</Latex>
-              </Row>
-              <Row>
-                <LiteratureKeywordList keywords={keywords} />
-              </Row>
-            </Card>
-          </Col>
-          <Col className="card" span={14}>
-            <Card title="References">
-              <ReferenceList
-                references={references}
-                loading={loadingReferences}
+      <Row className="__DetailPage__" type="flex" justify="center">
+        <Col className="mt3 mb3" span={14}>
+          <Card loading={this.props.loading}>
+            <h2>
+              <Latex>{title}</Latex>
+            </h2>
+            <AuthorList recordId={recordId} authors={authors} />
+            <LiteratureDate date={date} />
+            <div className="mt3">
+              <PublicationInfoList publicationInfo={publicationInfo} />
+              <ArxivEprintList eprints={eprints} />
+              <DOIList dois={dois} />
+              <ReportNumberList reportNumbers={reportNumbers} />
+              <ExternalSystemIdentifierList
+                externalSystemIdentifiers={externalSystemIdentifiers}
               />
-            </Card>
-          </Col>
-        </Row>
-      </LoadingOrChildren>
+            </div>
+            <Row>
+              <div className="mt3">
+                <Latex>{abstract}</Latex>
+              </div>
+            </Row>
+            <Row>
+              <div className="mt3">
+                <LiteratureKeywordList keywords={keywords} />
+              </div>
+            </Row>
+            <div className="mt3">
+              <CiteModalAction recordId={recordId} />
+            </div>
+          </Card>
+        </Col>
+        <Col className="mt3 mb3" span={14}>
+          <Card
+            title={`References (${references.size})`}
+            loading={loadingReferences}
+          >
+            <ReferenceList
+              references={references}
+              loading={loadingReferences}
+            />
+          </Card>
+        </Col>
+      </Row>
     );
   }
 }

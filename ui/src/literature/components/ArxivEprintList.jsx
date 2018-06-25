@@ -10,12 +10,10 @@ class ArxivEprintList extends Component {
     const { eprints } = this.props;
     return (
       <InlineList
-        label="e-Prints"
+        label="e-Print"
         items={eprints}
         extractKey={eprint => eprint.get('value')}
-        renderItem={eprint => (
-          <ArxivEprint eprint={eprint} />
-        )}
+        renderItem={eprint => <ArxivEprint eprint={eprint} />}
       />
     );
   }

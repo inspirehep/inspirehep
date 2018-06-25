@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 import { List } from 'immutable';
 
 import './InlineList.scss';
@@ -15,13 +16,13 @@ class InlineList extends Component {
       suffix,
       extractKey,
       separateItems,
+      wrapperClassName,
     } = this.props;
-    const listClassName = separateItems ? SEPARATE_ITEMS_CLASS : null;
     return (
       items && (
-        <div className="__InlineList__">
+        <div className={classnames('__InlineList__', wrapperClassName)}>
           {label && <span>{label}: </span>}
-          <ul className={listClassName}>
+          <ul className={classnames({ [SEPARATE_ITEMS_CLASS]: separateItems })}>
             {items.map(item => (
               <li key={extractKey(item)}>{renderItem(item)}</li>
             ))}
@@ -40,12 +41,14 @@ InlineList.propTypes = {
   suffix: PropTypes.node,
   label: PropTypes.string,
   separateItems: PropTypes.bool,
+  wrapperClassName: PropTypes.string,
 };
 
 InlineList.defaultProps = {
   label: null,
   items: null,
   suffix: null,
+  wrapperClassName: null,
   extractKey: item => item,
   separateItems: true,
 };
