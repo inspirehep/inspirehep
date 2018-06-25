@@ -65,6 +65,7 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
        et al.
     </span>
   }
+  wrapperClassName={null}
 />
 `;
 

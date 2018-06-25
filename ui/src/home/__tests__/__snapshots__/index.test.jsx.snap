@@ -46,6 +46,7 @@ exports[`Home renders home page 1`] = `
           renderItem={[Function]}
           separateItems={true}
           suffix={null}
+          wrapperClassName={null}
         />
       </Col>
     </Row>

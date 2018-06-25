@@ -7,7 +7,7 @@ exports[`InlineList renders item without separator 1`] = `
   className="__InlineList__"
 >
   <ul
-    className={null}
+    className=""
   >
     <li
       key="foo"
@@ -32,7 +32,7 @@ exports[`InlineList renders items (array) without separator 1`] = `
   className="__InlineList__"
 >
   <ul
-    className={null}
+    className=""
   >
     <li
       key="foo"
@@ -138,5 +138,30 @@ exports[`InlineList renders with all props set 1`] = `
   <span>
     Suffix
   </span>
+</div>
+`;
+
+exports[`InlineList renders wrapper with class 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul
+    className="separate-items"
+  >
+    <li
+      key="foo"
+    >
+      <span>
+        foo
+      </span>
+    </li>
+    <li
+      key="bar"
+    >
+      <span>
+        bar
+      </span>
+    </li>
+  </ul>
 </div>
 `;

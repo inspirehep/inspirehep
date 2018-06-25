@@ -5,7 +5,7 @@ exports[`ArxivEprintList renders with arXiv id 1`] = `
   className="__InlineList__"
 >
   <span>
-    e-Prints
+    e-Print
     : 
   </span>
   <ul

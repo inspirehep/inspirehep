@@ -11,6 +11,7 @@ class LiteratureKeywordList extends Component {
     return (
       <ExpandableInlineList
         separateItems={false}
+        wrapperClassName="di"
         items={keywords}
         extractKey={keyword => keyword.get('value')}
         renderItem={keyword => <LiteratureKeyword keyword={keyword} />}

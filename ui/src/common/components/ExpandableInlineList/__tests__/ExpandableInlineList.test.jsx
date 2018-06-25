@@ -27,7 +27,7 @@ describe('ExpandableInlineList', () => {
       <ExpandableInlineList limit={3} items={items} renderItem={item => item} />
     );
     const { onExpandToggle } = wrapper.instance();
-    expect(wrapper.find('Button')).toHaveProp('onClick', onExpandToggle);
+    expect(wrapper.find('a')).toHaveProp('onClick', onExpandToggle);
     onExpandToggle();
     wrapper.update();
     expect(wrapper).toMatchSnapshot();

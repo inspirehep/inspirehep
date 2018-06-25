@@ -51,6 +51,7 @@ exports[`Footer renders 1`] = `
         renderItem={[Function]}
         separateItems={false}
         suffix={null}
+        wrapperClassName={null}
       />
     </Col>
   </Row>

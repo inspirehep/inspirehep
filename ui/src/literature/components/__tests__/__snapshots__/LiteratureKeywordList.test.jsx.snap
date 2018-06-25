@@ -18,5 +18,6 @@ exports[`LiteratureKeywordList renders with keywords 1`] = `
   renderItem={[Function]}
   separateItems={false}
   suffix={null}
+  wrapperClassName="di"
 />
 `;
