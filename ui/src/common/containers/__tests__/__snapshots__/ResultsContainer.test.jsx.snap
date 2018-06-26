@@ -1,16 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ResultsContainer renders initial state  1`] = `
-<List
-  bordered={false}
-  dataSource={Array []}
-  itemLayout="vertical"
-  loading={false}
-  pagination={false}
-  prefixCls="ant-list"
-  split={true}
->
+<div>
   <div
+    className="mv3"
     key="1"
   >
     <span>
@@ -18,11 +11,12 @@ exports[`ResultsContainer renders initial state  1`] = `
     </span>
   </div>
   <div
+    className="mv3"
     key="2"
   >
     <span>
       value2
     </span>
   </div>
-</List>
+</div>
 `;

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
-import ResultItem from '../../common/components/ResultItem';
 import AuthorList from './AuthorList';
 import LiteratureDate from './LiteratureDate';
 import ArxivEprintList from './ArxivEprintList';
@@ -15,6 +14,7 @@ import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import CiteModalAction from './CiteModalAction';
 import ListItemAction from '../../common/components/ListItemAction';
 import Latex from '../../common/components/Latex';
+import ResultItem from '../../common/components/ResultItem';
 
 class LiteratureItem extends Component {
   render() {
@@ -37,27 +37,9 @@ class LiteratureItem extends Component {
 
     return (
       <ResultItem
-        title={
-          <Link to={`/literature/${recordId}`}>
-            <Latex>{title}</Latex>
-          </Link>
-        }
-        description={
-          <div>
-            <AuthorList recordId={recordId} authors={authors} />
-            <LiteratureDate date={date} />
-          </div>
-        }
         actions={[
           arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
           <CiteModalAction recordId={recordId} />,
-          citationCount && (
-            <ListItemAction
-              iconType="logout"
-              text={`${citationCount} citations`}
-              link={{ to: `/literature/${recordId}#citations` }}
-            />
-          ),
           referenceCount && (
             <ListItemAction
               iconType="login"
@@ -65,13 +47,29 @@ class LiteratureItem extends Component {
               link={{ to: `/literature/${recordId}#references` }}
             />
           ),
+          citationCount && (
+            <ListItemAction
+              iconType="logout"
+              text={`${citationCount} citations`}
+              link={{ to: `/literature/${recordId}#citations` }}
+            />
+          ),
         ].filter(action => action != null)}
       >
-        <PublicationInfoList publicationInfo={publicationInfo} />
-        <ArxivEprintList eprints={eprints} />
-        <DOIList dois={dois} />
-        <ReportNumberList reportNumbers={reportNumbers} />
-        <CollapsableAbstract abstract={abstract} />
+        <Link className="f4" to={`/literature/${recordId}`}>
+          <Latex>{title}</Latex>
+        </Link>
+        <div className="mt2">
+          <AuthorList recordId={recordId} authors={authors} />
+          <LiteratureDate date={date} />
+        </div>
+        <div className="mt2">
+          <PublicationInfoList publicationInfo={publicationInfo} />
+          <ArxivEprintList eprints={eprints} />
+          <DOIList dois={dois} />
+          <ReportNumberList reportNumbers={reportNumbers} />
+          <CollapsableAbstract abstract={abstract} />
+        </div>
       </ResultItem>
     );
   }

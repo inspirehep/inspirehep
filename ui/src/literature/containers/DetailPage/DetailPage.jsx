@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Card, Row, Col } from 'antd';
+import { Row, Col } from 'antd';
 import { Map, List } from 'immutable';
 
 import './DetailPage.scss';
@@ -11,10 +11,12 @@ import {
 } from '../../../actions/literature';
 import ArxivEprintList from '../../components/ArxivEprintList';
 import AuthorList from '../../components/AuthorList';
+import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
 import CiteModalAction from '../../components/CiteModalAction';
 import DOIList from '../../components/DOIList';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
 import Latex from '../../../common/components/Latex';
+import ContentBox from '../../../common/components/ContentBox';
 import LiteratureDate from '../../components/LiteratureDate';
 import LiteratureKeywordList from '../../components/LiteratureKeywordList';
 import PublicationInfoList from '../../components/PublicationInfoList';
@@ -50,13 +52,20 @@ class DetailPage extends Component {
     );
 
     const abstract = metadata.getIn(['abstracts', 0, 'value']);
+    const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
 
     const keywords = metadata.get('keywords');
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
-          <Card loading={this.props.loading}>
+          <ContentBox
+            loading={this.props.loading}
+            actions={[
+              arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
+              <CiteModalAction recordId={recordId} />,
+            ].filter(action => action != null)}
+          >
             <h2>
               <Latex>{title}</Latex>
             </h2>
@@ -81,13 +90,10 @@ class DetailPage extends Component {
                 <LiteratureKeywordList keywords={keywords} />
               </div>
             </Row>
-            <div className="mt3">
-              <CiteModalAction recordId={recordId} />
-            </div>
-          </Card>
+          </ContentBox>
         </Col>
         <Col className="mt3 mb3" span={14}>
-          <Card
+          <ContentBox
             title={`References (${references.size})`}
             loading={loadingReferences}
           >
@@ -95,7 +101,7 @@ class DetailPage extends Component {
               references={references}
               loading={loadingReferences}
             />
-          </Card>
+          </ContentBox>
         </Col>
       </Row>
     );

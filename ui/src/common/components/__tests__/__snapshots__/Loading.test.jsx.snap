@@ -11,7 +11,7 @@ exports[`Loading render loading component 1`] = `
     span={24}
   >
     <div
-      className="tc"
+      className="tc pa4"
     >
       <Spin
         prefixCls="ant-spin"

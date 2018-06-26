@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { List } from 'antd';
 import Immutable from 'immutable';
 
 class ResultsContainer extends Component {
   render() {
     return (
-      <List itemLayout="vertical">
-        {this.props.results.map(result =>
-          <div key={result.get('id')}>{this.props.renderItem(result)}</div>)}
-      </List>
+      <div>
+        {this.props.results.map(result => (
+          <div className="mv3" key={result.get('id')}>
+            {this.props.renderItem(result)}
+          </div>
+        ))}
+      </div>
     );
   }
 }

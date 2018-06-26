@@ -7,18 +7,14 @@ import Latex from '../../common/components/Latex';
 class CollapsableAbstract extends Component {
   render() {
     const { abstract } = this.props;
-    return abstract && (
-      <Collapse
-        style={{ background: 'transparent' }}
-        bordered={false}
-      >
-        <Collapse.Panel
-          style={{ border: 0 }}
-          header="Abstract"
-        >
-          <Latex>{abstract}</Latex>
-        </Collapse.Panel>
-      </Collapse>
+    return (
+      abstract && (
+        <Collapse className="bg-transparent" bordered={false}>
+          <Collapse.Panel style={{ border: 0 }} header="Abstract">
+            <Latex>{abstract}</Latex>
+          </Collapse.Panel>
+        </Collapse>
+      )
     );
   }
 }

@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FlexibleWidthXYPlot, VerticalRectSeries } from 'react-vis';
-import { Slider, Button, Row, Col } from 'antd';
+import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
+import AggregationBox from './AggregationBox';
 import { pluckMinMaxPair, toNumbers } from '../utils';
 
 export const HALF_BAR_WIDTH = 0.5;
 const NO_MARGIN = {
-  left: 0, right: 0, top: 0, bottom: 0,
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
 };
 
 class RangeAggregation extends Component {
@@ -22,16 +26,26 @@ class RangeAggregation extends Component {
 
     let { min, max } = prevState;
     if (nextBuckets !== prevBuckets) {
-      [min, max] = pluckMinMaxPair(nextBuckets, bucket => Number(bucket.get(keyPropName)));
+      [min, max] = pluckMinMaxPair(nextBuckets, bucket =>
+        Number(bucket.get(keyPropName))
+      );
     }
 
     const unsafeEndpoints = selections || prevEndpoints;
-    const endpoints = RangeAggregation.sanitizeEndpoints(unsafeEndpoints, min, max);
+    const endpoints = RangeAggregation.sanitizeEndpoints(
+      unsafeEndpoints,
+      min,
+      max
+    );
 
     // TODO: perhaps add more checks for other props
     let { data } = prevState;
     if (nextBuckets !== prevBuckets) {
-      data = RangeAggregation.getHistogramData(nextBuckets, endpoints, nextProps);
+      data = RangeAggregation.getHistogramData(
+        nextBuckets,
+        endpoints,
+        nextProps
+      );
     }
 
     return {
@@ -60,10 +74,13 @@ class RangeAggregation extends Component {
     const [lower, upper] = endpoints;
     const interval = MathInterval.closed(lower, upper);
     const {
-      keyPropName, countPropName, selectedColor, deselectedColor,
+      keyPropName,
+      countPropName,
+      selectedColor,
+      deselectedColor,
     } = props;
     return buckets
-      .map((item) => {
+      .map(item => {
         const x = Number(item.get(keyPropName));
         const color = interval.contains(x) ? selectedColor : deselectedColor;
         return {
@@ -72,7 +89,8 @@ class RangeAggregation extends Component {
           y: item.get(countPropName),
           color,
         };
-      }).toArray();
+      })
+      .toArray();
   }
 
   constructor(props) {
@@ -127,7 +145,11 @@ class RangeAggregation extends Component {
 
   onSliderChange(endpoints) {
     const { buckets } = this.state;
-    const data = RangeAggregation.getHistogramData(buckets, endpoints, this.props);
+    const data = RangeAggregation.getHistogramData(
+      buckets,
+      endpoints,
+      this.props
+    );
     this.setState({ endpoints, data });
     this.prevNearestBar = null;
   }
@@ -136,49 +158,42 @@ class RangeAggregation extends Component {
     this.props.onChange(endpoints);
   }
 
+  renderResetButton() {
+    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */
+    return <a onClick={this.onResetClick}>Reset</a>;
+  }
+
   render() {
-    const {
-      max, min, data, endpoints,
-    } = this.state;
+    const { max, min, data, endpoints } = this.state;
     const sliderMarks = { [max]: max, [min]: min };
     const { height, name } = this.props;
     return (
-      <div style={{ width: '100%' }}>
-        <Row type="flex" justify="space-between">
-          <Col>
-            <strong>{name}</strong>
-          </Col>
-          <Col>
-            <Button onClick={this.onResetClick}>Reset</Button>
-          </Col>
-        </Row>
-        <Row>
-          <div style={{ margin: 14 }}>
-            <FlexibleWidthXYPlot
-              height={height}
-              margin={NO_MARGIN}
-              onMouseLeave={this.onMouseLeaveHistogram}
-            >
-              <VerticalRectSeries
-                colorType="literal"
-                data={data}
-                onValueClick={this.onBarClick}
-                onNearestX={this.onNearestBar}
-              />
-            </FlexibleWidthXYPlot>
-            <Slider
-              range
-              onChange={this.onSliderChange}
-              onAfterChange={this.onAfterChange}
-              value={endpoints}
-              min={min}
-              max={max}
-              marks={sliderMarks}
-              included={max !== min}
+      <AggregationBox name={name} action={this.renderResetButton()}>
+        <div className="ma2">
+          <FlexibleWidthXYPlot
+            height={height}
+            margin={NO_MARGIN}
+            onMouseLeave={this.onMouseLeaveHistogram}
+          >
+            <VerticalRectSeries
+              colorType="literal"
+              data={data}
+              onValueClick={this.onBarClick}
+              onNearestX={this.onNearestBar}
             />
-          </div>
-        </Row>
-      </div>
+          </FlexibleWidthXYPlot>
+          <Slider
+            range
+            onChange={this.onSliderChange}
+            onAfterChange={this.onAfterChange}
+            value={endpoints}
+            min={min}
+            max={max}
+            marks={sliderMarks}
+            included={max !== min}
+          />
+        </div>
+      </AggregationBox>
     );
   }
 }

@@ -1,16 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AggregationFiltersContainer does not render aggregations with empty buckets 1`] = `
-<List
-  bordered={false}
-  className="__AggregationFiltersContainer__"
-  dataSource={Array []}
-  loading={false}
-  pagination={false}
-  prefixCls="ant-list"
-  split={true}
+<div
+  className="__AggregationFiltersContainer__ bg-white pa3"
 >
-  <Item
+  <div
     key="agg"
   >
     <AggregationFilter
@@ -25,21 +19,15 @@ exports[`AggregationFiltersContainer does not render aggregations with empty buc
       range={false}
       selections={Array []}
     />
-  </Item>
-</List>
+  </div>
+</div>
 `;
 
 exports[`AggregationFiltersContainer renders initial state with initial url query q param 1`] = `
-<List
-  bordered={false}
-  className="__AggregationFiltersContainer__"
-  dataSource={Array []}
-  loading={false}
-  pagination={false}
-  prefixCls="ant-list"
-  split={true}
+<div
+  className="__AggregationFiltersContainer__ bg-white pa3"
 >
-  <Item
+  <div
     key="agg1"
   >
     <AggregationFilter
@@ -58,8 +46,8 @@ exports[`AggregationFiltersContainer renders initial state with initial url quer
         ]
       }
     />
-  </Item>
-  <Item
+  </div>
+  <div
     key="agg2"
   >
     <AggregationFilter
@@ -74,6 +62,6 @@ exports[`AggregationFiltersContainer renders initial state with initial url quer
       range={false}
       selections={Array []}
     />
-  </Item>
-</List>
+  </div>
+</div>
 `;

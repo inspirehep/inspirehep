@@ -9,45 +9,48 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     />,
     ]
   }
-  description={
-    <div>
-      <AuthorList
-        authors={
-          Immutable.List [
-          ]
-        }
-        limit={5}
-        recordId={12345}
-      />
-      <LiteratureDate
-        date={null}
-      />
-    </div>
-  }
-  title={
-    <Link
-      replace={false}
-      to="/literature/12345"
-    >
-      <Latex />
-    </Link>
-  }
 >
-  <PublicationInfoList
-    publicationInfo={null}
-  />
-  <ArxivEprintList
-    eprints={null}
-  />
-  <DOIList
-    dois={null}
-  />
-  <ReportNumberList
-    reportNumbers={null}
-  />
-  <CollapsableAbstract
-    abstract={null}
-  />
+  <Link
+    className="f4"
+    replace={false}
+    to="/literature/12345"
+  >
+    <Latex />
+  </Link>
+  <div
+    className="mt2"
+  >
+    <AuthorList
+      authors={
+        Immutable.List [
+        ]
+      }
+      limit={5}
+      recordId={12345}
+    />
+    <LiteratureDate
+      date={null}
+    />
+  </div>
+  <div
+    className="mt2"
+  >
+    <PublicationInfoList
+      publicationInfo={null}
+    />
+    <ArxivEprintList
+      eprints={null}
+    />
+    <DOIList
+      dois={null}
+    />
+    <ReportNumberList
+      reportNumbers={null}
+    />
+    <CollapsableAbstract
+      abstract={null}
+    />
+  </div>
 </ResultItem>
 `;
 
@@ -60,45 +63,48 @@ exports[`LiteratureItem does not render citation and reference count if they are
     />,
     ]
   }
-  description={
-    <div>
-      <AuthorList
-        authors={
-          Immutable.List [
-          ]
-        }
-        limit={5}
-        recordId={12345}
-      />
-      <LiteratureDate
-        date={null}
-      />
-    </div>
-  }
-  title={
-    <Link
-      replace={false}
-      to="/literature/12345"
-    >
-      <Latex />
-    </Link>
-  }
 >
-  <PublicationInfoList
-    publicationInfo={null}
-  />
-  <ArxivEprintList
-    eprints={null}
-  />
-  <DOIList
-    dois={null}
-  />
-  <ReportNumberList
-    reportNumbers={null}
-  />
-  <CollapsableAbstract
-    abstract={null}
-  />
+  <Link
+    className="f4"
+    replace={false}
+    to="/literature/12345"
+  >
+    <Latex />
+  </Link>
+  <div
+    className="mt2"
+  >
+    <AuthorList
+      authors={
+        Immutable.List [
+        ]
+      }
+      limit={5}
+      recordId={12345}
+    />
+    <LiteratureDate
+      date={null}
+    />
+  </div>
+  <div
+    className="mt2"
+  >
+    <PublicationInfoList
+      publicationInfo={null}
+    />
+    <ArxivEprintList
+      eprints={null}
+    />
+    <DOIList
+      dois={null}
+    />
+    <ReportNumberList
+      reportNumbers={null}
+    />
+    <CollapsableAbstract
+      abstract={null}
+    />
+  </div>
 </ResultItem>
 `;
 
@@ -113,16 +119,6 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
         recordId={12345}
     />,
       <ListItemAction
-        iconType="logout"
-        link={
-            Object {
-                "to": "/literature/12345#citations",
-              }
-        }
-        onClick={undefined}
-        text="1 citations"
-    />,
-      <ListItemAction
         iconType="login"
         link={
             Object {
@@ -132,69 +128,82 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
         onClick={undefined}
         text="2 references"
     />,
+      <ListItemAction
+        iconType="logout"
+        link={
+            Object {
+                "to": "/literature/12345#citations",
+              }
+        }
+        onClick={undefined}
+        text="1 citations"
+    />,
     ]
   }
-  description={
-    <div>
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              full_name: "Test, Author",
-            },
-          ]
-        }
-        limit={5}
-        recordId={12345}
-      />
-      <LiteratureDate
-        date="Jun 7, 1993"
-      />
-    </div>
-  }
-  title={
-    <Link
-      replace={false}
-      to="/literature/12345"
-    >
-      <Latex>
-        test
-      </Latex>
-    </Link>
-  }
 >
-  <PublicationInfoList
-    publicationInfo={null}
-  />
-  <ArxivEprintList
-    eprints={
-      Immutable.List [
-        Immutable.Map {
-          value: "1234567890",
-        },
-      ]
-    }
-  />
-  <DOIList
-    dois={
-      Immutable.List [
-        Immutable.Map {
-          value: "12345679.1234.123",
-        },
-      ]
-    }
-  />
-  <ReportNumberList
-    reportNumbers={
-      Immutable.List [
-        Immutable.Map {
-          value: "ABCD-AB-CD-1234-123",
-        },
-      ]
-    }
-  />
-  <CollapsableAbstract
-    abstract={null}
-  />
+  <Link
+    className="f4"
+    replace={false}
+    to="/literature/12345"
+  >
+    <Latex>
+      test
+    </Latex>
+  </Link>
+  <div
+    className="mt2"
+  >
+    <AuthorList
+      authors={
+        Immutable.List [
+          Immutable.Map {
+            full_name: "Test, Author",
+          },
+        ]
+      }
+      limit={5}
+      recordId={12345}
+    />
+    <LiteratureDate
+      date="Jun 7, 1993"
+    />
+  </div>
+  <div
+    className="mt2"
+  >
+    <PublicationInfoList
+      publicationInfo={null}
+    />
+    <ArxivEprintList
+      eprints={
+        Immutable.List [
+          Immutable.Map {
+            value: "1234567890",
+          },
+        ]
+      }
+    />
+    <DOIList
+      dois={
+        Immutable.List [
+          Immutable.Map {
+            value: "12345679.1234.123",
+          },
+        ]
+      }
+    />
+    <ReportNumberList
+      reportNumbers={
+        Immutable.List [
+          Immutable.Map {
+            value: "ABCD-AB-CD-1234-123",
+          },
+        ]
+      }
+    />
+    <CollapsableAbstract
+      abstract={null}
+    />
+  </div>
 </ResultItem>
 `;
