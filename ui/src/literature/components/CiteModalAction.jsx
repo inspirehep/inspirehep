@@ -39,7 +39,10 @@ class CiteModalAction extends Component {
 
   onDownloadClick() {
     const { citeContent } = this.state;
-    window.open(`data:application/txt,${encodeURIComponent(citeContent)}`, '_self');
+    window.open(
+      `data:application/txt,${encodeURIComponent(citeContent)}`,
+      '_self'
+    );
   }
 
   onModalCancel() {
@@ -57,12 +60,15 @@ class CiteModalAction extends Component {
     this.setState({ citeContent });
   }
 
-
   render() {
     const { modalVisible, citeContent } = this.state;
     return (
-      <div>
-        <ListItemAction onClick={this.onCiteClick} iconType="export" text="cite" />
+      <div className="di">
+        <ListItemAction
+          onClick={this.onCiteClick}
+          iconType="export"
+          text="cite"
+        />
         <Modal
           title="Cite Article"
           width="50%"
@@ -72,9 +78,7 @@ class CiteModalAction extends Component {
         >
           <div>
             <Row>
-              <pre>
-                {citeContent}
-              </pre>
+              <pre>{citeContent}</pre>
             </Row>
             <Row type="flex" justify="space-between">
               <div>

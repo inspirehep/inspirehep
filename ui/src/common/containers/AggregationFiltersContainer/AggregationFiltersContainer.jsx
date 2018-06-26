@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { List } from 'antd';
 import Immutable from 'immutable';
 
 import AggregationFilter from '../../components/AggregationFilter';
@@ -27,23 +26,24 @@ class AggregationFiltersContainer extends Component {
 
   render() {
     return (
-      <List className="__AggregationFiltersContainer__">
-        {this.props.aggregations.entrySeq()
+      <div className="__AggregationFiltersContainer__ bg-white pa3">
+        {this.props.aggregations
+          .entrySeq()
           .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
           .map(([aggregationKey, aggregation]) => (
-            <List.Item key={aggregationKey}>
+            <div key={aggregationKey}>
               <AggregationFilter
                 range={aggregationKey === RANGE_AGGREATION_KEY}
                 name={aggregationKey}
                 buckets={aggregation.get('buckets')}
                 selections={forceArray(this.props.query[aggregationKey])}
-                onChange={
-                  (selections) => { this.onAggregationChange(aggregationKey, selections); }
-                }
+                onChange={selections => {
+                  this.onAggregationChange(aggregationKey, selections);
+                }}
               />
-            </List.Item>
+            </div>
           ))}
-      </List>
+      </div>
     );
   }
 }
@@ -65,4 +65,6 @@ export const dispatchToProps = dispatch => ({
   },
 });
 
-export default connect(stateToProps, dispatchToProps)(AggregationFiltersContainer);
+export default connect(stateToProps, dispatchToProps)(
+  AggregationFiltersContainer
+);

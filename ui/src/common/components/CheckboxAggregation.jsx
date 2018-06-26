@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import { List, Tag, Button } from 'antd';
+import { Col, Row, Tag } from 'antd';
 
 import CheckboxItem from './CheckboxItem';
+import AggregationBox from './AggregationBox';
 
 const BUCKET_CHUNK_SIZE = 10;
 
@@ -61,36 +62,38 @@ class CheckboxAggregation extends Component {
       return null;
     }
 
-    return <Button onClick={this.onShowMoreClick}>Show more</Button>;
+    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */
+    return <a onClick={this.onShowMoreClick}>Show more</a>;
   }
 
   render() {
     const { maxBucketCountToDisplay, selectionMap } = this.state;
     return (
-      <div style={{ width: '100%' }}>
-        <List
-          header={<strong>{this.props.name}</strong>}
-          footer={this.renderShowMore()}
-        >
-          {this.props.buckets.take(maxBucketCountToDisplay).map(bucket => (
-            <List.Item key={bucket.get('key')}>
-              <List.Item.Meta
-                title={
-                  <CheckboxItem
-                    checked={selectionMap.get(bucket.get('key'))}
-                    onChange={checked => {
-                      this.onSelectionChange(bucket.get('key'), checked);
-                    }}
-                  >
-                    {bucket.get('key')}
-                  </CheckboxItem>
-                }
-              />
+      <AggregationBox name={this.props.name}>
+        {this.props.buckets.take(maxBucketCountToDisplay).map(bucket => (
+          <Row
+            className="mb2"
+            type="flex"
+            justify="space-between"
+            key={bucket.get('key')}
+          >
+            <Col>
+              <CheckboxItem
+                checked={selectionMap.get(bucket.get('key'))}
+                onChange={checked => {
+                  this.onSelectionChange(bucket.get('key'), checked);
+                }}
+              >
+                {bucket.get('key')}
+              </CheckboxItem>
+            </Col>
+            <Col>
               <Tag>{bucket.get('doc_count')}</Tag>
-            </List.Item>
-          ))}
-        </List>
-      </div>
+            </Col>
+          </Row>
+        ))}
+        {this.renderShowMore()}
+      </AggregationBox>
     );
   }
 }

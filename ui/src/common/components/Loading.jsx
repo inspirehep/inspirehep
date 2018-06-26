@@ -6,7 +6,7 @@ class Loading extends Component {
     return (
       <Row type="flex" justify="middle" align="middle">
         <Col span={24}>
-          <div className="tc">
+          <div className="tc pa4">
             <Spin tip="Loading ..." />
           </div>
         </Col>

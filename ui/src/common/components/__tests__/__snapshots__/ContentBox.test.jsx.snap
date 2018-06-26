@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentBox renders ContentBox with actions 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <div
+      className="pb3"
+    >
+      <h2
+        key="pi"
+      >
+        PI
+      </h2>
+    </div>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with actions and title with loading 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={true}
+    title="Jessica Jones"
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <div
+      className="pb3"
+    >
+      <h1
+        key="pi"
+      >
+        PI
+      </h1>
+    </div>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with actions and title without loading 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title="Jessica Jones"
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <div
+      className="pb3"
+    >
+      <h2
+        key="pi"
+      >
+        PI
+      </h2>
+    </div>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox without actions 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <div
+      className="pb3"
+    />
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox without children and with actions 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa3"
+    />
+    <div
+      className="pb3"
+    >
+      <h2
+        key="pi"
+      >
+        PI
+      </h2>
+    </div>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox without children and without actions 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa3"
+    />
+    <div
+      className="pb3"
+    />
+  </Card>
+</div>
+`;

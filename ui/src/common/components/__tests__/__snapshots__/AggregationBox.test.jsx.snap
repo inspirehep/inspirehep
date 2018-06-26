@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AggregationBox renders AggreagationBox with action 1`] = `
+<div
+  className="w-100 mb4 br1"
+>
+  <Row
+    gutter={0}
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <h3
+        className="ttc pb1"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col>
+      <h2>
+        PI
+      </h2>
+    </Col>
+  </Row>
+  <Row
+    className="w-100"
+    gutter={0}
+  >
+    <div>
+      Defenders
+    </div>
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
+<div
+  className="w-100 mb4 br1"
+>
+  <Row
+    gutter={0}
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <h3
+        className="ttc pb1"
+      />
+    </Col>
+    <Col>
+      <h2>
+        PI
+      </h2>
+    </Col>
+  </Row>
+  <Row
+    className="w-100"
+    gutter={0}
+  >
+    <div>
+      Defenders
+    </div>
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox with underscore in the name 1`] = `
+<div
+  className="w-100 mb4 br1"
+>
+  <Row
+    gutter={0}
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <h3
+        className="ttc pb1"
+      >
+        jessica jones
+      </h3>
+    </Col>
+    <Col>
+      <h2>
+        PI
+      </h2>
+    </Col>
+  </Row>
+  <Row
+    className="w-100"
+    gutter={0}
+  >
+    <div>
+      Defenders
+    </div>
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox without action 1`] = `
+<div
+  className="w-100 mb4 br1"
+>
+  <Row
+    gutter={0}
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <h3
+        className="ttc pb1"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col />
+  </Row>
+  <Row
+    className="w-100"
+    gutter={0}
+  >
+    <div>
+      Defenders
+    </div>
+  </Row>
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox without children and with action 1`] = `
+<div
+  className="w-100 mb4 br1"
+>
+  <Row
+    gutter={0}
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <h3
+        className="ttc pb1"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col>
+      <h2>
+        PI
+      </h2>
+    </Col>
+  </Row>
+  <Row
+    className="w-100"
+    gutter={0}
+  />
+</div>
+`;
+
+exports[`AggregationBox renders AggreagationBox without children and without action 1`] = `
+<div
+  className="w-100 mb4 br1"
+>
+  <Row
+    gutter={0}
+    justify="space-between"
+    type="flex"
+  >
+    <Col>
+      <h3
+        className="ttc pb1"
+      >
+        Jessica Jones
+      </h3>
+    </Col>
+    <Col />
+  </Row>
+  <Row
+    className="w-100"
+    gutter={0}
+  />
+</div>
+`;

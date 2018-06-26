@@ -21,12 +21,12 @@ describe('ResultsContainer', () => {
         ],
       }),
     });
-    const wrapper = shallow((
+    const wrapper = shallow(
       <ResultsContainer
         store={store}
         renderItem={result => <span>{result.get('value')}</span>}
       />
-    )).dive();
+    ).dive();
     expect(wrapper).toMatchSnapshot();
   });
 });
