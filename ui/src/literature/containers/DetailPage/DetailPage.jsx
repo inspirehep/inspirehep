@@ -14,6 +14,7 @@ import AuthorList from '../../components/AuthorList';
 import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
 import CiteModalAction from '../../components/CiteModalAction';
 import DOIList from '../../components/DOIList';
+import CollaborationList from '../../components/CollaborationList';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
 import Latex from '../../../common/components/Latex';
 import ContentBox from '../../../common/components/ContentBox';
@@ -53,6 +54,7 @@ class DetailPage extends Component {
 
     const abstract = metadata.getIn(['abstracts', 0, 'value']);
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
+    const collaborations = metadata.get('collaborations');
 
     const keywords = metadata.get('keywords');
 
@@ -69,7 +71,17 @@ class DetailPage extends Component {
             <h2>
               <Latex>{title}</Latex>
             </h2>
-            <AuthorList recordId={recordId} authors={authors} />
+            <div>
+              <CollaborationList
+                wrapperClassName="di pr1"
+                collaborations={collaborations}
+              />
+              <AuthorList
+                wrapperClassName="di"
+                recordId={recordId}
+                authors={authors}
+              />
+            </div>
             <LiteratureDate date={date} />
             <div className="mt3">
               <PublicationInfoList publicationInfo={publicationInfo} />

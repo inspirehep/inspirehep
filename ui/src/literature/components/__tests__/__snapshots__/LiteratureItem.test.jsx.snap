@@ -20,14 +20,21 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   <div
     className="mt2"
   >
-    <AuthorList
-      authors={
-        Immutable.List [
-        ]
-      }
-      limit={5}
-      recordId={12345}
-    />
+    <div>
+      <CollaborationList
+        collaborations={null}
+        wrapperClassName="di pr1"
+      />
+      <AuthorList
+        authors={
+          Immutable.List [
+          ]
+        }
+        limit={5}
+        recordId={12345}
+        wrapperClassName="di"
+      />
+    </div>
     <LiteratureDate
       date={null}
     />
@@ -74,14 +81,21 @@ exports[`LiteratureItem does not render citation and reference count if they are
   <div
     className="mt2"
   >
-    <AuthorList
-      authors={
-        Immutable.List [
-        ]
-      }
-      limit={5}
-      recordId={12345}
-    />
+    <div>
+      <CollaborationList
+        collaborations={null}
+        wrapperClassName="di pr1"
+      />
+      <AuthorList
+        authors={
+          Immutable.List [
+          ]
+        }
+        limit={5}
+        recordId={12345}
+        wrapperClassName="di"
+      />
+    </div>
     <LiteratureDate
       date={null}
     />
@@ -153,17 +167,24 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   <div
     className="mt2"
   >
-    <AuthorList
-      authors={
-        Immutable.List [
-          Immutable.Map {
-            full_name: "Test, Author",
-          },
-        ]
-      }
-      limit={5}
-      recordId={12345}
-    />
+    <div>
+      <CollaborationList
+        collaborations={null}
+        wrapperClassName="di pr1"
+      />
+      <AuthorList
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              full_name: "Test, Author",
+            },
+          ]
+        }
+        limit={5}
+        recordId={12345}
+        wrapperClassName="di"
+      />
+    </div>
     <LiteratureDate
       date="Jun 7, 1993"
     />
