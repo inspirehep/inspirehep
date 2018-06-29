@@ -6,6 +6,7 @@ import { Map } from 'immutable';
 import AuthorList from './AuthorList';
 import LiteratureDate from './LiteratureDate';
 import ArxivEprintList from './ArxivEprintList';
+import CollaborationList from './CollaborationList';
 import DOIList from './DOIList';
 import CollapsableAbstract from './CollapsableAbstract';
 import ReportNumberList from './ReportNumberList';
@@ -32,6 +33,7 @@ class LiteratureItem extends Component {
     const publicationInfo = metadata.get('publication_info');
     const eprints = metadata.get('arxiv_eprints');
     const dois = metadata.get('dois');
+    const collaborations = metadata.get('collaborations');
     const reportNumbers = metadata.get('report_numbers');
     const abstract = metadata.getIn(['abstracts', 0, 'value']);
 
@@ -60,7 +62,17 @@ class LiteratureItem extends Component {
           <Latex>{title}</Latex>
         </Link>
         <div className="mt2">
-          <AuthorList recordId={recordId} authors={authors} />
+          <div>
+            <CollaborationList
+              wrapperClassName="di pr1"
+              collaborations={collaborations}
+            />
+            <AuthorList
+              wrapperClassName="di"
+              recordId={recordId}
+              authors={authors}
+            />
+          </div>
           <LiteratureDate date={date} />
         </div>
         <div className="mt2">

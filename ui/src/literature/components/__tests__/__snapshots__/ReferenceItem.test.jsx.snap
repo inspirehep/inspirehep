@@ -16,6 +16,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
         }
         limit={5}
         recordId={undefined}
+        wrapperClassName={null}
       />
     }
     title="Title"
@@ -39,6 +40,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
         }
         limit={5}
         recordId={12345}
+        wrapperClassName={null}
       />
     }
     title={

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Tooltip } from 'antd';
 import { Map } from 'immutable';
 
 class AuthorLink extends Component {
@@ -13,17 +12,40 @@ class AuthorLink extends Component {
     return href;
   }
 
-  render() {
+  getAffiliationHref() {
     const { author } = this.props;
     const affiliation = author.getIn(['affiliations', 0, 'value']);
-    const href = this.getAuthorHref();
-    // TODO add affiliation info tooltip!
+    return `//inspirehep.net/search?cc=Institutions&p=institution:"${affiliation}"`;
+  }
+
+  renderAffiliationLink() {
+    const { author } = this.props;
+    const affiliation = author.getIn(['affiliations', 0, 'value']);
+    if (affiliation) {
+      const affiliationHref = this.getAffiliationHref();
+      return (
+        <span className="pl1 grey">
+          (
+          <a target="_blank" href={affiliationHref}>
+            {affiliation}
+          </a>
+          )
+        </span>
+      );
+    }
+    return null;
+  }
+
+  render() {
+    const { author } = this.props;
+    const authorHref = this.getAuthorHref();
     return (
-      <Tooltip placement="bottom" title={affiliation}>
-        <a target="_blank" href={href}>
+      <div className="di">
+        <a target="_blank" href={authorHref}>
           {author.get('full_name')}
         </a>
-      </Tooltip>
+        {this.renderAffiliationLink()}
+      </div>
     );
   }
 }

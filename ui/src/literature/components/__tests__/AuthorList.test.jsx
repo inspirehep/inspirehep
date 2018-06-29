@@ -6,7 +6,7 @@ import AuthorList from '../AuthorList';
 import AuthorLink from '../AuthorLink';
 
 describe('AuthorList', () => {
-  it('renders only 5 authors and suffixes "et al." if passed more', () => {
+  it('renders only 5 authors and suffixes "show all" if passed more', () => {
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
@@ -31,7 +31,7 @@ describe('AuthorList', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders only limited (prop) authors and suffixes "et al." if passed more', () => {
+  it('renders only limited (prop) authors and suffixes "show all" if passed more', () => {
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
@@ -46,10 +46,10 @@ describe('AuthorList', () => {
     const wrapper = shallow(
       <AuthorList limit={2} recordId={12345} authors={authors} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders all authors if they are less than the limit wihtout "et al."', () => {
+  it('renders all authors if they are less than the limit wihtout "show all."', () => {
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',
@@ -61,7 +61,7 @@ describe('AuthorList', () => {
     const wrapper = shallow(
       <AuthorList limit={4} recordId={12345} authors={authors} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders authors by using AuthorLink', () => {
@@ -73,6 +73,14 @@ describe('AuthorList', () => {
     const wrapper = shallow(
       <AuthorList limit={4} recordId={12345} authors={authors} />
     );
-    expect(wrapper.dive().find(AuthorLink).length).toBe(1);
+
+    // Fragment make the ``dive`` a bit more difficult
+    expect(
+      wrapper
+        .find('InlineList')
+        .first()
+        .dive()
+        .find(AuthorLink).length
+    ).toBe(1);
   });
 });
