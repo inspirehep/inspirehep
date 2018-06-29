@@ -576,7 +576,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
   <a
     onClick={[Function]}
   >
-    Show more
+    Show 
+    1
+     more
   </a>
 </AggregationBox>
 `;
