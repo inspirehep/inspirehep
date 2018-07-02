@@ -54,7 +54,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     <ReportNumberList
       reportNumbers={null}
     />
-    <CollapsableAbstract
+    <PartialAbstract
       abstract={null}
     />
   </div>
@@ -115,7 +115,7 @@ exports[`LiteratureItem does not render citation and reference count if they are
     <ReportNumberList
       reportNumbers={null}
     />
-    <CollapsableAbstract
+    <PartialAbstract
       abstract={null}
     />
   </div>
@@ -222,7 +222,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
         ]
       }
     />
-    <CollapsableAbstract
+    <PartialAbstract
       abstract={null}
     />
   </div>
