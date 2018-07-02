@@ -8,7 +8,7 @@ import LiteratureDate from './LiteratureDate';
 import ArxivEprintList from './ArxivEprintList';
 import CollaborationList from './CollaborationList';
 import DOIList from './DOIList';
-import CollapsableAbstract from './CollapsableAbstract';
+import PartialAbstract from './PartialAbstract/PartialAbstract';
 import ReportNumberList from './ReportNumberList';
 import PublicationInfoList from './PublicationInfoList';
 import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
@@ -80,7 +80,7 @@ class LiteratureItem extends Component {
           <ArxivEprintList eprints={eprints} />
           <DOIList dois={dois} />
           <ReportNumberList reportNumbers={reportNumbers} />
-          <CollapsableAbstract abstract={abstract} />
+          <PartialAbstract abstract={abstract} />
         </div>
       </ResultItem>
     );
