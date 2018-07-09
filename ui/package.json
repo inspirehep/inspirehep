@@ -25,6 +25,7 @@
     "react": "^16.2.0",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.2.0",
+    "react-loadable": "^5.4.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
@@ -36,6 +37,7 @@
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",
+    "babel-eslint": "8",
     "babel-plugin-import": "^1.7.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
