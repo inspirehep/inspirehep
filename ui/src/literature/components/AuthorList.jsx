@@ -26,8 +26,8 @@ class AuthorList extends Component {
   }
 
   renderSuffix() {
-    const { authors, limit } = this.props;
-    if (authors.size > limit) {
+    const { showAll } = this.props;
+    if (showAll) {
       return (
         <div className="di">
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */}
@@ -35,16 +35,16 @@ class AuthorList extends Component {
         </div>
       );
     }
-    return null;
+    return <span> et al.</span>;
   }
 
-  renderInlineList(suffix = null) {
+  renderInlineList(items, suffix = true) {
     const { authors, limit, recordId, wrapperClassName } = this.props;
     return (
       <InlineList
         wrapperClassName={wrapperClassName}
-        items={authors.take(limit)}
-        suffix={suffix}
+        items={items}
+        suffix={authors.size > limit && suffix ? this.renderSuffix() : null}
         extractKey={author => author.get('full_name')}
         renderItem={author => (
           <AuthorLink author={author} recordId={recordId} />
@@ -55,18 +55,19 @@ class AuthorList extends Component {
 
   render() {
     const { modalVisible } = this.state;
-    const { authors } = this.props;
+    const { authors, limit, total } = this.props;
+    const showTotal = total === -1 ? authors.size : total;
     return (
       <Fragment>
-        {this.renderInlineList(this.renderSuffix())}
+        {this.renderInlineList(authors.take(limit))}
         <Modal
-          title={`${authors.size} authors`}
+          title={`${showTotal} authors`}
           width="50%"
           visible={modalVisible}
           footer={null}
           onCancel={this.onModalCancel}
         >
-          {this.renderInlineList()}
+          {this.renderInlineList(authors, false)}
         </Modal>
       </Fragment>
     );
@@ -77,14 +78,18 @@ AuthorList.propTypes = {
   authors: PropTypes.instanceOf(List),
   recordId: PropTypes.number,
   limit: PropTypes.number,
+  total: PropTypes.number,
   wrapperClassName: PropTypes.string,
+  showAll: PropTypes.bool,
 };
 
 AuthorList.defaultProps = {
   authors: List(),
   limit: 5,
+  total: -1,
   recordId: undefined,
   wrapperClassName: null,
+  showAll: false,
 };
 
 export default AuthorList;

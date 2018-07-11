@@ -28,6 +28,7 @@ class LiteratureItem extends Component {
     const recordId = metadata.get('control_number');
     const citationCount = metadata.get('citation_count');
     const referenceCount = metadata.get('number_of_references');
+    const authorCount = metadata.get('number_of_authors');
 
     const date = metadata.get('date');
     const publicationInfo = metadata.get('publication_info');
@@ -68,6 +69,7 @@ class LiteratureItem extends Component {
               collaborations={collaborations}
             />
             <AuthorList
+              authorCount={authorCount}
               wrapperClassName="di"
               recordId={recordId}
               authors={authors}

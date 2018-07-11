@@ -7,6 +7,9 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
+  LITERATURE_AUTHORS_ERROR,
+  LITERATURE_AUTHORS_REQUEST,
+  LITERATURE_AUTHORS_SUCCESS,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -16,6 +19,9 @@ export const initialState = fromJS({
   loadingReferences: false,
   errorReferences: {},
   references: [],
+  loadingAuthors: false,
+  errorAuthors: {},
+  authors: [],
 });
 
 const literatureReducer = (state = initialState, action) => {
@@ -41,6 +47,18 @@ const literatureReducer = (state = initialState, action) => {
         .set('loadingReferences', false)
         .set('errorReferences', fromJS(action.payload))
         .set('references', initialState.get('references'));
+    case LITERATURE_AUTHORS_REQUEST:
+      return state.set('loadingAuthors', true);
+    case LITERATURE_AUTHORS_SUCCESS:
+      return state
+        .set('loadingAuthors', false)
+        .set('authors', fromJS(action.payload.metadata.authors))
+        .set('errorAuthors', initialState.get('errorAuthors'));
+    case LITERATURE_AUTHORS_ERROR:
+      return state
+        .set('loadingAuthors', false)
+        .set('errorAuthors', fromJS(action.payload))
+        .set('authors', initialState.get('authors'));
     default:
       return state;
   }
