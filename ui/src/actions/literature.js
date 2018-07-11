@@ -5,6 +5,9 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
+  LITERATURE_AUTHORS_ERROR,
+  LITERATURE_AUTHORS_REQUEST,
+  LITERATURE_AUTHORS_SUCCESS,
 } from './actionTypes';
 
 function fetchingLiterature(recordId) {
@@ -48,6 +51,26 @@ function fetchLiteratureReferencesError(error) {
   };
 }
 
+function fetchingLiteratureAuthors() {
+  return {
+    type: LITERATURE_AUTHORS_REQUEST,
+  };
+}
+
+function fetchLiteratureAuthorsSuccess(result) {
+  return {
+    type: LITERATURE_AUTHORS_SUCCESS,
+    payload: result,
+  };
+}
+
+function fetchLiteratureAuthorsError(error) {
+  return {
+    type: LITERATURE_AUTHORS_ERROR,
+    payload: error,
+  };
+}
+
 export function fetchLiterature(recordId) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingLiterature(recordId));
@@ -72,6 +95,18 @@ export function fetchLiteratureReferences(recordId) {
       dispatch(fetchLiteratureReferencesSuccess(response.data));
     } catch (error) {
       dispatch(fetchLiteratureReferencesError(error.data));
+    }
+  };
+}
+
+export function fetchLiteratureAuthors(recordId) {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingLiteratureAuthors());
+    try {
+      const response = await http.get(`/literature/${recordId}/authors`);
+      dispatch(fetchLiteratureAuthorsSuccess(response.data));
+    } catch (error) {
+      dispatch(fetchLiteratureAuthorsError(error.data));
     }
   };
 }

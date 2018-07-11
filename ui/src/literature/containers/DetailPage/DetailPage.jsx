@@ -8,6 +8,7 @@ import './DetailPage.scss';
 import {
   fetchLiterature,
   fetchLiteratureReferences,
+  fetchLiteratureAuthors,
 } from '../../../actions/literature';
 import ArxivEprintList from '../../components/ArxivEprintList';
 import AuthorList from '../../components/AuthorList';
@@ -29,10 +30,11 @@ class DetailPage extends Component {
     const recordId = this.props.match.params.id;
     this.props.dispatch(fetchLiterature(recordId));
     this.props.dispatch(fetchLiteratureReferences(recordId));
+    this.props.dispatch(fetchLiteratureAuthors(recordId));
   }
 
   render() {
-    const { references, loadingReferences } = this.props;
+    const { authors, references, loadingReferences } = this.props;
 
     const { record } = this.props;
     const metadata = record.get('metadata');
@@ -41,7 +43,6 @@ class DetailPage extends Component {
     }
 
     const title = metadata.getIn(['titles', 0, 'title']);
-    const authors = metadata.get('authors');
     const date = metadata.get('date');
     const recordId = metadata.get('control_number');
     const publicationInfo = metadata.get('publication_info');
@@ -57,6 +58,7 @@ class DetailPage extends Component {
     const collaborations = metadata.get('collaborations');
 
     const keywords = metadata.get('keywords');
+    const authorCount = metadata.get('author_count');
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
@@ -77,9 +79,11 @@ class DetailPage extends Component {
                 collaborations={collaborations}
               />
               <AuthorList
+                total={authorCount}
                 wrapperClassName="di"
                 recordId={recordId}
                 authors={authors}
+                showAll
               />
             </div>
             <LiteratureDate date={date} />
@@ -125,6 +129,7 @@ DetailPage.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
   references: PropTypes.instanceOf(List).isRequired,
+  authors: PropTypes.instanceOf(List).isRequired,
   loadingReferences: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
 };
@@ -134,6 +139,7 @@ const mapStateToProps = state => ({
   record: state.literature.get('data'),
   references: state.literature.get('references'),
   loadingReferences: state.literature.get('loadingReferences'),
+  authors: state.literature.get('authors'),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 

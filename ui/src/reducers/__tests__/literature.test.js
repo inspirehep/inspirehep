@@ -5,6 +5,9 @@ import {
   LITERATURE_ERROR,
   LITERATURE_REQUEST,
   LITERATURE_SUCCESS,
+  LITERATURE_AUTHORS_ERROR,
+  LITERATURE_AUTHORS_REQUEST,
+  LITERATURE_AUTHORS_SUCCESS,
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
@@ -20,6 +23,9 @@ describe('literature reducer', () => {
       loadingReferences: false,
       errorReferences: {},
       references: [],
+      loadingAuthors: false,
+      errorAuthors: {},
+      authors: [],
     });
     expect(state).toEqual(expected);
   });
@@ -99,6 +105,48 @@ describe('literature reducer', () => {
       loadingReferences: false,
       errorReferences: { message: 'error' },
       references: [],
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('LITERATURE_AUTHORS_REQUEST', () => {
+    const state = reducer(Map(), { type: LITERATURE_AUTHORS_REQUEST });
+    const expected = Map({ loadingAuthors: true });
+    expect(state).toEqual(expected);
+  });
+
+  it('LITERATURE_AUTHORS_SUCCESS', () => {
+    const authors = [
+      {
+        full_name: 'Jessica Jones',
+      },
+    ];
+    const payload = {
+      metadata: {
+        authors,
+      },
+    };
+    const state = reducer(Map(), {
+      type: LITERATURE_AUTHORS_SUCCESS,
+      payload,
+    });
+    const expected = fromJS({
+      loadingAuthors: false,
+      authors,
+      errorAuthors: {},
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('LITERATURE_AUTHORS_ERROR', () => {
+    const state = reducer(Map(), {
+      type: LITERATURE_AUTHORS_ERROR,
+      payload: { message: 'error' },
+    });
+    const expected = fromJS({
+      loadingAuthors: false,
+      errorAuthors: { message: 'error' },
+      authors: [],
     });
     expect(state).toEqual(expected);
   });
