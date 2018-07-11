@@ -4,11 +4,13 @@ import { routerReducer } from 'react-router-redux';
 import search from './search';
 import literature from './literature';
 import exceptions from './exceptions';
+import inspect from './inspect';
 
 const reducers = combineReducers({
   router: routerReducer,
-  literature,
   exceptions,
+  inspect,
+  literature,
   search,
 });
 
