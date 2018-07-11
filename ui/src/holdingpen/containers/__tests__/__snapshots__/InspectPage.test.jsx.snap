@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Inspect Page renders initial state 1`] = `
+<div
+  className="__InspectPage__ w-100"
+>
+  <LoadingOrChildren
+    loading={false}
+  >
+    <Row
+      align="center"
+      className="w-100 mt3"
+      gutter={16}
+      justify="space-around"
+      type="flex"
+    >
+      <Col
+        span={8}
+      >
+        <Card
+          title="Root on record"
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "",
+              }
+            }
+          />
+        </Card>
+      </Col>
+      <Col
+        span={8}
+      >
+        <Card
+          title="Root on harvested"
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "",
+              }
+            }
+          />
+        </Card>
+      </Col>
+      <Col
+        span={8}
+      >
+        <Card
+          title="Root on merged"
+        >
+          <div
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": "",
+              }
+            }
+          />
+        </Card>
+      </Col>
+    </Row>
+  </LoadingOrChildren>
+</div>
+`;
