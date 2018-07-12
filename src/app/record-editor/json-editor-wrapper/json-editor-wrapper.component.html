@@ -3,7 +3,7 @@
 </ng-template>
 
 <ng-template let-item="item" #affiliationAutocompleteTemplate>
-  <re-affiliation-brief [affiliation]="item.payload"></re-affiliation-brief>
+  <re-affiliation-brief [affiliation]="item._source"></re-affiliation-brief>
 </ng-template>
 
 <ng-template #refExtractTemplate>

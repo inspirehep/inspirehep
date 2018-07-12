@@ -35,7 +35,7 @@ export const affiliationAutocompletionConfig: AutocompletionConfig = {
   itemTemplateName: 'affiliationAutocompleteTemplate',
   onCompletionSelect: (path, completion, store) => {
     path.splice(-1, 1, 'record', '$ref');
-    store.setIn(path, completion['payload']['$ref']);
+    store.setIn(path, completion['_source']['$ref']);
 
     path.splice(-2, 2, 'curated_relation');
     store.setIn(path, true);
