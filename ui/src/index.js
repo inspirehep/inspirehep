@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+import 'tachyons';
 
 import { store, history } from './store';
 import App from './App';
