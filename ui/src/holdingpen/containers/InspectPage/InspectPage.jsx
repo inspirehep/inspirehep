@@ -48,16 +48,16 @@ class InspectPage extends Component {
             className="w-100 mt3"
           >
             <Col span={8}>
-              <Card title="Root on record">{this.renderDiff(root, head)}</Card>
+              <Card title="Head on root">{this.renderDiff(root, head)}</Card>
             </Col>
             <Col span={8}>
-              <Card title="Root on harvested">
+              <Card title="Update on root">
                 {this.renderDiff(root, update)}
               </Card>
             </Col>
             <Col span={8}>
-              <Card title="Root on merged">
-                {this.renderDiff(root, merged)}
+              <Card title="Merged on head">
+                {this.renderDiff(head, merged)}
               </Card>
             </Col>
           </Row>
