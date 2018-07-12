@@ -18,7 +18,7 @@ exports[`Inspect Page renders initial state 1`] = `
         span={8}
       >
         <Card
-          title="Root on record"
+          title="Head on root"
         >
           <div
             dangerouslySetInnerHTML={
@@ -33,7 +33,7 @@ exports[`Inspect Page renders initial state 1`] = `
         span={8}
       >
         <Card
-          title="Root on harvested"
+          title="Update on root"
         >
           <div
             dangerouslySetInnerHTML={
@@ -48,7 +48,7 @@ exports[`Inspect Page renders initial state 1`] = `
         span={8}
       >
         <Card
-          title="Root on merged"
+          title="Merged on head"
         >
           <div
             dangerouslySetInnerHTML={
