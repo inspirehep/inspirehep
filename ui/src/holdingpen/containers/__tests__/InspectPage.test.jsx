@@ -18,17 +18,17 @@ describe('Inspect Page', () => {
       inspect: Map({
         loading: false,
         data: Map({
-          head: {},
-          update: {},
-          root: {},
-          merged: {},
+          head: { value: 'head' },
+          update: { value: 'update' },
+          root: { value: 'root' },
+          merged: { value: 'merged' },
         }),
       }),
     });
 
-    const wrapper = shallow(
-      <InspectPage match={matchProps} store={store} />
-    ).dive();
+    const wrapper = shallow(<InspectPage match={matchProps} store={store} />)
+      .dive()
+      .dive();
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -48,4 +48,6 @@ describe('Inspect Page', () => {
     const actions = store.getActions();
     expect(actions.some(action => action.type === INSPECT_REQUEST)).toBe(true);
   });
+
+  // TODO: test loading: true
 });

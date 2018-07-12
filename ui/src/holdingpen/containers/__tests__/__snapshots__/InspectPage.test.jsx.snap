@@ -20,10 +20,15 @@ exports[`Inspect Page renders initial state 1`] = `
         <Card
           title="Head on root"
         >
-          <div
-            dangerouslySetInnerHTML={
+          <JsonDiff
+            first={
               Object {
-                "__html": "",
+                "value": "root",
+              }
+            }
+            second={
+              Object {
+                "value": "head",
               }
             }
           />
@@ -35,10 +40,15 @@ exports[`Inspect Page renders initial state 1`] = `
         <Card
           title="Update on root"
         >
-          <div
-            dangerouslySetInnerHTML={
+          <JsonDiff
+            first={
               Object {
-                "__html": "",
+                "value": "root",
+              }
+            }
+            second={
+              Object {
+                "value": "update",
               }
             }
           />
@@ -50,10 +60,15 @@ exports[`Inspect Page renders initial state 1`] = `
         <Card
           title="Merged on head"
         >
-          <div
-            dangerouslySetInnerHTML={
+          <JsonDiff
+            first={
               Object {
-                "__html": "",
+                "value": "head",
+              }
+            }
+            second={
+              Object {
+                "value": "merged",
               }
             }
           />

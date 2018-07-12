@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { diff, formatters } from 'jsondiffpatch';
 import PropTypes from 'prop-types';
 import { Row, Col, Card } from 'antd';
-import { Map } from 'immutable';
-import 'jsondiffpatch/dist/formatters-styles/html.css';
 
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
+import JsonDiff from '../../components/JsonDiff';
 import fetchInspect from '../../../actions/inspect';
+import toJS from '../../../common/immutableToJS';
 
 import './InspectPage.scss';
 
@@ -17,25 +16,12 @@ class InspectPage extends Component {
     this.props.dispatch(fetchInspect(workflowId));
   }
 
-  /* eslint class-methods-use-this: ["error", { "exceptMethods": ["renderDiff"] }] */
-  renderDiff(first, second) {
-    const delta = diff(first, second);
-    return (
-      <div
-        /* eslint-disable-next-line react/no-danger */
-        dangerouslySetInnerHTML={{
-          __html: formatters.html.format(delta, second),
-        }}
-      />
-    );
-  }
-
   render() {
     const { loading, data } = this.props;
-    const root = data.get('root', {});
-    const head = data.get('head', {});
-    const update = data.get('update', {});
-    const merged = data.get('merged', {});
+    const root = data.root || {};
+    const head = data.head || {};
+    const update = data.update || {};
+    const merged = data.merged || {};
 
     return (
       <div className="__InspectPage__ w-100">
@@ -48,16 +34,18 @@ class InspectPage extends Component {
             className="w-100 mt3"
           >
             <Col span={8}>
-              <Card title="Head on root">{this.renderDiff(root, head)}</Card>
+              <Card title="Head on root">
+                <JsonDiff first={root} second={head} />
+              </Card>
             </Col>
             <Col span={8}>
               <Card title="Update on root">
-                {this.renderDiff(root, update)}
+                <JsonDiff first={root} second={update} />
               </Card>
             </Col>
             <Col span={8}>
               <Card title="Merged on head">
-                {this.renderDiff(head, merged)}
+                <JsonDiff first={head} second={merged} />
               </Card>
             </Col>
           </Row>
@@ -68,7 +56,12 @@ class InspectPage extends Component {
 }
 
 InspectPage.propTypes = {
-  data: PropTypes.instanceOf(Map).isRequired,
+  data: PropTypes.shape({
+    root: PropTypes.objectOf(PropTypes.any).isRequired,
+    head: PropTypes.objectOf(PropTypes.any).isRequired,
+    update: PropTypes.objectOf(PropTypes.any).isRequired,
+    merged: PropTypes.objectOf(PropTypes.any).isRequired,
+  }).isRequired,
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
@@ -80,4 +73,4 @@ const mapStateToProps = state => ({
 });
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(mapStateToProps, dispatchToProps)(InspectPage);
+export default connect(mapStateToProps, dispatchToProps)(toJS(InspectPage));
