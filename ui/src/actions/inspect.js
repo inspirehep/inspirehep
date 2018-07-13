@@ -1,8 +1,9 @@
 import { INSPECT_REQUEST, INSPECT_SUCCESS, INSPECT_ERROR } from './actionTypes';
 
-function fetching() {
+function fetching(id) {
   return {
     type: INSPECT_REQUEST,
+    payload: { id },
   };
 }
 
@@ -22,7 +23,7 @@ function fetchError(error) {
 
 export default function fetch(id) {
   return async (dispatch, getState, http) => {
-    dispatch(fetching());
+    dispatch(fetching(id));
     try {
       const response = await http.get(`/workflows/inspect_merge/${id}`);
       dispatch(fetchSuccess(response.data));
