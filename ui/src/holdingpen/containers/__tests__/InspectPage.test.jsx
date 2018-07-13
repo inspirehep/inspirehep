@@ -6,14 +6,13 @@ import { getStoreWithState } from '../../../fixtures/store';
 import { INSPECT_REQUEST } from '../../../actions/actionTypes';
 import InspectPage from '../InspectPage';
 
-const matchProps = {
-  params: {
-    id: 123,
-  },
-};
-
 describe('Inspect Page', () => {
   it('renders initial state', () => {
+    const matchProps = {
+      params: {
+        id: 123,
+      },
+    };
     const store = getStoreWithState({
       inspect: Map({
         loading: false,
@@ -33,6 +32,11 @@ describe('Inspect Page', () => {
   });
 
   it('dispatches inspect page', () => {
+    const matchProps = {
+      params: {
+        id: 123,
+      },
+    };
     const store = getStoreWithState({
       inspect: Map({
         loading: false,
@@ -46,7 +50,11 @@ describe('Inspect Page', () => {
     });
     mount(<InspectPage match={matchProps} store={store} />);
     const actions = store.getActions();
-    expect(actions.some(action => action.type === INSPECT_REQUEST)).toBe(true);
+    const requestAction = actions.find(
+      action => action.type === INSPECT_REQUEST
+    );
+    expect(requestAction).toBeDefined();
+    expect(requestAction.payload).toEqual({ id: 123 });
   });
 
   // TODO: test loading: true
