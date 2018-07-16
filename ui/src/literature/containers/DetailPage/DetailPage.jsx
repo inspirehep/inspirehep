@@ -27,6 +27,18 @@ import ReportNumberList from '../../components/ReportNumberList';
 
 class DetailPage extends Component {
   componentWillMount() {
+    this.dispatchFetchActions();
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevRecordId = prevProps.match.params.id;
+    const recordId = this.props.match.params.id;
+    if (recordId !== prevRecordId) {
+      this.dispatchFetchActions();
+    }
+  }
+
+  dispatchFetchActions() {
     const recordId = this.props.match.params.id;
     this.props.dispatch(fetchLiterature(recordId));
     this.props.dispatch(fetchLiteratureReferences(recordId));
