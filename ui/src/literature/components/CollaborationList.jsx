@@ -6,12 +6,29 @@ import CollaborationLink from './CollaborationLink';
 import InlineList from '../../common/components/InlineList';
 
 class CollaborationList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.renderSuffix = this.renderSuffix.bind(this);
+  }
+
+  renderSuffix() {
+    const { collaborations } = this.props;
+    return (
+      <span className="pl1 pr1">
+        {collaborations.size > 1 ? 'Collaborations' : 'Collaboration'}
+      </span>
+    );
+  }
+
   render() {
     const { collaborations, wrapperClassName } = this.props;
-    return (
+    return collaborations.isEmpty() ? null : (
       <InlineList
         wrapperClassName={wrapperClassName}
+        separateItemsClassName="separate-items-with-and"
         items={collaborations}
+        suffix={this.renderSuffix()}
         extractKey={collaboration => collaboration.get('value')}
         renderItem={collaboration => (
           <CollaborationLink>{collaboration.get('value')}</CollaborationLink>
@@ -27,7 +44,7 @@ CollaborationList.propTypes = {
 };
 
 CollaborationList.defaultProps = {
-  collaborations: null,
+  collaborations: List(),
   wrapperClassName: null,
 };
 

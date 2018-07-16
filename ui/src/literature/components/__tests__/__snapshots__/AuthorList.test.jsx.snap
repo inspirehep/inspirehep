@@ -17,6 +17,7 @@ exports[`AuthorList renders all authors if they are less than the limit without 
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={null}
     wrapperClassName={null}
   />
@@ -47,6 +48,7 @@ exports[`AuthorList renders all authors if they are less than the limit without 
       label={null}
       renderItem={[Function]}
       separateItems={true}
+      separateItemsClassName="separate-items-with-semicolon"
       suffix={null}
       wrapperClassName={null}
     />
@@ -80,6 +82,7 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={
       <span>
          et al.
@@ -126,6 +129,7 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
       label={null}
       renderItem={[Function]}
       separateItems={true}
+      separateItemsClassName="separate-items-with-semicolon"
       suffix={null}
       wrapperClassName={null}
     />
@@ -159,6 +163,7 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={
       <div
         className="di"
@@ -211,6 +216,7 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
       label={null}
       renderItem={[Function]}
       separateItems={true}
+      separateItemsClassName="separate-items-with-semicolon"
       suffix={null}
       wrapperClassName={null}
     />
@@ -235,6 +241,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={
       <span>
          et al.
@@ -272,6 +279,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
       label={null}
       renderItem={[Function]}
       separateItems={true}
+      separateItemsClassName="separate-items-with-semicolon"
       suffix={null}
       wrapperClassName={null}
     />
@@ -296,6 +304,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={
       <div
         className="di"
@@ -339,6 +348,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
       label={null}
       renderItem={[Function]}
       separateItems={true}
+      separateItemsClassName="separate-items-with-semicolon"
       suffix={null}
       wrapperClassName={null}
     />

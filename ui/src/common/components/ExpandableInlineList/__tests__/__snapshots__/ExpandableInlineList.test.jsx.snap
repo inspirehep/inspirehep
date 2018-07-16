@@ -18,6 +18,7 @@ exports[`ExpandableInlineList renders all onExpandToggle 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={null}
     wrapperClassName={null}
   />
@@ -53,6 +54,7 @@ exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] 
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={null}
     wrapperClassName={null}
   />
@@ -81,6 +83,7 @@ exports[`ExpandableInlineList renders only limited amount with expand toggle 1`]
     label={null}
     renderItem={[Function]}
     separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
     suffix={null}
     wrapperClassName={null}
   />

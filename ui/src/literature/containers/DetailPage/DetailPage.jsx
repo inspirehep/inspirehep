@@ -74,15 +74,12 @@ class DetailPage extends Component {
               <Latex>{title}</Latex>
             </h2>
             <div>
-              <CollaborationList
-                wrapperClassName="di pr1"
-                collaborations={collaborations}
-              />
+              <CollaborationList collaborations={collaborations} />
               <AuthorList
                 total={authorCount}
-                wrapperClassName="di"
                 recordId={recordId}
                 authors={authors}
+                limit={collaborations ? 1 : 5}
                 showAll
               />
             </div>
