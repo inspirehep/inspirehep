@@ -76,20 +76,20 @@ class AuthorList extends Component {
 
 AuthorList.propTypes = {
   authors: PropTypes.instanceOf(List),
-  recordId: PropTypes.number,
   limit: PropTypes.number,
+  recordId: PropTypes.number,
+  showAll: PropTypes.bool,
   total: PropTypes.number,
   wrapperClassName: PropTypes.string,
-  showAll: PropTypes.bool,
 };
 
 AuthorList.defaultProps = {
   authors: List(),
   limit: 5,
-  total: -1,
   recordId: undefined,
-  wrapperClassName: null,
   showAll: false,
+  total: -1,
+  wrapperClassName: null,
 };
 
 export default AuthorList;

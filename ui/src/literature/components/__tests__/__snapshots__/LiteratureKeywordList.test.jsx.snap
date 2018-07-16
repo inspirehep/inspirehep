@@ -17,6 +17,7 @@ exports[`LiteratureKeywordList renders with keywords 1`] = `
   limit={10}
   renderItem={[Function]}
   separateItems={false}
+  separateItemsClassName="separate-items-with-semicolon"
   suffix={null}
   wrapperClassName="di"
 />

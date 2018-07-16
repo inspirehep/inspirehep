@@ -5,7 +5,7 @@ import { List } from 'immutable';
 
 import './InlineList.scss';
 
-const SEPARATE_ITEMS_CLASS = 'separate-items';
+const DEFAULT_SEPARATE_ITEMS_CLASS = 'separate-items-with-semicolon';
 
 class InlineList extends Component {
   render() {
@@ -16,13 +16,16 @@ class InlineList extends Component {
       suffix,
       extractKey,
       separateItems,
+      separateItemsClassName,
       wrapperClassName,
     } = this.props;
     return (
       items && (
         <div className={classnames('__InlineList__', wrapperClassName)}>
           {label && <span>{label}: </span>}
-          <ul className={classnames({ [SEPARATE_ITEMS_CLASS]: separateItems })}>
+          <ul
+            className={classnames({ [separateItemsClassName]: separateItems })}
+          >
             {items.map(item => (
               <li key={extractKey(item)}>{renderItem(item)}</li>
             ))}
@@ -35,22 +38,24 @@ class InlineList extends Component {
 }
 
 InlineList.propTypes = {
-  items: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array]),
-  renderItem: PropTypes.func.isRequired,
   extractKey: PropTypes.func,
-  suffix: PropTypes.node,
+  items: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array]),
   label: PropTypes.string,
+  renderItem: PropTypes.func.isRequired,
   separateItems: PropTypes.bool,
+  separateItemsClassName: PropTypes.string,
+  suffix: PropTypes.node,
   wrapperClassName: PropTypes.string,
 };
 
 InlineList.defaultProps = {
-  label: null,
+  extractKey: item => item,
   items: null,
+  label: null,
+  separateItems: true,
+  separateItemsClassName: DEFAULT_SEPARATE_ITEMS_CLASS,
   suffix: null,
   wrapperClassName: null,
-  extractKey: item => item,
-  separateItems: true,
 };
 
 export default InlineList;

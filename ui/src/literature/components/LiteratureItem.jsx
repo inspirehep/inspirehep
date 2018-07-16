@@ -64,15 +64,12 @@ class LiteratureItem extends Component {
         </Link>
         <div className="mt2">
           <div>
-            <CollaborationList
-              wrapperClassName="di pr1"
-              collaborations={collaborations}
-            />
+            <CollaborationList collaborations={collaborations} />
             <AuthorList
               authorCount={authorCount}
-              wrapperClassName="di"
               recordId={recordId}
               authors={authors}
+              limit={collaborations ? 1 : 5}
             />
           </div>
           <LiteratureDate date={date} />

@@ -1,11 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CollaborationList renders with collaboration 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-and"
+  >
+    <li
+      key="Alias Investigations"
+    >
+      <CollaborationLink>
+        Alias Investigations
+      </CollaborationLink>
+    </li>
+  </ul>
+  <span
+    className="pl1 pr1"
+  >
+    Collaboration
+  </span>
+</div>
+`;
+
 exports[`CollaborationList renders with collaborations 1`] = `
 <div
   className="__InlineList__"
 >
   <ul
-    className="separate-items"
+    className="separate-items-with-and"
   >
     <li
       key="Alias Investigations"
@@ -15,12 +38,17 @@ exports[`CollaborationList renders with collaborations 1`] = `
       </CollaborationLink>
     </li>
     <li
-      key="Nelson and Murdock "
+      key="Nelson and Murdock"
     >
       <CollaborationLink>
-        Nelson and Murdock 
+        Nelson and Murdock
       </CollaborationLink>
     </li>
   </ul>
+  <span
+    className="pl1 pr1"
+  >
+    Collaborations
+  </span>
 </div>
 `;

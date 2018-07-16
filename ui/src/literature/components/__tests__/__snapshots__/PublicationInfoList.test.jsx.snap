@@ -9,7 +9,7 @@ exports[`PublicationInfoList renders with publicationInfo 1`] = `
     : 
   </span>
   <ul
-    className="separate-items"
+    className="separate-items-with-semicolon"
   >
     <li
       key="Test Journal"

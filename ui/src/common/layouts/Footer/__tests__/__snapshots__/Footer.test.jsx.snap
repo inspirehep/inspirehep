@@ -50,6 +50,7 @@ exports[`Footer renders 1`] = `
         label={null}
         renderItem={[Function]}
         separateItems={false}
+        separateItemsClassName="separate-items-with-semicolon"
         suffix={null}
         wrapperClassName={null}
       />
