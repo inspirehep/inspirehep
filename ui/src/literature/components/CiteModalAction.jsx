@@ -82,7 +82,7 @@ class CiteModalAction extends Component {
             </Row>
             <Row type="flex" justify="space-between">
               <div>
-                <CopyToClipboard text={citeContent}>
+                <CopyToClipboard text={citeContent} onCopy={this.onModalCancel}>
                   <Button style={{ marginRight: 12 }}>
                     <Icon type="copy" /> Copy to Clipboard
                   </Button>

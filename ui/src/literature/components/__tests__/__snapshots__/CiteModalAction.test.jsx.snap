@@ -33,7 +33,9 @@ exports[`CiteModalAction renders with recordId 1`] = `
         type="flex"
       >
         <div>
-          <CopyToClipboard>
+          <CopyToClipboard
+            onCopy={[Function]}
+          >
             <Button
               ghost={false}
               loading={false}
