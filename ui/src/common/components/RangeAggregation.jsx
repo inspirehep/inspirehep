@@ -168,7 +168,7 @@ class RangeAggregation extends Component {
     const sliderMarks = { [max]: max, [min]: min };
     const { height, name } = this.props;
     return (
-      <AggregationBox name={name} action={this.renderResetButton()}>
+      <AggregationBox name={name} headerAction={this.renderResetButton()}>
         <div className="ma2">
           <FlexibleWidthXYPlot
             height={height}
