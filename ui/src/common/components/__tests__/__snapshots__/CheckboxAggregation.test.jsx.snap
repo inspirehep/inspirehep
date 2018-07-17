@@ -573,12 +573,12 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </Tag>
     </Col>
   </Row>
-  <a
+  <SecondaryButton
     onClick={[Function]}
   >
     Show 
     1
      more
-  </a>
+  </SecondaryButton>
 </AggregationBox>
 `;

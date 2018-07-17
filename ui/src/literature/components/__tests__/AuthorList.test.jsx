@@ -28,7 +28,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList total={6} recordId={12345} showAll authors={authors} />
+      <AuthorList total={6} recordId={12345} enableShowAll authors={authors} />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -96,7 +96,7 @@ describe('AuthorList', () => {
         total={3}
         recordId={12345}
         authors={authors}
-        showAll
+        enableShowAll
       />
     );
     expect(wrapper).toMatchSnapshot();

@@ -14,9 +14,9 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
             },
           ]
         }
+        enableShowAll={false}
         limit={5}
         recordId={undefined}
-        showAll={false}
         total={-1}
         wrapperClassName={null}
       />
@@ -40,9 +40,9 @@ exports[`ReferenceItem renders with full reference 1`] = `
             },
           ]
         }
+        enableShowAll={false}
         limit={5}
         recordId={12345}
-        showAll={false}
         total={-1}
         wrapperClassName={null}
       />

@@ -5,6 +5,7 @@ import { Modal } from 'antd';
 
 import InlineList from '../../common/components/InlineList';
 import AuthorLink from './AuthorLink';
+import SecondaryButton from '../../common/components/SecondaryButton';
 
 class AuthorList extends Component {
   constructor(props) {
@@ -25,26 +26,31 @@ class AuthorList extends Component {
     this.setState({ modalVisible: false });
   }
 
-  renderSuffix() {
-    const { showAll } = this.props;
-    if (showAll) {
+  renderShowAllOrEtAl() {
+    const { enableShowAll, authors } = this.props;
+    if (enableShowAll) {
       return (
         <div className="di">
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */}
-          <a onClick={this.onModalOpen}> Show all</a>
+          <SecondaryButton onClick={this.onModalOpen}>
+            Show All({authors.size})
+          </SecondaryButton>
         </div>
       );
     }
     return <span> et al.</span>;
   }
 
-  renderInlineList(items, suffix = true) {
+  renderAuthorList(authorsToDisplay, displayShowAll = true) {
     const { authors, limit, recordId, wrapperClassName } = this.props;
     return (
       <InlineList
         wrapperClassName={wrapperClassName}
-        items={items}
-        suffix={authors.size > limit && suffix ? this.renderSuffix() : null}
+        items={authorsToDisplay}
+        suffix={
+          authors.size > limit && displayShowAll
+            ? this.renderShowAllOrEtAl()
+            : null
+        }
         extractKey={author => author.get('full_name')}
         renderItem={author => (
           <AuthorLink author={author} recordId={recordId} />
@@ -59,7 +65,7 @@ class AuthorList extends Component {
     const showTotal = total === -1 ? authors.size : total;
     return (
       <Fragment>
-        {this.renderInlineList(authors.take(limit))}
+        {this.renderAuthorList(authors.take(limit))}
         <Modal
           title={`${showTotal} authors`}
           width="50%"
@@ -67,7 +73,7 @@ class AuthorList extends Component {
           footer={null}
           onCancel={this.onModalCancel}
         >
-          {this.renderInlineList(authors, false)}
+          {this.renderAuthorList(authors, false)}
         </Modal>
       </Fragment>
     );
@@ -78,7 +84,7 @@ AuthorList.propTypes = {
   authors: PropTypes.instanceOf(List),
   limit: PropTypes.number,
   recordId: PropTypes.number,
-  showAll: PropTypes.bool,
+  enableShowAll: PropTypes.bool,
   total: PropTypes.number,
   wrapperClassName: PropTypes.string,
 };
@@ -87,7 +93,7 @@ AuthorList.defaultProps = {
   authors: List(),
   limit: 5,
   recordId: undefined,
-  showAll: false,
+  enableShowAll: false,
   total: -1,
   wrapperClassName: null,
 };
