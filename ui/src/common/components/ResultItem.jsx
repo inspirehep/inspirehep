@@ -11,8 +11,8 @@ class ResultItem extends Component {
 }
 
 ResultItem.propTypes = {
-  actions: PropTypes.arrayOf(PropTypes.node),
-  children: PropTypes.arrayOf(PropTypes.node),
+  actions: PropTypes.node,
+  children: PropTypes.node,
 };
 
 ResultItem.defaultProps = {

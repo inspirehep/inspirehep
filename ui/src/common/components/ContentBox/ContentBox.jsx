@@ -20,7 +20,7 @@ class ContentBox extends Component {
 }
 
 ContentBox.propTypes = {
-  actions: PropTypes.arrayOf(PropTypes.node),
+  actions: PropTypes.node,
   children: PropTypes.node,
   title: PropTypes.string,
   loading: PropTypes.bool,

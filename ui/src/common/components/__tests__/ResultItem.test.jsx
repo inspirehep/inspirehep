@@ -8,7 +8,12 @@ describe('ResultItem', () => {
     const wrapper = shallow(
       <ResultItem
         title={<strong>title</strong>}
-        description={<div>description...</div>}
+        actions={
+          <ul>
+            <li>action 1</li>
+            <li>action 2</li>
+          </ul>
+        }
       >
         <span>More</span>
         <span>Content</span>
