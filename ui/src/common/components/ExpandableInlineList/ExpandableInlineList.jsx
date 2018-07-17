@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './ExpandableInlineList.scss';
 import InlineList from '../InlineList';
+import SecondaryButton from '../SecondaryButton';
 
 class ExpandableInlineList extends Component {
   constructor(props) {
@@ -26,10 +26,9 @@ class ExpandableInlineList extends Component {
     const { items } = this.props;
     const buttonText = expanded ? 'Hide' : `Show all (${items.size})`;
     return (
-      /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */
-      <a className="toggle" onClick={this.onExpandToggle}>
+      <SecondaryButton onClick={this.onExpandToggle}>
         {buttonText}
-      </a>
+      </SecondaryButton>
     );
   }
 
@@ -42,7 +41,7 @@ class ExpandableInlineList extends Component {
 
     const maybeLimitedItem = expanded ? items : items.take(limit);
     return (
-      <div className="__ExpandableInlineList__">
+      <div>
         <InlineList items={maybeLimitedItem} {...listProps} />
         {items.size > limit && this.renderExpandToggle()}
       </div>

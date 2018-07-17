@@ -92,7 +92,7 @@ class DetailPage extends Component {
                 recordId={recordId}
                 authors={authors}
                 limit={collaborations ? 1 : 5}
-                showAll
+                enableShowAll
               />
             </div>
             <LiteratureDate date={date} />

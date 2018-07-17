@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExpandableInlineList renders all onExpandToggle 1`] = `
-<div
-  className="__ExpandableInlineList__"
->
+<div>
   <InlineList
     extractKey={[Function]}
     items={
@@ -22,19 +20,16 @@ exports[`ExpandableInlineList renders all onExpandToggle 1`] = `
     suffix={null}
     wrapperClassName={null}
   />
-  <a
-    className="toggle"
+  <SecondaryButton
     onClick={[Function]}
   >
     Hide
-  </a>
+  </SecondaryButton>
 </div>
 `;
 
 exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] = `
-<div
-  className="__ExpandableInlineList__"
->
+<div>
   <InlineList
     extractKey={[Function]}
     items={
@@ -58,19 +53,16 @@ exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] 
     suffix={null}
     wrapperClassName={null}
   />
-  <a
-    className="toggle"
+  <SecondaryButton
     onClick={[Function]}
   >
     Show all (11)
-  </a>
+  </SecondaryButton>
 </div>
 `;
 
 exports[`ExpandableInlineList renders only limited amount with expand toggle 1`] = `
-<div
-  className="__ExpandableInlineList__"
->
+<div>
   <InlineList
     extractKey={[Function]}
     items={
@@ -87,11 +79,10 @@ exports[`ExpandableInlineList renders only limited amount with expand toggle 1`]
     suffix={null}
     wrapperClassName={null}
   />
-  <a
-    className="toggle"
+  <SecondaryButton
     onClick={[Function]}
   >
     Show all (5)
-  </a>
+  </SecondaryButton>
 </div>
 `;

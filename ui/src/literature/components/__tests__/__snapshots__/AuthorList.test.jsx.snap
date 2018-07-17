@@ -168,11 +168,13 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
       <div
         className="di"
       >
-        <a
+        <SecondaryButton
           onClick={[Function]}
         >
-           Show all
-        </a>
+          Show All(
+          6
+          )
+        </SecondaryButton>
       </div>
     }
     wrapperClassName={null}
@@ -309,11 +311,13 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
       <div
         className="di"
       >
-        <a
+        <SecondaryButton
           onClick={[Function]}
         >
-           Show all
-        </a>
+          Show All(
+          3
+          )
+        </SecondaryButton>
       </div>
     }
     wrapperClassName={null}

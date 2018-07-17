@@ -3,6 +3,7 @@ import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 
 import ExpandableInlineList from '../ExpandableInlineList';
+import SecondaryButton from '../../SecondaryButton';
 
 describe('ExpandableInlineList', () => {
   it('renders only 10 by default with expand toggle', () => {
@@ -27,7 +28,7 @@ describe('ExpandableInlineList', () => {
       <ExpandableInlineList limit={3} items={items} renderItem={item => item} />
     );
     const { onExpandToggle } = wrapper.instance();
-    expect(wrapper.find('a')).toHaveProp('onClick', onExpandToggle);
+    expect(wrapper.find(SecondaryButton)).toHaveProp('onClick', onExpandToggle);
     onExpandToggle();
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
