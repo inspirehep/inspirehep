@@ -2,14 +2,13 @@
 
 exports[`RangeAggregation render initial state with all required props set 1`] = `
 <AggregationBox
-  action={
+  headerAction={
     <a
       onClick={[Function]}
     >
       Reset
     </a>
   }
-  headerAction={null}
   name="Test"
 >
   <div
