@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -40,24 +40,26 @@ class LiteratureItem extends Component {
 
     return (
       <ResultItem
-        actions={[
-          arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
-          <CiteModalAction recordId={recordId} />,
-          referenceCount && (
-            <ListItemAction
-              iconType="login"
-              text={`${referenceCount} references`}
-              link={{ to: `/literature/${recordId}#references` }}
-            />
-          ),
-          citationCount && (
-            <ListItemAction
-              iconType="logout"
-              text={`${citationCount} citations`}
-              link={{ to: `/literature/${recordId}#citations` }}
-            />
-          ),
-        ].filter(action => action != null)}
+        actions={
+          <Fragment>
+            {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
+            <CiteModalAction recordId={recordId} />
+            {referenceCount && (
+              <ListItemAction
+                iconType="login"
+                text={`${referenceCount} references`}
+                link={{ to: `/literature/${recordId}#references` }}
+              />
+            )}
+            {citationCount && (
+              <ListItemAction
+                iconType="logout"
+                text={`${citationCount} citations`}
+                link={{ to: `/literature/${recordId}#citations` }}
+              />
+            )}
+          </Fragment>
+        }
       >
         <Link className="f4" to={`/literature/${recordId}`}>
           <Latex>{title}</Latex>
