@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthorLink renders atuhor with only full_name 1`] = `
+exports[`AuthorLink renders author with only name fields 1`] = `
 <div
   className="di"
 >
@@ -8,8 +8,33 @@ exports[`AuthorLink renders atuhor with only full_name 1`] = `
     href="//inspirehep.net/author/profile/Name, Full?recid=12345"
     target="_blank"
   >
-    Name, Full
+    Full Name
   </a>
+</div>
+`;
+
+exports[`AuthorLink renders full author without last_name 1`] = `
+<div
+  className="di"
+>
+  <a
+    href="//inspirehep.net/author/profile/Name Full"
+    target="_blank"
+  >
+    Name Full 
+  </a>
+  <span
+    className="pl1 grey"
+  >
+    (
+    <a
+      href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
+      target="_blank"
+    >
+      Affiliation
+    </a>
+    )
+  </span>
 </div>
 `;
 
@@ -21,7 +46,7 @@ exports[`AuthorLink renders full author without recordId 1`] = `
     href="//inspirehep.net/author/profile/Name, Full"
     target="_blank"
   >
-    Name, Full
+    Full Name
   </a>
   <span
     className="pl1 grey"
@@ -46,7 +71,7 @@ exports[`AuthorLink renders with full author 1`] = `
     href="//inspirehep.net/author/profile/Name, Full?recid=12345"
     target="_blank"
   >
-    Name, Full
+    Full Name
   </a>
   <span
     className="pl1 grey"

@@ -39,10 +39,13 @@ class AuthorLink extends Component {
   render() {
     const { author } = this.props;
     const authorHref = this.getAuthorHref();
+    const firstName = author.get('first_name');
+    const lastName = author.get('last_name', '');
+
     return (
       <div className="di">
         <a target="_blank" href={authorHref}>
-          {author.get('full_name')}
+          {`${firstName} ${lastName}`}
         </a>
         {this.renderAffiliationLink()}
       </div>
