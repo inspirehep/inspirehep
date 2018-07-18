@@ -54,6 +54,7 @@
     "node-sass": "^4.9.0",
     "prettier": "1.12.1",
     "pretty-quick": "^1.6.0",
+    "react-app-rewire-less": "^2.1.2",
     "react-app-rewire-sass-modules": "^1.1.5",
     "react-app-rewired": "1.5.0",
     "react-test-renderer": "^16.2.0",
