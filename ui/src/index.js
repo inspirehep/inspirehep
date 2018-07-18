@@ -7,6 +7,7 @@ import 'tachyons';
 
 import { store, history } from './store';
 import App from './App';
+import './theme.less';
 
 ReactDOM.render(
   <Provider store={store}>
