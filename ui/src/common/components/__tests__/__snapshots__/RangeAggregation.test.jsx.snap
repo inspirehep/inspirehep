@@ -33,20 +33,20 @@ exports[`RangeAggregation render initial state with all required props set 1`] =
           Array [
             Object {
               "color": "#fff",
-              "x": 2010.5,
-              "x0": 2009.5,
+              "x": 2010.4,
+              "x0": 2009.6,
               "y": 1,
             },
             Object {
               "color": "#91d5ff",
-              "x": 2011.5,
-              "x0": 2010.5,
+              "x": 2011.4,
+              "x0": 2010.6,
               "y": 2,
             },
             Object {
               "color": "#91d5ff",
-              "x": 2012.5,
-              "x0": 2011.5,
+              "x": 2012.4,
+              "x0": 2011.6,
               "y": 3,
             },
           ]

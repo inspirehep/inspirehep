@@ -8,7 +8,7 @@ import { MathInterval } from 'math-interval-2';
 import AggregationBox from './AggregationBox';
 import { pluckMinMaxPair, toNumbers } from '../utils';
 
-export const HALF_BAR_WIDTH = 0.5;
+export const HALF_BAR_WIDTH = 0.4;
 const NO_MARGIN = {
   left: 0,
   right: 0,
