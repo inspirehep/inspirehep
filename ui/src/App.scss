@@ -5,4 +5,10 @@
     margin-top: 64px;
     display: flex;
   }
+  .ant-list-item-meta-title > a {
+    color: $primary-color;
+    :hover {
+      color: $link-hover-color;
+    }
+  }
 }
