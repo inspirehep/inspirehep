@@ -7163,13 +7163,16 @@ react-app-rewire-less@^2.1.2:
     less "^3.0.2"
     less-loader "^4.1.0"
 
-react-app-rewire-sass-modules@^1.1.5:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/react-app-rewire-sass-modules/-/react-app-rewire-sass-modules-1.1.5.tgz#d223229ebe217c9a201d365bd6ff2187efc600cf"
+react-app-rewire-sass-rule@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/react-app-rewire-sass-rule/-/react-app-rewire-sass-rule-1.0.2.tgz#01d545e36d01dfbe7b76c08642d52701494bac40"
+  dependencies:
+    node-sass "^4.9.0"
+    sass-loader "^7.0.3"
 
-react-app-rewired@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-1.5.0.tgz#8889d2f9ae8d8af16b340ca5424ffd5a07d23af2"
+react-app-rewired@^1.5.2:
+  version "1.5.2"
+  resolved "https://registry.yarnpkg.com/react-app-rewired/-/react-app-rewired-1.5.2.tgz#0f5cdbc92f47f166bb0bcadf8a5d00999b90f68f"
   dependencies:
     cross-spawn "^5.1.0"
     dotenv "^4.0.0"
@@ -7875,6 +7878,16 @@ sass-graph@^2.2.4:
 sass-loader@^7.0.1:
   version "7.0.1"
   resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-7.0.1.tgz#fd937259ccba3a9cfe0d5f8a98746d48adfcc261"
+  dependencies:
+    clone-deep "^2.0.1"
+    loader-utils "^1.0.1"
+    lodash.tail "^4.1.1"
+    neo-async "^2.5.0"
+    pify "^3.0.0"
+
+sass-loader@^7.0.3:
+  version "7.0.3"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-7.0.3.tgz#6ca10871a1cc7549f8143db5a9958242c4e4ca2a"
   dependencies:
     clone-deep "^2.0.1"
     loader-utils "^1.0.1"
