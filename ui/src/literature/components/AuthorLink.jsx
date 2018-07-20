@@ -18,6 +18,16 @@ class AuthorLink extends Component {
     return `//inspirehep.net/search?cc=Institutions&p=institution:"${affiliation}"`;
   }
 
+  getFullName() {
+    const { author } = this.props;
+    if (author.has('first_name')) {
+      const firstName = author.get('first_name');
+      const lastName = author.get('last_name', '');
+      return `${firstName} ${lastName}`;
+    }
+    return author.get('full_name');
+  }
+
   renderAffiliationLink() {
     const { author } = this.props;
     const affiliation = author.getIn(['affiliations', 0, 'value']);
@@ -37,15 +47,12 @@ class AuthorLink extends Component {
   }
 
   render() {
-    const { author } = this.props;
     const authorHref = this.getAuthorHref();
-    const firstName = author.get('first_name');
-    const lastName = author.get('last_name', '');
 
     return (
       <div className="di">
         <a target="_blank" href={authorHref}>
-          {`${firstName} ${lastName}`}
+          {this.getFullName()}
         </a>
         {this.renderAffiliationLink()}
       </div>
