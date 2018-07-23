@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { List } from 'antd';
@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 import AuthorList from './AuthorList';
 import Latex from '../../common/components/Latex';
+import PublicationInfoList from './PublicationInfoList';
 
 class ReferenceItem extends Component {
   static renderTitle(reference) {
@@ -27,16 +28,22 @@ class ReferenceItem extends Component {
 
   render() {
     const { reference } = this.props;
-
+    const publicationInfo = reference.get('publication_info');
     return (
       <List.Item>
         <List.Item.Meta
           title={ReferenceItem.renderTitle(reference)}
           description={
-            <AuthorList
-              recordId={reference.get('control_number')}
-              authors={reference.get('authors')}
-            />
+            <Fragment>
+              <AuthorList
+                recordId={reference.get('control_number')}
+                authors={reference.get('authors')}
+              />
+              <PublicationInfoList
+                publicationInfo={publicationInfo}
+                labeled={false}
+              />
+            </Fragment>
           }
         />
       </List.Item>

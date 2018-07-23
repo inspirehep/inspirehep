@@ -7,10 +7,11 @@ import PublicationInfo from './PublicationInfo';
 
 class PublicationInfoList extends Component {
   render() {
-    const { publicationInfo } = this.props;
+    const { publicationInfo, labeled } = this.props;
+    const label = labeled ? 'Published in' : null;
     return (
       <InlineList
-        label="Published in"
+        label={label}
         items={publicationInfo}
         extractKey={info =>
           info.get('journal_title') || info.get('pubinfo_freetext')
@@ -23,10 +24,12 @@ class PublicationInfoList extends Component {
 
 PublicationInfoList.propTypes = {
   publicationInfo: PropTypes.instanceOf(List),
+  labeled: PropTypes.bool,
 };
 
 PublicationInfoList.defaultProps = {
   publicationInfo: null,
+  labeled: true,
 };
 
 export default PublicationInfoList;
