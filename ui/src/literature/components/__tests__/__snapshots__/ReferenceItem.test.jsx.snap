@@ -6,20 +6,32 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
 >
   <Meta
     description={
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              full_name: "Author",
-            },
-          ]
-        }
-        enableShowAll={false}
-        limit={5}
-        recordId={undefined}
-        total={-1}
-        wrapperClassName={null}
-      />
+      <Unknown>
+        <AuthorList
+          authors={
+            Immutable.List [
+              Immutable.Map {
+                full_name: "Author",
+              },
+            ]
+          }
+          enableShowAll={false}
+          limit={5}
+          recordId={undefined}
+          total={-1}
+          wrapperClassName={null}
+        />
+        <PublicationInfoList
+          labeled={false}
+          publicationInfo={
+            Immutable.List [
+              Immutable.Map {
+                journal_title: "Journal",
+              },
+            ]
+          }
+        />
+      </Unknown>
     }
     title="Title"
   />
@@ -32,20 +44,32 @@ exports[`ReferenceItem renders with full reference 1`] = `
 >
   <Meta
     description={
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              full_name: "Author",
-            },
-          ]
-        }
-        enableShowAll={false}
-        limit={5}
-        recordId={12345}
-        total={-1}
-        wrapperClassName={null}
-      />
+      <Unknown>
+        <AuthorList
+          authors={
+            Immutable.List [
+              Immutable.Map {
+                full_name: "Author",
+              },
+            ]
+          }
+          enableShowAll={false}
+          limit={5}
+          recordId={12345}
+          total={-1}
+          wrapperClassName={null}
+        />
+        <PublicationInfoList
+          labeled={false}
+          publicationInfo={
+            Immutable.List [
+              Immutable.Map {
+                journal_title: "Journal",
+              },
+            ]
+          }
+        />
+      </Unknown>
     }
     title={
       <Link
