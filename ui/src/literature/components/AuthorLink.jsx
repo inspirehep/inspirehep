@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { Tooltip } from 'antd';
 
 class AuthorLink extends Component {
   getAuthorHref() {
@@ -26,6 +27,16 @@ class AuthorLink extends Component {
       return `${firstName} ${lastName}`;
     }
     return author.get('full_name');
+  }
+
+  renderEditorSuffix() {
+    const { author } = this.props;
+    const roles = author.get('inspire_roles', []);
+
+    if (roles.includes('editor')) {
+      return <Tooltip title="editor">(ed.)</Tooltip>;
+    }
+    return null;
   }
 
   renderAffiliationLink() {
@@ -55,6 +66,7 @@ class AuthorLink extends Component {
           {this.getFullName()}
         </a>
         {this.renderAffiliationLink()}
+        {this.renderEditorSuffix()}
       </div>
     );
   }
