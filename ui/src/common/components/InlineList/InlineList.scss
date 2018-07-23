@@ -12,6 +12,11 @@
       content: '; ';
     }
   }
+  ul.separate-items-with-comma {
+    li:not(:last-child):after {
+      content: ', ';
+    }
+  }
   ul.separate-items-with-and {
     li:not(:last-child):after {
       content: ' and ';
