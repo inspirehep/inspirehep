@@ -83,4 +83,20 @@ describe('AuthorLink', () => {
     const wrapper = shallow(<AuthorLink recordId={12345} author={author} />);
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders first_name and last_name of editor', () => {
+    const author = fromJS({
+      full_name: 'Name, Full',
+      first_name: 'Full',
+      last_name: 'Name',
+      inspire_roles: ['editor'],
+      affiliations: [
+        {
+          value: 'Affiliation',
+        },
+      ],
+    });
+    const wrapper = shallow(<AuthorLink recordId={12345} author={author} />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });
