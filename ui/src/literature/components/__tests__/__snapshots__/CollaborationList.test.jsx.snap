@@ -1,54 +1,191 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CollaborationList renders with collaboration 1`] = `
-<div
-  className="__InlineList__"
->
-  <ul
-    className="separate-items-with-and"
-  >
-    <li
-      key="Alias Investigations"
-    >
-      <CollaborationLink>
-        Alias Investigations
-      </CollaborationLink>
-    </li>
-  </ul>
-  <span
-    className="pl1 pr1"
-  >
-    Collaboration
-  </span>
-</div>
+exports[`CollaborationList renders with collaboration without suffix 1`] = `
+<React.Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          value: "Alias Investigations",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={
+      <span
+        className="pr1"
+      >
+         Collaboration
+      </span>
+    }
+    wrapperClassName="di"
+  />
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</React.Fragment>
 `;
 
-exports[`CollaborationList renders with collaborations 1`] = `
-<div
-  className="__InlineList__"
->
-  <ul
-    className="separate-items-with-and"
-  >
-    <li
-      key="Alias Investigations"
-    >
-      <CollaborationLink>
-        Alias Investigations
-      </CollaborationLink>
-    </li>
-    <li
-      key="Nelson and Murdock"
-    >
-      <CollaborationLink>
-        Nelson and Murdock
-      </CollaborationLink>
-    </li>
-  </ul>
-  <span
-    className="pl1 pr1"
-  >
-    Collaborations
-  </span>
-</div>
+exports[`CollaborationList renders with collaborations with and without suffix 1`] = `
+<React.Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          value: "Alias Investigations",
+        },
+        Immutable.Map {
+          value: "Nelson and Murdock",
+        },
+        Immutable.Map {
+          value: "Defenders Group and Avengers",
+        },
+        Immutable.Map {
+          value: "Defenders Task Force and Avengers",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={
+      <span
+        className="pr1"
+      >
+         Collaborations
+      </span>
+    }
+    wrapperClassName="di"
+  />
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          value: "Avangers Groups",
+        },
+        Immutable.Map {
+          value: "Avangers Task Force",
+        },
+        Immutable.Map {
+          value: "Avangers Consortium",
+        },
+        Immutable.Map {
+          value: "Avangers Team",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</React.Fragment>
+`;
+
+exports[`CollaborationList renders with collaborations with suffix 1`] = `
+<React.Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={false}
+    wrapperClassName="di"
+  />
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          value: "Avangers Groups",
+        },
+        Immutable.Map {
+          value: "Avangers Group",
+        },
+        Immutable.Map {
+          value: "Avangers Task Force",
+        },
+        Immutable.Map {
+          value: "Avangers Consortium",
+        },
+        Immutable.Map {
+          value: "Avangers Team",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</React.Fragment>
+`;
+
+exports[`CollaborationList renders with collaborations without suffix 1`] = `
+<React.Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          value: "Alias Investigations",
+        },
+        Immutable.Map {
+          value: "Nelson and Murdock",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={
+      <span
+        className="pr1"
+      >
+         Collaborations
+      </span>
+    }
+    wrapperClassName="di"
+  />
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</React.Fragment>
 `;
