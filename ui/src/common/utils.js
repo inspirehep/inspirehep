@@ -1,6 +1,7 @@
 export function forceArray(maybeArray) {
   return maybeArray === undefined || Array.isArray(maybeArray)
-    ? maybeArray : [maybeArray];
+    ? maybeArray
+    : [maybeArray];
 }
 
 export function castPropToNumber(prop) {
@@ -14,7 +15,7 @@ export function pluckMinMaxPair(list, valueGetter) {
   let min = Infinity;
   let max = -Infinity;
 
-  list.forEach((item) => {
+  list.forEach(item => {
     const value = valueGetter(item);
     max = Math.max(max, value);
     min = Math.min(min, value);
@@ -24,4 +25,18 @@ export function pluckMinMaxPair(list, valueGetter) {
 
 export function toNumbers(array) {
   return array && array.map(Number);
+}
+
+export function convertArrayToMap(array) {
+  return array.reduce((map, item, index) => {
+    map[item] = index;
+    return map;
+  }, {});
+}
+
+export function selfOrInfinity(number) {
+  if (number != null) {
+    return number;
+  }
+  return Infinity;
 }
