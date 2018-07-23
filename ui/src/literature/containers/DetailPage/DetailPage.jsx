@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
@@ -77,10 +77,12 @@ class DetailPage extends Component {
         <Col className="mt3 mb3" span={14}>
           <ContentBox
             loading={this.props.loading}
-            actions={[
-              arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />,
-              <CiteModalAction recordId={recordId} />,
-            ].filter(action => action != null)}
+            actions={
+              <Fragment>
+                {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
+                <CiteModalAction recordId={recordId} />
+              </Fragment>
+            }
           >
             <h2>
               <Latex>{title}</Latex>
