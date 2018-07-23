@@ -1,6 +1,12 @@
 import { fromJS } from 'immutable';
 
-import { forceArray, castPropToNumber, pluckMinMaxPair } from '../utils';
+import {
+  forceArray,
+  castPropToNumber,
+  pluckMinMaxPair,
+  convertArrayToMap,
+  selfOrInfinity,
+} from '../utils';
 
 describe('utils', () => {
   describe('forceArray', () => {
@@ -58,6 +64,28 @@ describe('utils', () => {
       const [min, max] = pluckMinMaxPair(list, item => item.get('number'));
       expect(min).toBe(1);
       expect(max).toBe(1);
+    });
+  });
+
+  describe('convertArrayToMap', () => {
+    it('converts array to map { <item>: <index> }', () => {
+      const array = ['foo', 'bar'];
+      const expected = {
+        foo: 0,
+        bar: 1,
+      };
+      const map = convertArrayToMap(array);
+      expect(map).toEqual(expected);
+    });
+  });
+
+  describe('selfOrInfinity', () => {
+    it('returns self if number is defined', () => {
+      expect(selfOrInfinity(1)).toEqual(1);
+    });
+
+    it('returns Infinity if number is null', () => {
+      expect(selfOrInfinity(null)).toEqual(Infinity);
     });
   });
 });
