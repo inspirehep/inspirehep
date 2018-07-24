@@ -43,7 +43,12 @@ InlineList.propTypes = {
   label: PropTypes.string,
   renderItem: PropTypes.func.isRequired,
   separateItems: PropTypes.bool,
-  separateItemsClassName: PropTypes.string,
+  // TODO: move the `sperate...` prefix to this component
+  separateItemsClassName: PropTypes.oneOf([
+    'separate-items-with-semicolon',
+    'separate-items-with-comma',
+    'separate-items-with-and',
+  ]),
   suffix: PropTypes.node,
   wrapperClassName: PropTypes.string,
 };
