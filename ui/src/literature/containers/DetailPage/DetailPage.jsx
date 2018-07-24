@@ -24,6 +24,7 @@ import LiteratureKeywordList from '../../components/LiteratureKeywordList';
 import PublicationInfoList from '../../components/PublicationInfoList';
 import ReferenceList from '../../components/ReferenceList';
 import ReportNumberList from '../../components/ReportNumberList';
+import ThesisInfo from '../../components/ThesisInfo';
 
 class DetailPage extends Component {
   componentWillMount() {
@@ -57,6 +58,8 @@ class DetailPage extends Component {
     const title = metadata.getIn(['titles', 0, 'title']);
     const date = metadata.get('date');
     const recordId = metadata.get('control_number');
+    const thesisInfo = metadata.get('thesis_info');
+
     const publicationInfo = metadata.get('publication_info');
     const eprints = metadata.get('arxiv_eprints');
     const dois = metadata.get('dois');
@@ -99,6 +102,7 @@ class DetailPage extends Component {
             </div>
             <LiteratureDate date={date} />
             <div className="mt3">
+              <ThesisInfo thesisInfo={thesisInfo} />
               <PublicationInfoList publicationInfo={publicationInfo} />
               <ArxivEprintList eprints={eprints} />
               <DOIList dois={dois} />

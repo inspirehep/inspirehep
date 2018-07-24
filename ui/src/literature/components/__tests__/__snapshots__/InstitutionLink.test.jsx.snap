@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionLink renders empty if instution does not has name 1`] = `""`;
+
+exports[`InstitutionLink renders link if institution has name 1`] = `
+<a
+  href="//inspirehep.net/search?ln=en&cc=Institutions&p=110__u:\\"CERN\\""
+  target="_blank"
+>
+  CERN
+</a>
+`;
