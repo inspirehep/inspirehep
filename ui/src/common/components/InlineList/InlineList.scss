@@ -7,19 +7,20 @@
   li {
     display: inline;
   }
-  ul.separate-items-with-semicolon {
+
+  @mixin separte-items-with($seperator) {
     li:not(:last-child):after {
-      content: '; ';
+      content: $seperator;
     }
+  }
+
+  ul.separate-items-with-semicolon {
+    @include separte-items-with('; ');
   }
   ul.separate-items-with-comma {
-    li:not(:last-child):after {
-      content: ', ';
-    }
+    @include separte-items-with(', ');
   }
   ul.separate-items-with-and {
-    li:not(:last-child):after {
-      content: ' and ';
-    }
+    @include separte-items-with(' and ');
   }
 }
