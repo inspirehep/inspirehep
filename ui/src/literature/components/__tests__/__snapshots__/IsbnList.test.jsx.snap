@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IsbnList renders isbns with medium and without medium 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    ISBN
+    : 
+  </span>
+  <ul
+    className="separate-items-with-semicolon"
+  >
+    <li
+      key="9781139632478"
+    >
+      <span>
+        <span>
+          9781139632478
+        </span>
+        <span>
+           (
+          print
+          )
+        </span>
+      </span>
+    </li>
+    <li
+      key="1231139632475"
+    >
+      <span>
+        <span>
+          1231139632475
+        </span>
+      </span>
+    </li>
+  </ul>
+</div>
+`;
