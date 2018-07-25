@@ -9,9 +9,7 @@ describe('PublicationInfo', () => {
     const info = fromJS({
       journal_title: 'Test Journal',
     });
-    const wrapper = shallow((
-      <PublicationInfo info={info} />
-    ));
+    const wrapper = shallow(<PublicationInfo info={info} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -24,9 +22,7 @@ describe('PublicationInfo', () => {
       page_end: '2',
       artid: '012345',
     });
-    const wrapper = shallow((
-      <PublicationInfo info={info} />
-    ));
+    const wrapper = shallow(<PublicationInfo info={info} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -40,9 +36,7 @@ describe('PublicationInfo', () => {
       artid: '012345',
       pubinfo_freetext: 'Test. Pub. Info. Freetext',
     });
-    const wrapper = shallow((
-      <PublicationInfo info={info} />
-    ));
+    const wrapper = shallow(<PublicationInfo info={info} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -50,17 +44,31 @@ describe('PublicationInfo', () => {
     const info = fromJS({
       pubinfo_freetext: 'Test. Pub. Info. Freetext',
     });
-    const wrapper = shallow((
-      <PublicationInfo info={info} />
-    ));
+    const wrapper = shallow(<PublicationInfo info={info} />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders without pubinfo_freetext or journal_title', () => {
     const info = fromJS({});
-    const wrapper = shallow((
-      <PublicationInfo info={info} />
-    ));
+    const wrapper = shallow(<PublicationInfo info={info} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with material', () => {
+    const info = fromJS({
+      journal_title: 'Test Journal',
+      material: 'erratum',
+    });
+    const wrapper = shallow(<PublicationInfo info={info} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('does not render material if it is publication', () => {
+    const info = fromJS({
+      journal_title: 'Test Journal',
+      material: 'publication',
+    });
+    const wrapper = shallow(<PublicationInfo info={info} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

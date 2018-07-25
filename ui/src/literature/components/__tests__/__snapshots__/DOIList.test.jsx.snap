@@ -14,16 +14,25 @@ exports[`DOIList renders with dois 1`] = `
     <li
       key="12.1234/1234567890123_1234"
     >
-      <DOILink>
-        12.1234/1234567890123_1234
-      </DOILink>
+      <span>
+        <DOILink>
+          12.1234/1234567890123_1234
+        </DOILink>
+      </span>
     </li>
     <li
       key="99.9999/9999999999999_9999"
     >
-      <DOILink>
-        99.9999/9999999999999_9999
-      </DOILink>
+      <span>
+        <DOILink>
+          99.9999/9999999999999_9999
+        </DOILink>
+        <span>
+           (
+          erratum
+          )
+        </span>
+      </span>
     </li>
   </ul>
 </div>

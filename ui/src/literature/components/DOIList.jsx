@@ -6,16 +6,25 @@ import DOILink from './DOILink';
 import InlineList from '../../common/components/InlineList';
 
 class DOIList extends Component {
+  static renderDoiItem(doi) {
+    const material = doi.get('material');
+    return (
+      <span>
+        <DOILink>{doi.get('value')}</DOILink>
+        {material && <span> ({material})</span>}
+      </span>
+    );
+  }
+
   render() {
     const { dois } = this.props;
+
     return (
       <InlineList
         label="DOI"
         items={dois}
         extractKey={doi => doi.get('value')}
-        renderItem={doi => (
-          <DOILink>{doi.get('value')}</DOILink>
-        )}
+        renderItem={DOIList.renderDoiItem}
       />
     );
   }
