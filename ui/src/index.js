@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import 'tachyons';
 
+import registerServiceWorker from './registerServiceWorker';
 import { store, history } from './store';
 import App from './App';
 import './theme.less';
@@ -20,3 +21,4 @@ ReactDOM.render(
 
   document.getElementById('root')
 );
+registerServiceWorker();
