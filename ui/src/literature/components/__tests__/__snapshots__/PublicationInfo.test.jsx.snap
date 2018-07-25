@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`PublicationInfo does not render material if it is publication 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+</span>
+`;
+
 exports[`PublicationInfo renders with journal_title and alll others fields 1`] = `
 <span>
   <i>
@@ -67,6 +75,19 @@ exports[`PublicationInfo renders with journal_title present 1`] = `
   <i>
     Test Journal
   </i>
+</span>
+`;
+
+exports[`PublicationInfo renders with material 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     (
+    erratum
+    )
+  </span>
 </span>
 `;
 
