@@ -134,6 +134,30 @@ describe('search - async action creator', () => {
     done();
   });
 
+  it('creates SEARCH_SUCCESS and pushes new history state without existing location query', async done => {
+    const testQueryUrl = '/test?filter2=value2';
+    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+
+    const expectedActions = [
+      { type: types.SEARCH_REQUEST, payload: { filter2: 'value2' } },
+      {
+        type: CALL_HISTORY_METHOD,
+        payload: { args: [testQueryUrl], method: 'push' },
+      },
+      { type: types.SEARCH_SUCCESS, payload: {} },
+    ];
+
+    const state = {
+      ...stateWithoutScopeQuery,
+      router: { location: { query: { filter1: 'value1' } } },
+    };
+
+    const store = getStoreWithState(state);
+    await store.dispatch(search({ filter2: 'value2' }, true));
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
+  });
+
   it('creates SEARCH_ERROR when search fails', async done => {
     const testQueryUrl = '/test?size=10&q=test';
     mockHttp.onGet(testQueryUrl).networkError();

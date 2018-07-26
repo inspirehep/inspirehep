@@ -10,7 +10,7 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onSearch(value) {
-    dispatch(search({ q: value }));
+    dispatch(search({ q: value }, true));
   },
 });
 
