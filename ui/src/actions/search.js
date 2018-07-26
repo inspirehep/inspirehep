@@ -30,9 +30,9 @@ function getSearchUrl(state, query) {
   return `/${pathname}?${queryString}`;
 }
 
-function appendQuery(state, query) {
+function appendQuery(state, query, excludeLocationQuery) {
   const baseQuery = state.search.getIn(['scope', 'query']).toJS();
-  const locationQuery = state.router.location.query;
+  const locationQuery = excludeLocationQuery ? {} : state.router.location.query;
 
   if (query && locationQuery.page !== undefined) {
     locationQuery.page = 1;
@@ -45,12 +45,12 @@ function appendQuery(state, query) {
   };
 }
 
-export default function search(query) {
+export default function search(query, clearLocationQuery = false) {
   return async (dispatch, getState, http) => {
     dispatch(searching(query));
 
     const state = getState();
-    const newQuery = appendQuery(state, query);
+    const newQuery = appendQuery(state, query, clearLocationQuery);
     const url = getSearchUrl(state, newQuery);
     if (Object.keys(newQuery).length > 0) {
       dispatch(push(url));

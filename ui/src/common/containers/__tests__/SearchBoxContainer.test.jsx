@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { CALL_HISTORY_METHOD } from 'react-router-redux';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import { SEARCH_REQUEST } from '../../../actions/actionTypes';
@@ -20,10 +21,26 @@ describe('SearchBoxContainer', () => {
     const props = dispatchToProps(store.dispatch);
     props.onSearch(value);
     const actions = store.getActions();
-    const expectedAction = actions.find(
+    const searchRequestAction = actions.find(
       action => action.type === SEARCH_REQUEST
     );
-    expect(expectedAction).toBeDefined();
-    expect(expectedAction.payload).toEqual({ q: value });
+    expect(searchRequestAction).toBeDefined();
+    expect(searchRequestAction.payload).toEqual({ q: value });
+  });
+
+  it('clears existing search params onSearch', () => {
+    const store = getStoreWithState({
+      router: { location: { query: { another: 'value' } } },
+    });
+    const value = 'test';
+    const props = dispatchToProps(store.dispatch);
+    props.onSearch(value);
+    const actions = store.getActions();
+    const searchUrlPushAction = actions.find(
+      action => action.type === CALL_HISTORY_METHOD
+    );
+    expect(searchUrlPushAction).toBeDefined();
+    const searchUrl = searchUrlPushAction.payload.args[0];
+    expect(searchUrl).not.toMatch('another');
   });
 });
