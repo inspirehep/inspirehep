@@ -71,4 +71,36 @@ describe('PublicationInfo', () => {
     const wrapper = shallow(<PublicationInfo info={info} />);
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders either page start/end or artid', () => {
+    const info = fromJS({
+      journal_title: 'Test Journal',
+      page_start: 1,
+      page_end: 10,
+      artid: 123,
+      journal_issue: 2,
+    });
+    const wrapper = shallow(<PublicationInfo info={info} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders only page_start when page_end is not available', () => {
+    const info = fromJS({
+      journal_title: 'Test Journal',
+      page_start: 1,
+      artid: 123,
+      journal_issue: 2,
+    });
+    const wrapper = shallow(<PublicationInfo info={info} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('does not display a comma when page info or artid is not available', () => {
+    const info = fromJS({
+      journal_title: 'Test Journal',
+      journal_issue: 2,
+    });
+    const wrapper = shallow(<PublicationInfo info={info} />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });

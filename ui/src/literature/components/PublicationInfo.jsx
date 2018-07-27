@@ -3,29 +3,14 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
 class PublicationInfo extends Component {
-  displayArtidPageInfoAndJournalIssue() {
+  getPageOrArtidDisplay() {
     const { info } = this.props;
     if (info.has('page_start') && info.has('page_end')) {
-      return (
-        <span>
-          <span>
-            {' '}
-            {info.get('page_start')}-{info.get('page_end')}
-          </span>
-        </span>
-      );
+      return `${info.get('page_start')}-${info.get('page_end')}`;
     } else if (info.has('page_start')) {
-      return (
-        <span>
-          <span> {info.get('page_start')}</span>
-        </span>
-      );
+      return info.get('page_start');
     } else if (info.has('artid')) {
-      return (
-        <span>
-          <span> {info.get('artid')}</span>
-        </span>
-      );
+      return info.get('artid');
     }
     return null;
   }
@@ -33,7 +18,8 @@ class PublicationInfo extends Component {
   render() {
     const { info } = this.props;
     const material = info.get('material');
-
+    const journalIssue = info.get('journal_issue');
+    const pageOrArtidDisplay = this.getPageOrArtidDisplay();
     if (info.has('journal_title')) {
       return (
         <span>
@@ -42,7 +28,9 @@ class PublicationInfo extends Component {
             <span> {info.get('journal_volume')}</span>
           )}
           {info.has('year') && <span> ({info.get('year')})</span>}
-          {this.displayArtidPageInfoAndJournalIssue()}
+          {journalIssue && <span> {journalIssue}</span>}
+          {pageOrArtidDisplay && journalIssue && <span>,</span>}
+          {pageOrArtidDisplay && <span> {pageOrArtidDisplay}</span>}
           {material && material !== 'publication' && <span> ({material})</span>}
         </span>
       );
