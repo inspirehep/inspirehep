@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceInfoList renders conference link 1`] = `
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        titles: Immutable.List [
+          Immutable.Map {
+            title: "Test Conferece 2",
+            control_number: 111111,
+          },
+        ],
+      },
+      Immutable.Map {
+        titles: Immutable.List [
+          Immutable.Map {
+            title: "Test Conferece 2",
+            control_number: 222222,
+          },
+        ],
+      },
+    ]
+  }
+  label="Contribution to"
+  renderItem={[Function]}
+  separateItems={true}
+  separateItemsClassName="separate-items-with-semicolon"
+  suffix={null}
+  wrapperClassName={null}
+/>
+`;
