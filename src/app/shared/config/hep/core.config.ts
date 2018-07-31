@@ -81,7 +81,7 @@ export const coreHep: JsonEditorConfig = {
     ],
     alwaysShow: [
       '_private_notes',
-      'abstract',
+      'abstracts',
       'accelerator_experiments',
       'authors',
       'citeable',
