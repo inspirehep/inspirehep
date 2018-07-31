@@ -49,7 +49,7 @@ class DetailPage extends Component {
   }
 
   render() {
-    const { authors, references, loadingReferences } = this.props;
+    const { authors, references, loadingReferences, supervisors } = this.props;
 
     const { record } = this.props;
     const metadata = record.get('metadata');
@@ -102,6 +102,12 @@ class DetailPage extends Component {
                 limit={collaborations ? 1 : 5}
                 enableShowAll
               />
+              <AuthorList
+                recordId={recordId}
+                authors={supervisors}
+                forSupervisors
+                enableShowAll
+              />
             </div>
             <LiteratureDate date={date} />
             <div className="mt3">
@@ -150,6 +156,7 @@ DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
   references: PropTypes.instanceOf(List).isRequired,
   authors: PropTypes.instanceOf(List).isRequired,
+  supervisors: PropTypes.instanceOf(List).isRequired,
   loadingReferences: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
 };
@@ -160,6 +167,7 @@ const mapStateToProps = state => ({
   references: state.literature.get('references'),
   loadingReferences: state.literature.get('loadingReferences'),
   authors: state.literature.get('authors'),
+  supervisors: state.literature.get('supervisors'),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 

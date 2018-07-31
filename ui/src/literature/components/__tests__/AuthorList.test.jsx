@@ -1,9 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Modal } from 'antd';
 
 import AuthorList from '../AuthorList';
-import AuthorLink from '../AuthorLink';
+import InlineList from '../../../common/components/InlineList';
 
 describe('AuthorList', () => {
   it('renders only 5 authors and suffixes "show all" if passed more', () => {
@@ -127,13 +128,73 @@ describe('AuthorList', () => {
       <AuthorList limit={4} recordId={12345} authors={authors} />
     );
 
-    // Fragment make the ``dive`` a bit more difficult
+    // Can not dive since root is a Fragment
     expect(
       wrapper
-        .find('InlineList')
+        .find(InlineList)
         .first()
         .dive()
-        .find(AuthorLink).length
-    ).toBe(1);
+    ).toMatchSnapshot();
+  });
+
+  it('prefixes `Supervisor(s)` when supervisors are passed', () => {
+    const supervisors = fromJS([
+      {
+        full_name: 'Test, Guy 1',
+      },
+    ]);
+    const wrapper = shallow(
+      <AuthorList
+        label="Supervisor(s)"
+        authors={supervisors}
+        recordId={12345}
+        forSupervisors
+      />
+    );
+    expect(
+      wrapper
+        .find(InlineList)
+        .first()
+        .dive()
+    ).toMatchSnapshot();
+  });
+
+  it('should display `authors` in modal title by default', () => {
+    const authors = fromJS([
+      {
+        full_name: 'Test, Guy 1',
+      },
+    ]);
+    const wrapper = shallow(
+      <AuthorList label="Supervisor(s)" authors={authors} recordId={12345} />
+    );
+    expect(
+      wrapper
+        .find(Modal)
+        .first()
+        .dive()
+    ).toMatchSnapshot();
+  });
+
+  it('should show `supervisors` in modal title if supervisors are passed', () => {
+    const supervisors = fromJS([
+      {
+        full_name: 'Test, Guy 1',
+      },
+    ]);
+    const wrapper = shallow(
+      <AuthorList
+        label="Supervisor(s)"
+        authors={supervisors}
+        recordId={12345}
+        forSupervisors
+      />
+    );
+    expect(
+      wrapper
+        .find(Modal)
+        .first()
+        .dive()
+    ).toMatchSnapshot();
   });
 });

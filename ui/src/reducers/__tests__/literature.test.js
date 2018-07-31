@@ -26,6 +26,7 @@ describe('literature reducer', () => {
       loadingAuthors: false,
       errorAuthors: {},
       authors: [],
+      supervisors: [],
     });
     expect(state).toEqual(expected);
   });
@@ -121,9 +122,15 @@ describe('literature reducer', () => {
         full_name: 'Jessica Jones',
       },
     ];
+    const supervisors = [
+      {
+        full_name: 'Kapustin, Anton',
+      },
+    ];
     const payload = {
       metadata: {
         authors,
+        supervisors,
       },
     };
     const state = reducer(Map(), {
@@ -133,6 +140,7 @@ describe('literature reducer', () => {
     const expected = fromJS({
       loadingAuthors: false,
       authors,
+      supervisors,
       errorAuthors: {},
     });
     expect(state).toEqual(expected);
@@ -147,6 +155,7 @@ describe('literature reducer', () => {
       loadingAuthors: false,
       errorAuthors: { message: 'error' },
       authors: [],
+      supervisors: [],
     });
     expect(state).toEqual(expected);
   });
