@@ -16,6 +16,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
             ]
           }
           enableShowAll={false}
+          forSupervisors={false}
           limit={5}
           recordId={undefined}
           total={-1}
@@ -54,6 +55,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
             ]
           }
           enableShowAll={false}
+          forSupervisors={false}
           limit={5}
           recordId={12345}
           total={-1}

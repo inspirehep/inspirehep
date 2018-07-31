@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AuthorList prefixes \`Supervisor(s)\` when supervisors are passed 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Supervisor(s)
+    : 
+  </span>
+  <ul
+    className="separate-items-with-semicolon"
+  >
+    <li
+      key="Test, Guy 1"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 1",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+  </ul>
+</div>
+`;
+
 exports[`AuthorList renders all authors if they are less than the limit without suffix 1`] = `
 <React.Fragment>
   <InlineList
@@ -54,6 +81,29 @@ exports[`AuthorList renders all authors if they are less than the limit without 
     />
   </Modal>
 </React.Fragment>
+`;
+
+exports[`AuthorList renders authors by using AuthorLink 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-semicolon"
+  >
+    <li
+      key="Test, Guy 1"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 1",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 1`] = `
@@ -358,4 +408,70 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
     />
   </Modal>
 </React.Fragment>
+`;
+
+exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
+<DialogWrap
+  confirmLoading={false}
+  footer={null}
+  maskTransitionName="fade"
+  okType="primary"
+  onCancel={[Function]}
+  onClose={[Function]}
+  prefixCls="ant-modal"
+  title="1 authors"
+  transitionName="zoom"
+  visible={false}
+  width="50%"
+>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          full_name: "Test, Guy 1",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
+    suffix={null}
+    wrapperClassName={null}
+  />
+</DialogWrap>
+`;
+
+exports[`AuthorList should show \`supervisors\` in modal title if supervisors are passed 1`] = `
+<DialogWrap
+  confirmLoading={false}
+  footer={null}
+  maskTransitionName="fade"
+  okType="primary"
+  onCancel={[Function]}
+  onClose={[Function]}
+  prefixCls="ant-modal"
+  title="1 supervisors"
+  transitionName="zoom"
+  visible={false}
+  width="50%"
+>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          full_name: "Test, Guy 1",
+        },
+      ]
+    }
+    label="Supervisor(s)"
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-semicolon"
+    suffix={null}
+    wrapperClassName={null}
+  />
+</DialogWrap>
 `;

@@ -33,6 +33,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
           ]
         }
         enableShowAll={false}
+        forSupervisors={false}
         limit={5}
         recordId={12345}
         total={-1}
@@ -99,6 +100,7 @@ exports[`LiteratureItem does not render citation and reference count if they are
           ]
         }
         enableShowAll={false}
+        forSupervisors={false}
         limit={5}
         recordId={12345}
         total={-1}
@@ -193,6 +195,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
           ]
         }
         enableShowAll={false}
+        forSupervisors={false}
         limit={5}
         recordId={12345}
         total={-1}
