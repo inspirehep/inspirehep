@@ -17,7 +17,7 @@ describe('App', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to Holdingpen when /holdingpen if logged in', () => {
+  xit('navigates to Holdingpen when /holdingpen if logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -33,7 +33,7 @@ describe('App', () => {
     expect(wrapper.find(Holdingpen)).toExist();
   });
 
-  it('does not navigate to Holdingpen when /holdingpen if not logged in', () => {
+  xit('does not navigate to Holdingpen when /holdingpen if not logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,

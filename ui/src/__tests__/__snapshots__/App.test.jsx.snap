@@ -20,7 +20,7 @@ exports[`App renders initial state 1`] = `
         component={[Function]}
         path="/user"
       />
-      <Connect(RouteOrRedirect)
+      <Route
         component={[Function]}
         path="/holdingpen"
       />
