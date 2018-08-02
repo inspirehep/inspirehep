@@ -6,6 +6,7 @@ import {
   pluckMinMaxPair,
   convertArrayToMap,
   selfOrInfinity,
+  getSizeOfArrayOrImmutableList,
 } from '../utils';
 
 describe('utils', () => {
@@ -86,6 +87,16 @@ describe('utils', () => {
 
     it('returns Infinity if number is null', () => {
       expect(selfOrInfinity(null)).toEqual(Infinity);
+    });
+  });
+
+  describe('getSizeOfArrayOrImmutableList', () => {
+    it('returns lenght for array', () => {
+      expect(getSizeOfArrayOrImmutableList([1])).toBe(1);
+    });
+
+    it('returns size for immutable', () => {
+      expect(getSizeOfArrayOrImmutableList(fromJS([1, 2]))).toBe(2);
     });
   });
 });

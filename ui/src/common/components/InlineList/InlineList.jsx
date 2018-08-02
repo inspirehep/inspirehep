@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { List } from 'immutable';
 
+import { getSizeOfArrayOrImmutableList } from '../../utils';
 import './InlineList.scss';
 
 const DEFAULT_SEPARATE_ITEMS_CLASS = 'separate-items-with-semicolon';
@@ -20,7 +21,8 @@ class InlineList extends Component {
       wrapperClassName,
     } = this.props;
     return (
-      items && (
+      items &&
+      getSizeOfArrayOrImmutableList(items) > 0 && (
         <div className={classnames('__InlineList__', wrapperClassName)}>
           {label && <span>{label}: </span>}
           <ul

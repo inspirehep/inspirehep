@@ -1,5 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`InlineList does not render if empty array passed 1`] = `""`;
+
+exports[`InlineList does not render if empty list passed 1`] = `""`;
+
 exports[`InlineList does not render if items are null 1`] = `""`;
 
 exports[`InlineList renders item without separator 1`] = `

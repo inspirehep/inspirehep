@@ -40,3 +40,7 @@ export function selfOrInfinity(number) {
   }
   return Infinity;
 }
+
+export function getSizeOfArrayOrImmutableList(arrayOrList) {
+  return Array.isArray(arrayOrList) ? arrayOrList.length : arrayOrList.size;
+}
