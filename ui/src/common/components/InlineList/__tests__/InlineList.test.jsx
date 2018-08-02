@@ -88,4 +88,28 @@ describe('InlineList', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('does not render if empty array passed', () => {
+    const wrapper = shallow(
+      <InlineList
+        label="Test"
+        suffix={<span>Suffix</span>}
+        items={[]}
+        renderItem={item => <span>{item}</span>}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('does not render if empty list passed', () => {
+    const wrapper = shallow(
+      <InlineList
+        label="Test"
+        suffix={<span>Suffix</span>}
+        items={fromJS([])}
+        renderItem={item => <span>{item}</span>}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });
