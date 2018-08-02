@@ -10,6 +10,7 @@ import {
   fetchLiteratureReferences,
   fetchLiteratureAuthors,
 } from '../../../actions/literature';
+import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
 import AuthorList from '../../components/AuthorList';
 import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
@@ -70,8 +71,7 @@ class DetailPage extends Component {
     const externalSystemIdentifiers = metadata.get(
       'external_system_identifiers'
     );
-
-    const abstract = metadata.getIn(['abstracts', 0, 'value']);
+    const abstract = metadata.getIn(['abstracts', 0]);
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
     const collaborations = metadata.get('collaborations');
 
@@ -124,7 +124,7 @@ class DetailPage extends Component {
             </div>
             <Row>
               <div className="mt3">
-                <Latex>{abstract}</Latex>
+                <Abstract abstract={abstract} />
               </div>
             </Row>
             <Row>
