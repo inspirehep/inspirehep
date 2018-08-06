@@ -28,6 +28,7 @@ import ReportNumberList from '../../components/ReportNumberList';
 import ThesisInfo from '../../components/ThesisInfo';
 import IsbnList from '../../components/IsbnList';
 import ConferenceInfoList from '../../components/ConferenceInfoList';
+import NumberOfPages from '../../components/NumberOfPages';
 
 class DetailPage extends Component {
   componentWillMount() {
@@ -68,6 +69,7 @@ class DetailPage extends Component {
     const eprints = metadata.get('arxiv_eprints');
     const dois = metadata.get('dois');
     const reportNumbers = metadata.get('report_numbers');
+    const numberOfPages = metadata.get('number_of_pages');
     const externalSystemIdentifiers = metadata.get(
       'external_system_identifiers'
     );
@@ -111,6 +113,7 @@ class DetailPage extends Component {
             </div>
             <LiteratureDate date={date} />
             <div className="mt3">
+              <NumberOfPages numberOfPages={numberOfPages} />
               <ThesisInfo thesisInfo={thesisInfo} />
               <PublicationInfoList publicationInfo={publicationInfo} />
               <ConferenceInfoList conferenceInfo={conferenceInfo} />
