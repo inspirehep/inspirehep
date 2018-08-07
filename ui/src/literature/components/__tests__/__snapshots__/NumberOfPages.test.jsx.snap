@@ -1,19 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`NumberOfPages display \`page\` if number_of_pages is 1 1`] = `
-<span>
+<div>
   1
    
   page
-</span>
+</div>
 `;
 
 exports[`NumberOfPages renders empty if null 1`] = `""`;
 
 exports[`NumberOfPages renders with number of pages 1`] = `
-<span>
+<div>
   100
    
   pages
-</span>
+</div>
 `;

@@ -7,9 +7,9 @@ class NumberOfPages extends Component {
 
     return (
       numberOfPages && (
-        <span>
+        <div>
           {numberOfPages} {numberOfPages === 1 ? 'page' : 'pages'}
-        </span>
+        </div>
       )
     );
   }
