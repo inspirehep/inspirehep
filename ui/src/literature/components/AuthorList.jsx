@@ -26,6 +26,11 @@ class AuthorList extends Component {
     this.setState({ modalVisible: false });
   }
 
+  getSupervisorsLabel() {
+    const { authors } = this.props;
+    return authors.size === 1 ? 'Supervisor' : 'Supervisors';
+  }
+
   renderShowAllOrEtAl() {
     const { enableShowAll, authors } = this.props;
     if (enableShowAll) {
@@ -50,7 +55,7 @@ class AuthorList extends Component {
     } = this.props;
     return (
       <InlineList
-        label={forSupervisors ? 'Supervisor(s)' : null}
+        label={forSupervisors ? this.getSupervisorsLabel() : null}
         wrapperClassName={wrapperClassName}
         items={authorsToDisplay}
         suffix={

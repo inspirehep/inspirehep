@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AuthorList prefixes \`Supervisor(s)\` when supervisors are passed 1`] = `
+exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
 <div
   className="__InlineList__"
 >
   <span>
-    Supervisor(s)
+    Supervisor
     : 
   </span>
   <ul
@@ -18,6 +18,45 @@ exports[`AuthorList prefixes \`Supervisor(s)\` when supervisors are passed 1`] =
         author={
           Immutable.Map {
             full_name: "Test, Guy 1",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passed 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Supervisors
+    : 
+  </span>
+  <ul
+    className="separate-items-with-semicolon"
+  >
+    <li
+      key="Test, Guy 1"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 1",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+    <li
+      key="Test, Guy 2"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            full_name: "Test, Guy 2",
           }
         }
         recordId={12345}
@@ -466,7 +505,7 @@ exports[`AuthorList should show \`supervisors\` in modal title if supervisors ar
         },
       ]
     }
-    label="Supervisor(s)"
+    label="Supervisor"
     renderItem={[Function]}
     separateItems={true}
     separateItemsClassName="separate-items-with-semicolon"
