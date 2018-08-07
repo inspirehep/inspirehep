@@ -30,7 +30,7 @@ class AuthorList extends Component {
     const { enableShowAll, authors } = this.props;
     if (enableShowAll) {
       return (
-        <div className="di">
+        <div className="di pl1">
           <SecondaryButton onClick={this.onModalOpen}>
             Show All({authors.size})
           </SecondaryButton>
