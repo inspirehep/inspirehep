@@ -137,19 +137,34 @@ describe('AuthorList', () => {
     ).toMatchSnapshot();
   });
 
-  it('prefixes `Supervisor(s)` when supervisors are passed', () => {
+  it('prefixes `Supervisor` when 1 supervisor is passed', () => {
     const supervisors = fromJS([
       {
         full_name: 'Test, Guy 1',
       },
     ]);
     const wrapper = shallow(
-      <AuthorList
-        label="Supervisor(s)"
-        authors={supervisors}
-        recordId={12345}
-        forSupervisors
-      />
+      <AuthorList authors={supervisors} recordId={12345} forSupervisors />
+    );
+    expect(
+      wrapper
+        .find(InlineList)
+        .first()
+        .dive()
+    ).toMatchSnapshot();
+  });
+
+  it('prefixes `Supervisor` when 2 or more supervisors are passed', () => {
+    const supervisors = fromJS([
+      {
+        full_name: 'Test, Guy 1',
+      },
+      {
+        full_name: 'Test, Guy 2',
+      },
+    ]);
+    const wrapper = shallow(
+      <AuthorList authors={supervisors} recordId={12345} forSupervisors />
     );
     expect(
       wrapper
@@ -165,9 +180,7 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorList label="Supervisor(s)" authors={authors} recordId={12345} />
-    );
+    const wrapper = shallow(<AuthorList authors={authors} recordId={12345} />);
     expect(
       wrapper
         .find(Modal)
@@ -183,12 +196,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList
-        label="Supervisor(s)"
-        authors={supervisors}
-        recordId={12345}
-        forSupervisors
-      />
+      <AuthorList authors={supervisors} recordId={12345} forSupervisors />
     );
     expect(
       wrapper
