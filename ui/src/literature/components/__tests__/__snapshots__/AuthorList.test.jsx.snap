@@ -216,7 +216,7 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
     separateItemsClassName="separate-items-with-semicolon"
     suffix={
       <div
-        className="di"
+        className="di pl1"
       >
         <SecondaryButton
           onClick={[Function]}
@@ -359,7 +359,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
     separateItemsClassName="separate-items-with-semicolon"
     suffix={
       <div
-        className="di"
+        className="di pl1"
       >
         <SecondaryButton
           onClick={[Function]}
