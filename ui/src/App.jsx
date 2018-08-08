@@ -24,6 +24,10 @@ const User$ = Loadable({
   loader: () => import('./user'),
   loading: Loading,
 });
+const Submissions$ = Loadable({
+  loader: () => import('./submissions'),
+  loading: Loading,
+});
 
 class App extends Component {
   componentDidMount() {
@@ -40,6 +44,7 @@ class App extends Component {
             <Route path="/user" component={User$} />
             <Route path="/holdingpen" component={Holdingpen$} />
             <Route path="/literature" component={Literature$} />
+            <Route path="/submissions" component={Submissions$} />
           </Switch>
         </Layout.Content>
         <Footer />
