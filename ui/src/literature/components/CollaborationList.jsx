@@ -43,7 +43,6 @@ class CollaborationList extends Component {
         />
         <InlineList
           wrapperClassName="di"
-          separateItemsClassName="separate-items-with-comma"
           items={collaborationsWithSuffix}
           extractKey={collaboration => collaboration.get('value')}
           renderItem={collaboration => (

@@ -9,7 +9,7 @@ exports[`ArxivEprintList renders with arXiv id 1`] = `
     : 
   </span>
   <ul
-    className="separate-items-with-semicolon"
+    className="separate-items-with-comma"
   >
     <li
       key="123.12345"

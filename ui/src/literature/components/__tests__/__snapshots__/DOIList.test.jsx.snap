@@ -9,7 +9,7 @@ exports[`DOIList renders with dois 1`] = `
     : 
   </span>
   <ul
-    className="separate-items-with-semicolon"
+    className="separate-items-with-comma"
   >
     <li
       key="12.1234/1234567890123_1234"

@@ -6,7 +6,7 @@ import { List } from 'immutable';
 import { getSizeOfArrayOrImmutableList } from '../../utils';
 import './InlineList.scss';
 
-const DEFAULT_SEPARATE_ITEMS_CLASS = 'separate-items-with-semicolon';
+const DEFAULT_SEPARATE_ITEMS_CLASS = 'separate-items-with-comma';
 
 class InlineList extends Component {
   render() {

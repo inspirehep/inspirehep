@@ -9,7 +9,7 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
     : 
   </span>
   <ul
-    className="separate-items-with-semicolon"
+    className="separate-items-with-comma"
   >
     <li
       key="https://cds.cern.ch/record/12345"
