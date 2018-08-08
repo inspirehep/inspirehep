@@ -9,7 +9,7 @@ exports[`IsbnList renders isbns with medium and without medium 1`] = `
     : 
   </span>
   <ul
-    className="separate-items-with-semicolon"
+    className="separate-items-with-comma"
   >
     <li
       key="9781139632478"

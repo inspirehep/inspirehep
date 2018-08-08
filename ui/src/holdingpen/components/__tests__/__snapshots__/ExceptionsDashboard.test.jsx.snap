@@ -28,7 +28,7 @@ exports[`ExceptionsDashboard renders with all props set 1`] = `
       label="Collections"
       renderItem={[Function]}
       separateItems={false}
-      separateItemsClassName="separate-items-with-semicolon"
+      separateItemsClassName="separate-items-with-comma"
       suffix={null}
       wrapperClassName={null}
     />

@@ -45,7 +45,7 @@ exports[`Home renders home page 1`] = `
           label="Try"
           renderItem={[Function]}
           separateItems={true}
-          separateItemsClassName="separate-items-with-semicolon"
+          separateItemsClassName="separate-items-with-comma"
           suffix={null}
           wrapperClassName={null}
         />

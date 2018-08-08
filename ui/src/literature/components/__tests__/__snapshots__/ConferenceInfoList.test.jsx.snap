@@ -26,7 +26,7 @@ exports[`ConferenceInfoList renders conference link 1`] = `
   label="Contribution to"
   renderItem={[Function]}
   separateItems={true}
-  separateItemsClassName="separate-items-with-semicolon"
+  separateItemsClassName="separate-items-with-comma"
   suffix={null}
   wrapperClassName={null}
 />
