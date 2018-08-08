@@ -14,9 +14,11 @@
     "precommit": "pretty-quick --single-quote --staged"
   },
   "dependencies": {
+    "@babel/runtime": "7.0.0-beta.55",
     "antd": "^3.4.1",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "formik": "^1.0.2",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "jsondiffpatch": "^0.3.11",
@@ -34,7 +36,8 @@
     "react-vis": "^1.9.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "tachyons": "^4.10.0"
+    "tachyons": "^4.10.0",
+    "yup": "^0.26.0"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.15.0",

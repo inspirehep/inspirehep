@@ -44,3 +44,9 @@ export function selfOrInfinity(number) {
 export function getSizeOfArrayOrImmutableList(arrayOrList) {
   return Array.isArray(arrayOrList) ? arrayOrList.length : arrayOrList.size;
 }
+
+export function getWrappedComponentDisplayName(wrapperHocName, ComponentClass) {
+  const componentDisplayName =
+    ComponentClass.displayName || ComponentClass.name || 'Component';
+  return `${wrapperHocName}(${componentDisplayName})`;
+}

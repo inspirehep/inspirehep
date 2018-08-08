@@ -92,6 +92,7 @@ class CiteModalAction extends Component {
                 </Button>
               </div>
               <SelectBox
+                // TODO: pass style.width
                 defaultValue={DEFAULT_SELECT_VALUE}
                 onChange={this.onCiteFormatChange}
                 options={FORMAT_SELECT_OPTIONS}
