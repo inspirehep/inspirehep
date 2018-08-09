@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 import { Form } from 'antd';
+import { getIn } from 'formik';
+import classNames from 'classnames';
 
 import { getWrappedComponentDisplayName } from '../common/utils';
 
@@ -15,36 +17,59 @@ import { getWrappedComponentDisplayName } from '../common/utils';
  */
 export default function withFormItem(FormInputComponent) {
   class WithFormItem extends Component {
+    // FIXME: bad logic, should be explicit perhaps
+    getWrapperColForInline() {
+      const { label, labelCol } = this.props;
+      if (label && labelCol) {
+        const span = 24 - labelCol.span;
+        return { span };
+      }
+      return { span: 24 };
+    }
+
     shouldDisplayError() {
       const { field, form } = this.props;
       const { touched, errors } = form;
       const { name } = field;
-      return Boolean(touched[name] && errors[name]);
+      return Boolean(getIn(touched, name) && getIn(errors, name));
     }
 
     render() {
-      const { field, form, label, labelCol, wrapperCol, ...props } = this.props;
+      const {
+        field,
+        form,
+        label,
+        suffixText,
+        labelCol,
+        wrapperCol,
+        inline,
+        ...props
+      } = this.props;
       const { errors } = form;
       const { name } = field;
       const shouldDisplayError = this.shouldDisplayError();
       return (
         <Form.Item
+          className={classNames({ 'mb4-important': inline })}
           hasFeedback={shouldDisplayError}
           validateStatus={shouldDisplayError ? 'error' : ''}
-          help={errors[name]}
+          help={getIn(errors, name)}
           label={label}
-          labelCol={labelCol}
-          wrapperCol={wrapperCol}
+          labelCol={label ? labelCol : null}
+          wrapperCol={inline ? this.getWrapperColForInline() : wrapperCol}
         >
           <FormInputComponent {...field} {...props} form={form} />
+          {suffixText && <span className="ant-form-text">{suffixText}</span>}
         </Form.Item>
       );
     }
   }
+
   WithFormItem.defaultProps = {
     labelCol: { span: 5 },
     wrapperCol: { span: 19 },
   };
+
   WithFormItem.displayName = getWrappedComponentDisplayName(
     'WithFormItem',
     FormInputComponent

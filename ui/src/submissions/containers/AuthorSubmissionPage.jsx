@@ -15,9 +15,8 @@ class AuthorSubmissionPage extends Component {
           Author Submission
           <Formik
             initialValues={{
-              full_name: 'Harun Urhan',
+              display_name: 'Harun Urhan',
               field_of_research: ['hep-ph'],
-              start_year: 1993,
             }}
             validationSchema={authorSchema}
             onSubmit={(values, actions) => {
