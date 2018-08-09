@@ -2,9 +2,9 @@ import { string, object, mixed, array, number } from 'yup';
 
 import {
   fieldOfResearchValues,
-  degreeTypeValues,
   maxYear,
   minYear,
+  rankValues,
 } from './constants';
 
 const yearSchema = number()
@@ -12,11 +12,18 @@ const yearSchema = number()
   .max(maxYear);
 
 const authorSchema = object().shape({
-  full_name: string().required(),
+  display_name: string().required(),
   email: string().email(),
   field_of_research: array().of(mixed().oneOf(fieldOfResearchValues)),
-  degree_type: mixed().oneOf(degreeTypeValues),
-  start_year: yearSchema,
+  websites: array().of(string().url()),
+  institution_history: array().of(
+    object().shape({
+      institution: string().required(),
+      rank: mixed().oneOf(rankValues),
+      start_year: yearSchema,
+      end_year: yearSchema,
+    })
+  ),
 });
 
 export default authorSchema;

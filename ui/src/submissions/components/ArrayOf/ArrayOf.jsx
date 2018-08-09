@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'formik';
-import { Button, Icon, Form } from 'antd';
+import { Button, Icon, Form, Col } from 'antd';
 
 import './ArrayOf.scss';
 
@@ -34,21 +34,29 @@ class ArrayOf extends Component {
           name={name}
           render={({ push, remove }) => (
             <Form.Item label={label} labelCol={labelCol}>
-              {items &&
-                items.length > 0 &&
-                items.map((item, index) => (
-                  <div key={extractKey(item, index)}>
-                    {renderItem(`${name}.${index}`)}
-                    <Icon
-                      type="minus-circle-o"
-                      className="remove-button"
-                      onClick={() => remove(index)}
-                    />
-                  </div>
-                ))}
-              <Button type="dashed" onClick={() => push(emptyItem)}>
-                <Icon type="plus" /> Add new field
-              </Button>
+              <Form.Item wrapperCol={{ span: 24 - labelCol.span }}>
+                {items &&
+                  items.length > 0 &&
+                  items.map((item, index) => (
+                    <Fragment key={extractKey(item, index)}>
+                      <Col span={22}>{renderItem(`${name}.${index}`)}</Col>
+                      <Col span={1} offset={1}>
+                        <Icon
+                          type="minus-circle-o"
+                          className="remove-button"
+                          onClick={() => remove(index)}
+                        />
+                      </Col>
+                    </Fragment>
+                  ))}
+              </Form.Item>
+              <Form.Item
+                wrapperCol={{ span: 24 - labelCol.span, push: labelCol.span }}
+              >
+                <Button type="dashed" onClick={() => push(emptyItem)}>
+                  <Icon type="plus" /> Add new field
+                </Button>
+              </Form.Item>
             </Form.Item>
           )}
         />
@@ -62,13 +70,13 @@ ArrayOf.propTypes = {
   labelCol: PropTypes.objectOf(PropTypes.any),
   extractKey: PropTypes.func,
   renderItem: PropTypes.func.isRequired, // func(itemName)
-  emptyItem: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
-    .isRequired,
+  emptyItem: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
 };
 
 ArrayOf.defaultProps = {
   extractKey: (item, index) => index,
   label: null,
+  emptyItem: null,
   labelCol: { span: 5 },
 };
 

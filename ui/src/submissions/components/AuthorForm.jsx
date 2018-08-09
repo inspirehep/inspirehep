@@ -1,36 +1,26 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
-import { Button } from 'antd';
+import { Button, Col, Row } from 'antd';
 
 import TextField from './TextField';
 import BooleanField from './BooleanField';
 import SelectField from './SelectField';
-import NumberField from './NumberField';
+// import NumberField from './NumberField';
 import ArrayOf from './ArrayOf';
-import {
-  fieldOfResearchOptions,
-  degreeTypeOptions,
-} from '../schemas/constants';
+import { fieldOfResearchOptions, rankOptions } from '../schemas/constants';
 
 class AuthorForm extends Component {
   render() {
     const { isSubmitting, values } = this.props;
     return (
       <Form>
-        <Field name="full_name" label="Full Name" component={TextField} />
+        <Field name="display_name" label="Display Name" component={TextField} />
         <Field
           name="email"
           label="Email"
           placeholder="dude@thing.amk"
           component={TextField}
-        />
-        <Field name="current" label="Current" component={BooleanField} />
-        <Field
-          name="degree_type"
-          label="Degree Type"
-          options={degreeTypeOptions}
-          component={SelectField}
         />
         <Field
           name="field_of_research"
@@ -39,25 +29,67 @@ class AuthorForm extends Component {
           options={fieldOfResearchOptions}
           component={SelectField}
         />
-        <Field name="start_year" label="Start Year" component={NumberField} />
+        <ArrayOf
+          values={values}
+          label="Websites"
+          name="websites"
+          renderItem={itemName => (
+            <Field
+              wrapperCol={{ span: 24 }}
+              name={itemName}
+              placeholder="website"
+              component={TextField}
+            />
+          )}
+        />
         <ArrayOf
           values={values}
           label="Instituion History"
           name="institution_history"
-          emptyItem={{ institution: '' }}
           renderItem={itemName => (
-            <Fragment>
-              <Field
-                name={`${itemName}.institution`}
-                placeholder="institution"
-                component={TextField}
-              />
-              <Field
-                name={`${itemName}.current`}
-                label="Current"
-                component={BooleanField}
-              />
-            </Fragment>
+            <Row type="flex" justify="space-between">
+              <Col span={11}>
+                <Field
+                  inline
+                  name={`${itemName}.institution`}
+                  placeholder="institution"
+                  component={TextField}
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  inline
+                  name={`${itemName}.rank`}
+                  placeholder="rank"
+                  options={rankOptions}
+                  component={SelectField}
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  inline
+                  name={`${itemName}.start_year`}
+                  placeholder="start year"
+                  component={TextField}
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  inline
+                  name={`${itemName}.end_year`}
+                  placeholder="end year"
+                  component={TextField}
+                />
+              </Col>
+              <Col span={11}>
+                <Field
+                  inline
+                  name="current"
+                  suffixText="Current"
+                  component={BooleanField}
+                />
+              </Col>
+            </Row>
           )}
         />
         <Button type="primary" htmlType="submit" disabled={isSubmitting}>
