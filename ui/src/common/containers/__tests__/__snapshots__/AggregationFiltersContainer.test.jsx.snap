@@ -14,7 +14,7 @@ exports[`AggregationFiltersContainer does not render aggregations with empty buc
           },
         ]
       }
-      name="agg"
+      name="Jessica Jones"
       onChange={[Function]}
       range={false}
       selections={Array []}
@@ -37,7 +37,7 @@ exports[`AggregationFiltersContainer renders initial state with initial url quer
           },
         ]
       }
-      name="agg1"
+      name="Jessica Jones"
       onChange={[Function]}
       range={false}
       selections={
@@ -57,7 +57,7 @@ exports[`AggregationFiltersContainer renders initial state with initial url quer
           },
         ]
       }
-      name="agg2"
+      name="Luke Cage"
       onChange={[Function]}
       range={false}
       selections={Array []}
