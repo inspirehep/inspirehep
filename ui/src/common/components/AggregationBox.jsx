@@ -5,14 +5,11 @@ import { Col, Row } from 'antd';
 class AggregationBox extends Component {
   render() {
     const { name, headerAction } = this.props;
-    // FIXME: terrible hack, should be fixed in the backend
-    const displayName = name.replace('_', ' ');
-
     return (
       <div className="w-100 mb4 br1">
         <Row type="flex" justify="space-between">
           <Col>
-            <h3 className="ttc pb1">{displayName}</h3>
+            <h3 className="pb1">{name}</h3>
           </Col>
           <Col>{headerAction}</Col>
         </Row>

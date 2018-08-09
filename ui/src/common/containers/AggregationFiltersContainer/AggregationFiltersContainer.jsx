@@ -4,29 +4,20 @@ import { connect } from 'react-redux';
 import Immutable from 'immutable';
 
 import AggregationFilter from '../../components/AggregationFilter';
-import { forceArray, convertArrayToMap, selfOrInfinity } from '../../utils';
+import { forceArray } from '../../utils';
 import search from '../../../actions/search';
 import './AggregationFiltersContainer.scss';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
-const AGGREGATION_KEYS_ORDER = [
-  'earliest_date',
-  'author',
-  'subject',
-  'arxiv_categories',
-  'experiment',
-  'doc_type',
-];
-const AGGREGATIONS_KEYS_ORDER_MAP = convertArrayToMap(AGGREGATION_KEYS_ORDER);
 
 class AggregationFiltersContainer extends Component {
   static isRange(aggregationKey) {
     return aggregationKey === RANGE_AGGREATION_KEY;
   }
 
-  static compareAggregationEntries([key1], [key2]) {
-    const order1 = selfOrInfinity(AGGREGATIONS_KEYS_ORDER_MAP[key1]);
-    const order2 = selfOrInfinity(AGGREGATIONS_KEYS_ORDER_MAP[key2]);
+  static compareAggregationEntries([, aggregation1], [, aggregation2]) {
+    const order1 = aggregation1.getIn(['meta', 'order']);
+    const order2 = aggregation2.getIn(['meta', 'order']);
     return order1 - order2;
   }
 
@@ -50,7 +41,7 @@ class AggregationFiltersContainer extends Component {
             <div key={aggregationKey}>
               <AggregationFilter
                 range={aggregationKey === RANGE_AGGREATION_KEY}
-                name={aggregationKey}
+                name={aggregation.getIn(['meta', 'title'])}
                 buckets={aggregation.get('buckets')}
                 selections={forceArray(this.props.query[aggregationKey])}
                 onChange={selections => {

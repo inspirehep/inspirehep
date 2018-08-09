@@ -34,15 +34,6 @@ describe('AggregationBox', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders AggreagationBox with underscore in the name', () => {
-    const wrapper = shallow(
-      <AggregationBox name="jessica_jones" headerAction={<h2>PI</h2>}>
-        <div>Defenders</div>
-      </AggregationBox>
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('renders AggreagationBox with empty string name', () => {
     const wrapper = shallow(
       <AggregationBox name="" headerAction={<h2>PI</h2>}>

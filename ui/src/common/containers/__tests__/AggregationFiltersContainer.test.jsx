@@ -16,9 +16,17 @@ describe('AggregationFiltersContainer', () => {
         aggregations: {
           agg1: {
             buckets: [{}],
+            meta: {
+              title: 'Jessica Jones',
+              order: 1,
+            },
           },
           agg2: {
             buckets: [{}],
+            meta: {
+              title: 'Luke Cage',
+              order: 2,
+            },
           },
         },
       }),
@@ -35,9 +43,17 @@ describe('AggregationFiltersContainer', () => {
         aggregations: {
           agg: {
             buckets: [{}],
+            meta: {
+              title: 'Jessica Jones',
+              order: 1,
+            },
           },
           emptyAgg: {
             buckets: [],
+            meta: {
+              title: 'Luke Cage',
+              order: 2,
+            },
           },
         },
       }),
