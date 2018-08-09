@@ -9,6 +9,7 @@ import SelectField from './SelectField';
 // import NumberField from './NumberField';
 import ArrayOf from './ArrayOf';
 import { fieldOfResearchOptions, rankOptions } from '../schemas/constants';
+import SuggesterField from './SuggesterField';
 
 class AuthorForm extends Component {
   render() {
@@ -53,7 +54,9 @@ class AuthorForm extends Component {
                   inline
                   name={`${itemName}.institution`}
                   placeholder="institution"
-                  component={TextField}
+                  pidType="institutions"
+                  suggesterName="affiliation"
+                  component={SuggesterField}
                 />
               </Col>
               <Col span={11}>
