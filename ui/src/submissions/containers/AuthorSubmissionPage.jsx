@@ -23,8 +23,10 @@ class AuthorSubmissionPage extends Component {
             validationSchema={authorSchema}
             onSubmit={(values, actions) => {
               // TODO: clear & trim
-              console.log(values);
-              actions.setSubmitting(false);
+              setTimeout(() => {
+                console.log(values);
+                actions.setSubmitting(false);
+              }, 3000);
             }}
             component={AuthorForm}
           />
