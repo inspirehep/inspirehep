@@ -14,13 +14,8 @@ import SuggesterField from './SuggesterField';
 import TextAreaField from './TextAreaField';
 
 class AuthorForm extends Component {
-  isSubmitDisabled() {
-    const { isSubmitting, isValidating, isValid } = this.props;
-    return isSubmitting || isValidating || !isValid;
-  }
-
   render() {
-    const { values } = this.props;
+    const { values, isSubmitting, isValid, isValidating } = this.props;
     return (
       <Form>
         <CollapsableForm openSections={['personal_info', 'comments']}>
@@ -123,13 +118,16 @@ class AuthorForm extends Component {
             />
           </CollapsableForm.Section>
         </CollapsableForm>
-        <Button
-          type="primary"
-          htmlType="submit"
-          disabled={this.isSubmitDisabled()}
-        >
-          Submit
-        </Button>
+        <Row type="flex" justify="end">
+          <Button
+            type="primary"
+            htmlType="submit"
+            loading={isSubmitting || isValidating}
+            disabled={!isValid}
+          >
+            Submit
+          </Button>
+        </Row>
       </Form>
     );
   }
