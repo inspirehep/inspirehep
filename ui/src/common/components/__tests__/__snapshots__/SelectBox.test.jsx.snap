@@ -7,11 +7,6 @@ exports[`SelectBox render initial state with all props set 1`] = `
   onChange={[Function]}
   prefixCls="ant-select"
   showSearch={false}
-  style={
-    Object {
-      "width": 140,
-    }
-  }
   transitionName="slide-up"
 >
   <Option

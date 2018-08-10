@@ -20,6 +20,5 @@ exports[`SortByContainer renders initial state with initial url query sort param
       },
     ]
   }
-  width={140}
 />
 `;
