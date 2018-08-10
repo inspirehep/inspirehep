@@ -2,12 +2,20 @@
 
 exports[`LoginPage renders page 1`] = `
 <Row
-  className="__LoginPage__ h-100 pt5"
+  align="middle"
+  className="__LoginPage__ h-100"
   gutter={0}
   justify="center"
   type="flex"
 >
-  <Col>
+  <Card
+    align="middle"
+  >
+    <p
+      className="f4"
+    >
+      Please sign in to suggest content to INSPIRE
+    </p>
     <Button
       className="login-button h3"
       ghost={false}
@@ -24,6 +32,14 @@ exports[`LoginPage renders page 1`] = `
         Login with ORCID
       </strong>
     </Button>
-  </Col>
+    <a
+      className="db pt3"
+      href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid/"
+      rel="noreferrer noopener"
+      target="_blank"
+    >
+      What is ORCID?
+    </a>
+  </Card>
 </Row>
 `;
