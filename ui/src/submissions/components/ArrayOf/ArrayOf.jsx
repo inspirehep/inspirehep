@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'formik';
-import { Button, Icon, Form, Col } from 'antd';
+import { Button, Icon, Form, Col, Row } from 'antd';
 
 import './ArrayOf.scss';
 
@@ -34,11 +34,14 @@ class ArrayOf extends Component {
           name={name}
           render={({ push, remove }) => (
             <Form.Item label={label} labelCol={labelCol}>
-              <Form.Item wrapperCol={{ span: 24 - labelCol.span }}>
+              <Form.Item
+                wrapperCol={{ span: 24 - labelCol.span }}
+                className="items-container"
+              >
                 {items &&
                   items.length > 0 &&
                   items.map((item, index) => (
-                    <Fragment key={extractKey(item, index)}>
+                    <Row key={extractKey(item, index)} className="item">
                       <Col span={22}>{renderItem(`${name}.${index}`)}</Col>
                       <Col span={1} offset={1}>
                         <Icon
@@ -47,11 +50,12 @@ class ArrayOf extends Component {
                           onClick={() => remove(index)}
                         />
                       </Col>
-                    </Fragment>
+                    </Row>
                   ))}
               </Form.Item>
               <Form.Item
                 wrapperCol={{ span: 24 - labelCol.span, push: labelCol.span }}
+                className="add-button"
               >
                 <Button type="dashed" onClick={() => push(emptyItem)}>
                   <Icon type="plus" /> Add new field

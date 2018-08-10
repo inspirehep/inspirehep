@@ -12,17 +12,17 @@ class AuthorSubmissionPage extends Component {
     return (
       <Row type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
-          Author Submission
+          <div className="mb3">Author Submission</div>
           <Formik
             initialValues={{
               display_name: 'Harun Urhan',
               field_of_research: ['hep-ph'],
-              institution_history: [{}],
-              websites: [' '],
+              institution_history: [null],
+              websites: [null],
             }}
             validationSchema={authorSchema}
             onSubmit={(values, actions) => {
-              // TODO: clear & trim (via yup?)
+              // TODO: clear & trim
               console.log(values);
               actions.setSubmitting(false);
             }}
