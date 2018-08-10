@@ -15,7 +15,11 @@ const authorSchema = object().shape({
   display_name: string().required(),
   email: string().email(),
   field_of_research: array().of(mixed().oneOf(fieldOfResearchValues)),
-  websites: array().of(string().url()),
+  websites: array().of(
+    string()
+      .min(1)
+      .url()
+  ),
   institution_history: array().of(
     object().shape({
       institution: string().required(),
@@ -24,6 +28,7 @@ const authorSchema = object().shape({
       end_year: yearSchema,
     })
   ),
+  comments: string(),
 });
 
 export default authorSchema;

@@ -95,7 +95,11 @@ exports[`CiteModalAction renders with recordId 1`] = `
               },
             ]
           }
-          width={140}
+          style={
+            Object {
+              "width": 140,
+            }
+          }
         />
       </Row>
     </div>

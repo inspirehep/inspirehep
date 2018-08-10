@@ -16,7 +16,13 @@ class NumberField extends Component {
   }
 
   render() {
-    return <InputNumber {...this.props} onChange={this.onChange} />;
+    return (
+      <InputNumber
+        {...this.props}
+        onChange={this.onChange}
+        style={{ width: '100%' }}
+      />
+    );
   }
 }
 

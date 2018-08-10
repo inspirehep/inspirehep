@@ -17,9 +17,12 @@ class AuthorSubmissionPage extends Component {
             initialValues={{
               display_name: 'Harun Urhan',
               field_of_research: ['hep-ph'],
+              institution_history: [{}],
+              websites: [' '],
             }}
             validationSchema={authorSchema}
             onSubmit={(values, actions) => {
+              // TODO: clear & trim (via yup?)
               console.log(values);
               actions.setSubmitting(false);
             }}

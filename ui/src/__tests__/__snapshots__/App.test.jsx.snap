@@ -28,6 +28,10 @@ exports[`App renders initial state 1`] = `
         component={[Function]}
         path="/literature"
       />
+      <Route
+        component={[Function]}
+        path="/submissions"
+      />
     </Switch>
   </Adapter>
   <Footer />

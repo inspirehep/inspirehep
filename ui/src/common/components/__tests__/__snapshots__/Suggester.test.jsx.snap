@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Suggester renders empty if request fails 1`] = `
+<AutoComplete
+  choiceTransitionName="zoom"
+  filterOption={false}
+  onSearch={[Function]}
+  optionLabelProp="children"
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+/>
+`;
+
+exports[`Suggester renders results onSearch 1`] = `
+<AutoComplete
+  choiceTransitionName="zoom"
+  filterOption={false}
+  onSearch={[Function]}
+  optionLabelProp="children"
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+>
+  <Option
+    key="Result 1"
+  >
+    Result 1
+  </Option>
+  <Option
+    key="Result 2"
+  >
+    Result 2
+  </Option>
+</AutoComplete>
+`;
+
+exports[`Suggester renders results with custom template onSearch 1`] = `
+<AutoComplete
+  choiceTransitionName="zoom"
+  filterOption={false}
+  onSearch={[Function]}
+  optionLabelProp="children"
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+>
+  <Option
+    key="Result 1"
+  >
+    Result 1 - Extra 1
+  </Option>
+  <Option
+    key="Result 2"
+  >
+    Result 2 - Extra 2
+  </Option>
+</AutoComplete>
+`;

@@ -39,18 +39,13 @@ class Suggester extends Component {
   render() {
     const { results } = this.state;
     const {
-      placeholder,
       renderResultItem,
       suggesterName,
       pidType,
       ...autoCompleteProps
     } = this.props;
     return (
-      <AutoComplete
-        onSearch={this.onSearch}
-        placeholder={placeholder}
-        {...autoCompleteProps}
-      >
+      <AutoComplete onSearch={this.onSearch} {...autoCompleteProps}>
         {results.map(result => (
           <AutoComplete.Option key={result.text}>
             {renderResultItem(result)}
@@ -65,11 +60,9 @@ Suggester.propTypes = {
   pidType: PropTypes.string.isRequired,
   suggesterName: PropTypes.string.isRequired,
   renderResultItem: PropTypes.func,
-  placeholder: PropTypes.string,
 };
 
 Suggester.defaultProps = {
-  placeholder: null,
   renderResultItem: resultItem => resultItem.text,
 };
 

@@ -1,0 +1,158 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (with error) 1`] = `
+<FormItem
+  className=""
+  colon={true}
+  hasFeedback={true}
+  help="Error"
+  label="Test Label"
+  labelCol={
+    Object {
+      "span": 5,
+    }
+  }
+  prefixCls="ant-form"
+  validateStatus="error"
+  wrapperCol={
+    Object {
+      "span": 19,
+    }
+  }
+>
+  <TestField
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {
+          "test": "Error",
+        },
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+  <span
+    className="ant-form-text"
+  >
+    Test Suffix
+  </span>
+</FormItem>
+`;
+
+exports[`withFormItem passes all props correctly to Form.Item and wrapped Input component (without error) 1`] = `
+<FormItem
+  className=""
+  colon={true}
+  hasFeedback={false}
+  label="Test Label"
+  labelCol={
+    Object {
+      "span": 5,
+    }
+  }
+  prefixCls="ant-form"
+  validateStatus=""
+  wrapperCol={
+    Object {
+      "span": 19,
+    }
+  }
+>
+  <TestField
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {},
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+  <span
+    className="ant-form-text"
+  >
+    Test Suffix
+  </span>
+</FormItem>
+`;
+
+exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and custom layout) 1`] = `
+<FormItem
+  className=""
+  colon={true}
+  hasFeedback={false}
+  label="Test Label"
+  labelCol={
+    Object {
+      "offset": 2,
+      "span": 3,
+    }
+  }
+  prefixCls="ant-form"
+  validateStatus=""
+  wrapperCol={
+    Object {
+      "span": 10,
+    }
+  }
+>
+  <TestField
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {},
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+</FormItem>
+`;
+
+exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
+<FormItem
+  className="mb4-important"
+  colon={true}
+  hasFeedback={false}
+  labelCol={null}
+  prefixCls="ant-form"
+  validateStatus=""
+  wrapperCol={
+    Object {
+      "span": 24,
+    }
+  }
+>
+  <TestField
+    fieldProp1="fp1"
+    form={
+      Object {
+        "errors": Object {},
+        "touched": Object {
+          "test": true,
+        },
+      }
+    }
+    frieldProp2="fp2"
+    name="test"
+    normalProp1="np1"
+    normalProp2="np2"
+  />
+</FormItem>
+`;

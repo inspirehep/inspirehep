@@ -17,8 +17,7 @@ import { getWrappedComponentDisplayName } from '../common/utils';
  */
 export default function withFormItem(FormInputComponent) {
   class WithFormItem extends Component {
-    // FIXME: bad logic, should be explicit perhaps
-    getWrapperColForInline() {
+    getWrapperColForOnlyChild() {
       const { label, labelCol } = this.props;
       if (label && labelCol) {
         const span = 24 - labelCol.span;
@@ -42,7 +41,7 @@ export default function withFormItem(FormInputComponent) {
         suffixText,
         labelCol,
         wrapperCol,
-        inline,
+        onlyChild,
         ...props
       } = this.props;
       const { errors } = form;
@@ -50,13 +49,13 @@ export default function withFormItem(FormInputComponent) {
       const shouldDisplayError = this.shouldDisplayError();
       return (
         <Form.Item
-          className={classNames({ 'mb4-important': inline })}
+          className={classNames({ 'mb4-important': onlyChild })}
           hasFeedback={shouldDisplayError}
           validateStatus={shouldDisplayError ? 'error' : ''}
           help={getIn(errors, name)}
           label={label}
           labelCol={label ? labelCol : null}
-          wrapperCol={inline ? this.getWrapperColForInline() : wrapperCol}
+          wrapperCol={onlyChild ? this.getWrapperColForOnlyChild() : wrapperCol}
         >
           <FormInputComponent {...field} {...props} form={form} />
           {suffixText && <span className="ant-form-text">{suffixText}</span>}
