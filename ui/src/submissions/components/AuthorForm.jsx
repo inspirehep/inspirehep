@@ -3,7 +3,12 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Button, Col, Row } from 'antd';
 
-import { fieldOfResearchOptions, rankOptions } from '../schemas/constants';
+import {
+  fieldOfResearchOptions,
+  rankOptions,
+  authorStatusOptions,
+  degreeTypeOptions,
+} from '../schemas/constants';
 import CollapsableForm from './CollapsableForm';
 import TextField from './TextField';
 import BooleanField from './BooleanField';
@@ -12,25 +17,107 @@ import NumberField from './NumberField';
 import ArrayOf from './ArrayOf';
 import SuggesterField from './SuggesterField';
 import TextAreaField from './TextAreaField';
+import LabelWithHelp from './LabelWithHelp';
+
+const OPEN_SECTIONS = [
+  'personal_info',
+  'career_info',
+  'personal_websites',
+  'comments',
+];
 
 class AuthorForm extends Component {
   render() {
     const { values, isSubmitting, isValid, isValidating } = this.props;
     return (
       <Form>
-        <CollapsableForm openSections={['personal_info', 'comments']}>
+        <CollapsableForm openSections={OPEN_SECTIONS}>
           <CollapsableForm.Section header="Personal Info" key="personal_info">
             <Field
-              name="display_name"
-              label="Display Name"
+              name="given_name"
+              label="Given Name *"
+              placeholder="e.g. Diego"
               component={TextField}
             />
             <Field
-              name="email"
-              label="Email"
-              placeholder="dude@thing.amk"
+              name="family_name"
+              label="Family Name"
+              placeholder="e.g. Martínez Santos"
               component={TextField}
             />
+            <Field
+              name="display_name"
+              label="Display Name *"
+              placeholder="How should the author be addressed throughout the site? e.g. Diego Martínez"
+              component={TextField}
+            />
+            <Field
+              name="native_name"
+              label="Native Name"
+              placeholder="For non-Latin names e.g. 麦迪娜 or Эдгар Бугаев"
+              component={TextField}
+            />
+            <ArrayOf
+              values={values}
+              name="public_emails"
+              label="Public emails"
+              emptyItem=""
+              renderItem={itemName => (
+                <Field
+                  onlyChild
+                  name={itemName}
+                  placeholder="This will be displayed in the INSPIRE Author Profile"
+                  component={TextField}
+                />
+              )}
+            />
+            <Field
+              name="status"
+              label="Status *"
+              options={authorStatusOptions}
+              component={SelectField}
+            />
+            <Field
+              name="orcid"
+              addonBefore="orcid.org/"
+              label={
+                <LabelWithHelp
+                  label="ORCID"
+                  help="ORCID provides a persistent digital identifier that distinguishes you from other researchers"
+                />
+              }
+              placeholder="0000-0000-0000-0000"
+              component={TextField}
+            />
+          </CollapsableForm.Section>
+          <CollapsableForm.Section
+            header="Personal Websites"
+            key="personal_websites"
+          >
+            <ArrayOf
+              values={values}
+              name="websites"
+              label="Websites"
+              emptyItem=""
+              renderItem={itemName => (
+                <Field onlyChild name={itemName} component={TextField} />
+              )}
+            />
+            <Field
+              name="linkedin"
+              label="Linkedin"
+              addonBefore="linkedin.com/in/"
+              component={TextField}
+            />
+            <Field name="blog" label="Blog" component={TextField} />
+            <Field
+              name="twitter"
+              label="Twitter"
+              addonBefore="twitter.com/"
+              component={TextField}
+            />
+          </CollapsableForm.Section>
+          <CollapsableForm.Section header="Career Info" key="career_info">
             <Field
               name="field_of_research"
               label="Field of Research"
@@ -38,22 +125,6 @@ class AuthorForm extends Component {
               options={fieldOfResearchOptions}
               component={SelectField}
             />
-            <ArrayOf
-              values={values}
-              name="websites"
-              label="Websites"
-              emptyItem=""
-              renderItem={itemName => (
-                <Field
-                  onlyChild
-                  name={itemName}
-                  placeholder="website"
-                  component={TextField}
-                />
-              )}
-            />
-          </CollapsableForm.Section>
-          <CollapsableForm.Section header="Career Info" key="career_info">
             <ArrayOf
               values={values}
               label="Institution History"
@@ -64,7 +135,7 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.institution`}
-                      placeholder="institution"
+                      placeholder="Institution, type for suggestions"
                       pidType="institutions"
                       suggesterName="affiliation"
                       component={SuggesterField}
@@ -74,7 +145,7 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.rank`}
-                      placeholder="rank"
+                      placeholder="Rank"
                       options={rankOptions}
                       component={SelectField}
                     />
@@ -83,7 +154,7 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.start_year`}
-                      placeholder="start year"
+                      placeholder="Start year"
                       component={NumberField}
                     />
                   </Col>
@@ -91,7 +162,7 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.end_year`}
-                      placeholder="end year"
+                      placeholder="End year"
                       component={NumberField}
                     />
                   </Col>
@@ -101,6 +172,75 @@ class AuthorForm extends Component {
                       name="current"
                       suffixText="Current"
                       component={BooleanField}
+                    />
+                  </Col>
+                </Row>
+              )}
+            />
+            <ArrayOf
+              values={values}
+              label="Experiment History"
+              name="experiment_history"
+              renderItem={itemName => (
+                <Row type="flex" justify="space-between">
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.experiment`}
+                      placeholder="Experiment, type for suggestions"
+                      pidType="experiments"
+                      suggesterName="experiment_name"
+                      component={SuggesterField}
+                    />
+                  </Col>
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.start_year`}
+                      placeholder="Start year"
+                      component={NumberField}
+                    />
+                  </Col>
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.end_year`}
+                      placeholder="End year"
+                      component={NumberField}
+                    />
+                  </Col>
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name="current"
+                      suffixText="Current"
+                      component={BooleanField}
+                    />
+                  </Col>
+                </Row>
+              )}
+            />
+            <ArrayOf
+              values={values}
+              label="Advisors"
+              name="advisors"
+              renderItem={itemName => (
+                <Row type="flex" justify="space-between">
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.name`}
+                      placeholder="Family name, first name"
+                      component={TextField}
+                    />
+                  </Col>
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.degree_type`}
+                      placeholder="Degree type"
+                      options={degreeTypeOptions}
+                      component={SelectField}
                     />
                   </Col>
                 </Row>

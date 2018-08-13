@@ -18,7 +18,7 @@ const SubmissionSuccessPage$ = Loadable({
 class Submissions extends Component {
   render() {
     return (
-      <div className="__Submissions__">
+      <div className="__Submissions__ w-100">
         <Route
           exact
           path="/submissions/author"
