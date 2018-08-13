@@ -6,6 +6,7 @@ import literature from './literature';
 import exceptions from './exceptions';
 import inspect from './inspect';
 import user from './user';
+import submissions from './submissions';
 
 const reducers = combineReducers({
   router: routerReducer,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   literature,
   user,
   search,
+  submissions,
 });
 
 export default reducers;

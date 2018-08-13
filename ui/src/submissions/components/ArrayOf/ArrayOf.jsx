@@ -43,13 +43,15 @@ class ArrayOf extends Component {
                   items.map((item, index) => (
                     <Row key={extractKey(item, index)} className="item">
                       <Col span={22}>{renderItem(`${name}.${index}`)}</Col>
-                      <Col span={1} offset={1}>
-                        <Icon
-                          type="minus-circle-o"
-                          className="remove-button"
-                          onClick={() => remove(index)}
-                        />
-                      </Col>
+                      {items.length > 1 && (
+                        <Col span={1} offset={1}>
+                          <Icon
+                            type="minus-circle-o"
+                            className="remove-button"
+                            onClick={() => remove(index)}
+                          />
+                        </Col>
+                      )}
                     </Row>
                   ))}
               </Form.Item>

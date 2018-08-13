@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Button, Col, Row } from 'antd';
 
+import { fieldOfResearchOptions, rankOptions } from '../schemas/constants';
 import CollapsableForm from './CollapsableForm';
 import TextField from './TextField';
 import BooleanField from './BooleanField';
 import SelectField from './SelectField';
 import NumberField from './NumberField';
 import ArrayOf from './ArrayOf';
-import { fieldOfResearchOptions, rankOptions } from '../schemas/constants';
 import SuggesterField from './SuggesterField';
 import TextAreaField from './TextAreaField';
 
@@ -46,7 +46,6 @@ class AuthorForm extends Component {
               renderItem={itemName => (
                 <Field
                   onlyChild
-                  // wrapperCol={{ span: 24 }}
                   name={itemName}
                   placeholder="website"
                   component={TextField}
