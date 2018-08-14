@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col } from 'antd';
+import { Map } from 'immutable';
+import { Row, Col, Alert } from 'antd';
 import { Formik } from 'formik';
 
 import AuthorForm from '../components/AuthorForm';
@@ -20,7 +21,7 @@ class AuthorSubmissionPage extends Component {
   }
 
   render() {
-    const { dispatch } = this.props;
+    const { dispatch, error } = this.props;
     return (
       <Row type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
@@ -36,6 +37,16 @@ class AuthorSubmissionPage extends Component {
             </a>{' '}
             upon approval.
           </div>
+          {error && (
+            <div className="mb3">
+              <Alert
+                message={error.get('message')}
+                type="error"
+                showIcon
+                closable
+              />
+            </div>
+          )}
           <Formik
             initialValues={initialValues}
             validationSchema={authorSchema}
@@ -44,6 +55,7 @@ class AuthorSubmissionPage extends Component {
               await dispatch(submitAuthor(values));
               if (this.mounted) {
                 actions.setSubmitting(false);
+                window.scrollTo(0, 0);
               }
             }}
             component={AuthorForm}
@@ -56,10 +68,11 @@ class AuthorSubmissionPage extends Component {
 
 AuthorSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
 };
 
 const stateToProps = state => ({
-  submitted: state.submissions.get('submitted'),
+  error: state.submissions.get('error'),
 });
 
 const dispatchToProps = dispatch => ({ dispatch });

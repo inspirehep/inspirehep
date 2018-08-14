@@ -8,13 +8,14 @@ import {
   authorStatusValues,
   degreeTypeValues,
 } from './constants';
+import { emptyObjectOrShapeOf } from './customSchemas';
 
 const yearSchema = number()
   .min(minYear)
   .max(maxYear);
 
 const arrayWithNullDefault = array().default([null]);
-const arrayWithEmptyObject = array().default([{}]);
+const arrayWithEmptyObjectDefault = array().default([{}]);
 
 const authorSchema = object().shape({
   given_name: string().required(),
@@ -40,34 +41,28 @@ const authorSchema = object().shape({
   linkedin: string(),
   twitter: string(),
   field_of_research: array().of(string().oneOf(fieldOfResearchValues)),
-  institution_history: arrayWithEmptyObject.of(
-    object()
-      .nullable()
-      .shape({
-        institution: string().required(),
-        rank: string().oneOf(rankValues),
-        start_year: yearSchema,
-        end_year: yearSchema,
-        current: boolean(),
-      })
+  institution_history: arrayWithEmptyObjectDefault.of(
+    emptyObjectOrShapeOf({
+      institution: string().required(),
+      rank: string().oneOf(rankValues),
+      start_year: yearSchema,
+      end_year: yearSchema,
+      current: boolean(),
+    })
   ),
-  experiment_history: arrayWithEmptyObject.of(
-    object()
-      .nullable()
-      .shape({
-        experiment: string().required(),
-        start_year: yearSchema,
-        end_year: yearSchema,
-        current: boolean(),
-      })
+  experiment_history: arrayWithEmptyObjectDefault.of(
+    emptyObjectOrShapeOf({
+      experiment: string().required(),
+      start_year: yearSchema,
+      end_year: yearSchema,
+      current: boolean(),
+    })
   ),
-  advisors: arrayWithEmptyObject.of(
-    object()
-      .nullable()
-      .shape({
-        name: string().required(),
-        degree_type: string().oneOf(degreeTypeValues),
-      })
+  advisors: arrayWithEmptyObjectDefault.of(
+    emptyObjectOrShapeOf({
+      name: string().required(),
+      degree_type: string().oneOf(degreeTypeValues),
+    })
   ),
   comments: string(),
 });
