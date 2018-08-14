@@ -1,6 +1,6 @@
-import { object, lazy } from 'yup';
+import { object, lazy, string } from 'yup';
+import isValidOrcid from 'is-valid-orcid';
 
-// eslint-disable-next-line import/prefer-default-export
 export function emptyObjectOrShapeOf(shape) {
   return lazy(value => {
     if (Object.keys(value).length === 0) {
@@ -8,4 +8,8 @@ export function emptyObjectOrShapeOf(shape) {
     }
     return object().shape(shape);
   });
+}
+
+export function orcid(validationMessage = 'Not a valid ORCID') {
+  return string().test('orcid', validationMessage, isValidOrcid);
 }

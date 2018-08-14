@@ -8,7 +8,7 @@ import {
   authorStatusValues,
   degreeTypeValues,
 } from './constants';
-import { emptyObjectOrShapeOf } from './customSchemas';
+import { emptyObjectOrShapeOf, orcid } from './customSchemas';
 
 const yearSchema = number()
   .min(minYear)
@@ -31,7 +31,7 @@ const authorSchema = object().shape({
     .oneOf(authorStatusValues)
     .required()
     .default(authorStatusValues[0]),
-  orcid: string(),
+  orcid: orcid(),
   websites: arrayWithNullDefault.of(
     string()
       .nullable()
