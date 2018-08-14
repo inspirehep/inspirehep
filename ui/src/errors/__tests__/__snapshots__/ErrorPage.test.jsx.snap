@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage renders with correct props 1`] = `
+<Col
+  align="middle"
+  className="mt3 mb3"
+  justify="center"
+  span={14}
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <h3
+        className="f1"
+      >
+        404
+      </h3>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <h3
+        className="f2"
+      >
+        Message
+      </h3>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <img
+        alt="ERROR"
+        src="Some image"
+      />
+    </Col>
+  </Row>
+</Col>
+`;
