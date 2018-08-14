@@ -129,6 +129,7 @@ class AuthorForm extends Component {
               values={values}
               label="Institution History"
               name="institution_history"
+              emptyItem={{}}
               renderItem={itemName => (
                 <Row type="flex" justify="space-between">
                   <Col span={11}>
@@ -181,6 +182,7 @@ class AuthorForm extends Component {
               values={values}
               label="Experiment History"
               name="experiment_history"
+              emptyItem={{}}
               renderItem={itemName => (
                 <Row type="flex" justify="space-between">
                   <Col span={11}>
@@ -224,6 +226,7 @@ class AuthorForm extends Component {
               values={values}
               label="Advisors"
               name="advisors"
+              emptyItem={{}}
               renderItem={itemName => (
                 <Row type="flex" justify="space-between">
                   <Col span={11}>
