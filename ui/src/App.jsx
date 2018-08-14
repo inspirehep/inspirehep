@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import Loadable from 'react-loadable';
 
@@ -28,6 +28,10 @@ const Submissions$ = Loadable({
   loader: () => import('./submissions'),
   loading: Loading,
 });
+const Errors$ = Loadable({
+  loader: () => import('./errors'),
+  loading: Loading,
+});
 
 class App extends Component {
   componentDidMount() {
@@ -45,6 +49,8 @@ class App extends Component {
             <Route path="/holdingpen" component={Holdingpen$} />
             <Route path="/literature" component={Literature$} />
             <Route path="/submissions" component={Submissions$} />
+            <Route path="/errors" component={Errors$} />
+            <Redirect to="/errors" />
           </Switch>
         </Layout.Content>
         <Footer />

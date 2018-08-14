@@ -11,6 +11,7 @@ import Home from '../home';
 import Literature from '../literature';
 import User from '../user';
 import Submissions from '../submissions';
+import Errors from '../errors';
 
 describe('App', () => {
   it('renders initial state', () => {
@@ -92,5 +93,27 @@ describe('App', () => {
       </Provider>
     );
     expect(wrapper.find(Home)).toExist();
+  });
+
+  it('navigates to Errors when /errors', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/errors']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Errors)).toExist();
+  });
+
+  it('redirects to Errors when /anythingElse', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/anythingElse']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Errors)).toExist();
   });
 });

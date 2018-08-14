@@ -32,6 +32,14 @@ exports[`App renders initial state 1`] = `
         component={[Function]}
         path="/submissions"
       />
+      <Route
+        component={[Function]}
+        path="/errors"
+      />
+      <Redirect
+        push={false}
+        to="/errors"
+      />
     </Switch>
   </Adapter>
   <Footer />
