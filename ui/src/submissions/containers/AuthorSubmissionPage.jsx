@@ -8,6 +8,7 @@ import { Formik } from 'formik';
 import AuthorForm from '../components/AuthorForm';
 import authorSchema from '../schemas/author';
 import { submitAuthor } from '../../actions/submissions';
+import cleanupFormData from '../cleanupFormData';
 
 const initialValues = authorSchema.cast();
 
@@ -51,8 +52,8 @@ class AuthorSubmissionPage extends Component {
             initialValues={initialValues}
             validationSchema={authorSchema}
             onSubmit={async (values, actions) => {
-              // TODO: clear & trim
-              await dispatch(submitAuthor(values));
+              const cleanValues = cleanupFormData(values);
+              await dispatch(submitAuthor(cleanValues));
               if (this.mounted) {
                 actions.setSubmitting(false);
                 window.scrollTo(0, 0);
