@@ -57,7 +57,7 @@ export class RecordApiService extends CommonApiService {
 
   fetchRecord(pidType: string, pidValue: string): Promise<Object> {
     this.currentRecordId = pidValue;
-    this.currentRecordApiUrl = `${apiUrl}/${pidType}/${pidValue}/db`;
+    this.currentRecordApiUrl = `${apiUrl}/${pidType}/${pidValue}`;
     this.currentRecordEditorApiUrl = `${editorApiUrl}/${pidType}/${pidValue}`;
     this.newRecordFetched$.next(null);
     return this.fetchUrl(this.currentRecordApiUrl);
