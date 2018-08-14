@@ -35,7 +35,7 @@ class AuthorForm extends Component {
           <CollapsableForm.Section header="Personal Info" key="personal_info">
             <Field
               name="given_name"
-              label="Given Name *"
+              label="* Given Name"
               placeholder="e.g. Diego"
               component={TextField}
             />
@@ -47,7 +47,7 @@ class AuthorForm extends Component {
             />
             <Field
               name="display_name"
-              label="Display Name *"
+              label="* Display Name"
               placeholder="How should the author be addressed throughout the site? e.g. Diego Martínez"
               component={TextField}
             />
@@ -60,7 +60,7 @@ class AuthorForm extends Component {
             <ArrayOf
               values={values}
               name="public_emails"
-              label="Public emails"
+              label="Public Emails"
               emptyItem=""
               renderItem={itemName => (
                 <Field
@@ -73,7 +73,7 @@ class AuthorForm extends Component {
             />
             <Field
               name="status"
-              label="Status *"
+              label="* Status"
               options={authorStatusOptions}
               component={SelectField}
             />
@@ -103,13 +103,13 @@ class AuthorForm extends Component {
                 <Field onlyChild name={itemName} component={TextField} />
               )}
             />
+            <Field name="blog" label="Blog" component={TextField} />
             <Field
               name="linkedin"
               label="Linkedin"
               addonBefore="linkedin.com/in/"
               component={TextField}
             />
-            <Field name="blog" label="Blog" component={TextField} />
             <Field
               name="twitter"
               label="Twitter"
