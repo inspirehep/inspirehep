@@ -12,15 +12,20 @@ import { emptyObjectOrShapeOf, orcid } from './customSchemas';
 
 const yearSchema = number()
   .min(minYear)
-  .max(maxYear);
+  .max(maxYear)
+  .label('Year');
 
 const arrayWithNullDefault = array().default([null]);
 const arrayWithEmptyObjectDefault = array().default([{}]);
 
 const authorSchema = object().shape({
-  given_name: string().required(),
+  given_name: string()
+    .required()
+    .label('Given Name'),
   family_name: string(),
-  display_name: string().required(),
+  display_name: string()
+    .required()
+    .label('Display Name'),
   native_name: string(),
   public_emails: arrayWithNullDefault.of(
     string()
@@ -43,7 +48,9 @@ const authorSchema = object().shape({
   field_of_research: array().of(string().oneOf(fieldOfResearchValues)),
   institution_history: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
-      institution: string().required(),
+      institution: string()
+        .required()
+        .label('Institution name'),
       rank: string().oneOf(rankValues),
       start_year: yearSchema,
       end_year: yearSchema,
@@ -52,7 +59,9 @@ const authorSchema = object().shape({
   ),
   experiment_history: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
-      experiment: string().required(),
+      experiment: string()
+        .required()
+        .label('Experiment name'),
       start_year: yearSchema,
       end_year: yearSchema,
       current: boolean(),
@@ -60,7 +69,9 @@ const authorSchema = object().shape({
   ),
   advisors: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
-      name: string().required(),
+      name: string()
+        .required()
+        .label('Advisor name'),
       degree_type: string().oneOf(degreeTypeValues),
     })
   ),
