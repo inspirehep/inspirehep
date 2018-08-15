@@ -156,10 +156,10 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when all institution_history have institution', async done => {
+  it('validates when all positions have institution', async done => {
     const data = {
       ...dataWithRequiredFields,
-      institution_history: [
+      positions: [
         {
           institution: 'Test 1',
         },
@@ -173,10 +173,10 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when all institution_history year fields are between max and min year', async done => {
+  it('validates when all positions year fields are between max and min year', async done => {
     const data = {
       ...dataWithRequiredFields,
-      institution_history: [
+      positions: [
         {
           institution: 'Test 1',
           start_year: minYear,
@@ -189,10 +189,10 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('invalidates when institution_history year fields are not between max and min year', async done => {
+  it('invalidates when positions year fields are not between max and min year', async done => {
     const data = {
       ...dataWithRequiredFields,
-      institution_history: [
+      positions: [
         {
           institution: 'Test 1',
           start_year: minYear - 1,
@@ -205,10 +205,10 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when institution_history rank is one of the selectable values', async done => {
+  it('validates when positions rank is one of the selectable values', async done => {
     const data = {
       ...dataWithRequiredFields,
-      institution_history: [
+      positions: [
         {
           institution: 'Test 1',
           rank: rankValues[0],
@@ -220,10 +220,10 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('invalidates when institution_history rank is not one of the selectable values', async done => {
+  it('invalidates when positions rank is not one of the selectable values', async done => {
     const data = {
       ...dataWithRequiredFields,
-      institution_history: [
+      positions: [
         {
           institution: 'Test 1',
           rank: 'not a rank',
@@ -235,20 +235,20 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when institution_history item is empty', async done => {
+  it('validates when positions item is empty', async done => {
     const data = {
       ...dataWithRequiredFields,
-      institution_history: [{}],
+      positions: [{}],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);
     done();
   });
 
-  it('invalidates when all institution_history do not have institution', async done => {
+  it('invalidates when all positions do not have institution', async done => {
     const data = {
       ...dataWithRequiredFields,
-      institution_history: [
+      positions: [
         {
           institution: 'Test 1',
         },
@@ -262,15 +262,15 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when all experiment_history have experiment', async done => {
+  it('validates when all project_membership have name', async done => {
     const data = {
       ...dataWithRequiredFields,
-      experiment_history: [
+      project_membership: [
         {
-          experiment: 'Test 1',
+          name: 'Test 1',
         },
         {
-          experiment: 'Test 2',
+          name: 'Test 2',
         },
       ],
     };
@@ -279,12 +279,12 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when all experiment_history year fields are between max and min year', async done => {
+  it('validates when all project_membership year fields are between max and min year', async done => {
     const data = {
       ...dataWithRequiredFields,
-      experiment_history: [
+      project_membership: [
         {
-          experiment: 'Test 1',
+          name: 'Test 1',
           start_year: minYear,
           end_year: maxYear,
         },
@@ -295,12 +295,12 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('invalidates when experiment_history year fields are not between max and min year', async done => {
+  it('invalidates when project_membership year fields are not between max and min year', async done => {
     const data = {
       ...dataWithRequiredFields,
-      experiment_history: [
+      project_membership: [
         {
-          experiment: 'Test 1',
+          name: 'Test 1',
           start_year: minYear - 1,
           end_year: maxYear + 1,
         },
@@ -311,22 +311,22 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when experiment_history item is empty', async done => {
+  it('validates when project_membership item is empty', async done => {
     const data = {
       ...dataWithRequiredFields,
-      experiment_history: [{}],
+      project_membership: [{}],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);
     done();
   });
 
-  it('invalidates when all experiment_history do not have experment', async done => {
+  it('invalidates when all project_membership do not have experment', async done => {
     const data = {
       ...dataWithRequiredFields,
       field_of_research: [
         {
-          experiment: 'Test 1',
+          name: 'Test 1',
         },
         {
           current: true,

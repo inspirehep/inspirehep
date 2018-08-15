@@ -128,7 +128,7 @@ class AuthorForm extends Component {
             <ArrayOf
               values={values}
               label="Institution History"
-              name="institution_history"
+              name="positions"
               emptyItem={{}}
               renderItem={itemName => (
                 <Row type="flex" justify="space-between">
@@ -181,14 +181,14 @@ class AuthorForm extends Component {
             <ArrayOf
               values={values}
               label="Experiment History"
-              name="experiment_history"
+              name="project_membership"
               emptyItem={{}}
               renderItem={itemName => (
                 <Row type="flex" justify="space-between">
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name={`${itemName}.experiment`}
+                      name={`${itemName}.name`}
                       placeholder="Experiment, type for suggestions"
                       pidType="experiments"
                       suggesterName="experiment_name"
