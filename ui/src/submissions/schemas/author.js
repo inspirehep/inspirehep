@@ -31,6 +31,7 @@ const authorSchema = object().shape({
     string()
       .nullable()
       .email()
+      .label('Public Email')
   ),
   status: string()
     .oneOf(authorStatusValues)
