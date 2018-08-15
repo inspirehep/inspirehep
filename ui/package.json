@@ -21,7 +21,7 @@
     "formik": "^1.0.2",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
-    "is-valid-orcid": "^1.1.0",
+    "is-valid-orcid": "^1.2.0",
     "jsondiffpatch": "^0.3.11",
     "lodash.isempty": "^4.4.0",
     "lodash.isplainobject": "^4.0.6",
