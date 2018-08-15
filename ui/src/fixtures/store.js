@@ -4,6 +4,7 @@ import { thunkMiddleware } from '../store';
 import { initialState as search } from '../reducers/search';
 import { initialState as literature } from '../reducers/literature';
 import { initialState as user } from '../reducers/user';
+import { initialState as submissions } from '../reducers/submissions';
 
 export function getState() {
   return {
@@ -15,6 +16,7 @@ export function getState() {
     },
     search,
     user,
+    submissions,
   };
 }
 

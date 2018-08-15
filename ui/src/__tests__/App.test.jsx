@@ -10,6 +10,7 @@ import Holdingpen from '../holdingpen';
 import Home from '../home';
 import Literature from '../literature';
 import User from '../user';
+import Submissions from '../submissions';
 
 describe('App', () => {
   it('renders initial state', () => {
@@ -69,6 +70,17 @@ describe('App', () => {
       </Provider>
     );
     expect(wrapper.find(Literature)).toExist();
+  });
+
+  it('navigates to Submissions when /submissions', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/submissions']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Submissions)).toExist();
   });
 
   it('navigates to Home when /', () => {

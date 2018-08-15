@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Submissions renders initial state 1`] = `
+<div
+  className="__Submissions__ w-100"
+>
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/submissions/author"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/submissions/success"
+  />
+</div>
+`;
