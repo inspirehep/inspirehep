@@ -47,7 +47,7 @@ const authorSchema = object().shape({
   linkedin: string(),
   twitter: string(),
   field_of_research: array().of(string().oneOf(fieldOfResearchValues)),
-  institution_history: arrayWithEmptyObjectDefault.of(
+  positions: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
       institution: string()
         .required()
@@ -58,9 +58,9 @@ const authorSchema = object().shape({
       current: boolean(),
     })
   ),
-  experiment_history: arrayWithEmptyObjectDefault.of(
+  project_membership: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
-      experiment: string()
+      name: string()
         .required()
         .label('Experiment name'),
       start_year: yearSchema,
