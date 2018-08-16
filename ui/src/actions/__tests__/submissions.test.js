@@ -3,7 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
-import { SUBMIT_ERROR, SUBMIT_SUCCESS } from '../actionTypes';
+import { AUTHOR_SUBMIT_ERROR, AUTHOR_SUBMIT_SUCCESS } from '../actionTypes';
 import { submitAuthor } from '../submissions';
 
 const mockHttp = new MockAdapter(http);
@@ -14,14 +14,14 @@ describe('submissions - async action creator', () => {
   });
 
   describe('submitAuthor', () => {
-    it('creates SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
+    it('creates AUTHOR_SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
       const submissionUrl = '/submissions/author';
       const data = { field: 'value' };
       mockHttp.onPost(submissionUrl, { data }).replyOnce(200, {});
 
       const expectedActions = [
         {
-          type: SUBMIT_SUCCESS,
+          type: AUTHOR_SUBMIT_SUCCESS,
         },
         {
           type: CALL_HISTORY_METHOD,
@@ -35,13 +35,13 @@ describe('submissions - async action creator', () => {
       done();
     });
 
-    it('creates SUBMIT_ERRROR if not successful', async done => {
+    it('creates AUTHOR_SUBMIT_ERROR if not successful', async done => {
       const submissionUrl = '/submissions/author';
       mockHttp.onPost(submissionUrl).replyOnce(400, { message: 'Error' });
 
       const expectedActions = [
         {
-          type: SUBMIT_ERROR,
+          type: AUTHOR_SUBMIT_ERROR,
           payload: { message: 'Error' },
         },
       ];
