@@ -10,8 +10,13 @@ const AuthorSubmissionPage$ = Loadable({
   loading: Loading,
 });
 
+const AuthorUpdateSubmissionPage$ = Loadable({
+  loader: () => import('./containers/AuthorUpdateSubmissionPage'),
+  loading: Loading,
+});
+
 const SubmissionSuccessPage$ = Loadable({
-  loader: () => import('./containers/SubmissionSuccessPage'),
+  loader: () => import('./components/SubmissionSuccessPage'),
   loading: Loading,
 });
 
@@ -23,6 +28,11 @@ class Submissions extends Component {
           exact
           path="/submissions/author"
           component={AuthorSubmissionPage$}
+        />
+        <Route
+          exact
+          path="/submissions/author/:id"
+          component={AuthorUpdateSubmissionPage$}
         />
         <Route
           exact

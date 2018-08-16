@@ -1,7 +1,7 @@
 import authorSchema from '../author';
 import {
   authorStatusValues,
-  fieldOfResearchValues,
+  arxivCategoryValues,
   minYear,
   maxYear,
   rankValues,
@@ -136,20 +136,20 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when field_of_research are one of selectable values', async done => {
+  it('validates when arxiv_categories are one of selectable values', async done => {
     const data = {
       ...dataWithRequiredFields,
-      field_of_research: [fieldOfResearchValues[0], fieldOfResearchValues[1]],
+      arxiv_categories: [arxivCategoryValues[0], arxivCategoryValues[1]],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);
     done();
   });
 
-  it('invalidates when field_of_research are not all one of selectable values', async done => {
+  it('invalidates when arxiv_categories are not all one of selectable values', async done => {
     const data = {
       ...dataWithRequiredFields,
-      field_of_research: ['not a field of research', fieldOfResearchValues[1]],
+      arxiv_categories: ['not a field of research', arxivCategoryValues[1]],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(false);
@@ -324,7 +324,7 @@ describe('authorSchema', () => {
   it('invalidates when all project_membership do not have experment', async done => {
     const data = {
       ...dataWithRequiredFields,
-      field_of_research: [
+      arxiv_categories: [
         {
           name: 'Test 1',
         },
@@ -398,7 +398,7 @@ describe('authorSchema', () => {
   it('invalidates when all advisors do not have name', async done => {
     const data = {
       ...dataWithRequiredFields,
-      field_of_research: [
+      arxiv_categories: [
         {
           name: 'Test 1',
         },

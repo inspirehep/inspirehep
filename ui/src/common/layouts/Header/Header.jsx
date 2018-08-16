@@ -50,9 +50,9 @@ const Header = props => (
             />
           </Col>
           <Col className="nav-item-container">
-            <a className="nav-item" href="/literature/new">
+            <Link className="nav-item" to="/submissions/author">
               Submit
-            </a>
+            </Link>
           </Col>
           <Col className="nav-item-container">
             <LoginOrUserDropdownContainer />

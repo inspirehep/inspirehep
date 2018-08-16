@@ -2,7 +2,7 @@ function getValue(object) {
   return object.value;
 }
 
-export const fieldOfResearchOptions = [
+export const arxivCategoryOptions = [
   { value: 'astro-ph' },
   { value: 'cond-math' },
   { value: 'cs' },
@@ -26,7 +26,7 @@ export const fieldOfResearchOptions = [
   { value: 'quant-ph' },
   { value: 'stat' },
 ];
-export const fieldOfResearchValues = fieldOfResearchOptions.map(getValue);
+export const arxivCategoryValues = arxivCategoryOptions.map(getValue);
 
 export const authorStatusOptions = [
   { value: 'active', display: 'Active' },

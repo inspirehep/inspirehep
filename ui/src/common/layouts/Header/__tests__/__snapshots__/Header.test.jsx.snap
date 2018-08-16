@@ -66,12 +66,13 @@ exports[`Header renders with search box if it is not on home 1`] = `
         <Col
           className="nav-item-container"
         >
-          <a
+          <Link
             className="nav-item"
-            href="/literature/new"
+            replace={false}
+            to="/submissions/author"
           >
             Submit
-          </a>
+          </Link>
         </Col>
         <Col
           className="nav-item-container"
@@ -148,12 +149,13 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
         <Col
           className="nav-item-container"
         >
-          <a
+          <Link
             className="nav-item"
-            href="/literature/new"
+            replace={false}
+            to="/submissions/author"
           >
             Submit
-          </a>
+          </Link>
         </Col>
         <Col
           className="nav-item-container"

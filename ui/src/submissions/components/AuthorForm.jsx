@@ -4,7 +4,7 @@ import { Field, Form } from 'formik';
 import { Button, Col, Row } from 'antd';
 
 import {
-  fieldOfResearchOptions,
+  arxivCategoryOptions,
   rankOptions,
   authorStatusOptions,
   degreeTypeOptions,
@@ -119,10 +119,10 @@ class AuthorForm extends Component {
           </CollapsableForm.Section>
           <CollapsableForm.Section header="Career Info" key="career_info">
             <Field
-              name="field_of_research"
+              name="arxiv_categories"
               label="Field of Research"
               mode="multiple"
-              options={fieldOfResearchOptions}
+              options={arxivCategoryOptions}
               component={SelectField}
             />
             <ArrayOf
