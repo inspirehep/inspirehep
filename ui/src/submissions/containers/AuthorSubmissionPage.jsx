@@ -9,6 +9,7 @@ import AuthorForm from '../components/AuthorForm';
 import authorSchema from '../schemas/author';
 import { submitAuthor } from '../../actions/submissions';
 import cleanupFormData from '../cleanupFormData';
+import { authorSubmitErrorPath } from '../../reducers/submissions';
 
 const initialValues = authorSchema.cast();
 
@@ -73,7 +74,7 @@ AuthorSubmissionPage.propTypes = {
 };
 
 const stateToProps = state => ({
-  error: state.submissions.get('error'),
+  error: state.submissions.getIn(authorSubmitErrorPath),
 });
 
 const dispatchToProps = dispatch => ({ dispatch });

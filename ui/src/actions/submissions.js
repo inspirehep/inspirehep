@@ -1,33 +1,29 @@
 import { push } from 'react-router-redux';
 
-import { SUBMIT_ERROR, SUBMIT_SUCCESS } from './actionTypes';
+import { AUTHOR_SUBMIT_ERROR, AUTHOR_SUBMIT_SUCCESS } from './actionTypes';
 
-function submitSuccess() {
+function authorSubmitSuccess() {
   return {
-    type: SUBMIT_SUCCESS,
+    type: AUTHOR_SUBMIT_SUCCESS,
   };
 }
 
-function submitError(error) {
+function authorSubmitError(error) {
   return {
-    type: SUBMIT_ERROR,
+    type: AUTHOR_SUBMIT_ERROR,
     payload: error,
-  };
-}
-
-function submit(pidType, data) {
-  return async (dispatch, getState, http) => {
-    try {
-      await http.post(`/submissions/${pidType}`, { data });
-      dispatch(submitSuccess());
-      dispatch(push('/submissions/success'));
-    } catch (error) {
-      dispatch(submitError(error.response.data));
-    }
   };
 }
 
 // eslint-disable-next-line import/prefer-default-export
 export function submitAuthor(data) {
-  return submit('author', data);
+  return async (dispatch, getState, http) => {
+    try {
+      await http.post('/submissions/author', { data });
+      dispatch(authorSubmitSuccess());
+      dispatch(push('/submissions/success'));
+    } catch (error) {
+      dispatch(authorSubmitError(error.response.data));
+    }
+  };
 }

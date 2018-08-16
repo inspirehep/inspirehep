@@ -7,7 +7,7 @@ class SubmissionSuccessPage extends Component {
       <Row type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
           <Alert
-            message="Successfully submitted, thanks you for the submission!"
+            message="Successfully submitted, thank you for the submission!"
             type="success"
             showIcon
           />
