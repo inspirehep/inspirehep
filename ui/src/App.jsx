@@ -7,6 +7,7 @@ import './App.scss';
 import Header from './common/layouts/Header';
 import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';
+import PrivateRoute from './common/PrivateRoute';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -46,7 +47,7 @@ class App extends Component {
           <Switch id="main">
             <Route exact path="/" component={Home$} />
             <Route path="/user" component={User$} />
-            <Route path="/holdingpen" component={Holdingpen$} />
+            <PrivateRoute path="/holdingpen" component={Holdingpen$} />
             <Route path="/literature" component={Literature$} />
             <Route path="/submissions" component={Submissions$} />
             <Route path="/errors" component={Errors$} />
