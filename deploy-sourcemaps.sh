@@ -10,6 +10,6 @@ PACKAGE_VERSION=$(cat package.json \
 sentry-cli --auth-token $SENTRY_TOKEN releases new $PACKAGE_VERSION
 sentry-cli --auth-token $SENTRY_TOKEN releases files \
   $PACKAGE_VERSION upload-sourcemaps --url-prefix \
-  /static/node_modules/record-editor/dist ./dist
+  /oldui/node_modules/record-editor/dist ./dist
 
 rm -rf dist/*.js.map
