@@ -1,7 +1,7 @@
 import { string, object, array, number, boolean } from 'yup';
 
 import {
-  fieldOfResearchValues,
+  arxivCategoryValues,
   maxYear,
   minYear,
   rankValues,
@@ -42,11 +42,12 @@ const authorSchema = object().shape({
     string()
       .nullable()
       .url()
+      .label('Website')
   ),
   blog: string().url(),
   linkedin: string(),
   twitter: string(),
-  field_of_research: array().of(string().oneOf(fieldOfResearchValues)),
+  arxiv_categories: array().of(string().oneOf(arxivCategoryValues)),
   positions: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
       institution: string()

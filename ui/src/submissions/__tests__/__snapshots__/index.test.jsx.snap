@@ -12,6 +12,11 @@ exports[`Submissions renders initial state 1`] = `
   <Route
     component={[Function]}
     exact={true}
+    path="/submissions/author/:id"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
     path="/submissions/success"
   />
 </div>
