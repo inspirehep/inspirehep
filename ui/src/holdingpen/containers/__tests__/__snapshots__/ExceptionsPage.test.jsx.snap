@@ -11,5 +11,6 @@ exports[`ExceptionsPage renders initial state 1`] = `
       },
     ]
   }
+  loading={false}
 />
 `;

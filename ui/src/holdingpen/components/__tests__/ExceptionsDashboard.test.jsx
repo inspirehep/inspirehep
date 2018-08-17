@@ -26,7 +26,10 @@ describe('ExceptionsDashboard', () => {
         recid: 1635467,
       },
     ];
-    const wrapper = shallow(<ExceptionsDashboard exceptions={exceptions} />);
+    const loading = false;
+    const wrapper = shallow(
+      <ExceptionsDashboard exceptions={exceptions} loading={loading} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 

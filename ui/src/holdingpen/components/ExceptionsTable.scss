@@ -1,15 +1,8 @@
 .__ExceptionsTable__ {
-  width: 1400px;
-}
-
-@media (max-width: 1400px) {
-  .__ExceptionsTable__ {
-    width: 1200px;
+  pre {
+    white-space: pre-wrap;
   }
-}
-
-@media (max-width: 1200px) {
-  .__ExceptionsTable__ {
-    width: 800px;
+  .exceptions-table-row {
+    background: white;
   }
 }

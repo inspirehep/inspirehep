@@ -162,10 +162,12 @@ class ExceptionsTable extends Component {
         columns={columns}
         dataSource={this.state.filteredExceptions}
         rowKey="recid"
+        rowClassName="exceptions-table-row"
         pagination={{ pageSize: 25 }}
         onChange={this.onSelectedCollectionsChange}
         expandedRowRender={record => <pre>{record.error}</pre>}
         bordered
+        loading
       />
     );
   }
@@ -180,6 +182,7 @@ ExceptionsTable.propTypes = {
       recid: PropTypes.number,
     })
   ).isRequired,
+  loading: PropTypes.bool.isRequired,
   /* eslint-disable react/no-unused-prop-types */
 };
 

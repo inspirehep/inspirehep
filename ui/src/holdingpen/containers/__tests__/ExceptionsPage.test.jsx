@@ -16,6 +16,7 @@ describe('ExceptionsPage', () => {
             recid: 123456,
           },
         ],
+        loading: false,
       }),
     });
 
@@ -35,6 +36,7 @@ describe('ExceptionsPage', () => {
             recid: 123456,
           },
         ],
+        loading: false,
       }),
     });
     mount(<ExceptionsPage store={store} />);

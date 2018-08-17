@@ -38,7 +38,11 @@ exports[`ExceptionsDashboard renders with all props set 1`] = `
     justify="space-around"
     type="flex"
   >
-    <Col>
+    <Col
+      align="middle"
+      justify="center"
+      span={20}
+    >
       <ExceptionsTable
         exceptions={
           Array [
@@ -64,6 +68,7 @@ exports[`ExceptionsDashboard renders with all props set 1`] = `
             },
           ]
         }
+        loading={false}
       />
     </Col>
   </Row>

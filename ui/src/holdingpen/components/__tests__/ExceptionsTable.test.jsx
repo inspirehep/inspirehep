@@ -21,7 +21,10 @@ describe('ExceptionsTable', () => {
         recid: 1635467,
       },
     ];
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    const loading = false;
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -43,8 +46,11 @@ describe('ExceptionsTable', () => {
         recid: 1635467,
       },
     ];
+    const loading = false;
     const searchText = 'MyError';
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
     wrapper.instance().onErrorSearch(searchText);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
@@ -69,7 +75,10 @@ describe('ExceptionsTable', () => {
       },
     ];
     const searchText = 'Thing';
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    const loading = false;
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
     wrapper.instance().onErrorSearch(searchText);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
@@ -94,7 +103,10 @@ describe('ExceptionsTable', () => {
       },
     ];
     const searchText = '';
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    const loading = false;
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
     wrapper.instance().onErrorSearch(searchText);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
@@ -119,7 +131,10 @@ describe('ExceptionsTable', () => {
       },
     ];
     const recidText = '1234';
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    const loading = false;
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
     wrapper.instance().onRecidSearch(recidText);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
@@ -144,7 +159,10 @@ describe('ExceptionsTable', () => {
       },
     ];
     const recidText = '12345';
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    const loading = false;
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
     wrapper.instance().onRecidSearch(recidText);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
@@ -169,7 +187,10 @@ describe('ExceptionsTable', () => {
       },
     ];
     const recidText = '';
-    const wrapper = shallow(<ExceptionsTable exceptions={exceptions} />);
+    const loading = false;
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
     wrapper.instance().onRecidSearch(recidText);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
