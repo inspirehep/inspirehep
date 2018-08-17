@@ -12,17 +12,24 @@ class ExceptionsPage extends Component {
   }
 
   render() {
-    return <ExceptionsDashboard exceptions={this.props.exceptions} />;
+    return (
+      <ExceptionsDashboard
+        exceptions={this.props.exceptions}
+        loading={this.props.loading}
+      />
+    );
   }
 }
 
 ExceptionsPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   exceptions: PropTypes.arrayOf(PropTypes.object).isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   exceptions: state.exceptions.get('data'),
+  loading: state.exceptions.get('loading'),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 

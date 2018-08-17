@@ -50,8 +50,11 @@ class ExceptionsDashboard extends Component {
         </div>
 
         <Row type="flex" justify="space-around">
-          <Col>
-            <ExceptionsTable exceptions={this.props.exceptions} />
+          <Col span={20} justify="center" align="middle">
+            <ExceptionsTable
+              exceptions={this.props.exceptions}
+              loading={this.props.loading}
+            />
           </Col>
         </Row>
       </div>
@@ -67,6 +70,7 @@ ExceptionsDashboard.propTypes = {
       recid: PropTypes.number,
     })
   ).isRequired,
+  loading: PropTypes.bool.isRequired,
 };
 
 export default ExceptionsDashboard;
