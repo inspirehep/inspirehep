@@ -61,7 +61,9 @@ export function fetchAuthorUpdateFormData(recordId) {
       const response = await http.get(`/submissions/author/${recordId}`);
       dispatch(fetchAuthorUpdateFormDataSuccess(response.data));
     } catch (error) {
-      dispatch(fetchAuthorUpdateFormDataError(error.response.data));
+      dispatch(
+        fetchAuthorUpdateFormDataError(error.response && error.response.data)
+      );
     }
   };
 }

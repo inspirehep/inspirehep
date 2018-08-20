@@ -2,6 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
+import Loadable from 'react-loadable';
 
 import { getStore } from '../../fixtures/store';
 import Submissions from '../';
@@ -15,8 +16,7 @@ describe('Submissions', () => {
     expect(component).toMatchSnapshot();
   });
 
-  // TODO: enable after https://github.com/airbnb/enzyme/issues/1553 is solved (Context API support)
-  xit('navigates to AuthorSubmissionPage when /submissions/author', () => {
+  it('navigates to AuthorSubmissionPage when /submissions/author', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/submissions/author']} initialIndex={0}>
@@ -24,11 +24,15 @@ describe('Submissions', () => {
         </MemoryRouter>
       </Provider>
     );
+    await Loadable.preloadAll();
+    wrapper.update();
+
     expect(wrapper.find(AuthorSubmissionPage)).toExist();
+
+    done();
   });
 
-  // TODO: enable after https://github.com/airbnb/enzyme/issues/1553 is solved (Context API support)
-  xit('navigates to AuthorUpdateSubmissionPage when /submissions/author/:id', () => {
+  it('navigates to AuthorUpdateSubmissionPage when /submissions/author/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -39,18 +43,30 @@ describe('Submissions', () => {
         </MemoryRouter>
       </Provider>
     );
+    await Loadable.preloadAll();
+    wrapper.update();
+
     expect(wrapper.find(AuthorUpdateSubmissionPage)).toExist();
+
+    done();
   });
 
-  // TODO: enable after https://github.com/airbnb/enzyme/issues/1553 is solved (Context API support)
-  xit('navigates to SubmissionSuccessPage when /submissions/success', () => {
+  it('navigates to SubmissionSuccessPage when /submissions/success', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/submissions/author']} initialIndex={0}>
+        <MemoryRouter
+          initialEntries={['/submissions/success']}
+          initialIndex={0}
+        >
           <Submissions />
         </MemoryRouter>
       </Provider>
     );
+    await Loadable.preloadAll();
+    wrapper.update();
+
     expect(wrapper.find(SubmissionSuccessPage)).toExist();
+
+    done();
   });
 });
