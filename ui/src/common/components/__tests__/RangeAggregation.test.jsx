@@ -27,17 +27,15 @@ const mockEndpoints = [2011, 2012];
 
 describe('RangeAggregation', () => {
   it('render initial state with all required props set', () => {
-    const wrapper = shallow(<RangeAggregation
-      onChange={jest.fn()}
-      buckets={mockBuckets}
-      name="Test"
-      selections={mockSelections}
-    />);
+    const wrapper = shallow(
+      <RangeAggregation
+        onChange={jest.fn()}
+        buckets={mockBuckets}
+        name="Test"
+        selections={mockSelections}
+      />
+    );
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('derives selectionMap state from prop selectedKeys', () => {
-
   });
 
   describe('sanitizeEndpoints', () => {
@@ -110,8 +108,11 @@ describe('RangeAggregation', () => {
           color: selectedColor,
         },
       ];
-      const data = RangeAggregation
-        .getHistogramData(buckets, endpoints, RangeAggregation.defaultProps);
+      const data = RangeAggregation.getHistogramData(
+        buckets,
+        endpoints,
+        RangeAggregation.defaultProps
+      );
       expect(data).toEqual(expectedData);
     });
   });
@@ -119,15 +120,17 @@ describe('RangeAggregation', () => {
   describe('onSliderChange', () => {
     it('calls sets new endpoints, data on state and clears highlight of previously hovered bar', () => {
       const onChange = jest.fn();
-      const wrapper = shallow(<RangeAggregation
-        onChange={onChange}
-        buckets={mockBuckets}
-        name="Test"
-        selections={[]}
-      />);
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={onChange}
+          buckets={mockBuckets}
+          name="Test"
+          selections={[]}
+        />
+      );
       const prevData = wrapper.state('data');
-
       wrapper.instance().onSliderChange(mockEndpoints);
+      wrapper.update();
       expect(wrapper.state('endpoints')).toEqual(mockEndpoints);
       // TODO: mock getHistogramData
       expect(wrapper.state('data')).not.toBe(prevData);
@@ -138,29 +141,36 @@ describe('RangeAggregation', () => {
     it('sets hoverColor for bar at given index and keeps current color of it', () => {
       const { hoverColor } = RangeAggregation.defaultProps;
       const onChange = jest.fn();
-      const wrapper = shallow(<RangeAggregation
-        onChange={onChange}
-        buckets={mockBuckets}
-        name="Test"
-        selections={mockSelections}
-      />);
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={onChange}
+          buckets={mockBuckets}
+          name="Test"
+          selections={mockSelections}
+        />
+      );
       const index = 0;
       const currentColor = wrapper.state('data')[index].color;
       wrapper.instance().onNearestBar(null, { index });
       expect(wrapper.state('data')[index].color).toEqual(hoverColor);
-      expect(wrapper.instance().prevNearestBar).toEqual({ index, color: currentColor });
+      expect(wrapper.instance().prevNearestBar).toEqual({
+        index,
+        color: currentColor,
+      });
     });
   });
 
   describe('onBarClick', () => {
     it('calls onChange with where both endpoints equal to bar.x', () => {
       const onChange = jest.fn();
-      const wrapper = shallow(<RangeAggregation
-        onChange={onChange}
-        buckets={List()}
-        name="Test"
-        selections={[]}
-      />);
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={onChange}
+          buckets={List()}
+          name="Test"
+          selections={[]}
+        />
+      );
       wrapper.instance().onBarClick({ x: 2011 + HALF_BAR_WIDTH });
       expect(onChange).toHaveBeenCalledWith([2011, 2011]);
     });
@@ -169,12 +179,14 @@ describe('RangeAggregation', () => {
   describe('onAfterChange', () => {
     it('calls onChange with endpoints from state', () => {
       const onChange = jest.fn();
-      const wrapper = shallow(<RangeAggregation
-        onChange={onChange}
-        buckets={mockBuckets}
-        name="Test"
-        selections={mockSelections}
-      />);
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={onChange}
+          buckets={mockBuckets}
+          name="Test"
+          selections={mockSelections}
+        />
+      );
       const endpoints = wrapper.state('endpoints');
       wrapper.instance().onAfterChange();
       expect(onChange).toHaveBeenCalledWith(endpoints);
@@ -184,13 +196,16 @@ describe('RangeAggregation', () => {
   describe('onResetClick', () => {
     it('clears endpoints and call onChange with empty', () => {
       const onChange = jest.fn();
-      const wrapper = shallow(<RangeAggregation
-        onChange={onChange}
-        buckets={mockBuckets}
-        name="Test"
-        selections={mockSelections}
-      />);
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={onChange}
+          buckets={mockBuckets}
+          name="Test"
+          selections={mockSelections}
+        />
+      );
       wrapper.instance().onResetClick();
+      wrapper.update();
       expect(wrapper.state('endpoints')).toEqual([]);
       expect(onChange).toHaveBeenCalledWith([]);
     });
@@ -200,17 +215,22 @@ describe('RangeAggregation', () => {
     it('sets hoverColor for bar at given index and keeps current color of it', () => {
       const { hoverColor } = RangeAggregation.defaultProps;
       const onChange = jest.fn();
-      const wrapper = shallow(<RangeAggregation
-        onChange={onChange}
-        buckets={mockBuckets}
-        name="Test"
-        selections={mockSelections}
-      />);
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={onChange}
+          buckets={mockBuckets}
+          name="Test"
+          selections={mockSelections}
+        />
+      );
       const index = 0;
       const currentColor = wrapper.state('data')[index].color;
       wrapper.instance().onNearestBar(null, { index });
       expect(wrapper.state('data')[index].color).toEqual(hoverColor);
-      expect(wrapper.instance().prevNearestBar).toEqual({ index, color: currentColor });
+      expect(wrapper.instance().prevNearestBar).toEqual({
+        index,
+        color: currentColor,
+      });
     });
   });
 
@@ -218,12 +238,14 @@ describe('RangeAggregation', () => {
     it('resets color of previously hovered bar', () => {
       const { deselectedColor } = RangeAggregation.defaultProps;
       const onChange = jest.fn();
-      const wrapper = shallow(<RangeAggregation
-        onChange={onChange}
-        buckets={mockBuckets}
-        name="Test"
-        selections={mockSelections}
-      />);
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={onChange}
+          buckets={mockBuckets}
+          name="Test"
+          selections={mockSelections}
+        />
+      );
       const index = 0;
       const component = wrapper.instance();
       component.prevNearestBar = { index, color: deselectedColor };
