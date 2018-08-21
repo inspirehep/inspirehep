@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Tag } from 'antd';
+import { Col, Row, Tag } from 'antd';
 import ExceptionsTable from '../components/ExceptionsTable';
 import InlineList from '../../common/components/InlineList';
 import './ExceptionsDashboard.scss';
@@ -48,9 +48,8 @@ class ExceptionsDashboard extends Component {
             )}
           />
         </div>
-
         <Row type="flex" justify="space-around">
-          <Col span={20} justify="center" align="middle">
+          <Col span={20}>
             <ExceptionsTable
               exceptions={this.props.exceptions}
               loading={this.props.loading}
