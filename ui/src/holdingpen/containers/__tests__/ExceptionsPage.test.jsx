@@ -26,6 +26,20 @@ describe('ExceptionsPage', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders initial state when loading is true', () => {
+    const store = getStoreWithState({
+      exceptions: fromJS({
+        data: [],
+        loading: true,
+      }),
+    });
+
+    const wrapper = shallow(<ExceptionsPage store={store} />)
+      .dive()
+      .dive();
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('dispatches exceptions', () => {
     const store = getStoreWithState({
       exceptions: fromJS({

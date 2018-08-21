@@ -28,6 +28,15 @@ describe('ExceptionsTable', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders when loading is true', () => {
+    const exceptions = [];
+    const loading = true;
+    const wrapper = shallow(
+      <ExceptionsTable exceptions={exceptions} loading={loading} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders filtered results on error search', () => {
     const exceptions = [
       {

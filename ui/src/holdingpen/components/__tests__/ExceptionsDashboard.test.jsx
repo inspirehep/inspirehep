@@ -33,6 +33,15 @@ describe('ExceptionsDashboard', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders with all props set and loading set to true', () => {
+    const exceptions = [];
+    const loading = true;
+    const wrapper = shallow(
+      <ExceptionsDashboard exceptions={exceptions} loading={loading} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   describe('getExceptionCountEntriesByCollection', () => {
     it('returns exceptions count entries', () => {
       const exceptions = [
