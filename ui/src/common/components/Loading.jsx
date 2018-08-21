@@ -4,8 +4,8 @@ import { Row, Col, Spin } from 'antd';
 class Loading extends Component {
   render() {
     return (
-      <Row type="flex" justify="middle" align="middle">
-        <Col span={24}>
+      <Row className="w-100" type="flex" justify="center" align="middle">
+        <Col>
           <div className="tc pa4">
             <Spin tip="Loading ..." />
           </div>

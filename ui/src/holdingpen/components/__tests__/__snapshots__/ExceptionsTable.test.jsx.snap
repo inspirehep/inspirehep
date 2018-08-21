@@ -1,664 +1,659 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
-<Row
-  gutter={0}
-  justify="space-around"
-  type="flex"
->
-  <Col
-    span={20}
-  >
-    <Table
-      bordered={true}
-      className="__ExceptionsTable__"
-      columns={
-        Array [
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
           Object {
-            "dataIndex": "collection",
-            "filters": Array [
-              Object {
-                "text": "Job",
-                "value": "Job",
-              },
-              Object {
-                "text": "Hep",
-                "value": "Hep",
-              },
-            ],
-            "onFilter": [Function],
-            "title": "Collection",
+            "text": "Job",
+            "value": "Job",
           },
           Object {
-            "dataIndex": "error",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Search error"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Error",
-            "width": "70%",
+            "text": "Hep",
+            "value": "Hep",
           },
-          Object {
-            "dataIndex": "recid",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Go to recid"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Record",
-          },
-        ]
-      }
-      dataSource={
-        Array [
-          Object {
-            "collection": "Job",
-            "error": "Error 1",
-            "recid": 1512550,
-          },
-          Object {
-            "collection": "Hep",
-            "error": "Error 2",
-            "recid": 1238165,
-          },
-          Object {
-            "collection": "Hep",
-            "error": "Error 3",
-            "recid": 1635467,
-          },
-        ]
-      }
-      expandedRowRender={[Function]}
-      indentSize={20}
-      loading={false}
-      locale={Object {}}
-      pagination={
-        Object {
-          "pageSize": 25,
-        }
-      }
-      prefixCls="ant-table"
-      rowClassName="exceptions-table-row"
-      rowKey="recid"
-      rowSelection={null}
-      showHeader={true}
-      size="large"
-      useFixedHeader={false}
-    />
-  </Col>
-</Row>
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "collection": "Job",
+        "error": "Error 1",
+        "recid": 1512550,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "Error 2",
+        "recid": 1238165,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "Error 3",
+        "recid": 1635467,
+      },
+    ]
+  }
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
 `;
 
 exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
-<Row
-  gutter={0}
-  justify="space-around"
-  type="flex"
->
-  <Col
-    span={20}
-  >
-    <Table
-      bordered={true}
-      className="__ExceptionsTable__"
-      columns={
-        Array [
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
           Object {
-            "dataIndex": "collection",
-            "filters": Array [
-              Object {
-                "text": "Job",
-                "value": "Job",
-              },
-              Object {
-                "text": "Hep",
-                "value": "Hep",
-              },
-            ],
-            "onFilter": [Function],
-            "title": "Collection",
+            "text": "Job",
+            "value": "Job",
           },
           Object {
-            "dataIndex": "error",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Search error"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Error",
-            "width": "70%",
+            "text": "Hep",
+            "value": "Hep",
           },
-          Object {
-            "dataIndex": "recid",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Go to recid"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Record",
-          },
-        ]
-      }
-      dataSource={
-        Array [
-          Object {
-            "collection": "Job",
-            "error": "Error 1",
-            "recid": 12345,
-          },
-          Object {
-            "collection": "Hep",
-            "error": "Error 2",
-            "recid": 12346,
-          },
-          Object {
-            "collection": "Hep",
-            "error": "Error 3",
-            "recid": 54321,
-          },
-        ]
-      }
-      expandedRowRender={[Function]}
-      indentSize={20}
-      loading={false}
-      locale={Object {}}
-      pagination={
-        Object {
-          "pageSize": 25,
-        }
-      }
-      prefixCls="ant-table"
-      rowClassName="exceptions-table-row"
-      rowKey="recid"
-      rowSelection={null}
-      showHeader={true}
-      size="large"
-      useFixedHeader={false}
-    />
-  </Col>
-</Row>
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "collection": "Job",
+        "error": "Error 1",
+        "recid": 12345,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "Error 2",
+        "recid": 12346,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "Error 3",
+        "recid": 54321,
+      },
+    ]
+  }
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
 `;
 
 exports[`ExceptionsTable renders filtered results on error search 1`] = `
-<Row
-  gutter={0}
-  justify="space-around"
-  type="flex"
->
-  <Col
-    span={20}
-  >
-    <Table
-      bordered={true}
-      className="__ExceptionsTable__"
-      columns={
-        Array [
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
           Object {
-            "dataIndex": "collection",
-            "filters": Array [
-              Object {
-                "text": "Job",
-                "value": "Job",
-              },
-              Object {
-                "text": "Hep",
-                "value": "Hep",
-              },
-            ],
-            "onFilter": [Function],
-            "title": "Collection",
+            "text": "Job",
+            "value": "Job",
           },
           Object {
-            "dataIndex": "error",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Search error"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Error",
-            "width": "70%",
+            "text": "Hep",
+            "value": "Hep",
           },
-          Object {
-            "dataIndex": "recid",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Go to recid"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Record",
-          },
-        ]
-      }
-      dataSource={
-        Array [
-          Object {
-            "collection": "Job",
-            "error": "Foo MyError",
-            "recid": 1512550,
-          },
-          Object {
-            "collection": "Hep",
-            "error": "MyError Bar",
-            "recid": 1238165,
-          },
-        ]
-      }
-      expandedRowRender={[Function]}
-      indentSize={20}
-      loading={false}
-      locale={Object {}}
-      pagination={
-        Object {
-          "pageSize": 25,
-        }
-      }
-      prefixCls="ant-table"
-      rowClassName="exceptions-table-row"
-      rowKey="recid"
-      rowSelection={null}
-      showHeader={true}
-      size="large"
-      useFixedHeader={false}
-    />
-  </Col>
-</Row>
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "collection": "Job",
+        "error": "Foo MyError",
+        "recid": 1512550,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "MyError Bar",
+        "recid": 1238165,
+      },
+    ]
+  }
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
 `;
 
 exports[`ExceptionsTable renders no results on error search if nothing matches 1`] = `
-<Row
-  gutter={0}
-  justify="space-around"
-  type="flex"
->
-  <Col
-    span={20}
-  >
-    <Table
-      bordered={true}
-      className="__ExceptionsTable__"
-      columns={
-        Array [
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
           Object {
-            "dataIndex": "collection",
-            "filters": Array [
-              Object {
-                "text": "Job",
-                "value": "Job",
-              },
-              Object {
-                "text": "Hep",
-                "value": "Hep",
-              },
-            ],
-            "onFilter": [Function],
-            "title": "Collection",
+            "text": "Job",
+            "value": "Job",
           },
           Object {
-            "dataIndex": "error",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Search error"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Error",
-            "width": "70%",
+            "text": "Hep",
+            "value": "Hep",
           },
-          Object {
-            "dataIndex": "recid",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Go to recid"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Record",
-          },
-        ]
-      }
-      dataSource={Array []}
-      expandedRowRender={[Function]}
-      indentSize={20}
-      loading={false}
-      locale={Object {}}
-      pagination={
-        Object {
-          "pageSize": 25,
-        }
-      }
-      prefixCls="ant-table"
-      rowClassName="exceptions-table-row"
-      rowKey="recid"
-      rowSelection={null}
-      showHeader={true}
-      size="large"
-      useFixedHeader={false}
-    />
-  </Col>
-</Row>
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={Array []}
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
 `;
 
 exports[`ExceptionsTable renders no results on recid search if there is no exact match 1`] = `
-<Row
-  gutter={0}
-  justify="space-around"
-  type="flex"
->
-  <Col
-    span={20}
-  >
-    <Table
-      bordered={true}
-      className="__ExceptionsTable__"
-      columns={
-        Array [
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
           Object {
-            "dataIndex": "collection",
-            "filters": Array [
-              Object {
-                "text": "Job",
-                "value": "Job",
-              },
-              Object {
-                "text": "Hep",
-                "value": "Hep",
-              },
-            ],
-            "onFilter": [Function],
-            "title": "Collection",
+            "text": "Job",
+            "value": "Job",
           },
           Object {
-            "dataIndex": "error",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Search error"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Error",
-            "width": "70%",
+            "text": "Hep",
+            "value": "Hep",
           },
-          Object {
-            "dataIndex": "recid",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Go to recid"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Record",
-          },
-        ]
-      }
-      dataSource={Array []}
-      expandedRowRender={[Function]}
-      indentSize={20}
-      loading={false}
-      locale={Object {}}
-      pagination={
-        Object {
-          "pageSize": 25,
-        }
-      }
-      prefixCls="ant-table"
-      rowClassName="exceptions-table-row"
-      rowKey="recid"
-      rowSelection={null}
-      showHeader={true}
-      size="large"
-      useFixedHeader={false}
-    />
-  </Col>
-</Row>
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={Array []}
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
 `;
 
 exports[`ExceptionsTable renders single exception on recid search if there is exact match 1`] = `
-<Row
-  gutter={0}
-  justify="space-around"
-  type="flex"
->
-  <Col
-    span={20}
-  >
-    <Table
-      bordered={true}
-      className="__ExceptionsTable__"
-      columns={
-        Array [
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
           Object {
-            "dataIndex": "collection",
-            "filters": Array [
-              Object {
-                "text": "Job",
-                "value": "Job",
-              },
-              Object {
-                "text": "Hep",
-                "value": "Hep",
-              },
-            ],
-            "onFilter": [Function],
-            "title": "Collection",
+            "text": "Job",
+            "value": "Job",
           },
           Object {
-            "dataIndex": "error",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Search error"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Error",
-            "width": "70%",
+            "text": "Hep",
+            "value": "Hep",
           },
-          Object {
-            "dataIndex": "recid",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Go to recid"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Record",
-          },
-        ]
-      }
-      dataSource={
-        Array [
-          Object {
-            "collection": "Job",
-            "error": "Error 1",
-            "recid": 12345,
-          },
-        ]
-      }
-      expandedRowRender={[Function]}
-      indentSize={20}
-      loading={false}
-      locale={Object {}}
-      pagination={
-        Object {
-          "pageSize": 25,
-        }
-      }
-      prefixCls="ant-table"
-      rowClassName="exceptions-table-row"
-      rowKey="recid"
-      rowSelection={null}
-      showHeader={true}
-      size="large"
-      useFixedHeader={false}
-    />
-  </Col>
-</Row>
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "collection": "Job",
+        "error": "Error 1",
+        "recid": 12345,
+      },
+    ]
+  }
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
+`;
+
+exports[`ExceptionsTable renders when loading is true 1`] = `
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={Array []}
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={true}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
 `;
 
 exports[`ExceptionsTable renders with exceptions 1`] = `
-<Row
-  gutter={0}
-  justify="space-around"
-  type="flex"
->
-  <Col
-    span={20}
-  >
-    <Table
-      bordered={true}
-      className="__ExceptionsTable__"
-      columns={
-        Array [
+<Table
+  bordered={true}
+  className="__ExceptionsTable__"
+  columns={
+    Array [
+      Object {
+        "dataIndex": "collection",
+        "filters": Array [
           Object {
-            "dataIndex": "collection",
-            "filters": Array [
-              Object {
-                "text": "Job",
-                "value": "Job",
-              },
-              Object {
-                "text": "Hep",
-                "value": "Hep",
-              },
-            ],
-            "onFilter": [Function],
-            "title": "Collection",
+            "text": "Job",
+            "value": "Job",
           },
           Object {
-            "dataIndex": "error",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Search error"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Error",
-            "width": "70%",
+            "text": "Hep",
+            "value": "Hep",
           },
-          Object {
-            "dataIndex": "recid",
-            "filterDropdown": <FilterDropdown
-              focused={false}
-              onSearch={[Function]}
-              placeholder="Go to recid"
-        />,
-            "filterDropdownVisible": false,
-            "filterIcon": <Icon
-              type="search"
-        />,
-            "onFilterDropdownVisibleChange": [Function],
-            "render": [Function],
-            "title": "Record",
-          },
-        ]
-      }
-      dataSource={
-        Array [
-          Object {
-            "collection": "Job",
-            "error": "Job Error 1",
-            "recid": 1512550,
-          },
-          Object {
-            "collection": "Hep",
-            "error": "Hep Error 2",
-            "recid": 1238165,
-          },
-          Object {
-            "collection": "Hep",
-            "error": "Hep Error 1",
-            "recid": 1635467,
-          },
-        ]
-      }
-      expandedRowRender={[Function]}
-      indentSize={20}
-      loading={false}
-      locale={Object {}}
-      pagination={
-        Object {
-          "pageSize": 25,
-        }
-      }
-      prefixCls="ant-table"
-      rowClassName="exceptions-table-row"
-      rowKey="recid"
-      rowSelection={null}
-      showHeader={true}
-      size="large"
-      useFixedHeader={false}
-    />
-  </Col>
-</Row>
+        ],
+        "onFilter": [Function],
+        "title": "Collection",
+      },
+      Object {
+        "dataIndex": "error",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Search error"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Error",
+        "width": "70%",
+      },
+      Object {
+        "dataIndex": "recid",
+        "filterDropdown": <FilterDropdown
+          focused={false}
+          onSearch={[Function]}
+          placeholder="Go to recid"
+    />,
+        "filterDropdownVisible": false,
+        "filterIcon": <Icon
+          type="search"
+    />,
+        "onFilterDropdownVisibleChange": [Function],
+        "render": [Function],
+        "title": "Record",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "collection": "Job",
+        "error": "Job Error 1",
+        "recid": 1512550,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "Hep Error 2",
+        "recid": 1238165,
+      },
+      Object {
+        "collection": "Hep",
+        "error": "Hep Error 1",
+        "recid": 1635467,
+      },
+    ]
+  }
+  expandedRowRender={[Function]}
+  indentSize={20}
+  loading={false}
+  locale={Object {}}
+  pagination={
+    Object {
+      "pageSize": 25,
+    }
+  }
+  prefixCls="ant-table"
+  rowClassName="exceptions-table-row"
+  rowKey="recid"
+  rowSelection={null}
+  showHeader={true}
+  size="large"
+  useFixedHeader={false}
+/>
 `;

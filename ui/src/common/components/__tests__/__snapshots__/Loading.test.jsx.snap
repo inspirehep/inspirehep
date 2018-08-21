@@ -3,13 +3,12 @@
 exports[`Loading render loading component 1`] = `
 <Row
   align="middle"
+  className="w-100"
   gutter={0}
-  justify="middle"
+  justify="center"
   type="flex"
 >
-  <Col
-    span={24}
-  >
+  <Col>
     <div
       className="tc pa4"
     >
