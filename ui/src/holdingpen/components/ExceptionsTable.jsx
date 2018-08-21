@@ -167,7 +167,7 @@ class ExceptionsTable extends Component {
         onChange={this.onSelectedCollectionsChange}
         expandedRowRender={record => <pre>{record.error}</pre>}
         bordered
-        loading
+        loading={this.props.loading}
       />
     );
   }
