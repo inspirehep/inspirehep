@@ -5,4 +5,5 @@ sudo chown -R 999 .
 rc=0
 docker-compose run --rm node || rc=$?
 sudo chown -R $USER .
+cd ..
 exit $rc

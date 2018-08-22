@@ -3,12 +3,19 @@
   "license": "GPL-2.0",
   "version": "0.1.0",
   "proxy": "http://localhost:5000",
+  "bundlesize": [
+    {
+      "path": "./build/**/*.js",
+      "maxSize": "250 kB"
+    }
+  ],
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
-    "test": "yarn lint && yarn test:unit && yarn test:ui",
+    "test": "yarn lint && yarn test:unit && yarn test:ui && yarn test:size",
     "test:ui": "./run-ui-tests.sh",
     "test:unit": "react-app-rewired test --env=jsdom",
+    "test:size": "bundlesize",
     "eject": "react-scripts eject",
     "lint": "eslint ./src --ext .js,.jsx",
     "precommit": "pretty-quick --single-quote --staged"
@@ -47,6 +54,7 @@
     "axios-mock-adapter": "^1.15.0",
     "babel-eslint": "8",
     "babel-plugin-import": "^1.7.0",
+    "bundlesize": "^0.17.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
