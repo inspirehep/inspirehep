@@ -2,9 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
-import { SEARCH_REQUEST } from '../../../actions/actionTypes';
+import { getStoreWithState } from '../../../fixtures/store';
 import PaginationContainer, { dispatchToProps } from '../PaginationContainer';
+import * as search from '../../../actions/search';
+
+jest.mock('../../../actions/search');
 
 describe('PaginationContainer', () => {
   it('renders initially with all state', () => {
@@ -25,16 +27,12 @@ describe('PaginationContainer', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('dispatches search onPageChange', () => {
-    const store = getStore();
+  it('calls pushQueryToLocation onPageChange', () => {
+    const mockPushQueryToLocation = jest.fn();
+    search.pushQueryToLocation = mockPushQueryToLocation;
+    const props = dispatchToProps(jest.fn());
     const page = 3;
-    const props = dispatchToProps(store.dispatch);
     props.onPageChange(page);
-    const actions = store.getActions();
-    const expectedAction = actions.find(
-      action => action.type === SEARCH_REQUEST
-    );
-    expect(expectedAction).toBeDefined();
-    expect(expectedAction.payload).toEqual({ page: 3 });
+    expect(mockPushQueryToLocation).toHaveBeenCalledWith({ page });
   });
 });

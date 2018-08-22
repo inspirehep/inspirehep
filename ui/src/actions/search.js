@@ -3,10 +3,9 @@ import { stringify } from 'qs';
 
 import { SEARCH_REQUEST, SEARCH_ERROR, SEARCH_SUCCESS } from './actionTypes';
 
-function searching(query) {
+function searching() {
   return {
     type: SEARCH_REQUEST,
-    payload: query,
   };
 }
 
@@ -45,16 +44,22 @@ function appendQuery(state, query, excludeLocationQuery) {
   };
 }
 
-export default function search(query, clearLocationQuery = false) {
-  return async (dispatch, getState, http) => {
-    dispatch(searching(query));
-
+export function pushQueryToLocation(query, clearLocationQuery = false) {
+  return async (dispatch, getState) => {
     const state = getState();
     const newQuery = appendQuery(state, query, clearLocationQuery);
     const url = getSearchUrl(state, newQuery);
     if (Object.keys(newQuery).length > 0) {
       dispatch(push(url));
     }
+  };
+}
+
+export function searchForCurrentLocation() {
+  return async (dispatch, getState, http) => {
+    const { location } = getState().router;
+    dispatch(searching());
+    const url = `${location.pathname}${location.search}`;
     try {
       const response = await http.get(url, {
         headers: {

@@ -5,13 +5,8 @@ import { connect } from 'react-redux';
 import SearchLayout from '../../common/layouts/SearchLayout';
 
 import LiteratureItem from '../components/LiteratureItem';
-import search from '../../actions/search';
 
 class SearchPage extends Component {
-  componentWillMount() {
-    this.props.dispatch(search());
-  }
-
   render() {
     return (
       <SearchLayout
@@ -25,13 +20,11 @@ class SearchPage extends Component {
 }
 
 SearchPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
 const stateToProps = state => ({
   loading: state.search.get('loading'),
 });
-const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(stateToProps, dispatchToProps)(SearchPage);
+export default connect(stateToProps)(SearchPage);

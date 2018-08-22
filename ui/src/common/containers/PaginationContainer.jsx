@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Pagination } from 'antd';
 
-import search from '../../actions/search';
+import { pushQueryToLocation } from '../../actions/search';
 import { castPropToNumber } from '../utils';
 
 class PaginationContainer extends Component {
@@ -49,7 +49,7 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onPageChange(page) {
-    dispatch(search({ page }));
+    dispatch(pushQueryToLocation({ page }));
   },
 });
 

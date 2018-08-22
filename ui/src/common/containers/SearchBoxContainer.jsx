@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import SearchBox from '../components/SearchBox';
-import search from '../../actions/search';
+import { pushQueryToLocation } from '../../actions/search';
 
 const stateToProps = state => ({
   defaultValue: state.router.location.query.q,
@@ -10,7 +10,7 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onSearch(value) {
-    dispatch(search({ q: value }, true));
+    dispatch(pushQueryToLocation({ q: value }, true));
   },
 });
 
