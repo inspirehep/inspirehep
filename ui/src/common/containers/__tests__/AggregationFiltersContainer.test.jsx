@@ -2,11 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import { getStore, getStoreWithState } from '../../../fixtures/store';
-import { SEARCH_REQUEST } from '../../../actions/actionTypes';
+import { getStoreWithState } from '../../../fixtures/store';
 import AggregationFiltersContainer, {
   dispatchToProps,
 } from '../AggregationFiltersContainer/AggregationFiltersContainer';
+import * as search from '../../../actions/search';
+
+jest.mock('../../../actions/search');
 
 describe('AggregationFiltersContainer', () => {
   it('renders initial state with initial url query q param', () => {
@@ -67,14 +69,12 @@ describe('AggregationFiltersContainer', () => {
   // TODO: test onAggregationChange when range aggregation
 
   it('dispatches search onAggregationChange', () => {
-    const store = getStore();
-    const props = dispatchToProps(store.dispatch);
+    const mockPushQueryToLocation = jest.fn();
+    search.pushQueryToLocation = mockPushQueryToLocation;
+    const props = dispatchToProps(jest.fn());
     props.onAggregationChange('agg1', ['selected']);
-    const actions = store.getActions();
-    const expectedAction = actions.find(
-      action => action.type === SEARCH_REQUEST
-    );
-    expect(expectedAction).toBeDefined();
-    expect(expectedAction.payload).toEqual({ agg1: ['selected'] });
+    expect(mockPushQueryToLocation).toHaveBeenCalledWith({
+      agg1: ['selected'],
+    });
   });
 });

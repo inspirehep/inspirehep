@@ -1,24 +1,20 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 
-import { getStore } from '../../../fixtures/store';
-import { SEARCH_REQUEST } from '../../../actions/actionTypes';
+import { getStoreWithState } from '../../../fixtures/store';
 import SearchPage from '../SearchPage';
 
 describe('Literature - SearchPage', () => {
-  it('dispatches search', () => {
-    const store = getStore();
-    mount(
-      <Provider store={store}>
-        <SearchPage />
-      </Provider>
-    );
-    const actions = store.getActions();
-    const expectedAction = actions.find(
-      action => action.type === SEARCH_REQUEST
-    );
-    expect(expectedAction).toBeDefined();
-    expect(expectedAction.payload).toBeUndefined();
+  it('renders with loading false', () => {
+    const store = getStoreWithState({ search: fromJS({ loading: false }) });
+    const wrapper = shallow(<SearchPage store={store} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with loading true', () => {
+    const store = getStoreWithState({ search: fromJS({ loading: true }) });
+    const wrapper = shallow(<SearchPage store={store} />);
+    expect(wrapper).toMatchSnapshot();
   });
 });

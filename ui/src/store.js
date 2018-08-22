@@ -13,32 +13,32 @@ import queryParamsParserMiddleware from './middlewares/queryParamsParser';
 import persistUserStateMiddleware, {
   reHydrateRootStateWithUser,
 } from './middlewares/persistUserState';
+import searchDispatcherMiddleware from './middlewares/searchDispatcher';
 
 export const thunkMiddleware = thunk.withExtraArgument(http);
 
 export const history = createHistory();
 const reduxRouterMiddleware = routerMiddleware(history);
 
-const getMiddleware = () => {
+const PROD_MIDDLEWARES = [
+  reduxRouterMiddleware,
+  queryParamsParserMiddleware,
+  persistUserStateMiddleware,
+  searchDispatcherMiddleware,
+  thunkMiddleware,
+];
+
+const DEV_MIDDLEWARES = [...PROD_MIDDLEWARES, createLogger()];
+
+const withMiddlewares = () => {
   if (process.env.NODE_ENV === 'production') {
-    return applyMiddleware(
-      reduxRouterMiddleware,
-      queryParamsParserMiddleware,
-      persistUserStateMiddleware,
-      thunkMiddleware
-    );
+    return applyMiddleware(...PROD_MIDDLEWARES);
   }
-  return applyMiddleware(
-    reduxRouterMiddleware,
-    queryParamsParserMiddleware,
-    persistUserStateMiddleware,
-    thunkMiddleware,
-    createLogger()
-  );
+  return applyMiddleware(...DEV_MIDDLEWARES);
 };
 
 export const store = createStore(
   reducers,
   reHydrateRootStateWithUser(),
-  composeWithDevTools(getMiddleware())
+  composeWithDevTools(withMiddlewares())
 );

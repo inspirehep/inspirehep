@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 
 import AggregationFilter from '../../components/AggregationFilter';
 import { forceArray } from '../../utils';
-import search from '../../../actions/search';
+import { pushQueryToLocation } from '../../../actions/search';
 import './AggregationFiltersContainer.scss';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
@@ -68,7 +68,7 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onAggregationChange(aggregationKey, selections) {
-    dispatch(search({ [aggregationKey]: selections }));
+    dispatch(pushQueryToLocation({ [aggregationKey]: selections }));
   },
 });
 

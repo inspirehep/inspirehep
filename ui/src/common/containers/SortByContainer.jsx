@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import SelectBox from '../components/SelectBox';
-import search from '../../actions/search';
+import { pushQueryToLocation } from '../../actions/search';
 
 const options = [
   {
@@ -54,10 +54,9 @@ const stateToProps = state => ({
   sort: state.router.location.query.sort,
 });
 
-
 export const dispatchToProps = dispatch => ({
   onSortChange(sort) {
-    dispatch(search({ sort }));
+    dispatch(pushQueryToLocation({ sort }));
   },
 });
 

@@ -5,7 +5,7 @@ import { fromJS } from 'immutable';
 import { getStoreWithState } from '../../fixtures/store';
 import http from '../../common/http';
 import * as types from '../actionTypes';
-import search from '../search';
+import { pushQueryToLocation, searchForCurrentLocation } from '../search';
 
 const mockHttp = new MockAdapter(http);
 const stateWithScopeQuery = {
@@ -28,152 +28,182 @@ const stateWithoutScopeQuery = {
   }),
 };
 
-describe('search - async action creator', () => {
-  afterEach(() => {
-    mockHttp.reset();
+describe('search - action creators', () => {
+  describe('searchForCurrentLocation', () => {
+    it('create SEARCH_REQUEST and SEARCH_SUCCESS if search request is successful', async done => {
+      const store = getStoreWithState({
+        router: {
+          location: { pathname: '/test', search: '?size=10&q=test' },
+        },
+      });
+      mockHttp.onGet('/test?size=10&q=test').replyOnce(200, { foo: 'bar' });
+
+      await store.dispatch(searchForCurrentLocation());
+
+      const expectedActions = [
+        { type: types.SEARCH_REQUEST },
+        { type: types.SEARCH_SUCCESS, payload: { foo: 'bar' } },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+
+    it('create SEARCH_REQUEST and SEARCH_ERROR if search request is unsuccessful', async done => {
+      const store = getStoreWithState({
+        router: {
+          location: { pathname: '/test', search: '?size=10&q=test' },
+        },
+      });
+      mockHttp.onGet('/test?size=10&q=test').networkError();
+
+      await store.dispatch(searchForCurrentLocation());
+
+      const expectedActions = [
+        { type: types.SEARCH_REQUEST },
+        { type: types.SEARCH_ERROR, payload: undefined },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
   });
 
-  it('creates SEARCH_SUCCESS and pushes new history state when search is done', async done => {
-    const testQueryUrl = '/test?size=10&q=test';
-    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+  describe('pushQueryToLocation', () => {
+    it('pushes new location url to history', async done => {
+      const expectedUrl = '/test?size=10&q=test';
+      const expectedActions = [
+        {
+          type: CALL_HISTORY_METHOD,
+          payload: { args: [expectedUrl], method: 'push' },
+        },
+      ];
 
-    const expectedActions = [
-      { type: types.SEARCH_REQUEST, payload: { q: 'test' } },
-      {
-        type: CALL_HISTORY_METHOD,
-        payload: { args: [testQueryUrl], method: 'push' },
-      },
-      { type: types.SEARCH_SUCCESS, payload: {} },
-    ];
+      const store = getStoreWithState(stateWithScopeQuery);
+      await store.dispatch(pushQueryToLocation({ q: 'test' }));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
 
-    const store = getStoreWithState(stateWithScopeQuery);
-    await store.dispatch(search({ q: 'test' }));
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
+    it('pushes new location url to history (without search scope)', async done => {
+      const expectedUrl = '/test?q=test';
+      const expectedActions = [
+        {
+          type: CALL_HISTORY_METHOD,
+          payload: { args: [expectedUrl], method: 'push' },
+        },
+      ];
 
-  it('creates SEARCH_SUCCESS and pushes new history state when without search if scope query is present', async done => {
-    const testQueryUrl = '/test?size=10';
-    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+      const store = getStoreWithState(stateWithoutScopeQuery);
+      await store.dispatch(pushQueryToLocation({ q: 'test' }));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
 
-    const expectedActions = [
-      { type: types.SEARCH_REQUEST },
-      {
-        type: CALL_HISTORY_METHOD,
-        payload: { args: [testQueryUrl], method: 'push' },
-      },
-      { type: types.SEARCH_SUCCESS, payload: {} },
-    ];
+    it('does not push to history if new location query is empty', async done => {
+      const expectedActions = [];
+      const store = getStoreWithState(stateWithoutScopeQuery);
+      await store.dispatch(pushQueryToLocation({}));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
 
-    const store = getStoreWithState(stateWithScopeQuery);
-    await store.dispatch(search());
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
+    it('resets page to if it is defined then pushes new location url to history', async done => {
+      const expectedUrl = '/test?page=1&q=test';
+      const expectedActions = [
+        {
+          type: CALL_HISTORY_METHOD,
+          payload: { args: [expectedUrl], method: 'push' },
+        },
+      ];
 
-  it('creates SEARCH_SUCCESS but skips history state push if there is no query at all', async done => {
-    const testQueryUrl = '/test?';
-    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+      const state = {
+        ...stateWithoutScopeQuery,
+        router: { location: { query: { page: 2 } } },
+      };
 
-    const expectedActions = [
-      { type: types.SEARCH_REQUEST },
-      { type: types.SEARCH_SUCCESS, payload: {} },
-    ];
+      const store = getStoreWithState(state);
+      await store.dispatch(pushQueryToLocation({ q: 'test' }));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
 
-    const store = getStoreWithState(stateWithoutScopeQuery);
-    await store.dispatch(search());
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
+    it('uses page from query over page=1 if it is defined in location then pushes new location url to history', async done => {
+      const expectedUrl = '/test?page=3';
+      const expectedActions = [
+        {
+          type: CALL_HISTORY_METHOD,
+          payload: { args: [expectedUrl], method: 'push' },
+        },
+      ];
 
-  it('creates SEARCH_SUCCESS and pushes new history state with page=1 if location has page param and there is a new query', async done => {
-    const testQueryUrl = '/test?page=1&q=test';
-    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+      const state = {
+        ...stateWithoutScopeQuery,
+        router: { location: { query: { page: 2 } } },
+      };
 
-    const expectedActions = [
-      { type: types.SEARCH_REQUEST, payload: { q: 'test' } },
-      {
-        type: CALL_HISTORY_METHOD,
-        payload: { args: [testQueryUrl], method: 'push' },
-      },
-      { type: types.SEARCH_SUCCESS, payload: {} },
-    ];
+      const store = getStoreWithState(state);
+      await store.dispatch(pushQueryToLocation({ page: 3 }));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
 
-    const state = {
-      ...stateWithoutScopeQuery,
-      router: { location: { query: { page: 2 } } },
-    };
+    it('excludes location query if flag is set then pushes new location url to history', async done => {
+      const expectedUrl = '/test?filter2=value2';
+      const expectedActions = [
+        {
+          type: CALL_HISTORY_METHOD,
+          payload: { args: [expectedUrl], method: 'push' },
+        },
+      ];
 
-    const store = getStoreWithState(state);
-    await store.dispatch(search({ q: 'test' }));
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
+      const state = {
+        ...stateWithoutScopeQuery,
+        router: { location: { query: { filter1: 'value1' } } },
+      };
 
-  it('creates SEARCH_SUCCESS and pushes new history state without reseting page=1 if location has page param and there is a new query with page', async done => {
-    const testQueryUrl = '/test?page=3';
-    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
+      const store = getStoreWithState(state);
+      await store.dispatch(pushQueryToLocation({ filter2: 'value2' }, true));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
 
-    const expectedActions = [
-      { type: types.SEARCH_REQUEST, payload: { page: '3' } },
-      {
-        type: CALL_HISTORY_METHOD,
-        payload: { args: [testQueryUrl], method: 'push' },
-      },
-      { type: types.SEARCH_SUCCESS, payload: {} },
-    ];
+    it('takes priority on query over location query over scope query new location url to history', async done => {
+      const scopeQuery = {
+        filter1: 'scope1',
+        filter2: 'scope2',
+        filter3: 'scope3',
+      };
+      const locationQuery = {
+        filter2: 'location2',
+        filter4: 'location4',
+      };
+      const query = {
+        filter3: 'query3',
+        filter4: 'query4',
+      };
 
-    const state = {
-      ...stateWithoutScopeQuery,
-      router: { location: { query: { page: 2 } } },
-    };
+      const expectedUrl =
+        '/test?filter1=scope1&filter2=location2&filter3=query3&filter4=query4';
+      const expectedActions = [
+        {
+          type: CALL_HISTORY_METHOD,
+          payload: { args: [expectedUrl], method: 'push' },
+        },
+      ];
 
-    const store = getStoreWithState(state);
-    await store.dispatch(search({ page: '3' }));
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
+      const state = {
+        search: fromJS({
+          scope: {
+            pathname: 'test',
+            query: scopeQuery,
+          },
+        }),
+        router: { location: { query: locationQuery } },
+      };
 
-  it('creates SEARCH_SUCCESS and pushes new history state without existing location query', async done => {
-    const testQueryUrl = '/test?filter2=value2';
-    mockHttp.onGet(testQueryUrl).replyOnce(200, {});
-
-    const expectedActions = [
-      { type: types.SEARCH_REQUEST, payload: { filter2: 'value2' } },
-      {
-        type: CALL_HISTORY_METHOD,
-        payload: { args: [testQueryUrl], method: 'push' },
-      },
-      { type: types.SEARCH_SUCCESS, payload: {} },
-    ];
-
-    const state = {
-      ...stateWithoutScopeQuery,
-      router: { location: { query: { filter1: 'value1' } } },
-    };
-
-    const store = getStoreWithState(state);
-    await store.dispatch(search({ filter2: 'value2' }, true));
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
-
-  it('creates SEARCH_ERROR when search fails', async done => {
-    const testQueryUrl = '/test?size=10&q=test';
-    mockHttp.onGet(testQueryUrl).networkError();
-
-    const expectedActions = [
-      { type: types.SEARCH_REQUEST, payload: { q: 'test' } },
-      {
-        type: CALL_HISTORY_METHOD,
-        payload: { args: [testQueryUrl], method: 'push' },
-      },
-      { type: types.SEARCH_ERROR, payload: undefined },
-    ];
-
-    const store = getStoreWithState(stateWithScopeQuery);
-    await store.dispatch(search({ q: 'test' }));
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
+      const store = getStoreWithState(state);
+      await store.dispatch(pushQueryToLocation(query));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
   });
 });

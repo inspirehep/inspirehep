@@ -1,9 +1,11 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
-import { SEARCH_REQUEST } from '../../../actions/actionTypes';
+import { getStoreWithState } from '../../../fixtures/store';
 import SortByContainer, { dispatchToProps } from '../SortByContainer';
+import * as search from '../../../actions/search';
+
+jest.mock('../../../actions/search');
 
 describe('SortByContainer', () => {
   it('renders initial state with initial url query sort param', () => {
@@ -15,15 +17,11 @@ describe('SortByContainer', () => {
   });
 
   it('dispatches search onSortChange', () => {
-    const store = getStore();
+    const mockPushQueryToLocation = jest.fn();
+    search.pushQueryToLocation = mockPushQueryToLocation;
+    const props = dispatchToProps(jest.fn());
     const sort = 'mostcited';
-    const props = dispatchToProps(store.dispatch);
     props.onSortChange(sort);
-    const actions = store.getActions();
-    const expectedAction = actions.find(
-      action => action.type === SEARCH_REQUEST
-    );
-    expect(expectedAction).toBeDefined();
-    expect(expectedAction.payload).toEqual({ sort });
+    expect(mockPushQueryToLocation).toHaveBeenCalledWith({ sort });
   });
 });
