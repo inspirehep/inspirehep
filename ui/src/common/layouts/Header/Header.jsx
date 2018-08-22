@@ -32,15 +32,15 @@ const TOOL_LINKS = [
 const Header = props => (
   <Layout.Header className="__Header__">
     <Row type="flex" align="middle" gutter={16}>
-      <Col span={5}>
+      <Col lg={5}>
         <Link to="/">
           <img src={logo} alt="INSPIRE Labs" />
         </Link>
       </Col>
-      <Col span={14}>
+      <Col lg={13} xl={14}>
         {props.shouldDisplaySearchBox && <SearchBoxContainer />}
       </Col>
-      <Col span={5}>
+      <Col lg={6} xl={5}>
         <Row type="flex" justify="end">
           <Col className="nav-item-container">
             <DropdownMenu

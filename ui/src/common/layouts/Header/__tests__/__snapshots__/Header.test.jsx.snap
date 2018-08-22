@@ -10,7 +10,7 @@ exports[`Header renders with search box if it is not on home 1`] = `
     type="flex"
   >
     <Col
-      span={5}
+      lg={5}
     >
       <Link
         replace={false}
@@ -23,12 +23,14 @@ exports[`Header renders with search box if it is not on home 1`] = `
       </Link>
     </Col>
     <Col
-      span={14}
+      lg={13}
+      xl={14}
     >
       <Connect(SearchBox) />
     </Col>
     <Col
-      span={5}
+      lg={6}
+      xl={5}
     >
       <Row
         gutter={0}
@@ -95,7 +97,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
     type="flex"
   >
     <Col
-      span={5}
+      lg={5}
     >
       <Link
         replace={false}
@@ -108,10 +110,12 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
       </Link>
     </Col>
     <Col
-      span={14}
+      lg={13}
+      xl={14}
     />
     <Col
-      span={5}
+      lg={6}
+      xl={5}
     >
       <Row
         gutter={0}
