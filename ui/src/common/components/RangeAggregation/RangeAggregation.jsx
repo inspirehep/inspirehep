@@ -5,8 +5,9 @@ import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
-import AggregationBox from './AggregationBox';
-import { pluckMinMaxPair, toNumbers } from '../utils';
+import './RangeAggregation.scss';
+import AggregationBox from '../AggregationBox';
+import { pluckMinMaxPair, toNumbers } from '../../utils';
 
 export const HALF_BAR_WIDTH = 0.4;
 const NO_MARGIN = {
@@ -131,6 +132,8 @@ class RangeAggregation extends Component {
   constructor(props) {
     super(props);
     this.onBarClick = this.onBarClick.bind(this);
+    this.onBarMouseHover = this.onBarMouseHover.bind(this);
+    this.onBarMouseOut = this.onBarMouseOut.bind(this);
     this.onNearestBar = this.onNearestBar.bind(this);
     this.onSliderChange = this.onSliderChange.bind(this);
     this.onAfterChange = this.onAfterChange.bind(this);
@@ -146,6 +149,14 @@ class RangeAggregation extends Component {
     const endpoints = [x, x];
     this.onSliderChange(endpoints);
     this.onAfterChange(endpoints);
+  }
+
+  onBarMouseHover(hoveredBar) {
+    this.setState({ hoveredBar });
+  }
+
+  onBarMouseOut() {
+    this.setState({ hoveredBar: null });
   }
 
   onNearestBar(_, { index }) {
@@ -167,8 +178,8 @@ class RangeAggregation extends Component {
     const { data } = this.state;
     if (this.prevNearestBar !== null) {
       data[this.prevNearestBar.index].color = this.prevNearestBar.color;
-      this.setState({ data });
       this.prevNearestBar = null;
+      this.setState({ data });
     }
   }
 
@@ -200,12 +211,19 @@ class RangeAggregation extends Component {
   }
 
   render() {
-    const { max, min, data, endpoints } = this.state;
+    const { max, min, data, endpoints, hoveredBar } = this.state;
     const sliderMarks = { [max]: max, [min]: min };
     const { height, name } = this.props;
     return (
       <AggregationBox name={name} headerAction={this.renderResetButton()}>
-        <div className="ma2">
+        <div className="__RangeAggregation__ ma2">
+          <div className="hovered-info-container">
+            {hoveredBar && (
+              <span className="hovered-info">
+                {hoveredBar.y} found for {hoveredBar.x - HALF_BAR_WIDTH}
+              </span>
+            )}
+          </div>
           <FlexibleWidthXYPlot
             height={height}
             margin={NO_MARGIN}
@@ -216,6 +234,8 @@ class RangeAggregation extends Component {
               data={data}
               onValueClick={this.onBarClick}
               onNearestX={this.onNearestBar}
+              onValueMouseOver={this.onBarMouseHover}
+              onValueMouseOut={this.onBarMouseOut}
             />
           </FlexibleWidthXYPlot>
           <Slider

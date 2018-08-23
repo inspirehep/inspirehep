@@ -1,0 +1,11 @@
+$font-size: 0.825rem;
+
+.__RangeAggregation__ {
+  .hovered-info-container {
+    height: $font-size;
+    text-align: center;
+    .hovered-info {
+      font-size: $font-size;
+    }
+  }
+}
