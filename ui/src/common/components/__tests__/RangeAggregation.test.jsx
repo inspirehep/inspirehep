@@ -33,6 +33,32 @@ describe('RangeAggregation', () => {
         buckets={mockBuckets}
         name="Test"
         selections={mockSelections}
+        minRangeSize={1}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render with sanitized min-max according to default minRangeSize', () => {
+    const wrapper = shallow(
+      <RangeAggregation
+        onChange={jest.fn()}
+        buckets={mockBuckets}
+        name="Test"
+        selections={['1000', '3000']}
+        minRangeSize={1}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render with sanitized endpoints', () => {
+    const wrapper = shallow(
+      <RangeAggregation
+        onChange={jest.fn()}
+        buckets={mockBuckets}
+        name="Test"
+        selections={mockSelections}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -44,7 +70,7 @@ describe('RangeAggregation', () => {
       const min = 1;
       const max = 2;
       const expected = [min, max];
-      const result = RangeAggregation.sanitizeEndpoints(endpoints, min, max);
+      const result = RangeAggregation.sanitizeEndpoints(endpoints, [min, max]);
       expect(result).toEqual(expected);
     });
 
@@ -53,7 +79,7 @@ describe('RangeAggregation', () => {
       const min = 1;
       const max = 2;
       const expected = [min, max];
-      const result = RangeAggregation.sanitizeEndpoints(endpoints, min, max);
+      const result = RangeAggregation.sanitizeEndpoints(endpoints, [min, max]);
       expect(result).toEqual(expected);
     });
 
@@ -62,7 +88,42 @@ describe('RangeAggregation', () => {
       const min = 0;
       const max = 3;
       const expected = [1, 2];
-      const result = RangeAggregation.sanitizeEndpoints(endpoints, min, max);
+      const result = RangeAggregation.sanitizeEndpoints(endpoints, [min, max]);
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('sanitizeMinMaxForMinRangeSize', () => {
+    it('returns [min, max] if range size is bigger than minRangeSize', () => {
+      const min = 1;
+      const max = 5;
+      const expected = [min, max];
+      const result = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
+        [min, max],
+        2
+      );
+      expect(result).toEqual(expected);
+    });
+
+    it('returns sanitized [min, max] if range size smaller than minRangeSize [difference is odd number]', () => {
+      const min = 5;
+      const max = 10;
+      const expected = [3, 12];
+      const result = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
+        [min, max],
+        10
+      );
+      expect(result).toEqual(expected);
+    });
+
+    it('returns sanitized [min, max] if range size smaller than minRangeSize [difference is even number]', () => {
+      const min = 6;
+      const max = 10;
+      const expected = [3, 13];
+      const result = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
+        [min, max],
+        10
+      );
       expect(result).toEqual(expected);
     });
   });
@@ -111,7 +172,67 @@ describe('RangeAggregation', () => {
       const data = RangeAggregation.getHistogramData(
         buckets,
         endpoints,
-        RangeAggregation.defaultProps
+        RangeAggregation.defaultProps,
+        endpoints
+      );
+      expect(data).toEqual(expectedData);
+    });
+
+    it('returns histogram data with colors and fake min-max data points if min-max pairs not equal to endpoints ', () => {
+      const { selectedColor, deselectedColor } = RangeAggregation.defaultProps;
+      const buckets = fromJS([
+        {
+          key: 201000,
+          [countPropName]: 1,
+          [keyPropName]: '2010',
+        },
+        {
+          key: 201100,
+          [countPropName]: 2,
+          [keyPropName]: '2011',
+        },
+        {
+          key: 201200,
+          [countPropName]: 3,
+          [keyPropName]: '2012',
+        },
+      ]);
+      const endpoints = [2011, 2012];
+      const expectedData = [
+        {
+          x0: 2010 - HALF_BAR_WIDTH,
+          x: 2010 + HALF_BAR_WIDTH,
+          y: 1,
+          color: deselectedColor,
+        },
+        {
+          x0: 2011 - HALF_BAR_WIDTH,
+          x: 2011 + HALF_BAR_WIDTH,
+          y: 2,
+          color: selectedColor,
+        },
+        {
+          x0: 2012 - HALF_BAR_WIDTH,
+          x: 2012 + HALF_BAR_WIDTH,
+          y: 3,
+          color: selectedColor,
+        },
+        {
+          x0: 1000 - HALF_BAR_WIDTH,
+          x: 1000 + HALF_BAR_WIDTH,
+          y: 0,
+        },
+        {
+          x0: 3000 - HALF_BAR_WIDTH,
+          x: 3000 + HALF_BAR_WIDTH,
+          y: 0,
+        },
+      ];
+      const data = RangeAggregation.getHistogramData(
+        buckets,
+        endpoints,
+        RangeAggregation.defaultProps,
+        [1000, 3000]
       );
       expect(data).toEqual(expectedData);
     });
