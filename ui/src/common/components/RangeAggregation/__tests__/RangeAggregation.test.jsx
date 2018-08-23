@@ -39,7 +39,7 @@ describe('RangeAggregation', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('render with sanitized min-max according to default minRangeSize', () => {
+  it('renders with sanitized endpoints', () => {
     const wrapper = shallow(
       <RangeAggregation
         onChange={jest.fn()}
@@ -52,7 +52,7 @@ describe('RangeAggregation', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('render with sanitized endpoints', () => {
+  it('render with sanitized min-max according to default minRangeSize', () => {
     const wrapper = shallow(
       <RangeAggregation
         onChange={jest.fn()}
@@ -61,6 +61,20 @@ describe('RangeAggregation', () => {
         selections={mockSelections}
       />
     );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with hovered bar', () => {
+    const wrapper = shallow(
+      <RangeAggregation
+        onChange={jest.fn()}
+        buckets={mockBuckets}
+        name="Test"
+        selections={mockSelections}
+        minRangeSize={1}
+      />
+    );
+    wrapper.setState({ hoveredBar: { x: 1, y: 2 } });
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -294,6 +308,38 @@ describe('RangeAggregation', () => {
       );
       wrapper.instance().onBarClick({ x: 2011 + HALF_BAR_WIDTH });
       expect(onChange).toHaveBeenCalledWith([2011, 2011]);
+    });
+  });
+
+  describe('onBarMouseHover', () => {
+    it('sets hoveredBar state', () => {
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={jest.fn()}
+          buckets={List()}
+          name="Test"
+          selections={[]}
+        />
+      );
+      const bar = { x: 1, y: 2 };
+      wrapper.instance().onBarMouseHover(bar);
+      expect(wrapper.state('hoveredBar')).toEqual(bar);
+    });
+  });
+
+  describe('onBarMouseOut', () => {
+    it('sets hoveredBar state to null', () => {
+      const wrapper = shallow(
+        <RangeAggregation
+          onChange={jest.fn()}
+          buckets={List()}
+          name="Test"
+          selections={[]}
+        />
+      );
+      wrapper.setState({ hoveredBar: { x: 1, y: 2 } });
+      wrapper.instance().onBarMouseOut();
+      expect(wrapper.state('hoveredBar')).toEqual(null);
     });
   });
 
