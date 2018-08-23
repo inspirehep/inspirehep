@@ -32,19 +32,24 @@ class RangeAggregation extends Component {
     }
 
     const unsafeEndpoints = selections || prevEndpoints;
-    const endpoints = RangeAggregation.sanitizeEndpoints(
-      unsafeEndpoints,
+    const endpoints = RangeAggregation.sanitizeEndpoints(unsafeEndpoints, [
       min,
-      max
-    );
+      max,
+    ]);
 
     // TODO: perhaps add more checks for other props
     let { data } = prevState;
     if (nextBuckets !== prevBuckets) {
+      const { minRangeSize } = nextProps;
+      [min, max] = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
+        [min, max],
+        minRangeSize
+      );
       data = RangeAggregation.getHistogramData(
         nextBuckets,
         endpoints,
-        nextProps
+        nextProps,
+        [min, max]
       );
     }
 
@@ -58,7 +63,20 @@ class RangeAggregation extends Component {
     };
   }
 
-  static sanitizeEndpoints(endpoints, min, max) {
+  static sanitizeMinMaxPairForMinRangeSize(minMaxPair, minRangeSize) {
+    let [min, max] = minMaxPair;
+    const rangeSize = max - min;
+    if (rangeSize < minRangeSize) {
+      const remainingToMinRangeSize = Math.floor(
+        (minRangeSize - rangeSize) / 2
+      );
+      min -= remainingToMinRangeSize;
+      max += remainingToMinRangeSize;
+    }
+    return [min, max];
+  }
+
+  static sanitizeEndpoints(endpoints, [min, max]) {
     let [lower, upper] = endpoints;
     const bounds = MathInterval.closed(min, max);
     if (lower === undefined || !bounds.contains(lower)) {
@@ -70,16 +88,17 @@ class RangeAggregation extends Component {
     return [lower, upper];
   }
 
-  static getHistogramData(buckets, endpoints, props) {
+  static getHistogramData(buckets, endpoints, props, [min, max]) {
     const [lower, upper] = endpoints;
     const interval = MathInterval.closed(lower, upper);
+
     const {
       keyPropName,
       countPropName,
       selectedColor,
       deselectedColor,
     } = props;
-    return buckets
+    const data = buckets
       .map(item => {
         const x = Number(item.get(keyPropName));
         const color = interval.contains(x) ? selectedColor : deselectedColor;
@@ -91,6 +110,22 @@ class RangeAggregation extends Component {
         };
       })
       .toArray();
+    // add fake min and max data if necessary.
+    if (min !== lower) {
+      data.push({
+        x0: min - HALF_BAR_WIDTH,
+        x: min + HALF_BAR_WIDTH,
+        y: 0,
+      });
+    }
+    if (max !== upper) {
+      data.push({
+        x0: max - HALF_BAR_WIDTH,
+        x: max + HALF_BAR_WIDTH,
+        y: 0,
+      });
+    }
+    return data;
   }
 
   constructor(props) {
@@ -144,11 +179,12 @@ class RangeAggregation extends Component {
   }
 
   onSliderChange(endpoints) {
-    const { buckets } = this.state;
+    const { buckets, min, max } = this.state;
     const data = RangeAggregation.getHistogramData(
       buckets,
       endpoints,
-      this.props
+      this.props,
+      [min, max]
     );
     this.setState({ endpoints, data });
     this.prevNearestBar = null;
@@ -210,6 +246,7 @@ RangeAggregation.propTypes = {
   buckets: PropTypes.instanceOf(List),
   keyPropName: PropTypes.string,
   countPropName: PropTypes.string,
+  minRangeSize: PropTypes.number,
   /* eslint-disable react/no-unused-prop-types */
 };
 
@@ -221,6 +258,7 @@ RangeAggregation.defaultProps = {
   selectedColor: '#91d5ff',
   deselectedColor: '#fff',
   hoverColor: '#69c0ff',
+  minRangeSize: 50,
 };
 
 export default RangeAggregation;
