@@ -59,6 +59,7 @@ describe('RangeAggregation', () => {
         buckets={mockBuckets}
         name="Test"
         selections={mockSelections}
+        maximumMax={3000}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -114,7 +115,8 @@ describe('RangeAggregation', () => {
       const expected = [min, max];
       const result = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
         [min, max],
-        2
+        2,
+        Infinity
       );
       expect(result).toEqual(expected);
     });
@@ -125,7 +127,8 @@ describe('RangeAggregation', () => {
       const expected = [3, 12];
       const result = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
         [min, max],
-        10
+        10,
+        Infinity
       );
       expect(result).toEqual(expected);
     });
@@ -136,7 +139,20 @@ describe('RangeAggregation', () => {
       const expected = [3, 13];
       const result = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
         [min, max],
-        10
+        10,
+        Infinity
+      );
+      expect(result).toEqual(expected);
+    });
+
+    it('returns sanitized [min, max] where minRangeSize is achived towards minimum due to maxMaximum', () => {
+      const min = 6;
+      const max = 10;
+      const expected = [2, 12];
+      const result = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
+        [min, max],
+        10,
+        12
       );
       expect(result).toEqual(expected);
     });

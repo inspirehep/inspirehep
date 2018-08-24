@@ -41,10 +41,11 @@ class RangeAggregation extends Component {
     // TODO: perhaps add more checks for other props
     let { data } = prevState;
     if (nextBuckets !== prevBuckets) {
-      const { minRangeSize } = nextProps;
+      const { minRangeSize, maximumMax } = nextProps;
       [min, max] = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
         [min, max],
-        minRangeSize
+        minRangeSize,
+        maximumMax
       );
       data = RangeAggregation.getHistogramData(
         nextBuckets,
@@ -64,15 +65,26 @@ class RangeAggregation extends Component {
     };
   }
 
-  static sanitizeMinMaxPairForMinRangeSize(minMaxPair, minRangeSize) {
+  static sanitizeMinMaxPairForMinRangeSize(
+    minMaxPair,
+    minRangeSize,
+    maximumMax
+  ) {
     let [min, max] = minMaxPair;
     const rangeSize = max - min;
     if (rangeSize < minRangeSize) {
       const remainingToMinRangeSize = Math.floor(
         (minRangeSize - rangeSize) / 2
       );
+
       min -= remainingToMinRangeSize;
       max += remainingToMinRangeSize;
+
+      if (max > maximumMax) {
+        const extraForMin = max - maximumMax;
+        max = maximumMax;
+        min -= extraForMin;
+      }
     }
     return [min, max];
   }
@@ -216,7 +228,7 @@ class RangeAggregation extends Component {
     const { height, name } = this.props;
     return (
       <AggregationBox name={name} headerAction={this.renderResetButton()}>
-        <div className="__RangeAggregation__ ma2">
+        <div className="__RangeAggregation__">
           <div className="hovered-info-container">
             {hoveredBar && (
               <span className="hovered-info">
@@ -267,6 +279,7 @@ RangeAggregation.propTypes = {
   keyPropName: PropTypes.string,
   countPropName: PropTypes.string,
   minRangeSize: PropTypes.number,
+  maximumMax: PropTypes.number,
   /* eslint-disable react/no-unused-prop-types */
 };
 
@@ -279,6 +292,7 @@ RangeAggregation.defaultProps = {
   deselectedColor: '#fff',
   hoverColor: '#69c0ff',
   minRangeSize: 50,
+  maximumMax: new Date().getFullYear(), // FIXME: awkward default for a generic range filter
 };
 
 export default RangeAggregation;

@@ -3,9 +3,13 @@ import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 
 import AggregationFilter from '../AggregationFilter';
+import RangeAggregation from '../RangeAggregation';
 
 describe('AggregationFilter', () => {
   it('renders RangeAggregation if range prop is true', () => {
+    const realMaximumMaxDefaultValue = RangeAggregation.defaultProps.maximumMax;
+    RangeAggregation.defaultProps.maximumMax = 2018;
+
     const buckets = fromJS([
       {
         key: 'bucket1',
@@ -16,14 +20,18 @@ describe('AggregationFilter', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(<AggregationFilter
-      onChange={jest.fn()}
-      buckets={buckets}
-      name="Test"
-      selections={['bucket1']}
-      range
-    />);
+
+    const wrapper = shallow(
+      <AggregationFilter
+        onChange={jest.fn()}
+        buckets={buckets}
+        name="Test"
+        selections={['bucket1']}
+        range
+      />
+    );
     expect(wrapper).toMatchSnapshot();
+    RangeAggregation.defaultProps.maximumMax = realMaximumMaxDefaultValue;
     // TODO: maybe add explicit check for RangeAggregation?
   });
 
@@ -38,12 +46,14 @@ describe('AggregationFilter', () => {
         doc_count: 2,
       },
     ]);
-    const wrapper = shallow(<AggregationFilter
-      onChange={jest.fn()}
-      buckets={buckets}
-      name="Test"
-      selections={['bucket1']}
-    />);
+    const wrapper = shallow(
+      <AggregationFilter
+        onChange={jest.fn()}
+        buckets={buckets}
+        name="Test"
+        selections={['bucket1']}
+      />
+    );
     expect(wrapper).toMatchSnapshot();
     // TODO: maybe add explicit check for CheckboxAggregation?
   });

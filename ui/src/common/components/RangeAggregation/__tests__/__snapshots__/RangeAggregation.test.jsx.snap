@@ -12,7 +12,7 @@ exports[`RangeAggregation render initial state with all required props set 1`] =
   name="Test"
 >
   <div
-    className="__RangeAggregation__ ma2"
+    className="__RangeAggregation__"
   >
     <div
       className="hovered-info-container"
@@ -106,7 +106,7 @@ exports[`RangeAggregation render with sanitized min-max according to default min
   name="Test"
 >
   <div
-    className="__RangeAggregation__ ma2"
+    className="__RangeAggregation__"
   >
     <div
       className="hovered-info-container"
@@ -205,7 +205,7 @@ exports[`RangeAggregation renders with hovered bar 1`] = `
   name="Test"
 >
   <div
-    className="__RangeAggregation__ ma2"
+    className="__RangeAggregation__"
   >
     <div
       className="hovered-info-container"
@@ -307,7 +307,7 @@ exports[`RangeAggregation renders with sanitized endpoints 1`] = `
   name="Test"
 >
   <div
-    className="__RangeAggregation__ ma2"
+    className="__RangeAggregation__"
   >
     <div
       className="hovered-info-container"
