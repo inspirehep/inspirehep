@@ -43,6 +43,7 @@ exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = 
   height={100}
   hoverColor="#69c0ff"
   keyPropName="key_as_string"
+  maximumMax={2018}
   minRangeSize={50}
   name="Test"
   onChange={[Function]}
