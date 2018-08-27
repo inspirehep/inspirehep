@@ -77,22 +77,6 @@ exports[`CiteModalAction renders with recordId 1`] = `
                 "display": "LaTex (EU)",
                 "value": "latexeu",
               },
-              Object {
-                "display": "LaTex (US)",
-                "value": "latexus",
-              },
-              Object {
-                "display": "CV (LaTex)",
-                "value": "cvformatlatex",
-              },
-              Object {
-                "display": "CV (html)",
-                "value": "cvformathtml",
-              },
-              Object {
-                "display": "CV (text)",
-                "value": "cvformattext",
-              },
             ]
           }
           style={

@@ -10,10 +10,6 @@ import ListItemAction from '../../common/components/ListItemAction';
 const FORMAT_SELECT_OPTIONS = [
   { value: 'bibtex', display: 'BibTex' },
   { value: 'latexeu', display: 'LaTex (EU)' },
-  { value: 'latexus', display: 'LaTex (US)' },
-  { value: 'cvformatlatex', display: 'CV (LaTex)' },
-  { value: 'cvformathtml', display: 'CV (html)' },
-  { value: 'cvformattext', display: 'CV (text)' },
 ];
 
 export const DEFAULT_SELECT_VALUE = 'bibtex';
