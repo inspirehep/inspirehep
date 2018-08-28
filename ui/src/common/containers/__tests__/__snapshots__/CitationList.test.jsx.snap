@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationList does not render if total <= 0 1`] = `
+<ContentBox
+  actions={null}
+  loading={false}
+  title="Citations (0)"
+/>
+`;
+
+exports[`CitationList renders with state from store 1`] = `
+<ContentBox
+  actions={null}
+  loading={false}
+  title="Citations (1)"
+>
+  <ListWithPagination
+    loading={false}
+    onPageChange={[Function]}
+    pageItems={
+      Immutable.List [
+        Immutable.Map {
+          control_number: 170,
+        },
+      ]
+    }
+    renderItem={[Function]}
+    title={null}
+    total={1}
+  />
+</ContentBox>
+`;

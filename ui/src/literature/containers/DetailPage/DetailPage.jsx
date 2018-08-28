@@ -29,6 +29,7 @@ import ThesisInfo from '../../components/ThesisInfo';
 import IsbnList from '../../components/IsbnList';
 import ConferenceInfoList from '../../components/ConferenceInfoList';
 import NumberOfPages from '../../components/NumberOfPages';
+import CitationList from '../../../common/containers/CitationList';
 
 class DetailPage extends Component {
   componentWillMount() {
@@ -138,15 +139,10 @@ class DetailPage extends Component {
           </ContentBox>
         </Col>
         <Col className="mt3 mb3" span={14}>
-          <ContentBox
-            title={`References (${references.size})`}
-            loading={loadingReferences}
-          >
-            <ReferenceList
-              references={references}
-              loading={loadingReferences}
-            />
-          </ContentBox>
+          <ReferenceList references={references} loading={loadingReferences} />
+        </Col>
+        <Col className="mt3 mb3" span={14}>
+          <CitationList pidType="literature" recordId={recordId} />
         </Col>
       </Row>
     );

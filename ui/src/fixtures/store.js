@@ -1,5 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 
+import { initialState as citations } from '../reducers/citations';
 import { initialState as search } from '../reducers/search';
 import { initialState as literature } from '../reducers/literature';
 import { initialState as user } from '../reducers/user';
@@ -11,6 +12,7 @@ import { thunkMiddleware } from '../store';
 
 export function getState() {
   return {
+    citations,
     literature,
     router: {
       location: {
