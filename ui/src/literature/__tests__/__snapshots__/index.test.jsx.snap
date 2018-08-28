@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Literature renders initial state 1`] = `
+<div
+  className="__Literature__"
+>
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/literature"
+  />
+  <Route
+    component={[Function]}
+    exact={true}
+    path="/literature/:id"
+  />
+</div>
+`;
