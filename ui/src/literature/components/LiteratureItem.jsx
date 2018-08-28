@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
-import AuthorList from './AuthorList';
+import AuthorList from '../../common/components/AuthorList';
 import LiteratureDate from './LiteratureDate';
 import ArxivEprintList from './ArxivEprintList';
 import CollaborationList from './CollaborationList';
 import DOIList from './DOIList';
 import PartialAbstract from './PartialAbstract/PartialAbstract';
 import ReportNumberList from './ReportNumberList';
-import PublicationInfoList from './PublicationInfoList';
+import PublicationInfoList from '../../common/components/PublicationInfoList';
 import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import CiteModalAction from './CiteModalAction';
 import ListItemAction from '../../common/components/ListItemAction';

@@ -4,9 +4,9 @@ import { Map } from 'immutable';
 import { List } from 'antd';
 import { Link } from 'react-router-dom';
 
-import AuthorList from './AuthorList';
+import AuthorList from '../../common/components/AuthorList';
 import Latex from '../../common/components/Latex';
-import PublicationInfoList from './PublicationInfoList';
+import PublicationInfoList from '../../common/components/PublicationInfoList';
 
 class ReferenceItem extends Component {
   static renderTitle(reference) {
