@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationItem renders with full citation 1`] = `
+<Item>
+  <Meta
+    description={
+      <Unknown>
+        <AuthorList
+          authors={
+            Immutable.List [
+              Immutable.Map {
+                full_name: "Author",
+              },
+            ]
+          }
+          enableShowAll={false}
+          forSupervisors={false}
+          limit={5}
+          recordId={12345}
+          total={-1}
+          wrapperClassName={null}
+        />
+        <PublicationInfoList
+          labeled={false}
+          publicationInfo={
+            Immutable.List [
+              Immutable.Map {
+                journal_title: "Journal",
+              },
+            ]
+          }
+        />
+      </Unknown>
+    }
+    title={
+      <Link
+        replace={false}
+        to="/literature/12345"
+      >
+        <Latex>
+          Title
+        </Latex>
+      </Link>
+    }
+  />
+</Item>
+`;
