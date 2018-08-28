@@ -12,7 +12,7 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import AuthorList from '../../components/AuthorList';
+import AuthorList from '../../../common/components/AuthorList';
 import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
 import CiteModalAction from '../../components/CiteModalAction';
 import DOIList from '../../components/DOIList';
@@ -22,7 +22,7 @@ import Latex from '../../../common/components/Latex';
 import ContentBox from '../../../common/components/ContentBox';
 import LiteratureDate from '../../components/LiteratureDate';
 import LiteratureKeywordList from '../../components/LiteratureKeywordList';
-import PublicationInfoList from '../../components/PublicationInfoList';
+import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import ReferenceList from '../../components/ReferenceList';
 import ReportNumberList from '../../components/ReportNumberList';
 import ThesisInfo from '../../components/ThesisInfo';

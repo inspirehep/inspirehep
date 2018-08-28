@@ -6,8 +6,7 @@ import { List } from 'immutable';
 import fetchCitations from '../../actions/citations';
 import ListWithPagination from '../components/ListWithPagination';
 import ContentBox from '../components/ContentBox';
-// TODO move this and all used components to /common
-import CitationItem from '../../literature/components/CitationItem';
+import CitationItem from '../components/CitationItem';
 
 export const PAGE_SIZE = 25;
 
