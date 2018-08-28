@@ -1,8 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PaginatedList does not render at all if empty 1`] = `""`;
-
-exports[`PaginatedList renders as loading if set 1`] = `
+exports[`ListWithPagination renders with all props 1`] = `
 <List
   bordered={false}
   dataSource={Array []}
@@ -11,14 +9,14 @@ exports[`PaginatedList renders as loading if set 1`] = `
       current={1}
       loading={true}
       onChange={[Function]}
-      pageSize={10}
+      pageSize={24}
       prefixCls="ant-pagination"
       selectPrefixCls="ant-select"
       showTotal={[Function]}
-      total={99}
+      total={100}
     />
   }
-  header={null}
+  header="Test"
   loading={false}
   pagination={false}
   prefixCls="ant-list"
@@ -74,10 +72,80 @@ exports[`PaginatedList renders as loading if set 1`] = `
   >
     10
   </Item>
+  <Item
+    key="11"
+  >
+    11
+  </Item>
+  <Item
+    key="12"
+  >
+    12
+  </Item>
+  <Item
+    key="13"
+  >
+    13
+  </Item>
+  <Item
+    key="14"
+  >
+    14
+  </Item>
+  <Item
+    key="15"
+  >
+    15
+  </Item>
+  <Item
+    key="16"
+  >
+    16
+  </Item>
+  <Item
+    key="17"
+  >
+    17
+  </Item>
+  <Item
+    key="18"
+  >
+    18
+  </Item>
+  <Item
+    key="19"
+  >
+    19
+  </Item>
+  <Item
+    key="20"
+  >
+    20
+  </Item>
+  <Item
+    key="21"
+  >
+    21
+  </Item>
+  <Item
+    key="22"
+  >
+    22
+  </Item>
+  <Item
+    key="23"
+  >
+    23
+  </Item>
+  <Item
+    key="24"
+  >
+    24
+  </Item>
 </List>
 `;
 
-exports[`PaginatedList renders first page initially with default pageSize 1`] = `
+exports[`ListWithPagination renders with required props 1`] = `
 <List
   bordered={false}
   dataSource={Array []}
@@ -86,11 +154,11 @@ exports[`PaginatedList renders first page initially with default pageSize 1`] = 
       current={1}
       loading={false}
       onChange={[Function]}
-      pageSize={25}
+      pageSize={24}
       prefixCls="ant-pagination"
       selectPrefixCls="ant-select"
       showTotal={[Function]}
-      total={99}
+      total={100}
     />
   }
   header={null}
@@ -218,161 +286,6 @@ exports[`PaginatedList renders first page initially with default pageSize 1`] = 
     key="24"
   >
     24
-  </Item>
-  <Item
-    key="25"
-  >
-    25
-  </Item>
-</List>
-`;
-
-exports[`PaginatedList renders first page initially with pageSize 1`] = `
-<List
-  bordered={false}
-  dataSource={Array []}
-  footer={
-    <Pagination
-      current={1}
-      loading={false}
-      onChange={[Function]}
-      pageSize={10}
-      prefixCls="ant-pagination"
-      selectPrefixCls="ant-select"
-      showTotal={[Function]}
-      total={99}
-    />
-  }
-  header={null}
-  loading={false}
-  pagination={false}
-  prefixCls="ant-list"
-  split={true}
->
-  <Item
-    key="1"
-  >
-    1
-  </Item>
-  <Item
-    key="2"
-  >
-    2
-  </Item>
-  <Item
-    key="3"
-  >
-    3
-  </Item>
-  <Item
-    key="4"
-  >
-    4
-  </Item>
-  <Item
-    key="5"
-  >
-    5
-  </Item>
-  <Item
-    key="6"
-  >
-    6
-  </Item>
-  <Item
-    key="7"
-  >
-    7
-  </Item>
-  <Item
-    key="8"
-  >
-    8
-  </Item>
-  <Item
-    key="9"
-  >
-    9
-  </Item>
-  <Item
-    key="10"
-  >
-    10
-  </Item>
-</List>
-`;
-
-exports[`PaginatedList renders the new page on page change 1`] = `
-<List
-  bordered={false}
-  dataSource={Array []}
-  footer={
-    <Pagination
-      current={2}
-      loading={false}
-      onChange={[Function]}
-      pageSize={10}
-      prefixCls="ant-pagination"
-      selectPrefixCls="ant-select"
-      showTotal={[Function]}
-      total={99}
-    />
-  }
-  header={null}
-  loading={false}
-  pagination={false}
-  prefixCls="ant-list"
-  split={true}
->
-  <Item
-    key="11"
-  >
-    11
-  </Item>
-  <Item
-    key="12"
-  >
-    12
-  </Item>
-  <Item
-    key="13"
-  >
-    13
-  </Item>
-  <Item
-    key="14"
-  >
-    14
-  </Item>
-  <Item
-    key="15"
-  >
-    15
-  </Item>
-  <Item
-    key="16"
-  >
-    16
-  </Item>
-  <Item
-    key="17"
-  >
-    17
-  </Item>
-  <Item
-    key="18"
-  >
-    18
-  </Item>
-  <Item
-    key="19"
-  >
-    19
-  </Item>
-  <Item
-    key="20"
-  >
-    20
   </Item>
 </List>
 `;
