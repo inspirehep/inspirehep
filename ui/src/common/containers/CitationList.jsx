@@ -46,6 +46,7 @@ class CitationList extends Component {
             onPageChange={this.onPageChange}
             total={total}
             loading={loading}
+            pageSize={PAGE_SIZE}
           />
         )}
       </ContentBox>

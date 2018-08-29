@@ -27,14 +27,14 @@ class ListWithPagination extends Component {
   }
 
   renderPagination() {
-    const { pageItems, loading, total } = this.props;
+    const { pageSize, loading, total } = this.props;
     const { page } = this.state;
     return (
       <Pagination
         current={page}
         onChange={this.onPageChange}
         total={total}
-        pageSize={pageItems.size}
+        pageSize={pageSize}
         loading={loading}
         showTotal={ListWithPagination.getPaginationRangeInfo}
       />
@@ -57,6 +57,7 @@ ListWithPagination.propTypes = {
   pageItems: PropTypes.instanceOf(Immutable.List).isRequired,
   renderItem: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
+  pageSize: PropTypes.number.isRequired,
   title: PropTypes.node,
   loading: PropTypes.bool,
 };

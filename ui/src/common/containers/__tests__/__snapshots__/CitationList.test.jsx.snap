@@ -24,6 +24,7 @@ exports[`CitationList renders with state from store 1`] = `
         },
       ]
     }
+    pageSize={25}
     renderItem={[Function]}
     title={null}
     total={1}

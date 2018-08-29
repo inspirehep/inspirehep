@@ -36,7 +36,7 @@ class ClientPaginatedList extends Component {
   }
 
   render() {
-    const { renderItem, title, items, loading } = this.props;
+    const { renderItem, pageSize, title, items, loading } = this.props;
     const { pageItems, total } = this.state;
     return (
       items.size > 0 && (
@@ -44,6 +44,7 @@ class ClientPaginatedList extends Component {
           title={title}
           renderItem={renderItem}
           pageItems={pageItems}
+          pageSize={pageSize}
           onPageChange={this.onPageChange}
           total={total}
           loading={loading}

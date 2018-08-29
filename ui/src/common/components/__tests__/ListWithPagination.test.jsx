@@ -7,10 +7,11 @@ import ListWithPagination from '../ListWithPagination';
 
 describe('ListWithPagination', () => {
   it('renders with required props', () => {
-    const pageItems = Range(1, 25).toList();
+    const pageItems = Range(0, 25).toList();
     const wrapper = shallow(
       <ListWithPagination
         pageItems={pageItems}
+        pageSize={50}
         total={100}
         onPageChange={jest.fn()}
         renderItem={item => <List.Item key={item}>{item}</List.Item>}
@@ -24,6 +25,7 @@ describe('ListWithPagination', () => {
     const wrapper = shallow(
       <ListWithPagination
         pageItems={pageItems}
+        pageSize={25}
         total={100}
         onPageChange={jest.fn()}
         renderItem={item => <List.Item key={item}>{item}</List.Item>}
@@ -40,6 +42,7 @@ describe('ListWithPagination', () => {
     const wrapper = shallow(
       <ListWithPagination
         pageItems={pageItems}
+        pageSize={25}
         total={100}
         onPageChange={onPageChangeProp}
         renderItem={item => <List.Item key={item}>{item}</List.Item>}
