@@ -20,6 +20,7 @@ exports[`ClientPaginatedList renders as loading if set 1`] = `
       10,
     ]
   }
+  pageSize={10}
   renderItem={[Function]}
   title={null}
   total={99}
@@ -59,6 +60,7 @@ exports[`ClientPaginatedList renders first page 1`] = `
       25,
     ]
   }
+  pageSize={25}
   renderItem={[Function]}
   title={null}
   total={99}
@@ -83,6 +85,7 @@ exports[`ClientPaginatedList renders first page with custom pageSize 1`] = `
       10,
     ]
   }
+  pageSize={10}
   renderItem={[Function]}
   title={null}
   total={99}
@@ -107,6 +110,7 @@ exports[`ClientPaginatedList renders the new page on page change 1`] = `
       20,
     ]
   }
+  pageSize={10}
   renderItem={[Function]}
   title={null}
   total={99}
