@@ -23,7 +23,7 @@ describe('LiteratureItem', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('does not render citation and reference count if they are missing', () => {
+  it('does not arxiv pdf download action if there is no eprint value', () => {
     const metadata = fromJS({
       control_number: 12345,
     });
@@ -31,7 +31,7 @@ describe('LiteratureItem', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('does not arxiv pdf download action if there is no eprint value', () => {
+  it('renders 0 citations and 0 references if they do not exist', () => {
     const metadata = fromJS({
       control_number: 12345,
     });
