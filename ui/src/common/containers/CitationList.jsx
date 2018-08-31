@@ -19,7 +19,9 @@ class CitationList extends Component {
 
   constructor(props) {
     super(props);
-
+    this.state = {
+      page: 1,
+    };
     this.onPageChange = this.onPageChange.bind(this);
   }
 
@@ -32,11 +34,13 @@ class CitationList extends Component {
 
   onPageChange(page) {
     const { pidType, recordId, dispatch } = this.props;
+    this.setState({ page });
     dispatch(fetchCitations(pidType, recordId, { page, pageSize: PAGE_SIZE }));
   }
 
   render() {
     const { loading, total, citations } = this.props;
+    const { page } = this.state;
     return (
       <ContentBox title={`Citations (${total})`} loading={loading}>
         {total > 0 && (
@@ -46,6 +50,7 @@ class CitationList extends Component {
             onPageChange={this.onPageChange}
             total={total}
             loading={loading}
+            page={page}
             pageSize={PAGE_SIZE}
           />
         )}

@@ -6,6 +6,7 @@ exports[`ClientPaginatedList renders as loading if set 1`] = `
 <ListWithPagination
   loading={true}
   onPageChange={[Function]}
+  page={1}
   pageItems={
     Immutable.List [
       1,
@@ -31,6 +32,7 @@ exports[`ClientPaginatedList renders first page 1`] = `
 <ListWithPagination
   loading={false}
   onPageChange={[Function]}
+  page={1}
   pageItems={
     Immutable.List [
       1,
@@ -71,6 +73,7 @@ exports[`ClientPaginatedList renders first page with custom pageSize 1`] = `
 <ListWithPagination
   loading={false}
   onPageChange={[Function]}
+  page={1}
   pageItems={
     Immutable.List [
       1,
@@ -96,6 +99,7 @@ exports[`ClientPaginatedList renders the new page on page change 1`] = `
 <ListWithPagination
   loading={false}
   onPageChange={[Function]}
+  page={2}
   pageItems={
     Immutable.List [
       11,

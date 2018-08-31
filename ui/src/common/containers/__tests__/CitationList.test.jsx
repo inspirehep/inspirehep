@@ -40,7 +40,7 @@ describe('CitationList', () => {
     });
   });
 
-  it('calls fetchCitations on page change', () => {
+  it('calls fetchCitations and sets page state on page change', () => {
     const store = getStore();
     const wrapper = shallow(
       <CitationList pidType="test" recordId={123} store={store} />
@@ -51,6 +51,7 @@ describe('CitationList', () => {
       page,
       pageSize: PAGE_SIZE,
     });
+    expect(wrapper.state('page')).toEqual(page);
   });
 
   it('does not render if total <= 0', () => {

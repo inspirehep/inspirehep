@@ -6,7 +6,7 @@ exports[`ListWithPagination renders with all props 1`] = `
   dataSource={Array []}
   footer={
     <Pagination
-      current={1}
+      current={2}
       loading={true}
       onChange={[Function]}
       pageSize={25}
