@@ -7,6 +7,26 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
       <CiteModalAction
         recordId={12345}
       />
+      <ListItemAction
+        iconType="login"
+        link={
+          Object {
+            "to": "/literature/12345#references",
+          }
+        }
+        onClick={undefined}
+        text="0 references"
+      />
+      <ListItemAction
+        iconType="logout"
+        link={
+          Object {
+            "to": "/literature/12345#citations",
+          }
+        }
+        onClick={undefined}
+        text="0 citations"
+      />
     </Unknown>
   }
 >
@@ -67,12 +87,32 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
 </ResultItem>
 `;
 
-exports[`LiteratureItem does not render citation and reference count if they are missing 1`] = `
+exports[`LiteratureItem renders 0 citations and 0 references if they do not exist 1`] = `
 <ResultItem
   actions={
     <Unknown>
       <CiteModalAction
         recordId={12345}
+      />
+      <ListItemAction
+        iconType="login"
+        link={
+          Object {
+            "to": "/literature/12345#references",
+          }
+        }
+        onClick={undefined}
+        text="0 references"
+      />
+      <ListItemAction
+        iconType="logout"
+        link={
+          Object {
+            "to": "/literature/12345#citations",
+          }
+        }
+        onClick={undefined}
+        text="0 citations"
       />
     </Unknown>
   }
