@@ -13,26 +13,12 @@ class ListWithPagination extends Component {
     return `${range[0]}-${range[1]} of ${total}`;
   }
 
-  constructor(props) {
-    super(props);
-    this.onPageChange = this.onPageChange.bind(this);
-    this.state = {
-      page: 1,
-    };
-  }
-
-  onPageChange(page) {
-    this.setState({ page });
-    this.props.onPageChange(page);
-  }
-
   renderPagination() {
-    const { pageSize, loading, total } = this.props;
-    const { page } = this.state;
+    const { pageSize, loading, total, page, onPageChange } = this.props;
     return (
       <Pagination
         current={page}
-        onChange={this.onPageChange}
+        onChange={onPageChange}
         total={total}
         pageSize={pageSize}
         loading={loading}
@@ -42,8 +28,7 @@ class ListWithPagination extends Component {
   }
 
   render() {
-    const { renderItem, title, pageItems } = this.props;
-    const { page } = this.state;
+    const { renderItem, title, pageItems, page } = this.props;
     return (
       <List header={title} footer={this.renderPagination()}>
         {pageItems.map((item, index) => renderItem(item, index, page))}
@@ -58,6 +43,7 @@ ListWithPagination.propTypes = {
   renderItem: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
   pageSize: PropTypes.number.isRequired,
+  page: PropTypes.number.isRequired,
   title: PropTypes.node,
   loading: PropTypes.bool,
 };

@@ -6,7 +6,8 @@ import ListWithPagination from './ListWithPagination';
 class ClientPaginatedList extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { items, pageSize } = nextProps;
-    const pageItems = ClientPaginatedList.getPageItems(items, 1, pageSize);
+    const { page } = prevState;
+    const pageItems = ClientPaginatedList.getPageItems(items, page, pageSize);
     return {
       ...prevState,
       pageItems,
@@ -22,9 +23,11 @@ class ClientPaginatedList extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-
     this.onPageChange = this.onPageChange.bind(this);
+
+    this.state = {
+      page: 1,
+    };
   }
 
   onPageChange(page) {
@@ -32,12 +35,13 @@ class ClientPaginatedList extends Component {
     const pageItems = ClientPaginatedList.getPageItems(items, page, pageSize);
     this.setState({
       pageItems,
+      page,
     });
   }
 
   render() {
     const { renderItem, pageSize, title, items, loading } = this.props;
-    const { pageItems, total } = this.state;
+    const { pageItems, total, page } = this.state;
     return (
       items.size > 0 && (
         <ListWithPagination
@@ -45,6 +49,7 @@ class ClientPaginatedList extends Component {
           renderItem={renderItem}
           pageItems={pageItems}
           pageSize={pageSize}
+          page={page}
           onPageChange={this.onPageChange}
           total={total}
           loading={loading}

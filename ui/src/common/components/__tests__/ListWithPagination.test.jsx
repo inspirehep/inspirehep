@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Range } from 'immutable';
-import { List } from 'antd';
+import { List, Pagination } from 'antd';
 
 import ListWithPagination from '../ListWithPagination';
 
@@ -12,6 +12,7 @@ describe('ListWithPagination', () => {
       <ListWithPagination
         pageItems={pageItems}
         pageSize={50}
+        page={1}
         total={100}
         onPageChange={jest.fn()}
         renderItem={item => <List.Item key={item}>{item}</List.Item>}
@@ -26,6 +27,7 @@ describe('ListWithPagination', () => {
       <ListWithPagination
         pageItems={pageItems}
         pageSize={25}
+        page={2}
         total={100}
         onPageChange={jest.fn()}
         renderItem={item => <List.Item key={item}>{item}</List.Item>}
@@ -36,23 +38,20 @@ describe('ListWithPagination', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('sets new page state and calls props.onPageChange on page change', () => {
+  it('sets props.onPageChange to Pagination.onChange', () => {
     const pageItems = Range(1, 25).toList();
-    const onPageChangeProp = jest.fn();
+    const onPageChange = jest.fn();
     const wrapper = shallow(
       <ListWithPagination
         pageItems={pageItems}
         pageSize={25}
+        page={1}
         total={100}
-        onPageChange={onPageChangeProp}
+        onPageChange={onPageChange}
         renderItem={item => <List.Item key={item}>{item}</List.Item>}
       />
-    );
-    const page = 2;
-    wrapper.instance().onPageChange(page);
-    wrapper.update();
-    expect(wrapper.state('page')).toBe(page);
-    expect(onPageChangeProp).toHaveBeenCalledWith(page);
+    ).dive();
+    expect(wrapper.find(Pagination)).toHaveProp('onChange', onPageChange);
   });
 
   describe('getPaginationRangeInfo', () => {
