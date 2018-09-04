@@ -3,9 +3,9 @@
 exports[`SearchBoxContainer renders initial state with initial url query q param 1`] = `
 <Search
   addonBefore="literature"
-  defaultValue="test"
   enterButton={true}
   inputPrefixCls="ant-input"
+  onChange={[Function]}
   onSearch={[Function]}
   placeholder={null}
   prefixCls="ant-input-search"
@@ -15,5 +15,6 @@ exports[`SearchBoxContainer renders initial state with initial url query q param
       "verticalAlign": "middle",
     }
   }
+  value="test"
 />
 `;
