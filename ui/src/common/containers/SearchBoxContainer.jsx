@@ -4,7 +4,7 @@ import SearchBox from '../components/SearchBox';
 import { pushQueryToLocation } from '../../actions/search';
 
 const stateToProps = state => ({
-  defaultValue: state.router.location.query.q,
+  value: state.router.location.query.q,
   searchScopeName: state.search.getIn(['scope', 'name']),
 });
 
