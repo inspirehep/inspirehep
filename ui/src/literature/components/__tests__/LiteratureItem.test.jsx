@@ -14,10 +14,12 @@ describe('LiteratureItem', () => {
       arxiv_eprints: [{ value: '1234567890' }],
       control_number: 12345,
       citation_count: 1,
-      publicaion_info: [{ journal_title: 'Test Jornal' }],
+      publication_info: [{ journal_title: 'Test Jornal' }],
       dois: [{ value: '12345679.1234.123' }],
       report_numbers: [{ value: 'ABCD-AB-CD-1234-123' }],
       abstract: [{ value: 'Test Abstract' }],
+      collaborations: [{ value: 'CMS' }],
+      collaborations_with_suffix: [{ value: 'CMS Group' }],
     });
     const wrapper = shallow(<LiteratureItem metadata={metadata} />);
     expect(wrapper).toMatchSnapshot();

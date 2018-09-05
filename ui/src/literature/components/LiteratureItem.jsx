@@ -35,6 +35,7 @@ class LiteratureItem extends Component {
     const eprints = metadata.get('arxiv_eprints');
     const dois = metadata.get('dois');
     const collaborations = metadata.get('collaborations');
+    const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
     const reportNumbers = metadata.get('report_numbers');
     const abstract = metadata.getIn(['abstracts', 0, 'value']);
 
@@ -66,7 +67,10 @@ class LiteratureItem extends Component {
         </Link>
         <div className="mt2">
           <div>
-            <CollaborationList collaborations={collaborations} />
+            <CollaborationList
+              collaborations={collaborations}
+              collaborationsWithSuffix={collaborationsWithSuffix}
+            />
             <AuthorList
               authorCount={authorCount}
               recordId={recordId}

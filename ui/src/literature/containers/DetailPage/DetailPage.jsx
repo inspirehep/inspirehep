@@ -77,6 +77,7 @@ class DetailPage extends Component {
     const abstract = metadata.getIn(['abstracts', 0]);
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
     const collaborations = metadata.get('collaborations');
+    const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
 
     const keywords = metadata.get('keywords');
     const authorCount = metadata.get('author_count');
@@ -97,7 +98,10 @@ class DetailPage extends Component {
               <Latex>{title}</Latex>
             </h2>
             <div>
-              <CollaborationList collaborations={collaborations} />
+              <CollaborationList
+                collaborations={collaborations}
+                collaborationsWithSuffix={collaborationsWithSuffix}
+              />
               <AuthorList
                 total={authorCount}
                 recordId={recordId}

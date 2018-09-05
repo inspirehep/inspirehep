@@ -5,34 +5,20 @@ import { List } from 'immutable';
 import CollaborationLink from './CollaborationLink';
 import InlineList from '../../common/components/InlineList';
 
-const REGEX_COLLABORATIONS_WITH_SUFFIX = /(group|groups|force|consortium|team)$/i;
-
 class CollaborationList extends Component {
-  static collaborationMatchSuffix(item) {
-    return item.get('value').match(REGEX_COLLABORATIONS_WITH_SUFFIX);
-  }
-
   render() {
-    const { collaborations } = this.props;
-    const collaborationsWithSuffix = collaborations.filter(
-      CollaborationList.collaborationMatchSuffix
-    );
-    const collaborationsWithoutSuffix = collaborations.filterNot(
-      CollaborationList.collaborationMatchSuffix
-    );
+    const { collaborations, collaborationsWithSuffix } = this.props;
 
     return (
       <Fragment>
         <InlineList
           wrapperClassName="di"
           separateItemsClassName="separate-items-with-and"
-          items={collaborationsWithoutSuffix}
+          items={collaborations}
           suffix={
-            collaborationsWithoutSuffix.size > 0 && (
+            collaborations.size > 0 && (
               <span className="pr1">
-                {collaborationsWithoutSuffix.size > 1
-                  ? ' Collaborations'
-                  : ' Collaboration'}
+                {collaborations.size > 1 ? ' Collaborations' : ' Collaboration'}
               </span>
             )
           }
@@ -56,10 +42,12 @@ class CollaborationList extends Component {
 
 CollaborationList.propTypes = {
   collaborations: PropTypes.instanceOf(List),
+  collaborationsWithSuffix: PropTypes.instanceOf(List),
 };
 
 CollaborationList.defaultProps = {
   collaborations: List(),
+  collaborationsWithSuffix: List(),
 };
 
 export default CollaborationList;
