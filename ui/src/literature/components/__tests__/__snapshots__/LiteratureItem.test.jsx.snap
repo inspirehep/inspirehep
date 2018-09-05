@@ -46,6 +46,10 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
           Immutable.List [
           ]
         }
+        collaborationsWithSuffix={
+          Immutable.List [
+          ]
+        }
       />
       <AuthorList
         authors={
@@ -130,6 +134,10 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
     <div>
       <CollaborationList
         collaborations={
+          Immutable.List [
+          ]
+        }
+        collaborationsWithSuffix={
           Immutable.List [
           ]
         }
@@ -223,6 +231,16 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       <CollaborationList
         collaborations={
           Immutable.List [
+            Immutable.Map {
+              value: "CMS",
+            },
+          ]
+        }
+        collaborationsWithSuffix={
+          Immutable.List [
+            Immutable.Map {
+              value: "CMS Group",
+            },
           ]
         }
       />
@@ -236,7 +254,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
         }
         enableShowAll={false}
         forSupervisors={false}
-        limit={5}
+        limit={1}
         recordId={12345}
         total={-1}
         wrapperClassName={null}
@@ -251,7 +269,13 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   >
     <PublicationInfoList
       labeled={true}
-      publicationInfo={null}
+      publicationInfo={
+        Immutable.List [
+          Immutable.Map {
+            journal_title: "Test Jornal",
+          },
+        ]
+      }
     />
     <ArxivEprintList
       eprints={

@@ -25,24 +25,29 @@ describe('CollaborationList', () => {
   });
 
   it('renders with collaborations with and without suffix', () => {
-    const collaborations = fromJS([
-      { value: 'Alias Investigations' },
-      { value: 'Nelson and Murdock' },
-      { value: 'Defenders Group and Avengers' },
-      { value: 'Defenders Task Force and Avengers' },
+    const collaborationsWithSuffix = fromJS([
       { value: 'Avangers Groups' },
       { value: 'Avangers Task Force' },
       { value: 'Avangers Consortium' },
       { value: 'Avangers Team' },
     ]);
+    const collaborations = fromJS([
+      { value: 'Alias Investigations' },
+      { value: 'Nelson and Murdock' },
+      { value: 'Defenders Group and Avengers' },
+      { value: 'Defenders Task Force and Avengers' },
+    ]);
     const wrapper = shallow(
-      <CollaborationList collaborations={collaborations} />
+      <CollaborationList
+        collaborations={collaborations}
+        collaborationsWithSuffix={collaborationsWithSuffix}
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders with collaborations with suffix', () => {
-    const collaborations = fromJS([
+    const collaborationsWithSuffix = fromJS([
       { value: 'Avangers Groups' },
       { value: 'Avangers Group' },
       { value: 'Avangers Task Force' },
@@ -50,7 +55,7 @@ describe('CollaborationList', () => {
       { value: 'Avangers Team' },
     ]);
     const wrapper = shallow(
-      <CollaborationList collaborations={collaborations} />
+      <CollaborationList collaborationsWithSuffix={collaborationsWithSuffix} />
     );
     expect(wrapper).toMatchSnapshot();
   });
