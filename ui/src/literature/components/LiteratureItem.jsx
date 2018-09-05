@@ -46,14 +46,14 @@ class LiteratureItem extends Component {
             <CiteModalAction recordId={recordId} />
             {referenceCount != null && (
               <ListItemAction
-                iconType="login"
+                iconType="logout"
                 text={`${referenceCount} references`}
                 link={{ to: `/literature/${recordId}#references` }}
               />
             )}
             {citationCount != null && (
               <ListItemAction
-                iconType="logout"
+                iconType="login"
                 text={`${citationCount} citations`}
                 link={{ to: `/literature/${recordId}#citations` }}
               />
