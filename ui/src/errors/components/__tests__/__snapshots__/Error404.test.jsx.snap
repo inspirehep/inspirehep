@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Error404 renders ErrorPage with correct props 1`] = `
+exports[`Error404 renders Error404 with correct props 1`] = `
 <ErrorPage
   imageSrc="404.svg"
   message="Sorry, we were not able to find what you were looking for..."
