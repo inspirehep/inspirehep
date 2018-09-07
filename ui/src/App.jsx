@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import Loadable from 'react-loadable';
+import { Set } from 'immutable';
 
 import './App.scss';
 import Header from './common/layouts/Header';
 import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';
 import PrivateRoute from './common/PrivateRoute';
+
+const ONLY_SUPER_AND_BETA_USERS = Set(['superuser', 'betauser']);
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -48,7 +51,11 @@ class App extends Component {
             <Route exact path="/" component={Home$} />
             <Route path="/user" component={User$} />
             <PrivateRoute path="/holdingpen" component={Holdingpen$} />
-            <Route path="/literature" component={Literature$} />
+            <PrivateRoute
+              path="/literature"
+              authorizedRoles={ONLY_SUPER_AND_BETA_USERS}
+              component={Literature$}
+            />
             <Route path="/submissions" component={Submissions$} />
             <Route path="/errors" component={Errors$} />
             <Redirect to="/errors" />

@@ -2,7 +2,7 @@ const { routes } = require('../../utils/constants');
 const { createPollyInstance } = require('../../utils/polly');
 
 describe('Literature Detail', () => {
-  it('should match image snapshot for a literature', async () => {
+  xit('should match image snapshot for a literature', async () => {
     await page.setRequestInterception(true);
     const polly = createPollyInstance('LiteratureDetail');
 

@@ -50,3 +50,10 @@ export function getWrappedComponentDisplayName(wrapperHocName, ComponentClass) {
     ComponentClass.displayName || ComponentClass.name || 'Component';
   return `${wrapperHocName}(${componentDisplayName})`;
 }
+
+export function doSetsHaveCommonItem(set1, set2) {
+  if (set1.isEmpty() && set2.isEmpty()) {
+    return false;
+  }
+  return set1.subtract(set2).size < set1.size;
+}
