@@ -6,7 +6,7 @@ import {
 import loginInNewTab from '../user/loginInNewTab';
 import logout from '../user/logout';
 
-function userLoginSuccess(user) {
+export function userLoginSuccess(user) {
   return {
     type: USER_LOGIN_SUCCESS,
     payload: user,

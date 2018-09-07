@@ -1,4 +1,4 @@
-import { fromJS } from 'immutable';
+import { fromJS, Set } from 'immutable';
 
 import {
   forceArray,
@@ -7,6 +7,7 @@ import {
   convertArrayToMap,
   selfOrInfinity,
   getSizeOfArrayOrImmutableList,
+  doSetsHaveCommonItem,
 } from '../utils';
 
 describe('utils', () => {
@@ -97,6 +98,43 @@ describe('utils', () => {
 
     it('returns size for immutable', () => {
       expect(getSizeOfArrayOrImmutableList(fromJS([1, 2]))).toBe(2);
+    });
+  });
+
+  describe('doSetsHaveCommentItem', () => {
+    it('returns true if immutable sets have a common item', () => {
+      const set1 = Set([1, 2, 3]);
+      const set2 = Set([3, 4, 5, 6]);
+      const result = doSetsHaveCommonItem(set1, set2);
+      expect(result).toBe(true);
+    });
+
+    it('returns true if immutable sets are same', () => {
+      const set1 = Set([1, 2, 3]);
+      const set2 = Set([1, 2, 3]);
+      const result = doSetsHaveCommonItem(set1, set2);
+      expect(result).toBe(true);
+    });
+
+    it('returns false if immutable sets are empty', () => {
+      const set1 = Set([]);
+      const set2 = Set([]);
+      const result = doSetsHaveCommonItem(set1, set2);
+      expect(result).toBe(false);
+    });
+
+    it('returns false if one of immutable sets is empty', () => {
+      const set1 = Set([]);
+      const set2 = Set([1, 2, 3]);
+      const result = doSetsHaveCommonItem(set1, set2);
+      expect(result).toBe(false);
+    });
+
+    it('returns false if immutable sets do not have a common item', () => {
+      const set1 = Set([1, 2, 3]);
+      const set2 = Set([5, 6]);
+      const result = doSetsHaveCommonItem(set1, set2);
+      expect(result).toBe(false);
     });
   });
 });

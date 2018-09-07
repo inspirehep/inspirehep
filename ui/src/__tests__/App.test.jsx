@@ -62,15 +62,42 @@ describe('App', () => {
     expect(wrapper.find(User)).toExist();
   });
 
-  it('navigates to Literature when /literature', () => {
+  it('navigates to Literature when /literature if betauser is logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['betauser'],
+        },
+      }),
+    });
     const wrapper = mount(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
     expect(wrapper.find(Literature)).toExist();
+  });
+
+  it('does not navigate to Literature when /literature if logged in user not a beta nor super super', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['whateveruser'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Literature)).not.toExist();
   });
 
   it('navigates to Submissions when /submissions', () => {

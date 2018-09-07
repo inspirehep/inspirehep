@@ -6,6 +6,7 @@ import RouteOrRedirect from '../common/components/RouteOrRedirect';
 import LoginPage from './containers/LoginPage';
 import ProfilePage from './containers/ProfilePage';
 import PrivateRoute from '../common/PrivateRoute';
+import LocalLoginPage from './containers/LocalLoginPage';
 
 class User extends Component {
   render() {
@@ -19,6 +20,15 @@ class User extends Component {
           component={LoginPage}
           redirectTo="/"
         />
+        {process.env.NODE_ENV === 'development' && (
+          <RouteOrRedirect
+            exact
+            path="/user/login/local"
+            condition={!loggedIn}
+            component={LocalLoginPage}
+            redirectTo="/"
+          />
+        )}
         <PrivateRoute exact path="/user/profile" component={ProfilePage} />
       </div>
     );

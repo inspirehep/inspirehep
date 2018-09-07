@@ -15,7 +15,7 @@ describe('user reducer', () => {
 
   it('USER_LOGIN_SUCCESS', () => {
     const payload = {
-      data: { username: 'dude' },
+      data: { username: 'dude', roles: ['dudelikeuser'] },
     };
     const state = reducer(Map(), { type: USER_LOGIN_SUCCESS, payload });
     const expected = fromJS({
@@ -29,7 +29,7 @@ describe('user reducer', () => {
     const state = reducer(Map(), { type: USER_LOGIN_ERROR });
     const expected = fromJS({
       loggedIn: false,
-      data: {},
+      data: initialState.get('data'),
     });
     expect(state).toEqual(expected);
   });
@@ -38,7 +38,7 @@ describe('user reducer', () => {
     const state = reducer(Map(), { type: USER_LOGOUT_SUCCESS });
     const expected = fromJS({
       loggedIn: false,
-      data: {},
+      data: initialState.get('data'),
     });
     expect(state).toEqual(expected);
   });

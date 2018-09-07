@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { fromJS } from 'immutable';
+import { fromJS, Set } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
@@ -41,6 +41,62 @@ describe('PrivateRoute', () => {
         <MemoryRouter initialEntries={['/private']} initialIndex={0}>
           <Switch>
             <PrivateRoute exact path="/private" component={Private} />
+          </Switch>
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('redirects 401 if logged in but not authorized', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['unauthorizeduser'],
+        },
+      }),
+    });
+    const Authorized = () => <div>Authorized Page</div>;
+    const Error401 = () => <div>Error 401 Page</div>;
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authorized']} initialIndex={0}>
+          <Switch>
+            <Route exact path="/errors/401" component={Error401} />
+            <PrivateRoute
+              exact
+              path="/authorized"
+              authorizedRoles={Set(['authorizeduser'])}
+              component={Authorized}
+            />
+          </Switch>
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('routes if logged in user is authorized', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['authorizeduser'],
+        },
+      }),
+    });
+    const Authorized = () => <div>Authorized Page</div>;
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authorized']} initialIndex={0}>
+          <Switch>
+            <PrivateRoute
+              exact
+              path="/authorized"
+              authorizedRoles={Set(['authorizeduser'])}
+              component={Authorized}
+            />
           </Switch>
         </MemoryRouter>
       </Provider>
