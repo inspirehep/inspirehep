@@ -2,10 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
-import { getStore } from '../fixtures/store';
-import Errors from '../errors';
-import Error404 from './components/Error404';
-import Error401 from './components/Error401';
+import { getStore } from '../../fixtures/store';
+import Errors from '../index';
+import Error404 from '../components/Error404';
+import Error401 from '../components/Error401';
 
 describe('errors', () => {
   it('navigates to Error404 when /errors/404', () => {

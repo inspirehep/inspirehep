@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import ErrorPage from '../components/ErrorPage';
+import ErrorPage from '../ErrorPage';
 
 describe('ErrorPage', () => {
   it('renders with correct props', () => {
