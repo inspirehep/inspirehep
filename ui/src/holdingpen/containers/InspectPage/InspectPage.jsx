@@ -57,10 +57,10 @@ class InspectPage extends Component {
 
 InspectPage.propTypes = {
   data: PropTypes.shape({
-    root: PropTypes.objectOf(PropTypes.any).isRequired,
-    head: PropTypes.objectOf(PropTypes.any).isRequired,
-    update: PropTypes.objectOf(PropTypes.any).isRequired,
-    merged: PropTypes.objectOf(PropTypes.any).isRequired,
+    root: PropTypes.objectOf(PropTypes.any),
+    head: PropTypes.objectOf(PropTypes.any),
+    update: PropTypes.objectOf(PropTypes.any),
+    merged: PropTypes.objectOf(PropTypes.any),
   }).isRequired,
   dispatch: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,

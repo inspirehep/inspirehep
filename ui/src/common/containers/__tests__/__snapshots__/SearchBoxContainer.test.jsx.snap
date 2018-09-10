@@ -2,7 +2,7 @@
 
 exports[`SearchBoxContainer renders initial state with initial url query q param 1`] = `
 <Search
-  addonBefore="literature"
+  addonBefore={<Connect(SearchScopeSelectContainer) />}
   enterButton={true}
   inputPrefixCls="ant-input"
   onChange={[Function]}

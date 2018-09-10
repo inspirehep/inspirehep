@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'antd';
+import SearchScopeSelectContainer from '../containers/SearchScopeSelectContainer';
 
 class SearchBox extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -26,7 +27,7 @@ class SearchBox extends Component {
     return (
       <Input.Search
         style={{ verticalAlign: 'middle' }}
-        addonBefore={this.props.searchScopeName}
+        addonBefore={<SearchScopeSelectContainer />}
         placeholder={this.props.placeholder}
         value={this.state.value}
         onChange={this.onChange}
@@ -40,7 +41,6 @@ class SearchBox extends Component {
 
 SearchBox.propTypes = {
   value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  searchScopeName: PropTypes.string,
   placeholder: PropTypes.string,
   onSearch: PropTypes.func,
 };
@@ -49,7 +49,6 @@ SearchBox.defaultProps = {
   value: null,
   placeholder: null,
   onSearch: null,
-  searchScopeName: null,
 };
 
 export default SearchBox;
