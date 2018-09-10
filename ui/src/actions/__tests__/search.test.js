@@ -2,10 +2,14 @@ import { CALL_HISTORY_METHOD } from 'react-router-redux';
 import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState } from '../../fixtures/store';
+import { getStoreWithState, getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import * as types from '../actionTypes';
-import { pushQueryToLocation, searchForCurrentLocation } from '../search';
+import {
+  pushQueryToLocation,
+  searchForCurrentLocation,
+  changeSearchScope,
+} from '../search';
 
 const mockHttp = new MockAdapter(http);
 const stateWithScopeQuery = {
@@ -202,6 +206,21 @@ describe('search - action creators', () => {
 
       const store = getStoreWithState(state);
       await store.dispatch(pushQueryToLocation(query));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+  });
+
+  describe('changeSearchScope', () => {
+    it('creates CHANGE_SEARCH_SCOPE', async done => {
+      const store = getStore();
+
+      await store.dispatch(changeSearchScope('test'));
+
+      const expectedActions = [
+        { type: types.CHANGE_SEARCH_SCOPE, payload: 'test' },
+      ];
+
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });

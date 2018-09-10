@@ -5,7 +5,6 @@ import { pushQueryToLocation } from '../../actions/search';
 
 const stateToProps = state => ({
   value: state.router.location.query.q,
-  searchScopeName: state.search.getIn(['scope', 'name']),
 });
 
 export const dispatchToProps = dispatch => ({

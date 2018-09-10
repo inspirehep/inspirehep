@@ -1,7 +1,19 @@
 import { push } from 'react-router-redux';
 import { stringify } from 'qs';
 
-import { SEARCH_REQUEST, SEARCH_ERROR, SEARCH_SUCCESS } from './actionTypes';
+import {
+  SEARCH_REQUEST,
+  SEARCH_ERROR,
+  SEARCH_SUCCESS,
+  CHANGE_SEARCH_SCOPE,
+} from './actionTypes';
+
+export function changeSearchScope(scope) {
+  return {
+    type: CHANGE_SEARCH_SCOPE,
+    payload: scope,
+  };
+}
 
 function searching() {
   return {

@@ -5,6 +5,7 @@ import {
   SEARCH_REQUEST,
   SEARCH_ERROR,
   SEARCH_SUCCESS,
+  CHANGE_SEARCH_SCOPE,
 } from '../actions/actionTypes';
 
 const baseQuery = {
@@ -12,17 +13,19 @@ const baseQuery = {
   size: '25',
 };
 
-const searchScopes = fromJS({
+export const searchScopes = fromJS({
   literature: {
     name: 'literature',
     pathname: 'literature',
     query: baseQuery,
   },
-  holdingpen: {
-    name: 'holdingpen',
-    pathname: '/holdingpen/',
+  /*
+  authors: {
+    name: 'authors',
+    pathname: 'authors',
     query: baseQuery,
   },
+  */
 });
 
 export const initialState = fromJS({
@@ -35,11 +38,14 @@ export const initialState = fromJS({
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOCATION_CHANGE:
-      // TODO: handle every scope in a better way
-      if (action.payload.pathname.includes('holdingpen')) {
-        return state.set('scope', searchScopes.get('holdingpen'));
+      /* TODO: enable the test case when commented out
+      if (action.payload.pathname.includes('authors')) {
+        return state.set('scope', searchScopes.get('authors'));
       }
+      */
       return state.set('scope', initialState.get('scope'));
+    case CHANGE_SEARCH_SCOPE:
+      return state.set('scope', searchScopes.get(action.payload));
     case SEARCH_REQUEST:
       return state.set('loading', true);
     case SEARCH_SUCCESS:
@@ -49,9 +55,7 @@ const searchReducer = (state = initialState, action) => {
         .set('total', fromJS(action.payload.hits.total))
         .set('results', fromJS(action.payload.hits.hits));
     case SEARCH_ERROR:
-      return state
-        .set('loading', false)
-        .set('error', fromJS(action.payload));
+      return state.set('loading', false).set('error', fromJS(action.payload));
     default:
       return state;
   }
