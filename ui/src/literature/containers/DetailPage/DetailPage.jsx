@@ -15,6 +15,7 @@ import ArxivEprintList from '../../components/ArxivEprintList';
 import AuthorList from '../../../common/components/AuthorList';
 import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
 import CiteModalAction from '../../components/CiteModalAction';
+import EditRecordActionContainer from '../../../common/containers/EditRecordActionContainer';
 import DOIList from '../../components/DOIList';
 import CollaborationList from '../../components/CollaborationList';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
@@ -91,6 +92,7 @@ class DetailPage extends Component {
               <Fragment>
                 {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
                 <CiteModalAction recordId={recordId} />
+                <EditRecordActionContainer recordId={recordId} />
               </Fragment>
             }
           >

@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditRecordActionContainer does not render edit button if user is not cataloger or superuser 1`] = `""`;
+
+exports[`EditRecordActionContainer renders edit button if user is cataloger 1`] = `
+<a
+  className="ant-btn __ListItemAction__"
+  href="/workflows/edit_article/123456"
+  onClick={[Function]}
+  target="_blank"
+>
+  <span
+    className="__IconText__"
+  >
+    <i
+      className="anticon anticon-edit icon"
+    />
+    edit
+  </span>
+</a>
+`;
+
+exports[`EditRecordActionContainer renders edit button if user is superuser 1`] = `
+<a
+  className="ant-btn __ListItemAction__"
+  href="/workflows/edit_article/123456"
+  onClick={[Function]}
+  target="_blank"
+>
+  <span
+    className="__IconText__"
+  >
+    <i
+      className="anticon anticon-edit icon"
+    />
+    edit
+  </span>
+</a>
+`;
