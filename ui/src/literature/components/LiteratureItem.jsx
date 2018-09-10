@@ -14,6 +14,7 @@ import PublicationInfoList from '../../common/components/PublicationInfoList';
 import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import CiteModalAction from './CiteModalAction';
 import ListItemAction from '../../common/components/ListItemAction';
+import EditRecordActionContainer from '../../common/containers/EditRecordActionContainer';
 import Latex from '../../common/components/Latex';
 import ResultItem from '../../common/components/ResultItem';
 
@@ -45,6 +46,7 @@ class LiteratureItem extends Component {
           <Fragment>
             {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
             <CiteModalAction recordId={recordId} />
+            <EditRecordActionContainer recordId={recordId} />
             {referenceCount != null && (
               <ListItemAction
                 iconType="logout"
