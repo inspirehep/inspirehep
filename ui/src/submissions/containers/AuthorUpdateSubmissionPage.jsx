@@ -24,7 +24,7 @@ class AuthorUpdateSubmissionPage extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const recordId = this.getRecordId();
     this.props.dispatch(fetchAuthorUpdateFormData(recordId));
   }

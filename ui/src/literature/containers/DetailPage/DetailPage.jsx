@@ -32,7 +32,7 @@ import NumberOfPages from '../../components/NumberOfPages';
 import CitationList from '../../../common/containers/CitationList';
 
 class DetailPage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.dispatchFetchActions();
   }
 
