@@ -11,7 +11,7 @@ import toJS from '../../../common/immutableToJS';
 import './InspectPage.scss';
 
 class InspectPage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     const workflowId = this.props.match.params.id;
     this.props.dispatch(fetchInspect(workflowId));
   }

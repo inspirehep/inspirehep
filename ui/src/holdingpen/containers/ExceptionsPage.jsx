@@ -7,7 +7,7 @@ import toJS from '../../common/immutableToJS';
 import ExceptionsDashboard from '../components/ExceptionsDashboard';
 
 class ExceptionsPage extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.dispatch(fetchExceptions());
   }
 
