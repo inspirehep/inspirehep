@@ -10,7 +10,7 @@ import LocalLoginPage from './containers/LocalLoginPage';
 
 class User extends Component {
   render() {
-    const { loggedIn } = this.props;
+    const { loggedIn, previousUrl } = this.props;
     return (
       <div className="w-100">
         <RouteOrRedirect
@@ -18,7 +18,7 @@ class User extends Component {
           path="/user/login"
           condition={!loggedIn}
           component={LoginPage}
-          redirectTo="/"
+          redirectTo={previousUrl}
         />
         {process.env.NODE_ENV === 'development' && (
           <RouteOrRedirect
@@ -26,7 +26,7 @@ class User extends Component {
             path="/user/login/local"
             condition={!loggedIn}
             component={LocalLoginPage}
-            redirectTo="/"
+            redirectTo={previousUrl}
           />
         )}
         <PrivateRoute exact path="/user/profile" component={ProfilePage} />
@@ -37,10 +37,12 @@ class User extends Component {
 
 User.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
+  previousUrl: PropTypes.string.isRequired,
 };
 
 const stateToProps = state => ({
   loggedIn: state.user.get('loggedIn'),
+  previousUrl: state.router.location.previousUrl,
 });
 
 export default connect(stateToProps)(User);

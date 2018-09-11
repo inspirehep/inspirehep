@@ -12,13 +12,7 @@ function RouteOrRedirect({
     <Route
       {...rest}
       render={props =>
-        condition ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: redirectTo, state: { from: props.location } }}
-          />
-        )
+        condition ? <Component {...props} /> : <Redirect to={redirectTo} />
       }
     />
   );
