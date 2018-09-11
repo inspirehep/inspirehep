@@ -10,6 +10,7 @@ import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 import reducers from './reducers';
 import http from './common/http';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
+import keepPreviousUrlMiddleware from './middlewares/keepPreviousUrl';
 import persistUserStateMiddleware, {
   reHydrateRootStateWithUser,
 } from './middlewares/persistUserState';
@@ -23,6 +24,7 @@ const reduxRouterMiddleware = routerMiddleware(history);
 const PROD_MIDDLEWARES = [
   reduxRouterMiddleware,
   queryParamsParserMiddleware,
+  keepPreviousUrlMiddleware,
   persistUserStateMiddleware,
   searchDispatcherMiddleware,
   thunkMiddleware,

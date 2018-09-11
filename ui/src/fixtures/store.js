@@ -17,6 +17,7 @@ export function getState() {
     router: {
       location: {
         query: {},
+        previousUrl: '',
       },
     },
     search,
