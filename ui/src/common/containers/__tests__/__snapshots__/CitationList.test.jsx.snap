@@ -2,16 +2,18 @@
 
 exports[`CitationList does not render if total <= 0 1`] = `
 <ContentBox
-  actions={null}
+  leftActions={null}
   loading={false}
+  rightActions={null}
   title="Citations (0)"
 />
 `;
 
 exports[`CitationList renders with state from store 1`] = `
 <ContentBox
-  actions={null}
+  leftActions={null}
   loading={false}
+  rightActions={null}
   title="Citations (1)"
 >
   <ListWithPagination

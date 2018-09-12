@@ -5,18 +5,24 @@ import ContentBox from './ContentBox';
 
 class ResultItem extends Component {
   render() {
-    const { actions, children } = this.props;
-    return <ContentBox actions={actions}>{children}</ContentBox>;
+    const { leftActions, rightActions, children } = this.props;
+    return (
+      <ContentBox leftActions={leftActions} rightActions={rightActions}>
+        {children}
+      </ContentBox>
+    );
   }
 }
 
 ResultItem.propTypes = {
-  actions: PropTypes.node,
+  leftActions: PropTypes.node,
+  rightActions: PropTypes.node,
   children: PropTypes.node,
 };
 
 ResultItem.defaultProps = {
-  actions: undefined,
+  leftActions: undefined,
+  rightActions: undefined,
   children: undefined,
 };
 

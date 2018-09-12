@@ -15,15 +15,14 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
         Defenders
       </div>
     </div>
-    <div
-      className="pb3"
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
     >
-      <h2
-        key="pi"
-      >
-        PI
-      </h2>
-    </div>
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;
@@ -43,15 +42,14 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
         Defenders
       </div>
     </div>
-    <div
-      className="pb3"
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
     >
-      <h1
-        key="pi"
-      >
-        PI
-      </h1>
-    </div>
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;
@@ -71,15 +69,14 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
         Defenders
       </div>
     </div>
-    <div
-      className="pb3"
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
     >
-      <h2
-        key="pi"
-      >
-        PI
-      </h2>
-    </div>
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;
@@ -99,9 +96,14 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
         Defenders
       </div>
     </div>
-    <div
-      className="pb3"
-    />
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;
@@ -117,15 +119,14 @@ exports[`ContentBox renders ContentBox without children and with actions 1`] = `
     <div
       className="pa3"
     />
-    <div
-      className="pb3"
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
     >
-      <h2
-        key="pi"
-      >
-        PI
-      </h2>
-    </div>
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;
@@ -141,9 +142,14 @@ exports[`ContentBox renders ContentBox without children and without actions 1`] 
     <div
       className="pa3"
     />
-    <div
-      className="pb3"
-    />
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;

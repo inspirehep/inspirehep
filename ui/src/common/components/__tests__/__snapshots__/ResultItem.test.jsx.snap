@@ -2,17 +2,9 @@
 
 exports[`ResultItem render initial state with all props set 1`] = `
 <ContentBox
-  actions={
-    <ul>
-      <li>
-        action 1
-      </li>
-      <li>
-        action 2
-      </li>
-    </ul>
-  }
+  leftActions={null}
   loading={false}
+  rightActions={null}
   title={null}
 >
   <span>
