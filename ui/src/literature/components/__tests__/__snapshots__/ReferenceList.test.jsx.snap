@@ -4,8 +4,9 @@ exports[`ReferenceList does not render without references 1`] = `""`;
 
 exports[`ReferenceList renders as loading if set 1`] = `
 <ContentBox
-  actions={null}
+  leftActions={null}
   loading={true}
+  rightActions={null}
   title="References (0)"
 >
   <ClientPaginatedList
@@ -57,9 +58,14 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
         title={null}
       />
     </div>
-    <div
-      className="pb3"
-    />
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;
@@ -100,9 +106,14 @@ exports[`ReferenceList renders with references 1`] = `
         title={null}
       />
     </div>
-    <div
-      className="pb3"
-    />
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
   </Card>
 </div>
 `;

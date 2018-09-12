@@ -88,7 +88,7 @@ class DetailPage extends Component {
         <Col className="mt3 mb3" span={14}>
           <ContentBox
             loading={this.props.loading}
-            actions={
+            leftActions={
               <Fragment>
                 {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
                 <CiteModalAction recordId={recordId} />

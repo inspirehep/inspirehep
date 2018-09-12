@@ -42,11 +42,15 @@ class LiteratureItem extends Component {
 
     return (
       <ResultItem
-        actions={
+        leftActions={
           <Fragment>
             {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
             <CiteModalAction recordId={recordId} />
             <EditRecordActionContainer recordId={recordId} />
+          </Fragment>
+        }
+        rightActions={
+          <Fragment>
             {referenceCount != null && (
               <ListItemAction
                 iconType="logout"
