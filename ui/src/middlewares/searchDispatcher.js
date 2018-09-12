@@ -1,5 +1,8 @@
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { searchForCurrentLocation } from '../actions/search';
+import {
+  searchForCurrentLocation,
+  fetchSearchAggregationsForCurrentLocation,
+} from '../actions/search';
 
 function getLocationFromRootState(state) {
   const {
@@ -23,6 +26,7 @@ export default function({ getState, dispatch }) {
         nextLocation.pathname !== currentLocation.pathname
       ) {
         dispatch(searchForCurrentLocation());
+        dispatch(fetchSearchAggregationsForCurrentLocation());
       }
       return result;
     }

@@ -31,26 +31,30 @@ class AggregationFiltersContainer extends Component {
   }
 
   render() {
+    const { aggregations } = this.props;
     return (
-      <div className="__AggregationFiltersContainer__ bg-white pa3">
-        {this.props.aggregations
-          .entrySeq()
-          .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
-          .sort(AggregationFiltersContainer.compareAggregationEntries)
-          .map(([aggregationKey, aggregation]) => (
-            <div key={aggregationKey}>
-              <AggregationFilter
-                range={aggregationKey === RANGE_AGGREATION_KEY}
-                name={aggregation.getIn(['meta', 'title'])}
-                buckets={aggregation.get('buckets')}
-                selections={forceArray(this.props.query[aggregationKey])}
-                onChange={selections => {
-                  this.onAggregationChange(aggregationKey, selections);
-                }}
-              />
-            </div>
-          ))}
-      </div>
+      aggregations &&
+      !aggregations.isEmpty() && (
+        <div className="__AggregationFiltersContainer__ bg-white pa3">
+          {aggregations
+            .entrySeq()
+            .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
+            .sort(AggregationFiltersContainer.compareAggregationEntries)
+            .map(([aggregationKey, aggregation]) => (
+              <div key={aggregationKey}>
+                <AggregationFilter
+                  range={aggregationKey === RANGE_AGGREATION_KEY}
+                  name={aggregation.getIn(['meta', 'title'])}
+                  buckets={aggregation.get('buckets')}
+                  selections={forceArray(this.props.query[aggregationKey])}
+                  onChange={selections => {
+                    this.onAggregationChange(aggregationKey, selections);
+                  }}
+                />
+              </div>
+            ))}
+        </div>
+      )
     );
   }
 }

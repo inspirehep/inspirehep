@@ -1,7 +1,7 @@
 import { Map, fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'react-router-redux';
 
-import reducer, { searchScopes } from '../search';
+import reducer, { searchScopes, initialState } from '../search';
 import * as types from '../../actions/actionTypes';
 
 describe('search reducer', () => {
@@ -9,7 +9,6 @@ describe('search reducer', () => {
     const state = reducer(undefined, {});
     const expected = fromJS({
       loading: false,
-      aggregations: Map(),
       total: 0,
       scope: {
         name: 'literature',
@@ -19,6 +18,10 @@ describe('search reducer', () => {
           size: '25',
         },
       },
+      error: null,
+      aggregations: Map(),
+      loadingAggregations: false,
+      aggregationsError: null,
     });
     expect(state).toEqual(expected);
   });
@@ -64,7 +67,6 @@ describe('search reducer', () => {
 
   it('SEARCH_SUCCESS', () => {
     const payload = {
-      aggregations: {},
       hits: {
         hits: ['found'],
         total: 1,
@@ -73,9 +75,9 @@ describe('search reducer', () => {
     const state = reducer(Map(), { type: types.SEARCH_SUCCESS, payload });
     const expected = fromJS({
       loading: false,
-      aggregations: {},
       total: payload.hits.total,
       results: payload.hits.hits,
+      error: initialState.get('error'),
     });
     expect(state).toEqual(expected);
   });
@@ -86,6 +88,43 @@ describe('search reducer', () => {
       payload: { message: 'error' },
     });
     const expected = fromJS({ loading: false, error: { message: 'error' } });
+    expect(state).toEqual(expected);
+  });
+
+  it('SEARCH_AGGREGATIONS_ERROR', () => {
+    const state = reducer(Map(), {
+      type: types.SEARCH_AGGREGATIONS_ERROR,
+      payload: { message: 'error' },
+    });
+    const expected = fromJS({
+      loadingAggregations: false,
+      aggregationsError: { message: 'error' },
+      aggregations: initialState.get('aggregations'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('SEARCH_AGGREGATIONS_REQUEST', () => {
+    const state = reducer(Map(), { type: types.SEARCH_AGGREGATIONS_REQUEST });
+    const expected = Map({ loadingAggregations: true });
+    expect(state).toEqual(expected);
+  });
+
+  it('SEARCH_AGGREGATIONS_SUCCESS', () => {
+    const payload = {
+      aggregations: {
+        agg1: {},
+      },
+    };
+    const state = reducer(Map(), {
+      type: types.SEARCH_AGGREGATIONS_SUCCESS,
+      payload,
+    });
+    const expected = fromJS({
+      loadingAggregations: false,
+      aggregations: payload.aggregations,
+      aggregationsError: initialState.get('aggregationsError'),
+    });
     expect(state).toEqual(expected);
   });
 });

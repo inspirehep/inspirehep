@@ -9,6 +9,7 @@ import {
   pushQueryToLocation,
   searchForCurrentLocation,
   changeSearchScope,
+  fetchSearchAggregationsForCurrentLocation,
 } from '../search';
 
 const mockHttp = new MockAdapter(http);
@@ -65,6 +66,46 @@ describe('search - action creators', () => {
       const expectedActions = [
         { type: types.SEARCH_REQUEST },
         { type: types.SEARCH_ERROR, payload: undefined },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+  });
+
+  describe('fetchSearchAggregationsForCurrentLocation', () => {
+    it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful', async done => {
+      const store = getStoreWithState({
+        router: {
+          location: { pathname: '/test', search: '?size=10&q=test' },
+        },
+      });
+      mockHttp
+        .onGet('/test/facets?size=10&q=test')
+        .replyOnce(200, { foo: 'bar' });
+
+      await store.dispatch(fetchSearchAggregationsForCurrentLocation());
+
+      const expectedActions = [
+        { type: types.SEARCH_AGGREGATIONS_REQUEST },
+        { type: types.SEARCH_AGGREGATIONS_SUCCESS, payload: { foo: 'bar' } },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+
+    it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_ERROR if search request is unsuccessful', async done => {
+      const store = getStoreWithState({
+        router: {
+          location: { pathname: '/test', search: '?size=10&q=test' },
+        },
+      });
+      mockHttp.onGet('/test/facets?size=10&q=test').networkError();
+
+      await store.dispatch(fetchSearchAggregationsForCurrentLocation());
+
+      const expectedActions = [
+        { type: types.SEARCH_AGGREGATIONS_REQUEST },
+        { type: types.SEARCH_AGGREGATIONS_ERROR, payload: undefined },
       ];
       expect(store.getActions()).toEqual(expectedActions);
       done();
