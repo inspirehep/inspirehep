@@ -17,7 +17,9 @@ describe('searchDispatcher middleware', () => {
     const next = jest.fn();
     const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
     const mockSearchForCurrentLocation = jest.fn();
+    const mockFetchSearchAggregationsForCurrentLocation = jest.fn();
     search.searchForCurrentLocation = mockSearchForCurrentLocation;
+    search.fetchSearchAggregationsForCurrentLocation = mockFetchSearchAggregationsForCurrentLocation;
     const action = {
       type: LOCATION_CHANGE,
       payload: {
@@ -27,6 +29,7 @@ describe('searchDispatcher middleware', () => {
     };
     dispatch(action);
     expect(mockSearchForCurrentLocation).toHaveBeenCalled();
+    expect(mockFetchSearchAggregationsForCurrentLocation).toHaveBeenCalled();
   });
 
   it('calls searchForCurrentLocation when LOCATION_CHANGE and search is present in action payload [different searches]', () => {
@@ -40,7 +43,9 @@ describe('searchDispatcher middleware', () => {
     const next = jest.fn();
     const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
     const mockSearchForCurrentLocation = jest.fn();
+    const mockFetchSearchAggregationsForCurrentLocation = jest.fn();
     search.searchForCurrentLocation = mockSearchForCurrentLocation;
+    search.fetchSearchAggregationsForCurrentLocation = mockFetchSearchAggregationsForCurrentLocation;
     const action = {
       type: LOCATION_CHANGE,
       payload: {
@@ -50,6 +55,7 @@ describe('searchDispatcher middleware', () => {
     };
     dispatch(action);
     expect(mockSearchForCurrentLocation).toHaveBeenCalled();
+    expect(mockFetchSearchAggregationsForCurrentLocation).toHaveBeenCalled();
   });
 
   it('returns next(action) for any action', () => {

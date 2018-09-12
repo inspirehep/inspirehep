@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
+import { connect } from 'react-redux';
 
 import AggregationFiltersContainer from './../../containers/AggregationFiltersContainer/AggregationFiltersContainer';
 import PaginationContainer from './../../containers/PaginationContainer';
@@ -12,18 +13,16 @@ import './SearchLayout.scss';
 
 class SearchLayout extends Component {
   render() {
+    const { renderResultItem, loading, loadingAggregations } = this.props;
     return (
-      <LoadingOrChildren loading={this.props.loading}>
-        <Row
-          className="__SearchLayout__"
-          gutter={32}
-          type="flex"
-          justify="start"
-        >
-          <Col lg={8} xl={6} xxl={5}>
+      <Row className="__SearchLayout__" gutter={32} type="flex" justify="start">
+        <Col lg={8} xl={6} xxl={5}>
+          <LoadingOrChildren loading={loadingAggregations}>
             <AggregationFiltersContainer />
-          </Col>
-          <Col lg={16} xl={15} xxl={14}>
+          </LoadingOrChildren>
+        </Col>
+        <Col lg={16} xl={15} xxl={14}>
+          <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
               <Col span={12}>
                 <NumberOfResultsContainer />
@@ -34,13 +33,13 @@ class SearchLayout extends Component {
             </Row>
             <Row>
               <Col span={24}>
-                <ResultsContainer renderItem={this.props.renderResultItem} />
+                <ResultsContainer renderItem={renderResultItem} />
                 <PaginationContainer />
               </Col>
             </Row>
-          </Col>
-        </Row>
-      </LoadingOrChildren>
+          </LoadingOrChildren>
+        </Col>
+      </Row>
     );
   }
 }
@@ -48,6 +47,12 @@ class SearchLayout extends Component {
 SearchLayout.propTypes = {
   renderResultItem: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
+  loadingAggregations: PropTypes.bool.isRequired,
 };
 
-export default SearchLayout;
+const stateToProps = state => ({
+  loading: state.search.get('loading'),
+  loadingAggregations: state.search.get('loadingAggregations'),
+});
+
+export default connect(stateToProps)(SearchLayout);
