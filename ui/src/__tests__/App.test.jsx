@@ -81,6 +81,25 @@ describe('App', () => {
     expect(wrapper.find(Literature)).toExist();
   });
 
+  it('navigates to Literature when /literature if cataloger is logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['cataloger'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Literature)).toExist();
+  });
+
   it('does not navigate to Literature when /literature if logged in user not a beta nor super super', () => {
     const store = getStoreWithState({
       user: fromJS({
