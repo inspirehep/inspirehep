@@ -10,7 +10,7 @@ import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';
 import PrivateRoute from './common/PrivateRoute';
 
-const ONLY_SUPER_AND_BETA_USERS = Set(['superuser', 'betauser']);
+const LITERATURE_AUTHORIZED_ROLES = Set(['superuser', 'betauser', 'cataloger']);
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -53,7 +53,7 @@ class App extends Component {
             <PrivateRoute path="/holdingpen" component={Holdingpen$} />
             <PrivateRoute
               path="/literature"
-              authorizedRoles={ONLY_SUPER_AND_BETA_USERS}
+              authorizedRoles={LITERATURE_AUTHORIZED_ROLES}
               component={Literature$}
             />
             <Route path="/submissions" component={Submissions$} />

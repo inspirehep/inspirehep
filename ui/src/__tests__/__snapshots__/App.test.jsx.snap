@@ -29,6 +29,7 @@ exports[`App renders initial state 1`] = `
           Immutable.Set [
             "superuser",
             "betauser",
+            "cataloger",
           ]
         }
         component={[Function]}
