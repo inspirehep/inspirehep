@@ -46,16 +46,19 @@ describe('CitationListContainer', () => {
     });
   });
 
-  it('calls fetchCitations for new record if recordId is changed', () => {
+  it('calls fetchCitations for new record if recordId is changed and set page to 1', () => {
     const store = getStore();
-    const wrapper = mount(
+    const wrapper = shallow(
       <CitationListContainer pidType="test" recordId={123} store={store} />
-    );
+    ).dive();
+    wrapper.setState({ page: 2 }); // set another page to be sure
     wrapper.setProps({ recordId: 321 });
     expect(fetchCitations).toHaveBeenCalledWith('test', 321, {
       page: 1,
       pageSize: PAGE_SIZE,
     });
+    wrapper.update();
+    expect(wrapper.state('page')).toEqual(1);
   });
 
   it('does not call fetchCitations if component update but recordId is same', () => {
@@ -76,6 +79,7 @@ describe('CitationListContainer', () => {
     const wrapper = shallow(
       <CitationListContainer pidType="test" recordId={123} store={store} />
     ).dive();
+
     const page = 2;
     wrapper.instance().onPageChange(page);
     expect(fetchCitations).toHaveBeenCalledWith('test', 123, {
