@@ -30,7 +30,7 @@ import ThesisInfo from '../../components/ThesisInfo';
 import IsbnList from '../../components/IsbnList';
 import ConferenceInfoList from '../../components/ConferenceInfoList';
 import NumberOfPages from '../../components/NumberOfPages';
-import CitationList from '../../../common/containers/CitationList';
+import CitationListContainer from '../../../common/containers/CitationListContainer';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -148,7 +148,7 @@ class DetailPage extends Component {
           <ReferenceList references={references} loading={loadingReferences} />
         </Col>
         <Col className="mt3 mb3" span={14}>
-          <CitationList pidType="literature" recordId={recordId} />
+          <CitationListContainer pidType="literature" recordId={recordId} />
         </Col>
       </Row>
     );

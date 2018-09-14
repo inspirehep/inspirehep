@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CitationList does not render if total <= 0 1`] = `
+exports[`CitationListContainer does not render if total <= 0 1`] = `
 <ContentBox
   leftActions={null}
   loading={false}
@@ -9,7 +9,7 @@ exports[`CitationList does not render if total <= 0 1`] = `
 />
 `;
 
-exports[`CitationList renders with state from store 1`] = `
+exports[`CitationListContainer renders with state from store 1`] = `
 <ContentBox
   leftActions={null}
   loading={false}
