@@ -42,6 +42,7 @@ class DetailPage extends Component {
     const recordId = this.props.match.params.id;
     if (recordId !== prevRecordId) {
       this.dispatchFetchActions();
+      window.scrollTo(0, 0);
     }
   }
 
