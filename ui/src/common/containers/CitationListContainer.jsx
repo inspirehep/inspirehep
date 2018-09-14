@@ -26,28 +26,27 @@ class CitationListContainer extends Component {
   }
 
   componentDidMount() {
-    this.fetchCitationsForTheFirstPage();
+    this.fetchCitationsForPage(1);
   }
 
   componentDidUpdate(prevProps) {
     const prevRecordId = prevProps.recordId;
     const { recordId } = this.props;
     if (recordId !== prevRecordId) {
-      this.fetchCitationsForTheFirstPage();
+      const page = 1;
+      this.setState({ page }); // eslint-disable-line react/no-did-update-set-state
+      this.fetchCitationsForPage(page);
     }
   }
 
   onPageChange(page) {
-    const { pidType, recordId, dispatch } = this.props;
     this.setState({ page });
-    dispatch(fetchCitations(pidType, recordId, { page, pageSize: PAGE_SIZE }));
+    this.fetchCitationsForPage(page);
   }
 
-  fetchCitationsForTheFirstPage() {
+  fetchCitationsForPage(page) {
     const { pidType, recordId, dispatch } = this.props;
-    dispatch(
-      fetchCitations(pidType, recordId, { page: 1, pageSize: PAGE_SIZE })
-    );
+    dispatch(fetchCitations(pidType, recordId, { page, pageSize: PAGE_SIZE }));
   }
 
   render() {
