@@ -10,7 +10,7 @@ import CitationItem from '../components/CitationItem';
 
 export const PAGE_SIZE = 25;
 
-class CitationList extends Component {
+class CitationListContainer extends Component {
   static renderCitationItem(citation) {
     return (
       <CitationItem key={citation.get('control_number')} citation={citation} />
@@ -26,16 +26,28 @@ class CitationList extends Component {
   }
 
   componentDidMount() {
-    const { pidType, recordId, dispatch } = this.props;
-    dispatch(
-      fetchCitations(pidType, recordId, { page: 1, pageSize: PAGE_SIZE })
-    );
+    this.fetchCitationsForTheFirstPage();
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevRecordId = prevProps.recordId;
+    const { recordId } = this.props;
+    if (recordId !== prevRecordId) {
+      this.fetchCitationsForTheFirstPage();
+    }
   }
 
   onPageChange(page) {
     const { pidType, recordId, dispatch } = this.props;
     this.setState({ page });
     dispatch(fetchCitations(pidType, recordId, { page, pageSize: PAGE_SIZE }));
+  }
+
+  fetchCitationsForTheFirstPage() {
+    const { pidType, recordId, dispatch } = this.props;
+    dispatch(
+      fetchCitations(pidType, recordId, { page: 1, pageSize: PAGE_SIZE })
+    );
   }
 
   render() {
@@ -45,7 +57,7 @@ class CitationList extends Component {
       <ContentBox title={`Citations (${total})`} loading={loading}>
         {total > 0 && (
           <ListWithPagination
-            renderItem={CitationList.renderCitationItem}
+            renderItem={CitationListContainer.renderCitationItem}
             pageItems={citations}
             onPageChange={this.onPageChange}
             total={total}
@@ -59,7 +71,7 @@ class CitationList extends Component {
   }
 }
 
-CitationList.propTypes = {
+CitationListContainer.propTypes = {
   total: PropTypes.number.isRequired,
   citations: PropTypes.instanceOf(List).isRequired,
   loading: PropTypes.bool.isRequired,
@@ -76,4 +88,4 @@ const stateToProps = state => ({
 
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(stateToProps, dispatchToProps)(CitationList);
+export default connect(stateToProps, dispatchToProps)(CitationListContainer);
