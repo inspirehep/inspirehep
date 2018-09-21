@@ -6,7 +6,9 @@ class DOILink extends Component {
     const doi = this.props.children;
     const href = `//doi.org/${doi}`;
     return (
-      <a target="_blank" href={href}>{doi}</a>
+      <a target="_blank" href={href}>
+        {doi}
+      </a>
     );
   }
 }

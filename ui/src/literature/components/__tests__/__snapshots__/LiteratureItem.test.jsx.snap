@@ -75,12 +75,15 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     <PublicationInfoList
       labeled={true}
       publicationInfo={null}
+      wrapperClassName={null}
     />
     <ArxivEprintList
       eprints={null}
+      wrapperClassName={null}
     />
     <DOIList
       dois={null}
+      wrapperClassName={null}
     />
     <ReportNumberList
       reportNumbers={null}
@@ -167,12 +170,15 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
     <PublicationInfoList
       labeled={true}
       publicationInfo={null}
+      wrapperClassName={null}
     />
     <ArxivEprintList
       eprints={null}
+      wrapperClassName={null}
     />
     <DOIList
       dois={null}
+      wrapperClassName={null}
     />
     <ReportNumberList
       reportNumbers={null}
@@ -279,6 +285,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
           },
         ]
       }
+      wrapperClassName={null}
     />
     <ArxivEprintList
       eprints={
@@ -288,6 +295,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
           },
         ]
       }
+      wrapperClassName={null}
     />
     <DOIList
       dois={
@@ -297,6 +305,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
           },
         ]
       }
+      wrapperClassName={null}
     />
     <ReportNumberList
       reportNumbers={

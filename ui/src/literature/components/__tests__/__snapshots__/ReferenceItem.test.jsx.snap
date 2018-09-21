@@ -1,5 +1,102 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ReferenceItem does not render misc if title present 1`] = `
+<Item>
+  <Row
+    align="middle"
+    gutter={24}
+    justify="space-around"
+    type="flex"
+  >
+    <Col />
+    <Col>
+      <Meta
+        description={
+          <Unknown>
+            <AuthorList
+              authors={
+                Immutable.List [
+                ]
+              }
+              enableShowAll={false}
+              forSupervisors={false}
+              limit={5}
+              recordId={undefined}
+              total={-1}
+              wrapperClassName={null}
+            />
+            <PublicationInfoList
+              labeled={false}
+              publicationInfo={null}
+              wrapperClassName="di"
+            />
+            <ul
+              className="bulleted-inline-list secondary"
+            >
+              
+            </ul>
+          </Unknown>
+        }
+        title={
+          <span
+            className="f5"
+          >
+            Title
+          </span>
+        }
+      />
+    </Col>
+  </Row>
+</Item>
+`;
+
+exports[`ReferenceItem renders misc if present 1`] = `
+<Item>
+  <Row
+    align="middle"
+    gutter={24}
+    justify="space-around"
+    type="flex"
+  >
+    <Col />
+    <Col>
+      <Meta
+        description={
+          <Unknown>
+            <span>
+              A Misc
+            </span>
+            <AuthorList
+              authors={
+                Immutable.List [
+                ]
+              }
+              enableShowAll={false}
+              forSupervisors={false}
+              limit={5}
+              recordId={undefined}
+              total={-1}
+              wrapperClassName={null}
+            />
+            <PublicationInfoList
+              labeled={false}
+              publicationInfo={null}
+              wrapperClassName="di"
+            />
+            <ul
+              className="bulleted-inline-list secondary"
+            >
+              
+            </ul>
+          </Unknown>
+        }
+        title={null}
+      />
+    </Col>
+  </Row>
+</Item>
+`;
+
 exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
 <div
   className="ant-list-item"
@@ -42,10 +139,37 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                     },
                   ]
                 }
+                wrapperClassName="di"
               />
+              <ul
+                className="bulleted-inline-list secondary"
+              >
+                <li
+                  className="dib ml1 mr1"
+                >
+                  <i>
+                    <DOIList
+                      dois={
+                        Immutable.List [
+                          Immutable.Map {
+                            value: "123456.12345",
+                          },
+                        ]
+                      }
+                      wrapperClassName="di"
+                    />
+                  </i>
+                </li>
+              </ul>
             </Unknown>
           }
-          title="Title"
+          title={
+            <span
+              className="f5"
+            >
+              Title
+            </span>
+          }
         />
       </Col>
     </Row>
@@ -95,11 +219,33 @@ exports[`ReferenceItem renders with full reference 1`] = `
                     },
                   ]
                 }
+                wrapperClassName="di"
               />
+              <ul
+                className="bulleted-inline-list secondary"
+              >
+                <li
+                  className="dib ml1 mr1"
+                >
+                  <i>
+                    <DOIList
+                      dois={
+                        Immutable.List [
+                          Immutable.Map {
+                            value: "123456.12345",
+                          },
+                        ]
+                      }
+                      wrapperClassName="di"
+                    />
+                  </i>
+                </li>
+              </ul>
             </Unknown>
           }
           title={
             <Link
+              className="f5"
               replace={false}
               to="/literature/12345"
             >

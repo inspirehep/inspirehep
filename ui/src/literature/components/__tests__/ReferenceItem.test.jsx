@@ -37,4 +37,20 @@ describe('ReferenceItem', () => {
     const wrapper = shallow(<ReferenceItem reference={reference} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
+
+  it('renders misc if present', () => {
+    const reference = fromJS({
+      misc: 'A Misc',
+    });
+    const wrapper = shallow(<ReferenceItem reference={reference} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('does not render misc if title present', () => {
+    const reference = fromJS({
+      titles: [{ title: 'Title' }],
+    });
+    const wrapper = shallow(<ReferenceItem reference={reference} />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });

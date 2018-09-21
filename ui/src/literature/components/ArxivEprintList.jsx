@@ -7,9 +7,10 @@ import InlineList from '../../common/components/InlineList';
 
 class ArxivEprintList extends Component {
   render() {
-    const { eprints } = this.props;
+    const { eprints, wrapperClassName } = this.props;
     return (
       <InlineList
+        wrapperClassName={wrapperClassName}
         label="e-Print"
         items={eprints}
         extractKey={eprint => eprint.get('value')}
@@ -21,10 +22,12 @@ class ArxivEprintList extends Component {
 
 ArxivEprintList.propTypes = {
   eprints: PropTypes.instanceOf(List),
+  wrapperClassName: PropTypes.string,
 };
 
 ArxivEprintList.defaultProps = {
   eprints: null,
+  wrapperClassName: null,
 };
 
 export default ArxivEprintList;

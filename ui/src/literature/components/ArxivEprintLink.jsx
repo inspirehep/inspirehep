@@ -6,7 +6,9 @@ class ArxivEprintLink extends Component {
     const arxivId = this.props.children;
     const href = `//arxiv.org/abs/${arxivId}`;
     return (
-      <a target="_blank" href={href}>{arxivId}</a>
+      <a target="_blank" href={href}>
+        {arxivId}
+      </a>
     );
   }
 }
