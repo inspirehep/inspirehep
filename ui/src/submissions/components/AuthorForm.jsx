@@ -27,6 +27,14 @@ const OPEN_SECTIONS = [
 ];
 
 class AuthorForm extends Component {
+  static getSuggestionSourceLegacyICN(suggestion) {
+    return suggestion._source.legacy_ICN;
+  }
+
+  static getSuggestionSourceLegacyName(suggestion) {
+    return suggestion._source.legacy_name;
+  }
+
   render() {
     const { values, isSubmitting, isValid, isValidating } = this.props;
     return (
@@ -139,6 +147,7 @@ class AuthorForm extends Component {
                       placeholder="Institution, type for suggestions"
                       pidType="institutions"
                       suggesterName="affiliation"
+                      renderResultItem={AuthorForm.getSuggestionSourceLegacyICN}
                       component={SuggesterField}
                     />
                   </Col>
@@ -191,7 +200,10 @@ class AuthorForm extends Component {
                       name={`${itemName}.name`}
                       placeholder="Experiment, type for suggestions"
                       pidType="experiments"
-                      suggesterName="experiment_name"
+                      suggesterName="experiment"
+                      renderResultItem={
+                        AuthorForm.getSuggestionSourceLegacyName
+                      }
                       component={SuggesterField}
                     />
                   </Col>

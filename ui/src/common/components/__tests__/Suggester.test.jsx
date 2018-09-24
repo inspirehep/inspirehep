@@ -19,9 +19,11 @@ describe('Suggester', () => {
         {
           options: [
             {
+              _id: '1',
               text: 'Result 1',
             },
             {
+              _id: '2',
               text: 'Result 2',
             },
           ],
@@ -44,10 +46,12 @@ describe('Suggester', () => {
         {
           options: [
             {
+              _id: '1',
               text: 'Result 1',
               extra: 'Extra 1',
             },
             {
+              _id: '2',
               text: 'Result 2',
               extra: 'Extra 2',
             },
