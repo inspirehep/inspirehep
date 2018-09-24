@@ -47,7 +47,7 @@ class Suggester extends Component {
     return (
       <AutoComplete onSearch={this.onSearch} {...autoCompleteProps}>
         {results.map(result => (
-          <AutoComplete.Option key={result.text}>
+          <AutoComplete.Option key={result._id}>
             {renderResultItem(result)}
           </AutoComplete.Option>
         ))}

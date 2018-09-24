@@ -10,7 +10,21 @@
   },
   "rules": {
     "react/prefer-stateless-function": "off",
-    "no-param-reassign": ["error", { "props": false }],
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allow": [
+          "_source",
+          "_id"
+        ]
+      }
+    ],
     "jsx-a11y/anchor-is-valid": [
       "error",
       {

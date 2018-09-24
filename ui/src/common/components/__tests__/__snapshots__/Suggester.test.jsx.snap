@@ -23,12 +23,12 @@ exports[`Suggester renders results onSearch 1`] = `
   transitionName="slide-up"
 >
   <Option
-    key="Result 1"
+    key="1"
   >
     Result 1
   </Option>
   <Option
-    key="Result 2"
+    key="2"
   >
     Result 2
   </Option>
@@ -46,12 +46,12 @@ exports[`Suggester renders results with custom template onSearch 1`] = `
   transitionName="slide-up"
 >
   <Option
-    key="Result 1"
+    key="1"
   >
     Result 1 - Extra 1
   </Option>
   <Option
-    key="Result 2"
+    key="2"
   >
     Result 2 - Extra 2
   </Option>
