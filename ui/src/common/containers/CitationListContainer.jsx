@@ -53,7 +53,7 @@ class CitationListContainer extends Component {
     const { loading, total, citations } = this.props;
     const { page } = this.state;
     return (
-      <ContentBox title={`Citations (${total})`} loading={loading}>
+      <ContentBox loading={loading}>
         {total > 0 && (
           <ListWithPagination
             renderItem={CitationListContainer.renderCitationItem}

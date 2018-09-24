@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col } from 'antd';
+import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
 
 import './DetailPage.scss';
@@ -84,6 +84,9 @@ class DetailPage extends Component {
     const keywords = metadata.get('keywords');
     const authorCount = metadata.get('author_count');
 
+    const numberOfReferences = metadata.get('number_of_references');
+    const citationCount = metadata.get('citation_count');
+
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
@@ -145,12 +148,35 @@ class DetailPage extends Component {
             </Row>
           </ContentBox>
         </Col>
-        <Col className="mt3 mb3" span={14}>
-          <ReferenceList references={references} loading={loadingReferences} />
-        </Col>
-        <Col className="mt3 mb3" span={14}>
-          <CitationListContainer pidType="literature" recordId={recordId} />
-        </Col>
+        {(numberOfReferences > 0 || citationCount > 0) && (
+          <Col className="mt3 mb3" span={14}>
+            <Tabs
+              type="card"
+              tabBarStyle={{ marginBottom: 0 }}
+              className="remove-top-border-of-card-children"
+            >
+              {numberOfReferences > 0 && (
+                <Tabs.TabPane
+                  tab={`References (${numberOfReferences})`}
+                  key="1"
+                >
+                  <ReferenceList
+                    references={references}
+                    loading={loadingReferences}
+                  />
+                </Tabs.TabPane>
+              )}
+              {citationCount && (
+                <Tabs.TabPane tab={`Citations (${citationCount})`} key="2">
+                  <CitationListContainer
+                    pidType="literature"
+                    recordId={recordId}
+                  />
+                </Tabs.TabPane>
+              )}
+            </Tabs>
+          </Col>
+        )}
       </Row>
     );
   }

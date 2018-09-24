@@ -5,7 +5,7 @@ exports[`CitationListContainer does not render if total <= 0 1`] = `
   leftActions={null}
   loading={false}
   rightActions={null}
-  title="Citations (0)"
+  title={null}
 />
 `;
 
@@ -14,7 +14,7 @@ exports[`CitationListContainer renders with state from store 1`] = `
   leftActions={null}
   loading={false}
   rightActions={null}
-  title="Citations (1)"
+  title={null}
 >
   <ListWithPagination
     loading={false}

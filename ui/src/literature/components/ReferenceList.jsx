@@ -21,7 +21,7 @@ class ReferenceList extends Component {
     const { references, loading } = this.props;
     return (
       references && (
-        <ContentBox title={`References (${references.size})`} loading={loading}>
+        <ContentBox loading={loading}>
           <ClientPaginatedList
             items={references}
             loading={loading}
