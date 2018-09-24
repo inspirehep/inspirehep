@@ -7,7 +7,7 @@ exports[`ReferenceList renders as loading if set 1`] = `
   leftActions={null}
   loading={true}
   rightActions={null}
-  title="References (0)"
+  title={null}
 >
   <ClientPaginatedList
     items={
@@ -28,7 +28,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
 >
   <Card
     loading={false}
-    title="References (2)"
+    title={null}
   >
     <div
       className="pa3"
@@ -76,7 +76,7 @@ exports[`ReferenceList renders with references 1`] = `
 >
   <Card
     loading={false}
-    title="References (2)"
+    title={null}
   >
     <div
       className="pa3"

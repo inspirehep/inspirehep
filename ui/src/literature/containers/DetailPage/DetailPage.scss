@@ -1,2 +1,5 @@
 .__DetailPage__ {
+  .remove-top-border-of-card-children .ant-card-bordered {
+    border-top: none;
+  }
 }
