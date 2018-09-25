@@ -50,7 +50,7 @@ const Header = props => (
             />
           </Col>
           <Col className="nav-item-container">
-            <Link className="nav-item" to="/submissions/author">
+            <Link className="nav-item" to="/submissions/authors">
               Submit
             </Link>
           </Col>

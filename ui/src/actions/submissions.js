@@ -24,7 +24,7 @@ function authorSubmitError(error) {
 export function submitAuthor(data) {
   return async (dispatch, getState, http) => {
     try {
-      await http.post('/submissions/author', { data });
+      await http.post('/submissions/authors', { data });
       dispatch(authorSubmitSuccess());
       dispatch(push('/submissions/success'));
     } catch (error) {
@@ -58,7 +58,7 @@ export function fetchAuthorUpdateFormData(recordId) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingAuthorUpdateFormData(recordId));
     try {
-      const response = await http.get(`/submissions/author/${recordId}`);
+      const response = await http.get(`/submissions/authors/${recordId}`);
       dispatch(fetchAuthorUpdateFormDataSuccess(response.data));
     } catch (error) {
       dispatch(
@@ -71,7 +71,7 @@ export function fetchAuthorUpdateFormData(recordId) {
 export function submitAuthorUpdate(data, recordId) {
   return async (dispatch, getState, http) => {
     try {
-      await http.put(`/submissions/author/${recordId}`, { data });
+      await http.put(`/submissions/authors/${recordId}`, { data });
       dispatch(authorSubmitSuccess());
       dispatch(push('/submissions/success'));
     } catch (error) {
