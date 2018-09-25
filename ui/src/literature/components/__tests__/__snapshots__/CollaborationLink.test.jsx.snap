@@ -2,7 +2,7 @@
 
 exports[`CollaborationLink renders with collaboration 1`] = `
 <a
-  href="/literature?p=collaboration:\\"Alias Investigations\\""
+  href="/literature?q=collaboration:Alias Investigations"
   target="_blank"
 >
   Alias Investigations
