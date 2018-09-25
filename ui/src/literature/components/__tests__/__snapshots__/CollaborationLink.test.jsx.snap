@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CollaborationLink renders with collaboration 1`] = `
-<a
-  href="/literature?q=collaboration:Alias Investigations"
-  target="_blank"
+<Link
+  replace={false}
+  to="/literature?q=collaboration:Alias Investigations"
 >
   Alias Investigations
-</a>
+</Link>
 `;
