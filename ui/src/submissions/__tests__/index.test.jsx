@@ -17,10 +17,13 @@ describe('Submissions', () => {
     expect(component).toMatchSnapshot();
   });
 
-  xit('navigates to AuthorSubmissionPage when /submissions/author', async done => {
+  xit('navigates to AuthorSubmissionPage when /submissions/authors', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
-        <MemoryRouter initialEntries={['/submissions/author']} initialIndex={0}>
+        <MemoryRouter
+          initialEntries={['/submissions/authors']}
+          initialIndex={0}
+        >
           <Submissions />
         </MemoryRouter>
       </Provider>
@@ -33,11 +36,11 @@ describe('Submissions', () => {
     done();
   });
 
-  xit('navigates to AuthorUpdateSubmissionPage when /submissions/author/:id', async done => {
+  xit('navigates to AuthorUpdateSubmissionPage when /submissions/authors/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
-          initialEntries={['/submissions/author/1']}
+          initialEntries={['/submissions/authors/1']}
           initialIndex={0}
         >
           <Submissions />

@@ -25,7 +25,7 @@ describe('submissions - async action creator', () => {
 
   describe('submitAuthor', () => {
     it('creates AUTHOR_SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
-      const submissionUrl = '/submissions/author';
+      const submissionUrl = '/submissions/authors';
       const data = { field: 'value' };
       mockHttp.onPost(submissionUrl, { data }).replyOnce(200, {});
 
@@ -46,7 +46,7 @@ describe('submissions - async action creator', () => {
     });
 
     it('creates AUTHOR_SUBMIT_ERROR if not successful', async done => {
-      const submissionUrl = '/submissions/author';
+      const submissionUrl = '/submissions/authors';
       mockHttp.onPost(submissionUrl).replyOnce(400, { message: 'Error' });
 
       const expectedActions = [
@@ -65,7 +65,7 @@ describe('submissions - async action creator', () => {
 
   describe('submitAuthorUpdate', () => {
     it('creates AUTHOR_SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
-      const submissionUrl = '/submissions/author/123';
+      const submissionUrl = '/submissions/authors/123';
       const data = { field: 'value' };
       mockHttp.onPut(submissionUrl, { data }).replyOnce(200, {});
 
@@ -86,7 +86,7 @@ describe('submissions - async action creator', () => {
     });
 
     it('creates AUTHOR_SUBMIT_ERROR if not successful', async done => {
-      const submissionUrl = '/submissions/author/123';
+      const submissionUrl = '/submissions/authors/123';
       mockHttp.onPut(submissionUrl).replyOnce(400, { message: 'Error' });
 
       const expectedActions = [
@@ -105,7 +105,7 @@ describe('submissions - async action creator', () => {
 
   describe('fetchAuthorUpdateFormData', () => {
     it('creates AUTHOR_UPDATE_FORM_DATA_SUCCESS', async done => {
-      const submissionUrl = '/submissions/author/123';
+      const submissionUrl = '/submissions/authors/123';
       const data = { field: 'value' };
       mockHttp.onGet(submissionUrl, { data }).replyOnce(200, data);
 
@@ -129,7 +129,7 @@ describe('submissions - async action creator', () => {
     });
 
     it('creates AUTHOR_UPDATE_FORM_DATA_ERROR if not successful', async done => {
-      const submissionUrl = '/submissions/author/123';
+      const submissionUrl = '/submissions/authors/123';
       mockHttp.onGet(submissionUrl).replyOnce(404, { message: 'Error' });
 
       const expectedActions = [

@@ -71,7 +71,7 @@ exports[`Header renders with search box if it is not on home 1`] = `
           <Link
             className="nav-item"
             replace={false}
-            to="/submissions/author"
+            to="/submissions/authors"
           >
             Submit
           </Link>
@@ -156,7 +156,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
           <Link
             className="nav-item"
             replace={false}
-            to="/submissions/author"
+            to="/submissions/authors"
           >
             Submit
           </Link>

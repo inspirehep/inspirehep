@@ -26,12 +26,12 @@ class Submissions extends Component {
       <div className="__Submissions__ w-100">
         <Route
           exact
-          path="/submissions/author"
+          path="/submissions/authors"
           component={AuthorSubmissionPage$}
         />
         <Route
           exact
-          path="/submissions/author/:id"
+          path="/submissions/authors/:id"
           component={AuthorUpdateSubmissionPage$}
         />
         <Route
