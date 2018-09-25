@@ -14,10 +14,6 @@ exports[`SortByContainer renders initial state with initial url query sort param
         "display": "Most Cited",
         "value": "mostcited",
       },
-      Object {
-        "display": "Best Match",
-        "value": "bestmatch",
-      },
     ]
   }
 />

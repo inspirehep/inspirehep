@@ -13,11 +13,7 @@ const options = [
   {
     display: 'Most Cited',
     value: 'mostcited',
-  },
-  {
-    display: 'Best Match',
-    value: 'bestmatch',
-  },
+  }
 ];
 
 class SortByContainer extends Component {
