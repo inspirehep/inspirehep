@@ -19,6 +19,7 @@ class PaginationContainer extends Component {
   render() {
     return (
       <Pagination
+        hideOnSinglePage
         style={{ textAlign: 'center' }}
         current={this.props.page}
         onChange={this.onPageChange}

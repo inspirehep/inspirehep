@@ -7,6 +7,7 @@ exports[`ListWithPagination renders with all props 1`] = `
   footer={
     <Pagination
       current={2}
+      hideOnSinglePage={true}
       loading={true}
       onChange={[Function]}
       pageSize={25}
@@ -152,6 +153,7 @@ exports[`ListWithPagination renders with required props 1`] = `
   footer={
     <Pagination
       current={1}
+      hideOnSinglePage={true}
       loading={false}
       onChange={[Function]}
       pageSize={50}

@@ -17,6 +17,7 @@ class ListWithPagination extends Component {
     const { pageSize, loading, total, page, onPageChange } = this.props;
     return (
       <Pagination
+        hideOnSinglePage
         current={page}
         onChange={onPageChange}
         total={total}
