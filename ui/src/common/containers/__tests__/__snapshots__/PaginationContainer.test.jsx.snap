@@ -3,6 +3,7 @@
 exports[`PaginationContainer renders initially with all state 1`] = `
 <Pagination
   current={2}
+  hideOnSinglePage={true}
   onChange={[Function]}
   pageSize={25}
   prefixCls="ant-pagination"
