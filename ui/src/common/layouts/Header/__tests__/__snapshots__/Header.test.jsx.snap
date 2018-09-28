@@ -1,5 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Header does not show authorized tool links if logged in user is not superuser nor cataloger 1`] = `
+<Adapter
+  className="__Header__"
+>
+  <Row
+    align="middle"
+    gutter={16}
+    type="flex"
+  >
+    <Col
+      lg={5}
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        <img
+          alt="INSPIRE Labs"
+          src="logo.svg"
+        />
+      </Link>
+    </Col>
+    <Col
+      lg={13}
+      xl={14}
+    >
+      <Connect(SearchBox) />
+    </Col>
+    <Col
+      lg={6}
+      xl={5}
+    >
+      <Row
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          className="nav-item-container"
+        >
+          <DropdownMenu
+            items={
+              Array [
+                Object {
+                  "display": "Reference extractor",
+                  "href": "//inspirehep.net/textmining/",
+                },
+                Object {
+                  "display": "Author list",
+                  "href": "/tools/authorlist",
+                },
+                Object {
+                  "display": "Bibliography generator",
+                  "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
+                },
+              ]
+            }
+            title="Tools"
+            titleClassName="nav-item"
+          />
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <Link
+            className="nav-item"
+            replace={false}
+            to="/submissions/authors"
+          >
+            Submit
+          </Link>
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <Connect(LoginOrUserDropdownContainer) />
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+</Adapter>
+`;
+
 exports[`Header renders with search box if it is not on home 1`] = `
 <Adapter
   className="__Header__"
@@ -44,12 +127,8 @@ exports[`Header renders with search box if it is not on home 1`] = `
             items={
               Array [
                 Object {
-                  "display": "Holdingpen",
-                  "to": "/holdingpen/dashboard",
-                },
-                Object {
                   "display": "Reference extractor",
-                  "href": "//inspirehep.net/textmining",
+                  "href": "//inspirehep.net/textmining/",
                 },
                 Object {
                   "display": "Author list",
@@ -129,12 +208,95 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
             items={
               Array [
                 Object {
+                  "display": "Reference extractor",
+                  "href": "//inspirehep.net/textmining/",
+                },
+                Object {
+                  "display": "Author list",
+                  "href": "/tools/authorlist",
+                },
+                Object {
+                  "display": "Bibliography generator",
+                  "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
+                },
+              ]
+            }
+            title="Tools"
+            titleClassName="nav-item"
+          />
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <Link
+            className="nav-item"
+            replace={false}
+            to="/submissions/authors"
+          >
+            Submit
+          </Link>
+        </Col>
+        <Col
+          className="nav-item-container"
+        >
+          <Connect(LoginOrUserDropdownContainer) />
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+</Adapter>
+`;
+
+exports[`Header shows authorized tool links if logged in user is cataloger 1`] = `
+<Adapter
+  className="__Header__"
+>
+  <Row
+    align="middle"
+    gutter={16}
+    type="flex"
+  >
+    <Col
+      lg={5}
+    >
+      <Link
+        replace={false}
+        to="/"
+      >
+        <img
+          alt="INSPIRE Labs"
+          src="logo.svg"
+        />
+      </Link>
+    </Col>
+    <Col
+      lg={13}
+      xl={14}
+    >
+      <Connect(SearchBox) />
+    </Col>
+    <Col
+      lg={6}
+      xl={5}
+    >
+      <Row
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          className="nav-item-container"
+        >
+          <DropdownMenu
+            items={
+              Array [
+                Object {
                   "display": "Holdingpen",
-                  "to": "/holdingpen/dashboard",
+                  "href": "/holdingpen",
                 },
                 Object {
                   "display": "Reference extractor",
-                  "href": "//inspirehep.net/textmining",
+                  "href": "//inspirehep.net/textmining/",
                 },
                 Object {
                   "display": "Author list",
