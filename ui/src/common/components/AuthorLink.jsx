@@ -45,9 +45,13 @@ class AuthorLink extends Component {
     if (affiliation) {
       const affiliationHref = this.getAffiliationHref();
       return (
-        <span className="pl1 grey">
+        <span className="pl1">
           (
-          <a target="_blank" href={affiliationHref}>
+          <a
+            className="i gray underline"
+            target="_blank"
+            href={affiliationHref}
+          >
             {affiliation}
           </a>
           )

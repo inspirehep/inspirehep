@@ -16,9 +16,7 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
     separateItems={true}
     separateItemsClassName="separate-items-with-and"
     suffix={
-      <span
-        className="pr1"
-      >
+      <span>
          Collaboration
       </span>
     }
@@ -65,13 +63,14 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     separateItems={true}
     separateItemsClassName="separate-items-with-and"
     suffix={
-      <span
-        className="pr1"
-      >
+      <span>
          Collaborations
       </span>
     }
     wrapperClassName="di"
+  />
+  <span
+    className="pr1"
   />
   <InlineList
     extractKey={[Function]}
@@ -166,9 +165,7 @@ exports[`CollaborationList renders with collaborations without suffix 1`] = `
     separateItems={true}
     separateItemsClassName="separate-items-with-and"
     suffix={
-      <span
-        className="pr1"
-      >
+      <span>
          Collaborations
       </span>
     }

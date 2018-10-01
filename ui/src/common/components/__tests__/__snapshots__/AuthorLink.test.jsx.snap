@@ -24,10 +24,11 @@ exports[`AuthorLink renders first_name and last_name of editor 1`] = `
     Full Name
   </a>
   <span
-    className="pl1 grey"
+    className="pl1"
   >
     (
     <a
+      className="i gray underline"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
       target="_blank"
     >
@@ -61,10 +62,11 @@ exports[`AuthorLink renders first_name and last_name with affiliations 1`] = `
     Full Name
   </a>
   <span
-    className="pl1 grey"
+    className="pl1"
   >
     (
     <a
+      className="i gray underline"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
       target="_blank"
     >
@@ -86,10 +88,11 @@ exports[`AuthorLink renders first_name with last_name missing 1`] = `
     Name Full 
   </a>
   <span
-    className="pl1 grey"
+    className="pl1"
   >
     (
     <a
+      className="i gray underline"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
       target="_blank"
     >
@@ -111,10 +114,11 @@ exports[`AuthorLink renders full_name if first_name and last_name missing 1`] = 
     Name Full
   </a>
   <span
-    className="pl1 grey"
+    className="pl1"
   >
     (
     <a
+      className="i gray underline"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
       target="_blank"
     >
@@ -136,10 +140,11 @@ exports[`AuthorLink renders full_name with affiliations 1`] = `
     Name, Full
   </a>
   <span
-    className="pl1 grey"
+    className="pl1"
   >
     (
     <a
+      className="i gray underline"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
       target="_blank"
     >
@@ -161,10 +166,11 @@ exports[`AuthorLink renders full_name with first_name missing 1`] = `
     Name Full
   </a>
   <span
-    className="pl1 grey"
+    className="pl1"
   >
     (
     <a
+      className="i gray underline"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
       target="_blank"
     >

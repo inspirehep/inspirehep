@@ -17,7 +17,7 @@ import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
 import CiteModalAction from '../../components/CiteModalAction';
 import EditRecordActionContainer from '../../../common/containers/EditRecordActionContainer';
 import DOIList from '../../components/DOIList';
-import CollaborationList from '../../components/CollaborationList';
+import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
 import Latex from '../../../common/components/Latex';
 import ContentBox from '../../../common/components/ContentBox';
@@ -111,16 +111,13 @@ class DetailPage extends Component {
               <Latex>{title}</Latex>
             </h2>
             <div>
-              <CollaborationList
-                collaborations={collaborations}
-                collaborationsWithSuffix={collaborationsWithSuffix}
-              />
-              <AuthorList
-                total={authorCount}
+              <AuthorsAndCollaborations
+                authorCount={authorCount}
                 recordId={recordId}
                 authors={authors}
-                limit={collaborations ? 1 : 5}
-                enableShowAll
+                enableAuthorsShowAll
+                collaborations={collaborations}
+                collaborationsWithSuffix={collaborationsWithSuffix}
               />
               <AuthorList
                 recordId={recordId}
