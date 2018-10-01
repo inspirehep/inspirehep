@@ -31,6 +31,7 @@ import IsbnList from '../../components/IsbnList';
 import ConferenceInfoList from '../../components/ConferenceInfoList';
 import NumberOfPages from '../../components/NumberOfPages';
 import CitationListContainer from '../../../common/containers/CitationListContainer';
+import TabNameWithCount from '../../../common/components/TabNameWithCount';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -54,7 +55,14 @@ class DetailPage extends Component {
   }
 
   render() {
-    const { authors, references, loadingReferences, supervisors } = this.props;
+    const {
+      authors,
+      references,
+      loadingReferences,
+      supervisors,
+      citationCount,
+      loadingCitations,
+    } = this.props;
 
     const { record } = this.props;
     const metadata = record.get('metadata');
@@ -85,7 +93,6 @@ class DetailPage extends Component {
     const authorCount = metadata.get('author_count');
 
     const numberOfReferences = metadata.get('number_of_references');
-    const citationCount = metadata.get('citation_count');
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
@@ -148,35 +155,41 @@ class DetailPage extends Component {
             </Row>
           </ContentBox>
         </Col>
-        {(numberOfReferences > 0 || citationCount > 0) && (
-          <Col className="mt3 mb3" span={14}>
-            <Tabs
-              type="card"
-              tabBarStyle={{ marginBottom: 0 }}
-              className="remove-top-border-of-card-children"
+        <Col className="mt3 mb3" span={14}>
+          <Tabs
+            type="card"
+            tabBarStyle={{ marginBottom: 0 }}
+            className="remove-top-border-of-card-children"
+          >
+            <Tabs.TabPane
+              tab={
+                <TabNameWithCount
+                  name="References"
+                  count={numberOfReferences}
+                />
+              }
+              key="1"
             >
-              {numberOfReferences > 0 && (
-                <Tabs.TabPane
-                  tab={`References (${numberOfReferences})`}
-                  key="1"
-                >
-                  <ReferenceList
-                    references={references}
-                    loading={loadingReferences}
-                  />
-                </Tabs.TabPane>
-              )}
-              {citationCount && (
-                <Tabs.TabPane tab={`Citations (${citationCount})`} key="2">
-                  <CitationListContainer
-                    pidType="literature"
-                    recordId={recordId}
-                  />
-                </Tabs.TabPane>
-              )}
-            </Tabs>
-          </Col>
-        )}
+              <ReferenceList
+                references={references}
+                loading={loadingReferences}
+              />
+            </Tabs.TabPane>
+            <Tabs.TabPane
+              tab={
+                <TabNameWithCount
+                  name="Citations"
+                  loading={loadingCitations}
+                  count={citationCount}
+                />
+              }
+              key="2"
+              forceRender
+            >
+              <CitationListContainer pidType="literature" recordId={recordId} />
+            </Tabs.TabPane>
+          </Tabs>
+        </Col>
       </Row>
     );
   }
@@ -191,6 +204,9 @@ DetailPage.propTypes = {
   supervisors: PropTypes.instanceOf(List).isRequired,
   loadingReferences: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
+  citationCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  loadingCitations: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -200,6 +216,8 @@ const mapStateToProps = state => ({
   loadingReferences: state.literature.get('loadingReferences'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),
+  citationCount: state.citations.get('total'),
+  loadingCitations: state.citations.get('loading'),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 

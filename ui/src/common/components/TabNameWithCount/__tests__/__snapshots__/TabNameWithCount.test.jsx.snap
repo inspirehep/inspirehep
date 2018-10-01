@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabNameWithCount displays count if loading is false 1`] = `
+<span>
+  <span>
+    Test
+  </span>
+  <span
+    className="ml1"
+  >
+    <span>
+      (
+      10
+      )
+    </span>
+  </span>
+</span>
+`;
+
+exports[`TabNameWithCount does not display count if loading is true 1`] = `
+<span>
+  <span>
+    Test
+  </span>
+  <span
+    className="ml1"
+  >
+    <Icon
+      className="ml1"
+      spin={true}
+      type="loading"
+    />
+  </span>
+</span>
+`;
+
+exports[`TabNameWithCount renders when loading true 1`] = `
+<span>
+  <span>
+    Test
+  </span>
+  <span
+    className="ml1"
+  >
+    <Icon
+      className="ml1"
+      spin={true}
+      type="loading"
+    />
+  </span>
+</span>
+`;
+
+exports[`TabNameWithCount renders with required props 1`] = `
+<span>
+  <span>
+    Test
+  </span>
+  <span
+    className="ml1"
+  />
+</span>
+`;
