@@ -52,7 +52,7 @@ export const rankOptions = [
   { value: 'JUNIOR', display: 'Junior (leads to Senior)' },
   { value: 'STAFF', display: 'Staff (non-research)' },
   { value: 'VISITOR', display: 'Visitor' },
-  { value: 'PD', display: 'PostDoc' },
+  { value: 'POSTDOC', display: 'PostDoc' },
   { value: 'PHD', display: 'PhD' },
   { value: 'MASTER', display: 'Master' },
   { value: 'UNDERGRADUATE', display: 'Undergrad' },
