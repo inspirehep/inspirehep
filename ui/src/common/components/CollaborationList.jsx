@@ -6,6 +6,10 @@ import CollaborationLink from './CollaborationLink';
 import InlineList from '../../common/components/InlineList';
 
 class CollaborationList extends Component {
+  static renderCollaboration(collaboration) {
+    return <CollaborationLink>{collaboration.get('value')}</CollaborationLink>;
+  }
+
   render() {
     const { collaborations, collaborationsWithSuffix } = this.props;
 
@@ -17,23 +21,21 @@ class CollaborationList extends Component {
           items={collaborations}
           suffix={
             collaborations.size > 0 && (
-              <span className="pr1">
+              <span>
                 {collaborations.size > 1 ? ' Collaborations' : ' Collaboration'}
               </span>
             )
           }
           extractKey={collaboration => collaboration.get('value')}
-          renderItem={collaboration => (
-            <CollaborationLink>{collaboration.get('value')}</CollaborationLink>
-          )}
+          renderItem={CollaborationList.renderCollaboration}
         />
+        {!collaborations.isEmpty() &&
+          !collaborationsWithSuffix.isEmpty() && <span className="pr1" />}
         <InlineList
           wrapperClassName="di"
           items={collaborationsWithSuffix}
           extractKey={collaboration => collaboration.get('value')}
-          renderItem={collaboration => (
-            <CollaborationLink>{collaboration.get('value')}</CollaborationLink>
-          )}
+          renderItem={CollaborationList.renderCollaboration}
         />
       </Fragment>
     );

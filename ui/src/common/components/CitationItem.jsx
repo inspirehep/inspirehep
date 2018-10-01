@@ -4,7 +4,7 @@ import { Map } from 'immutable';
 import { List } from 'antd';
 import { Link } from 'react-router-dom';
 
-import AuthorList from './AuthorList';
+import AuthorsAndCollaborations from './AuthorsAndCollaborations';
 import Latex from '../../common/components/Latex';
 import PublicationInfoList from './PublicationInfoList';
 
@@ -22,15 +22,22 @@ class CitationItem extends Component {
   render() {
     const { citation } = this.props;
     const publicationInfo = citation.get('publication_info');
+    const authors = citation.get('authors');
+    const recordId = citation.get('control_number');
+    const collaborations = citation.get('collaborations');
+    const collaborationsWithSuffix = citation.get('collaborations_with_suffix');
+
     return (
       <List.Item>
         <List.Item.Meta
           title={CitationItem.renderTitle(citation)}
           description={
             <Fragment>
-              <AuthorList
-                recordId={citation.get('control_number')}
-                authors={citation.get('authors')}
+              <AuthorsAndCollaborations
+                recordId={recordId}
+                authors={authors}
+                collaborations={collaborations}
+                collaborationsWithSuffix={collaborationsWithSuffix}
               />
               <PublicationInfoList
                 publicationInfo={publicationInfo}

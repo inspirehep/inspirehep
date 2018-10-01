@@ -48,7 +48,11 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     className="mt2"
   >
     <div>
-      <CollaborationList
+      <AuthorsAndCollaborations
+        authors={
+          Immutable.List [
+          ]
+        }
         collaborations={
           Immutable.List [
           ]
@@ -57,18 +61,8 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
           Immutable.List [
           ]
         }
-      />
-      <AuthorList
-        authors={
-          Immutable.List [
-          ]
-        }
-        enableShowAll={false}
-        forSupervisors={false}
-        limit={5}
+        enableAuthorsShowAll={false}
         recordId={12345}
-        total={-1}
-        wrapperClassName={null}
       />
     </div>
     <LiteratureDate
@@ -146,7 +140,11 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
     className="mt2"
   >
     <div>
-      <CollaborationList
+      <AuthorsAndCollaborations
+        authors={
+          Immutable.List [
+          ]
+        }
         collaborations={
           Immutable.List [
           ]
@@ -155,18 +153,8 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
           Immutable.List [
           ]
         }
-      />
-      <AuthorList
-        authors={
-          Immutable.List [
-          ]
-        }
-        enableShowAll={false}
-        forSupervisors={false}
-        limit={5}
+        enableAuthorsShowAll={false}
         recordId={12345}
-        total={-1}
-        wrapperClassName={null}
       />
     </div>
     <LiteratureDate
@@ -249,7 +237,14 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     className="mt2"
   >
     <div>
-      <CollaborationList
+      <AuthorsAndCollaborations
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              full_name: "Test, Author",
+            },
+          ]
+        }
         collaborations={
           Immutable.List [
             Immutable.Map {
@@ -264,21 +259,8 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
             },
           ]
         }
-      />
-      <AuthorList
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              full_name: "Test, Author",
-            },
-          ]
-        }
-        enableShowAll={false}
-        forSupervisors={false}
-        limit={1}
+        enableAuthorsShowAll={false}
         recordId={12345}
-        total={-1}
-        wrapperClassName={null}
       />
     </div>
     <LiteratureDate

@@ -5,7 +5,8 @@ exports[`CitationItem renders with full citation 1`] = `
   <Meta
     description={
       <Unknown>
-        <AuthorList
+        <AuthorsAndCollaborations
+          authorCount={undefined}
           authors={
             Immutable.List [
               Immutable.Map {
@@ -13,12 +14,16 @@ exports[`CitationItem renders with full citation 1`] = `
               },
             ]
           }
-          enableShowAll={false}
-          forSupervisors={false}
-          limit={5}
+          collaborations={
+            Immutable.List [
+            ]
+          }
+          collaborationsWithSuffix={
+            Immutable.List [
+            ]
+          }
+          enableAuthorsShowAll={false}
           recordId={12345}
-          total={-1}
-          wrapperClassName={null}
         />
         <PublicationInfoList
           labeled={false}

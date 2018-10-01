@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
-import AuthorList from '../../common/components/AuthorList';
 import LiteratureDate from './LiteratureDate';
 import ArxivEprintList from './ArxivEprintList';
-import CollaborationList from './CollaborationList';
+import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import DOIList from './DOIList';
 import PartialAbstract from './PartialAbstract/PartialAbstract';
 import ReportNumberList from './ReportNumberList';
@@ -73,15 +72,12 @@ class LiteratureItem extends Component {
         </Link>
         <div className="mt2">
           <div>
-            <CollaborationList
-              collaborations={collaborations}
-              collaborationsWithSuffix={collaborationsWithSuffix}
-            />
-            <AuthorList
+            <AuthorsAndCollaborations
               authorCount={authorCount}
               recordId={recordId}
               authors={authors}
-              limit={collaborations ? 1 : 5}
+              collaborations={collaborations}
+              collaborationsWithSuffix={collaborationsWithSuffix}
             />
           </div>
           <LiteratureDate date={date} />
