@@ -26,6 +26,21 @@ describe('PublicationInfoList', () => {
     const wrapper = shallow(
       <PublicationInfoList labeled={false} publicationInfo={publicationInfo} />
     );
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with wrapperClassName', () => {
+    const publicationInfo = fromJS([
+      {
+        journal_title: 'Test Journal',
+      },
+    ]);
+    const wrapper = shallow(
+      <PublicationInfoList
+        wrapperClassName="test"
+        publicationInfo={publicationInfo}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
   });
 });

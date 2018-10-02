@@ -1,21 +1,5 @@
 .__App__ {
   min-height: 100vh;
-
-  .bulleted-inline-list {
-    display: inline-block;
-    padding: 0;
-    & > li {
-      &:before {
-        content: '\2022 ';
-      }
-    }
-  }
-  .secondary {
-    a {
-      color: gray;
-      text-decoration: underline;
-    }
-  }
   .content {
     padding: 0 40px;
     margin-top: 64px;
