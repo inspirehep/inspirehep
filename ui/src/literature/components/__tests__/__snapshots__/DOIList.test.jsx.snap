@@ -37,3 +37,22 @@ exports[`DOIList renders with dois 1`] = `
   </ul>
 </div>
 `;
+
+exports[`DOIList renders with wrapperClassName 1`] = `
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        value: "12.1234/1234567890123_1234",
+      },
+    ]
+  }
+  label="DOI"
+  renderItem={[Function]}
+  separateItems={true}
+  separateItemsClassName="separate-items-with-comma"
+  suffix={null}
+  wrapperClassName="test"
+/>
+`;

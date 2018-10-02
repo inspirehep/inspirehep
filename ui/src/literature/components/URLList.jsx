@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-
-import URLLink from './URLLink';
 import InlineList from '../../common/components/InlineList';
 
 class URLList extends Component {
   static renderURLItem(url) {
     return (
-      <span>
-        <URLLink>{url.get('value')}</URLLink>
-      </span>
+      <a target="_blank" href={url.get('value')}>
+        {url.get('value')}
+      </a>
     );
   }
 
@@ -22,7 +20,7 @@ class URLList extends Component {
         wrapperClassName={wrapperClassName}
         items={urls}
         extractKey={url => url.get('value')}
-        renderItem={url => URLList.renderURLItem(url)}
+        renderItem={URLList.renderURLItem}
       />
     );
   }

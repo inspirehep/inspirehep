@@ -1,0 +1,17 @@
+.bulleted-inline-list {
+  display: inline-block;
+  padding: 0;
+  & > li:not(:first-of-type) {
+    &:before {
+      content: '\2022 ';
+    }
+  }
+}
+
+.secondary {
+  font-style: italic;
+  a {
+    color: gray;
+    text-decoration: underline;
+  }
+}

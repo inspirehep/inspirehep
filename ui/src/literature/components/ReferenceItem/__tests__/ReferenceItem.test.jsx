@@ -10,6 +10,7 @@ describe('ReferenceItem', () => {
       titles: [{ title: 'Title' }],
       arxiv_eprints: [{ value: '123456' }],
       control_number: 12345,
+      label: 123,
       authors: [{ full_name: 'Author' }],
       publication_info: [
         {
@@ -17,6 +18,7 @@ describe('ReferenceItem', () => {
         },
       ],
       dois: [{ value: '123456.12345' }],
+      urls: [{ value: 'https://dude.guy' }],
     });
     const wrapper = shallow(<ReferenceItem reference={reference} />);
     expect(wrapper.dive()).toMatchSnapshot();
@@ -33,6 +35,7 @@ describe('ReferenceItem', () => {
         },
       ],
       dois: [{ value: '123456.12345' }],
+      urls: [{ value: 'https://dude.guy' }],
     });
     const wrapper = shallow(<ReferenceItem reference={reference} />);
     expect(wrapper.dive()).toMatchSnapshot();
