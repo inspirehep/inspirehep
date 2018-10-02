@@ -119,15 +119,36 @@ describe('App', () => {
     expect(wrapper.find(Literature)).not.toExist();
   });
 
-  it('navigates to Submissions when /submissions', () => {
+  it('navigates to Submissions when /submissions if logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+      }),
+    });
     const wrapper = mount(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <MemoryRouter initialEntries={['/submissions']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
     expect(wrapper.find(Submissions)).toExist();
+  });
+
+  it('navigates to Submissions when /submissions if not logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: false,
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/submissions']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Submissions)).not.toExist();
   });
 
   it('navigates to Home when /', () => {

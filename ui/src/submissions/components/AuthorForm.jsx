@@ -35,6 +35,10 @@ class AuthorForm extends Component {
     return suggestion._source.legacy_name;
   }
 
+  static getSuggestionSourceNameValue(suggestion) {
+    return suggestion._source.name.value;
+  }
+
   render() {
     const { values, isSubmitting, isValid, isValidating } = this.props;
     return (
@@ -246,7 +250,10 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.name`}
                       placeholder="Family name, first name"
-                      component={TextField}
+                      pidType="authors"
+                      suggesterName="author"
+                      renderResultItem={AuthorForm.getSuggestionSourceNameValue}
+                      component={SuggesterField}
                     />
                   </Col>
                   <Col span={11}>
