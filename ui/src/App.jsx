@@ -56,7 +56,7 @@ class App extends Component {
               authorizedRoles={LITERATURE_AUTHORIZED_ROLES}
               component={Literature$}
             />
-            <Route path="/submissions" component={Submissions$} />
+            <PrivateRoute path="/submissions" component={Submissions$} />
             <Route path="/errors" component={Errors$} />
             <Redirect to="/errors" />
           </Switch>
