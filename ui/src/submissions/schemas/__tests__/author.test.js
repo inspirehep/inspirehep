@@ -179,8 +179,8 @@ describe('authorSchema', () => {
       positions: [
         {
           institution: 'Test 1',
-          start_year: minYear,
-          end_year: maxYear,
+          start_date: minYear,
+          end_date: maxYear,
         },
       ],
     };
@@ -195,8 +195,8 @@ describe('authorSchema', () => {
       positions: [
         {
           institution: 'Test 1',
-          start_year: minYear - 1,
-          end_year: maxYear + 1,
+          start_date: minYear - 1,
+          end_date: maxYear + 1,
         },
       ],
     };
@@ -285,8 +285,8 @@ describe('authorSchema', () => {
       project_membership: [
         {
           name: 'Test 1',
-          start_year: minYear,
-          end_year: maxYear,
+          start_date: minYear,
+          end_date: maxYear,
         },
       ],
     };
@@ -301,8 +301,8 @@ describe('authorSchema', () => {
       project_membership: [
         {
           name: 'Test 1',
-          start_year: minYear - 1,
-          end_year: maxYear + 1,
+          start_date: minYear - 1,
+          end_date: maxYear + 1,
         },
       ],
     };

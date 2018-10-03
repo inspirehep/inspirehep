@@ -54,8 +54,8 @@ const authorSchema = object().shape({
         .required()
         .label('Institution name'),
       rank: string().oneOf(rankValues),
-      start_year: yearSchema,
-      end_year: yearSchema,
+      start_date: yearSchema,
+      end_date: yearSchema,
       current: boolean(),
     })
   ),
@@ -64,8 +64,8 @@ const authorSchema = object().shape({
       name: string()
         .required()
         .label('Experiment name'),
-      start_year: yearSchema,
-      end_year: yearSchema,
+      start_date: yearSchema,
+      end_date: yearSchema,
       current: boolean(),
     })
   ),
