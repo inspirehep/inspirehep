@@ -12,17 +12,22 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
     <Meta
       description={
         <Unknown>
-          <AuthorList
+          <AuthorsAndCollaborations
+            authorCount={undefined}
             authors={
               Immutable.List [
               ]
             }
-            enableShowAll={false}
-            forSupervisors={false}
-            limit={5}
+            collaborations={
+              Immutable.List [
+              ]
+            }
+            collaborationsWithSuffix={
+              Immutable.List [
+              ]
+            }
+            enableAuthorsShowAll={false}
             recordId={undefined}
-            total={-1}
-            wrapperClassName={null}
           />
           <ul
             className="bulleted-inline-list secondary"
@@ -58,17 +63,22 @@ exports[`ReferenceItem renders misc if present 1`] = `
           <span>
             A Misc
           </span>
-          <AuthorList
+          <AuthorsAndCollaborations
+            authorCount={undefined}
             authors={
               Immutable.List [
               ]
             }
-            enableShowAll={false}
-            forSupervisors={false}
-            limit={5}
+            collaborations={
+              Immutable.List [
+              ]
+            }
+            collaborationsWithSuffix={
+              Immutable.List [
+              ]
+            }
+            enableAuthorsShowAll={false}
             recordId={undefined}
-            total={-1}
-            wrapperClassName={null}
           />
           <ul
             className="bulleted-inline-list secondary"
@@ -100,7 +110,8 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
       <Meta
         description={
           <Unknown>
-            <AuthorList
+            <AuthorsAndCollaborations
+              authorCount={undefined}
               authors={
                 Immutable.List [
                   Immutable.Map {
@@ -108,12 +119,22 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                   },
                 ]
               }
-              enableShowAll={false}
-              forSupervisors={false}
-              limit={5}
+              collaborations={
+                Immutable.List [
+                  Immutable.Map {
+                    value: "Test Collab.",
+                  },
+                ]
+              }
+              collaborationsWithSuffix={
+                Immutable.List [
+                  Immutable.Map {
+                    value: "Test Group",
+                  },
+                ]
+              }
+              enableAuthorsShowAll={false}
               recordId={undefined}
-              total={-1}
-              wrapperClassName={null}
             />
             <ul
               className="bulleted-inline-list secondary"
@@ -196,7 +217,8 @@ exports[`ReferenceItem renders with full reference 1`] = `
       <Meta
         description={
           <Unknown>
-            <AuthorList
+            <AuthorsAndCollaborations
+              authorCount={undefined}
               authors={
                 Immutable.List [
                   Immutable.Map {
@@ -204,12 +226,22 @@ exports[`ReferenceItem renders with full reference 1`] = `
                   },
                 ]
               }
-              enableShowAll={false}
-              forSupervisors={false}
-              limit={5}
+              collaborations={
+                Immutable.List [
+                  Immutable.Map {
+                    value: "Test Collab.",
+                  },
+                ]
+              }
+              collaborationsWithSuffix={
+                Immutable.List [
+                  Immutable.Map {
+                    value: "Test Group",
+                  },
+                ]
+              }
+              enableAuthorsShowAll={false}
               recordId={12345}
-              total={-1}
-              wrapperClassName={null}
             />
             <ul
               className="bulleted-inline-list secondary"

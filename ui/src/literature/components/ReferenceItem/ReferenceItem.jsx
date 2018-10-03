@@ -4,7 +4,7 @@ import { Map } from 'immutable';
 import { List, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 
-import AuthorList from '../../../common/components/AuthorList';
+import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ArxivEprintList from '../ArxivEprintList';
 import Latex from '../../../common/components/Latex';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
@@ -46,6 +46,13 @@ class ReferenceItem extends Component {
     const dois = reference.get('dois');
     const urls = reference.get('urls');
 
+    const recordId = reference.get('control_number');
+    const authors = reference.get('authors');
+    const collaborations = reference.get('collaborations');
+    const collaborationsWithSuffix = reference.get(
+      'collaborations_with_suffix'
+    );
+
     // HACK: `Row` and only single `Col` for the label are used in order to make label and title responsive
     return (
       <List.Item>
@@ -56,9 +63,11 @@ class ReferenceItem extends Component {
             description={
               <Fragment>
                 {ReferenceItem.renderMisc(reference)}
-                <AuthorList
-                  recordId={reference.get('control_number')}
-                  authors={reference.get('authors')}
+                <AuthorsAndCollaborations
+                  recordId={recordId}
+                  authors={authors}
+                  collaborations={collaborations}
+                  collaborationsWithSuffix={collaborationsWithSuffix}
                 />
                 <ul className="bulleted-inline-list secondary">
                   {publicationInfo && (
