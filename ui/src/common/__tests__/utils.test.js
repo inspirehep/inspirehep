@@ -8,6 +8,7 @@ import {
   selfOrInfinity,
   getSizeOfArrayOrImmutableList,
   doSetsHaveCommonItem,
+  isEmptyObjectShallow,
 } from '../utils';
 
 describe('utils', () => {
@@ -135,6 +136,36 @@ describe('utils', () => {
       const set2 = Set([5, 6]);
       const result = doSetsHaveCommonItem(set1, set2);
       expect(result).toBe(false);
+    });
+  });
+
+  describe('isEmptyObjectShallow', () => {
+    it('returns true if {}', () => {
+      expect(isEmptyObjectShallow({})).toBe(true);
+    });
+
+    it('returns true if null', () => {
+      expect(isEmptyObjectShallow(null)).toBe(true);
+    });
+
+    it('returns true if has only empty properties', () => {
+      expect(isEmptyObjectShallow({ foo: '', bar: null })).toBe(true);
+    });
+
+    it('returns false if has a non empty string property', () => {
+      expect(isEmptyObjectShallow({ foo: 'bar' })).toBe(false);
+    });
+
+    it('returns false if has a boolean property ', () => {
+      expect(isEmptyObjectShallow({ foo: false })).toBe(false);
+    });
+
+    it('returns false if has a number property ', () => {
+      expect(isEmptyObjectShallow({ foo: 0 })).toBe(false);
+    });
+
+    it('returns false if has a nested empty property ', () => {
+      expect(isEmptyObjectShallow({ foo: { bar: null } })).toBe(false);
     });
   });
 });

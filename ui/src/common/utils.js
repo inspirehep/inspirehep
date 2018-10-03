@@ -57,3 +57,11 @@ export function doSetsHaveCommonItem(set1, set2) {
   }
   return set1.subtract(set2).size < set1.size;
 }
+
+export function isEmptyObjectShallow(object) {
+  if (!object) {
+    return true;
+  }
+
+  return !Object.values(object).some(value => !(value == null || value === ''));
+}

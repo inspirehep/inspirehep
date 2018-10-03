@@ -1,9 +1,10 @@
 import { object, lazy, string } from 'yup';
 import isValidOrcid from 'is-valid-orcid';
+import { isEmptyObjectShallow } from '../../common/utils';
 
 export function emptyObjectOrShapeOf(shape) {
   return lazy(value => {
-    if (value && Object.keys(value).length === 0) {
+    if (isEmptyObjectShallow(value)) {
       return object();
     }
     return object().shape(shape);

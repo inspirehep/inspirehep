@@ -22,6 +22,17 @@ describe('customSchemas', () => {
       done();
     });
 
+    it('validates empty object if object has only empty properties', async done => {
+      let validationError;
+      try {
+        await emptyObjectOrHasRequiredFooSchema.validate({ foo: '' });
+      } catch (error) {
+        validationError = error;
+      }
+      expect(validationError).toBeUndefined();
+      done();
+    });
+
     it('validates according to shape schema', async done => {
       const data = {
         foo: 'bar',
