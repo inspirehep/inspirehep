@@ -23,19 +23,19 @@ exports[`Suggester renders results onSearch 1`] = `
   transitionName="slide-up"
 >
   <Option
-    key="1"
+    key="Result 1"
   >
     Result 1
   </Option>
   <Option
-    key="2"
+    key="Result 2"
   >
     Result 2
   </Option>
 </AutoComplete>
 `;
 
-exports[`Suggester renders results with custom template onSearch 1`] = `
+exports[`Suggester renders results with custom completion value 1`] = `
 <AutoComplete
   choiceTransitionName="zoom"
   filterOption={false}
@@ -46,14 +46,49 @@ exports[`Suggester renders results with custom template onSearch 1`] = `
   transitionName="slide-up"
 >
   <Option
-    key="1"
+    key="Result 1 - Extra 1"
   >
     Result 1 - Extra 1
   </Option>
   <Option
-    key="2"
+    key="Result 2 - Extra 2"
   >
     Result 2 - Extra 2
+  </Option>
+</AutoComplete>
+`;
+
+exports[`Suggester renders results with custom result template 1`] = `
+<AutoComplete
+  choiceTransitionName="zoom"
+  filterOption={false}
+  onSearch={[Function]}
+  optionLabelProp="children"
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+>
+  <Option
+    key="Result 1"
+  >
+    <span>
+      Result 1
+       
+      <em>
+        Extra 1
+      </em>
+    </span>
+  </Option>
+  <Option
+    key="Result 2"
+  >
+    <span>
+      Result 2
+       
+      <em>
+        Extra 2
+      </em>
+    </span>
   </Option>
 </AutoComplete>
 `;

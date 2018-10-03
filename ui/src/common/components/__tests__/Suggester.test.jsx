@@ -19,11 +19,9 @@ describe('Suggester', () => {
         {
           options: [
             {
-              _id: '1',
               text: 'Result 1',
             },
             {
-              _id: '2',
               text: 'Result 2',
             },
           ],
@@ -39,19 +37,17 @@ describe('Suggester', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders results with custom template onSearch', async () => {
+  it('renders results with custom completion value', async () => {
     const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
     const reponseData = {
       abstract_source: [
         {
           options: [
             {
-              _id: '1',
               text: 'Result 1',
               extra: 'Extra 1',
             },
             {
-              _id: '2',
               text: 'Result 2',
               extra: 'Extra 2',
             },
@@ -64,7 +60,44 @@ describe('Suggester', () => {
       <Suggester
         pidType="literature"
         suggesterName="abstract_source"
-        renderResultItem={result => `${result.text} - ${result.extra}`}
+        extractItemCompletionValue={result =>
+          `${result.text} - ${result.extra}`
+        }
+      />
+    );
+    await wrapper.instance().onSearch('test');
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders results with custom result template', async () => {
+    const suggesterQueryUrl = '/literature/_suggest?abstract_source=test';
+    const reponseData = {
+      abstract_source: [
+        {
+          options: [
+            {
+              text: 'Result 1',
+              extra: 'Extra 1',
+            },
+            {
+              text: 'Result 2',
+              extra: 'Extra 2',
+            },
+          ],
+        },
+      ],
+    };
+    mockHttp.onGet(suggesterQueryUrl).replyOnce(200, reponseData);
+    const wrapper = shallow(
+      <Suggester
+        pidType="literature"
+        suggesterName="abstract_source"
+        renderResultItem={result => (
+          <span>
+            {result.text} <em>{result.extra}</em>
+          </span>
+        )}
       />
     );
     await wrapper.instance().onSearch('test');

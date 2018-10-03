@@ -40,6 +40,7 @@ class Suggester extends Component {
     const { results } = this.state;
     const {
       renderResultItem,
+      extractItemCompletionValue,
       suggesterName,
       pidType,
       ...autoCompleteProps
@@ -47,8 +48,10 @@ class Suggester extends Component {
     return (
       <AutoComplete onSearch={this.onSearch} {...autoCompleteProps}>
         {results.map(result => (
-          <AutoComplete.Option key={result._id}>
-            {renderResultItem(result)}
+          <AutoComplete.Option key={extractItemCompletionValue(result)}>
+            {renderResultItem
+              ? renderResultItem(result)
+              : extractItemCompletionValue(result)}
           </AutoComplete.Option>
         ))}
       </AutoComplete>
@@ -59,11 +62,13 @@ class Suggester extends Component {
 Suggester.propTypes = {
   pidType: PropTypes.string.isRequired,
   suggesterName: PropTypes.string.isRequired,
+  // eslint-disable-next-line react/require-default-props, default extractItemCompletionValue
   renderResultItem: PropTypes.func,
+  extractItemCompletionValue: PropTypes.func,
 };
 
 Suggester.defaultProps = {
-  renderResultItem: resultItem => resultItem.text,
+  extractItemCompletionValue: resultItem => resultItem.text,
 };
 
 export default Suggester;

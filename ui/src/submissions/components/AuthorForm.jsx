@@ -151,7 +151,9 @@ class AuthorForm extends Component {
                       placeholder="Institution, type for suggestions"
                       pidType="institutions"
                       suggesterName="affiliation"
-                      renderResultItem={AuthorForm.getSuggestionSourceLegacyICN}
+                      extractItemCompletionValue={
+                        AuthorForm.getSuggestionSourceLegacyICN
+                      }
                       component={SuggesterField}
                     />
                   </Col>
@@ -205,7 +207,7 @@ class AuthorForm extends Component {
                       placeholder="Experiment, type for suggestions"
                       pidType="experiments"
                       suggesterName="experiment"
-                      renderResultItem={
+                      extractItemCompletionValue={
                         AuthorForm.getSuggestionSourceLegacyName
                       }
                       component={SuggesterField}
@@ -252,7 +254,9 @@ class AuthorForm extends Component {
                       placeholder="Family name, first name"
                       pidType="authors"
                       suggesterName="author"
-                      renderResultItem={AuthorForm.getSuggestionSourceNameValue}
+                      extractItemCompletionValue={
+                        AuthorForm.getSuggestionSourceNameValue
+                      }
                       component={SuggesterField}
                     />
                   </Col>
