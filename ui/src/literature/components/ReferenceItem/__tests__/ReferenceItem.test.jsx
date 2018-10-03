@@ -19,6 +19,8 @@ describe('ReferenceItem', () => {
       ],
       dois: [{ value: '123456.12345' }],
       urls: [{ value: 'https://dude.guy' }],
+      collaborations: [{ value: 'Test Collab.' }],
+      collaborations_with_suffix: [{ value: 'Test Group' }],
     });
     const wrapper = shallow(<ReferenceItem reference={reference} />);
     expect(wrapper.dive()).toMatchSnapshot();
@@ -36,6 +38,8 @@ describe('ReferenceItem', () => {
       ],
       dois: [{ value: '123456.12345' }],
       urls: [{ value: 'https://dude.guy' }],
+      collaborations: [{ value: 'Test Collab.' }],
+      collaborations_with_suffix: [{ value: 'Test Group' }],
     });
     const wrapper = shallow(<ReferenceItem reference={reference} />);
     expect(wrapper.dive()).toMatchSnapshot();
