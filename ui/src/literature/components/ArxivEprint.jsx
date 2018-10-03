@@ -9,7 +9,7 @@ class ArxivEprint extends Component {
     const { eprint } = this.props;
     return (
       <span>
-        <ArxivEprintLink>{eprint.get('value')}</ArxivEprintLink>
+        <ArxivEprintLink>{eprint.get('value')} </ArxivEprintLink>
         {eprint.has('categories') && (
           <span>[{eprint.getIn(['categories', 0])}]</span>
         )}
