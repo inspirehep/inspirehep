@@ -167,7 +167,7 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name={`${itemName}.start_year`}
+                      name={`${itemName}.start_date`}
                       placeholder="Start year"
                       component={NumberField}
                     />
@@ -175,7 +175,7 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name={`${itemName}.end_year`}
+                      name={`${itemName}.end_date`}
                       placeholder="End year"
                       component={NumberField}
                     />
@@ -214,7 +214,7 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name={`${itemName}.start_year`}
+                      name={`${itemName}.start_date`}
                       placeholder="Start year"
                       component={NumberField}
                     />
@@ -222,7 +222,7 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name={`${itemName}.end_year`}
+                      name={`${itemName}.end_date`}
                       placeholder="End year"
                       component={NumberField}
                     />
