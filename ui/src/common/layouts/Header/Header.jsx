@@ -53,15 +53,15 @@ class Header extends Component {
     return (
       <Layout.Header className="__Header__">
         <Row type="flex" align="middle" gutter={16}>
-          <Col lg={5}>
+          <Col lg={4} xl={5}>
             <Link to="/">
               <img src={logo} alt="INSPIRE Labs" />
             </Link>
           </Col>
-          <Col lg={13} xl={14}>
+          <Col lg={12} xl={13} xxl={14}>
             {shouldDisplaySearchBox && <SearchBoxContainer />}
           </Col>
-          <Col lg={6} xl={5}>
+          <Col lg={8} xl={6} xxl={5}>
             <Row type="flex" justify="end">
               <Col className="nav-item-container">
                 <DropdownMenu
