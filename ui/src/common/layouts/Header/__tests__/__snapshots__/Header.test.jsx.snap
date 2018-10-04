@@ -10,7 +10,8 @@ exports[`Header does not show authorized tool links if logged in user is not sup
     type="flex"
   >
     <Col
-      lg={5}
+      lg={4}
+      xl={5}
     >
       <Link
         replace={false}
@@ -23,14 +24,16 @@ exports[`Header does not show authorized tool links if logged in user is not sup
       </Link>
     </Col>
     <Col
-      lg={13}
-      xl={14}
+      lg={12}
+      xl={13}
+      xxl={14}
     >
       <Connect(SearchBox) />
     </Col>
     <Col
-      lg={6}
-      xl={5}
+      lg={8}
+      xl={6}
+      xxl={5}
     >
       <Row
         gutter={0}
@@ -93,7 +96,8 @@ exports[`Header renders with search box if it is not on home 1`] = `
     type="flex"
   >
     <Col
-      lg={5}
+      lg={4}
+      xl={5}
     >
       <Link
         replace={false}
@@ -106,14 +110,16 @@ exports[`Header renders with search box if it is not on home 1`] = `
       </Link>
     </Col>
     <Col
-      lg={13}
-      xl={14}
+      lg={12}
+      xl={13}
+      xxl={14}
     >
       <Connect(SearchBox) />
     </Col>
     <Col
-      lg={6}
-      xl={5}
+      lg={8}
+      xl={6}
+      xxl={5}
     >
       <Row
         gutter={0}
@@ -176,7 +182,8 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
     type="flex"
   >
     <Col
-      lg={5}
+      lg={4}
+      xl={5}
     >
       <Link
         replace={false}
@@ -189,12 +196,14 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
       </Link>
     </Col>
     <Col
-      lg={13}
-      xl={14}
+      lg={12}
+      xl={13}
+      xxl={14}
     />
     <Col
-      lg={6}
-      xl={5}
+      lg={8}
+      xl={6}
+      xxl={5}
     >
       <Row
         gutter={0}
@@ -257,7 +266,8 @@ exports[`Header shows authorized tool links if logged in user is cataloger 1`] =
     type="flex"
   >
     <Col
-      lg={5}
+      lg={4}
+      xl={5}
     >
       <Link
         replace={false}
@@ -270,14 +280,16 @@ exports[`Header shows authorized tool links if logged in user is cataloger 1`] =
       </Link>
     </Col>
     <Col
-      lg={13}
-      xl={14}
+      lg={12}
+      xl={13}
+      xxl={14}
     >
       <Connect(SearchBox) />
     </Col>
     <Col
-      lg={6}
-      xl={5}
+      lg={8}
+      xl={6}
+      xxl={5}
     >
       <Row
         gutter={0}

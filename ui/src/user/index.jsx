@@ -20,7 +20,8 @@ class User extends Component {
           component={LoginPage}
           redirectTo={previousUrl}
         />
-        {process.env.NODE_ENV === 'development' && (
+        {(process.env.NODE_ENV === 'development' ||
+          process.env.REACT_APP_ENABLE_LOCAL_LOGIN === 'YES') && (
           <RouteOrRedirect
             exact
             path="/user/login/local"

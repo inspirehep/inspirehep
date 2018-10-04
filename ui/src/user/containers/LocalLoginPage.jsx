@@ -34,7 +34,11 @@ class LocalLoginPage extends Component {
             Please not that this does not allow accessing protected API routes
             but only private client side routes
           </p>
-          <Button className="h3" onClick={this.onLoginClick}>
+          <Button
+            className="h3"
+            data-test-id="login"
+            onClick={this.onLoginClick}
+          >
             <strong>Login</strong>
           </Button>
         </Card>

@@ -1,12 +1,17 @@
 const { routes } = require('../../utils/constants');
 const { createPollyInstance } = require('../../utils/polly');
+const { login } = require('../../utils/user');
 
 describe('Literature Detail', () => {
-  xit('should match image snapshot for a literature', async () => {
+  beforeAll(async () => {
+    await login();
+  });
+
+  it('should match image snapshot for a literature', async () => {
     await page.setRequestInterception(true);
     const polly = createPollyInstance('LiteratureDetail');
 
-    await page.goto(routes.public.literatureDetail1472986);
+    await page.goto(routes.private.literatureDetail1472986);
     await page.setViewport({ width: 1280, height: 1400 });
 
     const image = await page.screenshot({ fullPage: true });
