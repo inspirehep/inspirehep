@@ -2,8 +2,6 @@ import authorSchema from '../author';
 import {
   authorStatusValues,
   arxivCategoryValues,
-  minYear,
-  maxYear,
   rankValues,
   degreeTypeValues,
 } from '../constants';
@@ -173,14 +171,14 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when all positions year fields are between max and min year', async done => {
+  it('validates when all positions fields are valid', async done => {
     const data = {
       ...dataWithRequiredFields,
       positions: [
         {
           institution: 'Test 1',
-          start_date: minYear,
-          end_date: maxYear,
+          start_date: '2000',
+          end_date: '',
         },
       ],
     };
@@ -189,14 +187,13 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('invalidates when positions year fields are not between max and min year', async done => {
+  it('invalidates when positions year field is not valid', async done => {
     const data = {
       ...dataWithRequiredFields,
       positions: [
         {
           institution: 'Test 1',
-          start_date: minYear - 1,
-          end_date: maxYear + 1,
+          start_date: '123456',
         },
       ],
     };
@@ -245,6 +242,16 @@ describe('authorSchema', () => {
     done();
   });
 
+  it('validates when positions item has only empty institution', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      positions: [{ institution: '' }],
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(true);
+    done();
+  });
+
   it('invalidates when all positions do not have institution', async done => {
     const data = {
       ...dataWithRequiredFields,
@@ -279,14 +286,14 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when all project_membership year fields are between max and min year', async done => {
+  it('validates when all project_membership fields are valid', async done => {
     const data = {
       ...dataWithRequiredFields,
       project_membership: [
         {
           name: 'Test 1',
-          start_date: minYear,
-          end_date: maxYear,
+          start_date: '1995',
+          end_date: '1999',
         },
       ],
     };
@@ -295,26 +302,20 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('invalidates when project_membership year fields are not between max and min year', async done => {
-    const data = {
-      ...dataWithRequiredFields,
-      project_membership: [
-        {
-          name: 'Test 1',
-          start_date: minYear - 1,
-          end_date: maxYear + 1,
-        },
-      ],
-    };
-    const isValid = await authorSchema.isValid(data);
-    expect(isValid).toBe(false);
-    done();
-  });
-
   it('validates when project_membership item is empty', async done => {
     const data = {
       ...dataWithRequiredFields,
       project_membership: [{}],
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(true);
+    done();
+  });
+
+  it('validates when project_membership item has only empty name', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      project_membership: [{ name: '' }],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);

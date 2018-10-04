@@ -1,4 +1,4 @@
-import { object, lazy, string } from 'yup';
+import { object, lazy, string, number } from 'yup';
 import isValidOrcid from 'is-valid-orcid';
 import { isEmptyObjectShallow } from '../../common/utils';
 
@@ -16,4 +16,15 @@ function isValidOrcidOrNull(value) {
 }
 export function orcid(validationMessage = 'Not a valid ORCID') {
   return string().test('orcid', validationMessage, isValidOrcidOrNull);
+}
+
+export function year() {
+  return number()
+    .integer()
+    .min(1000)
+    .max(2050)
+    .transform(
+      (currentValue, originalValue) =>
+        originalValue === '' ? undefined : currentValue
+    );
 }

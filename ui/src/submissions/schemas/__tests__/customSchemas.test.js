@@ -1,7 +1,7 @@
 import { string } from 'yup';
 import isValidOrcid from 'is-valid-orcid';
 
-import { emptyObjectOrShapeOf, orcid } from '../customSchemas';
+import { emptyObjectOrShapeOf, orcid, year } from '../customSchemas';
 
 jest.mock('is-valid-orcid');
 
@@ -81,6 +81,64 @@ describe('customSchemas', () => {
     it('invalidates when isValidOrcid returns false', async done => {
       isValidOrcid.mockImplementationOnce(() => false);
       const isValid = await orcidSchema.isValid('INVALID ORCID');
+      expect(isValid).toBe(false);
+      done();
+    });
+  });
+
+  describe('year', () => {
+    const yearSchema = year();
+
+    it('validates if it is empty string', async done => {
+      const isValid = await yearSchema.isValid('');
+      expect(isValid).toBe(true);
+      done();
+    });
+
+    it('validates if it is a year string (min)', async done => {
+      const isValid = await yearSchema.isValid('1000');
+      expect(isValid).toBe(true);
+      done();
+    });
+
+    it('validates if it is a year string (max)', async done => {
+      const isValid = await yearSchema.isValid('2050');
+      expect(isValid).toBe(true);
+      done();
+    });
+
+    it('validates if it is a year string', async done => {
+      const isValid = await yearSchema.isValid('2018');
+      expect(isValid).toBe(true);
+      done();
+    });
+
+    it('validates if it is a year number', async done => {
+      const isValid = await yearSchema.isValid(1234);
+      expect(isValid).toBe(true);
+      done();
+    });
+
+    it('invalidates if it is not a number string', async done => {
+      const isValid = await yearSchema.isValid('foo');
+      expect(isValid).toBe(false);
+      done();
+    });
+
+    it('invalidates if it is not a year string', async done => {
+      const isValid = await yearSchema.isValid('12');
+      expect(isValid).toBe(false);
+      done();
+    });
+
+    it('invalidates if it is a year string but less than min', async done => {
+      const isValid = await yearSchema.isValid('999');
+      expect(isValid).toBe(false);
+      done();
+    });
+
+    it('invalidates if it is a year string but more than max', async done => {
+      const isValid = await yearSchema.isValid('2051');
       expect(isValid).toBe(false);
       done();
     });

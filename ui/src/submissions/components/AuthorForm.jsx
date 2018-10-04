@@ -13,7 +13,6 @@ import CollapsableForm from './CollapsableForm';
 import TextField from './TextField';
 import BooleanField from './BooleanField';
 import SelectField from './SelectField';
-import NumberField from './NumberField';
 import ArrayOf from './ArrayOf';
 import SuggesterField from './SuggesterField';
 import TextAreaField from './TextAreaField';
@@ -171,7 +170,7 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.start_date`}
                       placeholder="Start year"
-                      component={NumberField}
+                      component={TextField}
                     />
                   </Col>
                   <Col span={11}>
@@ -179,7 +178,7 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.end_date`}
                       placeholder="End year"
-                      component={NumberField}
+                      component={TextField}
                     />
                   </Col>
                   <Col span={11}>
@@ -218,7 +217,7 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.start_date`}
                       placeholder="Start year"
-                      component={NumberField}
+                      component={TextField}
                     />
                   </Col>
                   <Col span={11}>
@@ -226,7 +225,7 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.end_date`}
                       placeholder="End year"
-                      component={NumberField}
+                      component={TextField}
                     />
                   </Col>
                   <Col span={11}>

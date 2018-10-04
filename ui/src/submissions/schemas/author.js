@@ -1,19 +1,14 @@
-import { string, object, array, number, boolean } from 'yup';
+import { string, object, array, boolean } from 'yup';
 
 import {
   arxivCategoryValues,
-  maxYear,
-  minYear,
   rankValues,
   authorStatusValues,
   degreeTypeValues,
 } from './constants';
-import { emptyObjectOrShapeOf, orcid } from './customSchemas';
+import { emptyObjectOrShapeOf, orcid, year } from './customSchemas';
 
-const yearSchema = number()
-  .min(minYear)
-  .max(maxYear)
-  .label('Year');
+const yearSchema = year().label('Year');
 
 const arrayWithNullDefault = array().default([null]);
 const arrayWithEmptyObjectDefault = array().default([{}]);

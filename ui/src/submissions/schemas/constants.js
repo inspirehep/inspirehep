@@ -59,6 +59,3 @@ export const rankOptions = [
   { value: 'OTHER', display: 'other' },
 ];
 export const rankValues = rankOptions.map(getValue);
-
-export const maxYear = 2050;
-export const minYear = 1000;
