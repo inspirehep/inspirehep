@@ -41,7 +41,7 @@ export const degreeTypeOptions = [
   { value: 'diploma', display: 'Diploma' },
   { value: 'bachelor', display: 'Bachelor' },
   { value: 'master', display: 'Master' },
-  { value: 'habiliation', display: 'Habiliation' },
+  { value: 'habilitation', display: 'Habilitation' },
   { value: 'laurea', display: 'Laurea' },
   { value: 'other', display: 'Other' },
 ];
