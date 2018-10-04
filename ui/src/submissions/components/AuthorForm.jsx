@@ -184,7 +184,7 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name="current"
+                      name={`${itemName}.current`}
                       suffixText="Current"
                       component={BooleanField}
                     />
@@ -231,7 +231,7 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name="current"
+                      name={`${itemName}.current`}
                       suffixText="Current"
                       component={BooleanField}
                     />
