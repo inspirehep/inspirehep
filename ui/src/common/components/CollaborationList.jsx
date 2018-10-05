@@ -30,9 +30,10 @@ class CollaborationList extends Component {
           renderItem={CollaborationList.renderCollaboration}
         />
         {!collaborations.isEmpty() &&
-          !collaborationsWithSuffix.isEmpty() && <span className="pr1" />}
+          !collaborationsWithSuffix.isEmpty() && <span> and </span>}
         <InlineList
           wrapperClassName="di"
+          separateItemsClassName="separate-items-with-and"
           items={collaborationsWithSuffix}
           extractKey={collaboration => collaboration.get('value')}
           renderItem={CollaborationList.renderCollaboration}

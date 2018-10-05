@@ -57,7 +57,33 @@ describe('AuthorsAndCollaborations', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders only one collaboration and author list with limit 1 if there are multiple authors', () => {
+  it('renders multiple collaborations and author for the collaborations', () => {
+    const authors = fromJS([
+      {
+        full_name: 'Test, Guy 1',
+      },
+    ]);
+    const collaborations = fromJS([
+      {
+        value: 'Test Collab 1',
+      },
+      {
+        value: 'Test Collab 2',
+      },
+    ]);
+    const wrapper = shallow(
+      <AuthorsAndCollaborations
+        enableAuthorsShowAll
+        authors={authors}
+        authorCount={1}
+        collaborations={collaborations}
+        recordId={12345}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders collaboration list with single item and author list with limit 1 if there are multiple authors', () => {
     const authors = fromJS([
       {
         full_name: 'Test, Guy 1',

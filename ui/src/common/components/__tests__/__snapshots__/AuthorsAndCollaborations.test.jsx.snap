@@ -28,7 +28,7 @@ exports[`AuthorsAndCollaborations does not render bullet if authors missing 1`] 
     }
     enableShowAll={false}
     forSupervisors={false}
-    limit={5}
+    limit={1}
     recordId={12345}
     total={-1}
     wrapperClassName="di"
@@ -105,11 +105,102 @@ exports[`AuthorsAndCollaborations renders collaboration list and author list if 
     }
     enableShowAll={true}
     forSupervisors={false}
-    limit={5}
+    limit={1}
     recordId={12345}
     total={12}
     wrapperClassName="di"
   />
+</React.Fragment>
+`;
+
+exports[`AuthorsAndCollaborations renders collaboration list with single item and author list with limit 1 if there are multiple authors 1`] = `
+<React.Fragment>
+  <CollaborationList
+    collaborations={
+      Immutable.List [
+      ]
+    }
+    collaborationsWithSuffix={
+      Immutable.List [
+        Immutable.Map {
+          value: "Test 1 Group",
+        },
+      ]
+    }
+  />
+  <span
+    className="mh1"
+  >
+    •
+  </span>
+  <AuthorList
+    authors={
+      Immutable.List [
+        Immutable.Map {
+          full_name: "Test, Guy 1",
+        },
+        Immutable.Map {
+          full_name: "Test, Guy 2",
+        },
+      ]
+    }
+    enableShowAll={true}
+    forSupervisors={false}
+    limit={1}
+    recordId={12345}
+    total={12}
+    wrapperClassName="di"
+  />
+</React.Fragment>
+`;
+
+exports[`AuthorsAndCollaborations renders multiple collaborations and author for the collaborations 1`] = `
+<React.Fragment>
+  <CollaborationList
+    collaborations={
+      Immutable.List [
+        Immutable.Map {
+          value: "Test Collab 1",
+        },
+        Immutable.Map {
+          value: "Test Collab 2",
+        },
+      ]
+    }
+    collaborationsWithSuffix={
+      Immutable.List [
+      ]
+    }
+  />
+  <span
+    className="mh1"
+  >
+    •
+  </span>
+  <AuthorList
+    authors={
+      Immutable.List [
+        Immutable.Map {
+          full_name: "Test, Guy 1",
+        },
+      ]
+    }
+    enableShowAll={true}
+    forSupervisors={false}
+    limit={5}
+    recordId={12345}
+    total={1}
+    wrapperClassName="di"
+  />
+  <span>
+     for the collaboration
+  </span>
+  <span>
+    s
+  </span>
+  <span>
+    .
+  </span>
 </React.Fragment>
 `;
 
@@ -185,48 +276,10 @@ exports[`AuthorsAndCollaborations renders only one collaboration and author for 
     wrapperClassName="di"
   />
   <span>
-     for the collaboration.
+     for the collaboration
   </span>
-</React.Fragment>
-`;
-
-exports[`AuthorsAndCollaborations renders only one collaboration and author list with limit 1 if there are multiple authors 1`] = `
-<React.Fragment>
-  <CollaborationList
-    collaborations={
-      Immutable.List [
-      ]
-    }
-    collaborationsWithSuffix={
-      Immutable.List [
-        Immutable.Map {
-          value: "Test 1 Group",
-        },
-      ]
-    }
-  />
-  <span
-    className="mh1"
-  >
-    •
+  <span>
+    .
   </span>
-  <AuthorList
-    authors={
-      Immutable.List [
-        Immutable.Map {
-          full_name: "Test, Guy 1",
-        },
-        Immutable.Map {
-          full_name: "Test, Guy 2",
-        },
-      ]
-    }
-    enableShowAll={true}
-    forSupervisors={false}
-    limit={1}
-    recordId={12345}
-    total={12}
-    wrapperClassName="di"
-  />
 </React.Fragment>
 `;

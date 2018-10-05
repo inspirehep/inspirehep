@@ -31,7 +31,7 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separateItemsClassName="separate-items-with-and"
     suffix={null}
     wrapperClassName="di"
   />
@@ -69,9 +69,9 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     }
     wrapperClassName="di"
   />
-  <span
-    className="pr1"
-  />
+  <span>
+     and 
+  </span>
   <InlineList
     extractKey={[Function]}
     items={
@@ -93,7 +93,7 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separateItemsClassName="separate-items-with-and"
     suffix={null}
     wrapperClassName="di"
   />
@@ -139,7 +139,7 @@ exports[`CollaborationList renders with collaborations with suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separateItemsClassName="separate-items-with-and"
     suffix={null}
     wrapperClassName="di"
   />
@@ -180,7 +180,7 @@ exports[`CollaborationList renders with collaborations without suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separateItemsClassName="separate-items-with-and"
     suffix={null}
     wrapperClassName="di"
   />
