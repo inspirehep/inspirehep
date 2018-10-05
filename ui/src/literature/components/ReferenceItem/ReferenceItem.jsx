@@ -69,7 +69,7 @@ class ReferenceItem extends Component {
                   collaborations={collaborations}
                   collaborationsWithSuffix={collaborationsWithSuffix}
                 />
-                <ul className="bulleted-inline-list secondary">
+                <ul className="bulleted-inline-list secondary-container">
                   {publicationInfo && (
                     <li className="dib mr1">
                       <PublicationInfoList

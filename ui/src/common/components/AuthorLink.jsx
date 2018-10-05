@@ -47,11 +47,7 @@ class AuthorLink extends Component {
       return (
         <span className="pl1">
           (
-          <a
-            className="i gray underline"
-            target="_blank"
-            href={affiliationHref}
-          >
+          <a className="secondary-link" target="_blank" href={affiliationHref}>
             {affiliation}
           </a>
           )

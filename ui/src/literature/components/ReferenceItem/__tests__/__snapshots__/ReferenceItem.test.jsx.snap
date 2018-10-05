@@ -30,7 +30,7 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
             recordId={undefined}
           />
           <ul
-            className="bulleted-inline-list secondary"
+            className="bulleted-inline-list secondary-container"
           >
             
           </ul>
@@ -81,7 +81,7 @@ exports[`ReferenceItem renders misc if present 1`] = `
             recordId={undefined}
           />
           <ul
-            className="bulleted-inline-list secondary"
+            className="bulleted-inline-list secondary-container"
           >
             
           </ul>
@@ -137,7 +137,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
               recordId={undefined}
             />
             <ul
-              className="bulleted-inline-list secondary"
+              className="bulleted-inline-list secondary-container"
             >
               <li
                 className="dib mr1"
@@ -244,7 +244,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
               recordId={12345}
             />
             <ul
-              className="bulleted-inline-list secondary"
+              className="bulleted-inline-list secondary-container"
             >
               <li
                 className="dib mr1"
