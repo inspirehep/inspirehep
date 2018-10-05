@@ -4,7 +4,11 @@ import { Link } from 'react-router-dom';
 import { Menu, Dropdown, Icon } from 'antd';
 
 class DropdownMenu extends Component {
-  static renderAnchorMenuItem(item) {
+  static renderMenuItem(item) {
+    if (item.to) {
+      return <Link to={item.to}>{item.display}</Link>;
+    }
+
     if (item.href) {
       return (
         <a target={item.target} href={item.href}>
@@ -12,17 +16,7 @@ class DropdownMenu extends Component {
         </a>
       );
     }
-    return (
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-      <a onClick={item.onClick}>{item.display}</a>
-    );
-  }
-
-  static renderMenuItem(item) {
-    if (item.to) {
-      return <Link to={item.to}>{item.display}</Link>;
-    }
-    return DropdownMenu.renderAnchorMenuItem(item);
+    return item;
   }
 
   renderMenu() {
@@ -30,7 +24,8 @@ class DropdownMenu extends Component {
     return (
       <Menu>
         {items.map(item => (
-          <Menu.Item key={item.display}>
+          // use key from react element if passed instead of object.
+          <Menu.Item key={item.display || item.key}>
             {DropdownMenu.renderMenuItem(item)}
           </Menu.Item>
         ))}
@@ -39,11 +34,11 @@ class DropdownMenu extends Component {
   }
 
   render() {
-    const { title, titleClassName } = this.props;
+    const { title, titleClassName, dataTestId } = this.props;
     return (
       <div>
         <Dropdown overlay={this.renderMenu()}>
-          <span className={titleClassName}>
+          <span className={titleClassName} data-test-id={dataTestId}>
             {title} <Icon type="down" />
           </span>
         </Dropdown>
@@ -54,20 +49,25 @@ class DropdownMenu extends Component {
 
 DropdownMenu.propTypes = {
   items: PropTypes.arrayOf(
-    PropTypes.shape({
-      onClick: PropTypes.func,
-      href: PropTypes.string,
-      to: PropTypes.string,
-      display: PropTypes.string.isRequired,
-      target: PropTypes.string,
-    })
+    PropTypes.oneOfType([
+      PropTypes.shape({
+        onClick: PropTypes.func,
+        href: PropTypes.string,
+        to: PropTypes.string,
+        display: PropTypes.string.isRequired,
+        target: PropTypes.string,
+      }),
+      PropTypes.node,
+    ])
   ).isRequired,
   title: PropTypes.node.isRequired,
   titleClassName: PropTypes.string,
+  dataTestId: PropTypes.string,
 };
 
 DropdownMenu.defaultProps = {
   titleClassName: undefined,
+  dataTestId: undefined,
 };
 
 export default DropdownMenu;
