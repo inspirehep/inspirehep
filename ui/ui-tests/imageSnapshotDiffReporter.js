@@ -12,6 +12,7 @@ class ImageSnapshotDiffReporter {
   // eslint-disable-next-line class-methods-use-this
   onTestResult(test, testResult) {
     if (
+      process.env.CI &&
       testResult.numFailingTests &&
       testResult.failureMessage.match(/different from snapshot/)
     ) {
@@ -22,8 +23,6 @@ class ImageSnapshotDiffReporter {
         '__diff_output__'
       );
       const dasherizedTestFileName = parsedTestPath.base.replace(/\./g, '-');
-      // console.log(diffOutputDir);
-      // console.log(dasherizedTestFileName);
       const diffFilePaths = fs
         .readdirSync(diffOutputDir)
         .filter(file => file.startsWith(dasherizedTestFileName));

@@ -10,3 +10,4 @@ services:
       - ../build:/opt/app/build:ro
     environment:
       - NODE_ENV=test
+      - CI=${CI}
