@@ -19,6 +19,7 @@
   "jest": {
     "preset": "jest-puppeteer",
     "setupTestFrameworkScriptFile": "./setupTests.js",
-    "testURL": "localhost:8080"
+    "testURL": "localhost:8080",
+    "reporters": ["default", "<rootDir>/imageSnapshotDiffReporter.js"]
   }
 }
