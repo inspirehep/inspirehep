@@ -42,30 +42,26 @@ class AuthorsAndCollaborations extends Component {
 
     if (collaborationsSize === 0) {
       return this.renderAuthorList();
-    } else if (collaborationsSize === 1) {
-      if (authors.size === 1) {
-        return (
-          <Fragment>
-            {this.renderCollaborationList()}
-            {this.renderBulletIfAuthorsNotEmpty()}
-            {this.renderAuthorList('di')}
-            <span> for the collaboration.</span>
-          </Fragment>
-        );
-      }
+    }
+
+    if (authors.size === 1) {
       return (
         <Fragment>
           {this.renderCollaborationList()}
           {this.renderBulletIfAuthorsNotEmpty()}
-          {this.renderAuthorList('di', 1)}
+          {this.renderAuthorList('di')}
+          <span> for the collaboration</span>
+          {collaborationsSize > 1 && <span>s</span>}
+          <span>.</span>
         </Fragment>
       );
     }
+
     return (
       <Fragment>
         {this.renderCollaborationList()}
         {this.renderBulletIfAuthorsNotEmpty()}
-        {this.renderAuthorList('di')}
+        {this.renderAuthorList('di', 1)}
       </Fragment>
     );
   }
