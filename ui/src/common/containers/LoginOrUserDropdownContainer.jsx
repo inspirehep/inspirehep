@@ -32,15 +32,16 @@ class LoginOrUserDropdownContainer extends Component {
         to: '/user/profile',
         display: 'Profile',
       },
-      {
-        onClick: this.onLogoutClick,
-        display: 'Logout',
-      },
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+      <a key="Logout" onClick={this.onLogoutClick} data-test-id="logout">
+        Logout
+      </a>,
     ];
     return (
       <DropdownMenu
         title="My Account"
         titleClassName="nav-item"
+        dataTestId="my-account-dropdown"
         items={userActionItems}
       />
     );
