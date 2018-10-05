@@ -71,6 +71,12 @@ describe('customSchemas', () => {
       done();
     });
 
+    it('validates when has empty spaces', () => {
+      isValidOrcid.mockImplementationOnce(() => true);
+      orcidSchema.isValidSync(' 0000-0000-0000-0000 ');
+      expect(isValidOrcid).toHaveBeenCalledWith('0000-0000-0000-0000');
+    });
+
     it('validates when isValidOrcid returns true', async done => {
       isValidOrcid.mockImplementationOnce(() => true);
       const isValid = await orcidSchema.isValid('VALID ORCID');

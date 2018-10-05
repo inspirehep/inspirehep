@@ -15,7 +15,9 @@ function isValidOrcidOrNull(value) {
   return value == null ? true : isValidOrcid(value);
 }
 export function orcid(validationMessage = 'Not a valid ORCID') {
-  return string().test('orcid', validationMessage, isValidOrcidOrNull);
+  return string()
+    .trim()
+    .test('orcid', validationMessage, isValidOrcidOrNull);
 }
 
 export function year() {
