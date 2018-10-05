@@ -215,6 +215,14 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
+                      name={`${itemName}.current`}
+                      suffixText="Current"
+                      component={BooleanField}
+                    />
+                  </Col>
+                  <Col span={11}>
+                    <Field
+                      onlyChild
                       name={`${itemName}.start_date`}
                       placeholder="Start year"
                       component={TextField}
@@ -226,14 +234,6 @@ class AuthorForm extends Component {
                       name={`${itemName}.end_date`}
                       placeholder="End year"
                       component={TextField}
-                    />
-                  </Col>
-                  <Col span={11}>
-                    <Field
-                      onlyChild
-                      name={`${itemName}.current`}
-                      suffixText="Current"
-                      component={BooleanField}
                     />
                   </Col>
                 </Row>
