@@ -120,7 +120,26 @@ describe('App', () => {
     expect(wrapper.find(Literature)).not.toExist();
   });
 
-  it('navigates to Authors when /authors if betauser is logged in', () => {
+  it('navigates to Authors when /authors if superuser is logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['superuser'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Authors)).toExist();
+  });
+
+  it('does not navigate to Authors when /authors if betauser is logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -136,29 +155,10 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Authors)).toExist();
+    expect(wrapper.find(Authors)).not.toExist();
   });
 
-  it('navigates to Authors when /authors if cataloger is logged in', () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['cataloger'],
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(wrapper.find(Authors)).toExist();
-  });
-
-  it('does not navigate to Authors when /authors if logged in user not a beta nor super super', () => {
+  it('does not navigate to Authors when /authors if logged in user is not a superuser', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
