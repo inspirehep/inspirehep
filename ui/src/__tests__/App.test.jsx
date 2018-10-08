@@ -12,6 +12,7 @@ import Literature from '../literature';
 import User from '../user';
 import Submissions from '../submissions';
 import Errors from '../errors';
+import Authors from '../authors';
 
 describe('App', () => {
   it('renders initial state', () => {
@@ -117,6 +118,63 @@ describe('App', () => {
       </Provider>
     );
     expect(wrapper.find(Literature)).not.toExist();
+  });
+
+  it('navigates to Authors when /authors if betauser is logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['betauser'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Authors)).toExist();
+  });
+
+  it('navigates to Authors when /authors if cataloger is logged in', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['cataloger'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Authors)).toExist();
+  });
+
+  it('does not navigate to Authors when /authors if logged in user not a beta nor super super', () => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['whateveruser'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Authors)).not.toExist();
   });
 
   it('navigates to Submissions when /submissions if logged in', () => {

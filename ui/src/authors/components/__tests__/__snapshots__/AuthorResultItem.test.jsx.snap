@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorResultItem renders full author result 1`] = `
+<ResultItem>
+  <Link
+    className="f4"
+    replace={false}
+    to="/authors/12345"
+  >
+    <AuthorName
+      name={
+        Immutable.Map {
+          value: "Urhan, Harun",
+        }
+      }
+    />
+  </Link>
+  <span
+    className="pl1"
+  >
+    (
+    CERN
+    )
+  </span>
+  <div
+    className="mt1"
+  >
+    <ArxivCategoryList
+      arxivCategories={
+        Immutable.List [
+          "hep-th",
+        ]
+      }
+    />
+    <ExperimentList
+      experiments={
+        Immutable.List [
+          Immutable.Map {
+            name: "CERN-LHC-CMS",
+          },
+        ]
+      }
+    />
+  </div>
+</ResultItem>
+`;
+
+exports[`AuthorResultItem renders with only name 1`] = `
+<ResultItem>
+  <Link
+    className="f4"
+    replace={false}
+    to="/authors/12345"
+  >
+    <AuthorName
+      name={
+        Immutable.Map {
+          value: "Urhan, Harun",
+        }
+      }
+    />
+  </Link>
+  <div
+    className="mt1"
+  >
+    <ArxivCategoryList
+      arxivCategories={null}
+    />
+    <ExperimentList
+      experiments={null}
+    />
+  </div>
+</ResultItem>
+`;
