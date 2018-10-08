@@ -159,10 +159,9 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name={`${itemName}.rank`}
-                      placeholder="Rank"
-                      options={rankOptions}
-                      component={SelectField}
+                      name={`${itemName}.current`}
+                      suffixText="Current"
+                      component={BooleanField}
                     />
                   </Col>
                   <Col span={11}>
@@ -184,9 +183,10 @@ class AuthorForm extends Component {
                   <Col span={11}>
                     <Field
                       onlyChild
-                      name={`${itemName}.current`}
-                      suffixText="Current"
-                      component={BooleanField}
+                      name={`${itemName}.rank`}
+                      placeholder="Rank"
+                      options={rankOptions}
+                      component={SelectField}
                     />
                   </Col>
                 </Row>
