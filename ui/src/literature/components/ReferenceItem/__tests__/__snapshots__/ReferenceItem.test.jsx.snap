@@ -37,11 +37,11 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
         </Unknown>
       }
       title={
-        <span
+        <div
           className="f5"
         >
           Title
-        </span>
+        </div>
       }
     />
   </Row>
@@ -60,9 +60,9 @@ exports[`ReferenceItem renders misc if present 1`] = `
     <Meta
       description={
         <Unknown>
-          <span>
+          <div>
             A Misc
-          </span>
+          </div>
           <AuthorsAndCollaborations
             authorCount={undefined}
             authors={
@@ -186,11 +186,11 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
           </Unknown>
         }
         title={
-          <span
+          <div
             className="f5"
           >
             Title
-          </span>
+          </div>
         }
       />
     </Row>

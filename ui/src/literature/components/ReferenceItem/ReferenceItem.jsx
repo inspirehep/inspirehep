@@ -29,14 +29,14 @@ class ReferenceItem extends Component {
         </Link>
       );
     } else if (title) {
-      return <span className="f5">{title}</span>;
+      return <div className="f5">{title}</div>;
     }
     return null;
   }
 
   static renderMisc(reference) {
     const misc = reference.get('misc');
-    return misc && <span>{misc}</span>;
+    return misc && <div>{misc}</div>;
   }
 
   render() {
