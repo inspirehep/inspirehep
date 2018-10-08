@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArxivCategoryList renders arxiv categories 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className=""
+  >
+    <li
+      key="hep-ex"
+    >
+      <Tag
+        closable={false}
+        prefixCls="ant-tag"
+      >
+        hep-ex
+      </Tag>
+    </li>
+    <li
+      key="hep-ph"
+    >
+      <Tag
+        closable={false}
+        prefixCls="ant-tag"
+      >
+        hep-ph
+      </Tag>
+    </li>
+  </ul>
+</div>
+`;
