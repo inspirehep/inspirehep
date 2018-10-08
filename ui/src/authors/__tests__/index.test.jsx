@@ -31,7 +31,7 @@ describe('Authors', () => {
     done();
   });
 
-  xit('navigates to DetailPage when /authors/:id', async done => {
+  it('navigates to DetailPage when /authors/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/authors/1']} initialIndex={0}>
