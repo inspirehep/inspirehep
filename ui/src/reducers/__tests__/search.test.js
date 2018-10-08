@@ -26,7 +26,7 @@ describe('search reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  xit('LOCATION_CHANGE authors', () => {
+  it('LOCATION_CHANGE authors', () => {
     const state = reducer(Map(), {
       type: LOCATION_CHANGE,
       payload: { pathname: '/authors/12345' },

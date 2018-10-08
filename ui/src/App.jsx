@@ -20,6 +20,10 @@ const Literature$ = Loadable({
   loader: () => import('./literature'),
   loading: Loading,
 });
+const Authors$ = Loadable({
+  loader: () => import('./authors'),
+  loading: Loading,
+});
 const Home$ = Loadable({
   loader: () => import('./home'),
   loading: Loading,
@@ -55,6 +59,11 @@ class App extends Component {
               path="/literature"
               authorizedRoles={LITERATURE_AUTHORIZED_ROLES}
               component={Literature$}
+            />
+            <PrivateRoute
+              path="/authors"
+              authorizedRoles={LITERATURE_AUTHORIZED_ROLES}
+              component={Authors$}
             />
             <PrivateRoute path="/submissions" component={Submissions$} />
             <Route path="/errors" component={Errors$} />
