@@ -22,13 +22,11 @@ export const searchScopes = fromJS({
     pathname: 'literature',
     query: baseQuery,
   },
-  /*
   authors: {
     name: 'authors',
     pathname: 'authors',
     query: baseQuery,
   },
-  */
 });
 
 export const initialState = fromJS({
@@ -44,11 +42,9 @@ export const initialState = fromJS({
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOCATION_CHANGE:
-      /* TODO: enable the test case when commented out
       if (action.payload.pathname.includes('authors')) {
         return state.set('scope', searchScopes.get('authors'));
       }
-      */
       return state.set('scope', initialState.get('scope'));
     case CHANGE_SEARCH_SCOPE:
       return state.set('scope', searchScopes.get(action.payload));
