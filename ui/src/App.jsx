@@ -11,6 +11,7 @@ import Loading from './common/components/Loading';
 import PrivateRoute from './common/PrivateRoute';
 
 const LITERATURE_AUTHORIZED_ROLES = Set(['superuser', 'betauser', 'cataloger']);
+const AUTHORS_AUTHORIZED_ROLES = Set(['superuser']);
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -62,7 +63,7 @@ class App extends Component {
             />
             <PrivateRoute
               path="/authors"
-              authorizedRoles={LITERATURE_AUTHORIZED_ROLES}
+              authorizedRoles={AUTHORS_AUTHORIZED_ROLES}
               component={Authors$}
             />
             <PrivateRoute path="/submissions" component={Submissions$} />
