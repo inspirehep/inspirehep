@@ -2,16 +2,16 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 import Loadable from 'react-loadable';
-import { Set } from 'immutable';
 
 import './App.scss';
 import Header from './common/layouts/Header';
 import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';
 import PrivateRoute from './common/PrivateRoute';
-
-const LITERATURE_AUTHORIZED_ROLES = Set(['superuser', 'betauser', 'cataloger']);
-const AUTHORS_AUTHORIZED_ROLES = Set(['superuser']);
+import {
+  LITERATURE_AUTHORIZED_ROLES,
+  AUTHORS_AUTHORIZED_ROLES,
+} from './common/authorization';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),

@@ -2,20 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Set } from 'immutable';
-import { doSetsHaveCommonItem } from '../utils';
+import { isCataloger } from '../authorization';
 import ListItemAction from '../../common/components/ListItemAction';
-
-const ONLY_SUPER_USERS_AND_CATALOGERS = Set(['superuser', 'cataloger']);
 
 class EditRecordActionContainer extends Component {
   render() {
     const { userRoles, recordId } = this.props;
-    const isAuthorized = doSetsHaveCommonItem(
-      userRoles,
-      ONLY_SUPER_USERS_AND_CATALOGERS
-    );
+    const isUserCataloger = isCataloger(userRoles);
     const href = `/workflows/edit_article/${recordId}`;
-    if (isAuthorized) {
+    if (isUserCataloger) {
       return (
         <ListItemAction
           iconType="edit"

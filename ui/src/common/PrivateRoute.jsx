@@ -4,17 +4,17 @@ import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
 import RouteOrRedirect from './components/RouteOrRedirect';
-import { doSetsHaveCommonItem } from './utils';
+import { isAuthorized } from './authorization';
 
 class PrivateRoute extends Component {
   render() {
     const { loggedIn, userRoles, authorizedRoles, ...routeProps } = this.props;
     if (loggedIn && authorizedRoles) {
-      const isAuthorized = doSetsHaveCommonItem(userRoles, authorizedRoles);
+      const isUserAuthorized = isAuthorized(userRoles, authorizedRoles);
       return (
         <RouteOrRedirect
           redirectTo="/errors/401"
-          condition={isAuthorized}
+          condition={isUserAuthorized}
           {...routeProps}
         />
       );

@@ -28,4 +28,17 @@ describe('SearchLayout', () => {
     ).dive();
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders without aggregations and sort', () => {
+    const store = getStore();
+    const wrapper = shallow(
+      <SearchLayout
+        store={store}
+        withoutAggregations
+        withoutSort
+        renderResultItem={jest.fn()}
+      />
+    ).dive();
+    expect(wrapper).toMatchSnapshot();
+  });
 });

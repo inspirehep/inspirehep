@@ -10,9 +10,7 @@ import DropdownMenu from '../../components/DropdownMenu';
 import './Header.scss';
 import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
-import { doSetsHaveCommonItem } from '../../utils';
-
-const ONLY_SUPER_USERS_AND_CATALOGERS = Set(['superuser', 'cataloger']);
+import { isCataloger } from '../../authorization';
 
 const UNAUTHORIZED_TOOL_LINKS = [
   {
@@ -41,7 +39,7 @@ class Header extends Component {
   getToolLinksForUser() {
     const { userRoles } = this.props;
 
-    if (doSetsHaveCommonItem(userRoles, ONLY_SUPER_USERS_AND_CATALOGERS)) {
+    if (isCataloger(userRoles)) {
       return ALL_TOOL_LINKS;
     }
     return UNAUTHORIZED_TOOL_LINKS;
