@@ -121,3 +121,56 @@ exports[`SearchLayout renders with loading states true 1`] = `
   </Col>
 </Row>
 `;
+
+exports[`SearchLayout renders without aggregations and sort 1`] = `
+<Row
+  className="__SearchLayout__"
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    lg={8}
+    xl={6}
+    xxl={5}
+  />
+  <Col
+    lg={16}
+    xl={15}
+    xxl={14}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <Connect(NumberOfResultsContainer) />
+        </Col>
+        <Col
+          className="alignRight"
+          span={12}
+        />
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <Connect(ResultsContainer)
+            renderItem={[Function]}
+          />
+          <Connect(PaginationContainer) />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
