@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Input } from 'antd';
+
 import SearchScopeSelectContainer from '../containers/SearchScopeSelectContainer';
 
 class SearchBox extends Component {

@@ -13,15 +13,16 @@ exports[`Header does not show authorized tool links if logged in user is not sup
       lg={4}
       xl={5}
     >
-      <Link
-        replace={false}
-        to="/"
-      >
-        <img
-          alt="INSPIRE Labs"
-          src="logo.svg"
-        />
-      </Link>
+      <Connect(Logo)
+        authorizedRoles={
+          Immutable.Set [
+            "superuser",
+            "cataloger",
+            "betauser",
+          ]
+        }
+        src="logo.svg"
+      />
     </Col>
     <Col
       lg={12}
@@ -99,23 +100,22 @@ exports[`Header renders with search box if it is not on home 1`] = `
       lg={4}
       xl={5}
     >
-      <Link
-        replace={false}
-        to="/"
-      >
-        <img
-          alt="INSPIRE Labs"
-          src="logo.svg"
-        />
-      </Link>
+      <Connect(Logo)
+        authorizedRoles={
+          Immutable.Set [
+            "superuser",
+            "cataloger",
+            "betauser",
+          ]
+        }
+        src="logo.svg"
+      />
     </Col>
     <Col
       lg={12}
       xl={13}
       xxl={14}
-    >
-      <Connect(SearchBox) />
-    </Col>
+    />
     <Col
       lg={8}
       xl={6}
@@ -185,15 +185,16 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
       lg={4}
       xl={5}
     >
-      <Link
-        replace={false}
-        to="/"
-      >
-        <img
-          alt="INSPIRE Labs"
-          src="logo.svg"
-        />
-      </Link>
+      <Connect(Logo)
+        authorizedRoles={
+          Immutable.Set [
+            "superuser",
+            "cataloger",
+            "betauser",
+          ]
+        }
+        src="logo.svg"
+      />
     </Col>
     <Col
       lg={12}
@@ -269,15 +270,16 @@ exports[`Header shows authorized tool links if logged in user is cataloger 1`] =
       lg={4}
       xl={5}
     >
-      <Link
-        replace={false}
-        to="/"
-      >
-        <img
-          alt="INSPIRE Labs"
-          src="logo.svg"
-        />
-      </Link>
+      <Connect(Logo)
+        authorizedRoles={
+          Immutable.Set [
+            "superuser",
+            "cataloger",
+            "betauser",
+          ]
+        }
+        src="logo.svg"
+      />
     </Col>
     <Col
       lg={12}
