@@ -101,7 +101,7 @@ describe('App', () => {
     expect(wrapper.find(Literature)).toExist();
   });
 
-  it('does not navigate to Literature when /literature if logged in user not a beta nor super super', () => {
+  it('does not navigate to Literature when /literature if logged in user not a beta nor super', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,

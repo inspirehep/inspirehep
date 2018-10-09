@@ -11,6 +11,14 @@ import './Header.scss';
 import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 import { isCataloger } from '../../authorization';
+import { doSetsHaveCommonItem } from '../../utils';
+import Logo from '../../../common/containers/LogoContainer';
+
+const ONLY_SUPER_USERS_AND_CATALOGERS_AND_BETAUSERS = Set([
+  'superuser',
+  'cataloger',
+  'betauser',
+]);
 
 const UNAUTHORIZED_TOOL_LINKS = [
   {
@@ -45,19 +53,29 @@ class Header extends Component {
     return UNAUTHORIZED_TOOL_LINKS;
   }
 
-  render() {
-    const { shouldDisplaySearchBox } = this.props;
+  displaySearchBox() {
+    const { shouldDisplaySearchBox, userRoles } = this.props;
+    return (
+      shouldDisplaySearchBox &&
+      doSetsHaveCommonItem(
+        userRoles,
+        ONLY_SUPER_USERS_AND_CATALOGERS_AND_BETAUSERS
+      )
+    );
+  }
 
+  render() {
     return (
       <Layout.Header className="__Header__">
         <Row type="flex" align="middle" gutter={16}>
           <Col lg={4} xl={5}>
-            <Link to="/">
-              <img src={logo} alt="INSPIRE Labs" />
-            </Link>
+            <Logo
+              src={logo}
+              authorizedRoles={ONLY_SUPER_USERS_AND_CATALOGERS_AND_BETAUSERS}
+            />
           </Col>
           <Col lg={12} xl={13} xxl={14}>
-            {shouldDisplaySearchBox && <SearchBoxContainer />}
+            {this.displaySearchBox() && <SearchBoxContainer />}
           </Col>
           <Col lg={8} xl={6} xxl={5}>
             <Row type="flex" justify="end">
