@@ -4,10 +4,9 @@ exports[`ArxivEprint renders with arXiv id 1`] = `
 <span>
   <ArxivEprintLink>
     123.12345
-     
   </ArxivEprintLink>
   <span>
-    [
+     [
     cat
     ]
   </span>
