@@ -11,14 +11,7 @@ import './Header.scss';
 import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 import { isCataloger } from '../../authorization';
-import { doSetsHaveCommonItem } from '../../utils';
-import Logo from '../../../common/containers/LogoContainer';
-
-const ONLY_SUPER_USERS_AND_CATALOGERS_AND_BETAUSERS = Set([
-  'superuser',
-  'cataloger',
-  'betauser',
-]);
+import LogoContainer from '../../../common/containers/LogoContainer';
 
 const UNAUTHORIZED_TOOL_LINKS = [
   {
@@ -53,29 +46,15 @@ class Header extends Component {
     return UNAUTHORIZED_TOOL_LINKS;
   }
 
-  displaySearchBox() {
-    const { shouldDisplaySearchBox, userRoles } = this.props;
-    return (
-      shouldDisplaySearchBox &&
-      doSetsHaveCommonItem(
-        userRoles,
-        ONLY_SUPER_USERS_AND_CATALOGERS_AND_BETAUSERS
-      )
-    );
-  }
-
   render() {
     return (
       <Layout.Header className="__Header__">
         <Row type="flex" align="middle" gutter={16}>
           <Col lg={4} xl={5}>
-            <Logo
-              src={logo}
-              authorizedRoles={ONLY_SUPER_USERS_AND_CATALOGERS_AND_BETAUSERS}
-            />
+            <LogoContainer src={logo} />
           </Col>
           <Col lg={12} xl={13} xxl={14}>
-            {this.displaySearchBox() && <SearchBoxContainer />}
+            {this.props.shouldDisplaySearchBox && <SearchBoxContainer />}
           </Col>
           <Col lg={8} xl={6} xxl={5}>
             <Row type="flex" justify="end">
@@ -107,7 +86,9 @@ Header.propTypes = {
 };
 
 const stateToProps = state => ({
-  shouldDisplaySearchBox: state.router.location.pathname !== '/',
+  shouldDisplaySearchBox:
+    state.router.location.pathname !== '/' &&
+    !String(state.router.location.pathname).startsWith('/submissions'),
   userRoles: Set(state.user.getIn(['data', 'roles'])),
 });
 
