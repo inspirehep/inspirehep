@@ -20,3 +20,11 @@ export function isAuthorized(userRoles, authorizedRoles) {
 export function isCataloger(userRoles) {
   return isAuthorized(userRoles, SUPERUSER_OR_CATALOGER);
 }
+
+export function isCatalogerOrBetaUser(userRoles) {
+  return isAuthorized(userRoles, SUPERUSER_OR_BETAUSER_OR_CATALOGER);
+}
+
+export function isSuperUser(userRoles) {
+  return isAuthorized(userRoles, SUPERUSER);
+}

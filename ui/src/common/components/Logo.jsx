@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
-import { doSetsHaveCommonItem } from './../utils';
+import { isCatalogerOrBetaUser } from '../authorization';
 
 export default class Logo extends Component {
   render() {
-    const { userRoles, authorizedRoles, src } = this.props;
-    const isAuthorized = doSetsHaveCommonItem(userRoles, authorizedRoles);
+    const { userRoles, src } = this.props;
+    const isAuthorized = isCatalogerOrBetaUser(userRoles);
 
     if (isAuthorized) {
       return (
@@ -28,9 +28,4 @@ export default class Logo extends Component {
 Logo.propTypes = {
   src: PropTypes.string.isRequired,
   userRoles: PropTypes.instanceOf(Set).isRequired,
-  authorizedRoles: PropTypes.instanceOf(Set),
-};
-
-Logo.defaultProps = {
-  authorizedRoles: null,
 };
