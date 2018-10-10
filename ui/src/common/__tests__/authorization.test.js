@@ -5,6 +5,7 @@ import {
   isCataloger,
   isCatalogerOrBetaUser,
   isSuperUser,
+  isBetaUser,
 } from '../authorization';
 
 describe('authorization', () => {
@@ -40,6 +41,26 @@ describe('authorization', () => {
     it('returns false if userRoles does not have superuser nor cataloger role', () => {
       const userRoles = Set(['other']);
       const result = isCataloger(userRoles);
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('isBetaUser', () => {
+    it('returns true if userRoles has betauser role', () => {
+      const userRoles = Set(['betauser', 'another']);
+      const result = isBetaUser(userRoles);
+      expect(result).toBe(true);
+    });
+
+    it('returns true if userRoles has superuser role', () => {
+      const userRoles = Set(['superuser']);
+      const result = isBetaUser(userRoles);
+      expect(result).toBe(true);
+    });
+
+    it('returns false if userRoles does not have superuser nor betauser role', () => {
+      const userRoles = Set(['other']);
+      const result = isBetaUser(userRoles);
       expect(result).toBe(false);
     });
   });

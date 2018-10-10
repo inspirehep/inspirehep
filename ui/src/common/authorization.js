@@ -8,6 +8,7 @@ const SUPERUSER_OR_BETAUSER_OR_CATALOGER = Set([
   'cataloger',
 ]);
 const SUPERUSER_OR_CATALOGER = Set(['superuser', 'cataloger']);
+const SUPERUSER_OR_BETAUSER = Set(['superuser', 'betauser']);
 const SUPERUSER = Set(['superuser']);
 
 export const LITERATURE_AUTHORIZED_ROLES = SUPERUSER_OR_BETAUSER_OR_CATALOGER;
@@ -27,4 +28,8 @@ export function isCatalogerOrBetaUser(userRoles) {
 
 export function isSuperUser(userRoles) {
   return isAuthorized(userRoles, SUPERUSER);
+}
+
+export function isBetaUser(userRoles) {
+  return isAuthorized(userRoles, SUPERUSER_OR_BETAUSER);
 }

@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
-import { isCatalogerOrBetaUser } from '../authorization';
+import { isBetaUser } from '../authorization';
 
 export default class Logo extends Component {
   render() {
     const { userRoles, src } = this.props;
-    const isAuthorized = isCatalogerOrBetaUser(userRoles);
+    const isAuthorized = isBetaUser(userRoles);
 
     if (isAuthorized) {
       return (
