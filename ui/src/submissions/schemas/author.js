@@ -16,8 +16,10 @@ const arrayWithEmptyObjectDefault = array().default([{}]);
 const authorSchema = object().shape({
   given_name: string()
     .required()
-    .label('Given Name'),
-  family_name: string(),
+    .label('Given Names'),
+  family_name: string()
+    .required()
+    .label('Family Name'),
   display_name: string()
     .required()
     .label('Display Name'),
