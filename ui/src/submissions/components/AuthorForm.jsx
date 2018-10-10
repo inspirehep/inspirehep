@@ -46,13 +46,13 @@ class AuthorForm extends Component {
           <CollapsableForm.Section header="Personal Info" key="personal_info">
             <Field
               name="given_name"
-              label="* Given Name"
+              label="* Given Names"
               placeholder="e.g. Diego"
               component={TextField}
             />
             <Field
               name="family_name"
-              label="Family Name"
+              label="* Family Name"
               placeholder="e.g. Martínez Santos"
               component={TextField}
             />

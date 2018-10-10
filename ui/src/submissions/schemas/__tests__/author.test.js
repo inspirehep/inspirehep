@@ -8,6 +8,7 @@ import {
 
 const dataWithRequiredFields = {
   given_name: 'Harun',
+  family_name: 'Urhan',
   display_name: 'Harun, Urhan',
 };
 
