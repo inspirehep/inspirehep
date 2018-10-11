@@ -16,6 +16,7 @@ import ListItemAction from '../../common/components/ListItemAction';
 import EditRecordActionContainer from '../../common/containers/EditRecordActionContainer';
 import Latex from '../../common/components/Latex';
 import ResultItem from '../../common/components/ResultItem';
+import { LITERATURE } from '../../common/routes';
 
 class LiteratureItem extends Component {
   render() {
@@ -67,7 +68,7 @@ class LiteratureItem extends Component {
           </Fragment>
         }
       >
-        <Link className="f4" to={`/literature/${recordId}`}>
+        <Link className="f4" to={`${LITERATURE}/${recordId}`}>
           <Latex>{title}</Latex>
         </Link>
         <div className="mt2">

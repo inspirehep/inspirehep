@@ -2,7 +2,7 @@
 
 exports[`Submissions renders initial state 1`] = `
 <div
-  className="__Submissions__ w-100"
+  className="w-100"
 >
   <Route
     component={[Function]}

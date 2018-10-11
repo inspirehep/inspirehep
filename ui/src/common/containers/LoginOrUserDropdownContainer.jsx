@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 
 import { userLogout } from '../../actions/user';
 import DropdownMenu from '../components/DropdownMenu';
+import { USER_LOGIN, USER_PROFILE } from '../routes';
 
 class LoginOrUserDropdownContainer extends Component {
   static renderLoginLink() {
     return (
-      <Link className="nav-item" to="/user/login">
+      <Link className="nav-item" to={USER_LOGIN}>
         Login
       </Link>
     );
@@ -29,7 +30,7 @@ class LoginOrUserDropdownContainer extends Component {
   renderUserDropdown() {
     const userActionItems = [
       {
-        to: '/user/profile',
+        to: USER_PROFILE,
         display: 'Profile',
       },
       // eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events

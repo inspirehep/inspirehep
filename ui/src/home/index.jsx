@@ -5,6 +5,7 @@ import { Row, Col } from 'antd';
 import './index.scss';
 import SearchBoxContainer from '../common/containers/SearchBoxContainer';
 import InlineList from '../common/components/InlineList';
+import { LITERATURE } from '../common/routes';
 
 const LITERATURE_QUERY_EXAMPLES = [
   'find a richter, b and t quark and date > 1984',
@@ -34,7 +35,7 @@ class Home extends Component {
                 label="Try"
                 items={LITERATURE_QUERY_EXAMPLES}
                 renderItem={query => (
-                  <Link to={`/literature?q=${query}`}>{query}</Link>
+                  <Link to={`${LITERATURE}?q=${query}`}>{query}</Link>
                 )}
               />
             </Col>

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
+import { AUTHORS } from '../common/routes';
 import Loading from '../common/components/Loading';
 import './index.scss';
 
@@ -18,8 +19,8 @@ class Authors extends Component {
   render() {
     return (
       <div className="__Authors__">
-        <Route exact path="/authors" component={SearchPage$} />
-        <Route exact path="/authors/:id" component={DetailPage$} />
+        <Route exact path={AUTHORS} component={SearchPage$} />
+        <Route exact path={`${AUTHORS}/:id`} component={DetailPage$} />
       </div>
     );
   }

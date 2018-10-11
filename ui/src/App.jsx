@@ -12,6 +12,15 @@ import {
   LITERATURE_AUTHORIZED_ROLES,
   AUTHORS_AUTHORIZED_ROLES,
 } from './common/authorization';
+import {
+  HOME,
+  USER,
+  HOLDINGPEN,
+  LITERATURE,
+  AUTHORS,
+  SUBMISSIONS,
+  ERRORS,
+} from './common/routes';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -53,22 +62,22 @@ class App extends Component {
         <Header />
         <Layout.Content className="content">
           <Switch id="main">
-            <Route exact path="/" component={Home$} />
-            <Route path="/user" component={User$} />
-            <PrivateRoute path="/holdingpen" component={Holdingpen$} />
+            <Route exact path={HOME} component={Home$} />
+            <Route path={USER} component={User$} />
+            <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
             <PrivateRoute
-              path="/literature"
+              path={LITERATURE}
               authorizedRoles={LITERATURE_AUTHORIZED_ROLES}
               component={Literature$}
             />
             <PrivateRoute
-              path="/authors"
+              path={AUTHORS}
               authorizedRoles={AUTHORS_AUTHORIZED_ROLES}
               component={Authors$}
             />
-            <PrivateRoute path="/submissions" component={Submissions$} />
-            <Route path="/errors" component={Errors$} />
-            <Redirect to="/errors" />
+            <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
+            <Route path={ERRORS} component={Errors$} />
+            <Redirect to={ERRORS} />
           </Switch>
         </Layout.Content>
         <Footer />
