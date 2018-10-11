@@ -6,6 +6,8 @@ const routes = {
     holdingpenDashboard: `${appBaseUrl}/holdingpen/dashboard`,
     literatureSearch: `${appBaseUrl}/literature`,
     literatureDetail1472986: `${appBaseUrl}/literature/1472986`,
+    authorSubmission: `${appBaseUrl}/submissions/authors`,
+    author1073117UpdateSubmission: `${appBaseUrl}/submissions/authors/1073117`,
   },
   public: {
     home: appBaseUrl,
