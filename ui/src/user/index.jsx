@@ -7,6 +7,7 @@ import LoginPage from './containers/LoginPage';
 import ProfilePage from './containers/ProfilePage';
 import PrivateRoute from '../common/PrivateRoute';
 import LocalLoginPage from './containers/LocalLoginPage';
+import { USER_LOGIN, USER_LOCAL_LOGIN, USER_PROFILE } from '../common/routes';
 
 class User extends Component {
   render() {
@@ -15,7 +16,7 @@ class User extends Component {
       <div className="w-100">
         <RouteOrRedirect
           exact
-          path="/user/login"
+          path={USER_LOGIN}
           condition={!loggedIn}
           component={LoginPage}
           redirectTo={previousUrl}
@@ -24,13 +25,13 @@ class User extends Component {
           process.env.REACT_APP_ENABLE_LOCAL_LOGIN === 'YES') && (
           <RouteOrRedirect
             exact
-            path="/user/login/local"
+            path={USER_LOCAL_LOGIN}
             condition={!loggedIn}
             component={LocalLoginPage}
             redirectTo={previousUrl}
           />
         )}
-        <PrivateRoute exact path="/user/profile" component={ProfilePage} />
+        <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
       </div>
     );
   }

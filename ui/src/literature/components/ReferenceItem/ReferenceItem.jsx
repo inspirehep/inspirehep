@@ -11,6 +11,7 @@ import PublicationInfoList from '../../../common/components/PublicationInfoList'
 import DOIList from '../DOIList';
 import URLList from '../URLList';
 import './ReferenceItem.scss';
+import { LITERATURE } from '../../../common/routes';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
@@ -24,7 +25,7 @@ class ReferenceItem extends Component {
     const title = reference.getIn(['titles', 0, 'title']);
     if (recordId && title) {
       return (
-        <Link className="f5" to={`/literature/${recordId}`}>
+        <Link className="f5" to={`${LITERATURE}/${recordId}`}>
           <Latex>{title}</Latex>
         </Link>
       );

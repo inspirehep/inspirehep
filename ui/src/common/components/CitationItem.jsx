@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 import AuthorsAndCollaborations from './AuthorsAndCollaborations';
 import Latex from '../../common/components/Latex';
 import PublicationInfoList from './PublicationInfoList';
+import { LITERATURE } from '../routes';
 
 class CitationItem extends Component {
   static renderTitle(citation) {
     const recordId = citation.get('control_number');
     const title = citation.getIn(['titles', 0, 'title'], '');
     return (
-      <Link to={`/literature/${recordId}`}>
+      <Link to={`${LITERATURE}/${recordId}`}>
         <Latex>{title}</Latex>
       </Link>
     );

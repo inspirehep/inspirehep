@@ -5,6 +5,7 @@ import { Set } from 'immutable';
 
 import RouteOrRedirect from './components/RouteOrRedirect';
 import { isAuthorized } from './authorization';
+import { ERROR_401, USER_LOGIN } from './routes';
 
 class PrivateRoute extends Component {
   render() {
@@ -13,7 +14,7 @@ class PrivateRoute extends Component {
       const isUserAuthorized = isAuthorized(userRoles, authorizedRoles);
       return (
         <RouteOrRedirect
-          redirectTo="/errors/401"
+          redirectTo={ERROR_401}
           condition={isUserAuthorized}
           {...routeProps}
         />
@@ -21,7 +22,7 @@ class PrivateRoute extends Component {
     }
     return (
       <RouteOrRedirect
-        redirectTo="/user/login"
+        redirectTo={USER_LOGIN}
         condition={loggedIn}
         {...routeProps}
       />

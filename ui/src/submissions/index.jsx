@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
+import { AUTHOR_SUBMISSION, SUBMISSION_SUCCESS } from '../common/routes';
 import Loading from '../common/components/Loading';
-import './index.scss';
 
 const AuthorSubmissionPage$ = Loadable({
   loader: () => import('./containers/AuthorSubmissionPage'),
@@ -23,20 +23,20 @@ const SubmissionSuccessPage$ = Loadable({
 class Submissions extends Component {
   render() {
     return (
-      <div className="__Submissions__ w-100">
+      <div className="w-100">
         <Route
           exact
-          path="/submissions/authors"
+          path={AUTHOR_SUBMISSION}
           component={AuthorSubmissionPage$}
         />
         <Route
           exact
-          path="/submissions/authors/:id"
+          path={`${AUTHOR_SUBMISSION}/:id`}
           component={AuthorUpdateSubmissionPage$}
         />
         <Route
           exact
-          path="/submissions/success"
+          path={SUBMISSION_SUCCESS}
           component={SubmissionSuccessPage$}
         />
       </div>

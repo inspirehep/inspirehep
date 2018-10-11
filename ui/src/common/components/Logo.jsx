@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
 import { isBetaUser } from '../authorization';
+import { HOME } from '../routes';
 
 export default class Logo extends Component {
   render() {
@@ -12,7 +13,7 @@ export default class Logo extends Component {
 
     if (isAuthorized) {
       return (
-        <Link to="/">
+        <Link to={HOME}>
           <img src={src} alt="INSPIRE Labs" />
         </Link>
       );

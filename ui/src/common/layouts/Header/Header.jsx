@@ -12,6 +12,7 @@ import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 import { isCataloger } from '../../authorization';
 import LogoContainer from '../../../common/containers/LogoContainer';
+import { AUTHOR_SUBMISSION, SUBMISSIONS } from '../../routes';
 
 const UNAUTHORIZED_TOOL_LINKS = [
   {
@@ -66,7 +67,7 @@ class Header extends Component {
                 />
               </Col>
               <Col className="nav-item-container">
-                <Link className="nav-item" to="/submissions/authors">
+                <Link className="nav-item" to={AUTHOR_SUBMISSION}>
                   Submit
                 </Link>
               </Col>
@@ -88,7 +89,7 @@ Header.propTypes = {
 const stateToProps = state => ({
   shouldDisplaySearchBox:
     state.router.location.pathname !== '/' &&
-    !String(state.router.location.pathname).startsWith('/submissions'),
+    !String(state.router.location.pathname).startsWith(SUBMISSIONS),
   userRoles: Set(state.user.getIn(['data', 'roles'])),
 });
 
