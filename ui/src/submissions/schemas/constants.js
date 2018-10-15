@@ -4,7 +4,7 @@ function getValue(object) {
 
 export const arxivCategoryOptions = [
   { value: 'astro-ph' },
-  { value: 'cond-math' },
+  { value: 'cond-mat' },
   { value: 'cs' },
   { value: 'econ' },
   { value: 'eess' },
