@@ -1,5 +1,4 @@
-.bulleted-inline-list {
-  display: inline-block;
+.bulleted-list {
   padding: 0;
   & > li:not(:first-of-type) {
     &:before {
