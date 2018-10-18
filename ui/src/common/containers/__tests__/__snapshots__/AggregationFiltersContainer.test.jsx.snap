@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AggregationFiltersContainer does not render aggregations when numberOfResults is 0 1`] = `""`;
+
 exports[`AggregationFiltersContainer does not render aggregations with empty buckets 1`] = `
 <div
   className="__AggregationFiltersContainer__ bg-white pa3"

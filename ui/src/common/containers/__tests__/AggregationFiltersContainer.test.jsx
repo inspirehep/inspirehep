@@ -31,6 +31,7 @@ describe('AggregationFiltersContainer', () => {
             },
           },
         },
+        total: 2,
       }),
     });
     const wrapper = shallow(
@@ -58,6 +59,40 @@ describe('AggregationFiltersContainer', () => {
             },
           },
         },
+        total: 1,
+      }),
+    });
+    const wrapper = shallow(
+      <AggregationFiltersContainer store={store} />
+    ).dive();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('does not render aggregations when numberOfResults is 0', () => {
+    const store = getStoreWithState({
+      search: fromJS({
+        aggregations: {
+          agg: {
+            buckets: [
+              {
+                key: 'foo',
+                doc_count: 0,
+              },
+            ],
+            meta: {
+              title: 'Jessica Jones',
+              order: 1,
+            },
+          },
+          emptyAgg: {
+            buckets: [],
+            meta: {
+              title: 'Luke Cage',
+              order: 2,
+            },
+          },
+        },
+        total: 0,
       }),
     });
     const wrapper = shallow(
