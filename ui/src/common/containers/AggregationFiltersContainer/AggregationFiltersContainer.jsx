@@ -31,10 +31,11 @@ class AggregationFiltersContainer extends Component {
   }
 
   render() {
-    const { aggregations } = this.props;
+    const { aggregations, numberOfResults } = this.props;
+
     return (
       aggregations &&
-      !aggregations.isEmpty() && (
+      numberOfResults > 0 && (
         <div className="__AggregationFiltersContainer__ bg-white pa3">
           {aggregations
             .entrySeq()
@@ -63,11 +64,13 @@ AggregationFiltersContainer.propTypes = {
   onAggregationChange: PropTypes.func.isRequired,
   aggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
   query: PropTypes.objectOf(PropTypes.any).isRequired,
+  numberOfResults: PropTypes.number.isRequired,
 };
 
 const stateToProps = state => ({
   aggregations: state.search.get('aggregations'),
   query: state.router.location.query,
+  numberOfResults: state.search.get('total'),
 });
 
 export const dispatchToProps = dispatch => ({
