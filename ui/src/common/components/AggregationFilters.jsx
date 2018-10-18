@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Immutable from 'immutable';
 
-import AggregationFilter from '../../components/AggregationFilter';
-import { forceArray } from '../../utils';
-import { pushQueryToLocation } from '../../../actions/search';
-import './AggregationFiltersContainer.scss';
+import AggregationFilter from '../components/AggregationFilter';
+import { forceArray } from '../utils';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
 
-class AggregationFiltersContainer extends Component {
+class AggregationFilters extends Component {
   static isRange(aggregationKey) {
     return aggregationKey === RANGE_AGGREATION_KEY;
   }
@@ -22,7 +19,7 @@ class AggregationFiltersContainer extends Component {
   }
 
   onAggregationChange(key, selections) {
-    const isRange = AggregationFiltersContainer.isRange(key);
+    const isRange = AggregationFilters.isRange(key);
     let aggregations = selections;
     if (isRange && aggregations.length > 0) {
       aggregations = selections.join('--');
@@ -36,11 +33,11 @@ class AggregationFiltersContainer extends Component {
     return (
       aggregations &&
       numberOfResults > 0 && (
-        <div className="__AggregationFiltersContainer__ bg-white pa3">
+        <div className="bg-white pa3">
           {aggregations
             .entrySeq()
             .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
-            .sort(AggregationFiltersContainer.compareAggregationEntries)
+            .sort(AggregationFilters.compareAggregationEntries)
             .map(([aggregationKey, aggregation]) => (
               <div key={aggregationKey}>
                 <AggregationFilter
@@ -60,25 +57,11 @@ class AggregationFiltersContainer extends Component {
   }
 }
 
-AggregationFiltersContainer.propTypes = {
+AggregationFilters.propTypes = {
   onAggregationChange: PropTypes.func.isRequired,
   aggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
   query: PropTypes.objectOf(PropTypes.any).isRequired,
   numberOfResults: PropTypes.number.isRequired,
 };
 
-const stateToProps = state => ({
-  aggregations: state.search.get('aggregations'),
-  query: state.router.location.query,
-  numberOfResults: state.search.get('total'),
-});
-
-export const dispatchToProps = dispatch => ({
-  onAggregationChange(aggregationKey, selections) {
-    dispatch(pushQueryToLocation({ [aggregationKey]: selections }));
-  },
-});
-
-export default connect(stateToProps, dispatchToProps)(
-  AggregationFiltersContainer
-);
+export default AggregationFilters;
