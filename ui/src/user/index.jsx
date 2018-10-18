@@ -1,37 +1,47 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 
 import RouteOrRedirect from '../common/components/RouteOrRedirect';
 import LoginPage from './containers/LoginPage';
 import ProfilePage from './containers/ProfilePage';
 import PrivateRoute from '../common/PrivateRoute';
 import LocalLoginPage from './containers/LocalLoginPage';
-import { USER_LOGIN, USER_LOCAL_LOGIN, USER_PROFILE } from '../common/routes';
+import {
+  USER_LOGIN,
+  USER_LOCAL_LOGIN,
+  USER_PROFILE,
+  USER,
+} from '../common/routes';
+import SafeSwitch from '../common/components/SafeSwitch';
 
 class User extends Component {
   render() {
     const { loggedIn, previousUrl } = this.props;
     return (
       <div className="w-100">
-        <RouteOrRedirect
-          exact
-          path={USER_LOGIN}
-          condition={!loggedIn}
-          component={LoginPage}
-          redirectTo={previousUrl}
-        />
-        {(process.env.NODE_ENV === 'development' ||
-          process.env.REACT_APP_ENABLE_LOCAL_LOGIN === 'YES') && (
+        <SafeSwitch>
+          <Redirect exact from={USER} to={USER_PROFILE} />
           <RouteOrRedirect
             exact
-            path={USER_LOCAL_LOGIN}
+            path={USER_LOGIN}
             condition={!loggedIn}
-            component={LocalLoginPage}
+            component={LoginPage}
             redirectTo={previousUrl}
           />
-        )}
-        <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
+          {(process.env.NODE_ENV === 'development' ||
+            process.env.REACT_APP_ENABLE_LOCAL_LOGIN === 'YES') && (
+            <RouteOrRedirect
+              exact
+              path={USER_LOCAL_LOGIN}
+              condition={!loggedIn}
+              component={LocalLoginPage}
+              redirectTo={previousUrl}
+            />
+          )}
+          <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
+        </SafeSwitch>
       </div>
     );
   }

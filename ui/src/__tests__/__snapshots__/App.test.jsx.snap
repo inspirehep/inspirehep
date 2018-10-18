@@ -8,7 +8,7 @@ exports[`App renders initial state 1`] = `
   <Adapter
     className="content"
   >
-    <Switch
+    <SafeSwitch
       id="main"
     >
       <Route
@@ -52,11 +52,7 @@ exports[`App renders initial state 1`] = `
         component={[Function]}
         path="/errors"
       />
-      <Redirect
-        push={false}
-        to="/errors"
-      />
-    </Switch>
+    </SafeSwitch>
   </Adapter>
   <Footer />
 </Adapter>

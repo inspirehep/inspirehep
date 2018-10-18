@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
-import { AUTHOR_SUBMISSION, SUBMISSION_SUCCESS } from '../common/routes';
+import {
+  SUBMISSIONS_AUTHOR,
+  SUBMISSION_SUCCESS,
+  SUBMISSIONS,
+} from '../common/routes';
 import Loading from '../common/components/Loading';
+import SafeSwitch from '../common/components/SafeSwitch';
 
 const AuthorSubmissionPage$ = Loadable({
   loader: () => import('./containers/AuthorSubmissionPage'),
@@ -24,21 +29,24 @@ class Submissions extends Component {
   render() {
     return (
       <div className="w-100">
-        <Route
-          exact
-          path={AUTHOR_SUBMISSION}
-          component={AuthorSubmissionPage$}
-        />
-        <Route
-          exact
-          path={`${AUTHOR_SUBMISSION}/:id`}
-          component={AuthorUpdateSubmissionPage$}
-        />
-        <Route
-          exact
-          path={SUBMISSION_SUCCESS}
-          component={SubmissionSuccessPage$}
-        />
+        <SafeSwitch>
+          <Redirect exact from={SUBMISSIONS} to={SUBMISSIONS_AUTHOR} />
+          <Route
+            exact
+            path={SUBMISSIONS_AUTHOR}
+            component={AuthorSubmissionPage$}
+          />
+          <Route
+            exact
+            path={`${SUBMISSIONS_AUTHOR}/:id`}
+            component={AuthorUpdateSubmissionPage$}
+          />
+          <Route
+            exact
+            path={SUBMISSION_SUCCESS}
+            component={SubmissionSuccessPage$}
+          />
+        </SafeSwitch>
       </div>
     );
   }

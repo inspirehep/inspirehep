@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import Loadable from 'react-loadable';
 
@@ -7,7 +7,9 @@ import './App.scss';
 import Header from './common/layouts/Header';
 import Footer from './common/layouts/Footer';
 import Loading from './common/components/Loading';
+import SafeSwitch from './common/components/SafeSwitch';
 import PrivateRoute from './common/PrivateRoute';
+
 import {
   LITERATURE_AUTHORIZED_ROLES,
   AUTHORS_AUTHORIZED_ROLES,
@@ -61,7 +63,7 @@ class App extends Component {
       <Layout className="__App__">
         <Header />
         <Layout.Content className="content">
-          <Switch id="main">
+          <SafeSwitch id="main">
             <Route exact path={HOME} component={Home$} />
             <Route path={USER} component={User$} />
             <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
@@ -77,8 +79,7 @@ class App extends Component {
             />
             <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
             <Route path={ERRORS} component={Errors$} />
-            <Redirect to={ERRORS} />
-          </Switch>
+          </SafeSwitch>
         </Layout.Content>
         <Footer />
       </Layout>

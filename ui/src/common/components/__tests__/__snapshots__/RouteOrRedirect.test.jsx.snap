@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Loading redirects if condition is false 1`] = `
+exports[`RouteOrRedirect redirects if condition is false 1`] = `
 <div>
   Another Component
 </div>
 `;
 
-exports[`Loading renders component if condition is true 1`] = `
+exports[`RouteOrRedirect renders component if condition is true 1`] = `
 <div>
   Test Component
 </div>

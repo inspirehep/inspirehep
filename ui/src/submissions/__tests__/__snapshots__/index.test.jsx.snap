@@ -4,20 +4,28 @@ exports[`Submissions renders initial state 1`] = `
 <div
   className="w-100"
 >
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/submissions/authors"
-  />
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/submissions/authors/:id"
-  />
-  <Route
-    component={[Function]}
-    exact={true}
-    path="/submissions/success"
-  />
+  <SafeSwitch>
+    <Redirect
+      exact={true}
+      from="/submissions"
+      push={false}
+      to="/submissions/authors"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/submissions/authors"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/submissions/authors/:id"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/submissions/success"
+    />
+  </SafeSwitch>
 </div>
 `;
