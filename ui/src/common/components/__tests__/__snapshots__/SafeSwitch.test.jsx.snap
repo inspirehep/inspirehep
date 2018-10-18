@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SafeSwitch renders childrens and redirect to errors 1`] = `
+<Switch>
+  <Route
+    component={[Function]}
+    path="/foo"
+  />
+  <Redirect
+    push={false}
+    to="/errors"
+  />
+</Switch>
+`;

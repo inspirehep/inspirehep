@@ -19,5 +19,5 @@ export const ERROR_401 = `${ERRORS}/401`;
 export const ERROR_404 = `${ERRORS}/404`;
 
 export const SUBMISSIONS = '/submissions';
-export const AUTHOR_SUBMISSION = `${SUBMISSIONS}/authors`;
+export const SUBMISSIONS_AUTHOR = `${SUBMISSIONS}/authors`;
 export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;

@@ -8,7 +8,7 @@ import DashboardPage from '../containers/DashboardPage';
 import ExceptionsPage from '../containers/ExceptionsPage';
 import InspectPage from '../containers/InspectPage';
 
-describe('Literature', () => {
+describe('Holdingpen', () => {
   it('renders initial state', () => {
     const component = shallow(<Holdingpen />);
     expect(component).toMatchSnapshot();

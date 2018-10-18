@@ -6,7 +6,7 @@ import RouteOrRedirect from '../RouteOrRedirect';
 
 const Test = () => <div>Test Component</div>;
 
-describe('Loading', () => {
+describe('RouteOrRedirect', () => {
   it('renders component if condition is true', () => {
     const wrapper = mount(
       <MemoryRouter initialEntries={['/test']} initialIndex={0}>

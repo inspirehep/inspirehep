@@ -12,7 +12,7 @@ import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 import { isCataloger } from '../../authorization';
 import LogoContainer from '../../../common/containers/LogoContainer';
-import { AUTHOR_SUBMISSION, SUBMISSIONS } from '../../routes';
+import { SUBMISSIONS_AUTHOR, SUBMISSIONS } from '../../routes';
 
 const UNAUTHORIZED_TOOL_LINKS = [
   {
@@ -67,7 +67,7 @@ class Header extends Component {
                 />
               </Col>
               <Col className="nav-item-container">
-                <Link className="nav-item" to={AUTHOR_SUBMISSION}>
+                <Link className="nav-item" to={SUBMISSIONS_AUTHOR}>
                   Submit
                 </Link>
               </Col>
