@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Map, List } from 'immutable';
+import { Map, List, fromJS } from 'immutable';
 import { Row, Col } from 'antd';
 import { stringify } from 'qs';
 
@@ -11,6 +11,7 @@ import SortBy from './SortBy';
 import SearchResults from './SearchResults';
 import SearchPagination from './SearchPagination';
 import http from '../http';
+import { mergeWithConcattingArrays } from '../utils';
 
 class EmbeddedSearch extends Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class EmbeddedSearch extends Component {
     this.state = {
       query: {
         page: 1,
-        size: 25,
+        size: 10,
         sort: 'mostrecent',
       },
       numberOfResults: 0,
@@ -32,6 +33,10 @@ class EmbeddedSearch extends Component {
       loadingResults: false,
       loadingAggregations: false,
     };
+  }
+
+  componentDidMount() {
+    this.searchForCurrentQueryState();
   }
 
   async onPageChange(page) {
@@ -64,11 +69,11 @@ class EmbeddedSearch extends Component {
   async fetchSearchResults() {
     const { pidType } = this.props;
     const queryString = stringify(this.getSearchQuery(), { indices: false });
-    const searchUrl = `/${pidType}${queryString}`;
+    const searchUrl = `/${pidType}?${queryString}`;
     this.setState({ loadingResults: true });
     const { data } = await http.get(searchUrl);
     this.setState({
-      results: data.hits.hits,
+      results: fromJS(data.hits.hits),
       numberOfResults: data.hits.total,
       loadingResults: false,
     });
@@ -81,13 +86,11 @@ class EmbeddedSearch extends Component {
       ...this.getSearchQuery(),
     };
     const queryString = stringify(query, { indices: false });
-    const searchUrl = `/${pidType}/facets${queryString}`;
+    const searchUrl = `/${pidType}/facets?${queryString}`;
     this.setState({ loadingAggregations: true });
-    const {
-      data: { aggregations },
-    } = await http.get(searchUrl);
+    const { data } = await http.get(searchUrl);
     this.setState({
-      aggregations,
+      aggregations: fromJS(data.aggregations),
       loadingAggregations: false,
     });
   }
@@ -95,10 +98,7 @@ class EmbeddedSearch extends Component {
   getSearchQuery() {
     const { baseQuery } = this.props;
     const { query } = this.state;
-    return {
-      ...baseQuery,
-      ...query,
-    };
+    return mergeWithConcattingArrays(baseQuery, query);
   }
 
   render() {
@@ -129,7 +129,7 @@ class EmbeddedSearch extends Component {
               <Col span={12}>
                 <NumberOfResults numberOfResults={numberOfResults} />
               </Col>
-              <Col className="alignRight" span={12}>
+              <Col className="tr" span={12}>
                 <SortBy onSortChange={this.onSortChange} sort={query.sort} />
               </Col>
             </Row>
@@ -137,13 +137,14 @@ class EmbeddedSearch extends Component {
               <Col span={24}>
                 <SearchResults
                   renderItem={renderResultItem}
-                  resutls={results}
+                  results={results}
                   onPageChange={this.onPageChange}
                 />
                 <SearchPagination
                   page={query.page}
                   pageSize={query.size}
                   total={numberOfResults}
+                  onPageChange={this.onPageChange}
                 />
               </Col>
             </Row>

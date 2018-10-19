@@ -5,10 +5,12 @@ import { Row, Col } from 'antd';
 import { Map } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
+import EmbeddedSearch from '../../common/components/EmbeddedSearch';
 import AuthorName from '../components/AuthorName';
 import ExperimentList from '../components/ExperimentList';
 import ArxivCategoryList from '../components/ArxivCategoryList';
 import fetchAuthor from '../../actions/authors';
+import LiteratureItem from '../../literature/components/LiteratureItem';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -42,9 +44,19 @@ class DetailPage extends Component {
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
 
+    const nameValue = name.get('value');
+    const authorLiteratureSearchQuery = {
+      author: [nameValue],
+    };
+
+    const authorLiteratureFacetsQuery = {
+      facet_name: 'hep-author-publication',
+      exclude_author_value: nameValue,
+    };
+
     return (
       <Row type="flex" justify="center">
-        <Col className="mt3 mb3" span={14}>
+        <Col className="mv3" span={24}>
           <ContentBox loading={loading}>
             <h2>
               <AuthorName name={name} />
@@ -55,6 +67,16 @@ class DetailPage extends Component {
               <ExperimentList experiments={experiments} />
             </div>
           </ContentBox>
+        </Col>
+        <Col span={24}>
+          <EmbeddedSearch
+            pidType="literature"
+            baseQuery={authorLiteratureSearchQuery}
+            baseFacetsQuery={authorLiteratureFacetsQuery}
+            renderResultItem={result => (
+              <LiteratureItem metadata={result.get('metadata')} />
+            )}
+          />
         </Col>
       </Row>
     );
