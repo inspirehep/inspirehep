@@ -1,3 +1,5 @@
+import mergeWith from 'lodash.mergewith';
+
 export function forceArray(maybeArray) {
   return maybeArray === undefined || Array.isArray(maybeArray)
     ? maybeArray
@@ -64,4 +66,13 @@ export function isEmptyObjectShallow(object) {
   }
 
   return !Object.values(object).some(value => !(value == null || value === ''));
+}
+
+export function mergeWithConcattingArrays(destObject, ...sources) {
+  // eslint-disable-next-line consistent-return
+  return mergeWith(destObject, ...sources, (objValue, srcValue) => {
+    if (Array.isArray(objValue) && Array.isArray(srcValue)) {
+      return objValue.concat(srcValue);
+    }
+  });
 }
