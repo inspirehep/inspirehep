@@ -28,7 +28,7 @@ class AggregationFilters extends Component {
   }
 
   render() {
-    const { aggregations, numberOfResults } = this.props;
+    const { aggregations, numberOfResults, query } = this.props;
 
     return (
       aggregations &&
@@ -44,7 +44,7 @@ class AggregationFilters extends Component {
                   range={aggregationKey === RANGE_AGGREATION_KEY}
                   name={aggregation.getIn(['meta', 'title'])}
                   buckets={aggregation.get('buckets')}
-                  selections={forceArray(this.props.query[aggregationKey])}
+                  selections={forceArray(query[aggregationKey])}
                   onChange={selections => {
                     this.onAggregationChange(aggregationKey, selections);
                   }}
