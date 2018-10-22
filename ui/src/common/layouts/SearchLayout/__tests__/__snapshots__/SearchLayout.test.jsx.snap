@@ -15,7 +15,7 @@ exports[`SearchLayout renders with initial state 1`] = `
     <LoadingOrChildren
       loading={false}
     >
-      <Connect(AggregationFiltersContainer) />
+      <Connect(AggregationFilters) />
     </LoadingOrChildren>
   </Col>
   <Col
@@ -35,13 +35,13 @@ exports[`SearchLayout renders with initial state 1`] = `
         <Col
           span={12}
         >
-          <Connect(NumberOfResultsContainer) />
+          <Connect(NumberOfResults) />
         </Col>
         <Col
           className="alignRight"
           span={12}
         >
-          <Connect(SortByContainer) />
+          <Connect(SortBy) />
         </Col>
       </Row>
       <Row
@@ -50,10 +50,10 @@ exports[`SearchLayout renders with initial state 1`] = `
         <Col
           span={24}
         >
-          <Connect(ResultsContainer)
+          <Connect(SearchResults)
             renderItem={[Function]}
           />
-          <Connect(PaginationContainer) />
+          <Connect(SearchPagination) />
         </Col>
       </Row>
     </LoadingOrChildren>
@@ -76,7 +76,7 @@ exports[`SearchLayout renders with loading states true 1`] = `
     <LoadingOrChildren
       loading={false}
     >
-      <Connect(AggregationFiltersContainer) />
+      <Connect(AggregationFilters) />
     </LoadingOrChildren>
   </Col>
   <Col
@@ -96,13 +96,13 @@ exports[`SearchLayout renders with loading states true 1`] = `
         <Col
           span={12}
         >
-          <Connect(NumberOfResultsContainer) />
+          <Connect(NumberOfResults) />
         </Col>
         <Col
           className="alignRight"
           span={12}
         >
-          <Connect(SortByContainer) />
+          <Connect(SortBy) />
         </Col>
       </Row>
       <Row
@@ -111,10 +111,10 @@ exports[`SearchLayout renders with loading states true 1`] = `
         <Col
           span={24}
         >
-          <Connect(ResultsContainer)
+          <Connect(SearchResults)
             renderItem={[Function]}
           />
-          <Connect(PaginationContainer) />
+          <Connect(SearchPagination) />
         </Col>
       </Row>
     </LoadingOrChildren>
@@ -151,7 +151,7 @@ exports[`SearchLayout renders without aggregations and sort 1`] = `
         <Col
           span={12}
         >
-          <Connect(NumberOfResultsContainer) />
+          <Connect(NumberOfResults) />
         </Col>
         <Col
           className="alignRight"
@@ -164,10 +164,10 @@ exports[`SearchLayout renders without aggregations and sort 1`] = `
         <Col
           span={24}
         >
-          <Connect(ResultsContainer)
+          <Connect(SearchResults)
             renderItem={[Function]}
           />
-          <Connect(PaginationContainer) />
+          <Connect(SearchPagination) />
         </Col>
       </Row>
     </LoadingOrChildren>

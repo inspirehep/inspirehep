@@ -1,32 +1,34 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import ResultsContainer from '../ResultsContainer';
+import SearchResults from '../../components/SearchResults';
 
 describe('ResultsContainer', () => {
-  it('renders initial state ', () => {
+  it('passes results from state', () => {
+    const results = fromJS([
+      {
+        id: 1,
+        value: 'value1',
+      },
+      {
+        id: 2,
+        value: 'value2',
+      },
+    ]);
     const store = getStoreWithState({
       search: fromJS({
-        results: [
-          {
-            id: 1,
-            value: 'value1',
-          },
-          {
-            id: 2,
-            value: 'value2',
-          },
-        ],
+        results,
       }),
     });
-    const wrapper = shallow(
+    const wrapper = mount(
       <ResultsContainer
         store={store}
         renderItem={result => <span>{result.get('value')}</span>}
       />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
+    );
+    expect(wrapper.find(SearchResults)).toHaveProp('results', results);
   });
 });

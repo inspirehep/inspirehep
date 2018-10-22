@@ -9,6 +9,7 @@ import {
   getSizeOfArrayOrImmutableList,
   doSetsHaveCommonItem,
   isEmptyObjectShallow,
+  mergeWithConcattingArrays,
 } from '../utils';
 
 describe('utils', () => {
@@ -166,6 +167,39 @@ describe('utils', () => {
 
     it('returns false if has a nested empty property ', () => {
       expect(isEmptyObjectShallow({ foo: { bar: null } })).toBe(false);
+    });
+  });
+
+  describe('mergeWithConcattingArrays', () => {
+    it('concats arrays during merging', () => {
+      const obj1 = { array: [1] };
+      const obj2 = { array: [2, 3] };
+      const expected = { array: [1, 2, 3] };
+      const result = mergeWithConcattingArrays(obj1, obj2);
+      expect(result).toEqual(expected);
+    });
+
+    it('overrides if only one of them is array', () => {
+      const obj1 = { foo: [1], another: 'value' };
+      const obj2 = { foo: 'bar', another: [2] };
+      const expected = { foo: 'bar', another: [2] };
+      const result = mergeWithConcattingArrays(obj1, obj2);
+      expect(result).toEqual(expected);
+    });
+
+    it('merges simple objects', () => {
+      const obj1 = { a: 'a1', b: 'b1' };
+      const obj2 = { b: 'b2', c: 'c2' };
+      const expected = { a: 'a1', b: 'b2', c: 'c2' };
+      const result = mergeWithConcattingArrays(obj1, obj2);
+      expect(result).toEqual(expected);
+    });
+
+    it('clones destination before merging', () => {
+      const obj1 = { a: 'a1' };
+      const obj2 = { b: 'b2' };
+      const result = mergeWithConcattingArrays(obj1, obj2);
+      expect(result).not.toBe(obj1);
     });
   });
 });

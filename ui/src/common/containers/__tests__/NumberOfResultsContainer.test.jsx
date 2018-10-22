@@ -1,18 +1,19 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import NumberOfResultsContainer from '../NumberOfResultsContainer';
+import NumberOfResults from '../../components/NumberOfResults';
 
 describe('NumberOfResultsContainer', () => {
-  it('renders initial state ', () => {
+  it('passes search total state', () => {
     const store = getStoreWithState({
       search: fromJS({
         total: 5,
       }),
     });
-    const wrapper = shallow(<NumberOfResultsContainer store={store} />).dive();
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = mount(<NumberOfResultsContainer store={store} />);
+    expect(wrapper.find(NumberOfResults)).toHaveProp('numberOfResults', 5);
   });
 });

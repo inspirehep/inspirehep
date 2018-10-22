@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
@@ -55,30 +55,34 @@ class DetailPage extends Component {
     };
 
     return (
-      <Row type="flex" justify="center">
-        <Col className="mv3" span={24}>
-          <ContentBox loading={loading}>
-            <h2>
-              <AuthorName name={name} />
-              {institution && <span className="pl1 f6">({institution})</span>}
-            </h2>
-            <div className="mt1">
-              <ArxivCategoryList arxivCategories={arxivCategories} />
-              <ExperimentList experiments={experiments} />
-            </div>
-          </ContentBox>
-        </Col>
-        <Col span={24}>
-          <EmbeddedSearch
-            pidType="literature"
-            baseQuery={authorLiteratureSearchQuery}
-            baseFacetsQuery={authorLiteratureFacetsQuery}
-            renderResultItem={result => (
-              <LiteratureItem metadata={result.get('metadata')} />
-            )}
-          />
-        </Col>
-      </Row>
+      <Fragment>
+        <Row type="flex" justify="center">
+          <Col className="mv3" span={18}>
+            <ContentBox loading={loading}>
+              <h2>
+                <AuthorName name={name} />
+                {institution && <span className="pl1 f6">({institution})</span>}
+              </h2>
+              <div className="mt1">
+                <ArxivCategoryList arxivCategories={arxivCategories} />
+                <ExperimentList experiments={experiments} />
+              </div>
+            </ContentBox>
+          </Col>
+        </Row>
+        <Row type="flex" justify="center">
+          <Col span={18}>
+            <EmbeddedSearch
+              pidType="literature"
+              baseQuery={authorLiteratureSearchQuery}
+              baseFacetsQuery={authorLiteratureFacetsQuery}
+              renderResultItem={result => (
+                <LiteratureItem metadata={result.get('metadata')} />
+              )}
+            />
+          </Col>
+        </Row>
+      </Fragment>
     );
   }
 }
