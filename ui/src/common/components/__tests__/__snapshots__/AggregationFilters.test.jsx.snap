@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AggregationFilters does not render aggregations when numberOfResults is 0 1`] = `""`;
+
+exports[`AggregationFilters does not render aggregations with empty buckets 1`] = `
+<div
+  className="bg-white pa3"
+>
+  <div
+    key="agg1"
+  >
+    <AggregationFilter
+      buckets={
+        Immutable.List [
+          Immutable.Map {
+          },
+        ]
+      }
+      name="Aggregation 1"
+      onChange={[Function]}
+      range={false}
+      selections={Array []}
+    />
+  </div>
+</div>
+`;
+
+exports[`AggregationFilters renders with all props set 1`] = `
+<div
+  className="bg-white pa3"
+>
+  <div
+    key="agg1"
+  >
+    <AggregationFilter
+      buckets={
+        Immutable.List [
+          Immutable.Map {
+            key: "foo",
+            doc_count: 1,
+          },
+        ]
+      }
+      name="Aggregation 1"
+      onChange={[Function]}
+      range={false}
+      selections={
+        Array [
+          "foo",
+        ]
+      }
+    />
+  </div>
+  <div
+    key="agg2"
+  >
+    <AggregationFilter
+      buckets={
+        Immutable.List [
+          Immutable.Map {
+            key: "foo",
+            doc_count: 1,
+          },
+        ]
+      }
+      name="Aggregation 2"
+      onChange={[Function]}
+      range={false}
+      selections={Array []}
+    />
+  </div>
+</div>
+`;
+
+exports[`AggregationFilters renders with range aggregation (earliest_date) 1`] = `
+<div
+  className="bg-white pa3"
+>
+  <div
+    key="earliest_date"
+  >
+    <AggregationFilter
+      buckets={
+        Immutable.List [
+          Immutable.Map {
+            key: "2000",
+            doc_count: 1,
+          },
+          Immutable.Map {
+            key: "2001",
+            doc_count: 1,
+          },
+        ]
+      }
+      name="Range Aggregation"
+      onChange={[Function]}
+      range={true}
+      selections={Array []}
+    />
+  </div>
+</div>
+`;

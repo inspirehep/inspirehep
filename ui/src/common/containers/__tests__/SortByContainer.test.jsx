@@ -1,19 +1,20 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import SortByContainer, { dispatchToProps } from '../SortByContainer';
 import * as search from '../../../actions/search';
+import SortBy from '../../components/SortBy';
 
 jest.mock('../../../actions/search');
 
 describe('SortByContainer', () => {
-  it('renders initial state with initial url query sort param', () => {
+  it('passes location query sort param to SortBy', () => {
     const store = getStoreWithState({
       router: { location: { query: { sort: 'mostrecent' } } },
     });
-    const wrapper = shallow(<SortByContainer store={store} />).dive();
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = mount(<SortByContainer store={store} />);
+    expect(wrapper.find(SortBy)).toHaveProp('sort', 'mostrecent');
   });
 
   it('dispatches search onSortChange', () => {

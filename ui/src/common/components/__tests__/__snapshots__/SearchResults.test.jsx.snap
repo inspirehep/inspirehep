@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ResultsContainer renders initial state  1`] = `
+exports[`SearchResults renders with all props set 1`] = `
 <div>
   <div
     className="mv3"

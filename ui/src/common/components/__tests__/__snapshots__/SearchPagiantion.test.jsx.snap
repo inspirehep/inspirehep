@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchPagination renders with all props set 1`] = `
+<Pagination
+  current={2}
+  hideOnSinglePage={true}
+  onChange={[Function]}
+  pageSize={10}
+  prefixCls="ant-pagination"
+  selectPrefixCls="ant-select"
+  style={
+    Object {
+      "textAlign": "center",
+    }
+  }
+  total={100}
+/>
+`;
+
+exports[`SearchPagination renders with only required props set 1`] = `
+<Pagination
+  current={1}
+  hideOnSinglePage={true}
+  onChange={[Function]}
+  pageSize={25}
+  prefixCls="ant-pagination"
+  selectPrefixCls="ant-select"
+  style={
+    Object {
+      "textAlign": "center",
+    }
+  }
+  total={100}
+/>
+`;

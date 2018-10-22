@@ -1,4 +1,5 @@
 import mergeWith from 'lodash.mergewith';
+import cloneDeep from 'lodash.clonedeep';
 
 export function forceArray(maybeArray) {
   return maybeArray === undefined || Array.isArray(maybeArray)
@@ -69,8 +70,9 @@ export function isEmptyObjectShallow(object) {
 }
 
 export function mergeWithConcattingArrays(destObject, ...sources) {
+  const clonedDestObject = cloneDeep(destObject);
   // eslint-disable-next-line consistent-return
-  return mergeWith(destObject, ...sources, (objValue, srcValue) => {
+  return mergeWith(clonedDestObject, ...sources, (objValue, srcValue) => {
     if (Array.isArray(objValue) && Array.isArray(srcValue)) {
       return objValue.concat(srcValue);
     }

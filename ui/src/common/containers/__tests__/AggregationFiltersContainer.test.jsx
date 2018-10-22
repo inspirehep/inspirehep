@@ -1,30 +1,41 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import AggregationFiltersContainer, {
   dispatchToProps,
-} from '../AggregationFiltersContainer/AggregationFiltersContainer';
+} from '..//AggregationFiltersContainer';
 import * as search from '../../../actions/search';
+import AggregationFilters from '../../components/AggregationFilters';
 
 jest.mock('../../../actions/search');
 
 describe('AggregationFiltersContainer', () => {
-  it('renders initial state with initial url query q param', () => {
+  it('passes search and localtion state', () => {
     const store = getStoreWithState({
       router: { location: { query: { agg1: 'agg1-selected' } } },
       search: fromJS({
         aggregations: {
           agg1: {
-            buckets: [{}],
+            buckets: [
+              {
+                key: 'agg1key',
+                doc_count: 1,
+              },
+            ],
             meta: {
               title: 'Jessica Jones',
               order: 1,
             },
           },
           agg2: {
-            buckets: [{}],
+            buckets: [
+              {
+                key: 'agg2key',
+                doc_count: 2,
+              },
+            ],
             meta: {
               title: 'Luke Cage',
               order: 2,
@@ -34,74 +45,20 @@ describe('AggregationFiltersContainer', () => {
         total: 2,
       }),
     });
-    const wrapper = shallow(
-      <AggregationFiltersContainer store={store} />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = mount(<AggregationFiltersContainer store={store} />);
+    const dummyWrapper = wrapper.find(AggregationFilters);
+    const searchState = store.getState().search;
+    const locationState = store.getState().router.location;
+    expect(dummyWrapper).toHaveProp(
+      'aggregations',
+      searchState.get('aggregations')
+    );
+    expect(dummyWrapper).toHaveProp(
+      'numberOfResults',
+      searchState.get('total')
+    );
+    expect(dummyWrapper).toHaveProp('query', locationState.query);
   });
-
-  it('does not render aggregations with empty buckets', () => {
-    const store = getStoreWithState({
-      search: fromJS({
-        aggregations: {
-          agg: {
-            buckets: [{}],
-            meta: {
-              title: 'Jessica Jones',
-              order: 1,
-            },
-          },
-          emptyAgg: {
-            buckets: [],
-            meta: {
-              title: 'Luke Cage',
-              order: 2,
-            },
-          },
-        },
-        total: 1,
-      }),
-    });
-    const wrapper = shallow(
-      <AggregationFiltersContainer store={store} />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('does not render aggregations when numberOfResults is 0', () => {
-    const store = getStoreWithState({
-      search: fromJS({
-        aggregations: {
-          agg: {
-            buckets: [
-              {
-                key: 'foo',
-                doc_count: 0,
-              },
-            ],
-            meta: {
-              title: 'Jessica Jones',
-              order: 1,
-            },
-          },
-          emptyAgg: {
-            buckets: [],
-            meta: {
-              title: 'Luke Cage',
-              order: 2,
-            },
-          },
-        },
-        total: 0,
-      }),
-    });
-    const wrapper = shallow(
-      <AggregationFiltersContainer store={store} />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  // TODO: test onAggregationChange when range aggregation
 
   it('dispatches search onAggregationChange', () => {
     const mockPushQueryToLocation = jest.fn();

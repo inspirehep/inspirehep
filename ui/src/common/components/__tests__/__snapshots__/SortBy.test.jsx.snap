@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SortByContainer renders initial state with initial url query sort param 1`] = `
+exports[`SortBy renders with all props set 1`] = `
 <SelectBox
   defaultValue="mostrecent"
   onChange={[Function]}
