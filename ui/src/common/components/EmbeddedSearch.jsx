@@ -120,7 +120,7 @@ class EmbeddedSearch extends Component {
     if (hasError) {
       return (
         <Alert
-          message="Something went wrong, can not search publication of the author"
+          message="Something went wrong, can not display search results"
           type="error"
           showIcon
           closable
