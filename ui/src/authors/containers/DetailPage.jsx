@@ -72,14 +72,16 @@ class DetailPage extends Component {
         </Row>
         <Row type="flex" justify="center">
           <Col span={18}>
-            <EmbeddedSearch
-              pidType="literature"
-              baseQuery={authorLiteratureSearchQuery}
-              baseFacetsQuery={authorLiteratureFacetsQuery}
-              renderResultItem={result => (
-                <LiteratureItem metadata={result.get('metadata')} />
-              )}
-            />
+            <ContentBox>
+              <EmbeddedSearch
+                pidType="literature"
+                baseQuery={authorLiteratureSearchQuery}
+                baseFacetsQuery={authorLiteratureFacetsQuery}
+                renderResultItem={result => (
+                  <LiteratureItem metadata={result.get('metadata')} />
+                )}
+              />
+            </ContentBox>
           </Col>
         </Row>
       </Fragment>
