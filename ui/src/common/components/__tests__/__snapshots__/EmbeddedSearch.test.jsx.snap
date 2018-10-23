@@ -3,7 +3,7 @@
 exports[`EmbeddedSearch renders error if facets request fails 1`] = `
 <Alert
   closable={true}
-  message="Something went wrong, can not search publication of the author"
+  message="Something went wrong, can not display search results"
   showIcon={true}
   type="error"
 />
@@ -12,7 +12,7 @@ exports[`EmbeddedSearch renders error if facets request fails 1`] = `
 exports[`EmbeddedSearch renders error if results request fails 1`] = `
 <Alert
   closable={true}
-  message="Something went wrong, can not search publication of the author"
+  message="Something went wrong, can not display search results"
   showIcon={true}
   type="error"
 />
