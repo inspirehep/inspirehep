@@ -44,11 +44,11 @@ class EmbeddedSearch extends Component {
   }
 
   async onSortChange(sort) {
-    this.updateQueryStateAndSearch({ sort });
+    this.updateQueryStateAndSearch({ sort, page: 1 });
   }
 
   async onAggregationChange(aggregationKey, selections) {
-    this.updateQueryStateAndSearch({ [aggregationKey]: selections });
+    this.updateQueryStateAndSearch({ [aggregationKey]: selections, page: 1 });
   }
 
   // eslint-disable-next-line react/sort-comp
