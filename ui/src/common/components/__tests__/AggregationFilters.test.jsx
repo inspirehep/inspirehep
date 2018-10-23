@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import AggregationFilters from '../AggregationFilters';
+import AggregationFilter from '../AggregationFilter';
 
 describe('AggregationFilters', () => {
   it('renders with all props set', () => {
@@ -137,5 +138,80 @@ describe('AggregationFilters', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
-  // TODO: test onAggregationChange with Range and normal aggregation filter.
+
+  it('calls onAggregationChange when aggregation is changed', () => {
+    const aggregations = fromJS({
+      agg: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+          {
+            key: 'bar',
+            doc_count: 2,
+          },
+          {
+            key: 'uncool',
+            doc_count: 3,
+          },
+        ],
+        meta: {
+          title: 'Aggregation',
+          order: 1,
+        },
+      },
+    });
+    const query = {};
+    const onAggregationChange = jest.fn();
+    const wrapper = shallow(
+      <AggregationFilters
+        query={query}
+        aggregations={aggregations}
+        numberOfResults={2}
+        onAggregationChange={onAggregationChange}
+      />
+    );
+    const onAggregationFilterChange = wrapper
+      .find(AggregationFilter)
+      .prop('onChange');
+    onAggregationFilterChange(['foo', 'bar']);
+    expect(onAggregationChange).toBeCalledWith('agg', ['foo', 'bar']);
+  });
+
+  it('calls onAggregationChange when range aggregation (earliest_date) is changed', () => {
+    const aggregations = fromJS({
+      earliest_date: {
+        buckets: [
+          {
+            key: '2000',
+            doc_count: 1,
+          },
+          {
+            key: '2001',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: 'Range Aggregation',
+          order: 1,
+        },
+      },
+    });
+    const query = {};
+    const onAggregationChange = jest.fn();
+    const wrapper = shallow(
+      <AggregationFilters
+        query={query}
+        aggregations={aggregations}
+        numberOfResults={2}
+        onAggregationChange={onAggregationChange}
+      />
+    );
+    const onAggregationFilterChange = wrapper
+      .find(AggregationFilter)
+      .prop('onChange');
+    onAggregationFilterChange(['2000', '2001']);
+    expect(onAggregationChange).toBeCalledWith('earliest_date', '2000--2001');
+  });
 });
