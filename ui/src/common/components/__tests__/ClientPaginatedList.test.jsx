@@ -4,6 +4,7 @@ import { fromJS, Range } from 'immutable';
 import { List } from 'antd';
 
 import ClientPaginatedList from '../ClientPaginatedList';
+import ListWithPagination from '../ListWithPagination';
 
 describe('ClientPaginatedList', () => {
   it('renders first page', () => {
@@ -52,7 +53,8 @@ describe('ClientPaginatedList', () => {
         pageSize={10}
       />
     );
-    wrapper.instance().onPageChange(page, 10);
+    const onPageChange = wrapper.find(ListWithPagination).prop('onPageChange');
+    onPageChange(page);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
   });
