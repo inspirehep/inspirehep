@@ -12,11 +12,11 @@ describe('AggregationFilter', () => {
 
     const buckets = fromJS([
       {
-        key: 'bucket1',
+        key: '2011',
         doc_count: 1,
       },
       {
-        key: 'bucket2',
+        key: '2012',
         doc_count: 2,
       },
     ]);
@@ -26,7 +26,7 @@ describe('AggregationFilter', () => {
         onChange={jest.fn()}
         buckets={buckets}
         name="Test"
-        selections={['bucket1']}
+        selections="2011--2012"
         range
       />
     );

@@ -178,40 +178,4 @@ describe('AggregationFilters', () => {
     onAggregationFilterChange(['foo', 'bar']);
     expect(onAggregationChange).toBeCalledWith('agg', ['foo', 'bar']);
   });
-
-  it('calls onAggregationChange when range aggregation (earliest_date) is changed', () => {
-    const aggregations = fromJS({
-      earliest_date: {
-        buckets: [
-          {
-            key: '2000',
-            doc_count: 1,
-          },
-          {
-            key: '2001',
-            doc_count: 1,
-          },
-        ],
-        meta: {
-          title: 'Range Aggregation',
-          order: 1,
-        },
-      },
-    });
-    const query = {};
-    const onAggregationChange = jest.fn();
-    const wrapper = shallow(
-      <AggregationFilters
-        query={query}
-        aggregations={aggregations}
-        numberOfResults={2}
-        onAggregationChange={onAggregationChange}
-      />
-    );
-    const onAggregationFilterChange = wrapper
-      .find(AggregationFilter)
-      .prop('onChange');
-    onAggregationFilterChange(['2000', '2001']);
-    expect(onAggregationChange).toBeCalledWith('earliest_date', '2000--2001');
-  });
 });

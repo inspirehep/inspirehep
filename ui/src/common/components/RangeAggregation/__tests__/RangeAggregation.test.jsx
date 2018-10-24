@@ -22,7 +22,7 @@ const mockBuckets = fromJS([
     [keyPropName]: '2012',
   },
 ]);
-const mockSelections = ['2011', '2012'];
+const mockSelections = '2011--2012';
 const mockEndpoints = [2011, 2012];
 
 describe('RangeAggregation', () => {
@@ -45,7 +45,7 @@ describe('RangeAggregation', () => {
         onChange={jest.fn()}
         buckets={mockBuckets}
         name="Test"
-        selections={['1000', '3000']}
+        selections="1000--3000"
         minRangeSize={1}
       />
     );
@@ -276,7 +276,6 @@ describe('RangeAggregation', () => {
           onChange={onChange}
           buckets={mockBuckets}
           name="Test"
-          selections={[]}
         />
       );
       const prevData = wrapper.state('data');
@@ -315,27 +314,17 @@ describe('RangeAggregation', () => {
     it('calls onChange with where both endpoints equal to bar.x', () => {
       const onChange = jest.fn();
       const wrapper = shallow(
-        <RangeAggregation
-          onChange={onChange}
-          buckets={List()}
-          name="Test"
-          selections={[]}
-        />
+        <RangeAggregation onChange={onChange} buckets={List()} name="Test" />
       );
       wrapper.instance().onBarClick({ x: 2011 + HALF_BAR_WIDTH });
-      expect(onChange).toHaveBeenCalledWith([2011, 2011]);
+      expect(onChange).toHaveBeenCalledWith('2011--2011');
     });
   });
 
   describe('onBarMouseHover', () => {
     it('sets hoveredBar state', () => {
       const wrapper = shallow(
-        <RangeAggregation
-          onChange={jest.fn()}
-          buckets={List()}
-          name="Test"
-          selections={[]}
-        />
+        <RangeAggregation onChange={jest.fn()} buckets={List()} name="Test" />
       );
       const bar = { x: 1, y: 2 };
       wrapper.instance().onBarMouseHover(bar);
@@ -346,12 +335,7 @@ describe('RangeAggregation', () => {
   describe('onBarMouseOut', () => {
     it('sets hoveredBar state to null', () => {
       const wrapper = shallow(
-        <RangeAggregation
-          onChange={jest.fn()}
-          buckets={List()}
-          name="Test"
-          selections={[]}
-        />
+        <RangeAggregation onChange={jest.fn()} buckets={List()} name="Test" />
       );
       wrapper.setState({ hoveredBar: { x: 1, y: 2 } });
       wrapper.instance().onBarMouseOut();
@@ -360,7 +344,7 @@ describe('RangeAggregation', () => {
   });
 
   describe('onAfterChange', () => {
-    it('calls onChange with endpoints from state', () => {
+    it('calls onChange with selections', () => {
       const onChange = jest.fn();
       const wrapper = shallow(
         <RangeAggregation
@@ -370,9 +354,8 @@ describe('RangeAggregation', () => {
           selections={mockSelections}
         />
       );
-      const endpoints = wrapper.state('endpoints');
       wrapper.instance().onAfterChange();
-      expect(onChange).toHaveBeenCalledWith(endpoints);
+      expect(onChange).toHaveBeenCalledWith(mockSelections);
     });
   });
 
@@ -390,7 +373,7 @@ describe('RangeAggregation', () => {
       wrapper.instance().onResetClick();
       wrapper.update();
       expect(wrapper.state('endpoints')).toEqual([]);
-      expect(onChange).toHaveBeenCalledWith([]);
+      expect(onChange).toHaveBeenCalledWith(undefined);
     });
   });
 

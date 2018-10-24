@@ -21,7 +21,7 @@ describe('CheckboxAggregation', () => {
         onChange={jest.fn()}
         buckets={buckets}
         name="Test"
-        selections={['bucket1']}
+        selections="bucket1"
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -164,12 +164,7 @@ describe('CheckboxAggregation', () => {
     it('calls onChange with all selections', () => {
       const onChange = jest.fn();
       const wrapper = shallow(
-        <CheckboxAggregation
-          onChange={onChange}
-          buckets={List()}
-          name="Test"
-          selections={[]}
-        />
+        <CheckboxAggregation onChange={onChange} buckets={List()} name="Test" />
       );
       wrapper.instance().onSelectionChange('selected1', true);
       expect(onChange).toHaveBeenCalledWith(['selected1']);

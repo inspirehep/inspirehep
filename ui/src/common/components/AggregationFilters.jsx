@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
 import AggregationFilter from '../components/AggregationFilter';
-import { forceArray } from '../utils';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
 
@@ -18,17 +17,13 @@ class AggregationFilters extends Component {
     return order1 - order2;
   }
 
-  onAggregationChange(key, selections) {
-    const isRange = AggregationFilters.isRange(key);
-    let aggregations = selections;
-    if (isRange && aggregations.length > 0) {
-      aggregations = selections.join('--');
-    }
-    this.props.onAggregationChange(key, aggregations);
-  }
-
   render() {
-    const { aggregations, numberOfResults, query } = this.props;
+    const {
+      aggregations,
+      numberOfResults,
+      query,
+      onAggregationChange,
+    } = this.props;
 
     return (
       aggregations &&
@@ -44,9 +39,9 @@ class AggregationFilters extends Component {
                   range={aggregationKey === RANGE_AGGREATION_KEY}
                   name={aggregation.getIn(['meta', 'title'])}
                   buckets={aggregation.get('buckets')}
-                  selections={forceArray(query[aggregationKey])}
+                  selections={query[aggregationKey]}
                   onChange={selections => {
-                    this.onAggregationChange(aggregationKey, selections);
+                    onAggregationChange(aggregationKey, selections);
                   }}
                 />
               </div>

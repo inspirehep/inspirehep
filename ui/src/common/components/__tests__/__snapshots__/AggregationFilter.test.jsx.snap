@@ -29,11 +29,11 @@ exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = 
   buckets={
     Immutable.List [
       Immutable.Map {
-        key: "bucket1",
+        key: "2011",
         doc_count: 1,
       },
       Immutable.Map {
-        key: "bucket2",
+        key: "2012",
         doc_count: 2,
       },
     ]
@@ -48,10 +48,6 @@ exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = 
   name="Test"
   onChange={[Function]}
   selectedColor="#91d5ff"
-  selections={
-    Array [
-      "bucket1",
-    ]
-  }
+  selections="2011--2012"
 />
 `;
