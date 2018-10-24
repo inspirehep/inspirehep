@@ -8,14 +8,6 @@ import './LoginPage.scss';
 import { userLogin } from '../../../actions/user';
 
 class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.onLoginClick = this.onLoginClick.bind(this);
-  }
-  async onLoginClick() {
-    this.props.dispatch(userLogin());
-  }
-
   render() {
     return (
       <Row
@@ -26,7 +18,7 @@ class LoginPage extends Component {
       >
         <Card align="middle">
           <p className="f4">Please sign in to suggest content to INSPIRE</p>
-          <Button className="login-button h3" onClick={this.onLoginClick}>
+          <Button className="login-button h3" onClick={this.props.onLoginClick}>
             <img className="logo mr2" src={orcidLogo} alt="ORCID" />
             <strong>Login with ORCID</strong>
           </Button>
@@ -45,9 +37,13 @@ class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  onLoginClick: PropTypes.func.isRequired,
 };
 
-const dispatchToProps = dispatch => ({ dispatch });
+export const dispatchToProps = dispatch => ({
+  onLoginClick() {
+    dispatch(userLogin());
+  },
+});
 
 export default connect(null, dispatchToProps)(LoginPage);

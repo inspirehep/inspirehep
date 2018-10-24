@@ -3,6 +3,7 @@ import { List, fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 
 import CheckboxAggregation from '../CheckboxAggregation';
+import CheckboxItem from '../CheckboxItem';
 
 describe('CheckboxAggregation', () => {
   it('render initial state with all props set', () => {
@@ -170,6 +171,27 @@ describe('CheckboxAggregation', () => {
       expect(onChange).toHaveBeenCalledWith(['selected1']);
       wrapper.instance().onSelectionChange('selected2', true);
       expect(onChange).toHaveBeenCalledWith(['selected1', 'selected2']);
+    });
+
+    it('calls onChange with checked bucket when checkbox item of the bucket changes', () => {
+      const buckets = fromJS([
+        {
+          key: 'bucket1',
+          doc_count: 1,
+        },
+      ]);
+      const onChange = jest.fn();
+      const wrapper = shallow(
+        <CheckboxAggregation
+          onChange={onChange}
+          buckets={buckets}
+          name="Test"
+        />
+      );
+      const checked = true;
+      const onCheckboxItemChange = wrapper.find(CheckboxItem).prop('onChange');
+      onCheckboxItemChange(checked);
+      expect(onChange).toBeCalledWith(['bucket1']);
     });
   });
 });
