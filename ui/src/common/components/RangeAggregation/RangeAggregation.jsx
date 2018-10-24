@@ -17,11 +17,15 @@ const NO_MARGIN = {
   bottom: 0,
 };
 
+const SELECTION_SEPARATOR = '--';
+
 class RangeAggregation extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const prevBuckets = prevState.buckets;
     const nextBuckets = nextProps.buckets;
-    const selections = toNumbers(nextProps.selections);
+    const selectionsAsString =
+      nextProps.selections && nextProps.selections.split(SELECTION_SEPARATOR);
+    const selectionsAsNumber = toNumbers(selectionsAsString);
     const prevEndpoints = prevState.endpoints || [];
     const { keyPropName } = nextProps;
 
@@ -32,7 +36,7 @@ class RangeAggregation extends Component {
       );
     }
 
-    const unsafeEndpoints = selections || prevEndpoints;
+    const unsafeEndpoints = selectionsAsNumber || prevEndpoints;
     const endpoints = RangeAggregation.sanitizeEndpoints(unsafeEndpoints, [
       min,
       max,
@@ -214,7 +218,9 @@ class RangeAggregation extends Component {
   }
 
   onAfterChange(endpoints = this.state.endpoints) {
-    this.props.onChange(endpoints);
+    const rangeSelectionString =
+      endpoints.join(SELECTION_SEPARATOR) || undefined;
+    this.props.onChange(rangeSelectionString);
   }
 
   renderResetButton() {
@@ -272,7 +278,7 @@ RangeAggregation.propTypes = {
   hoverColor: PropTypes.string,
   name: PropTypes.string.isRequired,
   /* eslint-disable react/no-unused-prop-types */
-  selections: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selections: PropTypes.string,
   selectedColor: PropTypes.string,
   deselectedColor: PropTypes.string,
   buckets: PropTypes.instanceOf(List),
@@ -284,6 +290,7 @@ RangeAggregation.propTypes = {
 };
 
 RangeAggregation.defaultProps = {
+  selections: null,
   buckets: List(),
   keyPropName: 'key_as_string',
   countPropName: 'doc_count',

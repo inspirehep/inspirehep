@@ -6,6 +6,7 @@ import { Col, Row, Tag } from 'antd';
 import CheckboxItem from './CheckboxItem';
 import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
+import { forceArray } from '../utils';
 
 const BUCKET_CHUNK_SIZE = 10;
 
@@ -13,7 +14,8 @@ class CheckboxAggregation extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     let selectionMap;
     if (nextProps.selections) {
-      selectionMap = nextProps.selections.reduce(
+      const selectionsAsArray = forceArray(nextProps.selections);
+      selectionMap = selectionsAsArray.reduce(
         (map, key) => map.set(key, true),
         Immutable.Map()
       );
@@ -109,7 +111,14 @@ CheckboxAggregation.propTypes = {
   buckets: PropTypes.instanceOf(Immutable.List).isRequired,
   name: PropTypes.string.isRequired,
   // eslint-disable-next-line react/no-unused-prop-types
-  selections: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selections: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.string),
+    PropTypes.string,
+  ]),
+};
+
+CheckboxAggregation.defaultProps = {
+  selections: null,
 };
 
 export default CheckboxAggregation;

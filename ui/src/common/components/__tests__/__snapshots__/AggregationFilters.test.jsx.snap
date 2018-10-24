@@ -19,7 +19,6 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
       name="Aggregation 1"
       onChange={[Function]}
       range={false}
-      selections={Array []}
     />
   </div>
 </div>
@@ -44,11 +43,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
       name="Aggregation 1"
       onChange={[Function]}
       range={false}
-      selections={
-        Array [
-          "foo",
-        ]
-      }
+      selections="foo"
     />
   </div>
   <div
@@ -66,7 +61,6 @@ exports[`AggregationFilters renders with all props set 1`] = `
       name="Aggregation 2"
       onChange={[Function]}
       range={false}
-      selections={Array []}
     />
   </div>
 </div>
@@ -95,7 +89,6 @@ exports[`AggregationFilters renders with range aggregation (earliest_date) 1`] =
       name="Range Aggregation"
       onChange={[Function]}
       range={true}
-      selections={Array []}
     />
   </div>
 </div>
