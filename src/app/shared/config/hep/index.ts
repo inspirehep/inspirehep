@@ -20,20 +20,19 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import * as _ from 'lodash';
-
 import { coreHep } from './core.config';
 import { thesisHep } from './thesis.config';
 import { bookHep } from './book.config';
 import { bookChapterHep } from './book-chapter.config';
 import { proceedingsHep } from './proceedings.config';
 import { conferencePaperHep } from './conference-paper.config';
+import { immutableMergeWithConcattingArrays } from './utils';
 
 export const hep = coreHep;
-export const thesis = _.merge(coreHep, thesisHep);
-export const book = _.merge(coreHep, bookHep);
-export const bookChapter = _.merge(coreHep, bookChapterHep);
-export const proceedings = _.merge(coreHep, proceedingsHep);
-export const conferencePaper = _.merge(coreHep, conferencePaperHep);
+export const thesis = immutableMergeWithConcattingArrays(coreHep, thesisHep);
+export const book = immutableMergeWithConcattingArrays(coreHep, bookHep);
+export const bookChapter = immutableMergeWithConcattingArrays(coreHep, bookChapterHep);
+export const proceedings = immutableMergeWithConcattingArrays(coreHep, proceedingsHep);
+export const conferencePaper = immutableMergeWithConcattingArrays(coreHep, conferencePaperHep);
 
 export { onDocumentTypeChange } from './utils';

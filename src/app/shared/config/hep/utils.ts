@@ -21,5 +21,15 @@
  */
 
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { cloneDeep, mergeWith } from 'lodash';
 
 export const onDocumentTypeChange = new ReplaySubject<string>();
+
+export function immutableMergeWithConcattingArrays(destObject: object, ...sources: object[]): object {
+  const clonedDestObject = cloneDeep(destObject);
+  return mergeWith(clonedDestObject, ...sources, (objValue, srcValue) => {
+    if (Array.isArray(objValue) && Array.isArray(srcValue)) {
+      return objValue.concat(srcValue);
+    }
+  });
+}
