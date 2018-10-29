@@ -31,6 +31,7 @@ export const isoLanguageMap = ISO_LANGUAGE_MAP;
 export const affiliationAutocompletionConfig: AutocompletionConfig = {
   url: `${environment.baseUrl}/api/institutions/_suggest?affiliation=`,
   path: '/affiliation/0/options',
+  optionField: '/_source/legacy_ICN',
   size: 20,
   itemTemplateName: 'affiliationAutocompleteTemplate',
   onCompletionSelect: (path, completion, store) => {
