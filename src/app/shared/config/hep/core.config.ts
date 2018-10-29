@@ -449,6 +449,13 @@ export const coreHep: JsonEditorConfig = {
                   }
                 },
                 publication_info: {
+                  alwaysShow: [
+                    'journal_title',
+                    'journal_volume',
+                    'page_start',
+                    'artid',
+                    'year',
+                  ],
                   properties: {
                     journal_title: {
                       onValueChange: splitPrimitiveReferenceField
