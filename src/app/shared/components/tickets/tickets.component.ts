@@ -24,11 +24,9 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 
 import { ToastrService } from 'ngx-toastr';
 
-import { Observable } from 'rxjs/Observable';
-
-import { RecordApiService } from '../../core/services';
-import { Ticket } from '../../shared/interfaces';
-import { SubscriberComponent } from '../../shared/classes';
+import { CommonApiService, GlobalAppStateService } from '../../../core/services';
+import { Ticket } from '../../interfaces';
+import { SubscriberComponent } from '../../classes';
 
 
 @Component({
@@ -44,16 +42,20 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
   displayLimit = 1;
   tickets: Array<Ticket>;
 
-  constructor(private apiService: RecordApiService,
+  constructor(private apiService: CommonApiService,
+    private globalAppStateService: GlobalAppStateService,
     private toastrService: ToastrService,
     private changeDetectorRef: ChangeDetectorRef) {
     super();
   }
 
   ngOnInit() {
-    this.apiService.newRecordFetched$
+    this.globalAppStateService.jsonBeingEdited$
       .takeUntil(this.isDestroyed)
-      .subscribe(() => this.fetchTickets());
+      .subscribe((jsonBeingEdited) => {
+        const recordId = jsonBeingEdited['control_number'];
+        this.fetchTickets(recordId);
+      });
   }
 
   onTicketResolve(ticketIndex: number) {
@@ -64,8 +66,8 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
     this.tickets.push(ticket);
   }
 
-  private fetchTickets() {
-    this.apiService.fetchRecordTickets()
+  private fetchTickets(recordId: number) {
+    this.apiService.fetchRecordTickets(recordId)
       .then(tickets => {
         this.tickets = tickets;
         this.changeDetectorRef.markForCheck();

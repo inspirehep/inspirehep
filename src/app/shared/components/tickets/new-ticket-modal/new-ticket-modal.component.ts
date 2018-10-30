@@ -20,12 +20,13 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, ViewChild, Output, EventEmitter, OnInit } from '@angular/core';
 
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-import { Ticket } from '../../../shared/interfaces';
-import { RecordApiService } from '../../../core/services';
+import { Ticket } from '../../../interfaces';
+import { CommonApiService, GlobalAppStateService } from '../../../../core/services';
+import { SubscriberComponent } from '../../../classes';
 
 @Component({
   selector: 're-new-ticket-modal',
@@ -34,13 +35,25 @@ import { RecordApiService } from '../../../core/services';
     './new-ticket-modal.component.scss'
   ]
 })
-export class NewTicketModalComponent {
+export class NewTicketModalComponent extends SubscriberComponent implements OnInit {
   @ViewChild('modal') modal: ModalDirective;
   @Output() create = new EventEmitter<Ticket>();
 
   newTicket = {} as Ticket;
+  recordId: number;
 
-  constructor(public apiService: RecordApiService) { }
+  constructor(public apiService: CommonApiService,
+    private globalAppStateService: GlobalAppStateService) {
+    super();
+  }
+
+  ngOnInit() {
+    this.globalAppStateService.jsonBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe((jsonBeingEdited) => {
+        this.recordId = jsonBeingEdited['control_number'];
+      });
+  }
 
   // invoked by parent component.
   show() {
@@ -49,7 +62,7 @@ export class NewTicketModalComponent {
 
   onNewClick() {
     this.apiService
-      .createRecordTicket(this.newTicket)
+      .createRecordTicket(this.recordId, this.newTicket)
       .then(data => {
         this.newTicket.id = data.id;
         this.newTicket.link = data.link;

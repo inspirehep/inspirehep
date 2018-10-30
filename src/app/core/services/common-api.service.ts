@@ -27,7 +27,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { editorApiUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
-import { AuthorExtractResult } from '../../shared/interfaces';
+import { AuthorExtractResult, Ticket } from '../../shared/interfaces';
 
 
 @Injectable()
@@ -63,6 +63,40 @@ export class CommonApiService {
       .post(`${editorApiUrl}/upload`, fileData)
       .map(res => res.json())
       .map(uploaded => uploaded.path);
+  }
+
+  // TODO: remove `literature` placeholders after backend refactor
+
+  fetchRecordTickets(recordId: string | number): Promise<Array<Ticket>> {
+    return this.fetchUrl(`${editorApiUrl}/literature/${recordId}/rt/tickets`) as Promise<Array<Ticket>>;
+  }
+
+  createRecordTicket(recordId: string | number, ticket: Ticket): Promise<{ id: string, link: string }> {
+    return this.http
+      .post(`${editorApiUrl}/literature/${recordId}/rt/tickets/create`, ticket)
+      .map(res => res.json().data)
+      .toPromise();
+  }
+
+  // TODO: remove `recordId` param after backend refactor
+  resolveTicket(recordId: string | number, ticketId: string): Promise<any> {
+    return this.http
+      .get(`${editorApiUrl}/literature/${recordId}/rt/tickets/${ticketId}/resolve`)
+      .toPromise();
+  }
+
+  fetchRTUsers(): Observable<Array<string>> {
+    return this.http
+      .get(`${editorApiUrl}/rt/users`)
+      .map(res => res.json())
+      .map((users: Array<{ name: string }>) => users.map(user => user.name));
+  }
+
+  fetchRTQueues(): Observable<Array<string>> {
+    return this.http
+      .get(`${editorApiUrl}/rt/queues`)
+      .map(res => res.json())
+      .map((queues: Array<{ name: string }>) => queues.map(queue => queue.name));
   }
 
 }
