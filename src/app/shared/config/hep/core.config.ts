@@ -26,6 +26,8 @@ import { onDocumentTypeChange } from './utils';
 import { environment } from '../../../../environments/environment';
 import {
   affiliationAutocompletionConfig,
+  journalTitleAutocompletionConfig,
+  setRecordRefAndCuratedOnCompletionSelect,
   anchorBuilder,
   fullTextSearch,
   isoLanguageMap,
@@ -168,12 +170,7 @@ export const coreHep: JsonEditorConfig = {
                 url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
                 path: '/experiment/0/options',
                 size: 10,
-                onCompletionSelect: (path, completion, store) => {
-                  path.splice(-1, 1, 'record', '$ref');
-                  store.setIn(path, completion['_source']['$ref']);
-                  path.splice(-2, 2, 'curated_relation');
-                  store.setIn(path, true);
-                }
+                onCompletionSelect: setRecordRefAndCuratedOnCompletionSelect,
               }
             },
             record: {
@@ -341,6 +338,9 @@ export const coreHep: JsonEditorConfig = {
           alwaysShow: ['journal_title', 'journal_volume', 'journal_issue', 'artid', 'year', 'page_start'],
           order: ['journal_title', 'journal_volume', 'journal_issue', 'year', 'page_start', 'page_end', 'artid'],
           properties: {
+            journal_title: {
+              autocompletionConfig: journalTitleAutocompletionConfig
+            },
             conference_record: {
               refFieldConfig: {
                 anchorBuilder: anchorBuilder
@@ -458,7 +458,8 @@ export const coreHep: JsonEditorConfig = {
                   ],
                   properties: {
                     journal_title: {
-                      onValueChange: splitPrimitiveReferenceField
+                      onValueChange: splitPrimitiveReferenceField,
+                      autocompletionConfig: journalTitleAutocompletionConfig,
                     },
                     journal_volume: {
                       onValueChange: splitPrimitiveReferenceField
