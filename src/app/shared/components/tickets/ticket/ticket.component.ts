@@ -20,10 +20,11 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 
-import { Ticket } from '../../../shared/interfaces';
-import { RecordApiService } from '../../../core/services';
+import { Ticket } from '../../../interfaces';
+import { SubscriberComponent } from '../../../classes';
+import { CommonApiService, GlobalAppStateService } from '../../../../core/services';
 
 @Component({
   selector: 're-ticket',
@@ -32,15 +33,28 @@ import { RecordApiService } from '../../../core/services';
     './ticket.component.scss'
   ]
 })
-export class TicketComponent {
+export class TicketComponent extends SubscriberComponent implements OnInit {
   @Input() ticket: Ticket;
   @Output() resolve = new EventEmitter<void>();
 
-  constructor(private apiService: RecordApiService) { }
+  recordId: number;
+
+  constructor(private apiService: CommonApiService,
+    private globalAppStateService: GlobalAppStateService) {
+    super();
+  }
+
+  ngOnInit() {
+    this.globalAppStateService.jsonBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe((jsonBeingEdited) => {
+        this.recordId = jsonBeingEdited['control_number'];
+      });
+  }
 
   onResolveClick() {
     this.apiService
-      .resolveTicket(this.ticket.id)
+      .resolveTicket(this.recordId, this.ticket.id)
       .then(() => this.resolve.emit());
   }
 }

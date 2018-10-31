@@ -27,9 +27,8 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../../environments/environment';
-import { AppConfigService } from './app-config.service';
 import { CommonApiService } from './common-api.service';
-import { Ticket, RecordRevision } from '../../shared/interfaces';
+import { RecordRevision } from '../../shared/interfaces';
 import { ApiError } from '../../shared/classes';
 import { editorApiUrl, apiUrl } from '../../shared/config';
 
@@ -67,37 +66,6 @@ export class RecordApiService extends CommonApiService {
     return this.http
       .put(this.currentRecordApiUrl, record)
       .catch(error => Observable.throw(new ApiError(error)));
-  }
-
-  fetchRecordTickets(): Promise<Array<Ticket>> {
-    return this.fetchUrl(`${this.currentRecordEditorApiUrl}/rt/tickets`);
-  }
-
-  createRecordTicket(ticket: Ticket): Promise<{ id: string, link: string }> {
-    return this.http
-      .post(`${this.currentRecordEditorApiUrl}/rt/tickets/create`, ticket)
-      .map(res => res.json().data)
-      .toPromise();
-  }
-
-  resolveTicket(ticketId: string): Promise<any> {
-    return this.http
-      .get(`${this.currentRecordEditorApiUrl}/rt/tickets/${ticketId}/resolve`)
-      .toPromise();
-  }
-
-  fetchRTUsers(): Observable<Array<string>> {
-    return this.http
-      .get(`${editorApiUrl}/rt/users`)
-      .map(res => res.json())
-      .map((users: Array<{ name: string }>) => users.map(user => user.name));
-  }
-
-  fetchRTQueues(): Observable<Array<string>> {
-    return this.http
-      .get(`${editorApiUrl}/rt/queues`)
-      .map(res => res.json())
-      .map((queues: Array<{ name: string }>) => queues.map(queue => queue.name));
   }
 
   fetchRevisions(): Promise<Array<RecordRevision>> {

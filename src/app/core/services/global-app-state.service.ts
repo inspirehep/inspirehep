@@ -21,15 +21,14 @@
 */
 
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import {  Subject } from 'rxjs/Subject';
+import {  ReplaySubject } from 'rxjs/ReplaySubject';
 import { SchemaValidationProblems } from 'ng2-json-editor';
 
-import { editorConfigs } from '../../shared/config';
-import { onDocumentTypeChange } from '../../shared/config/hep';
 
 @Injectable()
 export class GlobalAppStateService {
-  readonly jsonBeingEdited$ = new Subject<object>();
+  readonly jsonBeingEdited$ = new ReplaySubject<object>(1);
 
   readonly isJsonUpdated$ = new Subject<boolean>();
 

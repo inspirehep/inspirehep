@@ -1,6 +1,16 @@
 <nav class="navbar navbar-default" id="editor-toolbar">
   <div class="container-fluid">
-    <re-holdingpen-save-button></re-holdingpen-save-button>
-    <re-undo-button></re-undo-button>     
+    <div class="row">
+      <div class="navbar-header col-md-2">
+        <re-holdingpen-save-button></re-holdingpen-save-button>
+        <re-undo-button></re-undo-button>
+        <re-help-modal-button></re-help-modal-button>
+      </div>
+      <div class="nav navbar-nav col-md-8">
+        <div class="col-md-6">
+          <re-tickets></re-tickets>
+        </div>
+      </div>
+    </div>
   </div>
 </nav>
