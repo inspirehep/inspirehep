@@ -40,8 +40,6 @@ export class RefExtractActionsComponent {
   source: string;
   replaceExisting = true;
 
-  private urlRegexp = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
-
   constructor(private apiService: CommonApiService,
     private jsonStoreService: JsonStoreService,
     private toastrService: ToastrService) { }
@@ -69,7 +67,8 @@ export class RefExtractActionsComponent {
   }
 
   get sourceType(): 'text' | 'url' {
-    return this.urlRegexp.test(this.source) ? 'url' : 'text';
+    const isUrl = this.source.startsWith('http') && this.source.length < 2048;
+    return isUrl ? 'url' : 'text';
   }
 
 }
