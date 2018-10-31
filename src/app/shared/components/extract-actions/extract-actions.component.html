@@ -5,7 +5,7 @@
   </button>
   <ul *dropdownMenu class="dropdown-menu" role="menu">
     <li role="menuitem" class="menu-item">
-      <textarea type="text" class="form-control" [(ngModel)]="source" (click)="$event.stopPropagation()" placeholder="Text or URL"></textarea>
+      <textarea type="text" class="form-control" [(ngModel)]="source" (click)="$event.stopPropagation()" placeholder="Text or URL (with http prefix)"></textarea>
     </li>
     <li role="menuitem" class="menu-item">
       <button class="btn btn-default" (click)="onExtractClick()">Extract</button>
