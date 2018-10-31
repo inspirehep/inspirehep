@@ -41,6 +41,7 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
 
   displayLimit = 1;
   tickets: Array<Ticket>;
+  recordId: number;
 
   constructor(private apiService: CommonApiService,
     private globalAppStateService: GlobalAppStateService,
@@ -53,8 +54,11 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
     this.globalAppStateService.jsonBeingEdited$
       .takeUntil(this.isDestroyed)
       .subscribe((jsonBeingEdited) => {
-        const recordId = jsonBeingEdited['control_number'];
-        this.fetchTickets(recordId);
+        const newRecordId = jsonBeingEdited['control_number'];
+        if (newRecordId !== this.recordId) {
+          this.recordId = newRecordId;
+          this.fetchTickets();
+        }
       });
   }
 
@@ -66,8 +70,8 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
     this.tickets.push(ticket);
   }
 
-  private fetchTickets(recordId: number) {
-    this.apiService.fetchRecordTickets(recordId)
+  private fetchTickets() {
+    this.apiService.fetchRecordTickets(this.recordId)
       .then(tickets => {
         this.tickets = tickets;
         this.changeDetectorRef.markForCheck();
