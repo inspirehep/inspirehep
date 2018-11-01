@@ -32,6 +32,7 @@ import ConferenceInfoList from '../../components/ConferenceInfoList';
 import NumberOfPages from '../../components/NumberOfPages';
 import CitationListContainer from '../../../common/containers/CitationListContainer';
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
+import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -84,6 +85,7 @@ class DetailPage extends Component {
     const externalSystemIdentifiers = metadata.get(
       'external_system_identifiers'
     );
+    const acceleratorExperiments = metadata.get('accelerator_experiments');
     const abstract = metadata.getIn(['abstracts', 0]);
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
     const collaborations = metadata.get('collaborations');
@@ -136,6 +138,9 @@ class DetailPage extends Component {
               <ArxivEprintList eprints={eprints} />
               <DOIList dois={dois} />
               <ReportNumberList reportNumbers={reportNumbers} />
+              <AcceleratorExperimentList
+                acceleratorExperiments={acceleratorExperiments}
+              />
               <ExternalSystemIdentifierList
                 externalSystemIdentifiers={externalSystemIdentifiers}
               />
