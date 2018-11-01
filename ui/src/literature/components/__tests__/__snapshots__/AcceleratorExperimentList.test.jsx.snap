@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AcceleratorExperimentList renders with accelerator experiments 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Accelerator experiments
+    : 
+  </span>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="CERN-LHC-CMS"
+    >
+      CERN-LHC-CMS
+    </li>
+    <li
+      key="FNAL-123-456"
+    >
+      FNAL-123-456
+    </li>
+  </ul>
+</div>
+`;
