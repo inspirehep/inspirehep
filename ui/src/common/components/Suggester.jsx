@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { AutoComplete } from 'antd';
+import debounce from 'lodash.debounce';
+
 import http from '../http';
+
+export const REQUEST_DEBOUNCE_MS = 250;
 
 class Suggester extends Component {
   constructor(props) {
     super(props);
 
-    this.onSearch = this.onSearch.bind(this);
-
+    this.onSearch = debounce(this.onSearch.bind(this), REQUEST_DEBOUNCE_MS);
     this.state = {
       results: [],
     };

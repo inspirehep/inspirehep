@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Suggester does not render results onSearch without waiting for debounce 1`] = `
+<AutoComplete
+  choiceTransitionName="zoom"
+  filterOption={false}
+  onSearch={[Function]}
+  optionLabelProp="children"
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+/>
+`;
+
 exports[`Suggester renders empty if request fails 1`] = `
 <AutoComplete
   choiceTransitionName="zoom"
