@@ -1,4 +1,5 @@
 import { fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   LITERATURE_ERROR,
@@ -27,6 +28,8 @@ export const initialState = fromJS({
 
 const literatureReducer = (state = initialState, action) => {
   switch (action.type) {
+    case LOCATION_CHANGE:
+      return initialState;
     case LITERATURE_REQUEST:
       return state.set('loading', true);
     case LITERATURE_SUCCESS:
