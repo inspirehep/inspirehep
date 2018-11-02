@@ -4,8 +4,8 @@ import createHistory from 'history/createBrowserHistory';
 import { routerMiddleware } from 'react-router-redux';
 /* eslint-disable import/no-extraneous-dependencies */
 import { createLogger } from 'redux-logger';
-import { composeWithDevTools } from 'redux-devtools-extension/developmentOnly';
 /* eslint-disable import/no-extraneous-dependencies */
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 import reducers from './reducers';
 import http from './common/http';
