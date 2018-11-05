@@ -21,14 +21,16 @@
 */
 
 import { Injectable } from '@angular/core';
-import {  Subject } from 'rxjs/Subject';
-import {  ReplaySubject } from 'rxjs/ReplaySubject';
+import { Subject } from 'rxjs/Subject';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { SchemaValidationProblems } from 'ng2-json-editor';
 
 
 @Injectable()
 export class GlobalAppStateService {
   readonly jsonBeingEdited$ = new ReplaySubject<object>(1);
+  readonly recordIdBeingEdited$ = this.jsonBeingEdited$
+    .map(json => json['control_number'] || json['metadata']['control_number']);
 
   readonly isJsonUpdated$ = new Subject<boolean>();
 

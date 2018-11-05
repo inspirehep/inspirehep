@@ -51,14 +51,12 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.globalAppStateService.jsonBeingEdited$
+    this.globalAppStateService.recordIdBeingEdited$
+      .distinctUntilChanged()
       .takeUntil(this.isDestroyed)
-      .subscribe((jsonBeingEdited) => {
-        const newRecordId = jsonBeingEdited['control_number'];
-        if (newRecordId !== this.recordId) {
-          this.recordId = newRecordId;
-          this.fetchTickets();
-        }
+      .subscribe((recordId) => {
+        this.recordId = recordId;
+        this.fetchTickets();
       });
   }
 
