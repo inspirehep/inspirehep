@@ -73,7 +73,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
             this.workflowObject = workflowObject;
             this.setWorkflowProblems();
             this.globalAppStateService
-              .jsonBeingEdited$.next(workflowObject.metadata);
+              .jsonBeingEdited$.next(workflowObject);
             this.globalAppStateService
               .isJsonUpdated$.next(false);
             this.config = this.appConfigService.getConfigForRecord(this.workflowObject.metadata);
@@ -81,7 +81,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
           }).then(schema => {
             this.schema = schema;
             this.changeDetectorRef.markForCheck();
-          }).catch(error => {
+          }).catch(() => {
             this.toastrService.error('Could not load the holdingpen record!', 'Error');
           });
       });
@@ -124,7 +124,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
   onWorkflowMetadataChange(workflowMetadata: object) {
     this.workflowObject.metadata = workflowMetadata;
     this.globalAppStateService
-      .jsonBeingEdited$.next(this.workflowObject.metadata);
+      .jsonBeingEdited$.next(this.workflowObject);
     this.globalAppStateService
       .isJsonUpdated$.next(true);
   }
