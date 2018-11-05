@@ -31,6 +31,17 @@ export function userLogin() {
   };
 }
 
+export function userLocalLogin(credentials) {
+  return async (dispatch, getState, http) => {
+    try {
+      const user = await http.post('/login', credentials);
+      dispatch(userLoginSuccess(user));
+    } catch (error) {
+      dispatch(userLoginError(error));
+    }
+  };
+}
+
 function userLogutSuccess() {
   return {
     type: USER_LOGOUT_SUCCESS,
