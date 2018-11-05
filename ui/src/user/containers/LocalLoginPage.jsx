@@ -1,46 +1,65 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Card, Button } from 'antd';
+import { Row, Card, Button, Input } from 'antd';
+import { Field, Form, Formik } from 'formik';
 
-import { userLoginSuccess } from '../../actions/user';
+import { userLocalLogin } from '../../actions/user';
 
 class LocalLoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.onLoginClick = this.onLoginClick.bind(this);
+  static renderFormInput({ field, form, ...props }) {
+    return <Input {...field} {...props} />;
   }
 
-  async onLoginClick() {
-    this.props.dispatch(
-      userLoginSuccess({
-        data: {
-          email: 'admin@inspirehep.net',
-          roles: ['superuser'],
-        },
-      })
+  static renderLoginForm() {
+    return (
+      <Form>
+        <Row className="mb3">
+          <Field
+            name="email"
+            type="email"
+            placeholder="Email"
+            component={LocalLoginPage.renderFormInput}
+          />
+        </Row>
+        <Row className="mb3">
+          <Field
+            name="password"
+            type="password"
+            placeholder="Password"
+            component={LocalLoginPage.renderFormInput}
+          />
+        </Row>
+        <Button
+          className="w-100"
+          type="primary"
+          htmlType="submit"
+          data-test-id="login"
+        >
+          Login
+        </Button>
+      </Form>
     );
+  }
+
+  constructor(props) {
+    super(props);
+    this.onLoginFormSubmit = this.onLoginFormSubmit.bind(this);
+  }
+
+  onLoginFormSubmit(credentials) {
+    this.props.dispatch(userLocalLogin(credentials));
   }
 
   render() {
     return (
       <Row className="h-100" type="flex" justify="center" align="middle">
         <Card align="middle">
-          <p>
-            This login page is included only dev environment and Login button
-            dispatches login success action with admin account
-          </p>
-          <p>
-            Please not that this does not allow accessing protected API routes
-            but only private client side routes
-          </p>
-          <Button
-            className="h3"
-            data-test-id="login"
-            onClick={this.onLoginClick}
-          >
-            <strong>Login</strong>
-          </Button>
+          <p>This login page is included only for dev and test environment</p>
+          <Formik
+            onSubmit={this.onLoginFormSubmit}
+            render={LocalLoginPage.renderLoginForm}
+          />
         </Card>
       </Row>
     );
