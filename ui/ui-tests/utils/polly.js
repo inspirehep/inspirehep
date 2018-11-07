@@ -2,7 +2,7 @@ const { Polly } = require('@pollyjs/core');
 const PuppeteerAdapter = require('@pollyjs/adapter-puppeteer');
 const FSPersister = require('@pollyjs/persister-fs');
 
-function createPollyInstance(recordingName) {
+function createPollyInstance(recordingName, puppeteerPage = page) {
   const polly = new Polly(recordingName, {
     recordFailedRequests: true,
     matchRequestsBy: {
@@ -14,7 +14,7 @@ function createPollyInstance(recordingName) {
     adapters: [PuppeteerAdapter],
     persister: FSPersister,
     adapterOptions: {
-      puppeteer: { page },
+      puppeteer: { page: puppeteerPage },
     },
     persisterOptions: {
       fs: {

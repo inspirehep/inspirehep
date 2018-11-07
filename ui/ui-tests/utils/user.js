@@ -1,13 +1,30 @@
 const { routes } = require('./constants');
+const { createPollyInstance } = require('./polly');
 
 async function login() {
-  await page.goto(routes.localLogin);
+  const page = await browser.newPage();
+  await page.setRequestInterception(true);
+
+  const polly = createPollyInstance('Login', page);
+
+  await page.goto(routes.localLogin, {
+    waitUntil: 'networkidle0',
+  });
+
+  await page.type('[data-test-id=email]', 'admin@inspirehep.net');
+  await page.type('[data-test-id=password]', '123456');
   await page.click('[data-test-id=login]');
+  await page.waitFor(() => !document.querySelector('[data-test-id=login]'));
+
+  await polly.stop();
+  await page.close();
 }
 
 async function logout() {
   const page = await browser.newPage();
-  await page.goto(routes.public.home);
+  await page.goto(routes.public.home, {
+    waitUntil: 'networkidle0',
+  });
   await page.hover('[data-test-id=my-account-dropdown]');
   await page.waitFor('[data-test-id=logout]');
   await page.click('[data-test-id=logout]');
