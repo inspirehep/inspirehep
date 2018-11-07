@@ -11,6 +11,7 @@ describe('Author Submission', () => {
     await page.goto(routes.private.authorSubmission, {
       waitUntil: 'networkidle0',
     });
+
     await page.setViewport({ width: 1280, height: 1400 });
     const image = await page.screenshot({ fullPage: true });
     expect(image).toMatchImageSnapshot();

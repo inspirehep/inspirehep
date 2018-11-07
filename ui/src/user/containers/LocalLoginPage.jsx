@@ -19,6 +19,7 @@ class LocalLoginPage extends Component {
             name="email"
             type="email"
             placeholder="Email"
+            data-test-id="email"
             component={LocalLoginPage.renderFormInput}
           />
         </Row>
@@ -27,6 +28,7 @@ class LocalLoginPage extends Component {
             name="password"
             type="password"
             placeholder="Password"
+            data-test-id="password"
             component={LocalLoginPage.renderFormInput}
           />
         </Row>

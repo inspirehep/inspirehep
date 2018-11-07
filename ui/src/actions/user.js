@@ -34,8 +34,8 @@ export function userLogin() {
 export function userLocalLogin(credentials) {
   return async (dispatch, getState, http) => {
     try {
-      const user = await http.post('/login', credentials);
-      dispatch(userLoginSuccess(user));
+      const response = await http.post('/login', credentials);
+      dispatch(userLoginSuccess(response.data));
     } catch (error) {
       dispatch(userLoginError(error));
     }
