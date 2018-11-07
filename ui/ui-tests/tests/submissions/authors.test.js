@@ -17,7 +17,7 @@ describe('Author Submission', () => {
     expect(image).toMatchImageSnapshot();
   });
 
-  xit('matches screenshot for author update submission form', async () => {
+  it('matches screenshot for author update submission form', async () => {
     await page.setRequestInterception(true);
 
     const polly = createPollyInstance('AuthorUpdateSubmission');
