@@ -54,6 +54,7 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
     this.globalAppStateService.recordIdBeingEdited$
       .distinctUntilChanged()
       .takeUntil(this.isDestroyed)
+      .filter(recordId => recordId)
       .subscribe((recordId) => {
         this.recordId = recordId;
         this.fetchTickets();

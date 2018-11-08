@@ -93,6 +93,7 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
       .subscribe(json => {
         this.workflowObject = json as WorkflowObject;
         this.setWorkflowProblems();
+        this.changeDetectorRef.markForCheck();
       });
 
     this.appConfigService.onConfigChange

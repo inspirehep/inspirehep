@@ -77,7 +77,20 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
     return this.hasAnyValidationProblem ? 'disabled' : '';
   }
 
-  onClickSave(event: Object) {
+  onClickSave() {
+    const references = this.workflowObject.metadata['references'];
+    this.apiService.getLinkedReferences(references).then(linkedReferences => {
+      const metadata = Object.assign({}, this.workflowObject.metadata);
+      metadata['references'] = linkedReferences;
+      this.workflowObject.metadata = metadata;
+      this.jsonBeingEdited$.next(this.workflowObject);
+      this.cleanupAndSave();
+    }).catch(() => {
+      this.cleanupAndSave();
+    });
+  }
+
+  private cleanupAndSave() {
     this.recordCleanupService.cleanup(this.workflowObject.metadata);
     if (this.callbackUrl) {
       this.saveWithCallbackUrl();
