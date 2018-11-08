@@ -79,6 +79,13 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
         });
     }
 
+    this.globalAppStateService.jsonBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe(jsonBeingEdited => {
+        this.record = jsonBeingEdited;
+        this.changeDetectorRef.markForCheck();
+      });
+
     this.appConfigService.onConfigChange
       .takeUntil(this.isDestroyed)
       .subscribe(config => {
@@ -90,7 +97,6 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
   onRecordChange(record: object) {
     // update record if the edited one is not revision.
     if (!this.revision) {
-      this.record = record;
       this.globalAppStateService
         .jsonBeingEdited$.next(record);
       this.globalAppStateService
@@ -101,7 +107,8 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
   }
 
   onRevisionRevert() {
-    this.record = this.revision;
+    this.globalAppStateService
+      .jsonBeingEdited$.next(this.revision);
     this.revision = undefined;
     this.changeDetectorRef.markForCheck();
   }
@@ -135,13 +142,13 @@ export class JsonEditorWrapperComponent extends SubscriberComponent implements O
           `Loading ${recordType}/${recordId}`, 'Wait').toastId;
         return this.apiService.fetchRecord(recordType, recordId);
       }).then(json => {
-        this.record = json['metadata'];
+        const record = json['metadata'];
         this.globalAppStateService
-          .jsonBeingEdited$.next(this.record);
+          .jsonBeingEdited$.next(record);
         this.globalAppStateService
           .isJsonUpdated$.next(false);
-        this.config = this.appConfigService.getConfigForRecord(this.record);
-        return this.apiService.fetchUrl(this.record['$schema']);
+        this.config = this.appConfigService.getConfigForRecord(record);
+        return this.apiService.fetchUrl(record['$schema']);
       }).then(schema => {
         this.toastrService.clear(loadingToastId);
         this.schema = schema;

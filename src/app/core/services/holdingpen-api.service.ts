@@ -21,7 +21,7 @@
  */
 
 import { Injectable } from '@angular/core';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 
 import { Observable } from 'rxjs/Observable';
 
@@ -42,7 +42,7 @@ export class HoldingpenApiService extends CommonApiService {
 
   fetchWorkflowObject(objectId: string): Promise<WorkflowObject> {
     this.currentWorkflowObjectApiUrl = `${holdingpenApiUrl}/${objectId}`;
-    return this.fetchUrl(this.currentWorkflowObjectApiUrl);
+    return this.fetchUrl(this.currentWorkflowObjectApiUrl) as Promise<WorkflowObject>;
   }
 
   saveWorkflowObject(object: WorkflowObject): Observable<void> {

@@ -3,7 +3,13 @@ import { Component, ChangeDetectorRef, ChangeDetectionStrategy, ViewChild, OnIni
 import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
-import { SavePreviewModalService, RecordApiService, DomUtilsService, RecordCleanupService } from '../../core/services';
+import {
+  SavePreviewModalService,
+  RecordApiService,
+  DomUtilsService,
+  RecordCleanupService,
+  GlobalAppStateService
+} from '../../core/services';
 import { SavePreviewModalOptions } from '../../shared/interfaces';
 import { SubscriberComponent, ApiError } from '../../shared/classes';
 import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
@@ -22,9 +28,9 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
   constructor(private toastrService: ToastrService,
     private recordPreviewModalService: SavePreviewModalService,
     private apiService: RecordApiService,
-    private changeDetectorRef: ChangeDetectorRef,
     private domUtilsService: DomUtilsService,
-    private recordCleanupService: RecordCleanupService) {
+    private recordCleanupService: RecordCleanupService,
+    private globalAppStateService: GlobalAppStateService) {
     super();
   }
 
@@ -48,9 +54,20 @@ export class SavePreviewModalComponent extends SubscriberComponent implements On
 
   onConfirm() {
     const record = this.options.record;
-    this.recordCleanupService.cleanup(record);
-    this.apiService.saveRecord(record)
-      .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
+    const references = record['references'];
+    this.apiService.getLinkedReferences(references)
+      .then(linkedReferences => {
+        record['references'] = linkedReferences;
+        const recordWithLinkedReferences = Object.assign({}, record);
+        this.globalAppStateService.jsonBeingEdited$.next(recordWithLinkedReferences);
+        this.recordCleanupService.cleanup(recordWithLinkedReferences);
+        this.apiService.saveRecord(recordWithLinkedReferences)
+          .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
+      }).catch(() => {
+        this.recordCleanupService.cleanup(record);
+        this.apiService.saveRecord(record)
+          .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
+      });
   }
 
   private onSaveSuccess() {
