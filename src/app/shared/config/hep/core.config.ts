@@ -94,6 +94,7 @@ export const coreHep: JsonEditorConfig = {
       'dois',
       'number_of_pages',
       'public_notes',
+      'publication_info',
       'urls',
       'refereed',
       'references',
@@ -386,6 +387,7 @@ export const coreHep: JsonEditorConfig = {
           }
         },
         items: {
+          alwaysShow: ['reference'],
           properties: {
             record: {
               refFieldConfig: {
@@ -395,6 +397,7 @@ export const coreHep: JsonEditorConfig = {
             reference: {
               priority: 1,
               order: ['label', 'title', 'authors', 'arxiv_eprint'],
+              alwaysShow: ['dois', 'arxiv_eprint', 'publication_info'],
               properties: {
                 misc: {
                   items: {
