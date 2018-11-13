@@ -24,13 +24,22 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { SchemaValidationProblems } from 'ng2-json-editor';
+import { getSchemaNameFromUrl } from '../../shared/utils';
 
 
 @Injectable()
 export class GlobalAppStateService {
   readonly jsonBeingEdited$ = new ReplaySubject<object>(1);
-  readonly recordIdBeingEdited$ = this.jsonBeingEdited$
-    .map(json => json['control_number'] || json['metadata']['control_number']);
+
+  readonly pidValueBeingEdited$ = this.jsonBeingEdited$
+    .map(json => json['control_number'] || json['metadata']['control_number'])
+    .distinctUntilChanged();
+  readonly pidTypeBeingEdited$ = this.jsonBeingEdited$
+    .map(json => {
+      const schemaUrl = json['$schema'] || json['metadata']['$schema'];
+      const schemaName = getSchemaNameFromUrl(schemaUrl);
+      return schemaName === 'hep' ? 'literature' : schemaName;
+    }).distinctUntilChanged();
 
   readonly isJsonUpdated$ = new Subject<boolean>();
 

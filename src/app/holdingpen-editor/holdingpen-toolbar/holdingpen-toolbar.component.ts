@@ -20,7 +20,7 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 're-holdingpen-toolbar',
@@ -31,5 +31,20 @@ import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HoldingpenToolbarComponent {
+  @Output() revisionChange = new EventEmitter<object>();
+  displayingRevision = false;
 
+  constructor(private changeDetectorRef: ChangeDetectorRef) { }
+
+  onRevisionChange(revision: object | undefined) {
+    this.revisionChange.emit(revision);
+    if (revision) {
+      // disable save, undo etc. if displaying an older revision
+      this.displayingRevision = true;
+    } else {
+      // enable save, undo etc. if it's back to the current revision
+      this.displayingRevision = false;
+    }
+    this.changeDetectorRef.markForCheck();
+  }
 }

@@ -27,7 +27,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { editorApiUrl } from '../../shared/config';
 import { ApiError } from '../../shared/classes';
-import { AuthorExtractResult, Ticket } from '../../shared/interfaces';
+import { AuthorExtractResult, Ticket, RecordRevision } from '../../shared/interfaces';
 
 
 @Injectable()
@@ -65,7 +65,7 @@ export class CommonApiService {
       .map(uploaded => uploaded.path);
   }
 
-  // TODO: remove `literature` placeholders after backend refactor
+  // TODO: remove `literature` placeholders after backend refactor (tickets and revisions)
 
   fetchRecordTickets(recordId: string | number): Promise<Array<Ticket>> {
     return this.fetchUrl(`${editorApiUrl}/literature/${recordId}/rt/tickets`) as Promise<Array<Ticket>>;
@@ -105,6 +105,29 @@ export class CommonApiService {
       .catch(error => Observable.throw(new ApiError(error)))
       .map(res => res.json())
       .map(json => json.references)
+      .toPromise();
+  }
+
+  fetchRevisions(pidType: string, pidValue: number): Promise<Array<RecordRevision>> {
+    return this.http
+      .get(`${editorApiUrl}/${pidType}/${pidValue}/revisions`)
+      .map(res => res.json())
+      .toPromise();
+  }
+
+  // TODO: remove `recordId` param after backend refactor
+  fetchRevisionData(pidValue: number, transactionId: number, recUUID: string): Promise<Object> {
+    return this.http
+      .get(`${editorApiUrl}/literature/${pidValue}/revision/${recUUID}/${transactionId}`)
+      .map(res => res.json())
+      .toPromise();
+  }
+
+
+  revertToRevision(pidType: string, pidValue: number, revisionId: number): Promise<void> {
+    return this.http
+      .put(`${editorApiUrl}/${pidType}/${pidValue}/revisions/revert`, { revision_id: revisionId })
+      .map(res => res.json())
       .toPromise();
   }
 }

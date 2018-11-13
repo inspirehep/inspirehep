@@ -51,8 +51,7 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.globalAppStateService.recordIdBeingEdited$
-      .distinctUntilChanged()
+    this.globalAppStateService.pidValueBeingEdited$
       .takeUntil(this.isDestroyed)
       .filter(recordId => recordId)
       .subscribe((recordId) => {

@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default" id="editor-toolbar">
   <div class="container-fluid">
     <div class="row">
-      <div class="navbar-header col-md-2">
+      <div class="navbar-header col-md-2" [class.re-disabled]="displayingRevision">
         <re-holdingpen-save-button></re-holdingpen-save-button>
         <re-undo-button></re-undo-button>
         <re-help-modal-button></re-help-modal-button>
@@ -10,6 +10,9 @@
         <div class="col-md-6">
           <re-tickets></re-tickets>
         </div>
+      </div>
+      <div class="col-md-2">
+        <re-record-history (revisionChange)="onRevisionChange($event)" [enableRevert]="false"></re-record-history>
       </div>
     </div>
   </div>

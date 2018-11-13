@@ -28,7 +28,6 @@ import { Observable } from 'rxjs/Observable';
 
 import { environment } from '../../../environments/environment';
 import { CommonApiService } from './common-api.service';
-import { RecordRevision } from '../../shared/interfaces';
 import { ApiError } from '../../shared/classes';
 import { editorApiUrl, apiUrl } from '../../shared/config';
 
@@ -66,27 +65,6 @@ export class RecordApiService extends CommonApiService {
     return this.http
       .put(this.currentRecordApiUrl, record)
       .catch(error => Observable.throw(new ApiError(error)));
-  }
-
-  fetchRevisions(): Promise<Array<RecordRevision>> {
-    return this.http
-      .get(`${this.currentRecordEditorApiUrl}/revisions`)
-      .map(res => res.json())
-      .toPromise();
-  }
-
-  fetchRevisionData(transactionId: number, recUUID: string): Promise<Object> {
-    return this.http
-      .get(`${this.currentRecordEditorApiUrl}/revision/${recUUID}/${transactionId}`)
-      .map(res => res.json())
-      .toPromise();
-  }
-
-  revertToRevision(revisionId: number): Promise<void> {
-    return this.http
-      .put(`${this.currentRecordEditorApiUrl}/revisions/revert`, { revision_id: revisionId })
-      .map(res => res.json())
-      .toPromise();
   }
 
   searchRecord(recordType: string, query: string): Observable<Array<number>> {
