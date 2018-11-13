@@ -10,7 +10,7 @@ import NumberOfResults from './NumberOfResults';
 import SortBy from './SortBy';
 import SearchResults from './SearchResults';
 import SearchPagination from './SearchPagination';
-import http from '../http';
+import http, { UI_SERIALIZER_REQUEST_OPTIONS } from '../http';
 import { mergeWithConcattingArrays } from '../utils';
 
 class EmbeddedSearch extends Component {
@@ -72,7 +72,7 @@ class EmbeddedSearch extends Component {
     const searchUrl = `/${pidType}?${queryString}`;
     this.setState({ loadingResults: true });
     try {
-      const { data } = await http.get(searchUrl);
+      const { data } = await http.get(searchUrl, UI_SERIALIZER_REQUEST_OPTIONS);
       this.setState({
         results: fromJS(data.hits.hits),
         numberOfResults: data.hits.total,

@@ -9,6 +9,7 @@ import {
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
 } from './actionTypes';
+import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 
 function fetchingLiterature(recordId) {
   return {
@@ -75,11 +76,10 @@ export function fetchLiterature(recordId) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingLiterature(recordId));
     try {
-      const response = await http.get(`/literature/${recordId}`, {
-        headers: {
-          Accept: 'application/vnd+inspire.record.ui+json',
-        },
-      });
+      const response = await http.get(
+        `/literature/${recordId}`,
+        UI_SERIALIZER_REQUEST_OPTIONS
+      );
       dispatch(fetchLiteratureSuccess(response.data));
     } catch (error) {
       dispatch(fetchLiteratureError(error.data));
