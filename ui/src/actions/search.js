@@ -10,6 +10,7 @@ import {
   SEARCH_AGGREGATIONS_SUCCESS,
   SEARCH_AGGREGATIONS_ERROR,
 } from './actionTypes';
+import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 
 export function changeSearchScope(scope) {
   return {
@@ -44,11 +45,7 @@ export function searchForCurrentLocation() {
     dispatch(searching());
     const url = `${location.pathname}${location.search}`;
     try {
-      const response = await http.get(url, {
-        headers: {
-          Accept: 'application/vnd+inspire.record.ui+json',
-        },
-      });
+      const response = await http.get(url, UI_SERIALIZER_REQUEST_OPTIONS);
       dispatch(searchSuccess(response.data));
     } catch (error) {
       dispatch(searchError(error.data));
@@ -82,11 +79,7 @@ export function fetchSearchAggregationsForCurrentLocation() {
     dispatch(fetchingSearchAggregations());
     const url = `${location.pathname}/facets${location.search}`;
     try {
-      const response = await http.get(url, {
-        headers: {
-          Accept: 'application/vnd+inspire.record.ui+json',
-        },
-      });
+      const response = await http.get(url);
       dispatch(searchAggregationsSuccess(response.data));
     } catch (error) {
       dispatch(searchAggregationsError(error.response && error.response.data));
