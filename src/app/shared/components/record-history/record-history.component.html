@@ -5,8 +5,8 @@
       <span class="navbar-text pull-right dropdown-toggle" dropdownToggle>Last on {{revisions[0].updated | date:'medium'}} by {{revisions[0].user_email}}</span>
 
       <ul *dropdownMenu class="dropdown-menu" role="menu">
-        <ng-container *ngIf="revisions.length > 1; else hasOnlySingleRevisionTemplate">
-          <li role="menuitem" *ngFor="let revision of revisions | slice:1:revisions.length">
+        <ng-container *ngIf="revisions.length > 0; else hasNoRevisionTemplate">
+          <li role="menuitem" *ngFor="let revision of revisions">
             <a class="dropdown-item" href="javascript:void(0)" (click)="onRevisionClick(revision)">On {{revision.updated | date:'medium'}} by {{revision.user_email}}</a>
           </li>
         </ng-container>
@@ -16,13 +16,13 @@
 </div>
 
 <ng-template #revisionSelectedTemplate>
-  <button class="btn btn-revert" (click)="onRevertClick()">Revert to</button>
+  <button *ngIf="enableRevert" class="btn btn-revert" (click)="onRevertClick()">Revert to</button>
   <span class="selected-revision">{{selectedRevision.updated | date:'medium'}} by {{selectedRevision.user_email}}</span>
-  <span class="btn-current" (click)="onCurrentRevisionClick()">or go back to current</span>
+  <span class="btn-current" (click)="onCurrentRevisionClick()">
+    <ng-container *ngIf="enableRevert">or </ng-container>go back to current
+  </span>
 </ng-template>
 
-<ng-template #hasOnlySingleRevisionTemplate>
-  <li>
-    <a class="dropdown-item">No revision to display</a>
-  </li>
+<ng-template #hasNoRevisionTemplate>
+  <span class="navbar-text pull-right">No revision to display</span>
 </ng-template>

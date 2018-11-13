@@ -28,7 +28,6 @@ import { RecordEditorRouter } from './record-editor.router';
 
 import { JsonEditorWrapperComponent } from './json-editor-wrapper';
 import { RecordToolbarComponent } from './record-toolbar';
-import { RecordHistoryComponent } from './record-history';
 import { SearchBarComponent } from './search-bar';
 import { RecordSearchComponent } from './record-search';
 import { SavePreviewModalComponent } from './save-preview-modal';
@@ -42,7 +41,6 @@ import { ManualMergeModalComponent } from './manual-merge-modal';
   declarations: [
     JsonEditorWrapperComponent,
     RecordToolbarComponent,
-    RecordHistoryComponent,
     SearchBarComponent,
     RecordSearchComponent,
     SavePreviewModalComponent,

@@ -20,11 +20,12 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
-import { RecordApiService } from '../../core/services';
-import { RecordRevision } from '../../shared/interfaces';
-import { SubscriberComponent } from '../../shared/classes';
+import { CommonApiService, GlobalAppStateService } from '../../../core/services';
+import { RecordRevision } from '../../interfaces';
+import { SubscriberComponent } from '../../classes';
 
 @Component({
   selector: 're-record-history',
@@ -36,27 +37,39 @@ import { SubscriberComponent } from '../../shared/classes';
 })
 export class RecordHistoryComponent extends SubscriberComponent implements OnInit {
 
-  @Output() revisionChange = new EventEmitter<Object>();
+  @Output() revisionChange = new EventEmitter<object>();
   @Output() revisionRevert = new EventEmitter<void>();
+  @Input() enableRevert = true;
 
   revisions: Array<RecordRevision>;
   selectedRevision: RecordRevision;
+  pidValue: number;
+  pidType: string;
 
-  constructor(private apiService: RecordApiService,
-    private changeDetectorRef: ChangeDetectorRef) {
+  constructor(private apiService: CommonApiService,
+    private changeDetectorRef: ChangeDetectorRef,
+    private globalAppStateService: GlobalAppStateService) {
     super();
   }
 
   ngOnInit() {
-    this.apiService.newRecordFetched$
+    Observable.combineLatest(
+      this.globalAppStateService.pidTypeBeingEdited$,
+      this.globalAppStateService.pidValueBeingEdited$,
+    )
+      .filter(([pidType, pidValue]) => pidType && pidValue)
       .takeUntil(this.isDestroyed)
-      .subscribe(() => this.fetchRevisions());
+      .subscribe(([pidType, pidValue]) => {
+        this.pidType = pidType;
+        this.pidValue = pidValue;
+        this.fetchRevisions();
+      });
   }
 
   onRevisionClick(revision: RecordRevision) {
     this.selectedRevision = revision;
     this.apiService
-      .fetchRevisionData(revision.transaction_id, revision.rec_uuid)
+      .fetchRevisionData(this.pidValue, revision.transaction_id, revision.rec_uuid)
       .then(revisionData => this.revisionChange.emit(revisionData));
   }
 
@@ -67,7 +80,7 @@ export class RecordHistoryComponent extends SubscriberComponent implements OnIni
 
   onRevertClick() {
     this.apiService
-      .revertToRevision(this.selectedRevision.revision_id)
+      .revertToRevision(this.pidType, this.pidValue, this.selectedRevision.revision_id)
       .then(() => {
         this.selectedRevision = undefined;
         this.revisionRevert.emit();
@@ -77,7 +90,7 @@ export class RecordHistoryComponent extends SubscriberComponent implements OnIni
 
   private fetchRevisions() {
     this.apiService
-      .fetchRevisions()
+      .fetchRevisions(this.pidType, this.pidValue)
       .then(revisions => {
         this.revisions = revisions;
         this.changeDetectorRef.markForCheck();

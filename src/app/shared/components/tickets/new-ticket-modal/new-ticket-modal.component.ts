@@ -48,7 +48,7 @@ export class NewTicketModalComponent extends SubscriberComponent implements OnIn
   }
 
   ngOnInit() {
-    this.globalAppStateService.recordIdBeingEdited$
+    this.globalAppStateService.pidValueBeingEdited$
       .takeUntil(this.isDestroyed)
       .subscribe((recordId) => {
         this.recordId = recordId;

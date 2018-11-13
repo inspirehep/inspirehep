@@ -39,7 +39,7 @@ import { WorkflowObject } from '../shared/interfaces';
 @Component({
   templateUrl: './holdingpen-editor.component.html',
   styleUrls: [
-    '../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss'
+  '../record-editor/json-editor-wrapper/json-editor-wrapper.component.scss'
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -48,6 +48,8 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
   schema: Object;
   config: Object;
   workflowProblems: SchemaValidationProblems;
+  // `undefined` on current revision
+  revision: object | undefined;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
     private route: ActivatedRoute,
@@ -122,12 +124,20 @@ export class HoldingpenEditorComponent extends SubscriberComponent implements On
       .validationProblems$.next(problems);
   }
 
-  onWorkflowMetadataChange(workflowMetadata: object) {
-    this.workflowObject.metadata = workflowMetadata;
-    this.globalAppStateService
-      .jsonBeingEdited$.next(this.workflowObject);
-    this.globalAppStateService
-      .isJsonUpdated$.next(true);
+  onWorkflowMetadataChange(metadata: object) {
+    if (!this.revision) {
+      const workflowObject = Object.assign({}, this.workflowObject, { metadata });
+      this.globalAppStateService
+        .jsonBeingEdited$.next(workflowObject);
+      this.globalAppStateService
+        .isJsonUpdated$.next(true);
+    } else {
+      this.toastrService.warning('You are changing the revision and your changes will be lost!', 'Warning');
+    }
   }
 
+  onRevisionChange(revision: object) {
+    this.revision = revision;
+    this.changeDetectorRef.markForCheck();
+  }
 }

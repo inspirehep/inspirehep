@@ -26,6 +26,7 @@ import { JsonEditorConfig } from 'ng2-json-editor';
 
 import { editorConfigs } from '../../shared/config';
 import { onDocumentTypeChange } from '../../shared/config/hep';
+import { getSchemaNameFromUrl } from '../../shared/utils';
 
 @Injectable()
 export class AppConfigService {
@@ -46,8 +47,7 @@ export class AppConfigService {
 
   private getRecordType(record: Object): string {
     const schemaUrl: string = record['$schema'];
-    const typeWithFileExt = schemaUrl.slice(schemaUrl.lastIndexOf('/') + 1, schemaUrl.length);
-    return typeWithFileExt.slice(0, typeWithFileExt.lastIndexOf('.'));
+    return getSchemaNameFromUrl(schemaUrl);
   }
 
   private getConfigForHepRecord(record: object): JsonEditorConfig {
