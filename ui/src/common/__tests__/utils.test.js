@@ -10,6 +10,7 @@ import {
   doSetsHaveCommonItem,
   isEmptyObjectShallow,
   mergeWithConcattingArrays,
+  httpErrorToActionPayload,
 } from '../utils';
 
 describe('utils', () => {
@@ -200,6 +201,36 @@ describe('utils', () => {
       const obj2 = { b: 'b2' };
       const result = mergeWithConcattingArrays(obj1, obj2);
       expect(result).not.toBe(obj1);
+    });
+  });
+
+  describe('httpErrorToActionPayload', () => {
+    it('convert http error with status and data to payload', () => {
+      const error = {
+        response: {
+          status: 500,
+          data: { foo: 'bar' },
+        },
+      };
+      const result = httpErrorToActionPayload(error);
+      const expected = {
+        status: 500,
+        foo: 'bar',
+      };
+      expect(result).toEqual(expected);
+    });
+
+    it('convert http error with only status', () => {
+      const error = {
+        response: {
+          status: 500,
+        },
+      };
+      const result = httpErrorToActionPayload(error);
+      const expected = {
+        status: 500,
+      };
+      expect(result).toEqual(expected);
     });
   });
 });

@@ -78,3 +78,9 @@ export function mergeWithConcattingArrays(destObject, ...sources) {
     }
   });
 }
+
+export function httpErrorToActionPayload(httpError) {
+  const { response } = httpError;
+  const { data, status } = response;
+  return { status, ...data };
+}
