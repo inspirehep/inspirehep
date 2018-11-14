@@ -15,6 +15,7 @@ import persistUserStateMiddleware, {
   reHydrateRootStateWithUser,
 } from './middlewares/persistUserState';
 import searchDispatcherMiddleware from './middlewares/searchDispatcher';
+import redirectToErrorPageMiddleware from './middlewares/redirectToErrorPage';
 
 export const thunkMiddleware = thunk.withExtraArgument(http);
 
@@ -27,6 +28,7 @@ const PROD_MIDDLEWARES = [
   keepPreviousUrlMiddleware,
   persistUserStateMiddleware,
   searchDispatcherMiddleware,
+  redirectToErrorPageMiddleware,
   thunkMiddleware,
 ];
 

@@ -41,11 +41,15 @@ describe('literature - async action creators', () => {
   });
 
   it('unhappy - creates LITERATURE_ERROR', async done => {
-    mockHttp.onGet('/literature/123').replyOnce(500, {});
+    mockHttp.onGet('/literature/123').replyOnce(500);
 
     const expectedActions = [
       { type: LITERATURE_REQUEST, payload: { recordId: 123 } },
-      { type: LITERATURE_ERROR, payload: undefined },
+      {
+        type: LITERATURE_ERROR,
+        payload: { status: 500 },
+        meta: { redirectableError: true },
+      },
     ];
 
     const store = getStore();

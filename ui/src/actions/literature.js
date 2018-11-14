@@ -10,6 +10,7 @@ import {
   LITERATURE_AUTHORS_SUCCESS,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { httpErrorToActionPayload } from '../common/utils';
 
 function fetchingLiterature(recordId) {
   return {
@@ -29,6 +30,7 @@ function fetchLiteratureError(error) {
   return {
     type: LITERATURE_ERROR,
     payload: error,
+    meta: { redirectableError: true },
   };
 }
 
@@ -82,7 +84,8 @@ export function fetchLiterature(recordId) {
       );
       dispatch(fetchLiteratureSuccess(response.data));
     } catch (error) {
-      dispatch(fetchLiteratureError(error.data));
+      const payload = httpErrorToActionPayload(error);
+      dispatch(fetchLiteratureError(payload));
     }
   };
 }
