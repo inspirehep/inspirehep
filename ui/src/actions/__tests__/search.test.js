@@ -65,7 +65,11 @@ describe('search - action creators', () => {
 
       const expectedActions = [
         { type: types.SEARCH_REQUEST },
-        { type: types.SEARCH_ERROR, payload: undefined },
+        {
+          type: types.SEARCH_ERROR,
+          payload: { status: 'network' },
+          meta: { redirectableError: true },
+        },
       ];
       expect(store.getActions()).toEqual(expectedActions);
       done();

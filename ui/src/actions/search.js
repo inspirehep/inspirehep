@@ -11,6 +11,7 @@ import {
   SEARCH_AGGREGATIONS_ERROR,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { httpErrorToActionPayload } from '../common/utils';
 
 export function changeSearchScope(scope) {
   return {
@@ -36,6 +37,7 @@ function searchError(error) {
   return {
     type: SEARCH_ERROR,
     payload: error,
+    meta: { redirectableError: true },
   };
 }
 
@@ -48,7 +50,8 @@ export function searchForCurrentLocation() {
       const response = await http.get(url, UI_SERIALIZER_REQUEST_OPTIONS);
       dispatch(searchSuccess(response.data));
     } catch (error) {
-      dispatch(searchError(error.data));
+      const payload = httpErrorToActionPayload(error);
+      dispatch(searchError(payload));
     }
   };
 }

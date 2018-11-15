@@ -232,5 +232,16 @@ describe('utils', () => {
       };
       expect(result).toEqual(expected);
     });
+
+    it('convert http network error', () => {
+      const error = {
+        response: null,
+      };
+      const result = httpErrorToActionPayload(error);
+      const expected = {
+        status: 'network',
+      };
+      expect(result).toEqual(expected);
+    });
   });
 });
