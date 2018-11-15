@@ -81,6 +81,9 @@ export function mergeWithConcattingArrays(destObject, ...sources) {
 
 export function httpErrorToActionPayload(httpError) {
   const { response } = httpError;
-  const { data, status } = response;
-  return { status, ...data };
+  if (response) {
+    const { data, status } = response;
+    return { status, ...data };
+  }
+  return { status: 'network' };
 }
