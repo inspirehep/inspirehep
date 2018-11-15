@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoBackLinkContainer render with custom children 1`] = `
+<a
+  onClick={[Function]}
+>
+  custom
+</a>
+`;
+
+exports[`GoBackLinkContainer render without props 1`] = `
+<a
+  onClick={[Function]}
+>
+  go back
+</a>
+`;

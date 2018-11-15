@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorNetwork renders ErrorNetwork 1`] = `
+<ErrorPage
+  detail={null}
+  imageSrc="500.svg"
+  message="Connection error!"
+/>
+`;

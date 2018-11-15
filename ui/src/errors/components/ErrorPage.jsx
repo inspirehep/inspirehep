@@ -4,19 +4,21 @@ import { Row, Col } from 'antd';
 
 class ErrorPage extends Component {
   render() {
-    const { statusCode, message, imageSrc } = this.props;
+    const { detail, message, imageSrc } = this.props;
     return (
       <Col className="mt3 mb3" span={14} justify="center" align="middle">
-        <Row>
-          <Col>
-            <h3 className="f1">{statusCode}</h3>
-          </Col>
-        </Row>
         <Row>
           <Col>
             <h3 className="f2">{message}</h3>
           </Col>
         </Row>
+        {detail && (
+          <Row>
+            <Col>
+              <h3 className="f3">{detail}</h3>
+            </Col>
+          </Row>
+        )}
         <Row>
           <Col>
             <img src={imageSrc} alt="ERROR" />
@@ -27,10 +29,14 @@ class ErrorPage extends Component {
   }
 }
 
-export default ErrorPage;
-
 ErrorPage.propTypes = {
-  statusCode: PropTypes.number.isRequired,
+  detail: PropTypes.node,
   message: PropTypes.string.isRequired,
   imageSrc: PropTypes.node.isRequired,
 };
+
+ErrorPage.defaultProps = {
+  detail: null,
+};
+
+export default ErrorPage;

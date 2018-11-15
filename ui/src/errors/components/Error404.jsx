@@ -6,7 +6,6 @@ class Error404 extends Component {
   render() {
     return (
       <ErrorPage
-        statusCode={404}
         message="Sorry, we were not able to find what you were looking for..."
         imageSrc={error404Image}
       />

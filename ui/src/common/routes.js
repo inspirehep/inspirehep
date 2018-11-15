@@ -17,6 +17,8 @@ export const HOLDINGPEN_INSPECT = `${HOLDINGPEN}/inspect`;
 export const ERRORS = '/errors';
 export const ERROR_401 = `${ERRORS}/401`;
 export const ERROR_404 = `${ERRORS}/404`;
+export const ERROR_500 = `${ERRORS}/500`;
+export const ERROR_NETWORK = `${ERRORS}/network`;
 
 export const SUBMISSIONS = '/submissions';
 export const SUBMISSIONS_AUTHOR = `${SUBMISSIONS}/authors`;

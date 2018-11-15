@@ -6,7 +6,6 @@ class Error401 extends Component {
   render() {
     return (
       <ErrorPage
-        statusCode={401}
         message="Sorry, you are not authorised to view this page."
         imageSrc={error401Image}
       />
