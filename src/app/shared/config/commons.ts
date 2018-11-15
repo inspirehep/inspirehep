@@ -29,10 +29,10 @@ import { splitReferenceField } from './field-splitter';
 export const isoLanguageMap = ISO_LANGUAGE_MAP;
 
 export const setRecordRefAndCuratedOnCompletionSelect = (path, completion, store) => {
-  path.splice(-1, 1, 'record', '$ref');
-  store.setIn(path, completion['_source']['$ref']);
+  path.splice(-1, 1, 'record');
+  store.setIn(path, completion['_source']['self']);
 
-  path.splice(-2, 2, 'curated_relation');
+  path.splice(-1, 1, 'curated_relation');
   store.setIn(path, true);
 };
 
@@ -45,16 +45,20 @@ export const affiliationAutocompletionConfig: AutocompletionConfig = {
   onCompletionSelect: setRecordRefAndCuratedOnCompletionSelect,
 };
 
-export const journalTitleAutocompletionConfig: AutocompletionConfig = {
+export const journalTitleAutocompletionConfigWithoutPopulatingRef: AutocompletionConfig = {
   url: `${environment.baseUrl}/api/journals/_suggest?journal_title=`,
   path: '/journal_title/0/options',
   optionField: '/_source/short_title',
   size: 10,
-  onCompletionSelect: (path, completion, store) => {
-    path.splice(-1, 1, 'journal_record', '$ref');
-    store.setIn(path, completion['_source']['$ref']);
+};
 
-    path.splice(-2, 2, 'curated_relation');
+export const journalTitleAutocompletionConfig: AutocompletionConfig = {
+  ...journalTitleAutocompletionConfigWithoutPopulatingRef,
+  onCompletionSelect: (path, completion, store) => {
+    path.splice(-1, 1, 'journal_record');
+    store.setIn(path, completion['_source']['self']);
+
+    path.splice(-1, 1, 'curated_relation');
     store.setIn(path, true);
   }
 };

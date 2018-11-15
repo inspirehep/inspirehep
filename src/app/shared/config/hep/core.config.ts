@@ -31,7 +31,8 @@ import {
   anchorBuilder,
   fullTextSearch,
   isoLanguageMap,
-  splitPrimitiveReferenceField
+  splitPrimitiveReferenceField,
+  journalTitleAutocompletionConfigWithoutPopulatingRef
 } from '../commons';
 
 export const coreHep: JsonEditorConfig = {
@@ -462,7 +463,7 @@ export const coreHep: JsonEditorConfig = {
                   properties: {
                     journal_title: {
                       onValueChange: splitPrimitiveReferenceField,
-                      autocompletionConfig: journalTitleAutocompletionConfig,
+                      autocompletionConfig: journalTitleAutocompletionConfigWithoutPopulatingRef,
                     },
                     journal_volume: {
                       onValueChange: splitPrimitiveReferenceField
