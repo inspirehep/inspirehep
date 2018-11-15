@@ -2,8 +2,8 @@
 
 exports[`Error401 renders Error401 with correct props 1`] = `
 <ErrorPage
+  detail={null}
   imageSrc="401.svg"
   message="Sorry, you are not authorised to view this page."
-  statusCode={401}
 />
 `;
