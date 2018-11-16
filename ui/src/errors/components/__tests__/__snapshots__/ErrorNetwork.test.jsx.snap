@@ -2,7 +2,15 @@
 
 exports[`ErrorNetwork renders ErrorNetwork 1`] = `
 <ErrorPage
-  detail={null}
+  detail={
+    <span>
+      Please check your internet connection and
+       
+      <Connect(GoBackLink)>
+        try again
+      </Connect(GoBackLink)>
+    </span>
+  }
   imageSrc="500.svg"
   message="Connection error!"
 />

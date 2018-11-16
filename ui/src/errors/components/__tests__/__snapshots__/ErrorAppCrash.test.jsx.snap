@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorAppCrash renders ErrorAppCrash 1`] = `
+<Row
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <ErrorPage
+    detail={
+      <span>
+        Please try again later, you can 
+        <a
+          href="/"
+        >
+          go back home
+        </a>
+         now.
+      </span>
+    }
+    imageSrc="500.svg"
+    message="Something went wrong"
+  />
+</Row>
+`;
