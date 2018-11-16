@@ -3,6 +3,7 @@ import {
   CITATIONS_SUCCESS,
   CITATIONS_REQUEST,
 } from './actionTypes';
+import { httpErrorToActionPayload } from '../common/utils';
 
 function fetching() {
   return {
@@ -33,7 +34,8 @@ export default function fetch(pidType, recordId, paginationOptions) {
       const response = await http.get(citationsApiUrl);
       dispatch(fetchSuccess(response.data));
     } catch (error) {
-      dispatch(fetchError(error.response && error.response.data));
+      const payload = httpErrorToActionPayload(error);
+      dispatch(fetchError(payload));
     }
   };
 }

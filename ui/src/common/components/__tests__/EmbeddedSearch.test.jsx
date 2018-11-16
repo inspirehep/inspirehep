@@ -96,7 +96,7 @@ describe('EmbeddedSearch', () => {
     });
   });
 
-  it('renders error if facets request fails', async () => {
+  it('renders error if facets request fails with custom error', async () => {
     const searchQuery = 'page=1&size=10&sort=mostrecent';
     mockHttp
       .onGet(`/literature?${searchQuery}`)
@@ -110,7 +110,11 @@ describe('EmbeddedSearch', () => {
       .networkError();
 
     const wrapper = shallow(
-      <EmbeddedSearch pidType="literature" renderResultItem={jest.fn()} />
+      <EmbeddedSearch
+        pidType="literature"
+        renderResultItem={jest.fn()}
+        renderError={() => <span>Error</span>}
+      />
     );
     await nextTick();
     wrapper.update();

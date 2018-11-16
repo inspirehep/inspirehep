@@ -106,4 +106,19 @@ describe('CitationListContainer', () => {
     ).dive();
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders with error', () => {
+    const store = getStoreWithState({
+      citations: fromJS({
+        loading: false,
+        data: [],
+        total: 0,
+        error: { message: 'Error' },
+      }),
+    });
+    const wrapper = shallow(
+      <CitationListContainer store={store} pidType="test" recordId={123} />
+    ).dive();
+    expect(wrapper).toMatchSnapshot();
+  });
 });

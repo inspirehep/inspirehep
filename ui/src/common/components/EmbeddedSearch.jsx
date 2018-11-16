@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map, List, fromJS } from 'immutable';
-import { Row, Col, Alert } from 'antd';
+import { Row, Col } from 'antd';
 import { stringify } from 'qs';
 
 import LoadingOrChildren from './LoadingOrChildren';
@@ -115,23 +115,8 @@ class EmbeddedSearch extends Component {
     return mergeWithConcattingArrays(baseQuery, query);
   }
 
-  renderErrorOrNull() {
-    const { hasError } = this.state;
-    if (hasError) {
-      return (
-        <Alert
-          message="Something went wrong, can not display search results"
-          type="error"
-          showIcon
-          closable
-        />
-      );
-    }
-    return null;
-  }
-
   render() {
-    const { renderResultItem } = this.props;
+    const { renderResultItem, renderError } = this.props;
     const {
       query,
       aggregations,
@@ -139,54 +124,56 @@ class EmbeddedSearch extends Component {
       numberOfResults,
       loadingAggregations,
       loadingResults,
+      hasError,
     } = this.state;
-    return (
-      this.renderErrorOrNull() || (
-        <Row gutter={32} type="flex" justify="start">
-          <Col span={7}>
-            <LoadingOrChildren loading={loadingAggregations}>
-              <AggregationFilters
-                query={query}
-                aggregations={aggregations}
-                numberOfResults={numberOfResults}
-                onAggregationChange={this.onAggregationChange}
-              />
-            </LoadingOrChildren>
-          </Col>
-          <Col span={17}>
-            <LoadingOrChildren loading={loadingResults}>
-              <Row type="flex" align="middle" justify="end">
-                <Col span={12}>
-                  <NumberOfResults numberOfResults={numberOfResults} />
-                </Col>
-                <Col className="tr" span={12}>
-                  <SortBy onSortChange={this.onSortChange} sort={query.sort} />
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  <SearchResults
-                    renderItem={renderResultItem}
-                    results={results}
-                  />
-                  <SearchPagination
-                    page={query.page}
-                    pageSize={query.size}
-                    total={numberOfResults}
-                    onPageChange={this.onPageChange}
-                  />
-                </Col>
-              </Row>
-            </LoadingOrChildren>
-          </Col>
-        </Row>
-      )
+    return hasError ? (
+      renderError()
+    ) : (
+      <Row gutter={32} type="flex" justify="start">
+        <Col span={7}>
+          <LoadingOrChildren loading={loadingAggregations}>
+            <AggregationFilters
+              query={query}
+              aggregations={aggregations}
+              numberOfResults={numberOfResults}
+              onAggregationChange={this.onAggregationChange}
+            />
+          </LoadingOrChildren>
+        </Col>
+        <Col span={17}>
+          <LoadingOrChildren loading={loadingResults}>
+            <Row type="flex" align="middle" justify="end">
+              <Col span={12}>
+                <NumberOfResults numberOfResults={numberOfResults} />
+              </Col>
+              <Col className="tr" span={12}>
+                <SortBy onSortChange={this.onSortChange} sort={query.sort} />
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <SearchResults
+                  renderItem={renderResultItem}
+                  results={results}
+                />
+                <SearchPagination
+                  page={query.page}
+                  pageSize={query.size}
+                  total={numberOfResults}
+                  onPageChange={this.onPageChange}
+                />
+              </Col>
+            </Row>
+          </LoadingOrChildren>
+        </Col>
+      </Row>
     );
   }
 }
 
 EmbeddedSearch.propTypes = {
   renderResultItem: PropTypes.func.isRequired,
+  renderError: PropTypes.func,
   pidType: PropTypes.string.isRequired,
   baseQuery: PropTypes.objectOf(PropTypes.any),
   baseFacetsQuery: PropTypes.objectOf(PropTypes.any),
@@ -195,6 +182,7 @@ EmbeddedSearch.propTypes = {
 EmbeddedSearch.defaultProps = {
   baseQuery: {},
   baseFacetsQuery: {},
+  renderError: () => null,
 };
 
 export default EmbeddedSearch;

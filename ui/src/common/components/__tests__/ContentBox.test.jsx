@@ -44,12 +44,7 @@ describe('ContentBox', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders ContentBox without children and without actions', () => {
-    const wrapper = shallow(<ContentBox />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders ContentBox without children and with actions', () => {
+  it('does not render ContentBox without children', () => {
     const wrapper = shallow(<ContentBox actions={[<h2 key="pi">PI</h2>]} />);
     expect(wrapper).toMatchSnapshot();
   });

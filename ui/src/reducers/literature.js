@@ -16,12 +16,12 @@ import {
 export const initialState = fromJS({
   loading: false,
   data: {},
-  error: {},
+  error: null,
   loadingReferences: false,
-  errorReferences: {},
+  errorReferences: null,
   references: [],
   loadingAuthors: false,
-  errorAuthors: {},
+  errorAuthors: null,
   authors: [],
   supervisors: [],
 });

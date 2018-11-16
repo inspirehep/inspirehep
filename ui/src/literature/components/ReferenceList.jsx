@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
 import ClientPaginatedList from '../../common/components/ClientPaginatedList';
 import ContentBox from '../../common/components/ContentBox';
 import ReferenceItem from './ReferenceItem';
+import ErrorAlertOrChildren from '../../common/components/ErrorAlertOrChildren';
 
 class ReferenceList extends Component {
   static renderReferenceItem(reference, index, page) {
@@ -17,29 +18,39 @@ class ReferenceList extends Component {
     );
   }
 
-  render() {
-    const { references, loading } = this.props;
+  renderList() {
+    const { references } = this.props;
     return (
       references && (
-        <ContentBox loading={loading}>
-          <ClientPaginatedList
-            items={references}
-            loading={loading}
-            renderItem={ReferenceList.renderReferenceItem}
-          />
-        </ContentBox>
+        <ClientPaginatedList
+          items={references}
+          renderItem={ReferenceList.renderReferenceItem}
+        />
       )
+    );
+  }
+
+  render() {
+    const { loading, error } = this.props;
+    return (
+      <ContentBox loading={loading}>
+        <ErrorAlertOrChildren error={error}>
+          {this.renderList()}
+        </ErrorAlertOrChildren>
+      </ContentBox>
     );
   }
 }
 
 ReferenceList.propTypes = {
   references: PropTypes.instanceOf(List),
+  error: PropTypes.instanceOf(Map),
   loading: PropTypes.bool,
 };
 
 ReferenceList.defaultProps = {
   references: null,
+  error: null,
   loading: false,
 };
 

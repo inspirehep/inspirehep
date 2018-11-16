@@ -61,7 +61,7 @@ describe('literature reducer', () => {
     });
     const expected = fromJS({
       loading: false,
-      data: {},
+      data: initialState.get('data'),
       error: { message: 'error' },
     });
     expect(state).toEqual(expected);
@@ -91,7 +91,7 @@ describe('literature reducer', () => {
     const expected = fromJS({
       loadingReferences: false,
       references,
-      errorReferences: {},
+      errorReferences: initialState.get('errorReferences'),
     });
     expect(state).toEqual(expected);
   });
@@ -104,7 +104,7 @@ describe('literature reducer', () => {
     const expected = fromJS({
       loadingReferences: false,
       errorReferences: { message: 'error' },
-      references: [],
+      references: initialState.get('references'),
     });
     expect(state).toEqual(expected);
   });
@@ -140,7 +140,7 @@ describe('literature reducer', () => {
       loadingAuthors: false,
       authors,
       supervisors,
-      errorAuthors: {},
+      errorAuthors: initialState.get('errorAuthors'),
     });
     expect(state).toEqual(expected);
   });
@@ -153,8 +153,8 @@ describe('literature reducer', () => {
     const expected = fromJS({
       loadingAuthors: false,
       errorAuthors: { message: 'error' },
-      authors: [],
-      supervisors: [],
+      authors: initialState.get('authors'),
+      supervisors: initialState.get('supervisors'),
     });
     expect(state).toEqual(expected);
   });

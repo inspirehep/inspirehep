@@ -6,18 +6,20 @@ import './ContentBox.scss';
 
 class ContentBox extends Component {
   render() {
-    const { title, leftActions, rightActions, loading } = this.props;
+    const { title, leftActions, rightActions, loading, children } = this.props;
 
     return (
-      <div className="__ContentBox__">
-        <Card title={title} loading={loading}>
-          <div className="pa3">{this.props.children}</div>
-          <Row type="flex" justify="space-between">
-            <Col>{leftActions}</Col>
-            <Col>{rightActions}</Col>
-          </Row>
-        </Card>
-      </div>
+      children && (
+        <div className="__ContentBox__">
+          <Card title={title} loading={loading}>
+            <div className="pa3">{children}</div>
+            <Row type="flex" justify="space-between">
+              <Col>{leftActions}</Col>
+              <Col>{rightActions}</Col>
+            </Row>
+          </Card>
+        </div>
+      )
     );
   }
 }

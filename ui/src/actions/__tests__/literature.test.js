@@ -74,11 +74,16 @@ describe('literature - async action creators', () => {
     });
 
     it('unhappy - creates LITERATURE_REFERENCES_ERROR', async done => {
-      mockHttp.onGet('/literature/123/references').replyOnce(500, {});
+      mockHttp
+        .onGet('/literature/123/references')
+        .replyOnce(404, { message: 'Not found' });
 
       const expectedActions = [
         { type: LITERATURE_REFERENCES_REQUEST },
-        { type: LITERATURE_REFERENCES_ERROR, payload: undefined },
+        {
+          type: LITERATURE_REFERENCES_ERROR,
+          payload: { status: 404, message: 'Not found' },
+        },
       ];
 
       const store = getStore();
@@ -104,11 +109,11 @@ describe('literature - async action creators', () => {
     });
 
     it('unhappy - creates LITERATURE_AUTHORS_ERROR', async done => {
-      mockHttp.onGet('/literature/123/authors').replyOnce(500, {});
+      mockHttp.onGet('/literature/123/authors').replyOnce(500);
 
       const expectedActions = [
         { type: LITERATURE_AUTHORS_REQUEST },
-        { type: LITERATURE_AUTHORS_ERROR, payload: undefined },
+        { type: LITERATURE_AUTHORS_ERROR },
       ];
 
       const store = getStore();
