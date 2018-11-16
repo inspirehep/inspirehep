@@ -67,10 +67,9 @@ function fetchLiteratureAuthorsSuccess(result) {
   };
 }
 
-function fetchLiteratureAuthorsError(error) {
+function fetchLiteratureAuthorsError() {
   return {
     type: LITERATURE_AUTHORS_ERROR,
-    payload: error,
   };
 }
 
@@ -97,7 +96,8 @@ export function fetchLiteratureReferences(recordId) {
       const response = await http.get(`/literature/${recordId}/references`);
       dispatch(fetchLiteratureReferencesSuccess(response.data));
     } catch (error) {
-      dispatch(fetchLiteratureReferencesError(error.data));
+      const payload = httpErrorToActionPayload(error);
+      dispatch(fetchLiteratureReferencesError(payload));
     }
   };
 }
@@ -109,7 +109,7 @@ export function fetchLiteratureAuthors(recordId) {
       const response = await http.get(`/literature/${recordId}/authors`);
       dispatch(fetchLiteratureAuthorsSuccess(response.data));
     } catch (error) {
-      dispatch(fetchLiteratureAuthorsError(error.data));
+      dispatch(fetchLiteratureAuthorsError());
     }
   };
 }

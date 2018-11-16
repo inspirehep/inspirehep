@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ContentBox does not render ContentBox without children 1`] = `""`;
+
 exports[`ContentBox renders ContentBox with actions 1`] = `
 <div
   className="__ContentBox__"
@@ -96,52 +98,6 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
         Defenders
       </div>
     </div>
-    <Row
-      gutter={0}
-      justify="space-between"
-      type="flex"
-    >
-      <Col />
-      <Col />
-    </Row>
-  </Card>
-</div>
-`;
-
-exports[`ContentBox renders ContentBox without children and with actions 1`] = `
-<div
-  className="__ContentBox__"
->
-  <Card
-    loading={false}
-    title={null}
-  >
-    <div
-      className="pa3"
-    />
-    <Row
-      gutter={0}
-      justify="space-between"
-      type="flex"
-    >
-      <Col />
-      <Col />
-    </Row>
-  </Card>
-</div>
-`;
-
-exports[`ContentBox renders ContentBox without children and without actions 1`] = `
-<div
-  className="__ContentBox__"
->
-  <Card
-    loading={false}
-    title={null}
-  >
-    <div
-      className="pa3"
-    />
     <Row
       gutter={0}
       justify="space-between"

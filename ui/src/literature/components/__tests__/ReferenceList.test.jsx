@@ -37,6 +37,16 @@ describe('ReferenceList', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders with error', () => {
+    const wrapper = shallow(
+      <ReferenceList
+        references={fromJS([])}
+        error={fromJS({ message: 'Error' })}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('does not render without references', () => {
     const wrapper = shallow(<ReferenceList />);
     expect(wrapper).toMatchSnapshot();

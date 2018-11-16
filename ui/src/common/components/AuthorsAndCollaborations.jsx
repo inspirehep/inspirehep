@@ -69,7 +69,7 @@ class AuthorsAndCollaborations extends Component {
 
 AuthorsAndCollaborations.propTypes = {
   authors: PropTypes.instanceOf(List),
-  recordId: PropTypes.number.isRequired,
+  recordId: PropTypes.number,
   authorCount: PropTypes.number,
   enableAuthorsShowAll: PropTypes.bool,
   collaborations: PropTypes.instanceOf(List),
@@ -78,6 +78,7 @@ AuthorsAndCollaborations.propTypes = {
 
 AuthorsAndCollaborations.defaultProps = {
   authorCount: undefined,
+  recordId: 0,
   authors: List(),
   collaborations: List(),
   collaborationsWithSuffix: List(),

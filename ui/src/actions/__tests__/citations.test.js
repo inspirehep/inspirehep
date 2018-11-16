@@ -29,13 +29,11 @@ describe('citations - async action creator', () => {
   });
 
   it('creates CITATIONS_ERROR if unsuccesful', async done => {
-    mockHttp
-      .onGet('/authors/123/citations?page=2&size=10')
-      .replyOnce(500, { message: 'error' });
+    mockHttp.onGet('/authors/123/citations?page=2&size=10').replyOnce(500);
 
     const expectedActions = [
       { type: types.CITATIONS_REQUEST },
-      { type: types.CITATIONS_ERROR, payload: { message: 'error' } },
+      { type: types.CITATIONS_ERROR, payload: { status: 500 } },
     ];
 
     const store = getStore();

@@ -7,6 +7,8 @@ import fetchCitations from '../../actions/citations';
 import ListWithPagination from '../components/ListWithPagination';
 import ContentBox from '../components/ContentBox';
 import CitationItem from '../components/CitationItem';
+import { ErrorPropType } from '../propTypes';
+import ErrorAlertOrChildren from '../components/ErrorAlertOrChildren';
 
 export const PAGE_SIZE = 25;
 
@@ -49,22 +51,30 @@ class CitationListContainer extends Component {
     dispatch(fetchCitations(pidType, recordId, { page, pageSize: PAGE_SIZE }));
   }
 
-  render() {
-    const { loading, total, citations } = this.props;
+  renderList() {
+    const { total, citations } = this.props;
     const { page } = this.state;
     return (
+      total > 0 && (
+        <ListWithPagination
+          renderItem={CitationListContainer.renderCitationItem}
+          pageItems={citations}
+          onPageChange={this.onPageChange}
+          total={total}
+          page={page}
+          pageSize={PAGE_SIZE}
+        />
+      )
+    );
+  }
+
+  render() {
+    const { loading, error } = this.props;
+    return (
       <ContentBox loading={loading}>
-        {total > 0 && (
-          <ListWithPagination
-            renderItem={CitationListContainer.renderCitationItem}
-            pageItems={citations}
-            onPageChange={this.onPageChange}
-            total={total}
-            loading={loading}
-            page={page}
-            pageSize={PAGE_SIZE}
-          />
-        )}
+        <ErrorAlertOrChildren error={error}>
+          {this.renderList()}
+        </ErrorAlertOrChildren>
       </ContentBox>
     );
   }
@@ -73,6 +83,7 @@ class CitationListContainer extends Component {
 CitationListContainer.propTypes = {
   total: PropTypes.number.isRequired,
   citations: PropTypes.instanceOf(List).isRequired,
+  error: ErrorPropType, // eslint-disable-line react/require-default-props
   loading: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   pidType: PropTypes.string.isRequired,
@@ -83,6 +94,7 @@ const stateToProps = state => ({
   loading: state.citations.get('loading'),
   citations: state.citations.get('data'),
   total: state.citations.get('total'),
+  error: state.citations.get('error'),
 });
 
 const dispatchToProps = dispatch => ({ dispatch });

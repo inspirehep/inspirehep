@@ -27,7 +27,7 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
               ]
             }
             enableAuthorsShowAll={false}
-            recordId={undefined}
+            recordId={0}
           />
           <ul
             className="bulleted-list secondary-container"
@@ -78,7 +78,7 @@ exports[`ReferenceItem renders misc if present 1`] = `
               ]
             }
             enableAuthorsShowAll={false}
-            recordId={undefined}
+            recordId={0}
           />
           <ul
             className="bulleted-list secondary-container"
@@ -134,7 +134,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                 ]
               }
               enableAuthorsShowAll={false}
-              recordId={undefined}
+              recordId={0}
             />
             <ul
               className="bulleted-list secondary-container"

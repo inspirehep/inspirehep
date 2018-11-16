@@ -1,22 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EmbeddedSearch renders error if facets request fails 1`] = `
-<Alert
-  closable={true}
-  message="Something went wrong, can not display search results"
-  showIcon={true}
-  type="error"
-/>
+exports[`EmbeddedSearch renders error if facets request fails with custom error 1`] = `
+<span>
+  Error
+</span>
 `;
 
-exports[`EmbeddedSearch renders error if results request fails 1`] = `
-<Alert
-  closable={true}
-  message="Something went wrong, can not display search results"
-  showIcon={true}
-  type="error"
-/>
-`;
+exports[`EmbeddedSearch renders error if results request fails 1`] = `""`;
 
 exports[`EmbeddedSearch renders with initial search results when base query props are set 1`] = `
 <Row

@@ -33,6 +33,7 @@ import NumberOfPages from '../../components/NumberOfPages';
 import CitationListContainer from '../../../common/containers/CitationListContainer';
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
+import { ErrorPropType } from '../../../common/propTypes';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -60,6 +61,7 @@ class DetailPage extends Component {
       authors,
       references,
       loadingReferences,
+      errorReferences,
       supervisors,
       citationCount,
       loadingCitations,
@@ -173,6 +175,7 @@ class DetailPage extends Component {
               key="1"
             >
               <ReferenceList
+                error={errorReferences}
                 references={references}
                 loading={loadingReferences}
               />
@@ -202,6 +205,7 @@ DetailPage.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
   references: PropTypes.instanceOf(List).isRequired,
+  errorReferences: ErrorPropType, // eslint-disable-line react/require-default-props
   authors: PropTypes.instanceOf(List).isRequired,
   supervisors: PropTypes.instanceOf(List).isRequired,
   loadingReferences: PropTypes.bool.isRequired,
@@ -216,6 +220,7 @@ const mapStateToProps = state => ({
   record: state.literature.get('data'),
   references: state.literature.get('references'),
   loadingReferences: state.literature.get('loadingReferences'),
+  errorReferences: state.literature.get('errorReferences'),
   authors: state.literature.get('authors'),
   supervisors: state.literature.get('supervisors'),
   citationCount: state.citations.get('total'),
