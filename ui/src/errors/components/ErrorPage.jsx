@@ -15,7 +15,7 @@ class ErrorPage extends Component {
         {detail && (
           <Row>
             <Col>
-              <h3 className="f3">{detail}</h3>
+              <h3 className="f3 normal">{detail}</h3>
             </Col>
           </Row>
         )}
