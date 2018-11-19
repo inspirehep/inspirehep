@@ -99,7 +99,11 @@ export class CommonApiService {
       .map((queues: Array<{ name: string }>) => queues.map(queue => queue.name));
   }
 
-  getLinkedReferences(references: Array<object>): Promise<Array<object>> {
+  getLinkedReferences(references: Array<object> | undefined): Promise<Array<object> | void> {
+    if (!references) {
+      return Promise.resolve();
+    }
+
     return this.http
       .post(`${editorApiUrl}/linked_references`, { references })
       .catch(error => Observable.throw(new ApiError(error)))
