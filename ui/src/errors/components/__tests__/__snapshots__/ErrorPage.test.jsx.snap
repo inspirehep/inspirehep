@@ -23,7 +23,7 @@ exports[`ErrorPage renders with all props 1`] = `
   >
     <Col>
       <h3
-        className="f3"
+        className="f3 normal"
       >
         <span>
           Detail about the error
