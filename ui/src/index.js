@@ -12,6 +12,7 @@ import App from './App';
 import './theme.less';
 import ErrorAppCrash from './errors/components/ErrorAppCrash';
 import ErrorBoundary from './common/components/ErrorBoundary';
+import { injectTrackerToHistory } from './tracker';
 
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
@@ -20,7 +21,7 @@ Sentry.init({
 ReactDOM.render(
   <ErrorBoundary renderError={() => <ErrorAppCrash />}>
     <Provider store={store}>
-      <ConnectedRouter history={history}>
+      <ConnectedRouter history={injectTrackerToHistory(history)}>
         <Switch>
           <Route path="/" component={App} />
         </Switch>
