@@ -39,6 +39,7 @@ class AggregationFilters extends Component {
                   range={aggregationKey === RANGE_AGGREATION_KEY}
                   name={aggregation.getIn(['meta', 'title'])}
                   buckets={aggregation.get('buckets')}
+                  splitDisplayName={aggregation.getIn(['meta', 'split'])}
                   selections={query[aggregationKey]}
                   onChange={selections => {
                     onAggregationChange(aggregationKey, selections);

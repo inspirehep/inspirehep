@@ -52,7 +52,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
       buckets={
         Immutable.List [
           Immutable.Map {
-            "key": "foo",
+            "key": "foo_2",
             "doc_count": 1,
           },
         ]
@@ -60,6 +60,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
       name="Aggregation 2"
       onChange={[Function]}
       range={false}
+      splitDisplayName={true}
     />
   </div>
 </div>

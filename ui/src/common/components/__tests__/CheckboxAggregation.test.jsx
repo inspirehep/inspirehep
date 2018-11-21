@@ -2,11 +2,36 @@ import React from 'react';
 import { List, fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 
-import CheckboxAggregation from '../CheckboxAggregation';
+import CheckboxAggregation, {
+  BUCKET_NAME_SPLITTER,
+} from '../CheckboxAggregation';
 import CheckboxItem from '../CheckboxItem';
 
 describe('CheckboxAggregation', () => {
   it('render initial state with all props set', () => {
+    const buckets = fromJS([
+      {
+        key: `prefix${BUCKET_NAME_SPLITTER}bucket1`,
+        doc_count: 1,
+      },
+      {
+        key: `prefix${BUCKET_NAME_SPLITTER}bucket2`,
+        doc_count: 2,
+      },
+    ]);
+    const wrapper = shallow(
+      <CheckboxAggregation
+        onChange={jest.fn()}
+        buckets={buckets}
+        name="Test"
+        selections="bucket1"
+        splitDisplayName
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('render initial state without splitDisplayName', () => {
     const buckets = fromJS([
       {
         key: 'bucket1',

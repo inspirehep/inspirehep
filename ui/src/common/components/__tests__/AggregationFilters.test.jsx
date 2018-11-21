@@ -23,13 +23,14 @@ describe('AggregationFilters', () => {
       agg2: {
         buckets: [
           {
-            key: 'foo',
+            key: 'foo_2',
             doc_count: 1,
           },
         ],
         meta: {
           title: 'Aggregation 2',
           order: 2,
+          split: true,
         },
       },
     });
