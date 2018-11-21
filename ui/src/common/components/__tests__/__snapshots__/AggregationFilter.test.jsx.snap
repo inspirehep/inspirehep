@@ -21,6 +21,7 @@ exports[`AggregationFilter renders CheckboxAggregation if range prop is not set 
       "bucket1",
     ]
   }
+  splitDisplayName={false}
 />
 `;
 

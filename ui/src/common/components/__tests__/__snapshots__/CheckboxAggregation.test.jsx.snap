@@ -9,6 +9,62 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
     className="mb2"
     gutter={0}
     justify="space-between"
+    key="prefix_bucket1"
+    type="flex"
+  >
+    <Col>
+      <CheckboxItem
+        checked={false}
+        onChange={[Function]}
+      >
+        bucket1
+      </CheckboxItem>
+    </Col>
+    <Col>
+      <Tag
+        closable={false}
+        prefixCls="ant-tag"
+      >
+        1
+      </Tag>
+    </Col>
+  </Row>
+  <Row
+    className="mb2"
+    gutter={0}
+    justify="space-between"
+    key="prefix_bucket2"
+    type="flex"
+  >
+    <Col>
+      <CheckboxItem
+        checked={false}
+        onChange={[Function]}
+      >
+        bucket2
+      </CheckboxItem>
+    </Col>
+    <Col>
+      <Tag
+        closable={false}
+        prefixCls="ant-tag"
+      >
+        2
+      </Tag>
+    </Col>
+  </Row>
+</AggregationBox>
+`;
+
+exports[`CheckboxAggregation render initial state without splitDisplayName 1`] = `
+<AggregationBox
+  headerAction={null}
+  name="Test"
+>
+  <Row
+    className="mb2"
+    gutter={0}
+    justify="space-between"
     key="bucket1"
     type="flex"
   >

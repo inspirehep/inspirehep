@@ -9,6 +9,7 @@ import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
 
 const BUCKET_CHUNK_SIZE = 10;
+export const BUCKET_NAME_SPLITTER = '_';
 
 class CheckboxAggregation extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -45,6 +46,7 @@ class CheckboxAggregation extends Component {
     };
 
     this.onShowMoreClick = this.onShowMoreClick.bind(this);
+    this.renderBucket = this.renderBucket.bind(this);
   }
 
   onSelectionChange(key, selected) {
@@ -83,33 +85,40 @@ class CheckboxAggregation extends Component {
     );
   }
 
+  renderBucket(bucket) {
+    const { selectionMap } = this.state;
+    const { splitDisplayName } = this.props;
+
+    const bucketKey = bucket.get('key');
+    return (
+      <Row className="mb2" type="flex" justify="space-between" key={bucketKey}>
+        <Col>
+          <CheckboxItem
+            checked={selectionMap.get(bucketKey)}
+            onChange={checked => {
+              this.onSelectionChange(bucketKey, checked);
+            }}
+          >
+            {splitDisplayName
+              ? bucketKey.split(BUCKET_NAME_SPLITTER)[1]
+              : bucketKey}
+          </CheckboxItem>
+        </Col>
+        <Col>
+          <Tag>{bucket.get('doc_count')}</Tag>
+        </Col>
+      </Row>
+    );
+  }
+
   render() {
-    const { maxBucketCountToDisplay, selectionMap } = this.state;
-    const { buckets, name } = this.props;
+    const { maxBucketCountToDisplay } = this.state;
+    const { name, buckets } = this.props;
     return (
       <AggregationBox name={name}>
-        {buckets.take(maxBucketCountToDisplay).map(bucket => (
-          <Row
-            className="mb2"
-            type="flex"
-            justify="space-between"
-            key={bucket.get('key')}
-          >
-            <Col>
-              <CheckboxItem
-                checked={selectionMap.get(bucket.get('key'))}
-                onChange={checked => {
-                  this.onSelectionChange(bucket.get('key'), checked);
-                }}
-              >
-                {bucket.get('key')}
-              </CheckboxItem>
-            </Col>
-            <Col>
-              <Tag>{bucket.get('doc_count')}</Tag>
-            </Col>
-          </Row>
-        ))}
+        {buckets
+          .take(maxBucketCountToDisplay)
+          .map(this.renderBucket)}
         {this.renderShowMore()}
       </AggregationBox>
     );
@@ -120,6 +129,7 @@ CheckboxAggregation.propTypes = {
   onChange: PropTypes.func.isRequired,
   buckets: PropTypes.instanceOf(Immutable.List).isRequired,
   name: PropTypes.string.isRequired,
+  splitDisplayName: PropTypes.bool,
   // eslint-disable-next-line react/no-unused-prop-types
   selections: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
@@ -129,6 +139,7 @@ CheckboxAggregation.propTypes = {
 
 CheckboxAggregation.defaultProps = {
   selections: null,
+  splitDisplayName: false,
 };
 
 export default CheckboxAggregation;

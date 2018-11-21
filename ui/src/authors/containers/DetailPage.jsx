@@ -46,14 +46,14 @@ class DetailPage extends Component {
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
 
-    const nameValue = name.get('value');
+    const authorFacetName = metadata.get('facet_author_name');
     const authorLiteratureSearchQuery = {
-      author: [nameValue],
+      author: [authorFacetName],
     };
 
     const authorLiteratureFacetsQuery = {
       facet_name: 'hep-author-publication',
-      exclude_author_value: nameValue,
+      exclude_author_value: authorFacetName,
     };
 
     return (
