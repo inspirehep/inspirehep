@@ -10,18 +10,20 @@
     }
   ],
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "start": "craco start",
+    "build": "craco build",
     "test": "yarn lint && yarn test:unit && yarn test:ui && yarn test:size",
     "test:ui": "./run-ui-tests.sh",
-    "test:unit": "react-app-rewired test --env=jsdom",
+    "test:unit": "craco test",
     "test:size": "bundlesize",
     "eject": "react-scripts eject",
-    "lint": "eslint ./src --ext .js,.jsx",
+    "lint":
+      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc",
     "precommit": "pretty-quick --single-quote --staged"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
+    "@craco/craco": "^3.1.0",
     "@sentry/browser": "^4.3.0",
     "antd": "^3.4.1",
     "axios": "^0.18.0",
@@ -48,7 +50,7 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "react-scripts": "1.1.3",
+    "react-scripts": "2.0.3",
     "react-vis": "^1.9.2",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
@@ -57,31 +59,26 @@
     "yup": "^0.26.0"
   },
   "devDependencies": {
+    "@epegzz/sass-vars-loader": "^3.4.0",
     "axios-mock-adapter": "^1.15.0",
-    "babel-eslint": "8",
-    "babel-plugin-import": "^1.7.0",
+    "babel-plugin-import": "^1.11.0",
     "bundlesize": "^0.17.0",
+    "craco-less": "^1.2.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
-    "eslint": "^4.9.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.4.0",
     "husky": "^0.14.3",
     "jest-enzyme": "^6.0.0",
     "jest-localstorage-mock": "^2.2.0",
     "node-sass": "^4.9.0",
     "prettier": "1.12.1",
     "pretty-quick": "^1.6.0",
-    "react-app-rewire-less": "^2.1.2",
-    "react-app-rewire-sass-rule": "^1.0.2",
-    "react-app-rewired": "^1.5.2",
+    "react-app-rewire-sass-rule": "^2.1.1",
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
-    "redux-mock-store": "^1.5.1",
-    "sass-loader": "^7.0.1"
-  }
+    "redux-mock-store": "^1.5.1"
+  },
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }
