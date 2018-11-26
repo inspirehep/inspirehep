@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Modal } from 'antd';
 
-import InlineList from '../../common/components/InlineList';
+import InlineList from './InlineList';
 import AuthorLink from './AuthorLink';
-import SecondaryButton from '../../common/components/SecondaryButton';
+import SecondaryButton from './SecondaryButton';
 
 class AuthorList extends Component {
   constructor(props) {

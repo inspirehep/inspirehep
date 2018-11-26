@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
-import AggregationFilter from '../components/AggregationFilter';
+import AggregationFilter from './AggregationFilter';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
 

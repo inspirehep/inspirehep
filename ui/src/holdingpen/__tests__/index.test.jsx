@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { getStore } from '../../fixtures/store';
-import Holdingpen from '../';
+import Holdingpen from '..';
 import DashboardPage from '../containers/DashboardPage';
 import ExceptionsPage from '../containers/ExceptionsPage';
 import InspectPage from '../containers/InspectPage';

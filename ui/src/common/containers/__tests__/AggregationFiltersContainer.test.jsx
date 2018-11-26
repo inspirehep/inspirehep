@@ -5,7 +5,7 @@ import { fromJS } from 'immutable';
 import { getStoreWithState } from '../../../fixtures/store';
 import AggregationFiltersContainer, {
   dispatchToProps,
-} from '..//AggregationFiltersContainer';
+} from '../AggregationFiltersContainer';
 import * as search from '../../../actions/search';
 import AggregationFilters from '../../components/AggregationFilters';
 

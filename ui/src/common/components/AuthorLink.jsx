@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Tooltip } from 'antd';
 
+import ExternalLink from './ExternalLink';
+
 class AuthorLink extends Component {
   getAuthorHref() {
     const { author, recordId } = this.props;
@@ -47,9 +49,9 @@ class AuthorLink extends Component {
       return (
         <span className="pl1">
           (
-          <a className="secondary-link" target="_blank" href={affiliationHref}>
+          <ExternalLink className="secondary-link" href={affiliationHref}>
             {affiliation}
-          </a>
+          </ExternalLink>
           )
         </span>
       );
@@ -62,9 +64,7 @@ class AuthorLink extends Component {
 
     return (
       <div className="di">
-        <a target="_blank" href={authorHref}>
-          {this.getFullName()}
-        </a>
+        <ExternalLink href={authorHref}>{this.getFullName()}</ExternalLink>
         {this.renderAffiliationLink()}
         {this.renderEditorSuffix()}
       </div>

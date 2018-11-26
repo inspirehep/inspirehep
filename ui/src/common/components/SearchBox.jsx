@@ -25,15 +25,17 @@ class SearchBox extends Component {
   }
 
   render() {
+    const { placeholder, onSearch } = this.props;
+    const { value } = this.state;
     return (
       <Input.Search
         style={{ verticalAlign: 'middle' }}
         addonBefore={<SearchScopeSelectContainer />}
-        placeholder={this.props.placeholder}
-        value={this.state.value}
+        placeholder={placeholder}
+        value={value}
         onChange={this.onChange}
         size="large"
-        onSearch={this.props.onSearch}
+        onSearch={onSearch}
         enterButton
       />
     );

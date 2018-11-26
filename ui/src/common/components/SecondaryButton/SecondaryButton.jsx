@@ -7,7 +7,7 @@ class SecondaryButton extends Component {
   render() {
     const { onClick, children } = this.props;
     return (
-      <button className="__SecondaryButton__" onClick={onClick}>
+      <button type="button" className="__SecondaryButton__" onClick={onClick}>
         {children}
       </button>
     );

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row, Tag } from 'antd';
-import ExceptionsTable from '../components/ExceptionsTable';
+import ExceptionsTable from './ExceptionsTable';
 import InlineList from '../../common/components/InlineList';
 import './ExceptionsDashboard.scss';
 
@@ -34,12 +34,15 @@ class ExceptionsDashboard extends Component {
   }
 
   render() {
+    const { countEntriesByCollection } = this.state;
+    const { loading, exceptions } = this.props;
+
     return (
       <div className="__ExceptionsDashboard__">
         <div className="collection-counts">
           <InlineList
             separateItems={false}
-            items={this.state.countEntriesByCollection}
+            items={countEntriesByCollection}
             label="Collections"
             renderItem={([collectionName, collectionCount]) => (
               <Tag className="space-around">
@@ -50,10 +53,7 @@ class ExceptionsDashboard extends Component {
         </div>
         <Row type="flex" justify="space-around">
           <Col span={20}>
-            <ExceptionsTable
-              exceptions={this.props.exceptions}
-              loading={this.props.loading}
-            />
+            <ExceptionsTable exceptions={exceptions} loading={loading} />
           </Col>
         </Row>
       </div>

@@ -9,6 +9,7 @@ import { userLogin } from '../../../actions/user';
 
 class LoginPage extends Component {
   render() {
+    const { onLoginClick } = this.props;
     return (
       <Row
         className="__LoginPage__ h-100"
@@ -18,7 +19,7 @@ class LoginPage extends Component {
       >
         <Card align="middle">
           <p className="f4">Please sign in to suggest content to INSPIRE</p>
-          <Button className="login-button h3" onClick={this.props.onLoginClick}>
+          <Button className="login-button h3" onClick={onLoginClick}>
             <img className="logo mr2" src={orcidLogo} alt="ORCID" />
             <strong>Login with ORCID</strong>
           </Button>

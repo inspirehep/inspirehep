@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 import { Modal } from 'antd';
 
 import AuthorList from '../AuthorList';
-import InlineList from '../../../common/components/InlineList';
+import InlineList from '../InlineList';
 
 describe('AuthorList', () => {
   it('renders only 5 authors and suffixes "show all" if passed more', () => {

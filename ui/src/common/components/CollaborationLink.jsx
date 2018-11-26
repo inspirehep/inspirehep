@@ -5,10 +5,14 @@ import { Link } from 'react-router-dom';
 import { LITERATURE } from '../routes';
 
 class CollaborationLink extends Component {
+  get collaboration() {
+    const { children } = this.props;
+    return children;
+  }
+
   render() {
-    const collaboration = this.props.children;
-    const link = `${LITERATURE}?q=collaboration:${collaboration}`;
-    return <Link to={link}>{collaboration}</Link>;
+    const link = `${LITERATURE}?q=collaboration:${this.collaboration}`;
+    return <Link to={link}>{this.collaboration}</Link>;
   }
 }
 

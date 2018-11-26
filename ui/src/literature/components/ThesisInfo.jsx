@@ -33,6 +33,7 @@ class ThesisInfo extends Component {
 
     return null;
   }
+
   render() {
     const { thesisInfo } = this.props;
 

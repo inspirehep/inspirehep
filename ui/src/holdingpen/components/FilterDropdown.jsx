@@ -11,7 +11,9 @@ class FilterDropdown extends Component {
   }
 
   focusInputIfPropFocusedSet(input) {
-    if (input != null && this.props.focused) {
+    const { focused } = this.props;
+
+    if (input != null && focused) {
       input.focus();
     }
   }

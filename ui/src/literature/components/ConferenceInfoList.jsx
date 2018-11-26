@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList from '../../common/components/InlineList';
+import ExternalLink from '../../common/components/ExternalLink';
 
 class ConferenceInfoList extends Component {
   static extractControlNumber(info) {
@@ -13,11 +14,7 @@ class ConferenceInfoList extends Component {
     const title = info.getIn(['titles', 0, 'title']);
     const controlNumber = ConferenceInfoList.extractControlNumber(info);
     const conferenceLink = `http://inspirehep.net/record/${controlNumber}`;
-    return (
-      <a target="_blank" href={conferenceLink}>
-        {title}
-      </a>
-    );
+    return <ExternalLink href={conferenceLink}>{title}</ExternalLink>;
   }
 
   render() {

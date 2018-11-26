@@ -4,7 +4,7 @@ import { Col, Row } from 'antd';
 
 class AggregationBox extends Component {
   render() {
-    const { name, headerAction } = this.props;
+    const { name, headerAction, children } = this.props;
     return (
       <div className="w-100 mb4 br1">
         <Row type="flex" justify="space-between">
@@ -13,7 +13,7 @@ class AggregationBox extends Component {
           </Col>
           <Col>{headerAction}</Col>
         </Row>
-        <Row className="w-100">{this.props.children}</Row>
+        <Row className="w-100">{children}</Row>
       </div>
     );
   }

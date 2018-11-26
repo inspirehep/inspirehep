@@ -10,6 +10,7 @@ class Abstract extends Component {
     const source = abstract.get('source');
     return source && <span> ({source})</span>;
   }
+
   render() {
     const { abstract } = this.props;
     return (

@@ -29,9 +29,12 @@ class ReferenceItem extends Component {
           <Latex>{title}</Latex>
         </Link>
       );
-    } else if (title) {
+    }
+
+    if (title) {
       return <div className="f5">{title}</div>;
     }
+
     return null;
   }
 

@@ -37,9 +37,9 @@ module.exports = {
       ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }],
     ],
   },
-  // eslint: {
-  //   mode: ESLINT_MODES.file
-  // },
+  eslint: {
+    mode: ESLINT_MODES.file,
+  },
   plugins: [
     makeOverrideWebpackPlugin(withCustomScssLoader),
     {

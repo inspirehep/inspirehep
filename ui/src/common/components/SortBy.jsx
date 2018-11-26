@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import SelectBox from '../components/SelectBox';
+import SelectBox from './SelectBox';
 
 const SORT_BY_OPTIONS = [
   {

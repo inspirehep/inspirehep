@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
 
-import AggregationFiltersContainer from './../../containers/AggregationFiltersContainer';
-import PaginationContainer from './../../containers/PaginationContainer';
-import SortByContainer from './../../containers/SortByContainer';
-import ResultsContainer from './../../containers/ResultsContainer';
+import AggregationFiltersContainer from '../../containers/AggregationFiltersContainer';
+import PaginationContainer from '../../containers/PaginationContainer';
+import SortByContainer from '../../containers/SortByContainer';
+import ResultsContainer from '../../containers/ResultsContainer';
 import NumberOfResultsContainer from '../../containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../components/LoadingOrChildren';
 import './SearchLayout.scss';

@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import Loadable from 'react-loadable';
 
 import { getStore } from '../../fixtures/store';
-import Literature from '../';
+import Literature from '..';
 import SearchPage from '../containers/SearchPage';
 import DetailPage from '../containers/DetailPage';
 

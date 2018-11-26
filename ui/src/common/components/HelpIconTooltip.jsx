@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 
 class HelpIconTooltip extends Component {
   render() {
+    const { help } = this.props;
     return (
-      <Tooltip title={this.props.help}>
+      <Tooltip title={help}>
         <Icon type="question-circle-o" />
       </Tooltip>
     );

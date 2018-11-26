@@ -12,8 +12,9 @@ import './InspectPage.scss';
 
 class InspectPage extends Component {
   componentDidMount() {
-    const workflowId = this.props.match.params.id;
-    this.props.dispatch(fetchInspect(workflowId));
+    const { match, dispatch } = this.props;
+    const workflowId = match.params.id;
+    dispatch(fetchInspect(workflowId));
   }
 
   render() {

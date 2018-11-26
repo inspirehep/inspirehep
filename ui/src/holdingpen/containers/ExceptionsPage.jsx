@@ -8,16 +8,13 @@ import ExceptionsDashboard from '../components/ExceptionsDashboard';
 
 class ExceptionsPage extends Component {
   componentDidMount() {
-    this.props.dispatch(fetchExceptions());
+    const { dispatch } = this.props;
+    dispatch(fetchExceptions());
   }
 
   render() {
-    return (
-      <ExceptionsDashboard
-        exceptions={this.props.exceptions}
-        loading={this.props.loading}
-      />
-    );
+    const { exceptions, loading } = this.props;
+    return <ExceptionsDashboard exceptions={exceptions} loading={loading} />;
   }
 }
 

@@ -41,13 +41,14 @@ class CheckboxAggregation extends Component {
 
   onSelectionChange(key, selected) {
     let { selectionMap } = this.state;
+    const { onChange } = this.props;
     selectionMap = selectionMap.set(key, selected);
     this.setState({ selectionMap });
     const selections = selectionMap
       .keySeq()
       .filter(bucketKey => selectionMap.get(bucketKey))
       .toArray();
-    this.props.onChange(selections);
+    onChange(selections);
   }
 
   onShowMoreClick() {
@@ -76,9 +77,10 @@ class CheckboxAggregation extends Component {
 
   render() {
     const { maxBucketCountToDisplay, selectionMap } = this.state;
+    const { buckets, name } = this.props;
     return (
-      <AggregationBox name={this.props.name}>
-        {this.props.buckets.take(maxBucketCountToDisplay).map(bucket => (
+      <AggregationBox name={name}>
+        {buckets.take(maxBucketCountToDisplay).map(bucket => (
           <Row
             className="mb2"
             type="flex"

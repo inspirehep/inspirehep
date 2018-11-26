@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import ExternalLink from '../../common/components/ExternalLink';
 
 class ArxivEprintLink extends Component {
+  get arxivId() {
+    const { children } = this.props;
+    return children;
+  }
+
   render() {
-    const arxivId = this.props.children;
-    const href = `//arxiv.org/abs/${arxivId}`;
-    return (
-      <a target="_blank" href={href}>
-        {arxivId}
-      </a>
-    );
+    const href = `//arxiv.org/abs/${this.arxivId}`;
+    return <ExternalLink href={href}>{this.arxivId}</ExternalLink>;
   }
 }
 
