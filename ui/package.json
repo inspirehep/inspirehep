@@ -18,7 +18,7 @@
     "test:size": "bundlesize",
     "eject": "react-scripts eject",
     "lint":
-      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc",
+      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --fix --config .eslintrc",
     "precommit": "pretty-quick --single-quote --staged"
   },
   "dependencies": {
@@ -67,8 +67,8 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.3",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "^2.9.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.3.0",
     "husky": "^0.14.3",
     "jest-enzyme": "^6.0.0",
     "jest-localstorage-mock": "^2.2.0",

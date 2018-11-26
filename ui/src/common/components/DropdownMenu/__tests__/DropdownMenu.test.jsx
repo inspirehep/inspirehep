@@ -14,7 +14,7 @@ describe('DropdownMenu', () => {
         display: 'Non Router Link',
         href: '/non-router-link',
       },
-      <button key="Custom" click={() => {}}>
+      <button type="button" key="Custom" click={() => {}}>
         Custom
       </button>,
       {
@@ -37,7 +37,7 @@ describe('DropdownMenu', () => {
         display: 'Non Router Link',
         href: '/non-router-link',
       },
-      <button key="Custom" click={() => {}}>
+      <button type="button" key="Custom" click={() => {}}>
         Custom
       </button>,
       {

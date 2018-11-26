@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
+
 import InlineList from '../../common/components/InlineList';
+import ExternalLink from '../../common/components/ExternalLink';
 
 class URLList extends Component {
   static renderURLItem(url) {
     return (
-      <a target="_blank" href={url.get('value')}>
-        {url.get('value')}
-      </a>
+      <ExternalLink href={url.get('value')}>{url.get('value')}</ExternalLink>
     );
   }
 

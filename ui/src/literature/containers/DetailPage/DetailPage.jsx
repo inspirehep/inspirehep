@@ -42,18 +42,22 @@ class DetailPage extends Component {
 
   componentDidUpdate(prevProps) {
     const prevRecordId = prevProps.match.params.id;
-    const recordId = this.props.match.params.id;
-    if (recordId !== prevRecordId) {
+    if (this.recordId !== prevRecordId) {
       this.dispatchFetchActions();
       window.scrollTo(0, 0);
     }
   }
 
+  get recordId() {
+    const { match } = this.props;
+    return match.params.id;
+  }
+
   dispatchFetchActions() {
-    const recordId = this.props.match.params.id;
-    this.props.dispatch(fetchLiterature(recordId));
-    this.props.dispatch(fetchLiteratureReferences(recordId));
-    this.props.dispatch(fetchLiteratureAuthors(recordId));
+    const { dispatch } = this.props;
+    dispatch(fetchLiterature(this.recordId));
+    dispatch(fetchLiteratureReferences(this.recordId));
+    dispatch(fetchLiteratureAuthors(this.recordId));
   }
 
   render() {
@@ -65,9 +69,10 @@ class DetailPage extends Component {
       supervisors,
       citationCount,
       loadingCitations,
+      record,
+      loading,
     } = this.props;
 
-    const { record } = this.props;
     const metadata = record.get('metadata');
     if (!metadata) {
       return null;
@@ -102,7 +107,7 @@ class DetailPage extends Component {
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
           <ContentBox
-            loading={this.props.loading}
+            loading={loading}
             leftActions={
               <Fragment>
                 {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}

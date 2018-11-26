@@ -5,10 +5,8 @@ import Loading from './Loading';
 
 class LoadingOrChildren extends Component {
   render() {
-    if (this.props.loading) {
-      return <Loading />;
-    }
-    return this.props.children;
+    const { children, loading } = this.props;
+    return loading ? <Loading /> : children;
   }
 }
 

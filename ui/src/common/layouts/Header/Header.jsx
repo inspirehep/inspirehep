@@ -5,13 +5,13 @@ import { Layout, Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
-import SearchBoxContainer from './../../containers/SearchBoxContainer';
+import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import DropdownMenu from '../../components/DropdownMenu';
 import './Header.scss';
 import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 import { isCataloger } from '../../authorization';
-import LogoContainer from '../../../common/containers/LogoContainer';
+import LogoContainer from '../../containers/LogoContainer';
 import { SUBMISSIONS_AUTHOR, SUBMISSIONS } from '../../routes';
 
 const UNAUTHORIZED_TOOL_LINKS = [
@@ -48,6 +48,7 @@ class Header extends Component {
   }
 
   render() {
+    const { shouldDisplaySearchBox } = this.props;
     return (
       <Layout.Header className="__Header__">
         <Row type="flex" align="middle" gutter={16}>
@@ -55,7 +56,7 @@ class Header extends Component {
             <LogoContainer src={logo} />
           </Col>
           <Col lg={12} xl={13} xxl={14}>
-            {this.props.shouldDisplaySearchBox && <SearchBoxContainer />}
+            {shouldDisplaySearchBox && <SearchBoxContainer />}
           </Col>
           <Col lg={8} xl={6} xxl={5}>
             <Row type="flex" justify="end">

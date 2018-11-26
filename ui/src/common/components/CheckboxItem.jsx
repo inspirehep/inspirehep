@@ -7,27 +7,28 @@ class CheckboxItem extends Component {
     super(props);
     this.onChange = this.onChange.bind(this);
     // TODO: maybe move to deriveStateFromProps?
+    const { checked } = this.props;
     this.state = {
-      checked: this.props.checked,
+      checked,
     };
   }
 
   onChange(event) {
     const { checked } = event.target;
+    const { onChange } = this.props;
     this.setState({ checked });
 
-    if (this.props.onChange) {
-      this.props.onChange(checked);
+    if (onChange) {
+      onChange(checked);
     }
   }
 
   render() {
+    const { checked } = this.state;
+    const { children } = this.props;
     return (
-      <Checkbox
-        onChange={this.onChange}
-        checked={this.state.checked}
-      >
-        {this.props.children}
+      <Checkbox onChange={this.onChange} checked={checked}>
+        {children}
       </Checkbox>
     );
   }

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { Formik } from 'formik';
 
-import AuthorForm from '../components/AuthorForm';
+import AuthorForm from './AuthorForm';
 import authorSchema from '../schemas/author';
 import cleanupFormData from '../cleanupFormData';
 import toJS from '../../common/immutableToJS';
+import ExternalLink from '../../common/components/ExternalLink';
 
 const DEFAULT_FORM_DATA = authorSchema.cast();
 
@@ -31,13 +32,9 @@ class AuthorSubmission extends Component {
           <div className="mb3 pa3 bg-white">
             This form allows you to add new author information. All
             modifications are transferred to{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="//inspirehep.net/hepnames"
-            >
+            <ExternalLink href="//inspirehep.net/hepnames">
               inspirehep.net/hepnames
-            </a>{' '}
+            </ExternalLink>{' '}
             upon approval.
           </div>
           {error && (

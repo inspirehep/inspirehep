@@ -5,11 +5,16 @@ import { Map } from 'immutable';
 class PublicationInfo extends Component {
   getPageOrArtidDisplay() {
     const { info } = this.props;
+
     if (info.has('page_start') && info.has('page_end')) {
       return `${info.get('page_start')}-${info.get('page_end')}`;
-    } else if (info.has('page_start')) {
+    }
+
+    if (info.has('page_start')) {
       return info.get('page_start');
-    } else if (info.has('artid')) {
+    }
+
+    if (info.has('artid')) {
       return info.get('artid');
     }
     return null;
@@ -34,9 +39,12 @@ class PublicationInfo extends Component {
           {material && material !== 'publication' && <span> ({material})</span>}
         </span>
       );
-    } else if (info.has('pubinfo_freetext')) {
+    }
+
+    if (info.has('pubinfo_freetext')) {
       return <span>{info.get('pubinfo_freetext')}</span>;
     }
+
     return null;
   }
 }

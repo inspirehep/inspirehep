@@ -50,7 +50,8 @@ class LocalLoginPage extends Component {
   }
 
   onLoginFormSubmit(credentials) {
-    this.props.dispatch(userLocalLogin(credentials));
+    const { dispatch } = this.props;
+    dispatch(userLocalLogin(credentials));
   }
 
   render() {

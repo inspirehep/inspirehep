@@ -25,27 +25,28 @@ class AuthorUpdateSubmissionPage extends Component {
   }
 
   componentDidMount() {
-    const recordId = this.getRecordId();
-    this.props.dispatch(fetchAuthorUpdateFormData(recordId));
+    this.dispatch(fetchAuthorUpdateFormData(this.recordId));
   }
 
   componentDidUpdate(prevProps) {
     const prevRecordId = AuthorUpdateSubmissionPage.getRecordIdFromProps(
       prevProps
     );
-    const recordId = this.getRecordId();
-    if (recordId !== prevRecordId) {
-      this.props.dispatch(fetchAuthorUpdateFormData(recordId));
+    if (this.recordId !== prevRecordId) {
+      this.dispatch(fetchAuthorUpdateFormData(this.recordId));
     }
   }
 
   async onSubmit(formData) {
-    // TODO: submit update!
-    const recordId = this.getRecordId();
-    await this.props.dispatch(submitAuthorUpdate(formData, recordId));
+    await this.dispatch(submitAuthorUpdate(formData, this.recordId));
   }
 
-  getRecordId() {
+  get dispatch() {
+    const { dispatch } = this.props;
+    return dispatch;
+  }
+
+  get recordId() {
     return AuthorUpdateSubmissionPage.getRecordIdFromProps(this.props);
   }
 

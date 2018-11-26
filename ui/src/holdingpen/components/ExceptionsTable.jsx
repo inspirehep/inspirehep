@@ -111,7 +111,15 @@ class ExceptionsTable extends Component {
   }
 
   render() {
-    const { collectionColumnFilters } = this.state;
+    const {
+      collectionColumnFilters,
+      isErrorFilterFocused,
+      isErrorFilterDropdownVisible,
+      isRecidFilterFocused,
+      isRecidFilterDropdownVisible,
+      filteredExceptions,
+    } = this.state;
+    const { loading } = this.props;
 
     const columns = [
       {
@@ -127,11 +135,11 @@ class ExceptionsTable extends Component {
           <FilterDropdown
             placeholder="Search error"
             onSearch={this.onErrorSearch}
-            focused={this.state.isErrorFilterFocused}
+            focused={isErrorFilterFocused}
           />
         ),
         filterIcon: <Icon type="search" />,
-        filterDropdownVisible: this.state.isErrorFilterDropdownVisible,
+        filterDropdownVisible: isErrorFilterDropdownVisible,
         onFilterDropdownVisibleChange: this.onErrorFilterDropdownVisibleChange,
         width: '70%',
         render: text => text.split('\n', 1)[0],
@@ -143,11 +151,11 @@ class ExceptionsTable extends Component {
           <FilterDropdown
             placeholder="Go to recid"
             onSearch={this.onRecidSearch}
-            focused={this.state.isRecidFilterFocused}
+            focused={isRecidFilterFocused}
           />
         ),
         filterIcon: <Icon type="search" />,
-        filterDropdownVisible: this.state.isRecidFilterDropdownVisible,
+        filterDropdownVisible: isRecidFilterDropdownVisible,
         onFilterDropdownVisibleChange: this.onRecidFilterDropdownVisibleChange,
         render: text => {
           const recordLink = `http://inspirehep.net/record/${text}/edit`;
@@ -160,14 +168,14 @@ class ExceptionsTable extends Component {
       <Table
         className="__ExceptionsTable__"
         columns={columns}
-        dataSource={this.state.filteredExceptions}
+        dataSource={filteredExceptions}
         rowKey="recid"
         rowClassName="exceptions-table-row"
         pagination={{ pageSize: 25 }}
         onChange={this.onSelectedCollectionsChange}
         expandedRowRender={record => <pre>{record.error}</pre>}
         bordered
-        loading={this.props.loading}
+        loading={loading}
       />
     );
   }

@@ -217,10 +217,11 @@ class RangeAggregation extends Component {
     this.prevNearestBar = null;
   }
 
-  onAfterChange(endpoints = this.state.endpoints) {
+  onAfterChange({ endpoints } = this.state) {
     const rangeSelectionString =
       endpoints.join(SELECTION_SEPARATOR) || undefined;
-    this.props.onChange(rangeSelectionString);
+    const { onChange } = this.props;
+    onChange(rangeSelectionString);
   }
 
   renderResetButton() {

@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Set } from 'immutable';
+
 import { isCataloger } from '../authorization';
-import ListItemAction from '../../common/components/ListItemAction';
+import ListItemAction from '../components/ListItemAction';
 
 class EditRecordActionContainer extends Component {
   render() {

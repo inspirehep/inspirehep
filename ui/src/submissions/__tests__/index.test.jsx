@@ -5,7 +5,7 @@ import { shallow, mount } from 'enzyme';
 import Loadable from 'react-loadable';
 
 import { getStore } from '../../fixtures/store';
-import Submissions from '../';
+import Submissions from '..';
 import AuthorSubmissionPage from '../containers/AuthorSubmissionPage';
 import SubmissionSuccessPage from '../components/SubmissionSuccessPage';
 import AuthorUpdateSubmissionPage from '../containers/AuthorUpdateSubmissionPage';

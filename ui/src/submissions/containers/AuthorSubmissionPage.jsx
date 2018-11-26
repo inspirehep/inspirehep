@@ -14,7 +14,8 @@ class AuthorSubmissionPage extends Component {
   }
 
   async onSubmit(formData) {
-    await this.props.dispatch(submitAuthor(formData));
+    const { dispatch } = this.props;
+    await dispatch(submitAuthor(formData));
   }
 
   render() {

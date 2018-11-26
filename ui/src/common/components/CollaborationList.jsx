@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import CollaborationLink from './CollaborationLink';
-import InlineList from '../../common/components/InlineList';
+import InlineList from './InlineList';
 
 class CollaborationList extends Component {
   static renderCollaboration(collaboration) {

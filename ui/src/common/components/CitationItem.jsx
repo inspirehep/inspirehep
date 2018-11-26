@@ -5,7 +5,7 @@ import { List } from 'antd';
 import { Link } from 'react-router-dom';
 
 import AuthorsAndCollaborations from './AuthorsAndCollaborations';
-import Latex from '../../common/components/Latex';
+import Latex from './Latex';
 import PublicationInfoList from './PublicationInfoList';
 import { LITERATURE } from '../routes';
 

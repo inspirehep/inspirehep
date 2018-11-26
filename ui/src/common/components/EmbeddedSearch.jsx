@@ -53,11 +53,12 @@ class EmbeddedSearch extends Component {
 
   // eslint-disable-next-line react/sort-comp
   async updateQueryStateAndSearch(partialQuery) {
-    const query = {
-      ...this.state.query,
+    const { query } = this.state;
+    const newQuery = {
+      ...query,
       ...partialQuery,
     };
-    await this.setState({ query });
+    await this.setState({ query: newQuery });
     this.searchForCurrentQueryState();
   }
 

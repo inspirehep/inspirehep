@@ -18,8 +18,9 @@ class DetailPage extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    const { match } = this.props;
+    const recordId = match.params.id;
     const prevRecordId = prevProps.match.params.id;
-    const recordId = this.props.match.params.id;
     if (recordId !== prevRecordId) {
       this.dispatchFetchAuthor();
       window.scrollTo(0, 0);
@@ -27,8 +28,9 @@ class DetailPage extends Component {
   }
 
   dispatchFetchAuthor() {
-    const recordId = this.props.match.params.id;
-    this.props.dispatch(fetchAuthor(recordId));
+    const { match, dispatch } = this.props;
+    const recordId = match.params.id;
+    dispatch(fetchAuthor(recordId));
   }
 
   render() {
