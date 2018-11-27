@@ -6,7 +6,6 @@ import { ConnectedRouter } from 'react-router-redux';
 import 'tachyons';
 import * as Sentry from '@sentry/browser';
 
-import registerServiceWorker from './registerServiceWorker';
 import { store, history } from './store';
 import App from './App';
 import './theme.less';
@@ -32,4 +31,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-registerServiceWorker();
+// TODO: change to CRA 2.0 service worker script and enable
+// registerServiceWorker();
