@@ -27,11 +27,11 @@ exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -43,11 +43,11 @@ exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -85,9 +85,8 @@ exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;
@@ -119,11 +118,11 @@ exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -135,11 +134,11 @@ exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -177,9 +176,8 @@ exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;
@@ -211,11 +209,11 @@ exports[`ExceptionsTable renders filtered results on error search 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -227,11 +225,11 @@ exports[`ExceptionsTable renders filtered results on error search 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -264,9 +262,8 @@ exports[`ExceptionsTable renders filtered results on error search 1`] = `
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;
@@ -298,11 +295,11 @@ exports[`ExceptionsTable renders no results on error search if nothing matches 1
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -314,11 +311,11 @@ exports[`ExceptionsTable renders no results on error search if nothing matches 1
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -338,9 +335,8 @@ exports[`ExceptionsTable renders no results on error search if nothing matches 1
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;
@@ -372,11 +368,11 @@ exports[`ExceptionsTable renders no results on recid search if there is no exact
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -388,11 +384,11 @@ exports[`ExceptionsTable renders no results on recid search if there is no exact
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -412,9 +408,8 @@ exports[`ExceptionsTable renders no results on recid search if there is no exact
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;
@@ -446,11 +441,11 @@ exports[`ExceptionsTable renders single exception on recid search if there is ex
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -462,11 +457,11 @@ exports[`ExceptionsTable renders single exception on recid search if there is ex
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -494,9 +489,8 @@ exports[`ExceptionsTable renders single exception on recid search if there is ex
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;
@@ -519,11 +513,11 @@ exports[`ExceptionsTable renders when loading is true 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -535,11 +529,11 @@ exports[`ExceptionsTable renders when loading is true 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -559,9 +553,8 @@ exports[`ExceptionsTable renders when loading is true 1`] = `
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;
@@ -593,11 +586,11 @@ exports[`ExceptionsTable renders with exceptions 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Search error"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Error",
@@ -609,11 +602,11 @@ exports[`ExceptionsTable renders with exceptions 1`] = `
           focused={false}
           onSearch={[Function]}
           placeholder="Go to recid"
-    />,
+        />,
         "filterDropdownVisible": false,
         "filterIcon": <Icon
           type="search"
-    />,
+        />,
         "onFilterDropdownVisibleChange": [Function],
         "render": [Function],
         "title": "Record",
@@ -651,9 +644,8 @@ exports[`ExceptionsTable renders with exceptions 1`] = `
   prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
-  rowSelection={null}
   showHeader={true}
-  size="large"
+  size="default"
   useFixedHeader={false}
 />
 `;

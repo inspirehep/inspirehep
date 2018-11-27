@@ -7,11 +7,18 @@ import './ExceptionsTable.scss';
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { exceptions } = nextProps;
+    const { prevExceptions } = prevState;
+
+    if (exceptions === prevExceptions) {
+      return prevState;
+    }
+
     const collectionColumnFilters = ExceptionsTable.getCollectionColumnFilters(
       exceptions
     );
     return {
       ...prevState,
+      prevExceptions: exceptions,
       filteredExceptions: exceptions,
       collectionColumnFilters,
     };

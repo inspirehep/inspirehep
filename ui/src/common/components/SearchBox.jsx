@@ -7,10 +7,15 @@ import SearchScopeSelectContainer from '../containers/SearchScopeSelectContainer
 class SearchBox extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { value } = nextProps;
-    return {
-      ...prevState,
-      value,
-    };
+    const { previousValue } = prevState;
+    if (value !== previousValue) {
+      return {
+        ...prevState,
+        previousValue: value,
+        draftValue: value,
+      };
+    }
+    return prevState;
   }
 
   constructor(props) {
@@ -21,18 +26,18 @@ class SearchBox extends Component {
 
   onChange(event) {
     const { value } = event.target;
-    this.setState({ value });
+    this.setState({ draftValue: value });
   }
 
   render() {
     const { placeholder, onSearch } = this.props;
-    const { value } = this.state;
+    const { draftValue } = this.state;
     return (
       <Input.Search
         style={{ verticalAlign: 'middle' }}
         addonBefore={<SearchScopeSelectContainer />}
         placeholder={placeholder}
-        value={value}
+        value={draftValue}
         onChange={this.onChange}
         size="large"
         onSearch={onSearch}

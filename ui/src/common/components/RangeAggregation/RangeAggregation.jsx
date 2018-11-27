@@ -21,6 +21,14 @@ const SELECTION_SEPARATOR = '--';
 
 class RangeAggregation extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
+    const { selections } = nextProps;
+    const { prevSelections } = prevState;
+
+    // getDerivedStateFromProps called when state is changed too after v16.4
+    if (selections === prevSelections) {
+      return prevState;
+    }
+
     const prevBuckets = prevState.buckets;
     const nextBuckets = nextProps.buckets;
     const selectionsAsString =
@@ -61,6 +69,7 @@ class RangeAggregation extends Component {
 
     return {
       ...prevState,
+      prevSelections: selections,
       buckets: nextBuckets,
       endpoints,
       min,
@@ -200,9 +209,10 @@ class RangeAggregation extends Component {
   }
 
   onResetClick() {
-    const endpoints = [];
-    this.setState({ endpoints });
-    this.onAfterChange(endpoints);
+    const { min, max } = this.state;
+    this.onSliderChange([min, max]);
+    const { onChange } = this.props;
+    onChange(undefined);
   }
 
   onSliderChange(endpoints) {
@@ -217,9 +227,9 @@ class RangeAggregation extends Component {
     this.prevNearestBar = null;
   }
 
-  onAfterChange({ endpoints } = this.state) {
-    const rangeSelectionString =
-      endpoints.join(SELECTION_SEPARATOR) || undefined;
+  // eslint-disable-next-line react/destructuring-assignment
+  onAfterChange(endpoints = this.state.endpoints) {
+    const rangeSelectionString = endpoints.join(SELECTION_SEPARATOR);
     const { onChange } = this.props;
     onChange(rangeSelectionString);
   }

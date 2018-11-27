@@ -360,7 +360,7 @@ describe('RangeAggregation', () => {
   });
 
   describe('onResetClick', () => {
-    it('clears endpoints and call onChange with empty', () => {
+    it('clears endpoints by setting [min, max] and call onChange with empty', () => {
       const onChange = jest.fn();
       const wrapper = shallow(
         <RangeAggregation
@@ -372,7 +372,8 @@ describe('RangeAggregation', () => {
       );
       wrapper.instance().onResetClick();
       wrapper.update();
-      expect(wrapper.state('endpoints')).toEqual([]);
+      const { min, max, endpoints } = wrapper.state();
+      expect(endpoints).toEqual([min, max]);
       expect(onChange).toHaveBeenCalledWith(undefined);
     });
   });

@@ -12,9 +12,16 @@ const BUCKET_CHUNK_SIZE = 10;
 
 class CheckboxAggregation extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
+    const { selections } = nextProps;
+    const { prevSelections } = prevState;
+
+    if (selections === prevSelections) {
+      return prevState;
+    }
+
     let selectionMap;
-    if (nextProps.selections) {
-      const selectionsAsArray = forceArray(nextProps.selections);
+    if (selections) {
+      const selectionsAsArray = forceArray(selections);
       selectionMap = selectionsAsArray.reduce(
         (map, key) => map.set(key, true),
         Immutable.Map()
@@ -25,6 +32,7 @@ class CheckboxAggregation extends Component {
 
     return {
       ...prevState,
+      prevSelections: selections,
       selectionMap,
     };
   }
