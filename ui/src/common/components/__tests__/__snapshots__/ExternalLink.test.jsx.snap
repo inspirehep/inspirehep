@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExternalLink renders with only href and children 1`] = `
+<a
+  href="//example.com"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  example
+</a>
+`;
+
+exports[`ExternalLink renders with only href, children and extra props 1`] = `
+<a
+  className="test"
+  href="//example.com"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  example
+</a>
+`;
