@@ -10,7 +10,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
     <AuthorName
       name={
         Immutable.Map {
-          value: "Urhan, Harun",
+          "value": "Urhan, Harun",
         }
       }
     />
@@ -36,7 +36,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
       experiments={
         Immutable.List [
           Immutable.Map {
-            name: "CERN-LHC-CMS",
+            "name": "CERN-LHC-CMS",
           },
         ]
       }
@@ -55,7 +55,7 @@ exports[`AuthorResultItem renders with only name 1`] = `
     <AuthorName
       name={
         Immutable.Map {
-          value: "Urhan, Harun",
+          "value": "Urhan, Harun",
         }
       }
     />

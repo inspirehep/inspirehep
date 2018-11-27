@@ -4,7 +4,7 @@ exports[`SearchPagination renders with all props set 1`] = `
 <Pagination
   current={2}
   hideOnSinglePage={true}
-  onChange={[Function]}
+  onChange={[MockFunction]}
   pageSize={10}
   prefixCls="ant-pagination"
   selectPrefixCls="ant-select"
@@ -21,7 +21,7 @@ exports[`SearchPagination renders with only required props set 1`] = `
 <Pagination
   current={1}
   hideOnSinglePage={true}
-  onChange={[Function]}
+  onChange={[MockFunction]}
   pageSize={25}
   prefixCls="ant-pagination"
   selectPrefixCls="ant-select"

@@ -8,6 +8,7 @@ exports[`DropdownMenu renders links with titleClassName 1`] = `
     overlay={
       <Menu
         className=""
+        focusable={false}
         prefixCls="ant-menu"
         theme="light"
       >
@@ -22,7 +23,6 @@ exports[`DropdownMenu renders links with titleClassName 1`] = `
         <MenuItem>
           <a
             href="/non-router-link"
-            target={undefined}
           >
             Non Router Link
           </a>
@@ -30,6 +30,7 @@ exports[`DropdownMenu renders links with titleClassName 1`] = `
         <MenuItem>
           <button
             click={[Function]}
+            type="button"
           >
             Custom
           </button>
@@ -68,6 +69,7 @@ exports[`DropdownMenu renders links without titleClassName 1`] = `
     overlay={
       <Menu
         className=""
+        focusable={false}
         prefixCls="ant-menu"
         theme="light"
       >
@@ -82,7 +84,6 @@ exports[`DropdownMenu renders links without titleClassName 1`] = `
         <MenuItem>
           <a
             href="/non-router-link"
-            target={undefined}
           >
             Non Router Link
           </a>
@@ -90,6 +91,7 @@ exports[`DropdownMenu renders links without titleClassName 1`] = `
         <MenuItem>
           <button
             click={[Function]}
+            type="button"
           >
             Custom
           </button>

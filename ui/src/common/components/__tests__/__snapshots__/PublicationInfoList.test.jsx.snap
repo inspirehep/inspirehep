@@ -17,7 +17,7 @@ exports[`PublicationInfoList renders with publicationInfo 1`] = `
       <PublicationInfo
         info={
           Immutable.Map {
-            journal_title: "Test Journal",
+            "journal_title": "Test Journal",
           }
         }
       />
@@ -32,7 +32,7 @@ exports[`PublicationInfoList renders with wrapperClassName 1`] = `
   items={
     Immutable.List [
       Immutable.Map {
-        journal_title: "Test Journal",
+        "journal_title": "Test Journal",
       },
     ]
   }
@@ -51,7 +51,7 @@ exports[`PublicationInfoList renders without label if labeled false 1`] = `
   items={
     Immutable.List [
       Immutable.Map {
-        journal_title: "Test Journal",
+        "journal_title": "Test Journal",
       },
     ]
   }

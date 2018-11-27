@@ -51,7 +51,7 @@ exports[`SearchLayout renders with initial state 1`] = `
           span={24}
         >
           <Connect(SearchResults)
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
           />
           <Connect(SearchPagination) />
         </Col>
@@ -112,7 +112,7 @@ exports[`SearchLayout renders with loading states true 1`] = `
           span={24}
         >
           <Connect(SearchResults)
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
           />
           <Connect(SearchPagination) />
         </Col>
@@ -165,7 +165,7 @@ exports[`SearchLayout renders without aggregations and sort 1`] = `
           span={24}
         >
           <Connect(SearchResults)
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
           />
           <Connect(SearchPagination) />
         </Col>

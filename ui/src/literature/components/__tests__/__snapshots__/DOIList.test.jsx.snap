@@ -44,7 +44,7 @@ exports[`DOIList renders with wrapperClassName 1`] = `
   items={
     Immutable.List [
       Immutable.Map {
-        value: "12.1234/1234567890123_1234",
+        "value": "12.1234/1234567890123_1234",
       },
     ]
   }

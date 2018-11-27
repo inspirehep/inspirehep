@@ -4,12 +4,11 @@ exports[`AuthorLink renders first_name and last_name 1`] = `
 <div
   className="di"
 >
-  <a
+  <ExternalLink
     href="//inspirehep.net/author/profile/Name, Full?recid=12345"
-    target="_blank"
   >
     Full Name
-  </a>
+  </ExternalLink>
 </div>
 `;
 
@@ -17,23 +16,21 @@ exports[`AuthorLink renders first_name and last_name of editor 1`] = `
 <div
   className="di"
 >
-  <a
+  <ExternalLink
     href="//inspirehep.net/author/profile/Name, Full?recid=12345"
-    target="_blank"
   >
     Full Name
-  </a>
+  </ExternalLink>
   <span
     className="pl1"
   >
     (
-    <a
+    <ExternalLink
       className="secondary-link"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-      target="_blank"
     >
       Affiliation
-    </a>
+    </ExternalLink>
     )
   </span>
   <Tooltip
@@ -55,23 +52,21 @@ exports[`AuthorLink renders first_name and last_name with affiliations 1`] = `
 <div
   className="di"
 >
-  <a
+  <ExternalLink
     href="//inspirehep.net/author/profile/Name, Full?recid=12345"
-    target="_blank"
   >
     Full Name
-  </a>
+  </ExternalLink>
   <span
     className="pl1"
   >
     (
-    <a
+    <ExternalLink
       className="secondary-link"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-      target="_blank"
     >
       Affiliation
-    </a>
+    </ExternalLink>
     )
   </span>
 </div>
@@ -81,23 +76,21 @@ exports[`AuthorLink renders first_name with last_name missing 1`] = `
 <div
   className="di"
 >
-  <a
+  <ExternalLink
     href="//inspirehep.net/author/profile/Name Full"
-    target="_blank"
   >
     Name Full 
-  </a>
+  </ExternalLink>
   <span
     className="pl1"
   >
     (
-    <a
+    <ExternalLink
       className="secondary-link"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-      target="_blank"
     >
       Affiliation
-    </a>
+    </ExternalLink>
     )
   </span>
 </div>
@@ -107,23 +100,21 @@ exports[`AuthorLink renders full_name if first_name and last_name missing 1`] = 
 <div
   className="di"
 >
-  <a
+  <ExternalLink
     href="//inspirehep.net/author/profile/Name Full"
-    target="_blank"
   >
     Name Full
-  </a>
+  </ExternalLink>
   <span
     className="pl1"
   >
     (
-    <a
+    <ExternalLink
       className="secondary-link"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-      target="_blank"
     >
       Affiliation
-    </a>
+    </ExternalLink>
     )
   </span>
 </div>
@@ -133,23 +124,21 @@ exports[`AuthorLink renders full_name with affiliations 1`] = `
 <div
   className="di"
 >
-  <a
+  <ExternalLink
     href="//inspirehep.net/author/profile/Name, Full?recid=12345"
-    target="_blank"
   >
     Name, Full
-  </a>
+  </ExternalLink>
   <span
     className="pl1"
   >
     (
-    <a
+    <ExternalLink
       className="secondary-link"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-      target="_blank"
     >
       Affiliation
-    </a>
+    </ExternalLink>
     )
   </span>
 </div>
@@ -159,23 +148,21 @@ exports[`AuthorLink renders full_name with first_name missing 1`] = `
 <div
   className="di"
 >
-  <a
+  <ExternalLink
     href="//inspirehep.net/author/profile/Name Full"
-    target="_blank"
   >
     Name Full
-  </a>
+  </ExternalLink>
   <span
     className="pl1"
   >
     (
-    <a
+    <ExternalLink
       className="secondary-link"
       href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-      target="_blank"
     >
       Affiliation
-    </a>
+    </ExternalLink>
     )
   </span>
 </div>

@@ -23,8 +23,7 @@ exports[`EmbeddedSearch renders with initial search results when base query prop
       <AggregationFilters
         aggregations={
           Immutable.Map {
-            agg1: Immutable.Map {
-            },
+            "agg1": Immutable.Map {},
           }
         }
         numberOfResults={1}
@@ -75,11 +74,11 @@ exports[`EmbeddedSearch renders with initial search results when base query prop
           span={24}
         >
           <SearchResults
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
             results={
               Immutable.List [
                 Immutable.Map {
-                  id: 1,
+                  "id": 1,
                 },
               ]
             }
@@ -110,10 +109,7 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
       loading={true}
     >
       <AggregationFilters
-        aggregations={
-          Immutable.Map {
-          }
-        }
+        aggregations={Immutable.Map {}}
         numberOfResults={0}
         onAggregationChange={[Function]}
         query={
@@ -162,11 +158,8 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
           span={24}
         >
           <SearchResults
-            renderItem={[Function]}
-            results={
-              Immutable.List [
-              ]
-            }
+            renderItem={[MockFunction]}
+            results={Immutable.List []}
           />
           <SearchPagination
             onPageChange={[Function]}
@@ -196,8 +189,7 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
       <AggregationFilters
         aggregations={
           Immutable.Map {
-            agg1: Immutable.Map {
-            },
+            "agg1": Immutable.Map {},
           }
         }
         numberOfResults={1}
@@ -248,11 +240,11 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
           span={24}
         >
           <SearchResults
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
             results={
               Immutable.List [
                 Immutable.Map {
-                  id: 1,
+                  "id": 1,
                 },
               ]
             }
@@ -285,8 +277,7 @@ exports[`EmbeddedSearch renders with new results after aggregation change 1`] = 
       <AggregationFilters
         aggregations={
           Immutable.Map {
-            agg2: Immutable.Map {
-            },
+            "agg2": Immutable.Map {},
           }
         }
         numberOfResults={1}
@@ -338,11 +329,11 @@ exports[`EmbeddedSearch renders with new results after aggregation change 1`] = 
           span={24}
         >
           <SearchResults
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
             results={
               Immutable.List [
                 Immutable.Map {
-                  id: 2,
+                  "id": 2,
                 },
               ]
             }
@@ -375,8 +366,7 @@ exports[`EmbeddedSearch renders with new results after page change 1`] = `
       <AggregationFilters
         aggregations={
           Immutable.Map {
-            agg2: Immutable.Map {
-            },
+            "agg2": Immutable.Map {},
           }
         }
         numberOfResults={1}
@@ -427,11 +417,11 @@ exports[`EmbeddedSearch renders with new results after page change 1`] = `
           span={24}
         >
           <SearchResults
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
             results={
               Immutable.List [
                 Immutable.Map {
-                  id: 2,
+                  "id": 2,
                 },
               ]
             }
@@ -464,8 +454,7 @@ exports[`EmbeddedSearch renders with new results after sort change 1`] = `
       <AggregationFilters
         aggregations={
           Immutable.Map {
-            agg2: Immutable.Map {
-            },
+            "agg2": Immutable.Map {},
           }
         }
         numberOfResults={1}
@@ -516,11 +505,11 @@ exports[`EmbeddedSearch renders with new results after sort change 1`] = `
           span={24}
         >
           <SearchResults
-            renderItem={[Function]}
+            renderItem={[MockFunction]}
             results={
               Immutable.List [
                 Immutable.Map {
-                  id: 2,
+                  "id": 2,
                 },
               ]
             }

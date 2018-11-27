@@ -5,7 +5,7 @@ exports[`FilterDropdown renders with all props set 1`] = `
   <Search
     enterButton={true}
     inputPrefixCls="ant-input"
-    onSearch={[Function]}
+    onSearch={[MockFunction]}
     placeholder="placeholder text"
     prefixCls="ant-input-search"
   />

@@ -12,8 +12,7 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
     <AggregationFilter
       buckets={
         Immutable.List [
-          Immutable.Map {
-          },
+          Immutable.Map {},
         ]
       }
       name="Aggregation 1"
@@ -35,8 +34,8 @@ exports[`AggregationFilters renders with all props set 1`] = `
       buckets={
         Immutable.List [
           Immutable.Map {
-            key: "foo",
-            doc_count: 1,
+            "key": "foo",
+            "doc_count": 1,
           },
         ]
       }
@@ -53,8 +52,8 @@ exports[`AggregationFilters renders with all props set 1`] = `
       buckets={
         Immutable.List [
           Immutable.Map {
-            key: "foo",
-            doc_count: 1,
+            "key": "foo",
+            "doc_count": 1,
           },
         ]
       }
@@ -77,12 +76,12 @@ exports[`AggregationFilters renders with range aggregation (earliest_date) 1`] =
       buckets={
         Immutable.List [
           Immutable.Map {
-            key: "2000",
-            doc_count: 1,
+            "key": "2000",
+            "doc_count": 1,
           },
           Immutable.Map {
-            key: "2001",
-            doc_count: 1,
+            "key": "2001",
+            "doc_count": 1,
           },
         ]
       }

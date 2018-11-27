@@ -3,17 +3,17 @@
 exports[`LiteratureItem does not arxiv pdf download action if there is no eprint value 1`] = `
 <ResultItem
   leftActions={
-    <Unknown>
+    <React.Fragment>
       <CiteModalAction
         recordId={12345}
       />
       <Connect(EditRecordActionContainer)
         recordId={12345}
       />
-    </Unknown>
+    </React.Fragment>
   }
   rightActions={
-    <Unknown>
+    <React.Fragment>
       <ListItemAction
         iconType="logout"
         link={
@@ -21,7 +21,6 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
             "to": "/literature/12345#references",
           }
         }
-        onClick={undefined}
         text="0 references"
       />
       <ListItemAction
@@ -31,10 +30,9 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
             "to": "/literature/12345#citations",
           }
         }
-        onClick={undefined}
         text="0 citations"
       />
-    </Unknown>
+    </React.Fragment>
   }
 >
   <Link
@@ -49,18 +47,9 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   >
     <div>
       <AuthorsAndCollaborations
-        authors={
-          Immutable.List [
-          ]
-        }
-        collaborations={
-          Immutable.List [
-          ]
-        }
-        collaborationsWithSuffix={
-          Immutable.List [
-          ]
-        }
+        authors={Immutable.List []}
+        collaborations={Immutable.List []}
+        collaborationsWithSuffix={Immutable.List []}
         enableAuthorsShowAll={false}
         recordId={12345}
       />
@@ -98,17 +87,17 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
 exports[`LiteratureItem renders 0 citations and 0 references if they do not exist 1`] = `
 <ResultItem
   leftActions={
-    <Unknown>
+    <React.Fragment>
       <CiteModalAction
         recordId={12345}
       />
       <Connect(EditRecordActionContainer)
         recordId={12345}
       />
-    </Unknown>
+    </React.Fragment>
   }
   rightActions={
-    <Unknown>
+    <React.Fragment>
       <ListItemAction
         iconType="logout"
         link={
@@ -116,7 +105,6 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
             "to": "/literature/12345#references",
           }
         }
-        onClick={undefined}
         text="0 references"
       />
       <ListItemAction
@@ -126,10 +114,9 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
             "to": "/literature/12345#citations",
           }
         }
-        onClick={undefined}
         text="0 citations"
       />
-    </Unknown>
+    </React.Fragment>
   }
 >
   <Link
@@ -144,18 +131,9 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
   >
     <div>
       <AuthorsAndCollaborations
-        authors={
-          Immutable.List [
-          ]
-        }
-        collaborations={
-          Immutable.List [
-          ]
-        }
-        collaborationsWithSuffix={
-          Immutable.List [
-          ]
-        }
+        authors={Immutable.List []}
+        collaborations={Immutable.List []}
+        collaborationsWithSuffix={Immutable.List []}
         enableAuthorsShowAll={false}
         recordId={12345}
       />
@@ -193,7 +171,7 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
 exports[`LiteratureItem renders with all props set, including sub props 1`] = `
 <ResultItem
   leftActions={
-    <Unknown>
+    <React.Fragment>
       <ArxivPdfDownloadAction
         arxivId="1234567890"
       />
@@ -203,10 +181,10 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       <Connect(EditRecordActionContainer)
         recordId={12345}
       />
-    </Unknown>
+    </React.Fragment>
   }
   rightActions={
-    <Unknown>
+    <React.Fragment>
       <ListItemAction
         iconType="logout"
         link={
@@ -214,7 +192,6 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
             "to": "/literature/12345#references",
           }
         }
-        onClick={undefined}
         text="2 references"
       />
       <ListItemAction
@@ -224,10 +201,9 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
             "to": "/literature/12345#citations",
           }
         }
-        onClick={undefined}
         text="1 citations"
       />
-    </Unknown>
+    </React.Fragment>
   }
 >
   <Link
@@ -247,21 +223,21 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
         authors={
           Immutable.List [
             Immutable.Map {
-              full_name: "Test, Author",
+              "full_name": "Test, Author",
             },
           ]
         }
         collaborations={
           Immutable.List [
             Immutable.Map {
-              value: "CMS",
+              "value": "CMS",
             },
           ]
         }
         collaborationsWithSuffix={
           Immutable.List [
             Immutable.Map {
-              value: "CMS Group",
+              "value": "CMS Group",
             },
           ]
         }
@@ -281,7 +257,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       publicationInfo={
         Immutable.List [
           Immutable.Map {
-            journal_title: "Test Jornal",
+            "journal_title": "Test Jornal",
           },
         ]
       }
@@ -291,7 +267,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       eprints={
         Immutable.List [
           Immutable.Map {
-            value: "1234567890",
+            "value": "1234567890",
           },
         ]
       }
@@ -301,7 +277,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       dois={
         Immutable.List [
           Immutable.Map {
-            value: "12345679.1234.123",
+            "value": "12345679.1234.123",
           },
         ]
       }
@@ -311,7 +287,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       reportNumbers={
         Immutable.List [
           Immutable.Map {
-            value: "ABCD-AB-CD-1234-123",
+            "value": "ABCD-AB-CD-1234-123",
           },
         ]
       }

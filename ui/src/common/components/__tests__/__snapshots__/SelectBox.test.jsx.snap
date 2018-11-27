@@ -4,7 +4,7 @@ exports[`SelectBox render initial state with all props set 1`] = `
 <Select
   choiceTransitionName="zoom"
   defaultValue="value1"
-  onChange={[Function]}
+  onChange={[MockFunction]}
   prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"

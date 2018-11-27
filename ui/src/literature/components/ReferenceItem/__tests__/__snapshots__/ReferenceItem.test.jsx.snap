@@ -11,30 +11,18 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
     <Col />
     <Meta
       description={
-        <Unknown>
+        <React.Fragment>
           <AuthorsAndCollaborations
-            authorCount={undefined}
-            authors={
-              Immutable.List [
-              ]
-            }
-            collaborations={
-              Immutable.List [
-              ]
-            }
-            collaborationsWithSuffix={
-              Immutable.List [
-              ]
-            }
+            authors={Immutable.List []}
+            collaborations={Immutable.List []}
+            collaborationsWithSuffix={Immutable.List []}
             enableAuthorsShowAll={false}
             recordId={0}
           />
           <ul
             className="bulleted-list secondary-container"
-          >
-            
-          </ul>
-        </Unknown>
+          />
+        </React.Fragment>
       }
       title={
         <div
@@ -59,33 +47,21 @@ exports[`ReferenceItem renders misc if present 1`] = `
     <Col />
     <Meta
       description={
-        <Unknown>
+        <React.Fragment>
           <div>
             A Misc
           </div>
           <AuthorsAndCollaborations
-            authorCount={undefined}
-            authors={
-              Immutable.List [
-              ]
-            }
-            collaborations={
-              Immutable.List [
-              ]
-            }
-            collaborationsWithSuffix={
-              Immutable.List [
-              ]
-            }
+            authors={Immutable.List []}
+            collaborations={Immutable.List []}
+            collaborationsWithSuffix={Immutable.List []}
             enableAuthorsShowAll={false}
             recordId={0}
           />
           <ul
             className="bulleted-list secondary-container"
-          >
-            
-          </ul>
-        </Unknown>
+          />
+        </React.Fragment>
       }
       title={null}
     />
@@ -109,27 +85,26 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
       <Col />
       <Meta
         description={
-          <Unknown>
+          <React.Fragment>
             <AuthorsAndCollaborations
-              authorCount={undefined}
               authors={
                 Immutable.List [
                   Immutable.Map {
-                    full_name: "Author",
+                    "full_name": "Author",
                   },
                 ]
               }
               collaborations={
                 Immutable.List [
                   Immutable.Map {
-                    value: "Test Collab.",
+                    "value": "Test Collab.",
                   },
                 ]
               }
               collaborationsWithSuffix={
                 Immutable.List [
                   Immutable.Map {
-                    value: "Test Group",
+                    "value": "Test Group",
                   },
                 ]
               }
@@ -147,7 +122,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                   publicationInfo={
                     Immutable.List [
                       Immutable.Map {
-                        journal_title: "Journal",
+                        "journal_title": "Journal",
                       },
                     ]
                   }
@@ -161,7 +136,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                   dois={
                     Immutable.List [
                       Immutable.Map {
-                        value: "123456.12345",
+                        "value": "123456.12345",
                       },
                     ]
                   }
@@ -175,7 +150,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                   urls={
                     Immutable.List [
                       Immutable.Map {
-                        value: "https://dude.guy",
+                        "value": "https://dude.guy",
                       },
                     ]
                   }
@@ -183,7 +158,7 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                 />
               </li>
             </ul>
-          </Unknown>
+          </React.Fragment>
         }
         title={
           <div
@@ -216,27 +191,26 @@ exports[`ReferenceItem renders with full reference 1`] = `
       </Col>
       <Meta
         description={
-          <Unknown>
+          <React.Fragment>
             <AuthorsAndCollaborations
-              authorCount={undefined}
               authors={
                 Immutable.List [
                   Immutable.Map {
-                    full_name: "Author",
+                    "full_name": "Author",
                   },
                 ]
               }
               collaborations={
                 Immutable.List [
                   Immutable.Map {
-                    value: "Test Collab.",
+                    "value": "Test Collab.",
                   },
                 ]
               }
               collaborationsWithSuffix={
                 Immutable.List [
                   Immutable.Map {
-                    value: "Test Group",
+                    "value": "Test Group",
                   },
                 ]
               }
@@ -254,7 +228,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
                   publicationInfo={
                     Immutable.List [
                       Immutable.Map {
-                        journal_title: "Journal",
+                        "journal_title": "Journal",
                       },
                     ]
                   }
@@ -268,7 +242,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
                   dois={
                     Immutable.List [
                       Immutable.Map {
-                        value: "123456.12345",
+                        "value": "123456.12345",
                       },
                     ]
                   }
@@ -282,7 +256,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
                   urls={
                     Immutable.List [
                       Immutable.Map {
-                        value: "https://dude.guy",
+                        "value": "https://dude.guy",
                       },
                     ]
                   }
@@ -290,7 +264,7 @@ exports[`ReferenceItem renders with full reference 1`] = `
                 />
               </li>
             </ul>
-          </Unknown>
+          </React.Fragment>
         }
         title={
           <Link
