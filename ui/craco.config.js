@@ -2,6 +2,8 @@ const { ESLINT_MODES } = require('@craco/craco');
 const path = require('path');
 const SassRuleRewirer = require('react-app-rewire-sass-rule');
 const LessPlugin = require('craco-less');
+const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
+
 const styleVariables = require('./src/styleVariables');
 
 function withCustomScssLoader({ webpackConfig, context }) {
@@ -23,6 +25,14 @@ function withCustomScssLoader({ webpackConfig, context }) {
     .rewire(webpackConfig, context.env);
 }
 
+function withFilterWarningsPluginForCssImportOrderConflict({ webpackConfig }) {
+  const filterOrderConflictWarnings = new FilterWarningsPlugin({
+    exclude: /Conflicting order between:/,
+  });
+  webpackConfig.plugins.push(filterOrderConflictWarnings);
+  return webpackConfig;
+}
+
 function makeOverrideWebpackPlugin(overrideFunction) {
   return {
     plugin: {
@@ -42,6 +52,9 @@ module.exports = {
   },
   plugins: [
     makeOverrideWebpackPlugin(withCustomScssLoader),
+    makeOverrideWebpackPlugin(
+      withFilterWarningsPluginForCssImportOrderConflict
+    ),
     {
       plugin: LessPlugin,
       options: {
