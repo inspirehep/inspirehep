@@ -6,10 +6,18 @@ import ListWithPagination from './ListWithPagination';
 class ClientPaginatedList extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { items, pageSize } = nextProps;
+    const { prevItems, prevPageSize } = prevState;
+
+    if (items === prevItems && pageSize === prevPageSize) {
+      return prevState;
+    }
+
     const { page } = prevState;
     const pageItems = ClientPaginatedList.getPageItems(items, page, pageSize);
     return {
       ...prevState,
+      prevItems: items,
+      prevPageSize: pageSize,
       pageItems,
       total: items.size,
     };

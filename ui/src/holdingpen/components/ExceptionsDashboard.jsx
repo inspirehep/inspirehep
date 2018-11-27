@@ -8,11 +8,18 @@ import './ExceptionsDashboard.scss';
 class ExceptionsDashboard extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     const { exceptions } = nextProps;
+    const { prevExceptions } = prevState;
+
+    if (exceptions === prevExceptions) {
+      return prevState;
+    }
+
     const countEntriesByCollection = ExceptionsDashboard.getExceptionCountEntriesByCollection(
       exceptions
     );
     return {
       ...prevState,
+      prevExceptions: exceptions,
       countEntriesByCollection,
     };
   }
