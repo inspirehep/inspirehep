@@ -6,10 +6,10 @@ exports[`URLList renders with urls 1`] = `
   items={
     Immutable.List [
       Immutable.Map {
-        value: "url1",
+        "value": "url1",
       },
       Immutable.Map {
-        value: "url2",
+        "value": "url2",
       },
     ]
   }

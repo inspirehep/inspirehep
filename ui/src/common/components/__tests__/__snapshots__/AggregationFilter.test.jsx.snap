@@ -5,17 +5,17 @@ exports[`AggregationFilter renders CheckboxAggregation if range prop is not set 
   buckets={
     Immutable.List [
       Immutable.Map {
-        key: "bucket1",
-        doc_count: 1,
+        "key": "bucket1",
+        "doc_count": 1,
       },
       Immutable.Map {
-        key: "bucket2",
-        doc_count: 2,
+        "key": "bucket2",
+        "doc_count": 2,
       },
     ]
   }
   name="Test"
-  onChange={[Function]}
+  onChange={[MockFunction]}
   selections={
     Array [
       "bucket1",
@@ -29,12 +29,12 @@ exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = 
   buckets={
     Immutable.List [
       Immutable.Map {
-        key: "2011",
-        doc_count: 1,
+        "key": "2011",
+        "doc_count": 1,
       },
       Immutable.Map {
-        key: "2012",
-        doc_count: 2,
+        "key": "2012",
+        "doc_count": 2,
       },
     ]
   }
@@ -46,7 +46,7 @@ exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = 
   maximumMax={2018}
   minRangeSize={50}
   name="Test"
-  onChange={[Function]}
+  onChange={[MockFunction]}
   selectedColor="#91d5ff"
   selections="2011--2012"
 />

@@ -1,31 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorsAndCollaborations does not render bullet if authors missing 1`] = `
-<React.Fragment>
+<Fragment>
   <CollaborationList
     collaborations={
       Immutable.List [
         Immutable.Map {
-          value: "Test Collab 1",
+          "value": "Test Collab 1",
         },
       ]
     }
     collaborationsWithSuffix={
       Immutable.List [
         Immutable.Map {
-          value: "Test 1 Group",
+          "value": "Test 1 Group",
         },
         Immutable.Map {
-          value: "Test 2 Group",
+          "value": "Test 2 Group",
         },
       ]
     }
   />
   <AuthorList
-    authors={
-      Immutable.List [
-      ]
-    }
+    authors={Immutable.List []}
     enableShowAll={false}
     forSupervisors={false}
     limit={1}
@@ -33,29 +30,23 @@ exports[`AuthorsAndCollaborations does not render bullet if authors missing 1`] 
     total={-1}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorsAndCollaborations does not render bullet if authors missing with single collaboration 1`] = `
-<React.Fragment>
+<Fragment>
   <CollaborationList
     collaborations={
       Immutable.List [
         Immutable.Map {
-          value: "Test Collab 1",
+          "value": "Test Collab 1",
         },
       ]
     }
-    collaborationsWithSuffix={
-      Immutable.List [
-      ]
-    }
+    collaborationsWithSuffix={Immutable.List []}
   />
   <AuthorList
-    authors={
-      Immutable.List [
-      ]
-    }
+    authors={Immutable.List []}
     enableShowAll={false}
     forSupervisors={false}
     limit={1}
@@ -63,26 +54,26 @@ exports[`AuthorsAndCollaborations does not render bullet if authors missing with
     total={-1}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorsAndCollaborations renders collaboration list and author list if collaborations and authors have multiple items 1`] = `
-<React.Fragment>
+<Fragment>
   <CollaborationList
     collaborations={
       Immutable.List [
         Immutable.Map {
-          value: "Test Collab 1",
+          "value": "Test Collab 1",
         },
       ]
     }
     collaborationsWithSuffix={
       Immutable.List [
         Immutable.Map {
-          value: "Test 1 Group",
+          "value": "Test 1 Group",
         },
         Immutable.Map {
-          value: "Test 2 Group",
+          "value": "Test 2 Group",
         },
       ]
     }
@@ -96,10 +87,10 @@ exports[`AuthorsAndCollaborations renders collaboration list and author list if 
     authors={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
         Immutable.Map {
-          full_name: "Test, Guy 2",
+          "full_name": "Test, Guy 2",
         },
       ]
     }
@@ -110,20 +101,17 @@ exports[`AuthorsAndCollaborations renders collaboration list and author list if 
     total={12}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorsAndCollaborations renders collaboration list with single item and author list with limit 1 if there are multiple authors 1`] = `
-<React.Fragment>
+<Fragment>
   <CollaborationList
-    collaborations={
-      Immutable.List [
-      ]
-    }
+    collaborations={Immutable.List []}
     collaborationsWithSuffix={
       Immutable.List [
         Immutable.Map {
-          value: "Test 1 Group",
+          "value": "Test 1 Group",
         },
       ]
     }
@@ -137,10 +125,10 @@ exports[`AuthorsAndCollaborations renders collaboration list with single item an
     authors={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
         Immutable.Map {
-          full_name: "Test, Guy 2",
+          "full_name": "Test, Guy 2",
         },
       ]
     }
@@ -151,26 +139,23 @@ exports[`AuthorsAndCollaborations renders collaboration list with single item an
     total={12}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorsAndCollaborations renders multiple collaborations and author for the collaborations 1`] = `
-<React.Fragment>
+<Fragment>
   <CollaborationList
     collaborations={
       Immutable.List [
         Immutable.Map {
-          value: "Test Collab 1",
+          "value": "Test Collab 1",
         },
         Immutable.Map {
-          value: "Test Collab 2",
+          "value": "Test Collab 2",
         },
       ]
     }
-    collaborationsWithSuffix={
-      Immutable.List [
-      ]
-    }
+    collaborationsWithSuffix={Immutable.List []}
   />
   <span
     className="mh1"
@@ -181,7 +166,7 @@ exports[`AuthorsAndCollaborations renders multiple collaborations and author for
     authors={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
       ]
     }
@@ -201,7 +186,7 @@ exports[`AuthorsAndCollaborations renders multiple collaborations and author for
   <span>
     .
   </span>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorsAndCollaborations renders only author list if collaborations are missing (default author props) 1`] = `
@@ -209,7 +194,7 @@ exports[`AuthorsAndCollaborations renders only author list if collaborations are
   authors={
     Immutable.List [
       Immutable.Map {
-        full_name: "Test, Guy 1",
+        "full_name": "Test, Guy 1",
       },
     ]
   }
@@ -227,7 +212,7 @@ exports[`AuthorsAndCollaborations renders only author list if collaborations are
   authors={
     Immutable.List [
       Immutable.Map {
-        full_name: "Test, Guy 1",
+        "full_name": "Test, Guy 1",
       },
     ]
   }
@@ -241,19 +226,16 @@ exports[`AuthorsAndCollaborations renders only author list if collaborations are
 `;
 
 exports[`AuthorsAndCollaborations renders only one collaboration and author for the collaboration 1`] = `
-<React.Fragment>
+<Fragment>
   <CollaborationList
     collaborations={
       Immutable.List [
         Immutable.Map {
-          value: "Test Collab 1",
+          "value": "Test Collab 1",
         },
       ]
     }
-    collaborationsWithSuffix={
-      Immutable.List [
-      ]
-    }
+    collaborationsWithSuffix={Immutable.List []}
   />
   <span
     className="mh1"
@@ -264,7 +246,7 @@ exports[`AuthorsAndCollaborations renders only one collaboration and author for 
     authors={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
       ]
     }
@@ -281,5 +263,5 @@ exports[`AuthorsAndCollaborations renders only one collaboration and author for 
   <span>
     .
   </span>
-</React.Fragment>
+</Fragment>
 `;

@@ -13,7 +13,7 @@ exports[`ThesisInfo renders full thesis info 1`] = `
       items={
         Immutable.List [
           Immutable.Map {
-            name: "Institution 1",
+            "name": "Institution 1",
           },
         ]
       }
@@ -91,7 +91,7 @@ exports[`ThesisInfo renders without any date 1`] = `
       items={
         Immutable.List [
           Immutable.Map {
-            name: "Institution 1",
+            "name": "Institution 1",
           },
         ]
       }

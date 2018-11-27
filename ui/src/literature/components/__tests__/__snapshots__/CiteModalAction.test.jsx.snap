@@ -10,9 +10,11 @@ exports[`CiteModalAction renders with recordId 1`] = `
     text="cite"
   />
   <Modal
+    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
+    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
     prefixCls="ant-modal"
@@ -37,6 +39,7 @@ exports[`CiteModalAction renders with recordId 1`] = `
             onCopy={[Function]}
           >
             <Button
+              block={false}
               ghost={false}
               loading={false}
               prefixCls="ant-btn"
@@ -53,6 +56,7 @@ exports[`CiteModalAction renders with recordId 1`] = `
             </Button>
           </CopyToClipboard>
           <Button
+            block={false}
             ghost={false}
             loading={false}
             onClick={[Function]}

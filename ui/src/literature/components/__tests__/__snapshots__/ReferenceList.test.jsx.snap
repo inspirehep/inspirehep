@@ -24,10 +24,7 @@ exports[`ReferenceList renders as loading if set 1`] = `
     error={null}
   >
     <ClientPaginatedList
-      items={
-        Immutable.List [
-        ]
-      }
+      items={Immutable.List []}
       loading={false}
       pageSize={25}
       renderItem={[Function]}
@@ -55,16 +52,16 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
           items={
             Immutable.List [
               Immutable.Map {
-                publication_info: Immutable.List [
+                "publication_info": Immutable.List [
                   Immutable.Map {
-                    journal_title: "Journal 1",
+                    "journal_title": "Journal 1",
                   },
                 ],
               },
               Immutable.Map {
-                authors: Immutable.List [
+                "authors": Immutable.List [
                   Immutable.Map {
-                    full_name: "Author 2",
+                    "full_name": "Author 2",
                   },
                 ],
               },
@@ -99,15 +96,12 @@ exports[`ReferenceList renders with error 1`] = `
   <ErrorAlertOrChildren
     error={
       Immutable.Map {
-        message: "Error",
+        "message": "Error",
       }
     }
   >
     <ClientPaginatedList
-      items={
-        Immutable.List [
-        ]
-      }
+      items={Immutable.List []}
       loading={false}
       pageSize={25}
       renderItem={[Function]}
@@ -135,16 +129,16 @@ exports[`ReferenceList renders with references 1`] = `
           items={
             Immutable.List [
               Immutable.Map {
-                titles: Immutable.List [
+                "titles": Immutable.List [
                   Immutable.Map {
-                    title: "Reference 1",
+                    "title": "Reference 1",
                   },
                 ],
               },
               Immutable.Map {
-                titles: Immutable.List [
+                "titles": Immutable.List [
                   Immutable.Map {
-                    title: "Reference 2",
+                    "title": "Reference 2",
                   },
                 ],
               },

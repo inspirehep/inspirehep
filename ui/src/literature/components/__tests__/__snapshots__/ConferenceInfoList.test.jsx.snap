@@ -6,18 +6,18 @@ exports[`ConferenceInfoList renders conference link 1`] = `
   items={
     Immutable.List [
       Immutable.Map {
-        titles: Immutable.List [
+        "titles": Immutable.List [
           Immutable.Map {
-            title: "Test Conferece 2",
-            control_number: 111111,
+            "title": "Test Conferece 2",
+            "control_number": 111111,
           },
         ],
       },
       Immutable.Map {
-        titles: Immutable.List [
+        "titles": Immutable.List [
           Immutable.Map {
-            title: "Test Conferece 2",
-            control_number: 222222,
+            "title": "Test Conferece 2",
+            "control_number": 222222,
           },
         ],
       },

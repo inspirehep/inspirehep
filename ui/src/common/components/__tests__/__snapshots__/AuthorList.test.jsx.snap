@@ -17,7 +17,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
       <AuthorLink
         author={
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           }
         }
         recordId={12345}
@@ -44,7 +44,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
       <AuthorLink
         author={
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           }
         }
         recordId={12345}
@@ -56,7 +56,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
       <AuthorLink
         author={
           Immutable.Map {
-            full_name: "Test, Guy 2",
+            "full_name": "Test, Guy 2",
           }
         }
         recordId={12345}
@@ -67,16 +67,16 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
 `;
 
 exports[`AuthorList renders all authors if they are less than the limit without suffix 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
         Immutable.Map {
-          full_name: "Test, Guy 2",
+          "full_name": "Test, Guy 2",
         },
       ]
     }
@@ -88,9 +88,11 @@ exports[`AuthorList renders all authors if they are less than the limit without 
     wrapperClassName={null}
   />
   <Modal
+    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
+    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
     prefixCls="ant-modal"
@@ -104,10 +106,10 @@ exports[`AuthorList renders all authors if they are less than the limit without 
       items={
         Immutable.List [
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           },
           Immutable.Map {
-            full_name: "Test, Guy 2",
+            "full_name": "Test, Guy 2",
           },
         ]
       }
@@ -119,7 +121,7 @@ exports[`AuthorList renders all authors if they are less than the limit without 
       wrapperClassName={null}
     />
   </Modal>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorList renders authors by using AuthorLink 1`] = `
@@ -135,7 +137,7 @@ exports[`AuthorList renders authors by using AuthorLink 1`] = `
       <AuthorLink
         author={
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           }
         }
         recordId={12345}
@@ -146,25 +148,25 @@ exports[`AuthorList renders authors by using AuthorLink 1`] = `
 `;
 
 exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
         Immutable.Map {
-          full_name: "Test, Guy 2",
+          "full_name": "Test, Guy 2",
         },
         Immutable.Map {
-          full_name: "Test, Guy 3",
+          "full_name": "Test, Guy 3",
         },
         Immutable.Map {
-          full_name: "Test, Guy 4",
+          "full_name": "Test, Guy 4",
         },
         Immutable.Map {
-          full_name: "Test, Guy 5",
+          "full_name": "Test, Guy 5",
         },
       ]
     }
@@ -180,9 +182,11 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
     wrapperClassName={null}
   />
   <Modal
+    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
+    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
     prefixCls="ant-modal"
@@ -196,22 +200,22 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
       items={
         Immutable.List [
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           },
           Immutable.Map {
-            full_name: "Test, Guy 2",
+            "full_name": "Test, Guy 2",
           },
           Immutable.Map {
-            full_name: "Test, Guy 3",
+            "full_name": "Test, Guy 3",
           },
           Immutable.Map {
-            full_name: "Test, Guy 4",
+            "full_name": "Test, Guy 4",
           },
           Immutable.Map {
-            full_name: "Test, Guy 5",
+            "full_name": "Test, Guy 5",
           },
           Immutable.Map {
-            full_name: "Test, Guy 6",
+            "full_name": "Test, Guy 6",
           },
         ]
       }
@@ -223,29 +227,29 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
       wrapperClassName={null}
     />
   </Modal>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorList renders only 5 authors and suffixes "show all" if passed more 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
         Immutable.Map {
-          full_name: "Test, Guy 2",
+          "full_name": "Test, Guy 2",
         },
         Immutable.Map {
-          full_name: "Test, Guy 3",
+          "full_name": "Test, Guy 3",
         },
         Immutable.Map {
-          full_name: "Test, Guy 4",
+          "full_name": "Test, Guy 4",
         },
         Immutable.Map {
-          full_name: "Test, Guy 5",
+          "full_name": "Test, Guy 5",
         },
       ]
     }
@@ -269,9 +273,11 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
     wrapperClassName={null}
   />
   <Modal
+    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
+    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
     prefixCls="ant-modal"
@@ -285,22 +291,22 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
       items={
         Immutable.List [
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           },
           Immutable.Map {
-            full_name: "Test, Guy 2",
+            "full_name": "Test, Guy 2",
           },
           Immutable.Map {
-            full_name: "Test, Guy 3",
+            "full_name": "Test, Guy 3",
           },
           Immutable.Map {
-            full_name: "Test, Guy 4",
+            "full_name": "Test, Guy 4",
           },
           Immutable.Map {
-            full_name: "Test, Guy 5",
+            "full_name": "Test, Guy 5",
           },
           Immutable.Map {
-            full_name: "Test, Guy 6",
+            "full_name": "Test, Guy 6",
           },
         ]
       }
@@ -312,20 +318,20 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
       wrapperClassName={null}
     />
   </Modal>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorList renders only limited (prop) authors and suffixes "et all." if passed more 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
         Immutable.Map {
-          full_name: "Test, Guy 2",
+          "full_name": "Test, Guy 2",
         },
       ]
     }
@@ -341,9 +347,11 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
     wrapperClassName={null}
   />
   <Modal
+    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
+    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
     prefixCls="ant-modal"
@@ -357,13 +365,13 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
       items={
         Immutable.List [
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           },
           Immutable.Map {
-            full_name: "Test, Guy 2",
+            "full_name": "Test, Guy 2",
           },
           Immutable.Map {
-            full_name: "Test, Guy 3",
+            "full_name": "Test, Guy 3",
           },
         ]
       }
@@ -375,20 +383,20 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
       wrapperClassName={null}
     />
   </Modal>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorList renders only limited (prop) authors and suffixes "show all." if passed more 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
         Immutable.Map {
-          full_name: "Test, Guy 2",
+          "full_name": "Test, Guy 2",
         },
       ]
     }
@@ -412,9 +420,11 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
     wrapperClassName={null}
   />
   <Modal
+    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
+    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
     prefixCls="ant-modal"
@@ -428,13 +438,13 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
       items={
         Immutable.List [
           Immutable.Map {
-            full_name: "Test, Guy 1",
+            "full_name": "Test, Guy 1",
           },
           Immutable.Map {
-            full_name: "Test, Guy 2",
+            "full_name": "Test, Guy 2",
           },
           Immutable.Map {
-            full_name: "Test, Guy 3",
+            "full_name": "Test, Guy 3",
           },
         ]
       }
@@ -446,14 +456,26 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
       wrapperClassName={null}
     />
   </Modal>
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
 <DialogWrap
+  cancelButtonDisabled={false}
+  closeIcon={
+    <span
+      className="ant-modal-close-x"
+    >
+      <Icon
+        className="ant-modal-close-icon"
+        type="close"
+      />
+    </span>
+  }
   confirmLoading={false}
   footer={null}
   maskTransitionName="fade"
+  okButtonDisabled={false}
   okType="primary"
   onCancel={[Function]}
   onClose={[Function]}
@@ -462,13 +484,14 @@ exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
   transitionName="zoom"
   visible={false}
   width="50%"
+  wrapClassName=""
 >
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
       ]
     }
@@ -484,9 +507,21 @@ exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
 
 exports[`AuthorList should show \`supervisors\` in modal title if supervisors are passed 1`] = `
 <DialogWrap
+  cancelButtonDisabled={false}
+  closeIcon={
+    <span
+      className="ant-modal-close-x"
+    >
+      <Icon
+        className="ant-modal-close-icon"
+        type="close"
+      />
+    </span>
+  }
   confirmLoading={false}
   footer={null}
   maskTransitionName="fade"
+  okButtonDisabled={false}
   okType="primary"
   onCancel={[Function]}
   onClose={[Function]}
@@ -495,13 +530,14 @@ exports[`AuthorList should show \`supervisors\` in modal title if supervisors ar
   transitionName="zoom"
   visible={false}
   width="50%"
+  wrapClassName=""
 >
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          full_name: "Test, Guy 1",
+          "full_name": "Test, Guy 1",
         },
       ]
     }

@@ -17,6 +17,7 @@ exports[`LoginPage renders page 1`] = `
       Please sign in to suggest content to INSPIRE
     </p>
     <Button
+      block={false}
       className="login-button h3"
       ghost={false}
       loading={false}

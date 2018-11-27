@@ -4,24 +4,17 @@ exports[`CitationItem renders with full citation 1`] = `
 <Item>
   <Meta
     description={
-      <Unknown>
+      <React.Fragment>
         <AuthorsAndCollaborations
-          authorCount={undefined}
           authors={
             Immutable.List [
               Immutable.Map {
-                full_name: "Author",
+                "full_name": "Author",
               },
             ]
           }
-          collaborations={
-            Immutable.List [
-            ]
-          }
-          collaborationsWithSuffix={
-            Immutable.List [
-            ]
-          }
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
           enableAuthorsShowAll={false}
           recordId={12345}
         />
@@ -30,13 +23,13 @@ exports[`CitationItem renders with full citation 1`] = `
           publicationInfo={
             Immutable.List [
               Immutable.Map {
-                journal_title: "Journal",
+                "journal_title": "Journal",
               },
             ]
           }
           wrapperClassName={null}
         />
-      </Unknown>
+      </React.Fragment>
     }
     title={
       <Link

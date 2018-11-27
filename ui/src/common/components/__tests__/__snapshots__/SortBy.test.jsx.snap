@@ -3,7 +3,7 @@
 exports[`SortBy renders with all props set 1`] = `
 <SelectBox
   defaultValue="mostrecent"
-  onChange={[Function]}
+  onChange={[MockFunction]}
   options={
     Array [
       Object {

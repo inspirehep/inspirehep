@@ -21,7 +21,7 @@ exports[`CitationListContainer renders with error 1`] = `
   <ErrorAlertOrChildren
     error={
       Immutable.Map {
-        message: "Error",
+        "message": "Error",
       }
     }
   />
@@ -43,7 +43,7 @@ exports[`CitationListContainer renders with state from store 1`] = `
       pageItems={
         Immutable.List [
           Immutable.Map {
-            control_number: 170,
+            "control_number": 170,
           },
         ]
       }

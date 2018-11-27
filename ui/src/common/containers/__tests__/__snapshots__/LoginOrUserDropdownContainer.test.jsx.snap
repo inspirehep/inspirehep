@@ -22,9 +22,9 @@ exports[`LoginOrUserDropdownContainer renders user actions dropdown if loggedIn 
       <a
         data-test-id="logout"
         onClick={[Function]}
-    >
+      >
         Logout
-    </a>,
+      </a>,
     ]
   }
   title="My Account"

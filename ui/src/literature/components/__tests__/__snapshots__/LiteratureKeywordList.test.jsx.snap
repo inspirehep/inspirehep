@@ -6,10 +6,10 @@ exports[`LiteratureKeywordList renders with keywords 1`] = `
   items={
     Immutable.List [
       Immutable.Map {
-        value: "CMS",
+        "value": "CMS",
       },
       Immutable.Map {
-        value: "LHC-B",
+        "value": "LHC-B",
       },
     ]
   }

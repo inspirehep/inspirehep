@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CollaborationList renders with collaboration without suffix 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          value: "Alias Investigations",
+          "value": "Alias Investigations",
         },
       ]
     }
@@ -24,10 +24,7 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
   />
   <InlineList
     extractKey={[Function]}
-    items={
-      Immutable.List [
-      ]
-    }
+    items={Immutable.List []}
     label={null}
     renderItem={[Function]}
     separateItems={true}
@@ -35,26 +32,26 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
     suffix={null}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`CollaborationList renders with collaborations with and without suffix 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          value: "Alias Investigations",
+          "value": "Alias Investigations",
         },
         Immutable.Map {
-          value: "Nelson and Murdock",
+          "value": "Nelson and Murdock",
         },
         Immutable.Map {
-          value: "Defenders Group and Avengers",
+          "value": "Defenders Group and Avengers",
         },
         Immutable.Map {
-          value: "Defenders Task Force and Avengers",
+          "value": "Defenders Task Force and Avengers",
         },
       ]
     }
@@ -77,16 +74,16 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     items={
       Immutable.List [
         Immutable.Map {
-          value: "Avangers Groups",
+          "value": "Avangers Groups",
         },
         Immutable.Map {
-          value: "Avangers Task Force",
+          "value": "Avangers Task Force",
         },
         Immutable.Map {
-          value: "Avangers Consortium",
+          "value": "Avangers Consortium",
         },
         Immutable.Map {
-          value: "Avangers Team",
+          "value": "Avangers Team",
         },
       ]
     }
@@ -97,17 +94,14 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     suffix={null}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`CollaborationList renders with collaborations with suffix 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
-    items={
-      Immutable.List [
-      ]
-    }
+    items={Immutable.List []}
     label={null}
     renderItem={[Function]}
     separateItems={true}
@@ -120,19 +114,19 @@ exports[`CollaborationList renders with collaborations with suffix 1`] = `
     items={
       Immutable.List [
         Immutable.Map {
-          value: "Avangers Groups",
+          "value": "Avangers Groups",
         },
         Immutable.Map {
-          value: "Avangers Group",
+          "value": "Avangers Group",
         },
         Immutable.Map {
-          value: "Avangers Task Force",
+          "value": "Avangers Task Force",
         },
         Immutable.Map {
-          value: "Avangers Consortium",
+          "value": "Avangers Consortium",
         },
         Immutable.Map {
-          value: "Avangers Team",
+          "value": "Avangers Team",
         },
       ]
     }
@@ -143,20 +137,20 @@ exports[`CollaborationList renders with collaborations with suffix 1`] = `
     suffix={null}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;
 
 exports[`CollaborationList renders with collaborations without suffix 1`] = `
-<React.Fragment>
+<Fragment>
   <InlineList
     extractKey={[Function]}
     items={
       Immutable.List [
         Immutable.Map {
-          value: "Alias Investigations",
+          "value": "Alias Investigations",
         },
         Immutable.Map {
-          value: "Nelson and Murdock",
+          "value": "Nelson and Murdock",
         },
       ]
     }
@@ -173,10 +167,7 @@ exports[`CollaborationList renders with collaborations without suffix 1`] = `
   />
   <InlineList
     extractKey={[Function]}
-    items={
-      Immutable.List [
-      ]
-    }
+    items={Immutable.List []}
     label={null}
     renderItem={[Function]}
     separateItems={true}
@@ -184,5 +175,5 @@ exports[`CollaborationList renders with collaborations without suffix 1`] = `
     suffix={null}
     wrapperClassName="di"
   />
-</React.Fragment>
+</Fragment>
 `;

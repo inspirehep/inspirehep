@@ -2,6 +2,7 @@
 
 exports[`ListItemAction renders with link (href and target) 1`] = `
 <Button
+  block={false}
   className="__ListItemAction__"
   ghost={false}
   href="//example.com"
@@ -18,6 +19,7 @@ exports[`ListItemAction renders with link (href and target) 1`] = `
 
 exports[`ListItemAction renders with link (to) by using Router.Link 1`] = `
 <Button
+  block={false}
   className="__ListItemAction__"
   ghost={false}
   loading={false}
@@ -38,10 +40,11 @@ exports[`ListItemAction renders with link (to) by using Router.Link 1`] = `
 
 exports[`ListItemAction renders with onClick 1`] = `
 <Button
+  block={false}
   className="__ListItemAction__"
   ghost={false}
   loading={false}
-  onClick={[Function]}
+  onClick={[MockFunction]}
   prefixCls="ant-btn"
 >
   <IconText
