@@ -398,7 +398,7 @@ export const coreHep: JsonEditorConfig = {
             reference: {
               priority: 1,
               order: ['label', 'title', 'authors', 'arxiv_eprint'],
-              alwaysShow: ['dois', 'arxiv_eprint', 'publication_info'],
+              alwaysShow: ['dois', 'arxiv_eprint', 'publication_info', 'authors', 'title'],
               properties: {
                 misc: {
                   items: {
@@ -410,6 +410,7 @@ export const coreHep: JsonEditorConfig = {
                 },
                 authors: {
                   items: {
+                    alwaysShow: ['full_name'],
                     properties: {
                       full_name: {
                         onValueChange: splitPrimitiveReferenceField
@@ -428,6 +429,7 @@ export const coreHep: JsonEditorConfig = {
                   }
                 },
                 title: {
+                  alwaysShow: ['title'],
                   properties: {
                     title: {
                       onValueChange: splitPrimitiveReferenceField
@@ -457,6 +459,7 @@ export const coreHep: JsonEditorConfig = {
                     'journal_title',
                     'journal_volume',
                     'page_start',
+                    'page_end',
                     'artid',
                     'year',
                   ],
