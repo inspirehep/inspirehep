@@ -6,6 +6,8 @@ import { Button } from 'antd';
 import IconText from '../IconText';
 import './ListItemAction.scss';
 
+const CLASS_NAME = '__ListItemAction__';
+
 class ListItemAction extends Component {
   wrapWithRouterLinkIfToPropSet(component) {
     const { link } = this.props;
@@ -19,19 +21,35 @@ class ListItemAction extends Component {
     return component;
   }
 
+  renderIconText() {
+    const { text, iconType } = this.props;
+    return <IconText text={text} type={iconType} />;
+  }
+
   render() {
-    const {
-      iconType, text, link, onClick,
-    } = this.props;
+    const { link, onClick } = this.props;
+
+    if (link && link.href) {
+      return (
+        <Button className={CLASS_NAME} href={link.href} target={link.target}>
+          {this.renderIconText()}
+        </Button>
+      );
+    }
+
+    if (link && link.to) {
+      return (
+        <Button className={CLASS_NAME}>
+          <Link className="no-transition" to={link.to}>
+            {this.renderIconText()}
+          </Link>
+        </Button>
+      );
+    }
 
     return (
-      <Button
-        className="__ListItemAction__"
-        href={link && link.href}
-        target={link && link.target}
-        onClick={onClick}
-      >
-        {this.wrapWithRouterLinkIfToPropSet(<IconText text={text} type={iconType} />)}
+      <Button className={CLASS_NAME} onClick={onClick}>
+        {this.renderIconText()}
       </Button>
     );
   }
@@ -43,7 +61,10 @@ ListItemAction.propTypes = {
   // set either `link` or `onClick`
   link: PropTypes.oneOfType([
     PropTypes.shape({ to: PropTypes.string.isRequired }),
-    PropTypes.shape({ href: PropTypes.string.isRequired, target: PropTypes.string }),
+    PropTypes.shape({
+      href: PropTypes.string.isRequired,
+      target: PropTypes.string,
+    }),
   ]),
   onClick: PropTypes.func,
 };
