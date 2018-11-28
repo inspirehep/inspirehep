@@ -19,7 +19,17 @@ describe('SearchBox', () => {
 
   it('renders new value on change', () => {
     const wrapper = shallow(<SearchBox value="value" />);
-    wrapper.instance().onChange({ target: { value: 'new' } });
+    const inputWrapper = wrapper.find(Input.Search);
+    inputWrapper.simulate('change', { target: { value: 'new' } });
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('ovverides internal state with prop', () => {
+    const wrapper = shallow(<SearchBox value="value" />);
+    const inputWrapper = wrapper.find(Input.Search);
+    inputWrapper.simulate('change', { target: { value: 'internal' } });
+    wrapper.setProps({ value: 'prop' });
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
   });
