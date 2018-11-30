@@ -42,7 +42,7 @@ export const initialState = fromJS({
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOCATION_CHANGE:
-      if (action.payload.pathname.includes('authors')) {
+      if (action.payload.pathname.indexOf('authors') > -1) {
         return state.set('scope', searchScopes.get('authors'));
       }
       return state.set('scope', initialState.get('scope'));
