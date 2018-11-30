@@ -4,6 +4,7 @@ import { Map } from 'immutable';
 import { Tooltip } from 'antd';
 
 import ExternalLink from './ExternalLink';
+import AuthorAffiliationList from './AuthorAffiliationList';
 
 class AuthorLink extends Component {
   getAuthorHref() {
@@ -13,12 +14,6 @@ class AuthorLink extends Component {
       href = `${href}?recid=${recordId}`;
     }
     return href;
-  }
-
-  getAffiliationHref() {
-    const { author } = this.props;
-    const affiliation = author.getIn(['affiliations', 0, 'value']);
-    return `//inspirehep.net/search?cc=Institutions&p=institution:"${affiliation}"`;
   }
 
   getFullName() {
@@ -41,31 +36,26 @@ class AuthorLink extends Component {
     return null;
   }
 
-  renderAffiliationLink() {
+  renderAffiliationsList() {
     const { author } = this.props;
-    const affiliation = author.getIn(['affiliations', 0, 'value']);
-    if (affiliation) {
-      const affiliationHref = this.getAffiliationHref();
-      return (
+    const affiliations = author.get('affiliations');
+    return (
+      affiliations && (
         <span className="pl1">
           (
-          <ExternalLink className="secondary-link" href={affiliationHref}>
-            {affiliation}
-          </ExternalLink>
+          <AuthorAffiliationList affiliations={author.get('affiliations')} />
           )
         </span>
-      );
-    }
-    return null;
+      )
+    );
   }
 
   render() {
     const authorHref = this.getAuthorHref();
-
     return (
       <div className="di">
         <ExternalLink href={authorHref}>{this.getFullName()}</ExternalLink>
-        {this.renderAffiliationLink()}
+        {this.renderAffiliationsList()}
         {this.renderEditorSuffix()}
       </div>
     );

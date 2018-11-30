@@ -25,12 +25,15 @@ exports[`AuthorLink renders first_name and last_name of editor 1`] = `
     className="pl1"
   >
     (
-    <ExternalLink
-      className="secondary-link"
-      href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-    >
-      Affiliation
-    </ExternalLink>
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ]
+      }
+    />
     )
   </span>
   <Tooltip
@@ -61,12 +64,15 @@ exports[`AuthorLink renders first_name and last_name with affiliations 1`] = `
     className="pl1"
   >
     (
-    <ExternalLink
-      className="secondary-link"
-      href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-    >
-      Affiliation
-    </ExternalLink>
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ]
+      }
+    />
     )
   </span>
 </div>
@@ -85,12 +91,15 @@ exports[`AuthorLink renders first_name with last_name missing 1`] = `
     className="pl1"
   >
     (
-    <ExternalLink
-      className="secondary-link"
-      href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-    >
-      Affiliation
-    </ExternalLink>
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ]
+      }
+    />
     )
   </span>
 </div>
@@ -109,12 +118,15 @@ exports[`AuthorLink renders full_name if first_name and last_name missing 1`] = 
     className="pl1"
   >
     (
-    <ExternalLink
-      className="secondary-link"
-      href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-    >
-      Affiliation
-    </ExternalLink>
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ]
+      }
+    />
     )
   </span>
 </div>
@@ -133,12 +145,15 @@ exports[`AuthorLink renders full_name with affiliations 1`] = `
     className="pl1"
   >
     (
-    <ExternalLink
-      className="secondary-link"
-      href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-    >
-      Affiliation
-    </ExternalLink>
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ]
+      }
+    />
     )
   </span>
 </div>
@@ -157,12 +172,15 @@ exports[`AuthorLink renders full_name with first_name missing 1`] = `
     className="pl1"
   >
     (
-    <ExternalLink
-      className="secondary-link"
-      href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-    >
-      Affiliation
-    </ExternalLink>
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          Immutable.Map {
+            "value": "Affiliation",
+          },
+        ]
+      }
+    />
     )
   </span>
 </div>

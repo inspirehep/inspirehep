@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul
+    className="separate-items-with-and"
+  >
+    <li
+      key="Map { \\"value\\": \\"Affiliation1\\" }"
+    >
+      <ExternalLink
+        className="secondary-link"
+        href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation1\\""
+      >
+        Affiliation1
+      </ExternalLink>
+    </li>
+    <li
+      key="Map { \\"value\\": \\"Affiliation2\\" }"
+    >
+      <ExternalLink
+        className="secondary-link"
+        href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation2\\""
+      >
+        Affiliation2
+      </ExternalLink>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AuthorAffiliationList renders author with one affiliation 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul
+    className="separate-items-with-and"
+  >
+    <li
+      key="Map { \\"value\\": \\"Affiliation\\" }"
+    >
+      <ExternalLink
+        className="secondary-link"
+        href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
+      >
+        Affiliation
+      </ExternalLink>
+    </li>
+  </ul>
+</div>
+`;
