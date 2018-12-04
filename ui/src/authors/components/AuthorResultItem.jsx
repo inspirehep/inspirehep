@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
 import ResultItem from '../../common/components/ResultItem';
 import AuthorName from './AuthorName';
 import ArxivCategoryList from './ArxivCategoryList';
 import ExperimentList from './ExperimentList';
+import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
+import { getCurrentAffiliationsFromPositions } from '../utils';
 
 class AuthorResultItem extends Component {
   render() {
@@ -14,16 +16,23 @@ class AuthorResultItem extends Component {
 
     const name = metadata.get('name');
     const recordId = metadata.get('control_number');
-    const institution = metadata.getIn(['positions', 0, 'institution']);
+    const currentPositions = getCurrentAffiliationsFromPositions(
+      metadata.get('positions', List())
+    );
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
-
     return (
       <ResultItem>
         <Link className="f4" to={`/authors/${recordId}`}>
           <AuthorName name={name} />
         </Link>
-        {institution && <span className="pl1">({institution})</span>}
+        {currentPositions.size > 0 && (
+          <span className="pl1">
+            (
+            <AuthorAffiliationList affiliations={currentPositions} />
+            )
+          </span>
+        )}
         <div className="mt1">
           <ArxivCategoryList arxivCategories={arxivCategories} />
           <ExperimentList experiments={experiments} />

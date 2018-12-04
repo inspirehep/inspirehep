@@ -8,7 +8,7 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
     className="separate-items-with-and"
   >
     <li
-      key="Map { \\"value\\": \\"Affiliation1\\" }"
+      key="Affiliation1"
     >
       <ExternalLink
         className="secondary-link"
@@ -18,7 +18,7 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
       </ExternalLink>
     </li>
     <li
-      key="Map { \\"value\\": \\"Affiliation2\\" }"
+      key="Affiliation2"
     >
       <ExternalLink
         className="secondary-link"
@@ -39,7 +39,7 @@ exports[`AuthorAffiliationList renders author with one affiliation 1`] = `
     className="separate-items-with-and"
   >
     <li
-      key="Map { \\"value\\": \\"Affiliation\\" }"
+      key="Affiliation"
     >
       <ExternalLink
         className="secondary-link"

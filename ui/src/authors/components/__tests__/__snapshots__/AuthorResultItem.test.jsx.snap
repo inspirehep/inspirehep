@@ -19,7 +19,14 @@ exports[`AuthorResultItem renders full author result 1`] = `
     className="pl1"
   >
     (
-    CERN
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          "CERN",
+          "CERN3",
+        ]
+      }
+    />
     )
   </span>
   <div
