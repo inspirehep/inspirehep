@@ -7,6 +7,7 @@ import { ReferenceBriefComponent } from './reference-brief';
 import { UndoButtonComponent } from './undo-button';
 import { FileUploadButtonComponent } from './file-upload-button';
 import { RecordHistoryComponent } from './record-history';
+import { LinkReferencesButtonComponent } from './link-references-button';
 
 export const SHARED_COMPONENTS = [
   AffiliationBriefComponent,
@@ -21,4 +22,5 @@ export const SHARED_COMPONENTS = [
   UndoButtonComponent,
   FileUploadButtonComponent,
   RecordHistoryComponent,
+  LinkReferencesButtonComponent,
 ];

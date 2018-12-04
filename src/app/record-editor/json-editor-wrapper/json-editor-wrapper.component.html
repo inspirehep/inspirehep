@@ -6,8 +6,15 @@
   <re-affiliation-brief [affiliation]="item._source"></re-affiliation-brief>
 </ng-template>
 
-<ng-template #refExtractTemplate>
-  <re-ref-extract-actions></re-ref-extract-actions>
+<ng-template #refActionsTemplate>
+  <div class="row">
+    <div class="col-md-6">
+      <re-ref-extract-actions></re-ref-extract-actions>
+    </div>
+    <div class="col-md-6">
+      <re-link-references-button></re-link-references-button>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #authorExtractTemplate>
@@ -20,16 +27,11 @@
 
 <re-record-toolbar (revisionChange)="onRevisionChange($event)" (revisionRevert)="onRevisionRevert()"></re-record-toolbar>
 <div id="editor-container">
-  <json-editor *ngIf="record && schema"
-    [record]="revision || record"
-    (recordChange)="onRecordChange($event)"
-    [schema]="schema"
-    [config]="config"
-    (validationProblems) = "onValidationProblems($event)"
-    [templates]="{
+  <json-editor *ngIf="record && schema" [record]="revision || record" (recordChange)="onRecordChange($event)" [schema]="schema"
+    [config]="config" (validationProblems)="onValidationProblems($event)" [templates]="{
       referenceTemplate: referenceTemplate,
       affiliationAutocompleteTemplate: affiliationAutocompleteTemplate,
-      refExtractTemplate: refExtractTemplate,
+      refActionsTemplate: refActionsTemplate,
       authorExtractTemplate: authorExtractTemplate,
       fileUploadButtonTemplate: fileUploadButtonTemplate
     }">
