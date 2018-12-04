@@ -26,6 +26,7 @@ import { FormsModule } from '@angular/forms';
 import { PopoverModule } from 'ngx-bootstrap/popover';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { JsonEditorModule } from 'ng2-json-editor';
 import { SHARED_COMPONENTS } from './components';
@@ -39,6 +40,7 @@ import { SHARED_PIPES } from './pipes';
     ModalModule,
     BsDropdownModule,
     AccordionModule,
+    TooltipModule,
   ],
   declarations: [
     ...SHARED_PIPES,
@@ -53,6 +55,7 @@ import { SHARED_PIPES } from './pipes';
     ModalModule,
     BsDropdownModule,
     AccordionModule,
+    TooltipModule,
     JsonEditorModule,
   ]
 })

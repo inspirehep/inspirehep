@@ -379,7 +379,7 @@ export const coreHep: JsonEditorConfig = {
           findMultiple: fullTextSearch,
           itemsPerPage: 40,
           maxVisiblePageCount: 5,
-          headerItemTemplateName: 'refExtractTemplate'
+          headerItemTemplateName: 'refActionsTemplate'
         },
         viewTemplateConfig: {
           itemTemplateName: 'referenceTemplate',
