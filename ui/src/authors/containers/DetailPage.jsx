@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col } from 'antd';
-import { Map } from 'immutable';
+import { Map, List } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
 import EmbeddedSearch from '../../common/components/EmbeddedSearch';
@@ -11,6 +11,8 @@ import ExperimentList from '../components/ExperimentList';
 import ArxivCategoryList from '../components/ArxivCategoryList';
 import fetchAuthor from '../../actions/authors';
 import LiteratureItem from '../../literature/components/LiteratureItem';
+import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
+import { getCurrentAffiliationsFromPositions } from '../utils';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -42,7 +44,9 @@ class DetailPage extends Component {
     }
 
     const name = metadata.get('name');
-    const institution = metadata.getIn(['positions', 0, 'institution']);
+    const currentPositions = getCurrentAffiliationsFromPositions(
+      metadata.get('positions', List())
+    );
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
 
@@ -63,7 +67,13 @@ class DetailPage extends Component {
             <ContentBox loading={loading}>
               <h2>
                 <AuthorName name={name} />
-                {institution && <span className="pl1 f6">({institution})</span>}
+                {currentPositions.size > 0 && (
+                  <span className="pl1 f6">
+                    (
+                    <AuthorAffiliationList affiliations={currentPositions} />
+                    )
+                  </span>
+                )}
               </h2>
               <div className="mt1">
                 <ArxivCategoryList arxivCategories={arxivCategories} />

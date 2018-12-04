@@ -43,7 +43,11 @@ class AuthorLink extends Component {
       affiliations && (
         <span className="pl1">
           (
-          <AuthorAffiliationList affiliations={author.get('affiliations')} />
+          <AuthorAffiliationList
+            affiliations={affiliations.map(affiliation =>
+              affiliation.get('value')
+            )}
+          />
           )
         </span>
       )

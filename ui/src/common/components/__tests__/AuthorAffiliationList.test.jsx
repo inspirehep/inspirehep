@@ -6,11 +6,7 @@ import AuthorAffiliationList from '../AuthorAffiliationList';
 
 describe('AuthorAffiliationList', () => {
   it('renders author with one affiliation', () => {
-    const affiliations = fromJS([
-      {
-        value: 'Affiliation',
-      },
-    ]);
+    const affiliations = fromJS(['Affiliation']);
     const wrapper = shallow(
       <AuthorAffiliationList affiliations={affiliations} />
     );
@@ -18,14 +14,7 @@ describe('AuthorAffiliationList', () => {
   });
 
   it('renders author with multiple affiliations', () => {
-    const affiliations = fromJS([
-      {
-        value: 'Affiliation1',
-      },
-      {
-        value: 'Affiliation2',
-      },
-    ]);
+    const affiliations = fromJS(['Affiliation1', 'Affiliation2']);
     const wrapper = shallow(
       <AuthorAffiliationList affiliations={affiliations} />
     );
