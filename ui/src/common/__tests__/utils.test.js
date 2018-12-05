@@ -1,4 +1,4 @@
-import { fromJS, Set } from 'immutable';
+import { fromJS, Set, Map } from 'immutable';
 
 import {
   forceArray,
@@ -11,6 +11,7 @@ import {
   isEmptyObjectShallow,
   mergeWithConcattingArrays,
   httpErrorToActionPayload,
+  hasAnyOfKeys,
 } from '../utils';
 
 describe('utils', () => {
@@ -137,6 +138,36 @@ describe('utils', () => {
       const set1 = Set([1, 2, 3]);
       const set2 = Set([5, 6]);
       const result = doSetsHaveCommonItem(set1, set2);
+      expect(result).toBe(false);
+    });
+  });
+
+  describe('hasAnyOfKeys', () => {
+    it('returns true if it has one of the keys', () => {
+      const map = Map({ one: 1, two: 2 });
+      const keys = ['one', 'three'];
+      const result = hasAnyOfKeys(map, keys);
+      expect(result).toBe(true);
+    });
+
+    it('returns true if it has all of the keys', () => {
+      const map = Map({ one: 1, two: 2, three: 3 });
+      const keys = ['one', 'two'];
+      const result = hasAnyOfKeys(map, keys);
+      expect(result).toBe(true);
+    });
+
+    it('returns false if it does not have any of the keys', () => {
+      const map = Map({ one: 1, two: 2, three: 3 });
+      const keys = ['another'];
+      const result = hasAnyOfKeys(map, keys);
+      expect(result).toBe(false);
+    });
+
+    it('returns false if no keys are passed', () => {
+      const map = Map({ one: 1, two: 2 });
+      const keys = [];
+      const result = hasAnyOfKeys(map, keys);
       expect(result).toBe(false);
     });
   });

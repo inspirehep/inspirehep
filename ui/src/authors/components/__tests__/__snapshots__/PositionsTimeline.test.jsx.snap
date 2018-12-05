@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionsTimeline does not render with single position without any of extra display keys if current 1`] = `""`;
+
+exports[`PositionsTimeline renders with positions 1`] = `
+<Timeline
+  mode=""
+  prefixCls="ant-timeline"
+  reverse={false}
+>
+  <TimelineItem
+    color="blue"
+    pending={false}
+    prefixCls="ant-timeline"
+  >
+    <div>
+      1990-1994
+    </div>
+    <div>
+      <strong>
+        UNDERGRADUATE
+        , 
+      </strong>
+      <span>
+        Inst 1
+      </span>
+    </div>
+  </TimelineItem>
+  <TimelineItem
+    color="blue"
+    pending={false}
+    prefixCls="ant-timeline"
+  >
+    <div>
+      1994-2000
+    </div>
+    <div>
+      <strong>
+        PHD
+        , 
+      </strong>
+      <span>
+        Inst 2
+      </span>
+    </div>
+  </TimelineItem>
+  <TimelineItem
+    color="blue"
+    pending={false}
+    prefixCls="ant-timeline"
+  >
+    <div>
+      2000-present
+    </div>
+    <div>
+      <strong>
+        STAFF
+        , 
+      </strong>
+      <span>
+        CERN
+      </span>
+    </div>
+  </TimelineItem>
+</Timeline>
+`;
+
+exports[`PositionsTimeline renders with single position if has end_date even if current 1`] = `
+<Timeline
+  mode=""
+  prefixCls="ant-timeline"
+  reverse={false}
+>
+  <TimelineItem
+    color="blue"
+    pending={false}
+    prefixCls="ant-timeline"
+  >
+    <div>
+      present
+    </div>
+    <div>
+      <span>
+        Inst 1
+      </span>
+    </div>
+  </TimelineItem>
+</Timeline>
+`;
+
+exports[`PositionsTimeline renders with single position if has rank even if current 1`] = `
+<Timeline
+  mode=""
+  prefixCls="ant-timeline"
+  reverse={false}
+>
+  <TimelineItem
+    color="blue"
+    pending={false}
+    prefixCls="ant-timeline"
+  >
+    <div>
+      present
+    </div>
+    <div>
+      <strong>
+        UNDERGRADUATE
+        , 
+      </strong>
+      <span>
+        Inst 1
+      </span>
+    </div>
+  </TimelineItem>
+</Timeline>
+`;
+
+exports[`PositionsTimeline renders with single position if has start_date even if current 1`] = `
+<Timeline
+  mode=""
+  prefixCls="ant-timeline"
+  reverse={false}
+>
+  <TimelineItem
+    color="blue"
+    pending={false}
+    prefixCls="ant-timeline"
+  >
+    <div>
+      2000-present
+    </div>
+    <div>
+      <span>
+        Inst 1
+      </span>
+    </div>
+  </TimelineItem>
+</Timeline>
+`;
+
+exports[`PositionsTimeline renders without any of extra display keys if not current 1`] = `
+<Timeline
+  mode=""
+  prefixCls="ant-timeline"
+  reverse={false}
+>
+  <TimelineItem
+    color="blue"
+    pending={false}
+    prefixCls="ant-timeline"
+  >
+    <div />
+    <div>
+      <span>
+        Inst 1
+      </span>
+    </div>
+  </TimelineItem>
+</Timeline>
+`;

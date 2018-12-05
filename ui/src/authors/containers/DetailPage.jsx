@@ -13,6 +13,8 @@ import fetchAuthor from '../../actions/authors';
 import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import { getCurrentAffiliationsFromPositions } from '../utils';
+import PositionsTimeline from '../components/PositionsTimeline';
+import SubContentBox from '../../common/components/SubContentBox';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -44,9 +46,10 @@ class DetailPage extends Component {
     }
 
     const name = metadata.get('name');
-    const currentPositions = getCurrentAffiliationsFromPositions(
-      metadata.get('positions', List())
-    );
+
+    const positions = metadata.get('positions', List());
+    const currentPositions = getCurrentAffiliationsFromPositions(positions);
+
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
 
@@ -78,6 +81,15 @@ class DetailPage extends Component {
               <div className="mt1">
                 <ArxivCategoryList arxivCategories={arxivCategories} />
                 <ExperimentList experiments={experiments} />
+              </div>
+              <div className="mt3">
+                <Row>
+                  <Col span={7}>
+                    <SubContentBox title="Positions">
+                      <PositionsTimeline positions={positions} />
+                    </SubContentBox>
+                  </Col>
+                </Row>
               </div>
             </ContentBox>
           </Col>

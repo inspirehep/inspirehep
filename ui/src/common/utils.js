@@ -61,6 +61,10 @@ export function doSetsHaveCommonItem(set1, set2) {
   return set1.subtract(set2).size < set1.size;
 }
 
+export function hasAnyOfKeys(map, keys) {
+  return keys.some(key => map.has(key));
+}
+
 export function isEmptyObjectShallow(object) {
   if (!object) {
     return true;
