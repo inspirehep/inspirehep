@@ -7,7 +7,7 @@ import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
 
 const mockHttp = new MockAdapter(http);
 
-function wait(milisec = REQUEST_DEBOUNCE_MS + 1) {
+function wait(milisec = REQUEST_DEBOUNCE_MS + 5) {
   return new Promise(resolve => {
     setTimeout(() => resolve(), milisec);
   });
