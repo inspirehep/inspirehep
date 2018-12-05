@@ -1,8 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Timeline } from 'antd';
 import { hasAnyOfKeys } from '../../common/utils';
+import ExpandListToggle from '../../common/components/ExpandListToggle';
+
+const DISPLAY_LIMIT = 5;
 
 class PositionsTimeline extends Component {
   static renderPositionTimelineItem(position) {
@@ -11,7 +14,7 @@ class PositionsTimeline extends Component {
     const dateDisplay = PositionsTimeline.getPositionDateDisplay(position);
 
     return (
-      <Timeline.Item>
+      <Timeline.Item key={`#${dateDisplay}@${institution}`}>
         <div>{dateDisplay}</div>
         <div>
           {rank && <strong>{rank}, </strong>}
@@ -43,6 +46,18 @@ class PositionsTimeline extends Component {
     return null;
   }
 
+  constructor(props) {
+    super(props);
+
+    this.state = { expanded: false };
+    this.onExpandToggle = this.onExpandToggle.bind(this);
+  }
+
+  onExpandToggle() {
+    const { expanded } = this.state;
+    this.setState({ expanded: !expanded });
+  }
+
   shouldDisplayTimeline() {
     const { positions } = this.props;
     if (positions.size > 1) {
@@ -58,11 +73,27 @@ class PositionsTimeline extends Component {
 
   render() {
     const { positions } = this.props;
+    const { expanded } = this.state;
+
+    const positionsToDisplay = expanded
+      ? positions
+      : positions.take(DISPLAY_LIMIT);
+
     return (
       this.shouldDisplayTimeline() && (
-        <Timeline>
-          {positions.map(PositionsTimeline.renderPositionTimelineItem)}
-        </Timeline>
+        <Fragment>
+          <Timeline>
+            {positionsToDisplay.map(
+              PositionsTimeline.renderPositionTimelineItem
+            )}
+          </Timeline>
+          <ExpandListToggle
+            limit={DISPLAY_LIMIT}
+            size={positions.size}
+            expanded={expanded}
+            onToggle={this.onExpandToggle}
+          />
+        </Fragment>
       )
     );
   }

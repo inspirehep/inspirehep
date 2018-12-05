@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import PositionsTimeline from '../PositionsTimeline';
+import ExpandListToggle from '../../../common/components/ExpandListToggle';
 
 describe('PositionsTimeline', () => {
   it('renders with positions', () => {
@@ -85,6 +86,36 @@ describe('PositionsTimeline', () => {
       },
     ]);
     const wrapper = shallow(<PositionsTimeline positions={positions} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders only first 5 by default', () => {
+    const positions = fromJS([
+      { institution: 'Inst 1' },
+      { institution: 'Inst 2' },
+      { institution: 'Inst 3' },
+      { institution: 'Inst 4' },
+      { institution: 'Inst 5' },
+      { institution: 'Inst 6' },
+    ]);
+    const wrapper = shallow(<PositionsTimeline positions={positions} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders all when ExpandListToggle is toggled by default', () => {
+    const positions = fromJS([
+      { institution: 'Inst 1' },
+      { institution: 'Inst 2' },
+      { institution: 'Inst 3' },
+      { institution: 'Inst 4' },
+      { institution: 'Inst 5' },
+      { institution: 'Inst 6' },
+    ]);
+    const wrapper = shallow(<PositionsTimeline positions={positions} />);
+    const toggleWrapper = wrapper.find(ExpandListToggle);
+    const onExpandToggle = toggleWrapper.prop('onToggle');
+    onExpandToggle();
+    wrapper.update();
     expect(wrapper).toMatchSnapshot();
   });
 });

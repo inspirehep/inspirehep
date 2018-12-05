@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExpandListToggle does not render toggle size < limit 1`] = `""`;
+
+exports[`ExpandListToggle does not render toggle size == limit 1`] = `""`;
+
+exports[`ExpandListToggle renders toggle size > limit 1`] = `
+<SecondaryButton
+  onClick={[MockFunction]}
+>
+  Show all (10)
+</SecondaryButton>
+`;
+
+exports[`ExpandListToggle renders toggle with expanded true 1`] = `
+<SecondaryButton
+  onClick={[MockFunction]}
+>
+  Hide
+</SecondaryButton>
+`;
