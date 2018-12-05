@@ -25,4 +25,7 @@
       @extend .secondary-link;
     }
   }
+  .ant-timeline-item-last {
+    padding: 0;
+  }
 }

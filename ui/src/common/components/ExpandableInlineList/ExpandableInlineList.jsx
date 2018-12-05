@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import InlineList from '../InlineList';
-import SecondaryButton from '../SecondaryButton';
+import ExpandListToggle from '../ExpandListToggle';
 
 class ExpandableInlineList extends Component {
   constructor(props) {
@@ -21,20 +21,10 @@ class ExpandableInlineList extends Component {
     });
   }
 
-  renderExpandToggle() {
-    const { expanded } = this.state;
-    const { items } = this.props;
-    const buttonText = expanded ? 'Hide' : `Show all (${items.size})`;
-    return (
-      <SecondaryButton onClick={this.onExpandToggle}>
-        {buttonText}
-      </SecondaryButton>
-    );
-  }
-
   render() {
     const { expanded } = this.state;
     const { limit, items, ...listProps } = this.props;
+
     if (!items) {
       return null;
     }
@@ -43,7 +33,12 @@ class ExpandableInlineList extends Component {
     return (
       <div>
         <InlineList items={maybeLimitedItem} {...listProps} />
-        {items.size > limit && this.renderExpandToggle()}
+        <ExpandListToggle
+          limit={limit}
+          size={items.size}
+          expanded={expanded}
+          onToggle={this.onExpandToggle}
+        />
       </div>
     );
   }
