@@ -10,19 +10,17 @@ describe('PositionsTimeline', () => {
     const positions = fromJS([
       {
         institution: 'Inst 1',
-        start_date: '1990',
-        end_date: '1994',
+        display_date: '1990-1994',
         rank: 'UNDERGRADUATE',
       },
       {
         institution: 'Inst 2',
-        start_date: '1994',
-        end_date: '2000',
+        display_date: '1994-2000',
         rank: 'PHD',
       },
       {
         institution: 'CERN',
-        start_date: '2000',
+        display_date: '2000-present',
         rank: 'STAFF',
         current: true,
       },
@@ -36,6 +34,7 @@ describe('PositionsTimeline', () => {
       {
         institution: 'Inst 1',
         rank: 'UNDERGRADUATE',
+        display_date: 'present',
         current: true,
       },
     ]);
@@ -43,23 +42,11 @@ describe('PositionsTimeline', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders with single position if has start_date even if current', () => {
+  it('renders with single position if has display_date even if current', () => {
     const positions = fromJS([
       {
         institution: 'Inst 1',
-        start_date: '2000',
-        current: true,
-      },
-    ]);
-    const wrapper = shallow(<PositionsTimeline positions={positions} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders with single position if has end_date even if current', () => {
-    const positions = fromJS([
-      {
-        institution: 'Inst 1',
-        end_date: '2005',
+        display_date: '2005',
         current: true,
       },
     ]);
