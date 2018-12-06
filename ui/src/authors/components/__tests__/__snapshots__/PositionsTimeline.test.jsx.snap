@@ -11,7 +11,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
   >
     <TimelineItem
       color="blue"
-      key="#null@Inst 1"
+      key="#undefined@Inst 1"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -24,7 +24,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 2"
+      key="#undefined@Inst 2"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -37,7 +37,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 3"
+      key="#undefined@Inst 3"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -50,7 +50,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 4"
+      key="#undefined@Inst 4"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -63,7 +63,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 5"
+      key="#undefined@Inst 5"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -76,7 +76,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 6"
+      key="#undefined@Inst 6"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -106,7 +106,7 @@ exports[`PositionsTimeline renders only first 5 by default 1`] = `
   >
     <TimelineItem
       color="blue"
-      key="#null@Inst 1"
+      key="#undefined@Inst 1"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -119,7 +119,7 @@ exports[`PositionsTimeline renders only first 5 by default 1`] = `
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 2"
+      key="#undefined@Inst 2"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -132,7 +132,7 @@ exports[`PositionsTimeline renders only first 5 by default 1`] = `
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 3"
+      key="#undefined@Inst 3"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -145,7 +145,7 @@ exports[`PositionsTimeline renders only first 5 by default 1`] = `
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 4"
+      key="#undefined@Inst 4"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -158,7 +158,7 @@ exports[`PositionsTimeline renders only first 5 by default 1`] = `
     </TimelineItem>
     <TimelineItem
       color="blue"
-      key="#null@Inst 5"
+      key="#undefined@Inst 5"
       pending={false}
       prefixCls="ant-timeline"
     >
@@ -253,7 +253,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
 </Fragment>
 `;
 
-exports[`PositionsTimeline renders with single position if has end_date even if current 1`] = `
+exports[`PositionsTimeline renders with single position if has display_date even if current 1`] = `
 <Fragment>
   <Timeline
     mode=""
@@ -262,12 +262,12 @@ exports[`PositionsTimeline renders with single position if has end_date even if 
   >
     <TimelineItem
       color="blue"
-      key="#present@Inst 1"
+      key="#2005@Inst 1"
       pending={false}
       prefixCls="ant-timeline"
     >
       <div>
-        present
+        2005
       </div>
       <div>
         <span>
@@ -321,38 +321,6 @@ exports[`PositionsTimeline renders with single position if has rank even if curr
 </Fragment>
 `;
 
-exports[`PositionsTimeline renders with single position if has start_date even if current 1`] = `
-<Fragment>
-  <Timeline
-    mode=""
-    prefixCls="ant-timeline"
-    reverse={false}
-  >
-    <TimelineItem
-      color="blue"
-      key="#2000-present@Inst 1"
-      pending={false}
-      prefixCls="ant-timeline"
-    >
-      <div>
-        2000-present
-      </div>
-      <div>
-        <span>
-          Inst 1
-        </span>
-      </div>
-    </TimelineItem>
-  </Timeline>
-  <ExpandListToggle
-    expanded={false}
-    limit={5}
-    onToggle={[Function]}
-    size={1}
-  />
-</Fragment>
-`;
-
 exports[`PositionsTimeline renders without any of extra display keys if not current 1`] = `
 <Fragment>
   <Timeline
@@ -362,7 +330,7 @@ exports[`PositionsTimeline renders without any of extra display keys if not curr
   >
     <TimelineItem
       color="blue"
-      key="#null@Inst 1"
+      key="#undefined@Inst 1"
       pending={false}
       prefixCls="ant-timeline"
     >
