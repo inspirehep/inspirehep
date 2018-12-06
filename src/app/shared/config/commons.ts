@@ -69,14 +69,19 @@ export function fullTextSearch(value: any, expression: string): boolean {
 }
 
 export function anchorBuilder(url: string): RefAnchorAttributes {
-  let parts = url.split('/');
+  const parts = url.split('/');
+  const recordId = parts[parts.length - 1];
   let type = parts[parts.length - 2];
+
   if (type !== 'literature') {
-    type = type.slice(0, -1);
+    const display = `View ${type.slice(0, -1)}`; // de pluralize
+    const href = `//inspirehep.net/record/${recordId}`;
+    return { href, display };
+  } else {
+    const display = 'View literature';
+    const href = url.replace(/\/api\//, '/');
+    return { href, display };
   }
-  let display = `View ${type}`;
-  let href = url.replace(/\/api\//, '/');
-  return { href, display };
 }
 
 export function splitPrimitiveReferenceField(path: Array<any>, value: string, jsonStore: JsonStoreService, keyStore: KeysStoreService) {
