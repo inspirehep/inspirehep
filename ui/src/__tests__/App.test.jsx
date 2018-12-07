@@ -139,7 +139,7 @@ describe('App', () => {
     expect(wrapper.find(Authors)).toExist();
   });
 
-  it('does not navigate to Authors when /authors if betauser is logged in', () => {
+  it('navigates to Authors when /authors if betauser is logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -155,10 +155,10 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Authors)).not.toExist();
+    expect(wrapper.find(Authors)).toExist();
   });
 
-  it('does not navigate to Authors when /authors if logged in user is not a superuser', () => {
+  it('does not navigate to Authors when /authors if logged in user is not a super or beta user', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,

@@ -39,6 +39,8 @@ exports[`App renders initial state 1`] = `
         authorizedRoles={
           Immutable.Set [
             "superuser",
+            "betauser",
+            "cataloger",
           ]
         }
         component={[Function]}

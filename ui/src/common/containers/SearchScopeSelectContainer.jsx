@@ -8,7 +8,6 @@ import { searchScopes } from '../../reducers/search';
 
 const SCOPE_OPTIONS = searchScopes
   .keySeq()
-  .take(1) // TODO: remove this to be able to select other scopes than literature, like: authors
   .map(scope => ({ value: scope }))
   .toJS();
 

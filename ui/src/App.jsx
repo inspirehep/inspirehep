@@ -10,10 +10,7 @@ import Loading from './common/components/Loading';
 import SafeSwitch from './common/components/SafeSwitch';
 import PrivateRoute from './common/PrivateRoute';
 
-import {
-  LITERATURE_AUTHORIZED_ROLES,
-  AUTHORS_AUTHORIZED_ROLES,
-} from './common/authorization';
+import { SUPERUSER_OR_BETAUSER_OR_CATALOGER } from './common/authorization';
 import {
   HOME,
   USER,
@@ -69,12 +66,12 @@ class App extends Component {
             <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
             <PrivateRoute
               path={LITERATURE}
-              authorizedRoles={LITERATURE_AUTHORIZED_ROLES}
+              authorizedRoles={SUPERUSER_OR_BETAUSER_OR_CATALOGER}
               component={Literature$}
             />
             <PrivateRoute
               path={AUTHORS}
-              authorizedRoles={AUTHORS_AUTHORIZED_ROLES}
+              authorizedRoles={SUPERUSER_OR_BETAUSER_OR_CATALOGER}
               component={Authors$}
             />
             <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
