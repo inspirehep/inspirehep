@@ -2,7 +2,7 @@ import { Set } from 'immutable';
 
 import { doSetsHaveCommonItem } from './utils';
 
-const SUPERUSER_OR_BETAUSER_OR_CATALOGER = Set([
+export const SUPERUSER_OR_BETAUSER_OR_CATALOGER = Set([
   'superuser',
   'betauser',
   'cataloger',
@@ -10,9 +10,6 @@ const SUPERUSER_OR_BETAUSER_OR_CATALOGER = Set([
 const SUPERUSER_OR_CATALOGER = Set(['superuser', 'cataloger']);
 const SUPERUSER_OR_BETAUSER = Set(['superuser', 'betauser']);
 const SUPERUSER = Set(['superuser']);
-
-export const LITERATURE_AUTHORIZED_ROLES = SUPERUSER_OR_BETAUSER_OR_CATALOGER;
-export const AUTHORS_AUTHORIZED_ROLES = SUPERUSER;
 
 export function isAuthorized(userRoles, authorizedRoles) {
   return doSetsHaveCommonItem(userRoles, authorizedRoles);
