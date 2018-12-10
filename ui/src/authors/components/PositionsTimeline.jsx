@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Timeline } from 'antd';
-import { hasAnyOfKeys } from '../../common/utils';
 import ExpandListToggle from '../../common/components/ExpandListToggle';
 
 const DISPLAY_LIMIT = 5;
@@ -43,9 +42,12 @@ class PositionsTimeline extends Component {
     }
 
     const position = positions.first();
+    const isCurrent = position.get('current');
+    const displayDate = position.get('display_date');
     return (
-      !position.get('current') ||
-      hasAnyOfKeys(position, ['display_date', 'rank'])
+      !isCurrent ||
+      position.has('rank') ||
+      (displayDate && displayDate !== 'present')
     );
   }
 

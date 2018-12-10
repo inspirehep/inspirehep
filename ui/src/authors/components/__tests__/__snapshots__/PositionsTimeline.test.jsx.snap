@@ -2,6 +2,8 @@
 
 exports[`PositionsTimeline does not render with single position without any of extra display keys if current 1`] = `""`;
 
+exports[`PositionsTimeline dones not render with single position if display_date equals to "present" when current 1`] = `""`;
+
 exports[`PositionsTimeline renders all when ExpandListToggle is toggled by default 1`] = `
 <Fragment>
   <Timeline
