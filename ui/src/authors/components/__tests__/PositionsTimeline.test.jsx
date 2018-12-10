@@ -54,6 +54,18 @@ describe('PositionsTimeline', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('dones not render with single position if display_date equals to "present" when current', () => {
+    const positions = fromJS([
+      {
+        institution: 'Inst 1',
+        display_date: 'present',
+        current: true,
+      },
+    ]);
+    const wrapper = shallow(<PositionsTimeline positions={positions} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('does not render with single position without any of extra display keys if current', () => {
     const positions = fromJS([
       {
