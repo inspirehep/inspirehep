@@ -49,6 +49,7 @@ class DetailPage extends Component {
 
     const positions = metadata.get('positions', List());
     const currentPositions = getCurrentAffiliationsFromPositions(positions);
+    const shouldDisplayPositions = metadata.get('should_display_positions');
 
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
@@ -84,11 +85,13 @@ class DetailPage extends Component {
               </div>
               <div className="mt3">
                 <Row>
-                  <Col span={7}>
-                    <SubContentBox title="Positions">
-                      <PositionsTimeline positions={positions} />
-                    </SubContentBox>
-                  </Col>
+                  {shouldDisplayPositions && (
+                    <Col span={7}>
+                      <SubContentBox title="Positions">
+                        <PositionsTimeline positions={positions} />
+                      </SubContentBox>
+                    </Col>
+                  )}
                 </Row>
               </div>
             </ContentBox>

@@ -1,9 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PositionsTimeline does not render with single position without any of extra display keys if current 1`] = `""`;
-
-exports[`PositionsTimeline dones not render with single position if display_date equals to "present" when current 1`] = `""`;
-
 exports[`PositionsTimeline renders all when ExpandListToggle is toggled by default 1`] = `
 <Fragment>
   <Timeline
@@ -255,39 +251,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
 </Fragment>
 `;
 
-exports[`PositionsTimeline renders with single position if has display_date even if current 1`] = `
-<Fragment>
-  <Timeline
-    mode=""
-    prefixCls="ant-timeline"
-    reverse={false}
-  >
-    <TimelineItem
-      color="blue"
-      key="#2005@Inst 1"
-      pending={false}
-      prefixCls="ant-timeline"
-    >
-      <div>
-        2005
-      </div>
-      <div>
-        <span>
-          Inst 1
-        </span>
-      </div>
-    </TimelineItem>
-  </Timeline>
-  <ExpandListToggle
-    expanded={false}
-    limit={5}
-    onToggle={[Function]}
-    size={1}
-  />
-</Fragment>
-`;
-
-exports[`PositionsTimeline renders with single position if has rank even if current 1`] = `
+exports[`PositionsTimeline renders with single position 1`] = `
 <Fragment>
   <Timeline
     mode=""
@@ -308,36 +272,6 @@ exports[`PositionsTimeline renders with single position if has rank even if curr
           UNDERGRADUATE
           , 
         </strong>
-        <span>
-          Inst 1
-        </span>
-      </div>
-    </TimelineItem>
-  </Timeline>
-  <ExpandListToggle
-    expanded={false}
-    limit={5}
-    onToggle={[Function]}
-    size={1}
-  />
-</Fragment>
-`;
-
-exports[`PositionsTimeline renders without any of extra display keys if not current 1`] = `
-<Fragment>
-  <Timeline
-    mode=""
-    prefixCls="ant-timeline"
-    reverse={false}
-  >
-    <TimelineItem
-      color="blue"
-      key="#undefined@Inst 1"
-      pending={false}
-      prefixCls="ant-timeline"
-    >
-      <div />
-      <div>
         <span>
           Inst 1
         </span>

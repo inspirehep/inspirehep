@@ -21,9 +21,4 @@ describe('SubContentBox', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('does not render SubContentBox without children', () => {
-    const wrapper = shallow(<SubContentBox title="Empty Box" />);
-    expect(wrapper).toMatchSnapshot();
-  });
 });

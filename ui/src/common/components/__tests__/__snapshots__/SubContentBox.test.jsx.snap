@@ -1,7 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SubContentBox does not render SubContentBox without children 1`] = `""`;
-
 exports[`SubContentBox renders with all props 1`] = `
 <Card>
   <div
