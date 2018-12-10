@@ -21,12 +21,11 @@ class SubContentBox extends Component {
 
 SubContentBox.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.node,
+  children: PropTypes.node.isRequired,
 };
 
 SubContentBox.defaultProps = {
   title: null,
-  children: null,
 };
 
 export default SubContentBox;

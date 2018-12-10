@@ -35,22 +35,6 @@ class PositionsTimeline extends Component {
     this.setState({ expanded: !expanded });
   }
 
-  shouldDisplayTimeline() {
-    const { positions } = this.props;
-    if (positions.size > 1) {
-      return true;
-    }
-
-    const position = positions.first();
-    const isCurrent = position.get('current');
-    const displayDate = position.get('display_date');
-    return (
-      !isCurrent ||
-      position.has('rank') ||
-      (displayDate && displayDate !== 'present')
-    );
-  }
-
   render() {
     const { positions } = this.props;
     const { expanded } = this.state;
@@ -60,21 +44,17 @@ class PositionsTimeline extends Component {
       : positions.take(DISPLAY_LIMIT);
 
     return (
-      this.shouldDisplayTimeline() && (
-        <Fragment>
-          <Timeline>
-            {positionsToDisplay.map(
-              PositionsTimeline.renderPositionTimelineItem
-            )}
-          </Timeline>
-          <ExpandListToggle
-            limit={DISPLAY_LIMIT}
-            size={positions.size}
-            expanded={expanded}
-            onToggle={this.onExpandToggle}
-          />
-        </Fragment>
-      )
+      <Fragment>
+        <Timeline>
+          {positionsToDisplay.map(PositionsTimeline.renderPositionTimelineItem)}
+        </Timeline>
+        <ExpandListToggle
+          limit={DISPLAY_LIMIT}
+          size={positions.size}
+          expanded={expanded}
+          onToggle={this.onExpandToggle}
+        />
+      </Fragment>
     );
   }
 }
