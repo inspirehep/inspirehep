@@ -5,7 +5,7 @@ import { Form } from 'antd';
 import { getIn } from 'formik';
 import classNames from 'classnames';
 
-import { getWrappedComponentDisplayName } from '../common/utils';
+import { getWrappedComponentDisplayName } from '../../common/utils';
 
 /**
  * Wraps component with From.Item to provide error display, label.

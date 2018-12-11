@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
-import { submitAuthor } from '../../actions/submissions';
-import { authorSubmitErrorPath } from '../../reducers/submissions';
+import { submitAuthor } from '../../../actions/submissions';
+import { authorSubmitErrorPath } from '../../../reducers/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
 
 class AuthorSubmissionPage extends Component {

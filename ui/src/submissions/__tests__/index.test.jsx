@@ -6,9 +6,9 @@ import Loadable from 'react-loadable';
 
 import { getStore } from '../../fixtures/store';
 import Submissions from '..';
-import AuthorSubmissionPage from '../containers/AuthorSubmissionPage';
-import SubmissionSuccessPage from '../components/SubmissionSuccessPage';
-import AuthorUpdateSubmissionPage from '../containers/AuthorUpdateSubmissionPage';
+import AuthorSubmissionPage from '../authors/containers/AuthorSubmissionPage';
+import SubmissionSuccessPage from '../common/components/SubmissionSuccessPage';
+import AuthorUpdateSubmissionPage from '../authors/containers/AuthorUpdateSubmissionPage';
 
 // TODO: enable tests after bumping enzyme (eznyme@3.4 was not stable at the time of the TODO)
 describe('Submissions', () => {

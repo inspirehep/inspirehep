@@ -9,14 +9,14 @@ import {
   authorStatusOptions,
   degreeTypeOptions,
 } from '../schemas/constants';
-import CollapsableForm from './CollapsableForm';
-import TextField from './TextField';
-import BooleanField from './BooleanField';
-import SelectField from './SelectField';
-import ArrayOf from './ArrayOf';
-import SuggesterField from './SuggesterField';
-import TextAreaField from './TextAreaField';
-import LabelWithHelp from './LabelWithHelp';
+import CollapsableForm from '../../common/components/CollapsableForm';
+import TextField from '../../common/components/TextField';
+import BooleanField from '../../common/components/BooleanField';
+import SelectField from '../../common/components/SelectField';
+import ArrayOf from '../../common/components/ArrayOf';
+import SuggesterField from '../../common/components/SuggesterField';
+import TextAreaField from '../../common/components/TextAreaField';
+import LabelWithHelp from '../../common/components/LabelWithHelp';
 
 const OPEN_SECTIONS = [
   'personal_info',

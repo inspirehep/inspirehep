@@ -11,17 +11,17 @@ import Loading from '../common/components/Loading';
 import SafeSwitch from '../common/components/SafeSwitch';
 
 const AuthorSubmissionPage$ = Loadable({
-  loader: () => import('./containers/AuthorSubmissionPage'),
+  loader: () => import('./authors/containers/AuthorSubmissionPage'),
   loading: Loading,
 });
 
 const AuthorUpdateSubmissionPage$ = Loadable({
-  loader: () => import('./containers/AuthorUpdateSubmissionPage'),
+  loader: () => import('./authors/containers/AuthorUpdateSubmissionPage'),
   loading: Loading,
 });
 
 const SubmissionSuccessPage$ = Loadable({
-  loader: () => import('./components/SubmissionSuccessPage'),
+  loader: () => import('./common/components/SubmissionSuccessPage'),
   loading: Loading,
 });
 
