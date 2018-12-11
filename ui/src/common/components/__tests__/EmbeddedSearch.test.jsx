@@ -248,4 +248,122 @@ describe('EmbeddedSearch', () => {
 
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders with new results after pidType prop change', async () => {
+    const searchQuery = 'page=1&size=10&sort=mostrecent';
+    mockHttp
+      .onGet(`/literature?${searchQuery}`)
+      .replyOnce(200, {
+        hits: {
+          hits: [{ id: 1 }],
+          total: 1,
+        },
+      })
+      .onGet(`/authors?${searchQuery}`)
+      .replyOnce(200, {
+        hits: {
+          hits: [{ id: 2 }],
+          total: 1,
+        },
+      })
+      .onGet(`/literature/facets?${searchQuery}`)
+      .replyOnce(200, {
+        aggregations: {
+          agg1: {},
+        },
+      })
+      .onGet(`/authors/facets?${searchQuery}`)
+      .replyOnce(200, {
+        aggregations: {
+          agg2: {},
+        },
+      });
+    const wrapper = shallow(
+      <EmbeddedSearch pidType="literature" renderResultItem={jest.fn()} />
+    );
+    await nextTick();
+    wrapper.update();
+    wrapper.setProps({ pidType: 'authors' });
+    await nextTick();
+    wrapper.update();
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with new results after baseQuery prop change', async () => {
+    const searchQuery = 'page=1&size=10&sort=mostrecent';
+    mockHttp
+      .onGet(`/literature?author=ahmet&${searchQuery}`)
+      .replyOnce(200, {
+        hits: {
+          hits: [{ id: 1 }],
+          total: 1,
+        },
+      })
+      .onGet(`/literature?author=harun&${searchQuery}`)
+      .replyOnce(200, {
+        hits: {
+          hits: [{ id: 2 }],
+          total: 1,
+        },
+      })
+      .onGet(`/literature/facets?author=ahmet&${searchQuery}`)
+      .replyOnce(200, {
+        aggregations: {
+          agg1: {},
+        },
+      })
+      .onGet(`/literature/facets?author=harun&${searchQuery}`)
+      .replyOnce(200, {
+        aggregations: {
+          agg2: {},
+        },
+      });
+    const wrapper = shallow(
+      <EmbeddedSearch
+        pidType="literature"
+        baseQuery={{ author: 'ahmet' }}
+        renderResultItem={jest.fn()}
+      />
+    );
+    await nextTick();
+    wrapper.update();
+    wrapper.setProps({ baseQuery: { author: 'harun' } });
+    await nextTick();
+    wrapper.update();
+
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with current results if baseQuery is changed but equals to previous one', async () => {
+    const searchQuery = 'author=ahmet&page=1&size=10&sort=mostrecent';
+    mockHttp
+      .onGet(`/literature?${searchQuery}`)
+      .replyOnce(200, {
+        hits: {
+          hits: [{ id: 1 }],
+          total: 1,
+        },
+      })
+      .onGet(`/literature/facets?${searchQuery}`)
+      .replyOnce(200, {
+        aggregations: {
+          agg1: {},
+        },
+      });
+    const wrapper = shallow(
+      <EmbeddedSearch
+        pidType="literature"
+        baseQuery={{ author: 'ahmet' }}
+        renderResultItem={jest.fn()}
+      />
+    );
+    await nextTick();
+    wrapper.update();
+    wrapper.setProps({ baseQuery: { author: 'ahmet' } });
+    await nextTick();
+    wrapper.update();
+
+    expect(wrapper).toMatchSnapshot();
+  });
 });

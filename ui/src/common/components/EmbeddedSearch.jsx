@@ -11,7 +11,7 @@ import SortBy from './SortBy';
 import SearchResults from './SearchResults';
 import SearchPagination from './SearchPagination';
 import http, { UI_SERIALIZER_REQUEST_OPTIONS } from '../http';
-import { mergeWithConcattingArrays } from '../utils';
+import { mergeWithConcattingArrays, shallowEqual } from '../utils';
 
 class EmbeddedSearch extends Component {
   constructor(props) {
@@ -37,6 +37,18 @@ class EmbeddedSearch extends Component {
 
   componentDidMount() {
     this.searchForCurrentQueryState();
+  }
+
+  componentDidUpdate(prevProps) {
+    const { pidType, baseQuery, baseFacetsQuery } = this.props;
+
+    if (
+      pidType !== prevProps.pidType ||
+      !shallowEqual(baseQuery, prevProps.baseQuery) ||
+      !shallowEqual(baseFacetsQuery, prevProps.baseFacetsQuery)
+    ) {
+      this.searchForCurrentQueryState();
+    }
   }
 
   async onPageChange(page) {

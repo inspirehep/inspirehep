@@ -15,6 +15,7 @@
     "test": "yarn lint && yarn test:unit && yarn test:ui && yarn test:size",
     "test:ui": "./run-ui-tests.sh",
     "test:unit": "craco test",
+    "test:unit:log": "craco test --verbose=false",
     "test:size": "bundlesize",
     "eject": "react-scripts eject",
     "lint":
