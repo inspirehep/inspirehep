@@ -10,14 +10,13 @@ import AuthorSubmissionPage from '../authors/containers/AuthorSubmissionPage';
 import SubmissionSuccessPage from '../common/components/SubmissionSuccessPage';
 import AuthorUpdateSubmissionPage from '../authors/containers/AuthorUpdateSubmissionPage';
 
-// TODO: enable tests after bumping enzyme (eznyme@3.4 was not stable at the time of the TODO)
 describe('Submissions', () => {
   it('renders initial state', () => {
     const component = shallow(<Submissions />);
     expect(component).toMatchSnapshot();
   });
 
-  xit('navigates to AuthorSubmissionPage when /submissions/authors', async done => {
+  it('navigates to AuthorSubmissionPage when /submissions/authors', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -36,7 +35,7 @@ describe('Submissions', () => {
     done();
   });
 
-  xit('navigates to AuthorUpdateSubmissionPage when /submissions/authors/:id', async done => {
+  it('navigates to AuthorUpdateSubmissionPage when /submissions/authors/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -55,7 +54,7 @@ describe('Submissions', () => {
     done();
   });
 
-  xit('navigates to SubmissionSuccessPage when /submissions/success', async done => {
+  it('navigates to SubmissionSuccessPage when /submissions/success', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
