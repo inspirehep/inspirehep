@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
-import { Button, Col, Row } from 'antd';
+import { Col, Row } from 'antd';
 
 import {
   arxivCategoryOptions,
@@ -17,6 +17,7 @@ import ArrayOf from '../../common/components/ArrayOf';
 import SuggesterField from '../../common/components/SuggesterField';
 import TextAreaField from '../../common/components/TextAreaField';
 import LabelWithHelp from '../../common/components/LabelWithHelp';
+import SubmitButton from '../../common/components/SubmitButton';
 
 const OPEN_SECTIONS = [
   'personal_info',
@@ -283,14 +284,11 @@ class AuthorForm extends Component {
           </CollapsableForm.Section>
         </CollapsableForm>
         <Row type="flex" justify="end">
-          <Button
-            type="primary"
-            htmlType="submit"
-            loading={isSubmitting || isValidating}
-            disabled={!isValid}
-          >
-            Submit
-          </Button>
+          <SubmitButton
+            isSubmitting={isSubmitting}
+            isValidating={isValidating}
+            isValid={isValid}
+          />
         </Row>
       </Form>
     );
