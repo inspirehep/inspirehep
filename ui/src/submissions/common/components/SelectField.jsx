@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 
-import SelectBox from '../../common/components/SelectBox';
+import SelectBox from '../../../common/components/SelectBox';
 import withFormItem from '../withFormItem';
 
 class SelectField extends Component {

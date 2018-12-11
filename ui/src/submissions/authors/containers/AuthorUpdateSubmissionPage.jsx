@@ -6,12 +6,12 @@ import { Map } from 'immutable';
 import {
   fetchAuthorUpdateFormData,
   submitAuthorUpdate,
-} from '../../actions/submissions';
+} from '../../../actions/submissions';
 import {
   authorSubmitErrorPath,
   authorUpdateDataPath,
   loadingAuthorUpdateDataPath,
-} from '../../reducers/submissions';
+} from '../../../reducers/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
 
 class AuthorUpdateSubmissionPage extends Component {

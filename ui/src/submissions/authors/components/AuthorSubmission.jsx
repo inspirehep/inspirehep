@@ -5,9 +5,9 @@ import { Formik } from 'formik';
 
 import AuthorForm from './AuthorForm';
 import authorSchema from '../schemas/author';
-import cleanupFormData from '../cleanupFormData';
-import toJS from '../../common/immutableToJS';
-import ExternalLink from '../../common/components/ExternalLink';
+import cleanupFormData from '../../common/cleanupFormData';
+import toJS from '../../../common/immutableToJS';
+import ExternalLink from '../../../common/components/ExternalLink';
 
 const DEFAULT_FORM_DATA = authorSchema.cast();
 

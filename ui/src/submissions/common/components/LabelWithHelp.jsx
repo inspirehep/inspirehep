@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import HelpIconTooltip from '../../common/components/HelpIconTooltip';
+import HelpIconTooltip from '../../../common/components/HelpIconTooltip';
 
 class LabelWithHelp extends Component {
   render() {

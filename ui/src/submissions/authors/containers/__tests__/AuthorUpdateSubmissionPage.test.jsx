@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { getStore } from '../../../fixtures/store';
-import { AUTHOR_UPDATE_FORM_DATA_REQUEST } from '../../../actions/actionTypes';
+import { getStore } from '../../../../fixtures/store';
+import { AUTHOR_UPDATE_FORM_DATA_REQUEST } from '../../../../actions/actionTypes';
 import AuthorUpdateSubmissionPage from '../AuthorUpdateSubmissionPage';
 
 describe('AuthorUpdateSubmissionPage', () => {

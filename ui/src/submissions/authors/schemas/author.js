@@ -6,7 +6,9 @@ import {
   authorStatusValues,
   degreeTypeValues,
 } from './constants';
-import { emptyObjectOrShapeOf, orcid, year } from './customSchemas';
+import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
+import orcid from '../../common/schemas/orcid';
+import year from '../../common/schemas/year';
 
 const yearSchema = year().label('Year');
 
