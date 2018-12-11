@@ -6,6 +6,7 @@ import {
   SUBMISSIONS_AUTHOR,
   SUBMISSION_SUCCESS,
   SUBMISSIONS,
+  SUBMISSIONS_LITERATURE,
 } from '../common/routes';
 import Loading from '../common/components/Loading';
 import SafeSwitch from '../common/components/SafeSwitch';
@@ -17,6 +18,11 @@ const AuthorSubmissionPage$ = Loadable({
 
 const AuthorUpdateSubmissionPage$ = Loadable({
   loader: () => import('./authors/containers/AuthorUpdateSubmissionPage'),
+  loading: Loading,
+});
+
+const LiteratureSubmissionPage$ = Loadable({
+  loader: () => import('./literature/containers/LiteratureSubmissionPage'),
   loading: Loading,
 });
 
@@ -40,6 +46,11 @@ class Submissions extends Component {
             exact
             path={`${SUBMISSIONS_AUTHOR}/:id`}
             component={AuthorUpdateSubmissionPage$}
+          />
+          <Route
+            exact
+            path={SUBMISSIONS_LITERATURE}
+            component={LiteratureSubmissionPage$}
           />
           <Route
             exact
