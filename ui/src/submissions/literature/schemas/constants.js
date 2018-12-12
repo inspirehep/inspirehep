@@ -17,10 +17,10 @@ export const languageOptions = [
 ];
 export const languageValues = languageOptions.map(getValue);
 
-export const subjectsOptions = [
+export const subjectOptions = [
   { value: 'Accelerators' },
   { value: 'Astrophysics' },
-  { value: 'Astrophysics' },
+  { value: 'Computing' },
   { value: 'Data Analysis and Statistics' },
   { value: 'Experiment-HEP' },
   { value: 'Experiment-Nucl' },
@@ -31,4 +31,4 @@ export const subjectsOptions = [
   { value: 'Math and Math Physics' },
   { value: 'Other' },
 ];
-export const subjectsValues = subjectsOptions.map(getValue);
+export const subjectValues = subjectOptions.map(getValue);

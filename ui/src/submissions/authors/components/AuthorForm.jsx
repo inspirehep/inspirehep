@@ -7,8 +7,8 @@ import {
   arxivCategoryOptions,
   rankOptions,
   authorStatusOptions,
-  degreeTypeOptions,
 } from '../schemas/constants';
+import { degreeTypeOptions } from '../../common/schemas/constants';
 import CollapsableForm from '../../common/components/CollapsableForm';
 import TextField from '../../common/components/TextField';
 import BooleanField from '../../common/components/BooleanField';

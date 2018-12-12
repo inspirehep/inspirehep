@@ -7,8 +7,9 @@ import CollapsableForm from '../../common/components/CollapsableForm';
 import BasicInfoFields from './BasicInfoFields';
 import SubmitButton from '../../common/components/SubmitButton';
 import LinkFields from './LinkFields';
+import ThesisInfoFields from './ThesisInfoFields';
 
-const OPEN_SECTIONS = ['basic_info', 'link_fields'];
+const OPEN_SECTIONS = ['basic_info', 'links', 'thesis_info'];
 
 class ThesisForm extends Component {
   render() {
@@ -16,11 +17,14 @@ class ThesisForm extends Component {
     return (
       <Form>
         <CollapsableForm openSections={OPEN_SECTIONS}>
+          <CollapsableForm.Section header="Links" key="links">
+            <LinkFields />
+          </CollapsableForm.Section>
           <CollapsableForm.Section header="Basic Info" key="basic_info">
             <BasicInfoFields values={values} />
           </CollapsableForm.Section>
-          <CollapsableForm.Section header="Links" key="links">
-            <LinkFields />
+          <CollapsableForm.Section header="Thesis Info" key="thesis_info">
+            <ThesisInfoFields values={values} />
           </CollapsableForm.Section>
         </CollapsableForm>
         <Row type="flex" justify="end">
