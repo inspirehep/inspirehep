@@ -4,8 +4,8 @@ import {
   arxivCategoryValues,
   rankValues,
   authorStatusValues,
-  degreeTypeValues,
 } from './constants';
+import { degreeTypeValues } from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import orcid from '../../common/schemas/orcid';
 import year from '../../common/schemas/year';

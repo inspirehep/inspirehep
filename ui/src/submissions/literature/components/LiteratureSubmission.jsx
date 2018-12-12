@@ -22,13 +22,17 @@ const DOC_TYPE_OPTIONS = [
     display: 'Thesis',
   },
 ];
-const FORM_COMPONENT_BY_DOC_TYPE = {
-  article: ArticleForm,
-  thesis: ThesisForm,
-};
-const FORM_SCHEMA_BY_DOC_TYPE = {
-  article: articleSchema,
-  thesis: thesisSchema,
+const FORMS_BY_DOC_TYPE = {
+  article: {
+    component: ArticleForm,
+    schema: articleSchema,
+    initialValues: articleSchema.cast(),
+  },
+  thesis: {
+    component: ThesisForm,
+    schema: thesisSchema,
+    initialValues: thesisSchema.cast(),
+  },
 };
 
 class LiteratureSubmission extends Component {
@@ -58,10 +62,7 @@ class LiteratureSubmission extends Component {
     const { error, onSubmit } = this.props;
     const { docType } = this.state;
 
-    const FormComponent = FORM_COMPONENT_BY_DOC_TYPE[docType];
-    const formSchema = FORM_SCHEMA_BY_DOC_TYPE[docType];
-
-    const initialValues = formSchema.cast();
+    const { component, schema, initialValues } = FORMS_BY_DOC_TYPE[docType];
 
     return (
       <Row type="flex" justify="center">
@@ -92,8 +93,9 @@ class LiteratureSubmission extends Component {
           </Row>
           <Row>
             <Formik
+              enableReinitialize
               initialValues={initialValues}
-              validationSchema={formSchema}
+              validationSchema={schema}
               onSubmit={async (values, actions) => {
                 const cleanValues = cleanupFormData(values);
                 await onSubmit(cleanValues);
@@ -102,7 +104,7 @@ class LiteratureSubmission extends Component {
                   window.scrollTo(0, 0);
                 }
               }}
-              component={FormComponent}
+              component={component}
             />
           </Row>
         </Col>

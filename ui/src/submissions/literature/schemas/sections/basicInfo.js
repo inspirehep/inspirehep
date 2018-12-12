@@ -1,5 +1,5 @@
 import { string, array, object } from 'yup';
-import { languageValues, subjectsValues } from '../constants';
+import { languageValues, subjectValues } from '../constants';
 
 // TODO: move it to common
 const arrayWithEmptyObjectDefault = array().default([{}]);
@@ -13,7 +13,7 @@ export default {
     .oneOf(languageValues)
     .default(languageValues[0]),
   subjects: array()
-    .of(string().oneOf(subjectsValues))
+    .of(string().oneOf(subjectValues))
     .min(1)
     .required()
     .label('Subject'),

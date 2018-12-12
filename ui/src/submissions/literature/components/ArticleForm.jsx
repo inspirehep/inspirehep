@@ -16,11 +16,11 @@ class ArticleForm extends Component {
     return (
       <Form>
         <CollapsableForm openSections={OPEN_SECTIONS}>
-          <CollapsableForm.Section header="Basic Info" key="basic_info">
-            <BasicInfoFields values={values} withCollaborationField />
-          </CollapsableForm.Section>
           <CollapsableForm.Section header="Links" key="links">
             <LinkFields />
+          </CollapsableForm.Section>
+          <CollapsableForm.Section header="Basic Info" key="basic_info">
+            <BasicInfoFields values={values} withCollaborationField />
           </CollapsableForm.Section>
         </CollapsableForm>
         <Row type="flex" justify="end">

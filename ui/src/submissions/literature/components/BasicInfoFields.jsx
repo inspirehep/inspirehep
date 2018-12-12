@@ -3,7 +3,7 @@ import { Field } from 'formik';
 import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
-import { languageOptions, subjectsOptions } from '../schemas/constants';
+import { languageOptions, subjectOptions } from '../schemas/constants';
 import TextField from '../../common/components/TextField';
 import ArrayOf from '../../common/components/ArrayOf';
 import SelectField from '../../common/components/SelectField';
@@ -26,7 +26,7 @@ class BasicInfoFields extends Component {
           name="subjects"
           label="* Subjects"
           mode="multiple"
-          options={subjectsOptions}
+          options={subjectOptions}
           component={SelectField}
         />
         <ArrayOf

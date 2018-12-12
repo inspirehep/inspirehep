@@ -5,8 +5,8 @@ import links from './sections/links';
 
 const articleSchema = object().shape({
   documet_type: string().default('article'),
-  ...basicInfo,
   ...links,
+  ...basicInfo,
 });
 
 export default articleSchema;
