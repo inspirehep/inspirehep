@@ -8,11 +8,12 @@ import SelectBox from '../../common/components/SelectBox';
 import ListItemAction from '../../common/components/ListItemAction';
 
 const FORMAT_SELECT_OPTIONS = [
-  { value: 'bibtex', display: 'BibTex' },
-  { value: 'latexeu', display: 'LaTex (EU)' },
+  { value: 'x-bibtex', display: 'BibTex' },
+  { value: 'vnd+inspire.latex.eu+x-latex', display: 'LaTex (EU)' },
+  { value: 'vnd+inspire.latex.us+x-latex', display: 'LaTex (US)' },
 ];
 
-export const DEFAULT_SELECT_VALUE = 'bibtex';
+export const DEFAULT_SELECT_VALUE = FORMAT_SELECT_OPTIONS[0].value;
 
 class CiteModalAction extends Component {
   constructor(props) {
