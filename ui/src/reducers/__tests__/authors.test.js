@@ -1,4 +1,5 @@
 import { Map, fromJS } from 'immutable';
+import { LOCATION_CHANGE } from 'react-router-redux';
 
 import reducer, { initialState } from '../authors';
 import {
@@ -16,6 +17,16 @@ describe('authors reducer', () => {
       error: null,
     });
     expect(state).toEqual(expected);
+  });
+
+  it('LOCATION_CHANGE', () => {
+    const currentState = fromJS({
+      data: {
+        control_number: 123456,
+      },
+    });
+    const state = reducer(currentState, { type: LOCATION_CHANGE });
+    expect(state).toEqual(initialState);
   });
 
   it('AUTHOR_REQUEST', () => {
