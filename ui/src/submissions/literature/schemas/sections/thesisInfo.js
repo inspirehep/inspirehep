@@ -7,8 +7,8 @@ const arrayWithEmptyObjectDefault = array().default([{}]);
 
 export default {
   degree_type: string().oneOf(degreeTypeValues),
-  submission_date: date(),
-  defense_date: date(),
+  submission_date: date().label('Submission Date'),
+  defense_date: date().label('Defense Date'),
   institution: string(),
   // TODO: maybe reuse the same from basicInfo/authors
   supervisors: arrayWithEmptyObjectDefault.of(
