@@ -8,8 +8,21 @@ import TextField from '../../common/components/TextField';
 import ArrayOf from '../../common/components/ArrayOf';
 import SelectField from '../../common/components/SelectField';
 import TextAreaField from '../../common/components/TextAreaField';
+import SuggesterField from '../../common/components/SuggesterField';
 
 class BasicInfoFields extends Component {
+  static getSuggestionSourceLegacyICN(suggestion) {
+    return suggestion._source.legacy_ICN;
+  }
+
+  static getSuggestionSourceLegacyName(suggestion) {
+    return suggestion._source.legacy_name;
+  }
+
+  static getSuggestionSourceNameValue(suggestion) {
+    return suggestion._source.name.value;
+  }
+
   render() {
     const { withCollaborationField, values } = this.props;
 
@@ -40,16 +53,26 @@ class BasicInfoFields extends Component {
                 <Field
                   onlyChild
                   name={`${itemName}.full_name`}
-                  placeholder="Family name, First name"
-                  component={TextField}
+                  placeholder="Family name, first name"
+                  pidType="authors"
+                  suggesterName="author"
+                  extractItemCompletionValue={
+                    BasicInfoFields.getSuggestionSourceNameValue
+                  }
+                  component={SuggesterField}
                 />
               </Col>
               <Col span={11}>
                 <Field
                   onlyChild
                   name={`${itemName}.affiliation`}
-                  placeholder="Affiliation"
-                  component={TextField}
+                  placeholder="Affiliation, type for suggestions"
+                  pidType="institutions"
+                  suggesterName="affiliation"
+                  extractItemCompletionValue={
+                    BasicInfoFields.getSuggestionSourceLegacyICN
+                  }
+                  component={SuggesterField}
                 />
               </Col>
             </Row>
@@ -62,7 +85,17 @@ class BasicInfoFields extends Component {
             component={TextField}
           />
         )}
-        <Field name="experiment" label="Experiment" component={TextField} />
+        <Field
+          label="Experiment"
+          name="experiment"
+          placeholder="Experiment, type for suggestions"
+          pidType="experiments"
+          suggesterName="experiment"
+          extractItemCompletionValue={
+            BasicInfoFields.getSuggestionSourceLegacyName
+          }
+          component={SuggesterField}
+        />
         <Field
           name="abstract"
           label="Abstract"
