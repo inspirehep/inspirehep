@@ -69,17 +69,21 @@ exports[`CiteModalAction renders with recordId 1`] = `
           </Button>
         </div>
         <SelectBox
-          defaultValue="bibtex"
+          defaultValue="x-bibtex"
           onChange={[Function]}
           options={
             Array [
               Object {
                 "display": "BibTex",
-                "value": "bibtex",
+                "value": "x-bibtex",
               },
               Object {
                 "display": "LaTex (EU)",
-                "value": "latexeu",
+                "value": "vnd+inspire.latex.eu+x-latex",
+              },
+              Object {
+                "display": "LaTex (US)",
+                "value": "vnd+inspire.latex.us+x-latex",
               },
             ]
           }
