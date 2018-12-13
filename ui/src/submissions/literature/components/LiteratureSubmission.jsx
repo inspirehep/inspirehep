@@ -11,6 +11,10 @@ import ExternalLink from '../../../common/components/ExternalLink';
 import ArticleForm from './ArticleForm';
 import SelectBox from '../../../common/components/SelectBox';
 import ThesisForm from './ThesisForm';
+import BookForm from './BookForm';
+import bookSchema from '../schemas/book';
+import BookChapterForm from './BookChapterForm';
+import bookChapterSchema from '../schemas/bookChapter';
 
 const DOC_TYPE_OPTIONS = [
   {
@@ -20,6 +24,14 @@ const DOC_TYPE_OPTIONS = [
   {
     value: 'thesis',
     display: 'Thesis',
+  },
+  {
+    value: 'book',
+    display: 'Book',
+  },
+  {
+    value: 'bookChapter',
+    display: 'Book Chapter',
   },
 ];
 const FORMS_BY_DOC_TYPE = {
@@ -32,6 +44,16 @@ const FORMS_BY_DOC_TYPE = {
     component: ThesisForm,
     schema: thesisSchema,
     initialValues: thesisSchema.cast(),
+  },
+  book: {
+    component: BookForm,
+    schema: bookSchema,
+    initialValues: bookSchema.cast(),
+  },
+  bookChapter: {
+    component: BookChapterForm,
+    schema: bookChapterSchema,
+    initialValues: bookChapterSchema.cast(),
   },
 };
 
