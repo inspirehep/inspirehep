@@ -8,6 +8,8 @@ import BasicInfoFields from './BasicInfoFields';
 import SubmitButton from '../../common/components/SubmitButton';
 import LinkFields from './LinkFields';
 import ThesisInfoFields from './ThesisInfoFields';
+import ReferencesField from './ReferencesField';
+import CommentsField from './CommentsField';
 
 const OPEN_SECTIONS = ['basic_info', 'links', 'thesis_info'];
 
@@ -25,6 +27,12 @@ class ThesisForm extends Component {
           </CollapsableForm.Section>
           <CollapsableForm.Section header="Thesis Info" key="thesis_info">
             <ThesisInfoFields values={values} />
+          </CollapsableForm.Section>
+          <CollapsableForm.Section header="References" key="references">
+            <ReferencesField values={values} />
+          </CollapsableForm.Section>
+          <CollapsableForm.Section header="Comments" key="comments">
+            <CommentsField values={values} />
           </CollapsableForm.Section>
         </CollapsableForm>
         <Row type="flex" justify="end">
