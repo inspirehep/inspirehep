@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
 import { submitAuthor } from '../../../actions/submissions';
-import { authorSubmitErrorPath } from '../../../reducers/submissions';
 import LiteratureSubmission from '../components/LiteratureSubmission';
 
 class AuthorSubmissionPage extends Component {
@@ -15,6 +14,7 @@ class AuthorSubmissionPage extends Component {
 
   async onSubmit(formData) {
     const { dispatch } = this.props;
+    // TODO: submitLiterature
     await dispatch(submitAuthor(formData));
   }
 
@@ -30,7 +30,7 @@ AuthorSubmissionPage.propTypes = {
 };
 
 const stateToProps = state => ({
-  error: state.submissions.getIn(authorSubmitErrorPath),
+  error: state.submissions.get('submitError'),
 });
 
 const dispatchToProps = dispatch => ({ dispatch });

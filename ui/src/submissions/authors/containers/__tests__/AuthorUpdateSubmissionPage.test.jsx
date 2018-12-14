@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { getStore } from '../../../../fixtures/store';
-import { AUTHOR_UPDATE_FORM_DATA_REQUEST } from '../../../../actions/actionTypes';
+import { INITIAL_FORM_DATA_REQUEST } from '../../../../actions/actionTypes';
 import AuthorUpdateSubmissionPage from '../AuthorUpdateSubmissionPage';
 
 describe('AuthorUpdateSubmissionPage', () => {
@@ -18,10 +18,13 @@ describe('AuthorUpdateSubmissionPage', () => {
     ).dive();
     const actions = store.getActions();
     const expectedAction = actions.find(
-      action => action.type === AUTHOR_UPDATE_FORM_DATA_REQUEST
+      action => action.type === INITIAL_FORM_DATA_REQUEST
     );
     expect(expectedAction).toBeDefined();
-    expect(expectedAction.payload).toEqual({ recordId: '123' });
+    expect(expectedAction.payload).toEqual({
+      recordId: '123',
+      pidType: 'authors',
+    });
   });
 
   it('dispatches author update form data request action again when match props changed', () => {
@@ -38,8 +41,9 @@ describe('AuthorUpdateSubmissionPage', () => {
     const actions = store.getActions();
     const expectedAction = actions.find(
       action =>
-        action.type === AUTHOR_UPDATE_FORM_DATA_REQUEST &&
-        action.payload.recordId === '999'
+        action.type === INITIAL_FORM_DATA_REQUEST &&
+        action.payload.recordId === '999' &&
+        action.payload.pidType === 'authors'
     );
     expect(expectedAction).toBeDefined();
   });
@@ -58,7 +62,7 @@ describe('AuthorUpdateSubmissionPage', () => {
     const actions = store.getActions();
     const expectedActions = actions.filter(
       action =>
-        action.type === AUTHOR_UPDATE_FORM_DATA_REQUEST &&
+        action.type === INITIAL_FORM_DATA_REQUEST &&
         action.payload.recordId === '123'
     );
     expect(expectedActions.length).toBe(1);

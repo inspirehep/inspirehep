@@ -7,11 +7,6 @@ import {
   fetchAuthorUpdateFormData,
   submitAuthorUpdate,
 } from '../../../actions/submissions';
-import {
-  authorSubmitErrorPath,
-  authorUpdateDataPath,
-  loadingAuthorUpdateDataPath,
-} from '../../../reducers/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
 
 class AuthorUpdateSubmissionPage extends Component {
@@ -74,9 +69,9 @@ AuthorUpdateSubmissionPage.propTypes = {
 };
 
 const stateToProps = state => ({
-  error: state.submissions.getIn(authorSubmitErrorPath),
-  updateFormData: state.submissions.getIn(authorUpdateDataPath),
-  loadingUpdateFormData: state.submissions.getIn(loadingAuthorUpdateDataPath),
+  error: state.submissions.get('submitError'),
+  updateFormData: state.submissions.get('initialData'),
+  loadingUpdateFormData: state.submissions.get('loadingInitialData'),
 });
 
 const dispatchToProps = dispatch => ({ dispatch });
