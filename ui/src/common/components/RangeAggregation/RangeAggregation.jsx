@@ -5,9 +5,10 @@ import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
+import { pluckMinMaxPair, toNumbers } from '../../utils';
 import './RangeAggregation.scss';
 import AggregationBox from '../AggregationBox';
-import { pluckMinMaxPair, toNumbers } from '../../utils';
+import LinkLikeButton from '../LinkLikeButton';
 
 export const HALF_BAR_WIDTH = 0.4;
 const NO_MARGIN = {
@@ -236,7 +237,7 @@ class RangeAggregation extends Component {
 
   renderResetButton() {
     /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */
-    return <a onClick={this.onResetClick}>Reset</a>;
+    return <LinkLikeButton onClick={this.onResetClick}>Reset</LinkLikeButton>;
   }
 
   render() {
