@@ -30,6 +30,7 @@ class AuthorSubmission extends Component {
       <Row type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
           <div className="mb3 pa3 bg-white">
+            <h3>Suggest author</h3>
             This form allows you to add new author information. All
             modifications are transferred to{' '}
             <ExternalLink href="//inspirehep.net/hepnames">

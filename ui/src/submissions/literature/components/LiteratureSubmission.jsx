@@ -7,33 +7,13 @@ import articleSchema from '../schemas/article';
 import thesisSchema from '../schemas/thesis';
 import cleanupFormData from '../../common/cleanupFormData';
 import toJS from '../../../common/immutableToJS';
-import ExternalLink from '../../../common/components/ExternalLink';
 import ArticleForm from './ArticleForm';
-import SelectBox from '../../../common/components/SelectBox';
 import ThesisForm from './ThesisForm';
 import BookForm from './BookForm';
 import bookSchema from '../schemas/book';
 import BookChapterForm from './BookChapterForm';
 import bookChapterSchema from '../schemas/bookChapter';
 
-const DOC_TYPE_OPTIONS = [
-  {
-    value: 'article',
-    display: 'Article/Conference paper',
-  },
-  {
-    value: 'thesis',
-    display: 'Thesis',
-  },
-  {
-    value: 'book',
-    display: 'Book',
-  },
-  {
-    value: 'bookChapter',
-    display: 'Book Chapter',
-  },
-];
 const FORMS_BY_DOC_TYPE = {
   article: {
     component: ArticleForm,
@@ -58,16 +38,6 @@ const FORMS_BY_DOC_TYPE = {
 };
 
 class LiteratureSubmission extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      docType: DOC_TYPE_OPTIONS[0].value,
-    };
-
-    this.onDocTypeChange = this.onDocTypeChange.bind(this);
-  }
-
   componentDidMount() {
     this.mounted = true;
   }
@@ -76,44 +46,22 @@ class LiteratureSubmission extends Component {
     this.mounted = false;
   }
 
-  onDocTypeChange(docType) {
-    this.setState({ docType });
-  }
-
   render() {
-    const { error, onSubmit } = this.props;
-    const { docType } = this.state;
+    const { error, onSubmit, docType } = this.props;
 
     const { component, schema, initialValues } = FORMS_BY_DOC_TYPE[docType];
 
     return (
-      <Row type="flex" justify="center">
-        <Col className="mt3 mb3" span={14}>
-          <div className="mb3 pa3 bg-white">
-            This form allows you to suggest a preprint, an article, a book, a
-            conference proceeding or a thesis you would like to see added to
-            INSPIRE. We will check your suggestion with our{' '}
-            <ExternalLink href="//inspirehep.net/info/hep/collection-policy">
-              selection policy
-            </ExternalLink>{' '}
-            and transfer it to INSPIRE.
-          </div>
-          {error && (
-            <div className="mb3">
-              <Alert message={error.message} type="error" showIcon closable />
-            </div>
-          )}
+      <Row>
+        {error && (
           <Row className="mb3">
-            <Col span={8}>
-              <SelectBox
-                className="w-100"
-                value={docType}
-                options={DOC_TYPE_OPTIONS}
-                onChange={this.onDocTypeChange}
-              />
+            <Col>
+              <Alert message={error.message} type="error" showIcon closable />
             </Col>
           </Row>
-          <Row>
+        )}
+        <Row>
+          <Col>
             <Formik
               enableReinitialize
               initialValues={initialValues}
@@ -128,14 +76,16 @@ class LiteratureSubmission extends Component {
               }}
               component={component}
             />
-          </Row>
-        </Col>
+          </Col>
+        </Row>
       </Row>
     );
   }
 }
 
 LiteratureSubmission.propTypes = {
+  docType: PropTypes.oneOf(['article', 'thesis', 'book', 'bookChapter'])
+    .isRequired,
   error: PropTypes.objectOf(PropTypes.any), // must have 'message'
   onSubmit: PropTypes.func.isRequired, // must be async
 };
