@@ -4,11 +4,11 @@ import MockAdapter from 'axios-mock-adapter';
 import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import {
-  AUTHOR_SUBMIT_ERROR,
-  AUTHOR_SUBMIT_SUCCESS,
-  AUTHOR_UPDATE_FORM_DATA_REQUEST,
-  AUTHOR_UPDATE_FORM_DATA_SUCCESS,
-  AUTHOR_UPDATE_FORM_DATA_ERROR,
+  SUBMIT_ERROR,
+  SUBMIT_SUCCESS,
+  INITIAL_FORM_DATA_ERROR,
+  INITIAL_FORM_DATA_REQUEST,
+  INITIAL_FORM_DATA_SUCCESS,
 } from '../actionTypes';
 import {
   submitAuthor,
@@ -24,14 +24,14 @@ describe('submissions - async action creator', () => {
   });
 
   describe('submitAuthor', () => {
-    it('creates AUTHOR_SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
+    it('creates SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
       const submissionUrl = '/submissions/authors';
       const data = { field: 'value' };
       mockHttp.onPost(submissionUrl, { data }).replyOnce(200, {});
 
       const expectedActions = [
         {
-          type: AUTHOR_SUBMIT_SUCCESS,
+          type: SUBMIT_SUCCESS,
         },
         {
           type: CALL_HISTORY_METHOD,
@@ -45,13 +45,13 @@ describe('submissions - async action creator', () => {
       done();
     });
 
-    it('creates AUTHOR_SUBMIT_ERROR if not successful', async done => {
+    it('creates SUBMIT_ERROR if not successful', async done => {
       const submissionUrl = '/submissions/authors';
       mockHttp.onPost(submissionUrl).replyOnce(400, { message: 'Error' });
 
       const expectedActions = [
         {
-          type: AUTHOR_SUBMIT_ERROR,
+          type: SUBMIT_ERROR,
           payload: { message: 'Error' },
         },
       ];
@@ -64,14 +64,14 @@ describe('submissions - async action creator', () => {
   });
 
   describe('submitAuthorUpdate', () => {
-    it('creates AUTHOR_SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
+    it('creates SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
       const submissionUrl = '/submissions/authors/123';
       const data = { field: 'value' };
       mockHttp.onPut(submissionUrl, { data }).replyOnce(200, {});
 
       const expectedActions = [
         {
-          type: AUTHOR_SUBMIT_SUCCESS,
+          type: SUBMIT_SUCCESS,
         },
         {
           type: CALL_HISTORY_METHOD,
@@ -91,7 +91,7 @@ describe('submissions - async action creator', () => {
 
       const expectedActions = [
         {
-          type: AUTHOR_SUBMIT_ERROR,
+          type: SUBMIT_ERROR,
           payload: { message: 'Error' },
         },
       ];
@@ -104,20 +104,21 @@ describe('submissions - async action creator', () => {
   });
 
   describe('fetchAuthorUpdateFormData', () => {
-    it('creates AUTHOR_UPDATE_FORM_DATA_SUCCESS', async done => {
+    it('creates INITIAL_FORM_DATA_SUCCESS', async done => {
       const submissionUrl = '/submissions/authors/123';
       const data = { field: 'value' };
       mockHttp.onGet(submissionUrl, { data }).replyOnce(200, data);
 
       const expectedActions = [
         {
-          type: AUTHOR_UPDATE_FORM_DATA_REQUEST,
+          type: INITIAL_FORM_DATA_REQUEST,
           payload: {
             recordId: '123',
+            pidType: 'authors',
           },
         },
         {
-          type: AUTHOR_UPDATE_FORM_DATA_SUCCESS,
+          type: INITIAL_FORM_DATA_SUCCESS,
           payload: data,
         },
       ];
@@ -134,13 +135,14 @@ describe('submissions - async action creator', () => {
 
       const expectedActions = [
         {
-          type: AUTHOR_UPDATE_FORM_DATA_REQUEST,
+          type: INITIAL_FORM_DATA_REQUEST,
           payload: {
             recordId: '123',
+            pidType: 'authors',
           },
         },
         {
-          type: AUTHOR_UPDATE_FORM_DATA_ERROR,
+          type: INITIAL_FORM_DATA_ERROR,
           payload: { message: 'Error' },
         },
       ];

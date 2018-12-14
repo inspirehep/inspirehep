@@ -1,22 +1,22 @@
 import { push } from 'react-router-redux';
 
 import {
-  AUTHOR_SUBMIT_ERROR,
-  AUTHOR_SUBMIT_SUCCESS,
-  AUTHOR_UPDATE_FORM_DATA_REQUEST,
-  AUTHOR_UPDATE_FORM_DATA_ERROR,
-  AUTHOR_UPDATE_FORM_DATA_SUCCESS,
+  SUBMIT_SUCCESS,
+  SUBMIT_ERROR,
+  INITIAL_FORM_DATA_REQUEST,
+  INITIAL_FORM_DATA_ERROR,
+  INITIAL_FORM_DATA_SUCCESS,
 } from './actionTypes';
 
-function authorSubmitSuccess() {
+function submitSuccess() {
   return {
-    type: AUTHOR_SUBMIT_SUCCESS,
+    type: SUBMIT_SUCCESS,
   };
 }
 
-function authorSubmitError(error) {
+function submitError(error) {
   return {
-    type: AUTHOR_SUBMIT_ERROR,
+    type: SUBMIT_ERROR,
     payload: error,
   };
 }
@@ -25,44 +25,44 @@ export function submitAuthor(data) {
   return async (dispatch, getState, http) => {
     try {
       await http.post('/submissions/authors', { data });
-      dispatch(authorSubmitSuccess());
+      dispatch(submitSuccess());
       dispatch(push('/submissions/success'));
     } catch (error) {
-      dispatch(authorSubmitError(error.response.data));
+      dispatch(submitError(error.response.data));
     }
   };
 }
 
-function fetchingAuthorUpdateFormData(recordId) {
+function fetchingInitialFormData(payload) {
   return {
-    type: AUTHOR_UPDATE_FORM_DATA_REQUEST,
-    payload: { recordId },
+    type: INITIAL_FORM_DATA_REQUEST,
+    payload, // only used for testing
   };
 }
 
-function fetchAuthorUpdateFormDataError(error) {
+function fetchInitialFormDataError(error) {
   return {
-    type: AUTHOR_UPDATE_FORM_DATA_ERROR,
+    type: INITIAL_FORM_DATA_ERROR,
     payload: error,
   };
 }
 
-function fetchAuthorUpdateFormDataSuccess(data) {
+function fetchInitialFormDataSuccess(data) {
   return {
-    type: AUTHOR_UPDATE_FORM_DATA_SUCCESS,
+    type: INITIAL_FORM_DATA_SUCCESS,
     payload: data,
   };
 }
 
 export function fetchAuthorUpdateFormData(recordId) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingAuthorUpdateFormData(recordId));
+    dispatch(fetchingInitialFormData({ recordId, pidType: 'authors' }));
     try {
       const response = await http.get(`/submissions/authors/${recordId}`);
-      dispatch(fetchAuthorUpdateFormDataSuccess(response.data));
+      dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
       dispatch(
-        fetchAuthorUpdateFormDataError(error.response && error.response.data)
+        fetchInitialFormDataError(error.response && error.response.data)
       );
     }
   };
@@ -72,10 +72,10 @@ export function submitAuthorUpdate(data, recordId) {
   return async (dispatch, getState, http) => {
     try {
       await http.put(`/submissions/authors/${recordId}`, { data });
-      dispatch(authorSubmitSuccess());
+      dispatch(submitSuccess());
       dispatch(push('/submissions/success'));
     } catch (error) {
-      dispatch(authorSubmitError(error.response && error.response.data));
+      dispatch(submitError(error.response && error.response.data));
     }
   };
 }
