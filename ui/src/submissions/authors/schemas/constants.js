@@ -1,6 +1,4 @@
-function getValue(object) {
-  return object.value;
-}
+import getValue from '../../common/getValue';
 
 export const arxivCategoryOptions = [
   { value: 'astro-ph' },

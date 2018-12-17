@@ -1,6 +1,4 @@
-function getValue(object) {
-  return object.value;
-}
+import getValue from '../getValue';
 
 export const degreeTypeOptions = [
   { value: 'phd', display: 'PhD' },

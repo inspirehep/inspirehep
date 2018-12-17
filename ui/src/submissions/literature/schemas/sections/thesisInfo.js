@@ -1,9 +1,7 @@
-import { string, array, object, date } from 'yup';
+import { string, object, date } from 'yup';
 
 import { degreeTypeValues } from '../../../common/schemas/constants';
-
-// TODO: move it to common
-const arrayWithEmptyObjectDefault = array().default([{}]);
+import arrayWithEmptyObjectDefault from '../../../common/schemas/arrayWithEmptyObjectDefault';
 
 export default {
   degree_type: string().oneOf(degreeTypeValues),
