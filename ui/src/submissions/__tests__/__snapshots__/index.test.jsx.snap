@@ -24,6 +24,11 @@ exports[`Submissions renders initial state 1`] = `
     <Route
       component={[Function]}
       exact={true}
+      path="/submissions/literature"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
       path="/submissions/success"
     />
   </SafeSwitch>

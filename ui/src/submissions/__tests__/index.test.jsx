@@ -9,6 +9,7 @@ import Submissions from '..';
 import AuthorSubmissionPage from '../authors/containers/AuthorSubmissionPage';
 import SubmissionSuccessPage from '../common/components/SubmissionSuccessPage';
 import AuthorUpdateSubmissionPage from '../authors/containers/AuthorUpdateSubmissionPage';
+import LiteratureSubmissionPage from '../literature/containers/LiteratureSubmissionPage';
 
 describe('Submissions', () => {
   it('renders initial state', () => {
@@ -31,6 +32,25 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(AuthorSubmissionPage)).toExist();
+
+    done();
+  });
+
+  it('navigates to LiteratureSubmissionPage when /submissions/authors', async done => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/literature']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(LiteratureSubmissionPage)).toExist();
 
     done();
   });

@@ -3,11 +3,11 @@
 exports[`RangeAggregation render initial state with all required props set 1`] = `
 <AggregationBox
   headerAction={
-    <a
+    <LinkLikeButton
       onClick={[Function]}
     >
       Reset
-    </a>
+    </LinkLikeButton>
   }
   name="Test"
 >
@@ -97,11 +97,11 @@ exports[`RangeAggregation render initial state with all required props set 1`] =
 exports[`RangeAggregation render with sanitized min-max according to default minRangeSize 1`] = `
 <AggregationBox
   headerAction={
-    <a
+    <LinkLikeButton
       onClick={[Function]}
     >
       Reset
-    </a>
+    </LinkLikeButton>
   }
   name="Test"
 >
@@ -196,11 +196,11 @@ exports[`RangeAggregation render with sanitized min-max according to default min
 exports[`RangeAggregation renders with hovered bar 1`] = `
 <AggregationBox
   headerAction={
-    <a
+    <LinkLikeButton
       onClick={[Function]}
     >
       Reset
-    </a>
+    </LinkLikeButton>
   }
   name="Test"
 >
@@ -298,11 +298,11 @@ exports[`RangeAggregation renders with hovered bar 1`] = `
 exports[`RangeAggregation renders with sanitized endpoints 1`] = `
 <AggregationBox
   headerAction={
-    <a
+    <LinkLikeButton
       onClick={[Function]}
     >
       Reset
-    </a>
+    </LinkLikeButton>
   }
   name="Test"
 >
