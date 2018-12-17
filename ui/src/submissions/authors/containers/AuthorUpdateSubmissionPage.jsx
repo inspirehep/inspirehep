@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
+import { Row, Col } from 'antd';
 
 import {
   fetchAuthorUpdateFormData,
@@ -50,11 +51,19 @@ class AuthorUpdateSubmissionPage extends Component {
     const { error, updateFormData, loadingUpdateFormData } = this.props;
     return (
       !loadingUpdateFormData && (
-        <AuthorSubmission
-          error={error}
-          onSubmit={this.onSubmit}
-          initialFormData={updateFormData}
-        />
+        <Row type="flex" justify="center">
+          <Col className="mt3 mb3" span={14}>
+            <Row>
+              <Col>
+                <AuthorSubmission
+                  error={error}
+                  onSubmit={this.onSubmit}
+                  initialFormData={updateFormData}
+                />
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       )
     );
   }

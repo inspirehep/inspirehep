@@ -1,7 +1,4 @@
-// TODO: move it to common
-function getValue(object) {
-  return object.value;
-}
+import getValue from '../../common/getValue';
 
 export const languageOptions = [
   { value: 'en', display: 'English' },

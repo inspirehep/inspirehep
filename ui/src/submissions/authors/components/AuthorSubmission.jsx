@@ -7,7 +7,6 @@ import AuthorForm from './AuthorForm';
 import authorSchema from '../schemas/author';
 import cleanupFormData from '../../common/cleanupFormData';
 import toJS from '../../../common/immutableToJS';
-import ExternalLink from '../../../common/components/ExternalLink';
 
 const DEFAULT_FORM_DATA = authorSchema.cast();
 
@@ -27,36 +26,31 @@ class AuthorSubmission extends Component {
       ...initialFormData,
     };
     return (
-      <Row type="flex" justify="center">
-        <Col className="mt3 mb3" span={14}>
-          <div className="mb3 pa3 bg-white">
-            <h3>Suggest author</h3>
-            This form allows you to add new author information. All
-            modifications are transferred to{' '}
-            <ExternalLink href="//inspirehep.net/hepnames">
-              inspirehep.net/hepnames
-            </ExternalLink>{' '}
-            upon approval.
-          </div>
-          {error && (
-            <div className="mb3">
+      <Row>
+        {error && (
+          <Row className="mb3">
+            <Col>
               <Alert message={error.message} type="error" showIcon closable />
-            </div>
-          )}
-          <Formik
-            initialValues={initialValues}
-            validationSchema={authorSchema}
-            onSubmit={async (values, actions) => {
-              const cleanValues = cleanupFormData(values);
-              await onSubmit(cleanValues);
-              if (this.mounted) {
-                actions.setSubmitting(false);
-                window.scrollTo(0, 0);
-              }
-            }}
-            component={AuthorForm}
-          />
-        </Col>
+            </Col>
+          </Row>
+        )}
+        <Row>
+          <Col>
+            <Formik
+              initialValues={initialValues}
+              validationSchema={authorSchema}
+              onSubmit={async (values, actions) => {
+                const cleanValues = cleanupFormData(values);
+                await onSubmit(cleanValues);
+                if (this.mounted) {
+                  actions.setSubmitting(false);
+                  window.scrollTo(0, 0);
+                }
+              }}
+              component={AuthorForm}
+            />
+          </Col>
+        </Row>
       </Row>
     );
   }
