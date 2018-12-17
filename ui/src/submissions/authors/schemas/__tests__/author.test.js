@@ -3,8 +3,8 @@ import {
   authorStatusValues,
   arxivCategoryValues,
   rankValues,
-  degreeTypeValues,
 } from '../constants';
+import { degreeTypeValues } from '../../../common/schemas/constants';
 
 const dataWithRequiredFields = {
   given_name: 'Harun',

@@ -1,14 +1,14 @@
-import { string, object, date } from 'yup';
+import { string, object } from 'yup';
 
 import { degreeTypeValues } from '../../../common/schemas/constants';
 import arrayWithEmptyObjectDefault from '../../../common/schemas/arrayWithEmptyObjectDefault';
+import date from '../../../common/schemas/date';
 
 export default {
   degree_type: string().oneOf(degreeTypeValues),
-  submission_date: date().label('Submission Date'),
-  defense_date: date().label('Defense Date'),
+  submission_date: date(),
+  defense_date: date(),
   institution: string(),
-  // TODO: maybe reuse the same from basicInfo/authors
   supervisors: arrayWithEmptyObjectDefault.of(
     object().shape({
       full_name: string(),

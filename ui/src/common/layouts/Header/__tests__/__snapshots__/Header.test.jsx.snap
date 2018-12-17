@@ -61,13 +61,22 @@ exports[`Header does not show authorized tool links if logged in user is not sup
         <Col
           className="nav-item-container"
         >
-          <Link
-            className="nav-item"
-            replace={false}
-            to="/submissions/authors"
-          >
-            Submit
-          </Link>
+          <DropdownMenu
+            items={
+              Array [
+                Object {
+                  "display": "Author",
+                  "to": "/submissions/authors",
+                },
+                Object {
+                  "display": "Literature",
+                  "to": "/submissions/literature",
+                },
+              ]
+            }
+            title="Submit"
+            titleClassName="nav-item"
+          />
         </Col>
         <Col
           className="nav-item-container"
@@ -141,13 +150,22 @@ exports[`Header renders with search box if it is not on home 1`] = `
         <Col
           className="nav-item-container"
         >
-          <Link
-            className="nav-item"
-            replace={false}
-            to="/submissions/authors"
-          >
-            Submit
-          </Link>
+          <DropdownMenu
+            items={
+              Array [
+                Object {
+                  "display": "Author",
+                  "to": "/submissions/authors",
+                },
+                Object {
+                  "display": "Literature",
+                  "to": "/submissions/literature",
+                },
+              ]
+            }
+            title="Submit"
+            titleClassName="nav-item"
+          />
         </Col>
         <Col
           className="nav-item-container"
@@ -219,13 +237,22 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
         <Col
           className="nav-item-container"
         >
-          <Link
-            className="nav-item"
-            replace={false}
-            to="/submissions/authors"
-          >
-            Submit
-          </Link>
+          <DropdownMenu
+            items={
+              Array [
+                Object {
+                  "display": "Author",
+                  "to": "/submissions/authors",
+                },
+                Object {
+                  "display": "Literature",
+                  "to": "/submissions/literature",
+                },
+              ]
+            }
+            title="Submit"
+            titleClassName="nav-item"
+          />
         </Col>
         <Col
           className="nav-item-container"
@@ -303,13 +330,22 @@ exports[`Header shows authorized tool links if logged in user is cataloger 1`] =
         <Col
           className="nav-item-container"
         >
-          <Link
-            className="nav-item"
-            replace={false}
-            to="/submissions/authors"
-          >
-            Submit
-          </Link>
+          <DropdownMenu
+            items={
+              Array [
+                Object {
+                  "display": "Author",
+                  "to": "/submissions/authors",
+                },
+                Object {
+                  "display": "Literature",
+                  "to": "/submissions/literature",
+                },
+              ]
+            }
+            title="Submit"
+            titleClassName="nav-item"
+          />
         </Col>
         <Col
           className="nav-item-container"

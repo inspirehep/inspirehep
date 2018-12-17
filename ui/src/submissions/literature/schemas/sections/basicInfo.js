@@ -19,13 +19,12 @@ export default {
   authors: arrayWithEmptyObjectDefault
     .of(
       object().shape({
-        full_name: string()
-          .required()
-          .label('Name'),
+        full_name: string(),
         affiliation: string(),
       })
     )
     .min(1)
+    .required()
     .label('Author'),
   collaboration: string(),
   experiment: string(),

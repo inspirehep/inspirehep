@@ -1,17 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`GoBackLinkContainer render with custom children 1`] = `
-<a
+<LinkLikeButton
   onClick={[Function]}
 >
   custom
-</a>
+</LinkLikeButton>
 `;
 
 exports[`GoBackLinkContainer render without props 1`] = `
-<a
+<LinkLikeButton
   onClick={[Function]}
 >
   go back
-</a>
+</LinkLikeButton>
 `;
