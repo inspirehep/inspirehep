@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { Row, Col } from 'antd';
+import { Row, Col, Form } from 'antd';
 
 import { submitAuthor } from '../../../actions/submissions';
 import LiteratureSubmission from '../components/LiteratureSubmission';
 import ExternalLink from '../../../common/components/ExternalLink';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
+import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 
 const DOC_TYPE_OPTIONS = [
   {
@@ -81,20 +82,20 @@ class LiteratureSubmissionPage extends Component {
           </Row>
           {isFormVisible && (
             <>
-              <Row
-                className="mb3 pa3 bg-white"
-                type="flex"
-                justify="end"
-                align="middle"
-              >
-                <Col className="pr2">Select type of the document:</Col>
-                <Col span={19}>
-                  <SelectBox
-                    className="w-100"
-                    value={docType}
-                    options={DOC_TYPE_OPTIONS}
-                    onChange={this.onDocTypeChange}
-                  />
+              <Row className="mb3 ph3 pt3 bg-white">
+                <Col>
+                  <Form.Item
+                    label="Select type of the document"
+                    labelCol={LABEL_COL}
+                    wrapperCol={WRAPPER_COL}
+                  >
+                    <SelectBox
+                      className="w-100"
+                      value={docType}
+                      options={DOC_TYPE_OPTIONS}
+                      onChange={this.onDocTypeChange}
+                    />
+                  </Form.Item>
                 </Col>
               </Row>
               <Row>
