@@ -9,11 +9,10 @@ import { degreeTypeValues } from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import orcid from '../../common/schemas/orcid';
 import year from '../../common/schemas/year';
+import arrayWithNullDefault from '../../common/schemas/arrayWithNullDefault';
+import arrayWithEmptyObjectDefault from '../../common/schemas/arrayWithEmptyObjectDefault';
 
 const yearSchema = year().label('Year');
-
-const arrayWithNullDefault = array().default([null]);
-const arrayWithEmptyObjectDefault = array().default([{}]);
 
 const authorSchema = object().shape({
   given_name: string()
