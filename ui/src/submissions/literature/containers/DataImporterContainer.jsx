@@ -63,7 +63,7 @@ class DataImporterContainer extends Component {
 }
 
 DataImporterContainer.propTypes = {
-  // TODO: maybe use portal to put this future directly into SubmissionPage or remove this component fully since it's not used anywhere else.
+  // TODO: maybe use portal to put this future directly into SubmissionPage or remove this component fully since it's not used anywhere else, or use redux
   onSkipClick: PropTypes.func.isRequired,
   dispatch: PropTypes.func.isRequired,
   // error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props

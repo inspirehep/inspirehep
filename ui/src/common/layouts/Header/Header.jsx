@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Layout, Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
@@ -12,7 +11,11 @@ import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 import { isCataloger } from '../../authorization';
 import LogoContainer from '../../containers/LogoContainer';
-import { SUBMISSIONS_AUTHOR, SUBMISSIONS } from '../../routes';
+import {
+  SUBMISSIONS_AUTHOR,
+  SUBMISSIONS,
+  SUBMISSIONS_LITERATURE,
+} from '../../routes';
 
 const UNAUTHORIZED_TOOL_LINKS = [
   {
@@ -35,6 +38,17 @@ const ALL_TOOL_LINKS = [
     display: 'Holdingpen',
   },
   ...UNAUTHORIZED_TOOL_LINKS,
+];
+
+const SUBMISSION_LINKS = [
+  {
+    to: SUBMISSIONS_AUTHOR,
+    display: 'Author',
+  },
+  {
+    to: SUBMISSIONS_LITERATURE,
+    display: 'Literature',
+  },
 ];
 
 class Header extends Component {
@@ -68,9 +82,11 @@ class Header extends Component {
                 />
               </Col>
               <Col className="nav-item-container">
-                <Link className="nav-item" to={SUBMISSIONS_AUTHOR}>
-                  Submit
-                </Link>
+                <DropdownMenu
+                  title="Submit"
+                  titleClassName="nav-item"
+                  items={SUBMISSION_LINKS}
+                />
               </Col>
               <Col className="nav-item-container">
                 <LoginOrUserDropdownContainer />
