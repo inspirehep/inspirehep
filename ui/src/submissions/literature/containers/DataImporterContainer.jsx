@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // import { Map } from 'immutable';
-import { Input, Button, Alert, Row, Col } from 'antd';
+import { Input, Button, Alert, Row, Col, Form } from 'antd';
+
 import LinkLikeButton from '../../../common/components/LinkLikeButton';
+import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 
 class DataImporterContainer extends Component {
   constructor(props) {
@@ -35,16 +37,17 @@ class DataImporterContainer extends Component {
             />
           </Col>
         </Row>
-        <Row className="mb3" type="flex" justify="end" align="middle">
-          <Col className="pr2">From arXiv or DOI:</Col>
-          <Col span={19}>
-            <Input
-              placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-              onChange={this.onImportChange}
-              onPressEnter={this.onImportClick}
-            />
-          </Col>
-        </Row>
+        <Form.Item
+          label="From arXiv or DOI"
+          labelCol={LABEL_COL}
+          wrapperCol={WRAPPER_COL}
+        >
+          <Input
+            placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
+            onChange={this.onImportChange}
+            onPressEnter={this.onImportClick}
+          />
+        </Form.Item>
         <Row type="flex" justify="space-between" align="middle">
           <Col>
             <LinkLikeButton onClick={onSkipClick}>

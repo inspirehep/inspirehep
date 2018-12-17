@@ -7,6 +7,9 @@ import classNames from 'classnames';
 
 import { getWrappedComponentDisplayName } from '../../common/utils';
 
+export const LABEL_COL = { span: 5 };
+export const WRAPPER_COL = { span: 19 };
+
 /**
  * Wraps component with From.Item to provide error display, label.
  *
@@ -64,8 +67,8 @@ export default function withFormItem(FormInputComponent) {
   }
 
   WithFormItem.defaultProps = {
-    labelCol: { span: 5 },
-    wrapperCol: { span: 19 },
+    labelCol: LABEL_COL,
+    wrapperCol: WRAPPER_COL,
   };
 
   WithFormItem.displayName = getWrappedComponentDisplayName(
