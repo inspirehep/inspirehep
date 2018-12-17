@@ -3,6 +3,7 @@ import {
   searchForCurrentLocation,
   fetchSearchAggregationsForCurrentLocation,
 } from '../actions/search';
+import { SUBMISSIONS } from '../common/routes';
 
 function getLocationFromRootState(state) {
   const {
@@ -16,7 +17,8 @@ export default function({ getState, dispatch }) {
     if (
       action.type === LOCATION_CHANGE &&
       action.payload &&
-      action.payload.search
+      action.payload.search &&
+      !action.payload.pathname.startsWith(SUBMISSIONS)
     ) {
       const currentLocation = getLocationFromRootState(getState());
       const result = next(action);
