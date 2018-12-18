@@ -18,22 +18,22 @@ const FORMS_BY_DOC_TYPE = {
   article: {
     component: ArticleForm,
     schema: articleSchema,
-    initialValues: articleSchema.cast(),
+    defaultData: articleSchema.cast(),
   },
   thesis: {
     component: ThesisForm,
     schema: thesisSchema,
-    initialValues: thesisSchema.cast(),
+    defaultData: thesisSchema.cast(),
   },
   book: {
     component: BookForm,
     schema: bookSchema,
-    initialValues: bookSchema.cast(),
+    defaultData: bookSchema.cast(),
   },
   bookChapter: {
     component: BookChapterForm,
     schema: bookChapterSchema,
-    initialValues: bookChapterSchema.cast(),
+    defaultData: bookChapterSchema.cast(),
   },
 };
 
@@ -47,9 +47,10 @@ class LiteratureSubmission extends Component {
   }
 
   render() {
-    const { error, onSubmit, docType } = this.props;
+    const { error, onSubmit, docType, initialFormData } = this.props;
 
-    const { component, schema, initialValues } = FORMS_BY_DOC_TYPE[docType];
+    const { component, schema, defaultData } = FORMS_BY_DOC_TYPE[docType];
+    const initialValues = { ...defaultData, ...initialFormData };
 
     return (
       <Row>
@@ -87,11 +88,13 @@ LiteratureSubmission.propTypes = {
   docType: PropTypes.oneOf(['article', 'thesis', 'book', 'bookChapter'])
     .isRequired,
   error: PropTypes.objectOf(PropTypes.any), // must have 'message'
+  initialFormData: PropTypes.objectOf(PropTypes.any),
   onSubmit: PropTypes.func.isRequired, // must be async
 };
 
 LiteratureSubmission.defaultProps = {
   error: null,
+  initialFormData: null,
 };
 
 export default toJS(LiteratureSubmission);
