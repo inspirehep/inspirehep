@@ -5,7 +5,7 @@ exports[`Suggester does not render results onSearch without waiting for debounce
   choiceTransitionName="zoom"
   filterOption={false}
   onSearch={[Function]}
-  optionLabelProp="children"
+  optionLabelProp="value"
   prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
@@ -17,7 +17,7 @@ exports[`Suggester renders empty if request fails 1`] = `
   choiceTransitionName="zoom"
   filterOption={false}
   onSearch={[Function]}
-  optionLabelProp="children"
+  optionLabelProp="value"
   prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
@@ -29,18 +29,20 @@ exports[`Suggester renders results onSearch 1`] = `
   choiceTransitionName="zoom"
   filterOption={false}
   onSearch={[Function]}
-  optionLabelProp="children"
+  optionLabelProp="value"
   prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Option
     key="Result 1"
+    value="Result 1"
   >
     Result 1
   </Option>
   <Option
     key="Result 2"
+    value="Result 2"
   >
     Result 2
   </Option>
@@ -52,18 +54,20 @@ exports[`Suggester renders results with custom completion value 1`] = `
   choiceTransitionName="zoom"
   filterOption={false}
   onSearch={[Function]}
-  optionLabelProp="children"
+  optionLabelProp="value"
   prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Option
     key="Result 1 - Extra 1"
+    value="Result 1 - Extra 1"
   >
     Result 1 - Extra 1
   </Option>
   <Option
     key="Result 2 - Extra 2"
+    value="Result 2 - Extra 2"
   >
     Result 2 - Extra 2
   </Option>
@@ -75,13 +79,14 @@ exports[`Suggester renders results with custom result template 1`] = `
   choiceTransitionName="zoom"
   filterOption={false}
   onSearch={[Function]}
-  optionLabelProp="children"
+  optionLabelProp="value"
   prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Option
     key="Result 1"
+    value="Result 1"
   >
     <span>
       Result 1
@@ -93,6 +98,7 @@ exports[`Suggester renders results with custom result template 1`] = `
   </Option>
   <Option
     key="Result 2"
+    value="Result 2"
   >
     <span>
       Result 2

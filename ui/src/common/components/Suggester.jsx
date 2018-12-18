@@ -49,9 +49,16 @@ class Suggester extends Component {
       ...autoCompleteProps
     } = this.props;
     return (
-      <AutoComplete onSearch={this.onSearch} {...autoCompleteProps}>
+      <AutoComplete
+        {...autoCompleteProps}
+        onSearch={this.onSearch}
+        optionLabelProp="value"
+      >
         {results.map(result => (
-          <AutoComplete.Option key={extractItemCompletionValue(result)}>
+          <AutoComplete.Option
+            key={extractItemCompletionValue(result)}
+            value={extractItemCompletionValue(result)}
+          >
             {renderResultItem
               ? renderResultItem(result)
               : extractItemCompletionValue(result)}

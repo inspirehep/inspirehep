@@ -12,6 +12,8 @@ import CommentsField from './CommentsField';
 import TextField from '../../common/components/TextField';
 import TextAreaField from '../../common/components/TextAreaField';
 import SuggesterField from '../../common/components/SuggesterField';
+import ConferenceSuggestion from './ConferenceSuggestion';
+import JournalSuggestion from './JournalSuggestion';
 
 const OPEN_SECTIONS = ['basic_info', 'links', 'publication_info'];
 
@@ -21,19 +23,8 @@ class ArticleForm extends Component {
   }
 
   static renderJournalSuggestion(suggestion) {
-    const shortTitle = ArticleForm.getSuggestionSourceShortTitle(suggestion);
     const journal = suggestion._source;
-    const journalTitle = journal.journal_title && journal.journal_title.title;
-    return (
-      <>
-        <div>
-          <strong>{shortTitle}</strong>
-        </div>
-        <div className="f7">
-          <span>{journalTitle}</span>
-        </div>
-      </>
-    );
+    return <JournalSuggestion journal={journal} />;
   }
 
   static getSuggestionSourceFirstTitle(suggestion) {
@@ -41,33 +32,8 @@ class ArticleForm extends Component {
   }
 
   static renderConferenceSuggestion(suggestion) {
-    const title = ArticleForm.getSuggestionSourceFirstTitle(suggestion);
     const conference = suggestion._source;
-    const { cnum, acronyms, address } = conference;
-    const openingDate = conference.opening_date;
-    const firstAcronym = acronyms && acronyms[0];
-    const firstAddress = (address && address[0]) || {};
-    const countryCode = firstAddress.country_code;
-    const city = firstAddress.cities && firstAddress.cities[0];
-    return (
-      <>
-        <div>
-          <strong>{title}</strong>
-        </div>
-        <div className="f7">
-          <div>{firstAcronym && <span>({firstAcronym})</span>}</div>
-          <div>
-            <span>{openingDate} </span>
-            <span>
-              {city}, {countryCode}
-            </span>
-          </div>
-          <div>
-            <span>{cnum}</span>
-          </div>
-        </div>
-      </>
-    );
+    return <ConferenceSuggestion conference={conference} />;
   }
 
   render() {
