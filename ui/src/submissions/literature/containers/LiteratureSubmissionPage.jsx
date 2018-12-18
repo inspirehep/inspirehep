@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Row, Col, Form } from 'antd';
 
-import { submitAuthor } from '../../../actions/submissions';
+import { submitLiterature } from '../../../actions/submissions';
+import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import LiteratureSubmission from '../components/LiteratureSubmission';
 import ExternalLink from '../../../common/components/ExternalLink';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
-import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 
 const DOC_TYPE_OPTIONS = [
   {
@@ -40,14 +40,13 @@ class LiteratureSubmissionPage extends Component {
 
     this.state = {
       docType: DOC_TYPE_OPTIONS[0].value,
-      isFormVisible: false,
+      hasDataImportSkipped: false,
     };
   }
 
   async onSubmit(formData) {
     const { dispatch } = this.props;
-    // TODO: submitLiterature
-    await dispatch(submitAuthor(formData));
+    await dispatch(submitLiterature(formData));
   }
 
   onDocTypeChange(docType) {
@@ -55,12 +54,18 @@ class LiteratureSubmissionPage extends Component {
   }
 
   onDataImportSkipClick() {
-    this.setState({ isFormVisible: true });
+    this.setState({ hasDataImportSkipped: true });
+  }
+
+  shouldDisplayForm() {
+    const { hasDataImportSkipped } = this.state;
+    const { importedFormData } = this.props;
+    return hasDataImportSkipped || importedFormData != null;
   }
 
   render() {
-    const { error } = this.props;
-    const { docType, isFormVisible } = this.state;
+    const { error, importedFormData } = this.props;
+    const { docType } = this.state;
 
     return (
       <Row type="flex" justify="center">
@@ -80,7 +85,7 @@ class LiteratureSubmissionPage extends Component {
               <DataImporterContainer onSkipClick={this.onDataImportSkipClick} />
             </Col>
           </Row>
-          {isFormVisible && (
+          {this.shouldDisplayForm() && (
             <>
               <Row className="mb3 ph3 pt3 bg-white">
                 <Col>
@@ -90,6 +95,7 @@ class LiteratureSubmissionPage extends Component {
                     wrapperCol={WRAPPER_COL}
                   >
                     <SelectBox
+                      data-test-id="document-type-select"
                       className="w-100"
                       value={docType}
                       options={DOC_TYPE_OPTIONS}
@@ -101,6 +107,7 @@ class LiteratureSubmissionPage extends Component {
               <Row>
                 <Col>
                   <LiteratureSubmission
+                    initialFormData={importedFormData}
                     error={error}
                     onSubmit={this.onSubmit}
                     docType={docType}
@@ -118,10 +125,12 @@ class LiteratureSubmissionPage extends Component {
 LiteratureSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  importedFormData: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
 };
 
 const stateToProps = state => ({
   error: state.submissions.get('submitError'),
+  importedFormData: state.submissions.get('initialData'),
 });
 
 const dispatchToProps = dispatch => ({ dispatch });

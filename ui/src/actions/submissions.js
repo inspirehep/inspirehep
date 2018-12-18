@@ -79,3 +79,29 @@ export function submitAuthorUpdate(data, recordId) {
     }
   };
 }
+
+export function submitLiterature(data) {
+  return async (dispatch, getState, http) => {
+    try {
+      await http.post('/submissions/literature', { data });
+      dispatch(submitSuccess());
+      dispatch(push('/submissions/success'));
+    } catch (error) {
+      dispatch(submitError(error.response && error.response.data));
+    }
+  };
+}
+
+export function importExternalLiterature(id) {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingInitialFormData({ id }));
+    try {
+      const response = await http.get(`/literature/import/${id}`);
+      dispatch(fetchInitialFormDataSuccess(response.data));
+    } catch (error) {
+      dispatch(
+        fetchInitialFormDataError(error.response && error.response.data)
+      );
+    }
+  };
+}
