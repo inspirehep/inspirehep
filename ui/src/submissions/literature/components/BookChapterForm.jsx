@@ -11,6 +11,7 @@ import ReferencesField from './ReferencesField';
 import CommentsField from './CommentsField';
 import TextField from '../../common/components/TextField';
 import SuggesterField from '../../common/components/SuggesterField';
+import BookSuggestion from './BookSuggestion';
 
 const OPEN_SECTIONS = ['basic_info', 'links', 'publication_info'];
 
@@ -20,20 +21,8 @@ class BookChapterForm extends Component {
   }
 
   static renderBookSuggestion(suggestion) {
-    const title = BookChapterForm.getSuggestionSourceFirstTitle(suggestion);
     const book = suggestion._source;
-    const { authors } = book;
-    const firstAuthor = authors && authors[0] && authors[0].full_name;
-    return (
-      <>
-        <div>
-          <strong>{title}</strong>
-        </div>
-        <div className="f7">
-          <span>{firstAuthor}</span>
-        </div>
-      </>
-    );
+    return <BookSuggestion book={book} />;
   }
 
   render() {
