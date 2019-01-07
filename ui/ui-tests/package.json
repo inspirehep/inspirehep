@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "GPL-2.0",
   "scripts": {
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "devDependencies": {
     "@pollyjs/adapter-puppeteer": "^1.1.0",
