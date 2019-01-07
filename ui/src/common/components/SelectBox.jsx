@@ -8,7 +8,11 @@ class SelectBox extends Component {
     return (
       <Select {...selectProps}>
         {options.map(option => (
-          <Select.Option key={option.value} value={option.value}>
+          <Select.Option
+            data-test-id={`select-option-${option.value}`}
+            key={option.value}
+            value={option.value}
+          >
             {option.display || option.value}
           </Select.Option>
         ))}

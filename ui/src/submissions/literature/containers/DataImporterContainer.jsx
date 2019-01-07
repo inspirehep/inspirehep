@@ -65,7 +65,10 @@ class DataImporterContainer extends Component {
         </Form.Item>
         <Row type="flex" justify="space-between" align="middle">
           <Col>
-            <LinkLikeButton onClick={onSkipClick}>
+            <LinkLikeButton
+              dataTestId="skip-import-button"
+              onClick={onSkipClick}
+            >
               Skip and fill the form manually
             </LinkLikeButton>
           </Col>

@@ -47,6 +47,7 @@ exports[`DataImporterContainer renders while importing 1`] = `
   >
     <Col>
       <LinkLikeButton
+        dataTestId="skip-import-button"
         onClick={[MockFunction]}
       >
         Skip and fill the form manually
@@ -129,6 +130,7 @@ exports[`DataImporterContainer renders with error with a message 1`] = `
   >
     <Col>
       <LinkLikeButton
+        dataTestId="skip-import-button"
         onClick={[MockFunction]}
       >
         Skip and fill the form manually
@@ -211,6 +213,7 @@ exports[`DataImporterContainer renders with error without a message 1`] = `
   >
     <Col>
       <LinkLikeButton
+        dataTestId="skip-import-button"
         onClick={[MockFunction]}
       >
         Skip and fill the form manually
@@ -280,6 +283,7 @@ exports[`DataImporterContainer renders without error 1`] = `
   >
     <Col>
       <LinkLikeButton
+        dataTestId="skip-import-button"
         onClick={[MockFunction]}
       >
         Skip and fill the form manually

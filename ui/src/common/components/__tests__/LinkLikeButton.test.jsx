@@ -11,6 +11,15 @@ describe('LinkLikeButton', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders with dataTestId', () => {
+    const wrapper = shallow(
+      <LinkLikeButton onClick={jest.fn()} dataTestId="example-button">
+        example
+      </LinkLikeButton>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('calls onClick when anchor is clicked', () => {
     const onClick = jest.fn();
     const wrapper = shallow(
