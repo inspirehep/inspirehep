@@ -1,0 +1,82 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookChapterForm renders all props 1`] = `
+<Form>
+  <CollapsableForm
+    openSections={
+      Array [
+        "basic_info",
+        "links",
+        "publication_info",
+      ]
+    }
+  >
+    <CollapsableFormSection
+      header="Links"
+      key="links"
+    >
+      <LinkFields />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Basic Info"
+      key="basic_info"
+    >
+      <BasicInfoFields
+        values={Object {}}
+        withCollaborationField={false}
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Publication Info"
+      key="publication_info"
+    >
+      <C
+        component={[Function]}
+        extractItemCompletionValue={[Function]}
+        label="Book Title"
+        name="book_title"
+        pidType="literature"
+        renderResultItem={[Function]}
+        suggesterName="book_title"
+      />
+      <C
+        component={[Function]}
+        label="Start Page"
+        name="start_page"
+      />
+      <C
+        component={[Function]}
+        label="End Page"
+        name="end_page"
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="References"
+      key="references"
+    >
+      <ReferencesField
+        values={Object {}}
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Comments"
+      key="comments"
+    >
+      <CommentsField
+        values={Object {}}
+      />
+    </CollapsableFormSection>
+  </CollapsableForm>
+  <Row
+    gutter={0}
+    justify="end"
+    type="flex"
+  >
+    <SubmitButton
+      isSubmitting={false}
+      isValid={true}
+      isValidating={false}
+    />
+  </Row>
+</Form>
+`;
