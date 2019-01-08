@@ -70,7 +70,9 @@ export function isEmptyObjectShallow(object) {
     return true;
   }
 
-  return !Object.values(object).some(value => !(value == null || value === ''));
+  return !Object.keys(object).some(
+    key => !(object[key] == null || object[key] === '')
+  );
 }
 
 export function mergeWithConcattingArrays(destObject, ...sources) {
