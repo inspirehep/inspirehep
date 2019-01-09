@@ -53,7 +53,7 @@ export class ReferenceBriefPipe implements PipeTransform {
     }
 
     arxivEprint = item.get('arxiv_eprint', '');
-    reportNumber = item.get('report_number', '');
+    reportNumber = item.getIn(['report_numbers', 0], '');
     if (item.has('label')) {
       label = `[${item.get('label')}] `;
     }
