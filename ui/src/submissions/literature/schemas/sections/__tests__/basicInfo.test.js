@@ -29,11 +29,34 @@ describe('basicInfo section', () => {
     done();
   });
 
-  // FIXME: fix this case, and enable the test
-  xit('invalidates when authors only contain empty item', async done => {
+  it('invalidates when authors only contain empty item', async done => {
     const data = {
       ...dataWithRequiredFields,
       authors: [{}],
+    };
+    const isValid = await schema.isValid(data);
+    expect(isValid).toBe(false);
+    done();
+  });
+
+  it('invalidates when there is no author', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      authors: [],
+    };
+    const isValid = await schema.isValid(data);
+    expect(isValid).toBe(false);
+    done();
+  });
+
+  it('invalidates when an author does not have full_name ', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      authors: [
+        {
+          affilation: 'CERN',
+        },
+      ],
     };
     const isValid = await schema.isValid(data);
     expect(isValid).toBe(false);
