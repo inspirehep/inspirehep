@@ -7,7 +7,7 @@ export const REFERENCE_SPLITTER_MAP = {
   k: ['texkey'],
   o: ['label'],
   u: ['urls', '-', 'value'],
-  r: ['report_number'],
+  r: ['report_numbers', '-'],
   x: ['arxiv_eprint'],
   v: ['publication_info', 'journal_volume'],
   n: ['publication_info', 'journal_issue'],
