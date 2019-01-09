@@ -19,6 +19,36 @@ describe('authorSchema', () => {
     done();
   });
 
+  it('invalidates when given_name has just spaces', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      display_name: '  ',
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(false);
+    done();
+  });
+
+  it('invalidates when family_name has just spaces', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      family_name: '  ',
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(false);
+    done();
+  });
+
+  it('invalidates when display_name has just spaces', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      display_name: '  ',
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(false);
+    done();
+  });
+
   it('validates when all top-level required fields without default are present', async done => {
     const isValid = await authorSchema.isValid(dataWithRequiredFields);
     expect(isValid).toBe(true);
@@ -253,6 +283,20 @@ describe('authorSchema', () => {
     done();
   });
 
+  it('invalidates when a positions item has institution with only spaces', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      positions: [
+        {
+          institution: '',
+        },
+      ],
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(true);
+    done();
+  });
+
   it('invalidates when all positions do not have institution', async done => {
     const data = {
       ...dataWithRequiredFields,
@@ -284,6 +328,21 @@ describe('authorSchema', () => {
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);
+    done();
+  });
+
+  it('invalidates when a project_membership have name with only spaces', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      project_membership: [
+        {
+          name: ' ',
+          current: true,
+        },
+      ],
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(false);
     done();
   });
 
@@ -326,7 +385,7 @@ describe('authorSchema', () => {
   it('invalidates when all project_membership do not have experment', async done => {
     const data = {
       ...dataWithRequiredFields,
-      arxiv_categories: [
+      project_membership: [
         {
           name: 'Test 1',
         },
@@ -354,6 +413,21 @@ describe('authorSchema', () => {
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);
+    done();
+  });
+
+  it('validates when an advisor has name with only spaces', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      advisors: [
+        {
+          name: '  ',
+          degree_type: degreeTypeValues[0],
+        },
+      ],
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(false);
     done();
   });
 
