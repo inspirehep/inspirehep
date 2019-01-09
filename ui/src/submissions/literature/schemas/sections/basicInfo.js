@@ -19,7 +19,9 @@ export default {
   authors: arrayWithEmptyObjectDefault
     .of(
       object().shape({
-        full_name: string(),
+        full_name: string()
+          .required()
+          .label('Full name'),
         affiliation: string(),
       })
     )
