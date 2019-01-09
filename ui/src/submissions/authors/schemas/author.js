@@ -17,12 +17,15 @@ const arrayWithEmptyObjectDefault = array().default([{}]);
 
 const authorSchema = object().shape({
   given_name: string()
+    .trim()
     .required()
     .label('Given Names'),
   family_name: string()
+    .trim()
     .required()
     .label('Family Name'),
   display_name: string()
+    .trim()
     .required()
     .label('Display Name'),
   native_name: string(),
@@ -50,6 +53,7 @@ const authorSchema = object().shape({
   positions: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
       institution: string()
+        .trim()
         .required()
         .label('Institution name'),
       rank: string().oneOf(rankValues),
@@ -61,6 +65,7 @@ const authorSchema = object().shape({
   project_membership: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
       name: string()
+        .trim()
         .required()
         .label('Experiment name'),
       start_date: yearSchema,
@@ -71,6 +76,7 @@ const authorSchema = object().shape({
   advisors: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({
       name: string()
+        .trim()
         .required()
         .label('Advisor name'),
       degree_type: string().oneOf(degreeTypeValues),
