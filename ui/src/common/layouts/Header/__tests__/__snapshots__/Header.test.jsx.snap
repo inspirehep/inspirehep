@@ -68,10 +68,6 @@ exports[`Header does not show authorized tool links if logged in user is not sup
                   "display": "Author",
                   "to": "/submissions/authors",
                 },
-                Object {
-                  "display": "Literature",
-                  "to": "/submissions/literature",
-                },
               ]
             }
             title="Submit"
@@ -157,10 +153,6 @@ exports[`Header renders with search box if it is not on home 1`] = `
                   "display": "Author",
                   "to": "/submissions/authors",
                 },
-                Object {
-                  "display": "Literature",
-                  "to": "/submissions/literature",
-                },
               ]
             }
             title="Submit"
@@ -243,10 +235,6 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
                 Object {
                   "display": "Author",
                   "to": "/submissions/authors",
-                },
-                Object {
-                  "display": "Literature",
-                  "to": "/submissions/literature",
                 },
               ]
             }
@@ -336,10 +324,6 @@ exports[`Header shows authorized tool links if logged in user is cataloger 1`] =
                 Object {
                   "display": "Author",
                   "to": "/submissions/authors",
-                },
-                Object {
-                  "display": "Literature",
-                  "to": "/submissions/literature",
                 },
               ]
             }

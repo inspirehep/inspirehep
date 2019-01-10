@@ -14,7 +14,7 @@ import LogoContainer from '../../containers/LogoContainer';
 import {
   SUBMISSIONS_AUTHOR,
   SUBMISSIONS,
-  SUBMISSIONS_LITERATURE,
+  // SUBMISSIONS_LITERATURE,
 } from '../../routes';
 
 const UNAUTHORIZED_TOOL_LINKS = [
@@ -45,10 +45,12 @@ const SUBMISSION_LINKS = [
     to: SUBMISSIONS_AUTHOR,
     display: 'Author',
   },
+  /** TODO: uncomment when `Literature Submissions` function
   {
     to: SUBMISSIONS_LITERATURE,
     display: 'Literature',
   },
+  */
 ];
 
 class Header extends Component {
