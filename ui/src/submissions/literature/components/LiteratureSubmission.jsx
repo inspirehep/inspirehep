@@ -38,6 +38,12 @@ const FORMS_BY_DOC_TYPE = {
 };
 
 class LiteratureSubmission extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onFormikSubmit = this.onFormikSubmit.bind(this);
+  }
+
   componentDidMount() {
     this.mounted = true;
   }
@@ -46,8 +52,18 @@ class LiteratureSubmission extends Component {
     this.mounted = false;
   }
 
+  async onFormikSubmit(values, actions) {
+    const { onSubmit } = this.props;
+    const cleanValues = cleanupFormData(values);
+    await onSubmit(cleanValues);
+    if (this.mounted) {
+      actions.setSubmitting(false);
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
-    const { error, onSubmit, docType, initialFormData } = this.props;
+    const { error, docType, initialFormData } = this.props;
 
     const { component, schema, defaultData } = FORMS_BY_DOC_TYPE[docType];
     const initialValues = { ...defaultData, ...initialFormData };
@@ -67,14 +83,7 @@ class LiteratureSubmission extends Component {
               enableReinitialize
               initialValues={initialValues}
               validationSchema={schema}
-              onSubmit={async (values, actions) => {
-                const cleanValues = cleanupFormData(values);
-                await onSubmit(cleanValues);
-                if (this.mounted) {
-                  actions.setSubmitting(false);
-                  window.scrollTo(0, 0);
-                }
-              }}
+              onSubmit={this.onFormikSubmit}
               component={component}
             />
           </Col>
