@@ -21,7 +21,12 @@ exports[`Submissions renders initial state 1`] = `
       exact={true}
       path="/submissions/authors/:id"
     />
-    <Route
+    <Connect(PrivateRoute)
+      authorizedRoles={
+        Immutable.Set [
+          "superuser",
+        ]
+      }
       component={[Function]}
       exact={true}
       path="/submissions/literature"

@@ -2,9 +2,10 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
+import { fromJS } from 'immutable';
 import Loadable from 'react-loadable';
 
-import { getStore } from '../../fixtures/store';
+import { getStore, getStoreWithState } from '../../fixtures/store';
 import Submissions from '..';
 import AuthorSubmissionPage from '../authors/containers/AuthorSubmissionPage';
 import SubmissionSuccessPage from '../common/components/SubmissionSuccessPage';
@@ -36,9 +37,17 @@ describe('Submissions', () => {
     done();
   });
 
-  it('navigates to LiteratureSubmissionPage when /submissions/authors', async done => {
+  it('navigates to LiteratureSubmissionPage when /submissions/literature if superuser', async done => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['superuser'],
+        },
+      }),
+    });
     const wrapper = mount(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <MemoryRouter
           initialEntries={['/submissions/literature']}
           initialIndex={0}
@@ -51,6 +60,33 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(LiteratureSubmissionPage)).toExist();
+
+    done();
+  });
+
+  it('does not navigate to LiteratureSubmissionPage when /submissions/literature if whatever user', async done => {
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['whatever'],
+        },
+      }),
+    });
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter
+          initialEntries={['/submissions/literature']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(LiteratureSubmissionPage)).not.toExist();
 
     done();
   });
