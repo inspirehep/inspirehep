@@ -11,6 +11,12 @@ import toJS from '../../../common/immutableToJS';
 const DEFAULT_FORM_DATA = authorSchema.cast();
 
 class AuthorSubmission extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onFormikSubmit = this.onFormikSubmit.bind(this);
+  }
+
   componentDidMount() {
     this.mounted = true;
   }
@@ -19,8 +25,18 @@ class AuthorSubmission extends Component {
     this.mounted = false;
   }
 
+  async onFormikSubmit(values, actions) {
+    const { onSubmit } = this.props;
+    const cleanValues = cleanupFormData(values);
+    await onSubmit(cleanValues);
+    if (this.mounted) {
+      actions.setSubmitting(false);
+      window.scrollTo(0, 0);
+    }
+  }
+
   render() {
-    const { error, initialFormData, onSubmit } = this.props;
+    const { error, initialFormData } = this.props;
     const initialValues = {
       ...DEFAULT_FORM_DATA,
       ...initialFormData,
@@ -39,14 +55,7 @@ class AuthorSubmission extends Component {
             <Formik
               initialValues={initialValues}
               validationSchema={authorSchema}
-              onSubmit={async (values, actions) => {
-                const cleanValues = cleanupFormData(values);
-                await onSubmit(cleanValues);
-                if (this.mounted) {
-                  actions.setSubmitting(false);
-                  window.scrollTo(0, 0);
-                }
-              }}
+              onSubmit={this.onFormikSubmit}
               component={AuthorForm}
             />
           </Col>
