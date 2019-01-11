@@ -104,6 +104,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
   }
 
   private saveWithCallbackUrl() {
+    const infoToast = this.toastrService.info('Saving workflow object', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
     this.apiService.saveWorkflowObjectWithCallbackUrl(this.workflowObject, this.callbackUrl)
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
       .subscribe((body) => {
@@ -123,6 +124,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
         if (error.status === 400 && error.body.error_code === 'VALIDATION_ERROR') {
           this.jsonBeingEdited$.next(error.body.workflow);
         }
+        this.toastrService.clear(infoToast.toastId);
         this.displayErrorToast(error);
       });
   }
@@ -133,11 +135,14 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
   }
 
   private save() {
+    const infoToast = this.toastrService.info('Saving workflow object', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
     this.apiService.saveWorkflowObject(this.workflowObject)
       .do(() => this.domUtilsService.unregisterBeforeUnloadPrompt())
       .subscribe(() => {
+        this.toastrService.clear(infoToast.toastId);
         this.toastrService.success(`Workflow object is saved`, 'Success');
       }, (error) => {
+        this.toastrService.clear(infoToast.toastId);
         this.displayErrorToast(error);
       });
   }
