@@ -1,7 +1,7 @@
 <div dropdown>
   <button class="btn btn-default" dropdownToggle>
     <i class="fa fa-list-alt"></i>
-    <i class="fa fa-caret-down"></i>  
+    <i class="fa fa-caret-down"></i>
   </button>
   <ul *dropdownMenu class="dropdown-menu" role="menu">
     <li role="menuitem" class="menu-item">
@@ -15,6 +15,7 @@
         <label>
           <input type="checkbox" checked [(ngModel)]="replaceExisting"> Replace existing
         </label>
+        <a *ngIf="helpLink" class="pull-right" target="_blank" [href]="helpLink">How to use</a>
       </div>
     </li>
   </ul>

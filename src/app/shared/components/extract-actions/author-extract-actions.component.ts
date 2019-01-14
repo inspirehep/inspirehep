@@ -42,6 +42,7 @@ export class AuthorExtractActionsComponent {
   source: string;
   replaceExisting = true;
   extractingToast: ActiveToast;
+  helpLink = '/tools/authorlist';
 
   constructor(private apiService: CommonApiService,
     private jsonStoreService: JsonStoreService,
