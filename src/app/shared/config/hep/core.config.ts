@@ -40,13 +40,14 @@ export const coreHep: JsonEditorConfig = {
     order: [
       'document_type',
       'publication_type',
-      'report_numbers',
       '_collections',
       'languages',
       'titles',
       'title_translations',
       'dois',
+      'report_numbers',
       'arxiv_eprints',
+      'inspire_categories',
       'public_notes',
       'number_of_pages',
       'abstracts',
@@ -59,7 +60,6 @@ export const coreHep: JsonEditorConfig = {
       'thesis_info',
       'preprint_date',
       'imprints',
-      'inspire_categories',
       'keywords',
       'energy_ranges',
       'copyright',
@@ -205,16 +205,16 @@ export const coreHep: JsonEditorConfig = {
         sortable: true,
         items: {
           order: [
-            'ids',
             'full_name',
             'alternative_names',
             'affiliations',
             'raw_affiliations',
             'emails',
+            'ids',
             'inspire_roles',
             'credit_roles'
           ],
-          alwaysShow: ['affiliations'],
+          alwaysShow: ['affiliations', 'emails'],
           properties: {
             uuid: {
               hidden: true
@@ -462,6 +462,15 @@ export const coreHep: JsonEditorConfig = {
                     'page_end',
                     'artid',
                     'year',
+                  ],
+                  order: [
+                    'journal_title',
+                    'journal_volume',
+                    'journal_issue',
+                    'year',
+                    'page_start',
+                    'page_end',
+                    'artid'
                   ],
                   properties: {
                     journal_title: {
