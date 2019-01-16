@@ -82,6 +82,7 @@ const authorSchema = object().shape({
     })
   ),
   comments: string(),
+  bai: string(),
 });
 
 export default authorSchema;
