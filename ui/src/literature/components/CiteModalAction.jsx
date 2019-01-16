@@ -13,14 +13,14 @@ const FORMAT_SELECT_OPTIONS = [
   { value: 'vnd+inspire.latex.us+x-latex', display: 'LaTex (US)' },
 ];
 
-export const DEFAULT_SELECT_VALUE = FORMAT_SELECT_OPTIONS[0].value;
+export const DEFAULT_FORMAT = FORMAT_SELECT_OPTIONS[0].value;
 
 class CiteModalAction extends Component {
   constructor(props) {
     super(props);
     this.onCiteClick = this.onCiteClick.bind(this);
     this.onModalCancel = this.onModalCancel.bind(this);
-    this.onCiteFormatChange = this.onCiteFormatChange.bind(this);
+    this.setCiteContentFor = this.setCiteContentFor.bind(this);
     this.onDownloadClick = this.onDownloadClick.bind(this);
 
     this.state = {
@@ -30,8 +30,13 @@ class CiteModalAction extends Component {
   }
 
   onCiteClick() {
-    this.onCiteFormatChange(DEFAULT_SELECT_VALUE);
+    const { citeContent } = this.state;
     this.setState({ modalVisible: true });
+
+    // initial modal open
+    if (!citeContent) {
+      this.setCiteContentFor(DEFAULT_FORMAT);
+    }
   }
 
   onDownloadClick() {
@@ -46,7 +51,7 @@ class CiteModalAction extends Component {
     this.setState({ modalVisible: false });
   }
 
-  async onCiteFormatChange(format) {
+  async setCiteContentFor(format) {
     let citeContent = this.citeContentCacheByFormat[format];
     if (!citeContent) {
       const { recordId } = this.props;
@@ -90,8 +95,8 @@ class CiteModalAction extends Component {
               </div>
               <SelectBox
                 style={{ width: 140 }}
-                defaultValue={DEFAULT_SELECT_VALUE}
-                onChange={this.onCiteFormatChange}
+                defaultValue={DEFAULT_FORMAT}
+                onChange={this.setCiteContentFor}
                 options={FORMAT_SELECT_OPTIONS}
               />
             </Row>
