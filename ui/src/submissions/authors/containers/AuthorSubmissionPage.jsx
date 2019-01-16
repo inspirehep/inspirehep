@@ -20,7 +20,9 @@ class AuthorSubmissionPage extends Component {
   }
 
   render() {
-    const { error } = this.props;
+    const { error, query } = this.props;
+    const { bai } = query;
+    const initialFormData = { bai };
     return (
       <Row type="flex" justify="center">
         <Col className="mt3 mb3" span={14}>
@@ -35,7 +37,11 @@ class AuthorSubmissionPage extends Component {
           </Row>
           <Row>
             <Col>
-              <AuthorSubmission error={error} onSubmit={this.onSubmit} />
+              <AuthorSubmission
+                error={error}
+                onSubmit={this.onSubmit}
+                initialFormData={initialFormData}
+              />
             </Col>
           </Row>
         </Col>
@@ -47,10 +53,12 @@ class AuthorSubmissionPage extends Component {
 AuthorSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  query: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 const stateToProps = state => ({
   error: state.submissions.get('submitError'),
+  query: state.router.location.query,
 });
 
 const dispatchToProps = dispatch => ({ dispatch });
