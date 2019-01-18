@@ -79,7 +79,7 @@ export class HoldingpenSaveButtonComponent extends SubscriberComponent implement
   }
 
   onClickSave() {
-    this.savingInfoToast = this.toastrService.info('Saving workflow object', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
+    this.savingInfoToast = this.toastrService.info('Saving workflow object', 'Loading', HOVER_TO_DISMISS_INDEFINITE_TOAST);
     const references = this.workflowObject.metadata['references'];
     this.apiService.getLinkedReferences(references).then(linkedReferences => {
       const metadata = Object.assign({}, this.workflowObject.metadata);
