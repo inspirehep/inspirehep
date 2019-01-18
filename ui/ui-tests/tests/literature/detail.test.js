@@ -21,6 +21,21 @@ describe('Literature Detail', () => {
     await polly.stop();
   });
 
+  it('should match image snapshot for a literature#citations', async () => {
+    const page = await browser.newPage();
+    await page.setRequestInterception(true);
+    const polly = createPollyInstance('CitationsLiteratureDetail', page);
+
+    await page.goto(`${routes.private.literatureDetail1472986}#citations`, {
+      waitUntil: 'networkidle0',
+    });
+    await page.setViewport({ width: 1280, height: 1400 });
+    const image = await page.screenshot();
+    expect(image).toMatchImageSnapshot();
+
+    await polly.stop();
+  });
+
   afterAll(async () => {
     await logout();
   });

@@ -3,13 +3,20 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
+import { scrollToWhen } from 'react-redux-scroll';
 
 import './DetailPage.scss';
 import {
   fetchLiterature,
   fetchLiteratureReferences,
   fetchLiteratureAuthors,
+  selectTab,
 } from '../../../actions/literature';
+import {
+  LITERATURE_REFERENCES_SUCCESS,
+  CITATIONS_SUCCESS,
+} from '../../../actions/actionTypes';
+import { ErrorPropType } from '../../../common/propTypes';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
 import AuthorList from '../../../common/components/AuthorList';
@@ -33,9 +40,35 @@ import NumberOfPages from '../../components/NumberOfPages';
 import CitationListContainer from '../../../common/containers/CitationListContainer';
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
-import { ErrorPropType } from '../../../common/propTypes';
+
+const scrollOptions = {
+  yMargin: 100,
+};
+function getShouldScrollOnFunction(actionType, hash) {
+  return (action, props, { router }) =>
+    action.type === actionType && router.location.hash === hash;
+}
+const ScrollableReferencesWrapper = scrollToWhen({
+  pattern: getShouldScrollOnFunction(
+    LITERATURE_REFERENCES_SUCCESS,
+    '#references'
+  ),
+  scrollOptions,
+})('div');
+const ScrollableCitationsWrapper = scrollToWhen({
+  pattern: getShouldScrollOnFunction(CITATIONS_SUCCESS, '#citations'),
+  scrollOptions,
+  onEnd: dispatch => {
+    dispatch(selectTab('citations'));
+  },
+})('div');
 
 class DetailPage extends Component {
+  constructor(props) {
+    super(props);
+    this.onActiveTabChange = this.onActiveTabChange.bind(this);
+  }
+
   componentDidMount() {
     this.dispatchFetchActions();
   }
@@ -46,6 +79,11 @@ class DetailPage extends Component {
       this.dispatchFetchActions();
       window.scrollTo(0, 0);
     }
+  }
+
+  onActiveTabChange(activeTabKey) {
+    const { dispatch } = this.props;
+    dispatch(selectTab(activeTabKey));
   }
 
   get recordId() {
@@ -71,6 +109,7 @@ class DetailPage extends Component {
       loadingCitations,
       record,
       loading,
+      activeTabKey,
     } = this.props;
 
     const metadata = record.get('metadata');
@@ -166,7 +205,9 @@ class DetailPage extends Component {
         </Col>
         <Col className="mt3 mb3" span={14}>
           <Tabs
+            onChange={this.onActiveTabChange}
             type="card"
+            activeKey={activeTabKey}
             tabBarStyle={{ marginBottom: 0 }}
             className="remove-top-border-of-card-children"
           >
@@ -177,13 +218,15 @@ class DetailPage extends Component {
                   count={numberOfReferences}
                 />
               }
-              key="1"
+              key="references"
             >
-              <ReferenceList
-                error={errorReferences}
-                references={references}
-                loading={loadingReferences}
-              />
+              <ScrollableReferencesWrapper>
+                <ReferenceList
+                  error={errorReferences}
+                  references={references}
+                  loading={loadingReferences}
+                />
+              </ScrollableReferencesWrapper>
             </Tabs.TabPane>
             <Tabs.TabPane
               tab={
@@ -193,10 +236,15 @@ class DetailPage extends Component {
                   count={citationCount}
                 />
               }
-              key="2"
+              key="citations"
               forceRender
             >
-              <CitationListContainer pidType="literature" recordId={recordId} />
+              <ScrollableCitationsWrapper>
+                <CitationListContainer
+                  pidType="literature"
+                  recordId={recordId}
+                />
+              </ScrollableCitationsWrapper>
             </Tabs.TabPane>
           </Tabs>
         </Col>
@@ -218,6 +266,7 @@ DetailPage.propTypes = {
   citationCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   loadingCitations: PropTypes.bool.isRequired,
+  activeTabKey: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -230,6 +279,7 @@ const mapStateToProps = state => ({
   supervisors: state.literature.get('supervisors'),
   citationCount: state.citations.get('total'),
   loadingCitations: state.citations.get('loading'),
+  activeTabKey: state.literature.getIn(['ui', 'activeTabKey']),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 
