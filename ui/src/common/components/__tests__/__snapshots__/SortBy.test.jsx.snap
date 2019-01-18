@@ -14,10 +14,6 @@ exports[`SortBy renders with all props set 1`] = `
         "display": "Most Cited",
         "value": "mostcited",
       },
-      Object {
-        "display": "Best Match",
-        "value": "bestmatch",
-      },
     ]
   }
 />
