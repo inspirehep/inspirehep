@@ -1,0 +1,65 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
+# addons:
+#  chrome: stable # https://docs.travis-ci.com/user/chrome
+
+sudo: true
+
+dist: trusty
+
+notifications:
+  email: # sent to the committer and the author
+    on_success: never
+    on_failure: never
+
+language: python
+
+matrix:
+  fast_finish: true
+
+cache:
+  - pip
+
+services:
+  - docker
+
+env:
+  matrix:
+    - REQUIREMENTS=prod SUITE=integration EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
+    - REQUIREMENTS=prod SUITE=unit
+    # - REQUIREMENTS=skip-lock SUITE=integration EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
+    # - REQUIREMENTS=skip-lock SUITE=unit
+
+# XXX: needs work around for 3.7
+python:
+  - "3.6"
+
+before_install:
+  - "sudo service postgresql stop"
+  - if [ ${SUITE} == 'integration' ]; then docker-compose up -d; fi 
+  - "travis_retry pip install --upgrade pip setuptools py pipenv"
+  - "travis_retry pip install twine wheel coveralls"
+
+install:
+  - "./scripts/bootstrap --ci"
+
+before_script:
+  - if [ ${SUITE} == 'integration' ]; then ./docker/wait-for-services.sh; fi 
+
+script:
+  - ./run-tests-ci.sh
+
+after_script:
+  - if [ ${SUITE} == 'integration' ]; then docker-compose kill -s SIGTERM; fi
+  - if [ ${SUITE} == 'integration' ]; then docker-compose rm -f; fi
+
+after_success:
+  - coveralls
+
+after_fail:
+  - pipenv run pip freeze

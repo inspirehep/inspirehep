@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
+set -e
+
+# Clean redis
+pipenv run inspirehep shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+pipenv run inspirehep db destroy --yes-i-know
+pipenv run inspirehep db init create
+pipenv run inspirehep index destroy --force --yes-i-know
+pipenv run inspirehep index init --force
+pipenv run inspirehep index queue init purge
+
+# Create admin role to rectict access
+pipenv run inspirehep roles create admin
+pipenv run inspirehep access allow superuser-access role admin
