@@ -8,6 +8,7 @@ import {
   LITERATURE_AUTHORS_ERROR,
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
+  LITERATURE_SELECT_TAB,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -111,5 +112,12 @@ export function fetchLiteratureAuthors(recordId) {
     } catch (error) {
       dispatch(fetchLiteratureAuthorsError());
     }
+  };
+}
+
+export function selectTab(tabKey) {
+  return {
+    type: LITERATURE_SELECT_TAB,
+    payload: { tabKey },
   };
 }

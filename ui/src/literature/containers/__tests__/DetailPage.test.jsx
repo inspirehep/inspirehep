@@ -1,9 +1,12 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import { getStore } from '../../../fixtures/store';
-import { LITERATURE_REQUEST } from '../../../actions/actionTypes';
+import {
+  LITERATURE_REQUEST,
+  LITERATURE_SELECT_TAB,
+} from '../../../actions/actionTypes';
 import DetailPage from '../DetailPage';
 
 describe('Literature - DetailPage', () => {
@@ -25,6 +28,26 @@ describe('Literature - DetailPage', () => {
     );
     expect(expectedAction).toBeDefined();
     expect(expectedAction.payload).toEqual({ recordId: 123 });
+  });
+
+  it('dispatches select tab when active tab is changed', () => {
+    const store = getStore();
+    const matchProps = {
+      params: {
+        id: 123,
+      },
+    };
+    const wrapper = shallow(
+      <DetailPage match={matchProps} store={store} />
+    ).dive();
+    const { onActiveTabChange } = wrapper.instance();
+    onActiveTabChange('citations');
+    const actions = store.getActions();
+    const expectedAction = actions.find(
+      action => action.type === LITERATURE_SELECT_TAB
+    );
+    expect(expectedAction).toBeDefined();
+    expect(expectedAction.payload).toEqual({ tabKey: 'citations' });
   });
 
   it('dispatches fetch literature record again when match props changed and scrolls to top', () => {

@@ -11,6 +11,7 @@ import {
   LITERATURE_AUTHORS_ERROR,
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
+  LITERATURE_SELECT_TAB,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -24,6 +25,9 @@ export const initialState = fromJS({
   errorAuthors: null,
   authors: [],
   supervisors: [],
+  ui: {
+    activeTabKey: 'references',
+  },
 });
 
 const literatureReducer = (state = initialState, action) => {
@@ -65,6 +69,8 @@ const literatureReducer = (state = initialState, action) => {
         .set('errorAuthors', fromJS(action.payload))
         .set('authors', initialState.get('authors'))
         .set('supervisors', initialState.get('supervisors'));
+    case LITERATURE_SELECT_TAB:
+      return state.setIn(['ui', 'activeTabKey'], action.payload.tabKey);
     default:
       return state;
   }
