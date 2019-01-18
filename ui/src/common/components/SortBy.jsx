@@ -12,6 +12,10 @@ const SORT_BY_OPTIONS = [
     display: 'Most Cited',
     value: 'mostcited',
   },
+  {
+    display: 'Best Match',
+    value: 'bestmatch',
+  },
 ];
 
 class SortBy extends Component {
