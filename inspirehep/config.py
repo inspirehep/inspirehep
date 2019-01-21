@@ -119,6 +119,7 @@ APP_ALLOWED_HOSTS = ["inspirehep.net", "localhost", "127.0.0.1"]
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
+PIDSTORE_RECID_FIELD = "control_number"
 
 RECORDS_REST_ENDPOINTS = {
     "literature": dict(
@@ -128,9 +129,11 @@ RECORDS_REST_ENDPOINTS = {
         pid_fetcher="recid",
         default_endpoint_prefix=True,
         search_class=LiteratureSearch,
+        #XXX: decide about the links
+        links_factory_imp=lambda x: {},
         indexer_class=RecordIndexer,
-        search_index="records",
         search_type=None,
+        search_index='records-hep',
         record_serializers={
             "application/json": ("inspirehep.records.serializers" ":json_v1_response")
         },
@@ -138,13 +141,13 @@ RECORDS_REST_ENDPOINTS = {
             "application/json": ("inspirehep.records.serializers" ":json_v1_search")
         },
         record_loaders={"application/json": ("inspirehep.records.loaders" ":json_v1")},
-        list_route="/records/",
-        item_route='/records/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        list_route="/literature/",
+        item_route='/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
         default_media_type="application/json",
         max_result_window=10000,
         error_handlers=dict(),
-        create_permission_factory_imp=allow_all,
-        read_permission_factory_imp=check_elasticsearch,
+        create_permission_factory_imp=deny_all,
+        read_permission_factory_imp=allow_all,
         update_permission_factory_imp=deny_all,
         delete_permission_factory_imp=deny_all,
         list_permission_factory_imp=allow_all,
@@ -152,7 +155,6 @@ RECORDS_REST_ENDPOINTS = {
 }
 """REST API for inspirehep."""
 
-PIDSTORE_RECID_FIELD = "control_number"
 
 RECORDS_REST_FACETS = dict(
     records=dict(
