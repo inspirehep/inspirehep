@@ -45,7 +45,7 @@ export class RefExtractActionsComponent {
     private toastrService: ToastrService) { }
 
   onExtractClick() {
-    let infoToast = this.toastrService.info('Extracting references...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
+    let infoToast = this.toastrService.info('Extracting references...', 'Loading', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     this.apiService
       .refExtract(this.source, this.sourceType)

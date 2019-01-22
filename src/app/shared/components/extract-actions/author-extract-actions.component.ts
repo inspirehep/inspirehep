@@ -50,7 +50,7 @@ export class AuthorExtractActionsComponent {
 
   onExtractClick() {
     this.extractingToast = this.toastrService
-      .info('Extracting authors...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
+      .info('Extracting authors...', 'Loading', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     this.apiService
       .authorExtract(this.source)

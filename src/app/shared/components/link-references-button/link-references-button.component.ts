@@ -40,7 +40,7 @@ export class LinkReferencesButtonComponent {
     private toastrService: ToastrService) { }
 
   onLinkButtonClick() {
-    let infoToast = this.toastrService.info('Linking references...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
+    let infoToast = this.toastrService.info('Linking references...', 'Loading', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     const references = this.jsonStoreService.getIn(['references']);
     this.apiService.getLinkedReferences(references)

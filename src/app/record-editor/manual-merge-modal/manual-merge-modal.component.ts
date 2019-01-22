@@ -74,7 +74,7 @@ export class ManualMergeModalComponent extends SubscriberComponent implements On
   }
 
   onMergeClick() {
-    let infoToast = this.toastrService.info('Merging records...', 'Wait', HOVER_TO_DISMISS_INDEFINITE_TOAST);
+    let infoToast = this.toastrService.info('Merging records...', 'Loading', HOVER_TO_DISMISS_INDEFINITE_TOAST);
 
     this.recordApiService
       .saveRecord(this.record)
