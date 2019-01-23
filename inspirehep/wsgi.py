@@ -5,10 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-[uwsgi]
-socket = 0.0.0.0:5000
-module = invenio_app.wsgi_ui:application
-master = true
-die-on-term = true
-processes = 2
-threads = 2
+from __future__ import absolute_import, print_function
+
+from invenio_app.factory import create_api
+
+application = create_api()

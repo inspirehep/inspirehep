@@ -5,11 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM inspirehep-base:latest
+FROM python:3.6
 
 COPY ./ .
-COPY ./docker/uwsgi/ ${INVENIO_INSTANCE_PATH}
+RUN apt-get update
+RUN apt-get install -y git
+RUN apt-get install -y curl
+RUN apt-get install -y gnupg2
+RUN git init
 
-RUN ./scripts/bootstrap
-
-USER ${INVENIO_USER_ID}
+RUN pip install pipenv
+RUN ./scripts/bootstrap --dev

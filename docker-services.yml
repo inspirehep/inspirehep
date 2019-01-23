@@ -23,23 +23,10 @@ services:
       - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db/inspirehep"
-      - "INVENIO_WSGI_PROXIES=2"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
-  lb:
-    build: ./docker/haproxy/
-    image: inspirehep-lb
-    restart: "always"
-    ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
-  frontend:
-    build: ./docker/nginx/
-    image: inspirehep-frontend
-    restart: "always"
-    ports:
-      - "80"
-      - "443"
+      - "INVENIO_ENABLE_SECURE_HEADERS=False"
+      - "APP_ENABLE_SECURE_HEADERS=False"
+      - "REST_ENABLE_CORS=True"
   cache:
     image: redis
     restart: "always"
@@ -62,7 +49,7 @@ services:
       - "15672:15672"
       - "5672:5672"
   es:
-    image: inspirehep/elasticsearch5:simple
+    build: ./docker/elasticsearch
     restart: "always"
     environment:
       - bootstrap.memory_lock=true
@@ -72,7 +59,7 @@ services:
         soft: -1
         hard: -1
     mem_limit: 1g
-    ports:  
+    ports:
       - "9200:9200"
       - "9300:9300"
   kibana:
