@@ -107,12 +107,12 @@ class InspireRecord(Record):
         data = cls.strip_empty_values(data)
         with db.session.begin_nested():
             cls.mint(id_, data)
-            record = super(InspireRecord, cls).create(data, id_=id_, **kwargs)
+            record = super().create(data, id_=id_, **kwargs)
         return record
 
     def update(self, data):
         with db.session.begin_nested():
-            super(InspireRecord, self).update(data)
+            super().update(data)
             self.model.json = self
             db.session.add(self.model)
 
