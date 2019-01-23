@@ -6,7 +6,6 @@ import { routerMiddleware } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 /* eslint-disable import/no-extraneous-dependencies */
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { createScrollMiddleware } from 'react-redux-scroll';
 
 import reducers from './reducers';
 import http from './common/http';
@@ -30,7 +29,6 @@ const PROD_MIDDLEWARES = [
   persistUserStateMiddleware,
   searchDispatcherMiddleware,
   redirectToErrorPageMiddleware,
-  createScrollMiddleware(),
   thunkMiddleware,
 ];
 
