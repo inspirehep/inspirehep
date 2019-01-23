@@ -12,7 +12,6 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
-  LITERATURE_SELECT_TAB,
 } from '../../actions/actionTypes';
 
 describe('literature reducer', () => {
@@ -158,13 +157,5 @@ describe('literature reducer', () => {
       supervisors: initialState.get('supervisors'),
     });
     expect(state).toEqual(expected);
-  });
-
-  it('LITERATURE_SELECT_TAB', () => {
-    const state = reducer(Map(), {
-      type: LITERATURE_SELECT_TAB,
-      payload: { tabKey: 'dudes' },
-    });
-    expect(state.getIn(['ui', 'activeTabKey'])).toEqual('dudes');
   });
 });
