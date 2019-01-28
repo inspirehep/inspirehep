@@ -22,8 +22,9 @@
 
 from __future__ import absolute_import, division, print_function
 
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
 from ..errors import MissingSchema
-from ..providers.recid import InspireRecordIdProvider
 
 
 def arxiv_minter(record_uuid, data, pid_type, object_type):
@@ -31,9 +32,15 @@ def arxiv_minter(record_uuid, data, pid_type, object_type):
     if "$schema" not in data:
         raise MissingSchema
 
-    args = {"object_type": object_type, "object_uuid": record_uuid, "pid_type": "arxiv"}
     arxiv_eprints = data.get("arxiv_eprints", [])
 
     for arxiv_eprint in arxiv_eprints:
-        args["pid_value"] = arxiv_eprint.get("value")
-        InspireRecordIdProvider.create(**args)
+        arxiv_eprint_id = arxiv_eprint.get("value")
+        PersistentIdentifier.create(
+            "arxiv",
+            arxiv_eprint_id,
+            pid_provider="arxiv",
+            object_type="rec",
+            object_uuid=record_uuid,
+            status=PIDStatus.REGISTERED,
+        )

@@ -22,17 +22,25 @@
 
 from __future__ import absolute_import, division, print_function
 
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+
 from ..errors import MissingSchema
-from ..providers.recid import InspireRecordIdProvider
 
 
 def doi_minter(record_uuid, data, pid_type, object_type):
-    """Mint arxiv identifiers."""
+    """Mint doi identifiers."""
     if "$schema" not in data:
         raise MissingSchema
 
-    args = {"object_type": object_type, "object_uuid": record_uuid, "pid_type": "doi"}
     dois = data.get("dois", [])
+
     for doi in dois:
-        args["pid_value"] = doi.get("value")
-        InspireRecordIdProvider.create(**args)
+        doi_id = doi.get("value")
+        PersistentIdentifier.create(
+            "doi",
+            doi_id,
+            pid_provider="crossref",
+            object_type="rec",
+            object_uuid=record_uuid,
+            status=PIDStatus.REGISTERED,
+        )

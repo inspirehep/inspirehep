@@ -129,11 +129,11 @@ RECORDS_REST_ENDPOINTS = {
         pid_fetcher="recid",
         default_endpoint_prefix=True,
         search_class=LiteratureSearch,
-        #XXX: decide about the links
+        # XXX: decide about the links
         links_factory_imp=lambda x: {},
         indexer_class=RecordIndexer,
         search_type=None,
-        search_index='records-hep',
+        search_index="records-hep",
         record_serializers={
             "application/json": ("inspirehep.records.serializers" ":json_v1_response")
         },
