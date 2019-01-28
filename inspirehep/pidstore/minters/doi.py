@@ -22,16 +22,17 @@
 
 from __future__ import absolute_import, division, print_function
 
-from flask import current_app
-from six.moves.urllib.parse import urlsplit
-
-from .base import PidStoreBase
-from ..minters.recid import recid_minter
-from ..minters.arxiv import arxiv_minter
-from ..minters.doi import doi_minter
+from ..errors import MissingSchema
+from ..providers.recid import InspireRecordIdProvider
 
 
-class PidStoreLiterature(PidStoreBase):
+def doi_minter(record_uuid, data, pid_type, object_type):
+    """Mint arxiv identifiers."""
+    if "$schema" not in data:
+        raise MissingSchema
 
-    pid_type = "lit"
-    minters = [recid_minter, arxiv_minter, doi_minter]
+    args = {"object_type": object_type, "object_uuid": record_uuid, "pid_type": "doi"}
+    dois = data.get("dois", [])
+    for doi in dois:
+        args["pid_value"] = doi.get("value")
+        InspireRecordIdProvider.create(**args)
