@@ -131,7 +131,7 @@ def test_literature_create_with_dois(base_app, db):
 
     expected_doi_pid_value = doi_value
     expected_doi_pid_type = "doi"
-    expected_doi_pid_provider = "crossref"
+    expected_doi_pid_provider = "doi"
     record_pid_doi = PersistentIdentifier.query.filter_by(
         pid_type="doi", object_uuid=record.id
     ).one()

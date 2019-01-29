@@ -36,9 +36,9 @@ class PidStoreBase(object):
     minters = []
 
     @classmethod
-    def create(cls, object_uuid, data):
+    def mint(cls, object_uuid, data):
         for minter in cls.minters:
-            minter.create(object_uuid, data)
+            minter.mint(object_uuid, data)
 
     @staticmethod
     def get_endpoint_from_pid_type(pid_type):
