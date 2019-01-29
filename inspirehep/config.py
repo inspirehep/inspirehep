@@ -16,6 +16,7 @@ You overwrite and set instance-specific configuration by either:
 from __future__ import absolute_import, print_function
 
 from datetime import timedelta
+from copy import deepcopy
 
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
@@ -121,37 +122,55 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 PIDSTORE_RECID_FIELD = "control_number"
 
+# /literature endpoints
+LITERATURE = {
+    "pid_type": "lit",
+    "pid_minter": "literature_minter",
+    "pid_fetcher": "recid",
+    "default_endpoint_prefix": True,
+    "search_class": LiteratureSearch,
+    # XXX decide about the links
+    "links_factory_imp": lambda links: {},
+    "indexer_class": RecordIndexer,
+    "search_type": None,
+    "search_index": "records-hep",
+    "record_serializers": {
+        "application/json": "inspirehep.records.serializers:json_v1_response"
+    },
+    "search_serializers": {
+        "application/json": "inspirehep.records.serializers:json_v1_search"
+    },
+    "record_loaders": {"application/json": "inspirehep.records.loaders:json_v1"},
+    "list_route": "/literature/",
+    "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+    "default_media_type": "application/json",
+    "max_result_window": 10000,
+    "error_handlers": dict(),
+    "create_permission_factory_imp": deny_all,
+    "read_permission_factory_imp": allow_all,
+    "update_permission_factory_imp": deny_all,
+    "delete_permission_factory_imp": deny_all,
+    "list_permission_factory_imp": allow_all,
+}
+LITERATURE_ARXIV = deepcopy(LITERATURE)
+LITERATURE_ARXIV.update(
+    {
+        "default_endpoint_prefix": False,
+        "item_route": '/literature/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+    }
+)
+LITERATURE_DOI = deepcopy(LITERATURE)
+LITERATURE_DOI.update(
+    {
+        "default_endpoint_prefix": False,
+        "item_route": '/literature/<pid(doi,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+    }
+)
+
 RECORDS_REST_ENDPOINTS = {
-    "literature": dict(
-        pid_type="lit",
-        # change when we enable rest
-        pid_minter="inspire_literature_minter",
-        pid_fetcher="recid",
-        default_endpoint_prefix=True,
-        search_class=LiteratureSearch,
-        # XXX: decide about the links
-        links_factory_imp=lambda x: {},
-        indexer_class=RecordIndexer,
-        search_type=None,
-        search_index="records-hep",
-        record_serializers={
-            "application/json": ("inspirehep.records.serializers" ":json_v1_response")
-        },
-        search_serializers={
-            "application/json": ("inspirehep.records.serializers" ":json_v1_search")
-        },
-        record_loaders={"application/json": ("inspirehep.records.loaders" ":json_v1")},
-        list_route="/literature/",
-        item_route='/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
-        default_media_type="application/json",
-        max_result_window=10000,
-        error_handlers=dict(),
-        create_permission_factory_imp=deny_all,
-        read_permission_factory_imp=allow_all,
-        update_permission_factory_imp=deny_all,
-        delete_permission_factory_imp=deny_all,
-        list_permission_factory_imp=allow_all,
-    )
+    "literature": LITERATURE,
+    "literature_arxiv": LITERATURE_ARXIV,
+    "literature_doi": LITERATURE_DOI,
 }
 """REST API for inspirehep."""
 
