@@ -1,0 +1,250 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders thank you 1`] = `
+<div
+  className="__UserFeedback__"
+>
+  <Button
+    block={false}
+    className="feedback-button"
+    ghost={false}
+    icon="message"
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+    size="large"
+    type="primary"
+  >
+    Feedback
+  </Button>
+  <Modal
+    afterClose={[Function]}
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okButtonProps={
+      Object {
+        "disabled": true,
+      }
+    }
+    okText="Submit"
+    okType="primary"
+    onCancel={[Function]}
+    onOk={[Function]}
+    prefixCls="ant-modal"
+    title="Your Feedback"
+    transitionName="zoom"
+    visible={false}
+    width={520}
+  >
+    <div>
+      <div
+        className="mb4 tc f-5"
+      >
+        <Icon
+          theme="twoTone"
+          twoToneColor="#52c41a"
+          type="check-circle"
+        />
+      </div>
+      <div
+        className="tc"
+      >
+        <span
+          className="f5"
+        >
+          Thank you for submitting your feedback.
+        </span>
+      </div>
+    </div>
+  </Modal>
+</div>
+`;
+
+exports[`UserFeedback renders 1`] = `
+<div
+  className="__UserFeedback__"
+>
+  <Button
+    block={false}
+    className="feedback-button"
+    ghost={false}
+    icon="message"
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+    size="large"
+    type="primary"
+  >
+    Feedback
+  </Button>
+  <Modal
+    afterClose={[Function]}
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okButtonProps={
+      Object {
+        "disabled": undefined,
+      }
+    }
+    okText="Submit"
+    okType="primary"
+    onCancel={[Function]}
+    onOk={[Function]}
+    prefixCls="ant-modal"
+    title="Your Feedback"
+    transitionName="zoom"
+    visible={false}
+    width={520}
+  >
+    <div
+      className="mb4"
+    >
+      <div
+        className="mb1"
+      >
+        What is your opinion of the new INSPIRE?
+      </div>
+      <div>
+        <Rate
+          character={
+            <Icon
+              theme="filled"
+              type="star"
+            />
+          }
+          onChange={[Function]}
+          prefixCls="ant-rate"
+          value={0}
+        />
+        <span
+          className="ant-rate-text"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        className="mb1"
+      >
+        Would you like to add a comment?
+      </div>
+      <div>
+        <TextArea
+          onChange={[Function]}
+          placeholder="Please give your feedback here"
+          prefixCls="ant-input"
+          rows={5}
+        />
+      </div>
+    </div>
+  </Modal>
+</div>
+`;
+
+exports[`UserFeedback renders when tracker is blocked 1`] = `
+<div
+  className="__UserFeedback__"
+>
+  <Button
+    block={false}
+    className="feedback-button"
+    ghost={false}
+    icon="message"
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+    size="large"
+    type="primary"
+  >
+    Feedback
+  </Button>
+  <Modal
+    afterClose={[Function]}
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okButtonProps={
+      Object {
+        "disabled": true,
+      }
+    }
+    okText="Submit"
+    okType="primary"
+    onCancel={[Function]}
+    onOk={[Function]}
+    prefixCls="ant-modal"
+    title="Your Feedback"
+    transitionName="zoom"
+    visible={false}
+    width={520}
+  >
+    <div
+      className="mb4"
+    >
+      <Alert
+        description={
+          <span>
+            To send us your feedback, please disable your adblock and refresh the page or send us your feedback at
+             
+            <a
+              href="mailto:feedback@inspirehep.net"
+            >
+              feedback@inspirehep.net
+            </a>
+          </span>
+        }
+        message="AdBlock detected"
+        showIcon={true}
+        type="warning"
+      />
+    </div>
+    <div
+      className="mb4"
+    >
+      <div
+        className="mb1"
+      >
+        What is your opinion of the new INSPIRE?
+      </div>
+      <div>
+        <Rate
+          character={
+            <Icon
+              theme="filled"
+              type="star"
+            />
+          }
+          disabled={true}
+          onChange={[Function]}
+          prefixCls="ant-rate"
+          value={0}
+        />
+        <span
+          className="ant-rate-text"
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        className="mb1"
+      >
+        Would you like to add a comment?
+      </div>
+      <div>
+        <TextArea
+          disabled={true}
+          onChange={[Function]}
+          placeholder="Please give your feedback here"
+          prefixCls="ant-input"
+          rows={5}
+        />
+      </div>
+    </div>
+  </Modal>
+</div>
+`;

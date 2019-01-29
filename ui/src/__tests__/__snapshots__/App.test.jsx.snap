@@ -55,6 +55,7 @@ exports[`App renders initial state 1`] = `
         path="/errors"
       />
     </SafeSwitch>
+    <UserFeedback />
   </Adapter>
   <Footer />
 </Adapter>
