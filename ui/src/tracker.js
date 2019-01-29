@@ -14,3 +14,11 @@ export function injectTrackerToHistory(history) {
 
   return history;
 }
+
+export function trackEvent(...args) {
+  Piwik.push(['trackEvent', ...args]);
+}
+
+export function checkIsTrackerBlocked() {
+  return Array.isArray(window._paq); // eslint-disable-line no-underscore-dangle
+}

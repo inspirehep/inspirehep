@@ -20,6 +20,7 @@ import {
   SUBMISSIONS,
   ERRORS,
 } from './common/routes';
+import UserFeedback from './common/components/UserFeedback';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -77,6 +78,7 @@ class App extends Component {
             <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
             <Route path={ERRORS} component={Errors$} />
           </SafeSwitch>
+          <UserFeedback />
         </Layout.Content>
         <Footer />
       </Layout>

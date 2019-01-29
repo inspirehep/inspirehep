@@ -1,0 +1,16 @@
+.__UserFeedback__ {
+  .feedback-button {
+    position: fixed;
+    transform: rotate(270deg);
+    transform-origin: right bottom;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    top: 50%;
+    right: -0.2em;
+
+    &:hover {
+      right: 0;
+      box-shadow: 0 0 0.5em $primary-color;
+    }
+  }
+}
