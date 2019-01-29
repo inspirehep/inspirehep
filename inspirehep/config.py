@@ -125,7 +125,7 @@ RECORDS_REST_ENDPOINTS = {
     "literature": dict(
         pid_type="lit",
         # change when we enable rest
-        pid_minter="inspire_recid_minter",
+        pid_minter="inspire_literature_minter",
         pid_fetcher="recid",
         default_endpoint_prefix=True,
         search_class=LiteratureSearch,

@@ -24,23 +24,11 @@ from __future__ import absolute_import, division, print_function
 
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
+from .base import Minter
 from ..errors import MissingSchema
 
 
-def doi_minter(record_uuid, data, pid_type, object_type):
-    """Mint doi identifiers."""
-    if "$schema" not in data:
-        raise MissingSchema
-
-    dois = data.get("dois", [])
-
-    for doi in dois:
-        doi_id = doi.get("value")
-        PersistentIdentifier.create(
-            "doi",
-            doi_id,
-            pid_provider="crossref",
-            object_type="rec",
-            object_uuid=record_uuid,
-            status=PIDStatus.REGISTERED,
-        )
+class DoiMinter(Minter):
+    pid_value_path = "dois.value"
+    pid_type = "doi"
+    provider = "doi"

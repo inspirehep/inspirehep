@@ -27,8 +27,7 @@ import pytest
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema
-from inspirehep.pidstore.minters.recid import recid_minter
-from inspirehep.pidstore.minters.arxiv import arxiv_minter
+from inspirehep.pidstore.minters.arxiv import ArxivMinter
 
 
 def test_minter_arxiv_eprints(base_app, db, create_record):
@@ -36,7 +35,7 @@ def test_minter_arxiv_eprints(base_app, db, create_record):
     record = create_record("lit", data=data)
     data = record.json
 
-    arxiv_minter(record.id, data, "pid", "rec")
+    ArxivMinter.mint(record.id, data)
 
     expected_pids_len = 2
     epxected_pids_values = ["1901.08867", "1901.09016"]
@@ -61,7 +60,7 @@ def test_minter_arxiv_eprints_empty(base_app, db, create_record):
     record = create_record("lit")
     data = record.json
 
-    arxiv_minter(record.id, data, "pid", "rec")
+    ArxivMinter.mint(record.id, data)
 
     expected_pids_len = 0
 

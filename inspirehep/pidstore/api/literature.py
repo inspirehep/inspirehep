@@ -26,12 +26,11 @@ from flask import current_app
 from six.moves.urllib.parse import urlsplit
 
 from .base import PidStoreBase
-from ..minters.recid import recid_minter
-from ..minters.arxiv import arxiv_minter
-from ..minters.doi import doi_minter
+from ..minters.control_number import LiteratureMinter
+from ..minters.arxiv import ArxivMinter
+from ..minters.doi import DoiMinter
 
 
 class PidStoreLiterature(PidStoreBase):
 
-    pid_type = "lit"
-    minters = [recid_minter, arxiv_minter, doi_minter]
+    minters = [LiteratureMinter, ArxivMinter, DoiMinter]

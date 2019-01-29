@@ -24,23 +24,11 @@ from __future__ import absolute_import, division, print_function
 
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
+from .base import Minter
 from ..errors import MissingSchema
 
 
-def arxiv_minter(record_uuid, data, pid_type, object_type):
-    """Mint arxiv identifiers."""
-    if "$schema" not in data:
-        raise MissingSchema
-
-    arxiv_eprints = data.get("arxiv_eprints", [])
-
-    for arxiv_eprint in arxiv_eprints:
-        arxiv_eprint_id = arxiv_eprint.get("value")
-        PersistentIdentifier.create(
-            "arxiv",
-            arxiv_eprint_id,
-            pid_provider="arxiv",
-            object_type="rec",
-            object_uuid=record_uuid,
-            status=PIDStatus.REGISTERED,
-        )
+class ArxivMinter(Minter):
+    pid_value_path = "arxiv_eprints.value"
+    pid_type = "arxiv"
+    provider = "arxiv"

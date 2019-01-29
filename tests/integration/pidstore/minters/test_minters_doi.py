@@ -27,8 +27,7 @@ import pytest
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema
-from inspirehep.pidstore.minters.recid import recid_minter
-from inspirehep.pidstore.minters.doi import doi_minter
+from inspirehep.pidstore.minters.doi import DoiMinter
 
 
 def test_minter_dois(base_app, db, create_record):
@@ -41,14 +40,14 @@ def test_minter_dois(base_app, db, create_record):
     record = create_record("lit", data=data)
     data = record.json
 
-    doi_minter(record.id, data, "pid", "rec")
+    DoiMinter.mint(record.id, data)
 
     expected_pids_len = 2
     epxected_pids_values = [
         "10.1016/j.nuclphysa.2018.12.006",
         "10.1016/j.nuclphysa.2018.12.003",
     ]
-    expected_pids_provider = "crossref"
+    expected_pids_provider = "doi"
     expected_pids_status = PIDStatus.REGISTERED
 
     result_pids = (
@@ -69,7 +68,7 @@ def test_minter_arxiv_eprints_empty(base_app, db, create_record):
     record = create_record("lit")
     data = record.json
 
-    doi_minter(record.id, data, "pid", "rec")
+    DoiMinter.mint(record.id, data)
 
     expected_pids_len = 0
 

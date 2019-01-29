@@ -25,6 +25,7 @@ marshmallow = "<3.0.0"
 # do-json :( needs flask v0.x
 flask-shell-ipython = "~=0.3,<0.4.0" # version 0.4.0 requires `flask >= 1.0`
 node-semver = "<0.2.0,>=0.1.1"
+inspire-utils = "*"
 
 [dev-packages]
 check-manifest = ">=0.35"

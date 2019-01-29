@@ -30,7 +30,7 @@ from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.pidstore.errors import MissingControlNumber, MissingSchema
 
 
-def test_fetch(base_app, db, create_record):
+def xtest_fetch(base_app, db, create_record):
     record = create_record("lit", with_pid=False)
 
     PidStoreLiterature.mint(record.id, record.json)
@@ -41,7 +41,7 @@ def test_fetch(base_app, db, create_record):
     assert expected_control_number == pid_fetch.pid_value
 
 
-def test_fetch_with_missing_schema(base_app, db, create_record):
+def xtest_fetch_with_missing_schema(base_app, db, create_record):
     record = create_record("lit")
     data = record.json
     del data["$schema"]
@@ -50,7 +50,7 @@ def test_fetch_with_missing_schema(base_app, db, create_record):
         PidStoreLiterature.fetch(record.id, record.json)
 
 
-def test_fetch_with_missing_control_number(base_app, db, create_record):
+def xtest_fetch_with_missing_control_number(base_app, db, create_record):
     record = create_record("lit")
     data = record.json
     del data["control_number"]

@@ -28,36 +28,17 @@ from collections import namedtuple
 import six
 from flask import current_app
 
-from ..errors import MissingControlNumber, MissingSchema
+from ..errors import MissingSchema
 from ..providers.recid import InspireRecordIdProvider
-
-FetchedPID = namedtuple("FetchedPID", ["provider", "pid_type", "pid_value"])
 
 
 class PidStoreBase(object):
-
-    pid_type = None
-    object_type = "rec"
     minters = []
 
     @classmethod
-    def mint(cls, record_uuid, data):
-        for mint in cls.minters:
-            mint(record_uuid, data, cls.pid_type, cls.object_type)
-
-    @classmethod
-    def fetch(cls, record_uuid, data):
-        if "$schema" not in data:
-            raise MissingSchema
-
-        if "control_number" not in data:
-            raise MissingControlNumber
-
-        return FetchedPID(
-            provider=InspireRecordIdProvider,
-            pid_type=cls.pid_type,
-            pid_value=str(data["control_number"]),
-        )
+    def create(cls, object_uuid, data):
+        for minter in cls.minters:
+            minter.create(object_uuid, data)
 
     @staticmethod
     def get_endpoint_from_pid_type(pid_type):
