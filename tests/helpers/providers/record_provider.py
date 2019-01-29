@@ -36,7 +36,19 @@ fake = Faker()
 
 class RecordProvider(BaseProvider):
     def control_number(self):
-        return fake.random_number(digits=6)
+        return fake.random_number(digits=8, fix_len=True)
+
+    def doi(self):
+        return "10.{}/{}".format(
+            fake.random_number(digits=4, fix_len=True),
+            fake.random_number(digits=8, fix_len=True),
+        )
+
+    def arxiv(self):
+        return "20{}.{}".format(
+            fake.random_number(digits=2, fix_len=True),
+            fake.random_number(digits=5, fix_len=True),
+        )
 
     def record(self, data=None, with_control_number=False):
         record = {

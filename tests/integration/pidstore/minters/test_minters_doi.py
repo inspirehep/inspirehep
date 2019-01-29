@@ -73,11 +73,9 @@ def test_minter_arxiv_eprints_empty(base_app, db, create_record):
 
     expected_pids_len = 0
 
-    result_pids = (
-        PersistentIdentifier.query.filter_by(object_uuid=record.id)
-        .filter_by(pid_type="doi")
-        .all()
-    )
+    result_pids = PersistentIdentifier.query.filter_by(
+        object_uuid=record.id, pid_type="doi"
+    ).all()
     result_pids_len = len(result_pids)
 
     assert expected_pids_len == result_pids_len
