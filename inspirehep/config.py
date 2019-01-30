@@ -155,15 +155,13 @@ LITERATURE = {
 LITERATURE_ARXIV = deepcopy(LITERATURE)
 LITERATURE_ARXIV.update(
     {
-        "default_endpoint_prefix": False,
-        "item_route": '/literature/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>'
     }
 )
 LITERATURE_DOI = deepcopy(LITERATURE)
 LITERATURE_DOI.update(
     {
-        "default_endpoint_prefix": False,
-        "item_route": '/literature/<pid(doi,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>'
     }
 )
 
