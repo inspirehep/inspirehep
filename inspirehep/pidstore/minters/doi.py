@@ -22,10 +22,7 @@
 
 from __future__ import absolute_import, division, print_function
 
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
-
 from .base import Minter
-from ..errors import MissingSchema
 
 
 class DoiMinter(Minter):

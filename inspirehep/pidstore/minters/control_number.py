@@ -23,8 +23,6 @@
 from __future__ import absolute_import, division, print_function
 
 from .base import ControlNumberMinter
-from ..errors import MissingSchema
-from ..providers.recid import InspireRecordIdProvider
 
 
 class LiteratureMinter(ControlNumberMinter):
