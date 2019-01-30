@@ -65,6 +65,6 @@ class InspireRecordIdProvider(BaseProvider):
         kwargs.setdefault("status", cls.default_status)
         if object_type and object_uuid:
             kwargs["status"] = PIDStatus.REGISTERED
-        return super(InspireRecordIdProvider, cls).create(
+        return super().create(
             object_type=object_type, object_uuid=object_uuid, **kwargs
         )

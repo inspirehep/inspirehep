@@ -16,6 +16,8 @@
 # Check manifest will not automatically add these two files:
 include .dockerignore
 include .editorconfig
+include docker/elasticsearch
+include docker/elasticsearch/Dockerfile
 include docker/haproxy/Dockerfile
 include docker/nginx/Dockerfile
 include docker/postgres/Dockerfile
