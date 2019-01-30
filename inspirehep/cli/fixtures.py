@@ -1,0 +1,28 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
+import click
+from flask.cli import with_appcontext
+
+from inspirehep.records.fixtures import (
+    init_default_storage_path,
+    init_records_files_storage_path,
+)
+
+
+@click.group()
+def fixtures():
+    """Command related to records in inspire"""
+    pass
+
+
+@fixtures.command()
+@with_appcontext
+def init_records_store_paths():
+    """Init default file and records store location."""
+    init_default_storage_path()
+    init_records_files_storage_path()

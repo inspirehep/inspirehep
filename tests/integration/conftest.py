@@ -13,7 +13,6 @@ import pytest
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
-from helpers.providers.faker import faker
 from invenio_app.factory import create_api as invenio_create_app
 
 
@@ -97,7 +96,7 @@ def create_record(db, es_clear):
         # FIXME: find a better location
         MAP_PID_TYPE_TO_INDEX = {"lit": "records-hep"}
 
-        control_number = random.randint(1, 2147483647)
+        control_number = random.randint(1, 2_147_483_647)
         record = RecordMetadataFactory(data=data, control_number=control_number)
 
         if with_pid:
