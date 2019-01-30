@@ -9,6 +9,7 @@
 import pytest
 from helpers.providers.faker import faker
 
+from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema
@@ -57,3 +58,28 @@ def test_minter_arxiv_eprints_empty(base_app, db, create_record):
     result_pids_len = len(result_pids)
 
     assert expected_pids_len == result_pids_len
+
+
+def test_mitner_arxiv_eprints_already_existing(base_app, db, create_record):
+    arxiv_value = faker.arxiv()
+    data = {"arxiv_eprints": [{"value": arxiv_value}]}
+
+    record_with_arxiv = create_record("lit", data=data)
+    ArxivMinter.mint(record_with_arxiv.id, record_with_arxiv.json)
+
+    record_with_existing_arxiv = create_record("lit", data)
+    with pytest.raises(PIDAlreadyExists):
+        ArxivMinter.mint(record_with_existing_arxiv.id, record_with_existing_arxiv.json)
+
+
+def test_mitner_arxiv_eprints_missing_schema(base_app, db, create_record):
+    arxiv_value = faker.arxiv()
+    data = {"arxiv_eprints": [{"value": arxiv_value}]}
+    record = create_record("lit", data=data)
+
+    record_data = record.json
+    record_id = record.id
+    record_data.pop("$schema")
+
+    with pytest.raises(MissingSchema):
+        ArxivMinter.mint(record_id, record_data)

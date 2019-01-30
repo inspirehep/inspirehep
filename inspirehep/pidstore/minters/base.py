@@ -74,12 +74,12 @@ class ControlNumberMinter(Minter):
         if "control_number" in data:
             pid_value = data["control_number"]
 
-        record_id_provider = minter.create(data, pid_value)
+        record_id_provider = minter.create(pid_value)
         data["control_number"] = record_id_provider.pid.pid_value
 
         return minter
 
-    def create(self, data, pid_value):
+    def create(self, pid_value):
         return self.model.create(
             pid_value=pid_value,
             pid_type=self.pid_type,

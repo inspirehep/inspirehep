@@ -7,8 +7,10 @@
 
 
 import pytest
+import uuid
 from helpers.providers.faker import faker
 
+from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema
@@ -43,7 +45,7 @@ def test_minter_dois(base_app, db, create_record):
         assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_arxiv_eprints_empty(base_app, db, create_record):
+def test_minter_dois_empty(base_app, db, create_record):
     record = create_record("lit")
     data = record.json
 
@@ -57,3 +59,28 @@ def test_minter_arxiv_eprints_empty(base_app, db, create_record):
     result_pids_len = len(result_pids)
 
     assert expected_pids_len == result_pids_len
+
+
+def test_mitner_dois_already_existing(base_app, db, create_record):
+    doi_value = faker.doi()
+    data = {"dois": [{"value": doi_value}]}
+
+    record_with_doi = create_record("lit", data=data)
+    DoiMinter.mint(record_with_doi.id, record_with_doi.json)
+
+    record_with_existing_doi = create_record("lit", data)
+    with pytest.raises(PIDAlreadyExists):
+        DoiMinter.mint(record_with_existing_doi.id, record_with_existing_doi.json)
+
+
+def test_mitner_dois_missing_schema(base_app, db, create_record):
+    doi_value = faker.doi()
+    data = {"dois": [{"value": doi_value}]}
+    record = create_record("lit", data=data)
+
+    record_data = record.json
+    record_id = record.id
+    record_data.pop("$schema")
+
+    with pytest.raises(MissingSchema):
+        DoiMinter.mint(record_id, record_data)
