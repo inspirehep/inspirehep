@@ -14,12 +14,14 @@ You overwrite and set instance-specific configuration by either:
 """
 
 
+import os
+import sys
 from copy import deepcopy
 from datetime import timedelta
 
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import terms_filter
-from invenio_records_rest.utils import allow_all, check_elasticsearch, deny_all
+from invenio_records_rest.utils import allow_all, deny_all
 
 from .search.api import LiteratureSearch
 
@@ -215,3 +217,15 @@ RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostre
 """Set default sorting options."""
 
 APP_ENABLE_SECURE_HEADERS = False
+
+
+# Files
+# =====
+BASE_FILES_LOCATION = os.path.join(sys.prefix, "var/data")
+"""Root path to all files direcotries"""
+
+RECORDS_DEFAULT_FILE_LOCATION_NAME = "records"
+"""Name of default records Location reference."""
+
+RECORDS_DEFAULT_STORAGE_CLASS = "S"
+"""Default storage class for record files."""

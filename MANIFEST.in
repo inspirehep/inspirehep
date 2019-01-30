@@ -39,4 +39,6 @@ include pytest.ini
 recursive-include inspirehep *.json
 recursive-include inspirehep *.py
 recursive-include tests *.py
+recursive-include tests *.pdf
+recursive-include tests *.png
 recursive-exclude ui
