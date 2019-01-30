@@ -7,6 +7,7 @@
 
 
 import pytest
+from helpers.providers.faker import faker
 
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
@@ -15,14 +16,16 @@ from inspirehep.pidstore.minters.arxiv import ArxivMinter
 
 
 def test_minter_arxiv_eprints(base_app, db, create_record):
-    data = {"arxiv_eprints": [{"value": "1901.09016"}, {"value": "1901.08867"}]}
+    arxiv_value_1 = faker.arxiv()
+    arxiv_value_2 = faker.arxiv()
+    data = {"arxiv_eprints": [{"value": arxiv_value_1}, {"value": arxiv_value_2}]}
     record = create_record("lit", data=data)
     data = record.json
 
     ArxivMinter.mint(record.id, data)
 
     expected_pids_len = 2
-    epxected_pids_values = ["1901.08867", "1901.09016"]
+    epxected_pids_values = [arxiv_value_1, arxiv_value_2]
     expected_pids_provider = "arxiv"
     expected_pids_status = PIDStatus.REGISTERED
 

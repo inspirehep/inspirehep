@@ -7,6 +7,7 @@
 
 
 import pytest
+from helpers.providers.faker import faker
 
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
@@ -15,22 +16,16 @@ from inspirehep.pidstore.minters.doi import DoiMinter
 
 
 def test_minter_dois(base_app, db, create_record):
-    data = {
-        "dois": [
-            {"value": "10.1016/j.nuclphysa.2018.12.006"},
-            {"value": "10.1016/j.nuclphysa.2018.12.003"},
-        ]
-    }
+    doi_value_1 = faker.doi()
+    doi_value_2 = faker.doi()
+    data = {"dois": [{"value": doi_value_1}, {"value": doi_value_2}]}
     record = create_record("lit", data=data)
     data = record.json
 
     DoiMinter.mint(record.id, data)
 
     expected_pids_len = 2
-    epxected_pids_values = [
-        "10.1016/j.nuclphysa.2018.12.006",
-        "10.1016/j.nuclphysa.2018.12.003",
-    ]
+    epxected_pids_values = [doi_value_1, doi_value_2]
     expected_pids_provider = "doi"
     expected_pids_status = PIDStatus.REGISTERED
 
