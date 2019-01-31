@@ -4,3 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
+from .position import PositionSchemaV1
+from .facet_author_name import FacetAuthorNameSchemaV1

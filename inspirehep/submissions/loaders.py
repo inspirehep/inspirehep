@@ -11,7 +11,7 @@ from invenio_records_rest.loaders.marshmallow import (
     json_patch_loader,
     marshmallow_loader,
 )
-from .marshmallow import Literature
 
+from .marshmallow import Literature
 
 literature_v1 = marshmallow_loader(Literature)

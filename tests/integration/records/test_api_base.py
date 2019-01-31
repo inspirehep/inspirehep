@@ -187,3 +187,127 @@ def test_redirect_records(base_app, db, create_record):
     assert current["deleted"] is True
     for current_pid in current_pids:
         assert current_pid.get_redirect() == other_pid
+
+
+def test_get_records_by_pids(base_app, db, create_record):
+    records = [create_record("lit"), create_record("lit"), create_record("lit")]
+
+    pids = [("lit", str(record.json["control_number"])) for record in records]
+
+    expected_result_len = 3
+    expected_result = [record.json for record in records]
+
+    result = InspireRecord.get_records_by_pids(pids)
+    result = list(result)
+
+    assert expected_result_len == len(result)
+    for record in result:
+        assert record in expected_result
+
+
+def test_get_records_by_pids_with_not_existing_pids(base_app, db, create_record):
+    pids = [("lit", "123"), ("aut", "234"), ("lit", "345")]
+
+    expected_result_len = 0
+
+    result_uuids = InspireRecord.get_records_by_pids(pids)
+    result_uuids = list(result_uuids)
+
+    assert expected_result_len == len(result_uuids)
+
+
+def test_get_records_by_pids_with_empty(base_app, db, create_record):
+    pids = []
+
+    expected_result_len = 0
+
+    result_uuids = InspireRecord.get_records_by_pids(pids)
+    result_uuids = list(result_uuids)
+
+    assert expected_result_len == len(result_uuids)
+
+
+def test_get_linked_records_in_field(base_app, db, create_record):
+    record_reference = create_record("lit")
+    record_reference_control_number = record_reference.json["control_number"]
+    record_reference_uri = "http://localhost:5000/api/literature/{}".format(
+        record_reference_control_number
+    )
+
+    data = {"references": [{"record": {"$ref": record_reference_uri}}]}
+
+    record = create_record("lit", data=data)
+
+    expected_result_len = 1
+    expected_result = [record_reference.json]
+
+    result = InspireRecord.get_linked_records_in_field(record.json, "references.record")
+    result = list(result)
+
+    assert expected_result_len == len(result)
+    assert expected_result == result
+
+
+def test_get_linked_records_in_field_empty(base_app, db, create_record):
+    expected_result_len = 0
+    expected_result = []
+
+    result = InspireRecord.get_linked_records_in_field({}, "references.record")
+    result = list(result)
+
+    assert expected_result_len == len(result)
+    assert expected_result == result
+
+
+def test_get_linked_records_in_field_not_existing_linked_record(
+    base_app, db, create_record
+):
+    record_reference_uri = "http://localhost:5000/api/literature/{}".format(123)
+
+    data = {"references": [{"record": {"$ref": record_reference_uri}}]}
+
+    record = create_record("lit", data=data)
+
+    expected_result_len = 0
+    expected_result = []
+
+    result = InspireRecord.get_linked_records_in_field(record.json, "references.record")
+    result = list(result)
+
+    assert expected_result_len == len(result)
+    assert expected_result == result
+
+
+def test_get_linked_records_in_field_with_different_pid_types(
+    base_app, db, create_record
+):
+    record_reference_lit = create_record("lit")
+    record_reference_lit_control_number = record_reference_lit.json["control_number"]
+    record_reference_lit_uri = "http://localhost:5000/api/literature/{}".format(
+        record_reference_lit_control_number
+    )
+
+    record_reference_aut = create_record("aut")
+    record_reference_aut_control_number = record_reference_aut.json["control_number"]
+    record_reference_aut_uri = "http://localhost:5000/api/authors/{}".format(
+        record_reference_aut_control_number
+    )
+
+    data = {
+        "references": [
+            {"record": {"$ref": record_reference_lit_uri}},
+            {"record": {"$ref": record_reference_aut_uri}},
+        ]
+    }
+
+    record = create_record("lit", data=data)
+
+    expected_result_len = 2
+    expected_result = [record_reference_lit.json, record_reference_aut.json]
+
+    result = InspireRecord.get_linked_records_in_field(record.json, "references.record")
+    result = list(result)
+
+    assert expected_result_len == len(result)
+    for record in result:
+        assert record in expected_result
