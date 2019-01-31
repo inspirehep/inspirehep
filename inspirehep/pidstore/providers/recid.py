@@ -53,7 +53,8 @@ class InspireRecordIdProvider(BaseProvider):
     @classmethod
     def create(cls, object_type=None, object_uuid=None, **kwargs):
         """Create a new record identifier."""
-        if "pid_value" not in kwargs:
+        pid_value = kwargs.get("pid_value")
+        if pid_value is None:
             if current_app.config.get("LEGACY_PID_PROVIDER"):
                 kwargs["pid_value"] = get_next_pid_from_legacy()
                 RecordIdentifier.insert(kwargs["pid_value"])

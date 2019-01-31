@@ -22,15 +22,9 @@
 
 from __future__ import absolute_import, division, print_function
 
-from flask import current_app
-from six.moves.urllib.parse import urlsplit
-
-from .base import PidStoreBase
-from ..minters.control_number import LiteratureMinter
-from ..minters.arxiv import ArxivMinter
-from ..minters.doi import DoiMinter
+from .base import ControlNumberMinter
 
 
-class PidStoreLiterature(PidStoreBase):
-
-    minters = [LiteratureMinter, ArxivMinter, DoiMinter]
+class LiteratureMinter(ControlNumberMinter):
+    pid_type = "lit"
+    provider = "recid"

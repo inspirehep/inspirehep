@@ -22,25 +22,10 @@
 
 from __future__ import absolute_import, division, print_function
 
-from ..errors import MissingSchema
-from ..providers.recid import InspireRecordIdProvider
+from .base import Minter
 
 
-def recid_minter(record_uuid, data, pid_type, object_type):
-    """Mint record identifiers."""
-
-    if "$schema" not in data:
-        raise MissingSchema
-
-    args = {
-        "object_type": object_type,
-        "object_uuid": record_uuid,
-        "pid_type": pid_type,
-    }
-
-    if "control_number" in data:
-        args["pid_value"] = data["control_number"]
-
-    provider = InspireRecordIdProvider.create(**args)
-    data["control_number"] = provider.pid.pid_value
-    return provider.pid
+class ArxivMinter(Minter):
+    pid_value_path = "arxiv_eprints.value"
+    pid_type = "arxiv"
+    provider = "arxiv"

@@ -41,7 +41,7 @@ setup(
     entry_points={
         "console_scripts": ["inspirehep = inspirehep.cli:cli"],
         "invenio_pidstore.minters": [
-            "inspire_recid_minter = inspirehep.pidstore.minters.recid:recid_minter"
+            "literature_minter = inspirehep.pidstore.minters.control_number:LiteratureMinter.mint"
         ],
         "invenio_config.module": ["inspirehep = inspirehep.config"],
         "invenio_base.api_apps": ["inspirehep = inspirehep.records:InspireRecords"],

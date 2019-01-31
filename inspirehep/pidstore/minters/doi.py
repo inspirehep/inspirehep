@@ -22,36 +22,10 @@
 
 from __future__ import absolute_import, division, print_function
 
-import pytest
-from helpers.factories.models.records import RecordMetadataFactory
-
-from inspirehep.pidstore.errors import MissingSchema
-from inspirehep.pidstore.minters.recid import recid_minter
+from .base import Minter
 
 
-def test_minter_without_control_number(base_app, db):
-    record = RecordMetadataFactory()
-    data = record.json
-
-    control_number = recid_minter(record.id, data, "pid", "rec")
-
-    assert control_number.pid_value == data["control_number"]
-
-
-def test_minter_with_control_number(base_app, db):
-    record = RecordMetadataFactory()
-    data = record.json
-    data["control_number"] = 1
-
-    control_number = recid_minter(record.id, data, "pid", "rec")
-
-    assert control_number.pid_value == 1
-
-
-def test_minter_with_missing_schema_key(base_app, db):
-    record = RecordMetadataFactory()
-    data = record.json
-    del data["$schema"]
-
-    with pytest.raises(MissingSchema):
-        recid_minter(record.id, data, "pid", "rec")
+class DoiMinter(Minter):
+    pid_value_path = "dois.value"
+    pid_type = "doi"
+    provider = "doi"
