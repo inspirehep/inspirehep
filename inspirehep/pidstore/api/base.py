@@ -115,3 +115,13 @@ class PidStoreBase(object):
             schema_name = None
         pids_to_schema = PidStoreBase._get_config_pid_types_to_schema()
         return pids_to_schema.get(schema_name)
+
+    @staticmethod
+    def get_pid_from_record_uri(uri):
+        parts = [part for part in uri.split("/") if part]
+        try:
+            pid_type = parts[-2][:3]
+            pid_value = parts[-1]
+        except IndexError:
+            return None
+        return pid_type, pid_value

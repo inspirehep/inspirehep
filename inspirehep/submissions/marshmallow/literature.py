@@ -7,10 +7,10 @@
 
 """JSON Schemas."""
 
-from marshmallow import Schema, fields, pre_dump, missing, post_load
 from inspire_schemas.builders.literature import LiteratureBuilder
 from inspire_schemas.utils import split_page_artid
 from inspire_utils.record import get_value, get_values_for_schema
+from marshmallow import Schema, fields, missing, post_load, pre_dump
 
 PAGE_RANGE_SEPARATOR = "-"
 

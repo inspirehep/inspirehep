@@ -11,5 +11,4 @@ from invenio_records_rest.serializers.json import JSONSerializer
 
 from .marshmallow import Literature
 
-
 literature_v1 = JSONSerializer(Literature)

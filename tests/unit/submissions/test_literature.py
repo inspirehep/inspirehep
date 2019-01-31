@@ -5,10 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspirehep.submissions.marshmallow.literature import Literature
-
 from helpers.providers.faker import faker
 
+from inspirehep.submissions.marshmallow.literature import Literature
 
 DEFAULT_DATA_TO_DUMP = {"titles": [{"title": "Default Title"}]}
 DEFAULT_DUMP = {"document_type": "article", "title": "Default Title"}

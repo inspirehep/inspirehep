@@ -140,12 +140,14 @@ LITERATURE = {
     "search_type": None,
     "search_index": "records-hep",
     "record_serializers": {
-        "application/json": "inspirehep.records.serializers:json_v1_response"
+        "application/json": "inspirehep.records.serializers:literature_json_v1_response"
     },
     "search_serializers": {
-        "application/json": "inspirehep.records.serializers:json_v1_search"
+        "application/json": "inspirehep.records.serializers:literature_json_v1_response_search"
     },
-    "record_loaders": {"application/json": "inspirehep.records.loaders:json_v1"},
+    "record_loaders": {
+        "application/json": "inspirehep.records.loaders:literature_json_v1"
+    },
     "list_route": "/literature/",
     "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
     "default_media_type": "application/json",
@@ -160,13 +162,15 @@ LITERATURE = {
 LITERATURE_ARXIV = deepcopy(LITERATURE)
 LITERATURE_ARXIV.update(
     {
-        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>'
+        "pid_type": "arxiv",
+        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
     }
 )
 LITERATURE_DOI = deepcopy(LITERATURE)
 LITERATURE_DOI.update(
     {
-        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>'
+        "pid_type": "doi",
+        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
     }
 )
 
