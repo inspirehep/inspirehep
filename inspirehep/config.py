@@ -200,3 +200,5 @@ RECORDS_REST_SORT_OPTIONS = dict(
 
 RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostrecent"))
 """Set default sorting options."""
+
+APP_ENABLE_SECURE_HEADERS = False
