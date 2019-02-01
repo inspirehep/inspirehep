@@ -20,7 +20,7 @@ from ..marshmallow import RecordSchemaV1
 # Serializers
 # ===========
 #: JSON serializer definition.
-json_v1 = JSONSerializer(RecordSchemaV1, replace_refs=True)
+json_v1 = JSONSerializer(RecordSchemaV1)
 
 # Records-REST serializers
 # ========================
