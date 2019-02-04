@@ -90,7 +90,6 @@ def test_mint_with_one_minter():
     minter_1 = MagicMock(mint=MagicMock())
 
     class TestBase(PidStoreBase):
-        pid_type = "pid_type"
         minters = [minter_1]
 
     uuid = "uuid"
@@ -107,7 +106,6 @@ def test_mint_with_many_minters():
     minter_3 = MagicMock(mint=MagicMock())
 
     class TestBase(PidStoreBase):
-        pid_type = "pid_type"
         minters = [minter_1, minter_2, minter_3]
 
     uuid = "uuid"
@@ -118,3 +116,20 @@ def test_mint_with_many_minters():
     minter_1.mint.assert_called_once_with(uuid, data)
     minter_2.mint.assert_called_once_with(uuid, data)
     minter_3.mint.assert_called_once_with(uuid, data)
+<<<<<<< HEAD
+=======
+
+
+@pytest.mark.parametrize(
+    "url,expected",
+    [
+        ("http://labs.inspirehep.net/api/literature/1273685", ("lit", "1273685")),
+        ("http://labs.inspirehep.net/api/literature/1273685/", ("lit", "1273685")),
+        ("non-url-string", None),
+    ],
+)
+def test_get_pid_from_record_uri(url, expected):
+    data_result = PidStoreBase.get_pid_from_record_uri(url)
+
+    assert expected == data_result
+>>>>>>> tests: addition of tests for marshmallow custom fields
