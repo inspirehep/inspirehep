@@ -7,6 +7,12 @@
 
 from invenio_records_rest.loaders.marshmallow import marshmallow_loader
 
-from ..marshmallow.literature import LiteratureSchemaV1
+from ..marshmallow.literature import (
+    LiteratureSchemaV1,
+    LiteratureAuthorsSchemaV1,
+    LiteratureReferencesSchemaV1,
+)
 
 literature_json_v1 = marshmallow_loader(LiteratureSchemaV1)
+literature_authors_json_v1 = marshmallow_loader(LiteratureAuthorsSchemaV1)
+literature_references_json_v1 = marshmallow_loader(LiteratureReferencesSchemaV1)

@@ -31,7 +31,7 @@ from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.providers.faker import faker
-from invenio_app.factory import create_app as invenio_create_app
+from invenio_app.factory import create_api as invenio_create_app
 
 
 @pytest.fixture(scope="module")
