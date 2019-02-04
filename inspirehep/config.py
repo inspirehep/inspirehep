@@ -127,6 +127,7 @@ DEBUG_TB_INTERCEPT_REDIRECTS = False
 
 PIDSTORE_RECID_FIELD = "control_number"
 
+INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
 # /literature endpoints
 LITERATURE = {
     "pid_type": "lit",
@@ -140,10 +141,14 @@ LITERATURE = {
     "search_type": None,
     "search_index": "records-hep",
     "record_serializers": {
-        "application/json": "inspirehep.records.serializers:literature_json_v1_response"
+        "application/json": "invenio_records_rest.serializers:json_v1_response",
+        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+        + ":literature_json_v1_response",
     },
     "search_serializers": {
-        "application/json": "inspirehep.records.serializers:literature_json_v1_response_search"
+        "application/json": "invenio_records_rest.serializers:json_v1_search",
+        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+        + ":literature_json_v1_response_search",
     },
     "record_loaders": {
         "application/json": "inspirehep.records.loaders:literature_json_v1"
