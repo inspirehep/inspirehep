@@ -37,4 +37,5 @@ include *.yml
 include Pipfile
 include pytest.ini
 recursive-include inspirehep *.json
+recursive-include inspirehep *.py
 recursive-include tests *.py
