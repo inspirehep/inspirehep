@@ -22,8 +22,6 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-from __future__ import absolute_import, division, print_function
-
 import random
 
 import pytest
@@ -133,6 +131,7 @@ def create_record(db, es_clear):
                 body=record.json,
                 params={},
             )
+            es_clear.indices.refresh("records-hep")
         return record
 
     return _create_record

@@ -116,8 +116,6 @@ def test_mint_with_many_minters():
     minter_1.mint.assert_called_once_with(uuid, data)
     minter_2.mint.assert_called_once_with(uuid, data)
     minter_3.mint.assert_called_once_with(uuid, data)
-<<<<<<< HEAD
-=======
 
 
 @pytest.mark.parametrize(
@@ -132,4 +130,3 @@ def test_get_pid_from_record_uri(url, expected):
     data_result = PidStoreBase.get_pid_from_record_uri(url)
 
     assert expected == data_result
->>>>>>> tests: addition of tests for marshmallow custom fields

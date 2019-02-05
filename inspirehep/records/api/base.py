@@ -129,6 +129,27 @@ class InspireRecord(Record):
 
     @classmethod
     def get_linked_records_in_field(cls, data, path):
+        """Returns the linked records in the specified path.
+
+        Args:
+            data (dict): the data with linked records.
+            path (str): the path of the linked records.
+
+        Returns:
+            list: the linked records.
+
+        Examples:
+            > data = {
+                'references': [
+                    {
+                        'record': {
+                            '$ref': 'http://localhost/literature/1'
+                        }
+                    }
+                ]
+            }
+            >  records = InspireRecord.get_linked_records_in_field(record.json, "references.record"
+        """
         full_path = ".".join([path, "$ref"])
         pids = force_list(
             [
