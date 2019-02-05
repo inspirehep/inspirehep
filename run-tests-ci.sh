@@ -11,10 +11,7 @@
 set -e
 
 if [ "$SUITE" == "unit" ]; then
-<<<<<<< HEAD
     pipenv run isort -rc -c -df && \
-=======
->>>>>>> tests: addition of tests for marshmallow custom fields
     pipenv run check-manifest --ignore ".travis-*"  && \
     pipenv run py.test tests/unit
 fi

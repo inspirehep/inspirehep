@@ -15,11 +15,11 @@ class DOISchemaV1(Schema):
     @post_dump(pass_many=True)
     def filter(self, data, many):
         if many:
-            return self.remove_duplicate_doi_values(data)
+            return self.get_unique_dois(data)
         return data
 
     @staticmethod
-    def remove_duplicate_doi_values(dois):
+    def get_unique_dois(dois):
         taken_doi_values = set()
         unique_dois = []
         for doi in dois:

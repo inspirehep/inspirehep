@@ -41,7 +41,6 @@ class LiteratureMetadataSchemaV1(Schema):
     arxiv_eprints = fields.Raw(dump_only=True)
     authors = ListWithLimit(fields.Nested(AuthorSchemaV1, dump_only=True), limit=10)
     book_series = fields.Raw(dump_only=True)
-    # citeable = fields.Raw(dump_only=True)
     citation_count = fields.Raw(dump_only=True)
     collaborations = fields.List(
         fields.Nested(CollaborationSchemaV1, dump_only=True), attribute="collaborations"
@@ -57,55 +56,33 @@ class LiteratureMetadataSchemaV1(Schema):
         many=True,
     )
     control_number = fields.Raw(dump_only=True)
-    # copyright = fields.Raw(dump_only=True)
-    # core = fields.Raw(dump_only=True)
     corporate_author = fields.Raw(dump_only=True)
-    # curated = fields.Raw(dump_only=True)
     date = fields.Method("get_formatted_date")
-    # deleted = fields.Raw(dump_only=True)
-    # deleted_records = fields.Raw(dump_only=True)
     document_type = fields.Raw(dump_only=True)
-    # documents = fields.Raw(dump_only=True)
     dois = fields.Nested(DOISchemaV1, dump_only=True, many=True)
-    # editions = fields.Raw(dump_only=True)
-    # energy_ranges = fields.Raw(dump_only=True)
     external_system_identifiers = fields.Nested(
         ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
     )
-    # figures = fields.Raw(dump_only=True)
-    # funding_info = fields.Raw(dump_only=True)
     imprints = fields.Raw(dump_only=True)
     inspire_categories = fields.Raw(dump_only=True)
     isbns = fields.List(fields.Nested(IsbnSchemaV1, dump_only=True))
     keywords = fields.Raw(dump_only=True)
     languages = fields.Raw(dump_only=True)
-    # legacy_creation_date = fields.Raw(dump_only=True)
-    # license = fields.Raw(dump_only=True)
-    # new_record = fields.Raw(dump_only=True)
     number_of_authors = fields.Method("get_number_of_authors")
     number_of_pages = fields.Raw(dump_only=True)
     number_of_references = fields.Method("get_number_of_references")
     persistent_identifiers = fields.Raw(dump_only=True)
     preprint_date = fields.Raw(dump_only=True)
-    # public_notes = fields.Raw(dump_only=True)
     publication_info = fields.Nested(
         PublicationInfoItemSchemaV1, dump_only=True, many=True
     )
-    # publication_type = fields.Raw(dump_only=True)
-    # record_affiliations = fields.Raw(dump_only=True)
-    # refereed = fields.Raw(dump_only=True)
-    # related_records = fields.Raw(dump_only=True)
     report_numbers = fields.Raw(dump_only=True)
-    # self = fields.Raw(dump_only=True)
     supervisors = ListWithLimit(
         fields.Nested(SupervisorSchemaV1, dump_only=True), attribute="authors", limit=10
     )
     texkeys = fields.Raw(dump_only=True)
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
-    # title_translations = fields.Raw(dump_only=True)
     titles = fields.Raw(dump_only=True)
-    # urls = fields.Raw(dump_only=True)
-    # withdrawn = fields.Raw(dump_only=True)
 
     def get_formatted_date(self, data):
         earliest_date = data.get("earliest_date")

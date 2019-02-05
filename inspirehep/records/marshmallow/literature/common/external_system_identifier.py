@@ -78,11 +78,11 @@ class ExternalSystemIdentifierSchemaV1(Schema):
             if self.is_missing_url_name_or_link(data):
                 return {}
             return data
-        data = self.take_ids_that_have_all_fields(data)
-        data = self.take_first_id_foreach_url_name(data)
+        data = self.get_ids_that_have_all_fields(data)
+        data = self.get_first_id_foreach_url_name(data)
         return data
 
-    def take_ids_that_have_all_fields(self, external_system_ids):
+    def get_ids_that_have_all_fields(self, external_system_ids):
         return [
             extid
             for extid in external_system_ids
@@ -95,7 +95,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
             or external_system_id.get("url_name") is None
         )
 
-    def take_first_id_foreach_url_name(self, external_system_ids):
+    def get_first_id_foreach_url_name(self, external_system_ids):
         taken_url_names = set()
         unique_ids = []
         for external_system_id in external_system_ids:

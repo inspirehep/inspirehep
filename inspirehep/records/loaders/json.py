@@ -8,9 +8,9 @@
 from invenio_records_rest.loaders.marshmallow import marshmallow_loader
 
 from ..marshmallow.literature import (
-    LiteratureSchemaV1,
     LiteratureAuthorsSchemaV1,
     LiteratureReferencesSchemaV1,
+    LiteratureSchemaV1,
 )
 
 literature_json_v1 = marshmallow_loader(LiteratureSchemaV1)
