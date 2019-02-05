@@ -11,6 +11,7 @@
 set -e
 
 if [ "$SUITE" == "unit" ]; then
+    pipenv run isort -rc -c -df && \
     pipenv run check-manifest --ignore ".travis-*"  && \
     pipenv run py.test tests/unit
 fi
