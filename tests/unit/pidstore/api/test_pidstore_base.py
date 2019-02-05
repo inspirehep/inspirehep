@@ -87,7 +87,7 @@ def test_get_pid_type_from_schema(
 
 
 def test_mint_with_one_minter():
-    minter_1 = MagicMock()
+    minter_1 = MagicMock(mint=MagicMock())
 
     class TestBase(PidStoreBase):
         pid_type = "pid_type"
@@ -98,13 +98,13 @@ def test_mint_with_one_minter():
 
     TestBase.mint(uuid, data)
 
-    minter_1.assert_called_once_with(uuid, data, "pid_type", "rec")
+    minter_1.mint.assert_called_once_with(uuid, data)
 
 
 def test_mint_with_many_minters():
-    minter_1 = MagicMock()
-    minter_2 = MagicMock()
-    minter_3 = MagicMock()
+    minter_1 = MagicMock(mint=MagicMock())
+    minter_2 = MagicMock(mint=MagicMock())
+    minter_3 = MagicMock(mint=MagicMock())
 
     class TestBase(PidStoreBase):
         pid_type = "pid_type"
@@ -115,6 +115,6 @@ def test_mint_with_many_minters():
 
     TestBase.mint(uuid, data)
 
-    minter_1.assert_called_once_with(uuid, data, "pid_type", "rec")
-    minter_2.assert_called_once_with(uuid, data, "pid_type", "rec")
-    minter_3.assert_called_once_with(uuid, data, "pid_type", "rec")
+    minter_1.mint.assert_called_once_with(uuid, data)
+    minter_2.mint.assert_called_once_with(uuid, data)
+    minter_3.mint.assert_called_once_with(uuid, data)
