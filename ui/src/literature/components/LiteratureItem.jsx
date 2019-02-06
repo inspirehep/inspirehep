@@ -8,7 +8,6 @@ import ArxivEprintList from './ArxivEprintList';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import DOIList from './DOIList';
 import PartialAbstract from './PartialAbstract/PartialAbstract';
-import ReportNumberList from './ReportNumberList';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
 import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import CiteModalAction from './CiteModalAction';
@@ -38,7 +37,6 @@ class LiteratureItem extends Component {
     const dois = metadata.get('dois');
     const collaborations = metadata.get('collaborations');
     const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
-    const reportNumbers = metadata.get('report_numbers');
     const abstract = metadata.getIn(['abstracts', 0, 'value']);
 
     return (
@@ -92,7 +90,6 @@ class LiteratureItem extends Component {
           <PublicationInfoList publicationInfo={publicationInfo} />
           <ArxivEprintList eprints={eprints} />
           <DOIList dois={dois} />
-          <ReportNumberList reportNumbers={reportNumbers} />
           <PartialAbstract abstract={abstract} />
         </div>
       </ResultItem>
