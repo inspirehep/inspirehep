@@ -28,7 +28,6 @@ class LiteratureItem extends Component {
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
     const recordId = metadata.get('control_number');
     const citationCount = metadata.get('citation_count', 0);
-    const referenceCount = metadata.get('number_of_references', 0);
     const authorCount = metadata.get('number_of_authors');
 
     const date = metadata.get('date');
@@ -50,15 +49,6 @@ class LiteratureItem extends Component {
         }
         rightActions={
           <Fragment>
-            {referenceCount != null && (
-              <EventTracker eventId="References:Search">
-                <ListItemAction
-                  iconType="logout"
-                  text={`${referenceCount} references`}
-                  link={{ to: `/literature/${recordId}#references` }}
-                />
-              </EventTracker>
-            )}
             {citationCount != null && (
               <EventTracker eventId="Citations:Search">
                 <ListItemAction
