@@ -8,7 +8,6 @@ describe('LiteratureItem', () => {
   it('renders with all props set, including sub props', () => {
     const metadata = fromJS({
       date: 'Jun 7, 1993',
-      number_of_references: 2,
       titles: [{ title: 'test' }],
       authors: [{ full_name: 'Test, Author' }],
       arxiv_eprints: [{ value: '1234567890' }],
@@ -32,7 +31,7 @@ describe('LiteratureItem', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders 0 citations and 0 references if they do not exist', () => {
+  it('renders 0 citations if it does not exist', () => {
     const metadata = fromJS({
       control_number: 12345,
     });

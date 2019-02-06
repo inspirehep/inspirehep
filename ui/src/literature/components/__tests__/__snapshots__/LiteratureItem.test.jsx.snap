@@ -15,20 +15,6 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   rightActions={
     <React.Fragment>
       <EventTracker
-        eventId="References:Search"
-        eventPropName="onClick"
-      >
-        <ListItemAction
-          iconType="logout"
-          link={
-            Object {
-              "to": "/literature/12345#references",
-            }
-          }
-          text="0 references"
-        />
-      </EventTracker>
-      <EventTracker
         eventId="Citations:Search"
         eventPropName="onClick"
       >
@@ -91,7 +77,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
 </ResultItem>
 `;
 
-exports[`LiteratureItem renders 0 citations and 0 references if they do not exist 1`] = `
+exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
 <ResultItem
   leftActions={
     <React.Fragment>
@@ -105,20 +91,6 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
   }
   rightActions={
     <React.Fragment>
-      <EventTracker
-        eventId="References:Search"
-        eventPropName="onClick"
-      >
-        <ListItemAction
-          iconType="logout"
-          link={
-            Object {
-              "to": "/literature/12345#references",
-            }
-          }
-          text="0 references"
-        />
-      </EventTracker>
       <EventTracker
         eventId="Citations:Search"
         eventPropName="onClick"
@@ -199,20 +171,6 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   }
   rightActions={
     <React.Fragment>
-      <EventTracker
-        eventId="References:Search"
-        eventPropName="onClick"
-      >
-        <ListItemAction
-          iconType="logout"
-          link={
-            Object {
-              "to": "/literature/12345#references",
-            }
-          }
-          text="2 references"
-        />
-      </EventTracker>
       <EventTracker
         eventId="Citations:Search"
         eventPropName="onClick"
