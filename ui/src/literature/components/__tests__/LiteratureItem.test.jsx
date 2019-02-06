@@ -16,7 +16,6 @@ describe('LiteratureItem', () => {
       citation_count: 1,
       publication_info: [{ journal_title: 'Test Jornal' }],
       dois: [{ value: '12345679.1234.123' }],
-      report_numbers: [{ value: 'ABCD-AB-CD-1234-123' }],
       abstract: [{ value: 'Test Abstract' }],
       collaborations: [{ value: 'CMS' }],
       collaborations_with_suffix: [{ value: 'CMS Group' }],

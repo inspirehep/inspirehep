@@ -84,9 +84,6 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
       dois={null}
       wrapperClassName={null}
     />
-    <ReportNumberList
-      reportNumbers={null}
-    />
     <PartialAbstract
       abstract={null}
     />
@@ -177,9 +174,6 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
     <DOIList
       dois={null}
       wrapperClassName={null}
-    />
-    <ReportNumberList
-      reportNumbers={null}
     />
     <PartialAbstract
       abstract={null}
@@ -312,15 +306,6 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
         ]
       }
       wrapperClassName={null}
-    />
-    <ReportNumberList
-      reportNumbers={
-        Immutable.List [
-          Immutable.Map {
-            "value": "ABCD-AB-CD-1234-123",
-          },
-        ]
-      }
     />
     <PartialAbstract
       abstract={null}
