@@ -14,24 +14,34 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   }
   rightActions={
     <React.Fragment>
-      <ListItemAction
-        iconType="logout"
-        link={
-          Object {
-            "to": "/literature/12345#references",
+      <EventTracker
+        eventId="References:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="logout"
+          link={
+            Object {
+              "to": "/literature/12345#references",
+            }
           }
-        }
-        text="0 references"
-      />
-      <ListItemAction
-        iconType="login"
-        link={
-          Object {
-            "to": "/literature/12345#citations",
+          text="0 references"
+        />
+      </EventTracker>
+      <EventTracker
+        eventId="Citations:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="login"
+          link={
+            Object {
+              "to": "/literature/12345#citations",
+            }
           }
-        }
-        text="0 citations"
-      />
+          text="0 citations"
+        />
+      </EventTracker>
     </React.Fragment>
   }
 >
@@ -98,24 +108,34 @@ exports[`LiteratureItem renders 0 citations and 0 references if they do not exis
   }
   rightActions={
     <React.Fragment>
-      <ListItemAction
-        iconType="logout"
-        link={
-          Object {
-            "to": "/literature/12345#references",
+      <EventTracker
+        eventId="References:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="logout"
+          link={
+            Object {
+              "to": "/literature/12345#references",
+            }
           }
-        }
-        text="0 references"
-      />
-      <ListItemAction
-        iconType="login"
-        link={
-          Object {
-            "to": "/literature/12345#citations",
+          text="0 references"
+        />
+      </EventTracker>
+      <EventTracker
+        eventId="Citations:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="login"
+          link={
+            Object {
+              "to": "/literature/12345#citations",
+            }
           }
-        }
-        text="0 citations"
-      />
+          text="0 citations"
+        />
+      </EventTracker>
     </React.Fragment>
   }
 >
@@ -185,24 +205,34 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   }
   rightActions={
     <React.Fragment>
-      <ListItemAction
-        iconType="logout"
-        link={
-          Object {
-            "to": "/literature/12345#references",
+      <EventTracker
+        eventId="References:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="logout"
+          link={
+            Object {
+              "to": "/literature/12345#references",
+            }
           }
-        }
-        text="2 references"
-      />
-      <ListItemAction
-        iconType="login"
-        link={
-          Object {
-            "to": "/literature/12345#citations",
+          text="2 references"
+        />
+      </EventTracker>
+      <EventTracker
+        eventId="Citations:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="login"
+          link={
+            Object {
+              "to": "/literature/12345#citations",
+            }
           }
-        }
-        text="1 citations"
-      />
+          text="1 citations"
+        />
+      </EventTracker>
     </React.Fragment>
   }
 >

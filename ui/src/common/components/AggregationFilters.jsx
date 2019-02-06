@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
 import AggregationFilter from './AggregationFilter';
+import EventTracker from './EventTracker';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
 
@@ -35,16 +36,21 @@ class AggregationFilters extends Component {
             .sort(AggregationFilters.compareAggregationEntries)
             .map(([aggregationKey, aggregation]) => (
               <div key={aggregationKey}>
-                <AggregationFilter
-                  range={aggregationKey === RANGE_AGGREATION_KEY}
-                  name={aggregation.getIn(['meta', 'title'])}
-                  buckets={aggregation.get('buckets')}
-                  splitDisplayName={aggregation.getIn(['meta', 'split'])}
-                  selections={query[aggregationKey]}
-                  onChange={selections => {
-                    onAggregationChange(aggregationKey, selections);
-                  }}
-                />
+                <EventTracker
+                  eventId={`Facet-${aggregation.getIn(['meta', 'title'])}`}
+                  eventPropName="onChange"
+                >
+                  <AggregationFilter
+                    range={aggregationKey === RANGE_AGGREATION_KEY}
+                    name={aggregation.getIn(['meta', 'title'])}
+                    buckets={aggregation.get('buckets')}
+                    splitDisplayName={aggregation.getIn(['meta', 'split'])}
+                    selections={query[aggregationKey]}
+                    onChange={selections => {
+                      onAggregationChange(aggregationKey, selections);
+                    }}
+                  />
+                </EventTracker>
               </div>
             ))}
         </div>
