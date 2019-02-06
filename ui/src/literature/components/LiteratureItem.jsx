@@ -17,6 +17,7 @@ import EditRecordActionContainer from '../../common/containers/EditRecordActionC
 import Latex from '../../common/components/Latex';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
+import EventTracker from '../../common/components/EventTracker';
 
 class LiteratureItem extends Component {
   render() {
@@ -52,18 +53,22 @@ class LiteratureItem extends Component {
         rightActions={
           <Fragment>
             {referenceCount != null && (
-              <ListItemAction
-                iconType="logout"
-                text={`${referenceCount} references`}
-                link={{ to: `/literature/${recordId}#references` }}
-              />
+              <EventTracker eventId="References:Search">
+                <ListItemAction
+                  iconType="logout"
+                  text={`${referenceCount} references`}
+                  link={{ to: `/literature/${recordId}#references` }}
+                />
+              </EventTracker>
             )}
             {citationCount != null && (
-              <ListItemAction
-                iconType="login"
-                text={`${citationCount} citations`}
-                link={{ to: `/literature/${recordId}#citations` }}
-              />
+              <EventTracker eventId="Citations:Search">
+                <ListItemAction
+                  iconType="login"
+                  text={`${citationCount} citations`}
+                  link={{ to: `/literature/${recordId}#citations` }}
+                />
+              </EventTracker>
             )}
           </Fragment>
         }

@@ -5,6 +5,7 @@ import { Set } from 'immutable';
 
 import { isCataloger } from '../authorization';
 import ListItemAction from '../components/ListItemAction';
+import EventTracker from '../components/EventTracker';
 
 class EditRecordActionContainer extends Component {
   render() {
@@ -13,14 +14,16 @@ class EditRecordActionContainer extends Component {
     const href = `/workflows/edit_article/${recordId}`;
     if (isUserCataloger) {
       return (
-        <ListItemAction
-          iconType="edit"
-          text="edit"
-          link={{
-            href,
-            target: '_blank',
-          }}
-        />
+        <EventTracker eventId="Edit">
+          <ListItemAction
+            iconType="edit"
+            text="edit"
+            link={{
+              href,
+              target: '_blank',
+            }}
+          />
+        </EventTracker>
       );
     }
     return null;

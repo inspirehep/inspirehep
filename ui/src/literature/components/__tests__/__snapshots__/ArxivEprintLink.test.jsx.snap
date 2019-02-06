@@ -1,9 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ArxivEprintLink renders with arXiv id 1`] = `
-<ExternalLink
-  href="//arxiv.org/abs/123.123456"
+<EventTracker
+  eventId="ArvixEprintLink"
+  eventPropName="onClick"
 >
-  123.123456
-</ExternalLink>
+  <ExternalLink
+    href="//arxiv.org/abs/123.123456"
+  >
+    123.123456
+  </ExternalLink>
+</EventTracker>
 `;

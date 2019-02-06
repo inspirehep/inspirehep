@@ -4,11 +4,16 @@ exports[`CiteModalAction renders with recordId 1`] = `
 <div
   className="di"
 >
-  <ListItemAction
-    iconType="export"
-    onClick={[Function]}
-    text="cite"
-  />
+  <EventTracker
+    eventId="Cite"
+    eventPropName="onClick"
+  >
+    <ListItemAction
+      iconType="export"
+      onClick={[Function]}
+      text="cite"
+    />
+  </EventTracker>
   <Modal
     cancelButtonDisabled={false}
     confirmLoading={false}

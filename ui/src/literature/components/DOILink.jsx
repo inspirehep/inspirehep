@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ExternalLink from '../../common/components/ExternalLink';
+import EventTracker from '../../common/components/EventTracker';
 
 class DOILink extends Component {
   get doi() {
@@ -11,7 +12,11 @@ class DOILink extends Component {
 
   render() {
     const href = `//doi.org/${this.doi}`;
-    return <ExternalLink href={href}>{this.doi}</ExternalLink>;
+    return (
+      <EventTracker eventId="DoiLink">
+        <ExternalLink href={href}>{this.doi}</ExternalLink>
+      </EventTracker>
+    );
   }
 }
 

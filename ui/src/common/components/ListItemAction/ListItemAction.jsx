@@ -9,18 +9,6 @@ import './ListItemAction.scss';
 const CLASS_NAME = '__ListItemAction__';
 
 class ListItemAction extends Component {
-  wrapWithRouterLinkIfToPropSet(component) {
-    const { link } = this.props;
-    if (link && link.to) {
-      return (
-        <Link className="no-transition" to={link.to}>
-          {component}
-        </Link>
-      );
-    }
-    return component;
-  }
-
   renderIconText() {
     const { text, iconType } = this.props;
     return <IconText text={text} type={iconType} />;
@@ -31,7 +19,13 @@ class ListItemAction extends Component {
 
     if (link && link.href) {
       return (
-        <Button className={CLASS_NAME} href={link.href} target={link.target}>
+        // set onClick so that it can be tracked
+        <Button
+          className={CLASS_NAME}
+          href={link.href}
+          target={link.target}
+          onClick={onClick}
+        >
           {this.renderIconText()}
         </Button>
       );
@@ -39,7 +33,8 @@ class ListItemAction extends Component {
 
     if (link && link.to) {
       return (
-        <Button className={CLASS_NAME}>
+        // set onClick so that it can be tracked
+        <Button className={CLASS_NAME} onClick={onClick}>
           <Link className="no-transition" to={link.to}>
             {this.renderIconText()}
           </Link>

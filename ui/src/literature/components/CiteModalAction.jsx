@@ -6,6 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import citeArticle from '../citeArticle';
 import SelectBox from '../../common/components/SelectBox';
 import ListItemAction from '../../common/components/ListItemAction';
+import EventTracker from '../../common/components/EventTracker';
 
 const FORMAT_SELECT_OPTIONS = [
   { value: 'x-bibtex', display: 'BibTex' },
@@ -66,11 +67,13 @@ class CiteModalAction extends Component {
     const { modalVisible, citeContent } = this.state;
     return (
       <div className="di">
-        <ListItemAction
-          onClick={this.onCiteClick}
-          iconType="export"
-          text="cite"
-        />
+        <EventTracker eventId="Cite">
+          <ListItemAction
+            onClick={this.onCiteClick}
+            iconType="export"
+            text="cite"
+          />
+        </EventTracker>
         <Modal
           title="Cite Article"
           width="50%"
