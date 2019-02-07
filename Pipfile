@@ -26,6 +26,7 @@ marshmallow = "<3.0.0"
 # do-json :( needs flask v0.x
 flask-shell-ipython = "~=0.3,<0.4.0" # version 0.4.0 requires `flask >= 1.0`
 node-semver = "<0.2.0,>=0.1.1"
+pylint = "*"
 
 [dev-packages]
 check-manifest = ">=0.35"
@@ -45,6 +46,8 @@ factory_boy = "~=2.11.1,>=2.11.1"
 requests-mock = "~=1.5.2,>=1.5.2"
 pre-commit = "*"
 gunicorn = "*"
+pylint = "*"
+flake8 = "*"
 
 [requires]
 python_version = "3"
