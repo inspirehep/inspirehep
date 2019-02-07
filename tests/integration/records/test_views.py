@@ -8,6 +8,7 @@
 import json
 
 import pytest
+from helpers.providers.faker import faker
 
 
 def test_literature_application_json_get(api_client, db, create_record):
@@ -106,3 +107,51 @@ def test_literature_citations_missing_pids(api_client, db, create_record):
     expected_status_code = 404
 
     assert expected_status_code == response_status_code
+
+
+def test_literature_facets(api_client, db, create_record):
+    record = create_record("lit")
+
+    response = api_client.get("/literature/facets/")
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_facet_keys = list(response_data.get("aggregations").keys())
+
+    expected_status_code = 200
+    expected_facet_keys = [
+        "arxiv_categories",
+        "author",
+        "author_count",
+        "doc_type",
+        "earliest_date",
+        "experiment",
+        "subject",
+    ]
+
+    assert expected_status_code == response_status_code
+    assert expected_facet_keys == response_data_facet_keys
+
+
+def test_literature_facets_arxiv(api_client, db):
+    response = api_client.get("/literature/facets/")
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_facet_keys = list(response_data.get("aggregations").keys())
+
+    expected_status_code = 200
+    expected_facet_keys = [
+        "arxiv_categories",
+        "author",
+        "author_count",
+        "doc_type",
+        "earliest_date",
+        "experiment",
+        "subject",
+    ]
+
+    assert expected_status_code == response_status_code
+    assert expected_facet_keys == response_data_facet_keys
+    assert "hits" not in response_data
+
+
+# FIXME add tests for each facet when we have record ``enhance`` in place

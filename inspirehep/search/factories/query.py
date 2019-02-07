@@ -6,8 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from __future__ import absolute_import, division, print_function
-
 import inspire_query_parser
 from elasticsearch_dsl import Q
 
