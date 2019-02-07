@@ -145,3 +145,16 @@ def create_pidstore(db):
         )
 
     return _create_pidstore
+
+
+@pytest.fixture(scope="function")
+def api_client(base_app):
+    """Test client for the base application fixture.
+    Scope: function
+    If you need the database and search indexes initialized, simply use the
+    Pytest-Flask fixture ``client`` instead. This fixture is mainly useful if
+    you need a test client without needing to initialize both the database and
+    search indexes.
+    """
+    with base_app.test_client() as client:
+        yield client

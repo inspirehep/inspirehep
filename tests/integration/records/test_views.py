@@ -10,48 +10,48 @@ import json
 import pytest
 
 
-def test_literature_application_json_get(client, db, create_record):
+def test_literature_application_json_get(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    response = client.get("/literature/{}".format(record_control_number))
+    response = api_client.get("/literature/{}".format(record_control_number))
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put(client, db, create_record):
+def test_literature_application_json_put(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = client.put("/literature/{}".format(record_control_number))
+    response = api_client.put("/literature/{}".format(record_control_number))
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_delete(client, db, create_record):
+def test_literature_application_json_delete(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = client.delete("/literature/{}".format(record_control_number))
+    response = api_client.delete("/literature/{}".format(record_control_number))
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_post(client, db):
+def test_literature_application_json_post(api_client, db):
     expected_status_code = 401
-    response = client.post("/literature/")
+    response = api_client.post("/literature/")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_literature_citations(client, db, create_record):
+def test_literature_citations(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -74,21 +74,21 @@ def test_literature_citations(client, db, create_record):
         }
     }
 
-    response = client.get("/literature/{}/citations".format(record_control_number))
+    response = api_client.get("/literature/{}/citations".format(record_control_number))
     response_status_code = response.status_code
-    response_data = response.json
+    response_data = json.loads(response.data)
 
     assert expected_status_code == response_status_code
     assert expected_data == response_data
 
 
-def test_literature_citations_empty(client, db, create_record):
+def test_literature_citations_empty(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
     record_control_number = record.json["control_number"]
 
-    response = client.get("/literature/{}/citations".format(record_control_number))
+    response = api_client.get("/literature/{}/citations".format(record_control_number))
     response_status_code = response.status_code
-    response_data = response.json
+    response_data = json.loads(response.data)
 
     expected_status_code = 200
     expected_data = {"metadata": {"citation_count": 0, "citations": []}}
@@ -97,11 +97,11 @@ def test_literature_citations_empty(client, db, create_record):
     assert expected_data == response_data
 
 
-def test_literature_citations_missing_pids(client, db, create_record):
+def test_literature_citations_missing_pids(api_client, db, create_record):
     missing_control_number = 1
-    response = client.get("/literature/{}/citations".format(missing_control_number))
+    response = api_client.get("/literature/{}/citations".format(missing_control_number))
     response_status_code = response.status_code
-    response_data = response.json
+    response_data = json.loads(response.data)
 
     expected_status_code = 404
 
