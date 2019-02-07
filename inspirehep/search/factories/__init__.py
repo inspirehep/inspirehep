@@ -7,6 +7,5 @@
 
 """inspirehep."""
 
-from __future__ import absolute_import, print_function
 
 from .query import inspire_query_factory

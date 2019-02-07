@@ -13,7 +13,6 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
-from __future__ import absolute_import, print_function
 
 from copy import deepcopy
 from datetime import timedelta
