@@ -17,13 +17,13 @@ You overwrite and set instance-specific configuration by either:
 import os
 import sys
 from copy import deepcopy
-from datetime import timedelta
 
 from invenio_indexer.api import RecordIndexer
-from invenio_records_rest.facets import terms_filter
+from invenio_records_rest.facets import range_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from .search.api import LiteratureSearch
+from .search.facets import range_author_count_filter, must_match_all_filter
 
 
 def _(x):
@@ -116,6 +116,7 @@ APP_ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
+<<<<<<< HEAD
 
 # Web services and APIs
 # =====================
@@ -131,6 +132,8 @@ INSPIRE_NEXT_URL = "http://localhost:5000"
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
+=======
+>>>>>>> records: additon of serializers
 PIDSTORE_RECID_FIELD = "control_number"
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
@@ -145,16 +148,15 @@ LITERATURE = {
     "links_factory_imp": lambda links: {},
     "indexer_class": RecordIndexer,
     "search_type": None,
+    "search_factory_imp": "inspirehep.search.factories.search:search_factory_without_aggs",
     "search_index": "records-hep",
     "record_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_response",
-        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-        + ":literature_json_v1_response",
+        "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response",
     },
     "search_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_search",
-        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-        + ":literature_json_v1_response_search",
+        "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response_search",
     },
     "record_loaders": {
         "application/json": "inspirehep.records.loaders:literature_json_v1"
@@ -170,53 +172,117 @@ LITERATURE = {
     "delete_permission_factory_imp": deny_all,
     "list_permission_factory_imp": allow_all,
 }
-LITERATURE_ARXIV = deepcopy(LITERATURE)
-LITERATURE_ARXIV.update(
+LITERATURE_FACETS = deepcopy(LITERATURE)
+LITERATURE_FACETS.update(
     {
-        "pid_type": "arxiv",
-        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "default_endpoint_prefix": False,
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
+        "pid_type": "lit",
+        "list_route": "/literature/facets/",
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+        },
     }
 )
-LITERATURE_DOI = deepcopy(LITERATURE)
-LITERATURE_DOI.update(
+ARXIV = deepcopy(LITERATURE)
+ARXIV.update(
+    {
+        "pid_type": "arxiv",
+        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
+    }
+)
+DOI = deepcopy(LITERATURE)
+DOI.update(
     {
         "pid_type": "doi",
-        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
     }
 )
 
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
-    "literature_arxiv": LITERATURE_ARXIV,
-    "literature_doi": LITERATURE_DOI,
+    "literature_facets": LITERATURE_FACETS,
+    "arxiv": ARXIV,
+    "doi": DOI,
 }
-"""REST API for inspirehep."""
 
-
-RECORDS_REST_FACETS = dict(
-    records=dict(
-        aggs=dict(
-            type=dict(terms=dict(field="type")),
-            keywords=dict(terms=dict(field="keywords")),
-        ),
-        post_filters=dict(type=terms_filter("type"), keywords=terms_filter("keywords")),
-    )
-)
+RECORDS_REST_FACETS = {
+    "records-hep": {
+        "filters": {
+            "author": must_match_all_filter("facet_author_name"),
+            "author_count": range_author_count_filter("author_count"),
+            "subject": must_match_all_filter("facet_inspire_categories"),
+            "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
+            "doc_type": must_match_all_filter("facet_inspire_doc_type"),
+            "experiment": must_match_all_filter("facet_experiment"),
+            "earliest_date": range_filter(
+                "earliest_date", format="yyyy", end_date_math="/y"
+            ),
+        },
+        "aggs": {
+            "earliest_date": {
+                "date_histogram": {
+                    "field": "earliest_date",
+                    "interval": "year",
+                    "format": "yyyy",
+                    "min_doc_count": 1,
+                },
+                "meta": {"title": "Date", "order": 1},
+            },
+            "author_count": {
+                "range": {
+                    "field": "author_count",
+                    "ranges": [{"key": "10 authors or less", "from": 1, "to": 11}],
+                },
+                "meta": {"title": "Number of authors", "order": 2},
+            },
+            "author": {
+                "terms": {"field": "facet_author_name", "size": 20},
+                "meta": {"title": "Author", "order": 3, "split": True},
+            },
+            "subject": {
+                "terms": {"field": "facet_inspire_categories", "size": 20},
+                "meta": {"title": "Subject", "order": 4},
+            },
+            "arxiv_categories": {
+                "terms": {"field": "facet_arxiv_categories", "size": 20},
+                "meta": {"title": "arXiv Category", "order": 5},
+            },
+            "experiment": {
+                "terms": {"field": "facet_experiment", "size": 20},
+                "meta": {"title": "Experiment", "order": 6},
+            },
+            "doc_type": {
+                "terms": {"field": "facet_inspire_doc_type", "size": 20},
+                "meta": {"title": "Document Type", "order": 7},
+            },
+        },
+    }
+}
 """Introduce searching facets."""
 
-
-RECORDS_REST_SORT_OPTIONS = dict(
-    records=dict(
-        bestmatch=dict(
-            title=_("Best match"), fields=["_score"], default_order="desc", order=1
-        ),
-        mostrecent=dict(
-            title=_("Most recent"), fields=["-_created"], default_order="asc", order=2
-        ),
-    )
-)
-"""Setup sorting options."""
-
+RECORDS_REST_SORT_OPTIONS = {
+    "records-hep": {
+        "mostrecent": {
+            "title": "Most recent",
+            "fields": ["-earliest_date"],
+            "default_order": "asc",  # Used for invenio-search-js config
+            "order": 1,
+        },
+        "mostcited": {
+            "title": "Most cited",
+            "fields": ["-citation_count"],
+            "default_order": "asc",  # Used for invenio-search-js config
+            "order": 2,
+        },
+        "bestmatch": {
+            "title": "Best Match",
+            "fields": ["-_score"],
+            "default_order": "asc",
+            "order": 3,
+        },
+    }
+}
 
 RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostrecent"))
 """Set default sorting options."""
@@ -234,3 +300,24 @@ RECORDS_DEFAULT_FILE_LOCATION_NAME = "records"
 
 RECORDS_DEFAULT_STORAGE_CLASS = "S"
 """Default storage class for record files."""
+SEARCH_SOURCE_INCLUDES = {
+    "literature": [
+        "$schema",
+        "abstracts.value",
+        "arxiv_eprints.value",
+        "arxiv_eprints.categories",
+        "authors.affiliations",
+        "authors.full_name",
+        "authors.control_number",
+        "collaborations",
+        "control_number",
+        "citation_count",
+        "dois.value",
+        "earliest_date",
+        "inspire_categories",
+        "number_of_references",
+        "publication_info",
+        "report_numbers",
+        "titles.title",
+    ]
+}

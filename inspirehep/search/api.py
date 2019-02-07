@@ -69,7 +69,11 @@ class SearchMixin(object):
         return results
 
 
-class LiteratureSearch(RecordsSearch, SearchMixin):
+class InspireSearch(RecordsSearch, SearchMixin):
+    """Base Inspire search classs."""
+
+
+class LiteratureSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Literature database."""
 
     class Meta:
@@ -105,7 +109,7 @@ class LiteratureSearch(RecordsSearch, SearchMixin):
         return search.sort("-earliest_date").execute().hits
 
 
-class AuthorsSearch(RecordsSearch, SearchMixin):
+class AuthorsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Authors database."""
 
     class Meta:
@@ -113,7 +117,7 @@ class AuthorsSearch(RecordsSearch, SearchMixin):
         doc_types = "authors"
 
 
-class DataSearch(RecordsSearch, SearchMixin):
+class DataSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Data database."""
 
     class Meta:
@@ -121,7 +125,7 @@ class DataSearch(RecordsSearch, SearchMixin):
         doc_types = "data"
 
 
-class ConferencesSearch(RecordsSearch, SearchMixin):
+class ConferencesSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Conferences database."""
 
     class Meta:
@@ -137,7 +141,7 @@ class ConferencesSearch(RecordsSearch, SearchMixin):
         return self.query(IQ(query_string, self))
 
 
-class JobsSearch(RecordsSearch, SearchMixin):
+class JobsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Jobs database."""
 
     class Meta:
@@ -145,7 +149,7 @@ class JobsSearch(RecordsSearch, SearchMixin):
         doc_types = "jobs"
 
 
-class InstitutionsSearch(RecordsSearch, SearchMixin):
+class InstitutionsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Institutions database."""
 
     class Meta:
@@ -161,7 +165,7 @@ class InstitutionsSearch(RecordsSearch, SearchMixin):
         return self.query(IQ(query_string, self))
 
 
-class ExperimentsSearch(RecordsSearch, SearchMixin):
+class ExperimentsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Experiments database."""
 
     class Meta:
@@ -169,7 +173,7 @@ class ExperimentsSearch(RecordsSearch, SearchMixin):
         doc_types = "experiments"
 
 
-class JournalsSearch(RecordsSearch, SearchMixin):
+class JournalsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Journals database."""
 
     class Meta:

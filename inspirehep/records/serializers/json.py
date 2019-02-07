@@ -5,11 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import json
 from invenio_records_rest.serializers.json import JSONSerializer
 from invenio_records_rest.serializers.response import (
     record_responsify,
     search_responsify,
 )
+from marshmallow import Schema
 
 from ..marshmallow.literature import (
     LiteratureAuthorsMetadataSchemaV1,
@@ -17,6 +19,25 @@ from ..marshmallow.literature import (
     LiteratureReferencesMetadataSchemaV1,
 )
 
+
+class JSONSerializerFacets(JSONSerializer):
+    def serialize_search(self, pid_fetcher, search_result, **kwargs):
+        """Serialize facets results.
+
+        Note:
+            This serializer is only for search requests only for
+            facets. This is used with
+            ``inspirehep.search.factories.search.search_factory_only_with_aggs``.
+        """
+        aggregations = search_result.get("aggregations", {})
+        return json.dumps({"aggregations": aggregations})
+
+
+# Facets
+facets_json = JSONSerializerFacets(Schema)
+facets_json_response_search = search_responsify(facets_json, "application/json")
+
+# Literature
 literature_json_v1 = JSONSerializer(LiteratureMetadataSchemaV1)
 
 literature_json_v1_response = record_responsify(literature_json_v1, "application/json")
