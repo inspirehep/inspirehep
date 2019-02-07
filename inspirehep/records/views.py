@@ -5,13 +5,17 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from functools import partial
+
 from flask import Blueprint, abort, jsonify, request
 from flask.views import MethodView
 from invenio_records_rest.views import pass_record
 
 from ..search.api import LiteratureSearch
+from ..search.factories.facet import inspire_facets_factory
+from ..pidstore.api import PidStoreBase
 
-blueprint = Blueprint("inspirehep_records", __name__, url_prefix="/literature")
+blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")
 
 
 class LiteratureCitationsResource(MethodView):
@@ -41,8 +45,7 @@ class LiteratureCitationsResource(MethodView):
 literature_citations_view = LiteratureCitationsResource.as_view(
     LiteratureCitationsResource.view_name
 )
-
 blueprint.add_url_rule(
-    '/<pid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/citations',
+    '/literature/<pid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/citations',
     view_func=literature_citations_view,
 )
