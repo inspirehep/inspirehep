@@ -13,7 +13,14 @@ $ pip install pipenv
 
 ```bash
 $ docker-compose up -d
-$ ./script/bootstrap
-$ ./script/setup
-$ ./script/server
+$ ./scripts/bootstrap
+$ ./scripts/setup
+$ ./scripts/server
+```
+
+### How to test
+
+```bash
+$ docker-compose up -d
+$ ./run-tests.sh
 ```
