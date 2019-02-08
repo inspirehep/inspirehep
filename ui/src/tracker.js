@@ -20,5 +20,5 @@ export function trackEvent(...args) {
 }
 
 export function checkIsTrackerBlocked() {
-  return Array.isArray(window._paq); // eslint-disable-line no-underscore-dangle
+  return Array.isArray(window._paq) || navigator.doNotTrack === '1'; // eslint-disable-line no-underscore-dangle
 }

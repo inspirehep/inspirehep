@@ -104,8 +104,8 @@ class UserFeedback extends Component {
               message="AdBlock detected"
               description={
                 <span>
-                  To send us your feedback, please disable your adblock and
-                  refresh the page or send us your feedback at{' '}
+                  To send us your feedback, please disable your adblocker or
+                  DoNotTrack and refresh the page or send us your feedback at{' '}
                   <a href="mailto:feedback@inspirehep.net">
                     feedback@inspirehep.net
                   </a>
