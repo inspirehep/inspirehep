@@ -90,15 +90,18 @@ class InspireRecord(Record):
 
     @staticmethod
     def hash_data(data=None, file_instance=None):
-        """Hashes data/file with selected algorithm
+        """Hashes data/file with selected algorithm.
+
+        Note:
+            `file_instance` takes precedence before `data` (if it's provided)
 
         Args:
-            data (bytes): Data bytes
-            file_instance (ObjectVersion): File instance
+            data (bytes): data bytes
+            file_instance (ObjectVersion): file instance
         Returns:
-            str: Hash of the data
+            str: Hash of the file_instance/data
         Raises:
-            ValueError: when `data` is empty
+            ValueError: when `data` AND `file_instance` are empty
 
         """
         if file_instance:
@@ -115,9 +118,10 @@ class InspireRecord(Record):
 
         Args:
             test_str: String for testing
-
-        Returns: True if filename looks valid, False otherwise.
-
+        Returns:
+            bool: True if filename looks valid, False otherwise.
+        Raises:
+            re.error: from re.match
         """
         match = re.match("^([a-zA-Z0-9_]+)\.(?!\.)([a-zA-Z0-9]{1,5})(?<!\.)$", test_str)
         if match and match.start() == 0:
@@ -127,11 +131,14 @@ class InspireRecord(Record):
     @staticmethod
     def is_hash(test_str):
         """Very naive hash check
+
         Args:
             test_str (str): tested string
-
         Returns:
             bool: True if 'test_str' looks like hash, False otherwise.
+        Raises:
+            TypeError: from len() function
+
         """
         if test_str and len(test_str) == 40:
             return True
@@ -141,9 +148,11 @@ class InspireRecord(Record):
     def is_bucket_uuid(test_str):
         """Naive method to check if `test_str` can be bucket_uuid
 
+        It just wraps uuid.UUID('uuid_str') class to be
+        sure that no exception is thrown.
+
         Args:
             test_str (str): string to test
-
         Returns:
             bool: `True` if `test_str` looks like bucket_uuid, False otherwise.
 
@@ -151,7 +160,7 @@ class InspireRecord(Record):
         try:
             uuid.UUID(test_str)
             return True
-        except ValueError:
+        except (ValueError, TypeError):
             return False
 
     @classmethod
@@ -160,26 +169,24 @@ class InspireRecord(Record):
 
         Args:
             url (str): Url
-
         Returns:
-            {
-                'bucket': id of the bucket,
-                'file': filename or hash,
-            }
+            dict: dictionary containing:
+                ``bucket`` (str): id of the bucket
+                ``file`` (str): filename or hash
         Raises:
             ValueError: When it's not possible to parse url properly
+        Examples:
+            >>> split_url('/api/files/261926f6-4923-458e-adb0/207611e7bf8a83f0739bb2e')
+            {
+                'bucket': '261926f6-4923-458e-adb0',
+                'file': '207611e7bf8a83f0739bb2e',
+            }
 
-        >>> split_url('/api/files/261926f6-4923-458e-adb0/207611e7bf8a83f0739bb2e')
-        {
-            'bucket': '261926f6-4923-458e-adb0',
-            'file': '207611e7bf8a83f0739bb2e',
-        }
-
-        >>> split_url('https://some_url.com/some/path/to/file.txt')
-        {
-            'bucket': None,
-            'file': 'file.txt'
-        }
+            >>> split_url('https://some_url.com/some/path/to/file.txt')
+            {
+                'bucket': None,
+                'file': 'file.txt'
+            }
         """
         API_PATH = "/api/files/"
 
@@ -251,10 +258,8 @@ class InspireRecord(Record):
         Args:
             data (dict): the data with linked records.
             path (str): the path of the linked records.
-
         Returns:
             list: the linked records.
-
         Examples:
             > data = {
                 'references': [
@@ -337,6 +342,7 @@ class InspireRecord(Record):
 
     def get_bucket(self, location=None, storage_class=None, record_id=None):
         """Allows to retreive bucket for any record(default: self)
+
         Args:
             location (str): Bucket location
                 (default: 'RECORDS_DEFAULT_FILE_LOCATION_NAME') from config
@@ -344,10 +350,11 @@ class InspireRecord(Record):
                 (default: 'RECORDS_DEFAULT_STORAGE_CLASS') from config
             record_id (int): record to which bucket is asigned
                 (default: self)
-
         Returns:
             Bucket: if found in db for selected location, storage_class and record_id or
                 None if there were no bucket.
+        Raises:
+            NoResultFound: When provided location was not found.
 
         """
         if not storage_class:
@@ -382,6 +389,7 @@ class InspireRecord(Record):
 
     def _create_bucket(self, location=None, storage_class=None):
         """Create bucket and return it.
+
         Note:
             Overwrites base_class._create_bucket method as it is not implemented
             It can create more than one bucket for the same parameters.
@@ -417,8 +425,11 @@ class InspireRecord(Record):
 
     def _download_file_from_url(self, url):
         """Downloads file and calculates hash for it
-        if everythong is ok then adds it to files in current record
+
+        If everything is ok then adds it to files in current record.
+
         If file with same hash already found in db, tries to use this one
+
         instead of creating duplicate (uses `ObjectVersion.copy()` method)
 
         Args:
@@ -427,7 +438,6 @@ class InspireRecord(Record):
             str: key(sha-1) of downloaded file
         Raises:
             ValueError: can be raised in `self.hash_data` method if no data is provided
-
 
         Example:
             >>> self._download_file_from_url('http://example.com/url_to_file.pdf')
@@ -464,13 +474,15 @@ class InspireRecord(Record):
         return key
 
     def _find_local_file(self, key, bucket_id=None):
-        """Tries to find proper file, if key is proper hash and there is no bucket_id
-        it will take first one found. It allows to search for same files and prevents
-        of creating duplicates.
+        """Tries to find proper file
+
+        If `key` is a proper hash and there is no bucket_id it will take first one.
+
+        Allows to search for same files and prevents of creating duplicates.
+
         Args:
             key (str): filename or hash
             bucket_id: proper bucket uuid
-
         Returns:
             ObjectVersion: found file, or none if not found.
 
@@ -503,7 +515,8 @@ class InspireRecord(Record):
 
     def _copy_local_file(self, file, original_key=None):
         """Copies file from local storage from `file` to this record.
-        If verifies current hash with the `original_key` it is provided.
+
+        Verifies current hash with the `original_key` it is provided.
 
         Args:
             file (ObjectVersion): file instance form which data should be copied
@@ -538,11 +551,13 @@ class InspireRecord(Record):
     def _download_file_from_local_storage(self, url, **kwargs):
         """Opens local file with ObjectVersion API, callculates it's hash and returns
         hash of the file
+
         Args:
             url (str): Local url which starts with /api/files/
 
-        Returns (str): key(sha-1) of downloaded file
-        Example:
+        Returns:
+            str: key(sha-1) of downloaded file
+        Examples:
             >>> url = '/api/files/261926f6-4923-458e-adb0/207611e7bf8a83f0739bb2e'
             >>> self._download_file_from_local_storage(url)
                 '207611e7bf8a83f0739bb2e'
@@ -566,11 +581,12 @@ class InspireRecord(Record):
 
     def _find_and_add_file(self, url, original_url=None):
         """Finds proper url (url or original_url) and method to download file.
+
         Args:
             url (str): Local or remote path to a file
             original_url (str): Local or remote path to a file
-
-        Returns: Key of downloaded file, or None if file was not found
+        Returns:
+            str: Key of downloaded file, or `None` if file was not found
 
         """
         urls = [_url for _url in [url, original_url] if _url]
@@ -596,6 +612,7 @@ class InspireRecord(Record):
 
     def _add_file(self, url, original_url=None, filename=None, **kwargs):
         """Downloads file from url and saves it with `filename` as a proper name.
+
         If filename is not provided ti will be resolved in the following way:
             - Use filename if it's provided
             - Check if key looks as proper filename, if yes then use it.
@@ -615,7 +632,8 @@ class InspireRecord(Record):
             caption (string): works for facets only
             key (string): Can contain name of the file (compatibility with inspire-next)
 
-        Returns (dict): Metadata for file
+        Returns:
+            dict: Metadata for file
 
         """
         key = self._find_and_add_file(url, original_url)
