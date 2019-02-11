@@ -81,7 +81,7 @@ exports[`AuthorLink renders first_name with last_name missing 1`] = `
   <ExternalLink
     href="//inspirehep.net/author/profile/Name Full"
   >
-    Name Full 
+    Name 
   </ExternalLink>
   <span
     className="pl1"
@@ -171,5 +171,29 @@ exports[`AuthorLink renders full_name with first_name missing 1`] = `
     />
     )
   </span>
+</div>
+`;
+
+exports[`AuthorLink renders supervisor 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+  >
+    Name, Full
+  </ExternalLink>
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    prefixCls="ant-tooltip"
+    title="supervisor"
+    transitionName="zoom-big-fast"
+  >
+    (supervisor)
+  </Tooltip>
 </div>
 `;

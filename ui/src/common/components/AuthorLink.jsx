@@ -26,13 +26,18 @@ class AuthorLink extends Component {
     return author.get('full_name');
   }
 
-  renderEditorSuffix() {
+  renderRoleSuffix() {
     const { author } = this.props;
     const roles = author.get('inspire_roles', []);
 
-    if (roles.includes('editor')) {
+    if (roles.indexOf('supervisor') > -1) {
+      return <Tooltip title="supervisor">(supervisor)</Tooltip>;
+    }
+
+    if (roles.indexOf('editor') > -1) {
       return <Tooltip title="editor">(ed.)</Tooltip>;
     }
+
     return null;
   }
 
@@ -60,7 +65,7 @@ class AuthorLink extends Component {
       <div className="di">
         <ExternalLink href={authorHref}>{this.getFullName()}</ExternalLink>
         {this.renderAffiliationsList()}
-        {this.renderEditorSuffix()}
+        {this.renderRoleSuffix()}
       </div>
     );
   }

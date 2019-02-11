@@ -50,7 +50,7 @@ describe('AuthorLink', () => {
   it('renders first_name with last_name missing', () => {
     const author = fromJS({
       full_name: 'Name Full',
-      first_name: 'Name Full',
+      first_name: 'Name',
       affiliations: [
         {
           value: 'Affiliation',
@@ -95,6 +95,15 @@ describe('AuthorLink', () => {
           value: 'Affiliation',
         },
       ],
+    });
+    const wrapper = shallow(<AuthorLink recordId={12345} author={author} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders supervisor', () => {
+    const author = fromJS({
+      full_name: 'Name, Full',
+      inspire_roles: ['supervisor'],
     });
     const wrapper = shallow(<AuthorLink recordId={12345} author={author} />);
     expect(wrapper).toMatchSnapshot();
