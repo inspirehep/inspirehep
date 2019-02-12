@@ -12,10 +12,10 @@ $ pip install pipenv
 ### How to run
 
 ```bash
-$ docker-compose up -d
 $ ./scripts/bootstrap
-$ ./scripts/setup
 $ ./scripts/server
+$ docker-compose up -d
+$ ./scripts/setup
 ```
 
 ### How to test
