@@ -437,10 +437,10 @@
         },
         "inspire-schemas": {
             "hashes": [
-                "sha256:7594bde109259ec2b2b1cfaab168e0555753ebd97eb120d4d60433234c6e50de"
+                "sha256:2df21a1ee85f6a6566eb25105143dfc31d11510d5d0d80c71e08e77dbd2d10e1"
             ],
             "index": "pypi",
-            "version": "==59.0.6"
+            "version": "==59.3.0"
         },
         "inspire-utils": {
             "hashes": [
