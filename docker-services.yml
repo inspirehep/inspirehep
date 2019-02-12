@@ -73,3 +73,10 @@ services:
     command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/
     ports:
       - "5555:5555"
+  nginx:
+    build:
+      context: "." # context is set to COPY ui folder to docker image
+      dockerfile: docker/nginx/Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"

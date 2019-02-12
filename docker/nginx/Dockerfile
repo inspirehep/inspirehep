@@ -17,20 +17,19 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install -g yarn
 
-WORKDIR /app
+WORKDIR /app/ui
+COPY ui .
 # We invalidate cache always because there is no easy way for now to detect
 # if something in the whole git repo changed. For docker git clone <url> <dir>
 # is always the same so it caches it.
 ARG CACHE_DATE=not_a_date
 
-RUN git clone https://github.com/inspirehep/inspirehep-ui.git .
-RUN echo "Current commit id:" && git rev-parse HEAD
 RUN yarn install
 RUN yarn run build
+RUN cp -r /app/ui/build/* /usr/share/nginx/html
 
-EXPOSE 80
+EXPOSE 8080
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY conf.d/* /etc/nginx/conf.d/
+COPY docker/nginx/conf.d /etc/nginx/conf.d
 
 CMD ["nginx", "-g", "daemon off;"]

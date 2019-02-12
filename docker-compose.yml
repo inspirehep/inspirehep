@@ -29,5 +29,5 @@ services:
       service: flower
   kibana:
     extends: 
-      file:   docker-services.yml
+      file: docker-services.yml
       service: kibana
