@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Holdingpen renders initial state 1`] = `
+<div
+  className="w-100"
+>
+  <SafeSwitch>
+    <Redirect
+      exact={true}
+      from="/holdingpen"
+      push={false}
+      to="/holdingpen/dashboard"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/holdingpen/dashboard"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/holdingpen/exceptions"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/holdingpen/inspect/:id"
+    />
+  </SafeSwitch>
+</div>
+`;

@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationItem renders with full citation 1`] = `
+<Item>
+  <Meta
+    description={
+      <React.Fragment>
+        <AuthorsAndCollaborations
+          authors={
+            Immutable.List [
+              Immutable.Map {
+                "full_name": "Author",
+              },
+            ]
+          }
+          collaborations={Immutable.List []}
+          collaborationsWithSuffix={Immutable.List []}
+          enableAuthorsShowAll={false}
+          recordId={12345}
+        />
+        <PublicationInfoList
+          labeled={false}
+          publicationInfo={
+            Immutable.List [
+              Immutable.Map {
+                "journal_title": "Journal",
+              },
+            ]
+          }
+          wrapperClassName={null}
+        />
+      </React.Fragment>
+    }
+    title={
+      <Link
+        replace={false}
+        to="/literature/12345"
+      >
+        <Latex>
+          Title
+        </Latex>
+      </Link>
+    }
+  />
+</Item>
+`;

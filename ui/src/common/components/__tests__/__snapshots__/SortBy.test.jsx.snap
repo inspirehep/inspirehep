@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SortBy renders with all props set 1`] = `
+<SelectBox
+  defaultValue="mostrecent"
+  onChange={[MockFunction]}
+  options={
+    Array [
+      Object {
+        "display": "Most Recent",
+        "value": "mostrecent",
+      },
+      Object {
+        "display": "Most Cited",
+        "value": "mostcited",
+      },
+    ]
+  }
+/>
+`;

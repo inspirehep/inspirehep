@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultItem render initial state with all props set 1`] = `
+<ContentBox
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  title={null}
+>
+  <span>
+    More
+  </span>
+  <span>
+    Content
+  </span>
+</ContentBox>
+`;

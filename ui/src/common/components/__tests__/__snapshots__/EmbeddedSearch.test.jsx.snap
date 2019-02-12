@@ -1,0 +1,792 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmbeddedSearch renders error if facets request fails with custom error 1`] = `
+<span>
+  Error
+</span>
+`;
+
+exports[`EmbeddedSearch renders error if results request fails 1`] = `""`;
+
+exports[`EmbeddedSearch renders with current results if baseQuery is changed but equals to previous one 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg1": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 1,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 1,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with initial search results when base query props are set 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg1": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 1,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 1,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with loading state true then initial search results 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={true}
+    >
+      <AggregationFilters
+        aggregations={Immutable.Map {}}
+        numberOfResults={0}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 1,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={true}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={0}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={Immutable.List []}
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={0}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with loading state true then initial search results 2`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg1": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 1,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 1,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with new results after aggregation change 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg2": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "agg1": "foo",
+            "page": 1,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 2,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with new results after baseQuery prop change 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg2": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 1,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 2,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with new results after page change 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg2": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 2,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 2,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={2}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with new results after pidType prop change 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg2": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 1,
+            "size": 10,
+            "sort": "mostrecent",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostrecent"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 2,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;
+
+exports[`EmbeddedSearch renders with new results after sort change 1`] = `
+<Row
+  gutter={32}
+  justify="start"
+  type="flex"
+>
+  <Col
+    span={7}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <AggregationFilters
+        aggregations={
+          Immutable.Map {
+            "agg2": Immutable.Map {},
+          }
+        }
+        numberOfResults={1}
+        onAggregationChange={[Function]}
+        query={
+          Object {
+            "page": 1,
+            "size": 10,
+            "sort": "mostcited",
+          }
+        }
+      />
+    </LoadingOrChildren>
+  </Col>
+  <Col
+    span={17}
+  >
+    <LoadingOrChildren
+      loading={false}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        justify="end"
+        type="flex"
+      >
+        <Col
+          span={12}
+        >
+          <NumberOfResults
+            numberOfResults={1}
+          />
+        </Col>
+        <Col
+          className="tr"
+          span={12}
+        >
+          <SortBy
+            onSortChange={[Function]}
+            sort="mostcited"
+          />
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col
+          span={24}
+        >
+          <SearchResults
+            renderItem={[MockFunction]}
+            results={
+              Immutable.List [
+                Immutable.Map {
+                  "id": 2,
+                },
+              ]
+            }
+          />
+          <SearchPagination
+            onPageChange={[Function]}
+            page={1}
+            pageSize={10}
+            total={1}
+          />
+        </Col>
+      </Row>
+    </LoadingOrChildren>
+  </Col>
+</Row>
+`;

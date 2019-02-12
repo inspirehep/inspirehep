@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExceptionsDashboard renders with all props set 1`] = `
+<div
+  className="__ExceptionsDashboard__"
+>
+  <div
+    className="collection-counts"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Array [
+          Array [
+            "Job",
+            1,
+          ],
+          Array [
+            "Hep",
+            2,
+          ],
+          Array [
+            "Conferences",
+            1,
+          ],
+        ]
+      }
+      label="Collections"
+      renderItem={[Function]}
+      separateItems={false}
+      separateItemsClassName="separate-items-with-comma"
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </div>
+  <Row
+    gutter={0}
+    justify="space-around"
+    type="flex"
+  >
+    <Col
+      span={20}
+    >
+      <ExceptionsTable
+        exceptions={
+          Array [
+            Object {
+              "collection": "Job",
+              "error": "Job Error 1",
+              "recid": 1512550,
+            },
+            Object {
+              "collection": "Hep",
+              "error": "Hep Error 2",
+              "recid": 1238165,
+            },
+            Object {
+              "collection": "Conferences",
+              "error": "Conferences Error 1",
+              "recid": 1356791,
+            },
+            Object {
+              "collection": "Hep",
+              "error": "Hep Error 1",
+              "recid": 1635467,
+            },
+          ]
+        }
+        loading={false}
+      />
+    </Col>
+  </Row>
+</div>
+`;
+
+exports[`ExceptionsDashboard renders with all props set and loading set to true 1`] = `
+<div
+  className="__ExceptionsDashboard__"
+>
+  <div
+    className="collection-counts"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={Array []}
+      label="Collections"
+      renderItem={[Function]}
+      separateItems={false}
+      separateItemsClassName="separate-items-with-comma"
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </div>
+  <Row
+    gutter={0}
+    justify="space-around"
+    type="flex"
+  >
+    <Col
+      span={20}
+    >
+      <ExceptionsTable
+        exceptions={Array []}
+        loading={true}
+      />
+    </Col>
+  </Row>
+</div>
+`;

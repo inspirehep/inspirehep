@@ -1,0 +1,26 @@
+.__InlineList__ {
+  ul {
+    display: inline;
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    display: inline;
+  }
+
+  @mixin separte-items-with($seperator) {
+    li:not(:last-child):after {
+      content: $seperator;
+    }
+  }
+
+  ul.separate-items-with-semicolon {
+    @include separte-items-with('; ');
+  }
+  ul.separate-items-with-comma {
+    @include separte-items-with(', ');
+  }
+  ul.separate-items-with-and {
+    @include separte-items-with(' and ');
+  }
+}

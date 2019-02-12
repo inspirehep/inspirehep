@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  node:
+    image: alekzonder/puppeteer
+    
+    command: bash -c "cd /opt/app/ui-tests && yarn && yarn test"
+    volumes:
+      - .:/opt/app/ui-tests
+      - ../build:/opt/app/build:ro
+    environment:
+      - NODE_ENV=test
+      - CI=${CI}

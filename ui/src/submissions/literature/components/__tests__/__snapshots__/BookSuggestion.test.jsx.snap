@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BookSuggestion renders with full book 1`] = `
+<Fragment>
+  <div>
+    <strong>
+      A Book
+    </strong>
+  </div>
+  <div
+    className="f7"
+  >
+    <span />
+  </div>
+</Fragment>
+`;
+
+exports[`BookSuggestion renders with only title 1`] = `
+<Fragment>
+  <div>
+    <strong>
+      A Book
+    </strong>
+  </div>
+  <div
+    className="f7"
+  >
+    <span />
+  </div>
+</Fragment>
+`;

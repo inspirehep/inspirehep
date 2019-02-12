@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExpandableInlineList renders all on expand toggle 1`] = `
+<div>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        1,
+        2,
+        3,
+        4,
+        5,
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName={null}
+  />
+  <ExpandListToggle
+    expanded={true}
+    limit={3}
+    onToggle={[Function]}
+    size={5}
+  />
+</div>
+`;
+
+exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] = `
+<div>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName={null}
+  />
+  <ExpandListToggle
+    expanded={false}
+    limit={10}
+    onToggle={[Function]}
+    size={11}
+  />
+</div>
+`;
+
+exports[`ExpandableInlineList renders only limited amount with expand toggle 1`] = `
+<div>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        1,
+        2,
+        3,
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName={null}
+  />
+  <ExpandListToggle
+    expanded={false}
+    limit={3}
+    onToggle={[Function]}
+    size={5}
+  />
+</div>
+`;

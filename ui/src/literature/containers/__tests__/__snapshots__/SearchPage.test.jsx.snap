@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Literature - SearchPage renders with loading false 1`] = `
+<Connect(SearchLayout)
+  renderResultItem={[Function]}
+/>
+`;
+
+exports[`Literature - SearchPage renders with loading true 1`] = `
+<Connect(SearchLayout)
+  renderResultItem={[Function]}
+/>
+`;

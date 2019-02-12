@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LinkLikeButton renders with dataTestId 1`] = `
+<a
+  data-test-id="example-button"
+  onClick={[MockFunction]}
+>
+  example
+</a>
+`;
+
+exports[`LinkLikeButton renders with required props 1`] = `
+<a
+  onClick={[MockFunction]}
+>
+  example
+</a>
+`;

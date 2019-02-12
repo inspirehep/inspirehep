@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchResults renders with all props set 1`] = `
+<div>
+  <div
+    className="mv3"
+    key="1"
+  >
+    <span>
+      value1
+    </span>
+  </div>
+  <div
+    className="mv3"
+    key="2"
+  >
+    <span>
+      value2
+    </span>
+  </div>
+</div>
+`;

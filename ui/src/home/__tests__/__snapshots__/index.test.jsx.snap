@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders home page 1`] = `
+<Row
+  align="middle"
+  className="__Home__"
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <Col
+    span={18}
+  >
+    <Row
+      gutter={0}
+    >
+      <Col>
+        <h2
+          className="f2 tc mt5 mb5"
+        >
+          Discover High-Energy Physics content
+        </h2>
+      </Col>
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col>
+        <Connect(SearchBox) />
+      </Col>
+    </Row>
+    <Row
+      className="examples-container"
+      gutter={0}
+    >
+      <Col>
+        <InlineList
+          extractKey={[Function]}
+          items={
+            Array [
+              "find a richter, b and t quark and date > 1984",
+              "find j phys.rev.,D50,1140",
+            ]
+          }
+          label="Try"
+          renderItem={[Function]}
+          separateItems={true}
+          separateItemsClassName="separate-items-with-comma"
+          suffix={null}
+          wrapperClassName={null}
+        />
+      </Col>
+    </Row>
+    <Row
+      className="description-container"
+      gutter={0}
+    >
+      <Col>
+        <h3
+          className="f3 tc mt5 mb5"
+        >
+          INSPIRE Labs provides a sneak preview of new features currently under development.
+        </h3>
+      </Col>
+    </Row>
+  </Col>
+</Row>
+`;

@@ -1,0 +1,385 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RangeAggregation render initial state with all required props set 1`] = `
+<AggregationBox
+  headerAction={
+    <LinkLikeButton
+      onClick={[Function]}
+    >
+      Reset
+    </LinkLikeButton>
+  }
+  name="Test"
+>
+  <div
+    className="__RangeAggregation__"
+  >
+    <div
+      className="hovered-info-container"
+    />
+    <FlexibleXYPlot
+      height={100}
+      margin={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+        }
+      }
+      onMouseLeave={[Function]}
+    >
+      <VerticalRectSeries
+        className=""
+        colorType="literal"
+        data={
+          Array [
+            Object {
+              "color": "#fff",
+              "x": 2010.4,
+              "x0": 2009.6,
+              "y": 1,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2011.4,
+              "x0": 2010.6,
+              "y": 2,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2012.4,
+              "x0": 2011.6,
+              "y": 3,
+            },
+            Object {
+              "x": 2010.4,
+              "x0": 2009.6,
+              "y": 0,
+            },
+          ]
+        }
+        onNearestX={[Function]}
+        onValueClick={[Function]}
+        onValueMouseOut={[Function]}
+        onValueMouseOver={[Function]}
+        stack={false}
+        style={Object {}}
+      />
+    </FlexibleXYPlot>
+    <Slider
+      included={true}
+      marks={
+        Object {
+          "2010": 2010,
+          "2012": 2012,
+        }
+      }
+      max={2012}
+      min={2010}
+      onAfterChange={[Function]}
+      onChange={[Function]}
+      prefixCls="ant-slider"
+      range={true}
+      tipFormatter={[Function]}
+      tooltipPrefixCls="ant-tooltip"
+      value={
+        Array [
+          2011,
+          2012,
+        ]
+      }
+    />
+  </div>
+</AggregationBox>
+`;
+
+exports[`RangeAggregation render with sanitized min-max according to default minRangeSize 1`] = `
+<AggregationBox
+  headerAction={
+    <LinkLikeButton
+      onClick={[Function]}
+    >
+      Reset
+    </LinkLikeButton>
+  }
+  name="Test"
+>
+  <div
+    className="__RangeAggregation__"
+  >
+    <div
+      className="hovered-info-container"
+    />
+    <FlexibleXYPlot
+      height={100}
+      margin={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+        }
+      }
+      onMouseLeave={[Function]}
+    >
+      <VerticalRectSeries
+        className=""
+        colorType="literal"
+        data={
+          Array [
+            Object {
+              "color": "#fff",
+              "x": 2010.4,
+              "x0": 2009.6,
+              "y": 1,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2011.4,
+              "x0": 2010.6,
+              "y": 2,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2012.4,
+              "x0": 2011.6,
+              "y": 3,
+            },
+            Object {
+              "x": 1986.4,
+              "x0": 1985.6,
+              "y": 0,
+            },
+            Object {
+              "x": 2036.4,
+              "x0": 2035.6,
+              "y": 0,
+            },
+          ]
+        }
+        onNearestX={[Function]}
+        onValueClick={[Function]}
+        onValueMouseOut={[Function]}
+        onValueMouseOver={[Function]}
+        stack={false}
+        style={Object {}}
+      />
+    </FlexibleXYPlot>
+    <Slider
+      included={true}
+      marks={
+        Object {
+          "1986": 1986,
+          "2036": 2036,
+        }
+      }
+      max={2036}
+      min={1986}
+      onAfterChange={[Function]}
+      onChange={[Function]}
+      prefixCls="ant-slider"
+      range={true}
+      tipFormatter={[Function]}
+      tooltipPrefixCls="ant-tooltip"
+      value={
+        Array [
+          2011,
+          2012,
+        ]
+      }
+    />
+  </div>
+</AggregationBox>
+`;
+
+exports[`RangeAggregation renders with hovered bar 1`] = `
+<AggregationBox
+  headerAction={
+    <LinkLikeButton
+      onClick={[Function]}
+    >
+      Reset
+    </LinkLikeButton>
+  }
+  name="Test"
+>
+  <div
+    className="__RangeAggregation__"
+  >
+    <div
+      className="hovered-info-container"
+    >
+      <span
+        className="hovered-info"
+      >
+        2
+         found for 
+        0.6
+      </span>
+    </div>
+    <FlexibleXYPlot
+      height={100}
+      margin={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+        }
+      }
+      onMouseLeave={[Function]}
+    >
+      <VerticalRectSeries
+        className=""
+        colorType="literal"
+        data={
+          Array [
+            Object {
+              "color": "#fff",
+              "x": 2010.4,
+              "x0": 2009.6,
+              "y": 1,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2011.4,
+              "x0": 2010.6,
+              "y": 2,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2012.4,
+              "x0": 2011.6,
+              "y": 3,
+            },
+            Object {
+              "x": 2010.4,
+              "x0": 2009.6,
+              "y": 0,
+            },
+          ]
+        }
+        onNearestX={[Function]}
+        onValueClick={[Function]}
+        onValueMouseOut={[Function]}
+        onValueMouseOver={[Function]}
+        stack={false}
+        style={Object {}}
+      />
+    </FlexibleXYPlot>
+    <Slider
+      included={true}
+      marks={
+        Object {
+          "2010": 2010,
+          "2012": 2012,
+        }
+      }
+      max={2012}
+      min={2010}
+      onAfterChange={[Function]}
+      onChange={[Function]}
+      prefixCls="ant-slider"
+      range={true}
+      tipFormatter={[Function]}
+      tooltipPrefixCls="ant-tooltip"
+      value={
+        Array [
+          2011,
+          2012,
+        ]
+      }
+    />
+  </div>
+</AggregationBox>
+`;
+
+exports[`RangeAggregation renders with sanitized endpoints 1`] = `
+<AggregationBox
+  headerAction={
+    <LinkLikeButton
+      onClick={[Function]}
+    >
+      Reset
+    </LinkLikeButton>
+  }
+  name="Test"
+>
+  <div
+    className="__RangeAggregation__"
+  >
+    <div
+      className="hovered-info-container"
+    />
+    <FlexibleXYPlot
+      height={100}
+      margin={
+        Object {
+          "bottom": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+        }
+      }
+      onMouseLeave={[Function]}
+    >
+      <VerticalRectSeries
+        className=""
+        colorType="literal"
+        data={
+          Array [
+            Object {
+              "color": "#91d5ff",
+              "x": 2010.4,
+              "x0": 2009.6,
+              "y": 1,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2011.4,
+              "x0": 2010.6,
+              "y": 2,
+            },
+            Object {
+              "color": "#91d5ff",
+              "x": 2012.4,
+              "x0": 2011.6,
+              "y": 3,
+            },
+          ]
+        }
+        onNearestX={[Function]}
+        onValueClick={[Function]}
+        onValueMouseOut={[Function]}
+        onValueMouseOver={[Function]}
+        stack={false}
+        style={Object {}}
+      />
+    </FlexibleXYPlot>
+    <Slider
+      included={true}
+      marks={
+        Object {
+          "2010": 2010,
+          "2012": 2012,
+        }
+      }
+      max={2012}
+      min={2010}
+      onAfterChange={[Function]}
+      onChange={[Function]}
+      prefixCls="ant-slider"
+      range={true}
+      tipFormatter={[Function]}
+      tooltipPrefixCls="ant-tooltip"
+      value={
+        Array [
+          2010,
+          2012,
+        ]
+      }
+    />
+  </div>
+</AggregationBox>
+`;

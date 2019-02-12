@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArxivPdfDownloadAction renders with arXiv id 1`] = `
+<EventTracker
+  eventId="PdfDownload"
+  eventPropName="onClick"
+>
+  <ListItemAction
+    iconType="download"
+    link={
+      Object {
+        "href": "//arxiv.org/pdf/123.12345",
+        "target": "_blank",
+      }
+    }
+    text="pdf"
+  />
+</EventTracker>
+`;

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JsonDiff renders diff 1`] = `
+<div
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<div class=\\"jsondiffpatch-delta jsondiffpatch-node jsondiffpatch-child-node-type-object\\"><ul class=\\"jsondiffpatch-node jsondiffpatch-node-type-object\\"><li class=\\"jsondiffpatch-deleted\\" data-key=\\"another\\"><div class=\\"jsondiffpatch-property-name\\">another</div><div class=\\"jsondiffpatch-value\\"><pre>&quot;value&quot;</pre></div></li><li class=\\"jsondiffpatch-modified\\" data-key=\\"foo\\"><div class=\\"jsondiffpatch-property-name\\">foo</div><div class=\\"jsondiffpatch-value jsondiffpatch-left-value\\"><pre>&quot;bar&quot;</pre></div><div class=\\"jsondiffpatch-value jsondiffpatch-right-value\\"><pre>&quot;not bar&quot;</pre></div></li><li class=\\"jsondiffpatch-modified\\" data-key=\\"id\\"><div class=\\"jsondiffpatch-property-name\\">id</div><div class=\\"jsondiffpatch-value jsondiffpatch-left-value\\"><pre>1</pre></div><div class=\\"jsondiffpatch-value jsondiffpatch-right-value\\"><pre>2</pre></div></li></ul></div>",
+    }
+  }
+/>
+`;

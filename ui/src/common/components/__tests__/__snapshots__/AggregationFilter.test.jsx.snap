@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AggregationFilter renders CheckboxAggregation if range prop is not set 1`] = `
+<CheckboxAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "bucket1",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "bucket2",
+        "doc_count": 2,
+      },
+    ]
+  }
+  name="Test"
+  onChange={[MockFunction]}
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+  splitDisplayName={false}
+/>
+`;
+
+exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = `
+<RangeAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "2011",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "2012",
+        "doc_count": 2,
+      },
+    ]
+  }
+  countPropName="doc_count"
+  deselectedColor="#fff"
+  height={100}
+  hoverColor="#69c0ff"
+  keyPropName="key_as_string"
+  maximumMax={2018}
+  minRangeSize={50}
+  name="Test"
+  onChange={[MockFunction]}
+  selectedColor="#91d5ff"
+  selections="2011--2012"
+/>
+`;

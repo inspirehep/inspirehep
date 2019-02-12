@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureKeywordList renders with keywords 1`] = `
+<ExpandableInlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "value": "CMS",
+      },
+      Immutable.Map {
+        "value": "LHC-B",
+      },
+    ]
+  }
+  label={null}
+  limit={10}
+  renderItem={[Function]}
+  separateItems={false}
+  separateItemsClassName="separate-items-with-comma"
+  suffix={null}
+  wrapperClassName="di"
+/>
+`;

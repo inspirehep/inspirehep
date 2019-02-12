@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClientPaginatedList does not render at all if empty 1`] = `""`;
+
+exports[`ClientPaginatedList renders as loading if set 1`] = `
+<ListWithPagination
+  loading={true}
+  onPageChange={[Function]}
+  page={1}
+  pageItems={
+    Immutable.List [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+    ]
+  }
+  pageSize={10}
+  renderItem={[Function]}
+  title={null}
+  total={99}
+/>
+`;
+
+exports[`ClientPaginatedList renders first page 1`] = `
+<ListWithPagination
+  loading={false}
+  onPageChange={[Function]}
+  page={1}
+  pageItems={
+    Immutable.List [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+    ]
+  }
+  pageSize={25}
+  renderItem={[Function]}
+  title={null}
+  total={99}
+/>
+`;
+
+exports[`ClientPaginatedList renders first page with custom pageSize 1`] = `
+<ListWithPagination
+  loading={false}
+  onPageChange={[Function]}
+  page={1}
+  pageItems={
+    Immutable.List [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+    ]
+  }
+  pageSize={10}
+  renderItem={[Function]}
+  title={null}
+  total={99}
+/>
+`;
+
+exports[`ClientPaginatedList renders the new page on page change 1`] = `
+<ListWithPagination
+  loading={false}
+  onPageChange={[Function]}
+  page={2}
+  pageItems={
+    Immutable.List [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+    ]
+  }
+  pageSize={10}
+  renderItem={[Function]}
+  title={null}
+  total={99}
+/>
+`;

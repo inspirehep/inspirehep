@@ -1,0 +1,284 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferenceItem does not render misc if title present 1`] = `
+<Item>
+  <Row
+    align="middle"
+    gutter={24}
+    justify="start"
+    type="flex"
+  >
+    <Col />
+    <Meta
+      description={
+        <React.Fragment>
+          <AuthorsAndCollaborations
+            authors={Immutable.List []}
+            collaborations={Immutable.List []}
+            collaborationsWithSuffix={Immutable.List []}
+            enableAuthorsShowAll={false}
+            recordId={0}
+          />
+          <ul
+            className="bulleted-list secondary-container"
+          />
+        </React.Fragment>
+      }
+      title={
+        <div
+          className="f5"
+        >
+          Title
+        </div>
+      }
+    />
+  </Row>
+</Item>
+`;
+
+exports[`ReferenceItem renders misc if present 1`] = `
+<Item>
+  <Row
+    align="middle"
+    gutter={24}
+    justify="start"
+    type="flex"
+  >
+    <Col />
+    <Meta
+      description={
+        <React.Fragment>
+          <div>
+            A Misc
+          </div>
+          <AuthorsAndCollaborations
+            authors={Immutable.List []}
+            collaborations={Immutable.List []}
+            collaborationsWithSuffix={Immutable.List []}
+            enableAuthorsShowAll={false}
+            recordId={0}
+          />
+          <ul
+            className="bulleted-list secondary-container"
+          />
+        </React.Fragment>
+      }
+      title={null}
+    />
+  </Row>
+</Item>
+`;
+
+exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
+<div
+  className="ant-list-item"
+>
+  <div
+    className="ant-list-item-content ant-list-item-content-single"
+  >
+    <Row
+      align="middle"
+      gutter={24}
+      justify="start"
+      type="flex"
+    >
+      <Col />
+      <Meta
+        description={
+          <React.Fragment>
+            <AuthorsAndCollaborations
+              authors={
+                Immutable.List [
+                  Immutable.Map {
+                    "full_name": "Author",
+                  },
+                ]
+              }
+              collaborations={
+                Immutable.List [
+                  Immutable.Map {
+                    "value": "Test Collab.",
+                  },
+                ]
+              }
+              collaborationsWithSuffix={
+                Immutable.List [
+                  Immutable.Map {
+                    "value": "Test Group",
+                  },
+                ]
+              }
+              enableAuthorsShowAll={false}
+              recordId={0}
+            />
+            <ul
+              className="bulleted-list secondary-container"
+            >
+              <li
+                className="dib mr1"
+              >
+                <PublicationInfoList
+                  labeled={false}
+                  publicationInfo={
+                    Immutable.List [
+                      Immutable.Map {
+                        "journal_title": "Journal",
+                      },
+                    ]
+                  }
+                  wrapperClassName="di"
+                />
+              </li>
+              <li
+                className="dib mr1"
+              >
+                <DOIList
+                  dois={
+                    Immutable.List [
+                      Immutable.Map {
+                        "value": "123456.12345",
+                      },
+                    ]
+                  }
+                  wrapperClassName="di"
+                />
+              </li>
+              <li
+                className="dib mr1"
+              >
+                <URLList
+                  urls={
+                    Immutable.List [
+                      Immutable.Map {
+                        "value": "https://dude.guy",
+                      },
+                    ]
+                  }
+                  wrapperClassName="di"
+                />
+              </li>
+            </ul>
+          </React.Fragment>
+        }
+        title={
+          <div
+            className="f5"
+          >
+            Title
+          </div>
+        }
+      />
+    </Row>
+  </div>
+</div>
+`;
+
+exports[`ReferenceItem renders with full reference 1`] = `
+<div
+  className="ant-list-item"
+>
+  <div
+    className="ant-list-item-content ant-list-item-content-single"
+  >
+    <Row
+      align="middle"
+      gutter={24}
+      justify="start"
+      type="flex"
+    >
+      <Col>
+        [123] 
+      </Col>
+      <Meta
+        description={
+          <React.Fragment>
+            <AuthorsAndCollaborations
+              authors={
+                Immutable.List [
+                  Immutable.Map {
+                    "full_name": "Author",
+                  },
+                ]
+              }
+              collaborations={
+                Immutable.List [
+                  Immutable.Map {
+                    "value": "Test Collab.",
+                  },
+                ]
+              }
+              collaborationsWithSuffix={
+                Immutable.List [
+                  Immutable.Map {
+                    "value": "Test Group",
+                  },
+                ]
+              }
+              enableAuthorsShowAll={false}
+              recordId={12345}
+            />
+            <ul
+              className="bulleted-list secondary-container"
+            >
+              <li
+                className="dib mr1"
+              >
+                <PublicationInfoList
+                  labeled={false}
+                  publicationInfo={
+                    Immutable.List [
+                      Immutable.Map {
+                        "journal_title": "Journal",
+                      },
+                    ]
+                  }
+                  wrapperClassName="di"
+                />
+              </li>
+              <li
+                className="dib mr1"
+              >
+                <DOIList
+                  dois={
+                    Immutable.List [
+                      Immutable.Map {
+                        "value": "123456.12345",
+                      },
+                    ]
+                  }
+                  wrapperClassName="di"
+                />
+              </li>
+              <li
+                className="dib mr1"
+              >
+                <URLList
+                  urls={
+                    Immutable.List [
+                      Immutable.Map {
+                        "value": "https://dude.guy",
+                      },
+                    ]
+                  }
+                  wrapperClassName="di"
+                />
+              </li>
+            </ul>
+          </React.Fragment>
+        }
+        title={
+          <Link
+            className="f5"
+            replace={false}
+            to="/literature/12345"
+          >
+            <Latex>
+              Title
+            </Latex>
+          </Link>
+        }
+      />
+    </Row>
+  </div>
+</div>
+`;

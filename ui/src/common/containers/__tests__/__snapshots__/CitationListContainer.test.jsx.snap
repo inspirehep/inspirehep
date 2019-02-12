@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationListContainer does not render if total <= 0 1`] = `
+<ContentBox
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  title={null}
+>
+  <ErrorAlertOrChildren />
+</ContentBox>
+`;
+
+exports[`CitationListContainer renders with error 1`] = `
+<ContentBox
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  title={null}
+>
+  <ErrorAlertOrChildren
+    error={
+      Immutable.Map {
+        "message": "Error",
+      }
+    }
+  />
+</ContentBox>
+`;
+
+exports[`CitationListContainer renders with state from store 1`] = `
+<ContentBox
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  title={null}
+>
+  <ErrorAlertOrChildren>
+    <ListWithPagination
+      loading={false}
+      onPageChange={[Function]}
+      page={1}
+      pageItems={
+        Immutable.List [
+          Immutable.Map {
+            "control_number": 170,
+          },
+        ]
+      }
+      pageSize={25}
+      renderItem={[Function]}
+      title={null}
+      total={1}
+    />
+  </ErrorAlertOrChildren>
+</ContentBox>
+`;

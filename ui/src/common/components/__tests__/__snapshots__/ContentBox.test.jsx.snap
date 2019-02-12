@@ -1,0 +1,111 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContentBox does not render ContentBox without children 1`] = `""`;
+
+exports[`ContentBox renders ContentBox with actions 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with actions and title with loading 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={true}
+    title="Jessica Jones"
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with actions and title without loading 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title="Jessica Jones"
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox without actions 1`] = `
+<div
+  className="__ContentBox__"
+>
+  <Card
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa3"
+    >
+      <div>
+        Defenders
+      </div>
+    </div>
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </Card>
+</div>
+`;

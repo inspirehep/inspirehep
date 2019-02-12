@@ -1,0 +1,288 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PositionsTimeline renders all when ExpandListToggle is toggled by default 1`] = `
+<Fragment>
+  <Timeline
+    mode=""
+    prefixCls="ant-timeline"
+    reverse={false}
+  >
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 1"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 1
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 2"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 2
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 3"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 3
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 4"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 4
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 5"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 5
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 6"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 6
+        </span>
+      </div>
+    </TimelineItem>
+  </Timeline>
+  <ExpandListToggle
+    expanded={true}
+    limit={5}
+    onToggle={[Function]}
+    size={6}
+  />
+</Fragment>
+`;
+
+exports[`PositionsTimeline renders only first 5 by default 1`] = `
+<Fragment>
+  <Timeline
+    mode=""
+    prefixCls="ant-timeline"
+    reverse={false}
+  >
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 1"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 1
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 2"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 2
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 3"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 3
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 4"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 4
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 5"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 5
+        </span>
+      </div>
+    </TimelineItem>
+  </Timeline>
+  <ExpandListToggle
+    expanded={false}
+    limit={5}
+    onToggle={[Function]}
+    size={6}
+  />
+</Fragment>
+`;
+
+exports[`PositionsTimeline renders with positions 1`] = `
+<Fragment>
+  <Timeline
+    mode=""
+    prefixCls="ant-timeline"
+    reverse={false}
+  >
+    <TimelineItem
+      color="blue"
+      key="#1990-1994@Inst 1"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div>
+        1990-1994
+      </div>
+      <div>
+        <strong>
+          UNDERGRADUATE
+          , 
+        </strong>
+        <span>
+          Inst 1
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#1994-2000@Inst 2"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div>
+        1994-2000
+      </div>
+      <div>
+        <strong>
+          PHD
+          , 
+        </strong>
+        <span>
+          Inst 2
+        </span>
+      </div>
+    </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#2000-present@CERN"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div>
+        2000-present
+      </div>
+      <div>
+        <strong>
+          STAFF
+          , 
+        </strong>
+        <span>
+          CERN
+        </span>
+      </div>
+    </TimelineItem>
+  </Timeline>
+  <ExpandListToggle
+    expanded={false}
+    limit={5}
+    onToggle={[Function]}
+    size={3}
+  />
+</Fragment>
+`;
+
+exports[`PositionsTimeline renders with single position 1`] = `
+<Fragment>
+  <Timeline
+    mode=""
+    prefixCls="ant-timeline"
+    reverse={false}
+  >
+    <TimelineItem
+      color="blue"
+      key="#present@Inst 1"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div>
+        present
+      </div>
+      <div>
+        <strong>
+          UNDERGRADUATE
+          , 
+        </strong>
+        <span>
+          Inst 1
+        </span>
+      </div>
+    </TimelineItem>
+  </Timeline>
+  <ExpandListToggle
+    expanded={false}
+    limit={5}
+    onToggle={[Function]}
+    size={1}
+  />
+</Fragment>
+`;

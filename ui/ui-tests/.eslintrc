@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "airbnb",
+    "prettier"
+  ],
+  "env": {
+    "jest": true
+  },
+  "globals": {
+    "page": true,
+    "browser": true
+  },
+  "rules": {
+    "no-underscore-dangle": "off",
+    "import/no-extraneous-dependencies": "off"
+  }
+}

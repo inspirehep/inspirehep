@@ -1,0 +1,552 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Supervisor
+    : 
+  </span>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="Test, Guy 1"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passed 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Supervisors
+    : 
+  </span>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="Test, Guy 1"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+    <li
+      key="Test, Guy 2"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            "full_name": "Test, Guy 2",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AuthorList renders all authors if they are less than the limit without suffix 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 2",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName={null}
+  />
+  <Modal
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="2 authors"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 2",
+          },
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separateItemsClassName="separate-items-with-comma"
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </Modal>
+</Fragment>
+`;
+
+exports[`AuthorList renders authors by using AuthorLink 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="Test, Guy 1"
+    >
+      <AuthorLink
+        author={
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          }
+        }
+        recordId={12345}
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 2",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 3",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 4",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 5",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={
+      <span>
+         et al.
+      </span>
+    }
+    wrapperClassName={null}
+  />
+  <Modal
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="6 authors"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 2",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 3",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 4",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 5",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 6",
+          },
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separateItemsClassName="separate-items-with-comma"
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </Modal>
+</Fragment>
+`;
+
+exports[`AuthorList renders only 5 authors and suffixes "show all" if passed more 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 2",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 3",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 4",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 5",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={
+      <div
+        className="di pl1"
+      >
+        <SecondaryButton
+          onClick={[Function]}
+        >
+          Show All(
+          6
+          )
+        </SecondaryButton>
+      </div>
+    }
+    wrapperClassName={null}
+  />
+  <Modal
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="6 authors"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 2",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 3",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 4",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 5",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 6",
+          },
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separateItemsClassName="separate-items-with-comma"
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </Modal>
+</Fragment>
+`;
+
+exports[`AuthorList renders only limited (prop) authors and suffixes "et all." if passed more 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 2",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={
+      <span>
+         et al.
+      </span>
+    }
+    wrapperClassName={null}
+  />
+  <Modal
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="3 authors"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 2",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 3",
+          },
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separateItemsClassName="separate-items-with-comma"
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </Modal>
+</Fragment>
+`;
+
+exports[`AuthorList renders only limited (prop) authors and suffixes "show all." if passed more 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+        Immutable.Map {
+          "full_name": "Test, Guy 2",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={
+      <div
+        className="di pl1"
+      >
+        <SecondaryButton
+          onClick={[Function]}
+        >
+          Show All(
+          3
+          )
+        </SecondaryButton>
+      </div>
+    }
+    wrapperClassName={null}
+  />
+  <Modal
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="3 authors"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          Immutable.Map {
+            "full_name": "Test, Guy 1",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 2",
+          },
+          Immutable.Map {
+            "full_name": "Test, Guy 3",
+          },
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separateItemsClassName="separate-items-with-comma"
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </Modal>
+</Fragment>
+`;
+
+exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
+<DialogWrap
+  cancelButtonDisabled={false}
+  closeIcon={
+    <span
+      className="ant-modal-close-x"
+    >
+      <Icon
+        className="ant-modal-close-icon"
+        type="close"
+      />
+    </span>
+  }
+  confirmLoading={false}
+  footer={null}
+  maskTransitionName="fade"
+  okButtonDisabled={false}
+  okType="primary"
+  onCancel={[Function]}
+  onClose={[Function]}
+  prefixCls="ant-modal"
+  title="1 authors"
+  transitionName="zoom"
+  visible={false}
+  width="50%"
+  wrapClassName=""
+>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName={null}
+  />
+</DialogWrap>
+`;
+
+exports[`AuthorList should show \`supervisors\` in modal title if supervisors are passed 1`] = `
+<DialogWrap
+  cancelButtonDisabled={false}
+  closeIcon={
+    <span
+      className="ant-modal-close-x"
+    >
+      <Icon
+        className="ant-modal-close-icon"
+        type="close"
+      />
+    </span>
+  }
+  confirmLoading={false}
+  footer={null}
+  maskTransitionName="fade"
+  okButtonDisabled={false}
+  okType="primary"
+  onCancel={[Function]}
+  onClose={[Function]}
+  prefixCls="ant-modal"
+  title="1 supervisors"
+  transitionName="zoom"
+  visible={false}
+  width="50%"
+  wrapClassName=""
+>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+      ]
+    }
+    label="Supervisor"
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-comma"
+    suffix={null}
+    wrapperClassName={null}
+  />
+</DialogWrap>
+`;

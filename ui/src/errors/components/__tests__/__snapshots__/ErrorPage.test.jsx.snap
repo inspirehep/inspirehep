@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorPage renders with all props 1`] = `
+<Col
+  align="middle"
+  className="mt3 mb3"
+  justify="center"
+  span={14}
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <h3
+        className="f2"
+      >
+        Error !
+      </h3>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <h3
+        className="f3 normal"
+      >
+        <span>
+          Detail about the error
+        </span>
+      </h3>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <img
+        alt="ERROR"
+        src="image_src"
+      />
+    </Col>
+  </Row>
+</Col>
+`;
+
+exports[`ErrorPage renders with default detail 1`] = `
+<Col
+  align="middle"
+  className="mt3 mb3"
+  justify="center"
+  span={14}
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <h3
+        className="f2"
+      >
+        Error !
+      </h3>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <img
+        alt="ERROR"
+        src="image_src"
+      />
+    </Col>
+  </Row>
+</Col>
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExperimentList renders arxiv categories 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Experiments
+    : 
+  </span>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="Map { \\"name\\": \\"CERN-LHC-CMS\\" }"
+    >
+      CERN-LHC-CMS
+    </li>
+    <li
+      key="Map { \\"name\\": \\"CERN-LHC-LHCb\\" }"
+    >
+      CERN-LHC-LHCb
+    </li>
+  </ul>
+</div>
+`;

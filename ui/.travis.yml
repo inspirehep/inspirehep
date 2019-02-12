@@ -1,0 +1,21 @@
+sudo: required
+language: node_js
+env:
+    global:
+        # DEPLOY_URL
+        - secure: "kTAzsyE7kFa9QuA76oW31kKmgO1EezNEBvzCf7miXoRNBBIOX+LMeFvV9frW/FU9Wy0Ppi4FedBo9nrs2NhcLDh/JCPgpu0CUB4pUA4Qd+UHQSGRd1cuSgnKwO9wpOve6cnKjfPb2pgaelx9cpYvGbQhYcmn75Ftj69bWl5Q694RSu3uKsHIlg8uDQUUMRAb5NunFz045HDLtgVZJsGpOTcXSzc2CQubeZap8z10QtBIvLelRUKQgzeZU8FnFwFFbDijBQuBeJr1+6OfLQsUeAKpu5IETeJQGQZc0Wt9Pod5xiL7xVkYtqn5BWtI6rWzvE+dpE/MsqoHp7+IEjrTyn2M1vZZ3+7RVkcEYh53ZOGC7AQdT2xyvy7dTzNjJ1E8axVydZTMbSQdGWVa7bKZoKlOObd05QR+nwYaZSnROMBraQXti87IpMesI1vVWHpkeqo9owXgzD0Wmq9PawGM10sQ56lUkigOEAb4lSuaAx1D0h4NGRkfZaDYxi1L/7lfAO9cKxWMIfzH5UccrQIXaAIOc9qUTtl2gGJCknwP91+d299YAmdoM8pjPExSvtkiTzPB7akehttqQdZbF65WUOfJiTcNOV7YWk+JEYIffAqQgdxWSbMZN4KN55w9pe4ywVfT7vPTQCpfDkEeaJz9j30XNW1JB6Umr6qjdQ5YM6s="
+        # DEPLOY_TOKEN
+        - secure: "QFiZt1xlZujuXksbCQPc0zFdGFBzuCDyXVi2kOjAbwzhHzwp4dOOXDlJbZAvRPCEeQ6Z2wj9iAAtHWWY9kL0au8vnqCzDWRj8ep99ckBPZVVNW/pEG0VC64MxftD+tscEuUSFrCd4GDyB+0YKAYSkRs4Ww766enyz4pPS7IbQ9Jj40bCHKAPaBhbH09bORDHVYzkcCrlNTv/qRClMsoKWZMLVW2nnOda2nF4/fJkgG89/G6keCUO514IwAmZiy0r9Swe5pDRmzaSIxddy86d2tLayoiX/iOKYTBRvv3NtM0xDOkVARsVUnw3MTWTIuWical0F5KhhZuyo5sRoXs1q/BpmD1YTTzOavtsMpXXj5HJwLBiVU4KdElL1olAwfRZMnJhhPId97qHMDvzu+ikscRKSlfghnTZaCpjiUx9wW69KnwDEpe7uOh4KodcQfYLkYnNzx6qKEpx/9w0StzKS03iTaYu1zoNmu4bVJFtHcNTmUVZUHRuiU9EBTWdOBtSlKDKA8zYa5i3uqhZrflAcvRG2siPXoE5UcFPQQE0J0hoE6o8NmZe4EgDyYJcg0gcJp3SX1LLNNcHa0d1P+zuKVL0NNEFmWn/oPbtaUQHKFVE4nC375yqjcaH2RCGCGQs3j5tk0s7ZmsbxnZ1D1Xz5uj6IVeymruhU7pCKlNc6cc="
+
+node_js:
+  - 10.14.0
+
+cache: yarn
+services:
+  - docker
+
+deploy:
+  provider: script
+  script: bash ./deploy.sh
+  on:
+    branch: master

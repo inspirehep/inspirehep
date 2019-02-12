@@ -1,0 +1,179 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollaborationList renders with collaboration without suffix 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "value": "Alias Investigations",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={
+      <span>
+         Collaboration
+      </span>
+    }
+    wrapperClassName="di"
+  />
+  <InlineList
+    extractKey={[Function]}
+    items={Immutable.List []}
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</Fragment>
+`;
+
+exports[`CollaborationList renders with collaborations with and without suffix 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "value": "Alias Investigations",
+        },
+        Immutable.Map {
+          "value": "Nelson and Murdock",
+        },
+        Immutable.Map {
+          "value": "Defenders Group and Avengers",
+        },
+        Immutable.Map {
+          "value": "Defenders Task Force and Avengers",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={
+      <span>
+         Collaborations
+      </span>
+    }
+    wrapperClassName="di"
+  />
+  <span>
+     and 
+  </span>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "value": "Avangers Groups",
+        },
+        Immutable.Map {
+          "value": "Avangers Task Force",
+        },
+        Immutable.Map {
+          "value": "Avangers Consortium",
+        },
+        Immutable.Map {
+          "value": "Avangers Team",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</Fragment>
+`;
+
+exports[`CollaborationList renders with collaborations with suffix 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={Immutable.List []}
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={false}
+    wrapperClassName="di"
+  />
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "value": "Avangers Groups",
+        },
+        Immutable.Map {
+          "value": "Avangers Group",
+        },
+        Immutable.Map {
+          "value": "Avangers Task Force",
+        },
+        Immutable.Map {
+          "value": "Avangers Consortium",
+        },
+        Immutable.Map {
+          "value": "Avangers Team",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</Fragment>
+`;
+
+exports[`CollaborationList renders with collaborations without suffix 1`] = `
+<Fragment>
+  <InlineList
+    extractKey={[Function]}
+    items={
+      Immutable.List [
+        Immutable.Map {
+          "value": "Alias Investigations",
+        },
+        Immutable.Map {
+          "value": "Nelson and Murdock",
+        },
+      ]
+    }
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={
+      <span>
+         Collaborations
+      </span>
+    }
+    wrapperClassName="di"
+  />
+  <InlineList
+    extractKey={[Function]}
+    items={Immutable.List []}
+    label={null}
+    renderItem={[Function]}
+    separateItems={true}
+    separateItemsClassName="separate-items-with-and"
+    suffix={null}
+    wrapperClassName="di"
+  />
+</Fragment>
+`;

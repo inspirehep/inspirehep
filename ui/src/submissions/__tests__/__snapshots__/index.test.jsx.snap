@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Submissions renders initial state 1`] = `
+<div
+  className="w-100"
+>
+  <SafeSwitch>
+    <Redirect
+      exact={true}
+      from="/submissions"
+      push={false}
+      to="/submissions/authors"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/submissions/authors"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/submissions/authors/:id"
+    />
+    <Connect(PrivateRoute)
+      authorizedRoles={
+        Immutable.Set [
+          "superuser",
+        ]
+      }
+      component={[Function]}
+      exact={true}
+      path="/submissions/literature"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/submissions/success"
+    />
+  </SafeSwitch>
+</div>
+`;

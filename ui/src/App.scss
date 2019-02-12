@@ -1,0 +1,31 @@
+.__App__ {
+  min-height: 100vh !important;
+  .content {
+    padding: 0 40px;
+    margin-top: 64px;
+    display: flex;
+  }
+  .ant-list-item-meta-title > a {
+    color: $primary-color;
+    :hover {
+      color: $link-hover-color;
+    }
+  }
+  .mb4-important {
+    margin-bottom: 4px !important;
+  }
+  .secondary-link {
+    color: rgba(0, 0, 0, 0.45);
+    text-decoration: underline;
+    font-style: italic;
+  }
+  .secondary-container {
+    font-style: italic;
+    a {
+      @extend .secondary-link;
+    }
+  }
+  .ant-timeline-item-last {
+    padding: 0;
+  }
+}

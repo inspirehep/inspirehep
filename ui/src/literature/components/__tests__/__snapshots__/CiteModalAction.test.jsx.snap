@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CiteModalAction renders with recordId 1`] = `
+<div
+  className="di"
+>
+  <EventTracker
+    eventId="Cite"
+    eventPropName="onClick"
+  >
+    <ListItemAction
+      iconType="export"
+      onClick={[Function]}
+      text="cite"
+    />
+  </EventTracker>
+  <Modal
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="Cite Article"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <div>
+      <Row
+        gutter={0}
+      >
+        <pre />
+      </Row>
+      <Row
+        gutter={0}
+        justify="space-between"
+        type="flex"
+      >
+        <div>
+          <CopyToClipboard
+            onCopy={[Function]}
+          >
+            <Button
+              block={false}
+              ghost={false}
+              loading={false}
+              prefixCls="ant-btn"
+              style={
+                Object {
+                  "marginRight": 12,
+                }
+              }
+            >
+              <Icon
+                type="copy"
+              />
+               Copy to Clipboard
+            </Button>
+          </CopyToClipboard>
+          <Button
+            block={false}
+            ghost={false}
+            loading={false}
+            onClick={[Function]}
+            prefixCls="ant-btn"
+          >
+            <Icon
+              type="download"
+            />
+             Download
+          </Button>
+        </div>
+        <SelectBox
+          defaultValue="x-bibtex"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "display": "BibTex",
+                "value": "x-bibtex",
+              },
+              Object {
+                "display": "LaTex (EU)",
+                "value": "vnd+inspire.latex.eu+x-latex",
+              },
+              Object {
+                "display": "LaTex (US)",
+                "value": "vnd+inspire.latex.us+x-latex",
+              },
+            ]
+          }
+          style={
+            Object {
+              "width": 140,
+            }
+          }
+        />
+      </Row>
+    </div>
+  </Modal>
+</div>
+`;

@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorLink renders first_name and last_name 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+  >
+    Full Name
+  </ExternalLink>
+</div>
+`;
+
+exports[`AuthorLink renders first_name and last_name of editor 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+  >
+    Full Name
+  </ExternalLink>
+  <span
+    className="pl1"
+  >
+    (
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          "Affiliation",
+        ]
+      }
+    />
+    )
+  </span>
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    prefixCls="ant-tooltip"
+    title="editor"
+    transitionName="zoom-big-fast"
+  >
+    (ed.)
+  </Tooltip>
+</div>
+`;
+
+exports[`AuthorLink renders first_name and last_name with affiliations 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+  >
+    Full Name
+  </ExternalLink>
+  <span
+    className="pl1"
+  >
+    (
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          "Affiliation",
+        ]
+      }
+    />
+    )
+  </span>
+</div>
+`;
+
+exports[`AuthorLink renders first_name with last_name missing 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name Full"
+  >
+    Name 
+  </ExternalLink>
+  <span
+    className="pl1"
+  >
+    (
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          "Affiliation",
+        ]
+      }
+    />
+    )
+  </span>
+</div>
+`;
+
+exports[`AuthorLink renders full_name if first_name and last_name missing 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name Full"
+  >
+    Name Full
+  </ExternalLink>
+  <span
+    className="pl1"
+  >
+    (
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          "Affiliation",
+        ]
+      }
+    />
+    )
+  </span>
+</div>
+`;
+
+exports[`AuthorLink renders full_name with affiliations 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+  >
+    Name, Full
+  </ExternalLink>
+  <span
+    className="pl1"
+  >
+    (
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          "Affiliation",
+        ]
+      }
+    />
+    )
+  </span>
+</div>
+`;
+
+exports[`AuthorLink renders full_name with first_name missing 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name Full"
+  >
+    Name Full
+  </ExternalLink>
+  <span
+    className="pl1"
+  >
+    (
+    <AuthorAffiliationList
+      affiliations={
+        Immutable.List [
+          "Affiliation",
+        ]
+      }
+    />
+    )
+  </span>
+</div>
+`;
+
+exports[`AuthorLink renders supervisor 1`] = `
+<div
+  className="di"
+>
+  <ExternalLink
+    href="//inspirehep.net/author/profile/Name, Full?recid=12345"
+  >
+    Name, Full
+  </ExternalLink>
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    prefixCls="ant-tooltip"
+    title="supervisor"
+    transitionName="zoom-big-fast"
+  >
+    (supervisor)
+  </Tooltip>
+</div>
+`;

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExceptionsPage renders initial state 1`] = `
+<ExceptionsDashboard
+  exceptions={
+    Array [
+      Object {
+        "collection": "hep",
+        "error": "Some error",
+        "recid": 123456,
+      },
+    ]
+  }
+  loading={false}
+/>
+`;
+
+exports[`ExceptionsPage renders initial state when loading is true 1`] = `
+<ExceptionsDashboard
+  exceptions={Array []}
+  loading={true}
+/>
+`;

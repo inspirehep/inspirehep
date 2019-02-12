@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicationInfo does not display a comma when page info or artid is not available 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     
+    2
+  </span>
+</span>
+`;
+
+exports[`PublicationInfo does not render material if it is publication 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+</span>
+`;
+
+exports[`PublicationInfo renders either page start/end or artid 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     
+    2
+  </span>
+  <span>
+    ,
+  </span>
+  <span>
+     
+    1-10
+  </span>
+</span>
+`;
+
+exports[`PublicationInfo renders only page_start when page_end is not available 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     
+    2
+  </span>
+  <span>
+    ,
+  </span>
+  <span>
+     
+    1
+  </span>
+</span>
+`;
+
+exports[`PublicationInfo renders with journal_title and alll others fields 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     
+    TV
+  </span>
+  <span>
+     (
+    2016
+    )
+  </span>
+  <span>
+     
+    1-2
+  </span>
+</span>
+`;
+
+exports[`PublicationInfo renders with journal_title and alll others fields 2`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     
+    TV
+  </span>
+  <span>
+     (
+    2016
+    )
+  </span>
+  <span>
+     
+    1-2
+  </span>
+</span>
+`;
+
+exports[`PublicationInfo renders with journal_title present 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+</span>
+`;
+
+exports[`PublicationInfo renders with material 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     (
+    erratum
+    )
+  </span>
+</span>
+`;
+
+exports[`PublicationInfo renders with pubinfo_freetext 1`] = `
+<span>
+  Test. Pub. Info. Freetext
+</span>
+`;
+
+exports[`PublicationInfo renders without pubinfo_freetext or journal_title 1`] = `""`;

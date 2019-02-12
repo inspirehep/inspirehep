@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureItem does not arxiv pdf download action if there is no eprint value 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <CiteModalAction
+        recordId={12345}
+      />
+      <Connect(EditRecordActionContainer)
+        recordId={12345}
+      />
+    </React.Fragment>
+  }
+  rightActions={
+    <React.Fragment>
+      <EventTracker
+        eventId="Citations:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="login"
+          link={
+            Object {
+              "to": "/literature/12345#citations",
+            }
+          }
+          text="0 citations"
+        />
+      </EventTracker>
+    </React.Fragment>
+  }
+>
+  <Link
+    className="f4"
+    replace={false}
+    to="/literature/12345"
+  >
+    <Latex />
+  </Link>
+  <div
+    className="mt2"
+  >
+    <div>
+      <AuthorsAndCollaborations
+        authors={Immutable.List []}
+        collaborations={Immutable.List []}
+        collaborationsWithSuffix={Immutable.List []}
+        enableAuthorsShowAll={false}
+        recordId={12345}
+      />
+    </div>
+    <LiteratureDate
+      date={null}
+    />
+  </div>
+  <div
+    className="mt2"
+  >
+    <PublicationInfoList
+      labeled={true}
+      publicationInfo={null}
+      wrapperClassName={null}
+    />
+    <ArxivEprintList
+      eprints={null}
+      wrapperClassName={null}
+    />
+    <DOIList
+      dois={null}
+      wrapperClassName={null}
+    />
+    <PartialAbstract
+      abstract={null}
+    />
+  </div>
+</ResultItem>
+`;
+
+exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <CiteModalAction
+        recordId={12345}
+      />
+      <Connect(EditRecordActionContainer)
+        recordId={12345}
+      />
+    </React.Fragment>
+  }
+  rightActions={
+    <React.Fragment>
+      <EventTracker
+        eventId="Citations:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="login"
+          link={
+            Object {
+              "to": "/literature/12345#citations",
+            }
+          }
+          text="0 citations"
+        />
+      </EventTracker>
+    </React.Fragment>
+  }
+>
+  <Link
+    className="f4"
+    replace={false}
+    to="/literature/12345"
+  >
+    <Latex />
+  </Link>
+  <div
+    className="mt2"
+  >
+    <div>
+      <AuthorsAndCollaborations
+        authors={Immutable.List []}
+        collaborations={Immutable.List []}
+        collaborationsWithSuffix={Immutable.List []}
+        enableAuthorsShowAll={false}
+        recordId={12345}
+      />
+    </div>
+    <LiteratureDate
+      date={null}
+    />
+  </div>
+  <div
+    className="mt2"
+  >
+    <PublicationInfoList
+      labeled={true}
+      publicationInfo={null}
+      wrapperClassName={null}
+    />
+    <ArxivEprintList
+      eprints={null}
+      wrapperClassName={null}
+    />
+    <DOIList
+      dois={null}
+      wrapperClassName={null}
+    />
+    <PartialAbstract
+      abstract={null}
+    />
+  </div>
+</ResultItem>
+`;
+
+exports[`LiteratureItem renders with all props set, including sub props 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <ArxivPdfDownloadAction
+        arxivId="1234567890"
+      />
+      <CiteModalAction
+        recordId={12345}
+      />
+      <Connect(EditRecordActionContainer)
+        recordId={12345}
+      />
+    </React.Fragment>
+  }
+  rightActions={
+    <React.Fragment>
+      <EventTracker
+        eventId="Citations:Search"
+        eventPropName="onClick"
+      >
+        <ListItemAction
+          iconType="login"
+          link={
+            Object {
+              "to": "/literature/12345#citations",
+            }
+          }
+          text="1 citations"
+        />
+      </EventTracker>
+    </React.Fragment>
+  }
+>
+  <Link
+    className="f4"
+    replace={false}
+    to="/literature/12345"
+  >
+    <Latex>
+      test
+    </Latex>
+  </Link>
+  <div
+    className="mt2"
+  >
+    <div>
+      <AuthorsAndCollaborations
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "full_name": "Test, Author",
+            },
+          ]
+        }
+        collaborations={
+          Immutable.List [
+            Immutable.Map {
+              "value": "CMS",
+            },
+          ]
+        }
+        collaborationsWithSuffix={
+          Immutable.List [
+            Immutable.Map {
+              "value": "CMS Group",
+            },
+          ]
+        }
+        enableAuthorsShowAll={false}
+        recordId={12345}
+      />
+    </div>
+    <LiteratureDate
+      date="Jun 7, 1993"
+    />
+  </div>
+  <div
+    className="mt2"
+  >
+    <PublicationInfoList
+      labeled={true}
+      publicationInfo={
+        Immutable.List [
+          Immutable.Map {
+            "journal_title": "Test Jornal",
+          },
+        ]
+      }
+      wrapperClassName={null}
+    />
+    <ArxivEprintList
+      eprints={
+        Immutable.List [
+          Immutable.Map {
+            "value": "1234567890",
+          },
+        ]
+      }
+      wrapperClassName={null}
+    />
+    <DOIList
+      dois={
+        Immutable.List [
+          Immutable.Map {
+            "value": "12345679.1234.123",
+          },
+        ]
+      }
+      wrapperClassName={null}
+    />
+    <PartialAbstract
+      abstract={null}
+    />
+  </div>
+</ResultItem>
+`;

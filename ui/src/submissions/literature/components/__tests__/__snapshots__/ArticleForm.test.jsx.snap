@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticleForm renders all props 1`] = `
+<Form>
+  <CollapsableForm
+    openSections={
+      Array [
+        "basic_info",
+        "links",
+        "publication_info",
+      ]
+    }
+  >
+    <CollapsableFormSection
+      header="Links"
+      key="links"
+    >
+      <LinkFields />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Basic Info"
+      key="basic_info"
+    >
+      <BasicInfoFields
+        values={Object {}}
+        withCollaborationField={true}
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Publication Info"
+      key="publication_info"
+    >
+      <C
+        component={[Function]}
+        extractItemCompletionValue={[Function]}
+        label="Journal Title"
+        name="journal_title"
+        pidType="journals"
+        renderResultItem={[Function]}
+        suggesterName="journal_title"
+      />
+      <C
+        component={[Function]}
+        label="Volume"
+        name="volume"
+      />
+      <C
+        component={[Function]}
+        label="Issue"
+        name="issue"
+      />
+      <C
+        component={[Function]}
+        label="Year"
+        name="year"
+      />
+      <C
+        component={[Function]}
+        label="Page Range/Article ID"
+        name="page_range"
+        placeholder="e.g. 1-100"
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Conference Info"
+      key="conference_info"
+    >
+      <C
+        component={[Function]}
+        extractItemCompletionValue={[Function]}
+        label="Conference Info"
+        name="conference_info"
+        pidType="conferences"
+        placeholder="Conference name, acronym, place, date, type for suggestions"
+        renderResultItem={[Function]}
+        suggesterName="conference"
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Proceedings Info (if not published in a journal)"
+      key="proceedings_info"
+    >
+      <C
+        component={[Function]}
+        label="Proceedings"
+        name="proceedings_info"
+        placeholder="Editors, title of proceedings, publisher, year of publication, page range, URL"
+        rows={6}
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="References"
+      key="references"
+    >
+      <ReferencesField
+        values={Object {}}
+      />
+    </CollapsableFormSection>
+    <CollapsableFormSection
+      header="Comments"
+      key="comments"
+    >
+      <CommentsField
+        values={Object {}}
+      />
+    </CollapsableFormSection>
+  </CollapsableForm>
+  <Row
+    gutter={0}
+    justify="end"
+    type="flex"
+  >
+    <SubmitButton
+      isSubmitting={false}
+      isValid={true}
+      isValidating={false}
+    />
+  </Row>
+</Form>
+`;

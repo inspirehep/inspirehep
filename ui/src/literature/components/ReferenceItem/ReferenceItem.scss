@@ -1,0 +1,8 @@
+.bulleted-list {
+  padding: 0;
+  & > li:not(:first-of-type) {
+    &:before {
+      content: '\2022 ';
+    }
+  }
+}

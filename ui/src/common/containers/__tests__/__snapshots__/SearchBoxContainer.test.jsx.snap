@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBoxContainer renders initial state with initial url query q param 1`] = `
+<Search
+  addonBefore={<Connect(SearchScopeSelectContainer) />}
+  enterButton={true}
+  inputPrefixCls="ant-input"
+  onChange={[Function]}
+  onSearch={[Function]}
+  placeholder={null}
+  prefixCls="ant-input-search"
+  size="large"
+  style={
+    Object {
+      "verticalAlign": "middle",
+    }
+  }
+  value="test"
+/>
+`;

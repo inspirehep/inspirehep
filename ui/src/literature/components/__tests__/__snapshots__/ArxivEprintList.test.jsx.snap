@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArxivEprintList renders with arXiv id 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    e-Print
+    : 
+  </span>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="123.12345"
+    >
+      <ArxivEprint
+        eprint={
+          Immutable.Map {
+            "value": "123.12345",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`ArxivEprintList renders with wrapperClassName 1`] = `
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "value": "123.12345",
+      },
+    ]
+  }
+  label="e-Print"
+  renderItem={[Function]}
+  separateItems={true}
+  separateItemsClassName="separate-items-with-comma"
+  suffix={null}
+  wrapperClassName="test"
+/>
+`;

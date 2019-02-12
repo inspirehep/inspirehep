@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loading render loading component 1`] = `
+<Row
+  align="middle"
+  className="w-100"
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <Col>
+    <div
+      className="tc pa4"
+    >
+      <Spin
+        prefixCls="ant-spin"
+        size="default"
+        spinning={true}
+        tip="Loading ..."
+        wrapperClassName=""
+      />
+    </div>
+  </Col>
+</Row>
+`;

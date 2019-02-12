@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`immutableToJS converts immutable props to built in js 1`] = `
+<MutableDummy
+  immutableProp={
+    Object {
+      "list": Array [
+        Object {
+          "foo": "bar1",
+        },
+        Object {
+          "foo": "bar2",
+        },
+      ],
+    }
+  }
+  mutableProp={
+    Object {
+      "array": Array [
+        Object {
+          "foo": "bar",
+        },
+      ],
+    }
+  }
+  primitiveProp="string"
+/>
+`;

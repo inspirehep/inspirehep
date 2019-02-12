@@ -1,0 +1,26 @@
+.__ArrayOf__ {
+  .remove-button {
+    cursor: pointer;
+    position: relative;
+    top: 4px;
+    font-size: 24px;
+    color: #999;
+    transition: all 0.3s;
+
+    &:hover {
+      color: #777;
+    }
+  }
+
+  .add-button {
+    margin-bottom: 0;
+  }
+
+  .items-container {
+    margin-bottom: 0;
+  }
+
+  .item {
+    margin-bottom: 0.5em;
+  }
+}

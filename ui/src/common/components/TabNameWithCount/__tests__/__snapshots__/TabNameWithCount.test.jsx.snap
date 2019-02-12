@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabNameWithCount displays count if loading is false 1`] = `
+<EventTracker
+  eventId="Test-Tab"
+  eventPropName="onClick"
+>
+  <span>
+    <span>
+      Test
+    </span>
+    <span
+      className="ml1"
+    >
+      <span>
+        (
+        10
+        )
+      </span>
+    </span>
+  </span>
+</EventTracker>
+`;
+
+exports[`TabNameWithCount does not display count if loading is true 1`] = `
+<EventTracker
+  eventId="Test-Tab"
+  eventPropName="onClick"
+>
+  <span>
+    <span>
+      Test
+    </span>
+    <span
+      className="ml1"
+    >
+      <Icon
+        className="ml1"
+        spin={true}
+        type="loading"
+      />
+    </span>
+  </span>
+</EventTracker>
+`;
+
+exports[`TabNameWithCount renders when loading true 1`] = `
+<EventTracker
+  eventId="Test-Tab"
+  eventPropName="onClick"
+>
+  <span>
+    <span>
+      Test
+    </span>
+    <span
+      className="ml1"
+    >
+      <Icon
+        className="ml1"
+        spin={true}
+        type="loading"
+      />
+    </span>
+  </span>
+</EventTracker>
+`;
+
+exports[`TabNameWithCount renders with required props 1`] = `
+<EventTracker
+  eventId="Test-Tab"
+  eventPropName="onClick"
+>
+  <span>
+    <span>
+      Test
+    </span>
+    <span
+      className="ml1"
+    />
+  </span>
+</EventTracker>
+`;

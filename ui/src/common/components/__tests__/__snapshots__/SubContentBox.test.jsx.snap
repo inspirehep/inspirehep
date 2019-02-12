@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubContentBox renders with all props 1`] = `
+<Card>
+  <div
+    className="pa3"
+  >
+    <h3>
+      Box
+    </h3>
+    <div
+      className="pt2"
+    >
+      <div>
+        Lots of content
+      </div>
+    </div>
+  </div>
+</Card>
+`;
+
+exports[`SubContentBox renders without title 1`] = `
+<Card>
+  <div
+    className="pa3"
+  >
+    <h3 />
+    <div
+      className="pt2"
+    >
+      <div>
+        Lots of content
+      </div>
+    </div>
+  </div>
+</Card>
+`;

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterDropdown renders with all props set 1`] = `
+<div>
+  <Search
+    enterButton={true}
+    inputPrefixCls="ant-input"
+    onSearch={[MockFunction]}
+    placeholder="placeholder text"
+    prefixCls="ant-input-search"
+  />
+</div>
+`;
