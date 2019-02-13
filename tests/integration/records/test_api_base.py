@@ -327,13 +327,13 @@ def test_get_bucket_multiple_same_parameters(
     record = InspireRecord.get_record(record_factory.id)
 
     bucket = record.get_bucket()
-    bucket_second = record.get_bucket()
     bucket_copy = record.get_bucket()
+    bucket_copy2 = record.get_bucket()
     assert bucket is not None
-    assert bucket_second is not None
     assert bucket_copy is not None
-    assert bucket.id == bucket_second.id
-    assert bucket_copy.id == bucket.id
+    assert bucket_copy2 is not None
+    assert bucket.id == bucket_copy.id
+    assert bucket_copy2.id == bucket.id
 
 
 def test_get_multiple_buckets_different_parameters(

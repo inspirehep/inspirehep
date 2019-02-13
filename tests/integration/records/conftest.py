@@ -27,22 +27,14 @@ def fsopen_mock():
     def return_mock_with_proper_file(*args, **kwargs):
         dir_path = os.path.dirname(os.path.realpath(__file__))
         url = args[0]
-        if url == "http://document_url.cern.ch/file.pdf":
-            file = open(
-                f"{dir_path}/test_data/test_document.pdf", mode=kwargs.get("mode", "rb")
-            )
-        elif url == "http://figure_url.cern.ch/file.png":
-            file = open(
-                f"{dir_path}/test_data/test_figure2.png", mode=kwargs.get("mode", "rb")
-            )
-        elif url == "http://figure_url.cern.ch/figure2.pdf":
-            file = open(
-                f"{dir_path}/test_data/test_figure1.pdf", mode=kwargs.get("mode", "rb")
-            )
-        elif url == "http://figure_url.cern.ch/some_strange_path":
-            file = open(
-                f"{dir_path}/test_data/test_figure1.pdf", mode=kwargs.get("mode", "rb")
-            )
+        files_map = {
+            "http://document_url.cern.ch/file.pdf": f"{dir_path}/test_data/test_document.pdf",
+            "http://figure_url.cern.ch/file.png": f"{dir_path}/test_data/test_figure2.png",
+            "http://figure_url.cern.ch/figure2.pdf": f"{dir_path}/test_data/test_figure1.pdf",
+            "http://figure_url.cern.ch/some_strange_path": f"{dir_path}/test_data/test_figure1.pdf",
+        }
+        if url in files_map:
+            file = open(files_map[url], mode=kwargs.get("mode", "rb"))
         else:
             raise ResourceNotFoundError
         stream_mock = MagicMock()
