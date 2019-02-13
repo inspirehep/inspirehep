@@ -28,10 +28,10 @@ def fsopen_mock():
         dir_path = os.path.dirname(os.path.realpath(__file__))
         url = args[0]
         files_map = {
-            "http://document_url.cern.ch/file.pdf": f"{dir_path}/test_data/test_document.pdf",
-            "http://figure_url.cern.ch/file.png": f"{dir_path}/test_data/test_figure2.png",
-            "http://figure_url.cern.ch/figure2.pdf": f"{dir_path}/test_data/test_figure1.pdf",
-            "http://figure_url.cern.ch/some_strange_path": f"{dir_path}/test_data/test_figure1.pdf",
+            "http://document_url.cern.ch/file.pdf": f"{dir_path}/test_data/test_document.pdf",  # noqa
+            "http://figure_url.cern.ch/file.png": f"{dir_path}/test_data/test_figure2.png",  # noqa
+            "http://figure_url.cern.ch/figure2.pdf": f"{dir_path}/test_data/test_figure1.pdf",  # noqa
+            "http://figure_url.cern.ch/some_strange_path": f"{dir_path}/test_data/test_figure1.pdf",  # noqa
         }
         if url in files_map:
             file = open(files_map[url], mode=kwargs.get("mode", "rb"))
