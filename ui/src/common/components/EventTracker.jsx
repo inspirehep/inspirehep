@@ -7,10 +7,10 @@ class EventTracker extends Component {
   constructor(props) {
     super(props);
 
-    this.onEventkWithTracking = this.onEventkWithTracking.bind(this);
+    this.onEventWithTracking = this.onEventWithTracking.bind(this);
   }
 
-  onEventkWithTracking(...eventArgs) {
+  onEventWithTracking(...eventArgs) {
     const { children, eventId, eventPropName } = this.props;
     trackEvent('User', eventPropName, eventId);
 
@@ -22,7 +22,7 @@ class EventTracker extends Component {
   render() {
     const { children, eventPropName } = this.props;
     return React.cloneElement(children, {
-      [eventPropName]: this.onEventkWithTracking,
+      [eventPropName]: this.onEventWithTracking,
     });
   }
 }
