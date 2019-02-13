@@ -27,7 +27,7 @@ def _get_search_with_source(search):
 
 
 def inspire_search_factory(self, search):
-    query_string = request.values.get("q")
+    query_string = request.values.get("q", "")
 
     try:
         search = search.query_from_iq(query_string)
@@ -38,13 +38,11 @@ def inspire_search_factory(self, search):
         )
         raise InvalidQueryRESTError()
 
-    return search
+    return query_string, search
 
 
 def search_factory_with_aggs(self, search):
-    query_string = request.values.get("q")
-
-    search = inspire_search_factory(self, search)
+    query_string, search = inspire_search_factory(self, search)
     search_index = search._index[0]
 
     # facets, filter, sort
@@ -62,9 +60,7 @@ def search_factory_with_aggs(self, search):
 
 
 def search_factory_without_aggs(self, search):
-    query_string = request.values.get("q")
-
-    search = inspire_search_factory(self, search)
+    query_string, search = inspire_search_factory(self, search)
     search_index = search._index[0]
 
     search, urlkwargs = inspire_filter_factory(search, search_index)
@@ -80,11 +76,8 @@ def search_factory_without_aggs(self, search):
 
 
 def search_factory_only_with_aggs(self, search):
-    query_string = request.values.get("q")
-
-    search = inspire_search_factory(self, search)
+    query_string, search = inspire_search_factory(self, search)
     search_index = search._index[0]
-
     search, urlkwargs = inspire_facets_factory(search, search_index)
 
     # make sure no source is returned

@@ -13,6 +13,7 @@ from ..utils import get_facet_configuration
 
 def inspire_facets_factory(search, index):
     urlkwargs = MultiDict()
+
     facets = get_facet_configuration(index)
 
     if facets is not None:

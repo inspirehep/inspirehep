@@ -18,7 +18,7 @@ from copy import deepcopy
 from datetime import timedelta
 
 from invenio_indexer.api import RecordIndexer
-from invenio_records_rest.facets import terms_filter
+from invenio_records_rest.facets import terms_filter, range_filter
 from invenio_records_rest.utils import allow_all, check_elasticsearch, deny_all
 
 from .search.api import LiteratureSearch
@@ -143,13 +143,11 @@ LITERATURE = {
     "search_index": "records-hep",
     "record_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_response",
-        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-        + ":literature_json_v1_response",
+        "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response",
     },
     "search_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_search",
-        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-        + ":literature_json_v1_response_search",
+        "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response_search",
     },
     "record_loaders": {
         "application/json": "inspirehep.records.loaders:literature_json_v1"
@@ -165,28 +163,40 @@ LITERATURE = {
     "delete_permission_factory_imp": deny_all,
     "list_permission_factory_imp": allow_all,
 }
-LITERATURE_ARXIV = deepcopy(LITERATURE)
-LITERATURE_ARXIV.update(
+LITERATURE_FACETS = deepcopy(LITERATURE)
+LITERATURE_FACETS.update(
     {
-        "pid_type": "arxiv",
-        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "default_endpoint_prefix": False,
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
+        "pid_type": "lit",
+        "list_route": "/literature/facets/",
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+        },
     }
 )
-LITERATURE_DOI = deepcopy(LITERATURE)
-LITERATURE_DOI.update(
+ARXIV = deepcopy(LITERATURE)
+ARXIV.update(
+    {
+        "pid_type": "arxiv",
+        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
+    }
+)
+DOI = deepcopy(LITERATURE)
+DOI.update(
     {
         "pid_type": "doi",
-        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
     }
 )
 
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
-    "literature_arxiv": LITERATURE_ARXIV,
-    "literature_doi": LITERATURE_DOI,
+    "literature_facets": LITERATURE_FACETS,
+    "arxiv": ARXIV,
+    "doi": DOI,
 }
 """REST API for inspirehep."""
-from invenio_records_rest.facets import terms_filter, range_filter
 
 RECORDS_REST_FACETS = {
     "records-hep": {
