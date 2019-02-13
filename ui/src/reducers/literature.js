@@ -23,7 +23,6 @@ export const initialState = fromJS({
   loadingAuthors: false,
   errorAuthors: null,
   authors: [],
-  supervisors: [],
 });
 
 const literatureReducer = (state = initialState, action) => {
@@ -57,14 +56,12 @@ const literatureReducer = (state = initialState, action) => {
       return state
         .set('loadingAuthors', false)
         .set('authors', fromJS(action.payload.metadata.authors))
-        .set('supervisors', fromJS(action.payload.metadata.supervisors))
         .set('errorAuthors', initialState.get('errorAuthors'));
     case LITERATURE_AUTHORS_ERROR:
       return state
         .set('loadingAuthors', false)
         .set('errorAuthors', fromJS(action.payload))
         .set('authors', initialState.get('authors'))
-        .set('supervisors', initialState.get('supervisors'));
     default:
       return state;
   }

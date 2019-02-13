@@ -24,7 +24,6 @@ from .common import (
     IsbnSchemaV1,
     PublicationInfoItemSchemaV1,
     ReferenceItemSchemaV1,
-    SupervisorSchemaV1,
     ThesisInfoSchemaV1,
 )
 
@@ -77,9 +76,6 @@ class LiteratureMetadataSchemaV1(Schema):
         PublicationInfoItemSchemaV1, dump_only=True, many=True
     )
     report_numbers = fields.Raw(dump_only=True)
-    supervisors = ListWithLimit(
-        fields.Nested(SupervisorSchemaV1, dump_only=True), attribute="authors", limit=10
-    )
     texkeys = fields.Raw(dump_only=True)
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
     titles = fields.Raw(dump_only=True)

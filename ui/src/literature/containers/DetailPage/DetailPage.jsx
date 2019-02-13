@@ -12,7 +12,6 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import AuthorList from '../../../common/components/AuthorList';
 import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
 import CiteModalAction from '../../components/CiteModalAction';
 import EditRecordActionContainer from '../../../common/containers/EditRecordActionContainer';
@@ -66,7 +65,6 @@ class DetailPage extends Component {
       references,
       loadingReferences,
       errorReferences,
-      supervisors,
       citationCount,
       loadingCitations,
       record,
@@ -127,12 +125,6 @@ class DetailPage extends Component {
                 enableAuthorsShowAll
                 collaborations={collaborations}
                 collaborationsWithSuffix={collaborationsWithSuffix}
-              />
-              <AuthorList
-                recordId={recordId}
-                authors={supervisors}
-                forSupervisors
-                enableShowAll
               />
             </div>
             <LiteratureDate date={date} />
@@ -212,7 +204,6 @@ DetailPage.propTypes = {
   references: PropTypes.instanceOf(List).isRequired,
   errorReferences: ErrorPropType, // eslint-disable-line react/require-default-props
   authors: PropTypes.instanceOf(List).isRequired,
-  supervisors: PropTypes.instanceOf(List).isRequired,
   loadingReferences: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   citationCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
@@ -227,7 +218,6 @@ const mapStateToProps = state => ({
   loadingReferences: state.literature.get('loadingReferences'),
   errorReferences: state.literature.get('errorReferences'),
   authors: state.literature.get('authors'),
-  supervisors: state.literature.get('supervisors'),
   citationCount: state.citations.get('total'),
   loadingCitations: state.citations.get('loading'),
 });

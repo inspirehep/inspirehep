@@ -49,12 +49,3 @@ def test_author_with_with_inspire_roles():
     result = schema.dumps(dump).data
 
     assert expected == json.loads(result)
-
-
-def test_author_with_inspire_roles_supervisor():
-    schema = AuthorSchemaV1()
-    dump = {"full_name": "Smith, John", "inspire_roles": ["supervisor"]}
-    expected = {}
-    result = schema.dumps(dump).data
-
-    assert expected == json.loads(result)

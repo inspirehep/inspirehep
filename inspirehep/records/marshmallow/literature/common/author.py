@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from marshmallow import Schema, fields, missing, pre_dump
+from marshmallow import Schema, fields, missing
 
 
 class AuthorSchemaV1(Schema):
@@ -39,10 +39,3 @@ class AuthorSchemaV1(Schema):
             return names[0] or missing
 
         return missing
-
-    @pre_dump
-    def pre_filter(self, data):
-        if "inspire_roles" in data:
-            if "supervisor" in data.get("inspire_roles", ["author"]):
-                return {}
-        return data

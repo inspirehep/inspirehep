@@ -24,7 +24,6 @@ exports[`AuthorsAndCollaborations does not render bullet if authors missing 1`] 
   <AuthorList
     authors={Immutable.List []}
     enableShowAll={false}
-    forSupervisors={false}
     limit={1}
     recordId={12345}
     total={-1}
@@ -48,7 +47,6 @@ exports[`AuthorsAndCollaborations does not render bullet if authors missing with
   <AuthorList
     authors={Immutable.List []}
     enableShowAll={false}
-    forSupervisors={false}
     limit={1}
     recordId={12345}
     total={-1}
@@ -95,7 +93,6 @@ exports[`AuthorsAndCollaborations renders collaboration list and author list if 
       ]
     }
     enableShowAll={true}
-    forSupervisors={false}
     limit={1}
     recordId={12345}
     total={12}
@@ -133,7 +130,6 @@ exports[`AuthorsAndCollaborations renders collaboration list with single item an
       ]
     }
     enableShowAll={true}
-    forSupervisors={false}
     limit={1}
     recordId={12345}
     total={12}
@@ -171,7 +167,6 @@ exports[`AuthorsAndCollaborations renders multiple collaborations and author for
       ]
     }
     enableShowAll={true}
-    forSupervisors={false}
     limit={5}
     recordId={12345}
     total={1}
@@ -199,7 +194,6 @@ exports[`AuthorsAndCollaborations renders only author list if collaborations are
     ]
   }
   enableShowAll={false}
-  forSupervisors={false}
   limit={5}
   recordId={12345}
   total={-1}
@@ -217,7 +211,6 @@ exports[`AuthorsAndCollaborations renders only author list if collaborations are
     ]
   }
   enableShowAll={true}
-  forSupervisors={false}
   limit={5}
   recordId={12345}
   total={1}
@@ -251,7 +244,6 @@ exports[`AuthorsAndCollaborations renders only one collaboration and author for 
       ]
     }
     enableShowAll={true}
-    forSupervisors={false}
     limit={5}
     recordId={12345}
     total={1}
