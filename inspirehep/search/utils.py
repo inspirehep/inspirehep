@@ -13,9 +13,6 @@ from werkzeug.utils import import_string
 def get_facet_configuration(search_index):
     facet_name = request.values.get("facet_name")
 
-    from remote_pdb import RemotePdb
-
-    RemotePdb("127.0.0.1", 4444).set_trace()
     facet = current_app.config["RECORDS_REST_FACETS"].get(facet_name)
 
     if not facet:
