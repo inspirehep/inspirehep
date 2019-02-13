@@ -7,6 +7,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 pipenv run isort -rc -c -df && \
-pipenv run check-manifest --ignore ".travis-*" && \
+pipenv run check-manifest --ignore ".travis-*,ui/*,ui" && \
 pipenv run py.test tests/unit && \
 pipenv run py.test tests/integration
