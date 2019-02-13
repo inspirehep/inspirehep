@@ -54,7 +54,7 @@ class LiteratureItem extends Component {
                 <ListItemAction
                   iconType="login"
                   text={`${citationCount} citations`}
-                  link={{ to: `/literature/${recordId}#citations` }}
+                  link={{ to: `${LITERATURE}?q=refersto:recid:${recordId}` }}
                 />
               </EventTracker>
             )}
