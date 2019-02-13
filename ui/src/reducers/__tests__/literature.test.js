@@ -121,15 +121,9 @@ describe('literature reducer', () => {
         full_name: 'Jessica Jones',
       },
     ];
-    const supervisors = [
-      {
-        full_name: 'Kapustin, Anton',
-      },
-    ];
     const payload = {
       metadata: {
         authors,
-        supervisors,
       },
     };
     const state = reducer(Map(), {
@@ -139,7 +133,6 @@ describe('literature reducer', () => {
     const expected = fromJS({
       loadingAuthors: false,
       authors,
-      supervisors,
       errorAuthors: initialState.get('errorAuthors'),
     });
     expect(state).toEqual(expected);
@@ -154,7 +147,6 @@ describe('literature reducer', () => {
       loadingAuthors: false,
       errorAuthors: { message: 'error' },
       authors: initialState.get('authors'),
-      supervisors: initialState.get('supervisors'),
     });
     expect(state).toEqual(expected);
   });

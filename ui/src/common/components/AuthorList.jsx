@@ -26,11 +26,6 @@ class AuthorList extends Component {
     this.setState({ modalVisible: false });
   }
 
-  getSupervisorsLabel() {
-    const { authors } = this.props;
-    return authors.size === 1 ? 'Supervisor' : 'Supervisors';
-  }
-
   renderShowAllOrEtAl() {
     const { enableShowAll, authors } = this.props;
     if (enableShowAll) {
@@ -51,11 +46,9 @@ class AuthorList extends Component {
       limit,
       recordId,
       wrapperClassName,
-      forSupervisors,
     } = this.props;
     return (
       <InlineList
-        label={forSupervisors ? this.getSupervisorsLabel() : null}
         wrapperClassName={wrapperClassName}
         items={authorsToDisplay}
         suffix={
@@ -73,14 +66,13 @@ class AuthorList extends Component {
 
   render() {
     const { modalVisible } = this.state;
-    const { authors, limit, total, forSupervisors } = this.props;
+    const { authors, limit, total } = this.props;
     const showTotal = total === -1 ? authors.size : total;
-    const supervisorsOrAuthors = forSupervisors ? 'supervisors' : 'authors';
     return (
       <Fragment>
         {this.renderAuthorList(authors.take(limit))}
         <Modal
-          title={`${showTotal} ${supervisorsOrAuthors}`}
+          title={`${showTotal} authors`}
           width="50%"
           visible={modalVisible}
           footer={null}
@@ -100,7 +92,6 @@ AuthorList.propTypes = {
   enableShowAll: PropTypes.bool,
   total: PropTypes.number,
   wrapperClassName: PropTypes.string,
-  forSupervisors: PropTypes.bool,
 };
 
 AuthorList.defaultProps = {
@@ -110,7 +101,6 @@ AuthorList.defaultProps = {
   enableShowAll: false,
   total: -1,
   wrapperClassName: null,
-  forSupervisors: false,
 };
 
 export default AuthorList;

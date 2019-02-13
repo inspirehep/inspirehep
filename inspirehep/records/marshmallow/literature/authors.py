@@ -10,7 +10,7 @@ from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, post_dump
 
 from ..fields import NestedWithoutEmptyObjects
-from .common import AuthorSchemaV1, SupervisorSchemaV1
+from .common import AuthorSchemaV1
 
 
 class LiteratureAuthorsMetadataSchemaV1(Schema):
@@ -18,9 +18,6 @@ class LiteratureAuthorsMetadataSchemaV1(Schema):
         AuthorSchemaV1, default=[], dump_only=True, many=True
     )
     collaborations = fields.Raw(default=[], dump_only=True)
-    supervisors = NestedWithoutEmptyObjects(
-        SupervisorSchemaV1, default=[], dump_only=True, many=True, attribute="authors"
-    )
 
     @post_dump
     def strip_empty(self, data):

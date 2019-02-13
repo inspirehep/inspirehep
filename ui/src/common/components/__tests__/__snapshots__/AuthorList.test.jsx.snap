@@ -4,10 +4,6 @@ exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
-    Supervisor
-    : 
-  </span>
   <ul
     className="separate-items-with-comma"
   >
@@ -31,10 +27,6 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
 <div
   className="__InlineList__"
 >
-  <span>
-    Supervisors
-    : 
-  </span>
   <ul
     className="separate-items-with-comma"
   >
@@ -526,7 +518,7 @@ exports[`AuthorList should show \`supervisors\` in modal title if supervisors ar
   onCancel={[Function]}
   onClose={[Function]}
   prefixCls="ant-modal"
-  title="1 supervisors"
+  title="1 authors"
   transitionName="zoom"
   visible={false}
   width="50%"
@@ -541,7 +533,7 @@ exports[`AuthorList should show \`supervisors\` in modal title if supervisors ar
         },
       ]
     }
-    label="Supervisor"
+    label={null}
     renderItem={[Function]}
     separateItems={true}
     separateItemsClassName="separate-items-with-comma"

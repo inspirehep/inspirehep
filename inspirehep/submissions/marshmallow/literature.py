@@ -58,7 +58,6 @@ class Literature(Schema):
     submission_date = fields.Raw()
     defense_date = fields.Raw()
     institution = fields.Raw()
-    supervisors = fields.Raw()
 
     conference_info = fields.Raw()
     proceedings_info = fields.Raw()

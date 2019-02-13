@@ -9,7 +9,6 @@ from .author import AuthorSchemaV1
 from .conference_info_item import ConferenceInfoItemSchemaV1
 from .doi import DOISchemaV1
 from .isbn import IsbnSchemaV1
-from .supervisor import SupervisorSchemaV1
 from .thesis_info import ThesisInfoSchemaV1
 from .publication_info_item import PublicationInfoItemSchemaV1
 from .external_system_identifier import ExternalSystemIdentifierSchemaV1
