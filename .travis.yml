@@ -91,7 +91,12 @@ matrix:
         - secure: "MdcAmDWnPEW8Dr5aZe3JvsdtWNWRq1GMvxyesS+UJjay+RQCso6yrU6gKOipR1+3Pizio3a1P06nnYfFjXyqJRBzmruJSUIjVgu3ZfgulgK/ESakobpOWyOzko5SUoofJ79REwzU7QbfV+2Ezgk3C49wqVlZh8VQjPtuJO+5N9S5Rbo6Nx+qmK7A83a8ow7kMHQrwgPH+RZdaH3qstUvjvt308WBkaI1zvIQ3LIx9fNNgd1NZy5R7YlS+Edt2ELf/hfQrx6WohcsDeqBqRPiE41RY7LLozSZGZ8J9kHGQlZyQijAbme9sZduCV67/zOmYptprwuKN3/XIW/dmW6dtvJUrxMxcDkSTeT5hVIzGqEg3Bi8OLIS7tOMOjOtg3V2lcHTE2Aw4XXTyBeF+Caw/2N+szDtkBdR/r9agZkAO5U6rzoGTdR5A3Sla+CnZNw8Dguwe6GkeUiqNPjOlUVwJrZFmJ136r0oO6/wffifvLfanokYvVxB6k/ltT3Tp3mKqTXBqFmrpKd/4BH47/yYLHXHBjC7XQA4Yhf9cdS93LpLErkN3txgbXSqv/71AZi0kmIw7A1f0V7Tz3o6Kr8GFiZBPXD0g/53v0MkVkg880ZNHWGtBGVQxKddY267ORXijwPwdp88KFuidNT4jXeLGYUh9OXF4yAFKF7bbK4X9sA="
       deploy:
         provider: script
-        script: bash ./ui/deploy.sh
+        script:
+          - |
+            curl -X POST "${UI_DEPLOY_URL}" \
+              -F token=${UI_DEPLOY_TOKEN} \
+              -F ref=qa \
+              -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)"
         on:
           branch: master
       node_js:
