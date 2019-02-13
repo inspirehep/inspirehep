@@ -7,7 +7,6 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-from __future__ import absolute_import, division, print_function
 
 from inspire_schemas.builders import LiteratureBuilder
 
@@ -46,11 +45,13 @@ class LiteratureRecord(InspireRecord):
 
     def set_files(self, documents=None, figures=None, force=False):
         """Sets new documents and figures for record.
+
         Every figure or document not listed in arguments will be removed from record.
         If you want to only add new documents, use `add_files`
+
         Args:
-            documents (list): List of documents which should be set to this record
-            figures (list): List of figures which should be set to this record
+            documents (list[dict]): List of documents which should be set to this record
+            figures (list[dict]): List of figures which should be set to this record
 
             Documents and figures are lists of dicts.
             Most obscure dict which should work is:
@@ -58,7 +59,8 @@ class LiteratureRecord(InspireRecord):
                 'url': 'http:// or /api/file/bucket_id/file_key'
             }
 
-        Returns: list of keys of all documents and figures in this record
+        Returns:
+            list: list of keys of all documents and figures in this record
 
         """
         if not documents and not figures and not force:
@@ -78,8 +80,8 @@ class LiteratureRecord(InspireRecord):
         """Public method for adding documents and figures
 
         Args:
-            documents (list): List of documents which should be added to this record
-            figures (list): List of figures which should be added to this record
+            documents (list[dict]): List of documents which should be added to this record
+            figures (list[dict]): List of figures which should be added to this record
 
             Documents and figures are lists of dicts.
             Most obscure dict which whould be provided for each file is:
@@ -89,7 +91,8 @@ class LiteratureRecord(InspireRecord):
             }
 
 
-        Returns: List of added keys
+        Returns:
+             list: list of added keys
 
         """
         if not documents and not figures:

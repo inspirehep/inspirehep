@@ -7,7 +7,6 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-from __future__ import absolute_import, division, print_function
 
 import hashlib
 import logging
@@ -341,7 +340,7 @@ class InspireRecord(Record):
             db.session.delete(self.model)
 
     def get_bucket(self, location=None, storage_class=None, record_id=None):
-        """Allows to retreive bucket for any record(default: self)
+        """Allows to retrieve bucket for any record(default: self)
 
         Args:
             location (str): Bucket location
