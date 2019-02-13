@@ -127,7 +127,8 @@ def test_literature_facets(api_client, db, create_record):
         "experiment",
         "subject",
     ]
-
+    expected_facet_keys.sort()
+    response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
 
@@ -148,6 +149,8 @@ def test_literature_facets_arxiv(api_client, db):
         "experiment",
         "subject",
     ]
+    expected_facet_keys.sort()
+    response_data_facet_keys.sort()
 
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys

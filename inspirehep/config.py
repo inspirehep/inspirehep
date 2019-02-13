@@ -19,13 +19,8 @@ import sys
 from copy import deepcopy
 
 from invenio_indexer.api import RecordIndexer
-<<<<<<< HEAD
 from invenio_records_rest.facets import range_filter
 from invenio_records_rest.utils import allow_all, deny_all
-=======
-from invenio_records_rest.facets import terms_filter, range_filter
-from invenio_records_rest.utils import allow_all, check_elasticsearch, deny_all
->>>>>>> add searializers
 
 from .search.api import LiteratureSearch
 from .search.facets import range_author_count_filter, must_match_all_filter
@@ -192,11 +187,6 @@ RECORDS_REST_ENDPOINTS = {
     "arxiv": ARXIV,
     "doi": DOI,
 }
-<<<<<<< HEAD
-
-=======
-"""REST API for inspirehep."""
->>>>>>> add searializers
 
 RECORDS_REST_FACETS = {
     "records-hep": {
