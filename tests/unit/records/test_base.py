@@ -8,6 +8,7 @@
 
 import pytest
 from helpers.providers.faker import faker
+
 from inspirehep.records.api import InspireRecord
 
 
