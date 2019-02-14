@@ -135,10 +135,12 @@ LITERATURE = {
     "record_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_response",
         "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response",
+        "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
     },
     "search_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_search",
         "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response_search",
+        "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search",
     },
     "record_loaders": {
         "application/json": "inspirehep.records.loaders:literature_json_v1"
@@ -301,5 +303,8 @@ SEARCH_SOURCE_INCLUDES = {
         "publication_info",
         "report_numbers",
         "titles.title",
+        # Need these two for the search bibtex serializers
+        "_collections",
+        "document_type",
     ]
 }
