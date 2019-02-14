@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c0b7460b1b5f5d948c487b93b32cbfd23eae728d65bc8c67dfaebba34017b637"
+            "sha256": "9c2c3cfc3b9d7f69b02887027a468f9fb58764666aa51b03187d4f431ad9be93"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -764,6 +764,13 @@
             ],
             "version": "==1.0.7"
         },
+        "latexcodec": {
+            "hashes": [
+                "sha256:01ad6b8d99606bb902f94269d6a14597000d220885781087bc880a0ede6a9c68",
+                "sha256:860eaa2cd8a2461d19c128361524248a42d456e6f1f58a17e2fd200bccd43a2b"
+            ],
+            "version": "==1.0.6"
+        },
         "lazy-object-proxy": {
             "hashes": [
                 "sha256:0ce34342b419bd8f018e6666bfef729aec3edf62345a53b537a4dcc115746a33",
@@ -1021,6 +1028,14 @@
                 "sha256:d7cc528d76e76342423ca640335bd3633420dc1366f258cb31d05e865ef5ca1f"
             ],
             "version": "==0.6.0"
+        },
+        "pybtex": {
+            "hashes": [
+                "sha256:00816e5f8570609d8ce3360cd23916bd3e50428a3508127578fdb4dc2b731c1c",
+                "sha256:9ce2ce13d8d4f5a8d3848463f58167dbbbe75a53511f1088eaa6197637cdf8cf"
+            ],
+            "index": "pypi",
+            "version": "==0.22.2"
         },
         "pycountry": {
             "hashes": [

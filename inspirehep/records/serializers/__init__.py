@@ -14,3 +14,5 @@ from .json import (
     literature_references_json_v1_response_search,
     facets_json_response_search,
 )
+
+from .bibtex import literature_bibtex_response, literature_bibtex_response_search
