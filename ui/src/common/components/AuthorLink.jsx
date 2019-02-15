@@ -46,7 +46,7 @@ class AuthorLink extends Component {
     const affiliations = author.get('affiliations');
     return (
       affiliations && (
-        <span className="pl1">
+        <span className="pl1 secondary-color">
           (
           <AuthorAffiliationList
             affiliations={affiliations.map(affiliation =>
