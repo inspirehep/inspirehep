@@ -6,7 +6,7 @@
     display: flex;
   }
   .ant-list-item-meta-title > a {
-    color: $primary-color;
+    color: $link-color;
     :hover {
       color: $link-hover-color;
     }
@@ -14,8 +14,11 @@
   .mb4-important {
     margin-bottom: 4px !important;
   }
+  .secondary-color {
+    color: $secondary-color;
+  }
   .secondary-link {
-    color: rgba(0, 0, 0, 0.45);
+    color: $secondary-color;
     text-decoration: underline;
     font-style: italic;
   }
