@@ -16,3 +16,9 @@ from .json import (
 )
 
 from .bibtex import literature_bibtex_response, literature_bibtex_response_search
+from .latex import (
+    latex_response_eu,
+    latex_response_us,
+    latex_search_response_eu,
+    latex_search_response_us,
+)

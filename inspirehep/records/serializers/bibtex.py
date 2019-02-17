@@ -12,18 +12,7 @@ from invenio_records_rest.serializers.response import (
     search_responsify,
 )
 
-from ..marshmallow.literature.bibtex import (
-    BibTexCommonSchema,
-    BibTexArticleSchema,
-    BibTexBookSchema,
-    BibTexInBookSchema,
-    BibTexInProceedingsSchema,
-    BibTexMastersThesisSchema,
-    BibTexMiscSchema,
-    BibTexPhdThesisSchema,
-    BibTexProceedingsSchema,
-    BibTexTechReportSchema,
-)
+from ..marshmallow.literature.bibtex import BibTexCommonSchema
 from pybtex.database import Entry, Person
 
 
@@ -38,14 +27,78 @@ class BibtexWriter(Writer):
 
 
 class BibTexSerializer:
-    schema_to_bibtex_doc_type = {
-        "article": BibTexArticleSchema,
-        "book": BibTexBookSchema,
-        "book chapter": BibTexInBookSchema,
-        "conference paper": BibTexInProceedingsSchema,
-        "proceedings": BibTexProceedingsSchema,
-        "report": BibTexTechReportSchema,
-        "note": BibTexArticleSchema,
+
+    COMMON_FIELDS_FOR_ENTRIES = [
+        "key",
+        "SLACcitation",
+        "archivePrefix",
+        "collaboration",
+        "doi",
+        "eprint",
+        "month",
+        "note",
+        "primaryClass",
+        "title",
+        "url",
+        "year",
+    ]
+
+    FIELDS_FOR_ENTRY_TYPE = {
+        "techreport": ["author", "number", "address", "type", "institution"],
+        "phdthesis": ["reportNumber", "school", "address", "type", "author"],
+        "inproceedings": [
+            "publisher",
+            "author",
+            "series",
+            "booktitle",
+            "number",
+            "volume",
+            "reportNumber",
+            "editor",
+            "address",
+            "organization",
+            "pages",
+        ],
+        "misc": ["howpublished", "reportNumber", "author"],
+        "mastersthesis": ["reportNumber", "school", "address", "type", "author"],
+        "proceedings": [
+            "publisher",
+            "series",
+            "number",
+            "volume",
+            "reportNumber",
+            "editor",
+            "address",
+            "organization",
+            "pages",
+        ],
+        "book": [
+            "publisher",
+            "isbn",
+            "author",
+            "series",
+            "number",
+            "volume",
+            "edition",
+            "editor",
+            "reportNumber",
+            "address",
+        ],
+        "inbook": [
+            "chapter",
+            "publisher",
+            "author",
+            "series",
+            "number",
+            "volume",
+            "edition",
+            "editor",
+            "reportNumber",
+            "address",
+            "type",
+            "pages",
+        ],
+        "article": ["author", "journal", "number", "volume", "reportNumber", "pages"],
     }
 
     def __init__(self, schema_class=BibTexCommonSchema):
@@ -53,15 +106,17 @@ class BibTexSerializer:
 
     def create_bibliography_entry(self, record):
         bibtex_document_type = self.schema_class.get_bibtex_document_type(record)
-        document_type_schema = BibTexSerializer.schema_to_bibtex_doc_type[
-            bibtex_document_type
-        ]
 
-        data = document_type_schema().dump(record).data
+        data = self.schema_class.dump(record).data
         doc_type = data.pop("doc_type", None)
         texkey = data.pop("texkey", None)
-
-        template_data = [(key, str(value)) for key, value in data.items() if value]
+        fields = (
+            self.COMMON_FIELDS_FOR_ENTRIES
+            + self.FIELDS_FOR_ENTRY_TYPE[bibtex_document_type]
+        )
+        template_data = [
+            (key, str(value)) for key, value in data.items() if value and key in fields
+        ]
         data_bibtex = [
             texkey,
             Entry(
@@ -88,9 +143,6 @@ class BibTexSerializer:
     def create_bibliography(self, record_list):
         bib_dict = {}
         for record in record_list:
-            # from remote_pdb import RemotePdb
-            # RemotePdb('127.0.0.1', 4444).set_trace()
-
             texkey, entries = self.create_bibliography_entry(record)
             bib_dict[texkey] = entries
 
