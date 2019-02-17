@@ -5,10 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import jinja2
 import os
-import pkg_resources
 
+import jinja2
+import pkg_resources
 from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
 from invenio_records_rest.serializers.response import (
     record_responsify,

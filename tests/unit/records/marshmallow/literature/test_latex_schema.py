@@ -8,6 +8,7 @@
 import json
 
 from freezegun import freeze_time
+
 from inspirehep.records.marshmallow.literature.latex import LatexSchema
 
 

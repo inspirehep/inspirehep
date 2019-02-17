@@ -23,7 +23,7 @@ from invenio_records_rest.facets import range_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from .search.api import LiteratureSearch
-from .search.facets import range_author_count_filter, must_match_all_filter
+from .search.facets import must_match_all_filter, range_author_count_filter
 
 
 def _(x):
@@ -116,7 +116,6 @@ APP_ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
-<<<<<<< HEAD
 
 # Web services and APIs
 # =====================
@@ -132,8 +131,6 @@ INSPIRE_NEXT_URL = "http://localhost:5000"
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
-=======
->>>>>>> records: additon of serializers
 PIDSTORE_RECID_FIELD = "control_number"
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
@@ -190,13 +187,47 @@ LITERATURE_FACETS.update(
         },
     }
 )
-ARXIV = deepcopy(LITERATURE)
-ARXIV.update(
+LITERATURE_REFERENCES = deepcopy(LITERATURE)
+LITERATURE_REFERENCES.update(
     {
-        "pid_type": "arxiv",
-        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
+        "default_endpoint_prefix": False,
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
+        "pid_type": "lit",
+        "list_route": "/literature/references",
+        "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/references',
+        "record_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_v1_response"
+        },
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_v1_response_search"
+        },
     }
 )
+LITERATURE_AUTHORS = deepcopy(LITERATURE)
+LITERATURE_AUTHORS.update(
+    {
+        "default_endpoint_prefix": False,
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
+        "pid_type": "lit",
+        "list_route": "/literature/authors",
+        "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/authors',
+        "record_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_authors_json_v1_response"
+        },
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_authors_json_v1_response_search"
+        },
+    }
+)
+LITERATURE_ARXIV = deepcopy(LITERATURE)
+LITERATURE_ARXIV.update(
+    {
+        "pid_type": "arxiv",
+        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+    }
+)
+
+
 DOI = deepcopy(LITERATURE)
 DOI.update(
     {
@@ -208,7 +239,9 @@ DOI.update(
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
     "literature_facets": LITERATURE_FACETS,
-    "arxiv": ARXIV,
+    "literature_arxiv": LITERATURE_ARXIV,
+    "literature_authors": LITERATURE_AUTHORS,
+    "literature_references": LITERATURE_REFERENCES,
     "doi": DOI,
 }
 
@@ -328,5 +361,6 @@ SEARCH_SOURCE_INCLUDES = {
         # Need these two for the search bibtex serializers
         "_collections",
         "document_type",
+        "authors.inspire_roles",
     ]
 }

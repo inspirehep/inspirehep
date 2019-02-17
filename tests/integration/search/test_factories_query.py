@@ -6,9 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
+from elasticsearch_dsl import Search
 from mock import patch
 
-from elasticsearch_dsl import Search
 from inspirehep.search.factories.query import inspire_query_factory
 
 

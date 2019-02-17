@@ -6,9 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-from mock import MagicMock, patch
-
 from elasticsearch_dsl import Search
+from mock import MagicMock, patch
 
 from inspirehep.search.factories.filter import inspire_filter_factory
 

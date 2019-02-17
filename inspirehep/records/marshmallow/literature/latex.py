@@ -6,11 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from marshmallow import Schema, fields, missing
+import datetime
+
 from inspire_utils.name import format_name
+from marshmallow import Schema, fields, missing
 
 from .bibtex import BibTexCommonSchema
-import datetime
 
 
 class LatexSchema(Schema):

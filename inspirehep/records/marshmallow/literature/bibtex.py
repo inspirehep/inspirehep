@@ -5,13 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import re
-from marshmallow import Schema, fields, pre_dump
-from inspire_utils.record import get_value
-from inspire_utils.date import PartialDate
-from inspire_schemas.readers.literature import LiteratureReader
-from inspire_schemas.readers.conference import ConferenceReader
+
 from idutils import is_arxiv_post_2007, normalize_isbn
+from inspire_schemas.readers.conference import ConferenceReader
+from inspire_schemas.readers.literature import LiteratureReader
+from inspire_utils.date import PartialDate
+from inspire_utils.record import get_value
 from isbn import ISBNError
+from marshmallow import Schema, fields, pre_dump
 from six import text_type
 
 

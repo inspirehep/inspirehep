@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from mock import patch, Mock
+from mock import Mock, patch
 
 from inspirehep.search.utils import get_facet_configuration
 

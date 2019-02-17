@@ -69,7 +69,7 @@ matrix:
         - "./scripts/bootstrap --ci"
 
       script:
-        - pipenv run isort -rc -c -df
+        - pipenv run isort -rc -c -df --skip ui
         - pipenv run check-manifest --ignore ".travis-*,ui/*,ui"
         - pipenv run py.test tests/unit
 

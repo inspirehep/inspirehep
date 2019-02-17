@@ -5,15 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from pybtex.database import BibliographyData
-from pybtex.database.output.bibtex import Writer
 from invenio_records_rest.serializers.response import (
     record_responsify,
     search_responsify,
 )
+from pybtex.database import BibliographyData, Entry, Person
+from pybtex.database.output.bibtex import Writer
 
 from ..marshmallow.literature.bibtex import BibTexCommonSchema
-from pybtex.database import Entry, Person
 
 
 class BibtexWriter(Writer):
@@ -117,27 +116,22 @@ class BibTexSerializer:
         template_data = [
             (key, str(value)) for key, value in data.items() if value and key in fields
         ]
-        data_bibtex = [
-            texkey,
-            Entry(
-                doc_type,
-                template_data,
-                persons={
-                    "author": [
-                        Person(x)
-                        for x in BibTexCommonSchema.get_authors_with_role(
-                            data.get("authors", []), "author"
-                        )
-                    ],
-                    "editor": [
-                        Person(x)
-                        for x in BibTexCommonSchema.get_authors_with_role(
-                            data.get("authors", []), "editor"
-                        )
-                    ],
-                },
-            ),
-        ]
+
+        authors_with_role_author = BibTexCommonSchema.get_authors_with_role(
+            data.get("authors", []), "author"
+        )
+        persons = [Person(person) for person in authors_with_role_author]
+
+        authors_with_role_editor = BibTexCommonSchema.get_authors_with_role(
+            data.get("authors", []), "author"
+        )
+        editors = [Person(person) for person in authors_with_role_editor]
+
+        data_entry = Entry(
+            doc_type, template_data, persons={"author": persons, "editor": editors}
+        )
+
+        data_bibtex = [texkey, data_entry]
         return data_bibtex
 
     def create_bibliography(self, record_list):
