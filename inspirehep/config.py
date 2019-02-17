@@ -154,11 +154,15 @@ LITERATURE = {
         "application/json": "invenio_records_rest.serializers:json_v1_response",
         "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response",
         "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
+        "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_eu",
+        "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_us",
     },
     "search_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_search",
         "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response_search",
         "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search",
+        "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_eu",
+        "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_us",
     },
     "record_loaders": {
         "application/json": "inspirehep.records.loaders:literature_json_v1"

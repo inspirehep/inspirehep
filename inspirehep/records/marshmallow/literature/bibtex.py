@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import re
-from marshmallow import Schema, fields, post_dump, pre_dump
+from marshmallow import Schema, fields, pre_dump
 from inspire_utils.record import get_value
 from inspire_utils.date import PartialDate
 from inspire_schemas.readers.literature import LiteratureReader
@@ -13,38 +13,35 @@ from inspire_schemas.readers.conference import ConferenceReader
 from idutils import is_arxiv_post_2007, normalize_isbn
 from isbn import ISBNError
 from six import text_type
-from pybtex.database import Entry, Person
 
 
 class BibTexCommonSchema(Schema):
+    address = fields.Method("get_address")
     archivePrefix = fields.Method("get_archive_prefix")
+    author = fields.Method("get_author")
+    booktitle = fields.Method("get_book_title")
     collaboration = fields.Method("get_collaboration")
     doc_type = fields.Raw()
     doi = fields.Method("get_doi")
+    edition = fields.Method("get_edition")
     eprint = fields.Method("get_eprint")
+    isbn = fields.Method("get_isbn")
+    journal = fields.Method("get_journal")
     month = fields.Method("get_month")
     note = fields.Method("get_note")
-    primaryClass = fields.Method("get_primary_class")
-    title = fields.Method("get_title")
-    url = fields.Method("get_url")
-    year = fields.Method("get_year")
-    texkey = fields.Raw()
-
-    # from different
-    reportNumber = fields.Method("get_report_number")
-    journal = fields.Method("get_journal")
-    volume = fields.Method("get_volume")
-    type_ = fields.Method("get_type", attribute="type", dump_to="type")
-    author = fields.Method("get_author")
-    isbn = fields.Method("get_isbn")
     number = fields.Method("get_number")
-    edition = fields.Method("get_edition")
     pages = fields.Method("get_pages")
-    booktitle = fields.Method("get_book_title")
-    series = fields.Method("get_series")
+    primaryClass = fields.Method("get_primary_class")
     publisher = fields.Method("get_publisher")
+    reportNumber = fields.Method("get_report_number")
     school = fields.Method("get_school")
-    address = fields.Method("get_address")
+    series = fields.Method("get_series")
+    texkey = fields.Raw()
+    title = fields.Method("get_title")
+    type_ = fields.Method("get_type", attribute="type", dump_to="type")
+    url = fields.Method("get_url")
+    volume = fields.Method("get_volume")
+    year = fields.Method("get_year")
 
     @staticmethod
     def get_date(data, doc_type):
@@ -247,7 +244,7 @@ class BibTexCommonSchema(Schema):
         return get_value(data, "editions[0]")
 
     def get_journal(self, data):
-        return BibTexArticleSchema.get_best_publication_info(data).get("journal_title")
+        return BibTexCommonSchema.get_best_publication_info(data).get("journal_title")
 
     def get_isbn(self, data):
         def hyphenate_if_possible(no_hyphens):
@@ -266,85 +263,3 @@ class BibTexCommonSchema(Schema):
         data["doc_type"] = BibTexCommonSchema.get_bibtex_document_type(data)
         data["texkey"] = get_value(data, "texkeys[0]", default=control_number)
         return data
-
-
-class BibTexTechReportSchema(BibTexCommonSchema):
-    author = fields.Method("get_author")
-    number = fields.Method("get_number")
-    type_ = fields.Method("get_type", attribute="type")
-
-
-class BibTexPhdThesisSchema(BibTexCommonSchema):
-    address = fields.Method("get_address")
-    author = fields.Method("get_author")
-    reportNumber = fields.Method("get_report_number")
-    school = fields.Method("get_school")
-    type_ = fields.Method("get_type", attribute="type")
-
-
-class BibTexInProceedingsSchema(BibTexCommonSchema):
-    publisher = fields.Method("get_publisher")
-    author = fields.Method("get_author")
-    series = fields.Method("get_series")
-    booktitle = fields.Method("get_book_title")
-    number = fields.Method("get_number")
-    volume = fields.Method("get_volume")
-    reportNumber = fields.Method("get_report_number")
-    address = fields.Method("get_address")
-    pages = fields.Method("get_pages")
-
-
-class BibTexMiscSchema(BibTexCommonSchema):
-    author = fields.Method("get_author")
-    reportNumber = fields.Method("get_report_number")
-
-
-class BibTexMastersThesisSchema(BibTexCommonSchema):
-    author = fields.Method("get_author")
-    reportNumber = fields.Method("get_report_number")
-    school = fields.Method("get_school")
-    type_ = fields.Method("get_type", attribute="type")
-
-
-class BibTexProceedingsSchema(BibTexCommonSchema):
-    address = fields.Method("get_address")
-    number = fields.Method("get_number")
-    pages = fields.Method("get_pages")
-    publisher = fields.Method("get_publlisher")
-    reportNumber = fields.Method("get_report_number")
-    series = fields.Method("get_series")
-    volume = fields.Method("get_volume")
-
-
-class BibTexBookSchema(BibTexCommonSchema):
-    address = fields.Method("get_address")
-    author = fields.Method("get_author")
-    edition = fields.Method("get_edition")
-    isbn = fields.Method("get_isbn")
-    number = fields.Method("get_number")
-    publisher = fields.Method("get_publlisher")
-    reportNumber = fields.Method("get_report_number")
-    series = fields.Method("get_series")
-    volume = fields.Method("get_volume")
-
-
-class BibTexInBookSchema(BibTexCommonSchema):
-    address = fields.Method("get_address")
-    author = fields.Method("get_author")
-    edition = fields.Method("get_edition")
-    number = fields.Method("get_number")
-    pages = fields.Method("get_pages")
-    publisher = fields.Method("get_publlisher")
-    reportNumber = fields.Method("get_report_number")
-    series = fields.Method("get_series")
-    type_ = fields.Method("get_type", attribute="type")
-    volume = fields.Method("get_volume")
-
-
-class BibTexArticleSchema(BibTexCommonSchema):
-    author = fields.Method("get_author")
-    journal = fields.Method("get_journal")
-    number = fields.Method("get_number")
-    volume = fields.Method("get_volume")
-    reportNumber = fields.Method("get_report_number")
-    pages = fields.Method("get_pages")
