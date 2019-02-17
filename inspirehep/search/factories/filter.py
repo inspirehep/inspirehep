@@ -5,8 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from invenio_records_rest.facets import _post_filter, _query_filter
 from werkzeug.datastructures import MultiDict
-from invenio_records_rest.facets import _query_filter, _post_filter
 
 from ..utils import get_facet_configuration
 

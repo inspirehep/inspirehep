@@ -10,8 +10,9 @@ import json
 
 import pytest
 from helpers.providers.faker import faker
-from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 from inspire_schemas.api import load_schema, validate
+
+from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
 
 def test_get_author_by_role():
@@ -318,13 +319,13 @@ def test_get_number():
 
 def test_get_editions():
     record = {"document_type": ["article"], "editions": ["first"]}
-    expected_number = "first"
+    expected_edition = "first"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_number = result["edition"]
+    result_edition = result["edition"]
 
-    assert expected_number == result_number
+    assert expected_edition == result_edition
 
 
 def test_get_number_with_differennt_publication_info_material():
@@ -332,24 +333,24 @@ def test_get_number_with_differennt_publication_info_material():
         "document_type": ["article"],
         "publication_info": [{"material": "foo", "journal_issue": "12"}],
     }
-    expected_volume = None
+    expected_number = None
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["number"]
+    result_number = result["number"]
 
-    assert expected_volume == result_volume
+    assert expected_number == result_number
 
 
 def test_get_page():
     record = {"document_type": ["article"], "publication_info": [{"artid": "1"}]}
-    expected_volume = "1"
+    expected_pages = "1"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["pages"]
+    result_pages = result["pages"]
 
-    assert expected_volume == result_volume
+    assert expected_pages == result_pages
 
 
 def test_get_book_title_with_book_series():
@@ -358,13 +359,13 @@ def test_get_book_title_with_book_series():
         "document_type": ["book"],
         "book_series": [{"title": "This is a book title"}],
     }
-    expected_volume = "This is a book title"
+    expected_book_title = "This is a book title"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["booktitle"]
+    result_book_title = result["booktitle"]
 
-    assert expected_volume == result_volume
+    assert expected_book_title == result_book_title
 
 
 def test_get_book_title_without_book_series():
@@ -372,13 +373,13 @@ def test_get_book_title_without_book_series():
         "titles": [{"title": "This is the main title"}],
         "document_type": ["book"],
     }
-    expected_volume = "This is the main title"
+    expected_book_title = "This is the main title"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["booktitle"]
+    result_book_title = result["booktitle"]
 
-    assert expected_volume == result_volume
+    assert expected_book_title == result_book_title
 
 
 def test_get_series():
@@ -386,24 +387,24 @@ def test_get_series():
         "document_type": ["book"],
         "book_series": [{"title": "This is a book title"}],
     }
-    expected_volume = "This is a book title"
+    expected_series = "This is a book title"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["series"]
+    result_series = result["series"]
 
-    assert expected_volume == result_volume
+    assert expected_series == result_series
 
 
 def test_get_publisher():
     record = {"document_type": ["book"], "imprints": [{"publisher": "Elsevier"}]}
-    expected_volume = "Elsevier"
+    expected_publisher = "Elsevier"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["publisher"]
+    result_publisher = result["publisher"]
 
-    assert expected_volume == result_volume
+    assert expected_publisher == result_publisher
 
 
 def test_get_school():
@@ -411,24 +412,24 @@ def test_get_school():
         "document_type": ["thesis"],
         "thesis_info": {"institutions": [{"name": "NTUA"}, {"name": "MIT"}]},
     }
-    expected_volume = "NTUA, MIT"
+    expected_school = "NTUA, MIT"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["school"]
+    result_school = result["school"]
 
-    assert expected_volume == result_volume
+    assert expected_school == result_school
 
 
 def test_get_school_empty():
     record = {"document_type": ["thesis"]}
-    expected_volume = None
+    expected_school = None
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["school"]
+    result_school = result["school"]
 
-    assert expected_volume == result_volume
+    assert expected_school == result_school
 
 
 def test_get_address():
@@ -436,21 +437,21 @@ def test_get_address():
         "document_type": ["book"],
         "address": [{"cities": ["Tokyo"], "country_code": "JP"}],
     }
-    expected_volume = "Tokyo, jp"
+    expected_address = "Tokyo, jp"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["address"]
+    result_address = result["address"]
 
-    assert expected_volume == result_volume
+    assert expected_address == result_address
 
 
 def test_get_address_with_imprint_place():
     record = {"document_type": ["book"], "imprints": [{"place": "This is a place"}]}
-    expected_volume = "This is a place"
+    expected_address = "This is a place"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
-    result_volume = result["address"]
+    result_address = result["address"]
 
-    assert expected_volume == result_volume
+    assert expected_address == result_address

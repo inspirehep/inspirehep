@@ -7,7 +7,7 @@
 
 from inspire_dojson.utils import strip_empty_values
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
-from marshmallow import Schema, fields, post_dump
+from marshmallow import Schema, fields, post_dump, pre_dump
 
 from ..fields import ListWithLimit, NestedWithoutEmptyObjects
 from .common import ReferenceItemSchemaV1
@@ -17,6 +17,10 @@ class LiteratureReferencesMetadataSchemaV1(Schema):
     references = NestedWithoutEmptyObjects(
         ReferenceItemSchemaV1, default=[], many=True, dump_only=True
     )
+
+    @pre_dump
+    def filter_dump(self, data):
+        return data.get("metadata", data)
 
     @post_dump
     def strip_empty(self, data):

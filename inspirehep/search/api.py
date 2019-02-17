@@ -72,6 +72,8 @@ class SearchMixin(object):
 class InspireSearch(RecordsSearch, SearchMixin):
     """Base Inspire search classs."""
 
+    pass
+
 
 class LiteratureSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Literature database."""

@@ -133,13 +133,16 @@ def test_literature_facets(api_client, db, create_record):
     assert expected_facet_keys == response_data_facet_keys
 
 
-def test_literature_facets_arxiv(api_client, db):
+def test_literature_facets_arxiv(api_client, db, create_record):
+    record = create_record("lit", with_indexing=True)
     response = api_client.get("/literature/facets/")
     response_data = json.loads(response.data)
     response_status_code = response.status_code
-    response_data_facet_keys = list(response_data.get("aggregations").keys())
+    response_data_facet_keys = list(response_data["aggregations"].keys())
+    response_data_hits = response_data["hits"]["hits"]
 
     expected_status_code = 200
+    expected_data_hits_source = {}
     expected_facet_keys = [
         "arxiv_categories",
         "author",
@@ -154,7 +157,8 @@ def test_literature_facets_arxiv(api_client, db):
 
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
-    assert "hits" not in response_data
+    for source in response_data_hits:
+        assert expected_data_hits_source == source["_source"]
 
 
 # FIXME add tests for each facet when we have record ``enhance`` in place

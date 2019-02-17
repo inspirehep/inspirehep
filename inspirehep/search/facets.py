@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from elasticsearch_dsl.query import Range, Q
+from elasticsearch_dsl.query import Q, Range
 
 
 def range_author_count_filter(field):

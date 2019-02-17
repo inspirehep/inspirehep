@@ -14,14 +14,14 @@ from .facet import inspire_facets_factory
 from .filter import inspire_filter_factory
 
 
-def _get_search_with_source(search):
+def get_search_with_source(search):
     source = current_app.config.get("SEARCH_SOURCE_INCLUDES")
     if not source:
         return search
 
     if isinstance(search, LiteratureSearch):
         source_literature = source.get("literature")
-        if source:
+        if source_literature:
             search = search.source(includes=source_literature)
     return search
 
@@ -52,7 +52,7 @@ def search_factory_with_aggs(self, search):
     for key, value in sortkwargs.items():
         urlkwargs.add(key, value)
 
-    search = _get_search_with_source(search)
+    search = get_search_with_source(search)
 
     urlkwargs.add("q", query_string)
     return search, urlkwargs
@@ -68,7 +68,7 @@ def search_factory_without_aggs(self, search):
     for key, value in sortkwargs.items():
         urlkwargs.add(key, value)
 
-    search = _get_search_with_source(search)
+    search = get_search_with_source(search)
 
     urlkwargs.add("q", query_string)
     return search, urlkwargs
@@ -80,6 +80,6 @@ def search_factory_only_with_aggs(self, search):
     search, urlkwargs = inspire_facets_factory(search, search_index)
 
     # make sure no source is returned
-    search = search.source(exclude=["*"])
+    search = search.source(excludes=["*"])
     urlkwargs.add("q", query_string)
     return search, urlkwargs

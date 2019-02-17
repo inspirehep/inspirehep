@@ -5,9 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import json
 
 from inspire_dojson.utils import strip_empty_values
 from inspire_utils.date import format_date
+from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, missing, post_dump
 
@@ -111,3 +113,14 @@ class LiteratureMetadataSchemaV1(Schema):
 
 class LiteratureSchemaV1(RecordSchemaJSONV1):
     metadata = fields.Nested(LiteratureMetadataSchemaV1, dump_only=True)
+
+
+class LiteratureUISchema(RecordSchemaJSONV1):
+    metadata = fields.Method("get_ui_display", dump_only=True)
+
+    def get_ui_display(self, data):
+        try:
+            ui_display = get_value(data, "metadata._ui_display", "")
+            return json.loads(ui_display)
+        except json.JSONDecodeError:
+            return {}

@@ -7,7 +7,7 @@
 
 from inspire_dojson.utils import strip_empty_values
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
-from marshmallow import Schema, fields, post_dump
+from marshmallow import Schema, fields, post_dump, pre_dump
 
 from ..fields import NestedWithoutEmptyObjects
 from .common import AuthorSchemaV1
@@ -18,6 +18,10 @@ class LiteratureAuthorsMetadataSchemaV1(Schema):
         AuthorSchemaV1, default=[], dump_only=True, many=True
     )
     collaborations = fields.Raw(default=[], dump_only=True)
+
+    @pre_dump
+    def filter_dump(self, data):
+        return data.get("metadata", data)
 
     @post_dump
     def strip_empty(self, data):
