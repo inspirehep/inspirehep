@@ -16,10 +16,15 @@ exports[`Home renders home page 1`] = `
     >
       <Col>
         <h2
-          className="f2 tc mt5 mb5"
+          className="f2 tc"
         >
           Discover High-Energy Physics content
         </h2>
+        <h3
+          className="f3 tc mb5"
+        >
+          INSPIRE Labs provides a sneak preview of new features currently under development.
+        </h3>
       </Col>
     </Row>
     <Row
@@ -30,37 +35,14 @@ exports[`Home renders home page 1`] = `
       </Col>
     </Row>
     <Row
-      className="examples-container"
+      className="mt4"
       gutter={0}
     >
-      <Col>
-        <InlineList
-          extractKey={[Function]}
-          items={
-            Array [
-              "find a richter, b and t quark and date > 1984",
-              "find j phys.rev.,D50,1140",
-            ]
-          }
-          label="Try"
-          renderItem={[Function]}
-          separateItems={true}
-          separateItemsClassName="separate-items-with-comma"
-          suffix={null}
-          wrapperClassName={null}
-        />
-      </Col>
-    </Row>
-    <Row
-      className="description-container"
-      gutter={0}
-    >
-      <Col>
-        <h3
-          className="f3 tc mt5 mb5"
-        >
-          INSPIRE Labs provides a sneak preview of new features currently under development.
-        </h3>
+      <Col
+        offset={6}
+        span={12}
+      >
+        <HowToSearch />
       </Col>
     </Row>
   </Col>

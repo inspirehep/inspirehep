@@ -1,0 +1,306 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HowToSearch renders the components 1`] = `
+<Fragment>
+  <Modal
+    cancelButtonDisabled={false}
+    confirmLoading={false}
+    destroyOnClose={true}
+    footer={false}
+    maskTransitionName="fade"
+    okButtonDisabled={false}
+    okType="primary"
+    onCancel={[Function]}
+    prefixCls="ant-modal"
+    title="Search Tips"
+    transitionName="zoom"
+    visible={false}
+    width={1000}
+  >
+    <p>
+      INSPIRE beta supports the most popular SPIRES syntax operators and free text searches.
+    </p>
+    <Tabs
+      hideAdd={false}
+      prefixCls="ant-tabs"
+      type="card"
+    >
+      <TabPane
+        key="1"
+        placeholder={null}
+        tab="SPIRES style search"
+      >
+        <div
+          className="pa3"
+        >
+          <Table
+            bordered={false}
+            className=""
+            columns={
+              Array [
+                Object {
+                  "dataIndex": "searchBy",
+                  "title": "Search by",
+                },
+                Object {
+                  "dataIndex": "useOperators",
+                  "title": "Use operators",
+                },
+                Object {
+                  "dataIndex": "example",
+                  "render": [Function],
+                  "title": "Example",
+                },
+              ]
+            }
+            dataSource={
+              Array [
+                Object {
+                  "example": "a witten",
+                  "key": "1",
+                  "searchBy": "Author name",
+                  "useOperators": "a, au, author, name",
+                },
+                Object {
+                  "example": "a J.M.Maldacena.1",
+                  "key": "2",
+                  "searchBy": "Author BAI",
+                  "useOperators": "a, au, author, name",
+                },
+                Object {
+                  "example": "t A First Course in String Theory",
+                  "key": "3",
+                  "searchBy": "Title",
+                  "useOperators": "t, title, ti",
+                },
+                Object {
+                  "example": "eprint 1605.03630",
+                  "key": "4",
+                  "searchBy": "Eprint",
+                  "useOperators": "eprint",
+                },
+                Object {
+                  "example": "ea ellis, j",
+                  "key": "5",
+                  "searchBy": "Exact author name",
+                  "useOperators": "ea, exactauthor, exact-author",
+                },
+                Object {
+                  "example": "For thesis: tc t",
+                  "key": "6",
+                  "searchBy": "Document type (type-code)",
+                  "useOperators": "tc, type-code, type, ty",
+                },
+                Object {
+                  "example": "topcite 1000+",
+                  "key": "7",
+                  "searchBy": "Citation number",
+                  "useOperators": "topcite,topcit, cited",
+                },
+                Object {
+                  "example": "cn babar",
+                  "key": "8",
+                  "searchBy": "Collaboration",
+                  "useOperators": "Cn, collaboration",
+                },
+                Object {
+                  "example": "j Nucl.Phys.,B164,171",
+                  "key": "9",
+                  "searchBy": "Journal",
+                  "useOperators": "J, journal, coden, published_in",
+                },
+                Object {
+                  "example": "ac 1->10",
+                  "key": "10",
+                  "searchBy": "Number of authors",
+                  "useOperators": "ac,author-count, authorcount",
+                },
+                Object {
+                  "example": "r ATLAS-CONF-2011-084",
+                  "key": "11",
+                  "searchBy": "Report number",
+                  "useOperators": "r,reportnumber, report-num, report, rept, rn",
+                },
+                Object {
+                  "example": "refersto:recid:193978",
+                  "key": "12",
+                  "searchBy": "Citations of a record",
+                  "useOperators": "refersto:recid",
+                },
+                Object {
+                  "example": "texkey Lutz:2003jw",
+                  "key": "13",
+                  "searchBy": "Texkey",
+                  "useOperators": "texkey",
+                },
+                Object {
+                  "example": "doi 10.1088/1475-7516/2013/05/009",
+                  "key": "14",
+                  "searchBy": "DOI",
+                  "useOperators": "doi",
+                },
+                Object {
+                  "example": "recid:193978",
+                  "key": "15",
+                  "searchBy": "Record id",
+                  "useOperators": "recid, control_number",
+                },
+              ]
+            }
+            indentSize={20}
+            loading={false}
+            locale={Object {}}
+            pagination={false}
+            prefixCls="ant-table"
+            rowKey="key"
+            showHeader={true}
+            size="small"
+            useFixedHeader={false}
+          />
+        </div>
+      </TabPane>
+      <TabPane
+        key="2"
+        placeholder={null}
+        tab="Free text search (under development)"
+      >
+        <div
+          className="pa3"
+        >
+          <p>
+            Users can also type free text searches using any combination of author names, title, dates etc. (feature under development).
+          </p>
+          <ul>
+            <li>
+              <Link
+                replace={false}
+                to="/literature?q=hierarchy discretely hook"
+              >
+                hierarchy discretely hook
+              </Link>
+            </li>
+            <li>
+              <Link
+                replace={false}
+                to="/literature?q=superconformal field theories Maldacena 1997"
+              >
+                superconformal field theories Maldacena 1997
+              </Link>
+            </li>
+            <li>
+              <Link
+                replace={false}
+                to="/literature?q=1605.03630"
+              >
+                1605.03630
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </TabPane>
+    </Tabs>
+  </Modal>
+  <Card
+    extra={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        prefixCls="ant-tooltip"
+        title="Search Tips"
+        transitionName="zoom-big-fast"
+      >
+        <Button
+          block={false}
+          ghost={false}
+          loading={false}
+          onClick={[Function]}
+          prefixCls="ant-btn"
+          shape="circle"
+        >
+          <Icon
+            theme="twoTone"
+            type="info-circle"
+          />
+        </Button>
+      </Tooltip>
+    }
+    title="How to search"
+  >
+    <h4>
+      SPIRES style search examples:
+    </h4>
+    <ul>
+      <li>
+        Author name: 
+        <Link
+          replace={false}
+          to="/literature?q=a witten"
+        >
+          a witten
+        </Link>
+      </li>
+      <li>
+        Title:
+         
+        <Link
+          replace={false}
+          to="/literature?q=t A First Course in String Theory"
+        >
+          t A First Course in String Theory
+        </Link>
+      </li>
+      <li>
+        Exact author name:
+         
+        <Link
+          replace={false}
+          to="/literature?q=ea ellis, j"
+        >
+          ea ellis, j
+        </Link>
+      </li>
+      <li>
+        Date: 
+        <Link
+          replace={false}
+          to="/literature?q=d 2015+"
+        >
+          d 2015+
+        </Link>
+      </li>
+    </ul>
+    <h4>
+      Free text search examples:
+    </h4>
+    <ul>
+      <li>
+        <Link
+          replace={false}
+          to="/literature?q=hierarchy discretely hook"
+        >
+          hierarchy discretely hook
+        </Link>
+      </li>
+      <li>
+        <Link
+          replace={false}
+          to="/literature?q=superconformal field theories Maldacena 1997"
+        >
+          superconformal field theories Maldacena 1997
+        </Link>
+      </li>
+      <li>
+        <Link
+          replace={false}
+          to="/literature?q=1605.03630"
+        >
+          1605.03630
+        </Link>
+      </li>
+    </ul>
+  </Card>
+</Fragment>
+`;
