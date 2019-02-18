@@ -59,11 +59,12 @@ class App extends Component {
   }
 
   render() {
-    const { isBannerVisible } = this.props;
+    const { isBannerVisible, isSubmissionsPage } = this.props;
+    const contentMarginTop = isBannerVisible && !isSubmissionsPage ? 112 : 64;
     return (
       <Layout className="__App__">
         <Header />
-        <Layout.Content className="content" style={{ marginTop: isBannerVisible ? 112 : 64 }}>
+        <Layout.Content className="content" style={{ marginTop: contentMarginTop }}>
           <SafeSwitch id="main">
             <Route exact path={HOME} component={Home$} />
             <Route path={USER} component={User$} />
@@ -91,10 +92,12 @@ class App extends Component {
 
 App.propTypes = {
   isBannerVisible: PropTypes.bool.isRequired,
+  isSubmissionsPage: PropTypes.bool.isRequired,
 }
 
 const stateToProps = state => ({
-  isBannerVisible: state.ui.get('bannerVisibility')
+  isBannerVisible: state.ui.get('bannerVisibility'),
+  isSubmissionsPage: String(state.router.location.pathname).startsWith(SUBMISSIONS),
 })
 
 export default connect(stateToProps)(App);
