@@ -11,9 +11,10 @@ import reducers from './reducers';
 import http from './common/http';
 import queryParamsParserMiddleware from './middlewares/queryParamsParser';
 import keepPreviousUrlMiddleware from './middlewares/keepPreviousUrl';
-import persistUserStateMiddleware, {
-  reHydrateRootStateWithUser,
-} from './middlewares/persistUserState';
+import {
+  reHydrateRootStateFromStorage,
+  createPersistToStorageMiddleware,
+} from './middlewares/statePersister';
 import searchDispatcherMiddleware from './middlewares/searchDispatcher';
 import redirectToErrorPageMiddleware from './middlewares/redirectToErrorPage';
 
@@ -22,11 +23,13 @@ export const thunkMiddleware = thunk.withExtraArgument(http);
 export const history = createHistory();
 const reduxRouterMiddleware = routerMiddleware(history);
 
+const reducersToPersist = ['ui', 'user'];
+
 const PROD_MIDDLEWARES = [
   reduxRouterMiddleware,
   queryParamsParserMiddleware,
   keepPreviousUrlMiddleware,
-  persistUserStateMiddleware,
+  createPersistToStorageMiddleware(reducersToPersist),
   searchDispatcherMiddleware,
   redirectToErrorPageMiddleware,
   thunkMiddleware,
@@ -43,6 +46,6 @@ const withMiddlewares = () => {
 
 export const store = createStore(
   reducers,
-  reHydrateRootStateWithUser(),
+  reHydrateRootStateFromStorage(reducersToPersist),
   composeWithDevTools(withMiddlewares())
 );

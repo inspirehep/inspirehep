@@ -128,3 +128,9 @@ export function shallowEqual(objA, objB) {
 
   return true;
 }
+
+export function wait(milisec) {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(), milisec);
+  });
+}
