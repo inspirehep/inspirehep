@@ -2,15 +2,16 @@
   z-index: 2;
   position: fixed;
   width: 100%;
-
-  .nav-item-container {
-    .nav-item {
-      color: hsla(0, 0%, 100%, 0.65);
-      &:hover {
-        color: white;
-        cursor: pointer;
+  .header {
+    .nav-item-container {
+      .nav-item {
+        color: hsla(0, 0%, 100%, 0.65);
+        &:hover {
+          color: white;
+          cursor: pointer;
+        }
       }
+      padding: 0 12px;
     }
-    padding: 0 12px;
   }
 }

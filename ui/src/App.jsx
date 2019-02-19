@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import Loadable from 'react-loadable';
+import PropTypes from 'prop-types';
 
 import './App.scss';
 import Header from './common/layouts/Header';
@@ -57,10 +59,11 @@ class App extends Component {
   }
 
   render() {
+    const { isBannerVisible } = this.props;
     return (
       <Layout className="__App__">
         <Header />
-        <Layout.Content className="content">
+        <Layout.Content className="content" style={{ marginTop: isBannerVisible ? 112 : 64 }}>
           <SafeSwitch id="main">
             <Route exact path={HOME} component={Home$} />
             <Route path={USER} component={User$} />
@@ -86,4 +89,12 @@ class App extends Component {
   }
 }
 
-export default App;
+App.propTypes = {
+  isBannerVisible: PropTypes.bool.isRequired,
+}
+
+const stateToProps = state => ({
+  isBannerVisible: state.ui.get('bannerVisibility')
+})
+
+export default connect(stateToProps)(App);

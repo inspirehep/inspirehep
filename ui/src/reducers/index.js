@@ -9,6 +9,7 @@ import user from './user';
 import submissions from './submissions';
 import citations from './citations';
 import authors from './authors';
+import ui from './ui';
 
 const reducers = combineReducers({
   router: routerReducer,
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   submissions,
   citations,
   authors,
+  ui,
 });
 
 export default reducers;
