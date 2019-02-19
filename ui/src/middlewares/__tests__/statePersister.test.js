@@ -5,7 +5,6 @@ import {
   getStorageKeyForReducer,
   reHydrateRootStateFromStorage,
 } from '../statePersister';
-import { wait } from '../../common/utils';
 
 describe('statePersister', () => {
   afterEach(() => {
@@ -20,7 +19,7 @@ describe('statePersister', () => {
         b: fromJS({ bar: 'B' }),
         c: fromJS({ whatever: 'thing' }),
       });
-      const middleware = createPersistToStorageMiddleware(['a', 'b'], 0);
+      const middleware = createPersistToStorageMiddleware(['a', 'b']);
       const next = jest.fn();
       const dispatch = middleware({ getState })(next);
 
@@ -28,7 +27,6 @@ describe('statePersister', () => {
       dispatch(action);
       expect(next).toHaveBeenCalledWith(action);
 
-      await wait(5);
       expect(localStorage.setItem).toHaveBeenCalledWith(
         getStorageKeyForReducer('a'),
         '{"foo":"A"}'

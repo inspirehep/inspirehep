@@ -22,7 +22,7 @@ exports[`AuthorLink renders first_name and last_name of editor 1`] = `
     Full Name
   </ExternalLink>
   <span
-    className="pl1"
+    className="pl1 secondary-color"
   >
     (
     <AuthorAffiliationList
@@ -59,7 +59,7 @@ exports[`AuthorLink renders first_name and last_name with affiliations 1`] = `
     Full Name
   </ExternalLink>
   <span
-    className="pl1"
+    className="pl1 secondary-color"
   >
     (
     <AuthorAffiliationList
@@ -84,7 +84,7 @@ exports[`AuthorLink renders first_name with last_name missing 1`] = `
     Name 
   </ExternalLink>
   <span
-    className="pl1"
+    className="pl1 secondary-color"
   >
     (
     <AuthorAffiliationList
@@ -109,7 +109,7 @@ exports[`AuthorLink renders full_name if first_name and last_name missing 1`] = 
     Name Full
   </ExternalLink>
   <span
-    className="pl1"
+    className="pl1 secondary-color"
   >
     (
     <AuthorAffiliationList
@@ -134,7 +134,7 @@ exports[`AuthorLink renders full_name with affiliations 1`] = `
     Name, Full
   </ExternalLink>
   <span
-    className="pl1"
+    className="pl1 secondary-color"
   >
     (
     <AuthorAffiliationList
@@ -159,7 +159,7 @@ exports[`AuthorLink renders full_name with first_name missing 1`] = `
     Name Full
   </ExternalLink>
   <span
-    className="pl1"
+    className="pl1 secondary-color"
   >
     (
     <AuthorAffiliationList
