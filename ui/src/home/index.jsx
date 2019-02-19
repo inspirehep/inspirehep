@@ -5,7 +5,6 @@ import SearchBoxContainer from '../common/containers/SearchBoxContainer';
 import HowToSearch from './components/HowToSearch';
 import './index.scss';
 
-
 class Home extends Component {
   render() {
     return (
@@ -15,7 +14,7 @@ class Home extends Component {
             <Col>
               <h2 className="f2 tc">Discover High-Energy Physics content</h2>
               <h3 className="f3 tc mb5">
-                INSPIRE Labs provides a sneak preview of new features currently
+                INSPIRE beta provides a sneak preview of new features currently
                 under development.
               </h3>
             </Col>
