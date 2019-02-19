@@ -99,7 +99,7 @@ class DetailPage extends Component {
     const keywords = metadata.get('keywords');
     const authorCount = metadata.get('author_count');
 
-    const numberOfReferences = metadata.get('number_of_references');
+    const numberOfReferences = metadata.get('number_of_references', 0);
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
@@ -189,6 +189,12 @@ class DetailPage extends Component {
               forceRender
             >
               <CitationListContainer pidType="literature" recordId={recordId} />
+            </Tabs.TabPane>
+            <Tabs.TabPane
+              tab="Figures"
+              key="3"
+            >
+              <ContentBox>This feature is curently under development.</ContentBox>
             </Tabs.TabPane>
           </Tabs>
         </Col>
