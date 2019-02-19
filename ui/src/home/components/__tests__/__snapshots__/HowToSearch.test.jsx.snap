@@ -86,9 +86,16 @@ exports[`HowToSearch renders the components 1`] = `
                   "useOperators": "ea, exactauthor, exact-author",
                 },
                 Object {
-                  "example": "For thesis: tc t",
+                  "example": "tc t",
                   "key": "6",
-                  "searchBy": "Document type (type-code)",
+                  "searchBy": <React.Fragment>
+                    Document type 
+                    <ExternalLink
+                      href="http://inspirehep.net/info/hep/search-tips#tc"
+                    >
+                      (type-code)
+                    </ExternalLink>
+                  </React.Fragment>,
                   "useOperators": "tc, type-code, type, ty",
                 },
                 Object {
@@ -101,13 +108,13 @@ exports[`HowToSearch renders the components 1`] = `
                   "example": "cn babar",
                   "key": "8",
                   "searchBy": "Collaboration",
-                  "useOperators": "Cn, collaboration",
+                  "useOperators": "cn, collaboration",
                 },
                 Object {
                   "example": "j Nucl.Phys.,B164,171",
                   "key": "9",
                   "searchBy": "Journal",
-                  "useOperators": "J, journal, coden, published_in",
+                  "useOperators": "j, journal, coden, published_in",
                 },
                 Object {
                   "example": "ac 1->10",
@@ -172,28 +179,19 @@ exports[`HowToSearch renders the components 1`] = `
           </p>
           <ul>
             <li>
-              <Link
-                replace={false}
-                to="/literature?q=hierarchy discretely hook"
-              >
-                hierarchy discretely hook
-              </Link>
+              <LinkWithEncodedLiteratureQuery
+                query="n=2 pedestrians tachikawa"
+              />
             </li>
             <li>
-              <Link
-                replace={false}
-                to="/literature?q=superconformal field theories Maldacena 1997"
-              >
-                superconformal field theories Maldacena 1997
-              </Link>
+              <LinkWithEncodedLiteratureQuery
+                query="superconformal field theories Maldacena 1997"
+              />
             </li>
             <li>
-              <Link
-                replace={false}
-                to="/literature?q=1605.03630"
-              >
-                1605.03630
-              </Link>
+              <LinkWithEncodedLiteratureQuery
+                query="1207.7214"
+              />
             </li>
           </ul>
         </div>
@@ -235,41 +233,28 @@ exports[`HowToSearch renders the components 1`] = `
     <ul>
       <li>
         Author name: 
-        <Link
-          replace={false}
-          to="/literature?q=a witten"
-        >
-          a witten
-        </Link>
+        <LinkWithEncodedLiteratureQuery
+          query="a witten"
+        />
       </li>
       <li>
         Title:
          
-        <Link
-          replace={false}
-          to="/literature?q=t A First Course in String Theory"
-        >
-          t A First Course in String Theory
-        </Link>
+        <LinkWithEncodedLiteratureQuery
+          query="t A First Course in String Theory"
+        />
       </li>
       <li>
-        Exact author name:
-         
-        <Link
-          replace={false}
-          to="/literature?q=ea ellis, j"
-        >
-          ea ellis, j
-        </Link>
+        Exact author name: 
+        <LinkWithEncodedLiteratureQuery
+          query="ea ellis, j"
+        />
       </li>
       <li>
         Date: 
-        <Link
-          replace={false}
-          to="/literature?q=d 2015+"
-        >
-          d 2015+
-        </Link>
+        <LinkWithEncodedLiteratureQuery
+          query="d 2015+"
+        />
       </li>
     </ul>
     <h4>
@@ -277,28 +262,19 @@ exports[`HowToSearch renders the components 1`] = `
     </h4>
     <ul>
       <li>
-        <Link
-          replace={false}
-          to="/literature?q=hierarchy discretely hook"
-        >
-          hierarchy discretely hook
-        </Link>
+        <LinkWithEncodedLiteratureQuery
+          query="n=2 pedestrians tachikawa"
+        />
       </li>
       <li>
-        <Link
-          replace={false}
-          to="/literature?q=superconformal field theories Maldacena 1997"
-        >
-          superconformal field theories Maldacena 1997
-        </Link>
+        <LinkWithEncodedLiteratureQuery
+          query="superconformal field theories Maldacena 1997"
+        />
       </li>
       <li>
-        <Link
-          replace={false}
-          to="/literature?q=1605.03630"
-        >
-          1605.03630
-        </Link>
+        <LinkWithEncodedLiteratureQuery
+          query="1207.7214"
+        />
       </li>
     </ul>
   </Card>

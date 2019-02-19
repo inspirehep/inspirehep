@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Card, Icon, Button, Modal, Table, Tabs, Tooltip } from 'antd';
+import ExternalLink from '../../common/components/ExternalLink';
+import LinkWithEncodedLiteratureQuery from './LinkWithEncodedLiteratureQuery';
 
-import { LITERATURE } from '../../common/routes';
 
 const TABLE_COLUMNS = [
   {
@@ -16,7 +16,7 @@ const TABLE_COLUMNS = [
   {
     title: 'Example',
     dataIndex: 'example',
-    render: query => <Link to={`${LITERATURE}?q=${query}`}>{query}</Link>,
+    render: query => <LinkWithEncodedLiteratureQuery query={query} />,
   },
 ];
 
@@ -53,9 +53,13 @@ const DATA = [
   },
   {
     key: '6',
-    searchBy: 'Document type (type-code)',
+    searchBy: (
+      <>
+      Document type <ExternalLink href="http://inspirehep.net/info/hep/search-tips#tc">(type-code)</ExternalLink>
+      </>
+    ),
     useOperators: 'tc, type-code, type, ty',
-    example: 'For thesis: tc t',
+    example: 'tc t',
   },
   {
     key: '7',
@@ -66,13 +70,13 @@ const DATA = [
   {
     key: '8',
     searchBy: 'Collaboration',
-    useOperators: 'Cn, collaboration',
+    useOperators: 'cn, collaboration',
     example: 'cn babar',
   },
   {
     key: '9',
     searchBy: 'Journal',
-    useOperators: 'J, journal, coden, published_in',
+    useOperators: 'j, journal, coden, published_in',
     example: 'j Nucl.Phys.,B164,171',
   },
   {
@@ -172,19 +176,13 @@ class HowToSearch extends Component {
               </p>
               <ul>
                 <li>
-                  <Link to={`${LITERATURE}?q=hierarchy discretely hook`}>
-                    hierarchy discretely hook
-                  </Link>
+                  <LinkWithEncodedLiteratureQuery query="n=2 pedestrians tachikawa" />
                 </li>
                 <li>
-                  <Link
-                    to={`${LITERATURE}?q=superconformal field theories Maldacena 1997`}
-                  >
-                    superconformal field theories Maldacena 1997
-                  </Link>
+                  <LinkWithEncodedLiteratureQuery query="superconformal field theories Maldacena 1997" />
                 </li>
                 <li>
-                  <Link to={`${LITERATURE}?q=1605.03630`}>1605.03630</Link>
+                  <LinkWithEncodedLiteratureQuery query="1207.7214" />
                 </li>
               </ul>
             </div>
@@ -212,38 +210,29 @@ class HowToSearch extends Component {
           <h4>SPIRES style search examples:</h4>
           <ul>
             <li>
-              Author name: <Link to={`${LITERATURE}?q=a witten`}>a witten</Link>
+              Author name: <LinkWithEncodedLiteratureQuery query="a witten" />
             </li>
             <li>
               Title:{' '}
-              <Link to={`${LITERATURE}?q=t A First Course in String Theory`}>
-                t A First Course in String Theory
-              </Link>
+              <LinkWithEncodedLiteratureQuery query="t A First Course in String Theory" />
             </li>
             <li>
-              Exact author name:{' '}
-              <Link to={`${LITERATURE}?q=ea ellis, j`}>ea ellis, j</Link>
+              Exact author name: <LinkWithEncodedLiteratureQuery query="ea ellis, j" />
             </li>
             <li>
-              Date: <Link to={`${LITERATURE}?q=d 2015+`}>d 2015+</Link>
+              Date: <LinkWithEncodedLiteratureQuery query="d 2015+" />
             </li>
           </ul>
           <h4>Free text search examples:</h4>
           <ul>
             <li>
-              <Link to={`${LITERATURE}?q=hierarchy discretely hook`}>
-                hierarchy discretely hook
-              </Link>
+              <LinkWithEncodedLiteratureQuery query="n=2 pedestrians tachikawa" />
             </li>
             <li>
-              <Link
-                to={`${LITERATURE}?q=superconformal field theories Maldacena 1997`}
-              >
-                superconformal field theories Maldacena 1997
-              </Link>
+              <LinkWithEncodedLiteratureQuery query="superconformal field theories Maldacena 1997" />
             </li>
             <li>
-              <Link to={`${LITERATURE}?q=1605.03630`}>1605.03630</Link>
+              <LinkWithEncodedLiteratureQuery query="1207.7214" />
             </li>
           </ul>
         </Card>

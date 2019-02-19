@@ -23,7 +23,7 @@ exports[`Home renders home page 1`] = `
         <h3
           className="f3 tc mb5"
         >
-          INSPIRE Labs provides a sneak preview of new features currently under development.
+          INSPIRE beta provides a sneak preview of new features currently under development.
         </h3>
       </Col>
     </Row>
