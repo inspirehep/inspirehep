@@ -49,10 +49,6 @@ exports[`Header does not show authorized tool links if logged in user is not sup
                     "href": "//inspirehep.net/textmining/",
                   },
                   Object {
-                    "display": "Author list",
-                    "href": "/tools/authorlist",
-                  },
-                  Object {
                     "display": "Bibliography generator",
                     "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
                   },
@@ -139,10 +135,6 @@ exports[`Header renders with search box if it is not on home 1`] = `
                     "href": "//inspirehep.net/textmining/",
                   },
                   Object {
-                    "display": "Author list",
-                    "href": "/tools/authorlist",
-                  },
-                  Object {
                     "display": "Bibliography generator",
                     "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
                   },
@@ -225,10 +217,6 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
                   Object {
                     "display": "Reference extractor",
                     "href": "//inspirehep.net/textmining/",
-                  },
-                  Object {
-                    "display": "Author list",
-                    "href": "/tools/authorlist",
                   },
                   Object {
                     "display": "Bibliography generator",
@@ -317,12 +305,12 @@ exports[`Header shows authorized tool links if logged in user is cataloger 1`] =
                     "href": "/holdingpen",
                   },
                   Object {
-                    "display": "Reference extractor",
-                    "href": "//inspirehep.net/textmining/",
-                  },
-                  Object {
                     "display": "Author list",
                     "href": "/tools/authorlist",
+                  },
+                  Object {
+                    "display": "Reference extractor",
+                    "href": "//inspirehep.net/textmining/",
                   },
                   Object {
                     "display": "Bibliography generator",

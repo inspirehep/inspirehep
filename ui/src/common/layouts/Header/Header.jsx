@@ -26,10 +26,6 @@ const UNAUTHORIZED_TOOL_LINKS = [
     display: 'Reference extractor',
   },
   {
-    href: '/tools/authorlist',
-    display: 'Author list',
-  },
-  {
     href: '//inspirehep.net/info/hep/tools/bibliography_generate',
     display: 'Bibliography generator',
   },
@@ -39,6 +35,10 @@ const ALL_TOOL_LINKS = [
   {
     href: '/holdingpen',
     display: 'Holdingpen',
+  },
+  {
+    href: '/tools/authorlist',
+    display: 'Author list',
   },
   ...UNAUTHORIZED_TOOL_LINKS,
 ];
@@ -59,11 +59,7 @@ const SUBMISSION_LINKS = [
 class Header extends Component {
   getToolLinksForUser() {
     const { userRoles } = this.props;
-
-    if (isCataloger(userRoles)) {
-      return ALL_TOOL_LINKS;
-    }
-    return UNAUTHORIZED_TOOL_LINKS;
+    return isCataloger(userRoles) ? ALL_TOOL_LINKS : UNAUTHORIZED_TOOL_LINKS;
   }
 
   render() {
