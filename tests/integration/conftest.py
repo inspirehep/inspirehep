@@ -13,6 +13,7 @@ import pytest
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
+from helpers.factories.models.user_access_token import AccessTokenFactory
 from invenio_app.factory import create_api as invenio_create_app
 
 
@@ -94,10 +95,12 @@ def create_record(db, es_clear):
 
     def _create_record(record_type, data=None, with_pid=True, with_indexing=False):
         # FIXME: find a better location
-        MAP_PID_TYPE_TO_INDEX = {"lit": "records-hep"}
+        MAP_PID_TYPE_TO_INDEX = {"lit": "records-hep", "aut": "records-authors"}
 
         control_number = random.randint(1, 2_147_483_647)
-        record = RecordMetadataFactory(data=data, control_number=control_number)
+        record = RecordMetadataFactory(
+            record_type=record_type, data=data, control_number=control_number
+        )
 
         if with_pid:
             record._persistent_identifier = PersistentIdentifierFactory(
@@ -115,7 +118,7 @@ def create_record(db, es_clear):
                 body=record.json,
                 params={},
             )
-            es_clear.indices.refresh("records-hep")
+            es_clear.indices.refresh(index)
         return record
 
     return _create_record
@@ -142,3 +145,19 @@ def api_client(base_app):
     """
     with base_app.test_client() as client:
         yield client
+
+
+@pytest.fixture(scope="function")
+def create_user_and_token(base_app, db):
+    """Fixtures to create user and authentication token for given user.
+
+    Examples:
+
+        def test_needs_authentication(base_app, create_user_and_token)
+            user = create_user_and_token()
+    """
+
+    def _create_user_and_token():
+        return AccessTokenFactory()
+
+    return _create_user_and_token

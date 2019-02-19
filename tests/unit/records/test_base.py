@@ -14,7 +14,7 @@ from inspirehep.records.api import InspireRecord
 
 def test_strip_empty_values():
     empty_fields = {"empty_string": "", "empty_array": [], "empty_dict": {}}
-    data = faker.record()
+    data = faker.record("lit")
     data.update(empty_fields)
     data_stripped = InspireRecord.strip_empty_values(data)
 

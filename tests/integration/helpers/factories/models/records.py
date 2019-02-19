@@ -22,6 +22,9 @@ class RecordMetadataFactory(BaseFactory):
     class Meta:
         model = RecordMetadata
 
+    class Params:
+        record_type = "lit"
+
     @classmethod
     def _adjust_kwargs(cls, **kwargs):
         data = kwargs.pop("data", None)
@@ -34,4 +37,4 @@ class RecordMetadataFactory(BaseFactory):
             kwargs["json"].update({"control_number": control_number})
         return kwargs
 
-    json = factory.Dict(faker.record())
+    json = factory.LazyAttribute(lambda o: faker.record(o.record_type))

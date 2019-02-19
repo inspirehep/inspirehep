@@ -22,7 +22,7 @@ DEFAULT_LOAD = {
 
 def test_dump_document_type():
     data = {**DEFAULT_DATA_TO_DUMP, "document_type": ["book"]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "document_type": "book"}
@@ -33,7 +33,7 @@ def test_dump_document_type():
 def test_dump_arxiv_id():
     arxiv_id = faker.arxiv()
     data = {**DEFAULT_DATA_TO_DUMP, "arxiv_eprints": [{"value": arxiv_id}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "arxiv_id": arxiv_id}
@@ -44,7 +44,7 @@ def test_dump_arxiv_id():
 def test_dump_doi():
     doi = faker.doi()
     data = {**DEFAULT_DATA_TO_DUMP, "dois": [{"value": doi}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "doi": doi}
@@ -54,7 +54,7 @@ def test_dump_doi():
 
 def test_dump_title():
     data = {**DEFAULT_DATA_TO_DUMP, "titles": [{"title": "A Title"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "title": "A Title"}
@@ -64,7 +64,7 @@ def test_dump_title():
 
 def test_dump_language():
     data = {**DEFAULT_DATA_TO_DUMP, "languages": ["fr"]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "language": "fr"}
@@ -77,7 +77,7 @@ def test_dump_subjects():
         **DEFAULT_DATA_TO_DUMP,
         "inspire_categories": [{"term": "Accelerators"}, {"term": "Computing"}],
     }
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "subjects": ["Accelerators", "Computing"]}
@@ -93,7 +93,7 @@ def test_dump_authors():
             {"full_name": "Ahmet Urhan"},
         ],
     }
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {
@@ -109,7 +109,7 @@ def test_dump_authors():
 
 def test_dump_experiment():
     data = {**DEFAULT_DATA_TO_DUMP, "accelerator_experiments": [{"legacy_name": "CMS"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "experiment": "CMS"}
@@ -119,7 +119,7 @@ def test_dump_experiment():
 
 def test_dump_abstract():
     data = {**DEFAULT_DATA_TO_DUMP, "abstracts": [{"value": "An Abstract"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "abstract": "An Abstract"}
@@ -132,7 +132,7 @@ def test_dump_report_numbers():
         **DEFAULT_DATA_TO_DUMP,
         "report_numbers": [{"value": "Report1"}, {"value": "Report2"}],
     }
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "report_numbers": ["Report1", "Report2"]}
@@ -145,7 +145,7 @@ def test_dump_journal_title():
         **DEFAULT_DATA_TO_DUMP,
         "publication_info": [{"journal_title": "A Journal"}],
     }
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "journal_title": "A Journal"}
@@ -155,7 +155,7 @@ def test_dump_journal_title():
 
 def test_dump_volume():
     data = {**DEFAULT_DATA_TO_DUMP, "publication_info": [{"journal_volume": "1"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "volume": "1"}
@@ -165,7 +165,7 @@ def test_dump_volume():
 
 def test_dump_volume():
     data = {**DEFAULT_DATA_TO_DUMP, "publication_info": [{"journal_issue": "1"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "issue": "1"}
@@ -175,7 +175,7 @@ def test_dump_volume():
 
 def test_dump_volume():
     data = {**DEFAULT_DATA_TO_DUMP, "publication_info": [{"year": 2000}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "year": 2000}
@@ -188,7 +188,7 @@ def test_dump_page_range_and_start_end_pages():
         **DEFAULT_DATA_TO_DUMP,
         "publication_info": [{"page_start": "1", "page_end": "100"}],
     }
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {
@@ -203,7 +203,7 @@ def test_dump_page_range_and_start_end_pages():
 
 def test_dump_page_range_with_artid():
     data = {**DEFAULT_DATA_TO_DUMP, "publication_info": [{"artid": "1"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "page_range": "1"}
@@ -213,7 +213,7 @@ def test_dump_page_range_with_artid():
 
 def test_dump_series_title():
     data = {**DEFAULT_DATA_TO_DUMP, "book_series": [{"title": "A Book Series"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "series_title": "A Book Series"}
@@ -223,7 +223,7 @@ def test_dump_series_title():
 
 def test_dump_publication_date():
     data = {**DEFAULT_DATA_TO_DUMP, "imprints": [{"date": "1993"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "publication_date": "1993"}
@@ -233,7 +233,7 @@ def test_dump_publication_date():
 
 def test_dump_publication_place():
     data = {**DEFAULT_DATA_TO_DUMP, "imprints": [{"place": "Switzerland"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "publication_place": "Switzerland"}
@@ -243,7 +243,7 @@ def test_dump_publication_place():
 
 def test_dump_publisher():
     data = {**DEFAULT_DATA_TO_DUMP, "imprints": [{"publisher": "CERN"}]}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "publisher": "CERN"}
@@ -253,7 +253,7 @@ def test_dump_publisher():
 
 def test_dump_degree_type():
     data = {**DEFAULT_DATA_TO_DUMP, "thesis_info": {"degree_type": "phd"}}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "degree_type": "phd"}
@@ -263,7 +263,7 @@ def test_dump_degree_type():
 
 def test_dump_submission_date():
     data = {**DEFAULT_DATA_TO_DUMP, "thesis_info": {"date": "1993"}}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "submission_date": "1993"}
@@ -273,7 +273,7 @@ def test_dump_submission_date():
 
 def test_dump_defense_date():
     data = {**DEFAULT_DATA_TO_DUMP, "thesis_info": {"defense_date": "1993"}}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "defense_date": "1993"}
@@ -283,7 +283,7 @@ def test_dump_defense_date():
 
 def test_dump_institution():
     data = {**DEFAULT_DATA_TO_DUMP, "thesis_info": {"institutions": [{"name": "CERN"}]}}
-    record = faker.record(data=data)
+    record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
     expected = {**DEFAULT_DUMP, "institution": "CERN"}

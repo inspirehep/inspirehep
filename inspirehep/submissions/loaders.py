@@ -15,3 +15,4 @@ from invenio_records_rest.loaders.marshmallow import (
 from .marshmallow import Literature
 
 literature_v1 = marshmallow_loader(Literature)
+author_v1 = marshmallow_loader(Author)

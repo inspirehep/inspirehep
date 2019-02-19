@@ -117,6 +117,11 @@ APP_ALLOWED_HOSTS = [
 ]
 
 
+# Web services and APIs
+# =====================
+LEGACY_RECORD_URL_PATTERN = "https://inspirehep.net/record/{recid}"
+INSPIRE_NEXT_URL = "http://localhost:5000"
+
 # Debug
 # =====
 # Flask-DebugToolbar is by default enabled when the application is running in
