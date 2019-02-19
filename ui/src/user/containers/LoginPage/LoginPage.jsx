@@ -18,7 +18,7 @@ class LoginPage extends Component {
         align="middle"
       >
         <Card align="middle">
-          <p className="f4">Please sign in to suggest content to INSPIRE</p>
+          <p className="f4">Please sign in to INSPIRE</p>
           <Button className="login-button h3" onClick={onLoginClick}>
             <img className="logo mr2" src={orcidLogo} alt="ORCID" />
             <strong>Login with ORCID</strong>

@@ -14,7 +14,7 @@ exports[`LoginPage renders page 1`] = `
     <p
       className="f4"
     >
-      Please sign in to suggest content to INSPIRE
+      Please sign in to INSPIRE
     </p>
     <Button
       block={false}
