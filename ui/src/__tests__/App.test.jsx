@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter, Redirect } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { fromJS } from 'immutable';
 
@@ -13,6 +13,7 @@ import User from '../user';
 import Submissions from '../submissions';
 import Errors from '../errors';
 import Authors from '../authors';
+import { ERRORS } from '../common/routes';
 
 describe('App', () => {
   it('renders initial state', () => {
@@ -231,7 +232,7 @@ describe('App', () => {
     expect(wrapper.find(Errors)).toExist();
   });
 
-  xit('redirects to Errors when /anythingElse', () => {
+  it('redirects to Errors when /anythingElse', () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/anythingElse']} initialIndex={0}>
@@ -239,6 +240,6 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Errors)).toExist();
+    expect(wrapper.find(Redirect)).toHaveProp('to', ERRORS);
   });
 });

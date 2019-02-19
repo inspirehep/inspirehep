@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import debounce from 'lodash.debounce';
 
 export function getStorageKeyForReducer(reducerName) {
   return `state.${reducerName}`;
@@ -24,15 +23,14 @@ export function reHydrateRootStateFromStorage(reducerNames) {
 
 export function createPersistToStorageMiddleware(
   reducerNames,
-  debounceTime = 5000
 ) {
-  const writeStateToStorage = debounce(state => {
+  const writeStateToStorage = async state => {
     reducerNames.forEach(reducerName => {
       const key = getStorageKeyForReducer(reducerName);
       const serializedData = JSON.stringify(state[reducerName]);
       localStorage.setItem(key, serializedData);
     });
-  }, debounceTime);
+  };
 
   return ({ getState }) => next => action => {
     const result = next(action);

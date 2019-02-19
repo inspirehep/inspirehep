@@ -114,7 +114,7 @@ Header.propTypes = {
 };
 
 const stateToProps = state => ({
-  isHomePage: state.router.location.pathname !== HOME,
+  isHomePage: state.router.location.pathname === HOME,
   isSubmissionsPage: String(state.router.location.pathname).startsWith(SUBMISSIONS),
   userRoles: Set(state.user.getIn(['data', 'roles'])),
 });
