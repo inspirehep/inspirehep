@@ -14,8 +14,11 @@ import LogoContainer from '../../containers/LogoContainer';
 import {
   SUBMISSIONS_AUTHOR,
   SUBMISSIONS,
+  HOME,
   // SUBMISSIONS_LITERATURE,
 } from '../../routes';
+import Banner from './Banner';
+
 
 const UNAUTHORIZED_TOOL_LINKS = [
   {
@@ -64,51 +67,55 @@ class Header extends Component {
   }
 
   render() {
-    const { shouldDisplaySearchBox } = this.props;
+    const { isHomePage, isSubmissionsPage } = this.props;
     return (
-      <Layout.Header className="__Header__">
-        <Row type="flex" align="middle" gutter={16}>
-          <Col lg={4} xl={5}>
-            <LogoContainer src={logo} />
-          </Col>
-          <Col lg={12} xl={13} xxl={14}>
-            {shouldDisplaySearchBox && <SearchBoxContainer />}
-          </Col>
-          <Col lg={8} xl={6} xxl={5}>
-            <Row type="flex" justify="end">
-              <Col className="nav-item-container">
-                <DropdownMenu
-                  title="Tools"
-                  titleClassName="nav-item"
-                  items={this.getToolLinksForUser()}
-                />
-              </Col>
-              <Col className="nav-item-container">
-                <DropdownMenu
-                  title="Submit"
-                  titleClassName="nav-item"
-                  items={SUBMISSION_LINKS}
-                />
-              </Col>
-              <Col className="nav-item-container">
-                <LoginOrUserDropdownContainer />
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      </Layout.Header>
+      <div className="__Header__">
+        <Banner />
+        <Layout.Header className="header">
+          <Row type="flex" align="middle" gutter={16}>
+            <Col lg={4} xl={5}>
+              <LogoContainer src={logo} />
+            </Col>
+            <Col lg={12} xl={13} xxl={14}>
+              {!isHomePage && !isSubmissionsPage && <SearchBoxContainer />}
+            </Col>
+            <Col lg={8} xl={6} xxl={5}>
+              <Row type="flex" justify="end">
+                <Col className="nav-item-container">
+                  <DropdownMenu
+                    title="Tools"
+                    titleClassName="nav-item"
+                    items={this.getToolLinksForUser()}
+                  />
+                </Col>
+                <Col className="nav-item-container">
+                  <DropdownMenu
+                    title="Submit"
+                    titleClassName="nav-item"
+                    items={SUBMISSION_LINKS}
+                  />
+                </Col>
+                <Col className="nav-item-container">
+                  <LoginOrUserDropdownContainer />
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Layout.Header>
+      </div>
     );
   }
 }
+
 Header.propTypes = {
-  shouldDisplaySearchBox: PropTypes.bool.isRequired,
+  isHomePage: PropTypes.bool.isRequired,
+  isSubmissionsPage: PropTypes.bool.isRequired,
   userRoles: PropTypes.instanceOf(Set).isRequired,
 };
 
 const stateToProps = state => ({
-  shouldDisplaySearchBox:
-    state.router.location.pathname !== '/' &&
-    !String(state.router.location.pathname).startsWith(SUBMISSIONS),
+  isHomePage: state.router.location.pathname !== HOME,
+  isSubmissionsPage: String(state.router.location.pathname).startsWith(SUBMISSIONS),
   userRoles: Set(state.user.getIn(['data', 'roles'])),
 });
 

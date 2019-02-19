@@ -8,6 +8,7 @@ import { initialState as submissions } from '../reducers/submissions';
 import { initialState as inspect } from '../reducers/inspect';
 import { initialState as exceptions } from '../reducers/exceptions';
 import { initialState as authors } from '../reducers/authors';
+import { initialState as ui } from '../reducers/ui';
 
 import { thunkMiddleware } from '../store';
 
@@ -27,6 +28,7 @@ export function getState() {
     inspect,
     exceptions,
     authors,
+    ui,
   };
 }
 
