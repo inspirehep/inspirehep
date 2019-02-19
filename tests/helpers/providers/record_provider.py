@@ -35,13 +35,29 @@ class RecordProvider(BaseProvider):
             fake.random_number(digits=5, fix_len=True),
         )
 
-    def record(self, data=None, with_control_number=False):
-        record = {
+    @staticmethod
+    def hep_record():
+        return {
             "$schema": "http://localhost:5000/schemas/records/hep.json",
             "titles": [{"title": fake.sentence()}],
             "document_type": ["article"],
             "_collections": ["Literature"],
         }
+
+    @staticmethod
+    def author_record():
+        return {
+            "$schema": "http://localhost:5000/schemas/records/authors.json",
+            "name": {"value": fake.name()},
+            "_collections": ["Authors"],
+        }
+
+    def record(self, record_type, data=None, with_control_number=False):
+        if record_type == "lit":
+            record = self.hep_record()
+        elif record_type == "aut":
+            record = self.author_record()
+
         if with_control_number:
             record["control_number"] = self.control_number()
         if data:

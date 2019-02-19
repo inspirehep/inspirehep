@@ -9,6 +9,7 @@
 
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from .marshmallow import Literature
+from .marshmallow import Author, Literature
 
 literature_v1 = JSONSerializer(Literature)
+authors_v1 = JSONSerializer(Author)

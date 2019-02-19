@@ -44,7 +44,8 @@ setup(
             "literature_minter = inspirehep.pidstore.minters.control_number:LiteratureMinter.mint"
         ],
         "invenio_base.api_blueprints": [
-            "inspirehep_records = inspirehep.records.views:blueprint"
+            "inspirehep_records = inspirehep.records.views:blueprint",
+            "inspirehep_submissions = inspirehep.submissions.views:blueprint",
         ],
         "invenio_config.module": ["inspirehep = inspirehep.config"],
         "invenio_base.api_apps": ["inspirehep = inspirehep.records:InspireRecords"],

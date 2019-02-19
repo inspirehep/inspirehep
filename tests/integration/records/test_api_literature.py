@@ -19,7 +19,7 @@ from inspirehep.records.api import LiteratureRecord
 
 
 def test_literature_create(base_app, db):
-    data = faker.record()
+    data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
     control_number = str(record["control_number"])
@@ -39,7 +39,7 @@ def test_literature_create_with_mutliple_pids(base_app, db, create_pidstore):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
-    data = faker.record(with_control_number=True, data=data)
+    data = faker.record("lit", with_control_number=True, data=data)
 
     expected_pids_len = 3
     expected_pid_lit_value = str(data["control_number"])
@@ -63,7 +63,7 @@ def test_literature_create_with_mutliple_pids(base_app, db, create_pidstore):
 
 
 def test_literature_create_with_existing_control_number(base_app, db, create_pidstore):
-    data = faker.record(with_control_number=True)
+    data = faker.record("lit", with_control_number=True)
     existing_object_uuid = uuid.uuid4()
 
     create_pidstore(
@@ -79,7 +79,7 @@ def test_literature_create_with_existing_control_number(base_app, db, create_pid
 def test_literature_create_with_arxiv_eprints(base_app, db):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
-    data = faker.record(data=data)
+    data = faker.record("lit", data=data)
 
     record = LiteratureRecord.create(data)
     record_db = RecordMetadata.query.filter_by(id=record.id).one()
@@ -103,7 +103,7 @@ def test_literature_create_with_arxiv_eprints(base_app, db):
 def test_literature_create_with_dois(base_app, db):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
-    data = faker.record(data=data)
+    data = faker.record("lit", data=data)
 
     record = LiteratureRecord.create(data)
     record_db = RecordMetadata.query.filter_by(id=record.id).one()
@@ -124,7 +124,7 @@ def test_literature_create_with_dois(base_app, db):
 
 
 def test_literature_create_with_invalid_data(base_app, db, create_pidstore):
-    data = faker.record(with_control_number=True)
+    data = faker.record("lit", with_control_number=True)
     data["invalid_key"] = "should throw an error"
     record_control_number = str(data["control_number"])
 
@@ -143,7 +143,7 @@ def test_literature_create_with_invalid_data_and_mutliple_pids(
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
-    data = faker.record(with_control_number=True, data=data)
+    data = faker.record("lit", with_control_number=True, data=data)
     data["invalid_key"] = "should throw an error"
     pid_lit_value = str(data["control_number"])
     pid_arxiv_value = arxiv_value
@@ -168,7 +168,7 @@ def test_literature_create_with_invalid_data_and_mutliple_pids(
 
 
 def test_literature_update(base_app, db):
-    data = faker.record(with_control_number=True)
+    data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
 
     assert data["control_number"] == record["control_number"]
@@ -189,7 +189,7 @@ def test_literature_update(base_app, db):
 
 
 def test_literature_create_or_update_with_new_record(base_app, db):
-    data = faker.record()
+    data = faker.record("lit")
     record = LiteratureRecord.create_or_update(data)
 
     control_number = str(record["control_number"])
@@ -206,7 +206,7 @@ def test_literature_create_or_update_with_new_record(base_app, db):
 
 
 def test_literature_create_or_update_with_existing_record(base_app, db):
-    data = faker.record(with_control_number=True)
+    data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
 
     assert data["control_number"] == record["control_number"]
@@ -247,7 +247,7 @@ def test_literature_create_with_documents_and_figures(
         "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
     }
 
-    data = faker.record(data=data)
+    data = faker.record("lit", data=data)
 
     record = LiteratureRecord.create(data)
     assert len(record.files.keys) == 2
@@ -278,7 +278,7 @@ def test_add_and_remove_figs_and_docs(fsopen_mock, base_app, db, init_files_db):
     figure_expected_filename = "file.png"
     document_excpected_filename = "file_name.pdf"
 
-    data = faker.record()
+    data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
     record.add_files(**files)
@@ -350,7 +350,7 @@ def test_removing_docs_and_figures(fsopen_mock, base_app, db, init_files_db):
         "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
     }
 
-    data = faker.record()
+    data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
     record.set_files(**files)
@@ -381,7 +381,7 @@ def test_delete_record_with_files(fsopen_mock, base_app, db, init_files_db):
         "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
     }
 
-    data = faker.record(data=data)
+    data = faker.record("lit", data=data)
 
     record = LiteratureRecord.create(data)
 
@@ -425,7 +425,7 @@ def test_update_record_files(fsopen_mock, base_app, db, init_files_db):
     second_figure_filename = "figure2.pdf"
     second_document_filename = "file_name2.pdf"
 
-    data = faker.record(with_control_number=True, data=data)
+    data = faker.record("lit", with_control_number=True, data=data)
     record = LiteratureRecord.create(data)
 
     assert len(record.files.keys) == 2
