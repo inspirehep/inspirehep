@@ -155,3 +155,97 @@ def test_populate_and_serialize_data_for_submission(
     data = AuthorSubmissionsResource().populate_and_serialize_data_for_submission(data)
     del data["acquisition_source"]["datetime"]
     assert data == expected
+
+
+@patch("inspirehep.submissions.views.requests.post")
+def test_new_literature_submit(
+    mock_requests_post, app, api_client, create_user_and_token
+):
+    mock_requests_post.return_value.status_code = 200
+    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
+    token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + token.access_token}
+    response = api_client.post(
+        "/submissions/literature",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "document_type": "article",
+                    "authors": [{"full_name": "Urhan, Harun"}],
+                    "title": "Discovery of cool stuff",
+                    "subjects": ["Other"],
+                    "pdf_link": "https://cern.ch/coolstuff.pdf",
+                    "references": "[1] Dude",
+                }
+            }
+        ),
+        headers=headers,
+    )
+    assert response.status_code == 200
+    mock_requests_post.assert_called_once()
+
+    post_args, post_kwargs = _get_args_and_kwargs_of_first_mock_call(mock_requests_post)
+    post_url = post_args[0]
+    post_data = json.loads(post_kwargs["data"])
+
+    assert post_url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    assert post_data == {
+        "data": {
+            "_collections": ["Literature"],
+            "curated": False,
+            "document_type": ["article"],
+            "authors": [{"full_name": "Urhan, Harun"}],
+            "titles": [{"title": "Discovery of cool stuff", "source": "submitter"}],
+            "inspire_categories": [{"term": "Other"}],
+        },
+        "form_data": {"url": "https://cern.ch/coolstuff.pdf", "references": "[1] Dude"},
+    }
+
+
+def test_new_literature_submit_without_authentication(api_client):
+    response = api_client.post(
+        "/submissions/literature",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "document_type": "article",
+                    "authors": [{"full_name": "Urhan, Harun"}],
+                    "title": "Discovery of cool stuff",
+                    "subjects": ["Other"],
+                }
+            }
+        ),
+    )
+    assert response.status_code == 401
+
+
+@patch("inspirehep.submissions.views.requests.post")
+def test_new_author_submit_with_workflows_api_error(
+    mock_requests_post, app, api_client, create_user_and_token
+):
+    mock_requests_post.return_value.status_code = 500
+    token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + token.access_token}
+    response = api_client.post(
+        "/submissions/literature",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "document_type": "article",
+                    "authors": [{"full_name": "Urhan, Harun"}],
+                    "title": "Discovery of cool stuff",
+                    "subjects": ["Other"],
+                }
+            }
+        ),
+        headers=headers,
+    )
+    assert response.status_code == 503
+
+
+def _get_args_and_kwargs_of_first_mock_call(mock_function):
+    args, kwargs = mock_function.call_args_list[0]
+    return args, kwargs

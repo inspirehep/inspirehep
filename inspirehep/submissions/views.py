@@ -16,7 +16,7 @@ from invenio_oauth2server.decorators import require_api_auth
 from invenio_oauthclient.models import UserIdentity
 from sqlalchemy.orm.exc import NoResultFound
 
-from .marshmallow.author import Author
+from .marshmallow import Author, Literature
 from .utils import get_record_from_legacy
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
@@ -95,7 +95,36 @@ class AuthorSubmissionsResource(MethodView):
             return None
 
 
-author_submissions_view = AuthorSubmissionsResource.as_view("author_submissions_view")
+class LiteratureSubmissionResource(MethodView):
 
+    decorators = [require_api_auth()]
+
+    def post(self):
+        submission_data = request.get_json()
+        return self.start_workflow_for_submission(submission_data["data"])
+
+    def start_workflow_for_submission(self, submission_data, control_number=None):
+        serialized_data = serialized_data = Literature().load(submission_data).data
+        form_data = {
+            "url": submission_data.get("pdf_link"),
+            "references": submission_data.get("references"),
+        }
+        data = {"data": serialized_data, "form_data": form_data}
+        response = requests.post(
+            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+            data=json.dumps(data),
+            headers={"content-type": "application/json"},
+        )
+        if response.status_code == 200:
+            return response.content
+        abort(503)
+
+
+author_submissions_view = AuthorSubmissionsResource.as_view("author_submissions_view")
 blueprint.add_url_rule("/authors", view_func=author_submissions_view)
 blueprint.add_url_rule("/authors/<int:pid_value>", view_func=author_submissions_view)
+
+literature_submission_view = LiteratureSubmissionResource.as_view(
+    "literature_submissions_view"
+)
+blueprint.add_url_rule("/literature", view_func=literature_submission_view)
