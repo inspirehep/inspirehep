@@ -120,7 +120,6 @@ class DetailPage extends Component {
             <div>
               <AuthorsAndCollaborations
                 authorCount={authorCount}
-                recordId={recordId}
                 authors={authors}
                 enableAuthorsShowAll
                 collaborations={collaborations}

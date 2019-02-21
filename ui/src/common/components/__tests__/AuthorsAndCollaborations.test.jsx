@@ -12,7 +12,7 @@ describe('AuthorsAndCollaborations', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorsAndCollaborations authors={authors} recordId={12345} />
+      <AuthorsAndCollaborations authors={authors} />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -28,7 +28,6 @@ describe('AuthorsAndCollaborations', () => {
         authors={authors}
         authorCount={1}
         enableAuthorsShowAll
-        recordId={12345}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -51,7 +50,6 @@ describe('AuthorsAndCollaborations', () => {
         authors={authors}
         authorCount={1}
         collaborations={collaborations}
-        recordId={12345}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -77,7 +75,6 @@ describe('AuthorsAndCollaborations', () => {
         authors={authors}
         authorCount={1}
         collaborations={collaborations}
-        recordId={12345}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -103,7 +100,6 @@ describe('AuthorsAndCollaborations', () => {
         authors={authors}
         authorCount={12}
         collaborationsWithSuffix={collaborationsWithSuffix}
-        recordId={12345}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -138,7 +134,6 @@ describe('AuthorsAndCollaborations', () => {
         authorCount={12}
         collaborations={collaborations}
         collaborationsWithSuffix={collaborationsWithSuffix}
-        recordId={12345}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -162,7 +157,6 @@ describe('AuthorsAndCollaborations', () => {
       <AuthorsAndCollaborations
         collaborations={collaborations}
         collaborationsWithSuffix={collaborationsWithSuffix}
-        recordId={12345}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -177,7 +171,6 @@ describe('AuthorsAndCollaborations', () => {
     const wrapper = shallow(
       <AuthorsAndCollaborations
         collaborations={collaborations}
-        recordId={12345}
       />
     );
     expect(wrapper).toMatchSnapshot();

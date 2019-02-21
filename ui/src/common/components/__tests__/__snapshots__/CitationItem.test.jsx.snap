@@ -16,7 +16,6 @@ exports[`CitationItem renders with full citation 1`] = `
           collaborations={Immutable.List []}
           collaborationsWithSuffix={Immutable.List []}
           enableAuthorsShowAll={false}
-          recordId={12345}
         />
         <PublicationInfoList
           labeled={false}

@@ -68,7 +68,6 @@ class LiteratureItem extends Component {
           <div>
             <AuthorsAndCollaborations
               authorCount={authorCount}
-              recordId={recordId}
               authors={authors}
               collaborations={collaborations}
               collaborationsWithSuffix={collaborationsWithSuffix}

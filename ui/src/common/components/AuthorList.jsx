@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { Modal } from 'antd';
 
 import InlineList from './InlineList';
-import AuthorLink from './AuthorLink';
+import Author from './Author';
 import SecondaryButton from './SecondaryButton';
 
 class AuthorList extends Component {
@@ -44,7 +44,6 @@ class AuthorList extends Component {
     const {
       authors,
       limit,
-      recordId,
       wrapperClassName,
     } = this.props;
     return (
@@ -58,7 +57,7 @@ class AuthorList extends Component {
         }
         extractKey={author => author.get('full_name')}
         renderItem={author => (
-          <AuthorLink author={author} recordId={recordId} />
+          <Author author={author} />
         )}
       />
     );
@@ -88,7 +87,6 @@ class AuthorList extends Component {
 AuthorList.propTypes = {
   authors: PropTypes.instanceOf(List),
   limit: PropTypes.number,
-  recordId: PropTypes.number,
   enableShowAll: PropTypes.bool,
   total: PropTypes.number,
   wrapperClassName: PropTypes.string,
@@ -97,7 +95,6 @@ AuthorList.propTypes = {
 AuthorList.defaultProps = {
   authors: List(),
   limit: 5,
-  recordId: undefined,
   enableShowAll: false,
   total: -1,
   wrapperClassName: null,

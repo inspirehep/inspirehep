@@ -50,7 +50,6 @@ class ReferenceItem extends Component {
     const dois = reference.get('dois');
     const urls = reference.get('urls');
 
-    const recordId = reference.get('control_number');
     const authors = reference.get('authors');
     const collaborations = reference.get('collaborations');
     const collaborationsWithSuffix = reference.get(
@@ -68,7 +67,6 @@ class ReferenceItem extends Component {
               <Fragment>
                 {ReferenceItem.renderMisc(reference)}
                 <AuthorsAndCollaborations
-                  recordId={recordId}
                   authors={authors}
                   collaborations={collaborations}
                   collaborationsWithSuffix={collaborationsWithSuffix}

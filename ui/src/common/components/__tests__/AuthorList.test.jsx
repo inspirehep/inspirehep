@@ -29,7 +29,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList total={6} recordId={12345} enableShowAll authors={authors} />
+      <AuthorList total={6} enableShowAll authors={authors} />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -56,7 +56,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList total={6} recordId={12345} authors={authors} />
+      <AuthorList total={6} authors={authors} />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -74,7 +74,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList limit={2} total={3} recordId={12345} authors={authors} />
+      <AuthorList limit={2} total={3} authors={authors} />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -95,7 +95,6 @@ describe('AuthorList', () => {
       <AuthorList
         limit={2}
         total={3}
-        recordId={12345}
         authors={authors}
         enableShowAll
       />
@@ -113,7 +112,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList limit={4} recordId={12345} authors={authors} />
+      <AuthorList limit={4} authors={authors} />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -125,7 +124,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList limit={4} recordId={12345} authors={authors} />
+      <AuthorList limit={4} authors={authors} />
     );
 
     // Can not dive since root is a Fragment
@@ -144,7 +143,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList authors={supervisors} recordId={12345} forSupervisors />
+      <AuthorList authors={supervisors} forSupervisors />
     );
     expect(
       wrapper
@@ -164,7 +163,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList authors={supervisors} recordId={12345} forSupervisors />
+      <AuthorList authors={supervisors} forSupervisors />
     );
     expect(
       wrapper
@@ -180,7 +179,7 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 1',
       },
     ]);
-    const wrapper = shallow(<AuthorList authors={authors} recordId={12345} />);
+    const wrapper = shallow(<AuthorList authors={authors} />);
     expect(
       wrapper
         .find(Modal)
@@ -196,7 +195,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList authors={supervisors} recordId={12345} forSupervisors />
+      <AuthorList authors={supervisors} forSupervisors />
     );
     expect(
       wrapper

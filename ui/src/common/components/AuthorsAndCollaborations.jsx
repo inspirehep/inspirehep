@@ -12,13 +12,12 @@ class AuthorsAndCollaborations extends Component {
   }
 
   renderAuthorList(wrapperClassName, limit) {
-    const { authors, authorCount, enableAuthorsShowAll, recordId } = this.props;
+    const { authors, authorCount, enableAuthorsShowAll } = this.props;
     return (
       <AuthorList
         wrapperClassName={wrapperClassName}
         limit={limit}
         total={authorCount}
-        recordId={recordId}
         authors={authors}
         enableShowAll={enableAuthorsShowAll}
       />
@@ -69,7 +68,6 @@ class AuthorsAndCollaborations extends Component {
 
 AuthorsAndCollaborations.propTypes = {
   authors: PropTypes.instanceOf(List),
-  recordId: PropTypes.number,
   authorCount: PropTypes.number,
   enableAuthorsShowAll: PropTypes.bool,
   collaborations: PropTypes.instanceOf(List),
@@ -78,7 +76,6 @@ AuthorsAndCollaborations.propTypes = {
 
 AuthorsAndCollaborations.defaultProps = {
   authorCount: undefined,
-  recordId: 0,
   authors: List(),
   collaborations: List(),
   collaborationsWithSuffix: List(),

@@ -10,13 +10,12 @@ exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
     <li
       key="Test, Guy 1"
     >
-      <AuthorLink
+      <Author
         author={
           Immutable.Map {
             "full_name": "Test, Guy 1",
           }
         }
-        recordId={12345}
       />
     </li>
   </ul>
@@ -33,25 +32,23 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
     <li
       key="Test, Guy 1"
     >
-      <AuthorLink
+      <Author
         author={
           Immutable.Map {
             "full_name": "Test, Guy 1",
           }
         }
-        recordId={12345}
       />
     </li>
     <li
       key="Test, Guy 2"
     >
-      <AuthorLink
+      <Author
         author={
           Immutable.Map {
             "full_name": "Test, Guy 2",
           }
         }
-        recordId={12345}
       />
     </li>
   </ul>
@@ -126,13 +123,12 @@ exports[`AuthorList renders authors by using AuthorLink 1`] = `
     <li
       key="Test, Guy 1"
     >
-      <AuthorLink
+      <Author
         author={
           Immutable.Map {
             "full_name": "Test, Guy 1",
           }
         }
-        recordId={12345}
       />
     </li>
   </ul>
