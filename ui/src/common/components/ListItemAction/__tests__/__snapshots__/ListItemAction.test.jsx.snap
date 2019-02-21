@@ -18,24 +18,16 @@ exports[`ListItemAction renders with link (href and target) 1`] = `
 `;
 
 exports[`ListItemAction renders with link (to) by using Router.Link 1`] = `
-<Button
-  block={false}
-  className="__ListItemAction__"
-  ghost={false}
-  loading={false}
-  prefixCls="ant-btn"
+<Link
+  className="no-transition ant-btn __ListItemAction__"
+  replace={false}
+  to="/relative/link"
 >
-  <Link
-    className="no-transition"
-    replace={false}
-    to="/relative/link"
-  >
-    <IconText
-      text="Test"
-      type="info"
-    />
-  </Link>
-</Button>
+  <IconText
+    text="Test"
+    type="info"
+  />
+</Link>
 `;
 
 exports[`ListItemAction renders with onClick 1`] = `
