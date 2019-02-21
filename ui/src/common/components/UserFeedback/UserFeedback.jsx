@@ -4,6 +4,7 @@ import { Modal, Button, Rate, Input, Alert, Icon } from 'antd';
 import './UserFeedback.scss';
 import styleVariables from '../../../styleVariables';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
+import ExternalLink from '../ExternalLink';
 
 const RATE_DESCRIPTIONS = [
   'poor',
@@ -12,6 +13,8 @@ const RATE_DESCRIPTIONS = [
   'good',
   'excellent',
 ];
+
+const SURVEY_LINK = 'https://goo.gl/forms/aTYSRzd7vTUhxzL43';
 
 class UserFeedback extends Component {
   static renderThankYou() {
@@ -24,8 +27,14 @@ class UserFeedback extends Component {
             twoToneColor={styleVariables['success-color']}
           />
         </div>
-        <div className="tc">
-          <span className="f5">Thank you for submitting your feedback.</span>
+        <div className="tc f5">
+          <div>Thank you for your response.</div>
+          <div>
+            For further feedback, please{' '}
+            <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>
+            .
+          </div>
+          <div>It takes around 5 minutes to complete.</div>
         </div>
       </div>
     );
@@ -71,9 +80,6 @@ class UserFeedback extends Component {
       commentValue: null,
       feedbackSubmitted: true,
     });
-    setTimeout(() => {
-      this.onModalCancel();
-    }, 5000);
   }
 
   onCommentChange(event) {
@@ -105,10 +111,8 @@ class UserFeedback extends Component {
               description={
                 <span>
                   To send us your feedback, please disable your adblocker or
-                  DoNotTrack and refresh the page or send us your feedback at{' '}
-                  <a href="mailto:feedback@inspirehep.net">
-                    feedback@inspirehep.net
-                  </a>
+                  DoNotTrack and refresh the page or send us your feedback using the{' '}
+                  <ExternalLink href={SURVEY_LINK}>feedback form</ExternalLink>
                 </span>
               }
             />

@@ -50,13 +50,24 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
         />
       </div>
       <div
-        className="tc"
+        className="tc f5"
       >
-        <span
-          className="f5"
-        >
-          Thank you for submitting your feedback.
-        </span>
+        <div>
+          Thank you for your response.
+        </div>
+        <div>
+          For further feedback, please
+           
+          <ExternalLink
+            href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
+          >
+            take our survey
+          </ExternalLink>
+          .
+        </div>
+        <div>
+          It takes around 5 minutes to complete.
+        </div>
       </div>
     </div>
   </Modal>
@@ -189,13 +200,13 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
       <Alert
         description={
           <span>
-            To send us your feedback, please disable your adblocker or DoNotTrack and refresh the page or send us your feedback at
+            To send us your feedback, please disable your adblocker or DoNotTrack and refresh the page or send us your feedback using the
              
-            <a
-              href="mailto:feedback@inspirehep.net"
+            <ExternalLink
+              href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
             >
-              feedback@inspirehep.net
-            </a>
+              feedback form
+            </ExternalLink>
           </span>
         }
         message="AdBlock detected"
