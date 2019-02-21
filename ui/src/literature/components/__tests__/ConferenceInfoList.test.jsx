@@ -25,6 +25,6 @@ describe('ConferenceInfoList', () => {
       },
     ]);
     const wrapper = shallow(<ConferenceInfoList conferenceInfo={info} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 });

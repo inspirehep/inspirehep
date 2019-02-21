@@ -3,18 +3,10 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList from '../../common/components/InlineList';
-import ExternalLink from '../../common/components/ExternalLink';
 
 class ConferenceInfoList extends Component {
-  static extractControlNumber(info) {
-    return info.get('control_number');
-  }
-
-  static renderConferenceLink(info) {
-    const title = info.getIn(['titles', 0, 'title']);
-    const controlNumber = ConferenceInfoList.extractControlNumber(info);
-    const conferenceLink = `http://inspirehep.net/record/${controlNumber}`;
-    return <ExternalLink href={conferenceLink}>{title}</ExternalLink>;
+  static getConferenceTitle(info) {
+    return info.getIn(['titles', 0, 'title']);
   }
 
   render() {
@@ -23,8 +15,8 @@ class ConferenceInfoList extends Component {
       <InlineList
         label="Contribution to"
         items={conferenceInfo}
-        extractKey={ConferenceInfoList.extractControlNumber}
-        renderItem={ConferenceInfoList.renderConferenceLink}
+        extractKey={ConferenceInfoList.getConferenceTitle}
+        renderItem={ConferenceInfoList.getConferenceTitle}
       />
     );
   }
