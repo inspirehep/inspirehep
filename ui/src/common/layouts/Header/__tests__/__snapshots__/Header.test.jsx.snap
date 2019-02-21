@@ -17,9 +17,7 @@ exports[`Header does not show authorized tool links if logged in user is not sup
         lg={4}
         xl={5}
       >
-        <Connect(Logo)
-          src="logo.svg"
-        />
+        <Logo />
       </Col>
       <Col
         lg={12}
@@ -103,9 +101,7 @@ exports[`Header renders with search box if it is not on home 1`] = `
         lg={4}
         xl={5}
       >
-        <Connect(Logo)
-          src="logo.svg"
-        />
+        <Logo />
       </Col>
       <Col
         lg={12}
@@ -189,9 +185,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
         lg={4}
         xl={5}
       >
-        <Connect(Logo)
-          src="logo.svg"
-        />
+        <Logo />
       </Col>
       <Col
         lg={12}
@@ -273,9 +267,7 @@ exports[`Header shows authorized tool links if logged in user is cataloger 1`] =
         lg={4}
         xl={5}
       >
-        <Connect(Logo)
-          src="logo.svg"
-        />
+        <Logo />
       </Col>
       <Col
         lg={12}

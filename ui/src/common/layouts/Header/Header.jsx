@@ -7,10 +7,9 @@ import { Set } from 'immutable';
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import DropdownMenu from '../../components/DropdownMenu';
 import './Header.scss';
-import logo from './logo.svg';
 import LoginOrUserDropdownContainer from '../../containers/LoginOrUserDropdownContainer';
 import { isCataloger } from '../../authorization';
-import LogoContainer from '../../containers/LogoContainer';
+import Logo from '../../components/Logo';
 import {
   SUBMISSIONS_AUTHOR,
   SUBMISSIONS,
@@ -70,7 +69,7 @@ class Header extends Component {
         <Layout.Header className="header">
           <Row type="flex" align="middle" gutter={16}>
             <Col lg={4} xl={5}>
-              <LogoContainer src={logo} />
+              <Logo />
             </Col>
             <Col lg={12} xl={13} xxl={14}>
               {!isHomePage && !isSubmissionsPage && <SearchBoxContainer />}
