@@ -33,12 +33,13 @@ class ListItemAction extends Component {
 
     if (link && link.to) {
       return (
-        // set onClick so that it can be tracked
-        <Button className={CLASS_NAME} onClick={onClick}>
-          <Link className="no-transition" to={link.to}>
-            {this.renderIconText()}
-          </Link>
-        </Button>
+        <Link
+          className={`no-transition ant-btn ${CLASS_NAME}`}
+          to={link.to}
+          onClick={onClick}
+        >
+          {this.renderIconText()}
+        </Link>
       );
     }
 
