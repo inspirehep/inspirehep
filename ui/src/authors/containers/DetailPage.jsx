@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col } from 'antd';
+import { Row, Col, Alert } from 'antd';
 import { Map, List } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
@@ -69,7 +69,14 @@ class DetailPage extends Component {
         <Row type="flex" justify="center">
           <Col className="mv3" span={18}>
             <ContentBox loading={loading}>
-              <h2>
+              <Alert
+                type="info"
+                showIcon
+                message={
+                  <span>The author profile is currently under development. More features coming soon!</span>
+                }
+              />
+              <h2 className="mt3">
                 <AuthorName name={name} />
                 {currentPositions.size > 0 && (
                   <span className="pl1 f6">
