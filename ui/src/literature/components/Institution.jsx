@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import ExternalLink from '../../common/components/ExternalLink';
 
 class InstitutionLink extends Component {
   render() {
@@ -12,8 +11,7 @@ class InstitutionLink extends Component {
       return null;
     }
 
-    const href = `//inspirehep.net/search?ln=en&cc=Institutions&p=110__u:"${name}"`;
-    return <ExternalLink href={href}>{name}</ExternalLink>;
+    return <span>{name}</span>;
   }
 }
 

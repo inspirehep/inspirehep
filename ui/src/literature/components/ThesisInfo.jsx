@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import InlineList from '../../common/components/InlineList';
-import InstitutionLink from './InstitutionLink';
+import Institution from './Institution';
 
 class ThesisInfo extends Component {
   renderInstutions() {
@@ -13,7 +13,7 @@ class ThesisInfo extends Component {
         items={thesisInfo.get('institutions')}
         extractKey={institution => institution.get('name')}
         renderItem={institution => (
-          <InstitutionLink institution={institution} />
+          <Institution institution={institution} />
         )}
       />
     );

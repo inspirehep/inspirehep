@@ -10,22 +10,16 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
     <li
       key="Affiliation1"
     >
-      <ExternalLink
-        className="secondary-link"
-        href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation1\\""
-      >
+      <span>
         Affiliation1
-      </ExternalLink>
+      </span>
     </li>
     <li
       key="Affiliation2"
     >
-      <ExternalLink
-        className="secondary-link"
-        href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation2\\""
-      >
+      <span>
         Affiliation2
-      </ExternalLink>
+      </span>
     </li>
   </ul>
 </div>
@@ -41,12 +35,9 @@ exports[`AuthorAffiliationList renders author with one affiliation 1`] = `
     <li
       key="Affiliation"
     >
-      <ExternalLink
-        className="secondary-link"
-        href="//inspirehep.net/search?cc=Institutions&p=institution:\\"Affiliation\\""
-      >
+      <span>
         Affiliation
-      </ExternalLink>
+      </span>
     </li>
   </ul>
 </div>

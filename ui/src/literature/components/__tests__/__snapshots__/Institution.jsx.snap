@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Institution renders empty if instution does not has name 1`] = `""`;
+
+exports[`Institution renders if institution has name 1`] = `
+<span>
+  CERN
+</span>
+`;
