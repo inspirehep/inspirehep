@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import AuthorLink from '../AuthorLink';
+import Author from '../Author';
 
-describe('AuthorLink', () => {
+describe('Author', () => {
   it('renders first_name and last_name with affiliations', () => {
     const author = fromJS({
       full_name: 'Name, Full',
@@ -16,7 +16,7 @@ describe('AuthorLink', () => {
         },
       ],
     });
-    const wrapper = shallow(<AuthorLink author={author} recordId={12345} />);
+    const wrapper = shallow(<Author author={author} recordId={12345} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -29,7 +29,7 @@ describe('AuthorLink', () => {
         },
       ],
     });
-    const wrapper = shallow(<AuthorLink author={author} recordId={12345} />);
+    const wrapper = shallow(<Author author={author} recordId={12345} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -43,7 +43,7 @@ describe('AuthorLink', () => {
         },
       ],
     });
-    const wrapper = shallow(<AuthorLink author={author} />);
+    const wrapper = shallow(<Author author={author} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -57,7 +57,7 @@ describe('AuthorLink', () => {
         },
       ],
     });
-    const wrapper = shallow(<AuthorLink author={author} />);
+    const wrapper = shallow(<Author author={author} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -70,7 +70,7 @@ describe('AuthorLink', () => {
         },
       ],
     });
-    const wrapper = shallow(<AuthorLink author={author} />);
+    const wrapper = shallow(<Author author={author} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -80,7 +80,7 @@ describe('AuthorLink', () => {
       first_name: 'Full',
       last_name: 'Name',
     });
-    const wrapper = shallow(<AuthorLink recordId={12345} author={author} />);
+    const wrapper = shallow(<Author recordId={12345} author={author} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -96,7 +96,7 @@ describe('AuthorLink', () => {
         },
       ],
     });
-    const wrapper = shallow(<AuthorLink recordId={12345} author={author} />);
+    const wrapper = shallow(<Author recordId={12345} author={author} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -105,7 +105,18 @@ describe('AuthorLink', () => {
       full_name: 'Name, Full',
       inspire_roles: ['supervisor'],
     });
-    const wrapper = shallow(<AuthorLink recordId={12345} author={author} />);
+    const wrapper = shallow(<Author recordId={12345} author={author} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders linked author', () => {
+    const author = fromJS({
+      full_name: 'Name, Full',
+      record: {
+        $ref: 'https://beta.inspirehep.net/api/authors/12345'
+      }
+    });
+    const wrapper = shallow(<Author recordId={12345} author={author} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

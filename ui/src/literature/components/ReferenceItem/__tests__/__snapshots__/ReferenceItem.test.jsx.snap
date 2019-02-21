@@ -17,7 +17,6 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
             collaborations={Immutable.List []}
             collaborationsWithSuffix={Immutable.List []}
             enableAuthorsShowAll={false}
-            recordId={0}
           />
           <ul
             className="bulleted-list secondary-container"
@@ -56,7 +55,6 @@ exports[`ReferenceItem renders misc if present 1`] = `
             collaborations={Immutable.List []}
             collaborationsWithSuffix={Immutable.List []}
             enableAuthorsShowAll={false}
-            recordId={0}
           />
           <ul
             className="bulleted-list secondary-container"
@@ -109,7 +107,6 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
                 ]
               }
               enableAuthorsShowAll={false}
-              recordId={0}
             />
             <ul
               className="bulleted-list secondary-container"
@@ -215,7 +212,6 @@ exports[`ReferenceItem renders with full reference 1`] = `
                 ]
               }
               enableAuthorsShowAll={false}
-              recordId={12345}
             />
             <ul
               className="bulleted-list secondary-container"

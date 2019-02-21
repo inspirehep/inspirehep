@@ -1,22 +1,14 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { Tooltip } from 'antd';
 
-import ExternalLink from './ExternalLink';
 import AuthorAffiliationList from './AuthorAffiliationList';
+import { AUTHORS } from '../routes';
 
-class AuthorLink extends Component {
-  getAuthorHref() {
-    const { author, recordId } = this.props;
-    let href = `//inspirehep.net/author/profile/${author.get('full_name')}`;
-    if (recordId != null) {
-      href = `${href}?recid=${recordId}`;
-    }
-    return href;
-  }
-
-  getFullName() {
+class Author extends Component {
+  getAuthorName() {
     const { author } = this.props;
     if (author.has('first_name')) {
       const firstName = author.get('first_name');
@@ -24,6 +16,18 @@ class AuthorLink extends Component {
       return `${firstName} ${lastName}`;
     }
     return author.get('full_name');
+  }
+
+  getAuthorRecid() {
+    const { author } = this.props;
+    const ref = author.getIn(['record', '$ref']);
+    
+    if (!ref) {
+      return null;
+    }
+
+    const urlParts = ref.split('/');
+    return urlParts[urlParts.length - 1];
   }
 
   renderRoleSuffix() {
@@ -59,11 +63,18 @@ class AuthorLink extends Component {
     );
   }
 
+  renderAuthorName() {
+    const recid = this.getAuthorRecid();
+    if (recid != null) {
+      return <Link to={`${AUTHORS}/${recid}`}>{this.getAuthorName()}</Link>
+    }
+    return <span>{this.getAuthorName()}</span>
+  }
+
   render() {
-    const authorHref = this.getAuthorHref();
     return (
       <div className="di">
-        <ExternalLink href={authorHref}>{this.getFullName()}</ExternalLink>
+        {this.renderAuthorName()}
         {this.renderAffiliationsList()}
         {this.renderRoleSuffix()}
       </div>
@@ -71,13 +82,8 @@ class AuthorLink extends Component {
   }
 }
 
-AuthorLink.propTypes = {
+Author.propTypes = {
   author: PropTypes.instanceOf(Map).isRequired,
-  recordId: PropTypes.number,
 };
 
-AuthorLink.defaultProps = {
-  recordId: undefined,
-};
-
-export default AuthorLink;
+export default Author;

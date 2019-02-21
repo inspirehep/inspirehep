@@ -24,7 +24,6 @@ class CitationItem extends Component {
     const { citation } = this.props;
     const publicationInfo = citation.get('publication_info');
     const authors = citation.get('authors');
-    const recordId = citation.get('control_number');
     const collaborations = citation.get('collaborations');
     const collaborationsWithSuffix = citation.get('collaborations_with_suffix');
 
@@ -35,7 +34,6 @@ class CitationItem extends Component {
           description={
             <Fragment>
               <AuthorsAndCollaborations
-                recordId={recordId}
                 authors={authors}
                 collaborations={collaborations}
                 collaborationsWithSuffix={collaborationsWithSuffix}
