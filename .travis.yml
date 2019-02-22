@@ -70,7 +70,6 @@ matrix:
 
       script:
         - pipenv run isort -rc -c -df --skip ui
-        - pipenv run check-manifest --ignore ".travis-*,ui/*,ui"
         - pipenv run py.test tests/unit
 
       after_success:
