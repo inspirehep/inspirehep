@@ -17,7 +17,7 @@ import { ERRORS } from '../common/routes';
 
 describe('App', () => {
   it('renders initial state', () => {
-    const wrapper = shallow(<App store={getStore()}/>).dive();
+    const wrapper = shallow(<App store={getStore()} />).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -64,12 +64,12 @@ describe('App', () => {
     expect(wrapper.find(User)).toExist();
   });
 
-  it('navigates to Literature when /literature if betauser is logged in', () => {
+  it('navigates to Literature when /literature if user is logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
         data: {
-          roles: ['betauser'],
+          roles: ['whatever'],
         },
       }),
     });
@@ -83,32 +83,10 @@ describe('App', () => {
     expect(wrapper.find(Literature)).toExist();
   });
 
-  it('navigates to Literature when /literature if cataloger is logged in', () => {
+  it('does not navigate to Literature when /literature if not logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['cataloger'],
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(wrapper.find(Literature)).toExist();
-  });
-
-  it('does not navigate to Literature when /literature if logged in user not a beta nor super', () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['whateveruser'],
-        },
+        loggedIn: false,
       }),
     });
     const wrapper = mount(
@@ -121,12 +99,12 @@ describe('App', () => {
     expect(wrapper.find(Literature)).not.toExist();
   });
 
-  it('navigates to Authors when /authors if superuser is logged in', () => {
+  it('navigates to Authors when /authors if user is logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
         data: {
-          roles: ['superuser'],
+          roles: ['whatever'],
         },
       }),
     });
@@ -140,32 +118,10 @@ describe('App', () => {
     expect(wrapper.find(Authors)).toExist();
   });
 
-  it('navigates to Authors when /authors if betauser is logged in', () => {
+  it('does not navigate to Authors when /authors if not logged in', () => {
     const store = getStoreWithState({
       user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['betauser'],
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(wrapper.find(Authors)).toExist();
-  });
-
-  it('does not navigate to Authors when /authors if logged in user is not a super or beta user', () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['whateveruser'],
-        },
+        loggedIn: false,
       }),
     });
     const wrapper = mount(
