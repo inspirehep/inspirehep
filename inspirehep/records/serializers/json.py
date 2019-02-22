@@ -41,9 +41,11 @@ facets_json_response_search = search_responsify(facets_json, "application/json")
 # Literature
 literature_json_v1 = JSONSerializer(LiteratureMetadataSchemaV1)
 literature_json_v1_search = JSONSerializer(LiteratureUISchema)
-literature_json_v1_response = record_responsify(literature_json_v1, "application/json")
+literature_json_v1_response = record_responsify(
+    literature_json_v1, "application/vnd+inspire.record.ui+json"
+)
 literature_json_v1_response_search = search_responsify(
-    literature_json_v1_search, "application/json"
+    literature_json_v1_search, "application/vnd+inspire.record.ui+json"
 )
 
 literature_authors_json_v1 = JSONSerializer(LiteratureAuthorsMetadataSchemaV1)
