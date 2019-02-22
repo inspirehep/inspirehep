@@ -193,7 +193,7 @@ class DetailPage extends Component {
               tab="Figures"
               key="3"
             >
-              <ContentBox>This feature is curently under development.</ContentBox>
+              <ContentBox>This feature is currently under development.</ContentBox>
             </Tabs.TabPane>
           </Tabs>
         </Col>
