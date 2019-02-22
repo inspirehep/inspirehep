@@ -3,7 +3,6 @@ import { Card, Icon, Button, Modal, Table, Tabs, Tooltip } from 'antd';
 import ExternalLink from '../../common/components/ExternalLink';
 import LinkWithEncodedLiteratureQuery from './LinkWithEncodedLiteratureQuery';
 
-
 const TABLE_COLUMNS = [
   {
     title: 'Search by',
@@ -55,14 +54,23 @@ const DATA = [
     key: '6',
     searchBy: (
       <>
-      Document type <ExternalLink href="http://inspirehep.net/info/hep/search-tips#tc">(type-code)</ExternalLink>
+        Document type{' '}
+        <ExternalLink href="http://inspirehep.net/info/hep/search-tips#tc">
+          (type-code)
+        </ExternalLink>
       </>
     ),
     useOperators: 'tc, type-code, type, ty',
     example: 'tc t',
   },
   {
-    key: '7',
+    key: '8',
+    searchBy: 'Date',
+    useOperators: 'd, date, year',
+    example: 'd 2015+',
+  },
+  {
+    key: '9',
     searchBy: 'Citation number',
     useOperators: 'topcite,topcit, cited',
     example: 'topcite 1000+',
@@ -74,43 +82,43 @@ const DATA = [
     example: 'cn babar',
   },
   {
-    key: '9',
+    key: '10',
     searchBy: 'Journal',
     useOperators: 'j, journal, coden, published_in',
     example: 'j Nucl.Phys.,B164,171',
   },
   {
-    key: '10',
+    key: '11',
     searchBy: 'Number of authors',
     useOperators: 'ac,author-count, authorcount',
     example: 'ac 1->10',
   },
   {
-    key: '11',
+    key: '12',
     searchBy: 'Report number',
     useOperators: 'r,reportnumber, report-num, report, rept, rn',
     example: 'r ATLAS-CONF-2011-084',
   },
   {
-    key: '12',
+    key: '13',
     searchBy: 'Citations of a record',
     useOperators: 'refersto:recid',
     example: 'refersto:recid:193978',
   },
   {
-    key: '13',
+    key: '14',
     searchBy: 'Texkey',
     useOperators: 'texkey',
     example: 'texkey Lutz:2003jw',
   },
   {
-    key: '14',
+    key: '15',
     searchBy: 'DOI',
     useOperators: 'doi',
     example: 'doi 10.1088/1475-7516/2013/05/009',
   },
   {
-    key: '15',
+    key: '16',
     searchBy: 'Record id',
     useOperators: 'recid, control_number',
     example: 'recid:193978',
@@ -217,7 +225,8 @@ class HowToSearch extends Component {
               <LinkWithEncodedLiteratureQuery query="t A First Course in String Theory" />
             </li>
             <li>
-              Exact author name: <LinkWithEncodedLiteratureQuery query="ea ellis, j" />
+              Exact author name:{' '}
+              <LinkWithEncodedLiteratureQuery query="ea ellis, j" />
             </li>
             <li>
               Date: <LinkWithEncodedLiteratureQuery query="d 2015+" />

@@ -89,7 +89,8 @@ exports[`HowToSearch renders the components 1`] = `
                   "example": "tc t",
                   "key": "6",
                   "searchBy": <React.Fragment>
-                    Document type 
+                    Document type
+                     
                     <ExternalLink
                       href="http://inspirehep.net/info/hep/search-tips#tc"
                     >
@@ -99,8 +100,14 @@ exports[`HowToSearch renders the components 1`] = `
                   "useOperators": "tc, type-code, type, ty",
                 },
                 Object {
+                  "example": "d 2015+",
+                  "key": "8",
+                  "searchBy": "Date",
+                  "useOperators": "d, date, year",
+                },
+                Object {
                   "example": "topcite 1000+",
-                  "key": "7",
+                  "key": "9",
                   "searchBy": "Citation number",
                   "useOperators": "topcite,topcit, cited",
                 },
@@ -112,43 +119,43 @@ exports[`HowToSearch renders the components 1`] = `
                 },
                 Object {
                   "example": "j Nucl.Phys.,B164,171",
-                  "key": "9",
+                  "key": "10",
                   "searchBy": "Journal",
                   "useOperators": "j, journal, coden, published_in",
                 },
                 Object {
                   "example": "ac 1->10",
-                  "key": "10",
+                  "key": "11",
                   "searchBy": "Number of authors",
                   "useOperators": "ac,author-count, authorcount",
                 },
                 Object {
                   "example": "r ATLAS-CONF-2011-084",
-                  "key": "11",
+                  "key": "12",
                   "searchBy": "Report number",
                   "useOperators": "r,reportnumber, report-num, report, rept, rn",
                 },
                 Object {
                   "example": "refersto:recid:193978",
-                  "key": "12",
+                  "key": "13",
                   "searchBy": "Citations of a record",
                   "useOperators": "refersto:recid",
                 },
                 Object {
                   "example": "texkey Lutz:2003jw",
-                  "key": "13",
+                  "key": "14",
                   "searchBy": "Texkey",
                   "useOperators": "texkey",
                 },
                 Object {
                   "example": "doi 10.1088/1475-7516/2013/05/009",
-                  "key": "14",
+                  "key": "15",
                   "searchBy": "DOI",
                   "useOperators": "doi",
                 },
                 Object {
                   "example": "recid:193978",
-                  "key": "15",
+                  "key": "16",
                   "searchBy": "Record id",
                   "useOperators": "recid, control_number",
                 },
@@ -245,7 +252,8 @@ exports[`HowToSearch renders the components 1`] = `
         />
       </li>
       <li>
-        Exact author name: 
+        Exact author name:
+         
         <LinkWithEncodedLiteratureQuery
           query="ea ellis, j"
         />
