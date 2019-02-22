@@ -30,24 +30,10 @@ exports[`App renders initial state 1`] = `
         path="/holdingpen"
       />
       <Connect(PrivateRoute)
-        authorizedRoles={
-          Immutable.Set [
-            "superuser",
-            "betauser",
-            "cataloger",
-          ]
-        }
         component={[Function]}
         path="/literature"
       />
       <Connect(PrivateRoute)
-        authorizedRoles={
-          Immutable.Set [
-            "superuser",
-            "betauser",
-            "cataloger",
-          ]
-        }
         component={[Function]}
         path="/authors"
       />
