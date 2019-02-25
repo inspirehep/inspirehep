@@ -269,7 +269,7 @@ class InspireRecord(Record):
                     }
                 ]
             }
-            >  records = InspireRecord.get_linked_records_in_field(record.json, "references.record"
+            >  records = InspireRecord.get_linked_records_in_field(record.json, "references.record")
         """
         full_path = ".".join([path, "$ref"])
         pids = force_list(

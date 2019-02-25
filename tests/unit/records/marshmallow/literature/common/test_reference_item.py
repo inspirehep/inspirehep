@@ -12,6 +12,7 @@ from inspire_schemas.api import load_schema, validate
 from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
+from inspirehep.records.api import InspireRecord
 
 
 @mock.patch(
@@ -181,19 +182,21 @@ def test_returns_no_misc_if_titles_persent_in_the_resolved_record(
     mock_get_linked_records_in_field
 ):
     mock_get_linked_records_in_field.return_value = [
-        {
-            "control_number": 123,
-            "titles": [
-                {
-                    "source": "arXiv",
-                    "title": "Theoretical limit of residual amplitude modulation in electro-optic modulators",  # noqa
-                },
-                {
-                    "source": "arXiv",
-                    "title": "Fundamental level of residual amplitude modulation in phase modulation processes",  # noqa
-                },
-            ],
-        }
+        InspireRecord(
+            {
+                "control_number": 123,
+                "titles": [
+                    {
+                        "source": "arXiv",
+                        "title": "Theoretical limit of residual amplitude modulation in electro-optic modulators",  # noqa
+                    },
+                    {
+                        "source": "arXiv",
+                        "title": "Fundamental level of residual amplitude modulation in phase modulation processes",  # noqa
+                    },
+                ],
+            }
+        )
     ]
 
     hep_schema = load_schema("hep")
@@ -237,7 +240,9 @@ def test_returns_only_first_misc(mock_get_linked_records_in_field):
 )
 def test_returns_dois_from_the_resolved_record(mock_get_linked_records_in_field):
     mock_get_linked_records_in_field.return_value = [
-        {"control_number": 123, "dois": [{"value": "10.1103/PhysRevD.94.054021"}]}
+        InspireRecord(
+            {"control_number": 123, "dois": [{"value": "10.1103/PhysRevD.94.054021"}]}
+        )
     ]
 
     hep_schema = load_schema("hep")
@@ -264,10 +269,12 @@ def test_returns_arxiv_eprints_from_the_resolved_record(
     mock_get_linked_records_in_field
 ):
     mock_get_linked_records_in_field.return_value = [
-        {
-            "control_number": 123,
-            "arxiv_eprints": [{"value": "1606.09129", "categories": "hep"}],
-        }
+        InspireRecord(
+            {
+                "control_number": 123,
+                "arxiv_eprints": [{"value": "1606.09129", "categories": "hep"}],
+            }
+        )
     ]
 
     hep_schema = load_schema("hep")

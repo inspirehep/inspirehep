@@ -19,10 +19,6 @@ class LiteratureAuthorsMetadataSchemaV1(Schema):
     )
     collaborations = fields.Raw(default=[], dump_only=True)
 
-    @pre_dump
-    def filter_dump(self, data):
-        return data.get("metadata", data)
-
     @post_dump
     def strip_empty(self, data):
         return strip_empty_values(data)

@@ -15,9 +15,9 @@ from invenio_records_rest.serializers.response import (
 from marshmallow import Schema
 
 from ..marshmallow.literature import (
-    LiteratureAuthorsMetadataSchemaV1,
-    LiteratureMetadataSchemaV1,
-    LiteratureReferencesMetadataSchemaV1,
+    LiteratureAuthorsSchemaV1,
+    LiteratureSchemaV1,
+    LiteratureReferencesSchemaV1,
     LiteratureUISchema,
 )
 
@@ -39,29 +39,24 @@ facets_json = JSONSerializerFacets(Schema)
 facets_json_response_search = search_responsify(facets_json, "application/json")
 
 # Literature
-literature_json_v1 = JSONSerializer(LiteratureMetadataSchemaV1)
+literature_json_v1 = JSONSerializer(LiteratureSchemaV1)
 literature_json_v1_search = JSONSerializer(LiteratureUISchema)
+
 literature_json_v1_response = record_responsify(
     literature_json_v1, "application/vnd+inspire.record.ui+json"
 )
 literature_json_v1_response_search = search_responsify(
     literature_json_v1_search, "application/vnd+inspire.record.ui+json"
 )
-
-literature_authors_json_v1 = JSONSerializer(LiteratureAuthorsMetadataSchemaV1)
+# Authors
+literature_authors_json_v1 = JSONSerializer(LiteratureAuthorsSchemaV1)
 
 literature_authors_json_v1_response = record_responsify(
     literature_authors_json_v1, "application/json"
 )
-literature_authors_json_v1_response_search = search_responsify(
-    literature_authors_json_v1, "application/json"
-)
-
-literature_references_json_v1 = JSONSerializer(LiteratureReferencesMetadataSchemaV1)
+# References
+literature_references_json_v1 = JSONSerializer(LiteratureReferencesSchemaV1)
 
 literature_references_json_v1_response = record_responsify(
-    literature_references_json_v1, "application/json"
-)
-literature_references_json_v1_response_search = search_responsify(
     literature_references_json_v1, "application/json"
 )

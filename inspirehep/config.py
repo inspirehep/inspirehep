@@ -199,7 +199,7 @@ LITERATURE_REFERENCES.update(
             "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_v1_response"
         },
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_v1_response_search"
+            "application/json": "invenio_records_rest.serializers:json_v1_search"
         },
     }
 )
@@ -215,7 +215,7 @@ LITERATURE_AUTHORS.update(
             "application/json": f"{INSPIRE_SERIALIZERS}:literature_authors_json_v1_response"
         },
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_authors_json_v1_response_search"
+            "application/json": "invenio_records_rest.serializers:json_v1_search"
         },
     }
 )

@@ -18,10 +18,6 @@ class LiteratureReferencesMetadataSchemaV1(Schema):
         ReferenceItemSchemaV1, default=[], many=True, dump_only=True
     )
 
-    @pre_dump
-    def filter_dump(self, data):
-        return data.get("metadata", data)
-
     @post_dump
     def strip_empty(self, data):
         return strip_empty_values(data)
