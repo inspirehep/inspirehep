@@ -11,23 +11,62 @@ services:
     extends:
       file: docker-services.yml
       service: cache
+    ports:
+     - "6379:6379"
   db:
     extends:
       file: docker-services.yml
       service: db
+    ports:
+     - "5432:5432"
   mq:
     extends:
       file: docker-services.yml
       service: mq
+    ports:
+     - "5672:5672"
   es:
     extends:
       file: docker-services.yml
       service: es
+    ports:
+     - "9200:9200"
   flower:
     extends:
       file: docker-services.yml
       service: flower
+    ports:
+     - "5555:5555"
   kibana:
-    extends: 
+    extends:
       file: docker-services.yml
       service: kibana
+  ui:
+    build:
+      context: ui/docker
+      dockerfile: Dockerfile-ui
+    ports:
+     - "8081:8081"
+    volumes:
+      - .:/opt/inspire/ui
+  web:
+    extends:
+      file: docker-services.yml
+      service: app
+    ports:
+     - "8000:8000"
+    command: pipenv run gunicorn --reload -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application
+    volumes:
+      - .:/opt/inspire
+  worker:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: ./scripts/server
+    volumes:
+      - .:/opt/inspire
+    depends_on:
+      - db
+      - es
+      - mq
+      - cache

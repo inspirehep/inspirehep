@@ -7,12 +7,17 @@
 
 FROM python:3.6
 
-COPY ./ .
-RUN apt-get update
-RUN apt-get install -y git
-RUN apt-get install -y curl
-RUN apt-get install -y gnupg2
-RUN git init
-
 RUN pip install pipenv
-RUN ./scripts/bootstrap --dev
+
+WORKDIR /opt/inspire
+
+COPY Pipfile Pipfile.lock setup.py README.md /opt/inspire/
+COPY  inspirehep/version.py /opt/inspire/inspirehep/
+
+# install dependencies
+RUN pipenv install --skip-lock
+
+COPY inspirehep/ /opt/inspire/inspirehep
+
+# install application
+RUN pipenv install --skip-lock -e .

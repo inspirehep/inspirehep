@@ -16,7 +16,7 @@ invenio-pidstore = ">=1.0.0,<1.1.0"
 invenio-records-rest = ">=1.2.1,<1.3.0"
 invenio-records = ">=1.0.0,<1.1.0"
 invenio-records-files = ">=1.0.0a10"
-inspirehep = {editable = true,path = "."}
+inspirehep = {path = ".",editable = true}
 inspire-schemas = "~=59.3.0,>=59.3.0"
 inspire-dojson = "~=61.0.0,>=61.0.0"
 inspire-utils = "~=3.0.0,>=3.0.3"
@@ -31,8 +31,10 @@ pylint = "*"
 pybtex = "*"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
+invenio-app = "==1.0.0"
 cryptography = "<2.6"
-
+gunicorn = "*"
+watchdog = "*"
 
 [dev-packages]
 freezegun = "*"
@@ -55,9 +57,9 @@ pre-commit = "*"
 gunicorn = "*"
 pylint = "*"
 flake8 = "*"
+watchdog = "*"
 # FIXME: just to pin for workiong around pipenv issues
 virtualenv = "<16.5.0"
-
 
 [requires]
 python_version = "3"

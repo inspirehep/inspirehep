@@ -13,10 +13,10 @@ script_path=$(dirname "$0")
 export FLASK_ENV=development
 FLASK_ENV=development
 
-# Start Worker and Server
-pipenv run celery worker -E -B -A inspirehep.celery -l INFO & pid_celery=$!
+# Start Worker and Server. Whatchdog detects any change to the .py files and restarts celery
+pipenv run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO & pid_celery=$!
 
-pipenv run inspirehep run & pid_server=$!
+inspirehep run & pid_server=$!
 
 trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
 
