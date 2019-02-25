@@ -7,7 +7,9 @@ import {
   SUBMISSIONS,
 } from '../../routes';
 import { setBannerVisibility } from '../../../actions/ui';
+import ExternalLink from '../../components/ExternalLink';
 
+const BLOG_POST_LINK = 'https://blog.inspirehep.net/2019/02/introducing-inspire-beta/'
 
 class Banner extends Component {
   constructor(props) {
@@ -33,7 +35,7 @@ class Banner extends Component {
           message={
             <span>
               <strong>
-                INSPIRE beta provides a preview of new features currently under development. Try it out and let us know what you think!
+                INSPIRE beta provides a preview of new features currently under development. For more info, visit our <ExternalLink href={BLOG_POST_LINK}>blog</ExternalLink>. Try it out and let us know what you think!
               </strong>
               <Button
                 className="ml3"
