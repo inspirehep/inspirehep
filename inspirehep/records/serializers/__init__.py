@@ -9,9 +9,7 @@ from .json import (
     literature_json_v1_response,
     literature_json_v1_response_search,
     literature_authors_json_v1_response,
-    literature_authors_json_v1_response_search,
     literature_references_json_v1_response,
-    literature_references_json_v1_response_search,
     facets_json_response_search,
 )
 

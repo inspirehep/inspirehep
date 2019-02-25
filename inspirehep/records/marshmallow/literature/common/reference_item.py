@@ -85,7 +85,7 @@ class ReferenceItemSchemaV1(Schema):
         resolved_records = InspireRecord.get_linked_records_in_field(
             {"references": data}, "references.record"
         )
-        return {record["control_number"]: record for record in resolved_records}
+        return {record["control_number"]: record.dumps() for record in resolved_records}
 
     def get_reference_or_linked_reference_with_label(self, data, reference_record):
         if reference_record:
