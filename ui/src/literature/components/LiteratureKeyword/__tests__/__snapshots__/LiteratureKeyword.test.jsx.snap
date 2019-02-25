@@ -2,20 +2,11 @@
 
 exports[`LiteratureKeyword renders with keyword 1`] = `
 <Tag
+  className="__LiteratureKeyword__"
   closable={false}
   color="blue"
   prefixCls="ant-tag"
-  style={
-    Object {
-      "marginTop": 4,
-    }
-  }
 >
-  <Link
-    replace={false}
-    to="/literature/?q=keyword:\\"CMS\\""
-  >
-    CMS
-  </Link>
+  CMS
 </Tag>
 `;
