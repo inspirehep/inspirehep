@@ -7,7 +7,8 @@ import Suggester, { REQUEST_DEBOUNCE_MS } from '../Suggester';
 
 const mockHttp = new MockAdapter(http);
 
-function wait(milisec = REQUEST_DEBOUNCE_MS + 5) {
+// TODO: use fake timers after https://github.com/facebook/jest/pull/7776
+function wait(milisec = REQUEST_DEBOUNCE_MS + 25) {
   return new Promise(resolve => {
     setTimeout(() => resolve(), milisec);
   });
