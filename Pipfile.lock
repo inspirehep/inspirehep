@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "58f226ff4c542696d8ff7ca5cb7c0c49df7e811b8d7da6374091138721534f0d"
+            "sha256": "eb1735b11e12f970d398dbfb7acb69578ef2604c31ff75a51181402630f70674"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -28,14 +28,6 @@
                 "sha256:6816eed27521293ee03aa9ace300a07215b11fee4e845588a9b863a7ba30addb"
             ],
             "version": "==2.4.1"
-        },
-        "appnope": {
-            "hashes": [
-                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
-                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
-            ],
-            "markers": "sys_platform == 'darwin'",
-            "version": "==0.1.0"
         },
         "arrow": {
             "hashes": [
@@ -461,10 +453,10 @@
         },
         "inspire-dojson": {
             "hashes": [
-                "sha256:2b52a75ddebc391a99e2a36426c75d7e518060dd35532bf6a3e54ec3716f0888"
+                "sha256:07f52fc5d2508e39b0077d3c753014782d52cb708e10e73e79aa4d0747d3a82a"
             ],
             "index": "pypi",
-            "version": "==61.0.2"
+            "version": "==61.1.5"
         },
         "inspire-query-parser": {
             "hashes": [
@@ -717,10 +709,9 @@
         },
         "isort": {
             "hashes": [
-                "sha256:6c3110ff0871d3a45f0ba1b8f7cefe38e845887210c80d952479fa7e74e00ad7",
-                "sha256:78ebda8283402dbe15e1fe8dc73e6d72e5d3c6a0c5e8dc489b2a4372280037af"
+                "sha256:f19b23b22fb5a919a081bc31aabcc0991614c244d9215267e11abf2ca7b684ce"
             ],
-            "version": "==4.3.8"
+            "version": "==4.3.9"
         },
         "itsdangerous": {
             "hashes": [
@@ -1617,10 +1608,9 @@
         },
         "isort": {
             "hashes": [
-                "sha256:6c3110ff0871d3a45f0ba1b8f7cefe38e845887210c80d952479fa7e74e00ad7",
-                "sha256:78ebda8283402dbe15e1fe8dc73e6d72e5d3c6a0c5e8dc489b2a4372280037af"
+                "sha256:f19b23b22fb5a919a081bc31aabcc0991614c244d9215267e11abf2ca7b684ce"
             ],
-            "version": "==4.3.8"
+            "version": "==4.3.9"
         },
         "itsdangerous": {
             "hashes": [
