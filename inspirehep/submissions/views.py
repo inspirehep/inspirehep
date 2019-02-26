@@ -47,7 +47,10 @@ class AuthorSubmissionsResource(MethodView):
         serialized_data = self.populate_and_serialize_data_for_submission(
             submission_data, control_number
         )
-        headers = {"content-type": "application/json"}
+        headers = {
+            "content-type": "application/json",
+            "Authorization": f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}",
+        }
         data = {"data": serialized_data}
         response = requests.post(
             current_app.config["INSPIRE_NEXT_URL"] + "/workflows/authors",

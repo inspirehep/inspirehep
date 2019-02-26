@@ -19,4 +19,4 @@ pipenv run inspirehep index queue init purge
 # Create admin role to rectict access
 pipenv run inspirehep roles create admin
 pipenv run inspirehep access allow superuser-access role admin
-pipenv run inspirehep fixtures init-records-store-paths
+pipenv run inspirehep fixtures init
