@@ -83,6 +83,59 @@ def test_literature_citations(api_client, db, create_record):
     assert expected_data == response_data
 
 
+def test_literature_citations_with_superseded_citing_records(
+    api_client, db, create_record
+):
+    record = create_record("lit", with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    record_data = {
+        "references": [{"recid": record_control_number}],
+        "related_records": [
+            {
+                "record": {"$ref": "https://link-to-commentor-record"},
+                "relation": "commented",
+            },
+            {"record": {"$ref": "https://link-to-any-other-record"}},
+        ],
+    }
+
+    record_citing = create_record("lit", data=record_data, with_indexing=True)
+    record_citing_control_number = record_citing.json["control_number"]
+    record_citing_titles = record_citing.json["titles"]
+
+    superseded__record_data = {
+        "references": [{"recid": record_control_number}],
+        "related_records": [
+            {
+                "record": {"$ref": "https://link-to-successor-record"},
+                "relation": "successor",
+            }
+        ],
+    }
+    create_record("lit", data=superseded__record_data, with_indexing=True)
+
+    expected_status_code = 200
+    expected_data = {
+        "metadata": {
+            "citation_count": 1,
+            "citations": [
+                {
+                    "control_number": record_citing_control_number,
+                    "titles": record_citing_titles,
+                }
+            ],
+        }
+    }
+
+    response = api_client.get("/literature/{}/citations".format(record_control_number))
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+
+    assert expected_status_code == response_status_code
+    assert expected_data == response_data
+
+
 def test_literature_citations_empty(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
     record_control_number = record.json["control_number"]
