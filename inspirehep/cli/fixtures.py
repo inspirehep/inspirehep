@@ -8,6 +8,7 @@
 import click
 from flask.cli import with_appcontext
 
+from inspirehep.accounts.fixtures import init_oauth_token
 from inspirehep.records.fixtures import (
     init_default_storage_path,
     init_records_files_storage_path,
@@ -22,7 +23,7 @@ def fixtures():
 
 @fixtures.command()
 @with_appcontext
-def init_records_store_paths():
-    """Init default file and records store location."""
+def init():
     init_default_storage_path()
     init_records_files_storage_path()
+    init_oauth_token()
