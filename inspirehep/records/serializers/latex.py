@@ -78,7 +78,12 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
 
 latex_EU = LatexSerializer("EU", schema_class=LatexSchema)
 latex_US = LatexSerializer("US", schema_class=LatexSchema)
-latex_response_eu = record_responsify(latex_EU, "application/vnd.eu+x-latex")
-latex_response_us = record_responsify(latex_US, "application/vnd.us+x-latex")
-latex_search_response_eu = search_responsify(latex_EU, "application/vnd.eu+x-latex")
-latex_search_response_us = search_responsify(latex_US, "application/vnd.us+x-latex")
+latex_response_eu = record_responsify(
+    latex_EU, "application/vnd+inspire.latex.eu+x-latex"
+)
+latex_response_us = record_responsify(
+    latex_US, "application/vnd+inspire.latex.us+x-latex"
+)
+# NOTE: many result doesn't work
+# latex_search_response_eu = search_responsify(latex_EU, "application/vnd.eu+x-latex")
+# latex_search_response_us = search_responsify(latex_US, "application/vnd.us+x-latex")
