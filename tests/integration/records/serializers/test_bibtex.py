@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-from helpers.providers.faker import faker
 
 
 def test_bibtex(api_client, db, create_record):
@@ -35,18 +34,15 @@ def test_bibtex_search(api_client, db, create_record):
     record_2 = create_record("lit", data=data_2, with_indexing=True)
 
     expected_status_code = 200
-    expected_result = (
-        "@article{637275237,\n"
-        '    title = "This is a title."\n'
-        "}\n"
-        "\n"
-        "@article{637275232,\n"
-        '    title = "Yet another title."\n'
-        "}\n"
+    expected_result_1 = "@article{637275237,\n" '    title = "This is a title."\n' "}\n"
+    expected_result_2 = (
+        "\n" "@article{637275232,\n" '    title = "Yet another title."\n' "}\n"
     )
+
     response = api_client.get("/literature/", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
     assert expected_status_code == response_status_code
-    assert expected_result == response_data
+    assert expected_result_1 in response_data
+    assert expected_result_2 in response_data
