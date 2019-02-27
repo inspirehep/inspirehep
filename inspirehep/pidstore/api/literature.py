@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from __future__ import absolute_import, division, print_function
 
 from flask import current_app
 from six.moves.urllib.parse import urlsplit

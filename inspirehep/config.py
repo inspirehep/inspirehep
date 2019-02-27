@@ -238,6 +238,45 @@ DOI.update(
     }
 )
 
+AUTHORS = {
+    "default_endpoint_prefix": True,
+    "pid_type": "aut",
+    "pid_fetcher": "recid",
+    "pid_minter": "authors_minter",
+    "search_class": "inspirehep.search.api:AuthorsSearch",
+    "links_factory_imp": lambda links: {},
+    "indexer_class": RecordIndexer,
+    "search_type": None,
+    "search_index": "records-authors",
+    "record_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_response",
+        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+        + ":authors_json_v1_response",
+    },
+    "search_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_search",
+        "application/vnd+inspire.record.ui+json": "invenio_records_rest.serializers:json_v1_search",
+    },
+    "suggesters": {
+        "author": {
+            "_source": ["name", "control_number", "self"],
+            "completion": {"field": "author_suggest"},
+        }
+    },
+    "list_route": "/authors/",
+    "item_route": '/authors/<pid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
+    "default_media_type": "application/json",
+    "max_result_window": 10000,
+    "record_class": "inspirehep.records.api:AuthorsRecord",
+    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    "create_permission_factory_imp": deny_all,
+    "read_permission_factory_imp": allow_all,
+    "update_permission_factory_imp": deny_all,
+    "delete_permission_factory_imp": deny_all,
+    "list_permission_factory_imp": allow_all,
+}
+
+
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
     "literature_facets": LITERATURE_FACETS,
@@ -245,6 +284,7 @@ RECORDS_REST_ENDPOINTS = {
     "literature_authors": LITERATURE_AUTHORS,
     "literature_references": LITERATURE_REFERENCES,
     "doi": DOI,
+    "authors": AUTHORS,
 }
 
 RECORDS_REST_FACETS = {

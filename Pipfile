@@ -31,6 +31,7 @@ pylint = "*"
 pybtex = "*"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
+pytest-datadir = "*"
 
 [dev-packages]
 freezegun = "*"
