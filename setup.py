@@ -41,7 +41,8 @@ setup(
     entry_points={
         "console_scripts": ["inspirehep = inspirehep.cli:cli"],
         "invenio_pidstore.minters": [
-            "literature_minter = inspirehep.pidstore.minters.control_number:LiteratureMinter.mint"
+            "literature_minter = inspirehep.pidstore.minters.control_number:LiteratureMinter.mint",
+            "authors_minter = inspirehep.pidstore.minters.control_number:AuthorsMinter.mint",
         ],
         "invenio_base.api_blueprints": [
             "inspirehep_records = inspirehep.records.views:blueprint",
@@ -50,7 +51,7 @@ setup(
         "invenio_config.module": ["inspirehep = inspirehep.config"],
         "invenio_base.api_apps": ["inspirehep = inspirehep.records:InspireRecords"],
         "invenio_jsonschemas.schemas": ["inspire_records_schemas = inspire_schemas"],
-        "invenio_search.mappings": ["records = inspirehep.records.mappings"],
+        "invenio_search.mappings": ["records = inspirehep.search.mappings"],
     },
     classifiers=[
         "Environment :: Web Environment",

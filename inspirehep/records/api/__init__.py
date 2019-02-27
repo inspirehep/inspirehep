@@ -7,7 +7,7 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-from __future__ import absolute_import, division, print_function
 
 from .base import InspireRecord  # noqa: F401
 from .literature import LiteratureRecord  # noqa: F401
+from .authors import AuthorsRecord  # noqa: F401

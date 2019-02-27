@@ -21,6 +21,8 @@ from ..marshmallow.literature import (
     LiteratureUISchema,
 )
 
+from ..marshmallow.authors import AuthorsSchemaV1
+
 
 class JSONSerializerFacets(JSONSerializer):
     def serialize_search(self, pid_fetcher, search_result, **kwargs):
@@ -48,15 +50,23 @@ literature_json_v1_response = record_responsify(
 literature_json_v1_response_search = search_responsify(
     literature_json_v1_search, "application/vnd+inspire.record.ui+json"
 )
-# Authors
+# Literature Authors
 literature_authors_json_v1 = JSONSerializer(LiteratureAuthorsSchemaV1)
 
 literature_authors_json_v1_response = record_responsify(
     literature_authors_json_v1, "application/json"
 )
-# References
+# Literature References
 literature_references_json_v1 = JSONSerializer(LiteratureReferencesSchemaV1)
 
 literature_references_json_v1_response = record_responsify(
     literature_references_json_v1, "application/json"
+)
+
+# Authors
+
+authors_json_v1 = JSONSerializer(AuthorsSchemaV1)
+
+authors_json_v1_response = record_responsify(
+    authors_json_v1, "application/vnd+inspire.record.ui+json"
 )

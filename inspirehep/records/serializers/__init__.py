@@ -11,6 +11,7 @@ from .json import (
     literature_authors_json_v1_response,
     literature_references_json_v1_response,
     facets_json_response_search,
+    authors_json_v1_response,
 )
 
 from .bibtex import literature_bibtex_response, literature_bibtex_response_search
