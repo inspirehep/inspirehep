@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "834b7afa01409c8c46fe0809ee4b0b7e1efe7cf03fe1700e6bb86b4364b92565"
+            "sha256": "a735bc9883833470f89428d2ffdd41d6e09384ad35b5256071a422a252972343"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -93,9 +93,9 @@
         },
         "billiard": {
             "hashes": [
-                "sha256:756bf323f250db8bf88462cd042c992ba60d8f5e07fc5636c24ba7d6f4261d84"
+                "sha256:42d9a227401ac4fba892918bba0a0c409def5435c4b483267ebfe821afaaba0e"
             ],
-            "version": "==3.6.0.0"
+            "version": "==3.5.0.5"
         },
         "binaryornot": {
             "hashes": [
@@ -119,10 +119,11 @@
         },
         "celery": {
             "hashes": [
-                "sha256:44129fe6146a7ba96466d42e650f0444497fd9be542f8a9092716d2970804770",
-                "sha256:fe05a3e2873d11990fe7c08319e8ca5bd2d0424b521f40f3d29b891134e5df00"
+                "sha256:77dab4677e24dc654d42dfbdfed65fa760455b6bb563a0877ecc35f4cfcfc678",
+                "sha256:ad7a7411772b80a4d6c64f2f7f723200e39fb66cf614a7fdfab76d345acc7b13"
             ],
-            "version": "==4.3.0rc2"
+            "index": "pypi",
+            "version": "==4.2.1"
         },
         "certifi": {
             "hashes": [
@@ -393,11 +394,8 @@
             "version": "==0.3.1"
         },
         "flask-sqlalchemy": {
-            "hashes": [
-                "sha256:3bc0fac969dd8c0ace01b32060f0c729565293302f0c4269beed154b46bec50b",
-                "sha256:5971b9852b5888655f11db634e87725a9031e170f37c0ce7851cf83497f56e53"
-            ],
-            "version": "==2.3.2"
+            "git": "https://github.com/inspirehep/flask-sqlalchemy.git",
+            "ref": "35ab75ee366eb020f929bdc737e0cbe300c5c601"
         },
         "flask-talisman": {
             "hashes": [
@@ -534,11 +532,10 @@
         },
         "invenio-app": {
             "hashes": [
-                "sha256:26e2f329e757c32a79aa364e6960dc4cc6971f1e3b8cd5c4a0ead690631fabf5",
-                "sha256:5d7539fe2c953b37a626f442cec4042c64858c3390ffc48b11a4f2cd09dc78b4"
+                "sha256:28736fceb726a6fa740fbcfa06f1ba1ee042a5a520cf515ace373a773ea49777",
+                "sha256:b7df6b0e6d842c3a1288eebd6623ab8ff51e64dc8284b78fac2319c9fdcf643b"
             ],
-            "index": "pypi",
-            "version": "==1.0.0"
+            "version": "==1.0.5"
         },
         "invenio-base": {
             "hashes": [

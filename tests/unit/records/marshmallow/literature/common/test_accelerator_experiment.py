@@ -10,35 +10,28 @@ import json
 import mock
 import pytest
 
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.marshmallow.literature.common import (
     AcceleratorExperimentSchemaV1,
 )
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.accelerator_experiment"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_legacy_name_as_name(mock_get_linked_records_in_field):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_legacy_name_as_name(get_records_mock):
     schema = AcceleratorExperimentSchemaV1()
     dump = {"legacy_name": "Test"}
-    expected = {"name": "Test"}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+
+    expected = {"name": "Test"}
+    result = schema.dumps(record).data
 
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.accelerator_experiment"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_returns_dashed_institution_accelerator_experiment_as_name_if_all_present(
-    mock_get_linked_records_in_field
+    get_records_mock
 ):
     schema = AcceleratorExperimentSchemaV1()
     dump = {
@@ -49,20 +42,14 @@ def test_returns_dashed_institution_accelerator_experiment_as_name_if_all_presen
     }
     expected = {"name": "INS-ACC-EXP1"}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
 
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.accelerator_experiment"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_legacy_name_as_name_if_accelerator_missing(
-    mock_get_linked_records_in_field
-):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_legacy_name_as_name_if_accelerator_missing(get_records_mock):
     schema = AcceleratorExperimentSchemaV1()
     dump = {
         "legacy_name": "LEGACY-EXP1",
@@ -71,20 +58,14 @@ def test_returns_legacy_name_as_name_if_accelerator_missing(
     }
     expected = {"name": "LEGACY-EXP1"}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
 
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.accelerator_experiment"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_legacy_name_as_name_if_institutions_missing(
-    mock_get_linked_records_in_field
-):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_legacy_name_as_name_if_institutions_missing(get_records_mock):
     schema = AcceleratorExperimentSchemaV1()
     dump = {
         "legacy_name": "LEGACY-EXP1",
@@ -93,20 +74,14 @@ def test_returns_legacy_name_as_name_if_institutions_missing(
     }
     expected = {"name": "LEGACY-EXP1"}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
 
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.accelerator_experiment"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_legacy_name_as_name_if_experiment_missing(
-    mock_get_linked_records_in_field
-):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_legacy_name_as_name_if_experiment_missing(get_records_mock):
     schema = AcceleratorExperimentSchemaV1()
     dump = {
         "legacy_name": "LEGACY-EXP1",
@@ -115,35 +90,27 @@ def test_returns_legacy_name_as_name_if_experiment_missing(
     }
     expected = {"name": "LEGACY-EXP1"}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
 
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.accelerator_experiment"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_none_as_name_if_empty_present(mock_get_linked_records_in_field):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_none_as_name_if_empty_present(get_records_mock):
     schema = AcceleratorExperimentSchemaV1()
     dump = {}
     expected = {"name": None}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
 
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.accelerator_experiment"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_returns_dashed_institution_accelerator_experiment_as_name_with_unicode(
-    mock_get_linked_records_in_field
+    get_records_mock
 ):
     schema = AcceleratorExperimentSchemaV1()
     dump = {
@@ -154,6 +121,7 @@ def test_returns_dashed_institution_accelerator_experiment_as_name_with_unicode(
     }
     expected = {"name": "PSI, Villigen-PSI πM1 beam line-MUSE"}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
 
     assert expected == json.loads(result)

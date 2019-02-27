@@ -4,6 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+celery = "<=4.2.1"
 # invenio 3.1.0 requires Flask>=1.0.0
 invenio = {version = "==3.0.0",extras = [ "postgresql", "auth", "elasticsearch5", ]}
 # invenio cherry-pick `base` packages
@@ -26,6 +27,7 @@ uwsgi = ">=2.0"
 marshmallow = "<3.0.0"
 # do-json :( needs flask v0.x
 flask-shell-ipython = "~=0.3,<0.4.0" # version 0.4.0 requires `flask >= 1.0`
+flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git"}
 node-semver = "<0.2.0,>=0.1.1"
 pylint = "*"
 pybtex = "*"

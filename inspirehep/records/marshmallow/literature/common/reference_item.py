@@ -80,11 +80,11 @@ class ReferenceItemSchemaV1(Schema):
     def get_reference_record_id(self, data):
         return get_recid_from_ref(data.get("record"))
 
-    def get_resolved_references_by_control_number(self, data):
-        data = force_list(data)
-        resolved_records = InspireRecord.get_linked_records_in_field(
-            {"references": data}, "references.record"
-        )
+    def get_resolved_references_by_control_number(self, record):
+        if not isinstance(record, InspireRecord):
+            record = InspireRecord(data={"references": record})
+        resolved_records = record.get_linked_records_in_field("references.record")
+
         return {record["control_number"]: record.dumps() for record in resolved_records}
 
     def get_reference_or_linked_reference_with_label(self, data, reference_record):

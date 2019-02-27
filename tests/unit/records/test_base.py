@@ -9,7 +9,7 @@
 import pytest
 from helpers.providers.faker import faker
 
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord, AuthorsRecord
 
 
 def test_strip_empty_values():
@@ -155,3 +155,64 @@ def test_filenames_check():
 def test_empty_data_for_hashing():
     with pytest.raises(ValueError):
         InspireRecord.hash_data(data=None)
+
+
+def test_get_subclasses_from_inspire_records():
+    expected = {"lit": LiteratureRecord, "aut": AuthorsRecord}
+    subclasses = InspireRecord.get_subclasses()
+
+    assert subclasses == expected
+
+
+def test_get_records_pid_from_field():
+    data = {
+        "references": [
+            {
+                "record": "http://labs.inspirehep.net/api/literature/98765",
+                "reference": {
+                    "misc": ["abcd", "defg"],
+                    "label": "qwerty",
+                    "record": {
+                        "$ref": "http://labs.inspirehep.net/api/literature/339134"
+                    },
+                },
+            }
+        ],
+        "publication_info": {"year": 1984},
+        "some_stuff": {"other_stuff": "not_related"},
+        "different_field": "http://labs.inspirehep.net/api/literature/329134",
+        "other_record": {"$ref": ["http://labs.inspirehep.net/api/literature/319136"]},
+    }
+
+    tmp_record = InspireRecord(data=data)
+    path_1 = "references.reference.record"
+    expected_1 = [("lit", "339134")]
+
+    path_2 = "some_stuff"
+    expected_2 = []
+
+    path_3 = "other_record"
+    expected_3 = [("lit", "319136")]
+
+    assert tmp_record.get_records_pid_from_field(path_1) == expected_1
+    assert tmp_record.get_records_pid_from_field(path_2) == expected_2
+    assert tmp_record.get_records_pid_from_field(path_3) == expected_3
+
+
+def test_on_not_deleted_record_index_on_InspireRecord():
+    record = {"control_number": 1234, "deleted": False}
+    expected = {"pid_value": 1234, "pid_type": None, "deleted": False}
+    expected_force_deleted = {"pid_value": 1234, "pid_type": None, "deleted": True}
+
+    assert InspireRecord._record_index(record) == expected
+    assert InspireRecord._record_index(record, False) == expected
+    assert InspireRecord._record_index(record, True) == expected_force_deleted
+
+
+def test_on_deleted_record_index_on_InspireRecord():
+    record = {"control_number": 4321, "deleted": True}
+    expected = {"pid_value": 4321, "pid_type": None, "deleted": True}
+
+    assert InspireRecord._record_index(record) == expected
+    assert InspireRecord._record_index(record, False) == expected
+    assert InspireRecord._record_index(record, True) == expected

@@ -58,8 +58,8 @@ SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to inspirehep!")
 ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 
 # Deal with inconcistency :puke:
-PID_TYPES_TO_ENDPOINTS = {"lit": "literature"}
-PID_TYPES_TO_SCHEMA = {"hep": "lit"}
+PID_TYPES_TO_ENDPOINTS = {"lit": "literature", "aut": "authors"}
+PID_TYPES_TO_SCHEMA = {"hep": "lit", "authors": "aut"}
 
 # Celery configuration
 # ====================
@@ -416,3 +416,14 @@ SEARCH_SOURCE_INCLUDES = {
 }
 
 APP_HEALTH_BLUEPRINT_ENABLED = True
+
+# Indexer
+# =======
+
+INDEXER_DEFAULT_INDEX = "records-hep"
+INDEXER_DEFAULT_DOC_TYPE = "hep"
+INDEXER_BULK_REQUEST_TIMEOUT = float(900)
+INDEXER_REPLACE_REFS = False
+
+
+CELERY_IMPORTS = ["inspirehep.records.indexer.tasks"]

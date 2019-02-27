@@ -21,9 +21,12 @@ class ConferenceInfoItemSchemaV1(Schema):
         if conference_record is None:
             return {}
 
-        _, recid = PidStoreBase.get_pid_type_from_endpoint(
-            conference_record.get("$ref")
-        )
+        try:
+            _, recid = PidStoreBase.get_pid_type_from_endpoint(
+                conference_record.get("$ref")
+            )
+        except TypeError:
+            return {}
 
         conference = InspireRecord.get_record_by_pid_value(recid, "con")
 

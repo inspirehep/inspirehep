@@ -34,3 +34,8 @@ class ThesisInfoSchemaV1(Schema):
         if defense_date is None:
             return missing
         return format_date(defense_date)
+
+
+class ThesisInfoSchemaForESV1(ThesisInfoSchemaV1):
+    defense_date = fields.Raw(dump_only=True)
+    date = fields.Raw(dump_only=True)

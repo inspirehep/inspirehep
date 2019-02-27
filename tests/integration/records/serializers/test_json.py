@@ -164,7 +164,6 @@ def test_literature_application_json_references(api_client, db, create_record):
     response = api_client.get(
         "/literature/{}/references".format(record_control_number), headers=headers
     )
-
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]

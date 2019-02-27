@@ -36,7 +36,7 @@ def test_bibtex_search(api_client, db, create_record):
     expected_status_code = 200
     expected_result_1 = "@article{637275237,\n" '    title = "This is a title."\n' "}\n"
     expected_result_2 = (
-        "\n" "@article{637275232,\n" '    title = "Yet another title."\n' "}\n"
+        "@article{637275232,\n" '    title = "Yet another title."\n' "}\n"
     )
 
     response = api_client.get("/literature/", headers=headers)

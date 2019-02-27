@@ -6,12 +6,16 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-
-
+import logging
 from inspire_schemas.builders import LiteratureBuilder
+from inspire_utils.helpers import force_list
+from inspire_utils.record import get_value
+from invenio_pidstore.errors import PIDDoesNotExistError
 
-from ...pidstore.api import PidStoreLiterature
+from inspirehep.pidstore.api import PidStoreLiterature
 from .base import InspireRecord
+
+logger = logging.getLogger(__name__)
 
 
 class LiteratureRecord(InspireRecord):
@@ -19,12 +23,16 @@ class LiteratureRecord(InspireRecord):
 
     pid_type = "lit"
 
+    es_serializer = "LiteratureESEnhancementV1"
+    ui_serializer = "LiteratureMetadataSchemaV1"
+
     @classmethod
     def create(cls, data, **kwargs):
         documents = data.pop("documents", None)
         figures = data.pop("figures", None)
         record = super().create(data, **kwargs)
         if documents or figures:
+            record.set_files(documents=documents, figures=figures)
             record.set_files(documents=documents, figures=figures)
         return record
 
@@ -80,7 +88,8 @@ class LiteratureRecord(InspireRecord):
         """Public method for adding documents and figures
 
         Args:
-            documents (list[dict]): List of documents which should be added to this record
+            documents (list[dict]): List of documents which should be added to this
+            record
             figures (list[dict]): List of figures which should be added to this record
 
             Documents and figures are lists of dicts.

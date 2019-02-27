@@ -22,7 +22,7 @@ from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from sqlalchemy.orm.exc import NoResultFound
 
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.base import InspireQueryBuilder
 from inspirehep.records.fixtures import init_storage_path
 
@@ -235,7 +235,9 @@ def test_get_linked_records_in_field(base_app, db, create_record):
     expected_result_len = 1
     expected_result = [record_reference.json]
 
-    result = InspireRecord.get_linked_records_in_field(record.json, "references.record")
+    result = LiteratureRecord.get_record_by_pid_value(
+        record.json["control_number"]
+    ).get_linked_records_in_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -245,8 +247,8 @@ def test_get_linked_records_in_field(base_app, db, create_record):
 def test_get_linked_records_in_field_empty(base_app, db, create_record):
     expected_result_len = 0
     expected_result = []
-
-    result = InspireRecord.get_linked_records_in_field({}, "references.record")
+    record = InspireRecord(data={})
+    result = record.get_linked_records_in_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -265,7 +267,9 @@ def test_get_linked_records_in_field_not_existing_linked_record(
     expected_result_len = 0
     expected_result = []
 
-    result = InspireRecord.get_linked_records_in_field(record.json, "references.record")
+    result = LiteratureRecord.get_record_by_pid_value(
+        record.json["control_number"]
+    ).get_linked_records_in_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -299,7 +303,9 @@ def test_get_linked_records_in_field_with_different_pid_types(
     expected_result_len = 2
     expected_result = [record_reference_lit.json, record_reference_aut.json]
 
-    result = InspireRecord.get_linked_records_in_field(record.json, "references.record")
+    result = LiteratureRecord.get_record_by_pid_value(
+        record.json["control_number"]
+    ).get_linked_records_in_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -402,17 +408,17 @@ def test_no_location(base_app, db, create_record, init_files_db):
 
 
 def test_download_files(fsopen_mock, base_app, db, create_record, init_files_db):
+
     record_metadata = create_record("lit")
     record_metadata2 = create_record("lit")
 
     record = InspireRecord.get_record(record_metadata.id)
     record2 = InspireRecord.get_record(record_metadata2.id)
-
     with pytest.raises(ResourceNotFoundError):
         record._download_file_from_url(url="http://missing_url.com")
     with pytest.raises(FileNotFoundError):
         record._download_file_from_local_storage(
-            url=f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash')}"
+            url=f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash').hexdigest()}"
         )
 
     key = record._download_file_from_url("http://document_url.cern.ch/file.pdf")
@@ -456,13 +462,13 @@ def test_resolving_download_method(
     assert record._find_and_add_file("http://missing_url.com") is None
     assert (
         record._find_and_add_file(
-            f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash')}"
+            f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash').hexdigest()}"
         )
         is None
     )
 
     key = record._find_and_add_file(
-        url=f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash')}",
+        url=f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash').hexdigest()}",
         original_url="http://document_url.cern.ch/file.pdf",
     )
 

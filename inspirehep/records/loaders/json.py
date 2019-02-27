@@ -11,6 +11,7 @@ from ..marshmallow.literature import (
     LiteratureAuthorsSchemaV1,
     LiteratureReferencesSchemaV1,
     LiteratureSchemaV1,
+    LiteratureESEnhancementV1,
 )
 
 literature_json_v1 = marshmallow_loader(LiteratureSchemaV1)

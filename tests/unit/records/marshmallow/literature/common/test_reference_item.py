@@ -11,17 +11,12 @@ import mock
 from inspire_schemas.api import load_schema, validate
 from marshmallow import Schema, fields
 
-from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_non_empty_fields(mock_get_linked_records_in_field):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_non_empty_fields(get_records_mock):
     schema = ReferenceItemSchemaV1()
     dump = {
         "reference": {
@@ -58,36 +53,26 @@ def test_returns_non_empty_fields(mock_get_linked_records_in_field):
         "collaborations": [{"value": "CMS"}],
         "collaborations_with_suffix": [{"value": "ATLAS Team"}],
     }
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
+    
+assert expected == json.loads(result)
 
-    result = schema.dumps(dump).data
-    assert expected == json.loads(result)
 
-
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_forces_collaborations_to_be_object_if_reference_not_linked(
-    mock_get_linked_records_in_field
-):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_forces_collaborations_to_be_object_if_reference_not_linked(get_records_mock):
     schema = ReferenceItemSchemaV1()
     dump = {"reference": {"collaborations": ["CMS", "LHCb"]}}
     expected = {"collaborations": [{"value": "CMS"}, {"value": "LHCb"}]}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
 def test_forces_collaborations_to_be_object_if_reference_not_linked_with_many_true(
-    mock_get_linked_records_in_field
+    get_records_mock
 ):
     class TestSchema(Schema):
         references = fields.Nested(ReferenceItemSchemaV1, dump_only=True, many=True)
@@ -98,68 +83,50 @@ def test_forces_collaborations_to_be_object_if_reference_not_linked_with_many_tr
         "references": [{"collaborations": [{"value": "CMS"}, {"value": "LHCb"}]}]
     }
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
+
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_empty_if_no_reference_or_record_field(
-    mock_get_linked_records_in_field
-):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_empty_if_no_reference_or_record_field(get_records_mock):
     schema = ReferenceItemSchemaV1()
     dump = {}
     expected = {}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
+
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_empty_if_empty_reference_or_record_field(
-    mock_get_linked_records_in_field
-):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_empty_if_empty_reference_or_record_field(get_records_mock):
     schema = ReferenceItemSchemaV1()
     dump = {"record": {}, "reference": {}}
     expected = {}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
+
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_non_empty_fields_if_some_fields_missing(
-    mock_get_linked_records_in_field
-):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_non_empty_fields_if_some_fields_missing(get_records_mock):
     schema = ReferenceItemSchemaV1()
     dump = {"reference": {"label": "123", "control_number": 123}}
     expected = {"label": "123", "control_number": 123}
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
+
     assert expected == json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_no_misc_if_title_persent(mock_get_linked_records_in_field):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_no_misc_if_title_persent(get_records_mock):
     hep_schema = load_schema("hep")
     subschema = hep_schema["properties"]["references"]
     schema = ReferenceItemSchemaV1()
@@ -168,7 +135,9 @@ def test_returns_no_misc_if_title_persent(mock_get_linked_records_in_field):
 
     assert validate([dump], subschema) is None
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
+
     assert expected == json.loads(result)
 
 
@@ -212,13 +181,8 @@ def test_returns_no_misc_if_titles_persent_in_the_resolved_record(
     assert "misc" not in json.loads(result)
 
 
-@mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
-    )
-)
-def test_returns_only_first_misc(mock_get_linked_records_in_field):
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_returns_only_first_misc(get_records_mock):
     hep_schema = load_schema("hep")
     subschema = hep_schema["properties"]["references"]
     schema = ReferenceItemSchemaV1()
@@ -228,7 +192,9 @@ def test_returns_only_first_misc(mock_get_linked_records_in_field):
     expected = {"label": "123", "misc": "A Misc"}
     assert validate([dump], subschema) is None
 
-    result = schema.dumps(dump).data
+    record = LiteratureRecord(data=dump)
+    result = schema.dumps(record).data
+
     assert expected == json.loads(result)
 
 
