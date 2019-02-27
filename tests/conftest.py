@@ -7,6 +7,5 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-from __future__ import absolute_import, division, print_function
 
 import pytest
