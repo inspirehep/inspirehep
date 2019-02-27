@@ -1,5 +1,3 @@
-[![Coverage Status](https://coveralls.io/repos/github/inspirehep/inspirehep/badge.svg?branch=master)](https://coveralls.io/github/inspirehep/inspirehep?branch=master)
-
 # Inspirehep
 
 ### Installation
