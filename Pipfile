@@ -32,6 +32,7 @@ pybtex = "*"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
 pytest-datadir = "*"
+pytest-random-order = "*"
 
 [dev-packages]
 freezegun = "*"
