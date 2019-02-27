@@ -69,3 +69,6 @@ target/
 .vscode
 
 celerybeat-schedule
+
+# macOS
+.DS_Store

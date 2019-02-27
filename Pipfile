@@ -31,8 +31,8 @@ pylint = "*"
 pybtex = "*"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
-pytest-datadir = "*"
-pytest-random-order = "*"
+cryptography = "<2.6"
+
 
 [dev-packages]
 freezegun = "*"
@@ -46,6 +46,7 @@ pytest-invenio = ">=1.1.0,<1.2.0"
 pytest-mock = ">=1.6.0"
 pytest-pep8 = ">=1.0.6"
 pytest-random-order = ">=0.5.4"
+pytest-datadir = "*"
 pytest-runner = ">=3.0.0,<5"
 black = "==18.9b0"
 factory_boy = "~=2.11.1,>=2.11.1"
@@ -56,6 +57,7 @@ pylint = "*"
 flake8 = "*"
 # FIXME: just to pin for workiong around pipenv issues
 virtualenv = "<16.5.0"
+
 
 [requires]
 python_version = "3"
