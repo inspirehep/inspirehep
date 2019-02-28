@@ -20,7 +20,7 @@ inspirehep = {editable = true,path = "."}
 inspire-schemas = "~=59.3.0,>=59.3.0"
 inspire-dojson = "~=61.0.0,>=61.0.0"
 inspire-utils = "~=3.0.0,>=3.0.3"
-inspire-query-parser = "~=5.0.0"
+inspire-query-parser = "~=5.0.2"
 uwsgi = ">=2.0"
 # pre-release pacakges suck in pipenv
 marshmallow = "<3.0.0"
