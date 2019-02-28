@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a735bc9883833470f89428d2ffdd41d6e09384ad35b5256071a422a252972343"
+            "sha256": "a3c897cd88b82f64be66fd9f8942988c7b770bee123e388dd3d8be3d4a9ccc9e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -28,14 +28,6 @@
                 "sha256:6816eed27521293ee03aa9ace300a07215b11fee4e845588a9b863a7ba30addb"
             ],
             "version": "==2.4.1"
-        },
-        "appnope": {
-            "hashes": [
-                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
-                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
-            ],
-            "markers": "sys_platform == 'darwin'",
-            "version": "==0.1.0"
         },
         "arrow": {
             "hashes": [
@@ -462,10 +454,10 @@
         },
         "inspire-dojson": {
             "hashes": [
-                "sha256:2b52a75ddebc391a99e2a36426c75d7e518060dd35532bf6a3e54ec3716f0888"
+                "sha256:1299dd2a139bf1738ea05e97396812dd0ed9a24b3e9b03b507e8c7825796f006"
             ],
             "index": "pypi",
-            "version": "==61.0.2"
+            "version": "==61.1.7"
         },
         "inspire-query-parser": {
             "hashes": [

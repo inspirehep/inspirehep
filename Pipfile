@@ -18,7 +18,7 @@ invenio-records = ">=1.0.0,<1.1.0"
 invenio-records-files = ">=1.0.0a10"
 inspirehep = {editable = true,path = "."}
 inspire-schemas = "~=59.3.0,>=59.3.0"
-inspire-dojson = "~=61.0.0,>=61.0.0"
+inspire-dojson = "~=61.1.7"
 inspire-utils = "~=3.0.0,>=3.0.3"
 inspire-query-parser = "~=5.0.0"
 uwsgi = ">=2.0"
