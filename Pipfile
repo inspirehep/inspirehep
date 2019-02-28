@@ -7,7 +7,7 @@ name = "pypi"
 # invenio 3.1.0 requires Flask>=1.0.0
 invenio = {version = "==3.0.0",extras = [ "postgresql", "auth", "elasticsearch5", ]}
 # invenio cherry-pick `base` packages
-invenio-logging = ">=1.0.0,<1.1.0"
+invenio-logging = ">=1.0.0,<1.2.0"
 invenio-rest = ">=1.0.0,<1.1.0"
 # invenio cherry-pick `metadata` packages
 invenio-indexer = ">=1.0.1,<1.1.0"
