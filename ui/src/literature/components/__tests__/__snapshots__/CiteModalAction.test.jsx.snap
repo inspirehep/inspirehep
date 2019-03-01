@@ -7,6 +7,7 @@ exports[`CiteModalAction renders with recordId 1`] = `
   <EventTracker
     eventId="Cite"
     eventPropName="onClick"
+    extractEventArgsToForward={null}
   >
     <ListItemAction
       iconType="export"
@@ -73,31 +74,37 @@ exports[`CiteModalAction renders with recordId 1`] = `
              Download
           </Button>
         </div>
-        <SelectBox
-          defaultValue="x-bibtex"
-          onChange={[Function]}
-          options={
-            Array [
-              Object {
-                "display": "BibTex",
-                "value": "x-bibtex",
-              },
-              Object {
-                "display": "LaTex (EU)",
-                "value": "vnd+inspire.latex.eu+x-latex",
-              },
-              Object {
-                "display": "LaTex (US)",
-                "value": "vnd+inspire.latex.us+x-latex",
-              },
-            ]
-          }
-          style={
-            Object {
-              "width": 140,
+        <EventTracker
+          eventId="CiteFormatSelection"
+          eventPropName="onChange"
+          extractEventArgsToForward={[Function]}
+        >
+          <SelectBox
+            defaultValue="x-bibtex"
+            onChange={[Function]}
+            options={
+              Array [
+                Object {
+                  "display": "BibTex",
+                  "value": "x-bibtex",
+                },
+                Object {
+                  "display": "LaTex (EU)",
+                  "value": "vnd+inspire.latex.eu+x-latex",
+                },
+                Object {
+                  "display": "LaTex (US)",
+                  "value": "vnd+inspire.latex.us+x-latex",
+                },
+              ]
             }
-          }
-        />
+            style={
+              Object {
+                "width": 140,
+              }
+            }
+          />
+        </EventTracker>
       </Row>
     </div>
   </Modal>

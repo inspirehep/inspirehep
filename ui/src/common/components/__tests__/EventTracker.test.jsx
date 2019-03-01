@@ -60,6 +60,26 @@ describe('EventTracker', () => {
     );
   });
 
+  it('calls trackEvent with event args if forwardEventArgs is set', () => {
+    tracker.trackEvent = jest.fn();
+    const wrapper = shallow(
+      <EventTracker
+        eventId="DudeButton"
+        eventPropName="onClick"
+        extractEventArgsToForward={eventArgs =>
+          eventArgs.filter(arg => typeof arg === 'string')
+        }
+      >
+        <button type="button">Dude</button>
+      </EventTracker>
+    );
+    wrapper.find('button').simulate('click', 'Arg1', 999, 'Arg2');
+    expect(tracker.trackEvent).toHaveBeenCalledWith('User', 'onClick', [
+      'DudeButton',
+      ['Arg1', 'Arg2'],
+    ]);
+  });
+
   it('renders only children', () => {
     const wrapper = shallow(
       <EventTracker eventPropName="onBlur" eventId="DudeInput">

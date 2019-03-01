@@ -96,12 +96,18 @@ class CiteModalAction extends Component {
                   <Icon type="download" /> Download
                 </Button>
               </div>
-              <SelectBox
-                style={{ width: 140 }}
-                defaultValue={DEFAULT_FORMAT}
-                onChange={this.setCiteContentFor}
-                options={FORMAT_SELECT_OPTIONS}
-              />
+              <EventTracker
+                eventId="CiteFormatSelection"
+                eventPropName="onChange"
+                extractEventArgsToForward={args => [args[0]]}
+              >
+                <SelectBox
+                  style={{ width: 140 }}
+                  defaultValue={DEFAULT_FORMAT}
+                  onChange={this.setCiteContentFor}
+                  options={FORMAT_SELECT_OPTIONS}
+                />
+              </EventTracker>
             </Row>
           </div>
         </Modal>

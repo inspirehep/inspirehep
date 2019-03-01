@@ -4,6 +4,7 @@ exports[`ArxivEprintLink renders with arXiv id 1`] = `
 <EventTracker
   eventId="ArvixEprintLink"
   eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
   <ExternalLink
     href="//arxiv.org/abs/123.123456"
