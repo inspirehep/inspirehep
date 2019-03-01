@@ -4,6 +4,7 @@ exports[`TabNameWithCount displays count if loading is false 1`] = `
 <EventTracker
   eventId="Test-Tab"
   eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
   <span>
     <span>
@@ -26,6 +27,7 @@ exports[`TabNameWithCount does not display count if loading is true 1`] = `
 <EventTracker
   eventId="Test-Tab"
   eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
   <span>
     <span>
@@ -48,6 +50,7 @@ exports[`TabNameWithCount renders when loading true 1`] = `
 <EventTracker
   eventId="Test-Tab"
   eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
   <span>
     <span>
@@ -70,6 +73,7 @@ exports[`TabNameWithCount renders with required props 1`] = `
 <EventTracker
   eventId="Test-Tab"
   eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
   <span>
     <span>

@@ -12,6 +12,7 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
     <EventTracker
       eventId="Facet-Aggregation 1"
       eventPropName="onChange"
+      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={
@@ -38,6 +39,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
     <EventTracker
       eventId="Facet-Aggregation 1"
       eventPropName="onChange"
+      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={
@@ -61,6 +63,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
     <EventTracker
       eventId="Facet-Aggregation 2"
       eventPropName="onChange"
+      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={
@@ -91,6 +94,7 @@ exports[`AggregationFilters renders with range aggregation (earliest_date) 1`] =
     <EventTracker
       eventId="Facet-Range Aggregation"
       eventPropName="onChange"
+      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={

@@ -11,8 +11,17 @@ class EventTracker extends Component {
   }
 
   onEventWithTracking(...eventArgs) {
-    const { children, eventId, eventPropName } = this.props;
-    trackEvent('User', eventPropName, eventId);
+    const {
+      children,
+      eventId,
+      eventPropName,
+      extractEventArgsToForward,
+    } = this.props;
+
+    const eventInfo = extractEventArgsToForward
+      ? [eventId, extractEventArgsToForward(eventArgs)]
+      : eventId;
+    trackEvent('User', eventPropName, eventInfo);
 
     if (children.props[eventPropName]) {
       children.props[eventPropName](...eventArgs);
@@ -31,10 +40,12 @@ EventTracker.propTypes = {
   children: PropTypes.node.isRequired, // single child
   eventPropName: PropTypes.string,
   eventId: PropTypes.string.isRequired,
+  extractEventArgsToForward: PropTypes.func,
 };
 
 EventTracker.defaultProps = {
   eventPropName: 'onClick',
+  extractEventArgsToForward: null,
 };
 
 export default EventTracker;

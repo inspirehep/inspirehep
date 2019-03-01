@@ -4,6 +4,7 @@ exports[`ArxivPdfDownloadAction renders with arXiv id 1`] = `
 <EventTracker
   eventId="PdfDownload"
   eventPropName="onClick"
+  extractEventArgsToForward={null}
 >
   <ListItemAction
     iconType="download"
