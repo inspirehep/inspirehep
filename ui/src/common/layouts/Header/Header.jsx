@@ -68,13 +68,13 @@ class Header extends Component {
         <Banner />
         <Layout.Header className="header">
           <Row type="flex" align="middle" gutter={16}>
-            <Col lg={4} xl={5}>
+            <Col xs={0} lg={4} xl={5}>
               <Logo />
             </Col>
-            <Col lg={12} xl={13} xxl={14}>
+            <Col xs={24} lg={12} xl={13} xxl={14}>
               {!isHomePage && !isSubmissionsPage && <SearchBoxContainer />}
             </Col>
-            <Col lg={8} xl={6} xxl={5}>
+            <Col xs={0} lg={8} xl={6} xxl={5}>
               <Row type="flex" justify="end">
                 <Col className="nav-item-container">
                   <DropdownMenu
