@@ -11,6 +11,7 @@ import NumberOfResultsContainer from '../../containers/NumberOfResultsContainer'
 import LoadingOrChildren from '../../components/LoadingOrChildren';
 import './SearchLayout.scss';
 
+
 class SearchLayout extends Component {
   render() {
     const {
@@ -21,15 +22,20 @@ class SearchLayout extends Component {
       withoutSort,
     } = this.props;
     return (
-      <Row className="__SearchLayout__" gutter={32} type="flex" justify="start">
-        <Col lg={8} xl={6} xxl={5}>
+      <Row
+        className="__SearchLayout__"
+        gutter={{ xs: 0, sm: 16, md: 32}}
+        type="flex"
+        justify="start"
+      >
+        <Col xs={0} lg={8} xl={6} xxl={5}>
           {!withoutAggregations && (
             <LoadingOrChildren loading={loadingAggregations}>
               <AggregationFiltersContainer />
             </LoadingOrChildren>
           )}
         </Col>
-        <Col lg={16} xl={15} xxl={14}>
+        <Col xs={24} md={21} lg={16} xl={15} xxl={14}>
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
               <Col span={12}>
