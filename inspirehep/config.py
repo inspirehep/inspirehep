@@ -316,6 +316,14 @@ RECORDS_REST_FACETS = {
                     "ranges": [{"key": "10 authors or less", "from": 1, "to": 11}],
                 },
                 "meta": {"title": "Number of authors", "order": 2},
+                "aggs": {
+                    "doc_count_bucket_filter": {
+                        "bucket_selector": {
+                            "buckets_path": {"count": "_count"},
+                            "script": "params.count > 0",
+                        }
+                    }
+                },
             },
             "author": {
                 "terms": {"field": "facet_author_name", "size": 20},

@@ -186,6 +186,35 @@ def test_literature_facets(api_client, db, create_record):
     assert expected_facet_keys == response_data_facet_keys
 
 
+def test_literature_facets_author_count_does_not_have_empty_bucket(
+    api_client, db, create_record
+):
+    response = api_client.get("/literature/facets/")
+    response_data = json.loads(response.data)
+    author_count_agg = response_data.get("aggregations")["author_count"]
+    assert author_count_agg["buckets"] == []
+
+
+@pytest.mark.xfail(
+    reason="""Indexing for tests needs to be fixed so that elasticsearch is populated
+    with custom fields that are used for facets. Since for now all facets have only
+    empty buckets, this test can not be enabled.
+    """
+)
+def test_literature_facets_author_count_returns_non_empty_bucket(
+    api_client, db, create_record
+):
+    create_record(
+        "lit", data={"authors": [{"full_name": "Harun Urhan"}]}, with_indexing=True
+    )
+    response = api_client.get("/literature/facets/")
+    response_data = json.loads(response.data)
+    author_count_agg = response_data.get("aggregations")["author_count"]
+    buckets = author_count_agg["buckets"]
+    assert len(buckets) == 1
+    assert bucket[0]["doc_count"] == 1
+
+
 def test_literature_facets_arxiv(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
     response = api_client.get("/literature/facets/")
