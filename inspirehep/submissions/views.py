@@ -9,22 +9,22 @@ import datetime
 import json
 
 import requests
-from flask import Blueprint, abort, current_app, jsonify, request, session
+from flask import Blueprint, abort, current_app, jsonify, request
 from flask.views import MethodView
 from flask_login import current_user
-from invenio_oauth2server.decorators import require_api_auth
 from invenio_oauthclient.models import UserIdentity
 from sqlalchemy.orm.exc import NoResultFound
 
 from .marshmallow import Author, Literature
 from .utils import get_record_from_legacy
+from inspirehep.accounts.api import login_required
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
 
 class AuthorSubmissionsResource(MethodView):
 
-    decorators = [require_api_auth()]
+    decorators = [login_required]
 
     def get(self, pid_value):
         record = get_record_from_legacy(pid_value)
@@ -100,7 +100,7 @@ class AuthorSubmissionsResource(MethodView):
 
 class LiteratureSubmissionResource(MethodView):
 
-    decorators = [require_api_auth()]
+    decorators = [login_required]
 
     def post(self):
         submission_data = request.get_json()

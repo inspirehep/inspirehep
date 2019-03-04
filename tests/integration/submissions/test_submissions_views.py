@@ -10,6 +10,7 @@ import json
 import pytest
 from flask import jsonify
 from mock import patch
+from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
@@ -102,6 +103,30 @@ def test_new_author_submit_with_error(
         headers=headers,
     )
     assert response.status_code == 503
+
+
+@patch("inspirehep.submissions.views.requests.post")
+def test_new_author_submit_works_with_session_login(
+    mock_requests_post, app, api_client, create_user
+):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    mock_requests_post.return_value.status_code = 200
+    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
+    response = api_client.post(
+        "/submissions/authors",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "given_name": "John",
+                    "display_name": "John Doe",
+                    "status": "active",
+                }
+            }
+        ),
+    )
+    assert response.status_code == 200
 
 
 @patch("inspirehep.submissions.views.requests.post")
@@ -201,6 +226,31 @@ def test_new_literature_submit(
         },
         "form_data": {"url": "https://cern.ch/coolstuff.pdf", "references": "[1] Dude"},
     }
+
+
+@patch("inspirehep.submissions.views.requests.post")
+def test_new_literature_submit_works_with_session_login(
+    mock_requests_post, app, api_client, create_user
+):
+    mock_requests_post.return_value.status_code = 200
+    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    response = api_client.post(
+        "/submissions/literature",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "document_type": "article",
+                    "authors": [{"full_name": "Urhan, Harun"}],
+                    "title": "Discovery of cool stuff",
+                    "subjects": ["Other"],
+                }
+            }
+        ),
+    )
+    assert response.status_code == 200
 
 
 def test_new_literature_submit_without_authentication(api_client):
