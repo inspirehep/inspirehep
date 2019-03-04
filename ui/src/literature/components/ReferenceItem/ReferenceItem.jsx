@@ -6,12 +6,12 @@ import { Link } from 'react-router-dom';
 
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ArxivEprintList from '../ArxivEprintList';
-import Latex from '../../../common/components/Latex';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import DOIList from '../DOIList';
 import URLList from '../URLList';
 import './ReferenceItem.scss';
 import { LITERATURE } from '../../../common/routes';
+import LiteratureTitle from '../../../common/components/LiteratureTitle';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
@@ -22,17 +22,21 @@ class ReferenceItem extends Component {
 
   static renderTitle(reference) {
     const recordId = reference.get('control_number');
-    const title = reference.getIn(['titles', 0, 'title']);
+    const title = reference.getIn(['titles', 0]);
     if (recordId && title) {
       return (
         <Link className="f5" to={`${LITERATURE}/${recordId}`}>
-          <Latex>{title}</Latex>
+          <LiteratureTitle title={title} />
         </Link>
       );
     }
 
     if (title) {
-      return <div className="f5">{title}</div>;
+      return (
+        <div className="f5">
+          <LiteratureTitle title={title} />
+        </div>
+      );
     }
 
     return null;
