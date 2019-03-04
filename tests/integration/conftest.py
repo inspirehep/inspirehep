@@ -13,7 +13,7 @@ import pytest
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
-from helpers.factories.models.user_access_token import AccessTokenFactory
+from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from invenio_app.factory import create_api as invenio_create_app
 
 
@@ -161,3 +161,19 @@ def create_user_and_token(base_app, db):
         return AccessTokenFactory()
 
     return _create_user_and_token
+
+
+@pytest.fixture(scope="function")
+def create_user(base_app, db):
+    """Fixture to create user.
+
+    Examples:
+
+        def test_needs_user(base_app, create_user)
+            user = create_user()
+    """
+
+    def _create_user():
+        return UserFactory()
+
+    return _create_user
