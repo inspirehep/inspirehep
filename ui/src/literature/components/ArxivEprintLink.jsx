@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ExternalLink from '../../common/components/ExternalLink';
-import EventTracker from '../../common/components/EventTracker';
+import EventTracker from '../../common/containers/EventTracker';
 
 class ArxivEprintLink extends Component {
   get arxivId() {

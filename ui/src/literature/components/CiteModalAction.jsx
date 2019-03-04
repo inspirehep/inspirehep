@@ -6,7 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import citeArticle from '../citeArticle';
 import SelectBox from '../../common/components/SelectBox';
 import ListItemAction from '../../common/components/ListItemAction';
-import EventTracker from '../../common/components/EventTracker';
+import EventTracker from '../../common/containers/EventTracker';
 
 const FORMAT_SELECT_OPTIONS = [
   { value: 'x-bibtex', display: 'BibTex' },

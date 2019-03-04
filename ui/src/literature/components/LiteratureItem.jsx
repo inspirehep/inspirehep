@@ -15,8 +15,8 @@ import ListItemAction from '../../common/components/ListItemAction';
 import EditRecordActionContainer from '../../common/containers/EditRecordActionContainer';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
-import EventTracker from '../../common/components/EventTracker';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
+import EventTracker from '../../common/containers/EventTracker';
 
 class LiteratureItem extends Component {
   render() {

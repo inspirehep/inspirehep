@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
 import AggregationFilter from './AggregationFilter';
-import EventTracker from './EventTracker';
+import EventTracker from '../containers/EventTracker';
 
 const RANGE_AGGREATION_KEY = 'earliest_date';
 

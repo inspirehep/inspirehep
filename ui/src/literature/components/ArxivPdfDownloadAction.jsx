@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import ListItemAction from '../../common/components/ListItemAction';
-import EventTracker from '../../common/components/EventTracker';
+import EventTracker from '../../common/containers/EventTracker';
 
 class ArxivPdfDownloadAction extends Component {
   render() {

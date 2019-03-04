@@ -5,7 +5,7 @@ import { Set } from 'immutable';
 
 import { isCataloger } from '../authorization';
 import ListItemAction from '../components/ListItemAction';
-import EventTracker from '../components/EventTracker';
+import EventTracker from './EventTracker';
 
 class EditRecordActionContainer extends Component {
   render() {

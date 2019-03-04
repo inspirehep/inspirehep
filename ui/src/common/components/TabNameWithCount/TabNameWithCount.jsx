@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Icon } from 'antd';
 
-import EventTracker from '../EventTracker';
+import EventTracker from '../../containers/EventTracker';
 
 class TabNameWithCount extends Component {
   render() {
