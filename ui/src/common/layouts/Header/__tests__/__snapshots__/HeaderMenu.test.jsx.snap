@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HeaderMenu displays Login link instead of My Account if user is not logged in 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  focusable={false}
+  mode="horizontal"
+  prefixCls="ant-menu"
+  selectable={false}
+  theme="dark"
+>
+  <SubMenu
+    title="Tools"
+  >
+    <MenuItem
+      key="tools.refextract"
+    >
+      <ExternalLink
+        href="//inspirehep.net/textmining/"
+      >
+        Reference extractor
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="tools.bibgen"
+    >
+      <ExternalLink
+        href="//inspirehep.net/info/hep/tools/bibliography_generate"
+      >
+        Bibliography generator
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <SubMenu
+    title="Submit"
+  >
+    <MenuItem
+      key="submit.author"
+    >
+      <Link
+        replace={false}
+        to="/submissions/authors"
+      >
+        Author
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.literature"
+    >
+      <ExternalLink
+        href="/literature/new"
+      >
+        Literature
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <MenuItem
+    key="login"
+  >
+    <Link
+      replace={false}
+      to="/user/login"
+    >
+      Login
+    </Link>
+  </MenuItem>
+</Menu>
+`;
+
+exports[`HeaderMenu does not show some tool links if logged in user is not superuser nor cataloger 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  focusable={false}
+  mode="horizontal"
+  prefixCls="ant-menu"
+  selectable={false}
+  theme="dark"
+>
+  <SubMenu
+    title="Tools"
+  >
+    <MenuItem
+      key="tools.refextract"
+    >
+      <ExternalLink
+        href="//inspirehep.net/textmining/"
+      >
+        Reference extractor
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="tools.bibgen"
+    >
+      <ExternalLink
+        href="//inspirehep.net/info/hep/tools/bibliography_generate"
+      >
+        Bibliography generator
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <SubMenu
+    title="Submit"
+  >
+    <MenuItem
+      key="submit.author"
+    >
+      <Link
+        replace={false}
+        to="/submissions/authors"
+      >
+        Author
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.literature"
+    >
+      <ExternalLink
+        href="/literature/new"
+      >
+        Literature
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <SubMenu
+    title="My account"
+  >
+    <MenuItem
+      key="logout"
+    >
+      <LinkLikeButton
+        onClick={[Function]}
+      >
+        Logout
+      </LinkLikeButton>
+    </MenuItem>
+  </SubMenu>
+</Menu>
+`;
+
+exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  focusable={false}
+  mode="horizontal"
+  prefixCls="ant-menu"
+  selectable={false}
+  theme="dark"
+>
+  <SubMenu
+    title="Tools"
+  >
+    <MenuItem
+      key="tools.holdingpen"
+    >
+      <ExternalLink
+        href="/holdingpen"
+      >
+        Holdingpen
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="tools.authorlist"
+    >
+      <ExternalLink
+        href="/tools/authorlist"
+      >
+        Author list
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="tools.refextract"
+    >
+      <ExternalLink
+        href="//inspirehep.net/textmining/"
+      >
+        Reference extractor
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="tools.bibgen"
+    >
+      <ExternalLink
+        href="//inspirehep.net/info/hep/tools/bibliography_generate"
+      >
+        Bibliography generator
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <SubMenu
+    title="Submit"
+  >
+    <MenuItem
+      key="submit.author"
+    >
+      <Link
+        replace={false}
+        to="/submissions/authors"
+      >
+        Author
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.literature"
+    >
+      <ExternalLink
+        href="/literature/new"
+      >
+        Literature
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <SubMenu
+    title="My account"
+  >
+    <MenuItem
+      key="logout"
+    >
+      <LinkLikeButton
+        onClick={[Function]}
+      >
+        Logout
+      </LinkLikeButton>
+    </MenuItem>
+  </SubMenu>
+</Menu>
+`;
