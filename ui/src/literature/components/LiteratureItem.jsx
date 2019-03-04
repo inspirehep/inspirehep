@@ -13,16 +13,16 @@ import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import CiteModalAction from './CiteModalAction';
 import ListItemAction from '../../common/components/ListItemAction';
 import EditRecordActionContainer from '../../common/containers/EditRecordActionContainer';
-import Latex from '../../common/components/Latex';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
 import EventTracker from '../../common/components/EventTracker';
+import LiteratureTitle from '../../common/components/LiteratureTitle';
 
 class LiteratureItem extends Component {
   render() {
     const { metadata } = this.props;
 
-    const title = metadata.getIn(['titles', 0, 'title']);
+    const title = metadata.getIn(['titles', 0]);
     const authors = metadata.get('authors');
 
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
@@ -62,7 +62,7 @@ class LiteratureItem extends Component {
         }
       >
         <Link className="f4" to={`${LITERATURE}/${recordId}`}>
-          <Latex>{title}</Latex>
+          <LiteratureTitle title={title} />
         </Link>
         <div className="mt2">
           <div>

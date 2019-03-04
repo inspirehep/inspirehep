@@ -35,9 +35,13 @@ exports[`CitationItem renders with full citation 1`] = `
         replace={false}
         to="/literature/12345"
       >
-        <Latex>
-          Title
-        </Latex>
+        <LiteratureTitle
+          title={
+            Immutable.Map {
+              "title": "Title",
+            }
+          }
+        />
       </Link>
     }
   />

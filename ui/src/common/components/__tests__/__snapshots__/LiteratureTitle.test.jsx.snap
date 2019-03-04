@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureTitle renders with only title 1`] = `
+<span>
+  <Latex>
+    Test Literature Title
+  </Latex>
+</span>
+`;
+
+exports[`LiteratureTitle renders with title and subtitle 1`] = `
+<span>
+  <Latex>
+    Test Literature Title
+  </Latex>
+  <span>
+    <span>
+       : 
+    </span>
+    <Latex>
+      Test Literature Sub Title
+    </Latex>
+  </span>
+</span>
+`;

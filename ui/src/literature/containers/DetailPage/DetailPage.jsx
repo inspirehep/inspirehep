@@ -18,7 +18,6 @@ import EditRecordActionContainer from '../../../common/containers/EditRecordActi
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
-import Latex from '../../../common/components/Latex';
 import ContentBox from '../../../common/components/ContentBox';
 import LiteratureDate from '../../components/LiteratureDate';
 import LiteratureKeywordList from '../../components/LiteratureKeywordList';
@@ -33,6 +32,7 @@ import CitationListContainer from '../../../common/containers/CitationListContai
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
 import { ErrorPropType } from '../../../common/propTypes';
+import LiteratureTitle from '../../../common/components/LiteratureTitle';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -76,7 +76,7 @@ class DetailPage extends Component {
       return null;
     }
 
-    const title = metadata.getIn(['titles', 0, 'title']);
+    const title = metadata.getIn(['titles', 0]);
     const date = metadata.get('date');
     const recordId = metadata.get('control_number');
     const thesisInfo = metadata.get('thesis_info');
@@ -115,7 +115,7 @@ class DetailPage extends Component {
             }
           >
             <h2>
-              <Latex>{title}</Latex>
+              <LiteratureTitle title={title} />
             </h2>
             <div>
               <AuthorsAndCollaborations
@@ -189,11 +189,10 @@ class DetailPage extends Component {
             >
               <CitationListContainer pidType="literature" recordId={recordId} />
             </Tabs.TabPane>
-            <Tabs.TabPane
-              tab="Figures"
-              key="3"
-            >
-              <ContentBox>This feature is currently under development.</ContentBox>
+            <Tabs.TabPane tab="Figures" key="3">
+              <ContentBox>
+                This feature is currently under development.
+              </ContentBox>
             </Tabs.TabPane>
           </Tabs>
         </Col>

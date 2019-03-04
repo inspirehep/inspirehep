@@ -26,6 +26,7 @@ describe('LiteratureItem', () => {
   it('does not arxiv pdf download action if there is no eprint value', () => {
     const metadata = fromJS({
       control_number: 12345,
+      titles: [{ title: 'test' }],
     });
     const wrapper = shallow(<LiteratureItem metadata={metadata} />);
     expect(wrapper).toMatchSnapshot();
@@ -34,6 +35,7 @@ describe('LiteratureItem', () => {
   it('renders 0 citations if it does not exist', () => {
     const metadata = fromJS({
       control_number: 12345,
+      titles: [{ title: 'test' }],
     });
     const wrapper = shallow(<LiteratureItem metadata={metadata} />);
     expect(wrapper).toMatchSnapshot();

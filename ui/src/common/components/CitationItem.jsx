@@ -5,17 +5,17 @@ import { List } from 'antd';
 import { Link } from 'react-router-dom';
 
 import AuthorsAndCollaborations from './AuthorsAndCollaborations';
-import Latex from './Latex';
 import PublicationInfoList from './PublicationInfoList';
 import { LITERATURE } from '../routes';
+import LiteratureTitle from './LiteratureTitle';
 
 class CitationItem extends Component {
   static renderTitle(citation) {
     const recordId = citation.get('control_number');
-    const title = citation.getIn(['titles', 0, 'title'], '');
+    const title = citation.getIn(['titles', 0]);
     return (
       <Link to={`${LITERATURE}/${recordId}`}>
-        <Latex>{title}</Latex>
+        <LiteratureTitle title={title} />
       </Link>
     );
   }
