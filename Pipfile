@@ -31,7 +31,7 @@ pylint = "*"
 pybtex = "*"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
-cryptography = "<2.6"
+cryptography = "<2.7"
 
 
 [dev-packages]
