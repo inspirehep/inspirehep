@@ -9,10 +9,9 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
   <div
     key="agg1"
   >
-    <EventTracker
+    <Connect(EventTracker)
       eventId="Facet-Aggregation 1"
       eventPropName="onChange"
-      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={
@@ -24,7 +23,7 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
         onChange={[Function]}
         range={false}
       />
-    </EventTracker>
+    </Connect(EventTracker)>
   </div>
 </div>
 `;
@@ -36,10 +35,9 @@ exports[`AggregationFilters renders with all props set 1`] = `
   <div
     key="agg1"
   >
-    <EventTracker
+    <Connect(EventTracker)
       eventId="Facet-Aggregation 1"
       eventPropName="onChange"
-      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={
@@ -55,15 +53,14 @@ exports[`AggregationFilters renders with all props set 1`] = `
         range={false}
         selections="foo"
       />
-    </EventTracker>
+    </Connect(EventTracker)>
   </div>
   <div
     key="agg2"
   >
-    <EventTracker
+    <Connect(EventTracker)
       eventId="Facet-Aggregation 2"
       eventPropName="onChange"
-      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={
@@ -79,7 +76,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
         range={false}
         splitDisplayName={true}
       />
-    </EventTracker>
+    </Connect(EventTracker)>
   </div>
 </div>
 `;
@@ -91,10 +88,9 @@ exports[`AggregationFilters renders with range aggregation (earliest_date) 1`] =
   <div
     key="earliest_date"
   >
-    <EventTracker
+    <Connect(EventTracker)
       eventId="Facet-Range Aggregation"
       eventPropName="onChange"
-      extractEventArgsToForward={null}
     >
       <AggregationFilter
         buckets={
@@ -113,7 +109,7 @@ exports[`AggregationFilters renders with range aggregation (earliest_date) 1`] =
         onChange={[Function]}
         range={true}
       />
-    </EventTracker>
+    </Connect(EventTracker)>
   </div>
 </div>
 `;

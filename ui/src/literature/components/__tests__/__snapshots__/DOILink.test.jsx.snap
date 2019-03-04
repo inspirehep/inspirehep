@@ -1,15 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DOILink renders with doi 1`] = `
-<EventTracker
+<Connect(EventTracker)
   eventId="DoiLink"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
 >
   <ExternalLink
     href="//doi.org/12.1234/1234567890123_1234"
   >
     12.1234/1234567890123_1234
   </ExternalLink>
-</EventTracker>
+</Connect(EventTracker)>
 `;

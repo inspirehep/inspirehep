@@ -1,10 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TabNameWithCount displays count if loading is false 1`] = `
-<EventTracker
+<Connect(EventTracker)
   eventId="Test-Tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
 >
   <span>
     <span>
@@ -20,14 +18,12 @@ exports[`TabNameWithCount displays count if loading is false 1`] = `
       </span>
     </span>
   </span>
-</EventTracker>
+</Connect(EventTracker)>
 `;
 
 exports[`TabNameWithCount does not display count if loading is true 1`] = `
-<EventTracker
+<Connect(EventTracker)
   eventId="Test-Tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
 >
   <span>
     <span>
@@ -43,14 +39,12 @@ exports[`TabNameWithCount does not display count if loading is true 1`] = `
       />
     </span>
   </span>
-</EventTracker>
+</Connect(EventTracker)>
 `;
 
 exports[`TabNameWithCount renders when loading true 1`] = `
-<EventTracker
+<Connect(EventTracker)
   eventId="Test-Tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
 >
   <span>
     <span>
@@ -66,14 +60,12 @@ exports[`TabNameWithCount renders when loading true 1`] = `
       />
     </span>
   </span>
-</EventTracker>
+</Connect(EventTracker)>
 `;
 
 exports[`TabNameWithCount renders with required props 1`] = `
-<EventTracker
+<Connect(EventTracker)
   eventId="Test-Tab"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
 >
   <span>
     <span>
@@ -83,5 +75,5 @@ exports[`TabNameWithCount renders with required props 1`] = `
       className="ml1"
     />
   </span>
-</EventTracker>
+</Connect(EventTracker)>
 `;

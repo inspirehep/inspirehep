@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import AggregationFiltersContainer, {
@@ -45,7 +46,11 @@ describe('AggregationFiltersContainer', () => {
         total: 2,
       }),
     });
-    const wrapper = mount(<AggregationFiltersContainer store={store} />);
+    const wrapper = mount(
+      <Provider store={store}>
+        <AggregationFiltersContainer />
+      </Provider>
+    );
     const dummyWrapper = wrapper.find(AggregationFilters);
     const searchState = store.getState().search;
     const locationState = store.getState().router.location;

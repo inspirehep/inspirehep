@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { Set } from 'immutable';
 
 import { trackEvent } from '../../tracker';
+import { isSuperUser, isCataloger } from '../authorization';
 
 class EventTracker extends Component {
   constructor(props) {
@@ -21,11 +24,24 @@ class EventTracker extends Component {
     const eventInfo = extractEventArgsToForward
       ? [eventId, extractEventArgsToForward(eventArgs)]
       : eventId;
-    trackEvent('User', eventPropName, eventInfo);
+    trackEvent(this.getUserEventCategory(), eventPropName, eventInfo);
 
     if (children.props[eventPropName]) {
       children.props[eventPropName](...eventArgs);
     }
+  }
+
+  getUserEventCategory() {
+    const { userRoles } = this.props;
+    if (isSuperUser(userRoles)) {
+      return 'Superuser';
+    }
+
+    if (isCataloger(userRoles)) {
+      return 'Cataloger';
+    }
+
+    return 'User';
   }
 
   render() {
@@ -41,6 +57,7 @@ EventTracker.propTypes = {
   eventPropName: PropTypes.string,
   eventId: PropTypes.string.isRequired,
   extractEventArgsToForward: PropTypes.func,
+  userRoles: PropTypes.instanceOf(Set).isRequired,
 };
 
 EventTracker.defaultProps = {
@@ -48,4 +65,8 @@ EventTracker.defaultProps = {
   extractEventArgsToForward: null,
 };
 
-export default EventTracker;
+const stateToProps = state => ({
+  userRoles: Set(state.user.getIn(['data', 'roles'])),
+});
+
+export default connect(stateToProps)(EventTracker);

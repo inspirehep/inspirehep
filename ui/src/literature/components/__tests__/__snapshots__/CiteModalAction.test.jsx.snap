@@ -4,17 +4,15 @@ exports[`CiteModalAction renders with recordId 1`] = `
 <div
   className="di"
 >
-  <EventTracker
+  <Connect(EventTracker)
     eventId="Cite"
-    eventPropName="onClick"
-    extractEventArgsToForward={null}
   >
     <ListItemAction
       iconType="export"
       onClick={[Function]}
       text="cite"
     />
-  </EventTracker>
+  </Connect(EventTracker)>
   <Modal
     cancelButtonDisabled={false}
     confirmLoading={false}
@@ -74,7 +72,7 @@ exports[`CiteModalAction renders with recordId 1`] = `
              Download
           </Button>
         </div>
-        <EventTracker
+        <Connect(EventTracker)
           eventId="CiteFormatSelection"
           eventPropName="onChange"
           extractEventArgsToForward={[Function]}
@@ -104,7 +102,7 @@ exports[`CiteModalAction renders with recordId 1`] = `
               }
             }
           />
-        </EventTracker>
+        </Connect(EventTracker)>
       </Row>
     </div>
   </Modal>
