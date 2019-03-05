@@ -17,6 +17,7 @@ import {
 } from './middlewares/statePersister';
 import searchDispatcherMiddleware from './middlewares/searchDispatcher';
 import redirectToErrorPageMiddleware from './middlewares/redirectToErrorPage';
+import actionTrackerMiddleware from './middlewares/actionTracker';
 
 export const thunkMiddleware = thunk.withExtraArgument(http);
 
@@ -32,6 +33,7 @@ const PROD_MIDDLEWARES = [
   createPersistToStorageMiddleware(reducersToPersist),
   searchDispatcherMiddleware,
   redirectToErrorPageMiddleware,
+  actionTrackerMiddleware,
   thunkMiddleware,
 ];
 

@@ -1,4 +1,5 @@
 import Piwik from 'react-piwik';
+import { isSuperUser, isCataloger } from './common/authorization';
 
 function isTrackerConfigured() {
   const { REACT_APP_PIWIK_URL, REACT_APP_PIWIK_SITE_ID } = process.env;
@@ -18,9 +19,28 @@ export function injectTrackerToHistory(history) {
   return history;
 }
 
-export function trackEvent(...args) {
-  if (isTrackerConfigured()) { 
+export async function trackEvent(...args) {
+  if (isTrackerConfigured()) {
     Piwik.push(['trackEvent', ...args]);
+  }
+}
+
+function getUserEventCategoryFromRoles(userRoles) {
+  if (isSuperUser(userRoles)) {
+    return 'Superuser';
+  }
+
+  if (isCataloger(userRoles)) {
+    return 'Cataloger';
+  }
+
+  return 'User';
+}
+
+export async function setUserCategoryFromRoles(userRoles) {
+  if (isTrackerConfigured()) {
+    const userCategory = getUserEventCategoryFromRoles(userRoles);
+    Piwik.push(['setCustomVariable', 1, 'UserCategory', userCategory]);
   }
 }
 
