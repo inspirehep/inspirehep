@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter, Redirect } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
-import { fromJS } from 'immutable';
+import { fromJS, Set } from 'immutable';
 
 import { getStore, getStoreWithState } from '../fixtures/store';
 import App from '../App';
@@ -14,11 +14,36 @@ import Submissions from '../submissions';
 import Errors from '../errors';
 import Authors from '../authors';
 import { ERRORS } from '../common/routes';
+import * as tracker from '../tracker';
+
+jest.mock('../tracker');
 
 describe('App', () => {
   it('renders initial state', () => {
     const wrapper = shallow(<App store={getStore()} />).dive();
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('calls to set user category with roles on mount', () => {
+    tracker.setUserCategoryFromRoles = jest.fn();
+    const store = getStoreWithState({
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['cataloger'],
+        },
+      }),
+    });
+    mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(tracker.setUserCategoryFromRoles).toHaveBeenLastCalledWith(
+      Set(['cataloger'])
+    );
   });
 
   it('navigates to Holdingpen when /holdingpen if logged in', () => {

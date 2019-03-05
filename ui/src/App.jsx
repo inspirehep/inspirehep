@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import Loadable from 'react-loadable';
 import PropTypes from 'prop-types';
+import { Set } from 'immutable';
 
 import './App.scss';
 import Header from './common/layouts/Header';
@@ -22,6 +23,7 @@ import {
   ERRORS,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
+import { setUserCategoryFromRoles } from './tracker';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -55,6 +57,9 @@ const Errors$ = Loadable({
 class App extends Component {
   componentDidMount() {
     Loadable.preloadAll();
+
+    const { userRoles } = this.props;
+    setUserCategoryFromRoles(userRoles);
   }
 
   render() {
@@ -63,19 +68,16 @@ class App extends Component {
     return (
       <Layout className="__App__">
         <Header />
-        <Layout.Content className="content" style={{ marginTop: contentMarginTop }}>
+        <Layout.Content
+          className="content"
+          style={{ marginTop: contentMarginTop }}
+        >
           <SafeSwitch id="main">
             <Route exact path={HOME} component={Home$} />
             <Route path={USER} component={User$} />
             <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
-            <PrivateRoute
-              path={LITERATURE}
-              component={Literature$}
-            />
-            <PrivateRoute
-              path={AUTHORS}
-              component={Authors$}
-            />
+            <PrivateRoute path={LITERATURE} component={Literature$} />
+            <PrivateRoute path={AUTHORS} component={Authors$} />
             <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
             <Route path={ERRORS} component={Errors$} />
           </SafeSwitch>
@@ -90,11 +92,15 @@ class App extends Component {
 App.propTypes = {
   isBannerVisible: PropTypes.bool.isRequired,
   isSubmissionsPage: PropTypes.bool.isRequired,
-}
+  userRoles: PropTypes.instanceOf(Set).isRequired,
+};
 
 const stateToProps = state => ({
   isBannerVisible: state.ui.get('bannerVisibility'),
-  isSubmissionsPage: String(state.router.location.pathname).startsWith(SUBMISSIONS),
-})
+  isSubmissionsPage: String(state.router.location.pathname).startsWith(
+    SUBMISSIONS
+  ),
+  userRoles: Set(state.user.getIn(['data', 'roles'])),
+});
 
 export default connect(stateToProps)(App);
