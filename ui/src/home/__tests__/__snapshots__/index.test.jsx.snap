@@ -9,7 +9,8 @@ exports[`Home renders home page 1`] = `
   type="flex"
 >
   <Col
-    span={18}
+    sm={18}
+    xs={24}
   >
     <Row
       gutter={0}
@@ -37,10 +38,13 @@ exports[`Home renders home page 1`] = `
     <Row
       className="mt4"
       gutter={0}
+      justify="center"
+      type="flex"
     >
       <Col
-        offset={6}
-        span={12}
+        md={12}
+        sm={18}
+        xs={24}
       >
         <HowToSearch />
       </Col>

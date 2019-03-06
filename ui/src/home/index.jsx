@@ -9,7 +9,7 @@ class Home extends Component {
   render() {
     return (
       <Row className="__Home__" type="flex" justify="center" align="middle">
-        <Col span={18}>
+        <Col xs={24} sm={18}>
           <Row>
             <Col>
               <h2 className="f2 tc">Discover High-Energy Physics content</h2>
@@ -24,8 +24,8 @@ class Home extends Component {
               <SearchBoxContainer />
             </Col>
           </Row>
-          <Row className="mt4">
-            <Col span={12} offset={6}>
+          <Row className="mt4" type="flex" justify="center">
+            <Col xs={24} sm={18} md={12}>
               <HowToSearch />
             </Col>
           </Row>
