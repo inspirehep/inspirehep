@@ -7,4 +7,5 @@ module.exports = {
   'layout-body-background': '#f0f2f5',
   'success-color': '#52c41a',
   'secondary-color': 'rgba(0, 0, 0, 0.45)',
+  'screen-xs-max': '575px',
 };
