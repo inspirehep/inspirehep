@@ -3,6 +3,11 @@
   .content {
     padding: 0 2.85rem;
     display: flex;
+    margin-top: 64px;
+
+    @media (max-width: $screen-xs-max) {
+      margin-top: 0px;
+    }
   }
   .ant-list-item-meta-title > a {
     color: $link-color;

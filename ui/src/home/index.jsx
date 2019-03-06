@@ -25,7 +25,7 @@ class Home extends Component {
             </Col>
           </Row>
           <Row className="mt4" type="flex" justify="center">
-            <Col xs={24} sm={18} md={12}>
+            <Col xs={24} sm={18} md={14} lg={12}>
               <HowToSearch />
             </Col>
           </Row>

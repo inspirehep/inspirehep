@@ -64,7 +64,8 @@ class App extends Component {
 
   render() {
     const { isBannerVisible, isSubmissionsPage } = this.props;
-    const contentMarginTop = isBannerVisible && !isSubmissionsPage ? 112 : 64;
+    const contentMarginTop =
+      isBannerVisible && !isSubmissionsPage ? 112 : undefined;
     return (
       <Layout className="__App__">
         <Header />
