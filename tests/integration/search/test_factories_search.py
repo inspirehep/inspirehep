@@ -181,14 +181,15 @@ def test_search_factory_only_with_aggs(base_app):
         search = InspireSearch()
         search, urlkwargs = search_factory_only_with_aggs(None, search)
         search_to_dict = search.to_dict()
+        search_to_dict_filters = search_to_dict["query"]["bool"]
         urlkwargs_to_dict = urlkwargs.to_dict()
 
-        expected_urlkwargs = {"q": "foo"}
+        expected_urlkwargs = {"q": "foo", "type": "bar"}
 
         assert expected_urlkwargs == urlkwargs_to_dict
         assert "aggs" in search_to_dict
-        assert "filter" not in search_to_dict
-        assert "post_filter" not in search_to_dict
+        assert "filter" in search_to_dict_filters
+        assert "post_filter" in search_to_dict
 
 
 def test_search_factory_only_with_aggs_without_query(base_app):
