@@ -35,6 +35,7 @@ pytest-cov = "==2.6.1"
 remote-pdb = "*"
 invenio-app = "==1.0.0"
 cryptography = "<2.6"
+#  msgpack = "*"  #  We want to use it but it might mess with invenio-indexer which is forcing msgpack-python
 gunicorn = "*"
 watchdog = "*"
 

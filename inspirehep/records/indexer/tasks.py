@@ -19,28 +19,25 @@ logger = logging.getLogger(__name__)
 
 
 def index_record_task(record):
-    pid_type = record.pid_type
-    pid_value = record["control_number"]
+    uuid = record.id
 
     index_record.delay(
-        pid_value=pid_value,
-        pid_type=pid_type,
+        uuid=uuid,
         record_version=record.model.version_id,
         deleted=record.get("deleted", False),
     )
     logger.info(f"Index record task sent for record {record.id}")
 
 
-def get_record(pid_type, pid_value, record_version=None):
-    logger.debug(f"Pulling record {pid_type}:{pid_value} on version {record_version}")
+def get_record(uuid, record_version=None):
+    logger.debug(f"Pulling record {uuid} on version {record_version}")
     from inspirehep.records.api import InspireRecord
 
-    record = InspireRecord.get_record_by_pid_value(
-        pid_value=pid_value, pid_type=pid_type
-    )
+    record = InspireRecord.get_record(uuid, with_deleted=True)
+
     if record_version and record.model.version_id < record_version:
         logger.info(
-            f"Cannot pull record {pid_type}:{pid_value}in version {record_version}."
+            f"Cannot pull record {uuid}in version {record_version}."
             f"Current version: {record.model.version_id}."
         )
         raise StaleDataError()
@@ -48,19 +45,15 @@ def get_record(pid_type, pid_value, record_version=None):
 
 
 @shared_task(ignore_result=False, bind=True)
-def process_references_for_record(
-    pid_type=None, pid_value=None, record_version=None, record=None
-):
+def process_references_for_record(uuid=None, record_version=None, record=None):
     if not record:
-        record = get_record(pid_type, pid_value, record_version)
+        record = get_record(uuid, record_version)
     pids = record.get_modified_references()
 
     if not pids:
-        logger.debug(f"No references change for record {pid_type}:{pid_value}")
+        logger.debug(f"No references change for record {uuid}")
         return None
-    logger.debug(
-        f"({pid_value}) There are {len(pids)} records where references changed"
-    )
+    logger.debug(f"({uuid}) There are {len(pids)} records where references changed")
     uuids = [
         str(pid.object_uuid)
         for pid in db.session.query(PersistentIdentifier.object_uuid).filter(
@@ -72,7 +65,7 @@ def process_references_for_record(
     ]
 
     if uuids:
-        logger.info(f"({pid_value}) contains pids - starting batch")
+        logger.info(f"({uuid}) contains pids - starting batch")
         return batch_index(uuids)
 
     else:
@@ -82,20 +75,17 @@ def process_references_for_record(
 
 
 @shared_task(ignore_result=False, bind=True, max_retries=6)
-def index_record(self, pid_value, pid_type, record_version=None, deleted=None):
+def index_record(self, uuid, record_version=None, deleted=None):
     logger.info(
-        f"Starting shared task `index_record` for "
-        f"record {pid_type}:{pid_value}:v{record_version}"
+        f"Starting shared task `index_record` for " f"record {uuid}:v{record_version}"
     )
     try:
-        record = get_record(pid_type, pid_value, record_version)
+        record = get_record(uuid, record_version)
     except (NoResultFound, StaleDataError) as e:
-        logger.warn(
-            f"Record {pid_type}:{pid_value} not yet at version {record_version} on DB"
-        )
+        logger.warn(f"Record {uuid} not yet at version {record_version} on DB")
         backoff = 2 ** (self.request.retries + 1)
         if self.max_retries < self.request.retries + 1:
-            logger.warn(f"({pid_value}) - Failing - too many retries")
+            logger.warn(f"({uuid}) - Failing - too many retries")
         raise self.retry(countdown=backoff, exc=e)
 
     if not deleted:
@@ -103,14 +93,12 @@ def index_record(self, pid_value, pid_type, record_version=None, deleted=None):
     if deleted:
         try:
             record._index(delete=True)
-            logger.debug(f"Record {pid_type}:{pid_value} removed from ES")
+            logger.debug(f"Record {uuid} removed from ES")
         except NotFoundError:
-            logger.warning(
-                f"During removal, record {pid_type}:{pid_value} not found in ES!"
-            )
+            logger.warning(f"During removal, record {uuid} not found in ES!")
     else:
         record._index()
-        logger.debug(f"Record {pid_type}:{pid_value} successfully indexed on ES")
+        logger.debug(f"Record {uuid} successfully indexed on ES")
 
     return process_references_for_record(record=record)
 

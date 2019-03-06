@@ -12,26 +12,30 @@ from invenio_search import current_search_client as es
 from invenio_db import db
 from inspirehep.records.indexer.base import InspireRecordIndexer  # noqa: F401
 
-# TODO Chenge sleep to something less ugly before merging with master
-
 
 def test_lit_record_appear_in_es_when_created(
-    app, celery_app_with_context, celery_session_worker
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
     rec.commit()
     db.session.commit()
-    time.sleep(5)
-    es.indices.refresh("records-hep")
-    response = es.search("records-hep")["hits"]
-    assert response["total"] == 1
-    assert response["hits"][0]["_id"] == str(rec.id)
-    assert response["hits"][0]["_source"]["_ui_display"] is not None
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+        },
+    ]
+    response = retry_until_matched(steps)
+
+    assert response["hits"]["hits"][0]["_id"] == str(rec.id)
+    assert response["hits"]["hits"][0]["_source"]["_ui_display"] is not None
 
 
 def test_lit_record_update_when_changed(
-    app, celery_app_with_context, celery_session_worker
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):
     data = faker.record("lit")
     data["titles"] = [{"title": "Original title"}]
@@ -42,31 +46,47 @@ def test_lit_record_update_when_changed(
     rec["titles"][0]["title"] = expected_title
     rec.commit()
     db.session.commit()
-    time.sleep(5)
-    es.indices.refresh("records-hep")
-    response = es.search("records-hep")["hits"]
-    assert response["total"] == 1
-    assert response["hits"][0]["_source"]["titles"][0]["title"] == expected_title
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+        },
+    ]
+    resp = retry_until_matched(steps)
+    assert resp["hits"]["hits"][0]["_source"]["titles"][0]["title"] == expected_title
 
 
 def test_lit_record_removed_form_es_when_deleted(
-    app, celery_app_with_context, celery_session_worker
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
     rec.commit()
     db.session.commit()
-    time.sleep(5)
-    es.indices.refresh("records-hep")
-    response = es.search("records-hep")["hits"]
-    assert response["total"] == 0
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+        },
+    ]
+    resp = retry_until_matched(steps)
     rec.delete()
     rec.commit()
     db.session.commit()
-    time.sleep(5)
-    es.indices.refresh("records-hep")
-    response = es.search("records-hep")["hits"]
-    assert response["total"] == 0
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 0},
+        },
+    ]
+    resp = retry_until_matched(steps)
 
 
 def test_lit_records_with_citations_updates(
@@ -74,5 +94,16 @@ def test_lit_records_with_citations_updates(
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
+    db.session.commit()
 
-    data_2 = faker.record("lit")
+    citations = [rec["control_number"]]
+    data_2 = faker.record("lit", citations=citations)
+    rec_2 = LiteratureRecord.create(data_2)
+    db.session.commit()
+    time.sleep(5)
+    es.indices.refresh("records-hep")
+    response = es.search("records-hep")["hits"]
+
+    #  Todo: Add check for `process_references_for_record`
+    #   when there will be citation_count implemented
+    #   because now there is nothing to check...

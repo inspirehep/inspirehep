@@ -6,8 +6,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import logging
 import random
+from copy import deepcopy
+
+from datetime import datetime, timedelta
+
+import time
 
 import pytest
+from inspire_utils.record import get_value
 
 from invenio_db import db
 from invenio_search import current_search_client as es
@@ -75,3 +81,76 @@ def celery_app_with_context(app, celery_session_app):
     celery_session_app.Task = AppContextTask
     celery_session_app.flask_app = app
     return celery_session_app
+
+
+@pytest.fixture(scope="function")
+def retry_until_matched():
+    def _check(steps={}, timeout=15):
+        """Allows to wait for task to finish, by doing steps and proper checks assigned
+          to them.
+
+        If timeout is reached and not all checks will pass then throws assert on which
+        it failed
+        Args:
+            steps(list): Properly specified steps and checks.
+        Returns: result from last step
+        Examples:
+            >>> steps = [
+                    {
+                        'step': es.indices.refresh,
+                        'args': ["records-hep"],
+                        'kwargs': {},
+                        'expected_result': 'some_data'
+
+                    },
+                    {
+                        'step': es.search,
+                        'args': ["records-hep"],
+                        'kwargs': {}
+                        'expected_result': {
+                            'expected_key': 'expected_key_name',
+                            'expected_result': 'expected_result_data'
+                        }
+                    }
+                ]
+        """
+        start = datetime.now()
+        finished = False
+        _current_result = None
+        while not finished:
+            for step in steps:
+                _args = step.get("args", [])
+                _kwargs = step.get("kwargs", {})
+                _expected_result = step.get("expected_result")
+                _fun = step.get("step")
+                _expected_key = None
+                result = _fun(*_args, **_kwargs)
+                _current_result = deepcopy(result)
+                if _expected_result:
+                    if (
+                        isinstance(_expected_result, dict)
+                        and "expected_key" in _expected_result
+                        and "expected_result" in _expected_result
+                    ):
+                        _expected_key = _expected_result["expected_key"]
+                        _expected_result = _expected_result["expected_result"]
+                        result = get_value(result, _expected_key)
+
+                    if result == _expected_result:
+                        finished = True
+                    else:
+
+                        finished = False
+                        time.sleep(1)
+                        if (datetime.now() - start) > timedelta(seconds=timeout):
+                            assert result == _expected_result
+                        break
+                else:
+                    if (datetime.now() - start) > timedelta(seconds=timeout):
+                        raise TimeoutError(
+                            f"timeout exceeded during checks on step{_fun} "
+                            f"{(datetime.now() - start)}"
+                        )
+        return _current_result
+
+    return _check

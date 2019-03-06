@@ -782,22 +782,27 @@ class InspireRecord(Record):
             celery.result.AsyncResult: Task itself
         """
         logger.error(f"Indexing record {self.id}")
-        arguments_for_indexer = self._record_index(self, delete)
+        arguments_for_indexer = self._record_index(self, deleted=delete)
         arguments_for_indexer["record_version"] = self.model.version_id
         task = index_record.delay(**arguments_for_indexer)
         logger.info(f"Record {self.id} send for indexing")
         return task
 
     @classmethod
-    def _record_index(cls, record, deleted=None):
+    def _record_index(cls, record, _id=None, deleted=None):
         """Helper function for indexer:
             Prepare dictionary for indexer
         Returns:
             dict: proper dict required by the indexer
         """
+        if isinstance(record, InspireRecord):
+            uuid = record.id
+        elif _id:
+            uuid = _id
+        else:
+            raise MissingModelError
         arguments_for_indexer = {
-            "pid_value": record["control_number"],
-            "pid_type": cls.pid_type,
+            "uuid": uuid,
             "deleted": deleted or record.get("deleted", False),
         }
         return arguments_for_indexer
