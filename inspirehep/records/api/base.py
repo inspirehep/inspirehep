@@ -16,8 +16,6 @@ import re
 import uuid
 from io import BytesIO
 
-from invenio_records_rest.serializers.marshmallow import MarshmallowMixin
-
 from flask import current_app
 from fs.errors import ResourceNotFoundError
 from fs.opener import fsopen
@@ -281,7 +279,6 @@ class InspireRecord(Record):
         """Returns list of tuples (pid_type, pid_value) of all linked records in field
         from specified path
         Args:
-            data (dict): the data with linked records.
             path (str): the path of the linked records.
         Returns:
             list: tuples containing (pid_type, pid_value) of the linked records
@@ -784,6 +781,7 @@ class InspireRecord(Record):
         Returns:
             celery.result.AsyncResult: Task itself
         """
+        logger.error(f"Indexing record {self.id}")
         arguments_for_indexer = self._record_index(self, delete)
         arguments_for_indexer["record_version"] = self.model.version_id
         task = index_record.delay(**arguments_for_indexer)
@@ -791,7 +789,7 @@ class InspireRecord(Record):
         return task
 
     @classmethod
-    def _record_index(cls, record, delete=None):
+    def _record_index(cls, record, deleted=None):
         """Helper function for indexer:
             Prepare dictionary for indexer
         Returns:
@@ -800,18 +798,19 @@ class InspireRecord(Record):
         arguments_for_indexer = {
             "pid_value": record["control_number"],
             "pid_type": cls.pid_type,
-            "deleted": delete or record.get("deleted", False),
+            "deleted": deleted or record.get("deleted", False),
         }
         return arguments_for_indexer
 
     @property
     def _previous_version(self):
         """Allows to easily acces previous version of the record"""
-        return (
+        data = (
             self.model.versions.filter_by(version_id=self.model.version_id)
             .one()
             .previous.json
         )
+        return type(self)(data=data)
 
     @property
     def _schema_type(self):
@@ -847,16 +846,15 @@ class InspireRecord(Record):
         )
 
         if changed_deleted_status:
-            return InspireRecord.get_records_pid_from_field(
-                self.get("references", []), "record"
-            )
+            return self.get_records_pid_from_field("references.record")
 
-        ids_latest = InspireRecord.get_records_pid_from_field(
-            self.get("references", []), "record"
-        )
-        ids_oldest = InspireRecord.get_records_pid_from_field(
-            prev_version.get("references", []), "record"
-        )
+        ids_latest = set(self.get_records_pid_from_field("references.record"))
+        try:
+            ids_oldest = set(
+                self._previous_version.get_records_pid_from_field("references.record")
+            )
+        except AttributeError:
+            return []
 
         return set.symmetric_difference(ids_latest, ids_oldest)
 
@@ -867,7 +865,6 @@ class InspireRecord(Record):
             dict: Properly serialized and prepared record
         """
         serialized_data = self.get_enhanced_data()
-        serialized_data["_ui_display"] = self.get_ui_data()
         return serialized_data
 
     def dumps_for_es(self):
@@ -881,46 +878,3 @@ class InspireRecord(Record):
     def get_value(self, field, default=None):
         """Method which makes ``get_value`` more intuitive"""
         return get_value(self, field, default)
-
-    # def get_linked_records_in_field(self, field_path):
-    #     """Get all linked records in a given field.
-    #
-    #     Args:
-    #         self (InspireRecord): the record containing the links
-    #         field_path (string): a dotted field path specification understandable
-    #             by ``get_value``, containing a json reference to another record.
-    #
-    #     Returns:
-    #         Iterator[dict]: an iterator on the linked record.
-    #
-    #     Warning:
-    #         Currently, the order in which the linked records are yielded is
-    #         different from the order in which they appear in the record.
-    #
-    #     Example:
-    #         >>> record = {'references': [
-    #         ... {'record': {'$ref': 'https://labs.inspirehep.net/api/literature/1234'}},
-    #         ... {'record': {'$ref': 'https://labs.inspirehep.net/api/data/421'}},
-    #         ... ]}
-    #         >>> get_linked_record_in_field('references.record')
-    #         [...]
-    #     """
-    #     full_path = ".".join([field_path, "$ref"])
-    #     pids = force_list(
-    #         [
-    #             PidStoreBase.get_pid_from_record_uri(rec)
-    #             for rec in self.get_value(full_path, [])
-    #         ]
-    #     )
-    #     records = []
-    #     for pid_type, pid_value in pids:
-    #         try:
-    #             records.append(
-    #                 InspireRecord.get_record_by_pid_value(pid_value, pid_type)
-    #             )
-    #         except PIDDoesNotExistError:
-    #             logger.error(
-    #                 f"Cannot find InspireRecord with `pid_value` = {pid_value} "
-    #                 f"and `pid_type` = {pid_type}"
-    #             )
-    #     return records

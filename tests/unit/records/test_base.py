@@ -5,7 +5,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import mock
 import pytest
 from helpers.providers.faker import faker
 
@@ -216,3 +216,68 @@ def test_on_deleted_record_index_on_InspireRecord():
     assert InspireRecord._record_index(record) == expected
     assert InspireRecord._record_index(record, False) == expected
     assert InspireRecord._record_index(record, True) == expected
+
+
+def test_get_subclasses():
+    subclasses = InspireRecord.get_subclasses()
+    expected_subclasses = {"lit": LiteratureRecord, "aut": AuthorsRecord}
+
+    assert subclasses == expected_subclasses
+
+
+@mock.patch("invenio_records.api.Record.get_record")
+@mock.patch(
+    "inspirehep.records.api.base.PidStoreBase.get_pid_type_from_schema",
+    return_value="lit",
+)
+@mock.patch(
+    "inspirehep.records.api.literature.LiteratureRecord.get_record",
+    return_value=LiteratureRecord(data={}),
+)
+def test_finding_proper_class_in_get_record_lit(
+    get_record_mock, get_pid_mock, invenio_record_mock
+):
+    created_record = InspireRecord.get_record(id_="something")
+    expected_record_type = LiteratureRecord
+
+    assert type(created_record) == expected_record_type
+
+
+@mock.patch("invenio_records.api.Record.get_record")
+@mock.patch(
+    "inspirehep.records.api.base.PidStoreBase.get_pid_type_from_schema",
+    return_value="aut",
+)
+@mock.patch(
+    "inspirehep.records.api.authors.AuthorsRecord.get_record",
+    return_value=AuthorsRecord(data={}),
+)
+def test_finding_proper_class_in_get_record_aut(
+    get_record_mock, get_pid_mock, invenio_record_mock
+):
+    created_record = InspireRecord.get_record(id_="something")
+    expected_record_type = AuthorsRecord
+
+    assert type(created_record) == expected_record_type
+
+
+def test_record_index_static_method():
+    data = {"control_number": 123}
+
+    expected_1 = {"pid_value": 123, "pid_type": None, "deleted": False}
+
+    expected_1_deleted = {"pid_value": 123, "pid_type": None, "deleted": True}
+
+    assert expected_1 == InspireRecord._record_index(data)
+    assert expected_1_deleted == InspireRecord._record_index(data, True)
+
+
+def test_record_deleted_index_static_method():
+    data = {"control_number": 123, "deleted": True}
+
+    expected_1 = {"pid_value": 123, "pid_type": None, "deleted": True}
+
+    expected_1_deleted = {"pid_value": 123, "pid_type": None, "deleted": True}
+
+    assert expected_1 == InspireRecord._record_index(data)
+    assert expected_1_deleted == InspireRecord._record_index(data, False)

@@ -1,6 +1,5 @@
 import logging
 
-from elasticsearch import NotFoundError
 from flask_sqlalchemy import models_committed
 from invenio_records.models import RecordMetadata
 
@@ -22,17 +21,23 @@ def index_after_commit(sender, changes):
     has been really committed to the DB.
     """
     for model_instance, change in changes:
+        logger.debug("index_after_commit hook")
         if isinstance(model_instance, RecordMetadata):
-            if change in ("insert", "update"):
+            logger.debug(
+                f"Model instance ({model_instance.id}) is correct. Processing..."
+            )
+            if change in ("insert", "update", "delete"):
                 # InspireRecord.get_record(model_instance.id).index()
+                logger.debug(f"Change type is {change}.")
                 pid_type = PidStoreBase.get_pid_type_from_schema(
                     model_instance.json.get("$schema")
                 )
+                delete = "delete" in changes
                 arguments = InspireRecord.get_subclasses()[pid_type]._record_index(
-                    model_instance.json
+                    model_instance.json, deleted=delete
                 )
                 arguments["record_version"] = model_instance.version_id
-                index_record.delay(**arguments)
+                return index_record.delay(**arguments)
             else:
                 raise WrongOperationOnRecordError(
                     f"Wrong operation ({change})on record {model_instance.id}"

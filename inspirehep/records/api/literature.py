@@ -6,11 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+import json
 import logging
 from inspire_schemas.builders import LiteratureBuilder
-from inspire_utils.helpers import force_list
-from inspire_utils.record import get_value
-from invenio_pidstore.errors import PIDDoesNotExistError
 
 from inspirehep.pidstore.api import PidStoreLiterature
 from .base import InspireRecord
@@ -126,3 +124,8 @@ class LiteratureRecord(InspireRecord):
                 files.append(metadata)
         super().update(builder.record)
         return files
+
+    def _dump_for_es(self):
+        serialized_data = super()._dump_for_es()
+        serialized_data["_ui_display"] = json.dumps(self.get_ui_data())
+        return serialized_data

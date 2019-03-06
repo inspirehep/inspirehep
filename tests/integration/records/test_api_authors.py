@@ -15,7 +15,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api import AuthorsRecord, InspireRecord
 
 
 def test_authors_create(base_app, db):
@@ -137,3 +137,15 @@ def test_literature_create_or_update_with_existing_record(base_app, db):
 
     assert record_updated.model.id == record_updated_pid.object_uuid
     assert control_number == record_updated_pid.pid_value
+
+
+def test_subclasses_for_authors():
+    expected = {"aut": AuthorsRecord}
+    assert expected == AuthorsRecord.get_subclasses()
+
+
+def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("aut")
+    record = InspireRecord.create(data)
+    record_from_db = InspireRecord.get_record(record.id)
+    assert type(record_from_db) == AuthorsRecord
