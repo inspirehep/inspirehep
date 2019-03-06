@@ -155,7 +155,6 @@ def test_literature_citations_missing_pids(api_client, db, create_record):
     missing_control_number = 1
     response = api_client.get("/literature/{}/citations".format(missing_control_number))
     response_status_code = response.status_code
-    response_data = json.loads(response.data)
 
     expected_status_code = 404
 
@@ -184,6 +183,43 @@ def test_literature_facets(api_client, db, create_record):
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
+
+
+@pytest.mark.xfail(
+    reason=(
+        "Indexing for tests needs to be fixed so that elasticsearch is populated "
+        "with custom fields that are used for facets, hence we cannot test the facets."
+    )
+)
+def test_literature_facets_with_selected_facet(api_client, db, create_record):
+    record_1 = create_record("lit")
+    data = {"document_type": ["Thesis"]}
+    record_2 = create_record("lit", data=data)
+
+    response = api_client.get("/literature/facets/?doc_type=article")
+    response_data = json.loads(response.data)
+    response_data_hits = response_data["hits"]["hits"]
+    response_status_code = response.status_code
+    response_data_facet_keys = list(response_data.get("aggregations").keys())
+
+    expected_status_code = 200
+    expected_facet_keys = [
+        "arxiv_categories",
+        "author",
+        "author_count",
+        "doc_type",
+        "earliest_date",
+        "experiment",
+        "subject",
+    ]
+
+    expected_result_hits = {}
+
+    expected_facet_keys.sort()
+    response_data_facet_keys.sort()
+    assert expected_status_code == response_status_code
+    assert expected_facet_keys == response_data_facet_keys
+    assert expected_result_hits == response_data_hits
 
 
 def test_literature_facets_author_count_does_not_have_empty_bucket(
