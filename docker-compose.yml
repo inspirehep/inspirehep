@@ -43,8 +43,8 @@ services:
       service: kibana
   ui:
     build:
-      context: ui/docker
-      dockerfile: Dockerfile-ui
+      context: ui
+      dockerfile: docker/Dockerfile-ui
     ports:
      - "8081:8081"
     volumes:

@@ -1,43 +1,32 @@
 FROM nginx:stable
 
-RUN apt-get update
-RUN apt-get install -y git
-RUN apt-get install -y curl
-RUN apt-get install -y gnupg2
-
-WORKDIR /tmp
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash -
-RUN apt-get install -y nodejs
-RUN npm install -g yarn
-
-WORKDIR /app
-# We invalidate cache always because there is no easy way for now to detect
-# if something in the whole git repo changed. For docker git clone <url> <dir>
-# is always the same so it caches it.
+EXPOSE 8081
+CMD ["nginx", "-g", "daemon off;"]
 ARG CACHE_DATE=not_a_date
 
-RUN git clone https://github.com/inspirehep/inspirehep.git .
+ENV REACT_APP_SENTRY_DSN=https://8d6824a9531c437fbb6de2b3062dfa94@sentry.inspirehep.net/9 \
+    REACT_APP_PIWIK_URL=//piwik.web.cern.ch \
+    REACT_APP_PIWIK_SITE_ID=5664
 
-WORKDIR /app/ui
-RUN echo "Current commit id:" && git rev-parse HEAD
-RUN yarn install
-ENV REACT_APP_SENTRY_DSN https://8d6824a9531c437fbb6de2b3062dfa94@sentry.inspirehep.net/9
-ENV REACT_APP_PIWIK_URL //piwik.web.cern.ch
-ENV REACT_APP_PIWIK_SITE_ID 5664
-RUN yarn run build
+WORKDIR /tmp
 
-RUN chmod g+rwx /var/cache/nginx /var/run /var/log/nginx /usr/share/nginx
-RUN chgrp -R root /var/cache/nginx
+RUN apt-get update \
+ && apt-get install -y curl gnupg2 \ 
+ && curl -sLo node_setup https://deb.nodesource.com/setup_8.x \
+ && bash node_setup \
+ && apt-get update \
+ && apt-get install --no-install-recommends -y nodejs \
+ && npm install -g yarn \
+ && rm -rf /var/lib/apt/lists/ 
 
-EXPOSE 8081
+COPY . /app/
 
-# comment user directive as master process is run as user in OpenShift anyhow
-RUN sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf
+WORKDIR /app
 
-RUN cp -r /app/ui/build/* /usr/share/nginx/html
-COPY conf.d /etc/nginx/conf.d
+COPY docker/conf.d /etc/nginx/conf.d
 
-RUN addgroup nginx root
-USER nginx
-CMD ["nginx", "-g", "daemon off;"]
-
+RUN yarn install \
+ && yarn run build \
+ && chmod g+rwx /var/cache/nginx /var/run /var/log/nginx /usr/share/nginx \
+ && sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf \
+ && cp -r build/* /usr/share/nginx/html
