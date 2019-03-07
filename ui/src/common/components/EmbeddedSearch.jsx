@@ -142,8 +142,8 @@ class EmbeddedSearch extends Component {
     return hasError ? (
       renderError()
     ) : (
-      <Row gutter={32} type="flex" justify="start">
-        <Col span={7}>
+      <Row gutter={{ xs: 0, lg: 32 }} type="flex" justify="start">
+        <Col xs={0} lg={7}>
           <LoadingOrChildren loading={loadingAggregations}>
             <AggregationFilters
               query={query}
@@ -153,13 +153,13 @@ class EmbeddedSearch extends Component {
             />
           </LoadingOrChildren>
         </Col>
-        <Col span={17}>
+        <Col xs={24} lg={17}>
           <LoadingOrChildren loading={loadingResults}>
-            <Row type="flex" align="middle" justify="end">
-              <Col span={12}>
+            <Row type="flex" align="middle" justify="space-between">
+              <Col xs={24} md={12}>
                 <NumberOfResults numberOfResults={numberOfResults} />
               </Col>
-              <Col className="tr" span={12}>
+              <Col>
                 <SortBy onSortChange={this.onSortChange} sort={query.sort} />
               </Col>
             </Row>
