@@ -24,20 +24,19 @@ def index_after_commit(sender, changes):
         logger.debug("index_after_commit hook")
         if isinstance(model_instance, RecordMetadata):
             logger.debug(
-                f"Model instance ({model_instance.id}) is correct. Processing..."
+                "Model instance (%s) is correct. Processing...", model_instance.id
             )
             if change in ("insert", "update", "delete"):
-                # InspireRecord.get_record(model_instance.id).index()
-                logger.debug(f"Change type is {change}.")
+                logger.debug("Change type is '%s'.", change)
                 pid_type = PidStoreBase.get_pid_type_from_schema(
                     model_instance.json.get("$schema")
                 )
                 delete = "delete" in changes
                 arguments = InspireRecord.get_subclasses()[pid_type]._record_index(
-                    model_instance.json, _id=model_instance.id, deleted=delete
+                    model_instance.json, _id=str(model_instance.id), deleted=delete
                 )
                 arguments["record_version"] = model_instance.version_id
-                logger.error(f"arguments: {arguments}")
+                logger.info(f"arguments: {arguments}")
                 return index_record.delay(**arguments)
             else:
                 raise WrongOperationOnRecordError(

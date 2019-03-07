@@ -204,17 +204,17 @@ class InspireRecord(Record):
 
         if cls.is_hash(url_splited[-1]):
             file = url_splited[-1]
-            logger.debug(f"'{url}' contains hash: '{file}'")
+            logger.debug("'%s' contains hash: '%s'", url, file)
         elif cls.is_filename(url_splited[-1]):
             file = url_splited[-1]
-            logger.debug(f"'{url}' contains filename: '{file}'")
+            logger.debug("'%s' contains filename: '%s'", url, file)
         else:
-            raise ValueError(f"{url} does not contain filename or file hash!")
+            raise ValueError("'%s' does not contain filename or file hash!", url)
 
         if not url.startswith("http"):
             if url.startswith(API_PATH) and cls.is_bucket_uuid(url_splited[-2]):
                 bucket = url_splited[-2]
-                logger.debug(f"'{url}' contains bucket_id: '{bucket}'")
+                logger.debug("'%s' contains bucket_id: '%s'", url, bucket)
             else:
                 raise ValueError("Missing bucket id!")
         else:
@@ -247,7 +247,7 @@ class InspireRecord(Record):
 
     @classmethod
     def get_record(cls, id_, with_deleted=False):
-        record = super().get_record(id_, with_deleted)
+        record = super().get_record(str(id_), with_deleted)
         type_from_schema = PidStoreBase.get_pid_type_from_schema(record["$schema"])
         if record.pid_type is None or record.pid_type != type_from_schema:
             return cls.get_subclasses()[type_from_schema].get_record(id_, with_deleted)
@@ -399,7 +399,7 @@ class InspireRecord(Record):
         if not record_id:
             record_id = self.id
         try:
-            logger.debug(f"Looking for location with name '{location}'")
+            logger.debug("Looking for location with name '%s'", location)
             location_obj = Location.get_by_name(location)
         except NoResultFound:
             raise NoResultFound(
@@ -417,7 +417,7 @@ class InspireRecord(Record):
             .one_or_none()
         )
         if bucket:
-            logger.debug(f"found bucket: '{bucket.bucket.id}'")
+            logger.debug("found bucket: '%s'", bucket.bucket.id)
             return bucket.bucket
         logger.info(f"No bucket found for record '{self.id}'")
         return self._create_bucket(location, storage_class)
@@ -489,7 +489,7 @@ class InspireRecord(Record):
             file = self._find_local_file(key=key)
             new_key = None
             if file:
-                logger.debug(f"same file found locally, trying to copy")
+                logger.debug("same file found locally, trying to copy")
                 try:
                     new_key = self._copy_local_file(file, key)
                 except ValueError:
@@ -498,14 +498,12 @@ class InspireRecord(Record):
                     pass
             if not new_key:
                 logger.debug(
-                    f"Adding file('{key}') to "
-                    f"{self.__class__.__name__}.({self.id}) files"
+                    "Adding file('%s') to %s.(%s) files", key, self.__class__.__name__, self.id
                 )
                 self.files[key] = BytesIO(data)
         else:
             logger.debug(
-                f"file('{key}') is already attached"
-                f" to {self.__class__.__name__}.({self.id}) files"
+                "file('%s') is already attached to %s.(%s) files", key, self.__class__.__name__, self.id
             )
         return key
 
@@ -732,6 +730,8 @@ class InspireRecord(Record):
                 Do no return data which is not specified in Schema
 
         """
+        if not self.es_serializer and not serializer:
+            return None
         if not serializer:
             serializer_module = importlib.import_module(
                 self.__module__.replace("api", "marshmallow")
@@ -744,6 +744,8 @@ class InspireRecord(Record):
         Returns:
             dict: Enhanced record data
         """
+        if not self.ui_serializer and not serializer:
+            return None
         if not serializer:
             serializer_module = importlib.import_module(
                 self.__module__.replace("api", "marshmallow")
@@ -753,7 +755,10 @@ class InspireRecord(Record):
 
     def _index(self, delete=None):
         """Runs index in current process.
-            Real logic of indexing called inside worker if called from self.index()
+            This is main logic of indexing called inside worker
+            if called from self.index() but when called from self.index()
+            it will run in a worker.
+
         Args:
             delete: set to True if record is deleted
 
@@ -774,7 +779,9 @@ class InspireRecord(Record):
         return result
 
     def index(self, delete=None):
-        """Runs index as separate task
+        """Reindexing task sent to `index_record`
+        which calls record._index in there.
+
         Args:
             delete: set to True if record is deleted,
                 If not set, tries to determine this automagically
@@ -782,9 +789,9 @@ class InspireRecord(Record):
             celery.result.AsyncResult: Task itself
         """
         logger.error(f"Indexing record {self.id}")
-        arguments_for_indexer = self._record_index(self, deleted=delete)
-        arguments_for_indexer["record_version"] = self.model.version_id
-        task = index_record.delay(**arguments_for_indexer)
+        indexing_args = self._record_index(self, deleted=delete)
+        indexing_args["record_version"] = self.model.version_id
+        task = index_record.delay(**indexing_args)
         logger.info(f"Record {self.id} send for indexing")
         return task
 

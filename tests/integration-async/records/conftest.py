@@ -11,21 +11,24 @@ from copy import deepcopy
 from datetime import datetime, timedelta
 
 import time
+from functools import partial
 
 import pytest
+from click.testing import CliRunner
+from flask.cli import ScriptInfo
 from inspire_utils.record import get_value
 
 from invenio_db import db
 from invenio_search import current_search_client as es
 
-from helpers.factories.models.pidstore import PersistentIdentifierFactory
-from helpers.factories.models.records import RecordMetadataFactory
 from invenio_app.factory import create_api as invenio_create_app
 
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.fixtures import (
     init_default_storage_path,
     init_records_files_storage_path,
 )
+from helpers.providers.faker import faker
 
 logger = logging.getLogger(__name__)
 
@@ -64,6 +67,7 @@ def clear_environment(app):
         init_default_storage_path()
         init_records_files_storage_path()
         es.indices.refresh("records-hep")
+        es.indices.refresh("records-authors")
 
 
 @pytest.fixture(scope="session")
@@ -128,9 +132,9 @@ def retry_until_matched():
                 _current_result = deepcopy(result)
                 if _expected_result:
                     if (
-                        isinstance(_expected_result, dict)
-                        and "expected_key" in _expected_result
-                        and "expected_result" in _expected_result
+                        isinstance(_expected_result, dict) and
+                        "expected_key" in _expected_result and
+                        "expected_result" in _expected_result
                     ):
                         _expected_key = _expected_result["expected_key"]
                         _expected_result = _expected_result["expected_result"]
@@ -154,3 +158,28 @@ def retry_until_matched():
         return _current_result
 
     return _check
+
+
+@pytest.fixture(scope='class')
+def app_cli(app):
+    """Click CLI runner inside the Flask application."""
+    runner = CliRunner()
+    obj = ScriptInfo(create_app=lambda info: app)
+    runner._invoke = runner.invoke
+    runner.invoke = partial(runner.invoke, obj=obj)
+    return runner
+
+
+@pytest.fixture(scope="function")
+def generate_records():
+    def _generate(
+        count=10, record_type=LiteratureRecord, data={}, skip_validation=False
+    ):
+        for i in range(count):
+            data = faker.record(
+                record_type.pid_type, data=data, skip_validation=skip_validation
+            )
+            rec = record_type.create(data)
+            rec.commit()
+        db.session.commit()
+    return _generate

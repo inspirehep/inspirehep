@@ -31,7 +31,6 @@ class LiteratureRecord(InspireRecord):
         record = super().create(data, **kwargs)
         if documents or figures:
             record.set_files(documents=documents, figures=figures)
-            record.set_files(documents=documents, figures=figures)
         return record
 
     def update(self, data):

@@ -207,8 +207,9 @@ def test_on_not_deleted_record_index_on_InspireRecord():
     assert InspireRecord._record_index(record, _id=1) == expected
     assert InspireRecord._record_index(record, _id=1, deleted=False) == expected
     assert (
-        InspireRecord._record_index(record, _id=1, deleted=True)
-        == expected_force_deleted
+        InspireRecord._record_index(
+            record, _id=1, deleted=True
+        ) == expected_force_deleted
     )
 
 

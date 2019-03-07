@@ -6,11 +6,13 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import time
 
-from inspirehep.records.api import LiteratureRecord
+from flask_sqlalchemy import models_committed
+from mock import patch
+
+from inspirehep.records.api import LiteratureRecord, index_after_commit
 from helpers.providers.faker import faker
 from invenio_search import current_search_client as es
 from invenio_db import db
-from inspirehep.records.indexer.base import InspireRecordIndexer  # noqa: F401
 
 
 def test_lit_record_appear_in_es_when_created(
@@ -86,7 +88,33 @@ def test_lit_record_removed_form_es_when_deleted(
             "expected_result": {"expected_key": "hits.total", "expected_result": 0},
         },
     ]
-    resp = retry_until_matched(steps)
+    retry_until_matched(steps)
+
+
+def test_index_record_manually(
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
+):
+    data = faker.record("lit")
+    rec = LiteratureRecord.create(data)
+    models_committed.disconnect(index_after_commit)
+    rec.commit()
+    db.session.commit()
+    models_committed.connect(index_after_commit)
+    time.sleep(5)
+    es.indices.refresh("records-hep")
+    result = es.search("records-hep")
+    assert result['hits']['total'] == 0
+
+    rec.index()
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+        },
+    ]
+    retry_until_matched(steps)
 
 
 def test_lit_records_with_citations_updates(

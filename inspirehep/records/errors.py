@@ -18,3 +18,7 @@ class InspireRecordSubclassRequiredError(RecordsError):
 
 class WrongOperationOnRecordError(RecordsError):
     pass
+
+
+class MissingArgumentError(ValueError):
+    pass

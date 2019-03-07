@@ -60,7 +60,14 @@ class RecordProvider(BaseProvider):
             )
         return {"references": data}
 
-    def record(self, record_type, data=None, with_control_number=False, citations=[]):
+    def record(
+        self,
+        record_type,
+        data=None,
+        with_control_number=False,
+        citations=[],
+        skip_validation=False
+    ):
         if record_type == "lit":
             record = self.hep_record()
         elif record_type == "aut":
@@ -72,5 +79,6 @@ class RecordProvider(BaseProvider):
             record.update(data)
         if citations:
             record.update(self.add_citations(citations))
-        schema_validate(record)
+        if not skip_validation:
+            schema_validate(record)
         return record

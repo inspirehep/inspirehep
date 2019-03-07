@@ -8,8 +8,10 @@ import logging
 
 from elasticsearch.helpers import bulk
 from flask import current_app
+from inspire_schemas.errors import SchemaNotFound, SchemaKeyNotFound
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
+from jsonschema.exceptions import SchemaError, ValidationError
 from sqlalchemy.orm.exc import NoResultFound
 
 from invenio_search import current_search_client as es
@@ -18,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 
 class InspireRecordIndexer(RecordIndexer):
-    """Excend Invenio indexer to properly index Inspire stuff"""
+    """Extend Invenio indexer to properly index Inspire records"""
 
     def _prepare_record(self, record, index, doc_type):
         data = record.dumps_for_es()
@@ -35,7 +37,7 @@ class InspireRecordIndexer(RecordIndexer):
     def _process_bulk_record_for_index(
         self, record, version_type="external_gte", index=None, doc_type=None
     ):
-        """Process basic data required for indexing record suring bulk indexing
+        """Process basic data required for indexing record during bulk indexing
 
         Args:
             record(InspireRecord): Proper inspire record record object
@@ -78,20 +80,24 @@ class InspireRecordIndexer(RecordIndexer):
 
         """
         from inspirehep.records.api import InspireRecord
-
         def actions():
             for record_uuid in records_uuids:
                 try:
                     record = InspireRecord.get_record(record_uuid)
+                    record.validate()
                     if record.get("deleted", False):
                         continue
                     yield self._process_bulk_record_for_index(record)
                 except NoResultFound:
                     logger.warning(f"Record {record_uuid} failed to load!")
+                except (
+                    SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError
+                ) as e:
+                    logger.error(f"Record {record_uuid} validation error!")
+
 
         if not request_timeout:
             request_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
-
         success, failures = bulk(
             es,
             actions(),
@@ -100,4 +106,8 @@ class InspireRecordIndexer(RecordIndexer):
             raise_on_exception=False,
         )
 
-        return {"success": success, "failures": [failure for failure in failures or []]}
+        return {
+            "success": success,
+            "failures": [failure for failure in failures or []],
+            "failures_count": len(records_uuids) - success,
+        }

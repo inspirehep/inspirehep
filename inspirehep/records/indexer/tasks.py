@@ -12,7 +12,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from sqlalchemy import tuple_
 from sqlalchemy.orm.exc import StaleDataError, NoResultFound
 
-from inspirehep.records.errors import MissingCitedRecordError
+from inspirehep.records.errors import MissingCitedRecordError, MissingArgumentError
 from inspirehep.records.indexer.base import InspireRecordIndexer
 
 logger = logging.getLogger(__name__)
@@ -30,7 +30,7 @@ def index_record_task(record):
 
 
 def get_record(uuid, record_version=None):
-    logger.debug(f"Pulling record {uuid} on version {record_version}")
+    logger.debug("Pulling record %s on version %s", uuid, record_version)
     from inspirehep.records.api import InspireRecord
 
     record = InspireRecord.get_record(uuid, with_deleted=True)
@@ -46,14 +46,16 @@ def get_record(uuid, record_version=None):
 
 @shared_task(ignore_result=False, bind=True)
 def process_references_for_record(uuid=None, record_version=None, record=None):
+    if not record and not uuid:
+        raise MissingArgumentError("uuid or record has to be provided")
     if not record:
         record = get_record(uuid, record_version)
     pids = record.get_modified_references()
 
     if not pids:
-        logger.debug(f"No references change for record {uuid}")
+        logger.debug("No references change for record %s", uuid)
         return None
-    logger.debug(f"({uuid}) There are {len(pids)} records where references changed")
+    logger.debug("(%s) There are %s records where references changed", uuid, len(pids))
     uuids = [
         str(pid.object_uuid)
         for pid in db.session.query(PersistentIdentifier.object_uuid).filter(
@@ -82,10 +84,10 @@ def index_record(self, uuid, record_version=None, deleted=None):
     try:
         record = get_record(uuid, record_version)
     except (NoResultFound, StaleDataError) as e:
-        logger.warn(f"Record {uuid} not yet at version {record_version} on DB")
+        logger.warning(f"Record {uuid} not yet at version {record_version} on DB")
         backoff = 2 ** (self.request.retries + 1)
         if self.max_retries < self.request.retries + 1:
-            logger.warn(f"({uuid}) - Failing - too many retries")
+            logger.warning(f"({uuid}) - Failing - too many retries")
         raise self.retry(countdown=backoff, exc=e)
 
     if not deleted:
@@ -93,18 +95,17 @@ def index_record(self, uuid, record_version=None, deleted=None):
     if deleted:
         try:
             record._index(delete=True)
-            logger.debug(f"Record {uuid} removed from ES")
+            logger.debug("Record %s removed from ES", uuid)
         except NotFoundError:
             logger.warning(f"During removal, record {uuid} not found in ES!")
     else:
         record._index()
-        logger.debug(f"Record {uuid} successfully indexed on ES")
+        logger.debug("Record '%s' successfully indexed on ES", uuid)
 
     return process_references_for_record(record=record)
 
 
 @shared_task(ignore_result=False, bind=True)
-def batch_index(self, records):
-    logger.setLevel(logging.DEBUG)
+def batch_index(self, records, request_timeout):
     logger.info(f"Starting shared task `batch_index for {len(records)} records")
     return InspireRecordIndexer().bulk_index(records)
