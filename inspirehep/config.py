@@ -18,6 +18,7 @@ import os
 import sys
 from copy import deepcopy
 
+from invenio_oauthclient.contrib import orcid
 from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import range_filter
 from invenio_records_rest.utils import allow_all, deny_all
@@ -116,6 +117,18 @@ APP_ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
+# OAuthclient
+# ===========
+orcid.REMOTE_MEMBER_APP["params"]["request_token_params"] = {
+    "scope": " ".join(["/read-limited", "/activities/update", "/person/update"]),
+    "show_login": "true",
+}
+
+orcid.REMOTE_MEMBER_APP["remember"] = True
+OAUTHCLIENT_REMOTE_APPS = {"orcid": orcid.REMOTE_MEMBER_APP}
+
+# Inspire service client for ORCID.
+ORCID_APP_CREDENTIALS = {"consumer_key": "CHANGE_ME", "consumer_secret": "CHANGE_ME"}
 
 # Web services and APIs
 # =====================
