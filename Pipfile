@@ -32,6 +32,7 @@ flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git"}
 node-semver = "<0.2.0,>=0.1.1"
 pylint = "*"
 pybtex = "*"
+pytest = ">=3.3.1,<4.0.0"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
 invenio-app = "==1.0.0"

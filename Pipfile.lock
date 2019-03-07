@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5180651c15452ff7a48a6af719faf21cd1fa1964ab109b17e790b4d47868bc40"
+            "sha256": "0a8307c9345b80d81240fcd56caf41d83ce22bb59254e989680786338ad02277"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -93,9 +93,9 @@
         },
         "billiard": {
             "hashes": [
-                "sha256:756bf323f250db8bf88462cd042c992ba60d8f5e07fc5636c24ba7d6f4261d84"
+                "sha256:42d9a227401ac4fba892918bba0a0c409def5435c4b483267ebfe821afaaba0e"
             ],
-            "version": "==3.6.0.0"
+            "version": "==3.5.0.5"
         },
         "binaryornot": {
             "hashes": [
