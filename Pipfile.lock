@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a735bc9883833470f89428d2ffdd41d6e09384ad35b5256071a422a252972343"
+            "sha256": "5180651c15452ff7a48a6af719faf21cd1fa1964ab109b17e790b4d47868bc40"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -93,9 +93,9 @@
         },
         "billiard": {
             "hashes": [
-                "sha256:42d9a227401ac4fba892918bba0a0c409def5435c4b483267ebfe821afaaba0e"
+                "sha256:756bf323f250db8bf88462cd042c992ba60d8f5e07fc5636c24ba7d6f4261d84"
             ],
-            "version": "==3.5.0.5"
+            "version": "==3.6.0.0"
         },
         "binaryornot": {
             "hashes": [
@@ -174,10 +174,11 @@
         },
         "click": {
             "hashes": [
-                "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
-                "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
+                "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d",
+                "sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"
             ],
-            "version": "==7.0"
+            "index": "pypi",
+            "version": "==6.7"
         },
         "cookiecutter": {
             "hashes": [
@@ -954,7 +955,6 @@
                 "sha256:0125e8f60e9e031347105eb1682cef932f5e97d7b9a1a28d9bf00c22a5daef40",
                 "sha256:590044e3942351a1bdb1de960b739ff4ce277960f2425ad4509446dbace8d9d1"
             ],
-            "markers": "python_version > '2.7'",
             "version": "==6.0.0"
         },
         "msgpack-python": {
@@ -1140,10 +1140,11 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:067a1d4bf827ffdd56ad21bd46674703fce77c5957f6c1eef731f6146bfcef1c",
-                "sha256:9687049d53695ad45cf5fdc7bbd51f0c49f1ea3ecfc4b7f3fde7501b541f17f4"
+                "sha256:3f193df1cfe1d1609d4c583838bea3d532b18d6160fd3f55c9447fdca30848ec",
+                "sha256:e246cf173c01169b9617fc07264b7b1316e78d7a650055235d6d897bc80d9660"
             ],
-            "version": "==4.3.0"
+            "index": "pypi",
+            "version": "==3.10.1"
         },
         "pytest-cov": {
             "hashes": [
@@ -1515,10 +1516,11 @@
         },
         "click": {
             "hashes": [
-                "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
-                "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
+                "sha256:29f99fc6125fbc931b758dc053b3114e55c77a6e4c6c3a2674a2dc986016381d",
+                "sha256:f15516df478d5a56180fbf80e68f206010e6d160fc39fa508b65e035fd75130b"
             ],
-            "version": "==7.0"
+            "index": "pypi",
+            "version": "==6.7"
         },
         "coverage": {
             "hashes": [
@@ -1751,7 +1753,6 @@
                 "sha256:0125e8f60e9e031347105eb1682cef932f5e97d7b9a1a28d9bf00c22a5daef40",
                 "sha256:590044e3942351a1bdb1de960b739ff4ce277960f2425ad4509446dbace8d9d1"
             ],
-            "markers": "python_version > '2.7'",
             "version": "==6.0.0"
         },
         "nodeenv": {
@@ -1835,10 +1836,11 @@
         },
         "pytest": {
             "hashes": [
-                "sha256:067a1d4bf827ffdd56ad21bd46674703fce77c5957f6c1eef731f6146bfcef1c",
-                "sha256:9687049d53695ad45cf5fdc7bbd51f0c49f1ea3ecfc4b7f3fde7501b541f17f4"
+                "sha256:3f193df1cfe1d1609d4c583838bea3d532b18d6160fd3f55c9447fdca30848ec",
+                "sha256:e246cf173c01169b9617fc07264b7b1316e78d7a650055235d6d897bc80d9660"
             ],
-            "version": "==4.3.0"
+            "index": "pypi",
+            "version": "==3.10.1"
         },
         "pytest-cache": {
             "hashes": [
@@ -2013,6 +2015,7 @@
             ],
             "version": "==1.23"
         },
+        "watchdog": {
         "virtualenv": {
             "hashes": [
                 "sha256:6aebaf4dd2568a0094225ebbca987859e369e3e5c22dc7d52e5406d504890417",
