@@ -44,6 +44,7 @@ def next_batch(iterator, batch_size):
 
     return batch
 
+
 def get_query_records_to_index(pid_types):
     """
     Return a query for retrieving all non deleted records by pid_type
@@ -55,18 +56,19 @@ def get_query_records_to_index(pid_types):
         SQLAlchemy query for non deleted record with pid type in `pid_types`
     """
     query = (
-        db.session.query(PersistentIdentifier.object_uuid).join(
-            RecordMetadata, type_coerce(PersistentIdentifier.object_uuid, String
-        ) == type_coerce(RecordMetadata.id, String))
+        db.session.query(PersistentIdentifier.object_uuid)
+        .join(
+            RecordMetadata,
+            type_coerce(PersistentIdentifier.object_uuid, String)
+            == type_coerce(RecordMetadata.id, String),
+        )
         .filter(
             PersistentIdentifier.pid_type.in_(pid_types),
-            PersistentIdentifier.object_type == 'rec',
+            PersistentIdentifier.object_type == "rec",
             PersistentIdentifier.status == PIDStatus.REGISTERED,
             or_(
-                not_(
-                    type_coerce(RecordMetadata.json, JSONB).has_key('deleted')
-                ),
-                RecordMetadata.json["deleted"] == cast(False, JSONB)
+                not_(type_coerce(RecordMetadata.json, JSONB).has_key("deleted")),
+                RecordMetadata.json["deleted"] == cast(False, JSONB),
             )
             # noqa: F401
         )
@@ -79,47 +81,14 @@ def _prepare_logdir(log_path):
         makedirs(path.dirname(log_path))
 
 
-# def _dump_errors_to_file(errors, log_file_path, tasks_uuids, msg='Check errors in log file'):
-#
-#     _prepare_logdir(log_file_path)
-#
-#     if errors:
-#         failures_json = []
-#         for failure in errors:
-#             try:
-#                 # batch failed
-#                 task_id = failure['task_id']
-#                 failed_uuids = tasks_uuids[task_id]
-#                 failures_json.append({
-#                     'ids': failed_uuids,
-#                     'error': repr(failure['error']),
-#                 })
-#             except KeyError:
-#                 # task failed
-#                 try:
-#                     failures_json.append({
-#                         'id': failure['index']['_id'],
-#                         'error': failure['index']['error'],
-#                     })
-#                 except KeyError:
-#                     failures_json.append({
-#                         'error': repr(failure),
-#                     })
-#
-#         with open(log_file_path, 'w') as log:
-#             json.dump(failures_json, log)
-#
-#         click.secho('{}: {}'.format(msg, log_file_path))
-
-
 @inspire_indexer.command()
-@click.option('--yes-i-know', is_flag=True)
-@click.option('-t', '--pid-type', multiple=True, required=True)
-@click.option('-s', '--batch-size', default=200)
-@click.option('-q', '--queue-name', default='indexer_task')
-@click.option('-l', '--log-path', default='/tmp/inspire/')
+@click.option("--yes-i-know", is_flag=True)
+@click.option("-t", "--pid-type", multiple=True, required=True)
+@click.option("-s", "--batch-size", default=200)
+@click.option("-q", "--queue-name", default="indexer_task")
+@click.option("-l", "--log-path", default="/tmp/inspire/")
 @with_appcontext
-def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path='.'):
+def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path="."):
     """Bulk reindex all records in a parallel manner.
 
     Indexes in batches all articles belonging to the given pid_types.
@@ -137,7 +106,7 @@ def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path='.'):
     Returns:
         None
     """
-    log_path = path.join(log_path, 'records_index_failures.log')
+    log_path = path.join(log_path, "records_index_failures.log")
     file_log = logging.FileHandler(log_path)
     file_log.setLevel(logging.ERROR)
     logger = logging.getLogger()
@@ -145,32 +114,24 @@ def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path='.'):
     logger.info(f"Saving errors to {log_path}")
 
     if not yes_i_know:
-        click.confirm(
-            'Do you really want to reindex the record?',
-            abort=True,
-        )
+        click.confirm("Do you really want to reindex the record?", abort=True)
 
-    click.secho('Sending record UUIDs to the indexing queue...', fg='green')
+    click.secho("Sending record UUIDs to the indexing queue...", fg="green")
 
     query = get_query_records_to_index(pid_type)
 
-    request_timeout = current_app.config.get('INDEXER_BULK_REQUEST_TIMEOUT')
+    request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
     all_tasks = []
     uuid_records_per_tasks = {}
     with click.progressbar(
-        query.yield_per(2000),
-        length=query.count(),
-        label='Scheduling indexing tasks'
+        query.yield_per(2000), length=query.count(), label="Scheduling indexing tasks"
     ) as items:
         batch = next_batch(items, batch_size)
 
         while batch:
             uuids = [str(item[0]) for item in batch]
             indexer_task = batch_index.apply_async(
-                kwargs={
-                    'records': uuids,
-                    'request_timeout': request_timeout,
-                },
+                kwargs={"records": uuids, "request_timeout": request_timeout},
                 queue=queue_name,
             )
 
@@ -178,12 +139,12 @@ def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path='.'):
             all_tasks.append(indexer_task)
             batch = next_batch(items, batch_size)
 
-    click.secho('Created {} tasks.'.format(len(all_tasks)), fg='green')
+    click.secho("Created {} tasks.".format(len(all_tasks)), fg="green")
 
     with click.progressbar(
-        length=len(all_tasks),
-        label='Indexing records'
+        length=len(all_tasks), label="Indexing records"
     ) as progressbar:
+
         def _finished_tasks_count():
             return len([task for task in all_tasks if task.ready()])
 
@@ -201,19 +162,16 @@ def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path='.'):
     for task in all_tasks:
         result = task.result
         if task.failed():
-            batch_errors.append({
-                'task_id': task.id,
-                'error': result,
-            })
+            batch_errors.append({"task_id": task.id, "error": result})
         else:
-            successes += result['success']
-            failures += result['failures']
-            failures_count += result['failures_count']
+            successes += result["success"]
+            failures += result["failures"]
+            failures_count += result["failures_count"]
 
-    color = 'red' if failures or batch_errors else 'green'
+    color = "red" if failures or batch_errors else "green"
     click.secho(
-        f'Reindexing finished: {failures_count} failed, {successes} '
-        f'succeeded, additionally {len(batch_errors)} batches errored.',
+        f"Reindexing finished: {failures_count} failed, {successes} "
+        f"succeeded, additionally {len(batch_errors)} batches errored.",
         fg=color,
     )
     if failures:
