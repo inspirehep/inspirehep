@@ -67,7 +67,7 @@ class DetailPage extends Component {
     return (
       <Fragment>
         <Row type="flex" justify="center">
-          <Col className="mv3" xs={24} md={21} lg={18}>
+          <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
             <ContentBox loading={loading}>
               <Alert
                 type="info"
@@ -96,7 +96,7 @@ class DetailPage extends Component {
               <div className="mt3">
                 <Row>
                   {shouldDisplayPositions && (
-                    <Col xs={24} md={12} lg={7}>
+                    <Col xs={24} md={12} lg={8} xl={7}>
                       <SubContentBox title="Positions">
                         <PositionsTimeline positions={positions} />
                       </SubContentBox>
@@ -108,7 +108,7 @@ class DetailPage extends Component {
           </Col>
         </Row>
         <Row type="flex" justify="center">
-          <Col xs={24} md={21} lg={18}>
+          <Col xs={24} md={21} lg={19} xl={18}>
             <ContentBox>
               <EmbeddedSearch
                 pidType="literature"
