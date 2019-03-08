@@ -35,4 +35,16 @@
   .ant-timeline-item-last {
     padding: 0;
   }
+
+  .sm-f3 {
+    @media (max-width: $screen-sm-max) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .sm-f4 {
+    @media (max-width: $screen-sm-max) {
+      font-size: 1.25rem;
+    }
+  }
 }
