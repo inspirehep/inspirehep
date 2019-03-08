@@ -52,7 +52,7 @@ class RecordProvider(BaseProvider):
         }
 
     @staticmethod
-    def add_citations(citation_records=[]):
+    def add_citations(citation_records):
         data = []
         for record in citation_records:
             data.append(
@@ -66,7 +66,7 @@ class RecordProvider(BaseProvider):
         data=None,
         with_control_number=False,
         citations=[],
-        skip_validation=False
+        skip_validation=False,
     ):
         if record_type == "lit":
             record = self.hep_record()

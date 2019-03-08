@@ -21,6 +21,9 @@ from sqlalchemy.dialects.postgresql import JSONB
 from inspirehep.records.indexer.tasks import batch_index
 
 
+logger = logging.getLogger()
+
+
 @click.group()
 def inspire_indexer():
     """Groups for indexer commands"""
@@ -69,8 +72,7 @@ def get_query_records_to_index(pid_types):
             or_(
                 not_(type_coerce(RecordMetadata.json, JSONB).has_key("deleted")),
                 RecordMetadata.json["deleted"] == cast(False, JSONB),
-            )
-            # noqa: F401
+            ),
         )
     )
     return query
@@ -88,7 +90,7 @@ def _prepare_logdir(log_path):
 @click.option("-q", "--queue-name", default="indexer_task")
 @click.option("-l", "--log-path", default="/tmp/inspire/")
 @with_appcontext
-def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path="."):
+def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path):
     """Bulk reindex all records in a parallel manner.
 
     Indexes in batches all articles belonging to the given pid_types.
@@ -106,12 +108,13 @@ def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path="."):
     Returns:
         None
     """
-    log_path = path.join(log_path, "records_index_failures.log")
-    file_log = logging.FileHandler(log_path)
-    file_log.setLevel(logging.ERROR)
-    logger = logging.getLogger()
-    logger.addHandler(file_log)
-    logger.info(f"Saving errors to {log_path}")
+    if log_path:
+        log_path = path.join(log_path, "records_index_failures.log")
+        _prepare_logdir(log_path)
+        file_log = logging.FileHandler(log_path)
+        file_log.setLevel(logging.ERROR)
+        logger.addHandler(file_log)
+        logger.info(f"Saving errors to {log_path}")
 
     if not yes_i_know:
         click.confirm("Do you really want to reindex the record?", abort=True)
@@ -131,7 +134,7 @@ def simpleindex(yes_i_know, pid_type, batch_size, queue_name, log_path="."):
         while batch:
             uuids = [str(item[0]) for item in batch]
             indexer_task = batch_index.apply_async(
-                kwargs={"records": uuids, "request_timeout": request_timeout},
+                kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
                 queue=queue_name,
             )
 

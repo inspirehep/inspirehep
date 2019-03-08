@@ -106,6 +106,6 @@ def index_record(self, uuid, record_version=None, deleted=None):
 
 
 @shared_task(ignore_result=False, bind=True)
-def batch_index(self, records, request_timeout):
-    logger.info(f"Starting shared task `batch_index for {len(records)} records")
-    return InspireRecordIndexer().bulk_index(records)
+def batch_index(self, records_uuids, request_timeout):
+    logger.info(f"Starting shared task `batch_index for {len(records_uuids)} records")
+    return InspireRecordIndexer().bulk_index(records_uuids)

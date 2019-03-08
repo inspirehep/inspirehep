@@ -16,7 +16,9 @@ from inspire_utils.name import generate_name_variations
 from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
+from marshmallow.fields import List
 
+from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
@@ -136,29 +138,18 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
 
     _created = fields.DateTime(dump_only=True, attribute="created")
     _updated = fields.DateTime(dump_only=True, attribute="updated")
-    abstract_source_suggest = fields.Method("populate_abstract_source_suggest")
-    author_count = fields.Method("populate_author_count")
+    abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
+    author_count = fields.Method("get_author_count")
     authors = fields.Method("preprocess_authors")
-    bookautocomplete = fields.Method("populate_bookautocomplete")
-    earliest_date = fields.Method("populate_earliest_date")
-    facet_inspire_doc_type = fields.Method("populate_inspire_document_type")
-    facet_author_name = fields.Method("populate_facet_author_name")
+    bookautocomplete = fields.Method("get_bookautocomplete")
+    earliest_date = fields.Method("get_earliest_date")
+    facet_inspire_doc_type = fields.Method("get_inspire_document_type")
+    facet_author_name = fields.Method("get_facet_author_name")
     id = fields.UUID(dump_only=True)
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
 
-    def populate_abstract_source_suggest(self, record):
-        """Prepares record for ``abstract_source_suggest`` field."""
-        abstracts = record.get("abstracts", [])
-
-        for abstract in abstracts:
-            source = abstract.get("source")
-            if source:
-                abstract.update({"abstract_source_suggest": {"input": source}})
-        return abstracts
-
-    def populate_earliest_date(self, record):
+    def get_earliest_date(self, record):
         """Prepares record for ``earliest_date`` field."""
-        earliest_date_found = record.get("earliest_date", "")
         date_paths = [
             "preprint_date",
             "thesis_info.date",
@@ -176,11 +167,11 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         ]
         if dates:
             result = earliest_date(dates)
-            if result:
-                earliest_date_found = result
+
+        earliest_date_found = result or record.get("earliest_date", missing)
         return earliest_date_found
 
-    def populate_author_count(self, record):
+    def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""
         authors = record.get("authors", [])
 
@@ -197,7 +188,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         processed_authors = []
         for index, author in enumerate(record.get("authors", [])):
             author = self.prepare_author_full_name_unicode_normalized(author)
-            author = self.populate_name_variations_for_author(author)
+            author = self.get_name_variations_for_author(author)
             processed_authors.append(author)
         return processed_authors
 
@@ -210,7 +201,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         )
         return author
 
-    def populate_inspire_document_type(self, record):
+    def get_inspire_document_type(self, record):
         """Prepare record for ``facet_inspire_doc_type`` field."""
         result = []
 
@@ -221,7 +212,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         return result
 
     @staticmethod
-    def populate_name_variations_for_author(author):
+    def get_name_variations_for_author(author):
         """Generate name variations for provided author."""
         full_name = author.get("full_name")
         if full_name:
@@ -239,16 +230,16 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
             )
         return author
 
-    def populate_name_variations(self, record):
+    def get_name_variations(self, record):
         """Generate name variations for each signature of a Literature record."""
 
         authors = record.get("authors", [])
         processed_authors = []
         for author in authors:
-            processed_authors.append(self.populate_name_variations_for_author(author))
+            processed_authors.append(self.get_name_variations_for_author(author))
         return authors
 
-    def populate_facet_author_name(self, record):
+    def get_facet_author_name(self, record):
         """Prepare record for ``facet_author_name`` field."""
         authors_with_record = record.get_linked_records_in_field("authors.record")
         authors_without_record = [
@@ -268,8 +259,8 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
 
         return result
 
-    def populate_bookautocomplete(self, record):
-        """Populate the ```bookautocomplete`` field."""
+    def get_bookautocomplete(self, record):
+        """prepare ```bookautocomplete`` field."""
         paths = ["imprints.date", "imprints.publisher", "isbns.value"]
 
         authors = force_list(record.get_value("authors.full_name", default=[]))
