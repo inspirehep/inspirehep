@@ -17,13 +17,13 @@ class Header extends Component {
       <div className="__Header__">
         <Banner />
         <Layout.Header className="header">
-          <Row type="flex" align="middle" gutter={{ xs: 8, md: 16 }}>
-            <Col xs={{ span: 12, order: 1 }} md={{ span: 6, order: 1 }} lg={5}>
+          <Row type="flex" align="middle" gutter={{ xs: 8, sm: 16 }}>
+            <Col xs={{ span: 12, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
               <Logo />
             </Col>
             <Col
               xs={{ span: 24, order: 3 }}
-              md={{ span: 14, order: 2 }}
+              sm={{ span: 14, order: 2 }}
               lg={12}
               xl={13}
               xxl={14}
@@ -32,7 +32,7 @@ class Header extends Component {
             </Col>
             <Col
               xs={{ span: 12, order: 2 }}
-              md={{ span: 4, order: 3 }}
+              sm={{ span: 4, order: 3 }}
               lg={7}
               xl={6}
               xxl={5}
