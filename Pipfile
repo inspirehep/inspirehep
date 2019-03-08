@@ -60,6 +60,7 @@ flake8 = "*"
 watchdog = "*"
 # FIXME: just to pin for workiong around pipenv issues
 virtualenv = "<16.5.0"
+inspirehep = {path = ".",editable = true}
 
 [requires]
 python_version = "3"

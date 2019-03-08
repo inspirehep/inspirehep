@@ -7,6 +7,7 @@
 
 
 from flask_celeryext import create_celery_app
-from invenio_app.factory import create_api
 
-celery = create_celery_app(create_api())
+from inspirehep.factory import create_app
+
+celery = create_celery_app(create_app())
