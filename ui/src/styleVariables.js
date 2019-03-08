@@ -8,4 +8,5 @@ module.exports = {
   'success-color': '#52c41a',
   'secondary-color': 'rgba(0, 0, 0, 0.45)',
   'screen-xs-max': '575px',
+  'screen-sm-max': '767px',
 };
