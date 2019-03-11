@@ -36,6 +36,14 @@ class HeaderMenu extends Component {
         mode="horizontal"
         selectable={false}
       >
+        <Menu.SubMenu title="Submit">
+          <Menu.Item key="submit.author">
+            <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
+          </Menu.Item>
+          <Menu.Item key="submit.literature">
+            <ExternalLink href="/literature/new">Literature</ExternalLink>
+          </Menu.Item>
+        </Menu.SubMenu>
         <Menu.SubMenu title="Tools">
           {isUserCataloger && (
             <Menu.Item key="tools.holdingpen">
@@ -58,27 +66,15 @@ class HeaderMenu extends Component {
             </ExternalLink>
           </Menu.Item>
         </Menu.SubMenu>
-        <Menu.SubMenu title="Submit">
-          <Menu.Item key="submit.author">
-            <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
-          </Menu.Item>
-          <Menu.Item key="submit.literature">
-            <ExternalLink href="/literature/new">Literature</ExternalLink>
-          </Menu.Item>
-        </Menu.SubMenu>
-        {loggedIn ? (
-          <Menu.SubMenu title="My account">
-            <Menu.Item key="logout">
-              <LinkLikeButton onClick={this.onLogoutClick}>
-                Logout
-              </LinkLikeButton>
-            </Menu.Item>
-          </Menu.SubMenu>
-        ) : (
-          <Menu.Item key="login">
+        <Menu.Item key="login-logout">
+          {loggedIn ? (
+            <LinkLikeButton onClick={this.onLogoutClick} dataTestId="logout">
+              Logout
+            </LinkLikeButton>
+          ) : (
             <Link to={USER_LOGIN}>Login</Link>
-          </Menu.Item>
-        )}
+          )}
+        </Menu.Item>
       </Menu>
     );
   }
