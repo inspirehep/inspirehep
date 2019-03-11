@@ -199,6 +199,7 @@ def test_authors_json_v1_response(api_client, db, create_record, datadir):
             {"current": False, "hidden": True, "value": "malda@pauli.harvard.edu"},
             {"current": False, "hidden": True, "value": "malda@ias.edu"},
         ],
+        "facet_author_name": "J.M.Maldacena.1_Juan Martin Maldacena",
         "ids": [
             {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
             {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},
