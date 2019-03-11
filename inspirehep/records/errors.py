@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from invenio_records.errors import RecordsError
+from marshmallow import ValidationError
 
 
 class MissingCitedRecordError(RecordsError):
@@ -21,4 +22,8 @@ class WrongOperationOnRecordError(RecordsError):
 
 
 class MissingArgumentError(ValueError):
+    pass
+
+
+class MissingSerializerError(ValidationError):
     pass

@@ -144,7 +144,7 @@ def test_returns_no_misc_if_title_persent(get_records_mock):
 @mock.patch(
     (
         "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
+        ".InspireRecord.get_linked_records_from_field"
     )
 )
 def test_returns_no_misc_if_titles_persent_in_the_resolved_record(
@@ -201,7 +201,7 @@ def test_returns_only_first_misc(get_records_mock):
 @mock.patch(
     (
         "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
+        ".InspireRecord.get_linked_records_from_field"
     )
 )
 def test_returns_dois_from_the_resolved_record(mock_get_linked_records_in_field):
@@ -228,7 +228,7 @@ def test_returns_dois_from_the_resolved_record(mock_get_linked_records_in_field)
 @mock.patch(
     (
         "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_in_field"
+        ".InspireRecord.get_linked_records_from_field"
     )
 )
 def test_returns_arxiv_eprints_from_the_resolved_record(

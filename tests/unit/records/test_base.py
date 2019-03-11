@@ -194,32 +194,31 @@ def test_get_records_pid_from_field():
     path_3 = "other_record"
     expected_3 = [("lit", "319136")]
 
-    assert tmp_record.get_records_pid_from_field(path_1) == expected_1
-    assert tmp_record.get_records_pid_from_field(path_2) == expected_2
-    assert tmp_record.get_records_pid_from_field(path_3) == expected_3
+    assert tmp_record.get_linked_pids_from_field(path_1) == expected_1
+    assert tmp_record.get_linked_pids_from_field(path_2) == expected_2
+    assert tmp_record.get_linked_pids_from_field(path_3) == expected_3
 
 
 def test_on_not_deleted_record_index_on_InspireRecord():
     record = {"control_number": 1234, "deleted": False}
-    expected = {"uuid": 1, "deleted": False}
-    expected_force_deleted = {"uuid": 1, "deleted": True}
+    expected = {"uuid": 1, "force_delete": False}
+    expected_force_deleted = {"uuid": 1, "force_delete": True}
 
     assert InspireRecord._record_index(record, _id=1) == expected
-    assert InspireRecord._record_index(record, _id=1, deleted=False) == expected
+    assert InspireRecord._record_index(record, _id=1, force_delete=False) == expected
     assert (
-        InspireRecord._record_index(
-            record, _id=1, deleted=True
-        ) == expected_force_deleted
+        InspireRecord._record_index(record, _id=1, force_delete=True)
+        == expected_force_deleted
     )
 
 
 def test_on_deleted_record_index_on_InspireRecord():
     record = {"control_number": 4321, "deleted": True}
-    expected = {"uuid": 1, "deleted": True}
+    expected = {"uuid": 1, "force_delete": True}
 
     assert InspireRecord._record_index(record, _id=1) == expected
-    assert InspireRecord._record_index(record, _id=1, deleted=False) == expected
-    assert InspireRecord._record_index(record, _id=1, deleted=True) == expected
+    assert InspireRecord._record_index(record, _id=1, force_delete=False) == expected
+    assert InspireRecord._record_index(record, _id=1, force_delete=True) == expected
 
 
 def test_get_subclasses():
@@ -268,20 +267,24 @@ def test_finding_proper_class_in_get_record_aut(
 def test_record_index_static_method():
     data = {"control_number": 123}
 
-    expected_1 = {"uuid": 1, "deleted": False}
+    expected_1 = {"uuid": 1, "force_delete": False}
 
-    expected_1_deleted = {"uuid": 1, "deleted": True}
+    expected_1_deleted = {"uuid": 1, "force_delete": True}
 
     assert expected_1 == InspireRecord._record_index(data, _id=1)
-    assert expected_1_deleted == InspireRecord._record_index(data, _id=1, deleted=True)
+    assert expected_1_deleted == InspireRecord._record_index(
+        data, _id=1, force_delete=True
+    )
 
 
 def test_record_deleted_index_static_method():
     data = {"control_number": 123, "deleted": True}
 
-    expected_1 = {"uuid": 1, "deleted": True}
+    expected_1 = {"uuid": 1, "force_delete": True}
 
-    expected_1_deleted = {"uuid": 1, "deleted": True}
+    expected_1_deleted = {"uuid": 1, "force_delete": True}
 
     assert expected_1 == InspireRecord._record_index(data, _id=1)
-    assert expected_1_deleted == InspireRecord._record_index(data, _id=1, deleted=False)
+    assert expected_1_deleted == InspireRecord._record_index(
+        data, _id=1, force_delete=False
+    )

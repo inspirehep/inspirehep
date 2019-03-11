@@ -21,11 +21,7 @@ logger = logging.getLogger(__name__)
 def index_record_task(record):
     uuid = record.id
 
-    index_record.delay(
-        uuid=uuid,
-        record_version=record.model.version_id,
-        deleted=record.get("deleted", False),
-    )
+    index_record.delay(uuid=uuid, record_version=record.model.version_id)
     logger.info(f"Index record task sent for record {record.id}")
 
 
@@ -77,7 +73,7 @@ def process_references_for_record(uuid=None, record_version=None, record=None):
 
 
 @shared_task(ignore_result=False, bind=True, max_retries=6)
-def index_record(self, uuid, record_version=None, deleted=None):
+def index_record(self, uuid, record_version=None, force_delete=None):
     logger.info(
         f"Starting shared task `index_record` for " f"record {uuid}:v{record_version}"
     )
@@ -90,11 +86,11 @@ def index_record(self, uuid, record_version=None, deleted=None):
             logger.warning(f"({uuid}) - Failing - too many retries")
         raise self.retry(countdown=backoff, exc=e)
 
-    if not deleted:
+    if not force_delete:
         deleted = record.get("deleted", False)
-    if deleted:
+    if force_delete or deleted:
         try:
-            record._index(delete=True)
+            record._index(force_delete=force_delete)
             logger.debug("Record %s removed from ES", uuid)
         except NotFoundError:
             logger.warning(f"During removal, record {uuid} not found in ES!")

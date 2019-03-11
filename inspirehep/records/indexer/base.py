@@ -80,6 +80,7 @@ class InspireRecordIndexer(RecordIndexer):
 
         """
         from inspirehep.records.api import InspireRecord
+
         def actions():
             for record_uuid in records_uuids:
                 try:
@@ -91,10 +92,12 @@ class InspireRecordIndexer(RecordIndexer):
                 except NoResultFound:
                     logger.warning(f"Record {record_uuid} failed to load!")
                 except (
-                    SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError
+                    SchemaNotFound,
+                    SchemaKeyNotFound,
+                    SchemaError,
+                    ValidationError,
                 ) as e:
                     logger.error(f"Record {record_uuid} validation error!")
-
 
         if not request_timeout:
             request_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]

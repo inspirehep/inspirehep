@@ -33,7 +33,7 @@ def index_after_commit(sender, changes):
                 )
                 delete = "delete" in changes
                 arguments = InspireRecord.get_subclasses()[pid_type]._record_index(
-                    model_instance.json, _id=str(model_instance.id), deleted=delete
+                    model_instance.json, _id=str(model_instance.id), force_delete=delete
                 )
                 arguments["record_version"] = model_instance.version_id
                 logger.info(f"arguments: {arguments}")

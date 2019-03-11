@@ -26,7 +26,7 @@ logger = logging.getLogger()
 
 @click.group()
 def inspire_indexer():
-    """Groups for indexer commands"""
+    """Group for indexer commands"""
     pass
 
 

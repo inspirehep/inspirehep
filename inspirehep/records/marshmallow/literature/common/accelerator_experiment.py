@@ -31,7 +31,7 @@ class AcceleratorExperimentSchemaV1(Schema):
         ]
 
     def get_control_numbers_to_resolved_experiments_map(self, record):
-        resolved_records = record.get_linked_records_in_field(
+        resolved_records = record.get_linked_records_from_field(
             "accelerator_experiments.record"
         )
         return {record["control_number"]: record for record in resolved_records}

@@ -37,7 +37,9 @@ from inspirehep.records.api import AuthorsRecord
 def test_simpleindex_no_records_to_index(
     app_cli, celery_app_with_context, celery_session_worker
 ):
-    result = app_cli.invoke(simpleindex, ["--yes-i-know", "-t", "lit", "--queue-name"])
+    result = app_cli.invoke(
+        simpleindex, ["--yes-i-know", "-t", "lit", "--queue-name", ""]
+    )
     assert result.exit_code == 0
     assert not result.exception
     assert "0 succeeded" in result.output

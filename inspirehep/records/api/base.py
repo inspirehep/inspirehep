@@ -21,7 +21,6 @@ from fs.errors import ResourceNotFoundError
 from fs.opener import fsopen
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
-from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_files_rest.models import Bucket, Location, ObjectVersion
@@ -36,6 +35,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.records.errors import MissingSerializerError
 from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.indexer.tasks import index_record
 
@@ -275,33 +275,17 @@ class InspireRecord(Record):
             record = super().create(data, id_=id_, **kwargs)
         return record
 
-    def get_records_pid_from_field(self, path):
-        """Returns list of tuples (pid_type, pid_value) of all linked records in field
-        from specified path
+    def get_linked_pids_from_field(self, path):
+        """Return a list of (pid_type, pid_value) tuples for all records referenced
+        in the field at the given path
+
         Args:
-            path (str): the path of the linked records.
+            path (str): the path of the linked records (where $ref is located).
         Returns:
             list: tuples containing (pid_type, pid_value) of the linked records
 
-        """
-        full_path = ".".join([path, "$ref"])
-        pids = force_list(
-            [
-                PidStoreBase.get_pid_from_record_uri(rec)
-                for rec in self.get_value(full_path, [])
-            ]
-        )
-        return pids
-
-    def get_linked_records_in_field(self, path):
-        """Returns the linked records in the specified path.
-
-        Args:
-            path (str): the path of the linked records.
-        Returns:
-            list: the linked records.
         Examples:
-            > data = {
+            >>> data = {
                 'references': [
                     {
                         'record': {
@@ -310,10 +294,39 @@ class InspireRecord(Record):
                     }
                 ]
             }
-            >  record = InspireRecord(data=data)
-            >  records = record.get_linked_records_in_field("references.record")
+            >>>  record = InspireRecord(data=data)
+            >>>  records = record.get_linked_pids_from_field("references.record")
+            ('lit', 1)
         """
-        pids = self.get_records_pid_from_field(path)
+        full_path = ".".join([path, "$ref"])
+        pids = [
+            PidStoreBase.get_pid_from_record_uri(rec)
+            for rec in self.get_value(full_path, [])
+        ]
+        return pids
+
+    def get_linked_records_from_field(self, path):
+        """Return the linked records from specified path.
+
+        Args:
+            path (str): the path of the linked records.
+        Returns:
+            list: the linked records.
+        Examples:
+            >>> data = {
+                'references': [
+                    {
+                        'record': {
+                            '$ref': 'http://localhost/literature/1'
+                        }
+                    }
+                ]
+            }
+            >>>  record = InspireRecord(data=data)
+            >>>  records = record.get_linked_records_from_field("references.record")
+
+        """
+        pids = self.get_linked_pids_from_field(path)
         return self.get_records_by_pids(pids)
 
     def update(self, data):
@@ -498,12 +511,18 @@ class InspireRecord(Record):
                     pass
             if not new_key:
                 logger.debug(
-                    "Adding file('%s') to %s.(%s) files", key, self.__class__.__name__, self.id
+                    "Adding file('%s') to %s.(%s) files",
+                    key,
+                    self.__class__.__name__,
+                    self.id,
                 )
                 self.files[key] = BytesIO(data)
         else:
             logger.debug(
-                "file('%s') is already attached to %s.(%s) files", key, self.__class__.__name__, self.id
+                "file('%s') is already attached to %s.(%s) files",
+                key,
+                self.__class__.__name__,
+                self.id,
             )
         return key
 
@@ -721,17 +740,20 @@ class InspireRecord(Record):
         metadata["url"] = file_path
         return metadata
 
-    def get_enhanced_data(self, serializer=None):
+    def get_serialized_data(self, serializer=None):
         """Prepares serialized record for elasticsearch
         Args:
-            serializer(Schema): Schema which should be used to serialize/enchance
+            serializer(Schema): Schema which should be used to serialize/enhance
         Returns:
             dict: Data serialized/enhanced by serializer.
-                Do no return data which is not specified in Schema
+        Raises:
+            MissingSerializerError: If no serializer is set
 
         """
         if not self.es_serializer and not serializer:
-            return None
+            raise MissingSerializerError(
+                f"{self.__class__.__name__} is missing data serializer!"
+            )
         if not serializer:
             serializer_module = importlib.import_module(
                 self.__module__.replace("api", "marshmallow")
@@ -743,6 +765,7 @@ class InspireRecord(Record):
         """Prepares serialized record for ui
         Returns:
             dict: Enhanced record data
+            None: If serializer is not set.
         """
         if not self.ui_serializer and not serializer:
             return None
@@ -753,14 +776,14 @@ class InspireRecord(Record):
             serializer = getattr(serializer_module, self.ui_serializer)
         return serializer().dump(self).data
 
-    def _index(self, delete=None):
+    def _index(self, force_delete=None):
         """Runs index in current process.
-            This is main logic of indexing called inside worker
-            if called from self.index() but when called from self.index()
-            it will run in a worker.
+
+            This is main logic for indexing. Runs in current thread/worker.
+            This method can index not committed record. Use with caution!
 
         Args:
-            delete: set to True if record is deleted
+            force_delete: set to True if record should be deleted from ES
 
         Returns:
             dict: ES info about indexing
@@ -768,35 +791,41 @@ class InspireRecord(Record):
         """
         if self._schema_type != self.pid_type:
             logger.warning(
-                f"Record {self.id} is wrapped in {self.__name__} class {self.pid_type} "
-                f"type, but $schema says that this is {self._schema_type} type object!"
+                f"Record {self.id} is wrapped in {self.__class__.__name__}"
+                f"class {self.pid_type} type, but $schema says that this is"
+                f"{self._schema_type} type object!"
             )
-        if delete:
+        if force_delete or self.get("delete", False):
             result = InspireRecordIndexer().delete(self)
         else:
             result = InspireRecordIndexer().index(self)
         logger.info(f"Indexing finished: {result}")
         return result
 
-    def index(self, delete=None):
-        """Reindexing task sent to `index_record`
-        which calls record._index in there.
+    def index(self, force_delete=None):
+        """Index record in ES
+
+        This method do not have any important logic.
+        It just runs self._index() with proper arguments in separate worker.
+
+        To properly index data it requires to fully commit the record first!
+        It won't index outdated record.
 
         Args:
-            delete: set to True if record is deleted,
-                If not set, tries to determine this automagically
+            force_delete: set to True if record has to be deleted,
+                If not set, tries to determine automatically if record should be deleted
         Returns:
             celery.result.AsyncResult: Task itself
         """
         logger.error(f"Indexing record {self.id}")
-        indexing_args = self._record_index(self, deleted=delete)
+        indexing_args = self._record_index(self, force_delete=force_delete)
         indexing_args["record_version"] = self.model.version_id
         task = index_record.delay(**indexing_args)
         logger.info(f"Record {self.id} send for indexing")
         return task
 
-    @classmethod
-    def _record_index(cls, record, _id=None, deleted=None):
+    @staticmethod
+    def _record_index(record, _id=None, force_delete=None):
         """Helper function for indexer:
             Prepare dictionary for indexer
         Returns:
@@ -810,7 +839,7 @@ class InspireRecord(Record):
             raise MissingModelError
         arguments_for_indexer = {
             "uuid": uuid,
-            "deleted": deleted or record.get("deleted", False),
+            "force_delete": force_delete or record.get("deleted", False),
         }
         return arguments_for_indexer
 
@@ -858,12 +887,12 @@ class InspireRecord(Record):
         )
 
         if changed_deleted_status:
-            return self.get_records_pid_from_field("references.record")
+            return self.get_linked_pids_from_field("references.record")
 
-        ids_latest = set(self.get_records_pid_from_field("references.record"))
+        ids_latest = set(self.get_linked_pids_from_field("references.record"))
         try:
             ids_oldest = set(
-                self._previous_version.get_records_pid_from_field("references.record")
+                self._previous_version.get_linked_pids_from_field("references.record")
             )
         except AttributeError:
             return []
@@ -876,7 +905,7 @@ class InspireRecord(Record):
         Returns:
             dict: Properly serialized and prepared record
         """
-        serialized_data = self.get_enhanced_data()
+        serialized_data = self.get_serialized_data()
         return serialized_data
 
     def dumps_for_es(self):

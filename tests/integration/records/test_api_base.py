@@ -24,6 +24,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.base import InspireQueryBuilder
+from inspirehep.records.errors import MissingSerializerError
 from inspirehep.records.fixtures import init_storage_path
 
 
@@ -237,7 +238,7 @@ def test_get_linked_records_in_field(base_app, db, create_record):
 
     result = LiteratureRecord.get_record_by_pid_value(
         record.json["control_number"]
-    ).get_linked_records_in_field("references.record")
+    ).get_linked_records_from_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -248,7 +249,7 @@ def test_get_linked_records_in_field_empty(base_app, db, create_record):
     expected_result_len = 0
     expected_result = []
     record = InspireRecord(data={})
-    result = record.get_linked_records_in_field("references.record")
+    result = record.get_linked_records_from_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -269,7 +270,7 @@ def test_get_linked_records_in_field_not_existing_linked_record(
 
     result = LiteratureRecord.get_record_by_pid_value(
         record.json["control_number"]
-    ).get_linked_records_in_field("references.record")
+    ).get_linked_records_from_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -305,7 +306,7 @@ def test_get_linked_records_in_field_with_different_pid_types(
 
     result = LiteratureRecord.get_record_by_pid_value(
         record.json["control_number"]
-    ).get_linked_records_in_field("references.record")
+    ).get_linked_records_from_field("references.record")
     result = list(result)
 
     assert expected_result_len == len(result)
@@ -693,3 +694,12 @@ def test_find_local_file_with_null_parameters(
     record_metadata = create_record("lit")
     record = InspireRecord.get_record(record_metadata.id)
     assert record._find_local_file(key=None, bucket_id=None) is None
+
+
+def test_record_throws_exception_when_serializer_is_not_set(
+    base_app, db, create_record
+):
+    record_metadata = create_record("lit")
+    record = InspireRecord(record_metadata.json)
+    with pytest.raises(MissingSerializerError):
+        record.get_serialized_data()

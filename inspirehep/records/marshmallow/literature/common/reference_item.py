@@ -83,7 +83,7 @@ class ReferenceItemSchemaV1(Schema):
     def get_resolved_references_by_control_number(self, record):
         if not isinstance(record, InspireRecord):
             record = InspireRecord(data={"references": record})
-        resolved_records = record.get_linked_records_in_field("references.record")
+        resolved_records = record.get_linked_records_from_field("references.record")
 
         return {record["control_number"]: record.dumps() for record in resolved_records}
 

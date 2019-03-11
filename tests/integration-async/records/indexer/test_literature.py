@@ -100,10 +100,9 @@ def test_index_record_manually(
     rec.commit()
     db.session.commit()
     models_committed.connect(index_after_commit)
-    time.sleep(5)
     es.indices.refresh("records-hep")
     result = es.search("records-hep")
-    assert result['hits']['total'] == 0
+    assert result["hits"]["total"] == 0
 
     rec.index()
     steps = [

@@ -150,6 +150,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
 
     def get_earliest_date(self, record):
         """Prepares record for ``earliest_date`` field."""
+        result = None
         date_paths = [
             "preprint_date",
             "thesis_info.date",
@@ -241,7 +242,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
 
     def get_facet_author_name(self, record):
         """Prepare record for ``facet_author_name`` field."""
-        authors_with_record = record.get_linked_records_in_field("authors.record")
+        authors_with_record = record.get_linked_records_from_field("authors.record")
         authors_without_record = [
             author
             for author in record.get("authors", [])
