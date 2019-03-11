@@ -14,14 +14,13 @@ from invenio_records_rest.serializers.response import (
 )
 from marshmallow import Schema
 
+from ..marshmallow.authors import AuthorsSchemaV1
 from ..marshmallow.literature import (
     LiteratureAuthorsSchemaV1,
-    LiteratureSchemaV1,
     LiteratureReferencesSchemaV1,
+    LiteratureSchemaV1,
     LiteratureUISchema,
 )
-
-from ..marshmallow.authors import AuthorsSchemaV1
 
 
 class JSONSerializerFacets(JSONSerializer):

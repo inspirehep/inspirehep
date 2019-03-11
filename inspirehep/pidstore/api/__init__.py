@@ -6,6 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+from .authors import PidStoreAuthors
 from .base import PidStoreBase
 from .literature import PidStoreLiterature
-from .authors import PidStoreAuthors

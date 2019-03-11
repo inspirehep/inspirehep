@@ -15,9 +15,10 @@ from flask_login import current_user
 from invenio_oauthclient.models import UserIdentity
 from sqlalchemy.orm.exc import NoResultFound
 
+from inspirehep.accounts.api import login_required
+
 from .marshmallow import Author, Literature
 from .utils import get_record_from_legacy
-from inspirehep.accounts.api import login_required
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 

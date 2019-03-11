@@ -11,8 +11,8 @@ import mock
 from inspire_schemas.api import load_schema, validate
 from marshmallow import Schema, fields
 
-from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
 from inspirehep.records.api import InspireRecord
+from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
 
 
 @mock.patch(

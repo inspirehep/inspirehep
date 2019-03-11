@@ -9,8 +9,9 @@
 
 import pytest
 from mock import Mock, patch
-from inspirehep.accounts.api import login_required
 from werkzeug.exceptions import Unauthorized
+
+from inspirehep.accounts.api import login_required
 
 
 @patch("inspirehep.accounts.api.current_user", is_authenticated=False)

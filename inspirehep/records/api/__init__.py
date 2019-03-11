@@ -8,6 +8,6 @@
 """INSPIRE module that adds more fun to the platform."""
 
 
+from .authors import AuthorsRecord  # noqa: F401
 from .base import InspireRecord  # noqa: F401
 from .literature import LiteratureRecord  # noqa: F401
-from .authors import AuthorsRecord  # noqa: F401

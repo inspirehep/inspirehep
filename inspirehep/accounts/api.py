@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from functools import wraps
+
 from flask import abort
 from flask_login import current_user
 
