@@ -12,7 +12,7 @@ async function selectDocType(page, docType) {
 }
 
 describe('Literature Submission', () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     await login();
   });
 
@@ -65,7 +65,7 @@ describe('Literature Submission', () => {
     expect(image).toMatchImageSnapshot();
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await logout();
   });
 });

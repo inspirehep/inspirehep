@@ -25,9 +25,9 @@ async function logout() {
   await page.goto(routes.public.home, {
     waitUntil: 'networkidle0',
   });
-  await page.hover('[data-test-id=my-account-dropdown]');
-  await page.waitFor('[data-test-id=logout]');
-  await page.click('[data-test-id=logout]');
+  await page.evaluate(() => {
+    document.querySelector('[data-test-id=logout]').click();
+  });
   await page.waitFor(() => !document.querySelector('[data-test-id=logout]'));
   await page.close();
 }
