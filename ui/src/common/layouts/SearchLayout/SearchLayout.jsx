@@ -31,12 +31,7 @@ class SearchLayout extends Component {
       withoutAggregations,
     } = this.props;
     return (
-      <Row
-        className="__SearchLayout__"
-        gutter={{ xs: 0, sm: 16, md: 32 }}
-        type="flex"
-        justify="start"
-      >
+      <Row className="__SearchLayout__" gutter={32} type="flex" justify="start">
         <Col xs={24} lg={8} xl={6} xxl={5}>
           {!withoutAggregations && (
             <>
