@@ -85,7 +85,7 @@ CELERY_BEAT_SCHEDULE = {
 # ========
 #: Database URI including user and password
 SQLALCHEMY_DATABASE_URI = (
-    "postgresql+psycopg2://inspirehep:inspirehep@localhost/inspirehep"
+    "postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep"
 )
 
 # JSONSchemas
@@ -414,3 +414,5 @@ SEARCH_SOURCE_INCLUDES = {
         "authors.inspire_roles",
     ]
 }
+
+APP_HEALTH_BLUEPRINT_ENABLED = True

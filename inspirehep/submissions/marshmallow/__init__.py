@@ -7,5 +7,5 @@
 
 """Schemas for submissions"""
 
-from .literature import Literature
 from .author import Author
+from .literature import Literature

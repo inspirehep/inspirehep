@@ -5,9 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import pytest
 import json
 from copy import deepcopy
+
+import pytest
 from helpers.providers.faker import faker
 
 

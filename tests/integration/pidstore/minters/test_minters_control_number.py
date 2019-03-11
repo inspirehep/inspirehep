@@ -9,7 +9,7 @@
 import pytest
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
-from inspirehep.pidstore.minters.control_number import LiteratureMinter, AuthorsMinter
+from inspirehep.pidstore.minters.control_number import AuthorsMinter, LiteratureMinter
 
 
 def test_control_number_literature_without_control_number(base_app, db, create_record):

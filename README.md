@@ -3,7 +3,8 @@
 ### Installation
 
 #### pyenv (optional)
-install ``pyenv`` https://github.com/pyenv/pyenv
+
+install `pyenv` https://github.com/pyenv/pyenv
 
 ```bash
 $ pip install pipenv
@@ -13,9 +14,8 @@ $ pip install pipenv
 
 ```bash
 $ ./scripts/bootstrap
-$ ./scripts/server
 $ docker-compose up -d
-$ ./scripts/setup
+$ docker-compose run --rm web ./scripts/setup
 ```
 
 ### How to test

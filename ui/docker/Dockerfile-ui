@@ -1,0 +1,28 @@
+FROM nginx:stable
+
+EXPOSE 8081
+CMD ["nginx", "-g", "daemon off;"]
+ARG CACHE_DATE=not_a_date
+
+WORKDIR /tmp
+
+RUN apt-get update \
+ && apt-get install -y curl gnupg2 \
+ && curl -sLo node_setup https://deb.nodesource.com/setup_8.x \
+ && bash node_setup \
+ && apt-get update \
+ && apt-get install --no-install-recommends -y nodejs \
+ && npm install -g yarn \
+ && rm -rf /var/lib/apt/lists/
+
+COPY . /app/
+
+WORKDIR /app
+
+COPY docker/conf.d /etc/nginx/conf.d
+
+RUN yarn install \
+ && yarn run build \
+ && chmod g+rwx /var/cache/nginx /var/run /var/log/nginx /usr/share/nginx \
+ && sed -i.bak 's/^user/#user/' /etc/nginx/nginx.conf \
+ && cp -r build/* /usr/share/nginx/html

@@ -9,8 +9,8 @@ import json
 
 import pytest
 from flask import jsonify
-from mock import patch
 from invenio_accounts.testutils import login_user_via_session
+from mock import patch
 
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
