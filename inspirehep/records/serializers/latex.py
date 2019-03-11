@@ -8,12 +8,8 @@
 import os
 
 import jinja2
-import pkg_resources
 from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
-from invenio_records_rest.serializers.response import (
-    record_responsify,
-    search_responsify,
-)
+from invenio_records_rest.serializers.response import record_responsify
 
 from ..marshmallow.literature.latex import LatexSchema
 
@@ -47,10 +43,9 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
             variable_end_string="}",
             loader=jinja2.FileSystemLoader(os.path.abspath("/")),
         )
-        template_path = pkg_resources.resource_filename(
-            "inspirehep", "records/serializers/templates/latex_template.tex"
-        )
-
+        current_abs_path = os.path.abspath(__file__)
+        directory_path = os.path.dirname(current_abs_path)
+        template_path = os.path.join(directory_path, "templates/latex_template.tex")
         template = latex_jinja_env.get_template(template_path)
 
         return template
