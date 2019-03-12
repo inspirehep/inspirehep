@@ -13,6 +13,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from sqlalchemy import tuple_
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
+from inspirehep.records.api import InspireRecord
 from inspirehep.records.errors import MissingArgumentError, MissingCitedRecordError
 from inspirehep.records.indexer.base import InspireRecordIndexer
 
@@ -21,7 +22,6 @@ logger = logging.getLogger(__name__)
 
 def get_record(uuid, record_version=None):
     logger.debug("Pulling record %s on version %s", uuid, record_version)
-    from inspirehep.records.api import InspireRecord
 
     record = InspireRecord.get_record(uuid, with_deleted=True)
 

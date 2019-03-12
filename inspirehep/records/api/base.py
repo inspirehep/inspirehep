@@ -15,6 +15,7 @@ import uuid
 from io import BytesIO
 
 from flask import current_app
+from flask_celeryext.app import current_celery_app
 from fs.errors import ResourceNotFoundError
 from fs.opener import fsopen
 from inspire_dojson.utils import strip_empty_values
@@ -35,7 +36,6 @@ from sqlalchemy.orm.exc import NoResultFound
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError
 from inspirehep.records.indexer.base import InspireRecordIndexer
-from inspirehep.records.indexer.tasks import index_record
 
 logger = logging.getLogger(__name__)
 
@@ -815,10 +815,11 @@ class InspireRecord(Record):
         Returns:
             celery.result.AsyncResult: Task itself
         """
-        logger.error(f"Indexing record {self.id}")
         indexing_args = self._record_index(self, force_delete=force_delete)
         indexing_args["record_version"] = self.model.version_id
-        task = index_record.delay(**indexing_args)
+        task = current_celery_app.send_task(
+            "inspirehep.records.indexer.tasks.index_record", kwargs=indexing_args
+        )
         logger.info(f"Record {self.id} send for indexing")
         return task
 
@@ -836,7 +837,7 @@ class InspireRecord(Record):
         else:
             raise MissingModelError
         arguments_for_indexer = {
-            "uuid": uuid,
+            "uuid": str(uuid),
             "force_delete": force_delete or record.get("deleted", False),
         }
         return arguments_for_indexer
