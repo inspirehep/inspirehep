@@ -6,10 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import time
 
-from inspirehep.records.api import AuthorsRecord
 from helpers.providers.faker import faker
-from invenio_search import current_search_client as es
 from invenio_db import db
+from invenio_search import current_search_client as es
+
+from inspirehep.records.api import AuthorsRecord
 
 
 def test_aut_record_appear_in_es_when_created(
@@ -52,7 +53,7 @@ def test_aut_record_update_when_changed(
             "expected_result": {"expected_key": "hits.total", "expected_result": 1},
         },
     ]
-    resp = retry_until_matched(steps)['hits']['hits']
+    resp = retry_until_matched(steps)["hits"]["hits"]
     assert resp[0]["_source"]["death_date"] == expected_death_date
 
 

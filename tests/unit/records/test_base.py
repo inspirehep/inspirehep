@@ -9,7 +9,7 @@ import mock
 import pytest
 from helpers.providers.faker import faker
 
-from inspirehep.records.api import InspireRecord, LiteratureRecord, AuthorsRecord
+from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
 
 
 def test_strip_empty_values():

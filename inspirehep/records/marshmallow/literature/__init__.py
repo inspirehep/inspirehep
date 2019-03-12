@@ -7,10 +7,10 @@
 
 from .authors import LiteratureAuthorsMetadataSchemaV1, LiteratureAuthorsSchemaV1
 from .base import (
+    LiteratureESEnhancementV1,
     LiteratureMetadataSchemaV1,
     LiteratureSchemaV1,
     LiteratureUISchema,
-    LiteratureESEnhancementV1,
 )
 from .references import (
     LiteratureReferencesMetadataSchemaV1,

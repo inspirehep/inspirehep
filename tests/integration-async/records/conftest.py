@@ -6,29 +6,25 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import logging
 import random
-from copy import deepcopy
-
-from datetime import datetime, timedelta
-
 import time
+from copy import deepcopy
+from datetime import datetime, timedelta
 from functools import partial
 
 import pytest
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
+from helpers.providers.faker import faker
 from inspire_utils.record import get_value
-
+from invenio_app.factory import create_api as invenio_create_app
 from invenio_db import db
 from invenio_search import current_search_client as es
-
-from invenio_app.factory import create_api as invenio_create_app
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.fixtures import (
     init_default_storage_path,
     init_records_files_storage_path,
 )
-from helpers.providers.faker import faker
 
 logger = logging.getLogger(__name__)
 
@@ -132,9 +128,9 @@ def retry_until_matched():
                 _current_result = deepcopy(result)
                 if _expected_result:
                     if (
-                        isinstance(_expected_result, dict) and
-                        "expected_key" in _expected_result and
-                        "expected_result" in _expected_result
+                        isinstance(_expected_result, dict)
+                        and "expected_key" in _expected_result
+                        and "expected_result" in _expected_result
                     ):
                         _expected_key = _expected_result["expected_key"]
                         _expected_result = _expected_result["expected_result"]
@@ -160,7 +156,7 @@ def retry_until_matched():
     return _check
 
 
-@pytest.fixture(scope='class')
+@pytest.fixture(scope="class")
 def app_cli(app):
     """Click CLI runner inside the Flask application."""
     runner = CliRunner()
@@ -182,4 +178,5 @@ def generate_records():
             rec = record_type.create(data)
             rec.commit()
         db.session.commit()
+
     return _generate

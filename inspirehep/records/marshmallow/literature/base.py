@@ -10,7 +10,7 @@ from itertools import chain
 from unicodedata import normalize
 
 from inspire_dojson.utils import strip_empty_values
-from inspire_utils.date import format_date, earliest_date
+from inspire_utils.date import earliest_date, format_date
 from inspire_utils.helpers import force_list
 from inspire_utils.name import generate_name_variations
 from inspire_utils.record import get_value
@@ -23,9 +23,10 @@ from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
 from inspirehep.records.utils import (
-    get_author_with_record_facet_author_name,
     get_author_display_name,
+    get_author_with_record_facet_author_name,
 )
+
 from ..fields import ListWithLimit
 from .common import (
     AcceleratorExperimentSchemaV1,

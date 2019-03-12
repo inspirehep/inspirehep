@@ -8,9 +8,11 @@
 """INSPIRE module that adds more fun to the platform."""
 import json
 import logging
+
 from inspire_schemas.builders import LiteratureBuilder
 
 from inspirehep.pidstore.api import PidStoreLiterature
+
 from .base import InspireRecord
 
 logger = logging.getLogger(__name__)

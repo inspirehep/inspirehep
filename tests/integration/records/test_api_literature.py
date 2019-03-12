@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import json
-
 import uuid
 
 import pytest
@@ -15,7 +14,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
-from inspirehep.records.api import LiteratureRecord, InspireRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 
 
 def test_literature_create(base_app, db):

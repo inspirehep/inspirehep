@@ -8,13 +8,12 @@ import logging
 
 from elasticsearch.helpers import bulk
 from flask import current_app
-from inspire_schemas.errors import SchemaNotFound, SchemaKeyNotFound
+from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
+from invenio_search import current_search_client as es
 from jsonschema.exceptions import SchemaError, ValidationError
 from sqlalchemy.orm.exc import NoResultFound
-
-from invenio_search import current_search_client as es
 
 logger = logging.getLogger(__name__)
 

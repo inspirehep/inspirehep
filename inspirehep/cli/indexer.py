@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 import logging
-from os import path, makedirs
+from os import makedirs, path
 from time import sleep
 
 import click
@@ -15,11 +15,10 @@ from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.models import RecordMetadata
-from sqlalchemy import or_, not_, type_coerce, cast, String
+from sqlalchemy import String, cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
 from inspirehep.records.indexer.tasks import batch_index
-
 
 logger = logging.getLogger()
 

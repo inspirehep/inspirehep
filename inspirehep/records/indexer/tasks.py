@@ -5,14 +5,15 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import logging
+
 from celery import shared_task
 from elasticsearch import NotFoundError
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from sqlalchemy import tuple_
-from sqlalchemy.orm.exc import StaleDataError, NoResultFound
+from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
-from inspirehep.records.errors import MissingCitedRecordError, MissingArgumentError
+from inspirehep.records.errors import MissingArgumentError, MissingCitedRecordError
 from inspirehep.records.indexer.base import InspireRecordIndexer
 
 logger = logging.getLogger(__name__)

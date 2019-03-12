@@ -27,7 +27,6 @@ import os
 
 import pytest
 from invenio_records.models import RecordMetadata
-
 from mock import patch
 
 from inspirehep.cli.indexer import get_query_records_to_index, simpleindex

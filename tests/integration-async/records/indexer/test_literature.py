@@ -7,12 +7,12 @@
 import time
 
 from flask_sqlalchemy import models_committed
+from helpers.providers.faker import faker
+from invenio_db import db
+from invenio_search import current_search_client as es
 from mock import patch
 
 from inspirehep.records.api import LiteratureRecord, index_after_commit
-from helpers.providers.faker import faker
-from invenio_search import current_search_client as es
-from invenio_db import db
 
 
 def test_lit_record_appear_in_es_when_created(

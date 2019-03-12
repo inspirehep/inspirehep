@@ -8,7 +8,6 @@ from inspirehep.records.api import InspireRecord
 from inspirehep.records.errors import WrongOperationOnRecordError
 from inspirehep.records.indexer.tasks import index_record
 
-
 logger = logging.getLogger(__name__)
 
 

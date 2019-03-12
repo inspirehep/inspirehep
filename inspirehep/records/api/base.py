@@ -6,13 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+import hashlib
 import importlib
 import json
-
-import hashlib
 import logging
 import re
-
 import uuid
 from io import BytesIO
 

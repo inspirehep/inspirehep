@@ -7,7 +7,7 @@
 
 """INSPIRE module that adds more fun to the platform."""
 from inspire_utils.name import ParsedName
-from inspire_utils.record import get_values_for_schema, get_value
+from inspire_utils.record import get_value, get_values_for_schema
 
 
 def get_pid_from_record_uri(record_uri):

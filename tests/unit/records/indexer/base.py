@@ -7,7 +7,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
 
-from inspirehep.records.api import LiteratureRecord, AuthorsRecord
+from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.records.indexer.base import InspireRecordIndexer
 
 
