@@ -1,0 +1,16 @@
+version: '2.3'
+
+services:
+  e2e:
+    image: alekzonder/puppeteer
+    
+    command: bash -c "cd /opt/e2e && yarn && yarn test"
+    volumes:
+      - ./e2e:/opt/e2e
+    environment:
+      - NODE_ENV=test
+      - CI=${CI}
+    depends_on:
+      - worker
+      - ui
+      - web
