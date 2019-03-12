@@ -18,13 +18,6 @@ from inspirehep.records.indexer.base import InspireRecordIndexer
 logger = logging.getLogger(__name__)
 
 
-def index_record_task(record):
-    uuid = record.id
-
-    index_record.delay(uuid=uuid, record_version=record.model.version_id)
-    logger.info(f"Index record task sent for record {record.id}")
-
-
 def get_record(uuid, record_version=None):
     logger.debug("Pulling record %s on version %s", uuid, record_version)
     from inspirehep.records.api import InspireRecord
@@ -42,6 +35,20 @@ def get_record(uuid, record_version=None):
 
 @shared_task(ignore_result=False, bind=True)
 def process_references_for_record(uuid=None, record_version=None, record=None):
+    """Tries to find differences in record references and forces to reindex
+    records which reference changed to update their citation statistics.
+
+    Args:
+        uuid: Record in which references changed.
+        record_version: Latest version of the record (to be sure that record
+            is already updated in db). will be ignored if record parameter is provided.
+        record: Record object in which references has changed.
+            (not possible to pas this when called as a celery task)
+
+    Returns:
+        list(str): Statistics from the job.
+
+    """
     if not record and not uuid:
         raise MissingArgumentError("uuid or record has to be provided")
     if not record:
@@ -74,6 +81,18 @@ def process_references_for_record(uuid=None, record_version=None, record=None):
 
 @shared_task(ignore_result=False, bind=True, max_retries=6)
 def index_record(self, uuid, record_version=None, force_delete=None):
+    """Runs record indexing
+    Args:
+        self: task instance (binded automatically)
+        uuid (str): UUID of the record which should be reindexed.
+        record_version (int): Version of the record to reindex (will be checked).
+        force_delete (bool): if set to True will delete record from es even if
+            metadata says that record is not deleted.
+
+    Returns:
+        list(dict): Statistics from processing references.
+
+    """
     logger.info(
         f"Starting shared task `index_record` for " f"record {uuid}:v{record_version}"
     )

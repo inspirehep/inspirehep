@@ -163,13 +163,13 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         dates = [
             str(el)
             for el in chain.from_iterable(
-                [force_list(record.get_value(path)) for path in date_paths]
+                force_list(record.get_value(path)) for path in date_paths
             )
         ]
         if dates:
             result = earliest_date(dates)
 
-        earliest_date_found = result or record.get("earliest_date", missing)
+        earliest_date_found = result or missing
         return earliest_date_found
 
     def get_author_count(self, record):

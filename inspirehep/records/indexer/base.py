@@ -40,22 +40,26 @@ class InspireRecordIndexer(RecordIndexer):
         """Process basic data required for indexing record during bulk indexing
 
         Args:
-            record(InspireRecord): Proper inspire record record object
-            version_type(str): Proper ES versioning type:
+            record (InspireRecord): Proper inspire record record object
+            version_type (str): Proper ES versioning type:
                 * internal
                 * external
                 * external_gt
                 * external_gte
+            index (str): Name of the index to which record should be indexed.
+                Determined automatically from record metadata if not provided.
+            doc_type (str): Document type. Determined automatically from
+                record metadata if not provided.
 
         Returns:
             dict: dict with preprocessed record for bulk indexing
 
         """
-        _index, _doc_type = self.record_to_index(record)
+        index_from_record, doc_type_from_record = self.record_to_index(record)
         if not doc_type:
-            doc_type = _doc_type
+            doc_type = doc_type_from_record
         if not index:
-            index = _index
+            index = index_from_record
         return {
             "_op_type": "index",
             "_index": index,
@@ -79,31 +83,11 @@ class InspireRecordIndexer(RecordIndexer):
                 (with uuids of failed records)
 
         """
-        from inspirehep.records.api import InspireRecord
-
-        def actions():
-            for record_uuid in records_uuids:
-                try:
-                    record = InspireRecord.get_record(record_uuid)
-                    record.validate()
-                    if record.get("deleted", False):
-                        continue
-                    yield self._process_bulk_record_for_index(record)
-                except NoResultFound:
-                    logger.warning(f"Record {record_uuid} failed to load!")
-                except (
-                    SchemaNotFound,
-                    SchemaKeyNotFound,
-                    SchemaError,
-                    ValidationError,
-                ) as e:
-                    logger.error(f"Record {record_uuid} validation error!")
-
         if not request_timeout:
             request_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
         success, failures = bulk(
             es,
-            actions(),
+            self.bulk_iterator(records_uuids),
             request_timeout=request_timeout,
             raise_on_error=False,
             raise_on_exception=False,
@@ -111,6 +95,27 @@ class InspireRecordIndexer(RecordIndexer):
 
         return {
             "success": success,
-            "failures": [failure for failure in failures or []],
+            "failures": failures,
             "failures_count": len(records_uuids) - success,
         }
+
+    def bulk_iterator(self, records_uuids):
+        for record_uuid in records_uuids:
+            data = self.bulk_action(record_uuid)
+            if not data:
+                continue
+            yield data
+
+    def bulk_action(self, record_uuid):
+        try:
+            from inspirehep.records.api import InspireRecord
+
+            record = InspireRecord.get_record(record_uuid)
+            record.validate()
+            if record.get("deleted", False):
+                return None
+            return self._process_bulk_record_for_index(record)
+        except NoResultFound:
+            logger.error(f"Record {record_uuid} failed to load!")
+        except (SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError) as e:
+            logger.error(f"Record {record_uuid} validation error! {e}")
