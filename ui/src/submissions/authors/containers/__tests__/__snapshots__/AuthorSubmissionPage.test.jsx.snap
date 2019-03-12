@@ -8,7 +8,11 @@ exports[`AuthorSubmissionPage renders with error 1`] = `
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"
@@ -58,7 +62,11 @@ exports[`AuthorSubmissionPage renders with initial store state 1`] = `
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"
@@ -104,7 +112,11 @@ exports[`AuthorSubmissionPage renders with query 1`] = `
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"

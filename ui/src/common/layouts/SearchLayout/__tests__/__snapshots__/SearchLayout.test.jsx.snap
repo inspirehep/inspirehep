@@ -10,17 +10,22 @@ exports[`SearchLayout renders with initial state 1`] = `
   <Col
     lg={8}
     xl={6}
+    xs={24}
     xxl={5}
   >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <Connect(AggregationFilters) />
-    </LoadingOrChildren>
+    <ResponsiveView
+      min="lg"
+      render={[Function]}
+    />
+    <ResponsiveView
+      max="md"
+      render={[Function]}
+    />
   </Col>
   <Col
     lg={16}
     xl={15}
+    xs={24}
     xxl={14}
   >
     <LoadingOrChildren
@@ -71,17 +76,22 @@ exports[`SearchLayout renders with loading states true 1`] = `
   <Col
     lg={8}
     xl={6}
+    xs={24}
     xxl={5}
   >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <Connect(AggregationFilters) />
-    </LoadingOrChildren>
+    <ResponsiveView
+      min="lg"
+      render={[Function]}
+    />
+    <ResponsiveView
+      max="md"
+      render={[Function]}
+    />
   </Col>
   <Col
     lg={16}
     xl={15}
+    xs={24}
     xxl={14}
   >
     <LoadingOrChildren
@@ -132,11 +142,13 @@ exports[`SearchLayout renders without aggregations and sort 1`] = `
   <Col
     lg={8}
     xl={6}
+    xs={24}
     xxl={5}
   />
   <Col
     lg={16}
     xl={15}
+    xs={24}
     xxl={14}
   >
     <LoadingOrChildren

@@ -17,12 +17,12 @@ exports[`Home renders home page 1`] = `
     >
       <Col>
         <h2
-          className="f2 tc"
+          className="f2 tc sm-f3"
         >
           Discover High-Energy Physics content
         </h2>
         <h3
-          className="f3 tc mb5"
+          className="f3 tc mb5 sm-f4"
         >
           INSPIRE beta provides a sneak preview of new features currently under development.
         </h3>
@@ -42,7 +42,8 @@ exports[`Home renders home page 1`] = `
       type="flex"
     >
       <Col
-        md={12}
+        lg={12}
+        md={14}
         sm={18}
         xs={24}
       >

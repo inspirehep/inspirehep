@@ -8,7 +8,11 @@ exports[`LiteratureSubmissionPage displays form after skipping import 1`] = `
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"
@@ -111,7 +115,11 @@ exports[`LiteratureSubmissionPage renders different docType form when docType is
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"
@@ -214,7 +222,11 @@ exports[`LiteratureSubmissionPage renders form after skipping import 1`] = `
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"
@@ -317,7 +329,11 @@ exports[`LiteratureSubmissionPage renders with initial data and error 1`] = `
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"
@@ -428,7 +444,11 @@ exports[`LiteratureSubmissionPage renders with initial store state 1`] = `
 >
   <Col
     className="mt3 mb3"
-    span={14}
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
   >
     <Row
       className="mb3 pa3 bg-white"
