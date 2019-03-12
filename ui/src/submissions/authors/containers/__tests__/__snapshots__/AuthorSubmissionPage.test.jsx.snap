@@ -21,7 +21,7 @@ exports[`AuthorSubmissionPage renders with error 1`] = `
       <h3>
         Suggest author
       </h3>
-      This form allows you to add new author information. All modifications are transferred to
+      This form allows you to create the profile of a new author. All modifications are transferred to
        
       <ExternalLink
         href="//inspirehep.net/hepnames"
@@ -75,7 +75,7 @@ exports[`AuthorSubmissionPage renders with initial store state 1`] = `
       <h3>
         Suggest author
       </h3>
-      This form allows you to add new author information. All modifications are transferred to
+      This form allows you to create the profile of a new author. All modifications are transferred to
        
       <ExternalLink
         href="//inspirehep.net/hepnames"
@@ -125,7 +125,7 @@ exports[`AuthorSubmissionPage renders with query 1`] = `
       <h3>
         Suggest author
       </h3>
-      This form allows you to add new author information. All modifications are transferred to
+      This form allows you to create the profile of a new author. All modifications are transferred to
        
       <ExternalLink
         href="//inspirehep.net/hepnames"
