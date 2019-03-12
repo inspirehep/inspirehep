@@ -1,0 +1,28 @@
+{
+  "name": "inspirehep-e2e",
+  "version": "0.0.0",
+  "license": "GPL-2.0",
+  "scripts": {
+    "test": "yarn run lint && jest --runInBand",
+    "lint": "eslint ."
+  },
+  "jest": {
+    "preset": "jest-puppeteer",
+    "setupFilesAfterEnv": ["./setupTests.js"],
+    "testURL": "localhost:8080",
+    "reporters": ["default", "jest-image-snapshot-diff-reporter"]
+  },
+  "dependencies": {
+    "jest": "^24.4.0",
+    "jest-image-snapshot": "^2.8.1",
+    "jest-image-snapshot-diff-reporter": "^1.0.0",
+    "jest-puppeteer": "^4.0.0",
+    "puppeteer": "^1.13.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-import": "^2.16.0"
+  }
+}
