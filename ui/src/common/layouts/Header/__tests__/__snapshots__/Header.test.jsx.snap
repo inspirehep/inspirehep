@@ -12,31 +12,63 @@ exports[`Header renders with search box if it is not on home 1`] = `
       align="middle"
       gutter={
         Object {
-          "md": 16,
+          "sm": 16,
           "xs": 8,
         }
       }
       type="flex"
     >
       <Col
-        lg={4}
-        xl={5}
-        xs={0}
+        lg={5}
+        sm={
+          Object {
+            "order": 1,
+            "span": 6,
+          }
+        }
+        xs={
+          Object {
+            "order": 1,
+            "span": 12,
+          }
+        }
       >
         <Logo />
       </Col>
       <Col
         lg={12}
+        sm={
+          Object {
+            "order": 2,
+            "span": 14,
+          }
+        }
         xl={13}
-        xs={18}
+        xs={
+          Object {
+            "order": 3,
+            "span": 24,
+          }
+        }
         xxl={14}
       >
         <Connect(SearchBox) />
       </Col>
       <Col
-        lg={8}
+        lg={7}
+        sm={
+          Object {
+            "order": 3,
+            "span": 4,
+          }
+        }
         xl={6}
-        xs={6}
+        xs={
+          Object {
+            "order": 2,
+            "span": 12,
+          }
+        }
         xxl={5}
       >
         <Connect(HeaderMenu) />
@@ -58,29 +90,61 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
       align="middle"
       gutter={
         Object {
-          "md": 16,
+          "sm": 16,
           "xs": 8,
         }
       }
       type="flex"
     >
       <Col
-        lg={4}
-        xl={5}
-        xs={0}
+        lg={5}
+        sm={
+          Object {
+            "order": 1,
+            "span": 6,
+          }
+        }
+        xs={
+          Object {
+            "order": 1,
+            "span": 12,
+          }
+        }
       >
         <Logo />
       </Col>
       <Col
         lg={12}
+        sm={
+          Object {
+            "order": 2,
+            "span": 14,
+          }
+        }
         xl={13}
-        xs={18}
+        xs={
+          Object {
+            "order": 3,
+            "span": 24,
+          }
+        }
         xxl={14}
       />
       <Col
-        lg={8}
+        lg={7}
+        sm={
+          Object {
+            "order": 3,
+            "span": 4,
+          }
+        }
         xl={6}
-        xs={6}
+        xs={
+          Object {
+            "order": 2,
+            "span": 12,
+          }
+        }
         xxl={5}
       >
         <Connect(HeaderMenu) />
