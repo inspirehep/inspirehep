@@ -10,7 +10,10 @@ import json
 
 import pytest
 
-from inspirehep.records.marshmallow.literature.common import AuthorSchemaV1
+from inspirehep.records.marshmallow.literature.common import (
+    AuthorSchemaV1,
+    AuthosInfoSchemaForES,
+)
 
 
 def test_author():
@@ -49,3 +52,79 @@ def test_author_with_with_inspire_roles():
     result = schema.dumps(dump).data
 
     assert expected == json.loads(result)
+
+
+def test_author_es_enchancement():
+    schema = AuthosInfoSchemaForES()
+
+    dump = {"full_name": "Castle, Frank"}
+    expected_name_variations = sorted(
+        [
+            "frank castle",
+            "f, castle",
+            "frank, castle",
+            "f castle",
+            "castle frank",
+            "castle, f",
+            "castle f",
+            "castle",
+            "castle, frank",
+        ]
+    )
+    expected_name_suggest = sorted(
+        [
+            "frank castle",
+            "f, castle",
+            "frank, castle",
+            "f castle",
+            "castle frank",
+            "castle, f",
+            "castle f",
+            "castle",
+            "castle, frank",
+        ]
+    )
+
+    result = json.loads(schema.dumps(dump).data)
+
+    assert sorted(result["name_variations"]) == expected_name_variations
+    assert "input" in result["name_suggest"]
+    assert sorted(result["name_suggest"]["input"]) == expected_name_suggest
+
+
+def test_author_es_enchancement_without_last_name():
+    schema = AuthosInfoSchemaForES()
+
+    dump = {"full_name": "Frank Castle"}
+    expected_name_variations = sorted(
+        [
+            "frank castle",
+            "f, castle",
+            "frank, castle",
+            "f castle",
+            "castle frank",
+            "castle, f",
+            "castle f",
+            "castle",
+            "castle, frank",
+        ]
+    )
+    expected_name_suggest = sorted(
+        [
+            "frank castle",
+            "f, castle",
+            "frank, castle",
+            "f castle",
+            "castle frank",
+            "castle, f",
+            "castle f",
+            "castle",
+            "castle, frank",
+        ]
+    )
+
+    result = json.loads(schema.dumps(dump).data)
+
+    assert sorted(result["name_variations"]) == expected_name_variations
+    assert "input" in result["name_suggest"]
+    assert sorted(result["name_suggest"]["input"]) == expected_name_suggest

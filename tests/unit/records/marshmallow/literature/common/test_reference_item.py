@@ -11,8 +11,8 @@ import mock
 from inspire_schemas.api import load_schema, validate
 from marshmallow import Schema, fields
 
-from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.marshmallow.literature.common import ReferenceItemSchemaV1
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
@@ -55,8 +55,7 @@ def test_returns_non_empty_fields(get_records_mock):
     }
     record = LiteratureRecord(data=dump)
     result = schema.dumps(record).data
-    
-assert expected == json.loads(result)
+    assert expected == json.loads(result)
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")

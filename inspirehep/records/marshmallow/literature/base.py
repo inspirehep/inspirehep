@@ -19,6 +19,9 @@ from marshmallow import Schema, fields, missing, post_dump, pre_dump
 from marshmallow.fields import List
 
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
+from inspirehep.records.marshmallow.literature.common.author import (
+    AuthosInfoSchemaForES,
+)
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
@@ -141,7 +144,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
     _updated = fields.DateTime(dump_only=True, attribute="updated")
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
-    authors = fields.Method("preprocess_authors")
+    authors = fields.Nested(AuthosInfoSchemaForES, dump_only=True, many=True)
     bookautocomplete = fields.Method("get_bookautocomplete")
     earliest_date = fields.Method("get_earliest_date")
     facet_inspire_doc_type = fields.Method("get_inspire_document_type")
@@ -184,25 +187,6 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         ]
         return len(authors_excluding_supervisors)
 
-    def preprocess_authors(self, record):
-        """Preprocess authors by adding ``full_name_normalized``
-        field and generating name variations"""
-        processed_authors = []
-        for index, author in enumerate(record.get("authors", [])):
-            author = self.prepare_author_full_name_unicode_normalized(author)
-            author = self.get_name_variations_for_author(author)
-            processed_authors.append(author)
-        return processed_authors
-
-    @staticmethod
-    def prepare_author_full_name_unicode_normalized(author):
-        """Prepares data for ``author.full_name_normalized`` field."""
-        full_name = str(author["full_name"])
-        author.update(
-            {"full_name_unicode_normalized": normalize("NFKC", full_name).lower()}
-        )
-        return author
-
     def get_inspire_document_type(self, record):
         """Prepare record for ``facet_inspire_doc_type`` field."""
         result = []
@@ -212,34 +196,6 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         if "refereed" in record and record["refereed"]:
             result.append("peer reviewed")
         return result
-
-    @staticmethod
-    def get_name_variations_for_author(author):
-        """Generate name variations for provided author."""
-        full_name = author.get("full_name")
-        if full_name:
-            name_variations = generate_name_variations(full_name)
-
-            author.update({"name_variations": name_variations})
-            author.update(
-                {
-                    "name_suggest": {
-                        "input": [
-                            variation for variation in name_variations if variation
-                        ]
-                    }
-                }
-            )
-        return author
-
-    def get_name_variations(self, record):
-        """Generate name variations for each signature of a Literature record."""
-
-        authors = record.get("authors", [])
-        processed_authors = []
-        for author in authors:
-            processed_authors.append(self.get_name_variations_for_author(author))
-        return authors
 
     def get_facet_author_name(self, record):
         """Prepare record for ``facet_author_name`` field."""
