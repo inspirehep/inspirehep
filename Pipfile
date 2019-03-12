@@ -35,6 +35,7 @@ invenio-app = "==1.0.0"
 cryptography = "<2.6"
 gunicorn = "*"
 watchdog = "*"
+flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 
 [dev-packages]
 freezegun = "*"

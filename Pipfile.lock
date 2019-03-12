@@ -333,10 +333,8 @@
             "version": "==3.0.7"
         },
         "flask-kvsession": {
-            "hashes": [
-                "sha256:9c0ee93fae089c45baeda0a3fd3ae32a96ee81c34996017749f8b3fd06df936c"
-            ],
-            "version": "==0.6.2"
+            "git": "https://github.com/inspirehep/flask-kvsession.git",
+            "ref": "84c2633a4af55092650cb6972b126039500b39f9"
         },
         "flask-limiter": {
             "hashes": [

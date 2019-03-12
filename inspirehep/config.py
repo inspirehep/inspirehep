@@ -61,6 +61,12 @@ ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 PID_TYPES_TO_ENDPOINTS = {"lit": "literature"}
 PID_TYPES_TO_SCHEMA = {"hep": "lit"}
 
+
+# Sessions
+# ========
+#: Pickle session protocol. This is needed because inspire-next uses python 2.
+SESSION_PICKLE_PROTOCOL = 2
+
 # Celery configuration
 # ====================
 
