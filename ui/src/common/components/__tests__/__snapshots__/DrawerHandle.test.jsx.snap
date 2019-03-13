@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
+<Fragment>
+  <Button
+    block={false}
+    ghost={false}
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+  >
+    Handle
+  </Button>
+  <Drawer
+    closable={true}
+    height={256}
+    level={null}
+    mask={true}
+    maskClosable={true}
+    onClose={[Function]}
+    placement="left"
+    prefixCls="ant-drawer"
+    title="Title"
+    visible={false}
+    width={256}
+  >
+    <div>
+      Content
+    </div>
+  </Drawer>
+</Fragment>
+`;
+
+exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
+<Fragment>
+  <Button
+    block={false}
+    ghost={false}
+    loading={false}
+    onClick={[Function]}
+    prefixCls="ant-btn"
+  >
+    Open
+  </Button>
+  <Drawer
+    closable={true}
+    height={256}
+    level={null}
+    mask={true}
+    maskClosable={true}
+    onClose={[Function]}
+    placement="left"
+    prefixCls="ant-drawer"
+    title="Title"
+    visible={false}
+    width={304}
+  >
+    <div>
+      Content
+    </div>
+  </Drawer>
+</Fragment>
+`;

@@ -69,7 +69,7 @@ class LiteratureSubmissionPage extends Component {
 
     return (
       <Row type="flex" justify="center">
-        <Col className="mt3 mb3" span={14}>
+        <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
           <Row className="mb3 pa3 bg-white">
             <h3>Suggest content</h3>
             This form allows you to suggest a preprint, an article, a book, a

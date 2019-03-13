@@ -4,7 +4,6 @@ import MockAdapter from 'axios-mock-adapter';
 
 import EmbeddedSearch from '../EmbeddedSearch';
 import http from '../../http';
-import AggregationFilters from '../AggregationFilters';
 import SearchPagination from '../SearchPagination';
 import SortBy from '../SortBy';
 
@@ -155,9 +154,7 @@ describe('EmbeddedSearch', () => {
     );
     await nextTick();
     wrapper.update();
-    const onAggregationChange = wrapper
-      .find(AggregationFilters)
-      .prop('onAggregationChange');
+    const { onAggregationChange } = wrapper.instance();
     await onAggregationChange('agg1', 'foo');
     await nextTick();
     wrapper.update();

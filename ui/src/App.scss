@@ -1,8 +1,13 @@
 .__App__ {
   min-height: 100vh !important;
   .content {
-    padding: 0 40px;
+    padding: 0 2.85rem;
     display: flex;
+    margin-top: 64px;
+
+    @media (max-width: $screen-xs-max) {
+      margin-top: 0px;
+    }
   }
   .ant-list-item-meta-title > a {
     color: $link-color;
@@ -29,5 +34,17 @@
   }
   .ant-timeline-item-last {
     padding: 0;
+  }
+
+  .sm-f3 {
+    @media (max-width: $screen-sm-max) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .sm-f4 {
+    @media (max-width: $screen-sm-max) {
+      font-size: 1.25rem;
+    }
   }
 }

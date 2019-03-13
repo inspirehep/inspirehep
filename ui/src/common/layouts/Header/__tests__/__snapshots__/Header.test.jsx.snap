@@ -1,89 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header does not show authorized tool links if logged in user is not superuser nor cataloger 1`] = `
-<div
-  className="__Header__"
->
-  <Connect(Banner) />
-  <Adapter
-    className="header"
-  >
-    <Row
-      align="middle"
-      gutter={16}
-      type="flex"
-    >
-      <Col
-        lg={4}
-        xl={5}
-      >
-        <Logo />
-      </Col>
-      <Col
-        lg={12}
-        xl={13}
-        xxl={14}
-      >
-        <Connect(SearchBox) />
-      </Col>
-      <Col
-        lg={8}
-        xl={6}
-        xxl={5}
-      >
-        <Row
-          gutter={0}
-          justify="end"
-          type="flex"
-        >
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Reference extractor",
-                    "href": "//inspirehep.net/textmining/",
-                  },
-                  Object {
-                    "display": "Bibliography generator",
-                    "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
-                  },
-                ]
-              }
-              title="Tools"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Author",
-                    "to": "/submissions/authors",
-                  },
-                ]
-              }
-              title="Submit"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <Connect(LoginOrUserDropdownContainer) />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
-  </Adapter>
-</div>
-`;
-
 exports[`Header renders with search box if it is not on home 1`] = `
 <div
   className="__Header__"
@@ -94,74 +10,68 @@ exports[`Header renders with search box if it is not on home 1`] = `
   >
     <Row
       align="middle"
-      gutter={16}
+      gutter={
+        Object {
+          "sm": 16,
+          "xs": 8,
+        }
+      }
       type="flex"
     >
       <Col
-        lg={4}
-        xl={5}
+        lg={5}
+        sm={
+          Object {
+            "order": 1,
+            "span": 6,
+          }
+        }
+        xs={
+          Object {
+            "order": 1,
+            "span": 12,
+          }
+        }
       >
         <Logo />
       </Col>
       <Col
         lg={12}
+        sm={
+          Object {
+            "order": 2,
+            "span": 14,
+          }
+        }
         xl={13}
+        xs={
+          Object {
+            "order": 3,
+            "span": 24,
+          }
+        }
         xxl={14}
       >
         <Connect(SearchBox) />
       </Col>
       <Col
-        lg={8}
+        lg={7}
+        sm={
+          Object {
+            "order": 3,
+            "span": 4,
+          }
+        }
         xl={6}
+        xs={
+          Object {
+            "order": 2,
+            "span": 12,
+          }
+        }
         xxl={5}
       >
-        <Row
-          gutter={0}
-          justify="end"
-          type="flex"
-        >
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Reference extractor",
-                    "href": "//inspirehep.net/textmining/",
-                  },
-                  Object {
-                    "display": "Bibliography generator",
-                    "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
-                  },
-                ]
-              }
-              title="Tools"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Author",
-                    "to": "/submissions/authors",
-                  },
-                ]
-              }
-              title="Submit"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <Connect(LoginOrUserDropdownContainer) />
-          </Col>
-        </Row>
+        <Connect(HeaderMenu) />
       </Col>
     </Row>
   </Adapter>
@@ -178,164 +88,66 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
   >
     <Row
       align="middle"
-      gutter={16}
+      gutter={
+        Object {
+          "sm": 16,
+          "xs": 8,
+        }
+      }
       type="flex"
     >
       <Col
-        lg={4}
-        xl={5}
+        lg={5}
+        sm={
+          Object {
+            "order": 1,
+            "span": 6,
+          }
+        }
+        xs={
+          Object {
+            "order": 1,
+            "span": 12,
+          }
+        }
       >
         <Logo />
       </Col>
       <Col
         lg={12}
+        sm={
+          Object {
+            "order": 2,
+            "span": 14,
+          }
+        }
         xl={13}
+        xs={
+          Object {
+            "order": 3,
+            "span": 24,
+          }
+        }
         xxl={14}
       />
       <Col
-        lg={8}
+        lg={7}
+        sm={
+          Object {
+            "order": 3,
+            "span": 4,
+          }
+        }
         xl={6}
+        xs={
+          Object {
+            "order": 2,
+            "span": 12,
+          }
+        }
         xxl={5}
       >
-        <Row
-          gutter={0}
-          justify="end"
-          type="flex"
-        >
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Reference extractor",
-                    "href": "//inspirehep.net/textmining/",
-                  },
-                  Object {
-                    "display": "Bibliography generator",
-                    "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
-                  },
-                ]
-              }
-              title="Tools"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Author",
-                    "to": "/submissions/authors",
-                  },
-                ]
-              }
-              title="Submit"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <Connect(LoginOrUserDropdownContainer) />
-          </Col>
-        </Row>
-      </Col>
-    </Row>
-  </Adapter>
-</div>
-`;
-
-exports[`Header shows authorized tool links if logged in user is cataloger 1`] = `
-<div
-  className="__Header__"
->
-  <Connect(Banner) />
-  <Adapter
-    className="header"
-  >
-    <Row
-      align="middle"
-      gutter={16}
-      type="flex"
-    >
-      <Col
-        lg={4}
-        xl={5}
-      >
-        <Logo />
-      </Col>
-      <Col
-        lg={12}
-        xl={13}
-        xxl={14}
-      >
-        <Connect(SearchBox) />
-      </Col>
-      <Col
-        lg={8}
-        xl={6}
-        xxl={5}
-      >
-        <Row
-          gutter={0}
-          justify="end"
-          type="flex"
-        >
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Holdingpen",
-                    "href": "/holdingpen",
-                  },
-                  Object {
-                    "display": "Author list",
-                    "href": "/tools/authorlist",
-                  },
-                  Object {
-                    "display": "Reference extractor",
-                    "href": "//inspirehep.net/textmining/",
-                  },
-                  Object {
-                    "display": "Bibliography generator",
-                    "href": "//inspirehep.net/info/hep/tools/bibliography_generate",
-                  },
-                ]
-              }
-              title="Tools"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <DropdownMenu
-              items={
-                Array [
-                  Object {
-                    "display": "Author",
-                    "to": "/submissions/authors",
-                  },
-                ]
-              }
-              title="Submit"
-              titleClassName="nav-item"
-            />
-          </Col>
-          <Col
-            className="nav-item-container"
-          >
-            <Connect(LoginOrUserDropdownContainer) />
-          </Col>
-        </Row>
+        <Connect(HeaderMenu) />
       </Col>
     </Row>
   </Adapter>

@@ -9,13 +9,13 @@ class ErrorPage extends Component {
       <Col className="mt3 mb3" span={14} justify="center" align="middle">
         <Row>
           <Col>
-            <h3 className="f2">{message}</h3>
+            <h3 className="f2 sm-f3">{message}</h3>
           </Col>
         </Row>
         {detail && (
           <Row>
             <Col>
-              <h3 className="f3 normal">{detail}</h3>
+              <h3 className="f3 normal sm-f4">{detail}</h3>
             </Col>
           </Row>
         )}

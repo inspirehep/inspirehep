@@ -46,6 +46,7 @@
     "react-dom": "^16.2.0",
     "react-latex-next": "^1.1.0",
     "react-loadable": "^5.4.0",
+    "react-media": "^1.9.2",
     "react-piwik": "^1.6.0",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",

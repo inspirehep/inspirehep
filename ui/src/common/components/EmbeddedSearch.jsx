@@ -12,6 +12,8 @@ import SearchResults from './SearchResults';
 import SearchPagination from './SearchPagination';
 import http, { UI_SERIALIZER_REQUEST_OPTIONS } from '../http';
 import { mergeWithConcattingArrays, shallowEqual } from '../utils';
+import ResponsiveView from './ResponsiveView';
+import DrawerHandle from './DrawerHandle';
 
 class EmbeddedSearch extends Component {
   constructor(props) {
@@ -128,38 +130,63 @@ class EmbeddedSearch extends Component {
     return mergeWithConcattingArrays(baseQuery, query);
   }
 
+  renderAggregations() {
+    const {
+      query,
+      numberOfResults,
+      loadingAggregations,
+      aggregations,
+    } = this.state;
+    return (
+      <LoadingOrChildren loading={loadingAggregations}>
+        <AggregationFilters
+          query={query}
+          aggregations={aggregations}
+          numberOfResults={numberOfResults}
+          onAggregationChange={this.onAggregationChange}
+        />
+      </LoadingOrChildren>
+    );
+  }
+
   render() {
     const { renderResultItem, renderError } = this.props;
     const {
       query,
-      aggregations,
       results,
       numberOfResults,
-      loadingAggregations,
       loadingResults,
       hasError,
     } = this.state;
     return hasError ? (
       renderError()
     ) : (
-      <Row gutter={32} type="flex" justify="start">
-        <Col span={7}>
-          <LoadingOrChildren loading={loadingAggregations}>
-            <AggregationFilters
-              query={query}
-              aggregations={aggregations}
-              numberOfResults={numberOfResults}
-              onAggregationChange={this.onAggregationChange}
-            />
-          </LoadingOrChildren>
-        </Col>
-        <Col span={17}>
+      <Row gutter={{ xs: 0, lg: 32 }} type="flex" justify="start">
+        <ResponsiveView
+          min="lg"
+          render={() => (
+            <Col xs={0} lg={7}>
+              {this.renderAggregations()}
+            </Col>
+          )}
+        />
+        <ResponsiveView
+          max="md"
+          render={() => (
+            <Col xs={24}>
+              <DrawerHandle handleText="Filter" drawerTitle="Filter">
+                {this.renderAggregations()}
+              </DrawerHandle>
+            </Col>
+          )}
+        />
+        <Col xs={24} lg={17}>
           <LoadingOrChildren loading={loadingResults}>
-            <Row type="flex" align="middle" justify="end">
-              <Col span={12}>
+            <Row type="flex" align="middle" justify="space-between">
+              <Col xs={24} md={12}>
                 <NumberOfResults numberOfResults={numberOfResults} />
               </Col>
-              <Col className="tr" span={12}>
+              <Col>
                 <SortBy onSortChange={this.onSortChange} sort={query.sort} />
               </Col>
             </Row>

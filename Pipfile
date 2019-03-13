@@ -46,6 +46,7 @@ cryptography = "<2.6"
                   #  FIXME: https://github.com/inveniosoftware/invenio-celery/issues/58
 gunicorn = "*"
 watchdog = "*"
+flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 
 [dev-packages]
 freezegun = "*"

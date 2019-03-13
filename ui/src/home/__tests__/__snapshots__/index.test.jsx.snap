@@ -9,19 +9,20 @@ exports[`Home renders home page 1`] = `
   type="flex"
 >
   <Col
-    span={18}
+    sm={18}
+    xs={24}
   >
     <Row
       gutter={0}
     >
       <Col>
         <h2
-          className="f2 tc"
+          className="f2 tc sm-f3"
         >
           Discover High-Energy Physics content
         </h2>
         <h3
-          className="f3 tc mb5"
+          className="f3 tc mb5 sm-f4"
         >
           INSPIRE beta provides a sneak preview of new features currently under development.
         </h3>
@@ -37,10 +38,14 @@ exports[`Home renders home page 1`] = `
     <Row
       className="mt4"
       gutter={0}
+      justify="center"
+      type="flex"
     >
       <Col
-        offset={6}
-        span={12}
+        lg={12}
+        md={14}
+        sm={18}
+        xs={24}
       >
         <HowToSearch />
       </Col>

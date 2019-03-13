@@ -12,7 +12,7 @@ exports[`ErrorPage renders with all props 1`] = `
   >
     <Col>
       <h3
-        className="f2"
+        className="f2 sm-f3"
       >
         Error !
       </h3>
@@ -23,7 +23,7 @@ exports[`ErrorPage renders with all props 1`] = `
   >
     <Col>
       <h3
-        className="f3 normal"
+        className="f3 normal sm-f4"
       >
         <span>
           Detail about the error
@@ -56,7 +56,7 @@ exports[`ErrorPage renders with default detail 1`] = `
   >
     <Col>
       <h3
-        className="f2"
+        className="f2 sm-f3"
       >
         Error !
       </h3>

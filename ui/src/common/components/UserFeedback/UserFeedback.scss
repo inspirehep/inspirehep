@@ -6,11 +6,11 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     top: 50%;
-    right: -0.2em;
+    right: -0.2rem;
 
     &:hover {
       right: 0;
-      box-shadow: 0 0 0.5em $primary-color;
+      box-shadow: 0 0 0.5rem $primary-color;
     }
   }
 }

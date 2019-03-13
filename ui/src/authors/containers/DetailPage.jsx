@@ -67,13 +67,16 @@ class DetailPage extends Component {
     return (
       <Fragment>
         <Row type="flex" justify="center">
-          <Col className="mv3" span={18}>
+          <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
             <ContentBox loading={loading}>
               <Alert
                 type="info"
                 showIcon
                 message={
-                  <span>The author profile is currently under development. More features coming soon!</span>
+                  <span>
+                    The author profile is currently under development. More
+                    features coming soon!
+                  </span>
                 }
               />
               <h2 className="mt3">
@@ -93,7 +96,7 @@ class DetailPage extends Component {
               <div className="mt3">
                 <Row>
                   {shouldDisplayPositions && (
-                    <Col span={7}>
+                    <Col xs={24} md={12} lg={8} xl={7}>
                       <SubContentBox title="Positions">
                         <PositionsTimeline positions={positions} />
                       </SubContentBox>
@@ -105,7 +108,7 @@ class DetailPage extends Component {
           </Col>
         </Row>
         <Row type="flex" justify="center">
-          <Col span={18}>
+          <Col xs={24} md={21} lg={19} xl={18}>
             <ContentBox>
               <EmbeddedSearch
                 pidType="literature"

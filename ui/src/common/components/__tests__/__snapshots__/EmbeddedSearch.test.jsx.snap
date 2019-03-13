@@ -10,36 +10,26 @@ exports[`EmbeddedSearch renders error if results request fails 1`] = `""`;
 
 exports[`EmbeddedSearch renders with current results if baseQuery is changed but equals to previous one 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg1": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 1,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -47,20 +37,18 @@ exports[`EmbeddedSearch renders with current results if baseQuery is changed but
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -98,36 +86,26 @@ exports[`EmbeddedSearch renders with current results if baseQuery is changed but
 
 exports[`EmbeddedSearch renders with initial search results when base query props are set 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg1": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 1,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -135,20 +113,18 @@ exports[`EmbeddedSearch renders with initial search results when base query prop
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -186,32 +162,26 @@ exports[`EmbeddedSearch renders with initial search results when base query prop
 
 exports[`EmbeddedSearch renders with loading state true then initial search results 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={true}
-    >
-      <AggregationFilters
-        aggregations={Immutable.Map {}}
-        numberOfResults={0}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 1,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={true}
@@ -219,20 +189,18 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={0}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -264,36 +232,26 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
 
 exports[`EmbeddedSearch renders with loading state true then initial search results 2`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg1": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 1,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -301,20 +259,18 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -352,37 +308,26 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
 
 exports[`EmbeddedSearch renders with new results after aggregation change 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg2": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "agg1": "foo",
-            "page": 1,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -390,20 +335,18 @@ exports[`EmbeddedSearch renders with new results after aggregation change 1`] = 
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -441,36 +384,26 @@ exports[`EmbeddedSearch renders with new results after aggregation change 1`] = 
 
 exports[`EmbeddedSearch renders with new results after baseQuery prop change 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg2": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 1,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -478,20 +411,18 @@ exports[`EmbeddedSearch renders with new results after baseQuery prop change 1`]
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -529,36 +460,26 @@ exports[`EmbeddedSearch renders with new results after baseQuery prop change 1`]
 
 exports[`EmbeddedSearch renders with new results after page change 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg2": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 2,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -566,20 +487,18 @@ exports[`EmbeddedSearch renders with new results after page change 1`] = `
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -617,36 +536,26 @@ exports[`EmbeddedSearch renders with new results after page change 1`] = `
 
 exports[`EmbeddedSearch renders with new results after pidType prop change 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg2": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 1,
-            "size": 10,
-            "sort": "mostrecent",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -654,20 +563,18 @@ exports[`EmbeddedSearch renders with new results after pidType prop change 1`] =
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
@@ -705,36 +612,26 @@ exports[`EmbeddedSearch renders with new results after pidType prop change 1`] =
 
 exports[`EmbeddedSearch renders with new results after sort change 1`] = `
 <Row
-  gutter={32}
+  gutter={
+    Object {
+      "lg": 32,
+      "xs": 0,
+    }
+  }
   justify="start"
   type="flex"
 >
+  <ResponsiveView
+    min="lg"
+    render={[Function]}
+  />
+  <ResponsiveView
+    max="md"
+    render={[Function]}
+  />
   <Col
-    span={7}
-  >
-    <LoadingOrChildren
-      loading={false}
-    >
-      <AggregationFilters
-        aggregations={
-          Immutable.Map {
-            "agg2": Immutable.Map {},
-          }
-        }
-        numberOfResults={1}
-        onAggregationChange={[Function]}
-        query={
-          Object {
-            "page": 1,
-            "size": 10,
-            "sort": "mostcited",
-          }
-        }
-      />
-    </LoadingOrChildren>
-  </Col>
-  <Col
-    span={17}
+    lg={17}
+    xs={24}
   >
     <LoadingOrChildren
       loading={false}
@@ -742,20 +639,18 @@ exports[`EmbeddedSearch renders with new results after sort change 1`] = `
       <Row
         align="middle"
         gutter={0}
-        justify="end"
+        justify="space-between"
         type="flex"
       >
         <Col
-          span={12}
+          md={12}
+          xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
+        <Col>
           <SortBy
             onSortChange={[Function]}
             sort="mostcited"
