@@ -9,7 +9,7 @@
     z-index: initial;
   }
   .header {
-    padding: 0 12px;
+    padding: $header-padding;
     min-height: 64px;
     height: initial;
     @media (max-width: $screen-xs-max) {
