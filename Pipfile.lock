@@ -2015,7 +2015,6 @@
             ],
             "version": "==1.23"
         },
-        "watchdog": {
         "virtualenv": {
             "hashes": [
                 "sha256:6aebaf4dd2568a0094225ebbca987859e369e3e5c22dc7d52e5406d504890417",
