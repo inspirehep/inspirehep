@@ -49,3 +49,9 @@
     }
   }
 }
+
+.ant-drawer-body {
+  @media (max-width: $screen-xs-max) {
+    padding: $drawer-body-padding / 2 !important;
+  }
+}
