@@ -11,6 +11,7 @@ from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, post_dump
 
 from inspirehep.records.utils import get_author_with_record_facet_author_name
+
 from .common import PositionSchemaV1
 
 
