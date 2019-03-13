@@ -10,4 +10,5 @@ module.exports = {
   'screen-xs-max': '575px',
   'screen-sm-max': '767px',
   'header-padding': '0 12px',
+  'drawer-body-padding': '24px',
 };
