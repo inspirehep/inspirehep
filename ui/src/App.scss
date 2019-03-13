@@ -6,7 +6,7 @@
     margin-top: 64px;
 
     @media (max-width: $screen-xs-max) {
-      margin-top: 0px;
+      margin-top: 0px !important;
     }
   }
   .ant-list-item-meta-title > a {
