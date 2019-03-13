@@ -7,16 +7,13 @@
 
 import json
 from itertools import chain
-from unicodedata import normalize
 
 from inspire_dojson.utils import strip_empty_values
 from inspire_utils.date import earliest_date, format_date
 from inspire_utils.helpers import force_list
-from inspire_utils.name import generate_name_variations
 from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
-from marshmallow.fields import List
 
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
@@ -149,7 +146,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
     earliest_date = fields.Method("get_earliest_date")
     facet_inspire_doc_type = fields.Method("get_inspire_document_type")
     facet_author_name = fields.Method("get_facet_author_name")
-    id = fields.UUID(dump_only=True)
+    id_field = fields.UUID(dump_only=True, dump_to="id", attribute="id")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
 
     def get_earliest_date(self, record):

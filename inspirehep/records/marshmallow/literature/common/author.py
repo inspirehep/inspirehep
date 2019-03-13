@@ -45,7 +45,7 @@ class AuthorSchemaV1(Schema):
 
 
 class AuthorAutocompleteSchema(Schema):
-    input = fields.Method("generate_name_variations")
+    input_field = fields.Method("generate_name_variations", dump_to="input")
 
     def generate_name_variations(self, full_name):
         name_variations = generate_name_variations(full_name)

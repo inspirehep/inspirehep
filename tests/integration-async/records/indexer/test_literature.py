@@ -75,7 +75,7 @@ def test_lit_record_removed_form_es_when_deleted(
             "expected_result": {"expected_key": "hits.total", "expected_result": 1},
         },
     ]
-    resp = retry_until_matched(steps)
+    retry_until_matched(steps)
     rec.delete()
     rec.commit()
     db.session.commit()
@@ -124,11 +124,11 @@ def test_lit_records_with_citations_updates(
 
     citations = [rec["control_number"]]
     data_2 = faker.record("lit", citations=citations)
-    rec_2 = LiteratureRecord.create(data_2)
+    LiteratureRecord.create(data_2)
     db.session.commit()
     time.sleep(5)
     es.indices.refresh("records-hep")
-    response = es.search("records-hep")["hits"]
+    es.search("records-hep")["hits"]
 
     #  Todo: Add check for `process_references_for_record`
     #   when there will be citation_count implemented

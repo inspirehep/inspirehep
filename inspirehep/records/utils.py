@@ -10,18 +10,6 @@ from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 
 
-def get_pid_from_record_uri(record_uri):
-    """Transform a URI to a record into a (pid_type, pid_value) pair."""
-    parts = [part for part in record_uri.split("/") if part]
-    try:
-        pid_type = parts[-2][:3]
-        pid_value = parts[-1]
-    except IndexError:
-        return None
-
-    return pid_type, pid_value
-
-
 def get_author_with_record_facet_author_name(author):
     author_ids = author.get("ids", [])
     author_bai = get_values_for_schema(author_ids, "INSPIRE BAI")

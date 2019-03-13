@@ -468,8 +468,11 @@ def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
 
 
 def test_dump_for_es(base_app, db):
-    data = faker.record("lit")
-    data.update({"preprint_date": "2016-01-01", "publication_info": [{"year": 2015}]})
+    additional_fields = {
+        "preprint_date": "2016-01-01",
+        "publication_info": [{"year": 2015}],
+    }
+    data = faker.record("lit", data=additional_fields)
 
     record = LiteratureRecord.create(data)
     dump = record._dump_for_es()
