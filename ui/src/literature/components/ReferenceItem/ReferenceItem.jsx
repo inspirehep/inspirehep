@@ -67,7 +67,7 @@ class ReferenceItem extends Component {
           type="flex"
           justify="start"
           align="middle"
-          style={{ width: '100%' }}
+          className="w-100"
         >
           <Col xs={24} md={2} xl={1}>
             {ReferenceItem.renderLabel(reference)}
