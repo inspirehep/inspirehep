@@ -4,6 +4,7 @@ exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
 <Fragment>
   <Button
     block={false}
+    className="mt3"
     ghost={false}
     loading={false}
     onClick={[Function]}
@@ -35,6 +36,7 @@ exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
 <Fragment>
   <Button
     block={false}
+    className=""
     ghost={false}
     loading={false}
     onClick={[Function]}

@@ -5,7 +5,6 @@ exports[`NumberOfResults renders with plural suffix if it is 0 1`] = `
   0
    
   results
-   found.
 </span>
 `;
 
@@ -14,7 +13,6 @@ exports[`NumberOfResults renders with plural suffix if it is more than 1 1`] = `
   2
    
   results
-   found.
 </span>
 `;
 
@@ -23,6 +21,5 @@ exports[`NumberOfResults renders with singular suffix if it is 1 1`] = `
   1
    
   result
-   found.
 </span>
 `;

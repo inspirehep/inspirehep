@@ -6,7 +6,12 @@ import DrawerHandle from '../DrawerHandle';
 describe('DrawerHandle', () => {
   it('renders DrawerHandle with all props', () => {
     const wrapper = shallow(
-      <DrawerHandle handleText="Handle" drawerTitle="Title" width={256}>
+      <DrawerHandle
+        className="mt3"
+        handleText="Handle"
+        drawerTitle="Title"
+        width={256}
+      >
         <div>Content</div>
       </DrawerHandle>
     );
