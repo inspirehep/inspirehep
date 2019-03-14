@@ -170,22 +170,26 @@ class EmbeddedSearch extends Component {
             </Col>
           )}
         />
-        <ResponsiveView
-          max="md"
-          render={() => (
-            <Col xs={24}>
-              <DrawerHandle handleText="Filter" drawerTitle="Filter">
-                {this.renderAggregations()}
-              </DrawerHandle>
-            </Col>
-          )}
-        />
         <Col xs={24} lg={17}>
           <LoadingOrChildren loading={loadingResults}>
             <Row type="flex" align="middle" justify="space-between">
-              <Col xs={24} md={12}>
+              <Col xs={24} lg={12}>
                 <NumberOfResults numberOfResults={numberOfResults} />
               </Col>
+              <ResponsiveView
+                max="md"
+                render={() => (
+                  <Col xs={24} md={12}>
+                    <DrawerHandle
+                      className="mv2"
+                      handleText="Filter"
+                      drawerTitle="Filter"
+                    >
+                      {this.renderAggregations()}
+                    </DrawerHandle>
+                  </Col>
+                )}
+              />
               <Col>
                 <SortBy onSortChange={this.onSortChange} sort={query.sort} />
               </Col>
