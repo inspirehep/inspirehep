@@ -6,7 +6,7 @@ class NumberOfResults extends Component {
     const { numberOfResults } = this.props;
     return (
       <span>
-        {numberOfResults} {numberOfResults === 1 ? 'result' : 'results'} found.
+        {numberOfResults} {numberOfResults === 1 ? 'result' : 'results'}
       </span>
     );
   }
