@@ -8,7 +8,7 @@ class SearchResults extends Component {
     return (
       <div>
         {results.map(result => (
-          <div className="mv3" key={result.get('id')}>
+          <div className="mv2" key={result.get('id')}>
             {renderItem(result)}
           </div>
         ))}

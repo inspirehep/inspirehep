@@ -9,7 +9,7 @@ exports[`SearchLayout renders with initial state 1`] = `
 >
   <Col
     lg={8}
-    xl={6}
+    xl={7}
     xs={0}
     xxl={5}
   >
@@ -20,7 +20,7 @@ exports[`SearchLayout renders with initial state 1`] = `
   </Col>
   <Col
     lg={16}
-    xl={15}
+    xl={16}
     xs={24}
     xxl={14}
   >
@@ -81,7 +81,7 @@ exports[`SearchLayout renders with loading states true 1`] = `
 >
   <Col
     lg={8}
-    xl={6}
+    xl={7}
     xs={0}
     xxl={5}
   >
@@ -92,7 +92,7 @@ exports[`SearchLayout renders with loading states true 1`] = `
   </Col>
   <Col
     lg={16}
-    xl={15}
+    xl={16}
     xs={24}
     xxl={14}
   >
@@ -153,13 +153,13 @@ exports[`SearchLayout renders without aggregations and sort 1`] = `
 >
   <Col
     lg={8}
-    xl={6}
+    xl={7}
     xs={0}
     xxl={5}
   />
   <Col
     lg={16}
-    xl={15}
+    xl={16}
     xs={24}
     xxl={14}
   >

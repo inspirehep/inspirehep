@@ -7,6 +7,9 @@
 
     @media (max-width: $screen-xs-max) {
       margin-top: 0px !important;
+    }
+
+    @media (max-width: $screen-lg-max) {
       padding: $header-padding;
     }
   }

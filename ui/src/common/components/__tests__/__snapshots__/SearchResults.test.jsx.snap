@@ -3,7 +3,7 @@
 exports[`SearchResults renders with all props set 1`] = `
 <div>
   <div
-    className="mv3"
+    className="mv2"
     key="1"
   >
     <span>
@@ -11,7 +11,7 @@ exports[`SearchResults renders with all props set 1`] = `
     </span>
   </div>
   <div
-    className="mv3"
+    className="mv2"
     key="2"
   >
     <span>

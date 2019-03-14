@@ -33,7 +33,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   }
 >
   <Link
-    className="f4"
+    className="f5"
     replace={false}
     to="/literature/12345"
   >
@@ -46,38 +46,31 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     />
   </Link>
   <div
-    className="mt2"
+    className="mt1"
   >
-    <div>
-      <AuthorsAndCollaborations
-        authors={Immutable.List []}
-        collaborations={Immutable.List []}
-        collaborationsWithSuffix={Immutable.List []}
-        enableAuthorsShowAll={false}
-      />
-    </div>
+    <AuthorsAndCollaborations
+      authors={Immutable.List []}
+      collaborations={Immutable.List []}
+      collaborationsWithSuffix={Immutable.List []}
+      enableAuthorsShowAll={false}
+    />
+     (
     <LiteratureDate
       date={null}
     />
+    )
   </div>
   <div
-    className="mt2"
+    className="mt1"
   >
     <PublicationInfoList
       labeled={true}
       publicationInfo={null}
-      wrapperClassName={null}
+      wrapperClassName="di"
     />
     <ArxivEprintList
       eprints={null}
-      wrapperClassName={null}
-    />
-    <DOIList
-      dois={null}
-      wrapperClassName={null}
-    />
-    <PartialAbstract
-      abstract={null}
+      wrapperClassName="di"
     />
   </div>
 </ResultItem>
@@ -116,7 +109,7 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
   }
 >
   <Link
-    className="f4"
+    className="f5"
     replace={false}
     to="/literature/12345"
   >
@@ -129,38 +122,31 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
     />
   </Link>
   <div
-    className="mt2"
+    className="mt1"
   >
-    <div>
-      <AuthorsAndCollaborations
-        authors={Immutable.List []}
-        collaborations={Immutable.List []}
-        collaborationsWithSuffix={Immutable.List []}
-        enableAuthorsShowAll={false}
-      />
-    </div>
+    <AuthorsAndCollaborations
+      authors={Immutable.List []}
+      collaborations={Immutable.List []}
+      collaborationsWithSuffix={Immutable.List []}
+      enableAuthorsShowAll={false}
+    />
+     (
     <LiteratureDate
       date={null}
     />
+    )
   </div>
   <div
-    className="mt2"
+    className="mt1"
   >
     <PublicationInfoList
       labeled={true}
       publicationInfo={null}
-      wrapperClassName={null}
+      wrapperClassName="di"
     />
     <ArxivEprintList
       eprints={null}
-      wrapperClassName={null}
-    />
-    <DOIList
-      dois={null}
-      wrapperClassName={null}
-    />
-    <PartialAbstract
-      abstract={null}
+      wrapperClassName="di"
     />
   </div>
 </ResultItem>
@@ -202,7 +188,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   }
 >
   <Link
-    className="f4"
+    className="f5"
     replace={false}
     to="/literature/12345"
   >
@@ -215,40 +201,40 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     />
   </Link>
   <div
-    className="mt2"
+    className="mt1"
   >
-    <div>
-      <AuthorsAndCollaborations
-        authors={
-          Immutable.List [
-            Immutable.Map {
-              "full_name": "Test, Author",
-            },
-          ]
-        }
-        collaborations={
-          Immutable.List [
-            Immutable.Map {
-              "value": "CMS",
-            },
-          ]
-        }
-        collaborationsWithSuffix={
-          Immutable.List [
-            Immutable.Map {
-              "value": "CMS Group",
-            },
-          ]
-        }
-        enableAuthorsShowAll={false}
-      />
-    </div>
+    <AuthorsAndCollaborations
+      authors={
+        Immutable.List [
+          Immutable.Map {
+            "full_name": "Test, Author",
+          },
+        ]
+      }
+      collaborations={
+        Immutable.List [
+          Immutable.Map {
+            "value": "CMS",
+          },
+        ]
+      }
+      collaborationsWithSuffix={
+        Immutable.List [
+          Immutable.Map {
+            "value": "CMS Group",
+          },
+        ]
+      }
+      enableAuthorsShowAll={false}
+    />
+     (
     <LiteratureDate
       date="Jun 7, 1993"
     />
+    )
   </div>
   <div
-    className="mt2"
+    className="mt1"
   >
     <PublicationInfoList
       labeled={true}
@@ -259,8 +245,11 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
           },
         ]
       }
-      wrapperClassName={null}
+      wrapperClassName="di"
     />
+    <span>
+       • 
+    </span>
     <ArxivEprintList
       eprints={
         Immutable.List [
@@ -269,20 +258,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
           },
         ]
       }
-      wrapperClassName={null}
-    />
-    <DOIList
-      dois={
-        Immutable.List [
-          Immutable.Map {
-            "value": "12345679.1234.123",
-          },
-        ]
-      }
-      wrapperClassName={null}
-    />
-    <PartialAbstract
-      abstract={null}
+      wrapperClassName="di"
     />
   </div>
 </ResultItem>

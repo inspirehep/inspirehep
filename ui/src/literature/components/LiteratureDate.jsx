@@ -5,9 +5,7 @@ class LiteratureDate extends Component {
   render() {
     const { date } = this.props;
 
-    return (
-      <span>{date}</span>
-    );
+    return <span>{date}</span>;
   }
 }
 
@@ -18,6 +16,5 @@ LiteratureDate.propTypes = {
 LiteratureDate.defaultProps = {
   date: null,
 };
-
 
 export default LiteratureDate;

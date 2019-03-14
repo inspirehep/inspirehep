@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DOILinkAction renders with a doi id 1`] = `
+<EventTracker
+  eventId="DoiLink"
+  eventPropName="onClick"
+  extractEventArgsToForward={null}
+>
+  <ListItemAction
+    iconType="link"
+    link={
+      Object {
+        "href": "//doi.org/undefined",
+        "target": "_blank",
+      }
+    }
+    text="DOI"
+  />
+</EventTracker>
+`;
