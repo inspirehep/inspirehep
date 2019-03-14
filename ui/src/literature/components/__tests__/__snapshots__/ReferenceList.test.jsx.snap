@@ -43,7 +43,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
     title={null}
   >
     <div
-      className="pa3"
+      className="pa2"
     >
       <ErrorAlertOrChildren
         error={null}
@@ -120,7 +120,7 @@ exports[`ReferenceList renders with references 1`] = `
     title={null}
   >
     <div
-      className="pa3"
+      className="pa2"
     >
       <ErrorAlertOrChildren
         error={null}

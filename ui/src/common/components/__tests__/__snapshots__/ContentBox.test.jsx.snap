@@ -11,7 +11,7 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
     title={null}
   >
     <div
-      className="pa3"
+      className="pa2"
     >
       <div>
         Defenders
@@ -38,7 +38,7 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
     title="Jessica Jones"
   >
     <div
-      className="pa3"
+      className="pa2"
     >
       <div>
         Defenders
@@ -65,7 +65,7 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
     title="Jessica Jones"
   >
     <div
-      className="pa3"
+      className="pa2"
     >
       <div>
         Defenders
@@ -92,7 +92,7 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
     title={null}
   >
     <div
-      className="pa3"
+      className="pa2"
     >
       <div>
         Defenders

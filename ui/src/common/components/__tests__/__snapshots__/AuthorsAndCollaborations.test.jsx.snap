@@ -180,35 +180,39 @@ exports[`AuthorsAndCollaborations renders multiple collaborations and author for
 `;
 
 exports[`AuthorsAndCollaborations renders only author list if collaborations are missing (default author props) 1`] = `
-<AuthorList
-  authors={
-    Immutable.List [
-      Immutable.Map {
-        "full_name": "Test, Guy 1",
-      },
-    ]
-  }
-  enableShowAll={false}
-  limit={5}
-  total={-1}
-  wrapperClassName={null}
-/>
+<Fragment>
+  <AuthorList
+    authors={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+      ]
+    }
+    enableShowAll={false}
+    limit={5}
+    total={-1}
+    wrapperClassName="di"
+  />
+</Fragment>
 `;
 
 exports[`AuthorsAndCollaborations renders only author list if collaborations are missing (extra author props) 1`] = `
-<AuthorList
-  authors={
-    Immutable.List [
-      Immutable.Map {
-        "full_name": "Test, Guy 1",
-      },
-    ]
-  }
-  enableShowAll={true}
-  limit={5}
-  total={1}
-  wrapperClassName={null}
-/>
+<Fragment>
+  <AuthorList
+    authors={
+      Immutable.List [
+        Immutable.Map {
+          "full_name": "Test, Guy 1",
+        },
+      ]
+    }
+    enableShowAll={true}
+    limit={5}
+    total={1}
+    wrapperClassName="di"
+  />
+</Fragment>
 `;
 
 exports[`AuthorsAndCollaborations renders only one collaboration and author for the collaboration 1`] = `

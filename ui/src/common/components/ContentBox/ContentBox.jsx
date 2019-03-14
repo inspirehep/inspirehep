@@ -12,7 +12,7 @@ class ContentBox extends Component {
       children && (
         <div className="__ContentBox__">
           <Card title={title} loading={loading}>
-            <div className="pa3">{children}</div>
+            <div className="pa2">{children}</div>
             <Row type="flex" justify="space-between">
               <Col>{leftActions}</Col>
               <Col>{rightActions}</Col>

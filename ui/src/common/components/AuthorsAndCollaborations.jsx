@@ -14,13 +14,15 @@ class AuthorsAndCollaborations extends Component {
   renderAuthorList(wrapperClassName, limit) {
     const { authors, authorCount, enableAuthorsShowAll } = this.props;
     return (
-      <AuthorList
-        wrapperClassName={wrapperClassName}
-        limit={limit}
-        total={authorCount}
-        authors={authors}
-        enableShowAll={enableAuthorsShowAll}
-      />
+      <Fragment>
+        <AuthorList
+          wrapperClassName={wrapperClassName}
+          limit={limit}
+          total={authorCount}
+          authors={authors}
+          enableShowAll={enableAuthorsShowAll}
+        />
+      </Fragment>
     );
   }
 
@@ -40,7 +42,7 @@ class AuthorsAndCollaborations extends Component {
       collaborations.size + collaborationsWithSuffix.size;
 
     if (collaborationsSize === 0) {
-      return this.renderAuthorList();
+      return this.renderAuthorList('di');
     }
 
     if (authors.size === 1) {

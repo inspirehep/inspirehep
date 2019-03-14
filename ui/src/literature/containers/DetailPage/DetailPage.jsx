@@ -103,7 +103,7 @@ class DetailPage extends Component {
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
-        <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
+        <Col className="mv3" xs={24} md={21} lg={16} xl={15} xxl={14}>
           <ContentBox
             loading={loading}
             leftActions={
