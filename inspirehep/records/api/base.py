@@ -292,7 +292,7 @@ class InspireRecord(Record):
                     }
                 ]
             }
-            >>>  record = InspireRecord(data=data)
+            >>>  record = InspireRecord(data)
             >>>  records = record.get_linked_pids_from_field("references.record")
             ('lit', 1)
         """
@@ -320,7 +320,7 @@ class InspireRecord(Record):
                     }
                 ]
             }
-            >>>  record = InspireRecord(data=data)
+            >>>  record = InspireRecord(data)
             >>>  records = record.get_linked_records_from_field("references.record")
 
         """

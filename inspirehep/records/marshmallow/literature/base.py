@@ -208,9 +208,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
             result.append(get_author_with_record_facet_author_name(author))
 
         for author in authors_without_record:
-            result.append(
-                u"BAI_{}".format(get_author_display_name(author["full_name"]))
-            )
+            result.append("BAI_{}".format(get_author_display_name(author["full_name"])))
 
         return result
 

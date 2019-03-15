@@ -248,7 +248,7 @@ def test_get_linked_records_in_field(base_app, db, create_record):
 def test_get_linked_records_in_field_empty(base_app, db, create_record):
     expected_result_len = 0
     expected_result = []
-    record = InspireRecord(data={})
+    record = InspireRecord({})
     result = record.get_linked_records_from_field("references.record")
     result = list(result)
 

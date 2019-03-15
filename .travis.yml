@@ -84,7 +84,7 @@ matrix:
       sudo: true
       dist: trusty
       env:
-        - SUITE=backend-integration
+        - SUITE=backend-integration-async
         - REQUIREMENTS=prod
         - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
 

@@ -8,4 +8,5 @@
 
 pipenv run isort -rc -c -df && \
 pipenv run py.test tests/unit && \
-pipenv run py.test tests/integration
+pipenv run py.test tests/integration && \
+pipenv run py.test tests/integration-async

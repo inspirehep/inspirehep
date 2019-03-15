@@ -16,9 +16,9 @@ def get_author_with_record_facet_author_name(author):
     bai = author_bai[0] if author_bai else "BAI"
     author_preferred_name = get_value(author, "name.preferred_name")
     if author_preferred_name:
-        return u"{}_{}".format(bai, author_preferred_name)
+        return "{}_{}".format(bai, author_preferred_name)
     else:
-        return u"{}_{}".format(bai, get_author_display_name(author["name"]["value"]))
+        return "{}_{}".format(bai, get_author_display_name(author["name"]["value"]))
 
 
 def get_author_display_name(name):

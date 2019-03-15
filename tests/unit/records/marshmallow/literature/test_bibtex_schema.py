@@ -218,7 +218,7 @@ def test_note_on_erratum():
         "document_type": ["article"],
         "publication_info": [
             {
-                "journal_title": u"Zażółć gęślą jaźń",
+                "journal_title": "Zażółć gęślą jaźń",
                 "journal_volume": "A",
                 "page_start": "12",
                 "page_end": "15",

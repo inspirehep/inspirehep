@@ -184,7 +184,7 @@ def test_get_records_pid_from_field():
         "other_record": {"$ref": ["http://labs.inspirehep.net/api/literature/319136"]},
     }
 
-    tmp_record = InspireRecord(data=data)
+    tmp_record = InspireRecord(data)
     path_1 = "references.reference.record"
     expected_1 = [("lit", "339134")]
 

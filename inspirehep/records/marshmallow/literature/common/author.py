@@ -45,7 +45,9 @@ class AuthorSchemaV1(Schema):
 
 
 class AuthorAutocompleteSchema(Schema):
-    input_field = fields.Method("generate_name_variations", dump_to="input")
+    input_field = fields.Method(
+        "generate_name_variations", dump_to="input", dump_only=True
+    )
 
     def generate_name_variations(self, full_name):
         name_variations = generate_name_variations(full_name)
@@ -54,9 +56,11 @@ class AuthorAutocompleteSchema(Schema):
 
 class AuthosInfoSchemaForES(AuthorSchemaV1):
     full_name_unicode_normalized = fields.Method(
-        "get_author_full_name_unicode_normalized", default=missing
+        "get_author_full_name_unicode_normalized", default=missing, dump_only=True
     )
-    name_variations = fields.Method("get_name_variations_for_author", default=missing)
+    name_variations = fields.Method(
+        "get_name_variations_for_author", default=missing, dump_only=True
+    )
     name_suggest = fields.Nested(AuthorAutocompleteSchema, attribute="full_name")
 
     def get_author_full_name_unicode_normalized(self, author):
