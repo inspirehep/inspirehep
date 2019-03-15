@@ -168,12 +168,8 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
             )
         ]
         if dates:
-           return earliest_date(dates)
+            return earliest_date(dates)
         return missing
-            result = earliest_date(dates)
-
-        earliest_date_found = result or missing
-        return earliest_date_found
 
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""
