@@ -168,6 +168,8 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
             )
         ]
         if dates:
+           return earliest_date(dates)
+        return missing
             result = earliest_date(dates)
 
         earliest_date_found = result or missing
