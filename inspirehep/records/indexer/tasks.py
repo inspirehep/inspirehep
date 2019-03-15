@@ -27,7 +27,7 @@ def get_record(uuid, record_version=None):
 
     if record_version and record.model.version_id < record_version:
         logger.info(
-            f"Cannot pull record {uuid}in version {record_version}."
+            f"Cannot pull record {uuid} in version {record_version}."
             f"Current version: {record.model.version_id}."
         )
         raise StaleDataError()
