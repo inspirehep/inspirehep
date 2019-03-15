@@ -23,11 +23,13 @@ class DrawerHandle extends Component {
   }
 
   render() {
-    const { children, drawerTitle, width, handleText } = this.props;
+    const { children, drawerTitle, width, handleText, className } = this.props;
     const { isDrawerVisible } = this.state;
     return (
       <>
-        <Button onClick={this.onDrawerHandleClick}>{handleText}</Button>
+        <Button className={className} onClick={this.onDrawerHandleClick}>
+          {handleText}
+        </Button>
         <Drawer
           title={drawerTitle}
           placement="left"
@@ -43,6 +45,7 @@ class DrawerHandle extends Component {
 }
 
 DrawerHandle.propTypes = {
+  className: PropTypes.string,
   children: PropTypes.node.isRequired,
   drawerTitle: PropTypes.string.isRequired,
   handleText: PropTypes.string,
@@ -52,6 +55,7 @@ DrawerHandle.propTypes = {
 DrawerHandle.defaultProps = {
   width: 304,
   handleText: 'Open',
+  className: '',
 };
 
 export default DrawerHandle;

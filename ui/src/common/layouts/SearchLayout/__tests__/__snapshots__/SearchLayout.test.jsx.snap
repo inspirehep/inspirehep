@@ -10,15 +10,11 @@ exports[`SearchLayout renders with initial state 1`] = `
   <Col
     lg={8}
     xl={6}
-    xs={24}
+    xs={0}
     xxl={5}
   >
     <ResponsiveView
       min="lg"
-      render={[Function]}
-    />
-    <ResponsiveView
-      max="md"
       render={[Function]}
     />
   </Col>
@@ -38,12 +34,22 @@ exports[`SearchLayout renders with initial state 1`] = `
         type="flex"
       >
         <Col
-          span={12}
+          lg={12}
+          xs={24}
         >
           <Connect(NumberOfResults) />
         </Col>
         <Col
-          className="alignRight"
+          lg={0}
+          xs={12}
+        >
+          <ResponsiveView
+            max="md"
+            render={[Function]}
+          />
+        </Col>
+        <Col
+          className="tr"
           span={12}
         >
           <Connect(SortBy) />
@@ -76,15 +82,11 @@ exports[`SearchLayout renders with loading states true 1`] = `
   <Col
     lg={8}
     xl={6}
-    xs={24}
+    xs={0}
     xxl={5}
   >
     <ResponsiveView
       min="lg"
-      render={[Function]}
-    />
-    <ResponsiveView
-      max="md"
       render={[Function]}
     />
   </Col>
@@ -104,12 +106,22 @@ exports[`SearchLayout renders with loading states true 1`] = `
         type="flex"
       >
         <Col
-          span={12}
+          lg={12}
+          xs={24}
         >
           <Connect(NumberOfResults) />
         </Col>
         <Col
-          className="alignRight"
+          lg={0}
+          xs={12}
+        >
+          <ResponsiveView
+            max="md"
+            render={[Function]}
+          />
+        </Col>
+        <Col
+          className="tr"
           span={12}
         >
           <Connect(SortBy) />
@@ -142,7 +154,7 @@ exports[`SearchLayout renders without aggregations and sort 1`] = `
   <Col
     lg={8}
     xl={6}
-    xs={24}
+    xs={0}
     xxl={5}
   />
   <Col
@@ -161,12 +173,22 @@ exports[`SearchLayout renders without aggregations and sort 1`] = `
         type="flex"
       >
         <Col
-          span={12}
+          lg={12}
+          xs={24}
         >
           <Connect(NumberOfResults) />
         </Col>
         <Col
-          className="alignRight"
+          lg={0}
+          xs={12}
+        >
+          <ResponsiveView
+            max="md"
+            render={[Function]}
+          />
+        </Col>
+        <Col
+          className="tr"
           span={12}
         />
       </Row>

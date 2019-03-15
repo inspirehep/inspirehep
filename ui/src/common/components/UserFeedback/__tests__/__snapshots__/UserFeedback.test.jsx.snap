@@ -15,7 +15,10 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
     size="large"
     type="primary"
   >
-    Feedback
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
   </Button>
   <Modal
     afterClose={[Function]}
@@ -89,7 +92,10 @@ exports[`UserFeedback renders 1`] = `
     size="large"
     type="primary"
   >
-    Feedback
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
   </Button>
   <Modal
     afterClose={[Function]}
@@ -171,7 +177,10 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
     size="large"
     type="primary"
   >
-    Feedback
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
   </Button>
   <Modal
     afterClose={[Function]}

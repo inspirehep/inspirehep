@@ -70,3 +70,31 @@ services:
       - es
       - mq
       - cache
+  web-next:
+    extends:
+      file: docker-services.yml
+      service: inspire-next
+    command: gunicorn -b :5000 --access-logfile "-" --reload --log-level debug inspirehep.wsgi
+    ports:
+      - "5000:5000"
+    depends_on:
+      - worker-next
+  worker-next:
+    extends:
+      file: docker-services.yml
+      service: inspire-next
+    command: celery worker -E -A inspirehep.celery --loglevel=INFO --purge --queues celery,migrator,orcid_push,indexer_task
+    healthcheck:
+      timeout: 5s
+      interval: 5s
+      retries: 5
+      test:
+       - "CMD"
+       - "bash"
+       - "-c"
+       - "/virtualenv/bin/celery --broker=pyamqp://guest:guest@rabbitmq:5672// inspect ping | grep OK"
+    depends_on:
+      - db
+      - es
+      - mq
+      - cache

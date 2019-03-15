@@ -32,31 +32,32 @@ class SearchLayout extends Component {
     } = this.props;
     return (
       <Row className="__SearchLayout__" gutter={32} type="flex" justify="start">
-        <Col xs={24} lg={8} xl={6} xxl={5}>
+        <Col xs={0} lg={8} xl={6} xxl={5}>
           {!withoutAggregations && (
-            <>
-              <ResponsiveView
-                min="lg"
-                render={() => this.renderAggregations()}
-              />
-              <ResponsiveView
-                max="md"
-                render={() => (
-                  <DrawerHandle handleText="Filter" drawerTitle="Filter">
-                    {this.renderAggregations()}
-                  </DrawerHandle>
-                )}
-              />
-            </>
+            <ResponsiveView min="lg" render={() => this.renderAggregations()} />
           )}
         </Col>
         <Col xs={24} lg={16} xl={15} xxl={14}>
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
-              <Col span={12}>
+              <Col xs={24} lg={12}>
                 <NumberOfResultsContainer />
               </Col>
-              <Col className="alignRight" span={12}>
+              <Col xs={12} lg={0}>
+                <ResponsiveView
+                  max="md"
+                  render={() => (
+                    <DrawerHandle
+                      className="mt2"
+                      handleText="Filter"
+                      drawerTitle="Filter"
+                    >
+                      {this.renderAggregations()}
+                    </DrawerHandle>
+                  )}
+                />
+              </Col>
+              <Col className="tr" span={12}>
                 {!withoutSort && <SortByContainer />}
               </Col>
             </Row>

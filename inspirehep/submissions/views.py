@@ -23,6 +23,19 @@ from .utils import get_record_from_legacy
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
 
+def send_post_request_to_inspire_next(endpoint, data):
+    headers = {
+        "content-type": "application/json",
+        "Authorization": f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}",
+    }
+    response = requests.post(
+        f"{current_app.config['INSPIRE_NEXT_URL']}{endpoint}",
+        data=json.dumps(data),
+        headers=headers,
+    )
+    return response
+
+
 class AuthorSubmissionsResource(MethodView):
 
     decorators = [login_required]
@@ -48,16 +61,9 @@ class AuthorSubmissionsResource(MethodView):
         serialized_data = self.populate_and_serialize_data_for_submission(
             submission_data, control_number
         )
-        headers = {
-            "content-type": "application/json",
-            "Authorization": f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}",
-        }
         data = {"data": serialized_data}
-        response = requests.post(
-            current_app.config["INSPIRE_NEXT_URL"] + "/workflows/authors",
-            data=json.dumps(data),
-            headers=headers,
-        )
+        response = send_post_request_to_inspire_next("/workflows/authors", data)
+
         if response.status_code == 200:
             return response.content
         else:
@@ -108,17 +114,14 @@ class LiteratureSubmissionResource(MethodView):
         return self.start_workflow_for_submission(submission_data["data"])
 
     def start_workflow_for_submission(self, submission_data, control_number=None):
-        serialized_data = serialized_data = Literature().load(submission_data).data
+        serialized_data = Literature().load(submission_data).data
         form_data = {
             "url": submission_data.get("pdf_link"),
             "references": submission_data.get("references"),
         }
         data = {"data": serialized_data, "form_data": form_data}
-        response = requests.post(
-            f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
-            data=json.dumps(data),
-            headers={"content-type": "application/json"},
-        )
+        response = send_post_request_to_inspire_next("/workflows/literature", data)
+
         if response.status_code == 200:
             return response.content
         abort(503)

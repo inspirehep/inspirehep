@@ -60,53 +60,62 @@ class ReferenceItem extends Component {
       'collaborations_with_suffix'
     );
 
-    // HACK: `Row` and only single `Col` for the label are used in order to make label and title responsive
     return (
       <List.Item>
-        <Row gutter={24} type="flex" justify="start" align="middle">
-          <Col>{ReferenceItem.renderLabel(reference)}</Col>
-          <List.Item.Meta
-            title={ReferenceItem.renderTitle(reference)}
-            description={
-              <Fragment>
-                {ReferenceItem.renderMisc(reference)}
-                <AuthorsAndCollaborations
-                  authors={authors}
-                  collaborations={collaborations}
-                  collaborationsWithSuffix={collaborationsWithSuffix}
-                />
-                <ul className="bulleted-list secondary-container">
-                  {publicationInfo && (
-                    <li className="dib mr1">
-                      <PublicationInfoList
-                        publicationInfo={publicationInfo}
-                        labeled={false}
-                        wrapperClassName="di"
-                      />
-                    </li>
-                  )}
-                  {arxivEprint && (
-                    <li className="dib mr1">
-                      <ArxivEprintList
-                        eprints={arxivEprint}
-                        wrapperClassName="di"
-                      />
-                    </li>
-                  )}
-                  {dois && (
-                    <li className="dib mr1">
-                      <DOIList dois={dois} wrapperClassName="di" />
-                    </li>
-                  )}
-                  {urls && (
-                    <li className="dib mr1">
-                      <URLList urls={urls} wrapperClassName="di" />
-                    </li>
-                  )}
-                </ul>
-              </Fragment>
-            }
-          />
+        <Row
+          gutter={24}
+          type="flex"
+          justify="start"
+          align="middle"
+          className="w-100"
+        >
+          <Col xs={24} md={2} xl={1}>
+            {ReferenceItem.renderLabel(reference)}
+          </Col>
+          <Col xs={24} md={22} xl={23}>
+            <List.Item.Meta
+              title={ReferenceItem.renderTitle(reference)}
+              description={
+                <Fragment>
+                  {ReferenceItem.renderMisc(reference)}
+                  <AuthorsAndCollaborations
+                    authors={authors}
+                    collaborations={collaborations}
+                    collaborationsWithSuffix={collaborationsWithSuffix}
+                  />
+                  <ul className="bulleted-list secondary-container">
+                    {publicationInfo && (
+                      <li className="dib mr1">
+                        <PublicationInfoList
+                          publicationInfo={publicationInfo}
+                          labeled={false}
+                          wrapperClassName="di"
+                        />
+                      </li>
+                    )}
+                    {arxivEprint && (
+                      <li className="dib mr1">
+                        <ArxivEprintList
+                          eprints={arxivEprint}
+                          wrapperClassName="di"
+                        />
+                      </li>
+                    )}
+                    {dois && (
+                      <li className="dib mr1">
+                        <DOIList dois={dois} wrapperClassName="di" />
+                      </li>
+                    )}
+                    {urls && (
+                      <li className="dib mr1">
+                        <URLList urls={urls} wrapperClassName="di" />
+                      </li>
+                    )}
+                  </ul>
+                </Fragment>
+              }
+            />
+          </Col>
         </Row>
       </List.Item>
     );

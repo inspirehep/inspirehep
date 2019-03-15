@@ -23,10 +23,6 @@ exports[`EmbeddedSearch renders with current results if baseQuery is changed but
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -41,13 +37,17 @@ exports[`EmbeddedSearch renders with current results if baseQuery is changed but
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -99,10 +99,6 @@ exports[`EmbeddedSearch renders with initial search results when base query prop
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -117,13 +113,17 @@ exports[`EmbeddedSearch renders with initial search results when base query prop
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -175,10 +175,6 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -193,13 +189,17 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={0}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -245,10 +245,6 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -263,13 +259,17 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -321,10 +321,6 @@ exports[`EmbeddedSearch renders with new results after aggregation change 1`] = 
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -339,13 +335,17 @@ exports[`EmbeddedSearch renders with new results after aggregation change 1`] = 
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -397,10 +397,6 @@ exports[`EmbeddedSearch renders with new results after baseQuery prop change 1`]
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -415,13 +411,17 @@ exports[`EmbeddedSearch renders with new results after baseQuery prop change 1`]
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -473,10 +473,6 @@ exports[`EmbeddedSearch renders with new results after page change 1`] = `
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -491,13 +487,17 @@ exports[`EmbeddedSearch renders with new results after page change 1`] = `
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -549,10 +549,6 @@ exports[`EmbeddedSearch renders with new results after pidType prop change 1`] =
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -567,13 +563,17 @@ exports[`EmbeddedSearch renders with new results after pidType prop change 1`] =
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}
@@ -625,10 +625,6 @@ exports[`EmbeddedSearch renders with new results after sort change 1`] = `
     min="lg"
     render={[Function]}
   />
-  <ResponsiveView
-    max="md"
-    render={[Function]}
-  />
   <Col
     lg={17}
     xs={24}
@@ -643,13 +639,17 @@ exports[`EmbeddedSearch renders with new results after sort change 1`] = `
         type="flex"
       >
         <Col
-          md={12}
+          lg={12}
           xs={24}
         >
           <NumberOfResults
             numberOfResults={1}
           />
         </Col>
+        <ResponsiveView
+          max="md"
+          render={[Function]}
+        />
         <Col>
           <SortBy
             onSortChange={[Function]}

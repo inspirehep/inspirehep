@@ -6,7 +6,8 @@
     margin-top: 64px;
 
     @media (max-width: $screen-xs-max) {
-      margin-top: 0px;
+      margin-top: 0px !important;
+      padding: $header-padding;
     }
   }
   .ant-list-item-meta-title > a {
@@ -46,5 +47,11 @@
     @media (max-width: $screen-sm-max) {
       font-size: 1.25rem;
     }
+  }
+}
+
+.ant-drawer-body {
+  @media (max-width: $screen-xs-max) {
+    padding: $drawer-body-padding / 2 !important;
   }
 }

@@ -5,6 +5,7 @@ import './UserFeedback.scss';
 import styleVariables from '../../../styleVariables';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
 import ExternalLink from '../ExternalLink';
+import ResponsiveView from '../ResponsiveView';
 
 const RATE_DESCRIPTIONS = [
   'poor',
@@ -111,7 +112,8 @@ class UserFeedback extends Component {
               description={
                 <span>
                   To send us your feedback, please disable your adblocker or
-                  DoNotTrack and refresh the page or send us your feedback using the{' '}
+                  DoNotTrack and refresh the page or send us your feedback using
+                  the{' '}
                   <ExternalLink href={SURVEY_LINK}>feedback form</ExternalLink>
                 </span>
               }
@@ -164,7 +166,7 @@ class UserFeedback extends Component {
             icon="message"
             onClick={this.onFeedbackClick}
           >
-            Feedback
+            <ResponsiveView min="sm" render={() => <span>Feedback</span>} />
           </Button>
         )}
         <Modal
