@@ -18,7 +18,7 @@ from marshmallow import Schema, fields, missing, post_dump, pre_dump
 from inspirehep.records.marshmallow.authors import AuthorsMetadataSchemaV1
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
-    AuthosInfoSchemaForES,
+    AuthorsInfoSchemaForES,
 )
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
@@ -138,7 +138,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
     _updated = fields.DateTime(dump_only=True, attribute="updated")
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
-    authors = fields.Nested(AuthosInfoSchemaForES, dump_only=True, many=True)
+    authors = fields.Nested(AuthorsInfoSchemaForES, dump_only=True, many=True)
     bookautocomplete = fields.Method("get_bookautocomplete")
     earliest_date = fields.Method("get_earliest_date")
     facet_inspire_doc_type = fields.Method("get_inspire_document_type")

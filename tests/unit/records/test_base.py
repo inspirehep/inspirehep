@@ -235,7 +235,7 @@ def test_get_subclasses():
 )
 @mock.patch(
     "inspirehep.records.api.literature.LiteratureRecord.get_record",
-    return_value=LiteratureRecord(data={}),
+    return_value=LiteratureRecord({}),
 )
 def test_finding_proper_class_in_get_record_lit(
     get_record_mock, get_pid_mock, invenio_record_mock

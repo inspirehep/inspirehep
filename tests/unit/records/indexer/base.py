@@ -14,7 +14,7 @@ from inspirehep.records.indexer.base import InspireRecordIndexer
 @mock.patch("inspirehep.records.indexer.base.current_app")
 @mock.patch("inspirehep.records.api.base.RecordMetadata")
 def test_indexer_prepare_record(record_metadata_mock, current_app_mock, receiver_mock):
-    record = LiteratureRecord(data={})
+    record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
 
     # Assume that record methods was already tested
@@ -34,7 +34,7 @@ def test_indexer_prepare_record(record_metadata_mock, current_app_mock, receiver
     return_value=(None, None),
 )
 def test_process_bulk_record_for_index(record_to_index_mock, prepare_record_mock):
-    record = LiteratureRecord(data={})
+    record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
     expected_data = {
         "_op_type": "index",
@@ -66,7 +66,7 @@ def test_process_bulk_record_for_index(record_to_index_mock, prepare_record_mock
 def test_process_bulk_record_for_index_default_values(
     record_to_index_mock, prepare_record_mock
 ):
-    record = LiteratureRecord(data={})
+    record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
     expected_data = {
         "_op_type": "index",

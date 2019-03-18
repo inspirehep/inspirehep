@@ -54,7 +54,7 @@ class AuthorAutocompleteSchema(Schema):
         return [variation for variation in name_variations if variation]
 
 
-class AuthosInfoSchemaForES(AuthorSchemaV1):
+class AuthorsInfoSchemaForES(AuthorSchemaV1):
     full_name_unicode_normalized = fields.Method(
         "get_author_full_name_unicode_normalized", default=missing, dump_only=True
     )

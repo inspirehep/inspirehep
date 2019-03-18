@@ -12,7 +12,7 @@ import pytest
 
 from inspirehep.records.marshmallow.literature.common import (
     AuthorSchemaV1,
-    AuthosInfoSchemaForES,
+    AuthorsInfoSchemaForES,
 )
 
 
@@ -55,7 +55,7 @@ def test_author_with_with_inspire_roles():
 
 
 def test_author_es_enchancement():
-    schema = AuthosInfoSchemaForES()
+    schema = AuthorsInfoSchemaForES()
 
     dump = {"full_name": "Castle, Frank"}
     expected_name_variations = sorted(
@@ -93,7 +93,7 @@ def test_author_es_enchancement():
 
 
 def test_author_es_enchancement_without_last_name():
-    schema = AuthosInfoSchemaForES()
+    schema = AuthorsInfoSchemaForES()
 
     dump = {"full_name": "Frank Castle"}
     expected_name_variations = sorted(

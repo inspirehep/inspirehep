@@ -53,7 +53,7 @@ def test_returns_non_empty_fields(get_records_mock):
         "collaborations": [{"value": "CMS"}],
         "collaborations_with_suffix": [{"value": "ATLAS Team"}],
     }
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
     assert expected == json.loads(result)
 
@@ -64,7 +64,7 @@ def test_forces_collaborations_to_be_object_if_reference_not_linked(get_records_
     dump = {"reference": {"collaborations": ["CMS", "LHCb"]}}
     expected = {"collaborations": [{"value": "CMS"}, {"value": "LHCb"}]}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
     assert expected == json.loads(result)
 
@@ -82,7 +82,7 @@ def test_forces_collaborations_to_be_object_if_reference_not_linked_with_many_tr
         "references": [{"collaborations": [{"value": "CMS"}, {"value": "LHCb"}]}]
     }
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -94,7 +94,7 @@ def test_returns_empty_if_no_reference_or_record_field(get_records_mock):
     dump = {}
     expected = {}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -106,7 +106,7 @@ def test_returns_empty_if_empty_reference_or_record_field(get_records_mock):
     dump = {"record": {}, "reference": {}}
     expected = {}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -118,7 +118,7 @@ def test_returns_non_empty_fields_if_some_fields_missing(get_records_mock):
     dump = {"reference": {"label": "123", "control_number": 123}}
     expected = {"label": "123", "control_number": 123}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -134,7 +134,7 @@ def test_returns_no_misc_if_title_persent(get_records_mock):
 
     assert validate([dump], subschema) is None
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -191,7 +191,7 @@ def test_returns_only_first_misc(get_records_mock):
     expected = {"label": "123", "misc": "A Misc"}
     assert validate([dump], subschema) is None
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)

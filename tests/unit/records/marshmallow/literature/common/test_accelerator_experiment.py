@@ -21,7 +21,7 @@ def test_returns_legacy_name_as_name(get_records_mock):
     schema = AcceleratorExperimentSchemaV1()
     dump = {"legacy_name": "Test"}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
 
     expected = {"name": "Test"}
     result = schema.dumps(record).data
@@ -42,7 +42,7 @@ def test_returns_dashed_institution_accelerator_experiment_as_name_if_all_presen
     }
     expected = {"name": "INS-ACC-EXP1"}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -58,7 +58,7 @@ def test_returns_legacy_name_as_name_if_accelerator_missing(get_records_mock):
     }
     expected = {"name": "LEGACY-EXP1"}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -74,7 +74,7 @@ def test_returns_legacy_name_as_name_if_institutions_missing(get_records_mock):
     }
     expected = {"name": "LEGACY-EXP1"}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -90,7 +90,7 @@ def test_returns_legacy_name_as_name_if_experiment_missing(get_records_mock):
     }
     expected = {"name": "LEGACY-EXP1"}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -102,7 +102,7 @@ def test_returns_none_as_name_if_empty_present(get_records_mock):
     dump = {}
     expected = {"name": None}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
@@ -121,7 +121,7 @@ def test_returns_dashed_institution_accelerator_experiment_as_name_with_unicode(
     }
     expected = {"name": "PSI, Villigen-PSI πM1 beam line-MUSE"}
 
-    record = LiteratureRecord(data=dump)
+    record = LiteratureRecord(dump)
     result = schema.dumps(record).data
 
     assert expected == json.loads(result)
