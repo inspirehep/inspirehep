@@ -8,14 +8,13 @@
 import json
 
 import pytest
-from flask import jsonify
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
 
-def test_new_author_submit_without_authentication_post(api_client):
+def test_author_submit_requires_authentication(api_client):
     response = api_client.post(
         "/submissions/authors",
         content_type="application/json",
@@ -32,7 +31,7 @@ def test_new_author_submit_without_authentication_post(api_client):
     assert response.status_code == 401
 
 
-def test_new_author_submit_without_authentication_put(api_client):
+def test_author_update_requires_authentication(api_client):
     response = api_client.put(
         "/submissions/authors/123",
         content_type="application/json",
@@ -49,21 +48,20 @@ def test_new_author_submit_without_authentication_put(api_client):
     assert response.status_code == 401
 
 
-def test_new_author_submit_without_authentication_get(api_client):
+def test_author_get_requires_authentication(api_client):
     response = api_client.get(
         "/submissions/authors/123", content_type="application/json"
     )
     assert response.status_code == 401
 
 
-@patch("inspirehep.submissions.views.requests.post")
-def test_new_author_submit_with_required_fields(
-    mock_requests_post, app, api_client, create_user_and_token
-):
-    mock_requests_post.return_value.status_code = 200
-    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
-    token = create_user_and_token()
-    headers = {"Authorization": "BEARER " + token.access_token}
+def test_new_author_submit(app, api_client, create_user, requests_mock):
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
     response = api_client.post(
         "/submissions/authors",
         content_type="application/json",
@@ -76,16 +74,41 @@ def test_new_author_submit_with_required_fields(
                 }
             }
         ),
-        headers=headers,
     )
+
     assert response.status_code == 200
+    assert requests_mock.call_count == 1
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert (
+        "Authorization" in history.headers
+        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
+    assert "datetime" in post_data["data"]["acquisition_source"]
+    del post_data["data"]["acquisition_source"]["datetime"]
+    assert post_data == {
+        "data": {
+            "_collections": ["Authors"],
+            "acquisition_source": {
+                "email": user.email,
+                "method": "submitter",
+                "submission_number": "None",
+                "internal_uid": user.id,
+            },
+            "name": {"value": "John", "preferred_name": "John Doe"},
+            "status": "active",
+        }
+    }
 
 
-@patch("inspirehep.submissions.views.requests.post")
-def test_new_author_submit_with_error(
-    mock_requests_post, app, api_client, create_user_and_token
+def test_new_author_submit_with_workflows_error(
+    app, api_client, create_user_and_token, requests_mock
 ):
-    mock_requests_post.return_value.status_code = 500
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors", status_code=500
+    )
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     response = api_client.post(
@@ -105,14 +128,15 @@ def test_new_author_submit_with_error(
     assert response.status_code == 503
 
 
-@patch("inspirehep.submissions.views.requests.post")
 def test_new_author_submit_works_with_session_login(
-    mock_requests_post, app, api_client, create_user
+    app, api_client, create_user, requests_mock
 ):
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+        json={"workflow_object_id": 30},
+    )
     user = create_user()
     login_user_via_session(api_client, email=user.email)
-    mock_requests_post.return_value.status_code = 200
-    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
     response = api_client.post(
         "/submissions/authors",
         content_type="application/json",
@@ -129,14 +153,13 @@ def test_new_author_submit_works_with_session_login(
     assert response.status_code == 200
 
 
-@patch("inspirehep.submissions.views.requests.post")
-def test_update_author_with_required_fields(
-    mock_requests_post, app, api_client, create_user_and_token
-):
-    mock_requests_post.return_value.status_code = 200
-    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
-    token = create_user_and_token()
-    headers = {"Authorization": "BEARER " + token.access_token}
+def test_update_author(app, api_client, create_user, requests_mock):
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
     response = api_client.put(
         "/submissions/authors/123",
         content_type="application/json",
@@ -149,9 +172,33 @@ def test_update_author_with_required_fields(
                 }
             }
         ),
-        headers=headers,
     )
     assert response.status_code == 200
+    assert requests_mock.call_count == 1
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert (
+        "Authorization" in history.headers
+        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
+    assert "datetime" in post_data["data"]["acquisition_source"]
+    del post_data["data"]["acquisition_source"]["datetime"]
+    assert post_data == {
+        "data": {
+            "_collections": ["Authors"],
+            "acquisition_source": {
+                "email": user.email,
+                "method": "submitter",
+                "submission_number": "None",
+                "internal_uid": user.id,
+            },
+            "control_number": 123,
+            "name": {"value": "John", "preferred_name": "John Doe"},
+            "status": "active",
+        }
+    }
 
 
 @patch("inspirehep.submissions.views.current_user", email="johndoe@gmail.com")
@@ -182,12 +229,11 @@ def test_populate_and_serialize_data_for_submission(
     assert data == expected
 
 
-@patch("inspirehep.submissions.views.requests.post")
-def test_new_literature_submit(
-    mock_requests_post, app, api_client, create_user_and_token
-):
-    mock_requests_post.return_value.status_code = 200
-    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
+def test_new_literature_submit(app, api_client, create_user_and_token, requests_mock):
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     response = api_client.post(
@@ -208,13 +254,15 @@ def test_new_literature_submit(
         headers=headers,
     )
     assert response.status_code == 200
-    mock_requests_post.assert_called_once()
-
-    post_args, post_kwargs = _get_args_and_kwargs_of_first_mock_call(mock_requests_post)
-    post_url = post_args[0]
-    post_data = json.loads(post_kwargs["data"])
-
-    assert post_url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    assert requests_mock.call_count == 1
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert (
+        "Authorization" in history.headers
+        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
     assert post_data == {
         "data": {
             "_collections": ["Literature"],
@@ -228,12 +276,13 @@ def test_new_literature_submit(
     }
 
 
-@patch("inspirehep.submissions.views.requests.post")
 def test_new_literature_submit_works_with_session_login(
-    mock_requests_post, app, api_client, create_user
+    app, api_client, create_user, requests_mock
 ):
-    mock_requests_post.return_value.status_code = 200
-    mock_requests_post.return_value.content = jsonify({"workflow_object_id": 30})
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
     user = create_user()
     login_user_via_session(api_client, email=user.email)
     response = api_client.post(
@@ -253,7 +302,7 @@ def test_new_literature_submit_works_with_session_login(
     assert response.status_code == 200
 
 
-def test_new_literature_submit_without_authentication(api_client):
+def test_new_literature_submit_requires_authentication(api_client):
     response = api_client.post(
         "/submissions/literature",
         content_type="application/json",
@@ -271,11 +320,12 @@ def test_new_literature_submit_without_authentication(api_client):
     assert response.status_code == 401
 
 
-@patch("inspirehep.submissions.views.requests.post")
-def test_new_author_submit_with_workflows_api_error(
-    mock_requests_post, app, api_client, create_user_and_token
+def test_new_literature_submit_with_workflows_api_error(
+    app, api_client, create_user_and_token, requests_mock
 ):
-    mock_requests_post.return_value.status_code = 500
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature", status_code=500
+    )
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     response = api_client.post(
@@ -294,8 +344,3 @@ def test_new_author_submit_with_workflows_api_error(
         headers=headers,
     )
     assert response.status_code == 503
-
-
-def _get_args_and_kwargs_of_first_mock_call(mock_function):
-    args, kwargs = mock_function.call_args_list[0]
-    return args, kwargs
