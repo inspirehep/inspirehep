@@ -1,5 +1,5 @@
 const { toMatchImageSnapshot } = require('jest-image-snapshot');
 
-jest.setTimeout(60000);
+jest.setTimeout(120000);
 
 expect.extend({ toMatchImageSnapshot });

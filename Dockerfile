@@ -11,13 +11,6 @@ RUN pip install pipenv
 
 WORKDIR /opt/inspire
 
-COPY Pipfile Pipfile.lock setup.py README.md /opt/inspire/
-COPY  inspirehep/version.py /opt/inspire/inspirehep/
+COPY . /opt/inspire
 
-# install dependencies
 RUN pipenv install --skip-lock
-
-COPY inspirehep/ /opt/inspire/inspirehep
-
-# install application
-RUN pipenv install --skip-lock -e .
