@@ -59,15 +59,11 @@ services:
     ports:
      - "8000:8000"
     command: pipenv run gunicorn --reload -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application
-    volumes:
-      - .:/opt/inspire:ro
   worker:
     extends:
       file: docker-services.yml
       service: app
     command: ./scripts/server
-    volumes:
-      - .:/opt/inspire:ro
     depends_on:
       - db
       - es
