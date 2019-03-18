@@ -1,6 +1,7 @@
 version: '2.1'
 
 services:
+
   e2e:
     image: alekzonder/puppeteer
     
@@ -11,6 +12,4 @@ services:
       - NODE_ENV=test
       - CI=${CI}
     depends_on:
-      - worker
       - ui
-      - web

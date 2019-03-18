@@ -21,6 +21,7 @@ WORKDIR /app
 
 COPY docker/conf.d /etc/nginx/conf.d
 
+ENV REACT_APP_ENABLE_LOCAL_LOGIN YES
 RUN yarn install \
  && yarn run build \
  && chmod g+rwx /var/cache/nginx /var/run /var/log/nginx /usr/share/nginx \
