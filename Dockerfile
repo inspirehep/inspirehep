@@ -7,10 +7,11 @@
 
 FROM python:3.6
 
-RUN pip install pipenv
+RUN pip install poetry
 
 WORKDIR /opt/inspire
 
 COPY . /opt/inspire
 
-RUN pipenv install --skip-lock
+# install dependencies
+RUN ./scripts/bootstrap

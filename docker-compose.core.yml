@@ -56,12 +56,12 @@ services:
       service: app
     ports:
      - "8000:8000"
-    command: pipenv run gunicorn --reload -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application
+    command: poetry run gunicorn --reload -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application
   worker:
     extends:
       file: docker-compose.services.yml
       service: app
-    command: pipenv run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO
+    command: poetry run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO
     depends_on:
       - db
       - es

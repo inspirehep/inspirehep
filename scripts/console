@@ -8,4 +8,4 @@
 
 set -e
 
-pipenv run inspirehep shell
+poetry run inspirehep shell

@@ -16,7 +16,7 @@ while test $# -gt 0; do
         --ci)
             # We are probably inside travis, check for env variables
             if [ "$REQUIREMENTS" == "prod" ]; then
-                flags=("--dev" "--ignore-pipfile")
+                flags=("--no-interaction" "--no-ansi")
             fi
             shift
             ;;
@@ -28,9 +28,7 @@ while test $# -gt 0; do
     esac
 done
 if [ ${#flags[0]} -eq 0 ]; then
-    flags=("--dev" "--skip-lock")
+    flags=("--no-interaction" "--no-ansi")
 fi
 
-pipenv install ${flags[@]}
-# install pre-commit
-pipenv run pre-commit install
+poetry install ${flags[@]}

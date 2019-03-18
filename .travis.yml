@@ -26,19 +26,19 @@ matrix:
         - "3.6"
 
       before_install:
-        - "sudo service postgresql stop"
+        - sudo service postgresql stop
         - ./docker-inspire up -d
-        - "travis_retry pip install --upgrade pip setuptools py pipenv"
-        - "travis_retry pip install twine wheel coveralls"
-
+        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        - source $HOME/.poetry/env
+        - travis_retry pip install twine wheel coveralls
       install:
-        - "./scripts/bootstrap --ci"
+        - ./scripts/bootstrap --ci
 
       before_script:
         - ./docker/wait-for-services.sh
 
       script:
-        - pipenv run py.test tests/integration
+        - poetry run py.test tests/integration
 
       after_script:
         - docker-compose kill -s SIGTERM
@@ -48,7 +48,7 @@ matrix:
         - coveralls
 
       after_fail:
-        - pipenv run pip freeze
+        - poetry show
 
       cache: pip
 
@@ -62,21 +62,22 @@ matrix:
         - "3.6"
 
       before_install:
-        - "travis_retry pip install --upgrade pip setuptools py pipenv"
-        - "travis_retry pip install twine wheel coveralls"
+        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        - source $HOME/.poetry/env
+        - travis_retry pip install twine wheel coveralls
 
       install:
-        - "./scripts/bootstrap --ci"
+        - ./scripts/bootstrap --ci
 
       script:
-        - './run-code-checks.sh'
-        - pipenv run py.test tests/unit
+        - ./run-code-checks.sh
+        - poetry run py.test tests/unit
 
       after_success:
         - coveralls
 
       after_fail:
-        - pipenv run pip freeze
+        - poetry run pip freeze
 
       cache: pip
 
@@ -93,19 +94,20 @@ matrix:
         - "3.6"
 
       before_install:
-        - "sudo service postgresql stop"
+        - sudo service postgresql stop
         - ./docker-inspire up -d
-        - "travis_retry pip install --upgrade pip setuptools py pipenv"
-        - "travis_retry pip install twine wheel coveralls"
+        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        - source $HOME/.poetry/env
+        - travis_retry pip install twine wheel coveralls
 
       install:
-        - "./scripts/bootstrap --ci"
+        - ./scripts/bootstrap --ci
 
       before_script:
         - ./docker/wait-for-services.sh
 
       script:
-        - pipenv run py.test --random-order tests/integration-async
+        - poetry run py.test tests/integration-async
 
       after_script:
         - docker-compose kill -s SIGTERM
@@ -115,7 +117,7 @@ matrix:
         - coveralls
 
       after_fail:
-        - pipenv run pip freeze
+        - poetry run pip freeze
 
       cache: pip
 
