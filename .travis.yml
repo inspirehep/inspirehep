@@ -80,6 +80,45 @@ matrix:
 
       cache: pip
 
+    - language: python
+      sudo: true
+      dist: trusty
+      env:
+        - SUITE=backend-integration-async
+        - REQUIREMENTS=prod
+        - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
+
+      # XXX: needs work around for 3.7
+      python:
+        - "3.6"
+
+      before_install:
+        - "sudo service postgresql stop"
+        - docker-compose up -d
+        - "travis_retry pip install --upgrade pip setuptools py pipenv"
+        - "travis_retry pip install twine wheel coveralls"
+
+      install:
+        - "./scripts/bootstrap --ci"
+
+      before_script:
+        - ./docker/wait-for-services.sh
+
+      script:
+        - pipenv run py.test --random-order tests/integration-async
+
+      after_script:
+        - docker-compose kill -s SIGTERM
+        - docker-compose rm -f
+
+      after_success:
+        - coveralls
+
+      after_fail:
+        - pipenv run pip freeze
+
+      cache: pip
+
     - language: node_js
       sudo: required
       env:

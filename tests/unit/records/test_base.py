@@ -5,11 +5,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import mock
 import pytest
 from helpers.providers.faker import faker
 
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
 
 
 def test_strip_empty_values():
@@ -155,3 +155,136 @@ def test_filenames_check():
 def test_empty_data_for_hashing():
     with pytest.raises(ValueError):
         InspireRecord.hash_data(data=None)
+
+
+def test_get_subclasses_from_inspire_records():
+    expected = {"lit": LiteratureRecord, "aut": AuthorsRecord}
+    subclasses = InspireRecord.get_subclasses()
+
+    assert subclasses == expected
+
+
+def test_get_records_pid_from_field():
+    data = {
+        "references": [
+            {
+                "record": "http://labs.inspirehep.net/api/literature/98765",
+                "reference": {
+                    "misc": ["abcd", "defg"],
+                    "label": "qwerty",
+                    "record": {
+                        "$ref": "http://labs.inspirehep.net/api/literature/339134"
+                    },
+                },
+            }
+        ],
+        "publication_info": {"year": 1984},
+        "some_stuff": {"other_stuff": "not_related"},
+        "different_field": "http://labs.inspirehep.net/api/literature/329134",
+        "other_record": {"$ref": ["http://labs.inspirehep.net/api/literature/319136"]},
+    }
+
+    tmp_record = InspireRecord(data)
+    path_1 = "references.reference.record"
+    expected_1 = [("lit", "339134")]
+
+    path_2 = "some_stuff"
+    expected_2 = []
+
+    path_3 = "other_record"
+    expected_3 = [("lit", "319136")]
+
+    assert tmp_record.get_linked_pids_from_field(path_1) == expected_1
+    assert tmp_record.get_linked_pids_from_field(path_2) == expected_2
+    assert tmp_record.get_linked_pids_from_field(path_3) == expected_3
+
+
+def test_on_not_deleted_record_index_on_InspireRecord():
+    record = {"control_number": 1234, "deleted": False}
+    expected = {"uuid": "1", "force_delete": False}
+    expected_force_deleted = {"uuid": "1", "force_delete": True}
+
+    assert InspireRecord._record_index(record, _id=1) == expected
+    assert InspireRecord._record_index(record, _id=1, force_delete=False) == expected
+    assert (
+        InspireRecord._record_index(record, _id=1, force_delete=True)
+        == expected_force_deleted
+    )
+
+
+def test_on_deleted_record_index_on_InspireRecord():
+    record = {"control_number": 4321, "deleted": True}
+    expected = {"uuid": "1", "force_delete": True}
+
+    assert InspireRecord._record_index(record, _id=1) == expected
+    assert InspireRecord._record_index(record, _id=1, force_delete=False) == expected
+    assert InspireRecord._record_index(record, _id=1, force_delete=True) == expected
+
+
+def test_get_subclasses():
+    subclasses = InspireRecord.get_subclasses()
+    expected_subclasses = {"lit": LiteratureRecord, "aut": AuthorsRecord}
+
+    assert subclasses == expected_subclasses
+
+
+@mock.patch("invenio_records.api.Record.get_record")
+@mock.patch(
+    "inspirehep.records.api.base.PidStoreBase.get_pid_type_from_schema",
+    return_value="lit",
+)
+@mock.patch(
+    "inspirehep.records.api.literature.LiteratureRecord.get_record",
+    return_value=LiteratureRecord({}),
+)
+def test_finding_proper_class_in_get_record_lit(
+    get_record_mock, get_pid_mock, invenio_record_mock
+):
+    created_record = InspireRecord.get_record(id_="something")
+    expected_record_type = LiteratureRecord
+
+    assert type(created_record) == expected_record_type
+
+
+@mock.patch("invenio_records.api.Record.get_record")
+@mock.patch(
+    "inspirehep.records.api.base.PidStoreBase.get_pid_type_from_schema",
+    return_value="aut",
+)
+@mock.patch(
+    "inspirehep.records.api.authors.AuthorsRecord.get_record",
+    return_value=AuthorsRecord(data={}),
+)
+def test_finding_proper_class_in_get_record_aut(
+    get_record_mock, get_pid_mock, invenio_record_mock
+):
+    created_record = InspireRecord.get_record(id_="something")
+    expected_record_type = AuthorsRecord
+
+    assert type(created_record) == expected_record_type
+
+
+def test_record_index_static_method():
+    data = {"control_number": 123}
+
+    expected_1 = {"uuid": "1", "force_delete": False}
+
+    expected_1_deleted = {"uuid": "1", "force_delete": True}
+
+    assert expected_1 == InspireRecord._record_index(data, _id=1)
+    assert expected_1_deleted == InspireRecord._record_index(
+        data, _id=1, force_delete=True
+    )
+
+
+def test_record_deleted_index_static_method():
+    data = {"control_number": 123, "deleted": True}
+
+    expected_1 = {"uuid": "1", "force_delete": True}
+
+    expected_1_deleted = {"uuid": "1", "force_delete": True}
+
+    assert expected_1 == InspireRecord._record_index(data, _id=1)
+    assert expected_1_deleted == InspireRecord._record_index(
+        data, _id=1, force_delete=False
+    )

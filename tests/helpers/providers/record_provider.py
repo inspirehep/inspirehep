@@ -51,7 +51,23 @@ class RecordProvider(BaseProvider):
             "_collections": ["Authors"],
         }
 
-    def record(self, record_type, data=None, with_control_number=False):
+    @staticmethod
+    def add_citations(citation_records):
+        data = []
+        for record in citation_records:
+            data.append(
+                {"record": {"$ref": f"http://localhost:5000/api/literature/{record}"}}
+            )
+        return {"references": data}
+
+    def record(
+        self,
+        record_type,
+        data=None,
+        with_control_number=False,
+        citations=[],
+        skip_validation=False,
+    ):
         if record_type == "lit":
             record = self.hep_record()
         elif record_type == "aut":
@@ -61,5 +77,8 @@ class RecordProvider(BaseProvider):
             record["control_number"] = self.control_number()
         if data:
             record.update(data)
-        schema_validate(record)
+        if citations:
+            record.update(self.add_citations(citations))
+        if not skip_validation:
+            schema_validate(record)
         return record

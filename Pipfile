@@ -4,8 +4,15 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+celery = "<=4.2.1"
+
+# Click in version 7 have broken progressbar in python 3
+# waiting for this PR to be merged https://github.com/pallets/click/pull/1163
+click = "<7.0.0"
+
 # invenio 3.1.0 requires Flask>=1.0.0
 invenio = {version = "==3.0.0",extras = [ "postgresql", "auth", "elasticsearch5", ]}
+
 # invenio cherry-pick `base` packages
 invenio-logging = ">=1.0.0,<1.1.0"
 invenio-rest = ">=1.0.0,<1.1.0"
@@ -16,7 +23,7 @@ invenio-pidstore = ">=1.0.0,<1.1.0"
 invenio-records-rest = ">=1.2.1,<1.3.0"
 invenio-records = ">=1.0.0,<1.1.0"
 invenio-records-files = ">=1.0.0a10"
-inspirehep = {path = ".",editable = true}
+inspirehep = {editable = true,path = "."}
 inspire-schemas = "~=59.3.0,>=59.3.0"
 inspire-dojson = "~=61.0.0,>=61.0.0"
 inspire-utils = "~=3.0.0,>=3.0.3"
@@ -26,13 +33,17 @@ uwsgi = ">=2.0"
 marshmallow = "<3.0.0"
 # do-json :( needs flask v0.x
 flask-shell-ipython = "~=0.3,<0.4.0" # version 0.4.0 requires `flask >= 1.0`
+flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git"}
 node-semver = "<0.2.0,>=0.1.1"
 pylint = "*"
 pybtex = "*"
+pytest = ">=3.3.1,<4.0.0"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
 invenio-app = "==1.0.0"
 cryptography = "<2.6"
+#  msgpack = "*"  #  FIXME:  We want to use it but it might mess with invenio-indexer which is forcing msgpack-python
+                  #  FIXME: https://github.com/inveniosoftware/invenio-celery/issues/58
 gunicorn = "*"
 watchdog = "*"
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
@@ -43,7 +54,7 @@ coverage = ">=4.4.1"
 isort = ">=4.3"
 mock = ">=2.0.0"
 pydocstyle = ">=2.0.0"
-pytest = ">=3.3.1"
+pytest = ">=3.3.1,<4.0.0"
 pytest-cov = "~=2.6.1,>=2.6.1"
 pytest-invenio = ">=1.1.0,<1.2.0"
 pytest-mock = ">=1.6.0"

@@ -14,6 +14,8 @@ class AuthorsRecord(InspireRecord):
 
     pid_type = "aut"
 
+    es_serializer = "AuthorsMetadataSchemaV1"
+
     @staticmethod
     def mint(record_uuid, data):
         PidStoreAuthors.mint(record_uuid, data)

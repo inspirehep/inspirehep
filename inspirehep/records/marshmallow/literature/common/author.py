@@ -5,6 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from unicodedata import normalize
+
+from inspire_utils.name import generate_name_variations
 from marshmallow import Schema, fields, missing
 
 
@@ -39,3 +42,35 @@ class AuthorSchemaV1(Schema):
             return names[0] or missing
 
         return missing
+
+
+class AuthorAutocompleteSchema(Schema):
+    input_field = fields.Method(
+        "generate_name_variations", dump_to="input", dump_only=True
+    )
+
+    def generate_name_variations(self, full_name):
+        name_variations = generate_name_variations(full_name)
+        return [variation for variation in name_variations if variation]
+
+
+class AuthorsInfoSchemaForES(AuthorSchemaV1):
+    full_name_unicode_normalized = fields.Method(
+        "get_author_full_name_unicode_normalized", default=missing, dump_only=True
+    )
+    name_variations = fields.Method(
+        "get_name_variations_for_author", default=missing, dump_only=True
+    )
+    name_suggest = fields.Nested(AuthorAutocompleteSchema, attribute="full_name")
+
+    def get_author_full_name_unicode_normalized(self, author):
+        full_name = str(author["full_name"])
+        return normalize("NFKC", full_name).lower()
+
+    def get_name_variations_for_author(self, author):
+        """Generate name variations for provided author."""
+        full_name = author.get("full_name")
+        if full_name:
+            name_variations = generate_name_variations(full_name)
+
+        return name_variations

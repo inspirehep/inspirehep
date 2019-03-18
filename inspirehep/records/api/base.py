@@ -6,20 +6,20 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-
-
 import hashlib
+import importlib
+import json
 import logging
 import re
 import uuid
 from io import BytesIO
 
 from flask import current_app
+from flask_celeryext.app import current_celery_app
 from fs.errors import ResourceNotFoundError
 from fs.opener import fsopen
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
-from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_files_rest.models import Bucket, Location, ObjectVersion
@@ -33,7 +33,9 @@ from sqlalchemy import cast, not_, or_, tuple_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.exc import NoResultFound
 
-from ...pidstore.api import PidStoreBase
+from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.records.errors import MissingSerializerError
+from inspirehep.records.indexer.base import InspireRecordIndexer
 
 logger = logging.getLogger(__name__)
 
@@ -71,6 +73,8 @@ class InspireRecord(Record):
     """Inspire Record."""
 
     pid_type = None
+    es_serializer = None
+    ui_serializer = None
 
     @staticmethod
     def strip_empty_values(data):
@@ -122,7 +126,9 @@ class InspireRecord(Record):
         Raises:
             re.error: from re.match
         """
-        match = re.match("^([a-zA-Z0-9_]+)\.(?!\.)([a-zA-Z0-9]{1,5})(?<!\.)$", test_str)
+        match = re.match(
+            r"^([a-zA-Z0-9_]+)\.(?!\.)([a-zA-Z0-9]{1,5})(?<!\.)$", test_str
+        )
         if match and match.start() == 0:
             return True
         return False
@@ -175,13 +181,14 @@ class InspireRecord(Record):
         Raises:
             ValueError: When it's not possible to parse url properly
         Examples:
-            >>> split_url('/api/files/261926f6-4923-458e-adb0/207611e7bf8a83f0739bb2e')
+            >>> InspireRecord.split_url('/api/files/261926f6-4923-458e-adb0/
+                207611e7bf8a83f0739bb2e')
             {
                 'bucket': '261926f6-4923-458e-adb0',
                 'file': '207611e7bf8a83f0739bb2e',
             }
 
-            >>> split_url('https://some_url.com/some/path/to/file.txt')
+            >>> InspireRecord.split_url('https://some_url.com/some/path/to/file.txt')
             {
                 'bucket': None,
                 'file': 'file.txt'
@@ -195,17 +202,17 @@ class InspireRecord(Record):
 
         if cls.is_hash(url_splited[-1]):
             file = url_splited[-1]
-            logger.debug(f"'{url}' contains hash: '{file}'")
+            logger.debug("'%s' contains hash: '%s'", url, file)
         elif cls.is_filename(url_splited[-1]):
             file = url_splited[-1]
-            logger.debug(f"'{url}' contains filename: '{file}'")
+            logger.debug("'%s' contains filename: '%s'", url, file)
         else:
-            raise ValueError(f"{url} does not contain filename or file hash!")
+            raise ValueError("'%s' does not contain filename or file hash!", url)
 
         if not url.startswith("http"):
             if url.startswith(API_PATH) and cls.is_bucket_uuid(url_splited[-2]):
                 bucket = url_splited[-2]
-                logger.debug(f"'{url}' contains bucket_id: '{bucket}'")
+                logger.debug("'%s' contains bucket_id: '%s'", url, bucket)
             else:
                 raise ValueError("Missing bucket id!")
         else:
@@ -224,8 +231,24 @@ class InspireRecord(Record):
     def get_record_by_pid_value(cls, pid_value, pid_type=None):
         if not pid_type:
             pid_type = cls.pid_type
-        record_uuid = cls.get_uuid_from_pid_value(pid_value)
-        record = cls.get_record(record_uuid)
+        record_uuid = cls.get_uuid_from_pid_value(pid_value, pid_type)
+        return cls.get_record(record_uuid)
+
+    @classmethod
+    def get_subclasses(cls):
+        records_map = {}
+        if cls.pid_type:
+            records_map[cls.pid_type] = cls
+        for _cls in cls.__subclasses__():
+            records_map[_cls.pid_type] = _cls
+        return records_map
+
+    @classmethod
+    def get_record(cls, id_, with_deleted=False):
+        record = super().get_record(str(id_), with_deleted)
+        type_from_schema = PidStoreBase.get_pid_type_from_schema(record["$schema"])
+        if record.pid_type is None or record.pid_type != type_from_schema:
+            return cls.get_subclasses()[type_from_schema].get_record(id_, with_deleted)
         return record
 
     @classmethod
@@ -250,17 +273,17 @@ class InspireRecord(Record):
             record = super().create(data, id_=id_, **kwargs)
         return record
 
-    @classmethod
-    def get_linked_records_in_field(cls, data, path):
-        """Returns the linked records in the specified path.
+    def get_linked_pids_from_field(self, path):
+        """Return a list of (pid_type, pid_value) tuples for all records referenced
+        in the field at the given path
 
         Args:
-            data (dict): the data with linked records.
-            path (str): the path of the linked records.
+            path (str): the path of the linked records (where $ref is located).
         Returns:
-            list: the linked records.
+            list: tuples containing (pid_type, pid_value) of the linked records
+
         Examples:
-            > data = {
+            >>> data = {
                 'references': [
                     {
                         'record': {
@@ -269,16 +292,40 @@ class InspireRecord(Record):
                     }
                 ]
             }
-            >  records = InspireRecord.get_linked_records_in_field(record.json, "references.record")
+            >>>  record = InspireRecord(data)
+            >>>  records = record.get_linked_pids_from_field("references.record")
+            ('lit', 1)
         """
         full_path = ".".join([path, "$ref"])
-        pids = force_list(
-            [
-                PidStoreBase.get_pid_from_record_uri(rec)
-                for rec in get_value(data, full_path, [])
-            ]
-        )
-        return cls.get_records_by_pids(pids)
+        pids = [
+            PidStoreBase.get_pid_from_record_uri(rec)
+            for rec in self.get_value(full_path, [])
+        ]
+        return pids
+
+    def get_linked_records_from_field(self, path):
+        """Return the linked records from specified path.
+
+        Args:
+            path (str): the path of the linked records.
+        Returns:
+            list: the linked records.
+        Examples:
+            >>> data = {
+                'references': [
+                    {
+                        'record': {
+                            '$ref': 'http://localhost/literature/1'
+                        }
+                    }
+                ]
+            }
+            >>>  record = InspireRecord(data)
+            >>>  records = record.get_linked_records_from_field("references.record")
+
+        """
+        pids = self.get_linked_pids_from_field(path)
+        return self.get_records_by_pids(pids)
 
     def update(self, data):
         with db.session.begin_nested():
@@ -363,7 +410,7 @@ class InspireRecord(Record):
         if not record_id:
             record_id = self.id
         try:
-            logger.debug(f"Looking for location with name '{location}'")
+            logger.debug("Looking for location with name '%s'", location)
             location_obj = Location.get_by_name(location)
         except NoResultFound:
             raise NoResultFound(
@@ -381,7 +428,7 @@ class InspireRecord(Record):
             .one_or_none()
         )
         if bucket:
-            logger.debug(f"found bucket: '{bucket.bucket.id}'")
+            logger.debug("found bucket: '%s'", bucket.bucket.id)
             return bucket.bucket
         logger.info(f"No bucket found for record '{self.id}'")
         return self._create_bucket(location, storage_class)
@@ -453,7 +500,7 @@ class InspireRecord(Record):
             file = self._find_local_file(key=key)
             new_key = None
             if file:
-                logger.debug(f"same file found locally, trying to copy")
+                logger.debug("same file found locally, trying to copy")
                 try:
                     new_key = self._copy_local_file(file, key)
                 except ValueError:
@@ -462,13 +509,18 @@ class InspireRecord(Record):
                     pass
             if not new_key:
                 logger.debug(
-                    f"Adding file('{key}') to {self.__class__.__name__}.({self.id}) files"
+                    "Adding file('%s') to %s.(%s) files",
+                    key,
+                    self.__class__.__name__,
+                    self.id,
                 )
                 self.files[key] = BytesIO(data)
         else:
             logger.debug(
-                f"file('{key}') is already attached"
-                f" to {self.__class__.__name__}.({self.id}) files"
+                "file('%s') is already attached to %s.(%s) files",
+                key,
+                self.__class__.__name__,
+                self.id,
             )
         return key
 
@@ -496,20 +548,20 @@ class InspireRecord(Record):
             file = ObjectVersion.get(bucket=bucket_id, key=key)
         return file
 
-    def _verify_file(self, file, hash):
+    def _verify_file(self, file, file_hash):
         """Verifies if `file` instance is correct for specified `hash`
 
         Args:
             file (ObjectVersion): File to verify
-            hash (str): Hash of the file
+            file_hash (str): Hash of the file
 
         Returns:
             str: Returns hash itself it it's matching the file, None otherwise
 
         """
         calculated_hash = self.hash_data(file_instance=file)
-        if calculated_hash == hash:
-            return hash
+        if calculated_hash == file_hash:
+            return file_hash
         return None
 
     def _copy_local_file(self, file, original_key=None):
@@ -561,21 +613,22 @@ class InspireRecord(Record):
             >>> self._download_file_from_local_storage(url)
                 '207611e7bf8a83f0739bb2e'
         """
+        url_splited = self.split_url(url)
         try:
-            url_splited = self.split_url(url)
             file = self._find_local_file(
                 key=url_splited["file"], bucket_id=url_splited["bucket"]
             )
         except ValueError as e:
+            logger.info(f"Cannot download file from local storage: {e}")
             file = None
 
         if not file:
             raise FileNotFoundError(f"{url} is not a valid file in local storage!")
         if self.is_hash(url_splited["file"]):
-            hash = url_splited["file"]
+            file_hash = url_splited["file"]
         else:  # Compatibility with old way of holding files where key was filename
-            hash = None
-        key = self._copy_local_file(file, hash)
+            file_hash = None
+        key = self._copy_local_file(file, file_hash)
         return key
 
     def _find_and_add_file(self, url, original_url=None):
@@ -684,3 +737,184 @@ class InspireRecord(Record):
 
         metadata["url"] = file_path
         return metadata
+
+    def get_serialized_data(self, serializer=None):
+        """Prepares serialized record for elasticsearch
+        Args:
+            serializer(Schema): Schema which should be used to serialize/enhance
+        Returns:
+            dict: Data serialized/enhanced by serializer.
+        Raises:
+            MissingSerializerError: If no serializer is set
+
+        """
+        if not self.es_serializer and not serializer:
+            raise MissingSerializerError(
+                f"{self.__class__.__name__} is missing data serializer!"
+            )
+        if not serializer:
+            serializer_module = importlib.import_module(
+                self.__module__.replace("api", "marshmallow")
+            )
+            serializer = getattr(serializer_module, self.es_serializer)
+        return serializer().dump(self).data
+
+    def get_ui_data(self, serializer=None):
+        """Prepares serialized record for ui
+        Returns:
+            dict: Enhanced record data
+            None: If serializer is not set.
+        """
+        if not self.ui_serializer and not serializer:
+            return None
+        if not serializer:
+            serializer_module = importlib.import_module(
+                self.__module__.replace("api", "marshmallow")
+            )
+            serializer = getattr(serializer_module, self.ui_serializer)
+        return serializer().dump(self).data
+
+    def _index(self, force_delete=None):
+        """Runs index in current process.
+
+            This is main logic for indexing. Runs in current thread/worker.
+            This method can index not committed record. Use with caution!
+
+        Args:
+            force_delete: set to True if record should be deleted from ES
+
+        Returns:
+            dict: ES info about indexing
+
+        """
+        if self._schema_type != self.pid_type:
+            logger.warning(
+                f"Record {self.id} is wrapped in {self.__class__.__name__}"
+                f"class {self.pid_type} type, but $schema says that this is"
+                f"{self._schema_type} type object!"
+            )
+        if force_delete or self.get("delete", False):
+            result = InspireRecordIndexer().delete(self)
+        else:
+            result = InspireRecordIndexer().index(self)
+        logger.info(f"Indexing finished: {result}")
+        return result
+
+    def index(self, force_delete=None):
+        """Index record in ES
+
+        This method do not have any important logic.
+        It just runs self._index() with proper arguments in separate worker.
+
+        To properly index data it requires to fully commit the record first!
+        It won't index outdated record.
+
+        Args:
+            force_delete: set to True if record has to be deleted,
+                If not set, tries to determine automatically if record should be deleted
+        Returns:
+            celery.result.AsyncResult: Task itself
+        """
+        indexing_args = self._record_index(self, force_delete=force_delete)
+        indexing_args["record_version"] = self.model.version_id
+        task = current_celery_app.send_task(
+            "inspirehep.records.indexer.tasks.index_record", kwargs=indexing_args
+        )
+        logger.info(f"Record {self.id} send for indexing")
+        return task
+
+    @staticmethod
+    def _record_index(record, _id=None, force_delete=None):
+        """Helper function for indexer:
+            Prepare dictionary for indexer
+        Returns:
+            dict: proper dict required by the indexer
+        """
+        if isinstance(record, InspireRecord):
+            uuid = record.id
+        elif _id:
+            uuid = _id
+        else:
+            raise MissingModelError
+        arguments_for_indexer = {
+            "uuid": str(uuid),
+            "force_delete": force_delete or record.get("deleted", False),
+        }
+        return arguments_for_indexer
+
+    @property
+    def _previous_version(self):
+        """Allows to easily acces previous version of the record"""
+        data = (
+            self.model.versions.filter_by(version_id=self.model.version_id)
+            .one()
+            .previous.json
+        )
+        return type(self)(data=data)
+
+    @property
+    def _schema_type(self):
+        return PidStoreBase.get_pid_type_from_schema(self["$schema"])
+
+    def get_modified_references(self):
+        """Return the ids of the references diff between the latest and the
+        previous version.
+
+        The diff includes references added or deleted. Changes in a
+        reference's content won't be detected.
+
+        Also, it detects if record was deleted/un-deleted compared to the
+        previous version and, in such cases, returns the full list of
+        references.
+
+        References not linked to any record will be ignored.
+
+        Note: record should be committed to DB in order to correctly get the
+        previous version.
+
+        Returns:
+            Set[Tuple[str, int]]: pids of references changed from the previous
+            version.
+        """
+        try:
+            prev_version = self._previous_version
+        except AttributeError:
+            prev_version = {}
+
+        changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
+            "deleted", False
+        )
+
+        if changed_deleted_status:
+            return self.get_linked_pids_from_field("references.record")
+
+        ids_latest = set(self.get_linked_pids_from_field("references.record"))
+        try:
+            ids_oldest = set(
+                self._previous_version.get_linked_pids_from_field("references.record")
+            )
+        except AttributeError:
+            return []
+
+        return set.symmetric_difference(ids_latest, ids_oldest)
+
+    def _dump_for_es(self):
+        """Prepares proper json data for es serializer
+
+        Returns:
+            dict: Properly serialized and prepared record
+        """
+        serialized_data = self.get_serialized_data()
+        return serialized_data
+
+    def dumps_for_es(self):
+        """Serializes and dumps record for ElasticSearch purposes
+
+        Returns:
+            str: Serialized record and dumped to json
+        """
+        return json.dumps(self._dump_for_es())
+
+    def get_value(self, field, default=None):
+        """Method which makes ``get_value`` more intuitive"""
+        return get_value(self, field, default)

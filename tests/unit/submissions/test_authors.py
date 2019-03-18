@@ -405,10 +405,10 @@ def test_load_author_given_and_family_name_normal_case():
 
 
 def test_load_author_given_and_family_name_normal_case_with_unicode():
-    data = {"family_name": u"Gérard", "given_name": u"Jessica"}
+    data = {"family_name": "Gérard", "given_name": "Jessica"}
 
     result = Author().load(data).data
-    expected = {**DEFAULT_DATA_LOAD, "name": {"value": u"Gérard, Jessica"}}
+    expected = {**DEFAULT_DATA_LOAD, "name": {"value": "Gérard, Jessica"}}
 
     assert result == expected
 

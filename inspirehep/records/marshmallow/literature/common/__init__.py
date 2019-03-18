@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from .accelerator_experiment import AcceleratorExperimentSchemaV1
-from .author import AuthorSchemaV1
+from .author import AuthorSchemaV1, AuthorsInfoSchemaForES
 from .citation_item import CitationItemSchemaV1
 from .collaboration import CollaborationSchemaV1
 from .collaboration_with_suffix import CollaborationWithSuffixSchemaV1

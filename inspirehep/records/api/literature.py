@@ -6,18 +6,25 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-
+import json
+import logging
 
 from inspire_schemas.builders import LiteratureBuilder
 
-from ...pidstore.api import PidStoreLiterature
+from inspirehep.pidstore.api import PidStoreLiterature
+
 from .base import InspireRecord
+
+logger = logging.getLogger(__name__)
 
 
 class LiteratureRecord(InspireRecord):
     """Literature Record."""
 
     pid_type = "lit"
+
+    es_serializer = "LiteratureESEnhancementV1"
+    ui_serializer = "LiteratureMetadataSchemaV1"
 
     @classmethod
     def create(cls, data, **kwargs):
@@ -80,7 +87,8 @@ class LiteratureRecord(InspireRecord):
         """Public method for adding documents and figures
 
         Args:
-            documents (list[dict]): List of documents which should be added to this record
+            documents (list[dict]): List of documents which should be added to this
+            record
             figures (list[dict]): List of figures which should be added to this record
 
             Documents and figures are lists of dicts.
@@ -117,3 +125,8 @@ class LiteratureRecord(InspireRecord):
                 files.append(metadata)
         super().update(builder.record)
         return files
+
+    def _dump_for_es(self):
+        serialized_data = super()._dump_for_es()
+        serialized_data["_ui_display"] = json.dumps(self.get_ui_data())
+        return serialized_data

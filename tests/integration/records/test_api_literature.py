@@ -4,8 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
-
+import json
 import uuid
 
 import pytest
@@ -15,7 +14,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 
 
 def test_literature_create(base_app, db):
@@ -454,3 +453,43 @@ def test_update_record_files(fsopen_mock, base_app, db, init_files_db):
     assert document_excpected_filename in files_filenames
     assert figure_expected_filename not in files_filenames
     assert second_figure_filename in files_filenames
+
+
+def test_subclasses_for_literature():
+    expected = {"lit": LiteratureRecord}
+    assert expected == LiteratureRecord.get_subclasses()
+
+
+def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("lit")
+    record = InspireRecord.create(data)
+    record_from_db = InspireRecord.get_record(record.id)
+    assert type(record_from_db) == LiteratureRecord
+
+
+def test_dump_for_es(base_app, db):
+    additional_fields = {
+        "preprint_date": "2016-01-01",
+        "publication_info": [{"year": 2015}],
+    }
+    data = faker.record("lit", data=additional_fields)
+
+    record = LiteratureRecord.create(data)
+    dump = record._dump_for_es()
+    str_dump = record.dumps_for_es()
+
+    expected_document_type = ["article"]
+
+    assert json.loads(str_dump) == dump
+    assert "_ui_display" in dump
+    assert "control_number" in dump
+    assert record["control_number"] == dump["control_number"]
+    assert "id" in dump
+    assert str(record.id) == dump["id"]
+    assert expected_document_type == dump["document_type"]
+    ui_field = json.loads(dump["_ui_display"])
+    assert "titles" in ui_field
+    assert "document_type" in ui_field
+    assert "_collections" in ui_field
+    assert record["titles"] == ui_field["titles"]
+    assert record["control_number"] == ui_field["control_number"]

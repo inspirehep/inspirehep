@@ -6,18 +6,28 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
+from itertools import chain
 
 from inspire_dojson.utils import strip_empty_values
-from inspire_utils.date import format_date
+from inspire_utils.date import earliest_date, format_date
+from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
-from marshmallow import Schema, fields, missing, post_dump
+from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
-from ..fields import ListWithLimit, NestedWithoutEmptyObjects
+from inspirehep.records.marshmallow.authors import AuthorsMetadataSchemaV1
+from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
+from inspirehep.records.marshmallow.literature.common.author import (
+    AuthorsInfoSchemaForES,
+)
+from inspirehep.records.marshmallow.literature.common.thesis_info import (
+    ThesisInfoSchemaForESV1,
+)
+
+from ..fields import ListWithLimit
 from .common import (
     AcceleratorExperimentSchemaV1,
     AuthorSchemaV1,
-    CitationItemSchemaV1,
     CollaborationSchemaV1,
     CollaborationWithSuffixSchemaV1,
     ConferenceInfoItemSchemaV1,
@@ -25,7 +35,6 @@ from .common import (
     ExternalSystemIdentifierSchemaV1,
     IsbnSchemaV1,
     PublicationInfoItemSchemaV1,
-    ReferenceItemSchemaV1,
     ThesisInfoSchemaV1,
 )
 
@@ -111,10 +120,6 @@ class LiteratureMetadataSchemaV1(Schema):
         return strip_empty_values(data)
 
 
-class LiteratureSchemaV1(RecordSchemaJSONV1):
-    metadata = fields.Nested(LiteratureMetadataSchemaV1, dump_only=True)
-
-
 class LiteratureUISchema(RecordSchemaJSONV1):
     metadata = fields.Method("get_ui_display", dump_only=True)
 
@@ -124,3 +129,108 @@ class LiteratureUISchema(RecordSchemaJSONV1):
             return json.loads(ui_display)
         except json.JSONDecodeError:
             return {}
+
+
+class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
+    """Elasticsearch serialzier"""
+
+    _created = fields.DateTime(dump_only=True, attribute="created")
+    _updated = fields.DateTime(dump_only=True, attribute="updated")
+    abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
+    author_count = fields.Method("get_author_count")
+    authors = fields.Nested(AuthorsInfoSchemaForES, dump_only=True, many=True)
+    bookautocomplete = fields.Method("get_bookautocomplete")
+    earliest_date = fields.Method("get_earliest_date")
+    facet_inspire_doc_type = fields.Method("get_inspire_document_type")
+    facet_author_name = fields.Method("get_facet_author_name")
+    id_field = fields.UUID(dump_only=True, dump_to="id", attribute="id")
+    thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
+
+    def get_earliest_date(self, record):
+        """Prepares record for ``earliest_date`` field."""
+        result = None
+        date_paths = [
+            "preprint_date",
+            "thesis_info.date",
+            "thesis_info.defense_date",
+            "publication_info.year",
+            "legacy_creation_date",
+            "imprints.date",
+        ]
+
+        dates = [
+            str(el)
+            for el in chain.from_iterable(
+                force_list(record.get_value(path)) for path in date_paths
+            )
+        ]
+        if dates:
+            return earliest_date(dates)
+        return missing
+
+    def get_author_count(self, record):
+        """Prepares record for ``author_count`` field."""
+        authors = record.get("authors", [])
+
+        authors_excluding_supervisors = [
+            author
+            for author in authors
+            if "supervisor" not in author.get("inspire_roles", [])
+        ]
+        return len(authors_excluding_supervisors)
+
+    def get_inspire_document_type(self, record):
+        """Prepare record for ``facet_inspire_doc_type`` field."""
+        result = []
+
+        result.extend(record.get("document_type", []))
+        result.extend(record.get("publication_type", []))
+        if "refereed" in record and record["refereed"]:
+            result.append("peer reviewed")
+        return result
+
+    def get_facet_author_name(self, record):
+        """Prepare record for ``facet_author_name`` field."""
+        authors_with_record = record.get_linked_records_from_field("authors.record")
+        authors_without_record = [
+            author
+            for author in record.get("authors", [])
+            if author not in authors_with_record
+        ]
+        result = []
+
+        for author in authors_with_record:
+            result.append(
+                AuthorsMetadataSchemaV1.get_author_with_record_facet_author_name(author)
+            )
+
+        for author in authors_without_record:
+            result.append(
+                "BAI_{}".format(
+                    AuthorsMetadataSchemaV1.get_author_display_name(author["full_name"])
+                )
+            )
+
+        return result
+
+    def get_bookautocomplete(self, record):
+        """prepare ```bookautocomplete`` field."""
+        paths = ["imprints.date", "imprints.publisher", "isbns.value"]
+
+        authors = force_list(record.get_value("authors.full_name", default=[]))
+        titles = force_list(record.get_value("titles.title", default=[]))
+
+        input_values = list(
+            chain.from_iterable(
+                force_list(record.get_value(path, default=[])) for path in paths
+            )
+        )
+        input_values.extend(authors)
+        input_values.extend(titles)
+        input_values = [el for el in input_values if el]
+
+        return {"input": input_values}
+
+
+class LiteratureSchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(LiteratureMetadataSchemaV1, dump_only=True)

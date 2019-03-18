@@ -68,7 +68,7 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
             self.latex_template().render(data=data, format=self.format)
             for data in records
         ]
-        return u"\n\n".join(templates)
+        return "\n\n".join(templates)
 
 
 latex_EU = LatexSerializer("EU", schema_class=LatexSchema)

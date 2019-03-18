@@ -9,6 +9,7 @@ from invenio_records_rest.loaders.marshmallow import marshmallow_loader
 
 from ..marshmallow.literature import (
     LiteratureAuthorsSchemaV1,
+    LiteratureESEnhancementV1,
     LiteratureReferencesSchemaV1,
     LiteratureSchemaV1,
 )
