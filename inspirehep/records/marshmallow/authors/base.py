@@ -7,10 +7,9 @@
 
 from inspire_dojson.utils import strip_empty_values
 from inspire_utils.name import ParsedName
+from inspire_utils.record import get_value, get_values_for_schema
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, post_dump
-
-from inspirehep.records.utils import get_author_with_record_facet_author_name
 
 from .common import PositionSchemaV1
 
@@ -58,10 +57,26 @@ class AuthorsMetadataSchemaV1(Schema):
 
         return True
 
+    @staticmethod
+    def get_author_with_record_facet_author_name(author):
+        author_ids = author.get("ids", [])
+        author_bai = get_values_for_schema(author_ids, "INSPIRE BAI")
+        bai = author_bai[0] if author_bai else "BAI"
+        author_preferred_name = get_value(author, "name.preferred_name")
+        if author_preferred_name:
+            return "{}_{}".format(bai, author_preferred_name)
+        else:
+            return "{}_{}".format(
+                bai,
+                AuthorsMetadataSchemaV1.get_author_display_name(
+                    author["name"]["value"]
+                ),
+            )
+
     def get_facet_author_name(self, data):
         facet_author_name = data.get("facet_author_name")
         if facet_author_name is None:
-            return get_author_with_record_facet_author_name(data)
+            return self.get_author_with_record_facet_author_name(data)
         return facet_author_name
 
     @staticmethod

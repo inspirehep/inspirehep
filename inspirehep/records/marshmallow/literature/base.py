@@ -15,16 +15,13 @@ from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
+from inspirehep.records.marshmallow.authors import AuthorsMetadataSchemaV1
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
     AuthosInfoSchemaForES,
 )
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
-)
-from inspirehep.records.utils import (
-    get_author_display_name,
-    get_author_with_record_facet_author_name,
 )
 
 from ..fields import ListWithLimit
@@ -203,10 +200,16 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         result = []
 
         for author in authors_with_record:
-            result.append(get_author_with_record_facet_author_name(author))
+            result.append(
+                AuthorsMetadataSchemaV1.get_author_with_record_facet_author_name(author)
+            )
 
         for author in authors_without_record:
-            result.append("BAI_{}".format(get_author_display_name(author["full_name"])))
+            result.append(
+                "BAI_{}".format(
+                    AuthorsMetadataSchemaV1.get_author_display_name(author["full_name"])
+                )
+            )
 
         return result
 
