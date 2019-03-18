@@ -33,17 +33,11 @@ logger = logging.getLogger(__name__)
 def app():
     app = invenio_create_app()
     app_config = {}
-    app_config["CELERY_BROKER_URL"] = "pyamqp://guest:guest@localhost:5672"
     app_config["CELERY_CACHE_BACKEND"] = "memory"
     app_config["CELERY_RESULT_BACKEND"] = "cache"
     app_config["CELERY_TASK_ALWAYS_EAGER"] = False
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
     app_config["DEBUG"] = True
-    app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
-    app_config["SEARCH_ELASTIC_HOSTS"] = "localhost:9200"
-    app_config[
-        "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost:5432/inspirehep"
     app_config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app_config["TESTING"] = True
     app.config.update(app_config)

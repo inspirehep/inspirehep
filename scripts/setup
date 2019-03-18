@@ -9,14 +9,14 @@
 set -e
 
 # Clean redis
-pipenv run inspirehep shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
-pipenv run inspirehep db destroy --yes-i-know
-pipenv run inspirehep db init create
-pipenv run inspirehep index destroy --force --yes-i-know
-pipenv run inspirehep index init --force
-pipenv run inspirehep index queue init purge
+poetry run inspirehep shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
+poetry run inspirehep db destroy --yes-i-know
+poetry run inspirehep db init create
+poetry run inspirehep index destroy --force --yes-i-know
+poetry run inspirehep index init --force
+poetry run inspirehep index queue init purge
 
 # Create admin role to rectict access
-pipenv run inspirehep roles create admin
-pipenv run inspirehep access allow superuser-access role admin
-pipenv run inspirehep fixtures init
+poetry run inspirehep roles create admin
+poetry run inspirehep access allow superuser-access role admin
+poetry run inspirehep fixtures init

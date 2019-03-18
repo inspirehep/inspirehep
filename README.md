@@ -2,19 +2,17 @@
 
 ### Installation
 
-#### pyenv (optional)
+#### poetry (optional)
 
-install `pyenv` https://github.com/pyenv/pyenv
+install `poetry` https://poetry.eustace.io/docs/
 
 ```bash
-$ pip install pipenv
+$ curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 ```
 
 ### How to run
 
 These commands allow you to spin up a contenarized environment that reproduces the Inspire-HEP and Inspire-Next applications.
-
-#### Docker
 
 ```bash
 $ ./scripts/bootstrap
@@ -63,7 +61,7 @@ A selection of demo records can be found in `data` directory and they are struct
 # Local
 $ inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
 # Docker
-$ ./docker-inspire run --rm web inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
 ```
 
 #### With directory
@@ -72,7 +70,7 @@ $ ./docker-inspire run --rm web inspirehep importer records -u https://labs.insp
 # Local
 $ inspirehep importer records -d data/literature
 # Docker
-$ ./docker-inspire run --rm web inspirehep importer records -d data/literature
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -d data/literature
 ```
 
 #### With files
@@ -81,7 +79,7 @@ $ ./docker-inspire run --rm web inspirehep importer records -d data/literature
 # Local
 $ inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
 # Docker
-$ ./docker-inspire run --rm web inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
 ```
 
 ### How to test
