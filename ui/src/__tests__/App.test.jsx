@@ -89,17 +89,9 @@ describe('App', () => {
     expect(wrapper.find(User)).toExist();
   });
 
-  it('navigates to Literature when /literature if user is logged in', () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['whatever'],
-        },
-      }),
-    });
+  it('navigates to Literature when /literature', () => {
     const wrapper = mount(
-      <Provider store={store}>
+      <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
           <App />
         </MemoryRouter>
@@ -108,55 +100,15 @@ describe('App', () => {
     expect(wrapper.find(Literature)).toExist();
   });
 
-  it('does not navigate to Literature when /literature if not logged in', () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: false,
-      }),
-    });
+  it('navigates to Authors when /authors', () => {
     const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(wrapper.find(Literature)).not.toExist();
-  });
-
-  it('navigates to Authors when /authors if user is logged in', () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['whatever'],
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
+      <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
           <App />
         </MemoryRouter>
       </Provider>
     );
     expect(wrapper.find(Authors)).toExist();
-  });
-
-  it('does not navigate to Authors when /authors if not logged in', () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: false,
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter initialEntries={['/authors']} initialIndex={0}>
-          <App />
-        </MemoryRouter>
-      </Provider>
-    );
-    expect(wrapper.find(Authors)).not.toExist();
   });
 
   it('navigates to Submissions when /submissions if logged in', () => {
