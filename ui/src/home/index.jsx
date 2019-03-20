@@ -10,7 +10,7 @@ class Home extends Component {
     return (
       <Row className="__Home__" type="flex" justify="center" align="middle">
         <Col xs={24} sm={18}>
-          <Row>
+          <Row className="pt4">
             <Col>
               <h2 className="f2 tc sm-f4">
                 Discover High-Energy Physics content
