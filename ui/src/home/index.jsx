@@ -12,10 +12,10 @@ class Home extends Component {
         <Col xs={24} sm={18}>
           <Row>
             <Col>
-              <h2 className="f2 tc sm-f3">
+              <h2 className="f2 tc sm-f4">
                 Discover High-Energy Physics content
               </h2>
-              <h3 className="f3 tc mb5 sm-f4">
+              <h3 className="f3 tc mb5 sm-f5">
                 INSPIRE beta provides a sneak preview of new features currently
                 under development.
               </h3>

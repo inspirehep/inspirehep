@@ -51,6 +51,12 @@
       font-size: 1.25rem;
     }
   }
+
+  .sm-f5 {
+    @media (max-width: $screen-sm-max) {
+      font-size: 1rem;
+    }
+  }
 }
 
 .ant-drawer-body {
