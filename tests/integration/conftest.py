@@ -32,12 +32,12 @@ def app_config(app_config):
 
 @pytest.fixture(scope="function")
 def enable_files(base_app):
-    base_app.config["FEATURE_FLAG_FILES_ENABLED"] = True
+    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = True
 
 
 @pytest.fixture(scope="function")
 def disable_files(base_app):
-    base_app.config["FEATURE_FLAG_FILES_ENABLED"] = False
+    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = False
 
 
 @pytest.fixture(scope="module")
