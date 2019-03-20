@@ -9,6 +9,7 @@
 import json
 import logging
 
+from flask import current_app
 from inspire_schemas.builders import LiteratureBuilder
 
 from inspirehep.pidstore.api import PidStoreLiterature
@@ -72,8 +73,19 @@ class LiteratureRecord(InspireRecord):
         """
         if not documents and not figures and not force:
             raise TypeError("No files passed, at least one is needed")
+
         self.pop("figures", [])
         self.pop("documents", [])
+
+        if not current_app.config.get("FEATURE_FLAG_FILES_ENABLED", False):
+            #  If flag is not enabled, only save documents metadata
+            #  without processing files at all.
+            if figures:
+                self["figures"] = figures
+            if documents:
+                self["documents"] = documents
+            return
+
         files = []
         if documents or figures:
             files = self.add_files(documents=documents, figures=figures)
@@ -105,6 +117,19 @@ class LiteratureRecord(InspireRecord):
         """
         if not documents and not figures:
             raise TypeError("No files passed, at least one is needed")
+
+        if not current_app.config.get("FEATURE_FLAG_FILES_ENABLED", False):
+            if figures:
+                if "figures" not in self:
+                    self["figures"] = figures
+                else:
+                    self["figures"].extend(figures)
+            if documents:
+                if "documents" not in self:
+                    self["documents"] = documents
+                else:
+                    self["documents"].extend(documents)
+            return
         files = []
         builder = LiteratureBuilder(record=self)
         if documents:

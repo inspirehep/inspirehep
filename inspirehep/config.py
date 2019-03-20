@@ -423,3 +423,9 @@ INDEXER_REPLACE_REFS = False
 
 
 CELERY_IMPORTS = ["inspirehep.records.indexer.tasks"]
+
+
+# Feature flags
+# =============
+
+FEATURE_FLAG_FILES_ENABLED = False
