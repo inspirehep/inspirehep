@@ -77,7 +77,7 @@ class LiteratureRecord(InspireRecord):
         self.pop("figures", [])
         self.pop("documents", [])
 
-        if not current_app.config.get("FEATURE_FLAG_FILES_ENABLED", False):
+        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
             #  If flag is not enabled, only save documents metadata
             #  without processing files at all.
             if figures:
@@ -118,7 +118,7 @@ class LiteratureRecord(InspireRecord):
         if not documents and not figures:
             raise TypeError("No files passed, at least one is needed")
 
-        if not current_app.config.get("FEATURE_FLAG_FILES_ENABLED", False):
+        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
             if figures:
                 if "figures" not in self:
                     self["figures"] = figures

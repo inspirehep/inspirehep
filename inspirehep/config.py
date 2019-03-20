@@ -428,4 +428,4 @@ CELERY_IMPORTS = ["inspirehep.records.indexer.tasks"]
 # Feature flags
 # =============
 
-FEATURE_FLAG_FILES_ENABLED = False
+FEATURE_FLAG_ENABLE_FILES = False
