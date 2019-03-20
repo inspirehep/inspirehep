@@ -29,11 +29,11 @@ exports[`App renders initial state 1`] = `
         component={[Function]}
         path="/holdingpen"
       />
-      <Connect(PrivateRoute)
+      <Route
         component={[Function]}
         path="/literature"
       />
-      <Connect(PrivateRoute)
+      <Route
         component={[Function]}
         path="/authors"
       />

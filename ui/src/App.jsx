@@ -77,8 +77,8 @@ class App extends Component {
             <Route exact path={HOME} component={Home$} />
             <Route path={USER} component={User$} />
             <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
-            <PrivateRoute path={LITERATURE} component={Literature$} />
-            <PrivateRoute path={AUTHORS} component={Authors$} />
+            <Route path={LITERATURE} component={Literature$} />
+            <Route path={AUTHORS} component={Authors$} />
             <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
             <Route path={ERRORS} component={Errors$} />
           </SafeSwitch>
