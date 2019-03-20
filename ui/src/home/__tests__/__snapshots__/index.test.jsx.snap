@@ -13,6 +13,7 @@ exports[`Home renders home page 1`] = `
     xs={24}
   >
     <Row
+      className="pt4"
       gutter={0}
     >
       <Col>
