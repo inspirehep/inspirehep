@@ -231,7 +231,7 @@ def test_literature_create_or_update_with_existing_record(base_app, db):
 
 
 def test_literature_create_with_documents_and_figures(
-    fsopen_mock, base_app, db, init_files_db
+    fsopen_mock, base_app, db, init_files_db, enable_files
 ):
     figure_expected_filename = "file.png"
     document_excpected_filename = "file_name.pdf"
@@ -263,7 +263,9 @@ def test_literature_create_with_documents_and_figures(
     assert len(record["figures"]) == 1
 
 
-def test_add_and_remove_figs_and_docs(fsopen_mock, base_app, db, init_files_db):
+def test_add_and_remove_figs_and_docs(
+    fsopen_mock, base_app, db, init_files_db, enable_files
+):
     files = {
         "documents": [
             {
@@ -338,7 +340,9 @@ def test_add_and_remove_figs_and_docs(fsopen_mock, base_app, db, init_files_db):
     assert len(record["figures"]) == 1
 
 
-def test_removing_docs_and_figures(fsopen_mock, base_app, db, init_files_db):
+def test_removing_docs_and_figures(
+    fsopen_mock, base_app, db, init_files_db, enable_files
+):
     files = {
         "documents": [
             {
@@ -369,7 +373,9 @@ def test_removing_docs_and_figures(fsopen_mock, base_app, db, init_files_db):
     assert "figures" not in record
 
 
-def test_delete_record_with_files(fsopen_mock, base_app, db, init_files_db):
+def test_delete_record_with_files(
+    fsopen_mock, base_app, db, init_files_db, enable_files
+):
     data = {
         "documents": [
             {
@@ -396,7 +402,7 @@ def test_delete_record_with_files(fsopen_mock, base_app, db, init_files_db):
     assert "figures" not in record
 
 
-def test_update_record_files(fsopen_mock, base_app, db, init_files_db):
+def test_update_record_files(fsopen_mock, base_app, db, init_files_db, enable_files):
     data = {
         "documents": [
             {
@@ -494,3 +500,96 @@ def test_dump_for_es(base_app, db):
     assert "_collections" in ui_field
     assert record["titles"] == ui_field["titles"]
     assert record["control_number"] == ui_field["control_number"]
+
+
+def test_literature_create_with_documents_and_figures_files_flag_disabled(
+    fsopen_mock, base_app, db, init_files_db, disable_files
+):
+
+    expected_doc_filename = "document_file"
+    expected_fig_filename = "figure_file"
+    data = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": expected_doc_filename,
+            }
+        ],
+        "figures": [
+            {"url": "http://figure_url.cern.ch/file.png", "key": expected_fig_filename}
+        ],
+    }
+
+    data = faker.record("lit", data=data)
+
+    record = LiteratureRecord.create(data)
+    assert len(record.files.keys) == 0
+
+    with pytest.raises(KeyError):
+        record["_files"]
+
+    assert "documents" in record
+    assert "figures" in record
+
+    assert len(record["documents"]) == 1
+    assert len(record["figures"]) == 1
+
+    assert record["documents"][0]["key"] == expected_doc_filename
+    assert record["figures"][0]["key"] == expected_fig_filename
+
+
+def test_add_and_remove_figs_and_docs_when_files_flag_disabled(
+    fsopen_mock, base_app, db, init_files_db, disable_files
+):
+    expected_doc_filename = "document_file"
+    expected_fig_filename = "figure_file"
+
+    files = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": expected_doc_filename,
+            }
+        ],
+        "figures": [
+            {"url": "http://figure_url.cern.ch/file.png", "key": expected_fig_filename}
+        ],
+    }
+
+    data = faker.record("lit")
+    record = LiteratureRecord.create(data)
+
+    record.add_files(**files)
+    # added 2 records, should be 0
+    assert len(record.files.keys) == 0
+
+    with pytest.raises(KeyError):
+        record["_files"]
+
+    assert "documents" in record
+    assert "figures" in record
+
+    assert len(record["documents"]) == 1
+    assert len(record["figures"]) == 1
+
+    assert record["documents"][0]["key"] == expected_doc_filename
+    assert record["figures"][0]["key"] == expected_fig_filename
+
+    record.set_files(documents=files["documents"])
+    # when set only documents, figures should be removed
+
+    with pytest.raises(KeyError):
+        record["_files"]
+
+    assert "documents" in record
+    assert "figures" not in record
+
+    assert len(record.files.keys) == 0
+
+    assert len(record["documents"]) == 1
+    with pytest.raises(KeyError):
+        record["figures"]
+
+    assert record["documents"][0]["key"] == expected_doc_filename

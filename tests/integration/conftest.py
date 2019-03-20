@@ -30,6 +30,16 @@ def app_config(app_config):
     return app_config
 
 
+@pytest.fixture(scope="function")
+def enable_files(base_app):
+    base_app.config["FEATURE_FLAG_FILES_ENABLED"] = True
+
+
+@pytest.fixture(scope="function")
+def disable_files(base_app):
+    base_app.config["FEATURE_FLAG_FILES_ENABLED"] = False
+
+
 @pytest.fixture(scope="module")
 def create_app():
     return invenio_create_app
