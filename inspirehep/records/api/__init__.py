@@ -11,4 +11,3 @@
 from .authors import AuthorsRecord  # noqa: F401
 from .base import InspireRecord  # noqa: F401
 from .literature import LiteratureRecord  # noqa: F401
-from .receivers import index_after_commit  # noqa: F401

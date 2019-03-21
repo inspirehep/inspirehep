@@ -11,7 +11,8 @@ from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_search import current_search_client as es
 
-from inspirehep.records.api import LiteratureRecord, index_after_commit
+from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.receivers import index_after_commit
 
 
 def test_lit_record_appear_in_es_when_created(
