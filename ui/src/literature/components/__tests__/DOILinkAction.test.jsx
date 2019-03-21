@@ -5,9 +5,7 @@ import DOILinkAction from '../DOILinkAction';
 
 describe('DOILinkAction', () => {
   it('renders with a doi id', () => {
-    const wrapper = shallow(
-      <DOILinkAction arxivId="10.1007/s11182-019-01606-1" />
-    );
+    const wrapper = shallow(<DOILinkAction doi="10.1007/s11182-019-01606-1" />);
     expect(wrapper).toMatchSnapshot();
   });
 });

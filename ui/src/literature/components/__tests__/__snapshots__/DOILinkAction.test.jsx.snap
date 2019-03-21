@@ -10,7 +10,7 @@ exports[`DOILinkAction renders with a doi id 1`] = `
     iconType="link"
     link={
       Object {
-        "href": "//doi.org/undefined",
+        "href": "//doi.org/10.1007/s11182-019-01606-1",
         "target": "_blank",
       }
     }
