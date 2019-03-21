@@ -74,21 +74,14 @@ class LiteratureRecord(InspireRecord):
         if not documents and not figures and not force:
             raise TypeError("No files passed, at least one is needed")
 
-        self.pop("figures", [])
-        self.pop("documents", [])
-
-        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
-            #  If flag is not enabled, only save documents metadata
-            #  without processing files at all.
-            if figures:
-                self["figures"] = figures
-            if documents:
-                self["documents"] = documents
-            return
+        self.pop("figures", None)
+        self.pop("documents", None)
 
         files = []
         if documents or figures:
             files = self.add_files(documents=documents, figures=figures)
+        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
+            return []
         keys = [file_metadata["key"] for file_metadata in files]
         for key in list(self.files.keys):
             if key not in keys:
@@ -120,16 +113,11 @@ class LiteratureRecord(InspireRecord):
 
         if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
             if figures:
-                if "figures" not in self:
-                    self["figures"] = figures
-                else:
-                    self["figures"].extend(figures)
+                self.setdefault("figures", []).extend(figures)
+
             if documents:
-                if "documents" not in self:
-                    self["documents"] = documents
-                else:
-                    self["documents"].extend(documents)
-            return
+                self.setdefault("documents", []).extend(documents)
+            return []
         files = []
         builder = LiteratureBuilder(record=self)
         if documents:
