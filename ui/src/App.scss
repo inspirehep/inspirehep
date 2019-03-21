@@ -1,5 +1,22 @@
 .__App__ {
   min-height: 100vh !important;
+
+  // The following should be moved in different place
+  .ant-card {
+    color: $text-color;
+  }
+
+  .ant-list {
+    color: $text-color;
+    .ant-list-item-meta-description {
+      color: $text-color;
+    }
+  }
+
+  .ant-checkbox-wrapper {
+    color: $text-color;
+  }
+
   .content {
     padding: 0 2.85rem;
     display: flex;
