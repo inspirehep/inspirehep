@@ -23,7 +23,22 @@ $ ./docker-inspire run --rm web-next scripts/setup_inspire_next
 
 ### How to test
 
+#### python (unit and integration suites)
+
 ```bash
-$ docker-compose up -d
+$ ./docker-inspire up -d
 $ ./run-tests.sh
+```
+
+#### js (unit and ui-tests)
+
+```bash
+yarn # if you haven't install the dependencies
+yarn test # in ui folder
+```
+
+#### e2e
+
+```bash
+./run-e2e.sh
 ```
