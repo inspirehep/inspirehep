@@ -1,6 +1,6 @@
 #!/bin/bash -xe
 rc=0
-alias compose="docker-compose -f ./docker-compose.yml -f ./e2e/docker-compose.e2e.yml"
+alias compose="docker-compose -f ./docker-compose.core.yml -f ./e2e/docker-compose.e2e.yml"
 compose up -d --force-recreate
 compose run --rm web ./scripts/setup
 compose exec web-next ./scripts/setup_inspire_next
