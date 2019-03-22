@@ -5,43 +5,41 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+# Core for e2e and local development
+
 version: '2.1'
 services:
   cache:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: cache
     ports:
      - "6379:6379"
   db:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: db
     ports:
      - "5432:5432"
   mq:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: mq
     ports:
      - "5672:5672"
   es:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: es
     ports:
      - "9200:9200"
   flower:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: flower
     ports:
      - "5555:5555"
-  kibana:
-    extends:
-      file: docker-services.yml
-      service: kibana
-  ui:
+  ui: # TODO: change the name since to app or lb since it's the main entry point for every request
     build:
       context: ui
       dockerfile: docker/Dockerfile-ui
@@ -54,14 +52,14 @@ services:
       - web-next
   web:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: app
     ports:
      - "8000:8000"
     command: pipenv run gunicorn --reload -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application
   worker:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: app
     command: ./scripts/server
     depends_on:
@@ -71,7 +69,7 @@ services:
       - cache
   web-next:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: inspire-next
     command: gunicorn -b 0.0.0.0:5000 --access-logfile "-" --reload --log-level debug inspirehep.wsgi
     ports:
@@ -80,7 +78,7 @@ services:
       - worker-next
   worker-next:
     extends:
-      file: docker-services.yml
+      file: docker-compose.services.yml
       service: inspire-next
     command: celery worker -E -A inspirehep.celery --loglevel=INFO --purge --queues celery,migrator,orcid_push,indexer_task
     healthcheck:

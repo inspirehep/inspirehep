@@ -16,9 +16,9 @@ These commands allow you to spin up a contenarized environment that reproduces t
 
 ```bash
 $ ./scripts/bootstrap
-$ docker-compose up -d
-$ docker-compose run --rm web ./scripts/setup
-$ docker-compose run --rm web-next scripts/setup_inspire_next
+$ ./docker-inspire up -d
+$ ./docker-inspire run --rm web ./scripts/setup
+$ ./docker-inspire run --rm web-next scripts/setup_inspire_next
 ```
 
 ### How to test
