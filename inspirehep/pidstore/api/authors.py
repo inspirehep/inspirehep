@@ -7,9 +7,10 @@
 
 
 from ..minters.control_number import AuthorsMinter
+from ..minters.orcid import OrcidMinter
 from .base import PidStoreBase
 
 
 class PidStoreAuthors(PidStoreBase):
 
-    minters = [AuthorsMinter]
+    minters = [AuthorsMinter, OrcidMinter]

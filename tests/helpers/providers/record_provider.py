@@ -34,6 +34,13 @@ class RecordProvider(BaseProvider):
             fake.random_number(digits=5, fix_len=True),
         )
 
+    def orcid(self):
+        return "0000-{}-{}-{}".format(
+            fake.random_number(digits=4, fix_len=True),
+            fake.random_number(digits=4, fix_len=True),
+            fake.random_number(digits=4, fix_len=True),
+        )
+
     @staticmethod
     def hep_record():
         return {
