@@ -248,6 +248,8 @@ AUTHORS = {
         "application/json": "invenio_records_rest.serializers:json_v1_response",
         "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
         + ":authors_json_v1_response",
+        "application/vnd+inspire.record.control_number+json": INSPIRE_SERIALIZERS
+        + ":authors_control_number_only_json_v1_response",
     },
     "search_serializers": {
         "application/json": "invenio_records_rest.serializers:json_v1_search",

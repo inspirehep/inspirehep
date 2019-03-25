@@ -9,7 +9,10 @@ import json
 
 from helpers.providers.faker import faker
 
-from inspirehep.records.marshmallow.authors import AuthorsMetadataSchemaV1
+from inspirehep.records.marshmallow.authors import (
+    AuthorsMetadataOnlyControlNumberSchemaV1,
+    AuthorsMetadataSchemaV1,
+)
 
 
 def test_should_display_positions_without_positions():
@@ -164,3 +167,18 @@ def test_facet_author_name_without_ids():
     result_facet_author_name = result_data.get("facet_author_name")
 
     assert expected_result == result_facet_author_name
+
+
+def test_only_control_number_schema_ignores_other_fields():
+    schema = AuthorsMetadataOnlyControlNumberSchemaV1()
+    data = {
+        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
+        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
+    }
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_result = {"control_number": author["control_number"]}
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+
+    assert result_data == expected_result

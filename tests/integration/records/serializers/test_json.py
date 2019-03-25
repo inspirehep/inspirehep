@@ -272,6 +272,30 @@ def test_authors_default_json_v1_response(api_client, db, create_record, datadir
     assert expected_result == response_data_metadata
 
 
+def test_authors_default__only_control_number_json_v1_response(
+    api_client, db, create_record, datadir
+):
+    headers = {"Accept": "application/vnd+inspire.record.control_number+json"}
+
+    data = json.loads((datadir / "999108.json").read_text())
+
+    record = create_record("aut", data=data)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    expected_result = {"control_number": record_control_number}
+    response = api_client.get(
+        "/authors/{}".format(record_control_number), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
 def test_authors_default_json_v1_response_search(
     api_client, db, create_record, datadir
 ):
