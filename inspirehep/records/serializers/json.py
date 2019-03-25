@@ -14,7 +14,7 @@ from invenio_records_rest.serializers.response import (
 )
 from marshmallow import Schema
 
-from ..marshmallow.authors import AuthorsSchemaV1
+from ..marshmallow.authors import AuthorsOnlyControlNumberSchemaV1, AuthorsSchemaV1
 from ..marshmallow.literature import (
     LiteratureAuthorsSchemaV1,
     LiteratureReferencesSchemaV1,
@@ -65,7 +65,12 @@ literature_references_json_v1_response = record_responsify(
 # Authors
 
 authors_json_v1 = JSONSerializer(AuthorsSchemaV1)
-
 authors_json_v1_response = record_responsify(
     authors_json_v1, "application/vnd+inspire.record.ui+json"
+)
+
+authors_control_number_only_json_v1 = JSONSerializer(AuthorsOnlyControlNumberSchemaV1)
+authors_control_number_only_json_v1_response = record_responsify(
+    authors_control_number_only_json_v1,
+    "application/vnd+inspire.record.control_number+json",
 )

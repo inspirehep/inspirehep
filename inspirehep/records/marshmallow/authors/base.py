@@ -91,3 +91,11 @@ class AuthorsMetadataSchemaV1(Schema):
 
 class AuthorsSchemaV1(RecordSchemaJSONV1):
     metadata = fields.Nested(AuthorsMetadataSchemaV1, dump_only=True)
+
+
+class AuthorsMetadataOnlyControlNumberSchemaV1(Schema):
+    control_number = fields.Raw(dump_only=True)
+
+
+class AuthorsOnlyControlNumberSchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(AuthorsMetadataOnlyControlNumberSchemaV1, dump_only=True)

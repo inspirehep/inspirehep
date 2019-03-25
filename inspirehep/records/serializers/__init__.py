@@ -7,6 +7,7 @@
 
 from .bibtex import literature_bibtex_response, literature_bibtex_response_search
 from .json import (
+    authors_control_number_only_json_v1_response,
     authors_json_v1_response,
     facets_json_response_search,
     literature_authors_json_v1_response,
