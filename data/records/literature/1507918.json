@@ -1,0 +1,233 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "abstracts": [
+    {
+      "value":
+        "High-Energy Physics (HEP) has a long tradition in pioneering infrastructures for scholarly communication, and four leading laboratories are now rolling-out the next-generation digital library for the field: INSPIRE. This is an evolution of the extraordinarily successful, 40-years old SPIRES database. Based on the Invenio software, INSPIRE already provides seamless access to almost 1 million records, which will be expanded to cover multimedia, data, software, wikis. Services offered include citation analysis, fulltext search, extraction of figures from fulltext and search in figure captions, automatic keyword assignment, metadata harvesting, retrodigitization, ingestion and automatic display of LaTeX, and storage of supplementary materials like Mathematica notebooks. New services are in different phases of design or implementation, in strategic partnerships with all other information providers in the field and neighbouring disciplines, including automatic author disambiguation, user tagging, crowdsourcing of metadata curation, automatic document classification, semantic analysis, innovative metrics, recommender systems, object aggregation with OAI-ORE definition, integration of OAIS standards for long-term document preservation."
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Holtkamp, Annette",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "A.Holtkamp.1" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1005691" },
+      "signature_block": "HALTCANPa",
+      "uuid": "66e2da4b-8e73-4e18-bdb4-5ab00b4a606e"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        }
+      ],
+      "full_name": "Mele, Salvatore",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "S.Mele.1" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/997876" },
+      "signature_block": "MALs",
+      "uuid": "cdca5ba5-5165-4954-aad7-6cb06965909c"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        }
+      ],
+      "full_name": "Simko, Tibor",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "T.Simko.1" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1711962" },
+      "signature_block": "SANCt",
+      "uuid": "84905164-a0d0-4416-a302-8e05e0264902"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Smith, Tim",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "T.J.Smith.1" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1060869" },
+      "signature_block": "SNATHt",
+      "uuid": "86d6336d-4183-4dea-a695-58c8485270fe"
+    }
+  ],
+  "collaborations": [{ "value": "INSPIRE" }],
+  "control_number": 1507918,
+  "curated": true,
+  "document_type": ["conference paper"],
+  "documents": [
+    {
+      "key": "CERN-OPEN-2010-019.pdf",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g139/2794433/content.pdf%3B1"
+    },
+    {
+      "key": "DML2010.pdf",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g139/2794434/content.pdf%3B1"
+    }
+  ],
+  "external_system_identifiers": [{ "schema": "CDS", "value": "1276784" }],
+  "inspire_categories": [{ "term": "Other" }],
+  "keywords": [
+    { "source": "author", "value": "digital library" },
+    { "source": "author", "value": "INSPIRE" },
+    { "source": "author", "value": "Invenio" }
+  ],
+  "legacy_creation_date": "2017-01-06",
+  "legacy_version": "20170120133426.0",
+  "number_of_pages": 9,
+  "preprint_date": "2010-06-03",
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/786211" },
+      "reference": {
+        "arxiv_eprint": "0805.2739",
+        "authors": [
+          { "full_name": "Heuer, R." },
+          { "full_name": "Holtkamp, A." },
+          { "full_name": "Mele, S." }
+        ],
+        "label": "1",
+        "misc": ["Info. Ser. and Use 28  83"],
+        "publication_info": { "year": 2008 }
+      }
+    },
+    {
+      "reference": {
+        "label": "2",
+        "urls": [{ "value": "http://inspirebeta.net" }]
+      }
+    },
+    {
+      "reference": { "label": "3", "urls": [{ "value": "http://arXiv.org" }] }
+    },
+    {
+      "reference": {
+        "label": "4",
+        "urls": [{ "value": "http://www.slac.stanford.edu/spires/" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "5",
+        "urls": [{ "value": "http://cdsware.cern.ch/invenio/index.html" }]
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Addis, L." }],
+        "label": "6",
+        "urls": [
+          { "value": "http://www.slac.stanford.edu/spires/papers/history.html" }
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/783701" },
+      "reference": {
+        "arxiv_eprint": "0804.2701",
+        "authors": [{ "full_name": "Gentil-Beccot, A." }],
+        "label": "7",
+        "misc": ["J. Am Soc. Inf. Sci. Technol. 60  150"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "reference": {
+        "label": "8",
+        "urls": [{ "value": "http://indico.cern.ch/event/11611" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "9",
+        "urls": [{ "value": "http://www.loc.gov/standards/marcxml" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "10",
+        "urls": [
+          {
+            "value": "http://www.openarchives.org/OAI/openarchivesprotocol.html"
+          }
+        ]
+      }
+    },
+    {
+      "reference": {
+        "label": "11",
+        "urls": [{ "value": "http://www.math.union.edu/~dpvc/jsMath/" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "12",
+        "urls": [{ "value": "http://www.orcid.org" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "13",
+        "urls": [{ "value": "http://www.openarchives.org/ore/" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "14",
+        "urls": [{ "value": "http://www-library.desy.de/akw/HEPont.rdf" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "15",
+        "misc": [
+          "Reference Model for an Open Archival Information System (OAIS)"
+        ],
+        "urls": [
+          {
+            "value": "http://public.ccsds.org/publications/archive/650x0b1.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "reference": {
+        "label": "16",
+        "urls": [{ "value": "http://adswww.harvard.edu/" }]
+      }
+    }
+  ],
+  "report_numbers": [{ "value": "CERN-OPEN-2010-019" }],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1507918" },
+  "texkeys": ["Holtkamp:2010cca"],
+  "titles": [
+    {
+      "title":
+        "INSPIRE: Realizing the dream of a global digital library in High-Energy Physics"
+    }
+  ]
+}

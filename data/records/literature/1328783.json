@@ -1,0 +1,989 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "D14-kj48c" },
+    { "date": "2014-11-27", "expert": "Y", "status": "fullabs" },
+    { "date": "2014-11-30", "expert": "Y", "status": "printed" },
+    { "date": "2014-12-08", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1971007" }],
+  "abstracts": [
+    {
+      "source": "Elsevier",
+      "value":
+        "The Standard Model of particle physics is still lacking an understanding of the generation and nature of neutrino masses. A favorite theoretical scenario (the see-saw mechanism) is that both Dirac and Majorana mass terms are present, leading to the existence of heavy partners of the light neutrinos, presumably massive and nearly sterile. These heavy neutrinos can be searched for at high energy lepton colliders of very high luminosity, such as the Future electron-positron e+e\u2212 Circular Collider, FCC-ee (TLEP), presently studied within the Future Circular Collider design study at CERN, as a possible first step. A first look at sensitivities, both from neutrino counting and from direct search for heavy neutrino decay, are presented. The number of neutrinos N\u03bd should be measurable with a precision of \u0394N\u03bd\u2248\u00b1(0.0004\u20130.0010) , while the direct search appears very promising due to the long lifetime of heavy neutrinos for small mixing angles. A sensitivity down to a heavy-light mixing of |U|2\u224310\u221212 is obtained, covering a large phase space for heavy neutrino masses between 10 and 80 GeV/ c 2 ."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "The Standard Model of particle physics is still lacking an understanding of the generation and nature of neutrino masses. A favorite theoretical scenario (the see-saw mechanism) is that both Dirac and Majorana mass terms are present, leading to the existence of heavy partners of the light neutrinos, presumably massive and nearly sterile. These heavy neutrinos can be searched for at high energy lepton colliders of very high luminosity, such as the Future electron-positron e+e- Circular Collider, FCC-ee (TLEP), presently studied within the Future Circular Collider design study at CERN, as a possible first step. A first look at sensitivities, both from neutrino counting and from direct search for heavy neutrino decay, are presented. The number of neutrinos should be measurable with a precision between 0.001 - 0.0004, while the direct search appears very promising due to the long lifetime of heavy neutrinos for small mixing angles. A sensitivity down to a heavy-light mixing of 10^{-12} is obtained, covering a large phase-space for heavy neutrino masses between 10 and 80 GeV/c2."
+    }
+  ],
+  "accelerator_experiments": [{ "accelerator": "FCC-ee" }],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [
+    { "categories": ["hep-ex", "hep-ph"], "value": "1411.5230" }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902813"
+          },
+          "value": "Geneva U."
+        }
+      ],
+      "full_name": "Blondel, Alain",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "A.Blondel.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "DPNC, University of Geneva, Quai Ansermet 24, Geneva, CH-1205, Switzerland"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1016112" },
+      "signature_block": "BLANDALa",
+      "uuid": "51ba971f-29b4-4e64-8655-2261ff1ea20a"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903370"
+          },
+          "value": "Zurich U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Graverini, E.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Elena.Graverini.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Physik Institut, University of Zurich, Zurich, CH-8057, Switzerland"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1341938" },
+      "signature_block": "GRAVARANe",
+      "uuid": "e92e0787-5b24-4b2f-bcf0-ee774eb4daf8"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903370"
+          },
+          "value": "Zurich U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Serra, N.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "N.Serra.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Physik Institut, University of Zurich, Zurich, CH-8057, Switzerland"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1043163" },
+      "signature_block": "SARn",
+      "uuid": "e06bd6bf-4f13-4bd2-aa2a-5d04b90af4bc"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/910559"
+          },
+          "value": "ITPP, Lausanne"
+        }
+      ],
+      "full_name": "Shaposhnikov, M.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.E.Shaposhnikov.1" }],
+      "raw_affiliations": [
+        { "value": "ITPP, EPFL, Lausanne, CH-1015, Switzerland" }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/989136" },
+      "signature_block": "SAPASNACAVm",
+      "uuid": "6b470be9-171a-4fa2-a1ab-d033c35ee2f0"
+    }
+  ],
+  "citeable": true,
+  "collaborations": [{ "value": "FCC-ee study Team" }],
+  "control_number": 1328783,
+  "copyright": [{ "statement": "Elsevier B.V." }],
+  "core": true,
+  "curated": true,
+  "document_type": ["conference paper"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "S2405601415007932.xml",
+      "source": "Elsevier",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g128/2579954/content.xml%3B1"
+    },
+    {
+      "fulltext": true,
+      "key": "10.1016_j.nuclphysbps.2015.09.304.pdf",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g139/2787828/content.pdf%3B1"
+    },
+    {
+      "key": "arXiv:1411.5230.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g100/2003070/content.pdf%3B2"
+    }
+  ],
+  "dois": [
+    { "source": "bibmatch", "value": "10.1016/j.nuclphysbps.2015.09.304" }
+  ],
+  "energy_ranges": ["300-1000 GeV"],
+  "imprints": [{ "date": "2016-12-22" }],
+  "inspire_categories": [
+    { "term": "Experiment-HEP" },
+    { "term": "Phenomenology-HEP" }
+  ],
+  "keywords": [
+    { "source": "author", "value": "Heavy neutrinos" },
+    { "source": "author", "value": "Higgs Factory" },
+    { "source": "author", "value": "FCC" },
+    { "source": "author", "value": "e+e\u2212 colliders" },
+    { "source": "author", "value": "[formula omitted] colliders" },
+    { "schema": "INSPIRE", "value": "neutrino: mass" },
+    { "schema": "INSPIRE", "value": "neutrino: heavy: search for" },
+    { "schema": "INSPIRE", "value": "neutrino: heavy: decay" },
+    { "schema": "INSPIRE", "value": "neutrino: right-handed" },
+    { "schema": "INSPIRE", "value": "neutrino: production" },
+    { "schema": "INSPIRE", "value": "neutrino: decay" },
+    { "schema": "INSPIRE", "value": "neutrino: Majorana: mass" },
+    { "schema": "INSPIRE", "value": "neutrino: energy: high" },
+    { "schema": "INSPIRE", "value": "luminosity: high" },
+    { "schema": "INSPIRE", "value": "sensitivity" },
+    { "schema": "INSPIRE", "value": "electron positron" },
+    { "schema": "INSPIRE", "value": "mixing angle" },
+    { "schema": "INSPIRE", "value": "seesaw model" },
+    { "schema": "INSPIRE", "value": "phase space" },
+    { "schema": "INSPIRE", "value": "CERN Lab" },
+    { "schema": "INSPIRE", "value": "lifetime" },
+    { "schema": "INSPIRE", "value": "decay: length" },
+    { "schema": "INSPIRE", "value": "neutrino: sterile" },
+    { "schema": "INSPIRE", "value": "Z0: invisible decay" },
+    { "schema": "INSPIRE", "value": "electron positron --> Z0 photon" },
+    { "schema": "INSPIRE", "value": "Z0 --> neutrino neutrino" },
+    { "schema": "INSPIRE", "value": "Z0 --> lepton neutrino quark quark" },
+    { "schema": "INSPIRE", "value": "90-350 GeV-cms" }
+  ],
+  "legacy_creation_date": "2014-11-20",
+  "legacy_version": "20190325123840.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    },
+    { "url": "http://creativecommons.org/licenses/by/4.0/" }
+  ],
+  "number_of_pages": 8,
+  "preprint_date": "2014-11-19",
+  "public_notes": [
+    { "source": "arXiv", "value": "Contribution to ICHEP 2014, Valencia" }
+  ],
+  "publication_info": [
+    {
+      "cnum": "C14-07-02",
+      "conference_record": {
+        "$ref": "http://labs.inspirehep.net/api/conferences/1203206"
+      },
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1365972"
+      },
+      "journal_title": "Nucl.Part.Phys.Proc.",
+      "journal_volume": "273-275",
+      "page_end": "1890",
+      "page_start": "1883",
+      "parent_record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1466669"
+      },
+      "year": 2016
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1124337" },
+      "reference": {
+        "arxiv_eprint": "1207.7214",
+        "authors": [{ "full_name": "Aad, G." }],
+        "dois": ["10.1016/j.physletb.2012.08.020"],
+        "label": "1",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "716",
+          "page_start": "1",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1124338" },
+      "reference": {
+        "arxiv_eprint": "1207.7235",
+        "authors": [{ "full_name": "Chatrchyan, S." }],
+        "dois": ["10.1016/j.physletb.2012.08.021"],
+        "label": "2",
+        "publication_info": {
+          "artid": "30",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "716",
+          "page_start": "30",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Observation of a new boson at a mass of 125 GeV with the CMS experiment at the LHC"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1220029" },
+      "reference": {
+        "arxiv_eprint": "1112.2518",
+        "authors": [
+          { "full_name": "Blondel, A." },
+          { "full_name": "Zimmermann, F." }
+        ],
+        "label": "3",
+        "publication_info": { "year": 2011 },
+        "title": {
+          "title":
+            "A High Luminosity e+e\u2212 Collider in the LHC tunnel to study the Higgs Boson"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1125572" },
+      "reference": {
+        "arxiv_eprint": "1208.0504",
+        "authors": [
+          { "full_name": "Blondel, A." },
+          { "full_name": "Koratzinos, M." },
+          { "full_name": "Assmann, R." },
+          { "full_name": "Butterworth, A." },
+          { "full_name": "Janot, P." }
+        ],
+        "label": "4",
+        "publication_info": { "year": 2012 },
+        "title": {
+          "title":
+            "LEP3: A High Luminosity e+ e- Collider to study the Higgs Boson"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1219324" },
+      "reference": {
+        "arxiv_eprint": "1302.3318",
+        "authors": [
+          { "full_name": "Blondel, A." },
+          { "full_name": "Chao, A." },
+          { "full_name": "Chou, W." },
+          { "full_name": "Gao, J." },
+          { "full_name": "Schulte, D." }
+        ],
+        "label": "5",
+        "publication_info": { "year": 2013 },
+        "title": {
+          "title":
+            "Report of the ICFA Beam Dynamics Workshop \u2018Accelerators for a Higgs Factory: Linear vs. Circular\u2019 (HF2012)"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1235899" },
+      "reference": {
+        "arxiv_eprint": "1305.6498",
+        "authors": [
+          { "full_name": "Koratzinos, M." },
+          { "full_name": "Blondel, A." },
+          { "full_name": "Aleksan, R." },
+          { "full_name": "Brunner, O." },
+          { "full_name": "Butterworth, A." }
+        ],
+        "label": "6",
+        "publication_info": { "year": 2013 },
+        "title": {
+          "title":
+            "TLEP: A High-Performance Circular e+ e- Collider to Study the Higgs Boson"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1239878" },
+      "reference": {
+        "arxiv_eprint": "1306.5981",
+        "authors": [
+          { "full_name": "Koratzinos, M." },
+          { "full_name": "Blondel, A." },
+          { "full_name": "Aleksan, R." },
+          { "full_name": "Janot, P." },
+          { "full_name": "Zimmermann, F." }
+        ],
+        "label": "7",
+        "publication_info": { "year": 2013 },
+        "title": { "title": "TLEP, first step in a long-term vision for HEP" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1251418" },
+      "reference": {
+        "arxiv_eprint": "1308.6176",
+        "authors": [{ "full_name": "Bicer, M." }],
+        "dois": ["10.1007/JHEP01(2014)164"],
+        "label": "8",
+        "publication_info": {
+          "artid": "164",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "164",
+          "year": 2014
+        },
+        "title": { "title": "First Look at the Physics Case of TLEP" }
+      }
+    },
+    {
+      "reference": {
+        "label": "9",
+        "title": { "title": "The FCC design study" },
+        "urls": [{ "value": "http://cern.ch/fcc" }]
+      }
+    },
+    {
+      "reference": {
+        "label": "10",
+        "title": { "title": "The FCC-ee design study" },
+        "urls": [{ "value": "http://cern.ch/fcc-ee" }]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1263698" },
+      "reference": {
+        "authors": [
+          { "full_name": "Bogomyagkov, A." },
+          { "full_name": "Levichev, E." },
+          { "full_name": "Shatilov, D." }
+        ],
+        "dois": ["10.1103/PhysRevSTAB.17.041004"],
+        "label": "11",
+        "publication_info": {
+          "artid": "041004",
+          "journal_title": "Phys.Rev.ST Accel.Beams",
+          "journal_volume": "17",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Beam-beam effects investigation and parameters optimization for a circular e+e\u2212 collider at very high energies"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1249807" },
+      "reference": {
+        "arxiv_eprint": "1308.3726",
+        "authors": [
+          { "full_name": "Harrison, M." },
+          { "full_name": "Ross, M." },
+          { "full_name": "Walker, N." }
+        ],
+        "label": "12",
+        "publication_info": { "year": 2013 },
+        "title": { "title": "Luminosity Upgrades for ILC" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1126428" },
+      "reference": {
+        "authors": [
+          { "full_name": "Nakamura, K." },
+          { "full_name": "Petcov, S." }
+        ],
+        "dois": ["10.1103/PhysRevD.86.010001"],
+        "label": "13",
+        "publication_info": {
+          "artid": "010001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "86",
+          "year": 2012
+        },
+        "title": {
+          "title": "Review 14: neutrino mass, mixing, and oscillations"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/4994" },
+      "reference": {
+        "authors": [{ "full_name": "Minkowski, P." }],
+        "dois": ["10.1016/0370-2693(77)90435-X"],
+        "label": "14",
+        "publication_info": {
+          "artid": "421",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "67",
+          "page_start": "421",
+          "year": 1977
+        },
+        "title": {
+          "title":
+            "\u03bc\u2192e\u03b3 at a Rate of One Out of 1-Billion Muon Decays?"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/143150" },
+      "reference": {
+        "authors": [{ "full_name": "Yanagida, T." }],
+        "label": "15",
+        "misc": ["HORIZONTAL SYMMETRY AND MASSES OF NEUTRINOS"],
+        "publication_info": {
+          "journal_title": "Conf.Proc.C",
+          "journal_volume": "7902131",
+          "page_end": "99",
+          "page_start": "95",
+          "year": 1979
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/9686" },
+      "reference": {
+        "arxiv_eprint": "1306.4669",
+        "authors": [
+          { "full_name": "Gell-Mann, M." },
+          { "full_name": "Ramond, P." },
+          { "full_name": "Slansky, R." }
+        ],
+        "label": "16",
+        "misc": ["pp. 315\u2013321."],
+        "publication_info": { "year": 1979 },
+        "title": {
+          "title": "Complex Spinors and Unified Theories, Conf. Proc. C790927"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/143802" },
+      "reference": {
+        "authors": [
+          { "full_name": "Mohapatra, R.N." },
+          { "full_name": "Senjanovic, G." }
+        ],
+        "dois": ["10.1103/PhysRevLett.44.912"],
+        "label": "17",
+        "publication_info": {
+          "artid": "912",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "44",
+          "page_start": "912",
+          "year": 1980
+        },
+        "title": { "title": "Neutrino Mass and Spontaneous Parity Violation" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/677890" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0503065",
+        "authors": [
+          { "full_name": "Asaka, T." },
+          { "full_name": "Blanchet, S." },
+          { "full_name": "Shaposhnikov, M." }
+        ],
+        "dois": ["10.1016/j.physletb.2005.09.070"],
+        "label": "18",
+        "publication_info": {
+          "artid": "151",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "631",
+          "page_start": "151",
+          "year": 2005
+        },
+        "title": { "title": "The nuMSM, dark matter and neutrino masses" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/467841" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9803255",
+        "authors": [
+          { "full_name": "Akhmedov, E.K." },
+          { "full_name": "Rubakov, V." },
+          { "full_name": "Smirnov, A.Y." }
+        ],
+        "dois": ["10.1103/PhysRevLett.81.1359"],
+        "label": "19",
+        "publication_info": {
+          "artid": "1359",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "81",
+          "page_start": "1359",
+          "year": 1998
+        },
+        "title": { "title": "Baryogenesis via neutrino oscillations" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/681771" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0505013",
+        "authors": [
+          { "full_name": "Asaka, T." },
+          { "full_name": "Shaposhnikov, M." }
+        ],
+        "dois": ["10.1016/j.physletb.2005.06.020"],
+        "label": "20",
+        "publication_info": {
+          "artid": "17",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "620",
+          "page_start": "17",
+          "year": 2005
+        },
+        "title": {
+          "title": "The nuMSM, dark matter and baryon asymmetry of the universe"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/810132" },
+      "reference": {
+        "arxiv_eprint": "0901.0011",
+        "authors": [
+          { "full_name": "Boyarsky, A." },
+          { "full_name": "Ruchayskiy, O." },
+          { "full_name": "Shaposhnikov, M." }
+        ],
+        "dois": ["10.1146/annurev.nucl.010909.083654"],
+        "label": "21",
+        "publication_info": {
+          "artid": "191",
+          "journal_title": "Ann.Rev.Nucl.Part.Sci.",
+          "journal_volume": "59",
+          "page_start": "191",
+          "year": 2009
+        },
+        "title": {
+          "title": "The Role of sterile neutrinos in cosmology and astrophysics"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1280882" },
+      "reference": {
+        "arxiv_eprint": "1402.2301",
+        "authors": [
+          { "full_name": "Bulbul, E." },
+          { "full_name": "Markevitch, M." },
+          { "full_name": "Foster, A." },
+          { "full_name": "Smith, R.K." },
+          { "full_name": "Loewenstein, M." }
+        ],
+        "dois": ["10.1088/0004-637X/789/1/13"],
+        "label": "22",
+        "publication_info": {
+          "artid": "13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "789",
+          "page_start": "13",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "Detection of An Unidentified Emission Line in the Stacked X-ray spectrum of Galaxy Clusters"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1281523" },
+      "reference": {
+        "arxiv_eprint": "1402.4119",
+        "authors": [
+          { "full_name": "Boyarsky, A." },
+          { "full_name": "Ruchayskiy, O." },
+          { "full_name": "Iakubovskyi, D." },
+          { "full_name": "Franse, J." }
+        ],
+        "label": "23",
+        "title": {
+          "title":
+            "An unidentified line in X-ray spectra of the Andromeda galaxy and Perseus galaxy cluster"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/14431" },
+      "reference": {
+        "authors": [
+          { "full_name": "Gronau, M." },
+          { "full_name": "Leung, C.N." },
+          { "full_name": "Rosner, J.L." }
+        ],
+        "dois": ["10.1103/PhysRevD.29.2539"],
+        "label": "24",
+        "publication_info": {
+          "artid": "2539",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "29",
+          "page_start": "2539",
+          "year": 1984
+        },
+        "title": { "title": "Extending Limits on Neutral Heavy Leptons" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/750433" },
+      "reference": {
+        "arxiv_eprint": "0705.1729",
+        "authors": [
+          { "full_name": "Gorbunov, D." },
+          { "full_name": "Shaposhnikov, M." }
+        ],
+        "dois": ["10.1007/JHEP11(2013)101", "10.1088/1126-6708/2007/10/015"],
+        "label": "25",
+        "misc": ["http://dx.doi.org/10.1088/1126-6708/2007/10/015"],
+        "publication_info": {
+          "artid": "015",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "015",
+          "year": 2007
+        },
+        "title": { "title": "How to find neutral leptons of the \u03bd MSM?" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/811669" },
+      "reference": {
+        "arxiv_eprint": "0901.3589",
+        "authors": [
+          { "full_name": "Atre, A." },
+          { "full_name": "Han, T." },
+          { "full_name": "Pascoli, S." },
+          { "full_name": "Zhang, B." }
+        ],
+        "dois": ["10.1088/1126-6708/2009/05/030"],
+        "label": "26",
+        "publication_info": {
+          "artid": "030",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "030",
+          "year": 2009
+        },
+        "title": { "title": "The Search for Heavy Majorana Neutrinos" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1128023" },
+      "reference": {
+        "arxiv_eprint": "1208.3654",
+        "authors": [
+          { "full_name": "Cely, C.G." },
+          { "full_name": "Ibarra, A." },
+          { "full_name": "Molinaro, E." },
+          { "full_name": "Petcov, S." }
+        ],
+        "dois": ["10.1016/j.physletb.2012.11.026"],
+        "label": "27",
+        "publication_info": {
+          "artid": "957",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "718",
+          "page_start": "957",
+          "year": 2013
+        },
+        "title": {
+          "title": "Higgs Decays in the Low Scale Type I See-Saw Model"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/189726" },
+      "reference": {
+        "authors": [
+          { "full_name": "Keung, W.-Y." },
+          { "full_name": "Senjanovic, G." }
+        ],
+        "dois": ["10.1103/PhysRevLett.50.1427"],
+        "label": "28",
+        "publication_info": {
+          "artid": "1427",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "50",
+          "page_start": "1427",
+          "year": 1983
+        },
+        "title": {
+          "title":
+            "Majorana Neutrinos and the Production of the Right-handed Charged Gauge Boson"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1180150" },
+      "reference": {
+        "arxiv_eprint": "1208.4607",
+        "authors": [
+          { "full_name": "Canetti, L." },
+          { "full_name": "Drewes, M." },
+          { "full_name": "Frossard, T." },
+          { "full_name": "Shaposhnikov, M." },
+          { "full_name": "Matter" },
+          { "full_name": "Dark" }
+        ],
+        "dois": ["10.1103/PhysRevD.87.093006"],
+        "label": "29",
+        "publication_info": {
+          "artid": "093006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "87",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Baryogenesis and Neutrino Oscillations from Right Handed Neutrinos"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/784575" },
+      "reference": {
+        "arxiv_eprint": "0804.4542",
+        "authors": [{ "full_name": "Shaposhnikov, M." }],
+        "dois": ["10.1088/1126-6708/2008/08/008"],
+        "label": "30",
+        "publication_info": {
+          "artid": "008",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "008",
+          "year": 2008
+        },
+        "title": {
+          "title":
+            "The nuMSM, leptonic asymmetries, and properties of singlet fermions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/629456" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0309342",
+        "authors": [
+          { "full_name": "Pilaftsis, A." },
+          { "full_name": "Underwood, T.E." }
+        ],
+        "dois": ["10.1016/j.nuclphysb.2004.05.029"],
+        "label": "31",
+        "publication_info": {
+          "artid": "303",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "692",
+          "page_start": "303",
+          "year": 2004
+        },
+        "title": { "title": "Resonant leptogenesis" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/428163" },
+      "reference": {
+        "authors": [{ "full_name": "Abreu, P." }],
+        "dois": ["10.1007/s002880050370"],
+        "label": "32",
+        "publication_info": {
+          "artid": "57",
+          "journal_title": "Z.Phys.C",
+          "journal_volume": "74",
+          "page_start": "57",
+          "year": 1997
+        },
+        "title": {
+          "title": "Search for neutral heavy leptons produced in Z decays"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/340879" },
+      "reference": {
+        "authors": [{ "full_name": "Adriani, O." }],
+        "dois": ["10.1016/0370-2693(92)91579-X"],
+        "label": "33",
+        "publication_info": {
+          "artid": "371",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "295",
+          "page_start": "371",
+          "year": 1992
+        },
+        "title": {
+          "title": "Search for isosinglet neutral heavy leptons in Z0 decays"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/295458" },
+      "reference": {
+        "authors": [{ "full_name": "Jarlskog, C." }],
+        "dois": ["10.1016/0370-2693(90)91873-A"],
+        "label": "34",
+        "publication_info": {
+          "artid": "579",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "241",
+          "page_start": "579",
+          "year": 1990
+        },
+        "title": {
+          "title": "Neutrino Counting at the Z Peak and Right-handed Neutrinos"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/691576" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0509008",
+        "authors": [{ "full_name": "Schael, S." }],
+        "dois": ["10.1016/j.physrep.2005.12.006"],
+        "label": "35",
+        "publication_info": {
+          "artid": "257",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "427",
+          "page_start": "257",
+          "year": 2006
+        },
+        "title": {
+          "title": "Precision electroweak measurements on the Z resonance"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1126428" },
+      "reference": {
+        "authors": [{ "full_name": "Karlen, D." }],
+        "dois": ["10.1103/PhysRevD.86.010001"],
+        "label": "36",
+        "publication_info": {
+          "artid": "010001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "86",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "The number of light neutrino types from collider experiments"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Jadach, S." }],
+        "label": "37",
+        "title": { "title": "FCC-ee/TLEP physics workshop (TLEP7)" },
+        "urls": [{ "value": "http://indico.cern.ch/event/313708/" }]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1282465" },
+      "reference": {
+        "arxiv_eprint": "1402.6287",
+        "authors": [
+          { "full_name": "De Simone, A." },
+          { "full_name": "Giudice, G.F." },
+          { "full_name": "Strumia, A." }
+        ],
+        "dois": ["10.1007/JHEP06(2014)081"],
+        "label": "38",
+        "publication_info": {
+          "artid": "081",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "081",
+          "year": 2014
+        },
+        "title": { "title": "Benchmarks for Dark Matter Searches at the LHC" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1257391" },
+      "reference": {
+        "arxiv_eprint": "1310.1762",
+        "authors": [
+          { "full_name": "Bonivento, W." },
+          { "full_name": "Boyarsky, A." },
+          { "full_name": "Dijkstra, H." },
+          { "full_name": "Egede, U." },
+          { "full_name": "Ferro-Luzzi, M." }
+        ],
+        "label": "39",
+        "publication_info": { "year": 2013 },
+        "title": {
+          "title": "Proposal to Search for Heavy Neutral Leptons at the SPS"
+        }
+      }
+    }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1328783" },
+  "texkeys": ["Blondel:2014bra"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title": "Search for Heavy Right Handed Neutrinos at the FCC-ee"
+    }
+  ]
+}

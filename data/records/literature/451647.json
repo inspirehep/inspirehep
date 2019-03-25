@@ -1,0 +1,1682 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [{ "identifier": "D98-04167" }],
+  "_private_notes": [
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "The IMPAE references is from a conference"
+    },
+    { "source": "SPIRES-HIDDEN", "value": "topcites2007annual" },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Cites revised by ..cites.add on 07/24/08"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "90 cites (new:6) from citesj on 07/09/2010"
+    },
+    { "source": "CERN", "value": "CDS-339705" }
+  ],
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "We show that the large $N$ limit of certain conformal field theories in various dimensions include in their Hilbert space a sector describing supergravity on the product of Anti-deSitter spacetimes, spheres and other compact manifolds. This is shown by taking some branes in the full M/string theory and then taking a low energy limit where the field theory on the brane decouples from the bulk. We observe that, in this limit, we can still trust the near horizon geometry for large $N$. The enhanced supersymmetries of the near horizon geometry correspond to the extra supersymmetry generators present in the superconformal group (as opposed to just the super-Poincare group). The 't Hooft limit of 4-d ${\\cal N} =4$ super-Yang-Mills at the conformal point is shown to contain strings: they are IIB strings. We conjecture that compactifications of M/string theory on various Anti-deSitter spacetimes are dual to various conformal field theories. This leads to a new proposal for a definition of M-theory which could be extended to include five non-compact dimensions."
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [{ "categories": ["hep-th"], "value": "hep-th/9711200" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902835"
+          },
+          "value": "Harvard U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Maldacena, Juan Martin",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00304313" },
+        { "schema": "INSPIRE BAI", "value": "J.M.Maldacena.1" }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/999108" },
+      "signature_block": "MALDACANj",
+      "uuid": "a657cd45-b7b0-47f1-89c1-20c5e43628ba"
+    }
+  ],
+  "citeable": true,
+  "control_number": 451647,
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "key": "arXiv:hep-th_9711200.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g43/869640/arXiv%3Ahep-th_9711200.pdf%3B2"
+    }
+  ],
+  "dois": [
+    { "value": "10.1023/A:1026654312961" },
+    { "source": "International Press", "value": "10.4310/ATMP.1998.v2.n2.a1" }
+  ],
+  "external_system_identifiers": [
+    { "schema": "OSTI", "value": "361743" },
+    { "schema": "ADS", "value": "1999IJTP...38.1113M" },
+    { "schema": "MSNET", "value": "99e:81204a" },
+    { "schema": "CERNKEY", "value": "0263439" },
+    { "schema": "SPIRES", "value": "SPIRES-3661253" }
+  ],
+  "inspire_categories": [{ "term": "Theory-HEP" }],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "field theory: conformal" },
+    { "schema": "INSPIRE", "value": "expansion 1/N" },
+    { "schema": "INSPIRE", "value": "supergravity" },
+    { "schema": "INSPIRE", "value": "Hilbert space" },
+    { "schema": "INSPIRE", "value": "space-time: anti-de Sitter" },
+    { "schema": "INSPIRE", "value": "membrane model" },
+    { "schema": "INSPIRE", "value": "string model" },
+    { "schema": "INSPIRE", "value": "geometry: horizon" },
+    { "schema": "INSPIRE", "value": "gauge field theory: U(N)" },
+    { "schema": "INSPIRE", "value": "supersymmetry" },
+    { "schema": "INSPIRE", "value": "duality" },
+    { "schema": "INSPIRE", "value": "M-theory" },
+    { "schema": "INSPIRE", "value": "bibliography" },
+    { "schema": "INSPIRE", "value": "AdS/CFT correspondence" }
+  ],
+  "legacy_creation_date": "1997-11-28",
+  "legacy_version": "20180602162242.0",
+  "number_of_pages": 21,
+  "preprint_date": "1997-11",
+  "public_notes": [
+    {
+      "value":
+        "Reprinted in *Duff, M.J. (ed.): The world in eleven dimensions* 492-513"
+    }
+  ],
+  "publication_info": [
+    {
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1214707"
+      },
+      "journal_title": "Int.J.Theor.Phys.",
+      "journal_volume": "38",
+      "page_end": "1133",
+      "page_start": "1113",
+      "year": 1999
+    },
+    {
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1212914"
+      },
+      "journal_title": "Adv.Theor.Math.Phys.",
+      "journal_volume": "2",
+      "page_end": "252",
+      "page_start": "231",
+      "year": 1998
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/449261" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9710014",
+        "authors": [
+          { "full_name": "Maldacena, J." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/443604" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9705221",
+        "authors": [{ "full_name": "Seiberg, N." }],
+        "label": "2",
+        "publication_info": {
+          "artid": "98",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "408",
+          "page_start": "98",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/90850" },
+      "reference": {
+        "authors": [
+          { "full_name": "Haag, R." },
+          { "full_name": "Lopuszanski, J." },
+          { "full_name": "Sohnius, M." }
+        ],
+        "label": "3",
+        "publication_info": {
+          "artid": "257",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "88",
+          "page_start": "257",
+          "year": 1975
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/120988" },
+      "reference": {
+        "authors": [{ "full_name": "Nahm, W." }],
+        "label": "4",
+        "publication_info": {
+          "artid": "149",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "135",
+          "page_start": "149",
+          "year": 1978
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/184470" },
+      "reference": {
+        "authors": [{ "full_name": "Gibbons, G." }],
+        "label": "5",
+        "publication_info": {
+          "artid": "337",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "207",
+          "page_start": "337",
+          "year": 1982
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/338985" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9209116",
+        "authors": [
+          { "full_name": "Kallosh, R." },
+          { "full_name": "Peet, A." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "5223",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "46",
+          "page_start": "5223",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/440361" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9702103",
+        "authors": [
+          { "full_name": "Ferrara, S." },
+          { "full_name": "Gibbons, G." },
+          { "full_name": "Kallosh, R." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "75",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "500",
+          "page_start": "75",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/35378" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9307049",
+        "authors": [
+          { "full_name": "Gibbons, G." },
+          { "full_name": "Townsend, P." }
+        ],
+        "label": "6",
+        "publication_info": {
+          "artid": "5223",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "71",
+          "page_start": "5223",
+          "year": 1993
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Salam, A." },
+          { "full_name": "Sezgin, E." }
+        ],
+        "label": "7",
+        "misc": [
+          "Supergravities in Diverse Dimensions, Vols. 1 and 2, NorthHolland, Amsterdam"
+        ],
+        "publication_info": { "year": 1989 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/164314" },
+      "reference": {
+        "authors": [{ "full_name": "Frondal, C." }],
+        "label": "8",
+        "publication_info": {
+          "artid": "1988",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "26",
+          "page_start": "1988"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/13913" },
+      "reference": {
+        "authors": [
+          { "full_name": "Freedman, D." },
+          { "full_name": "Nicolai, H." }
+        ],
+        "label": "8",
+        "publication_info": {
+          "artid": "342",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "237",
+          "page_start": "342"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/14743" },
+      "reference": {
+        "authors": [
+          { "full_name": "Pilch, K." },
+          { "full_name": "van Nieuwenhuizen, P." },
+          { "full_name": "Townsend, P." }
+        ],
+        "label": "8",
+        "misc": ["M. Gu\u00c8"],
+        "publication_info": {
+          "artid": "377",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "242",
+          "page_start": "377"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/206013" },
+      "reference": {
+        "authors": [
+          { "full_name": "van Nieuwenhuizen, P." },
+          { "full_name": "Warner, N." }
+        ],
+        "label": "8",
+        "misc": ["naydin"],
+        "publication_info": {
+          "artid": "63",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "255",
+          "page_start": "63"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/16700" },
+      "reference": {
+        "authors": [{ "full_name": "Gu, M." }],
+        "label": "8",
+        "misc": ["naydin and N. Warner M. Gu\u00c8"],
+        "publication_info": {
+          "artid": "99",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "272",
+          "page_start": "99"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/229800" },
+      "reference": {
+        "authors": [
+          { "full_name": "Nilsson, N." },
+          { "full_name": "Sierra, G." },
+          { "full_name": "Townsend, P." }
+        ],
+        "label": "8",
+        "misc": ["naydin"],
+        "publication_info": {
+          "artid": "45",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "176",
+          "page_start": "45"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/263090" },
+      "reference": {
+        "authors": [
+          { "full_name": "Bergshoeff, E." },
+          { "full_name": "Salam, A." },
+          { "full_name": "Sezgin, E." },
+          { "full_name": "Tanii, Y." }
+        ],
+        "label": "8",
+        "publication_info": {
+          "artid": "237",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "205",
+          "page_start": "237",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "8",
+        "publication_info": {
+          "artid": "496",
+          "journal_title": "Nucl.Phys.D",
+          "journal_volume": "305",
+          "page_start": "496",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/266855" },
+      "reference": {
+        "authors": [
+          { "full_name": "Bergshoeff, E." },
+          { "full_name": "Duff, M." },
+          { "full_name": "Pope, C." },
+          { "full_name": "Sezgin, E." }
+        ],
+        "label": "8",
+        "publication_info": {
+          "artid": "71",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "224",
+          "page_start": "71",
+          "year": 1989
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/205047" },
+      "reference": {
+        "authors": [{ "full_name": "Gu, M." }],
+        "label": "9",
+        "misc": ["naydin and N. Marcus"],
+        "publication_info": {
+          "artid": "L11",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "2",
+          "page_start": "L11",
+          "year": 1985
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/15859" },
+      "reference": {
+        "label": "9",
+        "misc": [";"],
+        "publication_info": {
+          "artid": "L19",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "2",
+          "page_start": "L19",
+          "year": 1985
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/15064" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kim, H." },
+          { "full_name": "Romans, L." },
+          { "full_name": "van Nieuwenhuizen, P." }
+        ],
+        "label": "9",
+        "publication_info": {
+          "artid": "103",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "143",
+          "page_start": "103",
+          "year": 1984
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/207663" },
+      "reference": {
+        "authors": [{ "full_name": "Gu, M." }],
+        "label": "9",
+        "misc": ["naydin, L. Romans, and N. Warner"],
+        "publication_info": {
+          "artid": "268",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "154",
+          "page_start": "268",
+          "year": 1985
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/215788" },
+      "reference": {
+        "label": "9",
+        "misc": [";"],
+        "publication_info": {
+          "artid": "309",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "164",
+          "page_start": "309",
+          "year": 1985
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/219727" },
+      "reference": {
+        "label": "9",
+        "misc": [";"],
+        "publication_info": {
+          "artid": "598",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "272",
+          "page_start": "598",
+          "year": 1986
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/252628" },
+      "reference": {
+        "authors": [
+          { "full_name": "Blencowe, M." },
+          { "full_name": "Duff, M." }
+        ],
+        "label": "10",
+        "publication_info": {
+          "artid": "229",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "203",
+          "page_start": "229",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/262142" },
+      "reference": {
+        "label": "10",
+        "misc": [";"],
+        "publication_info": {
+          "artid": "387",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "310",
+          "page_start": "387",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/262681" },
+      "reference": {
+        "authors": [
+          { "full_name": "Nicolai, H." },
+          { "full_name": "Sezgin, E." },
+          { "full_name": "Tanii, Y." }
+        ],
+        "label": "11",
+        "publication_info": {
+          "artid": "483",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "305",
+          "page_start": "483",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/38055" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9405124",
+        "authors": [
+          { "full_name": "Duff, M." },
+          { "full_name": "Gibbons, G." },
+          { "full_name": "Townsend, P." }
+        ],
+        "label": "12"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/451355" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711161",
+        "authors": [
+          { "full_name": "Claus, P." },
+          { "full_name": "Kallosh, R." },
+          { "full_name": "van Proeyen, A." }
+        ],
+        "label": "13"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/29494" },
+      "reference": {
+        "authors": [
+          { "full_name": "Horowitz, G." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "14",
+        "publication_info": {
+          "artid": "197",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "360",
+          "page_start": "197",
+          "year": 1991
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/378026" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9410073",
+        "authors": [
+          { "full_name": "Gibbons, G." },
+          { "full_name": "Horowitz, G." },
+          { "full_name": "Townsend, P." }
+        ],
+        "label": "15"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/426259" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9611164",
+        "authors": [{ "full_name": "Susskind, L." }],
+        "label": "16"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/426372" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9611202",
+        "authors": [
+          { "full_name": "Ganor, O." },
+          { "full_name": "Ramgoolam, S." },
+          { "full_name": "Taylor, W., IV" }
+        ],
+        "label": "16",
+        "publication_info": {
+          "artid": "191",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "492",
+          "page_start": "191",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/440886" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9703031",
+        "authors": [
+          { "full_name": "Douglas, M." },
+          { "full_name": "Polchinski, J." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "17"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/427006" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9612080",
+        "authors": [
+          { "full_name": "Aganagic, M." },
+          { "full_name": "Popescu, C." },
+          { "full_name": "Schwarz, J." }
+        ],
+        "label": "18",
+        "publication_info": {
+          "artid": "99",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "495",
+          "page_start": "99",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/442887" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9705057",
+        "authors": [
+          { "full_name": "Dine, M." },
+          { "full_name": "Seiberg, N." }
+        ],
+        "label": "19",
+        "publication_info": {
+          "artid": "239",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "409",
+          "page_start": "239",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/444186" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9706072",
+        "authors": [
+          { "full_name": "Becker, K." },
+          { "full_name": "Becker, M." },
+          { "full_name": "Polchinski, J." },
+          { "full_name": "Tseytlin, A." }
+        ],
+        "label": "20",
+        "publication_info": {
+          "artid": "3174",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "56",
+          "page_start": "3174",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/450631" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711002",
+        "authors": [{ "full_name": "Polyakov, A." }],
+        "label": "21"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/448354" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9709091",
+        "authors": [
+          { "full_name": "Banks, T." },
+          { "full_name": "Fishler, W." },
+          { "full_name": "Klebanov, I." },
+          { "full_name": "Susskind, L." }
+        ],
+        "label": "22"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/416208" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9602135",
+        "authors": [
+          { "full_name": "Gubser, S." },
+          { "full_name": "Klebanov, I." },
+          { "full_name": "Peet, A." }
+        ],
+        "label": "23",
+        "publication_info": {
+          "artid": "3915",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "54",
+          "page_start": "3915",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Strominger, A." }],
+        "label": "23",
+        "misc": ["unpublished"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/440239" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9702076",
+        "authors": [{ "full_name": "Klebanov, I." }],
+        "label": "24",
+        "publication_info": {
+          "artid": "231",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "496",
+          "page_start": "231",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/440932" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9703040",
+        "authors": [
+          { "full_name": "Gubser, S." },
+          { "full_name": "Klebanov, I." },
+          { "full_name": "Tseytlin, A." }
+        ],
+        "label": "25",
+        "publication_info": {
+          "artid": "217",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "499",
+          "page_start": "217",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/446757" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9708005",
+        "authors": [
+          { "full_name": "Gubser, S." },
+          { "full_name": "Klebanov, I." }
+        ],
+        "label": "26"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/415759" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9602022",
+        "authors": [{ "full_name": "Vafa, C." }],
+        "label": "27",
+        "publication_info": {
+          "artid": "403",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "469",
+          "page_start": "403",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/417717" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9604089",
+        "authors": [
+          { "full_name": "Klebanov, I." },
+          { "full_name": "Tseytlin, A." }
+        ],
+        "label": "28",
+        "publication_info": {
+          "artid": "164",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "475",
+          "page_start": "164",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/403446" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9512059",
+        "authors": [{ "full_name": "Strominger, A." }],
+        "label": "29",
+        "publication_info": {
+          "artid": "44",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "383",
+          "page_start": "44",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/397499" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9507121",
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "30"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/416413" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9603003",
+        "authors": [
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "30",
+        "publication_info": {
+          "artid": "121",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "471",
+          "page_start": "121",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/448411" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9709099",
+        "authors": [{ "full_name": "Maldacena, J." }],
+        "label": "31",
+        "misc": ["In Proceedings of Strings\u2019 97"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/449214" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9710009",
+        "authors": [{ "full_name": "Seiberg, N." }],
+        "label": "32",
+        "publication_info": {
+          "artid": "3577",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "79",
+          "page_start": "3577",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/449124" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9709220",
+        "authors": [{ "full_name": "Sen, A." }],
+        "label": "33"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/443130" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9705117",
+        "authors": [{ "full_name": "Seiberg, N." }],
+        "label": "34"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/440339" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9702101",
+        "authors": [
+          { "full_name": "Sethi, S." },
+          { "full_name": "Susskind, L." }
+        ],
+        "label": "35",
+        "publication_info": {
+          "artid": "265",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "400",
+          "page_start": "265",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/428842" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9702187",
+        "authors": [
+          { "full_name": "Banks, T." },
+          { "full_name": "Seiberg, N." }
+        ],
+        "label": "36",
+        "publication_info": {
+          "artid": "41",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "497",
+          "page_start": "41",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/443496" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9705190",
+        "authors": [
+          { "full_name": "Banks, T." },
+          { "full_name": "Fishler, W." },
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Susskind, L." }
+        ],
+        "label": "37",
+        "publication_info": {
+          "artid": "111",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "408",
+          "page_start": "111",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/420682" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9607112",
+        "authors": [{ "full_name": "Bars, I." }],
+        "label": "38",
+        "publication_info": {
+          "artid": "2373",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "55",
+          "page_start": "2373",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/415163" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9601029",
+        "authors": [
+          { "full_name": "Strominger, A." },
+          { "full_name": "Vafa, C." }
+        ],
+        "label": "39",
+        "publication_info": {
+          "artid": "99",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "379",
+          "page_start": "99",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/416822" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9603109",
+        "authors": [
+          { "full_name": "Horowitz, G." },
+          { "full_name": "Maldacena, J." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "40",
+        "publication_info": {
+          "artid": "151",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "383",
+          "page_start": "151",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/421593" },
+      "reference": {
+        "authors": [
+          { "full_name": "Andrianopoli, L." },
+          { "full_name": "Auria, R. D'" },
+          { "full_name": "Ferrara, S." }
+        ],
+        "label": "41",
+        "publication_info": {
+          "artid": "3759",
+          "journal_title": "Int.J.Mod.Phys.A",
+          "journal_volume": "12",
+          "page_start": "3759",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/427144" },
+      "reference": { "arxiv_eprint": "hep-th/9612105", "label": "41" }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/398357" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9508072",
+        "authors": [
+          { "full_name": "Ferrara, S." },
+          { "full_name": "Kallosh, R." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "42",
+        "publication_info": {
+          "artid": "5412",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "52",
+          "page_start": "5412",
+          "year": 1995
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/416207" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9602136",
+        "authors": [
+          { "full_name": "Ferrara, S." },
+          { "full_name": "Kallosh, R." }
+        ],
+        "label": "42",
+        "publication_info": {
+          "artid": "1514",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "54",
+          "page_start": "1514",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/416706" },
+      "reference": {
+        "label": "42",
+        "misc": ["; [hep-th/960309]"],
+        "publication_info": {
+          "artid": "1525",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "54",
+          "page_start": "1525",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/415906" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9602065",
+        "authors": [
+          { "full_name": "Breckenridge, J.C." },
+          { "full_name": "Myers, R.C." },
+          { "full_name": "Peet, A.W." },
+          { "full_name": "Vafa, C." }
+        ],
+        "label": "43",
+        "publication_info": {
+          "artid": "93",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "391",
+          "page_start": "93",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/426056" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9611125",
+        "authors": [{ "full_name": "Maldacena, J." }],
+        "label": "44",
+        "publication_info": {
+          "artid": "7645",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "55",
+          "page_start": "7645",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/446062" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9707158",
+        "authors": [
+          { "full_name": "Diaconescu, D." },
+          { "full_name": "Seiberg, N." }
+        ],
+        "label": "45",
+        "misc": ["JHEP07001"],
+        "publication_info": { "year": 1997 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/445371" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9707079",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Berkooz, M." },
+          { "full_name": "Kachru, S." },
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Silverstein, E." }
+        ],
+        "label": "46"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/445490" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9707093",
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "47"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/32290" },
+      "reference": {
+        "authors": [{ "full_name": "Ban, M." }],
+        "label": "48",
+        "misc": ["ados, C. Teitelboim, and J. Zanelli [hep-th/ 9204099]"],
+        "publication_info": {
+          "artid": "1849",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "69",
+          "page_start": "1849",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/441733" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9704005",
+        "authors": [{ "full_name": "Hyun, S." }],
+        "label": "49"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/444839" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9706192",
+        "authors": [
+          { "full_name": "Boonstra, H." },
+          { "full_name": "Peeters, B." },
+          { "full_name": "Skenderis, K." }
+        ],
+        "label": "50"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/451243" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711138",
+        "authors": [
+          { "full_name": "Sfetsos, K." },
+          { "full_name": "Skenderis, K." }
+        ],
+        "label": "51"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/450748" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711037",
+        "authors": [
+          { "full_name": "Hellerman, S." },
+          { "full_name": "Polchinski, J." }
+        ],
+        "label": "52"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/415870" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9602051",
+        "authors": [
+          { "full_name": "Horowitz, G." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "53",
+        "publication_info": {
+          "artid": "2368",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "77",
+          "page_start": "2368",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/419157" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9605234",
+        "authors": [
+          { "full_name": "Dhar, A." },
+          { "full_name": "Mandal, G." },
+          { "full_name": "Wadia, S." }
+        ],
+        "label": "54",
+        "publication_info": {
+          "artid": "51",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "388",
+          "page_start": "51",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/420130" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9606185",
+        "authors": [{ "full_name": "Das, S." }, { "full_name": "Mathur, S." }],
+        "label": "54",
+        "publication_info": {
+          "artid": "561",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "478",
+          "page_start": "561",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/420861" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9607149",
+        "label": "54",
+        "misc": [";"],
+        "publication_info": {
+          "artid": "153",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "482",
+          "page_start": "153",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/422847" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9609026",
+        "authors": [
+          { "full_name": "Maldacena, J." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "54",
+        "publication_info": {
+          "artid": "861",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "55",
+          "page_start": "861",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/422122" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9608108",
+        "authors": [
+          { "full_name": "Gubser, S." },
+          { "full_name": "Klebanov, I." }
+        ],
+        "label": "54",
+        "publication_info": {
+          "artid": "173",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "482",
+          "page_start": "173",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/424930" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9610172",
+        "authors": [{ "full_name": "Callan, C." }],
+        "label": "54",
+        "misc": ["Jr., S. Gubser, I. Klebanov, and A. Tseytlin"],
+        "publication_info": {
+          "artid": "65",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "489",
+          "page_start": "65",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/426887" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9612051",
+        "authors": [
+          { "full_name": "Klebanov, I." },
+          { "full_name": "Krasnitz, M." }
+        ],
+        "label": "54",
+        "publication_info": {
+          "artid": "3250",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "55",
+          "page_start": "3250",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/442119" },
+      "reference": {
+        "authors": [
+          { "full_name": "Klebanov, I." },
+          { "full_name": "Rajaraman, A." },
+          { "full_name": "Tseytlin, A." }
+        ],
+        "label": "54",
+        "misc": ["[hep-th/ 9704112]"],
+        "publication_info": {
+          "artid": "157",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "503",
+          "page_start": "157",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/444287" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9706100",
+        "authors": [{ "full_name": "Gubser, S." }],
+        "label": "54"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/447394" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9708099",
+        "authors": [
+          { "full_name": "Lee, H." },
+          { "full_name": "Myung, Y." },
+          { "full_name": "Kim, J." }
+        ],
+        "label": "54"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/450945" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711072",
+        "authors": [{ "full_name": "Hosomichi, K." }],
+        "label": "54"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/446238" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9707188",
+        "authors": [
+          { "full_name": "Birmingham, D." },
+          { "full_name": "Sachs, I." },
+          { "full_name": "Sen, S." }
+        ],
+        "label": "55"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/443498" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9705192",
+        "authors": [
+          { "full_name": "Cvetic, M." },
+          { "full_name": "Larsen, F." }
+        ],
+        "label": "56",
+        "publication_info": {
+          "artid": "4994",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "56",
+          "page_start": "4994",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/444185" },
+      "reference": { "arxiv_eprint": "hep-th/9706071", "label": "56" }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/450836" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711053",
+        "authors": [
+          { "full_name": "Maldacena, J." },
+          { "full_name": "Strominger, A." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "57"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/424833" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9610155",
+        "authors": [
+          { "full_name": "Chamseddine, A." },
+          { "full_name": "Ferrara, S." },
+          { "full_name": "Gibbons, G." },
+          { "full_name": "Kallosh, R." }
+        ],
+        "label": "58",
+        "publication_info": {
+          "artid": "3647",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "55",
+          "page_start": "3647",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/440076" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9702015",
+        "authors": [
+          { "full_name": "Maldacena, J." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "59",
+        "publication_info": {
+          "artid": "4975",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "56",
+          "page_start": "4975",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/417444" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9604042",
+        "authors": [
+          { "full_name": "Maldacena, J." },
+          { "full_name": "Susskind, L." }
+        ],
+        "label": "60",
+        "publication_info": {
+          "artid": "679",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "475",
+          "page_start": "679",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/424266" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9610043",
+        "authors": [
+          { "full_name": "Banks, T." },
+          { "full_name": "Fischler, W." },
+          { "full_name": "Shenker, S." },
+          { "full_name": "Susskind, L." }
+        ],
+        "label": "61"
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Kachru, S." },
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Silverstein, E." }
+        ],
+        "label": "62",
+        "misc": ["Private communication"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/377340" },
+      "reference": {
+        "arxiv_eprint": "gr-qc/9409052",
+        "authors": [{ "full_name": "Carlip, S." }],
+        "label": "63",
+        "publication_info": {
+          "artid": "632",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "51",
+          "page_start": "632",
+          "year": 1995
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/452060" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9712073",
+        "authors": [
+          { "full_name": "Kallosh, R." },
+          { "full_name": "Kumar, J." },
+          { "full_name": "Rajaraman, A." }
+        ],
+        "label": "64"
+      }
+    },
+    {
+      "curated_relation": true,
+      "legacy_curated": true,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/87997" },
+      "reference": {
+        "authors": [
+          { "full_name": "Hawking, S." },
+          { "full_name": "Ellis, J." }
+        ],
+        "label": "65",
+        "misc": [
+          "Cambridge University Press, Cambridge, , and references therein"
+        ],
+        "publication_info": { "year": 1973 },
+        "title": { "title": "The Large scale structure of space-time" }
+      }
+    }
+  ],
+  "report_numbers": [{ "value": "HUTP-97-A097" }, { "value": "HUTP-98-A097" }],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/451647" },
+  "texkeys": ["Maldacena:1997re"],
+  "titles": [
+    {
+      "title":
+        "The Large N limit of superconformal field theories and supergravity"
+    },
+    {
+      "source": "arXiv",
+      "title":
+        "The large N limit of superconformal field theories and supergravity."
+    },
+    {
+      "source": "arXiv",
+      "title":
+        "The Large N Limit of Superconformal Field Theories and Supergravity"
+    }
+  ]
+}

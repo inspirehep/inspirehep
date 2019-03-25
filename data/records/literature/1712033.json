@@ -1,0 +1,1820 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA19-kp03an" },
+    { "date": "2019-01-10", "expert": "Y", "status": "abs" },
+    { "date": "2019-01-14", "expert": "Y", "status": "printed" },
+    { "date": "2019-01-22", "expert": "Y", "status": "final" }
+  ],
+  "abstracts": [
+    {
+      "source": "Springer",
+      "value":
+        "We explicitly construct the four and two fermion zero modes for the mixed-flux generalization of the Hofman-Maldacena giant magnon on two of the AdS$_{3}$ backgrounds with maximal amount of supersymmetry, AdS$_{3}$\u00d7S$^{3}$\u00d7T$^{4}$ and AdS$_{3}$\u00d7S$^{3}$\u00d7S$^{3}$\u00d7S$^{1}$. We also show how to get the $ \\mathfrak{p}\\mathfrak{s}\\mathfrak{u}{\\left(1\\Big|1\\right)}^4 $ and $ \\mathfrak{s}\\mathfrak{u}{\\left(1\\Big|1\\right)}^2 $ superalgebras from the semiclassically quantized fermion zero modes."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "We explicitly construct the four and two fermion zero modes for the mixed-flux generalization of the Hofman-Maldacena giant magnon on two of the AdS$_3$ backgrounds with maximal amount of supersymmetry, AdS$_3 \\times$S$^3 \\times$T$^4$ and AdS$_3 \\times$S$^3 \\times$S$^3 \\times$S$^1$. We also show how to get the $\\mathfrak{psu}(1|1)^4$ and $\\mathfrak{su}(1|1)^2$ superalgebras from the semiclassically quantized fermion zero modes."
+    }
+  ],
+  "acquisition_source": {
+    "datetime": "2019-02-15T03:35:04.768910",
+    "method": "hepcrawl",
+    "source": "arXiv",
+    "submission_number": "1452137"
+  },
+  "arxiv_eprints": [{ "categories": ["hep-th"], "value": "1901.00530" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903783"
+          },
+          "value": "London, City U."
+        }
+      ],
+      "affiliations_identifiers": [
+        { "schema": "GRID", "value": "grid.28577.3f" }
+      ],
+      "full_name": "Varga, Adam",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "A.Varga.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "School of Mathematics, Computer Science & Engineering, University of London, City"
+        }
+      ],
+      "signature_block": "VARGa",
+      "uuid": "04686e79-1774-470c-8077-ade70d5b784f"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1712033,
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "description": "Article from SCOAP3",
+      "key": "scoap3-fulltext.pdf;pdfa",
+      "source": "SCOAP3",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3697251/content.pdf%3Bpdfa%3B1"
+    },
+    {
+      "fulltext": true,
+      "key": "1901.00530.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g182/3651108/content.pdf%3B2"
+    }
+  ],
+  "dois": [{ "source": "bibmatch", "value": "10.1007/JHEP02(2019)135" }],
+  "figures": [
+    {
+      "caption": "Images of a sphere and of a universal cover of $\\AdS$ space",
+      "key": "FigS.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g182/3651109/content.png%3B4"
+    },
+    {
+      "caption": "Images of a sphere and of a universal cover of $\\AdS$ space",
+      "key": "FigAdS.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g182/3651107/content.png%3B4"
+    }
+  ],
+  "imprints": [{ "date": "2019-02-20" }],
+  "inspire_categories": [
+    { "source": "arxiv", "term": "Theory-HEP" },
+    { "term": "Theory-HEP" }
+  ],
+  "keywords": [
+    { "source": "author", "value": "AdS-CFT Correspondence" },
+    { "source": "author", "value": "Superstrings and Heterotic Strings" },
+    { "schema": "INSPIRE", "value": "fermion: zero mode" },
+    { "schema": "INSPIRE", "value": "magnon: giant" },
+    { "schema": "INSPIRE", "value": "fermion: quantization" },
+    { "schema": "INSPIRE", "value": "quantization: semiclassical" },
+    { "schema": "INSPIRE", "value": "supersymmetry: algebra" },
+    { "schema": "INSPIRE", "value": "AdS(3) x S(3) x S(3) x S(1)" },
+    { "schema": "INSPIRE", "value": "AdS(3) x S(3) x T(4)" }
+  ],
+  "legacy_creation_date": "2019-01-04",
+  "legacy_version": "20190301150221.0",
+  "license": [
+    {
+      "license": "arXiv nonexclusive-distrib 1.0",
+      "material": "preprint",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    },
+    { "imposing": "Springer", "license": "CC-BY-4.0" }
+  ],
+  "number_of_pages": 53,
+  "preprint_date": "2019-01-02",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "51 pages, 1 figure; references added, typos corrected, minor change\n  to introduction"
+    }
+  ],
+  "publication_info": [
+    {
+      "artid": "135",
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1213103"
+      },
+      "journal_title": "JHEP",
+      "journal_volume": "02",
+      "page_start": "135",
+      "year": 2019
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[1] J.M. Maldacena, The Large N limit of superconformal field theories and supergravity, Int. J. Theor. Phys. 38 (1999) 1113 [ hep-th/9711200 ] [ INSPIRE ]., DOI: 10.1023/A:1026654312961"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/451647" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711200",
+        "authors": [
+          { "full_name": "Maldacena, J.M." },
+          { "full_name": "N, The Large" }
+        ],
+        "dois": ["10.1023/A:1026654312961"],
+        "label": "1",
+        "misc": [
+          "limit of superconformal field theories and supergravity",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "1113",
+          "journal_title": "Int.J.Theor.Phys.",
+          "journal_volume": "38",
+          "page_start": "1113",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[2] J.A. Minahan and K. Zarembo, The Bethe ansatz for N = 4 superYang-Mills, JHEP 03 (2003) 013 [ hep-th/0212208 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/604848" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0212208",
+        "authors": [
+          { "full_name": "Minahan, J.A." },
+          { "full_name": "Zarembo, K." }
+        ],
+        "label": "2",
+        "misc": ["The Bethe ansatz for N = 4 superYang-Mills", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "013",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "013",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[3] N. Beisert, C. Kristjansen and M. Staudacher, The Dilatation operator of conformal N = 4 superYang-Mills theory, Nucl. Phys. B 664 (2003) 131 [ hep-th/0303060 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/614682" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0303060",
+        "authors": [
+          { "full_name": "Beisert, N." },
+          { "full_name": "Kristjansen, C." },
+          { "full_name": "Staudacher, M." }
+        ],
+        "label": "3",
+        "misc": [
+          "The Dilatation operator of conformal N = 4 superYang-Mills theory",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "131",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "664",
+          "page_start": "131",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[4] N. Beisert and M. Staudacher, The N = 4 SYM integrable super spin chain, Nucl. Phys. B 670 (2003) 439 [ hep-th/0307042 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/622636" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0307042",
+        "authors": [
+          { "full_name": "Beisert, N." },
+          { "full_name": "Staudacher, M." }
+        ],
+        "label": "4",
+        "misc": ["The N", "= 4 SYM integrable super spin chain", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "439",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "670",
+          "page_start": "439",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[5] I. Bena, J. Polchinski and R. Roiban, Hidden symmetries of the AdS (5) \u00d7 S (5) superstring, Phys. Rev. D 69 (2004) 046002 [ hep-th/0305116 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/618735" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0305116",
+        "authors": [
+          { "full_name": "Bena, I." },
+          { "full_name": "Polchinski, J." },
+          { "full_name": "Roiban, R." }
+        ],
+        "label": "5",
+        "misc": [
+          "Hidden symmetries of the AdS (5) \u00d7 S (5) superstring",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "046002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "69",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[6] V.A. Kazakov, A. Marshakov, J.A. Minahan and K. Zarembo, Classical/quantum integrability in AdS/CFT, JHEP 05 (2004) 024 [ hep-th/0402207 ] [ INSPIRE ]., DOI: 10.1088/1126-6708/2004/05/024"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/645229" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0402207",
+        "authors": [
+          { "full_name": "Kazakov, V.A." },
+          { "full_name": "Marshakov, A." },
+          { "full_name": "Minahan, J.A." },
+          { "full_name": "Zarembo, K." }
+        ],
+        "dois": ["10.1088/1126-6708/2004/05/024"],
+        "label": "6",
+        "misc": ["Classical/quantum integrability in AdS/CFT", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "024",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "024",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[7] G. Arutyunov, S. Frolov and M. Staudacher, Bethe ansatz for quantum strings, JHEP 10 (2004) 016 [ hep-th/0406256 ] [ INSPIRE ]., DOI: 10.1088/1126-6708/2004/10/016"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/653278" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0406256",
+        "authors": [
+          { "full_name": "Arutyunov, G." },
+          { "full_name": "Frolov, S." },
+          { "full_name": "Staudacher, M." }
+        ],
+        "dois": ["10.1088/1126-6708/2004/10/016"],
+        "label": "7",
+        "misc": ["Bethe ansatz for quantum strings", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "016",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "016",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[8] N. Beisert, V.A. Kazakov, K. Sakai and K. Zarembo, The Algebraic curve of classical superstrings on AdS (5) \u00d7 S (5), Commun. Math. Phys. 263 (2006) 659 [ hep-th/0502226 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/677396" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0502226",
+        "authors": [
+          { "full_name": "Beisert, N." },
+          { "full_name": "Kazakov, V.A." },
+          { "full_name": "Sakai, K." },
+          { "full_name": "Zarembo, K." }
+        ],
+        "label": "8",
+        "misc": [
+          "The Algebraic curve of classical superstrings on AdS (5) \u00d7 S (5)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "659",
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "263",
+          "page_start": "659",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[9] G. Arutyunov and S. Frolov, Integrable Hamiltonian for classical strings on AdS (5) \u00d7 S (5), JHEP 02 (2005) 059 [ hep-th/0411089 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/663868" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0411089",
+        "authors": [
+          { "full_name": "Arutyunov, G." },
+          { "full_name": "Frolov, S." }
+        ],
+        "label": "9",
+        "misc": [
+          "Integrable Hamiltonian for classical strings on AdS (5) \u00d7 S (5)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "059",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "059",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[10] M. Staudacher, The factorized S-matrix of CFT/AdS, JHEP 05 (2005) 054 [ hep-th/0412188 ] [ INSPIRE ]., DOI: 10.1088/1126-6708/2005/05/054"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/667406" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0412188",
+        "authors": [{ "full_name": "Staudacher, M." }],
+        "dois": ["10.1088/1126-6708/2005/05/054"],
+        "label": "10",
+        "misc": ["The factorized S-matrix of CFT/AdS", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "054",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "054",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[11] N. Beisert, The SU(2|2) dynamic S-matrix, Adv. Theor. Math. Phys. 12 (2008) 945 [ hep-th/0511082 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/697133" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0511082",
+        "authors": [{ "full_name": "Beisert, N." }],
+        "label": "11",
+        "misc": ["The SU(2|2) dynamic S-matrix", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "945",
+          "journal_title": "Adv.Theor.Math.Phys.",
+          "journal_volume": "12",
+          "page_start": "945",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[12] N. Beisert, The Analytic Bethe Ansatz for a Chain with Centrally Extended su(2\u20142) Symmetry, J. Stat. Mech. 01 (2007) P01017 [ nlin/0610017 ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/728583" },
+      "reference": {
+        "arxiv_eprint": "nlin/0610017",
+        "authors": [{ "full_name": "Beisert, N." }],
+        "label": "12",
+        "misc": [
+          "The Analytic Bethe Ansatz for a Chain with Centrally Extended su(2\u20142) Symmetry"
+        ],
+        "publication_info": {
+          "artid": "P01017",
+          "journal_title": "J.Stat.Mech.",
+          "journal_volume": "01",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[13] R.A. Janik, The AdS (5) \u00d7 S (5) superstring worldsheet S-matrix and crossing symmetry, Phys. Rev. D 73 (2006) 086006 [ hep-th/0603038 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/711788" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0603038",
+        "authors": [{ "full_name": "Janik, R.A." }],
+        "label": "13",
+        "misc": [
+          "The AdS (5) \u00d7 S (5) superstring worldsheet S-matrix and crossing symmetry",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "086006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "73",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[14] N. Beisert, R. Hernandez and E. Lopez, A Crossing-symmetric phase for AdS (5) \u00d7 S (5) strings, JHEP 11 (2006) 070 [ hep-th/0609044 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/725507" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0609044",
+        "authors": [
+          { "full_name": "Beisert, N." },
+          { "full_name": "Hernandez, R." },
+          { "full_name": "Lopez, E." }
+        ],
+        "label": "14",
+        "misc": [
+          "A Crossing-symmetric",
+          "phase for AdS (5) \u00d7 S (5) strings",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "070",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "070",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[15] N. Beisert, B. Eden and M. Staudacher, Transcendentality and Crossing, J. Stat. Mech. 0701 (2007) P01021 [ hep-th/0610251 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/729742" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0610251",
+        "authors": [
+          { "full_name": "Beisert, N." },
+          { "full_name": "Eden, B." },
+          { "full_name": "Staudacher, M." }
+        ],
+        "label": "15",
+        "misc": ["Transcendentality and Crossing", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "P01021",
+          "journal_title": "J.Stat.Mech.",
+          "journal_volume": "0701",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[16] N. Dorey, D.M. Hofman and J.M. Maldacena, On the Singularities of the Magnon S-matrix, Phys. Rev. D 76 (2007) 025011 [ hep-th/0703104 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/746275" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0703104",
+        "authors": [
+          { "full_name": "Dorey, N." },
+          { "full_name": "Hofman, D.M." },
+          { "full_name": "Maldacena, J.M." }
+        ],
+        "label": "16",
+        "misc": ["On the Singularities of the Magnon S-matrix", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "025011",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "76",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[17] D. Volin, Minimal solution of the AdS/CFT crossing equation, J. Phys. A 42 (2009) 372001 [ arXiv:0904.4929 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/819165" },
+      "reference": {
+        "arxiv_eprint": "0904.4929",
+        "authors": [{ "full_name": "Volin, D." }],
+        "label": "17",
+        "misc": [
+          "Minimal solution of the AdS/CFT crossing equation",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "372001",
+          "journal_title": "J.Phys.A",
+          "journal_volume": "42",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[18] D.M. Hofman and J.M. Maldacena, Giant Magnons, J. Phys. A 39 (2006) 13095 [ hep-th/0604135 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/714770" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0604135",
+        "authors": [
+          { "full_name": "Hofman, D.M." },
+          { "full_name": "Maldacena, J.M." }
+        ],
+        "label": "18",
+        "misc": ["Giant Magnons", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "13095",
+          "journal_title": "J.Phys.A",
+          "journal_volume": "39",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[19] H.-Y. Chen, N. Dorey and K. Okamura, Dyonic giant magnons, JHEP 09 (2006) 024 [ hep-th/0605155 ] [ INSPIRE ]., DOI: 10.1088/1126-6708/2006/09/024"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/717052" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0605155",
+        "authors": [
+          { "full_name": "Chen, H.-Y." },
+          { "full_name": "Dorey, N." },
+          { "full_name": "Okamura, K." }
+        ],
+        "dois": ["10.1088/1126-6708/2006/09/024"],
+        "label": "19",
+        "misc": ["Dyonic giant magnons", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "024",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "024",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[20] J.A. Minahan, Zero modes for the giant magnon, JHEP 02 (2007) 048 [ hep-th/0701005 ] [ INSPIRE ]., DOI: 10.1088/1126-6708/2007/02/048"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/741562" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0701005",
+        "authors": [{ "full_name": "Minahan, J.A." }],
+        "dois": ["10.1088/1126-6708/2007/02/048"],
+        "label": "20",
+        "misc": ["Zero modes for the giant magnon", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "048",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "048",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[21] T. Klose, Review of AdS/CFT Integrability, Chapter IV.3: N = 6 Chern-Simons and Strings on AdS4\u00d7CP3, Lett. Math. Phys. 99 (2012) 401 [ arXiv:1012.3999 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/881915" },
+      "reference": {
+        "arxiv_eprint": "1012.3999",
+        "authors": [{ "full_name": "Klose, T." }],
+        "label": "21",
+        "misc": [
+          "Review of AdS/CFT Integrability, Chapter IV.3: N = 6 Chern-Simons and Strings on AdS4\u00d7CP3",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "401",
+          "journal_title": "Lett.Math.Phys.",
+          "journal_volume": "99",
+          "page_start": "401",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[22] J.P. Gauntlett, R.C. Myers and P.K. Townsend, Supersymmetry of rotating branes, Phys. Rev. D 59 (1998) 025001 [ hep-th/9809065 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/476060" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9809065",
+        "authors": [
+          { "full_name": "Gauntlett, J.P." },
+          { "full_name": "Myers, R.C." },
+          { "full_name": "Townsend, P.K." }
+        ],
+        "label": "22",
+        "misc": ["Supersymmetry of rotating branes", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "025001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "59",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[23] A. Babichenko, B. Stefanski, Jr. and K. Zarembo, Integrability and the AdS (3) /CF T (2) correspondence, JHEP 03 (2010) 058 [ arXiv:0912.1723 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/839394" },
+      "reference": {
+        "arxiv_eprint": "0912.1723",
+        "authors": [
+          { "full_name": "Babichenko, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "23",
+        "misc": [
+          "Jr. and K. Zarembo, Integrability and the AdS (3) /CF T (2) correspondence",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "058",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "058",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[24] O. Ohlsson Sax and B. Stefanski, Jr., Integrability, spin-chains and the AdS (3) /CF T (2) correspondence, JHEP 08 (2011) 029 [ arXiv:1106.2558 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/913640" },
+      "reference": {
+        "arxiv_eprint": "1106.2558",
+        "authors": [
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "24",
+        "misc": [
+          "Jr., Integrability, spin-chains and the AdS (3) /CF T (2) correspondence",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "029",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "029",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[25] P. Sundin and L. Wulff, Classical integrability and quantum aspects of the AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1) superstring, JHEP 10 (2012) 109 [ arXiv:1207.5531 ] [ INSPIRE ]., DOI: 10.1007/JHEP10(2012)109"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1123680" },
+      "reference": {
+        "arxiv_eprint": "1207.5531",
+        "authors": [
+          { "full_name": "Sundin, P." },
+          { "full_name": "Wulff, L." }
+        ],
+        "dois": ["10.1007/JHEP10(2012)109"],
+        "label": "25",
+        "misc": [
+          "Classical integrability and quantum aspects of the AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1) superstring",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "109",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "109",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[26] A. Cagnazzo and K. Zarembo, B-field in AdS (3) /CF T (2) Correspondence and Integrability, JHEP 11 (2012) 133 [Erratum ibid. 1304 (2013) 003] [ arXiv:1209.4049 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1186418" },
+      "reference": {
+        "arxiv_eprint": "1209.4049",
+        "authors": [
+          { "full_name": "Cagnazzo, A." },
+          { "full_name": "Zarembo, K." }
+        ],
+        "label": "26",
+        "misc": [
+          "B-field in AdS (3) /CF T (2) Correspondence and Integrability",
+          "[INSPIRE]",
+          "Additional pubnote: JHEP,1304,003"
+        ],
+        "publication_info": {
+          "artid": "133",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "133",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[27] O. Ohlsson Sax and B. Stefanski, Jr., Closed strings and moduli in AdS (3) /CFT (2), JHEP 05 (2018) 101 [ arXiv:1804.02023 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1666385" },
+      "reference": {
+        "arxiv_eprint": "1804.02023",
+        "authors": [
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "27",
+        "misc": [
+          "Jr., Closed strings and moduli in AdS (3) /CFT (2)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "101",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "101",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[28] O. Ohlsson Sax, A. Sfondrini and B. Stefanski, Jr., Integrability and the Conformal Field Theory of the Higgs branch, JHEP 06 (2015) 103 [ arXiv:1411.3676 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1327780" },
+      "reference": {
+        "arxiv_eprint": "1411.3676",
+        "authors": [
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "28",
+        "misc": [
+          "Jr., Integrability and the Conformal Field Theory of the Higgs branch",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "103",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "103",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[29] H.J. Boonstra, B. Peeters and K. Skenderis, Brane intersections, anti-de Sitter space-times and dual superconformal theories, Nucl. Phys. B 533 (1998) 127 [ hep-th/9803231 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/468653" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9803231",
+        "authors": [
+          { "full_name": "Boonstra, H.J." },
+          { "full_name": "Peeters, B." },
+          { "full_name": "Skenderis, K." }
+        ],
+        "label": "29",
+        "misc": [
+          "Brane intersections, anti-de Sitter space-times and dual superconformal theories",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "127",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "533",
+          "page_start": "127",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[30] S. Gukov, E. Martinec, G.W. Moore and A. Strominger, The Search for a holographic dual to AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1), Adv. Theor. Math. Phys. 9 (2005) 435 [ hep-th/0403090 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/645873" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0403090",
+        "authors": [
+          { "full_name": "Gukov, S." },
+          { "full_name": "Martinec, E." },
+          { "full_name": "Moore, G.W." },
+          { "full_name": "Strominger, A." }
+        ],
+        "label": "30",
+        "misc": [
+          "The Search for a holographic dual to AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "435",
+          "journal_title": "Adv.Theor.Math.Phys.",
+          "journal_volume": "9",
+          "page_start": "435",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[31] D. Tong, The holographic dual of AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1), JHEP 04 (2014) 193 [ arXiv:1402.5135 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1282058" },
+      "reference": {
+        "arxiv_eprint": "1402.5135",
+        "authors": [{ "full_name": "Tong, D." }],
+        "label": "31",
+        "misc": [
+          "The holographic dual of AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "193",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "193",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[32] L. Eberhardt, M.R. Gaberdiel and R. Gopakumar, The Worldsheet Dual of the Symmetric Product CFT, arXiv:1812.01007 [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1706786" },
+      "reference": {
+        "arxiv_eprint": "1812.01007",
+        "authors": [
+          { "full_name": "Eberhardt, L." },
+          { "full_name": "Gaberdiel, M.R." },
+          { "full_name": "Gopakumar, R." }
+        ],
+        "label": "32",
+        "misc": ["The Worldsheet Dual of the Symmetric Product CFT"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[33] B. Hoare and A.A. Tseytlin, On string theory on AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed 3-form flux: tree-level S-matrix, Nucl. Phys. B 873 (2013) 682 [ arXiv:1303.1037 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1222535" },
+      "reference": {
+        "arxiv_eprint": "1303.1037",
+        "authors": [
+          { "full_name": "Hoare, B." },
+          { "full_name": "Tseytlin, A.A." }
+        ],
+        "label": "33",
+        "misc": [
+          "On string theory on AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed 3-form flux: tree-level S-matrix",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "682",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "873",
+          "page_start": "682",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[34] B. Hoare and A.A. Tseytlin, Massive S-matrix of AdS (3) \u00d7 S (3) \u00d7 T (4) superstring theory with mixed 3-form flux, Nucl. Phys. B 873 (2013) 395 [ arXiv:1304.4099 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1228378" },
+      "reference": {
+        "arxiv_eprint": "1304.4099",
+        "authors": [
+          { "full_name": "Hoare, B." },
+          { "full_name": "Tseytlin, A.A." }
+        ],
+        "label": "34",
+        "misc": [
+          "Massive S-matrix of AdS (3) \u00d7 S (3) \u00d7 T (4) superstring theory with mixed 3-form flux",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "395",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "873",
+          "page_start": "395",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[35] R. Borsato, O. Ohlsson Sax, A. Sfondrini, B. Stefanski, Jr. and A. Torrielli, The all-loop integrable spin-chain for strings on AdS (3) \u00d7 S (3) \u00d7 T (4) : the massive sector, JHEP 08 (2013) 043 [ arXiv:1303.5995 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1225318" },
+      "reference": {
+        "arxiv_eprint": "1303.5995",
+        "authors": [
+          { "full_name": "Borsato, R." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "35",
+        "misc": [
+          "Jr. and A. Torrielli, The all-loop integrable spin-chain for strings on AdS (3) \u00d7 S (3) \u00d7 T (4) : the massive sector",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "043",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "043",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[36] B. Hoare, A. Stepanchuk and A.A. Tseytlin, Giant magnon solution and dispersion relation in string theory in AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed flux, Nucl. Phys. B 879 (2014) 318 [ arXiv:1311.1794 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1263689" },
+      "reference": {
+        "arxiv_eprint": "1311.1794",
+        "authors": [
+          { "full_name": "Hoare, B." },
+          { "full_name": "Stepanchuk, A." },
+          { "full_name": "Tseytlin, A.A." }
+        ],
+        "label": "36",
+        "misc": [
+          "Giant magnon solution and dispersion relation in string theory in AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed flux",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "318",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "879",
+          "page_start": "318",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[37] A. Banerjee, K.L. Panigrahi and P.M. Pradhan, Spiky strings on AdS (3) \u00d7 S (3) with NS-NS flux, Phys. Rev. D 90 (2014) 106006 [ arXiv:1405.5497 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1297406" },
+      "reference": {
+        "arxiv_eprint": "1405.5497",
+        "authors": [
+          { "full_name": "Banerjee, A." },
+          { "full_name": "Panigrahi, K.L." },
+          { "full_name": "Pradhan, P.M." }
+        ],
+        "label": "37",
+        "misc": [
+          "Spiky strings on AdS (3) \u00d7 S (3) with NS-NS flux",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "106006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[38] A. Stepanchuk, String theory in AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed flux: semiclassical and 1-loop phase in the S-matrix, J. Phys. A 48 (2015) 195401 [ arXiv:1412.4764 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1334408" },
+      "reference": {
+        "arxiv_eprint": "1412.4764",
+        "authors": [{ "full_name": "Stepanchuk, A." }],
+        "label": "38",
+        "misc": [
+          "String theory in AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed flux: semiclassical and 1-loop phase in the S-matrix",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "195401",
+          "journal_title": "J.Phys.A",
+          "journal_volume": "48",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[39] T. Lloyd, O. Ohlsson Sax, A. Sfondrini and B. Stefanski, Jr., The complete worldsheet S matrix of superstrings on AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed three-form flux, Nucl. Phys. B 891 (2015) 570 [ arXiv:1410.0866 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1320021" },
+      "reference": {
+        "arxiv_eprint": "1410.0866",
+        "authors": [
+          { "full_name": "Lloyd, T." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "39",
+        "misc": [
+          "Jr., The complete worldsheet S matrix of superstrings on AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed three-form flux",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "570",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "891",
+          "page_start": "570",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[40] R. Borsato, O. Ohlsson Sax, A. Sfondrini and B. Stefanski, Jr., On the spectrum of AdS (3) \u00d7 S (3) \u00d7 T (4) strings with Ramond-Ramond flux, J. Phys. A 49 (2016) 41LT03 [ arXiv:1605.00518 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1454272" },
+      "reference": {
+        "arxiv_eprint": "1605.00518",
+        "authors": [
+          { "full_name": "Borsato, R." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "40",
+        "misc": [
+          "Jr., On the spectrum of AdS (3) \u00d7 S (3) \u00d7 T (4) strings with Ramond-Ramond flux",
+          "LT03",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "41",
+          "journal_title": "J.Phys.A",
+          "journal_volume": "49",
+          "page_start": "41",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[41] M. Baggio, O. Ohlsson Sax, A. Sfondrini, B. Stefanski, Jr. and A. Torrielli, Protected string spectrum in AdS (3) /CFT (2) from worldsheet integrability, JHEP 04 (2017) 091 [ arXiv:1701.03501 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1509031" },
+      "reference": {
+        "arxiv_eprint": "1701.03501",
+        "authors": [
+          { "full_name": "Baggio, M." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "41",
+        "misc": [
+          "Jr. and A. Torrielli, Protected string spectrum in AdS (3) /CFT (2) from worldsheet integrability",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "091",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "091",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[42] L. Eberhardt, M.R. Gaberdiel, R. Gopakumar and W. Li, BPS spectrum on AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1), JHEP 03 (2017) 124 [ arXiv:1701.03552 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1509034" },
+      "reference": {
+        "arxiv_eprint": "1701.03552",
+        "authors": [
+          { "full_name": "Eberhardt, L." },
+          { "full_name": "Gaberdiel, M.R." },
+          { "full_name": "Gopakumar, R." },
+          { "full_name": "Li, W." }
+        ],
+        "label": "42",
+        "misc": [
+          "BPS spectrum on AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "124",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "124",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[43] J. de Boer, Six-dimensional supergravity on S (3) \u00d7 AdS (3) and 2 \u2212 D conformal field theory, Nucl. Phys. B 548 (1999) 139 [ hep-th/9806104 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/471736" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9806104",
+        "authors": [{ "full_name": "de Boer, J." }],
+        "label": "43",
+        "misc": [
+          "Six-dimensional supergravity on S (3) \u00d7 AdS (3) and 2 - D conformal field theory",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "139",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "548",
+          "page_start": "139",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[44] R. Borsato, O. Ohlsson Sax, A. Sfondrini and B. Stefanski, Jr., The complete AdS (3) \u00d7 S (3) \u00d7 T (4) worldsheet S matrix, JHEP 10 (2014) 66 [ arXiv:1406.0453 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1298837" },
+      "reference": {
+        "arxiv_eprint": "1406.0453",
+        "authors": [
+          { "full_name": "Borsato, R." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "44",
+        "misc": [
+          "Jr., The complete AdS (3) \u00d7 S (3) \u00d7 T (4) worldsheet S matrix",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "066",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "066",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[45] R. Borsato, O. Ohlsson Sax, A. Sfondrini and B. Stefanski, Jr., Towards the All-Loop Worldsheet S Matrix for AdS (3) \u00d7 S (3) \u00d7 T (4), Phys. Rev. Lett. 113 (2014) 131601 [ arXiv:1403.4543 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1286354" },
+      "reference": {
+        "arxiv_eprint": "1403.4543",
+        "authors": [
+          { "full_name": "Borsato, R." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "45",
+        "misc": [
+          "Jr., Towards the All-Loop Worldsheet S Matrix for AdS",
+          "(3) \u00d7 S (3) \u00d7 T (4)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "131601",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "113",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[46] R. Borsato, O. Ohlsson Sax and A. Sfondrini, A dynamic SU(1|1)(2) S-matrix for AdS (3) /CF T (2), JHEP 04 (2013) 113 [ arXiv:1211.5119 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1203484" },
+      "reference": {
+        "arxiv_eprint": "1211.5119",
+        "authors": [
+          { "full_name": "Borsato, R." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." }
+        ],
+        "label": "46",
+        "misc": [
+          "A dynamic SU(1|1)(2) S-matrix for AdS (3) /CF T (2)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "113",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "113",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[47] R. Borsato, O. Ohlsson Sax, A. Sfondrini and B. Stefanski, Jr., The AdS(3) \u00d7 S(3) \u00d7 S(3) \u00d7 S(1) worldsheet S matrix, J. Phys. A 48 (2015) 415401 [ arXiv:1506.00218 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1373956" },
+      "reference": {
+        "arxiv_eprint": "1506.00218",
+        "authors": [
+          { "full_name": "Borsato, R." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "47",
+        "misc": [
+          "Jr., The AdS(3) \u00d7 S(3) \u00d7 S(3) \u00d7 S(1) worldsheet S matrix",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "415401",
+          "journal_title": "J.Phys.A",
+          "journal_volume": "48",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[48] M. Cveti\u010d, H. L\u00fc, C.N. Pope and K.S. Stelle, T duality in the Green-Schwarz formalism and the massless/massive IIA duality map, Nucl. Phys. B 573 (2000) 149 [ hep-th/9907202 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/504614" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9907202",
+        "authors": [
+          { "full_name": "M. Cveti, H.L" },
+          { "full_name": "Pope, C.N." },
+          { "full_name": "Stelle, K.S." }
+        ],
+        "label": "48",
+        "misc": [
+          "T duality in the Green-Schwarz formalism and the massless/massive IIA duality map",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "149",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "573",
+          "page_start": "149",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[49] G. Arutyunov, S. Frolov and M. Zamaklar, The Zamolodchikov-Faddeev algebra for AdS (5) \u00d7 S (5) superstring, JHEP 04 (2007) 002 [ hep-th/0612229 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/735217" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0612229",
+        "authors": [
+          { "full_name": "Arutyunov, G." },
+          { "full_name": "Frolov, S." },
+          { "full_name": "Zamaklar, M." }
+        ],
+        "label": "49",
+        "misc": [
+          "The Zamolodchikov-Faddeev algebra for AdS (5) \u00d7 S (5) superstring",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "002",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "002",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[50] O. Ohlsson Sax, B. Stefanski Jr. and A. Torrielli, On the massless modes of the AdS (3) /CF T (2) integrable systems, JHEP 03 (2013) 109 [ arXiv:1211.1952 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1199303" },
+      "reference": {
+        "arxiv_eprint": "1211.1952",
+        "authors": [
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Stefanski, B., Jr." },
+          { "full_name": "Torrielli, A." }
+        ],
+        "label": "50",
+        "misc": [
+          "On the massless modes of the AdS (3) /CF T (2) integrable systems",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "109",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "109",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[51] G. Giribet, C. Hull, M. Kleban, M. Porrati and E. Rabinovici, Superstrings on AdS (3) at \u2225=1, JHEP 08 (2018) 204 [ arXiv:1803.04420 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1662306" },
+      "reference": {
+        "arxiv_eprint": "1803.04420",
+        "authors": [
+          { "full_name": "Giribet, G." },
+          { "full_name": "Hull, C." },
+          { "full_name": "Kleban, M." },
+          { "full_name": "Porrati, M." },
+          { "full_name": "Rabinovici, E." }
+        ],
+        "label": "51",
+        "misc": ["Superstrings on AdS (3) at \u2225=1", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "204",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "204",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[52] M.R. Gaberdiel and R. Gopakumar, Tensionless string spectra on AdS (3), JHEP 05 (2018) 085 [ arXiv:1803.04423 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1662310" },
+      "reference": {
+        "arxiv_eprint": "1803.04423",
+        "authors": [
+          { "full_name": "Gaberdiel, M.R." },
+          { "full_name": "Gopakumar, R." }
+        ],
+        "label": "52",
+        "misc": ["Tensionless string spectra on AdS (3)", "[INSPIRE]"],
+        "publication_info": {
+          "artid": "085",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "085",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[53] A. Pittelli, Yangian Symmetry of String Theory on AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1) with Mixed 3-form Flux, Nucl. Phys. B 935 (2018) 271 [ arXiv:1711.02468 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1634898" },
+      "reference": {
+        "arxiv_eprint": "1711.02468",
+        "authors": [{ "full_name": "Pittelli, A." }],
+        "label": "53",
+        "misc": [
+          "Yangian Symmetry of String Theory on AdS (3) \u00d7 S (3) \u00d7 S (3) \u00d7 S (1) with Mixed 3-form Flux",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "271",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "935",
+          "page_start": "271",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[54] J.M. Nieto and R. Ruiz, One-loop quantization of rigid spinning strings in AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed flux, JHEP 07 (2018) 141 [ arXiv:1804.10477 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1670634" },
+      "reference": {
+        "arxiv_eprint": "1804.10477",
+        "authors": [
+          { "full_name": "Nieto, J.M." },
+          { "full_name": "Ruiz, R." }
+        ],
+        "label": "54",
+        "misc": [
+          "One-loop quantization of rigid spinning strings in AdS (3) \u00d7 S (3) \u00d7 T (4) with mixed flux",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "141",
+          "journal_title": "JHEP",
+          "journal_volume": "07",
+          "page_start": "141",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[55] M.C. Abbott and I. Aniceto, Massless L\u00fcscher terms and the limitations of the AdS (3) asymptotic Bethe ansatz, Phys. Rev. D 93 (2016) 106006 [ arXiv:1512.08761 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1411718" },
+      "reference": {
+        "arxiv_eprint": "1512.08761",
+        "authors": [
+          { "full_name": "Abbott, M.C." },
+          { "full_name": "Aniceto, I." }
+        ],
+        "label": "55",
+        "misc": [
+          "Massless L\u00fcscher terms and the limitations of the AdS (3) asymptotic Bethe ansatz",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "106006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "93",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[56] D. Bombardelli, B. Stefanski, Jr. and A. Torrielli, The low-energy limit of AdS (3) /CFT (2) and its TBA, JHEP 10 (2018) 177 [ arXiv:1807.07775 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1683350" },
+      "reference": {
+        "arxiv_eprint": "1807.07775",
+        "authors": [
+          { "full_name": "Bombardelli, D." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "56",
+        "misc": [
+          "Jr. and A. Torrielli, The low-energy limit of AdS (3) /CFT (2) and its TBA",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "177",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "177",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[57] R. Borsato, O. Ohlsson Sax, A. Sfondrini, B. Stefanski, Jr., A. Torrielli and O. Ohlsson Sax, On the dressing factors, Bethe equations and Yangian symmetry of strings on AdS (3) \u00d7 S (3) \u00d7 T (4), J. Phys. A 50 (2017) 024004 [ arXiv:1607.00914 ] [ INSPIRE ]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1473719" },
+      "reference": {
+        "arxiv_eprint": "1607.00914",
+        "authors": [
+          { "full_name": "Borsato, R." },
+          { "full_name": "Sax, O. Ohlsson" },
+          { "full_name": "Sfondrini, A." },
+          { "full_name": "Stefanski, B." }
+        ],
+        "label": "57",
+        "misc": [
+          "Jr., A. Torrielli and O. Ohlsson Sax",
+          "On the dressing factors, Bethe equations and Yangian symmetry of strings on AdS (3) \u00d7 S (3) \u00d7 T (4)",
+          "[INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "024004",
+          "journal_title": "J.Phys.A",
+          "journal_volume": "50",
+          "year": 2017
+        }
+      }
+    }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1712033" },
+  "texkeys": ["Varga:2019hqh"],
+  "titles": [
+    {
+      "source": "Springer",
+      "title": "Fermion zero modes for the mixed-flux AdS$_{3}$ giant magnon"
+    },
+    {
+      "source": "arXiv",
+      "title": "Fermion zero modes for the mixed-flux AdS$_3$ giant magnon"
+    }
+  ]
+}

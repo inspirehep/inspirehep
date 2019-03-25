@@ -1,0 +1,591 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature", "Fermilab"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA18-kp30d" },
+    { "date": "2018-07-19", "expert": "3", "status": "abs" },
+    { "date": "2018-07-23", "expert": "3", "status": "printed" },
+    { "date": "2018-07-31", "expert": "3", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1968333" }],
+  "abstracts": [
+    {
+      "source": "Elsevier",
+      "value":
+        "There is a long standing discrepancy between the Standard Model prediction for the muon g\u22122 and the value measured by the Brookhaven E821 Experiment. At present the discrepancy stands at about three standard deviations, with a comparable accuracy between experiment and theory. Two new proposals \u2013 at Fermilab and J-PARC \u2013 plan to improve the experimental uncertainty by a factor of 4, and it is expected that there will be a significant reduction in the uncertainty of the Standard Model prediction. I will review the status of the planned experiment at Fermilab, E989, which will analyse 21 times more muons than the BNL experiment and discuss how the systematic uncertainty will be reduced by a factor of 3 such that a precision of 0.14 ppm can be achieved."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "There is a long standing discrepancy between the Standard Model prediction for the muon g-2 and the value measured by the Brookhaven E821 Experiment. At present the discrepancy stands at about three standard deviations, with a comparable accuracy between experiment and theory. Two new proposals -- at Fermilab and J-PARC -- plan to improve the experimental uncertainty by a factor of 4, and it is expected that there will be a significant reduction in the uncertainty of the Standard Model prediction. I will review the status of the planned experiment at Fermilab, E989, which will analyse 21 times more muons than the BNL experiment and discuss how the systematic uncertainty will be reduced by a factor of 3 such that a precision of 0.14 ppm can be achieved."
+    }
+  ],
+  "accelerator_experiments": [
+    {
+      "legacy_name": "FNAL-E-0989",
+      "record": { "$ref": "http://labs.inspirehep.net/api/experiments/1108252" }
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [
+    { "categories": ["physics.ins-det", "hep-ex"], "value": "1411.2555" }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902807"
+          },
+          "value": "Frascati"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Venanzoni, Graziano",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00266018" },
+        { "schema": "ORCID", "value": "0000-0002-3525-476X" },
+        { "schema": "INSPIRE BAI", "value": "G.Venanzoni.1" }
+      ],
+      "raw_affiliations": [
+        { "value": "Laboratori Nazionali di Frascati dell' INFN, Frascati" }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1031286" },
+      "signature_block": "VANANSANg",
+      "uuid": "75e6b126-a136-4700-972e-aba4a40fb80b"
+    }
+  ],
+  "citeable": true,
+  "collaborations": [{ "value": "Fermilab E989" }],
+  "control_number": 1326918,
+  "copyright": [{ "statement": "Elsevier B.V." }],
+  "core": true,
+  "curated": true,
+  "document_type": ["conference paper"],
+  "documents": [
+    {
+      "key": "arXiv:1411.2555.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1996141/content.pdf%3B1"
+    },
+    {
+      "hidden": true,
+      "key": "S2405601415005763.xml",
+      "source": "Elsevier",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g128/2579913/content.xml%3B1"
+    },
+    {
+      "fulltext": true,
+      "key": "10.1016_j.nuclphysbps.2015.09.087.pdf",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g131/2637413/content.pdf%3B1"
+    }
+  ],
+  "dois": [
+    { "source": "bibmatch", "value": "10.1016/j.nuclphysbps.2015.09.087" }
+  ],
+  "external_system_identifiers": [{ "schema": "OSTI", "value": "1327281" }],
+  "figures": [
+    {
+      "caption":
+        "Standard model predictions of $a_\\mu$ by several groups compared to the measurement from BNL (taken from~\\cite{teubner}).",
+      "key": "a_sm_history_20Apr2011_new.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995711/content.png%3B2"
+    },
+    {
+      "caption":
+        "Distribution of electron counts versus time for 3.6 billion muon decays from the E821 experiment. The data are wrapped around modulo 100 $\\mu$s~\\cite{Bennett:2006fi}.",
+      "key": "wiggle01.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995713/content.png%3B2"
+    },
+    {
+      "caption":
+        "The new MC-1 building at Fermilab, where the muon g-2 storage ring is being reassembled in the larger part to the left. The part to the right houses the counting room, electronics, etc, with cryogenics services further right. (Image credit: Fermilab.)",
+      "key": "mc1.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995712/content.png%3B2"
+    },
+    {
+      "caption":
+        "Re-assembly of the g-2 storage-ring magnet at Fermilab, after the three superconducting coils were positioned gently on top of the newly assembled bottom ring of steel yoke segments. The coils and their complex interconnect system (top right in photo) were transported as a single unit from Brookhaven to Fermilab by land, sea and river, in 2013. (Image credit: Fermilab.)",
+      "key": "ring.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g99/1995710/content.png%3B2"
+    }
+  ],
+  "imprints": [{ "date": "2016-06-02" }],
+  "inspire_categories": [
+    { "term": "Instrumentation" },
+    { "term": "Experiment-HEP" }
+  ],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "muon: magnetic moment" },
+    { "schema": "INSPIRE", "value": "Brookhaven Lab" },
+    { "schema": "INSPIRE", "value": "J-PARC Lab" }
+  ],
+  "legacy_creation_date": "2014-11-11",
+  "legacy_version": "20180807120630.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    },
+    { "url": "http://creativecommons.org/licenses/by/4.0/" }
+  ],
+  "number_of_pages": 5,
+  "preprint_date": "2014-11-10",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "5 pages, 4 figures, Contribution to the proceedings of 37th International Conference on High Energy Physics (ICHEP) in Valencia, Spain, July 2-9 2014. arXiv admin note: substantial text overlap with arXiv:1203.1501"
+    }
+  ],
+  "publication_info": [
+    {
+      "cnum": "C14-07-02",
+      "conference_record": {
+        "$ref": "http://labs.inspirehep.net/api/conferences/1203206"
+      },
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1365972"
+      },
+      "journal_title": "Nucl.Part.Phys.Proc.",
+      "journal_volume": "273-275",
+      "page_end": "588",
+      "page_start": "584",
+      "parent_record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1466669"
+      },
+      "year": 2016
+    }
+  ],
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/777286" },
+      "reference": {
+        "authors": [{ "full_name": "Jegerlehner, F." }],
+        "label": "1",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Springer Tracts Mod.Phys.",
+          "journal_volume": "226",
+          "page_start": "1",
+          "year": 2008
+        },
+        "title": { "title": "The anomalous magnetic moment of the muon" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1264013" },
+      "reference": {
+        "arxiv_eprint": "1311.2198",
+        "authors": [
+          { "full_name": "Blum, T." },
+          { "full_name": "Denig, A." },
+          { "full_name": "Logashenko, I." },
+          { "full_name": "de Rafael, E." },
+          { "full_name": "Roberts, B. Lee" }
+        ],
+        "imprint": { "publisher": "Teubner" },
+        "label": "2",
+        "misc": ["T and G. Venanzoni"]
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "St\u00f6ckinger, D." }],
+        "label": "3",
+        "misc": [
+          "In Roberts, Lee B Marciano, William J. (eds.) : Lepton dipole moments 393-438 (Advanced series on directions in high energy physics. 20)"
+        ],
+        "title": { "title": "Muon (g-2) and physics beyond the standard model" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/552899" },
+      "reference": {
+        "authors": [{ "full_name": "Brown, H.N." }],
+        "label": "4",
+        "misc": ["[Muon g-2 Collaboration]"],
+        "publication_info": {
+          "artid": "2227",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "86",
+          "page_start": "2227",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/900116" },
+      "reference": {
+        "authors": [
+          { "full_name": "Hagiwara, K." },
+          { "full_name": "Liao, R." },
+          { "full_name": "Martin, A.D." },
+          { "full_name": "Nomura, D." }
+        ],
+        "imprint": { "publisher": "Teubner" },
+        "label": "5",
+        "misc": ["and T"],
+        "publication_info": {
+          "artid": "085003",
+          "journal_title": "J.Phys.G",
+          "journal_volume": "38",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/813721" },
+      "reference": {
+        "authors": [
+          { "full_name": "Jegerlehner, F." },
+          { "full_name": "Nyffeler, A." }
+        ],
+        "label": "6",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "477",
+          "page_start": "1",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/873506" },
+      "reference": {
+        "authors": [
+          { "full_name": "Davier, M." },
+          { "full_name": "Hoecker, A." },
+          { "full_name": "Malaescu, B." },
+          { "full_name": "Zhang, Z." }
+        ],
+        "label": "7",
+        "misc": ["Additional pubnote: Eur.Phys.J.,C72,1874"],
+        "publication_info": {
+          "artid": "1515",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "71",
+          "page_start": "1515",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/831123" },
+      "reference": {
+        "authors": [{ "full_name": "Prades, J." }],
+        "label": "8",
+        "publication_info": {
+          "artid": "75",
+          "journal_title": "Acta Phys.Polon.Supp.",
+          "journal_volume": "3",
+          "page_start": "75",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/710962" },
+      "reference": {
+        "authors": [{ "full_name": "Bennett, G.W." }],
+        "label": "9",
+        "misc": ["[Muon G-2 Collaboration]"],
+        "publication_info": {
+          "artid": "072003",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "73",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Carey, R.M." }],
+        "label": "10",
+        "misc": ["New Muon (g 2) Collaboration see"],
+        "urls": [
+          {
+            "value":
+              "http://lss.fnal.gov/archive/testproposal/0000/fermilab-proposal0989.shtml"
+          }
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/838939" },
+      "reference": {
+        "authors": [{ "full_name": "Actis, S." }],
+        "label": "11",
+        "misc": [
+          "[Working Group on Radiative Corrections and Monte Carlo Generators for Low Energies Collaboration]"
+        ],
+        "publication_info": {
+          "artid": "585",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "66",
+          "page_start": "585",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/91739" },
+      "reference": {
+        "authors": [
+          { "full_name": "Chen, M.S." },
+          { "full_name": "Zerwas, P.M." }
+        ],
+        "label": "12",
+        "publication_info": {
+          "artid": "58",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "11",
+          "page_start": "58",
+          "year": 1975
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/495585" },
+      "reference": {
+        "authors": [
+          { "full_name": "Binner, S." },
+          { "full_name": "Kuhn, J.H." },
+          { "full_name": "Melnikov, K." }
+        ],
+        "label": "13",
+        "publication_info": {
+          "artid": "279",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "459",
+          "page_start": "279",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/509201" },
+      "reference": {
+        "authors": [
+          { "full_name": "Benayoun, M." },
+          { "full_name": "Eidelman, S.I." },
+          { "full_name": "Ivanchenko, V.N." },
+          { "full_name": "Silagadze, Z.K." }
+        ],
+        "label": "14",
+        "publication_info": {
+          "artid": "2605",
+          "journal_title": "Mod.Phys.Lett.A",
+          "journal_volume": "14",
+          "page_start": "2605",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/787396" },
+      "reference": {
+        "authors": [{ "full_name": "Kluge, W." }],
+        "label": "15",
+        "misc": ["280"],
+        "publication_info": {
+          "artid": "280",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "181-182",
+          "page_start": "280",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/901196" },
+      "reference": {
+        "authors": [
+          { "full_name": "Druzhinin, V.P." },
+          { "full_name": "Eidelman, S.I." },
+          { "full_name": "Serednyakov, S.I." },
+          { "full_name": "Solodov, E.P." }
+        ],
+        "label": "16",
+        "publication_info": {
+          "artid": "1545",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "83",
+          "page_start": "1545",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "legacy_curated": true,
+      "reference": {
+        "label": "17",
+        "urls": [{ "value": "http://www.int.washington.edu/PROGRAMS/11-47w" }]
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Prades, J." },
+          { "full_name": "de Rafael, E." },
+          { "full_name": "Vainshtein, A." }
+        ],
+        "label": "18",
+        "misc": ["(Advanced series on directions in high energy physics. 20)"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1249881" },
+      "reference": {
+        "authors": [{ "full_name": "Burger, F." }],
+        "label": "19",
+        "misc": ["[ETM Collaboration]"],
+        "publication_info": {
+          "artid": "099",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "099",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/884306" },
+      "reference": {
+        "authors": [
+          { "full_name": "Jegerlehner, F." },
+          { "full_name": "Szafron, R." }
+        ],
+        "label": "20",
+        "publication_info": {
+          "artid": "1632",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "71",
+          "page_start": "1632",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1193771" },
+      "reference": {
+        "authors": [
+          { "full_name": "Benayoun, M." },
+          { "full_name": "David, P." },
+          { "full_name": "DelBuono, L." },
+          { "full_name": "Jegerlehner, F." }
+        ],
+        "label": "21",
+        "publication_info": {
+          "artid": "2453",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "73",
+          "page_start": "2453",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/927054" },
+      "reference": {
+        "authors": [{ "full_name": "Babusci, D." }],
+        "label": "22",
+        "publication_info": {
+          "artid": "1917",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "72",
+          "page_start": "1917",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1310649" },
+      "reference": {
+        "authors": [
+          { "full_name": "Colangelo, G." },
+          { "full_name": "Hoferichter, M." },
+          { "full_name": "Kubis, B." },
+          { "full_name": "Procura, M." },
+          { "full_name": "Stoffer, P." }
+        ],
+        "label": "23",
+        "publication_info": {
+          "artid": "6",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "738",
+          "page_start": "6",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Fienberg, A." }],
+        "label": "24",
+        "misc": ["Nucl. Instrum. Meth. in preparation"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/801891" },
+      "reference": {
+        "authors": [{ "full_name": "Bennett, G.W." }],
+        "label": "25",
+        "misc": ["[Muon (g-2) Collaboration]"],
+        "publication_info": {
+          "artid": "052008",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "80",
+          "year": 2009
+        }
+      }
+    }
+  ],
+  "report_numbers": [{ "value": "FERMILAB-CONF-14-423-PPD" }],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1326918" },
+  "texkeys": ["Venanzoni:2014ixa"],
+  "titles": [
+    { "title": "The New Muon g\u22122 experiment at Fermilab" },
+    { "source": "arXiv", "title": "The New Muon g-2 experiment at Fermilab" }
+  ],
+  "urls": [
+    {
+      "description": "Fermilab Library Server (fulltext available)",
+      "value":
+        "http://lss.fnal.gov/archive/2014/conf/fermilab-conf-14-423-ppd.pdf"
+    }
+  ]
+}

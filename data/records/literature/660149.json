@@ -1,0 +1,97 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [{ "identifier": "D04-12854" }],
+  "abstracts": [
+    {
+      "source": "Cambridge University Press",
+      "value":
+        "An accessible introduction to string theory, this book provides a detailed and self-contained demonstration of the main concepts involved. The first part deals with basic ideas, reviewing special relativity and electromagnetism while introducing the concept of extra dimensions. D-branes and the classical dynamics of relativistic strings are discussed next, and the quantization of open and closed bosonic strings in the light-cone gauge, along with a brief introduction to superstrings. The second part begins with a detailed study of D-branes followed by string thermodynamics. It discusses possible physical applications, and covers T-duality of open and closed strings, electromagnetic fields on D-branes, Born\u2013Infeld electrodynamics, covariant string quantization and string interactions. Primarily aimed as a textbook for advanced undergraduate and beginning graduate courses, it will also be ideal for a wide range of scientists and mathematicians who are curious about string theory."
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/907455"
+          },
+          "value": "MIT"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Zwiebach, B.",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00159016" },
+        { "schema": "INSPIRE BAI", "value": "B.Zwiebach.1" }
+      ],
+      "raw_affiliations": [
+        { "value": "Massachusetts Institute of Technology" }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/981880" },
+      "signature_block": "ZWABACHb",
+      "uuid": "30a18574-1e6b-4753-9f44-a9126d22798c"
+    }
+  ],
+  "citeable": true,
+  "control_number": 660149,
+  "core": true,
+  "curated": true,
+  "document_type": ["book"],
+  "external_system_identifiers": [
+    { "schema": "SPIRES", "value": "SPIRES-6000347" }
+  ],
+  "imprints": [
+    { "date": "2006-07-28", "publisher": "Cambridge University Press" }
+  ],
+  "inspire_categories": [{ "term": "Theory-HEP" }],
+  "isbns": [
+    { "value": "9780521831437" },
+    { "medium": "online", "value": "9780511207570" }
+  ],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "book" },
+    { "schema": "INSPIRE", "value": "string model" },
+    { "schema": "INSPIRE", "value": "particle: relativistic" },
+    { "schema": "INSPIRE", "value": "gravitation" },
+    { "schema": "INSPIRE", "value": "electromagnetic field" },
+    { "schema": "INSPIRE", "value": "space-time: higher-dimensional" },
+    { "schema": "INSPIRE", "value": "membrane model: D-brane" },
+    { "schema": "INSPIRE", "value": "gauge field theory" },
+    { "schema": "INSPIRE", "value": "thermodynamics" },
+    { "schema": "INSPIRE", "value": "black hole" },
+    { "schema": "INSPIRE", "value": "T-duality" },
+    { "schema": "INSPIRE", "value": "quantization" },
+    { "schema": "INSPIRE", "value": "Riemann surface" },
+    { "schema": "INSPIRE", "value": "scattering amplitude" },
+    { "schema": "INSPIRE", "value": "bibliography" }
+  ],
+  "legacy_creation_date": "2004-09-24",
+  "legacy_version": "20150727111255.0",
+  "number_of_pages": 558,
+  "preprint_date": "2004",
+  "publication_info": [
+    { "pubinfo_freetext": "Cambridge, UK: Univ. Pr. (2004) 558 p" },
+    { "pubinfo_freetext": "Cambridge, UK: Univ. Pr. (2009) 673 p" }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/660149" },
+  "texkeys": ["Zwiebach:2004tj"],
+  "titles": [{ "title": "A first course in string theory" }],
+  "urls": [
+    {
+      "description": "Cambridge University Press Server",
+      "value":
+        "http://www.cambridge.org/uk/catalogue/catalogue.asp?isbn=0521831431"
+    },
+    {
+      "description": "Fermilab BOOKS Database",
+      "value":
+        "http://www-spires.fnal.gov/spires/find/books/www?cl=QC794.6.S85Z95::2004"
+    },
+    {
+      "description": "Electronic Version from a server",
+      "value":
+        "http://www.cambridge.org/catalogue/catalogue.asp?isbn=9780521880329"
+    }
+  ]
+}

@@ -61,7 +61,7 @@ services:
     extends:
       file: docker-compose.services.yml
       service: app
-    command: ./scripts/server
+    command: pipenv run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO
     depends_on:
       - db
       - es
