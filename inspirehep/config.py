@@ -274,6 +274,13 @@ AUTHORS = {
     "list_permission_factory_imp": allow_all,
 }
 
+AUTHORS_ORCID = deepcopy(AUTHORS)
+AUTHORS_ORCID.update(
+    {
+        "pid_type": "orcid",
+        "item_route": '/orcid/<pidpath(orcid,record_class="inspirehep.records.api.AuthorsRecord"):pid_value>',
+    }
+)
 
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
@@ -283,6 +290,7 @@ RECORDS_REST_ENDPOINTS = {
     "literature_references": LITERATURE_REFERENCES,
     "doi": DOI,
     "authors": AUTHORS,
+    "authors_orcid": AUTHORS_ORCID,
 }
 
 RECORDS_REST_FACETS = {
