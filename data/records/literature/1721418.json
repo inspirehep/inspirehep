@@ -1,0 +1,738 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA19-kp11ap" },
+    { "date": "2019-03-06", "expert": "Y", "status": "abs" },
+    { "date": "2019-03-11", "expert": "Y", "status": "printed" },
+    { "date": "2019-03-20", "expert": "Y", "status": "final" }
+  ],
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "We devise an algorithm which allows one to count the number of Killing vectors for a Lorentzian manifold of dimension 3. Our algorithm relies on the principal traces of powers of the Ricci tensor and branches intricately according to the values of differential invariants arising from the compatibility conditions of the Killing equation. As illustrating examples, we classify the Lifshitz and pp-wave spacetimes into a hierarchy based on their level of symmetry. A complete classification of spacetimes admitting 4 Killing vectors is also presented."
+    }
+  ],
+  "acquisition_source": {
+    "datetime": "2019-02-22T03:46:26.365982",
+    "method": "hepcrawl",
+    "source": "arXiv",
+    "submission_number": "1465450"
+  },
+  "arxiv_eprints": [
+    { "categories": ["gr-qc", "hep-th", "math.DG"], "value": "1902.07899" }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902941"
+          },
+          "value": "Kyoto U."
+        }
+      ],
+      "emails": ["masato.nozawa@yukawa.kyoto-u.ac.jp"],
+      "full_name": "Nozawa, Masato",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.Nozawa.1" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1032574" },
+      "signature_block": "NASm",
+      "uuid": "115ebf5d-794f-49b2-94e2-479733d53b8d"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903103"
+          },
+          "value": "Osaka City U."
+        }
+      ],
+      "emails": ["k-tomoda@sci.osaka-cu.ac.jp"],
+      "full_name": "Tomoda, Kentaro",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "K.Tomoda.1" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1288265" },
+      "signature_block": "TANADk",
+      "uuid": "0eb7cb9e-6db9-485e-8df2-7103b2197559"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1721418,
+  "core": true,
+  "curated": true,
+  "deleted_records": [
+    { "$ref": "http://labs.inspirehep.net/api/literature/1721421" }
+  ],
+  "document_type": ["article"],
+  "documents": [
+    {
+      "fulltext": true,
+      "key": "1902.07899.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3697965/content.pdf%3B1"
+    }
+  ],
+  "inspire_categories": [
+    { "source": "arxiv", "term": "Gravitation and Cosmology" },
+    { "source": "arxiv", "term": "Theory-HEP" },
+    { "source": "arxiv", "term": "Math and Math Physics" },
+    { "term": "Gravitation and Cosmology" },
+    { "term": "Theory-HEP" },
+    { "term": "Math and Math Physics" }
+  ],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "vector: Killing" },
+    { "schema": "INSPIRE", "value": "tensor: Ricci" },
+    { "schema": "INSPIRE", "value": "dimension: 3" },
+    { "schema": "INSPIRE", "value": "differential equations: Killing" },
+    { "schema": "INSPIRE", "value": "hierarchy" },
+    { "schema": "INSPIRE", "value": "Lifshitz" },
+    { "schema": "INSPIRE", "value": "pp-wave" }
+  ],
+  "legacy_creation_date": "2019-02-25",
+  "legacy_version": "20190321135108.0",
+  "license": [
+    {
+      "license": "arXiv nonexclusive-distrib 1.0",
+      "material": "preprint",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 53,
+  "preprint_date": "2019-02-21",
+  "public_notes": [{ "source": "arXiv", "value": "53 pages, 17 figures" }],
+  "references": [
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[1] F. C. Klein, A comparative review of recent researches in geometry, arXiv:0807.3161 [math-DG]."
+        }
+      ],
+      "reference": {
+        "arxiv_eprint": "0807.3161",
+        "authors": [{ "full_name": "Klein, F.C." }],
+        "label": "1",
+        "misc": ["A comparative review of recent researches in geometry"],
+        "texkey": "Klein:2008"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[2] J. B. Zuber, Invariances in Physics and Group Theory, IRMA Lect. Math. Theor. Phys. 23, 307 (2015) doi:10.4171/148-1/12 [arXiv:1307.3970 [hep-th]]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1242687" },
+      "reference": {
+        "arxiv_eprint": "1307.3970",
+        "authors": [{ "full_name": "Zuber, J.B." }],
+        "dois": ["10.4171/148-1/12"],
+        "label": "2",
+        "misc": ["Invariances in Physics and Group Theory"],
+        "publication_info": {
+          "artid": "307",
+          "journal_title": "IRMA Lect.Math.Theor.Phys.",
+          "journal_volume": "23",
+          "page_start": "307",
+          "year": 2015
+        },
+        "texkey": "Zuber:2013rha"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[3] G. Darboux, Lec \u00b8ons sur la th\u00b4 eorie g\u00b4 en\u00b4 erale des surfaces et les applications g\u00b4 eom\u00b4 etriques du calcul infinit\u00b4 esimal, III partie, Gauthier-Villars, Paris (1894)."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Darboux, G." }],
+        "label": "3",
+        "misc": [
+          "Lec \u00b8ons sur la th\u00e9orie g\u00e9n\u00e9rale des surfaces et les applications g\u00e9om\u00e9triques du calcul infinit\u00e9simal, III partie, Gauthier-Villars, Paris (1894)"
+        ],
+        "texkey": "Darboux:1894"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[4] L.P. Eisenhart, A treatise on the differential geometry of curves and surfaces, Ginn and Company, Boston (1909)."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Eisenhart, L.P." }],
+        "label": "4",
+        "misc": [
+          "A treatise on the differential geometry of curves and surfaces, Ginn and Company, Boston"
+        ],
+        "publication_info": { "year": 1909 },
+        "texkey": "Eisenhart:1909"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[5] I. M. Singer, Infinitesimally homogeneous spaces, Comm. Pure Appl. Math. 13, 685\u2013697 (1960)."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Singer, I.M." }],
+        "label": "5",
+        "misc": ["Infinitesimally homogeneous spaces"],
+        "publication_info": {
+          "journal_title": "Commun.Pure Appl.Math.",
+          "journal_volume": "13",
+          "page_end": "697",
+          "page_start": "685",
+          "year": 1960
+        },
+        "texkey": "Singer:1960"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[6] K. Nomizu, On Local and Global Existence of Killing Vector Fields, Ann. Math. 72, no.1, 105-120 (1960)."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Nomizu, K." }],
+        "label": "6",
+        "misc": ["On Local and Global Existence of Killing Vector Fields"],
+        "publication_info": {
+          "journal_title": "Annals Math.",
+          "journal_volume": "72",
+          "page_end": "120",
+          "page_start": "105",
+          "year": 1960
+        },
+        "texkey": "Nomizu:1960"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[7] F. Pr\u00a8 ufer, F. Tricerri, L. Vanhecke, Curvature invariants, differential operators and local homogeneity, Trans. Amer. Math. Soc. 348, no. 11, 4643\u20134652 (1996)."
+        }
+      ],
+      "reference": {
+        "authors": [
+          { "full_name": "Pr\u00fcfer, F." },
+          { "full_name": "Tricerri, F." },
+          { "full_name": "Vanhecke, L." }
+        ],
+        "label": "7",
+        "misc": [
+          "Curvature invariants, differential operators and local homogeneity"
+        ],
+        "publication_info": {
+          "journal_title": "Trans.Am.Math.Soc.",
+          "journal_volume": "348",
+          "page_end": "4652",
+          "page_start": "4643",
+          "year": 1996
+        },
+        "texkey": "PuferTricerriVanhecke:1996"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[8] S. Console, C. Olmos, Curvature invariants, Killing vector fields, Connections and Cohomogeneity, Proc. of A.M.S. 137, no.10, 1069\u20131072 (2008)."
+        }
+      ],
+      "reference": {
+        "authors": [
+          { "full_name": "Console, S." },
+          { "full_name": "Olmos, C." }
+        ],
+        "label": "8",
+        "misc": [
+          "Curvature invariants, Killing vector fields, Connections and Cohomogeneity, Proc. of A.M.S. 137, no.10, 1069-1072"
+        ],
+        "publication_info": { "year": 2008 },
+        "texkey": "ConsoleOlmos:2008"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[9] E. Cartan, Lec \u00b8on sur la g\u00b4 eometrie des Espaces de Riemann, II ed., Paris (1946)."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Cartan, E." }],
+        "label": "9",
+        "misc": [
+          "Lec \u00b8on sur la g\u00e9ometrie des Espaces de Riemann, II ed., Paris"
+        ],
+        "publication_info": { "year": 1946 },
+        "texkey": "Cartan:1946"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[10] A. Karlhede, M. A. H. MacCallum, Gen. Rel. Grav. (1982) 14: 673. https://doi.org/10.1007/BF00761458"
+        }
+      ],
+      "reference": {
+        "authors": [
+          { "full_name": "Karlhede, A." },
+          { "full_name": "MacCallum, M.A.H." }
+        ],
+        "dois": ["10.1007/BF00761458"],
+        "label": "10",
+        "publication_info": {
+          "artid": "673",
+          "journal_title": "Gen.Rel.Grav.",
+          "journal_volume": "14",
+          "page_start": "673",
+          "year": 1982
+        },
+        "texkey": "KarlhedeMaccallum:1982"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[11] H. Stephani, D. Kramer, M. A. H. MacCallum, C. Hoenselaers and E. Herlt, Exact solutions of Einstein\u2019s field equations, doi:10.1017/CBO9780511535185"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/619666" },
+      "reference": {
+        "authors": [
+          { "full_name": "Stephani, H." },
+          { "full_name": "Kramer, D." },
+          { "full_name": "MacCallum, M.A.H." },
+          { "full_name": "Hoenselaers, C." },
+          { "full_name": "Herlt, E." }
+        ],
+        "dois": ["10.1017/CBO9780511535185"],
+        "label": "11",
+        "misc": ["Exact solutions of Einstein\u2019s field equations"],
+        "texkey": "Stephani:2003tm"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[12] B. Kruglikov and K. Tomoda, A criterion for the existence of Killing vectors in 3D, Class. Quant. Grav. 35, no. 16, 165005 (2018) doi:10.1088/1361-6382/aad11d [arXiv:1804.11032 [gr-qc]]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1670821" },
+      "reference": {
+        "arxiv_eprint": "1804.11032",
+        "authors": [
+          { "full_name": "Kruglikov, B." },
+          { "full_name": "Tomoda, K." }
+        ],
+        "dois": ["10.1088/1361-6382/aad11d"],
+        "label": "12",
+        "misc": ["A criterion for the existence of Killing vectors in 3D"],
+        "publication_info": {
+          "artid": "165005",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "35",
+          "year": 2018
+        },
+        "texkey": "Kruglikov:2018qcn"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[13] R.P. Kerr, Scalar invariants and groups of motions in a Vn with positive definite metric tensor, Tensor 12, 74-83 (1962)."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Kerr, R.P." }],
+        "label": "13",
+        "misc": [
+          "Scalar invariants and groups of motions in a Vn with positive definite metric tensor"
+        ],
+        "publication_info": {
+          "journal_title": "Tensor (Japan)",
+          "journal_volume": "12",
+          "page_end": "83",
+          "page_start": "74",
+          "year": 1962
+        },
+        "texkey": "Kerr:1962"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[14] T. Houri and Y. Yasui, A simple test for spacetime symmetry, Class. Quant. Grav. 32, no. 5, 055002 (2015) doi:10.1088/0264-9381/32/5/055002 [arXiv:1410.1023 [gr-qc]]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1320547" },
+      "reference": {
+        "arxiv_eprint": "1410.1023",
+        "authors": [{ "full_name": "Houri, T." }, { "full_name": "Yasui, Y." }],
+        "dois": ["10.1088/0264-9381/32/5/055002"],
+        "label": "14",
+        "misc": ["A simple test for spacetime symmetry"],
+        "publication_info": {
+          "artid": "055002",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "32",
+          "year": 2015
+        },
+        "texkey": "Houri:2014hma"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[15] B. Kruglikov, The gap phenomenon in the dimension study of finite type systems, arXiv:1111.6315 [mathDG]."
+        }
+      ],
+      "reference": {
+        "arxiv_eprint": "1111.6315",
+        "authors": [{ "full_name": "Kruglikov, B." }],
+        "label": "15",
+        "misc": [
+          "The gap phenomenon in the dimension study of finite type systems"
+        ],
+        "texkey": "Kruglikov11"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[16] B. O\u2019Neill, The Geometry of Kerr Black Holes, A K Peters, Ltd., Wellesley, Massachusett, 1995."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "O'Neill, B." }],
+        "label": "16",
+        "misc": [
+          "The Geometry of Kerr Black Holes, A K / Peters, Ltd., Wellesley, Massachusett"
+        ],
+        "publication_info": { "year": 1995 },
+        "texkey": "ONeill:1995"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[17] J. Santos, M. J. Rebouc \u00b8as, A. F. F. Teixeira, Gen Relat Gravit (1995) 27: 989. https://doi.org/10.1007/BF02113081"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/397141" },
+      "reference": {
+        "authors": [
+          { "full_name": "Santos, J." },
+          { "full_name": "Rebouc, M.J." }
+        ],
+        "dois": ["10.1007/BF02113081"],
+        "label": "17",
+        "misc": ["\u00b8as, A. F. F. Teixeira"],
+        "publication_info": {
+          "artid": "989",
+          "journal_title": "Gen.Rel.Grav.",
+          "journal_volume": "27",
+          "page_start": "989",
+          "year": 1995
+        },
+        "texkey": "SantosEtAl:1995"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[18] S. Kachru, X. Liu, M. Mulligan, Gravity duals of Lifshitz-like fixed points, Phys. Rev. D78, 106005 (2008) doi:10.1103/PhysRevD.78.106005 [arXiv:0808.1725[hep-th]]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/792977" },
+      "reference": {
+        "arxiv_eprint": "0808.1725",
+        "authors": [
+          { "full_name": "Kachru, S." },
+          { "full_name": "Liu, X." },
+          { "full_name": "Mulligan, M." }
+        ],
+        "dois": ["10.1103/PhysRevD.78.106005"],
+        "label": "18",
+        "misc": ["Gravity duals of Lifshitz-like fixed points"],
+        "publication_info": {
+          "artid": "106005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "78",
+          "year": 2008
+        },
+        "texkey": "Kachru:2008yh"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[19] H. Weyl, The classical groups, Princenton University Press (1946)."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Weyl, H." }],
+        "label": "19",
+        "misc": ["The classical groups, Princenton University Press"],
+        "publication_info": { "year": 1946 },
+        "texkey": "Weyl:1946"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[20] A. Koutras, C. McIntosh, A metric with no symmetries or invariants, Class. Quantum Grav. 13, 4749 (1996)."
+        }
+      ],
+      "reference": {
+        "authors": [
+          { "full_name": "Koutras, A." },
+          { "full_name": "McIntosh, C." }
+        ],
+        "label": "20",
+        "misc": ["A metric with no symmetries or invariants"],
+        "publication_info": {
+          "artid": "4749",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "13",
+          "page_start": "4749",
+          "year": 1996
+        },
+        "texkey": "KoutrasMcIntosh:1996"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[21] A. Coley, R. Milson, V. Pravda, A. Pravdov\u00b4 a, Vanishing scalar invariant spacetimes in higher dimensions, Class. Quantum Grav. 21, 5519-5542 (2004)."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/662027" },
+      "reference": {
+        "authors": [
+          { "full_name": "Coley, A." },
+          { "full_name": "Milson, R." },
+          { "full_name": "Pravda, V." },
+          { "full_name": "Pravdov, A." }
+        ],
+        "label": "21",
+        "misc": ["Vanishing scalar invariant spacetimes in higher dimensions"],
+        "publication_info": {
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "21",
+          "page_end": "5542",
+          "page_start": "5519",
+          "year": 2004
+        },
+        "texkey": "ColeyEtAl:2004"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[22] A. Coley, S. Hervik, N. Pelavas, Spacetimes characterized by their scalar curvature invariants, Class. Quantum Grav. 26, 025013 (2009)."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/810446" },
+      "reference": {
+        "authors": [
+          { "full_name": "Coley, A." },
+          { "full_name": "Hervik, S." },
+          { "full_name": "Pelavas, N." }
+        ],
+        "label": "22",
+        "misc": [
+          "Spacetimes characterized by their scalar curvature invariants"
+        ],
+        "publication_info": {
+          "artid": "025013",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "26",
+          "year": 2009
+        },
+        "texkey": "ColeyEtAl:2009"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[23] M. Banados, C. Teitelboim and J. Zanelli, The Black hole in three-dimensional space-time, Phys. Rev. Lett. 69 (1992) 1849 [hep-th/9204099]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/32290" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9204099",
+        "authors": [
+          { "full_name": "Banados, M." },
+          { "full_name": "Teitelboim, C." },
+          { "full_name": "Zanelli, J." }
+        ],
+        "label": "23",
+        "misc": ["The Black hole in three-dimensional space-time"],
+        "publication_info": {
+          "artid": "1849",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "69",
+          "page_start": "1849",
+          "year": 1992
+        },
+        "texkey": "Banados:1992wn"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[24] M. Banados, M. Henneaux, C. Teitelboim and J. Zanelli, Geometry of the (2+1) black hole, Phys. Rev. D 48 (1993) 1506 Erratum: [Phys. Rev. D 88 (2013) 069902] [gr-qc/9302012]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/343161" },
+      "reference": {
+        "arxiv_eprint": "gr-qc/9302012",
+        "authors": [
+          { "full_name": "Banados, M." },
+          { "full_name": "Henneaux, M." },
+          { "full_name": "Teitelboim, C." },
+          { "full_name": "Zanelli, J." }
+        ],
+        "label": "24",
+        "misc": [
+          "Additional pubnote: Phys.Rev.D,88,069902 / Geometry of the (2+1) black hole / Erratum:"
+        ],
+        "publication_info": {
+          "artid": "1506",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "48",
+          "page_start": "1506",
+          "year": 1993
+        },
+        "texkey": "Banados:1992gq"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[25] G. I. Kruchkovich, Invariant criteria of spaces V3 with the group of motions G4, Uspekhi Mat. Nauk, 10:1(63) (1955), 129-136. To the paper \u201cClassification of three-dimensional Riemannian spaces according to groups of motions\u201d, Uspekhi Mat. Nauk, 9:3(61) (1954), 285."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Kruchkovich, G.I." }],
+        "label": "25",
+        "misc": [
+          "Additional pubnote: Usp.Mat.Nauk,9,3 / Invariant criteria of spaces V3 with the group of motions G4 / 63) (1955), 129-136. To the paper / 61) , 285"
+        ],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Usp.Mat.Nauk",
+          "journal_volume": "10",
+          "page_start": "1",
+          "year": 1954
+        },
+        "texkey": "Kruchkovich",
+        "title": {
+          "title":
+            "Classification of three-dimensional Riemannian spaces according to groups of motions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[26] D. Klemm and M. Nozawa, Geometry of Killing spinors in neutral signature, Class. Quant. Grav. 32 (2015) no.18, 185012 [arXiv:1504.02710 [hep-th]]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1358928" },
+      "reference": {
+        "arxiv_eprint": "1504.02710",
+        "authors": [
+          { "full_name": "Klemm, D." },
+          { "full_name": "Nozawa, M." }
+        ],
+        "label": "26",
+        "misc": ["Geometry of Killing spinors in neutral signature"],
+        "publication_info": {
+          "artid": "185012",
+          "journal_title": "Class.Quant.Grav.",
+          "journal_volume": "32",
+          "year": 2015
+        },
+        "texkey": "Klemm:2015mga"
+      }
+    }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1721418" },
+  "texkeys": ["Nozawa:2019dwu"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title": "Counting the number of Killing vectors in a 3D spacetime"
+    }
+  ]
+}

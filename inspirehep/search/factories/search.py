@@ -33,8 +33,7 @@ def inspire_search_factory(self, search):
         search = search.query_from_iq(query_string)
     except SyntaxError:
         current_app.logger.debug(
-            "Failed parsing query: '%s'",request.values.get("q", ""),
-            exc_info=True,
+            "Failed parsing query: '%s'", request.values.get("q", ""), exc_info=True
         )
         raise InvalidQueryRESTError()
 

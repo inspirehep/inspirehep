@@ -1,0 +1,1702 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA19-kp11bh" },
+    { "date": "2019-03-06", "expert": "2", "status": "abs" },
+    { "date": "2019-03-12", "expert": "2", "status": "printed" },
+    { "date": "2019-03-20", "expert": "2", "status": "final" }
+  ],
+  "_export_to": { "HAL": true },
+  "abstracts": [
+    {
+      "source": "Elsevier",
+      "value":
+        "\u2022 Here the spin period of sub-millisecond pulsar is calculated. \u2022 The possibility of observing such a sub-millisecond pulsar is given. \u2022 The magnetic field and the equation\u00a0of\u00a0state of new born sub-millisecond pulsar is presented."
+    }
+  ],
+  "acquisition_source": { "method": "batchuploader", "source": "Elsevier" },
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903922"
+          },
+          "value": "Beijing Normal U."
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/908555"
+          },
+          "value": "Guizhou U."
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/1208780"
+          },
+          "value": "NAOC, Beijing"
+        }
+      ],
+      "full_name": "Yang, Y.Y.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Yun.Yi.Yang.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Astronomy Department, Beijing Normal University, Beijing, 100875, China"
+        },
+        {
+          "value":
+            "School of Physics and Electronic Science, Guizhou Education University, Guiyang, 550025, China"
+        },
+        {
+          "value":
+            "CAS Key Laboratory of FAST, National Astronomical Observatories, Chinese Academy of Sciences, Beijing, 100012, China"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1062605" },
+      "signature_block": "YANGy",
+      "uuid": "2cb6d496-f8b2-4a6a-9e26-a506a0c2b159"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/1208780"
+          },
+          "value": "NAOC, Beijing"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/904611"
+          },
+          "value": "Beijing, GUCAS"
+        }
+      ],
+      "full_name": "Zhang, C.M.",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00468042" },
+        { "schema": "INSPIRE BAI", "value": "Cheng.Min.Zhang.1" }
+      ],
+      "raw_affiliations": [
+        {
+          "value":
+            "CAS Key Laboratory of FAST, National Astronomical Observatories, Chinese Academy of Sciences, Beijing, 100012, China"
+        },
+        {
+          "value":
+            "National Astronomical Observatories, Chinese Academy of Sciences, Beijing, 100012, China"
+        },
+        {
+          "value":
+            "University of Chinese Academy of Sciences, Beijing, 100049, China"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/982226" },
+      "signature_block": "ZANGc",
+      "uuid": "4c96c570-c6bd-4b2a-bb43-44ca609343b4"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/1208780"
+          },
+          "value": "NAOC, Beijing"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/904611"
+          },
+          "value": "Beijing, GUCAS"
+        }
+      ],
+      "emails": ["dili@nao.cas.cn"],
+      "full_name": "Li, D.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Dan.Li.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "CAS Key Laboratory of FAST, National Astronomical Observatories, Chinese Academy of Sciences, Beijing, 100012, China"
+        },
+        {
+          "value":
+            "National Astronomical Observatories, Chinese Academy of Sciences, Beijing, 100012, China"
+        },
+        {
+          "value":
+            "University of Chinese Academy of Sciences, Beijing, 100049, China"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1340354" },
+      "signature_block": "Ld",
+      "uuid": "c4ab3a6a-7780-468f-9c1d-2c3cee3e1ced"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903922"
+          },
+          "value": "Beijing Normal U."
+        }
+      ],
+      "full_name": "Chen, L.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "L.Chen.28" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Astronomy Department, Beijing Normal University, Beijing, 100875, China"
+        }
+      ],
+      "signature_block": "CANl",
+      "uuid": "11f55665-a6c1-4ce0-9818-e90b0e234d6d"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/908555"
+          },
+          "value": "Guizhou U."
+        }
+      ],
+      "full_name": "Linghu, R.F.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "R.F.Linghu.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "School of Physics and Electronic Science, Guizhou Education University, Guiyang, 550025, China"
+        }
+      ],
+      "signature_block": "LANGr",
+      "uuid": "968c3d71-d605-420b-8a75-b4ff1aa700c1"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/908555"
+          },
+          "value": "Guizhou U."
+        }
+      ],
+      "full_name": "Zhi, Q.J.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Q.J.Zhi.2" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Guizhou Provincial Key Laboratory of Radio Astronomy and Data Processing, Guizhou Normal University, Guiyang, 550001, China"
+        }
+      ],
+      "signature_block": "Zq",
+      "uuid": "b6a777c5-b6fb-4509-aa57-f83266f6d392"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/905466"
+          },
+          "value": "Xiangtan U."
+        }
+      ],
+      "full_name": "Pan, Y.Y.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Y.Pan.4" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Department of Physics, Xiangtan University, Xiangtan, 411105, China"
+        }
+      ],
+      "signature_block": "PANy",
+      "uuid": "06964ce7-bbab-4f96-bb7c-032b12524a47"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/904931"
+          },
+          "value": "Santa Catarina U."
+        }
+      ],
+      "full_name": "Menezes, D.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "D.D.Menezes.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Department de F\u00edsica, CFM, Universidade Federal de Santa Catarina Florian\u00f3polis, SC, CP. 476, CEP 88.040-900, Brazil"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1054911" },
+      "signature_block": "MANASd",
+      "uuid": "9174f1ea-b8d9-410b-ab3c-43ec2f762156"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/908074"
+          },
+          "value": "Annecy, LAPTH"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903421"
+          },
+          "value": "Annecy, LAPP"
+        }
+      ],
+      "full_name": "Chardonnet, P.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "P.Chardonnet.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Lapth-Lapp, University de Savoie, B.P. 110, Annecy-le-Vieux Cedex, 74941, France"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1013998" },
+      "signature_block": "CARDANATp",
+      "uuid": "b34be125-8ff0-461d-88d6-abff51220994"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1721858,
+  "copyright": [{ "statement": "\u00a9 2019 Published by Elsevier B.V." }],
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "hidden": true,
+      "key": "S1384107618302379.xml",
+      "source": "Elsevier",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3699980/content.xml%3B1"
+    }
+  ],
+  "dois": [{ "source": "Elsevier", "value": "10.1016/j.newast.2019.02.005" }],
+  "external_system_identifiers": [{ "schema": "HAL", "value": "hal-02066914" }],
+  "imprints": [{ "date": "2019-07" }],
+  "inspire_categories": [
+    { "term": "Gravitation and Cosmology" },
+    { "term": "Astrophysics" }
+  ],
+  "keywords": [
+    { "source": "author", "value": "Pulsar" },
+    { "source": "author", "value": "Neutron star" },
+    { "source": "author", "value": "Binaries" },
+    { "schema": "INSPIRE", "value": "pulsar" },
+    { "schema": "INSPIRE", "value": "neutron star" },
+    { "schema": "INSPIRE", "value": "gravitational radiation" },
+    { "schema": "INSPIRE", "value": "gravitational radiation: emission" },
+    { "schema": "INSPIRE", "value": "magnetic field" },
+    { "schema": "INSPIRE", "value": "binary: coalescence" },
+    { "schema": "INSPIRE", "value": "neutron star: binary" },
+    { "schema": "INSPIRE", "value": "spin" },
+    { "schema": "INSPIRE", "value": "equation of state" }
+  ],
+  "legacy_creation_date": "2019-02-26",
+  "legacy_version": "20190324184844.0",
+  "number_of_pages": 6,
+  "publication_info": [
+    {
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1212747"
+      },
+      "journal_title": "New Astron.",
+      "journal_volume": "70",
+      "page_end": "56",
+      "page_start": "51",
+      "year": 2019
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1602334" },
+      "reference": {
+        "authors": [
+          { "full_name": "Abbott, B.P." },
+          { "full_name": "Abbott, R." },
+          { "full_name": "Abbott, T.D." }
+        ],
+        "label": "Abbott, Abbott, Abbott, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "221101",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "118",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Abbott, B.P." },
+          { "full_name": "Abbott, R." },
+          { "full_name": "Abbott, T.D." }
+        ],
+        "label": "Abbott, Abbott, Abbott, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "141101",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "119",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1630826" },
+      "reference": {
+        "authors": [
+          { "full_name": "Abbott, B.P." },
+          { "full_name": "Abbott, R." },
+          { "full_name": "Abbott, T.D." }
+        ],
+        "label": "Abbott, Abbott, Abbott, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "L13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "848",
+          "page_start": "L13",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Abbott, B.P." },
+          { "full_name": "Abbott, R." },
+          { "full_name": "Abbott, T.D." }
+        ],
+        "label": "Abbott, Abbott, Abbott, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "161101",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "119",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Abbott, B.P." },
+          { "full_name": "Abbott, R." },
+          { "full_name": "Abbott, T.D." }
+        ],
+        "label": "Abbott, Abbott, Abbott, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "12",
+          "journal_title": "Astrophys.J.Lett.",
+          "journal_volume": "848",
+          "page_start": "12",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Antoniadis, J." },
+          { "full_name": "Freire, P.C.C." },
+          { "full_name": "Wex, N." }
+        ],
+        "label": "Antoniadis, Freire, Wex, et\u00a0al, 2013",
+        "publication_info": {
+          "artid": "448",
+          "journal_title": "Science",
+          "journal_volume": "340",
+          "page_start": "448",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Backer, D.C." },
+          { "full_name": "Kulkarni, S.R." },
+          { "full_name": "Heiles, C." }
+        ],
+        "label": "Backer, Kulkarni, Heiles, et\u00a0al, 1982",
+        "publication_info": {
+          "artid": "615",
+          "journal_title": "Nature",
+          "journal_volume": "300",
+          "page_start": "615",
+          "year": 1982
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Bhattacharya, D." },
+          { "full_name": "van den, H.E.P.J." }
+        ],
+        "label": "Bhattacharya, van den, 1991",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "203",
+          "page_start": "1",
+          "year": 1991
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Burderi, L." },
+          { "full_name": "D'Amico, N." }
+        ],
+        "label": "Burderi, D\u2019Amico, 1997",
+        "publication_info": {
+          "artid": "343",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "490",
+          "page_start": "343",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/498776" },
+      "reference": {
+        "authors": [
+          { "full_name": "Burderi, L." },
+          { "full_name": "Possenti, A." },
+          { "full_name": "Colpi, M." }
+        ],
+        "label": "Burderi, Possenti, Colpi, et\u00a0al, 1999",
+        "publication_info": {
+          "artid": "285",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "519",
+          "page_start": "285",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Burderi, L." },
+          { "full_name": "Possenti, A." },
+          { "full_name": "D'Antona, F." }
+        ],
+        "label": "Burderi, Possenti, D\u2019Antona, et\u00a0al, 2001",
+        "publication_info": {
+          "artid": "71",
+          "journal_title": "Astrophys.J.Lett.",
+          "journal_volume": "560",
+          "page_start": "71",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1637342" },
+      "reference": {
+        "authors": [
+          { "full_name": "Cameron, A.D." },
+          { "full_name": "Champion, D.J." },
+          { "full_name": "Kramer, M." }
+        ],
+        "label": "Cameron, Champion, Kramer, et\u00a0al, 2018",
+        "publication_info": {
+          "artid": "L57",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "475",
+          "page_start": "L57",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/317033" },
+      "reference": {
+        "authors": [{ "full_name": "Chakrabarty, S." }],
+        "label": "Chakrabarty, 1991",
+        "publication_info": {
+          "artid": "627",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "43",
+          "page_start": "627",
+          "year": 1991
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/646889" },
+      "reference": {
+        "authors": [
+          { "full_name": "Champion, D.J." },
+          { "full_name": "Lorimer, D.R." },
+          { "full_name": "McLaughlin, M.A." }
+        ],
+        "label": "Champion, Lorimer, McLaughlin, et\u00a0al, 2004",
+        "publication_info": {
+          "artid": "L61",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "350",
+          "page_start": "L61",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/360305" },
+      "reference": {
+        "authors": [
+          { "full_name": "Cook, G.B." },
+          { "full_name": "Shapiro, S.L." },
+          { "full_name": "Teukolsky, S.A." }
+        ],
+        "label": "Cook, Shapiro, Teukolsky, 1994",
+        "publication_info": {
+          "artid": "823",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "424",
+          "page_start": "823",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/731729" },
+      "reference": {
+        "authors": [
+          { "full_name": "Corongiu, A." },
+          { "full_name": "Kramer, M." },
+          { "full_name": "Stappers, B.W." }
+        ],
+        "label": "Corongiu, Kramer, Stappers, et\u00a0al, 2007",
+        "publication_info": {
+          "artid": "703",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "462",
+          "page_start": "703",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1630792" },
+      "reference": {
+        "authors": [
+          { "full_name": "Coulter, D.A." },
+          { "full_name": "Foley, R.J." },
+          { "full_name": "Kilpatrick, C.D." }
+        ],
+        "label": "Coulter, Foley, Kilpatrick, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "1556",
+          "journal_title": "Science",
+          "journal_volume": "358",
+          "page_start": "1556",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/33067" },
+      "reference": {
+        "authors": [
+          { "full_name": "Cutler, C." },
+          { "full_name": "Apostolatos, T.A." },
+          { "full_name": "Bildsten, L." }
+        ],
+        "label": "Cutler, Apostolatos, Bildsten, et\u00a0al, 1993",
+        "publication_info": {
+          "artid": "2984",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "70",
+          "page_start": "2984",
+          "year": 1993
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Damour, T." },
+          { "full_name": "Nagar, A." },
+          { "full_name": "Villain, L." }
+        ],
+        "label": "Damour, Nagar, Villain, 2012",
+        "publication_info": {
+          "artid": "3007",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "85",
+          "page_start": "3007",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "van den, H.E.P.J." }],
+        "label": "van den, 1995",
+        "publication_info": {
+          "artid": "255",
+          "journal_title": "JA&A;",
+          "journal_volume": "16",
+          "page_start": "255",
+          "year": 1995
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/748261" },
+      "reference": {
+        "authors": [{ "full_name": "van den, H.E.P.J." }],
+        "label": "van den, 2007",
+        "publication_info": {
+          "artid": "598",
+          "journal_title": "AIP Conf.Proc.",
+          "journal_volume": "924",
+          "page_start": "598",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/544024" },
+      "reference": {
+        "authors": [{ "full_name": "van der, K.M." }],
+        "label": "van der, 2010",
+        "publication_info": {
+          "artid": "717",
+          "journal_title": "Ann.Rev.Astron.Astrophys.",
+          "journal_volume": "38",
+          "page_start": "717",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1630785" },
+      "reference": {
+        "arxiv_eprint": "1710.05443",
+        "authors": [
+          { "full_name": "Drout, M.R." },
+          { "full_name": "Piro, A.L." },
+          { "full_name": "Shappee, B.J." },
+          { "full_name": "Al., et" }
+        ],
+        "label": "Drout, Piro, Shappee, et\u00a0al",
+        "misc": ["D"],
+        "publication_info": { "year": 2017 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/825798" },
+      "reference": {
+        "authors": [
+          { "full_name": "Du, Y.J." },
+          { "full_name": "Xu, R.X." },
+          { "full_name": "Qiao, G.J." },
+          { "full_name": "Han, J.L." }
+        ],
+        "label": "Du, Xu, Qiao, Han, 2009",
+        "publication_info": {
+          "artid": "1587",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "399",
+          "page_start": "1587",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1396545" },
+      "reference": {
+        "authors": [
+          { "full_name": "Dutra, M." },
+          { "full_name": "Louren" },
+          { "full_name": "c.O." },
+          { "full_name": "Menezes, D.P." }
+        ],
+        "label": "Dutra, Louren\u00e7, Menezes, 2016",
+        "publication_info": {
+          "artid": "025806",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "93",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/278591" },
+      "reference": {
+        "authors": [
+          { "full_name": "Eichler, D." },
+          { "full_name": "Livio, M." },
+          { "full_name": "Piran, T." },
+          { "full_name": "Schramm, D.N." }
+        ],
+        "label": "Eichler, Livio, Piran, Schramm, 1989",
+        "publication_info": {
+          "artid": "126",
+          "journal_title": "Nature",
+          "journal_volume": "340",
+          "page_start": "126",
+          "year": 1989
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1302331" },
+      "reference": {
+        "authors": [
+          { "full_name": "Ferdman, R.D." },
+          { "full_name": "Stairs, I.H." },
+          { "full_name": "Kramer, M." }
+        ],
+        "label": "Ferdman, Stairs, Kramer, et\u00a0al, 2014",
+        "publication_info": {
+          "artid": "2183",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "443",
+          "page_start": "2183",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Flannery, B.P." },
+          { "full_name": "van den, H.E.P.J." }
+        ],
+        "label": "Flannery, van den, 1975",
+        "publication_info": {
+          "artid": "61",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "39",
+          "page_start": "61",
+          "year": 1975
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Flowers, E." },
+          { "full_name": "Ruderman, M.A." }
+        ],
+        "label": "Flowers, Ruderman, 1977",
+        "publication_info": {
+          "artid": "302",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "215",
+          "page_start": "302",
+          "year": 1977
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1281998" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fonseca, E." },
+          { "full_name": "Stairs, I.H." },
+          { "full_name": "Thorsett, S.E." }
+        ],
+        "label": "Fonseca, Stairs, Thorsett, 2014",
+        "publication_info": {
+          "artid": "82",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "787",
+          "page_start": "82",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/766860" },
+      "reference": {
+        "authors": [
+          { "full_name": "Freire, P.C.C." },
+          { "full_name": "Ransom, S.M." },
+          { "full_name": "Begin, S." }
+        ],
+        "label": "Freire, Ransom, Begin, 2008",
+        "publication_info": {
+          "artid": "670",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "675",
+          "page_start": "670",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Goldstein, A." },
+          { "full_name": "Veres, P." },
+          { "full_name": "Burns, E." }
+        ],
+        "label": "Goldstein, Veres, Burns, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "14",
+          "journal_title": "Astrophys.J.Lett.",
+          "journal_volume": "848",
+          "page_start": "14",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Harrison, E.R." }],
+        "label": "Harrison, 1965",
+        "publication_info": {
+          "artid": "1643",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "142",
+          "page_start": "1643",
+          "year": 1965
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Henrichs, H.F." },
+          { "full_name": "van den, H.E.P.J." }
+        ],
+        "label": "Henrichs, van den, 1983",
+        "publication_info": {
+          "artid": "213",
+          "journal_title": "Nature",
+          "journal_volume": "303",
+          "page_start": "213",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/708608" },
+      "reference": {
+        "authors": [
+          { "full_name": "Hessels, J.W.T." },
+          { "full_name": "Ransom, S.M." },
+          { "full_name": "Stairs, I.H." }
+        ],
+        "label": "Hessels, Ransom, Stairs, et\u00a0al, 2006",
+        "publication_info": {
+          "artid": "1901",
+          "journal_title": "Science",
+          "journal_volume": "311",
+          "page_start": "1901",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/95587" },
+      "reference": {
+        "authors": [
+          { "full_name": "Hulse, R.A." },
+          { "full_name": "Taylor, J.H." }
+        ],
+        "label": "Hulse, Taylor, 1975",
+        "publication_info": {
+          "artid": "L51",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "195",
+          "page_start": "L51",
+          "year": 1975
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/532540" },
+      "reference": {
+        "authors": [{ "full_name": "Janka, H.T." }],
+        "label": "Janka, 2001",
+        "publication_info": {
+          "artid": "527",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "368",
+          "page_start": "527",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/793257" },
+      "reference": {
+        "authors": [
+          { "full_name": "Janssen, G.H." },
+          { "full_name": "Stappers, B.W." },
+          { "full_name": "Kramer, M." }
+        ],
+        "label": "Janssen, Stappers, Kramer, et\u00a0al, 2008",
+        "publication_info": {
+          "artid": "753",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "490",
+          "page_start": "753",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/436458" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kalogera, V." },
+          { "full_name": "Baym, G." }
+        ],
+        "label": "Kalogera, Baym, 1996",
+        "publication_info": {
+          "artid": "L61",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "470",
+          "page_start": "L61",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Kauan, D.M." },
+          { "full_name": "Menezes, D.P." }
+        ],
+        "label": "Kauan, Menezes, 2017",
+        "publication_info": {
+          "artid": "028",
+          "journal_title": "JCAP",
+          "journal_volume": "12",
+          "page_start": "028",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/802479" },
+      "reference": {
+        "authors": [
+          { "full_name": "Keith, M.J." },
+          { "full_name": "Kramer, M." },
+          { "full_name": "Lyne, A.G." }
+        ],
+        "label": "Keith, Kramer, Lyne, et\u00a0al, 2009",
+        "publication_info": {
+          "artid": "623",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "393",
+          "page_start": "623",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1630777" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kilpatrick, C.D." },
+          { "full_name": "Foley, R.J." },
+          { "full_name": "Kasen, D." }
+        ],
+        "label": "Kilpatrick, Foley, Kasen, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "1583",
+          "journal_title": "Science",
+          "journal_volume": "358",
+          "page_start": "1583",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/726065" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kramer, M." },
+          { "full_name": "Stairs, I.H." },
+          { "full_name": "Manchester, R.N." }
+        ],
+        "label": "Kramer, Stairs, Manchester, et\u00a0al, 2006",
+        "publication_info": {
+          "artid": "97",
+          "journal_title": "Science",
+          "journal_volume": "314",
+          "page_start": "97",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/650294" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lattimer, J.M." },
+          { "full_name": "Prakash, M." }
+        ],
+        "label": "Lattimer, Prakash, 2004",
+        "publication_info": {
+          "artid": "536",
+          "journal_title": "Science",
+          "journal_volume": "304",
+          "page_start": "536",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1411298" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lattimer, J.M." },
+          { "full_name": "Prakash, M." }
+        ],
+        "label": "Lattimer, Prakash, 2016",
+        "publication_info": {
+          "artid": "127",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "621",
+          "page_start": "127",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1484484" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lazarus, P." },
+          { "full_name": "Freire, P.C.C." },
+          { "full_name": "Allen, B." }
+        ],
+        "label": "Lazarus, Freire, Allen, et\u00a0al, 2016",
+        "publication_info": {
+          "artid": "150",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "831",
+          "page_start": "150",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1326382" },
+      "reference": {
+        "authors": [
+          { "full_name": "van Leeuwen, J." },
+          { "full_name": "Kasian, L." },
+          { "full_name": "Stairs, I.H." }
+        ],
+        "label": "van Leeuwen, Kasian, Stairs, et\u00a0al, 2015",
+        "publication_info": {
+          "artid": "118",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "798",
+          "page_start": "118",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/751214" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lorimer, D.R." },
+          { "full_name": "Freire, P.C.C." },
+          { "full_name": "Stairs, I.H." }
+        ],
+        "label": "Lorimer, Freire, Stairs, et\u00a0al, 2007",
+        "publication_info": {
+          "artid": "1217",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "379",
+          "page_start": "1217",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1081007" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lynch, R.S." },
+          { "full_name": "Freire, P.C.C." },
+          { "full_name": "Ransom, S.M." }
+        ],
+        "label": "Lynch, Freire, Ransom, et\u00a0al, 2012",
+        "publication_info": {
+          "artid": "109",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "745",
+          "page_start": "109",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/642304" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lyne, A.G." },
+          { "full_name": "Burgay, M." },
+          { "full_name": "Kramer, M." }
+        ],
+        "label": "Lyne, Burgay, Kramer, et\u00a0al, 2004",
+        "publication_info": {
+          "artid": "1153",
+          "journal_title": "Science",
+          "journal_volume": "303",
+          "page_start": "1153",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Lyne, A.G." },
+          { "full_name": "Graham-Smith, F." }
+        ],
+        "imprint": { "publisher": "Cambridge University Press Cambridge" },
+        "label": "Lyne, Graham-Smith, 2012",
+        "publication_info": { "year": 2012 },
+        "title": { "title": "Pulsar Astronomy" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1319984" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lyne, A.G." },
+          { "full_name": "Jordan, C.A." },
+          { "full_name": "Graham-Smith, F." }
+        ],
+        "label": "Lyne, Jordan, Graham-Smith, et\u00a0al, 2015",
+        "publication_info": {
+          "artid": "857",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "446",
+          "page_start": "857",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/668088" },
+      "reference": {
+        "authors": [
+          { "full_name": "Manchester, R.N." },
+          { "full_name": "Hobbs, G.B." },
+          { "full_name": "Teoh, A." },
+          { "full_name": "Hobbs, M." }
+        ],
+        "label": "Manchester, Hobbs, Teoh, Hobbs, 2005",
+        "publication_info": {
+          "artid": "1993",
+          "journal_title": "Astron.J.",
+          "journal_volume": "129",
+          "page_start": "1993",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1395224" },
+      "reference": {
+        "authors": [
+          { "full_name": "Martinez, J.G." },
+          { "full_name": "Stovall, K." },
+          { "full_name": "Freire, P.C.C." }
+        ],
+        "label": "Martinez, Stovall, Freire, et\u00a0al, 2015",
+        "publication_info": {
+          "artid": "143",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "812",
+          "page_start": "143",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Martinez, J.G." },
+          { "full_name": "Stovall, K." },
+          { "full_name": "Freire, P.C.C." }
+        ],
+        "label": "Martinez, Stovall, Freire, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "29",
+          "journal_title": "Astrophys.J.Lett.",
+          "journal_volume": "851",
+          "page_start": "29",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Miller, M.C." }],
+        "label": "Miller, 2002",
+        "publication_info": {
+          "artid": "31",
+          "journal_title": "Nature",
+          "journal_volume": "420",
+          "page_start": "31",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Misner, C.W." },
+          { "full_name": "Thorne, K.S." },
+          { "full_name": "Wheeler, J.A." }
+        ],
+        "imprint": { "publisher": "Freeman San Francisco" },
+        "label": "Misner, Thorne, Wheeler, 1973",
+        "publication_info": { "year": 1973 },
+        "title": { "title": "Gravitation" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/417010" },
+      "reference": {
+        "authors": [
+          { "full_name": "M\u00fcller, H." },
+          { "full_name": "Serot, B.D." }
+        ],
+        "label": "M\u00fcller, Serot, 1996",
+        "publication_info": {
+          "artid": "508",
+          "journal_title": "Nucl.Phys.A",
+          "journal_volume": "606",
+          "page_start": "508",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1365519" },
+      "reference": {
+        "authors": [
+          { "full_name": "Ng, C." },
+          { "full_name": "Champion, D.J." },
+          { "full_name": "Bailes, M." }
+        ],
+        "label": "Ng, Champion, Bailes, et\u00a0al, 2015",
+        "publication_info": {
+          "artid": "2922",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "450",
+          "page_start": "2922",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1657214" },
+      "reference": {
+        "authors": [
+          { "full_name": "Ng, C." },
+          { "full_name": "Kruckow, M.U." },
+          { "full_name": "Tauris, T.M." }
+        ],
+        "label": "Ng, Kruckow, Tauris, et\u00a0al, 2018",
+        "publication_info": {
+          "artid": "4315",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "476",
+          "page_start": "4315",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Nomoto, K." }],
+        "label": "Nomoto, 1984",
+        "publication_info": {
+          "artid": "791",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "277",
+          "page_start": "791",
+          "year": 1984
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1426801" },
+      "reference": {
+        "authors": [{ "full_name": "zel, F." }, { "full_name": "Freire, P." }],
+        "label": "\u00d6zel, Freire, 2016",
+        "publication_info": {
+          "artid": "401",
+          "journal_title": "Ann.Rev.Astron.Astrophys.",
+          "journal_volume": "54",
+          "page_start": "401",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Paczynski, B." }],
+        "label": "Paczynski, 1986",
+        "publication_info": {
+          "artid": "43",
+          "journal_title": "Astrophys.J.Lett.",
+          "journal_volume": "308",
+          "page_start": "43",
+          "year": 1986
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/390961" },
+      "reference": {
+        "authors": [
+          { "full_name": "Phinney, E.S." },
+          { "full_name": "Kulkarni, S.R." }
+        ],
+        "label": "Phinney, Kulkarni, 1994",
+        "publication_info": {
+          "artid": "591",
+          "journal_title": "Ann.Rev.Astron.Astrophys.",
+          "journal_volume": "32",
+          "page_start": "591",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/97292" },
+      "reference": {
+        "authors": [
+          { "full_name": "Rhoades, C.E." },
+          { "full_name": "Ruffini, R." }
+        ],
+        "label": "Rhoades, Ruffini, 1974",
+        "publication_info": {
+          "artid": "324",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "32",
+          "page_start": "324",
+          "year": 1974
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Rosswog, S." }],
+        "label": "Rosswog, 2013",
+        "publication_info": {
+          "artid": "536",
+          "journal_title": "Nature",
+          "journal_volume": "500",
+          "page_start": "536",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1601362" },
+      "reference": {
+        "authors": [
+          { "full_name": "Savchenko, V." },
+          { "full_name": "Ferrigno, C." },
+          { "full_name": "Kuulkers, E." }
+        ],
+        "label": "Savchenko, Ferrigno, Kuulkers, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "15",
+          "journal_title": "Astrophys.J.Lett.",
+          "journal_volume": "848",
+          "page_start": "15",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1630775" },
+      "reference": {
+        "authors": [
+          { "full_name": "Shappee, B.J." },
+          { "full_name": "Simon, J.D." },
+          { "full_name": "Drout, M.R." }
+        ],
+        "label": "Shappee, Simon, Drout, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "1574",
+          "journal_title": "Science",
+          "journal_volume": "358",
+          "page_start": "1574",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Stovall, K." },
+          { "full_name": "Freire, P.C.C." },
+          { "full_name": "Chatterjee, S." }
+        ],
+        "label": "Stovall, Freire, Chatterjee, et\u00a0al, 2018",
+        "publication_info": {
+          "artid": "22",
+          "journal_title": "Astrophys.J.Lett.",
+          "journal_volume": "854",
+          "page_start": "22",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1355170" },
+      "reference": {
+        "authors": [
+          { "full_name": "Swiggum, J.K." },
+          { "full_name": "Rosen, R." },
+          { "full_name": "McLaughlin, M.A." }
+        ],
+        "label": "Swiggum, Rosen, McLaughlin, et\u00a0al, 2015",
+        "publication_info": {
+          "artid": "156",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "805",
+          "page_start": "156",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1607984" },
+      "reference": {
+        "authors": [
+          { "full_name": "Tauris, T.M." },
+          { "full_name": "Kramer, M." },
+          { "full_name": "Freire, P.C.C." }
+        ],
+        "label": "Tauris, Kramer, Freire, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "170",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "846",
+          "page_start": "170",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/188482" },
+      "reference": {
+        "authors": [
+          { "full_name": "Taylor, J.H." },
+          { "full_name": "Weisberg, J.M." }
+        ],
+        "label": "Taylor, Weisberg, 1982",
+        "publication_info": {
+          "artid": "908",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "253",
+          "page_start": "908",
+          "year": 1982
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1189867" },
+      "reference": {
+        "authors": [
+          { "full_name": "Torres, J.R." },
+          { "full_name": "Menezes, D.P." }
+        ],
+        "label": "Torres, Menezes, 2013",
+        "publication_info": {
+          "artid": "42003",
+          "journal_title": "Europhys.Lett.",
+          "journal_volume": "101",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1468364" },
+      "reference": {
+        "authors": [
+          { "full_name": "Weisberg, J.M." },
+          { "full_name": "Huang, Y." }
+        ],
+        "label": "Weisberg, Huang, 2016",
+        "publication_info": {
+          "artid": "55",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "829",
+          "page_start": "55",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/912995" },
+      "reference": {
+        "authors": [
+          { "full_name": "Weisberg, J.M." },
+          { "full_name": "Nice, D.J." },
+          { "full_name": "Taylor, J.H." }
+        ],
+        "label": "Weisberg, Nice, Taylor, 2010",
+        "publication_info": {
+          "artid": "1030",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "722",
+          "page_start": "1030",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Yang, Y.Y." },
+          { "full_name": "Zhang, C.M." },
+          { "full_name": "Li, D." }
+        ],
+        "label": "Yang, Zhang, Li, et\u00a0al, 2017",
+        "publication_info": {
+          "artid": "185",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "835",
+          "page_start": "185",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/661526" },
+      "reference": {
+        "authors": [
+          { "full_name": "Zhang, C.M." },
+          { "full_name": "Kojima, Y." }
+        ],
+        "label": "Zhang, Kojima, 2006",
+        "publication_info": {
+          "artid": "137",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "366",
+          "page_start": "137",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Zhang, C.M." },
+          { "full_name": "Wang, J." },
+          { "full_name": "Zhao, Y.H." }
+        ],
+        "label": "Zhang, Wang, Zhao, et\u00a0al, 2011",
+        "publication_info": {
+          "artid": "83",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "527",
+          "page_start": "83",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/732329" },
+      "reference": {
+        "authors": [
+          { "full_name": "Zhang, C.M." },
+          { "full_name": "Yin, H.X." },
+          { "full_name": "Kojima, Y." }
+        ],
+        "label": "Zhang, Yin, Kojima, et\u00a0al, 2007",
+        "publication_info": {
+          "artid": "232",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "374",
+          "page_start": "232",
+          "year": 2007
+        }
+      }
+    }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1721858" },
+  "texkeys": ["Yang:2019fmd"],
+  "titles": [
+    {
+      "source": "Elsevier",
+      "title":
+        "Gravitational wave GW170817: A new-born sub-millisecond pulsar and the properties of coalescing double neutron stars"
+    }
+  ]
+}

@@ -6,9 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from flask import current_app
-from six.moves.urllib.parse import urlsplit
-
 from ..minters.arxiv import ArxivMinter
 from ..minters.control_number import LiteratureMinter
 from ..minters.doi import DoiMinter

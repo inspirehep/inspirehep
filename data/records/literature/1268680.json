@@ -1,0 +1,2460 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA14-kp04f" },
+    { "date": "2013-12-19", "expert": "Q", "status": "abs" },
+    { "date": "2013-12-24", "expert": "Q", "status": "printed" },
+    { "date": "2014-04-07", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1968937" }],
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "We give a pedagogical introduction to the dynamics of N=2 supersymmetric systems in four dimensions. The topic ranges from the Lagrangian and the Seiberg-Witten solutions of SU(2) gauge theories to Argyres-Douglas CFTs and Gaiotto dualities. This is a write-up of the author's lectures at Tohoku University, Nagoya University and Rikkyo University. Comments will be appreciated."
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [{ "categories": ["hep-th"], "value": "1312.2684" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903273"
+          },
+          "value": "Tokyo U."
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/911254"
+          },
+          "value": "Tokyo U., IPMU"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Tachikawa, Yuji",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Y.Tachikawa.1" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1042654" },
+      "signature_block": "TACACy",
+      "uuid": "142fc27e-d589-4669-8fb2-e9bdb99ace3b"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1268680,
+  "core": true,
+  "curated": true,
+  "document_type": ["book"],
+  "documents": [
+    {
+      "key": "arXiv:1312.2684.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g86/1722637/content.pdf%3B2"
+    }
+  ],
+  "dois": [{ "value": "10.1007/978-3-319-08822-8" }],
+  "figures": [
+    {
+      "caption": "Stiegler's law",
+      "key": "fubar.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g86/1722516/content.png%3B2"
+    }
+  ],
+  "inspire_categories": [{ "term": "Theory-HEP" }],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "supersymmetry: 2" },
+    { "schema": "INSPIRE", "value": "gauge field theory: SU(2)" },
+    { "schema": "INSPIRE", "value": "dimension: 4" },
+    { "schema": "INSPIRE", "value": "field theory: conformal" },
+    { "schema": "INSPIRE", "value": "instanton" },
+    { "schema": "INSPIRE", "value": "duality" }
+  ],
+  "legacy_creation_date": "2013-12-11",
+  "legacy_version": "20180608120113.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 194,
+  "preprint_date": "2013-12-10",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "190 pages. v2: many minor corrections thanks to the comments, and two new appendices. To be published in a book form"
+    }
+  ],
+  "publication_info": [
+    {
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1212738"
+      },
+      "journal_title": "Lect.Notes Phys.",
+      "journal_volume": "890",
+      "pubinfo_freetext": "Lecture Notes in Physics, vol. 890, 2014",
+      "year": 2014
+    }
+  ],
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/99935" },
+      "reference": {
+        "authors": [{ "full_name": "Fayet, P." }],
+        "label": "1",
+        "publication_info": {
+          "artid": "135",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "113",
+          "page_start": "135",
+          "year": 1976
+        },
+        "title": { "title": "Fermi-Bose Hypersymmetry" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/374836" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9407087",
+        "authors": [
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "2",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "426",
+          "page_end": "52",
+          "page_start": "19",
+          "year": 1994
+        },
+        "title": {
+          "title":
+            "Monopole Condensation, and Confinement in N = 2 Supersymmetric Yang-Mills Theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/375702" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9408099",
+        "authors": [
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "3",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "431",
+          "page_end": "550",
+          "page_start": "484",
+          "year": 1994
+        },
+        "title": {
+          "title":
+            "Monopoles, Duality and Chiral Symmetry Breaking in N = 2 Supersymmetric QCD"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/417409" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9604034",
+        "authors": [
+          { "full_name": "Klemm, A." },
+          { "full_name": "Lerche, W." },
+          { "full_name": "Mayr, P." },
+          { "full_name": "Vafa, C." },
+          { "full_name": "Warner, N.P." }
+        ],
+        "label": "4",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "477",
+          "page_end": "766",
+          "page_start": "746",
+          "year": 1996
+        },
+        "title": {
+          "title": "Self-Dual Strings and N = 2 Supersymmetric Field Theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/419019" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9605199",
+        "authors": [
+          { "full_name": "Banks, T." },
+          { "full_name": "Douglas, M.R." },
+          { "full_name": "Seiberg, N." }
+        ],
+        "label": "5",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "387",
+          "page_end": "281",
+          "page_start": "278",
+          "year": 1996
+        },
+        "title": { "title": "Probing F-Theory with Branes" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/441476" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9703166",
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "6",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "500",
+          "page_end": "42",
+          "page_start": "3",
+          "year": 1997
+        },
+        "title": {
+          "title": "Solutions of Four-Dimensional Field Theories via M-theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/588642" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0206161",
+        "authors": [{ "full_name": "Nekrasov, N.A." }],
+        "label": "7",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Adv.Theor.Math.Phys.",
+          "journal_volume": "7",
+          "page_end": "864",
+          "page_start": "831",
+          "year": 2004
+        },
+        "title": {
+          "title": "Seiberg-Witten Prepotential from Instanton Counting"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/818218" },
+      "reference": {
+        "arxiv_eprint": "0904.2715",
+        "authors": [{ "full_name": "Gaiotto, D." }],
+        "label": "8",
+        "publication_info": {
+          "artid": "034",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "034",
+          "year": 2012
+        },
+        "title": { "title": "N = 2 Dualities" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/404089" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9601007",
+        "authors": [{ "full_name": "Bilal, A." }],
+        "label": "9",
+        "misc": ["arXiv:"],
+        "title": {
+          "title":
+            "Duality in N = 2 SUSY SU(2) Yang-Mills Theory: a Pedagogical Introduction to the Work of Seiberg and Witten"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/426333" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9611190",
+        "authors": [{ "full_name": "Lerche, W." }],
+        "label": "10",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "55",
+          "page_end": "117",
+          "page_start": "83",
+          "year": 1997
+        },
+        "title": {
+          "title":
+            "Introduction to Seiberg-Witten Theory and Its Stringy Origin"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/428155" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9701069",
+        "authors": [
+          { "full_name": "\u00c1lvarez-Gaum, L." },
+          { "full_name": "Hassan, S.F." }
+        ],
+        "label": "11",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Fortsch.Phys.",
+          "journal_volume": "45",
+          "page_end": "236",
+          "page_start": "159",
+          "year": 1997
+        },
+        "title": {
+          "title":
+            "Introduction to S-Duality in N = 2 Supersymmetric Gauge Theories: a Pedagogical Review of the Work of Seiberg and Witten"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/443241" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9705131",
+        "authors": [{ "full_name": "Klemm, A." }],
+        "label": "12",
+        "misc": ["arXiv:"],
+        "title": {
+          "title":
+            "On the Geometry Behind N = 2 Supersymmetric Effective Actions in Four Dimensions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/440311" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9702094",
+        "authors": [{ "full_name": "Peskin, M.E." }],
+        "label": "13",
+        "misc": ["arXiv:"],
+        "title": { "title": "Duality in Supersymmetric Yang-Mills Theory" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/467772" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9803026",
+        "authors": [{ "full_name": "Di Vecchia, P." }],
+        "label": "14",
+        "misc": ["arXiv:"],
+        "title": { "title": "Duality in N = 2,4 Supersymmetric Gauge Theories" }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Argyres, P." }],
+        "label": "15",
+        "misc": [
+          "in New Non-Perturbative Methods in String and Field Theory. Perseus"
+        ],
+        "publication_info": { "year": 2000 },
+        "title": { "title": "Conformal field theory" },
+        "urls": [{ "value": "http://www.physics.uc.edu/~argyres/661/" }]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/467065" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9802067",
+        "authors": [
+          { "full_name": "Giveon, A." },
+          { "full_name": "Kutasov, D." }
+        ],
+        "label": "16",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "71",
+          "page_end": "1084",
+          "page_start": "983",
+          "year": 1999
+        },
+        "title": { "title": "Brane Dynamics and Gauge Theory" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/512815" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9912271",
+        "authors": [
+          { "full_name": "D'Hoker, E." },
+          { "full_name": "Phong, D.H." }
+        ],
+        "label": "17",
+        "misc": ["arXiv:"],
+        "title": {
+          "title":
+            "Lectures on Supersymmetric Yang-Mills Theory and Integrable Systems"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Weinberg, S." }],
+        "label": "18",
+        "misc": ["The Quantum Theories of Fields, vol. III. Cambridge"],
+        "publication_info": { "year": 2000 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Terning, J." }],
+        "label": "19",
+        "misc": ["Modern Supersymmetry. Cambridge"],
+        "publication_info": { "year": 2005 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Tachikawa, Y." }],
+        "label": "20",
+        "misc": ["a preliminary version is available on the web"],
+        "publication_info": { "year": 2013 },
+        "title": { "title": "A review on instanton counting and W-algebras" }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Song, J." }],
+        "label": "21",
+        "misc": ["PhD Thesis"],
+        "title": {
+          "title": "4d/2d correspondence : instantons and W-algebras"
+        },
+        "urls": [{ "value": "http://thesis.library.caltech.edu/7103/" }]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1254883" },
+      "reference": {
+        "arxiv_eprint": "1309.5299",
+        "authors": [{ "full_name": "Giacomelli, S." }],
+        "label": "22",
+        "title": {
+          "title": "Confinement and Duality in Supersymmetric Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/394826" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9505035",
+        "authors": [
+          { "full_name": "Gorsky, A." },
+          { "full_name": "Krichever, I." },
+          { "full_name": "Marshakov, A." },
+          { "full_name": "Mironov, A." },
+          { "full_name": "Morozov, A." }
+        ],
+        "label": "23",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "355",
+          "page_end": "474",
+          "page_start": "466",
+          "year": 1995
+        },
+        "title": { "title": "Integrability and Seiberg-Witten Exact Solution" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/400002" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9509161",
+        "authors": [
+          { "full_name": "Martinec, E.J." },
+          { "full_name": "Warner, N.P." }
+        ],
+        "label": "24",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "459",
+          "page_end": "112",
+          "page_start": "97",
+          "year": 1996
+        },
+        "title": {
+          "title": "Integrable Systems and Supersymmetric Gauge Theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/402459" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9511126",
+        "authors": [
+          { "full_name": "Itoyama, H." },
+          { "full_name": "Morozov, A." }
+        ],
+        "label": "25",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "477",
+          "page_end": "877",
+          "page_start": "855",
+          "year": 1996
+        },
+        "title": {
+          "title": "Integrability and Seiberg-Witten Theory: Curves and Periods"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/142191" },
+      "reference": {
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "26",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "86",
+          "page_end": "287",
+          "page_start": "283",
+          "year": 1979
+        },
+        "title": { "title": "Dyons of Charge e\u03b8/2\u03c0" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/395632" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9505186",
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "27",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "383",
+          "journal_title": "Selecta Math.",
+          "journal_volume": "1",
+          "page_start": "383",
+          "year": 1995
+        },
+        "title": { "title": "On S Duality in Abelian Gauge Theory" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/416710" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9603086",
+        "authors": [{ "full_name": "Harvey, J.A." }],
+        "label": "28",
+        "misc": ["arXiv:"],
+        "title": { "title": "Magnetic Monopoles, Duality, and Supersymmetry" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/725668" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0609055",
+        "authors": [
+          { "full_name": "Weinberg, E.J." },
+          { "full_name": "Yi, P." }
+        ],
+        "label": "29",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "438",
+          "page_end": "236",
+          "page_start": "65",
+          "year": 2007
+        },
+        "title": {
+          "title": "Magnetic Monopole Dynamics, Supersymmetry, and Duality"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Shifman, M." }],
+        "label": "30",
+        "misc": ["Advanced Topics in Quantum Field Theory. Cambridge"],
+        "publication_info": { "year": 2012 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Coleman, S." }],
+        "imprint": { "publisher": "Springer" },
+        "label": "31",
+        "misc": [
+          "in The unity of the Fundamental Interactions, A Zichichi, ed., pp. 21-117"
+        ],
+        "publication_info": { "year": 1983 },
+        "title": { "title": "The magnetic monopole, fifty years later" }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Coleman, S." }],
+        "imprint": { "publisher": "North-Holland" },
+        "label": "32",
+        "misc": [
+          "in Th\u00e9ories de jauge en physique des hautes \u00e9nergies, M. K. Gaillard and R. Stora (eds.) pp. 461-507"
+        ],
+        "publication_info": { "year": 1983 },
+        "title": {
+          "title": "Le monop\u00f4le magnetique, cinquante ans apr\u00e8s"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/787590" },
+      "reference": {
+        "arxiv_eprint": "0806.1218",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Bergman, O." },
+          { "full_name": "Jafferis, D.L." },
+          { "full_name": "Maldacena, J." }
+        ],
+        "label": "33",
+        "publication_info": {
+          "artid": "091",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "091",
+          "year": 2008
+        },
+        "title": {
+          "title":
+            "N = 6 Superconformal Chern-Simons-Matter Theories, M2-Branes and Their Gravity Duals"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/403022" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9512006",
+        "authors": [
+          { "full_name": "Antoniadis, I." },
+          { "full_name": "Partouche, H." },
+          { "full_name": "Taylor, T." }
+        ],
+        "label": "34",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "372",
+          "page_end": "87",
+          "page_start": "83",
+          "year": 1996
+        },
+        "title": {
+          "title": "Spontaneous Breaking of N = 2 Global Supersymmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/732766" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fujiwara, K." },
+          { "full_name": "Itoyama, H." },
+          { "full_name": "Sakaguchi, M." }
+        ],
+        "label": "35",
+        "misc": [
+          "in Noncommutativity and singularities, vol. 55 of Adv. Stud. Pure Math., pp. 223-233. Math. Soc. Japan, Tokyo"
+        ],
+        "publication_info": { "year": 2009 },
+        "report_numbers": ["OCU-PHYS-256"],
+        "title": {
+          "title":
+            "Spontaneous partial breaking of N = 2 supersymmetry and the U(N) gauge model"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/443452" },
+      "reference": {
+        "arxiv_eprint": "alg-geom/9705010",
+        "authors": [{ "full_name": "Donagi, R.Y." }],
+        "label": "36",
+        "misc": ["arXiv:"],
+        "title": { "title": "Seiberg-Witten Integrable Systems" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/441097" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9703082",
+        "authors": [
+          { "full_name": "Craps, B." },
+          { "full_name": "Roose, F." },
+          { "full_name": "Troost, W." },
+          { "full_name": "Van Proeyen, A." }
+        ],
+        "label": "37",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "503",
+          "page_end": "613",
+          "page_start": "565",
+          "year": 1997
+        },
+        "title": { "title": "What is Special K\u00e4hler Geometry?" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/451918" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9712042",
+        "authors": [{ "full_name": "Freed, D.S." }],
+        "label": "38",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "203",
+          "page_end": "52",
+          "page_start": "31",
+          "year": 1999
+        },
+        "title": { "title": "Special K\u00e4hler Manifolds" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/399386" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9509066",
+        "authors": [
+          { "full_name": "Intriligator, K.A." },
+          { "full_name": "Seiberg, N." }
+        ],
+        "label": "39",
+        "misc": ["Nucl.Phys.Proc.Suppl. 45BC  1-28, arXiv:"],
+        "publication_info": { "year": 1996 },
+        "title": {
+          "title":
+            "Lectures on Supersymmetric Gauge Theories and Electric-magnetic Duality"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/445632" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9707133",
+        "authors": [
+          { "full_name": "Arkani-Hamed, N." },
+          { "full_name": "Murayama, H." }
+        ],
+        "label": "40",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "030",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "030",
+          "year": 2000
+        },
+        "title": {
+          "title":
+            "Holomorphy, Rescaling Anomalies and Exact Beta Functions in Supersymmetric Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/181968" },
+      "reference": {
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "41",
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "117",
+          "page_end": "328",
+          "page_start": "324",
+          "year": 1982
+        },
+        "title": { "title": "An SU(2) Anomaly" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/11722" },
+      "reference": {
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "42",
+        "publication_info": {
+          "artid": "253",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "202",
+          "page_start": "253",
+          "year": 1982
+        },
+        "title": { "title": "Constraints on Supersymmetry Breaking" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/451874" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9712028",
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "43",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "006",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "006",
+          "year": 1998
+        },
+        "title": {
+          "title": "Toroidal Compactification without Vector Structure"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/494880" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9902029",
+        "authors": [
+          { "full_name": "Kac, V.G." },
+          { "full_name": "Smilga, A.V." }
+        ],
+        "imprint": { "publisher": "World Scientific" },
+        "label": "44",
+        "misc": ["in The many faces of the superworld, pp. 185-234 arXiv:"],
+        "publication_info": { "year": 1999 },
+        "title": {
+          "title":
+            "Vacuum Structure in Supersymmetric Yang-Mills Theories with Any Gauge Group"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "legacy_curated": true,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/503197" },
+      "reference": {
+        "arxiv_eprint": "math/9907007",
+        "authors": [
+          { "full_name": "Borel, A." },
+          { "full_name": "Friedman, R." },
+          { "full_name": "Morgan, J.W." }
+        ],
+        "label": "45",
+        "publication_info": {
+          "artid": "no.747",
+          "journal_title": "Mem.Am.Math.Soc.",
+          "journal_volume": "157",
+          "year": 2002
+        },
+        "title": { "title": "Almost commuting elements in compact Lie groups" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/393548" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9503115",
+        "authors": [
+          { "full_name": "Finnell, D." },
+          { "full_name": "Pouliot, P." }
+        ],
+        "label": "46",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "453",
+          "page_end": "239",
+          "page_start": "225",
+          "year": 1995
+        },
+        "title": {
+          "title":
+            "Instanton Calculations Versus Exact Results in FourDimensional SUSY Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/622076" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0306238",
+        "authors": [
+          { "full_name": "Nekrasov, N." },
+          { "full_name": "Okounkov, A." }
+        ],
+        "label": "47",
+        "misc": ["arXiv:"],
+        "title": { "title": "Seiberg-Witten Theory and Random Partitions" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/422849" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9609021",
+        "authors": [{ "full_name": "Konishi, K." }],
+        "label": "48",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "392",
+          "page_end": "105",
+          "page_start": "101",
+          "year": 1997
+        },
+        "title": {
+          "title":
+            "Confinement, Supersymmetry Breaking and Theta Parameter Dependence in the Seiberg-Witten Model"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1231757" },
+      "reference": {
+        "arxiv_eprint": "1305.0318",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "49",
+        "publication_info": {
+          "artid": "115",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "115",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Reading Between the Lines of Four-Dimensional Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/882380" },
+      "reference": {
+        "arxiv_eprint": "1012.4468",
+        "authors": [
+          { "full_name": "Hollands, L." },
+          { "full_name": "Keller, C.A." },
+          { "full_name": "Song, J." }
+        ],
+        "label": "50",
+        "publication_info": {
+          "artid": "053",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "053",
+          "year": 2011
+        },
+        "title": { "title": "From SO/Sp Instantons to W-Algebra Blocks" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/395191" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9505105",
+        "authors": [{ "full_name": "Kachru, S." }, { "full_name": "Vafa, C." }],
+        "label": "51",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "450",
+          "page_end": "89",
+          "page_start": "69",
+          "year": 1995
+        },
+        "title": {
+          "title":
+            "Exact Results for N = 2 Compactifications of Heterotic Strings"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/398753" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9508155",
+        "authors": [
+          { "full_name": "Kachru, S." },
+          { "full_name": "Klemm, A." },
+          { "full_name": "Lerche, W." },
+          { "full_name": "Mayr, P." },
+          { "full_name": "Vafa, C." }
+        ],
+        "label": "52",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "459",
+          "page_end": "558",
+          "page_start": "537",
+          "year": 1996
+        },
+        "title": {
+          "title":
+            "Nonperturbative Results on the Point Particle Limit of N = 2 Heterotic String Compactifications"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/826608" },
+      "reference": {
+        "arxiv_eprint": "0907.3987",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Moore, G.W." },
+          { "full_name": "Neitzke, A." }
+        ],
+        "label": "53",
+        "title": {
+          "title": "Wall-Crossing, Hitchin Systems, and the WKB Approximation"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/447133" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9708068",
+        "authors": [{ "full_name": "Mikhailov, A." }],
+        "label": "54",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "533",
+          "page_end": "274",
+          "page_start": "243",
+          "year": 1998
+        },
+        "title": { "title": "BPS States and Minimal Surfaces" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/371542" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9402032",
+        "authors": [{ "full_name": "Sen, A." }],
+        "label": "55",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "329",
+          "page_end": "221",
+          "page_start": "217",
+          "year": 1994
+        },
+        "title": {
+          "title":
+            "Dyon - Monopole Bound States, Selfdual Harmonic Forms on the Multi Monopole Moduli Space, and SL(2, Z) Invariance in String Theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/231313" },
+      "reference": {
+        "authors": [
+          { "full_name": "Hitchin, N.J." },
+          { "full_name": "Karlhede, A." },
+          { "full_name": "Lindstr\u00f6m, U." },
+          { "full_name": "Ro\u010dek, M." }
+        ],
+        "label": "56",
+        "publication_info": {
+          "artid": "535",
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "108",
+          "page_start": "535",
+          "year": 1987
+        },
+        "title": { "title": "Hyperk\u00e4hler Metrics and Supersymmetry" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/193366" },
+      "reference": {
+        "authors": [{ "full_name": "Konishi, K." }],
+        "label": "57",
+        "publication_info": {
+          "artid": "439",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "135",
+          "page_start": "439",
+          "year": 1984
+        },
+        "title": {
+          "title":
+            "Anomalous Supersymmetry Transformation of Some Composite Operators in SQCD"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/508667" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9910125",
+        "authors": [
+          { "full_name": "Argyres, P.C." },
+          { "full_name": "Buchel, A." }
+        ],
+        "label": "58",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "014",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "014",
+          "year": 1999
+        },
+        "title": {
+          "title":
+            "New S-Dualities in N = 2 Supersymmetric SU(2) \u00d7 SU(2) Gauge Theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/394993" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9505062",
+        "authors": [
+          { "full_name": "Argyres, P.C." },
+          { "full_name": "Douglas, M.R." }
+        ],
+        "label": "59",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "448",
+          "page_end": "126",
+          "page_start": "93",
+          "year": 1995
+        },
+        "title": {
+          "title": "New Phenomena in SU(3) Supersymmetric Gauge Theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/402651" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9511154",
+        "authors": [
+          { "full_name": "Argyres, P.C." },
+          { "full_name": "Plesser, M.R." },
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "60",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "461",
+          "page_end": "84",
+          "page_start": "71",
+          "year": 1996
+        },
+        "title": {
+          "title": "New N = 2 Superconformal Field Theories in Four Dimensions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/421773" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9608047",
+        "authors": [
+          { "full_name": "Minahan, J.A." },
+          { "full_name": "Nemeschansky, D." }
+        ],
+        "label": "61",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "482",
+          "page_end": "152",
+          "page_start": "142",
+          "year": 1996
+        },
+        "title": {
+          "title": "An N = 2 Superconformal Fixed Point with E6 Global Symmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/424428" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9610076",
+        "authors": [
+          { "full_name": "Minahan, J.A." },
+          { "full_name": "Nemeschansky, D." }
+        ],
+        "label": "62",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "489",
+          "page_end": "46",
+          "page_start": "24",
+          "year": 1997
+        },
+        "title": {
+          "title": "Superconformal Fixed Points with EN Global Symmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1269009" },
+      "reference": {
+        "arxiv_eprint": "1312.3506",
+        "authors": [
+          { "full_name": "McOrist, J." },
+          { "full_name": "Melnikov, I.V." },
+          { "full_name": "Wecht, B." }
+        ],
+        "label": "63",
+        "title": { "title": "Global Symmetries and N = 2 SUSY" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/471166" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9805220",
+        "authors": [
+          { "full_name": "DeWolfe, O." },
+          { "full_name": "Hauer, T." },
+          { "full_name": "Iqbal, A." },
+          { "full_name": "Zwiebach, B." }
+        ],
+        "label": "64",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "534",
+          "page_end": "274",
+          "page_start": "261",
+          "year": 1998
+        },
+        "title": {
+          "title":
+            "Constraints on the BPS Spectrum of N = 2, D = 4 Theories with A-D-E Flavor Symmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/497369" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9903215",
+        "authors": [
+          { "full_name": "Noguchi, M." },
+          { "full_name": "Terashima, S." },
+          { "full_name": "Yang, S.-K." }
+        ],
+        "label": "65",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "556",
+          "page_end": "151",
+          "page_start": "115",
+          "year": 1999
+        },
+        "title": {
+          "title":
+            "N = 2 Superconformal Field Theory with ADE Global Symmetry on a D3-Brane Probe"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/863306" },
+      "reference": {
+        "arxiv_eprint": "1007.5026",
+        "authors": [
+          { "full_name": "Argyres, P.C." },
+          { "full_name": "Wittig, J." }
+        ],
+        "label": "66",
+        "title": {
+          "title":
+            "Mass Deformations of Four-Dimensional, Rank 1, N = 2 Superconformal Field Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1207635" },
+      "reference": {
+        "arxiv_eprint": "1212.3952",
+        "authors": [
+          { "full_name": "Chacaltana, O." },
+          { "full_name": "Distler, J." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "67",
+        "title": { "title": "Gaiotto Duality for the Twisted A2N-1 Series" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1223649" },
+      "reference": {
+        "arxiv_eprint": "1303.3149",
+        "authors": [
+          { "full_name": "Cecotti, S." },
+          { "full_name": "Del Zotto, M." },
+          { "full_name": "Giacomelli, S." }
+        ],
+        "label": "68",
+        "title": {
+          "title": "More on the N = 2 Superconformal Systems of Type DP (G)"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1119082" },
+      "reference": {
+        "arxiv_eprint": "1206.4700",
+        "authors": [
+          { "full_name": "Argyres, P.C." },
+          { "full_name": "Maruyoshi, K." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "69",
+        "publication_info": {
+          "artid": "054",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "054",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Quantum Higgs Branches of Isolated N = 2 Superconformal Field Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/649290" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0404225",
+        "authors": [
+          { "full_name": "Nekrasov, N." },
+          { "full_name": "Shadchin, S." }
+        ],
+        "label": "70",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "252",
+          "page_end": "391",
+          "page_start": "359",
+          "year": 2004
+        },
+        "title": { "title": "Abcd of Instantons" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/449512" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9710073",
+        "authors": [{ "full_name": "Hollowood, T.J." }],
+        "label": "71",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Adv.Theor.Math.Phys.",
+          "journal_volume": "2",
+          "page_end": "355",
+          "page_start": "335",
+          "year": 1998
+        },
+        "title": {
+          "title":
+            "Strong Coupling N = 2 Gauge Theory with Arbitrary Gauge Group"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/922970" },
+      "reference": {
+        "arxiv_eprint": "1108.2315",
+        "authors": [
+          { "full_name": "Tachikawa, Y." },
+          { "full_name": "Terashima, S." }
+        ],
+        "label": "72",
+        "publication_info": {
+          "artid": "010",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "010",
+          "year": 2011
+        },
+        "title": { "title": "Seiberg-Witten Geometries Revisited" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/400843" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9510101",
+        "authors": [
+          { "full_name": "Donagi, R." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "73",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "460",
+          "page_end": "334",
+          "page_start": "299",
+          "year": 1996
+        },
+        "title": {
+          "title": "Supersymmetric Yang-Mills Theory and Integrable Systems"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1202318" },
+      "reference": {
+        "arxiv_eprint": "1211.2240",
+        "authors": [
+          { "full_name": "Nekrasov, N." },
+          { "full_name": "Pestun, V." }
+        ],
+        "label": "74",
+        "title": {
+          "title":
+            "Seiberg-Witten Geometry of Four Dimensional N = 2 Quiver Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/866766" },
+      "reference": {
+        "arxiv_eprint": "1008.5203",
+        "authors": [
+          { "full_name": "Chacaltana, O." },
+          { "full_name": "Distler, J." }
+        ],
+        "label": "75",
+        "publication_info": {
+          "artid": "099",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "099",
+          "year": 2010
+        },
+        "title": { "title": "Tinkertoys for Gaiotto Duality" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/939589" },
+      "reference": {
+        "arxiv_eprint": "1110.2657",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Moore, G.W." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "76",
+        "misc": ["B03"],
+        "publication_info": {
+          "artid": "013",
+          "journal_title": "PTEP",
+          "journal_volume": "2013",
+          "page_start": "013",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "On 6D N = (2, 0) Theory Compactified on a Riemann Surface with Finite Area"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/767262" },
+      "reference": {
+        "arxiv_eprint": "0711.0054",
+        "authors": [
+          { "full_name": "Argyres, P.C." },
+          { "full_name": "Seiberg, N." }
+        ],
+        "label": "77",
+        "publication_info": {
+          "artid": "088",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "088",
+          "year": 2007
+        },
+        "title": { "title": "S-Duality in N = 2 Supersymmetric Gauge Theories" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/810047" },
+      "reference": {
+        "arxiv_eprint": "0810.4541",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Neitzke, A." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "78",
+        "publication_info": {
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "294",
+          "page_end": "410",
+          "page_start": "389",
+          "year": 2010
+        },
+        "title": { "title": "Argyres-Seiberg Duality and the Higgs Branch" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/416415" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9603002",
+        "authors": [
+          { "full_name": "Eguchi, T." },
+          { "full_name": "Hori, K." },
+          { "full_name": "Ito, K." },
+          { "full_name": "Yang, S.-K." }
+        ],
+        "label": "79",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "471",
+          "page_end": "444",
+          "page_start": "430",
+          "year": 1996
+        },
+        "title": {
+          "title":
+            "Study of N = 2 Superconformal Field Theories in 4 Dimensions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/878396" },
+      "reference": {
+        "arxiv_eprint": "1011.4568",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "80",
+        "publication_info": {
+          "artid": "078",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "078",
+          "year": 2011
+        },
+        "title": { "title": "Comments on Scaling Limits of 4D N = 2 Theories" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/858550" },
+      "reference": {
+        "arxiv_eprint": "1006.3435",
+        "authors": [
+          { "full_name": "Cecotti, S." },
+          { "full_name": "Neitzke, A." },
+          { "full_name": "Vafa, C." }
+        ],
+        "label": "81",
+        "title": { "title": "R-Twisting and 4D/2D Correspondences" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1190210" },
+      "reference": {
+        "arxiv_eprint": "1210.2886",
+        "authors": [
+          { "full_name": "Cecotti, S." },
+          { "full_name": "Del Zotto, M." }
+        ],
+        "label": "82",
+        "publication_info": {
+          "artid": "191",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "191",
+          "year": 2013
+        },
+        "title": {
+          "title": "Infinitely Many N = 2 SCFT with ADE Flavor Symmetry"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/260815" },
+      "reference": {
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "83",
+        "publication_info": {
+          "artid": "353",
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "117",
+          "page_start": "353",
+          "year": 1988
+        },
+        "title": { "title": "Topological Quantum Field Theory" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/379826" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9411102",
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "84",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Math.Res.Lett.",
+          "journal_volume": "1",
+          "page_end": "796",
+          "page_start": "769",
+          "year": 1994
+        },
+        "title": { "title": "Monopoles and Four Manifolds" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/420925" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9607163",
+        "authors": [
+          { "full_name": "Seiberg, N." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "85",
+        "misc": ["arXiv:"],
+        "title": {
+          "title": "Gauge Dynamics and Compactification to Three-Dimensions"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/791781" },
+      "reference": {
+        "arxiv_eprint": "0807.4723",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Moore, G.W." },
+          { "full_name": "Neitzke, A." }
+        ],
+        "label": "86",
+        "publication_info": {
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "299",
+          "page_end": "224",
+          "page_start": "163",
+          "year": 2010
+        },
+        "title": {
+          "title":
+            "Four-dimensional wall-crossing via three-dimensional field theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/829640" },
+      "reference": {
+        "arxiv_eprint": "0908.4052",
+        "authors": [
+          { "full_name": "Nekrasov, N.A." },
+          { "full_name": "Shatashvili, S.L." }
+        ],
+        "label": "87",
+        "title": {
+          "title":
+            "Quantization of Integrable Systems and Four Dimensional Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/770728" },
+      "reference": {
+        "arxiv_eprint": "0712.2824",
+        "authors": [{ "full_name": "Pestun, V." }],
+        "label": "88",
+        "publication_info": {
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "313",
+          "page_end": "129",
+          "page_start": "71",
+          "year": 2012
+        },
+        "title": {
+          "title":
+            "Localization of Gauge Theory on a Four-Sphere and Supersymmetric Wilson Loops"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1120174" },
+      "reference": {
+        "arxiv_eprint": "1206.6359",
+        "authors": [
+          { "full_name": "Hama, N." },
+          { "full_name": "Hosomichi, K." }
+        ],
+        "label": "89",
+        "publication_info": {
+          "artid": "033",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "033",
+          "year": 2012
+        },
+        "title": { "title": "Seiberg-Witten Theories on Ellipsoids" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1261808" },
+      "reference": {
+        "arxiv_eprint": "1310.5939",
+        "authors": [
+          { "full_name": "Nosaka, T." },
+          { "full_name": "Terashima, S." }
+        ],
+        "label": "90",
+        "publication_info": {
+          "artid": "001",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "001",
+          "year": 2013
+        },
+        "title": {
+          "title": "Supersymmetric Gauge Theories on a Squashed Four-Sphere"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/823411" },
+      "reference": {
+        "arxiv_eprint": "0906.3219",
+        "authors": [
+          { "full_name": "Alday, L.F." },
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "91",
+        "publication_info": {
+          "journal_title": "Lett.Math.Phys.",
+          "journal_volume": "91",
+          "page_end": "197",
+          "page_start": "167",
+          "year": 2010
+        },
+        "title": {
+          "title":
+            "Liouville Correlation Functions from Four-Dimensional Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/825557" },
+      "reference": {
+        "arxiv_eprint": "0907.2189",
+        "authors": [{ "full_name": "Wyllard, N." }],
+        "label": "92",
+        "publication_info": {
+          "artid": "002",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "002",
+          "year": 2009
+        },
+        "title": {
+          "title":
+            "AN-1 Conformal Toda Field Theory Correlation Functions from Conformal N = 2 SU(N) Quiver Gauge Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/940193" },
+      "reference": {
+        "arxiv_eprint": "1110.3740",
+        "authors": [
+          { "full_name": "Gadde, A." },
+          { "full_name": "Rastelli, L." },
+          { "full_name": "Razamat, S.S." },
+          { "full_name": "Yan, W." }
+        ],
+        "label": "93",
+        "publication_info": {
+          "journal_title": "Commun.Math.Phys.",
+          "journal_volume": "319",
+          "page_end": "193",
+          "page_start": "147",
+          "year": 2013
+        },
+        "title": { "title": "Gauge Theories and Macdonald Polynomials" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1122702" },
+      "reference": {
+        "arxiv_eprint": "1207.3577",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Rastelli, L." },
+          { "full_name": "Razamat, S.S." }
+        ],
+        "label": "94",
+        "title": {
+          "title": "Bootstrapping the Superconformal Index with Surface Defects"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1256619" },
+      "reference": {
+        "arxiv_eprint": "1310.0827",
+        "authors": [
+          { "full_name": "Luo, Y." },
+          { "full_name": "Tan, M.-C." },
+          { "full_name": "Yagi, J." }
+        ],
+        "label": "95",
+        "publication_info": {
+          "artid": "090",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "090",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "N=2 supersymmetric gauge theories and quantum integrable systems"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1264060" },
+      "reference": {
+        "arxiv_eprint": "1311.2430",
+        "authors": [
+          { "full_name": "Closset, C." },
+          { "full_name": "Shamir, I." }
+        ],
+        "label": "96",
+        "publication_info": {
+          "artid": "040",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "040",
+          "year": 2014
+        },
+        "title": {
+          "title":
+            "The N = 1 Chiral Multiplet on T2 \u00d7 S2 and Supersymmetric Localization"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/588134" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0206072",
+        "authors": [{ "full_name": "Denef, F." }],
+        "label": "97",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "023",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "023",
+          "year": 2002
+        },
+        "title": { "title": "Quantum Quivers and Hall / Hole Halos" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/744822" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0702146",
+        "authors": [
+          { "full_name": "Denef, F." },
+          { "full_name": "Moore, G.W." }
+        ],
+        "label": "98",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "129",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "129",
+          "year": 2011
+        },
+        "title": { "title": "Split States, Entropy Enigmas, Holes and Halos" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/894496" },
+      "reference": {
+        "arxiv_eprint": "1103.5832",
+        "authors": [
+          { "full_name": "Cecotti, S." },
+          { "full_name": "Vafa, C." }
+        ],
+        "label": "99",
+        "misc": [
+          "Classification of Complete N = 2 Supersymmetric Theories in 4 Dimensions, vol. 18 of Surveys in differential geometry, vol. Intl. Press"
+        ],
+        "publication_info": { "year": 2013 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1121904" },
+      "reference": {
+        "arxiv_eprint": "1207.2230",
+        "authors": [
+          { "full_name": "Manschot, J." },
+          { "full_name": "Pioline, B." },
+          { "full_name": "Sen, A." }
+        ],
+        "label": "100",
+        "publication_info": {
+          "artid": "023",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "023",
+          "year": 2012
+        },
+        "title": { "title": "From Black Holes to Quivers" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/825793" },
+      "reference": {
+        "arxiv_eprint": "0907.2593",
+        "authors": [
+          { "full_name": "Drukker, N." },
+          { "full_name": "Morrison, D.R." },
+          { "full_name": "Okuda, T." }
+        ],
+        "label": "101",
+        "publication_info": {
+          "artid": "031",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "031",
+          "year": 2009
+        },
+        "title": {
+          "title":
+            "Loop operators and S-duality from curves on Riemann surfaces"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/856798" },
+      "reference": {
+        "arxiv_eprint": "1006.0146",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Moore, G.W." },
+          { "full_name": "Neitzke, A." }
+        ],
+        "label": "102",
+        "title": { "title": "Framed BPS States" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/836293" },
+      "reference": {
+        "arxiv_eprint": "0911.1316",
+        "authors": [{ "full_name": "Gaiotto, D." }],
+        "label": "103",
+        "title": { "title": "Surface Operators in N = 2 4D Gauge Theories" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1242142" },
+      "reference": {
+        "arxiv_eprint": "1307.2578",
+        "authors": [
+          { "full_name": "Gaiotto, D." },
+          { "full_name": "Gukov, S." },
+          { "full_name": "Seiberg, N." }
+        ],
+        "label": "104",
+        "publication_info": {
+          "artid": "070",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "070",
+          "year": 2013
+        },
+        "title": { "title": "Surface Defects and Resolvents" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1230357" },
+      "reference": {
+        "arxiv_eprint": "1304.6721",
+        "authors": [
+          { "full_name": "Dimofte, T." },
+          { "full_name": "Gaiotto, D." }
+        ],
+        "label": "105",
+        "misc": ["and R. van der Veen"],
+        "title": { "title": "RG Domain Walls and Hybrid Triangulations" }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Moore, G.W." }],
+        "label": "106",
+        "title": {
+          "title":
+            "Applications of the six-dimensional (2,0) theory to physical mathematics"
+        },
+        "urls": [
+          {
+            "value":
+              "http://www.physics.rutgers.edu/~gmoore/FelixKleinLectureNotes.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1253578" },
+      "reference": {
+        "arxiv_eprint": "1309.2299",
+        "authors": [
+          { "full_name": "Chacaltana, O." },
+          { "full_name": "Distler, J." },
+          { "full_name": "Trimm, A." }
+        ],
+        "label": "107",
+        "title": { "title": "Tinkertoys for the Twisted D-Series" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1108059" },
+      "reference": {
+        "arxiv_eprint": "1204.2270",
+        "authors": [{ "full_name": "Xie, D." }],
+        "label": "108",
+        "publication_info": {
+          "artid": "100",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "100",
+          "year": 2013
+        },
+        "title": { "title": "General Argyres-Douglas Theory" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1209151" },
+      "reference": {
+        "arxiv_eprint": "1301.0210",
+        "authors": [{ "full_name": "Xie, D." }, { "full_name": "Zhao, P." }],
+        "label": "109",
+        "publication_info": {
+          "artid": "006",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "006",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Central Charges and RG Flow of Strongly-Coupled N = 2 Theory"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1121905" },
+      "reference": {
+        "arxiv_eprint": "1207.2275",
+        "authors": [
+          { "full_name": "Cecotti, S." },
+          { "full_name": "Del Zotto, M." }
+        ],
+        "label": "110",
+        "publication_info": {
+          "artid": "135",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "135",
+          "year": 2012
+        },
+        "title": { "title": "Half-Hypers and Quivers" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1263504" },
+      "reference": {
+        "arxiv_eprint": "1311.1276",
+        "authors": [{ "full_name": "Buican, M." }],
+        "label": "111",
+        "title": { "title": "Minimal Distances Between SCFTs" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1254880" },
+      "reference": {
+        "arxiv_eprint": "1309.5160",
+        "authors": [
+          { "full_name": "Bhardwaj, L." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "112",
+        "publication_info": {
+          "artid": "100",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "100",
+          "year": 2013
+        },
+        "title": { "title": "Classification of 4d N=2 gauge theories" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/502345" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9906193",
+        "authors": [
+          { "full_name": "Chan, G." },
+          { "full_name": "D'Hoker, E." }
+        ],
+        "label": "113",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "564",
+          "page_end": "516",
+          "page_start": "503",
+          "year": 2000
+        },
+        "title": {
+          "title":
+            "Instanton Recursion Relations for the Effective Prepotential in N = 2 Superyang-Mills"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/396271" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9506102",
+        "authors": [{ "full_name": "Matone, M." }],
+        "label": "114",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "357",
+          "page_end": "348",
+          "page_start": "342",
+          "year": 1995
+        },
+        "title": {
+          "title":
+            "Instantons and Recursion Relations in N = 2 SUSY Gauge Theory"
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Griffiths, P." },
+          { "full_name": "Harris, J." }
+        ],
+        "imprint": { "publisher": "Wiley" },
+        "label": "115",
+        "misc": ["Principles of Algebraic Geometry. John and Sons"],
+        "publication_info": { "year": 1978 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/643344" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0401184",
+        "authors": [{ "full_name": "Tachikawa, Y." }],
+        "label": "116",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "artid": "050",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "050",
+          "year": 2004
+        },
+        "title": {
+          "title":
+            "Five-Dimensional Chern-Simons Terms and Nekrasov\u2019s Instanton Counting"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/193396" },
+      "reference": {
+        "authors": [{ "full_name": "Koh, I." }, { "full_name": "Rajpoot, S." }],
+        "label": "117",
+        "publication_info": {
+          "artid": "397",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "135",
+          "page_start": "397",
+          "year": 1984
+        },
+        "title": {
+          "title": "Finite N = 2 Extended Supersymmetric Field Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/202118" },
+      "reference": {
+        "authors": [
+          { "full_name": "Dong, F.-X." },
+          { "full_name": "Xue, P.-Y." },
+          { "full_name": "Tu, T.-S." },
+          { "full_name": "Zhou, X.-J." }
+        ],
+        "label": "118",
+        "publication_info": {
+          "artid": "333",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "140",
+          "page_start": "333",
+          "year": 1984
+        },
+        "title": {
+          "title":
+            "Possible Candidates for Finite Supersymmetric Grand Unified Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/200734" },
+      "reference": {
+        "authors": [
+          { "full_name": "Derendinger, J." },
+          { "full_name": "Ferrara, S." },
+          { "full_name": "Masiero, A." }
+        ],
+        "label": "119",
+        "publication_info": {
+          "artid": "133",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "143",
+          "page_start": "133",
+          "year": 1984
+        },
+        "title": {
+          "title": "Exceptional Ultraviolet Finite Yang-Mills Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/444335" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9706110",
+        "authors": [
+          { "full_name": "Katz, S." },
+          { "full_name": "Mayr, P." },
+          { "full_name": "Vafa, C." }
+        ],
+        "label": "120",
+        "misc": ["arXiv:"],
+        "publication_info": {
+          "journal_title": "Adv.Theor.Math.Phys.",
+          "journal_volume": "1",
+          "page_end": "114",
+          "page_start": "53",
+          "year": 1998
+        },
+        "title": {
+          "title":
+            "Mirror Symmetry and Exact Solution of 4D N = 2 Gauge Theories. I"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1093702" },
+      "reference": {
+        "arxiv_eprint": "1203.2930",
+        "authors": [
+          { "full_name": "Chacaltana, O." },
+          { "full_name": "Distler, J." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "121",
+        "publication_info": {
+          "artid": "1340006",
+          "journal_title": "Int.J.Mod.Phys.A",
+          "journal_volume": "28",
+          "year": 2013
+        },
+        "title": {
+          "title":
+            "Nilpotent Orbits and Codimension-Two Defects of 6D N=(2,0) Theories"
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/916165" },
+      "reference": {
+        "arxiv_eprint": "1106.5410",
+        "authors": [
+          { "full_name": "Chacaltana, O." },
+          { "full_name": "Distler, J." }
+        ],
+        "label": "122",
+        "title": { "title": "Tinkertoys for the DN Series" }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/822014" },
+      "reference": {
+        "arxiv_eprint": "0906.0359",
+        "authors": [
+          { "full_name": "Benini, F." },
+          { "full_name": "Benvenuti, S." },
+          { "full_name": "Tachikawa, Y." }
+        ],
+        "label": "123",
+        "publication_info": {
+          "artid": "052",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "052",
+          "year": 2009
+        },
+        "title": {
+          "title": "Webs of Five-Branes and N = 2 Superconformal Field Theories"
+        }
+      }
+    }
+  ],
+  "report_numbers": [{ "value": "UT-13-42" }, { "value": "IPMU-13-0234" }],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1268680" },
+  "texkeys": ["Tachikawa:2013kta"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title": "N=2 supersymmetric dynamics for pedestrians"
+    },
+    { "source": "arXiv", "title": "N=2 supersymmetric dynamics for dummies" }
+  ]
+}

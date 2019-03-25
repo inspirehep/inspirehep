@@ -1,0 +1,2145 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "D16-kj51z" },
+    { "date": "2016-12-23", "expert": "G", "status": "fullabs" },
+    { "date": "2016-12-25", "expert": "G", "status": "printed" },
+    { "date": "2016-12-30", "expert": "G", "status": "final" }
+  ],
+  "abstracts": [
+    {
+      "value":
+        "A measurement of the mass of the $W$ boson is presented based on proton--proton collision data recorded in 2011 at a centre-of-mass energy of 7 TeV with the ATLAS detector at the LHC, and corresponding to 4.6 fb$^{-1}$ of integrated luminosity. The selected data sample consists of $7.8\\times 10^6$ candidates in the $W\\rightarrow \\mu \\nu$ channel and $5.9\\times 10^6$ candidates in the $W\\rightarrow e \\nu$ channel. The $W$-boson mass is determined using template fits to the Jacobian edges of the reconstructed distributions of the transverse momentum of the charged leptons and the transverse mass of the $W$ boson in the electron and muon decay channels, yielding \\begin{eqnarray} \\nonumber m_W &=& 80370 \\pm 7 (\\textrm{stat.}) \\pm 11 (\\textrm{exp. syst.}) \\pm 14 (\\textrm{mod. syst.}) \\textrm{ MeV}\\\\ \\nonumber &=& 80370 \\pm 19 \\textrm{ MeV}, \\end{eqnarray} where the first uncertainty is statistical, the second corresponds to the experimental systematic uncertainty, and the third to the physics-modelling systematic uncertainty. A measurement of the mass difference between the $W^+$ and $W^-$ bosons yields $m_{W^+}-m_{W^-} = -29 \\pm 28$ MeV."
+    }
+  ],
+  "accelerator_experiments": [
+    {
+      "legacy_name": "CERN-LHC-ATLAS",
+      "record": { "$ref": "http://labs.inspirehep.net/api/experiments/1108541" }
+    }
+  ],
+  "collaborations": [{ "value": "ATLAS" }],
+  "control_number": 1503270,
+  "core": true,
+  "corporate_author": ["The ATLAS collaboration"],
+  "curated": true,
+  "document_type": ["note"],
+  "documents": [
+    {
+      "key": "ATLAS-CONF-2016-113.pdf",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g138/2776602/content.pdf%3B1"
+    }
+  ],
+  "energy_ranges": ["1-10 TeV"],
+  "external_system_identifiers": [{ "schema": "CDS", "value": "2238954" }],
+  "inspire_categories": [{ "term": "Experiment-HEP" }],
+  "keywords": [
+    { "source": "author", "value": "W boson mass" },
+    { "schema": "INSPIRE", "value": "p p: scattering" },
+    { "schema": "INSPIRE", "value": "p p: colliding beams" },
+    { "schema": "INSPIRE", "value": "W: hadroproduction" },
+    { "schema": "INSPIRE", "value": "W: mass: measured" },
+    { "schema": "INSPIRE", "value": "mass: transverse" },
+    { "schema": "INSPIRE", "value": "boson: yield" },
+    { "schema": "INSPIRE", "value": "W: leptonic decay" },
+    { "schema": "INSPIRE", "value": "ATLAS" },
+    { "schema": "INSPIRE", "value": "lepton: transverse momentum" },
+    { "schema": "INSPIRE", "value": "W W: mass difference" },
+    { "schema": "INSPIRE", "value": "CERN LHC Coll" },
+    { "schema": "INSPIRE", "value": "error: statistical" },
+    { "schema": "INSPIRE", "value": "experimental results" },
+    { "schema": "INSPIRE", "value": "7000 GeV-cms" }
+  ],
+  "legacy_creation_date": "2016-12-14",
+  "legacy_version": "20170221174627.0",
+  "number_of_pages": 90,
+  "preprint_date": "2016-12-13",
+  "public_notes": [{ "value": "Preliminary results" }],
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/4328" },
+      "reference": {
+        "authors": [{ "full_name": "Glashow, S.L." }],
+        "label": "1",
+        "misc": ["Partial Symmetries of Weak Interactions"],
+        "publication_info": {
+          "artid": "579",
+          "journal_title": "Nucl.Phys.",
+          "journal_volume": "22",
+          "page_start": "579",
+          "year": 1961
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/40208" },
+      "reference": {
+        "authors": [
+          { "full_name": "Salam, A." },
+          { "full_name": "Ward, J.C." }
+        ],
+        "label": "2",
+        "misc": ["Electromagnetic and weak interactions"],
+        "publication_info": {
+          "artid": "168",
+          "journal_title": "Phys.Lett.",
+          "journal_volume": "13",
+          "page_start": "168",
+          "year": 1964
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/51188" },
+      "reference": {
+        "authors": [
+          { "full_name": "Weinberg, S." },
+          { "full_name": "Model of Leptons, A." }
+        ],
+        "label": "3",
+        "publication_info": {
+          "artid": "1264",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "19",
+          "page_start": "1264",
+          "year": 1967
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/12291" },
+      "reference": {
+        "authors": [
+          { "full_name": "Englert, F." },
+          { "full_name": "Brout, R." }
+        ],
+        "label": "4",
+        "misc": ["Broken Symmetry and the Mass of Gauge Vector Mesons"],
+        "publication_info": {
+          "artid": "321",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "13",
+          "page_start": "321",
+          "year": 1964
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/11883" },
+      "reference": {
+        "authors": [{ "full_name": "Higgs, P.W." }],
+        "label": "5",
+        "misc": ["Broken Symmetries and the Masses of Gauge Bosons"],
+        "publication_info": {
+          "artid": "508",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "13",
+          "page_start": "508",
+          "year": 1964
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/40440" },
+      "reference": {
+        "authors": [{ "full_name": "Higgs, P.W." }],
+        "label": "6",
+        "misc": ["Broken symmetries, massless particles and gauge fields"],
+        "publication_info": {
+          "artid": "132",
+          "journal_title": "Phys.Lett.",
+          "journal_volume": "12",
+          "page_start": "132",
+          "year": 1964
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/12292" },
+      "reference": {
+        "authors": [
+          { "full_name": "Guralnik, G.S." },
+          { "full_name": "Hagen, C.R." },
+          { "full_name": "Kibble, T.W. B." }
+        ],
+        "label": "7",
+        "misc": ["Global Conservation Laws and Massless Particles"],
+        "publication_info": {
+          "artid": "585",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "13",
+          "page_start": "585",
+          "year": 1964
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/188736" },
+      "reference": {
+        "authors": [{ "full_name": "Arnison, G." }],
+        "label": "8",
+        "misc": [
+          "UA1 Collaboration Experimental Observation of Isolated Large Transverse Energy Electrons with Associated Missing Energy at \u221a s = 540 GeV"
+        ],
+        "publication_info": {
+          "artid": "103",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "122",
+          "page_start": "103",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/190338" },
+      "reference": {
+        "authors": [{ "full_name": "Arnison, G." }],
+        "label": "9",
+        "misc": [
+          "UA1 Collaboration Experimental Observation of Lepton Pairs of Invariant Mass Around 95 GeV/c2 at the CERN SPS Collider"
+        ],
+        "publication_info": {
+          "artid": "398",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "126",
+          "page_start": "398",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/189048" },
+      "reference": {
+        "authors": [{ "full_name": "Banner, M." }],
+        "label": "10",
+        "misc": [
+          "UA2 Collaboration Observation of Single Isolated Electrons of High Transverse Momentum in Events with Missing Transverse Energy at the CERN \u00afpp Collider"
+        ],
+        "publication_info": {
+          "artid": "476",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "122",
+          "page_start": "476",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/191740" },
+      "reference": {
+        "authors": [{ "full_name": "Bagnaia, P." }],
+        "label": "11",
+        "misc": [
+          "UA2 Collaboration Evidence for Z0 \u2192 e+e- at the CERN \u00afpp Collider"
+        ],
+        "publication_info": {
+          "artid": "130",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "129",
+          "page_start": "130",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1124337" },
+      "reference": {
+        "arxiv_eprint": "1207.7214",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "12",
+        "misc": [
+          "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
+        ],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "716",
+          "page_start": "1",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1124338" },
+      "reference": {
+        "arxiv_eprint": "1207.7235",
+        "collaborations": ["CMS Collaboration"],
+        "label": "13",
+        "misc": [
+          "Observation of a new boson at a mass of 125 GeV with the CMS experiment at the LHC"
+        ],
+        "publication_info": {
+          "artid": "30",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "716",
+          "page_start": "30",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/633116" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0311148",
+        "authors": [{ "full_name": "Awramik, M." }],
+        "label": "14",
+        "misc": [
+          "Precise prediction for the W boson mass in the standard model arXiv:"
+        ],
+        "publication_info": {
+          "artid": "053006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "69",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/152645" },
+      "reference": {
+        "authors": [{ "full_name": "Sirlin, A." }],
+        "label": "15",
+        "misc": [
+          "Radiative Corrections in the SU(2)L \u00d7 U(1) Theory: A Simple Renormalization Framework"
+        ],
+        "publication_info": {
+          "artid": "971",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "22",
+          "page_start": "971",
+          "year": 1980
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1306488" },
+      "reference": {
+        "arxiv_eprint": "1407.3792",
+        "authors": [{ "full_name": "Baak, M." }],
+        "label": "16",
+        "misc": [
+          "The global electroweak fit at NNLO and prospects for the LHC and ILC"
+        ],
+        "publication_info": {
+          "artid": "3046",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3046",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/219230" },
+      "reference": {
+        "authors": [{ "full_name": "Arnison, G." }],
+        "label": "17",
+        "misc": [
+          "UA1 Collaboration Intermediate Vector Boson Properties at the CERN Super Proton Synchrotron Collider"
+        ],
+        "publication_info": {
+          "artid": "327",
+          "journal_title": "Europhys.Lett.",
+          "journal_volume": "1",
+          "page_start": "327",
+          "year": 1986
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/319670" },
+      "reference": {
+        "authors": [{ "full_name": "Alitti, J." }],
+        "label": "18",
+        "misc": [
+          "UA2 Collaboration An Improved determination of the ratio of W and Z masses at the CERN \u00afpp collider"
+        ],
+        "publication_info": {
+          "artid": "354",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "276",
+          "page_start": "354",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/530708" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0007044",
+        "authors": [{ "full_name": "Affolder, T." }],
+        "collaborations": ["CDF Collaboration"],
+        "imprint": { "publisher": "Fermilab" },
+        "label": "19",
+        "misc": [
+          "Measurement of the W boson mass with the Collider Detector at arXiv:"
+        ],
+        "publication_info": {
+          "artid": "052001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "64",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/585184" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0204014",
+        "authors": [{ "full_name": "Abazov, V.M." }],
+        "collaborations": ["D0 Collaboration"],
+        "label": "20",
+        "misc": [
+          "Improved W boson mass measurement with the D\u00d8 detector arXiv:"
+        ],
+        "publication_info": {
+          "artid": "012001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "66",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/633601" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0311039",
+        "authors": [{ "full_name": "Abazov, V.M." }],
+        "collaborations": ["D0 collaborations"],
+        "label": "21",
+        "misc": [
+          "CDF Combination of CDF and D0 Results on W Boson Mass and Width arXiv:"
+        ],
+        "publication_info": {
+          "artid": "092008",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "70",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1091235" },
+      "reference": {
+        "arxiv_eprint": "1203.0275",
+        "authors": [{ "full_name": "Aaltonen, T." }],
+        "collaborations": ["CDF Collaboration"],
+        "label": "22",
+        "misc": [
+          "Precise measurement of the W-boson mass with the CDF II detector"
+        ],
+        "publication_info": {
+          "artid": "151803",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "108",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1091237" },
+      "reference": {
+        "arxiv_eprint": "1203.0293",
+        "authors": [{ "full_name": "Abazov, V.M." }],
+        "collaborations": ["D0 Collaboration"],
+        "label": "23",
+        "misc": ["Measurement of the W Boson Mass with the D0 Detector"],
+        "publication_info": {
+          "artid": "151804",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "108",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1245028" },
+      "reference": {
+        "arxiv_eprint": "1307.7627",
+        "authors": [{ "full_name": "Aaltonen, T." }],
+        "collaborations": ["D0 Collaborations"],
+        "label": "24",
+        "misc": ["CDF Combination of CDF and D0 W-Boson Mass Measurements"],
+        "publication_info": {
+          "artid": "052018",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "88",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/715982" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0605011",
+        "authors": [{ "full_name": "Schael, S." }],
+        "collaborations": ["ALEPH Collaboration"],
+        "label": "25",
+        "misc": [
+          "Measurement of the W boson mass and width in e+e- collisions at LEP arXiv:"
+        ],
+        "publication_info": {
+          "artid": "309",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "47",
+          "page_start": "309",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/781550" },
+      "reference": {
+        "arxiv_eprint": "0803.2534",
+        "authors": [{ "full_name": "Abdallah, J." }],
+        "collaborations": ["DELPHI Collaboration"],
+        "label": "26",
+        "misc": [
+          "Measurement of the Mass and Width of the W Boson in e+e- Collisions at \u221a s = 161 - 209 GeV"
+        ],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "55",
+          "page_start": "1",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/698663" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0511049",
+        "authors": [{ "full_name": "Achard, P." }],
+        "collaborations": ["L3 Collaboration"],
+        "label": "27",
+        "misc": [
+          "Measurement of the mass and the width of the W boson at LEP arXiv:"
+        ],
+        "publication_info": {
+          "artid": "569",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "45",
+          "page_start": "569",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/691119" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0508060",
+        "authors": [{ "full_name": "Abbiendi, G." }],
+        "collaborations": ["OPAL Collaboration"],
+        "label": "28",
+        "misc": ["Measurement of the mass and width of the W boson arXiv:"],
+        "publication_info": {
+          "artid": "307",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "45",
+          "page_start": "307",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1315584" },
+      "reference": {
+        "authors": [{ "full_name": "Group, K.A." }],
+        "label": "29",
+        "misc": ["Particle Data Olive et al Review of Particle Physics"],
+        "publication_info": {
+          "artid": "090001",
+          "journal_title": "Chin.Phys.C",
+          "journal_volume": "38",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1479455" },
+      "reference": {
+        "arxiv_eprint": "1608.01509",
+        "authors": [{ "full_name": "de Blas, J." }],
+        "label": "30",
+        "misc": [
+          "Electroweak precision observables and Higgs-boson signal strengths in the Standard Model and beyond: present and future"
+        ],
+        "publication_info": { "year": 2016 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/60911" },
+      "reference": {
+        "authors": [
+          { "full_name": "Drell, S.D." },
+          { "full_name": "Yan, T.-M." }
+        ],
+        "label": "31",
+        "misc": [
+          "Massive Lepton Pair Production in Hadron-Hadron Collisions at High-Energies [Erratum:",
+          "Additional pubnote: Phys.Rev.Lett.,25,902"
+        ],
+        "publication_info": {
+          "artid": "316",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "25",
+          "page_start": "316",
+          "year": 1970
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/691576" },
+      "reference": {
+        "arxiv_eprint": "hep-ex/0509008",
+        "authors": [{ "full_name": "Schael, S." }],
+        "label": "32",
+        "misc": [
+          "Precision electroweak measurements on the Z resonance arXiv:"
+        ],
+        "publication_info": {
+          "artid": "257",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "427",
+          "page_start": "257",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/852041" },
+      "reference": {
+        "arxiv_eprint": "1004.2597",
+        "authors": [{ "full_name": "Krasny, M." }],
+        "label": "33",
+        "misc": ["\u2206MW \u2264 10MeV/c2 at the LHC: a forlorn hope?"],
+        "publication_info": {
+          "artid": "379",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "69",
+          "page_start": "379",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/335604" },
+      "reference": {
+        "authors": [{ "full_name": "Mirkes, E." }],
+        "label": "34",
+        "misc": [
+          "Angular decay distribution of leptons from W bosons at NLO in hadronic collisions"
+        ],
+        "publication_info": {
+          "artid": "3",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "387",
+          "page_start": "3",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/263569" },
+      "reference": {
+        "authors": [{ "full_name": "Yu, D." }],
+        "label": "35",
+        "misc": [
+          "Bardin et al Energy Dependent Width Effects in e+e- Annihilation Near the Z Boson Pole"
+        ],
+        "publication_info": {
+          "artid": "539",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "206",
+          "page_start": "539",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/13262" },
+      "reference": {
+        "authors": [
+          { "full_name": "Smith, J." },
+          { "full_name": "van Neerven, W.L." },
+          { "full_name": "Vermaseren, J.A. M." }
+        ],
+        "label": "36",
+        "misc": ["The Transverse Mass and Width of the W Boson"],
+        "publication_info": {
+          "artid": "1738",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "50",
+          "page_start": "1738",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "reference": {
+        "collaborations": ["ATLAS Collaboration"],
+        "external_system_identifiers": [
+          { "schema": "CDS", "value": "1956455" }
+        ],
+        "label": "37",
+        "misc": [
+          "Studies of theoretical uncertainties on the measurement of the mass of the W boson at the LHC url:"
+        ],
+        "publication_info": { "year": 2014 },
+        "report_numbers": ["ATL-PHYS-PUB-2014-015"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1289059" },
+      "reference": {
+        "arxiv_eprint": "1404.2240",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "38",
+        "misc": [
+          "Electron reconstruction and identification efficiency measurements with the ATLAS detector using the 2011 LHC proton-proton collision data"
+        ],
+        "publication_info": {
+          "artid": "2941",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "2941",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1306905" },
+      "reference": {
+        "arxiv_eprint": "1407.5063",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "39",
+        "misc": [
+          "Electron and photon energy calibration with the ATLAS detector using LHC Run 1 data"
+        ],
+        "publication_info": {
+          "artid": "3071",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3071",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1306491" },
+      "reference": {
+        "arxiv_eprint": "1407.3935",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "40",
+        "misc": [
+          "Measurement of the muon reconstruction performance of the ATLAS detector using 2011 and 2012 LHC proton-proton collision data"
+        ],
+        "publication_info": {
+          "artid": "3130",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3130",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1502620" },
+      "reference": {
+        "arxiv_eprint": "1612.03016",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "41",
+        "misc": [
+          "Precision measurement and interpretation of inclusive W+, W- and Z/\u03b3\u2217 production cross sections with the ATLAS detector"
+        ],
+        "publication_info": { "year": 2016 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1466778" },
+      "reference": {
+        "arxiv_eprint": "1606.00689",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "42",
+        "misc": [
+          "Measurement of the angular coefficients in Z-boson events using electron and muon pairs from data taken at \u221a s = 8 TeV with the ATLAS detector"
+        ],
+        "publication_info": {
+          "artid": "159",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "159",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1204784" },
+      "reference": {
+        "arxiv_eprint": "1211.6899",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "43",
+        "misc": [
+          "Measurement of angular correlations in Drell-Yan lepton pairs to probe Z/\u03b3\u2217 boson transverse momentum at \u221a s = 7 TeV with the ATLAS detector"
+        ],
+        "publication_info": {
+          "artid": "32",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "720",
+          "page_start": "32",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1300647" },
+      "reference": {
+        "arxiv_eprint": "1406.3660",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "44",
+        "misc": [
+          "Measurement of the Z/\u03b3\u2217 boson transverse momentum distribution in pp collisions at \u221a s = 7 TeV with the ATLAS detector"
+        ],
+        "publication_info": {
+          "artid": "145",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "145",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/925932" },
+      "reference": {
+        "arxiv_eprint": "1108.6308",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "45",
+        "misc": [
+          "Measurement of the transverse momentum distribution of W bosons in pp collisions at \u221a s = 7 TeV with the ATLAS detector"
+        ],
+        "publication_info": {
+          "artid": "012005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "85",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/796888" },
+      "reference": {
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "46",
+        "misc": ["The ATLAS Experiment at the CERN Large Hadron Collider"],
+        "publication_info": {
+          "artid": "S08003",
+          "journal_title": "JINST",
+          "journal_volume": "3",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/930968" },
+      "reference": {
+        "arxiv_eprint": "1110.1530",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "47",
+        "misc": ["Performance of the ATLAS Trigger System in 2010"],
+        "publication_info": {
+          "artid": "1849",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "72",
+          "page_start": "1849",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1219960" },
+      "reference": {
+        "arxiv_eprint": "1302.4393",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "48",
+        "misc": [
+          "Improved luminosity determination in pp collisions at \u221a s = 7 TeV using the ATLAS detector at the LHC"
+        ],
+        "publication_info": {
+          "artid": "2518",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "73",
+          "page_start": "2518",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/659055" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0409146",
+        "authors": [{ "full_name": "Nason, P." }, { "full_name": "New, A." }],
+        "label": "49",
+        "misc": [
+          "method for combining NLO QCD with shower Monte Carlo algorithms arXiv:"
+        ],
+        "publication_info": {
+          "artid": "040",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "040",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/760769" },
+      "reference": {
+        "arxiv_eprint": "0709.2092",
+        "authors": [
+          { "full_name": "Frixione, S." },
+          { "full_name": "Nason, P." },
+          { "full_name": "Oleari, C." }
+        ],
+        "label": "50",
+        "misc": [
+          "Matching NLO QCD computations with Parton Shower simulations: the POWHEG method"
+        ],
+        "publication_info": {
+          "artid": "070",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "070",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/845712" },
+      "reference": {
+        "arxiv_eprint": "1002.2581",
+        "authors": [{ "full_name": "Alioli, S." }],
+        "label": "51",
+        "misc": [
+          "A general framework for implementing NLO calculations in shower Monte Carlo programs: the POWHEG BOX"
+        ],
+        "publication_info": {
+          "artid": "043",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "043",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/712925" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0603175",
+        "authors": [
+          { "full_name": "Sjostrand, T." },
+          { "full_name": "Mrenna, S." },
+          { "full_name": "Skands, P.Z." }
+        ],
+        "label": "52",
+        "misc": ["PYTHIA 6.4 Physics and Manual arXiv:"],
+        "publication_info": {
+          "artid": "026",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "026",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/764903" },
+      "reference": {
+        "arxiv_eprint": "0710.3820",
+        "authors": [
+          { "full_name": "Sjostrand, T." },
+          { "full_name": "Mrenna, S." },
+          { "full_name": "Skands, P.Z." }
+        ],
+        "label": "53",
+        "misc": ["A Brief Introduction to PYTHIA 8.1"],
+        "publication_info": {
+          "artid": "852",
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "178",
+          "page_start": "852",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/861245" },
+      "reference": {
+        "arxiv_eprint": "1007.2241",
+        "authors": [{ "full_name": "Lai, H.-L." }],
+        "label": "54",
+        "misc": ["New parton distributions for collider physics"],
+        "publication_info": {
+          "artid": "074024",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "82",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/581996" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0201195",
+        "authors": [{ "full_name": "Pumplin, J." }],
+        "label": "55",
+        "misc": [
+          "New generation of parton distributions with uncertainties from global QCD analysis arXiv:"
+        ],
+        "publication_info": {
+          "artid": "012",
+          "journal_title": "JHEP",
+          "journal_volume": "07",
+          "page_start": "012",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/684121" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0506026",
+        "authors": [{ "full_name": "Golonka, P." }, { "full_name": "Was, Z." }],
+        "label": "56",
+        "misc": [
+          "PHOTOS Monte Carlo: A Precision tool for QED corrections in Z and W decays arXiv:"
+        ],
+        "publication_info": {
+          "artid": "97",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "45",
+          "page_start": "97",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/537586" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0011363",
+        "authors": [{ "full_name": "Corcella, G." }],
+        "label": "57",
+        "misc": [
+          "HERWIG 6: An Event generator for hadron emission reactions with interfering gluons (including supersymmetric processes) arXiv:"
+        ],
+        "publication_info": {
+          "artid": "010",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "010",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/415636" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9601371",
+        "authors": [
+          { "full_name": "Butterworth, J." },
+          { "full_name": "Forshaw, J.R." },
+          { "full_name": "Seymour, M." }
+        ],
+        "label": "58",
+        "misc": ["Multiparton interactions in photoproduction at HERA arXiv:"],
+        "publication_info": {
+          "artid": "637",
+          "journal_title": "Z.Phys.C",
+          "journal_volume": "72",
+          "page_start": "637",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/585687" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0204244",
+        "authors": [
+          { "full_name": "Frixione, S." },
+          { "full_name": "Webber, B.R." }
+        ],
+        "label": "59",
+        "misc": [
+          "Matching NLO QCD computations and parton shower simulations arXiv:"
+        ],
+        "publication_info": {
+          "artid": "029",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "029",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1301856" },
+      "reference": {
+        "arxiv_eprint": "1406.5375",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "60",
+        "misc": [
+          "Measurement of the t\u00aft production cross-section using e\u00b5 events with b-tagged jets in pp collisions at \u221a s = 7 and 8 TeV with the ATLAS detector"
+        ],
+        "publication_info": {
+          "artid": "3109",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3109",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/892742" },
+      "reference": {
+        "arxiv_eprint": "1103.2792",
+        "authors": [{ "full_name": "Kidonakis, N." }],
+        "label": "61",
+        "misc": [
+          "Next-to-next-to-leading-order collinear and soft gluon corrections for t-channel single top quark production"
+        ],
+        "publication_info": {
+          "artid": "091503",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "83",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/843998" },
+      "reference": {
+        "arxiv_eprint": "1001.5034",
+        "authors": [{ "full_name": "Kidonakis, N." }],
+        "label": "62",
+        "misc": ["NNLL resummation for s-channel single top quark production"],
+        "publication_info": {
+          "artid": "054028",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "81",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/856220" },
+      "reference": {
+        "arxiv_eprint": "1005.4451",
+        "authors": [{ "full_name": "Kidonakis, N." }],
+        "label": "63",
+        "misc": [
+          "Two-loop soft anomalous dimensions for single top quark associated production with a W- or H-"
+        ],
+        "publication_info": {
+          "artid": "054018",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "82",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/500112" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9905386",
+        "authors": [
+          { "full_name": "Campbell, J.M." },
+          { "full_name": "Ellis, R.K." }
+        ],
+        "label": "64",
+        "misc": [
+          "An Update on vector boson pair production at hadron colliders arXiv: [hep-ph]"
+        ],
+        "publication_info": {
+          "artid": "113006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "60",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1311991" },
+      "reference": {
+        "arxiv_eprint": "1408.5243",
+        "authors": [{ "full_name": "Gehrmann, T." }],
+        "label": "65",
+        "misc": [
+          "W+W- Production at Hadron Colliders in Next to Next to Leading Order QCD"
+        ],
+        "publication_info": {
+          "artid": "212001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "113",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/856179" },
+      "reference": {
+        "arxiv_eprint": "1005.4568",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "66",
+        "misc": ["The ATLAS Simulation Infrastructure"],
+        "publication_info": {
+          "artid": "823",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "70",
+          "page_start": "823",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/593382" },
+      "reference": {
+        "authors": [{ "full_name": "Agostinelli, S." }],
+        "label": "67",
+        "misc": ["GEANT4: A Simulation toolkit"],
+        "publication_info": {
+          "artid": "250",
+          "journal_title": "Nucl.Instrum.Meth.A",
+          "journal_volume": "506",
+          "page_start": "250",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1197134" },
+      "reference": {
+        "collaborations": ["ATLAS Collaboration"],
+        "external_system_identifiers": [
+          { "schema": "CDS", "value": "1474107" }
+        ],
+        "label": "68",
+        "misc": ["Summary of ATLAS Pythia 8 tunes url:"],
+        "publication_info": { "year": 2012 },
+        "report_numbers": ["ATL-PHYS-PUB-2012-003"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1426830" },
+      "reference": {
+        "arxiv_eprint": "1603.02934",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "69",
+        "misc": [
+          "Topological cell clustering in the ATLAS calorimeters and its performance in LHC Run 1"
+        ],
+        "publication_info": { "year": 2016 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/406872" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9608412",
+        "authors": [
+          { "full_name": "Jadach, S." },
+          { "full_name": "Placzek, W." },
+          { "full_name": "Ward, B.F. L." }
+        ],
+        "label": "70",
+        "misc": [
+          "BHWIDE 1.00: O(alpha) YFS exponentiated Monte Carlo for Bhabha scattering at wide angles for LEP-1 / SLC and LEP-2 arXiv:"
+        ],
+        "publication_info": {
+          "artid": "298",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "390",
+          "page_start": "298",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1261792" },
+      "reference": {
+        "arxiv_eprint": "1310.5994",
+        "authors": [
+          { "full_name": "P\u0142aczek, W." },
+          { "full_name": "Jadach, S." },
+          { "full_name": "Krasny, M.W." }
+        ],
+        "label": "71",
+        "misc": ["Drell-Yan processes with WINHAC"],
+        "publication_info": {
+          "artid": "2171",
+          "journal_title": "Acta Phys.Polon.B",
+          "journal_volume": "44",
+          "page_start": "2171",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1087253" },
+      "reference": {
+        "arxiv_eprint": "1202.0465",
+        "authors": [{ "full_name": "Barze, L." }],
+        "label": "72",
+        "misc": [
+          "Implementation of electroweak corrections in the POWHEG BOX: single W production"
+        ],
+        "publication_info": {
+          "artid": "037",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "037",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/684827" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0506110",
+        "authors": [{ "full_name": "Arbuzov, A." }],
+        "label": "73",
+        "misc": [
+          "One-loop corrections to the Drell-Yan process in SANC. I The Charged current case [Erratum: arXiv:",
+          "Additional pubnote: Eur.Phys.J.,C50,505"
+        ],
+        "publication_info": {
+          "artid": "407",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "46",
+          "page_start": "407",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Altarelli, G." }],
+        "external_system_identifiers": [{ "schema": "CDS", "value": "116932" }],
+        "label": "74",
+        "misc": [
+          "Z physics at LEP1: Standard physics, Coordinated and supervised by CERN, CERN,, url:"
+        ],
+        "publication_info": { "year": 1989 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/203059" },
+      "reference": {
+        "authors": [
+          { "full_name": "Collins, J.C." },
+          { "full_name": "Soper, D.E." },
+          { "full_name": "Sterman, G.F." }
+        ],
+        "label": "75",
+        "misc": [
+          "Transverse Momentum Distribution in Drell-Yan Pair and W and Z Boson Production"
+        ],
+        "publication_info": {
+          "artid": "199",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "250",
+          "page_start": "199",
+          "year": 1985
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/360438" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9311341",
+        "authors": [
+          { "full_name": "Ladinsky, G.A." },
+          { "full_name": "Yuan, C.P." }
+        ],
+        "label": "76",
+        "misc": [
+          "The Nonperturbative regime in QCD resummation for gauge boson production at hadron colliders arXiv:"
+        ],
+        "publication_info": {
+          "artid": "R4239",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "50",
+          "page_start": "R4239",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/441946" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9704258",
+        "authors": [
+          { "full_name": "Balazs, C." },
+          { "full_name": "Yuan, C.P." }
+        ],
+        "label": "77",
+        "misc": [
+          "Soft gluon effects on lepton pairs at hadron colliders arXiv:"
+        ],
+        "publication_info": {
+          "artid": "5558",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "56",
+          "page_start": "5558",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1384781" },
+      "reference": {
+        "arxiv_eprint": "1507.06937",
+        "authors": [{ "full_name": "Catani, S." }],
+        "label": "78",
+        "misc": [
+          "Vector boson production at hadron colliders: transverse-momentum resummation and leptonic decay"
+        ],
+        "publication_info": {
+          "artid": "047",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "047",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/929848" },
+      "reference": {
+        "arxiv_eprint": "1109.6027",
+        "authors": [
+          { "full_name": "Becher, T." },
+          { "full_name": "Neubert, M." },
+          { "full_name": "Wilhelm, D." }
+        ],
+        "label": "79",
+        "misc": [
+          "Electroweak Gauge-Boson Production at Small qT : Infrared Safety from the Collinear Anomaly"
+        ],
+        "publication_info": {
+          "artid": "124",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "124",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/481318" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9812455",
+        "authors": [
+          { "full_name": "Miu, G." },
+          { "full_name": "Sjostrand, T." }
+        ],
+        "label": "80",
+        "misc": [
+          "W production in an improved parton shower approach arXiv: [hep-ph]"
+        ],
+        "publication_info": {
+          "artid": "313",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "449",
+          "page_start": "313",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/298129" },
+      "reference": {
+        "authors": [
+          { "full_name": "Catani, S." },
+          { "full_name": "Webber, B.R." },
+          { "full_name": "Marchesini, G." }
+        ],
+        "label": "81",
+        "misc": [
+          "QCD coherent branching and semiinclusive processes at large x"
+        ],
+        "publication_info": {
+          "artid": "635",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "349",
+          "page_start": "635",
+          "year": 1991
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/875856" },
+      "reference": {
+        "arxiv_eprint": "1011.1759",
+        "authors": [
+          { "full_name": "Corke, R." },
+          { "full_name": "Sjostrand, T." }
+        ],
+        "label": "82",
+        "misc": ["Interleaved Parton Showers and Tuning Prospects"],
+        "publication_info": {
+          "artid": "032",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "032",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1118569" },
+      "reference": {
+        "arxiv_eprint": "1206.3572",
+        "authors": [
+          { "full_name": "Hamilton, K." },
+          { "full_name": "Nason, P." },
+          { "full_name": "Zanderighi, G." }
+        ],
+        "label": "83",
+        "misc": ["MINLO: Multi-Scale Improved NLO"],
+        "publication_info": {
+          "artid": "155",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "155",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1208117" },
+      "reference": {
+        "arxiv_eprint": "1212.4504",
+        "authors": [{ "full_name": "Hamilton, K." }],
+        "label": "84",
+        "misc": [
+          "Merging H/W/Z + 0 and 1 jet at NLO with no merging scale: a path to parton shower + NNLO matching"
+        ],
+        "publication_info": {
+          "artid": "082",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "082",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/815316" },
+      "reference": {
+        "arxiv_eprint": "0903.2120",
+        "authors": [{ "full_name": "Catani, S." }],
+        "label": "85",
+        "misc": [
+          "Vector boson production at hadron colliders: a fully exclusive QCD calculation at NNLO"
+        ],
+        "publication_info": {
+          "artid": "082001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "103",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/647621" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0404043",
+        "authors": [{ "full_name": "Hahn, T." }],
+        "label": "86",
+        "misc": [
+          "CUBA: A Library for multidimensional numerical integration arXiv:"
+        ],
+        "publication_info": {
+          "artid": "78",
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "168",
+          "page_start": "78",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1221243" },
+      "reference": {
+        "arxiv_eprint": "1302.6246",
+        "authors": [{ "full_name": "Gao, J." }],
+        "label": "87",
+        "misc": ["CT10 next-to-next-to-leading order global analysis of QCD"],
+        "publication_info": {
+          "artid": "033009",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/5163" },
+      "reference": {
+        "authors": [
+          { "full_name": "Collins, J.C." },
+          { "full_name": "Soper, D.E." }
+        ],
+        "label": "88",
+        "misc": [
+          "Angular Distribution of Dileptons in High-Energy Hadron Collisions"
+        ],
+        "publication_info": {
+          "artid": "2219",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "16",
+          "page_start": "2219",
+          "year": 1977
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1325552" },
+      "reference": {
+        "arxiv_eprint": "1410.8849",
+        "authors": [{ "full_name": "Ball, R.D." }],
+        "label": "89",
+        "misc": ["Parton distributions for the LHC Run II"],
+        "publication_info": {
+          "artid": "040",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "040",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1377752" },
+      "reference": {
+        "arxiv_eprint": "1506.07443",
+        "authors": [{ "full_name": "Dulat, S." }],
+        "label": "90",
+        "misc": [
+          "New parton distribution functions from a global analysis of quantum chromodynamics"
+        ],
+        "publication_info": {
+          "artid": "033006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "93",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1334137" },
+      "reference": {
+        "arxiv_eprint": "1412.3989",
+        "authors": [{ "full_name": "Harland-Lang, L.A." }],
+        "label": "91",
+        "misc": ["Parton distributions in the LHC era: MMHT 2014 PDFs"],
+        "publication_info": {
+          "artid": "204",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "75",
+          "page_start": "204",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1258127" },
+      "reference": {
+        "arxiv_eprint": "1310.3059",
+        "authors": [
+          { "full_name": "Alekhin, S." },
+          { "full_name": "Blumlein, J." },
+          { "full_name": "Moch, S." }
+        ],
+        "label": "92",
+        "misc": ["The ABM parton distributions tuned to LHC data"],
+        "publication_info": {
+          "artid": "054028",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/745250" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0702251",
+        "authors": [{ "full_name": "Krasny, M." }],
+        "label": "93",
+        "misc": [
+          "Z-boson as \u2019the standard candle\u2019 for high precision W-boson physics at LHC arXiv: [hep-ph]"
+        ],
+        "publication_info": {
+          "artid": "607",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "51",
+          "page_start": "607",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/810101" },
+      "reference": {
+        "arxiv_eprint": "0812.2571",
+        "authors": [{ "full_name": "Fayette, F." }],
+        "label": "94",
+        "misc": ["Measurement of MW+ - MW- at LHC"],
+        "publication_info": {
+          "artid": "33",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "63",
+          "page_start": "33",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1340697" },
+      "reference": {
+        "arxiv_eprint": "1501.05587",
+        "authors": [
+          { "full_name": "Bozzi, G." },
+          { "full_name": "Citelli, L." },
+          { "full_name": "Vicini, A." }
+        ],
+        "label": "95",
+        "misc": [
+          "Parton density function uncertainties on the W boson mass measurement from the lepton transverse momentum distribution"
+        ],
+        "publication_info": {
+          "artid": "113005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/551862" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0101032",
+        "authors": [{ "full_name": "Pumplin, J." }],
+        "label": "96",
+        "misc": [
+          "Uncertainties of predictions from parton distribution functions. 2. The Hessian method arXiv:"
+        ],
+        "publication_info": {
+          "artid": "014013",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "65",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1377206" },
+      "reference": {
+        "arxiv_eprint": "1506.06042",
+        "authors": [{ "full_name": "Abramowicz, H." }],
+        "label": "97",
+        "misc": [
+          "H1 and ZEUS Collaborations Combination of measurements of inclusive deep inelastic e\u00b1p scattering cross sections and QCD analysis of HERA data"
+        ],
+        "publication_info": {
+          "artid": "580",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "75",
+          "page_start": "580",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Wenninger, J." }],
+        "external_system_identifiers": [
+          { "schema": "CDS", "value": "1546734" }
+        ],
+        "label": "98",
+        "misc": ["Energy Calibration of the LHC Beams at 4 TeV,, url:"],
+        "publication_info": { "year": 2013 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/657467" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0408302",
+        "authors": [
+          { "full_name": "Sjostrand, T." },
+          { "full_name": "Skands, P.Z." }
+        ],
+        "label": "99",
+        "misc": [
+          "Transverse-momentum-ordered showers and interleaved multiple interactions arXiv: [hep-ph]"
+        ],
+        "publication_info": {
+          "artid": "129",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "39",
+          "page_start": "129",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1456139" },
+      "reference": {
+        "arxiv_eprint": "1605.01733",
+        "authors": [
+          { "full_name": "Bonvini, M." },
+          { "full_name": "Papanastasiou, A.S." },
+          { "full_name": "Tackmann, F.J." }
+        ],
+        "label": "100",
+        "misc": [
+          "Matched predictions for the bbH cross section at the 13 TeV LHC"
+        ],
+        "publication_info": {
+          "artid": "053",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "053",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1121392" },
+      "reference": {
+        "arxiv_eprint": "1207.1303",
+        "authors": [{ "full_name": "Ball, R.D." }],
+        "label": "101",
+        "misc": ["Parton distributions with LHC data"],
+        "publication_info": {
+          "artid": "244",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "867",
+          "page_start": "244",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1407976" },
+      "reference": {
+        "arxiv_eprint": "1512.01178",
+        "authors": [{ "full_name": "Bellm, J." }],
+        "label": "102",
+        "misc": ["Herwig 7.0/Herwig++ 3.0 release note"],
+        "publication_info": {
+          "artid": "196",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "76",
+          "page_start": "196",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/780833" },
+      "reference": {
+        "arxiv_eprint": "0803.0883",
+        "authors": [{ "full_name": "Bahr, M." }],
+        "label": "103",
+        "misc": ["Herwig++ Physics and Manual"],
+        "publication_info": {
+          "artid": "639",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "58",
+          "page_start": "639",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1204342" },
+      "reference": {
+        "collaborations": ["ATLAS Collaboration"],
+        "external_system_identifiers": [
+          { "schema": "CDS", "value": "1483518" }
+        ],
+        "label": "104",
+        "misc": [
+          "Study of alignment-related systematic effects on the ATLAS Inner Detector track reconstruction url:"
+        ],
+        "publication_info": { "year": 2012 },
+        "report_numbers": ["ATLAS-CONF-2012-141"]
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Devroye, L." }],
+        "imprint": { "publisher": "Springer" },
+        "label": "105",
+        "misc": ["Non-Uniform Random Variate Generation, Available at -Verlag"],
+        "publication_info": { "year": 1986 },
+        "urls": [{ "value": "http://www.eirene.de/Devroye.pdf" }]
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Efron, B." }],
+        "label": "106",
+        "misc": ["Bootstrap Methods: Another Look at the Jackknife"],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Annals Statist.",
+          "journal_volume": "7",
+          "page_start": "1",
+          "year": 1979
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/22979" },
+      "reference": {
+        "authors": [
+          { "full_name": "Lyons, L." },
+          { "full_name": "Gibaut, D." },
+          { "full_name": "Clifford, P." }
+        ],
+        "label": "107",
+        "misc": [
+          "How to Combine Correlated Estimates of a Single Physical Quantity"
+        ],
+        "publication_info": {
+          "artid": "110",
+          "journal_title": "Nucl.Instrum.Meth.A",
+          "journal_volume": "270",
+          "page_start": "110",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1281562" },
+      "reference": {
+        "arxiv_eprint": "1402.4016",
+        "authors": [{ "full_name": "Nisius, R." }],
+        "label": "108",
+        "misc": [
+          "On the combination of correlated estimates of a physics observable"
+        ],
+        "publication_info": {
+          "artid": "3004",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "3004",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/817368" },
+      "reference": {
+        "arxiv_eprint": "0904.0929",
+        "authors": [{ "full_name": "Aaron, F.D." }],
+        "collaborations": ["H1 Collaboration"],
+        "label": "109",
+        "misc": [
+          "Measurement of the Inclusive ep Scattering Cross Section at Low Q2 and x at HERA"
+        ],
+        "publication_info": {
+          "artid": "625",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "63",
+          "page_start": "625",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1468064" },
+      "reference": {
+        "arxiv_eprint": "1606.02179",
+        "collaborations": ["ATLAS Collaboration"],
+        "label": "110",
+        "misc": [
+          "Measurement of the top quark mass in the t\u00aft \u2192 dilepton channel from \u221a s = 8 TeV ATLAS data"
+        ],
+        "publication_info": {
+          "artid": "350",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "761",
+          "page_start": "350",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1356276" },
+      "reference": {
+        "arxiv_eprint": "1503.07589",
+        "collaborations": ["CMS Collaborations"],
+        "label": "111",
+        "misc": [
+          "ATLAS Combined Measurement of the Higgs Boson Mass in pp Collisions at \u221a s = 7 and 8 TeV with the ATLAS and CMS Experiments"
+        ],
+        "publication_info": {
+          "artid": "191803",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "114",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1219330" },
+      "reference": {
+        "arxiv_eprint": "1302.3415",
+        "authors": [{ "full_name": "Group, S." }],
+        "collaborations": ["OPAL Collaborations"],
+        "label": "112",
+        "misc": [
+          "ALEPH, DELPHI, L3 LEP Electroweak Working Schael et al Electroweak Measurements in Electron-Positron Collisions at W-Boson-Pair Energies at LEP 13 Appendix [GeV]l T p 30 32 34 36 38 40 42 44 46 48 50 Normalisedtounity 0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.1 Nominal =+50 MeVWm\u2206 =-50 MeVWm\u2206 ATLAS Simulation Preliminary +X\u00b1 W\u2192=7 TeV, pps"
+        ],
+        "publication_info": {
+          "artid": "119",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "532",
+          "page_start": "119",
+          "year": 2013
+        }
+      }
+    }
+  ],
+  "related_records": [
+    {
+      "curated_relation": true,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1510564" },
+      "relation": "successor"
+    }
+  ],
+  "report_numbers": [{ "value": "ATLAS-CONF-2016-113" }],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1503270" },
+  "texkeys": ["ATLAS:2016dfv"],
+  "titles": [
+    {
+      "title":
+        "Measurement of the W Boson Mass in Proton-Proton Collisions at s = 7 TeV with the ATLAS Detector"
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [{ "status": "noprint" }],
+  "_export_to": { "HAL": false },
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902770"
+          },
+          "value": "DESY"
+        }
+      ],
+      "full_name": "Balewski, Klaus",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "K.Balewski.1" }],
+      "inspire_roles": ["editor"],
+      "raw_affiliations": [{ "value": "Deutsches Elektronen-Synchrotron" }],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1017538" },
+      "signature_block": "BALASCk",
+      "uuid": "296b83da-7ed3-42bd-93ca-5d0885c190a3"
+    },
+    {
+      "full_name": "Flegel, Ilka",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "I.Flegel.1" }],
+      "inspire_roles": ["editor"],
+      "signature_block": "FLAGALi",
+      "uuid": "98964447-f987-4d04-9271-a91f90a390e8"
+    }
+  ],
+  "control_number": 1695281,
+  "core": true,
+  "curated": true,
+  "document_type": ["activity report"],
+  "dois": [
+    {
+      "source": "Deutsches Elektronen-Synchrotron",
+      "value": "10.3204/PUBDB-2018-01855"
+    }
+  ],
+  "imprints": [
+    {
+      "date": "2018",
+      "place": "Hamburg, Germany",
+      "publisher": "Verlag Deutsches Elektronen-Synchrotron"
+    }
+  ],
+  "inspire_categories": [{ "term": "Other" }],
+  "isbns": [{ "value": "9783945931202" }],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "activity report" },
+    { "schema": "INSPIRE", "value": "accelerator" }
+  ],
+  "legacy_creation_date": "2018-09-25",
+  "legacy_version": "20180925152449.0",
+  "number_of_pages": 79,
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1695281" },
+  "texkeys": ["Balewski:2018ixs"],
+  "titles": [
+    {
+      "source": "DESY",
+      "title": "Acclerators 2017 - Highlights and Annual Report"
+    }
+  ],
+  "urls": [
+    {
+      "description": "Fulltext",
+      "value":
+        "http://bib-pubdb1.desy.de/record/402488/files/Accelerators_2017.pdf"
+    }
+  ]
+}

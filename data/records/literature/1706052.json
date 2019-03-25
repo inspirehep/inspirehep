@@ -1,0 +1,645 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA18-kp51l" },
+    { "date": "2018-12-12", "expert": "3", "status": "abs" },
+    { "date": "2018-12-17", "expert": "3", "status": "printed" },
+    { "date": "2018-12-30", "expert": "3", "status": "final" }
+  ],
+  "_export_to": { "HAL": true },
+  "abstracts": [
+    {
+      "source": "arXiv",
+      "value":
+        "Big-Bang nucleosynthesis (BBN) represents one of the earliest phenomena that can lead to observational constraints on the early Universe properties. It is well-known that many important mechanisms and phase transitions occurred before BBN. We discuss the possibility of gaining insight into the primordial Universe through studies of dark matter in cosmology, astroparticle physics and colliders. For this purpose, we assume that dark matter is a thermal relic, and show that combining collider searches with dark matter observables can lead to strong constraints on the period of freeze-out before BBN."
+    }
+  ],
+  "acquisition_source": {
+    "datetime": "2018-12-04T03:37:30.293190",
+    "method": "hepcrawl",
+    "source": "arXiv",
+    "submission_number": "1349083"
+  },
+  "arxiv_eprints": [
+    { "categories": ["hep-ph", "astro-ph.CO"], "value": "1811.12764" }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902974"
+          },
+          "value": "Lyon, IPN"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/908245"
+          },
+          "value": "Inst. U. de France"
+        }
+      ],
+      "full_name": "Arbey, A.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "A.Arbey.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Univ. Lyon, Univ. Lyon 1, CNRS/IN2P3, Institut de Physique Nucl\u00e9aire de Lyon, UMR5822, F-69622 Villeurbanne, France"
+        },
+        {
+          "value":
+            "Theoretical Physics Department, CERN, 1 Esplanade des Particules, CH-1211 Geneva 23, Switzerland"
+        },
+        {
+          "value":
+            "Also Institut Universitaire de France, 103 boulevard Saint-Michel, 75005 Paris, France"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1019953" },
+      "signature_block": "ARBYa",
+      "uuid": "655f31e3-5544-427c-bbd9-8f8d1ce23857"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902927"
+          },
+          "value": "King's Coll. London"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/905096"
+          },
+          "value": "NICPB, Tallinn"
+        }
+      ],
+      "full_name": "Ellis, J.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "J.R.Ellis.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Theoretical Physics Department, CERN, 1 Esplanade des Particules, CH-1211 Geneva 23, Switzerland"
+        },
+        {
+          "value":
+            "Department of Physics, Theoretical Particle Physics and Cosmology Group, King's College London, WC2R 2LS London, United Kingdom"
+        },
+        {
+          "value":
+            "National Institute of Chemical Physics & Biophysics, R\u00e4vala 10, 10143 Tallinn, Estonia"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1010819" },
+      "signature_block": "ELj",
+      "uuid": "3cd4e36a-0cad-4f5a-8d00-6e9b5f08d8a6"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902974"
+          },
+          "value": "Lyon, IPN"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+          },
+          "value": "CERN"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/908245"
+          },
+          "value": "Inst. U. de France"
+        }
+      ],
+      "full_name": "Mahmoudi, F.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "F.Mahmoudi.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Univ. Lyon, Univ. Lyon 1, CNRS/IN2P3, Institut de Physique Nucl\u00e9aire de Lyon, UMR5822, F-69622 Villeurbanne, France"
+        },
+        {
+          "value":
+            "Theoretical Physics Department, CERN, 1 Esplanade des Particules, CH-1211 Geneva 23, Switzerland"
+        },
+        {
+          "value":
+            "Also Institut Universitaire de France, 103 boulevard Saint-Michel, 75005 Paris, France"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1028960" },
+      "signature_block": "MANADf",
+      "uuid": "d0913128-24fb-44a2-8ab3-4250b2085965"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902974"
+          },
+          "value": "Lyon, IPN"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/905096"
+          },
+          "value": "NICPB, Tallinn"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/905832"
+          },
+          "value": "Lyon Observ."
+        }
+      ],
+      "full_name": "Robbins, G.",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "G.Robbins.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Univ. Lyon, Univ. Lyon 1, CNRS/IN2P3, Institut de Physique Nucl\u00e9aire de Lyon, UMR5822, F-69622 Villeurbanne, France"
+        },
+        {
+          "value":
+            "National Institute of Chemical Physics & Biophysics, R\u00e4vala 10, 10143 Tallinn, Estonia"
+        },
+        {
+          "value":
+            "Centre de Recherche Astrophysique de Lyon UMR5574, ENS de Lyon, CNRS, F-69230 Saint-Genis-Laval, France"
+        }
+      ],
+      "signature_block": "RABANg",
+      "uuid": "2284ca2c-18f9-43dd-b96b-09aa5ef4ec61"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1706052,
+  "core": true,
+  "curated": true,
+  "document_type": ["conference paper"],
+  "documents": [
+    {
+      "fulltext": true,
+      "key": "1811.12764.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621131/content.pdf%3B1"
+    }
+  ],
+  "external_system_identifiers": [
+    { "schema": "HAL", "value": "hal-01960333" },
+    { "schema": "CDS", "value": "2649802" }
+  ],
+  "figures": [
+    {
+      "caption":
+        "Relic density in the parameter plane of the initial scalar field density vs. the reheating temperature, for $\\eta_\\phi=0$ (upper left), $\\eta_\\phi=10^{-12}$ (upper right), $\\eta_\\phi=10^{-11}$ (lower left), $\\eta_\\phi=10^{-10}$ (lower right). In the dark regions, the relic density is compatible with Planck measurements.",
+      "key": "fig4a.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621130/content.png%3B1"
+    },
+    {
+      "caption":
+        "Relic density in the pMSSM as a function of the neutralino mass and type. The horizontal line shows the Planck dark matter density measurement (see Ref.~\\cite{Arbey:2017eos}).",
+      "key": "Oh2MN1_v2.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621129/content.png%3B1"
+    },
+    {
+      "caption":
+        "Relic density in the parameter plane of the initial scalar field density vs. the reheating temperature, for $\\eta_\\phi=0$ (upper left), $\\eta_\\phi=10^{-12}$ (upper right), $\\eta_\\phi=10^{-11}$ (lower left), $\\eta_\\phi=10^{-10}$ (lower right). In the dark regions, the relic density is compatible with Planck measurements.",
+      "key": "fig4c.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g181/3621128/content.png%3B1"
+    }
+  ],
+  "inspire_categories": [
+    { "source": "arxiv", "term": "Phenomenology-HEP" },
+    { "source": "arxiv", "term": "Astrophysics" },
+    { "term": "Phenomenology-HEP" },
+    { "term": "Astrophysics" }
+  ],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "nucleosynthesis: big bang" },
+    { "schema": "INSPIRE", "value": "dark matter" },
+    { "schema": "INSPIRE", "value": "critical phenomena" },
+    { "schema": "INSPIRE", "value": "cosmological model: parameter space" },
+    { "schema": "INSPIRE", "value": "dark matter: freeze-out" },
+    { "schema": "INSPIRE", "value": "thermal" }
+  ],
+  "legacy_creation_date": "2018-12-03",
+  "legacy_version": "20190102140914.0",
+  "license": [
+    {
+      "license": "arXiv nonexclusive-distrib 1.0",
+      "material": "preprint",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    }
+  ],
+  "number_of_pages": 4,
+  "preprint_date": "2018-11-30",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "4 pages, 2 figures, contribution to the proceedings of the 39th\n  International Conference on High Energy Physics (ICHEP2018), Seoul, 4-11 July\n  2018"
+    }
+  ],
+  "publication_info": [
+    {
+      "artid": "035",
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1213080"
+      },
+      "journal_title": "PoS",
+      "journal_volume": "ICHEP2018",
+      "material": "publication",
+      "page_start": "035",
+      "pubinfo_freetext": "PoS ICHEP2018 (2018) 035",
+      "year": 2018
+    },
+    {
+      "cnum": "C18-07-04",
+      "conference_record": {
+        "$ref": "http://labs.inspirehep.net/api/conferences/1642486"
+      }
+    }
+  ],
+  "references": [
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[1] A. Arbey, J. Ellis, F. Mahmoudi and G. Robbins, JHEP 1810 (2018) 132 [arXiv:1807.00554]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1680496" },
+      "reference": {
+        "arxiv_eprint": "1807.00554",
+        "authors": [
+          { "full_name": "Arbey, A." },
+          { "full_name": "Ellis, J." },
+          { "full_name": "Mahmoudi, F." },
+          { "full_name": "Robbins, G." }
+        ],
+        "label": "1",
+        "publication_info": {
+          "artid": "132",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "132",
+          "year": 2018
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[2] P. Gondolo and G. Gelmini, Nucl. Phys. B 360 (1991) 145."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/304505" },
+      "reference": {
+        "authors": [
+          { "full_name": "Gondolo, P." },
+          { "full_name": "Gelmini, G." }
+        ],
+        "label": "2",
+        "publication_info": {
+          "artid": "145",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "360",
+          "page_start": "145",
+          "year": 1991
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[3] J. Edsjo and P. Gondolo, Phys. Rev. D 56 (1997) 1879 [arXiv:hep-ph/9704361]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/442326" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9704361",
+        "authors": [
+          { "full_name": "Edsjo, J." },
+          { "full_name": "Gondolo, P." }
+        ],
+        "label": "3",
+        "misc": ["[arXiv:"],
+        "publication_info": {
+          "artid": "1879",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "56",
+          "page_start": "1879",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[4] Planck Collaboration, P. A. R. Ade et. al., Astron. Astrophys. 594 (2016) A13 [arXiv:1502.01589]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1343079" },
+      "reference": {
+        "arxiv_eprint": "1502.01589",
+        "authors": [{ "full_name": "Ade, P.A.R." }],
+        "label": "4",
+        "misc": ["Planck Collaboration"],
+        "publication_info": {
+          "artid": "A13",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "594",
+          "page_start": "A13",
+          "year": 2016
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[5] A. Arbey, M. Boudaud, F. Mahmoudi and G. Robbins, JHEP 11 (2017) 132 [arXiv:1707.00426]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1608347" },
+      "reference": {
+        "arxiv_eprint": "1707.00426",
+        "authors": [
+          { "full_name": "Arbey, A." },
+          { "full_name": "Boudaud, M." },
+          { "full_name": "Mahmoudi, F." },
+          { "full_name": "Robbins, G." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "132",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "132",
+          "year": 2017
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[6] A. Arbey and F. Mahmoudi, Comput. Phys. Commun. 181 (2010) 1277 [arXiv:0906.0369]; Comput. Phys. Commun. 182 (2011) 1582; A. Arbey, F. Mahmoudi and G. Robbins, arXiv:1806.11489."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/822024" },
+      "reference": {
+        "arxiv_eprint": "0906.0369",
+        "authors": [
+          { "full_name": "Arbey, A." },
+          { "full_name": "Mahmoudi, F." }
+        ],
+        "label": "6",
+        "publication_info": {
+          "artid": "1277",
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "181",
+          "page_start": "1277",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[6] A. Arbey and F. Mahmoudi, Comput. Phys. Commun. 181 (2010) 1277 [arXiv:0906.0369]; Comput. Phys. Commun. 182 (2011) 1582; A. Arbey, F. Mahmoudi and G. Robbins, arXiv:1806.11489."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/898165" },
+      "reference": {
+        "label": "6",
+        "publication_info": {
+          "artid": "1582",
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "182",
+          "page_start": "1582",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[6] A. Arbey and F. Mahmoudi, Comput. Phys. Commun. 181 (2010) 1277 [arXiv:0906.0369]; Comput. Phys. Commun. 182 (2011) 1582; A. Arbey, F. Mahmoudi and G. Robbins, arXiv:1806.11489."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1680351" },
+      "reference": {
+        "arxiv_eprint": "1806.11489",
+        "authors": [
+          { "full_name": "Arbey, A." },
+          { "full_name": "Mahmoudi, F." },
+          { "full_name": "Robbins, G." }
+        ],
+        "label": "6"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[7] A. Arbey and F. Mahmoudi, Phys. Lett. B669 (2008) 46 [arXiv:0803.0741]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/780777" },
+      "reference": {
+        "arxiv_eprint": "0803.0741",
+        "authors": [
+          { "full_name": "Arbey, A." },
+          { "full_name": "Mahmoudi, F." }
+        ],
+        "label": "7",
+        "publication_info": {
+          "artid": "46",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "669",
+          "page_start": "46",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[8] A. Arbey and F. Mahmoudi, JHEP 05 (2010) 051 [arXiv:0906.0368]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/822023" },
+      "reference": {
+        "arxiv_eprint": "0906.0368",
+        "authors": [
+          { "full_name": "Arbey, A." },
+          { "full_name": "Mahmoudi, F." }
+        ],
+        "label": "8",
+        "publication_info": {
+          "artid": "051",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "051",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[9] G. B. Gelmini and P. Gondolo, Phys. Rev. D74 (2006) 023510 [arXiv:hep-ph/0602230]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/711287" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0602230",
+        "authors": [
+          { "full_name": "Gelmini, G.B." },
+          { "full_name": "Gondolo, P." }
+        ],
+        "label": "9",
+        "misc": ["[arXiv:"],
+        "publication_info": {
+          "artid": "023510",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "74",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[10] G. Gelmini, P. Gondolo, A. Soldatenko and C. E. Yaguna, Phys. Rev. D74 (2006) 083514 [arXiv:hep-ph/0605016]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/715643" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0605016",
+        "authors": [
+          { "full_name": "Gelmini, G." },
+          { "full_name": "Gondolo, P." },
+          { "full_name": "Soldatenko, A." },
+          { "full_name": "Yaguna, C.E." }
+        ],
+        "label": "10",
+        "misc": ["[arXiv:"],
+        "publication_info": {
+          "artid": "083514",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "74",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[11] A. Arbey, Comput. Phys. Commun. 183 (2012) 1822 [arXiv:1106.1363]; A. Arbey, J. Auffinger, K. P. Hickerson and E. S. Jenssen, arXiv:1806.11095."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/912915" },
+      "reference": {
+        "arxiv_eprint": "1106.1363",
+        "authors": [{ "full_name": "Arbey, A." }],
+        "label": "11",
+        "publication_info": {
+          "artid": "1822",
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "183",
+          "page_start": "1822",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[11] A. Arbey, Comput. Phys. Commun. 183 (2012) 1822 [arXiv:1106.1363]; A. Arbey, J. Auffinger, K. P. Hickerson and E. S. Jenssen, arXiv:1806.11095."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1680095" },
+      "reference": {
+        "arxiv_eprint": "1806.11095",
+        "authors": [
+          { "full_name": "Arbey, A." },
+          { "full_name": "Auffinger, J." },
+          { "full_name": "Hickerson, K.P." },
+          { "full_name": "Jenssen, E.S." }
+        ],
+        "label": "11"
+      }
+    }
+  ],
+  "report_numbers": [{ "source": "arXiv", "value": "CERN-TH-2018-248" }],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1706052" },
+  "texkeys": ["Arbey:2018cdj"],
+  "titles": [
+    { "source": "arXiv", "title": "Dark matter and the early Universe" }
+  ]
+}

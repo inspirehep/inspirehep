@@ -1,0 +1,2941 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "abstracts": [
+    {
+      "value":
+        "This thesis deals with the four B\u2192\u03c0K decays: B\u207a\u2192\u03c0\u207aK\u2070, B\u207a\u2192\u03c0\u2070K\u207a, Bd\u2070\u2192\u03c0\u207bK\u207a and Bd\u2070\u2192\u03c0\u2070K\u2070. These are interesting to study since they are related to CP violation in the quark sector. Using fits, the latest experimental results on these decays and the diagrammatic approach, this project measures the disagreement with the Standard Model and determines whether new physics models can reduce this disagreement. The results obtained show that the ratio |C'|/|T'| is essential to determine the state of the disagreement with the Standard Model. This is a ratio between the magnitudes of two diagrams contributing the B\u2192\u03c0K decays. These diagrams are the color suppressed (C') and color allowed (T') tree diagrams. If this ratio is high (\u223c 0.5), the Standard Model can explain the decays. If it is low (\u223c 0.2), it cannot. In this case, it was found that new physics models can improve on the Standard Model, whithout however fully explaining the disagreement. This is the case for a Z', a particule that can cause a transition b\u0304\u2192s\u0304 at tree level. For Z' models to improve on the Standard Model, the Z' must couple to u\u0304RuR and/or d\u0304RdR, and the coupling in each of these cases must be different. In some models, the Z' can couple to b\u0304\u2192s\u0304\u03bc\u207a\u03bc\u207b. These models can explain many anomalies observed in this transition. For half of these models, the Z' also has the requirements needed to reduce the disagreement in the B\u2192\u03c0K decays. Models involving a diquark, a particle that can couple to 2 quarks of the same chirality were also considered. It was found that a color sextet diquark that couples to u\u2071L,Rd\u02b2L,R can reduce the disagreement found in the B\u2192\u03c0K decays."
+    }
+  ],
+  "acquisition_source": {
+    "datetime": "2018-08-01T11:51:58.379037",
+    "email": "aklok@iitj.ac.in",
+    "method": "submitter",
+    "orcid": "0000-0003-2155-7986",
+    "submission_number": "1154355"
+  },
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903025"
+          },
+          "value": "Montreal U."
+        }
+      ],
+      "full_name": "Boisvert-Beaudry, Nicolas",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "N.B.Beaudry.1" }],
+      "signature_block": "BADRYn",
+      "uuid": "39ae9df9-6477-4ff0-94bb-4d21e668b3f0"
+    },
+    {
+      "full_name": "London, David",
+      "inspire_roles": ["supervisor"],
+      "signature_block": "LANDANd",
+      "uuid": "fdb5a141-8fa0-4fbf-b84c-072fc8ba66e3"
+    }
+  ],
+  "control_number": 1684747,
+  "core": true,
+  "curated": true,
+  "document_type": ["thesis"],
+  "documents": [
+    {
+      "fulltext": true,
+      "key": "fulltext.pdf",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g169/3395207/content.pdf%3B1"
+    }
+  ],
+  "inspire_categories": [{ "source": "user", "term": "Phenomenology-HEP" }],
+  "languages": ["fr"],
+  "legacy_creation_date": "2018-08-02",
+  "legacy_version": "20180802164721.0",
+  "persistent_identifiers": [{ "schema": "HDL", "value": "1866/20706" }],
+  "references": [
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[1] Y. Amhis et al. Averages of b-hadron, c-hadron, and \u03c4-lepton properties as of summer 2016. Eur. Phys. J., C77(12) :895, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1505428" },
+      "reference": {
+        "authors": [{ "full_name": "Amhis, Y." }],
+        "label": "1",
+        "misc": [
+          "Averages of b-hadron, c-hadron, and \u03c4-lepton properties as of summer 2016"
+        ],
+        "publication_info": {
+          "artid": "895",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "77",
+          "page_start": "895",
+          "year": 2017
+        },
+        "texkey": "HFAG"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[2] Alexandra Martin Sanchez. Measurement of the gamma angle from tree decays at the LHCb experiment. EPJ Web Conf., 28 :12030, 2012."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1085541" },
+      "reference": {
+        "label": "2",
+        "misc": [
+          "Alexandra Martin Sanchez. Measurement of the gamma angle from tree decays at the LHCb experiment"
+        ],
+        "publication_info": {
+          "artid": "12030",
+          "journal_title": "EPJ Web Conf.",
+          "journal_volume": "28",
+          "year": 2012
+        },
+        "texkey": "Sanchez:2012np"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[3] Georges Aad et al. Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC. Phys. Lett., B716 :1\u201329, 2012."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1124337" },
+      "reference": {
+        "authors": [{ "full_name": "Aad" }],
+        "label": "3",
+        "misc": [
+          "Georges / Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "716",
+          "page_end": "29",
+          "page_start": "1",
+          "year": 2012
+        },
+        "texkey": "Higgs"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[4] A. D. Sakharov. Violation of CP Invariance, c Asymmetry, and Baryon Asymmetry of the Universe. Pisma Zh. Eksp. Teor. Fiz., 5 :32\u201335, 1967. [Usp. Fiz. Nauk161,61(1991)]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/51345" },
+      "reference": {
+        "authors": [{ "full_name": "Sakharov, A.D." }],
+        "label": "4",
+        "misc": [
+          "Violation of CP Invariance, c Asymmetry, and Baryon Asymmetry of the Universe / [Usp. Fiz. Nauk161,61(1991)]"
+        ],
+        "publication_info": {
+          "journal_title": "Pisma Zh.Eksp.Teor.Fiz.",
+          "journal_volume": "5",
+          "page_end": "35",
+          "page_start": "32",
+          "year": 1967
+        },
+        "texkey": "Sakharov:1967dj"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[5] Makoto Kobayashi and Toshihide Maskawa. CP Violation in the Renormalizable Theory of Weak Interaction. Prog. Theor. Phys., 49 :652\u2013657, 1973."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/81350" },
+      "reference": {
+        "label": "5",
+        "misc": [
+          "Makoto Kobayashi and Toshihide Maskawa. CP Violation in the Renormalizable Theory of Weak Interaction"
+        ],
+        "publication_info": {
+          "journal_title": "Prog.Theor.Phys.",
+          "journal_volume": "49",
+          "page_end": "657",
+          "page_start": "652",
+          "year": 1973
+        },
+        "texkey": "Kobayashi:1973fv"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[6] Patrick Huet and Eric Sather. Electroweak baryogenesis and standard model cp violation. Phys. Rev. D, 51 :379\u2013394, Jan 1995."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/373196" },
+      "reference": {
+        "label": "6",
+        "misc": [
+          "Patrick Huet and Eric Sather. Electroweak baryogenesis and standard model cp violation"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "51",
+          "page_end": "394",
+          "page_start": "379",
+          "year": 1995
+        },
+        "texkey": "matter-antimatter"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[7] Seungwon Baek, Cheng-Wei Chiang, and David London. The B \u2014> pi K Puzzle : 2009 Update. Phys. Lett., B675 :59\u201363, 2009."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/815706" },
+      "reference": {
+        "authors": [{ "full_name": "The" }],
+        "label": "7",
+        "misc": [
+          "Seungwon Baek, Cheng-Wei Chiang, and David London / \u2014> pi K Puzzle / :Update"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "675",
+          "page_end": "63",
+          "page_start": "59",
+          "year": 2009
+        },
+        "texkey": "Baek:2009pa"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[8] E. C. G. Sudarshan and R. e. Marshak. Chirality invariance and the universal Fermi interaction. Phys. Rev., 109 :1860\u20131860, 1958."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/9165" },
+      "reference": {
+        "authors": [{ "full_name": "Sudarshan, E.C.G." }],
+        "label": "8",
+        "misc": [
+          "and R. e. Marshak. Chirality invariance and the universal Fermi interaction"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Rev.",
+          "journal_volume": "109",
+          "page_end": "1860",
+          "page_start": "1860",
+          "year": 1958
+        },
+        "texkey": "Sudarshan:1958vf"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[9] M. Thomson. Modern Particle Physics. Modern Particle Physics. Cambridge University Press, 2013."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Thomson, M." }],
+        "label": "9",
+        "misc": [
+          "Modern Particle Physics. Modern Particle Physics. Cambridge University Press"
+        ],
+        "publication_info": { "year": 2013 },
+        "texkey": "thomson2013modern"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[10] T.P. Cheng and L.F. Li. Gauge Theory of Elementary Particle Physics. Oxford science publications. Clarendon Press, 1984."
+        }
+      ],
+      "reference": {
+        "authors": [
+          { "full_name": "Cheng, T.P." },
+          { "full_name": "Li, L.F." }
+        ],
+        "imprint": { "publisher": "Clarendon" },
+        "label": "10",
+        "misc": [
+          "Gauge Theory of Elementary Particle Physics. Oxford science publications / Press"
+        ],
+        "publication_info": { "year": 1984 },
+        "texkey": "cheng1984gauge"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[11] Ling-Lie Chau and Wai-Yee Keung. Comments on the Parametrization of the Kobayashi-Maskawa Matrix. Phys. Rev. Lett., 53 :1802, 1984."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/14986" },
+      "reference": {
+        "label": "11",
+        "misc": [
+          "Ling-Lie Chau and Wai-Yee Keung. Comments on the Parametrization of the Kobayashi-Maskawa Matrix"
+        ],
+        "publication_info": {
+          "artid": "1802",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "53",
+          "page_start": "1802",
+          "year": 1984
+        },
+        "texkey": "CKM-param"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[12] Lincoln Wolfenstein. Parametrization of the Kobayashi-Maskawa Matrix. Phys. Rev. Lett., 51 :1945, 1983."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/192153" },
+      "reference": {
+        "label": "12",
+        "misc": [
+          "Lincoln Wolfenstein. Parametrization of the Kobayashi-Maskawa Matrix"
+        ],
+        "publication_info": {
+          "artid": "1945",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "51",
+          "page_start": "1945",
+          "year": 1983
+        },
+        "texkey": "Wolfenstein:1983yz"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[13] Michael Gronau and Daniel Wyler. On determining a weak phase from CP asymmetries in charged B decays. Phys. Lett., B265 :172\u2013176, 1991."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/315585" },
+      "reference": {
+        "label": "13",
+        "misc": [
+          "Michael Gronau and Daniel Wyler. On determining a weak phase from CP asymmetries in charged B decays"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "265",
+          "page_end": "176",
+          "page_start": "172",
+          "year": 1991
+        },
+        "texkey": "GroWyker"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[14] J. Charles, Andreas Hocker, H. Lacker, S. Laplace, F. R. Le Diberder, J. Malcles, J. Ocariz, M. Pivk, and L. Roos. CP violation and the CKM matrix : Assessing the impact of the asymmetric B factories. Eur. Phys. J., C41(1) :1\u2013131, 2005."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/652597" },
+      "reference": {
+        "authors": [{ "full_name": "Charles, J." }],
+        "label": "14",
+        "misc": [
+          "Andreas Hocker, H. Lacker, S. Laplace, F. R. Le Diberder, J. Malcles, J. Ocariz, M / Pivk, and L. Roos. CP violation and the CKM matrix : Assessing the impact of the asymmetric B factories"
+        ],
+        "publication_info": {
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "41",
+          "page_end": "131",
+          "page_start": "1",
+          "year": 2005
+        },
+        "texkey": "CKMfitter"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[15] C. Patrignani et al. Review of Particle Physics. Chin. Phys., C40(10) :100001, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1489868" },
+      "reference": {
+        "authors": [{ "full_name": "Patrignani, C." }],
+        "label": "15",
+        "misc": ["Review of Particle Physics"],
+        "publication_info": {
+          "artid": "100001",
+          "journal_title": "Chin.Phys.C",
+          "journal_volume": "40",
+          "year": 2016
+        },
+        "texkey": "PDG"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[16] Michael Gronau, Oscar F. Hernandez, David London, and Jonathan L. Rosner. Decays of B mesons to two light pseudoscalars. Phys. Rev., D50 :4529\u20134543, 1994."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/372934" },
+      "reference": {
+        "authors": [{ "full_name": "Hernandez" }, { "full_name": "F., Oscar" }],
+        "label": "16",
+        "misc": [
+          "Michael Gronau / David London, and Jonathan L. Rosner. Decays of B mesons to two light pseudoscalars"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "50",
+          "page_end": "4543",
+          "page_start": "4529",
+          "year": 1994
+        },
+        "texkey": "GHLR1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[17] Maxime Imbeault, Alakabha Datta, and David London. Hadronic B decays : A General approach. Int. J. Mod. Phys., A22 :2057\u20132092, 2007."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/713273" },
+      "reference": {
+        "authors": [{ "full_name": "Hadronic" }],
+        "label": "17",
+        "misc": [
+          "Maxime Imbeault, Alakabha Datta, and David London / decays : A General / approach"
+        ],
+        "publication_info": {
+          "journal_title": "Int.J.Mod.Phys.A",
+          "journal_volume": "22",
+          "page_end": "2092",
+          "page_start": "2057",
+          "year": 2007
+        },
+        "texkey": "Imbeault:2006ss"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[18] Gerhard Buchalla, Andrzej J. Buras, and Markus E. Lautenbacher. Weak decays beyond leading logarithms. Rev. Mod. Phys., 68 :1125\u20131144, 1996."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/403867" },
+      "reference": {
+        "authors": [
+          { "full_name": "Buras" },
+          { "full_name": "J., Andrzej" },
+          { "full_name": "Lautenbacher" },
+          { "full_name": "E., Markus" }
+        ],
+        "label": "18",
+        "misc": ["Gerhard Buchalla / Weak decays beyond leading logarithms"],
+        "publication_info": {
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "68",
+          "page_end": "1144",
+          "page_start": "1125",
+          "year": 1996
+        },
+        "texkey": "BuraseffH"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[19] M. Beneke, G. Buchalla, M. Neubert, and Christopher T. Sachrajda. QCD factorization for B \u2014> pi pi decays : Strong phases and CP violation in the heavy quark limit. Phys. Rev. Lett., 83 :1914\u20131917, 1999."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/499707" },
+      "reference": {
+        "authors": [
+          { "full_name": "Beneke, M." },
+          { "full_name": "Buchalla, G." },
+          { "full_name": "Neubert, M." },
+          { "full_name": "Sachrajda" },
+          { "full_name": "T., Christopher" }
+        ],
+        "label": "19",
+        "misc": [
+          "QCD factorization for B \u2014> pi pi decays : Strong phases and CP violation in the heavy quark limit"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "83",
+          "page_end": "1917",
+          "page_start": "1914",
+          "year": 1999
+        },
+        "texkey": "Beneke:1999br"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[20] M. Beneke, G. Buchalla, M. Neubert, and Christopher T. Sachrajda. QCD factorization for exclusive, nonleptonic B meson decays : General arguments and the case of heavy light final states. Nucl. Phys., B591 :313\u2013418, 2000."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/528680" },
+      "reference": {
+        "authors": [
+          { "full_name": "Beneke, M." },
+          { "full_name": "Buchalla, G." },
+          { "full_name": "Neubert, M." },
+          { "full_name": "Sachrajda" },
+          { "full_name": "T., Christopher" }
+        ],
+        "label": "20",
+        "misc": [
+          "QCD factorization for exclusive, nonleptonic B meson decays : General arguments and the case of heavy light final states"
+        ],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "591",
+          "page_end": "418",
+          "page_start": "313",
+          "year": 2000
+        },
+        "texkey": "Beneke:2000ry"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[21] Yong-Yeon Keum, Hsiang-nan Li, and A. I. Sanda. Fat penguins and imaginary penguins in perturbative QCD. Phys. Lett., B504 :6\u201314, 2001."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/525708" },
+      "reference": {
+        "label": "21",
+        "misc": [
+          "Yong-Yeon Keum, Hsiang-nan Li, and A. I. Sanda. Fat penguins and imaginary penguins in perturbative QCD"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "504",
+          "page_end": "14",
+          "page_start": "6",
+          "year": 2001
+        },
+        "texkey": "Keum:2000ph"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[22] Y. Y. Keum, Hsiang-Nan Li, and A. I. Sanda. Penguin enhancement and B \u2192 K\u03c0 decays in perturbative QCD. Phys. Rev., D63 :054008, 2001."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/526315" },
+      "reference": {
+        "authors": [{ "full_name": "Keum, Y.Y." }],
+        "label": "22",
+        "misc": [
+          "Hsiang-Nan Li, and A. I. Sanda. Penguin enhancement and B - Kp decays in perturbative QCD"
+        ],
+        "publication_info": {
+          "artid": "054008",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "63",
+          "year": 2001
+        },
+        "texkey": "Keum:2000wi"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[23] M. Beneke, G. Buchalla, M. Neubert, and Christopher T. Sachrajda. QCD factorization in B \u2014> pi K, pi pi decays and extraction of Wolfenstein parameters. Nucl. Phys., B606 :245\u2013321, 2001."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/555353" },
+      "reference": {
+        "authors": [
+          { "full_name": "Beneke, M." },
+          { "full_name": "Buchalla, G." },
+          { "full_name": "Neubert, M." },
+          { "full_name": "Sachrajda" },
+          { "full_name": "T., Christopher" }
+        ],
+        "label": "23",
+        "misc": [
+          "QCD factorization in B \u2014> pi K, pi pi decays and extraction of Wolfenstein parameters"
+        ],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "606",
+          "page_end": "321",
+          "page_start": "245",
+          "year": 2001
+        },
+        "texkey": "QCDfinput"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[24] Michael Gronau, Oscar F. Hern\u00e1ndez, David London, and Jonathan L. Rosner. Decays of b mesons to two pseudoscalars in broken su(3) symmetry. Phys. Rev. D, 52 :6356\u20136373, Dec 1995. 66"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/394364" },
+      "reference": {
+        "authors": [
+          { "full_name": "Hern\u00e1ndez" },
+          { "full_name": "F., Oscar" }
+        ],
+        "label": "24",
+        "misc": [
+          "Michael Gronau / David London, and Jonathan L. Rosner. Decays of b mesons to two pseudoscalars in broken su(3) symmetry / 66"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "52",
+          "page_end": "6373",
+          "page_start": "6356",
+          "year": 1995
+        },
+        "texkey": "PhysRevD.52.6356"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[25] Michael Gronau, Oscar F. Hern\u00e1ndez, David London, and Jonathan L. Rosner. Electroweak penguin diagrams and two-body b decays. Phys. Rev. D, 52 :6374\u20136382, Dec 1995."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/394365" },
+      "reference": {
+        "authors": [
+          { "full_name": "Hern\u00e1ndez" },
+          { "full_name": "F., Oscar" }
+        ],
+        "label": "25",
+        "misc": [
+          "Michael Gronau / David London, and Jonathan L. Rosner. Electroweak penguin diagrams and two-body b decays"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "52",
+          "page_end": "6382",
+          "page_start": "6374",
+          "year": 1995
+        },
+        "texkey": "GHLR2"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[26] Bernard Aubert et al. Measurement of time dependent CP asymmetry parameters in B0 meson decays to omega K0(S), eta-prime K0, and pi0 K0(S). Phys. Rev., D79 :052003, 2009."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/795783" },
+      "reference": {
+        "authors": [{ "full_name": "Aubert" }],
+        "label": "26",
+        "misc": [
+          "Bernard / Measurement of time dependent CP asymmetry parameters in B0 meson decays to omega K0(S), eta-prime K0, and pi0 K0(S)"
+        ],
+        "publication_info": {
+          "artid": "052003",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "79",
+          "year": 2009
+        },
+        "texkey": "Aubert:2008ad"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[27] M. Fujikawa et al. Measurement of CP asymmetries in B0 \u2014> K0 pi0 decays. Phys. Rev., D81 :011101, 2010."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/797628" },
+      "reference": {
+        "authors": [{ "full_name": "Fujikawa, M." }],
+        "label": "27",
+        "misc": ["Measurement of CP asymmetries in B0 \u2014> K0 pi0 decays"],
+        "publication_info": {
+          "artid": "011101",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "81",
+          "year": 2010
+        },
+        "texkey": "Fujikawa:2008pk"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[28] J. P. Lees et al. Measurement of CP Asymmetries and Branching Fractions in Charmless Two-Body B-Meson Decays to Pions and Kaons. Phys. Rev., D87(5) :052009, 2013."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1118428" },
+      "reference": {
+        "authors": [{ "full_name": "Lees, J.P." }],
+        "label": "28",
+        "misc": [
+          "Measurement of CP Asymmetries and Branching Fractions in Charmless Two-Body B-Meson Decays / to Pions and Kaons"
+        ],
+        "publication_info": {
+          "artid": "052009",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "87",
+          "year": 2013
+        },
+        "texkey": "Lees:2012mma"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[29] Bernard Aubert et al. Improved Measurements of the Branching Fractions for B0 \u2192 \u03c0+\u03c0\u2212 and B0 \u2192 K+\u03c0\u2212, and a Search for B0 \u2192 K+K\u2212. Phys. Rev., D75 :012008, 2007."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/722818" },
+      "reference": {
+        "authors": [{ "full_name": "Aubert" }],
+        "label": "29",
+        "misc": [
+          "Bernard / Improved Measurements of the Branching Fractions for B0 \u2192 \u03c0+\u03c0- and B0 \u2192 K+\u03c0-, and a Search for B0 \u2192 K+K-"
+        ],
+        "publication_info": {
+          "artid": "012008",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "75",
+          "year": 2007
+        },
+        "texkey": "Aubert:2006fha"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[30] Bernard Aubert et al. Observation of B+ \u2192 \u00af K0K+ and B0 \u2192 K0 \u00af K0. Phys. Rev. Lett., 97 :171805, 2006."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/723735" },
+      "reference": {
+        "authors": [{ "full_name": "Aubert" }],
+        "label": "30",
+        "misc": [
+          "Bernard / Observation of B+ \u2192 \u00af K0K+ and B0 \u2192 K0 \u00af K0"
+        ],
+        "publication_info": {
+          "artid": "171805",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "97",
+          "year": 2006
+        },
+        "texkey": "Aubert:2006gm"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[31] Bernard Aubert et al. Study of B0 \u2192 \u03c00\u03c00, B\u00b1 \u2192 \u03c0\u00b1\u03c00, and B\u00b1 \u2192 K\u00b1\u03c00 Decays, and Isospin Analysis of B \u2192 \u03c0\u03c0 Decays. Phys. Rev., D76 :091102, 2007."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/756234" },
+      "reference": {
+        "authors": [{ "full_name": "Aubert" }],
+        "label": "31",
+        "misc": [
+          "Bernard / Study of B0 - p0p0, B+- - p+-p0, and B+- - K+-p0 Decays, and Isospin Analysis of B - pp Decays"
+        ],
+        "publication_info": {
+          "artid": "091102",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "76",
+          "year": 2007
+        },
+        "texkey": "Aubert:2007hh"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[32] Roel Aaij et al. Test of lepton universality using B+ \u2192 K+`+`\u2212 decays. Phys. Rev. Lett., 113 :151601, 2014."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1303108" },
+      "reference": {
+        "authors": [{ "full_name": "Aaij" }],
+        "label": "32",
+        "misc": [
+          "Roel / Test of lepton universality using B+ \u2192 K+`+`- decays"
+        ],
+        "publication_info": {
+          "artid": "151601",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "113",
+          "year": 2014
+        },
+        "texkey": "Rkexpt"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[33] R. Aaij et al. Test of lepton universality with B0 \u2192 K\u22170`+`\u2212 decays. JHEP, 08 :055, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1599846" },
+      "reference": {
+        "authors": [{ "full_name": "Aaij, R." }],
+        "label": "33",
+        "misc": [
+          "Test of lepton universality with B0 \u2192 K\u22170`+`- decays"
+        ],
+        "publication_info": {
+          "artid": "055",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "055",
+          "year": 2017
+        },
+        "texkey": "Rk*expt"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[34] R Aaij et al. Measurement of Form-Factor-Independent Observables in the Decay B0 \u2192 K\u22170\u00b5+\u00b5\u2212. Phys. Rev. Lett., 111 :191801, 2013."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1247054" },
+      "reference": {
+        "authors": [{ "full_name": "Aaij, R." }],
+        "label": "34",
+        "misc": [
+          "Measurement of Form-Factor-Independent Observables in the Decay B0 \u2192 K\u22170\u00b5+\u00b5-"
+        ],
+        "publication_info": {
+          "artid": "191801",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "111",
+          "year": 2013
+        },
+        "texkey": "BK*mumuLHCb1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[35] Roel Aaij et al. Angular analysis of the B0 \u2192 K\u22170\u00b5+\u00b5\u2212 decay using 3 fb\u22121 of integrated luminosity. JHEP, 02 :104, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1409497" },
+      "reference": {
+        "authors": [{ "full_name": "Aaij" }],
+        "label": "35",
+        "misc": [
+          "Roel / Angular analysis of the B0 \u2192 K\u22170\u00b5+\u00b5- decay using 3 fb-1 of integrated luminosity"
+        ],
+        "publication_info": {
+          "artid": "104",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "104",
+          "year": 2016
+        },
+        "texkey": "BK*mumuLHCb2"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[36] A. Abdesselam et al. Angular analysis of B0 \u2192 K\u2217(892)0`+`\u2212. Technical Report BELLE-CONF1603., Apr 2016. Comments : Conference paper for LHC Ski 2016."
+        }
+      ],
+      "reference": {
+        "authors": [{ "full_name": "Abdesselam, A." }],
+        "label": "36",
+        "misc": [
+          "Angular analysis of B0 \u2192 K\u2217(892)0`+`-. Technical Report BELLE-CONF1603., Apr. Comments : Conference paper for LHC Ski"
+        ],
+        "publication_info": { "year": 2016 },
+        "texkey": "BK*mumuBelle"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[37] Angular analysis of B0 d \u2192 K\u2217\u00b5+\u00b5\u2212 decays in pp collisions at \u221a s = 8 TeV with the ATLAS detector. Technical Report ATLAS-CONF-2017-023, CERN, Geneva, Apr 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1589906" },
+      "reference": {
+        "label": "37",
+        "misc": [
+          "Angular analysis of B0 d \u2192 K\u2217\u00b5+\u00b5- decays in pp collisions at \u221a s = 8 TeV with the ATLAS detector. Technical Report / CERN, Geneva, Apr"
+        ],
+        "publication_info": { "year": 2017 },
+        "report_numbers": ["ATLAS-CONF-2017-023"],
+        "texkey": "BK*mumuATLAS"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[38] Measurement of the P1 and P0 5 angular parameters of the decay B0 \u2192 K\u22170\u00b5+\u00b5\u2212 in proton-proton collisions at \u221a s = 8 TeV. Technical Report CMS-PAS-BPH-15-008, CERN, Geneva, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1518992" },
+      "reference": {
+        "label": "38",
+        "misc": [
+          "Measurement of the P1 and P0 5 angular parameters of the decay B0 \u2192 K\u22170\u00b5+\u00b5- in proton-proton collisions at \u221a s = 8 TeV. Technical Report / CERN, Geneva"
+        ],
+        "publication_info": { "year": 2017 },
+        "report_numbers": ["CMS-PAS-BPH-15-008"],
+        "texkey": "BK*mumuCMS"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[39] R Aaij et al. Differential branching fraction and angular analysis of the decay B0 s \u2192 \u03c6\u00b5+\u00b5\u2212. JHEP, 07 :084, 2013. 67"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1232507" },
+      "reference": {
+        "authors": [{ "full_name": "Aaij, R." }],
+        "label": "39",
+        "misc": [
+          "Differential branching fraction and angular analysis of the decay B0 s \u2192 \u03c6\u00b5+\u00b5- / 67"
+        ],
+        "publication_info": {
+          "artid": "084",
+          "journal_title": "JHEP",
+          "journal_volume": "07",
+          "page_start": "084",
+          "year": 2013
+        },
+        "texkey": "BsphimumuLHCb1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[40] Roel Aaij et al. Angular analysis and differential branching fraction of the decay B0 s \u2192 \u03c6\u00b5+\u00b5\u2212. JHEP, 09 :179, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1380188" },
+      "reference": {
+        "authors": [{ "full_name": "Aaij" }],
+        "label": "40",
+        "misc": [
+          "Roel / Angular analysis and differential branching fraction of the decay B0 s \u2192 \u03c6\u00b5+\u00b5-"
+        ],
+        "publication_info": {
+          "artid": "179",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "179",
+          "year": 2015
+        },
+        "texkey": "BsphimumuLHCb2"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[41] Gian Francesco Giudice, Ben Gripaios, and Raman Sundrum. Flavourful Production at Hadron Colliders. JHEP, 08 :055, 2011."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/900111" },
+      "reference": {
+        "label": "41",
+        "misc": [
+          "Gian Francesco Giudice, Ben Gripaios, and Raman Sundrum. Flavourful Production at Hadron Colliders"
+        ],
+        "publication_info": {
+          "artid": "055",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "055",
+          "year": 2011
+        },
+        "texkey": "GGS"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[42] Andrzej J. Buras, Robert Fleischer, Stefan Recksiegel, and Felix Schwab. The B \u2014> pi K puzzle and its relation to rare B and K decays. Eur. Phys. J., C32 :45\u201354, 2003."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/626976" },
+      "reference": {
+        "authors": [{ "full_name": "Buras" }, { "full_name": "J., Andrzej" }],
+        "label": "42",
+        "misc": [
+          "Robert Fleischer, Stefan Recksiegel, and Felix Schwab. The B / \u2014> pi K puzzle and its relation to rare B and K decays"
+        ],
+        "publication_info": {
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "32",
+          "page_end": "54",
+          "page_start": "45",
+          "year": 2003
+        },
+        "texkey": "BFRS1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[43] Andrzej J. Buras, Robert Fleischer, Stefan Recksiegel, and Felix Schwab. B \u2014> pi pi, new physics in B \u2014> pi K and implications for rare K and B decays. Phys. Rev. Lett., 92 :101804, 2004."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/635936" },
+      "reference": {
+        "authors": [{ "full_name": "Buras" }, { "full_name": "J., Andrzej" }],
+        "label": "43",
+        "misc": [
+          "Robert Fleischer, Stefan Recksiegel, and Felix Schwab. B / \u2014> pi pi, new physics in B \u2014> pi K and implications for rare K and B decays"
+        ],
+        "publication_info": {
+          "artid": "101804",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "92",
+          "year": 2004
+        },
+        "texkey": "BFRS2"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[44] Andrzej J. Buras, Robert Fleischer, Stefan Recksiegel, and Felix Schwab. Anatomy of prominent B and K decays and signatures of CP violating new physics in the electroweak penguin sector. Nucl. Phys., B697 :133\u2013206, 2004."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/644228" },
+      "reference": {
+        "authors": [{ "full_name": "Buras" }, { "full_name": "J., Andrzej" }],
+        "label": "44",
+        "misc": [
+          "Robert Fleischer, Stefan Recksiegel, and Felix Schwab. Anatomy of prominent B and K decays and signatures of CP violating new physics in the electroweak penguin sector"
+        ],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "697",
+          "page_end": "206",
+          "page_start": "133",
+          "year": 2004
+        },
+        "texkey": "BFRS3"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[45] Seungwon Baek, Philippe Hamel, David London, Alakabha Datta, and Denis A. Suprun. The B \u2014> pi K puzzle and new physics. Phys. Rev., D71 :057502, 2005."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/666272" },
+      "reference": {
+        "authors": [{ "full_name": "The" }],
+        "label": "45",
+        "misc": [
+          "Seungwon Baek, Philippe Hamel, David London, Alakabha Datta, and Denis A. Suprun / \u2014> pi K puzzle and new physics"
+        ],
+        "publication_info": {
+          "artid": "057502",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "71",
+          "year": 2005
+        },
+        "texkey": "Baek:2004rp"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[46] Seungwon Baek and David London. Is There Still a B \u2014> pi K Puzzle ? Phys. Lett., B653 :249\u2013253, 2007."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/742865" },
+      "reference": {
+        "authors": [{ "full_name": "Puzzle, K." }],
+        "label": "46",
+        "misc": [
+          "Seungwon Baek and David London. Is There Still a B \u2014> pi / ?"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "653",
+          "page_end": "253",
+          "page_start": "249",
+          "year": 2007
+        },
+        "texkey": "Baek:2007yy"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[47] Bernat Capdevila, Andreas Crivellin, S\u00e9bastien Descotes-Genon, Joaquim Matias, and Javier Virto. Patterns of New Physics in b \u2192 s`+`\u2212 transitions in the light of recent data. JHEP, 01 :093, 2018."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1591975" },
+      "reference": {
+        "label": "47",
+        "misc": [
+          "Bernat Capdevila, Andreas Crivellin, S\u00e9bastien Descotes-Genon, Joaquim Matias, and Javier Virto. Patterns of New Physics in b \u2192 s`+`- transitions in the light of recent data"
+        ],
+        "publication_info": {
+          "artid": "093",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "093",
+          "year": 2018
+        },
+        "texkey": "Capdevila:2017bsm"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[48] Wolfgang Altmannshofer, Peter Stangl, and David M. Straub. Interpreting Hints for Lepton Flavor Universality Violation. Phys. Rev., D96(5) :055008, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1591977" },
+      "reference": {
+        "label": "48",
+        "misc": [
+          "Wolfgang Altmannshofer, Peter Stangl, and David M. Straub. Interpreting Hints for Lepton Flavor Universality Violation"
+        ],
+        "publication_info": {
+          "artid": "055008",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Altmannshofer:2017yso"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[49] Guido D\u2019Amico, Marco Nardecchia, Paolo Panci, Francesco Sannino, Alessandro Strumia, Riccardo Torre, and Alfredo Urbano. Flavour anomalies after the RK\u2217 measurement. JHEP, 09 :010, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1591995" },
+      "reference": {
+        "label": "49",
+        "misc": [
+          "Guido D\u2019Amico, Marco Nardecchia, Paolo Panci, Francesco Sannino, Alessandro Strumia, Riccardo Torre, and Alfredo Urbano. Flavour anomalies after the RK\u2217 measurement"
+        ],
+        "publication_info": {
+          "artid": "010",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "010",
+          "year": 2017
+        },
+        "texkey": "DAmico:2017mtc"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[50] Gudrun Hiller and Ivan Nisandzic. RK and RK\u2217 beyond the standard model. Phys. Rev., D96(3) :035003, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1591996" },
+      "reference": {
+        "label": "50",
+        "misc": [
+          "Gudrun Hiller and Ivan Nisandzic. RK and RK\u2217 beyond the standard model"
+        ],
+        "publication_info": {
+          "artid": "035003",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Hiller:2017bzc"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[51] Li-Sheng Geng, Benjam\u00edn Grinstein, Sebastian J\u00e4ger, Jorge Martin Camalich, Xiu-Lei Ren, and Rui-Xiang Shi. Towards the discovery of new physics with lepton-universality ratios of b \u2192 s`` decays. Phys. Rev., D96(9) :093006, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1591978" },
+      "reference": {
+        "label": "51",
+        "misc": [
+          "Li-Sheng Geng, Benjam\u00edn Grinstein, Sebastian J\u00e4ger, Jorge Martin Camalich, Xiu-Lei Ren, and Rui-Xiang Shi. Towards the discovery of new physics with lepton-universality ratios of b \u2192 s`` decays"
+        ],
+        "publication_info": {
+          "artid": "093006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Geng:2017svp"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[52] Marco Ciuchini, Antonio M. Coutinho, Marco Fedele, Enrico Franco, Ayan Paul, Luca Silvestrini, and Mauro Valli. On Flavourful Easter eggs for New Physics hunger and Lepton Flavour Universality violation. Eur. Phys. J., C77(10) :688, 2017. 68"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1591961" },
+      "reference": {
+        "authors": [
+          { "full_name": "Coutinho" },
+          { "full_name": "M., Antonio" }
+        ],
+        "label": "52",
+        "misc": [
+          "Marco Ciuchini / Marco Fedele, Enrico Franco, Ayan Paul, Luca Silvestrini, and Mauro Valli. On Flavourful Easter eggs for New Physics hunger and Lepton Flavour Universality violation / 68"
+        ],
+        "publication_info": {
+          "artid": "688",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "77",
+          "page_start": "688",
+          "year": 2017
+        },
+        "texkey": "Ciuchini:2017mik"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[53] Alejandro Celis, Javier Fuentes-Martin, Avelino Vicente, and Javier Virto. Gauge-invariant implications of the LHCb measurements on lepton-flavor nonuniversality. Phys. Rev., D96(3) :035026, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1592392" },
+      "reference": {
+        "label": "53",
+        "misc": [
+          "Alejandro Celis, Javier Fuentes-Martin, Avelino Vicente, and Javier Virto. Gauge-invariant implications of the LHCb measurements on lepton-flavor nonuniversality"
+        ],
+        "publication_info": {
+          "artid": "035026",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Celis:2017doq"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[54] Diptimoy Ghosh. Explaining the RK and RK\u2217 anomalies. Eur. Phys. J., C77(10) :694, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1593765" },
+      "reference": {
+        "label": "54",
+        "misc": ["Diptimoy Ghosh. Explaining the RK and RK\u2217 anomalies"],
+        "publication_info": {
+          "artid": "694",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "77",
+          "page_start": "694",
+          "year": 2017
+        },
+        "texkey": "Ghosh:2017ber"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[55] Ashutosh Kumar Alok, Bhubanjyoti Bhattacharya, Alakabha Datta, Dinesh Kumar, Jacky Kumar, and David London. New Physics in b \u2192 s\u00b5+\u00b5\u2212 after the Measurement of RK\u2217 . Phys. Rev., D96(9) :095009, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1594904" },
+      "reference": {
+        "label": "55",
+        "misc": [
+          "Ashutosh Kumar Alok, Bhubanjyoti Bhattacharya, Alakabha Datta, Dinesh Kumar, Jacky Kumar, and David London. New Physics in b \u2192 s\u00b5+\u00b5- after the Measurement of RK\u2217"
+        ],
+        "publication_info": {
+          "artid": "095009",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Alok:2017sui"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[56] Wei Wang and Shuai Zhao. Implications of the RK and RK\u2217 anomalies. Chin. Phys., C42(1) :013105, 2018."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1596900" },
+      "reference": {
+        "label": "56",
+        "misc": [
+          "Wei Wang and Shuai Zhao. Implications of the RK and RK\u2217 anomalies"
+        ],
+        "publication_info": {
+          "artid": "013105",
+          "journal_title": "Chin.Phys.C",
+          "journal_volume": "42",
+          "year": 2018
+        },
+        "texkey": "Wang:2017mrd"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[57] Alakabha Datta, Jacky Kumar, Jiajun Liao, and Danny Marfatia. New light mediators for the RK and RK\u2217 puzzles. 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1600988" },
+      "reference": {
+        "label": "57",
+        "misc": [
+          "Alakabha Datta, Jacky Kumar, Jiajun Liao, and Danny Marfatia. New light mediators for the RK and RK\u2217 puzzles"
+        ],
+        "publication_info": { "year": 2017 },
+        "texkey": "Datta:2017ezo"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[58] Matthias Neubert and Jonathan L. Rosner. New bound on gamma from B+- \u2014> pi K decays. Phys. Lett., B441 :403\u2013409, 1998."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/475592" },
+      "reference": {
+        "label": "58",
+        "misc": [
+          "Matthias Neubert and Jonathan L. Rosner. New bound on gamma from B+- \u2014> pi K decays"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "441",
+          "page_end": "409",
+          "page_start": "403",
+          "year": 1998
+        },
+        "texkey": "EWPtree1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[59] Matthias Neubert and Jonathan L. Rosner. Determination of the weak phase gamma from rate measurements in B+- \u2014> pi K, pi pi decays. Phys. Rev. Lett., 81 :5076\u20135079, 1998."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/476049" },
+      "reference": {
+        "label": "59",
+        "misc": [
+          "Matthias Neubert and Jonathan L. Rosner. Determination of the weak phase gamma from rate measurements in B+- \u2014> pi K, pi pi decays"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "81",
+          "page_end": "5079",
+          "page_start": "5076",
+          "year": 1998
+        },
+        "texkey": "EWPtree2"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[60] Michael Gronau, Dan Pirjol, and Tung-Mow Yan. Model independent electroweak penguins in B decays to two pseudoscalars. Phys. Rev., D60 :034021, 1999. [Erratum : Phys. Rev.D69,119901(2004)]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/478419" },
+      "reference": {
+        "label": "60",
+        "misc": [
+          "Additional pubnote: Phys.Rev.,D69,119901 / Michael Gronau, Dan Pirjol, and Tung-Mow Yan. Model independent electroweak penguins in B decays to two pseudoscalars / [Erratum :"
+        ],
+        "publication_info": {
+          "artid": "034021",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "60",
+          "year": 1999
+        },
+        "texkey": "EWPtree3"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[61] F. James and M. Roos. Minuit : A System for Function Minimization and Analysis of the Parameter Errors and Correlations. Comput. Phys. Commun., 10 :343\u2013367, 1975."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/101965" },
+      "reference": {
+        "authors": [{ "full_name": "James, F." }, { "full_name": "Roos, M." }],
+        "label": "61",
+        "misc": [
+          "Minuit : A System for Function / Minimization and Analysis of the Parameter Errors and Correlations"
+        ],
+        "publication_info": {
+          "journal_title": "Comput.Phys.Commun.",
+          "journal_volume": "10",
+          "page_end": "367",
+          "page_start": "343",
+          "year": 1975
+        },
+        "texkey": "James:1975dr"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[62] Fred James and Matthias Winkler. MINUIT User\u2019s Guide. 2004."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1258345" },
+      "reference": {
+        "label": "62",
+        "misc": ["Fred James and Matthias Winkler. MINUIT User\u2019s Guide"],
+        "publication_info": { "year": 2004 },
+        "texkey": "James:2004xla"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[63] F. James. MINUIT Function Minimization and Error Analysis : Reference Manual Version 94.1. 1994."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1258343" },
+      "reference": {
+        "authors": [{ "full_name": "James, F." }],
+        "label": "63",
+        "misc": [
+          "MINUIT Function Minimization and Error Analysis : Reference Manual Version 94.1"
+        ],
+        "publication_info": { "year": 1994 },
+        "texkey": "James:1994vla"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[64] Maxime Imbeault, Alexandre St-Laurent Lemerle, Veronique Page, and David London. Obtaining the full unitarity triangle from B \u2014> pi K decays. Phys. Rev. Lett., 92 :081801, 2004."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/627607" },
+      "reference": {
+        "label": "64",
+        "misc": [
+          "Maxime Imbeault, Alexandre St-Laurent Lemerle, Veronique Page, and David London. Obtaining the full unitarity triangle from B \u2014> pi K decays"
+        ],
+        "publication_info": {
+          "artid": "081801",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "92",
+          "year": 2004
+        },
+        "texkey": "Imbeault:2003it"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[65] Guido Bell. NNLO vertex corrections in charmless hadronic B decays : Imaginary part. Nucl. Phys., B795 :1\u201326, 2008."
+        }
+      ],
+      "reference": {
+        "label": "65",
+        "misc": [
+          "Guido Bell. NNLO vertex corrections in charmless hadronic B decays : Imaginary"
+        ],
+        "publication_info": {
+          "journal_title": "Prog.Part.Nucl.Phys.B",
+          "journal_volume": "795",
+          "page_end": "26",
+          "page_start": "1",
+          "year": 2008
+        },
+        "texkey": "QCDFNNLO1"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[66] Guido Bell. NNLO vertex corrections in charmless hadronic B decays : Real part. Nucl. Phys., B822 :172\u2013200, 2009. 69"
+        }
+      ],
+      "reference": {
+        "label": "66",
+        "misc": [
+          "Guido Bell. NNLO vertex corrections in charmless hadronic B decays : Real / 69"
+        ],
+        "publication_info": {
+          "journal_title": "Prog.Part.Nucl.Phys.B",
+          "journal_volume": "822",
+          "page_end": "200",
+          "page_start": "172",
+          "year": 2009
+        },
+        "texkey": "QCDFNNLO2"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[67] M. Beneke, T. Huber, and Xin-Qiang Li. NNLO vertex corrections to non-leptonic B decays : Tree amplitudes. Nucl. Phys., B832 :109\u2013151, 2010."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/837307" },
+      "reference": {
+        "authors": [
+          { "full_name": "Beneke, M." },
+          { "full_name": "Huber, T." }
+        ],
+        "label": "67",
+        "misc": [
+          "and Xin-Qiang Li. NNLO vertex corrections to non-leptonic B decays : Tree amplitudes"
+        ],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "832",
+          "page_end": "151",
+          "page_start": "109",
+          "year": 2010
+        },
+        "texkey": "QCDFNNLO3"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[68] Guido Bell, Martin Beneke, Tobias Huber, and Xin-Qiang Li. Two-loop current\u2013current operator contribution to the non-leptonic QCD penguin amplitude. Phys. Lett., B750 :348\u2013355, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1382794" },
+      "reference": {
+        "label": "68",
+        "misc": [
+          "Guido Bell, Martin Beneke, Tobias Huber, and Xin-Qiang Li. Two-loop current-current operator contribution to the non-leptonic QCD penguin amplitude"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "750",
+          "page_end": "355",
+          "page_start": "348",
+          "year": 2015
+        },
+        "texkey": "QCDFNNLO4"
+      }
+    },
+    {
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[69] Guido Bell, Martin Beneke, Tobias Huber, and Xin-Qiang Li. private communication."
+        }
+      ],
+      "reference": {
+        "label": "69",
+        "misc": [
+          "Guido Bell, Martin Beneke, Tobias Huber, and Xin-Qiang Li. private communication"
+        ],
+        "texkey": "privcomm"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[70] Hsiang-nan Li and Satoshi Mishima. Possible resolution of the B \u2014> pi pi, pi K puzzles. Phys. Rev., D83 :034023, 2011."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/810689" },
+      "reference": {
+        "label": "70",
+        "misc": [
+          "Hsiang-nan Li and Satoshi Mishima. Possible resolution of the B \u2014> pi pi, pi K puzzles"
+        ],
+        "publication_info": {
+          "artid": "034023",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "83",
+          "year": 2011
+        },
+        "texkey": "Li:2009wba"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[71] C. S. Kim, Sechul Oh, and Yeo Woong Yoon. Analytic resolution of puzzle in B \u2014> K pi decays. Phys. Lett., B665 :231\u2013236, 2008."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/756313" },
+      "reference": {
+        "authors": [{ "full_name": "Kim, C.S." }],
+        "label": "71",
+        "misc": [
+          "Sechul Oh, and Yeo Woong Yoon. Analytic resolution of puzzle in B \u2014> K pi decays"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "665",
+          "page_end": "236",
+          "page_start": "231",
+          "year": 2008
+        },
+        "texkey": "Kim"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[72] Alakabha Datta and David London. Measuring new physics parameters in B penguin decays. Phys. Lett., B595 :453\u2013460, 2004."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/648288" },
+      "reference": {
+        "label": "72",
+        "misc": [
+          "Alakabha Datta and David London. Measuring new physics parameters in B penguin decays"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "595",
+          "page_end": "460",
+          "page_start": "453",
+          "year": 2004
+        },
+        "texkey": "DLNP"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[73] Alakabha Datta, Maxime Imbeault, David London, Veronique Page, Nita Sinha, and Rahul Sinha. Methods for measuring new-physics parameters in B decays. Phys. Rev., D71 :096002, 2005."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/652605" },
+      "reference": {
+        "label": "73",
+        "misc": [
+          "Alakabha Datta, Maxime Imbeault, David London, Veronique Page, Nita Sinha, and Rahul Sinha. Methods for measuring new-physics parameters in B decays"
+        ],
+        "publication_info": {
+          "artid": "096002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "71",
+          "year": 2005
+        },
+        "texkey": "BNPmethods"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[74] Ashutosh Kumar Alok, Bhubanjyoti Bhattacharya, Dinesh Kumar, Jacky Kumar, David London, and S. Uma Sankar. New physics in b \u2192 s\u00b5+\u00b5\u2212 : Distinguishing models through CP-violating effects. Phys. Rev., D96(1) :015034, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1519839" },
+      "reference": {
+        "label": "74",
+        "misc": [
+          "Ashutosh Kumar Alok, Bhubanjyoti Bhattacharya, Dinesh Kumar, Jacky Kumar, David London, and S. Uma Sankar. New physics in b \u2192 s\u00b5+\u00b5- : Distinguishing models through CP-violating effects"
+        ],
+        "publication_info": {
+          "artid": "015034",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Alok:2017jgr"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[75] Wolfgang Altmannshofer and David M. Straub. New physics in b \u2192 s transitions after LHC run 1. Eur. Phys. J., C75(8) :382, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1327499" },
+      "reference": {
+        "label": "75",
+        "misc": [
+          "Wolfgang Altmannshofer and David M. Straub. New physics in b \u2192 s transitions after LHC run 1"
+        ],
+        "publication_info": {
+          "artid": "382",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "75",
+          "page_start": "382",
+          "year": 2015
+        },
+        "texkey": "ASBsmix"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[76] Sebastien Descotes-Genon, Tobias Hurth, Joaquim Matias, and Javier Virto. Optimizing the basis of B \u2192 K\u2217ll observables in the full kinematic range. JHEP, 05 :137, 2013."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1225271" },
+      "reference": {
+        "label": "76",
+        "misc": [
+          "Sebastien Descotes-Genon, Tobias Hurth, Joaquim Matias, and Javier Virto. Optimizing the basis of B \u2192 K\u2217ll observables in the full kinematic range"
+        ],
+        "publication_info": {
+          "artid": "137",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "137",
+          "year": 2013
+        },
+        "texkey": "P'5"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[77] Lorenzo Calibbi, Andreas Crivellin, and Toshihiko Ota. Effective Field Theory Approach to b \u2192 s``(0), B \u2192 K(\u2217)\u03bd\u03bd and B \u2192 D(\u2217)\u03c4\u03bd with Third Generation Couplings. Phys. Rev. Lett., 115 :181801, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1375306" },
+      "reference": {
+        "label": "77",
+        "misc": [
+          "Lorenzo Calibbi, Andreas Crivellin, and Toshihiko Ota. Effective Field Theory Approach to b \u2192 s``(0), B \u2192 K(\u2217)\u03bd\u03bd and B \u2192 D(\u2217)\u03c4\u03bd with Third Generation Couplings"
+        ],
+        "publication_info": {
+          "artid": "181801",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "115",
+          "year": 2015
+        },
+        "texkey": "CCO"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[78] Andreas Crivellin, Giancarlo D\u2019Ambrosio, and Julian Heeck. Addressing the LHC flavor anomalies with horizontal gauge symmetries. Phys. Rev., D91(7) :075006, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1351907" },
+      "reference": {
+        "label": "78",
+        "misc": [
+          "Andreas Crivellin, Giancarlo D\u2019Ambrosio, and Julian Heeck. Addressing the LHC flavor anomalies with horizontal gauge symmetries"
+        ],
+        "publication_info": {
+          "artid": "075006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        },
+        "texkey": "Crivellin:2015lwa"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[79] Admir Greljo, Gino Isidori, and David Marzocca. On the breaking of Lepton Flavor Universality in B decays. JHEP, 07 :142, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1374632" },
+      "reference": {
+        "label": "79",
+        "misc": [
+          "Admir Greljo, Gino Isidori, and David Marzocca. On the breaking of Lepton Flavor Universality in B decays"
+        ],
+        "publication_info": {
+          "artid": "142",
+          "journal_title": "JHEP",
+          "journal_volume": "07",
+          "page_start": "142",
+          "year": 2015
+        },
+        "texkey": "Isidori"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[80] D. Aristizabal Sierra, Florian Staub, and Avelino Vicente. Shedding light on the b \u2192 s anomalies with a dark sector. Phys. Rev., D92(1) :015001, 2015. 70"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1353669" },
+      "reference": {
+        "authors": [
+          { "full_name": "Sierra" },
+          { "full_name": "Aristizabal, D." }
+        ],
+        "label": "80",
+        "misc": [
+          "Florian Staub, and Avelino Vicente. Shedding light on the b \u2192 s anomalies with a dark sector / 70"
+        ],
+        "publication_info": {
+          "artid": "015001",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "92",
+          "year": 2015
+        },
+        "texkey": "dark_SSV"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[81] Cheng-Wei Chiang, Xiao-Gang He, and German Valencia. Z0 model for b \u2192 s`` flavor anomalies. Phys. Rev., D93(7) :074003, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1417096" },
+      "reference": {
+        "label": "81",
+        "misc": [
+          "Cheng-Wei Chiang, Xiao-Gang He, and German Valencia. Z0 model for b \u2192 s`` flavor anomalies"
+        ],
+        "publication_info": {
+          "artid": "074003",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "93",
+          "year": 2016
+        },
+        "texkey": "Chiang"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[82] Sofiane M. Boucenna, Alejandro Celis, Javier Fuentes-Martin, Avelino Vicente, and Javier Virto. Non-abelian gauge extensions for B-decay anomalies. Phys. Lett., B760 :214\u2013219, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1444992" },
+      "reference": {
+        "authors": [
+          { "full_name": "Boucenna" },
+          { "full_name": "M., Sofiane" }
+        ],
+        "label": "82",
+        "misc": [
+          "Alejandro Celis, Javier Fuentes-Martin, Avelino Vicente, and Javier Virto. Non-abelian gauge extensions for B-decay anomalies"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "760",
+          "page_end": "219",
+          "page_start": "214",
+          "year": 2016
+        },
+        "texkey": "Virto"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[83] Sofiane M. Boucenna, Alejandro Celis, Javier Fuentes-Martin, Avelino Vicente, and Javier Virto. Phenomenology of an SU(2) \u00d7 SU(2) \u00d7 U(1) model with lepton-flavour non-universality. JHEP, 12 :059, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1479463" },
+      "reference": {
+        "authors": [
+          { "full_name": "Boucenna" },
+          { "full_name": "M., Sofiane" }
+        ],
+        "label": "83",
+        "misc": [
+          "Alejandro Celis, Javier Fuentes-Martin, Avelino Vicente, and Javier Virto. Phenomenology of an SU(2) \u00d7 SU(2) \u00d7 U(1) model with lepton-flavour non-universality"
+        ],
+        "publication_info": {
+          "artid": "059",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "059",
+          "year": 2016
+        },
+        "texkey": "Boucenna:2016qad"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[84] Rhorry Gauld, Florian Goertz, and Ulrich Haisch. On minimal Z0 explanations of the B \u2192 K\u2217\u00b5+\u00b5\u2212 anomaly. Phys. Rev., D89 :015005, 2014."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1247262" },
+      "reference": {
+        "label": "84",
+        "misc": [
+          "Rhorry Gauld, Florian Goertz, and Ulrich Haisch. On minimal Z0 explanations of the B \u2192 K\u2217\u00b5+\u00b5- anomaly"
+        ],
+        "publication_info": {
+          "artid": "015005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        },
+        "texkey": "GGH1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[85] Rhorry Gauld, Florian Goertz, and Ulrich Haisch. An explicit Z\u2019-boson explanation of the B \u2192 K\u2217\u00b5+\u00b5\u2212 anomaly. JHEP, 01 :069, 2014."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1256934" },
+      "reference": {
+        "label": "85",
+        "misc": [
+          "Rhorry Gauld, Florian Goertz, and Ulrich Haisch. An explicit Z\u2019-boson explanation of the B \u2192 K\u2217\u00b5+\u00b5- anomaly"
+        ],
+        "publication_info": {
+          "artid": "069",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "069",
+          "year": 2014
+        },
+        "texkey": "GGH2"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[86] Andrzej J. Buras and Jennifer Girrbach. Left-handed Z0 and Z FCNC quark couplings facing new b \u2192 s\u00b5+\u00b5\u2212 data. JHEP, 12 :009, 2013."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1253554" },
+      "reference": {
+        "authors": [{ "full_name": "Buras" }, { "full_name": "J., Andrzej" }],
+        "label": "86",
+        "misc": [
+          "and Jennifer Girrbach. Left-handed Z0 and Z FCNC quark couplings facing new b \u2192 s\u00b5+\u00b5- data"
+        ],
+        "publication_info": {
+          "artid": "009",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "009",
+          "year": 2013
+        },
+        "texkey": "BG"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[87] Andrzej J. Buras, Fulvia De Fazio, and Jennifer Girrbach. 331 models facing new b \u2192 s\u00b5+\u00b5\u2212 data. JHEP, 02 :112, 2014."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1266255" },
+      "reference": {
+        "authors": [{ "full_name": "Buras" }, { "full_name": "J., Andrzej" }],
+        "label": "87",
+        "misc": [
+          "Fulvia De Fazio, and Jennifer Girrbach. 331 models facing new b \u2192 s\u00b5+\u00b5- data"
+        ],
+        "publication_info": {
+          "artid": "112",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "112",
+          "year": 2014
+        },
+        "texkey": "BFG"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[88] Wolfgang Altmannshofer, Stefania Gori, Maxim Pospelov, and Itay Yavin. Quark flavor transitions in L\u00b5 \u2212 L\u03c4 models. Phys. Rev., D89 :095033, 2014."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1283856" },
+      "reference": {
+        "label": "88",
+        "misc": [
+          "Wolfgang Altmannshofer, Stefania Gori, Maxim Pospelov, and Itay Yavin. Quark flavor transitions in L\u00b5 - L\u03c4 models"
+        ],
+        "publication_info": {
+          "artid": "095033",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        },
+        "texkey": "Perimeter"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[89] Andreas Crivellin, Giancarlo D\u2019Ambrosio, and Julian Heeck. Explaining h \u2192 \u00b5\u00b1\u03c4\u2213, B \u2192 K\u2217\u00b5+\u00b5\u2212 and B \u2192 K\u00b5+\u00b5\u2212/B \u2192 Ke+e\u2212 in a two-Higgs-doublet model with gauged L\u00b5 \u2212 L\u03c4 . Phys. Rev. Lett., 114 :151801, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1336620" },
+      "reference": {
+        "label": "89",
+        "misc": [
+          "Andreas Crivellin, Giancarlo D\u2019Ambrosio, and Julian Heeck. Explaining h \u2192 \u00b5\u00b1\u03c4\u2213, B \u2192 K\u2217\u00b5+\u00b5- and B \u2192 K\u00b5+\u00b5-/B \u2192 Ke+e- in a two-Higgs-doublet model with gauged L\u00b5 - L\u03c4"
+        ],
+        "publication_info": {
+          "artid": "151801",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "114",
+          "year": 2015
+        },
+        "texkey": "CDH1"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[90] Andreas Crivellin, Giancarlo D\u2019Ambrosio, and Julian Heeck. Addressing the LHC flavor anomalies with horizontal gauge symmetries. Phys. Rev., D91(7) :075006, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1351907" },
+      "reference": {
+        "label": "90",
+        "misc": [
+          "Andreas Crivellin, Giancarlo D\u2019Ambrosio, and Julian Heeck. Addressing the LHC flavor anomalies with horizontal gauge symmetries"
+        ],
+        "publication_info": {
+          "artid": "075006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        },
+        "texkey": "CDH2"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[91] Andreas Crivellin, Lars Hofer, Joaquim Matias, Ulrich Nierste, Stefan Pokorski, and Janusz Rosiek. Lepton-flavour violating B decays in generic Z0 models. Phys. Rev., D92(5) :054013, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1365290" },
+      "reference": {
+        "label": "91",
+        "misc": [
+          "Andreas Crivellin, Lars Hofer, Joaquim Matias, Ulrich Nierste, Stefan Pokorski, and Janusz Rosiek. Lepton-flavour violating B decays in generic Z0 models"
+        ],
+        "publication_info": {
+          "artid": "054013",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "92",
+          "year": 2015
+        },
+        "texkey": "CHMNPR"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[92] Alejandro Celis, Javier Fuentes-Martin, Mart\u00edn Jung, and Hugo Serodio. Family nonuniversal Z0 models with protected flavor-changing interactions. Phys. Rev., D92(1) :015007, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1369342" },
+      "reference": {
+        "label": "92",
+        "misc": [
+          "Alejandro Celis, Javier Fuentes-Martin, Mart\u00edn Jung, and Hugo Serodio. Family nonuniversal Z0 models with protected flavor-changing interactions"
+        ],
+        "publication_info": {
+          "artid": "015007",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "92",
+          "year": 2015
+        },
+        "texkey": "CFJS"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[93] Genevi\u00e8ve B\u00e9langer, C\u00e9dric Delaunay, and Susanne Westhoff. A Dark Matter Relic From Muon Anomalies. Phys. Rev., D92 :055021, 2015. 71"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1384773" },
+      "reference": {
+        "authors": [{ "full_name": "Westhoff." }],
+        "label": "93",
+        "misc": [
+          "Genevi\u00e8ve B\u00e9langer, C\u00e9dric Delaunay, and Susanne / Dark Matter Relic From Muon Anomalies / 71"
+        ],
+        "publication_info": {
+          "artid": "055021",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "92",
+          "year": 2015
+        },
+        "texkey": "BDW"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[94] Adam Falkowski, Marco Nardecchia, and Robert Ziegler. Lepton Flavor Non-Universality in Bmeson Decays from a U(2) Flavor Model. JHEP, 11 :173, 2015."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1391805" },
+      "reference": {
+        "label": "94",
+        "misc": [
+          "Adam Falkowski, Marco Nardecchia, and Robert Ziegler. Lepton Flavor Non-Universality in Bmeson Decays from a U(2) Flavor Model"
+        ],
+        "publication_info": {
+          "artid": "173",
+          "journal_title": "JHEP",
+          "journal_volume": "11",
+          "page_start": "173",
+          "year": 2015
+        },
+        "texkey": "FNZ"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[95] Adrian Carmona and Florian Goertz. Lepton Flavor and Nonuniversality from Minimal Composite Higgs Setups. Phys. Rev. Lett., 116(25) :251801, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1401014" },
+      "reference": {
+        "label": "95",
+        "misc": [
+          "Adrian Carmona and Florian Goertz. Lepton Flavor and Nonuniversality from Minimal Composite Higgs Setups"
+        ],
+        "publication_info": {
+          "artid": "251801",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "116",
+          "year": 2016
+        },
+        "texkey": "Carmona:2015ena"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[96] Ben Allanach, Farinaldo S. Queiroz, Alessandro Strumia, and Sichun Sun. Z0 models for the LHCb and g \u2212 2 muon anomalies. Phys. Rev., D93(5) :055045, 2016. [Erratum : Phys. Rev.D95,no.11,119902(2017)]."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1406143" },
+      "reference": {
+        "authors": [
+          { "full_name": "Queiroz" },
+          { "full_name": "S., Farinaldo" }
+        ],
+        "label": "96",
+        "misc": [
+          "Additional pubnote: Phys.Rev.,D95,119902 / Ben Allanach / Alessandro Strumia, and Sichun Sun. Z0 models for the LHCb and g - 2 muon anomalies / [Erratum :"
+        ],
+        "publication_info": {
+          "artid": "055045",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "93",
+          "year": 2016
+        },
+        "texkey": "AQSS"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[97] Alejandro Celis, Wan-Zhe Feng, and Dieter L\u00fcst. Stringy explanation of b \u2192 s`+`\u2212 anomalies. JHEP, 02 :007, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1408750" },
+      "reference": {
+        "label": "97",
+        "misc": [
+          "Alejandro Celis, Wan-Zhe Feng, and Dieter L\u00fcst. Stringy explanation of b \u2192 s`+`- anomalies"
+        ],
+        "publication_info": {
+          "artid": "007",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "007",
+          "year": 2016
+        },
+        "texkey": "CFL"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[98] Kaori Fuyuto, Wei-Shu Hou, and Masaya Kohda. Z0 -induced FCNC decays of top, beauty, and strange quarks. Phys. Rev., D93(5) :054021, 2016."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1411692" },
+      "reference": {
+        "label": "98",
+        "misc": [
+          "Kaori Fuyuto, Wei-Shu Hou, and Masaya Kohda. Z0 -induced FCNC decays of top, beauty, and strange quarks"
+        ],
+        "publication_info": {
+          "artid": "054021",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "93",
+          "year": 2016
+        },
+        "texkey": "Hou"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[99] Alejandro Celis, Wan-Zhe Feng, and Martin Vollmann. Dirac dark matter and b \u2192 s`+`\u2212 with U(1) gauge symmetry. Phys. Rev., D95(3) :035018, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1481196" },
+      "reference": {
+        "label": "99",
+        "misc": [
+          "Alejandro Celis, Wan-Zhe Feng, and Martin Vollmann. Dirac dark matter and b \u2192 s`+`- with U(1) gauge symmetry"
+        ],
+        "publication_info": {
+          "artid": "035018",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "95",
+          "year": 2017
+        },
+        "texkey": "CFV"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[100] Andreas Crivellin, Javier Fuentes-Martin, Admir Greljo, and Gino Isidori. Lepton Flavor NonUniversality in B decays from Dynamical Yukawas. Phys. Lett., B766 :77\u201385, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1496640" },
+      "reference": {
+        "label": "100",
+        "misc": [
+          "Andreas Crivellin, Javier Fuentes-Martin, Admir Greljo, and Gino Isidori. Lepton Flavor NonUniversality in B decays from Dynamical Yukawas"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "766",
+          "page_end": "85",
+          "page_start": "77",
+          "year": 2017
+        },
+        "texkey": "CFGI"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[101] Isabel Garcia Garcia. LHCb anomalies from a natural perspective. JHEP, 03 :040, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1497510" },
+      "reference": {
+        "label": "101",
+        "misc": [
+          "Isabel Garcia Garcia. LHCb anomalies from a natural perspective"
+        ],
+        "publication_info": {
+          "artid": "040",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "040",
+          "year": 2017
+        },
+        "texkey": "IGG"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[102] Disha Bhatia, Sabyasachi Chakraborty, and Amol Dighe. Neutrino mixing and RK anomaly in U(1)X models : a bottom-up approach. JHEP, 03 :117, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1510072" },
+      "reference": {
+        "label": "102",
+        "misc": [
+          "Disha Bhatia, Sabyasachi Chakraborty, and Amol Dighe. Neutrino mixing and RK anomaly in U(1)X models : a bottom-up approach"
+        ],
+        "publication_info": {
+          "artid": "117",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "117",
+          "year": 2017
+        },
+        "texkey": "Bhatia:2017tgo"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[103] James M. Cline, Jonathan M. Cornell, David London, and Ryoutaro Watanabe. Hidden sector explanation of B-decay and cosmic ray anomalies. Phys. Rev., D95(9) :095015, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1511663" },
+      "reference": {
+        "authors": [
+          { "full_name": "Cline" },
+          { "full_name": "M., James" },
+          { "full_name": "Cornell" },
+          { "full_name": "M., Jonathan" }
+        ],
+        "label": "103",
+        "misc": [
+          "David London, and Ryoutaro Watanabe. Hidden sector explanation of B-decay and cosmic ray anomalies"
+        ],
+        "publication_info": {
+          "artid": "095015",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "95",
+          "year": 2017
+        },
+        "texkey": "BdecaysDM"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[104] Alakabha Datta, Jiajun Liao, and Danny Marfatia. A light Z0 for the RK puzzle and nonstandard neutrino interactions. Phys. Lett., B768 :265\u2013269, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1512113" },
+      "reference": {
+        "authors": [{ "full_name": "Marfatia." }],
+        "label": "104",
+        "misc": [
+          "Alakabha Datta, Jiajun Liao, and Danny / light Z0 for the RK puzzle and nonstandard neutrino interactions"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "768",
+          "page_end": "269",
+          "page_start": "265",
+          "year": 2017
+        },
+        "texkey": "ZMeV"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[105] P. Ko, Yuji Omura, Yoshihiro Shigekami, and Chaehyun Yu. LHCb anomaly and B physics in flavored Z0 models with flavored Higgs doublets. Phys. Rev., D95(11) :115040, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1515370" },
+      "reference": {
+        "authors": [{ "full_name": "Ko, P." }],
+        "label": "105",
+        "misc": [
+          "Yuji Omura, Yoshihiro Shigekami, and Chaehyun Yu. LHCb anomaly and B physics in flavored Z0 models with flavored Higgs doublets"
+        ],
+        "publication_info": {
+          "artid": "115040",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "95",
+          "year": 2017
+        },
+        "texkey": "Ko:2017lzd"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[106] Eugenio Megias, Mariano Quiros, and Lindber Salas. Lepton-flavor universality violation in RK and RD(\u2217) from warped space. JHEP, 07 :102, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1518160" },
+      "reference": {
+        "label": "106",
+        "misc": [
+          "Eugenio Megias, Mariano Quiros, and Lindber Salas. Lepton-flavor universality violation in RK and RD(\u2217) from warped space"
+        ],
+        "publication_info": {
+          "artid": "102",
+          "journal_title": "JHEP",
+          "journal_volume": "07",
+          "page_start": "102",
+          "year": 2017
+        },
+        "texkey": "Megias:2017ove"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[107] Ishtiaq Ahmed and Abdur Rehman. LHCb anomaly in B \u2192 K\u2217\u00b5+\u00b5\u2212 optimised observables and potential of Z0 Model. 2017. 72"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1519832" },
+      "reference": {
+        "label": "107",
+        "misc": [
+          "Ishtiaq Ahmed and Abdur Rehman. LHCb anomaly in B \u2192 K\u2217\u00b5+\u00b5- optimised observables and potential of Z0 Model.. 72"
+        ],
+        "publication_info": { "year": 2017 },
+        "texkey": "Ahmed:2017vsr"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[108] Jernej F. Kamenik, Yotam Soreq, and Jure Zupan. Lepton flavor universality violation without new sources of quark flavor violation. Phys. Rev., D97(3) :035002, 2018."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1593776" },
+      "reference": {
+        "authors": [{ "full_name": "Kamenik" }, { "full_name": "F., Jernej" }],
+        "label": "108",
+        "misc": [
+          "Yotam Soreq, and Jure Zupan. Lepton flavor universality violation without new sources of quark flavor violation"
+        ],
+        "publication_info": {
+          "artid": "035002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "97",
+          "year": 2018
+        },
+        "texkey": "Kamenik:2017tnu"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[109] Filippo Sala and David M. Straub. A New Light Particle in B Decays ? Phys. Lett., B774 :205\u2013209, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1593781" },
+      "reference": {
+        "authors": [{ "full_name": "Light" }, { "full_name": "New, A." }],
+        "label": "109",
+        "misc": ["Filippo Sala and David M. Straub / Particle in B Decays / ?"],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "774",
+          "page_end": "209",
+          "page_start": "205",
+          "year": 2017
+        },
+        "texkey": "Sala:2017ihs"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[110] Stefano Di Chiara, Andrew Fowlie, Sean Fraser, Carlo Marzo, Luca Marzola, Martti Raidal, and Christian Spethmann. Minimal flavor-changing Z0 models and muon g \u2212 2 after the RK\u2217 measurement. Nucl. Phys., B923 :245\u2013257, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1593782" },
+      "reference": {
+        "label": "110",
+        "misc": [
+          "Stefano Di Chiara, Andrew Fowlie, Sean Fraser, Carlo Marzo, Luca Marzola, Martti Raidal, and Christian Spethmann. Minimal flavor-changing Z0 models and muon g - 2 after the RK\u2217 measurement"
+        ],
+        "publication_info": {
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "923",
+          "page_end": "257",
+          "page_start": "245",
+          "year": 2017
+        },
+        "texkey": "DiChiara:2017cjq"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[111] Rodrigo Alonso, Peter Cox, Chengcheng Han, and Tsutomu T. Yanagida. Anomaly-free local horizontal symmetry and anomaly-full rare B-decays. Phys. Rev., D96(7) :071701, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1596918" },
+      "reference": {
+        "label": "111",
+        "misc": [
+          "Rodrigo Alonso, Peter Cox, Chengcheng Han, and Tsutomu T. Yanagida. Anomaly-free local horizontal symmetry and anomaly-full rare B-decays"
+        ],
+        "publication_info": {
+          "artid": "071701",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Alonso:2017bff"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[112] Cesar Bonilla, Tanmoy Modak, Rahul Srivastava, and Jose W. F. Valle. U(1)B3\u22123L\u00b5 gauge symmetry as the simplest description of b \u2192 s anomalies. 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1597581" },
+      "reference": {
+        "label": "112",
+        "misc": [
+          "Cesar Bonilla, Tanmoy Modak, Rahul Srivastava, and Jose W. F. Valle. U(1)B3-3L\u00b5 gauge symmetry as the simplest description of b \u2192 s anomalies"
+        ],
+        "publication_info": { "year": 2017 },
+        "texkey": "Bonilla:2017lsq"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[113] Rodrigo Alonso, Peter Cox, Chengcheng Han, and Tsutomu T. Yanagida. Flavoured B \u2212 L local symmetry and anomalous rare B decays. Phys. Lett., B774 :643\u2013648, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1598781" },
+      "reference": {
+        "authors": [{ "full_name": "B, Flavoured" }],
+        "label": "113",
+        "misc": [
+          "Rodrigo Alonso, Peter Cox, Chengcheng Han, and Tsutomu T. Yanagida / local symmetry and anomalous rare B decays"
+        ],
+        "publication_info": {
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "774",
+          "page_end": "648",
+          "page_start": "643",
+          "year": 2017
+        },
+        "texkey": "Alonso:2017uky"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[114] Cheng-Wei Chiang, Xiao-Gang He, Jusak Tandean, and Xing-Bo Yuan. RK(\u2217) and related b \u2192 s`\u00af ` anomalies in minimal flavor violation framework with Z0 boson. Phys. Rev., D96(11) :115022, 2017."
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1603654" },
+      "reference": {
+        "label": "114",
+        "misc": [
+          "Cheng-Wei Chiang, Xiao-Gang He, Jusak Tandean, and Xing-Bo Yuan. RK(\u2217) and related b \u2192 s`\u00af \u00e0nomalies in minimal flavor violation framework with Z0 boson"
+        ],
+        "publication_info": {
+          "artid": "115022",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "96",
+          "year": 2017
+        },
+        "texkey": "Chiang:2017hlj"
+      }
+    },
+    {
+      "curated_relation": false,
+      "raw_refs": [
+        {
+          "schema": "text",
+          "value":
+            "[115] Morad Aaboud et al. Search for new high-mass phenomena in the dilepton final state using 36 fb\u22121 of proton-proton collision data at \u221a s = 13 TeV with the ATLAS detector. JHEP, 10 :182, 2017. 73"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1609250" },
+      "reference": {
+        "authors": [{ "full_name": "Aaboud" }],
+        "label": "115",
+        "misc": [
+          "Morad / Search for new high-mass phenomena in the dilepton final state using 36 fb-1 of proton-proton collision data at \u221a s = 13 TeV with the ATLAS detector / 73"
+        ],
+        "publication_info": {
+          "artid": "182",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "182",
+          "year": 2017
+        },
+        "texkey": "Aaboud:2017buh"
+      }
+    }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1684747" },
+  "texkeys": ["Boisvert-Beaudry:2018qyz"],
+  "thesis_info": {
+    "date": "2018-04",
+    "degree_type": "master",
+    "institutions": [
+      {
+        "curated_relation": true,
+        "name": "Montreal U.",
+        "record": {
+          "$ref": "http://labs.inspirehep.net/api/institutions/903025"
+        }
+      }
+    ]
+  },
+  "title_translations": [
+    {
+      "language": "en",
+      "title":
+        "Study of physics beyond the standard model in B\u2192\u03c0K decays"
+    }
+  ],
+  "titles": [
+    {
+      "source": "submitter",
+      "title":
+        "\u00c9tude de physique au-del\u00e0 du Mod\u00e8le Standard dans les d\u00e9sint\u00e9grations B\u2192\u03c0K"
+    }
+  ],
+  "urls": [{ "value": "http://hdl.handle.net/1866/20706" }]
+}

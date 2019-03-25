@@ -1,0 +1,87 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-1644420" }],
+  "authors": [
+    {
+      "full_name": "Aguilar-Ben\u00edtez, M",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "M.Aguilar.Benitez.2" }],
+      "inspire_roles": ["editor"],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1026157" },
+      "signature_block": "BANATm",
+      "uuid": "bb1e68b0-4722-45cf-ba89-0a20daabc38f"
+    },
+    {
+      "full_name": "Fuster, J",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "J.Fuster.1" }],
+      "inspire_roles": ["editor"],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1009147" },
+      "signature_block": "FASTARj",
+      "uuid": "dd39282d-3c19-4aef-95ac-e2513c78cd53"
+    },
+    {
+      "full_name": "Mart\u00ed-Garc\u00eda, S",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "S.Marti.Garcia.1" }],
+      "inspire_roles": ["editor"],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1022209" },
+      "signature_block": "GARCs",
+      "uuid": "258d6f89-19cc-496b-96d1-34e2d0e34043"
+    },
+    {
+      "curated_relation": true,
+      "full_name": "Santamar\u00eda, A",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "Arcadi.Santamaria.1" }],
+      "inspire_roles": ["editor"],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/990375" },
+      "signature_block": "SANTANARa",
+      "uuid": "c240aa40-0d27-4d41-8842-7f841ac3ffa2"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1466669,
+  "core": true,
+  "curated": true,
+  "document_type": ["proceedings"],
+  "imprints": [{ "date": "2016" }],
+  "inspire_categories": [
+    { "term": "Astrophysics" },
+    { "term": "Experiment-HEP" },
+    { "term": "Lattice" },
+    { "term": "Phenomenology-HEP" },
+    { "term": "Theory-HEP" },
+    { "term": "Accelerators" },
+    { "term": "Instrumentation" }
+  ],
+  "legacy_creation_date": "2016-06-02",
+  "legacy_version": "20160613163047.0",
+  "publication_info": [
+    {
+      "cnum": "C14-07-02",
+      "conference_record": {
+        "$ref": "http://labs.inspirehep.net/api/conferences/1203206"
+      },
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1365972"
+      },
+      "journal_title": "Nucl.Part.Phys.Proc.",
+      "journal_volume": "273-275",
+      "year": 2016
+    }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1466669" },
+  "texkeys": ["Aguilar-Benitez:2016yxj"],
+  "titles": [
+    {
+      "subtitle": "Valencia, Spain, July 2-9, 2014",
+      "title":
+        "Proceedings, 37th International Conference on High Energy Physics (ICHEP 2014)"
+    }
+  ],
+  "urls": [
+    {
+      "description": "Elsevier",
+      "value":
+        "http://www.sciencedirect.com/science/journal/24056014/273/supp/C"
+    }
+  ]
+}

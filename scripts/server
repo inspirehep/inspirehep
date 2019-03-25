@@ -10,11 +10,12 @@ set -e
 
 script_path=$(dirname "$0")
 
-export FLASK_ENV=development
 FLASK_ENV=development
 
 # Start Worker and Server. Whatchdog detects any change to the .py files and restarts celery
 pipenv run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO & pid_celery=$!
+
+pipenv run gunicorn --reload -b 0.0.0.0:5000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application & pid_server=$!
 
 trap 'kill $pid_celery $pid_server &>/dev/null' EXIT
 
