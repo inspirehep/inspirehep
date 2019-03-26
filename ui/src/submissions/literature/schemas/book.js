@@ -7,7 +7,7 @@ import comments from './sections/comments';
 import date from '../../common/schemas/date';
 
 const bookSchema = object().shape({
-  documet_type: string().default('book'),
+  document_type: string().default('book'),
   ...links,
   ...basicInfo,
   series_title: string(),

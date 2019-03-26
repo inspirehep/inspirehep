@@ -7,7 +7,7 @@ import references from './sections/references';
 import comments from './sections/comments';
 
 const thesisSchema = object().shape({
-  documet_type: string().default('thesis'),
+  document_type: string().default('thesis'),
   ...links,
   ...basicInfo,
   ...thesisInfo,
