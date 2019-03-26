@@ -7,7 +7,7 @@ import references from './sections/references';
 import comments from './sections/comments';
 
 const articleSchema = object().shape({
-  documet_type: string().default('article'),
+  document_type: string().default('article'),
   ...links,
   ...basicInfo,
   journal_title: string(),
