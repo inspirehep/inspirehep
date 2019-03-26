@@ -23,7 +23,11 @@ from invenio_records_rest.facets import range_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from .search.api import LiteratureSearch
-from .search.facets import must_match_all_filter, range_author_count_filter
+from .search.facets import (
+    hep_author_publications,
+    must_match_all_filter,
+    range_author_count_filter,
+)
 
 
 def _(x):
@@ -293,44 +297,53 @@ RECORDS_REST_ENDPOINTS = {
     "authors_orcid": AUTHORS_ORCID,
 }
 
+HEP_COMMON_FILTERS = {
+    "author": must_match_all_filter("facet_author_name"),
+    "author_count": range_author_count_filter("author_count"),
+    "doc_type": must_match_all_filter("facet_inspire_doc_type"),
+    "earliest_date": range_filter("earliest_date", format="yyyy", end_date_math="/y"),
+}
+HEP_COMMON_AGGS = {
+    "earliest_date": {
+        "date_histogram": {
+            "field": "earliest_date",
+            "interval": "year",
+            "format": "yyyy",
+            "min_doc_count": 1,
+        },
+        "meta": {"title": "Date", "order": 1},
+    },
+    "doc_type": {
+        "terms": {"field": "facet_inspire_doc_type", "size": 20},
+        "meta": {"title": "Document Type", "order": 7},
+    },
+    "author_count": {
+        "range": {
+            "field": "author_count",
+            "ranges": [{"key": "10 authors or less", "from": 1, "to": 11}],
+        },
+        "meta": {"title": "Number of authors", "order": 2},
+        "aggs": {
+            "doc_count_bucket_filter": {
+                "bucket_selector": {
+                    "buckets_path": {"count": "_count"},
+                    "script": "params.count > 0",
+                }
+            }
+        },
+    },
+}
 RECORDS_REST_FACETS = {
+    "hep-author-publication": hep_author_publications,
     "records-hep": {
         "filters": {
-            "author": must_match_all_filter("facet_author_name"),
-            "author_count": range_author_count_filter("author_count"),
+            **HEP_COMMON_FILTERS,
             "subject": must_match_all_filter("facet_inspire_categories"),
             "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
-            "doc_type": must_match_all_filter("facet_inspire_doc_type"),
             "experiment": must_match_all_filter("facet_experiment"),
-            "earliest_date": range_filter(
-                "earliest_date", format="yyyy", end_date_math="/y"
-            ),
         },
         "aggs": {
-            "earliest_date": {
-                "date_histogram": {
-                    "field": "earliest_date",
-                    "interval": "year",
-                    "format": "yyyy",
-                    "min_doc_count": 1,
-                },
-                "meta": {"title": "Date", "order": 1},
-            },
-            "author_count": {
-                "range": {
-                    "field": "author_count",
-                    "ranges": [{"key": "10 authors or less", "from": 1, "to": 11}],
-                },
-                "meta": {"title": "Number of authors", "order": 2},
-                "aggs": {
-                    "doc_count_bucket_filter": {
-                        "bucket_selector": {
-                            "buckets_path": {"count": "_count"},
-                            "script": "params.count > 0",
-                        }
-                    }
-                },
-            },
+            **HEP_COMMON_AGGS,
             "author": {
                 "terms": {"field": "facet_author_name", "size": 20},
                 "meta": {"title": "Author", "order": 3, "split": True},
@@ -347,12 +360,8 @@ RECORDS_REST_FACETS = {
                 "terms": {"field": "facet_experiment", "size": 20},
                 "meta": {"title": "Experiment", "order": 6},
             },
-            "doc_type": {
-                "terms": {"field": "facet_inspire_doc_type", "size": 20},
-                "meta": {"title": "Document Type", "order": 7},
-            },
         },
-    }
+    },
 }
 """Introduce searching facets."""
 

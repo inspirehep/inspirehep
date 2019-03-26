@@ -5,8 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-
 from elasticsearch_dsl.query import Q, Range
+from flask import current_app, request
+from invenio_records_rest.facets import range_filter
 
 
 def range_author_count_filter(field):
@@ -28,3 +29,21 @@ def must_match_all_filter(field):
         return Q("bool", must=filters)
 
     return inner
+
+
+def hep_author_publications():
+    exclude_value = request.values.get("exclude_author_value", "", type=str)
+    return {
+        "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
+        "aggs": {
+            **current_app.config["HEP_COMMON_AGGS"],
+            "author": {
+                "terms": {
+                    "field": "facet_author_name",
+                    "size": 20,
+                    "exclude": exclude_value,
+                },
+                "meta": {"title": "Collaborators", "order": 3, "split": True},
+            },
+        },
+    }
