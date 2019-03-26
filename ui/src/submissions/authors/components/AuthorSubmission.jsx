@@ -56,6 +56,7 @@ class AuthorSubmission extends Component {
               initialValues={initialValues}
               validationSchema={authorSchema}
               onSubmit={this.onFormikSubmit}
+              validateOnChange={false}
               component={AuthorForm}
             />
           </Col>

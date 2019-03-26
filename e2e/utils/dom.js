@@ -8,6 +8,7 @@ async function submitForm(page, formData) {
   for (const fieldName of fieldNames) {
     await page.type(`[name=${fieldName}]`, formData[fieldName]); // eslint-disable-line no-await-in-loop
   }
+  await page.click('body'); // to trigger blur form validation before submit
   await page.click('button[type=submit]');
 }
 

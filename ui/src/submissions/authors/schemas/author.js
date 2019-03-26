@@ -11,6 +11,7 @@ import orcid from '../../common/schemas/orcid';
 import year from '../../common/schemas/year';
 import arrayWithNullDefault from '../../common/schemas/arrayWithNullDefault';
 import arrayWithEmptyObjectDefault from '../../common/schemas/arrayWithEmptyObjectDefault';
+import uniqueOrcid from './uniqueOrcid';
 
 const yearSchema = year().label('Year');
 
@@ -38,7 +39,7 @@ const authorSchema = object().shape({
     .oneOf(authorStatusValues)
     .required()
     .default(authorStatusValues[0]),
-  orcid: orcid(),
+  orcid: orcid().concat(uniqueOrcid()),
   websites: arrayWithNullDefault.of(
     string()
       .nullable()
