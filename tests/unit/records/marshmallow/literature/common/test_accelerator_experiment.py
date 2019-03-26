@@ -8,7 +8,6 @@
 import json
 
 import mock
-import pytest
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.marshmallow.literature.common import (

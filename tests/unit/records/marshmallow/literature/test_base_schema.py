@@ -7,7 +7,6 @@
 
 import json
 
-import pytest
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureUISchema

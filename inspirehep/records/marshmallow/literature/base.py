@@ -13,7 +13,7 @@ from inspire_utils.date import earliest_date, format_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
-from marshmallow import Schema, fields, missing, post_dump, pre_dump
+from marshmallow import Schema, fields, missing, post_dump
 
 from inspirehep.records.marshmallow.authors import AuthorsMetadataSchemaV1
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource

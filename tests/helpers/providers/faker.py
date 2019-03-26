@@ -8,7 +8,6 @@
 """INSPIRE module that adds more fun to the platform."""
 
 
-import pytest
 from faker import Factory
 from helpers.providers.record_provider import RecordProvider
 

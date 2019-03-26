@@ -6,8 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import pytest
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from invenio_pidstore.models import PersistentIdentifier
 
 from inspirehep.pidstore.minters.control_number import AuthorsMinter, LiteratureMinter
 
