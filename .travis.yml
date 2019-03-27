@@ -38,7 +38,7 @@ matrix:
         - ./docker/wait-for-services.sh
 
       script:
-        - pipenv run py.test --random-order tests/integration
+        - pipenv run py.test tests/integration
 
       after_script:
         - docker-compose kill -s SIGTERM
@@ -69,8 +69,8 @@ matrix:
         - "./scripts/bootstrap --ci"
 
       script:
-        - pipenv run isort -rc -c -df --skip ui
-        - pipenv run py.test --random-order tests/unit
+        - './run-code-checks.ch'
+        - pipenv run py.test tests/unit
 
       after_success:
         - coveralls
