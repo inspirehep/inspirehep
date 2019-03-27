@@ -11,6 +11,7 @@ from helpers.providers.faker import faker
 from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
+    DataRecord,
     ExperimentsRecord,
     InspireRecord,
     JobsRecord,
@@ -172,6 +173,7 @@ def test_get_subclasses_from_inspire_records():
         "jou": JournalsRecord,
         "exp": ExperimentsRecord,
         "con": ConferencesRecord,
+        "dat": DataRecord,
     }
     subclasses = InspireRecord.get_subclasses()
 
@@ -244,6 +246,7 @@ def test_get_subclasses():
         "jou": JournalsRecord,
         "exp": ExperimentsRecord,
         "con": ConferencesRecord,
+        "dat": DataRecord,
     }
 
     assert subclasses == expected_subclasses
