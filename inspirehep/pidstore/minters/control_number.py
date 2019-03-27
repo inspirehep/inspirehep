@@ -27,3 +27,8 @@ class JobsMinter(ControlNumberMinter):
 class JournalsMinter(ControlNumberMinter):
     pid_type = "jou"
     provider = "recid"
+
+
+class ExperimentsMinter(ControlNumberMinter):
+    pid_type = "exp"
+    provider = "recid"

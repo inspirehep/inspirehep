@@ -67,13 +67,21 @@ PID_TYPES_TO_ENDPOINTS = {
     "aut": "authors",
     "job": "jobs",
     "jou": "journals",
+    "exp": "experiments",
 }
-SCHEMA_TO_PID_TYPES = {"hep": "lit", "authors": "aut", "jobs": "job", "journals": "jou"}
+SCHEMA_TO_PID_TYPES = {
+    "hep": "lit",
+    "authors": "aut",
+    "jobs": "job",
+    "journals": "jou",
+    "experiments": "exp",
+}
 PID_TYPE_TO_INDEX = {
     "lit": "records-hep",
     "aut": "records-authors",
     "job": "records-jobs",
     "jou": "records-journals",
+    "exp": "records-experiments",
 }
 
 
@@ -355,6 +363,35 @@ JOURNALS = {
     "list_permission_factory_imp": allow_all,
 }
 
+EXPERIMENTS = {
+    "default_endpoint_prefix": True,
+    "pid_type": "exp",
+    "pid_fetcher": "recid",
+    "pid_minter": "experiments_minter",
+    "search_class": "inspirehep.search.api:ExperimentsSearch",
+    "links_factory_imp": lambda links: {},
+    "indexer_class": RecordIndexer,
+    "search_type": None,
+    "search_index": "records-experiments",
+    "record_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_response"
+    },
+    "search_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_search"
+    },
+    "list_route": "/experiments/",
+    "item_route": '/experiments/<pid(exp,record_class="inspirehep.records.api:ExperimentsRecord"):pid_value>',
+    "default_media_type": "application/json",
+    "max_result_window": 10000,
+    "record_class": "inspirehep.records.api:ExperimentsRecord",
+    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    "create_permission_factory_imp": deny_all,
+    "read_permission_factory_imp": allow_all,
+    "update_permission_factory_imp": deny_all,
+    "delete_permission_factory_imp": deny_all,
+    "list_permission_factory_imp": allow_all,
+}
+
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
     "literature_facets": LITERATURE_FACETS,
@@ -366,6 +403,7 @@ RECORDS_REST_ENDPOINTS = {
     "authors_orcid": AUTHORS_ORCID,
     "jobs": JOBS,
     "journals": JOURNALS,
+    "experiments": EXPERIMENTS,
 }
 
 HEP_COMMON_FILTERS = {
