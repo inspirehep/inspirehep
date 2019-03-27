@@ -12,6 +12,7 @@ from inspirehep.records.api import (
     AuthorsRecord,
     InspireRecord,
     JobsRecord,
+    JournalsRecord,
     LiteratureRecord,
 )
 
@@ -162,7 +163,12 @@ def test_empty_data_for_hashing():
 
 
 def test_get_subclasses_from_inspire_records():
-    expected = {"lit": LiteratureRecord, "aut": AuthorsRecord, "job": JobsRecord}
+    expected = {
+        "lit": LiteratureRecord,
+        "aut": AuthorsRecord,
+        "job": JobsRecord,
+        "jou": JournalsRecord,
+    }
     subclasses = InspireRecord.get_subclasses()
 
     assert subclasses == expected
@@ -231,6 +237,7 @@ def test_get_subclasses():
         "lit": LiteratureRecord,
         "aut": AuthorsRecord,
         "job": JobsRecord,
+        "jou": JournalsRecord,
     }
 
     assert subclasses == expected_subclasses

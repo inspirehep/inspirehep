@@ -22,3 +22,8 @@ class AuthorsMinter(ControlNumberMinter):
 class JobsMinter(ControlNumberMinter):
     pid_type = "job"
     provider = "recid"
+
+
+class JournalsMinter(ControlNumberMinter):
+    pid_type = "jou"
+    provider = "recid"
