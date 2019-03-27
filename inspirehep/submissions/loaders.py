@@ -7,12 +7,9 @@
 
 """Submissions Loaders"""
 
-from invenio_records_rest.loaders.marshmallow import (
-    json_patch_loader,
-    marshmallow_loader,
-)
+from invenio_records_rest.loaders.marshmallow import marshmallow_loader
 
-from .marshmallow import Literature
+from .marshmallow import Author, Literature
 
 literature_v1 = marshmallow_loader(Literature)
 author_v1 = marshmallow_loader(Author)

@@ -71,7 +71,7 @@ def get_query_records_to_index(pid_types):
                 RecordMetadata.json["deleted"] == cast(False, JSONB),
             ),
         )
-    )
+    )  # noqa
     return query
 
 

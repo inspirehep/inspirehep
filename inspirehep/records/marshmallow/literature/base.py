@@ -148,7 +148,6 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
 
     def get_earliest_date(self, record):
         """Prepares record for ``earliest_date`` field."""
-        result = None
         date_paths = [
             "preprint_date",
             "thesis_info.date",

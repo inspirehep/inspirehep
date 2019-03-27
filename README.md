@@ -105,3 +105,11 @@ yarn test # in ui folder
 ```bash
 ./run-e2e.sh
 ```
+
+#### Run Code Checks
+
+Run `isort` and `flake8` checks.
+
+```bash
+$ ./run-code-checks.sh
+```

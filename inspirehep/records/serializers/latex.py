@@ -42,7 +42,7 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
             variable_start_string="\VAR{",
             variable_end_string="}",
             loader=jinja2.FileSystemLoader(os.path.abspath("/")),
-        )
+        )  # noqa
         current_abs_path = os.path.abspath(__file__)
         directory_path = os.path.dirname(current_abs_path)
         template_path = os.path.join(directory_path, "templates/latex_template.tex")
