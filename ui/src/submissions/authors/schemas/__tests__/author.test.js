@@ -55,10 +55,10 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when pulic_emails are valid emails', async done => {
+  it('validates when emails are valid emails', async done => {
     const data = {
       ...dataWithRequiredFields,
-      public_emails: ['a@b.guy', 'c@d.dude'],
+      emails: [{ value: 'a@b.guy', hidden: true }, { value: 'c@d.dude' }],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);
@@ -68,7 +68,7 @@ describe('authorSchema', () => {
   it('invalidates when pulic_emails are not all valid emails', async done => {
     const data = {
       ...dataWithRequiredFields,
-      public_emails: ['a@b.guy', 'not an email'],
+      emails: [{ value: 'not an email', hidden: true }, { value: 'c@d.dude' }],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(false);

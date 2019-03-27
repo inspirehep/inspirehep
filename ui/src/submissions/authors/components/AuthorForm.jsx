@@ -71,16 +71,28 @@ class AuthorForm extends Component {
             />
             <ArrayOf
               values={values}
-              name="public_emails"
-              label="Public Emails"
-              emptyItem=""
+              name="emails"
+              label="Emails"
+              emptyItem={{}}
               renderItem={itemName => (
-                <Field
-                  onlyChild
-                  name={itemName}
-                  placeholder="This will be displayed in the INSPIRE Author Profile"
-                  component={TextField}
-                />
+                <Row type="flex" justify="space-between">
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.value`}
+                      placeholder="Email"
+                      component={TextField}
+                    />
+                  </Col>
+                  <Col span={11}>
+                    <Field
+                      onlyChild
+                      name={`${itemName}.hidden`}
+                      suffixText="Hidden"
+                      component={BooleanField}
+                    />
+                  </Col>
+                </Row>
               )}
             />
             <Field
