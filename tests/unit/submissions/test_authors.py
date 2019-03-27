@@ -554,22 +554,45 @@ def test_load_author_project_membership():
     assert result == expected
 
 
-def test_dump_author_public_emails():
-    data = {**DEFAULT_DATA_TO_DUMP, "email_addresses": [{"value": "email@email.com"}]}
-
+def test_dump_author_emails():
+    data = {
+        **DEFAULT_DATA_TO_DUMP,
+        "email_addresses": [
+            {"value": "private@email.com", "hidden": True},
+            {"value": "public@email.com"},
+        ],
+    }
     record = faker.record("aut", data=data)
 
     result = Author().dump(record).data
-    expected = {**DEFAULT_DATA_DUMP, "public_emails": ["email@email.com"]}
+    expected = {
+        **DEFAULT_DATA_DUMP,
+        "emails": [
+            {"value": "private@email.com", "hidden": True},
+            {"value": "public@email.com"},
+        ],
+    }
 
     assert result == expected
 
 
 def test_load_author_public_emails():
-    data = {**DEFAULT_DATA_TO_DUMP, "public_emails": ["email@email.com"]}
+    data = {
+        **DEFAULT_DATA_TO_DUMP,
+        "emails": [
+            {"value": "private@email.com", "hidden": True},
+            {"value": "public@email.com"},
+        ],
+    }
 
     result = Author().load(data).data
-    expected = {**DEFAULT_DATA_LOAD, "email_addresses": [{"value": "email@email.com"}]}
+    expected = {
+        **DEFAULT_DATA_LOAD,
+        "email_addresses": [
+            {"value": "private@email.com", "hidden": True},
+            {"value": "public@email.com"},
+        ],
+    }
 
     assert result == expected
 

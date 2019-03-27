@@ -15,7 +15,7 @@ class Author(Schema):
     family_name = fields.Raw()
     given_name = fields.Raw()
     native_name = fields.Raw()
-    public_emails = fields.Raw()
+    emails = fields.Raw()
     orcid = fields.Raw()
 
     status = fields.Raw()
@@ -60,7 +60,7 @@ class Author(Schema):
             "project_membership": get_value(
                 data, "project_membership", default=missing
             ),
-            "public_emails": get_value(data, "email_addresses.value", default=missing),
+            "emails": get_value(data, "email_addresses", default=missing),
             "status": get_value(data, "status", default=missing),
             "twitter": self.get_first_or_missing(
                 get_values_for_schema(data.get("ids", []), "TWITTER")
@@ -173,8 +173,8 @@ class Author(Schema):
                 current=current,
             )
 
-        for email in data.get("public_emails", []):
-            author.add_email_address(email)
+        for email in data.get("emails", []):
+            author.add_email_address(email.get("value"), hidden=email.get("hidden"))
 
         status = data.get("status")
         author.set_status(status)

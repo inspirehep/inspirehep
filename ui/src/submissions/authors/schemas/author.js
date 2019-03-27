@@ -29,11 +29,14 @@ const authorSchema = object().shape({
     .required()
     .label('Display Name'),
   native_name: string(),
-  public_emails: arrayWithNullDefault.of(
-    string()
-      .nullable()
-      .email()
-      .label('Public Email')
+  emails: arrayWithEmptyObjectDefault.of(
+    emptyObjectOrShapeOf({
+      value: string()
+        .email()
+        .required()
+        .label('Email'),
+      hidden: boolean(),
+    })
   ),
   status: string()
     .oneOf(authorStatusValues)
