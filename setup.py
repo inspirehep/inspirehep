@@ -43,6 +43,7 @@ setup(
         "invenio_pidstore.minters": [
             "literature_minter = inspirehep.pidstore.minters.control_number:LiteratureMinter.mint",
             "authors_minter = inspirehep.pidstore.minters.control_number:AuthorsMinter.mint",
+            "jobs_minter = inspirehep.pidstore.minters.control_number:JobsMinter.mint",
         ],
         "invenio_base.api_blueprints": [
             "inspirehep_records = inspirehep.records.views:blueprint",

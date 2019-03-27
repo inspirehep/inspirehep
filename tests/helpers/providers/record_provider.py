@@ -56,6 +56,13 @@ class RecordProvider(BaseProvider):
         }
 
     @staticmethod
+    def job_record():
+        return {
+            "$schema": "http://localhost:5000/schemas/records/jobs.json",
+            "_collections": ["Jobs"],
+        }
+
+    @staticmethod
     def add_citations(citation_records):
         data = []
         for record in citation_records:
@@ -76,6 +83,8 @@ class RecordProvider(BaseProvider):
             record = self.hep_record()
         elif record_type == "aut":
             record = self.author_record()
+        elif record_type == "job":
+            record = self.job_record()
 
         if with_control_number:
             record["control_number"] = self.control_number()

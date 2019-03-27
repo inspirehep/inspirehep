@@ -90,7 +90,7 @@ def db(database):
 
 
 @pytest.fixture(scope="function")
-def create_record(db, es_clear):
+def create_record(base_app, db, es_clear):
     """Fixtures to create record.
 
     Examples:
@@ -104,9 +104,6 @@ def create_record(db, es_clear):
     """
 
     def _create_record(record_type, data=None, with_pid=True, with_indexing=False):
-        # FIXME: find a better location
-        MAP_PID_TYPE_TO_INDEX = {"lit": "records-hep", "aut": "records-authors"}
-
         control_number = random.randint(1, 2_147_483_647)
         record = RecordMetadataFactory(
             record_type=record_type, data=data, control_number=control_number
@@ -120,7 +117,7 @@ def create_record(db, es_clear):
             )
 
         if with_indexing:
-            index = MAP_PID_TYPE_TO_INDEX[record_type]
+            index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
             record._index = es_clear.index(
                 index=index,
                 id=str(record.id),
