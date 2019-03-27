@@ -381,3 +381,54 @@ def test_journals_search_json_get(api_client, db, create_record):
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
+
+
+def test_experiments_application_json_get(api_client, db, create_record):
+    record = create_record("exp", with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    response = api_client.get(f"/experiments/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_experiments_application_json_put(api_client, db, create_record):
+    record = create_record("exp", with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 401
+    response = api_client.put(f"/experiments/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_experiments_application_json_delete(api_client, db, create_record):
+    record = create_record("exp", with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 401
+    response = api_client.delete(f"/experiments/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_experiments_application_json_post(api_client, db):
+    expected_status_code = 401
+    response = api_client.post("/experiments/")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_experiments_search_json_get(api_client, db, create_record):
+    create_record("exp", with_indexing=True)
+
+    expected_status_code = 200
+    response = api_client.get("/experiments/")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code

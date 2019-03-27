@@ -72,6 +72,14 @@ class RecordProvider(BaseProvider):
         }
 
     @staticmethod
+    def experiment_record():
+        return {
+            "$schema": "http://localhost:5000/schemas/records/experiments.json",
+            "_collections": ["Experiments"],
+            "project_type": ["experiment"],
+        }
+
+    @staticmethod
     def add_citations(citation_records):
         data = []
         for record in citation_records:
@@ -96,6 +104,8 @@ class RecordProvider(BaseProvider):
             record = self.job_record()
         elif record_type == "jou":
             record = self.journal_record()
+        elif record_type == "exp":
+            record = self.experiment_record()
 
         if with_control_number:
             record["control_number"] = self.control_number()
