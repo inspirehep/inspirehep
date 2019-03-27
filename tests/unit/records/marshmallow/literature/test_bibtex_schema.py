@@ -5,9 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
 
-import pytest
 from helpers.providers.faker import faker
 from inspire_schemas.api import load_schema, validate
 

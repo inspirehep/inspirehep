@@ -9,7 +9,6 @@
 
 
 import factory
-import pytest
 
 
 class BaseFactory(factory.alchemy.SQLAlchemyModelFactory):

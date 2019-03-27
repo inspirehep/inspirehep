@@ -8,10 +8,7 @@
 """INSPIRE module that adds more fun to the platform."""
 
 
-import random
-
 import factory
-import pytest
 from helpers.factories.models.base import BaseFactory
 from helpers.providers.faker import faker
 from invenio_records.models import RecordMetadata

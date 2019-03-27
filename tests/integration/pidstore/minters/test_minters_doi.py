@@ -6,8 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import uuid
-
 import pytest
 from helpers.providers.faker import faker
 from invenio_pidstore.errors import PIDAlreadyExists

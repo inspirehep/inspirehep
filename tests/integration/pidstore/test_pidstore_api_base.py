@@ -8,8 +8,6 @@
 """INSPIRE module that adds more fun to the platform."""
 
 
-import pytest
-
 from inspirehep.pidstore.api import PidStoreBase
 
 

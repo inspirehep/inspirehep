@@ -7,7 +7,6 @@
 
 import json
 
-import pytest
 
 from inspirehep.records.marshmallow.literature.common import (
     AuthorSchemaV1,

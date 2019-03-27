@@ -7,7 +7,6 @@
 
 import json
 
-import pytest
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 

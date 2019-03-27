@@ -11,7 +11,6 @@ from copy import deepcopy
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureESEnhancementV1
-from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 
 
 def test_abstract_source_full():

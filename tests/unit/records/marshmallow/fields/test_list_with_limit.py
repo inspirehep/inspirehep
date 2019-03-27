@@ -7,7 +7,6 @@
 
 import json
 
-import pytest
 from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.fields import ListWithLimit
