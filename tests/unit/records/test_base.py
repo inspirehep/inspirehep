@@ -8,7 +8,12 @@ import mock
 import pytest
 from helpers.providers.faker import faker
 
-from inspirehep.records.api import AuthorsRecord, InspireRecord, LiteratureRecord
+from inspirehep.records.api import (
+    AuthorsRecord,
+    InspireRecord,
+    JobsRecord,
+    LiteratureRecord,
+)
 
 
 def test_strip_empty_values():
@@ -157,7 +162,7 @@ def test_empty_data_for_hashing():
 
 
 def test_get_subclasses_from_inspire_records():
-    expected = {"lit": LiteratureRecord, "aut": AuthorsRecord}
+    expected = {"lit": LiteratureRecord, "aut": AuthorsRecord, "job": JobsRecord}
     subclasses = InspireRecord.get_subclasses()
 
     assert subclasses == expected
@@ -222,7 +227,11 @@ def test_on_deleted_record_index_on_InspireRecord():
 
 def test_get_subclasses():
     subclasses = InspireRecord.get_subclasses()
-    expected_subclasses = {"lit": LiteratureRecord, "aut": AuthorsRecord}
+    expected_subclasses = {
+        "lit": LiteratureRecord,
+        "aut": AuthorsRecord,
+        "job": JobsRecord,
+    }
 
     assert subclasses == expected_subclasses
 

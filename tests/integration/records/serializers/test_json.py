@@ -191,7 +191,7 @@ def test_authors_json_v1_response(api_client, db, create_record, datadir):
             }
         ],
         "arxiv_categories": ["hep-th", "gr-qc"],
-        "control_number": 999108,
+        "control_number": 999_108,
         "deleted": False,
         "email_addresses": [
             {"current": True, "value": "malda@ias.edu"},
@@ -311,6 +311,46 @@ def test_authors_default_json_v1_response_search(
     response = api_client.get(
         "/authors/".format(record_control_number), headers=headers
     )
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_hits_metadata
+
+
+def test_jobs_default_json_v1_response(api_client, db, create_record, datadir):
+    headers = {"Accept": "application/json"}
+
+    data = json.loads((datadir / "955427.json").read_text())
+
+    record = create_record("job", data=data)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    expected_result = deepcopy(record.json)
+    response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+def test_jobs_default_json_v1_response_search(api_client, db, create_record, datadir):
+    headers = {"Accept": "application/json"}
+
+    data = json.loads((datadir / "955427.json").read_text())
+
+    record = create_record("job", data=data, with_indexing=True)
+
+    expected_status_code = 200
+    expected_result = deepcopy(record.json)
+    response = api_client.get("/jobs/", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)

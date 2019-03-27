@@ -70,7 +70,7 @@ class PidStoreBase(object):
             otherwhise you have to bind all these util functions
             with the ``current_app``.
         """
-        return current_app.config["PID_TYPES_TO_SCHEMA"]
+        return current_app.config["SCHEMA_TO_PID_TYPES"]
 
     @staticmethod
     def get_pid_type_from_schema(schema):

@@ -17,3 +17,8 @@ class LiteratureMinter(ControlNumberMinter):
 class AuthorsMinter(ControlNumberMinter):
     pid_type = "aut"
     provider = "recid"
+
+
+class JobsMinter(ControlNumberMinter):
+    pid_type = "job"
+    provider = "recid"
