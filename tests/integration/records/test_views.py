@@ -8,7 +8,6 @@
 import json
 
 import pytest
-from helpers.providers.faker import faker
 
 
 def test_literature_application_json_get(api_client, db, create_record):

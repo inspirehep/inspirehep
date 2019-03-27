@@ -8,7 +8,6 @@
 """INSPIRE module that adds more fun to the platform."""
 
 
-import pytest
 from helpers.factories.models.records import RecordMetadataFactory
 from invenio_pidstore.models import PIDStatus
 

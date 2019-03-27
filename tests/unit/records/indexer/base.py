@@ -7,7 +7,7 @@
 
 import mock
 
-from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.indexer.base import InspireRecordIndexer
 
 

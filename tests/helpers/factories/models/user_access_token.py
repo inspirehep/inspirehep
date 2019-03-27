@@ -5,13 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import factory
-import pytest
 from faker import Factory
 from flask import current_app
 from flask_security.utils import hash_password
 from helpers.factories.models.base import BaseFactory
-from helpers.providers.faker import faker
 from invenio_accounts.models import User
 from invenio_oauth2server.models import Token
 

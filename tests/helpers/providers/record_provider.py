@@ -8,9 +8,6 @@
 """INSPIRE module that adds more fun to the platform."""
 
 
-import random
-
-import pytest
 from faker import Faker
 from faker.providers import BaseProvider
 from inspire_schemas.api import validate as schema_validate
