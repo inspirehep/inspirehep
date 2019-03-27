@@ -9,6 +9,7 @@
 
 from .authors import PidStoreAuthors
 from .base import PidStoreBase
+from .conferences import PidStoreConferences
 from .experiments import PidStoreExperiments
 from .jobs import PidStoreJobs
 from .journals import PidStoreJournals

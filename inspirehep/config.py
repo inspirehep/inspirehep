@@ -68,6 +68,7 @@ PID_TYPES_TO_ENDPOINTS = {
     "job": "jobs",
     "jou": "journals",
     "exp": "experiments",
+    "con": "conferences",
 }
 SCHEMA_TO_PID_TYPES = {
     "hep": "lit",
@@ -75,6 +76,7 @@ SCHEMA_TO_PID_TYPES = {
     "jobs": "job",
     "journals": "jou",
     "experiments": "exp",
+    "conferences": "con",
 }
 PID_TYPE_TO_INDEX = {
     "lit": "records-hep",
@@ -82,6 +84,7 @@ PID_TYPE_TO_INDEX = {
     "job": "records-jobs",
     "jou": "records-journals",
     "exp": "records-experiments",
+    "con": "records-conferences",
 }
 
 
@@ -392,6 +395,35 @@ EXPERIMENTS = {
     "list_permission_factory_imp": allow_all,
 }
 
+CONFERENCES = {
+    "default_endpoint_prefix": True,
+    "pid_type": "con",
+    "pid_fetcher": "recid",
+    "pid_minter": "conferences_minter",
+    "search_class": "inspirehep.search.api:ConferencesSearch",
+    "links_factory_imp": lambda links: {},
+    "indexer_class": RecordIndexer,
+    "search_type": None,
+    "search_index": "records-conferences",
+    "record_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_response"
+    },
+    "search_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_search"
+    },
+    "list_route": "/conferences/",
+    "item_route": '/conferences/<pid(con,record_class="inspirehep.records.api:ConferencesRecord"):pid_value>',
+    "default_media_type": "application/json",
+    "max_result_window": 10000,
+    "record_class": "inspirehep.records.api:ConferencesRecord",
+    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    "create_permission_factory_imp": deny_all,
+    "read_permission_factory_imp": allow_all,
+    "update_permission_factory_imp": deny_all,
+    "delete_permission_factory_imp": deny_all,
+    "list_permission_factory_imp": allow_all,
+}
+
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
     "literature_facets": LITERATURE_FACETS,
@@ -404,6 +436,7 @@ RECORDS_REST_ENDPOINTS = {
     "jobs": JOBS,
     "journals": JOURNALS,
     "experiments": EXPERIMENTS,
+    "conferences": CONFERENCES,
 }
 
 HEP_COMMON_FILTERS = {
