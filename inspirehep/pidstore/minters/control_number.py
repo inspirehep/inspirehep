@@ -37,3 +37,8 @@ class ExperimentsMinter(ControlNumberMinter):
 class ConferencesMinter(ControlNumberMinter):
     pid_type = "con"
     provider = "recid"
+
+
+class DataMinter(ControlNumberMinter):
+    pid_type = "dat"
+    provider = "recid"

@@ -10,6 +10,7 @@
 from .authors import PidStoreAuthors
 from .base import PidStoreBase
 from .conferences import PidStoreConferences
+from .data import PidStoreData
 from .experiments import PidStoreExperiments
 from .jobs import PidStoreJobs
 from .journals import PidStoreJournals
