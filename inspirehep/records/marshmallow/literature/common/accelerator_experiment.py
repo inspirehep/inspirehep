@@ -6,11 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_dojson.utils import get_recid_from_ref
-from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
-from marshmallow import Schema, fields, missing, pre_dump
-
-from inspirehep.records.api import InspireRecord
+from marshmallow import Schema, fields, pre_dump
 
 
 class AcceleratorExperimentSchemaV1(Schema):

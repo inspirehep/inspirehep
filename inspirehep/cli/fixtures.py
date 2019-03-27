@@ -18,7 +18,6 @@ from inspirehep.records.fixtures import (
 @click.group()
 def fixtures():
     """Command related to records in inspire"""
-    pass
 
 
 @fixtures.command()
