@@ -48,7 +48,7 @@ class InspireQueryBuilder(object):
         expression = or_(
             not_(type_coerce(RecordMetadata.json, JSONB).has_key("deleted")),
             not_(RecordMetadata.json["deleted"] == cast(True, JSONB)),
-        )
+        )  # noqa
         return self.filter(expression)
 
     def by_collections(self, collections):

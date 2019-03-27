@@ -69,7 +69,7 @@ matrix:
         - "./scripts/bootstrap --ci"
 
       script:
-        - './run-code-checks.ch'
+        - './run-code-checks.sh'
         - pipenv run py.test tests/unit
 
       after_success:
