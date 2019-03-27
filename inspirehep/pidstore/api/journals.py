@@ -4,11 +4,12 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-# flake8: noqa
 
 
-from .authors import PidStoreAuthors
+from ..minters.control_number import JournalsMinter
 from .base import PidStoreBase
-from .jobs import PidStoreJobs
-from .journals import PidStoreJournals
-from .literature import PidStoreLiterature
+
+
+class PidStoreJournals(PidStoreBase):
+
+    minters = [JournalsMinter]

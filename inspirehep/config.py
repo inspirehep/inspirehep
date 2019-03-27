@@ -62,12 +62,18 @@ SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to inspirehep!")
 ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 
 # Deal with inconcistency :puke:
-PID_TYPES_TO_ENDPOINTS = {"lit": "literature", "aut": "authors", "job": "jobs"}
-SCHEMA_TO_PID_TYPES = {"hep": "lit", "authors": "aut", "jobs": "job"}
+PID_TYPES_TO_ENDPOINTS = {
+    "lit": "literature",
+    "aut": "authors",
+    "job": "jobs",
+    "jou": "journals",
+}
+SCHEMA_TO_PID_TYPES = {"hep": "lit", "authors": "aut", "jobs": "job", "journals": "jou"}
 PID_TYPE_TO_INDEX = {
     "lit": "records-hep",
     "aut": "records-authors",
     "job": "records-jobs",
+    "jou": "records-journals",
 }
 
 
@@ -320,6 +326,34 @@ JOBS = {
     "list_permission_factory_imp": allow_all,
 }
 
+JOURNALS = {
+    "default_endpoint_prefix": True,
+    "pid_type": "jou",
+    "pid_fetcher": "recid",
+    "pid_minter": "journals_minter",
+    "search_class": "inspirehep.search.api:JournalsSearch",
+    "links_factory_imp": lambda links: {},
+    "indexer_class": RecordIndexer,
+    "search_type": None,
+    "search_index": "records-journals",
+    "record_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_response"
+    },
+    "search_serializers": {
+        "application/json": "invenio_records_rest.serializers:json_v1_search"
+    },
+    "list_route": "/journals/",
+    "item_route": '/journals/<pid(jou,record_class="inspirehep.records.api:JournalsRecord"):pid_value>',
+    "default_media_type": "application/json",
+    "max_result_window": 10000,
+    "record_class": "inspirehep.records.api:JournalsRecord",
+    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    "create_permission_factory_imp": deny_all,
+    "read_permission_factory_imp": allow_all,
+    "update_permission_factory_imp": deny_all,
+    "delete_permission_factory_imp": deny_all,
+    "list_permission_factory_imp": allow_all,
+}
 
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
@@ -331,6 +365,7 @@ RECORDS_REST_ENDPOINTS = {
     "authors": AUTHORS,
     "authors_orcid": AUTHORS_ORCID,
     "jobs": JOBS,
+    "journals": JOURNALS,
 }
 
 HEP_COMMON_FILTERS = {

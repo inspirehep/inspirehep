@@ -11,6 +11,7 @@ from invenio_pidstore.models import PersistentIdentifier
 from inspirehep.pidstore.minters.control_number import (
     AuthorsMinter,
     JobsMinter,
+    JournalsMinter,
     LiteratureMinter,
 )
 
@@ -108,6 +109,40 @@ def test_control_number_jobs_without_control_number(base_app, db, create_record)
 
     expected_pid_value = str(data["control_number"])
     expected_pid_type = "job"
+    expected_pid_object_uuid = record.id
+
+    result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
+
+    assert expected_pid_type == result_pid.pid_type
+    assert expected_pid_value == result_pid.pid_value
+    assert expected_pid_object_uuid == result_pid.object_uuid
+
+
+def test_control_number_journals_with_control_number(base_app, db, create_record):
+    data = {"control_number": 1}
+    record = create_record("jou", data=data, with_pid=False)
+    data = record.json
+
+    JournalsMinter.mint(record.id, data)
+    expected_pid_value = str(data["control_number"])
+    expected_pid_type = "jou"
+    expected_pid_object_uuid = record.id
+
+    result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
+
+    assert expected_pid_type == result_pid.pid_type
+    assert expected_pid_value == result_pid.pid_value
+    assert expected_pid_object_uuid == result_pid.object_uuid
+
+
+def test_control_number_journals_without_control_number(base_app, db, create_record):
+    record = create_record("jou", with_pid=False)
+    data = record.json
+
+    JournalsMinter.mint(record.id, data)
+
+    expected_pid_value = str(data["control_number"])
+    expected_pid_type = "jou"
     expected_pid_object_uuid = record.id
 
     result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
