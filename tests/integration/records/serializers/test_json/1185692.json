@@ -1,0 +1,57 @@
+{
+  "created": "2012-09-17T00:00:00+00:00",
+  "id": 1185692,
+  "links": {
+    "self": "https://labs.inspirehep.net/api/conferences/1185692"
+  },
+  "metadata": {
+    "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
+    "_collections": ["Conferences"],
+    "address": [
+      {
+        "cities": ["Kyoto"],
+        "country_code": "JP"
+      }
+    ],
+    "closing_date": "2012-05-25",
+    "cnum": "C12-05-21.5",
+    "contact_details": [
+      {
+        "email": "fs4loc@konan-u.ac.jp"
+      }
+    ],
+    "control_number": 1185692,
+    "deleted": false,
+    "earliest_date": "2012-09-17",
+    "inspire_categories": [
+      {
+        "term": "Astrophysics"
+      }
+    ],
+    "legacy_creation_date": "2012-09-17",
+    "legacy_version": "20161101104659.0",
+    "opening_date": "2012-05-21",
+    "self": {
+      "$ref": "http://labs.inspirehep.net/api/conferences/1185692"
+    },
+    "series": [
+      {
+        "name": "First Stars",
+        "number": 4
+      }
+    ],
+    "titles": [
+      {
+        "subtitle": "From Hayashi to the Future",
+        "title": "First Stars IV"
+      }
+    ],
+    "urls": [
+      {
+        "description": "web page",
+        "value": "http://tpweb2.phys.konan-u.ac.jp/~FirstStar4/"
+      }
+    ]
+  },
+  "updated": "2018-10-13T03:25:02.693766+00:00"
+}

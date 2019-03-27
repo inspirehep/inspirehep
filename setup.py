@@ -46,6 +46,7 @@ setup(
             "jobs_minter = inspirehep.pidstore.minters.control_number:JobsMinter.mint",
             "journals_minter = inspirehep.pidstore.minters.control_number:JournalsMinter.mint",
             "experiments_minter = inspirehep.pidstore.minters.control_number:ExperimentsMinter.mint",
+            "conferences_minter = inspirehep.pidstore.minters.control_number:ConferencesMinter.mint",
         ],
         "invenio_base.api_blueprints": [
             "inspirehep_records = inspirehep.records.views:blueprint",

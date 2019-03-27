@@ -432,3 +432,54 @@ def test_experiments_search_json_get(api_client, db, create_record):
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
+
+
+def test_conferences_application_json_get(api_client, db, create_record):
+    record = create_record("con", with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    response = api_client.get(f"/conferences/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_conferences_application_json_put(api_client, db, create_record):
+    record = create_record("con", with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 401
+    response = api_client.put(f"/conferences/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_conferences_application_json_delete(api_client, db, create_record):
+    record = create_record("con", with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 401
+    response = api_client.delete(f"/conferences/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_conferences_application_json_post(api_client, db):
+    expected_status_code = 401
+    response = api_client.post("/conferences/")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_conferences_search_json_get(api_client, db, create_record):
+    create_record("con", with_indexing=True)
+
+    expected_status_code = 200
+    response = api_client.get("/conferences/")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
