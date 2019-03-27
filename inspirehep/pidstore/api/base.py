@@ -6,14 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-import abc
-from collections import namedtuple
-
 import six
 from flask import current_app
-
-from ..errors import MissingSchema
-from ..providers.recid import InspireRecordIdProvider
 
 
 class PidStoreBase(object):

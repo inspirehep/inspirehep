@@ -7,7 +7,6 @@
 
 from elasticsearch_dsl.query import Q, Range
 from flask import current_app, request
-from invenio_records_rest.facets import range_filter
 
 
 def range_author_count_filter(field):

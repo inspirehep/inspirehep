@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
 import logging
 from os import makedirs, path
 from time import sleep
@@ -26,7 +25,6 @@ logger = logging.getLogger()
 @click.group()
 def inspire_indexer():
     """Group for indexer commands"""
-    pass
 
 
 def next_batch(iterator, batch_size):

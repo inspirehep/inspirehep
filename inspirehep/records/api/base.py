@@ -650,7 +650,6 @@ class InspireRecord(Record):
                     key = self._download_file_from_local_storage(_url)
             except FileNotFoundError:
                 logger.warning(f"Cannot copy from local storage'{url}'!")
-                pass
         if not key:
             for _url in urls:
                 try:
@@ -659,7 +658,6 @@ class InspireRecord(Record):
                         key = self._download_file_from_url(_url)
                 except ResourceNotFoundError:
                     logger.warning(f"Cannot Download '{url}'!")
-                    pass
         return key
 
     def _add_file(self, url, original_url=None, filename=None, **kwargs):

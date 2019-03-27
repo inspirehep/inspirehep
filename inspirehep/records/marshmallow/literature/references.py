@@ -7,9 +7,9 @@
 
 from inspire_dojson.utils import strip_empty_values
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
-from marshmallow import Schema, fields, post_dump, pre_dump
+from marshmallow import Schema, fields, post_dump
 
-from ..fields import ListWithLimit, NestedWithoutEmptyObjects
+from ..fields import NestedWithoutEmptyObjects
 from .common import ReferenceItemSchemaV1
 
 
