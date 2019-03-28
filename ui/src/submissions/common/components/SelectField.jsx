@@ -22,10 +22,12 @@ class SelectField extends Component {
   }
 
   render() {
-    const { value, ...otherProps } = this.props;
+    const { value, mode, ...otherProps } = this.props;
     return (
       <SelectBox
         {...otherProps}
+        mode={mode}
+        data-test-type={`${mode || 'single'}-select`}
         defaultValue={value}
         onBlur={this.onBlur}
         onChange={this.onChange}

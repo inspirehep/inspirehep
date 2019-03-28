@@ -1,6 +1,6 @@
 const { ResponseInterceptor } = require('../../utils/interceptors');
 const { login } = require('../../utils/user');
-const { submitForm, waitForSubmissionSuccess } = require('../../utils/dom');
+const { FormSubmitter } = require('../../utils/form');
 const routes = require('../../utils/routes');
 
 describe('author submissions', () => {
@@ -12,13 +12,20 @@ describe('author submissions', () => {
     await page.goto(routes.AUTHOR_SUBMISSION);
 
     const interceptor = new ResponseInterceptor(page);
-
-    await submitForm(page, {
+    const formSubmitter = new FormSubmitter(page);
+    await formSubmitter.submit({
       given_name: 'Diego',
       family_name: 'Martínez Santos',
       display_name: 'Diego Martínez',
+      status: 'retired',
+      arxiv_categories: ['hep-ex', 'hep-ph'],
+      emails: [
+        { value: 'private@martinez.ch', hidden: true },
+        { value: 'public@martinez.ch' },
+      ],
     });
-    await waitForSubmissionSuccess(page);
+
+    await formSubmitter.waitForSubmissionSuccess();
 
     const submitResponse = interceptor.getFirstResponseByUrl(
       routes.AUTHOR_SUBMISSION_API
@@ -27,20 +34,22 @@ describe('author submissions', () => {
     const workflowResponse = await page.goto(
       `${routes.HOLDINGPEN_API}/${submitResponseJson.workflow_object_id}`
     );
-    const workflowJson = await workflowResponse.json();
+    const { metadata, _workflow } = await workflowResponse.json();
 
     // TODO: implement a partial object matcher to avoid multiple expects
-    expect(workflowJson.metadata.name).toEqual({
+    expect(_workflow.data_type).toEqual('authors');
+
+    expect(metadata.name).toEqual({
       preferred_name: 'Diego Martínez',
       value: 'Martínez Santos, Diego',
     });
-    expect(workflowJson.metadata.acquisition_source.email).toEqual(
-      'admin@inspirehep.net'
-    );
-    expect(workflowJson.metadata.acquisition_source.method).toEqual(
-      'submitter'
-    );
-
-    expect(workflowJson._workflow.data_type).toEqual('authors');
+    expect(metadata.acquisition_source.email).toEqual('admin@inspirehep.net');
+    expect(metadata.acquisition_source.method).toEqual('submitter');
+    expect(metadata.arxiv_categories).toEqual(['hep-ex', 'hep-ph']);
+    expect(metadata.email_addresses).toEqual([
+      { value: 'private@martinez.ch', hidden: true },
+      { value: 'public@martinez.ch' },
+    ]);
+    expect(metadata.status).toEqual('retired');
   });
 });

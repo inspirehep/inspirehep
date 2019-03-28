@@ -7,9 +7,8 @@
     "jest": true
   },
   "globals": {
-    "page": true,
     "browser": true,
-    "document": true,
+    "document": true
   },
   "rules": {
     "no-underscore-dangle": "off",

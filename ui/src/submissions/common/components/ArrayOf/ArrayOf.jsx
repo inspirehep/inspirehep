@@ -59,7 +59,11 @@ class ArrayOf extends Component {
                 wrapperCol={{ span: 24 - labelCol.span, push: labelCol.span }}
                 className="add-button"
               >
-                <Button type="dashed" onClick={() => push(emptyItem)}>
+                <Button
+                  data-test-id={`${name}-add-item`}
+                  type="dashed"
+                  onClick={() => push(emptyItem)}
+                >
                   <Icon type="plus" /> Add new field
                 </Button>
               </Form.Item>
