@@ -42,3 +42,8 @@ class ConferencesMinter(ControlNumberMinter):
 class DataMinter(ControlNumberMinter):
     pid_type = "dat"
     provider = "recid"
+
+
+class InstitutionsMinter(ControlNumberMinter):
+    pid_type = "ins"
+    provider = "recid"

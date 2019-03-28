@@ -94,6 +94,13 @@ class RecordProvider(BaseProvider):
         }
 
     @staticmethod
+    def institutions_record():
+        return {
+            "$schema": "http://localhost:5000/schemas/records/institutions.json",
+            "_collections": ["Institutions"],
+        }
+
+    @staticmethod
     def add_citations(citation_records):
         data = []
         for record in citation_records:
@@ -124,6 +131,8 @@ class RecordProvider(BaseProvider):
             record = self.conference_record()
         elif record_type == "dat":
             record = self.data_record()
+        elif record_type == "ins":
+            record = self.institutions_record()
 
         if with_control_number:
             record["control_number"] = self.control_number()

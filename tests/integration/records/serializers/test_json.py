@@ -525,3 +525,45 @@ def test_data_default_json_v1_response_search(api_client, db, create_record, dat
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_hits_metadata
+
+
+def test_institutions_default_json_v1_response(api_client, db, create_record, datadir):
+    headers = {"Accept": "application/json"}
+
+    data = json.loads((datadir / "902852.json").read_text())
+
+    record = create_record("ins", data=data)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    expected_result = deepcopy(record.json)
+    response = api_client.get(f"/institutions/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+def test_institutions_default_json_v1_response_search(
+    api_client, db, create_record, datadir
+):
+    headers = {"Accept": "application/json"}
+
+    data = json.loads((datadir / "902852.json").read_text())
+
+    record = create_record("ins", data=data, with_indexing=True)
+
+    expected_status_code = 200
+    expected_result = deepcopy(record.json)
+    response = api_client.get("/institutions/", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_hits_metadata

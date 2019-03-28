@@ -14,6 +14,7 @@ from inspirehep.records.api import (
     DataRecord,
     ExperimentsRecord,
     InspireRecord,
+    InstitutionsRecord,
     JobsRecord,
     JournalsRecord,
     LiteratureRecord,
@@ -174,6 +175,7 @@ def test_get_subclasses_from_inspire_records():
         "exp": ExperimentsRecord,
         "con": ConferencesRecord,
         "dat": DataRecord,
+        "ins": InstitutionsRecord,
     }
     subclasses = InspireRecord.get_subclasses()
 
@@ -247,6 +249,7 @@ def test_get_subclasses():
         "exp": ExperimentsRecord,
         "con": ConferencesRecord,
         "dat": DataRecord,
+        "ins": InstitutionsRecord,
     }
 
     assert subclasses == expected_subclasses

@@ -12,6 +12,7 @@ from .base import PidStoreBase
 from .conferences import PidStoreConferences
 from .data import PidStoreData
 from .experiments import PidStoreExperiments
+from .institutions import PidStoreInstitutions
 from .jobs import PidStoreJobs
 from .journals import PidStoreJournals
 from .literature import PidStoreLiterature
