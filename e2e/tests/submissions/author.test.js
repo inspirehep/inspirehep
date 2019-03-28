@@ -23,6 +23,7 @@ describe('author submissions', () => {
         { value: 'private@martinez.ch', hidden: true },
         { value: 'public@martinez.ch' },
       ],
+      positions: [{ institution: 'CERN', start_date: '2015', current: true }],
     });
 
     await formSubmitter.waitForSubmissionSuccess();
@@ -51,5 +52,13 @@ describe('author submissions', () => {
       { value: 'public@martinez.ch' },
     ]);
     expect(metadata.status).toEqual('retired');
+    expect(metadata.positions).toEqual([
+      {
+        curated_relation: false,
+        current: true,
+        institution: 'CERN',
+        start_date: '2015',
+      },
+    ]);
   });
 });
