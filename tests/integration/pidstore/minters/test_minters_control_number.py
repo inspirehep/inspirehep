@@ -13,6 +13,7 @@ from inspirehep.pidstore.minters.control_number import (
     ConferencesMinter,
     DataMinter,
     ExperimentsMinter,
+    InstitutionsMinter,
     JobsMinter,
     JournalsMinter,
     LiteratureMinter,
@@ -248,6 +249,42 @@ def test_control_number_data_without_control_number(base_app, db, create_record)
 
     expected_pid_value = str(data["control_number"])
     expected_pid_type = "dat"
+    expected_pid_object_uuid = record.id
+
+    result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
+
+    assert expected_pid_type == result_pid.pid_type
+    assert expected_pid_value == result_pid.pid_value
+    assert expected_pid_object_uuid == result_pid.object_uuid
+
+
+def test_control_number_institutions_with_control_number(base_app, db, create_record):
+    data = {"control_number": 1}
+    record = create_record("ins", data=data, with_pid=False)
+    data = record.json
+
+    InstitutionsMinter.mint(record.id, data)
+    expected_pid_value = str(data["control_number"])
+    expected_pid_type = "ins"
+    expected_pid_object_uuid = record.id
+
+    result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
+
+    assert expected_pid_type == result_pid.pid_type
+    assert expected_pid_value == result_pid.pid_value
+    assert expected_pid_object_uuid == result_pid.object_uuid
+
+
+def test_control_number_institutions_without_control_number(
+    base_app, db, create_record
+):
+    record = create_record("ins", with_pid=False)
+    data = record.json
+
+    InstitutionsMinter.mint(record.id, data)
+
+    expected_pid_value = str(data["control_number"])
+    expected_pid_type = "ins"
     expected_pid_object_uuid = record.id
 
     result_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
