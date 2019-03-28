@@ -52,14 +52,19 @@ export default function withFormItem(FormInputComponent) {
       return (
         <Form.Item
           className={classNames({ 'mb4-important': onlyChild })}
-          hasFeedback={Boolean(errorMessage)}
+          hasFeedback={hasError}
           validateStatus={hasError ? 'error' : ''}
           help={errorMessage}
           label={label}
           labelCol={label ? labelCol : null}
           wrapperCol={onlyChild ? this.getWrapperColForOnlyChild() : wrapperCol}
         >
-          <FormInputComponent {...field} {...props} form={form} />
+          <FormInputComponent
+            data-test-id={field.name}
+            {...field}
+            {...props}
+            form={form}
+          />
           {suffixText && <span className="ant-form-text">{suffixText}</span>}
         </Form.Item>
       );

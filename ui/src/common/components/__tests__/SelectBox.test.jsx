@@ -20,6 +20,22 @@ describe('SelectBox', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('render initial state with data-test-id', () => {
+    const options = [
+      { value: 'value1', display: 'Value 1' },
+      { value: 'value2', display: 'Value 2' },
+    ];
+    const wrapper = shallow(
+      <SelectBox
+        data-test-id="test-select"
+        defaultValue={options[0].value}
+        onChange={jest.fn()}
+        options={options}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('calls onChange when select change', () => {
     const options = [
       { value: 'value1', display: 'Value 1' },

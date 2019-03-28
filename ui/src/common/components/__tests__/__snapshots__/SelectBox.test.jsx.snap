@@ -10,14 +10,39 @@ exports[`SelectBox render initial state with all props set 1`] = `
   transitionName="slide-up"
 >
   <Option
-    data-test-id="select-option-value1"
     key="value1"
     value="value1"
   >
     Value 1
   </Option>
   <Option
-    data-test-id="select-option-value2"
+    key="value2"
+    value="value2"
+  >
+    Value 2
+  </Option>
+</Select>
+`;
+
+exports[`SelectBox render initial state with data-test-id 1`] = `
+<Select
+  choiceTransitionName="zoom"
+  data-test-id="test-select"
+  defaultValue="value1"
+  onChange={[MockFunction]}
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+>
+  <Option
+    data-test-id="test-select-option-value1"
+    key="value1"
+    value="value1"
+  >
+    Value 1
+  </Option>
+  <Option
+    data-test-id="test-select-option-value2"
     key="value2"
     value="value2"
   >

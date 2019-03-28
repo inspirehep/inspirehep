@@ -1,26 +1,15 @@
-const routes = require('./routes');
+const ID_ATTRIBUTE = 'data-test-id';
+const TYPE_ATTRIBUTE = 'data-test-type';
 
-async function submitForm(page, formData) {
-  const fieldNames = Object.keys(formData);
-  await page.waitFor(`[name=${fieldNames[0]}]`);
-  // see https://github.com/GoogleChrome/puppeteer/issues/1958 on why not `Promise.all(fieldNames.map...`
-  // eslint-disable-next-line no-restricted-syntax
-  for (const fieldName of fieldNames) {
-    await page.type(`[name=${fieldName}]`, formData[fieldName]); // eslint-disable-line no-await-in-loop
-  }
-  await page.click('body'); // to trigger blur form validation before submit
-  await page.click('button[type=submit]');
-}
-
-async function waitForSubmissionSuccess(page) {
-  await page.waitFor(
-    SUBMISSIONS_SUCCESS => document.location.href === SUBMISSIONS_SUCCESS,
-    {},
-    routes.SUBMISSIONS_SUCCESS
-  );
+async function selectFromSelectBox(page, selectId, value) {
+  await page.click(`[${ID_ATTRIBUTE}=${selectId}]`);
+  await page.click(`[${ID_ATTRIBUTE}=${selectId}-option-${value}]`);
+  await page.click('body');
+  await page.waitFor('.ant-select-dropdown-hidden');
 }
 
 module.exports = {
-  submitForm,
-  waitForSubmissionSuccess,
+  selectFromSelectBox,
+  ID_ATTRIBUTE,
+  TYPE_ATTRIBUTE,
 };
