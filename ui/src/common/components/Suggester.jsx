@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { AutoComplete } from 'antd';
+import { AutoComplete, Input } from 'antd';
 import debounce from 'lodash.debounce';
 
 import http from '../http';
@@ -39,8 +39,22 @@ class Suggester extends Component {
     return responseData[suggesterName][0].options;
   }
 
-  render() {
+  renderSuggestions() {
     const { results } = this.state;
+    const { renderResultItem, extractItemCompletionValue } = this.props;
+    return results.map(result => (
+      <AutoComplete.Option
+        key={extractItemCompletionValue(result)}
+        value={extractItemCompletionValue(result)}
+      >
+        {renderResultItem
+          ? renderResultItem(result)
+          : extractItemCompletionValue(result)}
+      </AutoComplete.Option>
+    ));
+  }
+
+  render() {
     const {
       renderResultItem,
       extractItemCompletionValue,
@@ -48,22 +62,17 @@ class Suggester extends Component {
       pidType,
       ...autoCompleteProps
     } = this.props;
+
+    const dataTestId = autoCompleteProps['data-test-id'];
+    delete autoCompleteProps['data-test-id'];
     return (
       <AutoComplete
         {...autoCompleteProps}
         onSearch={this.onSearch}
+        dataSource={this.renderSuggestions()}
         optionLabelProp="value"
       >
-        {results.map(result => (
-          <AutoComplete.Option
-            key={extractItemCompletionValue(result)}
-            value={extractItemCompletionValue(result)}
-          >
-            {renderResultItem
-              ? renderResultItem(result)
-              : extractItemCompletionValue(result)}
-          </AutoComplete.Option>
-        ))}
+        <Input data-test-id={dataTestId} />
       </AutoComplete>
     );
   }

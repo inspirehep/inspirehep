@@ -3,30 +3,7 @@
 exports[`Suggester does not render results onSearch without waiting for debounce 1`] = `
 <AutoComplete
   choiceTransitionName="zoom"
-  filterOption={false}
-  onSearch={[Function]}
-  optionLabelProp="value"
-  prefixCls="ant-select"
-  showSearch={false}
-  transitionName="slide-up"
-/>
-`;
-
-exports[`Suggester renders empty if request fails 1`] = `
-<AutoComplete
-  choiceTransitionName="zoom"
-  filterOption={false}
-  onSearch={[Function]}
-  optionLabelProp="value"
-  prefixCls="ant-select"
-  showSearch={false}
-  transitionName="slide-up"
-/>
-`;
-
-exports[`Suggester renders results onSearch 1`] = `
-<AutoComplete
-  choiceTransitionName="zoom"
+  dataSource={Array []}
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
@@ -34,24 +11,82 @@ exports[`Suggester renders results onSearch 1`] = `
   showSearch={false}
   transitionName="slide-up"
 >
-  <Option
-    key="Result 1"
-    value="Result 1"
-  >
-    Result 1
-  </Option>
-  <Option
-    key="Result 2"
-    value="Result 2"
-  >
-    Result 2
-  </Option>
+  <Input
+    disabled={false}
+    prefixCls="ant-input"
+    type="text"
+  />
+</AutoComplete>
+`;
+
+exports[`Suggester renders empty if request fails 1`] = `
+<AutoComplete
+  choiceTransitionName="zoom"
+  dataSource={Array []}
+  filterOption={false}
+  onSearch={[Function]}
+  optionLabelProp="value"
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+>
+  <Input
+    disabled={false}
+    prefixCls="ant-input"
+    type="text"
+  />
+</AutoComplete>
+`;
+
+exports[`Suggester renders results onSearch 1`] = `
+<AutoComplete
+  choiceTransitionName="zoom"
+  dataSource={
+    Array [
+      <Option
+        value="Result 1"
+      >
+        Result 1
+      </Option>,
+      <Option
+        value="Result 2"
+      >
+        Result 2
+      </Option>,
+    ]
+  }
+  filterOption={false}
+  onSearch={[Function]}
+  optionLabelProp="value"
+  prefixCls="ant-select"
+  showSearch={false}
+  transitionName="slide-up"
+>
+  <Input
+    disabled={false}
+    prefixCls="ant-input"
+    type="text"
+  />
 </AutoComplete>
 `;
 
 exports[`Suggester renders results with custom completion value 1`] = `
 <AutoComplete
   choiceTransitionName="zoom"
+  dataSource={
+    Array [
+      <Option
+        value="Result 1 - Extra 1"
+      >
+        Result 1 - Extra 1
+      </Option>,
+      <Option
+        value="Result 2 - Extra 2"
+      >
+        Result 2 - Extra 2
+      </Option>,
+    ]
+  }
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
@@ -59,24 +94,43 @@ exports[`Suggester renders results with custom completion value 1`] = `
   showSearch={false}
   transitionName="slide-up"
 >
-  <Option
-    key="Result 1 - Extra 1"
-    value="Result 1 - Extra 1"
-  >
-    Result 1 - Extra 1
-  </Option>
-  <Option
-    key="Result 2 - Extra 2"
-    value="Result 2 - Extra 2"
-  >
-    Result 2 - Extra 2
-  </Option>
+  <Input
+    disabled={false}
+    prefixCls="ant-input"
+    type="text"
+  />
 </AutoComplete>
 `;
 
 exports[`Suggester renders results with custom result template 1`] = `
 <AutoComplete
   choiceTransitionName="zoom"
+  dataSource={
+    Array [
+      <Option
+        value="Result 1"
+      >
+        <span>
+          Result 1
+           
+          <em>
+            Extra 1
+          </em>
+        </span>
+      </Option>,
+      <Option
+        value="Result 2"
+      >
+        <span>
+          Result 2
+           
+          <em>
+            Extra 2
+          </em>
+        </span>
+      </Option>,
+    ]
+  }
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
@@ -84,29 +138,10 @@ exports[`Suggester renders results with custom result template 1`] = `
   showSearch={false}
   transitionName="slide-up"
 >
-  <Option
-    key="Result 1"
-    value="Result 1"
-  >
-    <span>
-      Result 1
-       
-      <em>
-        Extra 1
-      </em>
-    </span>
-  </Option>
-  <Option
-    key="Result 2"
-    value="Result 2"
-  >
-    <span>
-      Result 2
-       
-      <em>
-        Extra 2
-      </em>
-    </span>
-  </Option>
+  <Input
+    disabled={false}
+    prefixCls="ant-input"
+    type="text"
+  />
 </AutoComplete>
 `;
