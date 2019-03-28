@@ -164,39 +164,21 @@ PIDSTORE_RECID_FIELD = "control_number"
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
 # /literature endpoints
-LITERATURE = {
-    "pid_type": "lit",
-    "pid_minter": "literature_minter",
+RECORD = {
     "pid_fetcher": "recid",
     "default_endpoint_prefix": True,
-    "search_class": LiteratureSearch,
     # XXX decide about the links
     "links_factory_imp": lambda links: {},
     "indexer_class": RecordIndexer,
     "search_type": None,
     "search_factory_imp": "inspirehep.search.factories.search:search_factory_without_aggs",
-    "search_index": "records-hep",
+    "default_media_type": "application/json",
     "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response",
-        "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response",
-        "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
-        "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_eu",
-        "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_us",
+        "application/json": "invenio_records_rest.serializers:json_v1_response"
     },
     "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search",
-        "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response_search",
-        "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search",
-        # NOTE: the don't work for search results, doesn't make sense to eanble them
-        # "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_eu",
-        # "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_us",
+        "application/json": "invenio_records_rest.serializers:json_v1_search"
     },
-    "record_loaders": {
-        "application/json": "inspirehep.records.loaders:literature_json_v1"
-    },
-    "list_route": "/literature/",
-    "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
-    "default_media_type": "application/json",
     "max_result_window": 10000,
     "error_handlers": dict(),
     "create_permission_factory_imp": deny_all,
@@ -205,6 +187,36 @@ LITERATURE = {
     "delete_permission_factory_imp": deny_all,
     "list_permission_factory_imp": allow_all,
 }
+
+LITERATURE = deepcopy(RECORD)
+LITERATURE.update(
+    {
+        "pid_type": "lit",
+        "pid_minter": "literature_minter",
+        "search_class": LiteratureSearch,
+        "search_index": "records-hep",
+        "record_serializers": {
+            "application/json": "invenio_records_rest.serializers:json_v1_response",
+            "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response",
+            "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
+            "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_eu",
+            "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_us",
+        },
+        "search_serializers": {
+            "application/json": "invenio_records_rest.serializers:json_v1_search",
+            "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response_search",
+            "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search",
+            # NOTE: the don't work for search results, doesn't make sense to eanble them
+            # "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_eu",
+            # "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_us",
+        },
+        "record_loaders": {
+            "application/json": "inspirehep.records.loaders:literature_json_v1"
+        },
+        "list_route": "/literature/",
+        "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+    }
+)
 LITERATURE_FACETS = deepcopy(LITERATURE)
 LITERATURE_FACETS.update(
     {
@@ -266,45 +278,36 @@ DOI.update(
     }
 )
 
-AUTHORS = {
-    "default_endpoint_prefix": True,
-    "pid_type": "aut",
-    "pid_fetcher": "recid",
-    "pid_minter": "authors_minter",
-    "search_class": "inspirehep.search.api:AuthorsSearch",
-    "links_factory_imp": lambda links: {},
-    "indexer_class": RecordIndexer,
-    "search_type": None,
-    "search_index": "records-authors",
-    "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response",
-        "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-        + ":authors_json_v1_response",
-        "application/vnd+inspire.record.control_number+json": INSPIRE_SERIALIZERS
-        + ":authors_control_number_only_json_v1_response",
-    },
-    "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search",
-        "application/vnd+inspire.record.ui+json": "invenio_records_rest.serializers:json_v1_search",
-    },
-    "suggesters": {
-        "author": {
-            "_source": ["name", "control_number", "self"],
-            "completion": {"field": "author_suggest"},
-        }
-    },
-    "list_route": "/authors/",
-    "item_route": '/authors/<pid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
-    "default_media_type": "application/json",
-    "max_result_window": 10000,
-    "record_class": "inspirehep.records.api:AuthorsRecord",
-    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-    "create_permission_factory_imp": deny_all,
-    "read_permission_factory_imp": allow_all,
-    "update_permission_factory_imp": deny_all,
-    "delete_permission_factory_imp": deny_all,
-    "list_permission_factory_imp": allow_all,
-}
+AUTHORS = deepcopy(RECORD)
+AUTHORS.update(
+    {
+        "pid_type": "aut",
+        "pid_minter": "authors_minter",
+        "search_class": "inspirehep.search.api:AuthorsSearch",
+        "search_index": "records-authors",
+        "record_serializers": {
+            "application/json": "invenio_records_rest.serializers:json_v1_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":authors_json_v1_response",
+            "application/vnd+inspire.record.control_number+json": INSPIRE_SERIALIZERS
+            + ":authors_control_number_only_json_v1_response",
+        },
+        "search_serializers": {
+            "application/json": "invenio_records_rest.serializers:json_v1_search",
+            "application/vnd+inspire.record.ui+json": "invenio_records_rest.serializers:json_v1_search",
+        },
+        "suggesters": {
+            "author": {
+                "_source": ["name", "control_number", "self"],
+                "completion": {"field": "author_suggest"},
+            }
+        },
+        "list_route": "/authors/",
+        "item_route": '/authors/<pid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:AuthorsRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    }
+)
 
 AUTHORS_ORCID = deepcopy(AUTHORS)
 AUTHORS_ORCID.update(
@@ -314,179 +317,89 @@ AUTHORS_ORCID.update(
     }
 )
 
-JOBS = {
-    "default_endpoint_prefix": True,
-    "pid_type": "job",
-    "pid_fetcher": "recid",
-    "pid_minter": "jobs_minter",
-    "search_class": "inspirehep.search.api:JobsSearch",
-    "links_factory_imp": lambda links: {},
-    "indexer_class": RecordIndexer,
-    "search_type": None,
-    "search_index": "records-jobs",
-    "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response"
-    },
-    "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search"
-    },
-    "list_route": "/jobs/",
-    "item_route": '/jobs/<pid(job,record_class="inspirehep.records.api:JobsRecord"):pid_value>',
-    "default_media_type": "application/json",
-    "max_result_window": 10000,
-    "record_class": "inspirehep.records.api:JobsRecord",
-    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-    "create_permission_factory_imp": deny_all,
-    "read_permission_factory_imp": allow_all,
-    "update_permission_factory_imp": deny_all,
-    "delete_permission_factory_imp": deny_all,
-    "list_permission_factory_imp": allow_all,
-}
+JOBS = deepcopy(RECORD)
+JOBS.update(
+    {
+        "pid_type": "job",
+        "pid_minter": "jobs_minter",
+        "search_class": "inspirehep.search.api:JobsSearch",
+        "search_index": "records-jobs",
+        "list_route": "/jobs/",
+        "item_route": '/jobs/<pid(job,record_class="inspirehep.records.api:JobsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:JobsRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    }
+)
 
-JOURNALS = {
-    "default_endpoint_prefix": True,
-    "pid_type": "jou",
-    "pid_fetcher": "recid",
-    "pid_minter": "journals_minter",
-    "search_class": "inspirehep.search.api:JournalsSearch",
-    "links_factory_imp": lambda links: {},
-    "indexer_class": RecordIndexer,
-    "search_type": None,
-    "search_index": "records-journals",
-    "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response"
-    },
-    "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search"
-    },
-    "list_route": "/journals/",
-    "item_route": '/journals/<pid(jou,record_class="inspirehep.records.api:JournalsRecord"):pid_value>',
-    "default_media_type": "application/json",
-    "max_result_window": 10000,
-    "record_class": "inspirehep.records.api:JournalsRecord",
-    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-    "create_permission_factory_imp": deny_all,
-    "read_permission_factory_imp": allow_all,
-    "update_permission_factory_imp": deny_all,
-    "delete_permission_factory_imp": deny_all,
-    "list_permission_factory_imp": allow_all,
-}
+JOURNALS = deepcopy(RECORD)
+JOURNALS.update(
+    {
+        "pid_type": "jou",
+        "pid_minter": "journals_minter",
+        "search_class": "inspirehep.search.api:JournalsSearch",
+        "search_index": "records-journals",
+        "list_route": "/journals/",
+        "item_route": '/journals/<pid(jou,record_class="inspirehep.records.api:JournalsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:JournalsRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    }
+)
 
-EXPERIMENTS = {
-    "default_endpoint_prefix": True,
-    "pid_type": "exp",
-    "pid_fetcher": "recid",
-    "pid_minter": "experiments_minter",
-    "search_class": "inspirehep.search.api:ExperimentsSearch",
-    "links_factory_imp": lambda links: {},
-    "indexer_class": RecordIndexer,
-    "search_type": None,
-    "search_index": "records-experiments",
-    "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response"
-    },
-    "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search"
-    },
-    "list_route": "/experiments/",
-    "item_route": '/experiments/<pid(exp,record_class="inspirehep.records.api:ExperimentsRecord"):pid_value>',
-    "default_media_type": "application/json",
-    "max_result_window": 10000,
-    "record_class": "inspirehep.records.api:ExperimentsRecord",
-    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-    "create_permission_factory_imp": deny_all,
-    "read_permission_factory_imp": allow_all,
-    "update_permission_factory_imp": deny_all,
-    "delete_permission_factory_imp": deny_all,
-    "list_permission_factory_imp": allow_all,
-}
+EXPERIMENTS = deepcopy(RECORD)
+EXPERIMENTS.update(
+    {
+        "pid_type": "exp",
+        "pid_minter": "experiments_minter",
+        "search_class": "inspirehep.search.api:ExperimentsSearch",
+        "search_index": "records-experiments",
+        "list_route": "/experiments/",
+        "item_route": '/experiments/<pid(exp,record_class="inspirehep.records.api:ExperimentsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:ExperimentsRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    }
+)
 
-CONFERENCES = {
-    "default_endpoint_prefix": True,
-    "pid_type": "con",
-    "pid_fetcher": "recid",
-    "pid_minter": "conferences_minter",
-    "search_class": "inspirehep.search.api:ConferencesSearch",
-    "links_factory_imp": lambda links: {},
-    "indexer_class": RecordIndexer,
-    "search_type": None,
-    "search_index": "records-conferences",
-    "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response"
-    },
-    "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search"
-    },
-    "list_route": "/conferences/",
-    "item_route": '/conferences/<pid(con,record_class="inspirehep.records.api:ConferencesRecord"):pid_value>',
-    "default_media_type": "application/json",
-    "max_result_window": 10000,
-    "record_class": "inspirehep.records.api:ConferencesRecord",
-    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-    "create_permission_factory_imp": deny_all,
-    "read_permission_factory_imp": allow_all,
-    "update_permission_factory_imp": deny_all,
-    "delete_permission_factory_imp": deny_all,
-    "list_permission_factory_imp": allow_all,
-}
+CONFERENCES = deepcopy(RECORD)
+CONFERENCES.update(
+    {
+        "pid_type": "con",
+        "pid_minter": "conferences_minter",
+        "search_class": "inspirehep.search.api:ConferencesSearch",
+        "search_index": "records-conferences",
+        "list_route": "/conferences/",
+        "item_route": '/conferences/<pid(con,record_class="inspirehep.records.api:ConferencesRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:ConferencesRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    }
+)
 
-DATA = {
-    "default_endpoint_prefix": True,
-    "pid_type": "dat",
-    "pid_fetcher": "recid",
-    "pid_minter": "data_minter",
-    "search_class": "inspirehep.search.api:DataSearch",
-    "links_factory_imp": lambda links: {},
-    "indexer_class": RecordIndexer,
-    "search_type": None,
-    "search_index": "records-data",
-    "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response"
-    },
-    "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search"
-    },
-    "list_route": "/data/",
-    "item_route": '/data/<pid(dat,record_class="inspirehep.records.api:DataRecord"):pid_value>',
-    "default_media_type": "application/json",
-    "max_result_window": 10000,
-    "record_class": "inspirehep.records.api:DataRecord",
-    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-    "create_permission_factory_imp": deny_all,
-    "read_permission_factory_imp": allow_all,
-    "update_permission_factory_imp": deny_all,
-    "delete_permission_factory_imp": deny_all,
-    "list_permission_factory_imp": allow_all,
-}
+DATA = deepcopy(RECORD)
+DATA.update(
+    {
+        "pid_type": "dat",
+        "pid_minter": "data_minter",
+        "search_class": "inspirehep.search.api:DataSearch",
+        "search_index": "records-data",
+        "list_route": "/data/",
+        "item_route": '/data/<pid(dat,record_class="inspirehep.records.api:DataRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:DataRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    }
+)
 
-INSTITUTIONS = {
-    "default_endpoint_prefix": True,
-    "pid_type": "ins",
-    "pid_fetcher": "recid",
-    "pid_minter": "institutions_minter",
-    "search_class": "inspirehep.search.api:InstitutionsSearch",
-    "links_factory_imp": lambda links: {},
-    "indexer_class": RecordIndexer,
-    "search_type": None,
-    "search_index": "records-institutions",
-    "record_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_response"
-    },
-    "search_serializers": {
-        "application/json": "invenio_records_rest.serializers:json_v1_search"
-    },
-    "list_route": "/institutions/",
-    "item_route": '/institutions/<pid(ins,record_class="inspirehep.records.api:InstitutionsRecord"):pid_value>',
-    "default_media_type": "application/json",
-    "max_result_window": 10000,
-    "record_class": "inspirehep.records.api:InstitutionsRecord",
-    "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-    "create_permission_factory_imp": deny_all,
-    "read_permission_factory_imp": allow_all,
-    "update_permission_factory_imp": deny_all,
-    "delete_permission_factory_imp": deny_all,
-    "list_permission_factory_imp": allow_all,
-}
+INSTITUTIONS = deepcopy(RECORD)
+INSTITUTIONS.update(
+    {
+        "pid_type": "ins",
+        "pid_minter": "institutions_minter",
+        "search_class": "inspirehep.search.api:InstitutionsSearch",
+        "search_index": "records-institutions",
+        "list_route": "/institutions/",
+        "item_route": '/institutions/<pid(ins,record_class="inspirehep.records.api:InstitutionsRecord"):pid_value>',
+        "record_class": "inspirehep.records.api:InstitutionsRecord",
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+    }
+)
 
 RECORDS_REST_ENDPOINTS = {
     "literature": LITERATURE,
