@@ -203,7 +203,7 @@ def test_update_author(app, api_client, create_user, requests_mock):
 @patch("inspirehep.submissions.views.current_user", email="johndoe@gmail.com")
 @patch("inspirehep.submissions.views.current_user.get_id", return_value=1)
 @patch(
-    "inspirehep.submissions.views.AuthorSubmissionsResource." "_get_user_orcid",
+    "inspirehep.submissions.views.BaseSubmissionsResource.get_user_orcid",
     return_value=2,
 )
 def test_populate_and_serialize_data_for_submission(
@@ -228,13 +228,13 @@ def test_populate_and_serialize_data_for_submission(
     assert data == expected
 
 
-def test_new_literature_submit(app, api_client, create_user_and_token, requests_mock):
+def test_new_literature_submit(app, api_client, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
         json={"workflow_object_id": 30},
     )
-    token = create_user_and_token()
-    headers = {"Authorization": "BEARER " + token.access_token}
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
     response = api_client.post(
         "/submissions/literature",
         content_type="application/json",
@@ -250,7 +250,6 @@ def test_new_literature_submit(app, api_client, create_user_and_token, requests_
                 }
             }
         ),
-        headers=headers,
     )
     assert response.status_code == 200
     assert requests_mock.call_count == 1
@@ -262,6 +261,8 @@ def test_new_literature_submit(app, api_client, create_user_and_token, requests_
         == history.headers["Authorization"]
     )
     assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    assert "datetime" in post_data["data"]["acquisition_source"]
+    del post_data["data"]["acquisition_source"]["datetime"]
     assert post_data == {
         "data": {
             "_collections": ["Literature"],
@@ -270,6 +271,11 @@ def test_new_literature_submit(app, api_client, create_user_and_token, requests_
             "authors": [{"full_name": "Urhan, Harun"}],
             "titles": [{"title": "Discovery of cool stuff", "source": "submitter"}],
             "inspire_categories": [{"term": "Other"}],
+            "acquisition_source": {
+                "email": user.email,
+                "method": "submitter",
+                "internal_uid": user.id,
+            },
         },
         "form_data": {"url": "https://cern.ch/coolstuff.pdf", "references": "[1] Dude"},
     }
