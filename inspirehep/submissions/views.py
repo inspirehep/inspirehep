@@ -23,20 +23,48 @@ from .utils import get_record_from_legacy
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
 
-def send_post_request_to_inspire_next(endpoint, data):
-    headers = {
-        "content-type": "application/json",
-        "Authorization": f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}",
-    }
-    response = requests.post(
-        f"{current_app.config['INSPIRE_NEXT_URL']}{endpoint}",
-        data=json.dumps(data),
-        headers=headers,
-    )
-    return response
+class BaseSubmissionsResource(MethodView):
+    def send_post_request_to_inspire_next(self, endpoint, data):
+        headers = {
+            "content-type": "application/json",
+            "Authorization": f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}",
+        }
+        response = requests.post(
+            f"{current_app.config['INSPIRE_NEXT_URL']}{endpoint}",
+            data=json.dumps(data),
+            headers=headers,
+        )
+        return response
+
+    def get_acquisition_source(self):
+        acquisition_source = dict(
+            email=current_user.email,
+            datetime=datetime.datetime.utcnow().isoformat(),
+            method="submitter",
+            internal_uid=int(current_user.get_id()),
+        )
+
+        orcid = self.get_user_orcid()
+        if orcid:
+            acquisition_source["orcid"] = orcid
+
+        return acquisition_source
+
+    def get_user_orcid(self):
+        try:
+            orcid = (
+                UserIdentity.query.filter_by(
+                    id_user=current_user.get_id(), method="orcid"
+                )
+                .one()
+                .id
+            )
+            return orcid
+        except NoResultFound:
+            return None
 
 
-class AuthorSubmissionsResource(MethodView):
+class AuthorSubmissionsResource(BaseSubmissionsResource):
 
     decorators = [login_required]
 
@@ -62,7 +90,7 @@ class AuthorSubmissionsResource(MethodView):
             submission_data, control_number
         )
         data = {"data": serialized_data}
-        response = send_post_request_to_inspire_next("/workflows/authors", data)
+        response = self.send_post_request_to_inspire_next("/workflows/authors", data)
 
         if response.status_code == 200:
             return response.content
@@ -72,16 +100,7 @@ class AuthorSubmissionsResource(MethodView):
     def populate_and_serialize_data_for_submission(
         self, submission_data, control_number=None
     ):
-        submission_data["acquisition_source"] = dict(
-            email=current_user.email,
-            datetime=datetime.datetime.utcnow().isoformat(),
-            method="submitter",
-            internal_uid=int(current_user.get_id()),
-        )
-
-        orcid = self._get_user_orcid()
-        if orcid:
-            submission_data["acquisition_source"]["orcid"] = orcid
+        submission_data["acquisition_source"] = self.get_acquisition_source()
 
         serialized_data = Author().load(submission_data).data
 
@@ -90,22 +109,8 @@ class AuthorSubmissionsResource(MethodView):
 
         return serialized_data
 
-    @staticmethod
-    def _get_user_orcid():
-        try:
-            orcid = (
-                UserIdentity.query.filter_by(
-                    id_user=current_user.get_id(), method="orcid"
-                )
-                .one()
-                .id
-            )
-            return orcid
-        except NoResultFound:
-            return None
 
-
-class LiteratureSubmissionResource(MethodView):
+class LiteratureSubmissionResource(BaseSubmissionsResource):
 
     decorators = [login_required]
 
@@ -115,12 +120,13 @@ class LiteratureSubmissionResource(MethodView):
 
     def start_workflow_for_submission(self, submission_data, control_number=None):
         serialized_data = Literature().load(submission_data).data
+        serialized_data["acquisition_source"] = self.get_acquisition_source()
         form_data = {
             "url": submission_data.get("pdf_link"),
             "references": submission_data.get("references"),
         }
         data = {"data": serialized_data, "form_data": form_data}
-        response = send_post_request_to_inspire_next("/workflows/literature", data)
+        response = self.send_post_request_to_inspire_next("/workflows/literature", data)
 
         if response.status_code == 200:
             return response.content
