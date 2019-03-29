@@ -49,6 +49,16 @@ describe('authorSchema', () => {
     done();
   });
 
+  it('validates when alternate_name is empty', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      alternate_name: '',
+    };
+    const isValid = await authorSchema.isValid(data);
+    expect(isValid).toBe(true);
+    done();
+  });
+
   it('validates when all top-level required fields without default are present', async done => {
     const isValid = await authorSchema.isValid(dataWithRequiredFields);
     expect(isValid).toBe(true);

@@ -11,6 +11,7 @@ from marshmallow import Schema, fields, missing, post_load, pre_dump
 
 
 class Author(Schema):
+    alternate_name = fields.Raw()
     display_name = fields.Raw()
     family_name = fields.Raw()
     given_name = fields.Raw()
@@ -39,6 +40,9 @@ class Author(Schema):
         family_name, given_name = self.get_name_split(data)
         return {
             "advisors": get_value(data, "advisors", default=missing),
+            "alternate_name": get_value(
+                data, "name.previous_names[0]", default=missing
+            ),
             "acquisition_source": get_value(
                 data, "acquisition_source", default=missing
             ),
@@ -124,6 +128,8 @@ class Author(Schema):
         family_name = data.get("family_name")
         full_name = self.get_full_name(family_name, given_name)
         author.set_name(full_name)
+        alternate_name = data.get("alternate_name")
+        author.add_previous_name(alternate_name)
 
         linkedin = data.get("linkedin")
         author.add_linkedin(linkedin)

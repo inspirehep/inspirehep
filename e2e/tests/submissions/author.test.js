@@ -17,6 +17,7 @@ describe('author submissions', () => {
       given_name: 'Diego',
       family_name: 'Martínez Santos',
       display_name: 'Diego Martínez',
+      alternate_name: 'Nobel Prize e2e 2019',
       status: 'retired',
       arxiv_categories: ['hep-ex', 'hep-ph'],
       emails: [
@@ -43,6 +44,7 @@ describe('author submissions', () => {
     expect(metadata.name).toEqual({
       preferred_name: 'Diego Martínez',
       value: 'Martínez Santos, Diego',
+      previous_names: ['Nobel Prize e2e 2019'],
     });
     expect(metadata.acquisition_source.email).toEqual('admin@inspirehep.net');
     expect(metadata.acquisition_source.method).toEqual('submitter');
