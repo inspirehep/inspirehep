@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Tag } from 'antd';
 import { Map } from 'immutable';
+
+import UnclickableTag from '../../../common/components/UnclickableTag';
 
 import './LiteratureKeyword.scss';
 
@@ -11,9 +12,9 @@ class LiteratureKeyword extends Component {
     const keywordValue = keyword.get('value');
 
     return (
-      <Tag className="__LiteratureKeyword__" color="blue">
+      <UnclickableTag className="__LiteratureKeyword__" color="blue">
         {keywordValue}
-      </Tag>
+      </UnclickableTag>
     );
   }
 }

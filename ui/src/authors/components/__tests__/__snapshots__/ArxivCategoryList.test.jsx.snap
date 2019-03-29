@@ -10,22 +10,16 @@ exports[`ArxivCategoryList renders arxiv categories 1`] = `
     <li
       key="hep-ex"
     >
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         hep-ex
-      </Tag>
+      </UnclickableTag>
     </li>
     <li
       key="hep-ph"
     >
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         hep-ph
-      </Tag>
+      </UnclickableTag>
     </li>
   </ul>
 </div>

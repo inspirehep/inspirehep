@@ -21,12 +21,9 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         1
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -45,12 +42,9 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
 </AggregationBox>
@@ -77,12 +71,9 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         1
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -101,12 +92,9 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
 </AggregationBox>
@@ -133,12 +121,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         1
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -157,12 +142,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -181,12 +163,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         3
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -205,12 +184,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         4
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -229,12 +205,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -253,12 +226,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -277,12 +247,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -301,12 +268,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -325,12 +289,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -349,12 +310,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -373,12 +331,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
 </AggregationBox>
@@ -405,12 +360,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         1
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -429,12 +381,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -453,12 +402,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         3
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -477,12 +423,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         4
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -501,12 +444,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -525,12 +465,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -549,12 +486,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -573,12 +507,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -597,12 +528,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <Row
@@ -621,12 +549,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
       </CheckboxItem>
     </Col>
     <Col>
-      <Tag
-        closable={false}
-        prefixCls="ant-tag"
-      >
+      <UnclickableTag>
         2
-      </Tag>
+      </UnclickableTag>
     </Col>
   </Row>
   <SecondaryButton

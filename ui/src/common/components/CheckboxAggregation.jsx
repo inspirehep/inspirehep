@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import { Col, Row, Tag } from 'antd';
+import { Col, Row } from 'antd';
 
+import UnclickableTag from './UnclickableTag';
 import CheckboxItem from './CheckboxItem';
 import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
@@ -105,7 +106,7 @@ class CheckboxAggregation extends Component {
           </CheckboxItem>
         </Col>
         <Col>
-          <Tag>{bucket.get('doc_count')}</Tag>
+          <UnclickableTag>{bucket.get('doc_count')}</UnclickableTag>
         </Col>
       </Row>
     );
@@ -116,9 +117,7 @@ class CheckboxAggregation extends Component {
     const { name, buckets } = this.props;
     return (
       <AggregationBox name={name}>
-        {buckets
-          .take(maxBucketCountToDisplay)
-          .map(this.renderBucket)}
+        {buckets.take(maxBucketCountToDisplay).map(this.renderBucket)}
         {this.renderShowMore()}
       </AggregationBox>
     );

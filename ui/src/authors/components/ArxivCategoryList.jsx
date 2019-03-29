@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Tag } from 'antd';
 
+import UnclickableTag from '../../common/components/UnclickableTag';
 import InlineList from '../../common/components/InlineList';
 
 class ArxivCategoryList extends Component {
   static renderArxivCategory(category) {
-    return <Tag>{category}</Tag>;
+    return <UnclickableTag>{category}</UnclickableTag>;
   }
 
   render() {

@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UnclickableTag renders with all props set 1`] = `
+<Tag
+  className="__UnclickableTag__ this-is-a-test-class"
+  closable={true}
+  color="blue"
+  prefixCls="ant-tag"
+  visible={true}
+>
+  This is a tag
+</Tag>
+`;
+
+exports[`UnclickableTag renders without props 1`] = `
+<Tag
+  className="__UnclickableTag__"
+  closable={false}
+  prefixCls="ant-tag"
+>
+  This is a tag
+</Tag>
+`;
