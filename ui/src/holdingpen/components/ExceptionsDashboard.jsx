@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Col, Row, Tag } from 'antd';
+import { Col, Row } from 'antd';
 import ExceptionsTable from './ExceptionsTable';
 import InlineList from '../../common/components/InlineList';
+
+import UnclickableTag from '../../common/components/UnclickableTag';
 import './ExceptionsDashboard.scss';
 
 class ExceptionsDashboard extends Component {
@@ -52,9 +54,9 @@ class ExceptionsDashboard extends Component {
             items={countEntriesByCollection}
             label="Collections"
             renderItem={([collectionName, collectionCount]) => (
-              <Tag className="space-around">
+              <UnclickableTag className="space-around">
                 {collectionCount} {collectionName}
-              </Tag>
+              </UnclickableTag>
             )}
           />
         </div>
