@@ -38,7 +38,7 @@ def test_literature_default_json_v1_search(api_client, db, create_record):
     expected_result = deepcopy(record.json)
     expected_result_len = 1
 
-    response = api_client.get("/literature/", headers=headers)
+    response = api_client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -83,7 +83,7 @@ def test_literature_json_v1_response_search(api_client, db, create_record):
 
     expected_status_code = 200
     expected_result = []
-    response = api_client.get("/literature/", headers=headers)
+    response = api_client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -308,9 +308,7 @@ def test_authors_default_json_v1_response_search(
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    response = api_client.get(
-        "/authors/".format(record_control_number), headers=headers
-    )
+    response = api_client.get("/authors".format(record_control_number), headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -350,7 +348,7 @@ def test_jobs_default_json_v1_response_search(api_client, db, create_record, dat
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    response = api_client.get("/jobs/", headers=headers)
+    response = api_client.get("/jobs", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -392,7 +390,7 @@ def test_journals_default_json_v1_response_search(
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    response = api_client.get("/journals/", headers=headers)
+    response = api_client.get("/journals", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -434,7 +432,7 @@ def test_experiments_default_json_v1_response_search(
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    response = api_client.get("/experiments/", headers=headers)
+    response = api_client.get("/experiments", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -476,7 +474,7 @@ def test_conferences_default_json_v1_response_search(
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    response = api_client.get("/conferences/", headers=headers)
+    response = api_client.get("/conferences", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -516,7 +514,7 @@ def test_data_default_json_v1_response_search(api_client, db, create_record, dat
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    response = api_client.get("/data/", headers=headers)
+    response = api_client.get("/data", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -558,7 +556,7 @@ def test_institutions_default_json_v1_response_search(
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    response = api_client.get("/institutions/", headers=headers)
+    response = api_client.get("/institutions", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
