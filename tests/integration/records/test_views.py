@@ -45,7 +45,7 @@ def test_literature_application_json_delete(api_client, db, create_record):
 
 def test_literature_application_json_post(api_client, db):
     expected_status_code = 401
-    response = api_client.post("/literature/")
+    response = api_client.post("/literature")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -163,7 +163,7 @@ def test_literature_citations_missing_pids(api_client, db, create_record):
 def test_literature_facets(api_client, db, create_record):
     record = create_record("lit")
 
-    response = api_client.get("/literature/facets/")
+    response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data.get("aggregations").keys())
@@ -224,7 +224,7 @@ def test_literature_facets_with_selected_facet(api_client, db, create_record):
 def test_literature_facets_author_count_does_not_have_empty_bucket(
     api_client, db, create_record
 ):
-    response = api_client.get("/literature/facets/")
+    response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
     assert author_count_agg["buckets"] == []
@@ -242,7 +242,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(
     create_record(
         "lit", data={"authors": [{"full_name": "Harun Urhan"}]}, with_indexing=True
     )
-    response = api_client.get("/literature/facets/")
+    response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
     buckets = author_count_agg["buckets"]
@@ -252,7 +252,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(
 
 def test_literature_facets_arxiv(api_client, db, create_record):
     record = create_record("lit", with_indexing=True)
-    response = api_client.get("/literature/facets/")
+    response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data["aggregations"].keys())
@@ -316,7 +316,7 @@ def test_jobs_application_json_delete(api_client, db, create_record):
 
 def test_jobs_application_json_post(api_client, db):
     expected_status_code = 401
-    response = api_client.post("/jobs/")
+    response = api_client.post("/jobs")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -326,7 +326,7 @@ def test_jobs_search_json_get(api_client, db, create_record):
     create_record("job", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/jobs/")
+    response = api_client.get("/jobs")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -367,7 +367,7 @@ def test_journals_application_json_delete(api_client, db, create_record):
 
 def test_journals_application_json_post(api_client, db):
     expected_status_code = 401
-    response = api_client.post("/journals/")
+    response = api_client.post("/journals")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -377,7 +377,7 @@ def test_journals_search_json_get(api_client, db, create_record):
     create_record("jou", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/journals/")
+    response = api_client.get("/journals")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -418,7 +418,7 @@ def test_experiments_application_json_delete(api_client, db, create_record):
 
 def test_experiments_application_json_post(api_client, db):
     expected_status_code = 401
-    response = api_client.post("/experiments/")
+    response = api_client.post("/experiments")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -428,7 +428,7 @@ def test_experiments_search_json_get(api_client, db, create_record):
     create_record("exp", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/experiments/")
+    response = api_client.get("/experiments")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -469,7 +469,7 @@ def test_conferences_application_json_delete(api_client, db, create_record):
 
 def test_conferences_application_json_post(api_client, db):
     expected_status_code = 401
-    response = api_client.post("/conferences/")
+    response = api_client.post("/conferences")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -479,7 +479,7 @@ def test_conferences_search_json_get(api_client, db, create_record):
     create_record("con", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/conferences/")
+    response = api_client.get("/conferences")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -520,7 +520,7 @@ def test_data_application_json_delete(api_client, db, create_record):
 
 def test_data_application_json_post(api_client, db):
     expected_status_code = 401
-    response = api_client.post("/data/")
+    response = api_client.post("/data")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -530,7 +530,7 @@ def test_data_search_json_get(api_client, db, create_record):
     create_record("dat", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/data/")
+    response = api_client.get("/data")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -571,7 +571,7 @@ def test_institutions_application_json_delete(api_client, db, create_record):
 
 def test_institutions_application_json_post(api_client, db):
     expected_status_code = 401
-    response = api_client.post("/institutions/")
+    response = api_client.post("/institutions")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
@@ -581,7 +581,7 @@ def test_institutions_search_json_get(api_client, db, create_record):
     create_record("ins", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/institutions/")
+    response = api_client.get("/institutions")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
