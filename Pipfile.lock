@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "823608427356daca3ecfccb30d03908006ea13708c02991873168b41c1e7a932"
+            "sha256": "1488c15e39a4617cc1f73d48f62fcdec0088f2f82f0d1691d9a3d7a836e11b74"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -391,10 +391,10 @@
         },
         "flask-talisman": {
             "hashes": [
-                "sha256:5a88c0ee2b0d509610ae74cbd7059d91228ad56ab3e955813428fe8e63a3e195",
-                "sha256:85c6688bcbc8de6c37b86bfb60db2da295ee1935c2ed27ca16396792ab45a3ef"
+                "sha256:5d77780b2220012a6748e0b603cbbf7889a2833c4e77157794e13dddb183e347",
+                "sha256:e4e3ccba66895e1f46d5b62a9cc0f273731da601bc92d2b9af908011298c0e2b"
             ],
-            "version": "==0.6.0"
+            "version": "==0.5.0"
         },
         "flask-wtf": {
             "hashes": [
@@ -524,11 +524,11 @@
         },
         "invenio-app": {
             "hashes": [
-                "sha256:26e2f329e757c32a79aa364e6960dc4cc6971f1e3b8cd5c4a0ead690631fabf5",
-                "sha256:5d7539fe2c953b37a626f442cec4042c64858c3390ffc48b11a4f2cd09dc78b4"
+                "sha256:28736fceb726a6fa740fbcfa06f1ba1ee042a5a520cf515ace373a773ea49777",
+                "sha256:b7df6b0e6d842c3a1288eebd6623ab8ff51e64dc8284b78fac2319c9fdcf643b"
             ],
             "index": "pypi",
-            "version": "==1.0.0"
+            "version": "==1.0.5"
         },
         "invenio-base": {
             "hashes": [

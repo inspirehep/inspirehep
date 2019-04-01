@@ -36,7 +36,7 @@ pybtex = "*"
 pytest = ">=3.3.1,<4.0.0"
 pytest-cov = "==2.6.1"
 remote-pdb = "*"
-invenio-app = "==1.0.0"
+invenio-app = "==1.0.5"
 cryptography = "<2.6"
 #  msgpack = "*"  #  FIXME:  We want to use it but it might mess with invenio-indexer which is forcing msgpack-python
                   #  FIXME: https://github.com/inveniosoftware/invenio-celery/issues/58
