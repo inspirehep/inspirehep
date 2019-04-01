@@ -22,8 +22,8 @@ async function login(
   await page.close();
 }
 
-async function logout() {
-  const page = await browser.newPage();
+async function logout(browerOrContext) {
+  const page = await browerOrContext.newPage();
   await page.goto(routes.HOME, {
     waitUntil: 'networkidle0',
   });

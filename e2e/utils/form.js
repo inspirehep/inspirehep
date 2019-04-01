@@ -76,9 +76,12 @@ class FormSubmitter {
 
   async fillArrayField(path, items) {
     for (const [i, itemData] of items.entries()) {
+      if (i !== 0) {
+        await this.addNewItemToField(path);
+      }
+
       const itemPath = joinPaths(path, i);
       await this.fill(itemPath, itemData);
-      await this.addNewItemToField(path);
     }
   }
 
