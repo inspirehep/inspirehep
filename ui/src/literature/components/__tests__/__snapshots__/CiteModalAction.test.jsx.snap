@@ -4,17 +4,26 @@ exports[`CiteModalAction renders with recordId 1`] = `
 <div
   className="di"
 >
-  <EventTracker
-    eventId="Cite"
-    eventPropName="onClick"
-    extractEventArgsToForward={null}
-  >
-    <ListItemAction
-      iconType="export"
-      onClick={[Function]}
-      text="cite"
-    />
-  </EventTracker>
+  <ListItemAction>
+    <EventTracker
+      eventId="Cite"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
+    >
+      <Button
+        block={false}
+        ghost={false}
+        loading={false}
+        onClick={[Function]}
+        prefixCls="ant-btn"
+      >
+        <IconText
+          text="cite"
+          type="export"
+        />
+      </Button>
+    </EventTracker>
+  </ListItemAction>
   <Modal
     cancelButtonDisabled={false}
     confirmLoading={false}

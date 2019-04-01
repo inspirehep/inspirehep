@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from 'antd';
 import ListItemAction from '../../common/components/ListItemAction';
+import IconText from '../../common/components/IconText';
 import EventTracker from '../../common/components/EventTracker';
 
 class ArxivPdfDownloadAction extends Component {
@@ -9,16 +11,13 @@ class ArxivPdfDownloadAction extends Component {
     const { arxivId } = this.props;
     const href = `//arxiv.org/pdf/${arxivId}`;
     return (
-      <EventTracker eventId="PdfDownload">
-        <ListItemAction
-          iconType="download"
-          text="pdf"
-          link={{
-            href,
-            target: '_blank',
-          }}
-        />
-      </EventTracker>
+      <ListItemAction>
+        <EventTracker eventId="PdfDownload">
+          <Button href={href} target="_blank">
+            <IconText text="pdf" type="download" />
+          </Button>
+        </EventTracker>
+      </ListItemAction>
     );
   }
 }

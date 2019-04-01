@@ -1,8 +1,10 @@
 .__ListItemAction__ {
-  border: none;
-  background: transparent !important;
+  .ant-btn {
+    border: none;
+    background: transparent !important;
 
-  .no-transition {
-    transition: unset;
+    .no-transition {
+      transition: unset;
+    }
   }
 }

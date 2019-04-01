@@ -3,8 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Set } from 'immutable';
 
+import { Button } from 'antd';
 import { isCataloger } from '../authorization';
 import ListItemAction from '../components/ListItemAction';
+import IconText from '../components/IconText';
 import EventTracker from '../components/EventTracker';
 
 class EditRecordActionContainer extends Component {
@@ -14,16 +16,13 @@ class EditRecordActionContainer extends Component {
     const href = `/workflows/edit_article/${recordId}`;
     if (isUserCataloger) {
       return (
-        <EventTracker eventId="Edit">
-          <ListItemAction
-            iconType="edit"
-            text="edit"
-            link={{
-              href,
-              target: '_blank',
-            }}
-          />
-        </EventTracker>
+        <ListItemAction>
+          <EventTracker eventId="Edit">
+            <Button href={href} target="_blank" onClick={undefined}>
+              <IconText text="edit" type="edit" />
+            </Button>
+          </EventTracker>
+        </ListItemAction>
       );
     }
     return null;

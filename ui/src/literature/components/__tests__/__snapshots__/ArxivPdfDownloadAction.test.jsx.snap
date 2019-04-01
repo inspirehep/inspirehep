@@ -1,20 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ArxivPdfDownloadAction renders with arXiv id 1`] = `
-<EventTracker
-  eventId="PdfDownload"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
->
-  <ListItemAction
-    iconType="download"
-    link={
-      Object {
-        "href": "//arxiv.org/pdf/123.12345",
-        "target": "_blank",
-      }
-    }
-    text="pdf"
-  />
-</EventTracker>
+<ListItemAction>
+  <EventTracker
+    eventId="PdfDownload"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <Button
+      block={false}
+      ghost={false}
+      href="//arxiv.org/pdf/123.12345"
+      loading={false}
+      prefixCls="ant-btn"
+      target="_blank"
+    >
+      <IconText
+        text="pdf"
+        type="download"
+      />
+    </Button>
+  </EventTracker>
+</ListItemAction>
 `;
