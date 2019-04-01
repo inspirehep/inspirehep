@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Modal } from 'antd';
+import { Modal, Button } from 'antd';
 
 import CiteModalAction, { DEFAULT_FORMAT } from '../CiteModalAction';
 import citeArticle from '../../citeArticle';
@@ -26,7 +26,10 @@ describe('CiteModalAction', () => {
     const setCiteContentFor = jest.fn();
     wrapper.instance().setCiteContentFor = setCiteContentFor;
     wrapper.update();
-    const onCiteClick = wrapper.find(ListItemAction).prop('onClick');
+    const onCiteClick = wrapper
+      .find(ListItemAction)
+      .find(Button)
+      .prop('onClick');
     onCiteClick();
     expect(wrapper.state('modalVisible')).toBe(true);
     expect(setCiteContentFor).toHaveBeenCalledWith(DEFAULT_FORMAT);
@@ -38,7 +41,10 @@ describe('CiteModalAction', () => {
     wrapper.instance().setCiteContentFor = setCiteContentFor;
     wrapper.setState({ citeContent: 'CONTENT' });
     wrapper.update();
-    const onCiteClick = wrapper.find(ListItemAction).prop('onClick');
+    const onCiteClick = wrapper
+      .find(ListItemAction)
+      .find(Button)
+      .prop('onClick');
     onCiteClick();
     expect(wrapper.state('modalVisible')).toBe(true);
     expect(setCiteContentFor).not.toHaveBeenCalled();

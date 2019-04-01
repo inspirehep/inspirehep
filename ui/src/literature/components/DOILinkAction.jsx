@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Button } from 'antd';
+import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 import EventTracker from '../../common/components/EventTracker';
 
@@ -9,16 +11,13 @@ class DOILinkAction extends Component {
     const { doi } = this.props;
     const href = `//doi.org/${doi}`;
     return (
-      <EventTracker eventId="DoiLink">
-        <ListItemAction
-          iconType="link"
-          text="DOI"
-          link={{
-            href,
-            target: '_blank',
-          }}
-        />
-      </EventTracker>
+      <ListItemAction>
+        <EventTracker eventId="DoiLink">
+          <Button href={href} target="_blank">
+            <IconText text="DOI" type="link" />
+          </Button>
+        </EventTracker>
+      </ListItemAction>
     );
   }
 }

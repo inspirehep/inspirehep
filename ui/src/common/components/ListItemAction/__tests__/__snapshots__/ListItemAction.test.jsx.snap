@@ -1,47 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ListItemAction renders with link (href and target) 1`] = `
-<Button
-  block={false}
+exports[`ListItemAction renders 1`] = `
+<span
   className="__ListItemAction__"
-  ghost={false}
-  href="//example.com"
-  loading={false}
-  prefixCls="ant-btn"
-  target="_blank"
 >
-  <IconText
-    text="Test"
-    type="info"
-  />
-</Button>
-`;
-
-exports[`ListItemAction renders with link (to) by using Router.Link 1`] = `
-<Link
-  className="no-transition ant-btn __ListItemAction__"
-  replace={false}
-  to="/relative/link"
->
-  <IconText
-    text="Test"
-    type="info"
-  />
-</Link>
-`;
-
-exports[`ListItemAction renders with onClick 1`] = `
-<Button
-  block={false}
-  className="__ListItemAction__"
-  ghost={false}
-  loading={false}
-  onClick={[MockFunction]}
-  prefixCls="ant-btn"
->
-  <IconText
-    text="Test"
-    type="info"
-  />
-</Button>
+  <Button
+    block={false}
+    ghost={false}
+    loading={false}
+    prefixCls="ant-btn"
+  >
+    <IconText
+      text="cite"
+      type="export"
+    />
+  </Button>
+</span>
 `;

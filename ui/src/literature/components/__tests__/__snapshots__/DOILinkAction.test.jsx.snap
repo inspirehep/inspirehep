@@ -1,20 +1,25 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DOILinkAction renders with a doi id 1`] = `
-<EventTracker
-  eventId="DoiLink"
-  eventPropName="onClick"
-  extractEventArgsToForward={null}
->
-  <ListItemAction
-    iconType="link"
-    link={
-      Object {
-        "href": "//doi.org/10.1007/s11182-019-01606-1",
-        "target": "_blank",
-      }
-    }
-    text="DOI"
-  />
-</EventTracker>
+<ListItemAction>
+  <EventTracker
+    eventId="DoiLink"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <Button
+      block={false}
+      ghost={false}
+      href="//doi.org/10.1007/s11182-019-01606-1"
+      loading={false}
+      prefixCls="ant-btn"
+      target="_blank"
+    >
+      <IconText
+        text="DOI"
+        type="link"
+      />
+    </Button>
+  </EventTracker>
+</ListItemAction>
 `;

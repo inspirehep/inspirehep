@@ -10,6 +10,7 @@ import PublicationInfoList from '../../common/components/PublicationInfoList';
 import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import DOILinkAction from './DOILinkAction';
 import CiteModalAction from './CiteModalAction';
+import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 import EditRecordActionContainer from '../../common/containers/EditRecordActionContainer';
 import ResultItem from '../../common/components/ResultItem';
@@ -56,13 +57,19 @@ class LiteratureItem extends Component {
         rightActions={
           <Fragment>
             {citationCount != null && (
-              <EventTracker eventId="Citations:Search">
-                <ListItemAction
-                  iconType="login"
-                  text={`${citationCount} citations`}
-                  link={{ to: `${LITERATURE}?q=refersto:recid:${recordId}` }}
-                />
-              </EventTracker>
+              <ListItemAction>
+                <EventTracker eventId="Citations:Search">
+                  <Link
+                    className="no-transition ant-btn"
+                    to={`${LITERATURE}?q=refersto:recid:${recordId}`}
+                  >
+                    <IconText
+                      text={`${citationCount} citations`}
+                      type="login"
+                    />
+                  </Link>
+                </EventTracker>
+              </ListItemAction>
             )}
           </Fragment>
         }
