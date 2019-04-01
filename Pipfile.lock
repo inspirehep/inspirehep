@@ -29,14 +29,6 @@
             ],
             "version": "==2.4.2"
         },
-        "appnope": {
-            "hashes": [
-                "sha256:5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0",
-                "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"
-            ],
-            "markers": "sys_platform == 'darwin'",
-            "version": "==0.1.0"
-        },
         "argh": {
             "hashes": [
                 "sha256:a9b3aaa1904eeb78e32394cd46c6f37ac0fb4af6dc488daa58971bdc7d7fcaf3",
@@ -316,10 +308,10 @@
         },
         "flask-caching": {
             "hashes": [
-                "sha256:92368bd8c3a6aa4164c7322335134c912cd8462a4b83de4904929da38863de95",
-                "sha256:e1f8510b1c051c39bc8883dc5799a8b668205ad45f3eb7c4b2cb3f4dd995eca9"
+                "sha256:53a70d02e7c5be308fa2fc7ef8ba7beb6c3e60aaf2929806dd8423206ed79aa1",
+                "sha256:7b3ff88348dcc97ebd6d32478c3e40229c6b7039ed5fb7dabb23d411777bfcc1"
             ],
-            "version": "==1.6.0"
+            "version": "==1.7.0"
         },
         "flask-celeryext": {
             "hashes": [
@@ -787,10 +779,10 @@
         },
         "kombu": {
             "hashes": [
-                "sha256:750579c10e4ce82636cebdaad3cfc96970b4c7c483a040bb94fb52040bc53a48",
-                "sha256:b1a68fe8a1144eab0359be6bbae5e03b6684c98b9b53de7a17ce6d64ef24e4ea"
+                "sha256:389ba09e03b15b55b1a7371a441c894fd8121d174f5583bbbca032b9ea8c9edd",
+                "sha256:7b92303af381ef02fad6899fd5f5a9a96031d781356cd8e505fa54ae5ddee181"
             ],
-            "version": "==4.4.0"
+            "version": "==4.5.0"
         },
         "langdetect": {
             "hashes": [
@@ -904,10 +896,10 @@
         },
         "more-itertools": {
             "hashes": [
-                "sha256:0125e8f60e9e031347105eb1682cef932f5e97d7b9a1a28d9bf00c22a5daef40",
-                "sha256:590044e3942351a1bdb1de960b739ff4ce277960f2425ad4509446dbace8d9d1"
+                "sha256:2112d2ca570bb7c3e53ea1a35cd5df42bb0fd10c45f0fb97178679c3c03d64c7",
+                "sha256:c3e4748ba1aad8dba30a4886b0b1a2004f9a863837b8654e7059eebf727afa5a"
             ],
-            "version": "==6.0.0"
+            "version": "==7.0.0"
         },
         "msgpack-python": {
             "hashes": [
@@ -1403,10 +1395,10 @@
         },
         "cfgv": {
             "hashes": [
-                "sha256:39f8475d8eca48639f900daffa3f8bd2f60a31d989df41a9f81c5ad1779a66eb",
-                "sha256:a6a4366d32799a6bfb6f577ebe113b27ba8d1bae43cb57133b1472c1c3dae227"
+                "sha256:6e9f2feea5e84bc71e56abd703140d7a2c250fc5ba38b8702fd6a68ed4e3b2ef",
+                "sha256:e7f186d4a36c099a9e20b04ac3108bd8bb9b9257e692ce18c8c3764d5cb12172"
             ],
-            "version": "==1.5.0"
+            "version": "==1.6.0"
         },
         "chardet": {
             "hashes": [
@@ -1512,10 +1504,10 @@
         },
         "identify": {
             "hashes": [
-                "sha256:407cbb36e8b72b45cfa96a97ae13ccabca4c36557e03616958bd895dfcd3f77d",
-                "sha256:721abbbb1269fa1172799119981c22c5ace022544ce82eedc29b1b0d753baaa5"
+                "sha256:244e7864ef59f0c7c50c6db73f58564151d91345cd9b76ed793458953578cadd",
+                "sha256:8ff062f90ad4b09cfe79b5dfb7a12e40f19d2e68a5c9598a49be45f16aba7171"
             ],
-            "version": "==1.4.0"
+            "version": "==1.4.1"
         },
         "idna": {
             "hashes": [
@@ -1615,10 +1607,10 @@
         },
         "more-itertools": {
             "hashes": [
-                "sha256:0125e8f60e9e031347105eb1682cef932f5e97d7b9a1a28d9bf00c22a5daef40",
-                "sha256:590044e3942351a1bdb1de960b739ff4ce277960f2425ad4509446dbace8d9d1"
+                "sha256:2112d2ca570bb7c3e53ea1a35cd5df42bb0fd10c45f0fb97178679c3c03d64c7",
+                "sha256:c3e4748ba1aad8dba30a4886b0b1a2004f9a863837b8654e7059eebf727afa5a"
             ],
-            "version": "==6.0.0"
+            "version": "==7.0.0"
         },
         "multidict": {
             "hashes": [
@@ -1682,11 +1674,11 @@
         },
         "pre-commit": {
             "hashes": [
-                "sha256:d3d69c63ae7b7584c4b51446b0b583d454548f9df92575b2fe93a68ec800c4d3",
-                "sha256:fc512f129b9526e35e80d656a16a31c198f584c4fce3a5c739045b5140584917"
+                "sha256:385efb73a05f98d528639aa09b5be0c43bb428dd7d1f2e0ed7612e5765bb8c21",
+                "sha256:75ad52dbfbf0396b7753d238b6ff571db5e4355c765ad83723dd371528df63d7"
             ],
             "index": "pypi",
-            "version": "==1.14.4"
+            "version": "==1.15.0"
         },
         "py": {
             "hashes": [
