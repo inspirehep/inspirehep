@@ -9,9 +9,9 @@ import os
 
 import jinja2
 from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
-from invenio_records_rest.serializers.response import record_responsify
 
 from ..marshmallow.literature.latex import LatexSchema
+from .response import record_responsify
 
 
 class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
