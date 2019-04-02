@@ -8,10 +8,7 @@
 import json
 
 from invenio_records_rest.serializers.json import JSONSerializer
-from invenio_records_rest.serializers.response import (
-    record_responsify,
-    search_responsify,
-)
+from invenio_records_rest.serializers.response import search_responsify
 from marshmallow import Schema
 
 from ..marshmallow.authors import AuthorsOnlyControlNumberSchemaV1, AuthorsSchemaV1
@@ -21,6 +18,7 @@ from ..marshmallow.literature import (
     LiteratureSchemaV1,
     LiteratureUISchema,
 )
+from .response import record_responsify
 
 
 class JSONSerializerFacets(JSONSerializer):
