@@ -2,13 +2,21 @@ const { routes } = require('../../utils/constants');
 const { login, logout } = require('../../utils/user');
 
 async function selectDocType(page, docType) {
-  await page._client.send('Animation.setPlaybackRate', { playbackRate: 24 }); // force animations to run faster
   await page.click('[data-test-id=skip-import-button]');
-  await page.click('[data-test-id=document-type-select]');
-  await page.click(`[data-test-id=document-type-select-option-${docType}]`);
-  await page.click('body');
+
+  const docTypeSelectSelector = '[data-test-id=document-type-select]';
+  const docTypeSelectOptionSelector = `[data-test-id=document-type-select-option-${docType}]`;
+  // open select dropdown to render options into DOM
+  await page.click(docTypeSelectSelector);
+  await page.waitFor(docTypeSelectOptionSelector);
+
+  // close it because puppeteer sometimes clicks on other option accidentally
+  // and we need it closed for the screenshots
+  await page.click(docTypeSelectSelector);
   await page.waitFor('.ant-select-dropdown-hidden');
-  await page.waitFor(() => !document.querySelector('.ant-select-focused'));
+
+  // click via DOM, because puppeteer can't click display: none elements
+  await page.$eval(docTypeSelectOptionSelector, optionEl => optionEl.click());
 }
 
 describe('Literature Submission', () => {
