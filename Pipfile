@@ -7,7 +7,7 @@ name = "pypi"
 celery = "<=4.2.1"
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
-click = "<7.0.0"
+click = "<8.0.0"
 # invenio 3.1.0 requires Flask>=1.0.0
 invenio = {version = "==3.0.0",extras = [ "postgresql", "auth", "elasticsearch5", ]}
 # invenio cherry-pick `base` packages
