@@ -38,7 +38,7 @@
       "ids": [{ "schema": "INSPIRE BAI", "value": "M.Nozawa.1" }],
       "record": { "$ref": "http://labs.inspirehep.net/api/authors/1032574" },
       "signature_block": "NASm",
-      "uuid": "115ebf5d-794f-49b2-94e2-479733d53b8d"
+      "uuid": "2427bf63-1584-4d65-99f2-2cd6d38adc4a"
     },
     {
       "affiliations": [
@@ -52,9 +52,12 @@
       "emails": ["k-tomoda@sci.osaka-cu.ac.jp"],
       "full_name": "Tomoda, Kentaro",
       "ids": [{ "schema": "INSPIRE BAI", "value": "K.Tomoda.1" }],
+      "raw_affiliations": [
+        { "value": "Osaka City University, 558-8585 Osaka, Japan" }
+      ],
       "record": { "$ref": "http://labs.inspirehep.net/api/authors/1288265" },
       "signature_block": "TANADk",
-      "uuid": "0eb7cb9e-6db9-485e-8df2-7103b2197559"
+      "uuid": "c39d4453-7649-4ae4-ba68-a84db2591cce"
     }
   ],
   "citeable": true,
@@ -74,6 +77,7 @@
         "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g184/3697965/content.pdf%3B1"
     }
   ],
+  "earliest_date": "2019-02-21",
   "inspire_categories": [
     { "source": "arxiv", "term": "Gravitation and Cosmology" },
     { "source": "arxiv", "term": "Theory-HEP" },
@@ -83,6 +87,14 @@
     { "term": "Math and Math Physics" }
   ],
   "keywords": [
+    { "schema": "PACS", "value": "02.40.-k" },
+    { "schema": "PACS", "value": "04.20.-q" },
+    { "source": "author", "value": "Cartan-Karlhede algorithm" },
+    { "source": "author", "value": "vanishing scalar invariant space" },
+    { "source": "author", "value": "Killing vector" },
+    { "source": "author", "value": "isometry group" },
+    { "source": "author", "value": "differential invariant" },
+    { "source": "author", "value": "Cartan scalar" },
     { "schema": "INSPIRE", "value": "vector: Killing" },
     { "schema": "INSPIRE", "value": "tensor: Ricci" },
     { "schema": "INSPIRE", "value": "dimension: 3" },
@@ -92,7 +104,7 @@
     { "schema": "INSPIRE", "value": "pp-wave" }
   ],
   "legacy_creation_date": "2019-02-25",
-  "legacy_version": "20190321135108.0",
+  "legacy_version": "20190328141737.0",
   "license": [
     {
       "license": "arXiv nonexclusive-distrib 1.0",
@@ -129,7 +141,9 @@
             "[2] J. B. Zuber, Invariances in Physics and Group Theory, IRMA Lect. Math. Theor. Phys. 23, 307 (2015) doi:10.4171/148-1/12 [arXiv:1307.3970 [hep-th]]."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1242687" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1242687"
+      },
       "reference": {
         "arxiv_eprint": "1307.3970",
         "authors": [{ "full_name": "Zuber, J.B." }],
@@ -326,7 +340,9 @@
             "[11] H. Stephani, D. Kramer, M. A. H. MacCallum, C. Hoenselaers and E. Herlt, Exact solutions of Einstein\u2019s field equations, doi:10.1017/CBO9780511535185"
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/619666" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/619666"
+      },
       "reference": {
         "authors": [
           { "full_name": "Stephani, H." },
@@ -350,7 +366,9 @@
             "[12] B. Kruglikov and K. Tomoda, A criterion for the existence of Killing vectors in 3D, Class. Quant. Grav. 35, no. 16, 165005 (2018) doi:10.1088/1361-6382/aad11d [arXiv:1804.11032 [gr-qc]]."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1670821" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1670821"
+      },
       "reference": {
         "arxiv_eprint": "1804.11032",
         "authors": [
@@ -402,7 +420,9 @@
             "[14] T. Houri and Y. Yasui, A simple test for spacetime symmetry, Class. Quant. Grav. 32, no. 5, 055002 (2015) doi:10.1088/0264-9381/32/5/055002 [arXiv:1410.1023 [gr-qc]]."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1320547" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1320547"
+      },
       "reference": {
         "arxiv_eprint": "1410.1023",
         "authors": [{ "full_name": "Houri, T." }, { "full_name": "Yasui, Y." }],
@@ -463,7 +483,9 @@
             "[17] J. Santos, M. J. Rebouc \u00b8as, A. F. F. Teixeira, Gen Relat Gravit (1995) 27: 989. https://doi.org/10.1007/BF02113081"
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/397141" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/397141"
+      },
       "reference": {
         "authors": [
           { "full_name": "Santos, J." },
@@ -491,7 +513,9 @@
             "[18] S. Kachru, X. Liu, M. Mulligan, Gravity duals of Lifshitz-like fixed points, Phys. Rev. D78, 106005 (2008) doi:10.1103/PhysRevD.78.106005 [arXiv:0808.1725[hep-th]]."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/792977" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/792977"
+      },
       "reference": {
         "arxiv_eprint": "0808.1725",
         "authors": [
@@ -561,7 +585,9 @@
             "[21] A. Coley, R. Milson, V. Pravda, A. Pravdov\u00b4 a, Vanishing scalar invariant spacetimes in higher dimensions, Class. Quantum Grav. 21, 5519-5542 (2004)."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/662027" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/662027"
+      },
       "reference": {
         "authors": [
           { "full_name": "Coley, A." },
@@ -590,7 +616,9 @@
             "[22] A. Coley, S. Hervik, N. Pelavas, Spacetimes characterized by their scalar curvature invariants, Class. Quantum Grav. 26, 025013 (2009)."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/810446" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/810446"
+      },
       "reference": {
         "authors": [
           { "full_name": "Coley, A." },
@@ -648,7 +676,9 @@
             "[24] M. Banados, M. Henneaux, C. Teitelboim and J. Zanelli, Geometry of the (2+1) black hole, Phys. Rev. D 48 (1993) 1506 Erratum: [Phys. Rev. D 88 (2013) 069902] [gr-qc/9302012]."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/343161" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/343161"
+      },
       "reference": {
         "arxiv_eprint": "gr-qc/9302012",
         "authors": [
@@ -708,7 +738,9 @@
             "[26] D. Klemm and M. Nozawa, Geometry of Killing spinors in neutral signature, Class. Quant. Grav. 32 (2015) no.18, 185012 [arXiv:1504.02710 [hep-th]]."
         }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1358928" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1358928"
+      },
       "reference": {
         "arxiv_eprint": "1504.02710",
         "authors": [
