@@ -3,19 +3,17 @@ const TYPE_ATTRIBUTE = 'data-test-type';
 
 async function selectFromSelectBox(page, selectId, value) {
   const selectSelector = `[${ID_ATTRIBUTE}=${selectId}]`;
+  const selectOptionSelector = `[${ID_ATTRIBUTE}=${selectId}-option-${value}]`;
+
+  // click selecbox to render options into DOM incase not there
   await page.click(selectSelector);
+  await page.waitFor(selectOptionSelector);
 
-  const openSelectSelector = `.ant-select-open>${selectSelector}`;
-  await page.waitFor(openSelectSelector);
+  // close it because puppeteer sometimes clicks on other option accidentally
+  await page.keyboard.press('Escape');
 
-  await page.click(`[${ID_ATTRIBUTE}=${selectId}-option-${value}]`);
-
-  await page.click('label'); // FIXME: won't work if there is no label on the page
-  await page.waitFor(
-    ctx => !document.querySelector(ctx.openSelectSelector),
-    {},
-    { openSelectSelector }
-  );
+  // click via DOM, because puppeteer can't click display: none elements
+  await page.$eval(selectOptionSelector, optionEl => optionEl.click());
 }
 
 module.exports = {
