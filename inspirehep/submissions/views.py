@@ -13,12 +13,13 @@ from flask import Blueprint, abort, current_app, jsonify, request
 from flask.views import MethodView
 from flask_login import current_user
 from invenio_oauthclient.models import UserIdentity
+from invenio_pidstore.errors import PIDDoesNotExistError
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.accounts.api import login_required
+from inspirehep.records.api import AuthorsRecord
 
 from .marshmallow import Author, Literature
-from .utils import get_record_from_legacy
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
@@ -69,8 +70,9 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     decorators = [login_required]
 
     def get(self, pid_value):
-        record = get_record_from_legacy(pid_value)
-        if not record:
+        try:
+            record = AuthorsRecord.get_record_by_pid_value(pid_value)
+        except PIDDoesNotExistError:
             abort(404)
 
         serialized_record = Author().dump(record)
