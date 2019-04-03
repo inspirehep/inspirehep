@@ -152,6 +152,48 @@ def test_new_author_submit_works_with_session_login(
     assert response.status_code == 200
 
 
+def test_get_author_update_data(app, api_client, create_user, create_record):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    author_data = {
+        "control_number": 123,
+        "name": {"value": "John", "preferred_name": "John Doe"},
+        "status": "active",
+    }
+    create_record("aut", data=author_data)
+
+    expected_data = {
+        "data": {"given_name": "John", "display_name": "John Doe", "status": "active"}
+    }
+
+    response = api_client.get(
+        "/submissions/authors/123", headers={"Accept": "application/json"}
+    )
+    response_data = json.loads(response.data)
+
+    assert response_data == expected_data
+
+
+def test_get_author_update_data_not_found(api_client, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.get(
+        "/submissions/authors/1993", headers={"Accept": "application/json"}
+    )
+
+    assert response.status_code == 404
+
+
+def test_get_author_update_data_requires_auth(api_client):
+    response = api_client.get(
+        "/submissions/authors/1993", headers={"Accept": "application/json"}
+    )
+
+    assert response.status_code == 401
+
+
 def test_update_author(app, api_client, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
