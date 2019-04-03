@@ -461,7 +461,6 @@ RECORDS_REST_FACETS = {
             **HEP_COMMON_FILTERS,
             "subject": must_match_all_filter("facet_inspire_categories"),
             "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
-            "experiment": must_match_all_filter("facet_experiment"),
         },
         "aggs": {
             **HEP_COMMON_AGGS,
@@ -476,10 +475,6 @@ RECORDS_REST_FACETS = {
             "arxiv_categories": {
                 "terms": {"field": "facet_arxiv_categories", "size": 20},
                 "meta": {"title": "arXiv Category", "order": 5},
-            },
-            "experiment": {
-                "terms": {"field": "facet_experiment", "size": 20},
-                "meta": {"title": "Experiment", "order": 6},
             },
         },
     },

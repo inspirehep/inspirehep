@@ -175,7 +175,6 @@ def test_literature_facets(api_client, db, create_record):
         "author_count",
         "doc_type",
         "earliest_date",
-        "experiment",
         "subject",
     ]
     expected_facet_keys.sort()
@@ -208,7 +207,6 @@ def test_literature_facets_with_selected_facet(api_client, db, create_record):
         "author_count",
         "doc_type",
         "earliest_date",
-        "experiment",
         "subject",
     ]
 
@@ -266,7 +264,6 @@ def test_literature_facets_arxiv(api_client, db, create_record):
         "author_count",
         "doc_type",
         "earliest_date",
-        "experiment",
         "subject",
     ]
     expected_facet_keys.sort()
