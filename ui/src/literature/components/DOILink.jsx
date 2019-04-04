@@ -5,23 +5,20 @@ import ExternalLink from '../../common/components/ExternalLink';
 import EventTracker from '../../common/components/EventTracker';
 
 class DOILink extends Component {
-  get doi() {
-    const { children } = this.props;
-    return children;
-  }
-
   render() {
-    const href = `//doi.org/${this.doi}`;
+    const { children, doi } = this.props;
+    const href = `//doi.org/${doi}`;
     return (
       <EventTracker eventId="DoiLink">
-        <ExternalLink href={href}>{this.doi}</ExternalLink>
+        <ExternalLink href={href}>{children}</ExternalLink>
       </EventTracker>
     );
   }
 }
 
 DOILink.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+  doi: PropTypes.string.isRequired,
 };
 
 export default DOILink;

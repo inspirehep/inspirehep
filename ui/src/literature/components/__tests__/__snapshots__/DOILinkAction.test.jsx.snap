@@ -2,24 +2,103 @@
 
 exports[`DOILinkAction renders with a doi id 1`] = `
 <ListItemAction>
-  <EventTracker
-    eventId="DoiLink"
-    eventPropName="onClick"
-    extractEventArgsToForward={null}
+  <DOILink
+    doi="10.1007/s11182-019-01606-1"
   >
-    <Button
-      block={false}
-      ghost={false}
-      href="//doi.org/10.1007/s11182-019-01606-1"
-      loading={false}
-      prefixCls="ant-btn"
-      target="_blank"
+    <IconText
+      text="DOI"
+      type="link"
+    />
+  </DOILink>
+</ListItemAction>
+`;
+
+exports[`DOILinkAction renders with multiple doi ids 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        loading={false}
+        prefixCls="ant-btn"
+      >
+        <IconText
+          text="DOI"
+          type="link"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      key="10.1007/s11182-019-01606-1"
     >
-      <IconText
-        text="DOI"
-        type="link"
-      />
-    </Button>
-  </EventTracker>
+      <DOILink
+        doi="10.1007/s11182-019-01606-1"
+      >
+        10.1007/s11182-019-01606-1
+        <DOIMaterial
+          material={null}
+        />
+      </DOILink>
+    </MenuItem>
+    <MenuItem
+      key="10.1007/s11182-019-01606-2"
+    >
+      <DOILink
+        doi="10.1007/s11182-019-01606-2"
+      >
+        10.1007/s11182-019-01606-2
+        <DOIMaterial
+          material={null}
+        />
+      </DOILink>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        loading={false}
+        prefixCls="ant-btn"
+      >
+        <IconText
+          text="DOI"
+          type="link"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      key="10.1007/s11182-019-01606-1"
+    >
+      <DOILink
+        doi="10.1007/s11182-019-01606-1"
+      >
+        10.1007/s11182-019-01606-1
+        <DOIMaterial
+          material={null}
+        />
+      </DOILink>
+    </MenuItem>
+    <MenuItem
+      key="10.1007/s11182-019-01606-2"
+    >
+      <DOILink
+        doi="10.1007/s11182-019-01606-2"
+      >
+        10.1007/s11182-019-01606-2
+        <DOIMaterial
+          material="publication"
+        />
+      </DOILink>
+    </MenuItem>
+  </DropdownMenu>
 </ListItemAction>
 `;

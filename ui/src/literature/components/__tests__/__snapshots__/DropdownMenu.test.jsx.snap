@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DropdownMenu renders 1`] = `
+<Dropdown
+  mouseEnterDelay={0.15}
+  mouseLeaveDelay={0.1}
+  overlay={
+    <Menu
+      className=""
+      focusable={false}
+      prefixCls="ant-menu"
+      theme="light"
+    >
+      <MenuItem>
+        <li>
+          test
+        </li>
+      </MenuItem>
+      <MenuItem>
+        <li>
+          test2
+        </li>
+      </MenuItem>
+    </Menu>
+  }
+  placement="bottomLeft"
+  prefixCls="ant-dropdown"
+>
+  title
+</Dropdown>
+`;

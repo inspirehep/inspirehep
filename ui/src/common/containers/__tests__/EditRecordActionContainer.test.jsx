@@ -1,7 +1,6 @@
 import React from 'react';
 import { fromJS } from 'immutable';
-import { mount } from 'enzyme';
-import { Provider } from 'react-redux';
+import { shallow } from 'enzyme';
 import { getStoreWithState } from '../../../fixtures/store';
 import EditRecordActionContainer from '../EditRecordActionContainer';
 
@@ -14,11 +13,9 @@ describe('EditRecordActionContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
-      <Provider store={store}>
-        <EditRecordActionContainer recordId={123456} />
-      </Provider>
-    );
+    const wrapper = shallow(
+      <EditRecordActionContainer store={store} recordId={123456} />
+    ).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -30,11 +27,9 @@ describe('EditRecordActionContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
-      <Provider store={store}>
-        <EditRecordActionContainer recordId={123456} />
-      </Provider>
-    );
+    const wrapper = shallow(
+      <EditRecordActionContainer store={store} recordId={123456} />
+    ).dive();
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -46,11 +41,9 @@ describe('EditRecordActionContainer', () => {
         },
       }),
     });
-    const wrapper = mount(
-      <Provider store={store}>
-        <EditRecordActionContainer recordId={123456} />
-      </Provider>
-    );
+    const wrapper = shallow(
+      <EditRecordActionContainer store={store} recordId={123456} />
+    ).dive();
     expect(wrapper).toMatchSnapshot();
   });
 });

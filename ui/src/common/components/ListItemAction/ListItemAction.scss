@@ -1,10 +1,21 @@
 .__ListItemAction__ {
-  .ant-btn {
+  button,
+  a {
+    &:hover {
+      color: #40a9ff;
+    }
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     border: none;
     background: transparent !important;
+  }
 
-    .no-transition {
-      transition: unset;
+  a {
+    &:hover {
+      background-color: $btn-default-bg;
     }
+    text-decoration: none;
+    color: $text-color;
+    height: $btn-height-base;
+    padding: 0 $padding-md - 1px;
   }
 }
