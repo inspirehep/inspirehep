@@ -10,6 +10,7 @@ import json
 import mock
 
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.marshmallow.literature import LiteratureMetadataSchemaV1
 from inspirehep.records.marshmallow.literature.common import (
     AcceleratorExperimentSchemaV1,
 )
@@ -122,5 +123,27 @@ def test_returns_dashed_institution_accelerator_experiment_as_name_with_unicode(
 
     record = LiteratureRecord(dump)
     result = schema.dumps(record).data
+
+    assert expected == json.loads(result)
+
+
+@mock.patch("inspirehep.records.api.base.InspireRecord.get_records_by_pids")
+def test_accelerator_experiment_many(get_records_mock):
+    schema = AcceleratorExperimentSchemaV1()
+    dump1 = {
+        "legacy_name": "LEGACY-EXP1",
+        "institutions": [{"value": "INS"}],
+        "accelerator": {"value": "ACC"},
+        "experiment": {"value": "EXP1"},
+    }
+    dump2 = {
+        "legacy_name": "LEGACY-EXP2",
+        "institutions": [{"value": "INS"}],
+        "accelerator": {"value": "ACC"},
+        "experiment": {"value": "EXP2"},
+    }
+    expected = [{"name": "INS-ACC-EXP1"}, {"name": "INS-ACC-EXP2"}]
+
+    result = schema.dumps([dump1, dump2], many=True).data
 
     assert expected == json.loads(result)

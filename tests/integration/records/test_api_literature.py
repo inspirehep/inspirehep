@@ -492,7 +492,7 @@ def test_dump_for_es(base_app, db):
     assert "control_number" in dump
     assert record["control_number"] == dump["control_number"]
     assert "id" in dump
-    assert str(record.id) == dump["id"]
+    assert record["control_number"] == dump["id"]
     assert expected_document_type == dump["document_type"]
     ui_field = json.loads(dump["_ui_display"])
     assert "titles" in ui_field

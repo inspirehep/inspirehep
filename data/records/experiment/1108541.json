@@ -1,0 +1,45 @@
+{
+  "core": true,
+  "description":
+    "ATLAS is a particle physics experiment at the Large Hadron Collider at CERN. The ATLAS detector is searching for new discoveries in the head-on collisions of protons of extraordinarily high energy. ATLAS will learn about the basic forces that have shaped our Universe since the beginning of time and that will determine its fate. Among the possible unknowns are the origin of mass, extra dimensions of space, unification of fundamental forces, and evidence for dark matter candidates in the Universe. The 3000 physicists in ATLAS come from more than 174 universities and laboratories and include 1000 students.",
+  "accelerator": { "value": "LHC" },
+  "legacy_name": "CERN-LHC-ATLAS",
+  "long_name": "{ATLAS}",
+  "project_type": ["experiment"],
+  "external_system_identifiers": [
+    { "value": "EXPERIMENT-21393", "schema": "SPIRES" }
+  ],
+  "$schema": "https://labs.inspirehep.net/schemas/records/experiments.json",
+  "legacy_version": "20171121174516.0",
+  "date_approved": "1996-01-31",
+  "date_completed": "9999",
+  "_collections": ["Experiments"],
+  "control_number": 1108541,
+  "self": { "$ref": "http://labs.inspirehep.net/api/experiments/1108541" },
+  "name_variants": ["ATLAS", "CERN-ATLAS"],
+  "institutions": [
+    {
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+      },
+      "value": "CERN",
+      "curated_relation": true
+    }
+  ],
+  "legacy_creation_date": "2012-04-13",
+  "inspire_classification": ["1.1.2"],
+  "urls": [
+    { "description": "home page", "value": "http://cern.ch/atlas" },
+    {
+      "description": "TWITTER",
+      "value": "https://twitter.com/ATLASexperiment"
+    },
+    {
+      "description": "Wikipedia",
+      "value": "https://en.wikipedia.org/wiki/ATLAS_experiment"
+    }
+  ],
+  "date_proposed": "1992-10-01",
+  "date_started": "2009-11-23",
+  "collaboration": { "curated_relation": false, "value": "ATLAS" }
+}

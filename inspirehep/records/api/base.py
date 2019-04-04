@@ -273,6 +273,64 @@ class InspireRecord(Record):
             record = super().create(data, id_=id_, **kwargs)
         return record
 
+    @classmethod
+    def _get_linked_pids_from_field(cls, data, path):
+        """Return a list of (pid_type, pid_value) tuples for all records referenced
+        in the field at the given path
+
+        Args:
+            data (dict): data from which records should be extracted
+            path (str): the path of the linked records (where $ref is located).
+        Returns:
+            list: tuples containing (pid_type, pid_value) of the linked records
+
+        Examples:
+            >>> data = {
+                'references': [
+                    {
+                        'record': {
+                            '$ref': 'http://localhost/literature/1'
+                        }
+                    }
+                ]
+            }
+            >>>  record = InspireRecord(data)
+            >>>  records = record.get_linked_pids_from_field("references.record")
+            ('lit', 1)
+        """
+        full_path = ".".join([path, "$ref"])
+        pids = [
+            PidStoreBase.get_pid_from_record_uri(rec)
+            for rec in get_value(data, full_path, [])
+        ]
+        return pids
+
+    @classmethod
+    def get_linked_records_from_dict_field(cls, data, path):
+        """Return the linked records from specified path.
+
+        Args:
+            data (dict): data from which records should be extracted
+            path (str): the path of the linked records.
+        Returns:
+            list: the linked records.
+        Examples:
+            >>> data = {
+                'references': [
+                    {
+                        'record': {
+                            '$ref': 'http://localhost/literature/1'
+                        }
+                    }
+                ]
+            }
+            >>>  record = InspireRecord(data)
+            >>>  records = record.get_linked_records_from_field("references.record")
+
+        """
+        pids = cls._get_linked_pids_from_field(data, path)
+        return cls.get_records_by_pids(pids)
+
     def get_linked_pids_from_field(self, path):
         """Return a list of (pid_type, pid_value) tuples for all records referenced
         in the field at the given path
@@ -296,12 +354,7 @@ class InspireRecord(Record):
             >>>  records = record.get_linked_pids_from_field("references.record")
             ('lit', 1)
         """
-        full_path = ".".join([path, "$ref"])
-        pids = [
-            PidStoreBase.get_pid_from_record_uri(rec)
-            for rec in self.get_value(full_path, [])
-        ]
-        return pids
+        return self._get_linked_pids_from_field(self, path)
 
     def get_linked_records_from_field(self, path):
         """Return the linked records from specified path.
@@ -324,8 +377,7 @@ class InspireRecord(Record):
             >>>  records = record.get_linked_records_from_field("references.record")
 
         """
-        pids = self.get_linked_pids_from_field(path)
-        return self.get_records_by_pids(pids)
+        return self.get_linked_records_from_dict_field(self, path)
 
     def update(self, data):
         with db.session.begin_nested():

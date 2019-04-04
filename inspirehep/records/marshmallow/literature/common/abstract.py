@@ -16,5 +16,5 @@ class AbstractSource(Schema):
     def get_source_suggest(self, abstract_source_entry):
         source_suggest = missing
         if abstract_source_entry.get("source"):
-            source_suggest = {"value": abstract_source_entry.get("source")}
+            source_suggest = {"input": abstract_source_entry.get("source")}
         return source_suggest

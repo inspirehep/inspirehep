@@ -1,0 +1,80 @@
+{
+  "alternative_titles": [
+    {
+      "title": "XXXVII"
+    }
+  ],
+  "contact_details": [
+    {
+      "email": "Juan.Fuster@ific.uv.es"
+    }
+  ],
+  "urls": [
+    {
+      "value": "http://ichep2014.es/"
+    },
+    {
+      "description": "TWITTER",
+      "value": "https://twitter.com/ICHEP2014"
+    }
+  ],
+  "_collections": ["Conferences"],
+  "deleted": false,
+  "cnum": "C14-07-02",
+  "address": [
+    {
+      "cities": ["Valencia"],
+      "country_code": "ES"
+    }
+  ],
+  "titles": [
+    {
+      "title": "37th International Conference on High Energy Physics"
+    }
+  ],
+  "acronyms": ["ICHEP 2014"],
+  "opening_date": "2014-07-02",
+  "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
+  "legacy_version": "20161027142953.0",
+  "control_number": 1203206,
+  "closing_date": "2014-07-09",
+  "self": {
+    "$ref": "http://labs.inspirehep.net/api/conferences/1203206"
+  },
+  "inspire_categories": [
+    {
+      "term": "Astrophysics"
+    },
+    {
+      "term": "Experiment-HEP"
+    },
+    {
+      "term": "Lattice"
+    },
+    {
+      "term": "Phenomenology-HEP"
+    },
+    {
+      "term": "Theory-HEP"
+    },
+    {
+      "term": "Accelerators"
+    },
+    {
+      "term": "Instrumentation"
+    }
+  ],
+  "series": [
+    {
+      "name": "ICHEP",
+      "number": 37
+    }
+  ],
+  "legacy_creation_date": "2012-11-20",
+  "public_notes": [
+    {
+      "value":
+        "will be published in Nuclear Physics B - Proceedings Supplements (NUPHBP)."
+    }
+  ]
+}
