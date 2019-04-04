@@ -20,3 +20,5 @@ exports[`SearchResults renders with all props set 1`] = `
   </div>
 </div>
 `;
+
+exports[`SearchResults renders with required props 1`] = `<div />`;

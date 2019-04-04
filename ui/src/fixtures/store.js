@@ -18,7 +18,9 @@ export function getState() {
     literature,
     router: {
       location: {
-        query: {},
+        query: {
+          size: 25,
+        },
         previousUrl: '',
       },
     },

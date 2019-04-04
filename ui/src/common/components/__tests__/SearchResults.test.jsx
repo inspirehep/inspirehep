@@ -20,6 +20,18 @@ describe('SearchResults', () => {
       <SearchResults
         results={results}
         renderItem={result => <span>{result.get('value')}</span>}
+        page={2}
+        pageSize={10}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with required props', () => {
+    const wrapper = shallow(
+      <SearchResults
+        renderItem={result => <span>{result.get('value')}</span>}
+        pageSize={15}
       />
     );
     expect(wrapper).toMatchSnapshot();

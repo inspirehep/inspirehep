@@ -22,6 +22,12 @@ const stateWithScopeQuery = {
       },
     },
   }),
+  router: {
+    location: {
+      query: {},
+      previousUrl: '',
+    },
+  },
 };
 
 const stateWithoutScopeQuery = {
@@ -31,6 +37,12 @@ const stateWithoutScopeQuery = {
       query: {},
     },
   }),
+  router: {
+    location: {
+      query: {},
+      previousUrl: '',
+    },
+  },
 };
 
 describe('search - action creators', () => {

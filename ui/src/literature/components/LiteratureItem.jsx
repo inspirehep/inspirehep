@@ -17,6 +17,7 @@ import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
 import EventTracker from '../../common/components/EventTracker';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
+import ResponsiveView from '../../common/components/ResponsiveView';
 
 class LiteratureItem extends Component {
   renderBulletIfPublicationInfoAndEprintsNotEmpty() {
@@ -27,7 +28,7 @@ class LiteratureItem extends Component {
   }
 
   render() {
-    const { metadata } = this.props;
+    const { metadata, searchRank } = this.props;
 
     const title = metadata.getIn(['titles', 0]);
     const authors = metadata.get('authors');
@@ -71,9 +72,17 @@ class LiteratureItem extends Component {
           </Fragment>
         }
       >
-        <Link className="f5" to={`${LITERATURE}/${recordId}`}>
-          <LiteratureTitle title={title} />
-        </Link>
+        <div className="flex flex-nowrap">
+          <div className="flex-grow-1">
+            <Link className="f5" to={`${LITERATURE}/${recordId}`}>
+              <LiteratureTitle title={title} />
+            </Link>
+          </div>
+          <ResponsiveView
+            min="sm"
+            render={() => <div className="light-silver pl2">#{searchRank}</div>}
+          />
+        </div>
         <div className="mt1">
           <AuthorsAndCollaborations
             authorCount={authorCount}
@@ -100,6 +109,7 @@ class LiteratureItem extends Component {
 
 LiteratureItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
+  searchRank: PropTypes.number.isRequired,
 };
 
 export default LiteratureItem;
