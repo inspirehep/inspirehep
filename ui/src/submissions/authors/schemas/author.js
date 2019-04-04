@@ -28,6 +28,7 @@ const authorSchema = object().shape({
     .trim()
     .required()
     .label('Display Name'),
+  alternate_name: string(),
   native_name: string(),
   emails: arrayWithEmptyObjectDefault.of(
     emptyObjectOrShapeOf({

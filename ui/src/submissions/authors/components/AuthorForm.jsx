@@ -69,6 +69,12 @@ class AuthorForm extends Component {
               placeholder="For non-Latin names e.g. 麦迪娜 or Эдгар Бугаев"
               component={TextField}
             />
+            <Field
+              name="alternate_name"
+              label="Alternate name"
+              placeholder="Names that are searchable but not displayed"
+              component={TextField}
+            />
             <ArrayOf
               values={values}
               name="emails"
