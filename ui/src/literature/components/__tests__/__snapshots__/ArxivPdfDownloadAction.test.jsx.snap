@@ -7,19 +7,14 @@ exports[`ArxivPdfDownloadAction renders with arXiv id 1`] = `
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
-    <Button
-      block={false}
-      ghost={false}
+    <ExternalLink
       href="//arxiv.org/pdf/123.12345"
-      loading={false}
-      prefixCls="ant-btn"
-      target="_blank"
     >
       <IconText
         text="pdf"
         type="download"
       />
-    </Button>
+    </ExternalLink>
   </EventTracker>
 </ListItemAction>
 `;

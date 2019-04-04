@@ -9,7 +9,7 @@ describe('ListItemAction', () => {
   it('renders', () => {
     const wrapper = shallow(
       <ListItemAction>
-        <Button onClick={undefined}>
+        <Button>
           <IconText text="cite" type="export" />
         </Button>
       </ListItemAction>

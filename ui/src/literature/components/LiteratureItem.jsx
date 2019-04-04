@@ -33,7 +33,7 @@ class LiteratureItem extends Component {
     const authors = metadata.get('authors');
 
     const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
-    const doi = metadata.getIn(['dois', 0, 'value']);
+    const dois = metadata.get('dois');
     const recordId = metadata.get('control_number');
     const citationCount = metadata.get('citation_count', 0);
     const authorCount = metadata.get('number_of_authors');
@@ -49,7 +49,7 @@ class LiteratureItem extends Component {
         leftActions={
           <Fragment>
             {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
-            {doi && <DOILinkAction doi={doi} />}
+            {dois && <DOILinkAction dois={dois} />}
             <CiteModalAction recordId={recordId} />
             <EditRecordActionContainer recordId={recordId} />
           </Fragment>
@@ -59,10 +59,7 @@ class LiteratureItem extends Component {
             {citationCount != null && (
               <ListItemAction>
                 <EventTracker eventId="Citations:Search">
-                  <Link
-                    className="no-transition ant-btn"
-                    to={`${LITERATURE}?q=refersto:recid:${recordId}`}
-                  >
+                  <Link to={`${LITERATURE}?q=refersto:recid:${recordId}`}>
                     <IconText
                       text={`${citationCount} citations`}
                       type="login"

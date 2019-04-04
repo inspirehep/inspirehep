@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Set } from 'immutable';
 
-import { Button } from 'antd';
 import { isCataloger } from '../authorization';
 import ListItemAction from '../components/ListItemAction';
 import IconText from '../components/IconText';
 import EventTracker from '../components/EventTracker';
+import ExternalLink from '../components/ExternalLink';
 
 class EditRecordActionContainer extends Component {
   render() {
@@ -18,9 +18,9 @@ class EditRecordActionContainer extends Component {
       return (
         <ListItemAction>
           <EventTracker eventId="Edit">
-            <Button href={href} target="_blank" onClick={undefined}>
+            <ExternalLink href={href}>
               <IconText text="edit" type="edit" />
-            </Button>
+            </ExternalLink>
           </EventTracker>
         </ListItemAction>
       );
