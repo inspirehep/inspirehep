@@ -198,6 +198,8 @@ class EmbeddedSearch extends Component {
               <Col span={24}>
                 <SearchResults
                   renderItem={renderResultItem}
+                  page={query.page}
+                  pageSize={query.size}
                   results={results}
                 />
                 <SearchPagination

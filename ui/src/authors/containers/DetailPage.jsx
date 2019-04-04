@@ -114,8 +114,11 @@ class DetailPage extends Component {
                 pidType="literature"
                 baseQuery={authorLiteratureSearchQuery}
                 baseFacetsQuery={authorLiteratureFacetsQuery}
-                renderResultItem={result => (
-                  <LiteratureItem metadata={result.get('metadata')} />
+                renderResultItem={(result, rank) => (
+                  <LiteratureItem
+                    metadata={result.get('metadata')}
+                    searchRank={rank}
+                  />
                 )}
               />
             </ContentBox>

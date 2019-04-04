@@ -13,6 +13,7 @@ import {
   httpErrorToActionPayload,
   hasAnyOfKeys,
   shallowEqual,
+  getSearchRank,
 } from '../utils';
 
 describe('utils', () => {
@@ -170,6 +171,48 @@ describe('utils', () => {
       const keys = [];
       const result = hasAnyOfKeys(map, keys);
       expect(result).toBe(false);
+    });
+  });
+
+  describe('getSearchRank', () => {
+    it('returns rank for first item', () => {
+      const index = 0;
+      const page = 1;
+      const pageSize = 10;
+      const result = getSearchRank(index, page, pageSize);
+      expect(result).toBe(1);
+    });
+
+    it('returns rank for second page first item', () => {
+      const index = 0;
+      const page = 2;
+      const pageSize = 10;
+      const result = getSearchRank(index, page, pageSize);
+      expect(result).toBe(11);
+    });
+
+    it('returns rank for a first page item', () => {
+      const index = 3;
+      const page = 1;
+      const pageSize = 10;
+      const result = getSearchRank(index, page, pageSize);
+      expect(result).toBe(4);
+    });
+
+    it('returns rank for an item', () => {
+      const index = 4;
+      const page = 5;
+      const pageSize = 10;
+      const result = getSearchRank(index, page, pageSize);
+      expect(result).toBe(45);
+    });
+
+    it('returns NaN if page parameters are undefined', () => {
+      const index = 4;
+      const page = undefined;
+      const pageSize = undefined;
+      const result = getSearchRank(index, page, pageSize);
+      expect(result).toBe(NaN);
     });
   });
 

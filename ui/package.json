@@ -19,7 +19,7 @@
     "test:size": "bundlesize",
     "eject": "react-scripts eject",
     "lint":
-      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --fix --config .eslintrc"
+      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",

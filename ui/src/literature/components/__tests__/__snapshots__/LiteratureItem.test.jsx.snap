@@ -32,19 +32,31 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
     </React.Fragment>
   }
 >
-  <Link
-    className="f5"
-    replace={false}
-    to="/literature/12345"
+  <div
+    className="flex flex-nowrap"
   >
-    <LiteratureTitle
-      title={
-        Immutable.Map {
-          "title": "test",
-        }
-      }
+    <div
+      className="flex-grow-1"
+    >
+      <Link
+        className="f5"
+        replace={false}
+        to="/literature/12345"
+      >
+        <LiteratureTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </div>
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
     />
-  </Link>
+  </div>
   <div
     className="mt1"
   >
@@ -108,19 +120,31 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
     </React.Fragment>
   }
 >
-  <Link
-    className="f5"
-    replace={false}
-    to="/literature/12345"
+  <div
+    className="flex flex-nowrap"
   >
-    <LiteratureTitle
-      title={
-        Immutable.Map {
-          "title": "test",
-        }
-      }
+    <div
+      className="flex-grow-1"
+    >
+      <Link
+        className="f5"
+        replace={false}
+        to="/literature/12345"
+      >
+        <LiteratureTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </div>
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
     />
-  </Link>
+  </div>
   <div
     className="mt1"
   >
@@ -187,19 +211,31 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
     </React.Fragment>
   }
 >
-  <Link
-    className="f5"
-    replace={false}
-    to="/literature/12345"
+  <div
+    className="flex flex-nowrap"
   >
-    <LiteratureTitle
-      title={
-        Immutable.Map {
-          "title": "test",
-        }
-      }
+    <div
+      className="flex-grow-1"
+    >
+      <Link
+        className="f5"
+        replace={false}
+        to="/literature/12345"
+      >
+        <LiteratureTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </div>
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
     />
-  </Link>
+  </div>
   <div
     className="mt1"
   >

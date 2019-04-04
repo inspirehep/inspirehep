@@ -7,8 +7,8 @@ class SearchPage extends Component {
   render() {
     return (
       <SearchLayout
-        renderResultItem={result => (
-          <LiteratureItem metadata={result.get('metadata')} />
+        renderResultItem={(result, rank) => (
+          <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />
         )}
       />
     );

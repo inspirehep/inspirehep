@@ -62,6 +62,8 @@ exports[`EmbeddedSearch renders with current results if baseQuery is changed but
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [
@@ -138,6 +140,8 @@ exports[`EmbeddedSearch renders with initial search results when base query prop
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [
@@ -214,6 +218,8 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={Immutable.List []}
           />
@@ -284,6 +290,8 @@ exports[`EmbeddedSearch renders with loading state true then initial search resu
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [
@@ -360,6 +368,8 @@ exports[`EmbeddedSearch renders with new results after aggregation change 1`] = 
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [
@@ -436,6 +446,8 @@ exports[`EmbeddedSearch renders with new results after baseQuery prop change 1`]
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [
@@ -512,6 +524,8 @@ exports[`EmbeddedSearch renders with new results after page change 1`] = `
           span={24}
         >
           <SearchResults
+            page={2}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [
@@ -588,6 +602,8 @@ exports[`EmbeddedSearch renders with new results after pidType prop change 1`] =
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [
@@ -664,6 +680,8 @@ exports[`EmbeddedSearch renders with new results after sort change 1`] = `
           span={24}
         >
           <SearchResults
+            page={1}
+            pageSize={10}
             renderItem={[MockFunction]}
             results={
               Immutable.List [

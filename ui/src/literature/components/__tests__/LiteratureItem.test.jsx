@@ -17,7 +17,9 @@ describe('LiteratureItem', () => {
       collaborations: [{ value: 'CMS' }],
       collaborations_with_suffix: [{ value: 'CMS Group' }],
     });
-    const wrapper = shallow(<LiteratureItem metadata={metadata} />);
+    const wrapper = shallow(
+      <LiteratureItem metadata={metadata} searchRank={2} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -26,7 +28,9 @@ describe('LiteratureItem', () => {
       control_number: 12345,
       titles: [{ title: 'test' }],
     });
-    const wrapper = shallow(<LiteratureItem metadata={metadata} />);
+    const wrapper = shallow(
+      <LiteratureItem metadata={metadata} searchRank={1} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -35,7 +39,9 @@ describe('LiteratureItem', () => {
       control_number: 12345,
       titles: [{ title: 'test' }],
     });
-    const wrapper = shallow(<LiteratureItem metadata={metadata} />);
+    const wrapper = shallow(
+      <LiteratureItem metadata={metadata} searchRank={2} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 });

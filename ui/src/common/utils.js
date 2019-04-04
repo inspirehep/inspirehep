@@ -129,6 +129,10 @@ export function shallowEqual(objA, objB) {
   return true;
 }
 
+export function getSearchRank(index, page, pageSize) {
+  return (page - 1) * pageSize + index + 1;
+}
+
 export function wait(milisec) {
   return new Promise(resolve => {
     setTimeout(() => resolve(), milisec);
