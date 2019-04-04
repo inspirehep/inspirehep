@@ -202,7 +202,6 @@ def test_get_records_pid_from_field():
         "other_record": {"$ref": ["http://labs.inspirehep.net/api/literature/319136"]},
     }
 
-    tmp_record = InspireRecord(data)
     path_1 = "references.reference.record"
     expected_1 = [("lit", "339134")]
 
@@ -212,9 +211,9 @@ def test_get_records_pid_from_field():
     path_3 = "other_record"
     expected_3 = [("lit", "319136")]
 
-    assert tmp_record.get_linked_pids_from_field(path_1) == expected_1
-    assert tmp_record.get_linked_pids_from_field(path_2) == expected_2
-    assert tmp_record.get_linked_pids_from_field(path_3) == expected_3
+    assert InspireRecord._get_linked_pids_from_field(data, path_1) == expected_1
+    assert InspireRecord._get_linked_pids_from_field(data, path_2) == expected_2
+    assert InspireRecord._get_linked_pids_from_field(data, path_3) == expected_3
 
 
 def test_on_not_deleted_record_index_on_InspireRecord():

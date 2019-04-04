@@ -33,15 +33,17 @@ logger = logging.getLogger(__name__)
 def app():
     app = invenio_create_app()
     app_config = {}
+    app_config["DEBUG"] = True
+    app_config["CELERY_BROKER_URL"] = "pyamqp://guest:guest@localhost:5672"
+    app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/1"
     app_config["CELERY_CACHE_BACKEND"] = "memory"
-    app_config["CELERY_RESULT_BACKEND"] = "cache"
     app_config["CELERY_TASK_ALWAYS_EAGER"] = False
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
-    app_config["DEBUG"] = True
-    app_config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app_config["TESTING"] = True
     app.config.update(app_config)
-    return app
+
+    with app.app_context():
+        yield app
 
 
 @pytest.fixture(scope="function", autouse=True)

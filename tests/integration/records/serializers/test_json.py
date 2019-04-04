@@ -11,6 +11,8 @@ from copy import deepcopy
 import pytest
 from helpers.providers.faker import faker
 
+from inspirehep.records.marshmallow.literature import LiteratureMetadataSchemaV1
+
 
 def test_literature_default_json_v1_response(api_client, db, create_record):
     headers = {"Accept": "application/json"}
@@ -565,3 +567,46 @@ def test_institutions_default_json_v1_response_search(
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_hits_metadata
+
+
+def test_literature_serialize_experiments(es_clear, db, datadir, create_record):
+    data = json.loads((datadir / "1630825.json").read_text())
+    record = create_record("lit", data=data)
+    experiment_data = {
+        "accelerator": {"value": "Accelerator"},
+        "control_number": 1_118_472,
+        "institutions": [{"value": "Institute"}],
+        "experiment": {"value": "Experiment"},
+    }
+
+    expected_experiment = [
+        {"name": "LIGO"},
+        {"name": "VIRGO"},
+        {"name": "FERMI-GBM"},
+        {"name": "INTEGRAL"},
+        {"name": "ICECUBE"},
+        {"name": "ANTARES"},
+        {"name": "Swift"},
+        {"name": "AGILE"},
+        {"name": "DES"},
+        {"name": "FERMI-LAT"},
+        {"name": "ATCA"},
+        {"name": "OzGrav"},
+        {"name": "Institute-Accelerator-Experiment"},
+        {"name": "PAN-STARRS"},
+        {"name": "MWA"},
+        {"name": "CALET"},
+        {"name": "HESS"},
+        {"name": "LOFAR"},
+        {"name": "HAWC"},
+        {"name": "AUGER"},
+        {"name": "ALMA"},
+        {"name": "VLBI"},
+    ]
+    #  Create experiment with data:
+    create_record("exp", data=experiment_data)
+    #  Create dummy experiments:
+    create_record("exp", data={"control_number": 1_110_601})
+    create_record("exp", data={"control_number": 1_108_514})
+    dumped_record = LiteratureMetadataSchemaV1().dump(record.json).data
+    assert dumped_record["accelerator_experiments"] == expected_experiment

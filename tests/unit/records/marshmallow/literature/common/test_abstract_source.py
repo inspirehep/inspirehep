@@ -8,12 +8,19 @@
 import json
 from copy import deepcopy
 
+import mock
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureESEnhancementV1
 
 
-def test_abstract_source_full():
+@mock.patch(
+    (
+        "inspirehep.records.marshmallow.literature.common.reference_item"
+        ".InspireRecord.get_linked_records_from_dict_field"
+    )
+)
+def test_abstract_source_full(mockget_linked_records_from_dict_field):
     schema = LiteratureESEnhancementV1
     data = {
         "abstracts": [
@@ -31,13 +38,19 @@ def test_abstract_source_full():
     }
     record = faker.record("lit", data=data)
     expected_abstracts = deepcopy(data["abstracts"])
-    expected_abstracts[0]["abstract_source_suggest"] = {"value": "submitter"}
-    expected_abstracts[1]["abstract_source_suggest"] = {"value": "arXiv"}
+    expected_abstracts[0]["abstract_source_suggest"] = {"input": "submitter"}
+    expected_abstracts[1]["abstract_source_suggest"] = {"input": "arXiv"}
     result = json.loads(schema().dumps(record).data)
     assert result["abstracts"] == expected_abstracts
 
 
-def test_abstract_source_one_missing_source():
+@mock.patch(
+    (
+        "inspirehep.records.marshmallow.literature.common.reference_item"
+        ".InspireRecord.get_linked_records_from_dict_field"
+    )
+)
+def test_abstract_source_one_missing_source(mockget_linked_records_from_dict_field):
     schema = LiteratureESEnhancementV1
     data = {
         "abstracts": [
@@ -54,12 +67,18 @@ def test_abstract_source_one_missing_source():
     }
     record = faker.record("lit", data=data)
     expected_abstracts = deepcopy(data["abstracts"])
-    expected_abstracts[1]["abstract_source_suggest"] = {"value": "arXiv"}
+    expected_abstracts[1]["abstract_source_suggest"] = {"input": "arXiv"}
     result = json.loads(schema().dumps(record).data)
     assert result["abstracts"] == expected_abstracts
 
 
-def test_abstract_source_missing():
+@mock.patch(
+    (
+        "inspirehep.records.marshmallow.literature.common.reference_item"
+        ".InspireRecord.get_linked_records_from_dict_field"
+    )
+)
+def test_abstract_source_missing(mockget_linked_records_from_dict_field):
     schema = LiteratureESEnhancementV1
 
     record = faker.record("lit")
@@ -67,7 +86,13 @@ def test_abstract_source_missing():
     assert result.get("abstracts") is None
 
 
-def test_abstract_source_one_ONLY():
+@mock.patch(
+    (
+        "inspirehep.records.marshmallow.literature.common.reference_item"
+        ".InspireRecord.get_linked_records_from_dict_field"
+    )
+)
+def test_abstract_source_one_only(mockget_linked_records_from_dict_field):
     schema = LiteratureESEnhancementV1
     data = {
         "abstracts": [
@@ -80,6 +105,6 @@ def test_abstract_source_one_ONLY():
     }
     record = faker.record("lit", data=data)
     expected_abstracts = deepcopy(data["abstracts"])
-    expected_abstracts[0]["abstract_source_suggest"] = {"value": "arXiv"}
+    expected_abstracts[0]["abstract_source_suggest"] = {"input": "arXiv"}
     result = json.loads(schema().dumps(record).data)
     assert result["abstracts"] == expected_abstracts

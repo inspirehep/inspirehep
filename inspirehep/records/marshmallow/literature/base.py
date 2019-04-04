@@ -15,6 +15,7 @@ from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, missing, post_dump
 
+from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.authors import AuthorsMetadataSchemaV1
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
@@ -143,7 +144,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
     earliest_date = fields.Method("get_earliest_date")
     facet_inspire_doc_type = fields.Method("get_inspire_document_type")
     facet_author_name = fields.Method("get_facet_author_name")
-    id_field = fields.UUID(dump_only=True, dump_to="id", attribute="id")
+    id_field = fields.Integer(dump_only=True, dump_to="id", attribute="control_number")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
 
     def get_earliest_date(self, record):
@@ -190,7 +191,9 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
 
     def get_facet_author_name(self, record):
         """Prepare record for ``facet_author_name`` field."""
-        authors_with_record = record.get_linked_records_from_field("authors.record")
+        authors_with_record = InspireRecord.get_linked_records_from_dict_field(
+            record, "authors.record"
+        )
         authors_without_record = [
             author
             for author in record.get("authors", [])

@@ -135,3 +135,23 @@ def test_lit_records_with_citations_updates(
     #  Todo: Add check for `process_references_for_record`
     #   when there will be citation_count implemented
     #   because now there is nothing to check...
+
+
+def test_many_records_in_one_commit(
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
+):
+    for x in range(10):
+        data = faker.record("lit")
+        rec = LiteratureRecord.create(data)
+        rec.commit()
+    db.session.commit()
+    es.indices.refresh("records-hep")
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 10},
+        },
+    ]
+    retry_until_matched(steps)

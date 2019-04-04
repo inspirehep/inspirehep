@@ -14,7 +14,6 @@ from invenio_records.models import RecordMetadata
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.errors import WrongOperationOnRecordError
 
 logger = logging.getLogger(__name__)
 
@@ -44,10 +43,8 @@ def index_after_commit(sender, changes):
                 )
                 arguments["record_version"] = model_instance.version_id
                 logger.info(f"arguments: {arguments}")
-                return current_celery_app.send_task(
+                current_celery_app.send_task(
                     "inspirehep.records.indexer.tasks.index_record", kwargs=arguments
                 )
             else:
-                raise WrongOperationOnRecordError(
-                    f"Wrong operation ({change})on record {model_instance.id}"
-                )
+                logger.error(f"Wrong operation ({change})on record {model_instance.id}")

@@ -58,6 +58,7 @@ setup(
         "invenio_base.api_apps": ["inspirehep = inspirehep.records:InspireRecords"],
         "invenio_jsonschemas.schemas": ["inspire_records_schemas = inspire_schemas"],
         "invenio_search.mappings": ["records = inspirehep.search.mappings"],
+        "invenio_celery.tasks": ["invenio_indexer = inspirehep.records.indexer.tasks"],
     },
     classifiers=[
         "Environment :: Web Environment",
