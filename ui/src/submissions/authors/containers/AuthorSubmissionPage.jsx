@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Row, Col } from 'antd';
+import { object } from 'yup';
 
 import { submitAuthor } from '../../../actions/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
 import ExternalLink from '../../../common/components/ExternalLink';
+import uniqueOrcid from '../schemas/uniqueOrcid';
+
+const extraSchemaForNewAuthor = object().shape({ orcid: uniqueOrcid() });
 
 class AuthorSubmissionPage extends Component {
   constructor(props) {
@@ -41,6 +45,7 @@ class AuthorSubmissionPage extends Component {
                 error={error}
                 onSubmit={this.onSubmit}
                 initialFormData={initialFormData}
+                extendSchema={extraSchemaForNewAuthor}
               />
             </Col>
           </Row>
