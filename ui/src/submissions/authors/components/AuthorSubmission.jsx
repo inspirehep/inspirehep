@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
 import { Formik } from 'formik';
+import { object } from 'yup';
 
 import AuthorForm from './AuthorForm';
 import authorSchema from '../schemas/author';
@@ -36,7 +37,7 @@ class AuthorSubmission extends Component {
   }
 
   render() {
-    const { error, initialFormData } = this.props;
+    const { error, initialFormData, extendSchema } = this.props;
     const initialValues = {
       ...DEFAULT_FORM_DATA,
       ...initialFormData,
@@ -54,7 +55,7 @@ class AuthorSubmission extends Component {
           <Col>
             <Formik
               initialValues={initialValues}
-              validationSchema={authorSchema}
+              validationSchema={authorSchema.concat(extendSchema)}
               onSubmit={this.onFormikSubmit}
               validateOnChange={false}
               component={AuthorForm}
@@ -70,10 +71,12 @@ AuthorSubmission.propTypes = {
   error: PropTypes.objectOf(PropTypes.any), // must have 'message'
   initialFormData: PropTypes.objectOf(PropTypes.any),
   onSubmit: PropTypes.func.isRequired, // must be async
+  extendSchema: PropTypes.instanceOf(object),
 };
 
 AuthorSubmission.defaultProps = {
   initialFormData: DEFAULT_FORM_DATA,
+  extendSchema: object(),
   error: null,
 };
 
