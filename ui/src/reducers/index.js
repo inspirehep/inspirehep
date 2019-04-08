@@ -5,11 +5,11 @@ import search from './search';
 import literature from './literature';
 import exceptions from './exceptions';
 import inspect from './inspect';
-import user from './user';
+import user, { initialState as userInitialState } from './user';
 import submissions from './submissions';
 import citations from './citations';
 import authors from './authors';
-import ui from './ui';
+import ui, { initialState as uiInitialState } from './ui';
 
 const reducers = combineReducers({
   router: routerReducer,
@@ -25,3 +25,8 @@ const reducers = combineReducers({
 });
 
 export default reducers;
+
+export const REDUCERS_TO_PERSISTS = [
+  { name: 'ui', initialState: uiInitialState },
+  { name: 'user', initialState: userInitialState },
+];
