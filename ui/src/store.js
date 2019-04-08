@@ -16,6 +16,7 @@ import {
   createPersistToStorageMiddleware,
 } from './middlewares/statePersister';
 import searchDispatcherMiddleware from './middlewares/searchDispatcher';
+import clearStateDispatcher from './middlewares/clearStateDispatcher';
 import redirectToErrorPageMiddleware from './middlewares/redirectToErrorPage';
 import actionTrackerMiddleware from './middlewares/actionTracker';
 
@@ -32,6 +33,7 @@ const PROD_MIDDLEWARES = [
   keepPreviousUrlMiddleware,
   createPersistToStorageMiddleware(reducersToPersist),
   searchDispatcherMiddleware,
+  clearStateDispatcher,
   redirectToErrorPageMiddleware,
   actionTrackerMiddleware,
   thunkMiddleware,

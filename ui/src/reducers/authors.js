@@ -1,10 +1,10 @@
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   AUTHOR_ERROR,
   AUTHOR_REQUEST,
   AUTHOR_SUCCESS,
+  CLEAR_STATE,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -15,7 +15,7 @@ export const initialState = fromJS({
 
 const authorsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOCATION_CHANGE:
+    case CLEAR_STATE:
       return initialState;
     case AUTHOR_REQUEST:
       return state.set('loading', true);
