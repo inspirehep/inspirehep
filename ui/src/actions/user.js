@@ -2,6 +2,7 @@ import {
   USER_LOGIN_ERROR,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT_SUCCESS,
+  USER_SET_PREFERRED_CITE_FORMAT,
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
 import logout from '../user/logout';
@@ -56,5 +57,12 @@ export function userLogout() {
     } catch (error) {
       // TODO: dispatch logout error?
     }
+  };
+}
+
+export function setPreferredCiteFormat(format) {
+  return {
+    type: USER_SET_PREFERRED_CITE_FORMAT,
+    payload: { format },
   };
 }

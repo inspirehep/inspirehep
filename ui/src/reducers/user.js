@@ -4,10 +4,13 @@ import {
   USER_LOGIN_ERROR,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT_SUCCESS,
+  USER_SET_PREFERRED_CITE_FORMAT,
 } from '../actions/actionTypes';
+import { FORMAT_SELECT_VALUES } from '../literature/components/CiteModalAction';
 
 export const initialState = fromJS({
   loggedIn: false,
+  preferredCiteFormat: FORMAT_SELECT_VALUES[0],
   data: {
     roles: [],
   },
@@ -22,6 +25,8 @@ const userReducer = (state = initialState, action) => {
       return state
         .set('loggedIn', true)
         .set('data', fromJS(action.payload.data));
+    case USER_SET_PREFERRED_CITE_FORMAT:
+      return state.set('preferredCiteFormat', action.payload.format);
     default:
       return state;
   }

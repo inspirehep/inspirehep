@@ -14,15 +14,16 @@ const FORMAT_SELECT_OPTIONS = [
   { value: 'vnd+inspire.latex.eu+x-latex', display: 'LaTex (EU)' },
   { value: 'vnd+inspire.latex.us+x-latex', display: 'LaTex (US)' },
 ];
-
-export const DEFAULT_FORMAT = FORMAT_SELECT_OPTIONS[0].value;
+export const FORMAT_SELECT_VALUES = FORMAT_SELECT_OPTIONS.map(
+  option => option.value
+);
 
 class CiteModalAction extends Component {
   constructor(props) {
     super(props);
     this.onCiteClick = this.onCiteClick.bind(this);
     this.onModalCancel = this.onModalCancel.bind(this);
-    this.setCiteContentFor = this.setCiteContentFor.bind(this);
+    this.onFormatChange = this.onFormatChange.bind(this);
     this.onDownloadClick = this.onDownloadClick.bind(this);
 
     this.state = {
@@ -37,7 +38,8 @@ class CiteModalAction extends Component {
 
     // initial modal open
     if (!citeContent) {
-      this.setCiteContentFor(DEFAULT_FORMAT);
+      const { initialCiteFormat } = this.props;
+      this.setCiteContentFor(initialCiteFormat);
     }
   }
 
@@ -53,6 +55,12 @@ class CiteModalAction extends Component {
     this.setState({ modalVisible: false });
   }
 
+  onFormatChange(format) {
+    const { onCiteFormatChange } = this.props;
+    onCiteFormatChange(format);
+    this.setCiteContentFor(format);
+  }
+
   async setCiteContentFor(format) {
     let citeContent = this.citeContentCacheByFormat[format];
     if (!citeContent) {
@@ -65,6 +73,7 @@ class CiteModalAction extends Component {
   }
 
   render() {
+    const { initialCiteFormat } = this.props;
     const { modalVisible, citeContent } = this.state;
     return (
       <div className="di">
@@ -104,8 +113,8 @@ class CiteModalAction extends Component {
               >
                 <SelectBox
                   style={{ width: 140 }}
-                  defaultValue={DEFAULT_FORMAT}
-                  onChange={this.setCiteContentFor}
+                  defaultValue={initialCiteFormat}
+                  onChange={this.onFormatChange}
                   options={FORMAT_SELECT_OPTIONS}
                 />
               </EventTracker>
@@ -119,6 +128,8 @@ class CiteModalAction extends Component {
 
 CiteModalAction.propTypes = {
   recordId: PropTypes.number.isRequired,
+  initialCiteFormat: PropTypes.oneOf(FORMAT_SELECT_VALUES).isRequired,
+  onCiteFormatChange: PropTypes.func.isRequired,
 };
 
 export default CiteModalAction;

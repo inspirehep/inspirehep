@@ -5,6 +5,7 @@ import {
   USER_LOGIN_ERROR,
   USER_LOGOUT_SUCCESS,
   USER_LOGIN_SUCCESS,
+  USER_SET_PREFERRED_CITE_FORMAT,
 } from '../../actions/actionTypes';
 
 describe('user reducer', () => {
@@ -39,6 +40,18 @@ describe('user reducer', () => {
     const expected = fromJS({
       loggedIn: false,
       data: initialState.get('data'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('USER_SET_PREFERRED_CITE_FORMAT', () => {
+    const format = 'vnd+inspire.latex.eu+x-latex';
+    const state = reducer(Map(), {
+      type: USER_SET_PREFERRED_CITE_FORMAT,
+      payload: { format },
+    });
+    const expected = fromJS({
+      preferredCiteFormat: format,
     });
     expect(state).toEqual(expected);
   });

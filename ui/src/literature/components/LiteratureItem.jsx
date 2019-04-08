@@ -9,7 +9,6 @@ import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollabor
 import PublicationInfoList from '../../common/components/PublicationInfoList';
 import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import DOILinkAction from './DOILinkAction';
-import CiteModalAction from './CiteModalAction';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 import EditRecordActionContainer from '../../common/containers/EditRecordActionContainer';
@@ -18,6 +17,7 @@ import { LITERATURE } from '../../common/routes';
 import EventTracker from '../../common/components/EventTracker';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import ResponsiveView from '../../common/components/ResponsiveView';
+import CiteModalActionContainer from '../containers/CiteModalActionContainer';
 
 class LiteratureItem extends Component {
   renderBulletIfPublicationInfoAndEprintsNotEmpty() {
@@ -51,7 +51,7 @@ class LiteratureItem extends Component {
           <Fragment>
             {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
             {dois && <DOILinkAction dois={dois} />}
-            <CiteModalAction recordId={recordId} />
+            <CiteModalActionContainer recordId={recordId} />
             <EditRecordActionContainer recordId={recordId} />
           </Fragment>
         }

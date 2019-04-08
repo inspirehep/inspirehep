@@ -4,7 +4,7 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
 <ResultItem
   leftActions={
     <React.Fragment>
-      <CiteModalAction
+      <Connect(CiteModalAction)
         recordId={12345}
       />
       <Connect(EditRecordActionContainer)
@@ -94,7 +94,7 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
 <ResultItem
   leftActions={
     <React.Fragment>
-      <CiteModalAction
+      <Connect(CiteModalAction)
         recordId={12345}
       />
       <Connect(EditRecordActionContainer)
@@ -187,7 +187,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
       <ArxivPdfDownloadAction
         arxivId="1234567890"
       />
-      <CiteModalAction
+      <Connect(CiteModalAction)
         recordId={12345}
       />
       <Connect(EditRecordActionContainer)

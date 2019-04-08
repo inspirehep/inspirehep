@@ -13,7 +13,6 @@ import {
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
 import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
-import CiteModalAction from '../../components/CiteModalAction';
 import EditRecordActionContainer from '../../../common/containers/EditRecordActionContainer';
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
@@ -33,6 +32,7 @@ import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
 import { ErrorPropType } from '../../../common/propTypes';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
+import CiteModalActionContainer from '../CiteModalActionContainer';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -109,7 +109,7 @@ class DetailPage extends Component {
             leftActions={
               <Fragment>
                 {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
-                <CiteModalAction recordId={recordId} />
+                <CiteModalActionContainer recordId={recordId} />
                 <EditRecordActionContainer recordId={recordId} />
               </Fragment>
             }
