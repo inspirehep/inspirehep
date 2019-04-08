@@ -176,6 +176,7 @@ def test_literature_facets(api_client, db, create_record):
         "doc_type",
         "earliest_date",
         "subject",
+        "collaboration",
     ]
     expected_facet_keys.sort()
     response_data_facet_keys.sort()
@@ -208,6 +209,7 @@ def test_literature_facets_with_selected_facet(api_client, db, create_record):
         "doc_type",
         "earliest_date",
         "subject",
+        "collaboration",
     ]
 
     expected_result_hits = {}
@@ -265,6 +267,7 @@ def test_literature_facets_arxiv(api_client, db, create_record):
         "doc_type",
         "earliest_date",
         "subject",
+        "collaboration",
     ]
     expected_facet_keys.sort()
     response_data_facet_keys.sort()
@@ -582,3 +585,32 @@ def test_institutions_search_json_get(api_client, db, create_record):
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
+
+
+def test_literature_facets_collaboration(api_client, db, create_record):
+    data = {"collaborations": [{"value": "Alice"}, {"value": "Collab"}]}
+    record_1 = create_record("lit", data=data, with_indexing=True)
+    data = {"collaborations": [{"value": "Alice"}]}
+    record_2 = create_record("lit", data=data, with_indexing=True)
+
+    response = api_client.get("/literature/facets")
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_collaboration_buckets = response_data["aggregations"][
+        "collaboration"
+    ]["buckets"]
+
+    expected_status_code = 200
+    expected_collaboration_buckets = [
+        {"key": "Alice", "doc_count": 2},
+        {"key": "Collab", "doc_count": 1},
+    ]
+
+    assert expected_status_code == response_status_code
+    assert expected_collaboration_buckets == response_data_collaboration_buckets
+
+    response = api_client.get("/literature?collaboration=Collab")
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    assert expected_status_code == response_status_code
+    assert record_1.json == response_data["hits"]["hits"][0]["metadata"]
