@@ -1,5 +1,4 @@
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
 
 import {
   LITERATURE_ERROR,
@@ -11,6 +10,7 @@ import {
   LITERATURE_AUTHORS_ERROR,
   LITERATURE_AUTHORS_REQUEST,
   LITERATURE_AUTHORS_SUCCESS,
+  CLEAR_STATE,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -27,7 +27,7 @@ export const initialState = fromJS({
 
 const literatureReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOCATION_CHANGE:
+    case CLEAR_STATE:
       return initialState;
     case LITERATURE_REQUEST:
       return state.set('loading', true);
@@ -61,7 +61,7 @@ const literatureReducer = (state = initialState, action) => {
       return state
         .set('loadingAuthors', false)
         .set('errorAuthors', fromJS(action.payload))
-        .set('authors', initialState.get('authors'))
+        .set('authors', initialState.get('authors'));
     default:
       return state;
   }

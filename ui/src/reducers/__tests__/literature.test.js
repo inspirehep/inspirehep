@@ -1,6 +1,4 @@
 import { Map, fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
-
 import reducer, { initialState } from '../literature';
 import {
   LITERATURE_ERROR,
@@ -12,6 +10,7 @@ import {
   LITERATURE_REFERENCES_ERROR,
   LITERATURE_REFERENCES_REQUEST,
   LITERATURE_REFERENCES_SUCCESS,
+  CLEAR_STATE,
 } from '../../actions/actionTypes';
 
 describe('literature reducer', () => {
@@ -20,13 +19,13 @@ describe('literature reducer', () => {
     expect(state).toEqual(initialState);
   });
 
-  it('LOCATION_CHANGE', () => {
+  it('CLEAR_STATE', () => {
     const currentState = fromJS({
       data: {
         control_number: 123456,
       },
     });
-    const state = reducer(currentState, { type: LOCATION_CHANGE });
+    const state = reducer(currentState, { type: CLEAR_STATE });
     expect(state).toEqual(initialState);
   });
 
