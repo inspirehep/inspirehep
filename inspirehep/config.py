@@ -32,16 +32,9 @@ from .search.facets import (
     range_author_count_filter,
 )
 
-
-def _(x):
-    """Identity function used to trigger string extraction."""
-    return x
-
-
 # DEBUG
 FLASK_ENV = "development"
-FLASK_DEBUG = 1
-DEBUG = 1
+DEBUG = True
 
 # Rate limiting
 # =============
@@ -60,7 +53,7 @@ MAIL_SUPPRESS_SEND = True
 #: Email address used as sender of account registration emails.
 SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
 #: Email subject for account registration emails.
-SECURITY_EMAIL_SUBJECT_REGISTER = _("Welcome to inspirehep!")
+SECURITY_EMAIL_SUBJECT_REGISTER = "Welcome to inspirehep!"
 #: Redis session storage URL.
 ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 
@@ -150,9 +143,10 @@ SESSION_COOKIE_SECURE = True
 
 # Web services and APIs
 # =====================
-LEGACY_RECORD_URL_PATTERN = "https://inspirehep.net/record/{recid}"
 AUTHENTICATION_TOKEN = "CHANGE_ME"
 INSPIRE_NEXT_URL = "http://web-next:5000"
+LEGACY_BASE_URL = "https://inspirehep.net"
+LEGACY_RECORD_URL_PATTERN = "https://inspirehep.net/record/{recid}"
 
 # Debug
 # =====
@@ -519,7 +513,6 @@ RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostre
 
 APP_ENABLE_SECURE_HEADERS = False
 
-
 # Files
 # =====
 BASE_FILES_LOCATION = os.path.join(sys.prefix, "var/data")
@@ -558,6 +551,7 @@ CELERY_IMPORTS = ["inspirehep.records.indexer.tasks"]
 # =============
 
 FEATURE_FLAG_ENABLE_FILES = False
+FEATURE_FLAG_ENABLE_ORCID_PUSH = False
 
 
 ALEMBIC_CONTEXT = {
@@ -572,7 +566,6 @@ ALEMBIC_SKIP_TABLES = [
     "crawler_workflows_object",
     "crawler_job",
     "workflows_audit_logging",
-    "legacy_records_mirror",
     "workflows_buckets",
     "workflows_object",
     "workflows_workflow",

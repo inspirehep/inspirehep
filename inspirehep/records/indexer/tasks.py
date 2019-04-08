@@ -36,6 +36,12 @@ def get_record(uuid, record_version=None):
 
 
 @shared_task(ignore_result=False, bind=True)
+def batch_index(self, records_uuids, request_timeout):
+    logger.info(f"Starting shared task `batch_index for {len(records_uuids)} records")
+    return InspireRecordIndexer().bulk_index(records_uuids)
+
+
+@shared_task(ignore_result=False, bind=True)
 def process_references_for_record(uuid=None, record_version=None, record=None):
     """Tries to find differences in record references and forces to reindex
     records which reference changed to update their citation statistics.
@@ -120,9 +126,3 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         logger.debug("Record '%s' successfully indexed on ES", uuid)
 
     return process_references_for_record(record=record)
-
-
-@shared_task(ignore_result=False, bind=True)
-def batch_index(self, records_uuids, request_timeout):
-    logger.info(f"Starting shared task `batch_index for {len(records_uuids)} records")
-    return InspireRecordIndexer().bulk_index(records_uuids)

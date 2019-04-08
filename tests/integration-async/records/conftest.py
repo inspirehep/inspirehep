@@ -39,6 +39,7 @@ def app():
     app_config["CELERY_BROKER_URL"] = "pyamqp://guest:guest@localhost:5672"
     app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/1"
     app_config["CELERY_CACHE_BACKEND"] = "memory"
+    app_config["SERVER_NAME"] = "localhost:5000"
     app_config["CELERY_TASK_ALWAYS_EAGER"] = False
     app_config["CELERY_TASK_EAGER_PROPAGATES"] = False
     app_config["TESTING"] = True

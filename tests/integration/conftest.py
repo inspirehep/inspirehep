@@ -11,6 +11,7 @@ import random
 
 import pytest
 from helpers.factories.models.base import BaseFactory
+from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
@@ -30,6 +31,7 @@ def app_config(app_config):
     # Due to flask error it has to be False otherwise Alembic __init__ will fail.
     app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
+    app_config["SERVER_NAME"] = "localhost:5000"
     app_config["SEARCH_ELASTIC_HOSTS"] = "localhost:9200"
     app_config[
         "SQLALCHEMY_DATABASE_URI"
@@ -94,7 +96,7 @@ def db(database):
     BaseFactory._meta.sqlalchemy_session = session
     RecordMetadataFactory._meta.sqlalchemy_session = session
     PersistentIdentifierFactory._meta.sqlalchemy_session = session
-
+    LegacyRecordsMirrorFactory._meta.sqlalchemy_session = session
     # `session` is actually a scoped_session. For the `after_transaction_end`
     # event, we need a session instance to listen for, hence the `session()`
     # call.

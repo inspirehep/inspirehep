@@ -143,30 +143,6 @@ def upgrade():
         ),
     )
     op.create_table(
-        "legacy_records_mirror",
-        sa.Column("recid", sa.INTEGER(), autoincrement=True, nullable=False),
-        sa.Column(
-            "last_updated", postgresql.TIMESTAMP(), autoincrement=False, nullable=False
-        ),
-        sa.Column("marcxml", postgresql.BYTEA(), autoincrement=False, nullable=False),
-        sa.Column("valid", sa.BOOLEAN(), autoincrement=False, nullable=True),
-        sa.Column("errors", sa.TEXT(), autoincrement=False, nullable=True),
-        sa.Column("collection", sa.TEXT(), autoincrement=False, nullable=True),
-        sa.PrimaryKeyConstraint("recid", name="pk_legacy_records_mirror"),
-    )
-    op.create_index(
-        "ix_legacy_records_mirror_valid_collection",
-        "legacy_records_mirror",
-        ["valid", "collection"],
-        unique=False,
-    )
-    op.create_index(
-        "ix_legacy_records_mirror_last_updated",
-        "legacy_records_mirror",
-        ["last_updated"],
-        unique=False,
-    )
-    op.create_table(
         "workflows_audit_logging",
         sa.Column("id", sa.INTEGER(), autoincrement=True, nullable=False),
         sa.Column("user_id", sa.INTEGER(), autoincrement=False, nullable=True),
@@ -344,13 +320,6 @@ def downgrade():
         "ix_workflows_audit_logging_user_id", table_name="workflows_audit_logging"
     )
     op.drop_table("workflows_audit_logging")
-    op.drop_index(
-        "ix_legacy_records_mirror_last_updated", table_name="legacy_records_mirror"
-    )
-    op.drop_index(
-        "ix_legacy_records_mirror_valid_collection", table_name="legacy_records_mirror"
-    )
-    op.drop_table("legacy_records_mirror")
     op.drop_table("workflows_buckets")
     op.drop_index("ix_workflows_object_data_type", table_name="workflows_object")
     op.drop_index("ix_workflows_object_id_parent", table_name="workflows_object")

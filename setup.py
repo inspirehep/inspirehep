@@ -40,6 +40,7 @@ setup(
     platforms="any",
     entry_points={
         "console_scripts": ["inspirehep = inspirehep.cli:cli"],
+        "invenio_db.alembic": ["inspirehep = inspirehep:alembic"],
         "invenio_pidstore.minters": [
             "literature_minter = inspirehep.pidstore.minters.control_number:LiteratureMinter.mint",
             "authors_minter = inspirehep.pidstore.minters.control_number:AuthorsMinter.mint",
@@ -53,14 +54,23 @@ setup(
         "invenio_base.api_blueprints": [
             "inspirehep_records = inspirehep.records.views:blueprint",
             "inspirehep_submissions = inspirehep.submissions.views:blueprint",
+            "inspirehep_migrator = inspirehep.migrator.views:blueprint",
         ],
         "invenio_config.module": ["inspirehep = inspirehep.config"],
-        "invenio_base.api_apps": ["inspirehep = inspirehep.records:InspireRecords"],
-        "invenio_jsonschemas.schemas": ["inspire_records_schemas = inspire_schemas"],
+        "invenio_base.api_apps": [
+            "inspirehep_records = inspirehep.records:InspireRecords"
+            "inspirehep_migrator = inspirehep.migrator:InspireMigrator"
+        ],
+        "invenio_jsonschemas.schemas": ["inspirehep_records_schemas = inspire_schemas"],
         "invenio_search.mappings": ["records = inspirehep.search.mappings"],
-        "invenio_celery.tasks": ["invenio_indexer = inspirehep.records.indexer.tasks"],
-        "invenio_db.alembic": ["inspirehep = inspirehep:alembic"],
-        "invenio_db.models": ["inspirehep_records = inspirehep.records.models"],
+        "invenio_db.models": [
+            "inspirehep_records = inspirehep.records.models",
+            "inspirehep_migrator = inspirehep.migrator.models",
+        ],
+        "invenio_celery.tasks": [
+            "inspirehep_indexer = inspirehep.records.indexer.tasks",
+            "inspirehep_migrator = inspirehep.migrator.tasks",
+        ],
     },
     classifiers=[
         "Environment :: Web Environment",
