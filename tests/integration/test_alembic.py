@@ -5,6 +5,15 @@ from sqlalchemy import text
 def test_downgrade(app, db):
     alembic = Alembic(app)
 
+    alembic.downgrade(target="b646d3592dd5")
+    assert "ix_legacy_records_mirror_last_updated" not in _get_indexes(
+        "legacy_records_mirror", db
+    )
+    assert "ix_legacy_records_mirror_valid_collection" not in _get_indexes(
+        "legacy_records_mirror", db
+    )
+    assert "legacy_records_mirror" not in _get_table_names(db)
+
     alembic.downgrade(target="7be4c8b5c5e8")
     assert "idx_citations_cited" not in _get_indexes("record_citations", db)
     assert "idx_citations_citers" not in _get_indexes("record_citations", db)
@@ -24,7 +33,6 @@ def test_downgrade(app, db):
     assert "crawler_workflows_object" not in _get_table_names(db)
     assert "crawler_job" not in _get_table_names(db)
     assert "workflows_audit_logging" not in _get_table_names(db)
-    assert "legacy_records_mirror" not in _get_table_names(db)
     assert "workflows_buckets" not in _get_table_names(db)
     assert "workflows_object" not in _get_table_names(db)
     assert "workflows_workflow" not in _get_table_names(db)
@@ -38,12 +46,6 @@ def test_downgrade(app, db):
     )
     assert "ix_workflows_audit_logging_user_id" not in _get_indexes(
         "workflows_audit_logging", db
-    )
-    assert "ix_legacy_records_mirror_last_updated" not in _get_indexes(
-        "legacy_records_mirror", db
-    )
-    assert "ix_legacy_records_mirror_valid_collection" not in _get_indexes(
-        "legacy_records_mirror", db
     )
     assert "ix_workflows_object_data_type" not in _get_indexes("workflows_object", db)
     assert "ix_workflows_object_id_parent" not in _get_indexes("workflows_object", db)
@@ -63,7 +65,6 @@ def test_upgrade(app, db):
     assert "crawler_workflows_object" in _get_table_names(db)
     assert "crawler_job" in _get_table_names(db)
     assert "workflows_audit_logging" in _get_table_names(db)
-    assert "legacy_records_mirror" in _get_table_names(db)
     assert "workflows_buckets" in _get_table_names(db)
     assert "workflows_object" in _get_table_names(db)
     assert "workflows_workflow" in _get_table_names(db)
@@ -77,12 +78,6 @@ def test_upgrade(app, db):
     )
     assert "ix_workflows_audit_logging_user_id" in _get_indexes(
         "workflows_audit_logging", db
-    )
-    assert "ix_legacy_records_mirror_last_updated" in _get_indexes(
-        "legacy_records_mirror", db
-    )
-    assert "ix_legacy_records_mirror_valid_collection" in _get_indexes(
-        "legacy_records_mirror", db
     )
     assert "ix_workflows_object_data_type" in _get_indexes("workflows_object", db)
     assert "ix_workflows_object_id_parent" in _get_indexes("workflows_object", db)
@@ -99,6 +94,16 @@ def test_upgrade(app, db):
     assert "idx_citations_citers" in _get_indexes("record_citations", db)
 
     assert "record_citations" in _get_table_names(db)
+
+    alembic.upgrade(target="5ce9ef759ace")
+
+    assert "ix_legacy_records_mirror_last_updated" in _get_indexes(
+        "legacy_records_mirror", db
+    )
+    assert "ix_legacy_records_mirror_valid_collection" in _get_indexes(
+        "legacy_records_mirror", db
+    )
+    assert "legacy_records_mirror" in _get_table_names(db)
 
 
 def _get_indexes(tablename, db):

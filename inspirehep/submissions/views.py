@@ -14,7 +14,8 @@ from flask.views import MethodView
 from flask_login import current_user
 from invenio_pidstore.errors import PIDDoesNotExistError
 
-from inspirehep.accounts.api import get_current_user_orcid, login_required
+from inspirehep.accounts.api import get_current_user_orcid
+from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.records.api import AuthorsRecord
 
 from .marshmallow import Author, Literature
@@ -58,7 +59,7 @@ class BaseSubmissionsResource(MethodView):
 
 class AuthorSubmissionsResource(BaseSubmissionsResource):
 
-    decorators = [login_required]
+    decorators = [login_required_with_roles()]
 
     def get(self, pid_value):
         try:
@@ -106,7 +107,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
 
 class LiteratureSubmissionResource(BaseSubmissionsResource):
 
-    decorators = [login_required]
+    decorators = [login_required_with_roles()]
 
     def post(self):
         submission_data = request.get_json()

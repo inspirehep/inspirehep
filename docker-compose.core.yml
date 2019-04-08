@@ -61,7 +61,7 @@ services:
     extends:
       file: docker-compose.services.yml
       service: app
-    command: poetry run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -B -A inspirehep.celery -l INFO
+    command: poetry run watchmedo auto-restart -d . -p '*.py' -- celery worker -E -A inspirehep.celery -l INFO --purge --queues celery,migrator,indexer_task
     depends_on:
       - db
       - es

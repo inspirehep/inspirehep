@@ -318,6 +318,21 @@ class InspireRecord(Record):
         return record
 
     @classmethod
+    def create_or_update(cls, data, **kwargs):
+        control_number = data.get("control_number")
+        try:
+            record_class = cls.get_class_for_record(data)
+            record = cls.get_record_by_pid_value(
+                control_number, pid_type=record_class.pid_type
+            )
+            # `.clear()` otherwise will be like merge
+            record.clear()
+            record.update(data)
+        except PIDDoesNotExistError:
+            record = cls.create(data, **kwargs)
+        return record
+
+    @classmethod
     def _get_linked_pids_from_field(cls, data, path):
         """Return a list of (pid_type, pid_value) tuples for all records referenced
         in the field at the given path
@@ -447,16 +462,6 @@ class InspireRecord(Record):
                 pid.redirect(other_pid)
                 db.session.add(pid)
             self._mark_deleted()
-
-    @classmethod
-    def create_or_update(cls, data, **kwargs):
-        control_number = data.get("control_number")
-        try:
-            record = cls.get_record_by_pid_value(control_number)
-            record.update(data)
-        except PIDDoesNotExistError:
-            record = cls.create(data, **kwargs)
-        return record
 
     def delete(self):
         for file in list(self.files.keys):
