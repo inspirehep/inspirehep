@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CiteModalAction renders with recordId 1`] = `
+exports[`CiteModalAction renders with all props 1`] = `
 <div
   className="di"
 >
