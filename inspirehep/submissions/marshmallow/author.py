@@ -40,9 +40,7 @@ class Author(Schema):
         family_name, given_name = self.get_name_split(data)
         return {
             "advisors": get_value(data, "advisors", default=missing),
-            "alternate_name": get_value(
-                data, "name.previous_names[0]", default=missing
-            ),
+            "alternate_name": get_value(data, "name.name_variants[0]", default=missing),
             "acquisition_source": get_value(
                 data, "acquisition_source", default=missing
             ),
@@ -129,7 +127,7 @@ class Author(Schema):
         full_name = self.get_full_name(family_name, given_name)
         author.set_name(full_name)
         alternate_name = data.get("alternate_name")
-        author.add_previous_name(alternate_name)
+        author.add_name_variant(alternate_name)
 
         linkedin = data.get("linkedin")
         author.add_linkedin(linkedin)
