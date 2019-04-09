@@ -405,17 +405,17 @@ pyflakes = ">=2.1.0,<2.2.0"
 
 [[package]]
 category = "main"
-description = "A microframework based on Werkzeug, Jinja2 and good intentions"
+description = "A simple framework for building complex web applications."
 name = "flask"
 optional = false
 python-versions = "*"
-version = "0.12.4"
+version = "1.0.2"
 
 [package.dependencies]
-Jinja2 = ">=2.4"
-Werkzeug = ">=0.7"
-click = ">=2.0"
-itsdangerous = ">=0.21"
+Jinja2 = ">=2.10"
+Werkzeug = ">=0.14"
+click = ">=5.1"
+itsdangerous = ">=0.24"
 
 [[package]]
 category = "main"
@@ -628,12 +628,12 @@ description = "Replace default `flask shell` command by similar command running 
 name = "flask-shell-ipython"
 optional = false
 python-versions = "*"
-version = "0.3.1"
+version = "0.4.0"
 
 [package.dependencies]
 IPython = ">=5.0.0"
 click = "*"
-flask = ">=0.11"
+flask = ">=1.0"
 
 [[package]]
 category = "main"
@@ -641,7 +641,7 @@ description = "Adds SQLAlchemy support to your Flask application"
 name = "Flask-SQLAlchemy"
 optional = false
 python-versions = "*"
-version = "2.3.1.dev20190408"
+version = "2.3.1.dev20190409"
 
 [package.dependencies]
 Flask = ">=0.10"
@@ -661,6 +661,19 @@ version = "0.5.0"
 
 [package.dependencies]
 six = ">=1.9.0"
+
+[[package]]
+category = "main"
+description = "Webpack integration for Flask."
+name = "flask-webpackext"
+optional = false
+python-versions = "*"
+version = "1.0.0"
+
+[package.dependencies]
+Flask = ">=0.11"
+pynpm = ">=0.1.1"
+pywebpack = ">=1.0.0"
 
 [[package]]
 category = "main"
@@ -801,10 +814,10 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "61.0.2"
+version = "61.1.9"
 
 [package.dependencies]
-Flask = ">=0.12.3,<1.0"
+Flask = ">=0.12.3,<2.0.0"
 IDUtils = ">=1.0.1,<2.0"
 dojson = ">=1.3.1,<2.0"
 inspire-schemas = ">=59.0.5,<60.0"
@@ -882,19 +895,20 @@ description = "Invenio Digital Library Framework."
 name = "invenio"
 optional = false
 python-versions = "*"
-version = "3.0.0"
+version = "3.1.0"
 
 [package.dependencies]
-Flask = ">=0.11.1"
-invenio-access = ">=1.0.1,<1.1.0"
-invenio-accounts = ">=1.0.1,<1.1.0"
-invenio-app = ">=1.0.0,<1.1.0"
-invenio-base = ">=1.0.1,<1.1.0"
-invenio-celery = ">=1.0.0,<1.1.0"
-invenio-config = ">=1.0.0,<1.1.0"
-invenio-i18n = ">=1.0.0,<1.1.0"
-invenio-oauth2server = ">=1.0.1,<1.1.0"
-invenio-oauthclient = ">=1.0.0,<1.1.0"
+Flask = ">=1.0.2"
+invenio-access = ">=1.1.0,<1.2.0"
+invenio-accounts = ">=1.1.1,<1.2.0"
+invenio-app = ">=1.1.0,<1.2.0"
+invenio-base = ">=1.0.2,<1.1.0"
+invenio-cache = ">=1.0.0,<1.1.0"
+invenio-celery = ">=1.0.1,<1.1.0"
+invenio-config = ">=1.0.1,<1.1.0"
+invenio-i18n = ">=1.1.1,<1.2.0"
+invenio-oauth2server = ">=1.0.3,<1.1.0"
+invenio-oauthclient = ">=1.1.2,<1.2.0"
 invenio-userprofiles = ">=1.0.1,<1.1.0"
 
 [[package]]
@@ -904,7 +918,7 @@ marker = "extra == \"auth\""
 name = "invenio-access"
 optional = false
 python-versions = "*"
-version = "1.0.2"
+version = "1.1.0"
 
 [package.dependencies]
 Flask = ">=0.11.1"
@@ -919,7 +933,7 @@ marker = "extra == \"auth\""
 name = "invenio-accounts"
 optional = false
 python-versions = "*"
-version = "1.0.2"
+version = "1.1.1"
 
 [package.dependencies]
 Flask = ">=0.11.1"
@@ -950,7 +964,7 @@ description = "WSGI, Celery and CLI applications for Invenio flavours."
 name = "invenio-app"
 optional = false
 python-versions = "*"
-version = "1.0.5"
+version = "1.1.0"
 
 [package.dependencies]
 flask-celeryext = ">=0.2.2"
@@ -1052,11 +1066,12 @@ description = "Invenio internationalization module."
 name = "invenio-i18n"
 optional = false
 python-versions = "*"
-version = "1.0.0"
+version = "1.1.1"
 
 [package.dependencies]
 Flask = ">=0.11.1"
 Flask-BabelEx = ">=0.9.2"
+flask-webpackext = ">=1.0.0"
 
 [[package]]
 category = "main"
@@ -1142,7 +1157,7 @@ marker = "extra == \"auth\""
 name = "invenio-oauthclient"
 optional = false
 python-versions = "*"
-version = "1.0.1"
+version = "1.1.2"
 
 [package.dependencies]
 Flask = ">=0.11.1"
@@ -1827,6 +1842,14 @@ mccabe = ">=0.6,<0.7"
 
 [[package]]
 category = "main"
+description = "Python interface to your NPM and package.json."
+name = "pynpm"
+optional = false
+python-versions = "*"
+version = "0.1.1"
+
+[[package]]
+category = "main"
 description = "An intrinsic PEG Parser-Interpreter for Python"
 name = "pypeg2"
 optional = false
@@ -1968,6 +1991,18 @@ name = "pytz"
 optional = false
 python-versions = "*"
 version = "2018.9"
+
+[[package]]
+category = "main"
+description = "Webpack integration layer for Python."
+name = "pywebpack"
+optional = false
+python-versions = "*"
+version = "1.0.0"
+
+[package.dependencies]
+node-semver = ">=0.1.1"
+pynpm = ">=0.1.0"
 
 [[package]]
 category = "main"
@@ -2264,7 +2299,7 @@ description = "Declarative parsing and validation of HTTP request objects, with 
 name = "webargs"
 optional = false
 python-versions = "*"
-version = "5.2.0"
+version = "5.3.0"
 
 [package.dependencies]
 marshmallow = ">=2.15.2"
@@ -2362,7 +2397,7 @@ python-versions = ">=2.7"
 version = "0.3.3"
 
 [metadata]
-content-hash = "20c6ab4ad609eda099b3874ad9ba2219d531e64285ad76bf9dc6601bbe951c5a"
+content-hash = "0aa892d3231b12e1a50181719bf19512e0528f982ecd2963ec5908c9ebe72ed1"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -2406,7 +2441,7 @@ entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19
 factory-boy = ["6f25cc4761ac109efd503f096e2ad99421b1159f01a29dbb917359dcd68e08ca", "d552cb872b310ae78bd7429bf318e42e1e903b1a109e899a523293dfa762ea4f"]
 faker = ["00b7011757c4907546f17d0e47df098b542ea2b04c966ee0e80a493aae2c13c8", "745ac8b9c9526e338696e07b7f2e206e5e317e5744e22fdd7c2894bf19af41f1"]
 flake8 = ["859996073f341f2670741b51ec1e67a01da142831aa1fdc6242dbf88dffbe661", "a796a115208f5c03b18f332f7c11729812c8c3ded6c46319c59b53efd3819da8"]
-flask = ["2ea22336f6d388b4b242bc3abf8a01244a8aa3e236e7407469ef78c16ba355dd", "6c02dbaa5a9ef790d8219bdced392e2d549c10cd5a5ba4b6aa65126b2271af29"]
+flask = ["2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48", "a080b744b7e345ccfcbc77954861cb05b3c63786e93f2b3875e0913d44b43f05"]
 flask-admin = ["ca0be6ec11a6913b73f656c65c444ae5be416c57c75638dd3199376ce6bc7422"]
 flask-alembic = ["05a1e6f4148dbfcc9280a393373bfbd250af6f9f4f0ca9f744ef8f7376a3deec", "7e67740b0b08d58dcae0c701d56b56e60f5fa4af907bb82b4cb0469229ba94ff"]
 flask-babelex = ["cf79cdedb5ce860166120136b0e059e9d97b8df07a3bc2411f6243de04b754b4"]
@@ -2421,8 +2456,9 @@ flask-menu = ["02adee99456f70fcf4472c5ce04a65a083bce78d39144e4daa38e79a123da7e8"
 flask-oauthlib = ["cbfe835902569909a19828582c3381148995ad677243016ccad9c951acf69406", "d3e8ea932df01177018c502e5a07eaeb5c27bcb5352b678f14e57f892272bb56"]
 flask-principal = ["f5d6134b5caebfdbb86f32d56d18ee44b080876a27269560a96ea35f75c99453"]
 flask-security = ["d61daa5f5a48f89f30f50555872bdf581b2c65804668b0313345cd7beff26432", "ef837c03558db41335c8dabd16ae4977af0a5ef0c2cdecf738e33ef5202ce489"]
-flask-shell-ipython = ["664a67275234c6a0611ab2b69dc0f08088fdc6b8b4474243bcd0c6554722ccd1", "d69e10342ab2f80084cb1077fb70f262f76acdfbe71123d97032d69505230ae7", "ea70d75051e7145bd43b1323fe8642bd8b7d5106ced0981e0c8e6a0b7a8ebae2"]
+flask-shell-ipython = ["1a5a9f5479ff9380528ff1896c000160fc2195d9a37b8e4cdd218fc0ce594738", "349b755e17c99f021458250ae18fa234459f35e13a4db82189036b19b14ee1d6"]
 flask-talisman = ["5d77780b2220012a6748e0b603cbbf7889a2833c4e77157794e13dddb183e347", "e4e3ccba66895e1f46d5b62a9cc0f273731da601bc92d2b9af908011298c0e2b"]
+flask-webpackext = ["8a5b9032ed707f920234fcc7c32d24962f17213eb66636a53f5d7d8aa7f18da4", "92569ae05b6799a9eba791cc7877a39f1d5545cabd0d4c2cc5bfb5964dbf4958"]
 flask-wtf = ["5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36", "d9a9e366b32dcbb98ef17228e76be15702cd2600675668bca23f63a7947fd5ac"]
 freezegun = ["6cb82b276f83f2acce67f121dc2656f4df26c71e32238334eb071170b892a278", "e839b43bfbe8158b4d62bb97e6313d39f3586daf48e1314fb1083d2ef17700da"]
 fs = ["ba2cca8773435a7c86059d57cb4b8ea30fda40f8610941f7822d1ce3ffd36197"]
@@ -2436,28 +2472,28 @@ idutils = ["72468741a574f1cd86fc4219fde4e2456d2c11f789711c397318fa781be8086f", "
 importlib-metadata = ["46fc60c34b6ed7547e2a723fc8de6dc2e3a1173f8423246b3ce497f064e9c3de", "bc136180e961875af88b1ab85b4009f4f1278f8396a60526c0009f503a1a96ca"]
 importlib-resources = ["6e2783b2538bd5a14678284a3962b0660c715e5a0f10243fd5e00a4b5974f50b", "d3279fd0f6f847cced9f7acc19bd3e5df54d34f93a2e7bb5f238f81545787078"]
 infinity = ["dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"]
-inspire-dojson = ["2b52a75ddebc391a99e2a36426c75d7e518060dd35532bf6a3e54ec3716f0888"]
+inspire-dojson = ["874215286c6edbf3fa983a1ec2a49a7ead0bcb365876ad2d0df38f22c15b9d0b"]
 inspire-query-parser = ["078945bc08b0fd0a45b4e4a00aef8687608469e2e5868a2d9b614edb4bccb93d"]
 inspire-schemas = ["e991ea4f65b03236291cb85340698ff6295afa291610c63abafe3cb37a770b40"]
 inspire-utils = ["61947e8fd9f9179cdcf776acde8c16325c687935b7acf4712f2889f337e4be2f"]
 intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]
-invenio = ["76a509756b0276818ee8ff5e5f2912feedfb26b108e301f1b5f2a470838214d3", "9effe1ca6cbfb3251a220b4780940f6a25f3a369900eef0b0eea69fe67fa644c"]
-invenio-access = ["7f10b46a546f843db91af2a5af4212469c7a54b1aa8acb6f6352e4f2a94fbfdc", "d0af1539d58a953f4de7fc7afdc19cb4e8cba0dbb4e00fc7b946c3feb0469095"]
-invenio-accounts = ["9602ba3fd4e8eabcae44c5eb970c1432edb5377ac17cbd46a2a705e81232de6d", "a52405a0f00305a81175105b5806df60671b75b58c837464cb9f74d92962fa0b"]
-invenio-app = ["28736fceb726a6fa740fbcfa06f1ba1ee042a5a520cf515ace373a773ea49777", "b7df6b0e6d842c3a1288eebd6623ab8ff51e64dc8284b78fac2319c9fdcf643b"]
+invenio = ["6a35d26f3e230a38518331799770433cef74a06bab48b94424f36be21a35c2be", "96925847b4666f36f0324bfc41239bc80543012b73d5201560e1057275c45a59"]
+invenio-access = ["1e7439bfdb1c9a697fa41dccc79969af445baa0ddb6248f9cadc1046a2bed36f", "430225aa095e4ad11401a84fdf449566498f0e69b8b5c74e77239c1446b9e4da"]
+invenio-accounts = ["82f75c33e66fb57ec7811da22cc2225601b43c600ef303ca45ce20d40f2422cf", "b928535e4f3ffe53fcf07b2056f1f1b27b4ff8b83f57583c489f05db6dec5587"]
+invenio-app = ["617b8e80e313e46db3d6476fbd4848423115b8d4cf25505f86928c4c94fdbb4a", "b8e084aa57f9a4f2c6439872339d73364ece15be14f75a5ebc6f869eac4d1610"]
 invenio-base = ["6e532854a43e4f54fc7d9b1cbda720ce4ce6383b00cee6ba5f7e86ef78f12fe2", "f972e10b69a68a80c342f0bcf6b3b02a6a67af4fb6e8e347ce8b482fcb47e973"]
 invenio-cache = ["8431d8b68dbb737cd7035f6467fec18dd29ad9ac35e20405d52af6c2d294557a", "f3620bb842f9084ddd5dc81f0fe234f58228c33f59e6771483fd09cb127201cc"]
 invenio-celery = ["22cda704fa8abaa885a327539899887a939832beda7de0d1f1d5d84b4ac153b1", "d102dcf3e94cfa11b0973626852f5fd6cac8fa3ba364c42fcec8ecc0b533d838"]
 invenio-config = ["628f771e351598d7f4e150a30aaa8f3a7daf62f969c7256b6bd211544f5bc494", "d6c8b41c064bedaff1647d815120c5df6b49f8a27556c4157bffd17c1662a5d0"]
 invenio-db = ["78f2f9ecc690e5c40ad797ee40b45a7e762da9599acf89782354e887bd632d70", "9a36bdfc060ca9e7a074276b2c17651da2874a6f1f45081ce9408f632459b7ae"]
 invenio-files-rest = ["2309f90e976e88361e03209e5f45827c548a12922d69021bf0c60cbf0a015613", "bd51385b108ca96c74b10bcb0e29b0135bb714aea25c3c447b6cbd39a9259ba5"]
-invenio-i18n = ["101f3f519b983649bf584f3a1488bf30036d6fed008da10ee4113f6e45bd446e", "3641442351619bc3214ef7c09bfb56549d04bae2ef4d470d7e5f8fba44890320"]
+invenio-i18n = ["69513d531ccffdfa47cec1e7cd701c72966573d2e9c4e24c96607cb7324dce48", "b591d753cd79a98bbef98a0ac5d9abf105f5cb8af94614dbf92688782a7b77b0"]
 invenio-indexer = ["f51a7eda14048da000b4a1ee74a137fd33d9b96119daa968af1b2fe6a4421e8c"]
 invenio-jsonschemas = ["12e2f3ac6013c741abe9225480183131591f008afb4a685fa3fa96203d7ca07a", "acaa24e0f9d939a7c63ce24f383779f2b2d2f15925c2d35c4bf346066ce7a67c"]
 invenio-logging = ["3fbb98df403cf6d8a8fc99aa22229567ea2034d81034dd2347b3cd65689275b7", "43e23b47c46c3f078240e4aae24640c63743ac9a9955b6c2dc0b495ce073e340"]
 invenio-mail = ["898952aa8984426074fd92b60bbe3ac67117cae0c724724aa63476416a7b7647", "fcd9ec4a89e0e68d09a9b9a638ee625e260ef98d6bc9d7aa172ec3969a95933f"]
 invenio-oauth2server = ["303b642e24ca8942d1c5f888ea648625ee4f27ce83bda31adb6a047bac6aca1b", "d5f5f12df1a76d65f17b3dafdc40cec91667f4cb41694e4ab134b7d31018a0b7"]
-invenio-oauthclient = ["06d82c7b9596830924620ca2013cea3a89c2575e9c5400eb294d1abe5e50bf32", "61df83394bd4185911b0ef560b02e7a566b9e0cc41d17244d379d01890d01d88"]
+invenio-oauthclient = ["4a131e560e321406aaf95530831093e3d259ccef5d1fd539deff38391824db7a", "fe6a47b1c5bae968a7d7a081cb1d2dd782a427f401cf2f42d96357293e5766b8"]
 invenio-pidstore = ["582b28e7e2bdf4df93e5398a0e147b2eb08690ede339249dd3a8c92b713e6f00", "77f59075dfa34564b913e5d58f37d55b2c78d7b4fa1eeaa5f8c42576848bb06d"]
 invenio-records = ["56487d0b7b800877e45f385dbba831fc988ca4df935ced281543dcaa1b6dd351", "d25c865c7ba3be059a5699e5e135a46e6fbb06370b58754ef22c7fdf337a12f1"]
 invenio-records-files = ["d198e3f0fa735069ab2823f5108141aa9afd713939244773f1c05024ac5eeef8", "e471816fca8e8273dddff33a215e9c398f5b5eeef81d153008dc676e4a31dd15"]
@@ -2521,6 +2557,7 @@ pyflakes = ["17dbeb2e3f4d772725c777fabc446d5634d1038f234e77343108ce445ea69ce0", 
 pygments = ["5ffada19f6203563680669ee7f53b64dabbeb100eb51b61996085e99c03b284a", "e8218dd399a61674745138520d0d4cf2621d7e032439341bc3f647bff125818d"]
 pyjwt = ["5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e", "8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"]
 pylint = ["5d77031694a5fb97ea95e828c8d10fc770a1df6eb3906067aaed42201a8a6a09", "723e3db49555abaf9bf79dc474c6b9e2935ad82230b10c1138a71ea41ac0fff1"]
+pynpm = ["b3c2efafc15b0ca4f0a1cc819e55af4179c2b43a2f9bb7b1a1cc1763dc3daa52", "e4df0427cd2357ca67d68a322af6873c5ce67e1625a45acfb9603e4448bf3464"]
 pypeg2 = ["2b2d4f80d8e1a9370b2a91f4a25f4abf7f69b85c8da84cd23ec36451958a1f6d"]
 pytest = ["3f193df1cfe1d1609d4c583838bea3d532b18d6160fd3f55c9447fdca30848ec", "e246cf173c01169b9617fc07264b7b1316e78d7a650055235d6d897bc80d9660"]
 pytest-cov = ["0ab664b25c6aa9716cbf203b17ddb301932383046082c081b9848a0edf5add33", "230ef817450ab0699c6cc3c9c8f7a829c34674456f2ed8df1fe1d39780f7c87f"]
@@ -2534,6 +2571,7 @@ pytest-vcr = ["5e5bfa522667007723db331823d5d351724da2d95e88bd4cf141fa4e267faba2"
 python-dateutil = ["7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb", "c89805f6f4d64db21ed966fda138f8a5ed7a4fdbc1a8ee329ce1b74e3c74da9e"]
 python-editor = ["1bf6e860a8ad52a14c3ee1252d5dc25b2030618ed80c022598f00176adc8367d", "51fda6bcc5ddbbb7063b2af7509e43bd84bfc32a4ff71349ec7847713882327b", "5f98b069316ea1c2ed3f67e7f5df6c0d8f10b689964a4a811ff64f0106819ec8", "c3da2053dbab6b29c94e43c486ff67206eafbe7eb52dbec7390b5e2fb05aac77", "ea87e17f6ec459e780e4221f295411462e0d0810858e055fc514684350a2f522"]
 pytz = ["32b0891edff07e28efe91284ed9c31e123d84bea3fd98e1f72be2508f43ef8d9", "d5f05e487007e29e03409f9398d074e158d920d36eb82eaf66fb1136b0c5374c"]
+pywebpack = ["2ee79570f56a5a5ec532ffb1ae95c268cd5acceb94d94df63cec47486a7e2e2c", "ef115f8f87347f975271523b0dea85d38cf04db0aa017a684c4d8067c71324e4"]
 pyyaml = ["1adecc22f88d38052fb787d959f003811ca858b799590a5eaa70e63dca50308c", "436bc774ecf7c103814098159fbb84c2715d25980175292c648f2da143909f95", "460a5a4248763f6f37ea225d19d5c205677d8d525f6a83357ca622ed541830c2", "5a22a9c84653debfbf198d02fe592c176ea548cccce47553f35f466e15cf2fd4", "7a5d3f26b89d688db27822343dfa25c599627bc92093e788956372285c6298ad", "9372b04a02080752d9e6f990179a4ab840227c6e2ce15b95e1278456664cf2ba", "a5dcbebee834eaddf3fa7366316b880ff4062e4bcc9787b78c7fbb4a26ff2dd1", "aee5bab92a176e7cd034e57f46e9df9a9862a71f8f37cad167c6fc74c65f5b4e", "c51f642898c0bacd335fc119da60baae0824f2cde95b0330b56c0553439f0673", "c68ea4d3ba1705da1e0d85da6684ac657912679a649e8868bd850d2c299cce13", "e23d0cc5299223dcc37885dae624f382297717e459ea24053709675a976a3e19"]
 redis = ["6946b5dca72e86103edc8033019cc3814c031232d339d5f4533b02ea85685175", "8ca418d2ddca1b1a850afa1680a7d2fd1f3322739271de4b704e0d4668449273"]
 remote-pdb = ["0a5835ae6f75244bf728616f41a57b35dab4d17f51601bd5f80413ee9b4b5732", "e441ddde7e74dd17c1ce924a20e998b22e560e53c404a0f9266be7f9900c1f3f"]
@@ -2564,7 +2602,7 @@ vine = ["133ee6d7a9016f177ddeaf191c1f58421a1dcc6ee9a42c58b34bed40e1d2cd87", "ea4
 virtualenv = ["6aebaf4dd2568a0094225ebbca987859e369e3e5c22dc7d52e5406d504890417", "984d7e607b0a5d1329425dd8845bd971b957424b5ba664729fab51ab8c11bc39"]
 watchdog = ["965f658d0732de3188211932aeb0bb457587f04f63ab4c1e33eab878e9de961d"]
 wcwidth = ["3df37372226d6e63e1b1e1eda15c594bca98a22d33a23832a90998faa96bc65e", "f4ebe71925af7b40a864553f761ed559b43544f8f71746c2d756c7fe788ade7c"]
-webargs = ["15ddf90d7bfe05c9db87c9f22215cacc1228da98a8e7bd62508d9d8020935123", "75c568581af6ef6345156fc8621a7735ce6846bf9d7ec058aa6ea9cc3a620580", "e2381557f0a5e4db37dbbddc2833b0f3aa6dca58b5ced4ca6b14620f685a643f"]
+webargs = ["81481c249b2c9c00c1d519e08820e2a61d6b0768d842d78d114c474c172f3ab8", "c4d8ec38b2d50821e795bf4619ff9dd95589330811a4fbeac0c32d8ddcfa375d", "d531eee77274133b54fd1171b2a58498bd71c498d7fe38d2c864f24284f32ed1"]
 webencodings = ["a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78", "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"]
 werkzeug = ["0a73e8bb2ff2feecfc5d56e6f458f5b99290ef34f565ffb2665801ff7de6af7a", "7fad9770a8778f9576693f0cc29c7dcc36964df916b83734f4431c0e612a7fbc"]
 whichcraft = ["7533870f751901a0ce43c93cc9850186e9eba7fe58c924dfb435968ba9c9fa4e", "fecddd531f237ffc5db8b215409afb18fa30300699064cca4817521b4fc81815"]
