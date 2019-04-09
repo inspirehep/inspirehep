@@ -125,7 +125,11 @@ describe('literature submissions', () => {
     expect(metadata.languages).toEqual(['en']);
     expect(metadata.inspire_categories).toEqual([{ term: 'Accelerators' }]);
     expect(metadata.imprints).toEqual([
-      { date: '2018-06', publisher: 'CERN Library' },
+      {
+        date: '2018-06',
+        publisher: 'CERN Library',
+        place: 'Geneva, Switzerland',
+      },
     ]);
   });
 

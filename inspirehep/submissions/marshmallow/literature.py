@@ -185,7 +185,7 @@ class Literature(Schema):
         literature.add_book(
             date=data.get("publication_date"),
             publisher=data.get("publisher"),
-            place=data.get("pulication_place"),
+            place=data.get("publication_place"),
         )
 
         literature.add_thesis(
