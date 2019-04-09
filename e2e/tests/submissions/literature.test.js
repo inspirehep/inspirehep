@@ -188,6 +188,11 @@ describe('literature submissions', () => {
     ]);
     expect(metadata.authors).toEqual([
       { affiliations: [{ value: 'CERN' }], full_name: 'Urhan, Harun' },
+      {
+        affiliations: [{ value: 'CERN' }],
+        full_name: 'Tsanakoglu, Haruli',
+        inspire_roles: ['supervisor'],
+      },
     ]);
     expect(metadata.languages).toEqual(['en']);
     expect(metadata.inspire_categories).toEqual([
