@@ -286,14 +286,15 @@ AUTHORS.update(
         "search_class": "inspirehep.search.api:AuthorsSearch",
         "search_index": "records-authors",
         "record_serializers": {
-            "application/json": "invenio_records_rest.serializers:json_v1_response",
+            "application/json": INSPIRE_SERIALIZERS + ":authors_json_v1_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":authors_json_v1_response",
+            + ":authors_json_ui_v1_response",
             "application/vnd+inspire.record.control_number+json": INSPIRE_SERIALIZERS
             + ":authors_control_number_only_json_v1_response",
         },
         "search_serializers": {
-            "application/json": "invenio_records_rest.serializers:json_v1_search",
+            "application/json": INSPIRE_SERIALIZERS
+            + ":authors_json_v1_response_search",
             "application/vnd+inspire.record.ui+json": "invenio_records_rest.serializers:json_v1_search",
         },
         "suggesters": {

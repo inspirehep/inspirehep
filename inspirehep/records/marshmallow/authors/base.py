@@ -14,10 +14,7 @@ from marshmallow import Schema, fields, post_dump
 from .common import PositionSchemaV1
 
 
-class AuthorsMetadataSchemaV1(Schema):
-    """Schema for Authors records."""
-
-    _collections = fields.Raw(dump_only=True)
+class AuthorsMetadataRawPublicSchemaV1(Schema):
     acquisition_source = fields.Raw(dump_only=True)
     advisors = fields.Raw(dump_only=True)
     arxiv_categories = fields.Raw(dump_only=True)
@@ -25,20 +22,48 @@ class AuthorsMetadataSchemaV1(Schema):
     birth_date = fields.Raw(dump_only=True)
     control_number = fields.Raw(dump_only=True)
     death_date = fields.Raw(dump_only=True)
-    deleted = fields.Raw(dump_only=True)
+    # deleted = fields.Raw(dump_only=True)
+    # deleted_records = fields.Raw(dump_only=True)
     email_addresses = fields.Raw(dump_only=True)
     ids = fields.Raw(dump_only=True)
     inspire_categories = fields.Raw(dump_only=True)
+    legacy_creation_date = fields.Raw(dump_only=True)
+    legacy_version = fields.Raw(dump_only=True)
     name = fields.Raw(dump_only=True)
     new_record = fields.Raw(dump_only=True)
+    positions = fields.Raw(dump_only=True)
+    project_membership = fields.Raw(dump_only=True)
+    public_notes = fields.Raw(dump_only=True)
+    status = fields.Raw(dump_only=True)
+    stub = fields.Raw(dump_only=True)
+    urls = fields.Raw(dump_only=True)
+
+
+class AuthorsMetadataRawAdminSchemaV1(AuthorsMetadataRawPublicSchemaV1):
+    class Meta:
+        include = {"$schema": fields.Raw()}
+
+    _private_notes = fields.Raw(dump_only=True)
+    _collections = fields.Raw(dump_only=True)
+    deleted = fields.Raw(dump_only=True)
+    deleted_records = fields.Raw(dump_only=True)
+
+
+class AuthorsRawAdminSchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(AuthorsMetadataRawAdminSchemaV1, dump_only=True)
+
+
+class AuthorsRawPublicSchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(AuthorsMetadataRawPublicSchemaV1, dump_only=True)
+
+
+class AuthorsMetadataUISchemaV1(AuthorsMetadataRawPublicSchemaV1):
+    """Schema for Authors records."""
+
     positions = fields.Nested(PositionSchemaV1, dump_only=True, many=True)
     should_display_positions = fields.Method(
         "get_should_display_positions", dump_only=True
     )
-    project_membership = fields.Raw(dump_only=True)
-    status = fields.Raw(dump_only=True)
-    stub = fields.Raw(dump_only=True)
-    urls = fields.Raw(dump_only=True)
     facet_author_name = fields.Method("get_facet_author_name", dump_only=True)
 
     @staticmethod
@@ -68,7 +93,7 @@ class AuthorsMetadataSchemaV1(Schema):
         else:
             return "{}_{}".format(
                 bai,
-                AuthorsMetadataSchemaV1.get_author_display_name(
+                AuthorsMetadataUISchemaV1.get_author_display_name(
                     author["name"]["value"]
                 ),
             )
@@ -89,8 +114,8 @@ class AuthorsMetadataSchemaV1(Schema):
         return strip_empty_values(data)
 
 
-class AuthorsSchemaV1(RecordSchemaJSONV1):
-    metadata = fields.Nested(AuthorsMetadataSchemaV1, dump_only=True)
+class AuthorsUISchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(AuthorsMetadataUISchemaV1, dump_only=True)
 
 
 class AuthorsMetadataOnlyControlNumberSchemaV1(Schema):
