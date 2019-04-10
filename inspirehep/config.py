@@ -436,7 +436,7 @@ HEP_COMMON_AGGS = {
     },
     "doc_type": {
         "terms": {"field": "facet_inspire_doc_type", "size": 20},
-        "meta": {"title": "Document Type", "order": 7},
+        "meta": {"title": "Document Type", "order": 6},
     },
     "author_count": {
         "range": {
@@ -479,7 +479,7 @@ RECORDS_REST_FACETS = {
             },
             "collaboration": {
                 "terms": {"field": "facet_collaborations", "size": 20},
-                "meta": {"title": "Collaboration", "order": 6},
+                "meta": {"title": "Collaboration", "order": 7},
             },
         },
     },
