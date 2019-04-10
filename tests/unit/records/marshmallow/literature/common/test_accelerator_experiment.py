@@ -10,7 +10,7 @@ import json
 import mock
 
 from inspirehep.records.api import LiteratureRecord
-from inspirehep.records.marshmallow.literature import LiteratureMetadataSchemaV1
+from inspirehep.records.marshmallow.literature import LiteratureMetadataUISchemaV1
 from inspirehep.records.marshmallow.literature.common import (
     AcceleratorExperimentSchemaV1,
 )

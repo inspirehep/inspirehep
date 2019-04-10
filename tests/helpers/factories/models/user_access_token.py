@@ -20,10 +20,14 @@ class UserFactory(BaseFactory):
         model = User
 
     @classmethod
-    def _create(cls, model_class, *args, **kwargs):
+    def _create(cls, model_class, role="user", *args, **kwargs):
         ds = current_app.extensions["invenio-accounts"].datastore
+        role = ds.create_role(name=role)
         return ds.create_user(
-            email=fake.email(), password=hash_password(fake.password()), active=True
+            email=fake.email(),
+            password=hash_password(fake.password()),
+            active=True,
+            roles=[role],
         )
 
 

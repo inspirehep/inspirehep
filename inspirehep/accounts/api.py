@@ -19,3 +19,10 @@ def login_required(func):
         return func(*args, **kwargs)
 
     return check_if_is_logged_in
+
+
+def is_superuser_or_cataloger_logged_in():
+    if current_user.is_authenticated:
+        user_roles = [role.name for role in current_user.roles]
+        return any(role in user_roles for role in ("superuser", "cataloger"))
+    return False

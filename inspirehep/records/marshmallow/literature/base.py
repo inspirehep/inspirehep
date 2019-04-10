@@ -40,19 +40,97 @@ from .common import (
 )
 
 
-class LiteratureMetadataUISchemaV1(Schema):
-    """Schema for Literature records."""
+class LiteratureMetadataRawPublicSchemaV1(Schema):
+    abstracts = fields.Raw(dump_only=True)
+    accelerator_experiments = fields.Raw(dump_only=True)
+    acquisition_source = fields.Raw(dump_only=True)
+    arxiv_eprints = fields.Raw(dump_only=True)
+    authors = fields.Raw(dump_only=True)
+    book_series = fields.Raw(dump_only=True)
+    citable = fields.Raw(dump_only=True)
+    citation_count = fields.Raw(dump_only=True)
+    collaborations = fields.Raw(dump_only=True)
+    control_number = fields.Raw(dump_only=True)
+    copyright = fields.Raw(dump_only=True)
+    core = fields.Raw(dump_only=True)
+    corporate_author = fields.Raw(dump_only=True)
+    curated = fields.Raw(dump_only=True)
+    # deleted = fields.Raw(dump_only=True)
+    # deleted_records = fields.Raw(dump_only=True)
+    document_type = fields.Raw(dump_only=True)
+    documents = fields.Raw(dump_only=True)
+    dois = fields.Raw(dump_only=True)
+    editions = fields.Raw(dump_only=True)
+    energy_ranges = fields.Raw(dump_only=True)
+    external_system_identifiers = fields.Raw(dump_only=True)
+    figures = fields.Raw(dump_only=True)
+    funding_info = fields.Raw(dump_only=True)
+    imprints = fields.Raw(dump_only=True)
+    inspire_categories = fields.Raw(dump_only=True)
+    isbns = fields.Raw(dump_only=True)
+    keywords = fields.Raw(dump_only=True)
+    languages = fields.Raw(dump_only=True)
+    legacy_creation_date = fields.Raw(dump_only=True)
+    legacy_version = fields.Raw(dump_only=True)
+    license = fields.Raw(dump_only=True)
+    number_of_pages = fields.Raw(dump_only=True)
+    new_record = fields.Raw(dump_only=True)
+    persistent_identifiers = fields.Raw(dump_only=True)
+    preprint_date = fields.Raw(dump_only=True)
+    public_notes = fields.Raw(dump_only=True)
+    publication_info = fields.Raw(dump_only=True)
+    publication_type = fields.Raw(dump_only=True)
+    record_affiliations = fields.Raw(dump_only=True)
+    refereed = fields.Raw(dump_only=True)
+    references = fields.Raw(dump_only=True)
+
+    report_numbers = fields.Raw(dump_only=True)
+    texkeys = fields.Raw(dump_only=True)
+    thesis_info = fields.Raw(dump_only=True)
+    titles = fields.Raw(dump_only=True)
+    urls = fields.Raw(dump_only=True)
+    withdrawn = fields.Raw(dump_only=True)
+
+
+class LiteratureMetadataRawAdminSchemaV1(LiteratureMetadataRawPublicSchemaV1):
+    class Meta:
+        include = {"$schema": fields.Raw()}
 
     _collections = fields.Raw(dump_only=True)
-    abstracts = fields.Raw(dump_only=True)
+    _desy_bookkeeping = fields.Raw(dump_only=True)
+    _export_to = fields.Raw(dump_only=True)
+    _files = fields.Raw(dump_only=True)
+    _private_notes = fields.Raw(dump_only=True)
+    deleted = fields.Raw(dump_only=True)
+    deleted_records = fields.Raw(dump_only=True)
+
+
+class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
+    """Schema for Literature records to displayed on UI"""
+    class Meta:
+        exclude = (
+            "copyright",
+            "citable",
+            "core",
+            "curated",
+            "editions",
+            "energy_ranges",
+            "figures",
+            "funding_info",
+            "legacy_creation_date",
+            "legacy_version",
+            "publication_type",
+            "record_affiliations",
+            "refereed",
+            "references",
+            "urls",
+            "withdrawn",
+        )
+
     accelerator_experiments = fields.Nested(
         AcceleratorExperimentSchemaV1, dump_only=True, many=True
     )
-    acquisition_source = fields.Raw(dump_only=True)
-    arxiv_eprints = fields.Raw(dump_only=True)
     authors = ListWithLimit(fields.Nested(AuthorSchemaV1, dump_only=True), limit=10)
-    book_series = fields.Raw(dump_only=True)
-    citation_count = fields.Raw(dump_only=True)
     collaborations = fields.List(
         fields.Nested(CollaborationSchemaV1, dump_only=True), attribute="collaborations"
     )
@@ -66,31 +144,18 @@ class LiteratureMetadataUISchemaV1(Schema):
         attribute="publication_info",
         many=True,
     )
-    control_number = fields.Raw(dump_only=True)
-    corporate_author = fields.Raw(dump_only=True)
     date = fields.Method("get_formatted_date")
-    document_type = fields.Raw(dump_only=True)
     dois = fields.Nested(DOISchemaV1, dump_only=True, many=True)
     external_system_identifiers = fields.Nested(
         ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
     )
-    imprints = fields.Raw(dump_only=True)
-    inspire_categories = fields.Raw(dump_only=True)
     isbns = fields.List(fields.Nested(IsbnSchemaV1, dump_only=True))
-    keywords = fields.Raw(dump_only=True)
-    languages = fields.Raw(dump_only=True)
     number_of_authors = fields.Method("get_number_of_authors")
-    number_of_pages = fields.Raw(dump_only=True)
     number_of_references = fields.Method("get_number_of_references")
-    persistent_identifiers = fields.Raw(dump_only=True)
-    preprint_date = fields.Raw(dump_only=True)
     publication_info = fields.Nested(
         PublicationInfoItemSchemaV1, dump_only=True, many=True
     )
-    report_numbers = fields.Raw(dump_only=True)
-    texkeys = fields.Raw(dump_only=True)
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
-    titles = fields.Raw(dump_only=True)
 
     def get_formatted_date(self, data):
         earliest_date = data.get("earliest_date")
@@ -132,12 +197,15 @@ class LiteratureSearchUISchemaV1(RecordSchemaJSONV1):
             return {}
 
 
-# FIXME: should not inherit from UI schema
-class LiteratureESEnhancementV1(LiteratureMetadataUISchemaV1):
+class LiteratureESEnhancementV1(LiteratureMetadataRawPublicSchemaV1):
     """Elasticsearch serialzier"""
+
+    class Meta:
+        include = {"$schema": fields.Raw()}
 
     _created = fields.DateTime(dump_only=True, attribute="created")
     _updated = fields.DateTime(dump_only=True, attribute="updated")
+    _collections = fields.Raw(dump_only=True)
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
     authors = fields.Nested(AuthorsInfoSchemaForES, dump_only=True, many=True)
@@ -237,3 +305,11 @@ class LiteratureESEnhancementV1(LiteratureMetadataUISchemaV1):
 
 class LiteratureUISchemaV1(RecordSchemaJSONV1):
     metadata = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
+
+
+class LiteratureRawPublicSchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(LiteratureMetadataRawPublicSchemaV1, dump_only=True)
+
+
+class LiteratureRawAdminSchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(LiteratureMetadataRawAdminSchemaV1, dump_only=True)

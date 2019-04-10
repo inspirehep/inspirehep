@@ -19,6 +19,7 @@ def test_literature_search_application_json_get(
 ):
     data = {
         "control_number": 666,
+        "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
     }
 
@@ -27,19 +28,8 @@ def test_literature_search_application_json_get(
     headers = {"Accept": "application/json"}
     expected_status_code = 200
     expected_data = {
-        "_ui_display": {
-            "_collections": ["Literature"],
-            "control_number": 666,
-            "document_type": ["article"],
-            "titles": [{"title": "Partner walk again seek job."}],
-        },
-        "_collections": ["Literature"],
-        "author_count": 0,
-        "bookautocomplete": {"input": ["Partner walk again seek job."]},
         "control_number": 666,
         "document_type": ["article"],
-        "facet_inspire_doc_type": ["article"],
-        "id": 666,
         "titles": [{"title": "Partner walk again seek job."}],
     }
 
@@ -49,7 +39,7 @@ def test_literature_search_application_json_get(
     response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
 
     assert expected_status_code == response_status_code
-    compare_data_with_ui_display_field(expected_data, response_data_metadata)
+    assert expected_data == response_data_metadata
 
 
 def test_literature_search_application_json_ui_get(api_client, db, create_record):
@@ -61,7 +51,6 @@ def test_literature_search_application_json_ui_get(api_client, db, create_record
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     expected_status_code = 200
     expected_data = {
-        "_collections": ["Literature"],
         "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
@@ -135,9 +124,6 @@ def test_literature_citations(api_client, db, es, create_record):
     record_citing = create_record("lit", data=data)
     record_citing_control_number = record_citing["control_number"]
     record_citing_titles = record_citing["titles"]
-    import ipdb
-
-    ipdb.set_trace()
 
     expected_status_code = 200
     expected_data = {
@@ -669,10 +655,15 @@ def test_institutions_search_json_get(api_client, db, create_record_factory):
 
 
 def test_literature_facets_collaboration(api_client, db, create_record_factory):
-    data = {"collaborations": [{"value": "Alice"}, {"value": "Collab"}]}
-    record_1 = create_record_factory("lit", data=data, with_indexing=True)
-    data = {"collaborations": [{"value": "Alice"}]}
-    record_2 = create_record_factory("lit", data=data, with_indexing=True)
+    data_1 = {
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+        "collaborations": [{"value": "Alice"}, {"value": "Collab"}],
+    }
+    record_1 = create_record_factory("lit", data=data_1, with_indexing=True)
+    data_2 = {"collaborations": [{"value": "Alice"}]}
+    record_2 = create_record_factory("lit", data=data_2, with_indexing=True)
 
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
@@ -693,8 +684,9 @@ def test_literature_facets_collaboration(api_client, db, create_record_factory):
     response = api_client.get("/literature?collaboration=Collab")
     response_data = json.loads(response.data)
     response_status_code = response.status_code
+
     assert expected_status_code == response_status_code
-    assert record_1.json == response_data["hits"]["hits"][0]["metadata"]
+    assert data_1 == response_data["hits"]["hits"][0]["metadata"]
 
 
 def test_author_facets(api_client, db, create_record_factory):
