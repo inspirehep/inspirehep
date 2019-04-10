@@ -14,7 +14,12 @@ from marshmallow import Schema
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
 
-from ..marshmallow.authors import AuthorsOnlyControlNumberSchemaV1, AuthorsSchemaV1
+from ..marshmallow.authors import (
+    AuthorsOnlyControlNumberSchemaV1,
+    AuthorsRawAdminSchemaV1,
+    AuthorsRawPublicSchemaV1,
+    AuthorsUISchemaV1,
+)
 from ..marshmallow.literature import (
     LiteratureAuthorsSchemaV1,
     LiteratureRawAdminSchemaV1,
@@ -43,8 +48,6 @@ facets_json = JSONSerializerFacets(Schema)
 facets_json_response_search = search_responsify(facets_json, "application/json")
 
 # Literature
-
-# Raw
 literature_json_v1 = ConditionalMultiSchemaJSONSerializer(
     [
         (lambda _: is_superuser_or_cataloger_logged_in(), LiteratureRawAdminSchemaV1),
@@ -57,7 +60,6 @@ literature_json_v1_response_search = search_responsify(
     literature_json_v1, "application/json"
 )
 
-# UI
 literature_json_ui_v1 = JSONSerializer(LiteratureUISchemaV1)
 literature_json_ui_v1_search = JSONSerializer(LiteratureSearchUISchemaV1)
 
@@ -82,10 +84,21 @@ literature_references_json_v1_response = record_responsify(
 )
 
 # Authors
+authors_json_v1 = ConditionalMultiSchemaJSONSerializer(
+    [
+        (lambda _: is_superuser_or_cataloger_logged_in(), AuthorsRawAdminSchemaV1),
+        (lambda _: True, AuthorsRawPublicSchemaV1),
+    ]
+)
+authors_json_v1_response = record_responsify(authors_json_v1, "application/json")
+authors_json_v1_response_search = search_responsify(authors_json_v1, "application/json")
 
-authors_json_v1 = JSONSerializer(AuthorsSchemaV1)
-authors_json_v1_response = record_responsify(
-    authors_json_v1, "application/vnd+inspire.record.ui+json"
+authors_json_ui_v1 = JSONSerializer(AuthorsUISchemaV1)
+authors_json_ui_v1_response = record_responsify(
+    authors_json_ui_v1, "application/vnd+inspire.record.ui+json"
+)
+authors_json_ui_v1_response_search = search_responsify(
+    authors_json_ui_v1, "application/vnd+inspire.record.ui+json"
 )
 
 authors_control_number_only_json_v1 = JSONSerializer(AuthorsOnlyControlNumberSchemaV1)

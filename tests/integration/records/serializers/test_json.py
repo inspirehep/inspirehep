@@ -294,7 +294,6 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
 
     expected_status_code = 200
     expected_result = {
-        "_collections": ["Authors"],
         "advisors": [
             {
                 "degree_type": "other",
@@ -304,7 +303,6 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
         ],
         "arxiv_categories": ["hep-th", "gr-qc"],
         "control_number": 999_108,
-        "deleted": False,
         "email_addresses": [
             {"current": True, "value": "malda@ias.edu"},
             {"current": False, "hidden": True, "value": "malda@pauli.harvard.edu"},
@@ -346,6 +344,13 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
                 "rank": "UNDERGRADUATE",
             },
         ],
+        "legacy_creation_date": "1999-05-04",
+        "legacy_version": "20160711200442.0",
+        "public_notes": [
+            {"value": "Fundamental Physics Price 2012"},
+            {"value": "Dirac Medal 2008"},
+            {"value": "Heineman Prize 2007"},
+        ],
         "should_display_positions": True,
         "status": "active",
         "stub": False,
@@ -362,18 +367,64 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
     assert expected_result == response_data["metadata"]
 
 
-def test_authors_default_json_v1_response(
-    api_client, db, create_record_factory, datadir
+def test_authors_application_json_v1_response_without_login(
+    api_client, db, create_record_factory
 ):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "999108.json").read_text())
-
+    data = {
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_result = deepcopy(record.json)
+    expected_result = {
+        "control_number": record_control_number,
+        "name": {"value": "Urhan, Harun"},
+    }
+    response = api_client.get(
+        "/authors/{}".format(record_control_number), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+def test_authors_application_json_v1_response_with_logged_in_cataloger(
+    api_client, db, create_user, create_record_factory
+):
+    user = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
+    record = create_record_factory("aut", data=data)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    expected_result = {
+        "control_number": record_control_number,
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
     response = api_client.get(
         "/authors/{}".format(record_control_number), headers=headers
     )
@@ -415,13 +466,60 @@ def test_authors_default_json_v1_response_search(
 ):
     headers = {"Accept": "application/json"}
 
-    data = json.loads((datadir / "999108.json").read_text())
+    data = {
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
 
     record = create_record_factory("aut", data=data, with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_result = deepcopy(record.json)
+    expected_result = {
+        "control_number": record_control_number,
+        "name": {"value": "Urhan, Harun"},
+    }
+    response = api_client.get("/authors".format(record_control_number), headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_hits_metadata
+
+
+def test_authors_application_json_v1_response_search_with_logged_in_cataloger(
+    api_client, db, create_user, create_record_factory
+):
+    user = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
+
+    record = create_record_factory("aut", data=data, with_indexing=True)
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    expected_result = {
+        "control_number": record_control_number,
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "_private_notes": [{"value": "A private note"}],
+        "name": {"value": "Urhan, Harun"},
+        "deleted": False,
+    }
     response = api_client.get("/authors".format(record_control_number), headers=headers)
 
     response_status_code = response.status_code

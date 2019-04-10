@@ -11,12 +11,12 @@ from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.authors import (
     AuthorsMetadataOnlyControlNumberSchemaV1,
-    AuthorsMetadataSchemaV1,
+    AuthorsMetadataUISchemaV1,
 )
 
 
 def test_should_display_positions_without_positions():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -33,7 +33,7 @@ def test_should_display_positions_without_positions():
 
 
 def test_should_display_positions_with_multiple_positions():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -51,7 +51,7 @@ def test_should_display_positions_with_multiple_positions():
 
 
 def test_should_display_positions_with_multiple_positions_with_rank():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -69,7 +69,7 @@ def test_should_display_positions_with_multiple_positions_with_rank():
 
 
 def test_should_display_positions_with_multiple_positions_with_start_date():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -87,7 +87,7 @@ def test_should_display_positions_with_multiple_positions_with_start_date():
 
 
 def test_should_display_positions_with_multiple_positions_if_is_not_current():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -105,7 +105,7 @@ def test_should_display_positions_with_multiple_positions_if_is_not_current():
 
 
 def test_returns_should_display_position_false_if_position_is_current():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -123,7 +123,7 @@ def test_returns_should_display_position_false_if_position_is_current():
 
 
 def test_facet_author_name_with_preferred_name():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -140,7 +140,7 @@ def test_facet_author_name_with_preferred_name():
 
 
 def test_facet_author_name_without_preferred_name():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {
         "name": {"value": "Doe, John"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
@@ -157,7 +157,7 @@ def test_facet_author_name_without_preferred_name():
 
 
 def test_facet_author_name_without_ids():
-    schema = AuthorsMetadataSchemaV1()
+    schema = AuthorsMetadataUISchemaV1()
     data = {"name": {"value": "Doe, John"}}
     author = faker.record("aut", data=data)
     expected_result = "BAI_John Doe"
