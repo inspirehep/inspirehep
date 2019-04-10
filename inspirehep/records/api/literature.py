@@ -25,7 +25,7 @@ class LiteratureRecord(InspireRecord):
     pid_type = "lit"
 
     es_serializer = "LiteratureESEnhancementV1"
-    ui_serializer = "LiteratureMetadataSchemaV1"
+    ui_serializer = "LiteratureMetadataUISchemaV1"
 
     @classmethod
     def create(cls, data, **kwargs):

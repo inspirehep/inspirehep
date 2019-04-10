@@ -9,7 +9,7 @@ import json
 
 from helpers.providers.faker import faker
 
-from inspirehep.records.marshmallow.literature import LiteratureUISchema
+from inspirehep.records.marshmallow.literature import LiteratureSearchUISchemaV1
 
 
 def test_literature_ui_schema():
@@ -17,7 +17,7 @@ def test_literature_ui_schema():
     data_record_json = json.dumps(data_record)
     data = {"metadata": {"_ui_display": data_record_json}}
     expected_result = {"metadata": data_record}
-    result = LiteratureUISchema().dump(data).data
+    result = LiteratureSearchUISchemaV1().dump(data).data
 
     assert expected_result == result
 
@@ -27,7 +27,7 @@ def test_literature_ui_schema_missing_ui_display_field():
     data_record_json = json.dumps(data_record)
     data = {"metadata": {"NOT_A_UI_DISPLAY_FIELD": data_record_json}}
     expected_result = {"metadata": {}}
-    result = LiteratureUISchema().dump(data).data
+    result = LiteratureSearchUISchemaV1().dump(data).data
 
     assert expected_result == result
 
@@ -35,6 +35,6 @@ def test_literature_ui_schema_missing_ui_display_field():
 def test_literature_ui_schema_with_invalid_ui_display():
     data = {"metadata": {"_ui_display": "foo"}}
     expected_result = {"metadata": {}}
-    result = LiteratureUISchema().dump(data).data
+    result = LiteratureSearchUISchemaV1().dump(data).data
 
     assert expected_result == result
