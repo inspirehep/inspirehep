@@ -15,8 +15,8 @@ from ..marshmallow.authors import AuthorsOnlyControlNumberSchemaV1, AuthorsSchem
 from ..marshmallow.literature import (
     LiteratureAuthorsSchemaV1,
     LiteratureReferencesSchemaV1,
-    LiteratureSchemaV1,
-    LiteratureUISchema,
+    LiteratureSearchUISchemaV1,
+    LiteratureUISchemaV1,
 )
 from .response import record_responsify
 
@@ -38,14 +38,14 @@ facets_json = JSONSerializerFacets(Schema)
 facets_json_response_search = search_responsify(facets_json, "application/json")
 
 # Literature
-literature_json_v1 = JSONSerializer(LiteratureSchemaV1)
-literature_json_v1_search = JSONSerializer(LiteratureUISchema)
+literature_json_ui_v1 = JSONSerializer(LiteratureUISchemaV1)
+literature_json_ui_v1_search = JSONSerializer(LiteratureSearchUISchemaV1)
 
-literature_json_v1_response = record_responsify(
-    literature_json_v1, "application/vnd+inspire.record.ui+json"
+literature_json_ui_v1_response = record_responsify(
+    literature_json_ui_v1, "application/vnd+inspire.record.ui+json"
 )
-literature_json_v1_response_search = search_responsify(
-    literature_json_v1_search, "application/vnd+inspire.record.ui+json"
+literature_json_ui_v1_response_search = search_responsify(
+    literature_json_ui_v1_search, "application/vnd+inspire.record.ui+json"
 )
 # Literature Authors
 literature_authors_json_v1 = JSONSerializer(LiteratureAuthorsSchemaV1)

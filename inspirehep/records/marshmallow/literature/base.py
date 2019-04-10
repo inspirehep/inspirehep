@@ -40,7 +40,7 @@ from .common import (
 )
 
 
-class LiteratureMetadataSchemaV1(Schema):
+class LiteratureMetadataUISchemaV1(Schema):
     """Schema for Literature records."""
 
     _collections = fields.Raw(dump_only=True)
@@ -121,7 +121,7 @@ class LiteratureMetadataSchemaV1(Schema):
         return strip_empty_values(data)
 
 
-class LiteratureUISchema(RecordSchemaJSONV1):
+class LiteratureSearchUISchemaV1(RecordSchemaJSONV1):
     metadata = fields.Method("get_ui_display", dump_only=True)
 
     def get_ui_display(self, data):
@@ -132,7 +132,8 @@ class LiteratureUISchema(RecordSchemaJSONV1):
             return {}
 
 
-class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
+# FIXME: should not inherit from UI schema
+class LiteratureESEnhancementV1(LiteratureMetadataUISchemaV1):
     """Elasticsearch serialzier"""
 
     _created = fields.DateTime(dump_only=True, attribute="created")
@@ -234,5 +235,5 @@ class LiteratureESEnhancementV1(LiteratureMetadataSchemaV1):
         return {"input": input_values}
 
 
-class LiteratureSchemaV1(RecordSchemaJSONV1):
-    metadata = fields.Nested(LiteratureMetadataSchemaV1, dump_only=True)
+class LiteratureUISchemaV1(RecordSchemaJSONV1):
+    metadata = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
