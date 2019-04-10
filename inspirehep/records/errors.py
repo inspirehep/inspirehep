@@ -9,7 +9,19 @@ from invenio_records.errors import RecordsError
 from marshmallow import ValidationError
 
 
-class MissingCitedRecordError(RecordsError):
+class ExistingArticleError(Exception):
+    pass
+
+
+class ImportArticleError(Exception):
+    pass
+
+
+class ImportConnectionError(Exception):
+    pass
+
+
+class ImportParsingError(Exception):
     pass
 
 
@@ -17,15 +29,23 @@ class InspireRecordSubclassRequiredError(RecordsError):
     pass
 
 
-class WrongOperationOnRecordError(RecordsError):
-    pass
-
-
 class MissingArgumentError(ValueError):
     pass
 
 
+class MissingCitedRecordError(RecordsError):
+    pass
+
+
 class MissingSerializerError(ValidationError):
+    pass
+
+
+class UnknownImportIdentifierError(ValueError):
+    pass
+
+
+class WrongOperationOnRecordError(RecordsError):
     pass
 
 

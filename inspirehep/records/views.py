@@ -10,6 +10,15 @@ from flask import Blueprint, abort, jsonify, request
 from flask.views import MethodView
 from invenio_records_rest.views import pass_record
 
+from inspirehep.records.api.literature import import_article
+from inspirehep.records.errors import (
+    ExistingArticleError,
+    ImportArticleError,
+    ImportConnectionError,
+    ImportParsingError,
+    UnknownImportIdentifierError,
+)
+
 from ..search.api import LiteratureSearch
 
 blueprint = Blueprint("inspirehep_records", __name__, url_prefix="")
@@ -37,6 +46,28 @@ class LiteratureCitationsResource(MethodView):
             }
         }
         return jsonify(data)
+
+
+@blueprint.route("/literature/import/<path:identifier>", methods=("GET",))
+def import_article_view(identifier):
+    try:
+        article = import_article(identifier)
+        return jsonify(article)
+
+    except ExistingArticleError as e:
+        return jsonify(message=str(e)), 409
+
+    except ImportArticleError as e:
+        return jsonify(message=str(e)), 404
+
+    except ImportConnectionError as e:
+        return jsonify(message=str(e)), 502
+
+    except ImportParsingError as e:
+        return jsonify(message=f"The article has an invalid format.\n{e}"), 500
+
+    except UnknownImportIdentifierError:
+        return jsonify(message=f"{identifier} is not a recognized identifier."), 400
 
 
 literature_citations_view = LiteratureCitationsResource.as_view(

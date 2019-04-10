@@ -37,6 +37,7 @@ pybtex = "*"
 cryptography = "<2.6"
 # msgpack = "*"  #  FIXME:  We want to use it but it might mess with invenio-indexer which is forcing msgpack-python https://github.com/inveniosoftware/invenio-celery/issues/58
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
+hepcrawl = "^12.0"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
