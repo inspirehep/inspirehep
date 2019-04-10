@@ -69,7 +69,7 @@ def get_query_records_to_index(pid_types):
             or_(
                 not_(type_coerce(RecordMetadata.json, JSONB).has_key("deleted")),
                 RecordMetadata.json["deleted"] == cast(False, JSONB),
-            ),
+            ),  # TODO: use InspireQueryBuilder instead
         )
     )  # noqa
     return query

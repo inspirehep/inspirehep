@@ -11,17 +11,32 @@ from copy import deepcopy
 import pytest
 from helpers.compare import compare_data_with_ui_display_field
 from helpers.providers.faker import faker
+from invenio_accounts.testutils import login_user_via_session
 
-from inspirehep.records.marshmallow.literature import LiteratureMetadataSchemaV1
+from inspirehep.records.marshmallow.literature import LiteratureMetadataUISchemaV1
 
 
-def test_literature_default_json_v1_response(api_client, db, create_record):
+def test_literature_application_json_without_login(api_client, db, create_record):
     headers = {"Accept": "application/json"}
-    record = create_record("lit")
+
+    data = {
+        "_collections": ["Literature"],
+        "_private_notes": [{"value": "A private note"}],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+
+    record = create_record("lit", data=data)
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = deepcopy(record)
+    expected_result = {
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )
@@ -33,30 +48,67 @@ def test_literature_default_json_v1_response(api_client, db, create_record):
     assert expected_result == response_data["metadata"]
 
 
-def test_literature_default_json_v1_search(api_client, db, create_record):
+def test_literature_application_json_with_logged_in_cataloger(
+    api_client, db, create_user, create_record
+):
+    user = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+
     headers = {"Accept": "application/json"}
-    record = create_record("lit")
-    record_control_number = record["control_number"]
-    record_titles = record["titles"]
-    record_book_autocomplete = record["titles"][0]["title"]
-    expected_status_code = 200
-    expected_result = {
+
+    data = {
+        "$schema": "http://inspire/schemas/records/hep.json",
         "_collections": ["Literature"],
-        "_ui_display": {
-            "document_type": ["article"],
-            "control_number": record_control_number,
-            "titles": record_titles,
-            "_collections": ["Literature"],
-        },
-        "author_count": 0,
-        "bookautocomplete": {"input": [record_book_autocomplete]},
-        "control_number": record_control_number,
+        "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
-        "facet_inspire_doc_type": ["article"],
-        "id": record_control_number,
-        "titles": record_titles,
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
     }
 
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = {
+        "$schema": "http://inspire/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "_private_notes": [{"value": "A private note"}],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+
+    response = api_client.get(
+        "/literature/{}".format(record_control_number), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data["metadata"]
+
+
+def test_literature_application_json_search_without_login(
+    api_client, db, create_record
+):
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "_collections": ["Literature"],
+        "_private_notes": [{"value": "A private note"}],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+    record = create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result = {
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
     expected_result_len = 1
 
     response = api_client.get("/literature", headers=headers)
@@ -69,10 +121,50 @@ def test_literature_default_json_v1_search(api_client, db, create_record):
 
     assert expected_status_code == response_status_code
     assert expected_result_len == response_data_hits_len
-    compare_data_with_ui_display_field(expected_result, response_data_hits_metadata)
+    assert expected_result == response_data_hits_metadata
 
 
-def test_literature_json_v1_response(api_client, db, create_record):
+def test_literature_application_json_search_with_cataloger_login(
+    api_client, db, create_user, create_record
+):
+    user = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "_private_notes": [{"value": "A private note"}],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+    record = create_record("lit", data=data)
+    expected_status_code = 200
+    expected_result = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Literature"],
+        "document_type": ["article"],
+        "control_number": 12345,
+        "titles": [{"title": "A Title"}],
+    }
+    expected_result_len = 1
+
+    response = api_client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_hits_len = len(response_data_hits)
+    response_data_hits_metadata = response_data_hits[0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result_len == response_data_hits_len
+    assert expected_result == response_data_hits_metadata
+
+
+def test_literature_json_ui_v1_response(api_client, db, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit")
     record_control_number = record["control_number"]
@@ -80,7 +172,6 @@ def test_literature_json_v1_response(api_client, db, create_record):
 
     expected_status_code = 200
     expected_result_metadata = {
-        "_collections": ["Literature"],
         "control_number": record_control_number,
         "document_type": ["article"],
         "titles": record_titles,
@@ -98,7 +189,7 @@ def test_literature_json_v1_response(api_client, db, create_record):
 
 
 @pytest.mark.skip(reason="the indexing that adds ``_ui_display`` is not here yet.")
-def test_literature_json_v1_response_search(api_client, db, create_record):
+def test_literature_json_ui_v1_response_search(api_client, db, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit")
 
@@ -114,7 +205,7 @@ def test_literature_json_v1_response_search(api_client, db, create_record):
     assert expected_result == expected_data_hits
 
 
-def test_literature_aution_json_authors(api_client, db, create_record):
+def test_literature_application_json_authors(api_client, db, create_record):
     headers = {"Accept": "application/json"}
     full_name_1 = faker.name()
     data = {
@@ -643,7 +734,7 @@ def test_literature_serialize_experiments(
     #  Create dummy experiments:
     create_record_factory("exp", data={"control_number": 1_110_601})
     create_record_factory("exp", data={"control_number": 1_108_514})
-    dumped_record = LiteratureMetadataSchemaV1().dump(record).data
+    dumped_record = LiteratureMetadataUISchemaV1().dump(record).data
     assert dumped_record["accelerator_experiments"] == expected_experiment
 
 

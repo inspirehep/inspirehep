@@ -10,6 +10,8 @@ from .authors import LiteratureAuthorsMetadataSchemaV1, LiteratureAuthorsSchemaV
 from .base import (
     LiteratureESEnhancementV1,
     LiteratureMetadataUISchemaV1,
+    LiteratureRawAdminSchemaV1,
+    LiteratureRawPublicSchemaV1,
     LiteratureSearchUISchemaV1,
     LiteratureUISchemaV1,
 )

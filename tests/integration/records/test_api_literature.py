@@ -487,6 +487,7 @@ def test_dump_for_es(base_app, db):
 
     expected_document_type = ["article"]
 
+    # FIXME: do 1-2 simpler assert instead
     assert json.loads(str_dump) == dump
     assert "_ui_display" in dump
     assert "control_number" in dump
@@ -497,7 +498,6 @@ def test_dump_for_es(base_app, db):
     ui_field = json.loads(dump["_ui_display"])
     assert "titles" in ui_field
     assert "document_type" in ui_field
-    assert "_collections" in ui_field
     assert record["titles"] == ui_field["titles"]
     assert record["control_number"] == ui_field["control_number"]
 
