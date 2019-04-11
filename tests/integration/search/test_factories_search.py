@@ -17,9 +17,20 @@ from inspirehep.search.factories.search import (
 )
 
 
-def test_get_search_with_source_with_LiteratureSearch_instance(base_app):
-    config = {"SEARCH_SOURCE_INCLUDES": {"literature": ["title", "description"]}}
-    with patch.dict(base_app.config, config), base_app.test_request_context():
+def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_headers(
+    base_app
+):
+    config = {
+        "SEARCH_SOURCE_INCLUDES": {
+            "literature": {
+                "application/vnd+inspire.record.ui+json": ["title", "description"]
+            }
+        }
+    }
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    with patch.dict(base_app.config, config), base_app.test_request_context(
+        headers=headers
+    ):
         search = LiteratureSearch()
         search = get_search_with_source(search)
 
@@ -31,9 +42,20 @@ def test_get_search_with_source_with_LiteratureSearch_instance(base_app):
         assert expected_source_includes == search_source_includes
 
 
-def test_get_search_with_source_with_LiteratureSearch_instance_without_config(base_app):
-    config = {"SEARCH_SOURCE_INCLUDES": {"something_else": ["title", "description"]}}
-    with patch.dict(base_app.config, config), base_app.test_request_context():
+def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_headers(
+    base_app
+):
+    config = {
+        "SEARCH_SOURCE_INCLUDES": {
+            "literature": {
+                "application/vnd+inspire.record.ui+json": ["title", "description"]
+            }
+        }
+    }
+    headers = {"Accept": "application/json"}
+    with patch.dict(base_app.config, config), base_app.test_request_context(
+        headers=headers
+    ):
         search = LiteratureSearch()
         search = get_search_with_source(search)
 
@@ -41,10 +63,10 @@ def test_get_search_with_source_with_LiteratureSearch_instance_without_config(ba
         assert "_source" not in search_to_dict
 
 
-def test_get_search_with_source_with_other_search_instance(base_app):
-    config = {"SEARCH_SOURCE_INCLUDES": {"literature": ["title", "description"]}}
+def test_get_search_with_source_with_LiteratureSearch_instance_without_config(base_app):
+    config = {"SEARCH_SOURCE_INCLUDES": None}
     with patch.dict(base_app.config, config), base_app.test_request_context():
-        search = InspireSearch()
+        search = LiteratureSearch()
         search = get_search_with_source(search)
 
         search_to_dict = search.to_dict()

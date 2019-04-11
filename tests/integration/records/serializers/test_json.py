@@ -9,6 +9,7 @@ import json
 from copy import deepcopy
 
 import pytest
+from helpers.compare import compare_data_with_ui_display_field
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureMetadataSchemaV1
@@ -16,11 +17,11 @@ from inspirehep.records.marshmallow.literature import LiteratureMetadataSchemaV1
 
 def test_literature_default_json_v1_response(api_client, db, create_record):
     headers = {"Accept": "application/json"}
-    record = create_record("lit", with_indexing=True)
-    record_control_number = record.json["control_number"]
+    record = create_record("lit")
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = deepcopy(record.json)
+    expected_result = deepcopy(record)
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )
@@ -34,10 +35,28 @@ def test_literature_default_json_v1_response(api_client, db, create_record):
 
 def test_literature_default_json_v1_search(api_client, db, create_record):
     headers = {"Accept": "application/json"}
-    record = create_record("lit", with_indexing=True)
-
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+    record_titles = record["titles"]
+    record_book_autocomplete = record["titles"][0]["title"]
     expected_status_code = 200
-    expected_result = deepcopy(record.json)
+    expected_result = {
+        "_collections": ["Literature"],
+        "_ui_display": {
+            "document_type": ["article"],
+            "control_number": record_control_number,
+            "titles": record_titles,
+            "_collections": ["Literature"],
+        },
+        "author_count": 0,
+        "bookautocomplete": {"input": [record_book_autocomplete]},
+        "control_number": record_control_number,
+        "document_type": ["article"],
+        "facet_inspire_doc_type": ["article"],
+        "id": record_control_number,
+        "titles": record_titles,
+    }
+
     expected_result_len = 1
 
     response = api_client.get("/literature", headers=headers)
@@ -50,14 +69,14 @@ def test_literature_default_json_v1_search(api_client, db, create_record):
 
     assert expected_status_code == response_status_code
     assert expected_result_len == response_data_hits_len
-    assert expected_result == response_data_hits_metadata
+    compare_data_with_ui_display_field(expected_result, response_data_hits_metadata)
 
 
 def test_literature_json_v1_response(api_client, db, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    record = create_record("lit", with_indexing=True)
-    record_control_number = record.json["control_number"]
-    record_titles = record.json["titles"]
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+    record_titles = record["titles"]
 
     expected_status_code = 200
     expected_result_metadata = {
@@ -81,7 +100,7 @@ def test_literature_json_v1_response(api_client, db, create_record):
 @pytest.mark.skip(reason="the indexing that adds ``_ui_display`` is not here yet.")
 def test_literature_json_v1_response_search(api_client, db, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    record = create_record("lit", with_indexing=True)
+    record = create_record("lit")
 
     expected_status_code = 200
     expected_result = []
@@ -102,8 +121,8 @@ def test_literature_aution_json_authors(api_client, db, create_record):
         "authors": [{"full_name": full_name_1}],
         "collaborations": [{"value": "ATLAS"}],
     }
-    record = create_record("lit", data=data, with_indexing=True)
-    record_control_number = record.json["control_number"]
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
     expected_result = {
@@ -127,8 +146,8 @@ def test_literature_application_json_references(api_client, db, create_record):
     reference_without_link_title = faker.sentence()
 
     record_referenced = create_record("lit")
-    record_referenced_control_number = record_referenced.json["control_number"]
-    record_referenced_titles = record_referenced.json["titles"]
+    record_referenced_control_number = record_referenced["control_number"]
+    record_referenced_titles = record_referenced["titles"]
 
     data = {
         "references": [
@@ -149,7 +168,7 @@ def test_literature_application_json_references(api_client, db, create_record):
         ]
     }
     record = create_record("lit", data=data)
-    record_control_number = record.json["control_number"]
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
     expected_result = {
@@ -174,12 +193,12 @@ def test_literature_application_json_references(api_client, db, create_record):
     assert expected_result == response_data_metadata
 
 
-def test_authors_json_v1_response(api_client, db, create_record, datadir):
+def test_authors_json_v1_response(api_client, db, create_record_factory, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "999108.json").read_text())
 
-    record = create_record("aut", data=data)
+    record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -252,12 +271,14 @@ def test_authors_json_v1_response(api_client, db, create_record, datadir):
     assert expected_result == response_data["metadata"]
 
 
-def test_authors_default_json_v1_response(api_client, db, create_record, datadir):
+def test_authors_default_json_v1_response(
+    api_client, db, create_record_factory, datadir
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "999108.json").read_text())
 
-    record = create_record("aut", data=data)
+    record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -275,13 +296,13 @@ def test_authors_default_json_v1_response(api_client, db, create_record, datadir
 
 
 def test_authors_default__only_control_number_json_v1_response(
-    api_client, db, create_record, datadir
+    api_client, db, create_record_factory, datadir
 ):
     headers = {"Accept": "application/vnd+inspire.record.control_number+json"}
 
     data = json.loads((datadir / "999108.json").read_text())
 
-    record = create_record("aut", data=data)
+    record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -299,13 +320,13 @@ def test_authors_default__only_control_number_json_v1_response(
 
 
 def test_authors_default_json_v1_response_search(
-    api_client, db, create_record, datadir
+    api_client, db, create_record_factory, datadir
 ):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "999108.json").read_text())
 
-    record = create_record("aut", data=data, with_indexing=True)
+    record = create_record_factory("aut", data=data, with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -321,12 +342,12 @@ def test_authors_default_json_v1_response_search(
     assert expected_result == response_data_hits_metadata
 
 
-def test_jobs_default_json_v1_response(api_client, db, create_record, datadir):
+def test_jobs_default_json_v1_response(api_client, db, create_record_factory, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
 
-    record = create_record("job", data=data)
+    record = create_record_factory("job", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -341,12 +362,14 @@ def test_jobs_default_json_v1_response(api_client, db, create_record, datadir):
     assert expected_result == response_data_metadata
 
 
-def test_jobs_default_json_v1_response_search(api_client, db, create_record, datadir):
+def test_jobs_default_json_v1_response_search(
+    api_client, db, create_record_factory, datadir
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
 
-    record = create_record("job", data=data, with_indexing=True)
+    record = create_record_factory("job", data=data, with_indexing=True)
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
@@ -361,12 +384,14 @@ def test_jobs_default_json_v1_response_search(api_client, db, create_record, dat
     assert expected_result == response_data_hits_metadata
 
 
-def test_journals_default_json_v1_response(api_client, db, create_record, datadir):
+def test_journals_default_json_v1_response(
+    api_client, db, create_record_factory, datadir
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1212042.json").read_text())
 
-    record = create_record("jou", data=data)
+    record = create_record_factory("jou", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -382,13 +407,13 @@ def test_journals_default_json_v1_response(api_client, db, create_record, datadi
 
 
 def test_journals_default_json_v1_response_search(
-    api_client, db, create_record, datadir
+    api_client, db, create_record_factory, datadir
 ):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1212042.json").read_text())
 
-    record = create_record("jou", data=data, with_indexing=True)
+    record = create_record_factory("jou", data=data, with_indexing=True)
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
@@ -403,12 +428,14 @@ def test_journals_default_json_v1_response_search(
     assert expected_result == response_data_hits_metadata
 
 
-def test_experiments_default_json_v1_response(api_client, db, create_record, datadir):
+def test_experiments_default_json_v1_response(
+    api_client, db, create_record_factory, datadir
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1108739.json").read_text())
 
-    record = create_record("exp", data=data)
+    record = create_record_factory("exp", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -424,13 +451,13 @@ def test_experiments_default_json_v1_response(api_client, db, create_record, dat
 
 
 def test_experiments_default_json_v1_response_search(
-    api_client, db, create_record, datadir
+    api_client, db, create_record_factory, datadir
 ):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1108739.json").read_text())
 
-    record = create_record("exp", data=data, with_indexing=True)
+    record = create_record_factory("exp", data=data, with_indexing=True)
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
@@ -445,12 +472,14 @@ def test_experiments_default_json_v1_response_search(
     assert expected_result == response_data_hits_metadata
 
 
-def test_conferences_default_json_v1_response(api_client, db, create_record, datadir):
+def test_conferences_default_json_v1_response(
+    api_client, db, create_record_factory, datadir
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
 
-    record = create_record("con", data=data)
+    record = create_record_factory("con", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -466,13 +495,13 @@ def test_conferences_default_json_v1_response(api_client, db, create_record, dat
 
 
 def test_conferences_default_json_v1_response_search(
-    api_client, db, create_record, datadir
+    api_client, db, create_record_factory, datadir
 ):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
 
-    record = create_record("con", data=data, with_indexing=True)
+    record = create_record_factory("con", data=data, with_indexing=True)
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
@@ -487,12 +516,12 @@ def test_conferences_default_json_v1_response_search(
     assert expected_result == response_data_hits_metadata
 
 
-def test_data_default_json_v1_response(api_client, db, create_record, datadir):
+def test_data_default_json_v1_response(api_client, db, create_record_factory, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1.json").read_text())
 
-    record = create_record("dat", data=data)
+    record = create_record_factory("dat", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -507,12 +536,14 @@ def test_data_default_json_v1_response(api_client, db, create_record, datadir):
     assert expected_result == response_data_metadata
 
 
-def test_data_default_json_v1_response_search(api_client, db, create_record, datadir):
+def test_data_default_json_v1_response_search(
+    api_client, db, create_record_factory, datadir
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1.json").read_text())
 
-    record = create_record("dat", data=data, with_indexing=True)
+    record = create_record_factory("dat", data=data, with_indexing=True)
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
@@ -527,12 +558,14 @@ def test_data_default_json_v1_response_search(api_client, db, create_record, dat
     assert expected_result == response_data_hits_metadata
 
 
-def test_institutions_default_json_v1_response(api_client, db, create_record, datadir):
+def test_institutions_default_json_v1_response(
+    api_client, db, create_record_factory, datadir
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "902852.json").read_text())
 
-    record = create_record("ins", data=data)
+    record = create_record_factory("ins", data=data)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -548,13 +581,13 @@ def test_institutions_default_json_v1_response(api_client, db, create_record, da
 
 
 def test_institutions_default_json_v1_response_search(
-    api_client, db, create_record, datadir
+    api_client, db, create_record_factory, datadir
 ):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "902852.json").read_text())
 
-    record = create_record("ins", data=data, with_indexing=True)
+    record = create_record_factory("ins", data=data, with_indexing=True)
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
@@ -569,7 +602,9 @@ def test_institutions_default_json_v1_response_search(
     assert expected_result == response_data_hits_metadata
 
 
-def test_literature_serialize_experiments(es_clear, db, datadir, create_record):
+def test_literature_serialize_experiments(
+    es_clear, db, datadir, create_record, create_record_factory
+):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
     experiment_data = {
@@ -604,9 +639,9 @@ def test_literature_serialize_experiments(es_clear, db, datadir, create_record):
         {"name": "VLBI"},
     ]
     #  Create experiment with data:
-    create_record("exp", data=experiment_data)
+    create_record_factory("exp", data=experiment_data)
     #  Create dummy experiments:
-    create_record("exp", data={"control_number": 1_110_601})
-    create_record("exp", data={"control_number": 1_108_514})
-    dumped_record = LiteratureMetadataSchemaV1().dump(record.json).data
+    create_record_factory("exp", data={"control_number": 1_110_601})
+    create_record_factory("exp", data={"control_number": 1_108_514})
+    dumped_record = LiteratureMetadataSchemaV1().dump(record).data
     assert dumped_record["accelerator_experiments"] == expected_experiment

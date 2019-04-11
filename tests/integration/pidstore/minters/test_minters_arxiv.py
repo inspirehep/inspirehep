@@ -15,11 +15,11 @@ from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.minters.arxiv import ArxivMinter
 
 
-def test_minter_arxiv_eprints(base_app, db, create_record):
+def test_minter_arxiv_eprints(base_app, db, create_record_factory):
     arxiv_value_1 = faker.arxiv()
     arxiv_value_2 = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value_1}, {"value": arxiv_value_2}]}
-    record = create_record("lit", data=data)
+    record = create_record_factory("lit", data=data)
     data = record.json
 
     ArxivMinter.mint(record.id, data)
@@ -43,8 +43,8 @@ def test_minter_arxiv_eprints(base_app, db, create_record):
         assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_arxiv_eprints_empty(base_app, db, create_record):
-    record = create_record("lit")
+def test_minter_arxiv_eprints_empty(base_app, db, create_record_factory):
+    record = create_record_factory("lit")
     data = record.json
 
     ArxivMinter.mint(record.id, data)
@@ -59,22 +59,22 @@ def test_minter_arxiv_eprints_empty(base_app, db, create_record):
     assert expected_pids_len == result_pids_len
 
 
-def test_mitner_arxiv_eprints_already_existing(base_app, db, create_record):
+def test_mitner_arxiv_eprints_already_existing(base_app, db, create_record_factory):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
 
-    record_with_arxiv = create_record("lit", data=data)
+    record_with_arxiv = create_record_factory("lit", data=data)
     ArxivMinter.mint(record_with_arxiv.id, record_with_arxiv.json)
 
-    record_with_existing_arxiv = create_record("lit", data)
+    record_with_existing_arxiv = create_record_factory("lit", data)
     with pytest.raises(PIDAlreadyExists):
         ArxivMinter.mint(record_with_existing_arxiv.id, record_with_existing_arxiv.json)
 
 
-def test_mitner_arxiv_eprints_missing_schema(base_app, db, create_record):
+def test_mitner_arxiv_eprints_missing_schema(base_app, db, create_record_factory):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
-    record = create_record("lit", data=data)
+    record = create_record_factory("lit", data=data)
 
     record_data = record.json
     record_id = record.id

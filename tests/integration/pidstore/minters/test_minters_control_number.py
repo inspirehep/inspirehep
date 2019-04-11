@@ -20,8 +20,10 @@ from inspirehep.pidstore.minters.control_number import (
 )
 
 
-def test_control_number_literature_without_control_number(base_app, db, create_record):
-    record = create_record("lit", with_pid=False)
+def test_control_number_literature_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("lit", with_pid=False)
     data = record.json
 
     LiteratureMinter.mint(record.id, data)
@@ -37,9 +39,11 @@ def test_control_number_literature_without_control_number(base_app, db, create_r
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_literature_with_control_number(base_app, db, create_record):
+def test_control_number_literature_with_control_number(
+    base_app, db, create_record_factory
+):
     data = {"control_number": 1}
-    record = create_record("lit", data=data, with_pid=False)
+    record = create_record_factory("lit", data=data, with_pid=False)
     data = record.json
 
     LiteratureMinter.mint(record.id, data)
@@ -54,8 +58,10 @@ def test_control_number_literature_with_control_number(base_app, db, create_reco
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_authors_without_control_number(base_app, db, create_record):
-    record = create_record("aut", with_pid=False)
+def test_control_number_authors_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("aut", with_pid=False)
     data = record.json
 
     AuthorsMinter.mint(record.id, data)
@@ -71,9 +77,11 @@ def test_control_number_authors_without_control_number(base_app, db, create_reco
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_authors_with_control_number(base_app, db, create_record):
+def test_control_number_authors_with_control_number(
+    base_app, db, create_record_factory
+):
     data = {"control_number": 1}
-    record = create_record("aut", data=data, with_pid=False)
+    record = create_record_factory("aut", data=data, with_pid=False)
     data = record.json
 
     AuthorsMinter.mint(record.id, data)
@@ -88,9 +96,9 @@ def test_control_number_authors_with_control_number(base_app, db, create_record)
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_jobs_with_control_number(base_app, db, create_record):
+def test_control_number_jobs_with_control_number(base_app, db, create_record_factory):
     data = {"control_number": 1}
-    record = create_record("job", data=data, with_pid=False)
+    record = create_record_factory("job", data=data, with_pid=False)
     data = record.json
 
     JobsMinter.mint(record.id, data)
@@ -105,8 +113,10 @@ def test_control_number_jobs_with_control_number(base_app, db, create_record):
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_jobs_without_control_number(base_app, db, create_record):
-    record = create_record("job", with_pid=False)
+def test_control_number_jobs_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("job", with_pid=False)
     data = record.json
 
     JobsMinter.mint(record.id, data)
@@ -122,9 +132,11 @@ def test_control_number_jobs_without_control_number(base_app, db, create_record)
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_journals_with_control_number(base_app, db, create_record):
+def test_control_number_journals_with_control_number(
+    base_app, db, create_record_factory
+):
     data = {"control_number": 1}
-    record = create_record("jou", data=data, with_pid=False)
+    record = create_record_factory("jou", data=data, with_pid=False)
     data = record.json
 
     JournalsMinter.mint(record.id, data)
@@ -139,8 +151,10 @@ def test_control_number_journals_with_control_number(base_app, db, create_record
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_journals_without_control_number(base_app, db, create_record):
-    record = create_record("jou", with_pid=False)
+def test_control_number_journals_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("jou", with_pid=False)
     data = record.json
 
     JournalsMinter.mint(record.id, data)
@@ -156,9 +170,11 @@ def test_control_number_journals_without_control_number(base_app, db, create_rec
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_experiments_with_control_number(base_app, db, create_record):
+def test_control_number_experiments_with_control_number(
+    base_app, db, create_record_factory
+):
     data = {"control_number": 1}
-    record = create_record("exp", data=data, with_pid=False)
+    record = create_record_factory("exp", data=data, with_pid=False)
     data = record.json
 
     ExperimentsMinter.mint(record.id, data)
@@ -173,8 +189,10 @@ def test_control_number_experiments_with_control_number(base_app, db, create_rec
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_experiments_without_control_number(base_app, db, create_record):
-    record = create_record("exp", with_pid=False)
+def test_control_number_experiments_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("exp", with_pid=False)
     data = record.json
 
     ExperimentsMinter.mint(record.id, data)
@@ -190,9 +208,11 @@ def test_control_number_experiments_without_control_number(base_app, db, create_
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_conferences_with_control_number(base_app, db, create_record):
+def test_control_number_conferences_with_control_number(
+    base_app, db, create_record_factory
+):
     data = {"control_number": 1}
-    record = create_record("con", data=data, with_pid=False)
+    record = create_record_factory("con", data=data, with_pid=False)
     data = record.json
 
     ConferencesMinter.mint(record.id, data)
@@ -207,8 +227,10 @@ def test_control_number_conferences_with_control_number(base_app, db, create_rec
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_conferences_without_control_number(base_app, db, create_record):
-    record = create_record("con", with_pid=False)
+def test_control_number_conferences_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("con", with_pid=False)
     data = record.json
 
     ConferencesMinter.mint(record.id, data)
@@ -224,9 +246,9 @@ def test_control_number_conferences_without_control_number(base_app, db, create_
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_data_with_control_number(base_app, db, create_record):
+def test_control_number_data_with_control_number(base_app, db, create_record_factory):
     data = {"control_number": 1}
-    record = create_record("dat", data=data, with_pid=False)
+    record = create_record_factory("dat", data=data, with_pid=False)
     data = record.json
 
     DataMinter.mint(record.id, data)
@@ -241,8 +263,10 @@ def test_control_number_data_with_control_number(base_app, db, create_record):
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_data_without_control_number(base_app, db, create_record):
-    record = create_record("dat", with_pid=False)
+def test_control_number_data_without_control_number(
+    base_app, db, create_record_factory
+):
+    record = create_record_factory("dat", with_pid=False)
     data = record.json
 
     DataMinter.mint(record.id, data)
@@ -258,9 +282,11 @@ def test_control_number_data_without_control_number(base_app, db, create_record)
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_institutions_with_control_number(base_app, db, create_record):
+def test_control_number_institutions_with_control_number(
+    base_app, db, create_record_factory
+):
     data = {"control_number": 1}
-    record = create_record("ins", data=data, with_pid=False)
+    record = create_record_factory("ins", data=data, with_pid=False)
     data = record.json
 
     InstitutionsMinter.mint(record.id, data)
@@ -276,9 +302,9 @@ def test_control_number_institutions_with_control_number(base_app, db, create_re
 
 
 def test_control_number_institutions_without_control_number(
-    base_app, db, create_record
+    base_app, db, create_record_factory
 ):
-    record = create_record("ins", with_pid=False)
+    record = create_record_factory("ins", with_pid=False)
     data = record.json
 
     InstitutionsMinter.mint(record.id, data)

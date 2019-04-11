@@ -526,29 +526,13 @@ RECORDS_DEFAULT_FILE_LOCATION_NAME = "records"
 RECORDS_DEFAULT_STORAGE_CLASS = "S"
 """Default storage class for record files."""
 SEARCH_SOURCE_INCLUDES = {
-    "literature": [
-        "$schema",
-        "abstracts.value",
-        "arxiv_eprints.value",
-        "arxiv_eprints.categories",
-        "authors.affiliations",
-        "authors.full_name",
-        "authors.control_number",
-        "collaborations",
-        "control_number",
-        "citation_count",
-        "dois.value",
-        "earliest_date",
-        "inspire_categories",
-        "number_of_references",
-        "publication_info",
-        "report_numbers",
-        "titles.title",
-        # Need these two for the search bibtex serializers
-        "_collections",
-        "document_type",
-        "authors.inspire_roles",
-    ]
+    "literature": {
+        "application/vnd+inspire.record.ui+json": [
+            "_ui_display",
+            # we need this for the record fetcher
+            "control_number",
+        ]
+    }
 }
 
 APP_HEALTH_BLUEPRINT_ENABLED = True

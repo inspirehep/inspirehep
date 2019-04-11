@@ -14,7 +14,10 @@ from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
+from helpers.providers.faker import faker
 from invenio_app.factory import create_api as invenio_create_app
+
+from inspirehep.records.api import LiteratureRecord
 
 
 @pytest.fixture(scope="module")
@@ -91,19 +94,51 @@ def db(database):
 
 @pytest.fixture(scope="function")
 def create_record(base_app, db, es_clear):
-    """Fixtures to create record.
+    """Fixture to create record from the application level.
 
     Examples:
 
         def test_with_record(base_app, create_record)
+            data = {'control_number': 123}
             record = create_record(
+                'lit',
+                data=data,
+            )
+    """
+
+    def _create_record(record_type, data=None):
+        index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
+        accepted_record_types = ["lit"]
+        if record_type not in accepted_record_types:
+            raise ValueError(f"{record_type} is not supported")
+        record_data = faker.record("lit", data=data)
+        record = LiteratureRecord.create(record_data)
+        record.commit()
+        record._indexing = record._index()
+        db.session.commit()
+        es_clear.indices.refresh(index)
+        return record
+
+    return _create_record
+
+
+@pytest.fixture(scope="function")
+def create_record_factory(base_app, db, es_clear):
+    """Fixtures to create factory record.
+
+    Examples:
+
+        def test_with_record(base_app, create_record_factory)
+            record = create_record_factory(
                 'lit',
                 with_pid=True,
                 with_index=False,
             )
     """
 
-    def _create_record(record_type, data=None, with_pid=True, with_indexing=False):
+    def _create_record_factory(
+        record_type, data=None, with_pid=True, with_indexing=False
+    ):
         control_number = random.randint(1, 2_147_483_647)
         record = RecordMetadataFactory(
             record_type=record_type, data=data, control_number=control_number
@@ -128,7 +163,7 @@ def create_record(base_app, db, es_clear):
             es_clear.indices.refresh(index)
         return record
 
-    return _create_record
+    return _create_record_factory
 
 
 @pytest.fixture(scope="function")

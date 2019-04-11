@@ -24,7 +24,6 @@ class InspireRecordIndexer(RecordIndexer):
 
     def _prepare_record(self, record, index, doc_type):
         data = record.dumps_for_es()
-
         before_record_index.send(
             current_app._get_current_object(),
             json=data,
