@@ -152,7 +152,7 @@ def test_new_author_submit_works_with_session_login(
     assert response.status_code == 200
 
 
-def test_get_author_update_data(app, api_client, create_user, create_record):
+def test_get_author_update_data(app, api_client, create_user, create_record_factory):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 
@@ -161,7 +161,7 @@ def test_get_author_update_data(app, api_client, create_user, create_record):
         "name": {"value": "John", "preferred_name": "John Doe"},
         "status": "active",
     }
-    create_record("aut", data=author_data)
+    create_record_factory("aut", data=author_data)
 
     expected_data = {
         "data": {"given_name": "John", "display_name": "John Doe", "status": "active"}

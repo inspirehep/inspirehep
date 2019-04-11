@@ -6,10 +6,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_bibtex(api_client, db, create_record):
+def test_bibtex(api_client, db, create_record_factory):
     headers = {"Accept": "application/x-bibtex"}
     data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
-    record = create_record("lit", data=data, with_indexing=True)
+    record = create_record_factory("lit", data=data, with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
@@ -29,12 +29,12 @@ def test_bibtex(api_client, db, create_record):
     assert expected_result == response_data
 
 
-def test_bibtex_search(api_client, db, create_record):
+def test_bibtex_search(api_client, db, create_record_factory):
     headers = {"Accept": "application/x-bibtex"}
     data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     data_2 = {"control_number": 637275232, "titles": [{"title": "Yet another title."}]}
-    record_1 = create_record("lit", data=data_1, with_indexing=True)
-    record_2 = create_record("lit", data=data_2, with_indexing=True)
+    record_1 = create_record_factory("lit", data=data_1, with_indexing=True)
+    record_2 = create_record_factory("lit", data=data_2, with_indexing=True)
 
     expected_status_code = 200
     expected_result_1 = "@article{637275237,\n" '    title = "This is a title."\n' "}\n"

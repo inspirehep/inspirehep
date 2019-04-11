@@ -28,9 +28,9 @@ from inspirehep.records.errors import MissingSerializerError
 from inspirehep.records.fixtures import init_storage_path
 
 
-def test_query_builder_returns_not_deleted(base_app, db, create_record):
-    create_record("lit", data={"deleted": True})
-    not_deleted_record = create_record("lit", data={"deleted": False})
+def test_query_builder_returns_not_deleted(base_app, db, create_record_factory):
+    create_record_factory("lit", data={"deleted": True})
+    not_deleted_record = create_record_factory("lit", data={"deleted": False})
 
     not_deleted_records = InspireQueryBuilder().not_deleted().query().all()
 
@@ -38,9 +38,11 @@ def test_query_builder_returns_not_deleted(base_app, db, create_record):
     assert not_deleted_records[0].json == not_deleted_record.json
 
 
-def test_query_builder_returns_by_collections(base_app, db, create_record):
-    literature_record = create_record("lit", data={"_collections": ["Literature"]})
-    create_record("lit", data={"_collections": ["Other"]})
+def test_query_builder_returns_by_collections(base_app, db, create_record_factory):
+    literature_record = create_record_factory(
+        "lit", data={"_collections": ["Literature"]}
+    )
+    create_record_factory("lit", data={"_collections": ["Other"]})
 
     literature_records = (
         InspireQueryBuilder().by_collections(["Literature"]).query().all()
@@ -50,10 +52,10 @@ def test_query_builder_returns_by_collections(base_app, db, create_record):
     assert literature_records[0].json == literature_record.json
 
 
-def test_query_builder_returns_no_duplicates(base_app, db, create_record):
-    create_record("lit", with_pid=False, data={"control_number": 1})
-    create_record("lit", with_pid=False, data={"control_number": 1})
-    create_record("lit", with_pid=False, data={"control_number": 1})
+def test_query_builder_returns_no_duplicates(base_app, db, create_record_factory):
+    create_record_factory("lit", with_pid=False, data={"control_number": 1})
+    create_record_factory("lit", with_pid=False, data={"control_number": 1})
+    create_record_factory("lit", with_pid=False, data={"control_number": 1})
 
     literature_records = InspireQueryBuilder().no_duplicates().query().all()
 
@@ -62,21 +64,21 @@ def test_query_builder_returns_no_duplicates(base_app, db, create_record):
 
 # FIXME: maybe too brittle, need to find another way to test chainability
 def test_query_builder_returns_no_duplicated_not_deleted_by_collections(
-    base_app, db, create_record
+    base_app, db, create_record_factory
 ):
-    record = create_record(
+    record = create_record_factory(
         "lit",
         data={"deleted": False, "_collections": ["Literature"], "control_number": 1},
     )
-    create_record(
+    create_record_factory(
         "lit", data={"deleted": False, "_collections": ["Other"], "control_number": 2}
     )
-    create_record(
+    create_record_factory(
         "lit",
         with_pid=False,
         data={"deleted": False, "_collections": ["Literature"], "control_number": 1},
     )
-    create_record("lit", data={"deleted": True, "_collections": ["Literature"]})
+    create_record_factory("lit", data={"deleted": True, "_collections": ["Literature"]})
 
     records = (
         InspireQueryBuilder()
@@ -91,16 +93,20 @@ def test_query_builder_returns_no_duplicated_not_deleted_by_collections(
     assert records[0].json == record.json
 
 
-def test_base_get_record(base_app, db, create_record):
-    record = create_record("lit")
+def test_base_get_record(base_app, db, create_record_factory):
+    record = create_record_factory("lit")
 
     expected_record = InspireRecord.get_record(record.id)
 
     assert expected_record == record.json
 
 
-def test_base_get_records(base_app, db, create_record):
-    records = [create_record("lit"), create_record("lit"), create_record("lit")]
+def test_base_get_records(base_app, db, create_record_factory):
+    records = [
+        create_record_factory("lit"),
+        create_record_factory("lit"),
+        create_record_factory("lit"),
+    ]
     record_uuids = [record.id for record in records]
 
     expected_records = InspireRecord.get_records(record_uuids)
@@ -109,8 +115,8 @@ def test_base_get_records(base_app, db, create_record):
         assert record.json in expected_records
 
 
-def test_get_uuid_from_pid_value(base_app, db, create_record):
-    record = create_record("lit")
+def test_get_uuid_from_pid_value(base_app, db, create_record_factory):
+    record = create_record_factory("lit")
     record_uuid = record.id
     record_pid_type = record._persistent_identifier.pid_type
     record_pid_value = record._persistent_identifier.pid_value
@@ -122,8 +128,8 @@ def test_get_uuid_from_pid_value(base_app, db, create_record):
     assert expected_record_uuid == record_uuid
 
 
-def test_soft_delete_record(base_app, db, create_record, init_files_db):
-    record_factory = create_record("lit")
+def test_soft_delete_record(base_app, db, create_record_factory, init_files_db):
+    record_factory = create_record_factory("lit")
     record_uuid = record_factory.id
     record = InspireRecord.get_record(record_uuid)
     record.delete()
@@ -135,8 +141,8 @@ def test_soft_delete_record(base_app, db, create_record, init_files_db):
     assert record_pid is None
 
 
-def test_hard_delete_record(base_app, db, create_record, create_pidstore):
-    record_factory = create_record("lit")
+def test_hard_delete_record(base_app, db, create_record_factory, create_pidstore):
+    record_factory = create_record_factory("lit")
     create_pidstore(record_factory.id, "pid1", faker.control_number())
     create_pidstore(record_factory.id, "pid2", faker.control_number())
     create_pidstore(record_factory.id, "pid3", faker.control_number())
@@ -163,9 +169,9 @@ def test_hard_delete_record(base_app, db, create_record, create_pidstore):
     assert record_identifier is None
 
 
-def test_redirect_records(base_app, db, create_record):
-    current_factory = create_record("lit")
-    other_factory = create_record("lit")
+def test_redirect_records(base_app, db, create_record_factory):
+    current_factory = create_record_factory("lit")
+    other_factory = create_record_factory("lit")
 
     current = InspireRecord.get_record(current_factory.id)
     other = InspireRecord.get_record(other_factory.id)
@@ -184,8 +190,12 @@ def test_redirect_records(base_app, db, create_record):
         assert current_pid.get_redirect() == other_pid
 
 
-def test_get_records_by_pids(base_app, db, create_record):
-    records = [create_record("lit"), create_record("lit"), create_record("lit")]
+def test_get_records_by_pids(base_app, db, create_record_factory):
+    records = [
+        create_record_factory("lit"),
+        create_record_factory("lit"),
+        create_record_factory("lit"),
+    ]
 
     pids = [("lit", str(record.json["control_number"])) for record in records]
 
@@ -200,7 +210,9 @@ def test_get_records_by_pids(base_app, db, create_record):
         assert record in expected_result
 
 
-def test_get_records_by_pids_with_not_existing_pids(base_app, db, create_record):
+def test_get_records_by_pids_with_not_existing_pids(
+    base_app, db, create_record_factory
+):
     pids = [("lit", "123"), ("aut", "234"), ("lit", "345")]
 
     expected_result_len = 0
@@ -211,7 +223,7 @@ def test_get_records_by_pids_with_not_existing_pids(base_app, db, create_record)
     assert expected_result_len == len(result_uuids)
 
 
-def test_get_records_by_pids_with_empty(base_app, db, create_record):
+def test_get_records_by_pids_with_empty(base_app, db, create_record_factory):
     pids = []
 
     expected_result_len = 0
@@ -222,8 +234,8 @@ def test_get_records_by_pids_with_empty(base_app, db, create_record):
     assert expected_result_len == len(result_uuids)
 
 
-def test_get_linked_records_in_field(base_app, db, create_record):
-    record_reference = create_record("lit")
+def test_get_linked_records_in_field(base_app, db, create_record_factory):
+    record_reference = create_record_factory("lit")
     record_reference_control_number = record_reference.json["control_number"]
     record_reference_uri = "http://localhost:5000/api/literature/{}".format(
         record_reference_control_number
@@ -231,7 +243,7 @@ def test_get_linked_records_in_field(base_app, db, create_record):
 
     data = {"references": [{"record": {"$ref": record_reference_uri}}]}
 
-    record = create_record("lit", data=data)
+    record = create_record_factory("lit", data=data)
 
     expected_result_len = 1
     expected_result = [record_reference.json]
@@ -245,7 +257,7 @@ def test_get_linked_records_in_field(base_app, db, create_record):
     assert expected_result == result
 
 
-def test_get_linked_records_in_field_empty(base_app, db, create_record):
+def test_get_linked_records_in_field_empty(base_app, db, create_record_factory):
     expected_result_len = 0
     expected_result = []
     record = InspireRecord({})
@@ -257,13 +269,13 @@ def test_get_linked_records_in_field_empty(base_app, db, create_record):
 
 
 def test_get_linked_records_in_field_not_existing_linked_record(
-    base_app, db, create_record
+    base_app, db, create_record_factory
 ):
     record_reference_uri = "http://localhost:5000/api/literature/{}".format(123)
 
     data = {"references": [{"record": {"$ref": record_reference_uri}}]}
 
-    record = create_record("lit", data=data)
+    record = create_record_factory("lit", data=data)
 
     expected_result_len = 0
     expected_result = []
@@ -278,15 +290,15 @@ def test_get_linked_records_in_field_not_existing_linked_record(
 
 
 def test_get_linked_records_in_field_with_different_pid_types(
-    base_app, db, create_record
+    base_app, db, create_record_factory
 ):
-    record_reference_lit = create_record("lit")
+    record_reference_lit = create_record_factory("lit")
     record_reference_lit_control_number = record_reference_lit.json["control_number"]
     record_reference_lit_uri = "http://localhost:5000/api/literature/{}".format(
         record_reference_lit_control_number
     )
 
-    record_reference_aut = create_record("aut")
+    record_reference_aut = create_record_factory("aut")
     record_reference_aut_control_number = record_reference_aut.json["control_number"]
     record_reference_aut_uri = "http://localhost:5000/api/authors/{}".format(
         record_reference_aut_control_number
@@ -299,7 +311,7 @@ def test_get_linked_records_in_field_with_different_pid_types(
         ]
     }
 
-    record = create_record("lit", data=data)
+    record = create_record_factory("lit", data=data)
 
     expected_result_len = 2
     expected_result = [record_reference_lit.json, record_reference_aut.json]
@@ -314,11 +326,11 @@ def test_get_linked_records_in_field_with_different_pid_types(
         assert record in expected_result
 
 
-def test_get_bucket_single(base_app, db, create_record, init_files_db):
+def test_get_bucket_single(base_app, db, create_record_factory, init_files_db):
     expected_storage_class = current_app.config["RECORDS_DEFAULT_STORAGE_CLASS"]
     expected_location = current_app.config["RECORDS_DEFAULT_FILE_LOCATION_NAME"]
 
-    record_factory = create_record("lit")
+    record_factory = create_record_factory("lit")
     record = InspireRecord.get_record(record_factory.id)
 
     bucket = record.get_bucket()
@@ -327,9 +339,9 @@ def test_get_bucket_single(base_app, db, create_record, init_files_db):
 
 
 def test_get_bucket_multiple_same_parameters(
-    base_app, db, create_record, init_files_db
+    base_app, db, create_record_factory, init_files_db
 ):
-    record_factory = create_record("lit")
+    record_factory = create_record_factory("lit")
     record = InspireRecord.get_record(record_factory.id)
 
     bucket = record.get_bucket()
@@ -343,15 +355,15 @@ def test_get_bucket_multiple_same_parameters(
 
 
 def test_get_multiple_buckets_different_parameters(
-    base_app, db, create_record, init_files_db
+    base_app, db, create_record_factory, init_files_db
 ):
     expected_default_storage_class = current_app.config["RECORDS_DEFAULT_STORAGE_CLASS"]
     expected_default_location = current_app.config["RECORDS_DEFAULT_FILE_LOCATION_NAME"]
 
     init_storage_path(name="second", uri="/tmp/test")
 
-    record_factory = create_record("lit")
-    record_factory2 = create_record("lit")
+    record_factory = create_record_factory("lit")
+    record_factory2 = create_record_factory("lit")
     record = InspireRecord.get_record(record_factory.id)
     record2 = InspireRecord.get_record(record_factory2.id)
 
@@ -379,8 +391,8 @@ def test_get_multiple_buckets_different_parameters(
     assert bucket4_record_1.default_storage_class == "A"
 
 
-def test_files_access(base_app, db, create_record, init_files_db):
-    record_factory = create_record("lit")
+def test_files_access(base_app, db, create_record_factory, init_files_db):
+    record_factory = create_record_factory("lit")
     record = InspireRecord.get_record(record_factory.id)
 
     assert record.files is not None
@@ -391,8 +403,10 @@ def test_files_access(base_app, db, create_record, init_files_db):
     assert len(record.files.keys) == 1
 
 
-def test_files_on_object_without_model(base_app, db, create_record, init_files_db):
-    record_factory = create_record("lit")
+def test_files_on_object_without_model(
+    base_app, db, create_record_factory, init_files_db
+):
+    record_factory = create_record_factory("lit")
     record = InspireRecord.get_record(record_factory.id)
     record.model = None
 
@@ -400,18 +414,20 @@ def test_files_on_object_without_model(base_app, db, create_record, init_files_d
         record.files.keys
 
 
-def test_no_location(base_app, db, create_record, init_files_db):
-    record_factory = create_record("lit")
+def test_no_location(base_app, db, create_record_factory, init_files_db):
+    record_factory = create_record_factory("lit")
     record = InspireRecord.get_record(record_factory.id)
 
     with pytest.raises(NoResultFound):
         record.get_bucket(location="FAKE_LOCATION")
 
 
-def test_download_files(fsopen_mock, base_app, db, create_record, init_files_db):
+def test_download_files(
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
+):
 
-    record_metadata = create_record("lit")
-    record_metadata2 = create_record("lit")
+    record_metadata = create_record_factory("lit")
+    record_metadata2 = create_record_factory("lit")
 
     record = InspireRecord.get_record(record_metadata.id)
     record2 = InspireRecord.get_record(record_metadata2.id)
@@ -452,10 +468,10 @@ def test_download_files(fsopen_mock, base_app, db, create_record, init_files_db)
 
 
 def test_resolving_download_method(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
-    record_metadata2 = create_record("lit")
+    record_metadata = create_record_factory("lit")
+    record_metadata2 = create_record_factory("lit")
 
     record = InspireRecord.get_record(record_metadata.id)
     record2 = InspireRecord.get_record(record_metadata2.id)
@@ -487,9 +503,9 @@ def test_resolving_download_method(
 
 
 def test_add_file_default_parameters(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
 
     expected_filename = "file.pdf"
@@ -511,9 +527,9 @@ def test_add_file_default_parameters(
 
 
 def test_add_file_changed_parameters(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
 
     expected_filename = "file_name_for_file.pdf"
@@ -542,8 +558,10 @@ def test_add_file_changed_parameters(
     assert file_metadata["filename"] == expected_filename
 
 
-def test_resolving_filename(fsopen_mock, base_app, db, create_record, init_files_db):
-    record_metadata = create_record("lit")
+def test_resolving_filename(
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
+):
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
     expected_filename = "file.png"
 
@@ -576,9 +594,9 @@ def test_resolving_filename(fsopen_mock, base_app, db, create_record, init_files
 
 
 def test_add_file_already_attached(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
     expected_filename = "file.png"
 
@@ -590,7 +608,7 @@ def test_add_file_already_attached(
 
     assert file_metadata["key"] == file_metadata2["key"]
     assert len(record.files.keys) == 1
-    record_metadata2 = create_record("lit")
+    record_metadata2 = create_record_factory("lit")
     record2 = InspireRecord.get_record(record_metadata2.id)
 
     assert record.id != record2.id
@@ -613,12 +631,12 @@ def test_add_file_already_attached(
 
 
 def test_delete_record_with_files(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
     file_metadata = record._add_file(url="http://figure_url.cern.ch/file.png")
-    record_metadata2 = create_record("lit")
+    record_metadata2 = create_record_factory("lit")
     record2 = InspireRecord.get_record(record_metadata2.id)
 
     assert record.id != record2.id
@@ -648,14 +666,14 @@ def test_delete_record_with_files(
 
 
 def test_copy_local_file_with_failed_hash_verification(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
     file_metadata = record._add_file(url="http://figure_url.cern.ch/file.png")
     record.files[file_metadata["key"]] = BytesIO(b"different file content")
 
-    record_metadata2 = create_record("lit")
+    record_metadata2 = create_record_factory("lit")
     record2 = InspireRecord.get_record(record_metadata2.id)
     file_metadata2 = record2._add_file(url="http://figure_url.cern.ch/file.png")
     assert file_metadata is not None
@@ -667,12 +685,12 @@ def test_copy_local_file_with_failed_hash_verification(
 
 
 def test_copy_file_with_old_type_key(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
     record.files["file_name.txt"] = BytesIO(b"Some file content")
-    record_metadata2 = create_record("lit")
+    record_metadata2 = create_record_factory("lit")
     record2 = InspireRecord.get_record(record_metadata2.id)
 
     url = f"/api/files/{record.files.bucket.id}/file_name.txt"
@@ -689,17 +707,17 @@ def test_copy_file_with_old_type_key(
 
 
 def test_find_local_file_with_null_parameters(
-    fsopen_mock, base_app, db, create_record, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
     assert record._find_local_file(key=None, bucket_id=None) is None
 
 
 def test_record_throws_exception_when_serializer_is_not_set(
-    base_app, db, create_record
+    base_app, db, create_record_factory
 ):
-    record_metadata = create_record("lit")
+    record_metadata = create_record_factory("lit")
     record = InspireRecord(record_metadata.json)
     with pytest.raises(MissingSerializerError):
         record.get_serialized_data()

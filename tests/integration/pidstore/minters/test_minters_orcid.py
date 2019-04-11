@@ -15,7 +15,7 @@ from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.minters.orcid import OrcidMinter
 
 
-def test_minter_orcid(base_app, db, create_record):
+def test_minter_orcid(base_app, db, create_record_factory):
     orcid_value = faker.orcid()
     data = {
         "ids": [
@@ -23,7 +23,7 @@ def test_minter_orcid(base_app, db, create_record):
             {"schema": "ORCID", "value": orcid_value},
         ]
     }
-    record = create_record("aut", data=data)
+    record = create_record_factory("aut", data=data)
     data = record.json
 
     OrcidMinter.mint(record.id, data)
@@ -48,8 +48,8 @@ def test_minter_orcid(base_app, db, create_record):
     assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_orcid_empty(base_app, db, create_record):
-    record = create_record("aut")
+def test_minter_orcid_empty(base_app, db, create_record_factory):
+    record = create_record_factory("aut")
     data = record.json
 
     OrcidMinter.mint(record.id, data)
@@ -64,22 +64,22 @@ def test_minter_orcid_empty(base_app, db, create_record):
     assert expected_pids_len == result_pids_len
 
 
-def test_minter_orcid_already_existing(base_app, db, create_record):
+def test_minter_orcid_already_existing(base_app, db, create_record_factory):
     orcid_value = faker.orcid()
     data = {"ids": [{"value": orcid_value, "schema": "ORCID"}]}
 
-    record_with_orcid = create_record("aut", data=data)
+    record_with_orcid = create_record_factory("aut", data=data)
     OrcidMinter.mint(record_with_orcid.id, record_with_orcid.json)
 
-    record_with_existing_orcid = create_record("aut", data)
+    record_with_existing_orcid = create_record_factory("aut", data)
     with pytest.raises(PIDAlreadyExists):
         OrcidMinter.mint(record_with_existing_orcid.id, record_with_existing_orcid.json)
 
 
-def test_minter_orcid_missing_schema(base_app, db, create_record):
+def test_minter_orcid_missing_schema(base_app, db, create_record_factory):
     orcid_value = faker.orcid()
     data = {"ids": [{"value": orcid_value, "schema": "ORCID"}]}
-    record = create_record("aut", data=data)
+    record = create_record_factory("aut", data=data)
 
     record_data = record.json
     record_id = record.id
