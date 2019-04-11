@@ -51,7 +51,7 @@ facets_json_response_search = search_responsify(facets_json, "application/json")
 literature_json_v1 = ConditionalMultiSchemaJSONSerializer(
     [
         (lambda _: is_superuser_or_cataloger_logged_in(), LiteratureRawAdminSchemaV1),
-        (lambda _: True, LiteratureRawPublicSchemaV1),
+        (None, LiteratureRawPublicSchemaV1),
     ]
 )
 
@@ -87,7 +87,7 @@ literature_references_json_v1_response = record_responsify(
 authors_json_v1 = ConditionalMultiSchemaJSONSerializer(
     [
         (lambda _: is_superuser_or_cataloger_logged_in(), AuthorsRawAdminSchemaV1),
-        (lambda _: True, AuthorsRawPublicSchemaV1),
+        (None, AuthorsRawPublicSchemaV1),
     ]
 )
 authors_json_v1_response = record_responsify(authors_json_v1, "application/json")
