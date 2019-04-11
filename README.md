@@ -18,7 +18,6 @@ These commands allow you to spin up a contenarized environment that reproduces t
 $ ./scripts/bootstrap
 $ ./docker-inspire up -d
 $ ./docker-inspire run --rm web ./scripts/setup
-$ ./docker-inspire run --rm web-next scripts/setup_inspire_next
 $ firefox localhost:8081
 ```
 

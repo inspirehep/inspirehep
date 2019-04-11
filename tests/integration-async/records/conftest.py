@@ -20,6 +20,7 @@ from invenio_app.factory import create_api as invenio_create_app
 from invenio_db import db
 from invenio_search import current_search_client as es
 
+from inspirehep.alembic_helper.db import clean_db, setup_db
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.fixtures import (
     init_default_storage_path,
@@ -49,10 +50,8 @@ def app():
 @pytest.fixture(scope="function", autouse=True)
 def clear_environment(app):
     with app.app_context():
-        db.session.close()
-        db.drop_all()
-        db.init_app(app)
-        db.create_all()
+        clean_db(db)
+        setup_db()
         _es = app.extensions["invenio-search"]
         list(_es.delete(ignore=[404]))
         list(_es.create(ignore=[400]))

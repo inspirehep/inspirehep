@@ -59,6 +59,7 @@ setup(
         "invenio_jsonschemas.schemas": ["inspire_records_schemas = inspire_schemas"],
         "invenio_search.mappings": ["records = inspirehep.search.mappings"],
         "invenio_celery.tasks": ["invenio_indexer = inspirehep.records.indexer.tasks"],
+        "invenio_db.alembic": ["inspirehep_new = inspirehep:alembic"],
     },
     classifiers=[
         "Environment :: Web Environment",
