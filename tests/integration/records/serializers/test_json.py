@@ -25,6 +25,22 @@ def test_literature_application_json_without_login(api_client, db, create_record
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [
+            {"pubinfo_freetext": "A public publication info"},
+            {"pubinfo_freetext": "A private publication info", "hidden": True},
+        ],
+        "report_numbers": [
+            {"value": "PUBLIC", "hidden": False},
+            {"value": "PRIVATE", "hidden": True},
+        ],
+        "documents": [
+            {
+                "key": "private",
+                "url": "https://url.to/private/document",
+                "hidden": True,
+            },
+            {"key": "public", "url": "https://url.to/public/document"},
+        ],
     }
 
     record = create_record("lit", data=data)
@@ -35,6 +51,9 @@ def test_literature_application_json_without_login(api_client, db, create_record
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [{"pubinfo_freetext": "A public publication info"}],
+        "report_numbers": [{"value": "PUBLIC", "hidden": False}],
+        "documents": [{"key": "public", "url": "https://url.to/public/document"}],
     }
 
     response = api_client.get(
@@ -63,6 +82,22 @@ def test_literature_application_json_with_logged_in_cataloger(
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [
+            {"pubinfo_freetext": "A public publication info"},
+            {"pubinfo_freetext": "A private publication info", "hidden": True},
+        ],
+        "report_numbers": [
+            {"value": "PUBLIC", "hidden": False},
+            {"value": "PRIVATE", "hidden": True},
+        ],
+        "documents": [
+            {
+                "key": "private",
+                "url": "https://url.to/private/document",
+                "hidden": True,
+            },
+            {"key": "public", "url": "https://url.to/public/document"},
+        ],
     }
 
     record = create_record("lit", data=data)
@@ -76,6 +111,22 @@ def test_literature_application_json_with_logged_in_cataloger(
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [
+            {"pubinfo_freetext": "A public publication info"},
+            {"pubinfo_freetext": "A private publication info", "hidden": True},
+        ],
+        "report_numbers": [
+            {"value": "PUBLIC", "hidden": False},
+            {"value": "PRIVATE", "hidden": True},
+        ],
+        "documents": [
+            {
+                "key": "private",
+                "url": "https://url.to/private/document",
+                "hidden": True,
+            },
+            {"key": "public", "url": "https://url.to/public/document"},
+        ],
     }
 
     response = api_client.get(
@@ -100,6 +151,22 @@ def test_literature_application_json_search_without_login(
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [
+            {"pubinfo_freetext": "A public publication info"},
+            {"pubinfo_freetext": "A private publication info", "hidden": True},
+        ],
+        "report_numbers": [
+            {"value": "PUBLIC", "hidden": False},
+            {"value": "PRIVATE", "hidden": True},
+        ],
+        "documents": [
+            {
+                "key": "private",
+                "url": "https://url.to/private/document",
+                "hidden": True,
+            },
+            {"key": "public", "url": "https://url.to/public/document"},
+        ],
     }
     record = create_record("lit", data=data)
 
@@ -108,6 +175,9 @@ def test_literature_application_json_search_without_login(
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [{"pubinfo_freetext": "A public publication info"}],
+        "report_numbers": [{"value": "PUBLIC", "hidden": False}],
+        "documents": [{"key": "public", "url": "https://url.to/public/document"}],
     }
     expected_result_len = 1
 
@@ -139,15 +209,48 @@ def test_literature_application_json_search_with_cataloger_login(
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [
+            {"pubinfo_freetext": "A public publication info"},
+            {"pubinfo_freetext": "A private publication info", "hidden": True},
+        ],
+        "report_numbers": [
+            {"value": "PUBLIC", "hidden": False},
+            {"value": "PRIVATE", "hidden": True},
+        ],
+        "documents": [
+            {
+                "key": "private",
+                "url": "https://url.to/private/document",
+                "hidden": True,
+            },
+            {"key": "public", "url": "https://url.to/public/document"},
+        ],
     }
     record = create_record("lit", data=data)
     expected_status_code = 200
     expected_result = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
+        "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
+        "publication_info": [
+            {"pubinfo_freetext": "A public publication info"},
+            {"pubinfo_freetext": "A private publication info", "hidden": True},
+        ],
+        "report_numbers": [
+            {"value": "PUBLIC", "hidden": False},
+            {"value": "PRIVATE", "hidden": True},
+        ],
+        "documents": [
+            {
+                "key": "private",
+                "url": "https://url.to/private/document",
+                "hidden": True,
+            },
+            {"key": "public", "url": "https://url.to/public/document"},
+        ],
     }
     expected_result_len = 1
 
@@ -303,11 +406,7 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
         ],
         "arxiv_categories": ["hep-th", "gr-qc"],
         "control_number": 999_108,
-        "email_addresses": [
-            {"current": True, "value": "malda@ias.edu"},
-            {"current": False, "hidden": True, "value": "malda@pauli.harvard.edu"},
-            {"current": False, "hidden": True, "value": "malda@ias.edu"},
-        ],
+        "email_addresses": [{"current": True, "value": "malda@ias.edu"}],
         "facet_author_name": "J.M.Maldacena.1_Juan Martin Maldacena",
         "ids": [
             {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
@@ -377,6 +476,10 @@ def test_authors_application_json_v1_response_without_login(
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
+        "email_addresses": [
+            {"value": "public@urhan.ch"},
+            {"value": "private@urhan.ch", "hidden": True},
+        ],
     }
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
@@ -385,6 +488,7 @@ def test_authors_application_json_v1_response_without_login(
     expected_result = {
         "control_number": record_control_number,
         "name": {"value": "Urhan, Harun"},
+        "email_addresses": [{"value": "public@urhan.ch"}],
     }
     response = api_client.get(
         "/authors/{}".format(record_control_number), headers=headers
@@ -412,6 +516,10 @@ def test_authors_application_json_v1_response_with_logged_in_cataloger(
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
+        "email_addresses": [
+            {"value": "public@urhan.ch"},
+            {"value": "private@urhan.ch", "hidden": True},
+        ],
     }
     record = create_record_factory("aut", data=data)
     record_control_number = record.json["control_number"]
@@ -424,6 +532,10 @@ def test_authors_application_json_v1_response_with_logged_in_cataloger(
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
+        "email_addresses": [
+            {"value": "public@urhan.ch"},
+            {"value": "private@urhan.ch", "hidden": True},
+        ],
     }
     response = api_client.get(
         "/authors/{}".format(record_control_number), headers=headers
@@ -471,6 +583,10 @@ def test_authors_default_json_v1_response_search(
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
+        "email_addresses": [
+            {"value": "public@urhan.ch"},
+            {"value": "private@urhan.ch", "hidden": True},
+        ],
     }
 
     record = create_record_factory("aut", data=data, with_indexing=True)
@@ -480,6 +596,7 @@ def test_authors_default_json_v1_response_search(
     expected_result = {
         "control_number": record_control_number,
         "name": {"value": "Urhan, Harun"},
+        "email_addresses": [{"value": "public@urhan.ch"}],
     }
     response = api_client.get("/authors".format(record_control_number), headers=headers)
 
@@ -506,6 +623,10 @@ def test_authors_application_json_v1_response_search_with_logged_in_cataloger(
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
+        "email_addresses": [
+            {"value": "public@urhan.ch"},
+            {"value": "private@urhan.ch", "hidden": True},
+        ],
     }
 
     record = create_record_factory("aut", data=data, with_indexing=True)
@@ -519,6 +640,10 @@ def test_authors_application_json_v1_response_search_with_logged_in_cataloger(
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
+        "email_addresses": [
+            {"value": "public@urhan.ch"},
+            {"value": "private@urhan.ch", "hidden": True},
+        ],
     }
     response = api_client.get("/authors".format(record_control_number), headers=headers)
 
