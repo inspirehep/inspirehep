@@ -8,3 +8,4 @@
 
 from .list_with_limit import ListWithLimit
 from .nested_without_empty_objects import NestedWithoutEmptyObjects
+from .non_hidden import NonHiddenNested, NonHiddenRaw

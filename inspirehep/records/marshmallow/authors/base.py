@@ -11,6 +11,7 @@ from inspire_utils.record import get_value, get_values_for_schema
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, post_dump
 
+from ..fields import NonHiddenRaw
 from .common import PositionSchemaV1
 
 
@@ -24,7 +25,7 @@ class AuthorsMetadataRawPublicSchemaV1(Schema):
     death_date = fields.Raw(dump_only=True)
     # deleted = fields.Raw(dump_only=True)
     # deleted_records = fields.Raw(dump_only=True)
-    email_addresses = fields.Raw(dump_only=True)
+    email_addresses = NonHiddenRaw(dump_only=True)
     ids = fields.Raw(dump_only=True)
     inspire_categories = fields.Raw(dump_only=True)
     legacy_creation_date = fields.Raw(dump_only=True)
@@ -47,6 +48,8 @@ class AuthorsMetadataRawAdminSchemaV1(AuthorsMetadataRawPublicSchemaV1):
     _collections = fields.Raw(dump_only=True)
     deleted = fields.Raw(dump_only=True)
     deleted_records = fields.Raw(dump_only=True)
+
+    email_addresses = fields.Raw(dump_only=True)
 
 
 class AuthorsRawAdminSchemaV1(RecordSchemaJSONV1):

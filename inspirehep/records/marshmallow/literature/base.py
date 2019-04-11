@@ -25,7 +25,7 @@ from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
 
-from ..fields import ListWithLimit
+from ..fields import ListWithLimit, NonHiddenNested, NonHiddenRaw
 from .common import (
     AcceleratorExperimentSchemaV1,
     AuthorSchemaV1,
@@ -58,7 +58,7 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
     # deleted = fields.Raw(dump_only=True)
     # deleted_records = fields.Raw(dump_only=True)
     document_type = fields.Raw(dump_only=True)
-    documents = fields.Raw(dump_only=True)
+    documents = NonHiddenRaw(dump_only=True)
     dois = fields.Raw(dump_only=True)
     editions = fields.Raw(dump_only=True)
     energy_ranges = fields.Raw(dump_only=True)
@@ -78,13 +78,13 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
     persistent_identifiers = fields.Raw(dump_only=True)
     preprint_date = fields.Raw(dump_only=True)
     public_notes = fields.Raw(dump_only=True)
-    publication_info = fields.Raw(dump_only=True)
+    publication_info = NonHiddenRaw(dump_only=True)
     publication_type = fields.Raw(dump_only=True)
     record_affiliations = fields.Raw(dump_only=True)
     refereed = fields.Raw(dump_only=True)
     references = fields.Raw(dump_only=True)
 
-    report_numbers = fields.Raw(dump_only=True)
+    report_numbers = NonHiddenRaw(dump_only=True)
     texkeys = fields.Raw(dump_only=True)
     thesis_info = fields.Raw(dump_only=True)
     titles = fields.Raw(dump_only=True)
@@ -104,9 +104,14 @@ class LiteratureMetadataRawAdminSchemaV1(LiteratureMetadataRawPublicSchemaV1):
     deleted = fields.Raw(dump_only=True)
     deleted_records = fields.Raw(dump_only=True)
 
+    documents = fields.Raw(dump_only=True)
+    publication_info = fields.Raw(dump_only=True)
+    report_numbers = fields.Raw(dump_only=True)
+
 
 class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
     """Schema for Literature records to displayed on UI"""
+
     class Meta:
         exclude = (
             "copyright",
@@ -152,7 +157,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
     isbns = fields.List(fields.Nested(IsbnSchemaV1, dump_only=True))
     number_of_authors = fields.Method("get_number_of_authors")
     number_of_references = fields.Method("get_number_of_references")
-    publication_info = fields.Nested(
+    publication_info = NonHiddenNested(
         PublicationInfoItemSchemaV1, dump_only=True, many=True
     )
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
@@ -197,11 +202,8 @@ class LiteratureSearchUISchemaV1(RecordSchemaJSONV1):
             return {}
 
 
-class LiteratureESEnhancementV1(LiteratureMetadataRawPublicSchemaV1):
+class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
     """Elasticsearch serialzier"""
-
-    class Meta:
-        include = {"$schema": fields.Raw()}
 
     _created = fields.DateTime(dump_only=True, attribute="created")
     _updated = fields.DateTime(dump_only=True, attribute="updated")
