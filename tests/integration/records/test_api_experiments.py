@@ -137,3 +137,27 @@ def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == ExperimentsRecord
+
+
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("exp")
+    record = InspireRecord.create(data)
+    assert type(record) == ExperimentsRecord
+    assert record.pid_type == "exp"
+
+    record = ExperimentsRecord.create(data)
+    assert type(record) == ExperimentsRecord
+    assert record.pid_type == "exp"
+
+
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("exp")
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == ExperimentsRecord
+    assert record.pid_type == "exp"
+
+    data_update = {"deleted": True}
+    data.update(data_update)
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == ExperimentsRecord
+    assert record.pid_type == "exp"

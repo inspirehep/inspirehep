@@ -593,3 +593,27 @@ def test_add_and_remove_figs_and_docs_when_files_flag_disabled(
         record["figures"]
 
     assert record["documents"][0]["key"] == expected_doc_filename
+
+
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("lit")
+    record = InspireRecord.create(data)
+    assert type(record) == LiteratureRecord
+    assert record.pid_type == "lit"
+
+    record = LiteratureRecord.create(data)
+    assert type(record) == LiteratureRecord
+    assert record.pid_type == "lit"
+
+
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("lit")
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == LiteratureRecord
+    assert record.pid_type == "lit"
+
+    data_update = {"titles": [{"title": "UPDATED"}]}
+    data.update(data_update)
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == LiteratureRecord
+    assert record.pid_type == "lit"

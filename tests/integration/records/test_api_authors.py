@@ -19,7 +19,7 @@ from inspirehep.records.api import AuthorsRecord, InspireRecord
 
 
 def test_authors_create(base_app, db):
-    data = faker.record("lit")
+    data = faker.record("aut")
     record = AuthorsRecord.create(data)
 
     control_number = str(record["control_number"])
@@ -149,3 +149,27 @@ def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == AuthorsRecord
+
+
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("aut")
+    record = InspireRecord.create(data)
+    assert type(record) == AuthorsRecord
+    assert record.pid_type == "aut"
+
+    record = AuthorsRecord.create(data)
+    assert type(record) == AuthorsRecord
+    assert record.pid_type == "aut"
+
+
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("aut")
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == AuthorsRecord
+    assert record.pid_type == "aut"
+
+    data_update = {"name": {"value": "UPDATED"}}
+    data.update(data_update)
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == AuthorsRecord
+    assert record.pid_type == "aut"

@@ -137,3 +137,27 @@ def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == JobsRecord
+
+
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("job")
+    record = InspireRecord.create(data)
+    assert type(record) == JobsRecord
+    assert record.pid_type == "job"
+
+    record = JobsRecord.create(data)
+    assert type(record) == JobsRecord
+    assert record.pid_type == "job"
+
+
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+    data = faker.record("job")
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == JobsRecord
+    assert record.pid_type == "job"
+
+    data_update = {"description": "Updated"}
+    data.update(data_update)
+    record = InspireRecord.create_or_update(data)
+    assert type(record) == JobsRecord
+    assert record.pid_type == "job"
