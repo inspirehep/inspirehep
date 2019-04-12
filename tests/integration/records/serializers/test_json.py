@@ -20,6 +20,7 @@ def test_literature_application_json_without_login(api_client, db, create_record
     headers = {"Accept": "application/json"}
 
     data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
@@ -48,6 +49,7 @@ def test_literature_application_json_without_login(api_client, db, create_record
 
     expected_status_code = 200
     expected_result = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
@@ -146,6 +148,7 @@ def test_literature_application_json_search_without_login(
     headers = {"Accept": "application/json"}
 
     data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Literature"],
         "_private_notes": [{"value": "A private note"}],
         "document_type": ["article"],
@@ -172,6 +175,7 @@ def test_literature_application_json_search_without_login(
 
     expected_status_code = 200
     expected_result = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
@@ -472,6 +476,7 @@ def test_authors_application_json_v1_response_without_login(
     headers = {"Accept": "application/json"}
 
     data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
         "_collections": ["Authors"],
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
@@ -486,6 +491,7 @@ def test_authors_application_json_v1_response_without_login(
 
     expected_status_code = 200
     expected_result = {
+        "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
         "name": {"value": "Urhan, Harun"},
         "email_addresses": [{"value": "public@urhan.ch"}],
@@ -579,6 +585,7 @@ def test_authors_default_json_v1_response_search(
     headers = {"Accept": "application/json"}
 
     data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
         "_collections": ["Authors"],
         "_private_notes": [{"value": "A private note"}],
         "name": {"value": "Urhan, Harun"},
@@ -594,6 +601,7 @@ def test_authors_default_json_v1_response_search(
 
     expected_status_code = 200
     expected_result = {
+        "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
         "name": {"value": "Urhan, Harun"},
         "email_addresses": [{"value": "public@urhan.ch"}],

@@ -14,7 +14,7 @@ class AuthorsRecord(InspireRecord):
 
     pid_type = "aut"
 
-    es_serializer = "AuthorsMetadataRawPublicSchemaV1"
+    es_serializer = "AuthorsMetadataRawAdminSchemaV1"
 
     @staticmethod
     def mint(record_uuid, data):

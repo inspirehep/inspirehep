@@ -16,6 +16,9 @@ from .common import PositionSchemaV1
 
 
 class AuthorsMetadataRawPublicSchemaV1(Schema):
+    class Meta:
+        include = {"$schema": fields.Raw()}
+
     acquisition_source = fields.Raw(dump_only=True)
     advisors = fields.Raw(dump_only=True)
     arxiv_categories = fields.Raw(dump_only=True)
@@ -41,9 +44,6 @@ class AuthorsMetadataRawPublicSchemaV1(Schema):
 
 
 class AuthorsMetadataRawAdminSchemaV1(AuthorsMetadataRawPublicSchemaV1):
-    class Meta:
-        include = {"$schema": fields.Raw()}
-
     _private_notes = fields.Raw(dump_only=True)
     _collections = fields.Raw(dump_only=True)
     deleted = fields.Raw(dump_only=True)
@@ -62,6 +62,9 @@ class AuthorsRawPublicSchemaV1(RecordSchemaJSONV1):
 
 class AuthorsMetadataUISchemaV1(AuthorsMetadataRawPublicSchemaV1):
     """Schema for Authors records."""
+
+    class Meta:
+        exclude = ("$schema",)
 
     positions = fields.Nested(PositionSchemaV1, dump_only=True, many=True)
     should_display_positions = fields.Method(

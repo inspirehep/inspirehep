@@ -11,12 +11,10 @@ from invenio_records_rest.serializers.json import JSONSerializer
 
 class ConditionalMultiSchemaJSONSerializer(JSONSerializer):
     def __init__(self, condition_schema_pairs, **kwargs):
-        """Initialize record."""
         self.condition_schema_pairs = condition_schema_pairs
         super().__init__(**kwargs)
 
     def dump(self, obj, context=None):
-        """Serialize object with schema."""
         schema = next(
             schema
             for condition, schema in self.condition_schema_pairs

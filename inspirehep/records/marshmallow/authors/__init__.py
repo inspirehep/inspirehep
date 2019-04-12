@@ -8,6 +8,7 @@
 
 from .base import (
     AuthorsMetadataOnlyControlNumberSchemaV1,
+    AuthorsMetadataRawAdminSchemaV1,
     AuthorsMetadataRawPublicSchemaV1,
     AuthorsMetadataUISchemaV1,
     AuthorsOnlyControlNumberSchemaV1,
