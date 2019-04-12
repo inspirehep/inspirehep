@@ -18,6 +18,7 @@ def test_literature_search_application_json_get(
     api_client, db, es, create_record, datadir
 ):
     data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
         "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
@@ -28,6 +29,7 @@ def test_literature_search_application_json_get(
     headers = {"Accept": "application/json"}
     expected_status_code = 200
     expected_data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
         "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
@@ -654,16 +656,17 @@ def test_institutions_search_json_get(api_client, db, create_record_factory):
     assert expected_status_code == response_status_code
 
 
-def test_literature_facets_collaboration(api_client, db, create_record_factory):
+def test_literature_facets_collaboration(api_client, db, create_record):
     data_1 = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
         "titles": [{"title": "A Title"}],
         "collaborations": [{"value": "Alice"}, {"value": "Collab"}],
     }
-    record_1 = create_record_factory("lit", data=data_1, with_indexing=True)
+    record_1 = create_record("lit", data=data_1)
     data_2 = {"collaborations": [{"value": "Alice"}]}
-    record_2 = create_record_factory("lit", data=data_2, with_indexing=True)
+    record_2 = create_record("lit", data=data_2)
 
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)

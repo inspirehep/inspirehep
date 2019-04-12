@@ -41,6 +41,9 @@ from .common import (
 
 
 class LiteratureMetadataRawPublicSchemaV1(Schema):
+    class Meta:
+        include = {"$schema": fields.Raw()}
+
     abstracts = fields.Raw(dump_only=True)
     accelerator_experiments = fields.Raw(dump_only=True)
     acquisition_source = fields.Raw(dump_only=True)
@@ -93,9 +96,6 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
 
 
 class LiteratureMetadataRawAdminSchemaV1(LiteratureMetadataRawPublicSchemaV1):
-    class Meta:
-        include = {"$schema": fields.Raw()}
-
     _collections = fields.Raw(dump_only=True)
     _desy_bookkeeping = fields.Raw(dump_only=True)
     _export_to = fields.Raw(dump_only=True)
@@ -114,6 +114,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
 
     class Meta:
         exclude = (
+            "$schema",
             "copyright",
             "citable",
             "core",
