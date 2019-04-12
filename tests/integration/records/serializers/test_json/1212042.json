@@ -1,34 +1,26 @@
 {
-  "created": "2013-01-18T00:00:00+00:00",
-  "id": 1212042,
-  "links": {
-    "self": "https://labs.inspirehep.net/api/journals/1212042"
+  "$schema": "https://labs.inspirehep.net/schemas/records/journals.json",
+  "_collections": ["Journals"],
+  "control_number": 1212042,
+  "earliest_date": "2013-01-18",
+  "journal_title": {
+    "title": "Physics of Life Reviews"
   },
-  "metadata": {
-    "$schema": "https://labs.inspirehep.net/schemas/records/journals.json",
-    "_collections": ["Journals"],
-    "control_number": 1212042,
-    "earliest_date": "2013-01-18",
-    "journal_title": {
-      "title": "Physics of Life Reviews"
-    },
-    "legacy_creation_date": "2013-01-18",
-    "legacy_version": "20161012171423.0",
-    "public_notes": [
-      {
-        "value": "v.1, 2004. Online journal"
-      }
-    ],
-    "self": {
-      "$ref": "http://labs.inspirehep.net/api/journals/1212042"
-    },
-    "short_title": "Phys.Life Rev.",
-    "title_variants": ["PHYS LIFE REV"],
-    "urls": [
-      {
-        "value": "http://www.sciencedirect.com/science/journal/15710645"
-      }
-    ]
+  "legacy_creation_date": "2013-01-18",
+  "legacy_version": "20161012171423.0",
+  "public_notes": [
+    {
+      "value": "v.1, 2004. Online journal"
+    }
+  ],
+  "self": {
+    "$ref": "http://labs.inspirehep.net/api/journals/1212042"
   },
-  "updated": "2018-10-13T03:42:33.128747+00:00"
+  "short_title": "Phys.Life Rev.",
+  "title_variants": ["PHYS LIFE REV"],
+  "urls": [
+    {
+      "value": "http://www.sciencedirect.com/science/journal/15710645"
+    }
+  ]
 }

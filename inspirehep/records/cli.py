@@ -13,7 +13,7 @@ import requests
 from flask.cli import with_appcontext
 from invenio_db import db
 
-from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+from inspirehep.records.api import InspireRecord
 
 
 def _create_record(data):
@@ -24,12 +24,7 @@ def _create_record(data):
     # it's part of our API responses.
     data.pop("earliest_date", None)
 
-    # FIXME: move the type creation logic in ``InspireRecord.create``
-    # INSPIR-2210
-    if "hep.json" in data["$schema"]:
-        record = LiteratureRecord.create(data)
-    if "authors.json" in data["$schema"]:
-        record = AuthorsRecord.create(data)
+    record = InspireRecord.create(data)
 
     record.commit()
     db.session.commit()
