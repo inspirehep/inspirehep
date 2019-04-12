@@ -24,7 +24,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.base import InspireQueryBuilder
-from inspirehep.records.errors import MissingSerializerError
+from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
 from inspirehep.records.fixtures import init_storage_path
 
 
@@ -703,3 +703,9 @@ def test_record_throws_exception_when_serializer_is_not_set(
     record = InspireRecord(record_metadata.json)
     with pytest.raises(MissingSerializerError):
         record.get_serialized_data()
+
+
+def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db):
+    data = faker.record("aut")
+    with pytest.raises(WrongRecordSubclass):
+        LiteratureRecord.create(data)

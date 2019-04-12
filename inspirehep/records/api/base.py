@@ -34,7 +34,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.pidstore.api import PidStoreBase
-from inspirehep.records.errors import MissingSerializerError
+from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
 from inspirehep.records.indexer.base import InspireRecordIndexer
 
 logger = logging.getLogger(__name__)
@@ -246,9 +246,9 @@ class InspireRecord(Record):
     @classmethod
     def get_record(cls, id_, with_deleted=False):
         record = super().get_record(str(id_), with_deleted)
-        type_from_schema = PidStoreBase.get_pid_type_from_schema(record["$schema"])
-        if record.pid_type is None or record.pid_type != type_from_schema:
-            return cls.get_subclasses()[type_from_schema].get_record(id_, with_deleted)
+        record_class = cls.get_class_for_record(record)
+        if record_class != cls:
+            record = record_class(record, model=record.model)
         return record
 
     @classmethod
@@ -265,7 +265,20 @@ class InspireRecord(Record):
             yield cls(data.json)
 
     @classmethod
+    def get_class_for_record(cls, data):
+        type_from_schema = PidStoreBase.get_pid_type_from_schema(data["$schema"])
+        record_class = cls.get_subclasses().get(type_from_schema)
+        if record_class is None:
+            raise WrongRecordSubclass(
+                f"Wrong subclass {cls} used for record of type {type_from_schema}"
+            )
+        return record_class
+
+    @classmethod
     def create(cls, data, **kwargs):
+        record_class = cls.get_class_for_record(data)
+        if record_class != cls:
+            return record_class.create(data, **kwargs)
         id_ = uuid.uuid4()
         data = cls.strip_empty_values(data)
         with db.session.begin_nested():

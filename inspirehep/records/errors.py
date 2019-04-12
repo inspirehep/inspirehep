@@ -27,3 +27,7 @@ class MissingArgumentError(ValueError):
 
 class MissingSerializerError(ValidationError):
     pass
+
+
+class WrongRecordSubclass(RecordsError):
+    pass
