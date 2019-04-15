@@ -18,6 +18,7 @@ import EventTracker from '../../common/components/EventTracker';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import CiteModalActionContainer from '../containers/CiteModalActionContainer';
+import ConferenceInfoList from './ConferenceInfoList';
 
 class LiteratureItem extends Component {
   renderBulletIfPublicationInfoAndEprintsNotEmpty() {
@@ -38,6 +39,7 @@ class LiteratureItem extends Component {
     const recordId = metadata.get('control_number');
     const citationCount = metadata.get('citation_count', 0);
     const authorCount = metadata.get('number_of_authors');
+    const conferenceInfo = metadata.get('conference_info');
 
     const date = metadata.get('date');
     const publicationInfo = metadata.get('publication_info');
@@ -101,6 +103,7 @@ class LiteratureItem extends Component {
           />
           {this.renderBulletIfPublicationInfoAndEprintsNotEmpty()}
           <ArxivEprintList wrapperClassName="di" eprints={eprints} />
+          <ConferenceInfoList conferenceInfo={conferenceInfo} />
         </div>
       </ResultItem>
     );

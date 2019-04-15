@@ -11,17 +11,17 @@ describe('ConferenceInfoList', () => {
         titles: [
           {
             title: 'Test Conferece 2',
-            control_number: 111111,
           },
         ],
+        control_number: 111111,
       },
       {
         titles: [
           {
             title: 'Test Conferece 2',
-            control_number: 222222,
           },
         ],
+        control_number: 222222,
       },
     ]);
     const wrapper = shallow(<ConferenceInfoList conferenceInfo={info} />);

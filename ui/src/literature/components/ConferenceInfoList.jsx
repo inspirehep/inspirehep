@@ -3,20 +3,17 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList from '../../common/components/InlineList';
+import ConferenceInfo from './ConferenceInfo';
 
 class ConferenceInfoList extends Component {
-  static getConferenceTitle(info) {
-    return info.getIn(['titles', 0, 'title']);
-  }
-
   render() {
     const { conferenceInfo } = this.props;
     return (
       <InlineList
         label="Contribution to"
         items={conferenceInfo}
-        extractKey={ConferenceInfoList.getConferenceTitle}
-        renderItem={ConferenceInfoList.getConferenceTitle}
+        extractKey={info => info.get('control_number')}
+        renderItem={info => <ConferenceInfo conferenceInfo={info} />}
       />
     );
   }

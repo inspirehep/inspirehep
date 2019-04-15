@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { getPageDisplay } from '../../literature/utils';
 
 class PublicationInfo extends Component {
   getPageOrArtidDisplay() {
     const { info } = this.props;
 
-    if (info.has('page_start') && info.has('page_end')) {
-      return `${info.get('page_start')}-${info.get('page_end')}`;
-    }
-
-    if (info.has('page_start')) {
-      return info.get('page_start');
+    if (getPageDisplay(info)) {
+      return getPageDisplay(info);
     }
 
     if (info.has('artid')) {
