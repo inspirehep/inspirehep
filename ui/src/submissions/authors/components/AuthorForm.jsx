@@ -71,7 +71,7 @@ class AuthorForm extends Component {
             />
             <Field
               name="alternate_name"
-              label="Alternate name"
+              label="Alternate Name"
               placeholder="Names that are searchable but not displayed"
               component={TextField}
             />
