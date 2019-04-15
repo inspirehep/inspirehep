@@ -410,6 +410,7 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
         ],
         "arxiv_categories": ["hep-th", "gr-qc"],
         "control_number": 999_108,
+        "deleted": False,
         "email_addresses": [{"current": True, "value": "malda@ias.edu"}],
         "facet_author_name": "J.M.Maldacena.1_Juan Martin Maldacena",
         "ids": [
@@ -494,6 +495,7 @@ def test_authors_application_json_v1_response_without_login(
         "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
         "name": {"value": "Urhan, Harun"},
+        "deleted": False,
         "email_addresses": [{"value": "public@urhan.ch"}],
     }
     response = api_client.get(
@@ -604,6 +606,7 @@ def test_authors_default_json_v1_response_search(
         "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
         "name": {"value": "Urhan, Harun"},
+        "deleted": False,
         "email_addresses": [{"value": "public@urhan.ch"}],
     }
     response = api_client.get("/authors".format(record_control_number), headers=headers)

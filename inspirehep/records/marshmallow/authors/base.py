@@ -26,8 +26,8 @@ class AuthorsMetadataRawPublicSchemaV1(Schema):
     birth_date = fields.Raw(dump_only=True)
     control_number = fields.Raw(dump_only=True)
     death_date = fields.Raw(dump_only=True)
-    # deleted = fields.Raw(dump_only=True)
-    # deleted_records = fields.Raw(dump_only=True)
+    deleted = fields.Raw(dump_only=True)
+    deleted_records = fields.Raw(dump_only=True)
     email_addresses = NonHiddenRaw(dump_only=True)
     ids = fields.Raw(dump_only=True)
     inspire_categories = fields.Raw(dump_only=True)
@@ -46,8 +46,6 @@ class AuthorsMetadataRawPublicSchemaV1(Schema):
 class AuthorsMetadataRawAdminSchemaV1(AuthorsMetadataRawPublicSchemaV1):
     _private_notes = fields.Raw(dump_only=True)
     _collections = fields.Raw(dump_only=True)
-    deleted = fields.Raw(dump_only=True)
-    deleted_records = fields.Raw(dump_only=True)
 
     email_addresses = fields.Raw(dump_only=True)
 
