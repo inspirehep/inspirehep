@@ -1,52 +1,44 @@
 {
-  "created": "2003-03-12T00:00:00+00:00",
-  "id": 955427,
-  "links": {
-    "self": "https://qa.inspirehep.net/api/jobs/955427"
-  },
-  "metadata": {
-    "$schema": "https://qa.inspirehep.net/schemas/records/jobs.json",
-    "_collections": ["Jobs"],
-    "contact_details": [
-      {
-        "name": "Hou, George W.S."
-      }
-    ],
-    "control_number": 955427,
-    "deleted": false,
-    "description":
-      "The National Taiwan University HEP group has several postdoc positions available starting August (possibly April) 2003. We seek applicants to work on Belle analysis, on CMS Preshower electronics and DAQ software, on PMT readout electronics for the NuTel neutrino telescope project for point souce (e.g. AGNs) detection, and on related cosmic ray physics and simulation studies. We have also joined a new all sky survey approach on VHE cosmic rays using image intensifiers and CMOS, as well as exploring the possibility of expanding into gamma ray astrophysics. NTUHEP is very active in Belle analysis, with emphasis on rare decays and CP violation studies, while the responsibilities of producing the system board for CMS Preshower would peak by Spring 2003, when the first version of NuTel would also be completed. <P>Well qualified applicants can be considered for faculty level research positions. The interested person should send application material (CV and Publications, 2 letters --- 3 for research faculty --- sent directly by referees) immediately to: <P> Prof. George W.S. Hou or Prof. Y. Bob Hsiung<BR> Department of Physics <BR> National Taiwan University <BR> Taipei, Taiwan 10764, R.O.C. <P> email: wshou@phys.ntu.edu.tw or hsiung@hep1.phys.ntu.edu.tw<BR> fax: +886-2-23693472",
-    "earliest_date": "2003-03-12",
-    "external_system_identifiers": [
-      {
-        "schema": "SPIRES",
-        "value": "JOBS-957"
-      }
-    ],
-    "inspire_categories": [
-      {
-        "term": "Experiment-HEP"
-      },
-      {
-        "term": "Astrophysics"
-      }
-    ],
-    "institutions": [
-      {
-        "curated_relation": true,
-        "name": "Taiwan, Natl. Taiwan U.",
-        "record": {
-          "$ref": "http://qa.inspirehep.net/api/institutions/904661"
-        }
-      }
-    ],
-    "legacy_creation_date": "2003-03-12",
-    "position": "Postdocs in Belle, CMS and Particle Astrophysics",
-    "ranks": ["POSTDOC"],
-    "regions": ["Asia"],
-    "self": {
-      "$ref": "http://qa.inspirehep.net/api/jobs/955427"
+  "$schema": "https://qa.inspirehep.net/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "contact_details": [
+    {
+      "name": "Hou, George W.S."
     }
-  },
-  "updated": "2018-12-07T22:50:25.442775+00:00"
+  ],
+  "control_number": 955427,
+  "deleted": false,
+  "description":
+    "The National Taiwan University HEP group has several postdoc positions available starting August (possibly April) 2003. We seek applicants to work on Belle analysis, on CMS Preshower electronics and DAQ software, on PMT readout electronics for the NuTel neutrino telescope project for point souce (e.g. AGNs) detection, and on related cosmic ray physics and simulation studies. We have also joined a new all sky survey approach on VHE cosmic rays using image intensifiers and CMOS, as well as exploring the possibility of expanding into gamma ray astrophysics. NTUHEP is very active in Belle analysis, with emphasis on rare decays and CP violation studies, while the responsibilities of producing the system board for CMS Preshower would peak by Spring 2003, when the first version of NuTel would also be completed. <P>Well qualified applicants can be considered for faculty level research positions. The interested person should send application material (CV and Publications, 2 letters --- 3 for research faculty --- sent directly by referees) immediately to: <P> Prof. George W.S. Hou or Prof. Y. Bob Hsiung<BR> Department of Physics <BR> National Taiwan University <BR> Taipei, Taiwan 10764, R.O.C. <P> email: wshou@phys.ntu.edu.tw or hsiung@hep1.phys.ntu.edu.tw<BR> fax: +886-2-23693472",
+  "earliest_date": "2003-03-12",
+  "external_system_identifiers": [
+    {
+      "schema": "SPIRES",
+      "value": "JOBS-957"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Experiment-HEP"
+    },
+    {
+      "term": "Astrophysics"
+    }
+  ],
+  "institutions": [
+    {
+      "curated_relation": true,
+      "name": "Taiwan, Natl. Taiwan U.",
+      "record": {
+        "$ref": "http://qa.inspirehep.net/api/institutions/904661"
+      }
+    }
+  ],
+  "legacy_creation_date": "2003-03-12",
+  "position": "Postdocs in Belle, CMS and Particle Astrophysics",
+  "ranks": ["POSTDOC"],
+  "regions": ["Asia"],
+  "self": {
+    "$ref": "http://qa.inspirehep.net/api/jobs/955427"
+  }
 }

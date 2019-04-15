@@ -1,56 +1,48 @@
 {
-  "created": "2012-04-13T00:00:00+00:00",
-  "id": 1108739,
-  "links": {
-    "self": "https://labs.inspirehep.net/api/experiments/1108739"
+  "$schema": "https://labs.inspirehep.net/schemas/records/experiments.json",
+  "_collections": ["Experiments"],
+  "accelerator": {
+    "value": "SPS"
   },
-  "metadata": {
-    "$schema": "https://labs.inspirehep.net/schemas/records/experiments.json",
-    "_collections": ["Experiments"],
-    "accelerator": {
-      "value": "SPS"
-    },
-    "control_number": 1108739,
-    "date_approved": "1991-11-28",
-    "date_completed": "1996-12-11",
-    "date_proposed": "1991-02-06",
-    "date_started": "1994",
-    "description":
-      "Measures (1) the shower particle multiplicity, the pseudorapidity density, and density fluctuations of charged particles, (2) the charge multiplicity and angular distributions of projectile fragments, and (3) production and interaction cross-sections of heavily ionizing particles emitted from the target fragmentation. Emphasis is placed on central collisions. Uses stacks of pellicles. Completed.",
-    "earliest_date": "2012-04-13",
-    "external_system_identifiers": [
-      {
-        "schema": "SPIRES",
-        "value": "EXPERIMENT-19410"
-      }
-    ],
-    "inspire_classification": ["2"],
-    "institutions": [
-      {
-        "curated_relation": true,
-        "record": {
-          "$ref": "http://labs.inspirehep.net/api/institutions/902725"
-        },
-        "value": "CERN"
-      }
-    ],
-    "legacy_creation_date": "2012-04-13",
-    "legacy_name": "CERN-EMU-011",
-    "legacy_version": "20171121213252.0",
-    "long_name":
-      "STUDY OF PARTICLE PRODUCTION AND NUCLEAR FRAGMENTATION IN RELATIVISTIC HEAVY ION COLLISIONS IN NUCLEAR EMULSION",
-    "name_variants": ["CERN-EMU11", "EMU11"],
-    "project_type": ["experiment"],
-    "self": {
-      "$ref": "http://labs.inspirehep.net/api/experiments/1108739"
-    },
-    "urls": [
-      {
-        "description": "Wikipedia",
-        "value":
-          "https://en.wikipedia.org/wiki/List_of_Super_Proton_Synchrotron_experiments#EMU_experiments"
-      }
-    ]
+  "control_number": 1108739,
+  "date_approved": "1991-11-28",
+  "date_completed": "1996-12-11",
+  "date_proposed": "1991-02-06",
+  "date_started": "1994",
+  "description":
+    "Measures (1) the shower particle multiplicity, the pseudorapidity density, and density fluctuations of charged particles, (2) the charge multiplicity and angular distributions of projectile fragments, and (3) production and interaction cross-sections of heavily ionizing particles emitted from the target fragmentation. Emphasis is placed on central collisions. Uses stacks of pellicles. Completed.",
+  "earliest_date": "2012-04-13",
+  "external_system_identifiers": [
+    {
+      "schema": "SPIRES",
+      "value": "EXPERIMENT-19410"
+    }
+  ],
+  "inspire_classification": ["2"],
+  "institutions": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/902725"
+      },
+      "value": "CERN"
+    }
+  ],
+  "legacy_creation_date": "2012-04-13",
+  "legacy_name": "CERN-EMU-011",
+  "legacy_version": "20171121213252.0",
+  "long_name":
+    "STUDY OF PARTICLE PRODUCTION AND NUCLEAR FRAGMENTATION IN RELATIVISTIC HEAVY ION COLLISIONS IN NUCLEAR EMULSION",
+  "name_variants": ["CERN-EMU11", "EMU11"],
+  "project_type": ["experiment"],
+  "self": {
+    "$ref": "http://labs.inspirehep.net/api/experiments/1108739"
   },
-  "updated": "2018-10-13T02:51:17.429241+00:00"
+  "urls": [
+    {
+      "description": "Wikipedia",
+      "value":
+        "https://en.wikipedia.org/wiki/List_of_Super_Proton_Synchrotron_experiments#EMU_experiments"
+    }
+  ]
 }

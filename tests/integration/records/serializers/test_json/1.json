@@ -1,12 +1,4 @@
 {
-  "created": "2003-03-12T00:00:00+00:00",
-  "id": 955427,
-  "links": {
-    "self": "https://qa.inspirehep.net/api/data/1"
-  },
-  "metadata": {
-    "$schema": "https://qa.inspirehep.net/schemas/records/data.json",
-    "_collections": ["Data"]
-  },
-  "updated": "2018-12-07T22:50:25.442775+00:00"
+  "$schema": "https://qa.inspirehep.net/schemas/records/data.json",
+  "_collections": ["Data"]
 }
