@@ -26,6 +26,9 @@ def app_config(app_config):
     # add extra global config if you would like to customize the config
     # for a specific test you can chagne create fixture per-directory
     # using ``conftest.py`` or per-file.
+
+    # Due to flask error it has to be False otherwise Alembic __init__ will fail.
+    app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SEARCH_ELASTIC_HOSTS"] = "localhost:9200"
     app_config[
@@ -60,7 +63,7 @@ def database(appctx):
     from invenio_db import db as db_
 
     clean_db(db_)
-    setup_db()
+    setup_db(appctx)
 
     yield db_
 

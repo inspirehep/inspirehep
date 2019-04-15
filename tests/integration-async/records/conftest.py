@@ -34,7 +34,8 @@ logger = logging.getLogger(__name__)
 def app():
     app = invenio_create_app()
     app_config = {}
-    app_config["DEBUG"] = True
+    # Due to flask error it has to be False otherwise Alembic __init__ will fail.
+    app_config["DEBUG"] = False
     app_config["CELERY_BROKER_URL"] = "pyamqp://guest:guest@localhost:5672"
     app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/1"
     app_config["CELERY_CACHE_BACKEND"] = "memory"
@@ -51,7 +52,7 @@ def app():
 def clear_environment(app):
     with app.app_context():
         clean_db(db)
-        setup_db()
+        setup_db(app)
         _es = app.extensions["invenio-search"]
         list(_es.delete(ignore=[404]))
         list(_es.create(ignore=[400]))

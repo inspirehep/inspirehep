@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import current_app
 from flask_alembic import Alembic
 
 
@@ -22,6 +21,6 @@ def clean_db(db):
     db.session.close()
 
 
-def setup_db():
-    alembic = Alembic(current_app)
+def setup_db(app):
+    alembic = Alembic(app)
     alembic.upgrade()
