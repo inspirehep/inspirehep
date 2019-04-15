@@ -645,3 +645,70 @@ def test_literature_serialize_experiments(
     create_record_factory("exp", data={"control_number": 1_108_514})
     dumped_record = LiteratureMetadataSchemaV1().dump(record).data
     assert dumped_record["accelerator_experiments"] == expected_experiment
+
+
+def test_literature_ui_serializer_conference_info(
+    api_client, db, create_record_factory
+):
+    conference_data = {
+        "acronyms": ["SAIP2016"],
+        "control_number": 1_423_473,
+        "titles": [
+            {
+                "title": "61st Annual Conference of the South African Institute of Physics"
+            }
+        ],
+        "urls": [
+            {
+                "description": "web page",
+                "value": "http://events.saip.org.za/conferenceDisplay.py?confId=86",
+            }
+        ],
+    }
+
+    create_record_factory("con", data=conference_data, with_indexing=True)
+
+    literature_data = {
+        "publication_info": [
+            {
+                "cnum": "C16-07-04.5",
+                "conference_record": {
+                    "$ref": "http://labs.inspirehep.net/api/conferences/1423473"
+                },
+                "page_end": "517",
+                "page_start": "512",
+                "parent_record": {
+                    "$ref": "http://labs.inspirehep.net/api/literature/1719035"
+                },
+            }
+        ]
+    }
+
+    lit_record = create_record_factory("lit", data=literature_data, with_indexing=True)
+
+    expected_status_code = 200
+    expected_conference_info = [
+        {
+            "acronyms": ["SAIP2016"],
+            "control_number": 1_423_473,
+            "page_end": "517",
+            "page_start": "512",
+            "titles": [
+                {
+                    "title": "61st Annual Conference of the South African Institute of Physics"
+                }
+            ],
+        }
+    ]
+
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    response = api_client.get(
+        "/literature/" + str(lit_record.json["control_number"]), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_conference_info = response_data["metadata"]["conference_info"]
+
+    assert response_status_code == expected_status_code
+    assert response_data_conference_info == expected_conference_info

@@ -12,14 +12,36 @@ exports[`ConferenceInfoList renders conference link 1`] = `
     className="separate-items-with-comma"
   >
     <li
-      key="Test Conferece 2"
+      key="111111"
     >
-      Test Conferece 2
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 111111,
+          }
+        }
+      />
     </li>
     <li
-      key="Test Conferece 2"
+      key="222222"
     >
-      Test Conferece 2
+      <ConferenceInfo
+        conferenceInfo={
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Test Conferece 2",
+              },
+            ],
+            "control_number": 222222,
+          }
+        }
+      />
     </li>
   </ul>
 </div>

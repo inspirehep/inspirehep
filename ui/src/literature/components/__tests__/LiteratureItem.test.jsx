@@ -16,6 +16,17 @@ describe('LiteratureItem', () => {
       publication_info: [{ journal_title: 'Test Jornal' }],
       collaborations: [{ value: 'CMS' }],
       collaborations_with_suffix: [{ value: 'CMS Group' }],
+      conference_info: [
+        {
+          acronyms: ['MG15', 'SAP16'],
+          titles: [
+            {
+              title:
+                '15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories',
+            },
+          ],
+        },
+      ],
     });
     const wrapper = shallow(
       <LiteratureItem metadata={metadata} searchRank={2} />
