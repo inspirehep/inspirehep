@@ -33,6 +33,7 @@ import AcceleratorExperimentList from '../../components/AcceleratorExperimentLis
 import { ErrorPropType } from '../../../common/propTypes';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
+import PublicNotesList from '../../components/PublicNotesList';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -84,6 +85,7 @@ class DetailPage extends Component {
     const publicationInfo = metadata.get('publication_info');
     const conferenceInfo = metadata.get('conference_info');
     const eprints = metadata.get('arxiv_eprints');
+    const publicNotes = metadata.get('public_notes');
     const dois = metadata.get('dois');
     const reportNumbers = metadata.get('report_numbers');
     const numberOfPages = metadata.get('number_of_pages');
@@ -148,6 +150,13 @@ class DetailPage extends Component {
                 <Abstract abstract={abstract} />
               </div>
             </Row>
+            {publicNotes && (
+              <Row>
+                <div className="mt3">
+                  <PublicNotesList publicNotes={publicNotes} />
+                </div>
+              </Row>
+            )}
             <Row>
               <div className="mt3">
                 <LiteratureKeywordList keywords={keywords} />

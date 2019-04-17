@@ -50,6 +50,7 @@ InlineList.propTypes = {
     'separate-items-with-semicolon',
     'separate-items-with-comma',
     'separate-items-with-and',
+    'separate-items-with-middledot',
   ]),
   suffix: PropTypes.node,
   wrapperClassName: PropTypes.string,
