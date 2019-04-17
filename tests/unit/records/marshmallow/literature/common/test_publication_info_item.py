@@ -38,3 +38,18 @@ def test_returns_non_empty_fields_if_pubinfo_freetext_present():
     result = schema.dumps(dump).data
 
     assert expected == json.loads(result)
+
+
+def test_returns_empty_if_conference_record_present():
+    schema = PublicationInfoItemSchemaV1()
+    dump = {
+        "pubinfo_freetext": "Test PubInfoFreetext",
+        "conference_record": {
+            "$ref": "http://labs.inspirehep.net/api/conferences/1423473"
+        },
+    }
+    expected = {}
+
+    result = schema.dumps(dump).data
+
+    assert expected == json.loads(result)
