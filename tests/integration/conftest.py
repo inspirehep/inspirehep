@@ -17,6 +17,7 @@ from helpers.factories.models.user_access_token import AccessTokenFactory, UserF
 from helpers.providers.faker import faker
 from invenio_app.factory import create_api as invenio_create_app
 
+from inspirehep.alembic_helper.db import clean_db, setup_db
 from inspirehep.records.api import LiteratureRecord
 
 
@@ -25,6 +26,9 @@ def app_config(app_config):
     # add extra global config if you would like to customize the config
     # for a specific test you can chagne create fixture per-directory
     # using ``conftest.py`` or per-file.
+
+    # Due to flask error it has to be False otherwise Alembic __init__ will fail.
+    app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SEARCH_ELASTIC_HOSTS"] = "localhost:9200"
     app_config[
@@ -46,6 +50,25 @@ def disable_files(base_app):
 @pytest.fixture(scope="module")
 def create_app():
     return invenio_create_app
+
+
+@pytest.fixture(scope="module")
+def database(appctx):
+    """Setup database.
+    Scope: module
+    Normally, tests should use the function-scoped :py:data:`db` fixture
+    instead. This fixture takes care of creating the database/tables and
+    removing the tables once tests are done.
+    """
+    from invenio_db import db as db_
+
+    clean_db(db_)
+    setup_db(appctx)
+
+    yield db_
+
+    db_.session.remove()
+    clean_db(db_)
 
 
 @pytest.fixture(scope="function")

@@ -22,6 +22,8 @@ from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import range_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
+from inspirehep.alembic_helper.table_check import include_table_check
+
 from .search.api import LiteratureSearch
 from .search.facets import (
     hep_author_publications,
@@ -554,3 +556,25 @@ CELERY_IMPORTS = ["inspirehep.records.indexer.tasks"]
 # =============
 
 FEATURE_FLAG_ENABLE_FILES = False
+
+
+ALEMBIC_CONTEXT = {
+    "version_table": "inspirehep_alembic_version",
+    "include_object": include_table_check,
+}
+
+
+ALEMBIC_SKIP_TABLES = [
+    "workflows_record_sources",
+    "workflows_pending_record",
+    "crawler_workflows_object",
+    "crawler_job",
+    "workflows_audit_logging",
+    "legacy_records_mirror",
+    "workflows_buckets",
+    "workflows_object",
+    "workflows_workflow",
+    "records_metadata_version",
+    "transaction",
+    "alembic_version",
+]

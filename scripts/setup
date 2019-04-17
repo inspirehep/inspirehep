@@ -11,7 +11,8 @@ set -e
 # Clean redis
 poetry run inspirehep shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
 poetry run inspirehep db destroy --yes-i-know
-poetry run inspirehep db init create
+poetry run inspirehep db init
+poetry run inspirehep alembic upgrade
 poetry run inspirehep index destroy --force --yes-i-know
 poetry run inspirehep index init --force
 poetry run inspirehep index queue init purge
