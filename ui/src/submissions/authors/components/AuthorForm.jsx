@@ -94,7 +94,12 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.hidden`}
-                      suffixText="Hidden"
+                      suffixText={
+                        <LabelWithHelp
+                          label="Hidden"
+                          help="Hidden emails will not be displayed, but will only be used by INSPIRE staff for contact and identification purposes."
+                        />
+                      }
                       component={BooleanField}
                     />
                   </Col>
