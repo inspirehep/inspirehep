@@ -23,4 +23,7 @@
   ul.separate-items-with-and {
     @include separte-items-with(' and ');
   }
+  ul.separate-items-with-middledot {
+    @include separte-items-with(' \2022  ');
+  }
 }

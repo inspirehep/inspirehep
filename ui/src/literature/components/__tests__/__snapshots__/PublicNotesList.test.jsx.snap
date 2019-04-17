@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PublicNotesList renders public notes 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span>
+    Note
+    : 
+  </span>
+  <ul
+    className="separate-items-with-middledot"
+  >
+    <li
+      key="note1"
+    >
+      <span>
+        note1
+      </span>
+    </li>
+    <li
+      key="note2"
+    >
+      <span>
+        note2
+      </span>
+    </li>
+  </ul>
+</div>
+`;
