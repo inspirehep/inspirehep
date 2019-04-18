@@ -77,17 +77,8 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   <div
     className="mt1"
   >
-    <PublicationInfoList
-      labeled={true}
-      publicationInfo={null}
-      wrapperClassName="di"
-    />
-    <ArxivEprintList
-      eprints={null}
-      wrapperClassName="di"
-    />
-    <ConferenceInfoList
-      conferenceInfo={null}
+    <ul
+      className="bulleted-list"
     />
   </div>
 </ResultItem>
@@ -170,17 +161,8 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
   <div
     className="mt1"
   >
-    <PublicationInfoList
-      labeled={true}
-      publicationInfo={null}
-      wrapperClassName="di"
-    />
-    <ArxivEprintList
-      eprints={null}
-      wrapperClassName="di"
-    />
-    <ConferenceInfoList
-      conferenceInfo={null}
+    <ul
+      className="bulleted-list"
     />
   </div>
 </ResultItem>
@@ -284,47 +266,61 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   <div
     className="mt1"
   >
-    <PublicationInfoList
-      labeled={true}
-      publicationInfo={
-        Immutable.List [
-          Immutable.Map {
-            "journal_title": "Test Jornal",
-          },
-        ]
-      }
-      wrapperClassName="di"
-    />
-    <span>
-       • 
-    </span>
-    <ArxivEprintList
-      eprints={
-        Immutable.List [
-          Immutable.Map {
-            "value": "1234567890",
-          },
-        ]
-      }
-      wrapperClassName="di"
-    />
-    <ConferenceInfoList
-      conferenceInfo={
-        Immutable.List [
-          Immutable.Map {
-            "acronyms": Immutable.List [
-              "MG15",
-              "SAP16",
-            ],
-            "titles": Immutable.List [
+    <ul
+      className="bulleted-list"
+    >
+      <li
+        className="dib mr1"
+      >
+        <PublicationInfoList
+          labeled={true}
+          publicationInfo={
+            Immutable.List [
               Immutable.Map {
-                "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
+                "journal_title": "Test Jornal",
               },
-            ],
-          },
-        ]
-      }
-    />
+            ]
+          }
+          wrapperClassName="di"
+        />
+      </li>
+      <li
+        className="dib mr1"
+      >
+        <ConferenceInfoList
+          conferenceInfo={
+            Immutable.List [
+              Immutable.Map {
+                "acronyms": Immutable.List [
+                  "MG15",
+                  "SAP16",
+                ],
+                "titles": Immutable.List [
+                  Immutable.Map {
+                    "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
+                  },
+                ],
+              },
+            ]
+          }
+          wrapperClassName="di"
+        />
+      </li>
+      <li
+        className="dib mr1"
+      >
+        <ArxivEprintList
+          eprints={
+            Immutable.List [
+              Immutable.Map {
+                "value": "1234567890",
+              },
+            ]
+          }
+          wrapperClassName="di"
+        />
+      </li>
+    </ul>
   </div>
 </ResultItem>
 `;

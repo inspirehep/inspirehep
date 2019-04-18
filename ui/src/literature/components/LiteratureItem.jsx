@@ -21,13 +21,6 @@ import CiteModalActionContainer from '../containers/CiteModalActionContainer';
 import ConferenceInfoList from './ConferenceInfoList';
 
 class LiteratureItem extends Component {
-  renderBulletIfPublicationInfoAndEprintsNotEmpty() {
-    const { metadata } = this.props;
-    const eprints = metadata.get('arxiv_eprints');
-    const publicationInfo = metadata.get('publication_info');
-    return publicationInfo && eprints && <span> &bull; </span>;
-  }
-
   render() {
     const { metadata, searchRank } = this.props;
 
@@ -97,13 +90,29 @@ class LiteratureItem extends Component {
           {')'}
         </div>
         <div className="mt1">
-          <PublicationInfoList
-            wrapperClassName="di"
-            publicationInfo={publicationInfo}
-          />
-          {this.renderBulletIfPublicationInfoAndEprintsNotEmpty()}
-          <ArxivEprintList wrapperClassName="di" eprints={eprints} />
-          <ConferenceInfoList conferenceInfo={conferenceInfo} />
+          <ul className="bulleted-list">
+            {publicationInfo && (
+              <li className="dib mr1">
+                <PublicationInfoList
+                  wrapperClassName="di"
+                  publicationInfo={publicationInfo}
+                />
+              </li>
+            )}
+            {conferenceInfo && (
+              <li className="dib mr1">
+                <ConferenceInfoList
+                  wrapperClassName="di"
+                  conferenceInfo={conferenceInfo}
+                />
+              </li>
+            )}
+            {eprints && (
+              <li className="dib mr1">
+                <ArxivEprintList wrapperClassName="di" eprints={eprints} />
+              </li>
+            )}
+          </ul>
         </div>
       </ResultItem>
     );
