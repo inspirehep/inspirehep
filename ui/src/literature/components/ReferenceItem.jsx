@@ -4,14 +4,13 @@ import { Map } from 'immutable';
 import { List, Row, Col } from 'antd';
 import { Link } from 'react-router-dom';
 
-import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
-import ArxivEprintList from '../ArxivEprintList';
-import PublicationInfoList from '../../../common/components/PublicationInfoList';
-import DOIList from '../DOIList';
-import URLList from '../URLList';
-import './ReferenceItem.scss';
-import { LITERATURE } from '../../../common/routes';
-import LiteratureTitle from '../../../common/components/LiteratureTitle';
+import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
+import ArxivEprintList from './ArxivEprintList';
+import PublicationInfoList from '../../common/components/PublicationInfoList';
+import DOIList from './DOIList';
+import URLList from './URLList';
+import { LITERATURE } from '../../common/routes';
+import LiteratureTitle from '../../common/components/LiteratureTitle';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {

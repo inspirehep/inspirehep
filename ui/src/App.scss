@@ -85,3 +85,13 @@
     padding: $drawer-body-padding / 2 !important;
   }
 }
+
+.bulleted-list {
+  padding: 0;
+  margin: 0;
+  & > li:not(:first-of-type) {
+    &:before {
+      content: '\2022 ';
+    }
+  }
+}

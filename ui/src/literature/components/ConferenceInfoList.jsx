@@ -7,9 +7,10 @@ import ConferenceInfo from './ConferenceInfo';
 
 class ConferenceInfoList extends Component {
   render() {
-    const { conferenceInfo } = this.props;
+    const { conferenceInfo, wrapperClassName } = this.props;
     return (
       <InlineList
+        wrapperClassName={wrapperClassName}
         label="Contribution to"
         items={conferenceInfo}
         extractKey={info => info.get('control_number')}
@@ -21,10 +22,12 @@ class ConferenceInfoList extends Component {
 
 ConferenceInfoList.propTypes = {
   conferenceInfo: PropTypes.instanceOf(List),
+  wrapperClassName: PropTypes.string,
 };
 
 ConferenceInfoList.defaultProps = {
   conferenceInfo: null,
+  wrapperClassName: null,
 };
 
 export default ConferenceInfoList;
