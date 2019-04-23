@@ -66,7 +66,7 @@ describe('literature submissions', () => {
       `${submitResponseJson.workflow_object_id}`
     );
 
-    expect(metadata.document_type).toEqual(['chapter']);
+    expect(metadata.document_type).toEqual(['book chapter']);
     expect(metadata.titles).toEqual([
       {
         source: 'submitter',
