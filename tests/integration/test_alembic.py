@@ -7,8 +7,19 @@ from inspirehep.alembic_helper.db import clean_db
 def test_downgrade(app, db):
     alembic = Alembic(app)
 
+    alembic.downgrade(target="7be4c8b5c5e8")
+    assert "idx_citations_cited" not in _get_indexes("citation_table", db)
+    assert "idx_citations_citers" not in _get_indexes("citation_table", db)
+
+    assert "citation_table" not in _get_table_names(db)
+
     # test 7be4c8b5c5e8
+    alembic.downgrade(target="b5be5fda2ee7")
     alembic.downgrade(1)
+
+    assert "ix_records_metadata_json_referenced_records_2_0" not in _get_indexes(
+        "records_metadata", db
+    )
 
     assert "workflows_record_sources" not in _get_table_names(db)
     assert "workflows_pending_record" not in _get_table_names(db)
@@ -44,9 +55,9 @@ def test_downgrade(app, db):
 
 def test_upgrade(app, db):
     alembic = Alembic(app)
-    # go down before first migration
-    alembic.downgrade(target="7be4c8b5c5e8")
-    # test 7be4c8b5c5e8
+    # go down to first migration
+    alembic.downgrade(target="b5be5fda2ee7")
+
     alembic.upgrade(target="7be4c8b5c5e8")
 
     assert "workflows_record_sources" in _get_table_names(db)
@@ -79,6 +90,17 @@ def test_upgrade(app, db):
     assert "ix_workflows_object_id_parent" in _get_indexes("workflows_object", db)
     assert "ix_workflows_object_id_workflow" in _get_indexes("workflows_object", db)
     assert "ix_workflows_object_status" in _get_indexes("workflows_object", db)
+
+    assert "ix_records_metadata_json_referenced_records_2_0" in _get_indexes(
+        "records_metadata", db
+    )
+
+    alembic.upgrade(target="b646d3592dd5")
+
+    assert "idx_citations_cited" in _get_indexes("citation_table", db)
+    assert "idx_citations_citers" in _get_indexes("citation_table", db)
+
+    assert "citation_table" in _get_table_names(db)
 
 
 def _get_indexes(tablename, db):
