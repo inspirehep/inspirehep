@@ -16,6 +16,7 @@ describe('search reducer', () => {
         query: {
           sort: 'mostrecent',
           size: '25',
+          page: '1',
         },
       },
       error: null,

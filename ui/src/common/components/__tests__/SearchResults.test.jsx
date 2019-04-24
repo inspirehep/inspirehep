@@ -31,6 +31,7 @@ describe('SearchResults', () => {
     const wrapper = shallow(
       <SearchResults
         renderItem={result => <span>{result.get('value')}</span>}
+        page={1}
         pageSize={15}
       />
     );

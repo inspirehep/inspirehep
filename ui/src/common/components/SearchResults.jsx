@@ -22,13 +22,12 @@ class SearchResults extends Component {
 SearchResults.propTypes = {
   results: PropTypes.instanceOf(Immutable.List),
   renderItem: PropTypes.func.isRequired,
-  page: PropTypes.number,
+  page: PropTypes.number.isRequired,
   pageSize: PropTypes.number.isRequired,
 };
 
 SearchResults.defaultProps = {
   results: Immutable.List(),
-  page: 1,
 };
 
 export default SearchResults;

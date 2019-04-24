@@ -13,22 +13,6 @@ import {
 } from '../search';
 
 const mockHttp = new MockAdapter(http);
-const stateWithScopeQuery = {
-  search: fromJS({
-    scope: {
-      pathname: 'test',
-      query: {
-        size: 10,
-      },
-    },
-  }),
-  router: {
-    location: {
-      query: {},
-      previousUrl: '',
-    },
-  },
-};
 
 const stateWithoutScopeQuery = {
   search: fromJS({
@@ -50,10 +34,20 @@ describe('search - action creators', () => {
     it('create SEARCH_REQUEST and SEARCH_SUCCESS if search request is successful', async done => {
       const store = getStoreWithState({
         router: {
-          location: { pathname: '/test', search: '?size=10&q=test' },
+          location: { pathname: '/test', query: { size: '10', q: 'test' } },
         },
+        search: fromJS({
+          scope: {
+            pathname: 'test',
+            query: {
+              page: '1',
+            },
+          },
+        }),
       });
-      mockHttp.onGet('/test?size=10&q=test').replyOnce(200, { foo: 'bar' });
+      mockHttp
+        .onGet('/test?page=1&size=10&q=test')
+        .replyOnce(200, { foo: 'bar' });
 
       await store.dispatch(searchForCurrentLocation());
 
@@ -68,10 +62,18 @@ describe('search - action creators', () => {
     it('create SEARCH_REQUEST and SEARCH_ERROR if search request is unsuccessful', async done => {
       const store = getStoreWithState({
         router: {
-          location: { pathname: '/test', search: '?size=10&q=test' },
+          location: { pathname: '/test', query: { size: '10', q: 'test' } },
         },
+        search: fromJS({
+          scope: {
+            pathname: 'test',
+            query: {
+              page: '1',
+            },
+          },
+        }),
       });
-      mockHttp.onGet('/test?size=10&q=test').networkError();
+      mockHttp.onGet('/test?page=1&size=10&q=test').networkError();
 
       await store.dispatch(searchForCurrentLocation());
 
@@ -92,11 +94,19 @@ describe('search - action creators', () => {
     it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_SUCCESS if search request is successful', async done => {
       const store = getStoreWithState({
         router: {
-          location: { pathname: '/test', search: '?size=10&q=test' },
+          location: { pathname: '/test', query: { size: '10', q: 'test' } },
         },
+        search: fromJS({
+          scope: {
+            pathname: 'test',
+            query: {
+              page: '1',
+            },
+          },
+        }),
       });
       mockHttp
-        .onGet('/test/facets?size=10&q=test')
+        .onGet('/test/facets?page=1&size=10&q=test')
         .replyOnce(200, { foo: 'bar' });
 
       await store.dispatch(fetchSearchAggregationsForCurrentLocation());
@@ -112,16 +122,29 @@ describe('search - action creators', () => {
     it('creates SEARCH_AGGREGATIONS_REQUEST and SEARCH_AGGREGATIONS_ERROR if search request is unsuccessful', async done => {
       const store = getStoreWithState({
         router: {
-          location: { pathname: '/test', search: '?size=10&q=test' },
+          location: { pathname: '/test', query: { size: '10', q: 'test' } },
         },
+        search: fromJS({
+          scope: {
+            pathname: 'test',
+            query: {
+              page: '1',
+            },
+          },
+        }),
       });
-      mockHttp.onGet('/test/facets?size=10&q=test').networkError();
+      mockHttp
+        .onGet('/test/facets?page=1&size=10&q=test')
+        .replyOnce(400, { message: 'error' });
 
       await store.dispatch(fetchSearchAggregationsForCurrentLocation());
 
       const expectedActions = [
         { type: types.SEARCH_AGGREGATIONS_REQUEST },
-        { type: types.SEARCH_AGGREGATIONS_ERROR, payload: undefined },
+        {
+          type: types.SEARCH_AGGREGATIONS_ERROR,
+          payload: { message: 'error' },
+        },
       ];
       expect(store.getActions()).toEqual(expectedActions);
       done();
@@ -129,22 +152,7 @@ describe('search - action creators', () => {
   });
 
   describe('pushQueryToLocation', () => {
-    it('pushes new location url to history', async done => {
-      const expectedUrl = '/test?size=10&q=test';
-      const expectedActions = [
-        {
-          type: CALL_HISTORY_METHOD,
-          payload: { args: [expectedUrl], method: 'push' },
-        },
-      ];
-
-      const store = getStoreWithState(stateWithScopeQuery);
-      await store.dispatch(pushQueryToLocation({ q: 'test' }));
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-
-    it('pushes new location url to history (without search scope)', async done => {
+    it('pushes new location url with query to history', async done => {
       const expectedUrl = '/test?q=test';
       const expectedActions = [
         {
@@ -163,46 +171,6 @@ describe('search - action creators', () => {
       const expectedActions = [];
       const store = getStoreWithState(stateWithoutScopeQuery);
       await store.dispatch(pushQueryToLocation({}));
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-
-    it('resets page to if it is defined then pushes new location url to history', async done => {
-      const expectedUrl = '/test?page=1&q=test';
-      const expectedActions = [
-        {
-          type: CALL_HISTORY_METHOD,
-          payload: { args: [expectedUrl], method: 'push' },
-        },
-      ];
-
-      const state = {
-        ...stateWithoutScopeQuery,
-        router: { location: { query: { page: 2 } } },
-      };
-
-      const store = getStoreWithState(state);
-      await store.dispatch(pushQueryToLocation({ q: 'test' }));
-      expect(store.getActions()).toEqual(expectedActions);
-      done();
-    });
-
-    it('uses page from query over page=1 if it is defined in location then pushes new location url to history', async done => {
-      const expectedUrl = '/test?page=3';
-      const expectedActions = [
-        {
-          type: CALL_HISTORY_METHOD,
-          payload: { args: [expectedUrl], method: 'push' },
-        },
-      ];
-
-      const state = {
-        ...stateWithoutScopeQuery,
-        router: { location: { query: { page: 2 } } },
-      };
-
-      const store = getStoreWithState(state);
-      await store.dispatch(pushQueryToLocation({ page: 3 }));
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
@@ -227,23 +195,18 @@ describe('search - action creators', () => {
       done();
     });
 
-    it('takes priority on query over location query over scope query new location url to history', async done => {
-      const scopeQuery = {
-        filter1: 'scope1',
-        filter2: 'scope2',
-        filter3: 'scope3',
-      };
+    it('overrides current location with new query', async done => {
       const locationQuery = {
+        filter1: 'location1',
         filter2: 'location2',
-        filter4: 'location4',
       };
       const query = {
+        filter2: 'query2',
         filter3: 'query3',
-        filter4: 'query4',
       };
 
       const expectedUrl =
-        '/test?filter1=scope1&filter2=location2&filter3=query3&filter4=query4';
+        '/test?filter1=location1&filter2=query2&filter3=query3';
       const expectedActions = [
         {
           type: CALL_HISTORY_METHOD,
@@ -255,7 +218,6 @@ describe('search - action creators', () => {
         search: fromJS({
           scope: {
             pathname: 'test',
-            query: scopeQuery,
           },
         }),
         router: { location: { query: locationQuery } },
