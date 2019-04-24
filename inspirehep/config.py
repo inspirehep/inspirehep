@@ -26,6 +26,7 @@ from inspirehep.alembic_helper.table_check import include_table_check
 
 from .search.api import LiteratureSearch
 from .search.facets import (
+    citation_summary,
     hep_author_publications,
     must_match_all_filter,
     range_author_count_filter,
@@ -464,6 +465,7 @@ HEP_COMMON_AGGS = {
 }
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
+    "citation-summary": citation_summary,
     "records-hep": {
         "filters": {
             **HEP_COMMON_FILTERS,

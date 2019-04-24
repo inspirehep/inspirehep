@@ -46,3 +46,47 @@ def hep_author_publications():
             },
         },
     }
+
+
+def citation_summary():
+    return {
+        "filters": {"author": must_match_all_filter("facet_author_name")},
+        "aggs": {
+            "citation_summary": {
+                "filter": {"term": {"citeable": "true"}},
+                "aggs": {
+                    "h-index": {
+                        "scripted_metric": {
+                            "init_script": "params._agg.citations_non_refereed = []; params._agg.citations_refereed = []",
+                            "map_script": "if (doc.refereed[0]) { params._agg.citations_refereed.add(doc.citation_count[0]) } else { params._agg.citations_non_refereed.add(doc.citation_count[0]) }",
+                            "reduce_script": "def flattened_all = []; def flattened_refereed = []; int i = 0; int j = 0; for (a in params._aggs) { flattened_all.addAll(a.citations_non_refereed); flattened_refereed.addAll(a.citations_refereed) } flattened_refereed.sort(Comparator.reverseOrder()); while ( i < flattened_refereed.size() && i < flattened_refereed[i]) { i++ } flattened_all.addAll(flattened_refereed); flattened_all.sort(Comparator.reverseOrder()); while ( j < flattened_all.size() && j < flattened_all[j]) { j++ } return ['published': i, 'all': j]",
+                        }
+                    },
+                    "citations": {
+                        "filters": {
+                            "filters": {
+                                "published": {"term": {"refereed": "true"}},
+                                "all": {"term": {"citeable": "true"}},
+                            }
+                        },
+                        "aggs": {
+                            "citation_buckets": {
+                                "range": {
+                                    "field": "citation_count",
+                                    "ranges": [
+                                        {"from": 0, "to": 1},
+                                        {"from": 1, "to": 50},
+                                        {"from": 50, "to": 250},
+                                        {"from": 250, "to": 500},
+                                        {"from": 500},
+                                    ],
+                                }
+                            },
+                            "citations_count": {"sum": {"field": "citation_count"}},
+                            "average_citations": {"avg": {"field": "citation_count"}},
+                        },
+                    },
+                },
+            }
+        },
+    }
