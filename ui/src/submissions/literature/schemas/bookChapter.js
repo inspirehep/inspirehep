@@ -6,7 +6,7 @@ import references from './sections/references';
 import comments from './sections/comments';
 
 const bookChapterSchema = object().shape({
-  document_type: string().default('chapter'),
+  document_type: string().default('book chapter'),
   ...links,
   ...basicInfo,
   book_title: string(),

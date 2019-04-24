@@ -42,6 +42,7 @@ class BaseSubmissionsResource(MethodView):
             email=current_user.email,
             datetime=datetime.datetime.utcnow().isoformat(),
             method="submitter",
+            source="submitter",
             internal_uid=int(current_user.get_id()),
         )
 

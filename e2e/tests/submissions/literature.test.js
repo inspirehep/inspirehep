@@ -61,11 +61,12 @@ describe('literature submissions', () => {
 
     expect(metadata.acquisition_source.email).toEqual('admin@inspirehep.net');
     expect(metadata.acquisition_source.method).toEqual('submitter');
+    expect(metadata.acquisition_source.source).toEqual('submitter');
     expect(metadata.acquisition_source.submission_number).toEqual(
       `${submitResponseJson.workflow_object_id}`
     );
 
-    expect(metadata.document_type).toEqual(['chapter']);
+    expect(metadata.document_type).toEqual(['book chapter']);
     expect(metadata.titles).toEqual([
       {
         source: 'submitter',
@@ -110,6 +111,7 @@ describe('literature submissions', () => {
 
     expect(metadata.acquisition_source.email).toEqual('admin@inspirehep.net');
     expect(metadata.acquisition_source.method).toEqual('submitter');
+    expect(metadata.acquisition_source.source).toEqual('submitter');
     expect(metadata.acquisition_source.submission_number).toEqual(
       `${submitResponseJson.workflow_object_id}`
     );
@@ -169,6 +171,7 @@ describe('literature submissions', () => {
 
     expect(metadata.acquisition_source.email).toEqual('admin@inspirehep.net');
     expect(metadata.acquisition_source.method).toEqual('submitter');
+    expect(metadata.acquisition_source.source).toEqual('submitter');
     expect(metadata.acquisition_source.submission_number).toEqual(
       `${submitResponseJson.workflow_object_id}`
     );
@@ -245,6 +248,7 @@ describe('literature submissions', () => {
 
     expect(metadata.acquisition_source.email).toEqual('admin@inspirehep.net');
     expect(metadata.acquisition_source.method).toEqual('submitter');
+    expect(metadata.acquisition_source.source).toEqual('submitter');
     expect(metadata.acquisition_source.submission_number).toEqual(
       `${submitResponseJson.workflow_object_id}`
     );

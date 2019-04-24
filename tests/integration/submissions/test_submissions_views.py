@@ -93,6 +93,7 @@ def test_new_author_submit(app, api_client, create_user, requests_mock):
             "acquisition_source": {
                 "email": user.email,
                 "method": "submitter",
+                "source": "submitter",
                 "submission_number": "None",
                 "internal_uid": user.id,
             },
@@ -232,6 +233,7 @@ def test_update_author(app, api_client, create_user, requests_mock):
             "acquisition_source": {
                 "email": user.email,
                 "method": "submitter",
+                "source": "submitter",
                 "submission_number": "None",
                 "internal_uid": user.id,
             },
@@ -261,6 +263,7 @@ def test_populate_and_serialize_data_for_submission(
             "submission_number": "None",
             "email": "johndoe@gmail.com",
             "method": "submitter",
+            "source": "submitter",
             "orcid": 2,
             "internal_uid": 1,
         },
@@ -316,6 +319,7 @@ def test_new_literature_submit(app, api_client, create_user, requests_mock):
             "acquisition_source": {
                 "email": user.email,
                 "method": "submitter",
+                "source": "submitter",
                 "internal_uid": user.id,
             },
         },
