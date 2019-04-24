@@ -48,10 +48,11 @@ class LiteratureRecord(InspireRecord):
 
     pid_type = "lit"
 
-    es_serializer = "LiteratureESEnhancementV1"  # TODO: put class instead of `str`
-    ui_serializer = (
-        "LiteratureMetadataUISchemaV1"
-    )  # TODO: remove and do it in es schema
+    # TODO: put class instead of `str`
+    es_serializer = "LiteratureESEnhancementV1"
+
+    # TODO: remove and do it in es schema
+    ui_serializer = "LiteratureMetadataUISchemaV1"
 
     @classmethod
     def create(cls, data, **kwargs):

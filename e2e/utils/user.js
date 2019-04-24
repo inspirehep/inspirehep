@@ -4,7 +4,10 @@ async function submitLoginForm(page, username, password) {
   await page.type('[data-test-id=email]', username);
   await page.type('[data-test-id=password]', password);
   await page.click('[data-test-id=login]');
-  await page.waitFor(() => !document.querySelector('[data-test-id=login]'));
+  // await page.waitFor(() => !document.querySelector('[data-test-id=login]'));
+  await page.waitFor(() => !document.querySelector('[data-test-id=login]'), {
+    timeout: 60000,
+  });
 }
 
 async function login(
