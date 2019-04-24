@@ -21,6 +21,12 @@ describe('ResultsContainer', () => {
     const store = getStoreWithState({
       search: fromJS({
         results,
+        scope: {
+          query: {
+            page: 1,
+            size: 25,
+          },
+        },
       }),
     });
     const wrapper = mount(

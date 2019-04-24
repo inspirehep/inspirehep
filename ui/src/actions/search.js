@@ -20,6 +20,20 @@ export function changeSearchScope(scope) {
   };
 }
 
+function getSearchQueryStringForCurrentState(state) {
+  const {
+    router: { location },
+    search,
+  } = state;
+  const baseQueryForCurrentSearchScope = search
+    .getIn(['scope', 'query'])
+    .toJS();
+  return stringify(
+    { ...baseQueryForCurrentSearchScope, ...location.query },
+    { indices: false }
+  );
+}
+
 function searching() {
   return {
     type: SEARCH_REQUEST,
@@ -43,9 +57,13 @@ function searchError(error) {
 
 export function searchForCurrentLocation() {
   return async (dispatch, getState, http) => {
-    const { location } = getState().router;
     dispatch(searching());
-    const url = `${location.pathname}${location.search}`;
+    const state = getState();
+    const searchQueryString = getSearchQueryStringForCurrentState(state);
+    const {
+      router: { location },
+    } = state;
+    const url = `${location.pathname}?${searchQueryString}`;
     try {
       const response = await http.get(url, UI_SERIALIZER_REQUEST_OPTIONS);
       dispatch(searchSuccess(response.data));
@@ -78,9 +96,14 @@ function searchAggregationsError(error) {
 
 export function fetchSearchAggregationsForCurrentLocation() {
   return async (dispatch, getState, http) => {
-    const { location } = getState().router;
     dispatch(fetchingSearchAggregations());
-    const url = `${location.pathname}/facets${location.search}`;
+
+    const state = getState();
+    const searchQueryString = getSearchQueryStringForCurrentState(state);
+    const {
+      router: { location },
+    } = state;
+    const url = `${location.pathname}/facets?${searchQueryString}`;
     try {
       const response = await http.get(url);
       dispatch(searchAggregationsSuccess(response.data));
@@ -90,32 +113,17 @@ export function fetchSearchAggregationsForCurrentLocation() {
   };
 }
 
-function getSearchUrl(state, query) {
-  const pathname = state.search.getIn(['scope', 'pathname']);
-  const queryString = stringify(query, { indices: false });
-  return `/${pathname}?${queryString}`;
-}
-
-function appendQuery(state, query, excludeLocationQuery) {
-  const baseQuery = state.search.getIn(['scope', 'query']).toJS();
-  const locationQuery = excludeLocationQuery ? {} : state.router.location.query;
-
-  if (query && locationQuery.page !== undefined) {
-    locationQuery.page = 1;
-  }
-
-  return {
-    ...baseQuery,
-    ...locationQuery,
-    ...query,
-  };
-}
-
+// triggers LOCATION_CHANGE which then triggers search request via `middlewares/searchDispatcher`
 export function pushQueryToLocation(query, clearLocationQuery = false) {
   return async (dispatch, getState) => {
     const state = getState();
-    const newQuery = appendQuery(state, query, clearLocationQuery);
-    const url = getSearchUrl(state, newQuery);
+    const locationQuery = clearLocationQuery ? {} : state.router.location.query;
+    const newQuery = { ...locationQuery, ...query };
+
+    const pathname = state.search.getIn(['scope', 'pathname']);
+    const queryString = stringify(newQuery, { indices: false });
+    const url = `/${pathname}?${queryString}`;
+
     if (Object.keys(newQuery).length > 0) {
       dispatch(push(url));
     }

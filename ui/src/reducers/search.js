@@ -14,6 +14,7 @@ import {
 const baseQuery = {
   sort: 'mostrecent',
   size: '25',
+  page: '1',
 };
 
 export const searchScopes = fromJS({
