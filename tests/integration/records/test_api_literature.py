@@ -16,6 +16,8 @@ from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api.literature import import_article
+from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentifierError
 
 
 def test_literature_create(base_app, db):
@@ -617,3 +619,33 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db)
     record = InspireRecord.create_or_update(data)
     assert type(record) == LiteratureRecord
     assert record.pid_type == "lit"
+
+
+def test_import_article_bad_arxiv_id(base_app):
+    with pytest.raises(UnknownImportIdentifierError):
+        import_article("bad_arXiv:1207.7214")
+
+
+def test_import_article_bad_doi(base_app):
+    with pytest.raises(UnknownImportIdentifierError):
+        import_article("doi:Th1s1s/n0taD01")
+
+
+def test_import_article_arxiv_id_already_in_inspire(base_app, db):
+    arxiv_value = faker.arxiv()
+    data = {"arxiv_eprints": [{"value": arxiv_value}]}
+    data = faker.record("lit", with_control_number=True, data=data)
+    LiteratureRecord.create(data)
+
+    with pytest.raises(ExistingArticleError):
+        import_article(f"arXiv:{arxiv_value}")
+
+
+def test_import_article_doi_already_in_inspire(base_app, db):
+    doi_value = faker.doi()
+    data = {"dois": [{"value": doi_value}]}
+    data = faker.record("lit", with_control_number=True, data=data)
+    LiteratureRecord.create(data)
+
+    with pytest.raises(ExistingArticleError):
+        import_article(doi_value)

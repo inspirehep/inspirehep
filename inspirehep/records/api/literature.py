@@ -9,14 +9,38 @@
 import json
 import logging
 
+import requests
 from flask import current_app
+from hepcrawl.parsers import ArxivParser
+from hepcrawl.parsers.crossref import CrossrefParser
+from idutils import is_doi, normalize_doi
 from inspire_schemas.builders import LiteratureBuilder
+from inspire_schemas.utils import is_arxiv, normalize_arxiv
+from invenio_pidstore.models import PersistentIdentifier
 
 from inspirehep.pidstore.api import PidStoreLiterature
+from inspirehep.records.errors import (
+    ExistingArticleError,
+    ImportArticleError,
+    ImportConnectionError,
+    ImportParsingError,
+    UnknownImportIdentifierError,
+)
 
 from .base import InspireRecord
 
 logger = logging.getLogger(__name__)
+
+PLACEHOLDER = "<ID>"
+
+ARXIV_URL = (
+    "http://export.arxiv.org/oai2?"
+    "verb=GetRecord&"
+    "identifier=oai:arXiv.org:<ID>&"
+    "metadataPrefix=arXiv"
+)
+
+CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 
 
 class LiteratureRecord(InspireRecord):
@@ -24,8 +48,11 @@ class LiteratureRecord(InspireRecord):
 
     pid_type = "lit"
 
-    es_serializer = "LiteratureESEnhancementV1"  # TODO: put class instead of `str`
-    ui_serializer = "LiteratureMetadataUISchemaV1"  # TODO: remove and do it in es schema
+    # TODO: put class instead of `str`
+    es_serializer = "LiteratureESEnhancementV1"
+
+    # TODO: remove and do it in es schema
+    ui_serializer = "LiteratureMetadataUISchemaV1"
 
     @classmethod
     def create(cls, data, **kwargs):
@@ -143,3 +170,141 @@ class LiteratureRecord(InspireRecord):
         serialized_data = super()._dump_for_es()
         serialized_data["_ui_display"] = json.dumps(self.get_ui_data())
         return serialized_data
+
+
+def import_article(identifier: str) -> dict:
+    """Import a new article from arXiv or Crossref based on the identifier.
+
+    This function attempts to parse  and normalize the identifier as a valid
+    arXiv id or DOI. If the identifier is valid and there is no record in
+    Inspire matching the ID, it queries the arXiv/CrossRef APIs and parses
+    the record to make it inspire compliant.
+
+    Args:
+        identifier(str): the ID of the record to import
+
+    Returns:
+        dict: the serialized article
+
+    Raises:
+        ExistingArticleError: if the record is already in Inspire.
+        ImportArticleError: if no article is found.
+        ImportConnectionError: if the importing request fails.
+        ImportParsingError: if an error occurs while parsing the result.
+        UnknownIdentifierError: if the identifier is neither "arxiv" or "doi".
+    """
+    if is_arxiv(identifier):
+        pid_type = "arxiv"
+        pid_value = normalize_arxiv(identifier)
+
+    elif is_doi(identifier):
+        pid_type = "doi"
+        pid_value = normalize_doi(identifier)
+
+    else:
+        raise UnknownImportIdentifierError(identifier)
+
+    pid = PersistentIdentifier.query.filter_by(
+        pid_type=pid_type, pid_value=pid_value
+    ).one_or_none()
+
+    if pid:
+        raise ExistingArticleError(
+            f"Article {identifier} already in Inspire. UUID: {pid.object_uuid}"
+        )
+    importers = {"arxiv": import_arxiv, "doi": import_doi}
+    importer = importers.get(pid_type, UnknownImportIdentifierError)
+    article = importer(pid_value)
+
+    if not article:
+        raise ImportArticleError(f"No article found for {identifier}")
+    return article
+
+
+def import_arxiv(arxiv_id: str) -> dict:
+    """View for retrieving an article from arXiv.
+
+    This endpoint is designed to be queried by inspirehep during an article
+    submission, to auto-fill the submission form if the user provides an arXiv
+    identifier.
+
+    Args:
+        arxiv_id: the normalized arXiv id, e.g. `0804.2273`.
+
+    Returns:
+        dict: a json object with either the parsed article
+
+    Raises:
+        ImportConnectionError: if the request doesn't succeed.
+        ImportParsingError: if any error occurs during the response parsing.
+
+    """
+    url = ARXIV_URL.replace(PLACEHOLDER, arxiv_id)
+
+    try:
+        resp = requests.get(url=url)
+    except (ConnectionError, IOError) as e:
+        logger.log(
+            level=logging.ERROR, msg=f"Error importing {arxiv_id} at {url}. \n{e}"
+        )
+        raise ImportConnectionError(f"Cannot contact arXiv: {e}")
+
+    if resp.status_code >= 400:
+        raise ImportConnectionError(f"Cannot contact arXiv. Got response {resp}.")
+
+    if "Malformed identifier" in str(resp.text):
+        # arXiv will reply 200 for a non existing arXiv ID with a message error
+        return {}
+
+    try:
+        parser = ArxivParser(resp.text)
+        return parser.parse()
+    except Exception as e:
+        logging.log(level=logging.ERROR, msg=f"Error parsing arXiv {arxiv_id}. \n{e}")
+        raise ImportParsingError(
+            f"An error occurred while parsing article oai:arXiv.org:{arxiv_id}. Error: {e}."
+        )
+
+
+def import_doi(doi: str) -> dict:
+    """View for retrieving an article from CrossRef.
+
+    This endpoint is designed to be queried by inspirehep during an article
+    submission, to auto-fill the submission form if the user provides a DOI.
+
+    Args:
+        doi: a normalized DOI id, e.g. `10.1088/1361-6633/aa5514`. The
+        variable has type `path` in order to properly handle '/' in the param.
+
+    Returns:
+        dict: a json object with either the parsed article or the occurred
+        error.
+
+    Raises:
+        ImportConnectionError: if the request doesn't succeed.
+        ImportParsingError: if any error occurs during the response parsing.
+
+    """
+    doi = requests.utils.quote(doi, safe="")
+    url = CROSSREF_URL.replace(PLACEHOLDER, doi)
+
+    try:
+        resp = requests.get(url=url)
+    except (ConnectionError, IOError) as e:
+        logger.log(level=logging.ERROR, msg=f"Error importing {doi} at {url}. \n{e}")
+        raise ImportConnectionError(f"Cannot contact CrossRef: {e}")
+
+    if resp.status_code == 404:
+        return {}
+
+    try:
+        parser = CrossrefParser(resp.json())
+        return parser.parse()
+
+    except Exception as e:
+        logging.log(
+            level=logging.ERROR, msg=f"Error parsing article with doi {doi}. \n{e}"
+        )
+        raise ImportParsingError(
+            message="An error occurred while parsing {}".format(url), error=str(e)
+        )
