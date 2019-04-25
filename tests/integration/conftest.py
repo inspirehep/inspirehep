@@ -238,7 +238,7 @@ def create_user(base_app, db):
             user = create_user()
     """
 
-    def _create_user(role="user"):
-        return UserFactory(role=role)
+    def _create_user(role="user", orcid=None):
+        return UserFactory(role=role, orcid=orcid)
 
     return _create_user

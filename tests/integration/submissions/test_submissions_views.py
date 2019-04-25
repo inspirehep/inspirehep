@@ -160,12 +160,61 @@ def test_get_author_update_data(app, api_client, create_user, create_record_fact
     author_data = {
         "control_number": 123,
         "name": {"value": "John", "preferred_name": "John Doe"},
+        "email_addresses": [
+            {"value": "public@john.ch"},
+            {"value": "private@john.ch", "hidden": True},
+        ],
         "status": "active",
     }
     create_record_factory("aut", data=author_data)
 
     expected_data = {
-        "data": {"given_name": "John", "display_name": "John Doe", "status": "active"}
+        "data": {
+            "given_name": "John",
+            "display_name": "John Doe",
+            "status": "active",
+            "emails": [{"value": "public@john.ch"}],
+        }
+    }
+
+    response = api_client.get(
+        "/submissions/authors/123", headers={"Accept": "application/json"}
+    )
+    response_data = json.loads(response.data)
+
+    assert response_data == expected_data
+
+
+def test_get_author_update_data_of_same_author(
+    app, api_client, create_user, create_record_factory
+):
+    orcid = "0000-0001-5109-3700"
+    user = create_user(orcid=orcid)
+    login_user_via_session(api_client, email=user.email)
+
+    author_data = {
+        "control_number": 123,
+        "name": {"value": "John", "preferred_name": "John Doe"},
+        "ids": [{"schema": "ORCID", "value": orcid}],
+        "email_addresses": [
+            {"value": "public@john.ch"},
+            {"value": "private@john.ch", "hidden": True},
+        ],
+        "status": "active",
+    }
+    create_record_factory("aut", data=author_data)
+
+    expected_data = {
+        "data": {
+            "given_name": "John",
+            "display_name": "John Doe",
+            "status": "active",
+            "orcid": orcid,
+            "emails": [
+                {"value": "public@john.ch"},
+                {"value": "private@john.ch", "hidden": True},
+            ],
+        }
     }
 
     response = api_client.get(

@@ -7,7 +7,7 @@
 
 from helpers.providers.faker import faker
 
-from inspirehep.submissions.marshmallow.author import Author
+from inspirehep.submissions.marshmallow.author import Author, SameAuthor
 
 DEFAULT_DATA_TO_DUMP = {"name": {"value": "John Doe"}}
 DEFAULT_DATA_DUMP = {"given_name": "John Doe"}
@@ -554,7 +554,7 @@ def test_load_author_project_membership():
     assert result == expected
 
 
-def test_dump_author_emails():
+def test_dump_author_emails_returns_only_public_emails():
     data = {
         **DEFAULT_DATA_TO_DUMP,
         "email_addresses": [
@@ -565,6 +565,22 @@ def test_dump_author_emails():
     record = faker.record("aut", data=data)
 
     result = Author().dump(record).data
+    expected = {**DEFAULT_DATA_DUMP, "emails": [{"value": "public@email.com"}]}
+
+    assert result == expected
+
+
+def test_dump_same_author_emails_returns_all_emails():
+    data = {
+        **DEFAULT_DATA_TO_DUMP,
+        "email_addresses": [
+            {"value": "private@email.com", "hidden": True},
+            {"value": "public@email.com"},
+        ],
+    }
+    record = faker.record("aut", data=data)
+
+    result = SameAuthor().dump(record).data
     expected = {
         **DEFAULT_DATA_DUMP,
         "emails": [
