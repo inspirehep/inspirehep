@@ -18,6 +18,7 @@ from jsonschema import ValidationError
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentifierError
+from inspirehep.records.models import RecordCitations
 
 
 def test_literature_create(base_app, db):
@@ -649,3 +650,103 @@ def test_import_article_doi_already_in_inspire(base_app, db):
 
     with pytest.raises(ExistingArticleError):
         import_article(doi_value)
+
+
+def test_create_record_update_citation_table(base_app, db):
+    data = faker.record("lit")
+    record = LiteratureRecord.create(data)
+
+    data2 = faker.record("lit", citations=[record["control_number"]])
+    record2 = LiteratureRecord.create(data2)
+
+    assert len(record.model.citations) == 1
+    assert len(record.model.references) == 0
+    assert len(record2.model.citations) == 0
+    assert len(record2.model.references) == 1
+    assert len(RecordCitations.query.all()) == 1
+
+
+def test_update_record_update_citation_table(base_app, db):
+    data = faker.record("lit")
+    record = LiteratureRecord.create(data)
+
+    data2 = faker.record("lit")
+    record2 = LiteratureRecord.create(data2)
+
+    # Cannot use model.citations and model.references
+    # when updating record which is not commited,
+    # as they will return data from before the update
+    assert len(RecordCitations.query.all()) == 0
+
+    data = faker.record("lit", data=record, citations=[record2["control_number"]])
+    record.update(data)
+
+    assert len(RecordCitations.query.all()) == 1
+
+
+def test_complex_records_interactions_in_citation_table(base_app, db):
+    records_list = []
+    for i in range(6):
+        data = faker.record(
+            "lit", citations=[r["control_number"] for r in records_list]
+        )
+        record = LiteratureRecord.create(data)
+        records_list.append(record)
+
+    assert len(records_list[0].model.citations) == 5
+    assert len(records_list[0].model.references) == 0
+
+    assert len(records_list[1].model.citations) == 4
+    assert len(records_list[1].model.references) == 1
+
+    assert len(records_list[2].model.citations) == 3
+    assert len(records_list[2].model.references) == 2
+
+    assert len(records_list[3].model.citations) == 2
+    assert len(records_list[3].model.references) == 3
+
+    assert len(records_list[4].model.citations) == 1
+    assert len(records_list[4].model.references) == 4
+
+    assert len(records_list[5].model.citations) == 0
+    assert len(records_list[5].model.references) == 5
+
+
+def test_literature_can_cite_data_record(base_app, db):
+    data = faker.record("dat")
+    record = InspireRecord.create(data)
+
+    data2 = faker.record("lit", data_citations=[record["control_number"]])
+    record2 = LiteratureRecord.create(data2)
+
+    assert len(record.model.citations) == 1
+    assert len(record.model.references) == 0
+    assert len(record2.model.citations) == 0
+    assert len(record2.model.references) == 1
+    assert len(RecordCitations.query.all()) == 1
+
+
+def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, db):
+    author = InspireRecord.create(faker.record("aut"))
+    conference = InspireRecord.create(faker.record("con"))
+    experiment = InspireRecord.create(faker.record("exp"))
+    institution = InspireRecord.create(faker.record("ins"))
+    job = InspireRecord.create(faker.record("job"))
+    journal = InspireRecord.create(faker.record("jou"))
+
+    data2 = faker.record(
+        "lit",
+        citations=[
+            author["control_number"],
+            conference["control_number"],
+            experiment["control_number"],
+            institution["control_number"],
+            job["control_number"],
+            journal["control_number"],
+        ],
+    )
+    record2 = LiteratureRecord.create(data2)
+
+    assert len(record2.model.citations) == 0
+    assert len(record2.model.references) == 0
+    assert len(RecordCitations.query.all()) == 0

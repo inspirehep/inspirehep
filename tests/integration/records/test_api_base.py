@@ -9,6 +9,7 @@
 
 
 import hashlib
+import json
 import os
 import uuid
 from io import BytesIO
@@ -727,3 +728,10 @@ def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db):
     data = faker.record("aut")
     with pytest.raises(WrongRecordSubclass):
         LiteratureRecord.create(data)
+
+
+def test_get_earliest_date(base_app, db, datadir, create_record_factory):
+    data = json.loads((datadir / "1366189.json").read_text())
+    record = LiteratureRecord.create(data=data)
+
+    assert record.get_earliest_date() == "2015-05-05"

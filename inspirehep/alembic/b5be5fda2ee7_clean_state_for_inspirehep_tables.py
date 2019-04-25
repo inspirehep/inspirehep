@@ -7,10 +7,6 @@
 
 """Clean state for inspirehep tables"""
 
-from alembic import op
-import sqlalchemy as sa
-
-
 # revision identifiers, used by Alembic.
 revision = "b5be5fda2ee7"
 down_revision = None

@@ -18,37 +18,35 @@ from sqlalchemy_utils import UUIDType
 logger = logging.getLogger(__name__)
 
 
-class CitationTable(db.Model):
+class RecordCitations(db.Model):
     """Adds Citation table which holds all references
        which are also eligible citations"""
 
-    __tablename__ = "citation_table"
+    __tablename__ = "record_citations"
 
-    __table_args__ = (
-        db.Index("idx_citations_citers", "citer_id"),
-        db.Index("idx_citations_cited", "cited_id"),
-    )
+    __table_args__ = (db.Index("idx_citations_cited", "cited_id"),)
 
-    CiterId = db.Column(
-        "citer_id",
+    citer_id = db.Column(
         UUIDType,
-        db.ForeignKey("records_metadata.id", name="fk_citation_table_citer"),
+        db.ForeignKey("records_metadata.id", name="fk_record_citations_citer"),
         nullable=False,
         primary_key=True,
     )
-    CitedId = db.Column(
-        "cited_id",
+    cited_id = db.Column(
         UUIDType,
-        db.ForeignKey("records_metadata.id", name="fk_citation_table_cited"),
+        db.ForeignKey("records_metadata.id", name="fk_record_citations_cited"),
         nullable=False,
         primary_key=True,
     )
-    CitationDate = db.Column("citation_date", Date)
-    # Relationship: TODO - Add explanation
-    # Backref: TODO - Add explanation
-    Citer = db.relationship(RecordMetadata, backref="Citations", foreign_keys=[CiterId])
-    # Relationship: TODO - Add explanation
-    # Backref: TODO - Add explanation
-    Cited = db.relationship(
-        RecordMetadata, backref="References", foreign_keys=[CitedId]
+    citation_date = db.Column(Date)
+    # Relationship: Relation to record which cites
+    # Backref: List of all references of this record
+    # which are counted as citations in other records.
+    citer = db.relationship(
+        RecordMetadata, backref="references", foreign_keys=[citer_id]
+    )
+    # Relationship: Relation to cited article
+    # Backref: List of all citations of this record.
+    cited = db.relationship(
+        RecordMetadata, backref="citations", foreign_keys=[cited_id]
     )

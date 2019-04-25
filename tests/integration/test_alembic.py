@@ -8,10 +8,10 @@ def test_downgrade(app, db):
     alembic = Alembic(app)
 
     alembic.downgrade(target="7be4c8b5c5e8")
-    assert "idx_citations_cited" not in _get_indexes("citation_table", db)
-    assert "idx_citations_citers" not in _get_indexes("citation_table", db)
+    assert "idx_citations_cited" not in _get_indexes("record_citations", db)
+    assert "idx_citations_citers" not in _get_indexes("record_citations", db)
 
-    assert "citation_table" not in _get_table_names(db)
+    assert "record_citations" not in _get_table_names(db)
 
     # test 7be4c8b5c5e8
     alembic.downgrade(target="b5be5fda2ee7")
@@ -97,10 +97,10 @@ def test_upgrade(app, db):
 
     alembic.upgrade(target="b646d3592dd5")
 
-    assert "idx_citations_cited" in _get_indexes("citation_table", db)
-    assert "idx_citations_citers" in _get_indexes("citation_table", db)
+    assert "idx_citations_cited" in _get_indexes("record_citations", db)
+    assert "idx_citations_citers" in _get_indexes("record_citations", db)
 
-    assert "citation_table" in _get_table_names(db)
+    assert "record_citations" in _get_table_names(db)
 
 
 def _get_indexes(tablename, db):

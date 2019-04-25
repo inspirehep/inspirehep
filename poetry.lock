@@ -1026,7 +1026,7 @@ description = "INSPIRE-specific utils."
 name = "inspire-utils"
 optional = false
 python-versions = "*"
-version = "3.0.4"
+version = "3.0.5"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -2827,7 +2827,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "ca0b7b780d0ad153382723d470cb334d9579172633225e51a4fdcc2627a4d414"
+content-hash = "0901b709ba8a9c217dfe6750e556fd711f59e8cdfd9fc75550f48e62fe05471e"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -2918,7 +2918,7 @@ infinity = ["dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"]
 inspire-dojson = ["874215286c6edbf3fa983a1ec2a49a7ead0bcb365876ad2d0df38f22c15b9d0b"]
 inspire-query-parser = ["078945bc08b0fd0a45b4e4a00aef8687608469e2e5868a2d9b614edb4bccb93d"]
 inspire-schemas = ["e991ea4f65b03236291cb85340698ff6295afa291610c63abafe3cb37a770b40"]
-inspire-utils = ["61947e8fd9f9179cdcf776acde8c16325c687935b7acf4712f2889f337e4be2f"]
+inspire-utils = ["cd0dc632bd35831b5d578a38cd5fa9cb9924eec8b56ba0f2d4484fdfe2851ee4"]
 intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]
 invenio = ["6a35d26f3e230a38518331799770433cef74a06bab48b94424f36be21a35c2be", "96925847b4666f36f0324bfc41239bc80543012b73d5201560e1057275c45a59"]
 invenio-access = ["1e7439bfdb1c9a697fa41dccc79969af445baa0ddb6248f9cadc1046a2bed36f", "430225aa095e4ad11401a84fdf449566498f0e69b8b5c74e77239c1446b9e4da"]
