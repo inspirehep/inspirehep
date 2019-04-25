@@ -822,3 +822,99 @@ def test_import_article_view_200_crossref(api_client):
         assert resp.status_code == 200
         assert result["titles"][0]["title"] == expected_title
         assert result["dois"][0]["value"] == doi
+
+
+def test_citation_summary_facet(api_client, db, create_record_factory):
+    unpublished_paper_data = {
+        "refereed": False,
+        "citation_count": 8,
+        "facet_author_name": "BAI_N. Girard",
+        "citeable": True,
+    }
+    create_record_factory("lit", data=unpublished_paper_data, with_indexing=True)
+
+    published_papers_citation_count = [409, 83, 26, 153, 114, 97, 137]
+    for count in published_papers_citation_count:
+        data = {
+            "refereed": True,
+            "citation_count": count,
+            "facet_author_name": "BAI_N. Girard",
+            "citeable": True,
+        }
+        create_record_factory("lit", data=data, with_indexing=True)
+
+    response = api_client.get(
+        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary"
+    )
+
+    expected_citation_summary_aggregation = {
+        "doc_count": 8,
+        "h-index": {"value": {"all": 8, "published": 7}},
+        "citations": {
+            "buckets": {
+                "all": {
+                    "doc_count": 8,
+                    "citations_count": {"value": 1027.0},
+                    "citation_buckets": {
+                        "buckets": [
+                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {
+                                "key": "1.0-50.0",
+                                "from": 1.0,
+                                "to": 50.0,
+                                "doc_count": 2,
+                            },
+                            {
+                                "key": "50.0-250.0",
+                                "from": 50.0,
+                                "to": 250.0,
+                                "doc_count": 5,
+                            },
+                            {
+                                "key": "250.0-500.0",
+                                "from": 250.0,
+                                "to": 500.0,
+                                "doc_count": 1,
+                            },
+                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                        ]
+                    },
+                    "average_citations": {"value": 128.375},
+                },
+                "published": {
+                    "doc_count": 7,
+                    "citations_count": {"value": 1019.0},
+                    "citation_buckets": {
+                        "buckets": [
+                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {
+                                "key": "1.0-50.0",
+                                "from": 1.0,
+                                "to": 50.0,
+                                "doc_count": 1,
+                            },
+                            {
+                                "key": "50.0-250.0",
+                                "from": 50.0,
+                                "to": 250.0,
+                                "doc_count": 5,
+                            },
+                            {
+                                "key": "250.0-500.0",
+                                "from": 250.0,
+                                "to": 500.0,
+                                "doc_count": 1,
+                            },
+                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                        ]
+                    },
+                    "average_citations": {"value": 145.571_428_571_428_58},
+                },
+            }
+        },
+    }
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_citation_summary = response_data["aggregations"]["citation_summary"]
+    assert response_status_code == 200
+    assert response_data_citation_summary == expected_citation_summary_aggregation
