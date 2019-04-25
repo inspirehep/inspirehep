@@ -9,6 +9,8 @@ from functools import wraps
 
 from flask import abort
 from flask_login import current_user
+from invenio_oauthclient.models import UserIdentity
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def login_required(func):
@@ -26,3 +28,15 @@ def is_superuser_or_cataloger_logged_in():
         user_roles = {role.name for role in current_user.roles}
         return user_roles & {"superuser", "cataloger"}
     return False
+
+
+def get_current_user_orcid():
+    try:
+        orcid = (
+            UserIdentity.query.filter_by(id_user=current_user.get_id(), method="orcid")
+            .one()
+            .id
+        )
+        return orcid
+    except NoResultFound:
+        return None

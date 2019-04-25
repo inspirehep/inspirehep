@@ -10,7 +10,9 @@ from flask import current_app
 from flask_security.utils import hash_password
 from helpers.factories.models.base import BaseFactory
 from invenio_accounts.models import User
+from invenio_db import db
 from invenio_oauth2server.models import Token
+from invenio_oauthclient.models import UserIdentity
 
 fake = Factory.create()
 
@@ -20,15 +22,23 @@ class UserFactory(BaseFactory):
         model = User
 
     @classmethod
-    def _create(cls, model_class, role="user", *args, **kwargs):
+    def _create(cls, model_class, role="user", orcid=None, *args, **kwargs):
         ds = current_app.extensions["invenio-accounts"].datastore
         role = ds.create_role(name=role)
-        return ds.create_user(
+        user = ds.create_user(
+            id=fake.random_number(digits=8, fix_len=True),
             email=fake.email(),
             password=hash_password(fake.password()),
             active=True,
             roles=[role],
         )
+
+        if orcid:
+            user_orcid_id = UserIdentity(
+                id=orcid, method="orcid", id_user=user.get_id()
+            )
+            db.session.add(user_orcid_id)
+        return user
 
 
 class AccessTokenFactory(BaseFactory):

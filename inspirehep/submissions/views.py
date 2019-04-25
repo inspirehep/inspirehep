@@ -12,14 +12,13 @@ import requests
 from flask import Blueprint, abort, current_app, jsonify, request
 from flask.views import MethodView
 from flask_login import current_user
-from invenio_oauthclient.models import UserIdentity
 from invenio_pidstore.errors import PIDDoesNotExistError
-from sqlalchemy.orm.exc import NoResultFound
 
-from inspirehep.accounts.api import login_required
+from inspirehep.accounts.api import get_current_user_orcid, login_required
 from inspirehep.records.api import AuthorsRecord
 
 from .marshmallow import Author, Literature
+from .serializers import author_v1  # TODO: use literature_v1 from serializers
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
@@ -52,18 +51,9 @@ class BaseSubmissionsResource(MethodView):
 
         return acquisition_source
 
+    # TODO: remove this and directly use `get_current_user_orcid`
     def get_user_orcid(self):
-        try:
-            orcid = (
-                UserIdentity.query.filter_by(
-                    id_user=current_user.get_id(), method="orcid"
-                )
-                .one()
-                .id
-            )
-            return orcid
-        except NoResultFound:
-            return None
+        return get_current_user_orcid()
 
 
 class AuthorSubmissionsResource(BaseSubmissionsResource):
@@ -76,8 +66,8 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
         except PIDDoesNotExistError:
             abort(404)
 
-        serialized_record = Author().dump(record)
-        return jsonify({"data": serialized_record.data})
+        serialized_record = author_v1.dump(record)
+        return jsonify({"data": serialized_record})
 
     def post(self):
         submission_data = request.get_json()
@@ -105,6 +95,7 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
     ):
         submission_data["acquisition_source"] = self.get_acquisition_source()
 
+        # TODO: create and use loader instead of directly using schema
         serialized_data = Author().load(submission_data).data
 
         if control_number:

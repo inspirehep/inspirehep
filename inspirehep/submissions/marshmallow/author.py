@@ -9,6 +9,8 @@ from inspire_schemas.builders.authors import AuthorBuilder
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import Schema, fields, missing, post_load, pre_dump
 
+from inspirehep.records.marshmallow.fields import NonHiddenRaw
+
 
 class Author(Schema):
     alternate_name = fields.Raw()
@@ -16,7 +18,7 @@ class Author(Schema):
     family_name = fields.Raw()
     given_name = fields.Raw()
     native_name = fields.Raw()
-    emails = fields.Raw()
+    emails = NonHiddenRaw()
     orcid = fields.Raw()
 
     status = fields.Raw()
@@ -210,3 +212,7 @@ class Author(Schema):
             )
 
         return author.obj
+
+
+class SameAuthor(Author):
+    emails = fields.Raw()

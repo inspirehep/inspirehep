@@ -7,9 +7,24 @@
 
 """Submissions serializers."""
 
+from inspire_utils.record import get_values_for_schema
 from invenio_records_rest.serializers.json import JSONSerializer
 
-from .marshmallow import Author, Literature
+from inspirehep.accounts.api import get_current_user_orcid
+from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
+
+from .marshmallow import Author, Literature, SameAuthor
+
+
+def does_current_user_own_author_record(author):
+    author_orcids = get_values_for_schema(author.get("ids", []), "ORCID")
+    if author_orcids:
+        author_orcid = author_orcids.pop()
+        return get_current_user_orcid() == author_orcid
+    return False
+
 
 literature_v1 = JSONSerializer(Literature)
-authors_v1 = JSONSerializer(Author)
+author_v1 = ConditionalMultiSchemaJSONSerializer(
+    [(does_current_user_own_author_record, SameAuthor), (None, Author)]
+)
