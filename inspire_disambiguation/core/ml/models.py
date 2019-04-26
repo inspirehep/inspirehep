@@ -310,10 +310,12 @@ class DistanceEstimator(object):
 
 
 class Clusterer(object):
-    def __init__(self, distance_estimator):
-        self.distance_estimator = distance_estimator.distance_estimator
+    def __init__(self, estimator):
+        # TODO get rid of this global
+        global distance_estimator
+        distance_estimator = estimator.distance_estimator
         try:
-            self.distance_estimator.steps[-1][1].set_params(n_jobs=1)
+            distance_estimator.steps[-1][1].set_params(n_jobs=1)
         except Exception:
             pass
 
@@ -322,33 +324,6 @@ class Clusterer(object):
 
         self.clustering_threshold = 0.709  # magic value taken from BEARD example
         self.clustering_method = 'average'
-
-    def __copy__(self):
-        """Dummy method that doesn't copy anything."""
-        return self
-
-    def __deepcopy__(self, memo):
-        """Dummy method that doesn't copy anything."""
-        return self
-
-    def _affinity(self, X, step=10000):
-        """Custom affinity function, using a pre-learned distance estimator."""
-        all_i, all_j = np.triu_indices(len(X), k=1)
-        n_pairs = len(all_i)
-        distances = np.zeros(n_pairs, dtype=np.float64)
-
-        for start in range(0, n_pairs, step):
-            end = min(n_pairs, start + step)
-            Xt = np.empty((end - start, 2), dtype=np.object)
-
-            for k, (i, j) in enumerate(zip(all_i[start:end],
-                                           all_j[start:end])):
-                Xt[k, 0], Xt[k, 1] = X[i, 0], X[j, 0]
-
-            Xt = self.distance_estimator.predict_proba(Xt)[:, 1]
-            distances[start:end] = Xt[:]
-
-        return distances
 
     def load_data(self, signatures_path, publications_path, input_clusters_path):
         signatures_by_uuid = load_signatures(signatures_path, publications_path)
@@ -379,7 +354,7 @@ class Clusterer(object):
         self.clusterer = BlockClustering(
             blocking=self.block_function,
             base_estimator=ScipyHierarchicalClustering(
-                affinity=self._affinity,
+                affinity=_affinity,
                 threshold=self.clustering_threshold,
                 method=self.clustering_method,
                 supervised_scoring=b3_f_score),
@@ -419,6 +394,29 @@ class Publication(object):
 
     def get(self, value, default):
         return getattr(self, value, default)
+
+
+def _affinity(X, step=10000):
+    """Custom affinity function, using a pre-learned distance estimator."""
+    # TODO find a way to avoid a global here, needed to avoid pickling/copying
+    # the distance_estimator when passing the clusterers for each block around
+    global distance_estimator
+    all_i, all_j = np.triu_indices(len(X), k=1)
+    n_pairs = len(all_i)
+    distances = np.zeros(n_pairs, dtype=np.float64)
+
+    for start in range(0, n_pairs, step):
+        end = min(n_pairs, start + step)
+        Xt = np.empty((end - start, 2), dtype=np.object)
+
+        for k, (i, j) in enumerate(zip(all_i[start:end],
+                                       all_j[start:end])):
+            Xt[k, 0], Xt[k, 1] = X[i, 0], X[j, 0]
+
+        Xt = distance_estimator.predict_proba(Xt)[:, 1]
+        distances[start:end] = Xt[:]
+
+    return distances
 
 
 def load_signatures(signatures_path, publications_path):
