@@ -323,7 +323,8 @@ class Clusterer(object):
         self.clustering_threshold = 0.709  # magic value taken from BEARD example
         self.clustering_method = 'average'
 
-    def _affinity(self, X, step=10000):
+    @staticmethod
+    def _affinity(X, distance_estimator, step=10000):
         """Custom affinity function, using a pre-learned distance estimator."""
         all_i, all_j = np.triu_indices(len(X), k=1)
         n_pairs = len(all_i)
@@ -337,7 +338,7 @@ class Clusterer(object):
                                            all_j[start:end])):
                 Xt[k, 0], Xt[k, 1] = X[i, 0], X[j, 0]
 
-            Xt = self.distance_estimator.predict_proba(Xt)[:, 1]
+            Xt = distance_estimator.predict_proba(Xt)[:, 1]
             distances[start:end] = Xt[:]
 
         return distances
@@ -371,7 +372,7 @@ class Clusterer(object):
         self.clusterer = BlockClustering(
             blocking=self.block_function,
             base_estimator=ScipyHierarchicalClustering(
-                affinity=self._affinity,
+                affinity=lambda X: self._affinity(X, self.distance_estimator),
                 threshold=self.clustering_threshold,
                 method=self.clustering_method,
                 supervised_scoring=b3_f_score),
