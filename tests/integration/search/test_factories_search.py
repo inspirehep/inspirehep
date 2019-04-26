@@ -21,11 +21,15 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_head
     base_app
 ):
     config = {
-        "SEARCH_SOURCE_INCLUDES": {
-            "literature": {
-                "application/vnd+inspire.record.ui+json": ["title", "description"]
-            }
-        }
+        "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": {
+            "application/vnd+inspire.record.ui+json": ["title", "description"]
+        },
+        "LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE": {
+            "application/vnd+inspire.record.ui+json": [
+                "excludes_with_includes_looks_stupid"
+            ],
+            "application/bibtex": ["control_number"],
+        },
     }
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     with patch.dict(base_app.config, config), base_app.test_request_context(
@@ -35,22 +39,25 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_head
         search = get_search_with_source(search)
 
         expected_source_includes = ["title", "description"]
+        expected_source_excludes = ["excludes_with_includes_looks_stupid"]
 
         search_to_dict = search.to_dict()
-        search_source_includes = search_to_dict["_source"]["includes"]
+        search_source = search_to_dict["_source"]
 
-        assert expected_source_includes == search_source_includes
+        assert expected_source_includes == search_source["includes"]
+        assert expected_source_excludes == search_source["excludes"]
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_headers(
     base_app
 ):
     config = {
-        "SEARCH_SOURCE_INCLUDES": {
-            "literature": {
-                "application/vnd+inspire.record.ui+json": ["title", "description"]
-            }
-        }
+        "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": {
+            "application/vnd+inspire.record.ui+json": ["title", "description"]
+        },
+        "LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE": {
+            "application/bibtex": ["control_number"]
+        },
     }
     headers = {"Accept": "application/json"}
     with patch.dict(base_app.config, config), base_app.test_request_context(
@@ -64,7 +71,10 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_without_config(base_app):
-    config = {"SEARCH_SOURCE_INCLUDES": None}
+    config = {
+        "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": None,
+        "LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE": None,
+    }
     with patch.dict(base_app.config, config), base_app.test_request_context():
         search = LiteratureSearch()
         search = get_search_with_source(search)

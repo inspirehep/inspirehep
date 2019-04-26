@@ -9,24 +9,16 @@ from flask import current_app, request
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_records_rest.sorter import default_sorter_factory
 
-from ..api import LiteratureSearch
 from .facet import inspire_facets_factory
 from .filter import inspire_filter_factory
 
 
 def get_search_with_source(search):
-    source = current_app.config.get("SEARCH_SOURCE_INCLUDES")
     has_accept_mimetypes = len(request.accept_mimetypes) > 0
+    if has_accept_mimetypes:
+        content_type = next(request.accept_mimetypes.values())
+        search = search.source_for_content_type(content_type)
 
-    if not source or not has_accept_mimetypes:
-        return search
-
-    if isinstance(search, LiteratureSearch):
-        source_literature = source.get("literature", {})
-        accept_type = next(request.accept_mimetypes.values())
-        source_literature_mimetype = source_literature.get(accept_type)
-        if source_literature_mimetype:
-            search = search.source(includes=source_literature_mimetype)
     return search
 
 

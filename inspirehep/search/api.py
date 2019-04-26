@@ -12,6 +12,7 @@ import logging
 
 from elasticsearch import RequestError
 from elasticsearch_dsl.query import Q
+from flask import current_app
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
 
@@ -72,6 +73,9 @@ class SearchMixin(object):
 class InspireSearch(RecordsSearch, SearchMixin):
     """Base Inspire search classs."""
 
+    def source_for_content_type(self, content_type):
+        return self
+
 
 class LiteratureSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Literature database."""
@@ -88,6 +92,15 @@ class LiteratureSearch(InspireSearch):
         :returns: Elasticsearch DSL search class
         """
         return self.query(IQ(query_string, self))
+
+    def source_for_content_type(self, content_type):
+        includes = current_app.config.get(
+            "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE"
+        ).get(content_type)
+        excludes = current_app.config.get(
+            "LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE"
+        ).get(content_type)
+        return self.source(includes=includes, excludes=excludes)
 
     @staticmethod
     def citations(record, page=1, size=10):
