@@ -530,15 +530,15 @@ RECORDS_DEFAULT_FILE_LOCATION_NAME = "records"
 
 RECORDS_DEFAULT_STORAGE_CLASS = "S"
 """Default storage class for record files."""
-SEARCH_SOURCE_INCLUDES = {
-    "literature": {
-        "application/vnd+inspire.record.ui+json": [
-            "_ui_display",
-            # we need this for the record fetcher
-            "control_number",
-        ]
-    }
+
+LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
+    "application/vnd+inspire.record.ui+json": [
+        "_ui_display",
+        # we need this for the record fetcher
+        "control_number",
+    ]
 }
+LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {"application/json": ["_ui_display"]}
 
 APP_HEALTH_BLUEPRINT_ENABLED = True
 
