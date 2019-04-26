@@ -311,19 +311,44 @@ class DistanceEstimator(object):
 
 class Clusterer(object):
     def __init__(self, distance_estimator):
-        estimator = distance_estimator.distance_estimator
+        self.distance_estimator = distance_estimator.distance_estimator
         try:
-            estimator.steps[-1][1].set_params(n_jobs=1)
+            self.distance_estimator.steps[-1][1].set_params(n_jobs=1)
         except Exception:
             pass
-
-        self.affinity = Affinity(estimator)
 
         # threshold determines when to split blocks into smaller ones adding first initial
         self.block_function = partial(block_phonetic, threshold=0, phonetic_algorithm='nysiis')
 
         self.clustering_threshold = 0.709  # magic value taken from BEARD example
         self.clustering_method = 'average'
+
+    def __copy__(self):
+        """Dummy method that doesn't copy anything."""
+        return self
+
+    def __deepcopy__(self, memo):
+        """Dummy method that doesn't copy anything."""
+        return self
+
+    def _affinity(self, X, step=10000):
+        """Custom affinity function, using a pre-learned distance estimator."""
+        all_i, all_j = np.triu_indices(len(X), k=1)
+        n_pairs = len(all_i)
+        distances = np.zeros(n_pairs, dtype=np.float64)
+
+        for start in range(0, n_pairs, step):
+            end = min(n_pairs, start + step)
+            Xt = np.empty((end - start, 2), dtype=np.object)
+
+            for k, (i, j) in enumerate(zip(all_i[start:end],
+                                           all_j[start:end])):
+                Xt[k, 0], Xt[k, 1] = X[i, 0], X[j, 0]
+
+            Xt = self.distance_estimator.predict_proba(Xt)[:, 1]
+            distances[start:end] = Xt[:]
+
+        return distances
 
     def load_data(self, signatures_path, publications_path, input_clusters_path):
         signatures_by_uuid = load_signatures(signatures_path, publications_path)
@@ -354,49 +379,13 @@ class Clusterer(object):
         self.clusterer = BlockClustering(
             blocking=self.block_function,
             base_estimator=ScipyHierarchicalClustering(
-                affinity=self.affinity,
+                affinity=self._affinity,
                 threshold=self.clustering_threshold,
                 method=self.clustering_method,
                 supervised_scoring=b3_f_score),
             n_jobs=n_jobs,
             verbose=True)
         self.clusterer.fit(self.X, self.y)
-
-
-class Affinity(object):
-    def __init__(self, distance_estimator):
-        self.distance_estimator = distance_estimator
-
-    def __call__(self, X):
-        return self._affinity(X, self.distance_estimator)
-
-    def __copy__(self):
-        """Dummy method that does not copy anything."""
-        return self
-
-    def __deepcopy(self, memo):
-        """Dummy method that does not copy anything."""
-        return self
-
-    @staticmethod
-    def _affinity(X, distance_estimator, step=10000):
-        """Custom affinity function, using a pre-learned distance estimator."""
-        all_i, all_j = np.triu_indices(len(X), k=1)
-        n_pairs = len(all_i)
-        distances = np.zeros(n_pairs, dtype=np.float64)
-
-        for start in range(0, n_pairs, step):
-            end = min(n_pairs, start + step)
-            Xt = np.empty((end - start, 2), dtype=np.object)
-
-            for k, (i, j) in enumerate(zip(all_i[start:end],
-                                           all_j[start:end])):
-                Xt[k, 0], Xt[k, 1] = X[i, 0], X[j, 0]
-
-            Xt = distance_estimator.predict_proba(Xt)[:, 1]
-            distances[start:end] = Xt[:]
-
-        return distances
 
 
 @attr.s(slots=True)
