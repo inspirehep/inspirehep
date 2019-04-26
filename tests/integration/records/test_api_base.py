@@ -632,7 +632,7 @@ def test_add_file_already_attached(
 
 
 def test_delete_record_with_files(
-    fsopen_mock, base_app, db, create_record_factory, init_files_db
+    fsopen_mock, base_app, db, create_record_factory, init_files_db, enable_files
 ):
     record_metadata = create_record_factory("lit")
     record = InspireRecord.get_record(record_metadata.id)
@@ -730,7 +730,7 @@ def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db):
         LiteratureRecord.create(data)
 
 
-def test_get_earliest_date(base_app, db, datadir, create_record_factory):
+def test_get_earliest_date(base_app, db, datadir, create_record_factory, disable_files):
     data = json.loads((datadir / "1366189.json").read_text())
     record = LiteratureRecord.create(data=data)
 

@@ -1,8 +1,6 @@
 from flask_alembic import Alembic
 from sqlalchemy import text
 
-from inspirehep.alembic_helper.db import clean_db
-
 
 def test_downgrade(app, db):
     alembic = Alembic(app)

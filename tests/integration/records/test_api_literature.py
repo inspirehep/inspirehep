@@ -656,7 +656,7 @@ def test_create_record_update_citation_table(base_app, db):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
-    data2 = faker.record("lit", citations=[record["control_number"]])
+    data2 = faker.record("lit", literature_citations=[record["control_number"]])
     record2 = LiteratureRecord.create(data2)
 
     assert len(record.model.citations) == 1
@@ -678,7 +678,9 @@ def test_update_record_update_citation_table(base_app, db):
     # as they will return data from before the update
     assert len(RecordCitations.query.all()) == 0
 
-    data = faker.record("lit", data=record, citations=[record2["control_number"]])
+    data = faker.record(
+        "lit", data=record, literature_citations=[record2["control_number"]]
+    )
     record.update(data)
 
     assert len(RecordCitations.query.all()) == 1
@@ -688,7 +690,7 @@ def test_complex_records_interactions_in_citation_table(base_app, db):
     records_list = []
     for i in range(6):
         data = faker.record(
-            "lit", citations=[r["control_number"] for r in records_list]
+            "lit", literature_citations=[r["control_number"] for r in records_list]
         )
         record = LiteratureRecord.create(data)
         records_list.append(record)
@@ -736,7 +738,7 @@ def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, 
 
     data2 = faker.record(
         "lit",
-        citations=[
+        literature_citations=[
             author["control_number"],
             conference["control_number"],
             experiment["control_number"],
@@ -749,4 +751,41 @@ def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, 
 
     assert len(record2.model.citations) == 0
     assert len(record2.model.references) == 0
+    assert len(RecordCitations.query.all()) == 0
+
+
+def test_literature_can_cite_only_existing_records(base_app, db):
+    data = faker.record("dat")
+    record = InspireRecord.create(data)
+
+    data2 = faker.record("lit", data_citations=[record["control_number"], 9999, 9998])
+    record2 = LiteratureRecord.create(data2)
+
+    assert len(record.model.citations) == 1
+    assert len(record.model.references) == 0
+    assert len(record2.model.citations) == 0
+    assert len(record2.model.references) == 1
+    assert len(RecordCitations.query.all()) == 1
+
+
+def test_literature_is_not_cited_by_deleted_records(
+    base_app, db, init_files_db, disable_files
+):
+    data = faker.record("lit")
+    record = InspireRecord.create(data)
+
+    data2 = faker.record("lit", literature_citations=[record["control_number"]])
+    record2 = LiteratureRecord.create(data2)
+
+    assert len(record.model.citations) == 1
+    assert len(record.model.references) == 0
+    assert len(record2.model.citations) == 0
+    assert len(record2.model.references) == 1
+    assert len(RecordCitations.query.all()) == 1
+
+    record2.delete()
+    db.session.refresh(record.model)
+
+    assert len(record.model.citations) == 0
+    assert len(record.model.references) == 0
     assert len(RecordCitations.query.all()) == 0

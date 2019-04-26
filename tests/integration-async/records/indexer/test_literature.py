@@ -125,7 +125,7 @@ def test_lit_records_with_citations_updates(
     db.session.commit()
 
     citations = [rec["control_number"]]
-    data_2 = faker.record("lit", citations=citations)
+    data_2 = faker.record("lit", literature_citations=citations)
     LiteratureRecord.create(data_2)
     db.session.commit()
     time.sleep(5)

@@ -265,7 +265,7 @@ class InspireRecord(Record):
     @classmethod
     def get_records_ids_by_pids(cls, pids, max_batch=100):
         """If query is too big (~5000 pids) SQL refuses to run it,
-        so it has to be splitted"""
+        so it has to be split"""
 
         for batch_no in range((len(pids) // max_batch) + 1):
             query = cls._get_records_ids_by_pids(
@@ -474,9 +474,15 @@ class InspireRecord(Record):
 
     def _mark_deleted(self):
         self["deleted"] = True
+        self._update_refs_in_citation_table()
 
     def hard_delete(self):
         with db.session.begin_nested():
+            # Removing citations from RecordCitations table
+            RecordCitations.query.filter_by(citer_id=self.id).delete()
+            # Removing references to this record from RecordCitations table
+            RecordCitations.query.filter_by(cited_id=self.id).delete()
+
             pids = PersistentIdentifier.query.filter(
                 PersistentIdentifier.object_uuid == self.id
             ).all()
@@ -1032,19 +1038,19 @@ class InspireRecord(Record):
 
         Args:
             save_every (int): How often data should be saved into session.
-            One by one is very inefficient, but also 10000 at once.
+            One by one is very inefficient, but so is 10000 at once.
         """
         RecordCitations.query.filter_by(citer_id=self.id).delete()
 
-        if (
-            self.is_superseded()
-            or self.get("deleted")
-            or self.pid_type not in ["lit", "dat"]
-        ):
+        if self.is_superseded() or self.get("deleted") or self.pid_type not in ["lit"]:
             # Record is not eligible to cite
             return
         records_pids = self.get_linked_pids_from_field("references.record")
-        records_uuids = self.get_records_ids_by_pids(records_pids)
+        # Limit records to literature and data as only this types can be cited
+        proper_records_pids = [
+            rec_pid for rec_pid in records_pids if rec_pid[0] in ["lit", "dat"]
+        ]
+        records_uuids = self.get_records_ids_by_pids(proper_records_pids)
         referenced_records = set()
         references_waiting_for_commit = []
         citation_date = self.get_earliest_date()
@@ -1066,7 +1072,7 @@ class InspireRecord(Record):
 
     def get_earliest_date(self):
         """Returns earliest date. If earliest date is missing month or day
-        it's set as 1 as DB do not accept date without day or month"""
+        it's set as 1 as DB does not accept date without day or month"""
         date_paths = [
             "preprint_date",
             "thesis_info.date",
