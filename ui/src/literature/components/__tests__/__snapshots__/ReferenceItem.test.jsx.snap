@@ -4,21 +4,15 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
 <Item>
   <Row
     align="middle"
-    className="w-100"
+    className="w-100 sm-plus-flex-nowrap"
     gutter={24}
     justify="start"
     type="flex"
   >
     <Col
-      md={2}
-      xl={1}
-      xs={24}
+      className="xs-sm-col-24"
     />
-    <Col
-      md={22}
-      xl={23}
-      xs={24}
-    >
+    <Col>
       <Meta
         description={
           <React.Fragment>
@@ -56,21 +50,15 @@ exports[`ReferenceItem renders misc if present 1`] = `
 <Item>
   <Row
     align="middle"
-    className="w-100"
+    className="w-100 sm-plus-flex-nowrap"
     gutter={24}
     justify="start"
     type="flex"
   >
     <Col
-      md={2}
-      xl={1}
-      xs={24}
+      className="xs-sm-col-24"
     />
-    <Col
-      md={22}
-      xl={23}
-      xs={24}
-    >
+    <Col>
       <Meta
         description={
           <React.Fragment>
@@ -104,21 +92,15 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
   >
     <Row
       align="middle"
-      className="w-100"
+      className="w-100 sm-plus-flex-nowrap"
       gutter={24}
       justify="start"
       type="flex"
     >
       <Col
-        md={2}
-        xl={1}
-        xs={24}
+        className="xs-sm-col-24"
       />
-      <Col
-        md={22}
-        xl={23}
-        xs={24}
-      >
+      <Col>
         <Meta
           description={
             <React.Fragment>
@@ -224,23 +206,21 @@ exports[`ReferenceItem renders with full reference 1`] = `
   >
     <Row
       align="middle"
-      className="w-100"
+      className="w-100 sm-plus-flex-nowrap"
       gutter={24}
       justify="start"
       type="flex"
     >
       <Col
-        md={2}
-        xl={1}
-        xs={24}
+        className="xs-sm-col-24"
       >
-        [123] 
+        <span>
+          [
+          123
+          ]
+        </span>
       </Col>
-      <Col
-        md={22}
-        xl={23}
-        xs={24}
-      >
+      <Col>
         <Meta
           description={
             <React.Fragment>

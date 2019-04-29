@@ -78,6 +78,18 @@
   .flex-grow-1 {
     flex-grow: 1;
   }
+
+  .sm-plus-flex-nowrap {
+    @media (min-width: $screen-sm-max) {
+      flex-wrap: nowrap;
+    }
+  }
+
+  .xs-sm-col-24 {
+    @media (max-width: $screen-sm-max) {
+      width: 100%;
+    }
+  }
 }
 
 .ant-drawer-body {
