@@ -58,6 +58,7 @@ class InspireDisambiguation(object):
             disambiguation_base_path, 'distance.pkl')
         app.config['DISAMBIGUATION_CLUSTERING_MODEL_PATH'] = os.path.join(
             disambiguation_base_path, 'clustering.pkl')
+        app.config['DISAMBIGUATION_CLUSTERING_N_JOBS'] = 8
 
         for k in dir(config):
             if k.startswith('DISAMBIGUATION_'):
