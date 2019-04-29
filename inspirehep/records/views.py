@@ -18,6 +18,7 @@ from inspirehep.records.errors import (
     ImportParsingError,
     UnknownImportIdentifierError,
 )
+from inspirehep.submissions.serializers import literature_v1
 
 from ..search.api import LiteratureSearch
 
@@ -52,7 +53,7 @@ class LiteratureCitationsResource(MethodView):
 def import_article_view(identifier):
     try:
         article = import_article(identifier)
-        return jsonify(article)
+        return jsonify({"data": literature_v1.dump(article)})
 
     except ExistingArticleError as e:
         return jsonify(message=str(e)), 409

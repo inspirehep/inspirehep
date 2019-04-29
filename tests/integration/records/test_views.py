@@ -804,24 +804,24 @@ def test_import_article_view_200_arxiv(api_client):
     arxiv_id = "1607.06746"
     with my_vcr.use_cassette("test_import_article_view_200_arxiv.yaml"):
         resp = api_client.get(f"/literature/import/{arxiv_id}")
-        result = json.loads(resp.data)
+        result = resp.json["data"]
 
         expected_title = "CP violation in the B system"
         assert resp.status_code == 200
-        assert result["titles"][0]["title"] == expected_title
-        assert result["arxiv_eprints"][0]["value"] == arxiv_id
+        assert result["title"] == expected_title
+        assert result["arxiv_id"] == arxiv_id
 
 
 def test_import_article_view_200_crossref(api_client):
     doi = "10.1016/j.physletb.2012.08.020"
     with my_vcr.use_cassette("test_import_article_view_200_crossref.yaml"):
         resp = api_client.get(f"/literature/import/{doi}")
-        result = json.loads(resp.data)
+        result = resp.json["data"]
 
         expected_title = "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
         assert resp.status_code == 200
-        assert result["titles"][0]["title"] == expected_title
-        assert result["dois"][0]["value"] == doi
+        assert result["title"] == expected_title
+        assert result["doi"] == doi
 
 
 def test_citation_summary_facet(api_client, db, create_record_factory):
