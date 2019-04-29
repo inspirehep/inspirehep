@@ -28,7 +28,7 @@ matrix:
       before_install:
         - sudo service postgresql stop
         - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.11
         - source $HOME/.poetry/env
         - travis_retry pip install twine wheel coveralls
       install:
@@ -62,7 +62,7 @@ matrix:
         - "3.6"
 
       before_install:
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.11
         - source $HOME/.poetry/env
         - travis_retry pip install twine wheel coveralls
 
@@ -96,7 +96,7 @@ matrix:
       before_install:
         - sudo service postgresql stop
         - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.11
         - source $HOME/.poetry/env
         - travis_retry pip install twine wheel coveralls
 
