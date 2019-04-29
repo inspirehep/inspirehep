@@ -142,6 +142,6 @@ def train_and_save_clustering_model():
         current_app.config['DISAMBIGUATION_PUBLICATIONS_PATH'],
         current_app.config['DISAMBIGUATION_INPUT_CLUSTERS_PATH'],
     )
-    clusterer.fit()
+    clusterer.fit(n_jobs=current_app.config['DISAMBIGUATION_CLUSTERING_N_JOBS'])
     clusterer.save_model(current_app.config['DISAMBIGUATION_CLUSTERING_MODEL_PATH'])
 
