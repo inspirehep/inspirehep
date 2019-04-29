@@ -350,7 +350,7 @@ class Clusterer(object):
         with open_file_in_folder(output_filename, 'wb') as fd:
             pickle.dump(self.clusterer, fd, protocol=pickle.HIGHEST_PROTOCOL)
 
-    def fit(self, n_jobs=16):
+    def fit(self, n_jobs=8):
         self.clusterer = BlockClustering(
             blocking=self.block_function,
             base_estimator=ScipyHierarchicalClustering(
