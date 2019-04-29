@@ -15,7 +15,7 @@ import LiteratureTitle from '../../common/components/LiteratureTitle';
 class ReferenceItem extends Component {
   static renderLabel(reference) {
     const label = reference.get('label');
-    const labelDisplay = label ? `[${label}] ` : null;
+    const labelDisplay = label ? <span>[{label}]</span> : null;
     return labelDisplay;
   }
 
@@ -66,12 +66,12 @@ class ReferenceItem extends Component {
           type="flex"
           justify="start"
           align="middle"
-          className="w-100"
+          className="w-100 sm-plus-flex-nowrap"
         >
-          <Col xs={24} md={2} xl={1}>
+          <Col className="xs-sm-col-24">
             {ReferenceItem.renderLabel(reference)}
           </Col>
-          <Col xs={24} md={22} xl={23}>
+          <Col>
             <List.Item.Meta
               title={ReferenceItem.renderTitle(reference)}
               description={
