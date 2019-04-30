@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { fromJS } from 'immutable';
 import MockAdapter from 'axios-mock-adapter';
 
 import EmbeddedSearch from '../EmbeddedSearch';
@@ -65,8 +66,8 @@ describe('EmbeddedSearch', () => {
       <EmbeddedSearch
         pidType="literature"
         renderResultItem={jest.fn()}
-        baseQuery={{ author: 'Harun' }}
-        baseFacetsQuery={{ facet_name: 'custom' }}
+        baseQuery={fromJS({ author: 'Harun' })}
+        baseFacetsQuery={fromJS({ facet_name: 'custom' })}
       />
     );
     await nextTick();
@@ -319,13 +320,13 @@ describe('EmbeddedSearch', () => {
     const wrapper = shallow(
       <EmbeddedSearch
         pidType="literature"
-        baseQuery={{ author: 'ahmet' }}
+        baseQuery={fromJS({ author: 'ahmet' })}
         renderResultItem={jest.fn()}
       />
     );
     await nextTick();
     wrapper.update();
-    wrapper.setProps({ baseQuery: { author: 'harun' } });
+    wrapper.setProps({ baseQuery: fromJS({ author: 'harun' }) });
     await nextTick();
     wrapper.update();
 
@@ -348,19 +349,19 @@ describe('EmbeddedSearch', () => {
           agg1: {},
         },
       });
+    const baseQuery = fromJS({ author: 'ahmet' });
     const wrapper = shallow(
       <EmbeddedSearch
         pidType="literature"
-        baseQuery={{ author: 'ahmet' }}
+        baseQuery={baseQuery}
         renderResultItem={jest.fn()}
       />
     );
     await nextTick();
     wrapper.update();
-    wrapper.setProps({ baseQuery: { author: 'ahmet' } });
+    wrapper.setProps({ baseQuery: baseQuery.set('author', 'ahmet') });
     await nextTick();
     wrapper.update();
-
     expect(wrapper).toMatchSnapshot();
   });
 });
