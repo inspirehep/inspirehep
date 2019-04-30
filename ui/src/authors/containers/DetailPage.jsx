@@ -17,6 +17,17 @@ import PositionsTimeline from '../components/PositionsTimeline';
 import SubContentBox from '../../common/components/SubContentBox';
 
 class DetailPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.authorLiteratureSearchQuery = Map({
+      author: List(),
+    });
+    this.authorLiteratureFacetsQuery = Map({
+      facet_name: 'hep-author-publication',
+    });
+  }
+
   componentDidMount() {
     this.dispatchFetchAuthor();
   }
@@ -55,14 +66,15 @@ class DetailPage extends Component {
     const experiments = metadata.get('project_membership');
 
     const authorFacetName = metadata.get('facet_author_name');
-    const authorLiteratureSearchQuery = {
-      author: [authorFacetName],
-    };
 
-    const authorLiteratureFacetsQuery = {
-      facet_name: 'hep-author-publication',
-      exclude_author_value: authorFacetName,
-    };
+    this.authorLiteratureSearchQuery = this.authorLiteratureSearchQuery.setIn(
+      ['author', 0],
+      authorFacetName
+    );
+    this.authorLiteratureFacetsQuery = this.authorLiteratureFacetsQuery.set(
+      'exclude_author_value',
+      authorFacetName
+    );
 
     return (
       <Fragment>
@@ -112,8 +124,8 @@ class DetailPage extends Component {
             <ContentBox>
               <EmbeddedSearch
                 pidType="literature"
-                baseQuery={authorLiteratureSearchQuery}
-                baseFacetsQuery={authorLiteratureFacetsQuery}
+                baseQuery={this.authorLiteratureSearchQuery}
+                baseFacetsQuery={this.authorLiteratureFacetsQuery}
                 renderResultItem={(result, rank) => (
                   <LiteratureItem
                     metadata={result.get('metadata')}

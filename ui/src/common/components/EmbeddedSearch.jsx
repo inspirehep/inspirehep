@@ -11,7 +11,7 @@ import SortBy from './SortBy';
 import SearchResults from './SearchResults';
 import SearchPagination from './SearchPagination';
 import http, { UI_SERIALIZER_REQUEST_OPTIONS } from '../http';
-import { mergeWithConcattingArrays, shallowEqual } from '../utils';
+import { mergeWithConcattingArrays } from '../utils';
 import ResponsiveView from './ResponsiveView';
 import DrawerHandle from './DrawerHandle';
 
@@ -46,8 +46,8 @@ class EmbeddedSearch extends Component {
 
     if (
       pidType !== prevProps.pidType ||
-      !shallowEqual(baseQuery, prevProps.baseQuery) ||
-      !shallowEqual(baseFacetsQuery, prevProps.baseFacetsQuery)
+      baseQuery !== prevProps.baseQuery ||
+      baseFacetsQuery !== prevProps.baseFacetsQuery
     ) {
       this.searchForCurrentQueryState();
     }
@@ -104,7 +104,7 @@ class EmbeddedSearch extends Component {
   async fetchAggregations() {
     const { pidType, baseFacetsQuery } = this.props;
     const query = {
-      ...baseFacetsQuery,
+      ...baseFacetsQuery.toJS(),
       ...this.getSearchQuery(),
     };
     const queryString = stringify(query, { indices: false });
@@ -127,7 +127,7 @@ class EmbeddedSearch extends Component {
   getSearchQuery() {
     const { baseQuery } = this.props;
     const { query } = this.state;
-    return mergeWithConcattingArrays(baseQuery, query);
+    return mergeWithConcattingArrays(baseQuery.toJS(), query);
   }
 
   renderAggregations() {
@@ -221,13 +221,13 @@ EmbeddedSearch.propTypes = {
   renderResultItem: PropTypes.func.isRequired,
   renderError: PropTypes.func,
   pidType: PropTypes.string.isRequired,
-  baseQuery: PropTypes.objectOf(PropTypes.any),
-  baseFacetsQuery: PropTypes.objectOf(PropTypes.any),
+  baseQuery: PropTypes.instanceOf(Map),
+  baseFacetsQuery: PropTypes.instanceOf(Map),
 };
 
 EmbeddedSearch.defaultProps = {
-  baseQuery: {},
-  baseFacetsQuery: {},
+  baseQuery: Map(),
+  baseFacetsQuery: Map(),
   renderError: () => null,
 };
 
