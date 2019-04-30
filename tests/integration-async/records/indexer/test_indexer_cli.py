@@ -122,6 +122,8 @@ def test_simpleindex_using_multiple_batches(
     app_cli, celery_app_with_context, celery_session_worker, generate_records
 ):
     generate_records(count=5)
+    generate_records(data={"deleted": True})
+
     result = app_cli.invoke(
         simpleindex, ["--yes-i-know", "-t", "lit", "-s", "1", "--queue-name", ""]
     )
@@ -187,12 +189,12 @@ def test_get_query_records_to_index_only_lit_adding_record(app, generate_records
     pids = ["lit"]
     query = get_query_records_to_index(pids)
 
-    expected_count = 0  # does not take deleted record
+    expected_count = 1  # takes ALSO deleted record
     result_count = query.count()
     assert result_count == expected_count
 
 
-def test_get_query_records_to_index_only_lit_adding_record_deleted(
+def test_get_query_records_to_index_only_lit_indexes_deleted_record_too(
     app, generate_records
 ):
     generate_records(count=1)
@@ -201,6 +203,6 @@ def test_get_query_records_to_index_only_lit_adding_record_deleted(
     pids = ["lit"]
     query = get_query_records_to_index(pids)
 
-    expected_count = 1
+    expected_count = 2
     result_count = query.count()
     assert result_count == expected_count
