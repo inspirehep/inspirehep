@@ -918,3 +918,53 @@ def test_citation_summary_facet(api_client, db, create_record_factory):
     response_data_citation_summary = response_data["aggregations"]["citation_summary"]
     assert response_status_code == 200
     assert response_data_citation_summary == expected_citation_summary_aggregation
+
+
+def test_h_index_with_more_papers_than_citations(api_client, db, create_record_factory):
+    published_papers_citation_count = [1, 2, 2, 2, 2]
+    for count in published_papers_citation_count:
+        data = {
+            "refereed": True,
+            "citation_count": count,
+            "facet_author_name": "BAI_N. Girard",
+            "citeable": True,
+        }
+        create_record_factory("lit", data=data, with_indexing=True)
+
+    response = api_client.get(
+        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary"
+    )
+
+    expected_h_index = {"value": {"all": 2, "published": 2}}
+
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_h_index = response_data["aggregations"]["citation_summary"]["h-index"]
+    assert response_status_code == 200
+    assert response_data_h_index == expected_h_index
+
+
+def test_h_index_with_as_many_papers_as_citations(
+    api_client, db, create_record_factory
+):
+    published_papers_citation_count = [5, 5, 5, 5, 5]
+    for count in published_papers_citation_count:
+        data = {
+            "refereed": True,
+            "citation_count": count,
+            "facet_author_name": "BAI_N. Girard",
+            "citeable": True,
+        }
+        create_record_factory("lit", data=data, with_indexing=True)
+
+    response = api_client.get(
+        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary"
+    )
+
+    expected_h_index = {"value": {"all": 5, "published": 5}}
+
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_h_index = response_data["aggregations"]["citation_summary"]["h-index"]
+    assert response_status_code == 200
+    assert response_data_h_index == expected_h_index
