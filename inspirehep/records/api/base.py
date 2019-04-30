@@ -801,7 +801,7 @@ class InspireRecord(Record):
         metadata["url"] = file_path
         return metadata
 
-    def get_serialized_data(self, serializer=None):
+    def get_enhanced_es_data(self, serializer=None):
         """Prepares serialized record for elasticsearch
         Args:
             serializer(Schema): Schema which should be used to serialize/enhance
@@ -816,10 +816,8 @@ class InspireRecord(Record):
                 f"{self.__class__.__name__} is missing data serializer!"
             )
         if not serializer:
-            serializer_module = importlib.import_module(
-                self.__module__.replace("api", "marshmallow")
-            )
-            serializer = getattr(serializer_module, self.es_serializer)
+            serializer = self.es_serializer
+
         return serializer().dump(self).data
 
     def get_ui_data(self, serializer=None):
@@ -967,8 +965,7 @@ class InspireRecord(Record):
         Returns:
             dict: Properly serialized and prepared record
         """
-        serialized_data = self.get_serialized_data()
-        return serialized_data
+        return self.get_enhanced_es_data()
 
     def dumps_for_es(self):
         """Serializes and dumps record for ElasticSearch purposes

@@ -720,7 +720,7 @@ def test_record_throws_exception_when_serializer_is_not_set(
     record_metadata = create_record_factory("lit")
     record = InspireRecord(record_metadata.json)
     with pytest.raises(MissingSerializerError):
-        record.get_serialized_data()
+        record.get_enhanced_es_data()
 
 
 def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db):

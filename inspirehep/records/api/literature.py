@@ -26,6 +26,7 @@ from inspirehep.records.errors import (
     ImportParsingError,
     UnknownImportIdentifierError,
 )
+from inspirehep.records.marshmallow.literature import LiteratureESEnhancementV1
 
 from .base import InspireRecord
 
@@ -48,8 +49,7 @@ class LiteratureRecord(InspireRecord):
 
     pid_type = "lit"
 
-    # TODO: put class instead of `str`
-    es_serializer = "LiteratureESEnhancementV1"
+    es_serializer = LiteratureESEnhancementV1
 
     # TODO: remove and do it in es schema
     ui_serializer = "LiteratureMetadataUISchemaV1"
