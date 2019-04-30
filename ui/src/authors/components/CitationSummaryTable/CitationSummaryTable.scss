@@ -1,0 +1,41 @@
+.__CitationTable__ {
+  $border: $border-width-base $border-style-base $border-color-split;
+  table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  th {
+    color: $secondary-color;
+    font-weight: normal;
+    padding: 1rem;
+  }
+
+  td {
+    padding: 1rem;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  tr {
+    border-top: $border;
+    &:first-child {
+      border-bottom: none;
+      border-top: none;
+      th:not(:first-child) {
+        text-align: right;
+      }
+      th:first-child {
+        width: 40%;
+      }
+    }
+    &:nth-child(2) {
+      border-top: none;
+    }
+  }
+  @media (max-width: $screen-sm-max) {
+    margin-top: 0.188rem !important;
+  }
+  border: $border;
+  border-radius: $card-radius;
+}

@@ -4,6 +4,9 @@ import {
   CITATIONS_REQUEST,
   CITATIONS_ERROR,
   CITATIONS_SUCCESS,
+  CITATIONS_SUMMARY_REQUEST,
+  CITATIONS_SUMMARY_SUCCESS,
+  CITATIONS_SUMMARY_ERROR,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
@@ -11,6 +14,9 @@ export const initialState = fromJS({
   data: [],
   total: 0,
   error: null,
+  loadingCitationSummary: false,
+  citationSummary: null,
+  errorCitationSummary: null,
 });
 
 const citationsReducer = (state = initialState, action) => {
@@ -29,6 +35,21 @@ const citationsReducer = (state = initialState, action) => {
         .set('error', fromJS(action.payload))
         .set('data', initialState.get('data'))
         .set('total', initialState.get('total'));
+    case CITATIONS_SUMMARY_REQUEST:
+      return state.set('loadingCitationSummary', true);
+    case CITATIONS_SUMMARY_SUCCESS:
+      return state
+        .set('loadingCitationSummary', false)
+        .set('errorCitationSummary', initialState.get('error'))
+        .set(
+          'citationSummary',
+          fromJS(action.payload.aggregations.citation_summary)
+        );
+    case CITATIONS_SUMMARY_ERROR:
+      return state
+        .set('loadingCitationSummary', false)
+        .set('errorCitationSummary', fromJS(action.payload))
+        .set('citationSummary', initialState.get('citationSummary'));
     default:
       return state;
   }
