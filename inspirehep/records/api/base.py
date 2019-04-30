@@ -1038,7 +1038,7 @@ class InspireRecord(Record):
         records_uuids = self.get_records_ids_by_pids(proper_records_pids)
         referenced_records = set()
         references_waiting_for_commit = []
-        citation_date = self.get_earliest_date()
+        citation_date = self.earliest_date
         for reference in records_uuids:
             if reference not in referenced_records:
                 referenced_records.add(reference)
@@ -1055,9 +1055,14 @@ class InspireRecord(Record):
         if references_waiting_for_commit:
             db.session.bulk_save_objects(references_waiting_for_commit)
 
-    def get_earliest_date(self):
+    @property
+    def earliest_date(self):
         """Returns earliest date. If earliest date is missing month or day
-        it's set as 1 as DB does not accept date without day or month"""
+        it's set as 1 as DB does not accept date without day or month
+
+        Returns:
+            str: earliest date represented in a string
+        """
         date_paths = [
             "preprint_date",
             "thesis_info.date",

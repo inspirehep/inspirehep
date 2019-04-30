@@ -7,6 +7,7 @@
 
 import json
 import os
+from copy import deepcopy
 
 import pytest
 import requests_mock
@@ -22,7 +23,7 @@ my_vcr = vcr.VCR(
 
 # FIXME: Move this to a separate file
 def test_literature_search_application_json_get(
-    api_client, db, es, create_record, datadir
+    api_client, db, es_clear, create_record, datadir
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -40,6 +41,7 @@ def test_literature_search_application_json_get(
         "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
+        "citation_count": 0,
     }
 
     response = api_client.get("/literature", headers=headers)
@@ -51,7 +53,9 @@ def test_literature_search_application_json_get(
     assert expected_data == response_data_metadata
 
 
-def test_literature_search_application_json_ui_get(api_client, db, create_record):
+def test_literature_search_application_json_ui_get(
+    api_client, db, create_record, es_clear
+):
     data = {
         "control_number": 666,
         "titles": [{"title": "Partner walk again seek job."}],
@@ -60,6 +64,7 @@ def test_literature_search_application_json_ui_get(api_client, db, create_record
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     expected_status_code = 200
     expected_data = {
+        "citation_count": 0,
         "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
@@ -74,7 +79,7 @@ def test_literature_search_application_json_ui_get(api_client, db, create_record
     assert expected_data == response_data_metadata
 
 
-def test_literature_application_json_get(api_client, db, es, create_record):
+def test_literature_application_json_get(api_client, db, es_clear, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -116,7 +121,7 @@ def test_literature_application_json_post(api_client, db):
 
 
 @pytest.mark.xfail(reason="references.``recid`` is missing from ES serializer")
-def test_literature_citations(api_client, db, es, create_record):
+def test_literature_citations(api_client, db, es_clear, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -157,7 +162,7 @@ def test_literature_citations(api_client, db, es, create_record):
 
 @pytest.mark.xfail(reason="references.``recid`` is missing from ES serializer")
 def test_literature_citations_with_superseded_citing_records(
-    api_client, db, create_record
+    api_client, db, create_record, es_clear
 ):
     record = create_record("lit")
     record_control_number = record["control_number"]
@@ -178,12 +183,11 @@ def test_literature_citations_with_superseded_citing_records(
             {"record": {"$ref": "https://link-to-any-other-record"}},
         ],
     }
+    record_citing = create_record("lit", data=record_data)
+    record_citing_control_number = record_citing["control_number"]
+    record_citing_titles = record_citing["titles"]
 
-    record_citing = create_record("lit", data=record_data, with_indexing=True)
-    record_citing_control_number = record_citing.json["control_number"]
-    record_citing_titles = record_citing.json["titles"]
-
-    superseded__record_data = {
+    superseded_record_data = {
         "references": [{"recid": record_control_number}],
         "related_records": [
             {
@@ -192,7 +196,7 @@ def test_literature_citations_with_superseded_citing_records(
             }
         ],
     }
-    create_record("lit", data=superseded__record_data, with_indexing=True)
+    create_record("lit", data=superseded_record_data)
 
     expected_status_code = 200
     expected_data = {
@@ -207,7 +211,7 @@ def test_literature_citations_with_superseded_citing_records(
         }
     }
 
-    response = api_client.get("/literature/{}/citations".format(record_control_number))
+    response = api_client.get(f"/literature/{record_control_number}/citations")
     response_status_code = response.status_code
     response_data = json.loads(response.data)
 
@@ -215,7 +219,7 @@ def test_literature_citations_with_superseded_citing_records(
     assert expected_data == response_data
 
 
-def test_literature_citations_empty(api_client, db, create_record):
+def test_literature_citations_empty(api_client, db, create_record, es_clear):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -230,7 +234,7 @@ def test_literature_citations_empty(api_client, db, create_record):
     assert expected_data == response_data
 
 
-def test_literature_citations_missing_pids(api_client, db):
+def test_literature_citations_missing_pids(api_client, db, es_clear):
     missing_control_number = 1
     response = api_client.get("/literature/{}/citations".format(missing_control_number))
     response_status_code = response.status_code
@@ -240,7 +244,7 @@ def test_literature_citations_missing_pids(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_literature_facets(api_client, db, create_record, es):
+def test_literature_facets(api_client, db, create_record, es_clear):
     record = create_record("lit")
 
     response = api_client.get("/literature/facets")
@@ -270,10 +274,10 @@ def test_literature_facets(api_client, db, create_record, es):
         "with custom fields that are used for facets, hence we cannot test the facets."
     )
 )
-def test_literature_facets_with_selected_facet(api_client, db, create_record_factory):
-    record_1 = create_record_factory("lit")
+def test_literature_facets_with_selected_facet(api_client, db, create_record, es_clear):
+    record_1 = create_record("lit")
     data = {"document_type": ["Thesis"]}
-    record_2 = create_record_factory("lit", data=data)
+    record_2 = create_record("lit", data=data)
 
     response = api_client.get("/literature/facets/?doc_type=article")
     response_data = json.loads(response.data)
@@ -301,7 +305,9 @@ def test_literature_facets_with_selected_facet(api_client, db, create_record_fac
     assert expected_result_hits == response_data_hits
 
 
-def test_literature_facets_author_count_does_not_have_empty_bucket(api_client, db, es):
+def test_literature_facets_author_count_does_not_have_empty_bucket(
+    api_client, db, es_clear
+):
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
@@ -315,7 +321,7 @@ def test_literature_facets_author_count_does_not_have_empty_bucket(api_client, d
     """
 )
 def test_literature_facets_author_count_returns_non_empty_bucket(
-    api_client, db, create_record, es
+    api_client, db, create_record, es_clear
 ):
     create_record("lit", data={"authors": [{"full_name": "Harun Urhan"}]})
     response = api_client.get("/literature/facets")
@@ -326,7 +332,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(
     assert buckets[0]["doc_count"] == 1
 
 
-def test_literature_facets_arxiv(api_client, db, create_record, es):
+def test_literature_facets_arxiv(api_client, db, create_record, es_clear):
     record = create_record("lit")
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
@@ -663,7 +669,7 @@ def test_institutions_search_json_get(api_client, db, create_record_factory):
     assert expected_status_code == response_status_code
 
 
-def test_literature_facets_collaboration(api_client, db, create_record, es):
+def test_literature_facets_collaboration(api_client, db, create_record, es_clear):
     data_1 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
@@ -688,6 +694,9 @@ def test_literature_facets_collaboration(api_client, db, create_record, es):
         {"key": "Collab", "doc_count": 1},
     ]
 
+    expected_data = deepcopy(data_1)
+    expected_data.update(citation_count=0)
+
     assert expected_status_code == response_status_code
     assert expected_collaboration_buckets == response_data_collaboration_buckets
 
@@ -696,10 +705,10 @@ def test_literature_facets_collaboration(api_client, db, create_record, es):
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
-    assert data_1 == response_data["hits"]["hits"][0]["metadata"]
+    assert expected_data == response_data["hits"]["hits"][0]["metadata"]
 
 
-def test_author_facets(api_client, db, create_record_factory):
+def test_author_facets(api_client, db, create_record_factory, es_clear):
     record = create_record_factory("lit")
 
     response = api_client.get("/literature/facets?facet_name=hep-author-publication")

@@ -213,17 +213,11 @@ class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
     author_count = fields.Method("get_author_count")
     authors = fields.Nested(AuthorsInfoSchemaForES, dump_only=True, many=True)
     bookautocomplete = fields.Method("get_bookautocomplete")
-    earliest_date = fields.Method("get_earliest_date")
+    earliest_date = fields.Raw(dump_only=True, default=missing)
     facet_inspire_doc_type = fields.Method("get_inspire_document_type")
     facet_author_name = fields.Method("get_facet_author_name")
     id_field = fields.Integer(dump_only=True, dump_to="id", attribute="control_number")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
-
-    def get_earliest_date(self, record):
-        earliest_date = record.get_earliest_date()
-        if earliest_date:
-            return earliest_date
-        return missing
 
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""

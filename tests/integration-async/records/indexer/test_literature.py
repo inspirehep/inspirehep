@@ -14,6 +14,7 @@ from invenio_search import current_search_client as es
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.receivers import index_after_commit
+from inspirehep.search.api import LiteratureSearch
 
 
 def test_lit_record_appear_in_es_when_created(
@@ -118,7 +119,7 @@ def test_index_record_manually(
 
 
 def test_lit_records_with_citations_updates(
-    app, celery_app_with_context, celery_session_worker
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
@@ -129,12 +130,18 @@ def test_lit_records_with_citations_updates(
     LiteratureRecord.create(data_2)
     db.session.commit()
     time.sleep(5)
-    es.indices.refresh("records-hep")
-    es.search("records-hep")["hits"]
 
-    #  Todo: Add check for `process_references_for_record`
-    #   when there will be citation_count implemented
-    #   because now there is nothing to check...
+    es.indices.refresh("records-hep")
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [rec],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 1},
+        },
+    ]
+    retry_until_matched(steps)
 
 
 def test_many_records_in_one_commit(

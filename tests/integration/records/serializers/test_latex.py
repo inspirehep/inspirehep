@@ -11,7 +11,7 @@ from freezegun import freeze_time
 @freeze_time("1994-12-19")
 def test_latex_eu(api_client, db, create_record_factory):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
-    data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
+    data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
 
     record = create_record_factory("lit", data=data, with_indexing=True)
     record_control_number = record.json["control_number"]
@@ -22,11 +22,9 @@ def test_latex_eu(api_client, db, create_record_factory):
         "%\\cite{637275237}\n"
         "\\bibitem{637275237}\n"
         "%``This is a title.,''\n"
-        "% citations counted in INSPIRE as of 19 Dec 1994"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(
-        "/literature/{}".format(record_control_number), headers=headers
-    )
+    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     etag = response.headers.get("Etag")
@@ -42,7 +40,7 @@ def test_latex_eu(api_client, db, create_record_factory):
 @freeze_time("1994-12-19")
 def test_latex_us(api_client, db, create_record_factory):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
-    data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
+    data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
 
     record = create_record_factory("lit", data=data, with_indexing=True)
     record_control_number = record.json["control_number"]
@@ -53,11 +51,9 @@ def test_latex_us(api_client, db, create_record_factory):
         "%\\cite{637275237}\n"
         "\\bibitem{637275237}\n"
         "%``This is a title.,''\n"
-        "% citations counted in INSPIRE as of 19 Dec 1994"
+        "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(
-        "/literature/{}".format(record_control_number), headers=headers
-    )
+    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     etag = response.headers.get("Etag")

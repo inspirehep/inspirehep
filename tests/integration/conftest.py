@@ -140,7 +140,6 @@ def create_record(base_app, db, es_clear):
         record = LiteratureRecord.create(record_data)
         record.commit()
         record._indexing = record._index()
-        db.session.commit()
         es_clear.indices.refresh(index)
         return record
 

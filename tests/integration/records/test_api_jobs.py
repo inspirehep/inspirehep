@@ -161,3 +161,11 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db)
     record = InspireRecord.create_or_update(data)
     assert type(record) == JobsRecord
     assert record.pid_type == "job"
+
+
+def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db):
+    data = faker.record("job")
+    record = JobsRecord.create(data)
+
+    with pytest.raises(AttributeError):
+        record.citation_count
