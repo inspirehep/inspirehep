@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { List } from 'immutable';
 
-import fetchCitations from '../../actions/citations';
+import { fetchCitations } from '../../actions/citations';
 import ListWithPagination from '../components/ListWithPagination';
 import ContentBox from '../components/ContentBox';
 import CitationItem from '../components/CitationItem';

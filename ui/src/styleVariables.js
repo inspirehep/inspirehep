@@ -17,4 +17,8 @@ module.exports = {
   'btn-default-bg': '#fff',
   'btn-height-base': '32px',
   'padding-md': '16px',
+  'border-width-base': '1px',
+  'border-style-base': 'solid',
+  'border-color-split': 'rgb(232, 232, 232)',
+  'card-radius': '2px',
 };

@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationSummaryTable renders table with all props given 1`] = `
+<div
+  className="__CitationTable__"
+>
+  <table>
+    <tbody>
+      <tr>
+        <th>
+          <strong
+            className="f5"
+          >
+            Citation Summary
+          </strong>
+        </th>
+        <th>
+          All
+        </th>
+        <th>
+          <Tooltip
+            arrowPointAtCenter={false}
+            autoAdjustOverflow={true}
+            mouseEnterDelay={0.1}
+            mouseLeaveDelay={0.1}
+            placement="top"
+            prefixCls="ant-tooltip"
+            title="Published papers are believed to have undergone rigorous peer-review."
+            transitionName="zoom-big-fast"
+          >
+            Published
+          </Tooltip>
+        </th>
+      </tr>
+      <tr>
+        <th>
+          Papers
+        </th>
+        <td>
+          <Link
+            replace={false}
+            to="/literature?author=BAI_Ben&q=citeable%3Atrue"
+          >
+            29
+          </Link>
+        </td>
+        <td>
+          <Link
+            replace={false}
+            to="/literature?author=BAI_Ben&q=citeable%3Atrue%20and%20refereed%3Atrue"
+          >
+            0
+          </Link>
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Citations
+        </th>
+        <td>
+          2
+        </td>
+        <td>
+          20
+        </td>
+      </tr>
+      <tr>
+        <th>
+          h-index
+        </th>
+        <td>
+          8
+        </td>
+        <td>
+          9
+        </td>
+      </tr>
+      <tr>
+        <th>
+          Citations/paper (avg)
+        </th>
+        <td>
+          4.1
+        </td>
+        <td>
+          9.0
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

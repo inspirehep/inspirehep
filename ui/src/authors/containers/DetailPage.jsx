@@ -15,6 +15,7 @@ import AuthorAffiliationList from '../../common/components/AuthorAffiliationList
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
 import SubContentBox from '../../common/components/SubContentBox';
+import CitationSummaryContainer from './CitationSummaryContainer';
 
 class DetailPage extends Component {
   constructor(props) {
@@ -106,7 +107,7 @@ class DetailPage extends Component {
                 <ExperimentList experiments={experiments} />
               </div>
               <div className="mt3">
-                <Row>
+                <Row gutter={20}>
                   {shouldDisplayPositions && (
                     <Col xs={24} md={12} lg={8} xl={7}>
                       <SubContentBox title="Positions">
@@ -114,6 +115,11 @@ class DetailPage extends Component {
                       </SubContentBox>
                     </Col>
                   )}
+                  <Col xs={24} md={12} lg={9} xl={8}>
+                    <CitationSummaryContainer
+                      searchQuery={this.authorLiteratureSearchQuery}
+                    />
+                  </Col>
                 </Row>
               </div>
             </ContentBox>

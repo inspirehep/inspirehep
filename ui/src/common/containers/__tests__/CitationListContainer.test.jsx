@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 
 import CitationListContainer, { PAGE_SIZE } from '../CitationListContainer';
 import { getStoreWithState, getStore } from '../../../fixtures/store';
-import fetchCitations from '../../../actions/citations';
+import { fetchCitations } from '../../../actions/citations';
 
 jest.mock('../../../actions/citations');
 

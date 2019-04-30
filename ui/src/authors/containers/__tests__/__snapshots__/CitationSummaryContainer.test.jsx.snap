@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationSummaryContainer renders with error 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren
+    error={
+      Immutable.Map {
+        "message": "Error",
+      }
+    }
+  >
+    <CitationSummaryTable
+      citationSummary={Immutable.Map {}}
+      searchQuery={
+        Immutable.Map {
+          "author": "BAI_Ben",
+        }
+      }
+    />
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
+exports[`CitationSummaryContainer renders with state from store 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren>
+    <CitationSummaryTable
+      citationSummary={
+        Immutable.Map {
+          "control_number": 170,
+        }
+      }
+      searchQuery={
+        Immutable.Map {
+          "author": "BAI_Ben",
+        }
+      }
+    />
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
