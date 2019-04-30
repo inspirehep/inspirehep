@@ -182,6 +182,7 @@ def test_literature_application_json_search_without_login(
         "publication_info": [{"pubinfo_freetext": "A public publication info"}],
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
         "documents": [{"key": "public", "url": "https://url.to/public/document"}],
+        "citation_count": 0,
     }
     expected_result_len = 1
 
@@ -255,6 +256,7 @@ def test_literature_application_json_search_with_cataloger_login(
             },
             {"key": "public", "url": "https://url.to/public/document"},
         ],
+        "citation_count": 0,
     }
     expected_result_len = 1
 

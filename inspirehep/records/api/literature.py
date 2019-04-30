@@ -18,6 +18,7 @@ from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from invenio_pidstore.models import PersistentIdentifier
 
 from inspirehep.pidstore.api import PidStoreLiterature
+from inspirehep.records.api.mixins import CitationMixin
 from inspirehep.records.errors import (
     ExistingArticleError,
     ImportArticleError,
@@ -43,7 +44,7 @@ ARXIV_URL = (
 CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 
 
-class LiteratureRecord(InspireRecord):
+class LiteratureRecord(InspireRecord, CitationMixin):
     """Literature Record."""
 
     pid_type = "lit"

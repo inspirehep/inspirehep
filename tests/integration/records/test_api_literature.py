@@ -789,3 +789,14 @@ def test_literature_is_not_cited_by_deleted_records(
     assert len(record.model.citations) == 0
     assert len(record.model.references) == 0
     assert len(RecordCitations.query.all()) == 0
+
+
+def test_literature_citation_count_property(base_app, db):
+    data = faker.record("lit")
+    record = InspireRecord.create(data)
+
+    data2 = faker.record("lit", literature_citations=[record["control_number"]])
+    record2 = LiteratureRecord.create(data2)
+
+    assert record.citation_count == 1
+    assert record2.citation_count == 0

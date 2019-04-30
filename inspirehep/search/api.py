@@ -16,6 +16,8 @@ from flask import current_app
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
 
+from inspirehep.pidstore.api import PidStoreBase
+
 from .factories import inspire_query_factory
 
 logger = logging.getLogger(__name__)
@@ -72,6 +74,19 @@ class SearchMixin(object):
 
 class InspireSearch(RecordsSearch, SearchMixin):
     """Base Inspire search classs."""
+
+    @staticmethod
+    def get_record_data_from_es(record):
+        """Queries Elastic Search for this record and returns it as dictionary
+
+        Returns:
+            dict:This record in a way it is represented in Elastic Search
+
+        """
+        endpoint = PidStoreBase._get_config_pid_types_to_endpoints()[record.pid_type]
+        search_conf = current_app.config["RECORDS_REST_ENDPOINTS"][endpoint]
+        search_class = search_conf["search_class"]()
+        return search_class.get_source(record.id)
 
     def source_for_content_type(self, content_type):
         return self

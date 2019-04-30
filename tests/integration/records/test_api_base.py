@@ -730,8 +730,8 @@ def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db):
         LiteratureRecord.create(data)
 
 
-def test_get_earliest_date(base_app, db, datadir, create_record_factory, disable_files):
+def test_earliest_date(base_app, db, datadir, create_record_factory, disable_files):
     data = json.loads((datadir / "1366189.json").read_text())
     record = LiteratureRecord.create(data=data)
 
-    assert record.get_earliest_date() == "2015-05-05"
+    assert record.earliest_date == "2015-05-05"

@@ -176,3 +176,14 @@ def test_create_record_update_citation_table_for_literature_citation(base_app, d
     assert len(record2.model.citations) == 0
     assert len(record2.model.references) == 1
     assert len(RecordCitations.query.all()) == 1
+
+
+def test_data_citation_count_property(base_app, db):
+    data = faker.record("dat")
+    record = InspireRecord.create(data)
+
+    data2 = faker.record("lit", data_citations=[record["control_number"]])
+    record2 = InspireRecord.create(data2)
+
+    assert record.citation_count == 1
+    assert record2.citation_count == 0
