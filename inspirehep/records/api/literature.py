@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-import json
 import logging
 
 import requests
@@ -50,9 +49,6 @@ class LiteratureRecord(InspireRecord):
     pid_type = "lit"
 
     es_serializer = LiteratureESEnhancementV1
-
-    # TODO: remove and do it in es schema
-    ui_serializer = "LiteratureMetadataUISchemaV1"
 
     @classmethod
     def create(cls, data, **kwargs):
@@ -168,7 +164,6 @@ class LiteratureRecord(InspireRecord):
 
     def _dump_for_es(self):
         serialized_data = super()._dump_for_es()
-        serialized_data["_ui_display"] = json.dumps(self.get_ui_data())
         return serialized_data
 
 

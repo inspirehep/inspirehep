@@ -7,7 +7,6 @@
 
 """INSPIRE module that adds more fun to the platform."""
 import hashlib
-import importlib
 import json
 import logging
 import re
@@ -74,7 +73,6 @@ class InspireRecord(Record):
 
     pid_type = None
     es_serializer = None
-    ui_serializer = None
 
     @staticmethod
     def strip_empty_values(data):
@@ -818,21 +816,6 @@ class InspireRecord(Record):
         if not serializer:
             serializer = self.es_serializer
 
-        return serializer().dump(self).data
-
-    def get_ui_data(self, serializer=None):
-        """Prepares serialized record for ui
-        Returns:
-            dict: Enhanced record data
-            None: If serializer is not set.
-        """
-        if not self.ui_serializer and not serializer:
-            return None
-        if not serializer:
-            serializer_module = importlib.import_module(
-                self.__module__.replace("api", "marshmallow")
-            )
-            serializer = getattr(serializer_module, self.ui_serializer)
         return serializer().dump(self).data
 
     def _index(self, force_delete=None):

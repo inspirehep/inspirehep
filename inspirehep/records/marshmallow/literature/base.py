@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
+from copy import deepcopy
 from itertools import chain
 
 from inspire_dojson.utils import strip_empty_values
@@ -13,7 +14,7 @@ from inspire_utils.date import earliest_date, format_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
-from marshmallow import Schema, fields, missing, post_dump
+from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.authors import AuthorsMetadataUISchemaV1
@@ -206,6 +207,7 @@ class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
 
     _created = fields.DateTime(dump_only=True, attribute="created")
     _updated = fields.DateTime(dump_only=True, attribute="updated")
+    _ui_display = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
     _collections = fields.Raw(dump_only=True)
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
@@ -306,6 +308,14 @@ class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
         input_values = [el for el in input_values if el]
 
         return {"input": input_values}
+
+    @pre_dump
+    def populate_ui_display(self, data):
+        data["_ui_display"] = deepcopy(data)
+
+    @post_dump
+    def stringify_ui_display(self, data):
+        data["_ui_display"] = json.dumps(data["_ui_display"])
 
 
 class LiteratureUISchemaV1(RecordSchemaJSONV1):
