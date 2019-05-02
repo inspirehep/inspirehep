@@ -379,32 +379,6 @@ certifi = "*"
 urllib3 = ">=1.23"
 
 [[package]]
-category = "main"
-description = "Python client for Elasticsearch"
-marker = "extra == \"elasticsearch5\""
-name = "elasticsearch"
-optional = false
-python-versions = "*"
-version = "5.5.3"
-
-[package.dependencies]
-urllib3 = ">=1.21.1"
-
-[[package]]
-category = "main"
-description = "Python client for Elasticsearch"
-marker = "extra == \"elasticsearch5\""
-name = "elasticsearch-dsl"
-optional = false
-python-versions = "*"
-version = "5.4.0"
-
-[package.dependencies]
-elasticsearch = ">=5.0.0,<6.0.0"
-python-dateutil = "*"
-six = "*"
-
-[[package]]
 category = "dev"
 description = "Discover and load entry points from installed packages."
 name = "entrypoints"
@@ -466,19 +440,6 @@ itsdangerous = ">=0.24"
 
 [[package]]
 category = "main"
-description = "Simple and extensible admin interface framework for Flask"
-marker = "extra == \"auth\""
-name = "flask-admin"
-optional = false
-python-versions = "*"
-version = "1.5.3"
-
-[package.dependencies]
-Flask = ">=0.7"
-wtforms = "*"
-
-[[package]]
-category = "main"
 description = "Flask extension to integrate Alembic migrations"
 name = "flask-alembic"
 optional = false
@@ -504,20 +465,6 @@ Babel = ">=1.0"
 Flask = "*"
 Jinja2 = ">=2.5"
 speaklater = ">=1.2"
-
-[[package]]
-category = "main"
-description = "Flask-Breadcrumbs adds support for generating site breadcrumb navigation."
-marker = "extra == \"auth\""
-name = "flask-breadcrumbs"
-optional = false
-python-versions = "*"
-version = "0.4.0"
-
-[package.dependencies]
-Flask = ">=0.10.0"
-Flask-Menu = ">=0.2"
-six = ">=1.10.0"
 
 [[package]]
 category = "main"
@@ -597,78 +544,6 @@ version = "0.4.1"
 
 [package.dependencies]
 Flask = "*"
-
-[[package]]
-category = "main"
-description = "Flask extension for sending email"
-marker = "extra == \"auth\""
-name = "flask-mail"
-optional = false
-python-versions = "*"
-version = "0.9.1"
-
-[package.dependencies]
-Flask = "*"
-blinker = "*"
-
-[[package]]
-category = "main"
-description = "Flask-Menu is a Flask extension that adds support for generating menus."
-marker = "extra == \"auth\""
-name = "flask-menu"
-optional = false
-python-versions = "*"
-version = "0.7.0"
-
-[package.dependencies]
-Flask = ">=0.10.1"
-six = ">=1.7.2"
-
-[[package]]
-category = "main"
-description = "OAuthlib for Flask"
-marker = "extra == \"auth\""
-name = "flask-oauthlib"
-optional = false
-python-versions = "*"
-version = "0.9.5"
-
-[package.dependencies]
-Flask = "*"
-oauthlib = ">=1.1.2,<2.0.3 || >2.0.3,<2.0.4 || >2.0.4,<2.0.5 || >2.0.5,<3.0.0"
-requests-oauthlib = ">=0.6.2"
-
-[[package]]
-category = "main"
-description = "Identity management for flask"
-marker = "extra == \"auth\""
-name = "flask-principal"
-optional = false
-python-versions = "*"
-version = "0.4.0"
-
-[package.dependencies]
-Flask = "*"
-blinker = "*"
-
-[[package]]
-category = "main"
-description = "Simple security for Flask apps."
-marker = "extra == \"auth\""
-name = "flask-security"
-optional = false
-python-versions = "*"
-version = "3.0.0"
-
-[package.dependencies]
-Flask = ">=0.11"
-Flask-BabelEx = ">=0.9.3"
-Flask-Login = ">=0.3.0"
-Flask-Mail = ">=0.7.3"
-Flask-Principal = ">=0.3.3"
-Flask-WTF = ">=0.13.1"
-itsdangerous = ">=0.21"
-passlib = ">=1.7"
 
 [[package]]
 category = "main"
@@ -960,15 +835,6 @@ version = "17.5.0"
 
 [[package]]
 category = "main"
-description = "All-in-one infinity value for Python. Can be compared to any object."
-marker = "extra == \"auth\""
-name = "infinity"
-optional = false
-python-versions = "*"
-version = "1.4"
-
-[[package]]
-category = "main"
 description = "INSPIRE-specific rules to transform from MARCXML to JSON and back."
 name = "inspire-dojson"
 optional = false
@@ -1038,18 +904,6 @@ six = ">=1.10.0,<2.0"
 
 [[package]]
 category = "main"
-description = "Python tools for handling intervals (ranges of comparable objects)."
-marker = "extra == \"auth\""
-name = "intervals"
-optional = false
-python-versions = "*"
-version = "0.8.1"
-
-[package.dependencies]
-infinity = ">=0.1.3"
-
-[[package]]
-category = "main"
 description = "Invenio Digital Library Framework."
 name = "invenio"
 optional = false
@@ -1058,64 +912,12 @@ version = "3.1.0"
 
 [package.dependencies]
 Flask = ">=1.0.2"
-invenio-access = ">=1.1.0,<1.2.0"
-invenio-accounts = ">=1.1.1,<1.2.0"
 invenio-app = ">=1.1.0,<1.2.0"
 invenio-base = ">=1.0.2,<1.1.0"
 invenio-cache = ">=1.0.0,<1.1.0"
 invenio-celery = ">=1.0.1,<1.1.0"
 invenio-config = ">=1.0.1,<1.1.0"
 invenio-i18n = ">=1.1.1,<1.2.0"
-invenio-oauth2server = ">=1.0.3,<1.1.0"
-invenio-oauthclient = ">=1.1.2,<1.2.0"
-invenio-userprofiles = ">=1.0.1,<1.1.0"
-
-[[package]]
-category = "main"
-description = "Invenio module for common role based access control."
-marker = "extra == \"auth\""
-name = "invenio-access"
-optional = false
-python-versions = "*"
-version = "1.1.0"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-Flask-BabelEx = ">=0.9.3"
-invenio-accounts = ">=1.0.2"
-six = ">=1.10"
-
-[[package]]
-category = "main"
-description = "Invenio user management and authentication."
-marker = "extra == \"auth\""
-name = "invenio-accounts"
-optional = false
-python-versions = "*"
-version = "1.1.1"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-Flask-Admin = ">=1.3.0"
-Flask-BabelEx = ">=0.9.3"
-Flask-Breadcrumbs = ">=0.3.0"
-Flask-CeleryExt = ">=0.3.1"
-Flask-KVSession = ">=0.6.1"
-Flask-Login = ">=0.3.0"
-Flask-Mail = ">=0.9.1"
-Flask-Menu = ">=0.4.0"
-Flask-Security = ">=3.0.0"
-Flask-WTF = ">=0.13.1"
-SQLAlchemy-Utils = ">=0.31.0"
-cryptography = ">=2.1.4"
-future = ">=0.16.0"
-invenio-i18n = ">=1.0.0"
-maxminddb-geolite2 = ">=2017.404"
-passlib = ">=1.7.1"
-pyjwt = ">=1.5.0"
-redis = ">=2.10.5"
-simplekv = ">=0.11.2"
-ua-parser = ">=0.7.3"
 
 [[package]]
 category = "main"
@@ -1198,7 +1000,6 @@ Flask-Alembic = ">=2.0.1"
 Flask-SQLAlchemy = ">=2.1"
 SQLAlchemy = ">=1.0"
 SQLAlchemy-Utils = ">=0.31.0"
-psycopg2-binary = ">=2.7.4"
 
 [[package]]
 category = "main"
@@ -1270,67 +1071,6 @@ version = "1.0.0"
 [package.dependencies]
 Flask = ">=0.11.1"
 six = ">=1.10.0"
-
-[[package]]
-category = "main"
-description = "Invenio-Mail is an integration layer between Invenio and Flask-Mail."
-marker = "extra == \"auth\""
-name = "invenio-mail"
-optional = false
-python-versions = "*"
-version = "1.0.2"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-Flask-Mail = ">=0.9.1"
-
-[[package]]
-category = "main"
-description = "Invenio module that implements OAuth 2 server."
-marker = "extra == \"auth\""
-name = "invenio-oauth2server"
-optional = false
-python-versions = "*"
-version = "1.0.3"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-Flask-BabelEx = ">=0.9.2"
-Flask-Breadcrumbs = ">=0.4.0"
-Flask-Login = ">=0.3.0"
-Flask-OAuthlib = ">=0.9.3"
-Flask-WTF = ">=0.13.1"
-SQLAlchemy-Utils = ">=0.33.0"
-WTForms-Alchemy = ">=0.15.0"
-future = ">=0.16.0"
-invenio-accounts = ">=1.0.0"
-oauthlib = ">=1.1.2,<3.0.0"
-pyjwt = ">=1.5.0"
-requests-oauthlib = ">=0.5.0,<1.2.0"
-six = ">=1.10.0"
-
-[[package]]
-category = "main"
-description = "Invenio module that provides OAuth web authorization support."
-marker = "extra == \"auth\""
-name = "invenio-oauthclient"
-optional = false
-python-versions = "*"
-version = "1.1.2"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-Flask-BabelEx = ">=0.9.3"
-Flask-Breadcrumbs = ">=0.3.0"
-Flask-OAuthlib = ">=0.9.3"
-blinker = ">=1.4"
-invenio-accounts = ">=1.0.0"
-invenio-mail = ">=1.0.0"
-oauthlib = ">=1.1.2,<3.0.0"
-requests-oauthlib = ">=0.5.0,<1.2.0"
-six = ">=1.9"
-sqlalchemy-utils = ">=0.32.0"
-uritools = ">=1.0.1"
 
 [[package]]
 category = "main"
@@ -1419,29 +1159,8 @@ version = "1.1.0"
 
 [package.dependencies]
 Flask = ">=0.11.1"
-elasticsearch = ">=5.0.0,<6.0.0"
-elasticsearch-dsl = ">=5.1.0,<6.0.0"
 idna = ">=2.5,<2.8"
 urllib3 = ">=1.21.1,<1.25"
-
-[[package]]
-category = "main"
-description = "User profiles module for Invenio."
-marker = "extra == \"auth\""
-name = "invenio-userprofiles"
-optional = false
-python-versions = "*"
-version = "1.0.1"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-Flask-BabelEx = ">=0.9.3"
-Flask-Breadcrumbs = ">=0.3.0"
-Flask-Mail = ">=0.9.1"
-Flask-Menu = ">=0.4.0"
-Flask-WTF = ">=0.13.1"
-WTForms = ">=2.0.1"
-invenio-accounts = ">=1.0.0"
 
 [[package]]
 category = "main"
@@ -1688,27 +1407,6 @@ python-versions = "*"
 version = "2.19.2"
 
 [[package]]
-category = "main"
-description = "Reader for the MaxMind DB format"
-marker = "extra == \"auth\""
-name = "maxminddb"
-optional = false
-python-versions = "*"
-version = "1.4.1"
-
-[[package]]
-category = "main"
-description = "Provides access to the geolite2 database.  This product includes GeoLite2 data created by MaxMind, available from http://www.maxmind.com/"
-marker = "extra == \"auth\""
-name = "maxminddb-geolite2"
-optional = false
-python-versions = "*"
-version = "2018.703"
-
-[package.dependencies]
-maxminddb = "*"
-
-[[package]]
 category = "dev"
 description = "McCabe checker, plugin for flake8"
 name = "mccabe"
@@ -1782,15 +1480,6 @@ version = "1.3.3"
 
 [[package]]
 category = "main"
-description = "A generic, spec-compliant, thorough implementation of the OAuth request-signing logic"
-marker = "extra == \"auth\""
-name = "oauthlib"
-optional = false
-python-versions = "*"
-version = "2.1.0"
-
-[[package]]
-category = "main"
 description = "Ordered Multivalue Dictionary - omdict."
 name = "orderedmultidict"
 optional = false
@@ -1821,15 +1510,6 @@ name = "parso"
 optional = false
 python-versions = "*"
 version = "0.4.0"
-
-[[package]]
-category = "main"
-description = "comprehensive password hashing framework supporting over 30 schemes"
-marker = "extra == \"auth\""
-name = "passlib"
-optional = false
-python-versions = "*"
-version = "1.7.1"
 
 [[package]]
 category = "dev"
@@ -1889,7 +1569,7 @@ description = "A framework for managing and maintaining multi-language pre-commi
 name = "pre-commit"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.15.1"
+version = "1.15.2"
 
 [package.dependencies]
 "aspy.yaml" = "*"
@@ -1917,15 +1597,6 @@ version = "2.0.9"
 [package.dependencies]
 six = ">=1.9.0"
 wcwidth = "*"
-
-[[package]]
-category = "main"
-description = "psycopg2 - Python-PostgreSQL Database Adapter"
-marker = "extra == \"postgresql\""
-name = "psycopg2-binary"
-optional = false
-python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
-version = "2.8.1"
 
 [[package]]
 category = "main"
@@ -1997,7 +1668,7 @@ category = "main"
 description = "C parser in Python"
 name = "pycparser"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.19"
 
 [[package]]
@@ -2047,15 +1718,6 @@ version = "1.9.0"
 [package.dependencies]
 setuptools = "*"
 six = "*"
-
-[[package]]
-category = "main"
-description = "JSON Web Token implementation in Python"
-marker = "extra == \"auth\""
-name = "pyjwt"
-optional = false
-python-versions = "*"
-version = "1.7.1"
 
 [[package]]
 category = "dev"
@@ -2160,7 +1822,7 @@ version = "0.14.0"
 [package.dependencies]
 Flask = "*"
 Werkzeug = ">=0.7"
-pytest = [">=3.6", "*", ">=3.6", "*"]
+pytest = [">=3.6", "*"]
 
 [[package]]
 category = "dev"
@@ -2272,7 +1934,7 @@ category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "5.1"
 
 [[package]]
@@ -2332,19 +1994,6 @@ version = "1.5.2"
 [package.dependencies]
 requests = ">=1.1"
 six = "*"
-
-[[package]]
-category = "main"
-description = "OAuthlib authentication support for Requests."
-marker = "extra == \"auth\""
-name = "requests-oauthlib"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.1.0"
-
-[package.dependencies]
-oauthlib = ">=2.1.0,<3.0.0"
-requests = ">=2.0.0"
 
 [[package]]
 category = "main"
@@ -2466,7 +2115,7 @@ category = "main"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
 name = "simplejson"
 optional = false
-python-versions = "*"
+python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "3.16.0"
 
 [[package]]
@@ -2594,29 +2243,11 @@ version = "1.3.1"
 
 [[package]]
 category = "main"
-description = "Python port of Browserscope's user agent parser"
-marker = "extra == \"auth\""
-name = "ua-parser"
-optional = false
-python-versions = "*"
-version = "0.8.0"
-
-[[package]]
-category = "main"
 description = "ASCII transliterations of Unicode text"
 name = "unidecode"
 optional = false
 python-versions = "*"
 version = "1.0.23"
-
-[[package]]
-category = "main"
-description = "RFC 3986 compliant, Unicode-aware, scheme-agnostic replacement for urlparse"
-marker = "extra == \"auth\""
-name = "uritools"
-optional = false
-python-versions = "*"
-version = "2.2.0"
 
 [[package]]
 category = "main"
@@ -2633,19 +2264,6 @@ name = "uwsgi"
 optional = false
 python-versions = "*"
 version = "2.0.18"
-
-[[package]]
-category = "main"
-description = "Python Data Validation for Humans™."
-marker = "extra == \"auth\""
-name = "validators"
-optional = false
-python-versions = "*"
-version = "0.12.4"
-
-[package.dependencies]
-decorator = ">=3.4.0"
-six = ">=1.4.0"
 
 [[package]]
 category = "dev"
@@ -2764,37 +2382,6 @@ python-versions = "*"
 version = "2.2.1"
 
 [[package]]
-category = "main"
-description = "Generates WTForms forms from SQLAlchemy models."
-marker = "extra == \"auth\""
-name = "wtforms-alchemy"
-optional = false
-python-versions = "*"
-version = "0.16.9"
-
-[package.dependencies]
-SQLAlchemy = ">=1.0"
-SQLAlchemy-Utils = ">=0.32.6"
-WTForms = ">=1.0.4"
-WTForms-Components = ">=0.9.2"
-six = ">=1.4.1"
-
-[[package]]
-category = "main"
-description = "Additional fields, validators and widgets for WTForms."
-marker = "extra == \"auth\""
-name = "wtforms-components"
-optional = false
-python-versions = "*"
-version = "0.10.4"
-
-[package.dependencies]
-WTForms = ">=1.0.4"
-intervals = ">=0.6.0"
-six = ">=1.4.1"
-validators = ">=0.5.0"
-
-[[package]]
 category = "dev"
 description = "Yet another URL library"
 marker = "python_version >= \"3.4\""
@@ -2870,27 +2457,18 @@ cssselect = ["066d8bc5229af09617e24b3ca4d52f1f9092d9e061931f4184cd572885c23204",
 decorator = ["86156361c50488b84a3f148056ea716ca587df2f0de1d34750d35c21312725de", "f069f3a01830ca754ba5258fde2278454a0b5b79e0d7f5c13b3b97e57d4acff6"]
 dojson = ["a52fd3466cbdeae996817a27e58f97bde573a5b790f85cf42c43211d4cff298c", "fb5c362cea79ee1215778cdf36f0d2cca9885e1068fc90d6a6dafcc0ce8a7c5f"]
 dulwich = ["afbe070f6899357e33f63f3f3696e601731fef66c64a489dea1bc9f539f4a725"]
-elasticsearch = ["658380fd60bdaf746fef12958f0abc49063218ce93ee1ae4ca1fe6291c896433", "ae91b089f2f2b5b3daa04297949e5f805ab12d187218cb587273f472656fd250"]
-elasticsearch-dsl = ["197246ddd556b4b7d2738dfa9e4831068c9b5cb21706f6aca035136d42849109", "cbef6467085d7debc870bc450d996c7ba5b8822eb86a6033bba09134ffb01ba8"]
 entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19", "c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"]
 factory-boy = ["6f25cc4761ac109efd503f096e2ad99421b1159f01a29dbb917359dcd68e08ca", "d552cb872b310ae78bd7429bf318e42e1e903b1a109e899a523293dfa762ea4f"]
 faker = ["00b7011757c4907546f17d0e47df098b542ea2b04c966ee0e80a493aae2c13c8", "745ac8b9c9526e338696e07b7f2e206e5e317e5744e22fdd7c2894bf19af41f1"]
 flake8 = ["859996073f341f2670741b51ec1e67a01da142831aa1fdc6242dbf88dffbe661", "a796a115208f5c03b18f332f7c11729812c8c3ded6c46319c59b53efd3819da8"]
 flask = ["2271c0070dbcb5275fad4a82e29f23ab92682dc45f9dfbc22c02ba9b9322ce48", "a080b744b7e345ccfcbc77954861cb05b3c63786e93f2b3875e0913d44b43f05"]
-flask-admin = ["ca0be6ec11a6913b73f656c65c444ae5be416c57c75638dd3199376ce6bc7422"]
 flask-alembic = ["05a1e6f4148dbfcc9280a393373bfbd250af6f9f4f0ca9f744ef8f7376a3deec", "7e67740b0b08d58dcae0c701d56b56e60f5fa4af907bb82b4cb0469229ba94ff"]
 flask-babelex = ["cf79cdedb5ce860166120136b0e059e9d97b8df07a3bc2411f6243de04b754b4"]
-flask-breadcrumbs = ["49bf108f448b4066eda20631d9ac699fb25310cfe05867c8d36ae67eafdf237c", "95a5adf1df7eb76c910692cb7001f6d7247428d0ab3ad0fde51223fbc1bed62e"]
 flask-caching = ["53a70d02e7c5be308fa2fc7ef8ba7beb6c3e60aaf2929806dd8423206ed79aa1", "7b3ff88348dcc97ebd6d32478c3e40229c6b7039ed5fb7dabb23d411777bfcc1"]
 flask-celeryext = ["2e2828444cbe299fbfc75868f31ae31d1dfff1a1bd7b8a696a1c71af3f6dac52", "39c60bff85a9442bad252eb075d7e1a5ce6a7482e2141e33a577a9b3e2326610"]
 flask-cors = ["7ad56ee3b90d4955148fc25a2ecaa1124fc84298471e266a7fea59aeac4405a5", "7e90bf225fdf163d11b84b59fb17594d0580a16b97ab4e1146b1fb2737c1cfec"]
 flask-limiter = ["473aa5bc97310406aa8c12ab3dc080697bcfa8cd21a6d0aba30916911bbc673c", "8cce98dcf25bf2ddbb824c2b503b4fc8e1a139154240fd2c60d9306bad8a0db8"]
 flask-login = ["c815c1ac7b3e35e2081685e389a665f2c74d7e077cb93cecabaea352da4752ec"]
-flask-mail = ["22e5eb9a940bf407bcf30410ecc3708f3c56cc44b29c34e1726fe85006935f41"]
-flask-menu = ["02adee99456f70fcf4472c5ce04a65a083bce78d39144e4daa38e79a123da7e8", "d54f604b2d93d1d7bb95c78d9188b5855b54af399f8cd9e64b2feabd138608bf"]
-flask-oauthlib = ["cbfe835902569909a19828582c3381148995ad677243016ccad9c951acf69406", "d3e8ea932df01177018c502e5a07eaeb5c27bcb5352b678f14e57f892272bb56"]
-flask-principal = ["f5d6134b5caebfdbb86f32d56d18ee44b080876a27269560a96ea35f75c99453"]
-flask-security = ["d61daa5f5a48f89f30f50555872bdf581b2c65804668b0313345cd7beff26432", "ef837c03558db41335c8dabd16ae4977af0a5ef0c2cdecf738e33ef5202ce489"]
 flask-shell-ipython = ["1a5a9f5479ff9380528ff1896c000160fc2195d9a37b8e4cdd218fc0ce594738", "349b755e17c99f021458250ae18fa234459f35e13a4db82189036b19b14ee1d6"]
 flask-talisman = ["5d77780b2220012a6748e0b603cbbf7889a2833c4e77157794e13dddb183e347", "e4e3ccba66895e1f46d5b62a9cc0f273731da601bc92d2b9af908011298c0e2b"]
 flask-webpackext = ["8a5b9032ed707f920234fcc7c32d24962f17213eb66636a53f5d7d8aa7f18da4", "92569ae05b6799a9eba791cc7877a39f1d5545cabd0d4c2cc5bfb5964dbf4958"]
@@ -2914,15 +2492,11 @@ idutils = ["72468741a574f1cd86fc4219fde4e2456d2c11f789711c397318fa781be8086f", "
 importlib-metadata = ["46fc60c34b6ed7547e2a723fc8de6dc2e3a1173f8423246b3ce497f064e9c3de", "bc136180e961875af88b1ab85b4009f4f1278f8396a60526c0009f503a1a96ca"]
 importlib-resources = ["6e2783b2538bd5a14678284a3962b0660c715e5a0f10243fd5e00a4b5974f50b", "d3279fd0f6f847cced9f7acc19bd3e5df54d34f93a2e7bb5f238f81545787078"]
 incremental = ["717e12246dddf231a349175f48d74d93e2897244939173b01974ab6661406b9f", "7b751696aaf36eebfab537e458929e194460051ccad279c72b755a167eebd4b3"]
-infinity = ["dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"]
 inspire-dojson = ["874215286c6edbf3fa983a1ec2a49a7ead0bcb365876ad2d0df38f22c15b9d0b"]
 inspire-query-parser = ["078945bc08b0fd0a45b4e4a00aef8687608469e2e5868a2d9b614edb4bccb93d"]
 inspire-schemas = ["e991ea4f65b03236291cb85340698ff6295afa291610c63abafe3cb37a770b40"]
 inspire-utils = ["cd0dc632bd35831b5d578a38cd5fa9cb9924eec8b56ba0f2d4484fdfe2851ee4"]
-intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]
 invenio = ["6a35d26f3e230a38518331799770433cef74a06bab48b94424f36be21a35c2be", "96925847b4666f36f0324bfc41239bc80543012b73d5201560e1057275c45a59"]
-invenio-access = ["1e7439bfdb1c9a697fa41dccc79969af445baa0ddb6248f9cadc1046a2bed36f", "430225aa095e4ad11401a84fdf449566498f0e69b8b5c74e77239c1446b9e4da"]
-invenio-accounts = ["82f75c33e66fb57ec7811da22cc2225601b43c600ef303ca45ce20d40f2422cf", "b928535e4f3ffe53fcf07b2056f1f1b27b4ff8b83f57583c489f05db6dec5587"]
 invenio-app = ["617b8e80e313e46db3d6476fbd4848423115b8d4cf25505f86928c4c94fdbb4a", "b8e084aa57f9a4f2c6439872339d73364ece15be14f75a5ebc6f869eac4d1610"]
 invenio-base = ["6e532854a43e4f54fc7d9b1cbda720ce4ce6383b00cee6ba5f7e86ef78f12fe2", "f972e10b69a68a80c342f0bcf6b3b02a6a67af4fb6e8e347ce8b482fcb47e973"]
 invenio-cache = ["8431d8b68dbb737cd7035f6467fec18dd29ad9ac35e20405d52af6c2d294557a", "f3620bb842f9084ddd5dc81f0fe234f58228c33f59e6771483fd09cb127201cc"]
@@ -2934,16 +2508,12 @@ invenio-i18n = ["69513d531ccffdfa47cec1e7cd701c72966573d2e9c4e24c96607cb7324dce4
 invenio-indexer = ["f51a7eda14048da000b4a1ee74a137fd33d9b96119daa968af1b2fe6a4421e8c"]
 invenio-jsonschemas = ["12e2f3ac6013c741abe9225480183131591f008afb4a685fa3fa96203d7ca07a", "acaa24e0f9d939a7c63ce24f383779f2b2d2f15925c2d35c4bf346066ce7a67c"]
 invenio-logging = ["3fbb98df403cf6d8a8fc99aa22229567ea2034d81034dd2347b3cd65689275b7", "43e23b47c46c3f078240e4aae24640c63743ac9a9955b6c2dc0b495ce073e340"]
-invenio-mail = ["898952aa8984426074fd92b60bbe3ac67117cae0c724724aa63476416a7b7647", "fcd9ec4a89e0e68d09a9b9a638ee625e260ef98d6bc9d7aa172ec3969a95933f"]
-invenio-oauth2server = ["303b642e24ca8942d1c5f888ea648625ee4f27ce83bda31adb6a047bac6aca1b", "d5f5f12df1a76d65f17b3dafdc40cec91667f4cb41694e4ab134b7d31018a0b7"]
-invenio-oauthclient = ["4a131e560e321406aaf95530831093e3d259ccef5d1fd539deff38391824db7a", "fe6a47b1c5bae968a7d7a081cb1d2dd782a427f401cf2f42d96357293e5766b8"]
 invenio-pidstore = ["582b28e7e2bdf4df93e5398a0e147b2eb08690ede339249dd3a8c92b713e6f00", "77f59075dfa34564b913e5d58f37d55b2c78d7b4fa1eeaa5f8c42576848bb06d"]
 invenio-records = ["56487d0b7b800877e45f385dbba831fc988ca4df935ced281543dcaa1b6dd351", "d25c865c7ba3be059a5699e5e135a46e6fbb06370b58754ef22c7fdf337a12f1"]
 invenio-records-files = ["d198e3f0fa735069ab2823f5108141aa9afd713939244773f1c05024ac5eeef8", "e471816fca8e8273dddff33a215e9c398f5b5eeef81d153008dc676e4a31dd15"]
 invenio-records-rest = ["534eba23d788cf50258896f41efb859a5057d6658e29851fb47071d385ed4128", "d225db7788d1650ffcd7f13cf9923ff223877efb34d290e02f59233f902935b5"]
 invenio-rest = ["665cdc6d7f47b532e4823dc1a0a62de32e31caf387efc93aff7593a34124ee1d", "e5a73fcfc15c052840608950c0524447f1e86d24cc58a8fbf12a48a82f7e582a"]
 invenio-search = ["13a3370fb508979f8d0fa2ffe834ae1abc39dc7fcf19e1aec6b2c2b9dedab8f8", "2fa00558e6056bcf75065830d021880bda72f353d9fdca892a219c28f23a4eba"]
-invenio-userprofiles = ["607a8722a3a12af001a0435ca1baf1bbe7e5f359c237acf6c442cc8c5feba515", "6ab44b7a7682b2ba883f58256bec3c789491c7e78b8e3526622e978647aa2ae6"]
 ipython = ["b038baa489c38f6d853a3cfc4c635b0cda66f2864d136fe8f40c1a6e334e2a6b", "f5102c1cd67e399ec8ea66bcebe6e3968ea25a8977e53f012963e5affeb1fe38"]
 ipython-genutils = ["72dd37233799e619666c9f639a9da83c34013a73e8bbc79a7a6348d93c61fab8", "eb2e116e75ecef9d4d228fdc66af54269afa26ab4463042e33785b887c628ba8"]
 isbnid-fork = ["8d878866aa0e7f06e700a37fce586c7398ce4837da8bca39683db7028a9c3837"]
@@ -2968,8 +2538,6 @@ lxml = ["03984196d00670b2ab14ae0ea83d5cc0cfa4f5a42558afa9ab5fa745995328f5", "081
 mako = ["04092940c0df49b01f43daea4f5adcecd0e50ef6a4b222be5ac003d5d84b2843"]
 markupsafe = ["00bc623926325b26bb9605ae9eae8a215691f33cae5df11ca5424f06f2d1f473", "09027a7803a62ca78792ad89403b1b7a73a01c8cb65909cd876f7fcebd79b161", "09c4b7f37d6c648cb13f9230d847adf22f8171b1ccc4d5682398e77f40309235", "1027c282dad077d0bae18be6794e6b6b8c91d58ed8a8d89a89d59693b9131db5", "24982cc2533820871eba85ba648cd53d8623687ff11cbb805be4ff7b4c971aff", "29872e92839765e546828bb7754a68c418d927cd064fd4708fab9fe9c8bb116b", "43a55c2930bbc139570ac2452adf3d70cdbb3cfe5912c71cdce1c2c6bbd9c5d1", "46c99d2de99945ec5cb54f23c8cd5689f6d7177305ebff350a58ce5f8de1669e", "500d4957e52ddc3351cabf489e79c91c17f6e0899158447047588650b5e69183", "535f6fc4d397c1563d08b88e485c3496cf5784e927af890fb3c3aac7f933ec66", "62fe6c95e3ec8a7fad637b7f3d372c15ec1caa01ab47926cfdf7a75b40e0eac1", "6dd73240d2af64df90aa7c4e7481e23825ea70af4b4922f8ede5b9e35f78a3b1", "717ba8fe3ae9cc0006d7c451f0bb265ee07739daf76355d06366154ee68d221e", "79855e1c5b8da654cf486b830bd42c06e8780cea587384cf6545b7d9ac013a0b", "7c1699dfe0cf8ff607dbdcc1e9b9af1755371f92a68f706051cc8c37d447c905", "88e5fcfb52ee7b911e8bb6d6aa2fd21fbecc674eadd44118a9cc3863f938e735", "8defac2f2ccd6805ebf65f5eeb132adcf2ab57aa11fdf4c0dd5169a004710e7d", "98c7086708b163d425c67c7a91bad6e466bb99d797aa64f965e9d25c12111a5e", "9add70b36c5666a2ed02b43b335fe19002ee5235efd4b8a89bfcf9005bebac0d", "9bf40443012702a1d2070043cb6291650a0841ece432556f784f004937f0f32c", "ade5e387d2ad0d7ebf59146cc00c8044acbd863725f887353a10df825fc8ae21", "b00c1de48212e4cc9603895652c5c410df699856a2853135b3967591e4beebc2", "b1282f8c00509d99fef04d8ba936b156d419be841854fe901d8ae224c59f0be5", "b2051432115498d3562c084a49bba65d97cf251f5a331c64a12ee7e04dacc51b", "ba59edeaa2fc6114428f1637ffff42da1e311e29382d81b339c1817d37ec93c6", "c8716a48d94b06bb3b2524c2b77e055fb313aeb4ea620c8dd03a105574ba704f", "cd5df75523866410809ca100dc9681e301e3c27567cf498077e8551b6d20e42f", "e249096428b3ae81b08327a63a485ad0878de3fb939049038579ac0ef61e17e7"]
 marshmallow = ["0e497a6447ffaad55578138ca512752de7a48d12f444996ededc3d6bf8a09ca2", "e21a4dea20deb167c723e0ffb13f4cf33bcbbeb8a334e92406a3308cedea2826"]
-maxminddb = ["df1451bcd848199905ac0de4631b3d02d6a655ad28ba5e5a4ca29a23358db712"]
-maxminddb-geolite2 = ["2bd118c5567f3a8323d6c5da23a6e6d52cfc09cd9987b54eb712cf6001a96e03"]
 mccabe = ["ab8a6258860da4b6677da4bd2fe5dc2c659cff31b3ee4f7f5d64e79735b80d42", "dd8d182285a0fe56bace7f45b5e7d1a6ebcbf524e8f3bd87eb0f125271b8831f"]
 mock = ["5ce3c71c5545b472da17b72268978914d0252980348636840bd34a00b5cc96c1", "b158b6df76edd239b8208d481dc46b6afd45a846b7812ff0ce58971cf5bc8bba"]
 more-itertools = ["2112d2ca570bb7c3e53ea1a35cd5df42bb0fd10c45f0fb97178679c3c03d64c7", "c3e4748ba1aad8dba30a4886b0b1a2004f9a863837b8654e7059eebf727afa5a"]
@@ -2978,20 +2546,17 @@ multidict = ["024b8129695a952ebd93373e45b5d341dbb87c17ce49637b34000093f243dd4f",
 nameparser = ["1089efbd576c917cd6970968c2735dc6e30f20d64318c4207124476270df7afc", "550bf4df749d4aca23b9fad486ed67ddc042c89234840fea106dcb8d5a3c4365"]
 node-semver = ["e29ee4e51efb6d82c55aef5d569b888842e62e6404ce95df18d80c421f8e7dac"]
 nodeenv = ["ad8259494cf1c9034539f6cced78a1da4840a4b157e23640bc4a0c0546b0cb7a"]
-oauthlib = ["ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162", "d883b36b21a6ad813953803edfa563b1b579d79ca758fe950d1bc9e8b326025b"]
 orderedmultidict = ["24e3b730cf84e4a6a68be5cc760864905cf66abc89851e724bd5b4e849eaa96b", "b89895ba6438038d0bdf88020ceff876cf3eae0d5c66a69b526fab31125db2c5"]
 parsel = ["493a9214acbdcb4487a084d95344c25e85e90426a67311ea0425dc5df8dc24b9", "9ccd82b8a122345601f6f9209e972c0e8c3518a188fcff2d37cb4d7bc570b4b8"]
 parso = ["17cc2d7a945eb42c3569d4564cdf49bde221bc2b552af3eca9c1aad517dcdd33", "2e9574cb12e7112a87253e14e2c380ce312060269d04bd018478a3c92ea9a376"]
-passlib = ["3d948f64138c25633613f303bcc471126eae67c04d5e3f6b7b8ce6242f8653e0", "43526aea08fa32c6b6dbbbe9963c4c767285b78147b7437597f992812f69d280"]
 pathtools = ["7c35c5421a39bb82e58018febd90e3b6e5db34c5443aaaf742b3f33d4655f1c0"]
 pbr = ["8257baf496c8522437e8a6cfe0f15e00aedc6c0e0e7c9d55eeeeab31e0853843", "8c361cc353d988e4f5b998555c88098b9d5964c2e11acf7b0d21925a66bb5824"]
 pexpect = ["2094eefdfcf37a1fdbfb9aa090862c1a4878e5c7e0e7e7088bdb511c558e5cd1", "9e2c1fd0e6ee3a49b28f95d4b33bc389c89b20af6a1255906e90ff1262ce62eb"]
 pickleshare = ["87683d47965c1da65cdacaf31c8441d12b8044cdec9aca500cd78fc2c683afca", "9649af414d74d4df115d5d718f82acb59c9d418196b7b4290ed47a12ce62df56"]
 pluggy = ["19ecf9ce9db2fce065a7a0586e07cfb4ac8614fe96edf628a264b1c70116cf8f", "84d306a647cc805219916e62aab89caa97a33a1dd8c342e87a37f91073cd4746"]
 poyo = ["c34a5413191210ed564640510e9c4a4ba3b698746d6b454d46eb5bfb30edcd1d", "d1c317054145a6b1ca0608b5e676b943ddc3bfd671f886a2fe09288b98221edb"]
-pre-commit = ["75a9110eae00d009c913616c0fc8a6a02e7716c4a29a14cac9b313d2c7338ab0", "f882c65316eb5b705fe4613e92a7c91055c1800102e4d291cfd18912ec9cf90e"]
+pre-commit = ["2576a2776098f3902ef9540a84696e8e06bf18a337ce43a6a889e7fa5d26c4c5", "82f2f2d657d7f9280de9f927ae56886d60b9ef7f3714eae92d12713cd9cb9e11"]
 prompt-toolkit = ["11adf3389a996a6d45cc277580d0d53e8a5afd281d0c9ec71b28e6f121463780", "2519ad1d8038fd5fc8e770362237ad0364d16a7650fb5724af6997ed5515e3c1", "977c6583ae813a37dc1c2e1b715892461fcbdaa57f6fc62f33a528c4886c8f55"]
-psycopg2-binary = ["163d3ee445a0b4c0109877da9e46271aacf4e5e3d60ae7368669555c30f13e7c", "1af0bfe7b0c13a0e613a27311fd4f9c5d024e8fc0f4b3d284e7df02a58a11fc0", "2169c3a1bf52d5b30cc98625b5919a964c571a32e8646be20be6c7e3e82079de", "218f079fa48e2ef812dc3d3ce6ec2f67ac56427ba4b038d5d6331f2cceb489c2", "26a958930687e94c4c6c73c171e4d4783b82ae4e16aa3424e6bcd4529bceedf0", "2c7c195aef3acdbc853942bc674844031a732890d2fee88a324298ed376b6c2b", "2ecdbfed7004669472bfa27c8d51012c717c241c7154ae17e4c8f93024043525", "345fc31b71a90ada1b51826537917b19a1af685a91c0f066787069c184d7d00f", "378a06649503f548be5f1e9eec2e94cc1d6138250b82a08dcc6151bca8cec107", "3f300bf2930e501dde09605de85cb2b84c2638e2c954be02a3c86f28176d3525", "6c2f66c653ce8bbd7e789d0f7f92c3f9fea881b55226f0ae5ee550cce9e3cf0e", "6fccbac2633831b877a8fbf865f7082d34895e82a015795a9f80f99a2efe2576", "7a166f8ccb6888358d3e67795b057540ea7caa71ab9e089b0cb0097f01088965", "8f6b84f887ec6fef6c1796779f8ec2603dc7e9ef52bc9269de719d4bcbdaebbb", "92cf3ceb7bb90cf35b8bd993c640b15d4832ba0e142a3b9da5006ef217da595d", "a20dfdf73f56da674926a3811929cff9fd23b9af90be9a6c36ac246a3486eef3", "a84415df4689251556c961e4fe3b25d30e32f00faa8064ce0909458dbe0d67b2", "ab1aa1cd50df3860f624c9713ee9e690eefd4e049d3a4d86577bab6e741e9616", "abc9dcf85e75a8687f2a6d560c0c1a2593e8e34ba6f9ad6721f8212c5de179a2", "c10454710a81a2f4b1ff4d1c83ac2cec63e0e55845a56324991514af5b1299d0", "c38f80719e4dfae7a6311a4f091f07f4fb2fb5d602352015d5639f63f8fabb68", "d75cf00605630b2cfefa5c62373c605dcda1cc0d607902847dbb8e8e9b67c1ce", "dce15cb6ef604c9e38fdaa848f58f83153ade9f4aa5e4cf5812aa27163561750", "e7e0db4311bb76bf3f6e0380f71912cfa6d0be7cc635e3772476050b0dabdabd", "eac59cae78dfe3fbf7ece25c170d7a152f88df7643381aa5e7344c2028a8d8d4", "ead7b3e1567bd14cacd44279c5e42cd19f54b9feed39180220253f4fbe3abd56", "ed772a5e8e7e5dd6bede960a86940c17cf653c7f158dafa5d52e919b676f10ba", "f2d73131acb94afa45de8b6b8a4bfb21bbe3736633d6478e53247f19dd8c299c"]
 ptyprocess = ["923f299cc5ad920c68f2bc0bc98b75b9f838b93b599941a6b63ddbc2476394c0", "d7cc528d76e76342423ca640335bd3633420dc1366f258cb31d05e865ef5ca1f"]
 py = ["64f65755aee5b381cea27766a3a147c3f15b9b6b9ac88676de66ba2ae36793fa", "dc639b046a6e2cff5bbe40194ad65936d6ba360b52b3c3fe1d08a82dd50b5e53"]
 pyasn1 = ["061442c60842f6d11051d4fdae9bc197b64bd41573a12234a753a0cb80b4f30b", "0ee2449bf4c4e535823acc25624c45a8b454f328d59d3f3eeb82d3567100b9bd", "5f9fb05c33e53b9a6ee3b1ed1d292043f83df465852bec876e93b47fd2df7eed", "65201d28e081f690a32401e6253cca4449ccacc8f3988e811fae66bd822910ee", "79b336b073a52fa3c3d8728e78fa56b7d03138ef59f44084de5f39650265b5ff", "8ec20f61483764de281e0b4aba7d12716189700debcfa9e7935780850bf527f3", "9458d0273f95d035de4c0d5e0643f25daba330582cc71bb554fe6969c015042a", "98d97a1833a29ca61cd04a60414def8f02f406d732f9f0bcb49f769faff1b699", "b00d7bfb6603517e189d1ad76967c7e805139f63e43096e5f871d1277f50aea5", "b06c0cfd708b806ea025426aace45551f91ea7f557e0c2d4fbd9a4b346873ce0", "d14d05984581770333731690f5453efd4b82e1e5d824a1d7976b868a2e5c38e8", "da2420fe13a9452d8ae97a0e478adde1dee153b11ba832a95b223a2ba01c10f7", "da6b43a8c9ae93bc80e2739efb38cc776ba74a886e3e9318d65fe81a8b8a2c6e"]
@@ -3005,7 +2570,6 @@ pydocstyle = ["2258f9b0df68b97bf3a6c29003edc5238ff8879f1efb6f1999988d934e432bd8"
 pyflakes = ["17dbeb2e3f4d772725c777fabc446d5634d1038f234e77343108ce445ea69ce0", "d976835886f8c5b31d47970ed689944a0262b5f3afa00a5a7b4dc81e5449f8a2"]
 pygments = ["5ffada19f6203563680669ee7f53b64dabbeb100eb51b61996085e99c03b284a", "e8218dd399a61674745138520d0d4cf2621d7e032439341bc3f647bff125818d"]
 pyhamcrest = ["6b672c02fdf7470df9674ab82263841ce8333fb143f32f021f6cb26f0e512420", "7a4bdade0ed98c699d728191a058a60a44d2f9c213c51e2dd1e6fb42f2c6128a", "8ffaa0a53da57e89de14ced7185ac746227a8894dbd5a3c718bf05ddbd1d56cd", "bac0bea7358666ce52e3c6c85139632ed89f115e9af52d44b3c36e0bf8cf16a9", "f30e9a310bcc1808de817a92e95169ffd16b60cbc5a016a49c8d0e8ababfae79"]
-pyjwt = ["5c6eca3c2940464d106b99ba83b00c6add741c9becaec087fb7ccdefea71350e", "8d59a976fb773f3e6a39c85636357c4f0e242707394cadadd9814f5cbaa20e96"]
 pylint = ["5d77031694a5fb97ea95e828c8d10fc770a1df6eb3906067aaed42201a8a6a09", "723e3db49555abaf9bf79dc474c6b9e2935ad82230b10c1138a71ea41ac0fff1"]
 pynpm = ["b3c2efafc15b0ca4f0a1cc819e55af4179c2b43a2f9bb7b1a1cc1763dc3daa52", "e4df0427cd2357ca67d68a322af6873c5ce67e1625a45acfb9603e4448bf3464"]
 pyopenssl = ["aeca66338f6de19d1aa46ed634c3b9ae519a64b458f8468aec688e7e3c20f200", "c727930ad54b10fc157015014b666f2d8b41f70c0d03e83ab67624fd3dd5d1e6"]
@@ -3032,7 +2596,6 @@ redis = ["6946b5dca72e86103edc8033019cc3814c031232d339d5f4533b02ea85685175", "8c
 remote-pdb = ["0a5835ae6f75244bf728616f41a57b35dab4d17f51601bd5f80413ee9b4b5732", "e441ddde7e74dd17c1ce924a20e998b22e560e53c404a0f9266be7f9900c1f3f"]
 requests = ["502a824f31acdacb3a35b6690b5fbf0bc41d63a24a45c4004352b0242707598e", "7bf2a778576d825600030a110f3c0e3e8edc51dfaafe1c146e39a2027784957b"]
 requests-mock = ["7a5fa99db5e3a2a961b6f20ed40ee6baeff73503cf0a553cc4d679409e6170fb", "8ca0628dc66d3f212878932fd741b02aa197ad53fd2228164800a169a4a826af"]
-requests-oauthlib = ["490229d14a98e1b69612dcc1a22887ec14f5487dc1b8c6d7ba7f77a42ce7347b", "be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61", "eabd8eb700ebed81ba080c6ead96d39d6bdc39996094bd23000204f6965786b0"]
 rfc3987 = ["10702b1e51e5658843460b189b185c0366d2cf4cff716f13111b0ea9fd2dce53", "d3c4d257a560d544e9826b38bc81db676890c79ab9d7ac92b39c7a253d5ca733"]
 scrapy = ["4ec03552c9aed1e82a376488150e904e0213bdee3ca140225105e9b03d0de204", "558dfd10ac53cb324ecd7eefd3eac412161c7507c082b01b0bcd2c6e2e9f0766"]
 scrapy-crawl-once = ["60ea4e7529f99ad1ec6cacbad53828fbfa5959cc4dddfe8047557e7c189e920c", "8ab832ab5c4073ba2aa498a8c6bb2a792117ecd7deadca41d7fd1cdee534caf4"]
@@ -3056,12 +2619,9 @@ toml = ["229f81c57791a41d65e399fc06bf0848bab550a9dfd5ed66df18ce5f05e73d5c", "235
 traitlets = ["9c4bd2d267b7153df9152698efb1050a5d84982d3384a37b2c1f7723ba3e7835", "c6cb5e6f57c5a9bdaa40fa71ce7b4af30298fbab9ece9815b5d995ab6217c7d9"]
 twisted = ["294be2c6bf84ae776df2fc98e7af7d6537e1c5e60a46d33c3ce2a197677da395"]
 typed-ast = ["035a54ede6ce1380599b2ce57844c6554666522e376bd111eb940fbc7c3dad23", "037c35f2741ce3a9ac0d55abfcd119133cbd821fffa4461397718287092d9d15", "049feae7e9f180b64efacbdc36b3af64a00393a47be22fa9cb6794e68d4e73d3", "19228f7940beafc1ba21a6e8e070e0b0bfd1457902a3a81709762b8b9039b88d", "2ea681e91e3550a30c2265d2916f40a5f5d89b59469a20f3bad7d07adee0f7a6", "3a6b0a78af298d82323660df5497bcea0f0a4a25a0b003afd0ce5af049bd1f60", "5385da8f3b801014504df0852bf83524599df890387a3c2b17b7caa3d78b1773", "606d8afa07eef77280c2bf84335e24390055b478392e1975f96286d99d0cb424", "69245b5b23bbf7fb242c9f8f08493e9ecd7711f063259aefffaeb90595d62287", "6f6d839ab09830d59b7fa8fb6917023d8cb5498ee1f1dbd82d37db78eb76bc99", "730888475f5ac0e37c1de4bd05eeb799fdb742697867f524dc8a4cd74bcecc23", "9819b5162ffc121b9e334923c685b0d0826154e41dfe70b2ede2ce29034c71d8", "9e60ef9426efab601dd9aa120e4ff560f4461cf8442e9c0a2b92548d52800699", "af5fbdde0690c7da68e841d7fc2632345d570768ea7406a9434446d7b33b0ee1", "b64efdbdf3bbb1377562c179f167f3bf301251411eb5ac77dec6b7d32bcda463", "bac5f444c118aeb456fac1b0b5d14c6a71ea2a42069b09c176f75e9bd4c186f6", "bda9068aafb73859491e13b99b682bd299c1b5fd50644d697533775828a28ee0", "d659517ca116e6750101a1326107d3479028c5191f0ecee3c7203c50f5b915b0", "eddd3fb1f3e0f82e5915a899285a39ee34ce18fd25d89582bc89fc9fb16cd2c6"]
-ua-parser = ["3908c19ea0abdcdfe7245366dc03e5b4a8901ec17105bd66ba2ccbe3948dce8a", "97bbcfc9321a3151d96bb5d62e54270247b0e3be0590a6f2ff12329851718dcb"]
 unidecode = ["092cdf7ad9d1052c50313426a625b717dab52f7ac58f859e09ea020953b1ad8f", "8b85354be8fd0c0e10adbf0675f6dc2310e56fda43fa8fe049123b6c475e52fb"]
-uritools = ["522c2027e51e70e0cc40aa703fbf8665a879776826317ff1b68069084030975b", "80e8e23cafad54fd85811b5d9ba0fc595d933f5727c61c3937945eec09f99e2b"]
 urllib3 = ["a68ac5e15e76e7e5dd2b8f94007233e01effe3e50e8daddf69acfd81cb686baf", "b5725a0bd4ba422ab0e66e89e030c806576753ea3ee08554382c14e685d117b5"]
 uwsgi = ["4972ac538800fb2d421027f49b4a1869b66048839507ccf0aa2fda792d99f583"]
-validators = ["68e4b74889aac1270d83636cb1dbcce3d2271e291ab14023cf95e7dbfbbce09d"]
 vcrpy = ["127e79cf7b569d071d1bd761b83f7b62b2ce2a2eb63ceca7aa67cba8f2602ea3", "57be64aa8e9883a4117d0b15de28af62275c001abcdb00b6dc2d4406073d9a4f"]
 vine = ["133ee6d7a9016f177ddeaf191c1f58421a1dcc6ee9a42c58b34bed40e1d2cd87", "ea4947cc56d1fd6f2095c8d543ee25dad966f78692528e68b4fada11ba3f98af"]
 virtualenv = ["6aebaf4dd2568a0094225ebbca987859e369e3e5c22dc7d52e5406d504890417", "984d7e607b0a5d1329425dd8845bd971b957424b5ba664729fab51ab8c11bc39"]
@@ -3074,8 +2634,6 @@ werkzeug = ["0a73e8bb2ff2feecfc5d56e6f458f5b99290ef34f565ffb2665801ff7de6af7a", 
 whichcraft = ["7533870f751901a0ce43c93cc9850186e9eba7fe58c924dfb435968ba9c9fa4e", "fecddd531f237ffc5db8b215409afb18fa30300699064cca4817521b4fc81815"]
 wrapt = ["4aea003270831cceb8a90ff27c4031da6ead7ec1886023b80ce0dfe0adf61533"]
 wtforms = ["0cdbac3e7f6878086c334aa25dc5a33869a3954e9d1e015130d65a69309b3b61", "e3ee092c827582c50877cdbd49e9ce6d2c5c1f6561f849b3b068c1b8029626f1"]
-wtforms-alchemy = ["c491755380490c5c016f04e62949b22056f915160f54d0d1103c76b944c1c321"]
-wtforms-components = ["4a7751fc12dc4e4b2ef5700973296b5368094dcdf85c2808d2faff2c8e8f4caa"]
 yarl = ["024ecdc12bc02b321bc66b41327f930d1c2c543fa9a561b39861da9388ba7aa9", "2f3010703295fbe1aec51023740871e64bb9664c789cba5a6bdf404e93f7568f", "3890ab952d508523ef4881457c4099056546593fa05e93da84c7250516e632eb", "3e2724eb9af5dc41648e5bb304fcf4891adc33258c6e14e2a7414ea32541e320", "5badb97dd0abf26623a9982cd448ff12cb39b8e4c94032ccdedf22ce01a64842", "73f447d11b530d860ca1e6b582f947688286ad16ca42256413083d13f260b7a0", "7ab825726f2940c16d92aaec7d204cfc34ac26c0040da727cf8ba87255a33829", "b25de84a8c20540531526dfbb0e2d2b648c13fd5dd126728c496d7c3fea33310", "c6e341f5a6562af74ba55205dbd56d248daf1b5748ec48a0200ba227bb9e33f4", "c9bb7c249c4432cd47e75af3864bc02d26c9594f49c82e2a28624417f0ae63b8", "e060906c0c585565c718d1c3841747b61c5439af2211e185f6739a9412dfbde1"]
 zipp = ["55ca87266c38af6658b84db8cfb7343cdb0bf275f93c7afaea0d8e7a209c7478", "682b3e1c62b7026afe24eadf6be579fb45fec54c07ea218bded8092af07a68c4"]
 "zope.interface" = ["086707e0f413ff8800d9c4bc26e174f7ee4c9c8b0302fbad68d083071822316c", "1157b1ec2a1f5bf45668421e3955c60c610e31913cc695b407a574efdbae1f7b", "11ebddf765bff3bbe8dbce10c86884d87f90ed66ee410a7e6c392086e2c63d02", "14b242d53f6f35c2d07aa2c0e13ccb710392bcd203e1b82a1828d216f6f6b11f", "1b3d0dcabc7c90b470e59e38a9acaa361be43b3a6ea644c0063951964717f0e5", "20a12ab46a7e72b89ce0671e7d7a6c3c1ca2c2766ac98112f78c5bddaa6e4375", "298f82c0ab1b182bd1f34f347ea97dde0fffb9ecf850ecf7f8904b8442a07487", "2f6175722da6f23dbfc76c26c241b67b020e1e83ec7fe93c9e5d3dd18667ada2", "3b877de633a0f6d81b600624ff9137312d8b1d0f517064dfc39999352ab659f0", "4265681e77f5ac5bac0905812b828c9fe1ce80c6f3e3f8574acfb5643aeabc5b", "550695c4e7313555549aa1cdb978dc9413d61307531f123558e438871a883d63", "5f4d42baed3a14c290a078e2696c5f565501abde1b2f3f1a1c0a94fbf6fbcc39", "62dd71dbed8cc6a18379700701d959307823b3b2451bdc018594c48956ace745", "7040547e5b882349c0a2cc9b50674b1745db551f330746af434aad4f09fba2cc", "7e099fde2cce8b29434684f82977db4e24f0efa8b0508179fce1602d103296a2", "7e5c9a5012b2b33e87980cee7d1c82412b2ebabcb5862d53413ba1a2cfde23aa", "81295629128f929e73be4ccfdd943a0906e5fe3cdb0d43ff1e5144d16fbb52b1", "95cc574b0b83b85be9917d37cd2fad0ce5a0d21b024e1a5804d044aabea636fc", "968d5c5702da15c5bf8e4a6e4b67a4d92164e334e9c0b6acf080106678230b98", "9e998ba87df77a85c7bed53240a7257afe51a07ee6bc3445a0bf841886da0b97", "a0c39e2535a7e9c195af956610dba5a1073071d2d85e9d2e5d789463f63e52ab", "a15e75d284178afe529a536b0e8b28b7e107ef39626a7809b4ee64ff3abc9127", "a6a6ff82f5f9b9702478035d8f6fb6903885653bff7ec3a1e011edc9b1a7168d", "b639f72b95389620c1f881d94739c614d385406ab1d6926a9ffe1c8abbea23fe", "bad44274b151d46619a7567010f7cde23a908c6faa84b97598fd2f474a0c6891", "bbcef00d09a30948756c5968863316c949d9cedbc7aabac5e8f0ffbdb632e5f1", "d788a3999014ddf416f2dc454efa4a5dbeda657c6aba031cf363741273804c6b", "eed88ae03e1ef3a75a0e96a55a99d7937ed03e53d0cffc2451c208db445a2966", "f99451f3a579e73b5dd58b1b08d1179791d49084371d9a47baad3b22417f0317"]
