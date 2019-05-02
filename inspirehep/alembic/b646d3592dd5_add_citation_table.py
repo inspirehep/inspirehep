@@ -39,13 +39,9 @@ def upgrade():
     op.create_index(
         "idx_citations_cited", "record_citations", ["cited_id"], unique=False
     )
-    op.create_index(
-        "idx_citations_citers", "record_citations", ["citer_id"], unique=False
-    )
 
 
 def downgrade():
     """Downgrade database."""
-    op.drop_index("idx_citations_citers", table_name="record_citations")
     op.drop_index("idx_citations_cited", table_name="record_citations")
     op.drop_table("record_citations")
