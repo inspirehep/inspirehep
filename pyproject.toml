@@ -62,7 +62,7 @@ gunicorn = "*"
 pylint = "*"
 flake8 = "*"
 watchdog = "*"
-virtualenv = "<16.5.0"
+virtualenv = "<16.6.0"
 
 [build-system]
 requires = ["poetry==0.12.11"]
