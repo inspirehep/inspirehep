@@ -1,0 +1,3107 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "_collections": ["Literature"],
+  "_desy_bookkeeping": [
+    { "identifier": "DA15-kp29a" },
+    { "date": "2015-05-13", "expert": "M", "status": "abs" },
+    { "date": "2015-05-21", "expert": "M", "status": "printed" },
+    { "date": "2015-07-14", "status": "final" }
+  ],
+  "_private_notes": [{ "source": "CERN", "value": "CDS-2014448" }],
+  "abstracts": [
+    {
+      "source": "Springer",
+      "value":
+        "We present a high-precision lattice calculation of the equation of state in the confining phase of SU(2) Yang-Mills theory. We show that the results are described very well by a gas of massive, non-interacting glueballs, provided one assumes an exponentially growing Hagedorn spectrum. The latter can be derived within an effective bosonic closed-string model, leading to a parameter-free theoretical prediction, which is in perfect agreement with our lattice results. Furthermore, when applied to SU(3) Yang-Mills theory, this effective model accurately describes the lattice results reported by Bors\u00e1nyi et al. in JHEP 07 (2012) 056."
+    },
+    {
+      "source": "arXiv",
+      "value":
+        "We present a high-precision lattice calculation of the equation of state in the confining phase of SU(2) Yang-Mills theory. We show that the results are described very well by a gas of massive, non-interacting glueballs, provided one assumes an exponentially growing Hagedorn spectrum. The latter can be derived within an effective bosonic closed-string model, leading to a parameter-free theoretical prediction, which is in perfect agreement with our lattice results. Furthermore, when applied to SU(3) Yang-Mills theory, this effective model accurately describes the lattice results reported by Bors\\'anyi et al. in JHEP 07 (2012) 056."
+    }
+  ],
+  "acquisition_source": { "method": "oai", "source": "arxiv" },
+  "arxiv_eprints": [{ "categories": ["hep-lat"], "value": "1505.01106" }],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903297"
+          },
+          "value": "Turin U."
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902889"
+          },
+          "value": "INFN, Turin"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Caselle, Michele",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00071445" },
+        { "schema": "INSPIRE BAI", "value": "M.Caselle.1" }
+      ],
+      "raw_affiliations": [
+        {
+          "value":
+            "Department of Physics - Turin & INFN U. - Via Pietro Giuria 1 - I-10125 - Turin - Italy"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1014350" },
+      "signature_block": "CASALm",
+      "uuid": "97a51346-a9f0-4d93-92dd-75ea26b827f4"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903297"
+          },
+          "value": "Turin U."
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902889"
+          },
+          "value": "INFN, Turin"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Nada, Alessandro",
+      "ids": [{ "schema": "INSPIRE BAI", "value": "A.Nada.1" }],
+      "raw_affiliations": [
+        {
+          "value":
+            "Department of Physics - Turin & INFN U. - Via Pietro Giuria 1 - I-10125 - Turin - Italy"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1397966" },
+      "signature_block": "NADa",
+      "uuid": "7aedccb7-2789-4901-be67-3aec2e50ac3d"
+    },
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903297"
+          },
+          "value": "Turin U."
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/902889"
+          },
+          "value": "INFN, Turin"
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Panero, Marco",
+      "ids": [
+        { "schema": "ORCID", "value": "0000-0001-9477-3749" },
+        { "schema": "INSPIRE BAI", "value": "M.Panero.1" }
+      ],
+      "raw_affiliations": [
+        {
+          "value":
+            "Department of Physics - Turin & INFN U. - Via Pietro Giuria 1 - I-10125 - Turin - Italy"
+        }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1031593" },
+      "signature_block": "PANARm",
+      "uuid": "154049c9-0494-457a-9a20-b7b80e70c165"
+    }
+  ],
+  "citeable": true,
+  "control_number": 1366189,
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "documents": [
+    {
+      "description": "Article from SCOAP3",
+      "key": "scoap3-fulltext.pdf;pdfa",
+      "source": "SCOAP3",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g164/3299419/content.pdf%3Bpdfa%3B2"
+    },
+    {
+      "key": "arXiv:1505.01106.pdf",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130883/content.pdf%3B3"
+    }
+  ],
+  "dois": [
+    { "value": "10.1007/JHEP07(2015)143" },
+    { "material": "erratum", "value": "10.1007/JHEP11(2017)016" }
+  ],
+  "external_system_identifiers": [
+    { "schema": "ADS", "value": "2015JHEP...07..143C" }
+  ],
+  "figures": [
+    {
+      "caption":
+        "The values of the string tension in lattice units obtained from our lattice simulations (red circles) are showed along with those reported in ref.~\\cite{Lucini:2003zr} (blue squares). The solid black curve and the dashed black lines show the interpolation to the functional form in eq.~(\\protect\\ref{betaform}), with the associated uncertainties.",
+      "key": "a_interpolation.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130570/content.png%3B3"
+    },
+    {
+      "caption":
+        "Comparison between our lattice results for the trace anomaly in $\\SU(2)$ Yang-Mills theory from simulations with $N_t=5$, $6$ and $8$ (brown symbols) and the behavior expected for a gas of free, massive glueballs. The dotted line corresponds to the contribution of the lightest state only, with quantum numbers $J^{PC}=0^{++}$. The dashed line includes all the low-lying glueballs, with masses below the threshold associated with the appearance of two $0^{++}$ glueballs  (taken from \\cite{Teper:1998kw}) while the solid line corresponds to the case in which we included also the contribution from high-lying states, described by a bosonic string model. The trace anomaly $\\Delta$ is displayed in units of the fourth power of the temperature, and is plotted as a function of $T/T_c$.",
+      "key": "su2_trace.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130572/content.png%3B3"
+    },
+    {
+      "caption":
+        "Same as in fig.~\\protect\\ref{fig:su2_trace}, but for the pressure $p$, in units of the fourth power of the temperature.",
+      "key": "su2_pressure.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130569/content.png%3B3"
+    },
+    {
+      "caption":
+        "Comparison between the predictions of a massive-glueball gas, supplemented by the contribution from states modelled by a closed Nambu-Got\\={o} string model, like in eq.~(\\protect\\ref{glueballgas}), and continuum-extrapolated data obtained in ref.~\\cite{Borsanyi:2012ve} for $\\SU(3)$ Yang-Mills theory and our data for the $\\SU(2)$ theory (from simulations at finite lattice spacings corresponding to $N_t=6$ and $8$), as a function of $T/\\THagedorn$.",
+      "key": "su2_su3_T_over_TH.png",
+      "source": "arxiv",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g106/2130571/content.png%3B3"
+    }
+  ],
+  "imprints": [{ "date": "2015-07-27" }],
+  "inspire_categories": [{ "term": "Lattice" }],
+  "keywords": [
+    { "source": "author", "value": "Lattice QCD" },
+    { "source": "author", "value": "Bosonic Strings" },
+    { "schema": "INSPIRE", "value": "gauge field theory: Yang-Mills" },
+    { "schema": "INSPIRE", "value": "Yang-Mills: SU(2)" },
+    { "schema": "INSPIRE", "value": "lattice" },
+    { "schema": "INSPIRE", "value": "numerical calculations" },
+    { "schema": "INSPIRE", "value": "Hagedorn: gas" },
+    { "schema": "INSPIRE", "value": "gauge field theory: SU(3)" },
+    { "schema": "INSPIRE", "value": "equation of state" },
+    { "schema": "INSPIRE", "value": "thermodynamics" },
+    { "schema": "INSPIRE", "value": "confinement" },
+    { "schema": "INSPIRE", "value": "glueball: gas" },
+    { "schema": "INSPIRE", "value": "mass spectrum: Hagedorn" },
+    { "schema": "INSPIRE", "value": "temperature: low" },
+    { "schema": "INSPIRE", "value": "effective field theory" }
+  ],
+  "legacy_creation_date": "2015-05-06",
+  "legacy_version": "20181120131502.0",
+  "license": [
+    {
+      "imposing": "arXiv",
+      "url": "http://arxiv.org/licenses/nonexclusive-distrib/1.0/"
+    },
+    { "license": "CC-BY-4.0" }
+  ],
+  "number_of_pages": 22,
+  "preprint_date": "2015-05-05",
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value":
+        "1+19 pages, 4 pdf figures; v2: 1+22 pages, 4 pdf figures, improved discussion in sections 3 and 4, added references, corrected misprints: matches the journal version; v3: corrected a misprint, pointed out to us by Etsuko Itou, in the discussion of eq. (3.1), results unaffected"
+    }
+  ],
+  "publication_info": [
+    {
+      "artid": "143",
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1213103"
+      },
+      "journal_title": "JHEP",
+      "journal_volume": "07",
+      "page_start": "143",
+      "year": 2015
+    },
+    {
+      "artid": "016",
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1213103"
+      },
+      "journal_title": "JHEP",
+      "journal_volume": "11",
+      "material": "erratum",
+      "page_start": "016",
+      "year": 2017
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/923988" },
+      "reference": {
+        "arxiv_eprint": "1108.2939",
+        "authors": [{ "full_name": "Fukushima, K." }],
+        "label": "1",
+        "misc": ["QCD matter in extreme environments [INSPIRE]"],
+        "publication_info": {
+          "artid": "013101",
+          "journal_title": "J.Phys.G",
+          "journal_volume": "39",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1290484" },
+      "reference": {
+        "arxiv_eprint": "1404.3723",
+        "authors": [{ "full_name": "Brambilla, N." }],
+        "label": "2",
+        "misc": [
+          "QCD and Strongly Coupled Gauge Theories: Challenges and Perspectives [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "2981",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "74",
+          "page_start": "2981",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1343793" },
+      "reference": {
+        "arxiv_eprint": "1502.02730",
+        "authors": [{ "full_name": "Akiba, Y." }],
+        "label": "3",
+        "misc": [
+          "The Hot QCD White Paper: Exploring the Phases of QCD at RHIC and the LHC"
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1341063" },
+      "reference": {
+        "arxiv_eprint": "1501.06077",
+        "authors": [
+          { "full_name": "M\u00fcller, B." },
+          { "full_name": "Phase, A. New" }
+        ],
+        "label": "4",
+        "misc": [
+          "of Matter: quark-gluon Plasma Beyond the Hagedorn Critical Temperature"
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1341047" },
+      "reference": {
+        "arxiv_eprint": "1501.06477",
+        "authors": [{ "full_name": "Heinz, U." }],
+        "label": "5",
+        "misc": [
+          "Exploring the properties of the phases of QCD matter \u2014 research opportunities and priorities for the next decade"
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1306915" },
+      "reference": {
+        "arxiv_eprint": "1407.5003",
+        "authors": [{ "full_name": "Andronic, A." }],
+        "label": "6",
+        "misc": [
+          "An overview of the experimental study of quark-gluon matter in high-energy nucleus-nucleus collisions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "1430047",
+          "journal_title": "Int.J.Mod.Phys.A",
+          "journal_volume": "29",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/131674" },
+      "reference": {
+        "authors": [{ "full_name": "Shuryak, E.V." }],
+        "label": "7",
+        "misc": [
+          "quark-gluon Plasma and Hadronic Production of Leptons, Photons and Psions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "150",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "78",
+          "page_start": "150",
+          "year": 1978
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/451647" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9711200",
+        "authors": [{ "full_name": "Maldacena, J.M." }],
+        "label": "8",
+        "misc": [
+          "The large-N limit of superconformal field theories and supergravity [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "1113",
+          "journal_title": "Int.J.Theor.Phys.",
+          "journal_volume": "38",
+          "page_start": "1113",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/467202" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9802109",
+        "authors": [
+          { "full_name": "Gubser, S.S." },
+          { "full_name": "Klebanov, I.R." },
+          { "full_name": "Polyakov, A.M." }
+        ],
+        "label": "9",
+        "misc": [
+          "Gauge theory correlators from noncritical string theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "105",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "428",
+          "page_start": "105",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/467400" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9802150",
+        "authors": [{ "full_name": "Witten, E." }],
+        "label": "10",
+        "misc": ["Anti-de Sitter space and holography [INSPIRE]"],
+        "publication_info": {
+          "artid": "253",
+          "journal_title": "Adv.Theor.Math.Phys.",
+          "journal_volume": "2",
+          "page_start": "253",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/80491" },
+      "reference": {
+        "authors": [{ "full_name": "Hooft, A." }],
+        "label": "11",
+        "misc": [
+          "G. \u2019t Planar Diagram Theory for Strong Interactions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "461",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "72",
+          "page_start": "461",
+          "year": 1974
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/883144" },
+      "reference": {
+        "arxiv_eprint": "1101.0618",
+        "authors": [
+          { "full_name": "Casalderrey-Solana, J." },
+          { "full_name": "Liu, H." },
+          { "full_name": "Mateos, D." },
+          { "full_name": "Rajagopal, K." },
+          { "full_name": "Wiedemann, U.A." }
+        ],
+        "label": "12",
+        "misc": [
+          "Gauge/String Duality, Hot QCD and Heavy Ion Collisions, Cambridge University Press, Cambridge"
+        ],
+        "publication_info": { "year": 2014 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/89145" },
+      "reference": {
+        "authors": [{ "full_name": "Wilson, K.G." }],
+        "label": "13",
+        "misc": ["Confinement of Quarks [INSPIRE]"],
+        "publication_info": {
+          "artid": "2445",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "10",
+          "page_start": "2445",
+          "year": 1974
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1123806" },
+      "reference": {
+        "arxiv_eprint": "1207.5999",
+        "authors": [{ "full_name": "Philipsen, O." }],
+        "label": "14",
+        "misc": ["The QCD equation of state from the lattice [INSPIRE]"],
+        "publication_info": {
+          "artid": "55",
+          "journal_title": "Prog.Part.Nucl.Phys.",
+          "journal_volume": "70",
+          "page_start": "55",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1278064" },
+      "reference": {
+        "arxiv_eprint": "1401.4192",
+        "authors": [{ "full_name": "Szab, K." }],
+        "label": "15",
+        "misc": ["QCD at non-zero temperature and magnetic field [INSPIRE]"],
+        "publication_info": {
+          "artid": "014",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2013",
+          "page_start": "014",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1362492" },
+      "reference": {
+        "arxiv_eprint": "1504.05274",
+        "authors": [
+          { "full_name": "Ding, H.-T." },
+          { "full_name": "Karsch, F." },
+          { "full_name": "Mukherjee, S." }
+        ],
+        "label": "16",
+        "misc": ["Thermodynamics of strong-interaction matter from Lattice QCD"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/731401" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0611014",
+        "authors": [{ "full_name": "Aoki, Y." }],
+        "label": "17",
+        "misc": [
+          "G. Endr\u02ddodi, Z. Fodor, S.D. Katz and K.K. Szab\u00f3 The order of the quantum chromodynamics transition predicted by the standard model of particle physics [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "675",
+          "journal_title": "Nature",
+          "journal_volume": "443",
+          "page_start": "675",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1254865" },
+      "reference": {
+        "arxiv_eprint": "1309.5258",
+        "authors": [
+          { "full_name": "Bors\u00e1nyi, S." },
+          { "full_name": "Fodor, Z." },
+          { "full_name": "H\u00f6lbling, C." },
+          { "full_name": "Katz, S.D." },
+          { "full_name": "Krieg, S." },
+          { "full_name": "Szab, K.K." }
+        ],
+        "label": "18",
+        "misc": [
+          "Full result for the QCD equation of state with 2 + 1 flavors [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "99",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "730",
+          "page_start": "99",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1307761" },
+      "reference": {
+        "arxiv_eprint": "1407.6387",
+        "authors": [{ "full_name": "Bazavov, A." }],
+        "label": "19",
+        "misc": [
+          "HotQCD collaboration Equation of state in (2 + 1)-flavor QCD [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "094503",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1282138" },
+      "reference": {
+        "arxiv_eprint": "1402.5175",
+        "authors": [{ "full_name": "Bhattacharya, T." }],
+        "label": "20",
+        "misc": [
+          "QCD Phase Transition with Chiral Quarks and Physical Quark Masses [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "082001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "113",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/946829" },
+      "reference": {
+        "arxiv_eprint": "1111.4956",
+        "authors": [{ "full_name": "Bali, G.S." }],
+        "label": "21",
+        "misc": [
+          "The QCD phase diagram for external magnetic fields [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "044",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "044",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1184193" },
+      "reference": {
+        "arxiv_eprint": "1209.0374",
+        "authors": [{ "full_name": "D'Elia, M." }],
+        "label": "22",
+        "misc": [
+          "Lattice QCD Simulations in External Background Fields [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "181",
+          "journal_title": "Lect.Notes Phys.",
+          "journal_volume": "871",
+          "page_start": "181",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1082016" },
+      "reference": {
+        "arxiv_eprint": "1112.4416",
+        "authors": [
+          { "full_name": "Bors\u00e1nyi, S." },
+          { "full_name": "Fodor, Z." },
+          { "full_name": "Katz, S.D." },
+          { "full_name": "Krieg, S." },
+          { "full_name": "Ratti, C." },
+          { "full_name": "Szab, K." }
+        ],
+        "label": "23",
+        "misc": [
+          "Fluctuations of conserved charges at finite temperature from lattice QCD [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "138",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "138",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1089705" },
+      "reference": {
+        "arxiv_eprint": "1202.4173",
+        "authors": [{ "full_name": "Karsch, F." }],
+        "label": "24",
+        "misc": [
+          "Determination of Freeze-out Conditions from Lattice QCD Calculations [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "1234",
+          "journal_title": "Central Eur.J.Phys.",
+          "journal_volume": "10",
+          "page_start": "1234",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1092738" },
+      "reference": {
+        "arxiv_eprint": "1203.0784",
+        "authors": [{ "full_name": "Bazavov, A." }],
+        "label": "25",
+        "misc": [
+          "HotQCD collaboration Fluctuations and Correlations of net baryon number, electric charge and strangeness: A comparison of lattice QCD results with the hadron resonance gas model [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "034509",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "86",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1286328" },
+      "reference": {
+        "arxiv_eprint": "1403.4576",
+        "authors": [
+          { "full_name": "Bors\u00e1nyi, S." },
+          { "full_name": "Fodor, Z." },
+          { "full_name": "Katz, S.D." },
+          { "full_name": "Krieg, S." },
+          { "full_name": "Ratti, C." },
+          { "full_name": "Szab, K.K." }
+        ],
+        "label": "26",
+        "misc": [
+          "Freeze-out parameters from electric charge and baryon number fluctuations: is there consistency? [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "052301",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "113",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/748590" },
+      "reference": {
+        "arxiv_eprint": "0704.1801",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "27",
+        "misc": [
+          "A calculation of the shear viscosity in SU(3) gluodynamics [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "101701",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "76",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/764854" },
+      "reference": {
+        "arxiv_eprint": "0710.3717",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "28",
+        "misc": [
+          "A calculation of the bulk viscosity in SU(3) gluodynamics [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "162001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "100",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/810648" },
+      "reference": {
+        "arxiv_eprint": "0901.1195",
+        "authors": [
+          { "full_name": "Caron-Huot, S." },
+          { "full_name": "Laine, M." },
+          { "full_name": "Moore, G.D." }
+        ],
+        "label": "29",
+        "misc": [
+          "A way to estimate the heavy quark thermalization rate from the lattice [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "053",
+          "journal_title": "JHEP",
+          "journal_volume": "04",
+          "page_start": "053",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/878930" },
+      "reference": {
+        "arxiv_eprint": "1012.0234",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "30",
+        "misc": [
+          "The errant life of a heavy quark in the quark-gluon plasma [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "035008",
+          "journal_title": "New J.Phys.",
+          "journal_volume": "13",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/896630" },
+      "reference": {
+        "arxiv_eprint": "1104.3708",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "31",
+        "misc": [
+          "Transport Properties of the quark-gluon Plasma: A Lattice QCD Perspective [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "86",
+          "journal_title": "Eur.Phys.J.A",
+          "journal_volume": "47",
+          "page_start": "86",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1112002" },
+      "reference": {
+        "arxiv_eprint": "1204.4945",
+        "authors": [
+          { "full_name": "Ding, H.T." },
+          { "full_name": "Francis, A." },
+          { "full_name": "Kaczmarek, O." },
+          { "full_name": "Karsch, F." },
+          { "full_name": "Satz, H." },
+          { "full_name": "Soeldner, W." }
+        ],
+        "label": "32",
+        "misc": ["Charmonium properties in hot quenched lattice QCD [INSPIRE]"],
+        "publication_info": {
+          "artid": "014509",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "86",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1335139" },
+      "reference": {
+        "arxiv_eprint": "1412.6411",
+        "authors": [
+          { "full_name": "Aarts, G." },
+          { "full_name": "Allton, C." },
+          { "full_name": "Amato, A." },
+          { "full_name": "Giudice, P." },
+          { "full_name": "Hands, S." },
+          { "full_name": "Skullerud, J.-I." }
+        ],
+        "label": "33",
+        "misc": [
+          "Electrical conductivity and charge diffusion in thermal QCD from the lattice [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "186",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "186",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1090178" },
+      "reference": {
+        "arxiv_eprint": "1202.5295",
+        "authors": [{ "full_name": "Majumder, A." }],
+        "label": "34",
+        "misc": [
+          "Calculating the jet quenching parameter \u02c6q in lattice gauge theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "034905",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "87",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1128474" },
+      "reference": {
+        "arxiv_eprint": "1208.4253",
+        "authors": [
+          { "full_name": "Benzke, M." },
+          { "full_name": "Brambilla, N." },
+          { "full_name": "Escobedo, M.A." },
+          { "full_name": "Vairo, A." }
+        ],
+        "label": "35",
+        "misc": [
+          "Gauge invariant definition of the jet quenching parameter [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "129",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "129",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1182219" },
+      "reference": {
+        "arxiv_eprint": "1208.5707",
+        "authors": [{ "full_name": "Laine, M." }],
+        "label": "36",
+        "misc": ["A non-perturbative contribution to jet quenching [INSPIRE]"],
+        "publication_info": {
+          "artid": "2233",
+          "journal_title": "Eur.Phys.J.C",
+          "journal_volume": "72",
+          "page_start": "2233",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1221070" },
+      "reference": {
+        "arxiv_eprint": "1302.5970",
+        "authors": [{ "full_name": "Ghiglieri, J." }],
+        "label": "37",
+        "misc": [
+          "Next-to-leading order thermal photon production in a weakly coupled quark-gluon plasma [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "010",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "010",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1228511" },
+      "reference": {
+        "arxiv_eprint": "1304.4443",
+        "authors": [
+          { "full_name": "Laine, M." },
+          { "full_name": "Rothkopf, A." }
+        ],
+        "label": "38",
+        "misc": [
+          "Light-cone Wilson loop in classical lattice gauge theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "082",
+          "journal_title": "JHEP",
+          "journal_volume": "07",
+          "page_start": "082",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1257750" },
+      "reference": {
+        "arxiv_eprint": "1310.2413",
+        "authors": [
+          { "full_name": "Laine, M." },
+          { "full_name": "Rothkopf, A." }
+        ],
+        "label": "39",
+        "misc": [
+          "Towards understanding thermal jet quenching via lattice simulations [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "174",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2013",
+          "page_start": "174",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1244141" },
+      "reference": {
+        "arxiv_eprint": "1307.5850",
+        "authors": [
+          { "full_name": "Panero, M." },
+          { "full_name": "Rummukainen, K." },
+          { "full_name": "Sch\u00e4fer, A." }
+        ],
+        "label": "40",
+        "misc": ["Lattice Study of the Jet Quenching Parameter [INSPIRE]"],
+        "publication_info": {
+          "artid": "162001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "112",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1279606" },
+      "reference": {
+        "arxiv_eprint": "1401.7951",
+        "authors": [
+          { "full_name": "D'Onofrio, M." },
+          { "full_name": "Kurkela, A." },
+          { "full_name": "Moore, G.D." }
+        ],
+        "label": "41",
+        "misc": ["Renormalization of Null Wilson Lines in EQCD [INSPIRE]"],
+        "publication_info": {
+          "artid": "125",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "125",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1289230" },
+      "reference": {
+        "arxiv_eprint": "1404.2404",
+        "authors": [
+          { "full_name": "Brandt, B.B." },
+          { "full_name": "Francis, A." },
+          { "full_name": "Laine, M." },
+          { "full_name": "Meyer, H.B." }
+        ],
+        "label": "42",
+        "misc": [
+          "A relation between screening masses and real-time rates [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "117",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "117",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1205890" },
+      "reference": {
+        "arxiv_eprint": "1212.1238",
+        "authors": [
+          { "full_name": "Poppitz, E." },
+          { "full_name": "Sch\u00e4fer, T." },
+          { "full_name": "\u00dcnsal, M." }
+        ],
+        "label": "43",
+        "misc": [
+          "Universal mechanism of (semi-classical) deconfinement and theta-dependence for all simple groups [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "087",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "087",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/415828" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/9602007",
+        "authors": [{ "full_name": "Boyd, G." }],
+        "label": "44",
+        "misc": ["Thermodynamics of SU(3) lattice gauge theory [INSPIRE]"],
+        "publication_info": {
+          "artid": "419",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "469",
+          "page_start": "419",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/796822" },
+      "reference": {
+        "arxiv_eprint": "0809.2842",
+        "authors": [{ "full_name": "Umeda, T." }],
+        "label": "45",
+        "misc": [
+          "Fixed Scale Approach to Equation of State in Lattice QCD [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "051501",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "79",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/821339" },
+      "reference": {
+        "arxiv_eprint": "0905.4229",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "46",
+        "misc": [
+          "High-Precision Thermodynamics and Hagedorn Density of States [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "051502",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "80",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1112771" },
+      "reference": {
+        "arxiv_eprint": "1204.6184",
+        "authors": [{ "full_name": "Bors\u00e1nyi, S." }],
+        "label": "47",
+        "misc": [
+          "G. Endr\u02ddodi, Z. Fodor, S.D. Katz and K.K. Szab\u00f3 Precision SU(3) lattice thermodynamics for a large temperature range [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "056",
+          "journal_title": "JHEP",
+          "journal_volume": "07",
+          "page_start": "056",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1275623" },
+      "reference": {
+        "arxiv_eprint": "1312.7492",
+        "authors": [
+          { "full_name": "Asakawa, M." },
+          { "full_name": "Hatsuda, T." },
+          { "full_name": "Itou, E." },
+          { "full_name": "Kitazawa, M." },
+          { "full_name": "Suzuki, H." }
+        ],
+        "label": "48",
+        "misc": [
+          "FlowQCD collaboration Thermodynamics of SU(3) gauge theory from gradient flow on the lattice [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "011501",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "90",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1283342" },
+      "reference": {
+        "arxiv_eprint": "1403.0360",
+        "authors": [{ "full_name": "Giusti, L." }, { "full_name": "Pepe, M." }],
+        "label": "49",
+        "misc": [
+          "Equation of state of a relativistic theory from a moving frame [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "031601",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "113",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1353545" },
+      "reference": {
+        "arxiv_eprint": "1503.05652",
+        "authors": [
+          { "full_name": "Francis, A." },
+          { "full_name": "Kaczmarek, O." },
+          { "full_name": "Laine, M." },
+          { "full_name": "Neuhaus, T." },
+          { "full_name": "Ohno, H." }
+        ],
+        "label": "50",
+        "misc": [
+          "Critical point and scale setting in SU(3) plasma: An update [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "096002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/589194" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0206029",
+        "authors": [
+          { "full_name": "Lucini, B." },
+          { "full_name": "Teper, M." },
+          { "full_name": "Wenger, U." }
+        ],
+        "label": "51",
+        "misc": [
+          "The deconfinement transition in SU(N) gauge theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "197",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "545",
+          "page_start": "197",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/623106" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0307017",
+        "authors": [
+          { "full_name": "Lucini, B." },
+          { "full_name": "Teper, M." },
+          { "full_name": "Wenger, U." }
+        ],
+        "label": "52",
+        "misc": [
+          "The high temperature phase transition in SU(N) gauge theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "061",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "061",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/676093" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0502003",
+        "authors": [
+          { "full_name": "Lucini, B." },
+          { "full_name": "Teper, M." },
+          { "full_name": "Wenger, U." }
+        ],
+        "label": "53",
+        "misc": [
+          "Properties of the deconfining phase transition in SU(N) gauge theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "033",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "033",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/683418" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0505025",
+        "authors": [{ "full_name": "Bursa, F." }, { "full_name": "Teper, M." }],
+        "label": "54",
+        "misc": [
+          "Casimir scaling of domain wall tensions in the deconfined phase of D = 3 + 1 SU(N) gauge theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "060",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "060",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/686358" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0506034",
+        "authors": [
+          { "full_name": "Bringoltz, B." },
+          { "full_name": "Teper, M." }
+        ],
+        "label": "55",
+        "misc": [
+          "The pressure of the SU(N) lattice gauge theory at large-N [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "113",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "628",
+          "page_start": "113",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/690539" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0508021",
+        "authors": [
+          { "full_name": "Bringoltz, B." },
+          { "full_name": "Teper, M." }
+        ],
+        "label": "56",
+        "misc": [
+          "In search of a Hagedorn transition in SU(N) lattice gauge theories at large-N [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "014517",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "73",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/792954" },
+      "reference": {
+        "arxiv_eprint": "0808.1672",
+        "authors": [{ "full_name": "Panero, M." }],
+        "label": "57",
+        "misc": ["Geometric effects in lattice QCD thermodynamics [INSPIRE]"],
+        "publication_info": {
+          "artid": "175",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2008",
+          "page_start": "175",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/826337" },
+      "reference": {
+        "arxiv_eprint": "0907.3719",
+        "authors": [{ "full_name": "Panero, M." }],
+        "label": "58",
+        "misc": [
+          "Thermodynamics of the QCD plasma and the large-N limit [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "232001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "103",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/832633" },
+      "reference": {
+        "arxiv_eprint": "0909.5591",
+        "authors": [{ "full_name": "Datta, S." }, { "full_name": "Gupta, S." }],
+        "label": "59",
+        "misc": [
+          "Scaling and the continuum limit of the finite temperature deconfinement transition in SU(Nc) pure gauge theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "114504",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "80",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/857113" },
+      "reference": {
+        "arxiv_eprint": "1006.0938",
+        "authors": [{ "full_name": "Datta, S." }, { "full_name": "Gupta, S." }],
+        "label": "60",
+        "misc": [
+          "Continuum Thermodynamics of the GluoNc Plasma, Phys. Rev. D 82  114505 [INSPIRE]"
+        ],
+        "publication_info": { "year": 2010 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1088840" },
+      "reference": {
+        "arxiv_eprint": "1202.2762",
+        "authors": [
+          { "full_name": "Mykk\u00e4nen, A." },
+          { "full_name": "Panero, M." },
+          { "full_name": "Rummukainen, K." }
+        ],
+        "label": "61",
+        "misc": [
+          "Casimir scaling and renormalization of Polyakov loops in large-N gauge theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "069",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "069",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1091085" },
+      "reference": {
+        "arxiv_eprint": "1202.6684",
+        "authors": [
+          { "full_name": "Lucini, B." },
+          { "full_name": "Rago, A." },
+          { "full_name": "Rinaldi, E." }
+        ],
+        "label": "62",
+        "misc": ["SU(Nc) gauge theories at deconfinement [INSPIRE]"],
+        "publication_info": {
+          "artid": "279",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "712",
+          "page_start": "279",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/316331" },
+      "reference": {
+        "authors": [
+          { "full_name": "Christensen, J." },
+          { "full_name": "Thorleifsson, G." },
+          { "full_name": "Damgaard, P.H." },
+          { "full_name": "Wheater, J.F." }
+        ],
+        "label": "63",
+        "misc": [
+          "Thermodynamics of SU(3) lattice gauge theory in (2 + 1)-dimensions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "225",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "374",
+          "page_start": "225",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/692145" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0509041",
+        "authors": [{ "full_name": "Holland, K." }],
+        "label": "64",
+        "misc": [
+          "Another weak first order deconfinement transition: Three-dimensional SU(5) gauge theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "023",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "023",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/769958" },
+      "reference": {
+        "arxiv_eprint": "0712.1216",
+        "authors": [
+          { "full_name": "Holland, K." },
+          { "full_name": "Pepe, M." },
+          { "full_name": "Wiese, U.-J." }
+        ],
+        "label": "65",
+        "misc": [
+          "Revisiting the deconfinement phase transition in SU(4) Yang-Mills theory in 2 + 1 dimensions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "041",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "041",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/781377" },
+      "reference": {
+        "arxiv_eprint": "0803.2128",
+        "authors": [
+          { "full_name": "Liddle, J." },
+          { "full_name": "Teper, M." }
+        ],
+        "label": "66",
+        "misc": [
+          "The Deconfining phase transition in D = 2 + 1 SU(N) gauge theories"
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/790010" },
+      "reference": {
+        "arxiv_eprint": "0807.0855",
+        "authors": [
+          { "full_name": "Bialas, P." },
+          { "full_name": "Daniel, L." },
+          { "full_name": "Morel, A." },
+          { "full_name": "Petersson, B." }
+        ],
+        "label": "67",
+        "misc": [
+          "Thermodynamics of SU(3) Gauge Theory in 2 + 1 Dimensions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "547",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "807",
+          "page_start": "547",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/897775" },
+      "reference": {
+        "arxiv_eprint": "1105.0359",
+        "authors": [
+          { "full_name": "Caselle, M." },
+          { "full_name": "Castagnini, L." },
+          { "full_name": "Feo, A." },
+          { "full_name": "Gliozzi, F." },
+          { "full_name": "Panero, M." }
+        ],
+        "label": "68",
+        "misc": [
+          "Thermodynamics of SU(N) Yang-Mills theories in 2+1 dimensions I \u2014 The confining phase [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "142",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "142",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/944192" },
+      "reference": {
+        "arxiv_eprint": "1111.0580",
+        "authors": [{ "full_name": "Caselle, M." }],
+        "label": "69",
+        "misc": [
+          "Thermodynamics of SU(N) Yang-Mills theories in 2 + 1 dimensions II. The Deconfined phase [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "135",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "135",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1202685" },
+      "reference": {
+        "arxiv_eprint": "1211.3304",
+        "authors": [
+          { "full_name": "Bialas, P." },
+          { "full_name": "Daniel, L." },
+          { "full_name": "Morel, A." },
+          { "full_name": "Petersson, B." }
+        ],
+        "label": "70",
+        "misc": [
+          "Three dimensional finite temperature SU(3) gauge theory near the phase transition [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "111",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "871",
+          "page_start": "111",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/728876" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0610076",
+        "authors": [
+          { "full_name": "Pepe, M." },
+          { "full_name": "Wiese, U.J." }
+        ],
+        "label": "71",
+        "misc": ["Exceptional Deconfinement in G2 Gauge Theory [INSPIRE]"],
+        "publication_info": {
+          "artid": "21",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "768",
+          "page_start": "21",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/759971" },
+      "reference": {
+        "arxiv_eprint": "0709.0669",
+        "authors": [
+          { "full_name": "Cossu, G." },
+          { "full_name": "D'Elia, M." },
+          { "full_name": "Di Giacomo, A." },
+          { "full_name": "Lucini, B." },
+          { "full_name": "Pica, C." }
+        ],
+        "label": "72",
+        "misc": ["G2 gauge theory at finite temperature [INSPIRE]"],
+        "publication_info": {
+          "artid": "100",
+          "journal_title": "JHEP",
+          "journal_volume": "10",
+          "page_start": "100",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/825254" },
+      "reference": {
+        "arxiv_eprint": "0907.1450",
+        "authors": [
+          { "full_name": "Wellegehausen, B.H." },
+          { "full_name": "Wipf, A." },
+          { "full_name": "Wozar, C." }
+        ],
+        "label": "73",
+        "misc": [
+          "Effective Polyakov Loop Dynamics for Finite Temperature G2 Gluodynamics [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "065028",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "80",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1319491" },
+      "reference": {
+        "arxiv_eprint": "1409.8305",
+        "authors": [
+          { "full_name": "Bruno, M." },
+          { "full_name": "Caselle, M." },
+          { "full_name": "Panero, M." },
+          { "full_name": "Pellegrini, R." }
+        ],
+        "label": "74",
+        "misc": [
+          "Exceptional thermodynamics: the equation of state of G2 gauge theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "057",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "057",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1336628" },
+      "reference": {
+        "arxiv_eprint": "1501.01172",
+        "authors": [{ "full_name": "Bonati, C." }],
+        "label": "75",
+        "misc": [
+          "Topology and \u03b8 dependence in finite temperature G2 lattice gauge theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "006",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "006",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/481344" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9812187",
+        "authors": [{ "full_name": "Teper, M.J." }],
+        "label": "76",
+        "misc": [
+          "Glueball masses and other physical properties of SU(N) gauge theories in D = (3 + 1): A review of lattice results for theorists [INSPIRE]"
+        ]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/15627" },
+      "reference": {
+        "authors": [
+          { "full_name": "Isgur, N." },
+          { "full_name": "Paton, J.E." }
+        ],
+        "label": "77",
+        "misc": ["A Flux Tube Model for Hadrons in QCD [INSPIRE]"],
+        "publication_info": {
+          "artid": "2910",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "31",
+          "page_start": "2910",
+          "year": 1985
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/671808" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0508002",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "78",
+        "misc": ["Glueball regge trajectories"]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/48753" },
+      "reference": {
+        "authors": [{ "full_name": "Hagedorn, R." }],
+        "label": "79",
+        "misc": [
+          "Statistical thermodynamics of strong interactions at high-energies [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "147",
+          "journal_title": "Nuovo Cim.Suppl.",
+          "journal_volume": "3",
+          "page_start": "147",
+          "year": 1965
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/261790" },
+      "reference": {
+        "authors": [
+          { "full_name": "Atick, J.J." },
+          { "full_name": "Witten, E." }
+        ],
+        "label": "80",
+        "misc": [
+          "The Hagedorn Transition and the Number of Degrees of Freedom of String Theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "291",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "310",
+          "page_start": "291",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/403475" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9512078",
+        "authors": [{ "full_name": "Vafa, C." }],
+        "label": "81",
+        "misc": ["Instantons on D-branes [INSPIRE]"],
+        "publication_info": {
+          "artid": "435",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "463",
+          "page_start": "435",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/475891" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9809033",
+        "authors": [
+          { "full_name": "Barbon, J.L.F." },
+          { "full_name": "Kogan, I.I." },
+          { "full_name": "Rabinovici, E." }
+        ],
+        "label": "82",
+        "misc": ["On stringy thresholds in SYM/AdS thermodynamics [INSPIRE]"],
+        "publication_info": {
+          "artid": "104",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "544",
+          "page_start": "104",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/504954" },
+      "reference": {
+        "arxiv_eprint": "hep-th/9908001",
+        "authors": [{ "full_name": "Sundborg, B." }],
+        "label": "83",
+        "misc": [
+          "The Hagedorn transition, deconfinement and N = 4 SYM theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "349",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "573",
+          "page_start": "349",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/632130" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0310285",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Marsano, J." },
+          { "full_name": "Minwalla, S." },
+          { "full_name": "Papadodimas, K." },
+          { "full_name": "Van Raamsdonk, M." }
+        ],
+        "label": "84",
+        "misc": [
+          "The Hagedorn/deconfinement phase transition in weakly coupled large-N gauge theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "603",
+          "journal_title": "Adv.Theor.Math.Phys.",
+          "journal_volume": "8",
+          "page_start": "603",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/802023" },
+      "reference": {
+        "arxiv_eprint": "0811.1571",
+        "authors": [
+          { "full_name": "Noronha-Hostler, J." },
+          { "full_name": "Noronha, J." },
+          { "full_name": "Greiner, C." }
+        ],
+        "label": "85",
+        "misc": [
+          "Transport Coefficients of Hadronic Matter near T(c) [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "172302",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "103",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1333382" },
+      "reference": {
+        "arxiv_eprint": "1412.2759",
+        "authors": [
+          { "full_name": "Haehl, F.M." },
+          { "full_name": "Rangamani, M." }
+        ],
+        "label": "86",
+        "misc": ["Permutation orbifolds and holography [INSPIRE]"],
+        "publication_info": {
+          "artid": "163",
+          "journal_title": "JHEP",
+          "journal_volume": "03",
+          "page_start": "163",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1335443" },
+      "reference": {
+        "arxiv_eprint": "1412.7159",
+        "authors": [
+          { "full_name": "Belin, A." },
+          { "full_name": "Keller, C.A." },
+          { "full_name": "Maloney, A." }
+        ],
+        "label": "87",
+        "misc": ["String Universality for Permutation Orbifolds [INSPIRE]"],
+        "publication_info": {
+          "artid": "106005",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1343115" },
+      "reference": {
+        "arxiv_eprint": "1502.01356",
+        "authors": [
+          { "full_name": "Armoni, A." },
+          { "full_name": "Cohen, T.D." },
+          { "full_name": "Sen, S." }
+        ],
+        "label": "88",
+        "misc": ["Center symmetry and the Hagedorn spectrum [INSPIRE]"],
+        "publication_info": {
+          "artid": "085007",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/157909" },
+      "reference": {
+        "authors": [{ "full_name": "Creutz, M." }],
+        "label": "89",
+        "misc": ["Monte Carlo Study of Quantized SU(2) Gauge Theory [INSPIRE]"],
+        "publication_info": {
+          "artid": "2308",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "21",
+          "page_start": "2308",
+          "year": 1980
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/220728" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kennedy, A.D." },
+          { "full_name": "Pendleton, B.J." }
+        ],
+        "label": "90",
+        "misc": [
+          "Improved Heat Bath Method for Monte Carlo Calculations in Lattice Gauge Theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "393",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "156",
+          "page_start": "393",
+          "year": 1985
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/164460" },
+      "reference": {
+        "authors": [{ "full_name": "Adler, S.L." }],
+        "label": "91",
+        "misc": [
+          "An Overrelaxation Method for the Monte Carlo Evaluation of the Partition Function for Multiquadratic Actions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "2901",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "23",
+          "page_start": "2901",
+          "year": 1981
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/245111" },
+      "reference": {
+        "authors": [
+          { "full_name": "Brown, F.R." },
+          { "full_name": "Woch, T.J." }
+        ],
+        "label": "92",
+        "misc": [
+          "Overrelaxed Heat Bath and Metropolis Algorithms for Accelerating Pure Gauge Monte Carlo Calculations [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "2394",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "58",
+          "page_start": "2394",
+          "year": 1987
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Shao, J." }, { "full_name": "Tu, D." }],
+        "imprint": { "publisher": "Springer" },
+        "label": "93",
+        "misc": ["The Jackknife and Bootstrap -Verlag, New York, U.S.A"],
+        "publication_info": { "year": 1995 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/561439" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0108014",
+        "authors": [
+          { "full_name": "L\u00fcscher, M." },
+          { "full_name": "Weisz, P." }
+        ],
+        "label": "94",
+        "misc": [
+          "Locality and exponential error reduction in numerical lattice gauge theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "010",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "010",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/636035" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0312034",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "95",
+        "misc": [
+          "The Yang-Mills spectrum from a two level algorithm [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "030",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "030",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/620753" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0306011",
+        "authors": [
+          { "full_name": "Kratochvila, S." },
+          { "full_name": "de Forcrand, P." }
+        ],
+        "label": "96",
+        "misc": ["Observing string breaking with Wilson loops [INSPIRE]"],
+        "publication_info": {
+          "artid": "103",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "671",
+          "page_start": "103",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1185107" },
+      "reference": {
+        "arxiv_eprint": "1209.2372",
+        "authors": [{ "full_name": "Mykk\u00e4nen, A." }],
+        "label": "97",
+        "misc": [
+          "The static quark potential from a multilevel algorithm for the improved gauge action"
+        ],
+        "publication_info": {
+          "artid": "069",
+          "journal_title": "JHEP",
+          "journal_volume": "12",
+          "page_start": "069",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/129333" },
+      "reference": {
+        "authors": [
+          { "full_name": "Eichten, E." },
+          { "full_name": "Gottfried, K." },
+          { "full_name": "Kinoshita, T." },
+          { "full_name": "Lane, K.D." },
+          { "full_name": "Yan, T.-M." }
+        ],
+        "label": "98",
+        "misc": ["Charmonium: The Model [INSPIRE]"],
+        "publication_info": {
+          "artid": "3090",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "17",
+          "page_start": "3090",
+          "year": 1978
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1221254" },
+      "reference": {
+        "arxiv_eprint": "1302.6257",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Komargodski, Z." }
+        ],
+        "label": "99",
+        "misc": ["The Effective Theory of Long Strings [INSPIRE]"],
+        "publication_info": {
+          "artid": "118",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "118",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/153026" },
+      "reference": {
+        "authors": [
+          { "full_name": "L\u00fcscher, M." },
+          { "full_name": "Symanzik, K." },
+          { "full_name": "Weisz, P." }
+        ],
+        "label": "100",
+        "misc": [
+          "Anomalies of the Free Loop Wave Equation in the WKB Approximation [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "365",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "173",
+          "page_start": "365",
+          "year": 1980
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1277080" },
+      "reference": {
+        "arxiv_eprint": "1401.3270",
+        "authors": [{ "full_name": "Sommer, R." }],
+        "label": "101",
+        "misc": ["Scale setting in lattice QCD [INSPIRE]"],
+        "publication_info": {
+          "artid": "015",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2013",
+          "page_start": "015",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/298901" },
+      "reference": {
+        "authors": [
+          { "full_name": "Engels, J." },
+          { "full_name": "Fingberg, J." },
+          { "full_name": "Karsch, F." },
+          { "full_name": "Miller, D." },
+          { "full_name": "Weber, M." }
+        ],
+        "label": "102",
+        "misc": [
+          "Nonperturbative thermodynamics of SU(N) gauge theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "625",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "252",
+          "page_start": "625",
+          "year": 1990
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/754564" },
+      "reference": {
+        "arxiv_eprint": "0707.0055",
+        "authors": [
+          { "full_name": "Caselle, M." },
+          { "full_name": "Hasenbusch, M." },
+          { "full_name": "Panero, M." }
+        ],
+        "label": "103",
+        "misc": [
+          "The interface free energy: Comparison of accurate Monte Carlo results for the 3D Ising model with effective interface models [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "117",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "117",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/561196" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0108008",
+        "authors": [
+          { "full_name": "Necco, S." },
+          { "full_name": "Sommer, R." }
+        ],
+        "label": "104",
+        "misc": [
+          "The Nf = 0 heavy quark potential from short to intermediate distances [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "328",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "622",
+          "page_start": "328",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/424453" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/9610014",
+        "authors": [{ "full_name": "Allton, C.R." }],
+        "label": "105",
+        "misc": [
+          "Lattice Monte Carlo data versus perturbation theory [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "867",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "53",
+          "page_start": "867",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/800524" },
+      "reference": {
+        "arxiv_eprint": "0810.4453",
+        "authors": [
+          { "full_name": "Mathieu, V." },
+          { "full_name": "Kochelev, N." },
+          { "full_name": "Vento, V." }
+        ],
+        "label": "106",
+        "misc": ["The Physics of Glueballs [INSPIRE]"],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Int.J.Mod.Phys.E",
+          "journal_volume": "18",
+          "page_start": "1",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/804196" },
+      "reference": {
+        "arxiv_eprint": "0812.0600",
+        "authors": [
+          { "full_name": "Crede, V." },
+          { "full_name": "Meyer, C.A." }
+        ],
+        "label": "107",
+        "misc": ["The Experimental Status of Glueballs [INSPIRE]"],
+        "publication_info": {
+          "artid": "74",
+          "journal_title": "Prog.Part.Nucl.Phys.",
+          "journal_volume": "63",
+          "page_start": "74",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/539102" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0012287",
+        "authors": [
+          { "full_name": "Johnson, R.W." },
+          { "full_name": "Teper, M.J." }
+        ],
+        "label": "108",
+        "misc": [
+          "String models of glueballs and the spectrum of SU(N) gauge theories in (2 + 1)-dimensions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "036006",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "66",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/90591" },
+      "reference": {
+        "authors": [{ "full_name": "Nambu, Y." }],
+        "label": "109",
+        "misc": ["Strings, Monopoles and Gauge Fields [INSPIRE]"],
+        "publication_info": {
+          "artid": "4262",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "10",
+          "page_start": "4262",
+          "year": 1974
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/68024" },
+      "reference": {
+        "authors": [{ "full_name": "Got-o, T." }],
+        "label": "110",
+        "misc": [
+          "Relativistic quantum mechanics of one-dimensional mechanical continuum and subsidiary condition of dual resonance model [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "1560",
+          "journal_title": "Prog.Theor.Phys.",
+          "journal_volume": "46",
+          "page_start": "1560",
+          "year": 1971
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/177233" },
+      "reference": {
+        "authors": [
+          { "full_name": "Svetitsky, B." },
+          { "full_name": "Yaffe, L.G." }
+        ],
+        "label": "111",
+        "misc": [
+          "Critical Behavior at Finite Temperature Confinement Transitions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "423",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "210",
+          "page_start": "423",
+          "year": 1982
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/955181" },
+      "reference": {
+        "arxiv_eprint": "1111.5758",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Dodelson, M." }
+        ],
+        "label": "112",
+        "misc": [
+          "Effective String Theory and Nonlinear Lorentz Invariance [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "008",
+          "journal_title": "JHEP",
+          "journal_volume": "02",
+          "page_start": "008",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/655686" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0408002",
+        "authors": [{ "full_name": "Panero, M." }],
+        "label": "113",
+        "misc": [
+          "A numerical study of a confined Q \u00afQ system in compact U(1) lattice gauge theory in 4D [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "665",
+          "journal_title": "Nucl.Phys.B Proc.Suppl.",
+          "journal_volume": "140",
+          "page_start": "665",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/678675" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0503024",
+        "authors": [{ "full_name": "Panero, M." }],
+        "label": "114",
+        "misc": ["A numerical study of confinement in compact QED [INSPIRE]"],
+        "publication_info": {
+          "artid": "066",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "066",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1301564" },
+      "reference": {
+        "arxiv_eprint": "1406.5127",
+        "authors": [
+          { "full_name": "Caselle, M." },
+          { "full_name": "Panero, M." },
+          { "full_name": "Pellegrini, R." },
+          { "full_name": "Vadacchino, D." }
+        ],
+        "label": "115",
+        "misc": ["A different kind of string [INSPIRE]"],
+        "publication_info": {
+          "artid": "105",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "105",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/840458" },
+      "reference": {
+        "arxiv_eprint": "0912.3339",
+        "authors": [{ "full_name": "Teper, M." }, { "full_name": "N, Large" }],
+        "label": "116",
+        "misc": [
+          "and confining flux tubes as strings \u2014 a view from the lattice"
+        ],
+        "publication_info": {
+          "artid": "3249",
+          "journal_title": "Acta Phys.Polon.B",
+          "journal_volume": "40",
+          "page_start": "3249",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1250448" },
+      "reference": {
+        "arxiv_eprint": "1308.4993",
+        "authors": [{ "full_name": "Brandt, B.B." }],
+        "label": "117",
+        "misc": [
+          "Spectrum of the open QCD flux tube in d = 2 + 1 and its effective string description, PoS(EPS-HEP)540"
+        ],
+        "publication_info": { "year": 2013 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/493790" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/9901004",
+        "authors": [
+          { "full_name": "Morningstar, C.J." },
+          { "full_name": "Peardon, M.J." }
+        ],
+        "label": "118",
+        "misc": [
+          "The Glueball spectrum from an anisotropic lattice study [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "034509",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "60",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/504936" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/9908207",
+        "authors": [{ "full_name": "Glozman, L.Y." }],
+        "label": "119",
+        "misc": [
+          "Parity doublets and chiral symmetry restoration in baryon spectrum [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "329",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "475",
+          "page_start": "329",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/742134" },
+      "reference": {
+        "arxiv_eprint": "hep-ph/0701081",
+        "authors": [{ "full_name": "Glozman, L.Y." }],
+        "label": "120",
+        "misc": [
+          "Restoration of chiral and U(1)A symmetries in excited hadrons [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "444",
+          "page_start": "1",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/898620" },
+      "reference": {
+        "arxiv_eprint": "1105.1092",
+        "authors": [
+          { "full_name": "Buisseret, F." },
+          { "full_name": "Lacroix, G." }
+        ],
+        "label": "121",
+        "misc": [
+          "Comments on Yang-Mills thermodynamics, the Hagedorn spectrum and the gluon gas"
+        ],
+        "publication_info": {
+          "artid": "405",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "705",
+          "page_start": "405",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1322387" },
+      "reference": {
+        "arxiv_eprint": "1410.3869",
+        "authors": [
+          { "full_name": "Arriola, E. Ruiz" },
+          { "full_name": "Salcedo, L.L." },
+          { "full_name": "Meg\u00edas, E." }
+        ],
+        "label": "122",
+        "misc": ["Quark Hadron Duality at Finite Temperature [INSPIRE]"],
+        "publication_info": {
+          "artid": "2407",
+          "journal_title": "Acta Phys.Polon.B",
+          "journal_volume": "45",
+          "page_start": "2407",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/815177" },
+      "reference": {
+        "arxiv_eprint": "0903.1927",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Karzbrun, E." }
+        ],
+        "label": "123",
+        "misc": ["On the effective action of confining strings [INSPIRE]"],
+        "publication_info": {
+          "artid": "012",
+          "journal_title": "JHEP",
+          "journal_volume": "06",
+          "page_start": "012",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/865380" },
+      "reference": {
+        "arxiv_eprint": "1008.2636",
+        "authors": [
+          { "full_name": "Aharony, O." },
+          { "full_name": "Field, M." }
+        ],
+        "label": "124",
+        "misc": ["On the effective theory of long open strings [INSPIRE]"],
+        "publication_info": {
+          "artid": "065",
+          "journal_title": "JHEP",
+          "journal_volume": "01",
+          "page_start": "065",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1088610" },
+      "reference": {
+        "arxiv_eprint": "1202.1984",
+        "authors": [
+          { "full_name": "Bill, M." },
+          { "full_name": "Caselle, M." },
+          { "full_name": "Gliozzi, F." },
+          { "full_name": "Meineri, M." },
+          { "full_name": "Pellegrini, R." }
+        ],
+        "label": "125",
+        "misc": [
+          "The Lorentz-invariant boundary action of the confining string and its universal contribution to the inter-quark potential [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "130",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "130",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/894186" },
+      "reference": {
+        "arxiv_eprint": "1103.5377",
+        "authors": [{ "full_name": "Gliozzi, F." }],
+        "label": "126",
+        "misc": [
+          "Dirac-Born-Infeld action from spontaneous breakdown of Lorentz symmetry in brane-world scenarios [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "027702",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "84",
+          "year": 2011
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1122176" },
+      "reference": {
+        "arxiv_eprint": "1207.2912",
+        "authors": [
+          { "full_name": "Gliozzi, F." },
+          { "full_name": "Meineri, M." }
+        ],
+        "label": "127",
+        "misc": [
+          "Lorentz completion of effective string (and p-brane) action [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "056",
+          "journal_title": "JHEP",
+          "journal_volume": "08",
+          "page_start": "056",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/711312" },
+      "reference": {
+        "arxiv_eprint": "hep-th/0602281",
+        "authors": [{ "full_name": "Meyer, H.B." }],
+        "label": "128",
+        "misc": [
+          "Poincar\u00e9 invariance in effective string theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "066",
+          "journal_title": "JHEP",
+          "journal_volume": "05",
+          "page_start": "066",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1092955" },
+      "reference": {
+        "arxiv_eprint": "1203.1054",
+        "authors": [
+          { "full_name": "Dubovsky, S." },
+          { "full_name": "Flauger, R." },
+          { "full_name": "Gorbenko, V." }
+        ],
+        "label": "129",
+        "misc": ["Effective String Theory Revisited [INSPIRE]"],
+        "publication_info": {
+          "artid": "044",
+          "journal_title": "JHEP",
+          "journal_volume": "09",
+          "page_start": "044",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1210441" },
+      "reference": {
+        "arxiv_eprint": "1301.2325",
+        "authors": [
+          { "full_name": "Dubovsky, S." },
+          { "full_name": "Flauger, R." },
+          { "full_name": "Gorbenko, V." }
+        ],
+        "label": "130",
+        "misc": [
+          "Evidence from Lattice Data for a New Particle on the Worldsheet of the QCD Flux Tube [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "062006",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "111",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1288097" },
+      "reference": {
+        "arxiv_eprint": "1404.0037",
+        "authors": [
+          { "full_name": "Dubovsky, S." },
+          { "full_name": "Flauger, R." },
+          { "full_name": "Gorbenko, V." }
+        ],
+        "label": "131",
+        "misc": [
+          "Flux Tube Spectra from Approximate Integrability at Low Energies [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "399",
+          "journal_title": "J.Exp.Theor.Phys.",
+          "journal_volume": "120",
+          "page_start": "399",
+          "year": 2015
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1283637" },
+      "reference": {
+        "arxiv_eprint": "1403.0893",
+        "authors": [
+          { "full_name": "Ambj\u00f8rn, J." },
+          { "full_name": "Makeenko, Y." },
+          { "full_name": "Sedrakyan, A." }
+        ],
+        "label": "132",
+        "misc": ["Effective QCD string beyond Nambu-Goto action"],
+        "publication_info": {
+          "artid": "106010",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "89",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/697217" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0511023",
+        "authors": [{ "full_name": "Kuti, J." }],
+        "label": "133",
+        "misc": ["Lattice QCD and string theory [INSPIRE]"],
+        "publication_info": {
+          "artid": "001",
+          "journal_title": "PoS",
+          "journal_volume": "LAT2005",
+          "page_start": "001",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1191457" },
+      "reference": {
+        "arxiv_eprint": "1210.4997",
+        "authors": [
+          { "full_name": "Lucini, B." },
+          { "full_name": "Panero, M." }
+        ],
+        "label": "134",
+        "misc": ["SU(N) gauge theories at large-N [INSPIRE]"],
+        "publication_info": {
+          "artid": "93",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "526",
+          "page_start": "93",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1191903" },
+      "reference": {
+        "arxiv_eprint": "1210.5510",
+        "authors": [{ "full_name": "Panero, M." }],
+        "label": "135",
+        "misc": ["Recent results in large-N lattice gauge theories [INSPIRE]"],
+        "publication_info": {
+          "artid": "010",
+          "journal_title": "PoS",
+          "journal_volume": "LATTICE2012",
+          "page_start": "010",
+          "year": 2012
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1254230" },
+      "reference": {
+        "arxiv_eprint": "1309.3638",
+        "authors": [
+          { "full_name": "Lucini, B." },
+          { "full_name": "Panero, M." }
+        ],
+        "label": "136",
+        "misc": [
+          "Introductory lectures to large-N QCD phenomenology and lattice results [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Prog.Part.Nucl.Phys.",
+          "journal_volume": "75",
+          "page_start": "1",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1228698" },
+      "reference": {
+        "arxiv_eprint": "1304.4757",
+        "authors": [
+          { "full_name": "Caselle, M." },
+          { "full_name": "Pellegrini, R." }
+        ],
+        "label": "137",
+        "misc": [
+          "Finite-Temperature Behavior of Glueballs in Lattice Gauge Theories [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "132001",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "111",
+          "year": 2013
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/588785" },
+      "reference": {
+        "arxiv_eprint": "hep-lat/0206020",
+        "authors": [
+          { "full_name": "Ishii, N." },
+          { "full_name": "Suganuma, H." },
+          { "full_name": "Matsufuru, H." }
+        ],
+        "label": "138",
+        "misc": [
+          "Glueball properties at finite temperature in SU(3) anisotropic lattice QCD [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "094506",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "66",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/815202" },
+      "reference": {
+        "arxiv_eprint": "0903.1991",
+        "authors": [{ "full_name": "Meng, X.-F." }],
+        "label": "139",
+        "misc": ["Glueballs at finite temperature in SU(3) Yang-Mills theory"],
+        "publication_info": {
+          "artid": "114502",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "80",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/99714" },
+      "reference": {
+        "authors": [
+          { "full_name": "Cabibbo, N." },
+          { "full_name": "Parisi, G." }
+        ],
+        "label": "140",
+        "misc": [
+          "Exponential Hadronic Spectrum and Quark Liberation [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "67",
+          "journal_title": "Phys.Lett.B",
+          "journal_volume": "59",
+          "page_start": "67",
+          "year": 1975
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/180860" },
+      "reference": {
+        "authors": [
+          { "full_name": "Kapusta, J.I." },
+          { "full_name": "Olive, K.A." }
+        ],
+        "label": "141",
+        "misc": [
+          "Thermodynamics of Hadrons: Delimiting the Temperature [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "478",
+          "journal_title": "Nucl.Phys.A",
+          "journal_volume": "408",
+          "page_start": "478",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/450594" },
+      "reference": {
+        "arxiv_eprint": "nucl-th/9711062",
+        "authors": [
+          { "full_name": "Yen, G.D." },
+          { "full_name": "Gorenstein, M.I." },
+          { "full_name": "Greiner, W." },
+          { "full_name": "Yang, S.-N." }
+        ],
+        "label": "142",
+        "misc": [
+          "Excluded volume hadron gas model for particle number ratios in A+A collisions [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "2210",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "56",
+          "page_start": "2210",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1293740" },
+      "reference": {
+        "arxiv_eprint": "1404.7540",
+        "authors": [
+          { "full_name": "Albright, M." },
+          { "full_name": "Kapusta, J." },
+          { "full_name": "Young, C." }
+        ],
+        "label": "143",
+        "misc": [
+          "Matching Excluded Volume Hadron Resonance Gas Models and Perturbative QCD to Lattice Calculations [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "024915",
+          "journal_title": "Phys.Rev.C",
+          "journal_volume": "90",
+          "year": 2014
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/1341053" },
+      "reference": {
+        "arxiv_eprint": "1501.06379",
+        "authors": [
+          { "full_name": "Alho, T." },
+          { "full_name": "J\u00e4rvinen, M." },
+          { "full_name": "Kajantie, K." },
+          { "full_name": "Kiritsis, E." },
+          { "full_name": "Tuominen, K." }
+        ],
+        "label": "144",
+        "misc": [
+          "Quantum and stringy corrections to the equation of state of holographic QCD matter and the nature of the chiral transition [INSPIRE]"
+        ],
+        "publication_info": {
+          "artid": "055017",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "91",
+          "year": 2015
+        }
+      }
+    }
+  ],
+  "self": { "$ref": "http://labs.inspirehep.net/api/literature/1366189" },
+  "texkeys": ["Caselle:2015tza"],
+  "titles": [
+    {
+      "source": "arXiv",
+      "title":
+        "Hagedorn spectrum and thermodynamics of SU(2) and SU(3) Yang-Mills theories"
+    }
+  ]
+}

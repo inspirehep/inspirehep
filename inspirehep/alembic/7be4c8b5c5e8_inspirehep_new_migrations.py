@@ -14,9 +14,16 @@ from sqlalchemy.dialects import postgresql
 
 # revision identifiers, used by Alembic.
 revision = "7be4c8b5c5e8"
-down_revision = None
-branch_labels = ("inspirehep_new",)
-depends_on = "dbdbc1b19cf2"
+down_revision = "b5be5fda2ee7"
+branch_labels = ()
+
+"""Migrations which are required and inspirehep is depending on:
+    07fb52561c5c - invenio-records,
+    1ba76da94103 - invenio-records-files
+    f741aa746a7d - invenio-files-rest
+    e12419831262 - invenio-accounts
+"""
+depends_on = "07fb52561c5c", "1ba76da94103", "f741aa746a7d", "e12419831262"
 
 
 def upgrade():
@@ -287,10 +294,41 @@ def upgrade():
             "record_uuid", "source", name="pk_workflows_record_sources"
         ),
     )
+    op.execute(
+        """
+            CREATE OR REPLACE FUNCTION referenced_records(json jsonb) RETURNS TEXT[] AS $$
+            DECLARE
+              reference_arr jsonb;
+              text_val text;
+              text_arr_val text[];
+              ret_val text[];
+            BEGIN
+              FOR reference_arr IN (SELECT jsonb_array_elements(json->'references')) LOOP
+                text_val := split_part(reference_arr->'record'->>'$ref',E'api/',2);
+                IF text_val != '' THEN
+                  text_arr_val := regexp_split_to_array(text_val, E'/');
+                  ret_val:=array_append(ret_val, text_arr_val[2]||substring(text_arr_val[1] for 3));
+                END IF;
+              END LOOP;
+            RETURN ret_val;
+            END;
+            $$ LANGUAGE plpgsql IMMUTABLE;
+        """
+    )
+
+    op.execute(
+        """
+            CREATE INDEX ix_records_metadata_json_referenced_records_2_0
+              ON records_metadata
+              USING gin(referenced_records(json))
+        """
+    )
 
 
 def downgrade():
     # """Downgrade database."""
+    op.execute("drop index if exists ix_records_metadata_json_referenced_records_2_0")
+    op.execute("drop function if exists referenced_records(json jsonb)")
     op.drop_table("workflows_record_sources")
     op.drop_table("workflows_pending_record")
     op.drop_table("crawler_workflows_object")

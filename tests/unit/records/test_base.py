@@ -314,3 +314,19 @@ def test_record_deleted_index_static_method():
     assert expected_1_deleted == InspireRecord._record_index(
         data, _id=1, force_delete=False
     )
+
+
+@mock.patch("inspirehep.records.api.base.InspireRecord._get_records_ids_by_pids")
+def test_get_records_ids_by_pids_function_is_properly_called_with_parameters(PI_mock):
+    pids = [("lit", 1), ("lit", 2), ("lit", 3), ("lit", 4), ("lit", 5)]
+    ids_generator = InspireRecord.get_records_ids_by_pids(pids, 3)
+    # Calling generator to process all elements so mocked function
+    # _get_records_ids_by_pids will be called with parameters
+    [t for t in ids_generator]
+    expected_call_list = [
+        mock.call([("lit", 1), ("lit", 2), ("lit", 3)]),
+        mock.call([("lit", 4), ("lit", 5)]),
+    ]
+
+    assert PI_mock.call_count == 2
+    assert PI_mock.call_args_list == expected_call_list

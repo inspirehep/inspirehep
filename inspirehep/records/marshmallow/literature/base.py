@@ -10,7 +10,7 @@ from copy import deepcopy
 from itertools import chain
 
 from inspire_dojson.utils import strip_empty_values
-from inspire_utils.date import earliest_date, format_date
+from inspire_utils.date import format_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
@@ -220,24 +220,9 @@ class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
 
     def get_earliest_date(self, record):
-        """Prepares record for ``earliest_date`` field."""
-        date_paths = [
-            "preprint_date",
-            "thesis_info.date",
-            "thesis_info.defense_date",
-            "publication_info.year",
-            "legacy_creation_date",
-            "imprints.date",
-        ]
-
-        dates = [
-            str(el)
-            for el in chain.from_iterable(
-                force_list(record.get_value(path)) for path in date_paths
-            )
-        ]
-        if dates:
-            return earliest_date(dates)
+        earliest_date = record.get_earliest_date()
+        if earliest_date:
+            return earliest_date
         return missing
 
     def get_author_count(self, record):

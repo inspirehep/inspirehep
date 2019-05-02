@@ -16,6 +16,7 @@ from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
 from inspirehep.records.api import DataRecord, InspireRecord
+from inspirehep.records.models import RecordCitations
 
 
 def test_data_create(base_app, db):
@@ -161,3 +162,17 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db)
     record = InspireRecord.create_or_update(data)
     assert type(record) == DataRecord
     assert record.pid_type == "dat"
+
+
+def test_create_record_update_citation_table_for_literature_citation(base_app, db):
+    data = faker.record("dat")
+    record = DataRecord.create(data)
+
+    data2 = faker.record("lit", data_citations=[record["control_number"]])
+    record2 = InspireRecord.create(data2)
+
+    assert len(record.model.citations) == 1
+    assert len(record.model.references) == 0
+    assert len(record2.model.citations) == 0
+    assert len(record2.model.references) == 1
+    assert len(RecordCitations.query.all()) == 1

@@ -17,7 +17,5 @@ poetry run inspirehep index destroy --force --yes-i-know
 poetry run inspirehep index init --force
 poetry run inspirehep index queue init purge
 
-# Create admin role to rectict access
-poetry run inspirehep roles create admin
-poetry run inspirehep access allow superuser-access role admin
+# Create users and roles
 poetry run inspirehep fixtures init

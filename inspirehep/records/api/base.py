@@ -12,13 +12,17 @@ import logging
 import re
 import uuid
 from io import BytesIO
+from itertools import chain
 
+import dateutil
 from flask import current_app
 from flask_celeryext.app import current_celery_app
 from fs.errors import ResourceNotFoundError
 from fs.opener import fsopen
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
+from inspire_utils.date import earliest_date
+from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_files_rest.models import Bucket, Location, ObjectVersion
@@ -35,6 +39,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
 from inspirehep.records.indexer.base import InspireRecordIndexer
+from inspirehep.records.models import RecordCitations
 
 logger = logging.getLogger(__name__)
 
@@ -251,6 +256,34 @@ class InspireRecord(Record):
 
     @classmethod
     def get_records_by_pids(cls, pids):
+        query = cls.get_record_metadata_by_pids(pids)
+        for data in query.yield_per(100):
+            yield cls(data.json)
+
+    @classmethod
+    def get_records_ids_by_pids(cls, pids, max_batch=100):
+        """If query is too big (~5000 pids) SQL refuses to run it,
+        so it has to be split"""
+
+        for batch_no in range((len(pids) // max_batch) + 1):
+            query = cls._get_records_ids_by_pids(
+                pids[max_batch * batch_no : max_batch * (batch_no + 1)]  # noqa
+            )
+            for data in query.yield_per(100):
+                yield data.object_uuid
+
+    @classmethod
+    def _get_records_ids_by_pids(cls, pids):
+        query = PersistentIdentifier.query.filter(
+            PersistentIdentifier.object_type == "rec",
+            tuple_(PersistentIdentifier.pid_type, PersistentIdentifier.pid_value).in_(
+                pids
+            ),
+        )
+        return query
+
+    @classmethod
+    def get_record_metadata_by_pids(cls, pids):
         query = RecordMetadata.query.join(
             PersistentIdentifier, RecordMetadata.id == PersistentIdentifier.object_uuid
         ).filter(
@@ -259,8 +292,7 @@ class InspireRecord(Record):
                 pids
             ),
         )
-        for data in query.yield_per(100):
-            yield cls(data.json)
+        return query
 
     @classmethod
     def get_class_for_record(cls, data):
@@ -282,6 +314,7 @@ class InspireRecord(Record):
         with db.session.begin_nested():
             cls.mint(id_, data)
             record = super().create(data, id_=id_, **kwargs)
+            record._update_refs_in_citation_table()
         return record
 
     @classmethod
@@ -394,6 +427,7 @@ class InspireRecord(Record):
         with db.session.begin_nested():
             super().update(data)
             self.model.json = self
+            self._update_refs_in_citation_table()
             db.session.add(self.model)
 
     def redirect(self, other):
@@ -438,9 +472,15 @@ class InspireRecord(Record):
 
     def _mark_deleted(self):
         self["deleted"] = True
+        self._update_refs_in_citation_table()
 
     def hard_delete(self):
         with db.session.begin_nested():
+            # Removing citations from RecordCitations table
+            RecordCitations.query.filter_by(citer_id=self.id).delete()
+            # Removing references to this record from RecordCitations table
+            RecordCitations.query.filter_by(cited_id=self.id).delete()
+
             pids = PersistentIdentifier.query.filter(
                 PersistentIdentifier.object_uuid == self.id
             ).all()
@@ -961,3 +1001,80 @@ class InspireRecord(Record):
     def get_value(self, field, default=None):
         """Method which makes ``get_value`` more intuitive"""
         return get_value(self, field, default)
+
+    def is_superseded(self):
+        """Checks if record is superseded
+
+        Returns:
+            bool: True if is superseded, False otherwise
+        """
+        return "successor" in self.get_value("related_records.relation", "")
+
+    def _update_refs_in_citation_table(self, save_every=100):
+        """Updates all references in citation table.
+
+        First removes all references (where citer is this record),
+        then adds all from the record again.
+
+        Args:
+            save_every (int): How often data should be saved into session.
+            One by one is very inefficient, but so is 10000 at once.
+        """
+        RecordCitations.query.filter_by(citer_id=self.id).delete()
+
+        if self.is_superseded() or self.get("deleted") or self.pid_type not in ["lit"]:
+            # Record is not eligible to cite
+            return
+        records_pids = self.get_linked_pids_from_field("references.record")
+        # Limit records to literature and data as only this types can be cited
+        proper_records_pids = [
+            rec_pid for rec_pid in records_pids if rec_pid[0] in ["lit", "dat"]
+        ]
+        records_uuids = self.get_records_ids_by_pids(proper_records_pids)
+        referenced_records = set()
+        references_waiting_for_commit = []
+        citation_date = self.get_earliest_date()
+        for reference in records_uuids:
+            if reference not in referenced_records:
+                referenced_records.add(reference)
+                references_waiting_for_commit.append(
+                    RecordCitations(
+                        citer_id=self.model.id,
+                        cited_id=reference,
+                        citation_date=citation_date,
+                    )
+                )
+            if len(references_waiting_for_commit) >= save_every:
+                db.session.bulk_save_objects(references_waiting_for_commit)
+                references_waiting_for_commit = []
+        if references_waiting_for_commit:
+            db.session.bulk_save_objects(references_waiting_for_commit)
+
+    def get_earliest_date(self):
+        """Returns earliest date. If earliest date is missing month or day
+        it's set as 1 as DB does not accept date without day or month"""
+        date_paths = [
+            "preprint_date",
+            "thesis_info.date",
+            "thesis_info.defense_date",
+            "publication_info.year",
+            "legacy_creation_date",
+            "imprints.date",
+        ]
+
+        dates = [
+            str(el)
+            for el in chain.from_iterable(
+                force_list(self.get_value(path)) for path in date_paths
+            )
+        ]
+        proper_dates = []
+        for date in dates:
+            try:
+                proper_dates.append(dateutil.parser.parse(date))
+            except ValueError:
+                pass
+        if proper_dates:
+            date = earliest_date(dates, full_date=True)
+            return date
+        return None

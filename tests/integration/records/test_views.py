@@ -240,7 +240,7 @@ def test_literature_citations_missing_pids(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_literature_facets(api_client, db, create_record):
+def test_literature_facets(api_client, db, create_record, es):
     record = create_record("lit")
 
     response = api_client.get("/literature/facets")
@@ -301,7 +301,7 @@ def test_literature_facets_with_selected_facet(api_client, db, create_record_fac
     assert expected_result_hits == response_data_hits
 
 
-def test_literature_facets_author_count_does_not_have_empty_bucket(api_client, db):
+def test_literature_facets_author_count_does_not_have_empty_bucket(api_client, db, es):
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
@@ -315,7 +315,7 @@ def test_literature_facets_author_count_does_not_have_empty_bucket(api_client, d
     """
 )
 def test_literature_facets_author_count_returns_non_empty_bucket(
-    api_client, db, create_record
+    api_client, db, create_record, es
 ):
     create_record("lit", data={"authors": [{"full_name": "Harun Urhan"}]})
     response = api_client.get("/literature/facets")
@@ -326,7 +326,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(
     assert buckets[0]["doc_count"] == 1
 
 
-def test_literature_facets_arxiv(api_client, db, create_record):
+def test_literature_facets_arxiv(api_client, db, create_record, es):
     record = create_record("lit")
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
@@ -663,7 +663,7 @@ def test_institutions_search_json_get(api_client, db, create_record_factory):
     assert expected_status_code == response_status_code
 
 
-def test_literature_facets_collaboration(api_client, db, create_record):
+def test_literature_facets_collaboration(api_client, db, create_record, es):
     data_1 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
@@ -721,7 +721,7 @@ def test_author_facets(api_client, db, create_record_factory):
     assert expected_facet_keys == response_data_facet_keys
 
 
-def test_import_article_view_400_bad_arxiv(api_client):
+def test_import_article_view_400_bad_arxiv(api_client, db):
     resp = api_client.get("/literature/import/bad_arxiv:0000.0000")
 
     expected_msg = "bad_arxiv:0000.0000 is not a recognized identifier"
@@ -731,7 +731,7 @@ def test_import_article_view_400_bad_arxiv(api_client):
     assert resp.status_code == 400
 
 
-def test_import_article_view_404_non_existing_doi(api_client):
+def test_import_article_view_404_non_existing_doi(api_client, db):
     resp = api_client.get("/literature/import/10.1016/j.physletb.2099.08.020")
 
     expected_msg = "No article found for 10.1016/j.physletb.2099.08.020"
@@ -758,13 +758,13 @@ def test_import_article_view_409_because_article_already_exists(
     assert resp.status_code == 409
 
 
-def test_import_article_view_404_arxiv_not_found(api_client):
+def test_import_article_view_404_arxiv_not_found(api_client, db):
     with my_vcr.use_cassette("test_import_article_view_404_arxiv_not_found.yml"):
         resp = api_client.get("/literature/import/arXiv:0000.0000")
         assert resp.status_code == 404
 
 
-def test_import_article_view_400_doi_not_valid(api_client):
+def test_import_article_view_400_doi_not_valid(api_client, db):
     with my_vcr.use_cassette("test_import_article_view_404_doi_not_found.yml"):
         resp = api_client.get("/literature/import/doi:notADoi")
         assert resp.status_code == 400
@@ -782,7 +782,7 @@ def test_import_article_arxiv_409_id_already_in_inspire(
     assert resp.status_code == 409
 
 
-def test_import_article_view_404_website_not_reachable(api_client):
+def test_import_article_view_404_website_not_reachable(api_client, db):
     arxiv_id = faker.arxiv()
     with requests_mock.Mocker() as mocker:
         mocker.get(
@@ -793,14 +793,14 @@ def test_import_article_view_404_website_not_reachable(api_client):
         assert resp.status_code == 502
 
 
-def test_import_article_view_500_arxiv_broken_record(api_client):
+def test_import_article_view_500_arxiv_broken_record(api_client, db):
     arxiv_id = "0804.1111"
     with my_vcr.use_cassette("test_import_article_view_500_arxiv_broken_record.yml"):
         resp = api_client.get(f"/literature/import/arXiv:{arxiv_id}")
         assert resp.status_code == 500
 
 
-def test_import_article_view_200_arxiv(api_client):
+def test_import_article_view_200_arxiv(api_client, db):
     arxiv_id = "1607.06746"
     with my_vcr.use_cassette("test_import_article_view_200_arxiv.yaml"):
         resp = api_client.get(f"/literature/import/{arxiv_id}")
@@ -812,7 +812,7 @@ def test_import_article_view_200_arxiv(api_client):
         assert result["arxiv_id"] == arxiv_id
 
 
-def test_import_article_view_200_crossref(api_client):
+def test_import_article_view_200_crossref(api_client, db):
     doi = "10.1016/j.physletb.2012.08.020"
     with my_vcr.use_cassette("test_import_article_view_200_crossref.yaml"):
         resp = api_client.get(f"/literature/import/{doi}")

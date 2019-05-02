@@ -60,6 +60,7 @@ setup(
         "invenio_search.mappings": ["records = inspirehep.search.mappings"],
         "invenio_celery.tasks": ["invenio_indexer = inspirehep.records.indexer.tasks"],
         "invenio_db.alembic": ["inspirehep = inspirehep:alembic"],
+        "invenio_db.models": ["inspirehep_records = inspirehep.records.models"],
     },
     classifiers=[
         "Environment :: Web Environment",

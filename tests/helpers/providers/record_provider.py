@@ -109,12 +109,22 @@ class RecordProvider(BaseProvider):
             )
         return {"references": data}
 
+    @staticmethod
+    def add_data_citations(citation_records):
+        data = []
+        for record in citation_records:
+            data.append(
+                {"record": {"$ref": f"http://localhost:5000/api/data/{record}"}}
+            )
+        return {"references": data}
+
     def record(
         self,
         record_type,
         data=None,
         with_control_number=False,
-        citations=[],
+        literature_citations=[],
+        data_citations=[],
         skip_validation=False,
     ):
         if record_type == "lit":
@@ -138,8 +148,10 @@ class RecordProvider(BaseProvider):
             record["control_number"] = self.control_number()
         if data:
             record.update(data)
-        if citations:
-            record.update(self.add_citations(citations))
+        if literature_citations:
+            record.update(self.add_citations(literature_citations))
+        if data_citations:
+            record.update(self.add_data_citations(data_citations))
         if not skip_validation:
             schema_validate(record)
         return record
