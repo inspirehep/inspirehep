@@ -7,16 +7,20 @@
 
 import datetime
 import json
+import logging
 
 import requests
 from flask import Blueprint, abort, current_app, jsonify, request
 from flask.views import MethodView
 from flask_login import current_user
+from inspire_json_merger.api import merge
 from invenio_pidstore.errors import PIDDoesNotExistError
 
 from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api.literature import import_doi
+from inspirehep.records.errors import ImportConnectionError, ImportParsingError
 
 from .marshmallow import Author, Literature
 from .serializers import author_v1  # TODO: use literature_v1 from serializers
@@ -120,8 +124,32 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
             "url": submission_data.get("pdf_link"),
             "references": submission_data.get("references"),
         }
-        data = {"data": serialized_data, "form_data": form_data}
-        response = self.send_post_request_to_inspire_next("/workflows/literature", data)
+        payload = {"data": serialized_data, "form_data": form_data}
+
+        if submission_data.get("arxiv_id") and submission_data.get("doi"):
+            doi = submission_data["doi"]
+            try:
+                crossref_data = import_doi(doi)
+            except (ImportConnectionError, ImportParsingError) as e:
+                logging.log(
+                    level=logging.ERROR,
+                    msg=f"Cannot merge submission with {doi}. \n{e}",
+                )
+
+            if crossref_data:
+                merged, conflicts = merge(
+                    root={}, head=payload["data"], update=crossref_data
+                )
+                payload["data"] = merged
+                if conflicts:
+                    logging.log(
+                        level=logging.ERROR,
+                        msg=f"Ignoring conflicts while enhancing submission.\n{conflicts}",
+                    )
+
+        response = self.send_post_request_to_inspire_next(
+            "/workflows/literature", payload
+        )
 
         if response.status_code == 200:
             return response.content

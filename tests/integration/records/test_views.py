@@ -819,6 +819,7 @@ def test_import_article_view_200_arxiv(api_client, db):
         assert resp.status_code == 200
         assert result["title"] == expected_title
         assert result["arxiv_id"] == arxiv_id
+        assert result["arxiv_categories"] == ["hep-ex", "hep-ph"]
 
 
 def test_import_article_view_200_crossref(api_client, db):

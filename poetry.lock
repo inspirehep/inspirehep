@@ -355,6 +355,14 @@ version = "4.4.0"
 
 [[package]]
 category = "main"
+description = "Dictdiffer is a library that helps you to diff and patch dictionaries."
+name = "dictdiffer"
+optional = false
+python-versions = "*"
+version = "0.8.0"
+
+[[package]]
+category = "main"
 description = "DoJSON is a simple Pythonic JSON to JSON converter."
 name = "dojson"
 optional = false
@@ -377,6 +385,15 @@ version = "0.19.11"
 [package.dependencies]
 certifi = "*"
 urllib3 = ">=1.23"
+
+[[package]]
+category = "main"
+description = "Fast implementation of the edit distance(Levenshtein distance)"
+marker = "extra == \"contrib\""
+name = "editdistance"
+optional = false
+python-versions = "*"
+version = "0.5.3"
 
 [[package]]
 category = "main"
@@ -571,6 +588,7 @@ werkzeug = "*"
 reference = "84c2633a4af55092650cb6972b126039500b39f9"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
+
 [[package]]
 category = "main"
 description = "Rate limiting for flask applications"
@@ -692,6 +710,7 @@ SQLAlchemy = ">=0.8.0"
 reference = "35ab75ee366eb020f929bdc737e0cbe300c5c601"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
+
 [[package]]
 category = "main"
 description = "HTTP security headers for Flask."
@@ -976,6 +995,20 @@ inspire-utils = ">=3.0.0,<4.0"
 isbnid_fork = ">=0.5.2,<1.0"
 langdetect = ">=1.0.7,<2.0"
 pycountry = ">=17.5.4,<18.0"
+
+[[package]]
+category = "main"
+description = "INSPIRE-specific configuration of the JSON Merger."
+name = "inspire-json-merger"
+optional = false
+python-versions = "*"
+version = "10.0.3"
+
+[package.dependencies]
+inspire-schemas = ">=59.0.0,<60.0"
+inspire-utils = ">=3.0.0,<4.0"
+json-merger = ">=0.6.0,<1.0"
+pyrsistent = ">=0.14.0,<1.0"
 
 [[package]]
 category = "main"
@@ -1550,6 +1583,22 @@ jinja2 = "*"
 
 [[package]]
 category = "main"
+description = "Python module that is able to merge json record objects."
+name = "json-merger"
+optional = false
+python-versions = "*"
+version = "0.7.1"
+
+[package.dependencies]
+Unidecode = ">=0.4.19"
+dictdiffer = ">=0.6.0"
+editdistance = ">=0.3.1"
+munkres = ">=1.0.7"
+pyrsistent = ">=0.11.13"
+six = ">=1.10.0"
+
+[[package]]
+category = "main"
 description = "Apply JSON-Patches (RFC 6902)"
 name = "jsonpatch"
 optional = false
@@ -1753,6 +1802,15 @@ name = "multidict"
 optional = false
 python-versions = ">=3.4.1"
 version = "4.5.2"
+
+[[package]]
+category = "main"
+description = "Munkres (Hungarian) algorithm for the Assignment Problem"
+marker = "extra == \"contrib\""
+name = "munkres"
+optional = false
+python-versions = "*"
+version = "1.1.2"
 
 [[package]]
 category = "main"
@@ -2098,6 +2156,17 @@ name = "pypydispatcher"
 optional = false
 python-versions = "*"
 version = "2.1.2"
+
+[[package]]
+category = "main"
+description = "Persistent/Functional/Immutable data structures"
+name = "pyrsistent"
+optional = false
+python-versions = "*"
+version = "0.15.1"
+
+[package.dependencies]
+six = "*"
 
 [[package]]
 category = "dev"
@@ -2828,7 +2897,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "51868712439807bed1a5895fd3bf962efa36291f07937d9e9ee9e9f36eb3727b"
+content-hash = "86d2763eefbc89eaccbb5f8cbde2758689d16037cc81f96d727d397677640171"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -2869,8 +2938,10 @@ coverage = ["0c5fe441b9cfdab64719f24e9684502a59432df7570521563d7b1aff27ac755f", 
 cryptography = ["05b3ded5e88747d28ee3ef493f2b92cbb947c1e45cf98cfef22e6d38bb67d4af", "06826e7f72d1770e186e9c90e76b4f84d90cdb917b47ff88d8dc59a7b10e2b1e", "08b753df3672b7066e74376f42ce8fc4683e4fd1358d34c80f502e939ee944d2", "2cd29bd1911782baaee890544c653bb03ec7d95ebeb144d714b0f5c33deb55c7", "31e5637e9036d966824edaa91bf0aa39dc6f525a1c599f39fd5c50340264e079", "42fad67d7072216a49e34f923d8cbda9edacbf6633b19a79655e88a1b4857063", "4946b67235b9d2ea7d31307be9d5ad5959d6c4a8f98f900157b47abddf698401", "522fdb2809603ee97a4d0ef2f8d617bc791eb483313ba307cb9c0a773e5e5695", "6f841c7272645dd7c65b07b7108adfa8af0aaea57f27b7f59e01d41f75444c85", "7d335e35306af5b9bc0560ca39f740dfc8def72749645e193dd35be11fb323b3", "8504661ffe324837f5c4607347eeee4cf0fcad689163c6e9c8d3b18cf1f4a4ad", "9260b201ce584d7825d900c88700aa0bd6b40d4ebac7b213857bd2babee9dbca", "9a30384cc402eac099210ab9b8801b2ae21e591831253883decdb4513b77a3cd", "9e29af877c29338f0cab5f049ccc8bd3ead289a557f144376c4fbc7d1b98914f", "ab50da871bc109b2d9389259aac269dd1b7c7413ee02d06fe4e486ed26882159", "b13c80b877e73bcb6f012813c6f4a9334fcf4b0e96681c5a15dac578f2eedfa0", "bfe66b577a7118e05b04141f0f1ed0959552d45672aa7ecb3d91e319d846001e", "e091bd424567efa4b9d94287a952597c05d22155a13716bf5f9f746b9dc906d3", "fa2b38c8519c5a3aa6e2b4e1cf1a549b54acda6adb25397ff542068e73d1ed00"]
 cssselect = ["066d8bc5229af09617e24b3ca4d52f1f9092d9e061931f4184cd572885c23204", "3b5103e8789da9e936a68d993b70df732d06b8bb9a337a05ed4eb52c17ef7206"]
 decorator = ["86156361c50488b84a3f148056ea716ca587df2f0de1d34750d35c21312725de", "f069f3a01830ca754ba5258fde2278454a0b5b79e0d7f5c13b3b97e57d4acff6"]
+dictdiffer = ["97cf4ef98ebc1acf737074aed41e379cf48ab5ff528c92109dfb8e2e619e6809", "b3ad476fc9cca60302b52c50e1839342d2092aeaba586d69cbf9249f87f52463"]
 dojson = ["a52fd3466cbdeae996817a27e58f97bde573a5b790f85cf42c43211d4cff298c", "fb5c362cea79ee1215778cdf36f0d2cca9885e1068fc90d6a6dafcc0ce8a7c5f"]
 dulwich = ["afbe070f6899357e33f63f3f3696e601731fef66c64a489dea1bc9f539f4a725"]
+editdistance = ["0834826832e51a6c18032b13b68083e3ebfbf3daf774142ae6f2b17b35580c16", "1018f0fa857b079c721583c42d2c54800fbe8c7d2c29b354a9724a0b79971cb8", "1f510e6eb411ec6123ba4ebc086d5882027710d28db174985a74e13fd0eb354f", "25b39c836347dcbb251a6041fd3d7575b82c365923a4b13c32c699e442b1b644", "25dd59d7f17a38203c5e433f5b11f64a8d1042d876d0dc00b324dda060d12e81", "36a4c36d7945f5ecfa1dc92c08635d73b64769cd0af066da774437fe2c7dc80a", "503c6f69f4901d8a63f3748e4b0eccb2a89e6844b0879a7e256cab439297d379", "553fb295802c399f0f419b616b499c241ffdcb2a70888d1e9d1bd22ba21b122f", "5f9c202b1a2f2630f7a0cdd76ad0ad55de4cd700553778c77e37379c6ac8e8bb", "61486173447a153cccbd52eb63947378803f0f2a5bffebbfec500bd77fc5706d", "6452d750fbc49c6f04232a840f96b0f1155ff7cb2d953ce1edf075c5a394f3ea", "6ccfd57221bae661304e7f9495f508aeec8f72e462d97481d55488ded87f5cbc", "810d93e614f35ad2916570f48ff1370ac3c001eb6941d5e836e2c1c6986fafff", "89d016dda04649b2c49e12b34337755a7b612bfd690420edd50ab31787120c1f", "93e847cc2fbebb34a36b41337a3eb9b2034d4ff9679665b08ecc5c3c313f83a9", "9d6ee66f8de30ec6358083e5ecd7919a5966b38c64012c1672f326c61ff7a15f", "a10c61df748220b2b9e2949a10aea23ffeded28c07e610e107a8f6a4b5b92782", "a322354a8dfb442770902f06552b20df5184e65e84ac90cb799740915eb52212", "a9167d9d5e754abd7ce68da065a636cc161e5063c322efd81159d15001d5272a", "a96ac49acc7668477c13aff02ca0527c6462b026b78600602dbef04efc9250d3", "c1cf5ff98cfdc38046ae0f2d3ccbe1e15b0665234a04783f6558ec0a48e72dc8", "cc65c2cd68751a966f7468537b4a6fd7d9107d49e139d8efd5734ee6f48d3126", "cd49e9b22972b15527d53e06918c14d9fe228ae362a57476d16b0cad3e14e0c8", "d4561b602b7675f6a050cdd0e1b652007ce73bb7290019487b8919a44593d74d", "db65bf1f39964019040434cb924c62c9965bd0df2feb316dbe5de3f09e6a81de", "dddb0d36f698e3c942d0d5934185533d9324fbde975b3e956a19883713e86d33", "ee4ed815bc5137a794095368580334e430ff26c73a05c67e76b39f535b363a0f", "ef4714dc9cf281863dcc3ba6d24c3cae1dde41610a78dcdfae50d743ca71d5e1", "fa0047a8d972ab779141eed4713811251c9f6e96e9e8a62caa8d554a0444ff74", "fe7e6a90476976d7e5abc9472acb0311b7cdc76d84190f8f6c317234680c5de3"]
 elasticsearch = ["658380fd60bdaf746fef12958f0abc49063218ce93ee1ae4ca1fe6291c896433", "ae91b089f2f2b5b3daa04297949e5f805ab12d187218cb587273f472656fd250"]
 elasticsearch-dsl = ["197246ddd556b4b7d2738dfa9e4831068c9b5cb21706f6aca035136d42849109", "cbef6467085d7debc870bc450d996c7ba5b8822eb86a6033bba09134ffb01ba8"]
 entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19", "c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"]
@@ -2917,6 +2988,7 @@ importlib-resources = ["6e2783b2538bd5a14678284a3962b0660c715e5a0f10243fd5e00a4b
 incremental = ["717e12246dddf231a349175f48d74d93e2897244939173b01974ab6661406b9f", "7b751696aaf36eebfab537e458929e194460051ccad279c72b755a167eebd4b3"]
 infinity = ["dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"]
 inspire-dojson = ["b55a72e4e1ce2335c80fed8134e331b67b17430569bf3aab6cb8cefb80d6a1a2"]
+inspire-json-merger = ["0a266c77c073cf5195193620bb87605fc834920b3e41d66808f3960598630604"]
 inspire-query-parser = ["078945bc08b0fd0a45b4e4a00aef8687608469e2e5868a2d9b614edb4bccb93d"]
 inspire-schemas = ["e991ea4f65b03236291cb85340698ff6295afa291610c63abafe3cb37a770b40"]
 inspire-utils = ["cd0dc632bd35831b5d578a38cd5fa9cb9924eec8b56ba0f2d4484fdfe2851ee4"]
@@ -2955,6 +3027,7 @@ itsdangerous = ["321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f1
 jedi = ["2bb0603e3506f708e792c7f4ad8fc2a7a9d9c2d292a358fbbd58da531695595b", "2c6bcd9545c7d6440951b12b44d373479bf18123a401a52025cf98563fbd826c"]
 jinja2 = ["065c4f02ebe7f7cf559e49ee5a95fb800a9e4528727aec6f24402a5374c65013", "14dd6caf1527abb21f08f86c784eac40853ba93edb79552aa1e4b8aef1b61c7b"]
 jinja2-time = ["d14eaa4d315e7688daa4969f616f226614350c48730bfa1692d2caebd8c90d40", "d3eab6605e3ec8b7a0863df09cc1d23714908fa61aa6986a845c20ba488b4efa"]
+json-merger = ["16a79778edbf6e2e7b8ad539f25c5c8b069679a2f9f669fc1b0d2a3bcad46b15", "fc62d347b2d98241464b10bf7f3a6c4f4fc39a159412a15e9d2a8dcb738423bc"]
 jsonpatch = ["49f29cab70e9068db3b1dc6b656cbe2ee4edf7dfe9bf5a0055f17a4b6804a4b9", "8bf92fa26bc42c346c03bd4517722a8e4f429225dbe775ac774b2c70d95dbd33"]
 jsonpointer = ["c192ba86648e05fdae4f08a17ec25180a9aef5008d973407b581798a83975362", "ff379fa021d1b81ab539f5ec467c7745beb1a5671463f9dcc2b2d458bd361c1e"]
 jsonref = ["b1e82fa0b62e2c2796a13e5401fe51790b248f6d9bf9d7212a3e31a3501b291f", "f3c45b121cf6257eafabdc3a8008763aed1cd7da06dbabc59a9e4d2a5e4e6697"]
@@ -2977,6 +3050,7 @@ mock = ["4b9998885b396aea8bad4aa34e0dee402c78bd00c038facb5eba7050c9497b3c", "a20
 more-itertools = ["2112d2ca570bb7c3e53ea1a35cd5df42bb0fd10c45f0fb97178679c3c03d64c7", "c3e4748ba1aad8dba30a4886b0b1a2004f9a863837b8654e7059eebf727afa5a"]
 msgpack-python = ["378cc8a6d3545b532dfd149da715abae4fda2a3adb6d74e525d0d5e51f46909b"]
 multidict = ["024b8129695a952ebd93373e45b5d341dbb87c17ce49637b34000093f243dd4f", "041e9442b11409be5e4fc8b6a97e4bcead758ab1e11768d1e69160bdde18acc3", "045b4dd0e5f6121e6f314d81759abd2c257db4634260abcfe0d3f7083c4908ef", "047c0a04e382ef8bd74b0de01407e8d8632d7d1b4db6f2561106af812a68741b", "068167c2d7bbeebd359665ac4fff756be5ffac9cda02375b5c5a7c4777038e73", "148ff60e0fffa2f5fad2eb25aae7bef23d8f3b8bdaf947a65cdbe84a978092bc", "1d1c77013a259971a72ddaa83b9f42c80a93ff12df6a4723be99d858fa30bee3", "1d48bc124a6b7a55006d97917f695effa9725d05abe8ee78fd60d6588b8344cd", "31dfa2fc323097f8ad7acd41aa38d7c614dd1960ac6681745b6da124093dc351", "34f82db7f80c49f38b032c5abb605c458bac997a6c3142e0d6c130be6fb2b941", "3d5dd8e5998fb4ace04789d1d008e2bb532de501218519d70bb672c4c5a2fc5d", "4a6ae52bd3ee41ee0f3acf4c60ceb3f44e0e3bc52ab7da1c2b2aa6703363a3d1", "4b02a3b2a2f01d0490dd39321c74273fed0568568ea0e7ea23e02bd1fb10a10b", "4b843f8e1dd6a3195679d9838eb4670222e8b8d01bc36c9894d6c3538316fa0a", "5de53a28f40ef3c4fd57aeab6b590c2c663de87a5af76136ced519923d3efbb3", "61b2b33ede821b94fa99ce0b09c9ece049c7067a33b279f343adfe35108a4ea7", "6a3a9b0f45fd75dc05d8e93dc21b18fc1670135ec9544d1ad4acbcf6b86781d0", "76ad8e4c69dadbb31bad17c16baee61c0d1a4a73bed2590b741b2e1a46d3edd0", "7ba19b777dc00194d1b473180d4ca89a054dd18de27d0ee2e42a103ec9b7d014", "7c1b7eab7a49aa96f3db1f716f0113a8a2e93c7375dd3d5d21c4941f1405c9c5", "7fc0eee3046041387cbace9314926aa48b681202f8897f8bff3809967a049036", "8ccd1c5fff1aa1427100ce188557fc31f1e0a383ad8ec42c559aabd4ff08802d", "8e08dd76de80539d613654915a2f5196dbccc67448df291e69a88712ea21e24a", "c18498c50c59263841862ea0501da9f2b3659c00db54abfbf823a80787fde8ce", "c49db89d602c24928e68c0d510f4fcf8989d77defd01c973d6cbe27e684833b1", "ce20044d0317649ddbb4e54dab3c1bcc7483c78c27d3f58ab3d0c7e6bc60d26a", "d1071414dd06ca2eafa90c85a079169bfeb0e5f57fd0b45d44c092546fcd6fd9", "d3be11ac43ab1a3e979dac80843b42226d5d3cccd3986f2e03152720a4297cd7", "db603a1c235d110c860d5f39988ebc8218ee028f07a7cbc056ba6424372ca31b"]
+munkres = ["81e9ced40c3d0ffc48be4b6da5cfdfaa49041faaaba8075b159974ec47926aea", "c5276abb54aab946fc5eaac24405c53f145c5d51d779fa86c73fae68f9895d9c"]
 nameparser = ["1089efbd576c917cd6970968c2735dc6e30f20d64318c4207124476270df7afc", "550bf4df749d4aca23b9fad486ed67ddc042c89234840fea106dcb8d5a3c4365"]
 node-semver = ["e29ee4e51efb6d82c55aef5d569b888842e62e6404ce95df18d80c421f8e7dac"]
 nodeenv = ["ad8259494cf1c9034539f6cced78a1da4840a4b157e23640bc4a0c0546b0cb7a"]
@@ -3012,6 +3086,7 @@ pynpm = ["b3c2efafc15b0ca4f0a1cc819e55af4179c2b43a2f9bb7b1a1cc1763dc3daa52", "e4
 pyopenssl = ["aeca66338f6de19d1aa46ed634c3b9ae519a64b458f8468aec688e7e3c20f200", "c727930ad54b10fc157015014b666f2d8b41f70c0d03e83ab67624fd3dd5d1e6"]
 pypeg2 = ["2b2d4f80d8e1a9370b2a91f4a25f4abf7f69b85c8da84cd23ec36451958a1f6d"]
 pypydispatcher = ["b6bec5dfcff9d2535bca2b23c80eae367b1ac250a645106948d315fcfa9130f2"]
+pyrsistent = ["5403d37f4d55ff4572b5b5676890589f367a9569529c6f728c11046c4ea4272b"]
 pytest = ["3f193df1cfe1d1609d4c583838bea3d532b18d6160fd3f55c9447fdca30848ec", "e246cf173c01169b9617fc07264b7b1316e78d7a650055235d6d897bc80d9660"]
 pytest-cov = ["0ab664b25c6aa9716cbf203b17ddb301932383046082c081b9848a0edf5add33", "230ef817450ab0699c6cc3c9c8f7a829c34674456f2ed8df1fe1d39780f7c87f"]
 pytest-datadir = ["275f641dbb045896c7d185cfbe79afd15270eed09d334c2ceb17396e634e22dd", "870511dd6bbfa1aa3b32a2e76bdd7fdb0239fac377b02c694338c6c184dd8c20"]

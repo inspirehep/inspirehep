@@ -322,7 +322,7 @@ def test_populate_and_serialize_data_for_submission(
     assert data == expected
 
 
-def test_new_literature_submit(app, api_client, create_user, requests_mock):
+def test_new_literature_submit_no_merge(app, api_client, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
         json={"workflow_object_id": 30},
@@ -335,6 +335,8 @@ def test_new_literature_submit(app, api_client, create_user, requests_mock):
         data=json.dumps(
             {
                 "data": {
+                    "arxiv_id": "1701.00006",
+                    "arxiv_categories": ["hep-th"],
                     "document_type": "article",
                     "authors": [{"full_name": "Urhan, Harun"}],
                     "title": "Discovery of cool stuff",
@@ -357,23 +359,26 @@ def test_new_literature_submit(app, api_client, create_user, requests_mock):
     assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
     assert "datetime" in post_data["data"]["acquisition_source"]
     del post_data["data"]["acquisition_source"]["datetime"]
-    assert post_data == {
+    expected_data = {
         "data": {
             "_collections": ["Literature"],
-            "curated": False,
-            "document_type": ["article"],
-            "authors": [{"full_name": "Urhan, Harun"}],
-            "titles": [{"title": "Discovery of cool stuff", "source": "submitter"}],
-            "inspire_categories": [{"term": "Other"}],
             "acquisition_source": {
                 "email": user.email,
+                "internal_uid": user.id,
                 "method": "submitter",
                 "source": "submitter",
-                "internal_uid": user.id,
             },
+            "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
+            "authors": [{"full_name": "Urhan, Harun"}],
+            "citeable": True,
+            "curated": False,
+            "document_type": ["article"],
+            "inspire_categories": [{"term": "Other"}],
+            "titles": [{"source": "submitter", "title": "Discovery of cool stuff"}],
         },
-        "form_data": {"url": "https://cern.ch/coolstuff.pdf", "references": "[1] Dude"},
+        "form_data": {"references": "[1] Dude", "url": "https://cern.ch/coolstuff.pdf"},
     }
+    assert post_data == expected_data
 
 
 def test_new_literature_submit_works_with_session_login(
@@ -426,6 +431,7 @@ def test_new_literature_submit_with_workflows_api_error(
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature", status_code=500
     )
+
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     response = api_client.post(
@@ -444,3 +450,180 @@ def test_new_literature_submit_with_workflows_api_error(
         headers=headers,
     )
     assert response.status_code == 503
+
+
+def test_new_literature_submit_arxiv_merges_with_crossref(
+    app, api_client, create_user, requests_mock
+):
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    requests_mock.get(
+        "https://api.crossref.org/works/10.1103%2Fphysrevd.95.084013",
+        json={
+            "status": "ok",
+            "message-type": "work",
+            "message-version": "1.0.0",
+            "message": {
+                "publisher": "American Physical Society (APS)",
+                "issue": "8",
+                "DOI": "10.1103/physrevd.95.084013",
+                "type": "journal-article",
+                "source": "Crossref",
+                "title": ["Time machines and AdS solitons with negative mass"],
+                "prefix": "10.1103",
+                "volume": "95",
+                "journal-issue": {
+                    "published-print": {"date-parts": [[2017, 4]]},
+                    "issue": "8",
+                },
+                "article-number": "084013",
+            },
+        },
+    )
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.post(
+        "/submissions/literature",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "arxiv_id": "1701.00006",
+                    "arxiv_categories": ["hep-th"],
+                    "doi": "10.1103/physrevd.95.084013",
+                    "document_type": "article",
+                    "authors": [{"full_name": "Tkachenko, A.S."}],
+                    "title": "Discovery of cool stuff",
+                    "subjects": ["Other"],
+                    "pdf_link": "https://cern.ch/coolstuff.pdf",
+                    "references": "[1] Dude",
+                }
+            }
+        ),
+    )
+    assert response.status_code == 200
+    assert requests_mock.call_count == 2
+
+    assert requests_mock.request_history[0].hostname == "api.crossref.org"
+    assert (
+        requests_mock.request_history[0].url
+        == "https://api.crossref.org/works/10.1103%2Fphysrevd.95.084013"
+    )
+
+    inspire_next_call = requests_mock.request_history[1]
+    post_data = inspire_next_call.json()
+    assert (
+        "Authorization" in inspire_next_call.headers
+        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        == inspire_next_call.headers["Authorization"]
+    )
+
+    assert (
+        inspire_next_call.url
+        == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+    assert "datetime" in post_data["data"]["acquisition_source"]
+
+    del post_data["data"]["acquisition_source"]["datetime"]
+
+    expected_data = {
+        "data": {
+            "_collections": ["Literature"],
+            "acquisition_source": {
+                "email": user.email,
+                "internal_uid": user.id,
+                "method": "submitter",
+                "source": "submitter",
+            },
+            "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
+            "authors": [{"full_name": "Tkachenko, A.S."}],
+            "citeable": True,
+            "curated": False,
+            "document_type": ["article"],
+            "dois": [
+                {
+                    "material": "publication",
+                    "source": "Crossref",
+                    "value": "10.1103/physrevd.95.084013",
+                },
+                {"value": "10.1103/physrevd.95.084013"},
+            ],
+            "inspire_categories": [{"term": "Other"}],
+            "publication_info": [
+                {
+                    "artid": "084013",
+                    "journal_issue": "8",
+                    "journal_volume": "95",
+                    "material": "publication",
+                }
+            ],
+            "titles": [
+                {
+                    "source": "Crossref",
+                    "title": "Time machines and AdS solitons with negative mass",
+                },
+                {"source": "submitter", "title": "Discovery of cool stuff"},
+            ],
+        },
+        "form_data": {"references": "[1] Dude", "url": "https://cern.ch/coolstuff.pdf"},
+    }
+    assert post_data == expected_data
+
+
+def test_new_literature_submit_arxiv_does_not_merge_if_crossref_harvest_fails(
+    app, api_client, create_user, requests_mock
+):
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    requests_mock.get(
+        "https://api.crossref.org/works/10.1103%2Fphysrevd.95.084013", status_code=404
+    )
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.post(
+        "/submissions/literature",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "arxiv_id": "1701.00006",
+                    "arxiv_categories": ["hep-th"],
+                    "doi": "10.1103/physrevd.95.084013",
+                    "document_type": "article",
+                    "authors": [{"full_name": "Tkachenko, A.S."}],
+                    "title": "Discovery of cool stuff",
+                    "subjects": ["Other"],
+                    "pdf_link": "https://cern.ch/coolstuff.pdf",
+                    "references": "[1] Dude",
+                }
+            }
+        ),
+    )
+    assert response.status_code == 200
+    assert requests_mock.call_count == 2
+
+    assert requests_mock.request_history[0].hostname == "api.crossref.org"
+    assert (
+        requests_mock.request_history[0].url
+        == "https://api.crossref.org/works/10.1103%2Fphysrevd.95.084013"
+    )
+
+    inspire_next_call = requests_mock.request_history[1]
+    post_data = inspire_next_call.json()
+    assert (
+        "Authorization" in inspire_next_call.headers
+        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        == inspire_next_call.headers["Authorization"]
+    )
+
+    assert (
+        inspire_next_call.url
+        == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
+    assert "publication_info" not in post_data

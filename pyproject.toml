@@ -41,6 +41,7 @@ flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 hepcrawl = "^12.0"
 python-redis-lock = "^3.3"
 invenio-base = "^1.0"
+inspire-json-merger = "^10.0"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
