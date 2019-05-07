@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import fetchExceptions from '../../actions/exceptions';
-import toJS from '../../common/immutableToJS';
+import { convertAllImmutablePropsToJS } from '../../common/immutableToJS';
 import ExceptionsDashboard from '../components/ExceptionsDashboard';
 
 class ExceptionsPage extends Component {
@@ -30,4 +30,6 @@ const mapStateToProps = state => ({
 });
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(mapStateToProps, dispatchToProps)(toJS(ExceptionsPage));
+export default connect(mapStateToProps, dispatchToProps)(
+  convertAllImmutablePropsToJS(ExceptionsPage)
+);

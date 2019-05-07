@@ -6,7 +6,7 @@ import { Row, Col, Card } from 'antd';
 import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 import JsonDiff from '../../components/JsonDiff';
 import fetchInspect from '../../../actions/inspect';
-import toJS from '../../../common/immutableToJS';
+import { convertAllImmutablePropsToJS } from '../../../common/immutableToJS';
 
 import './InspectPage.scss';
 
@@ -74,4 +74,6 @@ const mapStateToProps = state => ({
 });
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(mapStateToProps, dispatchToProps)(toJS(InspectPage));
+export default connect(mapStateToProps, dispatchToProps)(
+  convertAllImmutablePropsToJS(InspectPage)
+);
