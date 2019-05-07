@@ -868,16 +868,28 @@ def test_citation_summary_facet(api_client, db, create_record_factory):
                         "buckets": [
                             {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
                             {
-                                "key": "1.0-50.0",
+                                "key": "1.0-10.0",
                                 "from": 1.0,
+                                "to": 10.0,
+                                "doc_count": 1,
+                            },
+                            {
+                                "key": "10.0-50.0",
+                                "from": 10.0,
                                 "to": 50.0,
+                                "doc_count": 1,
+                            },
+                            {
+                                "key": "50.0-100.0",
+                                "from": 50.0,
+                                "to": 100.0,
                                 "doc_count": 2,
                             },
                             {
-                                "key": "50.0-250.0",
-                                "from": 50.0,
+                                "key": "100.0-250.0",
+                                "from": 100.0,
                                 "to": 250.0,
-                                "doc_count": 5,
+                                "doc_count": 3,
                             },
                             {
                                 "key": "250.0-500.0",
@@ -897,16 +909,28 @@ def test_citation_summary_facet(api_client, db, create_record_factory):
                         "buckets": [
                             {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
                             {
-                                "key": "1.0-50.0",
+                                "key": "1.0-10.0",
                                 "from": 1.0,
+                                "to": 10.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "10.0-50.0",
+                                "from": 10.0,
                                 "to": 50.0,
                                 "doc_count": 1,
                             },
                             {
-                                "key": "50.0-250.0",
+                                "key": "50.0-100.0",
                                 "from": 50.0,
+                                "to": 100.0,
+                                "doc_count": 2,
+                            },
+                            {
+                                "key": "100.0-250.0",
+                                "from": 100.0,
                                 "to": 250.0,
-                                "doc_count": 5,
+                                "doc_count": 3,
                             },
                             {
                                 "key": "250.0-500.0",
@@ -977,3 +1001,124 @@ def test_h_index_with_as_many_papers_as_citations(
     response_data_h_index = response_data["aggregations"]["citation_summary"]["h-index"]
     assert response_status_code == 200
     assert response_data_h_index == expected_h_index
+
+
+def test_citation_summary_facet_filters(api_client, db, create_record_factory):
+    book_chapter_paper = {
+        "refereed": False,
+        "citation_count": 8,
+        "facet_author_name": "BAI_N. Girard",
+        "citeable": True,
+        "facet_inspire_doc_type": ["book chapter"],
+    }
+    create_record_factory("lit", data=book_chapter_paper, with_indexing=True)
+
+    published_papers_citation_count = [409, 83, 26]
+    for count in published_papers_citation_count:
+        data = {
+            "refereed": True,
+            "citation_count": count,
+            "facet_author_name": "BAI_N. Girard",
+            "citeable": True,
+        }
+        create_record_factory("lit", data=data, with_indexing=True)
+
+    response = api_client.get(
+        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary&doc_type=book%20chapter"
+    )
+
+    expected_citation_summary_aggregation = {
+        "doc_count": 1,
+        "h-index": {"value": {"all": 1, "published": 0}},
+        "citations": {
+            "buckets": {
+                "all": {
+                    "doc_count": 1,
+                    "citations_count": {"value": 8.0},
+                    "citation_buckets": {
+                        "buckets": [
+                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {
+                                "key": "1.0-10.0",
+                                "from": 1.0,
+                                "to": 10.0,
+                                "doc_count": 1,
+                            },
+                            {
+                                "key": "10.0-50.0",
+                                "from": 10.0,
+                                "to": 50.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "50.0-100.0",
+                                "from": 50.0,
+                                "to": 100.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "100.0-250.0",
+                                "from": 100.0,
+                                "to": 250.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "250.0-500.0",
+                                "from": 250.0,
+                                "to": 500.0,
+                                "doc_count": 0,
+                            },
+                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                        ]
+                    },
+                    "average_citations": {"value": 8.0},
+                },
+                "published": {
+                    "doc_count": 0,
+                    "citations_count": {"value": 0.0},
+                    "citation_buckets": {
+                        "buckets": [
+                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {
+                                "key": "1.0-10.0",
+                                "from": 1.0,
+                                "to": 10.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "10.0-50.0",
+                                "from": 10.0,
+                                "to": 50.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "50.0-100.0",
+                                "from": 50.0,
+                                "to": 100.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "100.0-250.0",
+                                "from": 100.0,
+                                "to": 250.0,
+                                "doc_count": 0,
+                            },
+                            {
+                                "key": "250.0-500.0",
+                                "from": 250.0,
+                                "to": 500.0,
+                                "doc_count": 0,
+                            },
+                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                        ]
+                    },
+                    "average_citations": {"value": None},
+                },
+            }
+        },
+    }
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_citation_summary = response_data["aggregations"]["citation_summary"]
+    assert response_status_code == 200
+    assert response_data_citation_summary == expected_citation_summary_aggregation
