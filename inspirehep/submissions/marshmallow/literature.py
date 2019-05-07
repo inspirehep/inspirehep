@@ -20,6 +20,7 @@ class Literature(Schema):
 
     doi = fields.Raw()
     arxiv_id = fields.Raw()
+    arxiv_categories = fields.Raw()
 
     # links
     pdf_link = fields.Raw()
@@ -73,6 +74,9 @@ class Literature(Schema):
         return {
             "document_type": get_value(data, "document_type[0]"),
             "arxiv_id": get_value(data, "arxiv_eprints[0].value", default=missing),
+            "arxiv_categories": get_value(
+                data, "arxiv_eprints[0].categories", default=missing
+            ),
             "doi": get_value(data, "dois[0].value", default=missing),
             "title": get_value(data, "titles.title[0]", default=missing),
             "language": get_value(
@@ -144,7 +148,7 @@ class Literature(Schema):
 
         literature.add_document_type(data["document_type"])
 
-        literature.add_arxiv_eprint(data.get("arxiv_id"))
+        literature.add_arxiv_eprint(data.get("arxiv_id"), data.get("arxiv_categories"))
         literature.add_doi(data.get("doi"))
 
         # TODO: pdf_link has to be passed somehow to the workflow unfortunately
