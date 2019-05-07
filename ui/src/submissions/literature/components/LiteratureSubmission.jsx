@@ -6,7 +6,7 @@ import { Formik } from 'formik';
 import articleSchema from '../schemas/article';
 import thesisSchema from '../schemas/thesis';
 import cleanupFormData from '../../common/cleanupFormData';
-import toJS from '../../../common/immutableToJS';
+import { convertAllImmutablePropsToJS } from '../../../common/immutableToJS';
 import ArticleForm from './ArticleForm';
 import ThesisForm from './ThesisForm';
 import BookForm from './BookForm';
@@ -106,4 +106,4 @@ LiteratureSubmission.defaultProps = {
   initialFormData: null,
 };
 
-export default toJS(LiteratureSubmission);
+export default convertAllImmutablePropsToJS(LiteratureSubmission);

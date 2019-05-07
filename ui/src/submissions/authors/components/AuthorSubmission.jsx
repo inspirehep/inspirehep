@@ -7,7 +7,7 @@ import { object } from 'yup';
 import AuthorForm from './AuthorForm';
 import authorSchema from '../schemas/author';
 import cleanupFormData from '../../common/cleanupFormData';
-import toJS from '../../../common/immutableToJS';
+import { convertAllImmutablePropsToJS } from '../../../common/immutableToJS';
 
 const DEFAULT_FORM_DATA = authorSchema.cast();
 
@@ -80,4 +80,4 @@ AuthorSubmission.defaultProps = {
   error: null,
 };
 
-export default toJS(AuthorSubmission);
+export default convertAllImmutablePropsToJS(AuthorSubmission);

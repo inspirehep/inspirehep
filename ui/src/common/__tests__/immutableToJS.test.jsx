@@ -2,13 +2,13 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import immutableToJS from '../immutableToJS';
+import { convertAllImmutablePropsToJS } from '../immutableToJS';
 
 function MutableDummy(props) {
   return <span {...props} />;
 }
 
-const ImmutableDummy = immutableToJS(MutableDummy);
+const ImmutableDummy = convertAllImmutablePropsToJS(MutableDummy);
 
 describe('immutableToJS', () => {
   it('converts immutable props to built in js', () => {

@@ -5,17 +5,20 @@ import { Row, Col, Alert } from 'antd';
 import { Map, List } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
-import EmbeddedSearch from '../../common/components/EmbeddedSearch';
 import AuthorName from '../components/AuthorName';
 import ExperimentList from '../components/ExperimentList';
 import ArxivCategoryList from '../components/ArxivCategoryList';
-import fetchAuthor from '../../actions/authors';
+import fetchAuthor, {
+  fetchAuthorPulications,
+  fetchAuthorPulicationsFacets,
+} from '../../actions/authors';
 import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
 import SubContentBox from '../../common/components/SubContentBox';
 import CitationSummaryContainer from './CitationSummaryContainer';
+import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 
 class DetailPage extends Component {
   constructor(props) {
@@ -24,13 +27,10 @@ class DetailPage extends Component {
     this.authorLiteratureSearchQuery = Map({
       author: List(),
     });
-    this.authorLiteratureFacetsQuery = Map({
-      facet_name: 'hep-author-publication',
-    });
   }
 
   componentDidMount() {
-    this.dispatchFetchAuthor();
+    this.dispatchFetchAuthorResources();
   }
 
   componentDidUpdate(prevProps) {
@@ -38,15 +38,17 @@ class DetailPage extends Component {
     const recordId = match.params.id;
     const prevRecordId = prevProps.match.params.id;
     if (recordId !== prevRecordId) {
-      this.dispatchFetchAuthor();
+      this.dispatchFetchAuthorResources();
       window.scrollTo(0, 0);
     }
   }
 
-  dispatchFetchAuthor() {
+  async dispatchFetchAuthorResources() {
     const { match, dispatch } = this.props;
     const recordId = match.params.id;
-    dispatch(fetchAuthor(recordId));
+    await dispatch(fetchAuthor(recordId));
+    dispatch(fetchAuthorPulications());
+    dispatch(fetchAuthorPulicationsFacets());
   }
 
   render() {
@@ -70,10 +72,6 @@ class DetailPage extends Component {
 
     this.authorLiteratureSearchQuery = this.authorLiteratureSearchQuery.setIn(
       ['author', 0],
-      authorFacetName
-    );
-    this.authorLiteratureFacetsQuery = this.authorLiteratureFacetsQuery.set(
-      'exclude_author_value',
       authorFacetName
     );
 
@@ -128,10 +126,7 @@ class DetailPage extends Component {
         <Row type="flex" justify="center">
           <Col xs={24} md={21} lg={19} xl={18}>
             <ContentBox>
-              <EmbeddedSearch
-                pidType="literature"
-                baseQuery={this.authorLiteratureSearchQuery}
-                baseFacetsQuery={this.authorLiteratureFacetsQuery}
+              <AuthorPublicationsContainer
                 renderResultItem={(result, rank) => (
                   <LiteratureItem
                     metadata={result.get('metadata')}
