@@ -423,6 +423,12 @@ HEP_COMMON_FILTERS = {
     "earliest_date": range_filter("earliest_date", format="yyyy", end_date_math="/y"),
     "collaboration": must_match_all_filter("facet_collaborations"),
 }
+
+HEP_FILTERS = {
+    "subject": must_match_all_filter("facet_inspire_categories"),
+    "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
+}
+
 HEP_COMMON_AGGS = {
     "earliest_date": {
         "date_histogram": {
@@ -461,11 +467,7 @@ RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
     "citation-summary": citation_summary,
     "records-hep": {
-        "filters": {
-            **HEP_COMMON_FILTERS,
-            "subject": must_match_all_filter("facet_inspire_categories"),
-            "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
-        },
+        "filters": {**HEP_COMMON_FILTERS, **HEP_FILTERS},
         "aggs": {
             **HEP_COMMON_AGGS,
             "author": {

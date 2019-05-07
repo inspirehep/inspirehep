@@ -50,7 +50,10 @@ def hep_author_publications():
 
 def citation_summary():
     return {
-        "filters": {"author": must_match_all_filter("facet_author_name")},
+        "filters": {
+            **current_app.config["HEP_COMMON_FILTERS"],
+            **current_app.config["HEP_FILTERS"],
+        },
         "aggs": {
             "citation_summary": {
                 "filter": {"term": {"citeable": "true"}},
@@ -75,8 +78,10 @@ def citation_summary():
                                     "field": "citation_count",
                                     "ranges": [
                                         {"from": 0, "to": 1},
-                                        {"from": 1, "to": 50},
-                                        {"from": 50, "to": 250},
+                                        {"from": 1, "to": 10},
+                                        {"from": 10, "to": 50},
+                                        {"from": 50, "to": 100},
+                                        {"from": 100, "to": 250},
                                         {"from": 250, "to": 500},
                                         {"from": 500},
                                     ],
