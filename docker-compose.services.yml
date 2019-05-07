@@ -75,7 +75,7 @@ services:
     ports:
       - "5555:5555"
   inspire-next:
-    image: "inspirehep/inspire-next:latest"
+    image: "inspirehep/inspire-next:assets"
     environment:
       - "APP_DEBUG=True"
       - "APP_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep"

@@ -110,3 +110,15 @@ Run `isort` and `flake8` checks.
 ```bash
 $ ./run-code-checks.sh
 ```
+
+### How to login
+
+For developement, we are using local login for our service.
+
+#### UI
+
+For the UI you can login http://localhost:8081/user/login/local
+
+#### Backend
+
+If you want to test inspirehep and backend API you should login http://localhost:5000/login/?next=/&local=1
