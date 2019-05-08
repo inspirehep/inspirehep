@@ -8,9 +8,10 @@ import ContentBox from '../../common/components/ContentBox';
 import AuthorName from '../components/AuthorName';
 import ExperimentList from '../components/ExperimentList';
 import ArxivCategoryList from '../components/ArxivCategoryList';
-import fetchAuthor, {
-  fetchAuthorPulications,
-  fetchAuthorPulicationsFacets,
+import {
+  fetchAuthor,
+  fetchAuthorPublications,
+  fetchAuthorPublicationsFacets,
 } from '../../actions/authors';
 import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
@@ -47,8 +48,8 @@ class DetailPage extends Component {
     const { match, dispatch } = this.props;
     const recordId = match.params.id;
     await dispatch(fetchAuthor(recordId));
-    dispatch(fetchAuthorPulications());
-    dispatch(fetchAuthorPulicationsFacets());
+    dispatch(fetchAuthorPublications());
+    dispatch(fetchAuthorPublicationsFacets());
   }
 
   render() {
