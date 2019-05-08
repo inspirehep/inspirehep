@@ -5,7 +5,7 @@ import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import './CitationSummaryTable.scss';
-import { Tooltip } from 'antd';
+import LabelWithHelp from '../../../submissions/common/components/LabelWithHelp';
 import { LITERATURE } from '../../../common/routes';
 
 class CitationSummaryTable extends Component {
@@ -16,9 +16,9 @@ class CitationSummaryTable extends Component {
       'buckets',
       'published',
     ]);
-    const all = citationSummary.getIn(['citations', 'buckets', 'all']);
+    const citeable = citationSummary.getIn(['citations', 'buckets', 'all']);
     const hIndex = citationSummary.getIn(['h-index', 'value']);
-    const urlSearchForAllPapers = stringify(
+    const urlSearchForCiteablePapers = stringify(
       searchQuery.set('q', 'citeable:true').toJS(),
       {
         indices: false,
@@ -28,6 +28,21 @@ class CitationSummaryTable extends Component {
       searchQuery.set('q', 'citeable:true and refereed:true').toJS(),
       { indices: false }
     );
+
+    const tooltipMsg = (
+      <span>
+        Published papers are believed to have undergone rigorous
+        peer-review.&nbsp;
+        <a
+          href="http://inspirehep.net/info/faq/general#published"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn More
+        </a>
+      </span>
+    );
+
     return (
       <div className="__CitationTable__">
         <table>
@@ -36,29 +51,40 @@ class CitationSummaryTable extends Component {
               <th>
                 <strong className="f5">Citation Summary</strong>
               </th>
-              <th>All</th>
               <th>
-                <Tooltip title="Published papers are believed to have undergone rigorous peer-review.">
-                  Published
-                </Tooltip>
+                <LabelWithHelp
+                  label="Citeable"
+                  help="Citeable papers have sufficient metadata to reliably track their citations."
+                />
+              </th>
+              <th>
+                <LabelWithHelp label="Published" help={tooltipMsg} />
               </th>
             </tr>
             <tr>
               <th>Papers</th>
               <td>
-                <Link to={`${LITERATURE}?${urlSearchForAllPapers}`}>
-                  {all.get('doc_count')}
-                </Link>
+                {citeable.get('doc_count') === 0 ? (
+                  '0'
+                ) : (
+                  <Link to={`${LITERATURE}?${urlSearchForCiteablePapers}`}>
+                    {citeable.get('doc_count')}
+                  </Link>
+                )}
               </td>
               <td>
-                <Link to={`${LITERATURE}?${urlSearchForPublishedPapers}`}>
-                  {published.get('doc_count')}
-                </Link>
+                {published.get('doc_count') === 0 ? (
+                  '0'
+                ) : (
+                  <Link to={`${LITERATURE}?${urlSearchForPublishedPapers}`}>
+                    {published.get('doc_count')}
+                  </Link>
+                )}
               </td>
             </tr>
             <tr>
               <th>Citations</th>
-              <td>{all.getIn(['citations_count', 'value'])}</td>
+              <td>{citeable.getIn(['citations_count', 'value'])}</td>
               <td>{published.getIn(['citations_count', 'value'])}</td>
             </tr>
             <tr>
@@ -69,7 +95,9 @@ class CitationSummaryTable extends Component {
             <tr>
               <th>Citations/paper (avg)</th>
               <td>
-                {(all.getIn(['average_citations', 'value']) || 0).toFixed(1)}
+                {(citeable.getIn(['average_citations', 'value']) || 0).toFixed(
+                  1
+                )}
               </td>
               <td>
                 {(published.getIn(['average_citations', 'value']) || 0).toFixed(

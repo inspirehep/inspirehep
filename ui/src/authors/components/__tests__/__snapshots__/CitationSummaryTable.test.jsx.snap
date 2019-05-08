@@ -15,21 +15,27 @@ exports[`CitationSummaryTable renders table with all props given 1`] = `
           </strong>
         </th>
         <th>
-          All
+          <LabelWithHelp
+            help="Citeable papers have sufficient metadata to reliably track their citations."
+            label="Citeable"
+          />
         </th>
         <th>
-          <Tooltip
-            arrowPointAtCenter={false}
-            autoAdjustOverflow={true}
-            mouseEnterDelay={0.1}
-            mouseLeaveDelay={0.1}
-            placement="top"
-            prefixCls="ant-tooltip"
-            title="Published papers are believed to have undergone rigorous peer-review."
-            transitionName="zoom-big-fast"
-          >
-            Published
-          </Tooltip>
+          <LabelWithHelp
+            help={
+              <span>
+                Published papers are believed to have undergone rigorous peer-review. 
+                <a
+                  href="http://inspirehep.net/info/faq/general#published"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  Learn More
+                </a>
+              </span>
+            }
+            label="Published"
+          />
         </th>
       </tr>
       <tr>
@@ -45,12 +51,7 @@ exports[`CitationSummaryTable renders table with all props given 1`] = `
           </Link>
         </td>
         <td>
-          <Link
-            replace={false}
-            to="/literature?author=BAI_Ben&q=citeable%3Atrue%20and%20refereed%3Atrue"
-          >
-            0
-          </Link>
+          0
         </td>
       </tr>
       <tr>
