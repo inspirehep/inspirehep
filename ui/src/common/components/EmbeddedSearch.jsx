@@ -129,9 +129,8 @@ class EmbeddedSearch extends Component {
 
 EmbeddedSearch.propTypes = {
   renderResultItem: PropTypes.func.isRequired,
+  query: PropTypes.objectOf(PropTypes.any).isRequired, // requires size and page
   onQueryChange: PropTypes.func,
-
-  query: PropTypes.objectOf(PropTypes.any),
   results: PropTypes.instanceOf(List),
   aggregations: PropTypes.instanceOf(Map),
   numberOfResults: PropTypes.number,
@@ -145,7 +144,6 @@ EmbeddedSearch.defaultProps = {
   onQueryChange: null,
   results: List(),
   aggregations: Map(),
-  query: {},
   numberOfResults: 0,
   loadingResults: false,
   loadingAggregations: false,

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 
 import {
-  fetchAuthorPulications,
-  fetchAuthorPulicationsFacets,
+  fetchAuthorPublications,
+  fetchAuthorPublicationsFacets,
 } from '../../actions/authors';
 import EmbeddedSearch from '../../common/components/EmbeddedSearch';
 import { convertSomeImmutablePropsToJS } from '../../common/immutableToJS';
@@ -22,8 +22,8 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onQueryChange(queryChange) {
-    dispatch(fetchAuthorPulications(queryChange));
-    dispatch(fetchAuthorPulicationsFacets(queryChange));
+    dispatch(fetchAuthorPublications(queryChange));
+    dispatch(fetchAuthorPublicationsFacets(queryChange));
   },
 });
 

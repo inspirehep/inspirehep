@@ -34,7 +34,7 @@ function fetchAuthorError(error) {
   };
 }
 
-export default function fetchAuthor(recordId) {
+export function fetchAuthor(recordId) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingAuthor(recordId));
     try {
@@ -64,7 +64,7 @@ function fetchingAuthorPublications(query) {
   };
 }
 
-function fetchAuthorPublicationSuccess(result) {
+function fetchAuthorPublicationsSuccess(result) {
   return {
     type: AUTHOR_PUBLICATIONS_SUCCESS,
     payload: result,
@@ -78,7 +78,7 @@ function fetchAuthorPublicationsError(error) {
   };
 }
 
-export function fetchAuthorPulications(newQuery = {}) {
+export function fetchAuthorPublications(newQuery = {}) {
   return async (dispatch, getState, http) => {
     const { authors } = getState();
 
@@ -96,7 +96,7 @@ export function fetchAuthorPulications(newQuery = {}) {
         `/literature?author=${authorFacetValue}&${queryString}`,
         UI_SERIALIZER_REQUEST_OPTIONS
       );
-      dispatch(fetchAuthorPublicationSuccess(response.data));
+      dispatch(fetchAuthorPublicationsSuccess(response.data));
     } catch (error) {
       dispatch(
         fetchAuthorPublicationsError(error.response && error.response.data)
@@ -112,7 +112,7 @@ function fetchingAuthorPublicationsFacets(query) {
   };
 }
 
-function fetchAuthorPublicationFacetsSuccess(result) {
+function fetchAuthorPublicationsFacetsSuccess(result) {
   return {
     type: AUTHOR_PUBLICATIONS_FACETS_SUCCESS,
     payload: result,
@@ -126,7 +126,8 @@ function fetchAuthorPublicationsFacetsError(error) {
   };
 }
 
-export function fetchAuthorPulicationsFacets(newQuery = {}) {
+const FACET_NAME = 'hep-author-publication';
+export function fetchAuthorPublicationsFacets(newQuery = {}) {
   return async (dispatch, getState, http) => {
     const { authors } = getState();
 
@@ -142,9 +143,9 @@ export function fetchAuthorPulicationsFacets(newQuery = {}) {
     const queryString = stringify(query, { indices: false });
     try {
       const response = await http.get(
-        `/literature/facets?facet_name=hep-author-publication&exclude_author_value=${authorFacetValue}&author=${authorFacetValue}&${queryString}`
+        `/literature/facets?facet_name=${FACET_NAME}&exclude_author_value=${authorFacetValue}&author=${authorFacetValue}&${queryString}`
       );
-      dispatch(fetchAuthorPublicationFacetsSuccess(response.data));
+      dispatch(fetchAuthorPublicationsFacetsSuccess(response.data));
     } catch (error) {
       dispatch(
         fetchAuthorPublicationsFacetsError(
