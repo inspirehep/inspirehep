@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'formik';
 
 import TextField from '../../common/components/TextField';
-import LabelWithHelp from '../../common/components/LabelWithHelp';
+import LabelWithHelp from '../../../common/components/LabelWithHelp';
 
 class LinkFields extends Component {
   render() {

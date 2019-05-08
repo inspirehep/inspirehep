@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import HelpIconTooltip from '../../../common/components/HelpIconTooltip';
+import HelpIconTooltip from './HelpIconTooltip';
 
 class LabelWithHelp extends Component {
   render() {
@@ -16,7 +16,7 @@ class LabelWithHelp extends Component {
 
 LabelWithHelp.propTypes = {
   label: PropTypes.string.isRequired,
-  help: PropTypes.string.isRequired,
+  help: PropTypes.node.isRequired,
 };
 
 export default LabelWithHelp;

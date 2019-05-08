@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Field } from 'formik';
 
 import TextAreaField from '../../common/components/TextAreaField';
-import LabelWithHelp from '../../common/components/LabelWithHelp';
+import LabelWithHelp from '../../../common/components/LabelWithHelp';
 
 class CommentsField extends Component {
   render() {

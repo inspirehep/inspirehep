@@ -5,8 +5,18 @@ import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import './CitationSummaryTable.scss';
-import LabelWithHelp from '../../../submissions/common/components/LabelWithHelp';
+import ExternalLink from '../../../common/components/ExternalLink';
+import LabelWithHelp from '../../../common/components/LabelWithHelp';
 import { LITERATURE } from '../../../common/routes';
+
+const CITABLE_HELP_MESSAGE = (
+  <span>
+    Published papers are believed to have undergone rigorous peer-review.&nbsp;
+    <ExternalLink href="http://inspirehep.net/info/faq/general#published">
+      Learn More
+    </ExternalLink>
+  </span>
+);
 
 class CitationSummaryTable extends Component {
   render() {
@@ -29,20 +39,6 @@ class CitationSummaryTable extends Component {
       { indices: false }
     );
 
-    const tooltipMsg = (
-      <span>
-        Published papers are believed to have undergone rigorous
-        peer-review.&nbsp;
-        <a
-          href="http://inspirehep.net/info/faq/general#published"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn More
-        </a>
-      </span>
-    );
-
     return (
       <div className="__CitationTable__">
         <table>
@@ -58,7 +54,7 @@ class CitationSummaryTable extends Component {
                 />
               </th>
               <th>
-                <LabelWithHelp label="Published" help={tooltipMsg} />
+                <LabelWithHelp label="Published" help={CITABLE_HELP_MESSAGE} />
               </th>
             </tr>
             <tr>

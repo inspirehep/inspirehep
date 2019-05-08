@@ -16,7 +16,7 @@ import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
 import SuggesterField from '../../common/components/SuggesterField';
 import TextAreaField from '../../common/components/TextAreaField';
-import LabelWithHelp from '../../common/components/LabelWithHelp';
+import LabelWithHelp from '../../../common/components/LabelWithHelp';
 import SubmitButton from '../../common/components/SubmitButton';
 
 const OPEN_SECTIONS = [
