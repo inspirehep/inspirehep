@@ -25,13 +25,11 @@ exports[`CitationSummaryTable renders table with all props given 1`] = `
             help={
               <span>
                 Published papers are believed to have undergone rigorous peer-review. 
-                <a
+                <ExternalLink
                   href="http://inspirehep.net/info/faq/general#published"
-                  rel="noopener noreferrer"
-                  target="_blank"
                 >
                   Learn More
-                </a>
+                </ExternalLink>
               </span>
             }
             label="Published"

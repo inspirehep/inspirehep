@@ -115,7 +115,7 @@ class DetailPage extends Component {
                       </SubContentBox>
                     </Col>
                   )}
-                  <Col xs={24} md={12} lg={9} xl={8}>
+                  <Col xs={24} md={12} lg={10} xl={9}>
                     <CitationSummaryContainer
                       searchQuery={this.authorLiteratureSearchQuery}
                     />
