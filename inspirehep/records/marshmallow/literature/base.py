@@ -45,6 +45,7 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
     class Meta:
         include = {"$schema": fields.Raw()}
 
+    id_ = fields.Raw(dump_only=True)
     abstracts = fields.Raw(dump_only=True)
     accelerator_experiments = fields.Raw(dump_only=True)
     acquisition_source = fields.Raw(dump_only=True)
@@ -301,9 +302,20 @@ class LiteratureUISchemaV1(RecordSchemaJSONV1):
     metadata = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
 
 
-class LiteratureRawPublicSchemaV1(RecordSchemaJSONV1):
+class LiteratureRawSchemaV1(RecordSchemaJSONV1):
+    id_ = fields.Method("get_uuid")
+
+    def get_uuid(self, data):
+        pid = data.get("pid")
+        if pid:
+            return pid.object_uuid
+        return None
+
+
+class LiteratureRawPublicSchemaV1(LiteratureRawSchemaV1):
     metadata = fields.Nested(LiteratureMetadataRawPublicSchemaV1, dump_only=True)
 
 
-class LiteratureRawAdminSchemaV1(RecordSchemaJSONV1):
+class LiteratureRawAdminSchemaV1(LiteratureRawSchemaV1):
+    id_ = fields.Raw(attribute="id", dump_only=True)
     metadata = fields.Nested(LiteratureMetadataRawAdminSchemaV1, dump_only=True)

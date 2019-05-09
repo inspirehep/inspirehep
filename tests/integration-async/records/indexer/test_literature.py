@@ -8,6 +8,7 @@
 import time
 
 from flask_sqlalchemy import models_committed
+from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_search import current_search_client as es
@@ -159,6 +160,35 @@ def test_many_records_in_one_commit(
             "step": es.search,
             "args": ["records-hep"],
             "expected_result": {"expected_key": "hits.total", "expected_result": 10},
+        },
+    ]
+    retry_until_matched(steps)
+
+
+def test_record_created_through_api_is_indexed(
+    app,
+    celery_app_with_context,
+    celery_session_worker,
+    retry_until_matched,
+    clear_environment,
+):
+    data = faker.record("lit")
+    token = AccessTokenFactory()
+    db.session.commit()
+    headers = {"Authorization": f"Bearer {token.access_token}"}
+    content_type = "application/json"
+    response = app.test_client().post(
+        f"literature", json=data, headers=headers, content_type=content_type
+    )
+    assert response.status_code == 201
+
+    es.indices.refresh("records-hep")
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
         },
     ]
     retry_until_matched(steps)

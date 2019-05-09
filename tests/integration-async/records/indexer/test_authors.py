@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_search import current_search_client as es
@@ -81,6 +82,35 @@ def test_aut_record_removed_form_es_when_deleted(
             "step": es.search,
             "args": ["records-authors"],
             "expected_result": {"expected_key": "hits.total", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
+
+def test_record_created_through_api_is_indexed(
+    app,
+    celery_app_with_context,
+    celery_session_worker,
+    retry_until_matched,
+    clear_environment,
+):
+    data = faker.record("aut")
+    token = AccessTokenFactory()
+    db.session.commit()
+    headers = {"Authorization": f"Bearer {token.access_token}"}
+    content_type = "application/json"
+    response = app.test_client().post(
+        f"authors", json=data, headers=headers, content_type=content_type
+    )
+    assert response.status_code == 201
+
+    es.indices.refresh("records-authors")
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-authors"]},
+        {
+            "step": es.search,
+            "args": ["records-authors"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
         },
     ]
     retry_until_matched(steps)

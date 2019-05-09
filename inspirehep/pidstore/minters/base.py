@@ -32,6 +32,11 @@ class Minter:
     def get_pid_values(self):
         return get_value(self.data, self.pid_value_path, default=None)
 
+    @property
+    def pid_value(self):
+        """Returns pid_value or list of pid values - Required by InvenioRecordsREST POST view"""
+        return self.get_pid_values()
+
     def create(self, pid_value):
         return self.model.create(
             self.pid_type,

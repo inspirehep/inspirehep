@@ -305,14 +305,17 @@ class InspireRecord(Record):
         return record_class
 
     @classmethod
-    def create(cls, data, **kwargs):
+    def create(cls, data, id_=None, **kwargs):
         record_class = cls.get_class_for_record(data)
         if record_class != cls:
             return record_class.create(data, **kwargs)
-        id_ = uuid.uuid4()
+
         data = cls.strip_empty_values(data)
+
         with db.session.begin_nested():
-            cls.mint(id_, data)
+            if not id_:
+                id_ = uuid.uuid4()
+                cls.mint(id_, data)
             record = super().create(data, id_=id_, **kwargs)
             record._update_refs_in_citation_table()
         return record

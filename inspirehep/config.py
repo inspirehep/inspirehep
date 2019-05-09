@@ -22,6 +22,7 @@ from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import range_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
+from inspirehep.access_control import api_access_permission_check
 from inspirehep.alembic_helper.table_check import include_table_check
 
 from .search.api import LiteratureSearch
@@ -188,6 +189,8 @@ RECORD = {
 LITERATURE = deepcopy(RECORD)
 LITERATURE.update(
     {
+        "indexer_class": None,
+        "record_class": "inspirehep.records.api:LiteratureRecord",
         "pid_type": "lit",
         "pid_minter": "literature_minter",
         "search_class": LiteratureSearch,
@@ -207,11 +210,10 @@ LITERATURE.update(
             # "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_eu",
             # "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_us",
         },
-        "record_loaders": {
-            "application/json": "inspirehep.records.loaders:literature_json_v1"
-        },
         "list_route": "/literature",
         "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "create_permission_factory_imp": api_access_permission_check,
+        "update_permission_factory_imp": api_access_permission_check,
     }
 )
 LITERATURE_FACETS = deepcopy(LITERATURE)
@@ -304,6 +306,8 @@ AUTHORS.update(
         "item_route": '/authors/<pid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:AuthorsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+        "create_permission_factory_imp": api_access_permission_check,
+        "update_permission_factory_imp": api_access_permission_check,
     }
 )
 
