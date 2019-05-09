@@ -11,7 +11,7 @@ from copy import deepcopy
 from invenio_search import current_search_client as es
 
 
-def test_index_journal_record(es_clear, db, datadir, create_record):
+def test_index_journal_record(base_app, es_clear, db, datadir, create_record):
     data = json.loads((datadir / "1213103.json").read_text())
     record = create_record("jou", data=data)
 

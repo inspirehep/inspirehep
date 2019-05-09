@@ -7,11 +7,14 @@
 
 from unicodedata import normalize
 
+from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import generate_name_variations
 from marshmallow import Schema, fields, missing
 
 
 class AuthorSchemaV1(Schema):
+
+    recid = fields.Method("get_recid", default=missing, attribute="record")
     affiliations = fields.Raw()
     alternative_names = fields.Raw()
     credit_roles = fields.Raw()
@@ -41,6 +44,12 @@ class AuthorSchemaV1(Schema):
         if len(names) > 1:
             return names[0] or missing
 
+        return missing
+
+    def get_recid(self, data):
+        # FIXME: missing from everwhere
+        if "record" in data:
+            return get_recid_from_ref(data["record"])
         return missing
 
 

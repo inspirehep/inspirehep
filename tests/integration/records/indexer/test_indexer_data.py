@@ -9,7 +9,7 @@ from copy import deepcopy
 from invenio_search import current_search_client as es
 
 
-def test_index_data_record(es_clear, db, datadir, create_record):
+def test_index_data_record(base_app, es_clear, db, datadir, create_record):
     record = create_record("dat")
 
     expected_count = 1
