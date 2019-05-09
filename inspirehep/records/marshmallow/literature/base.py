@@ -51,7 +51,7 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
     arxiv_eprints = fields.Raw(dump_only=True)
     authors = fields.Raw(dump_only=True)
     book_series = fields.Raw(dump_only=True)
-    citable = fields.Raw(dump_only=True)
+    citeable = fields.Raw(dump_only=True)
     citation_count = fields.Raw(dump_only=True)
     collaborations = fields.Raw(dump_only=True)
     control_number = fields.Raw(dump_only=True)
@@ -115,7 +115,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
         exclude = (
             "$schema",
             "copyright",
-            "citable",
+            "citeable",
             "core",
             "curated",
             "editions",
