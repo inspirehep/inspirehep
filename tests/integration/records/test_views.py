@@ -14,6 +14,8 @@ import requests_mock
 import vcr
 from helpers.providers.faker import faker
 
+from inspirehep.records.api import AuthorsRecord, LiteratureRecord
+
 my_vcr = vcr.VCR(
     serializer="yaml",
     cassette_library_dir=os.path.join(os.path.dirname(__file__), "cassettes"),
@@ -1123,3 +1125,210 @@ def test_citation_summary_facet_filters(api_client, db, create_record_factory):
     response_data_citation_summary = response_data["aggregations"]["citation_summary"]
     assert response_status_code == 200
     assert response_data_citation_summary == expected_citation_summary_aggregation
+
+
+def test_create_literature_record_through_api(api_client, db, create_user_and_token):
+    data = faker.record("lit")
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}"}
+    content_type = "application/json"
+    response = api_client.post(
+        "literature", json=data, headers=headers, content_type=content_type
+    )
+    expected_data = deepcopy(data)
+
+    record = LiteratureRecord.get_record_by_pid_value(response.json["id"])
+    expected_data["control_number"] = response.json["id"]
+
+    assert str(record.id) == response.json["id_"]
+    assert record == expected_data
+
+    del expected_data["_collections"]
+
+    assert response.status_code == 201
+    assert response.json["metadata"] == expected_data
+
+
+def test_update_literature_record_through_api(api_client, db, create_user_and_token):
+    data = faker.record("lit")
+    rec = LiteratureRecord.create(data)
+
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}"}
+    content_type = "application/json"
+    data["titles"].append({"title": "Another Title"})
+    response = api_client.put(
+        f"literature/{rec['control_number']}",
+        json=data,
+        headers=headers,
+        content_type=content_type,
+    )
+    expected_data = deepcopy(data)
+
+    record = LiteratureRecord.get_record_by_pid_value(rec["control_number"])
+    assert str(record.id) == response.json["id_"]
+    assert record == expected_data
+
+    del expected_data["_collections"]
+
+    assert response.status_code == 200
+    assert response.json["metadata"] == expected_data
+
+
+def test_create_literature_record_through_api_with_wrong_token(
+    api_client, db, create_user_and_token
+):
+    data = faker.record("lit")
+
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}_WRONG"}
+    content_type = "application/json"
+    response = api_client.post(
+        f"literature", json=data, headers=headers, content_type=content_type
+    )
+
+    assert response.status_code == 401
+
+
+def test_update_literature_record_through_api_with_wrong_token(
+    api_client, db, create_user_and_token
+):
+    data = faker.record("lit")
+    rec = LiteratureRecord.create(data)
+
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}_WRONG"}
+    content_type = "application/json"
+    data["titles"].append({"title": "Another Title"})
+    response = api_client.put(
+        f"literature/{rec['control_number']}",
+        json=data,
+        headers=headers,
+        content_type=content_type,
+    )
+
+    assert response.status_code == 401
+
+
+def test_create_literature_record_through_api_no_token_provided(api_client, db):
+    data = faker.record("lit")
+
+    content_type = "application/json"
+    response = api_client.post(f"literature", json=data, content_type=content_type)
+
+    assert response.status_code == 401
+
+
+def test_update_literature_record_through_api_no_token_provided(api_client, db):
+    data = faker.record("lit")
+    rec = LiteratureRecord.create(data)
+
+    content_type = "application/json"
+    data["titles"].append({"title": "Another Title"})
+    response = api_client.put(
+        f"literature/{rec['control_number']}", json=data, content_type=content_type
+    )
+    assert response.status_code == 401
+
+
+def test_create_author_record_through_api(api_client, db, create_user_and_token):
+    data = faker.record("aut")
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}"}
+    content_type = "application/json"
+    response = api_client.post(
+        "authors", json=data, headers=headers, content_type=content_type
+    )
+    expected_data = deepcopy(data)
+    expected_data["control_number"] = response.json["id"]
+
+    record = AuthorsRecord.get_record_by_pid_value(response.json["id"])
+    assert str(record.id) == response.json["id_"]
+    assert record == expected_data
+
+    del expected_data["_collections"]
+
+    assert response.status_code == 201
+    assert response.json["metadata"] == expected_data
+
+
+def test_update_author_record_through_api(api_client, db, create_user_and_token):
+    data = faker.record("aut")
+    rec = AuthorsRecord.create(data)
+
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}"}
+    content_type = "application/json"
+    data["name"] = {"value": "Some name"}
+    response = api_client.put(
+        f"authors/{rec['control_number']}",
+        json=data,
+        headers=headers,
+        content_type=content_type,
+    )
+    expected_data = deepcopy(data)
+
+    record = AuthorsRecord.get_record_by_pid_value(rec["control_number"])
+    assert str(record.id) == response.json["id_"]
+    assert record == expected_data
+
+    del expected_data["_collections"]
+
+    assert response.status_code == 200
+    assert response.json["metadata"] == expected_data
+
+
+def test_create_author_record_through_api_with_wrong_token(
+    api_client, db, create_user_and_token
+):
+    data = faker.record("aut")
+
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}_WRONG"}
+    content_type = "application/json"
+    response = api_client.post(
+        f"authors", json=data, headers=headers, content_type=content_type
+    )
+
+    assert response.status_code == 401
+
+
+def test_update_author_record_through_api_with_wrong_token(
+    api_client, db, create_user_and_token
+):
+    data = faker.record("aut")
+    rec = AuthorsRecord.create(data)
+
+    token = create_user_and_token()
+    headers = {"Authorization": f"Bearer {token.access_token}_WRONG"}
+    content_type = "application/json"
+    data["name"] = {"value": "Some name"}
+    response = api_client.put(
+        f"authors/{rec['control_number']}",
+        json=data,
+        headers=headers,
+        content_type=content_type,
+    )
+
+    assert response.status_code == 401
+
+
+def test_create_author_record_through_api_no_token_provided(api_client, db):
+    data = faker.record("aut")
+
+    content_type = "application/json"
+    response = api_client.post(f"authors", json=data, content_type=content_type)
+
+    assert response.status_code == 401
+
+
+def test_update_author_record_through_api_no_token_provided(api_client, db):
+    data = faker.record("aut")
+    rec = AuthorsRecord.create(data)
+
+    content_type = "application/json"
+    data["name"] = {"value": "Some name"}
+    response = api_client.put(
+        f"authors/{rec['control_number']}", json=data, content_type=content_type
+    )
+    assert response.status_code == 401

@@ -50,11 +50,21 @@ class AuthorsMetadataRawAdminSchemaV1(AuthorsMetadataRawPublicSchemaV1):
     email_addresses = fields.Raw(dump_only=True)
 
 
-class AuthorsRawAdminSchemaV1(RecordSchemaJSONV1):
+class AuthorsRawSchemaV1(RecordSchemaJSONV1):
+    id_ = fields.Method("get_uuid")
+
+    def get_uuid(self, data):
+        pid = data.get("pid")
+        if pid:
+            return pid.object_uuid
+        return None
+
+
+class AuthorsRawAdminSchemaV1(AuthorsRawSchemaV1):
     metadata = fields.Nested(AuthorsMetadataRawAdminSchemaV1, dump_only=True)
 
 
-class AuthorsRawPublicSchemaV1(RecordSchemaJSONV1):
+class AuthorsRawPublicSchemaV1(AuthorsRawSchemaV1):
     metadata = fields.Nested(AuthorsMetadataRawPublicSchemaV1, dump_only=True)
 
 
