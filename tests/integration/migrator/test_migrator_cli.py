@@ -11,6 +11,7 @@ import os
 import pkg_resources
 import pytest
 from click.testing import CliRunner
+from flask import current_app
 from invenio_db import db
 from mock import patch
 
@@ -21,30 +22,28 @@ from inspirehep.migrator.tasks import populate_mirror_from_file
 
 def test_migrate_file_halts_in_debug_mode(base_app, db, script_info):
     cli_runner = CliRunner()
-    config = {"DEBUG": True}
-    with patch.dict(base_app.config, config):
-        file_name = pkg_resources.resource_filename(
-            __name__, os.path.join("fixtures", "1663923.xml")
-        )
+    current_app.config["DEBUG"] = True
+    file_name = pkg_resources.resource_filename(
+        __name__, os.path.join("fixtures", "1663923.xml")
+    )
 
-        result = cli_runner.invoke(migrate, ["file", file_name], obj=script_info)
+    result = cli_runner.invoke(migrate, ["file", file_name], obj=script_info)
 
-        assert result.exit_code == 1
-        assert "DEBUG" in result.output
+    assert result.exit_code == 1
+    assert "DEBUG" in result.output
 
 
 def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(base_app, db, script_info):
     cli_runner = CliRunner()
-    config = {"DEBUG": True}
-    with patch.dict(base_app.config, config):
-        file_name = pkg_resources.resource_filename(
-            __name__, os.path.join("fixtures", "1663923.xml")
-        )
+    current_app.config["DEBUG"] = True
+    file_name = pkg_resources.resource_filename(
+        __name__, os.path.join("fixtures", "1663923.xml")
+    )
 
-        result = cli_runner.invoke(migrate, ["file", "-f", file_name], obj=script_info)
+    result = cli_runner.invoke(migrate, ["file", "-f", file_name], obj=script_info)
 
-        assert result.exit_code == 0
-        assert "DEBUG" not in result.output
+    assert result.exit_code == 0
+    assert "DEBUG" not in result.output
 
 
 def test_migrate_file(base_app, db, script_info, api_client):

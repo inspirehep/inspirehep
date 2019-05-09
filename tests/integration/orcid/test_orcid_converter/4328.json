@@ -1,0 +1,204 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "abstracts": [
+    {
+      "source": "Elsevier",
+      "value":
+        "Weak and electromagnetic interactions of the leptons are examined under the hypothesis that the weak interactions are mediated by vector bosons. With only an isotopic triplet of leptons coupled to a triplet of vector bosons (two charged decay-intermediaries and the photon) the theory possesses no partial-symmetries. Such symmetries may be established if additional vector bosons or additional leptons are introduced. Since the latter possibility yields a theory disagreeing with experiment, the simplest partially-symmetric model reproducing the observed electromagnetic and weak interactions of leptons requires the existence of at least four vector-boson fields (including the photon). Corresponding partially-conserved quantities suggest leptonic analogues to the conserved quantities associated with strong interactions: strangeness and isobaric spin."
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903881"
+          },
+          "value": "Copenhagen U."
+        }
+      ],
+      "curated_relation": true,
+      "full_name": "Glashow, S.L.",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00085173" },
+        { "schema": "INSPIRE BAI", "value": "S.L.Glashow.1" }
+      ],
+      "raw_affiliations": [
+        {
+          "value":
+            "Institute for Theoretical Physics, University of Copenhagen, Copenhagen, Denmark"
+        },
+        { "value": "National Science Foundation Post-Doctoral Fellow." }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1008235" },
+      "signature_block": "GLASs",
+      "uuid": "2a4ec793-8069-47fa-8cb9-fd822cd78b81"
+    }
+  ],
+  "control_number": 4328,
+  "core": true,
+  "curated": true,
+  "document_type": ["article"],
+  "dois": [{ "value": "10.1016/0029-5582(61)90469-2" }],
+  "external_system_identifiers": [
+    { "schema": "OSTI", "value": "4082455" },
+    { "schema": "SPIRES", "value": "SPIRES-154008" }
+  ],
+  "inspire_categories": [{ "source": "curator", "term": "Phenomenology-HEP" }],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "ELECTROWEAK INTERACTION" },
+    { "schema": "INSPIRE", "value": "COUPLING: YUKAWA" },
+    { "schema": "INSPIRE", "value": "YUKAWA: COUPLING" },
+    { "schema": "INSPIRE", "value": "CURRENT: CONSERVATION LAW" },
+    { "schema": "INSPIRE", "value": "PARITY: VIOLATION" },
+    { "schema": "INSPIRE", "value": "VIOLATION: PARITY" },
+    { "schema": "INSPIRE", "value": "GAUGE BOSON" },
+    { "schema": "INSPIRE", "value": "INVARIANCE: CP" }
+  ],
+  "legacy_creation_date": "1982-01-01",
+  "legacy_version": "20190328023701.0",
+  "number_of_pages": 10,
+  "preprint_date": "1961",
+  "public_notes": [{ "value": "Submitted to None" }],
+  "publication_info": [
+    {
+      "journal_record": {
+        "$ref": "http://labs.inspirehep.net/api/journals/1214548"
+      },
+      "journal_title": "Nucl.Phys.",
+      "journal_volume": "22",
+      "page_end": "588",
+      "page_start": "579",
+      "year": 1961
+    },
+    {
+      "pubinfo_freetext":
+        "Also in *Lai, C. H. (Ed.): Gauge Theory Of Weak and Electromagnetic Interactions*, 171-180"
+    }
+  ],
+  "refereed": true,
+  "references": [
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Fronsdal, C." },
+          { "full_name": "Glashow, S." }
+        ],
+        "label": "1",
+        "publication_info": {
+          "artid": "570",
+          "journal_title": "Phys.Rev.Letters",
+          "journal_volume": "3",
+          "page_start": "570",
+          "year": 1959
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Schwinger, J." }],
+        "label": "2",
+        "publication_info": {
+          "artid": "407",
+          "journal_title": "Ann.of Phys",
+          "journal_volume": "2",
+          "page_start": "407",
+          "year": 1957
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Gell-Mann, M." }],
+        "label": "3"
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1384392"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Glashow, S." }],
+        "label": "4",
+        "publication_info": {
+          "artid": "107",
+          "journal_title": "Nucl.Phys.",
+          "journal_volume": "10",
+          "page_start": "107",
+          "year": 1959
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/2230" },
+      "reference": {
+        "authors": [
+          { "full_name": "Gell-Mann, M." },
+          { "full_name": "L\u00e9vy, M." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "705",
+          "journal_title": "Nuovo Cim.",
+          "journal_volume": "16",
+          "page_start": "705",
+          "year": 1960
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/1304618"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Bernstein, J." },
+          { "full_name": "Gell-Mann, M." },
+          { "full_name": "Michel, L." }
+        ],
+        "label": "5",
+        "publication_info": {
+          "artid": "560",
+          "journal_title": "Nuovo Cim.",
+          "journal_volume": "16",
+          "page_start": "560",
+          "year": 1960
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Feynman, R." },
+          { "full_name": "Gell-Mann, M." }
+        ],
+        "label": "6",
+        "publication_info": {
+          "artid": "193",
+          "journal_title": "Phys.Rev",
+          "journal_volume": "109",
+          "page_start": "193",
+          "year": 1958
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Feinberg, G." }],
+        "label": "7",
+        "publication_info": {
+          "artid": "1482",
+          "journal_title": "Phys.Rev",
+          "journal_volume": "110",
+          "page_start": "1482",
+          "year": 1958
+        }
+      }
+    }
+  ],
+  "texkeys": ["Glashow:1961tr"],
+  "titles": [{ "title": "Partial Symmetries of Weak Interactions" }]
+}

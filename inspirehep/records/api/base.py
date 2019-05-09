@@ -257,6 +257,7 @@ class InspireRecord(Record):
     @classmethod
     def get_records_by_pids(cls, pids):
         query = cls.get_record_metadata_by_pids(pids)
+
         for data in query.yield_per(100):
             yield cls(data.json)
 
@@ -386,12 +387,13 @@ class InspireRecord(Record):
                     }
                 ]
             }
-            >>>  record = InspireRecord(data)
-            >>>  records = record.get_linked_records_from_field("references.record")
-
+            >>>  records = InspireRecord.get_linked_records_from_field(
+                data, "references.record")
         """
         pids = cls._get_linked_pids_from_field(data, path)
-        return cls.get_records_by_pids(pids)
+        if pids:
+            return cls.get_records_by_pids(pids)
+        return []
 
     def get_linked_pids_from_field(self, path):
         """Return a list of (pid_type, pid_value) tuples for all records referenced

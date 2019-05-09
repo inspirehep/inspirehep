@@ -1,0 +1,3844 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
+  "abstracts": [
+    {
+      "source": "INFN",
+      "value":
+        "AGN are emitters of very-high energy cosmic rays (including gammas), powered by supermassive black holes. This thesis discusses the analysis and interpretation of multiwavelength observations of AGN by MAGIC, AGILE and by various X-rays and optical instruments. The relation between SSC parameters and the variability of sources is investigated. A novel method to measure the density of the extragalactic background light using simultaneous multiwavelength observations of AGN is discussed."
+    }
+  ],
+  "accelerator_experiments": [
+    {
+      "legacy_name": "MAGIC",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/experiments/1110626"
+      }
+    }
+  ],
+  "authors": [
+    {
+      "affiliations": [
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/904253"
+          },
+          "value": "Udine U."
+        }
+      ],
+      "full_name": "Mankuzhiyil, Nijil",
+      "ids": [
+        { "schema": "INSPIRE ID", "value": "INSPIRE-00141058" },
+        { "schema": "INSPIRE BAI", "value": "N.Mankuzhiyil.1" }
+      ],
+      "record": { "$ref": "http://labs.inspirehep.net/api/authors/1051794" },
+      "signature_block": "MANCASALn",
+      "uuid": "858f1c98-0eec-4fdb-a6dd-c27e2162185e"
+    },
+    {
+      "full_name": "de Angelis, Alessandro",
+      "inspire_roles": ["supervisor"],
+      "signature_block": "ANGALa",
+      "uuid": "9d46a6be-36fc-4406-a2ed-7f9551a772a6"
+    }
+  ],
+  "control_number": 1395663,
+  "core": true,
+  "curated": true,
+  "document_type": ["thesis"],
+  "documents": [
+    {
+      "fulltext": true,
+      "key": "NMankuzhiyil.pdf",
+      "url":
+        "file:///afs/cern.ch/project/inspire/PROD/var/data/files/g111/2239642/content.pdf%3B1"
+    }
+  ],
+  "inspire_categories": [{ "term": "Astrophysics" }],
+  "keywords": [
+    { "schema": "INSPIRE", "value": "Cherenkov counter" },
+    { "schema": "INSPIRE", "value": "photon: background" },
+    { "schema": "INSPIRE", "value": "MAGIC" },
+    { "schema": "INSPIRE", "value": "AGN" },
+    { "schema": "INSPIRE", "value": "air" },
+    { "schema": "INSPIRE", "value": "GLAST" },
+    { "schema": "INSPIRE", "value": "gamma ray: VHE" }
+  ],
+  "legacy_creation_date": "2015-10-02",
+  "legacy_version": "20180205145049.0",
+  "number_of_pages": 164,
+  "references": [
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/812939"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Abdo, A.A." }],
+        "label": "1",
+        "misc": ["(Fermi Coll.)"],
+        "publication_info": {
+          "artid": "597",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "700",
+          "page_start": "597",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/818891"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Abdo, A.A." }],
+        "label": "2",
+        "misc": ["(Fermi Coll.)"],
+        "publication_info": {
+          "artid": "817",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "699",
+          "page_start": "817",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/745826"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Abbasi, R.U." }],
+        "label": "3",
+        "misc": ["(HiRes Coll.)"],
+        "publication_info": {
+          "artid": "101101",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "100",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/789197"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Abraham, J." }],
+        "label": "4",
+        "misc": ["(Auger Coll.)"],
+        "publication_info": {
+          "artid": "061101",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "101",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/770281"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Abraham, J." }],
+        "label": "5",
+        "misc": ["(Auger Coll.)"],
+        "publication_info": {
+          "artid": "211101",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "100",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Acciari, V." }],
+        "label": "6",
+        "misc": ["(VERITAS Coll.)"],
+        "publication_info": {
+          "artid": "73",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "685",
+          "page_start": "73",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/826584"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Acciari, V." }],
+        "label": "7",
+        "misc": ["(VERITAS Coll., MAGIC coll.)"],
+        "publication_info": {
+          "artid": "169",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "703",
+          "page_start": "169",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Acciari, V." }],
+        "label": "8",
+        "misc": ["(VERITAS Coll.)"],
+        "publication_info": {
+          "artid": "126",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "690",
+          "page_start": "126",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/497332"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "9",
+        "misc": ["(HEGRA Coll.)"],
+        "publication_info": {
+          "artid": "11",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "349",
+          "page_start": "11",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/587505"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "10",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "89",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "393",
+          "page_start": "89",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/642761"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "11",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "529",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "421",
+          "page_start": "529",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "12",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "13",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "425",
+          "page_start": "13",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/664780"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "13",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "17",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "436",
+          "page_start": "17",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/689839"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "14",
+        "misc": ["(HESS coll.)"],
+        "publication_info": {
+          "artid": "746",
+          "journal_title": "Science",
+          "journal_volume": "309",
+          "page_start": "746",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "15",
+        "misc": ["(HESS Coll.), Aston"],
+        "publication_info": {
+          "artid": "895",
+          "journal_title": "Astrophysics",
+          "journal_volume": "442",
+          "page_start": "895",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/698652"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "16",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "223",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "449",
+          "page_start": "223",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/721584"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "17",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "899",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "457",
+          "page_start": "899",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/688838"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "18",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "1018",
+          "journal_title": "Nature",
+          "journal_volume": "440",
+          "page_start": "1018",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "19",
+        "misc": ["(HESS Coll.) 144 C. Bibliography"],
+        "publication_info": {
+          "artid": "19",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "448",
+          "page_start": "19",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "20",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "25",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "473",
+          "page_start": "25",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/747802"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "21",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "71",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "664",
+          "page_start": "71",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "22",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "9",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "475",
+          "page_start": "9",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/751019"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "23",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "475",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "470",
+          "page_start": "475",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "24",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "103",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "481",
+          "page_start": "103",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/766049"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "25",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "481",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "477",
+          "page_start": "481",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "26",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "40",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "695",
+          "page_start": "40",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "27",
+        "misc": ["(HESS Coll.)"],
+        "publication_info": {
+          "artid": "150",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "696",
+          "page_start": "150",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aharonian, F." }],
+        "label": "28",
+        "misc": ["(HESS Coll.), Aston"],
+        "publication_info": {
+          "artid": "749",
+          "journal_title": "Astrophysics",
+          "journal_volume": "502",
+          "page_start": "749",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/618572"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Ahrens, J." }],
+        "label": "29",
+        "misc": ["(IceCube Coll.)"],
+        "publication_info": {
+          "artid": "507",
+          "journal_title": "Astropart.Phys.",
+          "journal_volume": "20",
+          "page_start": "507",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/717435"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "30",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "1771",
+          "journal_title": "Science",
+          "journal_volume": "312",
+          "page_start": "1771",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "31",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "101",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "638",
+          "page_start": "101",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "32",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "119",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "642",
+          "page_start": "119",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "33",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "105",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "648",
+          "page_start": "105",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "34",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "119",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "654",
+          "page_start": "119",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "35",
+        "misc": ["(MAGIC Coll.), Astrophys. J. L 666, 17 (b)"],
+        "publication_info": { "year": 2007 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "36",
+        "misc": ["(MAGIC Coll.), Astrophys. J. L 667, 21 (c)"],
+        "publication_info": { "year": 2007 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/743611"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "37",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "862",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "669",
+          "page_start": "862",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/754135"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "38",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "937",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "474",
+          "page_start": "937",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/734932"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "39",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "358",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "667",
+          "page_start": "358",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/790997"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "40",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "1752",
+          "journal_title": "Science",
+          "journal_volume": "320",
+          "page_start": "1752",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "41",
+        "misc": [
+          "(MAGIC Coll.), Nucl. Instr. and Math. in Phys. Res. A 594, 407 C.1. Bibliography 145"
+        ],
+        "publication_info": { "year": 2008 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "42",
+        "misc": ["(MAGIC Coll.), Astrophys. J. L 668, 253 (c)"],
+        "publication_info": { "year": 2008 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/805426"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Albert, J." }],
+        "label": "43",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "467",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "493",
+          "page_start": "467",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aleksic, J." }],
+        "label": "44",
+        "misc": ["(MAGIC Coll.), Astron. Astrophys., Submitted"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/796893"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Aliu, E." }],
+        "label": "45",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "1221",
+          "journal_title": "Science",
+          "journal_volume": "322",
+          "page_start": "1221",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Aliu, E." }],
+        "label": "46",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "29",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "692",
+          "page_start": "29",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/802110"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Anderhub, H." }],
+        "label": "47",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "83",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "498",
+          "page_start": "83",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/833665"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Anderhub, H." }],
+        "label": "48",
+        "misc": ["(MAGIC Coll.)"],
+        "publication_info": {
+          "artid": "1624",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "705",
+          "page_start": "1624",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Anderhub, H." }],
+        "label": "49",
+        "misc": ["(MAGIC Coll.), Astrophys. J. L (submitted)"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/682913"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Antoni, T." }],
+        "label": "50",
+        "misc": ["(Kascade Coll.)"],
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Astropart.Phys.",
+          "journal_volume": "24",
+          "page_start": "1",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/626056"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Baring, M.G." }],
+        "label": "51",
+        "publication_info": {
+          "artid": "552",
+          "journal_title": "Adv.Space Res.",
+          "journal_volume": "33",
+          "page_start": "552",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "52",
+        "misc": ["(Design report)"],
+        "urls": [
+          { "value": "http://wwwmagic.mppmu.mpg.de/publications/proposals/" }
+        ]
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Begelman, M." },
+          { "full_name": "Blandford, R." },
+          { "full_name": "Rees, M.J." }
+        ],
+        "label": "53",
+        "publication_info": {
+          "artid": "255",
+          "journal_title": "Rev.Mod.Phys.",
+          "journal_volume": "256",
+          "page_start": "255",
+          "year": 1984
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Begelman, M." }],
+        "label": "54",
+        "misc": [
+          "Astrophysics in Active Galaxies and Quasi-Stellar Objects, J.S.Miller (eds.) (University Science Books), p411"
+        ],
+        "publication_info": { "year": 1985 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Berezinsky, V." }],
+        "label": "55",
+        "publication_info": {
+          "artid": "227",
+          "journal_title": "Nucl.Phys.B",
+          "journal_volume": "188",
+          "page_start": "227",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Bertero, M." }],
+        "label": "56",
+        "misc": ["Adv. in Electronic and Electron Phys., 75, 1"],
+        "publication_info": { "year": 1989 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/602812"
+      },
+      "reference": {
+        "arxiv_eprint": "astro-ph/0211503",
+        "authors": [{ "full_name": "Biermann, R.L." }],
+        "label": "57",
+        "misc": [
+          "Proc. 7eme Colloqium Cosmologie, High energy astrophysics from and for space arXiv:"
+        ],
+        "publication_info": { "year": 2003 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Bird, D.J." }],
+        "label": "58",
+        "publication_info": {
+          "artid": "494",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "424",
+          "page_start": "494",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/151367"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Blandford, R.D." },
+          { "full_name": "Konigl, A." }
+        ],
+        "label": "59",
+        "publication_info": {
+          "artid": "34",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "232",
+          "page_start": "34",
+          "year": 1979
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/187856"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Blandford, R.D." },
+          { "full_name": "Payne, D.G." }
+        ],
+        "label": "60",
+        "publication_info": {
+          "artid": "883",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "199",
+          "page_start": "883",
+          "year": 1982
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Blandford, R.D." }],
+        "label": "61",
+        "misc": [
+          "Active Galactic Nucle, J.E. Dayson (eds.) (Machester Univ. Press), 281 146 C. Bibliography"
+        ],
+        "publication_info": { "year": 1985 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/128256"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Blandford, R.D." },
+          { "full_name": "Znajek, R.L." }
+        ],
+        "label": "62",
+        "publication_info": {
+          "artid": "433",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "179",
+          "page_start": "433",
+          "year": 1977
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Blandford, R.D." },
+          { "full_name": "Rees, M.J." }
+        ],
+        "label": "63",
+        "publication_info": {
+          "artid": "23",
+          "journal_title": "Publ.Astron.Soc.Pac.",
+          "journal_volume": "54",
+          "page_start": "23",
+          "year": 1991
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Blandford, R.D." }],
+        "label": "64",
+        "publication_info": {
+          "artid": "265",
+          "journal_title": "Publ.Astron.Soc.Pac.",
+          "journal_volume": "160",
+          "page_start": "265",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/596289"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Blain, A.W." },
+          { "full_name": "T.G.Phillips" }
+        ],
+        "label": "65",
+        "publication_info": {
+          "artid": "222",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "333",
+          "page_start": "222",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/682643"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Blazejowski, M." }],
+        "label": "66",
+        "publication_info": {
+          "artid": "130",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "630",
+          "page_start": "130",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/547047"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Blazejowski, M." }],
+        "label": "67",
+        "publication_info": {
+          "artid": "107",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "545",
+          "page_start": "107",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/479671"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Bhattacharjee, P." }],
+        "label": "68",
+        "publication_info": {
+          "artid": "109",
+          "journal_title": "Phys.Rept.",
+          "journal_volume": "327",
+          "page_start": "109",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "B\u00f6ttcher, M." }],
+        "label": "69",
+        "misc": ["PhD thesis, Universitat Bonn"],
+        "publication_info": { "year": 1997 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Bretz, T." },
+          { "full_name": "Dorner, D." },
+          { "full_name": "Hone, D." }
+        ],
+        "label": "70",
+        "misc": ["Proc. of ICRC, 4, 311"],
+        "publication_info": { "year": 2005 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/260646"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Brezinsky, V.S." },
+          { "full_name": "Gregor'eva, S.I." }
+        ],
+        "label": "71",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "199",
+          "page_start": "1",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Buckley, J." }],
+        "label": "72",
+        "misc": ["(Whipple Coll.)"],
+        "publication_info": {
+          "artid": "9",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "472",
+          "page_start": "9",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Catanese, M." }],
+        "label": "73",
+        "misc": ["(Whipple Coll.)"],
+        "publication_info": {
+          "artid": "143",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "487",
+          "page_start": "143",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/453815"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Catanese, M." }],
+        "label": "74",
+        "misc": ["(Whipple Coll.)"],
+        "publication_info": {
+          "artid": "616",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "501",
+          "page_start": "616",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Chadwick, P.M." }],
+        "label": "75",
+        "misc": ["(Univ. of Durham Mark 6 Gamma Ray Telescope Coll.)"],
+        "publication_info": {
+          "artid": "161",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "513",
+          "page_start": "161",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Chen., A." }],
+        "label": "76",
+        "misc": ["The Astronomer\u2019s Telegram, 1278, 1"],
+        "publication_info": { "year": 2007 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/45517" },
+      "reference": {
+        "authors": [{ "full_name": "Cherenkov, P." }],
+        "label": "77",
+        "publication_info": {
+          "artid": "451",
+          "journal_title": "Dokl.Akad.Nauk SSSR",
+          "journal_volume": "2",
+          "page_start": "451",
+          "year": 1934
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/461440"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Costa, E." }],
+        "label": "78",
+        "misc": ["(Bepposax coll.)"],
+        "publication_info": {
+          "artid": "783",
+          "journal_title": "Nature",
+          "journal_volume": "387",
+          "page_start": "783",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/568001"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Costamante, L." },
+          { "full_name": "Ghisellini, G." }
+        ],
+        "label": "79",
+        "publication_info": {
+          "artid": "56",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "384",
+          "page_start": "56",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/824112"
+      },
+      "reference": {
+        "arxiv_eprint": "0906.4788",
+        "authors": [{ "full_name": "Cusumano, G." }],
+        "label": "80",
+        "misc": ["To be published in Astron. Astroph"],
+        "publication_info": { "year": 2010 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Dar, A." }, { "full_name": "Laor, A." }],
+        "label": "81",
+        "publication_info": {
+          "artid": "5",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "478",
+          "page_start": "5",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Daughetry, J.K." },
+          { "full_name": "Harding, A.K." }
+        ],
+        "label": "82",
+        "misc": ["C.1. Bibliography 147"],
+        "publication_info": {
+          "artid": "337",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "252",
+          "page_start": "337",
+          "year": 1982
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/767946"
+      },
+      "reference": {
+        "arxiv_eprint": "0711.2804",
+        "authors": [{ "full_name": "Dermer, C.D." }],
+        "label": "83",
+        "misc": ["Invited talk at 30 th ICRC"],
+        "publication_info": { "year": 2007 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/370037"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Dermer, C.D." },
+          { "full_name": "Schlickeiser, A." }
+        ],
+        "label": "84",
+        "publication_info": {
+          "artid": "458",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "416",
+          "page_start": "458",
+          "year": 1993
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Dolcini, A." }],
+        "label": "85",
+        "publication_info": {
+          "artid": "33",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "443",
+          "page_start": "33",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Donnarumma, I." }],
+        "label": "86",
+        "publication_info": {
+          "artid": "13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "691",
+          "page_start": "13",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Dopita, M." }],
+        "label": "87",
+        "misc": ["Publ. Astron. Soc. of Australia. 14, 230"],
+        "publication_info": { "year": 1997 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Dorner, D." }],
+        "label": "88",
+        "misc": ["Proc. 29th ICRC, 5, 175"],
+        "publication_info": { "year": 2005 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Dorner, D." }],
+        "label": "89",
+        "misc": ["PhD thesis, Universitat W\u00fcrzburg"],
+        "publication_info": { "year": 2008 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/792185"
+      },
+      "reference": {
+        "arxiv_eprint": "0808.0279",
+        "authors": [{ "full_name": "Dorner, D." }],
+        "label": "90",
+        "misc": ["Astron. Astrophys"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "reference": {
+        "label": "91",
+        "misc": [
+          "www.mpi-hd.mpg.de/hfm/HESS/pages/press/old/PressRelease/EBLPress/"
+        ]
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Engel, R." },
+          { "full_name": "D.Seckel" },
+          { "full_name": "Satnev, T." }
+        ],
+        "label": "92",
+        "publication_info": {
+          "artid": "09310",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "64",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/649108"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Erlykin, A.D." },
+          { "full_name": "Wolfendale, A.W." }
+        ],
+        "label": "93",
+        "publication_info": {
+          "artid": "47",
+          "journal_title": "Astropart.Phys.",
+          "journal_volume": "22",
+          "page_start": "47",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/95602" },
+      "reference": {
+        "authors": [
+          { "full_name": "Fanaroff, B.L." },
+          { "full_name": "Riley, J.M." }
+        ],
+        "label": "94",
+        "publication_info": {
+          "artid": "31",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "167",
+          "page_start": "31",
+          "year": 1974
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/492249"
+      },
+      "reference": {
+        "authors": [{ "full_name": "G.J.Ferland" }],
+        "label": "95",
+        "publication_info": {
+          "artid": "761",
+          "journal_title": "Publ.Astron.Soc.Pac.",
+          "journal_volume": "110",
+          "page_start": "761",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Falomo, R." },
+          { "full_name": "Treves, A." }
+        ],
+        "label": "96",
+        "publication_info": {
+          "artid": "1120",
+          "journal_title": "Publ.Astron.Soc.Pac.",
+          "journal_volume": "102",
+          "page_start": "1120",
+          "year": 1990
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Fath, E.A." }],
+        "label": "97",
+        "misc": ["Lick Observatory Bulletin, 5, 71"],
+        "publication_info": { "year": 1909 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/779196"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Finke, J.D." },
+          { "full_name": "Dermer, C.D." },
+          { "full_name": "B\u00f6ttcher, M." }
+        ],
+        "label": "98",
+        "publication_info": {
+          "artid": "181",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "686",
+          "page_start": "181",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/818191"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Finke, J.D." },
+          { "full_name": "Razzaque, S." }
+        ],
+        "label": "99",
+        "publication_info": {
+          "artid": "1761",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "698",
+          "page_start": "1761",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Filippenko, A.V." },
+          { "full_name": "Halpern, J.P." }
+        ],
+        "label": "100",
+        "publication_info": {
+          "artid": "458",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "285",
+          "page_start": "458",
+          "year": 1984
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Filippenko, A.V." },
+          { "full_name": "Terlevich, R." }
+        ],
+        "label": "101",
+        "publication_info": {
+          "artid": "79",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "397",
+          "page_start": "79",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Fixsen, D.J." }],
+        "label": "102",
+        "misc": ["Astropjys. J 299, 433"],
+        "publication_info": { "year": 1998 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Fossati, G." }],
+        "label": "103",
+        "publication_info": {
+          "artid": "906",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "677",
+          "page_start": "906",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Fossati, G." }],
+        "label": "104",
+        "misc": ["Astropjys. J 508, 123 148 C. Bibliography"],
+        "publication_info": { "year": 1998 }
+      }
+    },
+    {
+      "curated_relation": true,
+      "legacy_curated": true,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/45165" },
+      "reference": {
+        "authors": [{ "full_name": "Frank, I." }, { "full_name": "Tamm, I." }],
+        "label": "105",
+        "publication_info": {
+          "artid": "109",
+          "journal_title": "Compt.Rend.Acad.Sci.URSS",
+          "journal_volume": "14",
+          "page_start": "109",
+          "year": 1937
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Francescini, A." }],
+        "label": "106",
+        "publication_info": {
+          "artid": "159",
+          "journal_title": "AIP Conf.Proc.",
+          "journal_volume": "348",
+          "page_start": "159",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/785625"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Franceschini, A." },
+          { "full_name": "Rodighiero, A." },
+          { "full_name": "Vaccari, M." }
+        ],
+        "label": "107",
+        "publication_info": {
+          "artid": "837",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "487",
+          "page_start": "837",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/438581"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Gaidos, J.A." }],
+        "label": "108",
+        "publication_info": {
+          "artid": "319",
+          "journal_title": "Nature",
+          "journal_volume": "383",
+          "page_start": "319",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Gall, D." }],
+        "label": "109",
+        "misc": ["Proc. of the Fermi Symposium, Washington"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Gaug, M." }],
+        "label": "110",
+        "misc": ["PhD Thesis, Univ. Astronoma de Barcelona"],
+        "publication_info": { "year": 2006 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Garczarczyk, M." }],
+        "label": "111",
+        "misc": ["Proc. of 29 th ICRC"],
+        "publication_info": { "year": 2005 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Gaisser, T.K." },
+          { "full_name": "Stanev, T." }
+        ],
+        "label": "112",
+        "misc": ["Cosmic rays, Particle Data Group"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Gear, W.K." }],
+        "label": "113",
+        "publication_info": {
+          "artid": "167",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "267",
+          "page_start": "167",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Georganopulos, M." },
+          { "full_name": "Finke, J." },
+          { "full_name": "Reyes, L." }
+        ],
+        "label": "114",
+        "misc": ["Proc. Fermi Sympossium, Washington DC"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Ghez, A." }],
+        "label": "115",
+        "publication_info": {
+          "artid": "127",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "586",
+          "page_start": "127",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Ghisellini, G." },
+          { "full_name": "Madau, P." }
+        ],
+        "label": "116",
+        "publication_info": {
+          "artid": "67",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "208",
+          "page_start": "67",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/475484"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Ghisellini, G." }],
+        "label": "117",
+        "publication_info": {
+          "artid": "451",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "301",
+          "page_start": "451",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/757586"
+      },
+      "reference": {
+        "authors": [{ "full_name": "G.Ghisellini" }],
+        "label": "118",
+        "publication_info": {
+          "artid": "82",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "382",
+          "page_start": "82",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/801192"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Ghisellini, G." }],
+        "label": "119",
+        "publication_info": {
+          "artid": "16",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "393",
+          "page_start": "16",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/830383"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Ghisellini, G." }],
+        "label": "120",
+        "publication_info": {
+          "artid": "497",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "402",
+          "page_start": "497",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/47171" },
+      "reference": {
+        "authors": [{ "full_name": "Giacconi, R." }],
+        "label": "121",
+        "publication_info": {
+          "artid": "439",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "9",
+          "page_start": "439",
+          "year": 1962
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/698652"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Giller, M." }],
+        "label": "122",
+        "publication_info": {
+          "artid": "223",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "449",
+          "page_start": "223",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/819713"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Gilmore, R.C" }],
+        "label": "123",
+        "publication_info": {
+          "artid": "1694",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "399",
+          "page_start": "1694",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Giommi, P." }],
+        "label": "124",
+        "misc": ["(BeppoSAX Coll.), www.asdc.asi.it/blazars/"],
+        "publication_info": { "year": 2002 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/719093"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Giommi, P." }],
+        "label": "125",
+        "misc": ["C.1. Bibliography 149"],
+        "publication_info": {
+          "artid": "911",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "456",
+          "page_start": "911",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/713223"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Gliozzi, M." }],
+        "label": "126",
+        "publication_info": {
+          "artid": "61",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "646",
+          "page_start": "61",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Goebel, F." }],
+        "label": "127",
+        "misc": ["Proc. of ICRC, 5, 179"],
+        "publication_info": { "year": 2005 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Goebel, F." }],
+        "label": "128",
+        "misc": ["Proc. of ICRC, 3, 1481"],
+        "publication_info": { "year": 2007 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/805278"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Gorham, P." }],
+        "label": "129",
+        "misc": ["(Anita Coll.)"],
+        "publication_info": {
+          "artid": "051103",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "103",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/50010" },
+      "reference": {
+        "authors": [{ "full_name": "Greisen, K." }],
+        "label": "130",
+        "publication_info": {
+          "artid": "748",
+          "journal_title": "Phys.Rev.Lett.",
+          "journal_volume": "16",
+          "page_start": "748",
+          "year": 1966
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Greenstein, J.L." },
+          { "full_name": "M.Schmidt" }
+        ],
+        "label": "131",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "140",
+          "page_start": "1",
+          "year": 1964
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Greenhill, L." }],
+        "label": "132",
+        "publication_info": {
+          "artid": "21",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "304",
+          "page_start": "21",
+          "year": 1995
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Hadasch, D." }],
+        "label": "133",
+        "misc": ["(MAGIC collaboration), Proc. of 31 st ICRC, Poland"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/745343"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Halzen, F." }],
+        "label": "134",
+        "publication_info": {
+          "artid": "66",
+          "journal_title": "Science",
+          "journal_volume": "315",
+          "page_start": "66",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/521367"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Hartman, R.C." }],
+        "label": "135",
+        "misc": ["(EGRET Coll.)"],
+        "publication_info": {
+          "artid": "79",
+          "journal_title": "Astrophys.J.Suppl.",
+          "journal_volume": "123",
+          "page_start": "79",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Hayashida, N." }],
+        "label": "136",
+        "publication_info": {
+          "artid": "71",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "504",
+          "page_start": "71",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Hayashida, N." }],
+        "label": "137",
+        "misc": ["(AGASA Coll.)"],
+        "publication_info": {
+          "artid": "2190",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "120",
+          "page_start": "2190",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "A.M.Hillas" }],
+        "label": "138",
+        "misc": ["Proc. 19 th ICRC, 3, 445"],
+        "publication_info": { "year": 1985 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/575155"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Hauser, M.G." },
+          { "full_name": "Dwek, E." }
+        ],
+        "label": "139",
+        "publication_info": {
+          "artid": "249",
+          "journal_title": "Ann.Rev.Astron.Astrophys.",
+          "journal_volume": "39",
+          "page_start": "249",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Heitler, W." }],
+        "label": "140",
+        "misc": ["The Quantum Theory Of Radiation\", Oxford University Press"],
+        "publication_info": { "year": 1960 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/810667"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Horan, D." }],
+        "label": "141",
+        "misc": ["(Whipple Coll.)"],
+        "publication_info": {
+          "artid": "596",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "695",
+          "page_start": "596",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/590028"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Horan, D." }],
+        "label": "142",
+        "misc": ["(Whipple Coll.)"],
+        "publication_info": {
+          "artid": "753",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "571",
+          "page_start": "753",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/42462" },
+      "reference": {
+        "authors": [{ "full_name": "Hubble, E.P." }],
+        "label": "143",
+        "publication_info": {
+          "artid": "321",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "64",
+          "page_start": "321",
+          "year": 1926
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Impey, C.D." },
+          { "full_name": "Neugebauer, G." }
+        ],
+        "label": "144",
+        "publication_info": {
+          "artid": "307",
+          "journal_title": "Astron.J.",
+          "journal_volume": "95",
+          "page_start": "307",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/596503"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Ivez\u00edc, Z." }],
+        "label": "145",
+        "misc": ["at al"],
+        "publication_info": {
+          "artid": "2364",
+          "journal_title": "Astron.J.",
+          "journal_volume": "124",
+          "page_start": "2364",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Jansky, K.G." }],
+        "label": "146",
+        "publication_info": {
+          "artid": "66",
+          "journal_title": "Nature",
+          "journal_volume": "132",
+          "page_start": "66",
+          "year": 1933
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Katarzynski, K." },
+          { "full_name": "Sol, H." },
+          { "full_name": "Kus, A." }
+        ],
+        "label": "147",
+        "misc": ["150 C. Bibliography"],
+        "publication_info": {
+          "artid": "809",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "367",
+          "page_start": "809",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/475810"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Kennicut, R.C." }],
+        "label": "148",
+        "publication_info": {
+          "artid": "189",
+          "journal_title": "Ann.Rev.Astron.Astrophys.",
+          "journal_volume": "36",
+          "page_start": "189",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/596265"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Kneiske, T.M." },
+          { "full_name": "Mannheim, K." },
+          { "full_name": "Hartman, D.H." }
+        ],
+        "label": "149",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "386",
+          "page_start": "1",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/627300"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Kneiske, T.M." }],
+        "label": "150",
+        "publication_info": {
+          "artid": "807",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "413",
+          "page_start": "807",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Kuehr, H." }],
+        "label": "151",
+        "publication_info": {
+          "artid": "854",
+          "journal_title": "Astron.J.",
+          "journal_volume": "86",
+          "page_start": "854",
+          "year": 1981
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/477606"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Kino, M." },
+          { "full_name": "Takahara, F." },
+          { "full_name": "Kusunose, M." }
+        ],
+        "label": "152",
+        "publication_info": {
+          "artid": "608",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "509",
+          "page_start": "608",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/462078"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Koratkar, A." }],
+        "label": "153",
+        "publication_info": {
+          "artid": "173",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "492",
+          "page_start": "173",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Kosack, K." }],
+        "label": "154",
+        "misc": ["and VERITAS Coll"],
+        "publication_info": {
+          "artid": "927",
+          "journal_title": "Bull.Am.Astron.Soc.",
+          "journal_volume": "36",
+          "page_start": "927",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/629844"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Krawczynski, H." }],
+        "label": "155",
+        "publication_info": {
+          "artid": "151",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "601",
+          "page_start": "151",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/708163"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Kravchenko, I." }],
+        "label": "156",
+        "misc": ["(RICE collaboration)"],
+        "publication_info": {
+          "artid": "082002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "73",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Kraushaar, W.L." }],
+        "label": "157",
+        "publication_info": {
+          "artid": "341",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "177",
+          "page_start": "341",
+          "year": 1972
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Landau, R." }],
+        "label": "158",
+        "publication_info": {
+          "artid": "78",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "308",
+          "page_start": "78",
+          "year": 1986
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Levine, A.M." }],
+        "label": "159",
+        "publication_info": {
+          "artid": "33",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "469",
+          "page_start": "33",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Li, T.P." }, { "full_name": "Ma, Y.Q." }],
+        "label": "160",
+        "misc": ["Analysis methods for results in gamma-ray"],
+        "publication_info": {
+          "artid": "317",
+          "journal_title": "Astronomy",
+          "journal_volume": "272",
+          "page_start": "317",
+          "year": 1983
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/824848"
+      },
+      "reference": {
+        "arxiv_eprint": "0907.0550",
+        "authors": [{ "full_name": "Lindfors, E." }],
+        "label": "161",
+        "misc": ["(MAGIC collab.), Proc. of 31 st ICRC"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Lobanov, A.P." }],
+        "label": "162",
+        "publication_info": {
+          "artid": "391",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "364",
+          "page_start": "391",
+          "year": 2000
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Lott, B." }],
+        "label": "163",
+        "misc": ["Proc. Fermi Symposium, Washington D.C"],
+        "publication_info": { "year": 2009 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/34243" },
+      "reference": {
+        "authors": [{ "full_name": "Mannheim, K." }],
+        "label": "164",
+        "publication_info": {
+          "artid": "67",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "269",
+          "page_start": "67",
+          "year": 1993
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/851455"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Mankuzhiyil, N." },
+          { "full_name": "Persic, M." },
+          { "full_name": "Tavecchio, F." }
+        ],
+        "label": "165",
+        "publication_info": {
+          "artid": "L16",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "715",
+          "page_start": "L16",
+          "year": 2010
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Marshall, H.L." }],
+        "label": "166",
+        "publication_info": {
+          "artid": "13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "156",
+          "page_start": "13",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Maraschi, L." },
+          { "full_name": "Ghisellini, G." },
+          { "full_name": "Celotti, A." }
+        ],
+        "label": "167",
+        "publication_info": {
+          "artid": "5",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "397",
+          "page_start": "5",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/597818"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Maraschi, L." },
+          { "full_name": "Tavecchio, F." }
+        ],
+        "label": "168",
+        "misc": ["C.1. Bibliography 151"],
+        "publication_info": {
+          "artid": "667",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "593",
+          "page_start": "667",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/822153"
+      },
+      "reference": {
+        "arxiv_eprint": "0906.0631",
+        "authors": [{ "full_name": "Matsuoka, M." }],
+        "label": "169",
+        "misc": ["(MAXI Collab.) Astron. Soc. Japan (to be published) arXv:"],
+        "publication_info": { "year": 2010 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Matusmoto, T." }],
+        "label": "170",
+        "misc": [
+          "The Institute of Space and Astronomical Science Report No.14, 179, 14"
+        ],
+        "publication_info": { "year": 2000 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Matthews, T.A." },
+          { "full_name": "Sadage, A.R." }
+        ],
+        "label": "171",
+        "publication_info": {
+          "artid": "30",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "138",
+          "page_start": "30",
+          "year": 1963
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/732710"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Mazin, D." },
+          { "full_name": "Goebel, F." }
+        ],
+        "label": "172",
+        "publication_info": {
+          "artid": "L13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "655",
+          "page_start": "L13",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/732710"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Mazin, D." },
+          { "full_name": "Goebel, F." }
+        ],
+        "label": "173",
+        "publication_info": {
+          "artid": "L13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "655",
+          "page_start": "L13",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/743036"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Mazin, D." }, { "full_name": "Raue, M." }],
+        "label": "174",
+        "publication_info": {
+          "artid": "439",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "471",
+          "page_start": "439",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/372085"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Mirabel, I.F." },
+          { "full_name": "Rodriguez, L.F." }
+        ],
+        "label": "175",
+        "publication_info": {
+          "artid": "46",
+          "journal_title": "Nature",
+          "journal_volume": "371",
+          "page_start": "46",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/680683"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Moderski, R." }],
+        "label": "176",
+        "publication_info": {
+          "artid": "954",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "363",
+          "page_start": "954",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Monet, D." }],
+        "external_system_identifiers": [
+          { "schema": "ADS", "value": "1998USNO2.C......0M" }
+        ],
+        "label": "177",
+        "misc": ["The PMM USNO-A2.0 Catalog"],
+        "publication_info": { "year": 1998 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Catanese, M." }],
+        "label": "178",
+        "misc": ["(Whipple Coll.)"],
+        "publication_info": {
+          "artid": "143",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "487",
+          "page_start": "143",
+          "year": 1997
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Nishiyama, T." }],
+        "label": "179",
+        "misc": [
+          "(Utah Seven Telescope Array Coll.) Proc. of the 26 th ICRC, 3, 370"
+        ],
+        "publication_info": { "year": 1999 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/729358"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Padovani, P." }],
+        "label": "180",
+        "publication_info": {
+          "artid": "63",
+          "journal_title": "Astrophys.Space Sci.",
+          "journal_volume": "309",
+          "page_start": "63",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Paneque, D." }],
+        "label": "181",
+        "publication_info": {
+          "artid": "109",
+          "journal_title": "Nucl.Instrum.Meth.",
+          "journal_volume": "504",
+          "page_start": "109",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Paneque, D." }],
+        "label": "182",
+        "misc": ["PhD Thesis, Technical University, Munchen"],
+        "publication_info": { "year": 2004 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/48760" },
+      "reference": {
+        "authors": [
+          { "full_name": "Penzias, A.A." },
+          { "full_name": "Wilson, R.W." }
+        ],
+        "label": "183",
+        "publication_info": {
+          "artid": "419",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "142",
+          "page_start": "419",
+          "year": 1965
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/502107"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Pian, E." }],
+        "label": "184",
+        "publication_info": {
+          "artid": "112",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "521",
+          "page_start": "112",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/657904"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Pian., E." }],
+        "label": "185",
+        "publication_info": {
+          "artid": "427",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "429",
+          "page_start": "427",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Pian., E." }],
+        "label": "186",
+        "publication_info": {
+          "artid": "21",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "449",
+          "page_start": "21",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Porter, T.A." }],
+        "label": "187",
+        "misc": ["152 C. Bibliography"],
+        "publication_info": {
+          "artid": "29",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "648",
+          "page_start": "29",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/813554"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Pittori, C." }],
+        "label": "188",
+        "misc": ["(AGILE Coll.)"],
+        "publication_info": {
+          "artid": "1563",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "506",
+          "page_start": "1563",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Press, W.H." }],
+        "label": "189",
+        "misc": [
+          "Numerical recipes in C, second edition, Cambridge university press"
+        ],
+        "publication_info": { "year": 1993 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/340612"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Punch, M." }],
+        "label": "190",
+        "misc": ["(Whipple Coll.)"],
+        "publication_info": {
+          "artid": "477",
+          "journal_title": "Nature",
+          "journal_volume": "358",
+          "page_start": "477",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Quinn, J." }],
+        "label": "191",
+        "misc": ["(Whipple Coll.), Astrophys. J. L 456, 83"],
+        "publication_info": { "year": 1966 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Punsly, B." },
+          { "full_name": "Coroniti, F.V." }
+        ],
+        "label": "192",
+        "publication_info": {
+          "artid": "518",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "350",
+          "page_start": "518",
+          "year": 1990
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/778639"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Raue, M." }, { "full_name": "Mazin, D." }],
+        "label": "193",
+        "publication_info": {
+          "artid": "1515",
+          "journal_title": "Int.J.Mod.Phys.D",
+          "journal_volume": "17",
+          "page_start": "1515",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/791604"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Razzaque, S." },
+          { "full_name": "Dermer, C.D" },
+          { "full_name": "Finke, J.D." }
+        ],
+        "label": "194",
+        "publication_info": {
+          "artid": "483",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "697",
+          "page_start": "483",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/701413"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Rebillot, P." }],
+        "label": "195",
+        "publication_info": {
+          "artid": "740",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "641",
+          "page_start": "740",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Rees, M." },
+          { "full_name": "Mezaros, P." }
+        ],
+        "label": "196",
+        "publication_info": {
+          "artid": "48",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "251",
+          "page_start": "48",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/764879"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Reimer, A." }],
+        "label": "197",
+        "publication_info": {
+          "artid": "1023",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "665",
+          "page_start": "1023",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Rocca-Volmerange, B." },
+          { "full_name": "Fioc, M." }
+        ],
+        "label": "198",
+        "publication_info": {
+          "artid": "132",
+          "journal_title": "AIP Conf.Proc.",
+          "journal_volume": "348",
+          "page_start": "132",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/646079"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Rolke, W.A." }],
+        "label": "199",
+        "misc": ["A.M. L\u00f3pez, and J.Conrad"],
+        "publication_info": {
+          "artid": "493",
+          "journal_title": "Nucl.Instrum.Meth.A",
+          "journal_volume": "551",
+          "page_start": "493",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "200",
+        "urls": [{ "value": "http://root.cern.ch" }]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/44819" },
+      "reference": {
+        "authors": [{ "full_name": "Salpeter, E.E." }],
+        "label": "201",
+        "publication_info": {
+          "artid": "796",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "140",
+          "page_start": "796",
+          "year": 1964
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Sambruna, R.M." }],
+        "label": "202",
+        "publication_info": {
+          "artid": "444",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "463",
+          "page_start": "444",
+          "year": 1996
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/720140"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Sambruna, R.M." }],
+        "label": "203",
+        "publication_info": {
+          "artid": "146",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "652",
+          "page_start": "146",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/756284"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Sambruna, R.M." }],
+        "label": "204",
+        "publication_info": {
+          "artid": "884",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "669",
+          "page_start": "884",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Sbarufatti., B." }],
+        "label": "205",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "132",
+          "page_start": "1",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Schmelling, M." }],
+        "label": "206",
+        "publication_info": {
+          "artid": "400",
+          "journal_title": "Nucl.Instrum.Meth.",
+          "journal_volume": "340",
+          "page_start": "400",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Smith, P.S." }],
+        "label": "207",
+        "publication_info": {
+          "artid": "39",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "326",
+          "page_start": "39",
+          "year": 1988
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/462477"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Schlegel, D.J." }],
+        "label": "208",
+        "misc": ["C.1. Bibliography 153"],
+        "publication_info": {
+          "artid": "525",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "500",
+          "page_start": "525",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/690652"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Schroedter, M." }],
+        "label": "209",
+        "publication_info": {
+          "artid": "947",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "634",
+          "page_start": "947",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "210",
+        "misc": ["D. A. schwartz et al"],
+        "publication_info": {
+          "artid": "53",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "229",
+          "page_start": "53",
+          "year": 1979
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Shmmins, A.J." },
+          { "full_name": "Bolton, J.G." }
+        ],
+        "label": "211",
+        "misc": ["Australian journal of Physics suppliment 32, 1"],
+        "publication_info": { "year": 1974 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/486195"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Somerville, R.S." },
+          { "full_name": "Primack, J.S." }
+        ],
+        "label": "212",
+        "publication_info": {
+          "artid": "1087",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "310",
+          "page_start": "1087",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/614644"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Sveshnikova, L.G." }],
+        "label": "213",
+        "publication_info": {
+          "artid": "799",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "409",
+          "page_start": "799",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Sikora, M." },
+          { "full_name": "Begelman, M.C." },
+          { "full_name": "Rees, M.J." }
+        ],
+        "label": "214",
+        "publication_info": {
+          "artid": "153",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "421",
+          "page_start": "153",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Simkin, S.M." },
+          { "full_name": "Su, H.J." },
+          { "full_name": "Schwarz, M.P." }
+        ],
+        "label": "215",
+        "publication_info": {
+          "artid": "404",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "237",
+          "page_start": "404",
+          "year": 1980
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Sinnis, G." }],
+        "label": "216",
+        "publication_info": {
+          "artid": "34",
+          "journal_title": "New J.Phys.",
+          "journal_volume": "11",
+          "page_start": "34",
+          "year": 2009
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Smith, H.J." },
+          { "full_name": "Hoffleit, D." }
+        ],
+        "label": "217",
+        "publication_info": {
+          "artid": "650",
+          "journal_title": "Nature",
+          "journal_volume": "198",
+          "page_start": "650",
+          "year": 1963
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Stecker, F.W." },
+          { "full_name": "de Jager, O.C." },
+          { "full_name": "Salamon, M.H." }
+        ],
+        "label": "218",
+        "publication_info": {
+          "artid": "49",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "390",
+          "page_start": "49",
+          "year": 1992
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/695137"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Stecker, F.W." },
+          { "full_name": "Malkan, M.A." },
+          { "full_name": "Scully, S.T." }
+        ],
+        "label": "219",
+        "publication_info": {
+          "artid": "774",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "648",
+          "page_start": "774",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Stevens, J.A." }],
+        "label": "220",
+        "publication_info": {
+          "artid": "91",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "437",
+          "page_start": "91",
+          "year": 1994
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Superina, G." }],
+        "label": "221",
+        "misc": ["(HESS coll.), Proc.of 30 th ICRC, 3, 913"],
+        "publication_info": { "year": 2007 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/595808"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Takeda, M." }],
+        "label": "222",
+        "misc": ["(AGASA coll.)"],
+        "publication_info": {
+          "artid": "447",
+          "journal_title": "Astropart.Phys.",
+          "journal_volume": "19",
+          "page_start": "447",
+          "year": 2003
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/767968"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Tang, A.P. S." }],
+        "label": "223",
+        "publication_info": {
+          "artid": "562",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "676",
+          "page_start": "562",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/477606"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Tavecchio, F." },
+          { "full_name": "Maraschi, L." },
+          { "full_name": "Ghisellini, G." }
+        ],
+        "label": "224",
+        "publication_info": {
+          "artid": "608",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "509",
+          "page_start": "608",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Tavecchio, F." }],
+        "label": "225",
+        "publication_info": {
+          "artid": "725",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "554",
+          "page_start": "725",
+          "year": 2001
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/590069"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Tavecchio, F." }],
+        "label": "226",
+        "publication_info": {
+          "artid": "137",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "575",
+          "page_start": "137",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/746446"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Tavecchio, F." }],
+        "label": "227",
+        "publication_info": {
+          "artid": "900",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "662",
+          "page_start": "900",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/778928"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Tavecchio, F." },
+          { "full_name": "Ghisellini, G." }
+        ],
+        "label": "228",
+        "publication_info": {
+          "artid": "945",
+          "journal_title": "Mon.Not.Roy.Astron.Soc.",
+          "journal_volume": "386",
+          "page_start": "945",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Tikhonov, A.N." },
+          { "full_name": "Arsenin, V.J." }
+        ],
+        "label": "229",
+        "misc": [
+          "Methods of Solution of III-posed Problems M.Nauka 154 C. Bibliography"
+        ],
+        "publication_info": { "year": 1979 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Treves, A." }],
+        "label": "230",
+        "publication_info": {
+          "artid": "17",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "473",
+          "page_start": "17",
+          "year": 2007
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/647027"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Tsuchiya, K." }],
+        "label": "231",
+        "misc": ["(CANGAROO Coll.)"],
+        "publication_info": {
+          "artid": "L115",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "606",
+          "page_start": "L115",
+          "year": 2004
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Urry, C.M." },
+          { "full_name": "Padovani, P." }
+        ],
+        "label": "232",
+        "publication_info": {
+          "artid": "83",
+          "journal_title": "Publ.Astron.Soc.Pac.",
+          "journal_volume": "107",
+          "page_start": "83",
+          "year": 1995
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/795823"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Valtonen, M.J." }],
+        "label": "233",
+        "publication_info": {
+          "artid": "851",
+          "journal_title": "Nature",
+          "journal_volume": "452",
+          "page_start": "851",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/664354"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Varies, D." }],
+        "label": "234",
+        "publication_info": {
+          "artid": "615",
+          "journal_title": "Astron.J.",
+          "journal_volume": "129",
+          "page_start": "615",
+          "year": 2005
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Vercellone, S." }],
+        "label": "235",
+        "misc": ["et al"],
+        "publication_info": {
+          "artid": "13",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "676",
+          "page_start": "13",
+          "year": 2008
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Villata, M." }],
+        "label": "236",
+        "publication_info": {
+          "artid": "305",
+          "journal_title": "Astron.Astrophys.Suppl.Ser.",
+          "journal_volume": "130",
+          "page_start": "305",
+          "year": 1998
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/712468"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Villata, M." }],
+        "label": "237",
+        "publication_info": {
+          "artid": "817",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "453",
+          "page_start": "817",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/508066"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Voges, W." }],
+        "label": "238",
+        "misc": ["(ROSAT Coll.)"],
+        "publication_info": {
+          "artid": "389",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "349",
+          "page_start": "389",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Wagner, R.M." }],
+        "label": "239",
+        "misc": ["PhD thesis, Max-Plank institute for Physics"],
+        "publication_info": { "year": 2006 }
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Wagner, S.J." }],
+        "label": "240",
+        "misc": ["HEAD conference, Hawai"],
+        "publication_info": { "year": 2010 }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/472967"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Waxman, E." },
+          { "full_name": "J.Bahcall" }
+        ],
+        "label": "241",
+        "publication_info": {
+          "artid": "023002",
+          "journal_title": "Phys.Rev.D",
+          "journal_volume": "59",
+          "year": 1999
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "242",
+        "urls": [{ "value": "http://www.mpp.mpg.de/rwagner/sources" }]
+      }
+    },
+    {
+      "reference": {
+        "authors": [{ "full_name": "Weekes, T." }],
+        "label": "243",
+        "misc": ["(VERITAS Coll.)"],
+        "publication_info": {
+          "artid": "375",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "342",
+          "page_start": "375",
+          "year": 1989
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/562069"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Weekes, T." }],
+        "label": "244",
+        "misc": ["(VERITAS Coll.)"],
+        "publication_info": {
+          "artid": "221",
+          "journal_title": "Astropart.Phys.",
+          "journal_volume": "17",
+          "page_start": "221",
+          "year": 2002
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/38733" },
+      "reference": {
+        "authors": [
+          { "full_name": "Wilson, A.S." },
+          { "full_name": "Colbert, E.J. M." }
+        ],
+        "label": "245",
+        "publication_info": {
+          "artid": "62",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "438",
+          "page_start": "62",
+          "year": 1995
+        }
+      }
+    },
+    {
+      "reference": {
+        "authors": [
+          { "full_name": "Worrall, D.M." },
+          { "full_name": "Wilkes, B.J." }
+        ],
+        "label": "246",
+        "publication_info": {
+          "artid": "396",
+          "journal_title": "Astrophys.J.",
+          "journal_volume": "360",
+          "page_start": "396",
+          "year": 1990
+        }
+      }
+    },
+    {
+      "reference": {
+        "label": "247",
+        "urls": [{ "value": "http://vega.bac.pku.edu.cn/wuxb/agn/text.html" }]
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/723875"
+      },
+      "reference": {
+        "authors": [{ "full_name": "Yao, W.M." }],
+        "label": "248",
+        "publication_info": {
+          "artid": "1",
+          "journal_title": "J.Phys.G",
+          "journal_volume": "33",
+          "page_start": "1",
+          "year": 2006
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": { "$ref": "http://labs.inspirehep.net/api/literature/49999" },
+      "reference": {
+        "authors": [
+          { "full_name": "Zatsepin, G.T." },
+          { "full_name": "Kuzmin, V.A." }
+        ],
+        "label": "249",
+        "publication_info": {
+          "artid": "78",
+          "journal_title": "JETP Lett.",
+          "journal_volume": "4",
+          "page_start": "78",
+          "year": 1966
+        }
+      }
+    },
+    {
+      "curated_relation": false,
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/689703"
+      },
+      "reference": {
+        "authors": [
+          { "full_name": "Zhang, S." },
+          { "full_name": "Collamar, W." },
+          { "full_name": "Schonfelder, S." }
+        ],
+        "label": "250",
+        "publication_info": {
+          "artid": "767",
+          "journal_title": "Astron.Astrophys.",
+          "journal_volume": "444",
+          "page_start": "767",
+          "year": 2005
+        }
+      }
+    }
+  ],
+  "texkeys": ["Mankuzhiyil:2010jpa"],
+  "thesis_info": {
+    "date": "2010",
+    "degree_type": "phd",
+    "institutions": [
+      {
+        "curated_relation": true,
+        "name": "Udine U.",
+        "record": {
+          "$ref": "http://labs.inspirehep.net/api/institutions/904253"
+        }
+      }
+    ]
+  },
+  "titles": [
+    {
+      "title":
+        "MAGIC $\\gamma$-ray observations of distant AGN and a study of source variability and the extragalactic background light using FERMI and air Cherenkov telescopes"
+    }
+  ],
+  "urls": [
+    {
+      "description": "MAGIC server",
+      "value":
+        "https://magicold.mpp.mpg.de/publications/theses/NMankuzhiyil.pdf"
+    },
+    { "value": "http://www.infn.it/thesis/thesis_dettaglio.php?tid=4746" }
+  ]
+}

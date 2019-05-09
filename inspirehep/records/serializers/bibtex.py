@@ -111,9 +111,11 @@ class BibTexSerializer:
             self.COMMON_FIELDS_FOR_ENTRIES
             + self.FIELDS_FOR_ENTRY_TYPE[bibtex_document_type]
         )
+
         template_data = [
             (key, str(value)) for key, value in data.items() if value and key in fields
         ]
+        template_data = sorted(template_data, key=lambda x: x[0])
 
         authors_with_role_author = BibTexCommonSchema.get_authors_with_role(
             data.get("authors", []), "author"
@@ -124,11 +126,9 @@ class BibTexSerializer:
             data.get("authors", []), "author"
         )
         editors = [Person(person) for person in authors_with_role_editor]
-
         data_entry = Entry(
             doc_type, template_data, persons={"author": persons, "editor": editors}
         )
-
         data_bibtex = [texkey, data_entry]
         return data_bibtex
 

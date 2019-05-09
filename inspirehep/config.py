@@ -146,8 +146,8 @@ SESSION_COOKIE_SECURE = True
 # =====================
 AUTHENTICATION_TOKEN = "CHANGE_ME"
 INSPIRE_NEXT_URL = "http://web-next:5000"
-LEGACY_BASE_URL = "https://inspirehep.net"
-LEGACY_RECORD_URL_PATTERN = "https://inspirehep.net/record/{recid}"
+LEGACY_BASE_URL = "http://inspirehep.net"
+LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
 
 # Debug
 # =====
@@ -633,6 +633,12 @@ CELERY_IMPORTS = ["inspirehep.records.indexer.tasks"]
 
 FEATURE_FLAG_ENABLE_FILES = False
 FEATURE_FLAG_ENABLE_ORCID_PUSH = False
+# Only push to ORCIDs that match this regex.
+# Examples:
+#   any ORCID -> ".*"
+#   none -> "^$"
+#   some ORCIDs -> "^(0000-0002-7638-5686|0000-0002-7638-5687)$"
+FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX = ".*"
 
 
 ALEMBIC_CONTEXT = {
@@ -654,3 +660,9 @@ ALEMBIC_SKIP_TABLES = [
     "transaction",
     "alembic_version",
 ]
+
+# ORCID
+# =====
+# Inspire service client for ORCID.
+ORCID_APP_CREDENTIALS = {"consumer_key": "CHANGE_ME", "consumer_secret": "CHANGE_ME"}
+ORCID_ALLOW_PUSH_DEFAULT = False

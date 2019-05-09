@@ -10,7 +10,7 @@ from copy import deepcopy
 from invenio_search import current_search_client as es
 
 
-def test_index_conference_record(es_clear, db, datadir, create_record):
+def test_index_conference_record(base_app, es_clear, db, datadir, create_record):
     data = json.loads((datadir / "1203206.json").read_text())
     record = create_record("con", data=data)
 

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/authors.json",
+  "advisors": [
+    {
+      "degree_type": "other",
+      "ids": [{ "schema": "INSPIRE ID", "value": "INSPIRE-00114021" }],
+      "name": "Palano, Antimo"
+    }
+  ],
+  "arxiv_categories": ["hep-ex"],
+  "control_number": 1061000,
+  "deleted": false,
+  "email_addresses": [
+    { "current": true, "value": "maurizio.martinelli@cern.ch" },
+    { "current": false, "value": "maurizio.martinelli@ba.infn.it" }
+  ],
+  "ids": [
+    { "schema": "INSPIRE ID", "value": "INSPIRE-00144085" },
+    { "schema": "CERN", "value": "CERN-658298" },
+    { "schema": "INSPIRE BAI", "value": "Maurizio.Martinelli.1" },
+    { "schema": "ORCID", "value": "0000-0003-4792-9178" },
+    { "schema": "SPIRES", "value": "HEPNAMES-876380" }
+  ],
+  "legacy_creation_date": "2009-06-26",
+  "legacy_version": "20150929185951.0",
+  "name": {
+    "preferred_name": "Maurizio Martinelli",
+    "value": "Martinelli, Maurizio"
+  },
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "LPHE, Lausanne",
+      "rank": "POSTDOC",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/903523"
+      },
+      "start_date": "2014"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "2014",
+      "institution": "NIKHEF, Amsterdam",
+      "rank": "POSTDOC",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/903832"
+      },
+      "start_date": "2011"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "2011",
+      "institution": "INFN, Bari",
+      "rank": "PHD",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/902877"
+      },
+      "start_date": "2008"
+    }
+  ],
+  "project_membership": [
+    {
+      "curated_relation": true,
+      "current": false,
+      "name": "CERN-LHC-LHCB",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/experiments/1110643"
+      }
+    },
+    {
+      "curated_relation": true,
+      "current": false,
+      "name": "SLAC-PEP2-BABAR",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/experiments/1108553"
+      }
+    }
+  ],
+  "status": "active",
+  "stub": false
+}
