@@ -42,6 +42,7 @@ class BookChapterForm extends Component {
           >
             <Field
               name="book_title"
+              recordFieldPath="parent_book_record"
               label="Book Title"
               pidType="literature"
               suggesterName="book_title"

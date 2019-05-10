@@ -36,6 +36,7 @@ exports[`BookChapterForm renders all props 1`] = `
         label="Book Title"
         name="book_title"
         pidType="literature"
+        recordFieldPath="parent_book_record"
         renderResultItem={[Function]}
         suggesterName="book_title"
       />

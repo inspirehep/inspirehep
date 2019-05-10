@@ -46,6 +46,7 @@ class Suggester extends Component {
       <AutoComplete.Option
         key={extractItemCompletionValue(result)}
         value={extractItemCompletionValue(result)}
+        result={result}
       >
         {renderResultItem
           ? renderResultItem(result)

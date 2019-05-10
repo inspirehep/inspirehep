@@ -108,11 +108,20 @@ def test_dump_authors():
 
 
 def test_dump_experiment():
-    data = {**DEFAULT_DATA_TO_DUMP, "accelerator_experiments": [{"legacy_name": "CMS"}]}
+    data = {
+        **DEFAULT_DATA_TO_DUMP,
+        "accelerator_experiments": [
+            {"legacy_name": "CMS", "record": {"$ref": "http://api/experiments/123"}}
+        ],
+    }
     record = faker.record("lit", data=data)
 
     result = Literature().dump(record).data
-    expected = {**DEFAULT_DUMP, "experiment": "CMS"}
+    expected = {
+        **DEFAULT_DUMP,
+        "experiment": "CMS",
+        "experiment_record": {"$ref": "http://api/experiments/123"},
+    }
 
     assert result == expected
 
@@ -309,6 +318,21 @@ def test_load_authors():
     expected = {
         **DEFAULT_LOAD,
         "authors": [{"full_name": "Urhan, Harun", "affiliations": [{"value": "CERN"}]}],
+    }
+    result = Literature().load(form).data
+
+    assert result == expected
+
+
+def test_load_parent_book_record():
+    form = {
+        **DEFAULT_DATA_TO_LOAD,
+        "parent_book_record": {"$ref": "http://api/literature/123"},
+    }
+
+    expected = {
+        **DEFAULT_LOAD,
+        "publication_info": [{"parent_record": {"$ref": "http://api/literature/123"}}],
     }
     result = Literature().load(form).data
 

@@ -36,6 +36,7 @@ exports[`ArticleForm renders all props 1`] = `
         label="Journal Title"
         name="journal_title"
         pidType="journals"
+        recordFieldPath="journal_record"
         renderResultItem={[Function]}
         suggesterName="journal_title"
       />
@@ -72,6 +73,7 @@ exports[`ArticleForm renders all props 1`] = `
         name="conference_info"
         pidType="conferences"
         placeholder="Conference name, acronym, place, date, type for suggestions"
+        recordFieldPath="conference_record"
         renderResultItem={[Function]}
         suggesterName="conference"
       />

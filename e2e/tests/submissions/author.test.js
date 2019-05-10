@@ -24,7 +24,18 @@ describe('author submissions', () => {
         { value: 'private@martinez.ch', hidden: true },
         { value: 'public@martinez.ch' },
       ],
-      positions: [{ institution: 'CERN', start_date: '2015', current: true }],
+      positions: [
+        {
+          institution: 'CERN',
+          start_date: '2015',
+          current: true,
+        },
+      ],
+      advisors: [
+        {
+          name: 'Urhan, Harun',
+        },
+      ],
     });
 
     await formSubmitter.waitForSubmissionSuccess();
@@ -60,6 +71,12 @@ describe('author submissions', () => {
         current: true,
         institution: 'CERN',
         start_date: '2015',
+      },
+    ]);
+    expect(metadata.advisors).toEqual([
+      {
+        curated_relation: false,
+        name: 'Urhan, Harun',
       },
     ]);
   });

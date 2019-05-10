@@ -52,6 +52,7 @@ class BasicInfoFields extends Component {
               <Col span={11}>
                 <Field
                   onlyChild
+                  recordFieldPath={`${itemName}.record`}
                   name={`${itemName}.full_name`}
                   placeholder="Family name, first name"
                   pidType="authors"
@@ -66,6 +67,7 @@ class BasicInfoFields extends Component {
                 <Field
                   onlyChild
                   name={`${itemName}.affiliation`}
+                  recordFieldPath={`${itemName}.affiliation_record`}
                   placeholder="Affiliation, type for suggestions"
                   pidType="institutions"
                   suggesterName="affiliation"
@@ -88,6 +90,7 @@ class BasicInfoFields extends Component {
         <Field
           label="Experiment"
           name="experiment"
+          recordFieldPath="experiment_record"
           placeholder="Experiment, type for suggestions"
           pidType="experiments"
           suggesterName="experiment"
