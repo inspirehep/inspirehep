@@ -44,11 +44,21 @@ exports[`Suggester renders results onSearch 1`] = `
   dataSource={
     Array [
       <Option
+        result={
+          Object {
+            "text": "Result 1",
+          }
+        }
         value="Result 1"
       >
         Result 1
       </Option>,
       <Option
+        result={
+          Object {
+            "text": "Result 2",
+          }
+        }
         value="Result 2"
       >
         Result 2
@@ -76,11 +86,23 @@ exports[`Suggester renders results with custom completion value 1`] = `
   dataSource={
     Array [
       <Option
+        result={
+          Object {
+            "extra": "Extra 1",
+            "text": "Result 1",
+          }
+        }
         value="Result 1 - Extra 1"
       >
         Result 1 - Extra 1
       </Option>,
       <Option
+        result={
+          Object {
+            "extra": "Extra 2",
+            "text": "Result 2",
+          }
+        }
         value="Result 2 - Extra 2"
       >
         Result 2 - Extra 2
@@ -108,6 +130,12 @@ exports[`Suggester renders results with custom result template 1`] = `
   dataSource={
     Array [
       <Option
+        result={
+          Object {
+            "extra": "Extra 1",
+            "text": "Result 1",
+          }
+        }
         value="Result 1"
       >
         <span>
@@ -119,6 +147,12 @@ exports[`Suggester renders results with custom result template 1`] = `
         </span>
       </Option>,
       <Option
+        result={
+          Object {
+            "extra": "Extra 2",
+            "text": "Result 2",
+          }
+        }
         value="Result 2"
       >
         <span>

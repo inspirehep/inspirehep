@@ -171,6 +171,7 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.institution`}
+                      recordFieldPath={`${itemName}.record`}
                       placeholder="Institution, type for suggestions"
                       pidType="institutions"
                       suggesterName="affiliation"
@@ -227,6 +228,7 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.name`}
+                      recordFieldPath={`${itemName}.record`}
                       placeholder="Experiment, type for suggestions"
                       pidType="experiments"
                       suggesterName="experiment"
@@ -274,6 +276,7 @@ class AuthorForm extends Component {
                     <Field
                       onlyChild
                       name={`${itemName}.name`}
+                      recordFieldPath={`${itemName}.record`}
                       placeholder="Family name, first name"
                       pidType="authors"
                       suggesterName="author"

@@ -53,6 +53,7 @@ class ArticleForm extends Component {
           >
             <Field
               name="journal_title"
+              recordFieldPath="journal_record"
               label="Journal Title"
               pidType="journals"
               suggesterName="journal_title"
@@ -78,6 +79,7 @@ class ArticleForm extends Component {
           >
             <Field
               name="conference_info"
+              recordFieldPath="conference_record"
               label="Conference Info"
               placeholder="Conference name, acronym, place, date, type for suggestions"
               pidType="conferences"

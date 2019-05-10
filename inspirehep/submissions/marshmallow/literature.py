@@ -33,18 +33,20 @@ class Literature(Schema):
     authors = fields.Raw()
     collaboration = fields.Raw()
     experiment = fields.Raw()
+    experiment_record = fields.Raw()
     abstract = fields.Raw()
     report_numbers = fields.Raw()
 
     # publication_info article
     journal_title = fields.Raw()
+    journal_record = fields.Raw()
     volume = fields.Raw()
     issue = fields.Raw()
     year = fields.Raw()
     page_range = fields.Raw()
 
     # publication_info chapter
-    book_title = fields.Raw()
+    parent_book_record = fields.Raw()
     start_page = fields.Raw()
     end_page = fields.Raw()
 
@@ -61,9 +63,11 @@ class Literature(Schema):
     institution = fields.Raw()
     supervisors = fields.Raw()
 
+    conference_record = fields.Raw()
+
+    # FIXME: below fields aren't used
     conference_info = fields.Raw()
     proceedings_info = fields.Raw()
-    references = fields.Raw()
     comments = fields.Raw()
 
     @pre_dump
@@ -87,16 +91,21 @@ class Literature(Schema):
             "experiment": get_value(
                 data, "accelerator_experiments[0].legacy_name", default=missing
             ),
+            "experiment_record": get_value(
+                data, "accelerator_experiments[0].record", default=missing
+            ),
             "abstract": get_value(data, "abstracts[0].value", default=missing),
             "report_numbers": get_value(data, "report_numbers.value", default=missing),
             "journal_title": publication_info.get("journal_title", missing),
+            "journal_record": publication_info.get("journal_record", missing),
+            "conference_record": publication_info.get("conference_record", missing),
             "volume": publication_info.get("journal_volume", missing),
             "issue": publication_info.get("journal_issue", missing),
             "year": publication_info.get("year", missing),
             "page_range": self.get_publication_artid_or_page_range_or_missing(
                 publication_info
             ),
-            # TODO: "book_title"
+            "parent_book_record": publication_info.get("parent_record", missing),
             "start_page": publication_info.get("page_start", missing),
             "end_page": publication_info.get("page_end", missing),
             "series_title": get_value(data, "book_series[0].title", default=missing),
@@ -127,6 +136,11 @@ class Literature(Schema):
         affiliation = get_value(author, "affiliations[0].value")
         if affiliation is not None:
             form_author["affiliation"] = affiliation
+
+        affiliation_record = get_value(author, "affiliations[0].record")
+        if affiliation_record is not None:
+            form_author["affiliation_record"] = affiliation_record
+
         return form_author
 
     @staticmethod
@@ -160,12 +174,19 @@ class Literature(Schema):
 
         for author in data.get("authors", []):
             record_author = literature.make_author(
-                author.get("full_name"), affiliations=[author.get("affiliation")]
+                author.get("full_name"),
+                record=author.get("record"),
+                affiliations=[
+                    author.get("affiliation")
+                ],  # TODO: use `affiliation_record`
             )
             literature.add_author(record_author)
 
         literature.add_collaboration(data.get("collaboration"))
-        literature.add_accelerator_experiments_legacy_name(data.get("experiment"))
+
+        literature.add_accelerator_experiment(
+            data.get("experiment"), record=data.get("experiment_record")
+        )
         # TODO: source=submitter?
         literature.add_abstract(data.get("abstract"), source="submitter")
 
@@ -178,11 +199,13 @@ class Literature(Schema):
             journal_title=data.get("journal_title"),
             journal_volume=data.get("volume"),
             journal_issue=data.get("issue"),
+            journal_record=data.get("journal_record"),
+            conference_record=data.get("conference_record"),
             artid=artid,
             page_start=data.get("start_page") or page_start,
             page_end=data.get("end_page") or page_end,
             year=data.get("year"),
-            parent_title=data.get("book_title"),
+            parent_record=data.get("parent_book_record"),
         )
 
         literature.add_book_series(data.get("series_title"))
