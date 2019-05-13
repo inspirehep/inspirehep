@@ -1,0 +1,35 @@
+{
+  "core": true,
+  "ICN": ["IAS, Princeton"],
+  "_collections": ["Institutions"],
+  "control_number": 903138,
+  "self": { "$ref": "http://labs.inspirehep.net/api/institutions/903138" },
+  "legacy_ICN": "Princeton, Inst. Advanced Study",
+  "_private_notes": [{ "value": "grid.78989.37 from Springer" }],
+  "institution_type": ["Research Center"],
+  "legacy_creation_date": "1989-07-20",
+  "urls": [
+    { "value": "http://www.ias.edu/" },
+    { "description": "TWITTER", "value": "https://twitter.com/the_IAS" }
+  ],
+  "external_system_identifiers": [
+    { "value": "grid.78989.37", "schema": "GRID" },
+    { "value": "INST-5568", "schema": "SPIRES" }
+  ],
+  "$schema": "https://labs.inspirehep.net/schemas/records/institutions.json",
+  "institution_hierarchy": [
+    { "acronym": "IAS", "name": "Institute for Advanced Study" }
+  ],
+  "legacy_version": "20181213160155.0",
+  "addresses": [
+    {
+      "postal_address": ["Einstein Drive", "Princeton, NJ, 08540"],
+      "longitude": -74.640832,
+      "state": "NJ",
+      "postal_code": "08540",
+      "country_code": "US",
+      "latitude": 40.366633,
+      "cities": ["Princeton"]
+    }
+  ]
+}

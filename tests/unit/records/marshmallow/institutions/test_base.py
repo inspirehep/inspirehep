@@ -1,0 +1,200 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
+from helpers.providers.faker import faker
+from inspire_schemas.api import load_schema, validate
+
+from inspirehep.records.api import InstitutionsRecord
+from inspirehep.records.marshmallow.institutions import (
+    InstitutionsMetadataRawFieldsSchemaV1,
+)
+
+
+def test_institutions_serializer_should_serialize_whole_basic_record():
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+
+    expected_result = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "_collections": ["Institutions"],
+    }
+
+    conference = InstitutionsRecord(faker.record("ins"))
+    result = schema.dump(conference).data
+
+    assert result == expected_result
+
+
+def test_institutions_serializer_populates_affiliation_suggest():
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    data = {
+        "ICN": ["ICN_VALUE"],
+        "legacy_ICN": "Legacy icn value",
+        "institution_hierarchy": [{"acronym": "ACR1", "name": "Name1"}],
+        "name_variants": [{"value": "name1"}, {"value": "name2"}],
+        "addresses": [{"postal_code": "12345"}, {"postal_code": "65432"}],
+    }
+
+    expected_result = {
+        "input": [
+            "ICN_VALUE",
+            "ACR1",
+            "Name1",
+            "Legacy icn value",
+            "name1",
+            "name2",
+            "12345",
+            "65432",
+        ]
+    }
+    institution = InstitutionsRecord(faker.record("ins", data))
+    result = schema.dump(institution).data["affiliation_suggest"]
+
+    assert result == expected_result
+
+
+def test_populate_affiliation_suggest_from_icn():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "ICN": ["CERN, Geneva"],
+        "legacy_ICN": "CERN",
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {"input": ["CERN, Geneva", "CERN"]}
+
+    assert expected == result
+
+
+def test_populate_affiliation_suggest_from_institution_hierarchy_acronym():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "institution_hierarchy": [{"acronym": "CERN"}],
+        "legacy_ICN": "CERN",
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {"input": ["CERN", "CERN"]}
+
+    assert expected == result
+
+
+def test_populate_affiliation_suggest_from_institution_hierarchy_name():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "institution_hierarchy": [
+            {"name": "European Organization for Nuclear Research"}
+        ],
+        "legacy_ICN": "CERN",
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {"input": ["European Organization for Nuclear Research", "CERN"]}
+
+    assert expected == result
+
+
+def test_populate_affiliation_suggest_from_legacy_icn():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "legacy_ICN": "CERN",
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {"input": ["CERN"]}
+
+    assert expected == result
+
+
+def test_populate_affiliation_suggest_from_name_variants():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "legacy_ICN": "CERN",
+        "name_variants": [{"value": u"Centre Européen de Recherches Nucléaires"}],
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {"input": ["CERN", u"Centre Européen de Recherches Nucléaires"]}
+
+    assert expected == result
+
+
+def test_populate_affiliation_suggest_from_name_variants_with_umr():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "legacy_ICN": "CERN",
+        "name_variants": [
+            {"value": u"Centre Européen de Recherches Nucléaires"},
+            {"value": u"UMR 2454"},
+            {"value": u"umr 1234"},
+            {"value": u"umr"},
+        ],
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {
+        "input": [
+            "CERN",
+            u"Centre Européen de Recherches Nucléaires",
+            u"UMR 2454",
+            u"umr 1234",
+            u"umr",
+            u"2454",
+            u"1234",
+        ]
+    }
+
+    assert expected == result
+
+
+def test_populate_affiliation_suggest_from_postal_code():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "addresses": [{"postal_code": "1211"}],
+        "legacy_ICN": "CERN",
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {"input": ["CERN", "1211"]}
+
+    assert expected == result
+
+
+def test_populate_affiliation_suggest_to_ref():
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/institutions.json",
+        "legacy_ICN": "CERN",
+        "self": {"$ref": "http://localhost:5000/api/institutions/902725"},
+    }
+    record = InstitutionsRecord(faker.record("ins", data))
+
+    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    result = schema.dump(record).data["affiliation_suggest"]
+
+    expected = {"input": ["CERN"]}
+
+    assert expected == result

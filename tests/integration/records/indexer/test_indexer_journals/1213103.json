@@ -1,0 +1,48 @@
+{
+  "refereed": true,
+  "publisher": ["Springer"],
+  "urls": [{ "value": "http://jhep.sissa.it/" }],
+  "_collections": ["Journals"],
+  "journal_title": { "title": "The Journal of High Energy Physics (JHEP)" },
+  "public_notes": [{ "value": "Started with 1997, v.9701" }],
+  "self": { "$ref": "http://labs.inspirehep.net/api/journals/1213103" },
+  "control_number": 1213103,
+  "short_title": "JHEP",
+  "title_variants": [
+    "JOURNAL OF HIGH ENERGY PHYSICS",
+    "JOURNL OF HIGH ENERGY PHYSICS",
+    "JOURNALOFHIGHENERGYPHYSICS",
+    "J HIGH ENERGY PHYSICS",
+    "JOUR OFHIGHENERGYPHYS",
+    "J HIGHENERGYPHYSICS",
+    "J HIGH ENERGY PHYS",
+    "J HIGH ENGERY PHYS",
+    "J HIGH ENERG PHYS",
+    "J HIGH ENERGYPHYS",
+    "J HIGHENERGY PHYS",
+    "J HIGH ENER PHYS",
+    "J HIGHENERGYPHYS",
+    "J HIGHENERGYPHY",
+    "J HIGH EN PHYS",
+    "J HIGH ENERGY",
+    "J HIGHEN PHYS",
+    "J HIGH PHYS",
+    "J H E PHYS",
+    "J HEP",
+    "JHEPA",
+    "JHEP"
+  ],
+  "_private_notes": [
+    { "value": "Electronic journal available at http://jhep.sissa.it" },
+    { "value": "Changed short-title to JHEP from J. High Energy Phys., 1/99" }
+  ],
+  "_harvesting_info": {
+    "last_seen_item": "JHEP,1905",
+    "date_last_harvest": "2019-05-14",
+    "method": "feed",
+    "coverage": "full"
+  },
+  "legacy_creation_date": "2013-01-18",
+  "$schema": "https://labs.inspirehep.net/schemas/records/journals.json",
+  "legacy_version": "20190514152812.0"
+}
