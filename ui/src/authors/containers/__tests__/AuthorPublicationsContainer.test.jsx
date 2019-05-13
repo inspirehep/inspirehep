@@ -8,6 +8,7 @@ import EmbeddedSearch from '../../../common/components/EmbeddedSearch';
 import {
   AUTHOR_PUBLICATIONS_REQUEST,
   AUTHOR_PUBLICATIONS_FACETS_REQUEST,
+  CITATIONS_SUMMARY_REQUEST,
 } from '../../../actions/actionTypes';
 
 describe('AuthorPublicationsContainer', () => {
@@ -33,31 +34,41 @@ describe('AuthorPublicationsContainer', () => {
   });
 
   // FIXME: avoid also testing that actions merging newQuery and state query
-  it('dispatches fetch author publications and facets onQueryChange', () => {
-    const newQuery = { sort: 'mostcited' };
-    const fullQuery = { page: 3, size: 10, sort: 'mostcited' };
+  it('dispatches fetch author publications and facets, and new citation summary onQueryChange', () => {
+    const existingQuery = { page: 3, size: 10, author: ['Harun'] };
+    const queryChange = { sort: 'mostcited' };
+    const newQuery = {
+      page: 3,
+      size: 10,
+      sort: 'mostcited',
+      author: ['Harun'],
+    };
     const store = getStoreWithState({
       authors: fromJS({
         publications: {
-          query: { page: 3, size: 10 },
+          query: existingQuery,
         },
       }),
     });
     const wrapper = mount(
       <AuthorPublicationsContainer store={store} renderResultItem={jest.fn()} />
     );
-    wrapper.find(EmbeddedSearch).prop('onQueryChange')(newQuery);
+    wrapper.find(EmbeddedSearch).prop('onQueryChange')(queryChange);
 
     const expectedActions = [
       {
         type: AUTHOR_PUBLICATIONS_REQUEST,
-        payload: fullQuery,
+        payload: newQuery,
       },
       {
         type: AUTHOR_PUBLICATIONS_FACETS_REQUEST,
-        payload: fullQuery,
+        payload: newQuery,
+      },
+      {
+        type: CITATIONS_SUMMARY_REQUEST,
       },
     ];
-    expect(store.getActions()).toEqual(expectedActions);
+    const actions = store.getActions().slice(0, 3); // slice to assert only REQUEST actions
+    expect(actions).toEqual(expectedActions);
   });
 });

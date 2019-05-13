@@ -49,6 +49,7 @@ describe('authors reducer', () => {
             value: 'Jessica Jones',
           },
         ],
+        facet_author_name: 'Jessica.J.1',
       },
     };
     const state = reducer(Map(), { type: AUTHOR_SUCCESS, payload });
@@ -56,6 +57,9 @@ describe('authors reducer', () => {
       loading: false,
       data: payload,
       error: initialState.get('error'),
+      publications: {
+        query: { author: ['Jessica.J.1'] },
+      },
     });
     expect(state).toEqual(expected);
   });

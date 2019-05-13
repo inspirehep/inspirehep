@@ -13,6 +13,7 @@ import {
   fetchAuthorPublications,
   fetchAuthorPublicationsFacets,
 } from '../../actions/authors';
+import { fetchCitationSummary } from '../../actions/citations';
 import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import { getCurrentAffiliationsFromPositions } from '../utils';
@@ -21,14 +22,22 @@ import SubContentBox from '../../common/components/SubContentBox';
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
 import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
+import NumberOfCiteablePapersContainer from './NumberOfCiteablePapersContainer';
+import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer';
 
 class DetailPage extends Component {
-  constructor(props) {
-    super(props);
+  static renderNumberOfCiteablePapers(value) {
+    return (
+      <NumberOfCiteablePapersContainer>{value}</NumberOfCiteablePapersContainer>
+    );
+  }
 
-    this.authorLiteratureSearchQuery = Map({
-      author: List(),
-    });
+  static renderNumberOfPublishedPapers(value) {
+    return (
+      <NumberOfPublishedPapersContainer>
+        {value}
+      </NumberOfPublishedPapersContainer>
+    );
   }
 
   componentDidMount() {
@@ -49,8 +58,10 @@ class DetailPage extends Component {
     const { match, dispatch } = this.props;
     const recordId = match.params.id;
     await dispatch(fetchAuthor(recordId));
+
     dispatch(fetchAuthorPublications());
     dispatch(fetchAuthorPublicationsFacets());
+    dispatch(fetchCitationSummary());
   }
 
   render() {
@@ -69,13 +80,6 @@ class DetailPage extends Component {
 
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
-
-    const authorFacetName = metadata.get('facet_author_name');
-
-    this.authorLiteratureSearchQuery = this.authorLiteratureSearchQuery.setIn(
-      ['author', 0],
-      authorFacetName
-    );
 
     return (
       <Fragment>
@@ -117,7 +121,12 @@ class DetailPage extends Component {
                   )}
                   <Col xs={24} md={12} lg={10} xl={9}>
                     <CitationSummaryTableContainer
-                      searchQuery={this.authorLiteratureSearchQuery}
+                      renderNumberOfCiteablePapers={
+                        DetailPage.renderNumberOfCiteablePapers
+                      }
+                      renderNumberOfPublishedPapers={
+                        DetailPage.renderNumberOfPublishedPapers
+                      }
                     />
                   </Col>
                 </Row>

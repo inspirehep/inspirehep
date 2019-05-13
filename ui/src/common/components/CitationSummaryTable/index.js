@@ -1,3 +1,3 @@
-import CitateSummaryTable from './CitationSummaryTable';
+import CitationSummaryTable from './CitationSummaryTable';
 
-export default CitateSummaryTable;
+export default CitationSummaryTable;

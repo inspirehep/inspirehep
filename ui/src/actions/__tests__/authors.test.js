@@ -64,13 +64,13 @@ describe('AUTHOR - async action creators', () => {
 
     it('and creates AUTHOR_PUBLICATIONS_SUCCESS if successful', async done => {
       mockHttp
-        .onGet('/literature?author=Harun&size=5&page=3&q=test')
+        .onGet('/literature?size=5&page=3&author=Harun&q=test')
         .replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
         {
           type: AUTHOR_PUBLICATIONS_REQUEST,
-          payload: { size: 5, page: 3, q: 'test' },
+          payload: { size: 5, page: 3, q: 'test', author: ['Harun'] },
         },
         { type: AUTHOR_PUBLICATIONS_SUCCESS, payload: { foo: 'bar' } },
       ];
@@ -83,7 +83,7 @@ describe('AUTHOR - async action creators', () => {
             },
           },
           publications: {
-            query: { size: 5, page: 2 },
+            query: { size: 5, page: 2, author: ['Harun'] },
           },
         }),
       });
@@ -94,15 +94,18 @@ describe('AUTHOR - async action creators', () => {
 
     it('and creates AUTHOR_PUBLICATIONS_ERROR if NOT successful', async done => {
       mockHttp
-        .onGet('/literature?author=Harun&size=5&page=3&q=test')
+        .onGet('/literature?size=5&page=3&author=Harun&q=test')
         .replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
         {
           type: AUTHOR_PUBLICATIONS_REQUEST,
-          payload: { size: 5, page: 3, q: 'test' },
+          payload: { size: 5, page: 3, q: 'test', author: ['Harun'] },
         },
-        { type: AUTHOR_PUBLICATIONS_ERROR, payload: { message: 'Error' } },
+        {
+          type: AUTHOR_PUBLICATIONS_ERROR,
+          payload: { message: 'Error', status: 500 },
+        },
       ];
 
       const store = getStoreWithState({
@@ -113,7 +116,7 @@ describe('AUTHOR - async action creators', () => {
             },
           },
           publications: {
-            query: { size: 5, page: 2 },
+            query: { size: 5, page: 2, author: ['Harun'] },
           },
         }),
       });
@@ -128,17 +131,17 @@ describe('AUTHOR - async action creators', () => {
       mockHttp.reset();
     });
 
-    it('and creates AUTHOR_PUBLICATIONS_SUCCESS if successful', async done => {
+    it('and creates AUTHOR_PUBLICATIONS_FACETS_SUCCESS if successful', async done => {
       mockHttp
         .onGet(
-          '/literature/facets?facet_name=hep-author-publication&exclude_author_value=Harun&author=Harun&size=5&page=3&q=test'
+          '/literature/facets?facet_name=hep-author-publication&exclude_author_value=Harun&size=5&page=3&author=Harun&q=test'
         )
         .replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
         {
           type: AUTHOR_PUBLICATIONS_FACETS_REQUEST,
-          payload: { size: 5, page: 3, q: 'test' },
+          payload: { size: 5, page: 3, q: 'test', author: ['Harun'] },
         },
         { type: AUTHOR_PUBLICATIONS_FACETS_SUCCESS, payload: { foo: 'bar' } },
       ];
@@ -151,7 +154,7 @@ describe('AUTHOR - async action creators', () => {
             },
           },
           publications: {
-            query: { size: 5, page: 2 },
+            query: { size: 5, page: 2, author: ['Harun'] },
           },
         }),
       });
@@ -162,21 +165,21 @@ describe('AUTHOR - async action creators', () => {
       done();
     });
 
-    it('and creates AUTHOR_PUBLICATIONS_ERROR if NOT successful', async done => {
+    it('and creates AUTHOR_PUBLICATIONS_FACETS_ERROR if NOT successful', async done => {
       mockHttp
         .onGet(
-          '/literature/facets?facet_name=hep-author-publication&exclude_author_value=Harun&author=Harun&size=5&page=3&q=test'
+          '/literature/facets?facet_name=hep-author-publication&exclude_author_value=Harun&size=5&page=3&author=Harun&q=test'
         )
         .replyOnce(500, { message: 'Error' });
 
       const expectedActions = [
         {
           type: AUTHOR_PUBLICATIONS_FACETS_REQUEST,
-          payload: { size: 5, page: 3, q: 'test' },
+          payload: { size: 5, page: 3, q: 'test', author: ['Harun'] },
         },
         {
           type: AUTHOR_PUBLICATIONS_FACETS_ERROR,
-          payload: { message: 'Error' },
+          payload: { message: 'Error', status: 500 },
         },
       ];
 
@@ -188,7 +191,7 @@ describe('AUTHOR - async action creators', () => {
             },
           },
           publications: {
-            query: { size: 5, page: 2 },
+            query: { size: 5, page: 2, author: ['Harun'] },
           },
         }),
       });

@@ -8,6 +8,7 @@ import {
   CITATIONS_SUMMARY_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
+import { LITERATURE, AUTHORS } from '../common/routes';
 
 function fetchingCitations() {
   return {
@@ -64,12 +65,31 @@ export function fetchCitations(pidType, recordId, paginationOptions) {
   };
 }
 
-export function fetchCitationSummary(searchQuery) {
+function getCitationSummaryQuery(state) {
+  const { pathname } = state.router.location;
+
+  if (pathname.startsWith(LITERATURE)) {
+    return state.router.location.query;
+  }
+
+  if (pathname.startsWith(AUTHORS)) {
+    return state.authors.getIn(['publications', 'query']).toJS();
+  }
+
+  throw Error(
+    `Can not get citations summary query for pathname: "${pathname}"`
+  );
+}
+
+export function fetchCitationSummary() {
   return async (dispatch, getState, http) => {
     dispatch(fetchingCitationsSummary());
     try {
-      const query = searchQuery.set('facet_name', 'citation-summary');
-      const queryString = stringify(query.toJS(), { indices: false });
+      const query = {
+        ...getCitationSummaryQuery(getState()),
+        facet_name: 'citation-summary',
+      };
+      const queryString = stringify(query, { indices: false });
       const url = `/literature/facets?${queryString}`;
       const response = await http.get(url);
       dispatch(fetchCitationsSummarySuccess(response.data));
