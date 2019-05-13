@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 
 import { fetchCitationSummary } from '../../actions/citations';
-import CitationSummaryTable from '../components/CitationSummaryTable/CitationSummaryTable';
-import LoadingOrChildren from '../../common/components/LoadingOrChildren';
-import ErrorAlertOrChildren from '../../common/components/ErrorAlertOrChildren';
-import { ErrorPropType } from '../../common/propTypes';
+import CitationSummaryTable from '../components/CitationSummaryTable';
+import LoadingOrChildren from '../components/LoadingOrChildren';
+import ErrorAlertOrChildren from '../components/ErrorAlertOrChildren';
+import { ErrorPropType } from '../propTypes';
 
-class CitationSummaryContainer extends Component {
+class CitationSummaryTableContainer extends Component {
   componentDidMount() {
     this.fetchCitationSummary();
   }
@@ -49,7 +49,7 @@ class CitationSummaryContainer extends Component {
   }
 }
 
-CitationSummaryContainer.propTypes = {
+CitationSummaryTableContainer.propTypes = {
   loadingCitationSummary: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   searchQuery: PropTypes.instanceOf(Map).isRequired,
@@ -65,4 +65,6 @@ const stateToProps = state => ({
 
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(stateToProps, dispatchToProps)(CitationSummaryContainer);
+export default connect(stateToProps, dispatchToProps)(
+  CitationSummaryTableContainer
+);

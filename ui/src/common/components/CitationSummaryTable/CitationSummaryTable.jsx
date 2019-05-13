@@ -5,9 +5,9 @@ import { Map } from 'immutable';
 import { Link } from 'react-router-dom';
 
 import './CitationSummaryTable.scss';
-import ExternalLink from '../../../common/components/ExternalLink';
-import LabelWithHelp from '../../../common/components/LabelWithHelp';
-import { LITERATURE } from '../../../common/routes';
+import ExternalLink from '../ExternalLink';
+import LabelWithHelp from '../LabelWithHelp';
+import { LITERATURE } from '../../routes';
 
 const CITABLE_HELP_MESSAGE = (
   <span>

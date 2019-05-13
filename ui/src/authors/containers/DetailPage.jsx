@@ -18,7 +18,7 @@ import AuthorAffiliationList from '../../common/components/AuthorAffiliationList
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
 import SubContentBox from '../../common/components/SubContentBox';
-import CitationSummaryContainer from './CitationSummaryContainer';
+import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
 import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
 
@@ -116,7 +116,7 @@ class DetailPage extends Component {
                     </Col>
                   )}
                   <Col xs={24} md={12} lg={10} xl={9}>
-                    <CitationSummaryContainer
+                    <CitationSummaryTableContainer
                       searchQuery={this.authorLiteratureSearchQuery}
                     />
                   </Col>
