@@ -42,7 +42,11 @@ const authorsReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('data', fromJS(action.payload))
-        .set('error', initialState.get('error'));
+        .set('error', initialState.get('error'))
+        .setIn(
+          ['publications', 'query', 'author'],
+          fromJS([action.payload.metadata.facet_author_name])
+        );
     case AUTHOR_ERROR:
       return state
         .set('loading', false)

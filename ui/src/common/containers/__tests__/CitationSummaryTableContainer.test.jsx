@@ -1,100 +1,30 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import { getStoreWithState, getStore } from '../../../fixtures/store';
-import { fetchCitationSummary } from '../../../actions/citations';
+import { getStoreWithState } from '../../../fixtures/store';
 import CitationSummaryTableContainer from '../CitationSummaryTableContainer';
 
-jest.mock('../../../actions/citations');
-
 describe('CitationSummaryTableContainer', () => {
-  beforeAll(() => {
-    fetchCitationSummary.mockReturnValue(async () => {});
-  });
-
-  afterEach(() => {
-    fetchCitationSummary.mockClear();
-  });
-
-  it('renders with state from store', () => {
+  it('pass props from state', () => {
     const store = getStoreWithState({
       citations: fromJS({
         loadingCitationSummary: false,
+        errorCitationSummary: null,
         citationSummary: {
-          control_number: 170,
+          citations: {
+            buckets: {
+              all: { name: 'citeable' },
+              published: { name: 'published' },
+            },
+          },
+          'h-index': {
+            value: { name: 'h-index' },
+          },
         },
       }),
     });
-    const wrapper = shallow(
-      <CitationSummaryTableContainer
-        searchQuery={fromJS({ author: 'BAI_Ben' })}
-        store={store}
-      />
-    ).dive();
+    const wrapper = shallow(<CitationSummaryTableContainer store={store} />);
     expect(wrapper).toMatchSnapshot();
-  });
-
-  it('calls fetchCitationSummary on mount', () => {
-    const store = getStore();
-    mount(
-      <CitationSummaryTableContainer
-        searchQuery={fromJS({ author: 'BAI_Ben' })}
-        store={store}
-      />
-    );
-    expect(fetchCitationSummary).toHaveBeenCalledWith(
-      fromJS({ author: 'BAI_Ben' })
-    );
-  });
-
-  it('renders with error', () => {
-    const store = getStoreWithState({
-      citations: fromJS({
-        loadingCitationSummary: false,
-        citationSummary: {},
-        errorCitationSummary: { message: 'Error' },
-      }),
-    });
-    const wrapper = shallow(
-      <CitationSummaryTableContainer
-        searchQuery={fromJS({ author: 'BAI_Ben' })}
-        store={store}
-      />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('calls fetchCitationSummary for new props if searchQuery is changed', () => {
-    const store = getStore();
-    const wrapper = shallow(
-      <CitationSummaryTableContainer
-        searchQuery={fromJS({ author: 'BAI_Ben' })}
-        store={store}
-      />
-    ).dive();
-    wrapper.update();
-    wrapper.setProps({ searchQuery: fromJS({ author: 'BAI_Ana' }) });
-    expect(fetchCitationSummary).toHaveBeenCalledWith(
-      fromJS({ author: 'BAI_Ana' })
-    );
-    wrapper.update();
-  });
-
-  it('does not call fetchCitationSummary if component update but searchQuery is same', () => {
-    const store = getStore();
-    const wrapper = mount(
-      <CitationSummaryTableContainer
-        searchQuery={fromJS({ author: 'BAI_Ben' })}
-        store={store}
-      />
-    );
-    wrapper.update();
-    wrapper.setProps(fromJS({ author: 'BAI_Ben' }));
-    wrapper.update();
-    expect(fetchCitationSummary).toHaveBeenCalledWith(
-      fromJS({ author: 'BAI_Ben' })
-    );
-    expect(fetchCitationSummary).toHaveBeenCalledTimes(1);
   });
 });

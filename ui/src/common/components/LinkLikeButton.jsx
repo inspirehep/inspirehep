@@ -15,7 +15,7 @@ class LinkLikeButton extends Component {
 
 LinkLikeButton.propTypes = {
   onClick: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   dataTestId: PropTypes.string,
 };
 

@@ -1,7 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
-import { getStore } from '../../fixtures/store';
+import { getStore, getStoreWithState } from '../../fixtures/store';
 import http from '../../common/http';
 import * as types from '../actionTypes';
 import { fetchCitations, fetchCitationSummary } from '../citations';
@@ -47,7 +47,7 @@ describe('citations - async action creator', () => {
     done();
   });
 
-  it('creates CITATIONS_SUMMARY_SUCCESS if succesful', async done => {
+  it('creates CITATIONS_SUMMARY_SUCCESS if succesful [authors]', async done => {
     mockHttp
       .onGet(
         '/literature/facets?author=J.M.Maxson.1_Jared&facet_name=citation-summary'
@@ -59,30 +59,45 @@ describe('citations - async action creator', () => {
       { type: types.CITATIONS_SUMMARY_SUCCESS, payload: { foo: 'bar' } },
     ];
 
-    const store = getStore();
-    await store.dispatch(
-      fetchCitationSummary(fromJS({ author: 'J.M.Maxson.1_Jared' }))
-    );
+    const store = getStoreWithState({
+      router: {
+        location: { pathname: '/authors/12345' },
+      },
+      authors: fromJS({
+        publications: {
+          query: {
+            author: ['J.M.Maxson.1_Jared'],
+          },
+        },
+      }),
+    });
+    await store.dispatch(fetchCitationSummary());
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('creates CITATIONS_SUMMARY_ERROR if unsuccesful', async done => {
+  it('creates CITATIONS_SUMMARY_ERROR if unsuccesful [literature]', async done => {
     mockHttp
-      .onGet(
-        '/literature/facets?author=J.M.Maxson.1_Jared&facet_name=citation-summary'
-      )
-      .replyOnce(500);
+      .onGet('/literature/facets?q=stuff&facet_name=citation-summary')
+      .replyOnce(404, { message: 'Error' });
 
     const expectedActions = [
       { type: types.CITATIONS_SUMMARY_REQUEST },
-      { type: types.CITATIONS_SUMMARY_ERROR, payload: { status: 500 } },
+      {
+        type: types.CITATIONS_SUMMARY_ERROR,
+        payload: { status: 404, message: 'Error' },
+      },
     ];
 
-    const store = getStore();
-    await store.dispatch(
-      fetchCitationSummary(fromJS({ author: 'J.M.Maxson.1_Jared' }))
-    );
+    const store = getStoreWithState({
+      router: {
+        location: {
+          pathname: '/literature?q=stuff',
+          query: { q: 'stuff' },
+        },
+      },
+    });
+    await store.dispatch(fetchCitationSummary());
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });

@@ -1,91 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CitationSummaryTable renders table with all props given 1`] = `
-<div
-  className="__CitationTable__"
+exports[`CitationSummaryTable renders table without render props 1`] = `
+<LoadingOrChildren
+  loading={false}
 >
-  <table>
-    <tbody>
-      <tr>
-        <th>
-          <strong
-            className="f5"
-          >
-            Citation Summary
-          </strong>
-        </th>
-        <th>
-          <LabelWithHelp
-            help="Citeable papers have metadata that allow us to reliably track their citations."
-            label="Citeable"
-          />
-        </th>
-        <th>
-          <LabelWithHelp
-            help={
-              <span>
-                Published papers are believed to have undergone rigorous peer-review. 
-                <ExternalLink
-                  href="http://inspirehep.net/info/faq/general#published"
-                >
-                  Learn More
-                </ExternalLink>
-              </span>
-            }
-            label="Published"
-          />
-        </th>
-      </tr>
-      <tr>
-        <th>
-          Papers
-        </th>
-        <td>
-          <Link
-            replace={false}
-            to="/literature?author=BAI_Ben&q=citeable%3Atrue"
-          >
-            29
-          </Link>
-        </td>
-        <td>
-          0
-        </td>
-      </tr>
-      <tr>
-        <th>
-          Citations
-        </th>
-        <td>
-          2
-        </td>
-        <td>
-          20
-        </td>
-      </tr>
-      <tr>
-        <th>
-          h-index
-        </th>
-        <td>
-          8
-        </td>
-        <td>
-          9
-        </td>
-      </tr>
-      <tr>
-        <th>
-          Citations/paper (avg)
-        </th>
-        <td>
-          4.1
-        </td>
-        <td>
-          9.0
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <div
+      className="__CitationTable__"
+    >
+      <table>
+        <tbody>
+          <tr>
+            <th>
+              <strong
+                className="f5"
+              >
+                Citation Summary
+              </strong>
+            </th>
+            <th>
+              <LabelWithHelp
+                help="Citeable papers have metadata that allow us to reliably track their citations."
+                label="Citeable"
+              />
+            </th>
+            <th>
+              <LabelWithHelp
+                help={
+                  <span>
+                    Published papers are believed to have undergone rigorous peer-review. 
+                    <ExternalLink
+                      href="http://inspirehep.net/info/faq/general#published"
+                    >
+                      Learn More
+                    </ExternalLink>
+                  </span>
+                }
+                label="Published"
+              />
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Papers
+            </th>
+            <td>
+              29
+            </td>
+            <td>
+              0
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Citations
+            </th>
+            <td>
+              2
+            </td>
+            <td>
+              20
+            </td>
+          </tr>
+          <tr>
+            <th>
+              h-index
+            </th>
+            <td />
+            <td />
+          </tr>
+          <tr>
+            <th>
+              Citations/paper (avg)
+            </th>
+            <td>
+              4.1
+            </td>
+            <td>
+              9.0
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
 `;

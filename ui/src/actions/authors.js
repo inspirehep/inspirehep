@@ -12,6 +12,7 @@ import {
   AUTHOR_PUBLICATIONS_FACETS_ERROR,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
+import { httpErrorToActionPayload } from '../common/utils';
 
 function fetchingAuthor(recordId) {
   return {
@@ -50,11 +51,10 @@ export function fetchAuthor(recordId) {
 }
 
 function getAuthorPublicationsQuery(authorsState, newQuery) {
-  const query = {
+  return {
     ...authorsState.getIn(['publications', 'query']).toJS(),
     ...newQuery,
   };
-  return query;
 }
 
 function fetchingAuthorPublications(query) {
@@ -85,22 +85,16 @@ export function fetchAuthorPublications(newQuery = {}) {
     const query = getAuthorPublicationsQuery(authors, newQuery);
     dispatch(fetchingAuthorPublications(query));
 
-    const authorFacetValue = authors.getIn([
-      'data',
-      'metadata',
-      'facet_author_name',
-    ]);
     const queryString = stringify(query, { indices: false });
     try {
       const response = await http.get(
-        `/literature?author=${authorFacetValue}&${queryString}`,
+        `/literature?${queryString}`,
         UI_SERIALIZER_REQUEST_OPTIONS
       );
       dispatch(fetchAuthorPublicationsSuccess(response.data));
     } catch (error) {
-      dispatch(
-        fetchAuthorPublicationsError(error.response && error.response.data)
-      );
+      const payload = httpErrorToActionPayload(error);
+      dispatch(fetchAuthorPublicationsError(payload));
     }
   };
 }
@@ -143,15 +137,12 @@ export function fetchAuthorPublicationsFacets(newQuery = {}) {
     const queryString = stringify(query, { indices: false });
     try {
       const response = await http.get(
-        `/literature/facets?facet_name=${FACET_NAME}&exclude_author_value=${authorFacetValue}&author=${authorFacetValue}&${queryString}`
+        `/literature/facets?facet_name=${FACET_NAME}&exclude_author_value=${authorFacetValue}&${queryString}`
       );
       dispatch(fetchAuthorPublicationsFacetsSuccess(response.data));
     } catch (error) {
-      dispatch(
-        fetchAuthorPublicationsFacetsError(
-          error.response && error.response.data
-        )
-      );
+      const payload = httpErrorToActionPayload(error);
+      dispatch(fetchAuthorPublicationsFacetsError(payload));
     }
   };
 }

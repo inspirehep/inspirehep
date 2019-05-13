@@ -1,89 +1,57 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CitationSummaryContainer renders with error 1`] = `
-<LoadingOrChildren
-  loading={false}
->
-  <ErrorAlertOrChildren
-    error={
-      Immutable.Map {
-        "message": "Error",
-      }
+exports[`CitationSummaryTableContainer pass props from state 1`] = `
+<CitationSummaryTable
+  citeableBucket={
+    Immutable.Map {
+      "name": "citeable",
     }
-  >
-    <CitationSummaryTable
-      citationSummary={Immutable.Map {}}
-      searchQuery={
-        Immutable.Map {
-          "author": "BAI_Ben",
-        }
-      }
-    />
-  </ErrorAlertOrChildren>
-</LoadingOrChildren>
-`;
-
-exports[`CitationSummaryContainer renders with state from store 1`] = `
-<LoadingOrChildren
-  loading={false}
->
-  <ErrorAlertOrChildren>
-    <CitationSummaryTable
-      citationSummary={
-        Immutable.Map {
-          "control_number": 170,
-        }
-      }
-      searchQuery={
-        Immutable.Map {
-          "author": "BAI_Ben",
-        }
-      }
-    />
-  </ErrorAlertOrChildren>
-</LoadingOrChildren>
-`;
-
-exports[`CitationSummaryTableContainer renders with error 1`] = `
-<LoadingOrChildren
-  loading={false}
->
-  <ErrorAlertOrChildren
-    error={
-      Immutable.Map {
-        "message": "Error",
-      }
+  }
+  dispatch={[Function]}
+  error={null}
+  hIndex={
+    Immutable.Map {
+      "name": "h-index",
     }
-  >
-    <CitationSummaryTable
-      citationSummary={Immutable.Map {}}
-      searchQuery={
-        Immutable.Map {
-          "author": "BAI_Ben",
-        }
-      }
-    />
-  </ErrorAlertOrChildren>
-</LoadingOrChildren>
-`;
-
-exports[`CitationSummaryTableContainer renders with state from store 1`] = `
-<LoadingOrChildren
+  }
   loading={false}
->
-  <ErrorAlertOrChildren>
-    <CitationSummaryTable
-      citationSummary={
-        Immutable.Map {
-          "control_number": 170,
-        }
-      }
-      searchQuery={
-        Immutable.Map {
-          "author": "BAI_Ben",
-        }
-      }
-    />
-  </ErrorAlertOrChildren>
-</LoadingOrChildren>
+  publishedBucket={
+    Immutable.Map {
+      "name": "published",
+    }
+  }
+  renderNumberOfCiteablePapers={[Function]}
+  renderNumberOfPublishedPapers={[Function]}
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "clear": [Function],
+        "get": [Function],
+        "notify": [Function],
+        "subscribe": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": [Function],
+    }
+  }
+/>
 `;

@@ -6,6 +6,7 @@ import {
 } from '../../actions/authors';
 import EmbeddedSearch from '../../common/components/EmbeddedSearch';
 import { convertSomeImmutablePropsToJS } from '../../common/immutableToJS';
+import { fetchCitationSummary } from '../../actions/citations';
 
 const stateToProps = state => ({
   aggregations: state.authors.getIn(['publications', 'aggregations']),
@@ -24,6 +25,7 @@ export const dispatchToProps = dispatch => ({
   onQueryChange(queryChange) {
     dispatch(fetchAuthorPublications(queryChange));
     dispatch(fetchAuthorPublicationsFacets(queryChange));
+    dispatch(fetchCitationSummary());
   },
 });
 
