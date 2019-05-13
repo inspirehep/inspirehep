@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from inspirehep.records.marshmallow.journals import JournalsMetadataRawFieldsSchemaV1
 
 from ...pidstore.api import PidStoreJournals
 from .base import InspireRecord
@@ -14,7 +15,7 @@ class JournalsRecord(InspireRecord):
 
     pid_type = "jou"
 
-    es_serializer = None
+    es_serializer = JournalsMetadataRawFieldsSchemaV1
 
     @staticmethod
     def mint(record_uuid, data):

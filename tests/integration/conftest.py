@@ -132,10 +132,10 @@ def create_record(base_app, db, es_clear):
     """
 
     def _create_record(record_type, data=None):
-        index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
-        accepted_record_types = ["lit", "aut"]
+        accepted_record_types = base_app.config["PID_TYPE_TO_INDEX"].keys()
         if record_type not in accepted_record_types:
             raise ValueError(f"{record_type} is not supported")
+        index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
         record_data = faker.record(record_type, data=data)
         record = InspireRecord.create(record_data)
         record.commit()
