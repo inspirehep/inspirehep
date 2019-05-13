@@ -4,11 +4,11 @@ import { fromJS } from 'immutable';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import { fetchCitationSummary } from '../../../actions/citations';
-import CitationSummaryContainer from '../CitationSummaryContainer';
+import CitationSummaryTableContainer from '../CitationSummaryTableContainer';
 
 jest.mock('../../../actions/citations');
 
-describe('CitationSummaryContainer', () => {
+describe('CitationSummaryTableContainer', () => {
   beforeAll(() => {
     fetchCitationSummary.mockReturnValue(async () => {});
   });
@@ -27,7 +27,7 @@ describe('CitationSummaryContainer', () => {
       }),
     });
     const wrapper = shallow(
-      <CitationSummaryContainer
+      <CitationSummaryTableContainer
         searchQuery={fromJS({ author: 'BAI_Ben' })}
         store={store}
       />
@@ -38,7 +38,7 @@ describe('CitationSummaryContainer', () => {
   it('calls fetchCitationSummary on mount', () => {
     const store = getStore();
     mount(
-      <CitationSummaryContainer
+      <CitationSummaryTableContainer
         searchQuery={fromJS({ author: 'BAI_Ben' })}
         store={store}
       />
@@ -57,7 +57,7 @@ describe('CitationSummaryContainer', () => {
       }),
     });
     const wrapper = shallow(
-      <CitationSummaryContainer
+      <CitationSummaryTableContainer
         searchQuery={fromJS({ author: 'BAI_Ben' })}
         store={store}
       />
@@ -68,7 +68,7 @@ describe('CitationSummaryContainer', () => {
   it('calls fetchCitationSummary for new props if searchQuery is changed', () => {
     const store = getStore();
     const wrapper = shallow(
-      <CitationSummaryContainer
+      <CitationSummaryTableContainer
         searchQuery={fromJS({ author: 'BAI_Ben' })}
         store={store}
       />
@@ -84,7 +84,7 @@ describe('CitationSummaryContainer', () => {
   it('does not call fetchCitationSummary if component update but searchQuery is same', () => {
     const store = getStore();
     const wrapper = mount(
-      <CitationSummaryContainer
+      <CitationSummaryTableContainer
         searchQuery={fromJS({ author: 'BAI_Ben' })}
         store={store}
       />

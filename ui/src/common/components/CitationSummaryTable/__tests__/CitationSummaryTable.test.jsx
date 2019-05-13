@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import CitationSummaryTable from '../CitationSummaryTable/CitationSummaryTable';
+import CitationSummaryTable from '../CitationSummaryTable';
 
 describe('CitationSummaryTable', () => {
   it('renders table with all props given', () => {
