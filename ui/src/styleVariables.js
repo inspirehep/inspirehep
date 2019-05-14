@@ -21,4 +21,5 @@ module.exports = {
   'border-style-base': 'solid',
   'border-color-split': 'rgb(232, 232, 232)',
   'card-radius': '2px',
+  'orange-6': '#fa8c16',
 };

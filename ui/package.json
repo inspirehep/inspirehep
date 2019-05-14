@@ -37,6 +37,7 @@
     "lodash.debounce": "^4.0.8",
     "lodash.isempty": "^4.4.0",
     "lodash.isplainobject": "^4.0.6",
+    "lodash.maxby": "^4.6.0",
     "lodash.mergewith": "^4.6.1",
     "lodash.transform": "^4.6.0",
     "math-interval-2": "^1.1.0",

@@ -1,0 +1,32 @@
+.__CitationSummaryGraph__ {
+  .axis-label {
+    color: $secondary-color;
+    font-size: 1rem;
+  }
+  .y-axis {
+    transform: rotate(-90deg);
+  }
+  .rv-xy-plot__axis__tick__text {
+    color: $text-color;
+    fill: $text-color;
+  }
+  .x-axis .rv-xy-plot__axis__tick__text {
+    @media (max-width: $screen-sm-max) {
+      transform: translate(0px, 15px) rotate(-45deg) !important;
+    }
+  }
+  .rv-discrete-color-legend-item {
+    color: $secondary-color;
+  }
+
+  .rv-xy-plot__series--label-text {
+    color: $text-color;
+    font-size: 0.68rem;
+  }
+
+  .legend {
+    position: absolute;
+    left: 50px;
+    top: 10px;
+  }
+}
