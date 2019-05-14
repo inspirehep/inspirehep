@@ -14,5 +14,3 @@ parameterized with different schemas for the record metadata. In the provided
 json_v1 instance, it uses the MetadataSchemaV1, defining the
 PersistentIdentifier field.
 """
-
-from .json import literature_json_v1

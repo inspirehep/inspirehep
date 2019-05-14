@@ -9,7 +9,7 @@
 
 You overwrite and set instance-specific configuration by either:
 
-- Configuration file: ``<virtualenv prefix>/var/instance/invenio.cfg``
+- Configuration file: ``<virtualenv prefix>/var/instance/inspirehep.cfg``
 - Environment variables: ``APP_<variable name>``
 """
 
