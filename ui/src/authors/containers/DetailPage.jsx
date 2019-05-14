@@ -20,6 +20,7 @@ import PositionsTimeline from '../components/PositionsTimeline';
 import SubContentBox from '../../common/components/SubContentBox';
 import CitationSummaryContainer from './CitationSummaryContainer';
 import AuthorPublicationsContainer from './AuthorPublicationsContainer';
+import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
 
 class DetailPage extends Component {
   constructor(props) {
@@ -118,6 +119,13 @@ class DetailPage extends Component {
                     <CitationSummaryContainer
                       searchQuery={this.authorLiteratureSearchQuery}
                     />
+                  </Col>
+                </Row>
+              </div>
+              <div className="mt3">
+                <Row>
+                  <Col xs={24} md={24} lg={20} xl={12}>
+                    <CitationSummaryGraphContainer />
                   </Col>
                 </Row>
               </div>
