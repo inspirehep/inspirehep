@@ -559,7 +559,7 @@ def test_authors_application_json_v1_response_with_logged_in_cataloger(
     assert expected_result == response_data_metadata
 
 
-def test_authors_default__only_control_number_json_v1_response(
+def test_authors_default_only_control_number_json_v1_response(
     api_client, db, create_record_factory, datadir
 ):
     headers = {"Accept": "application/vnd+inspire.record.control_number+json"}

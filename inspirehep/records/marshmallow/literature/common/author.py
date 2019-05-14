@@ -7,6 +7,7 @@
 
 from unicodedata import normalize
 
+from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import generate_name_variations
 from marshmallow import Schema, fields, missing
 
@@ -22,6 +23,7 @@ class AuthorSchemaV1(Schema):
     inspire_roles = fields.Raw()
     raw_affilitaions = fields.Raw()
     record = fields.Raw()
+    recid = fields.Method("get_recid", default=missing)
     signature_block = fields.Raw()
     uuid = fields.Raw()
     first_name = fields.Method("get_first_name", default=missing)
@@ -41,6 +43,11 @@ class AuthorSchemaV1(Schema):
         if len(names) > 1:
             return names[0] or missing
 
+        return missing
+
+    def get_recid(self, data):
+        if "record" in data:
+            return get_recid_from_ref(data["record"])
         return missing
 
 

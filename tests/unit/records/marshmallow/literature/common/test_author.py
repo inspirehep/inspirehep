@@ -125,3 +125,16 @@ def test_author_es_enchancement_without_last_name():
     assert sorted(result["name_variations"]) == expected_name_variations
     assert "input" in result["name_suggest"]
     assert sorted(result["name_suggest"]["input"]) == expected_name_suggest
+
+
+def test_author_add_recid():
+    schema = AuthorSchemaV1()
+
+    dump = {
+        "full_name": "Castle, Frank",
+        "record": {"$ref": "http://localhost:5000/api/authors/1"},
+    }
+    expected = 1
+    result = json.loads(schema.dumps(dump).data)
+
+    assert expected == result["recid"]
