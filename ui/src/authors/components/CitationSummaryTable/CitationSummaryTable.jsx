@@ -50,7 +50,7 @@ class CitationSummaryTable extends Component {
               <th>
                 <LabelWithHelp
                   label="Citeable"
-                  help="Citeable papers have sufficient metadata to reliably track their citations."
+                  help="Citeable papers have metadata that allow us to reliably track their citations."
                 />
               </th>
               <th>
