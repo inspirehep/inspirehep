@@ -16,7 +16,7 @@ exports[`CitationSummaryTable renders table with all props given 1`] = `
         </th>
         <th>
           <LabelWithHelp
-            help="Citeable papers have sufficient metadata to reliably track their citations."
+            help="Citeable papers have metadata that allow us to reliably track their citations."
             label="Citeable"
           />
         </th>
