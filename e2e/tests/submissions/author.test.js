@@ -1,16 +1,22 @@
 const { ResponseInterceptor } = require('../../utils/interceptors');
 const { login } = require('../../utils/user');
-const { FormSubmitter } = require('../../utils/form');
+const { FormSubmitter, SUBMIT_BUTTON_SELECTOR } = require('../../utils/form');
 const routes = require('../../utils/routes');
 
 describe('author submissions', () => {
-  it('submits new author', async () => {
-    const context = await browser.createIncognitoBrowserContext();
+  let context;
+  let page;
+
+  beforeEach(async () => {
+    context = await browser.createIncognitoBrowserContext();
+
     await login(context);
 
-    const page = await context.newPage();
+    page = await context.newPage();
     await page.goto(routes.AUTHOR_SUBMISSION);
+  });
 
+  it('submits new author', async () => {
     const interceptor = new ResponseInterceptor(page);
     const formSubmitter = new FormSubmitter(page);
     await formSubmitter.submit({
@@ -79,5 +85,31 @@ describe('author submissions', () => {
         name: 'Urhan, Harun',
       },
     ]);
+  });
+
+  it('does not submit a new author with existing orcid [authors/999108]', async () => {
+    const formSubmitter = new FormSubmitter(page);
+    await formSubmitter.fill({
+      given_name: 'Diego',
+      family_name: 'Martínez Santos',
+      display_name: 'Diego Martínez',
+      orcid: '0000-0002-9127-1687',
+    });
+
+    const orcidErrorElement = await formSubmitter.getErrorElementForFieldPath(
+      'orcid'
+    );
+    const authorUpdateLink = await orcidErrorElement.$eval(
+      'a',
+      linkEl => linkEl.href
+    );
+
+    const isSubmitButtonDisabled = await page.$eval(
+      SUBMIT_BUTTON_SELECTOR,
+      submitButton => submitButton.disabled
+    );
+
+    expect(authorUpdateLink).toEqual(`${routes.AUTHOR_SUBMISSION}/999108`);
+    expect(isSubmitButtonDisabled).toBe(true);
   });
 });

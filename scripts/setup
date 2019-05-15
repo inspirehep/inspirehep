@@ -19,3 +19,5 @@ poetry run inspirehep index queue init purge
 
 # Create users and roles
 poetry run inspirehep fixtures init
+
+poetry run inspirehep importer records -d data/records/authors
