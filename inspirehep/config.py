@@ -425,6 +425,7 @@ HEP_COMMON_FILTERS = {
     "author_count": range_author_count_filter("author_count"),
     "doc_type": must_match_all_filter("facet_inspire_doc_type"),
     "earliest_date": range_filter("earliest_date", format="yyyy", end_date_math="/y"),
+    "citation_count": range_filter("citation_count"),
     "collaboration": must_match_all_filter("facet_collaborations"),
 }
 

@@ -1332,3 +1332,24 @@ def test_update_author_record_through_api_no_token_provided(api_client, db):
         f"authors/{rec['control_number']}", json=data, content_type=content_type
     )
     assert response.status_code == 401
+
+
+def test_literature_search_citation_count_filter(api_client, db, create_record_factory):
+    paper_with_requested_number_of_citations = create_record_factory(
+        "lit", data={"citation_count": 101}, with_indexing=True
+    )
+
+    papers_citation_count = [409, 83, 26]
+    for count in papers_citation_count:
+        create_record_factory("lit", data={"citation_count": count}, with_indexing=True)
+
+    response = api_client.get("literature?citation_count=101--102")
+
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    assert response_status_code == 200
+    assert response_data["hits"]["total"] == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == paper_with_requested_number_of_citations.json["control_number"]
+    )
