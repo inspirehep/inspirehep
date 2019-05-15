@@ -5,7 +5,13 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
   className=""
   colon={true}
   hasFeedback={true}
-  help="Error"
+  help={
+    <span
+      data-test-id="test-error"
+    >
+      Error
+    </span>
+  }
   label="Test Label"
   labelCol={
     Object {

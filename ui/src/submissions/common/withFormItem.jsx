@@ -29,11 +29,16 @@ export default function withFormItem(FormInputComponent) {
       return { span: 24 };
     }
 
-    getErrorMessage() {
+    renderError() {
       const { field, form } = this.props;
       const { errors } = form;
       const { name } = field;
-      return getIn(errors, name);
+      const errorMessage = getIn(errors, name);
+      return (
+        errorMessage && (
+          <span data-test-id={`${field.name}-error`}>{errorMessage}</span>
+        )
+      );
     }
 
     render() {
@@ -47,14 +52,13 @@ export default function withFormItem(FormInputComponent) {
         onlyChild,
         ...props
       } = this.props;
-      const errorMessage = this.getErrorMessage();
-      const hasError = Boolean(errorMessage);
+      const renderedError = this.renderError();
       return (
         <Form.Item
           className={classNames({ 'mb4-important': onlyChild })}
-          hasFeedback={hasError}
-          validateStatus={hasError ? 'error' : ''}
-          help={errorMessage}
+          hasFeedback={renderedError != null}
+          validateStatus={renderedError ? 'error' : ''}
+          help={renderedError}
           label={label}
           labelCol={label ? labelCol : null}
           wrapperCol={onlyChild ? this.getWrapperColForOnlyChild() : wrapperCol}

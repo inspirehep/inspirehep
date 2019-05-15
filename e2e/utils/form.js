@@ -6,9 +6,18 @@ function joinPaths(...paths) {
   return paths.filter(path => path != null).join('.');
 }
 
+const SUBMIT_BUTTON_SELECTOR = 'button[type=submit]';
+
 class FormSubmitter {
   constructor(page) {
     this.page = page;
+  }
+
+  async getErrorElementForFieldPath(path) {
+    const errorSelector = `[${ID_ATTRIBUTE}=${path}-error]`;
+    await this.page.waitFor(errorSelector); // wait for incase of animations
+    const errorEl = await this.page.$(errorSelector);
+    return errorEl;
   }
 
   async waitForSubmissionSuccess() {
@@ -20,12 +29,16 @@ class FormSubmitter {
   }
 
   async submit(data) {
-    await this.fill(null, data);
-    await this.page.click('body');
-    await this.page.click('button[type=submit]');
+    await this.fill(data);
+    await this.page.click(SUBMIT_BUTTON_SELECTOR);
   }
 
-  async fill(path, data) {
+  async fill(data) {
+    await this.fillAnyField(null, data);
+    await this.page.click('body');
+  }
+
+  async fillAnyField(path, data) {
     const fieldType = await this.getFieldType(path, data);
     switch (fieldType) {
       case 'array':
@@ -81,7 +94,7 @@ class FormSubmitter {
       }
 
       const itemPath = joinPaths(path, i);
-      await this.fill(itemPath, itemData);
+      await this.fillAnyField(itemPath, itemData);
     }
   }
 
@@ -93,7 +106,7 @@ class FormSubmitter {
     const subFieldNames = Object.keys(data);
     for (const subField of subFieldNames) {
       const subPath = joinPaths(path, subField);
-      await this.fill(subPath, data[subField]);
+      await this.fillAnyField(subPath, data[subField]);
     }
   }
 
@@ -126,4 +139,5 @@ class FormSubmitter {
 
 module.exports = {
   FormSubmitter,
+  SUBMIT_BUTTON_SELECTOR,
 };
