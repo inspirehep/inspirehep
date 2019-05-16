@@ -16,11 +16,11 @@ from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value
-from invenio_app.factory import create_api as invenio_create_app
 from invenio_db import db
 from invenio_search import current_search_client as es
 
 from inspirehep.alembic_helper.db import clean_db, setup_db
+from inspirehep.factory import create_api as inspire_create_app
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.fixtures import (
     init_default_storage_path,
@@ -32,7 +32,7 @@ logger = logging.getLogger(__name__)
 
 @pytest.fixture(scope="session")
 def app():
-    app = invenio_create_app()
+    app = inspire_create_app()
     app_config = {}
     # Due to flask error it has to be False otherwise Alembic __init__ will fail.
     app_config["DEBUG"] = False
