@@ -1353,3 +1353,67 @@ def test_literature_search_citation_count_filter(api_client, db, create_record_f
         response_data["hits"]["hits"][0]["metadata"]["control_number"]
         == paper_with_requested_number_of_citations.json["control_number"]
     )
+
+
+def test_literature_search_refereed_filter(api_client, db, create_record_factory):
+    refereed_paper = create_record_factory(
+        "lit", data={"refereed": True}, with_indexing=True
+    )
+
+    create_record_factory("lit", data={"refereed": False}, with_indexing=True)
+
+    response = api_client.get("literature?refereed=true")
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    assert response_status_code == 200
+    assert response_data["hits"]["total"] == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == refereed_paper.json["control_number"]
+    )
+
+
+def test_literature_search_citeable_filter(api_client, db, create_record_factory):
+    citeable_paper = create_record_factory(
+        "lit", data={"citeable": True}, with_indexing=True
+    )
+
+    create_record_factory("lit", data={"citeable": False}, with_indexing=True)
+
+    response = api_client.get("literature?citeable=true")
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    assert response_status_code == 200
+    assert response_data["hits"]["total"] == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == citeable_paper.json["control_number"]
+    )
+
+
+def test_citation_summary_facet_excluded_filters(api_client, db, create_record_factory):
+    non_refereed_paper = {
+        "refereed": False,
+        "citation_count": 8,
+        "facet_author_name": "BAI_N. Girard",
+        "citeable": True,
+    }
+    create_record_factory("lit", data=non_refereed_paper, with_indexing=True)
+
+    published_papers_citation_count = [409, 83, 26, 153, 114, 97, 137]
+    for count in published_papers_citation_count:
+        data = {
+            "refereed": True,
+            "citation_count": count,
+            "facet_author_name": "BAI_N. Girard",
+            "citeable": True,
+        }
+        create_record_factory("lit", data=data, with_indexing=True)
+
+    response = api_client.get(
+        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
+    )
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    assert response_status_code == 200
+    assert response_data["aggregations"]["citation_summary"]["doc_count"] == 8

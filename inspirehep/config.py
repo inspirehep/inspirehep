@@ -427,6 +427,8 @@ HEP_COMMON_FILTERS = {
     "earliest_date": range_filter("earliest_date", format="yyyy", end_date_math="/y"),
     "citation_count": range_filter("citation_count"),
     "collaboration": must_match_all_filter("facet_collaborations"),
+    "refereed": must_match_all_filter("refereed"),
+    "citeable": must_match_all_filter("citeable"),
 }
 
 HEP_FILTERS = {
