@@ -210,10 +210,28 @@ LITERATURE.update(
             # "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_eu",
             # "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_us",
         },
-        "list_route": "/literature",
+        "list_route": "/literature/",
         "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
         "create_permission_factory_imp": api_access_permission_check,
         "update_permission_factory_imp": api_access_permission_check,
+        "suggesters": {
+            "abstract_source": {
+                "completion": {
+                    "field": "abstracts.abstract_source_suggest",
+                },
+            },
+            "book_title": {
+                "_source": [
+                    "control_number",
+                    "self",
+                    "titles",
+                    "authors",
+                ],
+                "completion": {
+                    "field": "bookautocomplete"
+                }
+            }
+        },
     }
 )
 LITERATURE_FACETS = deepcopy(LITERATURE)
@@ -222,7 +240,7 @@ LITERATURE_FACETS.update(
         "default_endpoint_prefix": False,
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
         "pid_type": "lit",
-        "list_route": "/literature/facets",
+        "list_route": "/literature/facets/",
         "search_serializers": {
             "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
         },
@@ -234,7 +252,7 @@ LITERATURE_REFERENCES.update(
         "default_endpoint_prefix": False,
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
         "pid_type": "lit",
-        "list_route": "/literature/references",
+        "list_route": "/literature/references/",
         "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/references',
         "record_serializers": {
             "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_v1_response"
@@ -250,7 +268,7 @@ LITERATURE_AUTHORS.update(
         "default_endpoint_prefix": False,
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
         "pid_type": "lit",
-        "list_route": "/literature/authors",
+        "list_route": "/literature/authors/",
         "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/authors',
         "record_serializers": {
             "application/json": f"{INSPIRE_SERIALIZERS}:literature_authors_json_v1_response"
@@ -302,7 +320,7 @@ AUTHORS.update(
                 "completion": {"field": "author_suggest"},
             }
         },
-        "list_route": "/authors",
+        "list_route": "/authors/",
         "item_route": '/authors/<pid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:AuthorsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
@@ -326,7 +344,7 @@ JOBS.update(
         "pid_minter": "jobs_minter",
         "search_class": "inspirehep.search.api:JobsSearch",
         "search_index": "records-jobs",
-        "list_route": "/jobs",
+        "list_route": "/jobs/",
         "item_route": '/jobs/<pid(job,record_class="inspirehep.records.api:JobsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:JobsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
@@ -340,10 +358,24 @@ JOURNALS.update(
         "pid_minter": "journals_minter",
         "search_class": "inspirehep.search.api:JournalsSearch",
         "search_index": "records-journals",
-        "list_route": "/journals",
+        "list_route": "/journals/",
         "item_route": '/journals/<pid(jou,record_class="inspirehep.records.api:JournalsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:JournalsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+        "suggesters": {
+            "journal_title": {
+                "_source": [
+                    "short_title",
+                    "journal_title",
+                    "control_number",
+                    "self",
+                ],
+                "completion": {
+                    "field": "title_suggest",
+                    "size": 10,
+                },
+            },
+        },
     }
 )
 
@@ -354,10 +386,22 @@ EXPERIMENTS.update(
         "pid_minter": "experiments_minter",
         "search_class": "inspirehep.search.api:ExperimentsSearch",
         "search_index": "records-experiments",
-        "list_route": "/experiments",
+        "list_route": "/experiments/",
         "item_route": '/experiments/<pid(exp,record_class="inspirehep.records.api:ExperimentsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:ExperimentsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+        "suggesters": {
+            "experiment": {
+                "_source": [
+                    "legacy_name",
+                    "control_number",
+                    "self",
+                ],
+                "completion": {
+                    "field": "experiment_suggest",
+                },
+            },
+        },
     }
 )
 
@@ -368,10 +412,26 @@ CONFERENCES.update(
         "pid_minter": "conferences_minter",
         "search_class": "inspirehep.search.api:ConferencesSearch",
         "search_index": "records-conferences",
-        "list_route": "/conferences",
+        "list_route": "/conferences/",
         "item_route": '/conferences/<pid(con,record_class="inspirehep.records.api:ConferencesRecord"):pid_value>',
         "record_class": "inspirehep.records.api:ConferencesRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+        "suggesters": {
+            "conference": {
+                "_source": [
+                    "acronyms",
+                    "titles",
+                    "address",
+                    "opening_date"
+                    "cnum"
+                    "control_number",
+                    "self",
+                ],
+                "completion": {
+                    "field": "conferenceautocomplete"
+                }
+            }
+        },
     }
 )
 
@@ -382,7 +442,7 @@ DATA.update(
         "pid_minter": "data_minter",
         "search_class": "inspirehep.search.api:DataSearch",
         "search_index": "records-data",
-        "list_route": "/data",
+        "list_route": "/data/",
         "item_route": '/data/<pid(dat,record_class="inspirehep.records.api:DataRecord"):pid_value>',
         "record_class": "inspirehep.records.api:DataRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
@@ -396,10 +456,22 @@ INSTITUTIONS.update(
         "pid_minter": "institutions_minter",
         "search_class": "inspirehep.search.api:InstitutionsSearch",
         "search_index": "records-institutions",
-        "list_route": "/institutions",
+        "list_route": "/institutions/",
         "item_route": '/institutions/<pid(ins,record_class="inspirehep.records.api:InstitutionsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:InstitutionsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+        "suggesters": {
+            "affiliation": {
+                "_source": [
+                    "legacy_ICN",
+                    "control_number",
+                    "self",
+                ],
+                "completion": {
+                    "field": "affiliation_suggest",
+                },
+            },
+        },
     }
 )
 

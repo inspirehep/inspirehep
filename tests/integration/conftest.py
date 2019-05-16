@@ -16,10 +16,10 @@ from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
-from invenio_app.factory import create_api as invenio_create_app
 
 from inspirehep.alembic_helper.db import clean_db, setup_db
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.factory import create_api as inspire_create_app
+from inspirehep.records.api import InspireRecord
 
 
 @pytest.fixture(scope="module")
@@ -51,7 +51,7 @@ def disable_files(base_app):
 
 @pytest.fixture(scope="module")
 def create_app():
-    return invenio_create_app
+    return inspire_create_app
 
 
 @pytest.fixture(scope="module")
@@ -133,11 +133,11 @@ def create_record(base_app, db, es_clear):
 
     def _create_record(record_type, data=None):
         index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
-        accepted_record_types = ["lit"]
+        accepted_record_types = ["lit", "aut"]
         if record_type not in accepted_record_types:
             raise ValueError(f"{record_type} is not supported")
-        record_data = faker.record("lit", data=data)
-        record = LiteratureRecord.create(record_data)
+        record_data = faker.record(record_type, data=data)
+        record = InspireRecord.create(record_data)
         record.commit()
         record._indexing = record._index()
         es_clear.indices.refresh(index)
