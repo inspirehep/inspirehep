@@ -49,11 +49,14 @@ def hep_author_publications():
 
 
 def citation_summary():
+    excluded_filters = ["citeable", "refereed", "citation_count"]
+    filters = {
+        key: val
+        for key, val in current_app.config["HEP_COMMON_FILTERS"].items()
+        if key not in excluded_filters
+    }
     return {
-        "filters": {
-            **current_app.config["HEP_COMMON_FILTERS"],
-            **current_app.config["HEP_FILTERS"],
-        },
+        "filters": {**filters, **current_app.config["HEP_FILTERS"]},
         "aggs": {
             "citation_summary": {
                 "filter": {"term": {"citeable": "true"}},
