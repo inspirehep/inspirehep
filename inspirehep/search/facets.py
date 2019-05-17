@@ -80,13 +80,13 @@ def citation_summary():
                                 "range": {
                                     "field": "citation_count",
                                     "ranges": [
-                                        {"from": 0, "to": 1},
-                                        {"from": 1, "to": 10},
-                                        {"from": 10, "to": 50},
-                                        {"from": 50, "to": 100},
-                                        {"from": 100, "to": 250},
-                                        {"from": 250, "to": 500},
-                                        {"from": 500},
+                                        {"from": 0, "to": 1, "key": "0--0"},
+                                        {"from": 1, "to": 10, "key": "1--9"},
+                                        {"from": 10, "to": 50, "key": "10--49"},
+                                        {"from": 50, "to": 100, "key": "50--99"},
+                                        {"from": 100, "to": 250, "key": "100--249"},
+                                        {"from": 250, "to": 500, "key": "250--499"},
+                                        {"from": 500, "key": "500--"},
                                     ],
                                 }
                             },
