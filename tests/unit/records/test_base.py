@@ -19,6 +19,7 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
+from inspirehep.records.marshmallow.base import InspireAllFieldsWithRecidSchema
 from inspirehep.records.marshmallow.conferences import (
     ConferencesMetadataRawFieldsSchemaV1,
 )
@@ -345,7 +346,10 @@ def test_populate_recid_from_ref():
         "embedded_record": {"record": {"$ref": "http://x/y/5"}},
     }
 
-    ConferencesMetadataRawFieldsSchemaV1().populate_recid_from_ref(record_data)
+    class TestRecidSchema(InspireAllFieldsWithRecidSchema):
+        pass
+
+    TestRecidSchema().populate_recid_from_ref(record_data)
 
     assert record_data["simple_key_recid"] == 1
     assert record_data["key_with_recid"] == 2
@@ -358,6 +362,10 @@ def test_populate_recid_from_ref_handles_deleted_records():
     record_data = {
         "deleted_records": [{"$ref": "http://x/y/1"}, {"$ref": "http://x/y/2"}]
     }
-    ConferencesMetadataRawFieldsSchemaV1().populate_recid_from_ref(record_data)
+
+    class TestRecidSchema(InspireAllFieldsWithRecidSchema):
+        pass
+
+    TestRecidSchema().populate_recid_from_ref(record_data)
 
     assert record_data["deleted_recids"] == [1, 2]

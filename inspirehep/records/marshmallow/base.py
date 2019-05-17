@@ -11,21 +11,28 @@ from marshmallow import post_dump
 from marshmallow.schema import Schema
 
 
-class InspireDummyIncludeAllFieldsSchema(Schema):
+class InspireBaseSchema(Schema):
+    _post_dumps = []
+
+    @post_dump(pass_original=True)
+    def process_post_dump_in_order(self, object, original_data):
+        for dump_func in self._post_dumps:
+            object = dump_func(object, original_data)
+        return strip_empty_values(object)
+
+
+class InspireIncludeAllFieldsSchemaMixin(object):
     """Ugly way to easily dump whole records without specifying every field manually"""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._post_dumps = []
+        self._post_dumps.append(self.include_original_fields)
 
-    @post_dump(pass_original=True)
     def include_original_fields(self, object, original_data):
         for key, value in original_data.items():
             if key not in object and key not in self.exclude:
                 object[key] = original_data[key]
-        for dump_func in self._post_dumps:
-            object = dump_func(object, original_data)
-        return strip_empty_values(object)
+        return object
 
 
 class PopulateRecidMixin(object):
@@ -110,8 +117,9 @@ class PopulateRecidMixin(object):
 
 
 class InspireAllFieldsWithRecidSchema(
-    InspireDummyIncludeAllFieldsSchema, PopulateRecidMixin
+    InspireBaseSchema, InspireIncludeAllFieldsSchemaMixin, PopulateRecidMixin
 ):
     def __init__(self, *args, **kwargs):
-        InspireDummyIncludeAllFieldsSchema.__init__(self, *args, **kwargs)
+        InspireBaseSchema.__init__(self, *args, **kwargs)
+        InspireIncludeAllFieldsSchemaMixin.__init__(self, *args, **kwargs)
         PopulateRecidMixin.__init__(self, *args, **kwargs)

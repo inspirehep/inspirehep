@@ -125,14 +125,14 @@ def test_populate_affiliation_suggest_from_name_variants():
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "legacy_ICN": "CERN",
-        "name_variants": [{"value": u"Centre Européen de Recherches Nucléaires"}],
+        "name_variants": [{"value": "Centre Européen de Recherches Nucléaires"}],
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
     schema = InstitutionsMetadataRawFieldsSchemaV1()
     result = schema.dump(record).data["affiliation_suggest"]
 
-    expected = {"input": ["CERN", u"Centre Européen de Recherches Nucléaires"]}
+    expected = {"input": ["CERN", "Centre Européen de Recherches Nucléaires"]}
 
     assert expected == result
 
@@ -142,10 +142,10 @@ def test_populate_affiliation_suggest_from_name_variants_with_umr():
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "legacy_ICN": "CERN",
         "name_variants": [
-            {"value": u"Centre Européen de Recherches Nucléaires"},
-            {"value": u"UMR 2454"},
-            {"value": u"umr 1234"},
-            {"value": u"umr"},
+            {"value": "Centre Européen de Recherches Nucléaires"},
+            {"value": "UMR 2454"},
+            {"value": "umr 1234"},
+            {"value": "umr"},
         ],
     }
     record = InstitutionsRecord(faker.record("ins", data))
@@ -156,12 +156,12 @@ def test_populate_affiliation_suggest_from_name_variants_with_umr():
     expected = {
         "input": [
             "CERN",
-            u"Centre Européen de Recherches Nucléaires",
-            u"UMR 2454",
-            u"umr 1234",
-            u"umr",
-            u"2454",
-            u"1234",
+            "Centre Européen de Recherches Nucléaires",
+            "UMR 2454",
+            "umr 1234",
+            "umr",
+            "2454",
+            "1234",
         ]
     }
 
