@@ -869,38 +869,28 @@ def test_citation_summary_facet(api_client, db, create_record_factory):
                     "citations_count": {"value": 1027.0},
                     "citation_buckets": {
                         "buckets": [
-                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "0--0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "1--9", "from": 1.0, "to": 10.0, "doc_count": 1},
+                            {"key": "10--49", "from": 10.0, "to": 50.0, "doc_count": 1},
                             {
-                                "key": "1.0-10.0",
-                                "from": 1.0,
-                                "to": 10.0,
-                                "doc_count": 1,
-                            },
-                            {
-                                "key": "10.0-50.0",
-                                "from": 10.0,
-                                "to": 50.0,
-                                "doc_count": 1,
-                            },
-                            {
-                                "key": "50.0-100.0",
+                                "key": "50--99",
                                 "from": 50.0,
                                 "to": 100.0,
                                 "doc_count": 2,
                             },
                             {
-                                "key": "100.0-250.0",
+                                "key": "100--249",
                                 "from": 100.0,
                                 "to": 250.0,
                                 "doc_count": 3,
                             },
                             {
-                                "key": "250.0-500.0",
+                                "key": "250--499",
                                 "from": 250.0,
                                 "to": 500.0,
                                 "doc_count": 1,
                             },
-                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                            {"key": "500--", "from": 500.0, "doc_count": 0},
                         ]
                     },
                     "average_citations": {"value": 128.375},
@@ -910,38 +900,28 @@ def test_citation_summary_facet(api_client, db, create_record_factory):
                     "citations_count": {"value": 1019.0},
                     "citation_buckets": {
                         "buckets": [
-                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "0--0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "1--9", "from": 1.0, "to": 10.0, "doc_count": 0},
+                            {"key": "10--49", "from": 10.0, "to": 50.0, "doc_count": 1},
                             {
-                                "key": "1.0-10.0",
-                                "from": 1.0,
-                                "to": 10.0,
-                                "doc_count": 0,
-                            },
-                            {
-                                "key": "10.0-50.0",
-                                "from": 10.0,
-                                "to": 50.0,
-                                "doc_count": 1,
-                            },
-                            {
-                                "key": "50.0-100.0",
+                                "key": "50--99",
                                 "from": 50.0,
                                 "to": 100.0,
                                 "doc_count": 2,
                             },
                             {
-                                "key": "100.0-250.0",
+                                "key": "100--249",
                                 "from": 100.0,
                                 "to": 250.0,
                                 "doc_count": 3,
                             },
                             {
-                                "key": "250.0-500.0",
+                                "key": "250--499",
                                 "from": 250.0,
                                 "to": 500.0,
                                 "doc_count": 1,
                             },
-                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                            {"key": "500--", "from": 500.0, "doc_count": 0},
                         ]
                     },
                     "average_citations": {"value": 145.571_428_571_428_58},
@@ -1040,38 +1020,28 @@ def test_citation_summary_facet_filters(api_client, db, create_record_factory):
                     "citations_count": {"value": 8.0},
                     "citation_buckets": {
                         "buckets": [
-                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "0--0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "1--9", "from": 1.0, "to": 10.0, "doc_count": 1},
+                            {"key": "10--49", "from": 10.0, "to": 50.0, "doc_count": 0},
                             {
-                                "key": "1.0-10.0",
-                                "from": 1.0,
-                                "to": 10.0,
-                                "doc_count": 1,
-                            },
-                            {
-                                "key": "10.0-50.0",
-                                "from": 10.0,
-                                "to": 50.0,
-                                "doc_count": 0,
-                            },
-                            {
-                                "key": "50.0-100.0",
+                                "key": "50--99",
                                 "from": 50.0,
                                 "to": 100.0,
                                 "doc_count": 0,
                             },
                             {
-                                "key": "100.0-250.0",
+                                "key": "100--249",
                                 "from": 100.0,
                                 "to": 250.0,
                                 "doc_count": 0,
                             },
                             {
-                                "key": "250.0-500.0",
+                                "key": "250--499",
                                 "from": 250.0,
                                 "to": 500.0,
                                 "doc_count": 0,
                             },
-                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                            {"key": "500--", "from": 500.0, "doc_count": 0},
                         ]
                     },
                     "average_citations": {"value": 8.0},
@@ -1081,38 +1051,28 @@ def test_citation_summary_facet_filters(api_client, db, create_record_factory):
                     "citations_count": {"value": 0.0},
                     "citation_buckets": {
                         "buckets": [
-                            {"key": "0.0-1.0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "0--0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "1--9", "from": 1.0, "to": 10.0, "doc_count": 0},
+                            {"key": "10--49", "from": 10.0, "to": 50.0, "doc_count": 0},
                             {
-                                "key": "1.0-10.0",
-                                "from": 1.0,
-                                "to": 10.0,
-                                "doc_count": 0,
-                            },
-                            {
-                                "key": "10.0-50.0",
-                                "from": 10.0,
-                                "to": 50.0,
-                                "doc_count": 0,
-                            },
-                            {
-                                "key": "50.0-100.0",
+                                "key": "50--99",
                                 "from": 50.0,
                                 "to": 100.0,
                                 "doc_count": 0,
                             },
                             {
-                                "key": "100.0-250.0",
+                                "key": "100--249",
                                 "from": 100.0,
                                 "to": 250.0,
                                 "doc_count": 0,
                             },
                             {
-                                "key": "250.0-500.0",
+                                "key": "250--499",
                                 "from": 250.0,
                                 "to": 500.0,
                                 "doc_count": 0,
                             },
-                            {"key": "500.0-*", "from": 500.0, "doc_count": 0},
+                            {"key": "500--", "from": 500.0, "doc_count": 0},
                         ]
                     },
                     "average_citations": {"value": None},
