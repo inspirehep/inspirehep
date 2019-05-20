@@ -27,6 +27,7 @@ describe('AggregationFiltersContainer', () => {
             meta: {
               title: 'Jessica Jones',
               order: 1,
+              type: 'checkbox',
             },
           },
           agg2: {
@@ -39,6 +40,7 @@ describe('AggregationFiltersContainer', () => {
             meta: {
               title: 'Luke Cage',
               order: 2,
+              type: 'checkbox',
             },
           },
         },
