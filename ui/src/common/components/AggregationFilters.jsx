@@ -5,13 +5,7 @@ import Immutable from 'immutable';
 import AggregationFilter from './AggregationFilter';
 import EventTracker from './EventTracker';
 
-const RANGE_AGGREATION_KEY = 'earliest_date';
-
 class AggregationFilters extends Component {
-  static isRange(aggregationKey) {
-    return aggregationKey === RANGE_AGGREATION_KEY;
-  }
-
   static compareAggregationEntries([, aggregation1], [, aggregation2]) {
     const order1 = aggregation1.getIn(['meta', 'order']);
     const order2 = aggregation2.getIn(['meta', 'order']);
@@ -41,7 +35,7 @@ class AggregationFilters extends Component {
                   eventPropName="onChange"
                 >
                   <AggregationFilter
-                    range={aggregationKey === RANGE_AGGREATION_KEY}
+                    aggregationType={aggregation.getIn(['meta', 'type'])}
                     name={aggregation.getIn(['meta', 'title'])}
                     buckets={aggregation.get('buckets')}
                     splitDisplayName={aggregation.getIn(['meta', 'split'])}

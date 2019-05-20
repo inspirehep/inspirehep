@@ -6,7 +6,7 @@ import AggregationFilter from '../AggregationFilter';
 import RangeAggregation from '../RangeAggregation';
 
 describe('AggregationFilter', () => {
-  it('renders RangeAggregation if range prop is true', () => {
+  it('renders RangeAggregation if aggregation type is range', () => {
     const realMaximumMaxDefaultValue = RangeAggregation.defaultProps.maximumMax;
     RangeAggregation.defaultProps.maximumMax = 2018;
 
@@ -27,15 +27,14 @@ describe('AggregationFilter', () => {
         buckets={buckets}
         name="Test"
         selections="2011--2012"
-        range
+        aggregationType="range"
       />
     );
     expect(wrapper).toMatchSnapshot();
     RangeAggregation.defaultProps.maximumMax = realMaximumMaxDefaultValue;
-    // TODO: maybe add explicit check for RangeAggregation?
   });
 
-  it('renders CheckboxAggregation if range prop is not set', () => {
+  it('renders CheckboxAggregation if aggregation type is checkbox', () => {
     const buckets = fromJS([
       {
         key: 'bucket1',
@@ -52,9 +51,9 @@ describe('AggregationFilter', () => {
         buckets={buckets}
         name="Test"
         selections={['bucket1']}
+        aggregationType="checkbox"
       />
     );
     expect(wrapper).toMatchSnapshot();
-    // TODO: maybe add explicit check for CheckboxAggregation?
   });
 });

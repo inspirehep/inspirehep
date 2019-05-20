@@ -16,8 +16,9 @@ describe('AggregationFilters', () => {
           },
         ],
         meta: {
-          title: 'Aggregation 1',
+          title: '[Range] Aggregation 1',
           order: 1,
+          type: 'range',
         },
       },
       agg2: {
@@ -31,6 +32,7 @@ describe('AggregationFilters', () => {
           title: 'Aggregation 2',
           order: 2,
           split: true,
+          type: 'checkbox',
         },
       },
     });
@@ -53,6 +55,7 @@ describe('AggregationFilters', () => {
         meta: {
           title: 'Aggregation 1',
           order: 1,
+          type: 'checkbox',
         },
       },
       agg2: {
@@ -60,6 +63,7 @@ describe('AggregationFilters', () => {
         meta: {
           title: 'Aggregation 2',
           order: 2,
+          type: 'checkbox',
         },
       },
     });
@@ -87,6 +91,7 @@ describe('AggregationFilters', () => {
         meta: {
           title: 'Jessica Jones',
           order: 1,
+          type: 'checkbox',
         },
       },
       emptyAgg: {
@@ -94,6 +99,7 @@ describe('AggregationFilters', () => {
         meta: {
           title: 'Luke Cage',
           order: 2,
+          type: 'checkbox',
         },
       },
     });
@@ -103,37 +109,6 @@ describe('AggregationFilters', () => {
         query={query}
         aggregations={aggregations}
         numberOfResults={0}
-        onAggregationChange={jest.fn()}
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders with range aggregation (earliest_date)', () => {
-    const aggregations = fromJS({
-      earliest_date: {
-        buckets: [
-          {
-            key: '2000',
-            doc_count: 1,
-          },
-          {
-            key: '2001',
-            doc_count: 1,
-          },
-        ],
-        meta: {
-          title: 'Range Aggregation',
-          order: 1,
-        },
-      },
-    });
-    const query = {};
-    const wrapper = shallow(
-      <AggregationFilters
-        query={query}
-        aggregations={aggregations}
-        numberOfResults={2}
         onAggregationChange={jest.fn()}
       />
     );
@@ -160,6 +135,7 @@ describe('AggregationFilters', () => {
         meta: {
           title: 'Aggregation',
           order: 1,
+          type: 'checkbox',
         },
       },
     });

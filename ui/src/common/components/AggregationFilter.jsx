@@ -6,22 +6,19 @@ import RangeAggregation from './RangeAggregation';
 
 class AggregationFilter extends Component {
   render() {
-    const { range, ...aggregationProps } = this.props;
-
-    return range ? (
-      <RangeAggregation {...aggregationProps} />
-    ) : (
-      <CheckboxAggregation {...aggregationProps} />
-    );
+    const { aggregationType, ...aggregationProps } = this.props;
+    switch (aggregationType) {
+      case 'range':
+        return <RangeAggregation {...aggregationProps} />;
+      case 'checkbox':
+      default:
+        return <CheckboxAggregation {...aggregationProps} />;
+    }
   }
 }
 
 AggregationFilter.propTypes = {
-  range: PropTypes.bool,
-};
-
-AggregationFilter.defaultProps = {
-  range: false,
+  aggregationType: PropTypes.oneOf(['range', 'checkbox']).isRequired,
 };
 
 export default AggregationFilter;

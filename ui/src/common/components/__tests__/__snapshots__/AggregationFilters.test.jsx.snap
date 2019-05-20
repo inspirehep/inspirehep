@@ -15,6 +15,7 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
       extractEventArgsToForward={null}
     >
       <AggregationFilter
+        aggregationType="checkbox"
         buckets={
           Immutable.List [
             Immutable.Map {},
@@ -22,7 +23,6 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
         }
         name="Aggregation 1"
         onChange={[Function]}
-        range={false}
       />
     </EventTracker>
   </div>
@@ -37,11 +37,12 @@ exports[`AggregationFilters renders with all props set 1`] = `
     key="agg1"
   >
     <EventTracker
-      eventId="Facet-Aggregation 1"
+      eventId="Facet-[Range] Aggregation 1"
       eventPropName="onChange"
       extractEventArgsToForward={null}
     >
       <AggregationFilter
+        aggregationType="range"
         buckets={
           Immutable.List [
             Immutable.Map {
@@ -50,9 +51,8 @@ exports[`AggregationFilters renders with all props set 1`] = `
             },
           ]
         }
-        name="Aggregation 1"
+        name="[Range] Aggregation 1"
         onChange={[Function]}
-        range={false}
         selections="foo"
       />
     </EventTracker>
@@ -66,6 +66,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
       extractEventArgsToForward={null}
     >
       <AggregationFilter
+        aggregationType="checkbox"
         buckets={
           Immutable.List [
             Immutable.Map {
@@ -76,42 +77,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
         }
         name="Aggregation 2"
         onChange={[Function]}
-        range={false}
         splitDisplayName={true}
-      />
-    </EventTracker>
-  </div>
-</div>
-`;
-
-exports[`AggregationFilters renders with range aggregation (earliest_date) 1`] = `
-<div
-  className="bg-white pa3"
->
-  <div
-    key="earliest_date"
-  >
-    <EventTracker
-      eventId="Facet-Range Aggregation"
-      eventPropName="onChange"
-      extractEventArgsToForward={null}
-    >
-      <AggregationFilter
-        buckets={
-          Immutable.List [
-            Immutable.Map {
-              "key": "2000",
-              "doc_count": 1,
-            },
-            Immutable.Map {
-              "key": "2001",
-              "doc_count": 1,
-            },
-          ]
-        }
-        name="Range Aggregation"
-        onChange={[Function]}
-        range={true}
       />
     </EventTracker>
   </div>

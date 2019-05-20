@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AggregationFilter renders CheckboxAggregation if range prop is not set 1`] = `
+exports[`AggregationFilter renders CheckboxAggregation if aggregation type is checkbox 1`] = `
 <CheckboxAggregation
   buckets={
     Immutable.List [
@@ -25,7 +25,7 @@ exports[`AggregationFilter renders CheckboxAggregation if range prop is not set 
 />
 `;
 
-exports[`AggregationFilter renders RangeAggregation if range prop is true 1`] = `
+exports[`AggregationFilter renders RangeAggregation if aggregation type is range 1`] = `
 <RangeAggregation
   buckets={
     Immutable.List [

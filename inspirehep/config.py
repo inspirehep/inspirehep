@@ -216,21 +216,12 @@ LITERATURE.update(
         "update_permission_factory_imp": api_access_permission_check,
         "suggesters": {
             "abstract_source": {
-                "completion": {
-                    "field": "abstracts.abstract_source_suggest",
-                },
+                "completion": {"field": "abstracts.abstract_source_suggest"}
             },
             "book_title": {
-                "_source": [
-                    "control_number",
-                    "self",
-                    "titles",
-                    "authors",
-                ],
-                "completion": {
-                    "field": "bookautocomplete"
-                }
-            }
+                "_source": ["control_number", "self", "titles", "authors"],
+                "completion": {"field": "bookautocomplete"},
+            },
         },
     }
 )
@@ -364,17 +355,9 @@ JOURNALS.update(
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "suggesters": {
             "journal_title": {
-                "_source": [
-                    "short_title",
-                    "journal_title",
-                    "control_number",
-                    "self",
-                ],
-                "completion": {
-                    "field": "title_suggest",
-                    "size": 10,
-                },
-            },
+                "_source": ["short_title", "journal_title", "control_number", "self"],
+                "completion": {"field": "title_suggest", "size": 10},
+            }
         },
     }
 )
@@ -392,15 +375,9 @@ EXPERIMENTS.update(
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "suggesters": {
             "experiment": {
-                "_source": [
-                    "legacy_name",
-                    "control_number",
-                    "self",
-                ],
-                "completion": {
-                    "field": "experiment_suggest",
-                },
-            },
+                "_source": ["legacy_name", "control_number", "self"],
+                "completion": {"field": "experiment_suggest"},
+            }
         },
     }
 )
@@ -422,14 +399,10 @@ CONFERENCES.update(
                     "acronyms",
                     "titles",
                     "address",
-                    "opening_date"
-                    "cnum"
-                    "control_number",
+                    "opening_date" "cnum" "control_number",
                     "self",
                 ],
-                "completion": {
-                    "field": "conferenceautocomplete"
-                }
+                "completion": {"field": "conferenceautocomplete"},
             }
         },
     }
@@ -462,15 +435,9 @@ INSTITUTIONS.update(
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "suggesters": {
             "affiliation": {
-                "_source": [
-                    "legacy_ICN",
-                    "control_number",
-                    "self",
-                ],
-                "completion": {
-                    "field": "affiliation_suggest",
-                },
-            },
+                "_source": ["legacy_ICN", "control_number", "self"],
+                "completion": {"field": "affiliation_suggest"},
+            }
         },
     }
 )
@@ -516,18 +483,18 @@ HEP_COMMON_AGGS = {
             "format": "yyyy",
             "min_doc_count": 1,
         },
-        "meta": {"title": "Date", "order": 1},
+        "meta": {"title": "Date", "order": 1, "type": "range"},
     },
     "doc_type": {
         "terms": {"field": "facet_inspire_doc_type", "size": 20},
-        "meta": {"title": "Document Type", "order": 6},
+        "meta": {"title": "Document Type", "order": 6, "type": "checkbox"},
     },
     "author_count": {
         "range": {
             "field": "author_count",
             "ranges": [{"key": "10 authors or less", "from": 1, "to": 11}],
         },
-        "meta": {"title": "Number of authors", "order": 2},
+        "meta": {"title": "Number of authors", "order": 2, "type": "checkbox"},
         "aggs": {
             "doc_count_bucket_filter": {
                 "bucket_selector": {
@@ -539,7 +506,7 @@ HEP_COMMON_AGGS = {
     },
     "collaboration": {
         "terms": {"field": "facet_collaborations", "size": 20},
-        "meta": {"title": "Collaboration", "order": 7},
+        "meta": {"title": "Collaboration", "order": 7, "type": "checkbox"},
     },
 }
 RECORDS_REST_FACETS = {
@@ -551,15 +518,20 @@ RECORDS_REST_FACETS = {
             **HEP_COMMON_AGGS,
             "author": {
                 "terms": {"field": "facet_author_name", "size": 20},
-                "meta": {"title": "Author", "order": 3, "split": True},
+                "meta": {
+                    "title": "Author",
+                    "order": 3,
+                    "split": True,
+                    "type": "checkbox",
+                },
             },
             "subject": {
                 "terms": {"field": "facet_inspire_categories", "size": 20},
-                "meta": {"title": "Subject", "order": 4},
+                "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
             },
             "arxiv_categories": {
                 "terms": {"field": "facet_arxiv_categories", "size": 20},
-                "meta": {"title": "arXiv Category", "order": 5},
+                "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
             },
         },
     },
