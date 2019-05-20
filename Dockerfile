@@ -7,7 +7,7 @@
 
 FROM python:3.6
 
-RUN pip install poetry==0.12.11
+RUN pip install poetry==0.12.16
 
 WORKDIR /opt/inspire
 
