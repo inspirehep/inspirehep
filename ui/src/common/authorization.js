@@ -7,9 +7,9 @@ export const SUPERUSER_OR_BETAUSER_OR_CATALOGER = Set([
   'betauser',
   'cataloger',
 ]);
-const SUPERUSER_OR_CATALOGER = Set(['superuser', 'cataloger']);
-const SUPERUSER_OR_BETAUSER = Set(['superuser', 'betauser']);
+export const SUPERUSER_OR_CATALOGER = Set(['superuser', 'cataloger']);
 export const SUPERUSER = Set(['superuser']);
+const SUPERUSER_OR_BETAUSER = Set(['superuser', 'betauser']);
 
 export function isAuthorized(userRoles, authorizedRoles) {
   return doSetsHaveCommonItem(userRoles, authorizedRoles);

@@ -24,6 +24,8 @@ import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
 import NumberOfCiteablePapersContainer from './NumberOfCiteablePapersContainer';
 import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
+import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {
@@ -119,25 +121,29 @@ class DetailPage extends Component {
                       </SubContentBox>
                     </Col>
                   )}
-                  <Col xs={24} md={12} lg={10} xl={9}>
-                    <CitationSummaryTableContainer
-                      renderNumberOfCiteablePapers={
-                        DetailPage.renderNumberOfCiteablePapers
-                      }
-                      renderNumberOfPublishedPapers={
-                        DetailPage.renderNumberOfPublishedPapers
-                      }
-                    />
-                  </Col>
+                  <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                    <Col xs={24} md={12} lg={10} xl={9}>
+                      <CitationSummaryTableContainer
+                        renderNumberOfCiteablePapers={
+                          DetailPage.renderNumberOfCiteablePapers
+                        }
+                        renderNumberOfPublishedPapers={
+                          DetailPage.renderNumberOfPublishedPapers
+                        }
+                      />
+                    </Col>
+                  </AuthorizedContainer>
                 </Row>
               </div>
-              <div className="mt3">
-                <Row>
-                  <Col xs={24} md={24} lg={20} xl={12}>
-                    <CitationSummaryGraphContainer />
-                  </Col>
-                </Row>
-              </div>
+              <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                <div className="mt3">
+                  <Row>
+                    <Col xs={24} md={24} lg={20} xl={12}>
+                      <CitationSummaryGraphContainer />
+                    </Col>
+                  </Row>
+                </div>
+              </AuthorizedContainer>
             </ContentBox>
           </Col>
         </Row>
