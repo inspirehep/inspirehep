@@ -314,6 +314,28 @@ def test_literature_json_ui_v1_response_search(api_client, db, create_record):
     assert expected_result == expected_data_hits
 
 
+def test_literature_json_ui_v1_response_search_has_sort_options(
+    api_client, db, create_record
+):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    record = create_record("lit")
+
+    expected_status_code = 200
+    expected_sort_options = [
+        {"value": "mostrecent", "display": "Most Recent"},
+        {"value": "mostcited", "display": "Most Cited"},
+        {"value": "bestmatch", "display": "Best Match"},
+    ]
+    response = api_client.get("/literature", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    sort_options = response_data["sort_options"]
+
+    assert expected_status_code == response_status_code
+    assert expected_sort_options == sort_options
+
+
 def test_literature_application_json_authors(api_client, db, create_record):
     headers = {"Accept": "application/json"}
     full_name_1 = faker.name()
@@ -620,6 +642,24 @@ def test_authors_default_json_v1_response_search(
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_hits_metadata
+
+
+def test_authors_json_v1_response_search_does_not_have_sort_options(
+    api_client, db, create_record
+):
+    headers = {"Accept": "application/json"}
+    record = create_record("aut")
+
+    expected_status_code = 200
+    expected_sort_options = None
+    response = api_client.get("/authors", headers=headers)
+
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    sort_options = response_data["sort_options"]
+
+    assert expected_status_code == response_status_code
+    assert expected_sort_options == sort_options
 
 
 def test_authors_application_json_v1_response_search_with_logged_in_cataloger(

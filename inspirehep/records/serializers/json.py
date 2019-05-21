@@ -7,12 +7,11 @@
 
 import json
 
-from invenio_records_rest.serializers.json import JSONSerializer
 from invenio_records_rest.serializers.response import search_responsify
 from marshmallow import Schema
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
-from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
+from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer, JSONSerializer
 
 from ..marshmallow.authors import (
     AuthorsOnlyControlNumberSchemaV1,
@@ -61,7 +60,9 @@ literature_json_v1_response_search = search_responsify(
 )
 
 literature_json_ui_v1 = JSONSerializer(LiteratureUISchemaV1)
-literature_json_ui_v1_search = JSONSerializer(LiteratureSearchUISchemaV1)
+literature_json_ui_v1_search = JSONSerializer(
+    LiteratureSearchUISchemaV1, index_name="records-hep"
+)
 
 literature_json_ui_v1_response = record_responsify(
     literature_json_ui_v1, "application/vnd+inspire.record.ui+json"

@@ -11,6 +11,7 @@ import SearchResults from './SearchResults';
 import SearchPagination from './SearchPagination';
 import ResponsiveView from './ResponsiveView';
 import DrawerHandle from './DrawerHandle';
+import { SelectOptionsPropType } from '../propTypes';
 
 class EmbeddedSearch extends Component {
   constructor(props) {
@@ -67,6 +68,7 @@ class EmbeddedSearch extends Component {
       error,
       numberOfResults,
       loadingResults,
+      sortOptions,
     } = this.props;
     return (
       !error && (
@@ -100,7 +102,11 @@ class EmbeddedSearch extends Component {
                   )}
                 />
                 <Col>
-                  <SortBy onSortChange={this.onSortChange} sort={query.sort} />
+                  <SortBy
+                    onSortChange={this.onSortChange}
+                    sort={query.sort}
+                    sortOptions={sortOptions}
+                  />
                 </Col>
               </Row>
               <Row>
@@ -133,6 +139,7 @@ EmbeddedSearch.propTypes = {
   onQueryChange: PropTypes.func,
   results: PropTypes.instanceOf(List),
   aggregations: PropTypes.instanceOf(Map),
+  sortOptions: SelectOptionsPropType,
   numberOfResults: PropTypes.number,
   loadingResults: PropTypes.bool,
   loadingAggregations: PropTypes.bool,
@@ -142,6 +149,7 @@ EmbeddedSearch.propTypes = {
 EmbeddedSearch.defaultProps = {
   error: null,
   onQueryChange: null,
+  sortOptions: null,
   results: List(),
   aggregations: Map(),
   numberOfResults: 0,

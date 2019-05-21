@@ -23,6 +23,7 @@ exports[`AuthorPublicationsContainer passes all props to embedded search 1`] = `
       "page": 2,
       "q": "dude",
       "size": 10,
+      "sort": "mostrecent",
     }
   }
   renderResultItem={[MockFunction]}
@@ -33,6 +34,14 @@ exports[`AuthorPublicationsContainer passes all props to embedded search 1`] = `
       },
       Immutable.Map {
         "control_number": 2,
+      },
+    ]
+  }
+  sortOptions={
+    Array [
+      Object {
+        "display": "Most Recent",
+        "value": "mostrecent",
       },
     ]
   }

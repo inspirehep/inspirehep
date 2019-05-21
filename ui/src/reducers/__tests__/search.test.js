@@ -7,24 +7,7 @@ import * as types from '../../actions/actionTypes';
 describe('search reducer', () => {
   it('default', () => {
     const state = reducer(undefined, {});
-    const expected = fromJS({
-      loading: false,
-      total: 0,
-      scope: {
-        name: 'literature',
-        pathname: 'literature',
-        query: {
-          sort: 'mostrecent',
-          size: '25',
-          page: '1',
-        },
-      },
-      error: null,
-      aggregations: Map(),
-      loadingAggregations: false,
-      aggregationsError: null,
-    });
-    expect(state).toEqual(expected);
+    expect(state).toEqual(initialState);
   });
 
   it('LOCATION_CHANGE authors', () => {
@@ -72,12 +55,14 @@ describe('search reducer', () => {
         hits: ['found'],
         total: 1,
       },
+      sort_options: [{ value: 'mostrecent', display: 'Most Recent' }],
     };
     const state = reducer(Map(), { type: types.SEARCH_SUCCESS, payload });
     const expected = fromJS({
       loading: false,
       total: payload.hits.total,
       results: payload.hits.hits,
+      sortOptions: payload.sort_options,
       error: initialState.get('error'),
     });
     expect(state).toEqual(expected);

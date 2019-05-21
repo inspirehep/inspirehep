@@ -399,7 +399,9 @@ CONFERENCES.update(
                     "acronyms",
                     "titles",
                     "address",
-                    "opening_date" "cnum" "control_number",
+                    "opening_date",
+                    "cnum",
+                    "control_number",
                     "self",
                 ],
                 "completion": {"field": "conferenceautocomplete"},
@@ -541,13 +543,13 @@ RECORDS_REST_FACETS = {
 RECORDS_REST_SORT_OPTIONS = {
     "records-hep": {
         "mostrecent": {
-            "title": "Most recent",
+            "title": "Most Recent",
             "fields": ["-earliest_date"],
             "default_order": "asc",  # Used for invenio-search-js config
             "order": 1,
         },
         "mostcited": {
-            "title": "Most cited",
+            "title": "Most Cited",
             "fields": ["-citation_count"],
             "default_order": "asc",  # Used for invenio-search-js config
             "order": 2,

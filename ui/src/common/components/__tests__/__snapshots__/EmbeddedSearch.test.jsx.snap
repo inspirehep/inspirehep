@@ -44,6 +44,14 @@ exports[`EmbeddedSearch renders with all props set except error 1`] = `
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
+            sortOptions={
+              Array [
+                Object {
+                  "display": "Most Recent",
+                  "value": "mostrecent",
+                },
+              ]
+            }
           />
         </Col>
       </Row>
@@ -125,6 +133,7 @@ exports[`EmbeddedSearch renders with only required props 1`] = `
           <SortBy
             onSortChange={[Function]}
             sort="mostrecent"
+            sortOptions={null}
           />
         </Col>
       </Row>

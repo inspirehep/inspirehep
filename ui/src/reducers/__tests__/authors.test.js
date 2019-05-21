@@ -102,6 +102,7 @@ describe('authors reducer', () => {
         ],
         total: 5,
       },
+      sort_options: [{ value: 'mostrecent', display: 'Most Recent' }],
     };
     const state = reducer(Map(), {
       type: AUTHOR_PUBLICATIONS_SUCCESS,
@@ -111,6 +112,7 @@ describe('authors reducer', () => {
       publications: {
         results: payload.hits.hits,
         total: payload.hits.total,
+        sortOptions: payload.sort_options,
         error: initialState.getIn(['publications', 'error']),
         loadingResults: false,
       },
@@ -127,6 +129,7 @@ describe('authors reducer', () => {
       publications: {
         results: initialState.getIn(['publications', 'results']),
         total: initialState.getIn(['publications', 'total']),
+        sortOptions: initialState.getIn(['publications', 'sortOptions']),
         error: { message: 'error' },
         loadingResults: false,
       },

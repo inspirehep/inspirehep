@@ -20,6 +20,7 @@ export const initialState = fromJS({
   publications: {
     loadingResults: false,
     total: 0,
+    sortOptions: null,
     query: {
       page: 1,
       size: 10,
@@ -60,6 +61,10 @@ const authorsReducer = (state = initialState, action) => {
       return state
         .setIn(['publications', 'loadingResults'], false)
         .setIn(['publications', 'total'], fromJS(action.payload.hits.total))
+        .setIn(
+          ['publications', 'sortOptions'],
+          fromJS(action.payload.sort_options)
+        )
         .setIn(['publications', 'results'], fromJS(action.payload.hits.hits))
         .setIn(
           ['publications', 'error'],
@@ -72,6 +77,10 @@ const authorsReducer = (state = initialState, action) => {
         .setIn(
           ['publications', 'total'],
           initialState.getIn(['publications', 'total'])
+        )
+        .setIn(
+          ['publications', 'sortOptions'],
+          initialState.getIn(['publications', 'sortOptions'])
         )
         .setIn(
           ['publications', 'results'],

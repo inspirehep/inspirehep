@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SortBy does not render if sortOptions missing 1`] = `""`;
+
 exports[`SortBy renders with all props set 1`] = `
 <SelectBox
   defaultValue="mostrecent"
@@ -9,10 +11,6 @@ exports[`SortBy renders with all props set 1`] = `
       Object {
         "display": "Most Recent",
         "value": "mostrecent",
-      },
-      Object {
-        "display": "Most Cited",
-        "value": "mostcited",
       },
     ]
   }

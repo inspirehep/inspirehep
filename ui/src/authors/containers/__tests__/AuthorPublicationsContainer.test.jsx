@@ -15,9 +15,10 @@ describe('AuthorPublicationsContainer', () => {
     const store = getStoreWithState({
       authors: fromJS({
         publications: {
-          query: { size: 10, page: 2, q: 'dude' },
+          query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
           results: [{ control_number: 1 }, { control_number: 2 }],
           aggregations: { agg1: { foo: 'bar' } },
+          sortOptions: [{ value: 'mostrecent', display: 'Most Recent' }],
           loadingResults: true,
           loadingAggregations: true,
           numberOfResults: 50,
@@ -34,7 +35,12 @@ describe('AuthorPublicationsContainer', () => {
 
   // FIXME: avoid also testing that actions merging newQuery and state query
   it('dispatches fetch author publications and facets onQueryChange', () => {
-    const existingQuery = { page: 3, size: 10, author: ['Harun'] };
+    const existingQuery = {
+      page: 3,
+      size: 10,
+      author: ['Harun'],
+      sort: 'mostrecent',
+    };
     const queryChange = { sort: 'mostcited' };
     const newQuery = {
       page: 3,

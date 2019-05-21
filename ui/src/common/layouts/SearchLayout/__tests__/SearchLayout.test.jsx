@@ -29,7 +29,7 @@ describe('SearchLayout', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders without aggregations and sort', () => {
+  it('renders without aggregations', () => {
     const store = getStore();
     const wrapper = shallow(
       <SearchLayout
