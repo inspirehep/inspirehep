@@ -58,19 +58,32 @@
         },
         "acquisition_source": {
           "properties": {
-            "$ref": {
+            "datetime": {
+              "type": "date"
+            },
+            "email": {
+              "type": "keyword"
+            },
+            "internal_uid": {
+              "type": "integer"
+            },
+            "method": {
+              "type": "keyword"
+            },
+            "orcid": {
+              "type": "keyword"
+            },
+            "source": {
+              "type": "keyword"
+            },
+            "submission_number": {
               "type": "keyword"
             }
           },
           "type": "object"
         },
         "arxiv_categories": {
-          "properties": {
-            "$ref": {
-              "type": "keyword"
-            }
-          },
-          "type": "object"
+          "type": "keyword"
         },
         "address": {
           "properties": {
