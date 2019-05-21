@@ -6,3 +6,10 @@ export const ErrorPropType = PropTypes.oneOfType([
   NullPropType,
   PropTypes.instanceOf(Map),
 ]);
+
+export const SelectOptionsPropType = PropTypes.arrayOf(
+  PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    display: PropTypes.string,
+  })
+);

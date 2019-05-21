@@ -2,38 +2,30 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectBox from './SelectBox';
-
-const SORT_BY_OPTIONS = [
-  {
-    display: 'Most Recent',
-    value: 'mostrecent',
-  },
-  {
-    display: 'Most Cited',
-    value: 'mostcited',
-  },
-];
+import { SelectOptionsPropType } from '../propTypes';
 
 class SortBy extends Component {
   render() {
-    const { sort, onSortChange } = this.props;
+    const { sort, onSortChange, sortOptions } = this.props;
     return (
-      <SelectBox
-        onChange={onSortChange}
-        defaultValue={sort}
-        options={SORT_BY_OPTIONS}
-      />
+      sortOptions && (
+        <SelectBox
+          onChange={onSortChange}
+          defaultValue={sort}
+          options={sortOptions}
+        />
+      )
     );
   }
 }
 
 SortBy.propTypes = {
   onSortChange: PropTypes.func.isRequired,
-  sort: PropTypes.string,
+  sortOptions: SelectOptionsPropType,
+  sort: PropTypes.string.isRequired,
 };
 
 SortBy.defaultProps = {
-  sort: SORT_BY_OPTIONS[0].value,
+  sortOptions: null,
 };
-
 export default SortBy;

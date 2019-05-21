@@ -35,6 +35,7 @@ export const initialState = fromJS({
   total: 0,
   scope: searchScopes.get('literature'),
   error: null,
+  sortOptions: null,
   aggregations: {},
   loadingAggregations: false,
   aggregationsError: null,
@@ -55,6 +56,7 @@ const searchReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('total', fromJS(action.payload.hits.total))
+        .set('sortOptions', fromJS(action.payload.sort_options))
         .set('results', fromJS(action.payload.hits.hits))
         .set('error', initialState.get('error'));
     case SEARCH_ERROR:

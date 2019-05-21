@@ -13,7 +13,7 @@ describe('EmbeddedSearch', () => {
     const renderResultItem = jest.fn();
     const wrapper = shallow(
       <EmbeddedSearch
-        query={{ size: 2, page: 2 }}
+        query={{ size: 2, page: 2, sort: 'mostrecent' }}
         renderResultItem={renderResultItem}
       />
     );
@@ -28,7 +28,7 @@ describe('EmbeddedSearch', () => {
     const renderResultItem = jest.fn();
     const wrapper = shallow(
       <EmbeddedSearch
-        query={{ size: 2, page: 2 }}
+        query={{ size: 2, page: 2, sort: 'mostrecent' }}
         renderResultItem={renderResultItem}
         error={fromJS({ message: 'error' })}
       />
@@ -41,10 +41,11 @@ describe('EmbeddedSearch', () => {
       <EmbeddedSearch
         renderResultItem={jest.fn()}
         onQueryChange={jest.fn()}
-        query={{ doc_type: 'article', size: 2, page: 2 }}
+        query={{ doc_type: 'article', size: 2, page: 2, sort: 'mostrecent' }}
         aggregations={fromJS({
           agg1: { foo: 'bar' },
         })}
+        sortOptions={[{ value: 'mostrecent', display: 'Most Recent' }]}
         results={fromJS([{ value: '1' }, { value: '2' }])}
         numberOfResults={5}
         loadingAggregations
@@ -58,7 +59,7 @@ describe('EmbeddedSearch', () => {
     const onQueryChange = jest.fn();
     const wrapper = shallow(
       <EmbeddedSearch
-        query={{ size: 2, page: 2 }}
+        query={{ size: 2, page: 2, sort: 'mostrecent' }}
         renderResultItem={jest.fn()}
         onQueryChange={onQueryChange}
       />
@@ -74,7 +75,7 @@ describe('EmbeddedSearch', () => {
     const onQueryChange = jest.fn();
     const wrapper = shallow(
       <EmbeddedSearch
-        query={{ size: 2, page: 2 }}
+        query={{ size: 2, page: 2, sort: 'mostrecent' }}
         renderResultItem={jest.fn()}
         onQueryChange={onQueryChange}
       />
@@ -89,7 +90,7 @@ describe('EmbeddedSearch', () => {
     const onQueryChange = jest.fn();
     const wrapper = shallow(
       <EmbeddedSearch
-        query={{ size: 2, page: 2 }}
+        query={{ size: 2, page: 2, sort: 'mostrecent' }}
         renderResultItem={jest.fn()}
         onQueryChange={onQueryChange}
       />

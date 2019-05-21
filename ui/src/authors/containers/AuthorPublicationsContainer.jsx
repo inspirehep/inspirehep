@@ -15,6 +15,7 @@ const stateToProps = state => ({
   ]),
   query: state.authors.getIn(['publications', 'query']),
   results: state.authors.getIn(['publications', 'results']),
+  sortOptions: state.authors.getIn(['publications', 'sortOptions']),
   loadingResults: state.authors.getIn(['publications', 'loadingResults']),
   numberOfResults: state.authors.getIn(['publications', 'total']),
   error: state.authors.getIn(['publications', 'error']),
@@ -28,5 +29,5 @@ export const dispatchToProps = dispatch => ({
 });
 
 export default connect(stateToProps, dispatchToProps)(
-  convertSomeImmutablePropsToJS(EmbeddedSearch, ['query'])
+  convertSomeImmutablePropsToJS(EmbeddedSearch, ['query', 'sortOptions'])
 );

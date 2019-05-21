@@ -24,12 +24,7 @@ class SearchLayout extends Component {
   }
 
   render() {
-    const {
-      renderResultItem,
-      loading,
-      withoutSort,
-      withoutAggregations,
-    } = this.props;
+    const { renderResultItem, loading, withoutAggregations } = this.props;
     return (
       <Row className="__SearchLayout__" gutter={32} type="flex" justify="start">
         <Col xs={0} lg={8} xl={7} xxl={5}>
@@ -58,7 +53,7 @@ class SearchLayout extends Component {
                 />
               </Col>
               <Col className="tr" span={12}>
-                {!withoutSort && <SortByContainer />}
+                <SortByContainer />
               </Col>
             </Row>
             <Row>
@@ -77,14 +72,12 @@ class SearchLayout extends Component {
 SearchLayout.propTypes = {
   renderResultItem: PropTypes.func.isRequired,
   withoutAggregations: PropTypes.bool,
-  withoutSort: PropTypes.bool,
   loading: PropTypes.bool.isRequired,
   loadingAggregations: PropTypes.bool.isRequired,
 };
 
 SearchLayout.defaultProps = {
   withoutAggregations: false,
-  withoutSort: false,
 };
 
 const stateToProps = state => ({

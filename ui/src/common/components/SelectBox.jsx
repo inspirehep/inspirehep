@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Select } from 'antd';
+import { SelectOptionsPropType } from '../propTypes';
 
 class SelectBox extends Component {
   render() {
@@ -25,12 +25,7 @@ class SelectBox extends Component {
 }
 
 SelectBox.propTypes = {
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      value: PropTypes.string.isRequired,
-      display: PropTypes.string,
-    })
-  ).isRequired,
+  options: SelectOptionsPropType.isRequired,
   ...Select.propTypes,
 };
 
