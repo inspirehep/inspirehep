@@ -8,19 +8,66 @@
       "numeric_detection": false,
       "properties": {
         "$schema": {
-          "type": "string"
+          "type": "keyword"
         },
         "_collections": {
-          "analyzer": "lowercase_analyzer",
-          "type": "string"
+          "normalizer": "lowercase_analyzer",
+          "type": "keyword"
         },
         "_private_notes": {
           "properties": {
             "source": {
-              "type": "string"
+              "type": "keyword"
             },
             "value": {
-              "type": "string"
+              "type": "text"
+            }
+          },
+          "type": "object"
+        },
+        "accelerator_experiments": {
+          "properties": {
+            "accelerator": {
+              "type": "text"
+            },
+            "curated_relation": {
+              "type": "boolean"
+            },
+            "experiment": {
+              "type": "text"
+            },
+            "institution": {
+              "type": "text"
+            },
+            "legacy_name": {
+              "type": "text"
+            },
+            "recid": {
+              "type": "integer"
+            },
+            "record": {
+              "properties": {
+                "$ref": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        },
+        "acquisition_source": {
+          "properties": {
+            "$ref": {
+              "type": "keyword"
+            }
+          },
+          "type": "object"
+        },
+        "arxiv_categories": {
+          "properties": {
+            "$ref": {
+              "type": "keyword"
             }
           },
           "type": "object"
@@ -28,37 +75,33 @@
         "address": {
           "properties": {
             "cities": {
-              "type": "string"
+              "type": "text"
             },
             "country_code": {
-              "type": "string"
+              "type": "keyword"
             },
             "place_name": {
-              "type": "string"
+              "type": "text"
             },
             "postal_address": {
-              "type": "string"
+              "type": "text"
             },
             "postal_code": {
-              "type": "string"
+              "type": "keyword"
             },
             "state": {
-              "type": "string"
+              "type": "text"
             }
           },
           "type": "object"
         },
-        "closed_date": {
-          "format": "yyyy||yyyy-MM||yyyy-MM-dd",
-          "type": "date"
-        },
         "contact_details": {
           "properties": {
             "email": {
-              "type": "string"
+              "type": "keyword"
             },
             "name": {
-              "type": "string"
+              "type": "text"
             }
           },
           "type": "object"
@@ -79,80 +122,36 @@
         "deleted_records": {
           "properties": {
             "$ref": {
-              "type": "string"
+              "type": "keyword"
             }
           },
           "type": "object"
         },
         "description": {
-          "type": "string"
+          "type": "text"
         },
         "earliest_date": {
           "format": "yyyy||yyyy-MM||yyyy-MM-dd",
           "type": "date"
-        },
-        "experiments": {
-          "properties": {
-            "curated_relation": {
-              "type": "boolean"
-            },
-            "name": {
-              "type": "string"
-            },
-            "recid": {
-              "type": "integer"
-            },
-            "record": {
-              "properties": {
-                "$ref": {
-                  "type": "string"
-                }
-              },
-              "type": "object"
-            }
-          },
-          "type": "object"
-        },
-        "external_system_identifiers": {
-          "properties": {
-            "schema": {
-              "type": "string"
-            },
-            "value": {
-              "type": "string"
-            }
-          },
-          "type": "object"
-        },
-        "inspire_categories": {
-          "properties": {
-            "source": {
-              "type": "string"
-            },
-            "term": {
-              "type": "keyword"
-            }
-          },
-          "type": "object"
         },
         "institutions": {
           "properties": {
             "curated_relation": {
               "type": "boolean"
             },
-            "name": {
-              "type": "string"
-            },
             "recid": {
               "type": "integer"
             },
             "record": {
               "properties": {
                 "$ref": {
-                  "type": "string"
+                  "type": "keyword"
                 }
               },
               "type": "object"
+            },
+            "value": {
+              "type": "text"
             }
           },
           "type": "object"
@@ -167,21 +166,21 @@
         "new_record": {
           "properties": {
             "$ref": {
-              "type": "string"
+              "type": "keyword"
             }
           },
           "type": "object"
         },
         "position": {
-          "type": "string"
+          "type": "text"
         },
         "public_notes": {
           "properties": {
             "source": {
-              "type": "string"
+              "type": "keyword"
             },
             "value": {
-              "type": "string"
+              "type": "text"
             }
           },
           "type": "object"
@@ -189,8 +188,21 @@
         "ranks": {
           "type": "keyword"
         },
-        "reference_email": {
-          "type": "string"
+        "reference_letters": {
+          "properties": {
+            "emails": {
+              "type": "keyword"
+            },
+            "urls": {
+              "properties": {
+                "$ref": {
+                  "type": "keyword"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
         },
         "regions": {
           "type": "keyword"
@@ -198,7 +210,7 @@
         "self": {
           "properties": {
             "$ref": {
-              "type": "string"
+              "type": "keyword"
             }
           },
           "type": "object"
@@ -206,13 +218,16 @@
         "self_recid": {
           "type": "integer"
         },
+        "status": {
+          "type": "keyword"
+        },
         "urls": {
           "properties": {
             "description": {
-              "type": "string"
+              "type": "text"
             },
             "value": {
-              "type": "string"
+              "type": "keyword"
             }
           },
           "type": "object"
@@ -222,11 +237,11 @@
   },
   "settings": {
     "analysis": {
-      "analyzer": {
+      "normalizer": {
         "lowercase_analyzer": {
-          "filter": "lowercase",
-          "tokenizer": "keyword",
-          "type": "custom"
+          "type": "custom",
+          "char_filter": [],
+          "filter": ["lowercase"]
         }
       }
     }
