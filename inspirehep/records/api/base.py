@@ -1030,7 +1030,12 @@ class InspireRecord(Record):
         """
         RecordCitations.query.filter_by(citer_id=self.id).delete()
 
-        if self.is_superseded() or self.get("deleted") or self.pid_type not in ["lit"]:
+        if (
+            self.is_superseded()
+            or self.get("deleted")
+            or self.pid_type not in ["lit"]
+            or "Literature" not in self["_collections"]
+        ):
             # Record is not eligible to cite
             return
         records_pids = self.get_linked_pids_from_field("references.record")
