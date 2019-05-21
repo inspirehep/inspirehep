@@ -800,3 +800,27 @@ def test_literature_citation_count_property(base_app, db):
 
     assert record.citation_count == 1
     assert record2.citation_count == 0
+
+
+def test_literature_without_literature_collection_cannot_cite_record_which_can_be_cited(
+    base_app, db
+):
+    data1 = faker.record("lit")
+    record1 = InspireRecord.create(data1)
+
+    data2 = faker.record(
+        "lit",
+        data={"_collections": ["Fermilab"]},
+        literature_citations=[record1["control_number"]],
+    )
+    record2 = InspireRecord.create(data2)
+
+    data3 = faker.record("lit", literature_citations=[record1["control_number"]])
+    record3 = InspireRecord.create(data3)
+
+    assert len(record1.model.citations) == 1
+    assert len(record1.model.references) == 0
+    assert len(record2.model.citations) == 0
+    assert len(record2.model.references) == 0
+    assert len(record3.model.citations) == 0
+    assert len(record3.model.references) == 1
