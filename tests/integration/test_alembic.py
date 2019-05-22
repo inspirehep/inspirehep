@@ -1,9 +1,26 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
 from flask_alembic import Alembic
 from sqlalchemy import text
 
 
 def test_downgrade(app, db):
     alembic = Alembic(app)
+
+    assert "records_citations" in _get_table_names(db)
+    assert "ix_records_citations_cited_id" in _get_indexes("records_citations", db)
+
+    alembic.downgrade(target="5ce9ef759ace")
+
+    assert "record_citations" in _get_table_names(db)
+    assert "records_citations" not in _get_table_names(db)
+    assert "ix_records_citations_cited_id" not in _get_indexes("record_citations", db)
+    assert "idx_citations_cited" in _get_indexes("record_citations", db)
 
     alembic.downgrade(target="b646d3592dd5")
     assert "ix_legacy_records_mirror_last_updated" not in _get_indexes(
@@ -102,6 +119,14 @@ def test_upgrade(app, db):
         "legacy_records_mirror", db
     )
     assert "legacy_records_mirror" in _get_table_names(db)
+
+    alembic.upgrade(target="c6570e49b7b2")
+
+    assert "records_citations" in _get_table_names(db)
+    assert "record_citations" not in _get_table_names(db)
+
+    assert "ix_records_citations_cited_id" in _get_indexes("records_citations", db)
+    assert "idx_citations_cited" not in _get_indexes("records_citations", db)
 
 
 def _get_indexes(tablename, db):

@@ -22,19 +22,19 @@ class RecordCitations(db.Model):
     """Adds Citation table which holds all references
        which are also eligible citations"""
 
-    __tablename__ = "record_citations"
+    __tablename__ = "records_citations"
 
-    __table_args__ = (db.Index("idx_citations_cited", "cited_id"),)
+    __table_args__ = (db.Index("ix_records_citations_cited_id", "cited_id"),)
 
     citer_id = db.Column(
         UUIDType,
-        db.ForeignKey("records_metadata.id", name="fk_record_citations_citer"),
+        db.ForeignKey("records_metadata.id", name="fk_records_citations_citer_id"),
         nullable=False,
         primary_key=True,
     )
     cited_id = db.Column(
         UUIDType,
-        db.ForeignKey("records_metadata.id", name="fk_record_citations_cited"),
+        db.ForeignKey("records_metadata.id", name="fk_records_citations_cited_id"),
         nullable=False,
         primary_key=True,
     )
