@@ -6,8 +6,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 from copy import deepcopy
+from urllib.parse import urlencode
 
 import pytest
+from helpers.providers.faker import faker
 
 
 def test_literature_search_application_json_get(
@@ -443,3 +445,186 @@ def test_literature_search_citeable_filter(api_client, db, create_record_factory
         == citeable_paper.json["control_number"]
     )
 
+
+def test_literature_citation_annual_summary(api_client, db, es_clear, create_record):
+    author = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author['control_number']}"
+            },
+            "full_name": author["name"]["value"],
+        }
+    ]
+    data = {"authors": authors, "preprint_date": "2010-01-01"}
+
+    expected_response = {"data": {"2010": 1}}
+    literature = create_record("lit", faker.record("lit", data=data))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+
+    authors_param = {"author": literature._dump_for_es()["facet_author_name"][0]}
+    response = api_client.get(f"literature/annual_summary/?{urlencode(authors_param)}")
+
+    assert response.json == expected_response
+
+
+def test_literature_citation_annual_summary_with_many_authors(
+    api_client, db, es_clear, create_record
+):
+    author1 = create_record("aut", faker.record("aut"))
+    author2 = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author1['control_number']}"
+            },
+            "full_name": author1["name"]["value"],
+        },
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author2['control_number']}"
+            },
+            "full_name": author2["name"]["value"],
+        },
+    ]
+    data = {"authors": authors, "preprint_date": "2010-01-01"}
+
+    expected_response = {"data": {"2010": 1}}
+    literature = create_record("lit", faker.record("lit", data=data))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+
+    authors_param = {"author": literature._dump_for_es()["facet_author_name"][1]}
+    response = api_client.get(f"literature/annual_summary/?{urlencode(authors_param)}")
+
+    assert response.json == expected_response
+
+
+def test_literature_citation_annual_summary_no_results(
+    api_client, db, es_clear, create_record
+):
+    author1 = create_record("aut", faker.record("aut"))
+    author2 = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author1['control_number']}"
+            },
+            "full_name": author1["name"]["value"],
+        },
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author2['control_number']}"
+            },
+            "full_name": author2["name"]["value"],
+        },
+    ]
+    data = {"authors": authors, "preprint_date": "2010-01-01"}
+
+    expected_response = {"data": {}}
+    literature = create_record("lit", faker.record("lit", data=data))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+
+    authors_param = {"author": "Not existing one"}
+    response = api_client.get(f"literature/annual_summary/?{urlencode(authors_param)}")
+
+    assert response.json == expected_response
+
+
+def test_literature_citation_annual_summary_wrong_search_param(
+    api_client, db, es_clear, create_record
+):
+    author1 = create_record("aut", faker.record("aut"))
+    author2 = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author1['control_number']}"
+            },
+            "full_name": author1["name"]["value"],
+        },
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author2['control_number']}"
+            },
+            "full_name": author2["name"]["value"],
+        },
+    ]
+    data = {"authors": authors, "preprint_date": "2010-01-01"}
+
+    expected_response = {"data": {"2010": 1}}
+    literature = create_record("lit", faker.record("lit", data=data))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+
+    search_param = {"blah": "blah_blah"}
+    response = api_client.get(f"literature/annual_summary/?{urlencode(search_param)}")
+
+    assert response.json == expected_response
+
+
+def test_literature_citation_annual_summary_few_search_params(
+    api_client, db, es_clear, create_record
+):
+    author1 = create_record("aut", faker.record("aut"))
+    author2 = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author1['control_number']}"
+            },
+            "full_name": author1["name"]["value"],
+        },
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author2['control_number']}"
+            },
+            "full_name": author2["name"]["value"],
+        },
+    ]
+    data = {"authors": authors, "preprint_date": "2010-01-01"}
+
+    expected_response = {"data": {"2010": 1}}
+    literature = create_record("lit", faker.record("lit", data=data))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+
+    search_param = {
+        "blah": "blah_blah",
+        "author": literature._dump_for_es()["facet_author_name"][1],
+    }
+    response = api_client.get(f"literature/annual_summary/?{urlencode(search_param)}")
+
+    assert response.json == expected_response

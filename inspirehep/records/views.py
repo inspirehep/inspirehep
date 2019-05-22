@@ -5,11 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-
 from flask import Blueprint, abort, jsonify, request
 from flask.views import MethodView
 from invenio_records_rest.views import pass_record
 
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import (
     ExistingArticleError,
@@ -18,6 +18,7 @@ from inspirehep.records.errors import (
     ImportParsingError,
     UnknownImportIdentifierError,
 )
+from inspirehep.search.factories.search import search_factory_without_aggs
 from inspirehep.submissions.serializers import literature_v1
 
 from ..search.api import LiteratureSearch
@@ -78,3 +79,25 @@ blueprint.add_url_rule(
     '/literature/<pid(lit,record_class="inspirehep.records.api:LiteratureRecord"):pid_value>/citations',
     view_func=literature_citations_view,
 )
+
+
+class AnnualSummaryResource(MethodView):
+    view_name = "literature_citations_summary"
+
+    def get(self):
+        query, urlkwargs = search_factory_without_aggs(None, LiteratureSearch())
+        if not query:
+            return jsonify({"data": {}})
+        _source = ["_id"]
+        query = query.params(_source=_source)
+        results = query.scan()
+
+        records = set([result.meta["id"] for result in results])
+
+        db_query = LiteratureRecord.get_citation_annual_summary(records)
+        results = {r.year.year: r.sum for r in db_query.all() if r.year}
+        return jsonify({"data": results})
+
+
+annual_summary_view = AnnualSummaryResource.as_view(AnnualSummaryResource.view_name)
+blueprint.add_url_rule("/literature/annual_summary/", view_func=annual_summary_view)

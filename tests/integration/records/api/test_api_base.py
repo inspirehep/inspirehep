@@ -12,6 +12,7 @@ import hashlib
 import json
 import os
 import uuid
+from datetime import datetime
 from io import BytesIO
 
 import pytest
@@ -21,6 +22,7 @@ from helpers.providers.faker import faker
 from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
+from psycopg2.tz import FixedOffsetTimezone
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -735,3 +737,67 @@ def test_earliest_date(base_app, db, datadir, create_record_factory, disable_fil
     record = LiteratureRecord.create(data=data)
 
     assert record.earliest_date == "2015-05-05"
+
+
+def test_get_citation_annual_summary(base_app, db, create_record):
+    literature1 = create_record("lit", faker.record("lit"))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature1["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature1["control_number"]],
+            data={"preprint_date": "2013-01-01"},
+        ),
+    )
+    literature2 = create_record("lit", faker.record("lit"))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature2["control_number"]],
+            data={"preprint_date": "2012-01-01"},
+        ),
+    )
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature2["control_number"]],
+            data={"preprint_date": "2013-01-01"},
+        ),
+    )
+
+    results1 = LiteratureRecord.get_citation_annual_summary([str(literature1.id)]).all()
+    expected_response1 = [
+        (1, datetime(year=2010, month=1, day=1, tzinfo=FixedOffsetTimezone())),
+        (1, datetime(year=2013, month=1, day=1, tzinfo=FixedOffsetTimezone())),
+    ]
+
+    assert results1 == expected_response1
+
+    results2 = LiteratureRecord.get_citation_annual_summary([str(literature2.id)]).all()
+    expected_response2 = [
+        (1, datetime(year=2012, month=1, day=1, tzinfo=FixedOffsetTimezone())),
+        (1, datetime(year=2013, month=1, day=1, tzinfo=FixedOffsetTimezone())),
+    ]
+
+    assert results2 == expected_response2
+
+    results_both = LiteratureRecord.get_citation_annual_summary(
+        [str(literature1.id), str(literature2.id)]
+    ).all()
+    expected_both = [
+        (1, datetime(year=2010, month=1, day=1, tzinfo=FixedOffsetTimezone())),
+        (1, datetime(year=2012, month=1, day=1, tzinfo=FixedOffsetTimezone())),
+        (2, datetime(year=2013, month=1, day=1, tzinfo=FixedOffsetTimezone())),
+    ]
+
+    assert results_both == expected_both

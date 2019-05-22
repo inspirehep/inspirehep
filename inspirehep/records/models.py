@@ -22,7 +22,7 @@ class RecordCitations(db.Model):
     """Adds Citation table which holds all references
        which are also eligible citations"""
 
-    __tablename__ = "record_citations"
+    __tablename__ = "records_citations"
 
     __table_args__ = (db.Index("idx_citations_cited", "cited_id"),)
 
