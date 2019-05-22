@@ -54,6 +54,7 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
     book_series = fields.Raw(dump_only=True)
     citeable = fields.Raw(dump_only=True)
     citation_count = fields.Raw(dump_only=True)
+    citations_by_year = fields.Raw(dump_only=True)
     collaborations = fields.Raw(dump_only=True)
     control_number = fields.Raw(dump_only=True)
     copyright = fields.Raw(dump_only=True)
@@ -116,6 +117,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
         exclude = (
             "$schema",
             "copyright",
+            "citations_by_year",
             "citeable",
             "core",
             "curated",

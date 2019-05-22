@@ -6,8 +6,10 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 from copy import deepcopy
+from urllib.parse import urlencode
 
 import pytest
+from helpers.providers.faker import faker
 
 
 def test_literature_search_application_json_get(
@@ -30,6 +32,7 @@ def test_literature_search_application_json_get(
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
         "citation_count": 0,
+        "citations_by_year": [],
     }
 
     response = api_client.get("/literature", headers=headers)
@@ -390,7 +393,7 @@ def test_literature_facets_collaboration(api_client, db, create_record, es_clear
     ]
 
     expected_data = deepcopy(data_1)
-    expected_data.update(citation_count=0)
+    expected_data.update(citation_count=0, citations_by_year=[])
 
     assert expected_status_code == response_status_code
     assert expected_collaboration_buckets == response_data_collaboration_buckets
@@ -458,3 +461,84 @@ def test_literature_search_citeable_filter(api_client, db, create_record_factory
         response_data["hits"]["hits"][0]["metadata"]["control_number"]
         == citeable_paper.json["control_number"]
     )
+
+
+def test_literature_citation_annual_summary(api_client, db, es_clear, create_record):
+    author = create_record("aut", faker.record("aut"))
+    authors = [
+        {
+            "record": {
+                "$ref": f"http://localhost:8000/api/authors/{author['control_number']}"
+            },
+            "full_name": author["name"]["value"],
+        }
+    ]
+    data = {"authors": authors, "preprint_date": "2010-01-01", "citeable": True}
+
+    expected_response = {"value": {"2010": 1}}
+    literature = create_record("lit", faker.record("lit", data=data))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+    literature._index()  # Index again after citation was added
+
+    request_param = {
+        "author": literature._dump_for_es()["facet_author_name"][0],
+        "facet_name": "citations-by-year",
+    }
+    es_clear.indices.refresh("records-hep")
+
+    response = api_client.get(f"literature/facets/?{urlencode(request_param)}")
+
+    assert response.json["aggregations"]["citations_by_year"] == expected_response
+
+
+def test_literature_citation_annual_summary_for_many_records(
+    api_client, db, es_clear, create_record
+):
+    literature1 = create_record("lit", faker.record("lit"))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature1["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature1["control_number"]],
+            data={"preprint_date": "2013-01-01"},
+        ),
+    )
+    literature2 = create_record("lit", faker.record("lit"))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature2["control_number"]],
+            data={"preprint_date": "2012-01-01"},
+        ),
+    )
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature2["control_number"]],
+            data={"preprint_date": "2013-01-01"},
+        ),
+    )
+    literature1._index()
+    literature2._index()
+    request_param = {"facet_name": "citations-by-year"}
+    es_clear.indices.refresh("records-hep")
+    response = api_client.get(f"literature/facets/?{urlencode(request_param)}")
+    expected_response = {"value": {"2013": 2, "2012": 1, "2010": 1}}
+    assert response.json["aggregations"]["citations_by_year"] == expected_response

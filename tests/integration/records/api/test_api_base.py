@@ -735,3 +735,50 @@ def test_earliest_date(base_app, db, datadir, create_record_factory, disable_fil
     record = LiteratureRecord.create(data=data)
 
     assert record.earliest_date == "2015-05-05"
+
+
+def test_get_citation_annual_summary(base_app, db, create_record):
+    literature1 = create_record("lit", faker.record("lit"))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature1["control_number"]],
+            data={"preprint_date": "2010-01-01"},
+        ),
+    )
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature1["control_number"]],
+            data={"preprint_date": "2013-01-01"},
+        ),
+    )
+    literature2 = create_record("lit", faker.record("lit"))
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature2["control_number"]],
+            data={"preprint_date": "2012-01-01"},
+        ),
+    )
+    create_record(
+        "lit",
+        faker.record(
+            "lit",
+            literature_citations=[literature2["control_number"]],
+            data={"preprint_date": "2013-01-01"},
+        ),
+    )
+
+    results1 = literature1.citations_by_year
+    expected_response1 = [{"year": 2010, "count": 1}, {"year": 2013, "count": 1}]
+
+    assert results1 == expected_response1
+
+    results2 = literature2.citations_by_year
+    expected_response2 = [{"year": 2012, "count": 1}, {"year": 2013, "count": 1}]
+
+    assert results2 == expected_response2
