@@ -1,5 +1,6 @@
 import mergeWith from 'lodash.mergewith';
 import cloneDeep from 'lodash.clonedeep';
+import { Map } from 'immutable';
 
 export function forceArray(maybeArray) {
   return maybeArray === undefined || Array.isArray(maybeArray)
@@ -46,6 +47,10 @@ export function selfOrInfinity(number) {
 
 export function getSizeOfArrayOrImmutableList(arrayOrList) {
   return Array.isArray(arrayOrList) ? arrayOrList.length : arrayOrList.size;
+}
+
+export function getFromObjectOrImmutableMap(objectOrMap, key) {
+  return Map.isMap(objectOrMap) ? objectOrMap.get(key) : objectOrMap[key];
 }
 
 export function getWrappedComponentDisplayName(wrapperHocName, ComponentClass) {

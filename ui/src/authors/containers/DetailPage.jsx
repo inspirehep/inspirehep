@@ -13,7 +13,10 @@ import {
   fetchAuthorPublications,
   fetchAuthorPublicationsFacets,
 } from '../../actions/authors';
-import { fetchCitationSummary } from '../../actions/citations';
+import {
+  fetchCitationSummary,
+  fetchCitationsByYear,
+} from '../../actions/citations';
 import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import { getCurrentAffiliationsFromPositions } from '../utils';
@@ -25,6 +28,7 @@ import NumberOfCiteablePapersContainer from './NumberOfCiteablePapersContainer';
 import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {
@@ -62,7 +66,9 @@ class DetailPage extends Component {
 
     dispatch(fetchAuthorPublications());
     dispatch(fetchAuthorPublicationsFacets());
+
     dispatch(fetchCitationSummary());
+    dispatch(fetchCitationsByYear());
   }
 
   render() {
@@ -122,7 +128,7 @@ class DetailPage extends Component {
                       </div>
                     </Col>
                     <Col xs={24} lg={12}>
-                      CitationsPerYearGraph
+                      <CitationsByYearGraphContainer />
                     </Col>
                   </Row>
                 </ContentBox>

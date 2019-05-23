@@ -14,6 +14,7 @@ import {
   hasAnyOfKeys,
   shallowEqual,
   getSearchRank,
+  getFromObjectOrImmutableMap,
 } from '../utils';
 
 describe('utils', () => {
@@ -104,6 +105,20 @@ describe('utils', () => {
 
     it('returns size for immutable', () => {
       expect(getSizeOfArrayOrImmutableList(fromJS([1, 2]))).toBe(2);
+    });
+  });
+
+  describe('getFromObjectOrImmutableMap', () => {
+    it('returns value of given key for a JS object', () => {
+      const object = { foo: 'bar' };
+      const result = getFromObjectOrImmutableMap(object, 'foo');
+      expect(result).toEqual('bar');
+    });
+
+    it('returns value of given key for an immutable map', () => {
+      const object = fromJS({ foo: 'bar' });
+      const result = getFromObjectOrImmutableMap(object, 'foo');
+      expect(result).toEqual('bar');
     });
   });
 

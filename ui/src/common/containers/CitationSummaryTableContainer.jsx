@@ -20,5 +20,5 @@ const stateToProps = state => ({
   error: state.citations.get('errorCitationSummary'),
 });
 
-// TODO: convert immutable to js
+// TODO: convert immutable to js and simplify CitationSummaryTable
 export default connect(stateToProps, null)(CitationSummaryTable);

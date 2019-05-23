@@ -1,6 +1,9 @@
 import React from 'react';
 import { Iterable } from 'immutable';
 
+// TODO: make these class HOC, and set displayName such as toAllJS(WrapperComponentName)
+// in order to improve debugging and snapshot testing
+
 export const convertAllImmutablePropsToJS = WrappedComponent => wrappedComponentProps => {
   const propsAsJS = Object.keys(wrappedComponentProps).reduce(
     (newProps, key) => {

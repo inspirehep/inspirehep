@@ -1,0 +1,466 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationsByYearGraph renders citations for less than 3 years with dummy data for previous 1-2 years 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="bottom"
+      prefixCls="ant-tooltip"
+      title={
+        <span>
+          <strong />
+           citations in
+           
+          <strong />
+        </span>
+      }
+      transitionName="zoom-big-fast"
+    >
+      <FlexibleXYPlot
+        height={150}
+        margin={
+          Object {
+            "bottom": 30,
+            "left": 30,
+            "right": 20,
+            "top": 10,
+          }
+        }
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickTotal={8}
+          tickValues={
+            Array [
+              1997,
+              1998,
+              1999,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1997,
+                "y": 0,
+              },
+              Object {
+                "x": 1998,
+                "y": 0,
+              },
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </Tooltip>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
+exports[`CitationsByYearGraph renders citations for more than 3 less than 8 years with tickValues for the XAxis and without dummy data 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="bottom"
+      prefixCls="ant-tooltip"
+      title={
+        <span>
+          <strong />
+           citations in
+           
+          <strong />
+        </span>
+      }
+      transitionName="zoom-big-fast"
+    >
+      <FlexibleXYPlot
+        height={150}
+        margin={
+          Object {
+            "bottom": 30,
+            "left": 30,
+            "right": 20,
+            "top": 10,
+          }
+        }
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickTotal={8}
+          tickValues={
+            Array [
+              1999,
+              2000,
+              2001,
+              2002,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 5,
+              },
+              Object {
+                "x": 2001,
+                "y": 56,
+              },
+              Object {
+                "x": 2002,
+                "y": 33,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </Tooltip>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
+exports[`CitationsByYearGraph renders hovered info in a tooltip on line series hover 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="bottom"
+      prefixCls="ant-tooltip"
+      title={
+        <span>
+          <strong>
+            10
+          </strong>
+           citations in
+           
+          <strong>
+            1999
+          </strong>
+        </span>
+      }
+      transitionName="zoom-big-fast"
+    >
+      <FlexibleXYPlot
+        height={150}
+        margin={
+          Object {
+            "bottom": 30,
+            "left": 30,
+            "right": 20,
+            "top": 10,
+          }
+        }
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickTotal={8}
+          tickValues={
+            Array [
+              1999,
+              2000,
+              2001,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 5,
+              },
+              Object {
+                "x": 2001,
+                "y": 56,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </Tooltip>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
+exports[`CitationsByYearGraph renders more than 8 years without explicit tickValues for the xAxis 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="bottom"
+      prefixCls="ant-tooltip"
+      title={
+        <span>
+          <strong />
+           citations in
+           
+          <strong />
+        </span>
+      }
+      transitionName="zoom-big-fast"
+    >
+      <FlexibleXYPlot
+        height={150}
+        margin={
+          Object {
+            "bottom": 30,
+            "left": 30,
+            "right": 20,
+            "top": 10,
+          }
+        }
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickTotal={8}
+          tickValues={null}
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 5,
+              },
+              Object {
+                "x": 2001,
+                "y": 5,
+              },
+              Object {
+                "x": 2002,
+                "y": 7,
+              },
+              Object {
+                "x": 2003,
+                "y": 5,
+              },
+              Object {
+                "x": 2004,
+                "y": 56,
+              },
+              Object {
+                "x": 2005,
+                "y": 14,
+              },
+              Object {
+                "x": 2006,
+                "y": 123,
+              },
+              Object {
+                "x": 2007,
+                "y": 112,
+              },
+              Object {
+                "x": 2008,
+                "y": 89,
+              },
+              Object {
+                "x": 2009,
+                "y": 30,
+              },
+              Object {
+                "x": 2010,
+                "y": 100,
+              },
+              Object {
+                "x": 2011,
+                "y": 38,
+              },
+              Object {
+                "x": 2014,
+                "y": 43,
+              },
+              Object {
+                "x": 2015,
+                "y": 5,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </Tooltip>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
+exports[`CitationsByYearGraph renders without citations 1`] = `
+<LoadingOrChildren
+  loading={true}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="bottom"
+      prefixCls="ant-tooltip"
+      title={
+        <span>
+          <strong />
+           citations in
+           
+          <strong />
+        </span>
+      }
+      transitionName="zoom-big-fast"
+    >
+      <FlexibleXYPlot
+        height={150}
+        margin={
+          Object {
+            "bottom": 30,
+            "left": 30,
+            "right": 20,
+            "top": 10,
+          }
+        }
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickTotal={8}
+          tickValues={Array []}
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={Array []}
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </Tooltip>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;

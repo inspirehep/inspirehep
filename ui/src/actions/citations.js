@@ -6,6 +6,9 @@ import {
   CITATIONS_SUMMARY_REQUEST,
   CITATIONS_SUMMARY_SUCCESS,
   CITATIONS_SUMMARY_ERROR,
+  CITATIONS_BY_YEAR_REQUEST,
+  CITATIONS_BY_YEAR_SUCCESS,
+  CITATIONS_BY_YEAR_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
 import { LITERATURE, AUTHORS } from '../common/routes';
@@ -65,7 +68,7 @@ export function fetchCitations(pidType, recordId, paginationOptions) {
   };
 }
 
-function getCitationSummaryQuery(state) {
+function getCitationsQuery(state) {
   const { pathname } = state.router.location;
 
   if (pathname.startsWith(LITERATURE)) {
@@ -76,9 +79,7 @@ function getCitationSummaryQuery(state) {
     return state.authors.getIn(['publications', 'query']).toJS();
   }
 
-  throw Error(
-    `Can not get citations summary query for pathname: "${pathname}"`
-  );
+  throw Error(`Can not get citations query for pathname: "${pathname}"`);
 }
 
 export function fetchCitationSummary() {
@@ -86,7 +87,7 @@ export function fetchCitationSummary() {
     dispatch(fetchingCitationsSummary());
     try {
       const query = {
-        ...getCitationSummaryQuery(getState()),
+        ...getCitationsQuery(getState()),
         facet_name: 'citation-summary',
       };
       const queryString = stringify(query, { indices: false });
@@ -96,6 +97,45 @@ export function fetchCitationSummary() {
     } catch (error) {
       const payload = httpErrorToActionPayload(error);
       dispatch(fetchCitationsSummaryError(payload));
+    }
+  };
+}
+
+function fetchingCitationsByYear() {
+  return {
+    type: CITATIONS_BY_YEAR_REQUEST,
+  };
+}
+
+function fetchCitationsByYearSuccess(result) {
+  return {
+    type: CITATIONS_BY_YEAR_SUCCESS,
+    payload: result,
+  };
+}
+
+function fetchCitationsByYearError(error) {
+  return {
+    type: CITATIONS_BY_YEAR_ERROR,
+    payload: error,
+  };
+}
+
+export function fetchCitationsByYear() {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingCitationsByYear());
+    try {
+      const query = {
+        ...getCitationsQuery(getState()),
+        facet_name: 'citations-by-year',
+      };
+      const queryString = stringify(query, { indices: false });
+      const url = `/literature/facets?${queryString}`;
+      const response = await http.get(url);
+      dispatch(fetchCitationsByYearSuccess(response.data));
+    } catch (error) {
+      const payload = httpErrorToActionPayload(error);
+      dispatch(fetchCitationsByYearError(payload));
     }
   };
 }
