@@ -1,0 +1,197 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
+import logging
+from os import makedirs, path
+from time import sleep
+
+import click
+from click import UsageError
+from flask import current_app
+from flask.cli import with_appcontext
+from invenio_db import db
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from invenio_search.cli import index
+
+from inspirehep.records.api import InspireRecord
+from inspirehep.records.indexer.tasks import batch_index
+
+logger = logging.getLogger()
+
+
+def next_batch(iterator, batch_size):
+    """Get first batch_size elements from the iterable, or remaining if less.
+
+    Args:
+        iterator(Iterator): the iterator to batch.
+        batch_size(int): the size of the batch.
+
+    Returns:
+        list: the next batch from the given iterator object.
+    """
+    batch = []
+
+    try:
+        for idx in range(batch_size):
+            batch.append(next(iterator))
+    except StopIteration:
+        pass
+
+    return batch
+
+
+def get_query_records_to_index(pid_types):
+    """Return a query for retrieving all records by pid_type.
+
+    Args:
+        pid_types(List[str]): a list of pid types
+
+    Return:
+        SQLAlchemy query for non deleted record with pid type in `pid_types`
+    """
+    query = db.session.query(PersistentIdentifier.object_uuid).filter(
+        PersistentIdentifier.pid_type.in_(pid_types),
+        PersistentIdentifier.object_type == "rec",
+        PersistentIdentifier.status == PIDStatus.REGISTERED,
+        )  # noqa
+    return query
+
+
+def _prepare_logdir(log_path):
+    if not path.exists(path.dirname(log_path)):
+        makedirs(path.dirname(log_path))
+
+
+@index.command('reindex')
+@click.option("--all", is_flag=True, help="Reindex all the records.", show_default=True)
+@click.option("-p", "--pidtype", multiple=True, help='Reindex only the specified PIDs. Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins"].')
+@click.option("-id", "--pid", nargs=2, help="The pid-type and pid-value of the record to reindex. Example `reindex -id lit 1234.`", show_default=True)
+@click.option("-q", "--queue-name", default="indexer_task", help="RabbitMQ queue used for sending indexing tasks.", show_default=True)
+@click.option("-bs", "--batch-size", default=200, help="The number of documents per batch that will be indexed by workers.", show_default=True)
+@click.option("-dbs", "--db-batch-size", default=2000, help="The size of the chunk of records loaded from the DB.", show_default=True)
+@click.option("-l", "--log-path", default="/tmp/inspire/", help="The path of the indexing logs. Default is /tmp/inspire.", show_default=True)
+@with_appcontext
+@click.pass_context
+def reindex_records(ctx, all, pidtype, pid, queue_name, batch_size, db_batch_size, log_path):
+    """Reindex records in ElasticSearch.
+
+    This command indexes the all the records related to the given PIDs in batches, asynchronously,
+    by sending celery tasks to the specified queue. Indexing errors logged to file into the `log-path` folder.
+    Please, specify only one of the args between 'all', 'pid', and 'recid'.
+
+    Example:
+
+        * Reindexing all the records in Inspire:
+
+            >>> inspirehep index reindex --all
+
+
+        * Reindex only author records:
+
+            >>> inspirehep index reindex --pid aut
+
+
+        * Reindex only authors and journals:
+
+            >>> inspirehep index reindex -p aut -p jou
+
+
+        * Reindex only one record:
+
+            >>> inspirehep index reindex -id lit 123456
+    """
+    if not bool(all) ^ bool(pidtype) ^ bool(pid):
+        raise UsageError("Please, specify only one of the args between 'all', 'pidtype', and 'pid'.")
+
+    allowed_pids = ("lit", "con", "dat", "exp", "jou", "aut", "job", "ins")
+
+    if pid:
+        pid_type = pid[0]
+        if pid_type not in allowed_pids:
+            raise ValueError(f'PID {pidtype} not allowed. Use one of {allowed_pids}.')
+        pid_value = pid[1]
+        record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
+        record.index()
+        click.secho(f"Successfully reindexed record {pid}", fg="green")
+        ctx.exit(0)
+
+    if not set(pidtype) <= set(allowed_pids):
+        raise ValueError(f'PIDs {pidtype} are not a subset of {allowed_pids}.')
+    if all:
+        pidtype = allowed_pids
+
+    if not log_path:
+        raise ValueError('Specified empty log path.')
+
+    log_path = path.join(log_path, "records_index_failures.log")
+    _prepare_logdir(log_path)
+    file_log = logging.FileHandler(log_path)
+    file_log.setLevel(logging.ERROR)
+    logger.addHandler(file_log)
+    logger.info(f"Saving errors to {log_path}")
+
+    request_timeout = current_app.config.get("INDEXER_BULK_REQUEST_TIMEOUT")
+    all_tasks = []
+    uuid_records_per_tasks = {}
+    query = get_query_records_to_index(pidtype)
+
+    with click.progressbar(
+        query.yield_per(db_batch_size),
+        length=query.count(),
+        label=f"Scheduling indexing tasks to the '{queue_name}' queue."
+    ) as items:
+        batch = next_batch(items, batch_size)
+
+        while batch:
+            uuids = [str(item[0]) for item in batch]
+            indexer_task = batch_index.apply_async(
+                kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
+                queue=queue_name,
+            )
+
+            uuid_records_per_tasks[indexer_task.id] = uuids
+            all_tasks.append(indexer_task)
+            batch = next_batch(items, batch_size)
+
+    click.secho("Created {} bulk-indexing tasks.".format(len(all_tasks)), fg="green")
+
+    with click.progressbar(
+        length=len(all_tasks), label="Indexing records"
+    ) as progressbar:
+
+        def _finished_tasks_count():
+            return len([task for task in all_tasks if task.ready()])
+
+        while len(all_tasks) != _finished_tasks_count():
+            sleep(0.5)
+            # this is so click doesn't divide by 0:
+            progressbar.pos = _finished_tasks_count() or 1
+            progressbar.update(0)
+
+    failures = []
+    failures_count = 0
+    successes = 0
+    batch_errors = []
+
+    for task in all_tasks:
+        result = task.result
+        if task.failed():
+            batch_errors.append({"task_id": task.id, "error": result})
+        else:
+            successes += result["success"]
+            failures += result["failures"]
+            failures_count += result["failures_count"]
+
+    color = "red" if failures or batch_errors else "green"
+    click.secho(
+        f"Reindex completed!\n{successes} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
+        fg=color,
+    )
+    if failures:
+        logger.error(f"Got {len(failures)} during the reindexing process:")
+        for failure in failures:
+            logger.error(f"{failure}")
