@@ -130,9 +130,9 @@ class LiteratureSearch(InspireSearch):
             "publication_info",
         ]
         from_rec = (page - 1) * size
-        citations_query = Q("match", references__recid=record["control_number"]) & ~Q(
-            "match", related_records__relation="successor"
-        )
+        citations_query = Q(
+            "match", **{"references.record.$ref": record["control_number"]}
+        ) & ~Q("match", **{"related_records.relation": "successor"})
         citations_search = (
             LiteratureSearch()
             .query(citations_query)

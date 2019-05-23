@@ -176,7 +176,7 @@ def get_literature_recids_for_orcid(orcid):
     )
 
     query = Q("match", authors__curated_relation=True) & Q(
-        "match", authors__recid=author_recid
+        "match", **{"authors.record.$ref": author_recid}
     )
     search_by_curated_author = (
         LiteratureSearch()
