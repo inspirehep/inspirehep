@@ -119,7 +119,8 @@
             "record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -191,7 +192,8 @@
                 "record": {
                   "properties": {
                     "$ref": {
-                      "type": "keyword"
+                      "type": "text",
+                      "analyzer": "recid_analyzer"
                     }
                   },
                   "type": "object"
@@ -279,7 +281,8 @@
             "record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -327,7 +330,8 @@
             "record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -380,7 +384,8 @@
         "deleted_records": {
           "properties": {
             "$ref": {
-              "type": "keyword"
+              "type": "text",
+              "analyzer": "recid_analyzer"
             }
           },
           "type": "object"
@@ -620,7 +625,8 @@
         "new_record": {
           "properties": {
             "$ref": {
-              "type": "keyword"
+              "type": "text",
+              "analyzer": "recid_analyzer"
             }
           },
           "type": "object"
@@ -687,7 +693,8 @@
             "conference_record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -705,7 +712,8 @@
             "journal_record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -748,7 +756,8 @@
             "parent_record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -782,7 +791,8 @@
             "record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               }
             },
@@ -821,7 +831,8 @@
             "record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -996,7 +1007,8 @@
             "record": {
               "properties": {
                 "$ref": {
-                  "type": "keyword"
+                  "type": "text",
+                  "analyzer": "recid_analyzer"
                 }
               },
               "type": "object"
@@ -1037,7 +1049,8 @@
         "self": {
           "properties": {
             "$ref": {
-              "type": "keyword"
+              "type": "text",
+              "analyzer": "recid_analyzer"
             }
           },
           "type": "object"
@@ -1085,7 +1098,8 @@
                 "record": {
                   "properties": {
                     "$ref": {
-                      "type": "keyword"
+                      "type": "text",
+                      "analyzer": "recid_analyzer"
                     }
                   },
                   "type": "object"
@@ -1195,6 +1209,9 @@
           "filter": ["lowercase_normalizer", "ascii_normalizer"],
           "tokenizer": "whitespace",
           "type": "custom"
+        },
+        "recid_analyzer": {
+          "tokenizer": "recid_tokenizer"
         }
       },
       "normalizer": {
@@ -1223,6 +1240,13 @@
         },
         "lowercase_normalizer": {
           "type": "lowercase"
+        }
+      },
+      "tokenizer": {
+        "recid_tokenizer": {
+          "type": "pattern",
+          "pattern": "(\\d+)",
+          "group": 1
         }
       }
     }
