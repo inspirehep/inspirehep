@@ -2,9 +2,11 @@
 
 exports[`CitationListContainer does not render if total <= 0 1`] = `
 <ContentBox
+  className=""
   leftActions={null}
   loading={false}
   rightActions={null}
+  subTitle={null}
   title={null}
 >
   <ErrorAlertOrChildren />
@@ -13,9 +15,11 @@ exports[`CitationListContainer does not render if total <= 0 1`] = `
 
 exports[`CitationListContainer renders with error 1`] = `
 <ContentBox
+  className=""
   leftActions={null}
   loading={false}
   rightActions={null}
+  subTitle={null}
   title={null}
 >
   <ErrorAlertOrChildren
@@ -30,9 +34,11 @@ exports[`CitationListContainer renders with error 1`] = `
 
 exports[`CitationListContainer renders with state from store 1`] = `
 <ContentBox
+  className=""
   leftActions={null}
   loading={false}
   rightActions={null}
+  subTitle={null}
   title={null}
 >
   <ErrorAlertOrChildren>
