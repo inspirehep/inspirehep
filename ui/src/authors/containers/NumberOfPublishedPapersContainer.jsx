@@ -5,8 +5,7 @@ import {
   fetchAuthorPublicationsFacets,
 } from '../../actions/authors';
 import LinkLikeButton from '../../common/components/LinkLikeButton';
-
-const PUBLISHED_QUERY = { q: 'citeable:true and refereed:true' };
+import { PUBLISHED_QUERY } from '../../common/constants';
 
 export const dispatchToProps = dispatch => ({
   onClick() {
