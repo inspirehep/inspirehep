@@ -4,7 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from copy import deepcopy
+
+from copy import copy
 
 from inspire_dojson.utils import get_recid_from_ref, strip_empty_values
 from marshmallow import post_dump
@@ -88,7 +89,7 @@ class PopulateRecidMixin(object):
             if isinstance(json_root, list):
                 items = enumerate(json_root)
             elif isinstance(json_root, dict):
-                items = deepcopy(json_root).items()
+                items = copy(json_root).items()
             else:
                 items = []
             for key, value in items:
