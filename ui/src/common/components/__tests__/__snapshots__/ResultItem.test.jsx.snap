@@ -2,9 +2,11 @@
 
 exports[`ResultItem render initial state with all props set 1`] = `
 <ContentBox
+  className=""
   leftActions={null}
   loading={false}
   rightActions={null}
+  subTitle={null}
   title={null}
 >
   <span>

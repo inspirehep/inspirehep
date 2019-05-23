@@ -14,11 +14,9 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
         <tbody>
           <tr>
             <th>
-              <strong
-                className="f5"
-              >
+              <h3>
                 Citation Summary
-              </strong>
+              </h3>
             </th>
             <th>
               <LabelWithHelp

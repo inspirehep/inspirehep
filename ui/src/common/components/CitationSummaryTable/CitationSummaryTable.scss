@@ -8,10 +8,7 @@
   th {
     color: $secondary-color;
     font-weight: normal;
-    padding-left: 0.5rem;
-    padding-right: 0.25rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    padding: 0.25rem;
   }
 
   td {
@@ -29,15 +26,12 @@
         text-align: right;
       }
       th:first-child {
-        width: 40%;
+        width: 30%;
       }
     }
     &:nth-child(2) {
       border-top: none;
     }
-  }
-  @media (max-width: $screen-sm-max) {
-    margin-top: 0.188rem !important;
   }
   border: $border;
   border-radius: $card-radius;

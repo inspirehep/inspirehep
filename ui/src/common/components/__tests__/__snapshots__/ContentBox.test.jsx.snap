@@ -4,9 +4,10 @@ exports[`ContentBox does not render ContentBox without children 1`] = `""`;
 
 exports[`ContentBox renders ContentBox with actions 1`] = `
 <div
-  className="__ContentBox__"
+  className="__ContentBox__ h-100 "
 >
   <Card
+    className="h-100"
     loading={false}
     title={null}
   >
@@ -14,7 +15,9 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
       className="pa2"
     >
       <div>
-        Defenders
+        <div>
+          Defenders
+        </div>
       </div>
     </div>
     <Row
@@ -31,9 +34,10 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
 
 exports[`ContentBox renders ContentBox with actions and title with loading 1`] = `
 <div
-  className="__ContentBox__"
+  className="__ContentBox__ h-100 "
 >
   <Card
+    className="h-100"
     loading={true}
     title="Jessica Jones"
   >
@@ -41,7 +45,9 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
       className="pa2"
     >
       <div>
-        Defenders
+        <div>
+          Defenders
+        </div>
       </div>
     </div>
     <Row
@@ -58,9 +64,10 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
 
 exports[`ContentBox renders ContentBox with actions and title without loading 1`] = `
 <div
-  className="__ContentBox__"
+  className="__ContentBox__ h-100 "
 >
   <Card
+    className="h-100"
     loading={false}
     title="Jessica Jones"
   >
@@ -68,7 +75,44 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
       className="pa2"
     >
       <div>
-        Defenders
+        <div>
+          Defenders
+        </div>
+      </div>
+    </div>
+    <Row
+      gutter={0}
+      justify="space-between"
+      type="flex"
+    >
+      <Col />
+      <Col />
+    </Row>
+  </Card>
+</div>
+`;
+
+exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
+<div
+  className="__ContentBox__ h-100 pa3"
+>
+  <Card
+    className="h-100"
+    loading={false}
+    title={null}
+  >
+    <div
+      className="pa2"
+    >
+      <h3
+        className="pb1"
+      >
+        Lame
+      </h3>
+      <div>
+        <div>
+          Defenders
+        </div>
       </div>
     </div>
     <Row
@@ -85,9 +129,10 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
 
 exports[`ContentBox renders ContentBox without actions 1`] = `
 <div
-  className="__ContentBox__"
+  className="__ContentBox__ h-100 "
 >
   <Card
+    className="h-100"
     loading={false}
     title={null}
   >
@@ -95,7 +140,9 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
       className="pa2"
     >
       <div>
-        Defenders
+        <div>
+          Defenders
+        </div>
       </div>
     </div>
     <Row

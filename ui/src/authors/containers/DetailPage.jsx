@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'antd';
@@ -18,7 +18,6 @@ import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
-import SubContentBox from '../../common/components/SubContentBox';
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
 import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
@@ -84,67 +83,81 @@ class DetailPage extends Component {
     const experiments = metadata.get('project_membership');
 
     return (
-      <Fragment>
-        <Row type="flex" justify="center">
-          <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
-            <ContentBox loading={loading}>
-              <Alert
-                type="info"
-                showIcon
-                message={
-                  <span>
-                    The author profile is currently under development. More
-                    features coming soon!
-                  </span>
-                }
-              />
-              <h2 className="mt3">
-                <AuthorName name={name} />
-                {currentPositions.size > 0 && (
-                  <span className="pl1 f6">
-                    (
-                    <AuthorAffiliationList affiliations={currentPositions} />
-                    )
-                  </span>
-                )}
-              </h2>
-              <div className="mt1">
-                <ArxivCategoryList arxivCategories={arxivCategories} />
-                <ExperimentList experiments={experiments} />
-              </div>
-              <div className="mt3">
-                <Row gutter={20}>
-                  {shouldDisplayPositions && (
-                    <Col xs={24} md={12} lg={8} xl={7}>
-                      <SubContentBox title="Positions">
-                        <PositionsTimeline positions={positions} />
-                      </SubContentBox>
+      <>
+        <Row className="mv3" type="flex" justify="center">
+          <Col xs={24} md={21} lg={19} xl={18}>
+            <Alert
+              type="info"
+              showIcon
+              message={
+                <span>
+                  The author profile is currently under development. More
+                  features coming soon!
+                </span>
+              }
+            />
+            <Row
+              className="mt3"
+              type="flex"
+              gutter={{ xs: 0, md: 16, lg: 32 }}
+              justify="space-between"
+            >
+              <Col xs={24} md={12} lg={16}>
+                <ContentBox loading={loading} className="sm-pb3">
+                  <Row type="flex" justify="space-between">
+                    <Col xs={24} lg={12}>
+                      <h2>
+                        <AuthorName name={name} />
+                        {currentPositions.size > 0 && (
+                          <span className="pl1 f6">
+                            (<AuthorAffiliationList
+                              affiliations={currentPositions}
+                            />)
+                          </span>
+                        )}
+                      </h2>
+                      <div className="mt1">
+                        <ArxivCategoryList arxivCategories={arxivCategories} />
+                        <ExperimentList experiments={experiments} />
+                      </div>
                     </Col>
-                  )}
-                  <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
-                    <Col xs={24} md={12} lg={10} xl={9}>
-                      <CitationSummaryTableContainer
-                        renderNumberOfCiteablePapers={
-                          DetailPage.renderNumberOfCiteablePapers
-                        }
-                        renderNumberOfPublishedPapers={
-                          DetailPage.renderNumberOfPublishedPapers
-                        }
-                      />
-                    </Col>
-                  </AuthorizedContainer>
-                </Row>
-              </div>
-              <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
-                <div className="mt3">
-                  <Row>
-                    <Col xs={24} md={24} lg={20} xl={12}>
-                      <CitationSummaryGraphContainer />
+                    <Col xs={24} lg={12}>
+                      CitationsPerYearGraph
                     </Col>
                   </Row>
-                </div>
-              </AuthorizedContainer>
-            </ContentBox>
+                </ContentBox>
+              </Col>
+              {shouldDisplayPositions && (
+                <Col xs={24} md={12} lg={8}>
+                  <ContentBox loading={loading} subTitle="Positions">
+                    <PositionsTimeline positions={positions} />
+                  </ContentBox>
+                </Col>
+              )}
+            </Row>
+          </Col>
+        </Row>
+        <Row className="mb3" type="flex" justify="center">
+          <Col xs={24} md={21} lg={19} xl={18}>
+            <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+              <ContentBox>
+                <Row gutter={{ xs: 0, lg: 32 }}>
+                  <Col xs={24} md={12} lg={7}>
+                    <CitationSummaryTableContainer
+                      renderNumberOfCiteablePapers={
+                        DetailPage.renderNumberOfCiteablePapers
+                      }
+                      renderNumberOfPublishedPapers={
+                        DetailPage.renderNumberOfPublishedPapers
+                      }
+                    />
+                  </Col>
+                  <Col xs={24} md={12} lg={17}>
+                    <CitationSummaryGraphContainer />
+                  </Col>
+                </Row>
+              </ContentBox>
+            </AuthorizedContainer>
           </Col>
         </Row>
         <Row type="flex" justify="center">
@@ -161,7 +174,7 @@ class DetailPage extends Component {
             </ContentBox>
           </Col>
         </Row>
-      </Fragment>
+      </>
     );
   }
 }

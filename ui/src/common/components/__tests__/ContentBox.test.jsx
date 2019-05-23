@@ -44,6 +44,15 @@ describe('ContentBox', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders ContentBox with subTitle and className', () => {
+    const wrapper = shallow(
+      <ContentBox subTitle="Lame" className="pa3">
+        <div>Defenders</div>
+      </ContentBox>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('does not render ContentBox without children', () => {
     const wrapper = shallow(<ContentBox actions={[<h2 key="pi">PI</h2>]} />);
     expect(wrapper).toMatchSnapshot();

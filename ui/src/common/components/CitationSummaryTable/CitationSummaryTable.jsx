@@ -38,7 +38,7 @@ class CitationSummaryTable extends Component {
               <tbody>
                 <tr>
                   <th>
-                    <strong className="f5">Citation Summary</strong>
+                    <h3>Citation Summary</h3>
                   </th>
                   <th>
                     <LabelWithHelp
