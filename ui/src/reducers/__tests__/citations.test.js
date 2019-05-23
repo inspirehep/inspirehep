@@ -6,16 +6,7 @@ import * as types from '../../actions/actionTypes';
 describe('citations reducer', () => {
   it('default', () => {
     const state = reducer(undefined, {});
-    const expected = fromJS({
-      loading: false,
-      data: [],
-      total: 0,
-      error: null,
-      loadingCitationSummary: false,
-      citationSummary: null,
-      errorCitationSummary: null,
-    });
-    expect(state).toEqual(expected);
+    expect(state).toEqual(initialState);
   });
 
   it('CITATIONS_REQUEST', () => {
@@ -94,6 +85,51 @@ describe('citations reducer', () => {
       loadingCitationSummary: false,
       errorCitationSummary: payload,
       citationSummary: initialState.get('citationSummary'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('CITATIONS_BY_YEAR_REQUEST', () => {
+    const state = reducer(Map(), { type: types.CITATIONS_BY_YEAR_REQUEST });
+    const expected = fromJS({
+      loadingCitationsByYear: true,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('CITATIONS_BY_YEAR_SUCCESS', () => {
+    const payload = {
+      aggregations: {
+        citations_by_year: {
+          value: {
+            '1993': 21,
+            '2000': 12,
+          },
+        },
+      },
+    };
+    const state = reducer(Map(), {
+      type: types.CITATIONS_BY_YEAR_SUCCESS,
+      payload,
+    });
+    const expected = fromJS({
+      loadingCitationsByYear: false,
+      errorCitationsByYear: initialState.get('error'),
+      byYear: payload.aggregations.citations_by_year.value,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('CITATIONS_BY_YEAR_ERROR', () => {
+    const payload = { message: 'error' };
+    const state = reducer(Map(), {
+      type: types.CITATIONS_BY_YEAR_ERROR,
+      payload,
+    });
+    const expected = fromJS({
+      loadingCitationsByYear: false,
+      errorCitationsByYear: payload,
+      byYear: initialState.get('byYear'),
     });
     expect(state).toEqual(expected);
   });
