@@ -1,5 +1,227 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CitationSummaryGraphContainer renders citeable selected bar 1`] = `
+<CitationSummaryGraph
+  citeableData={
+    Array [
+      Object {
+        "doc_count": 1,
+        "from": 0,
+        "key": "0.0-1.0",
+        "to": 1,
+      },
+      Object {
+        "doc_count": 2,
+        "from": 1,
+        "key": "1.0-50.0",
+        "to": 50,
+      },
+      Object {
+        "doc_count": 3,
+        "from": 50,
+        "key": "50.0-250.0",
+        "to": 250,
+      },
+      Object {
+        "doc_count": 4,
+        "from": 250,
+        "key": "250.0-500.0",
+        "to": 500,
+      },
+      Object {
+        "doc_count": 0,
+        "from": 500,
+        "key": "500.0-*",
+      },
+    ]
+  }
+  error={null}
+  loading={false}
+  onSelectBarChange={[Function]}
+  publishedData={
+    Array [
+      Object {
+        "doc_count": 1,
+        "from": 0,
+        "key": "0.0-1.0",
+        "to": 1,
+      },
+      Object {
+        "doc_count": 2,
+        "from": 1,
+        "key": "1.0-50.0",
+        "to": 50,
+      },
+      Object {
+        "doc_count": 3,
+        "from": 50,
+        "key": "50.0-250.0",
+        "to": 250,
+      },
+      Object {
+        "doc_count": 4,
+        "from": 250,
+        "key": "250.0-500.0",
+        "to": 500,
+      },
+      Object {
+        "doc_count": 0,
+        "from": 500,
+        "key": "500.0-*",
+      },
+    ]
+  }
+  selectedBar={
+    Object {
+      "type": "citeable",
+      "xValue": "0--0",
+    }
+  }
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "clear": [Function],
+        "get": [Function],
+        "notify": [Function],
+        "subscribe": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": [Function],
+    }
+  }
+/>
+`;
+
+exports[`CitationSummaryGraphContainer renders published selected bar 1`] = `
+<CitationSummaryGraph
+  citeableData={
+    Array [
+      Object {
+        "doc_count": 1,
+        "from": 0,
+        "key": "0.0-1.0",
+        "to": 1,
+      },
+      Object {
+        "doc_count": 2,
+        "from": 1,
+        "key": "1.0-50.0",
+        "to": 50,
+      },
+      Object {
+        "doc_count": 3,
+        "from": 50,
+        "key": "50.0-250.0",
+        "to": 250,
+      },
+      Object {
+        "doc_count": 4,
+        "from": 250,
+        "key": "250.0-500.0",
+        "to": 500,
+      },
+      Object {
+        "doc_count": 0,
+        "from": 500,
+        "key": "500.0-*",
+      },
+    ]
+  }
+  error={null}
+  loading={false}
+  onSelectBarChange={[Function]}
+  publishedData={
+    Array [
+      Object {
+        "doc_count": 1,
+        "from": 0,
+        "key": "0.0-1.0",
+        "to": 1,
+      },
+      Object {
+        "doc_count": 2,
+        "from": 1,
+        "key": "1.0-50.0",
+        "to": 50,
+      },
+      Object {
+        "doc_count": 3,
+        "from": 50,
+        "key": "50.0-250.0",
+        "to": 250,
+      },
+      Object {
+        "doc_count": 4,
+        "from": 250,
+        "key": "250.0-500.0",
+        "to": 500,
+      },
+      Object {
+        "doc_count": 0,
+        "from": 500,
+        "key": "500.0-*",
+      },
+    ]
+  }
+  selectedBar={
+    Object {
+      "type": "published",
+      "xValue": "0--0",
+    }
+  }
+  store={
+    Object {
+      "clearActions": [Function],
+      "dispatch": [Function],
+      "getActions": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "clear": [Function],
+        "get": [Function],
+        "notify": [Function],
+        "subscribe": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "clearActions": [Function],
+        "dispatch": [Function],
+        "getActions": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": [Function],
+    }
+  }
+/>
+`;
+
 exports[`CitationSummaryGraphContainer renders with state from store 1`] = `
 <CitationSummaryGraph
   citeableData={
@@ -35,9 +257,9 @@ exports[`CitationSummaryGraphContainer renders with state from store 1`] = `
       },
     ]
   }
-  dispatch={[Function]}
   error={null}
-  loadingCitationSummary={false}
+  loading={false}
+  onSelectBarChange={[Function]}
   publishedData={
     Array [
       Object {
@@ -71,6 +293,7 @@ exports[`CitationSummaryGraphContainer renders with state from store 1`] = `
       },
     ]
   }
+  selectedBar={null}
   store={
     Object {
       "clearActions": [Function],

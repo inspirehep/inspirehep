@@ -8,7 +8,6 @@ import EmbeddedSearch from '../../../common/components/EmbeddedSearch';
 import {
   AUTHOR_PUBLICATIONS_REQUEST,
   AUTHOR_PUBLICATIONS_FACETS_REQUEST,
-  CITATIONS_SUMMARY_REQUEST,
 } from '../../../actions/actionTypes';
 
 describe('AuthorPublicationsContainer', () => {
@@ -34,7 +33,7 @@ describe('AuthorPublicationsContainer', () => {
   });
 
   // FIXME: avoid also testing that actions merging newQuery and state query
-  it('dispatches fetch author publications and facets, and new citation summary onQueryChange', () => {
+  it('dispatches fetch author publications and facets onQueryChange', () => {
     const existingQuery = { page: 3, size: 10, author: ['Harun'] };
     const queryChange = { sort: 'mostcited' };
     const newQuery = {
@@ -63,9 +62,6 @@ describe('AuthorPublicationsContainer', () => {
       {
         type: AUTHOR_PUBLICATIONS_FACETS_REQUEST,
         payload: newQuery,
-      },
-      {
-        type: CITATIONS_SUMMARY_REQUEST,
       },
     ];
     const actions = store.getActions().slice(0, 3); // slice to assert only REQUEST actions

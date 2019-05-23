@@ -11,17 +11,22 @@ import {
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import './CitationSummaryGraph.scss';
-import '../../../../node_modules/react-vis/dist/style.css';
-import maxby from 'lodash.maxby';
-import styleVariables from '../../../styleVariables';
+import 'react-vis/dist/style.css';
+import maxBy from 'lodash.maxby';
 import { ErrorPropType } from '../../propTypes';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
+import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
+import styleVariables from '../../../styleVariables';
+import { shallowEqual } from '../../utils';
 
 const BAR_WIDTH = 0.5;
 
-const ORANGE = styleVariables['orange-6'];
-const BLUE = styleVariables['primary-color'];
+export const ORANGE = styleVariables['orange-6'];
+export const HOVERED_ORANGE = styleVariables['orange-7'];
+export const BLUE = styleVariables['primary-color'];
+export const HOVERED_BLUE = styleVariables['blue-7'];
+export const GRAY = styleVariables['gray-6'];
 
 const LEGENDS = [
   { title: 'Citeable', color: BLUE },
@@ -29,45 +34,127 @@ const LEGENDS = [
 ];
 
 const xValueToLabel = {
-  '0.0-1.0': '0',
-  '1.0-10.0': '1-9',
-  '10.0-50.0': '10-49',
-  '50.0-100.0': '50-99',
-  '100.0-250.0': '100-249',
-  '250.0-500.0': '250-499',
-  '500.0-*': '500+',
+  '0--0': '0',
+  '1--9': '1-9',
+  '10--49': '10-49',
+  '50--99': '50-99',
+  '100--249': '100-249',
+  '250--499': '250-499',
+  '500--': '500+',
+};
+
+const typeToColors = {
+  [CITEABLE_BAR_TYPE]: { color: BLUE, hoveredColor: HOVERED_BLUE },
+  [PUBLISHED_BAR_TYPE]: { color: ORANGE, hoveredColor: HOVERED_ORANGE },
 };
 
 class CitationSummaryGraph extends Component {
-  static toSeriesData(bucket) {
+  constructor() {
+    super();
+    this.onBarMouseOut = this.onBarMouseOut.bind(this);
+    this.onCiteableBarHover = this.onCiteableBarHover.bind(this);
+    this.onPublishedBarHover = this.onPublishedBarHover.bind(this);
+    this.onCiteableBarClick = this.onCiteableBarClick.bind(this);
+    this.onPublishedBarClick = this.onPublishedBarClick.bind(this);
+    this.state = {
+      hoveredBar: null,
+    };
+  }
+
+  onCiteableBarClick(datapoint) {
+    this.onBarClick({
+      xValue: datapoint.x,
+      type: CITEABLE_BAR_TYPE,
+    });
+  }
+
+  onPublishedBarClick(datapoint) {
+    this.onBarClick({
+      xValue: datapoint.x,
+      type: PUBLISHED_BAR_TYPE,
+    });
+  }
+
+  onBarClick(clickedBar) {
+    const { onSelectBarChange } = this.props;
+    if (this.isSelectedBar(clickedBar)) {
+      onSelectBarChange(null);
+    } else {
+      onSelectBarChange(clickedBar);
+    }
+  }
+
+  onCiteableBarHover(datapoint) {
+    this.onBarMouseHover({
+      xValue: datapoint.x,
+      type: CITEABLE_BAR_TYPE,
+    });
+  }
+
+  onPublishedBarHover(datapoint) {
+    this.onBarMouseHover({
+      xValue: datapoint.x,
+      type: PUBLISHED_BAR_TYPE,
+    });
+  }
+
+  onBarMouseHover(hoveredBar) {
+    this.setState({ hoveredBar });
+  }
+
+  onBarMouseOut() {
+    this.setState({ hoveredBar: null });
+  }
+
+  getBarColor(bar) {
+    const { selectedBar } = this.props;
+    if (this.isHoveredBar(bar)) {
+      return typeToColors[bar.type].hoveredColor;
+    }
+    if (!selectedBar || this.isSelectedBar(bar)) {
+      return typeToColors[bar.type].color;
+    }
+    return GRAY;
+  }
+
+  toSeriesData(bucket, type) {
     const docCount = bucket.doc_count;
     const countLabel = docCount !== 0 ? docCount.toString() : null;
-    return { x: bucket.key, y: docCount, label: countLabel };
+    return {
+      x: bucket.key,
+      y: docCount,
+      label: countLabel,
+      color: this.getBarColor({ xValue: bucket.key, type }),
+    };
+  }
+
+  isHoveredBar(bar) {
+    const { hoveredBar } = this.state;
+    return shallowEqual(bar, hoveredBar);
+  }
+
+  isSelectedBar(bar) {
+    const { selectedBar } = this.props;
+    return shallowEqual(bar, selectedBar);
   }
 
   render() {
-    const {
-      citeableData,
-      publishedData,
-      loadingCitationSummary,
-      error,
-    } = this.props;
-    const publishedSeriesData = publishedData.map(
-      CitationSummaryGraph.toSeriesData
+    const { citeableData, publishedData, loading, error } = this.props;
+    const publishedSeriesData = publishedData.map(b =>
+      this.toSeriesData(b, PUBLISHED_BAR_TYPE)
     );
-    const citeableSeriesData = citeableData.map(
-      CitationSummaryGraph.toSeriesData
+    const citeableSeriesData = citeableData.map(b =>
+      this.toSeriesData(b, CITEABLE_BAR_TYPE)
     );
 
     const yDomainMax = Math.max(
-      publishedSeriesData.length !== 0 && maxby(publishedSeriesData, 'y').y,
-      citeableSeriesData.length !== 0 && maxby(citeableSeriesData, 'y').y
+      publishedSeriesData.length !== 0 && maxBy(publishedSeriesData, 'y').y,
+      citeableSeriesData.length !== 0 && maxBy(citeableSeriesData, 'y').y
     );
-
     return (
       <div className="__CitationSummaryGraph__">
         <Fragment>
-          <LoadingOrChildren loading={loadingCitationSummary}>
+          <LoadingOrChildren loading={loading}>
             <ErrorAlertOrChildren error={error}>
               <Row type="flex" align="middle">
                 <Col span={1}>
@@ -77,7 +164,6 @@ class CitationSummaryGraph extends Component {
                   <FlexibleWidthXYPlot
                     height={300}
                     xType="ordinal"
-                    animation
                     yDomain={[0, yDomainMax * 1.3]}
                   >
                     <HorizontalGridLines />
@@ -87,9 +173,13 @@ class CitationSummaryGraph extends Component {
                     />
                     <YAxis />
                     <VerticalBarSeries
+                      colorType="literal"
                       data={citeableSeriesData}
-                      color={BLUE}
                       barWidth={BAR_WIDTH}
+                      onValueMouseOver={this.onCiteableBarHover}
+                      onValueClick={this.onCiteableBarClick}
+                      onValueMouseOut={this.onBarMouseOut}
+                      data-test-id="citeable-bar-series"
                     />
                     <LabelSeries
                       data={citeableSeriesData}
@@ -97,9 +187,13 @@ class CitationSummaryGraph extends Component {
                       labelAnchorY="text-after-edge"
                     />
                     <VerticalBarSeries
+                      colorType="literal"
                       data={publishedSeriesData}
-                      color={ORANGE}
                       barWidth={BAR_WIDTH}
+                      onValueMouseOver={this.onPublishedBarHover}
+                      onValueClick={this.onPublishedBarClick}
+                      onValueMouseOut={this.onBarMouseOut}
+                      data-test-id="published-bar-series"
                     />
                     <LabelSeries
                       data={publishedSeriesData}
@@ -128,15 +222,21 @@ class CitationSummaryGraph extends Component {
 CitationSummaryGraph.propTypes = {
   publishedData: PropTypes.arrayOf(PropTypes.any),
   citeableData: PropTypes.arrayOf(PropTypes.any),
-  loadingCitationSummary: PropTypes.bool,
+  loading: PropTypes.bool,
   error: ErrorPropType,
+  onSelectBarChange: PropTypes.func.isRequired,
+  selectedBar: PropTypes.shape({
+    type: PropTypes.string.isRequired,
+    xValue: PropTypes.string.isRequired,
+  }),
 };
 
 CitationSummaryGraph.defaultProps = {
   publishedData: [],
   citeableData: [],
-  loadingCitationSummary: false,
+  loading: false,
   error: null,
+  selectedBar: null,
 };
 
 export default CitationSummaryGraph;

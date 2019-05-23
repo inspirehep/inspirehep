@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CitationSummaryGraph renders graph with all props given 1`] = `
+exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
 <div
   className="__CitationSummaryGraph__"
 >
@@ -28,7 +28,6 @@ exports[`CitationSummaryGraph renders graph with all props given 1`] = `
           span={23}
         >
           <FlexibleXYPlot
-            animation={true}
             height={300}
             xType="ordinal"
             yDomain={
@@ -57,36 +56,45 @@ exports[`CitationSummaryGraph renders graph with all props given 1`] = `
             <VerticalBarSeries
               barWidth={0.5}
               className=""
-              color="#1890ff"
+              colorType="literal"
               data={
                 Array [
                   Object {
+                    "color": "#bfbfbf",
                     "label": "1",
-                    "x": "0.0-1.0",
+                    "x": "0--0",
                     "y": 1,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "2",
-                    "x": "1.0-50.0",
+                    "x": "1--50",
                     "y": 2,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "3",
-                    "x": "50.0-250.0",
+                    "x": "50--250",
                     "y": 3,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "4",
-                    "x": "250.0-500.0",
+                    "x": "250--500",
                     "y": 4,
                   },
                   Object {
+                    "color": "#1890ff",
                     "label": null,
-                    "x": "500.0-*",
+                    "x": "500--",
                     "y": 0,
                   },
                 ]
               }
+              data-test-id="citeable-bar-series"
+              onValueClick={[Function]}
+              onValueMouseOut={[Function]}
+              onValueMouseOver={[Function]}
               stack={false}
               style={Object {}}
             />
@@ -96,28 +104,33 @@ exports[`CitationSummaryGraph renders graph with all props given 1`] = `
               data={
                 Array [
                   Object {
+                    "color": "#bfbfbf",
                     "label": "1",
-                    "x": "0.0-1.0",
+                    "x": "0--0",
                     "y": 1,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "2",
-                    "x": "1.0-50.0",
+                    "x": "1--50",
                     "y": 2,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "3",
-                    "x": "50.0-250.0",
+                    "x": "50--250",
                     "y": 3,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "4",
-                    "x": "250.0-500.0",
+                    "x": "250--500",
                     "y": 4,
                   },
                   Object {
+                    "color": "#1890ff",
                     "label": null,
-                    "x": "500.0-*",
+                    "x": "500--",
                     "y": 0,
                   },
                 ]
@@ -132,36 +145,45 @@ exports[`CitationSummaryGraph renders graph with all props given 1`] = `
             <VerticalBarSeries
               barWidth={0.5}
               className=""
-              color="#fa8c16"
+              colorType="literal"
               data={
                 Array [
                   Object {
+                    "color": "#bfbfbf",
                     "label": "1",
-                    "x": "0.0-1.0",
+                    "x": "0--0",
                     "y": 1,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "2",
-                    "x": "1.0-50.0",
+                    "x": "1--50",
                     "y": 2,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "3",
-                    "x": "50.0-250.0",
+                    "x": "50--250",
                     "y": 3,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "4",
-                    "x": "250.0-500.0",
+                    "x": "250--500",
                     "y": 4,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": null,
-                    "x": "500.0-*",
+                    "x": "--500",
                     "y": 0,
                   },
                 ]
               }
+              data-test-id="published-bar-series"
+              onValueClick={[Function]}
+              onValueMouseOut={[Function]}
+              onValueMouseOver={[Function]}
               stack={false}
               style={Object {}}
             />
@@ -171,28 +193,583 @@ exports[`CitationSummaryGraph renders graph with all props given 1`] = `
               data={
                 Array [
                   Object {
+                    "color": "#bfbfbf",
                     "label": "1",
-                    "x": "0.0-1.0",
+                    "x": "0--0",
                     "y": 1,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "2",
-                    "x": "1.0-50.0",
+                    "x": "1--50",
                     "y": 2,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "3",
-                    "x": "50.0-250.0",
+                    "x": "50--250",
                     "y": 3,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": "4",
-                    "x": "250.0-500.0",
+                    "x": "250--500",
                     "y": 4,
                   },
                   Object {
+                    "color": "#bfbfbf",
                     "label": null,
-                    "x": "500.0-*",
+                    "x": "--500",
+                    "y": 0,
+                  },
+                ]
+              }
+              getLabel={[Function]}
+              labelAnchorX="start"
+              labelAnchorY="text-after-edge"
+              rotation={0}
+              stack={false}
+              style={Object {}}
+            />
+            <DiscreteColorLegendItem
+              className="legend"
+              colors={
+                Array [
+                  "#12939A",
+                  "#79C7E3",
+                  "#1A3177",
+                  "#FF9833",
+                  "#EF5D28",
+                ]
+              }
+              items={
+                Array [
+                  Object {
+                    "color": "#1890ff",
+                    "title": "Citeable",
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "title": "Published",
+                  },
+                ]
+              }
+              orientation="horizontal"
+            />
+          </FlexibleXYPlot>
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+        justify="center"
+        type="flex"
+      >
+        <div
+          className="axis-label"
+        >
+          Citations
+        </div>
+      </Row>
+    </ErrorAlertOrChildren>
+  </LoadingOrChildren>
+</div>
+`;
+
+exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
+<div
+  className="__CitationSummaryGraph__"
+>
+  <LoadingOrChildren
+    loading={false}
+  >
+    <ErrorAlertOrChildren
+      error={null}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        type="flex"
+      >
+        <Col
+          span={1}
+        >
+          <div
+            className="axis-label y-axis"
+          >
+            Papers
+          </div>
+        </Col>
+        <Col
+          span={23}
+        >
+          <FlexibleXYPlot
+            height={300}
+            xType="ordinal"
+            yDomain={
+              Array [
+                0,
+                5.2,
+              ]
+            }
+          >
+            <HorizontalGridLines
+              attr="y"
+              direction="horizontal"
+            />
+            <XAxis
+              attr="x"
+              attrAxis="y"
+              className="x-axis"
+              orientation="bottom"
+              tickFormat={[Function]}
+            />
+            <YAxis
+              attr="y"
+              attrAxis="x"
+              orientation="left"
+            />
+            <VerticalBarSeries
+              barWidth={0.5}
+              className=""
+              colorType="literal"
+              data={
+                Array [
+                  Object {
+                    "color": "#1890ff",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": null,
+                    "x": "500--",
+                    "y": 0,
+                  },
+                ]
+              }
+              data-test-id="citeable-bar-series"
+              onValueClick={[Function]}
+              onValueMouseOut={[Function]}
+              onValueMouseOver={[Function]}
+              stack={false}
+              style={Object {}}
+            />
+            <LabelSeries
+              animation={false}
+              className=""
+              data={
+                Array [
+                  Object {
+                    "color": "#1890ff",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": null,
+                    "x": "500--",
+                    "y": 0,
+                  },
+                ]
+              }
+              getLabel={[Function]}
+              labelAnchorX="end"
+              labelAnchorY="text-after-edge"
+              rotation={0}
+              stack={false}
+              style={Object {}}
+            />
+            <VerticalBarSeries
+              barWidth={0.5}
+              className=""
+              colorType="literal"
+              data={
+                Array [
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": null,
+                    "x": "--500",
+                    "y": 0,
+                  },
+                ]
+              }
+              data-test-id="published-bar-series"
+              onValueClick={[Function]}
+              onValueMouseOut={[Function]}
+              onValueMouseOver={[Function]}
+              stack={false}
+              style={Object {}}
+            />
+            <LabelSeries
+              animation={false}
+              className=""
+              data={
+                Array [
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": null,
+                    "x": "--500",
+                    "y": 0,
+                  },
+                ]
+              }
+              getLabel={[Function]}
+              labelAnchorX="start"
+              labelAnchorY="text-after-edge"
+              rotation={0}
+              stack={false}
+              style={Object {}}
+            />
+            <DiscreteColorLegendItem
+              className="legend"
+              colors={
+                Array [
+                  "#12939A",
+                  "#79C7E3",
+                  "#1A3177",
+                  "#FF9833",
+                  "#EF5D28",
+                ]
+              }
+              items={
+                Array [
+                  Object {
+                    "color": "#1890ff",
+                    "title": "Citeable",
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "title": "Published",
+                  },
+                ]
+              }
+              orientation="horizontal"
+            />
+          </FlexibleXYPlot>
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+        justify="center"
+        type="flex"
+      >
+        <div
+          className="axis-label"
+        >
+          Citations
+        </div>
+      </Row>
+    </ErrorAlertOrChildren>
+  </LoadingOrChildren>
+</div>
+`;
+
+exports[`CitationSummaryGraph renders with hovered bar 1`] = `
+<div
+  className="__CitationSummaryGraph__"
+>
+  <LoadingOrChildren
+    loading={false}
+  >
+    <ErrorAlertOrChildren
+      error={null}
+    >
+      <Row
+        align="middle"
+        gutter={0}
+        type="flex"
+      >
+        <Col
+          span={1}
+        >
+          <div
+            className="axis-label y-axis"
+          >
+            Papers
+          </div>
+        </Col>
+        <Col
+          span={23}
+        >
+          <FlexibleXYPlot
+            height={300}
+            xType="ordinal"
+            yDomain={
+              Array [
+                0,
+                5.2,
+              ]
+            }
+          >
+            <HorizontalGridLines
+              attr="y"
+              direction="horizontal"
+            />
+            <XAxis
+              attr="x"
+              attrAxis="y"
+              className="x-axis"
+              orientation="bottom"
+              tickFormat={[Function]}
+            />
+            <YAxis
+              attr="y"
+              attrAxis="x"
+              orientation="left"
+            />
+            <VerticalBarSeries
+              barWidth={0.5}
+              className=""
+              colorType="literal"
+              data={
+                Array [
+                  Object {
+                    "color": "#1890ff",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#096dd9",
+                    "label": null,
+                    "x": "500--",
+                    "y": 0,
+                  },
+                ]
+              }
+              data-test-id="citeable-bar-series"
+              onValueClick={[Function]}
+              onValueMouseOut={[Function]}
+              onValueMouseOver={[Function]}
+              stack={false}
+              style={Object {}}
+            />
+            <LabelSeries
+              animation={false}
+              className=""
+              data={
+                Array [
+                  Object {
+                    "color": "#1890ff",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#1890ff",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#096dd9",
+                    "label": null,
+                    "x": "500--",
+                    "y": 0,
+                  },
+                ]
+              }
+              getLabel={[Function]}
+              labelAnchorX="end"
+              labelAnchorY="text-after-edge"
+              rotation={0}
+              stack={false}
+              style={Object {}}
+            />
+            <VerticalBarSeries
+              barWidth={0.5}
+              className=""
+              colorType="literal"
+              data={
+                Array [
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": null,
+                    "x": "--500",
+                    "y": 0,
+                  },
+                ]
+              }
+              data-test-id="published-bar-series"
+              onValueClick={[Function]}
+              onValueMouseOut={[Function]}
+              onValueMouseOver={[Function]}
+              stack={false}
+              style={Object {}}
+            />
+            <LabelSeries
+              animation={false}
+              className=""
+              data={
+                Array [
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "1",
+                    "x": "0--0",
+                    "y": 1,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "2",
+                    "x": "1--50",
+                    "y": 2,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "3",
+                    "x": "50--250",
+                    "y": 3,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": "4",
+                    "x": "250--500",
+                    "y": 4,
+                  },
+                  Object {
+                    "color": "#fa8c16",
+                    "label": null,
+                    "x": "--500",
                     "y": 0,
                   },
                 ]

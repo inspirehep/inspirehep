@@ -22,4 +22,7 @@ module.exports = {
   'border-color-split': 'rgb(232, 232, 232)',
   'card-radius': '2px',
   'orange-6': '#fa8c16',
+  'orange-7': '#d46b08',
+  'blue-7': '#096dd9',
+  'gray-6': '#bfbfbf',
 };
