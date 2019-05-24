@@ -10,10 +10,10 @@ import re
 from inspire_utils.helpers import force_list
 from marshmallow import fields
 
-from inspirehep.records.marshmallow.base import InspireAllFieldsWithRecidSchema
+from inspirehep.records.marshmallow.base import InspireAllFieldsSchema
 
 
-class InstitutionsMetadataRawFieldsSchemaV1(InspireAllFieldsWithRecidSchema):
+class InstitutionsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
     affiliation_suggest = fields.Method("populate_affiliation_suggest", dump_only=True)
 
     def populate_affiliation_suggest(self, original_object):

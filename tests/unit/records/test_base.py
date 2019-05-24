@@ -19,7 +19,7 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
-from inspirehep.records.marshmallow.base import InspireAllFieldsWithRecidSchema
+from inspirehep.records.marshmallow.base import InspireAllFieldsSchema
 from inspirehep.records.marshmallow.conferences import (
     ConferencesMetadataRawFieldsSchemaV1,
 )
@@ -334,38 +334,3 @@ def test_get_records_ids_by_pids_function_is_properly_called_with_parameters(PI_
 
     assert PI_mock.call_count == 2
     assert PI_mock.call_args_list == expected_call_list
-
-
-def test_populate_recid_from_ref():
-
-    record_data = {
-        "simple_key": {"$ref": "http://x/y/1"},
-        "key_with_record": {"$ref": "http://x/y/2"},
-        "record": {"$ref": "http://x/y/3"},
-        "embedded_list": [{"record": {"$ref": "http://x/y/4"}}],
-        "embedded_record": {"record": {"$ref": "http://x/y/5"}},
-    }
-
-    class TestRecidSchema(InspireAllFieldsWithRecidSchema):
-        pass
-
-    TestRecidSchema().populate_recid_from_ref(record_data)
-
-    assert record_data["simple_key_recid"] == 1
-    assert record_data["key_with_recid"] == 2
-    assert record_data["recid"] == 3
-    assert record_data["embedded_list"][0]["recid"] == 4
-    assert record_data["embedded_record"]["recid"] == 5
-
-
-def test_populate_recid_from_ref_handles_deleted_records():
-    record_data = {
-        "deleted_records": [{"$ref": "http://x/y/1"}, {"$ref": "http://x/y/2"}]
-    }
-
-    class TestRecidSchema(InspireAllFieldsWithRecidSchema):
-        pass
-
-    TestRecidSchema().populate_recid_from_ref(record_data)
-
-    assert record_data["deleted_recids"] == [1, 2]

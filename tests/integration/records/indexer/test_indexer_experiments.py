@@ -31,14 +31,5 @@ def test_index_experiment_record(base_app, es_clear, db, datadir, create_record)
 
     response = es.search("records-experiments")
 
-    expected_self_recid = 1108541
-    expected_recid_inside = 902725
-    self_recid = response["hits"]["hits"][0]["_source"].pop("self_recid")
-    recid_inside = response["hits"]["hits"][0]["_source"]["institutions"][0].pop(
-        "recid"
-    )
-
     assert response["hits"]["total"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
-    assert self_recid == expected_self_recid
-    assert recid_inside == expected_recid_inside

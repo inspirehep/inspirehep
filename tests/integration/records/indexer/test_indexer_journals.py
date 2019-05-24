@@ -45,8 +45,6 @@ def test_index_journal_record(base_app, es_clear, db, datadir, create_record):
             "JHEP",
         ]
     }
-    expected_metadata["self_recid"] = 1213103
-
     response = es.search("records-journals")
 
     assert response["hits"]["total"] == expected_count
