@@ -102,7 +102,8 @@
         "deleted_records": {
           "properties": {
             "$ref": {
-              "type": "string"
+              "type": "text",
+              "analyzer": "recid_analyzer"
             }
           },
           "type": "object"
@@ -139,7 +140,8 @@
         "new_record": {
           "properties": {
             "$ref": {
-              "type": "string"
+              "type": "text",
+              "analyzer": "recid_analyzer"
             }
           },
           "type": "object"
@@ -163,7 +165,8 @@
         "self": {
           "properties": {
             "$ref": {
-              "type": "string"
+              "type": "text",
+              "analyzer": "recid_analyzer"
             }
           },
           "type": "object"
@@ -229,6 +232,16 @@
           "filter": "lowercase",
           "tokenizer": "keyword",
           "type": "custom"
+        },
+        "recid_analyzer": {
+          "tokenizer": "recid_tokenizer"
+        }
+      },
+      "tokenizer": {
+        "recid_tokenizer": {
+          "type": "pattern",
+          "pattern": "(\\d+)",
+          "group": 1
         }
       }
     }

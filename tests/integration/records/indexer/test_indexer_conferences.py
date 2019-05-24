@@ -16,7 +16,6 @@ def test_index_conference_record(base_app, es_clear, db, datadir, create_record)
 
     expected_count = 1
     expected_metadata = deepcopy(record)
-    expected_metadata["self_recid"] = 1203206
 
     response = es.search("records-conferences")
 

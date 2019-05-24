@@ -10,10 +10,10 @@ from itertools import chain
 from inspire_utils.helpers import force_list
 from marshmallow import fields
 
-from inspirehep.records.marshmallow.base import InspireAllFieldsWithRecidSchema
+from inspirehep.records.marshmallow.base import InspireAllFieldsSchema
 
 
-class ExperimentsMetadataRawFieldsSchemaV1(InspireAllFieldsWithRecidSchema):
+class ExperimentsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
     experiment_suggest = fields.Method("populate_experiment_suggest", dump_only=True)
 
     def populate_experiment_suggest(self, original_object):

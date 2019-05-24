@@ -28,8 +28,6 @@ def test_index_institutions_record(base_app, es_clear, db, datadir, create_recor
             "1211",
         ]
     }
-    expected_metadata["self_recid"] = 902725
-
     response = es.search("records-institutions")
 
     assert response["hits"]["total"] == expected_count

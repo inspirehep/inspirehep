@@ -7,10 +7,10 @@
 
 from marshmallow import fields
 
-from inspirehep.records.marshmallow.base import InspireAllFieldsWithRecidSchema
+from inspirehep.records.marshmallow.base import InspireAllFieldsSchema
 
 
-class JournalsMetadataRawFieldsSchemaV1(InspireAllFieldsWithRecidSchema):
+class JournalsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
     title_suggest = fields.Method("populate_title_suggest", dump_only=True)
 
     def populate_title_suggest(self, original_object):
