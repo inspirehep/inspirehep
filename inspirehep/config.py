@@ -37,6 +37,11 @@ from .search.facets import (
 FLASK_ENV = "development"
 DEBUG = True
 
+# Migration
+# =========
+#: Special redis for continious migration
+MIGRATION_REDIS_URL = None
+
 # Rate limiting
 # =============
 #: Storage for ratelimiter.
