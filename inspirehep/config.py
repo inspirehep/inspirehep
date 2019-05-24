@@ -39,7 +39,7 @@ DEBUG = True
 
 # Migration
 # =========
-#: Special redis for continious migration
+#: Special redis for continuous migration
 MIGRATION_REDIS_URL = None
 
 # Rate limiting
