@@ -47,6 +47,8 @@ invenio-base = "^1.0"
 inspire-json-merger = "^10.0"
 lxml = "^4.3"
 fqn-decorators = "~=1.2,>=1.2.3"
+editdistance = "^0.5.3"
+munkres = "^1.1"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
