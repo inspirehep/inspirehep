@@ -186,7 +186,7 @@ def populate_mirror_from_file(source):
 @shared_task(ignore_result=True)
 def continuous_migration():
     """Task to continuously migrate what is pushed up by Legacy."""
-    # XXX: temp redis url when we use continious migration in kb8s
+    # XXX: temp redis url when we use continuous migration in kb8s
     redis_url = current_app.config.get("MIGRATION_REDIS_URL")
     if redis_url is None:
         redis_url = current_app.config.get("CACHE_REDIS_URL")
