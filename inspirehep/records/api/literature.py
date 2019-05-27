@@ -47,9 +47,9 @@ CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 class LiteratureRecord(InspireRecord, CitationMixin):
     """Literature Record."""
 
-    pid_type = "lit"
-
     es_serializer = LiteratureESEnhancementV1
+    pid_type = "lit"
+    pidstore_handler = PidStoreLiterature
 
     @classmethod
     def create(cls, data, **kwargs):
@@ -66,10 +66,6 @@ class LiteratureRecord(InspireRecord, CitationMixin):
         super().update(data)
         if documents or figures:
             self.set_files(documents=documents, figures=figures)
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreLiterature.mint(record_uuid, data)
 
     def delete(self):
         self.set_files(force=True)
@@ -160,7 +156,9 @@ class LiteratureRecord(InspireRecord, CitationMixin):
                 if metadata["key"] not in fig_keys:
                     builder.add_figure(**metadata)
                 files.append(metadata)
-        super().update(builder.record)
+        # FIXME: this is wrong every time it goes to ``update``` function
+        # which means update refs, pidstore etc..
+        super().update(builder.record.dumps())
         return files
 
     def _dump_for_es(self):
@@ -168,7 +166,7 @@ class LiteratureRecord(InspireRecord, CitationMixin):
         return serialized_data
 
 
-def import_article(identifier: str) -> dict:
+def import_article(identifier):
     """Import a new article from arXiv or Crossref based on the identifier.
 
     This function attempts to parse  and normalize the identifier as a valid
@@ -217,7 +215,7 @@ def import_article(identifier: str) -> dict:
     return article
 
 
-def import_arxiv(arxiv_id: str) -> dict:
+def import_arxiv(arxiv_id):
     """View for retrieving an article from arXiv.
 
     This endpoint is designed to be queried by inspirehep during an article
@@ -262,7 +260,7 @@ def import_arxiv(arxiv_id: str) -> dict:
         )
 
 
-def import_doi(doi: str) -> dict:
+def import_doi(doi):
     """View for retrieving an article from CrossRef.
 
     This endpoint is designed to be queried by inspirehep during an article

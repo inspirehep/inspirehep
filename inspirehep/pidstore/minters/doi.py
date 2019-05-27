@@ -12,4 +12,3 @@ from .base import Minter
 class DoiMinter(Minter):
     pid_value_path = "dois.value"
     pid_type = "doi"
-    provider = "doi"

@@ -15,10 +15,6 @@ from .base import InspireRecord
 class ExperimentsRecord(InspireRecord):
     """Experiments Record."""
 
-    pid_type = "exp"
-
     es_serializer = ExperimentsMetadataRawFieldsSchemaV1
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreExperiments.mint(record_uuid, data)
+    pid_type = "exp"
+    pidstore_handler = PidStoreExperiments

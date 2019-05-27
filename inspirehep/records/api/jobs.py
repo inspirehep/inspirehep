@@ -13,10 +13,6 @@ from .base import InspireRecord
 class JobsRecord(InspireRecord):
     """Jobs Record."""
 
-    pid_type = "job"
-
     es_serializer = JobsMetadataRawFieldsSchemaV1
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreJobs.mint(record_uuid, data)
+    pid_type = "job"
+    pidstore_handler = PidStoreJobs

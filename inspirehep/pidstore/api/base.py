@@ -5,18 +5,49 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import logging
 
 import six
 from flask import current_app
+from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_pidstore.models import PersistentIdentifier
+
+logger = logging.getLogger(__name__)
 
 
 class PidStoreBase(object):
     minters = []
 
+    def __init__(self, object_uuid, data):
+        self.data = data
+        self.object_uuid = object_uuid
+
     @classmethod
     def mint(cls, object_uuid, data):
         for minter in cls.minters:
             minter.mint(object_uuid, data)
+
+    @classmethod
+    def update(cls, object_uuid, data):
+        pid_base = cls(object_uuid, data)
+        pid_base.delete_external_pids()
+        for minter in cls.minters:
+            minter.update(object_uuid, data)
+
+    @classmethod
+    def delete(cls, object_uuid, data):
+        pid_base = cls(object_uuid, data)
+        pid_base.delete_external_pids()
+        for minter in cls.minters:
+            minter.delete(object_uuid, data)
+
+    def delete_external_pids(self):
+        try:
+            return PersistentIdentifier.query.filter_by(
+                object_uuid=self.object_uuid, pid_provider="external"
+            ).delete()
+        except PIDDoesNotExistError:
+            logger.info(f"Pids ``external`` for {self.object_uuid} not found.")
 
     @staticmethod
     def get_endpoint_from_pid_type(pid_type):

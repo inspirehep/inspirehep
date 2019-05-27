@@ -6,20 +6,18 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_utils.record import get_value
-from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from ..errors import MissingSchema
+from ..providers.external import InspireExternalIdProvider
 from ..providers.recid import InspireRecordIdProvider
 
 
 class Minter:
 
-    model = PersistentIdentifier
+    provider = InspireExternalIdProvider
     object_type = "rec"
     pid_type = None
     pid_value_path = None
-    provider = "recid"
-    status = PIDStatus.REGISTERED
 
     def __init__(self, object_uuid, data):
         self.data = data
@@ -34,17 +32,18 @@ class Minter:
 
     @property
     def pid_value(self):
-        """Returns pid_value or list of pid values - Required by InvenioRecordsREST POST view"""
+        """Returns pid_value or list of pid values
+
+        Required by InvenioRecordsREST POST view.
+        """
         return self.get_pid_values()
 
     def create(self, pid_value):
-        return self.model.create(
-            self.pid_type,
-            pid_value,
-            pid_provider=self.provider,
+        return self.provider.create(
+            pid_type=self.pid_type,
+            pid_value=pid_value,
             object_type=self.object_type,
             object_uuid=self.object_uuid,
-            status=self.status,
         )
 
     @classmethod
@@ -64,11 +63,19 @@ class Minter:
             minter.create(pid_value)
         return minter
 
+    @classmethod
+    def update(cls, object_uuid, data):
+        cls.mint(object_uuid, data)
+
+    @classmethod
+    def delete(cls, object_uuid, data):
+        pass
+
 
 class ControlNumberMinter(Minter):
 
     pid_value_path = "control_number"
-    model = InspireRecordIdProvider
+    provider = InspireRecordIdProvider
 
     @classmethod
     def mint(cls, object_uuid, data):
@@ -84,11 +91,11 @@ class ControlNumberMinter(Minter):
 
         return minter
 
-    def create(self, pid_value):
-        return self.model.create(
-            pid_value=pid_value,
-            pid_type=self.pid_type,
-            object_type=self.object_type,
-            object_uuid=self.object_uuid,
-            status=self.status,
-        )
+    @classmethod
+    def update(cls, object_uuid, data):
+        pass
+
+    @classmethod
+    def delete(cls, object_uuid, data):
+        if "control_number" in data:
+            cls.provider.get(data["control_number"], cls.pid_type).delete()

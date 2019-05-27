@@ -26,7 +26,7 @@ def test_minter_dois(base_app, db, create_record_factory):
 
     expected_pids_len = 2
     epxected_pids_values = [doi_value_1, doi_value_2]
-    expected_pids_provider = "doi"
+    expected_pids_provider = "external"
     expected_pids_status = PIDStatus.REGISTERED
 
     result_pids = (

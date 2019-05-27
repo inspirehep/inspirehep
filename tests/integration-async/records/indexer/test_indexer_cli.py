@@ -32,26 +32,40 @@ def check_n_records_reindex_for_pidtype(app_cli):
         assert f"{n_success} succeeded" in result.output
         assert f"{n_fail} failed" in result.output
         assert f"{n_batches_error} entire batches failed" in result.output
+
     return wrap
 
 
 def test_reindex_records_lit_no_records_to_index(
-    app_cli, celery_app_with_context, celery_session_worker, check_n_records_reindex_for_pidtype
+    app_cli,
+    celery_app_with_context,
+    celery_session_worker,
+    check_n_records_reindex_for_pidtype,
 ):
     check_n_records_reindex_for_pidtype("lit", n_success=0)
 
 
 def test_reindex_records_lit_does_not_index_deleted_record(
-    app_cli, celery_app_with_context, celery_session_worker, generate_records, check_n_records_reindex_for_pidtype
+    app_cli,
+    celery_app_with_context,
+    celery_session_worker,
+    generate_records,
+    check_n_records_reindex_for_pidtype,
 ):
     generate_records(count=5)
     generate_records(data={"deleted": True})
 
-    check_n_records_reindex_for_pidtype("lit", n_success=5)  # deleted records are not indexed
+    check_n_records_reindex_for_pidtype(
+        "lit", n_success=5
+    )  # deleted records are not indexed
 
 
 def test_reindex_record_lit_fails_with_invalid_record(
-    app_cli, celery_app_with_context, celery_session_worker, generate_records, check_n_records_reindex_for_pidtype
+    app_cli,
+    celery_app_with_context,
+    celery_session_worker,
+    generate_records,
+    check_n_records_reindex_for_pidtype,
 ):
     broken_field = {"_desy_bookkeeping": {"date": '"2013-01-14_final'}}
     with patch("inspirehep.records.indexer.base.InspireRecordIndexer"):
@@ -62,7 +76,11 @@ def test_reindex_record_lit_fails_with_invalid_record(
 
 
 def test_reindex_record_lit_fails_with_invalid_field_content(
-    app_cli, celery_app_with_context, celery_session_worker, generate_records, check_n_records_reindex_for_pidtype
+    app_cli,
+    celery_app_with_context,
+    celery_session_worker,
+    generate_records,
+    check_n_records_reindex_for_pidtype,
 ):
     invalid_field = {"preprint_date": "i am not a date"}
 
@@ -74,7 +92,11 @@ def test_reindex_record_lit_fails_with_invalid_field_content(
 
 
 def test_reindex_records_lit_one_fails_and_two_ok(
-    app_cli, celery_app_with_context, celery_session_worker, generate_records, check_n_records_reindex_for_pidtype
+    app_cli,
+    celery_app_with_context,
+    celery_session_worker,
+    generate_records,
+    check_n_records_reindex_for_pidtype,
 ):
     invalid_field = {"preprint_date": "i am not a date"}
 
@@ -87,7 +109,11 @@ def test_reindex_records_lit_one_fails_and_two_ok(
 
 
 def test_reindex_records_different_pid_types(
-    celery_app_with_context, celery_session_worker, app_cli, generate_records, check_n_records_reindex_for_pidtype
+    celery_app_with_context,
+    celery_session_worker,
+    app_cli,
+    generate_records,
+    check_n_records_reindex_for_pidtype,
 ):
     generate_records(count=1, record_type=LiteratureRecord)
     generate_records(count=2, record_type=AuthorsRecord)
@@ -96,7 +122,13 @@ def test_reindex_records_different_pid_types(
     generate_records(count=3, record_type=JournalsRecord)
     generate_records(count=3, record_type=InstitutionsRecord)
 
-    jobs_data = {'description': 'Cool job.', 'deadline_date': '2020-12-31', 'position': 'staff', 'regions': ['Europe'], 'status': 'open'}
+    jobs_data = {
+        "description": "Cool job.",
+        "deadline_date": "2020-12-31",
+        "position": "staff",
+        "regions": ["Europe"],
+        "status": "open",
+    }
     generate_records(count=3, data=jobs_data, record_type=JobsRecord)
 
     check_n_records_reindex_for_pidtype("lit", n_success=1)
@@ -113,9 +145,7 @@ def test_reindex_records_lit_using_multiple_batches(
 ):
     generate_records(count=5)
     generate_records(data={"deleted": True})
-    result = app_cli.invoke(
-        reindex_records, ["-p", "lit", "-bs", "5", "-q", ""]
-    )
+    result = app_cli.invoke(reindex_records, ["-p", "lit", "-bs", "5", "-q", ""])
     assert result.exit_code == 0
     assert "5 succeeded" in result.output
     assert "0 failed" in result.output
@@ -124,10 +154,8 @@ def test_reindex_records_lit_using_multiple_batches(
 def test_reindex_only_one_record(
     app_cli, celery_app_with_context, celery_session_worker, generate_records
 ):
-    rec = generate_records(count=1, data={'control_number': 3})
-    result = app_cli.invoke(
-        reindex_records, ["-id", "lit", "3", "-q", ""]
-    )
+    rec = generate_records(count=1, data={"control_number": 3})
+    result = app_cli.invoke(reindex_records, ["-id", "lit", "3", "-q", ""])
 
     expected_message = f"Successfully reindexed record ('lit', '3')"
     assert result.exit_code == 0
@@ -137,9 +165,7 @@ def test_reindex_only_one_record(
 def test_reindex_only_one_record_wring_input(
     app_cli, celery_app_with_context, celery_session_worker, generate_records
 ):
-    result = app_cli.invoke(
-        reindex_records, ["-id", "3"]
-    )
+    result = app_cli.invoke(reindex_records, ["-id", "3"])
 
     expected_message = "Error: -id option requires 2 arguments"
     assert expected_message in result.output
@@ -147,7 +173,11 @@ def test_reindex_only_one_record_wring_input(
 
 @pytest.mark.xfail(raises="Can't index data records")
 def test_reindex_records_data_records(
-    celery_app_with_context, celery_session_worker, app_cli, generate_records, check_n_records_reindex_for_pidtype
+    celery_app_with_context,
+    celery_session_worker,
+    app_cli,
+    generate_records,
+    check_n_records_reindex_for_pidtype,
 ):
     generate_records(count=3, record_type=DataRecord)
     check_n_records_reindex_for_pidtype("dat", n_success=3)
@@ -190,6 +220,7 @@ def test_get_query_records_to_index_only_lit(app, generate_records):
     assert deleted_records == []
 
 
+@pytest.mark.xfail(reason="We don't mint ``deleted`` records anymore.")
 def test_get_query_records_to_index_only_lit_adding_record(app, generate_records):
     generate_records(count=1, data={"deleted": True})
 
@@ -210,6 +241,6 @@ def test_get_query_records_to_index_only_lit_indexes_deleted_record_too(
     pids = ["lit"]
     query = get_query_records_to_index(pids)
 
-    expected_count = 2
+    expected_count = 1
     result_count = query.count()
     assert result_count == expected_count

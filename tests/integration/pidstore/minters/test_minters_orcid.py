@@ -30,7 +30,7 @@ def test_minter_orcid(base_app, db, create_record_factory):
 
     expected_pids_len = 1
     epxected_pids_values = [orcid_value]
-    expected_pids_provider = "orcid"
+    expected_pids_provider = "external"
     expected_pids_status = PIDStatus.REGISTERED
 
     result_pids = (

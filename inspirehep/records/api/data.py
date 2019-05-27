@@ -14,10 +14,6 @@ from .base import InspireRecord
 class DataRecord(InspireRecord, CitationMixin):
     """Data Record."""
 
-    pid_type = "dat"
-
     es_serializer = DataMetadataRawFieldsSchemaV1
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreData.mint(record_uuid, data)
+    pid_type = "dat"
+    pidstore_handler = PidStoreData

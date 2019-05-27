@@ -11,39 +11,31 @@ from .base import ControlNumberMinter
 
 class LiteratureMinter(ControlNumberMinter):
     pid_type = "lit"
-    provider = "recid"
 
 
 class AuthorsMinter(ControlNumberMinter):
     pid_type = "aut"
-    provider = "recid"
 
 
 class JobsMinter(ControlNumberMinter):
     pid_type = "job"
-    provider = "recid"
 
 
 class JournalsMinter(ControlNumberMinter):
     pid_type = "jou"
-    provider = "recid"
 
 
 class ExperimentsMinter(ControlNumberMinter):
     pid_type = "exp"
-    provider = "recid"
 
 
 class ConferencesMinter(ControlNumberMinter):
     pid_type = "con"
-    provider = "recid"
 
 
 class DataMinter(ControlNumberMinter):
     pid_type = "dat"
-    provider = "recid"
 
 
 class InstitutionsMinter(ControlNumberMinter):
     pid_type = "ins"
-    provider = "recid"

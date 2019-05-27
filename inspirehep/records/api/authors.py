@@ -14,10 +14,6 @@ from .base import InspireRecord
 class AuthorsRecord(InspireRecord):
     """Authors Record."""
 
-    pid_type = "aut"
-
     es_serializer = AuthorsMetadataRawAdminSchemaV1
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreAuthors.mint(record_uuid, data)
+    pid_type = "aut"
+    pidstore_handler = PidStoreAuthors

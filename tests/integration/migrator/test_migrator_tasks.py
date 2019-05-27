@@ -11,6 +11,7 @@ import uuid
 import pkg_resources
 import pytest
 from invenio_db import db
+from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 from mock import patch
 
@@ -215,21 +216,14 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear
     )
     migrate_from_file(record_fixture_path, wait_for_results=True)
     migrate_from_file(record_fixture_path_deleted, wait_for_results=True)
-
     es_clear.indices.refresh("records-hep")
 
     expected_record_lit_es_len = 1
-    expected_record_lit_es_deleted_len = 0
 
     record_lit_uuid = LiteratureRecord.get_uuid_from_pid_value(12345)
-    record_lit_uuid_deleted = LiteratureRecord.get_uuid_from_pid_value(1234)
+    with pytest.raises(PIDDoesNotExistError):
+        LiteratureRecord.get_uuid_from_pid_value(1234)
     record_lit_es = LiteratureSearch().get_record(str(record_lit_uuid)).execute().hits
     record_lit_es_len = len(record_lit_es)
 
-    record_lit_es_deleted = (
-        LiteratureSearch().get_record(str(record_lit_uuid_deleted)).execute().hits
-    )
-    record_lit_es_deleted_len = len(record_lit_es_deleted)
-
     assert expected_record_lit_es_len == record_lit_es_len
-    assert expected_record_lit_es_deleted_len == record_lit_es_deleted_len
