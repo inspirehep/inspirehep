@@ -606,7 +606,7 @@ INDEXER_BULK_REQUEST_TIMEOUT = 900
 INDEXER_REPLACE_REFS = False
 
 
-CELERY_IMPORTS = ["inspirehep.records.indexer.tasks"]
+CELERY_IMPORTS = ["inspirehep.records.indexer.tasks", "inspirehep.records.tasks"]
 
 
 # Feature flags
