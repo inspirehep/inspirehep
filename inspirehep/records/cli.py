@@ -6,7 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
+import logging
 import os
+from time import sleep
 
 import click
 import requests
@@ -14,6 +16,10 @@ from flask.cli import with_appcontext
 from invenio_db import db
 
 from inspirehep.records.api import InspireRecord
+from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
+from inspirehep.records.tasks import batch_recalculate
+
+logger = logging.getLogger()
 
 
 def _create_record(data):
@@ -107,3 +113,71 @@ def records(urls, directory, files):
     _create_records_from_urls(urls)
     _create_records_from_list_files(files)
     _create_records_from_files_in_directory(directory)
+
+
+@click.group()
+def citations():
+    """Command for citations"""
+
+
+@citations.command(help="Recalculate citations.")
+@click.option("-s", "--batch-size", default=200)
+@click.option("-q", "--queue-name", default="indexer_task")
+@with_appcontext
+def recalculate(batch_size, queue_name):
+    query = get_query_records_to_index(["lit", "dat"])
+    all_tasks = []
+    uuid_records_per_tasks = {}
+    with click.progressbar(
+        query.yield_per(2000),
+        length=query.count(),
+        label="Scheduling recalculate tasks",
+    ) as items:
+        batch = next_batch(items, batch_size)
+
+        while batch:
+            uuids = [str(item[0]) for item in batch]
+            indexer_task = batch_recalculate.apply_async(
+                kwargs={"records_uuids": uuids}, queue=queue_name
+            )
+
+            uuid_records_per_tasks[indexer_task.id] = uuids
+            all_tasks.append(indexer_task)
+            batch = next_batch(items, batch_size)
+
+    with click.progressbar(
+        length=len(all_tasks), label="Recalculating citations"
+    ) as progressbar:
+
+        def _finished_tasks_count():
+            return len([task for task in all_tasks if task.ready()])
+
+        while len(all_tasks) != _finished_tasks_count():
+            sleep(0.5)
+            # this is so click doesn't divide by 0:
+            progressbar.pos = _finished_tasks_count() or 1
+            progressbar.update(0)
+
+    failures = []
+    failures_count = 0
+    successes = 0
+    batch_errors = []
+
+    for task in all_tasks:
+        result = task.result
+        if task.failed():
+            batch_errors.append({"task_id": task.id, "error": result})
+        else:
+            successes += result["success"]
+            failures += result["failures"]
+            failures_count += result["failures_count"]
+
+    color = "red" if failures or batch_errors else "green"
+    click.secho(
+        f"Citations recalculated!\n{successes} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
+        fg=color,
+    )
+    if failures:
+        logger.error(f"Got {len(failures)} during the recalculation process:")
+        for failure in failures:
+            logger.error(f"{failure}")
