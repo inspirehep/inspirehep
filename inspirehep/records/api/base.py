@@ -76,16 +76,13 @@ class InspireQueryBuilder(object):
 class InspireRecord(Record):
     """Inspire Record."""
 
+    pidstore_handler = None
     pid_type = None
     es_serializer = None
 
     @staticmethod
     def strip_empty_values(data):
         return strip_empty_values(data)
-
-    @staticmethod
-    def mint(record_uuid, data):
-        pass
 
     def validate(self):
         schema_validate(self)
@@ -316,7 +313,9 @@ class InspireRecord(Record):
         with db.session.begin_nested():
             if not id_:
                 id_ = uuid.uuid4()
-                cls.mint(id_, data)
+                deleted = data.get("deleted", False)
+                if not deleted:
+                    cls.pidstore_handler.mint(id_, data)
             record = super().create(data, id_=id_, **kwargs)
             record._update_refs_in_citation_table()
         return record
@@ -325,12 +324,11 @@ class InspireRecord(Record):
     def create_or_update(cls, data, **kwargs):
         control_number = data.get("control_number")
         try:
+            # FIXME: This is all over the place should be centralized
             record_class = cls.get_class_for_record(data)
             record = cls.get_record_by_pid_value(
                 control_number, pid_type=record_class.pid_type
             )
-            # `.clear()` otherwise will be like merge
-            record.clear()
             record.update(data)
         except PIDDoesNotExistError:
             record = cls.create(data, **kwargs)
@@ -445,9 +443,11 @@ class InspireRecord(Record):
 
     def update(self, data):
         with db.session.begin_nested():
+            self.clear()
             super().update(data)
             self.model.json = self
             self._update_refs_in_citation_table()
+            self.pidstore_handler.update(self.id, self)
             db.session.add(self.model)
 
     def redirect(self, other):
@@ -471,14 +471,9 @@ class InspireRecord(Record):
     def delete(self):
         for file in list(self.files.keys):
             del self.files[file]
-        with db.session.begin_nested():
-            pids = PersistentIdentifier.query.filter(
-                PersistentIdentifier.object_uuid == self.id
-            ).all()
-            for pid in pids:
-                pid.delete()
-                db.session.delete(pid)
         self._mark_deleted()
+        with db.session.begin_nested():
+            self.pidstore_handler.delete(self.id, self)
 
     def _mark_deleted(self):
         self["deleted"] = True
@@ -799,6 +794,8 @@ class InspireRecord(Record):
             dict: Metadata for file
 
         """
+        # FIXME: Files handling should be in a separate class and we inherit it by
+        # collection
         key = self._find_and_add_file(url, original_url)
         if not key:
             logger.warning(
@@ -1030,8 +1027,9 @@ class InspireRecord(Record):
             save_every (int): How often data should be saved into session.
             One by one is very inefficient, but so is 10000 at once.
         """
+        # FIXME: this does belong here since it's only for literature and data
+        # we alread have ``CitationMixin```
         RecordCitations.query.filter_by(citer_id=self.id).delete()
-
         if (
             self.is_superseded()
             or self.get("deleted")

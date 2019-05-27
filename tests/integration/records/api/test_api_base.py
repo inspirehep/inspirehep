@@ -18,7 +18,7 @@ import pytest
 from flask import current_app
 from fs.errors import ResourceNotFoundError
 from helpers.providers.faker import faker
-from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from sqlalchemy.orm.exc import NoResultFound
@@ -129,17 +129,15 @@ def test_get_uuid_from_pid_value(base_app, db, create_record_factory):
     assert expected_record_uuid == record_uuid
 
 
-def test_soft_delete_record(base_app, db, create_record_factory, init_files_db):
-    record_factory = create_record_factory("lit")
+def test_soft_delete_record(base_app, db, create_record, init_files_db):
+    record_factory = create_record("lit")
     record_uuid = record_factory.id
     record = InspireRecord.get_record(record_uuid)
     record.delete()
-    record_pid = PersistentIdentifier.query.filter_by(
-        object_uuid=record.id
-    ).one_or_none()
+    record_pid = PersistentIdentifier.query.filter_by(object_uuid=record.id).one()
 
     assert "deleted" in record
-    assert record_pid is None
+    assert PIDStatus.DELETED == record_pid.status
 
 
 def test_hard_delete_record(base_app, db, create_record_factory, create_pidstore):
@@ -632,12 +630,12 @@ def test_add_file_already_attached(
 
 
 def test_delete_record_with_files(
-    fsopen_mock, base_app, db, create_record_factory, init_files_db, enable_files
+    fsopen_mock, base_app, db, create_record, init_files_db, enable_files
 ):
-    record_metadata = create_record_factory("lit")
+    record_metadata = create_record("lit")
     record = InspireRecord.get_record(record_metadata.id)
     file_metadata = record._add_file(url="http://figure_url.cern.ch/file.png")
-    record_metadata2 = create_record_factory("lit")
+    record_metadata2 = create_record("lit")
     record2 = InspireRecord.get_record(record_metadata2.id)
 
     assert record.id != record2.id

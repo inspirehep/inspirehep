@@ -178,7 +178,6 @@ class OrcidPusher(object):
             orcid_client_exceptions.TokenMismatchException,
             orcid_client_exceptions.TokenWithWrongPermissionException,
         ):
-            # import ipdb; ipdb.set_trace()
             logger.info(
                 "Deleting Orcid push access token={} for orcid={}".format(
                     self.oauth_token, self.orcid

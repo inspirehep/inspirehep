@@ -30,7 +30,7 @@ class InspireRecordIdProvider(BaseProvider):
 
     pid_type = None
 
-    pid_provider = None
+    pid_provider = "recid"
 
     default_status = PIDStatus.RESERVED
 

@@ -15,10 +15,6 @@ from .base import InspireRecord
 class InstitutionsRecord(InspireRecord):
     """Institutions Record."""
 
-    pid_type = "ins"
-
     es_serializer = InstitutionsMetadataRawFieldsSchemaV1
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreInstitutions.mint(record_uuid, data)
+    pid_type = "ins"
+    pidstore_handler = PidStoreInstitutions

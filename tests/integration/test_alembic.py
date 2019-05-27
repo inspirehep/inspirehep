@@ -11,6 +11,9 @@ from sqlalchemy import text
 
 def test_downgrade(app, db):
     alembic = Alembic(app)
+    assert "idx_pid_provider" in _get_indexes("pidstore_pid", db)
+
+    alembic.downgrade(target="c6570e49b7b2")
 
     assert "records_citations" in _get_table_names(db)
     assert "ix_records_citations_cited_id" in _get_indexes("records_citations", db)
@@ -127,6 +130,10 @@ def test_upgrade(app, db):
 
     assert "ix_records_citations_cited_id" in _get_indexes("records_citations", db)
     assert "idx_citations_cited" not in _get_indexes("records_citations", db)
+
+    alembic.upgrade(target="dc1ae5abe9d6")
+
+    assert "idx_pid_provider" in _get_indexes("pidstore_pid", db)
 
 
 def _get_indexes(tablename, db):

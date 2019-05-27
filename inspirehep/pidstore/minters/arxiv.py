@@ -12,4 +12,3 @@ from .base import Minter
 class ArxivMinter(Minter):
     pid_value_path = "arxiv_eprints.value"
     pid_type = "arxiv"
-    provider = "arxiv"

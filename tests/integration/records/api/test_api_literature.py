@@ -11,7 +11,7 @@ import uuid
 import pytest
 from helpers.providers.faker import faker
 from invenio_pidstore.errors import PIDAlreadyExists
-from invenio_pidstore.models import PersistentIdentifier
+from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
@@ -36,6 +36,22 @@ def test_literature_create(base_app, db):
 
     assert record.model.id == record_pid.object_uuid
     assert control_number == record_pid.pid_value
+
+
+def test_literature_create_does_not_mint_if_record_is_deleted(base_app, db):
+    data = faker.record("lit", data={"deleted": True}, with_control_number=True)
+    record = LiteratureRecord.create(data)
+
+    control_number = str(record["control_number"])
+    record_db = RecordMetadata.query.filter_by(id=record.id).one()
+
+    assert record == record_db.json
+
+    record_pid = PersistentIdentifier.query.filter_by(
+        pid_type="lit", pid_value=str(control_number)
+    ).one_or_none()
+
+    assert record_pid == None
 
 
 def test_literature_create_with_mutliple_pids(base_app, db, create_pidstore):
@@ -65,6 +81,82 @@ def test_literature_create_with_mutliple_pids(base_app, db, create_pidstore):
     assert expected_pid_doi_value == record_doi_pid.pid_value
 
 
+def test_literature_create_with_mutliple_updated_pids(base_app, db, create_pidstore):
+    doi_value = faker.doi()
+    arxiv_value = faker.arxiv()
+    data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
+    data = faker.record("lit", with_control_number=True, data=data)
+
+    expected_pid_lit_value = str(data["control_number"])
+    expected_pid_arxiv_value = arxiv_value
+    expected_pid_doi_value = doi_value
+
+    record = LiteratureRecord.create(data)
+
+    record_lit_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+    record_arxiv_pid = PersistentIdentifier.query.filter_by(pid_type="arxiv").one()
+    record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one()
+
+    assert expected_pid_lit_value == record_lit_pid.pid_value
+    assert expected_pid_arxiv_value == record_arxiv_pid.pid_value
+    assert expected_pid_doi_value == record_doi_pid.pid_value
+
+    doi_value_new = faker.doi()
+    arxiv_value_new = faker.arxiv()
+    data.update(
+        {
+            "arxiv_eprints": [{"value": arxiv_value_new}],
+            "dois": [{"value": doi_value_new}],
+        }
+    )
+    record.clear()
+    record.update(data)
+
+    expected_pid_lit_value = str(data["control_number"])
+    expected_pid_arxiv_value = arxiv_value_new
+    expected_pid_doi_value = doi_value_new
+
+    record_lit_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+    record_arxiv_pid = PersistentIdentifier.query.filter_by(pid_type="arxiv").one()
+    record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one()
+
+    assert expected_pid_lit_value == record_lit_pid.pid_value
+    assert expected_pid_arxiv_value == record_arxiv_pid.pid_value
+    assert expected_pid_doi_value == record_doi_pid.pid_value
+
+
+def test_literature_on_delete(base_app, db, es_clear, init_files_db, enable_files):
+    doi_value = faker.doi()
+    arxiv_value = faker.arxiv()
+    data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
+    data = faker.record("lit", data=data, with_control_number=True)
+
+    record = LiteratureRecord.create(data)
+
+    expected_pid_lit_value = str(data["control_number"])
+    expected_pid_arxiv_value = arxiv_value
+    expected_pid_doi_value = doi_value
+
+    record_lit_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+    record_arxiv_pid = PersistentIdentifier.query.filter_by(pid_type="arxiv").one()
+    record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one()
+
+    assert expected_pid_lit_value == record_lit_pid.pid_value
+    assert expected_pid_arxiv_value == record_arxiv_pid.pid_value
+    assert expected_pid_doi_value == record_doi_pid.pid_value
+
+    record.delete()
+    record_lit_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+    record_arxiv_pid = PersistentIdentifier.query.filter_by(
+        pid_type="arxiv"
+    ).one_or_none()
+    record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one_or_none()
+
+    assert None == record_arxiv_pid
+    assert None == record_doi_pid
+    assert PIDStatus.DELETED == record_lit_pid.status
+
+
 def test_literature_create_with_existing_control_number(base_app, db, create_pidstore):
     data = faker.record("lit", with_control_number=True)
     existing_object_uuid = uuid.uuid4()
@@ -91,7 +183,7 @@ def test_literature_create_with_arxiv_eprints(base_app, db):
 
     expected_arxiv_pid_value = arxiv_value
     expected_arxiv_pid_type = "arxiv"
-    expected_arxiv_pid_provider = "arxiv"
+    expected_arxiv_pid_provider = "external"
 
     record_pid_arxiv = PersistentIdentifier.query.filter_by(
         pid_type="arxiv", object_uuid=record.id
@@ -115,7 +207,7 @@ def test_literature_create_with_dois(base_app, db):
 
     expected_doi_pid_value = doi_value
     expected_doi_pid_type = "doi"
-    expected_doi_pid_provider = "doi"
+    expected_doi_pid_provider = "external"
     record_pid_doi = PersistentIdentifier.query.filter_by(
         pid_type="doi", object_uuid=record.id
     ).one()
@@ -391,7 +483,6 @@ def test_delete_record_with_files(
     }
 
     data = faker.record("lit", data=data)
-
     record = LiteratureRecord.create(data)
 
     assert len(record.files.keys) == 2

@@ -15,10 +15,6 @@ from .base import InspireRecord
 class ConferencesRecord(InspireRecord):
     """Conferences Record."""
 
-    pid_type = "con"
-
     es_serializer = ConferencesMetadataRawFieldsSchemaV1
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreConferences.mint(record_uuid, data)
+    pid_type = "con"
+    pidstore_handler = PidStoreConferences

@@ -26,7 +26,7 @@ def test_minter_arxiv_eprints(base_app, db, create_record_factory):
 
     expected_pids_len = 2
     epxected_pids_values = [arxiv_value_1, arxiv_value_2]
-    expected_pids_provider = "arxiv"
+    expected_pids_provider = "external"
     expected_pids_status = PIDStatus.REGISTERED
 
     result_pids = (

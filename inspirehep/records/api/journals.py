@@ -13,10 +13,6 @@ from .base import InspireRecord
 class JournalsRecord(InspireRecord):
     """Journals Record."""
 
-    pid_type = "jou"
-
     es_serializer = JournalsMetadataRawFieldsSchemaV1
-
-    @staticmethod
-    def mint(record_uuid, data):
-        PidStoreJournals.mint(record_uuid, data)
+    pid_type = "jou"
+    pidstore_handler = PidStoreJournals
