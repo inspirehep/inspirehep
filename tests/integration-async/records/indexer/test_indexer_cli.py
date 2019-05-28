@@ -93,9 +93,11 @@ def test_reindex_records_different_pid_types(
     generate_records(count=2, record_type=AuthorsRecord)
     generate_records(count=3, record_type=ConferencesRecord)
     generate_records(count=3, record_type=ExperimentsRecord)
-    generate_records(count=3, record_type=JobsRecord)
     generate_records(count=3, record_type=JournalsRecord)
     generate_records(count=3, record_type=InstitutionsRecord)
+
+    jobs_data = {'description': 'Cool job.', 'deadline_date': '2020-12-31', 'position': 'staff', 'regions': ['Europe'], 'status': 'open'}
+    generate_records(count=3, data=jobs_data, record_type=JobsRecord)
 
     check_n_records_reindex_for_pidtype("lit", n_success=1)
     check_n_records_reindex_for_pidtype("aut", n_success=2)

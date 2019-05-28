@@ -7,6 +7,7 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
+import random
 
 from faker import Faker
 from faker.providers import BaseProvider
@@ -60,6 +61,11 @@ class RecordProvider(BaseProvider):
         return {
             "$schema": "http://localhost:5000/schemas/records/jobs.json",
             "_collections": ["Jobs"],
+            "description": fake.sentence(),
+            "deadline_date": fake.date(pattern="%Y-%m-%d", end_datetime=None),
+            "position": "staff",
+            "regions": ["Europe"],
+            "status": random.choice(["open", "closed", "pending"])
         }
 
     @staticmethod

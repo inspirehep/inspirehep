@@ -5,20 +5,23 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from helpers.providers.faker import faker
-
 from inspirehep.records.api import JobsRecord
 from inspirehep.records.marshmallow.jobs import JobsMetadataRawFieldsSchemaV1
 
 
 def test_jobs_serializer_should_serialize_whole_basic_record():
     schema = JobsMetadataRawFieldsSchemaV1()
-    expected_result = {
-        "$schema": "http://localhost:5000/schemas/records/jobs.json",
-        "_collections": ["Jobs"],
+    data = {
+        '$schema': 'http://localhost:5000/schemas/records/jobs.json',
+        '_collections': ['Jobs'],
+        'deadline_date': '1996-11-15',
+        'description': 'Join us!',
+        'position': 'staff',
+        'regions': ['Europe'],
+        'status': 'closed'
     }
 
-    job = JobsRecord(faker.record("job"))
+    job = JobsRecord(data)
     result = schema.dump(job).data
 
-    assert result == expected_result
+    assert result == data
