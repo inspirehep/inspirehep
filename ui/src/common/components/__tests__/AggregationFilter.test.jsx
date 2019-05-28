@@ -56,4 +56,26 @@ describe('AggregationFilter', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders MultiSelectAggregation if aggregation type is multiselect', () => {
+    const buckets = fromJS([
+      {
+        key: 'bucket1',
+        doc_count: 1,
+      },
+      {
+        key: 'bucket2',
+        doc_count: 2,
+      },
+    ]);
+    const wrapper = shallow(
+      <AggregationFilter
+        onChange={jest.fn()}
+        buckets={buckets}
+        selections={['bucket1']}
+        aggregationType="multiselect"
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });

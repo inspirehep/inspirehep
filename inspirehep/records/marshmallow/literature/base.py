@@ -13,7 +13,6 @@ from inspire_dojson.utils import strip_empty_values
 from inspire_utils.date import format_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
-from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
 from inspirehep.pidstore.api import PidStoreBase
@@ -27,6 +26,7 @@ from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
 
+from ..base import InspireBaseSchema, InspireESEnhancementSchema
 from ..fields import ListWithLimit, NonHiddenNested, NonHiddenRaw
 from .common import (
     AcceleratorExperimentSchemaV1,
@@ -195,7 +195,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
         return strip_empty_values(data)
 
 
-class LiteratureSearchUISchemaV1(RecordSchemaJSONV1):
+class LiteratureSearchUISchemaV1(InspireBaseSchema):
     metadata = fields.Method("get_ui_display", dump_only=True)
 
     def get_ui_display(self, data):
@@ -206,11 +206,11 @@ class LiteratureSearchUISchemaV1(RecordSchemaJSONV1):
             return {}
 
 
-class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
+class LiteratureESEnhancementV1(
+    InspireESEnhancementSchema, LiteratureMetadataRawAdminSchemaV1
+):
     """Elasticsearch serialzier"""
 
-    _created = fields.DateTime(dump_only=True, attribute="created")
-    _updated = fields.DateTime(dump_only=True, attribute="updated")
     _ui_display = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
     _collections = fields.Raw(dump_only=True)
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
@@ -312,24 +312,13 @@ class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
         data["_ui_display"] = json.dumps(data["_ui_display"])
 
 
-class LiteratureUISchemaV1(RecordSchemaJSONV1):
+class LiteratureUISchemaV1(InspireBaseSchema):
     metadata = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
 
 
-class LiteratureRawSchemaV1(RecordSchemaJSONV1):
-    id_ = fields.Method("get_uuid")
-
-    def get_uuid(self, data):
-        pid = data.get("pid")
-        if pid:
-            return pid.object_uuid
-        return None
-
-
-class LiteratureRawPublicSchemaV1(LiteratureRawSchemaV1):
+class LiteratureRawPublicSchemaV1(InspireBaseSchema):
     metadata = fields.Nested(LiteratureMetadataRawPublicSchemaV1, dump_only=True)
 
 
-class LiteratureRawAdminSchemaV1(LiteratureRawSchemaV1):
-    id_ = fields.Raw(attribute="id", dump_only=True)
+class LiteratureRawAdminSchemaV1(InspireBaseSchema):
     metadata = fields.Nested(LiteratureMetadataRawAdminSchemaV1, dump_only=True)

@@ -7,6 +7,7 @@ import Loadable from 'react-loadable';
 import { getStore } from '../../fixtures/store';
 import Jobs from '..';
 import DetailPage from '../containers/DetailPage';
+import SearchPage from '../containers/SearchPage';
 
 describe('Jobs', () => {
   it('renders initial state', () => {
@@ -26,6 +27,22 @@ describe('Jobs', () => {
     wrapper.update();
 
     expect(wrapper.find(DetailPage)).toExist();
+
+    done();
+  });
+
+  it('navigates to SerachPage when /jobs', async done => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/jobs']} initialIndex={0}>
+          <Jobs />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(SearchPage)).toExist();
 
     done();
   });

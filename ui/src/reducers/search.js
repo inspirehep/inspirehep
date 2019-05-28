@@ -10,6 +10,7 @@ import {
   SEARCH_AGGREGATIONS_SUCCESS,
   SEARCH_AGGREGATIONS_ERROR,
 } from '../actions/actionTypes';
+import { AUTHORS, JOBS } from '../common/routes';
 
 const baseQuery = {
   sort: 'mostrecent',
@@ -28,6 +29,11 @@ export const searchScopes = fromJS({
     pathname: 'authors',
     query: baseQuery,
   },
+  jobs: {
+    name: 'jobs',
+    pathname: 'jobs',
+    query: baseQuery,
+  },
 });
 
 export const initialState = fromJS({
@@ -44,9 +50,14 @@ export const initialState = fromJS({
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOCATION_CHANGE:
-      if (action.payload.pathname.indexOf('authors') > -1) {
+      if (action.payload.pathname.indexOf(AUTHORS) > -1) {
         return state.set('scope', searchScopes.get('authors'));
       }
+
+      if (action.payload.pathname.indexOf(JOBS) > -1) {
+        return state.set('scope', searchScopes.get('jobs'));
+      }
+
       return state.set('scope', initialState.get('scope'));
     case CHANGE_SEARCH_SCOPE:
       return state.set('scope', searchScopes.get(action.payload));

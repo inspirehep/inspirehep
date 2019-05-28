@@ -8,6 +8,7 @@
 
   .ant-list {
     color: $text-color;
+
     .ant-list-item-meta-description {
       color: $text-color;
     }
@@ -18,7 +19,13 @@
   }
 
   .content {
+    // TODO: move padding logic to each collection index component
     padding: 0 2.85rem;
+
+    &:has(.__Jobs__) {
+      padding: 0;
+    }
+
     display: flex;
     margin-top: 64px;
 
@@ -30,29 +37,37 @@
       padding: $header-padding;
     }
   }
+
   .ant-list-item-meta-title > a {
     color: $link-color;
+
     :hover {
       color: $link-hover-color;
     }
   }
+
   .mb4-important {
     margin-bottom: 4px !important;
   }
+
   .secondary-color {
     color: $secondary-color;
   }
+
   .secondary-link {
     color: $secondary-color;
     text-decoration: underline;
     font-style: italic;
   }
+
   .secondary-container {
     font-style: italic;
+
     a {
       @extend .secondary-link;
     }
   }
+
   .ant-timeline-item-last {
     padding: 0;
   }
@@ -112,6 +127,7 @@
 .bulleted-list {
   padding: 0;
   margin: 0;
+
   & > li:not(:first-of-type) {
     &:before {
       content: '\2022 ';

@@ -6,11 +6,17 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_dojson.utils import strip_empty_values
-from marshmallow import post_dump
+from invenio_records_rest.schemas.json import RecordSchemaJSONV1
+from marshmallow import fields, post_dump
 from marshmallow.schema import Schema
 
 
-class InspireBaseSchema(Schema):
+class InspireBaseSchema(RecordSchemaJSONV1):
+    # FIXME: this should be renamed to ``uuid`` depends on ``inspire-next``
+    id_ = fields.String(attribute="pid.object_uuid")
+
+
+class InspireBaseMetadataSchema(Schema):
     _post_dumps = []
 
     @post_dump(pass_original=True)
@@ -20,11 +26,16 @@ class InspireBaseSchema(Schema):
         return strip_empty_values(object_)
 
 
-class InspireIncludeAllFieldsSchemaMixin(object):
+class InspireESEnhancementSchema(Schema):
+    _created = fields.DateTime(dump_only=True, attribute="created")
+    _updated = fields.DateTime(dump_only=True, attribute="updated")
+
+
+class InspireIncludeAllFieldsSchemaMixin:
     """Include all fields from a record."""
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super().__init__()
         self._post_dumps.append(self.include_original_fields)
 
     def include_original_fields(self, object_, original_data):
@@ -34,7 +45,9 @@ class InspireIncludeAllFieldsSchemaMixin(object):
         return object_
 
 
-class InspireAllFieldsSchema(InspireBaseSchema, InspireIncludeAllFieldsSchemaMixin):
+class InspireAllFieldsSchema(
+    InspireBaseMetadataSchema, InspireIncludeAllFieldsSchemaMixin
+):
     def __init__(self, *args, **kwargs):
         InspireBaseSchema.__init__(self, *args, **kwargs)
         InspireIncludeAllFieldsSchemaMixin.__init__(self, *args, **kwargs)
