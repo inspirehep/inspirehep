@@ -370,13 +370,13 @@ class InspireRecord(Record):
 
     @classmethod
     def get_linked_records_from_dict_field(cls, data, path):
-        """Return the linked records from specified path.
+        """Return the generator of linked records from specified path.
 
         Args:
             data (dict): data from which records should be extracted
             path (str): the path of the linked records.
-        Returns:
-            list: the linked records.
+        Yields:
+            InspireRecord: the linked records.
         Examples:
             >>> data = {
                 'references': [

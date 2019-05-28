@@ -245,8 +245,8 @@ class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
 
     def get_facet_author_name(self, record):
         """Prepare record for ``facet_author_name`` field."""
-        authors_with_record = InspireRecord.get_linked_records_from_dict_field(
-            record, "authors.record"
+        authors_with_record = list(
+            InspireRecord.get_linked_records_from_dict_field(record, "authors.record")
         )
         authors_without_record = [
             author
