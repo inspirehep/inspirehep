@@ -1,0 +1,60 @@
+{
+  "$schema": "http://qa.inspirebeta.net/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "accelerator_experiments": [
+    {
+      "curated_relation": true,
+      "legacy_name": "FNAL-E-0973",
+      "record": {
+        "$ref": "http://qa.inspirebeta.net/api/experiments/1108209"
+      }
+    },
+    {
+      "curated_relation": true,
+      "legacy_name": "LDMX",
+      "record": {
+        "$ref": "http://qa.inspirebeta.net/api/experiments/1621547"
+      }
+    }
+  ],
+  "arxiv_categories": ["hep-ex"],
+  "contact_details": [
+    {
+      "email": "rcg6p@virginia.edu",
+      "name": "Group, Craig"
+    },
+    {
+      "email": "rkh6j@virginia.edu",
+      "name": "Haverstrom, Rich"
+    }
+  ],
+  "control_number": 1735925,
+  "deadline_date": "2019-12-31",
+  "description":
+    "The Department of Physics at the University of Virginia invites applicants for a Research Associate position to work on the approved Mu2e experiments at Fermilab and the proposed LDMX experiment. &nbsp;<br> &nbsp;<br> We are currently playing a leading role on the Mu2e experiment, where we are responsible for fabrication of the cosmic ray veto subsystem. We are also making important contributions to LDMX (potentially located at SLAC), a novel proposed experiment with unprecedented sensitivity to light dark matter. &nbsp;&nbsp;The group is also active in the NOvA experiment and made significant contributions to the fabrication of the NOVA detector.&nbsp; The Intensity Frontier effort at Virginia comprises two faculty, one research scientist, two postdoctoral researchers, and four graduate students, working under Professors Craig Dukes and Craig Group.<br> &nbsp;<br> A PhD in Physics is required and a PhD in Experimental High Energy Physics is strongly preferred. &nbsp;Experience with hardware, CAD software, and GEANT simulations will be considered useful skills when considering candidates. The successful candidate is expected to take leading roles in managing Mu2e fabrication and commissioning efforts for the cosmic ray veto and future UVA contributions to LDMX. Candidates are expected to be stationed in Charlottesville, but must be able to participate in substantial deployments to Fermilab and the chosen LDMX site.&nbsp;<br> &nbsp;<br> <strong>QUALIFCATION REQUIRMENTS: </strong>Candidates must have a PhD degree in Physics by the appointment start date. Strong knowledge, skills and experience in some of the following fields are required: experimental particle or nuclear physics, particle detector design, construction, or simulation. Candidates with experience in particle physics detector hardware will be preferred.<br> &nbsp;<br> <strong>APPLICATION PROCEDURE:</strong>&nbsp; Apply online at <a href=\"https://uva.wd1.myworkdayjobs.com/en-US/UVAJobs/job/Charlottesville-VA/Research-Associate-in-Physics_R0002943\">https://uva.wd1.myworkdayjobs.com/en-US/UVAJobs/job/Charlottesville-VA/Research-Associate-in-Physics_R0002943</a> &nbsp;and attach a cover letter, curriculum vitae, a brief statement of research interests and the contact information for three individuals who can provide professional reference letters.<br> &nbsp;<br> The position will remain open until filled.&nbsp;<br> &nbsp;<br> This is a one-year appointment; however, appointment is expected be renewed for at least an additional two, one-year increments, contingent upon available funding and satisfactory performance.<br> &nbsp;<br> For additional information about the position, please contact Craig Group (rcg6p@virginia.edu)<br> &nbsp;<br> For questions about the application process, please contact Rich Haverstrom at (rkh6j@virginia.edu).<br> <br> <em>The University of Virginia, including the UVA Health System and the University Physician&rsquo;s Group are fundamentally committed to the diversity of our faculty and staff.&nbsp; We believe diversity is excellence expressing itself through every person&#39;s perspectives and lived experiences.&nbsp; We are equal opportunity and affirmative action employers. All qualified applicants will receive consideration for employment without regard to age, color, disability, gender identity, marital status, national or ethnic origin, political affiliation, race, religion, sex (including pregnancy), sexual orientation, veteran status, and family medical or genetic information.</em><br>",
+  "external_job_identifier": "R0002943",
+  "institutions": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://qa.inspirebeta.net/api/institutions/903328"
+      },
+      "value": "Virginia U."
+    }
+  ],
+  "legacy_creation_date": "2019-05-22",
+  "legacy_version": "20190522185514.0",
+  "position": "Experimental Particle Physics",
+  "ranks": ["POSTDOC"],
+  "regions": ["North America"],
+  "self": {
+    "$ref": "http://qa.inspirebeta.net/api/jobs/1735925"
+  },
+  "status": "open",
+  "urls": [
+    {
+      "value":
+        "https://uva.wd1.myworkdayjobs.com/en-US/UVAJobs/job/Charlottesville-VA/Research-Associate-in-Physics_R0002943"
+    }
+  ]
+}

@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchLayout renders with initial state 1`] = `
+<div>
+  <Row
+    className="bg-white mb3"
+    gutter={0}
+    justify="center"
+    type="flex"
+  >
+    <Col
+      lg={16}
+      xl={16}
+      xs={0}
+      xxl={14}
+    >
+      <ResponsiveView
+        min="lg"
+        render={[Function]}
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+    justify="center"
+    type="flex"
+  >
+    <Col
+      lg={16}
+      xl={16}
+      xs={24}
+      xxl={14}
+    >
+      <LoadingOrChildren
+        loading={false}
+      >
+        <Row
+          align="middle"
+          gutter={0}
+          justify="end"
+          type="flex"
+        >
+          <Col
+            lg={12}
+            xs={24}
+          >
+            <Connect(NumberOfResults) />
+          </Col>
+          <Col
+            lg={0}
+            xs={12}
+          >
+            <ResponsiveView
+              max="md"
+              render={[Function]}
+            />
+          </Col>
+          <Col
+            className="tr"
+            span={12}
+          >
+            <SortByContainer />
+          </Col>
+        </Row>
+        <Row
+          gutter={0}
+        >
+          <Col
+            span={24}
+          >
+            <Connect(SearchResults)
+              renderItem={[Function]}
+            />
+            <Connect(SearchPagination) />
+          </Col>
+        </Row>
+      </LoadingOrChildren>
+    </Col>
+  </Row>
+</div>
+`;

@@ -3,11 +3,17 @@
 exports[`AggregationFilters does not render aggregations when numberOfResults is 0 1`] = `""`;
 
 exports[`AggregationFilters does not render aggregations with empty buckets 1`] = `
-<div
+<Row
   className="bg-white pa3"
+  gutter={0}
+  justify="space-between"
+  type="flex"
 >
-  <div
+  <Col
+    gutter={32}
     key="agg1"
+    lg={24}
+    xs={24}
   >
     <EventTracker
       eventId="Facet-Aggregation 1"
@@ -25,16 +31,22 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
         onChange={[Function]}
       />
     </EventTracker>
-  </div>
-</div>
+  </Col>
+</Row>
 `;
 
 exports[`AggregationFilters renders with all props set 1`] = `
-<div
+<Row
   className="bg-white pa3"
+  gutter={0}
+  justify="space-between"
+  type="flex"
 >
-  <div
+  <Col
+    gutter={32}
     key="agg1"
+    lg={24}
+    xs={24}
   >
     <EventTracker
       eventId="Facet-[Range] Aggregation 1"
@@ -56,9 +68,12 @@ exports[`AggregationFilters renders with all props set 1`] = `
         selections="foo"
       />
     </EventTracker>
-  </div>
-  <div
+  </Col>
+  <Col
+    gutter={32}
     key="agg2"
+    lg={24}
+    xs={24}
   >
     <EventTracker
       eventId="Facet-Aggregation 2"
@@ -80,6 +95,6 @@ exports[`AggregationFilters renders with all props set 1`] = `
         splitDisplayName={true}
       />
     </EventTracker>
-  </div>
-</div>
+  </Col>
+</Row>
 `;

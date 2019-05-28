@@ -71,3 +71,15 @@ class ConditionalMultiSchemaJSONSerializer(JSONSerializer):
             if condition is None or condition(obj)
         )
         return schema(context=context).dump(obj).data
+
+
+class JSONSerializerFacets(InvenioJSONSerializer):
+    def serialize_search(self, pid_fetcher, search_result, **kwargs):
+        """Serialize facets results.
+
+        Note:
+            This serializer is only for search requests only for
+            facets. This is used with
+            ``inspirehep.search.factories.search.search_factory_only_with_aggs``.
+        """
+        return json.dumps(search_result)

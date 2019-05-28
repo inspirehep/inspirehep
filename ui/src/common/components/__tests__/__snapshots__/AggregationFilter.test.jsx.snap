@@ -25,6 +25,29 @@ exports[`AggregationFilter renders CheckboxAggregation if aggregation type is ch
 />
 `;
 
+exports[`AggregationFilter renders MultiSelectAggregation if aggregation type is multiselect 1`] = `
+<MultiSelectAggregation
+  buckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "bucket1",
+        "doc_count": 1,
+      },
+      Immutable.Map {
+        "key": "bucket2",
+        "doc_count": 2,
+      },
+    ]
+  }
+  onChange={[MockFunction]}
+  selections={
+    Array [
+      "bucket1",
+    ]
+  }
+/>
+`;
+
 exports[`AggregationFilter renders RangeAggregation if aggregation type is range 1`] = `
 <RangeAggregation
   buckets={

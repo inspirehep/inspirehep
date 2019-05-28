@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
+import { Row, Col } from 'antd';
 
 import AggregationFilter from './AggregationFilter';
 import EventTracker from './EventTracker';
@@ -18,18 +19,23 @@ class AggregationFilters extends Component {
       numberOfResults,
       query,
       onAggregationChange,
+      inline,
     } = this.props;
-
     return (
       aggregations &&
       numberOfResults > 0 && (
-        <div className="bg-white pa3">
+        <Row className="bg-white pa3" type="flex" justify="space-between">
           {aggregations
             .entrySeq()
             .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
             .sort(AggregationFilters.compareAggregationEntries)
             .map(([aggregationKey, aggregation]) => (
-              <div key={aggregationKey}>
+              <Col
+                key={aggregationKey}
+                xs={24}
+                lg={inline ? 6 : 24}
+                gutter={32}
+              >
                 <EventTracker
                   eventId={`Facet-${aggregation.getIn(['meta', 'title'])}`}
                   eventPropName="onChange"
@@ -45,19 +51,24 @@ class AggregationFilters extends Component {
                     }}
                   />
                 </EventTracker>
-              </div>
+              </Col>
             ))}
-        </div>
+        </Row>
       )
     );
   }
 }
 
 AggregationFilters.propTypes = {
+  inline: PropTypes.bool,
   onAggregationChange: PropTypes.func.isRequired,
   aggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
   query: PropTypes.objectOf(PropTypes.any).isRequired,
   numberOfResults: PropTypes.number.isRequired,
+};
+
+AggregationFilters.defaultProps = {
+  inline: false,
 };
 
 export default AggregationFilters;

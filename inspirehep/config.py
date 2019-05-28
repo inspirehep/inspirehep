@@ -19,7 +19,7 @@ import sys
 from copy import deepcopy
 
 from invenio_indexer.api import RecordIndexer
-from invenio_records_rest.facets import range_filter
+from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from inspirehep.access_control import api_access_permission_check
@@ -345,6 +345,22 @@ JOBS.update(
         "item_route": '/jobs/<pid(job,record_class="inspirehep.records.api:JobsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:JobsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
+        "search_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_v1_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":jobs_json_v1_response_search",
+        },
+    }
+)
+JOBS_FACETS = deepcopy(JOBS)
+JOBS_FACETS.update(
+    {
+        "default_endpoint_prefix": False,
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
+        "list_route": "/jobs/facets/",
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+        },
     }
 )
 
@@ -460,6 +476,7 @@ RECORDS_REST_ENDPOINTS = {
     "authors": AUTHORS,
     "authors_orcid": AUTHORS_ORCID,
     "jobs": JOBS,
+    "jobs_facets": JOBS_FACETS,
     "journals": JOURNALS,
     "experiments": EXPERIMENTS,
     "conferences": CONFERENCES,
@@ -517,6 +534,7 @@ HEP_COMMON_AGGS = {
         "meta": {"title": "Collaboration", "order": 7, "type": "checkbox"},
     },
 }
+
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
     "citation-summary": citation_summary,
@@ -544,6 +562,31 @@ RECORDS_REST_FACETS = {
             },
         },
     },
+    "records-jobs": {
+        "filters": {
+            "field_of_research": terms_filter("arxiv_categories"),
+            "rank": terms_filter("ranks"),
+            "region": terms_filter("regions"),
+        },
+        "aggs": {
+            "field_of_research": {
+                "terms": {"field": "arxiv_categories", "missing": "Other"},
+                "meta": {
+                    "order": 1,
+                    "type": "multiselect",
+                    "title": "Field of research",
+                },
+            },
+            "rank": {
+                "terms": {"field": "ranks"},
+                "meta": {"order": 2, "type": "multiselect", "title": "Rank"},
+            },
+            "region": {
+                "terms": {"field": "regions"},
+                "meta": {"order": 3, "type": "multiselect", "title": "Region"},
+            },
+        },
+    },
 }
 """Introduce searching facets."""
 
@@ -567,7 +610,11 @@ RECORDS_REST_SORT_OPTIONS = {
             "default_order": "asc",
             "order": 3,
         },
-    }
+    },
+    "records-jobs": {
+        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
+        "deadline": {"title": "Deadline", "fields": ["-deadline_date"], "order": 2},
+    },
 }
 
 RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostrecent"))

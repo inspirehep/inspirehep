@@ -1,0 +1,48 @@
+{
+  "$schema": "http://qa.inspirebeta.net/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "arxiv_categories": [
+    "astro-ph",
+    "hep-ph",
+    "hep-th",
+    "hep-ex",
+    "math",
+    "math-ph",
+    "physics",
+    "physics.acc-ph",
+    "quant-ph"
+  ],
+  "contact_details": [
+    {
+      "email": "council.secretariat@cern.ch",
+      "name": "Secretariat, Council"
+    }
+  ],
+  "control_number": 1727456,
+  "deadline_date": "2019-05-31",
+  "description":
+    "Invitation for applications for the appointment of a Director-General <p> With 2600 staff members, 1800 other paid personnel and some 13 000 scientific users from almost 100 countries, the European Organization for Nuclear Research, CERN, an intergovernmental organisation with its seat at Geneva, Switzerland, is the leading international laboratory for fundamental research in particle physics. The annual Budget of some 1 billion Swiss francs is funded by its 23 Member and Associate Member States. CERN is presently operating the Large Hadron Collider (LHC), the world&rsquo;s most powerful particle accelerator that provides new insights into the origin and the structure of matter and into the forces governing the Universe.</p> <p> The Director-General is the Chief Executive Officer and legal representative of the Organization. He/she is directly accountable to and executes the decisions of the CERN Council, the Organization&rsquo;s supreme governing body composed of the representatives of the Member States.</p> <p> The term of office of the present Director-General, Dr Fabiola Gianotti ends on 31 December 2020. The Council is therefore inviting applications for the appointment of a</p> <p> <strong>Director-General</strong></p> <p> for a five-year term of office starting on 1 January 2021.</p>  <b>The Position</b> <p> The successful candidate will:</p> <ul> <li>$\\bullet$ provide scientific and managerial leadership to the Organization;</li> <li> $\\bullet$ lead the implementation of the approved scientific programme, with emphasis on the full exploitation of the scientific potential of the LHC;</li> <li> $\\bullet$ develop strategic options for the long-term scientific programme of the Organization as an integral part of the European Strategy for Particle Physics;</li> <li> $\\bullet$ be responsible for implementation of the European Strategy for Particle Physics in collaboration with the European national laboratories and institutes in the field;</li> <li> $\\bullet$ have the capacity to manage and lead CERN at a moment when it is facing fundamental decisions about its future, and to drive the development of exceptional projects;</li> <li> $\\bullet$ maintain and develop close relations with the Member and Associate Member States, with non-Member States co-operating with CERN, and with its worldwide scientific user community.</li> </ul> <p> &nbsp;</p>  <strong>Requirements</strong> <p> The successful candidate will have:</p> <ul> <li> $\\bullet$ the capacity for the scientific and managerial leadership of CERN, for representing the Organization in dealings with governments and other bodies in and outside the Member and Associate Member States and for the effective building of consensus within the Organization, the Member and Associate Member States and internationally;</li> <li> $\\bullet$ outstanding expertise and a high reputation in particle physics and/or closely related fields;</li> <li> $\\bullet$ excellent communication and negotiation skills.</li> </ul> <p> Applicants are requested to address a letter of interest, with a detailed curriculum vitae, to the Chair of the Search Committee and send it to the CERN Council Secretariat [1] before 31 May 2019.</p> <p> The Council is scheduled to make the appointment in December 2019. To allow the Director-General Designate sufficient time for consultation and familiarisation with CERN, a position within the Organization can be arranged for the year 2020.</p> <p> For general information about CERN:&nbsp;<a href=\"http://cern.ch/\">http://cern.ch</a></p> <p> Additional information may be obtained from the Chair of the Search Committee via the Council Secretariat.</p> <p> An appropriate remuneration and benefits package will be offered.</p> <p> In line with CERN&rsquo;s equal opportunities policy, both men and women are encouraged to apply.</p> <p> &nbsp;</p> <p> CERN</p> <p> Council Secretariat &ndash; L00500</p> <p> CH-1211 Geneva 23</p> <p> Tel. +41 22 767 40 54</p> <p> <a href=\"mailto:council.secretariat@cern.ch\">council.secretariat@cern.ch</a></p>",
+  "institutions": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "http://qa.inspirebeta.net/api/institutions/902725"
+      },
+      "value": "CERN"
+    }
+  ],
+  "legacy_creation_date": "2019-04-01",
+  "legacy_version": "20190401172730.0",
+  "position": "Director-General",
+  "ranks": ["SENIOR"],
+  "regions": ["Europe"],
+  "self": {
+    "$ref": "http://qa.inspirebeta.net/api/jobs/1727456"
+  },
+  "status": "open",
+  "urls": [
+    {
+      "value": "https://careers.cern/DG"
+    }
+  ]
+}

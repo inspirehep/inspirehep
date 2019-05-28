@@ -5,13 +5,15 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import json
-
 from invenio_records_rest.serializers.response import search_responsify
 from marshmallow import Schema
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
-from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer, JSONSerializer
+from inspirehep.serializers import (
+    ConditionalMultiSchemaJSONSerializer,
+    JSONSerializer,
+    JSONSerializerFacets,
+)
 
 from ..marshmallow.authors import (
     AuthorsOnlyControlNumberSchemaV1,
@@ -19,6 +21,7 @@ from ..marshmallow.authors import (
     AuthorsRawPublicSchemaV1,
     AuthorsUISchemaV1,
 )
+from ..marshmallow.jobs import JobsRawPublicSchemaV1
 from ..marshmallow.literature import (
     LiteratureAuthorsSchemaV1,
     LiteratureRawAdminSchemaV1,
@@ -28,19 +31,6 @@ from ..marshmallow.literature import (
     LiteratureUISchemaV1,
 )
 from .response import record_responsify
-
-
-class JSONSerializerFacets(JSONSerializer):
-    def serialize_search(self, pid_fetcher, search_result, **kwargs):
-        """Serialize facets results.
-
-        Note:
-            This serializer is only for search requests only for
-            facets. This is used with
-            ``inspirehep.search.factories.search.search_factory_only_with_aggs``.
-        """
-        return json.dumps(search_result)
-
 
 # Facets
 facets_json = JSONSerializerFacets(Schema)
@@ -107,3 +97,8 @@ authors_control_number_only_json_v1_response = record_responsify(
     authors_control_number_only_json_v1,
     "application/vnd+inspire.record.control_number+json",
 )
+
+# Jobs
+jobs_json_v1 = JSONSerializer(JobsRawPublicSchemaV1, index_name="records-jobs")
+
+jobs_json_v1_response_search = search_responsify(jobs_json_v1, "application/json")

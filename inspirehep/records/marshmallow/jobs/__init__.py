@@ -6,4 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 # flake8: noqa
 
-from .base import JobsMetadataRawFieldsSchemaV1
+from .base import (
+    JobsESEnhancementV1,
+    JobsMetadataRawFieldsSchemaV1,
+    JobsRawPublicSchemaV1,
+)
