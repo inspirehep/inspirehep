@@ -12,7 +12,7 @@
   }
 
   td {
-    padding: 1rem;
+    padding: 0.5rem;
     font-weight: bold;
     text-align: right;
   }
@@ -33,6 +33,5 @@
       border-top: none;
     }
   }
-  border: $border;
   border-radius: $card-radius;
 }

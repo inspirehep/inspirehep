@@ -16,19 +16,18 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
         type="flex"
       >
         <Col
-          span={1}
-        >
-          <div
-            className="axis-label y-axis"
-          >
-            Papers
-          </div>
-        </Col>
-        <Col
-          span={23}
+          span={24}
         >
           <FlexibleXYPlot
-            height={300}
+            height={250}
+            margin={
+              Object {
+                "bottom": 40,
+                "left": 40,
+                "right": 20,
+                "top": 10,
+              }
+            }
             xType="ordinal"
             yDomain={
               Array [
@@ -37,21 +36,19 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
               ]
             }
           >
-            <HorizontalGridLines
-              attr="y"
-              direction="horizontal"
-            />
             <XAxis
               attr="x"
               attrAxis="y"
               className="x-axis"
               orientation="bottom"
               tickFormat={[Function]}
+              title="Citations"
             />
             <YAxis
               attr="y"
               attrAxis="x"
               orientation="left"
+              title="Papers"
             />
             <VerticalBarSeries
               barWidth={0.5}
@@ -258,17 +255,6 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
             />
           </FlexibleXYPlot>
         </Col>
-      </Row>
-      <Row
-        gutter={0}
-        justify="center"
-        type="flex"
-      >
-        <div
-          className="axis-label"
-        >
-          Citations
-        </div>
       </Row>
     </ErrorAlertOrChildren>
   </LoadingOrChildren>
@@ -291,19 +277,18 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
         type="flex"
       >
         <Col
-          span={1}
-        >
-          <div
-            className="axis-label y-axis"
-          >
-            Papers
-          </div>
-        </Col>
-        <Col
-          span={23}
+          span={24}
         >
           <FlexibleXYPlot
-            height={300}
+            height={250}
+            margin={
+              Object {
+                "bottom": 40,
+                "left": 40,
+                "right": 20,
+                "top": 10,
+              }
+            }
             xType="ordinal"
             yDomain={
               Array [
@@ -312,21 +297,19 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
               ]
             }
           >
-            <HorizontalGridLines
-              attr="y"
-              direction="horizontal"
-            />
             <XAxis
               attr="x"
               attrAxis="y"
               className="x-axis"
               orientation="bottom"
               tickFormat={[Function]}
+              title="Citations"
             />
             <YAxis
               attr="y"
               attrAxis="x"
               orientation="left"
+              title="Papers"
             />
             <VerticalBarSeries
               barWidth={0.5}
@@ -533,17 +516,6 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
             />
           </FlexibleXYPlot>
         </Col>
-      </Row>
-      <Row
-        gutter={0}
-        justify="center"
-        type="flex"
-      >
-        <div
-          className="axis-label"
-        >
-          Citations
-        </div>
       </Row>
     </ErrorAlertOrChildren>
   </LoadingOrChildren>
@@ -566,19 +538,18 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
         type="flex"
       >
         <Col
-          span={1}
-        >
-          <div
-            className="axis-label y-axis"
-          >
-            Papers
-          </div>
-        </Col>
-        <Col
-          span={23}
+          span={24}
         >
           <FlexibleXYPlot
-            height={300}
+            height={250}
+            margin={
+              Object {
+                "bottom": 40,
+                "left": 40,
+                "right": 20,
+                "top": 10,
+              }
+            }
             xType="ordinal"
             yDomain={
               Array [
@@ -587,21 +558,19 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
               ]
             }
           >
-            <HorizontalGridLines
-              attr="y"
-              direction="horizontal"
-            />
             <XAxis
               attr="x"
               attrAxis="y"
               className="x-axis"
               orientation="bottom"
               tickFormat={[Function]}
+              title="Citations"
             />
             <YAxis
               attr="y"
               attrAxis="x"
               orientation="left"
+              title="Papers"
             />
             <VerticalBarSeries
               barWidth={0.5}
@@ -808,17 +777,6 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
             />
           </FlexibleXYPlot>
         </Col>
-      </Row>
-      <Row
-        gutter={0}
-        justify="center"
-        type="flex"
-      >
-        <div
-          className="axis-label"
-        >
-          Citations
-        </div>
       </Row>
     </ErrorAlertOrChildren>
   </LoadingOrChildren>

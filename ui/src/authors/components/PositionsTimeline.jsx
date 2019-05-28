@@ -4,7 +4,7 @@ import { List } from 'immutable';
 import { Timeline } from 'antd';
 import ExpandListToggle from '../../common/components/ExpandListToggle';
 
-const DISPLAY_LIMIT = 2;
+const DISPLAY_LIMIT = 3;
 
 class PositionsTimeline extends Component {
   static renderPositionTimelineItem(position) {

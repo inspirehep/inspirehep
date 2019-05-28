@@ -25,11 +25,11 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
       transitionName="zoom-big-fast"
     >
       <FlexibleXYPlot
-        height={150}
+        height={250}
         margin={
           Object {
-            "bottom": 30,
-            "left": 30,
+            "bottom": 40,
+            "left": 40,
             "right": 20,
             "top": 10,
           }
@@ -40,7 +40,7 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={8}
+          tickTotal={7}
           tickValues={
             Array [
               1997,
@@ -112,11 +112,11 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
       transitionName="zoom-big-fast"
     >
       <FlexibleXYPlot
-        height={150}
+        height={250}
         margin={
           Object {
-            "bottom": 30,
-            "left": 30,
+            "bottom": 40,
+            "left": 40,
             "right": 20,
             "top": 10,
           }
@@ -127,7 +127,7 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={8}
+          tickTotal={7}
           tickValues={
             Array [
               1999,
@@ -208,11 +208,11 @@ exports[`CitationsByYearGraph renders hovered info in a tooltip on line series h
       transitionName="zoom-big-fast"
     >
       <FlexibleXYPlot
-        height={150}
+        height={250}
         margin={
           Object {
-            "bottom": 30,
-            "left": 30,
+            "bottom": 40,
+            "left": 40,
             "right": 20,
             "top": 10,
           }
@@ -223,7 +223,7 @@ exports[`CitationsByYearGraph renders hovered info in a tooltip on line series h
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={8}
+          tickTotal={7}
           tickValues={
             Array [
               1999,
@@ -295,11 +295,11 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
       transitionName="zoom-big-fast"
     >
       <FlexibleXYPlot
-        height={150}
+        height={250}
         margin={
           Object {
-            "bottom": 30,
-            "left": 30,
+            "bottom": 40,
+            "left": 40,
             "right": 20,
             "top": 10,
           }
@@ -310,7 +310,7 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={8}
+          tickTotal={7}
           tickValues={null}
         />
         <YAxis
@@ -424,11 +424,11 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
       transitionName="zoom-big-fast"
     >
       <FlexibleXYPlot
-        height={150}
+        height={250}
         margin={
           Object {
-            "bottom": 30,
-            "left": 30,
+            "bottom": 40,
+            "left": 40,
             "right": 20,
             "top": 10,
           }
@@ -439,7 +439,7 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={8}
+          tickTotal={7}
           tickValues={Array []}
         />
         <YAxis
