@@ -91,7 +91,7 @@ class DetailPage extends Component {
     return (
       <>
         <Row className="mv3" type="flex" justify="center">
-          <Col xs={24} md={21} lg={19} xl={18}>
+          <Col xs={24} md={22} lg={21} xxl={18}>
             <Alert
               type="info"
               showIcon
@@ -110,45 +110,32 @@ class DetailPage extends Component {
             >
               <Col xs={24} md={12} lg={16}>
                 <ContentBox loading={loading} className="sm-pb3">
+                  <h2>
+                    <AuthorName name={name} />
+                    {currentPositions.size > 0 && (
+                      <span className="pl1 f6">
+                        (<AuthorAffiliationList
+                          affiliations={currentPositions}
+                        />)
+                      </span>
+                    )}
+                  </h2>
                   <Row type="flex" justify="space-between">
-                    <Col xs={24} lg={12}>
-                      <h2>
-                        <AuthorName name={name} />
-                        {currentPositions.size > 0 && (
-                          <span className="pl1 f6">
-                            (<AuthorAffiliationList
-                              affiliations={currentPositions}
-                            />)
-                          </span>
-                        )}
-                      </h2>
-                      <div className="mt1">
-                        <ArxivCategoryList arxivCategories={arxivCategories} />
-                        <ExperimentList experiments={experiments} />
-                      </div>
+                    <Col xs={24} lg={12} className="mb3">
+                      <ArxivCategoryList arxivCategories={arxivCategories} />
+                      <ExperimentList experiments={experiments} />
                     </Col>
                     <Col xs={24} lg={12}>
-                      <CitationsByYearGraphContainer />
+                      {shouldDisplayPositions && (
+                        <PositionsTimeline positions={positions} />
+                      )}
                     </Col>
                   </Row>
                 </ContentBox>
               </Col>
-              {shouldDisplayPositions && (
+              <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
                 <Col xs={24} md={12} lg={8}>
-                  <ContentBox loading={loading} subTitle="Positions">
-                    <PositionsTimeline positions={positions} />
-                  </ContentBox>
-                </Col>
-              )}
-            </Row>
-          </Col>
-        </Row>
-        <Row className="mb3" type="flex" justify="center">
-          <Col xs={24} md={21} lg={19} xl={18}>
-            <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
-              <ContentBox>
-                <Row gutter={{ xs: 0, lg: 32 }}>
-                  <Col xs={24} md={12} lg={7}>
+                  <ContentBox loading={loading}>
                     <CitationSummaryTableContainer
                       renderNumberOfCiteablePapers={
                         DetailPage.renderNumberOfCiteablePapers
@@ -157,8 +144,21 @@ class DetailPage extends Component {
                         DetailPage.renderNumberOfPublishedPapers
                       }
                     />
+                  </ContentBox>
+                </Col>
+              </AuthorizedContainer>
+            </Row>
+          </Col>
+        </Row>
+        <Row className="mb3" type="flex" justify="center">
+          <Col xs={24} md={22} lg={21} xxl={18}>
+            <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+              <ContentBox subTitle="Citation Summary">
+                <Row gutter={{ xs: 0, lg: 32 }}>
+                  <Col xs={24} md={24} lg={7}>
+                    <CitationsByYearGraphContainer />
                   </Col>
-                  <Col xs={24} md={12} lg={17}>
+                  <Col xs={24} md={24} lg={17}>
                     <CitationSummaryGraphContainer />
                   </Col>
                 </Row>
@@ -167,7 +167,7 @@ class DetailPage extends Component {
           </Col>
         </Row>
         <Row type="flex" justify="center">
-          <Col xs={24} md={21} lg={19} xl={18}>
+          <Col xs={24} md={22} lg={21} xxl={18}>
             <ContentBox>
               <AuthorPublicationsContainer
                 renderResultItem={(result, rank) => (

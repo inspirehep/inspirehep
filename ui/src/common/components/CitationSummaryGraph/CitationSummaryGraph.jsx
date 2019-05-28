@@ -2,7 +2,6 @@ import React, { Component, Fragment } from 'react';
 import {
   XAxis,
   YAxis,
-  HorizontalGridLines,
   VerticalBarSeries,
   LabelSeries,
   FlexibleWidthXYPlot,
@@ -21,6 +20,8 @@ import styleVariables from '../../../styleVariables';
 import { shallowEqual } from '../../utils';
 
 const BAR_WIDTH = 0.5;
+const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
+const GRAPH_HEIGHT = 250;
 
 export const ORANGE = styleVariables['orange-6'];
 export const HOVERED_ORANGE = styleVariables['orange-7'];
@@ -157,21 +158,19 @@ class CitationSummaryGraph extends Component {
           <LoadingOrChildren loading={loading}>
             <ErrorAlertOrChildren error={error}>
               <Row type="flex" align="middle">
-                <Col span={1}>
-                  <div className="axis-label y-axis">Papers</div>
-                </Col>
-                <Col span={23}>
+                <Col span={24}>
                   <FlexibleWidthXYPlot
-                    height={300}
+                    height={GRAPH_HEIGHT}
+                    margin={GRAPH_MARGIN}
                     xType="ordinal"
                     yDomain={[0, yDomainMax * 1.3]}
                   >
-                    <HorizontalGridLines />
                     <XAxis
                       className="x-axis"
+                      title="Citations"
                       tickFormat={v => xValueToLabel[v]}
                     />
-                    <YAxis />
+                    <YAxis title="Papers" />
                     <VerticalBarSeries
                       colorType="literal"
                       data={citeableSeriesData}
@@ -207,9 +206,6 @@ class CitationSummaryGraph extends Component {
                     />
                   </FlexibleWidthXYPlot>
                 </Col>
-              </Row>
-              <Row type="flex" justify="center">
-                <div className="axis-label">Citations</div>
               </Row>
             </ErrorAlertOrChildren>
           </LoadingOrChildren>

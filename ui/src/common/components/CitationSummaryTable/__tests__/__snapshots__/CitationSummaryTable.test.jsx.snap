@@ -13,11 +13,7 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
       <table>
         <tbody>
           <tr>
-            <th>
-              <h3>
-                Citation Summary
-              </h3>
-            </th>
+            <th />
             <th>
               <LabelWithHelp
                 help="Citeable papers have metadata that allow us to reliably track their citations."

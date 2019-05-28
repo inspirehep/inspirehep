@@ -42,7 +42,7 @@ describe('PositionsTimeline', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders only first 2 by default', () => {
+  it('renders only first 3 by default', () => {
     const positions = fromJS([
       { institution: 'Inst 1' },
       { institution: 'Inst 2' },

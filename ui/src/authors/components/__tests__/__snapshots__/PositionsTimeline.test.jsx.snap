@@ -88,14 +88,14 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
   </Timeline>
   <ExpandListToggle
     expanded={true}
-    limit={2}
+    limit={3}
     onToggle={[Function]}
     size={6}
   />
 </Fragment>
 `;
 
-exports[`PositionsTimeline renders only first 2 by default 1`] = `
+exports[`PositionsTimeline renders only first 3 by default 1`] = `
 <Fragment>
   <Timeline
     mode=""
@@ -128,10 +128,23 @@ exports[`PositionsTimeline renders only first 2 by default 1`] = `
         </span>
       </div>
     </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#undefined@Inst 3"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div />
+      <div>
+        <span>
+          Inst 3
+        </span>
+      </div>
+    </TimelineItem>
   </Timeline>
   <ExpandListToggle
     expanded={false}
-    limit={2}
+    limit={3}
     onToggle={[Function]}
     size={6}
   />
@@ -183,10 +196,29 @@ exports[`PositionsTimeline renders with positions 1`] = `
         </span>
       </div>
     </TimelineItem>
+    <TimelineItem
+      color="blue"
+      key="#2000-present@CERN"
+      pending={false}
+      prefixCls="ant-timeline"
+    >
+      <div>
+        2000-present
+      </div>
+      <div>
+        <strong>
+          STAFF
+          , 
+        </strong>
+        <span>
+          CERN
+        </span>
+      </div>
+    </TimelineItem>
   </Timeline>
   <ExpandListToggle
     expanded={false}
-    limit={2}
+    limit={3}
     onToggle={[Function]}
     size={3}
   />
@@ -222,7 +254,7 @@ exports[`PositionsTimeline renders with single position 1`] = `
   </Timeline>
   <ExpandListToggle
     expanded={false}
-    limit={2}
+    limit={3}
     onToggle={[Function]}
     size={1}
   />

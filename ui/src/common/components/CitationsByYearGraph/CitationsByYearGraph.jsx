@@ -9,9 +9,11 @@ import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 
 const BLUE = styleVariables['primary-color'];
-const GRAPH_MARGIN = { left: 30, right: 20, top: 10, bottom: 30 };
+const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
+const GRAPH_HEIGHT = 250;
+
 const MIN_NUMBER_OF_DATAPOINTS = 3;
-const MAX_NUMBER_OF_TICKS_AT_X = 8;
+const MAX_NUMBER_OF_TICKS_AT_X = 7;
 
 class CitationsByYearGraph extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -98,7 +100,7 @@ class CitationsByYearGraph extends Component {
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
           <Tooltip title={this.renderHoveredInfo()} placement="bottom">
-            <FlexibleWidthXYPlot height={150} margin={GRAPH_MARGIN}>
+            <FlexibleWidthXYPlot height={GRAPH_HEIGHT} margin={GRAPH_MARGIN}>
               {this.renderXAxis()}
               <YAxis />
               <LineSeries
