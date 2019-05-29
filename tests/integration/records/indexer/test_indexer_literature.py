@@ -34,4 +34,5 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     assert response["hits"]["total"] == expected_count
     assert result == expected_metadata
     assert result_ui_display == expected_metadata_ui_display
+    assert len(record.get("authors")) == len(result_facet_author_name)
     assert sorted(result_facet_author_name) == sorted(expected_facet_author_name)
