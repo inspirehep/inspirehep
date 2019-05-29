@@ -16,6 +16,7 @@ from inspire_utils.record import get_value
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
+from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.authors import AuthorsMetadataUISchemaV1
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
@@ -248,10 +249,21 @@ class LiteratureESEnhancementV1(LiteratureMetadataRawAdminSchemaV1):
         authors_with_record = list(
             InspireRecord.get_linked_records_from_dict_field(record, "authors.record")
         )
+        found_authors_control_numbers = set(
+            [
+                author["control_number"]
+                for author in authors_with_record
+                if author.get("control_number")
+            ]
+        )
         authors_without_record = [
             author
             for author in record.get("authors", [])
-            if author not in authors_with_record
+            if "record" not in author
+            or int(
+                PidStoreBase.get_pid_from_record_uri(author["record"].get("$ref"))[1]
+            )
+            not in found_authors_control_numbers
         ]
         result = []
 
