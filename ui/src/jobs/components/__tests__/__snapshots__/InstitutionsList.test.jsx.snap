@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionsList renders institutions 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="Map { \\"value\\": \\"UC, Berkeley\\" }"
+    >
+      UC, Berkeley
+    </li>
+    <li
+      key="Map { \\"value\\": \\"CERN\\" }"
+    >
+      CERN
+    </li>
+  </ul>
+</div>
+`;

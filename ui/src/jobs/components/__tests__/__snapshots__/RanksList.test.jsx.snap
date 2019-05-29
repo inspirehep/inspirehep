@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RanksList renders ranks 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-middledot"
+  >
+    <li
+      key="POSTDOC"
+    >
+      POSTDOC
+    </li>
+    <li
+      key="PHD"
+    >
+      PHD
+    </li>
+  </ul>
+</div>
+`;

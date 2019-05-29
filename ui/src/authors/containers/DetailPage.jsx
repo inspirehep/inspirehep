@@ -6,8 +6,7 @@ import { Map, List } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
 import AuthorName from '../components/AuthorName';
-import ExperimentList from '../components/ExperimentList';
-import ArxivCategoryList from '../components/ArxivCategoryList';
+import ExperimentList from '../../common/components/ExperimentList';
 import {
   fetchAuthor,
   fetchAuthorPublications,
@@ -29,6 +28,7 @@ import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
+import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {

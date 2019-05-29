@@ -5,25 +5,31 @@
     padding: 0;
   }
   li {
-    display: inline;
+    display: inline-block;
+    & > * {
+      display: inline-block;
+    }
   }
 
-  @mixin separte-items-with($seperator) {
-    li:not(:last-child):after {
+  $separator-padding: 0.25em;
+  @mixin separte-items-with($seperator, $padding-left: 0) {
+    & > li:not(:last-child):not(:empty):after {
       content: $seperator;
+      padding-right: $separator-padding;
+      padding-left: $padding-left;
     }
   }
 
   ul.separate-items-with-semicolon {
-    @include separte-items-with('; ');
+    @include separte-items-with(';');
   }
   ul.separate-items-with-comma {
-    @include separte-items-with(', ');
+    @include separte-items-with(',');
   }
   ul.separate-items-with-and {
-    @include separte-items-with(' and ');
+    @include separte-items-with('and', $separator-padding);
   }
   ul.separate-items-with-middledot {
-    @include separte-items-with(' \2022  ');
+    @include separte-items-with('\2022', $separator-padding);
   }
 }

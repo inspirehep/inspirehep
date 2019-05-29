@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdatedDate renders with updated 1`] = `
+<span>
+  a minute ago
+</span>
+`;

@@ -37,6 +37,10 @@ exports[`App renders initial state 1`] = `
         component={[Function]}
         path="/authors"
       />
+      <Route
+        component={[Function]}
+        path="/jobs"
+      />
       <Connect(PrivateRoute)
         component={[Function]}
         path="/submissions"

@@ -15,6 +15,7 @@ import Errors from '../errors';
 import Authors from '../authors';
 import { ERRORS } from '../common/routes';
 import * as tracker from '../tracker';
+import Jobs from '../jobs';
 
 jest.mock('../tracker');
 
@@ -174,5 +175,16 @@ describe('App', () => {
       </Provider>
     );
     expect(wrapper.find(Redirect)).toHaveProp('to', ERRORS);
+  });
+
+  it('navigates to Jobs when /jobs', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/jobs']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Jobs)).toExist();
   });
 });

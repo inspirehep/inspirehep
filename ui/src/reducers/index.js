@@ -9,6 +9,7 @@ import user, { initialState as userInitialState } from './user';
 import submissions from './submissions';
 import citations from './citations';
 import authors from './authors';
+import jobs from './jobs';
 import ui, { initialState as uiInitialState } from './ui';
 
 const reducers = combineReducers({
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   citations,
   authors,
   ui,
+  jobs,
 });
 
 export default reducers;
