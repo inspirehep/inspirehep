@@ -5,10 +5,10 @@ import { Map, List } from 'immutable';
 
 import ResultItem from '../../common/components/ResultItem';
 import AuthorName from './AuthorName';
-import ArxivCategoryList from './ArxivCategoryList';
-import ExperimentList from './ExperimentList';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import { getCurrentAffiliationsFromPositions } from '../utils';
+import ArxivCategoryList from '../../common/components/ArxivCategoryList';
+import ExperimentList from '../../common/components/ExperimentList';
 
 class AuthorResultItem extends Component {
   render() {

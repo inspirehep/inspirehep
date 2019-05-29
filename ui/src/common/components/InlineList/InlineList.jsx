@@ -5,8 +5,10 @@ import { List } from 'immutable';
 
 import { getSizeOfArrayOrImmutableList } from '../../utils';
 import './InlineList.scss';
-
-const DEFAULT_SEPARATE_ITEMS_CLASS = 'separate-items-with-comma';
+import {
+  DEFAULT_SEPARATE_ITEMS_CLASS,
+  SEPARATE_ITEMS_CLASSNAMES,
+} from './constants';
 
 class InlineList extends Component {
   render() {
@@ -43,21 +45,17 @@ InlineList.propTypes = {
   extractKey: PropTypes.func,
   items: PropTypes.oneOfType([PropTypes.instanceOf(List), PropTypes.array]),
   label: PropTypes.string,
-  renderItem: PropTypes.func.isRequired,
+  renderItem: PropTypes.func,
   separateItems: PropTypes.bool,
   // TODO: move the `sperate...` prefix to this component
-  separateItemsClassName: PropTypes.oneOf([
-    'separate-items-with-semicolon',
-    'separate-items-with-comma',
-    'separate-items-with-and',
-    'separate-items-with-middledot',
-  ]),
+  separateItemsClassName: PropTypes.oneOf(SEPARATE_ITEMS_CLASSNAMES),
   suffix: PropTypes.node,
   wrapperClassName: PropTypes.string,
 };
 
 InlineList.defaultProps = {
   extractKey: item => item,
+  renderItem: item => item,
   items: null,
   label: null,
   separateItems: true,

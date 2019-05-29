@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineList from './InlineList';
 
 class ExperimentList extends Component {
   static renderExperiment(experiment) {

@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import UnclickableTag from '../../common/components/UnclickableTag';
-import InlineList from '../../common/components/InlineList';
+import UnclickableTag from './UnclickableTag';
+import InlineList from './InlineList';
 
 class ArxivCategoryList extends Component {
   static renderArxivCategory(category) {
@@ -11,12 +11,13 @@ class ArxivCategoryList extends Component {
   }
 
   render() {
-    const { arxivCategories } = this.props;
+    const { arxivCategories, wrapperClassName } = this.props;
     return (
       <InlineList
         separateItems={false}
         items={arxivCategories}
         renderItem={ArxivCategoryList.renderArxivCategory}
+        wrapperClassName={wrapperClassName}
       />
     );
   }
@@ -24,10 +25,12 @@ class ArxivCategoryList extends Component {
 
 ArxivCategoryList.propTypes = {
   arxivCategories: PropTypes.instanceOf(List),
+  wrapperClassName: PropTypes.string,
 };
 
 ArxivCategoryList.defaultProps = {
   arxivCategories: null,
+  wrapperClassName: null,
 };
 
 export default ArxivCategoryList;

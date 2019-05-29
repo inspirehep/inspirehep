@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegionsList renders regions 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="Asia"
+    >
+      Asia
+    </li>
+    <li
+      key="North America"
+    >
+      North America
+    </li>
+  </ul>
+</div>
+`;

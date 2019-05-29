@@ -38,6 +38,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
           "hep-th",
         ]
       }
+      wrapperClassName={null}
     />
     <ExperimentList
       experiments={
@@ -72,6 +73,7 @@ exports[`AuthorResultItem renders with only name 1`] = `
   >
     <ArxivCategoryList
       arxivCategories={null}
+      wrapperClassName={null}
     />
     <ExperimentList
       experiments={null}

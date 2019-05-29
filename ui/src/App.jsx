@@ -21,6 +21,7 @@ import {
   AUTHORS,
   SUBMISSIONS,
   ERRORS,
+  JOBS,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles } from './tracker';
@@ -35,6 +36,10 @@ const Literature$ = Loadable({
 });
 const Authors$ = Loadable({
   loader: () => import('./authors'),
+  loading: Loading,
+});
+const Jobs$ = Loadable({
+  loader: () => import('./jobs'),
   loading: Loading,
 });
 const Home$ = Loadable({
@@ -79,6 +84,7 @@ class App extends Component {
             <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
             <Route path={LITERATURE} component={Literature$} />
             <Route path={AUTHORS} component={Authors$} />
+            <Route path={JOBS} component={Jobs$} />
             <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
             <Route path={ERRORS} component={Errors$} />
           </SafeSwitch>

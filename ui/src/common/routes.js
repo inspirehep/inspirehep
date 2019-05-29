@@ -4,6 +4,8 @@ export const LITERATURE = '/literature';
 
 export const AUTHORS = '/authors';
 
+export const JOBS = '/jobs';
+
 export const USER = '/user';
 export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;
