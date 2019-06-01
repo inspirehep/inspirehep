@@ -73,7 +73,7 @@ gunicorn = "*"
 pylint = "*"
 flake8 = "*"
 watchdog = "*"
-virtualenv = "<16.5.0"
+virtualenv = "<16.7.0"
 ipdb = "^0.12.0"
 
 [build-system]
