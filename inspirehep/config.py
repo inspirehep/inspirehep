@@ -40,7 +40,7 @@ DEBUG = True
 
 # Migration
 # =========
-#: Special redis for continuous migration
+#: Special redis for continuous migration and ORCID token migration
 MIGRATION_REDIS_URL = None
 
 # Rate limiting

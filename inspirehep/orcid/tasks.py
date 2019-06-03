@@ -61,7 +61,10 @@ def legacy_orcid_arrays():
     Yields:
         list: user data in the form of [orcid, token, email, name]
     """
-    redis_url = current_app.config.get("CACHE_REDIS_URL")
+    # XXX: temp redis url when we use orcid push in kb8s
+    redis_url = current_app.config.get("MIGRATION_REDIS_URL")
+    if redis_url is None:
+        redis_url = current_app.config.get("CACHE_REDIS_URL")
     r = StrictRedis.from_url(redis_url)
 
     key = "legacy_orcid_tokens"
