@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
-from copy import deepcopy
+from copy import copy
 from itertools import chain
 
 from inspire_dojson.utils import strip_empty_values
@@ -305,11 +305,12 @@ class LiteratureESEnhancementV1(
 
     @pre_dump
     def populate_ui_display(self, data):
-        data["_ui_display"] = deepcopy(data)
+        data["_ui_display"] = copy(data)
 
-    @post_dump
-    def stringify_ui_display(self, data):
+    @post_dump(pass_original=True)
+    def stringify_ui_display(self, data, original):
         data["_ui_display"] = json.dumps(data["_ui_display"])
+        del original["_ui_display"]
 
 
 class LiteratureUISchemaV1(InspireBaseSchema):

@@ -441,11 +441,19 @@ class InspireRecord(Record):
         """
         return self.get_linked_records_from_dict_field(self, path)
 
+    def commit(self, *args, **kwargs):
+        """Stub commit function for compatibility with invenio records API.
+
+        This method does nothing, instead all the work is done in ``update``.
+        """
+        pass
+
     def update(self, data):
         with db.session.begin_nested():
             self.clear()
             super().update(data)
-            self.model.json = self
+            self.validate()
+            self.model.json = dict(self)
             self._update_refs_in_citation_table()
             self.pidstore_handler.update(self.id, self)
             db.session.add(self.model)
@@ -469,15 +477,15 @@ class InspireRecord(Record):
             self._mark_deleted()
 
     def delete(self):
-        for file in list(self.files.keys):
-            del self.files[file]
-        self._mark_deleted()
         with db.session.begin_nested():
+            self._mark_deleted()
+            for file in list(self.files.keys):
+                del self.files[file]
             self.pidstore_handler.delete(self.id, self)
 
     def _mark_deleted(self):
         self["deleted"] = True
-        self._update_refs_in_citation_table()
+        self.update(dict(self))
 
     def hard_delete(self):
         with db.session.begin_nested():

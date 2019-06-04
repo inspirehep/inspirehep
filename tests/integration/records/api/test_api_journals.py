@@ -68,7 +68,7 @@ def test_journals_update(base_app, db):
     record = JournalsRecord.create(data)
 
     assert data["control_number"] == record["control_number"]
-    data_update = {"description": "UPDATED"}
+    data_update = {"public_notes": [{"value": "UPDATED"}]}
     data.update(data_update)
     record.update(data)
     control_number = str(record["control_number"])
@@ -107,7 +107,7 @@ def test_journals_create_or_update_with_existing_record(base_app, db):
 
     assert data["control_number"] == record["control_number"]
 
-    data_update = {"description": "UPDATED"}
+    data_update = {"public_notes": [{"value": "UPDATED"}]}
     data.update(data_update)
 
     record_updated = JournalsRecord.create_or_update(data)

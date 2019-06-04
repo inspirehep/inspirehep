@@ -69,7 +69,7 @@ def test_data_update(base_app, db):
     record = DataRecord.create(data)
 
     assert data["control_number"] == record["control_number"]
-    data_update = {"description": "UPDATED"}
+    data_update = {"dois": [{"value": "10.1000/UPDATED"}]}
     data.update(data_update)
     record.update(data)
     control_number = str(record["control_number"])
@@ -108,7 +108,7 @@ def test_data_create_or_update_with_existing_record(base_app, db):
 
     assert data["control_number"] == record["control_number"]
 
-    data_update = {"description": "UPDATED"}
+    data_update = {"dois": [{"value": "10.1000/UPDATED"}]}
     data.update(data_update)
 
     record_updated = DataRecord.create_or_update(data)

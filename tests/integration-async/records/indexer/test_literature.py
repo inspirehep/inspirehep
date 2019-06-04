@@ -23,7 +23,6 @@ def test_lit_record_appear_in_es_when_created(
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
-    rec.commit()
     db.session.commit()
     steps = [
         {"step": es.indices.refresh, "args": ["records-hep"]},
@@ -45,11 +44,10 @@ def test_lit_record_update_when_changed(
     data = faker.record("lit")
     data["titles"] = [{"title": "Original title"}]
     rec = LiteratureRecord.create(data)
-    rec.commit()
     db.session.commit()
     expected_title = "Updated title"
-    rec["titles"][0]["title"] = expected_title
-    rec.commit()
+    data["titles"][0]["title"] = expected_title
+    rec.update(data)
     db.session.commit()
 
     steps = [
@@ -69,7 +67,6 @@ def test_lit_record_removed_form_es_when_deleted(
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
-    rec.commit()
     db.session.commit()
     steps = [
         {"step": es.indices.refresh, "args": ["records-hep"]},
@@ -81,7 +78,6 @@ def test_lit_record_removed_form_es_when_deleted(
     ]
     retry_until_matched(steps)
     rec.delete()
-    rec.commit()
     db.session.commit()
     steps = [
         {"step": es.indices.refresh, "args": ["records-hep"]},
@@ -100,7 +96,6 @@ def test_index_record_manually(
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
     models_committed.disconnect(index_after_commit)
-    rec.commit()
     db.session.commit()
     models_committed.connect(index_after_commit)
     es.indices.refresh("records-hep")
@@ -151,7 +146,6 @@ def test_many_records_in_one_commit(
     for x in range(10):
         data = faker.record("lit")
         rec = LiteratureRecord.create(data)
-        rec.commit()
     db.session.commit()
     es.indices.refresh("records-hep")
     steps = [

@@ -18,7 +18,6 @@ def test_aut_record_appear_in_es_when_created(
 ):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
-    rec.commit()
     db.session.commit()
     steps = [
         {"step": es.indices.refresh, "args": ["records-authors"]},
@@ -38,11 +37,10 @@ def test_aut_record_update_when_changed(
 ):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
-    rec.commit()
     db.session.commit()
     expected_death_date = "1900-01-01"
-    rec["death_date"] = expected_death_date
-    rec.commit()
+    data["death_date"] = expected_death_date
+    rec.update(data)
     db.session.commit()
 
     steps = [
@@ -62,7 +60,6 @@ def test_aut_record_removed_form_es_when_deleted(
 ):
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
-    rec.commit()
     db.session.commit()
     steps = [
         {"step": es.indices.refresh, "args": ["records-authors"]},
@@ -74,7 +71,6 @@ def test_aut_record_removed_form_es_when_deleted(
     ]
     retry_until_matched(steps)
     rec.delete()
-    rec.commit()
     db.session.commit()
     steps = [
         {"step": es.indices.refresh, "args": ["records-authors"]},
