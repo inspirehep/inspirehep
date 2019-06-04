@@ -17,6 +17,7 @@ from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from invenio_pidstore.models import PersistentIdentifier
 
+from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import CitationMixin
 from inspirehep.records.errors import (
@@ -58,6 +59,7 @@ class LiteratureRecord(InspireRecord, CitationMixin):
         record = super().create(data, **kwargs)
         if documents or figures:
             record.set_files(documents=documents, figures=figures)
+        push_to_orcid(record)
         return record
 
     def update(self, data):
@@ -66,9 +68,11 @@ class LiteratureRecord(InspireRecord, CitationMixin):
         super().update(data)
         if documents or figures:
             self.set_files(documents=documents, figures=figures)
+        push_to_orcid(self)
 
     def delete(self):
         self.set_files(force=True)
+        push_to_orcid(self)
         super().delete()
 
     def set_files(self, documents=None, figures=None, force=False):

@@ -22,59 +22,7 @@
 
 from __future__ import absolute_import, division, print_function
 
-import re
-from contextlib import contextmanager
-
 import mock
-import requests_mock
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
-from invenio_search import current_search_client as es
-
-from inspirehep.records.api import InspireRecord
-
-
-def _delete_record(pid_type, pid_value):
-    InspireRecord.get_record_by_pid_value(pid_value, pid_type=pid_type).hard_delete()
-
-    pid = PersistentIdentifier.get(pid_type, pid_value)
-    PersistentIdentifier.delete(pid)
-
-    recpid = RecordIdentifier.query.filter_by(recid=pid_value).one_or_none()
-    if recpid:
-        db.session.delete(recpid)
-
-    object_uuid = pid.object_uuid
-    PersistentIdentifier.query.filter(
-        object_uuid == PersistentIdentifier.object_uuid
-    ).delete()
-
-    db.session.commit()
-
-
-@contextmanager
-def mock_addresses(addresses, mocked_local=False):
-    with requests_mock.Mocker() as requests_mocker:
-        if not mocked_local:
-            requests_mocker.register_uri(
-                requests_mock.ANY, re.compile(".*(indexer|localhost).*"), real_http=True
-            )
-
-        for address in addresses:
-            requests_mocker.register_uri(**address)
-
-        yield
-
-
-def _create_record(record_json):
-    with db.session.begin_nested():
-        record = InspireRecord.create_or_update(record_json)
-        record.commit()
-
-    db.session.commit()
-    es.indices.refresh()
-
-    return record_json
 
 
 def override_config(**kwargs):

@@ -8,50 +8,14 @@
 
 import logging
 
-from flask import current_app
 from flask_celeryext.app import current_celery_app
 from flask_sqlalchemy import models_committed
 from invenio_records.models import RecordMetadata
-from invenio_records.signals import after_record_update
 
-from inspirehep.orcid import push_access_tokens
-from inspirehep.orcid import tasks as orcid_tasks
-from inspirehep.orcid.utils import get_orcids_for_push
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
 
 logger = logging.getLogger(__name__)
-
-
-@after_record_update.connect
-def push_to_orcid(sender, record, *args, **kwargs):
-    """If needed, queue the push of the new changes to ORCID."""
-    if not current_app.config["FEATURE_FLAG_ENABLE_ORCID_PUSH"]:
-        logger.warning("ORCID push feature flag not enabled")
-        return
-
-    if "hep.json" not in record.get("$schema"):
-        return
-
-    # Ensure there is a control number. This is not always the case because of broken store_record.
-    if "control_number" not in record:
-        return
-
-    orcids = get_orcids_for_push(record)
-    orcids_and_tokens = push_access_tokens.get_access_tokens(orcids)
-
-    kwargs_to_pusher = dict(record_db_version=record.model.version_id)
-
-    for orcid, access_token in orcids_and_tokens:
-        orcid_tasks.orcid_push.apply_async(
-            queue="orcid_push",
-            kwargs={
-                "orcid": orcid,
-                "rec_id": record["control_number"],
-                "oauth_token": access_token,
-                "kwargs_to_pusher": kwargs_to_pusher,
-            },
-        )
 
 
 @models_committed.connect

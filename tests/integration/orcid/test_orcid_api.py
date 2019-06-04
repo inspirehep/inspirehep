@@ -151,7 +151,7 @@ def raw_record(base_app, db, es):
 
 @pytest.fixture(scope="function")
 def record(raw_record):
-    with mock.patch("inspirehep.orcid.tasks.orcid_push") as mock_orcid_push:
+    with mock.patch("inspirehep.orcid.api._send_push_task") as mock_orcid_push:
         mock_orcid_push.return_value = mock_orcid_push
         _record = migrate_and_insert_record(raw_record)
 
@@ -226,14 +226,14 @@ def assert_db_has_no_author_record(author_recid):
     assert InspireRecord.query.filter_by().count() == 0
 
 
-@mock.patch("inspirehep.orcid.tasks.orcid_push")
+@mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_trigger_for_author_records(
     mock_orcid_push_task, user_with_permission
 ):
     mock_orcid_push_task.assert_not_called()
 
 
-@mock.patch("inspirehep.orcid.tasks.orcid_push")
+@mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_without_allow_push(
     mock_orcid_push_task, app, raw_record, user_without_permission
 ):
@@ -242,7 +242,7 @@ def test_orcid_push_not_triggered_on_create_record_without_allow_push(
     mock_orcid_push_task.assert_not_called()
 
 
-@mock.patch("inspirehep.orcid.tasks.orcid_push")
+@mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_without_token(
     mock_orcid_push_task, app, raw_record, user_without_token
 ):
@@ -251,7 +251,7 @@ def test_orcid_push_not_triggered_on_create_record_without_token(
     mock_orcid_push_task.assert_not_called()
 
 
-@mock.patch("inspirehep.orcid.tasks.orcid_push")
+@mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_create_record_with_allow_push(
     mock_orcid_push_task,
     app,
@@ -267,14 +267,13 @@ def test_orcid_push_triggered_on_create_record_with_allow_push(
             "rec_id": 1608652,
             "oauth_token": user_with_permission["token"],
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
-        },
-        "queue": "orcid_push",
+        }
     }
 
-    mock_orcid_push_task.apply_async.assert_called_once_with(**expected_kwargs)
+    mock_orcid_push_task.assert_called_once_with(**expected_kwargs)
 
 
-@mock.patch("inspirehep.orcid.tasks.orcid_push")
+@mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_record_update_with_allow_push(
     mock_orcid_push_task, app, record, user_with_permission, enable_orcid_push_feature
 ):
@@ -284,16 +283,15 @@ def test_orcid_push_triggered_on_record_update_with_allow_push(
             "rec_id": 1608652,
             "oauth_token": user_with_permission["token"],
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
-        },
-        "queue": "orcid_push",
+        }
     }
 
-    record.commit()
+    record.update(dict(record))
 
-    mock_orcid_push_task.apply_async.assert_called_once_with(**expected_kwargs)
+    mock_orcid_push_task.assert_called_once_with(**expected_kwargs)
 
 
-@mock.patch("inspirehep.orcid.tasks.orcid_push")
+@mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_push(
     mock_orcid_push_task,
     app,
@@ -309,8 +307,7 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
             "rec_id": 1608652,
             "oauth_token": two_users_with_permission[0]["token"],
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
-        },
-        "queue": "orcid_push",
+        }
     }
     expected_kwargs_user2 = {
         "kwargs": {
@@ -318,16 +315,15 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
             "rec_id": 1608652,
             "oauth_token": two_users_with_permission[1]["token"],
             "kwargs_to_pusher": {"record_db_version": mock.ANY},
-        },
-        "queue": "orcid_push",
+        }
     }
 
-    mock_orcid_push_task.apply_async.assert_any_call(**expected_kwargs_user1)
-    mock_orcid_push_task.apply_async.assert_any_call(**expected_kwargs_user2)
-    assert mock_orcid_push_task.apply_async.call_count == 2
+    mock_orcid_push_task.assert_any_call(**expected_kwargs_user1)
+    mock_orcid_push_task.assert_any_call(**expected_kwargs_user2)
+    assert mock_orcid_push_task.call_count == 2
 
 
-@mock.patch("inspirehep.orcid.tasks.orcid_push")
+@mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_no_feat_flag(
     mocked_Task, app, raw_record, user_with_permission
 ):
@@ -354,15 +350,15 @@ class TestPushToOrcid(object):
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
         ), mock.patch(
-            "inspirehep.records.receivers.push_access_tokens"
+            "inspirehep.orcid.api.push_access_tokens"
         ) as mock_push_access_tokens, mock.patch(
-            "inspirehep.orcid.tasks.orcid_push.apply_async"
-        ) as mock_apply_async:
+            "inspirehep.orcid.api._send_push_task"
+        ) as mock_send_push_task:
             mock_push_access_tokens.get_access_tokens.return_value = [
                 ("myorcid", "mytoken")
             ]
-            inspire_record.commit()
-            mock_apply_async.assert_called_once_with(
+            inspire_record.update(dict(inspire_record))
+            mock_send_push_task.assert_called_once_with(
                 kwargs={
                     "orcid": "myorcid",
                     "oauth_token": "mytoken",
@@ -370,8 +366,7 @@ class TestPushToOrcid(object):
                         "record_db_version": inspire_record.model.version_id
                     },
                     "rec_id": recid,
-                },
-                queue="orcid_push",
+                }
             )
 
     def test_new_record(self):
@@ -392,15 +387,15 @@ class TestPushToOrcid(object):
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
         ), mock.patch(
-            "inspirehep.records.receivers.push_access_tokens"
+            "inspirehep.orcid.api.push_access_tokens"
         ) as mock_push_access_tokens, mock.patch(
-            "inspirehep.orcid.tasks.orcid_push.apply_async"
-        ) as mock_apply_async:
+            "inspirehep.orcid.api._send_push_task"
+        ) as mock_send_push_task:
             mock_push_access_tokens.get_access_tokens.return_value = [
                 ("myorcid", "mytoken")
             ]
-            inspire_record.commit()
-            mock_apply_async.assert_called_once_with(
+            inspire_record.update(dict(inspire_record))
+            mock_send_push_task.assert_called_once_with(
                 kwargs={
                     "orcid": "myorcid",
                     "oauth_token": "mytoken",
@@ -408,6 +403,5 @@ class TestPushToOrcid(object):
                         "record_db_version": inspire_record.model.version_id
                     },
                     "rec_id": recid,
-                },
-                queue="orcid_push",
+                }
             )

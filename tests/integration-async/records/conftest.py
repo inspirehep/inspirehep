@@ -173,7 +173,6 @@ def generate_records():
                 record_type.pid_type, data=data, skip_validation=skip_validation
             )
             rec = record_type.create(data)
-            rec.commit()
         db.session.commit()
 
     return _generate
