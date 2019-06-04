@@ -689,7 +689,6 @@ ALEMBIC_SKIP_TABLES = [
     "workflows_buckets",
     "workflows_object",
     "workflows_workflow",
-    "records_metadata_version",
     "transaction",
     "alembic_version",
 ]
