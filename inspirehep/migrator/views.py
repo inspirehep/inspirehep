@@ -10,6 +10,7 @@ from flask import Blueprint, jsonify
 from flask.views import MethodView
 
 from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.accounts.roles import Roles
 
 from .marshmallow.error import ErrorList
 from .models import LegacyRecordsMirror
@@ -25,7 +26,7 @@ NON_DELETED_COLLECTIONS = [
 class MigratorErrorListResource(MethodView):
     """Return a list of errors belonging to invalid mirror records."""
 
-    decorators = [login_required_with_roles(["superuser", "cataloger"])]
+    decorators = [login_required_with_roles([Roles.superuser.value, Roles.cataloger.value])]
 
     def get(self):
         errors = (

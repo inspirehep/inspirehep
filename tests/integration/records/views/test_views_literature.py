@@ -4,12 +4,16 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import json
 from copy import deepcopy
 from urllib.parse import urlencode
 
 import pytest
 from helpers.providers.faker import faker
+from invenio_accounts.testutils import login_user_via_session
+
+from inspirehep.accounts.roles import Roles
 
 
 def test_literature_search_application_json_get(
@@ -542,3 +546,89 @@ def test_literature_citation_annual_summary_for_many_records(
     response = api_client.get(f"literature/facets/?{urlencode(request_param)}")
     expected_response = {"value": {"2013": 2, "2012": 1, "2010": 1}}
     assert response.json["aggregations"]["citations_by_year"] == expected_response
+
+
+def test_literature_search_user_does_not_get_fermilab_collection(
+    api_client, db, es_clear, create_record, datadir
+):
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Fermilab"],
+        "control_number": 666,
+        "document_type": ["article"],
+        "titles": [{"title": "Partner walk again seek job."}],
+    }
+
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+
+    response = api_client.get("/literature")
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+
+    assert response_data["hits"]["total"] == 0
+    assert expected_status_code == response_status_code
+
+
+def test_literature_search_cataloger_gets_fermilab_collection(
+    api_client, db, es_clear, create_record, datadir, create_user
+):
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Fermilab"],
+        "control_number": 666,
+        "document_type": ["article"],
+        "titles": [{"title": "Partner walk again seek job."}],
+    }
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
+
+    create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "_collections": ["Fermilab"],
+        "control_number": 666,
+        "document_type": ["article"],
+        "titles": [{"title": "Partner walk again seek job."}],
+        "citation_count": 0,
+        "citations_by_year": [],
+    }
+
+    response = api_client.get("/literature")
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    assert response_data["hits"]["total"] == 1
+
+    response_data_metadata = response_data["hits"]["hits"][0]["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_data == response_data_metadata
+
+
+def test_literature_search_permissions(
+    api_client, db, es_clear, create_record, datadir, create_user, logout
+):
+    create_record("lit", data={"_collections": ["Fermilab"]})
+    rec_literature = create_record("lit", data={"_collections": ["Literature"]})
+
+    response = api_client.get("/literature")
+    response_data = json.loads(response.data)
+    assert response_data["hits"]["total"] == 1
+    assert response_data["hits"]["hits"][0]["metadata"]["control_number"] == rec_literature["control_number"]
+
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.get("/literature")
+    response_data = json.loads(response.data)
+    assert response_data["hits"]["total"] == 2
+
+    logout(api_client)
+
+    response = api_client.get("/literature")
+    response_data = json.loads(response.data)
+    assert response_data["hits"]["total"] == 1
+    assert response_data["hits"]["hits"][0]["metadata"]["control_number"] == rec_literature["control_number"]

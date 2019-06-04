@@ -10,11 +10,14 @@ from flask_login import current_user
 from invenio_oauthclient.models import UserIdentity
 from sqlalchemy.orm.exc import NoResultFound
 
+from inspirehep.accounts.roles import Roles
+
 
 def is_superuser_or_cataloger_logged_in():
-    if current_user.is_authenticated:
+    """Check if current authenticated user is cataloger/superuser."""
+    if current_user and current_user.is_authenticated:
         user_roles = {role.name for role in current_user.roles}
-        return user_roles & {"superuser", "cataloger"}
+        return user_roles & {Roles.cataloger.value, Roles.superuser.value}
     return False
 
 

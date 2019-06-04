@@ -40,5 +40,6 @@
   "regions": ["Asia"],
   "self": {
     "$ref": "http://qa.inspirehep.net/api/jobs/955427"
-  }
+  },
+  "status": "open"
 }

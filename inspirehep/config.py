@@ -595,6 +595,14 @@ RECORDS_REST_FACETS = {
 }
 """Introduce searching facets."""
 
+CATALOGER_RECORDS_REST_FACETS = deepcopy(RECORDS_REST_FACETS)
+CATALOGER_RECORDS_REST_FACETS["records-jobs"]["filters"]["status"] = terms_filter("status"),
+CATALOGER_RECORDS_REST_FACETS["records-jobs"]["aggs"]["status"] = {
+    "terms": {"field": "status"},
+    "meta": {"order": 4, "type": "multiselect", "title": "Status"},
+}
+
+
 RECORDS_REST_SORT_OPTIONS = {
     "records-hep": {
         "mostrecent": {
