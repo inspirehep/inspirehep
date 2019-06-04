@@ -5,139 +5,78 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+git:
+  depth: false
+
+services:
+  - docker
+
 notifications:
   email: # sent to the committer and the author
     on_success: never
     on_failure: never
 
+cache:
+  directories:
+   - "$HOME/.poetry"
+
+before_install:
+  - sudo service postgresql stop
+  - ./docker-inspire up -d
+  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
+  - source $HOME/.poetry/env
+  - travis_retry pip install twine wheel coveralls
+
+install:
+  - ./scripts/bootstrap --ci
+
+before_script:
+  - ./docker/wait-for-services.sh
+
+after_script:
+  - docker-compose kill -s SIGTERM
+  - docker-compose rm -f
+
+script:
+  - ./run-tests.sh
+
+after_success:
+  - coveralls
+
+after_fail:
+  - poetry show
+
 matrix:
-  fast_finish: true
-  include:
-    - language: python
-      sudo: true
-      dist: xenial
-      env:
-        - SUITE=backend-integration
-        - REQUIREMENTS=prod
-        - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
-
-      python:
-        - "3.6"
-
-      before_install:
-        - sudo service postgresql stop
-        - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-      install:
-        - ./scripts/bootstrap --ci
-
-      before_script:
-        - ./docker/wait-for-services.sh
-
+  fast_finish: true:
+  - env:
+      - SUITE=lint
+      - UI=false
+  - env:
+      - SUITE=unit
+      - UI=false
+  - env:
+      - SUITE=integration
+      - UI=false
+  - env:
+      - SUITE=integration-async
+      - UI=false
+  - env:
+      - SUITE=ui
+      - UI=true
+  - language: node_js
+    sudo: required
+    env:
+      - SUITE=ui
+      # UI_DEPLOY_URL
+      - secure: "aLb6W4YxJpJV8afBw6+1BlSqctfyw9Z/upVArncsQIgVWkgUQxGT7Z4S5hGNmwvXLQvJhsEudyqi8OKKy9e75O58GelJ/jIdPIMLLMfTPOch+cVbDDqeXemMptfZZhHNRPoRrfhyi2XTA7pQjWCyXudq1xaPXGNrrEX5vQmHH1osHMBq6NVnzAslnKckxP722tzUWcmF0PNTB3Ry9j/W0lLEqazSIpJfEalF8Kbo4vkKtVoc2Ux8011y99GyHtp5OBnWT4H6dJzOk15PiT6uye23RbYsfN2N7dSpPfmfq22gLgOKLT1XFZMrQwhfFuKjT/3I92EK1EUkQ7WPssPtIYVUoM0i3ufwj5ElOF+ngopFZCZxQiGFyJcomc0TZ6OLVLkkVQBjaxBzh5WvCEU/XoYJoNVLj4hLYaGc/jO20zs0gzDJVi8ld524rvy7bC2cowLG4p2Ste96i/Ay4q71hFPYkIAaGasLrxD5yxADeJDzP2fIMilEECT/vV8CnE/SjRGO5TLboHdHD4Z9V6Jcu7XnYBKQwCo21dQ/+P3PiVbbvabRcZYZcugYncs88fmgnZjw3VcD/rIeyVWiR8vgspHMDJOmf2/aAMjWNFk6oMknUAMRYsrIqnIXaXalTs+7pxsODMuBODAS/lehiD0d1xdb0uonuKTB+feDGZKjq5w="
+      # UI_DEPLOY_TOKEN
+      - secure: "MdcAmDWnPEW8Dr5aZe3JvsdtWNWRq1GMvxyesS+UJjay+RQCso6yrU6gKOipR1+3Pizio3a1P06nnYfFjXyqJRBzmruJSUIjVgu3ZfgulgK/ESakobpOWyOzko5SUoofJ79REwzU7QbfV+2Ezgk3C49wqVlZh8VQjPtuJO+5N9S5Rbo6Nx+qmK7A83a8ow7kMHQrwgPH+RZdaH3qstUvjvt308WBkaI1zvIQ3LIx9fNNgd1NZy5R7YlS+Edt2ELf/hfQrx6WohcsDeqBqRPiE41RY7LLozSZGZ8J9kHGQlZyQijAbme9sZduCV67/zOmYptprwuKN3/XIW/dmW6dtvJUrxMxcDkSTeT5hVIzGqEg3Bi8OLIS7tOMOjOtg3V2lcHTE2Aw4XXTyBeF+Caw/2N+szDtkBdR/r9agZkAO5U6rzoGTdR5A3Sla+CnZNw8Dguwe6GkeUiqNPjOlUVwJrZFmJ136r0oO6/wffifvLfanokYvVxB6k/ltT3Tp3mKqTXBqFmrpKd/4BH47/yYLHXHBjC7XQA4Yhf9cdS93LpLErkN3txgbXSqv/71AZi0kmIw7A1f0V7Tz3o6Kr8GFiZBPXD0g/53v0MkVkg880ZNHWGtBGVQxKddY267ORXijwPwdp88KFuidNT4jXeLGYUh9OXF4yAFKF7bbK4X9sA="
+    deploy:
+      provider: script
       script:
-        - poetry run py.test tests/integration
-
-      after_script:
-        - docker-compose kill -s SIGTERM
-        - docker-compose rm -f
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry show
-
-      cache: pip
-
-    - language: python
-      sudo: true
-      dist: trusty
-      env:
-        - SUITE=backend-unit
-        - REQUIREMENTS=prod
-      python:
-        - "3.6"
-
-      before_install:
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-
-      install:
-        - ./scripts/bootstrap --ci
-
-      script:
-        - ./run-code-checks.sh
-        - poetry run py.test tests/unit
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry run pip freeze
-
-      cache: pip
-
-    - language: python
-      sudo: true
-      dist: trusty
-      env:
-        - SUITE=backend-integration-async
-        - REQUIREMENTS=prod
-        - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
-
-      # XXX: needs work around for 3.7
-      python:
-        - "3.6"
-
-      before_install:
-        - sudo service postgresql stop
-        - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-
-      install:
-        - ./scripts/bootstrap --ci
-
-      before_script:
-        - ./docker/wait-for-services.sh
-
-      script:
-        - poetry run py.test tests/integration-async
-
-      after_script:
-        - docker-compose kill -s SIGTERM
-        - docker-compose rm -f
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry run pip freeze
-
-      cache: pip
-
-    - language: node_js
-      sudo: required
-      env:
-        - SUITE=ui-all
-        # UI_DEPLOY_URL
-        - secure: "aLb6W4YxJpJV8afBw6+1BlSqctfyw9Z/upVArncsQIgVWkgUQxGT7Z4S5hGNmwvXLQvJhsEudyqi8OKKy9e75O58GelJ/jIdPIMLLMfTPOch+cVbDDqeXemMptfZZhHNRPoRrfhyi2XTA7pQjWCyXudq1xaPXGNrrEX5vQmHH1osHMBq6NVnzAslnKckxP722tzUWcmF0PNTB3Ry9j/W0lLEqazSIpJfEalF8Kbo4vkKtVoc2Ux8011y99GyHtp5OBnWT4H6dJzOk15PiT6uye23RbYsfN2N7dSpPfmfq22gLgOKLT1XFZMrQwhfFuKjT/3I92EK1EUkQ7WPssPtIYVUoM0i3ufwj5ElOF+ngopFZCZxQiGFyJcomc0TZ6OLVLkkVQBjaxBzh5WvCEU/XoYJoNVLj4hLYaGc/jO20zs0gzDJVi8ld524rvy7bC2cowLG4p2Ste96i/Ay4q71hFPYkIAaGasLrxD5yxADeJDzP2fIMilEECT/vV8CnE/SjRGO5TLboHdHD4Z9V6Jcu7XnYBKQwCo21dQ/+P3PiVbbvabRcZYZcugYncs88fmgnZjw3VcD/rIeyVWiR8vgspHMDJOmf2/aAMjWNFk6oMknUAMRYsrIqnIXaXalTs+7pxsODMuBODAS/lehiD0d1xdb0uonuKTB+feDGZKjq5w="
-        # UI_DEPLOY_TOKEN
-        - secure: "MdcAmDWnPEW8Dr5aZe3JvsdtWNWRq1GMvxyesS+UJjay+RQCso6yrU6gKOipR1+3Pizio3a1P06nnYfFjXyqJRBzmruJSUIjVgu3ZfgulgK/ESakobpOWyOzko5SUoofJ79REwzU7QbfV+2Ezgk3C49wqVlZh8VQjPtuJO+5N9S5Rbo6Nx+qmK7A83a8ow7kMHQrwgPH+RZdaH3qstUvjvt308WBkaI1zvIQ3LIx9fNNgd1NZy5R7YlS+Edt2ELf/hfQrx6WohcsDeqBqRPiE41RY7LLozSZGZ8J9kHGQlZyQijAbme9sZduCV67/zOmYptprwuKN3/XIW/dmW6dtvJUrxMxcDkSTeT5hVIzGqEg3Bi8OLIS7tOMOjOtg3V2lcHTE2Aw4XXTyBeF+Caw/2N+szDtkBdR/r9agZkAO5U6rzoGTdR5A3Sla+CnZNw8Dguwe6GkeUiqNPjOlUVwJrZFmJ136r0oO6/wffifvLfanokYvVxB6k/ltT3Tp3mKqTXBqFmrpKd/4BH47/yYLHXHBjC7XQA4Yhf9cdS93LpLErkN3txgbXSqv/71AZi0kmIw7A1f0V7Tz3o6Kr8GFiZBPXD0g/53v0MkVkg880ZNHWGtBGVQxKddY267ORXijwPwdp88KFuidNT4jXeLGYUh9OXF4yAFKF7bbK4X9sA="
-      deploy:
-        provider: script
-        script:
-          - curl -X POST "${UI_DEPLOY_URL}" -F token=${UI_DEPLOY_TOKEN} -F ref=qa -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)"
-        on:
-          branch: master
-      node_js:
-        - 10.14.0
-      cache: yarn
-      script: cd ui && yarn && yarn test
-
-services:
-  - docker
+        - curl -X POST "${UI_DEPLOY_URL}" -F token=${UI_DEPLOY_TOKEN} -F ref=qa -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)"
+      on:
+        branch: master
+    node_js:
+      - 10.14.0
+    cache: yarn
