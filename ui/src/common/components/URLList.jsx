@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
-import ExternalLink from '../../common/components/ExternalLink';
+import InlineList from './InlineList';
+import ExternalLink from './ExternalLink';
 
 class URLList extends Component {
   static renderURLItem(url) {

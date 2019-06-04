@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import IconText from '../../common/components/IconText';
 
 class DeadlineDate extends Component {
   render() {
     const { deadlineDate } = this.props;
+    const formattedDeadlineDate = moment(deadlineDate).format('MMM D, YYYY');
     return (
-      <IconText type="clock-circle" text={`Deadline on ${deadlineDate}`} />
+      <strong>
+        <IconText
+          type="clock-circle"
+          text={`Deadline on ${formattedDeadlineDate}`}
+        />
+      </strong>
     );
   }
 }

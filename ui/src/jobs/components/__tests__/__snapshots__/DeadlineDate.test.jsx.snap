@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DeadlineDate renders with deadlineDate 1`] = `
-<IconText
-  text="Deadline on 2003-03-12T00:00:00+00:00"
-  type="clock-circle"
-/>
+<strong>
+  <IconText
+    text="Deadline on Mar 12, 2003"
+    type="clock-circle"
+  />
+</strong>
 `;

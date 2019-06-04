@@ -3,13 +3,19 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import InlineList from '../../common/components/InlineList';
+import { RANK_VALUE_TO_DISPLAY } from '../../common/constants';
 
 class RanksList extends Component {
+  static renderRank(rank) {
+    return RANK_VALUE_TO_DISPLAY[rank];
+  }
+
   render() {
     const { ranks } = this.props;
     return (
       <InlineList
         items={ranks}
+        renderItem={RanksList.renderRank}
         separateItemsClassName="separate-items-with-middledot"
       />
     );

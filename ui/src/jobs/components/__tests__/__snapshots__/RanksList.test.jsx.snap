@@ -10,12 +10,12 @@ exports[`RanksList renders ranks 1`] = `
     <li
       key="POSTDOC"
     >
-      POSTDOC
+      PostDoc
     </li>
     <li
       key="PHD"
     >
-      PHD
+      PhD
     </li>
   </ul>
 </div>

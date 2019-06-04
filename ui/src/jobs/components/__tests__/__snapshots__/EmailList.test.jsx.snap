@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EmailList renders with emails 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="johndoe@yahoo.com"
+    >
+      <ExternalLink
+        href="mailto:johndoe@yahoo.com"
+      >
+        johndoe@yahoo.com
+      </ExternalLink>
+    </li>
+    <li
+      key="johndoe2@yahoo.com"
+    >
+      <ExternalLink
+        href="mailto:johndoe2@yahoo.com"
+      >
+        johndoe2@yahoo.com
+      </ExternalLink>
+    </li>
+  </ul>
+</div>
+`;
