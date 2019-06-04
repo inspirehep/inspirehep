@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'antd';
@@ -14,6 +14,9 @@ import InstitutionsList from '../components/InstitutionsList';
 import RanksList from '../components/RanksList';
 import InlineUL from '../../common/components/InlineList/InlineUL';
 import DeadlineDate from '../components/DeadlineDate';
+import Contact from '../components/Contact';
+import ReferenceLettersContacts from '../components/ReferenceLettersContacts';
+import MoreInfo from '../components/MoreInfo';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -51,55 +54,77 @@ class DetailPage extends Component {
     const deadlineDate = metadata.get('deadline_date');
     const description = metadata.get('description');
     const status = metadata.get('status');
+    const contactDetails = metadata.get('contact_details');
+    const referenceLetters = metadata.get('reference_letters');
+    const urls = metadata.get('urls');
     return (
       <>
         <Row type="flex" justify="center">
           <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
-            <ContentBox
-              loading={loading}
-              rightActions={
-                <Fragment>
-                  <div className="pr2">
-                    Created <DateFromNow date={created} />, updated{' '}
-                    <DateFromNow date={updated} />
-                  </div>
-                </Fragment>
-              }
-            >
+            <ContentBox loading={loading}>
               {status === 'closed' && (
-                <Alert
-                  type="error"
-                  message={<span>This job is closed!</span>}
-                  showIcon={false}
-                />
+                <Row className="mb2">
+                  <Col>
+                    <Alert
+                      type="error"
+                      message={<span>This job is closed!</span>}
+                      showIcon={false}
+                    />
+                  </Col>
+                </Row>
               )}
-              <h2 className="mt3 b">{position}</h2>
-              <div className="mt1">
-                <InlineUL separateItemsClassName="separate-items-with-middledot">
-                  <InstitutionsList institutions={institutions} />
-                  <RegionsList regions={regions} />
-                </InlineUL>
-              </div>
-              <div className="mt2">
-                <ArxivCategoryList
-                  arxivCategories={arxivCategories}
-                  wrapperClassName="di"
-                />
-                <InlineUL
-                  separateItemsClassName="separate-items-with-middledot"
-                  wrapperClassName="di"
-                >
-                  <RanksList ranks={ranks} />
-                  <ExperimentList experiments={experiments} />
-                </InlineUL>
-              </div>
-              <div className="mt2 b">
-                <DeadlineDate deadlineDate={deadlineDate} />
-              </div>
               <Row>
-                <div className="mt3">
+                <Col>
+                  <h2>{position}</h2>
+                </Col>
+              </Row>
+              <Row className="mt1">
+                <Col>
+                  <InlineUL separateItemsClassName="separate-items-with-middledot">
+                    <InstitutionsList institutions={institutions} />
+                    <RegionsList regions={regions} />
+                  </InlineUL>
+                </Col>
+              </Row>
+              <Row className="mt2">
+                <Col>
+                  <ArxivCategoryList
+                    arxivCategories={arxivCategories}
+                    wrapperClassName="di"
+                  />
+                  <InlineUL
+                    separateItemsClassName="separate-items-with-middledot"
+                    wrapperClassName="di"
+                  >
+                    <RanksList ranks={ranks} />
+                    <ExperimentList experiments={experiments} />
+                  </InlineUL>
+                </Col>
+              </Row>
+              <Row className="mt3">
+                <Col>
+                  <DeadlineDate deadlineDate={deadlineDate} />
+                </Col>
+              </Row>
+              <Row className="mt4">
+                <Col>
                   <Description description={description} />
-                </div>
+                </Col>
+              </Row>
+              <Row className="mt4">
+                <Col>
+                  <Contact contactDetails={contactDetails} />
+                  <ReferenceLettersContacts
+                    referenceLetters={referenceLetters}
+                  />
+                  <MoreInfo urls={urls} />
+                </Col>
+              </Row>
+              <Row type="flex" justify="end">
+                <Col>
+                  Posted <DateFromNow date={created} />, updated{' '}
+                  <DateFromNow date={updated} />
+                </Col>
               </Row>
             </ContentBox>
           </Col>

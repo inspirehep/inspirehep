@@ -1,4 +1,5 @@
 import getValue from '../../common/getValue';
+import { RANK_VALUE_TO_DISPLAY } from '../../../common/constants';
 
 export const arxivCategoryOptions = [
   { value: 'astro-ph' },
@@ -34,15 +35,8 @@ export const authorStatusOptions = [
 ];
 export const authorStatusValues = authorStatusOptions.map(getValue);
 
-export const rankOptions = [
-  { value: 'SENIOR', display: 'Senior (permanent)' },
-  { value: 'JUNIOR', display: 'Junior (leads to Senior)' },
-  { value: 'STAFF', display: 'Staff (non-research)' },
-  { value: 'VISITOR', display: 'Visitor' },
-  { value: 'POSTDOC', display: 'PostDoc' },
-  { value: 'PHD', display: 'PhD' },
-  { value: 'MASTER', display: 'Master' },
-  { value: 'UNDERGRADUATE', display: 'Undergrad' },
-  { value: 'OTHER', display: 'other' },
-];
+export const rankOptions = Object.keys(RANK_VALUE_TO_DISPLAY).map(key => ({
+  value: key,
+  display: RANK_VALUE_TO_DISPLAY[key],
+}));
 export const rankValues = rankOptions.map(getValue);

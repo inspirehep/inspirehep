@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReferenceLettersContacts renders with referenceLetters 1`] = `
+<div>
+  <strong>
+    Letters of Reference should be sent to: 
+  </strong>
+  <InlineUL
+    separateItemsClassName="separate-items-with-comma"
+    wrapperClassName="di"
+  >
+    <EmailList
+      emails={
+        Immutable.List [
+          "awi_moni@yahoo.com",
+          "mariahmoni@gmail.com",
+        ]
+      }
+    />
+    <URLList
+      urls={
+        Immutable.List [
+          Immutable.Map {
+            "value": "https://qa.inspirehep.net",
+          },
+          Immutable.Map {
+            "value": "www.google.com",
+            "description": "Google",
+          },
+        ]
+      }
+      wrapperClassName={null}
+    />
+  </InlineUL>
+</div>
+`;

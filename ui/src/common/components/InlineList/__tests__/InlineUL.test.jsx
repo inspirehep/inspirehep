@@ -23,16 +23,6 @@ describe('InlineUL', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('does not render null children', () => {
-    const wrapper = shallow(
-      <InlineUL wrapperClassName="di">
-        {false && <div>First div</div>}
-        <div>Second div</div>
-      </InlineUL>
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('renders with separateItemsClassName passed', () => {
     const wrapper = shallow(
       <InlineUL separateItemsClassName="separate-items-with-middledot">

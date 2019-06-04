@@ -8,9 +8,9 @@ import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollabor
 import ArxivEprintList from './ArxivEprintList';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
 import DOIList from './DOIList';
-import URLList from './URLList';
 import { LITERATURE } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
+import URLList from '../../common/components/URLList';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
