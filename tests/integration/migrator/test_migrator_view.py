@@ -11,11 +11,13 @@ import pytest
 from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from invenio_accounts.testutils import login_user_via_session
 
+from inspirehep.accounts.roles import Roles
+
 
 def test_get_returns_the_records_in_descending_order_by_last_updated(
     api_client, db, datadir, create_user
 ):
-    user = create_user(role="cataloger")
+    user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
     data = (datadir / "1674997.xml").read_bytes()
@@ -74,7 +76,7 @@ def test_get_returns_the_records_in_descending_order_by_last_updated(
 
 
 def test_get_does_not_return_deleted_records(api_client, db, datadir, create_user):
-    user = create_user(role="cataloger")
+    user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
     data = (datadir / "1674997.xml").read_bytes()
@@ -130,7 +132,7 @@ def test_get_does_not_return_deleted_records(api_client, db, datadir, create_use
 def test_get_returns_empty_data_because_there_are_no_mirror_records_with_errors(
     api_client, db, datadir, create_user
 ):
-    user = create_user(role="cataloger")
+    user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
     response = api_client.get("/migrator/errors", content_type="application/json")
 

@@ -14,6 +14,8 @@ from invenio_accounts.models import Role
 from invenio_db import db
 from invenio_oauth2server.models import Client, Token
 
+from inspirehep.accounts.roles import Roles
+
 
 def init_oauth_token():
     ds = current_app.extensions["invenio-accounts"].datastore
@@ -47,17 +49,17 @@ def init_oauth_token():
 def init_roles():
     ds = current_app.extensions["invenio-accounts"].datastore
     with db.session.begin_nested():
-        ds.create_role(name="superuser", description="admin with no restrictions")
-        ds.create_role(name="cataloger", description="users with editing capabilities")
+        ds.create_role(name=Roles.superuser.value, description="admin with no restrictions")
+        ds.create_role(name=Roles.cataloger.value, description="users with editing capabilities")
         ds.create_role(
-            name="hermescurator", description="curator for HERMES Internal Notes"
+            name=Roles.hermescurator.value, description="curator for HERMES Internal Notes"
         )
         ds.create_role(
-            name="hermescoll",
+            name=Roles.hermescoll.value,
             description="HERMES Collaboration access to Internal Notes",
         )
         ds.create_role(
-            name="jlabcurator", description="curator for JLAB related articles"
+            name=Roles.jlabcurator.value, description="curator for JLAB related articles"
         )
     db.session.commit()
 
@@ -65,11 +67,11 @@ def init_roles():
 def init_users():
     """Sample users, not to be used in production."""
     ds = current_app.extensions["invenio-accounts"].datastore
-    superuser = Role.query.filter_by(name="superuser").one()
-    cataloger = Role.query.filter_by(name="cataloger").one()
-    hermes_curator = Role.query.filter_by(name="hermescurator").one()
-    hermes_collections = Role.query.filter_by(name="hermescoll").one()
-    jlab_curator = Role.query.filter_by(name="jlabcurator").one()
+    superuser = Role.query.filter_by(name=Roles.superuser.value).one()
+    cataloger = Role.query.filter_by(name=Roles.cataloger.value).one()
+    hermes_curator = Role.query.filter_by(name=Roles.hermescurator.value).one()
+    hermes_collections = Role.query.filter_by(name=Roles.hermescoll.value).one()
+    jlab_curator = Role.query.filter_by(name=Roles.jlabcurator.value).one()
     with db.session.begin_nested():
         ds.create_user(
             email="admin@inspirehep.net",
@@ -104,13 +106,13 @@ def init_users():
 
 
 def init_superuser_permissions():
-    superuser = Role.query.filter_by(name="superuser").one()
+    superuser = Role.query.filter_by(name=Roles.superuser.value).one()
     db.session.add(ActionRoles(action="superuser-access", role=superuser))
     db.session.add(ActionRoles(action="admin-access", role=superuser))
 
 
 def init_cataloger_permissions():
-    cataloger = Role.query.filter_by(name="cataloger").one()
+    cataloger = Role.query.filter_by(name=Roles.cataloger.value).one()
     db.session.add(ActionRoles(action="workflows-ui-admin-access", role=cataloger))
     db.session.add(ActionRoles(action="admin-holdingpen-authors", role=cataloger))
     db.session.add(ActionRoles(action="update-collection", role=cataloger))
@@ -119,7 +121,7 @@ def init_cataloger_permissions():
 
 
 def init_hermes_permissions():
-    hermes_collections = Role.query.filter_by(name="hermescoll").one()
+    hermes_collections = Role.query.filter_by(name=Roles.hermescoll.value).one()
     db.session.add(
         ActionRoles(
             action="view-restricted-collection",
@@ -128,7 +130,7 @@ def init_hermes_permissions():
         )
     )
 
-    hermes_curator = Role.query.filter_by(name="hermescurator").one()
+    hermes_curator = Role.query.filter_by(name=Roles.hermescurator.value).one()
     db.session.add(
         ActionRoles(
             action="update-collection",
@@ -139,7 +141,7 @@ def init_hermes_permissions():
 
 
 def init_jlab_permissions():
-    jlab_curator = Role.query.filter_by(name="jlabcurator").one()
+    jlab_curator = Role.query.filter_by(name=Roles.jlabcurator.value).one()
     db.session.add(ActionRoles(action="workflows-ui-read-access", role=jlab_curator))
     db.session.add(ActionRoles(action="update-collection", role=jlab_curator))
 

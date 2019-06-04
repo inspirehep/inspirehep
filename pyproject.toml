@@ -33,7 +33,7 @@ inspire-query-parser = "~=6.0.0"
 uwsgi = ">=2.0"
 marshmallow = "<3.0.0"
 flask-shell-ipython = "~=0.3,>=0.3.0"
-flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git"}
+flask-sqlalchemy = {git = "https://github.com/inspirehep/flask-sqlalchemy.git", branch="release-2.3.1"}
 orcid = "==1.0.3"
 inspire-service-orcid = {git = "https://github.com/drjova/inspire-service-orcid.git"}
 node-semver = "<0.2.0,>=0.1.1"

@@ -13,6 +13,7 @@ from helpers.compare import compare_data_with_ui_display_field
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
 
+from inspirehep.accounts.roles import Roles
 from inspirehep.records.marshmallow.literature import LiteratureMetadataUISchemaV1
 
 
@@ -72,7 +73,7 @@ def test_literature_application_json_without_login(api_client, db, create_record
 def test_literature_application_json_with_logged_in_cataloger(
     api_client, db, create_user, create_record
 ):
-    user = create_user(role="cataloger")
+    user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
@@ -203,7 +204,7 @@ def test_literature_application_json_search_without_login(
 def test_literature_application_json_search_with_cataloger_login(
     api_client, db, create_user, create_record
 ):
-    user = create_user(role="cataloger")
+    user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
@@ -539,7 +540,7 @@ def test_authors_application_json_v1_response_without_login(
 def test_authors_application_json_v1_response_with_logged_in_cataloger(
     api_client, db, create_user, create_record_factory
 ):
-    user = create_user(role="cataloger")
+    user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
@@ -667,7 +668,7 @@ def test_authors_json_v1_response_search_does_not_have_sort_options(
 def test_authors_application_json_v1_response_search_with_logged_in_cataloger(
     api_client, db, create_user, create_record_factory
 ):
-    user = create_user(role="cataloger")
+    user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}

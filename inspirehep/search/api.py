@@ -16,9 +16,9 @@ from flask import current_app
 from invenio_search import current_search_client as es
 from invenio_search.api import DefaultFilter, RecordsSearch
 
+from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.pidstore.api import PidStoreBase
-
-from .factories import inspire_query_factory
+from inspirehep.search.factories import inspire_query_factory
 
 logger = logging.getLogger(__name__)
 IQ = inspire_query_factory()
@@ -98,7 +98,7 @@ class LiteratureSearch(InspireSearch):
     class Meta:
         index = "records-hep"
         doc_types = "hep"
-        default_filter = DefaultFilter(Q("match", _collections="Literature"))
+        default_filter = DefaultFilter(Q())
 
     def query_from_iq(self, query_string):
         """Initialize ES DSL object using INSPIRE query parser.
@@ -106,6 +106,9 @@ class LiteratureSearch(InspireSearch):
         :type query_string: string
         :returns: Elasticsearch DSL search class
         """
+        if not is_superuser_or_cataloger_logged_in():
+            user_query = Q(IQ(query_string, self) & Q("term", _collections="Literature"))
+            return self.query(user_query)
         return self.query(IQ(query_string, self))
 
     def source_for_content_type(self, content_type):
@@ -180,6 +183,17 @@ class JobsSearch(InspireSearch):
     class Meta:
         index = "records-jobs"
         doc_types = "jobs"
+
+    def query_from_iq(self, query_string):
+        """Initialize ES DSL object using INSPIRE query parser.
+        :param query_string: Query string as a user would input in INSPIRE's search box.
+        :type query_string: string
+        :returns: Elasticsearch DSL search class
+        """
+        if not is_superuser_or_cataloger_logged_in():
+            user_query = Q(IQ(query_string, self) & Q("term", status="open"))
+            return self.query(user_query)
+        return self.query(IQ(query_string, self))
 
 
 class InstitutionsSearch(InspireSearch):

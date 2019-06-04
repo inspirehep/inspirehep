@@ -243,3 +243,21 @@ def create_user(base_app, db):
         return UserFactory(role=role, orcid=orcid)
 
     return _create_user
+
+
+@pytest.fixture
+def logout():
+    """
+    Fixture to logout the current user.
+
+    Example:
+        user = create_user('cataloger')
+        login_user_via_session(api_client, email=cataloger@cat.com)
+        . . .
+        logout(api_client)
+    """
+    def _logout(client):
+        with client.session_transaction() as sess:
+            if sess["user_id"]:
+                del sess["user_id"]
+    return _logout
