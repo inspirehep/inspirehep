@@ -13,7 +13,7 @@ celery = "<=4.2.1"
 click = "<7.0.0"
 python = ">=3.6,<3.7"
 invenio = {version = "~=3.1.0,==3.1.0", extras = [ "auth"]}
-invenio-db = {version = "*", extras = [ "postgresql",]}
+invenio-db = {version = "*", extras = [ "postgresql", "versioning"]}
 invenio-search = {version = "*", extras = [ "elasticsearch5",]}
 invenio-app = "~=1.1.0,>=1.1.0"
 invenio-access = "~=1.1.0,>=1.1.0"
