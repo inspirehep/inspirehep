@@ -146,3 +146,19 @@ def test_jobs_sort_by_deadline(api_client, db, es_clear, create_record, datadir)
     assert expected_status_code == response_status_code
     assert expected_first_control_number == response_first_control_number
     assert expected_second_control_number == response_second_control_nubmer
+
+
+def test_jobs_accelerator_experiments(api_client, db, es_clear, create_record, datadir):
+    data = json.loads((datadir / "1735925.json").read_text())
+    create_record("job", data=data)
+    response = api_client.get("/jobs/1735925")
+    response_accelerator_experiments = response.json["metadata"][
+        "accelerator_experiments"
+    ]
+    response_status_code = response.status_code
+
+    expected_accelerator_experiments = [{"name": "FNAL-E-0973"}, {"name": "LDMX"}]
+    expected_status_code = 200
+
+    assert expected_status_code == response_status_code
+    assert expected_accelerator_experiments == response_accelerator_experiments

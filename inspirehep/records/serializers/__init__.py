@@ -14,6 +14,7 @@ from .json import (
     authors_json_v1_response,
     authors_json_v1_response_search,
     facets_json_response_search,
+    jobs_json_v1_response,
     jobs_json_v1_response_search,
     literature_authors_json_v1_response,
     literature_json_ui_v1_response,
