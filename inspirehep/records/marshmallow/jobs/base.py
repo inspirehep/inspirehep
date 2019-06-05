@@ -12,10 +12,15 @@ from inspirehep.records.marshmallow.base import (
     InspireBaseSchema,
     InspireESEnhancementSchema,
 )
+from inspirehep.records.marshmallow.literature.common import (
+    AcceleratorExperimentSchemaV1,
+)
 
 
 class JobsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
-    pass
+    accelerator_experiments = fields.Nested(
+        AcceleratorExperimentSchemaV1, dump_only=True, many=True
+    )
 
 
 class JobsRawSchemaV1(InspireBaseSchema):

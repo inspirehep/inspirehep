@@ -350,6 +350,11 @@ JOBS.update(
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
             + ":jobs_json_v1_response_search",
         },
+        "record_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_v1_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":jobs_json_v1_response",
+        },
     }
 )
 JOBS_FACETS = deepcopy(JOBS)

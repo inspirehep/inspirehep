@@ -101,4 +101,6 @@ authors_control_number_only_json_v1_response = record_responsify(
 # Jobs
 jobs_json_v1 = JSONSerializer(JobsRawPublicSchemaV1, index_name="records-jobs")
 
+jobs_json_v1_response = record_responsify(jobs_json_v1, "application/json")
+
 jobs_json_v1_response_search = search_responsify(jobs_json_v1, "application/json")
