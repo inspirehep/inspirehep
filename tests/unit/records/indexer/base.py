@@ -19,7 +19,7 @@ def test_indexer_prepare_record(record_metadata_mock, current_app_mock, receiver
     indexer = InspireRecordIndexer()
 
     # Assume that record methods was already tested
-    expected = record.dumps_for_es()
+    expected = record.serialize_for_es()
 
     processed = indexer._prepare_record(record, "index_name", "document_type")
     assert receiver_mock.send.call_count == 1

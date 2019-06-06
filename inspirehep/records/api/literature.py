@@ -7,7 +7,9 @@
 
 """INSPIRE module that adds more fun to the platform."""
 import logging
+from itertools import chain
 
+import dateutil
 import requests
 from flask import current_app
 from hepcrawl.parsers import ArxivParser
@@ -15,11 +17,14 @@ from hepcrawl.parsers.crossref import CrossrefParser
 from idutils import is_doi, normalize_doi
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
+from inspire_utils.date import earliest_date
+from inspire_utils.helpers import force_list
+from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
-from inspirehep.records.api.mixins import CitationMixin
+from inspirehep.records.api.mixins import CitationMixin, FilesMixin
 from inspirehep.records.errors import (
     ExistingArticleError,
     ImportArticleError,
@@ -45,35 +50,60 @@ ARXIV_URL = (
 CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 
 
-class LiteratureRecord(InspireRecord, CitationMixin):
+class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
     """Literature Record."""
 
     es_serializer = LiteratureESEnhancementV1
     pid_type = "lit"
     pidstore_handler = PidStoreLiterature
 
+    @property
+    def earliest_date(self):
+        """Returns earliest date. If earliest date is missing month or day
+        it's set as 1 as DB does not accept date without day or month
+
+        Returns:
+            str: earliest date represented in a string
+        """
+        date_paths = [
+            "preprint_date",
+            "thesis_info.date",
+            "thesis_info.defense_date",
+            "publication_info.year",
+            "legacy_creation_date",
+            "imprints.date",
+        ]
+
+        dates = [
+            str(el)
+            for el in chain.from_iterable(
+                force_list(self.get_value(path)) for path in date_paths
+            )
+        ]
+        proper_dates = []
+        for date in dates:
+            try:
+                proper_dates.append(dateutil.parser.parse(date))
+            except ValueError:
+                pass
+        if proper_dates:
+            date = earliest_date(dates, full_date=True)
+            return date
+        return None
+
     @classmethod
     def create(cls, data, **kwargs):
-        documents = data.pop("documents", None)
-        figures = data.pop("figures", None)
-        record = super().create(data, **kwargs)
-        if documents or figures:
-            record.set_files(documents=documents, figures=figures)
-        push_to_orcid(record)
-        return record
+        with db.session.begin_nested():
+            record = super().create(data, **kwargs)
+            record._update_refs_in_citation_table()
+            push_to_orcid(record)
+            return record
 
     def update(self, data):
-        documents = data.pop("documents", None)
-        figures = data.pop("figures", None)
-        super().update(data)
-        if documents or figures:
-            self.set_files(documents=documents, figures=figures)
-        push_to_orcid(self)
-
-    def delete(self):
-        self.set_files(force=True)
-        push_to_orcid(self)
-        super().delete()
+        with db.session.begin_nested():
+            super().update(data)
+            self._update_refs_in_citation_table()
+            push_to_orcid(self)
 
     def set_files(self, documents=None, figures=None, force=False):
         """Sets new documents and figures for record.
@@ -100,7 +130,6 @@ class LiteratureRecord(InspireRecord, CitationMixin):
 
         self.pop("figures", None)
         self.pop("documents", None)
-
         files = []
         if documents or figures:
             files = self.add_files(documents=documents, figures=figures)
@@ -130,7 +159,6 @@ class LiteratureRecord(InspireRecord, CitationMixin):
 
         Returns:
              list: list of added keys
-
         """
         if not documents and not figures:
             raise TypeError("No files passed, at least one is needed")
@@ -165,9 +193,47 @@ class LiteratureRecord(InspireRecord, CitationMixin):
         super().update(builder.record.dumps())
         return files
 
-    def _dump_for_es(self):
-        serialized_data = super()._dump_for_es()
-        return serialized_data
+    def get_modified_references(self):
+        """Return the ids of the references diff between the latest and the
+        previous version.
+
+        The diff includes references added or deleted. Changes in a
+        reference's content won't be detected.
+
+        Also, it detects if record was deleted/un-deleted compared to the
+        previous version and, in such cases, returns the full list of
+        references.
+
+        References not linked to any record will be ignored.
+
+        Note: record should be committed to DB in order to correctly get the
+        previous version.
+
+        Returns:
+            Set[Tuple[str, int]]: pids of references changed from the previous
+            version.
+        """
+        try:
+            prev_version = self._previous_version
+        except AttributeError:
+            prev_version = {}
+
+        changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
+            "deleted", False
+        )
+
+        if changed_deleted_status:
+            return self.get_linked_pids_from_field("references.record")
+
+        ids_latest = set(self.get_linked_pids_from_field("references.record"))
+        try:
+            ids_oldest = set(
+                self._previous_version.get_linked_pids_from_field("references.record")
+            )
+        except AttributeError:
+            return []
+
+        return set.symmetric_difference(ids_latest, ids_oldest)
 
 
 def import_article(identifier):
@@ -235,7 +301,6 @@ def import_arxiv(arxiv_id):
     Raises:
         ImportConnectionError: if the request doesn't succeed.
         ImportParsingError: if any error occurs during the response parsing.
-
     """
     url = ARXIV_URL.replace(PLACEHOLDER, arxiv_id)
 
@@ -281,7 +346,6 @@ def import_doi(doi):
     Raises:
         ImportConnectionError: if the request doesn't succeed.
         ImportParsingError: if any error occurs during the response parsing.
-
     """
     doi = requests.utils.quote(doi, safe="")
     url = CROSSREF_URL.replace(PLACEHOLDER, doi)

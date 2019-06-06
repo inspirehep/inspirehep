@@ -60,7 +60,7 @@ def test_institutions_search_json_get(api_client, db, create_record_factory):
 def test_institution_record_search_results(api_client, db, es_clear, create_record):
     record = create_record("ins")
 
-    expected_metadata = record._dump_for_es()
+    expected_metadata = record.serialize_for_es()
 
     result = api_client.get("/institutions")
     assert result.json["hits"]["total"] == 1

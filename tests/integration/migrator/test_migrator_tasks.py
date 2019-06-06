@@ -178,7 +178,6 @@ def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db):
     mock_logger.exception.assert_called_once_with("Migrator Record Insert Error")
 
 
-@pytest.mark.xfail(reason="ORCID module is not yet available.")
 def test_orcid_push_disabled_on_migrate_from_mirror(
     base_app, db, cleanup, enable_orcid_push_feature
 ):
@@ -187,9 +186,9 @@ def test_orcid_push_disabled_on_migrate_from_mirror(
     )
 
     with patch(
-        "inspirehep.migrator.orcid.domain_models.OrcidPusher"
+        "inspirehep.orcid.domain_models.OrcidPusher"
     ) as mock_orcid_pusher, patch(
-        "inspirehep.migrator.records.receivers.push_access_tokens"
+        "inspirehep.orcid.push_access_tokens"
     ) as mock_push_access_tokens:
         mock_push_access_tokens.get_access_tokens.return_value.remote_account.extra_data[
             "orcid"

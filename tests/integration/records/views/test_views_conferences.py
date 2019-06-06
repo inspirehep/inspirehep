@@ -59,7 +59,7 @@ def test_conferences_search_json_get(api_client, db, create_record_factory):
 
 def test_conference_record_search_results(api_client, db, es_clear, create_record):
     record = create_record("con")
-    expected_metadata = record._dump_for_es()
+    expected_metadata = record.serialize_for_es()
 
     result = api_client.get("/conferences")
     assert result.json["hits"]["total"] == 1

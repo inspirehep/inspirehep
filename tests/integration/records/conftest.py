@@ -43,6 +43,6 @@ def fsopen_mock():
         return stream_mock
 
     with patch(
-        "inspirehep.records.api.base.fsopen", side_effect=return_mock_with_proper_file
+        "inspirehep.records.api.mixins.fsopen", side_effect=return_mock_with_proper_file
     ) as mocked_fsopen:
         yield mocked_fsopen
