@@ -27,10 +27,13 @@ class CitationsByYearGraph extends Component {
   }
 
   static citationsByYearToSeriesData(citationsByYear) {
-    const seriesData = Object.keys(citationsByYear).map(year => ({
-      x: Number(year),
-      y: citationsByYear[year],
-    }));
+    const minYear = Math.min(...Object.keys(citationsByYear));
+    const maxYear = Math.max(...Object.keys(citationsByYear));
+    const seriesData = [];
+    // eslint-disable-next-line no-plusplus
+    for (let year = minYear; year <= maxYear; year++) {
+      seriesData.push({ x: year, y: citationsByYear[year] || 0 });
+    }
 
     // Add dummy data points at the begining of the data
     // if it is not empty and has less than MIN_NUMBER_OF_DATAPOINTS
