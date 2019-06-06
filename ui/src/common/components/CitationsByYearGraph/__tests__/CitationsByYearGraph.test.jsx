@@ -94,4 +94,16 @@ describe('CitationsByYearGraph', () => {
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('renders filling missing years with 0', () => {
+    const citationsByYear = {
+      '2000': 10,
+      '2014': 43,
+      '2015': 5,
+    };
+    const wrapper = shallow(
+      <CitationsByYearGraph citationsByYear={citationsByYear} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });
