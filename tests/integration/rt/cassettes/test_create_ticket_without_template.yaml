@@ -1,0 +1,50 @@
+interactions:
+- request:
+    body: content=id%3A+ticket%2Fnew%0AQueue%3A+TEST%0ASubject%3A+This+is+a+test+subject+by+Jessica+Jones.%0AText%3A+This+is+a+test+description+by+Jessica+Jones.%0ACF.%7BRecordID%7D%3A+1%0Arequestors%3A+jessica%40jones.com%0A
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '215'
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - RT_SID_INSPIRE-HEP.443=d936a5400ffd3767e6a6126777467511
+      User-Agent:
+      - python-requests/2.22.0
+    method: POST
+    uri: https://rt.inspirehep.net/REST/1.0/ticket/new
+  response:
+    body:
+      string: 'RT/4.2.15 200 Ok
+
+
+        # Ticket 935369 created.
+
+        # Ticket 935369 updated.
+
+
+        '
+    headers:
+      Connection:
+      - close
+      Content-Type:
+      - text/plain; charset=utf-8
+      Date:
+      - Tue, 11 Jun 2019 16:01:27 GMT
+      Server:
+      - Apache
+      Set-Cookie:
+      - RT_SID_INSPIRE-HEP.443=d936a5400ffd3767e6a6126777467511; path=/; secure; HttpOnly
+      Transfer-Encoding:
+      - chunked
+      X-Frame-Options:
+      - DENY
+    status:
+      code: 200
+      message: OK
+version: 1
