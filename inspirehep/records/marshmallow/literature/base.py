@@ -6,14 +6,13 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
-from copy import copy
 from itertools import chain
 
 from inspire_dojson.utils import strip_empty_values
 from inspire_utils.date import format_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
-from marshmallow import Schema, fields, missing, post_dump, pre_dump
+from marshmallow import Schema, fields, missing, post_dump
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
@@ -211,7 +210,7 @@ class LiteratureESEnhancementV1(
 ):
     """Elasticsearch serialzier"""
 
-    _ui_display = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
+    _ui_display = fields.Method("get_ui_display", dump_only=True)
     _collections = fields.Raw(dump_only=True)
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
@@ -222,6 +221,9 @@ class LiteratureESEnhancementV1(
     facet_author_name = fields.Method("get_facet_author_name")
     id_field = fields.Integer(dump_only=True, dump_to="id", attribute="control_number")
     thesis_info = fields.Nested(ThesisInfoSchemaForESV1, dump_only=True)
+
+    def get_ui_display(self, record):
+        return json.dumps(LiteratureMetadataUISchemaV1().dump(record).data)
 
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""
@@ -302,15 +304,6 @@ class LiteratureESEnhancementV1(
         input_values = [el for el in input_values if el]
 
         return {"input": input_values}
-
-    @pre_dump
-    def populate_ui_display(self, data):
-        data["_ui_display"] = copy(data)
-
-    @post_dump(pass_original=True)
-    def stringify_ui_display(self, data, original):
-        data["_ui_display"] = json.dumps(data["_ui_display"])
-        del original["_ui_display"]
 
 
 class LiteratureUISchemaV1(InspireBaseSchema):

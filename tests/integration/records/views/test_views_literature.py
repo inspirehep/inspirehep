@@ -492,7 +492,7 @@ def test_literature_citation_annual_summary(api_client, db, es_clear, create_rec
     literature._index()  # Index again after citation was added
 
     request_param = {
-        "author": literature._dump_for_es()["facet_author_name"][0],
+        "author": literature.serialize_for_es()["facet_author_name"][0],
         "facet_name": "citations-by-year",
     }
     es_clear.indices.refresh("records-hep")

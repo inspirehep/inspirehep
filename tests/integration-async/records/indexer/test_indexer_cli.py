@@ -171,7 +171,6 @@ def test_reindex_only_one_record_wring_input(
     assert expected_message in result.output
 
 
-@pytest.mark.xfail(raises="Can't index data records")
 def test_reindex_records_data_records(
     celery_app_with_context,
     celery_session_worker,

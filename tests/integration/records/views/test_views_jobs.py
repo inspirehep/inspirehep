@@ -83,7 +83,8 @@ def test_jobs_facets(api_client, db, es_clear, create_record, datadir):
     assert expected_aggregations == response_aggregations
 
 
-def test_jobs_facets_cataloger(api_client, db, es_clear, create_record, datadir, create_user
+def test_jobs_facets_cataloger(
+    api_client, db, es_clear, create_record, datadir, create_user
 ):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -187,7 +188,7 @@ def test_jobs_record_search_results_returns_open_job_to_non_superuser(
 
     result = api_client.get("/jobs")
 
-    expected_metadata = record._dump_for_es()
+    expected_metadata = record.serialize_for_es()
     expected_results = 1
 
     assert result.json["hits"]["total"] == expected_results
@@ -215,7 +216,7 @@ def test_jobs_record_search_results_returns_pending_job_to_superuser(
 
     result = api_client.get("/jobs")
 
-    expected_metadata = record._dump_for_es()
+    expected_metadata = record.serialize_for_es()
     expected_results = 1
 
     assert result.json["hits"]["total"] == expected_results
