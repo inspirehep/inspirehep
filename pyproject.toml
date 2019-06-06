@@ -49,6 +49,7 @@ lxml = "^4.3"
 fqn-decorators = "~=1.2,>=1.2.3"
 editdistance = "^0.5.3"
 munkres = "^1.0"
+rt = "^1.0"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"

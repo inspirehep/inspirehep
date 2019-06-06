@@ -596,7 +596,10 @@ RECORDS_REST_FACETS = {
 """Introduce searching facets."""
 
 CATALOGER_RECORDS_REST_FACETS = deepcopy(RECORDS_REST_FACETS)
-CATALOGER_RECORDS_REST_FACETS["records-jobs"]["filters"]["status"] = terms_filter("status"),
+CATALOGER_RECORDS_REST_FACETS["records-jobs"]["filters"]["status"] = terms_filter(
+    "status"
+)
+
 CATALOGER_RECORDS_REST_FACETS["records-jobs"]["aggs"]["status"] = {
     "terms": {"field": "status"},
     "meta": {"order": 4, "type": "multiselect", "title": "Status"},
@@ -706,3 +709,13 @@ ALEMBIC_SKIP_TABLES = [
 # Inspire service client for ORCID.
 ORCID_APP_CREDENTIALS = {"consumer_key": "CHANGE_ME", "consumer_secret": "CHANGE_ME"}
 ORCID_ALLOW_PUSH_DEFAULT = False
+
+# RT
+# ==
+# "https://rt.inspirehep.net/REST/1.0/"
+RT_URL = None
+RT_VERIFY_SSL = False
+RT_USER = None
+RT_PASSWORD = None
+BIBCATALOG_QUEUES = "Test"
+JLAB_ARXIV_CATEGORIES = []
