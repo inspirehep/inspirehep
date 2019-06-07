@@ -9,4 +9,5 @@
 """Schemas for submissions"""
 
 from .author import Author, SameAuthor
+from .job import Job
 from .literature import Literature

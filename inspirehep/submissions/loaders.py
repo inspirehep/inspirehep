@@ -9,7 +9,8 @@
 
 from invenio_records_rest.loaders.marshmallow import marshmallow_loader
 
-from .marshmallow import Author, Literature
+from .marshmallow import Author, Job, Literature
 
 literature_v1 = marshmallow_loader(Literature)
 author_v1 = marshmallow_loader(Author)
+job_v1 = marshmallow_loader(Job)
