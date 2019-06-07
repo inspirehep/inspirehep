@@ -12,6 +12,7 @@ from invenio_records_rest.serializers.json import JSONSerializer
 
 from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
+from inspirehep.submissions.marshmallow.job import Job
 
 from .marshmallow import Author, Literature, SameAuthor
 
@@ -28,3 +29,4 @@ literature_v1 = JSONSerializer(Literature)
 author_v1 = ConditionalMultiSchemaJSONSerializer(
     [(does_current_user_own_author_record, SameAuthor), (None, Author)]
 )
+job_v1 = JSONSerializer(Job)
