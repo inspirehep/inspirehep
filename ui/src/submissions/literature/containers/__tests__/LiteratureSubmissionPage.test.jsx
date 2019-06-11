@@ -62,13 +62,15 @@ describe('LiteratureSubmissionPage', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls submitLiterature on LiterateSubmission submit', () => {
+  it('calls submit on LiterateSubmission submit', () => {
     const store = getStore();
     const formData = {
       title: 'Test',
     };
-    const mockSubmitLiterature = jest.fn();
-    submissions.submitLiterature = mockSubmitLiterature;
+
+    const mockSubmit = jest.fn();
+    submissions.submit = mockSubmit;
+
     const wrapper = shallow(<LiteratureSubmissionPage store={store} />).dive();
 
     // so that submission form is visible
@@ -76,6 +78,6 @@ describe('LiteratureSubmissionPage', () => {
     wrapper.update();
 
     wrapper.find(LiteratureSubmission).simulate('submit', formData);
-    expect(mockSubmitLiterature).toHaveBeenCalledWith(formData);
+    expect(mockSubmit).toHaveBeenCalledWith('literature', formData);
   });
 });

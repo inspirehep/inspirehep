@@ -1,10 +1,11 @@
 import authorSchema from '../author';
 import {
   authorStatusValues,
-  arxivCategoryValues,
-  rankValues,
 } from '../constants';
-import { degreeTypeValues } from '../../../common/schemas/constants';
+import {
+  degreeTypeValues, arxivCategoryValues,
+  rankValues,
+} from '../../../common/schemas/constants';
 
 const dataWithRequiredFields = {
   given_name: 'Harun',

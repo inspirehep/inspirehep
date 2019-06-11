@@ -5,6 +5,7 @@ import Loadable from 'react-loadable';
 import {
   SUBMISSIONS_AUTHOR,
   SUBMISSION_SUCCESS,
+  SUBMISSIONS_JOB,
   SUBMISSIONS,
   SUBMISSIONS_LITERATURE,
 } from '../common/routes';
@@ -26,6 +27,16 @@ const AuthorUpdateSubmissionPage$ = Loadable({
 
 const LiteratureSubmissionPage$ = Loadable({
   loader: () => import('./literature/containers/LiteratureSubmissionPage'),
+  loading: Loading,
+});
+
+const JobSubmissionPage$ = Loadable({
+  loader: () => import('./jobs/containers/JobSubmissionPage'),
+  loading: Loading,
+});
+
+const JobUpdateSubmissionPage$ = Loadable({
+  loader: () => import('./jobs/containers/JobUpdateSubmissionPage'),
   loading: Loading,
 });
 
@@ -55,6 +66,12 @@ class Submissions extends Component {
             path={SUBMISSIONS_LITERATURE}
             component={LiteratureSubmissionPage$}
             authorizedRoles={SUPERUSER}
+          />
+          <Route exact path={SUBMISSIONS_JOB} component={JobSubmissionPage$} />
+          <Route
+            exact
+            path={`${SUBMISSIONS_JOB}/:id`}
+            component={JobUpdateSubmissionPage$}
           />
           <Route
             exact

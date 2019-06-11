@@ -36,16 +36,16 @@ describe('AuthorSubmissionPage', () => {
     expect(wrapper.dive()).toMatchSnapshot();
   });
 
-  it('calls submitAuthor on AuthorSubmission submit', () => {
+  it('calls submit on AuthorSubmission submit', () => {
     const store = getStore();
     const formData = {
       name: 'Test',
     };
-    const mockSubmitAuthor = jest.fn();
-    submissions.submitAuthor = mockSubmitAuthor;
+    const mockSubmit = jest.fn();
+    submissions.submit = mockSubmit;
     const wrapper = shallow(<AuthorSubmissionPage store={store} />).dive();
 
     wrapper.find(AuthorSubmission).simulate('submit', formData);
-    expect(mockSubmitAuthor).toHaveBeenCalledWith(formData);
+    expect(mockSubmit).toHaveBeenCalledWith('authors', formData);
   });
 });

@@ -11,6 +11,8 @@ import AuthorSubmissionPage from '../authors/containers/AuthorSubmissionPage';
 import SubmissionSuccessPage from '../common/components/SubmissionSuccessPage';
 import AuthorUpdateSubmissionPage from '../authors/containers/AuthorUpdateSubmissionPage';
 import LiteratureSubmissionPage from '../literature/containers/LiteratureSubmissionPage';
+import JobUpdateSubmissionPage from '../jobs/containers/JobUpdateSubmissionPage';
+import JobSubmissionPage from '../jobs/containers/JobSubmissionPage';
 
 describe('Submissions', () => {
   it('renders initial state', () => {
@@ -106,6 +108,45 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(AuthorUpdateSubmissionPage)).toExist();
+
+    done();
+  });
+
+
+  it('navigates to JobSubmissionPage when /submissions/jobs', async done => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/jobs']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(JobSubmissionPage)).toExist();
+
+    done();
+  });
+
+  it('navigates to JobUpdateSubmissionPage when /submissions/jobs/:id', async done => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/jobs/1']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(JobUpdateSubmissionPage)).toExist();
 
     done();
   });

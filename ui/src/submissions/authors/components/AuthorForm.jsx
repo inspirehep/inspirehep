@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row } from 'antd';
 
+import { authorStatusOptions } from '../schemas/constants';
 import {
+  degreeTypeOptions,
   arxivCategoryOptions,
   rankOptions,
-  authorStatusOptions,
-} from '../schemas/constants';
-import { degreeTypeOptions } from '../../common/schemas/constants';
+} from '../../common/schemas/constants';
 import CollapsableForm from '../../common/components/CollapsableForm';
 import TextField from '../../common/components/TextField';
 import BooleanField from '../../common/components/BooleanField';

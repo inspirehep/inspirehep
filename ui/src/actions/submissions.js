@@ -7,6 +7,8 @@ import {
   INITIAL_FORM_DATA_ERROR,
   INITIAL_FORM_DATA_SUCCESS,
 } from './actionTypes';
+import { SUBMISSION_SUCCESS, SUBMISSIONS } from '../common/routes';
+import { httpErrorToActionPayload } from '../common/utils';
 
 function submitSuccess() {
   return {
@@ -18,18 +20,6 @@ function submitError(error) {
   return {
     type: SUBMIT_ERROR,
     payload: error,
-  };
-}
-
-export function submitAuthor(data) {
-  return async (dispatch, getState, http) => {
-    try {
-      await http.post('/submissions/authors', { data });
-      dispatch(submitSuccess());
-      dispatch(push('/submissions/success'));
-    } catch (error) {
-      dispatch(submitError(error.response.data));
-    }
   };
 }
 
@@ -54,40 +44,41 @@ function fetchInitialFormDataSuccess(data) {
   };
 }
 
-export function fetchAuthorUpdateFormData(recordId) {
+
+export function submit(pidType, data) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingInitialFormData({ recordId, pidType: 'authors' }));
     try {
-      const response = await http.get(`/submissions/authors/${recordId}`);
+      await http.post(`${SUBMISSIONS}/${pidType}`, { data });
+      dispatch(submitSuccess());
+      dispatch(push(SUBMISSION_SUCCESS));
+    } catch (error) {
+      dispatch(submitError(httpErrorToActionPayload(error)));
+    }
+  };
+}
+
+export function submitUpdate(pidType, pidValue, data) {
+  return async (dispatch, getState, http) => {
+    try {
+      await http.put(`${SUBMISSIONS}/${pidType}/${pidValue}`, { data });
+      dispatch(submitSuccess());
+      dispatch(push('/submissions/success'));
+    } catch (error) {
+      dispatch(submitError(httpErrorToActionPayload(error)));
+    }
+  };
+}
+
+export function fetchUpdateFormData(pidType, pidValue) {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingInitialFormData({ pidValue, pidType }));
+    try {
+      const response = await http.get(`${SUBMISSIONS}/${pidType}/${pidValue}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
       dispatch(
-        fetchInitialFormDataError(error.response && error.response.data)
+        fetchInitialFormDataError(httpErrorToActionPayload(error))
       );
-    }
-  };
-}
-
-export function submitAuthorUpdate(data, recordId) {
-  return async (dispatch, getState, http) => {
-    try {
-      await http.put(`/submissions/authors/${recordId}`, { data });
-      dispatch(submitSuccess());
-      dispatch(push('/submissions/success'));
-    } catch (error) {
-      dispatch(submitError(error.response && error.response.data));
-    }
-  };
-}
-
-export function submitLiterature(data) {
-  return async (dispatch, getState, http) => {
-    try {
-      await http.post('/submissions/literature', { data });
-      dispatch(submitSuccess());
-      dispatch(push('/submissions/success'));
-    } catch (error) {
-      dispatch(submitError(error.response && error.response.data));
     }
   };
 }
@@ -100,7 +91,7 @@ export function importExternalLiterature(id) {
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
       dispatch(
-        fetchInitialFormDataError(error.response && error.response.data)
+        fetchInitialFormDataError(httpErrorToActionPayload(error))
       );
     }
   };
