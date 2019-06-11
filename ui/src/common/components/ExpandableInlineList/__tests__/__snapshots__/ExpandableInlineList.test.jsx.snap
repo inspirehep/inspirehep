@@ -21,6 +21,7 @@ exports[`ExpandableInlineList renders all on expand toggle 1`] = `
     wrapperClassName={null}
   />
   <ExpandListToggle
+    expandLabel="Show all"
     expanded={true}
     limit={3}
     onToggle={[Function]}
@@ -55,6 +56,7 @@ exports[`ExpandableInlineList renders only 10 by default with expand toggle 1`] 
     wrapperClassName={null}
   />
   <ExpandListToggle
+    expandLabel="Show all"
     expanded={false}
     limit={10}
     onToggle={[Function]}
@@ -82,6 +84,7 @@ exports[`ExpandableInlineList renders only limited amount with expand toggle 1`]
     wrapperClassName={null}
   />
   <ExpandListToggle
+    expandLabel="Show all"
     expanded={false}
     limit={3}
     onToggle={[Function]}

@@ -39,6 +39,7 @@ exports[`AggregationFilter renders MultiSelectAggregation if aggregation type is
       },
     ]
   }
+  name="Test"
   onChange={[MockFunction]}
   selections={
     Array [

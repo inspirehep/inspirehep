@@ -87,6 +87,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
     </TimelineItem>
   </Timeline>
   <ExpandListToggle
+    expandLabel="Show all positions"
     expanded={true}
     limit={3}
     onToggle={[Function]}
@@ -143,6 +144,7 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
     </TimelineItem>
   </Timeline>
   <ExpandListToggle
+    expandLabel="Show all positions"
     expanded={false}
     limit={3}
     onToggle={[Function]}
@@ -217,6 +219,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
     </TimelineItem>
   </Timeline>
   <ExpandListToggle
+    expandLabel="Show all positions"
     expanded={false}
     limit={3}
     onToggle={[Function]}
@@ -253,6 +256,7 @@ exports[`PositionsTimeline renders with single position 1`] = `
     </TimelineItem>
   </Timeline>
   <ExpandListToggle
+    expandLabel="Show all positions"
     expanded={false}
     limit={3}
     onToggle={[Function]}

@@ -249,8 +249,9 @@ class RangeAggregation extends Component {
         <div className="__RangeAggregation__">
           <div className="hovered-info-container">
             {hoveredBar && (
+              // TODO: move the logic for rendering the label for the hovered info so that the component stays generic
               <span className="hovered-info">
-                {hoveredBar.y} found for {hoveredBar.x - HALF_BAR_WIDTH}
+                {hoveredBar.y} papers in {hoveredBar.x - HALF_BAR_WIDTH}
               </span>
             )}
           </div>

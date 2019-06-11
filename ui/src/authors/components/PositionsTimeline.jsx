@@ -53,6 +53,7 @@ class PositionsTimeline extends Component {
           size={positions.size}
           expanded={expanded}
           onToggle={this.onExpandToggle}
+          expandLabel="Show all positions"
         />
       </Fragment>
     );
