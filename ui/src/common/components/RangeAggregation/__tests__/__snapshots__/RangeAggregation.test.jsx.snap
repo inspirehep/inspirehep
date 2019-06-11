@@ -214,7 +214,7 @@ exports[`RangeAggregation renders with hovered bar 1`] = `
         className="hovered-info"
       >
         2
-         found for 
+         papers in 
         0.6
       </span>
     </div>

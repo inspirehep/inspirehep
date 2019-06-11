@@ -74,6 +74,7 @@ describe('AggregationFilter', () => {
         buckets={buckets}
         selections={['bucket1']}
         aggregationType="multiselect"
+        name="Test"
       />
     );
     expect(wrapper).toMatchSnapshot();
