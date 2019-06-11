@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobSubmissionPage renders with error 1`] = `
+<Row
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <Col
+    className="mt3 mb3"
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
+  >
+    <Row
+      className="mb3 pa3 bg-white"
+      gutter={0}
+    >
+      <h3>
+        Submit a new job opening
+      </h3>
+      This form allows you to advertise a new job opening. It will appear in the 
+      <Link
+        replace={false}
+        to="/jobs?q="
+      >
+        Jobs List
+      </Link>
+       upon approval.
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col>
+        <Component
+          error={
+            Immutable.Map {
+              "message": "Submit Error",
+            }
+          }
+          onSubmit={[Function]}
+        />
+      </Col>
+    </Row>
+  </Col>
+</Row>
+`;
+
+exports[`JobSubmissionPage renders with initial store state 1`] = `
+<Row
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <Col
+    className="mt3 mb3"
+    lg={16}
+    md={21}
+    xl={15}
+    xs={24}
+    xxl={14}
+  >
+    <Row
+      className="mb3 pa3 bg-white"
+      gutter={0}
+    >
+      <h3>
+        Submit a new job opening
+      </h3>
+      This form allows you to advertise a new job opening. It will appear in the 
+      <Link
+        replace={false}
+        to="/jobs?q="
+      >
+        Jobs List
+      </Link>
+       upon approval.
+    </Row>
+    <Row
+      gutter={0}
+    >
+      <Col>
+        <Component
+          error={null}
+          onSubmit={[Function]}
+        />
+      </Col>
+    </Row>
+  </Col>
+</Row>
+`;

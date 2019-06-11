@@ -6,7 +6,7 @@ import { Menu } from 'antd';
 import { Set } from 'immutable';
 
 import { userLogout } from '../../../actions/user';
-import { SUBMISSIONS_AUTHOR, USER_LOGIN } from '../../routes';
+import { SUBMISSIONS_AUTHOR, USER_LOGIN, SUBMISSIONS_JOB } from '../../routes';
 import ExternalLink from '../../components/ExternalLink';
 import LinkLikeButton from '../../components/LinkLikeButton';
 import { isCataloger } from '../../authorization';
@@ -39,6 +39,9 @@ class HeaderMenu extends Component {
         <Menu.SubMenu title="Submit">
           <Menu.Item key="submit.author">
             <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
+          </Menu.Item>
+          <Menu.Item key="submit.job">
+            <Link to={SUBMISSIONS_JOB}>Job</Link>
           </Menu.Item>
           <Menu.Item key="submit.literature">
             <ExternalLink href="/literature/new">Literature</ExternalLink>

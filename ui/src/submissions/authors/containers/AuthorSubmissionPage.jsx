@@ -5,10 +5,11 @@ import { Map } from 'immutable';
 import { Row, Col } from 'antd';
 import { object } from 'yup';
 
-import { submitAuthor } from '../../../actions/submissions';
+import { submit } from '../../../actions/submissions';
 import AuthorSubmission from '../components/AuthorSubmission';
 import ExternalLink from '../../../common/components/ExternalLink';
 import uniqueOrcid from '../schemas/uniqueOrcid';
+import { AUTHORS_PID_TYPE } from '../../../common/constants';
 
 const extraSchemaForNewAuthor = object().shape({ orcid: uniqueOrcid() });
 
@@ -20,7 +21,7 @@ class AuthorSubmissionPage extends Component {
 
   async onSubmit(formData) {
     const { dispatch } = this.props;
-    await dispatch(submitAuthor(formData));
+    await dispatch(submit(AUTHORS_PID_TYPE, formData));
   }
 
   render() {

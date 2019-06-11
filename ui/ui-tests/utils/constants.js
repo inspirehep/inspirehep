@@ -9,6 +9,7 @@ const routes = {
     authorSubmission: `${appBaseUrl}/submissions/authors`,
     author1073117UpdateSubmission: `${appBaseUrl}/submissions/authors/1073117`,
     literatureSubmission: `${appBaseUrl}/submissions/literature`,
+    jobSubmission: `${appBaseUrl}/submissions/jobs`,
   },
   public: {
     home: appBaseUrl,

@@ -1,0 +1,18 @@
+.__RichTextEditor__ {
+  height: auto;
+
+  .ql-toolbar {
+    border: none;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .ql-container {
+    border: none;
+    min-height: 12em;
+  }
+
+  & + .ant-form-item-children-icon {
+    height: 32px !important;
+    margin-top: -22px !important;
+  }
+}

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
+import { DatePicker } from 'antd';
+import moment from 'moment';
 
-import SelectBox from '../../../common/components/SelectBox';
 import withFormItem from '../withFormItem';
 
-class SelectField extends Component {
+class DateField extends Component {
   constructor(props) {
     super(props);
     this.onBlur = this.onBlur.bind(this);
@@ -16,20 +17,19 @@ class SelectField extends Component {
     form.setFieldTouched(name, true);
   }
 
-  onChange(value) {
+  onChange(date, dateString) {
     const { form, name } = this.props;
-    form.setFieldValue(name, value);
-    form.setFieldTouched(name, true);
+    form.setFieldValue(name, dateString);
   }
 
   render() {
-    const { value, mode, ...otherProps } = this.props;
+    const { value, ...otherProps } = this.props;
     return (
-      <SelectBox
+      <DatePicker
+        className="w-100"
         {...otherProps}
-        mode={mode}
-        data-test-type={`${mode || 'single'}-select`}
-        defaultValue={value}
+        data-test-type="date-picker"
+        defaultValue={value && moment(value)}
         onBlur={this.onBlur}
         onChange={this.onChange}
       />
@@ -37,4 +37,4 @@ class SelectField extends Component {
   }
 }
 
-export default withFormItem(SelectField);
+export default withFormItem(DateField);

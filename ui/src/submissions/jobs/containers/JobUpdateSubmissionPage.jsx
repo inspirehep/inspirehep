@@ -8,12 +8,10 @@ import {
   fetchUpdateFormData,
   submitUpdate,
 } from '../../../actions/submissions';
-import AuthorSubmission from '../components/AuthorSubmission';
-import ExternalLink from '../../../common/components/ExternalLink';
-import { AUTHORS_PID_TYPE } from '../../../common/constants';
+import { JOBS_PID_TYPE } from '../../../common/constants';
+import JobSubmission from '../components/JobSubmission';
 
-
-class AuthorUpdateSubmissionPage extends Component {
+class JobUpdateSubmissionPage extends Component {
   static getRecordIdFromProps(props) {
     return props.match.params.id;
   }
@@ -24,20 +22,20 @@ class AuthorUpdateSubmissionPage extends Component {
   }
 
   componentDidMount() {
-    this.dispatch(fetchUpdateFormData(AUTHORS_PID_TYPE, this.recordId));
+    this.dispatch(fetchUpdateFormData(JOBS_PID_TYPE, this.recordId));
   }
 
   componentDidUpdate(prevProps) {
-    const prevRecordId = AuthorUpdateSubmissionPage.getRecordIdFromProps(
+    const prevRecordId = JobUpdateSubmissionPage.getRecordIdFromProps(
       prevProps
     );
     if (this.recordId !== prevRecordId) {
-      this.dispatch(fetchUpdateFormData(AUTHORS_PID_TYPE, this.recordId));
+      this.dispatch(fetchUpdateFormData(JOBS_PID_TYPE, this.recordId));
     }
   }
 
   async onSubmit(formData) {
-    await this.dispatch(submitUpdate(AUTHORS_PID_TYPE, this.recordId, formData));
+    await this.dispatch(submitUpdate(JOBS_PID_TYPE, this.recordId, formData));
   }
 
   get dispatch() {
@@ -46,7 +44,7 @@ class AuthorUpdateSubmissionPage extends Component {
   }
 
   get recordId() {
-    return AuthorUpdateSubmissionPage.getRecordIdFromProps(this.props);
+    return JobUpdateSubmissionPage.getRecordIdFromProps(this.props);
   }
 
   render() {
@@ -57,17 +55,12 @@ class AuthorUpdateSubmissionPage extends Component {
         <Row type="flex" justify="center">
           <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
             <Row className="mb3 pa3 bg-white">
-              <h3>Update author</h3>
-              This form allows you to update information of an existing author.
-              All modifications are transferred to{' '}
-              <ExternalLink href="//inspirehep.net/hepnames">
-                inspirehep.net/hepnames
-              </ExternalLink>{' '}
-              upon approval.
+              <h3>Update a job opening</h3>
+              All modifications will appear immediately.
             </Row>
             <Row>
               <Col>
-                <AuthorSubmission
+                <JobSubmission
                   error={error}
                   onSubmit={this.onSubmit}
                   initialFormData={updateFormData}
@@ -81,7 +74,7 @@ class AuthorUpdateSubmissionPage extends Component {
   }
 }
 
-AuthorUpdateSubmissionPage.propTypes = {
+JobUpdateSubmissionPage.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired, // eslint-disable-line react/no-unused-prop-types
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
@@ -97,6 +90,4 @@ const stateToProps = state => ({
 
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(stateToProps, dispatchToProps)(
-  AuthorUpdateSubmissionPage
-);
+export default connect(stateToProps, dispatchToProps)(JobUpdateSubmissionPage);

@@ -4,12 +4,13 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import { Row, Col, Form } from 'antd';
 
-import { submitLiterature } from '../../../actions/submissions';
+import { submit } from '../../../actions/submissions';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
 import LiteratureSubmission from '../components/LiteratureSubmission';
 import ExternalLink from '../../../common/components/ExternalLink';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
+import { LITERATURE_PID_TYPE } from '../../../common/constants';
 
 const DOC_TYPE_OPTIONS = [
   {
@@ -46,7 +47,7 @@ class LiteratureSubmissionPage extends Component {
 
   async onSubmit(formData) {
     const { dispatch } = this.props;
-    await dispatch(submitLiterature(formData));
+    await dispatch(submit(LITERATURE_PID_TYPE, formData));
   }
 
   onDocTypeChange(docType) {

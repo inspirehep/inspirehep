@@ -25,4 +25,5 @@ export const ERROR_NETWORK = `${ERRORS}/network`;
 export const SUBMISSIONS = '/submissions';
 export const SUBMISSIONS_AUTHOR = `${SUBMISSIONS}/authors`;
 export const SUBMISSIONS_LITERATURE = `${SUBMISSIONS}/literature`;
+export const SUBMISSIONS_JOB = `${SUBMISSIONS}/jobs`;
 export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;

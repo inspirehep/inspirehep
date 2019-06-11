@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 
-import SelectBox from '../../../common/components/SelectBox';
 import withFormItem from '../withFormItem';
+import RichTextEditor from './RichTextEditor';
 
-class SelectField extends Component {
+class RichTextField extends Component {
   constructor(props) {
     super(props);
     this.onBlur = this.onBlur.bind(this);
@@ -16,19 +16,17 @@ class SelectField extends Component {
     form.setFieldTouched(name, true);
   }
 
-  onChange(value) {
+  onChange(content) {
     const { form, name } = this.props;
-    form.setFieldValue(name, value);
-    form.setFieldTouched(name, true);
+    form.setFieldValue(name, content);
   }
 
   render() {
-    const { value, mode, ...otherProps } = this.props;
+    const { value, ...otherProps } = this.props;
     return (
-      <SelectBox
+      <RichTextEditor
         {...otherProps}
-        mode={mode}
-        data-test-type={`${mode || 'single'}-select`}
+        data-test-type="rich-text"
         defaultValue={value}
         onBlur={this.onBlur}
         onChange={this.onChange}
@@ -37,4 +35,4 @@ class SelectField extends Component {
   }
 }
 
-export default withFormItem(SelectField);
+export default withFormItem(RichTextField);

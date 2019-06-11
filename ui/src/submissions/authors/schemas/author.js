@@ -1,11 +1,11 @@
 import { string, object, array, boolean } from 'yup';
 
+import { authorStatusValues } from './constants';
 import {
+  degreeTypeValues,
   arxivCategoryValues,
   rankValues,
-  authorStatusValues,
-} from './constants';
-import { degreeTypeValues } from '../../common/schemas/constants';
+} from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import orcid from '../../common/schemas/orcid';
 import year from '../../common/schemas/year';
