@@ -6,9 +6,62 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 notifications:
-  email: # sent to the committer and the author
+  email:
     on_success: never
     on_failure: never
+
+env:
+  global:
+    # UI_DEPLOY_URL
+    - secure: "aLb6W4YxJpJV8afBw6+1BlSqctfyw9Z/upVArncsQIgVWkgUQxGT7Z4S5hGNmwvXLQvJhsEudyqi8OKKy9e75O58GelJ/jIdPIMLLMfTPOch+cVbDDqeXemMptfZZhHNRPoRrfhyi2XTA7pQjWCyXudq1xaPXGNrrEX5vQmHH1osHMBq6NVnzAslnKckxP722tzUWcmF0PNTB3Ry9j/W0lLEqazSIpJfEalF8Kbo4vkKtVoc2Ux8011y99GyHtp5OBnWT4H6dJzOk15PiT6uye23RbYsfN2N7dSpPfmfq22gLgOKLT1XFZMrQwhfFuKjT/3I92EK1EUkQ7WPssPtIYVUoM0i3ufwj5ElOF+ngopFZCZxQiGFyJcomc0TZ6OLVLkkVQBjaxBzh5WvCEU/XoYJoNVLj4hLYaGc/jO20zs0gzDJVi8ld524rvy7bC2cowLG4p2Ste96i/Ay4q71hFPYkIAaGasLrxD5yxADeJDzP2fIMilEECT/vV8CnE/SjRGO5TLboHdHD4Z9V6Jcu7XnYBKQwCo21dQ/+P3PiVbbvabRcZYZcugYncs88fmgnZjw3VcD/rIeyVWiR8vgspHMDJOmf2/aAMjWNFk6oMknUAMRYsrIqnIXaXalTs+7pxsODMuBODAS/lehiD0d1xdb0uonuKTB+feDGZKjq5w="
+    # UI_DEPLOY_TOKEN
+    - secure: "MdcAmDWnPEW8Dr5aZe3JvsdtWNWRq1GMvxyesS+UJjay+RQCso6yrU6gKOipR1+3Pizio3a1P06nnYfFjXyqJRBzmruJSUIjVgu3ZfgulgK/ESakobpOWyOzko5SUoofJ79REwzU7QbfV+2Ezgk3C49wqVlZh8VQjPtuJO+5N9S5Rbo6Nx+qmK7A83a8ow7kMHQrwgPH+RZdaH3qstUvjvt308WBkaI1zvIQ3LIx9fNNgd1NZy5R7YlS+Edt2ELf/hfQrx6WohcsDeqBqRPiE41RY7LLozSZGZ8J9kHGQlZyQijAbme9sZduCV67/zOmYptprwuKN3/XIW/dmW6dtvJUrxMxcDkSTeT5hVIzGqEg3Bi8OLIS7tOMOjOtg3V2lcHTE2Aw4XXTyBeF+Caw/2N+szDtkBdR/r9agZkAO5U6rzoGTdR5A3Sla+CnZNw8Dguwe6GkeUiqNPjOlUVwJrZFmJ136r0oO6/wffifvLfanokYvVxB6k/ltT3Tp3mKqTXBqFmrpKd/4BH47/yYLHXHBjC7XQA4Yhf9cdS93LpLErkN3txgbXSqv/71AZi0kmIw7A1f0V7Tz3o6Kr8GFiZBPXD0g/53v0MkVkg880ZNHWGtBGVQxKddY267ORXijwPwdp88KFuidNT4jXeLGYUh9OXF4yAFKF7bbK4X9sA="
+    # INSPIREHEP_DEPLOY_URL
+    - secure: "aLG3nGFMUc7rYeeV1Aii8UpLQ1oo5hWY1E/68z+LAXihte5ztVWQEusJrNvgN18xEViALqn5E1oumli6hjSPiTBtzIQ06yVR5BH9UKYNiuWMGuY2/fjDlq265qmwHnZs1xquqKx1iDHQfE+PuR8ARXAACxWm6n1RB9OvbamNOeAJk+KKJrVSPseJngdRIrndOlfaP64gqANbp6ikpd177lFn0T9GsGapvvkEVzB4o3j2E2R16s4XdgMju1lposOLa3GnI3QjaVtT3F++PMD8gEQGlk2BSoTjOkgW/nh4V+uSOOarVo2MHHnxHSiGZTz/NueGjWu+/5evT97FWEbOsnlJsO9eUEWj8JRaXN7FVxt1INe5tRlHKXxy2a1UA/8RlScS5Zq4wLOEdYZSLgyfDuhmFekSFPeoE9oCEIYA2e44MVJ8Q+9vj3BkNjd+fxY98GVkFn9xYNkFtfyKlsE+ELZQT/FCUlbgd2kfjtaYA8i80ddcVaiK8OFk74ZBs5+ld1Bvts78E2g0xNiuCyEKxwckCxN+QOsaLJ2K7YkFJc7jGOMghkdupMpxyBq7tijXHjHTrIexOPk5czjhalqR4IAtAzyu1bFQ401VjPzWZh04Rq5HF9sTd+9QCDzjhkf1OomOfuyZr7sOQIP07DEbjWjzPqY9g6fZ3rPTBjJ/R2I="
+    # INSPIREHEP_DEPLOY_TOKEN
+    - secure: "V98FV92PYh7ukGoHrYpfNC8DYp2AUZG369z5ALYsm72HIloicEwS8X/dI7FuvWBr9PZZVCEh4jdIKkhjTY0Ef/aYtIml2PlJLcVoVB1kp7KgNyHowmpcZ5Qz+cZpkMamQlLFdffOw4ZvJcXU7iEFbRb70ulyp4F4rqgWnr+3pFITcH62fxy6hWfBJS4uf+OfeZ2HGaqRoLFPGjlB+1WsIw+krt1WmgQvj7IXhHrrWMEDCZY4O2G8DZAEkdAQn5cDNl2eQuf82vw11BDfGmoa19raKSsv9B3ix+IMT6mMXraz/mSy8I3P2lxeKmscdtVdEfVLLGOrkghhNrGlABpWiWOCXBLOmYxrTxrBOrjdis39QdRqQudfKHoDnVh+IigRffpqrNxp4uH9m56HyERKECb+ZrLmulE2vLzuUIRtIuM0maJ5CyepVpx0mQ5jXs1doEWJA7se/k6BrqcaLnTY3GMYNJZOQiOIeUDTNzoGYmlAc5wbmb11NRGtkJexaKqciyr2kLgQx0bAd1liADrDsqQfXt2i7eXsAb5qsXSEPz12+o0WGZ0Az3cOMQSUR24wcSqGzkC8cNPcTFtgZRI8U8v7fvwtQtfDFwgXv+wlPTkvJPvzjQeumdUaO+Im+D/b87p3CA+7OF6GSoJX0Yhl53qNaFDpCtEKGvDHrCsloQI="
+
+cache:
+  pip: true
+  yarn: true
+  directories:
+    - "$HOME/.cache/pypoetry"
+    - "$HOME/.cache/pre-commit"
+
+services:
+  - docker
+
+deploy:
+    # UI
+    - provider: script
+      env:
+        - IMAGE_VERSION=latest
+      script: ./deploy-ui.sh
+      on:
+        branch: master
+    - provider: script
+      env:
+        - IMAGE_VERSION=${TRAVIS_TAG}
+      script: ./deploy-ui.sh
+      on:
+        tags: true
+    # INSPIREHEP
+    - provider: script
+      env:
+        - DEPLOYMENT_TYPE=TAG_NAME
+        - DEPLOYMENT_BRANCH=${TRAVIS_TAG}
+        - IMAGE_VERSION=${TRAVIS_TAG}
+      script: ./deploy-inspirehep.sh
+      on:
+        tags: true
+    - provider: script
+      env:
+        - DEPLOYMENT_TYPE=BRANCH_NAME
+        - DEPLOYMENT_BRANCH=${TRAVIS_TAG}
+        - IMAGE_VERSION=latest
+      script: ./deploy-inspirehep.sh
+      on:
+        branch: master
 
 matrix:
   fast_finish: true
@@ -49,8 +102,6 @@ matrix:
       after_fail:
         - poetry show
 
-      cache: pip
-
     - language: python
       sudo: true
       dist: trusty
@@ -77,8 +128,6 @@ matrix:
 
       after_fail:
         - poetry run pip freeze
-
-      cache: pip
 
     - language: python
       sudo: true
@@ -118,29 +167,10 @@ matrix:
       after_fail:
         - poetry run pip freeze
 
-      cache: pip
-
     - language: node_js
       sudo: required
       env:
         - SUITE=ui-all
-        # UI_DEPLOY_URL
-        - secure: "aLb6W4YxJpJV8afBw6+1BlSqctfyw9Z/upVArncsQIgVWkgUQxGT7Z4S5hGNmwvXLQvJhsEudyqi8OKKy9e75O58GelJ/jIdPIMLLMfTPOch+cVbDDqeXemMptfZZhHNRPoRrfhyi2XTA7pQjWCyXudq1xaPXGNrrEX5vQmHH1osHMBq6NVnzAslnKckxP722tzUWcmF0PNTB3Ry9j/W0lLEqazSIpJfEalF8Kbo4vkKtVoc2Ux8011y99GyHtp5OBnWT4H6dJzOk15PiT6uye23RbYsfN2N7dSpPfmfq22gLgOKLT1XFZMrQwhfFuKjT/3I92EK1EUkQ7WPssPtIYVUoM0i3ufwj5ElOF+ngopFZCZxQiGFyJcomc0TZ6OLVLkkVQBjaxBzh5WvCEU/XoYJoNVLj4hLYaGc/jO20zs0gzDJVi8ld524rvy7bC2cowLG4p2Ste96i/Ay4q71hFPYkIAaGasLrxD5yxADeJDzP2fIMilEECT/vV8CnE/SjRGO5TLboHdHD4Z9V6Jcu7XnYBKQwCo21dQ/+P3PiVbbvabRcZYZcugYncs88fmgnZjw3VcD/rIeyVWiR8vgspHMDJOmf2/aAMjWNFk6oMknUAMRYsrIqnIXaXalTs+7pxsODMuBODAS/lehiD0d1xdb0uonuKTB+feDGZKjq5w="
-        # UI_DEPLOY_TOKEN
-        - secure: "MdcAmDWnPEW8Dr5aZe3JvsdtWNWRq1GMvxyesS+UJjay+RQCso6yrU6gKOipR1+3Pizio3a1P06nnYfFjXyqJRBzmruJSUIjVgu3ZfgulgK/ESakobpOWyOzko5SUoofJ79REwzU7QbfV+2Ezgk3C49wqVlZh8VQjPtuJO+5N9S5Rbo6Nx+qmK7A83a8ow7kMHQrwgPH+RZdaH3qstUvjvt308WBkaI1zvIQ3LIx9fNNgd1NZy5R7YlS+Edt2ELf/hfQrx6WohcsDeqBqRPiE41RY7LLozSZGZ8J9kHGQlZyQijAbme9sZduCV67/zOmYptprwuKN3/XIW/dmW6dtvJUrxMxcDkSTeT5hVIzGqEg3Bi8OLIS7tOMOjOtg3V2lcHTE2Aw4XXTyBeF+Caw/2N+szDtkBdR/r9agZkAO5U6rzoGTdR5A3Sla+CnZNw8Dguwe6GkeUiqNPjOlUVwJrZFmJ136r0oO6/wffifvLfanokYvVxB6k/ltT3Tp3mKqTXBqFmrpKd/4BH47/yYLHXHBjC7XQA4Yhf9cdS93LpLErkN3txgbXSqv/71AZi0kmIw7A1f0V7Tz3o6Kr8GFiZBPXD0g/53v0MkVkg880ZNHWGtBGVQxKddY267ORXijwPwdp88KFuidNT4jXeLGYUh9OXF4yAFKF7bbK4X9sA="
-      deploy:
-        - provider: script
-          script: curl -X POST "${UI_DEPLOY_URL}" -F token=${UI_DEPLOY_TOKEN} -F ref=qa -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" -F "variables[TAG]=latest" -F "variables[IMAGE_BUILD]=True" -F "variables[DEPLOY]=True"
-          on:
-            branch: master
-        - provider: script
-          script: curl -X POST "${UI_DEPLOY_URL}" -F token=${UI_DEPLOY_TOKEN} -F ref=qa -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" -F "variables[TAG]=${TRAVIS_TAG}" -F "variables[IMAGE_BUILD]=True" -F "variables[DEPLOY]=True"
-          on:
-            tags: true
       node_js:
         - 10.14.0
-      cache: yarn
       script: cd ui && yarn && yarn test
-
-services:
-  - docker
