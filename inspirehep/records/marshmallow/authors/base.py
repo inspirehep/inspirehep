@@ -5,12 +5,16 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from itertools import chain
+
 from inspire_dojson.utils import strip_empty_values
+from inspire_utils.helpers import force_list
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, post_dump
 
+from ..base import InspireBaseSchema, InspireESEnhancementSchema
 from ..fields import NonHiddenRaw
 from .common import PositionSchemaV1
 
@@ -50,14 +54,31 @@ class AuthorsMetadataRawAdminSchemaV1(AuthorsMetadataRawPublicSchemaV1):
     email_addresses = fields.Raw(dump_only=True)
 
 
-class AuthorsRawSchemaV1(RecordSchemaJSONV1):
-    id_ = fields.Method("get_uuid")
+class AuthorsESEnhancementV1(
+    InspireESEnhancementSchema, AuthorsMetadataRawAdminSchemaV1
+):
 
-    def get_uuid(self, data):
-        pid = data.get("pid")
-        if pid:
-            return pid.object_uuid
-        return None
+    author_suggest = fields.Method("get_author_suggest", dump_only=True)
+
+    def get_author_suggest(self, record):
+        paths = [
+            "name.preferred_name",
+            "name.previous_names",
+            "name.name_variants",
+            "name.native_names",
+            "name.value",
+        ]
+
+        input_values = list(
+            chain.from_iterable(
+                force_list(record.get_value(path, default=[])) for path in paths
+            )
+        )
+        return {"input": input_values}
+
+
+class AuthorsRawSchemaV1(InspireBaseSchema):
+    pass
 
 
 class AuthorsRawAdminSchemaV1(AuthorsRawSchemaV1):

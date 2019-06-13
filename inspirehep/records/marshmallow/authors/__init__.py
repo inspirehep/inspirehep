@@ -7,6 +7,7 @@
 # flake8: noqa
 
 from .base import (
+    AuthorsESEnhancementV1,
     AuthorsMetadataOnlyControlNumberSchemaV1,
     AuthorsMetadataRawAdminSchemaV1,
     AuthorsMetadataRawPublicSchemaV1,
