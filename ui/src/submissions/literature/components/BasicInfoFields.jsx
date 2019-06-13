@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Field } from 'formik';
-import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
 import { languageOptions, subjectOptions } from '../schemas/constants';
@@ -9,18 +8,11 @@ import ArrayOf from '../../common/components/ArrayOf';
 import SelectField from '../../common/components/SelectField';
 import TextAreaField from '../../common/components/TextAreaField';
 import SuggesterField from '../../common/components/SuggesterField';
+import LiteratureAuthorsField from './LiteratureAuthorsField';
 
 class BasicInfoFields extends Component {
-  static getSuggestionSourceLegacyICN(suggestion) {
-    return suggestion._source.legacy_ICN;
-  }
-
   static getSuggestionSourceLegacyName(suggestion) {
     return suggestion._source.legacy_name;
-  }
-
-  static getSuggestionSourceNameValue(suggestion) {
-    return suggestion._source.name.value;
   }
 
   render() {
@@ -42,43 +34,10 @@ class BasicInfoFields extends Component {
           options={subjectOptions}
           component={SelectField}
         />
-        <ArrayOf
+        <LiteratureAuthorsField
           values={values}
           name="authors"
           label="* Authors"
-          emptyItem={{}}
-          renderItem={itemName => (
-            <Row type="flex" justify="space-between">
-              <Col span={11}>
-                <Field
-                  onlyChild
-                  recordFieldPath={`${itemName}.record`}
-                  name={`${itemName}.full_name`}
-                  placeholder="Family name, first name"
-                  pidType="authors"
-                  suggesterName="author"
-                  extractItemCompletionValue={
-                    BasicInfoFields.getSuggestionSourceNameValue
-                  }
-                  component={SuggesterField}
-                />
-              </Col>
-              <Col span={11}>
-                <Field
-                  onlyChild
-                  name={`${itemName}.affiliation`}
-                  recordFieldPath={`${itemName}.affiliation_record`}
-                  placeholder="Affiliation, type for suggestions"
-                  pidType="institutions"
-                  suggesterName="affiliation"
-                  extractItemCompletionValue={
-                    BasicInfoFields.getSuggestionSourceLegacyICN
-                  }
-                  component={SuggesterField}
-                />
-              </Col>
-            </Row>
-          )}
         />
         {withCollaborationField && (
           <Field
