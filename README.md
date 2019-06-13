@@ -122,3 +122,14 @@ For the UI you can login http://localhost:8081/user/login/local
 #### Backend
 
 If you want to test inspirehep and backend API you should login http://localhost:5000/login/?next=/&local=1
+
+### How to release
+
+```bash
+$ poetry version patch
+$ cd ui; npm version patch; cd ..
+$ git commit add .
+$ git commit -m 'release: vX.X.X'
+$ git tag -a 'vX.X.X' -m 'vX.X.X'
+$ git push upstream master
+```
