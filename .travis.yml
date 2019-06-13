@@ -32,16 +32,22 @@ services:
   - docker
 
 deploy:
-    # UI
     - provider: script
-      script: ./deploy-ui.sh
+      script: ./scripts/deploy/ui.sh latest
       on:
         branch: master
-    # INSPIREHEP
     - provider: script
-      script: ./deploy-inspirehep.sh
+      script: ./scripts/deploy/ui.sh tag
+      on:
+        tag: true
+    - provider: script
+      script: ./scripts/deploy/inspirehep.sh latest
       on:
         branch: master
+    - provider: script
+      script: ./scripts/deploy/inspirehep.sh tag
+      on:
+        tag: true
 
 matrix:
   fast_finish: true
