@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import { Field } from 'formik';
-import { Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
 import { degreeTypeOptions } from '../../common/schemas/constants';
 import TextField from '../../common/components/TextField';
-import ArrayOf from '../../common/components/ArrayOf';
 import SelectField from '../../common/components/SelectField';
+import LiteratureAuthorsField from './LiteratureAuthorsField';
 
 class ThesisInfoFields extends Component {
   render() {
@@ -33,31 +32,10 @@ class ThesisInfoFields extends Component {
           component={TextField}
         />
         <Field name="institution" label="Institution" component={TextField} />
-        <ArrayOf
+        <LiteratureAuthorsField
           values={values}
           name="supervisors"
           label="Supervisors"
-          emptyItem={{}}
-          renderItem={itemName => (
-            <Row type="flex" justify="space-between">
-              <Col span={11}>
-                <Field
-                  onlyChild
-                  name={`${itemName}.full_name`}
-                  placeholder="Family name, First name"
-                  component={TextField}
-                />
-              </Col>
-              <Col span={11}>
-                <Field
-                  onlyChild
-                  name={`${itemName}.affiliation`}
-                  placeholder="Affiliation"
-                  component={TextField}
-                />
-              </Col>
-            </Row>
-          )}
         />
       </>
     );
