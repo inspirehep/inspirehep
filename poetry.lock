@@ -1300,7 +1300,7 @@ description = "Record indexer for Invenio."
 name = "invenio-indexer"
 optional = false
 python-versions = "*"
-version = "1.0.2"
+version = "1.0.1"
 
 [package.dependencies]
 Flask = ">=0.11.1"
@@ -3002,7 +3002,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "77e527ed067509eb0d096303392ac75f2525c38bd36429c7b5282de63d02cd71"
+content-hash = "d19561ef49d314943bd40222442c0afe6d1e664d885c0cb9ad676199bae50ef2"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3112,7 +3112,7 @@ invenio-config = ["628f771e351598d7f4e150a30aaa8f3a7daf62f969c7256b6bd211544f5bc
 invenio-db = ["78f2f9ecc690e5c40ad797ee40b45a7e762da9599acf89782354e887bd632d70", "9a36bdfc060ca9e7a074276b2c17651da2874a6f1f45081ce9408f632459b7ae"]
 invenio-files-rest = ["ab49be45c1a7889aac9cca50ff5f34c6da172fdff82421e4ea0e1f001f661862", "c3b3002d6bb3295c6da7a791e2af840c3c2c69ee97243e5481e70c7c8d6f8a8f"]
 invenio-i18n = ["69513d531ccffdfa47cec1e7cd701c72966573d2e9c4e24c96607cb7324dce48", "b591d753cd79a98bbef98a0ac5d9abf105f5cb8af94614dbf92688782a7b77b0"]
-invenio-indexer = ["ca8c705813eb1256625f3c6d1550a0610be693676d4929f2f63e0fcf17879973"]
+invenio-indexer = ["f51a7eda14048da000b4a1ee74a137fd33d9b96119daa968af1b2fe6a4421e8c"]
 invenio-jsonschemas = ["12e2f3ac6013c741abe9225480183131591f008afb4a685fa3fa96203d7ca07a", "acaa24e0f9d939a7c63ce24f383779f2b2d2f15925c2d35c4bf346066ce7a67c"]
 invenio-logging = ["3fbb98df403cf6d8a8fc99aa22229567ea2034d81034dd2347b3cd65689275b7", "43e23b47c46c3f078240e4aae24640c63743ac9a9955b6c2dc0b495ce073e340"]
 invenio-mail = ["898952aa8984426074fd92b60bbe3ac67117cae0c724724aa63476416a7b7647", "fcd9ec4a89e0e68d09a9b9a638ee625e260ef98d6bc9d7aa172ec3969a95933f"]
