@@ -34,31 +34,11 @@ services:
 deploy:
     # UI
     - provider: script
-      env:
-        - IMAGE_VERSION=latest
       script: ./deploy-ui.sh
       on:
         branch: master
-    - provider: script
-      env:
-        - IMAGE_VERSION=${TRAVIS_TAG}
-      script: ./deploy-ui.sh
-      on:
-        tags: true
     # INSPIREHEP
     - provider: script
-      env:
-        - DEPLOYMENT_TYPE=TAG_NAME
-        - DEPLOYMENT_BRANCH=${TRAVIS_TAG}
-        - IMAGE_VERSION=${TRAVIS_TAG}
-      script: ./deploy-inspirehep.sh
-      on:
-        tags: true
-    - provider: script
-      env:
-        - DEPLOYMENT_TYPE=BRANCH_NAME
-        - DEPLOYMENT_BRANCH=${TRAVIS_TAG}
-        - IMAGE_VERSION=latest
       script: ./deploy-inspirehep.sh
       on:
         branch: master

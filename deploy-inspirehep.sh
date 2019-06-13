@@ -6,12 +6,22 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+if [ -n "$TRAVIS_TAG" ]; then
+curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
+     -F token=${INSPIREHEP_DEPLOY_TOKEN} \
+     -F ref=master \
+     -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
+     -F "variables[TAG_NAME]=${TRAVIS_TAG}" \
+     -F "variables[APPLICATION_IMAGE_NAME]=inspirehepimage" \
+     -F "variables[VERSION]=${TRAVIS_TAG}" \
+     -F "variables[DEPLOY]=qa"
+fi
 
 curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
      -F token=${INSPIREHEP_DEPLOY_TOKEN} \
      -F ref=master \
      -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
-     -F "variables[${DEPLOYMENT_TYPE}]=${DEPLOYMENT_BRANCH}" \
+     -F "variables[BRANCH_NAME]=master" \
      -F "variables[APPLICATION_IMAGE_NAME]=inspirehepimage" \
-     -F "variables[VERSION]=${IMAGE_VERSION}" \
+     -F "variables[VERSION]=latest" \
      -F "variables[DEPLOY]=qa"
