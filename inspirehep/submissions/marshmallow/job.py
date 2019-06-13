@@ -23,7 +23,7 @@ class Job(Schema):
     url = fields.Raw()
     deadline_date = fields.Raw()
     contacts = fields.Raw()
-    reference_letter_contact = fields.Raw()
+    reference_letters = fields.Raw()
     description = fields.Raw()
 
     @pre_dump
@@ -36,23 +36,14 @@ class Job(Schema):
         Returns:
             dict: Data prepared for the serializer.
         """
-        institutions = [
-            {"value": record.get("value"), "record": record.get("record")}
-            for record in data.get_value("institutions", [])
-        ]
+        institutions = data.get_value("institutions", [])
 
-        experiments = [
-            {"legacy_name": record.get("legacy_name"), "record": record.get("record")}
-            for record in data.get_value("accelerator_experiments", [])
-        ]
-        contacts = [
-            {"name": contact.get("name"), "email": contact.get("email")}
-            for contact in data.get_value("contact_details", [])
-        ]
+        experiments = data.get_value("accelerator_experiments", [])
+        contacts = data.get_value("contact_details", [])
 
-        ref_email = data.get_value("reference_letters.emails[0]", "")
-        ref_url = data.get_value("reference_letters.urls[0]", {})
-        ref_letter_contact = {"email": ref_email, "url": ref_url.get("value", "")}
+        ref_emails = data.get_value("reference_letters.emails", [])
+        ref_urls = data.get_value("reference_letters.urls.value", [])
+        ref_letter_contact = ref_emails + ref_urls
 
         processed_data = {
             "title": data.get_value("position", missing),
@@ -68,7 +59,7 @@ class Job(Schema):
             "url": data.get_value("urls[0].value", missing),
             "deadline_date": data.get_value("deadline_date", missing),
             "contacts": contacts or missing,
-            "reference_letter_contact": ref_letter_contact or missing,
+            "reference_letters": ref_letter_contact or missing,
             "description": data.get_value("description", missing),
         }
         return processed_data
@@ -107,8 +98,7 @@ class Job(Schema):
         for contact in data.get("contacts", []):
             job_builder.add_contact(**contact)
 
-        reference_contact = data.get("reference_letter_contact", {})
-        job_builder.add_reference_email(reference_contact.get("email"))
-        job_builder.add_reference_url(reference_contact.get("url"))
+        reference_contacts = data.get("reference_letters", [])
+        job_builder.add_reference_contacts(reference_contacts)
 
         return job_builder.record

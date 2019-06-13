@@ -25,7 +25,6 @@ DEFAULT_DATA_DUMP = {
     "field_of_interest": ["other"],
     "institutions": [{"value": "Some institution", "record": {"$ref": "http://abcd"}}],
     "ranks": ["MASTER"],
-    "reference_letter_contact": {"email": "", "url": ""},
     "regions": ["Europe"],
     "status": "closed",
     "title": "Some title",
@@ -185,8 +184,8 @@ def test_dump_contacts():
     expected_data = {
         **DEFAULT_EXPECTED_DATA_AFTER_DUMP,
         "contacts": [
-            {"name": "Some name", "email": "some@email"},
-            {"name": "other name", "email": "other@email"},
+            {"name": "Some name", "email": "some@email", "record": {"$ref": "http://"}},
+            {"name": "other name", "email": "other@email", "curated_relation": False},
         ],
     }
 
@@ -231,16 +230,20 @@ def test_dump_ref_letter_contact():
 
     expected_data = {
         **DEFAULT_EXPECTED_DATA_AFTER_DUMP,
-        "reference_letter_contact": {"email": "one@email", "url": "http://url1"},
+        "reference_letters": [
+            "one@email",
+            "second@email",
+            "http://url1",
+            "http://url2",
+        ],
     }
-
     assert result == expected_data
 
 
 def test_load_ref_letter_contact():
     data_to_load = {
         **DEFAULT_DATA_DUMP,
-        "reference_letter_contact": {"email": "one@email", "url": "http://url1"},
+        "reference_letters": ["one@email", "http://url1"],
     }
 
     loaded_data = Job().load(data_to_load).data
