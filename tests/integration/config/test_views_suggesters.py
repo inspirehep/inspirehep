@@ -64,7 +64,6 @@ def test_literature_suggesters_empty_result(api_client, db, create_record):
     assert result == expected
 
 
-@pytest.mark.xfail(reason="author_suggest field is not populated when indexing authors")
 def test_author_suggesters(api_client, db, create_record):
     data = {
         "name": {
@@ -74,7 +73,6 @@ def test_author_suggesters(api_client, db, create_record):
         }
     }
     auth = create_record("aut", data=data)
-    es.indices.refresh("records-authors")
 
     resp = api_client.get("authors/_suggest?author=mal")
 
