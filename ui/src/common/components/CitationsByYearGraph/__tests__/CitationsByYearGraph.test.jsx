@@ -22,6 +22,43 @@ describe('CitationsByYearGraph', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders citations for less than 5 different citation counts with tickValues for the YAxis', () => {
+    const citationsByYear = {
+      '1999': 10,
+      '2000': 10,
+      '2001': 5,
+      '2002': 5,
+    };
+    const wrapper = shallow(
+      <CitationsByYearGraph
+        citationsByYear={citationsByYear}
+        loading={false}
+        error={null}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders more than 5 different citation counts without explicit tickValues for the YAxis', () => {
+    const citationsByYear = {
+      '1999': 10,
+      '2000': 5,
+      '2001': 50,
+      '2002': 7,
+      '2003': 51,
+      '2004': 56,
+      '2005': 14,
+    };
+    const wrapper = shallow(
+      <CitationsByYearGraph
+        citationsByYear={citationsByYear}
+        loading={false}
+        error={null}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders citations for less than 3 years with dummy data for previous 1-2 years', () => {
     const citationsByYear = {
       '1999': 10,

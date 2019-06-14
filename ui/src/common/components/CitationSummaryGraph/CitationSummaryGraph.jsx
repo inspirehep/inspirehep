@@ -49,6 +49,8 @@ const typeToColors = {
   [PUBLISHED_BAR_TYPE]: { color: ORANGE, hoveredColor: HOVERED_ORANGE },
 };
 
+export const LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH = 0.016;
+
 class CitationSummaryGraph extends Component {
   constructor() {
     super();
@@ -57,9 +59,21 @@ class CitationSummaryGraph extends Component {
     this.onPublishedBarHover = this.onPublishedBarHover.bind(this);
     this.onCiteableBarClick = this.onCiteableBarClick.bind(this);
     this.onPublishedBarClick = this.onPublishedBarClick.bind(this);
+    this.updateGraphWidth = this.updateGraphWidth.bind(this);
+    this.graphRef = React.createRef();
     this.state = {
       hoveredBar: null,
+      graphWidth: 0,
     };
+  }
+
+  componentDidMount() {
+    this.updateGraphWidth();
+    window.addEventListener('resize', this.updateGraphWidth);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateGraphWidth);
   }
 
   onCiteableBarClick(datapoint) {
@@ -118,14 +132,28 @@ class CitationSummaryGraph extends Component {
     return GRAY;
   }
 
+  updateGraphWidth() {
+    const { graphWidth } = this.state;
+    const currentWidth = this.graphRef.current.getBoundingClientRect().width;
+    if (currentWidth !== graphWidth) {
+      this.setState({ graphWidth: currentWidth });
+    }
+  }
+
   toSeriesData(bucket, type) {
+    const { graphWidth } = this.state;
     const docCount = bucket.doc_count;
     const countLabel = docCount !== 0 ? docCount.toString() : null;
+    const xOffset =
+      type === CITEABLE_BAR_TYPE
+        ? -LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH * graphWidth
+        : LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH * graphWidth;
     return {
       x: bucket.key,
       y: docCount,
       label: countLabel,
       color: this.getBarColor({ xValue: bucket.key, type }),
+      xOffset,
     };
   }
 
@@ -153,7 +181,7 @@ class CitationSummaryGraph extends Component {
       citeableSeriesData.length !== 0 && maxBy(citeableSeriesData, 'y').y
     );
     return (
-      <div className="__CitationSummaryGraph__">
+      <div className="__CitationSummaryGraph__" ref={this.graphRef}>
         <Fragment>
           <LoadingOrChildren loading={loading}>
             <ErrorAlertOrChildren error={error}>
@@ -163,7 +191,7 @@ class CitationSummaryGraph extends Component {
                     height={GRAPH_HEIGHT}
                     margin={GRAPH_MARGIN}
                     xType="ordinal"
-                    yDomain={[0, yDomainMax * 1.3]}
+                    yDomain={[0, yDomainMax * 1.4]}
                   >
                     <XAxis
                       className="x-axis"
@@ -183,8 +211,8 @@ class CitationSummaryGraph extends Component {
                     />
                     <LabelSeries
                       data={citeableSeriesData}
-                      labelAnchorX="end"
                       labelAnchorY="text-after-edge"
+                      labelAnchorX="middle"
                     />
                     <VerticalBarSeries
                       colorType="literal"
@@ -198,8 +226,8 @@ class CitationSummaryGraph extends Component {
                     />
                     <LabelSeries
                       data={publishedSeriesData}
-                      labelAnchorX="start"
                       labelAnchorY="text-after-edge"
+                      labelAnchorX="middle"
                     />
                     <DiscreteColorLegend
                       className="legend"
