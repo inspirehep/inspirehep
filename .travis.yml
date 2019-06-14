@@ -31,23 +31,6 @@ cache:
 services:
   - docker
 
-deploy:
-    - provider: script
-      script: ./scripts/deploy/ui.sh latest
-      on:
-        branch: master
-    - provider: script
-      script: ./scripts/deploy/ui.sh tag
-      on:
-        tag: true
-    - provider: script
-      script: ./scripts/deploy/inspirehep.sh latest
-      on:
-        branch: master
-    - provider: script
-      script: ./scripts/deploy/inspirehep.sh tag
-      on:
-        tag: true
 
 matrix:
   fast_finish: true
@@ -115,6 +98,16 @@ matrix:
       after_fail:
         - poetry run pip freeze
 
+      deploy:
+        - provider: script
+          script: ./scripts/deploy/inspirehep.sh latest
+          on:
+            branch: master
+        - provider: script
+          script: ./scripts/deploy/inspirehep.sh tag
+          on:
+            tag: true
+
     - language: python
       sudo: true
       dist: trusty
@@ -160,3 +153,12 @@ matrix:
       node_js:
         - 10.14.0
       script: cd ui && yarn && yarn test
+      deploy:
+        - provider: script
+          script: ./scripts/deploy/ui.sh latest
+          on:
+            branch: master
+        - provider: script
+          script: ./scripts/deploy/ui.sh tag
+          on:
+            tag: true
