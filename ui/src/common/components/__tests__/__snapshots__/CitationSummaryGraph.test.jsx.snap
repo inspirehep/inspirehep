@@ -32,7 +32,7 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
             yDomain={
               Array [
                 0,
-                5.2,
+                5.6,
               ]
             }
           >
@@ -60,30 +60,35 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
                     "color": "#bfbfbf",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": -0,
                     "y": 1,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": -0,
                     "y": 2,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": -0,
                     "y": 3,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": -0,
                     "y": 4,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": null,
                     "x": "500--",
+                    "xOffset": -0,
                     "y": 0,
                   },
                 ]
@@ -104,36 +109,41 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
                     "color": "#bfbfbf",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": -0,
                     "y": 1,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": -0,
                     "y": 2,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": -0,
                     "y": 3,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": -0,
                     "y": 4,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": null,
                     "x": "500--",
+                    "xOffset": -0,
                     "y": 0,
                   },
                 ]
               }
               getLabel={[Function]}
-              labelAnchorX="end"
+              labelAnchorX="middle"
               labelAnchorY="text-after-edge"
               rotation={0}
               stack={false}
@@ -149,30 +159,35 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
                     "color": "#bfbfbf",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": 0,
                     "y": 1,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": 0,
                     "y": 2,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": 0,
                     "y": 3,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": 0,
                     "y": 4,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": null,
                     "x": "--500",
+                    "xOffset": 0,
                     "y": 0,
                   },
                 ]
@@ -193,36 +208,41 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
                     "color": "#bfbfbf",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": 0,
                     "y": 1,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": 0,
                     "y": 2,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": 0,
                     "y": 3,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": 0,
                     "y": 4,
                   },
                   Object {
                     "color": "#bfbfbf",
                     "label": null,
                     "x": "--500",
+                    "xOffset": 0,
                     "y": 0,
                   },
                 ]
               }
               getLabel={[Function]}
-              labelAnchorX="start"
+              labelAnchorX="middle"
               labelAnchorY="text-after-edge"
               rotation={0}
               stack={false}
@@ -293,7 +313,7 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
             yDomain={
               Array [
                 0,
-                5.2,
+                5.6,
               ]
             }
           >
@@ -321,30 +341,35 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
                     "color": "#1890ff",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": -0,
                     "y": 1,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": -0,
                     "y": 2,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": -0,
                     "y": 3,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": -0,
                     "y": 4,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": null,
                     "x": "500--",
+                    "xOffset": -0,
                     "y": 0,
                   },
                 ]
@@ -365,36 +390,41 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
                     "color": "#1890ff",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": -0,
                     "y": 1,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": -0,
                     "y": 2,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": -0,
                     "y": 3,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": -0,
                     "y": 4,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": null,
                     "x": "500--",
+                    "xOffset": -0,
                     "y": 0,
                   },
                 ]
               }
               getLabel={[Function]}
-              labelAnchorX="end"
+              labelAnchorX="middle"
               labelAnchorY="text-after-edge"
               rotation={0}
               stack={false}
@@ -410,30 +440,35 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
                     "color": "#fa8c16",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": 0,
                     "y": 1,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": 0,
                     "y": 2,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": 0,
                     "y": 3,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": 0,
                     "y": 4,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": null,
                     "x": "--500",
+                    "xOffset": 0,
                     "y": 0,
                   },
                 ]
@@ -454,36 +489,41 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
                     "color": "#fa8c16",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": 0,
                     "y": 1,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": 0,
                     "y": 2,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": 0,
                     "y": 3,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": 0,
                     "y": 4,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": null,
                     "x": "--500",
+                    "xOffset": 0,
                     "y": 0,
                   },
                 ]
               }
               getLabel={[Function]}
-              labelAnchorX="start"
+              labelAnchorX="middle"
               labelAnchorY="text-after-edge"
               rotation={0}
               stack={false}
@@ -554,7 +594,7 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
             yDomain={
               Array [
                 0,
-                5.2,
+                5.6,
               ]
             }
           >
@@ -582,30 +622,35 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
                     "color": "#1890ff",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": -0,
                     "y": 1,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": -0,
                     "y": 2,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": -0,
                     "y": 3,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": -0,
                     "y": 4,
                   },
                   Object {
                     "color": "#096dd9",
                     "label": null,
                     "x": "500--",
+                    "xOffset": -0,
                     "y": 0,
                   },
                 ]
@@ -626,36 +671,41 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
                     "color": "#1890ff",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": -0,
                     "y": 1,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": -0,
                     "y": 2,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": -0,
                     "y": 3,
                   },
                   Object {
                     "color": "#1890ff",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": -0,
                     "y": 4,
                   },
                   Object {
                     "color": "#096dd9",
                     "label": null,
                     "x": "500--",
+                    "xOffset": -0,
                     "y": 0,
                   },
                 ]
               }
               getLabel={[Function]}
-              labelAnchorX="end"
+              labelAnchorX="middle"
               labelAnchorY="text-after-edge"
               rotation={0}
               stack={false}
@@ -671,30 +721,35 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
                     "color": "#fa8c16",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": 0,
                     "y": 1,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": 0,
                     "y": 2,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": 0,
                     "y": 3,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": 0,
                     "y": 4,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": null,
                     "x": "--500",
+                    "xOffset": 0,
                     "y": 0,
                   },
                 ]
@@ -715,36 +770,41 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
                     "color": "#fa8c16",
                     "label": "1",
                     "x": "0--0",
+                    "xOffset": 0,
                     "y": 1,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "2",
                     "x": "1--50",
+                    "xOffset": 0,
                     "y": 2,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "3",
                     "x": "50--250",
+                    "xOffset": 0,
                     "y": 3,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": "4",
                     "x": "250--500",
+                    "xOffset": 0,
                     "y": 4,
                   },
                   Object {
                     "color": "#fa8c16",
                     "label": null,
                     "x": "--500",
+                    "xOffset": 0,
                     "y": 0,
                   },
                 ]
               }
               getLabel={[Function]}
-              labelAnchorX="start"
+              labelAnchorX="middle"
               labelAnchorY="text-after-edge"
               rotation={0}
               stack={false}

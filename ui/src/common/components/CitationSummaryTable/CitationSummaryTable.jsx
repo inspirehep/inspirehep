@@ -11,7 +11,7 @@ import { ErrorPropType } from '../../propTypes';
 
 const CITABLE_HELP_MESSAGE = (
   <span>
-    Published papers are believed to have undergone rigorous peer-review.&nbsp;
+    Published papers are believed to have undergone rigorous peer review.&nbsp;
     <ExternalLink href="http://inspirehep.net/info/faq/general#published">
       Learn More
     </ExternalLink>

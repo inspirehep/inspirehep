@@ -24,7 +24,7 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
               <LabelWithHelp
                 help={
                   <span>
-                    Published papers are believed to have undergone rigorous peer-review. 
+                    Published papers are believed to have undergone rigorous peer review. 
                     <ExternalLink
                       href="http://inspirehep.net/info/faq/general#published"
                     >

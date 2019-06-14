@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Tooltip } from 'antd';
 import { LineSeries, FlexibleWidthXYPlot, YAxis, XAxis } from 'react-vis';
 import 'react-vis/dist/style.css';
+import maxBy from 'lodash.maxby';
 import PropTypes from 'prop-types';
 import styleVariables from '../../../styleVariables';
 import { ErrorPropType } from '../../propTypes';
@@ -14,6 +15,7 @@ const GRAPH_HEIGHT = 250;
 
 const MIN_NUMBER_OF_DATAPOINTS = 3;
 const MAX_NUMBER_OF_TICKS_AT_X = 7;
+const MAX_NUMBER_OF_TICKS_AT_Y = 5;
 
 class CitationsByYearGraph extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -96,16 +98,38 @@ class CitationsByYearGraph extends Component {
     );
   }
 
+  renderYAxis() {
+    const { seriesData } = this.state;
+    // set tickValues at Y explicitly to avoid ticks like `2011.5`
+    // only if it has less than MAX_NUMBER_OF_TICKS_AT_Y data points.
+    const uniqueValues = [...new Set(seriesData.map(point => point.y))];
+    const tickValuesAtY =
+      uniqueValues.length < MAX_NUMBER_OF_TICKS_AT_Y ? uniqueValues : null;
+    return (
+      <YAxis
+        tickValues={tickValuesAtY}
+        tickTotal={MAX_NUMBER_OF_TICKS_AT_Y}
+        tickFormat={value => value /* avoid comma per 3 digit */}
+      />
+    );
+  }
+
   render() {
     const { loading, error } = this.props;
     const { seriesData } = this.state;
+    const yDomainMax =
+      (seriesData.length !== 0 && maxBy(seriesData, 'y').y) || 0;
     return (
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
           <Tooltip title={this.renderHoveredInfo()} placement="bottom">
-            <FlexibleWidthXYPlot height={GRAPH_HEIGHT} margin={GRAPH_MARGIN}>
+            <FlexibleWidthXYPlot
+              height={GRAPH_HEIGHT}
+              margin={GRAPH_MARGIN}
+              yDomain={[0, yDomainMax]}
+            >
               {this.renderXAxis()}
-              <YAxis />
+              {this.renderYAxis()}
               <LineSeries
                 onNearestX={this.onGraphMouseOver}
                 data={seriesData}
