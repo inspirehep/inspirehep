@@ -7,10 +7,37 @@
 
 """Submissions Loaders"""
 
-from invenio_records_rest.loaders.marshmallow import marshmallow_loader
+from flask import request
+from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
-from .marshmallow import Author, Job, Literature
+from inspirehep.submissions.errors import RESTDataError
 
-literature_v1 = marshmallow_loader(Literature)
-author_v1 = marshmallow_loader(Author)
-job_v1 = marshmallow_loader(Job)
+from .marshmallow import Job
+
+
+def inspire_submission_marshmallow_loader(schema_class):
+    """Marshmallow loader for JSON requests."""
+
+    def json_loader():
+        request_json = request.get_json().get("data")
+
+        context = {}
+        pid_data = request.view_args.get("pid_value")
+        if pid_data:
+            pid, _ = pid_data.data
+            context["pid"] = pid
+
+        try:
+            result = schema_class(context=context).load(request_json)
+        except ValueError as e:
+            raise RESTDataError(e.args)
+
+        # To return nice message when builder.validation() will fail
+        if result.errors:
+            raise MarshmallowErrors(result.errors)
+        return result.data
+
+    return json_loader
+
+
+job_v1 = inspire_submission_marshmallow_loader(Job)

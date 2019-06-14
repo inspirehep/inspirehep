@@ -24,13 +24,15 @@ class UserFactory(BaseFactory):
     @classmethod
     def _create(cls, model_class, role="user", orcid=None, *args, **kwargs):
         ds = current_app.extensions["invenio-accounts"].datastore
-        role = ds.create_role(name=role)
+        role_obj = ds.find_role(role)
+        if not role_obj:
+            role_obj = ds.create_role(name=role)
         user = ds.create_user(
             id=fake.random_number(digits=8, fix_len=True),
             email=fake.email(),
             password=hash_password(fake.password()),
             active=True,
-            roles=[role],
+            roles=[role_obj],
         )
 
         if orcid:
