@@ -7,6 +7,7 @@
 
 import json
 
+from flask import url_for
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
@@ -628,3 +629,299 @@ def test_new_literature_submit_arxiv_does_not_merge_if_crossref_harvest_fails(
         == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
     )
     assert "publication_info" not in post_data
+
+
+DEFAULT_EXAMPLE_JOB_DATA = {
+    "deadline_date": "2019-01-01",
+    "description": "description",
+    "field_of_interest": ["q-bio"],
+    "reference_letter_contact": {},
+    "regions": ["Europe"],
+    "status": "pending",
+    "title": "Some title",
+    "external_job_identifier": "",
+}
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_job_submit_requires_authentication(ticket_mock, api_client):
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
+    )
+
+    assert response.status_code == 401
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_job_update_requires_authentication(ticket_mock, api_client):
+    response = api_client.post(
+        "/submissions/jobs/1234",
+        content_type="application/json",
+        data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
+    )
+
+    assert response.status_code == 401
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_job_get_requires_authentication(ticket_mock, api_client):
+    response = api_client.get("/submissions/jobs/123", content_type="application/json")
+    assert response.status_code == 401
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_new_job_submit(ticket_mock, app, api_client, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": DEFAULT_EXAMPLE_JOB_DATA}),
+    )
+    assert response.status_code == 201
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_new_job_submit_with_wrong_field_value(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "some value"}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 400
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_new_job_submit_with_wrong_status_value(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA, "status": "closed"}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+    record = api_client.get(record_url).json["data"]
+    assert record["status"] == "pending"
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_update_job(ticket_mock, app, api_client, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+    data["title"] = "New test title"
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response2.status_code == 200
+    record = api_client.get(record_url).json["data"]
+    assert record["title"] == "New test title"
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_update_job_status_from_pending_not_curator(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+    data["status"] = "open"
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response2.status_code == 400
+    record = api_client.get(record_url).json["data"]
+    assert record["status"] == "pending"
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_update_job_status_from_pending_curator(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user()
+    curator = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+
+    login_user_via_session(api_client, email=curator.email)
+    data["status"] = "open"
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response2.status_code == 200
+    record = api_client.get(record_url).json["data"]
+    assert record["status"] == "open"
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_update_job_data_from_different_user(ticket_mock, app, api_client, create_user):
+    user = create_user()
+    user2 = create_user()
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+
+    login_user_via_session(api_client, email=user2.email)
+    data["title"] = "Title2"
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response2.status_code == 403
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_update_job_status_from_open(ticket_mock, app, api_client, create_user):
+    user = create_user()
+    curator = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+    #  Login as curator to update job status
+    login_user_via_session(api_client, email=curator.email)
+    data["status"] = "open"
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response2.status_code == 200
+    #  Login as user again to update job from open to closed
+    login_user_via_session(api_client, email=user.email)
+    data["status"] = "closed"
+    response3 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+
+    assert response3.status_code == 200
+    record = api_client.get(record_url).json["data"]
+    assert record["status"] == "closed"
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_update_job_from_closed_by_user(ticket_mock, app, api_client, create_user):
+    user = create_user()
+    curator = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+    #  Login as curator to update job status
+    login_user_via_session(api_client, email=curator.email)
+    data["status"] = "closed"
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response2.status_code == 200
+    #  Login as user again to update job title
+    login_user_via_session(api_client, email=user.email)
+    data["title"] = "Another Title"
+    response3 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+
+    assert response3.status_code == 403
+    record = api_client.get(record_url).json["data"]
+    assert record["title"] == DEFAULT_EXAMPLE_JOB_DATA["title"]
+
+
+@patch("inspirehep.submissions.views.create_ticket_with_template")
+def test_update_job_remove_not_compulsory_fields(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    data = {
+        **DEFAULT_EXAMPLE_JOB_DATA,
+        "external_job_identifier": "IDENTIFIER",
+        "experiments": [
+            {
+                "legacy_name": "some legacy_name",
+                "record": {"$ref": "http://url_to_record/1234"},
+            }
+        ],
+        "url": "http://something.com",
+        "contacts": [
+            {"name": "Some name", "email": "some@email.com"},
+            {"name": "some other name"},
+        ],
+        "reference_letters": [
+            "email@some.ch",
+            "http://url.com",
+            "something@somewhere.kk",
+        ],
+    }
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+
+    assert response2.status_code == 200
+    response3 = api_client.get(record_url, content_type="application/json")
+    assert response3.status_code == 200
+    assert "external_job_identifier" not in response3.json["data"]
+    assert "experiments" not in response3.json["data"]
+    assert "url" not in response3.json["data"]
+    assert "contacts" not in response3.json["data"]
+    assert "reference_letters" not in response3.json["data"]
