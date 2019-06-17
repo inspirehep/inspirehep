@@ -57,7 +57,10 @@ setup(
             "inspirehep_migrator = inspirehep.migrator.views:blueprint",
             "inspirehep_rt = inspirehep.rt.views:blueprint",
         ],
-        "invenio_config.module": ["inspirehep = inspirehep.config"],
+        "invenio_config.module": [
+            "inspirehep = inspirehep.config",
+            "inspirehep_records = inspirehep.records.config",
+        ],
         "invenio_base.api_apps": [
             "inspirehep_records = inspirehep.records:InspireRecords",
             "inspirehep_migrator = inspirehep.migrator:InspireMigrator",
