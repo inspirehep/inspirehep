@@ -3,10 +3,14 @@ import { fromJS } from 'immutable';
 import { shallow } from 'enzyme';
 
 import MultiSelectAggregation from '../MultiSelectAggregation';
-import SelectBox from '../SelectBox';
+import SelectBox from '../../SelectBox';
+
+import * as constants from '../constants';
+
+jest.mock('../constants');
 
 describe('MultiSelectAggregation', () => {
-  it('render initial state with all props set', () => {
+  it('renders', () => {
     const buckets = fromJS([
       {
         key: `bucket1`,
@@ -17,6 +21,33 @@ describe('MultiSelectAggregation', () => {
         doc_count: 2,
       },
     ]);
+    const wrapper = shallow(
+      <MultiSelectAggregation
+        name="Test"
+        onChange={jest.fn()}
+        buckets={buckets}
+        selections={['bucket1']}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders with custom display values if configured', () => {
+    const buckets = fromJS([
+      {
+        key: `unknown bucket`,
+        doc_count: 1,
+      },
+      {
+        key: `bucket`,
+        doc_count: 2,
+      },
+    ]);
+    constants.SELECT_VALUE_TO_DISPLAY_MAPS_FOREACH_AGG = {
+      Test: {
+        bucket: 'Bucket (Cool)',
+      },
+    };
     const wrapper = shallow(
       <MultiSelectAggregation
         name="Test"

@@ -25,4 +25,7 @@ module.exports = {
   'orange-7': '#d46b08',
   'blue-7': '#096dd9',
   'gray-6': '#bfbfbf',
+  'page-content-padding': '0 2.85rem',
+  'zindex-dropdown': 1050,
+  'zindex-header': 1051,
 };

@@ -16,6 +16,7 @@ class SearchScopeSelectContainer extends Component {
     const { searchScopeName, onSearchScopeChange } = this.props;
     return (
       <SelectBox
+        dropdownClassName="header-dropdown"
         onChange={onSearchScopeChange}
         value={searchScopeName}
         options={SCOPE_OPTIONS}
