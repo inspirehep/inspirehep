@@ -17,7 +17,13 @@ def is_superuser_or_cataloger_logged_in():
     """Check if current authenticated user is cataloger/superuser."""
     if current_user and current_user.is_authenticated:
         user_roles = {role.name for role in current_user.roles}
-        return user_roles & {Roles.cataloger.value, Roles.superuser.value}
+        return bool(user_roles & {Roles.cataloger.value, Roles.superuser.value})
+    return False
+
+
+def is_loggedin_user_email(email):
+    if current_user and current_user.is_authenticated:
+        return current_user.email == email
     return False
 
 

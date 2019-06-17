@@ -9,6 +9,7 @@ import Description from '../components/Description';
 import DateFromNow from '../components/DateFromNow';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import RegionsList from '../components/RegionsList';
 import InstitutionsList from '../components/InstitutionsList';
 import RanksList from '../components/RanksList';
@@ -57,11 +58,17 @@ class DetailPage extends Component {
     const contactDetails = metadata.get('contact_details');
     const referenceLetters = metadata.get('reference_letters');
     const urls = metadata.get('urls');
+    const canEdit = metadata.get('can_edit', false);
     return (
       <>
         <Row type="flex" justify="center">
           <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
-            <ContentBox loading={loading}>
+            <ContentBox 
+              loading={loading}
+              leftActions={
+                 canEdit && <EditRecordAction pidType="jobs" pidValue={ this.recordId }/> 
+              }
+            >
               {status === 'closed' && (
                 <Row className="mb2">
                   <Col>

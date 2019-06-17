@@ -13,7 +13,7 @@ import {
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
 import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
-import EditRecordActionContainer from '../../../common/containers/EditRecordActionContainer';
+import EditRecordAction from '../../../common/components/EditRecordAction';
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
@@ -34,6 +34,7 @@ import { ErrorPropType } from '../../../common/propTypes';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import PublicNotesList from '../../components/PublicNotesList';
+
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -102,6 +103,7 @@ class DetailPage extends Component {
     const authorCount = metadata.get('author_count');
 
     const numberOfReferences = metadata.get('number_of_references', 0);
+    const canEdit = metadata.get('can_edit', false)
 
     return (
       <Row className="__DetailPage__" type="flex" justify="center">
@@ -112,7 +114,7 @@ class DetailPage extends Component {
               <Fragment>
                 {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
                 <CiteModalActionContainer recordId={recordId} />
-                <EditRecordActionContainer recordId={recordId} />
+                { canEdit && <EditRecordAction pidType="literature" pidValue={ recordId }/> }
               </Fragment>
             }
           >

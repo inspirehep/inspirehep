@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`JobItem renders full job search result item 1`] = `
-<ResultItem>
+<ResultItem
+  leftActions={false}
+>
   <Row
     gutter={0}
     type="flex"
