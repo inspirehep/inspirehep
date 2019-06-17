@@ -160,9 +160,15 @@ def create_record_factory(base_app, db, es_clear):
     """
 
     def _create_record_factory(
-        record_type, data=None, with_pid=True, with_indexing=False
+        record_type,
+        data=None,
+        with_pid=True,
+        with_indexing=False,
+        with_validation=False,
     ):
         control_number = random.randint(1, 2_147_483_647)
+        if with_validation:
+            data = faker.record(record_type, data)
         record = RecordMetadataFactory(
             record_type=record_type, data=data, control_number=control_number
         )
@@ -255,8 +261,10 @@ def logout():
         . . .
         logout(api_client)
     """
+
     def _logout(client):
         with client.session_transaction() as sess:
             if sess["user_id"]:
                 del sess["user_id"]
+
     return _logout

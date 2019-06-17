@@ -19,7 +19,7 @@ def test_minter_dois(base_app, db, create_record_factory):
     doi_value_1 = faker.doi()
     doi_value_2 = faker.doi()
     data = {"dois": [{"value": doi_value_1}, {"value": doi_value_2}]}
-    record = create_record_factory("lit", data=data)
+    record = create_record_factory("lit", data=data, with_validation=True)
     data = record.json
 
     DoiMinter.mint(record.id, data)
@@ -43,8 +43,35 @@ def test_minter_dois(base_app, db, create_record_factory):
         assert pid.pid_value in epxected_pids_values
 
 
+def test_minter_dois_duplicate(base_app, db, create_record_factory):
+    doi_value_1 = faker.doi()
+    data = {
+        "dois": [
+            {"value": doi_value_1, "material": "data"},
+            {"value": doi_value_1, "material": "erratum"},
+        ]
+    }
+    record = create_record_factory("lit", data=data, with_validation=True)
+    data = record.json
+    DoiMinter.mint(record.id, data)
+
+    epxected_pid_value = doi_value_1
+    expected_pid_provider = "external"
+    expected_pid_status = PIDStatus.REGISTERED
+
+    result_pid = (
+        PersistentIdentifier.query.filter_by(object_uuid=record.id)
+        .filter_by(pid_type="doi")
+        .one()
+    )
+
+    assert expected_pid_provider == result_pid.pid_provider
+    assert expected_pid_status == result_pid.status
+    assert epxected_pid_value == result_pid.pid_value
+
+
 def test_minter_dois_empty(base_app, db, create_record_factory):
-    record = create_record_factory("lit")
+    record = create_record_factory("lit", with_validation=True)
     data = record.json
 
     DoiMinter.mint(record.id, data)
@@ -62,8 +89,7 @@ def test_minter_dois_empty(base_app, db, create_record_factory):
 def test_mitner_dois_already_existing(base_app, db, create_record_factory):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
-
-    record_with_doi = create_record_factory("lit", data=data)
+    record_with_doi = create_record_factory("lit", data=data, with_validation=True)
     DoiMinter.mint(record_with_doi.id, record_with_doi.json)
 
     record_with_existing_doi = create_record_factory("lit", data)
