@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EditRecordActionContainer does not render edit button if user is not cataloger or superuser 1`] = `""`;
-
-exports[`EditRecordActionContainer renders edit button if user is cataloger 1`] = `
-<ListItemAction>
+exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`] = `
+<span
+  className="__ListItemAction__"
+>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
     <ExternalLink
-      href="/workflows/edit_article/123456"
+      href="/submissions/jobs/1"
     >
       <IconText
         text="edit"
@@ -18,18 +18,20 @@ exports[`EditRecordActionContainer renders edit button if user is cataloger 1`] 
       />
     </ExternalLink>
   </EventTracker>
-</ListItemAction>
+</span>
 `;
 
-exports[`EditRecordActionContainer renders edit button if user is superuser 1`] = `
-<ListItemAction>
+exports[`EditRecordAction renders edit button with pidType literature and pidValue 1`] = `
+<span
+  className="__ListItemAction__"
+>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
     extractEventArgsToForward={null}
   >
     <ExternalLink
-      href="/workflows/edit_article/123456"
+      href="/workflows/edit_article/1"
     >
       <IconText
         text="edit"
@@ -37,5 +39,5 @@ exports[`EditRecordActionContainer renders edit button if user is superuser 1`] 
       />
     </ExternalLink>
   </EventTracker>
-</ListItemAction>
+</span>
 `;

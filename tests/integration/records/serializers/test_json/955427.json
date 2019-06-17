@@ -1,6 +1,9 @@
 {
   "$schema": "https://qa.inspirehep.net/schemas/records/jobs.json",
   "_collections": ["Jobs"],
+  "acquisition_source": {
+    "email": "georgews@ntu.com"
+  },
   "contact_details": [
     {
       "name": "Hou, George W.S."

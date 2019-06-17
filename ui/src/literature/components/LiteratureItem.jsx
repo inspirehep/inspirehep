@@ -11,7 +11,7 @@ import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
 import DOILinkAction from './DOILinkAction';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
-import EditRecordActionContainer from '../../common/containers/EditRecordActionContainer';
+import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
 import { LITERATURE } from '../../common/routes';
 import EventTracker from '../../common/components/EventTracker';
@@ -40,6 +40,7 @@ class LiteratureItem extends Component {
     const eprints = metadata.get('arxiv_eprints');
     const collaborations = metadata.get('collaborations');
     const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
+    const canEdit = metadata.get('can_edit', false)
 
     return (
       <ResultItem
@@ -48,7 +49,7 @@ class LiteratureItem extends Component {
             {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
             {dois && <DOILinkAction dois={dois} />}
             <CiteModalActionContainer recordId={recordId} />
-            <EditRecordActionContainer recordId={recordId} />
+            { canEdit && <EditRecordAction pidType="literature" pidValue={ recordId }/> }
           </Fragment>
         }
         rightActions={

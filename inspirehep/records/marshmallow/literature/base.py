@@ -14,6 +14,7 @@ from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, missing, post_dump
 
+from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.authors import AuthorsMetadataUISchemaV1
@@ -118,6 +119,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
             "$schema",
             "copyright",
             "citations_by_year",
+            "can_edit",
             "citeable",
             "core",
             "curated",
@@ -190,8 +192,11 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
         return len(maybe_none_list)
 
     @post_dump
-    def strip_empty(self, data):
-        return strip_empty_values(data)
+    def post_dump(self, data):
+        data = strip_empty_values(data)
+        if is_superuser_or_cataloger_logged_in():
+            data["can_edit"] = True
+        return data
 
 
 class LiteratureSearchUISchemaV1(InspireBaseSchema):
@@ -199,8 +204,10 @@ class LiteratureSearchUISchemaV1(InspireBaseSchema):
 
     def get_ui_display(self, data):
         try:
-            ui_display = get_value(data, "metadata._ui_display", "")
-            return json.loads(ui_display)
+            ui_display = json.loads(get_value(data, "metadata._ui_display", ""))
+            if is_superuser_or_cataloger_logged_in():
+                ui_display["can_edit"] = True
+            return ui_display
         except json.JSONDecodeError:
             return {}
 
