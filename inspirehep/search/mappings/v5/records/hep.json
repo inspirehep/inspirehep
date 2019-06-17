@@ -74,7 +74,8 @@
         },
         "_ui_display": {
           "type": "keyword",
-          "index": false
+          "index": false,
+          "doc_values": false
         },
         "abstracts": {
           "properties": {
