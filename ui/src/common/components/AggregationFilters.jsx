@@ -34,7 +34,7 @@ class AggregationFilters extends Component {
               <Col
                 key={aggregationKey}
                 xs={24}
-                lg={inline ? 6 : 24}
+                lg={inline ? 5 : 24}
                 gutter={32}
               >
                 <EventTracker
