@@ -19,6 +19,7 @@ import LiteratureTitle from '../../common/components/LiteratureTitle';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import CiteModalActionContainer from '../containers/CiteModalActionContainer';
 import ConferenceInfoList from './ConferenceInfoList';
+import pluralizeUnlessSingle from '../../common/utils';
 
 class LiteratureItem extends Component {
   render() {
@@ -57,7 +58,10 @@ class LiteratureItem extends Component {
                 <EventTracker eventId="Citations:Search">
                   <Link to={`${LITERATURE}?q=refersto:recid:${recordId}`}>
                     <IconText
-                      text={`${citationCount} citations`}
+                      text={`${citationCount} ${pluralizeUnlessSingle(
+                        'citation',
+                        citationCount
+                      )}`}
                       type="login"
                     />
                   </Link>

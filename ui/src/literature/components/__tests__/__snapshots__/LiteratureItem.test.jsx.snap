@@ -196,7 +196,7 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
             to="/literature?q=refersto:recid:12345"
           >
             <IconText
-              text="1 citations"
+              text="1 citation"
               type="login"
             />
           </Link>

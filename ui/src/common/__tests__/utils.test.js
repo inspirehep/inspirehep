@@ -1,6 +1,6 @@
 import { fromJS, Set, Map } from 'immutable';
 
-import {
+import pluralizeUnlessSingle, {
   forceArray,
   castPropToNumber,
   pluckMinMaxPair,
@@ -384,6 +384,31 @@ describe('utils', () => {
       expect(shallowEqual({ a: 1, b: 2, c: {} }, { a: 1, b: 2, c: {} })).toBe(
         false
       );
+    });
+  });
+
+  describe('pluralizeUnlessSingle', () => {
+    it('pluralizes if multiple', () => {
+      const word = 'dude';
+      const count = 2;
+      const expected = 'dudes';
+      const result = pluralizeUnlessSingle(word, count);
+      expect(result).toEqual(expected);
+    });
+
+    it('pluralizes if 0', () => {
+      const word = 'dude';
+      const count = 0;
+      const expected = 'dudes';
+      const result = pluralizeUnlessSingle(word, count);
+      expect(result).toEqual(expected);
+    });
+
+    it('does not pluralize if 1', () => {
+      const word = 'dude';
+      const count = 1;
+      const result = pluralizeUnlessSingle(word, count);
+      expect(result).toEqual(word);
     });
   });
 });
