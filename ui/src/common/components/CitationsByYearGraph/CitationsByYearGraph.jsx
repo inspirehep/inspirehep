@@ -8,6 +8,7 @@ import styleVariables from '../../../styleVariables';
 import { ErrorPropType } from '../../propTypes';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
+import pluralizeUnlessSingle from '../../utils';
 
 const BLUE = styleVariables['primary-color'];
 const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
@@ -75,7 +76,8 @@ class CitationsByYearGraph extends Component {
 
     return (
       <span>
-        <strong>{hoveredCitations}</strong> citations in{' '}
+        <strong>{hoveredCitations}</strong>{' '}
+        {pluralizeUnlessSingle('citation', hoveredCitations)} in{' '}
         <strong>{hoveredYear}</strong>
       </span>
     );

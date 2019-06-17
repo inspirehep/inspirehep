@@ -17,7 +17,9 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
       title={
         <span>
           <strong />
-           citations in
+           
+          citations
+           in
            
           <strong />
         </span>
@@ -118,7 +120,9 @@ exports[`CitationsByYearGraph renders citations for less than 5 different citati
       title={
         <span>
           <strong />
-           citations in
+           
+          citations
+           in
            
           <strong />
         </span>
@@ -224,7 +228,9 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
       title={
         <span>
           <strong />
-           citations in
+           
+          citations
+           in
            
           <strong />
         </span>
@@ -332,7 +338,9 @@ exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
       title={
         <span>
           <strong />
-           citations in
+           
+          citations
+           in
            
           <strong />
         </span>
@@ -483,7 +491,9 @@ exports[`CitationsByYearGraph renders hovered info in a tooltip on line series h
           <strong>
             10
           </strong>
-           citations in
+           
+          citations
+           in
            
           <strong>
             1999
@@ -587,7 +597,9 @@ exports[`CitationsByYearGraph renders more than 5 different citation counts with
       title={
         <span>
           <strong />
-           citations in
+           
+          citations
+           in
            
           <strong />
         </span>
@@ -693,7 +705,9 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
       title={
         <span>
           <strong />
-           citations in
+           
+          citations
+           in
            
           <strong />
         </span>
@@ -839,7 +853,9 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
       title={
         <span>
           <strong />
-           citations in
+           
+          citations
+           in
            
           <strong />
         </span>

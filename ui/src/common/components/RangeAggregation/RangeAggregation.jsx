@@ -5,7 +5,7 @@ import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
-import { pluckMinMaxPair, toNumbers } from '../../utils';
+import pluralizeUnlessSingle, { pluckMinMaxPair, toNumbers } from '../../utils';
 import './RangeAggregation.scss';
 import AggregationBox from '../AggregationBox';
 import LinkLikeButton from '../LinkLikeButton';
@@ -251,7 +251,8 @@ class RangeAggregation extends Component {
             {hoveredBar && (
               // TODO: move the logic for rendering the label for the hovered info so that the component stays generic
               <span className="hovered-info">
-                {hoveredBar.y} papers in {hoveredBar.x - HALF_BAR_WIDTH}
+                {hoveredBar.y} {pluralizeUnlessSingle('paper', hoveredBar.y)} in{' '}
+                {hoveredBar.x - HALF_BAR_WIDTH}
               </span>
             )}
           </div>
