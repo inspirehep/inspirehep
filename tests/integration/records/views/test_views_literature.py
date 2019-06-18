@@ -277,6 +277,7 @@ def test_literature_facets(api_client, db, create_record, es_clear):
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
+    assert len(response_data["hits"]["hits"]) == 0
 
 
 @pytest.mark.xfail(
@@ -617,7 +618,10 @@ def test_literature_search_permissions(
     response = api_client.get("/literature")
     response_data = json.loads(response.data)
     assert response_data["hits"]["total"] == 1
-    assert response_data["hits"]["hits"][0]["metadata"]["control_number"] == rec_literature["control_number"]
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == rec_literature["control_number"]
+    )
 
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -631,4 +635,7 @@ def test_literature_search_permissions(
     response = api_client.get("/literature")
     response_data = json.loads(response.data)
     assert response_data["hits"]["total"] == 1
-    assert response_data["hits"]["hits"][0]["metadata"]["control_number"] == rec_literature["control_number"]
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == rec_literature["control_number"]
+    )

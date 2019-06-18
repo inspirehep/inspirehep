@@ -75,7 +75,7 @@ def search_factory_only_with_aggs(self, search):
     search, urlkwargs = inspire_facets_factory(search, search_index)
     search, urlkwargs = inspire_filter_factory(search, search_index)
 
-    # make sure no source is returned
-    search = search.source(excludes=["*"])
+    # make sure no hits are returned
+    search = search.params(size=0)
     urlkwargs.add("q", query_string)
     return search, urlkwargs

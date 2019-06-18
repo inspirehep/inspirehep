@@ -106,6 +106,7 @@ def test_citation_summary_facet(api_client, db, create_record_factory):
     response_data_citation_summary = response_data["aggregations"]["citation_summary"]
     assert response_status_code == 200
     assert response_data_citation_summary == expected_citation_summary_aggregation
+    assert len(response_data["hits"]["hits"]) == 0
 
 
 def test_h_index_with_more_papers_than_citations(api_client, db, create_record_factory):

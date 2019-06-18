@@ -7,6 +7,7 @@
 
 import json
 
+from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
@@ -54,6 +55,7 @@ def test_author_get_requires_authentication(api_client):
     assert response.status_code == 401
 
 
+@freeze_time("2019-06-17")
 def test_new_author_submit(app, api_client, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
@@ -85,8 +87,6 @@ def test_new_author_submit(app, api_client, create_user, requests_mock):
         == history.headers["Authorization"]
     )
     assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
-    assert "datetime" in post_data["data"]["acquisition_source"]
-    del post_data["data"]["acquisition_source"]["datetime"]
     assert post_data == {
         "data": {
             "_collections": ["Authors"],
@@ -96,6 +96,7 @@ def test_new_author_submit(app, api_client, create_user, requests_mock):
                 "source": "submitter",
                 "submission_number": "None",
                 "internal_uid": user.id,
+                "datetime": "2019-06-17T00:00:00",
             },
             "name": {"value": "John", "preferred_name": "John Doe"},
             "status": "active",
@@ -244,6 +245,7 @@ def test_get_author_update_data_requires_auth(api_client):
     assert response.status_code == 401
 
 
+@freeze_time("2019-06-17")
 def test_update_author(app, api_client, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
@@ -274,8 +276,6 @@ def test_update_author(app, api_client, create_user, requests_mock):
         == history.headers["Authorization"]
     )
     assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
-    assert "datetime" in post_data["data"]["acquisition_source"]
-    del post_data["data"]["acquisition_source"]["datetime"]
     assert post_data == {
         "data": {
             "_collections": ["Authors"],
@@ -285,6 +285,7 @@ def test_update_author(app, api_client, create_user, requests_mock):
                 "source": "submitter",
                 "submission_number": "None",
                 "internal_uid": user.id,
+                "datetime": "2019-06-17T00:00:00",
             },
             "control_number": 123,
             "name": {"value": "John", "preferred_name": "John Doe"},
@@ -299,6 +300,7 @@ def test_update_author(app, api_client, create_user, requests_mock):
     "inspirehep.submissions.views.BaseSubmissionsResource.get_user_orcid",
     return_value=2,
 )
+@freeze_time("2019-06-17")
 def test_populate_and_serialize_data_for_submission(
     mock_get_user_orcid, mock_get_id, mock_current_user, app
 ):
@@ -315,13 +317,14 @@ def test_populate_and_serialize_data_for_submission(
             "source": "submitter",
             "orcid": 2,
             "internal_uid": 1,
+            "datetime": "2019-06-17T00:00:00",
         },
     }
     data = AuthorSubmissionsResource().populate_and_serialize_data_for_submission(data)
-    del data["acquisition_source"]["datetime"]
     assert data == expected
 
 
+@freeze_time("2019-06-17")
 def test_new_literature_submit_no_merge(app, api_client, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
@@ -357,8 +360,6 @@ def test_new_literature_submit_no_merge(app, api_client, create_user, requests_m
         == history.headers["Authorization"]
     )
     assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
-    assert "datetime" in post_data["data"]["acquisition_source"]
-    del post_data["data"]["acquisition_source"]["datetime"]
     expected_data = {
         "data": {
             "_collections": ["Literature"],
@@ -367,6 +368,7 @@ def test_new_literature_submit_no_merge(app, api_client, create_user, requests_m
                 "internal_uid": user.id,
                 "method": "submitter",
                 "source": "submitter",
+                "datetime": "2019-06-17T00:00:00",
             },
             "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
             "authors": [{"full_name": "Urhan, Harun"}],
@@ -452,6 +454,7 @@ def test_new_literature_submit_with_workflows_api_error(
     assert response.status_code == 503
 
 
+@freeze_time("2019-06-17")
 def test_new_literature_submit_arxiv_merges_with_crossref(
     app, api_client, create_user, requests_mock
 ):
@@ -525,9 +528,6 @@ def test_new_literature_submit_arxiv_merges_with_crossref(
         inspire_next_call.url
         == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
     )
-    assert "datetime" in post_data["data"]["acquisition_source"]
-
-    del post_data["data"]["acquisition_source"]["datetime"]
 
     expected_data = {
         "data": {
@@ -537,6 +537,7 @@ def test_new_literature_submit_arxiv_merges_with_crossref(
                 "internal_uid": user.id,
                 "method": "submitter",
                 "source": "submitter",
+                "datetime": "2019-06-17T00:00:00",
             },
             "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
             "authors": [{"full_name": "Tkachenko, A.S."}],
