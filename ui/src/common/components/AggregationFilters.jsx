@@ -20,10 +20,11 @@ class AggregationFilters extends Component {
       query,
       onAggregationChange,
       inline,
+      displayWhenNoResults,
     } = this.props;
     return (
       aggregations &&
-      numberOfResults > 0 && (
+      (numberOfResults > 0 || displayWhenNoResults) && (
         <Row className="bg-white pa3" type="flex" justify="space-between">
           {aggregations
             .entrySeq()
@@ -65,10 +66,12 @@ AggregationFilters.propTypes = {
   aggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
   query: PropTypes.objectOf(PropTypes.any).isRequired,
   numberOfResults: PropTypes.number.isRequired,
+  displayWhenNoResults: PropTypes.bool,
 };
 
 AggregationFilters.defaultProps = {
   inline: false,
+  displayWhenNoResults: false,
 };
 
 export default AggregationFilters;
