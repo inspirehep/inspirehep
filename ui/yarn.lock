@@ -5837,6 +5837,10 @@ less-loader@^4.1.0:
     loader-utils "^1.1.0"
     pify "^3.0.0"
 
+less-plugin-rewrite-import@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/less-plugin-rewrite-import/-/less-plugin-rewrite-import-0.1.1.tgz#d98a6eec48e5bd3453695e45e984adf5c9b28f4f"
+
 less@^3.8.1:
   version "3.8.1"
   resolved "https://registry.yarnpkg.com/less/-/less-3.8.1.tgz#f31758598ef5a1930dd4caefa9e4340641e71e1d"

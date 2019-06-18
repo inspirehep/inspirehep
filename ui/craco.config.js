@@ -42,11 +42,6 @@ function makeOverrideWebpackPlugin(overrideFunction) {
 }
 
 module.exports = {
-  babel: {
-    plugins: [
-      ['import', { libraryName: 'antd', libraryDirectory: 'es', style: 'css' }],
-    ],
-  },
   eslint: {
     mode: ESLINT_MODES.file,
   },
