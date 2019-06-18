@@ -28,3 +28,4 @@ def test_author_facets(api_client, db, create_record_factory, es_clear):
     response_data_facet_keys.sort()
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
+    assert len(response_data["hits"]["hits"]) == 0

@@ -81,6 +81,7 @@ def test_jobs_facets(api_client, db, es_clear, create_record, datadir):
 
     assert expected_status_code == response_status_code
     assert expected_aggregations == response_aggregations
+    assert len(response_data["hits"]["hits"]) == 0
 
 
 def test_jobs_facets_cataloger(
