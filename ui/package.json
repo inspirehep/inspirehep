@@ -68,7 +68,6 @@
   "devDependencies": {
     "@epegzz/sass-vars-loader": "^3.4.0",
     "axios-mock-adapter": "^1.15.0",
-    "babel-plugin-import": "^1.11.0",
     "bundlesize": "^0.17.0",
     "craco-less": "^1.2.0",
     "enzyme": "^3.3.0",
