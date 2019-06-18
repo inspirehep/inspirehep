@@ -94,7 +94,9 @@ function searchAggregationsError(error) {
   };
 }
 
-export function fetchSearchAggregationsForCurrentLocation() {
+export function fetchSearchAggregationsForCurrentLocation(
+  useLocationQuery = true
+) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingSearchAggregations());
 
@@ -103,7 +105,9 @@ export function fetchSearchAggregationsForCurrentLocation() {
     const {
       router: { location },
     } = state;
-    const url = `${location.pathname}/facets?${searchQueryString}`;
+    const url = `${location.pathname}/facets${
+      useLocationQuery ? `?${searchQueryString}` : ''
+    }`;
     try {
       const response = await http.get(url);
       dispatch(searchAggregationsSuccess(response.data));

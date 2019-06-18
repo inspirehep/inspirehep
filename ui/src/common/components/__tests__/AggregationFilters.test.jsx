@@ -155,4 +155,33 @@ describe('AggregationFilters', () => {
     onAggregationFilterChange(['foo', 'bar']);
     expect(onAggregationChange).toBeCalledWith('agg', ['foo', 'bar']);
   });
+
+  it('renders aggregations when numberOfResults is 0 and displayWhenNoResults is true', () => {
+    const aggregations = fromJS({
+      agg: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 0,
+          },
+        ],
+        meta: {
+          title: 'Jessica Jones',
+          order: 1,
+          type: 'checkbox',
+        },
+      },
+    });
+    const query = {};
+    const wrapper = shallow(
+      <AggregationFilters
+        query={query}
+        aggregations={aggregations}
+        numberOfResults={0}
+        onAggregationChange={jest.fn()}
+        displayWhenNoResults
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });

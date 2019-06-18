@@ -33,7 +33,7 @@ class SearchLayout extends Component {
     const { loadingAggregations } = this.props;
     return (
       <LoadingOrChildren loading={loadingAggregations}>
-        <AggregationFiltersContainer inline />
+        <AggregationFiltersContainer inline displayWhenNoResults />
       </LoadingOrChildren>
     );
   }
@@ -43,7 +43,7 @@ class SearchLayout extends Component {
     return (
       <DrawerHandle className="mt2" handleText="Filter" drawerTitle="Filter">
         <LoadingOrChildren loading={loadingAggregations}>
-          <AggregationFiltersContainer inline />
+          <AggregationFiltersContainer inline displayWhenNoResults />
         </LoadingOrChildren>
       </DrawerHandle>
     );
