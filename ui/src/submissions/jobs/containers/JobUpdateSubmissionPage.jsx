@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { Row, Col } from 'antd';
+import { Row, Col, Alert } from 'antd';
 
 import {
   fetchUpdateFormData,
@@ -10,6 +10,7 @@ import {
 } from '../../../actions/submissions';
 import { JOBS_PID_TYPE } from '../../../common/constants';
 import JobSubmission from '../components/JobSubmission';
+import LoadingOrChildren from '../../../common/components/LoadingOrChildren';
 
 class JobUpdateSubmissionPage extends Component {
   static getRecordIdFromProps(props) {
@@ -48,28 +49,42 @@ class JobUpdateSubmissionPage extends Component {
   }
 
   render() {
-    // TODO: display updateFormDataError ?
-    const { error, updateFormData, loadingUpdateFormData } = this.props;
+    const {
+      error,
+      updateFormData,
+      loadingUpdateFormData,
+      updateFormDataError,
+    } = this.props;
     return (
-      !loadingUpdateFormData && (
-        <Row type="flex" justify="center">
-          <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-            <Row className="mb3 pa3 bg-white">
+      <Row type="flex" justify="center">
+        <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
+          <Row className="mb3 pa3 bg-white">
+            <Col>
               <h3>Update a job opening</h3>
               All modifications will appear immediately.
-            </Row>
+            </Col>
+          </Row>
+          <LoadingOrChildren loading={loadingUpdateFormData}>
             <Row>
               <Col>
-                <JobSubmission
-                  error={error}
-                  onSubmit={this.onSubmit}
-                  initialFormData={updateFormData}
-                />
+                {updateFormDataError ? (
+                  <Alert
+                    message={updateFormDataError.get('message')}
+                    type="error"
+                    showIcon
+                  />
+                ) : (
+                  <JobSubmission
+                    error={error}
+                    onSubmit={this.onSubmit}
+                    initialFormData={updateFormData}
+                  />
+                )}
               </Col>
             </Row>
-          </Col>
-        </Row>
-      )
+          </LoadingOrChildren>
+        </Col>
+      </Row>
     );
   }
 }
@@ -79,12 +94,14 @@ JobUpdateSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
   updateFormData: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  updateFormDataError: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
   loadingUpdateFormData: PropTypes.bool.isRequired,
 };
 
 const stateToProps = state => ({
   error: state.submissions.get('submitError'),
   updateFormData: state.submissions.get('initialData'),
+  updateFormDataError: state.submissions.get('initialDataError'),
   loadingUpdateFormData: state.submissions.get('loadingInitialData'),
 });
 
