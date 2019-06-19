@@ -20,35 +20,30 @@ from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import populate_mirror_from_file
 
 
-@pytest.fixture(scope="function")
-def enable_debug(base_app):
-    base_app.config["DEBUG"] = True
+def test_migrate_file_halts_in_debug_mode(app_cli_runner, db):
+    config = {"DEBUG": True}
+    with patch.dict(current_app.config, config):
+        file_name = pkg_resources.resource_filename(
+            __name__, os.path.join("fixtures", "1663923.xml")
+        )
+
+        result = app_cli_runner.invoke(migrate, ["file", file_name])
+
+        assert result.exit_code == 1
+        assert "DEBUG" in result.output
 
 
-def test_migrate_file_halts_in_debug_mode(base_app, enable_debug, db, script_info):
-    cli_runner = CliRunner()
-    file_name = pkg_resources.resource_filename(
-        __name__, os.path.join("fixtures", "1663923.xml")
-    )
+def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(app_cli_runner, db):
+    config = {"DEBUG": True}
+    with patch.dict(current_app.config, config):
+        file_name = pkg_resources.resource_filename(
+            __name__, os.path.join("fixtures", "1663923.xml")
+        )
 
-    result = cli_runner.invoke(migrate, ["file", file_name], obj=script_info)
+        result = app_cli_runner.invoke(migrate, ["file", "-f", file_name])
 
-    assert result.exit_code == 1
-    assert "DEBUG" in result.output
-
-
-def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(
-    base_app, enable_debug, db, script_info
-):
-    cli_runner = CliRunner()
-    file_name = pkg_resources.resource_filename(
-        __name__, os.path.join("fixtures", "1663923.xml")
-    )
-
-    result = cli_runner.invoke(migrate, ["file", "-f", file_name], obj=script_info)
-
-    assert result.exit_code == 0
-    assert "DEBUG" not in result.output
+        assert result.exit_code == 0
+        assert "DEBUG" not in result.output
 
 
 def test_migrate_file(base_app, db, script_info, api_client):
@@ -84,24 +79,22 @@ def test_migrate_file_mirror_only(script_info, db, api_client):
     assert response.status_code == 404
 
 
-def test_migrate_mirror_halts_in_debug_mode(base_app, enable_debug, db, script_info):
-    cli_runner = CliRunner()
+def test_migrate_mirror_halts_in_debug_mode(app_cli_runner, db):
+    config = {"DEBUG": True}
+    with patch.dict(current_app.config, config):
+        result = app_cli_runner.invoke(migrate, ["mirror", "-a"])
 
-    result = cli_runner.invoke(migrate, ["mirror", "-a"], obj=script_info)
-
-    assert result.exit_code == 1
-    assert "DEBUG" in result.output
+        assert result.exit_code == 1
+        assert "DEBUG" in result.output
 
 
-def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(
-    base_app, enable_debug, db, script_info
-):
-    cli_runner = CliRunner()
+def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(app_cli_runner, db):
+    config = {"DEBUG": True}
+    with patch.dict(current_app.config, config):
+        result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
 
-    result = cli_runner.invoke(migrate, ["mirror", "-f"], obj=script_info)
-
-    assert result.exit_code == 0
-    assert "DEBUG" not in result.output
+        assert result.exit_code == 0
+        assert "DEBUG" not in result.output
 
 
 def test_migrate_mirror_migrates_pending(base_app, db, script_info, api_client):
