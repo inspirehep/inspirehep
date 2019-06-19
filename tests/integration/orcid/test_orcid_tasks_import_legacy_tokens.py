@@ -110,7 +110,7 @@ def cleanup_record(record):
 
 
 @fixture(scope="function")
-def teardown_sample_user(base_app, db, es_clear):
+def teardown_sample_user(app):
     yield
 
     cleanup_record(SAMPLE_USER)
@@ -118,7 +118,7 @@ def teardown_sample_user(base_app, db, es_clear):
 
 
 @fixture(scope="function")
-def teardown_sample_user_2(base_app, db, es_clear):
+def teardown_sample_user_2(app):
     yield
 
     cleanup_record(SAMPLE_USER_2)
@@ -126,7 +126,7 @@ def teardown_sample_user_2(base_app, db, es_clear):
 
 
 @fixture(scope="function")
-def teardown_sample_user_edited(base_app, db, es_clear):
+def teardown_sample_user_edited(app):
     yield
 
     cleanup_record(SAMPLE_USER_EDITED)
@@ -144,7 +144,7 @@ def redis_setup(base_app):
 
 
 @fixture(scope="function")
-def app_with_config(base_app, db, es_clear):
+def app_with_config(app):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": "0000-0000-0000-0000"}}
     # Disable logging.
     logging.getLogger("inspirehep.orcid.tasks").disabled = logging.CRITICAL
@@ -154,7 +154,7 @@ def app_with_config(base_app, db, es_clear):
 
 
 @fixture(scope="function")
-def app_without_config(base_app, db, es_clear):
+def app_without_config(app):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": None}}
     logging.getLogger("inspirehep.orcid.tasks").disabled = logging.CRITICAL
     with patch.dict(current_app.config, config):
@@ -162,7 +162,7 @@ def app_without_config(base_app, db, es_clear):
     logging.getLogger("inspirehep.orcid.tasks").disabled = 0
 
 
-def test_legacy_orcid_arrays(base_app, db, es_clear, redis_setup):
+def test_legacy_orcid_arrays(app, redis_setup):
     """Test the generator functionality."""
     push_to_redis(SAMPLE_USER_2)
     push_to_redis(SAMPLE_USER)

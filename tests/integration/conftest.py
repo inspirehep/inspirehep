@@ -118,7 +118,7 @@ def db(database):
 
 
 @pytest.fixture(scope="function")
-def create_record(base_app, db, es_clear):
+def create_record(app, es):
     """Fixture to create record from the application level.
 
     Examples:
@@ -139,14 +139,14 @@ def create_record(base_app, db, es_clear):
         record_data = faker.record(record_type, data=data)
         record = InspireRecord.create(record_data)
         record._indexing = record._index()
-        es_clear.indices.refresh(index)
+        es.indices.refresh(index)
         return record
 
     return _create_record
 
 
 @pytest.fixture(scope="function")
-def create_record_factory(base_app, db, es_clear):
+def create_record_factory(app, es):
     """Fixtures to create factory record.
 
     Examples:
@@ -182,14 +182,14 @@ def create_record_factory(base_app, db, es_clear):
 
         if with_indexing:
             index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
-            record._index = es_clear.index(
+            record._index = es.index(
                 index=index,
                 id=str(record.id),
                 doc_type=index.split("-")[-1],
                 body=record.json,
                 params={},
             )
-            es_clear.indices.refresh(index)
+            es.indices.refresh(index)
         return record
 
     return _create_record_factory

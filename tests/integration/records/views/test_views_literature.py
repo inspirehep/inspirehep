@@ -17,7 +17,7 @@ from inspirehep.accounts.roles import Roles
 
 
 def test_literature_search_application_json_get(
-    api_client, db, es_clear, create_record, datadir
+    api_client, db, es, create_record, datadir
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -74,7 +74,7 @@ def test_literature_search_application_json_ui_get(
     assert expected_data == response_data_metadata
 
 
-def test_literature_application_json_get(api_client, db, es_clear, create_record):
+def test_literature_application_json_get(api_client, db, es, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -115,7 +115,7 @@ def test_literature_application_json_post(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_literature_citations(api_client, db, es_clear, create_record):
+def test_literature_citations(api_client, db, es, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -245,7 +245,7 @@ def test_literature_citations_empty(api_client, db, create_record, es_clear):
     assert expected_data == response_data
 
 
-def test_literature_citations_missing_pids(api_client, db, es_clear):
+def test_literature_citations_missing_pids(api_client, db, es):
     missing_control_number = 1
     response = api_client.get("/literature/{}/citations".format(missing_control_number))
     response_status_code = response.status_code
@@ -317,9 +317,7 @@ def test_literature_facets_with_selected_facet(api_client, db, create_record, es
     assert expected_result_hits == response_data_hits
 
 
-def test_literature_facets_author_count_does_not_have_empty_bucket(
-    api_client, db, es_clear
-):
+def test_literature_facets_author_count_does_not_have_empty_bucket(api_client, db, es):
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
@@ -468,7 +466,7 @@ def test_literature_search_citeable_filter(api_client, db, create_record_factory
     )
 
 
-def test_literature_citation_annual_summary(api_client, db, es_clear, create_record):
+def test_literature_citation_annual_summary(api_client, db, es, create_record):
     author = create_record("aut", faker.record("aut"))
     authors = [
         {
@@ -496,7 +494,7 @@ def test_literature_citation_annual_summary(api_client, db, es_clear, create_rec
         "author": literature.serialize_for_es()["facet_author_name"][0],
         "facet_name": "citations-by-year",
     }
-    es_clear.indices.refresh("records-hep")
+    es.indices.refresh("records-hep")
 
     response = api_client.get(f"literature/facets/?{urlencode(request_param)}")
 
@@ -504,7 +502,7 @@ def test_literature_citation_annual_summary(api_client, db, es_clear, create_rec
 
 
 def test_literature_citation_annual_summary_for_many_records(
-    api_client, db, es_clear, create_record
+    api_client, db, es, create_record
 ):
     literature1 = create_record("lit", faker.record("lit"))
     create_record(
@@ -550,7 +548,7 @@ def test_literature_citation_annual_summary_for_many_records(
 
 
 def test_literature_search_user_does_not_get_fermilab_collection(
-    api_client, db, es_clear, create_record, datadir
+    api_client, db, es, create_record, datadir
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -573,7 +571,7 @@ def test_literature_search_user_does_not_get_fermilab_collection(
 
 
 def test_literature_search_cataloger_gets_fermilab_collection(
-    api_client, db, es_clear, create_record, datadir, create_user
+    api_client, db, es, create_record, datadir, create_user
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -610,7 +608,7 @@ def test_literature_search_cataloger_gets_fermilab_collection(
 
 
 def test_literature_search_permissions(
-    api_client, db, es_clear, create_record, datadir, create_user, logout
+    api_client, db, es, create_record, datadir, create_user, logout
 ):
     create_record("lit", data={"_collections": ["Fermilab"]})
     rec_literature = create_record("lit", data={"_collections": ["Literature"]})

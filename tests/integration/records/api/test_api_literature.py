@@ -125,7 +125,7 @@ def test_literature_create_with_mutliple_updated_pids(base_app, db, create_pidst
     assert expected_pid_doi_value == record_doi_pid.pid_value
 
 
-def test_literature_on_delete(base_app, db, es_clear):
+def test_literature_on_delete(app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
@@ -864,7 +864,7 @@ def test_literature_can_cite_only_existing_records(base_app, db):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_literature_is_not_cited_by_deleted_records(base_app, db, es_clear):
+def test_literature_is_not_cited_by_deleted_records(app):
     data = faker.record("lit")
     record = InspireRecord.create(data)
 

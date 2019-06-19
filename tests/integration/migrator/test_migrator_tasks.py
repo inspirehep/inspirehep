@@ -206,7 +206,7 @@ def test_orcid_push_disabled_on_migrate_from_mirror(
     assert base_app.config["FEATURE_FLAG_ENABLE_ORCID_PUSH"]
 
 
-def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear):
+def test_migrate_from_mirror_doesnt_index_deleted_records(app, es):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "dummy.xml")
     )
@@ -215,7 +215,7 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear
     )
     migrate_from_file(record_fixture_path, wait_for_results=True)
     migrate_from_file(record_fixture_path_deleted, wait_for_results=True)
-    es_clear.indices.refresh("records-hep")
+    es.indices.refresh("records-hep")
 
     expected_record_lit_es_len = 1
 

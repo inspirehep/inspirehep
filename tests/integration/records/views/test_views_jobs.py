@@ -63,7 +63,7 @@ def test_jobs_search_json_get(api_client, db, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_facets(api_client, db, es_clear, create_record, datadir):
+def test_jobs_facets(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
 
@@ -84,9 +84,7 @@ def test_jobs_facets(api_client, db, es_clear, create_record, datadir):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_jobs_facets_cataloger(
-    api_client, db, es_clear, create_record, datadir, create_user
-):
+def test_jobs_facets_cataloger(api_client, db, es, create_record, datadir, create_user):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -109,7 +107,7 @@ def test_jobs_facets_cataloger(
     assert expected_aggregations == response_aggregations
 
 
-def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
+def test_jobs_sort_options(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     record = create_record("job", data=data)
 
@@ -129,7 +127,7 @@ def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
     assert expected_sort_options == response_data_sort_options
 
 
-def test_jobs_sort_by_deadline(api_client, db, es_clear, create_record, datadir):
+def test_jobs_sort_by_deadline(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
     data["deadline_date"] = "2020-12-31"
@@ -157,7 +155,7 @@ def test_jobs_sort_by_deadline(api_client, db, es_clear, create_record, datadir)
     assert expected_second_control_number == response_second_control_nubmer
 
 
-def test_jobs_accelerator_experiments(api_client, db, es_clear, create_record, datadir):
+def test_jobs_accelerator_experiments(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
     response = api_client.get("/jobs/1735925")
@@ -174,7 +172,7 @@ def test_jobs_accelerator_experiments(api_client, db, es_clear, create_record, d
 
 
 def test_jobs_record_search_results_does_not_return_pending_job_to_non_superuser(
-    api_client, db, es_clear, create_record
+    api_client, db, es, create_record
 ):
     create_record("job", data={"status": "pending"})
 
@@ -183,7 +181,7 @@ def test_jobs_record_search_results_does_not_return_pending_job_to_non_superuser
 
 
 def test_jobs_record_search_results_returns_open_job_to_non_superuser(
-    api_client, db, es_clear, create_record
+    api_client, db, es, create_record
 ):
     record = create_record("job", data={"status": "open"})
 
@@ -208,7 +206,7 @@ def test_jobs_record_search_results_returns_open_job_to_non_superuser(
 
 
 def test_jobs_record_search_results_returns_pending_job_to_superuser(
-    api_client, db, es_clear, create_record, create_user
+    api_client, db, es, create_record, create_user
 ):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -236,7 +234,7 @@ def test_jobs_record_search_results_returns_pending_job_to_superuser(
 
 
 def test_jobs_search_permissions(
-    api_client, db, es_clear, create_record, datadir, create_user, logout
+    api_client, db, es, create_record, datadir, create_user, logout
 ):
     create_record("job", data={"status": "pending"})
     create_record("job", data={"status": "open"})

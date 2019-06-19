@@ -59,7 +59,7 @@ def override_config(**kwargs):
 
 
 @pytest.fixture(scope="function")
-def user_with_permission(base_app, db, es_clear):
+def user_with_permission(app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
         "token": "3d25a708-dae9-48eb-b676-aaaaaaaaaaaa",
@@ -77,7 +77,7 @@ def user_with_permission(base_app, db, es_clear):
 
 
 @pytest.fixture(scope="function")
-def two_users_with_permission(base_app, db, es):
+def two_users_with_permission(app):
     _user1_data = {
         "orcid": "0000-0001-8829-5461",
         "token": "3d25a708-dae9-48eb-b676-aaaaaaaaaaaa",
@@ -105,7 +105,7 @@ def two_users_with_permission(base_app, db, es):
 
 
 @pytest.fixture(scope="function")
-def user_without_permission(base_app, db, es):
+def user_without_permission(app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
         "token": "3d25a708-dae9-48eb-b676-aaaaaaaaaaaa",
@@ -123,7 +123,7 @@ def user_without_permission(base_app, db, es):
 
 
 @pytest.fixture(scope="function")
-def user_without_token(base_app, db, es):
+def user_without_token(app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
         "email": "dummy1@email.com",
@@ -140,7 +140,7 @@ def user_without_token(base_app, db, es):
 
 
 @pytest.fixture(scope="function")
-def raw_record(base_app, db, es):
+def raw_record(app):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1608652.xml")
     )
@@ -159,7 +159,7 @@ def record(raw_record):
 
 
 @pytest.fixture
-def enable_orcid_push_feature(base_app, db, es):
+def enable_orcid_push_feature(app):
     with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
         yield
 

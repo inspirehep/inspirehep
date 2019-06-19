@@ -56,7 +56,7 @@ def xml_compare(expected, result):
     return True
 
 
-def test_format_article(api_client, db, es_clear, datadir, create_record):
+def test_format_article(api_client, db, es, datadir, create_record):
     data = json.loads((datadir / "4328.json").read_text())
     create_record("lit", data=data)
     response = api_client.get("/literature/4328")
@@ -113,7 +113,7 @@ def test_format_article(api_client, db, es_clear, datadir, create_record):
 
 
 def test_format_conference_paper(
-    api_client, db, es_clear, create_record, create_record_factory, datadir
+    api_client, db, es, create_record, create_record_factory, datadir
 ):
     data = json.loads((datadir / "524480.json").read_text())
     record = create_record("lit", data=data)
@@ -171,7 +171,7 @@ def test_format_conference_paper(
     )._hash_xml_element(result)
 
 
-def test_format_proceedings(api_client, db, es_clear, create_record, datadir):
+def test_format_proceedings(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "701585.json").read_text())
     record = create_record("lit", data=data)
     response = api_client.get("/literature/701585")
@@ -233,7 +233,7 @@ def test_format_proceedings(api_client, db, es_clear, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_thesis(api_client, db, es_clear, create_record, datadir):
+def test_format_thesis(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
     response = api_client.get("/literature/1395663")
@@ -279,7 +279,7 @@ def test_format_thesis(api_client, db, es_clear, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_book(api_client, db, es_clear, create_record, datadir):
+def test_format_book(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "736770.json").read_text())
     record = create_record("lit", data=data)
     response = api_client.get("/literature/736770")
@@ -342,7 +342,7 @@ def test_format_book(api_client, db, es_clear, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_book_chapter(api_client, db, es_clear, create_record, datadir):
+def test_format_book_chapter(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
     record = create_record("lit", data=data)
     response = api_client.get("/literature/1375491")
@@ -417,9 +417,7 @@ def test_format_book_chapter(api_client, db, es_clear, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_thesis_with_author_orcid(
-    api_client, db, es_clear, create_record, datadir
-):
+def test_format_thesis_with_author_orcid(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
     response = api_client.get("/literature/1395663")
@@ -476,7 +474,7 @@ def test_format_thesis_with_author_orcid(
     )._hash_xml_element(result)
 
 
-def test_external_identifiers(api_client, db, es_clear, create_record, datadir):
+def test_external_identifiers(api_client, db, es, create_record, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
     record = create_record("lit", data=data)
     response = api_client.get("/literature/1375491")
@@ -495,7 +493,7 @@ def test_external_identifiers(api_client, db, es_clear, create_record, datadir):
     assert converter.added_external_identifiers == expected
 
 
-def test_bibtex_do_add_bibtex_citation(base_app, db, es_clear, create_record, datadir):
+def test_bibtex_do_add_bibtex_citation(app, create_record, datadir):
     data = json.loads(
         (datadir / "test_orcid_converter_TestBibtexCitation.json").read_text()
     )
@@ -508,9 +506,7 @@ def test_bibtex_do_add_bibtex_citation(base_app, db, es_clear, create_record, da
     assert "citation" in top_level_tags
 
 
-def test_bibtext_do_not_add_bibtex_citation(
-    base_app, db, es_clear, create_record, datadir
-):
+def test_bibtext_do_not_add_bibtex_citation(app, create_record, datadir):
     data = json.loads(
         (datadir / "test_orcid_converter_TestBibtexCitation.json").read_text()
     )

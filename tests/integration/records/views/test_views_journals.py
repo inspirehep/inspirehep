@@ -57,7 +57,7 @@ def test_journals_search_json_get(api_client, db, create_record_factory):
     assert expected_status_code == response_status_code
 
 
-def test_journal_record_search_results(api_client, db, es_clear, create_record):
+def test_journal_record_search_results(api_client, db, es, create_record):
     record = create_record("jou")
 
     expected_metadata = record.serialize_for_es()
