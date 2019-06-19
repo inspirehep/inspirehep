@@ -1,7 +1,7 @@
 {
   "name": "inspire-next-react",
   "license": "GPL-2.0",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "proxy": "http://localhost:8081",
   "bundlesize": [
     {

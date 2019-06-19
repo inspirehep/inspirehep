@@ -146,10 +146,10 @@ matrix:
 
 deploy:
   - provider: script
-    script: ./deploy-inspirehep.sh
+    script: ./deploy-inspirehep.sh && ./deploy-ui.sh
     on:
       branch: master
   - provider: script
-    script: ./deploy-ui.sh
+    script: ./deploy-inspirehep.sh && ./deploy-ui.sh
     on:
-      branch: master
+      tags: true
