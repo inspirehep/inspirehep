@@ -100,11 +100,11 @@ matrix:
 
       deploy:
         - provider: script
-          script: chmod +x ./scripts/deploy/ui.sh && ./scripts/deploy/inspirehep.sh latest
+          script: ./deploy-inspirehep.sh latest
           on:
             branch: master
         - provider: script
-          script: chmod +x ./scripts/deploy/ui.sh && ./scripts/deploy/inspirehep.sh $TRAVIS_TAG
+          script: ./deploy-inspirehep.sh $TRAVIS_TAG
           on:
             tag: true
 
@@ -155,10 +155,10 @@ matrix:
       script: cd ui && yarn && yarn test
       deploy:
         - provider: script
-          script: chmod +x ./scripts/deploy/ui.sh && ./scripts/deploy/ui.sh latest
+          script: ./deploy-ui.sh latest
           on:
             branch: master
         - provider: script
-          script: chmod +x ./scripts/deploy/ui.sh && ./scripts/deploy/ui.sh $TRAVIS_TAG
+          script: ./deploy-ui.sh $TRAVIS_TAG
           on:
             tag: true

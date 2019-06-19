@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "inspirehep"
-version = "0.1.14"
+version = "0.1.15"
 description = "NSPIRE is the leading information platform for High Energy Physics (HEP) literature which provides users with high quality, curated content covering the entire corpus of HEP literature and the fulltext of all such articles that are Open Access."
 authors = ["CERN <admin@inspirehep.net>"]
 license = "GPL-2.0"

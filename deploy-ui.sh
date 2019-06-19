@@ -13,7 +13,7 @@ if [ "$VERSION" != "latest" ]; then
     curl -X POST "${UI_DEPLOY_URL}" \
         -F token=${UI_DEPLOY_TOKEN} \
         -F ref=qa -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
-        -F "variables[TAG]=${TRAVIS_TAG}" \
+        -F "variables[TAG]=${VERSION}" \
         -F "variables[IMAGE_BUILD]=True" \
         -F "variables[DEPLOY]=True"
 else

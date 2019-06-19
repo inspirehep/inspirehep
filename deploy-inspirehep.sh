@@ -14,9 +14,9 @@ if [ "$VERSION" != "latest" ]; then
         -F token=${INSPIREHEP_DEPLOY_TOKEN} \
         -F ref=master \
         -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
-        -F "variables[TAG_NAME]=${TRAVIS_TAG}" \
+        -F "variables[TAG_NAME]=${VERSION}" \
         -F "variables[APPLICATION_IMAGE_NAME]=inspirehepimage" \
-        -F "variables[VERSION]=${TRAVIS_TAG}" \
+        -F "variables[VERSION]=${VERSION}" \
         -F "variables[DEPLOY]=qa"
 else
     curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
