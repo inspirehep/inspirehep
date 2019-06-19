@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchLayout renders with initial state 1`] = `
+exports[`SearchPage renders with loading states 1`] = `
 <div>
   <Row
     className="bg-white mb3"

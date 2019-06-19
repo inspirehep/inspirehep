@@ -1,23 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SearchPage renders with loading states 1`] = `
+exports[`SearchPage renders with loading state 1`] = `
 <Row
   className="mt3"
   gutter={32}
-  justify="start"
+  justify="center"
   type="flex"
 >
-  <Col
-    lg={8}
-    xl={7}
-    xs={0}
-    xxl={5}
-  >
-    <ResponsiveView
-      min="lg"
-      render={[Function]}
-    />
-  </Col>
   <Col
     lg={16}
     xl={16}
@@ -28,31 +17,11 @@ exports[`SearchPage renders with loading states 1`] = `
       loading={false}
     >
       <Row
-        align="middle"
         gutter={0}
-        justify="end"
         type="flex"
       >
-        <Col
-          lg={12}
-          xs={24}
-        >
+        <Col>
           <Connect(NumberOfResults) />
-        </Col>
-        <Col
-          lg={0}
-          xs={12}
-        >
-          <ResponsiveView
-            max="md"
-            render={[Function]}
-          />
-        </Col>
-        <Col
-          className="tr"
-          span={12}
-        >
-          <SortByContainer />
         </Col>
       </Row>
       <Row
