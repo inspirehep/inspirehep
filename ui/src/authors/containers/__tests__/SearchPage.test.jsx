@@ -6,12 +6,11 @@ import { getStoreWithState } from '../../../fixtures/store';
 import SearchPage from '../SearchPage';
 
 describe('SearchPage', () => {
-  it('renders with loading states', () => {
+  it('renders with loading state', () => {
     const store = getStoreWithState(
       fromJS({
         search: {
           loading: true,
-          loadingAggregations: true,
         },
       })
     );

@@ -3,10 +3,10 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import { getStoreWithState } from '../../../fixtures/store';
-import SearchLayout from '../SearchLayout';
+import SearchPage from '../SearchPage';
 
-describe('SearchLayout', () => {
-  it('renders with initial state', () => {
+describe('SearchPage', () => {
+  it('renders with loading states', () => {
     const store = getStoreWithState(
       fromJS({
         search: {
@@ -15,9 +15,7 @@ describe('SearchLayout', () => {
         },
       })
     );
-    const wrapper = shallow(
-      <SearchLayout store={store} renderResultItem={jest.fn()} />
-    ).dive();
+    const wrapper = shallow(<SearchPage store={store} />).dive();
     expect(wrapper).toMatchSnapshot();
   });
 });
