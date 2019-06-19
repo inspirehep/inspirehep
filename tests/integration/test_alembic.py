@@ -11,6 +11,11 @@ from sqlalchemy import text
 
 def test_downgrade(app, db):
     alembic = Alembic(app)
+
+    assert "idx_pid_provider" not in _get_indexes("pidstore_pid", db)
+
+    alembic.downgrade(target="dc1ae5abe9d6")
+
     assert "idx_pid_provider" in _get_indexes("pidstore_pid", db)
 
     alembic.downgrade(target="c6570e49b7b2")
@@ -134,6 +139,10 @@ def test_upgrade(app, db):
     alembic.upgrade(target="dc1ae5abe9d6")
 
     assert "idx_pid_provider" in _get_indexes("pidstore_pid", db)
+
+    alembic.upgrade(target="788a3a61a635")
+
+    assert "idx_pid_provider" not in _get_indexes("pidstore_pid", db)
 
 
 def _get_indexes(tablename, db):
