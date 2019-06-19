@@ -122,6 +122,7 @@ matrix:
 
       before_install:
         - sudo service postgresql stop
+        - ./docker-inspire build --parallel
         - ./docker-inspire up -d
         - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
         - source $HOME/.poetry/env
