@@ -44,7 +44,7 @@ class PidStoreBase(object):
     def delete_external_pids(self):
         try:
             return PersistentIdentifier.query.filter_by(
-                object_uuid=self.object_uuid, pid_provider="external"
+                object_type="rec", object_uuid=self.object_uuid, pid_provider="external"
             ).delete()
         except PIDDoesNotExistError:
             logger.info(f"Pids ``external`` for {self.object_uuid} not found.")
