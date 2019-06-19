@@ -6,7 +6,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-if [[ -v TRAVIS_TAG ]]; then
+if [ "$TRAVIS_TAG" ]; then
     echo "Deploying tag ${TRAVIS_TAG}"
     curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
         -F token=${INSPIREHEP_DEPLOY_TOKEN} \
@@ -18,6 +18,7 @@ if [[ -v TRAVIS_TAG ]]; then
         -F "variables[DEPLOY]=qa"
 fi
 
+echo "Deploying latest"
 curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
     -F token=${INSPIREHEP_DEPLOY_TOKEN} \
     -F ref=master \

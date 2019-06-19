@@ -98,12 +98,6 @@ matrix:
       after_fail:
         - poetry run pip freeze
 
-      deploy:
-        - provider: script
-          script: ./deploy-inspirehep.sh
-          on:
-            branch: master
-
     - language: python
       sudo: true
       dist: trusty
@@ -149,8 +143,13 @@ matrix:
       node_js:
         - 10.14.0
       script: cd ui && yarn && yarn test
-      deploy:
-        - provider: script
-          script: ./deploy-ui.sh
-          on:
-            branch: master
+
+deploy:
+  - provider: script
+    script: ./deploy-inspirehep.sh
+    on:
+      branch: master
+  - provider: script
+    script: ./deploy-ui.sh
+    on:
+      branch: master
