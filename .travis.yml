@@ -100,13 +100,9 @@ matrix:
 
       deploy:
         - provider: script
-          script: ./deploy-inspirehep.sh latest
+          script: ./deploy-inspirehep.sh
           on:
             branch: master
-        - provider: script
-          script: ./deploy-inspirehep.sh $TRAVIS_TAG
-          on:
-            tag: true
 
     - language: python
       sudo: true
@@ -155,10 +151,6 @@ matrix:
       script: cd ui && yarn && yarn test
       deploy:
         - provider: script
-          script: ./deploy-ui.sh latest
+          script: ./deploy-ui.sh
           on:
             branch: master
-        - provider: script
-          script: ./deploy-ui.sh $TRAVIS_TAG
-          on:
-            tag: true
