@@ -80,15 +80,11 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 force_list(self.get_value(path)) for path in date_paths
             )
         ]
-        proper_dates = []
-        for date in dates:
-            try:
-                proper_dates.append(dateutil.parser.parse(date))
-            except ValueError:
-                pass
-        if proper_dates:
-            date = earliest_date(dates, full_date=True)
-            return date
+
+        if dates:
+            result = earliest_date(dates, full_date=True)
+            if result:
+                return result
         return None
 
     @classmethod
