@@ -718,25 +718,32 @@ def test_new_job_submit_with_wrong_status_value(
 
 
 @patch("inspirehep.submissions.views.create_ticket_with_template")
-def test_update_job(ticket_mock, app, api_client, create_user):
+def test_update_job(create_ticket_mock, app, api_client, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
+
     data = {**DEFAULT_EXAMPLE_JOB_DATA}
     response = api_client.post(
         "/submissions/jobs",
         content_type="application/json",
         data=json.dumps({"data": data}),
     )
+
     assert response.status_code == 201
+
+    create_ticket_mock.reset_mock()
+
     pid_value = response.json["pid_value"]
     record_url = url_for(".job_submission_view", pid_value=pid_value)
     data["title"] = "New test title"
     response2 = api_client.put(
         record_url, content_type="application/json", data=json.dumps({"data": data})
     )
+
     assert response2.status_code == 200
     record = api_client.get(record_url).json["data"]
     assert record["title"] == "New test title"
+    create_ticket_mock.assert_called_once()
 
 
 @patch("inspirehep.submissions.views.create_ticket_with_template")
@@ -745,19 +752,23 @@ def test_update_job_status_from_pending_not_curator(
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
+
     data = {**DEFAULT_EXAMPLE_JOB_DATA}
     response = api_client.post(
         "/submissions/jobs",
         content_type="application/json",
         data=json.dumps({"data": data}),
     )
+
     assert response.status_code == 201
+
     pid_value = response.json["pid_value"]
     record_url = url_for(".job_submission_view", pid_value=pid_value)
     data["status"] = "open"
     response2 = api_client.put(
         record_url, content_type="application/json", data=json.dumps({"data": data})
     )
+
     assert response2.status_code == 400
     record = api_client.get(record_url).json["data"]
     assert record["status"] == "pending"
@@ -765,29 +776,37 @@ def test_update_job_status_from_pending_not_curator(
 
 @patch("inspirehep.submissions.views.create_ticket_with_template")
 def test_update_job_status_from_pending_curator(
-    ticket_mock, app, api_client, create_user
+    create_ticket_mock, app, api_client, create_user
 ):
     user = create_user()
-    curator = create_user(role="cataloger")
     login_user_via_session(api_client, email=user.email)
+
     data = {**DEFAULT_EXAMPLE_JOB_DATA}
     response = api_client.post(
         "/submissions/jobs",
         content_type="application/json",
         data=json.dumps({"data": data}),
     )
+
     assert response.status_code == 201
+
+    create_ticket_mock.reset_mock()
+
     pid_value = response.json["pid_value"]
     record_url = url_for(".job_submission_view", pid_value=pid_value)
 
+    curator = create_user(role="cataloger")
     login_user_via_session(api_client, email=curator.email)
+
     data["status"] = "open"
     response2 = api_client.put(
         record_url, content_type="application/json", data=json.dumps({"data": data})
     )
+
     assert response2.status_code == 200
     record = api_client.get(record_url).json["data"]
     assert record["status"] == "open"
+    create_ticket_mock.assert_not_called()
 
 
 @patch("inspirehep.submissions.views.create_ticket_with_template")
