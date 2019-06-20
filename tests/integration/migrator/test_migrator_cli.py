@@ -21,11 +21,12 @@ from inspirehep.migrator.tasks import populate_mirror_from_file
 
 
 @pytest.fixture(scope="function")
-def enable_debug(base_app):
+def app_with_debug_config(base_app):
     base_app.config["DEBUG"] = True
+    yield base_app
 
 
-def test_migrate_file_halts_in_debug_mode(base_app, enable_debug, db, script_info):
+def test_migrate_file_halts_in_debug_mode(app_with_debug_config, db, script_info):
     cli_runner = CliRunner()
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663923.xml")
@@ -38,7 +39,7 @@ def test_migrate_file_halts_in_debug_mode(base_app, enable_debug, db, script_inf
 
 
 def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(
-    base_app, enable_debug, db, script_info
+    app_with_debug_config, db, script_info
 ):
     cli_runner = CliRunner()
     file_name = pkg_resources.resource_filename(
@@ -84,7 +85,7 @@ def test_migrate_file_mirror_only(script_info, db, api_client):
     assert response.status_code == 404
 
 
-def test_migrate_mirror_halts_in_debug_mode(base_app, enable_debug, db, script_info):
+def test_migrate_mirror_halts_in_debug_mode(app_with_debug_config, db, script_info):
     cli_runner = CliRunner()
 
     result = cli_runner.invoke(migrate, ["mirror", "-a"], obj=script_info)
@@ -94,7 +95,7 @@ def test_migrate_mirror_halts_in_debug_mode(base_app, enable_debug, db, script_i
 
 
 def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(
-    base_app, enable_debug, db, script_info
+    app_with_debug_config, db, script_info
 ):
     cli_runner = CliRunner()
 
