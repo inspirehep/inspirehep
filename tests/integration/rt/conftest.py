@@ -19,8 +19,7 @@ def app_config(app_config):
             # real ``USER`` and ``PWD```
             "RT_USER": "CHANGE_ME",
             "RT_PASSWORD": "CHANGE_ME",
-            "BIBCATALOG_QUEUES": "Test",
-            "JLAB_ARXIV_CATEGORIES": [],
+            "RT_OVERRIDE_QUEUE": "Test",
         }
     )
     return app_config
