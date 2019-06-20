@@ -93,7 +93,7 @@ def create_ticket(queue, requestors, body, subject=None, recid=None, **kwargs):
     body = _strip_lines(body)
     subject = subject or "No Subject"
 
-    queue = queue or current_app.config.get("BIBCATALOG_QUEUES")
+    queue = current_app.config.get("RT_OVERRIDE_QUEUE") or queue
 
     payload = dict(Queue=queue, Subject=subject, Text=body, **kwargs)
 
