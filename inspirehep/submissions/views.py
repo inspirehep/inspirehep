@@ -189,7 +189,6 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         data = self.prepare_data(data)
         record = JobsRecord.create(data)
         db.session.commit()
-        self.create_ticket(record, "rt/new_job.html")
         return jsonify({"pid_value": record["control_number"]}), 201
 
     def put(self, pid_value):
@@ -210,7 +209,10 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         data = self.prepare_data(data, record)
         record.update(data)
         db.session.commit()
-        self.create_ticket(record, "rt/update_job.html")
+
+        if not is_superuser_or_cataloger_logged_in():
+            self.create_ticket(record, "rt/update_job.html")
+
         return jsonify({"pid_value": record["control_number"]})
 
     def prepare_new_record(self, data):
