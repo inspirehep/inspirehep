@@ -4,6 +4,14 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+dist: xenial
+
+language: python
+
+python:
+  - "3.6"
+node_js:
+  - 10.14.0
 
 notifications:
   email:
@@ -23,7 +31,6 @@ env:
 
 cache:
   pip: true
-  yarn: true
   directories:
     - "$HOME/.cache/pypoetry"
     - "$HOME/.cache/pre-commit"
@@ -31,121 +38,55 @@ cache:
 services:
   - docker
 
+install:
+  - if [[ "$SUITE" != "ui" ]]; then  ./scripts/bootstrap; fi
+
+before_install:
+  - sudo service postgresql stop
+  - if [[ "$RUN_DOCKER" == "true" ]]; then
+      docker-compose -f docker-compose.travis.yml up -d;
+    fi
+  - if [[ "$SUITE" != "ui" ]]; then
+      curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16;
+      source $HOME/.poetry/env;
+    fi
+  - travis_retry pip install twine wheel coveralls
+
+after_script:
+ -  if [[ "$RUN_DOCKER" == "true" ] && ]; then
+      docker-compose kill -s SIGTERM;
+      docker-compose rm -f;
+    fi
+
+after_success:
+  - coveralls
+
+after_failure:
+  - if [[ "$SUITE" != "ui" ]]; then poetry show; fi
+
+before_script:
+  - if [[ "$RUN_DOCKER" == "true" ]]; then ./docker/wait-for-services.sh; fi
+
+script:
+    - if [[ "$SUITE" == "unit" ]]; then  ./run-code-checks.sh; fi
+    - if [[ "$SUITE" != "ui" ]]; then
+        poetry run py.test tests/${SUITE};
+      else
+        cd ui && yarn && yarn test;
+      fi
 
 matrix:
   fast_finish: true
   include:
-    - language: python
-      sudo: true
-      dist: xenial
-      env:
-        - SUITE=backend-integration
-        - REQUIREMENTS=prod
-        - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
-
-      python:
-        - "3.6"
-
-      before_install:
-        - sudo service postgresql stop
-        - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-      install:
-        - ./scripts/bootstrap --ci
-
-      before_script:
-        - ./docker/wait-for-services.sh
-
-      script:
-        - poetry run py.test tests/integration
-
-      after_script:
-        - docker-compose kill -s SIGTERM
-        - docker-compose rm -f
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry show
-
-    - language: python
-      sudo: true
-      dist: trusty
-      env:
-        - SUITE=backend-unit
-        - REQUIREMENTS=prod
-      python:
-        - "3.6"
-
-      before_install:
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-
-      install:
-        - ./scripts/bootstrap --ci
-
-      script:
-        - ./run-code-checks.sh
-        - poetry run py.test tests/unit
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry run pip freeze
-
-    - language: python
-      sudo: true
-      dist: trusty
-      env:
-        - SUITE=backend-integration-async
-        - REQUIREMENTS=prod
-        - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
-
-      # XXX: needs work around for 3.7
-      python:
-        - "3.6"
-
-      before_install:
-        - sudo service postgresql stop
-        - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-
-      install:
-        - ./scripts/bootstrap --ci
-
-      before_script:
-        - ./docker/wait-for-services.sh
-
-      script:
-        - poetry run py.test tests/integration-async
-
-      after_script:
-        - docker-compose kill -s SIGTERM
-        - docker-compose rm -f
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry run pip freeze
-
-    - language: node_js
-      sudo: required
-      env:
-        - SUITE=ui-all
-      node_js:
-        - 10.14.0
-      script: cd ui && yarn && yarn test
+    - env: SUITE=integration RUN_DOCKER=true
+    - env: SUITE=unit RUN_DOCKER=false
+    - env: SUITE=integration-async RUN_DOCKER=true
+    - env: SUITE=ui RUN_DOCKER=false
 
 deploy:
+  skip_cleanup: true
   provider: script
   script: ./build-docker-images.sh
   on:
     branch: master
+    condition: $SUITE = integration
