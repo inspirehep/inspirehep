@@ -5,6 +5,16 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+dist: xenial
+
+language: python
+node_js:
+  - 10.14.0
+
+services:
+  - docker
+
+
 notifications:
   email:
     on_success: never
@@ -28,121 +38,32 @@ cache:
     - "$HOME/.cache/pypoetry"
     - "$HOME/.cache/pre-commit"
 
-services:
-  - docker
+before_install:
+  - sudo service postgresql stop
+  - ./docker-inspire up -d
+  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
+  - source $HOME/.poetry/env
+  - travis_retry pip install twine wheel coveralls
 
+install:
+  - ./scripts/bootstrap --ci
 
-matrix:
-  fast_finish: true
-  include:
-    - language: python
-      sudo: true
-      dist: xenial
-      env:
-        - SUITE=backend-integration
-        - REQUIREMENTS=prod
-        - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
+before_script:
+  - ./docker/wait-for-services.sh
 
-      python:
-        - "3.6"
+script:
+  - ./run-tests.sh
+  - cd ui && yarn && yarn test
 
-      before_install:
-        - sudo service postgresql stop
-        - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-      install:
-        - ./scripts/bootstrap --ci
+after_script:
+  - docker-compose kill -s SIGTERM
+  - docker-compose rm -f
 
-      before_script:
-        - ./docker/wait-for-services.sh
+after_success:
+  - coveralls
 
-      script:
-        - poetry run py.test tests/integration
-
-      after_script:
-        - docker-compose kill -s SIGTERM
-        - docker-compose rm -f
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry show
-
-    - language: python
-      sudo: true
-      dist: trusty
-      env:
-        - SUITE=backend-unit
-        - REQUIREMENTS=prod
-      python:
-        - "3.6"
-
-      before_install:
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-
-      install:
-        - ./scripts/bootstrap --ci
-
-      script:
-        - ./run-code-checks.sh
-        - poetry run py.test tests/unit
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry run pip freeze
-
-    - language: python
-      sudo: true
-      dist: trusty
-      env:
-        - SUITE=backend-integration-async
-        - REQUIREMENTS=prod
-        - EXTRAS=all,elasticsearch5,postgresql ES_VERSION=5.6.4
-
-      # XXX: needs work around for 3.7
-      python:
-        - "3.6"
-
-      before_install:
-        - sudo service postgresql stop
-        - ./docker-inspire up -d
-        - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
-        - source $HOME/.poetry/env
-        - travis_retry pip install twine wheel coveralls
-
-      install:
-        - ./scripts/bootstrap --ci
-
-      before_script:
-        - ./docker/wait-for-services.sh
-
-      script:
-        - poetry run py.test tests/integration-async
-
-      after_script:
-        - docker-compose kill -s SIGTERM
-        - docker-compose rm -f
-
-      after_success:
-        - coveralls
-
-      after_fail:
-        - poetry run pip freeze
-
-    - language: node_js
-      sudo: required
-      env:
-        - SUITE=ui-all
-      node_js:
-        - 10.14.0
-      script: cd ui && yarn && yarn test
+after_fail:
+  - poetry show
 
 deploy:
   provider: script
