@@ -46,7 +46,7 @@ before_install:
   - travis_retry pip install twine wheel coveralls
 
 install:
-  - ./scripts/bootstrap --ci
+  - ./scripts/bootstrap
 
 before_script:
   - ./docker/wait-for-services.sh

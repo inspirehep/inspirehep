@@ -8,27 +8,4 @@
 
 set -e
 
-
-# The real bootstrap script starts 20 lines below ;-)
-flags=()
-while test $# -gt 0; do
-    case "$1" in
-        --ci)
-            # We are probably inside travis, check for env variables
-            if [ "$REQUIREMENTS" == "prod" ]; then
-                flags=("--no-interaction" "--no-ansi")
-            fi
-            shift
-            ;;
-        *)
-            # Use the flags that are passed to the script directly to install
-            flags+=("$1")
-            shift
-            ;;
-    esac
-done
-if [ ${#flags[0]} -eq 0 ]; then
-    flags=("--no-interaction" "--no-ansi")
-fi
-
-poetry install ${flags[@]}
+poetry install --no-interaction --no-ansi
