@@ -9,6 +9,7 @@
 
 import logging
 import uuid
+from datetime import datetime
 
 from flask_celeryext.app import current_celery_app
 from inspire_dojson.utils import strip_empty_values
@@ -175,6 +176,7 @@ class InspireRecord(Record):
                 if not deleted:
                     cls.pidstore_handler.mint(id_, data)
             record = super().create(data, id_=id_, **kwargs)
+            record.update_model_created_with_legacy_creation_date()
         return record
 
     @classmethod
@@ -311,7 +313,18 @@ class InspireRecord(Record):
             self.validate()
             self.model.json = dict(self)
             self.pidstore_handler.update(self.id, self)
+            self.update_model_created_with_legacy_creation_date()
             db.session.add(self.model)
+
+    def update_model_created_with_legacy_creation_date(self):
+        """Update model with the creation date of legacy.
+
+        Note:
+            This should be removed when legacy is out.
+        """
+        legacy_creation_date = self.get("legacy_creation_date")
+        if legacy_creation_date is not None:
+            self.model.created = datetime.strptime(legacy_creation_date, "%Y-%m-%d")
 
     def redirect(self, other):
         """Redirect pidstore of current record to the other one.

@@ -82,7 +82,7 @@ def test_reindex_record_lit_fails_with_invalid_field_content(
     generate_records,
     check_n_records_reindex_for_pidtype,
 ):
-    invalid_field = {"preprint_date": "i am not a date"}
+    invalid_field = {"titles": ["i am not an object"]}
 
     with patch("inspirehep.records.indexer.base.InspireRecordIndexer"):
         with patch("inspirehep.records.api.base.schema_validate"):
@@ -98,7 +98,7 @@ def test_reindex_records_lit_one_fails_and_two_ok(
     generate_records,
     check_n_records_reindex_for_pidtype,
 ):
-    invalid_field = {"preprint_date": "i am not a date"}
+    invalid_field = {"titles": ["i am not an object"]}
 
     generate_records(count=2)
     with patch("inspirehep.records.indexer.base.InspireRecordIndexer"):
