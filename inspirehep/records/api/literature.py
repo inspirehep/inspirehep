@@ -9,7 +9,6 @@
 import logging
 from itertools import chain
 
-import dateutil
 import requests
 from flask import current_app
 from hepcrawl.parsers import ArxivParser

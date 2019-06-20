@@ -383,3 +383,20 @@ def test_get_citation_annual_summary(base_app, db, create_record):
     expected_response2 = [{"year": 2012, "count": 1}, {"year": 2013, "count": 1}]
 
     assert results2 == expected_response2
+
+
+def test_record_create_and_update_with_legacy_creation_date(app, db):
+    data = {"legacy_creation_date": "2000-01-01"}
+    data = faker.record("lit", data=data)
+    record = InspireRecord.create(data)
+
+    result_record_model = RecordMetadata.query.filter_by(id=record.id).one()
+    result_record_model_created = str(result_record_model.created)
+    assert result_record_model_created == "2000-01-01 00:00:00"
+
+    data["legacy_creation_date"] = "2000-01-02"
+    record.update(data)
+
+    result_record_model_updated = RecordMetadata.query.filter_by(id=record.id).one()
+    result_record_model_updated_created = str(result_record_model.created)
+    assert result_record_model_updated_created == "2000-01-02 00:00:00"
