@@ -145,11 +145,7 @@ matrix:
       script: cd ui && yarn && yarn test
 
 deploy:
-  - provider: script
-    script: ./deploy-inspirehep.sh && ./deploy-ui.sh
-    on:
-      branch: master
-  - provider: script
-    script: ./deploy-inspirehep.sh && ./deploy-ui.sh
-    on:
-      tags: true
+  provider: script
+  script: ./build-docker-images.sh
+  on:
+    branch: master
