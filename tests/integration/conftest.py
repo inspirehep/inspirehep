@@ -8,8 +8,12 @@
 """INSPIRE module that adds more fun to the platform."""
 
 import random
+from functools import partial
 
 import pytest
+from click.testing import CliRunner
+from flask import current_app
+from flask.cli import ScriptInfo
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
@@ -268,3 +272,13 @@ def logout():
                 del sess["user_id"]
 
     return _logout
+
+
+@pytest.fixture(scope="function")
+def app_cli_runner(appctx):
+    """Click CLI runner inside the Flask application."""
+    runner = CliRunner()
+    obj = ScriptInfo(create_app=lambda info: current_app)
+    runner._invoke = runner.invoke
+    runner.invoke = partial(runner.invoke, obj=obj)
+    return runner
