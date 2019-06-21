@@ -175,6 +175,8 @@ class InspireRecord(Record):
                 deleted = data.get("deleted", False)
                 if not deleted:
                     cls.pidstore_handler.mint(id_, data)
+            kwargs.pop("disable_orcid_push", None)
+            kwargs.pop("disable_citation_update", None)
             record = super().create(data, id_=id_, **kwargs)
             record.update_model_created_with_legacy_creation_date()
         return record
@@ -188,7 +190,7 @@ class InspireRecord(Record):
             record = cls.get_record_by_pid_value(
                 control_number, pid_type=record_class.pid_type
             )
-            record.update(data)
+            record.update(data, **kwargs)
         except PIDDoesNotExistError:
             record = cls.create(data, **kwargs)
         return record
@@ -306,7 +308,9 @@ class InspireRecord(Record):
         This method does nothing, instead all the work is done in ``update``.
         """
 
-    def update(self, data):
+    def update(self, data, **kwargs):
+        kwargs.pop("disable_orcid_push", None)
+        kwargs.pop("disable_citation_update", None)
         with db.session.begin_nested():
             self.clear()
             super().update(data)

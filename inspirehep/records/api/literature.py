@@ -87,18 +87,36 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         return None
 
     @classmethod
-    def create(cls, data, **kwargs):
+    def create(
+        cls, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
+    ):
         with db.session.begin_nested():
             record = super().create(data, **kwargs)
-            record._update_refs_in_citation_table()
-            push_to_orcid(record)
+            if disable_citation_update:
+                logger.info("Citation update is disabled in record.create")
+            else:
+                record._update_refs_in_citation_table()
+            if disable_orcid_push:
+                logger.info("ORCID PUSH disabled by argument in record.create")
+            else:
+                push_to_orcid(record)
+
             return record
 
-    def update(self, data):
+    def update(
+        self, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
+    ):
         with db.session.begin_nested():
             super().update(data)
-            self._update_refs_in_citation_table()
-            push_to_orcid(self)
+            if disable_citation_update:
+                logger.info("Citation update is disabled in record.create")
+            else:
+                self._update_refs_in_citation_table()
+
+            if disable_orcid_push:
+                logger.info("ORCID PUSH disabled by argument in record.update")
+            else:
+                push_to_orcid(self)
 
     def set_files(self, documents=None, figures=None, force=False):
         """Sets new documents and figures for record.

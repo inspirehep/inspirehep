@@ -1,0 +1,2484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1734025</controlfield>
+  <controlfield tag="005">20190511060649.0</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Jahn:2019nmz</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1905.03268</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1905.03268</subfield>
+    <subfield code="c">hep-th</subfield>
+  </datafield>
+  <datafield tag="100" ind1=" " ind2=" ">
+    <subfield code="a">Jahn, Alexander</subfield>
+    <subfield code="w">A.Jahn.1</subfield>
+    <subfield code="x">1600933</subfield>
+    <subfield code="y">0</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Majorana dimers and holographic quantum error-correcting codes</subfield>
+  </datafield>
+  <datafield tag="269" ind1=" " ind2=" ">
+    <subfield code="c">2019-05-08</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">42</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">* Temporary entry *</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">42 pages, 10 figures</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Holographic quantum error-correcting codes have been proposed as toy models describing important aspects of the AdS/CFT correspondence. In this work, we introduce a versatile framework of Majorana dimers capturing the intersection of stabilizer and Gaussian Majorana states. This picture allows for an efficient contraction with a simple diagrammatic interpretation and is amenable to analytical study of holographic quantum error-correcting codes. Equipped with this framework, we revisit the recently proposed hyperbolic pentagon code (HyPeC) and demonstrate that it allows us to efficiently compute boundary state properties. We show that the dimers characterizing boundary states of the HyPeC follow discrete bulk geodesics. From this geometric picture, properties of entanglement, quantum error correction, and bulk/boundary operator mapping immediately follow, offering a fresh perspective on holography. We also elaborate upon the emergence of the Ryu-Takayanagi formula from our model, which shares many properties of the recent bit thread proposal. Our work thus elucidates the connection between bulk geometry, entanglement, and quantum error correction in AdS/CFT, and lays the foundation for new models of holography.</subfield>
+  </datafield>
+  <datafield tag="540" ind1=" " ind2=" ">
+    <subfield code="3">preprint</subfield>
+    <subfield code="a">arXiv nonexclusive-distrib 1.0</subfield>
+    <subfield code="u">http://arxiv.org/licenses/nonexclusive-distrib/1.0/</subfield>
+  </datafield>
+  <datafield tag="541" ind1=" " ind2=" ">
+    <subfield code="a">arXiv</subfield>
+    <subfield code="c">hepcrawl</subfield>
+    <subfield code="d">2019-05-11T04:34:51.756423</subfield>
+    <subfield code="e">1594334</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="7">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="9">arxiv</subfield>
+    <subfield code="a">Theory-HEP</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="7">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="9">arxiv</subfield>
+    <subfield code="a">General Physics</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="7">
+    <subfield code="2">arXiv</subfield>
+    <subfield code="a">hep-th</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="7">
+    <subfield code="2">arXiv</subfield>
+    <subfield code="a">quant-ph</subfield>
+  </datafield>
+  <datafield tag="700" ind1=" " ind2=" ">
+    <subfield code="a">Gluza, Marek</subfield>
+    <subfield code="w">M.Gluza.1</subfield>
+    <subfield code="y">0</subfield>
+  </datafield>
+  <datafield tag="700" ind1=" " ind2=" ">
+    <subfield code="a">Pastawski, Fernando</subfield>
+    <subfield code="w">F.Pastawski.1</subfield>
+    <subfield code="x">1607957</subfield>
+    <subfield code="y">0</subfield>
+  </datafield>
+  <datafield tag="700" ind1=" " ind2=" ">
+    <subfield code="a">Eisert, Jens</subfield>
+    <subfield code="w">J.Eisert.1</subfield>
+    <subfield code="x">1069647</subfield>
+    <subfield code="y">0</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">109963</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_subsys1.png</subfield>
+    <subfield code="y">00001 Iterative contraction of the HyPeC, with Majorana dimers belonging to decoupled fermionic subsystems drawn in different colors. The number of such subsystems increases with iteration number $n$.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">11244</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_zero_loop.png</subfield>
+    <subfield code="y">00047 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">12425</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1_covmm.png</subfield>
+    <subfield code="y">00101 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">12814</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy2b.png</subfield>
+    <subfield code="y">00036 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">130405</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy4a.png</subfield>
+    <subfield code="y">00015 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">130660</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy3a.png</subfield>
+    <subfield code="y">00016 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">130997</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr4.png</subfield>
+    <subfield code="y">00030 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">13328</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1_y3_res.png</subfield>
+    <subfield code="y">00096 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">13630</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1.png</subfield>
+    <subfield code="y">00058 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">13638</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1_x2_res.png</subfield>
+    <subfield code="y">00011 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">13799</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1_z4_res.png</subfield>
+    <subfield code="y">00089 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">14016</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1_x2.png</subfield>
+    <subfield code="y">00051 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">14127</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1_z4.png</subfield>
+    <subfield code="y">00076 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">1489</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair_contr3.png</subfield>
+    <subfield code="y">00079 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">165070</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr1.png</subfield>
+    <subfield code="y">00099 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">166201</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr3.png</subfield>
+    <subfield code="y">00013 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">1686</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair1b2.png</subfield>
+    <subfield code="y">00032 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">17415</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy1a.png</subfield>
+    <subfield code="y">00026 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">1788</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair1.png</subfield>
+    <subfield code="y">00070 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">182439</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_subsys2.png</subfield>
+    <subfield code="y">00037 Iterative contraction of the HyPeC, with Majorana dimers belonging to decoupled fermionic subsystems drawn in different colors. The number of such subsystems increases with iteration number $n$.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">19082</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy2a.png</subfield>
+    <subfield code="y">00067 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">196060</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr2.png</subfield>
+    <subfield code="y">00023 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">2061</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair1d.png</subfield>
+    <subfield code="y">00033 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">20615</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n9_1.png</subfield>
+    <subfield code="y">00084 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">20765</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy4b.png</subfield>
+    <subfield code="y">00088 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">2078</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair1c.png</subfield>
+    <subfield code="y">00054 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">2188</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair_contr1.png</subfield>
+    <subfield code="y">00021 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">2385</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair_contr2a.png</subfield>
+    <subfield code="y">00006 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">24524</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_prod2.png</subfield>
+    <subfield code="y">00009 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">25285</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_inverse2.png</subfield>
+    <subfield code="y">00091 \\psi</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">262343</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_subsys3.png</subfield>
+    <subfield code="y">00048 Iterative contraction of the HyPeC, with Majorana dimers belonging to decoupled fermionic subsystems drawn in different colors. The number of such subsystems increases with iteration number $n$.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">2625</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair_contr2b.png</subfield>
+    <subfield code="y">00075 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">2863</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_01b.png</subfield>
+    <subfield code="y">00071 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">2886</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_01.png</subfield>
+    <subfield code="y">00018 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">29175</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_1_y3.png</subfield>
+    <subfield code="y">00092 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3057</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n4_0b.png</subfield>
+    <subfield code="y">00085 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3136</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_04b.png</subfield>
+    <subfield code="y">00012 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3216</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_03.png</subfield>
+    <subfield code="y">00038 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3225</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_02.png</subfield>
+    <subfield code="y">00041 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3414</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_04.png</subfield>
+    <subfield code="y">00025 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3451</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_03b.png</subfield>
+    <subfield code="y">00000 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3523</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair2.png</subfield>
+    <subfield code="y">00044 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3558</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/triangle_net_02b.png</subfield>
+    <subfield code="y">00042 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">36021</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_prod1.png</subfield>
+    <subfield code="y">00061 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3744</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair3.png</subfield>
+    <subfield code="y">00043 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">3748</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair4.png</subfield>
+    <subfield code="y">00063 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4157</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair6.png</subfield>
+    <subfield code="y">00098 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4203</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair5.png</subfield>
+    <subfield code="y">00050 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4216</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n4_0.png</subfield>
+    <subfield code="y">00080 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4474</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair8.png</subfield>
+    <subfield code="y">00055 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4494</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair7.png</subfield>
+    <subfield code="y">00029 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4594</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/mcode_quad4.png</subfield>
+    <subfield code="y">00034 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4602</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n3_0.png</subfield>
+    <subfield code="y">00066 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4625</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/mcode_quad1.png</subfield>
+    <subfield code="y">00073 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">46919</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_dimer_path1b.png</subfield>
+    <subfield code="y">00069 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">47991</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/ads_causal_wedges.png</subfield>
+    <subfield code="y">00068 Continuous (left) and discretized (right) reconstruction of an AdS bulk operator $\\mathcal O$ along two (causal) wedges $\\mathcal{W}[A]$ and $\\mathcal{W}[B]$ \\cite{Almheiri15}, leading to two boundary operators $\\mathcal O_A$ and $\\mathcal O_B$ with support on boundary regions $A$ and $B$. The AdS time slice is projected onto the Poincar\\\'e disk, with the AdS boundary corresponding to the black outer circle. The discretization is a $\\{5,4\\}$ tiling.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">483551</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_dimer_path2b.png</subfield>
+    <subfield code="y">00008 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">49235</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_ee.png</subfield>
+    <subfield code="y">00082 Entanglement entropy scaling with the size $\\ell$ of the subsystem block for successive iterations $n$ of the contraction. Dashed line is a logarithmic fit of the $n\\to\\infty$ limit.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">4970</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n3_1.png</subfield>
+    <subfield code="y">00065 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5007</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n4_1.png</subfield>
+    <subfield code="y">00072 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5335</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/kitaev_chain2.png</subfield>
+    <subfield code="y">00039 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5354</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_contr_ex1b.png</subfield>
+    <subfield code="y">00074 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5540</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy3b.png</subfield>
+    <subfield code="y">00046 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5591</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_2b.png</subfield>
+    <subfield code="y">00056 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5591</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_2c.png</subfield>
+    <subfield code="y">00057 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5608</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_0.png</subfield>
+    <subfield code="y">00078 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5610</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/kitaev_chain1.png</subfield>
+    <subfield code="y">00024 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5632</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/mcode_quad2.png</subfield>
+    <subfield code="y">00045 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5637</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/mcode_quad3.png</subfield>
+    <subfield code="y">00053 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5670</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_ghz_x_p.png</subfield>
+    <subfield code="y">00095 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5763</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_happy_pp2.png</subfield>
+    <subfield code="y">00097 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5830</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_ee.png</subfield>
+    <subfield code="y">00100 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5909</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n6_0.png</subfield>
+    <subfield code="y">00020 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5922</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_contr_ex1a.png</subfield>
+    <subfield code="y">00052 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">5945</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_ghz_x_m.png</subfield>
+    <subfield code="y">00005 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6264</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/epr_pair1b.png</subfield>
+    <subfield code="y">00060 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6290</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_happy_mm2.png</subfield>
+    <subfield code="y">00081 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6397</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n5_0b.png</subfield>
+    <subfield code="y">00002 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">65066</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_code_input1.png</subfield>
+    <subfield code="y">00007 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">65631</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_code_input2.png</subfield>
+    <subfield code="y">00014 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6589</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_ghz_y_p.png</subfield>
+    <subfield code="y">00019 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">66494</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_code_input4.png</subfield>
+    <subfield code="y">00035 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6660</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_happy_p.png</subfield>
+    <subfield code="y">00059 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">66741</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_code_input3.png</subfield>
+    <subfield code="y">00031 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6767</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_happy_pm2.png</subfield>
+    <subfield code="y">00083 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6794</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_happy_mp2.png</subfield>
+    <subfield code="y">00010 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6846</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n5_1b.png</subfield>
+    <subfield code="y">00086 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6873</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_happy_p2.png</subfield>
+    <subfield code="y">00087 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">6996</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_ghz_y_m.png</subfield>
+    <subfield code="y">00064 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">7044</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_renorm1a.png</subfield>
+    <subfield code="y">00077 Each tile in the HyPeC can act as a mapping of $1\\to 4$ edges (left) or $2\\to 3$ edge (right). Arrows distinguish between ``input\'\' (IR) and ``output\'\' (UV) edges. Dimers extended from previous tiles are drawn dashed, while new ones are drawn as solid curves. The dimer parities depend on the actual logical input on the tile.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">7061</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n5_0.png</subfield>
+    <subfield code="y">00090 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">7082</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_renorm1b.png</subfield>
+    <subfield code="y">00004 Each tile in the HyPeC can act as a mapping of $1\\to 4$ edges (left) or $2\\to 3$ edge (right). Arrows distinguish between ``input\'\' (IR) and ``output\'\' (UV) edges. Dimers extended from previous tiles are drawn dashed, while new ones are drawn as solid curves. The dimer parities depend on the actual logical input on the tile.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">713903</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_dimer_path2.png</subfield>
+    <subfield code="y">00022 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">7290</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n6_1.png</subfield>
+    <subfield code="y">00049 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">7353</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/pentagon_net_happy_m.png</subfield>
+    <subfield code="y">00028 Bell states expressed as Majorana dimers.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">7600</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n5_1.png</subfield>
+    <subfield code="y">00003 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">7640525</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/1905.03268.pdf</subfield>
+    <subfield code="y">Fulltext</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">78409</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_dimer_path1.png</subfield>
+    <subfield code="y">00093 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">81075</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_contr_dimer_threads.png</subfield>
+    <subfield code="y">00017 Effective bit thread picture in the asymptotically large HyPeC: All dimers are paired along bulk geodesics and any boundary region $A$ has a maximal flow of bit threads (dimer pairs) through the Ryu-Takayanagi surface $\\gamma_A$. The threads that pass $\\gamma_A$, each contributing $\\log 2$ to the entanglement entropy $S_A$, are highlighted. Note that both the number of such threads and $S_A$ are UV-divergent.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">95058</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/ads_causal_wedges_discrete.png</subfield>
+    <subfield code="y">00040 Continuous (left) and discretized (right) reconstruction of an AdS bulk operator $\\mathcal O$ along two (causal) wedges $\\mathcal{W}[A]$ and $\\mathcal{W}[B]$ \\cite{Almheiri15}, leading to two boundary operators $\\mathcal O_A$ and $\\mathcal O_B$ with support on boundary regions $A$ and $B$. The AdS time slice is projected onto the Poincar\\\'e disk, with the AdS boundary corresponding to the black outer circle. The discretization is a $\\{5,4\\}$ tiling.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">973</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/happy_renorm_arr.png</subfield>
+    <subfield code="y">00094 Each tile in the HyPeC can act as a mapping of $1\\to 4$ edges (left) or $2\\to 3$ edge (right). Arrows distinguish between ``input\'\' (IR) and ``output\'\' (UV) edges. Dimers extended from previous tiles are drawn dashed, while new ones are drawn as solid curves. The dimer parities depend on the actual logical input on the tile.</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">9742</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/scode_n9_0.png</subfield>
+    <subfield code="y">00062 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">9963</subfield>
+    <subfield code="u">http://inspirehep.net/record/1734025/files/greedy1b.png</subfield>
+    <subfield code="y">00027 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:inspirehep.net:1734025</subfield>
+    <subfield code="p">INSPIRE:HEP</subfield>
+  </datafield>
+  <datafield tag="961" ind1=" " ind2=" ">
+    <subfield code="x">2019-05-10</subfield>
+    <subfield code="c">2019-05-11</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">HEP</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">Citeable</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">CORE</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">451647</subfield>
+    <subfield code="h">Maldacena, J.M.</subfield>
+    <subfield code="k">Maldacena98</subfield>
+    <subfield code="o">1</subfield>
+    <subfield code="s">Adv.Theor.Math.Phys.,2,231</subfield>
+    <subfield code="x">[1] J. M. Maldacena, Adv. Theor. Math. Phys. 2, 231 (1998).</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">467400</subfield>
+    <subfield code="h">Witten, E.</subfield>
+    <subfield code="k">Witten:1998qj</subfield>
+    <subfield code="m">arXiv: / [hep-th]</subfield>
+    <subfield code="o">2</subfield>
+    <subfield code="r">hep-th/9802150</subfield>
+    <subfield code="s">Adv.Theor.Math.Phys.,2,253</subfield>
+    <subfield code="x">[2] E. Witten, Adv. Theor. Math. Phys. 2, 253 (1998), arXiv:hepth/9802150 [hep-th].</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1330275</subfield>
+    <subfield code="h">Almheiri, A.</subfield>
+    <subfield code="h">Dong, X.</subfield>
+    <subfield code="h">Harlow, D.</subfield>
+    <subfield code="k">Almheiri15</subfield>
+    <subfield code="o">3</subfield>
+    <subfield code="s">JHEP,1504,163</subfield>
+    <subfield code="x">[3] A. Almheiri, X. Dong, and D. Harlow, JHEP 1504, 163 (2015).</subfield>
+    <subfield code="y">2015</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1357039</subfield>
+    <subfield code="h">Lee, C.H.</subfield>
+    <subfield code="h">Qi, X.L.</subfield>
+    <subfield code="k">Qi2013</subfield>
+    <subfield code="m">Phys. Rev. B / 93</subfield>
+    <subfield code="o">4</subfield>
+    <subfield code="r">arXiv:1503.08592</subfield>
+    <subfield code="x">[4] C. H. Lee and X. L. Qi, Phys. Rev. B 93 (2016), 1503.08592.</subfield>
+    <subfield code="y">2016</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Pastawski, F.</subfield>
+    <subfield code="h">Yoshida, B.</subfield>
+    <subfield code="h">Harlow, D.</subfield>
+    <subfield code="h">Preskill, J.</subfield>
+    <subfield code="k">Pastawski2015</subfield>
+    <subfield code="o">5</subfield>
+    <subfield code="s">JHEP,1515,149</subfield>
+    <subfield code="x">[5] F. Pastawski, B. Yoshida, D. Harlow, and J. Preskill, JHEP 2015, 149 (2015).</subfield>
+    <subfield code="y">2015</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Hayden, P.</subfield>
+    <subfield code="h">Nezami, S.</subfield>
+    <subfield code="h">Qi, X.-L.</subfield>
+    <subfield code="h">Thomas, N.</subfield>
+    <subfield code="h">Walter, M.</subfield>
+    <subfield code="h">Yang, Z.</subfield>
+    <subfield code="k">Hayden2016</subfield>
+    <subfield code="o">6</subfield>
+    <subfield code="s">JHEP,1616,009</subfield>
+    <subfield code="x">[6] P. Hayden, S. Nezami, X.-L. Qi, N. Thomas, M. Walter, and Z. Yang, J. High En. Phys. 2016, 9 (2016).</subfield>
+    <subfield code="y">2016</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1341278</subfield>
+    <subfield code="a">doi:10.1103/PhysRevLett.115.151601</subfield>
+    <subfield code="h">Mintun, E.</subfield>
+    <subfield code="h">Polchinski, J.</subfield>
+    <subfield code="h">Rosenhaus, V.</subfield>
+    <subfield code="k">Mintun2015</subfield>
+    <subfield code="m">Phys. Rev. Lett. 115</subfield>
+    <subfield code="o">7</subfield>
+    <subfield code="x">[7] E. Mintun, J. Polchinski, and V. Rosenhaus, Phys. Rev. Lett. 115 (2015), 10.1103/PhysRevLett.115.151601.</subfield>
+    <subfield code="y">2015</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">819766</subfield>
+    <subfield code="h">Swingle, B.</subfield>
+    <subfield code="k">Swingle2012</subfield>
+    <subfield code="o">8</subfield>
+    <subfield code="s">Phys.Rev.,D86,065007</subfield>
+    <subfield code="x">[8] B. Swingle, Phys. Rev. D 86, 065007 (2012).</subfield>
+    <subfield code="y">2012</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Verstraete, F.</subfield>
+    <subfield code="h">Cirac, J.I.</subfield>
+    <subfield code="k">verstraete2006matrix</subfield>
+    <subfield code="o">9</subfield>
+    <subfield code="s">Phys.Rev.,B73,094423</subfield>
+    <subfield code="x">[9] F. Verstraete and J. I. Cirac, Phys. Rev. B 73, 094423 (2006).</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">27684</subfield>
+    <subfield code="h">Fannes, M.</subfield>
+    <subfield code="h">Nachtergaele, B.</subfield>
+    <subfield code="h">Werner, R.F.</subfield>
+    <subfield code="k">fannes1992finitely</subfield>
+    <subfield code="o">10</subfield>
+    <subfield code="s">Commun.Math.Phys.,144,443</subfield>
+    <subfield code="x">[10] M. Fannes, B. Nachtergaele, and R. F. Werner, Commun. Math. Phys. 144, 443 (1992).</subfield>
+    <subfield code="y">1992</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Verstraete, F.</subfield>
+    <subfield code="h">Cirac, J.I.</subfield>
+    <subfield code="h">Murg, V.</subfield>
+    <subfield code="k">VerstraeteBig</subfield>
+    <subfield code="o">11</subfield>
+    <subfield code="s">Adv.Phys.,57,143</subfield>
+    <subfield code="x">[11] F. Verstraete, J. I. Cirac, and V. Murg, Adv. Phys. 57, 143 (2008).</subfield>
+    <subfield code="y">2008</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Schollw\xc3\xb6ck, U.</subfield>
+    <subfield code="k">schollwock2011density</subfield>
+    <subfield code="o">12</subfield>
+    <subfield code="s">Annals Phys.,326,96</subfield>
+    <subfield code="x">[12] U. Schollw\xc2\xa8 ock, Ann. Phys. 326, 96 (2011).</subfield>
+    <subfield code="y">2011</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1237922</subfield>
+    <subfield code="h">Or\xc3\xbas, R.</subfield>
+    <subfield code="k">orus2014practical</subfield>
+    <subfield code="o">13</subfield>
+    <subfield code="s">Annals Phys.,349,117</subfield>
+    <subfield code="x">[13] R. Or\xc2\xb4 us, Ann. Phys. 349, 117 (2014).</subfield>
+    <subfield code="y">2014</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">847981</subfield>
+    <subfield code="h">Eisert, J.</subfield>
+    <subfield code="h">Cramer, M.</subfield>
+    <subfield code="h">Plenio, M.B.</subfield>
+    <subfield code="k">AreaReview</subfield>
+    <subfield code="o">14</subfield>
+    <subfield code="s">Rev.Mod.Phys.,82,277</subfield>
+    <subfield code="x">[14] J. Eisert, M. Cramer, and M. B. Plenio, Rev. Mod. Phys. 82, 277 (2010).</subfield>
+    <subfield code="y">2010</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">800104</subfield>
+    <subfield code="h">Vidal, G.</subfield>
+    <subfield code="k">PhysRevLett.101.110501</subfield>
+    <subfield code="o">15</subfield>
+    <subfield code="s">Phys.Rev.Lett.,101,110501</subfield>
+    <subfield code="x">[15] G. Vidal, Phys. Rev. Lett. 101, 110501 (2008).</subfield>
+    <subfield code="y">2008</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1635301</subfield>
+    <subfield code="h">Jahn, A.</subfield>
+    <subfield code="h">Gluza, M.</subfield>
+    <subfield code="h">Pastawski, F.</subfield>
+    <subfield code="h">Eisert, J.</subfield>
+    <subfield code="k">Jahn:2017tls</subfield>
+    <subfield code="o">16</subfield>
+    <subfield code="r">arXiv:1711.03109</subfield>
+    <subfield code="x">[16] A. Jahn, M. Gluza, F. Pastawski, and J. Eisert, (2017), arXiv:1711.03109 [quant-ph].</subfield>
+    <subfield code="y">2017</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1464897</subfield>
+    <subfield code="h">Ware, B.</subfield>
+    <subfield code="h">Son, J.H.</subfield>
+    <subfield code="h">Cheng, M.</subfield>
+    <subfield code="h">Mishmash, R.V.</subfield>
+    <subfield code="h">Alicea, J.</subfield>
+    <subfield code="h">Bauer, B.</subfield>
+    <subfield code="k">PhysRevB.94.115127</subfield>
+    <subfield code="o">17</subfield>
+    <subfield code="s">Phys.Rev.,B94,115127</subfield>
+    <subfield code="x">[17] B. Ware, J. H. Son, M. Cheng, R. V. Mishmash, J. Alicea, and B. Bauer, Phys. Rev. B 94, 115127 (2016).</subfield>
+    <subfield code="y">2016</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1486132</subfield>
+    <subfield code="h">Tarantino, N.</subfield>
+    <subfield code="h">Fidkowski, L.</subfield>
+    <subfield code="k">PhysRevB.94.115115</subfield>
+    <subfield code="o">18</subfield>
+    <subfield code="s">Phys.Rev.,B94,115115</subfield>
+    <subfield code="x">[18] N. Tarantino and L. Fidkowski, Phys. Rev. B 94, 115115 (2016).</subfield>
+    <subfield code="y">2016</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Barthel, T.</subfield>
+    <subfield code="h">Pineda, C.</subfield>
+    <subfield code="h">Eisert, J.</subfield>
+    <subfield code="k">PhysRevA.80.042333</subfield>
+    <subfield code="o">19</subfield>
+    <subfield code="s">Phys.Rev.,A80,042333</subfield>
+    <subfield code="x">[19] T. Barthel, C. Pineda, and J. Eisert, Phys. Rev. A 80, 042333 (2009).</subfield>
+    <subfield code="y">2009</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Kraus, C.V.</subfield>
+    <subfield code="h">Schuch, N.</subfield>
+    <subfield code="h">Verstraete, F.</subfield>
+    <subfield code="h">Cirac, J.I.</subfield>
+    <subfield code="k">Kraus10</subfield>
+    <subfield code="o">20</subfield>
+    <subfield code="s">Phys.Rev.,A81,052338</subfield>
+    <subfield code="x">[20] C. V. Kraus, N. Schuch, F. Verstraete, and J. I. Cirac, Phys. Rev. A 81, 052338 (2010).</subfield>
+    <subfield code="y">2010</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Corboz, P.</subfield>
+    <subfield code="h">Orus, R.</subfield>
+    <subfield code="h">Bauer, B.</subfield>
+    <subfield code="h">Vidal, G.</subfield>
+    <subfield code="k">CorbozPEPSFermions</subfield>
+    <subfield code="o">21</subfield>
+    <subfield code="s">Phys.Rev.,B81,165104</subfield>
+    <subfield code="x">[21] P. Corboz, R. Orus, B. Bauer, and G. Vidal, Phys. Rev. B 81, 165104 (2010).</subfield>
+    <subfield code="y">2010</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Wille, C.</subfield>
+    <subfield code="h">Buerschaper, O.</subfield>
+    <subfield code="h">Eisert, J.</subfield>
+    <subfield code="k">PhysRevB.95.245127</subfield>
+    <subfield code="o">22</subfield>
+    <subfield code="s">Phys.Rev.,B95,245127</subfield>
+    <subfield code="x">[22] C. Wille, O. Buerschaper, and J. Eisert, Phys. Rev. B 95, 245127 (2017).</subfield>
+    <subfield code="y">2017</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1512181</subfield>
+    <subfield code="h">Bultinck, N.</subfield>
+    <subfield code="h">Williamson, D.J.</subfield>
+    <subfield code="h">Haegeman, J.</subfield>
+    <subfield code="h">Verstraete, F.</subfield>
+    <subfield code="k">PhysRevB.95.075108</subfield>
+    <subfield code="o">23</subfield>
+    <subfield code="s">Phys.Rev.,B95,075108</subfield>
+    <subfield code="x">[23] N. Bultinck, D. J. Williamson, J. Haegeman, and F. Verstraete, Phys. Rev. B 95, 075108 (2017).</subfield>
+    <subfield code="y">2017</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1439804</subfield>
+    <subfield code="h">Freedman, M.</subfield>
+    <subfield code="h">Headrick, M.</subfield>
+    <subfield code="k">freedman2017bit</subfield>
+    <subfield code="o">24</subfield>
+    <subfield code="s">Commun.Math.Phys.,352,407</subfield>
+    <subfield code="x">[24] M. Freedman and M. Headrick, Commun. Math. Phys. 352, 407 (2017).</subfield>
+    <subfield code="y">2017</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1687811</subfield>
+    <subfield code="h">Cui, S.X.</subfield>
+    <subfield code="h">Hayden, P.</subfield>
+    <subfield code="h">He, T.</subfield>
+    <subfield code="h">Headrick, M.</subfield>
+    <subfield code="h">Stoica, B.</subfield>
+    <subfield code="h">Walter, M.</subfield>
+    <subfield code="k">Cui:2018dyq</subfield>
+    <subfield code="o">25</subfield>
+    <subfield code="r">arXiv:1808.05234</subfield>
+    <subfield code="x">[25] S. X. Cui, P. Hayden, T. He, M. Headrick, B. Stoica, and M. Walter, (2018), arXiv:1808.05234 [hep-th].</subfield>
+    <subfield code="y">2018</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">896154</subfield>
+    <subfield code="h">Harlow, D.</subfield>
+    <subfield code="h">Stanford, D.</subfield>
+    <subfield code="k">Harlow:2011ke</subfield>
+    <subfield code="o">26</subfield>
+    <subfield code="r">arXiv:1104.2621</subfield>
+    <subfield code="x">[26] D. Harlow and D. Stanford, (2011), arXiv:1104.2621 [hep-th].</subfield>
+    <subfield code="y">2011</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">470706</subfield>
+    <subfield code="h">Susskind, L.</subfield>
+    <subfield code="h">Witten, E.</subfield>
+    <subfield code="k">Susskind:1998dq</subfield>
+    <subfield code="m">arXiv: / [hepth]</subfield>
+    <subfield code="o">27</subfield>
+    <subfield code="r">hep-th/9805114</subfield>
+    <subfield code="x">[27] L. Susskind and E. Witten, (1998), arXiv:hep-th/9805114 [hepth].</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">474214</subfield>
+    <subfield code="h">Banks, T.</subfield>
+    <subfield code="h">Douglas, M.R.</subfield>
+    <subfield code="h">Horowitz, G.T.</subfield>
+    <subfield code="h">Martinec, E.J.</subfield>
+    <subfield code="k">Banks:1998dd</subfield>
+    <subfield code="m">arXiv: / [hep-th]</subfield>
+    <subfield code="o">28</subfield>
+    <subfield code="r">hep-th/9808016</subfield>
+    <subfield code="x">[28] T. Banks, M. R. Douglas, G. T. Horowitz, and E. J. Martinec, (1998), arXiv:hep-th/9808016 [hep-th].</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">474215</subfield>
+    <subfield code="h">Balasubramanian, V.</subfield>
+    <subfield code="h">Kraus, P.</subfield>
+    <subfield code="h">Lawrence, A.</subfield>
+    <subfield code="h">Trivedi, S.P.</subfield>
+    <subfield code="k">PhysRevD.59.104021</subfield>
+    <subfield code="o">29</subfield>
+    <subfield code="s">Phys.Rev.,D59,104021</subfield>
+    <subfield code="x">[29] V. Balasubramanian, P. Kraus, A. Lawrence, and S. P. Trivedi, Phys. Rev. D 59, 104021 (1999).</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1416461</subfield>
+    <subfield code="h">Dong, X.</subfield>
+    <subfield code="h">Harlow, D.</subfield>
+    <subfield code="h">Wall, A.C.</subfield>
+    <subfield code="k">PhysRevLett.117.021601</subfield>
+    <subfield code="o">30</subfield>
+    <subfield code="s">Phys.Rev.Lett.,117,021601</subfield>
+    <subfield code="x">[30] X. Dong, D. Harlow, and A. C. Wall, Phys. Rev. Lett. 117, 021601 (2016).</subfield>
+    <subfield code="y">2016</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">719413</subfield>
+    <subfield code="h">Hamilton, A.</subfield>
+    <subfield code="h">Kabat, D.</subfield>
+    <subfield code="h">Lifschytz, G.</subfield>
+    <subfield code="h">Lowe, D.A.</subfield>
+    <subfield code="k">PhysRevD.74.066009</subfield>
+    <subfield code="o">31</subfield>
+    <subfield code="s">Phys.Rev.,D74,066009</subfield>
+    <subfield code="x">[31] A. Hamilton, D. Kabat, G. Lifschytz, and D. A. Lowe, Phys. Rev. D 74, 066009 (2006).</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Walter, M.</subfield>
+    <subfield code="h">Gross, D.</subfield>
+    <subfield code="h">Eisert, J.</subfield>
+    <subfield code="k">walter2016multi</subfield>
+    <subfield code="m">arXiv preprint</subfield>
+    <subfield code="o">32</subfield>
+    <subfield code="r">arXiv:1612.02437</subfield>
+    <subfield code="x">[32] M. Walter, D. Gross, and J. Eisert, arXiv preprint arXiv:1612.02437 (2016).</subfield>
+    <subfield code="y">2016</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">469422</subfield>
+    <subfield code="h">Gisin, N.</subfield>
+    <subfield code="h">Bechmann-Pasquinucci, H.</subfield>
+    <subfield code="k">AMS1</subfield>
+    <subfield code="o">33</subfield>
+    <subfield code="s">Phys.Lett.,A246,1</subfield>
+    <subfield code="x">[33] N. Gisin and H. Bechmann-Pasquinucci, Phys. Lett. A 246, 1 (1998).</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Higuchi, A.</subfield>
+    <subfield code="h">Sudbery, A.</subfield>
+    <subfield code="k">AMS2</subfield>
+    <subfield code="o">34</subfield>
+    <subfield code="s">Phys.Lett.,A273,213</subfield>
+    <subfield code="x">[34] A. Higuchi and A. Sudbery, Phys. Lett. A 273, 213 (2000).</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1244711</subfield>
+    <subfield code="h">Helwig, W.</subfield>
+    <subfield code="h">Cui, W.</subfield>
+    <subfield code="h">Latorre, J.I.</subfield>
+    <subfield code="h">Riera, A.</subfield>
+    <subfield code="h">Lo, H.-K.</subfield>
+    <subfield code="k">AMS3</subfield>
+    <subfield code="o">35</subfield>
+    <subfield code="s">Phys.Rev.,A86,052335</subfield>
+    <subfield code="x">[35] W. Helwig, W. Cui, J. I. Latorre, A. Riera, and H.-K. Lo, Phys. Rev. A 86, 052335 (2012).</subfield>
+    <subfield code="y">2012</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Bravyi, S.</subfield>
+    <subfield code="k">Bravyi2008</subfield>
+    <subfield code="o">36</subfield>
+    <subfield code="s">Contemp.Math.,482,179</subfield>
+    <subfield code="x">[36] S. Bravyi, Cont. Math. 482, 179 (2009).</subfield>
+    <subfield code="y">2009</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Berezin, F.</subfield>
+    <subfield code="k">Berezin</subfield>
+    <subfield code="m">The method of second quantization / Press,)</subfield>
+    <subfield code="o">37</subfield>
+    <subfield code="p">Academic</subfield>
+    <subfield code="x">[37] F. Berezin, The method of second quantization (Academic Press, 1966).</subfield>
+    <subfield code="y">1966</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Cahill, K.E.</subfield>
+    <subfield code="h">Glauber, R.J.</subfield>
+    <subfield code="k">cahill1999density</subfield>
+    <subfield code="o">38</subfield>
+    <subfield code="s">Phys.Rev.,A59,1538</subfield>
+    <subfield code="x">[38] K. E. Cahill and R. J. Glauber, Phys. Rev. A 59, 1538 (1999).</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Bravyi, S.</subfield>
+    <subfield code="k">bravyi2004lagrangian</subfield>
+    <subfield code="m">Quantum Inf. and Comp. 5, 216</subfield>
+    <subfield code="o">39</subfield>
+    <subfield code="x">[39] S. Bravyi, Quantum Inf. and Comp. 5, 216 (2005).</subfield>
+    <subfield code="y">2005</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">711505</subfield>
+    <subfield code="h">Ryu, S.</subfield>
+    <subfield code="h">Takayanagi, T.</subfield>
+    <subfield code="k">PhysRevLett.96.181602</subfield>
+    <subfield code="o">40</subfield>
+    <subfield code="s">Phys.Rev.Lett.,96,181602</subfield>
+    <subfield code="x">[40] S. Ryu and T. Takayanagi, Phys. Rev. Lett. 96, 181602 (2006).</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1384137</subfield>
+    <subfield code="h">Bao, N.</subfield>
+    <subfield code="h">Cao, C.</subfield>
+    <subfield code="h">Walter, M.</subfield>
+    <subfield code="h">Wang, Z.</subfield>
+    <subfield code="k">Bao:2015boa</subfield>
+    <subfield code="o">41</subfield>
+    <subfield code="r">arXiv:1507.05650</subfield>
+    <subfield code="s">JHEP,1509,203</subfield>
+    <subfield code="x">[41] N. Bao, C. Cao, M. Walter, and Z. Wang, JHEP 09, 203 (2015), arXiv:1507.05650 [hep-th].</subfield>
+    <subfield code="y">2015</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">804733</subfield>
+    <subfield code="h">Casini, H.</subfield>
+    <subfield code="h">Huerta, M.</subfield>
+    <subfield code="k">Casini:2008wt</subfield>
+    <subfield code="o">42</subfield>
+    <subfield code="r">arXiv:0812.1773</subfield>
+    <subfield code="s">JHEP,0903,048</subfield>
+    <subfield code="x">[42] H. Casini and M. Huerta, JHEP 03, 048 (2009), arXiv:0812.1773 [hep-th].</subfield>
+    <subfield code="y">2009</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">918770</subfield>
+    <subfield code="h">Hayden, P.</subfield>
+    <subfield code="h">Headrick, M.</subfield>
+    <subfield code="h">Maloney, A.</subfield>
+    <subfield code="k">Hayden:2011ag</subfield>
+    <subfield code="o">43</subfield>
+    <subfield code="r">arXiv:1107.2940</subfield>
+    <subfield code="s">Phys.Rev.,D87,046003</subfield>
+    <subfield code="x">[43] P. Hayden, M. Headrick, and A. Maloney, Phys. Rev. D87, 046003 (2013), arXiv:1107.2940 [hep-th].</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1475755</subfield>
+    <subfield code="h">Flammia, S.T.</subfield>
+    <subfield code="h">Hamma, A.</subfield>
+    <subfield code="h">Hughes, T.L.</subfield>
+    <subfield code="h">Wen, X.-G.</subfield>
+    <subfield code="k">PhysRevLett.103.261601</subfield>
+    <subfield code="o">44</subfield>
+    <subfield code="s">Phys.Rev.Lett.,103,261601</subfield>
+    <subfield code="x">[44] S. T. Flammia, A. Hamma, T. L. Hughes, and X.-G. Wen, Phys. Rev. Lett. 103, 261601 (2009).</subfield>
+    <subfield code="y">2009</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">650602</subfield>
+    <subfield code="h">Calabrese, P.</subfield>
+    <subfield code="h">Cardy, J.</subfield>
+    <subfield code="k">CalabreseReview</subfield>
+    <subfield code="o">45</subfield>
+    <subfield code="s">J.Stat.Mech.,0406,P06002</subfield>
+    <subfield code="x">[45] P. Calabrese and J. Cardy, J. Stat.Mech. 0406, P06002 (2004).</subfield>
+    <subfield code="y">2004</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1380475</subfield>
+    <subfield code="h">Goyeneche, D.</subfield>
+    <subfield code="h">Alsina, D.</subfield>
+    <subfield code="h">Latorre, J.I.</subfield>
+    <subfield code="h">Riera, A.</subfield>
+    <subfield code="h">Zyczkowski, K.</subfield>
+    <subfield code="k">Goyeneche:2015fda</subfield>
+    <subfield code="o">46</subfield>
+    <subfield code="r">arXiv:1506.08857</subfield>
+    <subfield code="s">Phys.Rev.,A92,032316</subfield>
+    <subfield code="x">[46] D. Goyeneche, D. Alsina, J. I. Latorre, A. Riera, and K. Zyczkowski, Phys. Rev. A92, 032316 (2015), arXiv:1506.08857 [quant-ph].</subfield>
+    <subfield code="y">2015</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Huber, F.</subfield>
+    <subfield code="h">G\xc3\xbchne, O.</subfield>
+    <subfield code="h">Siewert, J.</subfield>
+    <subfield code="k">2017PhRvL.118t0502H</subfield>
+    <subfield code="o">47</subfield>
+    <subfield code="r">arXiv:1608.06228</subfield>
+    <subfield code="s">Phys.Rev.Lett.,118,200502</subfield>
+    <subfield code="x">[47] F. Huber, O. G\xc2\xa8 uhne, and J. Siewert, Phys. Rev. Lett. 118, 200502 (2017), arXiv:1608.06228 [quant-ph].</subfield>
+    <subfield code="y">2017</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">852829</subfield>
+    <subfield code="h">Bravyi, S.</subfield>
+    <subfield code="h">Terhal, B.M.</subfield>
+    <subfield code="h">Leemhuis, B.</subfield>
+    <subfield code="k">Bravyi:2010de</subfield>
+    <subfield code="o">48</subfield>
+    <subfield code="r">arXiv:1004.3791</subfield>
+    <subfield code="s">New J.Phys.,12,083039</subfield>
+    <subfield code="x">[48] S. Bravyi, B. M. Terhal, and B. Leemhuis, New J. Phys. 12, 083039 (2010), arXiv:1004.3791 [quant-ph].</subfield>
+    <subfield code="y">2010</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1236700</subfield>
+    <subfield code="h">Kitaev, A.Y.</subfield>
+    <subfield code="k">Kitaev2001</subfield>
+    <subfield code="m">arXiv:condmat/0010440 [cond-mat.mes-hall]</subfield>
+    <subfield code="o">49</subfield>
+    <subfield code="s">Phys.Usp.,44,131</subfield>
+    <subfield code="x">[49] A. Y. Kitaev, Physics Uspekhi 44, 131 (2001), arXiv:condmat/0010440 [cond-mat.mes-hall].</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1439804</subfield>
+    <subfield code="h">Freedman, M.</subfield>
+    <subfield code="h">Headrick, M.</subfield>
+    <subfield code="k">Freedman:2016zud</subfield>
+    <subfield code="o">50</subfield>
+    <subfield code="r">arXiv:1604.00354</subfield>
+    <subfield code="s">Commun.Math.Phys.,352,407</subfield>
+    <subfield code="x">[50] M. Freedman and M. Headrick, Commun. Math. Phys. 352, 407 (2017), arXiv:1604.00354 [hep-th].</subfield>
+    <subfield code="y">2017</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1682563</subfield>
+    <subfield code="h">Yan, H.</subfield>
+    <subfield code="k">Yan:2018nco</subfield>
+    <subfield code="o">51</subfield>
+    <subfield code="r">arXiv:1807.05942</subfield>
+    <subfield code="x">[51] H. Yan, (2018), arXiv:1807.05942 [hep-th].</subfield>
+    <subfield code="y">2018</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1498441</subfield>
+    <subfield code="h">Bridgeman, J.C.</subfield>
+    <subfield code="h">Flammia, S.T.</subfield>
+    <subfield code="h">Poulin, D.</subfield>
+    <subfield code="k">PhysRevB.94.205123</subfield>
+    <subfield code="o">52</subfield>
+    <subfield code="s">Phys.Rev.,B94,205123</subfield>
+    <subfield code="x">[52] J. C. Bridgeman, S. T. Flammia, and D. Poulin, Phys. Rev. B 94, 205123 (2016).</subfield>
+    <subfield code="y">2016</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1701989</subfield>
+    <subfield code="h">Harris, R.J.</subfield>
+    <subfield code="h">McMahon, N.A.</subfield>
+    <subfield code="h">Brennen, G.K.</subfield>
+    <subfield code="h">Stace, T.M.</subfield>
+    <subfield code="k">PhysRevA.98.052301</subfield>
+    <subfield code="o">53</subfield>
+    <subfield code="s">Phys.Rev.,A98,052301</subfield>
+    <subfield code="x">[53] R. J. Harris, N. A. McMahon, G. K. Brennen, and T. M. Stace, Phys. Rev. A 98, 052301 (2018).</subfield>
+    <subfield code="y">2018</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1374521</subfield>
+    <subfield code="h">Miyaji, M.</subfield>
+    <subfield code="h">Numasawa, T.</subfield>
+    <subfield code="h">Shiba, N.</subfield>
+    <subfield code="h">Takayanagi, T.</subfield>
+    <subfield code="h">Watanabe, K.</subfield>
+    <subfield code="k">PhysRevLett.115.171602</subfield>
+    <subfield code="o">54</subfield>
+    <subfield code="s">Phys.Rev.Lett.,115,171602</subfield>
+    <subfield code="x">[54] M. Miyaji, T. Numasawa, N. Shiba, T. Takayanagi, and K. Watanabe, Phys. Rev. Lett. 115, 171602 (2015).</subfield>
+    <subfield code="y">2015</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">890887</subfield>
+    <subfield code="h">Haegeman, J.</subfield>
+    <subfield code="h">Osborne, T.J.</subfield>
+    <subfield code="h">Verschelde, H.</subfield>
+    <subfield code="h">Verstraete, F.</subfield>
+    <subfield code="k">PhysRevLett.110.100402</subfield>
+    <subfield code="o">55</subfield>
+    <subfield code="s">Phys.Rev.Lett.,110,100402</subfield>
+    <subfield code="x">[55] J. Haegeman, T. J. Osborne, H. Verschelde, and F. Verstraete, Phys. Rev. Lett. 110, 100402 (2013).</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1714940</subfield>
+    <subfield code="h">Osborne, T.J.</subfield>
+    <subfield code="k">Continuum</subfield>
+    <subfield code="o">56</subfield>
+    <subfield code="r">arXiv:1901.06124</subfield>
+    <subfield code="x">[56] T. J. Osborne, ArXiv:1901.06124.</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1672152</subfield>
+    <subfield code="h">Boyle, L.</subfield>
+    <subfield code="h">Dickens, B.</subfield>
+    <subfield code="h">Flicker, F.</subfield>
+    <subfield code="k">Boyle:2018uiv</subfield>
+    <subfield code="o">57</subfield>
+    <subfield code="r">arXiv:1805.02665</subfield>
+    <subfield code="x">[57] L. Boyle, B. Dickens, and F. Flicker, (2018), arXiv:1805.02665 [hep-th].</subfield>
+    <subfield code="y">2018</subfield>
+    <subfield code="z">0</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">Linden, N.</subfield>
+    <subfield code="h">Popescu, S.</subfield>
+    <subfield code="h">Smolin, J.A.</subfield>
+    <subfield code="k">PhysRevLett.97.100502</subfield>
+    <subfield code="m">20</subfield>
+    <subfield code="o">58</subfield>
+    <subfield code="s">Phys.Rev.Lett.,97,100502</subfield>
+    <subfield code="x">[58] N. Linden, S. Popescu, and J. A. Smolin, Phys. Rev. Lett. 97, 100502 (2006). 20</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">0</subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771439/content.png;2</subfield>
+    <subfield code="d">00076 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1_z4</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:22</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771440/content.png;2</subfield>
+    <subfield code="d">00039 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">kitaev_chain2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:23</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771441/content.png;2</subfield>
+    <subfield code="d">00024 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">kitaev_chain1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:23</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771450/content.png;2</subfield>
+    <subfield code="d">00099 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:23</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771442/content.png;2</subfield>
+    <subfield code="d">00001 Iterative contraction of the HyPeC, with Majorana dimers belonging to decoupled fermionic subsystems drawn in different colors. The number of such subsystems increases with iteration number $n$.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_subsys1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:23</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771443/content.png;2</subfield>
+    <subfield code="d">00037 Iterative contraction of the HyPeC, with Majorana dimers belonging to decoupled fermionic subsystems drawn in different colors. The number of such subsystems increases with iteration number $n$.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_subsys2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:23</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771444/content.png;2</subfield>
+    <subfield code="d">00048 Iterative contraction of the HyPeC, with Majorana dimers belonging to decoupled fermionic subsystems drawn in different colors. The number of such subsystems increases with iteration number $n$.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_subsys3</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:23</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771445/content.pdf;2</subfield>
+    <subfield code="d">Fulltext</subfield>
+    <subfield code="f">.pdf</subfield>
+    <subfield code="n">1905.03268</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-10 07:49:32</subfield>
+    <subfield code="t">arXiv</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771446/content.png;2</subfield>
+    <subfield code="d">00015 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy4a</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771447/content.png;2</subfield>
+    <subfield code="d">00088 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy4b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771448/content.png;2</subfield>
+    <subfield code="d">00081 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_happy_mm2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771449/content.png;2</subfield>
+    <subfield code="d">00023 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771520/content.png;2</subfield>
+    <subfield code="d">00059 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_happy_p</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771451/content.png;2</subfield>
+    <subfield code="d">00030 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr4</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771452/content.png;2</subfield>
+    <subfield code="d">00089 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1_z4_res</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771453/content.png;2</subfield>
+    <subfield code="d">00047 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_zero_loop</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771454/content.png;2</subfield>
+    <subfield code="d">00002 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n5_0b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771491/content.png;2</subfield>
+    <subfield code="d">00038 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_03</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771456/content.png;2</subfield>
+    <subfield code="d">00028 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_happy_m</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771457/content.png;2</subfield>
+    <subfield code="d">00016 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy3a</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771458/content.png;2</subfield>
+    <subfield code="d">00046 Reducing boundary regions in the HyPeC with the greedy algorithm, for two boundary regions $A$ and $B$. $A$ reduces to the same geodesic $\\gamma_A=\\gamma_{A^{\\text{C}}}$ as its complement $A^{\\text{C}}$, while $B$ does not. On the left-hand side, the corresponding ``greedy wedge\'\' is shaded in the same color as the boundary regions. The residual dimers are shaded in red.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy3b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771459/content.png;2</subfield>
+    <subfield code="d">00052 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_contr_ex1a</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771460/content.png;2</subfield>
+    <subfield code="d">00074 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_contr_ex1b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771461/content.png;2</subfield>
+    <subfield code="d">00069 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_dimer_path1b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771462/content.png;2</subfield>
+    <subfield code="d">00087 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_happy_p2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771463/content.png;2</subfield>
+    <subfield code="d">00058 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771540/content.png;2</subfield>
+    <subfield code="d">00078 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_0</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771465/content.png;2</subfield>
+    <subfield code="d">00083 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_happy_pm2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771466/content.png;2</subfield>
+    <subfield code="d">00040 Continuous (left) and discretized (right) reconstruction of an AdS bulk operator $\\mathcal O$ along two (causal) wedges $\\mathcal{W}[A]$ and $\\mathcal{W}[B]$ \\cite{Almheiri15}, leading to two boundary operators $\\mathcal O_A$ and $\\mathcal O_B$ with support on boundary regions $A$ and $B$. The AdS time slice is projected onto the Poincar\\\'e disk, with the AdS boundary corresponding to the black outer circle. The discretization is a $\\{5,4\\}$ tiling.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">ads_causal_wedges_discrete</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771467/content.png;2</subfield>
+    <subfield code="d">00056 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_2b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771468/content.png;2</subfield>
+    <subfield code="d">00057 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_2c</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771469/content.png;2</subfield>
+    <subfield code="d">00084 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n9_1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771470/content.png;2</subfield>
+    <subfield code="d">00062 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n9_0</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771471/content.png;2</subfield>
+    <subfield code="d">00085 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n4_0b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771472/content.png;2</subfield>
+    <subfield code="d">00096 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1_y3_res</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771473/content.png;2</subfield>
+    <subfield code="d">00080 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n4_0</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771474/content.png;2</subfield>
+    <subfield code="d">00072 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n4_1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771518/content.png;2</subfield>
+    <subfield code="d">00064 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_ghz_y_m</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:25</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771476/content.png;2</subfield>
+    <subfield code="d">00093 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_dimer_path1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771477/content.png;2</subfield>
+    <subfield code="d">00019 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_ghz_y_p</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771478/content.png;2</subfield>
+    <subfield code="d">00017 Effective bit thread picture in the asymptotically large HyPeC: All dimers are paired along bulk geodesics and any boundary region $A$ has a maximal flow of bit threads (dimer pairs) through the Ryu-Takayanagi surface $\\gamma_A$. The threads that pass $\\gamma_A$, each contributing $\\log 2$ to the entanglement entropy $S_A$, are highlighted. Note that both the number of such threads and $S_A$ are UV-divergent.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_dimer_threads</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771480/content.png;2</subfield>
+    <subfield code="d">00020 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n6_0</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771481/content.png;2</subfield>
+    <subfield code="d">00049 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n6_1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771482/content.png;2</subfield>
+    <subfield code="d">00034 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">mcode_quad4</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771483/content.png;2</subfield>
+    <subfield code="d">00053 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">mcode_quad3</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771484/content.png;2</subfield>
+    <subfield code="d">00045 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">mcode_quad2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771485/content.png;2</subfield>
+    <subfield code="d">00073 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">mcode_quad1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771486/content.png;2</subfield>
+    <subfield code="d">00025 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_04</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771531/content.png;2</subfield>
+    <subfield code="d">00067 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy2a</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771488/content.png;2</subfield>
+    <subfield code="d">00032 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair1b2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:26</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771489/content.png;2</subfield>
+    <subfield code="d">00018 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_01</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771490/content.png;2</subfield>
+    <subfield code="d">00041 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_02</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771455/content.png;2</subfield>
+    <subfield code="d">00082 Entanglement entropy scaling with the size $\\ell$ of the subsystem block for successive iterations $n$ of the contraction. Dashed line is a logarithmic fit of the $n\\to\\infty$ limit.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_ee</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771492/content.png;2</subfield>
+    <subfield code="d">00027 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy1b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771493/content.png;2</subfield>
+    <subfield code="d">00026 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy1a</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771494/content.png;2</subfield>
+    <subfield code="d">00068 Continuous (left) and discretized (right) reconstruction of an AdS bulk operator $\\mathcal O$ along two (causal) wedges $\\mathcal{W}[A]$ and $\\mathcal{W}[B]$ \\cite{Almheiri15}, leading to two boundary operators $\\mathcal O_A$ and $\\mathcal O_B$ with support on boundary regions $A$ and $B$. The AdS time slice is projected onto the Poincar\\\'e disk, with the AdS boundary corresponding to the black outer circle. The discretization is a $\\{5,4\\}$ tiling.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">ads_causal_wedges</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771495/content.png;2</subfield>
+    <subfield code="d">00077 Each tile in the HyPeC can act as a mapping of $1\\to 4$ edges (left) or $2\\to 3$ edge (right). Arrows distinguish between ``input\'\' (IR) and ``output\'\' (UV) edges. Dimers extended from previous tiles are drawn dashed, while new ones are drawn as solid curves. The dimer parities depend on the actual logical input on the tile.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_renorm1a</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771496/content.png;2</subfield>
+    <subfield code="d">00004 Each tile in the HyPeC can act as a mapping of $1\\to 4$ edges (left) or $2\\to 3$ edge (right). Arrows distinguish between ``input\'\' (IR) and ``output\'\' (UV) edges. Dimers extended from previous tiles are drawn dashed, while new ones are drawn as solid curves. The dimer parities depend on the actual logical input on the tile.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_renorm1b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771497/content.png;2</subfield>
+    <subfield code="d">00033 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair1d</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771498/content.png;2</subfield>
+    <subfield code="d">00054 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair1c</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771499/content.png;2</subfield>
+    <subfield code="d">00060 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair1b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771524/content.png;2</subfield>
+    <subfield code="d">00086 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n5_1b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771500/content.png;2</subfield>
+    <subfield code="d">00042 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_02b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771502/content.png;2</subfield>
+    <subfield code="d">00092 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1_y3</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771528/content.png;2</subfield>
+    <subfield code="d">00065 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n3_1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771504/content.png;2</subfield>
+    <subfield code="d">00066 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n3_0</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:27</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771505/content.png;2</subfield>
+    <subfield code="d">00061 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_prod1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771479/content.png;2</subfield>
+    <subfield code="d">00007 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_code_input1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771507/content.png;2</subfield>
+    <subfield code="d">00014 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_code_input2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771508/content.png;1</subfield>
+    <subfield code="d">00091 \\psi</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_inverse2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-10 06:15:17</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">1</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771509/content.png;2</subfield>
+    <subfield code="d">00003 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n5_1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771510/content.png;2</subfield>
+    <subfield code="d">00090 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">scode_n5_0</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771511/content.png;2</subfield>
+    <subfield code="d">00095 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_ghz_x_p</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771512/content.png;2</subfield>
+    <subfield code="d">00097 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_happy_pp2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:24</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771513/content.png;2</subfield>
+    <subfield code="d">00005 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_ghz_x_m</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771514/content.png;2</subfield>
+    <subfield code="d">00013 Iterative contraction of the HyPeC for fixed bulk inputs of $\\ket{\\bar{0}}_5$ state vectors, with a cutoff after 3 iterations. Each step involves contracting a further layer of tiles, starting from the centre at $n=0$. The asymptotic boundary of the Poincar\\\'e disk is drawn as a black circle.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr3</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771515/content.png;2</subfield>
+    <subfield code="d">00101 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1_covmm</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771516/content.png;2</subfield>
+    <subfield code="d">00051 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1_x2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771517/content.png;2</subfield>
+    <subfield code="d">00035 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_code_input4</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771475/content.png;2</subfield>
+    <subfield code="d">00022 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_dimer_path2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771519/content.png;2</subfield>
+    <subfield code="d">00094 Each tile in the HyPeC can act as a mapping of $1\\to 4$ edges (left) or $2\\to 3$ edge (right). Arrows distinguish between ``input\'\' (IR) and ``output\'\' (UV) edges. Dimers extended from previous tiles are drawn dashed, while new ones are drawn as solid curves. The dimer parities depend on the actual logical input on the tile.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_renorm_arr</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771506/content.png;2</subfield>
+    <subfield code="d">00075 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair_contr2b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771521/content.png;2</subfield>
+    <subfield code="d">00006 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair_contr2a</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771522/content.png;2</subfield>
+    <subfield code="d">00031 \\textsc{Top:} Inserting two (left) and four (right) $\\bar{1}$ tiles in the HyPeC. Beyond the local dimer parity flips in each tile, pairs of $\\bar{1}$ tiles are connected by $Z$ strings (red lines), which flip dimer parities non-locally. The endpoints of these strings (red dots) set the local orientation of the $\\bar{1}$ tiles connected to it. \\textsc{Bottom:} Equivalent $Z$ string configuration of the upper two states.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_code_input3</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771523/content.png;2</subfield>
+    <subfield code="d">00010 Possible generalizations of the $[[5,1,3]]$ pentagon code (fourth row) to an $n$-gon code. All stabilizers are cyclic permutations of the one given in the second column. The last column indicates whether boundary states lead to perfect tensors only for connected subsystems on basis states (\\checkmark) or in any case (\\checkmark\\checkmark).</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_happy_mp2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771501/content.png;2</subfield>
+    <subfield code="d">00021 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair_contr1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771525/content.png;2</subfield>
+    <subfield code="d">00079 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair_contr3</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771526/content.png;2</subfield>
+    <subfield code="d">00000 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_03b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:28</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771527/content.png;2</subfield>
+    <subfield code="d">00100 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_ee</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771503/content.png;2</subfield>
+    <subfield code="d">00009 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_prod2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771529/content.png;2</subfield>
+    <subfield code="d">00008 \\textsc{Left:} A Majorana dimer pair in an infinitely large contraction of HyPeC tiles. The endpoints of both dimers meet at the asymptotic boundary, thus the dimer pair can be drawn as a double-geodesic. \\textsc{Right:} Full contraction for a $\\bar{0}$ input on all tiles, with all dimers pairing up.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">happy_contr_dimer_path2b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:29</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771530/content.png;2</subfield>
+    <subfield code="d">00036 The greedy algorithm: The boundary region $A$ is pushed into the bulk to a new region $A^\\prime$ by removing pentagon tiles with three (top) and four (bottom) open edges. Each pentagon can be in an arbitrary local superposition of $\\bar{0}$ and $\\bar{1}$, shown as grey-shaded dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">greedy2b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771487/content.png;2</subfield>
+    <subfield code="d">00055 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair8</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771532/content.png;2</subfield>
+    <subfield code="d">00029 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair7</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771533/content.png;2</subfield>
+    <subfield code="d">00098 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair6</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771534/content.png;2</subfield>
+    <subfield code="d">00050 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair5</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771535/content.png;2</subfield>
+    <subfield code="d">00063 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair4</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771536/content.png;2</subfield>
+    <subfield code="d">00043 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair3</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771537/content.png;2</subfield>
+    <subfield code="d">00044 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair2</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771538/content.png;2</subfield>
+    <subfield code="d">00070 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">epr_pair1</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771539/content.png;2</subfield>
+    <subfield code="d">00011 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">pentagon_net_1_x2_res</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771464/content.png;2</subfield>
+    <subfield code="d">00012 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_04b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g188/3771541/content.png;2</subfield>
+    <subfield code="d">00071 Bell states expressed as Majorana dimers.</subfield>
+    <subfield code="f">.png</subfield>
+    <subfield code="n">triangle_net_01b</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2019-05-11 05:21:30</subfield>
+    <subfield code="t">Plot</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+</record>
+</collection>
