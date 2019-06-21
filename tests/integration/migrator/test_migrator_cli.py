@@ -10,7 +10,6 @@ import os
 
 import pkg_resources
 import pytest
-from click.testing import CliRunner
 from flask import current_app
 from invenio_db import db
 from mock import patch
@@ -54,7 +53,7 @@ def test_migrate_file(app_cli_runner, db, api_client):
         __name__, os.path.join("fixtures", "1663923.xml")
     )
 
-    result = app_cli_runner.invoke(migrate, ["file", "-w", "-f", file_name])
+    result = app_cli_runner.invoke(migrate, ["file", "-f", file_name])
     response = api_client.get("/literature/1663923")
 
     assert result.exit_code == 0
@@ -67,7 +66,7 @@ def test_migrate_file_mirror_only(app_cli_runner, db, api_client):
         __name__, os.path.join("fixtures", "1663924.xml")
     )
 
-    result = app_cli_runner.invoke(migrate, ["file", "-w", "-m", "-f", file_name])
+    result = app_cli_runner.invoke(migrate, ["file", "-m", "-f", file_name])
     prod_record = LegacyRecordsMirror.query.get(1663924)
     response = api_client.get("/literature/1663924")
 
@@ -101,7 +100,7 @@ def test_migrate_mirror_migrates_pending(app_cli_runner, db, api_client):
     )
     populate_mirror_from_file(file_name)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-w", "-f"])
+    result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
     response = api_client.get("/literature/1663924")
 
     assert result.exit_code == 0
@@ -116,7 +115,7 @@ def test_migrate_mirror_broken_migrates_invalid(app_cli_runner, db, api_client):
     )
     populate_mirror_from_file(file_name)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-w", "-f"])
+    result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
     response = api_client.get("/literature/1663927")
 
     assert result.exit_code == 0
@@ -129,7 +128,7 @@ def test_migrate_mirror_broken_migrates_invalid(app_cli_runner, db, api_client):
 
     db.session.merge(prod_record)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-w", "-f", "-b"])
+    result = app_cli_runner.invoke(migrate, ["mirror", "-f", "-b"])
     response = api_client.get("/literature/1663927")
 
     assert result.exit_code == 0
@@ -149,7 +148,7 @@ def test_migrate_mirror_all_migrates_all(app_cli_runner, api_client):
     )
     populate_mirror_from_file(file_name)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-w", "-f"])
+    result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
     response = api_client.get("/literature/1663924")
 
     assert result.exit_code == 0
@@ -164,7 +163,7 @@ def test_migrate_mirror_all_migrates_all(app_cli_runner, api_client):
 
     db.session.merge(prod_record)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-w", "-f", "-a"])
+    result = app_cli_runner.invoke(migrate, ["mirror", "-f", "-a"])
     response = api_client.get("/literature/1663924")
 
     assert result.exit_code == 0
@@ -172,3 +171,32 @@ def test_migrate_mirror_all_migrates_all(app_cli_runner, api_client):
     assert (
         "A funny joke" in json.loads(response.data)["metadata"]["abstracts"][0]["value"]
     )
+
+
+def test_migrate_records_correctly_with_author_and_indexes_correctly(
+    script_info, api_client, db, es_clear, datadir, app_cli_runner
+):
+    file_name = (datadir / "1734025.xml").as_posix()
+    #  Add literature record
+    populate_mirror_from_file(file_name)
+
+    #  Add Author
+    file_name2 = (datadir / "1607957.xml").as_posix()
+    populate_mirror_from_file(file_name2)
+
+    result = app_cli_runner.invoke(migrate, ["mirror"])
+    assert result.exit_code == 0
+    es_clear.indices.refresh("records-hep")
+    es_clear.indices.refresh("records-authors")
+
+    search_response = api_client.get("literature?q=")
+
+    assert search_response.json["hits"]["total"] == 1
+
+    facets_response = api_client.get("literature/facets?q=")
+
+    authors = [
+        author.get("key")
+        for author in facets_response.json["aggregations"]["author"]["buckets"]
+    ]
+    assert "F.Pastawski.1_Fernando Pastawski" in authors

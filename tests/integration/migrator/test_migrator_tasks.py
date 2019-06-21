@@ -195,7 +195,7 @@ def test_orcid_push_disabled_on_migrate_from_mirror(
         ] = "0000-0002-1825-0097"
         mock_push_access_tokens.get_access_tokens.return_value.access_token = "mytoken"
 
-        migrate_from_file(record_fixture_path, wait_for_results=True)
+        migrate_from_file(record_fixture_path)
         mock_orcid_pusher.assert_not_called()
 
     prod_record = LegacyRecordsMirror.query.filter(
@@ -213,8 +213,8 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear
     record_fixture_path_deleted = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "deleted_record.xml")
     )
-    migrate_from_file(record_fixture_path, wait_for_results=True)
-    migrate_from_file(record_fixture_path_deleted, wait_for_results=True)
+    migrate_from_file(record_fixture_path)
+    migrate_from_file(record_fixture_path_deleted)
     es_clear.indices.refresh("records-hep")
 
     expected_record_lit_es_len = 1

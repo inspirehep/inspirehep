@@ -19,6 +19,7 @@ from .tasks import (
     migrate_from_mirror,
     migrate_record_from_legacy,
     populate_mirror_from_file,
+    wait_for_all_tasks,
 )
 
 
@@ -52,21 +53,21 @@ def migrate():
     help="Only mirror the records instead of doing a full migration.",
 )
 @click.option(
-    "--wait",
-    "-w",
-    is_flag=True,
-    default=False,
-    help="Wait for migration to complete. This only has an effect if the -m flag is not set.",
-)
-@click.option(
     "-f",
     "--force",
     is_flag=True,
     default=False,
     help="Force the task to run even in debug mode.",
 )
+@click.option(
+    "-w",
+    "--wait",
+    is_flag=True,
+    default=False,
+    help="Wait for migration to complete. This only has an effect if the -m flag is not set.",
+)
 @with_appcontext
-def migrate_file(file_name, mirror_only=False, wait=False, force=False):
+def migrate_file(file_name, mirror_only=False, force=False, wait=False):
     """Migrate the records in the provided file.
 
     The file can be an (optionally-gzipped) XML file containing MARCXML, or a
@@ -77,7 +78,9 @@ def migrate_file(file_name, mirror_only=False, wait=False, force=False):
 
     populate_mirror_from_file(file_name)
     if not mirror_only:
-        migrate_from_mirror(wait_for_results=wait)
+        task = migrate_from_mirror()
+        if wait:
+            wait_for_all_tasks(task)
 
 
 @migrate.command()
@@ -96,23 +99,29 @@ def migrate_file(file_name, mirror_only=False, wait=False, force=False):
     help="Also migrate broken records, which did not migrate correctly in the previous run.",
 )
 @click.option(
-    "--wait", "-w", is_flag=True, default=False, help="Wait for migration to complete."
-)
-@click.option(
     "-f",
     "--force",
     is_flag=True,
     default=False,
     help="Force the task to run even in debug mode.",
 )
+@click.option(
+    "-w",
+    "--wait",
+    is_flag=True,
+    default=False,
+    help="Wait for all subtasks to finish. (No progress bar will be available still)",
+)
 @with_appcontext
-def mirror(also_migrate=None, wait=False, force=False):
+def mirror(also_migrate=None, force=False, wait=False):
     """Migrate records from the mirror.
 
     By default, only records that have not been migrated yet are migrated.
     """
     halt_if_debug_mode(force=force)
-    migrate_from_mirror(also_migrate=also_migrate, wait_for_results=wait)
+    task = migrate_from_mirror(also_migrate=also_migrate, disable_orcid_push=True)
+    if wait:
+        wait_for_all_tasks(task)
 
 
 @migrate.command()

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1607957</controlfield>
+  <controlfield tag="005">20170629172840.0</controlfield>
+  <datafield tag="650" ind1="1" ind2="7">
+    <subfield code="a">QUANT-PH</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:inspirehep.net:1607957</subfield>
+    <subfield code="p">INSPIRE:HepNames</subfield>
+  </datafield>
+  <datafield tag="961" ind1=" " ind2=" ">
+    <subfield code="x">2017-06-29</subfield>
+    <subfield code="c">2017-06-29</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">HEPNAMES</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">USEFUL</subfield>
+  </datafield>
+  <datafield tag="400" ind1=" " ind2=" ">
+    <subfield code="a">Pastawsky, Fernando</subfield>
+  </datafield>
+  <datafield tag="371" ind1=" " ind2=" ">
+    <subfield code="a">Freie U., Berlin</subfield>
+    <subfield code="s">2016</subfield>
+    <subfield code="z">current</subfield>
+    <subfield code="z">902809</subfield>
+  </datafield>
+  <datafield tag="371" ind1=" " ind2=" ">
+    <subfield code="a">Caltech</subfield>
+    <subfield code="r">PD</subfield>
+    <subfield code="s">2013</subfield>
+    <subfield code="t">2016</subfield>
+    <subfield code="z">902711</subfield>
+  </datafield>
+  <datafield tag="371" ind1=" " ind2=" ">
+    <subfield code="a">Munich U.</subfield>
+    <subfield code="r">PHD</subfield>
+    <subfield code="t">2013</subfield>
+    <subfield code="z">903038</subfield>
+  </datafield>
+  <datafield tag="100" ind1=" " ind2=" ">
+    <subfield code="a">Pastawski, Fernando</subfield>
+    <subfield code="g">ACTIVE</subfield>
+    <subfield code="q">Fernando Pastawski</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRE</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">BAI</subfield>
+    <subfield code="a">F.Pastawski.1</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">ORCID</subfield>
+    <subfield code="a">0000-0002-3104-7392</subfield>
+  </datafield>
+</record>
+</collection>

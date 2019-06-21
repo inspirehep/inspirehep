@@ -8,6 +8,7 @@
 import json
 import uuid
 
+import mock
 import pytest
 from helpers.providers.faker import faker
 from invenio_pidstore.errors import PIDAlreadyExists
@@ -918,3 +919,87 @@ def test_literature_without_literature_collection_cannot_cite_record_which_can_b
     assert len(record2.model.references) == 0
     assert len(record3.model.citations) == 0
     assert len(record3.model.references) == 1
+
+
+@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
+    orcid_mock, base_app, db
+):
+    data1 = faker.record("lit")
+    record1 = InspireRecord.create(data1, disable_orcid_push=True)
+    assert orcid_mock.call_count == 0
+
+
+@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+def test_record_create_not_skips_orcid_on_default(orcid_mock, base_app, db):
+    data1 = faker.record("lit")
+    record1 = InspireRecord.create(data1)
+    assert orcid_mock.call_count == 1
+
+
+@mock.patch(
+    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+)
+def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
+    citation_recalculate_mock, base_app, db
+):
+    data1 = faker.record("lit")
+    record1 = InspireRecord.create(data1, disable_citation_update=True)
+    assert citation_recalculate_mock.call_count == 0
+
+
+@mock.patch(
+    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+)
+def test_record_create_runs_citation_recalculate_on_default(
+    citation_recalculate_mock, base_app, db
+):
+    data1 = faker.record("lit")
+    record1 = InspireRecord.create(data1)
+    assert citation_recalculate_mock.call_count == 1
+
+
+@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
+    orcid_mock, base_app, db
+):
+    data1 = faker.record("lit")
+    data2 = faker.record("lit")
+    record1 = InspireRecord.create(data1, disable_orcid_push=True)
+    record1.update(data2, disable_orcid_push=True)
+    assert orcid_mock.call_count == 0
+
+
+@mock.patch("inspirehep.records.api.literature.push_to_orcid")
+def test_record_update_not_skips_orcid_on_default(orcid_mock, base_app, db):
+    data1 = faker.record("lit")
+    data2 = faker.record("lit")
+    record1 = InspireRecord.create(data1)
+    record1.update(data2)
+    assert orcid_mock.call_count == 2
+
+
+@mock.patch(
+    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+)
+def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
+    citation_recalculate_mock, base_app, db
+):
+    data1 = faker.record("lit")
+    data2 = faker.record("lit")
+    record1 = InspireRecord.create(data1, disable_citation_update=True)
+    record1.update(data2, disable_citation_update=True)
+    assert citation_recalculate_mock.call_count == 0
+
+
+@mock.patch(
+    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+)
+def test_record_update_runs_citation_recalculate_on_default(
+    citation_recalculate_mock, base_app, db
+):
+    data1 = faker.record("lit")
+    data2 = faker.record("lit")
+    record1 = InspireRecord.create(data1)
+    record1.update(data2)
+    assert citation_recalculate_mock.call_count == 2
