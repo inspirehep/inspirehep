@@ -86,13 +86,13 @@ matrix:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: ./build-docker-inspirehep-image.sh
+    script: cd $TRAVIS_BUILD_DIR; ./build-docker-inspirehep-image.sh
     on:
       branch: master
       condition: $SUITE = integration
   - provider: script
     skip_cleanup: true
-    script: ./build-docker-ui-image.sh
+    script: cd $TRAVIS_BUILD_DIR; ./build-docker-ui-image.sh
     on:
       branch: master
       condition: $SUITE = ui
