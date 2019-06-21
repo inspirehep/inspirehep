@@ -8,14 +8,6 @@
 
 GIT_DESC="$(git describe --always || echo)"
 
-echo "Deploying tag for inspirehep-ui ${GIT_DESC}"
-curl -X POST "${UI_DEPLOY_URL}" \
-    -F token=${UI_DEPLOY_TOKEN} \
-    -F ref=qa -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
-    -F "variables[TAG]=${GIT_DESC}" \
-    -F "variables[IMAGE_BUILD]=True" \
-    -F "variables[DEPLOY]=True"
-
 echo "Deploying tag for inspirehep: ${GIT_DESC}"
 curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
     -F token=${INSPIREHEP_DEPLOY_TOKEN} \
