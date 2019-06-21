@@ -301,7 +301,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         SERVER = current_app.config["SERVER_NAME"]
         INSPIREHEP_URL = f"{PROTOCOL}://{SERVER}"
         JOB_DETAILS = f"{INSPIREHEP_URL}/jobs/{control_number}"
-        JOB_EDIT = f"{INSPIREHEP_URL}/submissions/job/{control_number}"
+        JOB_EDIT = f"{INSPIREHEP_URL}/submissions/jobs/{control_number}"
 
         rt_queue = "JOBS"
         requestor = record["acquisition_source"]["email"] or record[
