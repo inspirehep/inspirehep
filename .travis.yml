@@ -84,9 +84,15 @@ matrix:
     - env: SUITE=ui RUN_DOCKER=false
 
 deploy:
-  skip_cleanup: true
-  provider: script
-  script: ./build-docker-images.sh
-  on:
-    branch: master
-    condition: $SUITE = integration
+  - provider: script
+    skip_cleanup: true
+    script: ./build-docker-inspirehep-image.sh
+    on:
+      branch: master
+      condition: $SUITE = integration
+  - provider: script
+    skip_cleanup: true
+    script: ./build-docker-ui-image.sh
+    on:
+      branch: master
+      condition: $SUITE = ui
