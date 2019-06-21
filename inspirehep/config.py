@@ -46,7 +46,9 @@ MIGRATION_REDIS_URL = None
 # Rate limiting
 # =============
 #: Storage for ratelimiter.
-RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
+RATELIMIT_DEFAULT = ""
+RATELIMIT_HEADERS_ENABLED = False
+RATELIMIT_STORAGE_URL = "memory://"
 
 # Email configuration
 # ===================
