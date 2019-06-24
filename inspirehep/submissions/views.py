@@ -27,12 +27,12 @@ from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.records.api import AuthorsRecord, JobsRecord
 from inspirehep.records.api.literature import import_doi
 from inspirehep.records.errors import ImportConnectionError, ImportParsingError
-from inspirehep.rt.tickets import create_ticket_with_template
 from inspirehep.submissions.errors import RESTDataError
 
 from .loaders import job_v1 as job_loader_v1
 from .marshmallow import Author, Literature
 from .serializers import author_v1, job_v1  # TODO: use literature_v1 from serializers
+from .tasks import async_create_ticket_with_template
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
@@ -312,22 +312,14 @@ class JobSubmissionsResource(BaseSubmissionsResource):
             "job_url_edit": JOB_EDIT,
             "hep_url": INSPIREHEP_URL,
         }
-        try:
-            ticket = create_ticket_with_template(
-                rt_queue,
-                requestor,
-                rt_template,
-                rt_template_context,
-                f"Job {control_number} has been submitted to the Jobs database",
-                control_number,
-            )
-            if ticket == -1:
-                logger.error(
-                    "Cannot create RT ticket "
-                    "`create_ticket_with_template` returned `-1`!"
-                )
-        except AttributeError as e:
-            logger.error(f"RT is not initialized properly: {e}")
+        async_create_ticket_with_template(
+            rt_queue,
+            requestor,
+            rt_template,
+            rt_template_context,
+            f"Job {control_number} has been submitted to the Jobs database",
+            control_number,
+        )
 
 
 author_submissions_view = AuthorSubmissionsResource.as_view("author_submissions_view")
