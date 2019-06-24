@@ -643,7 +643,7 @@ DEFAULT_EXAMPLE_JOB_DATA = {
 }
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_job_submit_requires_authentication(ticket_mock, api_client):
     response = api_client.post(
         "/submissions/jobs",
@@ -654,7 +654,7 @@ def test_job_submit_requires_authentication(ticket_mock, api_client):
     assert response.status_code == 401
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_job_update_requires_authentication(ticket_mock, api_client):
     response = api_client.post(
         "/submissions/jobs/1234",
@@ -665,13 +665,13 @@ def test_job_update_requires_authentication(ticket_mock, api_client):
     assert response.status_code == 401
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_job_get_requires_authentication(ticket_mock, api_client):
     response = api_client.get("/submissions/jobs/123", content_type="application/json")
     assert response.status_code == 401
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_job_submit(ticket_mock, app, api_client, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -683,7 +683,7 @@ def test_new_job_submit(ticket_mock, app, api_client, create_user):
     assert response.status_code == 201
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_job_submit_with_wrong_field_value(
     ticket_mock, app, api_client, create_user
 ):
@@ -698,7 +698,7 @@ def test_new_job_submit_with_wrong_field_value(
     assert response.status_code == 400
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_job_submit_with_wrong_status_value(
     ticket_mock, app, api_client, create_user
 ):
@@ -717,7 +717,7 @@ def test_new_job_submit_with_wrong_status_value(
     assert record["status"] == "pending"
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job(create_ticket_mock, app, api_client, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -746,7 +746,7 @@ def test_update_job(create_ticket_mock, app, api_client, create_user):
     create_ticket_mock.assert_called_once()
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_pending_not_curator(
     ticket_mock, app, api_client, create_user
 ):
@@ -774,7 +774,7 @@ def test_update_job_status_from_pending_not_curator(
     assert record["status"] == "pending"
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_pending_curator(
     create_ticket_mock, app, api_client, create_user
 ):
@@ -809,7 +809,7 @@ def test_update_job_status_from_pending_curator(
     create_ticket_mock.assert_not_called()
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_data_from_different_user(ticket_mock, app, api_client, create_user):
     user = create_user()
     user2 = create_user()
@@ -832,7 +832,7 @@ def test_update_job_data_from_different_user(ticket_mock, app, api_client, creat
     assert response2.status_code == 403
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_open(ticket_mock, app, api_client, create_user):
     user = create_user()
     curator = create_user(role="cataloger")
@@ -865,7 +865,7 @@ def test_update_job_status_from_open(ticket_mock, app, api_client, create_user):
     assert record["status"] == "closed"
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_from_closed_by_user(ticket_mock, app, api_client, create_user):
     user = create_user()
     curator = create_user(role="cataloger")
@@ -898,7 +898,7 @@ def test_update_job_from_closed_by_user(ticket_mock, app, api_client, create_use
     assert record["title"] == DEFAULT_EXAMPLE_JOB_DATA["title"]
 
 
-@patch("inspirehep.submissions.views.create_ticket_with_template")
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_remove_not_compulsory_fields(
     ticket_mock, app, api_client, create_user
 ):

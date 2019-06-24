@@ -44,6 +44,10 @@ class InspireRt(Rt):
         return attachment_infos
 
 
+class CreateTicketException(Exception):
+    pass
+
+
 class EditTicketException(Exception):
     pass
 
