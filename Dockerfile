@@ -12,3 +12,6 @@ RUN pip install poetry==0.12.16
 WORKDIR /opt/inspire
 
 COPY . /opt/inspire
+
+# install dependencies
+RUN ./scripts/bootstrap
