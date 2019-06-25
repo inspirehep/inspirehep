@@ -140,6 +140,47 @@ def test_lit_records_with_citations_updates(
     retry_until_matched(steps)
 
 
+def test_lit_record_updates_references_when_record_is_updated(
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
+):
+    data_cited_record = faker.record("lit")
+    cited_record = LiteratureRecord.create(data_cited_record)
+    db.session.commit()
+
+    citations = [cited_record["control_number"]]
+    data_citing_record = faker.record("lit", literature_citations=citations)
+    citing_record = LiteratureRecord.create(data_citing_record)
+    db.session.commit()
+    time.sleep(5)
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 1},
+        },
+    ]
+    retry_until_matched(steps)
+
+    data_citing_record.update({"deleted": True})
+    citing_record.update(data_citing_record)
+    db.session.commit()
+    time.sleep(5)
+
+    es.indices.refresh("records-hep")
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
+
 def test_many_records_in_one_commit(
     app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):

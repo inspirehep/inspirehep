@@ -107,7 +107,9 @@ class LiteratureSearch(InspireSearch):
         :returns: Elasticsearch DSL search class
         """
         if not is_superuser_or_cataloger_logged_in():
-            user_query = Q(IQ(query_string, self) & Q("term", _collections="Literature"))
+            user_query = Q(
+                IQ(query_string, self) & Q("term", _collections="Literature")
+            )
             return self.query(user_query)
         return self.query(IQ(query_string, self))
 
@@ -133,9 +135,11 @@ class LiteratureSearch(InspireSearch):
             "publication_info",
         ]
         from_rec = (page - 1) * size
-        citations_query = Q(
-            "match", **{"references.record.$ref": record["control_number"]}
-        ) & ~Q("match", **{"related_records.relation": "successor"})
+        citations_query = (
+            Q("match", **{"references.record.$ref": record["control_number"]})
+            & Q("match", **{"_collections": "Literature"})
+            & ~Q("match", **{"related_records.relation": "successor"})
+        )
         citations_search = (
             LiteratureSearch()
             .query(citations_query)
