@@ -36,9 +36,9 @@ def get_record(uuid, record_version=None):
 
 
 @shared_task(ignore_result=False, bind=True)
-def batch_index(self, records_uuids, request_timeout):
+def batch_index(self, records_uuids, request_timeout=None):
     logger.info(f"Starting shared task `batch_index for {len(records_uuids)} records")
-    return InspireRecordIndexer().bulk_index(records_uuids)
+    return InspireRecordIndexer().bulk_index(records_uuids, request_timeout)
 
 
 @shared_task(ignore_result=False, bind=True)
@@ -125,4 +125,5 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         record._index()
         logger.debug("Record '%s' successfully indexed on ES", uuid)
 
-    return process_references_for_record(record=record)
+    if hasattr(record, "get_modified_references"):
+        return process_references_for_record(record=record)

@@ -230,6 +230,58 @@ def test_literature_citations_with_superseded_citing_records(
     assert expected_citation_superseded in response_data_metadata["citations"]
 
 
+def test_literature_citations_with_non_citeable_collection(
+    api_client, db, create_record, es_clear
+):
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+
+    record_data = {
+        "references": [
+            {
+                "record": {
+                    "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+                }
+            }
+        ],
+        "related_records": [
+            {
+                "record": {"$ref": "https://link-to-commentor-record/1"},
+                "relation": "commented",
+            },
+            {"record": {"$ref": "https://link-to-any-other-record/2"}},
+        ],
+        "publication_info": [{"year": 2019}],
+    }
+    create_record("lit", data=record_data)
+
+    record_with_no_citable_collection_data = {
+        "_collections": ["Fermilab"],
+        "references": [
+            {
+                "record": {
+                    "$ref": f"http://localhost:5000/api/literature/{record_control_number}"
+                }
+            }
+        ],
+        "publication_info": [{"year": 2019}],
+    }
+    record_with_no_citable_collection = create_record(
+        "lit", data=record_with_no_citable_collection_data
+    )
+
+    expected_status_code = 200
+
+    response = api_client.get(f"/literature/{record_control_number}/citations")
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+
+    assert expected_status_code == response_status_code
+    assert record_with_no_citable_collection["control_number"] not in [
+        record["control_number"] for record in response_data["metadata"]["citations"]
+    ]
+
+
 def test_literature_citations_empty(api_client, db, create_record, es_clear):
     record = create_record("lit")
     record_control_number = record["control_number"]
