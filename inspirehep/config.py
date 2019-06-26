@@ -709,16 +709,6 @@ ALEMBIC_SKIP_TABLES = [
 ORCID_APP_CREDENTIALS = {"consumer_key": "CHANGE_ME", "consumer_secret": "CHANGE_ME"}
 ORCID_ALLOW_PUSH_DEFAULT = False
 
-# RT
-# ==
-# "https://rt.inspirehep.net/REST/1.0/"
-RT_URL = None
-RT_VERIFY_SSL = False
-RT_USER = None
-RT_PASSWORD = None
-RT_OVERRIDE_QUEUE = "Test"
-
-
 # URLS
 SERVER_NAME = "localhost:8000"
 
