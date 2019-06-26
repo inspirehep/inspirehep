@@ -703,18 +703,5 @@ ALEMBIC_SKIP_TABLES = [
     "alembic_version",
 ]
 
-# ORCID
-# =====
-# Inspire service client for ORCID.
-ORCID_APP_CREDENTIALS = {"consumer_key": "CHANGE_ME", "consumer_secret": "CHANGE_ME"}
-ORCID_ALLOW_PUSH_DEFAULT = False
-
 # URLS
 SERVER_NAME = "localhost:8000"
-
-
-# App metrics
-# ===========
-APPMETRICS_ELASTICSEARCH_HOSTS = ["localhost"]
-APPMETRICS_ELASTICSEARCH_INDEX = "inspireappmetrics-dev"
-APPMETRICS_THREADED_BACKEND = True

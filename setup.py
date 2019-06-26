@@ -59,12 +59,13 @@ setup(
         ],
         "invenio_config.module": [
             "inspirehep = inspirehep.config",
+            "inspirehep_orcid = inspirehep.orcid.config",
             "inspirehep_rt = inspirehep.rt.config",
         ],
         "invenio_base.api_apps": [
-            "inspirehep_records = inspirehep.records:InspireRecords",
             "inspirehep_migrator = inspirehep.migrator:InspireMigrator",
             "inspirehep_orcid = inspirehep.orcid:InspireOrcid",
+            "inspirehep_records = inspirehep.records:InspireRecords",
             "inspirehep_rt = inspirehep.rt:InspireRtExt",
         ],
         "invenio_jsonschemas.schemas": ["inspirehep_records_schemas = inspire_schemas"],
