@@ -57,12 +57,15 @@ setup(
             "inspirehep_migrator = inspirehep.migrator.views:blueprint",
             "inspirehep_rt = inspirehep.rt.views:blueprint",
         ],
-        "invenio_config.module": ["inspirehep = inspirehep.config"],
+        "invenio_config.module": [
+            "inspirehep = inspirehep.config",
+            "inspirehep_rt = inspirehep.rt.config",
+        ],
         "invenio_base.api_apps": [
             "inspirehep_records = inspirehep.records:InspireRecords",
             "inspirehep_migrator = inspirehep.migrator:InspireMigrator",
-            "inspire_orcid = inspirehep.orcid:InspireOrcid",
-            "inspire_rt = inspirehep.rt:InspireRtExt",
+            "inspirehep_orcid = inspirehep.orcid:InspireOrcid",
+            "inspirehep_rt = inspirehep.rt:InspireRtExt",
         ],
         "invenio_jsonschemas.schemas": ["inspirehep_records_schemas = inspire_schemas"],
         "invenio_search.mappings": ["records = inspirehep.search.mappings"],
@@ -73,7 +76,7 @@ setup(
         "invenio_celery.tasks": [
             "inspirehep_indexer = inspirehep.records.indexer.tasks",
             "inspirehep_migrator = inspirehep.migrator.tasks",
-            "inspire_orcid = inspirehep.orcid.tasks",
+            "inspirehep_orcid = inspirehep.orcid.tasks",
             "inspirehep_submissions = inspirehep.submissions.tasks",
         ],
     },
