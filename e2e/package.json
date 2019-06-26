@@ -17,6 +17,7 @@
     "jest-image-snapshot": "^2.8.1",
     "jest-image-snapshot-diff-reporter": "^1.0.0",
     "jest-puppeteer": "^4.0.0",
+    "moment": "^2.24.0",
     "puppeteer": "^1.13.0"
   },
   "devDependencies": {

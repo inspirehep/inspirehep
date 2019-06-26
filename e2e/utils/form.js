@@ -1,4 +1,5 @@
 /* eslint-disable no-await-in-loop, no-restricted-syntax */
+const moment = require('moment');
 const routes = require('./routes');
 const { selectFromSelectBox, ID_ATTRIBUTE, TYPE_ATTRIBUTE } = require('./dom');
 
@@ -59,6 +60,12 @@ class FormSubmitter {
         break;
       case 'multiple-select':
         await this.fillMultiSelectField(path, data);
+        break;
+      case 'date-picker':
+        await this.fillDateField(path, data);
+        break;
+      case 'rich-text':
+        await this.fillRichTextField(path, data);
         break;
       default:
         throw TypeError(`${fieldType} can not be a form value`);
@@ -134,6 +141,21 @@ class FormSubmitter {
     for (const value of values) {
       await selectFromSelectBox(this.page, path, value);
     }
+  }
+
+  async fillDateField(path, value) {
+    const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
+    await this.page.click(fieldSelector);
+    const datePickerDaySelector = `[title="${moment(value).format(
+      'MMMM DD, YYYY'
+    )}"]`;
+    await this.page.waitFor(datePickerDaySelector);
+    await this.page.click(datePickerDaySelector);
+  }
+
+  async fillRichTextField(path, value) {
+    const fieldSelector = `[${ID_ATTRIBUTE}="${path}"] [contenteditable=true]`;
+    await this.page.type(fieldSelector, value);
   }
 }
 
