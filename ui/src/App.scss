@@ -24,7 +24,9 @@
 
     // :fist-child to avoid setting padding for `UserFeedback`
     & > *:first-child:not(.__Jobs__) {
-      padding: 0 2.85rem;
+      @media (min-width: $screen-xs-max) {
+        padding: 0 2.85rem;
+      }
     }
 
     @media (max-width: $screen-xs-max) {

@@ -25,11 +25,17 @@
 
   .legend {
     position: absolute;
-    left: 50px;
+    left: 60px;
     top: 10px;
   }
 
   .series-bar {
     cursor: pointer;
+  }
+
+  .rv-xy-plot__axis__title {
+    @media (max-width: $screen-sm-max) {
+      display: none;
+    }
   }
 }
