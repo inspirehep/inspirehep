@@ -1,44 +1,46 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`RichTextEditor renders 1`] = `
-<Quill
-  className="ant-input __RichTextEditor__"
-  formats={
-    Array [
-      "bold",
-      "italic",
-      "underline",
-      "list",
-      "bullet",
-      "link",
-    ]
-  }
-  modules={
-    Object {
-      "toolbar": Array [
-        Array [
-          "bold",
-          "italic",
-          "underline",
-        ],
-        Array [
-          Object {
-            "list": "ordered",
-          },
-          Object {
-            "list": "bullet",
-          },
-        ],
-        Array [
-          "link",
-        ],
-        Array [
-          "clean",
-        ],
-      ],
+<div>
+  <Quill
+    className="ant-input __RichTextEditor__"
+    formats={
+      Array [
+        "bold",
+        "italic",
+        "underline",
+        "list",
+        "bullet",
+        "link",
+      ]
     }
-  }
-  onChange={[MockFunction]}
-  theme="snow"
-/>
+    modules={
+      Object {
+        "toolbar": Array [
+          Array [
+            "bold",
+            "italic",
+            "underline",
+          ],
+          Array [
+            Object {
+              "list": "ordered",
+            },
+            Object {
+              "list": "bullet",
+            },
+          ],
+          Array [
+            "link",
+          ],
+          Array [
+            "clean",
+          ],
+        ],
+      }
+    }
+    onChange={[MockFunction]}
+    theme="snow"
+  />
+</div>
 `;
