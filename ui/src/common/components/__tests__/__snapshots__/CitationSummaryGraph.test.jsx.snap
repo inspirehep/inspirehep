@@ -42,7 +42,14 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
               className="x-axis"
               orientation="bottom"
               tickFormat={[Function]}
-              title="Citations"
+            />
+            <ChartLabel
+              className=""
+              includeMargin={true}
+              style={Object {}}
+              text="Citations"
+              xPercent={0.92}
+              yPercent={0.73}
             />
             <YAxis
               attr="y"
@@ -323,7 +330,14 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
               className="x-axis"
               orientation="bottom"
               tickFormat={[Function]}
-              title="Citations"
+            />
+            <ChartLabel
+              className=""
+              includeMargin={true}
+              style={Object {}}
+              text="Citations"
+              xPercent={0.92}
+              yPercent={0.73}
             />
             <YAxis
               attr="y"
@@ -604,7 +618,14 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
               className="x-axis"
               orientation="bottom"
               tickFormat={[Function]}
-              title="Citations"
+            />
+            <ChartLabel
+              className=""
+              includeMargin={true}
+              style={Object {}}
+              text="Citations"
+              xPercent={0.92}
+              yPercent={0.73}
             />
             <YAxis
               attr="y"

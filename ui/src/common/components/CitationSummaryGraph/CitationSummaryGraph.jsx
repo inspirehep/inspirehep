@@ -6,6 +6,7 @@ import {
   LabelSeries,
   FlexibleWidthXYPlot,
   DiscreteColorLegend,
+  ChartLabel,
 } from 'react-vis';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
@@ -195,8 +196,12 @@ class CitationSummaryGraph extends Component {
                   >
                     <XAxis
                       className="x-axis"
-                      title="Citations"
                       tickFormat={v => xValueToLabel[v]}
+                    />
+                    <ChartLabel
+                      text="Citations"
+                      xPercent={0.92}
+                      yPercent={0.73}
                     />
                     <YAxis title="Papers" />
                     <VerticalBarSeries
