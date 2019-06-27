@@ -8,14 +8,16 @@ import styleVariables from '../../../styleVariables';
 import { ErrorPropType } from '../../propTypes';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
-import pluralizeUnlessSingle from '../../utils';
+import pluralizeUnlessSingle, {
+  pickEvenlyDistributedElements,
+} from '../../utils';
 
 const BLUE = styleVariables['primary-color'];
 const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
 const GRAPH_HEIGHT = 250;
 
 const MIN_NUMBER_OF_DATAPOINTS = 3;
-const MAX_NUMBER_OF_TICKS_AT_X = 7;
+const MAX_NUMBER_OF_TICKS_AT_X = 5;
 const MAX_NUMBER_OF_TICKS_AT_Y = 5;
 
 class CitationsByYearGraph extends Component {
@@ -30,8 +32,9 @@ class CitationsByYearGraph extends Component {
   }
 
   static citationsByYearToSeriesData(citationsByYear) {
-    const minYear = Math.min(...Object.keys(citationsByYear));
-    const maxYear = Math.max(...Object.keys(citationsByYear));
+    const years = Object.keys(citationsByYear);
+    const minYear = Math.min(...years);
+    const maxYear = Math.max(...years);
     const seriesData = [];
     // eslint-disable-next-line no-plusplus
     for (let year = minYear; year <= maxYear; year++) {
@@ -85,16 +88,15 @@ class CitationsByYearGraph extends Component {
 
   renderXAxis() {
     const { seriesData } = this.state;
-    // set tickValues at X explicitly to avoid ticks like `2011.5`
-    // only if it has less than MAX_NUMBER_OF_TICKS_AT_X data points.
+
+    const valuesAtX = seriesData.map(point => point.x);
     const tickValuesAtX =
       seriesData.length < MAX_NUMBER_OF_TICKS_AT_X
-        ? seriesData.map(point => point.x)
-        : null;
+        ? valuesAtX
+        : pickEvenlyDistributedElements(valuesAtX, MAX_NUMBER_OF_TICKS_AT_X);
     return (
       <XAxis
         tickValues={tickValuesAtX}
-        tickTotal={MAX_NUMBER_OF_TICKS_AT_X}
         tickFormat={value => value /* avoid comma per 3 digit */}
       />
     );

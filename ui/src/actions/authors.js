@@ -32,6 +32,7 @@ function fetchAuthorError(error) {
   return {
     type: AUTHOR_ERROR,
     payload: error,
+    meta: { redirectableError: true },
   };
 }
 

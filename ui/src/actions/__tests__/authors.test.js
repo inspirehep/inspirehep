@@ -47,7 +47,11 @@ describe('AUTHOR - async action creators', () => {
 
       const expectedActions = [
         { type: AUTHOR_REQUEST, payload: { recordId: 123 } },
-        { type: AUTHOR_ERROR, payload: { message: 'Error' } },
+        {
+          type: AUTHOR_ERROR,
+          payload: { message: 'Error' },
+          meta: { redirectableError: true },
+        },
       ];
 
       const store = getStore();

@@ -48,7 +48,6 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
           tickValues={
             Array [
               1997,
@@ -151,7 +150,6 @@ exports[`CitationsByYearGraph renders citations for less than 5 different citati
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
           tickValues={
             Array [
               1999,
@@ -259,7 +257,6 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
           tickValues={
             Array [
               1999,
@@ -369,8 +366,15 @@ exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
-          tickValues={null}
+          tickValues={
+            Array [
+              2000,
+              2004,
+              2008,
+              2012,
+              2015,
+            ]
+          }
         />
         <YAxis
           attr="y"
@@ -524,7 +528,6 @@ exports[`CitationsByYearGraph renders hovered info in a tooltip on line series h
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
           tickValues={
             Array [
               1999,
@@ -628,8 +631,15 @@ exports[`CitationsByYearGraph renders more than 5 different citation counts with
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
-          tickValues={null}
+          tickValues={
+            Array [
+              1999,
+              2001,
+              2003,
+              2005,
+              2005,
+            ]
+          }
         />
         <YAxis
           attr="y"
@@ -736,8 +746,15 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
-          tickValues={null}
+          tickValues={
+            Array [
+              1999,
+              2003,
+              2007,
+              2011,
+              2015,
+            ]
+          }
         />
         <YAxis
           attr="y"
@@ -884,7 +901,6 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
           attrAxis="y"
           orientation="bottom"
           tickFormat={[Function]}
-          tickTotal={7}
           tickValues={Array []}
         />
         <YAxis
