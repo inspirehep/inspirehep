@@ -1,5 +1,5 @@
 import { Map, fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import reducer, { searchScopes, initialState } from '../search';
 import * as types from '../../actions/actionTypes';
@@ -13,7 +13,9 @@ describe('search reducer', () => {
   it('LOCATION_CHANGE authors', () => {
     const state = reducer(Map(), {
       type: LOCATION_CHANGE,
-      payload: { pathname: '/authors/12345' },
+      payload: {
+        location: { pathname: '/authors/12345' },
+      },
     });
     expect(state.get('scope')).toEqual(searchScopes.get('authors'));
   });
@@ -21,7 +23,9 @@ describe('search reducer', () => {
   it('LOCATION_CHANGE literature', () => {
     const state = reducer(Map(), {
       type: LOCATION_CHANGE,
-      payload: { pathname: '/literature?q=CERN' },
+      payload: {
+        location: { pathname: '/literature?q=CERN' },
+      },
     });
     expect(state.get('scope')).toEqual(searchScopes.get('literature'));
   });
@@ -29,7 +33,9 @@ describe('search reducer', () => {
   it('LOCATION_CHANGE something else', () => {
     const state = reducer(Map(), {
       type: LOCATION_CHANGE,
-      payload: { pathname: '/something/else' },
+      payload: {
+        location: { pathname: '/something/else' },
+      },
     });
     expect(state.get('scope')).toEqual(searchScopes.get('literature'));
   });

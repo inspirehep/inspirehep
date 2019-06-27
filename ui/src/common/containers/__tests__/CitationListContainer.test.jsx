@@ -1,10 +1,13 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
-import CitationListContainer, { PAGE_SIZE } from '../CitationListContainer';
+import CitationListContainer from '../CitationListContainer';
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import { fetchCitations } from '../../../actions/citations';
+import CitationList from '../../components/CitationList';
 
 jest.mock('../../../actions/citations');
 
@@ -17,108 +20,45 @@ describe('CitationListContainer', () => {
     fetchCitations.mockClear();
   });
 
-  it('renders with state from store', () => {
+  it('passes props from state', () => {
+    // FIXME: requires proper data that's why it is left empty for now
+    const citationsData = fromJS([]);
     const store = getStoreWithState({
       citations: fromJS({
         loading: false,
-        data: [
-          {
-            control_number: 170,
-          },
-        ],
+        error: null,
+        data: citationsData,
         total: 1,
       }),
     });
-    const wrapper = shallow(
-      <CitationListContainer pidType="test" recordId={123} store={store} />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('calls fetchCitations on mount for first page', () => {
-    const store = getStore();
-    mount(
-      <CitationListContainer pidType="test" recordId={123} store={store} />
+    // TODO: add utility to mount with router and provider and use it everywhere else
+    const wrapper = mount(
+      <Provider store={store}>
+        <MemoryRouter>
+          <CitationListContainer pidType="test" recordId={123} />
+        </MemoryRouter>
+      </Provider>
     );
-    expect(fetchCitations).toHaveBeenCalledWith('test', 123, {
-      page: 1,
-      pageSize: PAGE_SIZE,
+    expect(wrapper.find(CitationList)).toHaveProp({
+      citations: citationsData,
+      total: 1,
+      loading: false,
+      error: null,
     });
   });
 
-  it('calls fetchCitations for new record if recordId is changed and set page to 1', () => {
-    const store = getStore();
-    const wrapper = shallow(
-      <CitationListContainer pidType="test" recordId={123} store={store} />
-    ).dive();
-    wrapper.setState({ page: 2 }); // set another page to be sure
-    wrapper.setProps({ recordId: 321 });
-    expect(fetchCitations).toHaveBeenCalledWith('test', 321, {
-      page: 1,
-      pageSize: PAGE_SIZE,
-    });
-    wrapper.update();
-    expect(wrapper.state('page')).toEqual(1);
-  });
-
-  it('does not call fetchCitations if component update but recordId is same', () => {
+  it('calls fetchCitations on page display', () => {
     const store = getStore();
     const wrapper = mount(
-      <CitationListContainer pidType="test" recordId={123} store={store} />
+      <Provider store={store}>
+        <CitationListContainer pidType="test" recordId={123} />
+      </Provider>
     );
-    wrapper.setProps({ recordId: 123 });
+    const onPageDisplay = wrapper.find(CitationList).prop('onPageDisplay');
+    onPageDisplay({ page: 1, pageSize: 10 });
     expect(fetchCitations).toHaveBeenCalledWith('test', 123, {
       page: 1,
-      pageSize: PAGE_SIZE,
+      pageSize: 10,
     });
-    expect(fetchCitations).toHaveBeenCalledTimes(1);
-  });
-
-  it('calls fetchCitations and sets page state on page change', () => {
-    const store = getStore();
-    const wrapper = shallow(
-      <CitationListContainer pidType="test" recordId={123} store={store} />
-    ).dive();
-
-    const page = 2;
-    wrapper.instance().onPageChange(page);
-    expect(fetchCitations).toHaveBeenCalledWith('test', 123, {
-      page,
-      pageSize: PAGE_SIZE,
-    });
-    expect(wrapper.state('page')).toEqual(page);
-  });
-
-  it('does not render if total <= 0', () => {
-    const store = getStoreWithState({
-      citations: fromJS({
-        loading: false,
-        data: [
-          {
-            control_number: 170,
-          },
-        ],
-        total: 0,
-      }),
-    });
-    const wrapper = shallow(
-      <CitationListContainer store={store} pidType="test" recordId={123} />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders with error', () => {
-    const store = getStoreWithState({
-      citations: fromJS({
-        loading: false,
-        data: [],
-        total: 0,
-        error: { message: 'Error' },
-      }),
-    });
-    const wrapper = shallow(
-      <CitationListContainer store={store} pidType="test" recordId={123} />
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
   });
 });

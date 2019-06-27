@@ -4,9 +4,9 @@ import { MemoryRouter } from 'react-router-dom';
 import { shallow, mount } from 'enzyme';
 import { getStore } from '../../fixtures/store';
 import Holdingpen from '..';
-import DashboardPage from '../containers/DashboardPage';
-import ExceptionsPage from '../containers/ExceptionsPage';
-import InspectPage from '../containers/InspectPage';
+import DashboardPageContainer from '../containers/DashboardPageContainer';
+import ExceptionsPageContainer from '../containers/ExceptionsPageContainer';
+import InspectPageContainer from '../containers/InspectPageContainer';
 
 describe('Holdingpen', () => {
   it('renders initial state', () => {
@@ -14,7 +14,7 @@ describe('Holdingpen', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to DashboardPage when /holdingpen/dashboard', () => {
+  it('navigates to DashboardPageContainer when /holdingpen/dashboard', () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -26,10 +26,10 @@ describe('Holdingpen', () => {
       </Provider>
     );
 
-    expect(wrapper.find(DashboardPage)).toExist();
+    expect(wrapper.find(DashboardPageContainer)).toExist();
   });
 
-  it('navigates to DashboardPage when /holdingpen/exceptions', () => {
+  it('navigates to DashboardPageContainer when /holdingpen/exceptions', () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -40,10 +40,10 @@ describe('Holdingpen', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(ExceptionsPage)).toExist();
+    expect(wrapper.find(ExceptionsPageContainer)).toExist();
   });
 
-  it('navigates to InspectPage when /holdingpen/inspect/:id', () => {
+  it('navigates to InspectPageContainer when /holdingpen/inspect/:id', () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -54,6 +54,6 @@ describe('Holdingpen', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(InspectPage)).toExist();
+    expect(wrapper.find(InspectPageContainer)).toExist();
   });
 });

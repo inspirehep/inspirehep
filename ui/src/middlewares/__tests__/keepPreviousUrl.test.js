@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import middleware from '../keepPreviousUrl';
 
@@ -15,23 +15,29 @@ describe('keepPreviousUrl middleware', () => {
     const previous = {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/previousPathname',
-        search: '?previous=1',
+        location: {
+          pathname: '/previousPathname',
+          search: '?previous=1',
+        },
       },
     };
     const action = {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/nextPathname',
-        search: '?next=1',
+        location: {
+          pathname: '/nextPathname',
+          search: '?next=1',
+        },
       },
     };
     const expected = {
       type: LOCATION_CHANGE,
       payload: {
-        pathname: '/nextPathname',
-        search: '?next=1',
-        previousUrl: '/previousPathname?previous=1',
+        location: {
+          pathname: '/nextPathname',
+          search: '?next=1',
+          previousUrl: '/previousPathname?previous=1',
+        },
       },
     };
     dispatch(previous);

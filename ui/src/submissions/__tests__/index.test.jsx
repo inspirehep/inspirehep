@@ -7,12 +7,12 @@ import Loadable from 'react-loadable';
 
 import { getStore, getStoreWithState } from '../../fixtures/store';
 import Submissions from '..';
-import AuthorSubmissionPage from '../authors/containers/AuthorSubmissionPage';
+import AuthorSubmissionPageContainer from '../authors/containers/AuthorSubmissionPageContainer';
 import SubmissionSuccessPage from '../common/components/SubmissionSuccessPage';
-import AuthorUpdateSubmissionPage from '../authors/containers/AuthorUpdateSubmissionPage';
-import LiteratureSubmissionPage from '../literature/containers/LiteratureSubmissionPage';
-import JobUpdateSubmissionPage from '../jobs/containers/JobUpdateSubmissionPage';
-import JobSubmissionPage from '../jobs/containers/JobSubmissionPage';
+import AuthorUpdateSubmissionPageContainer from '../authors/containers/AuthorUpdateSubmissionPageContainer';
+import LiteratureSubmissionPageContainer from '../literature/containers/LiteratureSubmissionPageContainer';
+import JobUpdateSubmissionPageContainer from '../jobs/containers/JobUpdateSubmissionPageContainer';
+import JobSubmissionPageContainer from '../jobs/containers/JobSubmissionPageContainer';
 
 describe('Submissions', () => {
   it('renders initial state', () => {
@@ -20,7 +20,7 @@ describe('Submissions', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to AuthorSubmissionPage when /submissions/authors', async done => {
+  it('navigates to AuthorSubmissionPageContainer when /submissions/authors', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -34,12 +34,12 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(AuthorSubmissionPage)).toExist();
+    expect(wrapper.find(AuthorSubmissionPageContainer)).toExist();
 
     done();
   });
 
-  it('navigates to LiteratureSubmissionPage when /submissions/literature if superuser', async done => {
+  it('navigates to LiteratureSubmissionPageContainer when /submissions/literature if superuser', async done => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -61,12 +61,12 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(LiteratureSubmissionPage)).toExist();
+    expect(wrapper.find(LiteratureSubmissionPageContainer)).toExist();
 
     done();
   });
 
-  it('does not navigate to LiteratureSubmissionPage when /submissions/literature if whatever user', async done => {
+  it('does not navigate to LiteratureSubmissionPageContainer when /submissions/literature if whatever user', async done => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -88,12 +88,12 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(LiteratureSubmissionPage)).not.toExist();
+    expect(wrapper.find(LiteratureSubmissionPageContainer)).not.toExist();
 
     done();
   });
 
-  it('navigates to AuthorUpdateSubmissionPage when /submissions/authors/:id', async done => {
+  it('navigates to AuthorUpdateSubmissionPageContainer when /submissions/authors/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -107,19 +107,15 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(AuthorUpdateSubmissionPage)).toExist();
+    expect(wrapper.find(AuthorUpdateSubmissionPageContainer)).toExist();
 
     done();
   });
 
-
-  it('navigates to JobSubmissionPage when /submissions/jobs', async done => {
+  it('navigates to JobSubmissionPageContainer when /submissions/jobs', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/jobs']}
-          initialIndex={0}
-        >
+        <MemoryRouter initialEntries={['/submissions/jobs']} initialIndex={0}>
           <Submissions />
         </MemoryRouter>
       </Provider>
@@ -127,18 +123,15 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(JobSubmissionPage)).toExist();
+    expect(wrapper.find(JobSubmissionPageContainer)).toExist();
 
     done();
   });
 
-  it('navigates to JobUpdateSubmissionPage when /submissions/jobs/:id', async done => {
+  it('navigates to JobUpdateSubmissionPageContainer when /submissions/jobs/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
-        <MemoryRouter
-          initialEntries={['/submissions/jobs/1']}
-          initialIndex={0}
-        >
+        <MemoryRouter initialEntries={['/submissions/jobs/1']} initialIndex={0}>
           <Submissions />
         </MemoryRouter>
       </Provider>
@@ -146,7 +139,7 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(JobUpdateSubmissionPage)).toExist();
+    expect(wrapper.find(JobUpdateSubmissionPageContainer)).toExist();
 
     done();
   });

@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import { CLEAR_STATE } from '../actions/actionTypes';
 
@@ -14,7 +14,7 @@ export default function({ getState, dispatch }) {
     if (action.type === LOCATION_CHANGE && action.payload) {
       const currentLocation = getLocationFromRootState(getState());
       const result = next(action);
-      const nextLocation = action.payload; // use this instead of `getLocationFromRootState(getState())` for testability.
+      const nextLocation = action.payload.location; // use this instead of `getLocationFromRootState(getState())` for testability.
       if (
         nextLocation.search !== currentLocation.search ||
         nextLocation.pathname !== currentLocation.pathname

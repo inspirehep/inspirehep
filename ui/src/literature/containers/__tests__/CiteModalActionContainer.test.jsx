@@ -1,17 +1,24 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
-import CiteModalActionContainer, {
-  dispatchToProps,
-} from '../CiteModalActionContainer';
-import * as user from '../../../actions/user';
+import { getStoreWithState, getStore } from '../../../fixtures/store';
+import CiteModalActionContainer from '../CiteModalActionContainer';
+import { setPreferredCiteFormat } from '../../../actions/user';
 import CiteModalAction from '../../components/CiteModalAction';
 
 jest.mock('../../../actions/user');
 
 describe('CiteModalActionContainer', () => {
+  beforeAll(() => {
+    setPreferredCiteFormat.mockReturnValue(async () => {});
+  });
+
+  afterEach(() => {
+    setPreferredCiteFormat.mockClear();
+  });
+
   it('passes user preferred cite format as initialCiteFormat', () => {
     const store = getStoreWithState({
       user: fromJS({
@@ -19,19 +26,28 @@ describe('CiteModalActionContainer', () => {
       }),
     });
     const wrapper = mount(
-      <CiteModalActionContainer recordId={12345} store={store} />
+      <Provider store={store}>
+        <CiteModalActionContainer recordId={12345} />
+      </Provider>
     );
-    const dummyWrapper = wrapper.find(CiteModalAction);
-    expect(dummyWrapper).toHaveProp('initialCiteFormat', 'x-bibtex');
-    expect(dummyWrapper).toHaveProp('recordId', 12345);
+    expect(wrapper.find(CiteModalAction)).toHaveProp({
+      initialCiteFormat: 'x-bibtex',
+      recordId: 12345,
+    });
   });
 
-  it('calls setPreferredCiteFormat onCiteFormatChange', () => {
-    const mockSetPreferredCiteFormat = jest.fn();
-    user.setPreferredCiteFormat = mockSetPreferredCiteFormat;
-    const props = dispatchToProps(jest.fn());
-    const format = `x-bibtex`;
-    props.onCiteFormatChange(format);
-    expect(mockSetPreferredCiteFormat).toHaveBeenCalledWith(format);
+  it('calls setPreferredCiteFormat on CiteModalAction cite format change', () => {
+    const store = getStore();
+    const wrapper = mount(
+      <Provider store={store}>
+        <CiteModalActionContainer recordId={12345} />
+      </Provider>
+    );
+    const format = 'x-bibtex';
+    const onCiteFormatChange = wrapper
+      .find(CiteModalAction)
+      .prop('onCiteFormatChange');
+    onCiteFormatChange(format);
+    expect(setPreferredCiteFormat).toHaveBeenCalledWith(format);
   });
 });

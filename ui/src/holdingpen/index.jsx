@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
-import DashboardPage from './containers/DashboardPage';
-import ExceptionsPage from './containers/ExceptionsPage';
-import InspectPage from './containers/InspectPage';
+import DashboardPageContainer from './containers/DashboardPageContainer';
+import ExceptionsPageContainer from './containers/ExceptionsPageContainer';
+import InspectPageContainer from './containers/InspectPageContainer';
 import {
   HOLDINGPEN_DASHBOARD,
   HOLDINGPEN_EXCEPTIONS,
@@ -18,16 +18,20 @@ class Holdingpen extends Component {
       <div className="w-100">
         <SafeSwitch>
           <Redirect exact from={HOLDINGPEN} to={HOLDINGPEN_DASHBOARD} />
-          <Route exact path={HOLDINGPEN_DASHBOARD} component={DashboardPage} />
+          <Route
+            exact
+            path={HOLDINGPEN_DASHBOARD}
+            component={DashboardPageContainer}
+          />
           <Route
             exact
             path={HOLDINGPEN_EXCEPTIONS}
-            component={ExceptionsPage}
+            component={ExceptionsPageContainer}
           />
           <Route
             exact
             path={`${HOLDINGPEN_INSPECT}/:id`}
-            component={InspectPage}
+            component={InspectPageContainer}
           />
         </SafeSwitch>
       </div>

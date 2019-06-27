@@ -6,8 +6,8 @@ import Loadable from 'react-loadable';
 
 import { getStore } from '../../fixtures/store';
 import Literature from '..';
-import SearchPage from '../containers/SearchPage';
-import DetailPage from '../containers/DetailPage';
+import SearchPageContainer from '../containers/SearchPageContainer';
+import DetailPageContainer from '../containers/DetailPageContainer';
 
 describe('Literature', () => {
   it('renders initial state', () => {
@@ -15,7 +15,7 @@ describe('Literature', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to SearchPage when /literature', async done => {
+  it('navigates to SearchPageContainer when /literature', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/literature']} initialIndex={0}>
@@ -26,12 +26,12 @@ describe('Literature', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(SearchPage)).toExist();
+    expect(wrapper.find(SearchPageContainer)).toExist();
 
     done();
   });
 
-  it('navigates to DetailPage when /literature/:id', async done => {
+  it('navigates to DetailPageContainer when /literature/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/literature/1']} initialIndex={0}>
@@ -42,7 +42,7 @@ describe('Literature', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(DetailPage)).toExist();
+    expect(wrapper.find(DetailPageContainer)).toExist();
 
     done();
   });

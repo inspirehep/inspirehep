@@ -2,12 +2,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'react-router-redux';
+import { ConnectedRouter } from 'connected-react-router';
 import 'tachyons';
 import * as Sentry from '@sentry/browser';
 
 import { unregister as unregisterServiceWorker } from './registerServiceWorker';
-import { store, history } from './store';
+import createStore, { history } from './store';
 import App from './App';
 import './theme.less';
 import ErrorAppCrash from './errors/components/ErrorAppCrash';
@@ -17,6 +17,8 @@ import { injectTrackerToHistory } from './tracker';
 Sentry.init({
   dsn: process.env.REACT_APP_SENTRY_DSN,
 });
+
+const store = createStore();
 
 ReactDOM.render(
   // eslint-disable-next-line react/jsx-filename-extension

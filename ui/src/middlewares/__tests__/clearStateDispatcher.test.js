@@ -1,4 +1,4 @@
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import { CLEAR_STATE } from '../../actions/actionTypes';
 import middleware from '../clearStateDispatcher';
@@ -22,8 +22,10 @@ describe('clearStateDispatcher middleware', () => {
       const action = {
         type: LOCATION_CHANGE,
         payload: {
-          pathname: '/two',
-          search: '?filter=value',
+          location: {
+            pathname: '/two',
+            search: '?filter=value',
+          },
         },
       };
       const resultAction = testMiddleware(action);
@@ -52,8 +54,10 @@ describe('clearStateDispatcher middleware', () => {
       const action = {
         type: LOCATION_CHANGE,
         payload: {
-          pathname: '/one',
-          search: '?filter=new',
+          location: {
+            pathname: '/one',
+            search: '?filter=new',
+          },
         },
       };
       const resultAction = testMiddleware(action);
@@ -81,8 +85,10 @@ describe('clearStateDispatcher middleware', () => {
       const action = {
         type: LOCATION_CHANGE,
         payload: {
-          pathname: '/one',
-          search: '?filter=value',
+          location: {
+            pathname: '/one',
+            search: '?filter=value',
+          },
         },
       };
       const resultAction = testMiddleware(action);

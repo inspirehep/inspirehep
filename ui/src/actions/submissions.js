@@ -1,4 +1,4 @@
-import { push } from 'react-router-redux';
+import { push } from 'connected-react-router';
 
 import {
   SUBMIT_SUCCESS,
@@ -44,7 +44,6 @@ function fetchInitialFormDataSuccess(data) {
   };
 }
 
-
 export function submit(pidType, data) {
   return async (dispatch, getState, http) => {
     try {
@@ -76,9 +75,7 @@ export function fetchUpdateFormData(pidType, pidValue) {
       const response = await http.get(`${SUBMISSIONS}/${pidType}/${pidValue}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
-      dispatch(
-        fetchInitialFormDataError(httpErrorToActionPayload(error))
-      );
+      dispatch(fetchInitialFormDataError(httpErrorToActionPayload(error)));
     }
   };
 }
@@ -90,9 +87,7 @@ export function importExternalLiterature(id) {
       const response = await http.get(`/literature/import/${id}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
-      dispatch(
-        fetchInitialFormDataError(httpErrorToActionPayload(error))
-      );
+      dispatch(fetchInitialFormDataError(httpErrorToActionPayload(error)));
     }
   };
 }

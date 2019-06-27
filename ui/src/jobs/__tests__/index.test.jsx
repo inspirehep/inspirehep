@@ -6,8 +6,8 @@ import Loadable from 'react-loadable';
 
 import { getStore } from '../../fixtures/store';
 import Jobs from '..';
-import DetailPage from '../containers/DetailPage';
-import SearchPage from '../containers/SearchPage';
+import DetailPageContainer from '../containers/DetailPageContainer';
+import SearchPageContainer from '../containers/SearchPageContainer';
 
 describe('Jobs', () => {
   it('renders initial state', () => {
@@ -15,7 +15,7 @@ describe('Jobs', () => {
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to DetailPage when /jobs/:id', async done => {
+  it('navigates to DetailPageContainer when /jobs/:id', async done => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/jobs/123']} initialIndex={0}>
@@ -26,7 +26,7 @@ describe('Jobs', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(DetailPage)).toExist();
+    expect(wrapper.find(DetailPageContainer)).toExist();
 
     done();
   });
@@ -42,7 +42,7 @@ describe('Jobs', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(SearchPage)).toExist();
+    expect(wrapper.find(SearchPageContainer)).toExist();
 
     done();
   });

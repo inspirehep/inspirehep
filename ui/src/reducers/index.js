@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
+import { connectRouter } from 'connected-react-router';
 
 import search from './search';
 import literature from './literature';
@@ -12,21 +12,21 @@ import authors from './authors';
 import jobs from './jobs';
 import ui, { initialState as uiInitialState } from './ui';
 
-const reducers = combineReducers({
-  router: routerReducer,
-  exceptions,
-  inspect,
-  literature,
-  user,
-  search,
-  submissions,
-  citations,
-  authors,
-  ui,
-  jobs,
-});
-
-export default reducers;
+export default function createRootReducer(history) {
+  return combineReducers({
+    router: connectRouter(history),
+    exceptions,
+    inspect,
+    literature,
+    user,
+    search,
+    submissions,
+    citations,
+    authors,
+    ui,
+    jobs,
+  });
+}
 
 export const REDUCERS_TO_PERSISTS = [
   { name: 'ui', initialState: uiInitialState },

@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 
 import RouteOrRedirect from '../common/components/RouteOrRedirect';
-import LoginPage from './containers/LoginPage';
-import ProfilePage from './containers/ProfilePage';
+import LoginPageContainer from './containers/LoginPageContainer';
+import ProfilePage from './components/ProfilePage';
 import PrivateRoute from '../common/PrivateRoute';
-import LocalLoginPage from './containers/LocalLoginPage';
+import LocalLoginPageContainer from './containers/LocalLoginPageContainer';
 import {
   USER_LOGIN,
   USER_LOCAL_LOGIN,
@@ -27,7 +27,7 @@ class User extends Component {
             exact
             path={USER_LOGIN}
             condition={!loggedIn}
-            component={LoginPage}
+            component={LoginPageContainer}
             redirectTo={previousUrl}
           />
           {(process.env.NODE_ENV === 'development' ||
@@ -36,7 +36,7 @@ class User extends Component {
               exact
               path={USER_LOCAL_LOGIN}
               condition={!loggedIn}
-              component={LocalLoginPage}
+              component={LocalLoginPageContainer}
               redirectTo={previousUrl}
             />
           )}
