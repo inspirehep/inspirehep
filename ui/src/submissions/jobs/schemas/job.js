@@ -9,6 +9,7 @@ import {
 import arrayWithEmptyObjectDefault from '../../common/schemas/arrayWithEmptyObjectDefault';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import arrayWithNullDefault from '../../common/schemas/arrayWithNullDefault';
+import OR from '../../common/schemas/OR';
 
 export function isValidDeadlineDate(value) {
   const dateValue = value instanceof moment ? value : moment(value);
@@ -17,7 +18,7 @@ export function isValidDeadlineDate(value) {
   return dateValue.isAfter(now) && dateValue.isBefore(nextYear);
 }
 
-const authorSchema = object().shape({
+const jobSchema = object().shape({
   status: string()
     .oneOf(statusValues)
     .default('pending')
@@ -85,7 +86,19 @@ const authorSchema = object().shape({
   url: string()
     .url()
     .label('URL'),
-  reference_letters: arrayWithNullDefault.of(string().nullable()),
+  reference_letters: arrayWithNullDefault.of(
+    OR(
+      [
+        string()
+          .nullable()
+          .url(),
+        string()
+          .nullable()
+          .email(),
+      ],
+      'Must be a url or an email'
+    )
+  ),
 });
 
-export default authorSchema;
+export default jobSchema;

@@ -124,19 +124,6 @@ describe('jobSchema', () => {
     done();
   });
 
-  it('validates with reference letters', async done => {
-    const data = {
-      ...dataWithRequiredFields,
-      reference_letters: [
-        'https://cern.ch/jobs/123/reference-letter/submit',
-        'supervisor-guy-for-job-123@cern.ch',
-      ],
-    };
-    const isValid = await jobSchema.isValid(data);
-    expect(isValid).toBe(true);
-    done();
-  });
-
   it('invalidates when url is an invalid url', async done => {
     const data = {
       ...dataWithRequiredFields,
@@ -204,6 +191,29 @@ describe('jobSchema', () => {
     };
     const isValid = await jobSchema.isValid(data);
     expect(isValid).toBe(false);
+    done();
+  });
+
+  it('invalidates when a referece_letter is not an email nor url', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      reference_letters: ['dude'],
+    };
+    const isValid = await jobSchema.isValid(data);
+    expect(isValid).toBe(false);
+    done();
+  });
+
+  it('validates when a referece_letter is an email or url', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      reference_letters: [
+        'https://cern.ch/jobs/123/reference-letter/submit',
+        'supervisor-guy-for-job-123@cern.ch',
+      ],
+    };
+    const isValid = await jobSchema.isValid(data);
+    expect(isValid).toBe(true);
     done();
   });
 });

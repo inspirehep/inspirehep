@@ -152,7 +152,7 @@ class JobForm extends Component {
             <Field
               onlyChild
               name={itemName}
-              placeholder="URL or email where reference letters should be sent"
+              placeholder="URL (http://) or email where reference letters should be sent"
               component={TextField}
             />
           )}
