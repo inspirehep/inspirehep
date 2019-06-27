@@ -19,7 +19,6 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search_client as es
 
-from inspirehep.alembic_helper.db import clean_db, setup_db
 from inspirehep.factory import create_api as inspire_create_app
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.fixtures import (
@@ -34,7 +33,6 @@ logger = logging.getLogger(__name__)
 def app():
     app = inspire_create_app()
     app_config = {}
-    # Due to flask error it has to be False otherwise Alembic __init__ will fail.
     app_config["DEBUG"] = False
     app_config["CELERY_BROKER_URL"] = "pyamqp://guest:guest@localhost:5672"
     app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/1"
@@ -51,9 +49,17 @@ def app():
 
 @pytest.fixture(scope="function", autouse=True)
 def clear_environment(app):
+    from invenio_db import db as db_
+    from sqlalchemy_utils.functions import create_database, database_exists
+
     with app.app_context():
-        clean_db(db)
-        setup_db(app)
+
+        db_.session.remove()
+        db_.drop_all()
+        if not database_exists(str(db_.engine.url)):
+            create_database(str(db_.engine.url))
+        db_.create_all()
+
         _es = app.extensions["invenio-search"]
         list(_es.delete(ignore=[404]))
         list(_es.create(ignore=[400]))

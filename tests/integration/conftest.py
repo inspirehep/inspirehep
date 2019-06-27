@@ -21,7 +21,6 @@ from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
 
-from inspirehep.alembic_helper.db import clean_db, setup_db
 from inspirehep.factory import create_api as inspire_create_app
 from inspirehep.records.api import InspireRecord
 
@@ -56,25 +55,6 @@ def disable_files(base_app):
 @pytest.fixture(scope="module")
 def create_app():
     return inspire_create_app
-
-
-@pytest.fixture(scope="module")
-def database(appctx):
-    """Setup database.
-    Scope: module
-    Normally, tests should use the function-scoped :py:data:`db` fixture
-    instead. This fixture takes care of creating the database/tables and
-    removing the tables once tests are done.
-    """
-    from invenio_db import db as db_
-
-    clean_db(db_)
-    setup_db(appctx)
-
-    yield db_
-
-    db_.session.remove()
-    clean_db(db_)
 
 
 @pytest.fixture(scope="function")

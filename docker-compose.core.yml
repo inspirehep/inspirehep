@@ -26,20 +26,16 @@ services:
     extends:
       file: docker-compose.services.yml
       service: mq
-    ports:
-     - "5672:5672"
+  mq-next:
+    extends:
+      file: docker-compose.services.yml
+      service: mq
   es:
     extends:
       file: docker-compose.services.yml
       service: es
     ports:
      - "9200:9200"
-  flower:
-    extends:
-      file: docker-compose.services.yml
-      service: flower
-    ports:
-     - "5555:5555"
   ui: # TODO: change the name since to app or lb since it's the main entry point for every request
     build:
       context: ui
@@ -86,13 +82,8 @@ services:
       timeout: 5s
       interval: 5s
       retries: 5
-      test:
-       - "CMD"
-       - "bash"
-       - "-c"
-       - "/virtualenv/bin/celery --broker=pyamqp://guest:guest@rabbitmq:5672// inspect ping | grep OK"
     depends_on:
       - db
       - es
-      - mq
+      - mq-next
       - cache

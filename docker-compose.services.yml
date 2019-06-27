@@ -17,10 +17,10 @@ services:
     environment:
       - "INVENIO_DEBUG=True"
       - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
-      - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_BROKER_URL=amqp://guest:guest@mq/"
       - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
       - "INVENIO_CACHE_TYPE=redis"
-      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "INVENIO_CELERY_BROKER_URL=amqp://guest:guest@mq/"
       - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
       - "INVENIO_SEARCH_ELASTIC_HOSTS=['es:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
@@ -45,12 +45,12 @@ services:
       - "POSTGRES_DB=inspirehep"
     ports:
       - "5432:5432"
+  mq-next:
+    image: rabbitmq:3-management
+    restart: "always"
   mq:
     image: rabbitmq:3-management
     restart: "always"
-    ports:
-      - "15672:15672"
-      - "5672:5672"
   es:
     build: ./docker/elasticsearch
     restart: "always"
@@ -73,15 +73,13 @@ services:
     ports: ['5601:5601']
   flower:
     image: mher/flower
-    command: --broker=amqp://guest:guest@mq:5672/ --broker_api=http://guest:guest@mq:15672/api/
-    ports:
-      - "5555:5555"
+    command: --broker=amqp://guest:guest@mq/ --broker_api=http://guest:guest@mq/api/
   inspire-next:
     image: "inspirehep/inspire-next:assets"
     environment:
       - "APP_DEBUG=True"
       - "APP_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep"
-      - "APP_CELERY_BROKER_URL=amqp://guest:guest@mq:5672/"
+      - "APP_CELERY_BROKER_URL=amqp://guest:guest@mq-next/"
       - "APP_CELERY_RESULT_BACKEND=redis://cache:6379/2"
       - "APP_CACHE_REDIS_URL=redis://cache:6379/0"
       - "APP_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"

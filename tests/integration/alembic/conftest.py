@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import pytest
 from flask_alembic import Alembic
 
 
@@ -24,3 +25,17 @@ def clean_db(db):
 def setup_db(app):
     alembic = Alembic(app)
     alembic.upgrade()
+
+
+@pytest.fixture(scope="module")
+def database(appctx):
+    """Setup database for alembic."""
+    from invenio_db import db as db_
+
+    clean_db(db_)
+    setup_db(appctx)
+
+    yield db_
+
+    db_.session.remove()
+    clean_db(db_)

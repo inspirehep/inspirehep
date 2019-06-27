@@ -4,8 +4,6 @@ services:
 
   e2e:
     image: alekzonder/puppeteer
-    
-    command: bash -c "cd /opt/e2e && yarn && yarn test"
     volumes:
       - ./e2e:/opt/e2e
     environment:

@@ -17,7 +17,7 @@ You overwrite and set instance-specific configuration by either:
 import os
 import sys
 
-from inspirehep.alembic_helper.table_check import include_table_check
+from inspirehep.utils import include_table_check
 
 # INSPIRE configuration
 # =====================
@@ -194,14 +194,15 @@ ALEMBIC_CONTEXT = {
 }
 
 ALEMBIC_SKIP_TABLES = [
-    "workflows_record_sources",
-    "workflows_pending_record",
-    "crawler_workflows_object",
+    "alembic_version",
     "crawler_job",
+    "crawler_workflows_object",
+    "oaiharvester_configs",
+    "transaction",
     "workflows_audit_logging",
     "workflows_buckets",
     "workflows_object",
+    "workflows_pending_record",
+    "workflows_record_sources",
     "workflows_workflow",
-    "transaction",
-    "alembic_version",
 ]
