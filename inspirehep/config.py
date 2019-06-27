@@ -620,16 +620,10 @@ RECORDS_REST_SORT_OPTIONS = {
             "default_order": "asc",  # Used for invenio-search-js config
             "order": 2,
         },
-        "bestmatch": {
-            "title": "Best Match",
-            "fields": ["-_score"],
-            "default_order": "asc",
-            "order": 3,
-        },
     },
     "records-jobs": {
         "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
-        "deadline": {"title": "Deadline", "fields": ["-deadline_date"], "order": 2},
+        "deadline": {"title": "Deadline", "fields": ["deadline_date"], "order": 2},
     },
 }
 

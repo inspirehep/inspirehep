@@ -57,9 +57,7 @@ def test_literature_application_json_without_login(api_client, db, create_record
         "documents": [{"key": "public", "url": "https://url.to/public/document"}],
     }
 
-    response = api_client.get(
-        f"/literature/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -130,9 +128,7 @@ def test_literature_application_json_with_logged_in_cataloger(
         ],
     }
 
-    response = api_client.get(
-        f"/literature/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -286,9 +282,7 @@ def test_literature_json_ui_v1_response(api_client, db, create_record):
         "document_type": ["article"],
         "titles": record_titles,
     }
-    response = api_client.get(
-        f"/literature/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -310,9 +304,7 @@ def test_literature_json_ui_v1_response_cataloger(api_client, db, create_record)
         "document_type": ["article"],
         "titles": record_titles,
     }
-    response = api_client.get(
-        f"/literature/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -327,27 +319,29 @@ def test_literature_json_ui_v1_response_search(api_client, db, create_record):
     record = create_record("lit")
 
     expected_status_code = 200
-    expected_title = record['titles'][0]['title']
+    expected_title = record["titles"][0]["title"]
 
     response = api_client.get("/literature", headers=headers)
     response_status_code = response.status_code
     response_data = json.loads(response.data)
 
-    assert response_data["hits"]['total'] == 1
+    assert response_data["hits"]["total"] == 1
 
-    expected_data_hits = response_data["hits"]["hits"][0]['metadata']
+    expected_data_hits = response_data["hits"]["hits"][0]["metadata"]
 
     assert expected_status_code == response_status_code
-    assert expected_title == expected_data_hits['titles'][0]['title']
-    assert 'can_edit' not in expected_data_hits
+    assert expected_title == expected_data_hits["titles"][0]["title"]
+    assert "can_edit" not in expected_data_hits
 
 
-def test_literature_json_ui_v1_response_search_cataloger_can_edit_flag(api_client, db, create_record, create_user):
+def test_literature_json_ui_v1_response_search_cataloger_can_edit_flag(
+    api_client, db, create_record, create_user
+):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit")
 
     expected_status_code = 200
-    expected_title = record['titles'][0]['title']
+    expected_title = record["titles"][0]["title"]
 
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -356,14 +350,14 @@ def test_literature_json_ui_v1_response_search_cataloger_can_edit_flag(api_clien
     response_status_code = response.status_code
     response_data = json.loads(response.data)
 
-    assert response_data["hits"]['total'] == 1
+    assert response_data["hits"]["total"] == 1
 
-    expected_data_hits = response_data["hits"]["hits"][0]['metadata']
+    expected_data_hits = response_data["hits"]["hits"][0]["metadata"]
 
     assert expected_status_code == response_status_code
-    assert expected_title == expected_data_hits['titles'][0]['title']
-    assert 'can_edit' in expected_data_hits
-    assert expected_data_hits['can_edit'] is True
+    assert expected_title == expected_data_hits["titles"][0]["title"]
+    assert "can_edit" in expected_data_hits
+    assert expected_data_hits["can_edit"] is True
 
 
 def test_literature_json_ui_v1_response_search_has_sort_options(
@@ -376,7 +370,6 @@ def test_literature_json_ui_v1_response_search_has_sort_options(
     expected_sort_options = [
         {"value": "mostrecent", "display": "Most Recent"},
         {"value": "mostcited", "display": "Most Cited"},
-        {"value": "bestmatch", "display": "Best Match"},
     ]
     response = api_client.get("/literature", headers=headers)
 
@@ -534,9 +527,7 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
         "stub": False,
         "urls": [{"value": "http://www.sns.ias.edu/~malda"}],
     }
-    response = api_client.get(
-        f"/authors/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -572,9 +563,7 @@ def test_authors_application_json_v1_response_without_login(
         "deleted": False,
         "email_addresses": [{"value": "public@urhan.ch"}],
     }
-    response = api_client.get(
-        f"/authors/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -619,9 +608,7 @@ def test_authors_application_json_v1_response_with_logged_in_cataloger(
             {"value": "private@urhan.ch", "hidden": True},
         ],
     }
-    response = api_client.get(
-        f"/authors/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -643,9 +630,7 @@ def test_authors_default__only_control_number_json_v1_response(
 
     expected_status_code = 200
     expected_result = {"control_number": record_control_number}
-    response = api_client.get(
-        f"/authors/{record_control_number}", headers=headers
-    )
+    response = api_client.get(f"/authors/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -779,7 +764,9 @@ def test_jobs_default_json_v1_response(api_client, db, create_record_factory, da
     assert expected_result == response_data_metadata
 
 
-def test_jobs_default_json_v1_response_cataloger_can_edit(api_client, db, create_record_factory, datadir, create_user):
+def test_jobs_default_json_v1_response_cataloger_can_edit(
+    api_client, db, create_record_factory, datadir, create_user
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
@@ -789,7 +776,7 @@ def test_jobs_default_json_v1_response_cataloger_can_edit(api_client, db, create
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    expected_result['can_edit'] = True
+    expected_result["can_edit"] = True
 
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -804,7 +791,9 @@ def test_jobs_default_json_v1_response_cataloger_can_edit(api_client, db, create
     assert expected_result == response_data_metadata
 
 
-def test_jobs_default_json_v1_response_author_can_edit_but_random_user_cant(api_client, db, create_record_factory, datadir, create_user, logout):
+def test_jobs_default_json_v1_response_author_can_edit_but_random_user_cant(
+    api_client, db, create_record_factory, datadir, create_user, logout
+):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
@@ -814,9 +803,9 @@ def test_jobs_default_json_v1_response_author_can_edit_but_random_user_cant(api_
 
     expected_status_code = 200
     expected_result = deepcopy(record.json)
-    expected_result['can_edit'] = True
+    expected_result["can_edit"] = True
 
-    jobs_author = create_user(email='georgews@ntu.com')
+    jobs_author = create_user(email="georgews@ntu.com")
     login_user_via_session(api_client, email=jobs_author.email)
 
     response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
@@ -829,13 +818,13 @@ def test_jobs_default_json_v1_response_author_can_edit_but_random_user_cant(api_
 
     logout(api_client)
 
-    random_user = create_user(email='random@user.com')
+    random_user = create_user(email="random@user.com")
     login_user_via_session(api_client, email=random_user.email)
 
     response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
     response_data_metadata = json.loads(response.data)["metadata"]
 
-    assert 'can_edit' not in response_data_metadata
+    assert "can_edit" not in response_data_metadata
 
 
 def test_jobs_default_json_v1_response_search(
