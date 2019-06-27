@@ -222,7 +222,9 @@ class JobSubmissionsResource(BaseSubmissionsResource):
                 schema_path="records/jobs.json",
                 _external=True,
             )
-        data["status"] = "pending"
+        if not is_superuser_or_cataloger_logged_in():
+            data["status"] = "pending"
+
         builder = JobBuilder(record=data)
         if "acquisition_source" not in builder.record:
             acquisition_source = self.get_acquisition_source()
