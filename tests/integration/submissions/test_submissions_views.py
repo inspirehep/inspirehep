@@ -12,6 +12,8 @@ from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
+from inspirehep.accounts.roles import Roles
+from inspirehep.records.api import JobsRecord
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
 
@@ -672,7 +674,7 @@ def test_job_get_requires_authentication(ticket_mock, api_client):
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit(ticket_mock, app, api_client, create_user):
+def test_new_job_submit_by_user(ticket_mock, app, api_client, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
     response = api_client.post(
@@ -681,6 +683,30 @@ def test_new_job_submit(ticket_mock, app, api_client, create_user):
         data=json.dumps({"data": DEFAULT_EXAMPLE_JOB_DATA}),
     )
     assert response.status_code == 201
+
+    job_id = json.loads(response.data)['pid_value']
+    job_data = JobsRecord.get_record_by_pid_value(job_id)
+
+    assert job_data['status'] == 'pending'
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_new_job_submit_by_cataloger(ticket_mock, app, api_client, create_user):
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
+
+    post_data = {**DEFAULT_EXAMPLE_JOB_DATA, "status": "open"}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": post_data}),
+    )
+    assert response.status_code == 201
+
+    job_id = json.loads(response.data)['pid_value']
+    job_data = JobsRecord.get_record_by_pid_value(job_id)
+
+    assert job_data['status'] == 'open'
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
