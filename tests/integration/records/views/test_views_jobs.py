@@ -135,8 +135,8 @@ def test_jobs_sort_by_deadline(api_client, db, es_clear, create_record, datadir)
     data["deadline_date"] = "2020-12-31"
     data["control_number"] = 1_735_926
     create_record("job", data=data)
-    expected_first_control_number = 1_735_926
-    expected_second_control_number = 1_735_925
+    expected_first_control_number = 1_735_925
+    expected_second_control_number = 1_735_926
 
     response = api_client.get("/jobs?sort=deadline")
 
