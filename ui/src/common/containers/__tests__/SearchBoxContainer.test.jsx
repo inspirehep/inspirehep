@@ -1,19 +1,25 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import * as search from '../../../actions/search';
+import { mount } from 'enzyme';
+import { Provider } from 'react-redux';
 
+import * as search from '../../../actions/search';
 import { getStoreWithState } from '../../../fixtures/store';
 import SearchBoxContainer, { dispatchToProps } from '../SearchBoxContainer';
+import SearchBox from '../../components/SearchBox';
 
 jest.mock('../../../actions/search');
 
 describe('SearchBoxContainer', () => {
-  it('renders initial state with initial url query q param', () => {
+  it('passes url query q param to SearchBox', () => {
     const store = getStoreWithState({
       router: { location: { query: { q: 'test' } } },
     });
-    const wrapper = shallow(<SearchBoxContainer store={store} />).dive();
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = mount(
+      <Provider store={store}>
+        <SearchBoxContainer />
+      </Provider>
+    );
+    expect(wrapper.find(SearchBox)).toHaveProp({ value: 'test' });
   });
 
   it('calls pushQueryToLocation onSearch', async () => {

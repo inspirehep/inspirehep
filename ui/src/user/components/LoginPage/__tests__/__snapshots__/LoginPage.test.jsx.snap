@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginPage renders page 1`] = `
+<Row
+  align="middle"
+  className="__LoginPage__ h-100"
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <Card
+    align="middle"
+  >
+    <p
+      className="f4"
+    >
+      Please sign in to INSPIRE
+    </p>
+    <Button
+      block={false}
+      className="login-button h3"
+      ghost={false}
+      loading={false}
+      onClick={[MockFunction]}
+      prefixCls="ant-btn"
+    >
+      <img
+        alt="ORCID"
+        className="logo mr2"
+        src="orcid.svg"
+      />
+      <strong>
+        Login with ORCID
+      </strong>
+    </Button>
+    <a
+      className="db pt3"
+      href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid/"
+      rel="noreferrer noopener"
+      target="_blank"
+    >
+      What is ORCID?
+    </a>
+  </Card>
+</Row>
+`;

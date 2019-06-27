@@ -2,13 +2,16 @@ import { fromJS, Set } from 'immutable';
 
 import middleware from '../actionTracker';
 import { USER_LOGIN_SUCCESS } from '../../actions/actionTypes';
-import * as tracker from '../../tracker';
+import { setUserCategoryFromRoles } from '../../tracker';
 
 jest.mock('../../tracker');
 
 describe('actionTracker middleware', () => {
+  beforeEach(() => {
+    setUserCategoryFromRoles.mockClear();
+  });
+
   it('calls to set user category with roles on LOGIN_SUCCESS', () => {
-    tracker.setUserCategoryFromRoles = jest.fn();
     const next = jest.fn();
     const getState = () => ({
       user: fromJS({
@@ -30,7 +33,7 @@ describe('actionTracker middleware', () => {
 
     dispatch(action);
     expect(next).toHaveBeenLastCalledWith(action);
-    expect(tracker.setUserCategoryFromRoles).toHaveBeenLastCalledWith(
+    expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
       Set(['cataloger'])
     );
   });

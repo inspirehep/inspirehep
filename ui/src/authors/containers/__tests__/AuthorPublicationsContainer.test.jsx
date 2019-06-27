@@ -1,6 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
@@ -21,16 +22,27 @@ describe('AuthorPublicationsContainer', () => {
           sortOptions: [{ value: 'mostrecent', display: 'Most Recent' }],
           loadingResults: true,
           loadingAggregations: true,
-          numberOfResults: 50,
+          total: 50,
           error: { message: 'Error' },
         },
       }),
     });
-    const wrapper = shallow(
-      <AuthorPublicationsContainer store={store} renderResultItem={jest.fn()} />
-    ).dive();
+    const wrapper = mount(
+      <Provider store={store}>
+        <AuthorPublicationsContainer renderResultItem={jest.fn()} />
+      </Provider>
+    );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find(EmbeddedSearch)).toHaveProp({
+      query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+      results: fromJS([{ control_number: 1 }, { control_number: 2 }]),
+      aggregations: fromJS({ agg1: { foo: 'bar' } }),
+      sortOptions: [{ value: 'mostrecent', display: 'Most Recent' }],
+      loadingResults: true,
+      loadingAggregations: true,
+      numberOfResults: 50,
+      error: fromJS({ message: 'Error' }),
+    });
   });
 
   // FIXME: avoid also testing that actions merging newQuery and state query
@@ -56,7 +68,9 @@ describe('AuthorPublicationsContainer', () => {
       }),
     });
     const wrapper = mount(
-      <AuthorPublicationsContainer store={store} renderResultItem={jest.fn()} />
+      <Provider store={store}>
+        <AuthorPublicationsContainer renderResultItem={jest.fn()} />
+      </Provider>
     );
     wrapper.find(EmbeddedSearch).prop('onQueryChange')(queryChange);
 

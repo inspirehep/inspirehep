@@ -71,6 +71,7 @@ const stateToProps = state => ({
 });
 
 const dispatchToProps = dispatch => ({
+  // TODO: rename to onSelectedBarChange
   onSelectBarChange(bar) {
     const query = barToQuery(bar);
     dispatch(fetchAuthorPublications(query));

@@ -7,11 +7,11 @@ import './index.scss';
 import { LITERATURE } from '../common/routes';
 
 const SearchPage$ = Loadable({
-  loader: () => import('./containers/SearchPage'),
+  loader: () => import('./containers/SearchPageContainer'),
   loading: Loading,
 });
 const DetailPage$ = Loadable({
-  loader: () => import('./containers/DetailPage'),
+  loader: () => import('./containers/DetailPageContainer'),
   loading: Loading,
 });
 

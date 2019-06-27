@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { MemoryRouter, Redirect } from 'react-router-dom';
-import { shallow, mount } from 'enzyme';
+import { MemoryRouter } from 'react-router-dom';
+import { mount } from 'enzyme';
 import { fromJS, Set } from 'immutable';
 
 import { getStore, getStoreWithState } from '../fixtures/store';
@@ -13,20 +13,17 @@ import User from '../user';
 import Submissions from '../submissions';
 import Errors from '../errors';
 import Authors from '../authors';
-import { ERRORS } from '../common/routes';
-import * as tracker from '../tracker';
+import { setUserCategoryFromRoles } from '../tracker';
 import Jobs from '../jobs';
 
 jest.mock('../tracker');
 
 describe('App', () => {
-  it('renders initial state', () => {
-    const wrapper = shallow(<App store={getStore()} />).dive();
-    expect(wrapper).toMatchSnapshot();
+  afterEach(() => {
+    setUserCategoryFromRoles.mockClear();
   });
 
   it('calls to set user category with roles on mount', () => {
-    tracker.setUserCategoryFromRoles = jest.fn();
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -42,7 +39,7 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(tracker.setUserCategoryFromRoles).toHaveBeenLastCalledWith(
+    expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
       Set(['cataloger'])
     );
   });
@@ -174,7 +171,7 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(wrapper.find(Redirect)).toHaveProp('to', ERRORS);
+    expect(wrapper.find(Errors)).toExist();
   });
 
   it('navigates to Jobs when /jobs', () => {

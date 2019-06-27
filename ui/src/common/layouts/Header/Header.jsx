@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Layout, Row, Col } from 'antd';
 import PropTypes from 'prop-types';
 
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import './Header.scss';
 import Logo from '../../components/Logo';
-import { SUBMISSIONS, HOME } from '../../routes';
 import Banner from './Banner';
-import HeaderMenu from './HeaderMenu';
+import HeaderMenuContainer from './HeaderMenuContainer';
 
 class Header extends Component {
   render() {
@@ -37,7 +35,7 @@ class Header extends Component {
               xl={6}
               xxl={5}
             >
-              <HeaderMenu />
+              <HeaderMenuContainer />
             </Col>
           </Row>
         </Layout.Header>
@@ -51,11 +49,4 @@ Header.propTypes = {
   isSubmissionsPage: PropTypes.bool.isRequired,
 };
 
-const stateToProps = state => ({
-  isHomePage: state.router.location.pathname === HOME,
-  isSubmissionsPage: String(state.router.location.pathname).startsWith(
-    SUBMISSIONS
-  ),
-});
-
-export default connect(stateToProps)(Header);
+export default Header;

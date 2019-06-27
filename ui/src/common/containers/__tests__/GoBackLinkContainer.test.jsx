@@ -1,21 +1,23 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { goBack } from 'react-router-redux';
+import { mount } from 'enzyme';
+import { goBack } from 'connected-react-router';
+import { Provider } from 'react-redux';
 
 import { getStore } from '../../../fixtures/store';
 import GoBackLinkContainer, { dispatchToProps } from '../GoBackLinkContainer';
+import GoBackLink from '../../components/GoBackLink';
 
 describe('GoBackLinkContainer', () => {
-  it('render without props', () => {
-    const wrapper = shallow(<GoBackLinkContainer store={getStore()} />).dive();
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it('render with custom children', () => {
-    const wrapper = shallow(
-      <GoBackLinkContainer store={getStore()}>custom</GoBackLinkContainer>
-    ).dive();
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <GoBackLinkContainer>custom</GoBackLinkContainer>
+      </Provider>
+    );
+
+    expect(wrapper.find(GoBackLink)).toHaveProp({
+      children: 'custom',
+    });
   });
 
   it('calls dispatch with goBack() on click', () => {

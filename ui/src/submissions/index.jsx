@@ -16,27 +16,29 @@ import SafeSwitch from '../common/components/SafeSwitch';
 import PrivateRoute from '../common/PrivateRoute';
 
 const AuthorSubmissionPage$ = Loadable({
-  loader: () => import('./authors/containers/AuthorSubmissionPage'),
+  loader: () => import('./authors/containers/AuthorSubmissionPageContainer'),
   loading: Loading,
 });
 
 const AuthorUpdateSubmissionPage$ = Loadable({
-  loader: () => import('./authors/containers/AuthorUpdateSubmissionPage'),
+  loader: () =>
+    import('./authors/containers/AuthorUpdateSubmissionPageContainer'),
   loading: Loading,
 });
 
 const LiteratureSubmissionPage$ = Loadable({
-  loader: () => import('./literature/containers/LiteratureSubmissionPage'),
+  loader: () =>
+    import('./literature/containers/LiteratureSubmissionPageContainer'),
   loading: Loading,
 });
 
 const JobSubmissionPage$ = Loadable({
-  loader: () => import('./jobs/containers/JobSubmissionPage'),
+  loader: () => import('./jobs/containers/JobSubmissionPageContainer'),
   loading: Loading,
 });
 
 const JobUpdateSubmissionPage$ = Loadable({
-  loader: () => import('./jobs/containers/JobUpdateSubmissionPage'),
+  loader: () => import('./jobs/containers/JobUpdateSubmissionPageContainer'),
   loading: Loading,
 });
 

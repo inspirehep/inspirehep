@@ -1,15 +1,18 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import * as tracker from '../../../tracker';
+import { trackEvent } from '../../../tracker';
 import EventTracker from '../EventTracker';
 
 jest.mock('../../../tracker');
 
 describe('EventTracker', () => {
+  afterEach(() => {
+    trackEvent.mockClear();
+  });
+
   it('calls trackEvent and onClick of the child', () => {
     const onChildClick = jest.fn();
-    tracker.trackEvent = jest.fn();
     const wrapper = shallow(
       <EventTracker eventId="DudeButton">
         <button type="button" onClick={onChildClick}>
@@ -19,16 +22,11 @@ describe('EventTracker', () => {
     );
     wrapper.find('button').simulate('click', 'clickArg1', 'clickArg2');
     expect(onChildClick).toHaveBeenCalledWith('clickArg1', 'clickArg2');
-    expect(tracker.trackEvent).toHaveBeenCalledWith(
-      'User',
-      'onClick',
-      'DudeButton'
-    );
+    expect(trackEvent).toHaveBeenCalledWith('User', 'onClick', 'DudeButton');
   });
 
   it('calls trackEvent and custom event prop of the child with eventPropName', () => {
     const onChildBlur = jest.fn();
-    tracker.trackEvent = jest.fn();
     const wrapper = shallow(
       <EventTracker eventPropName="onBlur" eventId="DudeButton">
         <button type="button" onBlur={onChildBlur}>
@@ -38,30 +36,20 @@ describe('EventTracker', () => {
     );
     wrapper.find('button').simulate('blur');
     expect(onChildBlur).toHaveBeenCalledTimes(1);
-    expect(tracker.trackEvent).toHaveBeenCalledWith(
-      'User',
-      'onBlur',
-      'DudeButton'
-    );
+    expect(trackEvent).toHaveBeenCalledWith('User', 'onBlur', 'DudeButton');
   });
 
   it('calls trackEvent only if child does not have this event', () => {
-    tracker.trackEvent = jest.fn();
     const wrapper = shallow(
       <EventTracker eventPropName="onClick" eventId="DudeDiv">
         <div>Dude</div>
       </EventTracker>
     );
     wrapper.find('div').simulate('click');
-    expect(tracker.trackEvent).toHaveBeenCalledWith(
-      'User',
-      'onClick',
-      'DudeDiv'
-    );
+    expect(trackEvent).toHaveBeenCalledWith('User', 'onClick', 'DudeDiv');
   });
 
   it('calls trackEvent with event args if forwardEventArgs is set', () => {
-    tracker.trackEvent = jest.fn();
     const wrapper = shallow(
       <EventTracker
         eventId="DudeButton"
@@ -74,7 +62,7 @@ describe('EventTracker', () => {
       </EventTracker>
     );
     wrapper.find('button').simulate('click', 'Arg1', 999, 'Arg2');
-    expect(tracker.trackEvent).toHaveBeenCalledWith('User', 'onClick', [
+    expect(trackEvent).toHaveBeenCalledWith('User', 'onClick', [
       'DudeButton',
       ['Arg1', 'Arg2'],
     ]);

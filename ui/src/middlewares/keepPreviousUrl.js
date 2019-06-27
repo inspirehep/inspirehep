@@ -1,14 +1,15 @@
 /* eslint-disable arrow-body-style */
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 let previousUrl = '';
 
 export default () => {
   return next => action => {
     if (action.type === LOCATION_CHANGE) {
-      action.payload.previousUrl = previousUrl;
+      const { location } = action.payload;
+      location.previousUrl = previousUrl;
 
-      const { pathname, search } = action.payload;
+      const { pathname, search } = location;
       previousUrl = `${pathname}${search}`;
     }
     return next(action);

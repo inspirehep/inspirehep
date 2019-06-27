@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import ResultsContainer from '../ResultsContainer';
@@ -29,12 +30,18 @@ describe('ResultsContainer', () => {
         },
       }),
     });
+    const renderItem = result => <span>{result.get('value')}</span>;
+
     const wrapper = mount(
-      <ResultsContainer
-        store={store}
-        renderItem={result => <span>{result.get('value')}</span>}
-      />
+      <Provider store={store}>
+        <ResultsContainer renderItem={renderItem} />
+      </Provider>
     );
-    expect(wrapper.find(SearchResults)).toHaveProp('results', results);
+    expect(wrapper.find(SearchResults)).toHaveProp({
+      results,
+      page: 1,
+      pageSize: 25,
+      renderItem,
+    });
   });
 });

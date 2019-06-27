@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationList does not render the list if total 0 1`] = `
+<ContentBox
+  className=""
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  subTitle={null}
+  title={null}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  />
+</ContentBox>
+`;
+
+exports[`CitationList renders 1`] = `
+<ContentBox
+  className=""
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  subTitle={null}
+  title={null}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <ListWithPagination
+      loading={false}
+      onPageChange={[Function]}
+      page={1}
+      pageItems={
+        Immutable.List [
+          Immutable.Map {
+            "control_number": 170,
+          },
+        ]
+      }
+      pageSize={25}
+      renderItem={[Function]}
+      title={null}
+      total={1}
+    />
+  </ErrorAlertOrChildren>
+</ContentBox>
+`;
+
+exports[`CitationList renders with error 1`] = `
+<ContentBox
+  className=""
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  subTitle={null}
+  title={null}
+>
+  <ErrorAlertOrChildren
+    error={
+      Immutable.Map {
+        "message": "error",
+      }
+    }
+  />
+</ContentBox>
+`;

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoBackLink renders with custom children 1`] = `
+<LinkLikeButton
+  onClick={[MockFunction]}
+>
+  custom
+</LinkLikeButton>
+`;
+
+exports[`GoBackLink renders with default children 1`] = `
+<LinkLikeButton
+  onClick={[MockFunction]}
+>
+  go back
+</LinkLikeButton>
+`;

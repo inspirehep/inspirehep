@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import NumberOfResultsContainer from '../NumberOfResultsContainer';
@@ -13,7 +14,11 @@ describe('NumberOfResultsContainer', () => {
         total: 5,
       }),
     });
-    const wrapper = mount(<NumberOfResultsContainer store={store} />);
-    expect(wrapper.find(NumberOfResults)).toHaveProp('numberOfResults', 5);
+    const wrapper = mount(
+      <Provider store={store}>
+        <NumberOfResultsContainer />
+      </Provider>
+    );
+    expect(wrapper.find(NumberOfResults)).toHaveProp({ numberOfResults: 5 });
   });
 });

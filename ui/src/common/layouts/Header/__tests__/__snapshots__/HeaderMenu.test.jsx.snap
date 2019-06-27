@@ -146,7 +146,7 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
   >
     <LinkLikeButton
       dataTestId="logout"
-      onClick={[Function]}
+      onClick={[MockFunction]}
     >
       Logout
     </LinkLikeButton>
@@ -241,7 +241,7 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
   >
     <LinkLikeButton
       dataTestId="logout"
-      onClick={[Function]}
+      onClick={[MockFunction]}
     >
       Logout
     </LinkLikeButton>

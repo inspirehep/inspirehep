@@ -2,19 +2,24 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Button, Modal, Rate, Input } from 'antd';
 
-import * as tracker from '../../../../tracker';
+import { trackEvent, checkIsTrackerBlocked } from '../../../../tracker';
 import UserFeedback from '../UserFeedback';
 
 jest.mock('../../../../tracker');
 
 describe('UserFeedback', () => {
+  afterEach(() => {
+    trackEvent.mockClear();
+    checkIsTrackerBlocked.mockClear();
+  });
+
   it('renders', () => {
     const wrapper = shallow(<UserFeedback />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders when tracker is blocked', () => {
-    tracker.checkIsTrackerBlocked = () => true;
+    checkIsTrackerBlocked.mockImplementation(() => true);
     const wrapper = shallow(<UserFeedback />);
     expect(wrapper).toMatchSnapshot();
   });
@@ -28,8 +33,6 @@ describe('UserFeedback', () => {
   });
 
   it('calls trackEvent with feedback on modal Ok and renders thank you', () => {
-    const mockTrackerEvent = jest.fn();
-    tracker.trackEvent = mockTrackerEvent;
     const rateValue = 3;
     const commentValue = 'Not bad';
     const wrapper = shallow(<UserFeedback />);
@@ -39,7 +42,7 @@ describe('UserFeedback', () => {
     wrapper.find(Rate).prop('onChange')(rateValue);
     const onModalOk = wrapper.find(Modal).prop('onOk');
     onModalOk();
-    expect(mockTrackerEvent).toHaveBeenCalledWith(
+    expect(trackEvent).toHaveBeenCalledWith(
       'Feedback',
       'Main',
       commentValue,

@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import { Set } from 'immutable';
 
-import { userLogout } from '../../../actions/user';
 import { SUBMISSIONS_AUTHOR, USER_LOGIN, SUBMISSIONS_JOB } from '../../routes';
 import ExternalLink from '../../components/ExternalLink';
 import LinkLikeButton from '../../components/LinkLikeButton';
@@ -14,20 +12,8 @@ import { isCataloger } from '../../authorization';
 import './HeaderMenu.scss';
 
 class HeaderMenu extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onLogoutClick = this.onLogoutClick.bind(this);
-  }
-
-  onLogoutClick() {
-    const { dispatch } = this.props;
-    dispatch(userLogout());
-  }
-
   render() {
-    const { loggedIn } = this.props;
-    const { userRoles } = this.props;
+    const { loggedIn, userRoles, onLogoutClick } = this.props;
     const isUserCataloger = isCataloger(userRoles);
     return (
       <Menu
@@ -71,7 +57,8 @@ class HeaderMenu extends Component {
         </Menu.SubMenu>
         <Menu.Item key="login-logout">
           {loggedIn ? (
-            <LinkLikeButton onClick={this.onLogoutClick} dataTestId="logout">
+            // TODO: create LoginLinkOrLogoutButtonContainer
+            <LinkLikeButton onClick={onLogoutClick} dataTestId="logout">
               Logout
             </LinkLikeButton>
           ) : (
@@ -85,15 +72,8 @@ class HeaderMenu extends Component {
 
 HeaderMenu.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  dispatch: PropTypes.func.isRequired,
+  onLogoutClick: PropTypes.func.isRequired,
   userRoles: PropTypes.instanceOf(Set).isRequired,
 };
 
-const stateToProps = state => ({
-  loggedIn: state.user.get('loggedIn'),
-  userRoles: Set(state.user.getIn(['data', 'roles'])),
-});
-
-const dispatchToProps = dispatch => ({ dispatch });
-
-export default connect(stateToProps, dispatchToProps)(HeaderMenu);
+export default HeaderMenu;

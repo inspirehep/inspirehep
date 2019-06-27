@@ -1,9 +1,11 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
+import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import CitationSummaryTableContainer from '../CitationSummaryTableContainer';
+import CitationSummaryTable from '../../components/CitationSummaryTable';
 
 describe('CitationSummaryTableContainer', () => {
   it('pass props from state', () => {
@@ -24,7 +26,18 @@ describe('CitationSummaryTableContainer', () => {
         },
       }),
     });
-    const wrapper = shallow(<CitationSummaryTableContainer store={store} />);
-    expect(wrapper).toMatchSnapshot();
+
+    const wrapper = mount(
+      <Provider store={store}>
+        <CitationSummaryTableContainer />
+      </Provider>
+    );
+    expect(wrapper.find(CitationSummaryTable)).toHaveProp({
+      citeableBucket: fromJS({ name: 'citeable' }),
+      hIndex: fromJS({ name: 'h-index' }),
+      publishedBucket: fromJS({ name: 'published' }),
+      loading: false,
+      error: null,
+    });
   });
 });

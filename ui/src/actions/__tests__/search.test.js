@@ -1,4 +1,4 @@
-import { CALL_HISTORY_METHOD } from 'react-router-redux';
+import { CALL_HISTORY_METHOD } from 'connected-react-router';
 import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 

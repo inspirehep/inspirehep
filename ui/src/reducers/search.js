@@ -1,5 +1,5 @@
 import { fromJS } from 'immutable';
-import { LOCATION_CHANGE } from 'react-router-redux';
+import { LOCATION_CHANGE } from 'connected-react-router';
 
 import {
   SEARCH_REQUEST,
@@ -47,18 +47,23 @@ export const initialState = fromJS({
   aggregationsError: null,
 });
 
+function getSearchScopeForLocationChangeAction(action) {
+  const { location } = action.payload;
+  if (location.pathname.indexOf(AUTHORS) > -1) {
+    return searchScopes.get('authors');
+  }
+
+  if (location.pathname.indexOf(JOBS) > -1) {
+    return searchScopes.get('jobs');
+  }
+
+  return initialState.get('scope');
+}
+
 const searchReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOCATION_CHANGE:
-      if (action.payload.pathname.indexOf(AUTHORS) > -1) {
-        return state.set('scope', searchScopes.get('authors'));
-      }
-
-      if (action.payload.pathname.indexOf(JOBS) > -1) {
-        return state.set('scope', searchScopes.get('jobs'));
-      }
-
-      return state.set('scope', initialState.get('scope'));
+      return state.set('scope', getSearchScopeForLocationChangeAction(action));
     case CHANGE_SEARCH_SCOPE:
       return state.set('scope', searchScopes.get(action.payload));
     case SEARCH_REQUEST:
