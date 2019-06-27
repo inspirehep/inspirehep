@@ -9,7 +9,7 @@ import os
 
 import pkg_resources
 
-from inspirehep.migrator.tasks import read_file
+from inspirehep.migrator.tasks import read_file, wait_for_all_tasks
 
 
 def test_read_file_reads_xml_file_correctly():
@@ -60,3 +60,8 @@ def test_read_file_reads_prodsync_file_correctly():
     result = list(read_file(prodsync_file))
 
     assert expected == result
+
+
+def test_migrator_wait_for_task_when_receives_none_do_not_throw_exception():
+    result = wait_for_all_tasks(None)
+    assert result is None
