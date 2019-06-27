@@ -354,6 +354,8 @@ def migrate_record_from_mirror(
 
 
 def wait_for_all_tasks(task):
+    if not task:
+        return None
     click.echo(f"Waiting for {task}.")
     next_task = AsyncResult(task).get()
     if next_task:
