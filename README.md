@@ -17,7 +17,9 @@ These commands allow you to spin up a contenarized environment that reproduces t
 ```bash
 $ ./scripts/bootstrap
 $ ./docker-inspire up -d
-$ ./docker-inspire run --rm web ./scripts/setup
+$ ./docker-inspire exec web ./scripts/setup
+$ # We need that for workflows on inspire-next
+$ ./docker-inspire exec web-next inspirehep db create
 $ firefox localhost:8081
 ```
 

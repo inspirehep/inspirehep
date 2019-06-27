@@ -7,17 +7,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 set -e
-
+# FIXME: Everything should run on docker
 # Clean redis
 poetry run inspirehep shell --no-term-title -c "import redis; redis.StrictRedis.from_url(app.config['CACHE_REDIS_URL']).flushall(); print('Cache cleared')"
 poetry run inspirehep db destroy --yes-i-know
 poetry run inspirehep db init
-poetry run inspirehep alembic upgrade
+poetry run inspirehep db create
 poetry run inspirehep index destroy --force --yes-i-know
 poetry run inspirehep index init --force
 poetry run inspirehep index queue init purge
 
 # Create users and roles
 poetry run inspirehep fixtures init
-
-poetry run inspirehep importer records -d data/records/authors

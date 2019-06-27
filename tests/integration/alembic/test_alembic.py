@@ -5,12 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import pytest
 from flask_alembic import Alembic
 from sqlalchemy import text
 
 
-def test_downgrade(app, db):
-    alembic = Alembic(app)
+def test_downgrade(base_app, db):
+    alembic = Alembic(base_app)
 
     assert "idx_pid_provider" not in _get_indexes("pidstore_pid", db)
 
@@ -77,8 +78,8 @@ def test_downgrade(app, db):
     assert "ix_workflows_object_status" not in _get_indexes("workflows_object", db)
 
 
-def test_upgrade(app, db):
-    alembic = Alembic(app)
+def test_upgrade(base_app, db):
+    alembic = Alembic(base_app)
     # go down to first migration
     alembic.downgrade(target="b5be5fda2ee7")
 
