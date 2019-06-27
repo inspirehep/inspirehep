@@ -148,3 +148,23 @@ export function wait(milisec) {
 export default function pluralizeUnlessSingle(singularWord, count) {
   return count !== 1 ? `${singularWord}s` : singularWord;
 }
+
+export function pickEvenlyDistributedElements(array, numberOfElements) {
+  if (numberOfElements <= 1) {
+    throw new Error('number of elements must be greater than 1');
+  }
+
+  const step = Math.round((array.length - 1) / (numberOfElements - 1));
+  const someElements = [];
+  for (let i = 0; i < numberOfElements; i += 1) {
+    const element = array[i * step];
+
+    if (element) {
+      someElements.push(element);
+    } else {
+      someElements.push(array[array.length - 1]);
+      break;
+    }
+  }
+  return someElements;
+}

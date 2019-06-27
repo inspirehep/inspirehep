@@ -15,6 +15,7 @@ import pluralizeUnlessSingle, {
   shallowEqual,
   getSearchRank,
   getFromObjectOrImmutableMap,
+  pickEvenlyDistributedElements,
 } from '../utils';
 
 describe('utils', () => {
@@ -409,6 +410,89 @@ describe('utils', () => {
       const count = 1;
       const result = pluralizeUnlessSingle(word, count);
       expect(result).toEqual(word);
+    });
+  });
+
+  describe('pickEvenlyDistributedElements', () => {
+    it('returns evenly distributed sub array for half of the array 10', () => {
+      const array = [
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+      ];
+      const numberOfElements = 5;
+      const expected = [1990, 1992, 1994, 1996, 1998];
+      const result = pickEvenlyDistributedElements(array, numberOfElements);
+      expect(result).toEqual(expected);
+    });
+
+    it('returns evenly distributed sub array for 6 of the array 10', () => {
+      const array = [
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+      ];
+      const numberOfElements = 6;
+      const expected = [1990, 1992, 1994, 1996, 1998, 1999];
+      const result = pickEvenlyDistributedElements(array, numberOfElements);
+      expect(result).toEqual(expected);
+    });
+
+    it('returns evenly distributed sub array for 7 of the array of 10', () => {
+      const array = [
+        1990,
+        1991,
+        1992,
+        1993,
+        1994,
+        1995,
+        1996,
+        1997,
+        1998,
+        1999,
+      ];
+      const numberOfElements = 7;
+      const expected = [1990, 1992, 1994, 1996, 1998, 1999];
+      const result = pickEvenlyDistributedElements(array, numberOfElements);
+      expect(result).toEqual(expected);
+    });
+
+    it('returns evenly distributed sub array for 3 elements of array 5', () => {
+      const array = [1990, 1991, 1992, 1993, 1994];
+      const numberOfElements = 3;
+      const expected = [1990, 1992, 1994];
+      const result = pickEvenlyDistributedElements(array, numberOfElements);
+      expect(result).toEqual(expected);
+    });
+
+    it('returns evenly distributed sub array for 2 elements of array 5', () => {
+      const array = [1990, 1991, 1992, 1993, 1994];
+      const numberOfElements = 2;
+      const expected = [1990, 1994];
+      const result = pickEvenlyDistributedElements(array, numberOfElements);
+      expect(result).toEqual(expected);
+    });
+
+    it('returns evenly distributed sub array for 4 elements of array 5', () => {
+      const array = [1990, 1991, 1992, 1993, 1994];
+      const numberOfElements = 4;
+      const expected = [1990, 1991, 1992, 1993];
+      const result = pickEvenlyDistributedElements(array, numberOfElements);
+      expect(result).toEqual(expected);
     });
   });
 });
