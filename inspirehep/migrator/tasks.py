@@ -12,6 +12,7 @@ import tarfile
 import zlib
 from contextlib import closing
 
+import click
 import requests
 from celery import chord, shared_task
 from celery.result import AsyncResult
@@ -353,7 +354,7 @@ def migrate_record_from_mirror(
 
 
 def wait_for_all_tasks(task):
-    print(f"Waiting for {task}.")
+    click.echo(f"Waiting for {task}.")
     next_task = AsyncResult(task).get()
     if next_task:
         return wait_for_all_tasks(next_task)
