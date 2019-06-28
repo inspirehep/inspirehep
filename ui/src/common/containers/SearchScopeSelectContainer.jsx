@@ -17,7 +17,6 @@ class SearchScopeSelectContainer extends Component {
     return (
       <SelectBox
         dropdownClassName="header-dropdown"
-        dropdownMatchSelectWidth={false}
         onChange={onSearchScopeChange}
         value={searchScopeName}
         options={SCOPE_OPTIONS}
