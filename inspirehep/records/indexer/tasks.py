@@ -9,76 +9,45 @@ import logging
 
 from celery import shared_task
 from elasticsearch import NotFoundError
-from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier
-from sqlalchemy import tuple_
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
-from inspirehep.records.api import InspireRecord
-from inspirehep.records.errors import MissingArgumentError, MissingCitedRecordError
+from inspirehep.records.errors import MissingCitedRecordError
 from inspirehep.records.indexer.base import InspireRecordIndexer
+from inspirehep.records.indexer.utils import get_modified_references_uuids, get_record
 
 logger = logging.getLogger(__name__)
 
 
-def get_record(uuid, record_version=None):
-    logger.debug("Pulling record %s on version %s", uuid, record_version)
-
-    record = InspireRecord.get_record(uuid, with_deleted=True)
-
-    if record_version and record.model.version_id < record_version:
-        logger.info(
-            f"Cannot pull record {uuid} in version {record_version}."
-            f"Current version: {record.model.version_id}."
-        )
-        raise StaleDataError()
-    return record
-
-
 @shared_task(ignore_result=False, bind=True)
 def batch_index(self, records_uuids, request_timeout=None):
+    """Process all provided references and index them in bulk.
+    Be sure that uuids are not duplicated in batch.
+    Args:
+        records_uuids (list): list of uuids to process. All duplicates will be removed.
+        request_timeout: Timeout in which ES should respond. Otherwise break.
+
+    Returns:
+        dict: dict with success count and failure list
+                (with uuids of failed records)
+    """
     logger.info(f"Starting shared task `batch_index for {len(records_uuids)} records")
     return InspireRecordIndexer().bulk_index(records_uuids, request_timeout)
 
 
-@shared_task(ignore_result=False, bind=True)
-def process_references_for_record(uuid=None, record_version=None, record=None):
+def process_references_for_record(record):
     """Tries to find differences in record references and forces to reindex
     records which reference changed to update their citation statistics.
 
     Args:
-        uuid: Record in which references changed.
-        record_version: Latest version of the record (to be sure that record
-            is already updated in db). will be ignored if record parameter is provided.
         record: Record object in which references has changed.
             (not possible to pas this when called as a celery task)
 
     Returns:
         list(str): Statistics from the job.
-
     """
-    if not record and not uuid:
-        raise MissingArgumentError("uuid or record has to be provided")
-    if not record:
-        record = get_record(uuid, record_version)
-    pids = record.get_modified_references()
-
-    if not pids:
-        logger.debug("No references change for record %s", uuid)
-        return None
-    logger.debug("(%s) There are %s records where references changed", uuid, len(pids))
-    uuids = [
-        str(pid.object_uuid)
-        for pid in db.session.query(PersistentIdentifier.object_uuid).filter(
-            PersistentIdentifier.object_type == "rec",
-            tuple_(PersistentIdentifier.pid_type, PersistentIdentifier.pid_value).in_(
-                pids
-            ),
-        )
-    ]
-
+    uuids = get_modified_references_uuids(record)
     if uuids:
-        logger.info(f"({uuid}) contains pids - starting batch")
+        logger.info(f"({record.id}) contains pids - starting batch")
         return batch_index(uuids)
 
     else:
@@ -102,7 +71,7 @@ def index_record(self, uuid, record_version=None, force_delete=None):
 
     """
     logger.info(
-        f"Starting shared task `index_record` for " f"record {uuid}:v{record_version}"
+        f"Starting shared task `index_record` for record {uuid}:v{record_version}"
     )
     try:
         record = get_record(uuid, record_version)

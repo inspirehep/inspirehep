@@ -1,0 +1,15 @@
+{
+  "self": { "$ref": "http://localhost:5000/api/literature/12345" },
+  "titles": [{ "title": "On the validity of INSPIRE records" }],
+  "$schema": "http://localhost:5000/schemas/records/hep.json",
+  "authors": [
+    {
+      "ids": [{ "value": "0000-0002-1825-0097", "schema": "ORCID" }],
+      "full_name": "Carberry, Josiah"
+    }
+  ],
+  "curated": true,
+  "_collections": ["Literature"],
+  "document_type": ["article"],
+  "control_number": 12345
+}

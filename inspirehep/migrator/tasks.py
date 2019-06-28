@@ -16,20 +16,19 @@ import click
 import requests
 from celery import chord, shared_task
 from celery.result import AsyncResult
-from elasticsearch.helpers import bulk as es_bulk
 from flask import current_app
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
 from inspire_utils.logging import getStackTraceLogger
 from invenio_db import db
-from invenio_search import current_search_client as es
 from jsonschema import ValidationError
 from redis import StrictRedis
 from redis_lock import Lock
 
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.indexer.base import InspireRecordIndexer
+from inspirehep.records.indexer.tasks import batch_index
+from inspirehep.records.indexer.utils import get_modified_references_uuids
 from inspirehep.records.receivers import index_after_commit
 
 from .models import LegacyRecordsMirror
@@ -108,6 +107,7 @@ def migrate_record_from_legacy(recid):
 def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
     """Migrate legacy records from the local mirror.
     By default, only the records that have not been migrated yet are migrated.
+
     Args:
         also_migrate(Optional[string]): if set to ``'broken'``, also broken
             records will be migrated. If set to ``'all'``, all records will be
@@ -115,31 +115,44 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
         disable_orcid_push (bool): flag indicating whether the orcid_push
             should be disabled (if True) or executed at the end of migrations (if False).
     """
+    disable_references_processing = False
     query = LegacyRecordsMirror.query.with_entities(LegacyRecordsMirror.recid)
 
     if also_migrate is None:
         query = query.filter(LegacyRecordsMirror.valid.is_(None))
     elif also_migrate == "broken":
         query = query.filter(LegacyRecordsMirror.valid.isnot(True))
-    elif also_migrate != "all":
+    elif also_migrate == "all":
+        disable_references_processing = True
+    else:
         raise ValueError('"also_migrate" should be either None, "all" or "broken"')
 
     recids_chunked = chunker(res.recid for res in query.yield_per(CHUNK_SIZE))
+
     task = migrate_recids_from_mirror(
-        list(recids_chunked), disable_orcid_push=disable_orcid_push
+        list(recids_chunked),
+        disable_orcid_push=disable_orcid_push,
+        disable_references_processing=disable_references_processing,
     )
     print("All migration tasks has been scheduled.")
     return task
 
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
-def migrate_recids_from_mirror(recids_chunks, step_no=0, disable_orcid_push=True):
+def migrate_recids_from_mirror(
+    recids_chunks,
+    step_no=0,
+    disable_orcid_push=True,
+    disable_references_processing=False,
+):
     """Task to migrate a chunked list of recids from the mirror.
+
     Args:
-        recid_chunks (list): record ids chunked for workers to pick.
+        recids_chunks (list): record ids chunked for workers to pick.
         step_no (int): Current step in `migration_steps`
         disable_orcid_push (bool): flag indicating whether the orcid_push
             should be disabled (if True) or executed at the end of migrations (if False).
+        disable_references_processing (bool): Flags which indicates is whole db is remigrated or not
 
     Returns:
         str: Celery chord task ID or None if no jobs were created in chord.
@@ -152,6 +165,8 @@ def migrate_recids_from_mirror(recids_chunks, step_no=0, disable_orcid_push=True
     ]
     if not disable_orcid_push:
         migration_steps.append(run_orcid_push)
+    if not disable_references_processing:
+        migration_steps.append(process_references_in_records)
 
     if step_no >= len(migration_steps):
         return
@@ -169,7 +184,9 @@ def migrate_recids_from_mirror(recids_chunks, step_no=0, disable_orcid_push=True
     header = (step.s(r) for r in recids_chunks)
     chord_task = chord(header)(
         migrate_recids_from_mirror.s(
-            step_no=step_no + 1, disable_orcid_push=disable_orcid_push
+            step_no=step_no + 1,
+            disable_orcid_push=disable_orcid_push,
+            disable_references_processing=disable_references_processing,
         )
     )
     return str(chord_task.id)
@@ -199,14 +216,18 @@ def continuous_migration():
     lock = Lock(r, "continuous_migration", expire=120, auto_renewal=True)
     if lock.acquire(blocking=False):
         try:
+            migrated_records = None
             while r.llen("legacy_records"):
                 raw_record = r.lrange("legacy_records", 0, 0)
                 if raw_record:
-                    insert_into_mirror([zlib.decompress(raw_record[0])])
+                    migrated_records = insert_into_mirror(
+                        [zlib.decompress(raw_record[0])]
+                    )
                 r.lpop("legacy_records")
         finally:
-            task = migrate_from_mirror(disable_orcid_push=False)
-            wait_for_all_tasks(task)
+            if migrated_records:
+                task = migrate_from_mirror(disable_orcid_push=False)
+                wait_for_all_tasks(task)
             lock.release()
     else:
         LOGGER.info("Continuous_migration already executed. Skipping.")
@@ -216,7 +237,7 @@ def continuous_migration():
 def create_records_from_mirror_recids(recids):
     """Task which migrates records
     Args:
-        recids: record to migrate
+        recids: records uuids to remigrate
     Returns:
          set: set of properly processed records uuids
     """
@@ -229,7 +250,7 @@ def create_records_from_mirror_recids(recids):
                     LegacyRecordsMirror.query.get(recid)
                 )
         except Exception as e:
-            LOGGER.error(f"Cannot process record {recid}: {e}")
+            LOGGER.error("Cannot process record %s: %s", recid, e)
             continue
         if record:
             processed_records.add(str(record.id))
@@ -243,38 +264,60 @@ def create_records_from_mirror_recids(recids):
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
 def recalculate_citations(uuids):
-    processed_uuids = []
+    """Task which updates records_citations table with references of this record
+
+    Args:
+        uuids: records uuids which references should be added to table
+    Returns:
+         set: set of properly processed records uuids
+    """
     for uuid in uuids:
         try:
             with db.session.begin_nested():
                 record = InspireRecord.get_record(uuid)
                 record._update_refs_in_citation_table()
-                processed_uuids.append(uuid)
         except Exception as e:
-            LOGGER.error(f"Cannot recalculate {uuid}: {e}")
+            LOGGER.error("Cannot recalculate %s: %s", uuid, e)
 
     db.session.commit()
-    return processed_uuids
+    return uuids
+
+
+@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+def process_references_in_records(uuids):
+    references_to_reindex = []
+    try:
+        for uuid in uuids:
+            try:
+                with db.session.begin_nested():
+                    record = InspireRecord.get_record(uuid)
+                    references_to_reindex.extend(get_modified_references_uuids(record))
+            except Exception as e:
+                LOGGER.error(
+                    "Cannot process references of record %s on index_records task. %s",
+                    uuid,
+                    e,
+                )
+        batch_index(references_to_reindex)
+    except Exception as e:
+        LOGGER.error("Cannot reindex references: %s", e)
+    return uuids
 
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
 def index_records(uuids):
-    index_queue = []
-    processed_uuids = []
-    for uuid in uuids:
-        try:
-            with db.session.begin_nested():
-                record = InspireRecord.get_record(uuid)
-                if record and not record.get("deleted", False):
-                    index_queue.append(
-                        InspireRecordIndexer()._process_bulk_record_for_index(record)
-                    )
-                processed_uuids.append(uuid)
-        except Exception as e:
-            LOGGER.error(f"Cannot reindex {uuid}: {e}")
-    req_timeout = current_app.config["INDEXER_BULK_REQUEST_TIMEOUT"]
-    es_bulk(es, index_queue, stats_only=True, request_timeout=req_timeout)
-    return processed_uuids
+    """Task which Indexes specified records in ElasticSearch
+
+    Args:
+        recids: records to index
+    Returns:
+         set: set of processed records uuids
+    """
+    try:
+        batch_index(uuids)
+    except Exception as e:
+        LOGGER.error("Cannot reindex: %s", e)
+    return uuids
 
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
@@ -287,15 +330,19 @@ def run_orcid_push(uuids):
                 if isinstance(LiteratureRecord, record):
                     push_to_orcid(record)
         except Exception as e:
-            LOGGER.error(f"Cannot push to orcid {uuid}: {e}")
+            LOGGER.error("Cannot push to orcid %s: %s", uuid, e)
     return processed_uuids
 
 
 def insert_into_mirror(raw_records):
+    migrated_records = []
     for raw_record in raw_records:
         prod_record = LegacyRecordsMirror.from_marcxml(raw_record)
         db.session.merge(prod_record)
+        if prod_record:
+            migrated_records.append(prod_record.recid)
     db.session.commit()
+    return migrated_records
 
 
 def migrate_and_insert_record(
@@ -321,7 +368,7 @@ def migrate_record_from_mirror(
     try:
         json_record = marcxml2record(prod_record.marcxml)
     except Exception as exc:
-        LOGGER.exception("Migrator DoJSON Error")
+        LOGGER.exception("Migrator DoJSON Error: %s", exc)
         prod_record.error = exc
         db.session.merge(prod_record)
         return None
@@ -344,7 +391,7 @@ def migrate_record_from_mirror(
         prod_record.error = exc
         db.session.merge(prod_record)
     except Exception as exc:
-        LOGGER.exception("Migrator Record Insert Error")
+        LOGGER.exception("Migrator Record Insert Error: %s", exc)
         prod_record.error = exc
         db.session.merge(prod_record)
     else:

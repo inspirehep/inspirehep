@@ -1,0 +1,139 @@
+{
+  "author_suggest": {
+    "input": [
+      "Juan Martin Maldacena",
+      "Maldacena, Juan Martin",
+      "Maldacena, Juan Martin"
+    ]
+  },
+  "control_number": 999108,
+  "advisors": [
+    {
+      "degree_type": "other",
+      "ids": [
+        {
+          "schema": "INSPIRE ID",
+          "value": "INSPIRE-00070625"
+        }
+      ],
+      "name": "Callan, Curtis G."
+    }
+  ],
+  "$schema": "https://labs.inspirehep.net/schemas/records/authors.json",
+  "urls": [
+    {
+      "value": "http://www.sns.ias.edu/~malda"
+    }
+  ],
+  "stub": false,
+  "_updated": "2010-12-19T00:00:00+00:00",
+  "public_notes": [
+    {
+      "value": "Fundamental Physics Price 2012"
+    },
+    {
+      "value": "Dirac Medal 2008"
+    },
+    {
+      "value": "Heineman Prize 2007"
+    }
+  ],
+  "email_addresses": [
+    {
+      "current": true,
+      "value": "malda@ias.edu"
+    },
+    {
+      "current": false,
+      "hidden": true,
+      "value": "malda@pauli.harvard.edu"
+    },
+    {
+      "current": false,
+      "hidden": true,
+      "value": "malda@ias.edu"
+    }
+  ],
+  "legacy_version": "20160711200442.0",
+  "positions": [
+    {
+      "curated_relation": true,
+      "current": true,
+      "institution": "Princeton, Inst. Advanced Study",
+      "rank": "SENIOR",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/903138"
+      },
+      "start_date": "2001"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "2001",
+      "institution": "Harvard U.",
+      "rank": "SENIOR",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/902835"
+      },
+      "start_date": "1997"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1997",
+      "institution": "Rutgers U., Piscataway",
+      "rank": "POSTDOC",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/903404"
+      },
+      "start_date": "1996"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1996",
+      "institution": "Princeton U.",
+      "rank": "PHD",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/903139"
+      },
+      "start_date": "1992"
+    },
+    {
+      "curated_relation": true,
+      "end_date": "1991",
+      "institution": "Cuyo U.",
+      "rank": "UNDERGRADUATE",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/institutions/902758"
+      },
+      "start_date": "1988"
+    }
+  ],
+  "ids": [
+    {
+      "schema": "INSPIRE ID",
+      "value": "INSPIRE-00304313"
+    },
+    {
+      "schema": "INSPIRE BAI",
+      "value": "J.M.Maldacena.1"
+    },
+    {
+      "schema": "ORCID",
+      "value": "0000-0002-9127-1687"
+    },
+    {
+      "schema": "SPIRES",
+      "value": "HEPNAMES-193534"
+    }
+  ],
+  "arxiv_categories": ["hep-th", "gr-qc"],
+  "status": "active",
+  "_collections": ["Authors"],
+  "legacy_creation_date": "1999-05-04",
+  "name": {
+    "name_variants": ["Maldacena, Juan Martin"],
+    "preferred_name": "Juan Martin Maldacena",
+    "value": "Maldacena, Juan Martin"
+  },
+  "_created": "1999-05-04T00:00:00+00:00",
+  "deleted": false
+}

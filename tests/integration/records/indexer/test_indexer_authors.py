@@ -7,33 +7,37 @@
 import json
 from copy import deepcopy
 
+from freezegun import freeze_time
 from invenio_search import current_search_client as es
 
-from inspirehep.search.api import ConferencesSearch
+from inspirehep.search.api import AuthorsSearch
 
 
+@freeze_time("2010-12-19")
 def test_index_conference_record(base_app, es_clear, db, datadir, create_record):
-    data = json.loads((datadir / "1203206.json").read_text())
-    record = create_record("con", data=data)
+    data = json.loads((datadir / "999108.json").read_text())
+    record = create_record("aut", data=data)
 
     expected_count = 1
-    expected_metadata = deepcopy(record)
+    expected_metadata = data = json.loads(
+        (datadir / "999108_expected.json").read_text()
+    )
 
-    response = es.search("records-conferences")
+    response = es.search("records-authors")
 
     assert response["hits"]["total"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
 
 
 def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
-    data = json.loads((datadir / "1203206.json").read_text())
-    record = create_record("con", data=data)
+    data = json.loads((datadir / "999108.json").read_text())
+    record = create_record("aut", data=data)
 
     record["deleted"] = True
     record._index()
-    es_clear.indices.refresh("records-conferences")
+    es_clear.indices.refresh("records-authors")
 
     expected_records_count = 0
 
-    record_lit_es = ConferencesSearch().get_record(str(record.id)).execute().hits
+    record_lit_es = AuthorsSearch().get_record(str(record.id)).execute().hits
     assert expected_records_count == len(record_lit_es)
