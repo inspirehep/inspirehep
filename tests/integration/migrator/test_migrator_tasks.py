@@ -4,19 +4,23 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import json
 import os
-import uuid
+import time
 
 import pkg_resources
 import pytest
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_pidstore.models import PersistentIdentifier
 from mock import patch
 
 from inspirehep.migrator.models import LegacyRecordsMirror
-from inspirehep.migrator.tasks import migrate_and_insert_record, migrate_from_file
+from inspirehep.migrator.tasks import (
+    migrate_and_insert_record,
+    migrate_from_file,
+    migrate_from_mirror,
+    populate_mirror_from_file,
+)
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
@@ -87,7 +91,7 @@ def test_migrate_and_insert_record_dojson_error(mock_logger, base_app, db):
     assert prod_record.marcxml == raw_record
 
     assert not mock_logger.error.called
-    mock_logger.exception.assert_called_once_with("Migrator DoJSON Error")
+    mock_logger.exception.assert_called_once()
 
 
 @patch("inspirehep.migrator.tasks.LOGGER")
@@ -175,7 +179,7 @@ def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db):
     assert prod_record.marcxml == raw_record
 
     assert not mock_logger.error.called
-    mock_logger.exception.assert_called_once_with("Migrator Record Insert Error")
+    mock_logger.exception.assert_called_once()
 
 
 def test_orcid_push_disabled_on_migrate_from_mirror(
@@ -226,3 +230,55 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear
     record_lit_es_len = len(record_lit_es)
 
     assert expected_record_lit_es_len == record_lit_es_len
+
+
+def test_migrate_from_mirror_removes_record_from_es(
+    base_app, db, es_clear, datadir, create_record
+):
+    data = json.loads((datadir / "dummy_record.json").read_text())
+    create_record("lit", data=data)
+
+    expected_record_lit_es_len = 1
+    record_lit_uuid = LiteratureRecord.get_uuid_from_pid_value(12345)
+    record_lit_es = LiteratureSearch().get_record(str(record_lit_uuid)).execute().hits
+    record_lit_es_len = len(record_lit_es)
+    assert expected_record_lit_es_len == record_lit_es_len
+
+    record_deleted_fixture_path = pkg_resources.resource_filename(
+        __name__, os.path.join("fixtures", "dummy_deleted.xml")
+    )
+
+    migrate_from_file(record_deleted_fixture_path)
+    es_clear.indices.refresh("records-hep")
+
+    expected_record_lit_es_len = 0
+    record_lit_uuid = LiteratureRecord.get_uuid_from_pid_value(12345)
+    record_lit_es = LiteratureSearch().get_record(str(record_lit_uuid)).execute().hits
+    record_lit_es_len = len(record_lit_es)
+    assert expected_record_lit_es_len == record_lit_es_len
+
+
+@patch("inspirehep.migrator.tasks.process_references_in_records")
+def test_migrate_records_with_all_makes_records_references_process_disabled(
+    proecess_references_mock, base_app, db, es_clear, datadir, create_record
+):
+    record_fixture_path = pkg_resources.resource_filename(
+        __name__, os.path.join("fixtures", "dummy.xml")
+    )
+    populate_mirror_from_file(record_fixture_path)
+
+    migrate_from_mirror(also_migrate="all")
+    proecess_references_mock.assert_not_called()
+
+
+@patch("inspirehep.migrator.tasks.process_references_in_records")
+def test_migrate_records_with_all_makes_records_references_process_enabled(
+    proecess_references_mock, base_app, db, es_clear, datadir, create_record
+):
+    record_fixture_path = pkg_resources.resource_filename(
+        __name__, os.path.join("fixtures", "dummy.xml")
+    )
+    populate_mirror_from_file(record_fixture_path)
+
+    migrate_from_mirror()
+    assert proecess_references_mock.s.call_count == 1

@@ -10,6 +10,8 @@ from copy import deepcopy
 
 from invenio_search import current_search_client as es
 
+from inspirehep.search.api import InstitutionsSearch
+
 
 def test_index_institutions_record(base_app, es_clear, db, datadir, create_record):
     data = json.loads((datadir / "902725.json").read_text())
@@ -32,3 +34,17 @@ def test_index_institutions_record(base_app, es_clear, db, datadir, create_recor
 
     assert response["hits"]["total"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
+
+
+def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
+    data = json.loads((datadir / "902725.json").read_text())
+    record = create_record("ins", data=data)
+
+    record["deleted"] = True
+    record._index()
+    es_clear.indices.refresh("records-institutions")
+
+    expected_records_count = 0
+
+    record_lit_es = InstitutionsSearch().get_record(str(record.id)).execute().hits
+    assert expected_records_count == len(record_lit_es)

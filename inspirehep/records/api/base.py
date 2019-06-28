@@ -412,7 +412,7 @@ class InspireRecord(Record):
                 f"class {self.pid_type} type, but $schema says that this is"
                 f"{self._schema_type} type object!"
             )
-        if force_delete or self.get("delete", False):
+        if force_delete or self.get("deleted", False):
             result = InspireRecordIndexer().delete(self)
         else:
             result = InspireRecordIndexer().index(self)

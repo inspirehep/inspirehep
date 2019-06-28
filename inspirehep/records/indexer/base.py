@@ -7,6 +7,7 @@
 
 import logging
 
+from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
 from flask import current_app
 from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
@@ -112,6 +113,11 @@ class InspireRecordIndexer(RecordIndexer):
             record = InspireRecord.get_record(record_uuid)
             record.validate()
             if record.get("deleted", False):
+                try:
+                    # When record is not in es then dsl is throwing TransportError(404)
+                    record._index(force_delete=True)
+                except TransportError:
+                    logger.info(f"Record not in es {record.id}")
                 return None
             return self._process_bulk_record_for_index(record)
         except NoResultFound:
