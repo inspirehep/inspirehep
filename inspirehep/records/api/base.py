@@ -23,6 +23,7 @@ from invenio_records.models import RecordMetadata
 from invenio_records_files.api import Record
 from sqlalchemy import cast, not_, or_, tuple_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy.orm.attributes import flag_modified
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
@@ -316,6 +317,7 @@ class InspireRecord(Record):
             super().update(data)
             self.validate()
             self.model.json = dict(self)
+            flag_modified(self.model, "json")
             self.pidstore_handler.update(self.id, self)
             self.update_model_created_with_legacy_creation_date()
             db.session.add(self.model)
