@@ -4,6 +4,7 @@ exports[`SelectBox render initial state with all props set 1`] = `
 <Select
   choiceTransitionName="zoom"
   defaultValue="value1"
+  dropdownMatchSelectWidth={false}
   onChange={[MockFunction]}
   prefixCls="ant-select"
   showSearch={false}
@@ -29,6 +30,7 @@ exports[`SelectBox render initial state with data-test-id 1`] = `
   choiceTransitionName="zoom"
   data-test-id="test-select"
   defaultValue="value1"
+  dropdownMatchSelectWidth={false}
   onChange={[MockFunction]}
   prefixCls="ant-select"
   showSearch={false}
