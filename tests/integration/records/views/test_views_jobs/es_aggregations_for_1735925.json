@@ -1,8 +1,8 @@
 {
-  "field_of_research": {
+  "field_of_interest": {
     "meta": {
       "type": "multiselect",
-      "title": "Field of research",
+      "title": "Field of Interest",
       "order": 1
     },
     "doc_count_error_upper_bound": 0,

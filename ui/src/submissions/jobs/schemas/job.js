@@ -39,7 +39,7 @@ const jobSchema = object().shape({
   field_of_interest: array()
     .of(string().oneOf(arxivCategoryValues))
     .required()
-    .label('Field Of Research'),
+    .label('Field of Interest'),
   institutions: arrayWithEmptyObjectDefault
     .of(
       object().shape({
