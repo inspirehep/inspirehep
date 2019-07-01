@@ -12,7 +12,7 @@ export const RANK_VALUE_TO_DISPLAY = {
   PHD: 'PhD',
   MASTER: 'Master',
   UNDERGRADUATE: 'Undergrad',
-  OTHER: 'other',
+  OTHER: 'Other',
 };
 
 export const AUTHORS_PID_TYPE = 'authors';
