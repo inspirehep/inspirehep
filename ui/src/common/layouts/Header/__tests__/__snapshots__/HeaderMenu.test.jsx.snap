@@ -23,16 +23,6 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
       </Link>
     </MenuItem>
     <MenuItem
-      key="submit.job"
-    >
-      <Link
-        replace={false}
-        to="/submissions/jobs"
-      >
-        Job
-      </Link>
-    </MenuItem>
-    <MenuItem
       key="submit.literature"
     >
       <ExternalLink
@@ -97,16 +87,6 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
         to="/submissions/authors"
       >
         Author
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.job"
-    >
-      <Link
-        replace={false}
-        to="/submissions/jobs"
-      >
-        Job
       </Link>
     </MenuItem>
     <MenuItem
