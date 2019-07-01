@@ -152,7 +152,8 @@ def migrate_recids_from_mirror(
         step_no (int): Current step in `migration_steps`
         disable_orcid_push (bool): flag indicating whether the orcid_push
             should be disabled (if True) or executed at the end of migrations (if False).
-        disable_references_processing (bool): Flags which indicates is whole db is remigrated or not
+        disable_references_processing (bool): flag indicating whether cited
+            papers should also get reindexed.
 
     Returns:
         str: Celery chord task ID or None if no jobs were created in chord.
@@ -267,9 +268,9 @@ def recalculate_citations(uuids):
     """Task which updates records_citations table with references of this record
 
     Args:
-        uuids: records uuids which references should be added to table
+        uuids: records uuids for which references should be reprocessed
     Returns:
-         set: set of properly processed records uuids
+        set: set of properly processed records uuids
     """
     for uuid in uuids:
         try:
@@ -277,7 +278,7 @@ def recalculate_citations(uuids):
                 record = InspireRecord.get_record(uuid)
                 record._update_refs_in_citation_table()
         except Exception as e:
-            LOGGER.error("Cannot recalculate %s: %s", uuid, e)
+            LOGGER.error("Cannot recalculate references for %s: %s", uuid, e)
 
     db.session.commit()
     return uuids
@@ -289,9 +290,8 @@ def process_references_in_records(uuids):
     try:
         for uuid in uuids:
             try:
-                with db.session.begin_nested():
-                    record = InspireRecord.get_record(uuid)
-                    references_to_reindex.extend(get_modified_references_uuids(record))
+                record = InspireRecord.get_record(uuid)
+                references_to_reindex.extend(get_modified_references_uuids(record))
             except Exception as e:
                 LOGGER.error(
                     "Cannot process references of record %s on index_records task. %s",
@@ -322,16 +322,14 @@ def index_records(uuids):
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
 def run_orcid_push(uuids):
-    processed_uuids = []
     for uuid in uuids:
         try:
-            with db.session.begin_nested():
-                record = InspireRecord.get_record(uuid)
-                if isinstance(LiteratureRecord, record):
-                    push_to_orcid(record)
+            record = InspireRecord.get_record(uuid)
+            if isinstance(LiteratureRecord, record):
+                push_to_orcid(record)
         except Exception as e:
             LOGGER.error("Cannot push to orcid %s: %s", uuid, e)
-    return processed_uuids
+    return uuids
 
 
 def insert_into_mirror(raw_records):

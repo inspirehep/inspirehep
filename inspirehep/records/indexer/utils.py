@@ -33,11 +33,11 @@ def get_record(uuid, record_version=None):
 def get_modified_references_uuids(record):
     """Tries to find differences in record references.
 
-        Args:
-            record: Record object in which references has changed.
-        Returns:
-            list(str): list of UUIDs
-        """
+    Args:
+        record: Record object in which references has changed.
+    Returns:
+        list(str): list of UUIDs
+    """
 
     pids = record.get_modified_references()
 
