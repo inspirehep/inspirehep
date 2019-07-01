@@ -26,9 +26,11 @@ class HeaderMenu extends Component {
           <Menu.Item key="submit.author">
             <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
           </Menu.Item>
-          <Menu.Item key="submit.job">
-            <Link to={SUBMISSIONS_JOB}>Job</Link>
-          </Menu.Item>
+          {isUserCataloger && (
+            <Menu.Item key="submit.job">
+              <Link to={SUBMISSIONS_JOB}>Job</Link>
+            </Menu.Item>
+          )}
           <Menu.Item key="submit.literature">
             <ExternalLink href="/literature/new">Literature</ExternalLink>
           </Menu.Item>
