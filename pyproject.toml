@@ -38,7 +38,7 @@ orcid = "==1.0.3"
 inspire-service-orcid = {git = "https://github.com/drjova/inspire-service-orcid.git"}
 node-semver = "<0.2.0,>=0.1.1"
 pybtex = "*"
-cryptography = "<2.6"
+cryptography = "<2.8"
 # msgpack = "*"  #  FIXME:  We want to use it but it might mess with invenio-indexer which is forcing msgpack-python https://github.com/inveniosoftware/invenio-celery/issues/58
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 hepcrawl = "^13.0"
