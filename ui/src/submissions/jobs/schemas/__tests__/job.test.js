@@ -137,7 +137,7 @@ describe('jobSchema', () => {
   it('invalidates when field of interest are not all one of selectable values', async done => {
     const data = {
       ...dataWithRequiredFields,
-      field_of_interest: ['not a field of research', arxivCategoryValues[1]],
+      field_of_interest: ['not a field of interest', arxivCategoryValues[1]],
     };
     const isValid = await jobSchema.isValid(data);
     expect(isValid).toBe(false);

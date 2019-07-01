@@ -569,17 +569,17 @@ RECORDS_REST_FACETS = {
     },
     "records-jobs": {
         "filters": {
-            "field_of_research": terms_filter("arxiv_categories"),
+            "field_of_interest": terms_filter("arxiv_categories"),
             "rank": terms_filter("ranks"),
             "region": terms_filter("regions"),
         },
         "aggs": {
-            "field_of_research": {
+            "field_of_interest": {
                 "terms": {"field": "arxiv_categories", "missing": "Other"},
                 "meta": {
                     "order": 1,
                     "type": "multiselect",
-                    "title": "Field of research",
+                    "title": "Field of Interest",
                 },
             },
             "rank": {
