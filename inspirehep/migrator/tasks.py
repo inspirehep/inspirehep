@@ -250,8 +250,8 @@ def create_records_from_mirror_recids(recids):
                 record = migrate_record_from_mirror(
                     LegacyRecordsMirror.query.get(recid)
                 )
-        except Exception as e:
-            LOGGER.error("Cannot process record %s: %s", recid, e)
+        except Exception:
+            LOGGER.error("Cannot process record %s.", recid)
             continue
         if record:
             processed_records.add(str(record.id))
@@ -277,8 +277,8 @@ def recalculate_citations(uuids):
             with db.session.begin_nested():
                 record = InspireRecord.get_record(uuid)
                 record._update_refs_in_citation_table()
-        except Exception as e:
-            LOGGER.error("Cannot recalculate references for %s: %s", uuid, e)
+        except Exception:
+            LOGGER.error("Cannot recalculate references for %s.", uuid)
 
     db.session.commit()
     return uuids
@@ -292,15 +292,14 @@ def process_references_in_records(uuids):
             try:
                 record = InspireRecord.get_record(uuid)
                 references_to_reindex.extend(get_modified_references_uuids(record))
-            except Exception as e:
+            except Exception:
                 LOGGER.error(
-                    "Cannot process references of record %s on index_records task. %s",
+                    "Cannot process references of record %s on index_records task.",
                     uuid,
-                    e,
                 )
         batch_index(references_to_reindex)
     except Exception as e:
-        LOGGER.error("Cannot reindex references: %s", e)
+        LOGGER.error("Cannot reindex references.")
     return uuids
 
 
@@ -315,8 +314,8 @@ def index_records(uuids):
     """
     try:
         batch_index(uuids)
-    except Exception as e:
-        LOGGER.error("Cannot reindex: %s", e)
+    except Exception:
+        LOGGER.error("Cannot reindex.")
     return uuids
 
 
@@ -327,8 +326,8 @@ def run_orcid_push(uuids):
             record = InspireRecord.get_record(uuid)
             if isinstance(LiteratureRecord, record):
                 push_to_orcid(record)
-        except Exception as e:
-            LOGGER.error("Cannot push to orcid %s: %s", uuid, e)
+        except Exception:
+            LOGGER.error("Cannot push to orcid %s", uuid)
     return uuids
 
 
@@ -366,7 +365,7 @@ def migrate_record_from_mirror(
     try:
         json_record = marcxml2record(prod_record.marcxml)
     except Exception as exc:
-        LOGGER.exception("Migrator DoJSON Error: %s", exc)
+        LOGGER.exception("Migrator DoJSON Error.")
         prod_record.error = exc
         db.session.merge(prod_record)
         return None
@@ -389,7 +388,7 @@ def migrate_record_from_mirror(
         prod_record.error = exc
         db.session.merge(prod_record)
     except Exception as exc:
-        LOGGER.exception("Migrator Record Insert Error: %s", exc)
+        LOGGER.exception("Migrator Record Insert Error.")
         prod_record.error = exc
         db.session.merge(prod_record)
     else:
