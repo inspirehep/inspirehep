@@ -298,7 +298,7 @@ def process_references_in_records(uuids):
                     uuid,
                 )
         batch_index(references_to_reindex)
-    except Exception as e:
+    except Exception:
         LOGGER.error("Cannot reindex references.")
     return uuids
 
@@ -324,7 +324,7 @@ def run_orcid_push(uuids):
     for uuid in uuids:
         try:
             record = InspireRecord.get_record(uuid)
-            if isinstance(LiteratureRecord, record):
+            if isinstance(record, LiteratureRecord):
                 push_to_orcid(record)
         except Exception:
             LOGGER.error("Cannot push to orcid %s", uuid)
