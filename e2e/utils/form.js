@@ -147,7 +147,7 @@ class FormSubmitter {
     const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
     await this.page.click(fieldSelector);
     const datePickerDaySelector = `[title="${moment(value).format(
-      'MMMM DD, YYYY'
+      'MMMM D, YYYY'
     )}"]`;
     await this.page.waitFor(datePickerDaySelector);
     await this.page.click(datePickerDaySelector);
