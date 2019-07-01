@@ -91,7 +91,7 @@ def test_migrate_and_insert_record_dojson_error(mock_logger, base_app, db):
     assert prod_record.marcxml == raw_record
 
     assert not mock_logger.error.called
-    mock_logger.exception.assert_called_once()
+    mock_logger.exception.assert_called_once_with("Migrator DoJSON Error.")
 
 
 @patch("inspirehep.migrator.tasks.LOGGER")
@@ -179,7 +179,7 @@ def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db):
     assert prod_record.marcxml == raw_record
 
     assert not mock_logger.error.called
-    mock_logger.exception.assert_called_once()
+    mock_logger.exception.assert_called_once_with("Migrator Record Insert Error.")
 
 
 def test_orcid_push_disabled_on_migrate_from_mirror(
