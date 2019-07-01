@@ -49,7 +49,6 @@ def process_references_for_record(record):
     if uuids:
         logger.info(f"({record.id}) contains pids - starting batch")
         return batch_index(uuids)
-
     else:
         raise MissingCitedRecordError(
             f"Cited records to reindex not found:\nuuids: {uuids}"
