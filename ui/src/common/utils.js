@@ -145,6 +145,7 @@ export function wait(milisec) {
 }
 
 // appending `s` is all that's needed for the current usages
+// TODO: do not export default (leftover)
 export default function pluralizeUnlessSingle(singularWord, count) {
   return count !== 1 ? `${singularWord}s` : singularWord;
 }

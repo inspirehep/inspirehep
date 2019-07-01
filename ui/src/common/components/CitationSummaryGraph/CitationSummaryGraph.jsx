@@ -19,10 +19,12 @@ import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
 import styleVariables from '../../../styleVariables';
 import { shallowEqual } from '../../utils';
+import { browser } from '../../browser';
 
 const BAR_WIDTH = 0.5;
 const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
 const GRAPH_HEIGHT = 250;
+const LABEL_ANCHOR_AT_Y = browser.isSafari() ? 'text-top' : 'text-after-edge';
 
 export const ORANGE = styleVariables['orange-6'];
 export const HOVERED_ORANGE = styleVariables['orange-7'];
@@ -216,7 +218,7 @@ class CitationSummaryGraph extends Component {
                     />
                     <LabelSeries
                       data={citeableSeriesData}
-                      labelAnchorY="text-after-edge"
+                      labelAnchorY={LABEL_ANCHOR_AT_Y}
                       labelAnchorX="middle"
                     />
                     <VerticalBarSeries
@@ -231,7 +233,7 @@ class CitationSummaryGraph extends Component {
                     />
                     <LabelSeries
                       data={publishedSeriesData}
-                      labelAnchorY="text-after-edge"
+                      labelAnchorY={LABEL_ANCHOR_AT_Y}
                       labelAnchorX="middle"
                     />
                     <DiscreteColorLegend
