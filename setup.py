@@ -59,6 +59,7 @@ setup(
         ],
         "invenio_config.module": [
             "inspirehep = inspirehep.config",
+            "inspirehep_records = inspirehep.records.config",
             "inspirehep_orcid = inspirehep.orcid.config",
             "inspirehep_rt = inspirehep.rt.config",
         ],
