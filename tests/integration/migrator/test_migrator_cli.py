@@ -22,7 +22,7 @@ from inspirehep.migrator.tasks import populate_mirror_from_file
 @pytest.mark.xfail(
     reason="Flaky test, the current_app configuration is not overwritten properly."
 )
-def test_migrate_file_halts_in_debug_mode(base_app, db, api_client, app_cli_runner):
+def test_migrate_file_halts_in_debug_mode(api_client, db, app_cli_runner):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
         file_name = pkg_resources.resource_filename(
@@ -36,7 +36,7 @@ def test_migrate_file_halts_in_debug_mode(base_app, db, api_client, app_cli_runn
 
 
 def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(
-    base_app, db, api_client, app_cli_runner
+    api_client, db, app_cli_runner
 ):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
@@ -50,7 +50,7 @@ def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(
         assert "DEBUG" not in result.output
 
 
-def test_migrate_file(base_app, db, api_client, app_cli_runner):
+def test_migrate_file(api_client, db, app_cli_runner):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663923.xml")
     )
@@ -63,7 +63,7 @@ def test_migrate_file(base_app, db, api_client, app_cli_runner):
     assert json.loads(response.data)["metadata"]["control_number"] == 1663923
 
 
-def test_migrate_file_mirror_only(base_app, db, api_client, app_cli_runner):
+def test_migrate_file_mirror_only(api_client, db, app_cli_runner):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
@@ -78,7 +78,7 @@ def test_migrate_file_mirror_only(base_app, db, api_client, app_cli_runner):
 
 
 @pytest.mark.xfail(reason="Flaky test, the configuration is not overwritten properly.")
-def test_migrate_mirror_halts_in_debug_mode(base_app, db, api_client, app_cli_runner):
+def test_migrate_mirror_halts_in_debug_mode(api_client, db, app_cli_runner):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
         result = app_cli_runner.invoke(migrate, ["mirror", "-a"])
@@ -88,7 +88,7 @@ def test_migrate_mirror_halts_in_debug_mode(base_app, db, api_client, app_cli_ru
 
 
 def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(
-    base_app, db, api_client, app_cli_runner
+    api_client, db, app_cli_runner
 ):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
@@ -98,7 +98,7 @@ def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(
         assert "DEBUG" not in result.output
 
 
-def test_migrate_mirror_migrates_pending(base_app, db, api_client, app_cli_runner):
+def test_migrate_mirror_migrates_pending(api_client, db, app_cli_runner):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
@@ -112,9 +112,7 @@ def test_migrate_mirror_migrates_pending(base_app, db, api_client, app_cli_runne
     assert json.loads(response.data)["metadata"]["control_number"] == 1663924
 
 
-def test_migrate_mirror_broken_migrates_invalid(
-    base_app, db, api_client, app_cli_runner
-):
+def test_migrate_mirror_broken_migrates_invalid(api_client, db, app_cli_runner):
 
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663927_broken.xml")
@@ -148,7 +146,7 @@ def test_migrate_mirror_broken_migrates_invalid(
     version, which fails ES indexing because of the version bug with the
     citation counts."""
 )
-def test_migrate_mirror_all_migrates_all(app_cli_runner, api_client):
+def test_migrate_mirror_all_migrates_all(app_cli_runner, db, api_client):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
@@ -180,7 +178,7 @@ def test_migrate_mirror_all_migrates_all(app_cli_runner, api_client):
 
 
 def test_migrate_records_correctly_with_author_and_indexes_correctly(
-    script_info, api_client, db, es_clear, datadir, app_cli_runner
+    api_client, db, es_clear, datadir, app_cli_runner
 ):
     file_name = (datadir / "1734025.xml").as_posix()
     #  Add literature record

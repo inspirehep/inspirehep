@@ -10,6 +10,24 @@ import json
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.literature import LiteratureSearchUISchemaV1
+from inspirehep.records.marshmallow.literature.base import (
+    LiteratureMetadataRawPublicSchemaV1,
+)
+
+
+def test_literature_related_records():
+    data = {
+        "related_records": [
+            {
+                "record": {"$ref": "https://link-to-commentor-record/1"},
+                "relation": "commented",
+            },
+            {"record": {"$ref": "https://link-to-any-other-record/2"}},
+        ]
+    }
+    data_record = faker.record("lit", data=data)
+    result = LiteratureMetadataRawPublicSchemaV1().dump(data).data
+    assert data["related_records"] == result["related_records"]
 
 
 def test_literature_ui_schema():
