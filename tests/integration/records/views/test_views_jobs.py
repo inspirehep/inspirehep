@@ -120,13 +120,12 @@ def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
     response_data_sort_options = response_data["sort_options"]
 
     expected_status_code = 200
-    expected_sort_options = [
-        {"value": "mostrecent", "display": "Most Recent"},
-        {"value": "deadline", "display": "Earliest Deadline"},
-    ]
+    expected_sort_options_1 = {"value": "mostrecent", "display": "Most Recent"}
+    expected_sort_options_2 = {"value": "deadline", "display": "Earliest Deadline"}
 
     assert expected_status_code == response_status_code
-    assert expected_sort_options == response_data_sort_options
+    assert expected_sort_options_1 in response_data_sort_options
+    assert expected_sort_options_2 in response_data_sort_options
 
 
 def test_jobs_sort_by_deadline(api_client, db, es_clear, create_record, datadir):

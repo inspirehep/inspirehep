@@ -13,9 +13,6 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
-
-import os
-import sys
 from copy import deepcopy
 
 from invenio_indexer.api import RecordIndexer
@@ -23,10 +20,8 @@ from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from inspirehep.access_control import api_access_permission_check
-from inspirehep.alembic_helper.table_check import include_table_check
-
-from .search.api import LiteratureSearch
-from .search.facets import (
+from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.facets import (
     citation_summary,
     citations_by_year,
     hep_author_publications,
@@ -491,7 +486,11 @@ RECORDS_REST_SORT_OPTIONS = {
     },
     "records-jobs": {
         "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
-        "deadline": {"title": "Deadline", "fields": ["deadline_date"], "order": 2},
+        "deadline": {
+            "title": "Earliest Deadline",
+            "fields": ["deadline_date"],
+            "order": 1,
+        },
     },
 }
 
