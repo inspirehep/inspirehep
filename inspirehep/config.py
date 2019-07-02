@@ -16,55 +16,36 @@ You overwrite and set instance-specific configuration by either:
 
 import os
 import sys
-from copy import deepcopy
 
-from invenio_indexer.api import RecordIndexer
-from invenio_records_rest.facets import range_filter, terms_filter
-from invenio_records_rest.utils import allow_all, deny_all
-
-from inspirehep.access_control import api_access_permission_check
 from inspirehep.alembic_helper.table_check import include_table_check
 
-from .search.api import LiteratureSearch
-from .search.facets import (
-    citation_summary,
-    citations_by_year,
-    hep_author_publications,
-    must_match_all_filter,
-    range_author_count_filter,
-)
+# INSPIRE configuration
+# =====================
 
-# DEBUG
-FLASK_ENV = "development"
-DEBUG = True
+# Feature flags
+# =============
+FEATURE_FLAG_ENABLE_FILES = False
+FEATURE_FLAG_ENABLE_ORCID_PUSH = False
+# Only push to ORCIDs that match this regex.
+# Examples:
+#   any ORCID -> ".*"
+#   none -> "^$"
+#   some ORCIDs -> "^(0000-0002-7638-5686|0000-0002-7638-5687)$"
+FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX = ".*"
+FEATURE_FLAG_ENABLE_APPMETRICS = False
+
+# Web services and APIs
+# =====================
+AUTHENTICATION_TOKEN = "CHANGE_ME"
+INSPIRE_NEXT_URL = "http://web-next:5000"
+LEGACY_BASE_URL = "http://inspirehep.net"
+LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
 
 # Migration
 # =========
 #: Special redis for continuous migration and ORCID token migration
 MIGRATION_REDIS_URL = None
 
-# Rate limiting
-# =============
-#: Storage for ratelimiter.
-RATELIMIT_STORAGE_URL = "redis://localhost:6379/3"
-
-# Email configuration
-# ===================
-#: Email address for support.
-SUPPORT_EMAIL = "info@inspirehep.net"
-#: Disable email sending by default.
-MAIL_SUPPRESS_SEND = True
-
-# Accounts
-# ========
-#: Email address used as sender of account registration emails.
-SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
-#: Email subject for account registration emails.
-SECURITY_EMAIL_SUBJECT_REGISTER = "Welcome to inspirehep!"
-#: Redis session storage URL.
-ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
-
-# Deal with inconcistency :puke:
 PID_TYPES_TO_ENDPOINTS = {
     "lit": "literature",
     "aut": "authors",
@@ -96,6 +77,29 @@ PID_TYPE_TO_INDEX = {
     "ins": "records-institutions",
 }
 
+# Invenio and 3rd party
+# =====================
+
+# Rate limiting
+# =============
+#: Storage for ratelimiter.
+RATELIMIT_ENABLED = False
+
+# Email configuration
+# ===================
+#: Email address for support.
+SUPPORT_EMAIL = "info@inspirehep.net"
+#: Disable email sending by default.
+MAIL_SUPPRESS_SEND = True
+
+# Accounts
+# ========
+#: Email address used as sender of account registration emails.
+SECURITY_EMAIL_SENDER = SUPPORT_EMAIL
+#: Email subject for account registration emails.
+SECURITY_EMAIL_SUBJECT_REGISTER = "Welcome to inspirehep!"
+#: Redis session storage URL.
+ACCOUNTS_SESSION_REDIS_URL = "redis://localhost:6379/1"
 
 # Sessions
 # ========
@@ -104,7 +108,6 @@ SESSION_PICKLE_PROTOCOL = 2
 
 # Celery configuration
 # ====================
-
 BROKER_URL = "amqp://guest:guest@localhost:5672/"
 #: URL of message broker for Celery (default is RabbitMQ).
 CELERY_BROKER_URL = "amqp://guest:guest@localhost:5672/"
@@ -138,22 +141,15 @@ JSONSCHEMAS_HOST = "localhost:5000"
 # ===================
 # See details on
 # http://flask.pocoo.org/docs/0.12/config/#builtin-configuration-values
-
+SECRET_KEY = "CHANGE_ME"
 #: Secret key - each installation (dev, production, ...) needs a separate key.
 #: It should be changed before deploying.
-SECRET_KEY = "CHANGE_ME"
-#: Max upload size for form data via application/mulitpart-formdata.
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
-#: Sets cookie with the secure flag by default
+#: Max upload size for form data via application/mulitpart-formdata.
 SESSION_COOKIE_SECURE = True
-
-
-# Web services and APIs
-# =====================
-AUTHENTICATION_TOKEN = "CHANGE_ME"
-INSPIRE_NEXT_URL = "http://web-next:5000"
-LEGACY_BASE_URL = "http://inspirehep.net"
-LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
+#: Sets cookie with the secure flag by default
+DEBUG = True
+SERVER_NAME = "localhost:8000"
 
 # Debug
 # =====
@@ -164,6 +160,7 @@ LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
+<<<<<<< HEAD
 PIDSTORE_RECID_FIELD = "control_number"
 
 <<<<<<< HEAD
@@ -635,10 +632,6 @@ RECORDS_REST_SORT_OPTIONS = {
 RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostrecent"))
 """Set default sorting options."""
 
-=======
->>>>>>> config: move records config to each own module
-APP_ENABLE_SECURE_HEADERS = False
-
 # Files
 # =====
 BASE_FILES_LOCATION = os.path.join(sys.prefix, "var/data")
@@ -650,48 +643,28 @@ RECORDS_DEFAULT_FILE_LOCATION_NAME = "records"
 RECORDS_DEFAULT_STORAGE_CLASS = "S"
 """Default storage class for record files."""
 
-LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
-    "application/vnd+inspire.record.ui+json": [
-        "_ui_display",
-        # we need this for the record fetcher
-        "control_number",
-    ]
-}
-LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {"application/json": ["_ui_display"]}
+# Pidstore
+# ========
+PIDSTORE_RECID_FIELD = "control_number"
 
-APP_HEALTH_BLUEPRINT_ENABLED = True
+# Invenio-App
+# ===========
+APP_HEALTH_BLUEPRINT_ENABLED = False
+APP_ENABLE_SECURE_HEADERS = False
 
 # Indexer
 # =======
-
 INDEXER_DEFAULT_INDEX = "records-hep"
 INDEXER_DEFAULT_DOC_TYPE = "hep"
 INDEXER_BULK_REQUEST_TIMEOUT = 900
 INDEXER_REPLACE_REFS = False
 
-
-CELERY_IMPORTS = ["inspirehep.records.indexer.tasks", "inspirehep.records.tasks"]
-
-
-# Feature flags
-# =============
-
-FEATURE_FLAG_ENABLE_FILES = False
-FEATURE_FLAG_ENABLE_ORCID_PUSH = False
-# Only push to ORCIDs that match this regex.
-# Examples:
-#   any ORCID -> ".*"
-#   none -> "^$"
-#   some ORCIDs -> "^(0000-0002-7638-5686|0000-0002-7638-5687)$"
-FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX = ".*"
-FEATURE_FLAG_ENABLE_APPMETRICS = False
-
-
+# Alembic
+# =======
 ALEMBIC_CONTEXT = {
     "version_table": "inspirehep_alembic_version",
     "include_object": include_table_check,
 }
-
 
 ALEMBIC_SKIP_TABLES = [
     "workflows_record_sources",
@@ -705,6 +678,3 @@ ALEMBIC_SKIP_TABLES = [
     "transaction",
     "alembic_version",
 ]
-
-# URLS
-SERVER_NAME = "localhost:8000"
