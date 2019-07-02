@@ -44,6 +44,7 @@
     "lodash.transform": "^4.6.0",
     "math-interval-2": "^1.1.0",
     "moment": "^2.24.0",
+    "number-abbreviate": "^2.0.0",
     "qs": "^6.5.1",
     "react": "^16.8.3",
     "react-copy-to-clipboard": "^5.0.1",
