@@ -40,6 +40,19 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     assert sorted(result_facet_author_name) == sorted(expected_facet_author_name)
 
 
+def test_regression_index_literature_record_with_related_records(
+    es_clear, db, datadir, create_record
+):
+    data = json.loads((datadir / "1503270.json").read_text())
+    record = create_record("lit", data=data)
+
+    response = es.search("records-hep")
+
+    result = response["hits"]["hits"][0]["_source"]
+
+    assert data["related_records"] == result["related_records"]
+
+
 def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)

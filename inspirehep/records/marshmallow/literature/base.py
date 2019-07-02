@@ -90,6 +90,7 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
     record_affiliations = fields.Raw(dump_only=True)
     refereed = fields.Raw(dump_only=True)
     references = fields.Raw(dump_only=True)
+    related_records = fields.Raw(dump_only=True)
 
     report_numbers = NonHiddenRaw(dump_only=True)
     texkeys = fields.Raw(dump_only=True)
