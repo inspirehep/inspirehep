@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { LineSeries } from 'react-vis';
+import { LineSeries, YAxis } from 'react-vis';
 
 import CitationsByYearGraph from '../CitationsByYearGraph';
 
@@ -142,5 +142,21 @@ describe('CitationsByYearGraph', () => {
       <CitationsByYearGraph citationsByYear={citationsByYear} />
     );
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('sets tickFormat to abbrivate values at Y axis', () => {
+    const citationsByYear = {};
+    const wrapper = shallow(
+      <CitationsByYearGraph
+        citationsByYear={citationsByYear}
+        loading={false}
+        error={null}
+      />
+    );
+    const tickFormat = wrapper.find(YAxis).prop('tickFormat');
+
+    expect(tickFormat(1234)).toEqual('1.2K');
+    expect(tickFormat(15123)).toEqual('15K');
+    expect(tickFormat(500)).toEqual(500);
   });
 });

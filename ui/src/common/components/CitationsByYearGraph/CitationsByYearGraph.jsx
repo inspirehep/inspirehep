@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Tooltip } from 'antd';
 import { LineSeries, FlexibleWidthXYPlot, YAxis, XAxis } from 'react-vis';
+import NumberAbbreviator from 'number-abbreviate';
+
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
 import PropTypes from 'prop-types';
@@ -19,6 +21,12 @@ const GRAPH_HEIGHT = 250;
 const MIN_NUMBER_OF_DATAPOINTS = 3;
 const MAX_NUMBER_OF_TICKS_AT_X = 5;
 const MAX_NUMBER_OF_TICKS_AT_Y = 5;
+
+const numberAbbreviator = new NumberAbbreviator(['K', 'M', 'B', 'T']);
+
+function getNumberOfFractionsForValue(value) {
+  return value < 10000 ? 1 : 0;
+}
 
 class CitationsByYearGraph extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -113,7 +121,12 @@ class CitationsByYearGraph extends Component {
       <YAxis
         tickValues={tickValuesAtY}
         tickTotal={MAX_NUMBER_OF_TICKS_AT_Y}
-        tickFormat={value => value /* avoid comma per 3 digit */}
+        tickFormat={value =>
+          numberAbbreviator.abbreviate(
+            value,
+            getNumberOfFractionsForValue(value)
+          )
+        }
       />
     );
   }
