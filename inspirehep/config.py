@@ -41,11 +41,8 @@ INSPIRE_NEXT_URL = "http://web-next:5000"
 LEGACY_BASE_URL = "http://inspirehep.net"
 LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
 
-# Migration
-# =========
-#: Special redis for continuous migration and ORCID token migration
-MIGRATION_REDIS_URL = None
-
+# Helpers
+# =======
 PID_TYPES_TO_ENDPOINTS = {
     "lit": "literature",
     "aut": "authors",

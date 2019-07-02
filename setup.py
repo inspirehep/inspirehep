@@ -59,8 +59,9 @@ setup(
         ],
         "invenio_config.module": [
             "inspirehep = inspirehep.config",
-            "inspirehep_records = inspirehep.records.config",
+            "inspirehep_migrator = inspirehep.migrator.config",
             "inspirehep_orcid = inspirehep.orcid.config",
+            "inspirehep_records = inspirehep.records.config",
             "inspirehep_rt = inspirehep.rt.config",
         ],
         "invenio_base.api_apps": [
