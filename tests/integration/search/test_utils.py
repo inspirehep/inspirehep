@@ -11,13 +11,15 @@ from mock import Mock, patch
 from inspirehep.search.utils import get_facet_configuration
 
 
-@patch("inspirehep.config.RECORDS_REST_ENDPOINTS")
+@patch("inspirehep.records.config.RECORDS_REST_ENDPOINTS")
 def test_facet_configuration_with_existing_facet_import_string(facet_mock, base_app):
     facet_mock.return_value = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
     }
     config = {
-        "RECORDS_REST_FACETS": {"defenders": "inspirehep.config.RECORDS_REST_ENDPOINTS"}
+        "RECORDS_REST_FACETS": {
+            "defenders": "inspirehep.records.config.RECORDS_REST_ENDPOINTS"
+        }
     }
     expected = {
         "aggs": {"jessica-jones": {"terms": {"field": "defenders", "size": 20}}}
