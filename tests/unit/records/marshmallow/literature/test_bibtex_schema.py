@@ -160,6 +160,7 @@ def test_get_report_number():
         "report_numbers": [
             {"value": "CERN-SOME-REPORT"},
             {"value": "CERN-SOME-OTHER-REPORT"},
+            {"value": "CERN-HIDDEN", "hidden": True},
         ],
     }
     expected_report_numbers = "CERN-SOME-REPORT, CERN-SOME-OTHER-REPORT"

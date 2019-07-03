@@ -35,14 +35,14 @@ class BibTexSerializer:
         "month",
         "note",
         "primaryClass",
+        "reportNumber",
         "title",
-        "url",
         "year",
     ]
 
     FIELDS_FOR_ENTRY_TYPE = {
         "techreport": ["author", "number", "address", "type", "institution"],
-        "phdthesis": ["reportNumber", "school", "address", "type", "author"],
+        "phdthesis": ["school", "address", "type", "author"],
         "inproceedings": [
             "publisher",
             "author",
@@ -50,20 +50,18 @@ class BibTexSerializer:
             "booktitle",
             "number",
             "volume",
-            "reportNumber",
             "editor",
             "address",
             "organization",
             "pages",
         ],
-        "misc": ["howpublished", "reportNumber", "author"],
-        "mastersthesis": ["reportNumber", "school", "address", "type", "author"],
+        "misc": ["howpublished", "author"],
+        "mastersthesis": ["school", "address", "type", "author"],
         "proceedings": [
             "publisher",
             "series",
             "number",
             "volume",
-            "reportNumber",
             "editor",
             "address",
             "organization",
@@ -78,7 +76,6 @@ class BibTexSerializer:
             "volume",
             "edition",
             "editor",
-            "reportNumber",
             "address",
         ],
         "inbook": [
@@ -90,12 +87,11 @@ class BibTexSerializer:
             "volume",
             "edition",
             "editor",
-            "reportNumber",
             "address",
             "type",
             "pages",
         ],
-        "article": ["author", "journal", "number", "volume", "reportNumber", "pages"],
+        "article": ["author", "journal", "number", "volume", "pages"],
     }
 
     def __init__(self, schema_class=BibTexCommonSchema):
