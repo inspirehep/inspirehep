@@ -623,7 +623,11 @@ RECORDS_REST_SORT_OPTIONS = {
     },
     "records-jobs": {
         "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
-        "deadline": {"title": "Deadline", "fields": ["deadline_date"], "order": 2},
+        "deadline": {
+            "title": "Earliest Deadline",
+            "fields": ["deadline_date"],
+            "order": 2,
+        },
     },
 }
 
