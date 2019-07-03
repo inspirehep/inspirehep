@@ -122,7 +122,7 @@ def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
     expected_status_code = 200
     expected_sort_options = [
         {"value": "mostrecent", "display": "Most Recent"},
-        {"value": "deadline", "display": "Deadline"},
+        {"value": "deadline", "display": "Earliest Deadline"},
     ]
 
     assert expected_status_code == response_status_code
