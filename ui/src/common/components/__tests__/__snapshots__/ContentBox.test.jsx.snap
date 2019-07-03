@@ -21,6 +21,7 @@ exports[`ContentBox renders ContentBox with actions 1`] = `
       </div>
     </div>
     <Row
+      className="ph2"
       gutter={0}
       justify="space-between"
       type="flex"
@@ -51,6 +52,7 @@ exports[`ContentBox renders ContentBox with actions and title with loading 1`] =
       </div>
     </div>
     <Row
+      className="ph2"
       gutter={0}
       justify="space-between"
       type="flex"
@@ -81,6 +83,7 @@ exports[`ContentBox renders ContentBox with actions and title without loading 1`
       </div>
     </div>
     <Row
+      className="ph2"
       gutter={0}
       justify="space-between"
       type="flex"
@@ -116,6 +119,7 @@ exports[`ContentBox renders ContentBox with subTitle and className 1`] = `
       </div>
     </div>
     <Row
+      className="ph2"
       gutter={0}
       justify="space-between"
       type="flex"
@@ -146,6 +150,7 @@ exports[`ContentBox renders ContentBox without actions 1`] = `
       </div>
     </div>
     <Row
+      className="ph2"
       gutter={0}
       justify="space-between"
       type="flex"
