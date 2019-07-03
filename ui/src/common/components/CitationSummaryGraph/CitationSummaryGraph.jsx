@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import {
   XAxis,
   YAxis,
@@ -9,7 +9,7 @@ import {
   ChartLabel,
 } from 'react-vis';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'antd';
+import { Row, Col, Tooltip } from 'antd';
 import './CitationSummaryGraph.scss';
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
@@ -185,11 +185,14 @@ class CitationSummaryGraph extends Component {
     );
     return (
       <div className="__CitationSummaryGraph__" ref={this.graphRef}>
-        <Fragment>
-          <LoadingOrChildren loading={loading}>
-            <ErrorAlertOrChildren error={error}>
-              <Row type="flex" align="middle">
-                <Col span={24}>
+        <LoadingOrChildren loading={loading}>
+          <ErrorAlertOrChildren error={error}>
+            <Row type="flex" align="middle">
+              <Col span={24}>
+                <Tooltip
+                  title="Click a bar to select papers. Click the bar again to reset your selection."
+                  placement="bottom"
+                >
                   <FlexibleWidthXYPlot
                     height={GRAPH_HEIGHT}
                     margin={GRAPH_MARGIN}
@@ -242,11 +245,11 @@ class CitationSummaryGraph extends Component {
                       orientation="horizontal"
                     />
                   </FlexibleWidthXYPlot>
-                </Col>
-              </Row>
-            </ErrorAlertOrChildren>
-          </LoadingOrChildren>
-        </Fragment>
+                </Tooltip>
+              </Col>
+            </Row>
+          </ErrorAlertOrChildren>
+        </LoadingOrChildren>
       </div>
     );
   }
