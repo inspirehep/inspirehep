@@ -209,7 +209,9 @@ class BibTexCommonSchema(Schema):
     def get_report_number(self, data):
         if "report_numbers" in data:
             return ", ".join(
-                report["value"] for report in data.get("report_numbers", [])
+                report["value"]
+                for report in data.get("report_numbers", [])
+                if not report.get("hidden", False)
             )
 
     def get_school(self, data):
