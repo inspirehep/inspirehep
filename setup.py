@@ -74,6 +74,7 @@ setup(
             "inspirehep_indexer = inspirehep.records.indexer.tasks",
             "inspirehep_migrator = inspirehep.migrator.tasks",
             "inspire_orcid = inspirehep.orcid.tasks",
+            "inspirehep_submissions = inspirehep.submissions.tasks",
         ],
     },
     classifiers=[
