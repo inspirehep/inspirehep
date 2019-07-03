@@ -24,7 +24,7 @@ class ContentBox extends Component {
               {subTitle && <h3 className="pb1">{subTitle}</h3>}
               <div>{children}</div>
             </div>
-            <Row type="flex" justify="space-between">
+            <Row className="ph2" type="flex" justify="space-between">
               <Col>{leftActions}</Col>
               <Col>{rightActions}</Col>
             </Row>

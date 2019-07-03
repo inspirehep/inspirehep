@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CiteModalAction renders with all props 1`] = `
-<div
-  className="di"
->
+<Fragment>
   <ListItemAction>
     <EventTracker
       eventId="Cite"
@@ -117,5 +115,5 @@ exports[`CiteModalAction renders with all props 1`] = `
       </Row>
     </div>
   </Modal>
-</div>
+</Fragment>
 `;

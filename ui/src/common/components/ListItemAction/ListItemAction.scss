@@ -1,4 +1,14 @@
 .__ListItemAction__ {
+  $action-padding: $padding-md - 1px;
+
+  &:not(:first-child) {
+    padding-left: $action-padding;
+  }
+
+  &:not(:last-child) {
+    padding-right: $action-padding;
+  }
+
   button,
   a {
     &:hover {
@@ -7,6 +17,7 @@
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     border: none;
     background: transparent !important;
+    padding: 0;
   }
 
   a {
@@ -16,6 +27,5 @@
     text-decoration: none;
     color: $text-color;
     line-height: $btn-height-base;
-    padding: 0 $padding-md - 1px;
   }
 }

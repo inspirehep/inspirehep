@@ -76,7 +76,7 @@ class CiteModalAction extends Component {
     const { initialCiteFormat } = this.props;
     const { modalVisible, citeContent } = this.state;
     return (
-      <div className="di">
+      <>
         <ListItemAction>
           <EventTracker eventId="Cite">
             <Button onClick={this.onCiteClick}>
@@ -121,7 +121,7 @@ class CiteModalAction extends Component {
             </Row>
           </div>
         </Modal>
-      </div>
+      </>
     );
   }
 }
