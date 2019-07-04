@@ -2,12 +2,14 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
-import SortByContainer, { dispatchToProps } from '../SortByContainer';
+import { getStoreWithState, getStore } from '../../../fixtures/store';
+import SortByContainer from '../SortByContainer';
 import { pushQueryToLocation } from '../../../actions/search';
 import SortBy from '../../components/SortBy';
 
 jest.mock('../../../actions/search');
+
+pushQueryToLocation.mockReturnValue(async () => {});
 
 describe('SortByContainer', () => {
   afterEach(() => {
@@ -27,9 +29,14 @@ describe('SortByContainer', () => {
   });
 
   it('dispatches search onSortChange', () => {
-    const props = dispatchToProps(jest.fn());
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <SortByContainer />
+      </Provider>
+    );
+    const onSortChange = wrapper.find(SortBy).prop('onSortChange');
     const sort = 'mostcited';
-    props.onSortChange(sort);
+    onSortChange(sort);
     expect(pushQueryToLocation).toHaveBeenCalledWith({ sort });
   });
 });

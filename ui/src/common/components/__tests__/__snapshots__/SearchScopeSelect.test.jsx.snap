@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchScopeSelect render initial state with all props set 1`] = `
+<SelectBox
+  dropdownClassName="header-dropdown"
+  onChange={[MockFunction]}
+  options={
+    Array [
+      Object {
+        "value": "literature",
+      },
+      Object {
+        "value": "authors",
+      },
+      Object {
+        "value": "jobs",
+      },
+    ]
+  }
+  value="authors"
+/>
+`;
