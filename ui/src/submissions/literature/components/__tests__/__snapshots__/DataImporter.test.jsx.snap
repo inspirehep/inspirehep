@@ -8,7 +8,7 @@ exports[`DataImporter renders with error with a message 1`] = `
   >
     <Col>
       <Alert
-        message="Fill in both fields to automatically import more data from arXiv or DOI"
+        message="Fill in the field to automatically import more data from arXiv or DOI"
         type="info"
       />
     </Col>
@@ -91,7 +91,7 @@ exports[`DataImporter renders with error without a message 1`] = `
   >
     <Col>
       <Alert
-        message="Fill in both fields to automatically import more data from arXiv or DOI"
+        message="Fill in the field to automatically import more data from arXiv or DOI"
         type="info"
       />
     </Col>
@@ -174,7 +174,7 @@ exports[`DataImporter renders without error while importing 1`] = `
   >
     <Col>
       <Alert
-        message="Fill in both fields to automatically import more data from arXiv or DOI"
+        message="Fill in the field to automatically import more data from arXiv or DOI"
         type="info"
       />
     </Col>

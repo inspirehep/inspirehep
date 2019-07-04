@@ -32,7 +32,7 @@ class DataImporter extends Component {
         <Row className="mb3">
           <Col>
             <Alert
-              message="Fill in both fields to automatically import more data from arXiv or DOI"
+              message="Fill in the field to automatically import more data from arXiv or DOI"
               type="info"
             />
           </Col>
