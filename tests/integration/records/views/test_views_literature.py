@@ -54,6 +54,7 @@ def test_literature_search_application_json_ui_get(
     data = {
         "control_number": 666,
         "titles": [{"title": "Partner walk again seek job."}],
+        "preprint_date": "2019-07-02",
     }
     create_record("lit", data=data)
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
@@ -63,6 +64,8 @@ def test_literature_search_application_json_ui_get(
         "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
+        "preprint_date": "2019-07-02",
+        "date": "2019-07-02",
     }
 
     response = api_client.get("/literature", headers=headers)

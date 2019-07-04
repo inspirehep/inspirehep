@@ -2,6 +2,6 @@
 
 exports[`LiteratureDate renders with date 1`] = `
 <span>
-  1993-06-07
+  Jun 07, 1993
 </span>
 `;
