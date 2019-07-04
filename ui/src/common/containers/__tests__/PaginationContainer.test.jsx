@@ -3,12 +3,13 @@ import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
 
-import { getStoreWithState } from '../../../fixtures/store';
-import PaginationContainer, { dispatchToProps } from '../PaginationContainer';
+import { getStoreWithState, getStore } from '../../../fixtures/store';
+import PaginationContainer from '../PaginationContainer';
 import { pushQueryToLocation } from '../../../actions/search';
 import SearchPagination from '../../components/SearchPagination';
 
 jest.mock('../../../actions/search');
+pushQueryToLocation.mockReturnValue(async () => {});
 
 describe('PaginationContainer', () => {
   afterEach(() => {
@@ -42,9 +43,14 @@ describe('PaginationContainer', () => {
   });
 
   it('calls pushQueryToLocation onPageChange', () => {
-    const props = dispatchToProps(jest.fn());
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <PaginationContainer />
+      </Provider>
+    );
+    const onPageChange = wrapper.find(SearchPagination).prop('onPageChange');
     const page = 3;
-    props.onPageChange(page);
+    onPageChange(page);
     expect(pushQueryToLocation).toHaveBeenCalledWith({ page });
   });
 });
