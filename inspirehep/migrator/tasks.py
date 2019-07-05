@@ -343,7 +343,14 @@ def migrate_record_from_mirror(
 
     try:
         with db.session.begin_nested():
-            record = InspireRecord.create_or_update(
+            cls = InspireRecord.get_class_for_record(json_record)
+            for deleted_record in cls.get_linked_records_from_dict_field(
+                json_record, "deleted_records"
+            ):
+                deleted_record.pidstore_handler(
+                    deleted_record.id, deleted_record
+                ).delete_external_pids()
+            record = cls.create_or_update(
                 json_record,
                 disable_orcid_push=disable_orcid_push,
                 disable_citation_update=disable_citation_update,

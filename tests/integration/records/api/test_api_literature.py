@@ -158,6 +158,39 @@ def test_literature_on_delete(base_app, db, es_clear):
     assert PIDStatus.DELETED == record_lit_pid.status
 
 
+def test_literature_on_delete_through_metadata_update(base_app, db, es_clear):
+    doi_value = faker.doi()
+    arxiv_value = faker.arxiv()
+    data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
+    data = faker.record("lit", data=data, with_control_number=True)
+
+    record = LiteratureRecord.create(data)
+
+    expected_pid_lit_value = str(data["control_number"])
+    expected_pid_arxiv_value = arxiv_value
+    expected_pid_doi_value = doi_value
+
+    record_lit_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+    record_arxiv_pid = PersistentIdentifier.query.filter_by(pid_type="arxiv").one()
+    record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one()
+
+    assert expected_pid_lit_value == record_lit_pid.pid_value
+    assert expected_pid_arxiv_value == record_arxiv_pid.pid_value
+    assert expected_pid_doi_value == record_doi_pid.pid_value
+
+    record["deleted"] = True
+    record.update(dict(record))
+    record_lit_pid = PersistentIdentifier.query.filter_by(pid_type="lit").one()
+    record_arxiv_pid = PersistentIdentifier.query.filter_by(
+        pid_type="arxiv"
+    ).one_or_none()
+    record_doi_pid = PersistentIdentifier.query.filter_by(pid_type="doi").one_or_none()
+
+    assert None == record_arxiv_pid
+    assert None == record_doi_pid
+    assert PIDStatus.DELETED == record_lit_pid.status
+
+
 def test_literature_create_with_existing_control_number(base_app, db, create_pidstore):
     data = faker.record("lit", with_control_number=True)
     existing_object_uuid = uuid.uuid4()
