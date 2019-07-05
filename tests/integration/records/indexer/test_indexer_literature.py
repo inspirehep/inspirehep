@@ -8,6 +8,7 @@
 import json
 
 from invenio_search import current_search_client as es
+from mock import patch
 
 from inspirehep.search.api import LiteratureSearch
 
@@ -65,3 +66,16 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
 
     record_lit_es = LiteratureSearch().get_record(str(record.id)).execute().hits
     assert expected_records_count == len(record_lit_es)
+
+
+@patch("inspirehep.records.indexer.tasks.process_references_for_record")
+def test_indexer_doesnt_call_process_references_if_not_lit_record(
+    process_references_mock, es_clear, db, datadir, create_record
+):
+    create_record("aut")
+
+    process_references_mock.assert_not_called()
+
+    create_record("lit")
+
+    process_references_mock.call_count == 1

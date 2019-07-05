@@ -20,8 +20,9 @@ from inspirehep.migrator.tasks import (
     migrate_from_file,
     migrate_from_mirror,
     populate_mirror_from_file,
+    process_references_in_records,
 )
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
 
@@ -282,3 +283,42 @@ def test_migrate_records_with_all_makes_records_references_process_enabled(
 
     migrate_from_mirror()
     assert proecess_references_mock.s.call_count == 1
+
+
+@patch("inspirehep.migrator.tasks.batch_index")
+def test_process_references_in_records_doesnt_call_batch_reindex_if_there_are_no_references(
+    batch_index_mock, base_app, db, es_clear, create_record
+):
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "titles": [{"title": "Test a valid record"}],
+        "document_type": ["article"],
+        "_collections": ["Literature"],
+    }
+    record = LiteratureRecord.create(data)
+    process_references_in_records([record.id])
+    batch_index_mock.assert_not_called()
+
+
+@patch("inspirehep.migrator.tasks.LiteratureRecord.get_modified_references")
+def test_process_references_in_records_doesnt_call_get_modified_references_for_non_lit_records(
+    get_modified_references_mock, base_app, db, es_clear, create_record
+):
+    data = {
+        "$schema": "https://inspire/schemas/records/authors.json",
+        "_collections": ["Authors"],
+        "name": {"value": "Doe, John"},
+    }
+    record = InspireRecord.create(data)
+    process_references_in_records([record.id])
+    get_modified_references_mock.assert_not_called()
+
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "titles": [{"title": "Test a valid record"}],
+        "document_type": ["article"],
+        "_collections": ["Literature"],
+    }
+    record = InspireRecord.create(data)
+    process_references_in_records([record.id])
+    assert get_modified_references_mock.call_count == 1

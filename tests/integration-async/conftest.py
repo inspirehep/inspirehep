@@ -127,7 +127,10 @@ def retry_until_matched():
                 _expected_result = step.get("expected_result")
                 _fun = step.get("step")
                 _expected_key = None
-                result = _fun(*_args, **_kwargs)
+                try:
+                    result = _fun(*_args, **_kwargs)
+                except:
+                    pass
                 _current_result = deepcopy(result)
                 if _expected_result:
                     if (

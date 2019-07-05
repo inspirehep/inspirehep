@@ -1003,3 +1003,36 @@ def test_record_update_runs_citation_recalculate_on_default(
     record1 = InspireRecord.create(data1)
     record1.update(data2)
     assert citation_recalculate_mock.call_count == 2
+
+
+def test_get_modified_references(base_app, db, es_clear):
+    cited_data = faker.record("lit")
+    cited_record_1 = InspireRecord.create(cited_data)
+
+    citing_data = faker.record(
+        "lit", literature_citations=[cited_record_1["control_number"]]
+    )
+    citing_record = LiteratureRecord.create(citing_data)
+    db.session.commit()
+
+    assert citing_record.get_modified_references() == [cited_record_1.id]
+
+    cited_data_2 = faker.record("lit")
+    cited_record_2 = InspireRecord.create(cited_data_2)
+
+    citing_data["references"] = [
+        {
+            "record": {
+                "$ref": f"http://localhost:5000/api/literature/{cited_record_2['control_number']}"
+            }
+        }
+    ]
+    citing_record.update(citing_data)
+    db.session.commit()
+
+    assert citing_record.get_modified_references() == [cited_record_2.id]
+
+    citing_record.delete()
+    db.session.commit()
+
+    assert citing_record.get_modified_references() == [cited_record_2.id]

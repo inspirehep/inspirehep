@@ -28,7 +28,6 @@ from redis_lock import Lock
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.indexer.tasks import batch_index
-from inspirehep.records.indexer.utils import get_modified_references_uuids
 from inspirehep.records.receivers import index_after_commit
 
 from .models import LegacyRecordsMirror
@@ -291,13 +290,15 @@ def process_references_in_records(uuids):
         for uuid in uuids:
             try:
                 record = InspireRecord.get_record(uuid)
-                references_to_reindex.extend(get_modified_references_uuids(record))
+                if isinstance(record, LiteratureRecord):
+                    references_to_reindex.extend(record.get_modified_references())
             except Exception:
                 LOGGER.error(
                     "Cannot process references of record %s on index_records task.",
                     uuid,
                 )
-        batch_index(references_to_reindex)
+        if references_to_reindex:
+            batch_index(references_to_reindex)
     except Exception:
         LOGGER.error("Cannot reindex references.")
     return uuids

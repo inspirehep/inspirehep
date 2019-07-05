@@ -5,8 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import time
-
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
@@ -121,13 +119,20 @@ def test_lit_records_with_citations_updates(
     rec = LiteratureRecord.create(data)
     db.session.commit()
 
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [rec],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
     citations = [rec["control_number"]]
     data_2 = faker.record("lit", literature_citations=citations)
     LiteratureRecord.create(data_2)
     db.session.commit()
-    time.sleep(5)
-
-    es.indices.refresh("records-hep")
 
     steps = [
         {"step": es.indices.refresh, "args": ["records-hep"]},
@@ -140,7 +145,7 @@ def test_lit_records_with_citations_updates(
     retry_until_matched(steps)
 
 
-def test_lit_record_updates_references_when_record_is_updated(
+def test_lit_record_updates_references_when_record_is_deleted(
     app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):
     data_cited_record = faker.record("lit")
@@ -151,7 +156,6 @@ def test_lit_record_updates_references_when_record_is_updated(
     data_citing_record = faker.record("lit", literature_citations=citations)
     citing_record = LiteratureRecord.create(data_citing_record)
     db.session.commit()
-    time.sleep(5)
 
     steps = [
         {"step": es.indices.refresh, "args": ["records-hep"]},
@@ -166,7 +170,6 @@ def test_lit_record_updates_references_when_record_is_updated(
     data_citing_record.update({"deleted": True})
     citing_record.update(data_citing_record)
     db.session.commit()
-    time.sleep(5)
 
     es.indices.refresh("records-hep")
 
@@ -176,6 +179,99 @@ def test_lit_record_updates_references_when_record_is_updated(
             "step": LiteratureSearch.get_record_data_from_es,
             "args": [cited_record],
             "expected_result": {"expected_key": "citation_count", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
+
+def test_lit_record_updates_references_when_reference_is_deleted(
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
+):
+    data_cited_record = faker.record("lit")
+    cited_record = LiteratureRecord.create(data_cited_record)
+    db.session.commit()
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
+    citations = [cited_record["control_number"]]
+    data_citing_record = faker.record("lit", literature_citations=citations)
+    citing_record = LiteratureRecord.create(data_citing_record)
+    db.session.commit()
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 1},
+        },
+    ]
+    retry_until_matched(steps)
+
+    del data_citing_record["references"]
+    citing_record.update(data_citing_record)
+    db.session.commit()
+
+    es.indices.refresh("records-hep")
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
+
+def test_lit_record_updates_references_when_reference_is_added(
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
+):
+    data_cited_record = faker.record("lit")
+    cited_record = LiteratureRecord.create(data_cited_record)
+    db.session.commit()
+
+    data_citing_record = faker.record("lit")
+    citing_record = LiteratureRecord.create(data_citing_record)
+    db.session.commit()
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
+    data_citing_record["references"] = [
+        {
+            "record": {
+                "$ref": f"http://localhost:5000/api/literature/{cited_record['control_number']}"
+            }
+        }
+    ]
+    citing_record.update(data_citing_record)
+    db.session.commit()
+
+    es.indices.refresh("records-hep")
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {"expected_key": "citation_count", "expected_result": 1},
         },
     ]
     retry_until_matched(steps)
