@@ -11,6 +11,7 @@ from invenio_base.app import create_cli
 
 from inspirehep.cli.fixtures import fixtures
 from inspirehep.factory import create_app
+from inspirehep.orcid.cli import orcid
 from inspirehep.records.cli import citations, importer
 from inspirehep.records.indexer.cli import reindex_records
 
@@ -20,3 +21,4 @@ cli.add_command(fixtures)
 cli.add_command(reindex_records)
 cli.add_command(importer)
 cli.add_command(citations)
+cli.add_command(orcid)

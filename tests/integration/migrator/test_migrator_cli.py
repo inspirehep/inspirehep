@@ -204,3 +204,19 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
         for author in facets_response.json["aggregations"]["author"]["buckets"]
     ]
     assert "F.Pastawski.1_Fernando Pastawski" in authors
+
+
+@patch(
+    'inspirehep.migrator.cli.GracefulKiller.kill_now',
+    side_effect=(False, False, True)
+)
+@patch('inspirehep.migrator.cli.continuous_migration')
+def test_migrate_continuously(mock_migration, mock_handler, base_app, app_cli_runner):
+    no_sleep_config = {'MIGRATION_POLLING_SLEEP': 0}
+
+    with patch.dict(base_app.config, no_sleep_config):
+        result = app_cli_runner.invoke(migrate, ["continuously"])
+
+    assert result.exit_code == 0
+    assert mock_handler.call_count == 3
+    assert mock_migration.call_count == 2

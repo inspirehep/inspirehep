@@ -7,13 +7,16 @@
 
 """Manage migrator from INSPIRE legacy instance."""
 
-
 import sys
 from textwrap import dedent
+from time import sleep
 
 import click
 from flask import current_app
 from flask.cli import with_appcontext
+
+from inspirehep.migrator.api import continuous_migration
+from inspirehep.migrator.utils import GracefulKiller
 
 from .tasks import (
     migrate_from_mirror,
@@ -131,3 +134,14 @@ def record(recid):
     """Migrate a single record from legacy."""
     click.echo(f"Migrating record {recid} from INSPIRE legacy")
     migrate_record_from_legacy(recid)
+
+
+@migrate.command()
+@with_appcontext
+def continuously():
+    """Continuously migrate Legacy records."""
+    handler = GracefulKiller()
+
+    while not handler.kill_now():
+        continuous_migration()
+        sleep(current_app.config.get('MIGRATION_POLLING_SLEEP', 1))
