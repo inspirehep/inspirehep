@@ -11,9 +11,9 @@ from celery import shared_task
 from elasticsearch import NotFoundError
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
-from inspirehep.records.errors import MissingCitedRecordError
+from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.indexer.base import InspireRecordIndexer
-from inspirehep.records.indexer.utils import get_modified_references_uuids, get_record
+from inspirehep.records.indexer.utils import get_record
 
 logger = logging.getLogger(__name__)
 
@@ -45,14 +45,14 @@ def process_references_for_record(record):
     Returns:
         list(str): Statistics from the job.
     """
-    uuids = get_modified_references_uuids(record)
+    uuids = record.get_modified_references()
+
     if uuids:
-        logger.info(f"({record.id}) contains pids - starting batch")
-        return batch_index(uuids)
-    else:
-        raise MissingCitedRecordError(
-            f"Cited records to reindex not found:\nuuids: {uuids}"
+        logger.info(
+            f"({record.id}) There are {len(uuids)} records where references changed"
         )
+        return batch_index(uuids)
+    logger.info(f"No references changed for record {record.id}")
 
 
 @shared_task(ignore_result=False, bind=True, max_retries=6)
@@ -93,5 +93,5 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         record._index()
         logger.debug("Record '%s' successfully indexed on ES", uuid)
 
-    if hasattr(record, "get_modified_references"):
-        return process_references_for_record(record=record)
+    if isinstance(record, LiteratureRecord):
+        process_references_for_record(record=record)

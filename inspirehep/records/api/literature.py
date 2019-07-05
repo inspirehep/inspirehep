@@ -223,7 +223,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         previous version.
 
         Returns:
-            Set[Tuple[str, int]]: pids of references changed from the previous
+            List: uuids of references changed from the previous
             version.
         """
         try:
@@ -235,18 +235,21 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             "deleted", False
         )
 
-        if changed_deleted_status:
-            return self.get_linked_pids_from_field("references.record")
+        pids_latest = self.get_linked_pids_from_field("references.record")
 
-        ids_latest = set(self.get_linked_pids_from_field("references.record"))
+        if changed_deleted_status:
+            return list(self.get_records_ids_by_pids(pids_latest))
+
         try:
-            ids_oldest = set(
+            pids_oldest = set(
                 self._previous_version.get_linked_pids_from_field("references.record")
             )
         except AttributeError:
-            return []
+            pids_oldest = []
 
-        return set.symmetric_difference(ids_latest, ids_oldest)
+        pids_changed = set.symmetric_difference(set(pids_latest), pids_oldest)
+
+        return list(self.get_records_ids_by_pids(list(pids_changed)))
 
 
 def import_article(identifier):
