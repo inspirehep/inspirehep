@@ -12,6 +12,7 @@ import pkg_resources
 import pytest
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
+from invenio_pidstore.models import PersistentIdentifier
 from mock import patch
 
 from inspirehep.migrator.models import LegacyRecordsMirror
@@ -180,6 +181,52 @@ def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db):
 
     assert not mock_logger.error.called
     mock_logger.exception.assert_called_once_with("Migrator Record Insert Error.")
+
+
+def test_migrate_record_from_miror_steals_pids_from_deleted_records(base_app, db):
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">98765</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">10.1000/a_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">A record to be merged</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    migrate_and_insert_record(raw_record)
+    record = LiteratureRecord.get_record_by_pid_value("98765")
+    assert PersistentIdentifier.get("doi", "10.1000/a_doi").object_uuid == record.id
+
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">31415</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">10.1000/a_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">A record that was merged</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="981" ind1=" " ind2=" ">'
+        b'    <subfield code="a">98765</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    migrate_and_insert_record(raw_record)
+    assert LiteratureRecord.get_record_by_pid_value("98765")
+    merged_record = LiteratureRecord.get_record_by_pid_value("31415")
+    assert (
+        PersistentIdentifier.get("doi", "10.1000/a_doi").object_uuid == merged_record.id
+    )
 
 
 def test_orcid_push_disabled_on_migrate_from_mirror(

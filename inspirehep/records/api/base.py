@@ -116,7 +116,7 @@ class InspireRecord(Record):
         query = cls.get_record_metadata_by_pids(pids)
 
         for data in query.yield_per(100):
-            yield cls(data.json)
+            yield cls(data.json, model=data)
 
     @classmethod
     def get_records_ids_by_pids(cls, pids, max_batch=100):
@@ -318,7 +318,10 @@ class InspireRecord(Record):
             self.validate()
             self.model.json = dict(self)
             flag_modified(self.model, "json")
-            self.pidstore_handler.update(self.id, self)
+            if data.get("deleted"):
+                self.pidstore_handler.delete(self.id, self)
+            else:
+                self.pidstore_handler.update(self.id, self)
             self.update_model_created_with_legacy_creation_date()
             db.session.add(self.model)
 
