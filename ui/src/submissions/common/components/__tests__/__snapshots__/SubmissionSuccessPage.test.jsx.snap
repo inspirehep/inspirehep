@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubmissionSuccessPage renders 1`] = `
+<SubmissionSuccess
+  message="Successfully submitted, thank you for the submission!"
+/>
+`;

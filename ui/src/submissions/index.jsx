@@ -47,6 +47,11 @@ const SubmissionSuccessPage$ = Loadable({
   loading: Loading,
 });
 
+const JobUpdateSubmissionSuccessPage$ = Loadable({
+  loader: () => import('./jobs/components/JobUpdateSubmissionSuccessPage'),
+  loading: Loading,
+});
+
 class Submissions extends Component {
   render() {
     return (
@@ -63,6 +68,11 @@ class Submissions extends Component {
             path={`${SUBMISSIONS_AUTHOR}/:id`}
             component={AuthorUpdateSubmissionPage$}
           />
+          <Redirect
+            exact
+            from={`${SUBMISSIONS_AUTHOR}/:id/success`}
+            to={SUBMISSION_SUCCESS}
+          />
           <PrivateRoute
             exact
             path={SUBMISSIONS_LITERATURE}
@@ -74,6 +84,11 @@ class Submissions extends Component {
             exact
             path={`${SUBMISSIONS_JOB}/:id`}
             component={JobUpdateSubmissionPage$}
+          />
+          <Route
+            exact
+            path={`${SUBMISSIONS_JOB}/:id/success`}
+            component={JobUpdateSubmissionSuccessPage$}
           />
           <Route
             exact

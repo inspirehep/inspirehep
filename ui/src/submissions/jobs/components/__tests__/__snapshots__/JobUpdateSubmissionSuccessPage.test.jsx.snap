@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobUpdateSubmissionSuccessPage renders 1`] = `
+<SubmissionSuccess
+  message={
+    <span>
+      Successfully submitted, thank you for the submission! See the updates 
+      <Link
+        replace={false}
+        to="/jobs/1"
+      >
+        here
+      </Link>
+      .
+    </span>
+  }
+/>
+`;

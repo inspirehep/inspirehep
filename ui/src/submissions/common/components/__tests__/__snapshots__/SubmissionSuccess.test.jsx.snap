@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubmissionSuccess renders with custom message 1`] = `
+<Row
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <Col
+    className="mv3"
+    span={14}
+  >
+    <Alert
+      message={
+        <strong>
+          Custom Success
+        </strong>
+      }
+      showIcon={true}
+      type="success"
+    />
+  </Col>
+</Row>
+`;
+
+exports[`SubmissionSuccess renders with default message 1`] = `
+<Row
+  gutter={0}
+  justify="center"
+  type="flex"
+>
+  <Col
+    className="mv3"
+    span={14}
+  >
+    <Alert
+      message="Successfully submitted, thank you for the submission!"
+      showIcon={true}
+      type="success"
+    />
+  </Col>
+</Row>
+`;
