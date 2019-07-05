@@ -65,7 +65,7 @@ describe('submissions - async action creator', () => {
   });
 
   describe('submitUpdate', () => {
-    it('creates SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
+    it('creates SUBMIT_SUCCESS and pushes /submissions/:type/:id/success to history if successful', async done => {
       const submissionUrl = '/submissions/jobs/123';
       const data = { field: 'value' };
       mockHttp.onPut(submissionUrl, { data }).replyOnce(200, {});
@@ -76,7 +76,7 @@ describe('submissions - async action creator', () => {
         },
         {
           type: CALL_HISTORY_METHOD,
-          payload: { args: ['/submissions/success'], method: 'push' },
+          payload: { args: ['/submissions/jobs/123/success'], method: 'push' },
         },
       ];
 

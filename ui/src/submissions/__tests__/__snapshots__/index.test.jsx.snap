@@ -21,6 +21,12 @@ exports[`Submissions renders initial state 1`] = `
       exact={true}
       path="/submissions/authors/:id"
     />
+    <Redirect
+      exact={true}
+      from="/submissions/authors/:id/success"
+      push={false}
+      to="/submissions/success"
+    />
     <Connect(PrivateRoute)
       authorizedRoles={
         Immutable.Set [
@@ -40,6 +46,11 @@ exports[`Submissions renders initial state 1`] = `
       component={[Function]}
       exact={true}
       path="/submissions/jobs/:id"
+    />
+    <Route
+      component={[Function]}
+      exact={true}
+      path="/submissions/jobs/:id/success"
     />
     <Route
       component={[Function]}

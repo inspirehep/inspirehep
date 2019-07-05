@@ -13,6 +13,7 @@ import AuthorUpdateSubmissionPageContainer from '../authors/containers/AuthorUpd
 import LiteratureSubmissionPageContainer from '../literature/containers/LiteratureSubmissionPageContainer';
 import JobUpdateSubmissionPageContainer from '../jobs/containers/JobUpdateSubmissionPageContainer';
 import JobSubmissionPageContainer from '../jobs/containers/JobSubmissionPageContainer';
+import JobUpdateSubmissionSuccessPage from '../jobs/components/JobUpdateSubmissionSuccessPage';
 
 describe('Submissions', () => {
   it('renders initial state', () => {
@@ -149,6 +150,44 @@ describe('Submissions', () => {
       <Provider store={getStore()}>
         <MemoryRouter
           initialEntries={['/submissions/success']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(SubmissionSuccessPage)).toExist();
+
+    done();
+  });
+
+  it('navigates to JobUpdateSubmissionSuccessPage when /submissions/jobs/1/success', async done => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/jobs/1/success']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(JobUpdateSubmissionSuccessPage)).toExist();
+
+    done();
+  });
+
+  it('navigates to SubmissionSuccessPage when /submissions/authors/1/success', async done => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/authors/1/success']}
           initialIndex={0}
         >
           <Submissions />

@@ -61,7 +61,7 @@ export function submitUpdate(pidType, pidValue, data) {
     try {
       await http.put(`${SUBMISSIONS}/${pidType}/${pidValue}`, { data });
       dispatch(submitSuccess());
-      dispatch(push('/submissions/success'));
+      dispatch(push(`/submissions/${pidType}/${pidValue}/success`));
     } catch (error) {
       dispatch(submitError(httpErrorToActionPayload(error)));
     }
