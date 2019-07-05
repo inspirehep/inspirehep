@@ -7,10 +7,15 @@
 
 """Migrator utils."""
 
+import logging
+import signal
 
 from dojson.contrib.marc21.utils import create_record
 from flask import url_for
 from inspire_utils.helpers import force_list
+
+logger = logging.getLogger(__name__)
+
 
 REAL_COLLECTIONS = (
     "INSTITUTION",
@@ -47,7 +52,6 @@ def get_collection_from_marcxml(marcxml):
 
 def ensure_valid_schema(record):
     """Make sure the ``$schema`` key of the record is valid.
-
     This is done by setting the correct url to the schema, in case it only
     contains the schema filename.
     """
@@ -58,3 +62,21 @@ def ensure_valid_schema(record):
             schema_path=f"records/{schema}",
             _external=True,
         )
+
+
+class GracefulKiller:
+    """Class used for handling SIGTERM and SIGINT signals.
+    Inspired by: https://stackoverflow.com/questions/18499497/how-to-process-sigterm-signal-gracefully/31464349#31464349.
+    """
+    def __init__(self):
+        signal.signal(signal.SIGINT, self.exit_gracefully)
+        signal.signal(signal.SIGTERM, self.exit_gracefully)
+        self._kill_now = False
+
+    def exit_gracefully(self, signum, frame):
+        logger.info("Termination signal received, terminating...")
+        self._kill_now = True
+
+    def kill_now(self):
+        # For testability purpose, this is preferred to self._kill_now
+        return self._kill_now

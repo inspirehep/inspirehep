@@ -9,21 +9,17 @@
 import gzip
 import re
 import tarfile
-import zlib
 from contextlib import closing
 
 import click
 import requests
 from celery import chord, shared_task
 from celery.result import AsyncResult
-from flask import current_app
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
 from inspire_utils.logging import getStackTraceLogger
 from invenio_db import db
 from jsonschema import ValidationError
-from redis import StrictRedis
-from redis_lock import Lock
 
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -202,35 +198,6 @@ def populate_mirror_from_file(source):
         insert_into_mirror(chunk)
         inserted_records = i * CHUNK_SIZE + len(chunk)
         print(f"Inserted {inserted_records} records into mirror")
-
-
-@shared_task(ignore_results=True)
-def continuous_migration():
-    """Task to continuously migrate what is pushed up by Legacy."""
-    # XXX: temp redis url when we use continuous migration in kb8s
-    redis_url = current_app.config.get("MIGRATION_REDIS_URL")
-    if redis_url is None:
-        redis_url = current_app.config.get("CACHE_REDIS_URL")
-
-    r = StrictRedis.from_url(redis_url)
-    lock = Lock(r, "continuous_migration", expire=120, auto_renewal=True)
-    if lock.acquire(blocking=False):
-        try:
-            migrated_records = None
-            while r.llen("legacy_records"):
-                raw_record = r.lrange("legacy_records", 0, 0)
-                if raw_record:
-                    migrated_records = insert_into_mirror(
-                        [zlib.decompress(raw_record[0])]
-                    )
-                r.lpop("legacy_records")
-        finally:
-            if migrated_records:
-                task = migrate_from_mirror(disable_orcid_push=False)
-                wait_for_all_tasks(task)
-            lock.release()
-    else:
-        LOGGER.info("Continuous_migration already executed. Skipping.")
 
 
 @shared_task(ignore_result=False, queue="migrator", acks_late=True)
