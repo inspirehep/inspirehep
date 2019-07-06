@@ -9,11 +9,13 @@
 GIT_DESC="$(git describe --always || echo)"
 
 echo "Deploying tag for inspirehep: ${GIT_DESC}"
+echo "Deploying from branch ${TRAVIS_BRANCH}"
+
 curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
     -F token=${INSPIREHEP_DEPLOY_TOKEN} \
     -F ref=master \
     -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
-    -F "variables[BRANCH_NAME]=master" \
+    -F "variables[BRANCH_NAME]=${TRAVIS_BRANCH}" \
     -F "variables[APPLICATION_IMAGE_NAME]=inspirehepimage" \
     -F "variables[VERSION]=${GIT_DESC}" \
     -F "variables[DEPLOY]=qa"
