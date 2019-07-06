@@ -88,11 +88,11 @@ deploy:
     skip_cleanup: true
     script: cd $TRAVIS_BUILD_DIR; ./build-docker-inspirehep-image.sh
     on:
-      branch: master
-      condition: $SUITE = integration
+      all_branches: true
+      condition: $SUITE = integration && $TRAVIS_BRANCH =~ ^master|prod$
   - provider: script
     skip_cleanup: true
     script: cd $TRAVIS_BUILD_DIR; ./build-docker-ui-image.sh
     on:
-      branch: master
-      condition: $SUITE = ui
+      all_branches: true
+      condition: $SUITE = ui && $TRAVIS_BRANCH =~ ^master|prod$
