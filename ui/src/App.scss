@@ -139,3 +139,7 @@
 .header-dropdown {
   z-index: $zindex-header + 1 !important;
 }
+
+body {
+  overflow-y: scroll;
+}
