@@ -37,6 +37,6 @@ describe('SortByContainer', () => {
     const onSortChange = wrapper.find(SortBy).prop('onSortChange');
     const sort = 'mostcited';
     onSortChange(sort);
-    expect(pushQueryToLocation).toHaveBeenCalledWith({ sort });
+    expect(pushQueryToLocation).toHaveBeenCalledWith({ sort, page: 1 });
   });
 });

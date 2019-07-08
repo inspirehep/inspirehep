@@ -13,7 +13,7 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onSortChange(sort) {
-    dispatch(pushQueryToLocation({ sort }));
+    dispatch(pushQueryToLocation({ sort, page: 1 }));
   },
 });
 
