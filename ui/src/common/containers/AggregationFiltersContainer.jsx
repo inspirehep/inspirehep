@@ -11,7 +11,7 @@ const stateToProps = state => ({
 
 export const dispatchToProps = dispatch => ({
   onAggregationChange(aggregationKey, selections) {
-    dispatch(pushQueryToLocation({ [aggregationKey]: selections }));
+    dispatch(pushQueryToLocation({ [aggregationKey]: selections, page: 1 }));
   },
 });
 

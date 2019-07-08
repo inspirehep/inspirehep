@@ -67,11 +67,12 @@ describe('AggregationFiltersContainer', () => {
     });
   });
 
-  it('dispatches search onAggregationChange', () => {
+  it('dispatches search onAggregationChange (also resets page selection)', () => {
     const props = dispatchToProps(jest.fn());
     props.onAggregationChange('agg1', ['selected']);
     expect(pushQueryToLocation).toHaveBeenCalledWith({
       agg1: ['selected'],
+      page: 1,
     });
   });
 });
