@@ -335,24 +335,6 @@ class InspireRecord(Record):
         if legacy_creation_date is not None:
             self.model.created = datetime.strptime(legacy_creation_date, "%Y-%m-%d")
 
-    def redirect(self, other):
-        """Redirect pidstore of current record to the other one.
-
-        Args:
-            other (InspireRecord): The record that self is going to be redirected.
-        """
-        self_pids = PersistentIdentifier.query.filter(
-            PersistentIdentifier.object_uuid == self.id
-        ).all()
-        other_pid = PersistentIdentifier.query.filter(
-            PersistentIdentifier.object_uuid == other.id
-        ).one()
-        with db.session.begin_nested():
-            for pid in self_pids:
-                pid.redirect(other_pid)
-                db.session.add(pid)
-            self._mark_deleted()
-
     def delete(self):
         with db.session.begin_nested():
             self._mark_deleted()
