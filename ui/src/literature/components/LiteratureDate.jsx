@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 
 class LiteratureDate extends Component {
   render() {
     const { date } = this.props;
-    const formattedDate = moment(date).format('MMM DD, YYYY');
-    return <span>{formattedDate}</span>;
+    return <span>{date}</span>;
   }
 }
 

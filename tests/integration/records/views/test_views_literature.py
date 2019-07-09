@@ -65,7 +65,7 @@ def test_literature_search_application_json_ui_get(
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
         "preprint_date": "2019-07-02",
-        "date": "2019-07-02",
+        "date": "Jul 2, 2019",
     }
 
     response = api_client.get("/literature", headers=headers)
