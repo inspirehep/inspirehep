@@ -674,7 +674,7 @@ def test_job_get_requires_authentication(ticket_mock, api_client):
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit_by_user(ticket_mock, app, api_client, create_user):
+def test_new_job_submit_by_user(create_ticket_mock, app, api_client, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
     response = api_client.post(
@@ -684,10 +684,11 @@ def test_new_job_submit_by_user(ticket_mock, app, api_client, create_user):
     )
     assert response.status_code == 201
 
-    job_id = json.loads(response.data)['pid_value']
+    job_id = json.loads(response.data)["pid_value"]
     job_data = JobsRecord.get_record_by_pid_value(job_id)
 
-    assert job_data['status'] == 'pending'
+    assert job_data["status"] == "pending"
+    create_ticket_mock.delay.assert_called_once()
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
@@ -703,10 +704,10 @@ def test_new_job_submit_by_cataloger(ticket_mock, app, api_client, create_user):
     )
     assert response.status_code == 201
 
-    job_id = json.loads(response.data)['pid_value']
+    job_id = json.loads(response.data)["pid_value"]
     job_data = JobsRecord.get_record_by_pid_value(job_id)
 
-    assert job_data['status'] == 'open'
+    assert job_data["status"] == "open"
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
@@ -769,7 +770,7 @@ def test_update_job(create_ticket_mock, app, api_client, create_user):
     assert response2.status_code == 200
     record = api_client.get(record_url).json["data"]
     assert record["title"] == "New test title"
-    create_ticket_mock.assert_called_once()
+    create_ticket_mock.delay.assert_called_once()
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
@@ -832,7 +833,7 @@ def test_update_job_status_from_pending_curator(
     assert response2.status_code == 200
     record = api_client.get(record_url).json["data"]
     assert record["status"] == "open"
-    create_ticket_mock.assert_not_called()
+    create_ticket_mock.delay.assert_not_called()
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
