@@ -26,7 +26,6 @@ function barToQuery(bar) {
     return {
       ...CITEABLE_QUERY,
       citation_count: bar.xValue,
-      refereed: undefined,
     };
   }
   return { ...PUBLISHED_QUERY, citation_count: bar.xValue };
