@@ -9,6 +9,7 @@ import json
 from itertools import chain
 
 from inspire_dojson.utils import strip_empty_values
+from inspire_utils.date import format_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, missing, post_dump
@@ -154,7 +155,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
         attribute="publication_info",
         many=True,
     )
-    earliest_date = fields.Raw(dump_only=True, dump_to="date")
+    date = fields.Method("get_formatted_earliest_date")
     dois = fields.Nested(DOISchemaV1, dump_only=True, many=True)
     external_system_identifiers = fields.Nested(
         ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
@@ -166,6 +167,12 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
         PublicationInfoItemSchemaV1, dump_only=True, many=True
     )
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
+
+    def get_formatted_earliest_date(self, data):
+        earliest_date = data.earliest_date
+        if earliest_date is None:
+            return missing
+        return format_date(earliest_date)
 
     def get_number_of_authors(self, data):
         authors = data.get("authors")

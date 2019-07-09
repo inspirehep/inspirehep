@@ -65,11 +65,6 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
       collaborationsWithSuffix={Immutable.List []}
       enableAuthorsShowAll={false}
     />
-     (
-    <LiteratureDate
-      date={null}
-    />
-    )
   </div>
   <div
     className="mt1"
@@ -146,11 +141,6 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
       collaborationsWithSuffix={Immutable.List []}
       enableAuthorsShowAll={false}
     />
-     (
-    <LiteratureDate
-      date={null}
-    />
-    )
   </div>
   <div
     className="mt1"
