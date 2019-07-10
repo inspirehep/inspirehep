@@ -3,17 +3,13 @@ import QuillEditor from 'react-quill';
 
 import 'react-quill/dist/quill.snow.css';
 import './RichTextEditor.scss';
+import EditorToolbar from './EditorToolbar';
 
 const QUILL_MODULES = {
-  toolbar: [
-    ['bold', 'italic', 'underline'],
-    [{ list: 'ordered' }, { list: 'bullet' }],
-    ['link'],
-    ['clean'],
-  ],
+  toolbar: '#toolbar',
 };
 
-const QUILL_FORMATS = ['bold', 'italic', 'underline', 'list', 'bullet', 'link'];
+const QUILL_FORMATS = ['bold', 'italic', 'list', 'bullet', 'link'];
 
 class RichTextEditor extends Component {
   render() {
@@ -28,6 +24,9 @@ class RichTextEditor extends Component {
         data-test-type={dataTestType}
         data-test-id={dataTestId}
       >
+        <div id="toolbar">
+          <EditorToolbar />
+        </div>
         <QuillEditor
           theme="snow"
           modules={QUILL_MODULES}

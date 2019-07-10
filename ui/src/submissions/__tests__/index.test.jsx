@@ -16,12 +16,22 @@ import JobSubmissionPageContainer from '../jobs/containers/JobSubmissionPageCont
 import JobUpdateSubmissionSuccessPage from '../jobs/components/JobUpdateSubmissionSuccessPage';
 
 describe('Submissions', () => {
+  let element;
+
+  // This is needed for the custom toolbar for the RichTextEditor in the JobSubmission.
+  // Mount only renders components to div element and, in this case, we need to attach it to the DOM
+  // because the custom toolbar uses DOM manipulation methods such as getElementById, classList.add and so on
+  beforeAll(() => {
+    element = document.createElement('div');
+    document.body.appendChild(element);
+  });
+
   it('renders initial state', () => {
     const component = shallow(<Submissions />);
     expect(component).toMatchSnapshot();
   });
 
-  it('navigates to AuthorSubmissionPageContainer when /submissions/authors', async done => {
+  it('navigates to AuthorSubmissionPageContainer when /submissions/authors', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -36,11 +46,9 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(AuthorSubmissionPageContainer)).toExist();
-
-    done();
   });
 
-  it('navigates to LiteratureSubmissionPageContainer when /submissions/literature if superuser', async done => {
+  it('navigates to LiteratureSubmissionPageContainer when /submissions/literature if superuser', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -63,11 +71,9 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(LiteratureSubmissionPageContainer)).toExist();
-
-    done();
   });
 
-  it('does not navigate to LiteratureSubmissionPageContainer when /submissions/literature if whatever user', async done => {
+  it('does not navigate to LiteratureSubmissionPageContainer when /submissions/literature if whatever user', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -90,11 +96,9 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(LiteratureSubmissionPageContainer)).not.toExist();
-
-    done();
   });
 
-  it('navigates to AuthorUpdateSubmissionPageContainer when /submissions/authors/:id', async done => {
+  it('navigates to AuthorUpdateSubmissionPageContainer when /submissions/authors/:id', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -109,43 +113,41 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(AuthorUpdateSubmissionPageContainer)).toExist();
-
-    done();
   });
 
-  it('navigates to JobSubmissionPageContainer when /submissions/jobs', async done => {
+  it('navigates to JobSubmissionPageContainer when /submissions/jobs', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/submissions/jobs']} initialIndex={0}>
           <Submissions />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
+      { attachTo: element }
     );
     await Loadable.preloadAll();
     wrapper.update();
 
     expect(wrapper.find(JobSubmissionPageContainer)).toExist();
-
-    done();
+    wrapper.detach();
   });
 
-  it('navigates to JobUpdateSubmissionPageContainer when /submissions/jobs/:id', async done => {
+  it('navigates to JobUpdateSubmissionPageContainer when /submissions/jobs/:id', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter initialEntries={['/submissions/jobs/1']} initialIndex={0}>
           <Submissions />
         </MemoryRouter>
-      </Provider>
+      </Provider>,
+      { attachTo: element }
     );
     await Loadable.preloadAll();
     wrapper.update();
 
     expect(wrapper.find(JobUpdateSubmissionPageContainer)).toExist();
-
-    done();
+    wrapper.detach();
   });
 
-  it('navigates to SubmissionSuccessPage when /submissions/success', async done => {
+  it('navigates to SubmissionSuccessPage when /submissions/success', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -160,11 +162,9 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(SubmissionSuccessPage)).toExist();
-
-    done();
   });
 
-  it('navigates to JobUpdateSubmissionSuccessPage when /submissions/jobs/1/success', async done => {
+  it('navigates to JobUpdateSubmissionSuccessPage when /submissions/jobs/1/success', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -179,11 +179,9 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(JobUpdateSubmissionSuccessPage)).toExist();
-
-    done();
   });
 
-  it('navigates to SubmissionSuccessPage when /submissions/authors/1/success', async done => {
+  it('navigates to SubmissionSuccessPage when /submissions/authors/1/success', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
         <MemoryRouter
@@ -198,7 +196,5 @@ describe('Submissions', () => {
     wrapper.update();
 
     expect(wrapper.find(SubmissionSuccessPage)).toExist();
-
-    done();
   });
 });
