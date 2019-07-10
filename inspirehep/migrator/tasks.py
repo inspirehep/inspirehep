@@ -23,7 +23,7 @@ from jsonschema import ValidationError
 
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.indexer.tasks import batch_index
+from inspirehep.records.indexer.tasks import bulk_index
 from inspirehep.records.receivers import index_after_commit
 
 from .models import LegacyRecordsMirror
@@ -265,7 +265,7 @@ def process_references_in_records(uuids):
                     uuid,
                 )
         if references_to_reindex:
-            batch_index(references_to_reindex)
+            bulk_index(references_to_reindex)
     except Exception:
         LOGGER.error("Cannot reindex references.")
     return uuids
@@ -281,7 +281,7 @@ def index_records(uuids):
          set: set of processed records uuids
     """
     try:
-        batch_index(uuids)
+        bulk_index(uuids)
     except Exception:
         LOGGER.error("Cannot reindex.")
     return uuids

@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 
 @shared_task(ignore_result=False, bind=True)
-def batch_index(self, records_uuids, request_timeout=None):
+def bulk_index(self, records_uuids, request_timeout=None):
     """Process all provided references and index them in bulk.
     Be sure that uuids are not duplicated in batch.
     Args:
@@ -30,7 +30,7 @@ def batch_index(self, records_uuids, request_timeout=None):
         dict: dict with success count and failure list
                 (with uuids of failed records)
     """
-    logger.info(f"Starting shared task `batch_index for {len(records_uuids)} records")
+    logger.info(f"Starting shared task `bulk_index for {len(records_uuids)} records")
     return InspireRecordIndexer().bulk_index(records_uuids, request_timeout)
 
 
@@ -51,7 +51,7 @@ def process_references_for_record(record):
         logger.info(
             f"({record.id}) There are {len(uuids)} records where references changed"
         )
-        return batch_index(uuids)
+        return bulk_index(uuids)
     logger.info(f"No references changed for record {record.id}")
 
 

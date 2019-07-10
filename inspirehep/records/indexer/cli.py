@@ -18,7 +18,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search.cli import index
 
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.indexer.tasks import batch_index
+from inspirehep.records.indexer.tasks import bulk_index
 
 logger = logging.getLogger()
 
@@ -57,7 +57,7 @@ def get_query_records_to_index(pid_types):
         PersistentIdentifier.pid_type.in_(pid_types),
         PersistentIdentifier.object_type == "rec",
         PersistentIdentifier.status == PIDStatus.REGISTERED,
-        )  # noqa
+    )  # noqa
     return query
 
 
@@ -66,17 +66,54 @@ def _prepare_logdir(log_path):
         makedirs(path.dirname(log_path))
 
 
-@index.command('reindex')
+@index.command("reindex")
 @click.option("--all", is_flag=True, help="Reindex all the records.", show_default=True)
-@click.option("-p", "--pidtype", multiple=True, help='Reindex only the specified PIDs. Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins"].')
-@click.option("-id", "--pid", nargs=2, help="The pid-type and pid-value of the record to reindex. Example `reindex -id lit 1234.`", show_default=True)
-@click.option("-q", "--queue-name", default="indexer_task", help="RabbitMQ queue used for sending indexing tasks.", show_default=True)
-@click.option("-bs", "--batch-size", default=200, help="The number of documents per batch that will be indexed by workers.", show_default=True)
-@click.option("-dbs", "--db-batch-size", default=2000, help="The size of the chunk of records loaded from the DB.", show_default=True)
-@click.option("-l", "--log-path", default="/tmp/inspire/", help="The path of the indexing logs. Default is /tmp/inspire.", show_default=True)
+@click.option(
+    "-p",
+    "--pidtype",
+    multiple=True,
+    help='Reindex only the specified PIDs. Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins"].',
+)
+@click.option(
+    "-id",
+    "--pid",
+    nargs=2,
+    help="The pid-type and pid-value of the record to reindex. Example `reindex -id lit 1234.`",
+    show_default=True,
+)
+@click.option(
+    "-q",
+    "--queue-name",
+    default="indexer_task",
+    help="RabbitMQ queue used for sending indexing tasks.",
+    show_default=True,
+)
+@click.option(
+    "-bs",
+    "--batch-size",
+    default=200,
+    help="The number of documents per batch that will be indexed by workers.",
+    show_default=True,
+)
+@click.option(
+    "-dbs",
+    "--db-batch-size",
+    default=2000,
+    help="The size of the chunk of records loaded from the DB.",
+    show_default=True,
+)
+@click.option(
+    "-l",
+    "--log-path",
+    default="/tmp/inspire/",
+    help="The path of the indexing logs. Default is /tmp/inspire.",
+    show_default=True,
+)
 @with_appcontext
 @click.pass_context
-def reindex_records(ctx, all, pidtype, pid, queue_name, batch_size, db_batch_size, log_path):
+def reindex_records(
+    ctx, all, pidtype, pid, queue_name, batch_size, db_batch_size, log_path
+):
     """Reindex records in ElasticSearch.
 
     This command indexes the all the records related to the given PIDs in batches, asynchronously,
@@ -105,14 +142,16 @@ def reindex_records(ctx, all, pidtype, pid, queue_name, batch_size, db_batch_siz
             >>> inspirehep index reindex -id lit 123456
     """
     if not bool(all) ^ bool(pidtype) ^ bool(pid):
-        raise UsageError("Please, specify only one of the args between 'all', 'pidtype', and 'pid'.")
+        raise UsageError(
+            "Please, specify only one of the args between 'all', 'pidtype', and 'pid'."
+        )
 
     allowed_pids = ("lit", "con", "dat", "exp", "jou", "aut", "job", "ins")
 
     if pid:
         pid_type = pid[0]
         if pid_type not in allowed_pids:
-            raise ValueError(f'PID {pidtype} not allowed. Use one of {allowed_pids}.')
+            raise ValueError(f"PID {pidtype} not allowed. Use one of {allowed_pids}.")
         pid_value = pid[1]
         record = InspireRecord.get_record_by_pid_value(pid_value, pid_type)
         record.index()
@@ -120,12 +159,12 @@ def reindex_records(ctx, all, pidtype, pid, queue_name, batch_size, db_batch_siz
         ctx.exit(0)
 
     if not set(pidtype) <= set(allowed_pids):
-        raise ValueError(f'PIDs {pidtype} are not a subset of {allowed_pids}.')
+        raise ValueError(f"PIDs {pidtype} are not a subset of {allowed_pids}.")
     if all:
         pidtype = allowed_pids
 
     if not log_path:
-        raise ValueError('Specified empty log path.')
+        raise ValueError("Specified empty log path.")
 
     log_path = path.join(log_path, "records_index_failures.log")
     _prepare_logdir(log_path)
@@ -142,13 +181,13 @@ def reindex_records(ctx, all, pidtype, pid, queue_name, batch_size, db_batch_siz
     with click.progressbar(
         query.yield_per(db_batch_size),
         length=query.count(),
-        label=f"Scheduling indexing tasks to the '{queue_name}' queue."
+        label=f"Scheduling indexing tasks to the '{queue_name}' queue.",
     ) as items:
         batch = next_batch(items, batch_size)
 
         while batch:
             uuids = [str(item[0]) for item in batch]
-            indexer_task = batch_index.apply_async(
+            indexer_task = bulk_index.apply_async(
                 kwargs={"records_uuids": uuids, "request_timeout": request_timeout},
                 queue=queue_name,
             )

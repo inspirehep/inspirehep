@@ -332,9 +332,9 @@ def test_migrate_records_with_all_makes_records_references_process_enabled(
     assert proecess_references_mock.s.call_count == 1
 
 
-@patch("inspirehep.migrator.tasks.batch_index")
+@patch("inspirehep.migrator.tasks.bulk_index")
 def test_process_references_in_records_doesnt_call_batch_reindex_if_there_are_no_references(
-    batch_index_mock, base_app, db, es_clear, create_record
+    bulk_index_mock, base_app, db, es_clear, create_record
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -344,7 +344,7 @@ def test_process_references_in_records_doesnt_call_batch_reindex_if_there_are_no
     }
     record = LiteratureRecord.create(data)
     process_references_in_records([record.id])
-    batch_index_mock.assert_not_called()
+    bulk_index_mock.assert_not_called()
 
 
 @patch("inspirehep.migrator.tasks.LiteratureRecord.get_modified_references")
