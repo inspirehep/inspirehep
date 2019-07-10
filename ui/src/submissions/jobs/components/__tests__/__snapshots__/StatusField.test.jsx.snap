@@ -11,6 +11,9 @@ exports[`StatusField renders if not update submissions and not cataloger 1`] = `
   options={
     Array [
       Object {
+        "value": "open",
+      },
+      Object {
         "value": "closed",
       },
     ]
@@ -34,10 +37,10 @@ exports[`StatusField renders if not update submissions but cataloger 1`] = `
   options={
     Array [
       Object {
-        "value": "open",
+        "value": "pending",
       },
       Object {
-        "value": "pending",
+        "value": "open",
       },
       Object {
         "value": "closed",
@@ -63,10 +66,10 @@ exports[`StatusField renders if update submissions and cataloger 1`] = `
   options={
     Array [
       Object {
-        "value": "open",
+        "value": "pending",
       },
       Object {
-        "value": "pending",
+        "value": "open",
       },
       Object {
         "value": "closed",
@@ -91,6 +94,9 @@ exports[`StatusField renders if update submissions but not cataloger 1`] = `
   }
   options={
     Array [
+      Object {
+        "value": "open",
+      },
       Object {
         "value": "closed",
       },

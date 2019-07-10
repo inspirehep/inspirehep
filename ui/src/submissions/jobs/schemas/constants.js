@@ -12,10 +12,10 @@ export const regionOptions = [
 export const regionValues = regionOptions.map(getValue);
 
 export const unAuthorizedStatusOptions = [
+  { value: 'open' },
   { value: 'closed' },
 ];
 export const statusOptions = [
-  { value: 'open' },
   { value: 'pending' },
   ...unAuthorizedStatusOptions,
 ];
