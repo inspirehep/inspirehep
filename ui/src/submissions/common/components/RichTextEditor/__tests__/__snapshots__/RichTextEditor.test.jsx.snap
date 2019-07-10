@@ -4,12 +4,16 @@ exports[`RichTextEditor renders 1`] = `
 <div
   className="__RichTextEditor__ ant-input"
 >
+  <div
+    id="toolbar"
+  >
+    <EditorToolbar />
+  </div>
   <Quill
     formats={
       Array [
         "bold",
         "italic",
-        "underline",
         "list",
         "bullet",
         "link",
@@ -17,27 +21,7 @@ exports[`RichTextEditor renders 1`] = `
     }
     modules={
       Object {
-        "toolbar": Array [
-          Array [
-            "bold",
-            "italic",
-            "underline",
-          ],
-          Array [
-            Object {
-              "list": "ordered",
-            },
-            Object {
-              "list": "bullet",
-            },
-          ],
-          Array [
-            "link",
-          ],
-          Array [
-            "clean",
-          ],
-        ],
+        "toolbar": "#toolbar",
       }
     }
     onChange={[MockFunction]}
