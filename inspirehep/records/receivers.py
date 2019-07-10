@@ -44,7 +44,7 @@ def index_after_commit(sender, changes):
                 arguments["record_version"] = model_instance.version_id
                 logger.info(f"arguments: {arguments}")
                 current_celery_app.send_task(
-                    "inspirehep.records.indexer.tasks.index_record", kwargs=arguments
+                    "inspirehep.indexer.tasks.index_record", kwargs=arguments
                 )
             else:
                 logger.error(f"Wrong operation ({change})on record {model_instance.id}")

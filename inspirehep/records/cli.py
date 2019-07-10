@@ -15,8 +15,8 @@ import requests
 from flask.cli import with_appcontext
 from invenio_db import db
 
+from inspirehep.indexer.cli import get_query_records_to_index, next_batch
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
 from inspirehep.records.tasks import batch_recalculate
 
 logger = logging.getLogger()

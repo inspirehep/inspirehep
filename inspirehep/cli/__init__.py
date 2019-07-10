@@ -13,7 +13,7 @@ from inspirehep.cli.fixtures import fixtures
 from inspirehep.factory import create_app
 from inspirehep.orcid.cli import orcid
 from inspirehep.records.cli import citations, importer
-from inspirehep.records.indexer.cli import reindex_records
+from inspirehep.indexer.cli import reindex_records
 
 cli = create_cli(create_app=create_app)
 

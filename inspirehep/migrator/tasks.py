@@ -21,9 +21,9 @@ from inspire_utils.logging import getStackTraceLogger
 from invenio_db import db
 from jsonschema import ValidationError
 
+from inspirehep.indexer.tasks import bulk_index
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.indexer.tasks import bulk_index
 from inspirehep.records.receivers import index_after_commit
 
 from .models import LegacyRecordsMirror

@@ -25,9 +25,9 @@ from sqlalchemy import cast, not_, or_, tuple_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm.attributes import flag_modified
 
+from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
-from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.models import RecordCitations
 
 logger = logging.getLogger(__name__)
@@ -422,7 +422,7 @@ class InspireRecord(Record):
         indexing_args = self._record_index(self, force_delete=force_delete)
         indexing_args["record_version"] = self.model.version_id
         task = current_celery_app.send_task(
-            "inspirehep.records.indexer.tasks.index_record", kwargs=indexing_args
+            "inspirehep.indexer.tasks.index_record", kwargs=indexing_args
         )
         logger.info(f"Record {self.id} send for indexing")
         return task
