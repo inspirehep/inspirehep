@@ -19,6 +19,7 @@ from celery.result import AsyncResult
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
 from invenio_db import db
+from invenio_pidstore.errors import PIDValueError
 from jsonschema import ValidationError
 
 from inspirehep.orcid.api import push_to_orcid
@@ -357,13 +358,20 @@ def migrate_record_from_mirror(
                 disable_citation_update=disable_citation_update,
             )
     except ValidationError as exc:
-        pattern = "Migrator Validator Error: {}, Value: %r, Record: %r"
-        LOGGER.error(
-            pattern.format(".".join(exc.schema_path)),
+        path = ".".join(exc.schema_path)
+        LOGGER.warn(
+            f"Migrator Validator Error: {path}, Value: %r, Record: %r",
             exc.instance,
             prod_record.recid,
-            exc_info=True,
         )
+        prod_record.error = exc
+        db.session.merge(prod_record)
+    except PIDValueError as exc:
+        message = f"pid_type:'{exc.pid_type}', pid_value:'{exc.pid_value}'"
+        LOGGER.error(
+            f"{exc}: %s, Record: %r", message, prod_record.recid, exc_info=True
+        )
+        exc.args = (message,)
         prod_record.error = exc
         db.session.merge(prod_record)
     except Exception as exc:
