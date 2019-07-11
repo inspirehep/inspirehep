@@ -273,6 +273,8 @@ class OrcidPusher(object):
 
             if not putcode or not recid:
                 continue
+            if recid == self.recid:
+                continue
             # Local import to avoid import error.
             from inspirehep.orcid import tasks
 
