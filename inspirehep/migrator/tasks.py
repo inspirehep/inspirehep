@@ -7,6 +7,7 @@
 
 """Manage migration from INSPIRE legacy instance."""
 import gzip
+import logging
 import re
 import tarfile
 from contextlib import closing
@@ -17,7 +18,6 @@ from celery import chord, shared_task
 from celery.result import AsyncResult
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
-from inspire_utils.logging import getStackTraceLogger
 from invenio_db import db
 from jsonschema import ValidationError
 
@@ -29,7 +29,7 @@ from inspirehep.records.receivers import index_after_commit
 from .models import LegacyRecordsMirror
 from .utils import ensure_valid_schema
 
-LOGGER = getStackTraceLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 CHUNK_SIZE = 100
 LARGE_CHUNK_SIZE = 2000
 
@@ -217,7 +217,7 @@ def create_records_from_mirror_recids(recids):
                     LegacyRecordsMirror.query.get(recid)
                 )
         except Exception:
-            LOGGER.error("Cannot process record %s.", recid)
+            LOGGER.error("Cannot process record %s.", recid, exc_info=True)
             continue
         if record:
             processed_records.add(str(record.id))
@@ -244,7 +244,7 @@ def recalculate_citations(uuids):
                 record = InspireRecord.get_record(uuid)
                 record._update_refs_in_citation_table()
         except Exception:
-            LOGGER.error("Cannot recalculate references for %s.", uuid)
+            LOGGER.error("Cannot recalculate references for %s.", uuid, exc_info=True)
 
     db.session.commit()
     return uuids
@@ -263,11 +263,12 @@ def process_references_in_records(uuids):
                 LOGGER.error(
                     "Cannot process references of record %s on index_records task.",
                     uuid,
+                    exc_info=True,
                 )
         if references_to_reindex:
             batch_index(references_to_reindex)
     except Exception:
-        LOGGER.error("Cannot reindex references.")
+        LOGGER.error("Cannot reindex references.", exc_info=True)
     return uuids
 
 
@@ -283,7 +284,7 @@ def index_records(uuids):
     try:
         batch_index(uuids)
     except Exception:
-        LOGGER.error("Cannot reindex.")
+        LOGGER.error("Cannot reindex.", exc_info=True)
     return uuids
 
 
@@ -295,7 +296,7 @@ def run_orcid_push(uuids):
             if isinstance(record, LiteratureRecord):
                 push_to_orcid(record)
         except Exception:
-            LOGGER.error("Cannot push to orcid %s", uuid)
+            LOGGER.error("Cannot push to orcid %s", uuid, exc_info=True)
     return uuids
 
 
@@ -358,7 +359,10 @@ def migrate_record_from_mirror(
     except ValidationError as exc:
         pattern = "Migrator Validator Error: {}, Value: %r, Record: %r"
         LOGGER.error(
-            pattern.format(".".join(exc.schema_path)), exc.instance, prod_record.recid
+            pattern.format(".".join(exc.schema_path)),
+            exc.instance,
+            prod_record.recid,
+            exc_info=True,
         )
         prod_record.error = exc
         db.session.merge(prod_record)
