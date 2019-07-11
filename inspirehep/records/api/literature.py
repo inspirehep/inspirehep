@@ -95,7 +95,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             if disable_citation_update:
                 logger.info("Citation update is disabled in record.create")
             else:
-                record._update_refs_in_citation_table()
+                record.update_refs_in_citation_table()
             if disable_orcid_push:
                 logger.info("ORCID PUSH disabled by argument in record.create")
             else:
@@ -111,7 +111,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             if disable_citation_update:
                 logger.info("Citation update is disabled in record.create")
             else:
-                self._update_refs_in_citation_table()
+                self.update_refs_in_citation_table()
 
             if disable_orcid_push:
                 logger.info("ORCID PUSH disabled by argument in record.update")

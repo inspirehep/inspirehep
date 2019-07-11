@@ -232,7 +232,7 @@ def create_records_from_mirror_recids(recids):
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
 def recalculate_citations(uuids):
-    """Task which updates records_citations table with references of this record
+    """Task which updates records_citations table with references of this record.
 
     Args:
         uuids: records uuids for which references should be reprocessed
@@ -243,7 +243,8 @@ def recalculate_citations(uuids):
         try:
             with db.session.begin_nested():
                 record = InspireRecord.get_record(uuid)
-                record._update_refs_in_citation_table()
+                if hasattr(record, "update_refs_in_citation_table"):
+                    record.update_refs_in_citation_table()
         except Exception:
             LOGGER.error("Cannot recalculate references for %s.", uuid, exc_info=True)
 
