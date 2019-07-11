@@ -286,6 +286,13 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         assert result_putcode == int(self.putcode)
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
+    def test_push_updated_work_no_cache(self):
+        self.cache.delete_work_putcode()
+        pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+        result_putcode = pusher.push()
+        assert result_putcode == int(self.putcode)
+        assert not self.cache.has_work_content_changed(self.inspire_record)
+
     def test_push_updated_work_invalid_data_orcid(self):
         self.orcid = "0000-0002-0000-XXXX"
         self.cache.write_work_putcode(self.putcode)
