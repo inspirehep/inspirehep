@@ -177,7 +177,13 @@ class BibTexCommonSchema(Schema):
             return get_value(data, "arxiv_eprints[0].categories[0]")
 
     def get_title(self, data):
-        return get_value(data, "titles.title[0]")
+        title_dict = get_value(data, "titles[0]")
+        if not title_dict:
+            return None
+        title = title_dict["title"]
+        if "subtitle" in title_dict:
+            title = f"{title}: {title_dict['subtitle']}"
+        return title
 
     def get_url(self, data):
         return get_value(data, "urls.value[0]")
