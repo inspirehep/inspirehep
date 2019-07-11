@@ -66,6 +66,7 @@ def test_migrate_and_insert_record_valid_record(mock_logger, base_app, db):
     assert prod_record.valid is True
     assert prod_record.marcxml == raw_record
 
+    assert not mock_logger.warn.called
     assert not mock_logger.error.called
     assert not mock_logger.exception.called
 
@@ -115,6 +116,62 @@ def test_migrate_and_insert_record_invalid_record(mock_logger, base_app, db):
     assert prod_record.valid is False
     assert prod_record.marcxml == raw_record
 
+    assert mock_logger.warn.called
+    assert not mock_logger.error.called
+    assert not mock_logger.exception.called
+
+
+@patch("inspirehep.migrator.tasks.LOGGER")
+def test_migrate_and_insert_record_pidstore_error(mock_logger, base_app, db):
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">12345</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">10.1000/some_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    migrate_and_insert_record(raw_record)
+
+    prod_record = LegacyRecordsMirror.query.filter(
+        LegacyRecordsMirror.recid == 12345
+    ).one()
+    assert prod_record.valid is True
+
+    raw_record_with_same_doi = (
+        b"<record>"
+        b'  <controlfield tag="001">98765</controlfield>'
+        b'  <datafield tag="024" ind1="7" ind2=" ">'
+        b'    <subfield code="9">DOI</subfield>'
+        b'    <subfield code="a">10.1000/some_doi</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    migrate_and_insert_record(raw_record_with_same_doi)
+
+    prod_record = LegacyRecordsMirror.query.filter(
+        LegacyRecordsMirror.recid == 98765
+    ).one()
+    assert prod_record.valid is False
+    assert prod_record.marcxml == raw_record_with_same_doi
+    assert "pid_value" in prod_record.error
+
+    assert not mock_logger.warn.called
     assert mock_logger.error.called
     assert not mock_logger.exception.called
 
@@ -156,7 +213,8 @@ def test_migrate_and_insert_record_invalid_record_update_regression(
         assert prod_record.valid is False
         assert prod_record.marcxml == raw_record
 
-        assert mock_logger.error.called
+        assert mock_logger.warn.called
+        assert not mock_logger.error.called
         assert not mock_logger.exception.called
         assert not mock_indexer.return_value.index.called
 
@@ -180,6 +238,7 @@ def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db):
     assert prod_record.valid is False
     assert prod_record.marcxml == raw_record
 
+    assert not mock_logger.warn.called
     assert not mock_logger.error.called
     mock_logger.exception.assert_called_once_with("Migrator Record Insert Error.")
 
