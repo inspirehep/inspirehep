@@ -71,14 +71,18 @@ const jobSchema = object().shape({
         .label('Contact email'),
     })
   ),
-  deadline_date: date()
-    .required()
-    .test(
-      'is-valid-deadline-date',
-      'Deadline should be within next year',
-      isValidDeadlineDate
-    )
-    .label('Deadline'),
+  deadline_date: date().when('status', {
+    is: 'closed',
+    then: date(),
+    otherwise: date()
+      .required()
+      .test(
+        'is-valid-deadline-date',
+        'Deadline should be within next year',
+        isValidDeadlineDate
+      )
+      .label('Deadline'),
+  }),
   description: string()
     .trim()
     .required()

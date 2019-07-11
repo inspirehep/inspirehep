@@ -194,6 +194,17 @@ describe('jobSchema', () => {
     done();
   });
 
+  it('validates when deadline_date is in the past but job status is closed', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      status: 'closed',
+      deadline_date: '1900-10-10',
+    };
+    const isValid = await jobSchema.isValid(data);
+    expect(isValid).toBe(true);
+    done();
+  });
+
   it('invalidates when a referece_letter is not an email nor url', async done => {
     const data = {
       ...dataWithRequiredFields,
