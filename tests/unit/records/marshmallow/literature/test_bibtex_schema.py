@@ -453,3 +453,28 @@ def test_get_address_with_imprint_place():
     result_address = result["address"]
 
     assert expected_address == result_address
+
+
+def test_get_title():
+    record = {"document_type": ["article"], "titles": [{"title": "This is a title"}]}
+    expected_title = "This is a title"
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_title = result["title"]
+
+    assert expected_title == result_title
+
+
+def test_get_title_with_subtitle():
+    record = {
+        "document_type": ["article"],
+        "titles": [{"title": "This is a title", "subtitle": "with a subtitle"}],
+    }
+    expected_title = "This is a title: with a subtitle"
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_title = result["title"]
+
+    assert expected_title == result_title
