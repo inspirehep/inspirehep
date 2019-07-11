@@ -68,7 +68,7 @@ class CitationMixin:
         """
         return "successor" in self.get_value("related_records.relation", "")
 
-    def _update_refs_in_citation_table(self, save_every=100):
+    def update_refs_in_citation_table(self, save_every=100):
         """Updates all references in citation table.
 
         First removes all references (where citer is this record),

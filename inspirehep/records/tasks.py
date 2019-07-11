@@ -24,7 +24,7 @@ def batch_recalculate(self, records_uuids):
         try:
             with db.session.begin_nested():
                 record = InspireRecord.get_record(record_uuid)
-                record._update_refs_in_citation_table()
+                record.update_refs_in_citation_table()
         except Exception as e:
             logger.error(f"Cannot recalculate {record_uuid}: {e}")
     db.session.commit()

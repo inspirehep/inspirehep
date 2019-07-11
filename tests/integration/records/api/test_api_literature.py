@@ -971,7 +971,7 @@ def test_record_create_not_skips_orcid_on_default(orcid_mock, base_app, db):
 
 
 @mock.patch(
-    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+    "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
     citation_recalculate_mock, base_app, db
@@ -982,7 +982,7 @@ def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
 
 
 @mock.patch(
-    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+    "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_create_runs_citation_recalculate_on_default(
     citation_recalculate_mock, base_app, db
@@ -1013,7 +1013,7 @@ def test_record_update_not_skips_orcid_on_default(orcid_mock, base_app, db):
 
 
 @mock.patch(
-    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+    "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
     citation_recalculate_mock, base_app, db
@@ -1026,7 +1026,7 @@ def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
 
 
 @mock.patch(
-    "inspirehep.records.api.literature.LiteratureRecord._update_refs_in_citation_table"
+    "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_update_runs_citation_recalculate_on_default(
     citation_recalculate_mock, base_app, db
