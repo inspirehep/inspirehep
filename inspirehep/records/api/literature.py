@@ -235,9 +235,13 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             "deleted", False
         )
 
+        changed_earliest_date = (
+            self.earliest_date != LiteratureRecord(prev_version).earliest_date
+        )
+
         pids_latest = self.get_linked_pids_from_field("references.record")
 
-        if changed_deleted_status:
+        if changed_deleted_status or changed_earliest_date:
             return list(self.get_records_ids_by_pids(pids_latest))
 
         try:
