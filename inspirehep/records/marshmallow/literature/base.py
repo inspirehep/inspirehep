@@ -26,7 +26,7 @@ from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
 )
 
-from ..base import InspireBaseSchema, InspireESEnhancementSchema
+from ..base import ElasticSearchBaseSchema, EnvelopeSchema
 from ..fields import ListWithLimit, NonHiddenNested, NonHiddenRaw
 from .common import (
     AcceleratorExperimentSchemaV1,
@@ -200,7 +200,7 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
 
 
 class LiteratureESEnhancementV1(
-    InspireESEnhancementSchema, LiteratureMetadataRawAdminSchemaV1
+    ElasticSearchBaseSchema, LiteratureMetadataRawAdminSchemaV1
 ):
     """Elasticsearch serialzier"""
 
@@ -300,7 +300,12 @@ class LiteratureESEnhancementV1(
         return {"input": input_values}
 
 
-class LiteratureSearchUISchemaV1(InspireBaseSchema):
+class LiteratureSearchUISchemaV1(EnvelopeSchema):
+    """Special case for SearchUI.
+
+    We index a stringified JSON and we have to transform it to JSON again.
+    """
+
     metadata = fields.Method("get_ui_display", dump_only=True)
 
     def get_ui_display(self, data):
