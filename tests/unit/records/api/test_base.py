@@ -19,7 +19,7 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
-from inspirehep.records.marshmallow.base import InspireAllFieldsSchema
+from inspirehep.records.marshmallow.base import RecordBaseSchema
 from inspirehep.records.marshmallow.conferences import (
     ConferencesMetadataRawFieldsSchemaV1,
 )

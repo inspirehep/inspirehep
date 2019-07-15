@@ -13,21 +13,21 @@ from inspirehep.accounts.api import (
     is_superuser_or_cataloger_logged_in,
 )
 from inspirehep.records.marshmallow.base import (
-    InspireAllFieldsSchema,
-    InspireESEnhancementSchema,
+    ElasticSearchBaseSchema,
+    RecordBaseSchema,
 )
 from inspirehep.records.marshmallow.literature.common import (
     AcceleratorExperimentSchemaV1,
 )
 
 
-class JobsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
+class JobsMetadataRawFieldsSchemaV1(RecordBaseSchema):
     class Meta:
         exclude = ("can_edit",)
 
     def __init__(self, *args, **kwargs):
         super().__init__()
-        self._post_dumps.append(self.set_editable_post_dump)
+        self.post_dumps.append(self.set_editable_post_dump)
 
     accelerator_experiments = fields.Nested(
         AcceleratorExperimentSchemaV1, dump_only=True, many=True
@@ -58,5 +58,5 @@ class JobsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
         return data.get("status") != "closed" and is_loggedin_user_email(email)
 
 
-class JobsESEnhancementV1(InspireESEnhancementSchema, JobsMetadataRawFieldsSchemaV1):
+class JobsESEnhancementV1(ElasticSearchBaseSchema, JobsMetadataRawFieldsSchemaV1):
     pass

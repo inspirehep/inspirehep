@@ -11,49 +11,81 @@ from marshmallow import fields, post_dump
 from marshmallow.schema import Schema
 
 
-class InspireBaseSchema(RecordSchemaJSONV1):
-    uuid = fields.String(attribute="pid.object_uuid")
+class EnvelopeSchema(RecordSchemaJSONV1):
+    """This schema is the envelope of the API.
+
+    Invenio API returns the following structure:
+
+    Examples:
+        {
+            'id': '...',
+            'metadata': {},
+            'created': '...',
+            'updated': '...',
+        }
+
+    Note:
+        In our case we need to enchance this with extra data.
+    """
+
+    uuid = fields.String(dump_only=True, attribute="pid.object_uuid")
 
 
-class InspireBaseMetadataSchema(Schema):
-    _post_dumps = []
+class ElasticSearchBaseSchema(Schema):
+    """ElasticSearch specific extra response data."""
 
-    @post_dump(pass_original=True)
-    def process_post_dump_in_order(self, object_, original_data):
-        for dump_func in self._post_dumps:
-            object_ = dump_func(object_, original_data)
-        return strip_empty_values(object_)
-
-
-class InspireESEnhancementSchema(Schema):
     _created = fields.DateTime(dump_only=True, attribute="created")
     _updated = fields.DateTime(dump_only=True, attribute="updated")
 
 
-class InspireIncludeAllFieldsSchemaMixin:
-    """Include all fields from a record."""
+class RecordBaseSchema(Schema):
+    """Base class for Inspire Schema.
+
+    By default it will include all the fields. If you want fields to be excluded
+    you should specify ``exclude``.
+
+    Examples:
+
+        # Exclude a field
+        class Literature(RecordBaseSchema):
+            class Meta:
+                exclude = [
+                    'name_of_the_field_to_exclude',
+                ]
+
+        # Register a new ``post_dump``
+        class Literature(RecordBaseSchema):
+            def __init__(self, *args, **kwargs):
+                super().__init__(*args, **kwargs)
+                self.post_dumps.append(self.another_post_dump)
+
+            def another_post_dump(self, data, original_data):
+                return data
+    """
+
+    def __new__(cls, *args, **kwargs):
+        cls.post_dumps = []
+        return super().__new__(cls)
 
     def __init__(self, *args, **kwargs):
-        super().__init__()
-        self._post_dumps.append(self.include_original_fields)
+        super().__init__(*args, **kwargs)
+        self.post_dumps.append(self.include_original_fields)
 
-    def include_original_fields(self, object_, original_data):
-        for key, value in original_data.items():
-            if key not in object_ and key not in self.exclude:
-                object_[key] = original_data[key]
-        return object_
+    def include_original_fields(self, data, original_data):
+        for key, _ in original_data.items():
+            if key not in data and key not in self.exclude:
+                data[key] = original_data[key]
+        return data
 
-
-class InspireAllFieldsSchema(
-    InspireBaseMetadataSchema, InspireIncludeAllFieldsSchemaMixin
-):
-    def __init__(self, *args, **kwargs):
-        InspireBaseSchema.__init__(self, *args, **kwargs)
-        InspireIncludeAllFieldsSchemaMixin.__init__(self, *args, **kwargs)
+    @post_dump(pass_original=True)
+    def process_post_dump_in_order(self, data, original_data):
+        for dump_func in self.post_dumps:
+            data = dump_func(data, original_data)
+        return strip_empty_values(data)
 
 
 def wrapSchemaClassWithMetadata(schema):
-    class InspireSchema(InspireBaseSchema):
+    class MetadataSchema(EnvelopeSchema):
         metadata = fields.Nested(schema, dump_only=True)
 
-    return InspireSchema
+    return MetadataSchema

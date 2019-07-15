@@ -13,7 +13,7 @@ from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
 from marshmallow import Schema, fields, post_dump
 
-from ..base import InspireBaseSchema, InspireESEnhancementSchema
+from ..base import ElasticSearchBaseSchema, RecordBaseSchema
 from ..fields import NonHiddenRaw
 from .common import PositionSchemaV1
 
@@ -53,9 +53,7 @@ class AuthorsMetadataRawAdminSchemaV1(AuthorsMetadataRawPublicSchemaV1):
     email_addresses = fields.Raw(dump_only=True)
 
 
-class AuthorsESEnhancementV1(
-    InspireESEnhancementSchema, AuthorsMetadataRawAdminSchemaV1
-):
+class AuthorsESEnhancementV1(ElasticSearchBaseSchema, AuthorsMetadataRawAdminSchemaV1):
 
     author_suggest = fields.Method("get_author_suggest", dump_only=True)
 
@@ -76,7 +74,7 @@ class AuthorsESEnhancementV1(
         return {"input": input_values}
 
 
-class AuthorsRawSchemaV1(InspireBaseSchema):
+class AuthorsRawSchemaV1(RecordBaseSchema):
     pass
 
 
