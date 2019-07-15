@@ -5,25 +5,21 @@ import { setUserCategoryFromRoles } from '../tracker';
 
 jest.mock('react-piwik');
 
-Piwik.push = jest.fn();
-
-function setPiwikConfig() {
-  process.env.REACT_APP_PIWIK_URL = 'some';
-  process.env.REACT_APP_PIWIK_SITE_ID = '1';
-}
-
-function resetPiwikConfig() {
-  process.env.REACT_APP_PIWIK_URL = undefined;
-  process.env.REACT_APP_PIWIK_SITE_ID = undefined;
-}
-
 describe('tracker', () => {
+  beforeAll(() => {
+    window.CONFIG = {};
+  });
+
   beforeEach(() => {
-    setPiwikConfig();
+    window.CONFIG = {
+      REACT_APP_PIWIK_URL: 'some',
+      REACT_APP_PIWIK_SITE_ID: '1',
+    };
   });
 
   afterEach(() => {
-    resetPiwikConfig();
+    window.CONFIG = {};
+    Piwik.push.mockClear();
   });
 
   describe('setUserCategoryFromRoles', () => {
