@@ -11,7 +11,6 @@ from inspire_dojson.utils import strip_empty_values
 from inspire_utils.helpers import force_list
 from inspire_utils.name import ParsedName
 from inspire_utils.record import get_value, get_values_for_schema
-from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, post_dump
 
 from ..base import InspireBaseSchema, InspireESEnhancementSchema
@@ -81,14 +80,6 @@ class AuthorsRawSchemaV1(InspireBaseSchema):
     pass
 
 
-class AuthorsRawAdminSchemaV1(AuthorsRawSchemaV1):
-    metadata = fields.Nested(AuthorsMetadataRawAdminSchemaV1, dump_only=True)
-
-
-class AuthorsRawPublicSchemaV1(AuthorsRawSchemaV1):
-    metadata = fields.Nested(AuthorsMetadataRawPublicSchemaV1, dump_only=True)
-
-
 class AuthorsMetadataUISchemaV1(AuthorsMetadataRawPublicSchemaV1):
     """Schema for Authors records."""
 
@@ -149,13 +140,5 @@ class AuthorsMetadataUISchemaV1(AuthorsMetadataRawPublicSchemaV1):
         return strip_empty_values(data)
 
 
-class AuthorsUISchemaV1(RecordSchemaJSONV1):
-    metadata = fields.Nested(AuthorsMetadataUISchemaV1, dump_only=True)
-
-
 class AuthorsMetadataOnlyControlNumberSchemaV1(Schema):
     control_number = fields.Raw(dump_only=True)
-
-
-class AuthorsOnlyControlNumberSchemaV1(RecordSchemaJSONV1):
-    metadata = fields.Nested(AuthorsMetadataOnlyControlNumberSchemaV1, dump_only=True)

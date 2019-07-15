@@ -200,19 +200,6 @@ class LiteratureMetadataUISchemaV1(LiteratureMetadataRawPublicSchemaV1):
         return data
 
 
-class LiteratureSearchUISchemaV1(InspireBaseSchema):
-    metadata = fields.Method("get_ui_display", dump_only=True)
-
-    def get_ui_display(self, data):
-        try:
-            ui_display = json.loads(get_value(data, "metadata._ui_display", ""))
-            if is_superuser_or_cataloger_logged_in():
-                ui_display["can_edit"] = True
-            return ui_display
-        except json.JSONDecodeError:
-            return {}
-
-
 class LiteratureESEnhancementV1(
     InspireESEnhancementSchema, LiteratureMetadataRawAdminSchemaV1
 ):
@@ -314,13 +301,14 @@ class LiteratureESEnhancementV1(
         return {"input": input_values}
 
 
-class LiteratureUISchemaV1(InspireBaseSchema):
-    metadata = fields.Nested(LiteratureMetadataUISchemaV1, dump_only=True)
+class LiteratureSearchUISchemaV1(InspireBaseSchema):
+    metadata = fields.Method("get_ui_display", dump_only=True)
 
-
-class LiteratureRawPublicSchemaV1(InspireBaseSchema):
-    metadata = fields.Nested(LiteratureMetadataRawPublicSchemaV1, dump_only=True)
-
-
-class LiteratureRawAdminSchemaV1(InspireBaseSchema):
-    metadata = fields.Nested(LiteratureMetadataRawAdminSchemaV1, dump_only=True)
+    def get_ui_display(self, data):
+        try:
+            ui_display = json.loads(get_value(data, "metadata._ui_display", ""))
+            if is_superuser_or_cataloger_logged_in():
+                ui_display["can_edit"] = True
+            return ui_display
+        except json.JSONDecodeError:
+            return {}

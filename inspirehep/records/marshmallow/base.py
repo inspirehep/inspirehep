@@ -51,3 +51,10 @@ class InspireAllFieldsSchema(
     def __init__(self, *args, **kwargs):
         InspireBaseSchema.__init__(self, *args, **kwargs)
         InspireIncludeAllFieldsSchemaMixin.__init__(self, *args, **kwargs)
+
+
+def wrapSchemaClassWithMetadata(schema):
+    class InspireSchema(InspireBaseSchema):
+        metadata = fields.Nested(schema, dump_only=True)
+
+    return InspireSchema

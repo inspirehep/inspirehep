@@ -12,8 +12,4 @@ from .base import (
     AuthorsMetadataRawAdminSchemaV1,
     AuthorsMetadataRawPublicSchemaV1,
     AuthorsMetadataUISchemaV1,
-    AuthorsOnlyControlNumberSchemaV1,
-    AuthorsRawAdminSchemaV1,
-    AuthorsRawPublicSchemaV1,
-    AuthorsUISchemaV1,
 )
