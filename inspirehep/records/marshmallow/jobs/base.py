@@ -14,7 +14,6 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.records.marshmallow.base import (
     InspireAllFieldsSchema,
-    InspireBaseSchema,
     InspireESEnhancementSchema,
 )
 from inspirehep.records.marshmallow.literature.common import (
@@ -24,9 +23,7 @@ from inspirehep.records.marshmallow.literature.common import (
 
 class JobsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
     class Meta:
-        exclude = (
-            "can_edit",
-        )
+        exclude = ("can_edit",)
 
     def __init__(self, *args, **kwargs):
         super().__init__()
@@ -57,16 +54,8 @@ class JobsMetadataRawFieldsSchemaV1(InspireAllFieldsSchema):
         """
         if is_superuser_or_cataloger_logged_in():
             return True
-        email = get_value(data, 'acquisition_source.email')
+        email = get_value(data, "acquisition_source.email")
         return data.get("status") != "closed" and is_loggedin_user_email(email)
-
-
-class JobsRawSchemaV1(InspireBaseSchema):
-    metadata = fields.Nested(JobsMetadataRawFieldsSchemaV1, dump_only=True)
-
-
-class JobsRawPublicSchemaV1(JobsRawSchemaV1):
-    metadata = fields.Nested(JobsMetadataRawFieldsSchemaV1, dump_only=True)
 
 
 class JobsESEnhancementV1(InspireESEnhancementSchema, JobsMetadataRawFieldsSchemaV1):

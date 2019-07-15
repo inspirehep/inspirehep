@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_dojson.utils import strip_empty_values
-from invenio_records_rest.schemas.json import RecordSchemaJSONV1
 from marshmallow import Schema, fields, post_dump
 
 from ..fields import NestedWithoutEmptyObjects
@@ -22,7 +21,3 @@ class LiteratureAuthorsMetadataSchemaV1(Schema):
     @post_dump
     def strip_empty(self, data):
         return strip_empty_values(data)
-
-
-class LiteratureAuthorsSchemaV1(RecordSchemaJSONV1):
-    metadata = fields.Nested(LiteratureAuthorsMetadataSchemaV1, dump_only=True)

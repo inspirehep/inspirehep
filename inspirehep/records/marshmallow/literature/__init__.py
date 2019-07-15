@@ -6,16 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 # flake8: noqa
 
-from .authors import LiteratureAuthorsMetadataSchemaV1, LiteratureAuthorsSchemaV1
+from .authors import LiteratureAuthorsMetadataSchemaV1
 from .base import (
     LiteratureESEnhancementV1,
+    LiteratureMetadataRawAdminSchemaV1,
+    LiteratureMetadataRawPublicSchemaV1,
     LiteratureMetadataUISchemaV1,
-    LiteratureRawAdminSchemaV1,
-    LiteratureRawPublicSchemaV1,
     LiteratureSearchUISchemaV1,
-    LiteratureUISchemaV1,
 )
-from .references import (
-    LiteratureReferencesMetadataSchemaV1,
-    LiteratureReferencesSchemaV1,
-)
+from .references import LiteratureReferencesMetadataSchemaV1
