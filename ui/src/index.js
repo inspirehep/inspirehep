@@ -15,7 +15,7 @@ import ErrorBoundary from './common/components/ErrorBoundary';
 import { injectTrackerToHistory } from './tracker';
 
 Sentry.init({
-  dsn: process.env.REACT_APP_SENTRY_DSN,
+  dsn: window.CONFIG.REACT_APP_SENTRY_DSN,
 });
 
 const store = createStore();
