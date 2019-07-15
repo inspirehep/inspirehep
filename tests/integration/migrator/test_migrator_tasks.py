@@ -10,20 +10,26 @@ import time
 
 import pkg_resources
 import pytest
+from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_records.models import RecordMetadata
 from mock import patch
 
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
+    create_records_from_mirror_recids,
+    index_records,
     migrate_and_insert_record,
     migrate_from_file,
     migrate_from_mirror,
     populate_mirror_from_file,
     process_references_in_records,
+    recalculate_citations,
 )
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.models import RecordCitations
 from inspirehep.search.api import LiteratureSearch
 
 
@@ -388,7 +394,7 @@ def test_migrate_records_with_all_makes_records_references_process_enabled(
     populate_mirror_from_file(record_fixture_path)
 
     migrate_from_mirror()
-    assert proecess_references_mock.s.call_count == 1
+    proecess_references_mock.s.assert_called_once()
 
 
 @patch("inspirehep.migrator.tasks.batch_index")
@@ -428,3 +434,64 @@ def test_process_references_in_records_doesnt_call_get_modified_references_for_n
     record = InspireRecord.create(data)
     process_references_in_records([record.id])
     assert get_modified_references_mock.call_count == 1
+
+
+def test_create_records_from_mirror_recids_with_different_types_of_record(
+    api_client, db, es_clear
+):
+    raw_record_literature_valid = (
+        b"<record>"
+        b'  <controlfield tag="001">666</controlfield>'
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    valid_record_literature = LegacyRecordsMirror.from_marcxml(
+        raw_record_literature_valid
+    )
+    db.session.add(valid_record_literature)
+
+    raw_record_invalid = (
+        b"<record>"
+        b'  <controlfield tag="001">667</controlfield>'
+        b'  <datafield tag="260" ind1=" " ind2=" ">'
+        b'    <subfield code="c">Definitely not a date</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    invalid_record = LegacyRecordsMirror.from_marcxml(raw_record_invalid)
+    db.session.add(invalid_record)
+
+    raw_record_author_valid = (
+        b"<record>"
+        b'  <controlfield tag="001">668</controlfield>'
+        b'  <datafield tag="100" ind1=" " ind2=" ">'
+        b'    <subfield code="a">Jessica Jones</subfield>'
+        b'    <subfield code="q">Jones Jessica</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEPNAMES</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    valid_record_author = LegacyRecordsMirror.from_marcxml(raw_record_author_valid)
+    db.session.add(valid_record_author)
+
+    task_results = create_records_from_mirror_recids([666, 667, 668])
+
+    record_literature = InspireRecord.get_record_by_pid_value(666, "lit")
+    assert str(record_literature.id) in task_results
+
+    record_author = InspireRecord.get_record_by_pid_value(668, "aut")
+    assert str(record_author.id) in task_results
+
+    with pytest.raises(PIDDoesNotExistError):
+        InspireRecord.get_record_by_pid_value(667, "lit")

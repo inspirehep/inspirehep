@@ -20,7 +20,16 @@ from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from inspirehep.access_control import api_access_permission_check
-from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.api import (
+    AuthorsSearch,
+    ConferencesSearch,
+    DataSearch,
+    ExperimentsSearch,
+    InstitutionsSearch,
+    JobsSearch,
+    JournalsSearch,
+    LiteratureSearch,
+)
 from inspirehep.search.facets import (
     citation_summary,
     citations_by_year,
@@ -160,7 +169,7 @@ AUTHORS.update(
     {
         "pid_type": "aut",
         "pid_minter": "authors_minter",
-        "search_class": "inspirehep.search.api:AuthorsSearch",
+        "search_class": AuthorsSearch,
         "search_index": "records-authors",
         "record_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":authors_json_v1_response",
@@ -202,7 +211,7 @@ JOBS.update(
     {
         "pid_type": "job",
         "pid_minter": "jobs_minter",
-        "search_class": "inspirehep.search.api:JobsSearch",
+        "search_class": JobsSearch,
         "search_index": "records-jobs",
         "list_route": "/jobs/",
         "item_route": '/jobs/<pid(job,record_class="inspirehep.records.api:JobsRecord"):pid_value>',
@@ -237,7 +246,7 @@ JOURNALS.update(
     {
         "pid_type": "jou",
         "pid_minter": "journals_minter",
-        "search_class": "inspirehep.search.api:JournalsSearch",
+        "search_class": JournalsSearch,
         "search_index": "records-journals",
         "list_route": "/journals/",
         "item_route": '/journals/<pid(jou,record_class="inspirehep.records.api:JournalsRecord"):pid_value>',
@@ -257,7 +266,7 @@ EXPERIMENTS.update(
     {
         "pid_type": "exp",
         "pid_minter": "experiments_minter",
-        "search_class": "inspirehep.search.api:ExperimentsSearch",
+        "search_class": ExperimentsSearch,
         "search_index": "records-experiments",
         "list_route": "/experiments/",
         "item_route": '/experiments/<pid(exp,record_class="inspirehep.records.api:ExperimentsRecord"):pid_value>',
@@ -277,7 +286,7 @@ CONFERENCES.update(
     {
         "pid_type": "con",
         "pid_minter": "conferences_minter",
-        "search_class": "inspirehep.search.api:ConferencesSearch",
+        "search_class": ConferencesSearch,
         "search_index": "records-conferences",
         "list_route": "/conferences/",
         "item_route": '/conferences/<pid(con,record_class="inspirehep.records.api:ConferencesRecord"):pid_value>',
@@ -305,7 +314,7 @@ DATA.update(
     {
         "pid_type": "dat",
         "pid_minter": "data_minter",
-        "search_class": "inspirehep.search.api:DataSearch",
+        "search_class": DataSearch,
         "search_index": "records-data",
         "list_route": "/data/",
         "item_route": '/data/<pid(dat,record_class="inspirehep.records.api:DataRecord"):pid_value>',
@@ -319,7 +328,7 @@ INSTITUTIONS.update(
     {
         "pid_type": "ins",
         "pid_minter": "institutions_minter",
-        "search_class": "inspirehep.search.api:InstitutionsSearch",
+        "search_class": InstitutionsSearch,
         "search_index": "records-institutions",
         "list_route": "/institutions/",
         "item_route": '/institutions/<pid(ins,record_class="inspirehep.records.api:InstitutionsRecord"):pid_value>',

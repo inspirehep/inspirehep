@@ -26,6 +26,7 @@ from inspirehep.orcid.api import push_to_orcid
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.indexer.tasks import batch_index
 from inspirehep.records.receivers import index_after_commit
+from inspirehep.records.tasks import recalculate_record_citations
 
 from .models import LegacyRecordsMirror
 from .utils import ensure_valid_schema
@@ -109,7 +110,8 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
             records will be migrated. If set to ``'all'``, all records will be
             migrated.
         disable_orcid_push (bool): flag indicating whether the orcid_push
-            should be disabled (if True) or executed at the end of migrations (if False).
+            should be disabled (if True) or executed at the end of migrations
+            (if False).
     """
     disable_references_processing = False
     query = LegacyRecordsMirror.query.with_entities(LegacyRecordsMirror.recid)
@@ -147,13 +149,13 @@ def migrate_recids_from_mirror(
         recids_chunks (list): record ids chunked for workers to pick.
         step_no (int): Current step in `migration_steps`
         disable_orcid_push (bool): flag indicating whether the orcid_push
-            should be disabled (if True) or executed at the end of migrations (if False).
+            should be disabled (if True) or executed at the end of migrations
+            (if False).
         disable_references_processing (bool): flag indicating whether cited
             papers should also get reindexed.
 
     Returns:
         str: Celery chord task ID or None if no jobs were created in chord.
-
     """
     migration_steps = [
         create_records_from_mirror_recids,
@@ -220,6 +222,7 @@ def create_records_from_mirror_recids(recids):
         except Exception:
             LOGGER.exception("Cannot process record %r.", recid)
             continue
+
         if record:
             processed_records.add(str(record.id))
         else:
@@ -239,17 +242,7 @@ def recalculate_citations(uuids):
     Returns:
         set: set of properly processed records uuids
     """
-    for uuid in uuids:
-        try:
-            with db.session.begin_nested():
-                record = InspireRecord.get_record(uuid)
-                if hasattr(record, "update_refs_in_citation_table"):
-                    record.update_refs_in_citation_table()
-        except Exception:
-            LOGGER.exception("Cannot recalculate references for %r.", uuid)
-
-    db.session.commit()
-    return uuids
+    return recalculate_record_citations(uuids)
 
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)

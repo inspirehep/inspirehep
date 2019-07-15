@@ -28,6 +28,7 @@ services:
       service: mq
     ports:
       - "5672:5672"
+      - "15672:15672"
   mq-next:
     extends:
       file: docker-compose.services.yml
@@ -79,7 +80,7 @@ services:
     extends:
       file: docker-compose.services.yml
       service: inspire-next
-    command: celery worker -E -A inspirehep.celery --loglevel=INFO --purge --queues celery,migrator,orcid_push,indexer_task
+    command: celery worker -E -A inspirehep.celery --loglevel=INFO --purge --queues celery,orcid_push,indexer_task
     healthcheck:
       timeout: 5s
       interval: 5s
