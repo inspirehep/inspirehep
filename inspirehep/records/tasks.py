@@ -10,21 +10,32 @@ import logging
 from celery import shared_task
 from invenio_db import db
 
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 
 LOGGER = logging.getLogger(__name__)
 
 
-@shared_task(ignore_result=False, bind=True)
-def batch_recalculate(self, records_uuids):
-    LOGGER.info(
-        "Starting shared task `batch_recalculate' for %d records", len(records_uuids)
-    )
-    for record_uuid in records_uuids:
+def recalculate_record_citations(uuids):
+    """Task which updates records_citations table with references of this record.
+
+    Args:
+        uuids: records uuids for which references should be reprocessed
+    Returns:
+        set: set of properly processed records uuids
+    """
+    for uuid in uuids:
         try:
             with db.session.begin_nested():
-                record = InspireRecord.get_record(record_uuid)
-                record.update_refs_in_citation_table()
+                record = InspireRecord.get_record(uuid)
+                if isinstance(record, LiteratureRecord):
+                    record.update_refs_in_citation_table()
         except Exception:
-            LOGGER.exception("Cannot recalculate citations for record %r.", record_uuid)
+            LOGGER.error("Cannot recalculate references for %s.", uuid, exc_info=True)
+
     db.session.commit()
+    return uuids
+
+
+@shared_task(ignore_result=False, bind=True)
+def batch_recalculate(self, record_uuids):
+    return recalculate_record_citations(record_uuids)

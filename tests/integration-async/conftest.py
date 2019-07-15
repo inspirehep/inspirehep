@@ -14,13 +14,15 @@ from functools import partial
 import pytest
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
+from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_search import current_search_client as es
+from redis import StrictRedis
 
 from inspirehep.factory import create_api as inspire_create_app
-from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.fixtures import (
     init_default_storage_path,
     init_records_files_storage_path,
@@ -36,6 +38,7 @@ def app():
     app_config["DEBUG"] = False
     app_config["CELERY_BROKER_URL"] = "pyamqp://guest:guest@localhost:5672"
     app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/1"
+    app_config["CACHE_REDIS_URL"] = "redis://localhost:6379/2"
     app_config["CELERY_CACHE_BACKEND"] = "memory"
     app_config["SERVER_NAME"] = "localhost:5000"
     app_config["CELERY_TASK_ALWAYS_EAGER"] = False
@@ -45,6 +48,11 @@ def app():
 
     with app.app_context():
         yield app
+
+
+@pytest.fixture(scope="session")
+def celery_worker_parameters():
+    return {"queues": ["migrator", "celery"]}
 
 
 @pytest.fixture(scope="function", autouse=True)
@@ -88,6 +96,8 @@ def celery_app_with_context(app, celery_session_app):
 
 @pytest.fixture(scope="function")
 def retry_until_matched():
+    """DEPRECATED! DO NOT USE."""
+
     def _check(steps={}, timeout=15):
         """Allows to wait for task to finish, by doing steps and proper checks assigned
           to them.
@@ -185,3 +195,26 @@ def generate_records():
         db.session.commit()
 
     return _generate
+
+
+@pytest.fixture(scope="function")
+def create_record():
+    def _create_record(record_type, data=None, skip_validation=False):
+        data = faker.record(
+            record_type,
+            data=data,
+            with_control_number=True,
+            skip_validation=skip_validation,
+        )
+        record = InspireRecord.create(data)
+        db.session.commit()
+        return record
+
+    return _create_record
+
+
+@pytest.fixture(scope="function")
+def cache(app):
+    redis_client = StrictRedis.from_url(app.config["CACHE_REDIS_URL"])
+    yield redis_client
+    redis_client.flushall()
