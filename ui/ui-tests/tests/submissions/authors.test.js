@@ -1,6 +1,7 @@
 const { routes } = require('../../utils/constants');
 const { createPollyInstance } = require('../../utils/polly');
 const { login, logout } = require('../../utils/user');
+const { takeScreenShotForDesktop } = require('../../utils/screenshot');
 
 describe('Author Submission', () => {
   beforeAll(async () => {
@@ -12,8 +13,7 @@ describe('Author Submission', () => {
       waitUntil: 'networkidle0',
     });
 
-    await page.setViewport({ width: 1280, height: 1400 });
-    const image = await page.screenshot({ fullPage: true });
+    const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
   });
 
@@ -26,8 +26,7 @@ describe('Author Submission', () => {
       waitUntil: 'networkidle0',
     });
 
-    await page.setViewport({ width: 1280, height: 1400 });
-    const image = await page.screenshot({ fullPage: true });
+    const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
 
     await polly.stop();

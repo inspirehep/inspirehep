@@ -9,6 +9,10 @@
     & > * {
       display: inline-block;
     }
+
+    & > .ant-tag {
+      margin-top: 0.35em;
+    }
   }
 
   $separator-padding: 0.25em;

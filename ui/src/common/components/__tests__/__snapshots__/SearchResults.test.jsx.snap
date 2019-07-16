@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`SearchResults renders with all props set 1`] = `
-<div>
+<div
+  data-test-id="search-results"
+>
   <div
     className="mv2"
     key="1"
@@ -21,4 +23,8 @@ exports[`SearchResults renders with all props set 1`] = `
 </div>
 `;
 
-exports[`SearchResults renders with required props 1`] = `<div />`;
+exports[`SearchResults renders with required props 1`] = `
+<div
+  data-test-id="search-results"
+/>
+`;

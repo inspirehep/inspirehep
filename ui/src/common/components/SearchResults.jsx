@@ -8,7 +8,7 @@ class SearchResults extends Component {
   render() {
     const { renderItem, results, page, pageSize } = this.props;
     return (
-      <div>
+      <div data-test-id="search-results">
         {results.map((result, index) => (
           <div className="mv2" key={result.get('id')}>
             {renderItem(result, getSearchRank(index, page, pageSize))}

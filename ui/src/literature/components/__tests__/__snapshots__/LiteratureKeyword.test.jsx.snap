@@ -2,7 +2,6 @@
 
 exports[`LiteratureKeyword renders with keyword 1`] = `
 <UnclickableTag
-  className="__LiteratureKeyword__"
   color="blue"
 >
   CMS

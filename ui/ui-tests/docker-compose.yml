@@ -11,3 +11,5 @@ services:
     environment:
       - NODE_ENV=test
       - CI=${CI}
+      - UI_TESTS_HOST=${UI_TESTS_HOST}
+      - UI_TESTS_HTTP_SCHEME=${UI_TESTS_HTTP_SCHEME}

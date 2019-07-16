@@ -91,7 +91,7 @@ class LiteratureSubmissionPage extends Component {
               <Row className="mb3 ph3 pt3 bg-white">
                 <Col>
                   <Form.Item
-                    label="Select type of the document"
+                    label="Type of the document"
                     labelCol={LABEL_COL}
                     wrapperCol={WRAPPER_COL}
                   >
