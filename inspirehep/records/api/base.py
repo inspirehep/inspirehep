@@ -86,7 +86,7 @@ class InspireRecord(Record):
 
     @classmethod
     def get_records_ids_by_pids(cls, pids, max_batch=100):
-        """If query is too big (~5000 pids) SQL refuses to run it,
+        """If query is too big (~7000 pids) SQL refuses to run it,
         so it has to be split"""
 
         for batch_no in range((len(pids) // max_batch) + 1):
