@@ -47,6 +47,7 @@ def test_literature_application_json_without_login(api_client, db, create_record
     record_control_number = record["control_number"]
 
     expected_status_code = 200
+    expected_uuid = str(record.id)
     expected_result = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
@@ -61,9 +62,9 @@ def test_literature_application_json_without_login(api_client, db, create_record
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
-
     assert expected_status_code == response_status_code
     assert expected_result == response_data["metadata"]
+    assert expected_uuid == response_data["uuid"]
 
 
 def test_literature_application_json_with_logged_in_cataloger(
@@ -103,6 +104,7 @@ def test_literature_application_json_with_logged_in_cataloger(
     record_control_number = record["control_number"]
 
     expected_status_code = 200
+    expected_uuid = str(record.id)
     expected_result = {
         "$schema": "http://inspire/schemas/records/hep.json",
         "_collections": ["Literature"],
@@ -135,6 +137,7 @@ def test_literature_application_json_with_logged_in_cataloger(
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data["metadata"]
+    assert expected_uuid == response_data["uuid"]
 
 
 def test_literature_application_json_search_without_login(
@@ -277,6 +280,7 @@ def test_literature_json_ui_v1_response(api_client, db, create_record):
     record_titles = record["titles"]
 
     expected_status_code = 200
+    expected_uuid = str(record.id)
     expected_result_metadata = {
         "control_number": record_control_number,
         "document_type": ["article"],
@@ -287,9 +291,11 @@ def test_literature_json_ui_v1_response(api_client, db, create_record):
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
+    response_data_uuid = response_data["uuid"]
 
     assert expected_status_code == response_status_code
     assert expected_result_metadata == response_data_metadata
+    assert expected_uuid == response_data_uuid
 
 
 def test_literature_json_ui_v1_response_cataloger(api_client, db, create_record):
@@ -299,6 +305,7 @@ def test_literature_json_ui_v1_response_cataloger(api_client, db, create_record)
     record_titles = record["titles"]
 
     expected_status_code = 200
+    expected_uuid = str(record.id)
     expected_result_metadata = {
         "control_number": record_control_number,
         "document_type": ["article"],
@@ -309,9 +316,11 @@ def test_literature_json_ui_v1_response_cataloger(api_client, db, create_record)
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
+    response_data_uuid = response_data["uuid"]
 
     assert expected_status_code == response_status_code
     assert expected_result_metadata == response_data_metadata
+    assert expected_uuid == response_data_uuid
 
 
 def test_literature_json_ui_v1_response_search(api_client, db, create_record):
@@ -556,6 +565,7 @@ def test_authors_application_json_v1_response_without_login(
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
+    expected_uuid = str(record.id)
     expected_result = {
         "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
@@ -568,9 +578,11 @@ def test_authors_application_json_v1_response_without_login(
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
+    response_uuid = response_data["uuid"]
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_metadata
+    assert expected_uuid == response_uuid
 
 
 def test_authors_application_json_v1_response_with_logged_in_cataloger(
@@ -753,15 +765,18 @@ def test_jobs_default_json_v1_response(api_client, db, create_record_factory, da
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
+    expected_uuid = str(record.id)
     expected_result = deepcopy(record.json)
     response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
+    response_data_uuid = response_data["uuid"]
 
     assert expected_status_code == response_status_code
     assert expected_result == response_data_metadata
+    assert expected_uuid == response_data_uuid
 
 
 def test_jobs_default_json_v1_response_cataloger_can_edit(

@@ -46,7 +46,6 @@ class LiteratureMetadataRawPublicSchemaV1(Schema):
     class Meta:
         include = {"$schema": fields.Raw()}
 
-    id_ = fields.Raw(dump_only=True)
     abstracts = fields.Raw(dump_only=True)
     accelerator_experiments = fields.Raw(dump_only=True)
     acquisition_source = fields.Raw(dump_only=True)

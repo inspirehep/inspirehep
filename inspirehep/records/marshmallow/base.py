@@ -12,8 +12,7 @@ from marshmallow.schema import Schema
 
 
 class InspireBaseSchema(RecordSchemaJSONV1):
-    # FIXME: this should be renamed to ``uuid`` depends on ``inspire-next``
-    id_ = fields.String(attribute="pid.object_uuid")
+    uuid = fields.String(attribute="pid.object_uuid")
 
 
 class InspireBaseMetadataSchema(Schema):
