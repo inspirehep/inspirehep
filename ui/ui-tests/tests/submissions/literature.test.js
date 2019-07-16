@@ -1,5 +1,6 @@
 const { routes } = require('../../utils/constants');
 const { login, logout } = require('../../utils/user');
+const { takeScreenShotForDesktop } = require('../../utils/screenshot');
 
 async function selectDocType(page, docType) {
   await page.click('[data-test-id=skip-import-button]');
@@ -32,8 +33,7 @@ describe('Literature Submission', () => {
 
     await selectDocType(page, 'article');
 
-    await page.setViewport({ width: 1280, height: 1400 });
-    const image = await page.screenshot({ fullPage: true });
+    const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
   });
 
@@ -44,8 +44,7 @@ describe('Literature Submission', () => {
 
     await selectDocType(page, 'thesis');
 
-    await page.setViewport({ width: 1280, height: 1400 });
-    const image = await page.screenshot({ fullPage: true });
+    const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
   });
 
@@ -56,8 +55,7 @@ describe('Literature Submission', () => {
 
     await selectDocType(page, 'book');
 
-    await page.setViewport({ width: 1280, height: 1400 });
-    const image = await page.screenshot({ fullPage: true });
+    const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
   });
 
@@ -68,8 +66,7 @@ describe('Literature Submission', () => {
 
     await selectDocType(page, 'bookChapter');
 
-    await page.setViewport({ width: 1280, height: 1400 });
-    const image = await page.screenshot({ fullPage: true });
+    const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
   });
 

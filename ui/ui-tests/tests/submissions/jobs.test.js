@@ -1,5 +1,6 @@
 const { routes } = require('../../utils/constants');
 const { login, logout } = require('../../utils/user');
+const { takeScreenShotForDesktop } = require('../../utils/screenshot');
 
 describe('Jobs Submission', () => {
   beforeAll(async () => {
@@ -11,8 +12,7 @@ describe('Jobs Submission', () => {
       waitUntil: 'networkidle0',
     });
 
-    await page.setViewport({ width: 1280, height: 1400 });
-    const image = await page.screenshot({ fullPage: true });
+    const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
   });
 

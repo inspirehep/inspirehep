@@ -5,15 +5,19 @@ const proxy = require('http-proxy-middleware');
 
 const app = express();
 
-// proxy api calls to inspire-next running locally (localhost:5000)
 // necessary for recording api responses when running tests locally (for the first time or ondemand)
+const {
+  UI_TESTS_HOST = 'localhost:8081',
+  UI_TESTS_HTTP_SCHEME = 'http',
+} = process.env;
 app.use(
   '/api',
   proxy({
-    target: 'http://host.docker.internal:5000',
+    target: `${UI_TESTS_HTTP_SCHEME}://${UI_TESTS_HOST}`,
+    secure: false,
     onProxyReq: proxyReq => {
       proxyReq.removeHeader('Host');
-      proxyReq.setHeader('Host', 'localhost:5000');
+      proxyReq.setHeader('Host', UI_TESTS_HOST);
     },
   })
 );
