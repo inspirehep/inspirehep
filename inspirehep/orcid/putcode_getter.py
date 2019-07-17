@@ -25,7 +25,7 @@ INSPIRE_WORK_URL_REGEX = re.compile(
 )
 
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class OrcidPutcodeGetter(object):
@@ -70,7 +70,7 @@ class OrcidPutcodeGetter(object):
         """
         response = self.client.get_all_works_summary()
         utils.log_service_response(
-            logger, response, "in OrcidPutcodeGetter works summary"
+            LOGGER, response, "in OrcidPutcodeGetter works summary"
         )
         try:
             response.raise_for_result()
@@ -79,10 +79,10 @@ class OrcidPutcodeGetter(object):
             orcid_client_exceptions.TokenMismatchException,
             orcid_client_exceptions.TokenWithWrongPermissionException,
         ):
-            logger.info(
-                "OrcidPutcodeGetter: deleting Orcid push access token={} for orcid={}".format(
-                    self.oauth_token, self.orcid
-                )
+            LOGGER.info(
+                "OrcidPutcodeGetter: deleting Orcid push access token=%r for orcid=%r",
+                self.oauth_token,
+                self.orcid,
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
             raise exceptions.TokenInvalidDeletedException
@@ -96,10 +96,10 @@ class OrcidPutcodeGetter(object):
             if INSPIRE_WORK_URL_REGEX.match(url):
                 recid = PidStoreBase.get_pid_from_record_uri(url)[1]
                 if not recid:
-                    logger.error(
-                        "OrcidPutcodeGetter: cannot parse recid from url={} for orcid={}".format(
-                            url, self.orcid
-                        )
+                    LOGGER.error(
+                        "OrcidPutcodeGetter: cannot parse recid from url=%r for orcid=%r",
+                        url,
+                        self.orcid,
                     )
                     continue
                 yield putcode, recid
@@ -114,7 +114,7 @@ class OrcidPutcodeGetter(object):
             # Note: this log can be large. Consider removing it when this part
             # is considered mature.
             utils.log_service_response(
-                logger, response, "in OrcidPutcodeGetter works details"
+                LOGGER, response, "in OrcidPutcodeGetter works details"
             )
             try:
                 response.raise_for_result()

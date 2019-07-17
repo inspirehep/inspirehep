@@ -154,7 +154,7 @@ def get_literature_recids_for_orcid(orcid):
         by that ORCiD.
 
     """
-    orcid_object = '[{"schema": "ORCID", "value": "%s"}]' % orcid
+    orcid_object = f'[{{"schema": "ORCID", "value": "{orcid}"}}]'
     # this first query is written in a way that can use the index on (json -> ids)
 
     author_rec_uuid = (
@@ -197,7 +197,7 @@ def log_service_response(logger, response, extra_message=None):
     if response.ok:
         logger.info(msg)
     else:
-        logger.error(msg + " and response={}".format(response))
+        logger.warning("%s and response=%r", msg, response)
 
 
 def apply_celery_task_with_retry(

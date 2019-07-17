@@ -12,7 +12,7 @@ from flask import current_app
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class PidStoreBase(object):
@@ -47,7 +47,7 @@ class PidStoreBase(object):
                 object_type="rec", object_uuid=self.object_uuid, pid_provider="external"
             ).delete()
         except PIDDoesNotExistError:
-            logger.info(f"Pids ``external`` for {self.object_uuid} not found.")
+            LOGGER.warning("Pids ``external`` for %r not found.", self.object_uuid)
 
     @staticmethod
     def get_endpoint_from_pid_type(pid_type):

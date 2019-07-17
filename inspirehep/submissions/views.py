@@ -36,7 +36,7 @@ from .tasks import async_create_ticket_with_template
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class BaseSubmissionsResource(MethodView):
@@ -139,11 +139,8 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
             doi = submission_data["doi"]
             try:
                 crossref_data = import_doi(doi)
-            except (ImportConnectionError, ImportParsingError) as e:
-                logging.log(
-                    level=logging.ERROR,
-                    msg=f"Cannot merge submission with {doi}. \n{e}",
-                )
+            except (ImportConnectionError, ImportParsingError):
+                LOGGER.exception("Cannot merge submission with %r,", doi)
 
             if crossref_data:
                 merged, conflicts = merge(
@@ -151,9 +148,8 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
                 )
                 payload["data"] = merged
                 if conflicts:
-                    logging.log(
-                        level=logging.ERROR,
-                        msg=f"Ignoring conflicts while enhancing submission.\n{conflicts}",
+                    LOGGER.debug(
+                        "Ignoring conflicts while enhancing submission.\n%r", conflicts
                     )
 
         response = self.send_post_request_to_inspire_next(
@@ -277,10 +273,10 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         try:
             builder.validate_record()
         except ValidationError as e:
-            logger.error(f"Cannot process job submission: {e}")
+            LOGGER.exception("Cannot process job submission")
             raise RESTDataError(e.args[0])
         except SchemaError as e:
-            logger.error(f"Schema is broken: {e}")
+            LOGGER.exception("Schema is broken")
             abort(500, str(e))
         data = builder.record
         return data

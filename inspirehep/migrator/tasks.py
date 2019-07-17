@@ -168,7 +168,7 @@ def migrate_recids_from_mirror(
     if step_no >= len(migration_steps):
         return
 
-    LOGGER.info(f"Running migration step {step_no+1}/{len(migration_steps)}")
+    LOGGER.info("Running migration step %d/%d", step_no + 1, len(migration_steps))
 
     all_recs = 0
     for row in recids_chunks:
@@ -176,7 +176,7 @@ def migrate_recids_from_mirror(
     if all_recs == 0:
         LOGGER.warning("There are no records to migrate. Terminating.")
         return None
-    LOGGER.info(f"Processing {all_recs} records in this migration step")
+    LOGGER.info("Processing '%d' records in this migration step", all_recs)
     step = migration_steps[step_no]
     header = (step.s(r) for r in recids_chunks)
     chord_task = chord(header)(
@@ -218,12 +218,12 @@ def create_records_from_mirror_recids(recids):
                     LegacyRecordsMirror.query.get(recid)
                 )
         except Exception:
-            LOGGER.error("Cannot process record %s.", recid, exc_info=True)
+            LOGGER.exception("Cannot process record %r.", recid)
             continue
         if record:
             processed_records.add(str(record.id))
         else:
-            LOGGER.warning(f"Record {recid} is empty!")
+            LOGGER.warning("Record %r is empty!", recid)
     db.session.commit()
     models_committed.connect(index_after_commit)
 
@@ -246,7 +246,7 @@ def recalculate_citations(uuids):
                 if hasattr(record, "update_refs_in_citation_table"):
                     record.update_refs_in_citation_table()
         except Exception:
-            LOGGER.error("Cannot recalculate references for %s.", uuid, exc_info=True)
+            LOGGER.exception("Cannot recalculate references for %r.", uuid)
 
     db.session.commit()
     return uuids
@@ -262,15 +262,14 @@ def process_references_in_records(uuids):
                 if isinstance(record, LiteratureRecord):
                     references_to_reindex.extend(record.get_modified_references())
             except Exception:
-                LOGGER.error(
-                    "Cannot process references of record %s on index_records task.",
+                LOGGER.exception(
+                    "Cannot process references of record %r on index_records task.",
                     uuid,
-                    exc_info=True,
                 )
         if references_to_reindex:
             batch_index(references_to_reindex)
     except Exception:
-        LOGGER.error("Cannot reindex references.", exc_info=True)
+        LOGGER.exception("Cannot reindex references.")
     return uuids
 
 
@@ -286,7 +285,7 @@ def index_records(uuids):
     try:
         batch_index(uuids)
     except Exception:
-        LOGGER.error("Cannot reindex.", exc_info=True)
+        LOGGER.exception("Cannot reindex.")
     return uuids
 
 
@@ -298,7 +297,7 @@ def run_orcid_push(uuids):
             if isinstance(record, LiteratureRecord):
                 push_to_orcid(record)
         except Exception:
-            LOGGER.error("Cannot push to orcid %s", uuid, exc_info=True)
+            LOGGER.exception("Cannot push to orcid %r", uuid)
     return uuids
 
 
@@ -361,7 +360,8 @@ def migrate_record_from_mirror(
     except ValidationError as exc:
         path = ".".join(exc.schema_path)
         LOGGER.warn(
-            f"Migrator Validator Error: {path}, Value: %r, Record: %r",
+            "Migrator Validator Error: %r, Value: %r, Record: %r",
+            path,
             exc.instance,
             prod_record.recid,
         )

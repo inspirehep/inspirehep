@@ -15,7 +15,7 @@ from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.indexer.utils import get_record
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 @shared_task(ignore_result=False, bind=True)
@@ -30,7 +30,7 @@ def batch_index(self, records_uuids, request_timeout=None):
         dict: dict with success count and failure list
                 (with uuids of failed records)
     """
-    logger.info(f"Starting shared task `batch_index for {len(records_uuids)} records")
+    LOGGER.info("Starting shared task `batch_index for %d records", len(records_uuids))
     return InspireRecordIndexer().bulk_index(records_uuids, request_timeout)
 
 
@@ -48,11 +48,11 @@ def process_references_for_record(record):
     uuids = record.get_modified_references()
 
     if uuids:
-        logger.info(
-            f"({record.id}) There are {len(uuids)} records where references changed"
+        LOGGER.info(
+            "(%r) There are %d records where references changed", record.id, len(uuids)
         )
         return batch_index(uuids)
-    logger.info(f"No references changed for record {record.id}")
+    LOGGER.info("No references changed for record %r", record.id)
 
 
 @shared_task(ignore_result=False, bind=True, max_retries=6)
@@ -69,16 +69,18 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         list(dict): Statistics from processing references.
 
     """
-    logger.info(
-        f"Starting shared task `index_record` for record {uuid}:v{record_version}"
+    LOGGER.info(
+        "Starting shared task `index_record` for record {%r}:v{%s}",
+        uuid,
+        record_version,
     )
     try:
         record = get_record(uuid, record_version)
     except (NoResultFound, StaleDataError) as e:
-        logger.warning(f"Record {uuid} not yet at version {record_version} on DB")
+        LOGGER.warning("Record %r not yet at version %s on DB", uuid, record_version)
         backoff = 2 ** (self.request.retries + 1)
         if self.max_retries < self.request.retries + 1:
-            logger.warning(f"({uuid}) - Failing - too many retries")
+            LOGGER.warning("(%r) - Failing - too many retries", uuid)
         raise self.retry(countdown=backoff, exc=e)
 
     if not force_delete:
@@ -86,12 +88,12 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     if force_delete or deleted:
         try:
             record._index(force_delete=force_delete)
-            logger.debug("Record %s removed from ES", uuid)
+            LOGGER.debug("Record %r removed from ES", uuid)
         except NotFoundError:
-            logger.warning(f"During removal, record {uuid} not found in ES!")
+            LOGGER.warning("During removal, record %r not found in ES!", uuid)
     else:
         record._index()
-        logger.debug("Record '%s' successfully indexed on ES", uuid)
+        LOGGER.debug("Record %r successfully indexed on ES", uuid)
 
     if isinstance(record, LiteratureRecord):
         process_references_for_record(record=record)

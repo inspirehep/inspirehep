@@ -19,7 +19,7 @@ from inspirehep.records.api import InspireRecord
 from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
 from inspirehep.records.tasks import batch_recalculate
 
-logger = logging.getLogger()
+LOGGER = logging.getLogger(__name__)
 
 
 def _create_record(data):
@@ -178,6 +178,8 @@ def recalculate(batch_size, queue_name):
         fg=color,
     )
     if failures:
-        logger.error(f"Got {len(failures)} during the recalculation process:")
+        LOGGER.warning(
+            "Got '%d' failures during the recalculation process:", len(failures)
+        )
         for failure in failures:
-            logger.error(f"{failure}")
+            LOGGER.warning(failure)

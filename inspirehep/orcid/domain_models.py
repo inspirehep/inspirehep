@@ -22,7 +22,7 @@ from .cache import OrcidCache
 from .converter import OrcidConverter
 from .putcode_getter import OrcidPutcodeGetter
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class OrcidPusher(object):
@@ -81,10 +81,10 @@ class OrcidPusher(object):
         """
         for note in self.inspire_record.get("_private_notes", []):
             if note.get("value") == "orcid-push-force-cache-miss":
-                logger.info(
-                    "OrcidPusher force cache miss for recid={} and orcid={}".format(
-                        self.recid, self.orcid
-                    )
+                LOGGER.debug(
+                    "OrcidPusher force cache miss for recid=%r and orcid=%r",
+                    self.recid,
+                    self.orcid,
                 )
                 return True
         return False
@@ -94,10 +94,10 @@ class OrcidPusher(object):
         # Hook to force a delete. This can be leveraged in feature tests.
         for note in self.inspire_record.get("_private_notes", []):
             if note.get("value") == "orcid-push-force-delete":
-                logger.info(
-                    "OrcidPusher force delete for recid={} and orcid={}".format(
-                        self.recid, self.orcid
-                    )
+                LOGGER.debug(
+                    "OrcidPusher force delete for recid=%r and orcid=%r",
+                    self.recid,
+                    self.orcid,
                 )
                 return True
         return self.inspire_record.get("deleted", False)
@@ -110,16 +110,14 @@ class OrcidPusher(object):
             if not self._is_record_deleted and not self.cache.has_work_content_changed(
                 self.inspire_record
             ):
-                logger.info(
-                    "OrcidPusher cache hit for recid={} and orcid={}".format(
-                        self.recid, self.orcid
-                    )
+                LOGGER.debug(
+                    "OrcidPusher cache hit for recid=%r and orcid=%r",
+                    self.recid,
+                    self.orcid,
                 )
                 return putcode
-        logger.info(
-            "OrcidPusher cache miss for recid={} and orcid={}".format(
-                self.recid, self.orcid
-            )
+        LOGGER.debug(
+            "OrcidPusher cache miss for recid=%r and orcid=%r", self.recid, self.orcid
         )
 
         # If the record is deleted, then delete it.
@@ -178,10 +176,10 @@ class OrcidPusher(object):
             orcid_client_exceptions.TokenMismatchException,
             orcid_client_exceptions.TokenWithWrongPermissionException,
         ):
-            logger.info(
-                "Deleting Orcid push access token={} for orcid={}".format(
-                    self.oauth_token, self.orcid
-                )
+            LOGGER.info(
+                "Deleting Orcid push access token=%r for orcid=%r",
+                self.oauth_token,
+                self.orcid,
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
             raise exceptions.TokenInvalidDeletedException
@@ -207,15 +205,15 @@ class OrcidPusher(object):
                 response = self.client.post_new_work(xml_element)
 
         utils.log_service_response(
-            logger, response, "in OrcidPusher for recid={}".format(self.recid)
+            LOGGER, response, "in OrcidPusher for recid={}".format(self.recid)
         )
         response.raise_for_result()
         return response["putcode"]
 
     @time_execution
     def _cache_all_author_putcodes(self):
-        logger.info(
-            "New OrcidPusher cache all author putcodes for orcid={}".format(self.orcid)
+        LOGGER.debug(
+            "New OrcidPusher cache all author putcodes for orcid=%r", self.orcid
         )
         putcode_getter = OrcidPutcodeGetter(self.orcid, self.oauth_token)
         putcodes_recids = list(

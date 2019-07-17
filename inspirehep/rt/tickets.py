@@ -29,7 +29,7 @@ class InspireRt(Rt):
                 Tuple format: (id, name, content_type, size)
                 Returns None if ticket does not exist.
         """
-        msg = self._Rt__request("ticket/%s/attachments" % (str(ticket_id),))
+        msg = self._Rt__request(f"ticket/{str(ticket_id)}/attachments")
         lines = msg.split("\n")
         if (len(lines) > 2) and self.RE_PATTERNS["does_not_exist_pattern"].match(
             lines[2]

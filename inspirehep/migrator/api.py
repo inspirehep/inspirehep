@@ -18,7 +18,7 @@ from inspirehep.migrator.tasks import (
     wait_for_all_tasks,
 )
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def continuous_migration():
@@ -35,7 +35,7 @@ def continuous_migration():
         try:
             migrated_records = None
             num_of_records = r.llen("legacy_records")
-            logger.info("Starting migration of %d records.", num_of_records)
+            LOGGER.info("Starting migration of %d records.", num_of_records)
 
             while r.llen("legacy_records"):
                 raw_record = r.lrange("legacy_records", 0, 0)
@@ -43,13 +43,13 @@ def continuous_migration():
                     migrated_records = insert_into_mirror(
                         [zlib.decompress(raw_record[0])]
                     )
-                    logger.debug("Migrated %d records.", len(migrated_records))
+                    LOGGER.debug("Migrated %d records.", len(migrated_records))
                 r.lpop("legacy_records")
         finally:
             if migrated_records:
                 task = migrate_from_mirror(disable_orcid_push=False)
                 wait_for_all_tasks(task)
             lock.release()
-            logger.info("Migration terminated.")
+            LOGGER.info("Migration terminated.")
     else:
-        logger.info("Continuous_migration already executed. Skipping.")
+        LOGGER.info("Continuous_migration already executed. Skipping.")

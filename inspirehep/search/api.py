@@ -8,8 +8,6 @@
 """inspirehep."""
 
 
-import logging
-
 from elasticsearch import RequestError
 from elasticsearch_dsl.query import Q
 from flask import current_app
@@ -20,7 +18,6 @@ from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.search.factories import inspire_query_factory
 
-logger = logging.getLogger(__name__)
 IQ = inspire_query_factory()
 
 

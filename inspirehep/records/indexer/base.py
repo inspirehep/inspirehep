@@ -17,7 +17,7 @@ from invenio_search import current_search_client as es
 from jsonschema.exceptions import SchemaError, ValidationError
 from sqlalchemy.orm.exc import NoResultFound
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class InspireRecordIndexer(RecordIndexer):
@@ -117,10 +117,10 @@ class InspireRecordIndexer(RecordIndexer):
                     # When record is not in es then dsl is throwing TransportError(404)
                     record._index(force_delete=True)
                 except TransportError:
-                    logger.info(f"Record not in es {record.id}")
+                    LOGGER.warning("Record %r not found in ES!", record.id)
                 return None
             return self._process_bulk_record_for_index(record)
         except NoResultFound:
-            logger.error(f"Record {record_uuid} failed to load!")
-        except (SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError) as e:
-            logger.error(f"Record {record_uuid} validation error! {e}")
+            LOGGER.exception("Record %r failed to load!", record_uuid)
+        except (SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError):
+            LOGGER.exception("Record %r validation error!", record_uuid)

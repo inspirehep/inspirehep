@@ -23,7 +23,7 @@ from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.records.models import RecordCitations
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class CitationMixin:
@@ -144,33 +144,33 @@ class FilesMixin:
         # collection
         key = self._find_and_add_file(url, original_url)
         if not key:
-            logger.warning(
-                f"Downloading failed for url:'{url}'" f" original_url:'{original_url}'."
+            LOGGER.warning(
+                "Downloading failed for url:%r original_url:%r.", url, original_url
             )
             raise FileNotFoundError(f"File `{url}|{original_url}` not found")
 
         if not filename:
-            logger.debug(f"'{url}': filename not provided")
+            LOGGER.debug("%r: filename not provided", url)
             _original_key = kwargs.get("key")
             if _original_key and self.is_filename(_original_key):
-                logger.debug("Using original key as filename")
+                LOGGER.debug("Using original key as filename")
                 filename = _original_key
             if not filename and original_url:
-                logger.debug(
-                    f"procesing original_url:" f"'{original_url}' to resolve filename"
+                LOGGER.debug(
+                    "procesing original_url: %r to resolve filename", original_url
                 )
                 try:
                     filename = self.split_url(original_url)["file"]
                 except ValueError:
                     pass
             if not filename:
-                logger.debug(f"procesing url:" f"'{url}' to resolve filename")
+                LOGGER.debug("procesing url: %r to resolve filename", url)
                 try:
                     filename = self.split_url(url)["file"]
                 except ValueError:
-                    logger.warning(f"Cannot resolve filename, using key instead")
+                    LOGGER.warning("Cannot resolve filename, using key instead")
                     filename = key
-        logger.debug(f"Using '{filename}' as filename")
+        LOGGER.debug("Using %r as filename", filename)
 
         metadata = kwargs
         metadata["key"] = key
@@ -207,18 +207,18 @@ class FilesMixin:
         for _url in urls:
             try:
                 if _url.startswith("/api/files/"):
-                    logger.debug(f"'{url}' is local")
+                    LOGGER.debug("%r is local", url)
                     key = self._download_file_from_local_storage(_url)
             except FileNotFoundError:
-                logger.warning(f"Cannot copy from local storage'{url}'!")
+                LOGGER.warning("Cannot copy from local storage %r!", url)
         if not key:
             for _url in urls:
                 try:
                     if _url.startswith("http"):
-                        logger.debug(f"'{url}' is web based.")
+                        LOGGER.debug("%r is web based.", url)
                         key = self._download_file_from_url(_url)
                 except ResourceNotFoundError:
-                    logger.warning(f"Cannot Download '{url}'!")
+                    LOGGER.warning("Cannot Download %r!", url)
         return key
 
     def _download_file_from_local_storage(self, url, **kwargs):
@@ -240,8 +240,8 @@ class FilesMixin:
             file = self._find_local_file(
                 key=url_splited["file"], bucket_id=url_splited["bucket"]
             )
-        except ValueError as e:
-            logger.info(f"Cannot download file from local storage: {e}")
+        except ValueError:
+            LOGGER.exception("Cannot download file from local storage")
             file = None
 
         if not file:
@@ -298,7 +298,7 @@ class FilesMixin:
             file = self._find_local_file(key=key)
             new_key = None
             if file:
-                logger.debug("same file found locally, trying to copy")
+                LOGGER.debug("same file found locally, trying to copy")
                 try:
                     new_key = self._copy_local_file(file, key)
                 except ValueError:
@@ -306,16 +306,16 @@ class FilesMixin:
                 except AttributeError:
                     pass
             if not new_key:
-                logger.debug(
-                    "Adding file('%s') to %s.(%s) files",
+                LOGGER.debug(
+                    "Adding file (%s) to '%s.(%s)' files",
                     key,
                     self.__class__.__name__,
                     self.id,
                 )
                 self.files[key] = BytesIO(data)
         else:
-            logger.debug(
-                "file('%s') is already attached to %s.(%s) files",
+            LOGGER.debug(
+                "file(%s) is already attached to '%s.(%s)' files",
                 key,
                 self.__class__.__name__,
                 self.id,
@@ -384,16 +384,20 @@ class FilesMixin:
         else:  # Compatibility with old way of holding files
             key = self.hash_data(file_instance=file)
         if key not in self.files.keys:
-            logger.debug(
-                f"Adding copy of file('{key}') to"
-                f" {self.__class__.__name__}.({self.id}) files"
+            LOGGER.debug(
+                "Adding copy of file(%s) to '%s.(%s)' files",
+                key,
+                self.__class__.__name__,
+                self.id,
             )
             file.copy(bucket=self.files.bucket.id, key=key)
             self["_files"] = self.files.dumps()
         else:
-            logger.debug(
-                f"file('{key}') is already attached"
-                f" to {self.__class__.__name__}.({self.id}) files"
+            LOGGER.debug(
+                "file(%s) is already attached to '%s.(%s)' files",
+                key,
+                self.__class__.__name__,
+                self.id,
             )
         return key
 
@@ -421,7 +425,7 @@ class FilesMixin:
         if not record_id:
             record_id = self.id
         try:
-            logger.debug("Looking for location with name '%s'", location)
+            LOGGER.debug("Looking for location with name %r", location)
             location_obj = Location.get_by_name(location)
         except NoResultFound:
             raise NoResultFound(
@@ -439,9 +443,9 @@ class FilesMixin:
             .one_or_none()
         )
         if bucket:
-            logger.debug("found bucket: '%s'", bucket.bucket.id)
+            LOGGER.debug("found bucket: %r", bucket.bucket.id)
             return bucket.bucket
-        logger.info(f"No bucket found for record '{self.id}'")
+        LOGGER.info("No bucket found for record %r", self.id)
         return self._create_bucket(location, storage_class)
 
     def _create_bucket(self, location=None, storage_class=None):
@@ -460,7 +464,9 @@ class FilesMixin:
 
         Returns: Bucket for current record, selected location and storage_class
         """
-        logger.info(f"Creating new bucket for {self.__class__.__name__}.'{self.id}'")
+        LOGGER.info(
+            "Creating new bucket for '%s.(%s)'", self.__class__.__name__, self.id
+        )
         bucket = Bucket.create(location=location, storage_class=storage_class)
         RecordsBuckets.create(record=self.model, bucket=bucket)
         return bucket
@@ -576,17 +582,17 @@ class FilesMixin:
 
         if cls.is_hash(url_splited[-1]):
             file = url_splited[-1]
-            logger.debug("'%s' contains hash: '%s'", url, file)
+            LOGGER.debug("%r contains hash: %r", url, file)
         elif cls.is_filename(url_splited[-1]):
             file = url_splited[-1]
-            logger.debug("'%s' contains filename: '%s'", url, file)
+            LOGGER.debug("%r contains filename: %r", url, file)
         else:
-            raise ValueError("'%s' does not contain filename or file hash!", url)
+            raise ValueError("%r does not contain filename or file hash!", url)
 
         if not url.startswith("http"):
             if url.startswith(API_PATH) and cls.is_bucket_uuid(url_splited[-2]):
                 bucket = url_splited[-2]
-                logger.debug("'%s' contains bucket_id: '%s'", url, bucket)
+                LOGGER.debug("%r contains bucket: %r", url, bucket)
             else:
                 raise ValueError("Missing bucket id!")
         else:

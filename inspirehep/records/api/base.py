@@ -30,7 +30,7 @@ from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclas
 from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.models import RecordCitations
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class InspireQueryBuilder:
@@ -392,16 +392,20 @@ class InspireRecord(Record):
 
         """
         if self._schema_type != self.pid_type:
-            logger.warning(
-                f"Record {self.id} is wrapped in {self.__class__.__name__}"
-                f"class {self.pid_type} type, but $schema says that this is"
-                f"{self._schema_type} type object!"
+            LOGGER.warning(
+                "Record %r is wrapped in %r"
+                "class %r type, but $schema says that this is"
+                "'%r type object!",
+                self.id,
+                self.__class__.__name__,
+                self.pid_type,
+                self._schema_type,
             )
         if force_delete or self.get("deleted", False):
             result = InspireRecordIndexer().delete(self)
         else:
             result = InspireRecordIndexer().index(self)
-        logger.info(f"Indexing finished: {result}")
+        LOGGER.info("Indexing finished: %r", result)
         return result
 
     def index(self, force_delete=None):
@@ -424,7 +428,7 @@ class InspireRecord(Record):
         task = current_celery_app.send_task(
             "inspirehep.records.indexer.tasks.index_record", kwargs=indexing_args
         )
-        logger.info(f"Record {self.id} send for indexing")
+        LOGGER.info("Record %r send for indexing", self.id)
         return task
 
     @staticmethod

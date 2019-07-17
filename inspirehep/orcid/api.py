@@ -14,7 +14,7 @@ from flask_celeryext.app import current_celery_app
 from inspirehep.orcid import push_access_tokens
 from inspirehep.orcid.utils import get_orcids_for_push
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def _send_push_task(kwargs):
@@ -26,7 +26,7 @@ def _send_push_task(kwargs):
 def push_to_orcid(record):
     """If needed, queue the push of the new changes to ORCID."""
     if not current_app.config["FEATURE_FLAG_ENABLE_ORCID_PUSH"]:
-        logger.warning("ORCID push feature flag not enabled")
+        LOGGER.info("ORCID push feature flag not enabled")
         return
 
     # Ensure there is a control number. This is not always the case because of broken store_record.

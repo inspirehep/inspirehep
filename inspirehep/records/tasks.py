@@ -12,19 +12,19 @@ from invenio_db import db
 
 from inspirehep.records.api import InspireRecord
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 @shared_task(ignore_result=False, bind=True)
 def batch_recalculate(self, records_uuids):
-    logger.info(
-        f"Starting shared task `batch_recalculate for {len(records_uuids)} records"
+    LOGGER.info(
+        "Starting shared task `batch_recalculate' for %d records", len(records_uuids)
     )
     for record_uuid in records_uuids:
         try:
             with db.session.begin_nested():
                 record = InspireRecord.get_record(record_uuid)
                 record.update_refs_in_citation_table()
-        except Exception as e:
-            logger.error(f"Cannot recalculate {record_uuid}: {e}")
+        except Exception:
+            LOGGER.exception("Cannot recalculate citations for record %r.", record_uuid)
     db.session.commit()
