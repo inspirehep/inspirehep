@@ -16,73 +16,7 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdent
 from invenio_records.models import RecordMetadata
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.api.base import InspireQueryBuilder
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
-
-
-def test_query_builder_returns_not_deleted(base_app, db, create_record_factory):
-    create_record_factory("lit", data={"deleted": True})
-    not_deleted_record = create_record_factory("lit", data={"deleted": False})
-
-    not_deleted_records = InspireQueryBuilder().not_deleted().query().all()
-
-    assert len(not_deleted_records) == 1
-    assert not_deleted_records[0].json == not_deleted_record.json
-
-
-def test_query_builder_returns_by_collections(base_app, db, create_record_factory):
-    literature_record = create_record_factory(
-        "lit", data={"_collections": ["Literature"]}
-    )
-    create_record_factory("lit", data={"_collections": ["Other"]})
-
-    literature_records = (
-        InspireQueryBuilder().by_collections(["Literature"]).query().all()
-    )
-
-    assert len(literature_records) == 1
-    assert literature_records[0].json == literature_record.json
-
-
-def test_query_builder_returns_no_duplicates(base_app, db, create_record_factory):
-    create_record_factory("lit", with_pid=False, data={"control_number": 1})
-    create_record_factory("lit", with_pid=False, data={"control_number": 1})
-    create_record_factory("lit", with_pid=False, data={"control_number": 1})
-
-    literature_records = InspireQueryBuilder().no_duplicates().query().all()
-
-    assert len(literature_records) == 1
-
-
-# FIXME: maybe too brittle, need to find another way to test chainability
-def test_query_builder_returns_no_duplicated_not_deleted_by_collections(
-    base_app, db, create_record_factory
-):
-    record = create_record_factory(
-        "lit",
-        data={"deleted": False, "_collections": ["Literature"], "control_number": 1},
-    )
-    create_record_factory(
-        "lit", data={"deleted": False, "_collections": ["Other"], "control_number": 2}
-    )
-    create_record_factory(
-        "lit",
-        with_pid=False,
-        data={"deleted": False, "_collections": ["Literature"], "control_number": 1},
-    )
-    create_record_factory("lit", data={"deleted": True, "_collections": ["Literature"]})
-
-    records = (
-        InspireQueryBuilder()
-        .by_collections(["Literature"])
-        .not_deleted()
-        .no_duplicates()
-        .query()
-        .all()
-    )
-
-    assert len(records) == 1
-    assert records[0].json == record.json
 
 
 def test_base_get_record(base_app, db, create_record_factory):

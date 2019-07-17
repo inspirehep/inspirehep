@@ -21,8 +21,7 @@ from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from invenio_records_files.api import Record
-from sqlalchemy import cast, not_, or_, tuple_, type_coerce
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
 
 from inspirehep.pidstore.api import PidStoreBase
@@ -31,35 +30,6 @@ from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.models import RecordCitations
 
 logger = logging.getLogger(__name__)
-
-
-class InspireQueryBuilder:
-    def __init__(self):
-        self._query = RecordMetadata.query
-
-    def not_deleted(self):
-        expression = or_(
-            not_(type_coerce(RecordMetadata.json, JSONB).has_key("deleted")),
-            not_(RecordMetadata.json["deleted"] == cast(True, JSONB)),
-        )  # noqa
-        return self.filter(expression)
-
-    def by_collections(self, collections):
-        expression = type_coerce(RecordMetadata.json, JSONB)["_collections"].contains(
-            collections
-        )
-        return self.filter(expression)
-
-    def filter(self, expression):
-        self._query = self._query.filter(expression)
-        return self
-
-    def no_duplicates(self):
-        self._query = self._query.distinct(RecordMetadata.json["control_number"])
-        return self
-
-    def query(self):
-        return self._query
 
 
 class InspireRecord(Record):
@@ -75,10 +45,6 @@ class InspireRecord(Record):
 
     def validate(self):
         schema_validate(self)
-
-    @staticmethod
-    def query_builder():
-        return InspireQueryBuilder()
 
     @classmethod
     def get_uuid_from_pid_value(cls, pid_value, pid_type=None):
