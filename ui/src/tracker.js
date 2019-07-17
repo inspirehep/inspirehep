@@ -1,17 +1,20 @@
 import Piwik from 'react-piwik';
 import { isSuperUser, isCataloger } from './common/authorization';
+import { getConfigFor } from './common/config';
 
 function isTrackerConfigured() {
-  const { REACT_APP_PIWIK_URL, REACT_APP_PIWIK_SITE_ID } = window.CONFIG;
-  return REACT_APP_PIWIK_URL != null && REACT_APP_PIWIK_SITE_ID != null;
+  const PIWIK_URL = getConfigFor('REACT_APP_PIWIK_URL');
+  const PIWIK_SITE_ID = getConfigFor('REACT_APP_PIWIK_SITE_ID');
+  return PIWIK_URL != null && PIWIK_SITE_ID != null;
 }
 
 export function injectTrackerToHistory(history) {
   if (isTrackerConfigured()) {
-    const { REACT_APP_PIWIK_URL, REACT_APP_PIWIK_SITE_ID } = window.CONFIG;
+    const PIWIK_URL = getConfigFor('REACT_APP_PIWIK_URL');
+    const PIWIK_SITE_ID = getConfigFor('REACT_APP_PIWIK_SITE_ID');
     const piwik = new Piwik({
-      url: REACT_APP_PIWIK_URL,
-      siteId: Number(REACT_APP_PIWIK_SITE_ID),
+      url: PIWIK_URL,
+      siteId: Number(PIWIK_SITE_ID),
     });
     return piwik.connectToHistory(history);
   }

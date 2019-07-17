@@ -13,9 +13,10 @@ import './theme.less';
 import ErrorAppCrash from './errors/components/ErrorAppCrash';
 import ErrorBoundary from './common/components/ErrorBoundary';
 import { injectTrackerToHistory } from './tracker';
+import { getConfigFor } from './common/config';
 
 Sentry.init({
-  dsn: window.CONFIG.REACT_APP_SENTRY_DSN,
+  dsn: getConfigFor('REACT_APP_SENTRY_DSN'),
 });
 
 const store = createStore();
