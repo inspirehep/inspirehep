@@ -15,7 +15,7 @@ from invenio_records.models import RecordMetadata
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 @models_committed.connect
@@ -27,13 +27,13 @@ def index_after_commit(sender, changes):
     has been really committed to the DB.
     """
     for model_instance, change in changes:
-        logger.debug("index_after_commit hook")
+        LOGGER.debug("index_after_commit hook")
         if isinstance(model_instance, RecordMetadata):
-            logger.debug(
+            LOGGER.debug(
                 "Model instance (%s) is correct. Processing...", model_instance.id
             )
             if change in ("insert", "update", "delete"):
-                logger.debug("Change type is '%s'.", change)
+                LOGGER.debug("Change type is %r.", change)
                 pid_type = PidStoreBase.get_pid_type_from_schema(
                     model_instance.json.get("$schema")
                 )
@@ -42,9 +42,11 @@ def index_after_commit(sender, changes):
                     model_instance.json, _id=str(model_instance.id), force_delete=delete
                 )
                 arguments["record_version"] = model_instance.version_id
-                logger.info(f"arguments: {arguments}")
+                LOGGER.info("arguments: (%r)", arguments)
                 current_celery_app.send_task(
                     "inspirehep.records.indexer.tasks.index_record", kwargs=arguments
                 )
             else:
-                logger.error(f"Wrong operation ({change})on record {model_instance.id}")
+                LOGGER.error(
+                    "Wrong operation (%s) on record %r", change, model_instance.id
+                )

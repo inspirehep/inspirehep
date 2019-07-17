@@ -23,7 +23,7 @@ from inspirehep.records.serializers.bibtex import literature_bibtex
 
 from .builder import OrcidBuilder
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 ExternalIdentifier = namedtuple("ExternalIdentifier", ("type", "value"))
@@ -276,9 +276,8 @@ class OrcidConverter(object):
                 )
             except Exception:
                 self._bibtex_citation = ""
-                logger.warning(
-                    "Bibtex citation serialization failed for"
-                    " recid={}".format(self.recid)
+                LOGGER.exception(
+                    "Bibtex citation serialization failed for recid=%r", self.recid
                 )
         return self._bibtex_citation
 

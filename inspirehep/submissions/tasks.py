@@ -5,13 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
 
 from celery import shared_task
 
 from inspirehep.rt.tickets import CreateTicketException, create_ticket_with_template
-
-logger = logging.getLogger(__name__)
 
 
 @shared_task(ignore_result=False, max_retries=5)

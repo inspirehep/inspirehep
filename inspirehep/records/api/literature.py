@@ -35,7 +35,7 @@ from inspirehep.records.marshmallow.literature import LiteratureESEnhancementV1
 
 from .base import InspireRecord
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 PLACEHOLDER = "<ID>"
 
@@ -93,11 +93,11 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         with db.session.begin_nested():
             record = super().create(data, **kwargs)
             if disable_citation_update:
-                logger.info("Citation update is disabled in record.create")
+                LOGGER.info("Citation update is disabled in record.create")
             else:
                 record.update_refs_in_citation_table()
             if disable_orcid_push:
-                logger.info("ORCID PUSH disabled by argument in record.create")
+                LOGGER.info("ORCID PUSH disabled by argument in record.create")
             else:
                 push_to_orcid(record)
 
@@ -109,12 +109,12 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         with db.session.begin_nested():
             super().update(data)
             if disable_citation_update:
-                logger.info("Citation update is disabled in record.create")
+                LOGGER.info("Citation update is disabled in record.update")
             else:
                 self.update_refs_in_citation_table()
 
             if disable_orcid_push:
-                logger.info("ORCID PUSH disabled by argument in record.update")
+                LOGGER.info("ORCID PUSH disabled by argument in record.update")
             else:
                 push_to_orcid(self)
 
@@ -326,11 +326,8 @@ def import_arxiv(arxiv_id):
 
     try:
         resp = requests.get(url=url)
-    except (ConnectionError, IOError) as e:
-        logger.log(
-            level=logging.ERROR, msg=f"Error importing {arxiv_id} at {url}. \n{e}"
-        )
-        raise ImportConnectionError(f"Cannot contact arXiv: {e}")
+    except (ConnectionError, IOError) as exc:
+        raise ImportConnectionError("Cannot contact arXiv") from exc
 
     if resp.status_code >= 400:
         raise ImportConnectionError(f"Cannot contact arXiv. Got response {resp}.")
@@ -342,11 +339,10 @@ def import_arxiv(arxiv_id):
     try:
         parser = ArxivParser(resp.text)
         return parser.parse()
-    except Exception as e:
-        logging.log(level=logging.ERROR, msg=f"Error parsing arXiv {arxiv_id}. \n{e}")
+    except Exception as exc:
         raise ImportParsingError(
-            f"An error occurred while parsing article oai:arXiv.org:{arxiv_id}. Error: {e}."
-        )
+            f"An error occurred while parsing article oai:arXiv.org:{arxiv_id}."
+        ) from exc
 
 
 def import_doi(doi):
@@ -372,9 +368,8 @@ def import_doi(doi):
 
     try:
         resp = requests.get(url=url)
-    except (ConnectionError, IOError) as e:
-        logger.log(level=logging.ERROR, msg=f"Error importing {doi} at {url}. \n{e}")
-        raise ImportConnectionError(f"Cannot contact CrossRef: {e}")
+    except (ConnectionError, IOError) as exc:
+        raise ImportConnectionError(f"Cannot contact CrossRef.") from exc
 
     if resp.status_code == 404:
         return {}
@@ -383,10 +378,5 @@ def import_doi(doi):
         parser = CrossrefParser(resp.json())
         return parser.parse()
 
-    except Exception as e:
-        logging.log(
-            level=logging.ERROR, msg=f"Error parsing article with doi {doi}. \n{e}"
-        )
-        raise ImportParsingError(
-            message="An error occurred while parsing {}".format(url), error=str(e)
-        )
+    except Exception as exc:
+        raise ImportParsingError("An error occurred while parsing %r", url) from exc

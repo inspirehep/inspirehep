@@ -8,14 +8,10 @@
 """Additional models used by InspireRecords."""
 
 
-import logging
-
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from sqlalchemy import Date
 from sqlalchemy_utils import UUIDType
-
-logger = logging.getLogger(__name__)
 
 
 class RecordCitations(db.Model):

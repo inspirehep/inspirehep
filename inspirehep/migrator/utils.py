@@ -14,7 +14,7 @@ from dojson.contrib.marc21.utils import create_record
 from flask import url_for
 from inspire_utils.helpers import force_list
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 REAL_COLLECTIONS = (
@@ -68,13 +68,14 @@ class GracefulKiller:
     """Class used for handling SIGTERM and SIGINT signals.
     Inspired by: https://stackoverflow.com/questions/18499497/how-to-process-sigterm-signal-gracefully/31464349#31464349.
     """
+
     def __init__(self):
         signal.signal(signal.SIGINT, self.exit_gracefully)
         signal.signal(signal.SIGTERM, self.exit_gracefully)
         self._kill_now = False
 
     def exit_gracefully(self, signum, frame):
-        logger.info("Termination signal received, terminating...")
+        LOGGER.info("Termination signal received, terminating...")
         self._kill_now = True
 
     def kill_now(self):

@@ -10,18 +10,20 @@ from sqlalchemy.orm.exc import StaleDataError
 
 from inspirehep.records.api import InspireRecord
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 def get_record(uuid, record_version=None):
-    logger.debug("Pulling record %s on version %s", uuid, record_version)
+    LOGGER.debug("Pulling record %r on version %s", uuid, record_version)
 
     record = InspireRecord.get_record(uuid, with_deleted=True)
 
     if record_version and record.model.version_id < record_version:
-        logger.info(
-            f"Cannot pull record {uuid} in version {record_version}."
-            f"Current version: {record.model.version_id}."
+        LOGGER.warning(
+            "Cannot pull record %r in version %s." "Current version: %s.",
+            uuid,
+            record_version,
+            record.model.version_id,
         )
         raise StaleDataError()
     return record
