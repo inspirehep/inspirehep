@@ -26,6 +26,8 @@ services:
     extends:
       file: docker-compose.services.yml
       service: mq
+    ports:
+      - "5672:5672"
   mq-next:
     extends:
       file: docker-compose.services.yml
@@ -87,3 +89,9 @@ services:
       - es
       - mq-next
       - cache
+  flower:
+    extends:
+      file: docker-compose.services.yml
+      service: flower
+    ports:
+      - "5555:5555"
