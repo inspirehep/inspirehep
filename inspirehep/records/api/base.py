@@ -8,8 +8,8 @@
 """INSPIRE module that adds more fun to the platform."""
 
 import logging
-import uuid
 from datetime import datetime
+from uuid import uuid4
 
 from flask_celeryext.app import current_celery_app
 from inspire_dojson.utils import strip_empty_values
@@ -21,10 +21,12 @@ from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
 from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from invenio_records_files.api import Record
-from sqlalchemy import tuple_
+from sqlalchemy import and_
 from sqlalchemy.orm.attributes import flag_modified
+from sqlalchemy.sql import text
 
 from inspirehep.pidstore.api import PidStoreBase
+from inspirehep.records.api.models import TemporaryPidStore
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
 from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.models import RecordCitations
@@ -79,44 +81,58 @@ class InspireRecord(Record):
 
     @classmethod
     def get_records_by_pids(cls, pids):
-        query = cls.get_record_metadata_by_pids(pids)
+        """Get the records related to the given PIDs.
+
+        Args:
+            pids (list of tuple): list of pid_type/pid_value couples.
+
+        Returns:
+            list of `InspireRecord`: the records related to the given PIDs.
+        """
+        ids = cls.get_records_ids_by_pids(pids)
+        query = RecordMetadata.query.filter(RecordMetadata.id.in_(ids))
 
         for data in query.yield_per(100):
             yield cls(data.json, model=data)
 
     @classmethod
-    def get_records_ids_by_pids(cls, pids, max_batch=100):
-        """If query is too big (~7000 pids) SQL refuses to run it,
-        so it has to be split"""
+    def get_records_ids_by_pids(cls, pids):
+        """Get the records' UUID related to the given PIDs.
 
-        for batch_no in range((len(pids) // max_batch) + 1):
-            query = cls._get_records_ids_by_pids(
-                pids[max_batch * batch_no : max_batch * (batch_no + 1)]  # noqa
-            )
-            for data in query.yield_per(100):
-                yield data.object_uuid
+        This function inserts the given PIDs in a temporary table to
+        join them on the `PersistentIdentifier` table, in order to avoid a very
+        expensive `in_` query, which might lead to a `max_stack_depth` error.
 
-    @classmethod
-    def _get_records_ids_by_pids(cls, pids):
-        query = PersistentIdentifier.query.filter(
-            PersistentIdentifier.object_type == "rec",
-            tuple_(PersistentIdentifier.pid_type, PersistentIdentifier.pid_value).in_(
-                pids
-            ),
-        )
-        return query
+        Args:
+            pids (list of tuple): list of pid_type/pid_value couples.
 
-    @classmethod
-    def get_record_metadata_by_pids(cls, pids):
-        query = RecordMetadata.query.join(
-            PersistentIdentifier, RecordMetadata.id == PersistentIdentifier.object_uuid
-        ).filter(
-            PersistentIdentifier.object_type == "rec",
-            tuple_(PersistentIdentifier.pid_type, PersistentIdentifier.pid_value).in_(
-                pids
-            ),
-        )
-        return query
+        Returns:
+            list: the UUIDs related to the given PIDs.
+        """
+        if not pids:
+            return []
+
+        with db.session.begin_nested():
+            TemporaryPidStore.__table__.create(db.session.bind, checkfirst=True)
+            pids = [TemporaryPidStore(id=uuid4(), pid_type=t, pid_value=v) for (t, v) in pids]
+            db.session.add_all(pids)
+
+            ids = PersistentIdentifier.query\
+                .with_entities(PersistentIdentifier.object_uuid)\
+                .join(
+                    TemporaryPidStore, and_(
+                        PersistentIdentifier.pid_type == TemporaryPidStore.pid_type,
+                        PersistentIdentifier.pid_value == TemporaryPidStore.pid_value
+                    )
+                ).filter(PersistentIdentifier.object_type == 'rec').all()
+
+            # This is needed because the temp table is truncated at the end of
+            # the transaction, but this function miht be called multimple times
+            # within a transaction. __table__.drop is not used because doesn't
+            # actually rempve the table.
+            truncate_query = text(f"TRUNCATE TABLE {TemporaryPidStore.__table__.name}")
+            db.session.execute(truncate_query)
+            return [id_ for id_, in ids]
 
     @classmethod
     def get_class_for_record(cls, data):
@@ -138,7 +154,7 @@ class InspireRecord(Record):
 
         with db.session.begin_nested():
             if not id_:
-                id_ = uuid.uuid4()
+                id_ = uuid4()
                 deleted = data.get("deleted", False)
                 if not deleted:
                     cls.pidstore_handler.mint(id_, data)

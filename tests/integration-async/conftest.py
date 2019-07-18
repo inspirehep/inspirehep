@@ -60,7 +60,6 @@ def clear_environment(app):
     from sqlalchemy_utils.functions import create_database, database_exists
 
     with app.app_context():
-
         db_.session.remove()
         db_.drop_all()
         if not database_exists(str(db_.engine.url)):
