@@ -10,6 +10,7 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
   type="flex"
 >
   <Col
+    className=""
     gutter={32}
     key="agg1"
     lg={24}
@@ -43,6 +44,7 @@ exports[`AggregationFilters renders aggregations when numberOfResults is 0 and d
   type="flex"
 >
   <Col
+    className=""
     gutter={32}
     key="agg"
     lg={24}
@@ -71,6 +73,72 @@ exports[`AggregationFilters renders aggregations when numberOfResults is 0 and d
 </Row>
 `;
 
+exports[`AggregationFilters renders with all props set [inline] 1`] = `
+<Row
+  className="bg-white pv3"
+  gutter={0}
+  justify="space-between"
+  type="flex"
+>
+  <Col
+    className="xs-pb3"
+    gutter={32}
+    key="agg1"
+    lg={5}
+    xs={24}
+  >
+    <EventTracker
+      eventId="Facet-[Range] Aggregation 1"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <AggregationFilter
+        aggregationType="range"
+        buckets={
+          Immutable.List [
+            Immutable.Map {
+              "key": "foo",
+              "doc_count": 1,
+            },
+          ]
+        }
+        name="[Range] Aggregation 1"
+        onChange={[Function]}
+        selections="foo"
+      />
+    </EventTracker>
+  </Col>
+  <Col
+    className="xs-pb3"
+    gutter={32}
+    key="agg2"
+    lg={5}
+    xs={24}
+  >
+    <EventTracker
+      eventId="Facet-Aggregation 2"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <AggregationFilter
+        aggregationType="checkbox"
+        buckets={
+          Immutable.List [
+            Immutable.Map {
+              "key": "foo_2",
+              "doc_count": 1,
+            },
+          ]
+        }
+        name="Aggregation 2"
+        onChange={[Function]}
+        splitDisplayName={true}
+      />
+    </EventTracker>
+  </Col>
+</Row>
+`;
+
 exports[`AggregationFilters renders with all props set 1`] = `
 <Row
   className="bg-white pa3"
@@ -79,6 +147,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
   type="flex"
 >
   <Col
+    className=""
     gutter={32}
     key="agg1"
     lg={24}
@@ -106,6 +175,7 @@ exports[`AggregationFilters renders with all props set 1`] = `
     </EventTracker>
   </Col>
   <Col
+    className=""
     gutter={32}
     key="agg2"
     lg={24}

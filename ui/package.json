@@ -6,7 +6,7 @@
   "bundlesize": [
     {
       "path": "./build/**/*.js",
-      "maxSize": "350 kB"
+      "maxSize": "360 kB"
     }
   ],
   "scripts": {

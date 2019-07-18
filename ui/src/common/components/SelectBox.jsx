@@ -6,7 +6,7 @@ class SelectBox extends Component {
   render() {
     const { options, ...selectProps } = this.props;
     return (
-      <Select dropdownMatchSelectWidth={false} {...selectProps}>
+      <Select dropdownMatchSelectWidth={false} showArrow {...selectProps}>
         {options.map(option => (
           <Select.Option
             data-test-id={

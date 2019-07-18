@@ -48,6 +48,49 @@ describe('AggregationFilters', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders with all props set [inline]', () => {
+    const aggregations = fromJS({
+      agg1: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: '[Range] Aggregation 1',
+          order: 1,
+          type: 'range',
+        },
+      },
+      agg2: {
+        buckets: [
+          {
+            key: 'foo_2',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: 'Aggregation 2',
+          order: 2,
+          split: true,
+          type: 'checkbox',
+        },
+      },
+    });
+    const query = { agg1: 'foo' };
+    const wrapper = shallow(
+      <AggregationFilters
+        inline
+        query={query}
+        aggregations={aggregations}
+        numberOfResults={2}
+        onAggregationChange={jest.fn()}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('does not render aggregations with empty buckets', () => {
     const aggregations = fromJS({
       agg1: {

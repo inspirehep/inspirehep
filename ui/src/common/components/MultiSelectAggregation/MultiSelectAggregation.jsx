@@ -24,11 +24,10 @@ class MultiSelectAggregation extends Component {
       .toArray();
     return (
       <div>
-        <div className="mb1">{name}:</div>
         <SelectBox
           className="w-100"
           mode="multiple"
-          placeholder="All"
+          placeholder={name}
           onChange={onChange}
           value={selections}
           options={selectOptions}
