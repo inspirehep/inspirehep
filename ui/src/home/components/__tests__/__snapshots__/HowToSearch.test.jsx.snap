@@ -3,15 +3,12 @@
 exports[`HowToSearch renders the components 1`] = `
 <Fragment>
   <Modal
-    cancelButtonDisabled={false}
     confirmLoading={false}
     destroyOnClose={true}
     footer={false}
     maskTransitionName="fade"
-    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
-    prefixCls="ant-modal"
     title="Search Tips"
     transitionName="zoom"
     visible={false}
@@ -22,7 +19,7 @@ exports[`HowToSearch renders the components 1`] = `
     </p>
     <Tabs
       hideAdd={false}
-      prefixCls="ant-tabs"
+      tabPosition="top"
       type="card"
     >
       <TabPane
@@ -35,6 +32,7 @@ exports[`HowToSearch renders the components 1`] = `
         >
           <Table
             bordered={false}
+            childrenColumnName="children"
             className=""
             columns={
               Array [
@@ -165,10 +163,15 @@ exports[`HowToSearch renders the components 1`] = `
             loading={false}
             locale={Object {}}
             pagination={false}
-            prefixCls="ant-table"
             rowKey="key"
             showHeader={true}
             size="small"
+            sortDirections={
+              Array [
+                "ascend",
+                "descend",
+              ]
+            }
             useFixedHeader={false}
           />
         </div>
@@ -213,16 +216,15 @@ exports[`HowToSearch renders the components 1`] = `
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
-        prefixCls="ant-tooltip"
         title="Search Tips"
         transitionName="zoom-big-fast"
       >
         <Button
           block={false}
           ghost={false}
+          htmlType="button"
           loading={false}
           onClick={[Function]}
-          prefixCls="ant-btn"
           shape="circle"
         >
           <Icon

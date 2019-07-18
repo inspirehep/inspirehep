@@ -5,12 +5,7 @@ exports[`DropdownMenu renders 1`] = `
   mouseEnterDelay={0.15}
   mouseLeaveDelay={0.1}
   overlay={
-    <Menu
-      className=""
-      focusable={false}
-      prefixCls="ant-menu"
-      theme="light"
-    >
+    <Menu>
       <MenuItem>
         <li>
           test
@@ -24,7 +19,6 @@ exports[`DropdownMenu renders 1`] = `
     </Menu>
   }
   placement="bottomLeft"
-  prefixCls="ant-dropdown"
 >
   title
 </Dropdown>

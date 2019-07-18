@@ -6,6 +6,6 @@ import Footer from '../Footer';
 describe('Footer', () => {
   it('renders', () => {
     const wrapper = shallow(<Footer />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });

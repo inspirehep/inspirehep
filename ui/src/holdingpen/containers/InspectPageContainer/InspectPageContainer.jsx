@@ -28,7 +28,7 @@ class InspectPage extends Component {
       <div className="__InspectPage__ w-100">
         <LoadingOrChildren loading={loading}>
           <Row
-            align="center"
+            align="middle"
             type="flex"
             justify="space-around"
             gutter={16}

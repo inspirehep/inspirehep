@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Drawer } from 'antd';
 
 import DrawerHandle from '../DrawerHandle';
 
@@ -25,5 +26,17 @@ describe('DrawerHandle', () => {
       </DrawerHandle>
     );
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it('makes drawer visible on handle click', () => {
+    const wrapper = shallow(
+      <DrawerHandle drawerTitle="Title">
+        <div>Content</div>
+      </DrawerHandle>
+    );
+
+    wrapper.find('[data-test-id="handle-button"]').simulate('click');
+    wrapper.update();
+    expect(wrapper.find(Drawer).prop('visible')).toBe(true);
   });
 });

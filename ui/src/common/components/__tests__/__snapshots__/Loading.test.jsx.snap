@@ -13,7 +13,6 @@ exports[`Loading render loading component 1`] = `
       className="tc pa4"
     >
       <Spin
-        prefixCls="ant-spin"
         size="default"
         spinning={true}
         tip="Loading ..."

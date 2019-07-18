@@ -11,8 +11,6 @@ exports[`ListWithPagination renders with all props 1`] = `
       loading={true}
       onChange={[MockFunction]}
       pageSize={25}
-      prefixCls="ant-pagination"
-      selectPrefixCls="ant-select"
       showTotal={[Function]}
       total={100}
     />
@@ -20,7 +18,6 @@ exports[`ListWithPagination renders with all props 1`] = `
   header="Test"
   loading={false}
   pagination={false}
-  prefixCls="ant-list"
   split={true}
 >
   <Item
@@ -157,8 +154,6 @@ exports[`ListWithPagination renders with required props 1`] = `
       loading={false}
       onChange={[MockFunction]}
       pageSize={50}
-      prefixCls="ant-pagination"
-      selectPrefixCls="ant-select"
       showTotal={[Function]}
       total={100}
     />
@@ -166,7 +161,6 @@ exports[`ListWithPagination renders with required props 1`] = `
   header={null}
   loading={false}
   pagination={false}
-  prefixCls="ant-list"
   split={true}
 >
   <Item

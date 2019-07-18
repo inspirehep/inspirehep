@@ -27,7 +27,6 @@ exports[`DataImporter renders with error with a message 1`] = `
     </Col>
   </Row>
   <FormItem
-    colon={true}
     hasFeedback={false}
     label="From arXiv or DOI"
     labelCol={
@@ -35,7 +34,6 @@ exports[`DataImporter renders with error with a message 1`] = `
         "span": 5,
       }
     }
-    prefixCls="ant-form"
     wrapperCol={
       Object {
         "span": 19,
@@ -48,7 +46,6 @@ exports[`DataImporter renders with error with a message 1`] = `
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-      prefixCls="ant-input"
       type="text"
     />
   </FormItem>
@@ -71,9 +68,9 @@ exports[`DataImporter renders with error with a message 1`] = `
         block={false}
         data-test-id="import-button"
         ghost={false}
+        htmlType="button"
         loading={false}
         onClick={[Function]}
-        prefixCls="ant-btn"
         type="primary"
       >
         Import
@@ -110,7 +107,6 @@ exports[`DataImporter renders with error without a message 1`] = `
     </Col>
   </Row>
   <FormItem
-    colon={true}
     hasFeedback={false}
     label="From arXiv or DOI"
     labelCol={
@@ -118,7 +114,6 @@ exports[`DataImporter renders with error without a message 1`] = `
         "span": 5,
       }
     }
-    prefixCls="ant-form"
     wrapperCol={
       Object {
         "span": 19,
@@ -131,7 +126,6 @@ exports[`DataImporter renders with error without a message 1`] = `
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-      prefixCls="ant-input"
       type="text"
     />
   </FormItem>
@@ -154,9 +148,9 @@ exports[`DataImporter renders with error without a message 1`] = `
         block={false}
         data-test-id="import-button"
         ghost={false}
+        htmlType="button"
         loading={false}
         onClick={[Function]}
-        prefixCls="ant-btn"
         type="primary"
       >
         Import
@@ -180,7 +174,6 @@ exports[`DataImporter renders without error while importing 1`] = `
     </Col>
   </Row>
   <FormItem
-    colon={true}
     hasFeedback={false}
     label="From arXiv or DOI"
     labelCol={
@@ -188,7 +181,6 @@ exports[`DataImporter renders without error while importing 1`] = `
         "span": 5,
       }
     }
-    prefixCls="ant-form"
     wrapperCol={
       Object {
         "span": 19,
@@ -201,7 +193,6 @@ exports[`DataImporter renders without error while importing 1`] = `
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
-      prefixCls="ant-input"
       type="text"
     />
   </FormItem>
@@ -224,9 +215,9 @@ exports[`DataImporter renders without error while importing 1`] = `
         block={false}
         data-test-id="import-button"
         ghost={false}
+        htmlType="button"
         loading={true}
         onClick={[Function]}
-        prefixCls="ant-btn"
         type="primary"
       >
         Import

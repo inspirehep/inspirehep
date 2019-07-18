@@ -20,8 +20,8 @@ exports[`DOILinkAction renders with multiple doi ids 1`] = `
       <Button
         block={false}
         ghost={false}
+        htmlType="button"
         loading={false}
-        prefixCls="ant-btn"
       >
         <IconText
           text="DOI"
@@ -65,8 +65,8 @@ exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
       <Button
         block={false}
         ghost={false}
+        htmlType="button"
         loading={false}
-        prefixCls="ant-btn"
       >
         <IconText
           text="DOI"

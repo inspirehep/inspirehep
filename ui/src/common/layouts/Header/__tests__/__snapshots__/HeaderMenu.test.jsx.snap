@@ -3,9 +3,7 @@
 exports[`HeaderMenu displays Login link instead of My Account if user is not logged in 1`] = `
 <Menu
   className="__HeaderMenu__"
-  focusable={false}
   mode="horizontal"
-  prefixCls="ant-menu"
   selectable={false}
   theme="dark"
 >
@@ -70,9 +68,7 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
 exports[`HeaderMenu does not show some tool links if logged in user is not superuser nor cataloger 1`] = `
 <Menu
   className="__HeaderMenu__"
-  focusable={false}
   mode="horizontal"
-  prefixCls="ant-menu"
   selectable={false}
   theme="dark"
 >
@@ -137,9 +133,7 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
 exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
 <Menu
   className="__HeaderMenu__"
-  focusable={false}
   mode="horizontal"
-  prefixCls="ant-menu"
   selectable={false}
   theme="dark"
 >

@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { Range } from 'immutable';
 import { List, Pagination } from 'antd';
 
@@ -41,7 +41,7 @@ describe('ListWithPagination', () => {
   it('sets props.onPageChange to Pagination.onChange', () => {
     const pageItems = Range(1, 25).toList();
     const onPageChange = jest.fn();
-    const wrapper = shallow(
+    const wrapper = mount(
       <ListWithPagination
         pageItems={pageItems}
         pageSize={25}
@@ -50,7 +50,7 @@ describe('ListWithPagination', () => {
         onPageChange={onPageChange}
         renderItem={item => <List.Item key={item}>{item}</List.Item>}
       />
-    ).dive();
+    );
     expect(wrapper.find(Pagination)).toHaveProp('onChange', onPageChange);
   });
 

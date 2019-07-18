@@ -7,7 +7,6 @@ exports[`HelpIconTooltip renders with help 1`] = `
   mouseEnterDelay={0.1}
   mouseLeaveDelay={0.1}
   placement="top"
-  prefixCls="ant-tooltip"
   title="This is the help"
   transitionName="zoom-big-fast"
 >
