@@ -28,25 +28,27 @@ def continuous_migration():
     if redis_url is None:
         redis_url = current_app.config.get("CACHE_REDIS_URL")
 
-    r = StrictRedis.from_url(redis_url)
-    lock = Lock(r, "continuous_migration", expire=120, auto_renewal=True)
+    redis_cli = StrictRedis.from_url(redis_url)
+    lock = Lock(redis_cli, "continuous_migration", expire=120, auto_renewal=True)
 
     if lock.acquire(blocking=False):
         try:
-            migrated_records = None
-            num_of_records = r.llen("legacy_records")
+            process_migration = False
+            num_of_records = redis_cli.llen("legacy_records")
             logger.info("Starting migration of %d records.", num_of_records)
 
-            while r.llen("legacy_records"):
-                raw_record = r.lrange("legacy_records", 0, 0)
+            while redis_cli.llen("legacy_records"):
+                raw_record = redis_cli.lrange("legacy_records", 0, 0)
                 if raw_record:
                     migrated_records = insert_into_mirror(
                         [zlib.decompress(raw_record[0])]
                     )
                     logger.debug("Migrated %d records.", len(migrated_records))
-                r.lpop("legacy_records")
+                    if migrated_records:
+                        process_migration = True
+                redis_cli.lpop("legacy_records")
         finally:
-            if migrated_records:
+            if process_migration:
                 task = migrate_from_mirror(disable_orcid_push=False)
                 wait_for_all_tasks(task)
             lock.release()
