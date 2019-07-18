@@ -2,12 +2,6 @@
 
 exports[`MultiSelectAggregation renders 1`] = `
 <div>
-  <div
-    className="mb1"
-  >
-    Test
-    :
-  </div>
   <SelectBox
     className="w-100"
     mode="multiple"
@@ -24,7 +18,7 @@ exports[`MultiSelectAggregation renders 1`] = `
         },
       ]
     }
-    placeholder="All"
+    placeholder="Test"
     value={
       Array [
         "bucket1",
@@ -36,12 +30,6 @@ exports[`MultiSelectAggregation renders 1`] = `
 
 exports[`MultiSelectAggregation renders with custom display values if configured 1`] = `
 <div>
-  <div
-    className="mb1"
-  >
-    Test
-    :
-  </div>
   <SelectBox
     className="w-100"
     mode="multiple"
@@ -58,7 +46,7 @@ exports[`MultiSelectAggregation renders with custom display values if configured
         },
       ]
     }
-    placeholder="All"
+    placeholder="Test"
     value={
       Array [
         "bucket1",

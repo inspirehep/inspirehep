@@ -32,19 +32,19 @@ class SearchPage extends Component {
   renderAggregations() {
     const { loadingAggregations } = this.props;
     return (
-      <LoadingOrChildren loading={loadingAggregations}>
-        <AggregationFiltersContainer inline displayWhenNoResults />
-      </LoadingOrChildren>
+      <div className="mt3">
+        <LoadingOrChildren loading={loadingAggregations}>
+          <div className="f5">Select Job Filters: </div>
+          <AggregationFiltersContainer inline displayWhenNoResults />
+        </LoadingOrChildren>
+      </div>
     );
   }
 
   renderAggregationsDrawer() {
-    const { loadingAggregations } = this.props;
     return (
       <DrawerHandle className="mt2" handleText="Filter" drawerTitle="Filter">
-        <LoadingOrChildren loading={loadingAggregations}>
-          <AggregationFiltersContainer inline displayWhenNoResults />
-        </LoadingOrChildren>
+        {this.renderAggregations()}
       </DrawerHandle>
     );
   }
