@@ -7,8 +7,8 @@ exports[`ListItemAction renders 1`] = `
   <Button
     block={false}
     ghost={false}
+    htmlType="button"
     loading={false}
-    prefixCls="ant-btn"
   >
     <IconText
       text="cite"

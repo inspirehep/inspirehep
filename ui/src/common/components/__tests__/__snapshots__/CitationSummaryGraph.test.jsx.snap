@@ -24,7 +24,6 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
             mouseEnterDelay={0.1}
             mouseLeaveDelay={0.1}
             placement="bottom"
-            prefixCls="ant-tooltip"
             title="Click a bar to select papers. Click the bar again to reset your selection."
             transitionName="zoom-big-fast"
           >
@@ -323,7 +322,6 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
             mouseEnterDelay={0.1}
             mouseLeaveDelay={0.1}
             placement="bottom"
-            prefixCls="ant-tooltip"
             title="Click a bar to select papers. Click the bar again to reset your selection."
             transitionName="zoom-big-fast"
           >
@@ -622,7 +620,6 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
             mouseEnterDelay={0.1}
             mouseLeaveDelay={0.1}
             placement="bottom"
-            prefixCls="ant-tooltip"
             title="Click a bar to select papers. Click the bar again to reset your selection."
             transitionName="zoom-big-fast"
           >

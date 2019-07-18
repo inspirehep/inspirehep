@@ -7,13 +7,11 @@ exports[`Suggester does not render results onSearch without waiting for debounce
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
-  prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Input
     disabled={false}
-    prefixCls="ant-input"
     type="text"
   />
 </AutoComplete>
@@ -26,13 +24,11 @@ exports[`Suggester renders empty if request fails 1`] = `
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
-  prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Input
     disabled={false}
-    prefixCls="ant-input"
     type="text"
   />
 </AutoComplete>
@@ -68,13 +64,11 @@ exports[`Suggester renders results onSearch 1`] = `
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
-  prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Input
     disabled={false}
-    prefixCls="ant-input"
     type="text"
   />
 </AutoComplete>
@@ -112,13 +106,11 @@ exports[`Suggester renders results with custom completion value 1`] = `
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
-  prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Input
     disabled={false}
-    prefixCls="ant-input"
     type="text"
   />
 </AutoComplete>
@@ -168,13 +160,11 @@ exports[`Suggester renders results with custom result template 1`] = `
   filterOption={false}
   onSearch={[Function]}
   optionLabelProp="value"
-  prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
   <Input
     disabled={false}
-    prefixCls="ant-input"
     type="text"
   />
 </AutoComplete>

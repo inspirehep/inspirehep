@@ -27,7 +27,11 @@ class DrawerHandle extends Component {
     const { isDrawerVisible } = this.state;
     return (
       <>
-        <Button className={className} onClick={this.onDrawerHandleClick}>
+        <Button
+          data-test-id="handle-button"
+          className={className}
+          onClick={this.onDrawerHandleClick}
+        >
           {handleText}
         </Button>
         <Drawer

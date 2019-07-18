@@ -13,7 +13,6 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong />
@@ -115,7 +114,6 @@ exports[`CitationsByYearGraph renders citations for less than 5 different citati
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong />
@@ -222,7 +220,6 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong />
@@ -331,7 +328,6 @@ exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong />
@@ -489,7 +485,6 @@ exports[`CitationsByYearGraph renders hovered info in a tooltip on line series h
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong>
@@ -596,7 +591,6 @@ exports[`CitationsByYearGraph renders more than 5 different citation counts with
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong />
@@ -711,7 +705,6 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong />
@@ -866,7 +859,6 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
       mouseEnterDelay={0.1}
       mouseLeaveDelay={0.1}
       placement="bottom"
-      prefixCls="ant-tooltip"
       title={
         <span>
           <strong />

@@ -23,7 +23,7 @@ describe('ReferenceItem', () => {
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
     const wrapper = shallow(<ReferenceItem reference={reference} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders unlinked reference (no control_number)', () => {
@@ -42,7 +42,7 @@ describe('ReferenceItem', () => {
       collaborations_with_suffix: [{ value: 'Test Group' }],
     });
     const wrapper = shallow(<ReferenceItem reference={reference} />);
-    expect(wrapper.dive()).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('renders misc if present', () => {

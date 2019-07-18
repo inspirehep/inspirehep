@@ -55,9 +55,7 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 6',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorList total={6} authors={authors} />
-    );
+    const wrapper = shallow(<AuthorList total={6} authors={authors} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -92,12 +90,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(
-      <AuthorList
-        limit={2}
-        total={3}
-        authors={authors}
-        enableShowAll
-      />
+      <AuthorList limit={2} total={3} authors={authors} enableShowAll />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -111,9 +104,7 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 2',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorList limit={4} authors={authors} />
-    );
+    const wrapper = shallow(<AuthorList limit={4} authors={authors} />);
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -123,9 +114,7 @@ describe('AuthorList', () => {
         full_name: 'Test, Guy 1',
       },
     ]);
-    const wrapper = shallow(
-      <AuthorList limit={4} authors={authors} />
-    );
+    const wrapper = shallow(<AuthorList limit={4} authors={authors} />);
 
     // Can not dive since root is a Fragment
     expect(
@@ -180,12 +169,7 @@ describe('AuthorList', () => {
       },
     ]);
     const wrapper = shallow(<AuthorList authors={authors} />);
-    expect(
-      wrapper
-        .find(Modal)
-        .first()
-        .dive()
-    ).toMatchSnapshot();
+    expect(wrapper.find(Modal)).toMatchSnapshot();
   });
 
   it('should show `supervisors` in modal title if supervisors are passed', () => {
@@ -197,11 +181,6 @@ describe('AuthorList', () => {
     const wrapper = shallow(
       <AuthorList authors={supervisors} forSupervisors />
     );
-    expect(
-      wrapper
-        .find(Modal)
-        .first()
-        .dive()
-    ).toMatchSnapshot();
+    expect(wrapper.find(Modal)).toMatchSnapshot();
   });
 });

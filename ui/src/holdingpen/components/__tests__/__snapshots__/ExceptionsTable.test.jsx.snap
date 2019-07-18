@@ -3,6 +3,7 @@
 exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -82,11 +83,16 @@ exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;
@@ -94,6 +100,7 @@ exports[`ExceptionsTable renders all exceptions on clear error search 1`] = `
 exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -173,11 +180,16 @@ exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;
@@ -185,6 +197,7 @@ exports[`ExceptionsTable renders all exceptions on clear recid search 1`] = `
 exports[`ExceptionsTable renders filtered results on error search 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -259,11 +272,16 @@ exports[`ExceptionsTable renders filtered results on error search 1`] = `
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;
@@ -271,6 +289,7 @@ exports[`ExceptionsTable renders filtered results on error search 1`] = `
 exports[`ExceptionsTable renders no results on error search if nothing matches 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -332,11 +351,16 @@ exports[`ExceptionsTable renders no results on error search if nothing matches 1
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;
@@ -344,6 +368,7 @@ exports[`ExceptionsTable renders no results on error search if nothing matches 1
 exports[`ExceptionsTable renders no results on recid search if there is no exact match 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -405,11 +430,16 @@ exports[`ExceptionsTable renders no results on recid search if there is no exact
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;
@@ -417,6 +447,7 @@ exports[`ExceptionsTable renders no results on recid search if there is no exact
 exports[`ExceptionsTable renders single exception on recid search if there is exact match 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -486,11 +517,16 @@ exports[`ExceptionsTable renders single exception on recid search if there is ex
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;
@@ -498,6 +534,7 @@ exports[`ExceptionsTable renders single exception on recid search if there is ex
 exports[`ExceptionsTable renders when loading is true 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -550,11 +587,16 @@ exports[`ExceptionsTable renders when loading is true 1`] = `
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;
@@ -562,6 +604,7 @@ exports[`ExceptionsTable renders when loading is true 1`] = `
 exports[`ExceptionsTable renders with exceptions 1`] = `
 <Table
   bordered={true}
+  childrenColumnName="children"
   className="__ExceptionsTable__"
   columns={
     Array [
@@ -641,11 +684,16 @@ exports[`ExceptionsTable renders with exceptions 1`] = `
       "pageSize": 25,
     }
   }
-  prefixCls="ant-table"
   rowClassName="exceptions-table-row"
   rowKey="recid"
   showHeader={true}
   size="default"
+  sortDirections={
+    Array [
+      "ascend",
+      "descend",
+    ]
+  }
   useFixedHeader={false}
 />
 `;

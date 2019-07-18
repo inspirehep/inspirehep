@@ -20,9 +20,9 @@ exports[`LoginPage renders page 1`] = `
       block={false}
       className="login-button h3"
       ghost={false}
+      htmlType="button"
       loading={false}
       onClick={[MockFunction]}
-      prefixCls="ant-btn"
     >
       <img
         alt="ORCID"

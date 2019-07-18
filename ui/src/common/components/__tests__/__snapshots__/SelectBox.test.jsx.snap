@@ -6,7 +6,6 @@ exports[`SelectBox render initial state with all props set 1`] = `
   defaultValue="value1"
   dropdownMatchSelectWidth={false}
   onChange={[MockFunction]}
-  prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >
@@ -32,7 +31,6 @@ exports[`SelectBox render initial state with data-test-id 1`] = `
   defaultValue="value1"
   dropdownMatchSelectWidth={false}
   onChange={[MockFunction]}
-  prefixCls="ant-select"
   showSearch={false}
   transitionName="slide-up"
 >

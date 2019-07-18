@@ -5,7 +5,6 @@ exports[`CheckboxItem render initial state with all props set 1`] = `
   checked={true}
   indeterminate={false}
   onChange={[Function]}
-  prefixCls="ant-checkbox"
 >
   Test
 </Checkbox>

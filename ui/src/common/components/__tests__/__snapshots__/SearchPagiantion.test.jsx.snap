@@ -6,8 +6,6 @@ exports[`SearchPagination renders with all props set 1`] = `
   hideOnSinglePage={true}
   onChange={[MockFunction]}
   pageSize={10}
-  prefixCls="ant-pagination"
-  selectPrefixCls="ant-select"
   style={
     Object {
       "textAlign": "center",
@@ -23,8 +21,6 @@ exports[`SearchPagination renders with only required props set 1`] = `
   hideOnSinglePage={true}
   onChange={[MockFunction]}
   pageSize={25}
-  prefixCls="ant-pagination"
-  selectPrefixCls="ant-select"
   style={
     Object {
       "textAlign": "center",

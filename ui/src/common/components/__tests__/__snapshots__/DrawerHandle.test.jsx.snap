@@ -5,22 +5,17 @@ exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
   <Button
     block={false}
     className="mt3"
+    data-test-id="handle-button"
     ghost={false}
+    htmlType="button"
     loading={false}
     onClick={[Function]}
-    prefixCls="ant-btn"
   >
     Handle
   </Button>
-  <Drawer
-    closable={true}
-    height={256}
-    level={null}
-    mask={true}
-    maskClosable={true}
+  <withConfigConsumer(Drawer)
     onClose={[Function]}
     placement="left"
-    prefixCls="ant-drawer"
     title="Title"
     visible={false}
     width={256}
@@ -28,7 +23,7 @@ exports[`DrawerHandle renders DrawerHandle with all props 1`] = `
     <div>
       Content
     </div>
-  </Drawer>
+  </withConfigConsumer(Drawer)>
 </Fragment>
 `;
 
@@ -37,22 +32,17 @@ exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
   <Button
     block={false}
     className=""
+    data-test-id="handle-button"
     ghost={false}
+    htmlType="button"
     loading={false}
     onClick={[Function]}
-    prefixCls="ant-btn"
   >
     Open
   </Button>
-  <Drawer
-    closable={true}
-    height={256}
-    level={null}
-    mask={true}
-    maskClosable={true}
+  <withConfigConsumer(Drawer)
     onClose={[Function]}
     placement="left"
-    prefixCls="ant-drawer"
     title="Title"
     visible={false}
     width={304}
@@ -60,6 +50,6 @@ exports[`DrawerHandle renders DrawerHandle with default props 1`] = `
     <div>
       Content
     </div>
-  </Drawer>
+  </withConfigConsumer(Drawer)>
 </Fragment>
 `;

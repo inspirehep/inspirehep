@@ -36,7 +36,6 @@ exports[`Author renders first_name and last_name of editor 1`] = `
     mouseEnterDelay={0.1}
     mouseLeaveDelay={0.1}
     placement="top"
-    prefixCls="ant-tooltip"
     title="editor"
     transitionName="zoom-big-fast"
   >
@@ -186,7 +185,6 @@ exports[`Author renders supervisor 1`] = `
     mouseEnterDelay={0.1}
     mouseLeaveDelay={0.1}
     placement="top"
-    prefixCls="ant-tooltip"
     title="supervisor"
     transitionName="zoom-big-fast"
   >

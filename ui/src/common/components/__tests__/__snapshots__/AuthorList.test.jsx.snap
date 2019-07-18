@@ -77,14 +77,11 @@ exports[`AuthorList renders all authors if they are less than the limit without 
     wrapperClassName={null}
   />
   <Modal
-    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
-    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
-    prefixCls="ant-modal"
     title="2 authors"
     transitionName="zoom"
     visible={false}
@@ -170,14 +167,11 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
     wrapperClassName={null}
   />
   <Modal
-    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
-    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
-    prefixCls="ant-modal"
     title="6 authors"
     transitionName="zoom"
     visible={false}
@@ -261,14 +255,11 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
     wrapperClassName={null}
   />
   <Modal
-    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
-    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
-    prefixCls="ant-modal"
     title="6 authors"
     transitionName="zoom"
     visible={false}
@@ -335,14 +326,11 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
     wrapperClassName={null}
   />
   <Modal
-    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
-    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
-    prefixCls="ant-modal"
     title="3 authors"
     transitionName="zoom"
     visible={false}
@@ -408,14 +396,11 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
     wrapperClassName={null}
   />
   <Modal
-    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
-    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
-    prefixCls="ant-modal"
     title="3 authors"
     transitionName="zoom"
     visible={false}
@@ -448,31 +433,16 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
 `;
 
 exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
-<DialogWrap
-  cancelButtonDisabled={false}
-  closeIcon={
-    <span
-      className="ant-modal-close-x"
-    >
-      <Icon
-        className="ant-modal-close-icon"
-        type="close"
-      />
-    </span>
-  }
+<Modal
   confirmLoading={false}
   footer={null}
   maskTransitionName="fade"
-  okButtonDisabled={false}
   okType="primary"
   onCancel={[Function]}
-  onClose={[Function]}
-  prefixCls="ant-modal"
   title="1 authors"
   transitionName="zoom"
   visible={false}
   width="50%"
-  wrapClassName=""
 >
   <InlineList
     extractKey={[Function]}
@@ -490,35 +460,20 @@ exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
     suffix={null}
     wrapperClassName={null}
   />
-</DialogWrap>
+</Modal>
 `;
 
 exports[`AuthorList should show \`supervisors\` in modal title if supervisors are passed 1`] = `
-<DialogWrap
-  cancelButtonDisabled={false}
-  closeIcon={
-    <span
-      className="ant-modal-close-x"
-    >
-      <Icon
-        className="ant-modal-close-icon"
-        type="close"
-      />
-    </span>
-  }
+<Modal
   confirmLoading={false}
   footer={null}
   maskTransitionName="fade"
-  okButtonDisabled={false}
   okType="primary"
   onCancel={[Function]}
-  onClose={[Function]}
-  prefixCls="ant-modal"
   title="1 authors"
   transitionName="zoom"
   visible={false}
   width="50%"
-  wrapClassName=""
 >
   <InlineList
     extractKey={[Function]}
@@ -536,5 +491,5 @@ exports[`AuthorList should show \`supervisors\` in modal title if supervisors ar
     suffix={null}
     wrapperClassName={null}
   />
-</DialogWrap>
+</Modal>
 `;

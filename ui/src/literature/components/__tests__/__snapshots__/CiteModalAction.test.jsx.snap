@@ -11,9 +11,9 @@ exports[`CiteModalAction renders with all props 1`] = `
       <Button
         block={false}
         ghost={false}
+        htmlType="button"
         loading={false}
         onClick={[Function]}
-        prefixCls="ant-btn"
       >
         <IconText
           text="cite"
@@ -23,14 +23,11 @@ exports[`CiteModalAction renders with all props 1`] = `
     </EventTracker>
   </ListItemAction>
   <Modal
-    cancelButtonDisabled={false}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
-    okButtonDisabled={false}
     okType="primary"
     onCancel={[Function]}
-    prefixCls="ant-modal"
     title="Cite Article"
     transitionName="zoom"
     visible={false}
@@ -54,8 +51,8 @@ exports[`CiteModalAction renders with all props 1`] = `
             <Button
               block={false}
               ghost={false}
+              htmlType="button"
               loading={false}
-              prefixCls="ant-btn"
               style={
                 Object {
                   "marginRight": 12,
@@ -71,9 +68,9 @@ exports[`CiteModalAction renders with all props 1`] = `
           <Button
             block={false}
             ghost={false}
+            htmlType="button"
             loading={false}
             onClick={[Function]}
-            prefixCls="ant-btn"
           >
             <Icon
               type="download"

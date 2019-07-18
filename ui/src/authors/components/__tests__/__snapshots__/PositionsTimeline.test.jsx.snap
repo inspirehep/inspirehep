@@ -4,14 +4,13 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
 <Fragment>
   <Timeline
     mode=""
-    prefixCls="ant-timeline"
     reverse={false}
   >
     <TimelineItem
       color="blue"
       key="#undefined@Inst 1"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -24,7 +23,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
       color="blue"
       key="#undefined@Inst 2"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -37,7 +36,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
       color="blue"
       key="#undefined@Inst 3"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -50,7 +49,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
       color="blue"
       key="#undefined@Inst 4"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -63,7 +62,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
       color="blue"
       key="#undefined@Inst 5"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -76,7 +75,7 @@ exports[`PositionsTimeline renders all when ExpandListToggle is toggled by defau
       color="blue"
       key="#undefined@Inst 6"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -100,14 +99,13 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
 <Fragment>
   <Timeline
     mode=""
-    prefixCls="ant-timeline"
     reverse={false}
   >
     <TimelineItem
       color="blue"
       key="#undefined@Inst 1"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -120,7 +118,7 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
       color="blue"
       key="#undefined@Inst 2"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -133,7 +131,7 @@ exports[`PositionsTimeline renders only first 3 by default 1`] = `
       color="blue"
       key="#undefined@Inst 3"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div />
       <div>
@@ -157,14 +155,13 @@ exports[`PositionsTimeline renders with positions 1`] = `
 <Fragment>
   <Timeline
     mode=""
-    prefixCls="ant-timeline"
     reverse={false}
   >
     <TimelineItem
       color="blue"
       key="#1990-1994@Inst 1"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div>
         1990-1994
@@ -183,7 +180,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
       color="blue"
       key="#1994-2000@Inst 2"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div>
         1994-2000
@@ -202,7 +199,7 @@ exports[`PositionsTimeline renders with positions 1`] = `
       color="blue"
       key="#2000-present@CERN"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div>
         2000-present
@@ -232,14 +229,13 @@ exports[`PositionsTimeline renders with single position 1`] = `
 <Fragment>
   <Timeline
     mode=""
-    prefixCls="ant-timeline"
     reverse={false}
   >
     <TimelineItem
       color="blue"
       key="#present@Inst 1"
       pending={false}
-      prefixCls="ant-timeline"
+      position=""
     >
       <div>
         present

@@ -15,10 +15,7 @@ describe('LoginPage', () => {
   it('passes onLoginClick to click event of login button', () => {
     const onLoginClick = jest.fn();
     const wrapper = shallow(<LoginPage onLoginClick={onLoginClick} />);
-    const onLoginButtonClick = wrapper
-      .dive()
-      .find(Button)
-      .prop('onClick');
+    const onLoginButtonClick = wrapper.find(Button).prop('onClick');
     expect(onLoginClick).toBe(onLoginButtonClick);
   });
 });

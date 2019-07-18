@@ -79,10 +79,8 @@ exports[`RangeAggregation render initial state with all required props set 1`] =
       min={2010}
       onAfterChange={[Function]}
       onChange={[Function]}
-      prefixCls="ant-slider"
       range={true}
       tipFormatter={[Function]}
-      tooltipPrefixCls="ant-tooltip"
       value={
         Array [
           2011,
@@ -178,10 +176,8 @@ exports[`RangeAggregation render with sanitized min-max according to default min
       min={1986}
       onAfterChange={[Function]}
       onChange={[Function]}
-      prefixCls="ant-slider"
       range={true}
       tipFormatter={[Function]}
-      tooltipPrefixCls="ant-tooltip"
       value={
         Array [
           2011,
@@ -283,10 +279,8 @@ exports[`RangeAggregation renders with hovered bar 1`] = `
       min={2010}
       onAfterChange={[Function]}
       onChange={[Function]}
-      prefixCls="ant-slider"
       range={true}
       tipFormatter={[Function]}
-      tooltipPrefixCls="ant-tooltip"
       value={
         Array [
           2011,
@@ -372,10 +366,8 @@ exports[`RangeAggregation renders with sanitized endpoints 1`] = `
       min={2010}
       onAfterChange={[Function]}
       onChange={[Function]}
-      prefixCls="ant-slider"
       range={true}
       tipFormatter={[Function]}
-      tooltipPrefixCls="ant-tooltip"
       value={
         Array [
           2010,
