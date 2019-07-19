@@ -48,7 +48,7 @@ def test_literature_application_json_without_login(api_client, db, create_record
 
     expected_status_code = 200
     expected_uuid = str(record.id)
-    expected_result = {
+    expected_metadata = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
@@ -57,14 +57,18 @@ def test_literature_application_json_without_login(api_client, db, create_record
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
         "documents": [{"key": "public", "url": "https://url.to/public/document"}],
     }
+    expected_id = record["control_number"]
 
     response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     assert expected_status_code == response_status_code
-    assert expected_result == response_data["metadata"]
+    assert expected_metadata == response_data["metadata"]
     assert expected_uuid == response_data["uuid"]
+    assert expected_id == response_data["id"]
+    assert response_data["created"] is not None
+    assert response_data["updated"] is not None
 
 
 def test_literature_application_json_with_logged_in_cataloger(
@@ -105,6 +109,7 @@ def test_literature_application_json_with_logged_in_cataloger(
 
     expected_status_code = 200
     expected_uuid = str(record.id)
+    expected_id = record["control_number"]
     expected_result = {
         "$schema": "http://inspire/schemas/records/hep.json",
         "_collections": ["Literature"],
@@ -138,6 +143,9 @@ def test_literature_application_json_with_logged_in_cataloger(
     assert expected_status_code == response_status_code
     assert expected_result == response_data["metadata"]
     assert expected_uuid == response_data["uuid"]
+    assert expected_id == response_data["id"]
+    assert response_data["created"] is not None
+    assert response_data["updated"] is not None
 
 
 def test_literature_application_json_search_without_login(
@@ -172,7 +180,7 @@ def test_literature_application_json_search_without_login(
     record = create_record("lit", data=data)
 
     expected_status_code = 200
-    expected_result = {
+    expected_metadata = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
         "control_number": 12345,
@@ -184,6 +192,7 @@ def test_literature_application_json_search_without_login(
         "citations_by_year": [],
     }
     expected_result_len = 1
+    expected_id = record["control_number"]
 
     response = api_client.get("/literature", headers=headers)
 
@@ -192,10 +201,16 @@ def test_literature_application_json_search_without_login(
     response_data_hits = response_data["hits"]["hits"]
     response_data_hits_len = len(response_data_hits)
     response_data_hits_metadata = response_data_hits[0]["metadata"]
+    response_data_hits_id = response_data_hits[0]["id"]
+    response_data_hits_created = response_data_hits[0]["created"]
+    response_data_hits_updated = response_data_hits[0]["updated"]
 
     assert expected_status_code == response_status_code
     assert expected_result_len == response_data_hits_len
-    assert expected_result == response_data_hits_metadata
+    assert expected_metadata == response_data_hits_metadata
+    assert expected_id == response_data_hits_id
+    assert response_data_hits_created is not None
+    assert response_data_hits_updated is not None
 
 
 def test_literature_application_json_search_with_cataloger_login(
@@ -281,6 +296,7 @@ def test_literature_json_ui_v1_response(api_client, db, create_record):
 
     expected_status_code = 200
     expected_uuid = str(record.id)
+    expected_id = record["control_number"]
     expected_result_metadata = {
         "control_number": record_control_number,
         "document_type": ["article"],
@@ -292,10 +308,16 @@ def test_literature_json_ui_v1_response(api_client, db, create_record):
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
     response_data_uuid = response_data["uuid"]
+    response_data_id = response_data["id"]
+    response_data_created = response_data["created"]
+    response_data_updated = response_data["updated"]
 
     assert expected_status_code == response_status_code
     assert expected_result_metadata == response_data_metadata
     assert expected_uuid == response_data_uuid
+    assert expected_id == response_data_id
+    assert response_data_created is not None
+    assert response_data_updated is not None
 
 
 def test_literature_json_ui_v1_response_cataloger(api_client, db, create_record):
@@ -327,6 +349,7 @@ def test_literature_json_ui_v1_response_search(api_client, db, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit")
 
+    expected_id = record["control_number"]
     expected_status_code = 200
     expected_title = record["titles"][0]["title"]
 
@@ -336,11 +359,18 @@ def test_literature_json_ui_v1_response_search(api_client, db, create_record):
 
     assert response_data["hits"]["total"] == 1
 
-    expected_data_hits = response_data["hits"]["hits"][0]["metadata"]
+    response_data_hits = response_data["hits"]["hits"]
+    response_data_metadata = response_data_hits[0]["metadata"]
+    response_data_hits_id = response_data_hits[0]["id"]
+    response_data_hits_created = response_data_hits[0]["created"]
+    response_data_hits_updated = response_data_hits[0]["updated"]
 
     assert expected_status_code == response_status_code
-    assert expected_title == expected_data_hits["titles"][0]["title"]
-    assert "can_edit" not in expected_data_hits
+    assert expected_title == response_data_metadata["titles"][0]["title"]
+    assert "can_edit" not in response_data_metadata
+    assert expected_id == response_data_hits_id
+    assert response_data_hits_created is not None
+    assert response_data_hits_updated is not None
 
 
 def test_literature_json_ui_v1_response_search_cataloger_can_edit_flag(
@@ -476,7 +506,8 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_result = {
+    expected_id = record_control_number
+    expected_metadata = {
         "advisors": [
             {
                 "degree_type": "other",
@@ -542,7 +573,10 @@ def test_authors_json_v1_response(api_client, db, create_record_factory, datadir
     response_data = json.loads(response.data)
 
     assert expected_status_code == response_status_code
-    assert expected_result == response_data["metadata"]
+    assert expected_metadata == response_data["metadata"]
+    assert expected_id == response_data["id"]
+    assert response_data["created"] is not None
+    assert response_data["updated"] is not None
 
 
 def test_authors_application_json_v1_response_without_login(
@@ -653,7 +687,7 @@ def test_authors_default__only_control_number_json_v1_response(
 
 
 def test_authors_default_json_v1_response_search(
-    api_client, db, create_record_factory, datadir
+    api_client, db, create_record, datadir
 ):
     headers = {"Accept": "application/json"}
 
@@ -669,26 +703,33 @@ def test_authors_default_json_v1_response_search(
         ],
     }
 
-    record = create_record_factory("aut", data=data, with_indexing=True)
-    record_control_number = record.json["control_number"]
+    record = create_record("aut", data=data)
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = {
+    expected_metadata = {
         "$schema": "https://inspire/schemas/records/authors.json",
         "control_number": record_control_number,
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
         "email_addresses": [{"value": "public@urhan.ch"}],
     }
-    response = api_client.get("/authors".format(record_control_number), headers=headers)
+    expected_id = record_control_number
+    response = api_client.get("/authors", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_hits = response_data["hits"]["hits"]
     response_data_hits_metadata = response_data_hits[0]["metadata"]
+    response_data_hits_id = response_data_hits[0]["id"]
+    response_data_hits_created = response_data_hits[0]["created"]
+    response_data_hits_updated = response_data_hits[0]["updated"]
 
     assert expected_status_code == response_status_code
-    assert expected_result == response_data_hits_metadata
+    assert expected_metadata == response_data_hits_metadata
+    assert expected_id == response_data_hits_id
+    assert response_data_hits_created is not None
+    assert response_data_hits_updated is not None
 
 
 def test_authors_json_v1_response_search_does_not_have_sort_options(
