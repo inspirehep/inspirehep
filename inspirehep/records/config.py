@@ -503,6 +503,8 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
         "_ui_display",
         # we need this for the record fetcher
         "control_number",
+        "_created",
+        "_updated",
     ]
 }
 LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {"application/json": ["_ui_display"]}
