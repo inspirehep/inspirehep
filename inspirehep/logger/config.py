@@ -7,6 +7,8 @@
 
 from logging.config import dictConfig
 
+# Sentry
+# ======
 SENTRY_DSN = None
 """
 The DSN tells the SDK where to send the events to.
@@ -17,6 +19,14 @@ SENTRY_SEND_DEFAULT_PII = False
 If this flag is enabled, certain personally identifiable information is added by active integrations.
 Without this flag they are never added to the event, to begin with.
 """
+
+# Prometheus
+# ==========
+PROMETHEUS_ENABLE_EXPORTER_FLASK = False
+"""
+Enable Flask metrics, using https://github.com/rycus86/prometheus_flask_exporter
+"""
+
 
 # Configuration for logging, deafault level is ``INFO``
 dictConfig(
