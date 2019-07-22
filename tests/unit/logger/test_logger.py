@@ -11,13 +11,6 @@ from flask import Flask
 from inspirehep.logger import InspireLogger
 
 
-def test_ext_without_dsn():
-    app = Flask("testapp")
-    ext = InspireLogger(app)
-
-    assert "inspirehep-logger" not in app.extensions
-
-
 @mock.patch("inspirehep.logger.ext.sentry_sdk.init")
 def test_ext_with_dsn(mock_sentry_sdk):
     SENTRY_DSN = "TEST_DSN_URL_FOR_SENTRY"
@@ -27,7 +20,42 @@ def test_ext_with_dsn(mock_sentry_sdk):
     app.config.update(
         {"SENTRY_DSN": SENTRY_DSN, "SENTRY_SEND_DEFAULT_PII": SENTRY_SEND_DEFAULT_PII}
     )
-    ext = InspireLogger(app)
-
-    assert "inspirehep-logger" in app.extensions
+    InspireLogger(app)
     mock_sentry_sdk.assert_called_once()
+
+
+@mock.patch("inspirehep.logger.ext.sentry_sdk.init")
+def test_ext_without_dsn(mock_sentry_sdk):
+    SENTRY_DSN = None
+    SENTRY_SEND_DEFAULT_PII = True
+
+    app = Flask("testapp")
+    app.config.update(
+        {"SENTRY_DSN": SENTRY_DSN, "SENTRY_SEND_DEFAULT_PII": SENTRY_SEND_DEFAULT_PII}
+    )
+    InspireLogger(app)
+    mock_sentry_sdk.assert_not_called()
+
+
+@mock.patch("inspirehep.logger.ext.PrometheusMetrics.init_app")
+def test_ext_with_prometheus_flask_metrics(mock_prometheus_metrics):
+    PROMETHEUS_ENABLE_EXPORTER_FLASK = True
+
+    app = Flask("testapp")
+    app.config.update(
+        {"PROMETHEUS_ENABLE_EXPORTER_FLASK": PROMETHEUS_ENABLE_EXPORTER_FLASK}
+    )
+    InspireLogger(app)
+    mock_prometheus_metrics.assert_called_once()
+
+
+@mock.patch("inspirehep.logger.ext.PrometheusMetrics.init_app")
+def test_ext_without_prometheus_flask_metrics(mock_prometheus_metrics):
+    PROMETHEUS_ENABLE_EXPORTER_FLASK = False
+
+    app = Flask("testapp")
+    app.config.update(
+        {"PROMETHEUS_ENABLE_EXPORTER_FLASK": PROMETHEUS_ENABLE_EXPORTER_FLASK}
+    )
+    InspireLogger(app)
+    mock_prometheus_metrics.assert_not_called()

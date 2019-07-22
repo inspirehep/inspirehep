@@ -11,25 +11,9 @@ from flask import Flask
 from inspirehep.logger import InspireLogger
 
 
-def test_ext_without_dsn():
+def test_ext():
     """Test extension initialization."""
     app = Flask("testapp")
-    ext = InspireLogger(app)
-
-    assert "inspirehep-logger" not in app.extensions
-
-
-@mock.patch("inspirehep.logger.ext.sentry_sdk.init")
-def test_ext_with_dsn(mock_sentry_sdk):
-    """Test extension initialization."""
-    SENTRY_DSN = "TEST_DSN_URL_FOR_SENTRY"
-    SENTRY_SEND_DEFAULT_PII = True
-
-    app = Flask("testapp")
-    app.config.update(
-        {"SENTRY_DSN": SENTRY_DSN, "SENTRY_SEND_DEFAULT_PII": SENTRY_SEND_DEFAULT_PII}
-    )
-    ext = InspireLogger(app)
+    InspireLogger(app)
 
     assert "inspirehep-logger" in app.extensions
-    mock_sentry_sdk.assert_called_once()
