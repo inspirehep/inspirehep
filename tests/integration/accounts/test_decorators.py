@@ -8,7 +8,7 @@
 """INSPIRE module that adds more fun to the platform."""
 
 import pytest
-from mock import Mock, PropertyMock, patch
+from mock import Mock, patch
 from werkzeug.exceptions import Unauthorized
 
 from inspirehep.accounts.decorators import login_required_with_roles

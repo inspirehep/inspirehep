@@ -26,17 +26,12 @@ import os
 import mock
 import pkg_resources
 import pytest
-from elasticsearch import NotFoundError
-from helpers.factories.models.records import RecordMetadataFactory
-from inspire_schemas.readers import LiteratureReader
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
-from invenio_search import current_search_client as es
 
 from inspirehep.migrator.tasks import migrate_and_insert_record
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.search.api import LiteratureSearch
 
 
 def override_config(**kwargs):

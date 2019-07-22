@@ -7,7 +7,7 @@
 
 import json
 
-from marshmallow import Schema, fields, missing
+from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.fields import NonHiddenNested, NonHiddenRaw
 

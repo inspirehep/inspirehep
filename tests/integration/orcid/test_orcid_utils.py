@@ -34,7 +34,7 @@ from celery.exceptions import MaxRetriesExceededError, TimeLimitExceeded
 from inspire_dojson.utils import get_record_ref
 from inspire_schemas.api import validate
 from invenio_pidstore.errors import PIDAlreadyExists
-from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
+from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.orcid.utils import (
     RetryMixin,

@@ -5,7 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import mock
-import pytest
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import (
@@ -19,7 +18,6 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
-from inspirehep.records.marshmallow.base import RecordBaseSchema
 from inspirehep.records.marshmallow.conferences import (
     ConferencesMetadataRawFieldsSchemaV1,
 )

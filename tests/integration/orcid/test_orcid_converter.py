@@ -25,7 +25,6 @@ import os
 
 import mock
 import pkg_resources
-import pytest
 from lxml import etree
 
 from inspirehep.orcid.cache import _OrcidHasher

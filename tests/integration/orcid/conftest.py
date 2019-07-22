@@ -22,11 +22,7 @@
 
 from __future__ import absolute_import, division, print_function
 
-import os
-import sys
-
 import pytest
-from flask import current_app
 
 IS_VCR_ENABLED = True
 IS_VCR_EPISODE_OR_ERROR = True  # False to record new cassettes.

@@ -6,7 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
-from inspire_schemas.api import load_schema, validate
 
 from inspirehep.records.api import InstitutionsRecord
 from inspirehep.records.marshmallow.institutions import (
