@@ -7,8 +7,6 @@
 
 import uuid
 
-import pytest
-
 from inspirehep.pidstore.minters.base import Minter
 
 

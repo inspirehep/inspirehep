@@ -14,7 +14,6 @@ from functools import partial
 import pytest
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
-from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value
 from invenio_db import db

@@ -8,7 +8,6 @@
 from datetime import datetime
 from unittest.mock import Mock
 
-import pytest
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import (

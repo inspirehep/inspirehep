@@ -6,10 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import mock
-import pytest
 from flask import Flask
-from sentry_sdk.integrations.celery import CeleryIntegration
-from sentry_sdk.integrations.flask import FlaskIntegration
 
 from inspirehep.logger import InspireLogger
 

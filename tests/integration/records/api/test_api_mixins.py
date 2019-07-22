@@ -20,7 +20,6 @@ from invenio_records.errors import MissingModelError
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.api.mixins import FilesMixin
 from inspirehep.records.fixtures import init_storage_path
 
 

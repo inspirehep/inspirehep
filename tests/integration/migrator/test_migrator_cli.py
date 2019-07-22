@@ -11,7 +11,6 @@ import os
 import pkg_resources
 import pytest
 from flask import current_app
-from invenio_db import db
 from mock import patch
 
 from inspirehep.migrator.cli import migrate
@@ -207,12 +206,11 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
 
 
 @patch(
-    'inspirehep.migrator.cli.GracefulKiller.kill_now',
-    side_effect=(False, False, True)
+    "inspirehep.migrator.cli.GracefulKiller.kill_now", side_effect=(False, False, True)
 )
-@patch('inspirehep.migrator.cli.continuous_migration')
+@patch("inspirehep.migrator.cli.continuous_migration")
 def test_migrate_continuously(mock_migration, mock_handler, base_app, app_cli_runner):
-    no_sleep_config = {'MIGRATION_POLLING_SLEEP': 0}
+    no_sleep_config = {"MIGRATION_POLLING_SLEEP": 0}
 
     with patch.dict(base_app.config, no_sleep_config):
         result = app_cli_runner.invoke(migrate, ["continuously"])

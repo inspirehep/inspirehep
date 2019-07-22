@@ -5,19 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import os
 import time
 
-import pkg_resources
 import pytest
 from elasticsearch import TransportError
 from flask_sqlalchemy import models_committed
 from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
-from invenio_records.models import RecordMetadata
-from invenio_search import current_search_client as es
-from mock import patch
 
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (

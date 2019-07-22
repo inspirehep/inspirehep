@@ -6,15 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 import os
-import time
 
 import pkg_resources
 import pytest
-from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
-from invenio_records.models import RecordMetadata
 from mock import patch
 
 from inspirehep.migrator.models import LegacyRecordsMirror
@@ -29,7 +26,6 @@ from inspirehep.migrator.tasks import (
     recalculate_citations,
 )
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.models import RecordCitations
 from inspirehep.search.api import LiteratureSearch
 
 
