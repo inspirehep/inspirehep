@@ -29,6 +29,36 @@ def test_bibtex(api_client, db, es, create_record_factory):
     assert expected_result == response_data
 
 
+def test_bibtex_returns_all_expected_fields(api_client, db, es, create_record_factory):
+    headers = {"Accept": "application/x-bibtex"}
+    data = {
+        "_collections": ["Literature"],
+        "authors": [
+            {"full_name": "Smith, John", "inspire_roles": ["editor"]},
+            {"full_name": "Rossi, Maria", "inspire_roles": ["author"]},
+        ],
+        "control_number": 637275237,
+        "titles": [{"title": "This is a title."}],
+        "document_type": ["conference paper"],
+        "texkeys": ["Smith:2019abc"],
+    }
+    record = create_record_factory(
+        "lit", data=data, with_indexing=True, with_validation=True
+    )
+    record_control_number = record.json["control_number"]
+
+    expected_status_code = 200
+    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "This is a title.",\n    title = "This is a title."\n}\n'
+    response = api_client.get(
+        "/literature/{}".format(record_control_number), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
 def test_bibtex_search(api_client, db, es, create_record_factory):
     headers = {"Accept": "application/x-bibtex"}
     data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}

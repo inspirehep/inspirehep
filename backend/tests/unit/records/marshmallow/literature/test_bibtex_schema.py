@@ -12,29 +12,35 @@ from inspire_schemas.api import load_schema, validate
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
 
-def test_get_author_by_role():
+def test_get_authors_with_role_author():
     record = {
+        "document_type": ["article"],
         "authors": [
             {"full_name": "Kiritsis, Elias", "inspire_roles": ["editor"]},
             {"full_name": "Nitti, Francesco", "inspire_roles": ["author"]},
             {"full_name": "Pimenta, Leandro Silva"},
-        ]
+        ],
     }
     expected = ["Nitti, Francesco", "Pimenta, Leandro Silva"]
-    result = BibTexCommonSchema.get_authors_with_role(record["authors"], "author")
-    assert expected == result
+    schema = BibTexCommonSchema()
+    result = schema.dump(record).data
+
+    assert expected == result["authors_with_role_author"]
 
 
-def test_get_editor_by_role():
+def test_get_authors_with_role_editor():
     record = {
+        "document_type": ["article"],
         "authors": [
             {"full_name": "Kiritsis, Elias", "inspire_roles": ["editor"]},
             {"full_name": "Nitti, Francesco", "inspire_roles": ["author"]},
-        ]
+        ],
     }
     expected = ["Kiritsis, Elias"]
-    result = BibTexCommonSchema.get_authors_with_role(record.get("authors"), "editor")
-    assert expected == result
+    schema = BibTexCommonSchema()
+    result = schema.dump(record).data
+
+    assert expected == result["authors_with_role_editor"]
 
 
 def test_get_collaboration():

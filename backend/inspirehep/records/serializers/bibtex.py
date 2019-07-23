@@ -25,9 +25,8 @@ class BibtexWriter(Writer):
 
 class BibTexSerializer:
 
-    COMMON_FIELDS_FOR_ENTRIES = [
+    COMMON_FIELDS_FOR_ENTRIES = {
         "key",
-        "SLACcitation",
         "archivePrefix",
         "collaboration",
         "doi",
@@ -38,12 +37,12 @@ class BibTexSerializer:
         "reportNumber",
         "title",
         "year",
-    ]
+    }
 
     FIELDS_FOR_ENTRY_TYPE = {
-        "techreport": ["author", "number", "address", "type", "institution"],
-        "phdthesis": ["school", "address", "type", "author"],
-        "inproceedings": [
+        "techreport": {"author", "number", "address", "type", "institution"},
+        "phdthesis": {"school", "address", "type", "author"},
+        "inproceedings": {
             "publisher",
             "author",
             "series",
@@ -54,10 +53,10 @@ class BibTexSerializer:
             "address",
             "organization",
             "pages",
-        ],
-        "misc": ["howpublished", "author"],
-        "mastersthesis": ["school", "address", "type", "author"],
-        "proceedings": [
+        },
+        "misc": {"howpublished", "author"},
+        "mastersthesis": {"school", "address", "type", "author"},
+        "proceedings": {
             "publisher",
             "series",
             "number",
@@ -66,8 +65,8 @@ class BibTexSerializer:
             "address",
             "organization",
             "pages",
-        ],
-        "book": [
+        },
+        "book": {
             "publisher",
             "isbn",
             "author",
@@ -77,8 +76,8 @@ class BibTexSerializer:
             "edition",
             "editor",
             "address",
-        ],
-        "inbook": [
+        },
+        "inbook": {
             "chapter",
             "publisher",
             "author",
@@ -90,8 +89,8 @@ class BibTexSerializer:
             "address",
             "type",
             "pages",
-        ],
-        "article": ["author", "journal", "number", "volume", "pages"],
+        },
+        "article": {"author", "journal", "number", "volume", "pages"},
     }
 
     def __init__(self, schema_class=BibTexCommonSchema):
@@ -103,29 +102,22 @@ class BibTexSerializer:
         data = self.schema_class.dump(record).data
         doc_type = data.pop("doc_type", None)
         texkey = data.pop("texkey", None)
+        authors = [Person(person) for person in data.pop("authors_with_role_author")]
+        editors = [Person(person) for person in data.pop("authors_with_role_editor")]
+
         fields = (
             self.COMMON_FIELDS_FOR_ENTRIES
-            + self.FIELDS_FOR_ENTRY_TYPE[bibtex_document_type]
+            | self.FIELDS_FOR_ENTRY_TYPE[bibtex_document_type]
         )
-
         template_data = [
             (key, str(value)) for key, value in data.items() if value and key in fields
         ]
         template_data = sorted(template_data, key=lambda x: x[0])
 
-        authors_with_role_author = BibTexCommonSchema.get_authors_with_role(
-            data.get("authors", []), "author"
-        )
-        persons = [Person(person) for person in authors_with_role_author]
-
-        authors_with_role_editor = BibTexCommonSchema.get_authors_with_role(
-            data.get("authors", []), "author"
-        )
-        editors = [Person(person) for person in authors_with_role_editor]
         data_entry = Entry(
-            doc_type, template_data, persons={"author": persons, "editor": editors}
+            doc_type, template_data, persons={"author": authors, "editor": editors}
         )
-        data_bibtex = [texkey, data_entry]
+        data_bibtex = (texkey, data_entry)
         return data_bibtex
 
     def create_bibliography(self, record_list):

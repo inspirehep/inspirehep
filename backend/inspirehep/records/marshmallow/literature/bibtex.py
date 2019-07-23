@@ -21,6 +21,8 @@ class BibTexCommonSchema(Schema):
     address = fields.Method("get_address")
     archivePrefix = fields.Method("get_archive_prefix")
     author = fields.Method("get_author")
+    authors_with_role_author = fields.Method("get_authors_with_role_author")
+    authors_with_role_editor = fields.Method("get_authors_with_role_editor")
     booktitle = fields.Method("get_book_title")
     collaboration = fields.Method("get_collaboration")
     doc_type = fields.Raw()
@@ -115,6 +117,12 @@ class BibTexCommonSchema(Schema):
             return {}
 
         return sorted(only_publications, key=len, reverse=True)[0]
+
+    def get_authors_with_role_author(self, data):
+        return self.get_authors_with_role(data.get("authors", []), "author")
+
+    def get_authors_with_role_editor(self, data):
+        return self.get_authors_with_role(data.get("authors", []), "editor")
 
     def get_eprint(self, data):
         return get_value(data, "arxiv_eprints.value[0]", default=None)
