@@ -49,6 +49,8 @@ class InspireLogger:
         if not enable_exporter_flask:
             LOGGER.debug("Prometheus Flask exporter is not enabled.")
             return
-        metrics_flask = PrometheusMetrics(app=None)
+
+        prefix = app.name
+        metrics_flask = PrometheusMetrics(app=None, defaults_prefix=prefix)
         metrics_flask.init_app(app)
-        LOGGER.debug("Prometheus Flask exporter is initialized.")
+        LOGGER.debug(f"Prometheus Flask exporter is initialized with prefix {prefix}.")
