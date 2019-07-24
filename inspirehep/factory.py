@@ -12,7 +12,7 @@ from invenio_config import create_config_loader
 
 from . import config
 
-env_prefix = 'INVENIO'
+env_prefix = "INVENIO"
 
 
 def config_loader(app, **kwargs_config):
@@ -23,11 +23,11 @@ def config_loader(app, **kwargs_config):
 
 
 create_api = create_app_factory(
-    'invenio',
+    "inspirehep_api",
     config_loader=config_loader,
-    blueprint_entry_points=['invenio_base.api_blueprints'],
-    extension_entry_points=['invenio_base.api_apps'],
-    converter_entry_points=['invenio_base.api_converters'],
+    blueprint_entry_points=["invenio_base.api_blueprints"],
+    extension_entry_points=["invenio_base.api_apps"],
+    converter_entry_points=["invenio_base.api_converters"],
     wsgi_factory=wsgi_proxyfix(),
     instance_path=instance_path,
     app_class=app_class(),
