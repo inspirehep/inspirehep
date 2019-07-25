@@ -9,10 +9,8 @@ import json
 
 from helpers.providers.faker import faker
 
-from inspirehep.records.marshmallow.literature import LiteratureSearchUISchemaV1
-from inspirehep.records.marshmallow.literature.base import (
-    LiteratureMetadataRawPublicSchemaV1,
-)
+from inspirehep.records.marshmallow.literature import LiteratureListWrappedSchema
+from inspirehep.records.marshmallow.literature.base import LiteratureRawSchema
 
 
 def test_literature_related_records():
@@ -26,7 +24,7 @@ def test_literature_related_records():
         ]
     }
     data_record = faker.record("lit", data=data)
-    result = LiteratureMetadataRawPublicSchemaV1().dump(data).data
+    result = LiteratureRawSchema().dump(data).data
     assert data["related_records"] == result["related_records"]
 
 
@@ -35,7 +33,7 @@ def test_literature_ui_schema():
     data_record_json = json.dumps(data_record)
     data = {"metadata": {"_ui_display": data_record_json}}
     expected_result = {"metadata": data_record}
-    result = LiteratureSearchUISchemaV1().dump(data).data
+    result = LiteratureListWrappedSchema().dump(data).data
 
     assert expected_result == result
 
@@ -45,7 +43,7 @@ def test_literature_ui_schema_missing_ui_display_field():
     data_record_json = json.dumps(data_record)
     data = {"metadata": {"NOT_A_UI_DISPLAY_FIELD": data_record_json}}
     expected_result = {"metadata": {}}
-    result = LiteratureSearchUISchemaV1().dump(data).data
+    result = LiteratureListWrappedSchema().dump(data).data
 
     assert expected_result == result
 
@@ -53,6 +51,6 @@ def test_literature_ui_schema_missing_ui_display_field():
 def test_literature_ui_schema_with_invalid_ui_display():
     data = {"metadata": {"_ui_display": "foo"}}
     expected_result = {"metadata": {}}
-    result = LiteratureSearchUISchemaV1().dump(data).data
+    result = LiteratureListWrappedSchema().dump(data).data
 
     assert expected_result == result

@@ -61,7 +61,10 @@ def test_experiments_record_search_results(api_client, db, es_clear, create_reco
     record = create_record("exp")
 
     expected_metadata = record.serialize_for_es()
+    expected_metadata.pop("_created")
+    expected_metadata.pop("_updated")
 
     result = api_client.get("/experiments")
+
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata

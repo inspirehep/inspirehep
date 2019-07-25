@@ -37,7 +37,7 @@ class InspireRecord(Record):
 
     pidstore_handler = None
     pid_type = None
-    es_serializer = None
+    es_serializer = None  # TODO: call es_schema_class
 
     @staticmethod
     def strip_empty_values(data):

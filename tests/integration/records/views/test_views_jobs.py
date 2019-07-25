@@ -189,19 +189,14 @@ def test_jobs_record_search_results_returns_open_job_to_non_superuser(
     result = api_client.get("/jobs")
 
     expected_metadata = record.serialize_for_es()
+    expected_metadata.pop("_updated")
+    expected_metadata.pop("_created")
     expected_results = 1
 
     assert result.json["hits"]["total"] == expected_results
 
     result_metadata = result.json["hits"]["hits"][0]["metadata"]
-    result_created = result.json["hits"]["hits"][0]["created"]
-    result_updated = result.json["hits"]["hits"][0]["updated"]
 
-    expected_metadata_created = expected_metadata.pop("_created")
-    expected_metadata_updated = expected_metadata.pop("_updated")
-
-    assert expected_metadata_created == result_created
-    assert expected_metadata_updated == result_updated
     assert expected_metadata == result_metadata
     assert expected_results == result.json["hits"]["total"]
 
@@ -217,19 +212,14 @@ def test_jobs_record_search_results_returns_pending_job_to_superuser(
     result = api_client.get("/jobs")
 
     expected_metadata = record.serialize_for_es()
+    expected_metadata.pop("_updated")
+    expected_metadata.pop("_created")
     expected_results = 1
 
     assert result.json["hits"]["total"] == expected_results
 
     result_metadata = result.json["hits"]["hits"][0]["metadata"]
-    result_created = result.json["hits"]["hits"][0]["created"]
-    result_updated = result.json["hits"]["hits"][0]["updated"]
 
-    expected_metadata_created = expected_metadata.pop("_created")
-    expected_metadata_updated = expected_metadata.pop("_updated")
-
-    assert expected_metadata_created == result_created
-    assert expected_metadata_updated == result_updated
     assert expected_metadata == result_metadata
     assert expected_results == result.json["hits"]["total"]
 

@@ -8,13 +8,11 @@
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import ExperimentsRecord
-from inspirehep.records.marshmallow.experiments import (
-    ExperimentsMetadataRawFieldsSchemaV1,
-)
+from inspirehep.records.marshmallow.experiments import ExperimentsElasticSearchSchema
 
 
 def test_experiment_serializer_should_serialize_whole_basic_record():
-    schema = ExperimentsMetadataRawFieldsSchemaV1()
+    schema = ExperimentsElasticSearchSchema()
     expected_result = {
         "$schema": "http://localhost:5000/schemas/records/experiments.json",
         "_collections": ["Experiments"],
@@ -28,7 +26,7 @@ def test_experiment_serializer_should_serialize_whole_basic_record():
 
 
 def test_experiment_serializer_populates_experiment_suggest():
-    schema = ExperimentsMetadataRawFieldsSchemaV1()
+    schema = ExperimentsElasticSearchSchema()
     data = {
         "accelerator": {"value": "ACC"},
         "collaboration": {"curated_relation": False, "value": "COLLABORATION"},
@@ -80,7 +78,7 @@ def test_experiment_suggest_have_proper_data():
         "institutions": [{"value": "ICN"}],
     }
     record = ExperimentsRecord(faker.record("exp", data))
-    marshmallow_schema = ExperimentsMetadataRawFieldsSchemaV1()
+    marshmallow_schema = ExperimentsElasticSearchSchema()
     result = marshmallow_schema.dump(record).data["experiment_suggest"]
 
     expected = {

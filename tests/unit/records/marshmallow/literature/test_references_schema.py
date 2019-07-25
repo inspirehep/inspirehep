@@ -7,13 +7,11 @@
 
 import json
 
-from inspirehep.records.marshmallow.literature import (
-    LiteratureReferencesMetadataSchemaV1,
-)
+from inspirehep.records.marshmallow.literature import LiteratureReferencesSchema
 
 
 def test_references_schema_without_references():
-    schema = LiteratureReferencesMetadataSchemaV1()
+    schema = LiteratureReferencesSchema()
     record = {"titles": [{"title": "Jessica Jones"}]}
     expected = {"references": []}
     result = json.loads(schema.dumps(record).data)

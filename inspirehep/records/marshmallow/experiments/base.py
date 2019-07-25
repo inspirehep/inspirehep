@@ -5,33 +5,23 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from itertools import chain
-
-from inspire_utils.helpers import force_list
-from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
 
 
-class ExperimentsMetadataRawFieldsSchemaV1(RecordBaseSchema):
-    experiment_suggest = fields.Method("populate_experiment_suggest", dump_only=True)
+class ExperimentsRawSchema(RecordBaseSchema):
+    pass
 
-    def populate_experiment_suggest(self, original_object):
-        experiment_paths = [
-            "accelerator.value",
-            "collaboration.value",
-            "experiment.short_name",
-            "experiment.value",
-            "institutions.value",
-            "legacy_name",
-            "long_name",
-            "name_variants",
-        ]
-        input_values = [
-            str(input_value)
-            for input_value in chain.from_iterable(
-                force_list(original_object.get_value(path)) for path in experiment_paths
-            )
-            if input_value
-        ]
-        return {"input": input_values}
+
+# Fields that are needed to be indexed but exluded from API responses
+FIELDS_TO_EXCLUDE = ["experiment_suggest"]
+
+
+class ExperimentsAdminSchema(ExperimentsRawSchema):
+    class Meta:
+        exclude = FIELDS_TO_EXCLUDE
+
+
+class ExperimentsPublicSchema(ExperimentsRawSchema):
+    class Meta:
+        exclude = FIELDS_TO_EXCLUDE

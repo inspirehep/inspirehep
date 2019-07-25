@@ -7,9 +7,9 @@
 # flake8: noqa
 
 from .base import (
-    AuthorsESEnhancementV1,
-    AuthorsMetadataOnlyControlNumberSchemaV1,
-    AuthorsMetadataRawAdminSchemaV1,
-    AuthorsMetadataRawPublicSchemaV1,
-    AuthorsMetadataUISchemaV1,
+    AuthorsAdminSchema,
+    AuthorsOnlyControlNumberSchema,
+    AuthorsPublicSchema,
 )
+from .es import AuthorsElasticSearchSchema
+from .ui import AuthorsDetailSchema, AuthorsListSchema

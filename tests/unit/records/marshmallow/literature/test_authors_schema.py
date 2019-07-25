@@ -9,11 +9,11 @@ import json
 
 from helpers.providers.faker import faker
 
-from inspirehep.records.marshmallow.literature import LiteratureAuthorsMetadataSchemaV1
+from inspirehep.records.marshmallow.literature import LiteratureAuthorsSchema
 
 
 def test_authors_schema():
-    schema = LiteratureAuthorsMetadataSchemaV1()
+    schema = LiteratureAuthorsSchema()
     authors = [
         {"full_name": "Frank Castle"},
         {"full_name": "Smith, John", "inspire_roles": ["author"]},
@@ -51,7 +51,7 @@ def test_authors_schema():
 
 
 def test_authors_schema_without_authors():
-    schema = LiteratureAuthorsMetadataSchemaV1()
+    schema = LiteratureAuthorsSchema()
 
     collaborations = [{"value": "LHCb"}]
     data = {"collaborations": collaborations}
@@ -63,7 +63,7 @@ def test_authors_schema_without_authors():
 
 
 def test_authors_schema_without_authors_and_collaborations():
-    schema = LiteratureAuthorsMetadataSchemaV1()
+    schema = LiteratureAuthorsSchema()
     data = faker.record("lit")
     expected = {"authors": [], "collaborations": []}
     result = json.loads(schema.dumps(data).data)

@@ -8,12 +8,13 @@ import json
 
 from freezegun import freeze_time
 from invenio_search import current_search_client as es
+from marshmallow import utils
 
 from inspirehep.search.api import AuthorsSearch
 
 
 @freeze_time("2010-12-19")
-def test_index_conference_record(base_app, es_clear, db, datadir, create_record):
+def test_index_author_record(base_app, es_clear, db, datadir, create_record):
     data = json.loads((datadir / "999108.json").read_text())
     record = create_record("aut", data=data)
 
@@ -21,6 +22,8 @@ def test_index_conference_record(base_app, es_clear, db, datadir, create_record)
     expected_metadata = data = json.loads(
         (datadir / "999108_expected.json").read_text()
     )
+    expected_metadata["_created"] = utils.isoformat(record.created)
+    expected_metadata["_updated"] = utils.isoformat(record.updated)
 
     response = es.search("records-authors")
 

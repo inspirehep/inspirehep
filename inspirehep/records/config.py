@@ -74,15 +74,15 @@ LITERATURE.update(
         "search_class": LiteratureSearch,
         "search_index": "records-hep",
         "record_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response",
-            "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_ui_v1_response",
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_response",
+            "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_detail_response",
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response",
             "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_eu",
             "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_response_us",
         },
         "search_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_v1_response_search",
-            "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_ui_v1_response_search",
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_response_search",
+            "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_list_response",
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search",
             # NOTE: the don't work for search results, doesn't make sense to eanble them
             # "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_eu",
@@ -124,7 +124,7 @@ LITERATURE_REFERENCES.update(
         "list_route": "/literature/references/",
         "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/references',
         "record_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_v1_response"
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_response"
         },
         "search_serializers": {
             "application/json": "invenio_records_rest.serializers:json_v1_search"
@@ -140,7 +140,7 @@ LITERATURE_AUTHORS.update(
         "list_route": "/literature/authors/",
         "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/authors',
         "record_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_authors_json_v1_response"
+            "application/json": f"{INSPIRE_SERIALIZERS}:literature_authors_json_response"
         },
         "search_serializers": {
             "application/json": "invenio_records_rest.serializers:json_v1_search"
@@ -172,15 +172,14 @@ AUTHORS.update(
         "search_class": AuthorsSearch,
         "search_index": "records-authors",
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":authors_json_v1_response",
+            "application/json": INSPIRE_SERIALIZERS + ":authors_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":authors_json_ui_v1_response",
+            + ":authors_json_detail_response",
             "application/vnd+inspire.record.control_number+json": INSPIRE_SERIALIZERS
-            + ":authors_control_number_only_json_v1_response",
+            + ":authors_control_number_only_json_response",
         },
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS
-            + ":authors_json_v1_response_search",
+            "application/json": INSPIRE_SERIALIZERS + ":authors_json_response_search",
             "application/vnd+inspire.record.ui+json": "invenio_records_rest.serializers:json_v1_search",
         },
         "suggesters": {
@@ -218,14 +217,14 @@ JOBS.update(
         "record_class": "inspirehep.records.api:JobsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
         "search_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_v1_response_search",
+            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response_search",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_v1_response_search",
+            + ":jobs_json_response_search",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_v1_response",
+            "application/json": INSPIRE_SERIALIZERS + ":jobs_json_response",
             "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
-            + ":jobs_json_v1_response",
+            + ":jobs_json_response",
         },
     }
 )
@@ -258,6 +257,12 @@ JOURNALS.update(
                 "completion": {"field": "title_suggest", "size": 10},
             }
         },
+        "search_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response_search"
+        },
+        "record_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":journals_json_response"
+        },
     }
 )
 
@@ -277,6 +282,13 @@ EXPERIMENTS.update(
                 "_source": ["legacy_name", "control_number", "self"],
                 "completion": {"field": "experiment_suggest"},
             }
+        },
+        "search_serializers": {
+            "application/json": INSPIRE_SERIALIZERS
+            + ":experiments_json_response_search"
+        },
+        "record_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":experiments_json_response"
         },
     }
 )
@@ -339,6 +351,13 @@ INSTITUTIONS.update(
                 "_source": ["legacy_ICN", "control_number", "self"],
                 "completion": {"field": "affiliation_suggest"},
             }
+        },
+        "search_serializers": {
+            "application/json": INSPIRE_SERIALIZERS
+            + ":institutions_json_response_search"
+        },
+        "record_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":institutions_json_response"
         },
     }
 )

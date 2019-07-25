@@ -6,19 +6,19 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspirehep.records.api import JobsRecord
-from inspirehep.records.marshmallow.jobs import JobsMetadataRawFieldsSchemaV1
+from inspirehep.records.marshmallow.jobs.base import JobsRawSchema
 
 
 def test_jobs_serializer_should_serialize_whole_basic_record():
-    schema = JobsMetadataRawFieldsSchemaV1()
+    schema = JobsRawSchema()
     data = {
-        '$schema': 'http://localhost:5000/schemas/records/jobs.json',
-        '_collections': ['Jobs'],
-        'deadline_date': '1996-11-15',
-        'description': 'Join us!',
-        'position': 'staff',
-        'regions': ['Europe'],
-        'status': 'closed'
+        "$schema": "http://localhost:5000/schemas/records/jobs.json",
+        "_collections": ["Jobs"],
+        "deadline_date": "1996-11-15",
+        "description": "Join us!",
+        "position": "staff",
+        "regions": ["Europe"],
+        "status": "closed",
     }
 
     job = JobsRecord(data)

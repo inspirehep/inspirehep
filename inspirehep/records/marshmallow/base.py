@@ -84,6 +84,7 @@ class RecordBaseSchema(Schema):
         return strip_empty_values(data)
 
 
+# TODO: rename to wrap_schema_class_with_metadata
 def wrapSchemaClassWithMetadata(schema):
     class MetadataSchema(EnvelopeSchema):
         metadata = fields.Nested(schema, dump_only=True)
