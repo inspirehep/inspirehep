@@ -65,7 +65,7 @@ class RecordProvider(BaseProvider):
             "deadline_date": fake.date(pattern="%Y-%m-%d", end_datetime=None),
             "position": "staff",
             "regions": ["Europe"],
-            "status": random.choice(["open", "closed", "pending"])
+            "status": random.choice(["open", "closed", "pending"]),
         }
 
     @staticmethod
@@ -129,7 +129,7 @@ class RecordProvider(BaseProvider):
         record_type,
         data=None,
         with_control_number=False,
-        literature_citations=[],
+        literature_citations=[],  # TODO: call `literature_references`
         data_citations=[],
         skip_validation=False,
     ):

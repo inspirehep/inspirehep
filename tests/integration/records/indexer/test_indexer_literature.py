@@ -14,8 +14,10 @@ from inspirehep.search.api import LiteratureSearch
 
 
 def test_index_literature_record(es_clear, db, datadir, create_record):
+
     author_data = json.loads((datadir / "1032336.json").read_text())
     author = create_record("aut", data=author_data)
+
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
 
@@ -33,7 +35,6 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     result_facet_author_name = result.pop("facet_author_name")
     del result["_created"]
     del result["_updated"]
-
     assert response["hits"]["total"] == expected_count
     assert result == expected_metadata
     assert result_ui_display == expected_metadata_ui_display
@@ -62,20 +63,9 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     record._index()
     es_clear.indices.refresh("records-hep")
 
-    expected_records_count = 0
+    expected_total = 0
 
-    record_lit_es = LiteratureSearch().get_record(str(record.id)).execute().hits
-    assert expected_records_count == len(record_lit_es)
+    response = es.search("records-hep")
+    hits_total = response["hits"]["total"]
 
-
-@patch("inspirehep.records.indexer.tasks.process_references_for_record")
-def test_indexer_doesnt_call_process_references_if_not_lit_record(
-    process_references_mock, es_clear, db, datadir, create_record
-):
-    create_record("aut")
-
-    process_references_mock.assert_not_called()
-
-    create_record("lit")
-
-    process_references_mock.call_count == 1
+    assert hits_total == expected_total

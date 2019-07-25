@@ -121,7 +121,7 @@ def citations_by_year():
             "citations_by_year": {
                 "scripted_metric": {
                     "init_script": "params._agg._agg_yearly_cit=[:]",
-                    "map_script": "def years=params._source.citations_by_year; for(element in years){params._agg._agg_yearly_cit[element.year.toString()]=params._agg._agg_yearly_cit.getOrDefault(element.year.toString(), 0)+element.count}",
+                    "map_script": "def years=params._source.citations_by_year != null ? params._source.citations_by_year : [] ; for(element in years){params._agg._agg_yearly_cit[element.year.toString()]=params._agg._agg_yearly_cit.getOrDefault(element.year.toString(), 0)+element.count}",
                     "reduce_script": "def results=[:]; for(result in params._aggs){for(key in result['_agg_yearly_cit'].keySet()){if(result['_agg_yearly_cit'][key] != null){results[key]=results.getOrDefault(key,0)+result['_agg_yearly_cit'][key]}}} return results",
                 }
             }

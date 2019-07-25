@@ -61,7 +61,11 @@ def test_journal_record_search_results(api_client, db, es_clear, create_record):
     record = create_record("jou")
 
     expected_metadata = record.serialize_for_es()
+    expected_metadata.pop("_created")
+    expected_metadata.pop("_updated")
+    expected_metadata.pop("title_suggest")
 
     result = api_client.get("/journals")
+
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata

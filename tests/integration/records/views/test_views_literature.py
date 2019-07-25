@@ -36,7 +36,7 @@ def test_literature_search_application_json_get(
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
         "citation_count": 0,
-        "citations_by_year": [],
+        "author_count": 0,
     }
 
     response = api_client.get("/literature", headers=headers)
@@ -446,7 +446,7 @@ def test_literature_facets_collaboration(api_client, db, create_record, es_clear
     ]
 
     expected_data = deepcopy(data_1)
-    expected_data.update(citation_count=0, citations_by_year=[])
+    expected_data.update(citation_count=0, author_count=0)
 
     assert expected_status_code == response_status_code
     assert expected_collaboration_buckets == response_data_collaboration_buckets
@@ -591,8 +591,11 @@ def test_literature_citation_annual_summary_for_many_records(
     literature1._index()
     literature2._index()
     request_param = {"facet_name": "citations-by-year"}
+
     es_clear.indices.refresh("records-hep")
+
     response = api_client.get(f"literature/facets/?{urlencode(request_param)}")
+
     expected_response = {"value": {"2013": 2, "2012": 1, "2010": 1}}
     assert response.json["aggregations"]["citations_by_year"] == expected_response
 
@@ -643,7 +646,7 @@ def test_literature_search_cataloger_gets_fermilab_collection(
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
         "citation_count": 0,
-        "citations_by_year": [],
+        "author_count": 0,
     }
 
     response = api_client.get("/literature")

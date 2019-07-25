@@ -11,12 +11,12 @@ from marshmallow import Schema
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.base import wrapSchemaClassWithMetadata
 from inspirehep.records.marshmallow.literature import (
-    LiteratureAuthorsMetadataSchemaV1,
-    LiteratureMetadataRawAdminSchemaV1,
-    LiteratureMetadataRawPublicSchemaV1,
-    LiteratureMetadataUISchemaV1,
-    LiteratureReferencesMetadataSchemaV1,
-    LiteratureSearchUISchemaV1,
+    LiteratureAdminSchema,
+    LiteratureAuthorsSchema,
+    LiteratureDetailSchema,
+    LiteratureListWrappedSchema,
+    LiteraturePublicSchema,
+    LiteratureReferencesSchema,
 )
 from inspirehep.records.serializers.response import record_responsify
 from inspirehep.serializers import (
@@ -30,48 +30,42 @@ facets_json = JSONSerializerFacets(Schema)
 facets_json_response_search = search_responsify(facets_json, "application/json")
 
 # Literature
-literature_json_v1 = ConditionalMultiSchemaJSONSerializer(
+literature_json = ConditionalMultiSchemaJSONSerializer(
     [
         (
             lambda _: is_superuser_or_cataloger_logged_in(),
-            wrapSchemaClassWithMetadata(LiteratureMetadataRawAdminSchemaV1),
+            wrapSchemaClassWithMetadata(LiteratureAdminSchema),
         ),
-        (None, wrapSchemaClassWithMetadata(LiteratureMetadataRawPublicSchemaV1)),
+        (None, wrapSchemaClassWithMetadata(LiteraturePublicSchema)),
     ]
 )
 
-literature_json_v1_response = record_responsify(literature_json_v1, "application/json")
-literature_json_v1_response_search = search_responsify(
-    literature_json_v1, "application/json"
-)
+literature_json_response = record_responsify(literature_json, "application/json")
+literature_json_response_search = search_responsify(literature_json, "application/json")
 
-literature_json_ui_v1 = JSONSerializer(
-    wrapSchemaClassWithMetadata(LiteratureMetadataUISchemaV1)
-)
-literature_json_ui_v1_search = JSONSerializer(
-    LiteratureSearchUISchemaV1, index_name="records-hep"
-)
+literature_detail = JSONSerializer(wrapSchemaClassWithMetadata(LiteratureDetailSchema))
+literature_list = JSONSerializer(LiteratureListWrappedSchema, index_name="records-hep")
 
-literature_json_ui_v1_response = record_responsify(
-    literature_json_ui_v1, "application/vnd+inspire.record.ui+json"
+literature_json_detail_response = record_responsify(
+    literature_detail, "application/vnd+inspire.record.ui+json"
 )
-literature_json_ui_v1_response_search = search_responsify(
-    literature_json_ui_v1_search, "application/vnd+inspire.record.ui+json"
+literature_json_list_response = search_responsify(
+    literature_list, "application/vnd+inspire.record.ui+json"
 )
 
 # Literature Authors
-literature_authors_json_v1 = JSONSerializer(
-    wrapSchemaClassWithMetadata(LiteratureAuthorsMetadataSchemaV1)
+literature_authors_json = JSONSerializer(
+    wrapSchemaClassWithMetadata(LiteratureAuthorsSchema)
 )
 
-literature_authors_json_v1_response = record_responsify(
-    literature_authors_json_v1, "application/json"
+literature_authors_json_response = record_responsify(
+    literature_authors_json, "application/json"
 )
 # Literature References
-literature_references_json_v1 = JSONSerializer(
-    wrapSchemaClassWithMetadata(LiteratureReferencesMetadataSchemaV1)
+literature_references_json = JSONSerializer(
+    wrapSchemaClassWithMetadata(LiteratureReferencesSchema)
 )
 
-literature_references_json_v1_response = record_responsify(
-    literature_references_json_v1, "application/json"
+literature_references_json_response = record_responsify(
+    literature_references_json, "application/json"
 )

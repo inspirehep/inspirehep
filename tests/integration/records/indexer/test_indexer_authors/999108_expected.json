@@ -134,6 +134,6 @@
     "preferred_name": "Juan Martin Maldacena",
     "value": "Maldacena, Juan Martin"
   },
-  "_created": "1999-05-04T00:00:00+00:00",
+  "self": { "$ref": "http://labs.inspirehep.net/api/authors/999108" },
   "deleted": false
 }

@@ -2,7 +2,6 @@
   "$schema": "https://labs.inspirehep.net/schemas/records/journals.json",
   "_collections": ["Journals"],
   "control_number": 1212042,
-  "earliest_date": "2013-01-18",
   "journal_title": {
     "title": "Physics of Life Reviews"
   },

@@ -10,11 +10,11 @@ from copy import deepcopy
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import JournalsRecord
-from inspirehep.records.marshmallow.journals import JournalsMetadataRawFieldsSchemaV1
+from inspirehep.records.marshmallow.journals import JournalsElasticSearchSchema
 
 
 def test_journals_serializer_should_serialize_whole_basic_record():
-    schema = JournalsMetadataRawFieldsSchemaV1()
+    schema = JournalsElasticSearchSchema()
 
     data = faker.record("jou")
     expected_result = deepcopy(data)
@@ -28,7 +28,7 @@ def test_journals_serializer_should_serialize_whole_basic_record():
 
 
 def test_journals_serializer_populates_title_suggest():
-    schema = JournalsMetadataRawFieldsSchemaV1()
+    schema = JournalsElasticSearchSchema()
     data = {"title_variants": ["title_variant1", "title_variant2"]}
 
     data = faker.record("jou", data)
@@ -55,7 +55,7 @@ def test_populate_title_suggest_with_all_inputs():
         "title_variants": ["JOURNAL OF HIGH ENERGY PHYSICS"],
     }
     record = JournalsRecord(faker.record("jou", data))
-    marshmallow_schema = JournalsMetadataRawFieldsSchemaV1()
+    marshmallow_schema = JournalsElasticSearchSchema()
     result = marshmallow_schema.dump(record).data["title_suggest"]
     expected = {
         "input": [

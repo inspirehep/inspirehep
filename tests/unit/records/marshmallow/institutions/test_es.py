@@ -8,13 +8,11 @@
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import InstitutionsRecord
-from inspirehep.records.marshmallow.institutions import (
-    InstitutionsMetadataRawFieldsSchemaV1,
-)
+from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
 
 
 def test_institutions_serializer_should_serialize_whole_basic_record():
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
 
     expected_result = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
@@ -28,7 +26,7 @@ def test_institutions_serializer_should_serialize_whole_basic_record():
 
 
 def test_institutions_serializer_populates_affiliation_suggest():
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     data = {
         "ICN": ["ICN_VALUE"],
         "legacy_ICN": "Legacy icn value",
@@ -63,7 +61,7 @@ def test_populate_affiliation_suggest_from_icn():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {"input": ["CERN, Geneva", "CERN"]}
@@ -79,7 +77,7 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_acronym():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {"input": ["CERN", "CERN"]}
@@ -97,7 +95,7 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_name():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {"input": ["European Organization for Nuclear Research", "CERN"]}
@@ -112,7 +110,7 @@ def test_populate_affiliation_suggest_from_legacy_icn():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {"input": ["CERN"]}
@@ -128,7 +126,7 @@ def test_populate_affiliation_suggest_from_name_variants():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {"input": ["CERN", "Centre Européen de Recherches Nucléaires"]}
@@ -149,7 +147,7 @@ def test_populate_affiliation_suggest_from_name_variants_with_umr():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {
@@ -175,7 +173,7 @@ def test_populate_affiliation_suggest_from_postal_code():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {"input": ["CERN", "1211"]}
@@ -191,7 +189,7 @@ def test_populate_affiliation_suggest_to_ref():
     }
     record = InstitutionsRecord(faker.record("ins", data))
 
-    schema = InstitutionsMetadataRawFieldsSchemaV1()
+    schema = InstitutionsElasticSearchSchema()
     result = schema.dump(record).data["affiliation_suggest"]
 
     expected = {"input": ["CERN"]}

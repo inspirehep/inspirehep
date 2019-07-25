@@ -11,7 +11,7 @@ from copy import deepcopy
 import mock
 from helpers.providers.faker import faker
 
-from inspirehep.records.marshmallow.literature import LiteratureESEnhancementV1
+from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
 
 
 @mock.patch(
@@ -21,7 +21,7 @@ from inspirehep.records.marshmallow.literature import LiteratureESEnhancementV1
     )
 )
 def test_abstract_source_full(mockget_linked_records_from_dict_field):
-    schema = LiteratureESEnhancementV1
+    schema = LiteratureElasticSearchSchema
     data = {
         "abstracts": [
             {
@@ -51,7 +51,7 @@ def test_abstract_source_full(mockget_linked_records_from_dict_field):
     )
 )
 def test_abstract_source_one_missing_source(mockget_linked_records_from_dict_field):
-    schema = LiteratureESEnhancementV1
+    schema = LiteratureElasticSearchSchema
     data = {
         "abstracts": [
             {
@@ -79,7 +79,7 @@ def test_abstract_source_one_missing_source(mockget_linked_records_from_dict_fie
     )
 )
 def test_abstract_source_missing(mockget_linked_records_from_dict_field):
-    schema = LiteratureESEnhancementV1
+    schema = LiteratureElasticSearchSchema
 
     record = faker.record("lit")
     result = json.loads(schema().dumps(record).data)
@@ -93,7 +93,7 @@ def test_abstract_source_missing(mockget_linked_records_from_dict_field):
     )
 )
 def test_abstract_source_one_only(mockget_linked_records_from_dict_field):
-    schema = LiteratureESEnhancementV1
+    schema = LiteratureElasticSearchSchema
     data = {
         "abstracts": [
             {

@@ -31,7 +31,7 @@ from inspirehep.records.errors import (
     ImportParsingError,
     UnknownImportIdentifierError,
 )
-from inspirehep.records.marshmallow.literature import LiteratureESEnhancementV1
+from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
 
 from .base import InspireRecord
 
@@ -52,7 +52,7 @@ CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
     """Literature Record."""
 
-    es_serializer = LiteratureESEnhancementV1
+    es_serializer = LiteratureElasticSearchSchema
     pid_type = "lit"
     pidstore_handler = PidStoreLiterature
 

@@ -9,6 +9,7 @@ import json
 from copy import deepcopy
 
 from invenio_search import current_search_client as es
+from marshmallow import utils
 
 from inspirehep.search.api import InstitutionsSearch
 
@@ -30,6 +31,9 @@ def test_index_institutions_record(base_app, es_clear, db, datadir, create_recor
             "1211",
         ]
     }
+    expected_metadata["_created"] = utils.isoformat(record.created)
+    expected_metadata["_updated"] = utils.isoformat(record.updated)
+
     response = es.search("records-institutions")
 
     assert response["hits"]["total"] == expected_count

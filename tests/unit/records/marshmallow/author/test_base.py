@@ -10,167 +10,62 @@ import json
 from helpers.providers.faker import faker
 
 from inspirehep.records.marshmallow.authors import (
-    AuthorsMetadataOnlyControlNumberSchemaV1,
-    AuthorsMetadataUISchemaV1,
+    AuthorsAdminSchema,
+    AuthorsOnlyControlNumberSchema,
+    AuthorsPublicSchema,
 )
 
 
-def test_should_display_positions_without_positions():
-    schema = AuthorsMetadataUISchemaV1()
+def test_public_schema_does_not_return_hidden_emails():
+    schema = AuthorsPublicSchema()
     data = {
-        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
+        "email_addresses": [
+            {"value": "public@cern.ch"},
+            {"value": "private@cern.ch", "hidden": True},
+        ]
     }
-    author = faker.record("aut", data=data)
-
-    expected_result = False
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_emails = [{"value": "public@cern.ch"}]
 
     result = schema.dumps(author).data
     result_data = json.loads(result)
-    result_should_display_positions = result_data.get("should_display_positions")
 
-    assert expected_result == result_should_display_positions
+    assert result_data["email_addresses"] == expected_emails
 
 
-def test_should_display_positions_with_multiple_positions():
-    schema = AuthorsMetadataUISchemaV1()
+def test_public_schema_excludes_private_notes():
+    schema = AuthorsPublicSchema()
+    data = {"_private_notes": [{"value": "Super private note about the author"}]}
+    author = faker.record("aut", data=data, with_control_number=True)
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+
+    assert "_private_notes" not in result_data
+
+
+def test_admin_schema_returns_all_emails():
+    schema = AuthorsAdminSchema()
     data = {
-        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-        "positions": [{"institution": "CERN"}, {"institution": "DESY"}],
+        "email_addresses": [
+            {"value": "public@cern.ch"},
+            {"value": "private@cern.ch", "hidden": True},
+        ]
     }
-    author = faker.record("aut", data=data)
-
-    expected_result = True
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_should_display_positions = result_data.get("should_display_positions")
-
-    assert expected_result == result_should_display_positions
-
-
-def test_should_display_positions_with_multiple_positions_with_rank():
-    schema = AuthorsMetadataUISchemaV1()
-    data = {
-        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-        "positions": [{"institution": "CERN", "rank": "PHD", "current": True}],
-    }
-    author = faker.record("aut", data=data)
-
-    expected_result = True
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_emails = [
+        {"value": "public@cern.ch"},
+        {"value": "private@cern.ch", "hidden": True},
+    ]
 
     result = schema.dumps(author).data
     result_data = json.loads(result)
-    result_should_display_positions = result_data.get("should_display_positions")
 
-    assert expected_result == result_should_display_positions
-
-
-def test_should_display_positions_with_multiple_positions_with_start_date():
-    schema = AuthorsMetadataUISchemaV1()
-    data = {
-        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-        "positions": [{"institution": "CERN", "start_date": "2015", "current": True}],
-    }
-    author = faker.record("aut", data=data)
-
-    expected_result = True
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_should_display_positions = result_data.get("should_display_positions")
-
-    assert expected_result == result_should_display_positions
-
-
-def test_should_display_positions_with_multiple_positions_if_is_not_current():
-    schema = AuthorsMetadataUISchemaV1()
-    data = {
-        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-        "positions": [{"institution": "CERN", "current": False}],
-    }
-    author = faker.record("aut", data=data)
-
-    expected_result = True
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_should_display_positions = result_data.get("should_display_positions")
-
-    assert expected_result == result_should_display_positions
-
-
-def test_returns_should_display_position_false_if_position_is_current():
-    schema = AuthorsMetadataUISchemaV1()
-    data = {
-        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-        "positions": [{"institution": "CERN", "current": True}],
-    }
-    author = faker.record("aut", data=data)
-
-    expected_result = False
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_should_display_positions = result_data.get("should_display_positions")
-
-    assert expected_result == result_should_display_positions
-
-
-def test_facet_author_name_with_preferred_name():
-    schema = AuthorsMetadataUISchemaV1()
-    data = {
-        "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-    }
-    author = faker.record("aut", data=data)
-
-    expected_result = "John.Doe.1_J Doe"
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_facet_author_name = result_data.get("facet_author_name")
-
-    assert expected_result == result_facet_author_name
-
-
-def test_facet_author_name_without_preferred_name():
-    schema = AuthorsMetadataUISchemaV1()
-    data = {
-        "name": {"value": "Doe, John"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-    }
-    author = faker.record("aut", data=data)
-
-    expected_result = "John.Doe.1_John Doe"
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_facet_author_name = result_data.get("facet_author_name")
-
-    assert expected_result == result_facet_author_name
-
-
-def test_facet_author_name_without_ids():
-    schema = AuthorsMetadataUISchemaV1()
-    data = {"name": {"value": "Doe, John"}}
-    author = faker.record("aut", data=data)
-    expected_result = "BAI_John Doe"
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_facet_author_name = result_data.get("facet_author_name")
-
-    assert expected_result == result_facet_author_name
+    assert result_data["email_addresses"] == expected_emails
 
 
 def test_only_control_number_schema_ignores_other_fields():
-    schema = AuthorsMetadataOnlyControlNumberSchemaV1()
+    schema = AuthorsOnlyControlNumberSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],

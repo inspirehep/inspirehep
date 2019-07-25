@@ -18,9 +18,6 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
-from inspirehep.records.marshmallow.conferences import (
-    ConferencesMetadataRawFieldsSchemaV1,
-)
 
 
 def test_strip_empty_values():

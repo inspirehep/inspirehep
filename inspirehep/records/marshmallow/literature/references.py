@@ -12,7 +12,7 @@ from ..fields import NestedWithoutEmptyObjects
 from .common import ReferenceItemSchemaV1
 
 
-class LiteratureReferencesMetadataSchemaV1(Schema):
+class LiteratureReferencesSchema(Schema):
     references = NestedWithoutEmptyObjects(
         ReferenceItemSchemaV1, default=[], many=True, dump_only=True
     )

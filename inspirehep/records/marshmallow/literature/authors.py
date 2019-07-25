@@ -12,7 +12,7 @@ from ..fields import NestedWithoutEmptyObjects
 from .common import AuthorSchemaV1
 
 
-class LiteratureAuthorsMetadataSchemaV1(Schema):
+class LiteratureAuthorsSchema(Schema):
     authors = NestedWithoutEmptyObjects(
         AuthorSchemaV1, default=[], dump_only=True, many=True
     )

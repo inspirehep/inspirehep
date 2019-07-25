@@ -12,16 +12,11 @@ from inspirehep.accounts.api import (
     is_loggedin_user_email,
     is_superuser_or_cataloger_logged_in,
 )
-from inspirehep.records.marshmallow.base import (
-    ElasticSearchBaseSchema,
-    RecordBaseSchema,
-)
-from inspirehep.records.marshmallow.literature.common import (
-    AcceleratorExperimentSchemaV1,
-)
+from inspirehep.records.marshmallow.base import RecordBaseSchema
+from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
 
 
-class JobsMetadataRawFieldsSchemaV1(RecordBaseSchema):
+class JobsRawSchema(RecordBaseSchema):
     class Meta:
         exclude = ("can_edit",)
 
@@ -34,7 +29,7 @@ class JobsMetadataRawFieldsSchemaV1(RecordBaseSchema):
     )
 
     def set_editable_post_dump(self, object_, original_data):
-        if JobsMetadataRawFieldsSchemaV1.is_job_editable(object_):
+        if JobsRawSchema.is_job_editable(object_):
             object_["can_edit"] = True
         return object_
 
@@ -58,5 +53,9 @@ class JobsMetadataRawFieldsSchemaV1(RecordBaseSchema):
         return data.get("status") != "closed" and is_loggedin_user_email(email)
 
 
-class JobsESEnhancementV1(ElasticSearchBaseSchema, JobsMetadataRawFieldsSchemaV1):
+class JobsAdminSchema(JobsRawSchema):
+    pass
+
+
+class JobsPublicSchema(JobsRawSchema):
     pass
