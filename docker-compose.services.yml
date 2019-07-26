@@ -27,7 +27,7 @@ services:
       - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://inspirehep:inspirehep@db:5432/inspirehep"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
       - "INVENIO_ENABLE_SECURE_HEADERS=False"
-      - "INVENIO_INSPIRE_NEXT_URL=http://ui:8081"
+      - "INVENIO_INSPIRE_NEXT_URL=http://ui:8080"
       - "INVENIO_ENABLE_CORS=True"
   cache:
     image: redis

@@ -6,18 +6,40 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-GIT_DESC="$(git describe --always || echo)"
-# FIXME: We need that for building the ui images with the proper
-# SENTRY and PIWIK
-[[ "$TRAVIS_BRANCH" == "master" ]] && REF="qa" || REF="master"
+IMAGE="inspirehep/inspirehep-ui"
+DOCKER_CONTEXT='ui'
+DOCKER_FILE='ui/docker/Dockerfile'
 
-echo "Deploying tag for inspirehep-ui ${GIT_DESC}"
-echo "Deploying from branch ${REF}"
+retry() {
+    "${@}" || "${@}" || exit 2
+}
 
-curl -X POST "${UI_DEPLOY_URL}" \
-    -F token=${UI_DEPLOY_TOKEN} \
-    -F ref=${REF} \
-    -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
-    -F "variables[TAG]=${GIT_DESC}" \
-    -F "variables[IMAGE_BUILD]=True" \
-    -F "variables[DEPLOY]=True"
+login() {
+  echo "Logging into Docker Hub"
+  retry docker login \
+      "--username=${DOCKERHUB_USER}" \
+      "--password=${DOCKERHUB_PASSWORD}"
+}
+
+buildPush() {
+  TAG="$(git describe --always)"
+
+  echo "Building docker image"
+  retry docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}" "${DOCKER_CONTEXT}" -f "${DOCKER_FILE}"
+
+  echo "Pushing image to ${IMAGE}:${TAG}"
+  retry docker push "${IMAGE}:${TAG}"
+  retry docker push "${IMAGE}"
+}
+
+logout() {
+  echo "Logging out""${@}"
+  retry docker logout
+}
+
+main() {
+  login
+  buildPush
+  logout
+}
+main

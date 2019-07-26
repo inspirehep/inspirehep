@@ -30,16 +30,13 @@ class User extends Component {
             component={LoginPageContainer}
             redirectTo={previousUrl}
           />
-          {(process.env.NODE_ENV === 'development' ||
-            process.env.REACT_APP_ENABLE_LOCAL_LOGIN === 'YES') && (
-            <RouteOrRedirect
-              exact
-              path={USER_LOCAL_LOGIN}
-              condition={!loggedIn}
-              component={LocalLoginPageContainer}
-              redirectTo={previousUrl}
-            />
-          )}
+          <RouteOrRedirect
+            exact
+            path={USER_LOCAL_LOGIN}
+            condition={!loggedIn}
+            component={LocalLoginPageContainer}
+            redirectTo={previousUrl}
+          />
           <PrivateRoute exact path={USER_PROFILE} component={ProfilePage} />
         </SafeSwitch>
       </div>

@@ -1,5 +1,5 @@
 #!/bin/bash -xe
-REACT_APP_ENABLE_LOCAL_LOGIN=YES yarn build
+yarn build
 cd ui-tests
 sudo chown -R 999 .
 rc=0
