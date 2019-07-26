@@ -1,4 +1,4 @@
-const BASE_URL = 'http://ui:8081';
+const BASE_URL = 'http://ui:8080';
 const HOME = BASE_URL;
 
 const LOCAL_LOGIN = `${BASE_URL}/user/login/local`;
