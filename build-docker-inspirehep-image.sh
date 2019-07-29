@@ -6,16 +6,39 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-GIT_DESC="$(git describe --always || echo)"
+IMAGE="inspirehep/hep"
+DOCKER_CONTEXT='.'
 
-echo "Deploying tag for inspirehep: ${GIT_DESC}"
-echo "Deploying from branch ${TRAVIS_BRANCH}"
+retry() {
+    "${@}" || "${@}" || exit 2
+}
 
-curl -X POST "${INSPIREHEP_DEPLOY_URL}" \
-    -F token=${INSPIREHEP_DEPLOY_TOKEN} \
-    -F ref=master \
-    -F "variables[CACHE_DATE]=$(date +%Y-%m-%d:%H:%M:%S)" \
-    -F "variables[BRANCH_NAME]=${TRAVIS_BRANCH}" \
-    -F "variables[APPLICATION_IMAGE_NAME]=inspirehepimage" \
-    -F "variables[VERSION]=${GIT_DESC}" \
-    -F "variables[DEPLOY]=qa"
+login() {
+  echo "Logging into Docker Hub"
+  retry docker login \
+      "--username=${DOCKERHUB_USER}" \
+      "--password=${DOCKERHUB_PASSWORD}"
+}
+
+buildPush() {
+  TAG="$(git describe --always)"
+
+  echo "Building docker image"
+  retry docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}" "${DOCKER_CONTEXT}"
+
+  echo "Pushing image to ${IMAGE}:${TAG}"
+  retry docker push "${IMAGE}:${TAG}"
+  retry docker push "${IMAGE}"
+}
+
+logout() {
+  echo "Logging out""${@}"
+  retry docker logout
+}
+
+main() {
+  login
+  buildPush
+  logout
+}
+main

@@ -15,7 +15,7 @@ services:
       service: kibana
   web:
     volumes:
-      - .:/opt/inspire:ro
+      - ./inspirehep:/opt/inspire/inspirehep
   worker:
     volumes:
-      - .:/opt/inspire:ro
+      - ./inspirehep:/opt/inspire/inspirehep
