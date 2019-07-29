@@ -8,7 +8,6 @@
 
 IMAGE="inspirehep/inspirehep-ui"
 DOCKER_CONTEXT='ui'
-DOCKER_FILE='ui/docker/Dockerfile'
 
 retry() {
     "${@}" || "${@}" || exit 2
@@ -25,7 +24,7 @@ buildPush() {
   TAG="$(git describe --always)"
 
   echo "Building docker image"
-  retry docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}" "${DOCKER_CONTEXT}" -f "${DOCKER_FILE}"
+  retry docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}" "${DOCKER_CONTEXT}"
 
   echo "Pushing image to ${IMAGE}:${TAG}"
   retry docker push "${IMAGE}:${TAG}"
