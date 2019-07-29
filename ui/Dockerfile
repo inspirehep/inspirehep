@@ -11,5 +11,5 @@ RUN yarn run build
 FROM nginx:1.17-alpine
 
 EXPOSE 8080
-COPY docker/config/nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/nginx/config/nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build-stage /usr/src/app/build /usr/share/nginx/html

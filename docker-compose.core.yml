@@ -42,12 +42,11 @@ services:
   ui: # TODO: change the name since to app or lb since it's the main entry point for every request
     build:
       context: ui
-      dockerfile: docker/Dockerfile
     ports:
      - "8080:8080"
     volumes:
       - .:/opt/inspire/ui
-      - ${PWD}/ui/docker/config/local.conf:/etc/nginx/conf.d/default.conf
+      - ${PWD}/ui/docker/nginx/config/local.conf:/etc/nginx/conf.d/default.conf
     depends_on:
       - web
       - web-next
