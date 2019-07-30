@@ -6,7 +6,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-IMAGE="inspirehep/inspirehep-ui"
+IMAGE="docker.pkg.github.com/inspirehep/inspirehep/ui"
 DOCKER_CONTEXT='ui'
 
 retry() {
@@ -16,8 +16,9 @@ retry() {
 login() {
   echo "Logging into Docker Hub"
   retry docker login \
-      "--username=${DOCKERHUB_USER}" \
-      "--password=${DOCKERHUB_PASSWORD}"
+    docker.pkg.github.com \
+    "--username=${GITHUB_REGISTRY_USER}" \
+    "--password=${GITHUB_REGISTRY_TOKEN}"
 }
 
 buildPush() {
