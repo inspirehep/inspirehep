@@ -447,7 +447,7 @@ RECORDS_REST_FACETS = {
         },
         "aggs": {
             "field_of_interest": {
-                "terms": {"field": "arxiv_categories", "missing": "Other"},
+                "terms": {"field": "arxiv_categories", "missing": "Other", "size": 500},
                 "meta": {
                     "order": 1,
                     "type": "multiselect",
