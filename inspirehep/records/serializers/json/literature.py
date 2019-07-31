@@ -9,7 +9,7 @@ from invenio_records_rest.serializers.response import search_responsify
 from marshmallow import Schema
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
-from inspirehep.records.marshmallow.base import wrapSchemaClassWithMetadata
+from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
 from inspirehep.records.marshmallow.literature import (
     LiteratureAdminSchema,
     LiteratureAuthorsSchema,
@@ -34,16 +34,18 @@ literature_json = ConditionalMultiSchemaJSONSerializer(
     [
         (
             lambda _: is_superuser_or_cataloger_logged_in(),
-            wrapSchemaClassWithMetadata(LiteratureAdminSchema),
+            wrap_schema_class_with_metadata(LiteratureAdminSchema),
         ),
-        (None, wrapSchemaClassWithMetadata(LiteraturePublicSchema)),
+        (None, wrap_schema_class_with_metadata(LiteraturePublicSchema)),
     ]
 )
 
 literature_json_response = record_responsify(literature_json, "application/json")
 literature_json_response_search = search_responsify(literature_json, "application/json")
 
-literature_detail = JSONSerializer(wrapSchemaClassWithMetadata(LiteratureDetailSchema))
+literature_detail = JSONSerializer(
+    wrap_schema_class_with_metadata(LiteratureDetailSchema)
+)
 literature_list = JSONSerializer(LiteratureListWrappedSchema, index_name="records-hep")
 
 literature_json_detail_response = record_responsify(
@@ -55,7 +57,7 @@ literature_json_list_response = search_responsify(
 
 # Literature Authors
 literature_authors_json = JSONSerializer(
-    wrapSchemaClassWithMetadata(LiteratureAuthorsSchema)
+    wrap_schema_class_with_metadata(LiteratureAuthorsSchema)
 )
 
 literature_authors_json_response = record_responsify(
@@ -63,7 +65,7 @@ literature_authors_json_response = record_responsify(
 )
 # Literature References
 literature_references_json = JSONSerializer(
-    wrapSchemaClassWithMetadata(LiteratureReferencesSchema)
+    wrap_schema_class_with_metadata(LiteratureReferencesSchema)
 )
 
 literature_references_json_response = record_responsify(
