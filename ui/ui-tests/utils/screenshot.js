@@ -3,10 +3,20 @@ async function fastForwardAnimations(page) {
   await page._client.send('Animation.setPlaybackRate', { playbackRate: 24 });
 }
 
+async function disableBlinkingInputCursor(page) {
+  const content = `
+    * {
+      caret-color: transparent !important;
+    }
+  `;
+  await page.addStyleTag({ content });
+}
+
 async function takeScreenShotForDesktop(page) {
   await fastForwardAnimations(page);
   await page.setViewport({ width: 1366, height: 768 });
 
+  await disableBlinkingInputCursor(page);
   return page.screenshot({ fullPage: true });
 }
 
@@ -14,6 +24,7 @@ async function takeScreenShotForMobile(page) {
   await fastForwardAnimations(page);
   await page.setViewport({ width: 375, height: 667, isMobile: true });
 
+  await disableBlinkingInputCursor(page);
   return page.screenshot({ fullPage: true });
 }
 

@@ -34,6 +34,7 @@ class SearchBox extends Component {
     const { draftValue } = this.state;
     return (
       <Input.Search
+        autoFocus
         style={{ verticalAlign: 'middle' }}
         addonBefore={<SearchScopeSelectContainer />}
         placeholder={placeholder}
