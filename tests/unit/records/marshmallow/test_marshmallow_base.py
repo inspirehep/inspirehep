@@ -14,7 +14,7 @@ from inspirehep.records.marshmallow.base import (
     ElasticSearchBaseSchema,
     EnvelopeSchema,
     RecordBaseSchema,
-    wrapSchemaClassWithMetadata,
+    wrap_schema_class_with_metadata,
 )
 
 
@@ -188,7 +188,7 @@ def test_wrap_schema_class_with_metadata():
             "description": "A list of heroes",
         }
     }
-    schema = wrapSchemaClassWithMetadata(TestSchema)
+    schema = wrap_schema_class_with_metadata(TestSchema)
 
     result = schema().dump(data).data
 
@@ -223,7 +223,7 @@ def test_wrap_schema_class_with_metadata_with_extra_fields():
         "uuid": "0000-0000-0000-0000",
     }
 
-    schema = wrapSchemaClassWithMetadata(TestSchema)
+    schema = wrap_schema_class_with_metadata(TestSchema)
 
     result = schema().dump(data).data
 
@@ -260,7 +260,7 @@ def test_wrap_schema_class_with_metadata_with_extra_fields_and_exclude():
         "uuid": "0000-0000-0000-0000",
     }
 
-    schema = wrapSchemaClassWithMetadata(TestSchema)
+    schema = wrap_schema_class_with_metadata(TestSchema)
 
     result = schema().dump(data).data
 

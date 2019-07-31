@@ -7,13 +7,13 @@
 
 from invenio_records_rest.serializers.response import search_responsify
 
-from inspirehep.records.marshmallow.base import wrapSchemaClassWithMetadata
+from inspirehep.records.marshmallow.base import wrap_schema_class_with_metadata
 from inspirehep.records.marshmallow.experiments import ExperimentsPublicSchema
 from inspirehep.records.serializers.response import record_responsify
 from inspirehep.serializers import JSONSerializer
 
 experiments_json = JSONSerializer(
-    wrapSchemaClassWithMetadata(ExperimentsPublicSchema),
+    wrap_schema_class_with_metadata(ExperimentsPublicSchema),
     index_name="records-experiments",
 )
 
