@@ -12,6 +12,7 @@ from inspire_utils.record import get_value
 from marshmallow import fields, missing
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.records.utils import get_literature_earliest_date
 
 from ..base import EnvelopeSchema
 from ..common import AcceleratorExperimentSchemaV1
@@ -91,7 +92,7 @@ class LiteratureDetailSchema(LiteraturePublicSchema):
     thesis_info = fields.Nested(ThesisInfoSchemaV1, dump_only=True)
 
     def get_formatted_earliest_date(self, data):
-        earliest_date = data.earliest_date
+        earliest_date = get_literature_earliest_date(data)
         if earliest_date is None:
             return missing
         return format_date(earliest_date)

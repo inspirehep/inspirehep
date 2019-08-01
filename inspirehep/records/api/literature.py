@@ -7,7 +7,6 @@
 
 """INSPIRE module that adds more fun to the platform."""
 import logging
-from itertools import chain
 
 import requests
 from flask import current_app
@@ -16,8 +15,6 @@ from hepcrawl.parsers.crossref import CrossrefParser
 from idutils import is_doi, normalize_doi
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
-from inspire_utils.date import earliest_date
-from inspire_utils.helpers import force_list
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 
@@ -32,6 +29,7 @@ from inspirehep.records.errors import (
     UnknownImportIdentifierError,
 )
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
+from inspirehep.records.utils import get_literature_earliest_date
 
 from .base import InspireRecord
 
@@ -58,33 +56,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
     @property
     def earliest_date(self):
-        """Returns earliest date. If earliest date is missing month or day
-        it's set as 1 as DB does not accept date without day or month
-
-        Returns:
-            str: earliest date represented in a string
-        """
-        date_paths = [
-            "preprint_date",
-            "thesis_info.date",
-            "thesis_info.defense_date",
-            "publication_info.year",
-            "legacy_creation_date",
-            "imprints.date",
-        ]
-
-        dates = [
-            str(el)
-            for el in chain.from_iterable(
-                force_list(self.get_value(path)) for path in date_paths
-            )
-        ]
-
-        if dates:
-            result = earliest_date(dates, full_date=True)
-            if result:
-                return result
-        return None
+        return get_literature_earliest_date(self)
 
     @classmethod
     def create(

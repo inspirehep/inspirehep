@@ -315,7 +315,7 @@ def test_literature_search_json_with_cataloger_login(
 
 def test_literature_detail(api_client, db, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    record = create_record("lit")
+    record = create_record("lit", data={"preprint_date": "2001-01-01"})
     record_control_number = record["control_number"]
     record_titles = record["titles"]
 
@@ -326,6 +326,8 @@ def test_literature_detail(api_client, db, create_record):
         "control_number": record_control_number,
         "document_type": ["article"],
         "titles": record_titles,
+        "preprint_date": "2001-01-01",
+        "date": "Jan 1, 2001",
     }
     response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -347,11 +349,12 @@ def test_literature_detail(api_client, db, create_record):
 
 def test_literature_list(api_client, db, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    record = create_record("lit")
+    record = create_record("lit", data={"preprint_date": "2001-01-01"})
 
     expected_id = record["control_number"]
     expected_status_code = 200
     expected_title = record["titles"][0]["title"]
+    expected_date = "Jan 1, 2001"
 
     response = api_client.get("/literature", headers=headers)
     response_status_code = response.status_code
@@ -367,6 +370,7 @@ def test_literature_list(api_client, db, create_record):
 
     assert expected_status_code == response_status_code
     assert expected_title == response_data_metadata["titles"][0]["title"]
+    assert expected_date == response_data_metadata["date"]
     assert "can_edit" not in response_data_metadata
     assert expected_id == response_data_hits_id
     assert response_data_hits_created is not None
