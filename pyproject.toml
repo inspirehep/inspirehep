@@ -18,7 +18,7 @@ invenio-search = {version = "*", extras = [ "elasticsearch5",]}
 invenio-app = "~=1.1.0,>=1.1.0"
 invenio-access = "~=1.1.0,>=1.1.0"
 invenio-rest = ">=1.0.0,<1.1.0"
-invenio-indexer = ">=1.0.1,<1.0.2"
+invenio-indexer = ">=1.0.1,<1.1.1"
 invenio-jsonschemas = ">=1.0.0,<1.1.0"
 invenio-pidstore = ">=1.0.0,<1.1.0"
 invenio-records-rest = ">=1.2.1,<1.3.0"
