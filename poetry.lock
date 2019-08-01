@@ -1269,7 +1269,7 @@ description = "Files download/upload REST API similar to S3 for Invenio."
 name = "invenio-files-rest"
 optional = false
 python-versions = "*"
-version = "1.0.0b1"
+version = "1.0.0"
 
 [package.dependencies]
 Flask = ">=0.11.1"
@@ -1420,12 +1420,12 @@ description = "Invenio modules that integrates records and files."
 name = "invenio-records-files"
 optional = false
 python-versions = "*"
-version = "1.0.0a11"
+version = "1.1.1"
 
 [package.dependencies]
 Flask = ">=0.11.1"
-invenio-files-rest = ">=1.0.0a23"
-invenio-records = ">=1.0.0b1"
+invenio-files-rest = ">=1.0.0"
+invenio-records = ">=1.0.0"
 
 [[package]]
 category = "main"
@@ -3132,7 +3132,7 @@ invenio-cache = ["8431d8b68dbb737cd7035f6467fec18dd29ad9ac35e20405d52af6c2d29455
 invenio-celery = ["22cda704fa8abaa885a327539899887a939832beda7de0d1f1d5d84b4ac153b1", "d102dcf3e94cfa11b0973626852f5fd6cac8fa3ba364c42fcec8ecc0b533d838"]
 invenio-config = ["628f771e351598d7f4e150a30aaa8f3a7daf62f969c7256b6bd211544f5bc494", "d6c8b41c064bedaff1647d815120c5df6b49f8a27556c4157bffd17c1662a5d0"]
 invenio-db = ["78f2f9ecc690e5c40ad797ee40b45a7e762da9599acf89782354e887bd632d70", "9a36bdfc060ca9e7a074276b2c17651da2874a6f1f45081ce9408f632459b7ae"]
-invenio-files-rest = ["ab49be45c1a7889aac9cca50ff5f34c6da172fdff82421e4ea0e1f001f661862", "c3b3002d6bb3295c6da7a791e2af840c3c2c69ee97243e5481e70c7c8d6f8a8f"]
+invenio-files-rest = ["2247cfd511c536d3addb48a32619bfe286ba5957404a69589e94886bfe6fc736", "934c24c9f22493e81a9cdb9f27e4502b51802d206e5ae32830cc6999b57fe889"]
 invenio-i18n = ["69513d531ccffdfa47cec1e7cd701c72966573d2e9c4e24c96607cb7324dce48", "b591d753cd79a98bbef98a0ac5d9abf105f5cb8af94614dbf92688782a7b77b0"]
 invenio-indexer = ["f51a7eda14048da000b4a1ee74a137fd33d9b96119daa968af1b2fe6a4421e8c"]
 invenio-jsonschemas = ["12e2f3ac6013c741abe9225480183131591f008afb4a685fa3fa96203d7ca07a", "acaa24e0f9d939a7c63ce24f383779f2b2d2f15925c2d35c4bf346066ce7a67c"]
@@ -3141,7 +3141,7 @@ invenio-oauth2server = ["303b642e24ca8942d1c5f888ea648625ee4f27ce83bda31adb6a047
 invenio-oauthclient = ["4a131e560e321406aaf95530831093e3d259ccef5d1fd539deff38391824db7a", "fe6a47b1c5bae968a7d7a081cb1d2dd782a427f401cf2f42d96357293e5766b8"]
 invenio-pidstore = ["582b28e7e2bdf4df93e5398a0e147b2eb08690ede339249dd3a8c92b713e6f00", "77f59075dfa34564b913e5d58f37d55b2c78d7b4fa1eeaa5f8c42576848bb06d"]
 invenio-records = ["56487d0b7b800877e45f385dbba831fc988ca4df935ced281543dcaa1b6dd351", "d25c865c7ba3be059a5699e5e135a46e6fbb06370b58754ef22c7fdf337a12f1"]
-invenio-records-files = ["d198e3f0fa735069ab2823f5108141aa9afd713939244773f1c05024ac5eeef8", "e471816fca8e8273dddff33a215e9c398f5b5eeef81d153008dc676e4a31dd15"]
+invenio-records-files = ["3f2653bc2a1d1c8367e649337fb0c98f10a63b0e3f44ebd0e2f4a2bba029ae0a", "476491b011d233262f71d0bfb301d17a8596e5024d3c2bb9bc8593e6b596ce4f"]
 invenio-records-rest = ["534eba23d788cf50258896f41efb859a5057d6658e29851fb47071d385ed4128", "d225db7788d1650ffcd7f13cf9923ff223877efb34d290e02f59233f902935b5"]
 invenio-rest = ["665cdc6d7f47b532e4823dc1a0a62de32e31caf387efc93aff7593a34124ee1d", "e5a73fcfc15c052840608950c0524447f1e86d24cc58a8fbf12a48a82f7e582a"]
 invenio-search = ["5514549d30cea9546dac5620bbc39c59e24f443e9c617a137b8d93b233e19d7d", "74903744f3db509141e225e1c157f6abf4277cd3eb2bc063e2f812c54e603c7a"]
