@@ -1052,7 +1052,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "60.0.9"
+version = "60.0.11"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -2119,7 +2119,7 @@ category = "main"
 description = "C parser in Python"
 name = "pycparser"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.19"
 
 [[package]]
@@ -2636,7 +2636,7 @@ category = "main"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
 name = "simplejson"
 optional = false
-python-versions = "*"
+python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "3.16.0"
 
 [[package]]
@@ -3024,7 +3024,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "392a4fda2eeac86d7e6fa8eaadb3a6b6f3d9371ffcbac281aaad9e1721c59442"
+content-hash = "b101817c6aaf06b71fbd7aedc131f5c70c3080052111dc53e8673714181ab841"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3119,7 +3119,7 @@ influxdb = ["98ef84817d8993d9c826aa76cf7254b4ce616f3b14c1f98a705370fd5cbaa509", 
 inspire-dojson = ["d4db8a8006f1685275ff7f86ee6514bc95978a49ebb00d5b0f9045993804ed3a"]
 inspire-json-merger = ["96a9203174044ae0c53cee5e712f722dff4ffcebfd142525abc42df2d3dbd21f"]
 inspire-query-parser = ["510ab513e1dd3b4b315bee29d89a8df4b6d66ea0bd7f62135b1ca99b90eb58a7"]
-inspire-schemas = ["b1ee2d9286df17e3d7451a92fe1046fc40e9930a04d675882a85f3f9ce9d0f6e"]
+inspire-schemas = ["45bd6338528c1238e78d7d80acfd8808d19f771c0dbc609ee2ccf50768440045"]
 inspire-service-orcid = []
 inspire-utils = ["7f02bb7eee949ce16067d26b8f1eba0d59aea22d6f4f724a3bd978380a4e358c"]
 intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]
