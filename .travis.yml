@@ -17,7 +17,6 @@ before_install:
 before_deploy:
 - node ./write-version.js
 - npm run build
-- "./deploy-sourcemaps.sh"
 after_success: npm run coveralls
 deploy:
 - provider: npm
