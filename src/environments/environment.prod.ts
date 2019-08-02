@@ -3,6 +3,6 @@ import { version } from './version';
 export const environment = {
   production: true,
   baseUrl: '',
-  sentryPublicDSN: 'https://29f085d5eb7f4a82bf994915ec8753e9@sentry.inspirehep.net/4',
+  sentryPublicDSN: 'https://ac471ee3b1ef4d1f884bfeaebaf6d007@sentry.inspirehep.net/7',
   version
 };
