@@ -72,7 +72,7 @@ class TestFeatureFlagOrcidPushWhitelistRegex(object):
         assert not re.match(compiled, "")
 
 
-@pytest.mark.usefixtures("base_app", "db", "es_clear")
+@pytest.mark.usefixtures("base_app", "db", "es")
 class TestOrcidPushFeatureFlag(object):
     def setup(self):
         self._patcher = mock.patch("inspirehep.orcid.domain_models.OrcidPusher")
@@ -134,7 +134,7 @@ class TestOrcidPushFeatureFlag(object):
             )
 
 
-@pytest.mark.usefixtures("base_app", "db", "es_clear")
+@pytest.mark.usefixtures("base_app", "db", "es")
 class TestOrcidPushRetryTask(object):
     def setup(self):
         self._patcher = mock.patch("inspirehep.orcid.domain_models.OrcidPusher")
@@ -215,7 +215,7 @@ def get_local_access_tokens(orcid):
     return None
 
 
-@pytest.mark.usefixtures("base_app", "db", "es_clear")
+@pytest.mark.usefixtures("base_app", "db", "es")
 class TestOrcidPushTask(object):
     # NOTE: Only a few test here (1 happy flow and a few error flows). Exhaustive
     # testing is done in the domain model tests.

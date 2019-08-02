@@ -1,0 +1,98 @@
+---
+kind: pipeline
+name: unit
+steps:
+  - name: unit
+    image: inspirehep/poetry
+    commands:
+      - cd backend
+      - poetry install
+      - ./run-code-checks.sh
+      - poetry run py.test tests/unit
+
+---
+kind: pipeline
+name: integration
+steps:
+  - name: integration
+    image: inspirehep/poetry
+    commands:
+      - cd backend
+      - poetry install
+      - poetry run py.test -vvv tests/integration/
+    environment:
+      INVENIO_ACCOUNTS_SESSION_REDIS_URL: "redis://redis:6379/2"
+      INVENIO_CACHE_REDIS_URL: 'redis://redis:6379/0'
+      INVENIO_CACHE_TYPE: redis
+      INVENIO_CELERY_RESULT_BACKEND: 'redis://redis:6379/1'
+      INVENIO_SEARCH_ELASTIC_HOSTS: "['elasticsearch:9200']"
+      INVENIO_SQLALCHEMY_DATABASE_URI: 'postgresql+psycopg2://inspirehep@postgres:5432/inspirehep'
+services:
+- name: postgres
+  image: postgres:9.6
+  command: ["postgres", "-c", "max_connections=200"]
+  environment:
+    POSTGRES_USER: inspirehep
+    POSTGRES_DB: inspirehep
+  ports:
+    - 5432
+- name: redis
+  image: redis
+  commands:
+    - redis-server --loglevel verbose
+  ports:
+    - 6379
+- name: elasticsearch
+  image: inspirehep/elasticsearch
+  environment:
+    bootstrap.memory_lock: 'true'
+    ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+  ports:
+    - 9200
+  resources:
+    limits:
+      memory: 2G
+      cpu: 1
+
+---
+kind: pipeline
+name: integration-async
+steps:
+  - name: integration-async
+    image: inspirehep/poetry
+    commands:
+      - cd backend
+      - poetry install
+      - poetry run py.test tests/integration-async
+    environment:
+      INVENIO_ACCOUNTS_SESSION_REDIS_URL: "redis://redis:6379/2"
+      INVENIO_CACHE_REDIS_URL: 'redis://redis:6379/0'
+      INVENIO_CACHE_TYPE: redis
+      INVENIO_CELERY_RESULT_BACKEND: 'redis://redis:6379/1'
+      INVENIO_SEARCH_ELASTIC_HOSTS: "['elasticsearch:9200']"
+      INVENIO_SQLALCHEMY_DATABASE_URI: 'postgresql+psycopg2://inspirehep@postgres:5432/inspirehep'
+services:
+- name: postgres
+  image: postgres:9.6
+  environment:
+    POSTGRES_USER: inspirehep
+    POSTGRES_DB: inspirehep
+  ports:
+    - 5432
+- name: redis
+  image: redis
+  commands:
+    - redis-server --loglevel verbose
+  ports:
+    - 6379
+- name: elasticsearch
+  image: inspirehep/elasticsearch
+  environment:
+    bootstrap.memory_lock: 'true'
+    ES_JAVA_OPTS: '-Xms512m -Xmx512m'
+  ports:
+    - 9200
+  resources:
+    limits:
+      memory: 2G
+      cpu: 1

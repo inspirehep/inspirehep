@@ -316,7 +316,7 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         assert result_putcode
 
 
-@pytest.mark.usefixtures("base_app", "db", "es_clear")
+@pytest.mark.usefixtures("base_app", "db", "es")
 class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
     def setup(self):
         factory = TestRecordMetadata.create_from_file(

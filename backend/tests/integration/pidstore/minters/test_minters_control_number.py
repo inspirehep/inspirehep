@@ -96,7 +96,9 @@ def test_control_number_authors_with_control_number(
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_jobs_with_control_number(base_app, db, create_record_factory):
+def test_control_number_jobs_with_control_number(
+    base_app, db, es, create_record_factory
+):
     data = {"control_number": 1}
     record = create_record_factory("job", data=data, with_pid=False)
     data = record.json
@@ -246,7 +248,9 @@ def test_control_number_conferences_without_control_number(
     assert expected_pid_object_uuid == result_pid.object_uuid
 
 
-def test_control_number_data_with_control_number(base_app, db, create_record_factory):
+def test_control_number_data_with_control_number(
+    base_app, db, es, create_record_factory
+):
     data = {"control_number": 1}
     record = create_record_factory("dat", data=data, with_pid=False)
     data = record.json

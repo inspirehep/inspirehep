@@ -33,7 +33,7 @@ from inspirehep.orcid.tasks import RemoteTokenOrcidMismatch, _link_user_and_toke
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es_clear")
+@pytest.mark.usefixtures("base_app", "db", "es")
 class TestLinkUserAndToken(object):
     def setup(self):
         with db.session.begin_nested():

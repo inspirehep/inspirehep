@@ -19,7 +19,7 @@ from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
 
 
-def test_base_get_record(base_app, db, create_record_factory):
+def test_base_get_record(base_app, db, es, create_record_factory):
     record = create_record_factory("lit")
 
     expected_record = InspireRecord.get_record(record.id)
@@ -27,7 +27,7 @@ def test_base_get_record(base_app, db, create_record_factory):
     assert expected_record == record.json
 
 
-def test_base_get_records(base_app, db, create_record_factory):
+def test_base_get_records(base_app, db, es, create_record_factory):
     records = [
         create_record_factory("lit"),
         create_record_factory("lit"),
@@ -41,7 +41,7 @@ def test_base_get_records(base_app, db, create_record_factory):
         assert record.json in expected_records
 
 
-def test_get_uuid_from_pid_value(base_app, db, create_record_factory):
+def test_get_uuid_from_pid_value(base_app, db, es, create_record_factory):
     record = create_record_factory("lit")
     record_uuid = record.id
     record_pid_type = record._persistent_identifier.pid_type
@@ -93,7 +93,7 @@ def test_hard_delete_record(base_app, db, create_record_factory, create_pidstore
     assert record_identifier is None
 
 
-def test_get_records_by_pids(base_app, db, create_record_factory):
+def test_get_records_by_pids(base_app, db, es, create_record_factory):
     records = [
         create_record_factory("lit"),
         create_record_factory("lit"),
@@ -126,7 +126,7 @@ def test_get_records_by_pids_with_not_existing_pids(
     assert expected_result_len == len(result_uuids)
 
 
-def test_get_records_by_pids_with_empty(base_app, db, create_record_factory):
+def test_get_records_by_pids_with_empty(base_app, db, es, create_record_factory):
     pids = []
 
     expected_result_len = 0
@@ -137,7 +137,7 @@ def test_get_records_by_pids_with_empty(base_app, db, create_record_factory):
     assert expected_result_len == len(result_uuids)
 
 
-def test_get_linked_records_in_field(base_app, db, create_record_factory):
+def test_get_linked_records_in_field(base_app, db, es, create_record_factory):
     record_reference = create_record_factory("lit")
     record_reference_control_number = record_reference.json["control_number"]
     record_reference_uri = "http://localhost:5000/api/literature/{}".format(
@@ -160,7 +160,7 @@ def test_get_linked_records_in_field(base_app, db, create_record_factory):
     assert expected_result == result
 
 
-def test_get_linked_records_in_field_empty(base_app, db, create_record_factory):
+def test_get_linked_records_in_field_empty(base_app, db, es, create_record_factory):
     expected_result_len = 0
     expected_result = []
     record = InspireRecord({})
@@ -238,7 +238,7 @@ def test_record_throws_exception_when_serializer_is_not_set(
         record.get_enhanced_es_data()
 
 
-def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db):
+def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db, es):
     data = faker.record("aut")
     with pytest.raises(WrongRecordSubclass):
         LiteratureRecord.create(data)

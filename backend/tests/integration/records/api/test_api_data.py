@@ -19,7 +19,7 @@ from inspirehep.records.api import DataRecord, InspireRecord
 from inspirehep.records.models import RecordCitations
 
 
-def test_data_create(base_app, db):
+def test_data_create(base_app, db, es):
     data = faker.record("dat")
     record = DataRecord.create(data)
 
@@ -64,7 +64,7 @@ def test_data_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_data_update(base_app, db):
+def test_data_update(base_app, db, es):
     data = faker.record("dat", with_control_number=True)
     record = DataRecord.create(data)
 
@@ -85,7 +85,7 @@ def test_data_update(base_app, db):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_data_create_or_update_with_new_record(base_app, db):
+def test_data_create_or_update_with_new_record(base_app, db, es):
     data = faker.record("dat")
     record = DataRecord.create_or_update(data)
 
@@ -102,7 +102,7 @@ def test_data_create_or_update_with_new_record(base_app, db):
     assert control_number == record_pid.pid_value
 
 
-def test_data_create_or_update_with_existing_record(base_app, db):
+def test_data_create_or_update_with_existing_record(base_app, db, es):
     data = faker.record("dat", with_control_number=True)
     record = DataRecord.create(data)
 
@@ -133,14 +133,14 @@ def test_subclasses_for_data():
     assert expected == DataRecord.get_subclasses()
 
 
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("dat")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == DataRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("dat")
     record = InspireRecord.create(data)
     assert type(record) == DataRecord
@@ -151,7 +151,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
     assert record.pid_type == "dat"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("dat")
     record = InspireRecord.create_or_update(data)
     assert type(record) == DataRecord
@@ -164,7 +164,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db)
     assert record.pid_type == "dat"
 
 
-def test_create_record_update_citation_table_for_literature_citation(base_app, db):
+def test_create_record_update_citation_table_for_literature_citation(base_app, db, es):
     data = faker.record("dat")
     record = DataRecord.create(data)
 
@@ -178,7 +178,7 @@ def test_create_record_update_citation_table_for_literature_citation(base_app, d
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_data_citation_count_property(base_app, db):
+def test_data_citation_count_property(base_app, db, es):
     data = faker.record("dat")
     record = InspireRecord.create(data)
 

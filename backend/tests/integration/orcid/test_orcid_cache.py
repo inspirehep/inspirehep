@@ -34,7 +34,7 @@ from inspirehep.orcid.cache import OrcidCache, _OrcidHasher
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-@pytest.mark.usefixtures("base_app", "db")
+@pytest.mark.usefixtures("base_app", "db", "es")
 class TestOrcidCache(object):
     def setup(self):
         self.recid = "1936475"
@@ -113,7 +113,7 @@ class TestOrcidCache(object):
         assert not self.cache.read_work_putcode()
 
 
-@pytest.mark.usefixtures("base_app", "db")
+@pytest.mark.usefixtures("base_app", "db", "es")
 class TestOrcidHasher(object):
     def setup(self):
         factory = TestRecordMetadata.create_from_file(

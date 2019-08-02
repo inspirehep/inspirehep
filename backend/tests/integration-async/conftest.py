@@ -35,9 +35,6 @@ def app():
     app = inspire_create_app()
     app_config = {}
     app_config["DEBUG"] = False
-    app_config["CELERY_BROKER_URL"] = "pyamqp://guest:guest@localhost:5672"
-    app_config["CELERY_RESULT_BACKEND"] = "redis://localhost:6379/1"
-    app_config["CACHE_REDIS_URL"] = "redis://localhost:6379/2"
     app_config["CELERY_CACHE_BACKEND"] = "memory"
     app_config["SERVER_NAME"] = "localhost:5000"
     app_config["CELERY_TASK_ALWAYS_EAGER"] = False

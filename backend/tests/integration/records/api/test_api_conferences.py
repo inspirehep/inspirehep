@@ -18,7 +18,7 @@ from jsonschema import ValidationError
 from inspirehep.records.api import ConferencesRecord, InspireRecord
 
 
-def test_conferences_create(base_app, db):
+def test_conferences_create(base_app, db, es):
     data = faker.record("con")
     record = ConferencesRecord.create(data)
 
@@ -63,7 +63,7 @@ def test_conferences_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_conferences_update(base_app, db):
+def test_conferences_update(base_app, db, es):
     data = faker.record("con", with_control_number=True)
     record = ConferencesRecord.create(data)
 
@@ -84,7 +84,7 @@ def test_conferences_update(base_app, db):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_conferences_create_or_update_with_new_record(base_app, db):
+def test_conferences_create_or_update_with_new_record(base_app, db, es):
     data = faker.record("con")
     record = ConferencesRecord.create_or_update(data)
 
@@ -101,7 +101,7 @@ def test_conferences_create_or_update_with_new_record(base_app, db):
     assert control_number == record_pid.pid_value
 
 
-def test_conferences_create_or_update_with_existing_record(base_app, db):
+def test_conferences_create_or_update_with_existing_record(base_app, db, es):
     data = faker.record("con", with_control_number=True)
     record = ConferencesRecord.create(data)
 
@@ -132,14 +132,14 @@ def test_subclasses_for_conferences():
     assert expected == ConferencesRecord.get_subclasses()
 
 
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("con")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == ConferencesRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("con")
     record = InspireRecord.create(data)
     assert type(record) == ConferencesRecord
@@ -150,7 +150,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
     assert record.pid_type == "con"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("con")
     record = InspireRecord.create_or_update(data)
     assert type(record) == ConferencesRecord
@@ -163,7 +163,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db)
     assert record.pid_type == "con"
 
 
-def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db):
+def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es):
     data = faker.record("con")
     record = ConferencesRecord.create(data)
 

@@ -30,7 +30,7 @@ from inspirehep.search.api import LiteratureSearch
 
 
 @pytest.fixture
-def enable_orcid_push_feature(base_app, db):
+def enable_orcid_push_feature(base_app, db, es):
     with patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
         yield
 
@@ -47,7 +47,7 @@ def cleanup():
 
 
 @patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_valid_record(mock_logger, base_app, db):
+def test_migrate_and_insert_record_valid_record(mock_logger, base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -74,7 +74,7 @@ def test_migrate_and_insert_record_valid_record(mock_logger, base_app, db):
 
 
 @patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_dojson_error(mock_logger, base_app, db):
+def test_migrate_and_insert_record_dojson_error(mock_logger, base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -100,7 +100,7 @@ def test_migrate_and_insert_record_dojson_error(mock_logger, base_app, db):
 
 
 @patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_invalid_record(mock_logger, base_app, db):
+def test_migrate_and_insert_record_invalid_record(mock_logger, base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -124,7 +124,7 @@ def test_migrate_and_insert_record_invalid_record(mock_logger, base_app, db):
 
 
 @patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_pidstore_error(mock_logger, base_app, db):
+def test_migrate_and_insert_record_pidstore_error(mock_logger, base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -223,7 +223,7 @@ def test_migrate_and_insert_record_invalid_record_update_regression(
 
 @patch("inspirehep.records.api.InspireRecord.create_or_update", side_effect=Exception())
 @patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db):
+def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -245,7 +245,7 @@ def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db):
     mock_logger.exception.assert_called_once_with("Migrator Record Insert Error.")
 
 
-def test_migrate_record_from_miror_steals_pids_from_deleted_records(base_app, db):
+def test_migrate_record_from_miror_steals_pids_from_deleted_records(base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">98765</controlfield>'

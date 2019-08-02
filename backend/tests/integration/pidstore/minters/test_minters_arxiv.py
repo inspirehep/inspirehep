@@ -15,7 +15,7 @@ from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.minters.arxiv import ArxivMinter
 
 
-def test_minter_arxiv_eprints(base_app, db, create_record_factory):
+def test_minter_arxiv_eprints(base_app, db, es, create_record_factory):
     arxiv_value_1 = faker.arxiv()
     arxiv_value_2 = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value_1}, {"value": arxiv_value_2}]}
@@ -43,7 +43,7 @@ def test_minter_arxiv_eprints(base_app, db, create_record_factory):
         assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_arxiv_eprints_empty(base_app, db, create_record_factory):
+def test_minter_arxiv_eprints_empty(base_app, db, es, create_record_factory):
     record = create_record_factory("lit", with_validation=True)
     data = record.json
 
@@ -59,7 +59,7 @@ def test_minter_arxiv_eprints_empty(base_app, db, create_record_factory):
     assert expected_pids_len == result_pids_len
 
 
-def test_minter_arxiv_eprints_duplicate(base_app, db, create_record_factory):
+def test_minter_arxiv_eprints_duplicate(base_app, db, es, create_record_factory):
     arxiv_value_1 = faker.arxiv()
     data = {
         "arxiv_eprints": [
@@ -87,7 +87,7 @@ def test_minter_arxiv_eprints_duplicate(base_app, db, create_record_factory):
     assert epxected_pid_value == result_pid.pid_value
 
 
-def test_mitner_arxiv_eprints_already_existing(base_app, db, create_record_factory):
+def test_mitner_arxiv_eprints_already_existing(base_app, db, es, create_record_factory):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
 
@@ -99,7 +99,7 @@ def test_mitner_arxiv_eprints_already_existing(base_app, db, create_record_facto
         ArxivMinter.mint(record_with_existing_arxiv.id, record_with_existing_arxiv.json)
 
 
-def test_mitner_arxiv_eprints_missing_schema(base_app, db, create_record_factory):
+def test_mitner_arxiv_eprints_missing_schema(base_app, db, es, create_record_factory):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     record = create_record_factory("lit", data=data)

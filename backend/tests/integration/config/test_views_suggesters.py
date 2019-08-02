@@ -16,7 +16,7 @@ def _get_suggester_text(response, suggester):
     return response.json[suggester][0]["options"][0]["text"]
 
 
-def test_literature_suggesters_book_title(api_client, db, create_record):
+def test_literature_suggesters_book_title(api_client, db, es, create_record):
     expected_title_suggestion = "Suggested title"
     data = {
         "authors": [{"full_name": "Weinberg, Steven"}],
@@ -36,7 +36,7 @@ def test_literature_suggesters_book_title(api_client, db, create_record):
     assert result_suggest == expected_title_suggestion
 
 
-def test_literature_suggesters_abstract_source(api_client, db, create_record):
+def test_literature_suggesters_abstract_source(api_client, db, es, create_record):
     expected_source_suggest = "WSP"
     data = {
         "abstracts": [{"value": "Fancy abstract", "source": expected_source_suggest}]
@@ -53,7 +53,7 @@ def test_literature_suggesters_abstract_source(api_client, db, create_record):
     assert result_suggest == expected_source_suggest
 
 
-def test_literature_suggesters_empty_result(api_client, db, create_record):
+def test_literature_suggesters_empty_result(api_client, db, es, create_record):
     lit = create_record("lit", data={"titles": [{"title": "Suggested title"}]})
 
     resp = api_client.get("literature/_suggest?book_title=nope")
@@ -64,7 +64,7 @@ def test_literature_suggesters_empty_result(api_client, db, create_record):
     assert result == expected
 
 
-def test_author_suggesters(api_client, db, create_record):
+def test_author_suggesters(api_client, db, es, create_record):
     data = {
         "name": {
             "name_variants": ["Maldacena, Juan Martin"],

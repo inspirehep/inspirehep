@@ -12,7 +12,7 @@ from invenio_accounts.testutils import login_user_via_session
 from inspirehep.accounts.roles import Roles
 
 
-def test_jobs_application_json_get(api_client, db, create_record):
+def test_jobs_application_json_get(api_client, db, es, create_record):
     record = create_record("job")
     record_control_number = record["control_number"]
 
@@ -23,7 +23,7 @@ def test_jobs_application_json_get(api_client, db, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_put(api_client, db, create_record):
+def test_jobs_application_json_put(api_client, db, es, create_record):
     record = create_record("job")
     record_control_number = record["control_number"]
 
@@ -34,7 +34,7 @@ def test_jobs_application_json_put(api_client, db, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_delete(api_client, db, create_record):
+def test_jobs_application_json_delete(api_client, db, es, create_record):
     record = create_record("job")
     record_control_number = record["control_number"]
 
@@ -53,7 +53,7 @@ def test_jobs_application_json_post(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_search_json_get(api_client, db, create_record):
+def test_jobs_search_json_get(api_client, db, es, create_record):
     create_record("job")
 
     expected_status_code = 200

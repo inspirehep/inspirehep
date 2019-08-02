@@ -7,6 +7,7 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
+import os
 import random
 from functools import partial
 
@@ -31,15 +32,23 @@ def app_config(app_config):
     # for a specific test you can chagne create fixture per-directory
     # using ``conftest.py`` or per-file.
 
-    # Due to flask error it has to be False otherwise Alembic __init__ will fail.
     app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SERVER_NAME"] = "localhost:5000"
-    app_config["SEARCH_ELASTIC_HOSTS"] = "localhost:9200"
-    app_config[
-        "SQLALCHEMY_DATABASE_URI"
-    ] = "postgresql+psycopg2://inspirehep:inspirehep@localhost/inspirehep"
     return app_config
+
+
+@pytest.fixture(scope="module")
+def db_uri(instance_path):
+    """Database URI (defaults to an SQLite datbase in the instance path).
+    Scope: module
+    The database can be overwritten by setting the ``SQLALCHEMY_DATABASE_URI``
+    environment variable to a SQLAlchemy database URI.
+    """
+    if "SQLALCHEMY_DATABASE_URI" in os.environ:
+        yield os.environ["SQLALCHEMY_DATABASE_URI"]
+    else:
+        yield "postgresql+psycopg2://inspirehep:inspirehep@localhost/inspirehep"
 
 
 @pytest.fixture(scope="function")
@@ -203,7 +212,7 @@ def api_client(base_app):
 
 
 @pytest.fixture(scope="function")
-def create_user_and_token(base_app, db):
+def create_user_and_token(base_app, db, es):
     """Fixtures to create user and authentication token for given user.
 
     Examples:
@@ -219,7 +228,7 @@ def create_user_and_token(base_app, db):
 
 
 @pytest.fixture(scope="function")
-def create_user(base_app, db):
+def create_user(base_app, db, es):
     """Fixture to create user.
 
     Examples:

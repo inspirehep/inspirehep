@@ -15,7 +15,7 @@ from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.minters.doi import DoiMinter
 
 
-def test_minter_dois(base_app, db, create_record_factory):
+def test_minter_dois(base_app, db, es, create_record_factory):
     doi_value_1 = faker.doi()
     doi_value_2 = faker.doi()
     data = {"dois": [{"value": doi_value_1}, {"value": doi_value_2}]}
@@ -43,7 +43,7 @@ def test_minter_dois(base_app, db, create_record_factory):
         assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_dois_duplicate(base_app, db, create_record_factory):
+def test_minter_dois_duplicate(base_app, db, es, create_record_factory):
     doi_value_1 = faker.doi()
     data = {
         "dois": [
@@ -70,7 +70,7 @@ def test_minter_dois_duplicate(base_app, db, create_record_factory):
     assert epxected_pid_value == result_pid.pid_value
 
 
-def test_minter_dois_empty(base_app, db, create_record_factory):
+def test_minter_dois_empty(base_app, db, es, create_record_factory):
     record = create_record_factory("lit", with_validation=True)
     data = record.json
 
@@ -86,7 +86,7 @@ def test_minter_dois_empty(base_app, db, create_record_factory):
     assert expected_pids_len == result_pids_len
 
 
-def test_mitner_dois_already_existing(base_app, db, create_record_factory):
+def test_mitner_dois_already_existing(base_app, db, es, create_record_factory):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     record_with_doi = create_record_factory("lit", data=data, with_validation=True)
@@ -97,7 +97,7 @@ def test_mitner_dois_already_existing(base_app, db, create_record_factory):
         DoiMinter.mint(record_with_existing_doi.id, record_with_existing_doi.json)
 
 
-def test_mitner_dois_missing_schema(base_app, db, create_record_factory):
+def test_mitner_dois_missing_schema(base_app, db, es, create_record_factory):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     record = create_record_factory("lit", data=data)

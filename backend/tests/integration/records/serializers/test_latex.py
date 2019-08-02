@@ -9,7 +9,7 @@ from freezegun import freeze_time
 
 
 @freeze_time("1994-12-19")
-def test_latex_eu(api_client, db, create_record_factory):
+def test_latex_eu(api_client, db, es, create_record_factory):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
 
@@ -38,7 +38,7 @@ def test_latex_eu(api_client, db, create_record_factory):
 
 
 @freeze_time("1994-12-19")
-def test_latex_us(api_client, db, create_record_factory):
+def test_latex_us(api_client, db, es, create_record_factory):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
 

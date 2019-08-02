@@ -9,7 +9,7 @@ from flask_alembic import Alembic
 from sqlalchemy import text
 
 
-def test_downgrade(base_app, db):
+def test_downgrade(base_app, db, es):
     alembic = Alembic(base_app)
 
     assert "idx_pid_provider" not in _get_indexes("pidstore_pid", db)
@@ -77,7 +77,7 @@ def test_downgrade(base_app, db):
     assert "ix_workflows_object_status" not in _get_indexes("workflows_object", db)
 
 
-def test_upgrade(base_app, db):
+def test_upgrade(base_app, db, es):
     alembic = Alembic(base_app)
     # go down to first migration
     alembic.downgrade(target="b5be5fda2ee7")

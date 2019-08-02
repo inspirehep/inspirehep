@@ -17,7 +17,7 @@ from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_literature_authors_json(mock_uuid4, api_client, db, create_record):
+def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     headers = {"Accept": "application/json"}
     full_name_1 = "Tanner Walker"
@@ -52,7 +52,7 @@ def test_literature_authors_json(mock_uuid4, api_client, db, create_record):
     assert expected_result == response_data_metadata
 
 
-def test_literature_json_without_login(api_client, db, create_record):
+def test_literature_json_without_login(api_client, db, es, create_record):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -109,7 +109,7 @@ def test_literature_json_without_login(api_client, db, create_record):
 
 
 def test_literature_json_with_logged_in_cataloger(
-    api_client, db, create_user, create_record
+    api_client, db, es, create_user, create_record
 ):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -185,7 +185,7 @@ def test_literature_json_with_logged_in_cataloger(
     assert response_data["updated"] is not None
 
 
-def test_literature_search_json_without_login(api_client, db, create_record):
+def test_literature_search_json_without_login(api_client, db, es, create_record):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -249,7 +249,7 @@ def test_literature_search_json_without_login(api_client, db, create_record):
 
 
 def test_literature_search_json_with_cataloger_login(
-    api_client, db, create_user, create_record
+    api_client, db, es, create_user, create_record
 ):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -323,7 +323,7 @@ def test_literature_search_json_with_cataloger_login(
     assert expected_result == response_data_hits_metadata
 
 
-def test_literature_detail(api_client, db, create_record):
+def test_literature_detail(api_client, db, es, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit", data={"preprint_date": "2001-01-01"})
     record_control_number = record["control_number"]
@@ -357,7 +357,7 @@ def test_literature_detail(api_client, db, create_record):
     assert response_data_updated is not None
 
 
-def test_literature_list(api_client, db, create_record):
+def test_literature_list(api_client, db, es, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit", data={"preprint_date": "2001-01-01"})
 
@@ -388,7 +388,7 @@ def test_literature_list(api_client, db, create_record):
 
 
 def test_literature_list_with_cataloger_can_edit(
-    api_client, db, create_record, create_user
+    api_client, db, es, create_record, create_user
 ):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit")
@@ -413,7 +413,7 @@ def test_literature_list_with_cataloger_can_edit(
     assert expected_data_hits["can_edit"] is True
 
 
-def test_literature_list_has_sort_options(api_client, db, create_record):
+def test_literature_list_has_sort_options(api_client, db, es, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     create_record("lit")
 
@@ -432,7 +432,7 @@ def test_literature_list_has_sort_options(api_client, db, create_record):
     assert expected_sort_options == sort_options
 
 
-def test_literature_references_json(api_client, db, create_record):
+def test_literature_references_json(api_client, db, es, create_record):
     headers = {"Accept": "application/json"}
     reference_without_link_title = faker.sentence()
 
@@ -483,7 +483,7 @@ def test_literature_references_json(api_client, db, create_record):
 
 
 def test_literature_detail_serialize_experiments(
-    es_clear, db, datadir, create_record, create_record_factory
+    es_clear, db, es, datadir, create_record, create_record_factory
 ):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
@@ -528,7 +528,7 @@ def test_literature_detail_serialize_experiments(
 
 
 def test_literature_detail_serializes_conference_info(
-    api_client, db, create_record_factory
+    api_client, db, es, create_record_factory
 ):
     conference_data = {
         "acronyms": ["SAIP2016"],

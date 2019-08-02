@@ -15,6 +15,8 @@ from helpers.providers.faker import faker
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 from inspirehep.records.cli import importer
 
+pytestmark = pytest.mark.skip("Temporary, the tests are huning on drone.io ")
+
 
 @pytest.mark.vcr()
 def test_create_record_with_one_url(api_client, db, script_info):
