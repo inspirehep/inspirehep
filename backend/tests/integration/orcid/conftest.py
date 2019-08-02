@@ -44,6 +44,9 @@ def vcr_config():
         "filter_headers": ("Authorization", "User-Agent"),
         "ignore_hosts": (
             "localhost",
+            "elasticsearch",
+            "postgres",
+            "redis",
             "indexer",
             "cache",
             "db",

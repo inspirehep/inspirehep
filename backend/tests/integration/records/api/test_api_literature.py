@@ -22,7 +22,7 @@ from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentif
 from inspirehep.records.models import RecordCitations
 
 
-def test_literature_create(base_app, db):
+def test_literature_create(base_app, db, es):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
@@ -39,7 +39,7 @@ def test_literature_create(base_app, db):
     assert control_number == record_pid.pid_value
 
 
-def test_literature_create_does_not_mint_if_record_is_deleted(base_app, db):
+def test_literature_create_does_not_mint_if_record_is_deleted(base_app, db, es):
     data = faker.record("lit", data={"deleted": True}, with_control_number=True)
     record = LiteratureRecord.create(data)
 
@@ -205,7 +205,7 @@ def test_literature_create_with_existing_control_number(base_app, db, create_pid
         LiteratureRecord.create(data)
 
 
-def test_literature_create_with_arxiv_eprints(base_app, db):
+def test_literature_create_with_arxiv_eprints(base_app, db, es):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     data = faker.record("lit", data=data)
@@ -229,7 +229,7 @@ def test_literature_create_with_arxiv_eprints(base_app, db):
     assert expected_arxiv_pid_provider == record_pid_arxiv.pid_provider
 
 
-def test_literature_create_with_dois(base_app, db):
+def test_literature_create_with_dois(base_app, db, es):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     data = faker.record("lit", data=data)
@@ -296,7 +296,7 @@ def test_literature_create_with_invalid_data_and_mutliple_pids(
     assert record_doi_pid is None
 
 
-def test_literature_update(base_app, db):
+def test_literature_update(base_app, db, es):
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
 
@@ -317,7 +317,7 @@ def test_literature_update(base_app, db):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_literature_create_or_update_with_new_record(base_app, db):
+def test_literature_create_or_update_with_new_record(base_app, db, es):
     data = faker.record("lit")
     record = LiteratureRecord.create_or_update(data)
 
@@ -334,7 +334,7 @@ def test_literature_create_or_update_with_new_record(base_app, db):
     assert control_number == record_pid.pid_value
 
 
-def test_literature_create_or_update_with_existing_record(base_app, db):
+def test_literature_create_or_update_with_existing_record(base_app, db, es):
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
 
@@ -601,14 +601,14 @@ def test_subclasses_for_literature():
     assert expected == LiteratureRecord.get_subclasses()
 
 
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("lit")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == LiteratureRecord
 
 
-def test_dump_for_es(base_app, db):
+def test_dump_for_es(base_app, db, es):
     additional_fields = {
         "preprint_date": "2016-01-01",
         "publication_info": [{"year": 2015}],
@@ -728,7 +728,7 @@ def test_add_and_remove_figs_and_docs_when_files_flag_disabled(
     assert record["documents"][0]["key"] == expected_doc_filename
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("lit")
     record = InspireRecord.create(data)
     assert type(record) == LiteratureRecord
@@ -739,7 +739,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
     assert record.pid_type == "lit"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("lit")
     record = InspireRecord.create_or_update(data)
     assert type(record) == LiteratureRecord
@@ -762,7 +762,7 @@ def test_import_article_bad_doi(base_app):
         import_article("doi:Th1s1s/n0taD01")
 
 
-def test_import_article_arxiv_id_already_in_inspire(base_app, db):
+def test_import_article_arxiv_id_already_in_inspire(base_app, db, es):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     data = faker.record("lit", with_control_number=True, data=data)
@@ -772,7 +772,7 @@ def test_import_article_arxiv_id_already_in_inspire(base_app, db):
         import_article(f"arXiv:{arxiv_value}")
 
 
-def test_import_article_doi_already_in_inspire(base_app, db):
+def test_import_article_doi_already_in_inspire(base_app, db, es):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     data = faker.record("lit", with_control_number=True, data=data)
@@ -782,7 +782,7 @@ def test_import_article_doi_already_in_inspire(base_app, db):
         import_article(doi_value)
 
 
-def test_create_record_update_citation_table(base_app, db):
+def test_create_record_update_citation_table(base_app, db, es):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
@@ -796,7 +796,7 @@ def test_create_record_update_citation_table(base_app, db):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_update_record_update_citation_table(base_app, db):
+def test_update_record_update_citation_table(base_app, db, es):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
@@ -816,7 +816,7 @@ def test_update_record_update_citation_table(base_app, db):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_complex_records_interactions_in_citation_table(base_app, db):
+def test_complex_records_interactions_in_citation_table(base_app, db, es):
     records_list = []
     for i in range(6):
         data = faker.record(
@@ -844,7 +844,7 @@ def test_complex_records_interactions_in_citation_table(base_app, db):
     assert len(records_list[5].model.references) == 5
 
 
-def test_literature_can_cite_data_record(base_app, db):
+def test_literature_can_cite_data_record(base_app, db, es):
     data = faker.record("dat")
     record = InspireRecord.create(data)
 
@@ -858,7 +858,7 @@ def test_literature_can_cite_data_record(base_app, db):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, db):
+def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, db, es):
     author = InspireRecord.create(faker.record("aut"))
     conference = InspireRecord.create(faker.record("con"))
     experiment = InspireRecord.create(faker.record("exp"))
@@ -884,7 +884,7 @@ def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, 
     assert len(RecordCitations.query.all()) == 0
 
 
-def test_literature_can_cite_only_existing_records(base_app, db):
+def test_literature_can_cite_only_existing_records(base_app, db, es):
     data = faker.record("dat")
     record = InspireRecord.create(data)
 
@@ -919,7 +919,7 @@ def test_literature_is_not_cited_by_deleted_records(base_app, db, es_clear):
     assert len(RecordCitations.query.all()) == 0
 
 
-def test_literature_citation_count_property(base_app, db):
+def test_literature_citation_count_property(base_app, db, es):
     data = faker.record("lit")
     record = InspireRecord.create(data)
 
@@ -964,7 +964,7 @@ def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
 
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
-def test_record_create_not_skips_orcid_on_default(orcid_mock, base_app, db):
+def test_record_create_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1)
     assert orcid_mock.call_count == 1
@@ -1004,7 +1004,7 @@ def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
 
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
-def test_record_update_not_skips_orcid_on_default(orcid_mock, base_app, db):
+def test_record_update_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record1 = InspireRecord.create(data1)

@@ -96,7 +96,7 @@ def test_authors_detail(api_client, db, create_record_factory, datadir):
     assert response_data["updated"] is not None
 
 
-def test_authors_json_without_login(api_client, db, create_record_factory):
+def test_authors_json_without_login(api_client, db, es, create_record_factory):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -243,7 +243,9 @@ def test_authors_search_json(api_client, db, create_record, datadir):
     assert response_data_hits_updated is not None
 
 
-def test_authors_search_json_does_not_have_sort_options(api_client, db, create_record):
+def test_authors_search_json_does_not_have_sort_options(
+    api_client, db, es, create_record
+):
     headers = {"Accept": "application/json"}
     record = create_record("aut")
 

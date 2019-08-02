@@ -54,7 +54,7 @@ def override_config(**kwargs):
 
 
 @pytest.fixture(scope="function")
-def user_with_permission(base_app, db, es_clear):
+def user_with_permission(base_app, db, es):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
         "token": "3d25a708-dae9-48eb-b676-aaaaaaaaaaaa",
@@ -230,7 +230,7 @@ def test_orcid_push_not_trigger_for_author_records(
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_without_allow_push(
-    mock_orcid_push_task, app, raw_record, user_without_permission
+    mock_orcid_push_task, base_app, db, es, raw_record, user_without_permission
 ):
     migrate_and_insert_record(raw_record)
 
@@ -239,7 +239,7 @@ def test_orcid_push_not_triggered_on_create_record_without_allow_push(
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_without_token(
-    mock_orcid_push_task, app, raw_record, user_without_token
+    mock_orcid_push_task, base_app, db, es, raw_record, user_without_token
 ):
     migrate_and_insert_record(raw_record)
 
@@ -249,7 +249,9 @@ def test_orcid_push_not_triggered_on_create_record_without_token(
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_create_record_with_allow_push(
     mock_orcid_push_task,
-    app,
+    base_app,
+    db,
+    es,
     raw_record,
     user_with_permission,
     enable_orcid_push_feature,
@@ -270,7 +272,13 @@ def test_orcid_push_triggered_on_create_record_with_allow_push(
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_record_update_with_allow_push(
-    mock_orcid_push_task, app, record, user_with_permission, enable_orcid_push_feature
+    mock_orcid_push_task,
+    base_app,
+    db,
+    es,
+    record,
+    user_with_permission,
+    enable_orcid_push_feature,
 ):
     expected_kwargs = {
         "kwargs": {
@@ -289,7 +297,9 @@ def test_orcid_push_triggered_on_record_update_with_allow_push(
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_push(
     mock_orcid_push_task,
-    app,
+    base_app,
+    db,
+    es,
     raw_record,
     two_users_with_permission,
     enable_orcid_push_feature,
@@ -320,7 +330,7 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_no_feat_flag(
-    mocked_Task, app, raw_record, user_with_permission
+    mocked_Task, base_app, db, es, raw_record, user_with_permission
 ):
     migrate_and_insert_record(raw_record)
 

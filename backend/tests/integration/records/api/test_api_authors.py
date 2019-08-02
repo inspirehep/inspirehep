@@ -18,7 +18,7 @@ from jsonschema import ValidationError
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 
 
-def test_authors_create(base_app, db):
+def test_authors_create(base_app, db, es):
     data = faker.record("aut")
     record = AuthorsRecord.create(data)
 
@@ -63,7 +63,7 @@ def test_authors_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_authors_update(base_app, db):
+def test_authors_update(base_app, db, es):
     data = faker.record("aut", with_control_number=True)
     record = AuthorsRecord.create(data)
 
@@ -90,7 +90,7 @@ def test_authors_update(base_app, db):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_authors_create_or_update_with_new_record(base_app, db):
+def test_authors_create_or_update_with_new_record(base_app, db, es):
     data = faker.record("aut")
     record = AuthorsRecord.create_or_update(data)
 
@@ -107,7 +107,7 @@ def test_authors_create_or_update_with_new_record(base_app, db):
     assert control_number == record_pid.pid_value
 
 
-def test_literature_create_or_update_with_existing_record(base_app, db):
+def test_literature_create_or_update_with_existing_record(base_app, db, es):
     data = faker.record("aut", with_control_number=True)
     record = AuthorsRecord.create(data)
 
@@ -144,14 +144,14 @@ def test_subclasses_for_authors():
     assert expected == AuthorsRecord.get_subclasses()
 
 
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("aut")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == AuthorsRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("aut")
     record = InspireRecord.create(data)
     assert type(record) == AuthorsRecord
@@ -162,7 +162,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
     assert record.pid_type == "aut"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("aut")
     record = InspireRecord.create_or_update(data)
     assert type(record) == AuthorsRecord

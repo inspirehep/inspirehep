@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_institutions_application_json_get(api_client, db, create_record_factory):
+def test_institutions_application_json_get(api_client, db, es, create_record_factory):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -17,7 +17,7 @@ def test_institutions_application_json_get(api_client, db, create_record_factory
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_put(api_client, db, create_record_factory):
+def test_institutions_application_json_put(api_client, db, es, create_record_factory):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -28,7 +28,9 @@ def test_institutions_application_json_put(api_client, db, create_record_factory
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_delete(api_client, db, create_record_factory):
+def test_institutions_application_json_delete(
+    api_client, db, es, create_record_factory
+):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -47,7 +49,7 @@ def test_institutions_application_json_post(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_institutions_search_json_get(api_client, db, create_record_factory):
+def test_institutions_search_json_get(api_client, db, es, create_record_factory):
     create_record_factory("ins", with_indexing=True)
 
     expected_status_code = 200

@@ -8,7 +8,7 @@
 import json
 
 
-def test_citation_summary_facet(api_client, db, create_record_factory):
+def test_citation_summary_facet(api_client, db, es, create_record_factory):
     unpublished_paper_data = {
         "refereed": False,
         "citation_count": 8,
@@ -109,7 +109,9 @@ def test_citation_summary_facet(api_client, db, create_record_factory):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_h_index_with_more_papers_than_citations(api_client, db, create_record_factory):
+def test_h_index_with_more_papers_than_citations(
+    api_client, db, es, create_record_factory
+):
     published_papers_citation_count = [1, 2, 2, 2, 2]
     for count in published_papers_citation_count:
         data = {
@@ -159,7 +161,7 @@ def test_h_index_with_as_many_papers_as_citations(
     assert response_data_h_index == expected_h_index
 
 
-def test_citation_summary_facet_filters(api_client, db, create_record_factory):
+def test_citation_summary_facet_filters(api_client, db, es, create_record_factory):
     book_chapter_paper = {
         "refereed": False,
         "citation_count": 8,
@@ -260,7 +262,9 @@ def test_citation_summary_facet_filters(api_client, db, create_record_factory):
     assert response_data_citation_summary == expected_citation_summary_aggregation
 
 
-def test_citation_summary_facet_excluded_filters(api_client, db, create_record_factory):
+def test_citation_summary_facet_excluded_filters(
+    api_client, db, es, create_record_factory
+):
     non_refereed_paper = {
         "refereed": False,
         "citation_count": 8,

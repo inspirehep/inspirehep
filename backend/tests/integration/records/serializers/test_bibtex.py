@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_bibtex(api_client, db, create_record_factory):
+def test_bibtex(api_client, db, es, create_record_factory):
     headers = {"Accept": "application/x-bibtex"}
     data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     record = create_record_factory("lit", data=data, with_indexing=True)
@@ -29,7 +29,7 @@ def test_bibtex(api_client, db, create_record_factory):
     assert expected_result == response_data
 
 
-def test_bibtex_search(api_client, db, create_record_factory):
+def test_bibtex_search(api_client, db, es, create_record_factory):
     headers = {"Accept": "application/x-bibtex"}
     data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     data_2 = {"control_number": 637275232, "titles": [{"title": "Yet another title."}]}

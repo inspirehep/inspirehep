@@ -88,7 +88,7 @@ def test_literature_application_json_get(api_client, db, es_clear, create_record
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put(api_client, db, create_record):
+def test_literature_application_json_put(api_client, db, es, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -99,7 +99,7 @@ def test_literature_application_json_put(api_client, db, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_delete(api_client, db, create_record):
+def test_literature_application_json_delete(api_client, db, es, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -459,7 +459,9 @@ def test_literature_facets_collaboration(api_client, db, create_record, es_clear
     assert expected_data == response_data["hits"]["hits"][0]["metadata"]
 
 
-def test_literature_search_citation_count_filter(api_client, db, create_record_factory):
+def test_literature_search_citation_count_filter(
+    api_client, db, es, create_record_factory
+):
     paper_with_requested_number_of_citations = create_record_factory(
         "lit", data={"citation_count": 101}, with_indexing=True
     )
@@ -480,7 +482,7 @@ def test_literature_search_citation_count_filter(api_client, db, create_record_f
     )
 
 
-def test_literature_search_refereed_filter(api_client, db, create_record_factory):
+def test_literature_search_refereed_filter(api_client, db, es, create_record_factory):
     refereed_paper = create_record_factory(
         "lit", data={"refereed": True}, with_indexing=True
     )
@@ -498,7 +500,7 @@ def test_literature_search_refereed_filter(api_client, db, create_record_factory
     )
 
 
-def test_literature_search_citeable_filter(api_client, db, create_record_factory):
+def test_literature_search_citeable_filter(api_client, db, es, create_record_factory):
     citeable_paper = create_record_factory(
         "lit", data={"citeable": True}, with_indexing=True
     )

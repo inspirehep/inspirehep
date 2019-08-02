@@ -18,7 +18,7 @@ from jsonschema import ValidationError
 from inspirehep.records.api import InspireRecord, InstitutionsRecord
 
 
-def test_institutions_create(base_app, db):
+def test_institutions_create(base_app, db, es):
     data = faker.record("ins")
     record = InstitutionsRecord.create(data)
 
@@ -65,7 +65,7 @@ def test_institutions_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_institutions_update(base_app, db):
+def test_institutions_update(base_app, db, es):
     data = faker.record("ins", with_control_number=True)
     record = InstitutionsRecord.create(data)
 
@@ -86,7 +86,7 @@ def test_institutions_update(base_app, db):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_institutions_create_or_update_with_new_record(base_app, db):
+def test_institutions_create_or_update_with_new_record(base_app, db, es):
     data = faker.record("ins")
     record = InstitutionsRecord.create_or_update(data)
 
@@ -103,7 +103,7 @@ def test_institutions_create_or_update_with_new_record(base_app, db):
     assert control_number == record_pid.pid_value
 
 
-def test_institutions_create_or_update_with_existing_record(base_app, db):
+def test_institutions_create_or_update_with_existing_record(base_app, db, es):
     data = faker.record("ins", with_control_number=True)
     record = InstitutionsRecord.create(data)
 
@@ -134,14 +134,14 @@ def test_subclasses_for_institutions():
     assert expected == InstitutionsRecord.get_subclasses()
 
 
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("ins")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == InstitutionsRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("ins")
     record = InspireRecord.create(data)
     assert type(record) == InstitutionsRecord
@@ -152,7 +152,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db):
     assert record.pid_type == "ins"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("ins")
     record = InspireRecord.create_or_update(data)
     assert type(record) == InstitutionsRecord
@@ -165,7 +165,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db)
     assert record.pid_type == "ins"
 
 
-def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db):
+def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es):
     data = faker.record("ins")
     record = InstitutionsRecord.create(data)
 
