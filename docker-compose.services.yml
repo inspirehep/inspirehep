@@ -10,7 +10,7 @@ services:
   app:
     restart: "always"
     build:
-      context: .
+      context: backend
       args:
         - POETRY_EXTRA_ARGS=--dev
     image: inspirehep

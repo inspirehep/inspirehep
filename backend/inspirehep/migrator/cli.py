@@ -144,4 +144,4 @@ def continuously():
 
     while not handler.kill_now():
         continuous_migration()
-        sleep(current_app.config.get('MIGRATION_POLLING_SLEEP', 1))
+        sleep(current_app.config.get("MIGRATION_POLLING_SLEEP", 1))

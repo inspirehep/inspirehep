@@ -22,7 +22,7 @@ ARG POETRY_EXTRA_ARGS=''
 RUN poetry export --without-hashes --format=requirements.txt ${POETRY_EXTRA_ARGS} && \
     pip install -r requirements.txt
 
-COPY setup.py README.md ./
+COPY setup.py ./
 COPY inspirehep inspirehep/
 COPY tests tests/
 COPY scripts scripts/

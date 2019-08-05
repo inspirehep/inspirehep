@@ -11,8 +11,6 @@ import os
 
 from setuptools import find_packages, setup
 
-readme = open("README.md").read()
-
 INVENIO_VERSION = "3.1.0.dev20181106"
 
 packages = find_packages()
@@ -28,7 +26,6 @@ setup(
     name="inspirehep",
     version=version,
     description=__doc__,
-    long_description=readme,
     keywords="inspirehep Invenio",
     license="MIT",
     author="CERN",
