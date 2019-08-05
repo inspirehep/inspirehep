@@ -72,10 +72,10 @@ before_script:
   - if [[ "$RUN_DOCKER" == "true" ]]; then cd ..; ./docker/wait-for-services.sh; cd backend; fi
 
 script:
-    - if [[ "$SUITE" == "unit" ]]; then  ./run-code-checks.sh; fi
-    - if [[ "$SUITE" != "ui" ]]; then
+    - if [[ "$SUITE" == "unit" ]] && [[`../has-project-changed backend` == "CHANGED"]]; then  ./run-code-checks.sh; fi
+    - if [[ "$SUITE" != "ui" ]] && [[`../has-project-changed backend` == "CHANGED"]]; then
         poetry run py.test tests/${SUITE};
-      else
+      elif [[`../has-project-changed ui` == "CHANGED"]]; then
         cd ui && yarn && yarn test;
       fi
 
