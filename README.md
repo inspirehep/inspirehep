@@ -12,15 +12,14 @@ $ curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry
 
 ### How to run
 
-These commands allow you to spin up a contenarized environment that reproduces the Inspire-HEP and Inspire-Next applications.
+First you will need a working kubernetes cluster.
+On Mac OS, we recommend using [docker-desktop](https://www.docker.com/products/docker-desktop).
+On Linux, you can use [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/).
+Once you have access to your local kubernetes cluster, following the instructions to install [Tilt](https://docs.tilt.dev/install.html).
+You can then start your environment using
 
 ```bash
-$ ./scripts/bootstrap
-$ ./docker-inspire up -d
-$ ./docker-inspire exec web ./scripts/setup
-$ # We need that for workflows on inspire-next
-$ ./docker-inspire exec web-next inspirehep db create
-$ firefox localhost:8080
+tilt up
 ```
 
 #### Without Docker (Only inspirehep Without The UI)
