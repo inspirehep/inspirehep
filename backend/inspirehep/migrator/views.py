@@ -26,7 +26,9 @@ NON_DELETED_COLLECTIONS = [
 class MigratorErrorListResource(MethodView):
     """Return a list of errors belonging to invalid mirror records."""
 
-    decorators = [login_required_with_roles([Roles.superuser.value, Roles.cataloger.value])]
+    decorators = [
+        login_required_with_roles([Roles.superuser.value, Roles.cataloger.value])
+    ]
 
     def get(self):
         errors = (

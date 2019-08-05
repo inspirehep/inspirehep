@@ -42,7 +42,7 @@ services:
   - docker
 
 install:
-  - if [[ "$SUITE" != "ui" ]]; then  ./scripts/bootstrap; fi
+  - if [[ "$SUITE" != "ui" ]]; then ./scripts/bootstrap; fi
 
 before_install:
   - sudo service postgresql stop
@@ -50,6 +50,7 @@ before_install:
       docker-compose -f docker-compose.travis.yml up -d;
     fi
   - if [[ "$SUITE" != "ui" ]]; then
+      cd backend;
       curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16;
       source $HOME/.poetry/env;
     fi
@@ -68,7 +69,7 @@ after_failure:
   - if [[ "$SUITE" != "ui" ]]; then poetry show; fi
 
 before_script:
-  - if [[ "$RUN_DOCKER" == "true" ]]; then ./docker/wait-for-services.sh; fi
+  - if [[ "$RUN_DOCKER" == "true" ]]; then cd ..; ./docker/wait-for-services.sh; cd backend; fi
 
 script:
     - if [[ "$SUITE" == "unit" ]]; then  ./run-code-checks.sh; fi
@@ -89,7 +90,7 @@ matrix:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: cd $TRAVIS_BUILD_DIR; ./build-docker-inspirehep-image.sh
+    script: cd $TRAVIS_BUILD_DIR; ./build-docker-backend-image.sh
     on:
       all_branches: true
       condition: $SUITE = integration && $TRAVIS_BRANCH =~ ^master|prod$

@@ -49,17 +49,23 @@ def init_oauth_token():
 def init_roles():
     ds = current_app.extensions["invenio-accounts"].datastore
     with db.session.begin_nested():
-        ds.create_role(name=Roles.superuser.value, description="admin with no restrictions")
-        ds.create_role(name=Roles.cataloger.value, description="users with editing capabilities")
         ds.create_role(
-            name=Roles.hermescurator.value, description="curator for HERMES Internal Notes"
+            name=Roles.superuser.value, description="admin with no restrictions"
+        )
+        ds.create_role(
+            name=Roles.cataloger.value, description="users with editing capabilities"
+        )
+        ds.create_role(
+            name=Roles.hermescurator.value,
+            description="curator for HERMES Internal Notes",
         )
         ds.create_role(
             name=Roles.hermescoll.value,
             description="HERMES Collaboration access to Internal Notes",
         )
         ds.create_role(
-            name=Roles.jlabcurator.value, description="curator for JLAB related articles"
+            name=Roles.jlabcurator.value,
+            description="curator for JLAB related articles",
         )
     db.session.commit()
 

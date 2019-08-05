@@ -12,7 +12,7 @@ from mock import patch
 from inspirehep.orcid.cli import orcid
 
 
-@patch('inspirehep.orcid.cli.import_legacy_orcid_tokens')
+@patch("inspirehep.orcid.cli.import_legacy_orcid_tokens")
 def test_import_legacy_tokens_command(mock_import_orcid, app_cli_runner):
     result = app_cli_runner.invoke(orcid, ["import-legacy-tokens"])
 

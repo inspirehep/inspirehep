@@ -7,7 +7,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 IMAGE="inspirehep/hep"
-DOCKER_CONTEXT='.'
+DOCKER_CONTEXT='backend'
 
 retry() {
     "${@}" || "${@}" || exit 2
