@@ -20,7 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-from __future__ import absolute_import, division, print_function
 
 import mock
 import pytest
@@ -30,6 +29,9 @@ from lxml import etree
 
 from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid.cache import OrcidCache, _OrcidHasher
+
+# The tests are written in a specific order, disable random
+pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("base_app", "db")
