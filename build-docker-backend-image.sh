@@ -8,6 +8,7 @@
 
 IMAGE="inspirehep/hep"
 DOCKER_CONTEXT='backend'
+TAG="$(git describe --always)"
 
 retry() {
     "${@}" || "${@}" || exit 2
@@ -21,7 +22,6 @@ login() {
 }
 
 buildPush() {
-  TAG="$(git describe --always)"
 
   echo "Building docker image"
   retry docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}" "${DOCKER_CONTEXT}"
@@ -36,9 +36,19 @@ logout() {
   retry docker logout
 }
 
+deployQA() {
+  curl -X POST \
+     -F token=${DEPLOY_QA_TOKEN} \
+     -F ref=master \
+     -F variables[IMAGE_NAME]=inspirehep/hep \
+     -F variables[NEW_TAG]=${TAG} \
+     https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
+}
+
 main() {
   login
   buildPush
   logout
+  deployQA
 }
 main
