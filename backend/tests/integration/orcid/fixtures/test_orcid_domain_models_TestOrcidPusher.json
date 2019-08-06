@@ -25,11 +25,11 @@
   ],
   "dois": [
     {
-      "value": "10.1111/test.orcid.push"
+      "value": "10.9999/test.orcid.push"
     }
   ],
   "collaborations": [],
   "document_type": ["article"],
   "preprint_date": "2017-05",
-  "control_number": 45
+  "control_number": 999
 }

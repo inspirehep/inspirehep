@@ -20,8 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-from __future__ import absolute_import, division, print_function
-
 import mock
 import pytest
 from flask import current_app
@@ -30,6 +28,9 @@ from invenio_oauthclient.errors import AlreadyLinkedError
 from invenio_oauthclient.models import RemoteToken, User, UserIdentity
 
 from inspirehep.orcid.tasks import RemoteTokenOrcidMismatch, _link_user_and_token
+
+# The tests are written in a specific order, disable random
+pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("base_app", "db", "es_clear")

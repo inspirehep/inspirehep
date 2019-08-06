@@ -20,9 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-"""ORCID util tests."""
-
-from __future__ import absolute_import, division, print_function
 
 import json
 import time
@@ -43,6 +40,9 @@ from inspirehep.orcid.utils import (
     get_orcids_for_push,
 )
 from inspirehep.records.api import InspireRecord
+
+# The tests are written in a specific order, disable random
+pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.fixture(scope="function")

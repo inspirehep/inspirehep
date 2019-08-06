@@ -20,8 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-from __future__ import absolute_import, division, print_function
-
 import logging
 import re
 
@@ -37,6 +35,9 @@ from inspirehep.orcid import cache as cache_module
 from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.cache import OrcidCache
 from inspirehep.orcid.tasks import orcid_push
+
+# The tests are written in a specific order, disable random
+pytestmark = pytest.mark.random_order(disabled=True)
 
 
 class TestFeatureFlagOrcidPushWhitelistRegex(object):
@@ -251,6 +252,7 @@ class TestOrcidPushTask(object):
             orcid_push("0000-0003-0000-XXXX", self.recid, self.oauth_token)
 
     def test_push_new_work_already_existing(self):
+        self.cache.delete_work_putcode()
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",

@@ -20,8 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-from __future__ import absolute_import, division, print_function
-
 import logging
 
 import mock
@@ -31,6 +29,9 @@ from helpers.utils import override_config
 from inspirehep.orcid import exceptions
 from inspirehep.orcid.converter import ExternalIdentifier
 from inspirehep.orcid.putcode_getter import OrcidPutcodeGetter
+
+# The tests are written in a specific order, disable random
+pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("base_app", "db", "es_clear")

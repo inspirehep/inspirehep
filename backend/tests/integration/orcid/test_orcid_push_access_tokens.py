@@ -20,8 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-from __future__ import absolute_import, division, print_function
-
 import time
 
 import pytest
@@ -30,6 +28,9 @@ from helpers.factories.db.invenio_oauthclient import TestRemoteToken
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.orcid import push_access_tokens
+
+# The tests are written in a specific order, disable random
+pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.mark.usefixtures("base_app", "db", "es_clear")

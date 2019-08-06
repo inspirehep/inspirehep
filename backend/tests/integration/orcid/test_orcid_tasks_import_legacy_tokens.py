@@ -20,8 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-from __future__ import absolute_import, division, print_function
-
 import logging
 
 from flask import current_app
@@ -42,6 +40,9 @@ from inspirehep.orcid.tasks import (
     import_legacy_orcid_tokens,
     legacy_orcid_arrays,
 )
+
+# The tests are written in a specific order, disable random
+pytestmark = mark.random_order(disabled=True)
 
 SAMPLE_USER = {
     "orcid": "0000-0002-1825-0097",

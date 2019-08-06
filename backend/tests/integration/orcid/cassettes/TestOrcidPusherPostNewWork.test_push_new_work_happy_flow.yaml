@@ -1,5 +1,95 @@
 interactions:
 - request:
+    body: null
+    headers:
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
+  response:
+    body:
+      string: "{\n  \"last-modified-date\" : null,\n  \"group\" : [ ],\n  \"path\"\
+        \ : \"/0000-0003-1134-6827/works\"\n}"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/orcid+json; qs=2;charset=UTF-8
+      Date:
+      - Tue, 06 Aug 2019 16:18:44 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.10.0
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      content-length:
+      - '91'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://api.orcid.org/v2.0/0000-0001-8627-769X/works
+  response:
+    body:
+      string: "{\n  \"last-modified-date\" : null,\n  \"group\" : [ ],\n  \"path\"\
+        \ : \"/0000-0001-8627-769X/works\"\n}"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/orcid+json; qs=2;charset=UTF-8
+      Date:
+      - Tue, 06 Aug 2019 16:18:45 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.10.0
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      content-length:
+      - '91'
+    status:
+      code: 200
+      message: OK
+- request:
     body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
       http://www.orcid.org/ns/work\"><work:title><common:title>Some Results Arising\
       \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n\
@@ -34,15 +124,15 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 16 May 2019 15:09:40 GMT
+      - Tue, 06 Aug 2019 16:18:46 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/orcid-api-web/v2.0/0000-0003-1134-6827/work/57489360
+      - http://api.orcid.org/orcid-api-web/v2.0/0000-0003-1134-6827/work/60275458
       Pragma:
       - no-cache
       Server:
-      - nginx/1.4.6 (Ubuntu)
+      - nginx/1.10.0
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:

@@ -34,15 +34,15 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Mon, 20 May 2019 20:58:46 GMT
+      - Tue, 06 Aug 2019 16:15:46 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/orcid-api-web/v2.0/0000-0003-1134-6827/work/57617712
+      - http://api.orcid.org/orcid-api-web/v2.0/0000-0003-1134-6827/work/60275414
       Pragma:
       - no-cache
       Server:
-      - nginx/1.4.6 (Ubuntu)
+      - nginx/1.10.0
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
