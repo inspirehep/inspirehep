@@ -9,11 +9,9 @@ import {
   SUBMISSIONS,
   SUBMISSIONS_LITERATURE,
 } from '../common/routes';
-import { SUPERUSER } from '../common/authorization';
 
 import Loading from '../common/components/Loading';
 import SafeSwitch from '../common/components/SafeSwitch';
-import PrivateRoute from '../common/PrivateRoute';
 
 const AuthorSubmissionPage$ = Loadable({
   loader: () => import('./authors/containers/AuthorSubmissionPageContainer'),
@@ -73,11 +71,10 @@ class Submissions extends Component {
             from={`${SUBMISSIONS_AUTHOR}/:id/success`}
             to={SUBMISSION_SUCCESS}
           />
-          <PrivateRoute
+          <Route
             exact
             path={SUBMISSIONS_LITERATURE}
             component={LiteratureSubmissionPage$}
-            authorizedRoles={SUPERUSER}
           />
           <Route exact path={SUBMISSIONS_JOB} component={JobSubmissionPage$} />
           <Route

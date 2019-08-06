@@ -48,32 +48,7 @@ describe('Submissions', () => {
     expect(wrapper.find(AuthorSubmissionPageContainer)).toExist();
   });
 
-  it('navigates to LiteratureSubmissionPageContainer when /submissions/literature if superuser', async () => {
-    const store = getStoreWithState({
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['superuser'],
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <MemoryRouter
-          initialEntries={['/submissions/literature']}
-          initialIndex={0}
-        >
-          <Submissions />
-        </MemoryRouter>
-      </Provider>
-    );
-    await Loadable.preloadAll();
-    wrapper.update();
-
-    expect(wrapper.find(LiteratureSubmissionPageContainer)).toExist();
-  });
-
-  it('does not navigate to LiteratureSubmissionPageContainer when /submissions/literature if whatever user', async () => {
+  it('navigates to LiteratureSubmissionPageContainer when /submissions/literature if whatever user', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -95,7 +70,7 @@ describe('Submissions', () => {
     await Loadable.preloadAll();
     wrapper.update();
 
-    expect(wrapper.find(LiteratureSubmissionPageContainer)).not.toExist();
+    expect(wrapper.find(LiteratureSubmissionPageContainer)).toExist();
   });
 
   it('navigates to AuthorUpdateSubmissionPageContainer when /submissions/authors/:id', async () => {
