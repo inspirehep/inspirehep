@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MultiSelectAggregation renders 1`] = `
-<div>
+<div
+  className="__MultiSelectAggregation__"
+>
   <SelectBox
     className="w-100"
     mode="multiple"
@@ -18,7 +20,13 @@ exports[`MultiSelectAggregation renders 1`] = `
         },
       ]
     }
-    placeholder="Test"
+    placeholder={
+      <span
+        className="placeholder"
+      >
+        Test
+      </span>
+    }
     value={
       Array [
         "bucket1",
@@ -29,7 +37,9 @@ exports[`MultiSelectAggregation renders 1`] = `
 `;
 
 exports[`MultiSelectAggregation renders with custom display values if configured 1`] = `
-<div>
+<div
+  className="__MultiSelectAggregation__"
+>
   <SelectBox
     className="w-100"
     mode="multiple"
@@ -46,7 +56,13 @@ exports[`MultiSelectAggregation renders with custom display values if configured
         },
       ]
     }
-    placeholder="Test"
+    placeholder={
+      <span
+        className="placeholder"
+      >
+        Test
+      </span>
+    }
     value={
       Array [
         "bucket1",
