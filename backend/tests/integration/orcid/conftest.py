@@ -24,7 +24,7 @@
 import pytest
 
 IS_VCR_ENABLED = True
-IS_VCR_EPISODE_OR_ERROR = True  # False to record new cassettes.
+IS_VCR_EPISODE_OR_ERROR = False  # False to record new cassettes.
 
 
 @pytest.fixture(scope="session")
