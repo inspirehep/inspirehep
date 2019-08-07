@@ -35,14 +35,12 @@ from invenio_oauthclient.utils import oauth_link_external_id
 from redis import StrictRedis
 from requests.exceptions import RequestException
 from simplejson import loads
-from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm.exc import FlushError
 from time_execution import time_execution
 
 from inspirehep.orcid import exceptions as domain_exceptions
-from inspirehep.orcid.utils import get_literature_recids_for_orcid
 
-from . import domain_models, push_access_tokens
+from . import domain_models
 
 LOGGER = logging.getLogger(__name__)
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"
@@ -201,43 +199,6 @@ def _register_user(name, email, orcid, token):
             db.session.add(user)
 
     return _link_user_and_token(user, name, orcid, token)
-
-
-@shared_task(ignore_result=True, bind=True, time_limit=5 * 60)
-@time_execution
-def import_legacy_orcid_tokens(self):
-    """
-    Celery task to import OAUTH ORCID tokens from legacy.
-    Note: bind=True for compatibility with @time_execution.
-    """
-    if get_value(current_app.config, "ORCID_APP_CREDENTIALS.consumer_key") is None:
-        return
-
-    for user_data in legacy_orcid_arrays():
-        try:
-            orcid, token, email, name = user_data
-            if push_access_tokens.is_access_token_invalid(token):
-                continue
-            orcid_to_push = _register_user(name, email, orcid, token)
-            if orcid_to_push:
-                LOGGER.info(
-                    "allow_push now enabled on %s, will push all works now",
-                    orcid_to_push,
-                )
-                recids = get_literature_recids_for_orcid(orcid_to_push)
-                for recid in recids:
-                    orcid_push.apply_async(
-                        queue="orcid_push_legacy_tokens",
-                        kwargs={
-                            "orcid": orcid_to_push,
-                            "rec_id": recid,
-                            "oauth_token": token,
-                        },
-                    )
-        except SQLAlchemyError as ex:
-            LOGGER.exception(ex)
-
-    db.session.commit()
 
 
 # `soft_time_limit` is used to schedule a retry.
