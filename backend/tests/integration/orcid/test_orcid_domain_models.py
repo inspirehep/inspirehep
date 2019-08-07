@@ -273,7 +273,6 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         self.recid = factory.record_metadata.json["control_number"]
         self.inspire_record = factory.inspire_record
 
-        self.delete_all_work()
         self.putcode = self.add_work("test_orcid_domain_models_TestOrcidPusher.xml")
         self.cache.write_work_putcode(self.putcode)
 
