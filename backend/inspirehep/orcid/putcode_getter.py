@@ -7,9 +7,9 @@
 # under the terms of the MIT License; see LICENSE file for more details.
 
 import itertools
-import logging
 import re
 
+import structlog
 from flask import current_app
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid import utils as inspire_service_orcid_utils
@@ -18,14 +18,14 @@ from inspire_service_orcid.client import OrcidClient
 from inspirehep.orcid.converter import ExternalIdentifier
 from inspirehep.pidstore.api.base import PidStoreBase
 
-from . import exceptions, push_access_tokens, utils
+from . import exceptions, push_access_tokens
 
 INSPIRE_WORK_URL_REGEX = re.compile(
     r"https?://(?:labs\.)?inspirehep\.net/(?:record|literature)/(\d+)", re.IGNORECASE
 )
 
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 class OrcidPutcodeGetter(object):
@@ -69,9 +69,7 @@ class OrcidPutcodeGetter(object):
         An embedded recid is a recid written as external-identifier.
         """
         response = self.client.get_all_works_summary()
-        utils.log_service_response(
-            LOGGER, response, "in OrcidPutcodeGetter works summary"
-        )
+        LOGGER.info("Get ORCID work summary", response=response, orcid=self.orcid)
         try:
             response.raise_for_result()
         except (
@@ -80,9 +78,9 @@ class OrcidPutcodeGetter(object):
             orcid_client_exceptions.TokenWithWrongPermissionException,
         ):
             LOGGER.info(
-                "OrcidPutcodeGetter: deleting Orcid push access token=%r for orcid=%r",
-                self.oauth_token,
-                self.orcid,
+                "OrcidPutcodeGetter: deleting Orcid push access",
+                token=self.oauth_token,
+                orcid=self.orcid,
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
             raise exceptions.TokenInvalidDeletedException
@@ -97,9 +95,9 @@ class OrcidPutcodeGetter(object):
                 recid = PidStoreBase.get_pid_from_record_uri(url)[1]
                 if not recid:
                     LOGGER.error(
-                        "OrcidPutcodeGetter: cannot parse recid from url=%r for orcid=%r",
-                        url,
-                        self.orcid,
+                        "OrcidPutcodeGetter: cannot parse recid from url",
+                        url=url,
+                        orcid=self.orcid,
                     )
                     continue
                 yield putcode, recid
@@ -113,9 +111,7 @@ class OrcidPutcodeGetter(object):
         for response in self.client.get_bulk_works_details_iter(putcodes):
             # Note: this log can be large. Consider removing it when this part
             # is considered mature.
-            utils.log_service_response(
-                LOGGER, response, "in OrcidPutcodeGetter works details"
-            )
+            LOGGER.info("ORCID work details", response=response, orcid=self.orcid)
             try:
                 response.raise_for_result()
             except orcid_client_exceptions.BaseOrcidClientJsonException as exc:

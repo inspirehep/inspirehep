@@ -7,9 +7,9 @@
 
 import datetime
 import json
-import logging
 
 import requests
+import structlog
 from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
@@ -33,7 +33,7 @@ from .tasks import async_create_ticket_with_template
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 class BaseSubmissionsResource(MethodView):
@@ -241,7 +241,6 @@ class JobSubmissionsResource(BaseSubmissionsResource):
 
     def prepare_data(self, data, record=None):
         """Prepares data received from form.
-
         As jobs do not have any 'workflows' it's required to set all the logic
         for updating record from data provided by the user somewhere..."""
 

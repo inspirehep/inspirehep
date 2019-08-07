@@ -64,6 +64,9 @@ sentry-sdk = {version = "^0.10.2",extras = ["flask"]}
 prometheus-flask-exporter = "^0.9.0"
 beard = ">=0.2.0"
 numpy = ">=1.17.0"
+structlog = "^19.1"
+colorama = "^0.4.1"
+structlog-sentry = "^1.1"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"

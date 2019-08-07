@@ -187,19 +187,6 @@ def get_literature_recids_for_orcid(orcid):
     return [el["control_number"] for el in search_by_curated_author]
 
 
-def log_service_response(logger, response, extra_message=None):
-    msg = "{} {} {} completed with HTTP-status={}".format(
-        response.request.method,
-        response.request.url,
-        extra_message,
-        response.status_code,
-    )
-    if response.ok:
-        logger.info(msg)
-    else:
-        logger.warning("%s and response=%r", msg, response)
-
-
 def apply_celery_task_with_retry(
     task_func, args=None, kwargs=None, max_retries=5, countdown=10, time_limit=None
 ):

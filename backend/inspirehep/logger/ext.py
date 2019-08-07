@@ -5,14 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
-
 import sentry_sdk
+import structlog
 from prometheus_flask_exporter import PrometheusMetrics
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 class InspireLogger:
@@ -30,7 +29,7 @@ class InspireLogger:
         sentry_dsn = app.config.get("SENTRY_DSN")
 
         if not sentry_dsn:
-            LOGGER.debug("Sentry is not enabled.")
+            LOGGER.debug(f"Sentry is not enabled for {app.name}.")
             return
 
         send_default_pii = app.config.get("SENTRY_SEND_DEFAULT_PII", False)
@@ -39,6 +38,7 @@ class InspireLogger:
             integrations=[FlaskIntegration(), CeleryIntegration()],
             send_default_pii=send_default_pii,
         )
+
         LOGGER.debug("Sentry is initialized.")
 
     def init_prometheus_flask_exporter(self, app):
@@ -47,7 +47,7 @@ class InspireLogger:
         )
 
         if not enable_exporter_flask:
-            LOGGER.debug("Prometheus Flask exporter is not enabled.")
+            LOGGER.debug(f"Prometheus Flask exporter is not enabled for {app.name}.")
             return
 
         prefix = app.name

@@ -30,7 +30,7 @@ def recalculate_record_citations(uuids):
                 if isinstance(record, LiteratureRecord):
                     record.update_refs_in_citation_table()
         except Exception:
-            LOGGER.error("Cannot recalculate references for %s.", uuid, exc_info=True)
+            LOGGER.exception("Cannot recalculate references", uuid=str(uuid))
 
     db.session.commit()
     return uuids

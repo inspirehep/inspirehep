@@ -4,8 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import logging
 
+import structlog
 from flask import request
 from invenio_records_rest.errors import InvalidQueryRESTError
 from invenio_records_rest.sorter import default_sorter_factory
@@ -13,7 +13,7 @@ from invenio_records_rest.sorter import default_sorter_factory
 from .facet import inspire_facets_factory
 from .filter import inspire_filter_factory
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 def get_search_with_source(search):
@@ -31,7 +31,7 @@ def inspire_search_factory(self, search):
     try:
         search = search.query_from_iq(query_string)
     except SyntaxError as exc:
-        LOGGER.warning("Failed parsing query: '%s'", request.values.get("q", ""))
+        LOGGER.warning("Failed parsing query", query=request.values.get("q", ""))
         raise InvalidQueryRESTError() from exc
 
     return query_string, search

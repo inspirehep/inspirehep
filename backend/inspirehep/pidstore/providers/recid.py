@@ -7,9 +7,12 @@
 
 
 import requests
+import structlog
 from flask import current_app
 from invenio_pidstore.models import PIDStatus, RecordIdentifier
 from invenio_pidstore.providers.base import BaseProvider
+
+LOGGER = structlog.getLogger()
 
 
 def get_next_pid_from_legacy():
@@ -21,7 +24,6 @@ def get_next_pid_from_legacy():
 
     url = current_app.config.get("LEGACY_PID_PROVIDER")
     next_pid = requests.get(url, headers=headers).json()
-
     return next_pid
 
 
@@ -41,10 +43,15 @@ class InspireRecordIdProvider(BaseProvider):
         if pid_value is None:
             if current_app.config.get("LEGACY_PID_PROVIDER"):
                 kwargs["pid_value"] = get_next_pid_from_legacy()
+                LOGGER.info("Control number from legacy", recid=kwargs["pid_value"])
                 RecordIdentifier.insert(kwargs["pid_value"])
             else:
                 kwargs["pid_value"] = RecordIdentifier.next()
+                LOGGER.info(
+                    "Control number from RecordIdentifier", recid=kwargs["pid_value"]
+                )
         else:
+            LOGGER.info("Control number provided", recid=kwargs["pid_value"])
             RecordIdentifier.insert(kwargs["pid_value"])
 
         kwargs.setdefault("status", cls.default_status)

@@ -6,9 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """Manage ORCID OAUTH token migration from INSPIRE legacy instance."""
-import logging
 import re
 
+import structlog
 from celery import shared_task
 from celery.exceptions import SoftTimeLimitExceeded
 from flask import current_app
@@ -27,7 +27,7 @@ from inspirehep.orcid import exceptions as domain_exceptions
 
 from . import domain_models
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"
 
 
@@ -210,10 +210,10 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
     if not re.match(
         current_app.config.get("FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX", "^$"), orcid
     ):
-        LOGGER.info("ORCID push not enabled for orcid=%r", orcid)
+        LOGGER.info("ORCID push not enabled", orcid=orcid)
         return
 
-    LOGGER.info("New orcid_push task for recid=%r and orcid=%r", rec_id, orcid)
+    LOGGER.info("New orcid_push task", recid=rec_id, orcid=orcid)
     kwargs_to_pusher = kwargs_to_pusher or {}
 
     try:
@@ -221,11 +221,7 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
             orcid, rec_id, oauth_token, **kwargs_to_pusher
         )
         putcode = pusher.push()
-        LOGGER.info(
-            "Orcid_push task for recid=%r and orcid=%r successfully completed",
-            rec_id,
-            orcid,
-        )
+        LOGGER.info("Orcid_push task successfully completed", recid=rec_id, orcid=orcid)
     except (RequestException, SoftTimeLimitExceeded) as exc:
         # Trigger a retry only in case of network-related issues.
         # RequestException is the base class for all request's library
@@ -247,11 +243,9 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         backoff = (4 ** (self.request.retries + 1)) * 60
 
         LOGGER.warning(
-            "Orcid_push task for recid=%r and orcid=%r raised an exception."
-            " Retrying in %d secs.",
-            rec_id,
-            orcid,
-            backoff,
+            f"Orcid_push task raised an exception. Retrying in {backoff} secs.",
+            recid=rec_id,
+            orcid=orcid,
         )
         raise self.retry(max_retries=3, countdown=backoff, exc=exc)
     except (
@@ -263,9 +257,7 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         backoff = 5 ** (self.request.retries + 1)
         raise self.retry(max_retries=4, countdown=backoff, exc=exc)
     except Exception:
-        LOGGER.warning(
-            "Orcid_push task for recid=%r and orcid=%r failed", rec_id, orcid
-        )
+        LOGGER.warning("Orcid_push task failed", recid=rec_id, orcid=orcid)
         raise
     return putcode
 

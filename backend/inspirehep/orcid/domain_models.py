@@ -6,9 +6,7 @@
 # Invenio is free software; you can redistribute it and/or modify it
 # under the terms of the MIT License; see LICENSE file for more details.
 
-
-import logging
-
+import structlog
 from flask import current_app
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
@@ -22,7 +20,7 @@ from .cache import OrcidCache
 from .converter import OrcidConverter
 from .putcode_getter import OrcidPutcodeGetter
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 class OrcidPusher(object):
@@ -82,9 +80,7 @@ class OrcidPusher(object):
         for note in self.inspire_record.get("_private_notes", []):
             if note.get("value") == "orcid-push-force-cache-miss":
                 LOGGER.debug(
-                    "OrcidPusher force cache miss for recid=%r and orcid=%r",
-                    self.recid,
-                    self.orcid,
+                    "OrcidPusher force cache miss", recid=self.recid, orcid=self.orcid
                 )
                 return True
         return False
@@ -95,9 +91,7 @@ class OrcidPusher(object):
         for note in self.inspire_record.get("_private_notes", []):
             if note.get("value") == "orcid-push-force-delete":
                 LOGGER.debug(
-                    "OrcidPusher force delete for recid=%r and orcid=%r",
-                    self.recid,
-                    self.orcid,
+                    "OrcidPusher force delete", recid=self.recid, orcid=self.orcid
                 )
                 return True
         return self.inspire_record.get("deleted", False)
@@ -111,14 +105,10 @@ class OrcidPusher(object):
                 self.inspire_record
             ):
                 LOGGER.debug(
-                    "OrcidPusher cache hit for recid=%r and orcid=%r",
-                    self.recid,
-                    self.orcid,
+                    "OrcidPusher cache hit", recid=self.recid, orcid=self.orcid
                 )
                 return putcode
-        LOGGER.debug(
-            "OrcidPusher cache miss for recid=%r and orcid=%r", self.recid, self.orcid
-        )
+        LOGGER.debug("OrcidPusher cache miss", recid=self.recid, orcid=self.orcid)
 
         # If the record is deleted, then delete it.
         if self._is_record_deleted:
@@ -177,9 +167,7 @@ class OrcidPusher(object):
             orcid_client_exceptions.TokenWithWrongPermissionException,
         ):
             LOGGER.info(
-                "Deleting Orcid push access token=%r for orcid=%r",
-                self.oauth_token,
-                self.orcid,
+                "Deleting Orcid push access", token=self.oauth_token, orcid=self.orcid
             )
             push_access_tokens.delete_access_token(self.oauth_token, self.orcid)
             raise exceptions.TokenInvalidDeletedException
@@ -203,18 +191,13 @@ class OrcidPusher(object):
                 response = self.client.put_updated_work(xml_element, putcode)
             else:
                 response = self.client.post_new_work(xml_element)
-
-        utils.log_service_response(
-            LOGGER, response, "in OrcidPusher for recid={}".format(self.recid)
-        )
+        LOGGER.info("POST/PUT ORCID work", response=response, recid=self.recid)
         response.raise_for_result()
         return response["putcode"]
 
     @time_execution
     def _cache_all_author_putcodes(self):
-        LOGGER.debug(
-            "New OrcidPusher cache all author putcodes for orcid=%r", self.orcid
-        )
+        LOGGER.debug("New OrcidPusher cache all author putcodes", orcid=self.orcid)
         putcode_getter = OrcidPutcodeGetter(self.orcid, self.oauth_token)
         putcodes_recids = list(
             putcode_getter.get_all_inspire_putcodes_and_recids_iter()

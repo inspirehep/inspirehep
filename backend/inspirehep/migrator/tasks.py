@@ -7,13 +7,13 @@
 
 """Manage migration from INSPIRE legacy instance."""
 import gzip
-import logging
 import re
 import tarfile
 from contextlib import closing
 
 import click
 import requests
+import structlog
 from celery import chord, shared_task
 from celery.result import AsyncResult
 from flask_sqlalchemy import models_committed
@@ -31,7 +31,7 @@ from inspirehep.records.tasks import recalculate_record_citations
 from .models import LegacyRecordsMirror
 from .utils import ensure_valid_schema
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 CHUNK_SIZE = 100
 LARGE_CHUNK_SIZE = 2000
 
@@ -170,15 +170,16 @@ def migrate_recids_from_mirror(
     if step_no >= len(migration_steps):
         return
 
-    LOGGER.info("Running migration step %d/%d", step_no + 1, len(migration_steps))
+    logger = LOGGER.bind(step_no=step_no + 1)
+    logger.info(f"Running migration step {step_no + 1}/{len(migration_steps)}")
 
     all_recs = 0
     for row in recids_chunks:
         all_recs += len(row)
     if all_recs == 0:
-        LOGGER.warning("There are no records to migrate. Terminating.")
+        logger.warning("There are no records to migrate. Terminating.")
         return None
-    LOGGER.info("Processing '%d' records in this migration step", all_recs)
+    logger.info(f"Processing {all_recs} records in this migration step")
     step = migration_steps[step_no]
     header = (step.s(r) for r in recids_chunks)
     chord_task = chord(header)(
@@ -215,18 +216,19 @@ def create_records_from_mirror_recids(recids):
     processed_records = set()
     for recid in recids:
         try:
+            LOGGER.info("Migrate record from mirror", recid=recid)
             with db.session.begin_nested():
                 record = migrate_record_from_mirror(
                     LegacyRecordsMirror.query.get(recid)
                 )
         except Exception:
-            LOGGER.exception("Cannot process record %r.", recid)
+            LOGGER.exception("Cannot migrate record", recid=recid)
             continue
 
         if record:
             processed_records.add(str(record.id))
         else:
-            LOGGER.warning("Record %r is empty!", recid)
+            LOGGER.warning("Record is empty", recid=recid)
     db.session.commit()
     models_committed.connect(index_after_commit)
 
@@ -253,16 +255,21 @@ def process_references_in_records(uuids):
             try:
                 record = InspireRecord.get_record(uuid)
                 if isinstance(record, LiteratureRecord):
-                    references_to_reindex.extend(record.get_modified_references())
+                    references = record.get_modified_references()
+                    LOGGER.info(
+                        f"Reindexing {len(references)} references",
+                        recid=record["control_number"],
+                        uuid=uuid,
+                    )
+                    references_to_reindex.extend(references)
             except Exception:
                 LOGGER.exception(
-                    "Cannot process references of record %r on index_records task.",
-                    uuid,
+                    "Cannot process references on index_records task.", uuid=uuid
                 )
         if references_to_reindex:
             batch_index(references_to_reindex)
     except Exception:
-        LOGGER.exception("Cannot reindex references.")
+        LOGGER.exception("Cannot reindex references")
     return uuids
 
 
@@ -278,7 +285,7 @@ def index_records(uuids):
     try:
         batch_index(uuids)
     except Exception:
-        LOGGER.exception("Cannot reindex.")
+        LOGGER.exception("Error during batch index")
     return uuids
 
 
@@ -290,7 +297,7 @@ def run_orcid_push(uuids):
             if isinstance(record, LiteratureRecord):
                 push_to_orcid(record)
         except Exception:
-            LOGGER.exception("Cannot push to orcid %r", uuid)
+            LOGGER.exception("Cannot push to orcid", uuid=str(uuid))
     return uuids
 
 
@@ -325,10 +332,11 @@ def migrate_record_from_mirror(
     Returns:
         dict: the migrated record metadata, which is also inserted into the database.
     """
+    logger = LOGGER.bind(recid=prod_record.recid)
     try:
         json_record = marcxml2record(prod_record.marcxml)
     except Exception as exc:
-        LOGGER.exception("Migrator DoJSON Error.")
+        logger.exception("Error converting from marcxml")
         prod_record.error = exc
         db.session.merge(prod_record)
         return None
@@ -352,24 +360,22 @@ def migrate_record_from_mirror(
             )
     except ValidationError as exc:
         path = ".".join(exc.schema_path)
-        LOGGER.warn(
-            "Migrator Validator Error: %r, Value: %r, Record: %r",
-            path,
-            exc.instance,
-            prod_record.recid,
+        logger.warn(
+            "Migrator validator error",
+            path=path,
+            value=exc.instance,
+            recid=prod_record.recid,
         )
         prod_record.error = exc
         db.session.merge(prod_record)
     except PIDValueError as exc:
         message = f"pid_type:'{exc.pid_type}', pid_value:'{exc.pid_value}'"
-        LOGGER.error(
-            f"{exc}: %s, Record: %r", message, prod_record.recid, exc_info=True
-        )
+        logger.exception("PIDValueError while migrate from mirror", msg=message)
         exc.args = (message,)
         prod_record.error = exc
         db.session.merge(prod_record)
     except Exception as exc:
-        LOGGER.exception("Migrator Record Insert Error.")
+        logger.exception("Error while migrating record into mirror")
         prod_record.error = exc
         db.session.merge(prod_record)
     else:
