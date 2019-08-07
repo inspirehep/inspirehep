@@ -5,16 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-
-import logging
-
+import structlog
 from flask import current_app
 from flask_celeryext.app import current_celery_app
 
 from inspirehep.orcid import push_access_tokens
 from inspirehep.orcid.utils import get_orcids_for_push
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 def _send_push_task(kwargs):

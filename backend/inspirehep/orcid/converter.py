@@ -277,7 +277,7 @@ class OrcidConverter(object):
             except Exception:
                 self._bibtex_citation = ""
                 LOGGER.exception(
-                    "Bibtex citation serialization failed for recid=%r", self.recid
+                    "Bibtex citation serialization failed", recid=self.recid
                 )
         return self._bibtex_citation
 

@@ -7,14 +7,14 @@
 
 """Migrator utils."""
 
-import logging
 import signal
 
+import structlog
 from dojson.contrib.marc21.utils import create_record
 from flask import url_for
 from inspire_utils.helpers import force_list
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 REAL_COLLECTIONS = (

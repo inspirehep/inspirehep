@@ -5,7 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from logging.config import dictConfig
+import logging
+import sys
+
+import structlog
+from structlog_sentry import SentryJsonProcessor
 
 # Sentry
 # ======
@@ -28,18 +32,28 @@ Enable Flask metrics, using https://github.com/rycus86/prometheus_flask_exporter
 """
 
 
-# Configuration for logging, deafault level is ``INFO``
-dictConfig(
-    {
-        "version": 1,
-        "formatters": {
-            "default": {
-                "format": "[%(asctime)s: %(levelname)s/%(processName)s] %(name)s: %(message)s"
-            }
-        },
-        "handlers": {
-            "stdout_handler": {"class": "logging.StreamHandler", "formatter": "default"}
-        },
-        "root": {"level": "INFO", "handlers": ["stdout_handler"]},
-    }
+# Logging config
+# ==============
+logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
+
+
+# Structlog
+# =========
+structlog.configure(
+    processors=[
+        structlog.stdlib.filter_by_level,
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.processors.StackInfoRenderer(),
+        structlog.processors.format_exc_info,
+        structlog.processors.UnicodeDecoder(),
+        SentryJsonProcessor(level=logging.ERROR, tag_keys="__all__"),
+        structlog.processors.JSONRenderer(),
+    ],
+    context_class=dict,
+    logger_factory=structlog.stdlib.LoggerFactory(),
+    wrapper_class=structlog.stdlib.BoundLogger,
+    cache_logger_on_first_use=True,
 )

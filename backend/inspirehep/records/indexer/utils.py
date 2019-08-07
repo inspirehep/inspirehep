@@ -14,16 +14,14 @@ LOGGER = logging.getLogger(__name__)
 
 
 def get_record(uuid, record_version=None):
-    LOGGER.debug("Pulling record %r on version %s", uuid, record_version)
-
     record = InspireRecord.get_record(uuid, with_deleted=True)
 
     if record_version and record.model.version_id < record_version:
         LOGGER.warning(
-            "Cannot pull record %r in version %s." "Current version: %s.",
-            uuid,
-            record_version,
-            record.model.version_id,
+            "Reading stale data",
+            uuid=str(uuid),
+            version=record_version,
+            current_version=record.model.version_id,
         )
         raise StaleDataError()
     return record

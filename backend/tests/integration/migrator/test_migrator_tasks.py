@@ -46,8 +46,7 @@ def cleanup():
     )
 
 
-@patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_valid_record(mock_logger, base_app, db, es):
+def test_migrate_and_insert_record_valid_record(base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -68,13 +67,8 @@ def test_migrate_and_insert_record_valid_record(mock_logger, base_app, db, es):
     assert prod_record.valid is True
     assert prod_record.marcxml == raw_record
 
-    assert not mock_logger.warn.called
-    assert not mock_logger.error.called
-    assert not mock_logger.exception.called
 
-
-@patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_dojson_error(mock_logger, base_app, db, es):
+def test_migrate_and_insert_record_dojson_error(base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -95,12 +89,8 @@ def test_migrate_and_insert_record_dojson_error(mock_logger, base_app, db, es):
     assert prod_record.valid is False
     assert prod_record.marcxml == raw_record
 
-    assert not mock_logger.error.called
-    mock_logger.exception.assert_called_once_with("Migrator DoJSON Error.")
 
-
-@patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_invalid_record(mock_logger, base_app, db, es):
+def test_migrate_and_insert_record_invalid_record(base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -118,13 +108,8 @@ def test_migrate_and_insert_record_invalid_record(mock_logger, base_app, db, es)
     assert prod_record.valid is False
     assert prod_record.marcxml == raw_record
 
-    assert mock_logger.warn.called
-    assert not mock_logger.error.called
-    assert not mock_logger.exception.called
 
-
-@patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_pidstore_error(mock_logger, base_app, db, es):
+def test_migrate_and_insert_record_pidstore_error(base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -173,15 +158,8 @@ def test_migrate_and_insert_record_pidstore_error(mock_logger, base_app, db, es)
     assert prod_record.marcxml == raw_record_with_same_doi
     assert "pid_value" in prod_record.error
 
-    assert not mock_logger.warn.called
-    assert mock_logger.error.called
-    assert not mock_logger.exception.called
 
-
-@patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_invalid_record_update_regression(
-    mock_logger, base_app, db
-):
+def test_migrate_and_insert_record_invalid_record_update_regression(base_app, db):
     # test is not isolated so the models_committed signal fires and the indexer might be called
     raw_record = (
         b"<record>"
@@ -215,15 +193,11 @@ def test_migrate_and_insert_record_invalid_record_update_regression(
         assert prod_record.valid is False
         assert prod_record.marcxml == raw_record
 
-        assert mock_logger.warn.called
-        assert not mock_logger.error.called
-        assert not mock_logger.exception.called
         assert not mock_indexer.return_value.index.called
 
 
 @patch("inspirehep.records.api.InspireRecord.create_or_update", side_effect=Exception())
-@patch("inspirehep.migrator.tasks.LOGGER")
-def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db, es):
+def test_migrate_and_insert_record_other_exception(base_app, db, es):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -239,10 +213,6 @@ def test_migrate_and_insert_record_other_exception(mock_logger, base_app, db, es
     ).one()
     assert prod_record.valid is False
     assert prod_record.marcxml == raw_record
-
-    assert not mock_logger.warn.called
-    assert not mock_logger.error.called
-    mock_logger.exception.assert_called_once_with("Migrator Record Insert Error.")
 
 
 def test_migrate_record_from_miror_steals_pids_from_deleted_records(base_app, db, es):

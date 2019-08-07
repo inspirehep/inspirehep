@@ -5,12 +5,15 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import structlog
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 
 from ..errors import MissingSchema
 from ..providers.external import InspireExternalIdProvider
 from ..providers.recid import InspireRecordIdProvider
+
+LOGGER = structlog.getLogger()
 
 
 class Minter:
@@ -43,6 +46,13 @@ class Minter:
         return self.get_pid_values()
 
     def create(self, pid_value):
+        LOGGER.info(
+            "Minting",
+            pid_type=self.pid_type,
+            recid=pid_value,
+            object_type=self.object_type,
+            object_uuid=str(self.object_uuid),
+        )
         return self.provider.create(
             pid_type=self.pid_type,
             pid_value=pid_value,

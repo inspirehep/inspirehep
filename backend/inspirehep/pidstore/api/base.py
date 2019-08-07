@@ -5,14 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
-
 import six
+import structlog
 from flask import current_app
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 class PidStoreBase(object):
@@ -24,11 +23,13 @@ class PidStoreBase(object):
 
     @classmethod
     def mint(cls, object_uuid, data):
+        LOGGER.info("Minting PIDs", uuid=str(object_uuid))
         for minter in cls.minters:
             minter.mint(object_uuid, data)
 
     @classmethod
     def update(cls, object_uuid, data):
+        LOGGER.info("Updating PIDs", uuid=str(object_uuid))
         pid_base = cls(object_uuid, data)
         pid_base.delete_external_pids()
         for minter in cls.minters:
@@ -36,6 +37,7 @@ class PidStoreBase(object):
 
     @classmethod
     def delete(cls, object_uuid, data):
+        LOGGER.info("Deleting PIDs", uuid=str(object_uuid))
         pid_base = cls(object_uuid, data)
         pid_base.delete_external_pids()
         for minter in cls.minters:
@@ -43,11 +45,14 @@ class PidStoreBase(object):
 
     def delete_external_pids(self):
         try:
+            LOGGER.info("Deleting external PIDs", uuid=str(self.object_uuid))
             return PersistentIdentifier.query.filter_by(
-                object_type="rec", object_uuid=self.object_uuid, pid_provider="external"
+                object_type="rec",
+                object_uuid=str(self.object_uuid),
+                pid_provider="external",
             ).delete()
         except PIDDoesNotExistError:
-            LOGGER.warning("Pids ``external`` for %r not found.", self.object_uuid)
+            LOGGER.warning("Pids ``external`` not found", uuid=str(self.object_uuid))
 
     @staticmethod
     def get_endpoint_from_pid_type(pid_type):

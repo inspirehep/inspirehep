@@ -7,10 +7,10 @@
 
 """INSPIRE module that adds more fun to the platform."""
 
-import logging
 import uuid
 from datetime import datetime
 
+import structlog
 from flask_celeryext.app import current_celery_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
@@ -29,7 +29,7 @@ from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclas
 from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.models import RecordCitations
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 class InspireRecord(Record):
@@ -158,8 +158,18 @@ class InspireRecord(Record):
                 control_number, pid_type=record_class.pid_type
             )
             record.update(data, **kwargs)
+            LOGGER.info(
+                "Record updated",
+                recid=record.get("control_number"),
+                uuid=str(record.id),
+            )
         except PIDDoesNotExistError:
             record = cls.create(data, **kwargs)
+            LOGGER.info(
+                "Record created",
+                recid=record.get("control_number"),
+                uuid=str(record.id),
+            )
         return record
 
     @classmethod
@@ -305,12 +315,16 @@ class InspireRecord(Record):
         with db.session.begin_nested():
             self._mark_deleted()
             self.pidstore_handler.delete(self.id, self)
+        LOGGER.info(
+            "Record deleted", recid=self.get("control_number"), uuid=str(self.id)
+        )
 
     def _mark_deleted(self):
         self["deleted"] = True
         self.update(dict(self))
 
     def hard_delete(self):
+        recid = self["control_number"]
         with db.session.begin_nested():
             # Removing citations from RecordCitations table
             RecordCitations.query.filter_by(citer_id=self.id).delete()
@@ -324,6 +338,7 @@ class InspireRecord(Record):
                 RecordIdentifier.query.filter_by(recid=pid.pid_value).delete()
                 db.session.delete(pid)
             db.session.delete(self.model)
+        LOGGER.info("Record hard deleted", recid=recid)
 
     def get_enhanced_es_data(self, serializer=None):
         """Prepares serialized record for elasticsearch
@@ -359,19 +374,20 @@ class InspireRecord(Record):
         """
         if self._schema_type != self.pid_type:
             LOGGER.warning(
-                "Record %r is wrapped in %r"
-                "class %r type, but $schema says that this is"
-                "'%r type object!",
-                self.id,
-                self.__class__.__name__,
-                self.pid_type,
-                self._schema_type,
+                f"Record {self.id} is wrapped in {self.__class__.__name__}"
+                "class {self.pid_type} type, but $schema says that this is"
+                "'{self._schema_type}' type object"
             )
         if force_delete or self.get("deleted", False):
             result = InspireRecordIndexer().delete(self)
         else:
             result = InspireRecordIndexer().index(self)
-        LOGGER.info("Indexing finished: %r", result)
+        LOGGER.info(
+            "Record indexed",
+            recid=self.get("control_number"),
+            uuid=str(self.id),
+            result=result.get("result"),
+        )
         return result
 
     def index(self, force_delete=None):
@@ -394,7 +410,9 @@ class InspireRecord(Record):
         task = current_celery_app.send_task(
             "inspirehep.records.indexer.tasks.index_record", kwargs=indexing_args
         )
-        LOGGER.info("Record %r send for indexing", self.id)
+        LOGGER.info(
+            "Record indexing", recid=self.get("control_number"), uuid=str(self.id)
+        )
         return task
 
     @staticmethod

@@ -5,12 +5,12 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-"""INSPIRE module that adds more fun to the platform."""
+
 import datetime
-import logging
 import uuid
 
 import requests
+import structlog
 from flask import current_app
 from hepcrawl.parsers import ArxivParser
 from hepcrawl.parsers.crossref import CrossrefParser
@@ -41,7 +41,7 @@ from inspirehep.records.utils import (
 
 from .base import InspireRecord
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 PLACEHOLDER = "<ID>"
 
@@ -74,11 +74,15 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             record = super().create(data, **kwargs)
             if disable_citation_update:
-                LOGGER.info("Citation update is disabled in record.create")
+                LOGGER.info(
+                    "Record citation update disabled", recid=record["control_number"]
+                )
             else:
                 record.update_refs_in_citation_table()
             if disable_orcid_push:
-                LOGGER.info("ORCID PUSH disabled by argument in record.create")
+                LOGGER.info(
+                    "Record ORCID PUSH disabled", recid=record["control_number"]
+                )
             else:
                 push_to_orcid(record)
             record.push_authors_phonetic_blocks_to_redis()
@@ -91,12 +95,20 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             super().update(data)
             if disable_citation_update:
-                LOGGER.info("Citation update is disabled in record.update")
+                LOGGER.info(
+                    "Record citation update disabled",
+                    recid=self.get("control_number"),
+                    uuid=str(self.id),
+                )
             else:
                 self.update_refs_in_citation_table()
 
             if disable_orcid_push:
-                LOGGER.info("ORCID PUSH disabled by argument in record.update")
+                LOGGER.info(
+                    "Record ORCID PUSH disabled",
+                    recid=self.get("control_number"),
+                    uuid=str(self.id),
+                )
             else:
                 push_to_orcid(self)
             self.push_authors_phonetic_blocks_to_redis()
@@ -255,11 +267,9 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
         try:
             signature_blocks = get_authors_phonetic_blocks(author_names)
-        except Exception as err:
-            LOGGER.error(
-                "Cannot extract phonetic blocks for record %d: %s",
-                data.get("control_number"),
-                err,
+        except Exception:
+            LOGGER.exception(
+                "Cannot extract phonetic blocks", recid=data.get("control_number")
             )
             return
 
@@ -378,6 +388,7 @@ def import_arxiv(arxiv_id):
         ImportParsingError: if any error occurs during the response parsing.
     """
     url = ARXIV_URL.replace(PLACEHOLDER, arxiv_id)
+    LOGGER.debug("Importing article from arxiv", arxiv=arxiv_id)
 
     try:
         resp = requests.get(url=url)
@@ -421,6 +432,7 @@ def import_doi(doi):
     doi = requests.utils.quote(doi, safe="")
     url = CROSSREF_URL.replace(PLACEHOLDER, doi)
 
+    LOGGER.debug("Importing article from CrossRef", doi=doi)
     try:
         resp = requests.get(url=url)
     except (ConnectionError, IOError) as exc:

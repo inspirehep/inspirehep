@@ -32,7 +32,6 @@ def _create_record(data):
 
     record = InspireRecord.create(data)
 
-    record.commit()
     db.session.commit()
     record.index()
     message = (
@@ -178,8 +177,6 @@ def recalculate(batch_size, queue_name):
         fg=color,
     )
     if failures:
-        LOGGER.warning(
-            "Got '%d' failures during the recalculation process:", len(failures)
-        )
+        LOGGER.warning(f"Got {len(failures)} failures during the recalculation process")
         for failure in failures:
             LOGGER.warning(failure)

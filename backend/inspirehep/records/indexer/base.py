@@ -5,8 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
-
+import structlog
 from elasticsearch import TransportError
 from elasticsearch.helpers import bulk
 from flask import current_app
@@ -17,7 +16,7 @@ from invenio_search import current_search_client as es
 from jsonschema.exceptions import SchemaError, ValidationError
 from sqlalchemy.orm.exc import NoResultFound
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 class InspireRecordIndexer(RecordIndexer):
@@ -117,10 +116,10 @@ class InspireRecordIndexer(RecordIndexer):
                     # When record is not in es then dsl is throwing TransportError(404)
                     record._index(force_delete=True)
                 except TransportError:
-                    LOGGER.warning("Record %r not found in ES!", record.id)
+                    LOGGER.warning("Record not found in ES!", uuid=str(record.id))
                 return None
             return self._process_bulk_record_for_index(record)
         except NoResultFound:
-            LOGGER.exception("Record %r failed to load!", record_uuid)
+            LOGGER.exception("Record failed to load", uuid=str(record_uuid))
         except (SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError):
-            LOGGER.exception("Record %r validation error!", record_uuid)
+            LOGGER.exception("Record validation error", uuid=str(record_uuid))
