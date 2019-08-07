@@ -20,10 +20,8 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-import logging
-
+import pytest
 from flask import current_app
-from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_records import TestRecordMetadata
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
@@ -33,11 +31,11 @@ from redis import StrictRedis
 from simplejson import dumps
 
 from inspirehep.orcid import push_access_tokens
+from inspirehep.orcid.cli import import_legacy_orcid_tokens
 from inspirehep.orcid.tasks import (
     USER_EMAIL_EMPTY_PATTERN,
     _find_user_matching,
     _register_user,
-    import_legacy_orcid_tokens,
     legacy_orcid_arrays,
 )
 
@@ -147,20 +145,63 @@ def redis_setup(base_app):
 @fixture(scope="function")
 def app_with_config(base_app, db, es_clear):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": "0000-0000-0000-0000"}}
-    # Disable logging.
-    logging.getLogger("inspirehep.orcid.tasks").disabled = logging.CRITICAL
     with patch.dict(current_app.config, config):
         yield base_app
-    logging.getLogger("inspirehep.orcid.tasks").disabled = 0
 
 
 @fixture(scope="function")
 def app_without_config(base_app, db, es_clear):
     config = {"ORCID_APP_CREDENTIALS": {"consumer_key": None}}
-    logging.getLogger("inspirehep.orcid.tasks").disabled = logging.CRITICAL
     with patch.dict(current_app.config, config):
         yield base_app
-    logging.getLogger("inspirehep.orcid.tasks").disabled = 0
+
+
+@pytest.fixture
+def inspire_record_author():
+    factory_author = TestRecordMetadata.create_from_file(
+        __name__,
+        "test_orcid_tasks_import_legacy_tokens_TestImportLegacyOrcidTokens_author.json",
+        pid_type="aut",
+    )
+    return factory_author.inspire_record
+
+
+@pytest.fixture
+def inspire_record_literature():
+    factory_literature = TestRecordMetadata.create_from_file(
+        __name__,
+        "test_orcid_tasks_import_legacy_tokens_TestImportLegacyOrcidTokens_literature.json",
+        index_name="records-hep",
+    )
+    return factory_literature.inspire_record
+
+
+@pytest.fixture
+def assert_user_and_token_models():
+    def _assert_user_and_token_models(orcid, token, email, name):
+        user = User.query.filter_by(email=email).one_or_none()
+        assert user
+        assert user.active
+        assert len(user.remote_accounts) == 1
+        remote_account = user.remote_accounts[0]
+        assert UserIdentity.query.filter_by(id_user=user.id).one_or_none()
+        assert len(remote_account.remote_tokens) == 1
+        remote_token = remote_account.remote_tokens[0]
+
+        assert remote_token.access_token == token
+        assert remote_account.extra_data["orcid"] == orcid
+        assert remote_account.extra_data["full_name"] == name
+        assert remote_account.extra_data["allow_push"]
+    return _assert_user_and_token_models
+
+
+@pytest.fixture
+def cache_fixture():
+    CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
+    push_access_tokens.CACHE_EXPIRE = 2  # Sec.
+    yield
+    push_access_tokens.CACHE_PREFIX = None
+    push_access_tokens.CACHE_EXPIRE = CACHE_EXPIRE_ORIG
 
 
 def test_legacy_orcid_arrays(base_app, db, es_clear, redis_setup):
@@ -180,7 +221,11 @@ def test_legacy_orcid_arrays(base_app, db, es_clear, redis_setup):
 
 
 def test_import_multiple_orcid_tokens_no_user_exists(
-    app_with_config, redis_setup, teardown_sample_user, teardown_sample_user_2
+    app_with_config,
+    redis_setup,
+    teardown_sample_user,
+    teardown_sample_user_2,
+    app_cli_runner,
 ):
     """Create two users and all the associate entries."""
     push_to_redis(SAMPLE_USER_2)
@@ -192,7 +237,11 @@ def test_import_multiple_orcid_tokens_no_user_exists(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
     # Migrate
-    import_legacy_orcid_tokens()
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
+
+    # both authors are not found
+    output = result.output.split('\n')
+    assert output.count('No row was found for one()') == 2
 
     # Check state after migration
     assert not redis_setup.llen("legacy_orcid_tokens")
@@ -200,14 +249,53 @@ def test_import_multiple_orcid_tokens_no_user_exists(
     assert_db_has_n_legacy_tokens(1, SAMPLE_USER_2)
 
 
-@patch("inspirehep.orcid.tasks.orcid_push")
-@patch("inspirehep.orcid.tasks.get_literature_recids_for_orcid")
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+def test_empty_name(
+    mock_legacy_orcid_arrays,
+    mock_orcid_push,
+    assert_user_and_token_models,
+    app_cli_runner,
+    redis_setup,
+    db,
+    es_clear,
+    inspire_record_author,
+    inspire_record_literature,
+):
+    orcid = "0000-0002-0942-3697"
+    token = "mytoken"
+    email = "myemail@me.com"
+    name = ""
+    mock_legacy_orcid_arrays.return_value = (
+        (orcid, token, email, name),
+        ("myotherorcid", "myothertoken", "otheremail@me.com", name),
+    )
+
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
+
+    assert "Pushing orcid" in result.output
+    mock_orcid_push.apply_async.assert_any_call(
+        queue="orcid_push_legacy_tokens",
+        kwargs={
+            "orcid": orcid,
+            "rec_id": inspire_record_literature["control_number"],
+            "oauth_token": token,
+        },
+    )
+
+    assert_user_and_token_models(orcid, token, email, name)
+    assert result.output.split('\n').count('No row was found for one()') == 1
+
+
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.get_literature_recids_for_orcid")
 def test_import_legacy_orcid_tokens_pushes_on_new_user(
     mock_get_literature_recids_for_orcid,
     mock_orcid_push,
     app_with_config,
     redis_setup,
     teardown_sample_user,
+    app_cli_runner,
 ):
     mock_get_literature_recids_for_orcid.return_value = [4328]
 
@@ -218,13 +306,14 @@ def test_import_legacy_orcid_tokens_pushes_on_new_user(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
 
     # Migrate
-    import_legacy_orcid_tokens()
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
     # Check state after migration
     assert not redis_setup.llen("legacy_orcid_tokens")
     assert_db_has_n_legacy_tokens(1, SAMPLE_USER)
 
     # Check that we pushed to ORCID
+    assert "Pushing orcid" in result.output
     mock_orcid_push.apply_async.assert_called_with(
         queue="orcid_push_legacy_tokens",
         kwargs={
@@ -236,7 +325,11 @@ def test_import_legacy_orcid_tokens_pushes_on_new_user(
 
 
 def test_import_multiple_orcid_tokens_no_configuration(
-    app_without_config, redis_setup, teardown_sample_user, teardown_sample_user_2
+    app_without_config,
+    redis_setup,
+    teardown_sample_user,
+    teardown_sample_user_2,
+    app_cli_runner,
 ):
     """Attempt and fail to create new users when configuration missing."""
     push_to_redis(SAMPLE_USER_2)
@@ -248,9 +341,10 @@ def test_import_multiple_orcid_tokens_no_configuration(
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
 
     # Migrate
-    import_legacy_orcid_tokens()
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
     # Assert state unchanged after migration
+    assert "Pushing orcid" not in result.output
     assert redis_setup.llen("legacy_orcid_tokens") == 2
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER)
     assert_db_has_n_legacy_tokens(0, SAMPLE_USER_2)
@@ -352,186 +446,185 @@ def test_find_user_matching(app_with_config, teardown_sample_user, orcid, email)
     assert User.query.filter_by(email=SAMPLE_USER["email"]).count() == 1
 
 
-# The following tests use db isolation.
-@mark.usefixtures("base_app", "db", "es_clear")
-class TestImportLegacyOrcidTokens(object):
-    def setup(self):
-        factory_author = TestRecordMetadata.create_from_file(
-            __name__,
-            "test_orcid_tasks_import_legacy_tokens_TestImportLegacyOrcidTokens_author.json",
-            pid_type="aut",
-        )
-        self.inspire_record_author = factory_author.inspire_record
-        factory_literature = TestRecordMetadata.create_from_file(
-            __name__,
-            "test_orcid_tasks_import_legacy_tokens_TestImportLegacyOrcidTokens_literature.json",
-            index_name="records-hep",
-        )
-        self.inspire_record_literature = factory_literature.inspire_record
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+def test_orcid_happy_flow(
+    mock_legacy_orcid_arrays,
+    mock_orcid_push,
+    assert_user_and_token_models,
+    app_cli_runner,
+    redis_setup,
+    db,
+    es_clear,
+    inspire_record_author,
+    inspire_record_literature,
+):
+    orcid = "0000-0002-0942-3697"
+    token = "mytoken"
+    email = "myemail@me.com"
+    name = "myname"
+    mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-        self.orcid = "0000-0002-0942-3697"
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
-        self._patcher_legacy_orcid_arrays = patch(
-            "inspirehep.orcid.tasks.legacy_orcid_arrays"
-        )
-        self.mock_legacy_orcid_arrays = self._patcher_legacy_orcid_arrays.start()
-        self._patcher_orcid_push = patch("inspirehep.orcid.tasks.orcid_push")
-        self.mock_orcid_push = self._patcher_orcid_push.start()
+    assert "Pushing orcid" in result.output
+    mock_orcid_push.apply_async.assert_any_call(
+        queue="orcid_push_legacy_tokens",
+        kwargs={
+            "orcid": orcid,
+            "rec_id": inspire_record_literature["control_number"],
+            "oauth_token": token,
+        },
+    )
 
-        self._patcher_logger = patch("inspirehep.orcid.tasks.LOGGER")
-        self.mock_logger = self._patcher_logger.start()
+    assert_user_and_token_models(orcid, token, email, name)
 
-    def setup_method(self, method):
-        push_access_tokens.CACHE_PREFIX = get_fqn(method)
-        self.CACHE_EXPIRE_ORIG = push_access_tokens.CACHE_EXPIRE
-        push_access_tokens.CACHE_EXPIRE = 2  # Sec.
 
-    def teardown(self):
-        self._patcher_legacy_orcid_arrays.stop()
-        self._patcher_orcid_push.stop()
-        self.mock_logger.stop()
-        push_access_tokens.CACHE_PREFIX = None
-        push_access_tokens.CACHE_EXPIRE = self.CACHE_EXPIRE_ORIG
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+def test_empty_email(
+    mock_legacy_orcid_arrays,
+    mock_orcid_push,
+    assert_user_and_token_models,
+    app_cli_runner,
+    redis_setup,
+    db,
+    es_clear,
+    inspire_record_author,
+    inspire_record_literature,
+):
+    orcid = "0000-0002-0942-3697"
+    token = "mytoken"
+    email = ""
+    name = "myname"
+    mock_legacy_orcid_arrays.return_value = (
+        (orcid, token, email, name),
+        ("myotherorcid", "myothertoken", email, "othername"),
+    )
 
-    def _assert_user_and_token_models(self, orcid, token, email, name):
-        user = User.query.filter_by(email=email).one_or_none()
-        assert user
-        assert user.active
-        assert len(user.remote_accounts) == 1
-        remote_account = user.remote_accounts[0]
-        assert UserIdentity.query.filter_by(id_user=user.id).one_or_none()
-        assert len(remote_account.remote_tokens) == 1
-        remote_token = remote_account.remote_tokens[0]
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
-        assert remote_token.access_token == token
-        assert remote_account.extra_data["orcid"] == orcid
-        assert remote_account.extra_data["full_name"] == name
-        assert remote_account.extra_data["allow_push"]
+    assert_user_and_token_models(
+        orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
+    )
+    assert result.output.split('\n').count('No row was found for one()') == 1
 
-    def test_happy_flow(self):
-        token = "mytoken"
-        email = "myemail@me.com"
-        name = "myname"
-        self.mock_legacy_orcid_arrays.return_value = ((self.orcid, token, email, name),)
 
-        import_legacy_orcid_tokens()
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+def test_print_exception_when_no_author_record(
+    mock_legacy_orcid_arrays,
+    mock_orcid_push,
+    app_cli_runner,
+    redis_setup,
+    db,
+    es_clear,
+    inspire_record_author,
+    inspire_record_literature,
+):
+    orcid = "inexistentorcid"
+    token = "mytoken"
+    name = "myname"
+    email = "myemail@me.com"
+    mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-        self.mock_orcid_push.apply_async.assert_any_call(
-            queue="orcid_push_legacy_tokens",
-            kwargs={
-                "orcid": self.orcid,
-                "rec_id": self.inspire_record_literature["control_number"],
-                "oauth_token": token,
-            },
-        )
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
-        self._assert_user_and_token_models(self.orcid, token, email, name)
-        self.mock_logger.exception.assert_not_called()
+    # Ensure that when no author record is found with that ORCID
+    # the exception is printed out.
+    assert result.output.split('\n').count('No row was found for one()') == 1
 
-    def test_log_exception_when_no_author_record(self):
-        token = "mytoken"
-        name = "myname"
-        email = "myemail@me.com"
-        self.mock_legacy_orcid_arrays.return_value = (
-            ("inexistentorcid", token, email, name),
-        )
 
-        import_legacy_orcid_tokens()
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+def test_empty_email_w_existing_user_w_empty_email(
+    mock_legacy_orcid_arrays,
+    mock_orcid_push,
+    assert_user_and_token_models,
+    app_cli_runner,
+    redis_setup,
+    db,
+    es_clear,
+    inspire_record_author,
+    inspire_record_literature,
+):
+    user = User(email="")
+    db.session.add(user)
 
-        assert self.mock_logger.exception.call_count == 1
-        # Ensure that when no author record is found with that ORCID, then
-        # the exception is logged.
-        # Note: I couldn't find a better way to assert on exception instances.
-        assert "NoResultFound" in str(self.mock_logger.exception.call_args)
+    orcid = "0000-0002-0942-3697"
+    token = "mytoken"
+    email = ""
+    name = "myname"
+    mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-    def test_2_entries_in_legacy_orcid_arrays_but_1_literature(self):
-        token = "mytoken"
-        email = "myemail@me.com"
-        name = "myname"
-        self.mock_legacy_orcid_arrays.return_value = (
-            (self.orcid, token, email, name),
-            ("myotherorcid", "myothertoken", "otheremail@me.com", "othername"),
-        )
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
-        import_legacy_orcid_tokens()
+    assert_user_and_token_models(
+        orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
+    )
 
-        self.mock_orcid_push.apply_async.assert_any_call(
-            queue="orcid_push_legacy_tokens",
-            kwargs={
-                "orcid": self.orcid,
-                "rec_id": self.inspire_record_literature["control_number"],
-                "oauth_token": token,
-            },
-        )
 
-        self._assert_user_and_token_models(self.orcid, token, email, name)
-        assert self.mock_logger.exception.call_count == 1
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
+    mock_legacy_orcid_arrays,
+    mock_orcid_push,
+    assert_user_and_token_models,
+    app_cli_runner,
+    redis_setup,
+    db,
+    es_clear,
+    inspire_record_author,
+    inspire_record_literature,
+):
+    orcid = "0000-0002-0942-3697"
+    token = "mytoken"
+    email = "myemail@me.com"
+    name = "myname"
+    mock_legacy_orcid_arrays.return_value = (
+        (orcid, token, email, name),
+        ("myotherorcid", "myothertoken", "otheremail@me.com", "othername"),
+    )
 
-    def test_invalid_token(self):
-        token = "mytoken"
-        email = "myemail@me.com"
-        name = "myname"
-        cache = push_access_tokens._OrcidInvalidTokensCache(token)
-        cache.write_invalid_token(self.orcid)
-        self.mock_legacy_orcid_arrays.return_value = ((self.orcid, token, email, name),)
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
-        import_legacy_orcid_tokens()
+    mock_orcid_push.apply_async.assert_any_call(
+        queue="orcid_push_legacy_tokens",
+        kwargs={
+            "orcid": orcid,
+            "rec_id": inspire_record_literature["control_number"],
+            "oauth_token": token,
+        },
+    )
 
-        self.mock_orcid_push.apply_async.assert_not_called()
-        assert not User.query.filter_by(email=email).one_or_none()
-        self.mock_logger.exception.assert_not_called()
+    assert_user_and_token_models(orcid, token, email, name)
+    assert result.output.split('\n').count('No row was found for one()') == 1
 
-    def test_empty_name(self):
-        token = "mytoken"
-        email = "myemail@me.com"
-        name = ""
-        self.mock_legacy_orcid_arrays.return_value = (
-            (self.orcid, token, email, name),
-            ("myotherorcid", "myothertoken", "otheremail@me.com", name),
-        )
 
-        import_legacy_orcid_tokens()
+@patch("inspirehep.orcid.cli.orcid_push")
+@patch("inspirehep.orcid.cli.legacy_orcid_arrays")
+def test_invalid_token(
+    mock_legacy_orcid_arrays,
+    mock_orcid_push,
+    app_cli_runner,
+    redis_setup,
+    db,
+    es_clear,
+    inspire_record_author,
+    inspire_record_literature,
+    cache_fixture,
+):
+    orcid = "0000-0002-0942-3697"
+    token = "mytoken"
+    email = "myemail@me.com"
+    name = "myname"
+    cache = push_access_tokens._OrcidInvalidTokensCache(token)
+    cache.write_invalid_token(orcid)
+    mock_legacy_orcid_arrays.return_value = ((orcid, token, email, name),)
 
-        self.mock_orcid_push.apply_async.assert_any_call(
-            queue="orcid_push_legacy_tokens",
-            kwargs={
-                "orcid": self.orcid,
-                "rec_id": self.inspire_record_literature["control_number"],
-                "oauth_token": token,
-            },
-        )
+    result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
-        self._assert_user_and_token_models(self.orcid, token, email, name)
-        assert self.mock_logger.exception.call_count == 1
+    mock_orcid_push.apply_async.assert_not_called()
 
-    def test_empty_email(self):
-        token = "mytoken"
-        email = ""
-        name = "myname"
-        self.mock_legacy_orcid_arrays.return_value = (
-            (self.orcid, token, email, name),
-            ("myotherorcid", "myothertoken", email, "othername"),
-        )
-
-        import_legacy_orcid_tokens()
-
-        self._assert_user_and_token_models(
-            self.orcid, token, USER_EMAIL_EMPTY_PATTERN.format(self.orcid), name
-        )
-        assert self.mock_logger.exception.call_count == 1
-
-    def test_empty_email_w_existing_user_w_empty_email(self):
-        user = User(email="")
-        db.session.add(user)
-
-        token = "mytoken"
-        email = ""
-        name = "myname"
-        self.mock_legacy_orcid_arrays.return_value = ((self.orcid, token, email, name),)
-
-        import_legacy_orcid_tokens()
-
-        self._assert_user_and_token_models(
-            self.orcid, token, USER_EMAIL_EMPTY_PATTERN.format(self.orcid), name
-        )
-        self.mock_logger.exception.assert_not_called()
+    assert not User.query.filter_by(email=email).one_or_none()
+    assert "Token mytoken is invalid. Skipping push" in result.output
