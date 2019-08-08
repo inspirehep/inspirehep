@@ -6,29 +6,32 @@ authors = ["CERN <admin@inspirehep.net>"]
 license = "GPL-2.0"
 
 [tool.poetry.dependencies]
-celery = "<=4.2.1"
-# inspirehep = {path = ".",editable = true}
+celery = "~=4.3.0<=4.4.0"
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
 click = "<7.0.0"
 python = ">=3.6,<3.7"
-invenio = {version = "~=3.1.0,==3.1.0", extras = [ "auth"]}
-invenio-db = {version = "*", extras = [ "postgresql", "versioning"]}
-invenio-search = {version = "*", extras = [ "elasticsearch5",]}
-invenio-app = "~=1.1.0,>=1.1.0"
-invenio-access = "~=1.1.0,>=1.1.0"
-invenio-rest = ">=1.0.0,<1.1.0"
-invenio-indexer = ">=1.0.1,<1.0.2"
-invenio-jsonschemas = ">=1.0.0,<1.1.0"
-invenio-pidstore = ">=1.0.0,<1.1.0"
-invenio-records-rest = ">=1.2.1,<1.3.0"
-timeexecution = "<4.0"
-invenio-records = ">=1.0.0,<1.1.0"
-invenio-records-files = ">=1.0.0a10"
 inspire-dojson = "~=62.0.0,>=62.0.0"
-inspire-schemas = "~=60.0"
-inspire-utils = "~=3.0.0,>=3.0.5"
 inspire-query-parser = "~=6.0.0"
+inspire-schemas = "~=60.0,>=60.0"
+inspire-utils = "~=3.0.0,>=3.0.5"
+inspire-json-merger = "^11.0"
+
+invenio = {version = "~=3.1.0,==3.1.0", extras = [ "auth"]}
+invenio-access = ">=1.1.0,<1.2.0"
+invenio-app = "~=1.1.0,<1.2.0"
+invenio-base = "~=1.0.0,<1.1.0"
+invenio-db = {version = "~=1.0.0,<1.1.0", extras = [ "postgresql", "versioning"]}
+invenio-indexer = "~=1.0.1,<1.0.2"
+invenio-jsonschemas = "~=1.0.0,<1.1.0"
+invenio-pidstore = "~=1.0.0,<1.1.0"
+invenio-records = "~=1.0.0,<1.1.0"
+invenio-records-files = "~=1.0.0a10"
+invenio-records-rest = "~=1.2.1,<1.3.0"
+invenio-rest = "~=1.0.0,<1.1.0"
+invenio-search = {version = "~=1.1.1,<1.2.0", extras = [ "elasticsearch5",]}
+
+timeexecution = "<4.0"
 uwsgi = ">=2.0"
 marshmallow = "<3.0.0"
 flask-shell-ipython = "~=0.3,>=0.3.0"
@@ -38,12 +41,9 @@ inspire-service-orcid = {git = "https://github.com/drjova/inspire-service-orcid.
 node-semver = "<0.2.0,>=0.1.1"
 pybtex = "*"
 cryptography = "<2.6"
-# msgpack = "*"  #  FIXME:  We want to use it but it might mess with invenio-indexer which is forcing msgpack-python https://github.com/inveniosoftware/invenio-celery/issues/58
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 hepcrawl = "^13.0"
 python-redis-lock = "^3.3"
-invenio-base = "^1.0"
-inspire-json-merger = "^11.0"
 lxml = "^4.3"
 fqn-decorators = "~=1.2,>=1.2.3"
 editdistance = "^0.5.3"
