@@ -192,7 +192,7 @@ def test_author_linkedin():
     assert expected_linkedin == result_linkedin
 
 
-def test_author_does_not_have_linkedin_or_twitter():
+def test_author_does_not_have_id_fields():
     schema = AuthorsDetailSchema()
     author = faker.record("aut")
 
@@ -201,3 +201,17 @@ def test_author_does_not_have_linkedin_or_twitter():
 
     assert "linkedin" not in result_data
     assert "twitter" not in result_data
+    assert "orcid" not in result_data
+
+
+def test_author_orcid():
+    schema = AuthorsDetailSchema()
+    data = {"ids": [{"value": "0000-0001-8058-0014", "schema": "ORCID"}]}
+    author = faker.record("aut", data=data)
+    expected_orcid = "0000-0001-8058-0014"
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+    result_orcid = result_data.get("orcid")
+
+    assert expected_orcid == result_orcid
