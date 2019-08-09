@@ -81,7 +81,7 @@ exports[`AggregationFilters renders with all props set [inline] 1`] = `
   type="flex"
 >
   <Col
-    className="xs-pb3"
+    className="md-pb3"
     gutter={32}
     key="agg1"
     lg={5}
@@ -109,7 +109,7 @@ exports[`AggregationFilters renders with all props set [inline] 1`] = `
     </EventTracker>
   </Col>
   <Col
-    className="xs-pb3"
+    className="md-pb3"
     gutter={32}
     key="agg2"
     lg={5}
