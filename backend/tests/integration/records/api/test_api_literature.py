@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
-import uuid
+from uuid import UUID, uuid4
 
 import mock
 import pytest
@@ -193,7 +193,7 @@ def test_literature_on_delete_through_metadata_update(base_app, db, es_clear):
 
 def test_literature_create_with_existing_control_number(base_app, db, create_pidstore):
     data = faker.record("lit", with_control_number=True)
-    existing_object_uuid = uuid.uuid4()
+    existing_object_uuid = uuid4()
 
     create_pidstore(
         object_uuid=existing_object_uuid,
@@ -1069,3 +1069,175 @@ def test_get_modified_references(base_app, db, es_clear):
     db.session.commit()
 
     assert citing_record.get_modified_references() == [cited_record_2.id]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_signature_blocks_handles_ascii_names(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result = [
+        {
+            "full_name": "Ellis, John Richard",
+            "signature_block": "ELj",
+            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
+        }
+    ]
+
+    assert expected_result == record["authors"]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_signature_blocks_handles_unicode_names(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {"authors": [{"full_name": "Páramos, Jorge"}]}
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result = [
+        {
+            "full_name": "Páramos, Jorge",
+            "signature_block": "PARANj",
+            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
+        }
+    ]
+
+    assert expected_result == record["authors"]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_signature_blocks_handles_jimmy(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {"authors": [{"full_name": "Jimmy"}]}
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result = [
+        {
+            "full_name": "Jimmy",
+            "signature_block": "JANY",
+            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
+        }
+    ]
+
+    assert expected_result == record["authors"]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_signature_blocks_handles_two_authors_with_the_same_name(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {"authors": [{"full_name": "Jimmy"}]}
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result = [
+        {
+            "full_name": "Jimmy",
+            "signature_block": "JANY",
+            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
+        }
+    ]
+
+    assert expected_result == record["authors"]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_signature_blocks_discards_empty_signature_blocks(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {"authors": [{"full_name": "ae"}]}
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result = [
+        {"full_name": "ae", "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131"}
+    ]
+
+    assert expected_result == record["authors"]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_signature_discards_empty_signature_blocks(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {"authors": [{"full_name": "ae"}]}
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result = [
+        {"full_name": "ae", "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131"}
+    ]
+
+    assert expected_result == record["authors"]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_updating_record_updates_authors_signature_blocks_and_uuids(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result_create = [
+        {
+            "full_name": "Ellis, John Richard",
+            "signature_block": "ELj",
+            "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
+        }
+    ]
+
+    assert expected_result_create == record["authors"]
+
+    mock_uuid4.return_value = UUID("e14955b0-7e57-41a0-90a8-f4c64eb8f4e9")
+    data.update({"authors": [{"full_name": "Jimmy"}]})
+    record.update(data)
+    expected_result_update = [
+        {
+            "full_name": "Jimmy",
+            "signature_block": "JANY",
+            "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
+        }
+    ]
+
+    assert expected_result_update == record["authors"]
+
+
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_update_authors_uuids_does_not_update_existing_uuids(
+    mock_uuid4, base_app, db, es_clear
+):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
+    author_data = {
+        "authors": [
+            {
+                "full_name": "Ellis, John Richard",
+                "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
+            }
+        ]
+    }
+    data = faker.record("lit", data=author_data)
+    record = LiteratureRecord.create(data)
+
+    expected_result_create = [
+        {
+            "full_name": "Ellis, John Richard",
+            "signature_block": "ELj",
+            "uuid": "e14955b0-7e57-41a0-90a8-f4c64eb8f4e9",
+        }
+    ]
+
+    assert expected_result_create == record["authors"]

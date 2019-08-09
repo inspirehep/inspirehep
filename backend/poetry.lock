@@ -160,6 +160,23 @@ version = "0.1.0"
 
 [[package]]
 category = "main"
+description = "Bibliographic Entity Automatic         Recognition and Disambiguation"
+name = "beard"
+optional = false
+python-versions = "*"
+version = "0.2.1"
+
+[package.dependencies]
+fuzzy = ">=1.2,<2.0"
+jellyfish = "<=0.7"
+numpy = ">=1.9"
+scikit-learn = ">=0.15.2"
+scipy = ">=0.14"
+six = "*"
+unidecode = "*"
+
+[[package]]
+category = "main"
 description = "Screen-scraping library"
 name = "beautifulsoup4"
 optional = false
@@ -816,6 +833,14 @@ name = "future"
 optional = false
 python-versions = ">=2.6, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "0.17.1"
+
+[[package]]
+category = "main"
+description = "Fast Python phonetic algorithms"
+name = "fuzzy"
+optional = false
+python-versions = "*"
+version = "1.2.2"
 
 [[package]]
 category = "main"
@@ -1590,6 +1615,14 @@ parso = ">=0.3.0"
 
 [[package]]
 category = "main"
+description = "a library for doing approximate and phonetic matching of strings."
+name = "jellyfish"
+optional = false
+python-versions = "*"
+version = "0.6.1"
+
+[[package]]
+category = "main"
 description = "A small but fast and easy to use stand-alone template engine written in pure python."
 name = "jinja2"
 optional = false
@@ -1610,6 +1643,14 @@ version = "0.2.0"
 [package.dependencies]
 arrow = "*"
 jinja2 = "*"
+
+[[package]]
+category = "main"
+description = "Lightweight pipelining: using Python functions as pipeline jobs."
+name = "joblib"
+optional = false
+python-versions = "*"
+version = "0.13.2"
 
 [[package]]
 category = "main"
@@ -1864,6 +1905,14 @@ name = "nodeenv"
 optional = false
 python-versions = "*"
 version = "1.3.3"
+
+[[package]]
+category = "main"
+description = "NumPy is the fundamental package for array computing with Python."
+name = "numpy"
+optional = false
+python-versions = ">=3.5"
+version = "1.17.0"
 
 [[package]]
 category = "main"
@@ -2512,6 +2561,30 @@ six = "*"
 
 [[package]]
 category = "main"
+description = "A set of python modules for machine learning and data mining"
+name = "scikit-learn"
+optional = false
+python-versions = ">=3.5"
+version = "0.21.3"
+
+[package.dependencies]
+joblib = ">=0.11"
+numpy = ">=1.11.0"
+scipy = ">=0.17.0"
+
+[[package]]
+category = "main"
+description = "SciPy: Scientific Library for Python"
+name = "scipy"
+optional = false
+python-versions = ">=3.5"
+version = "1.3.0"
+
+[package.dependencies]
+numpy = ">=1.13.3"
+
+[[package]]
+category = "main"
 description = "A high-level Web Crawling and Web Scraping framework"
 name = "scrapy"
 optional = false
@@ -3024,7 +3097,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "553b9242fff56a5a95454ad5499a74494d496917cf2915928c60087cb9ecfe23"
+content-hash = "6925a80641b02eb29f28bed7f4994e9e7e0e79c40cce4face0e282713357e338"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3046,6 +3119,7 @@ automat = ["cbd78b83fa2d81fe2a4d23d258e1661dd7493c9a50ee2f1a5b2cac61c1793b0e", "
 autosemver = ["4f4e5c30a51acabd454eddb28fb958a6cd8ba93ce18ab9484bdcb8009e5163a0"]
 babel = ["af92e6106cb7c55286b25b38ad7695f8b4efb36a90ba483d7f7a6628c46158ab", "e86135ae101e31e2c8ec20a4e0c5220f4eed12487d5cf3f78be7e98d3a57fc28"]
 backcall = ["38ecd85be2c1e78f77fd91700c76e14667dc21e2713b63876c0eb901196e01e4", "bbbf4b1e5cd2bdb08f915895b51081c041bac22394fdfcfdfbe9f14b77c08bf2"]
+beard = ["56ca82003b15fc4cedd3c913e6ce6afeaa10bd27c2b5bbc4c467627c63722227", "589ca864cd4125fa7382d8e484e969b4512ff8d0e7f9a760e8f55110ff8ef8da"]
 beautifulsoup4 = ["034740f6cb549b4e932ae1ab975581e6103ac8f942200a0e9759065984391858", "945065979fb8529dd2f37dbb58f00b661bdbcbebf954f93b32fdf5263ef35348", "ba6d5c59906a85ac23dadfe5c88deaf3e179ef565f4898671253e50a78680718"]
 billiard = ["42d9a227401ac4fba892918bba0a0c409def5435c4b483267ebfe821afaaba0e"]
 binaryornot = ["359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061", "b8b71173c917bddcd2c16070412e369c3ed7f0528926f70cac18a6c97fd563e4"]
@@ -3101,6 +3175,7 @@ ftfy = ["3c0066db64a98436e751e56414f03f1cdea54f29364c0632c141c36cca6a5d94"]
 ftputil = ["374b01e174079e91babe2a462fbd6f6c00dbfbfa299dec04239ca4229fbf8762"]
 furl = ["f7e90e9f85ef3f2e64485f04c2a80b50af6133942812fd87a44d45305b079018", "fdcaedc1fb19a63d7d875b0105b0a5b496dd0989330d454a42bcb401fa5454ec"]
 future = ["67045236dcfd6816dc439556d009594abf643e5eb48992e36beac09c2ca659b8"]
+fuzzy = ["6b240e630235f183730b27fcb70fdd0d409bee2c3a4e7a964eeae093a28c4f38"]
 gunicorn = ["aa8e0b40b4157b36a5df5e599f45c9c76d6af43845ba3b3b0efe2c70473c2471", "fa2662097c66f920f53f70621c6c58ca4a3c4d3434205e608e121b5b3b71f4f3"]
 harvestingkit = ["260fef344454aa2f17bf59fbb8aae7e586b1b81f53947e54cefb9f126e79204e"]
 hepcrawl = ["76672f9f84b6fa3567b3e1e9fe5c6c02d8233f329e0cd7df622fae2bc9403705"]
@@ -3154,8 +3229,10 @@ isodate = ["2e364a3d5759479cdb2d37cce6b9376ea504db2ff90252a2e5b7cc89cc9ff2d8", "
 isort = ["c40744b6bc5162bbb39c1257fe298b7a393861d50978b565f3ccd9cb9de0182a", "f57abacd059dc3bd666258d1efb0377510a89777fda3e3274e3c01f7c03ae22d"]
 itsdangerous = ["321b033d07f2a4136d3ec762eac9f16a10ccd60f53c0c91af90217ace7ba1f19", "b12271b2047cb23eeb98c8b5622e2e5c5e9abd9784a153e9d8ef9cb4dd09d749"]
 jedi = ["49ccb782651bb6f7009810d17a3316f8867dde31654c750506970742e18b553d", "79d0f6595f3846dffcbe667cc6dc821b96e5baa8add125176c31a3917eb19d58"]
+jellyfish = ["5104e45a2b804b48a46a92a5e6d6e86830fe60ae83b1da32c867402c8f4c2094"]
 jinja2 = ["065c4f02ebe7f7cf559e49ee5a95fb800a9e4528727aec6f24402a5374c65013", "14dd6caf1527abb21f08f86c784eac40853ba93edb79552aa1e4b8aef1b61c7b"]
 jinja2-time = ["d14eaa4d315e7688daa4969f616f226614350c48730bfa1692d2caebd8c90d40", "d3eab6605e3ec8b7a0863df09cc1d23714908fa61aa6986a845c20ba488b4efa"]
+joblib = ["21e0c34a69ad7fde4f2b1f3402290e9ec46f545f15f1541c582edfe05d87b63a", "315d6b19643ec4afd4c41c671f9f2d65ea9d787da093487a81ead7b0bac94524"]
 json-merger = ["16a79778edbf6e2e7b8ad539f25c5c8b069679a2f9f669fc1b0d2a3bcad46b15", "fc62d347b2d98241464b10bf7f3a6c4f4fc39a159412a15e9d2a8dcb738423bc"]
 jsonpatch = ["49f29cab70e9068db3b1dc6b656cbe2ee4edf7dfe9bf5a0055f17a4b6804a4b9", "8bf92fa26bc42c346c03bd4517722a8e4f429225dbe775ac774b2c70d95dbd33"]
 jsonpointer = ["c192ba86648e05fdae4f08a17ec25180a9aef5008d973407b581798a83975362", "ff379fa021d1b81ab539f5ec467c7745beb1a5671463f9dcc2b2d458bd361c1e"]
@@ -3183,6 +3260,7 @@ munkres = ["a269adeb960c494f5fcd7f92fcc2f48fbdf90fd14b5d45716c61adc10667fed6"]
 nameparser = ["1089efbd576c917cd6970968c2735dc6e30f20d64318c4207124476270df7afc", "550bf4df749d4aca23b9fad486ed67ddc042c89234840fea106dcb8d5a3c4365"]
 node-semver = ["e29ee4e51efb6d82c55aef5d569b888842e62e6404ce95df18d80c421f8e7dac"]
 nodeenv = ["ad8259494cf1c9034539f6cced78a1da4840a4b157e23640bc4a0c0546b0cb7a"]
+numpy = ["03e311b0a4c9f5755da7d52161280c6a78406c7be5c5cc7facfbcebb641efb7e", "0cdd229a53d2720d21175012ab0599665f8c9588b3b8ffa6095dd7b90f0691dd", "312bb18e95218bedc3563f26fcc9c1c6bfaaf9d453d15942c0839acdd7e4c473", "464b1c48baf49e8505b1bb754c47a013d2c305c5b14269b5c85ea0625b6a988a", "5adfde7bd3ee4864536e230bcab1c673f866736698724d5d28c11a4d63672658", "7724e9e31ee72389d522b88c0d4201f24edc34277999701ccd4a5392e7d8af61", "8d36f7c53ae741e23f54793ffefb2912340b800476eb0a831c6eb602e204c5c4", "910d2272403c2ea8a52d9159827dc9f7c27fb4b263749dca884e2e4a8af3b302", "951fefe2fb73f84c620bec4e001e80a80ddaa1b84dce244ded7f1e0cbe0ed34a", "9588c6b4157f493edeb9378788dcd02cb9e6a6aeaa518b511a1c79d06cbd8094", "9ce8300950f2f1d29d0e49c28ebfff0d2f1e2a7444830fbb0b913c7c08f31511", "be39cca66cc6806652da97103605c7b65ee4442c638f04ff064a7efd9a81d50a", "c3ab2d835b95ccb59d11dfcd56eb0480daea57cdf95d686d22eff35584bc4554", "eb0fc4a492cb896346c9e2c7a22eae3e766d407df3eb20f4ce027f23f76e4c54", "ec0c56eae6cee6299f41e780a0280318a93db519bbb2906103c43f3e2be1206c", "f4e4612de60a4f1c4d06c8c2857cdcb2b8b5289189a12053f37d3f41f06c60d0"]
 oauthlib = ["ac35665a61c1685c56336bda97d5eefa246f1202618a1d6f34fccb1bdd404162", "d883b36b21a6ad813953803edfa563b1b579d79ca758fe950d1bc9e8b326025b"]
 orcid = ["5fe28b6d92aed5abe7145c959e4fa2afb90260be215ff3f36ad31c94ee41d0db"]
 orderedmultidict = ["24e3b730cf84e4a6a68be5cc760864905cf66abc89851e724bd5b4e849eaa96b", "b89895ba6438038d0bdf88020ceff876cf3eae0d5c66a69b526fab31125db2c5"]
@@ -3245,6 +3323,8 @@ requests-mock = ["7a5fa99db5e3a2a961b6f20ed40ee6baeff73503cf0a553cc4d679409e6170
 requests-oauthlib = ["490229d14a98e1b69612dcc1a22887ec14f5487dc1b8c6d7ba7f77a42ce7347b", "be76f2bb72ca5525998e81d47913e09b1ca8b7957ae89b46f787a79e68ad5e61", "eabd8eb700ebed81ba080c6ead96d39d6bdc39996094bd23000204f6965786b0"]
 rfc3987 = ["10702b1e51e5658843460b189b185c0366d2cf4cff716f13111b0ea9fd2dce53", "d3c4d257a560d544e9826b38bc81db676890c79ab9d7ac92b39c7a253d5ca733"]
 rt = ["164acda22cc6eacd153dac6b9dea7386851c9a1ae05b8a06fa3b0c3a161e2bf1", "c8a7df878c039848da8052daa6af4d0352a95ad51989cf313a410a4c0edae0b2"]
+scikit-learn = ["1ac81293d261747c25ea5a0ee8cd2bb1f3b5ba9ec05421a7f9f0feb4eb7c4116", "289361cf003d90b007f5066b27fcddc2d71324c82f1c88e316fedacb0dfdd516", "3a14d0abd4281fc3fd2149c486c3ec7cedad848b8d5f7b6f61522029d65a29f8", "5083a5e50d9d54548e4ada829598ae63a05651dd2bb319f821ffd9e8388384a6", "777cdd5c077b7ca9cb381396c81990cf41d2fa8350760d3cad3b4c460a7db644", "8bf2ff63da820d09b96b18e88f9625228457bff8df4618f6b087e12442ef9e15", "8d319b71c449627d178f21c57614e21747e54bb3fc9602b6f42906c3931aa320", "928050b65781fea9542dfe9bfe02d8c4f5530baa8472ec60782ea77347d2c836", "92c903613ff50e22aa95d589f9fff5deb6f34e79f7f21f609680087f137bb524", "ae322235def5ce8fae645b439e332e6f25d34bb90d6a6c8e261f17eb476457b7", "c1cd6b29eb1fd1cc672ac5e4a8be5f6ea936d094a3dc659ada0746d6fac750b1", "c41a6e2685d06bcdb0d26533af2540f54884d40db7e48baed6a5bcbf1a7cc642", "d07fcb0c0acbc043faa0e7cf4d2037f71193de3fb04fb8ed5c259b089af1cf5c", "d146d5443cda0a41f74276e42faf8c7f283fef49e8a853b832885239ef544e05", "eb2b7bed0a26ba5ce3700e15938b28a4f4513578d3e54a2156c29df19ac5fd01", "eb9b8ebf59eddd8b96366428238ab27d05a19e89c5516ce294abc35cea75d003"]
+scipy = ["03b1e0775edbe6a4c64effb05fff2ce1429b76d29d754aa5ee2d848b60033351", "09d008237baabf52a5d4f5a6fcf9b3c03408f3f61a69c404472a16861a73917e", "10325f0ffac2400b1ec09537b7e403419dcd25d9fee602a44e8a32119af9079e", "1db9f964ed9c52dc5bd6127f0dd90ac89791daa690a5665cc01eae185912e1ba", "409846be9d6bdcbd78b9e5afe2f64b2da5a923dd7c1cd0615ce589489533fdbb", "4907040f62b91c2e170359c3d36c000af783f0fa1516a83d6c1517cde0af5340", "6c0543f2fdd38dee631fb023c0f31c284a532d205590b393d72009c14847f5b1", "826b9f5fbb7f908a13aa1efd4b7321e36992f5868d5d8311c7b40cf9b11ca0e7", "a7695a378c2ce402405ea37b12c7a338a8755e081869bd6b95858893ceb617ae", "a84c31e8409b420c3ca57fd30c7589378d6fdc8d155d866a7f8e6e80dec6fd06", "adadeeae5500de0da2b9e8dd478520d0a9945b577b2198f2462555e68f58e7ef", "b283a76a83fe463c9587a2c88003f800e08c3929dfbeba833b78260f9c209785", "c19a7389ab3cd712058a8c3c9ffd8d27a57f3d84b9c91a931f542682bb3d269d", "c3bb4bd2aca82fb498247deeac12265921fe231502a6bc6edea3ee7fe6c40a7a", "c5ea60ece0c0c1c849025bfc541b60a6751b491b6f11dd9ef37ab5b8c9041921", "db61a640ca20f237317d27bc658c1fc54c7581ff7f6502d112922dc285bdabee"]
 scrapy = ["4ec03552c9aed1e82a376488150e904e0213bdee3ca140225105e9b03d0de204", "558dfd10ac53cb324ecd7eefd3eac412161c7507c082b01b0bcd2c6e2e9f0766"]
 scrapy-crawl-once = ["60ea4e7529f99ad1ec6cacbad53828fbfa5959cc4dddfe8047557e7c189e920c", "8ab832ab5c4073ba2aa498a8c6bb2a792117ecd7deadca41d7fd1cdee534caf4"]
 scrapy-sentry = ["4c78e0fb5a5940639f11ae2a1fb28d4ea1a41180d88289efc6d8e39e1e14227f"]

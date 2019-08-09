@@ -113,6 +113,14 @@ Run `isort` and `flake8` checks.
 $ ./run-code-checks.sh
 ```
 
+#### Use git pre-commit hooks
+
+Use `pre-commit`
+
+```bash
+$ poetry run pre-commit install
+```
+
 ### How to login
 
 For developement, we are using local login for our service.

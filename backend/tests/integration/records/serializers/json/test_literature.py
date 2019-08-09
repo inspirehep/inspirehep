@@ -6,8 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
-from copy import deepcopy
+from uuid import UUID
 
+import mock
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
 
@@ -15,9 +16,11 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
-def test_literature_authors_json(api_client, db, create_record):
+@mock.patch("inspirehep.records.api.literature.uuid.uuid4")
+def test_literature_authors_json(mock_uuid4, api_client, db, create_record):
+    mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     headers = {"Accept": "application/json"}
-    full_name_1 = faker.name()
+    full_name_1 = "Tanner Walker"
     data = {
         "authors": [{"full_name": full_name_1}],
         "collaborations": [{"value": "ATLAS"}],
@@ -27,7 +30,14 @@ def test_literature_authors_json(api_client, db, create_record):
 
     expected_status_code = 200
     expected_result = {
-        "authors": [{"first_name": full_name_1, "full_name": full_name_1}],
+        "authors": [
+            {
+                "first_name": full_name_1,
+                "full_name": full_name_1,
+                "signature_block": "WALCARt",
+                "uuid": "727238f3-8ed6-40b6-97d2-dc3cd1429131",
+            }
+        ],
         "collaborations": [{"value": "ATLAS"}],
     }
     response = api_client.get(

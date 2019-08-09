@@ -52,6 +52,8 @@ rt = "^1.0"
 gunicorn = "^19.0.0"
 sentry-sdk = {version = "^0.10.2",extras = ["flask"]}
 prometheus-flask-exporter = "^0.9.0"
+beard = ">=0.2.0"
+numpy = ">=1.17.0"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"

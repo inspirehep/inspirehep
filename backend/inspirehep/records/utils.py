@@ -7,6 +7,8 @@
 
 from itertools import chain
 
+import numpy as np
+from beard.clustering import block_phonetic
 from inspire_utils.date import earliest_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
@@ -41,3 +43,21 @@ def get_literature_earliest_date(data):
             return result
 
     return None
+
+
+def get_authors_phonetic_blocks(full_names, phonetic_algorithm="nysiis"):
+    """Create a dictionary of phonetic blocks for a given list of names."""
+
+    # The method requires a list of dictionaries with full_name as keys.
+    full_names_formatted = [{"author_name": i} for i in full_names]
+
+    # Create a list of phonetic blocks.
+    phonetic_blocks = list(
+        block_phonetic(
+            np.array(full_names_formatted, dtype=np.object).reshape(-1, 1),
+            threshold=0,
+            phonetic_algorithm=phonetic_algorithm,
+        )
+    )
+
+    return dict(zip(full_names, phonetic_blocks))
