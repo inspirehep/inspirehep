@@ -29,6 +29,9 @@ import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
 import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
+import AuthorTwitterAction from '../components/AuthorTwitterAction';
+import AuthorLinkedinAction from '../components/AuthorLinkedinAction';
+import AuthorWebsitesAction from '../components/AuthorWebsitesAction';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {
@@ -88,6 +91,10 @@ class DetailPage extends Component {
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
 
+    const twitter = metadata.get('twitter');
+    const linkedin = metadata.get('linkedin');
+    const urls = metadata.get('urls');
+
     return (
       <>
         <Row className="mv3" type="flex" justify="center">
@@ -109,7 +116,17 @@ class DetailPage extends Component {
               justify="space-between"
             >
               <Col xs={24} md={12} lg={16}>
-                <ContentBox loading={loading} className="sm-pb3">
+                <ContentBox
+                  loading={loading}
+                  className="sm-pb3"
+                  leftActions={
+                    <>
+                      {twitter && <AuthorTwitterAction twitter={twitter} />}
+                      {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
+                      {urls && <AuthorWebsitesAction websites={urls} />}
+                    </>
+                  }
+                >
                   <h2>
                     <AuthorName name={name} />
                     {currentPositions.size > 0 && (

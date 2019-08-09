@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorResultItem renders full author result 1`] = `
-<ResultItem>
+<ResultItem
+  leftActions={<React.Fragment />}
+>
   <Link
     className="f4"
     replace={false}
@@ -54,7 +56,9 @@ exports[`AuthorResultItem renders full author result 1`] = `
 `;
 
 exports[`AuthorResultItem renders with only name 1`] = `
-<ResultItem>
+<ResultItem
+  leftActions={<React.Fragment />}
+>
   <Link
     className="f4"
     replace={false}

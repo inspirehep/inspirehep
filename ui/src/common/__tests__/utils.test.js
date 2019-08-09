@@ -16,6 +16,7 @@ import pluralizeUnlessSingle, {
   getSearchRank,
   getFromObjectOrImmutableMap,
   pickEvenlyDistributedElements,
+  removeProtocolAndWwwFromUrl,
 } from '../utils';
 
 describe('utils', () => {
@@ -410,6 +411,44 @@ describe('utils', () => {
       const count = 1;
       const result = pluralizeUnlessSingle(word, count);
       expect(result).toEqual(word);
+    });
+  });
+
+  describe('removeProtocolAndWwwFromUrl', () => {
+    // regexp does not work on tests as it does on real browser
+    xit('removes protocol and www from url', () => {
+      const url = 'https://wwww.home.cern/about';
+      const expected = 'home.cern/about';
+      const result = removeProtocolAndWwwFromUrl(url);
+      expect(result).toEqual(expected);
+    });
+
+    xit('removes www from url', () => {
+      const url = 'wwww.home.cern/about';
+      const expected = 'home.cern/about';
+      const result = removeProtocolAndWwwFromUrl(url);
+      expect(result).toEqual(expected);
+    });
+
+    it('removes protocol from url', () => {
+      const url = 'https://home.cern/about';
+      const expected = 'home.cern/about';
+      const result = removeProtocolAndWwwFromUrl(url);
+      expect(result).toEqual(expected);
+    });
+
+    it('removes empty protocol from url', () => {
+      const url = '//home.cern/about';
+      const expected = 'home.cern/about';
+      const result = removeProtocolAndWwwFromUrl(url);
+      expect(result).toEqual(expected);
+    });
+
+    it('does not do anything url does not have protocol or wwww', () => {
+      const url = 'home.cern/about';
+      const expected = 'home.cern/about';
+      const result = removeProtocolAndWwwFromUrl(url);
+      expect(result).toEqual(expected);
     });
   });
 

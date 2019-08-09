@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorWebsitesAction renders only a url 1`] = `
+<ListItemAction>
+  <ExternalLink
+    href="www.descriptionless.com/url"
+  >
+    <Icon
+      type="link"
+    />
+  </ExternalLink>
+</ListItemAction>
+`;
+
+exports[`AuthorWebsitesAction renders only blog 1`] = `
+<ListItemAction>
+  <ExternalLink
+    href="https://author.wordpress.com"
+  >
+    <Icon
+      type="link"
+    />
+  </ExternalLink>
+</ListItemAction>
+`;
+
+exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <Icon
+          type="link"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      key="https://author.wordpress.com"
+    >
+      <ExternalLink
+        href="https://author.wordpress.com"
+      >
+        Blog
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="https://www.whatever.com/author"
+    >
+      <ExternalLink
+        href="https://www.whatever.com/author"
+      >
+        whatever.com/author
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="www.descriptionless.com/url"
+    >
+      <ExternalLink
+        href="www.descriptionless.com/url"
+      >
+        descriptionless.com/url
+      </ExternalLink>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;

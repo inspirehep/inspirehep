@@ -82,7 +82,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
       </div>
     </div>
     <Row
-      className="ph2"
+      className="actions ph2"
       gutter={0}
       justify="space-between"
       type="flex"
@@ -165,7 +165,7 @@ exports[`ReferenceList renders with references 1`] = `
       </div>
     </div>
     <Row
-      className="ph2"
+      className="actions ph2"
       gutter={0}
       justify="space-between"
       type="flex"
