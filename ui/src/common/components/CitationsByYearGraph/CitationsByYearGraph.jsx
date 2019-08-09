@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Tooltip } from 'antd';
-import { LineSeries, FlexibleWidthXYPlot, YAxis, XAxis } from 'react-vis';
+import { LineSeries, FlexibleWidthXYPlot, YAxis, XAxis, Hint } from 'react-vis';
 import NumberAbbreviator from 'number-abbreviate';
 
 import 'react-vis/dist/style.css';
@@ -46,7 +45,8 @@ class CitationsByYearGraph extends Component {
     const seriesData = [];
     // eslint-disable-next-line no-plusplus
     for (let year = minYear; year <= maxYear; year++) {
-      seriesData.push({ x: year, y: citationsByYear[year] || 0 });
+      const citations = citationsByYear[year] || 0;
+      seriesData.push({ x: year, y: citations });
     }
 
     // Add dummy data points at the begining of the data
@@ -67,30 +67,34 @@ class CitationsByYearGraph extends Component {
     super(props);
 
     this.state = {
-      hoveredYear: null,
-      hoveredCitations: null,
+      hoveredDatapoint: null,
     };
 
     this.onGraphMouseOver = this.onGraphMouseOver.bind(this);
+    this.onGraphMouseOut = this.onGraphMouseOut.bind(this);
   }
 
-  onGraphMouseOver(datapoint) {
-    const { x, y } = datapoint;
-    this.setState({
-      hoveredYear: x,
-      hoveredCitations: y,
-    });
+  onGraphMouseOver(hoveredDatapoint) {
+    this.setState({ hoveredDatapoint });
   }
 
-  renderHoveredInfo() {
-    const { hoveredCitations, hoveredYear } = this.state;
+  onGraphMouseOut() {
+    this.setState({ hoveredDatapoint: null });
+  }
 
+  renderHint() {
+    const { hoveredDatapoint } = this.state;
     return (
-      <span>
-        <strong>{hoveredCitations}</strong>{' '}
-        {pluralizeUnlessSingle('citation', hoveredCitations)} in{' '}
-        <strong>{hoveredYear}</strong>
-      </span>
+      hoveredDatapoint && (
+        <Hint
+          align={{ vertical: 'top', horizontal: 'auto' }}
+          value={hoveredDatapoint}
+          format={({ x, y }) => [
+            { title: pluralizeUnlessSingle('Citation', y), value: y },
+            { title: 'Year', value: x },
+          ]}
+        />
+      )
     );
   }
 
@@ -139,21 +143,23 @@ class CitationsByYearGraph extends Component {
     return (
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
-          <Tooltip title={this.renderHoveredInfo()} placement="bottom">
-            <FlexibleWidthXYPlot
-              height={GRAPH_HEIGHT}
-              margin={GRAPH_MARGIN}
-              yDomain={[0, yDomainMax]}
-            >
-              {this.renderXAxis()}
-              {this.renderYAxis()}
-              <LineSeries
-                onNearestX={this.onGraphMouseOver}
-                data={seriesData}
-                color={BLUE}
-              />
-            </FlexibleWidthXYPlot>
-          </Tooltip>
+          <FlexibleWidthXYPlot
+            onMouseLeave={this.onGraphMouseOut}
+            className="__CitationsByYearGraph__"
+            height={GRAPH_HEIGHT}
+            margin={GRAPH_MARGIN}
+            yDomain={[0, yDomainMax]}
+          >
+            {this.renderXAxis()}
+            {this.renderYAxis()}
+            <LineSeries
+              sizeType="literal"
+              onNearestX={this.onGraphMouseOver}
+              data={seriesData}
+              color={BLUE}
+            />
+            {this.renderHint()}
+          </FlexibleWidthXYPlot>
         </ErrorAlertOrChildren>
       </LoadingOrChildren>
     );
