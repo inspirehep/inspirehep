@@ -1,24 +1,9 @@
 # -*- coding: utf-8 -*-
 #
-# This file is part of INSPIRE.
-# Copyright (C) 2014-2017 CERN.
+# Copyright (C) 2019 CERN.
 #
-# INSPIRE is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# INSPIRE is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with INSPIRE. If not, see <http://www.gnu.org/licenses/>.
-#
-# In applying this license, CERN does not waive the privileges and immunities
-# granted to it by virtue of its status as an Intergovernmental Organization
-# or submit itself to any jurisdiction.
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
 from flask import current_app
@@ -192,6 +177,7 @@ def assert_user_and_token_models():
         assert remote_account.extra_data["orcid"] == orcid
         assert remote_account.extra_data["full_name"] == name
         assert remote_account.extra_data["allow_push"]
+
     return _assert_user_and_token_models
 
 
@@ -240,8 +226,8 @@ def test_import_multiple_orcid_tokens_no_user_exists(
     result = app_cli_runner.invoke(import_legacy_orcid_tokens)
 
     # both authors are not found
-    output = result.output.split('\n')
-    assert output.count('No row was found for one()') == 2
+    output = result.output.split("\n")
+    assert output.count("No row was found for one()") == 2
 
     # Check state after migration
     assert not redis_setup.llen("legacy_orcid_tokens")
@@ -284,7 +270,7 @@ def test_empty_name(
     )
 
     assert_user_and_token_models(orcid, token, email, name)
-    assert result.output.split('\n').count('No row was found for one()') == 1
+    assert result.output.split("\n").count("No row was found for one()") == 1
 
 
 @patch("inspirehep.orcid.cli.orcid_push")
@@ -507,7 +493,7 @@ def test_empty_email(
     assert_user_and_token_models(
         orcid, token, USER_EMAIL_EMPTY_PATTERN.format(orcid), name
     )
-    assert result.output.split('\n').count('No row was found for one()') == 1
+    assert result.output.split("\n").count("No row was found for one()") == 1
 
 
 @patch("inspirehep.orcid.cli.orcid_push")
@@ -532,7 +518,7 @@ def test_print_exception_when_no_author_record(
 
     # Ensure that when no author record is found with that ORCID
     # the exception is printed out.
-    assert result.output.split('\n').count('No row was found for one()') == 1
+    assert result.output.split("\n").count("No row was found for one()") == 1
 
 
 @patch("inspirehep.orcid.cli.orcid_push")
@@ -598,7 +584,7 @@ def test_2_entries_in_legacy_orcid_arrays_but_1_literature(
     )
 
     assert_user_and_token_models(orcid, token, email, name)
-    assert result.output.split('\n').count('No row was found for one()') == 1
+    assert result.output.split("\n").count("No row was found for one()") == 1
 
 
 @patch("inspirehep.orcid.cli.orcid_push")
