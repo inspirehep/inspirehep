@@ -12,6 +12,7 @@ module.exports = {
   'screen-xs-max': '575px',
   'screen-sm-max': '767px',
   'screen-lg-max': '1159px',
+  'screen-md-max': '991px',
   'header-padding': '0 12px',
   'drawer-body-padding': '24px',
   'btn-default-bg': '#fff',
