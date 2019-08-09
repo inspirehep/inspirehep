@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorLinkedinAction renders with linkedin 1`] = `
+<ListItemAction>
+  <ExternalLink
+    href="//linkedin.com/in/harunurhan"
+  >
+    <Icon
+      type="linkedin"
+    />
+  </ExternalLink>
+</ListItemAction>
+`;

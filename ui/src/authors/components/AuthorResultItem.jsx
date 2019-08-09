@@ -9,6 +9,9 @@ import AuthorAffiliationList from '../../common/components/AuthorAffiliationList
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
+import AuthorWebsitesAction from './AuthorWebsitesAction';
+import AuthorTwitterAction from './AuthorTwitterAction';
+import AuthorLinkedinAction from './AuthorLinkedinAction';
 
 class AuthorResultItem extends Component {
   render() {
@@ -21,8 +24,20 @@ class AuthorResultItem extends Component {
     );
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
+
+    const twitter = metadata.get('twitter');
+    const linkedin = metadata.get('linkedin');
+    const urls = metadata.get('urls');
     return (
-      <ResultItem>
+      <ResultItem
+        leftActions={
+          <>
+            {twitter && <AuthorTwitterAction twitter={twitter} />}
+            {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
+            {urls && <AuthorWebsitesAction websites={urls} />}
+          </>
+        }
+      >
         <Link className="f4" to={`/authors/${recordId}`}>
           <AuthorName name={name} />
         </Link>

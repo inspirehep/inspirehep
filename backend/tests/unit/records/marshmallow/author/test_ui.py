@@ -164,3 +164,40 @@ def test_facet_author_name_without_ids():
     result_facet_author_name = result_data.get("facet_author_name")
 
     assert expected_result == result_facet_author_name
+
+
+def test_author_twitter():
+    schema = AuthorsDetailSchema()
+    data = {"ids": [{"value": "harunurhan", "schema": "TWITTER"}]}
+    author = faker.record("aut", data=data)
+    expected_twitter = "harunurhan"
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+    result_twitter = result_data.get("twitter")
+
+    assert expected_twitter == result_twitter
+
+
+def test_author_linkedin():
+    schema = AuthorsDetailSchema()
+    data = {"ids": [{"value": "harunurhan", "schema": "LINKEDIN"}]}
+    author = faker.record("aut", data=data)
+    expected_linkedin = "harunurhan"
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+    result_linkedin = result_data.get("linkedin")
+
+    assert expected_linkedin == result_linkedin
+
+
+def test_author_does_not_have_linkedin_or_twitter():
+    schema = AuthorsDetailSchema()
+    author = faker.record("aut")
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+
+    assert "linkedin" not in result_data
+    assert "twitter" not in result_data
