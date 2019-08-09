@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Card, Button } from 'antd';
 
-import orcidLogo from './orcid.svg';
+import orcidLogo from '../../../common/orcid.svg';
 import './LoginPage.scss';
 
 class LoginPage extends Component {

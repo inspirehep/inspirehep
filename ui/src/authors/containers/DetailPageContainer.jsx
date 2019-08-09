@@ -32,6 +32,7 @@ import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import AuthorTwitterAction from '../components/AuthorTwitterAction';
 import AuthorLinkedinAction from '../components/AuthorLinkedinAction';
 import AuthorWebsitesAction from '../components/AuthorWebsitesAction';
+import AuthorOrcid from '../components/AuthorOrcid';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {
@@ -94,6 +95,7 @@ class DetailPage extends Component {
     const twitter = metadata.get('twitter');
     const linkedin = metadata.get('linkedin');
     const urls = metadata.get('urls');
+    const orcid = metadata.get('orcid');
 
     return (
       <>
@@ -134,6 +136,11 @@ class DetailPage extends Component {
                         (<AuthorAffiliationList
                           affiliations={currentPositions}
                         />)
+                      </span>
+                    )}
+                    {orcid && (
+                      <span className="pl1">
+                        <AuthorOrcid orcid={orcid} />
                       </span>
                     )}
                   </h2>

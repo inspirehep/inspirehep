@@ -2,7 +2,19 @@
 
 exports[`AuthorResultItem renders full author result 1`] = `
 <ResultItem
-  leftActions={<React.Fragment />}
+  leftActions={
+    <React.Fragment>
+      <AuthorWebsitesAction
+        websites={
+          Immutable.List [
+            Immutable.Map {
+              "value": "https://cern.ch/1",
+            },
+          ]
+        }
+      />
+    </React.Fragment>
+  }
 >
   <Link
     className="f4"

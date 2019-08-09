@@ -21,12 +21,16 @@ class AuthorsBaseSchema(AuthorsPublicSchema):
 
     twitter = fields.Method("get_twitter", dump_only=True)
     linkedin = fields.Method("get_linkedin", dump_only=True)
+    orcid = fields.Method("get_orcid", dump_only=True)
 
     def get_twitter(self, data):
         return self.get_id_for_schema(data, "TWITTER")
 
     def get_linkedin(self, data):
         return self.get_id_for_schema(data, "LINKEDIN")
+
+    def get_orcid(self, data):
+        return self.get_id_for_schema(data, "ORCID")
 
     @staticmethod
     def get_id_for_schema(data, schema):

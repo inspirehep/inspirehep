@@ -28,6 +28,7 @@ class AuthorResultItem extends Component {
     const twitter = metadata.get('twitter');
     const linkedin = metadata.get('linkedin');
     const urls = metadata.get('urls');
+
     return (
       <ResultItem
         leftActions={
