@@ -7,6 +7,7 @@
 
 """INSPIRE module that adds more fun to the platform."""
 import logging
+import uuid
 
 import requests
 from flask import current_app
@@ -29,7 +30,10 @@ from inspirehep.records.errors import (
     UnknownImportIdentifierError,
 )
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
-from inspirehep.records.utils import get_literature_earliest_date
+from inspirehep.records.utils import (
+    get_authors_phonetic_blocks,
+    get_literature_earliest_date,
+)
 
 from .base import InspireRecord
 
@@ -73,6 +77,8 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             else:
                 push_to_orcid(record)
 
+            record.update_authors_signature_blocks_and_uuids()
+
             return record
 
     def update(
@@ -89,6 +95,8 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 LOGGER.info("ORCID PUSH disabled by argument in record.update")
             else:
                 push_to_orcid(self)
+
+            self.update_authors_signature_blocks_and_uuids()
 
     def set_files(self, documents=None, figures=None, force=False):
         """Sets new documents and figures for record.
@@ -226,6 +234,32 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         pids_changed = set.symmetric_difference(set(pids_latest), pids_oldest)
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))
+
+    def update_authors_signature_blocks_and_uuids(self):
+        """Assigns a phonetic block and a uuid to each signature of a record.
+
+        Uses the NYSIIS algorithm to compute a phonetic block from each
+        signature's full name, skipping those that are not recognized
+        as real names, but logging an error when that happens.
+        """
+        author_names = self.get_value("authors.full_name", default=[])
+
+        try:
+            signature_blocks = get_authors_phonetic_blocks(author_names)
+        except Exception as err:
+            LOGGER.error(
+                "Cannot extract phonetic blocks for record %d: %s",
+                self.get("control_number"),
+                err,
+            )
+            return
+
+        for author in self.get("authors", []):
+            author_signature_block = signature_blocks.get(author["full_name"])
+            if author_signature_block:
+                author["signature_block"] = author_signature_block
+            if "uuid" not in author:
+                author["uuid"] = str(uuid.uuid4())
 
 
 def import_article(identifier):
