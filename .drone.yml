@@ -1,8 +1,9 @@
 ---
+
 kind: pipeline
 name: unit
 steps:
-  - name: unit
+  - name: test
     image: inspirehep/poetry
     commands:
       - cd backend
@@ -11,10 +12,11 @@ steps:
       - poetry run py.test tests/unit
 
 ---
+
 kind: pipeline
 name: integration
 steps:
-  - name: integration
+  - name: test
     image: inspirehep/poetry
     commands:
       - cd backend
@@ -55,10 +57,11 @@ services:
       cpu: 1
 
 ---
+
 kind: pipeline
 name: integration-async
 steps:
-  - name: integration-async
+  - name: test
     image: inspirehep/poetry
     commands:
       - cd backend
@@ -96,3 +99,26 @@ services:
     limits:
       memory: 2G
       cpu: 1
+
+---
+
+kind: pipeline
+name: ui
+steps:
+  - name: permission
+    image: busybox
+    commands:
+      - chown -R 999 .
+  - name: test
+    image: alekzonder/puppeteer
+    commands:
+      - cd ui
+      - yarn
+      - yarn build
+      - cd ui-tests
+      - yarn install
+      - yarn test
+    environment:
+      NODE_ENV: test
+      UI_TESTS_HOST: 'localhost:8081'
+      UI_TESTS_HTTP_SCHEME: 'http'
