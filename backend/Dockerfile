@@ -12,7 +12,7 @@ WORKDIR /opt/inspire
 ENTRYPOINT ["inspirehep"]
 CMD ["shell"]
 
-RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --preview && \
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 1.0.0a5 && \
     poetry --version
 
 COPY poetry.lock pyproject.toml ./
