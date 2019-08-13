@@ -26,7 +26,7 @@ import CitationSummaryGraphContainer from '../../common/containers/CitationSumma
 import NumberOfCiteablePapersContainer from './NumberOfCiteablePapersContainer';
 import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
-import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import { SUPERUSER_OR_BETAUSER_OR_CATALOGER } from '../../common/authorization';
 import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import AuthorTwitterAction from '../components/AuthorTwitterAction';
@@ -157,7 +157,9 @@ class DetailPage extends Component {
                   </Row>
                 </ContentBox>
               </Col>
-              <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+              <AuthorizedContainer
+                authorizedRoles={SUPERUSER_OR_BETAUSER_OR_CATALOGER}
+              >
                 <Col xs={24} md={12} lg={8}>
                   <ContentBox loading={loading}>
                     <CitationSummaryTableContainer
@@ -176,7 +178,9 @@ class DetailPage extends Component {
         </Row>
         <Row className="mb3" type="flex" justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
-            <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+            <AuthorizedContainer
+              authorizedRoles={SUPERUSER_OR_BETAUSER_OR_CATALOGER}
+            >
               <ContentBox subTitle="Citation Summary">
                 <Row gutter={{ xs: 0, lg: 32 }}>
                   <Col xs={24} md={24} lg={7}>
