@@ -1,21 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorResultItem renders full author result 1`] = `
-<ResultItem
-  leftActions={
-    <React.Fragment>
-      <AuthorWebsitesAction
-        websites={
-          Immutable.List [
-            Immutable.Map {
-              "value": "https://cern.ch/1",
-            },
-          ]
-        }
-      />
-    </React.Fragment>
-  }
->
+<ResultItem>
   <Link
     className="f4"
     replace={false}
@@ -68,9 +54,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
 `;
 
 exports[`AuthorResultItem renders with only name 1`] = `
-<ResultItem
-  leftActions={<React.Fragment />}
->
+<ResultItem>
   <Link
     className="f4"
     replace={false}
