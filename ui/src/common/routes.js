@@ -31,3 +31,10 @@ export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 export const EDIT_LITERATURE = '/workflows/edit_article';
 export const EDIT_AUTHOR = '/submissions/authors';
 export const EDIT_JOB = '/submissions/jobs';
+
+export function isNonBetaRoute(locationPathname) {
+  return (
+    locationPathname.startsWith(SUBMISSIONS) ||
+    locationPathname.startsWith(JOBS)
+  );
+}

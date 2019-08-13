@@ -22,6 +22,7 @@ import {
   SUBMISSIONS,
   ERRORS,
   JOBS,
+  isNonBetaRoute,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles } from './tracker';
@@ -68,9 +69,9 @@ class App extends Component {
   }
 
   render() {
-    const { isBannerVisible, isSubmissionsPage } = this.props;
+    const { isBannerVisible, isNonBetaPage } = this.props;
     const contentMarginTop =
-      isBannerVisible && !isSubmissionsPage ? 112 : undefined;
+      isBannerVisible && !isNonBetaPage ? 112 : undefined;
     return (
       <Layout className="__App__">
         <Header />
@@ -98,15 +99,13 @@ class App extends Component {
 
 App.propTypes = {
   isBannerVisible: PropTypes.bool.isRequired,
-  isSubmissionsPage: PropTypes.bool.isRequired,
+  isNonBetaPage: PropTypes.bool.isRequired,
   userRoles: PropTypes.instanceOf(Set).isRequired,
 };
 
 const stateToProps = state => ({
   isBannerVisible: state.ui.get('bannerVisibility'),
-  isSubmissionsPage: String(state.router.location.pathname).startsWith(
-    SUBMISSIONS
-  ),
+  isNonBetaPage: isNonBetaRoute(String(state.router.location.pathname)),
   userRoles: Set(state.user.getIn(['data', 'roles'])),
 });
 
