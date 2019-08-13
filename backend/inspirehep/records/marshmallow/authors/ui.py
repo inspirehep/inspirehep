@@ -19,9 +19,22 @@ class AuthorsBaseSchema(AuthorsPublicSchema):
     class Meta:
         exclude = AuthorsPublicSchema.Meta.exclude + ["$schema"]
 
+
+class AuthorsDetailSchema(AuthorsBaseSchema):
+    facet_author_name = fields.Method("get_facet_author_name", dump_only=True)
+    positions = fields.Nested(PositionSchemaV1, dump_only=True, many=True)
+    should_display_positions = fields.Method(
+        "get_should_display_positions", dump_only=True
+    )
     twitter = fields.Method("get_twitter", dump_only=True)
     linkedin = fields.Method("get_linkedin", dump_only=True)
     orcid = fields.Method("get_orcid", dump_only=True)
+
+    def get_facet_author_name(self, data):
+        facet_author_name = data.get("facet_author_name")
+        if facet_author_name is None:
+            return get_facet_author_name_for_author(data)
+        return facet_author_name
 
     def get_twitter(self, data):
         return self.get_id_for_schema(data, "TWITTER")
@@ -37,21 +50,6 @@ class AuthorsBaseSchema(AuthorsPublicSchema):
         ids = data.get("ids", [])
         ids_for_schema = get_values_for_schema(ids, schema)
         return ids_for_schema[0] if ids_for_schema else None
-
-
-class AuthorsDetailSchema(AuthorsBaseSchema):
-    facet_author_name = fields.Method("get_facet_author_name", dump_only=True)
-    positions = fields.Nested(PositionSchemaV1, dump_only=True, many=True)
-
-    should_display_positions = fields.Method(
-        "get_should_display_positions", dump_only=True
-    )
-
-    def get_facet_author_name(self, data):
-        facet_author_name = data.get("facet_author_name")
-        if facet_author_name is None:
-            return get_facet_author_name_for_author(data)
-        return facet_author_name
 
     @staticmethod
     def get_should_display_positions(data):
