@@ -180,7 +180,8 @@ AUTHORS.update(
         },
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS + ":authors_json_response_search",
-            "application/vnd+inspire.record.ui+json": "invenio_records_rest.serializers:json_v1_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":authors_json_list_response",
         },
         "suggesters": {
             "author": {
