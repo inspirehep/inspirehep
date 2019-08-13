@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
 import { Col, Row } from 'antd';
 
+import ExternalLink from '../../../common/components/ExternalLink';
 import TextField from '../../common/components/TextField';
 import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
@@ -17,6 +18,8 @@ import DateField from '../../common/components/DateField';
 import RichTextField from '../../common/components/RichTextField';
 import StatusFieldContainer from '../containers/StatusFieldContainer';
 import { isValidDeadlineDate } from '../schemas/job';
+import FieldInfoAlert from '../../common/components/FieldInfoAlert';
+import { POST_DOC_RANK_VALUE } from '../../../common/constants';
 
 class JobForm extends Component {
   static isInvalidDeadlineDate(date) {
@@ -30,6 +33,14 @@ class JobForm extends Component {
 
   static getSuggestionSourceLegacyName(suggestion) {
     return suggestion._source.legacy_name;
+  }
+
+  isPostDocSubmission() {
+    const { values } = this.props;
+
+    return (
+      values.ranks && values.ranks.some(rank => rank === POST_DOC_RANK_VALUE)
+    );
   }
 
   render() {
@@ -111,6 +122,20 @@ class JobForm extends Component {
           placeholder="URL for additional information"
           component={TextField}
         />
+        {this.isPostDocSubmission() && (
+          <FieldInfoAlert
+            description={
+              <span>
+                Many institutions have agreed to set January 7 as the earliest
+                deadline which can be imposed for accepting offers of
+                postdoctoral positions.{' '}
+                <ExternalLink href="//insti.physics.sunysb.edu/itp/postdoc-agreement.html">
+                  Learn More
+                </ExternalLink>
+              </span>
+            }
+          />
+        )}
         <Field
           name="deadline_date"
           label="* Deadline"

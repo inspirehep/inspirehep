@@ -3,12 +3,13 @@ export const CITEABLE_QUERY = { citeable: true, refereed: undefined };
 export const PUBLISHED_BAR_TYPE = 'published';
 export const CITEABLE_BAR_TYPE = 'citeable';
 
+export const POST_DOC_RANK_VALUE = 'POSTDOC';
 export const RANK_VALUE_TO_DISPLAY = {
   SENIOR: 'Senior (permanent)',
   JUNIOR: 'Junior (leads to Senior)',
   STAFF: 'Staff (non-research)',
   VISITOR: 'Visitor',
-  POSTDOC: 'PostDoc',
+  [POST_DOC_RANK_VALUE]: 'PostDoc',
   PHD: 'PhD',
   MASTER: 'Master',
   UNDERGRADUATE: 'Undergrad',
