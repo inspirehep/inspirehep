@@ -4,7 +4,7 @@ import {
   searchForCurrentLocation,
   fetchSearchAggregationsForCurrentLocation,
 } from '../actions/search';
-import { SUBMISSIONS, LITERATURE, JOBS } from '../common/routes';
+import { LITERATURE, JOBS, AUTHORS } from '../common/routes';
 import { shallowEqual } from '../common/utils';
 
 function getLocationFromRootState(state) {
@@ -14,13 +14,22 @@ function getLocationFromRootState(state) {
   return location || {};
 }
 
+const COLLECTION_PATHNAMES = [LITERATURE, JOBS, AUTHORS];
+const idInUrlRegExp = new RegExp('/\\d+');
+function isSearchPage(location) {
+  const isCollectionPage = COLLECTION_PATHNAMES.some(pathname =>
+    location.pathname.startsWith(pathname)
+  );
+
+  return isCollectionPage && !idInUrlRegExp.test(location.pathname);
+}
+
 export default function({ getState, dispatch }) {
   return next => action => {
     if (
       action.type === LOCATION_CHANGE &&
       action.payload &&
-      action.payload.location.search &&
-      !action.payload.location.pathname.startsWith(SUBMISSIONS)
+      isSearchPage(action.payload.location)
     ) {
       const currentLocation = getLocationFromRootState(getState());
       const result = next(action);
