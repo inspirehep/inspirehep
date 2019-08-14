@@ -17,7 +17,7 @@ from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record):
+def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record, redis):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     headers = {"Accept": "application/json"}
     full_name_1 = "Tanner Walker"
