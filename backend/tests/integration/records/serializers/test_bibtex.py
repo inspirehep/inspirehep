@@ -29,7 +29,9 @@ def test_bibtex(api_client, db, es, create_record_factory):
     assert expected_result == response_data
 
 
-def test_bibtex_returns_all_expected_fields(api_client, db, es, create_record_factory):
+def test_bibtex_returns_all_expected_fields(
+    api_client, db, es, create_record_factory, redis
+):
     headers = {"Accept": "application/x-bibtex"}
     data = {
         "_collections": ["Literature"],

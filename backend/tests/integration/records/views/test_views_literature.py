@@ -381,7 +381,7 @@ def test_literature_facets_author_count_does_not_have_empty_bucket(
     """
 )
 def test_literature_facets_author_count_returns_non_empty_bucket(
-    api_client, db, create_record, es_clear
+    api_client, db, create_record, es_clear, redis
 ):
     create_record("lit", data={"authors": [{"full_name": "Harun Urhan"}]})
     response = api_client.get("/literature/facets")
@@ -518,7 +518,9 @@ def test_literature_search_citeable_filter(api_client, db, es, create_record_fac
     )
 
 
-def test_literature_citation_annual_summary(api_client, db, es_clear, create_record):
+def test_literature_citation_annual_summary(
+    api_client, db, es_clear, create_record, redis
+):
     author = create_record("aut", faker.record("aut"))
     authors = [
         {

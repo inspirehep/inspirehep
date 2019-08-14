@@ -5,11 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import datetime
 import json
 from uuid import UUID, uuid4
 
 import mock
 import pytest
+from freezegun import freeze_time
 from helpers.providers.faker import faker
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
@@ -1073,7 +1075,7 @@ def test_get_modified_references(base_app, db, es_clear):
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_blocks_handles_ascii_names(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
@@ -1093,7 +1095,7 @@ def test_update_authors_signature_blocks_handles_ascii_names(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_blocks_handles_unicode_names(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Páramos, Jorge"}]}
@@ -1113,7 +1115,7 @@ def test_update_authors_signature_blocks_handles_unicode_names(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_blocks_handles_jimmy(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Jimmy"}]}
@@ -1133,7 +1135,7 @@ def test_update_authors_signature_blocks_handles_jimmy(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_blocks_handles_two_authors_with_the_same_name(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Jimmy"}]}
@@ -1153,7 +1155,7 @@ def test_update_authors_signature_blocks_handles_two_authors_with_the_same_name(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_blocks_discards_empty_signature_blocks(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "ae"}]}
@@ -1169,7 +1171,7 @@ def test_update_authors_signature_blocks_discards_empty_signature_blocks(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_discards_empty_signature_blocks(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "ae"}]}
@@ -1185,7 +1187,7 @@ def test_update_authors_signature_discards_empty_signature_blocks(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_updating_record_updates_authors_signature_blocks_and_uuids(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
@@ -1218,7 +1220,7 @@ def test_updating_record_updates_authors_signature_blocks_and_uuids(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_uuids_does_not_update_existing_uuids(
-    mock_uuid4, base_app, db, es_clear
+    mock_uuid4, base_app, db, es_clear, redis
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {
@@ -1241,3 +1243,49 @@ def test_update_authors_uuids_does_not_update_existing_uuids(
     ]
 
     assert expected_result_create == record["authors"]
+
+
+def test_create_record_sends_phonetic_blocks_to_redis(base_app, db, es, redis):
+    author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
+    data = faker.record("lit", data=author_data)
+    LiteratureRecord.create(data)
+    assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
+
+
+def test_update_record_sends_phonetic_blocks_to_redis(base_app, db, es, redis):
+    data = faker.record("lit")
+    record = LiteratureRecord.create(data)
+    author_data_updated = {"authors": [{"full_name": "Ellis, John Richard"}]}
+    data.update(author_data_updated)
+    record.update(data)
+    assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
+
+
+def test_phonetic_blocks_keep_order_in_redis_based_on_timestamp(
+    base_app, db, es, redis
+):
+    with freeze_time(datetime.datetime(2015, 8, 18, 8, 51, 50)):
+        author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
+        data = faker.record("lit", data=author_data)
+        InspireRecord.create(data)
+    with freeze_time(datetime.datetime(2015, 8, 18, 9, 51, 50)):
+        author_data2 = {"authors": [{"full_name": "Jimmy"}]}
+        data2 = faker.record("lit", data=author_data2)
+        LiteratureRecord.create(data2)
+
+    assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
+    assert "JANY" == redis.zpopmin("author_phonetic_blocks")[0][0]
+
+
+def test_phonetic_blocks_not_updated_when_record_does_not_have_lit_collection(
+    base_app, db, es, redis
+):
+    data = {
+        "_collections": ["CDS Hidden"],
+        "authors": [{"full_name": "Ellis, John Richard"}],
+    }
+    data = faker.record("lit", data=data)
+    record = LiteratureRecord.create(data)
+    expected_result_authors = [{"full_name": "Ellis, John Richard"}]
+    assert expected_result_authors == record["authors"]
+    assert [] == redis.zpopmin("author_phonetic_blocks")

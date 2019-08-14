@@ -21,6 +21,7 @@ from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
+from redis import StrictRedis
 
 from inspirehep.factory import create_api as inspire_create_app
 from inspirehep.records.api import InspireRecord
@@ -271,3 +272,13 @@ def app_cli_runner(appctx):
     runner._invoke = runner.invoke
     runner.invoke = partial(runner.invoke, obj=obj)
     return runner
+
+
+@pytest.fixture(scope="function")
+def redis(base_app):
+    redis_url = current_app.config.get("CACHE_REDIS_URL")
+    r = StrictRedis.from_url(redis_url, decode_responses=True)
+
+    yield r
+
+    r.flushall()

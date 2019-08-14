@@ -16,7 +16,7 @@ def _get_suggester_text(response, suggester):
     return response.json[suggester][0]["options"][0]["text"]
 
 
-def test_literature_suggesters_book_title(api_client, db, es, create_record):
+def test_literature_suggesters_book_title(api_client, db, es, create_record, redis):
     expected_title_suggestion = "Suggested title"
     data = {
         "authors": [{"full_name": "Weinberg, Steven"}],

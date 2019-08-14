@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
+import datetime
 import logging
 import uuid
 
@@ -18,6 +19,7 @@ from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
+from redis import StrictRedis
 
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
@@ -237,11 +239,16 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
     def update_authors_signature_blocks_and_uuids(self):
         """Assigns a phonetic block and a uuid to each signature of a record.
+        Sends the phonetic blocks to redis to be consumed by the disambiguation service.
 
         Uses the NYSIIS algorithm to compute a phonetic block from each
         signature's full name, skipping those that are not recognized
         as real names, but logging an error when that happens.
         """
+
+        if "Literature" not in self["_collections"]:
+            return
+
         author_names = self.get_value("authors.full_name", default=[])
 
         try:
@@ -254,10 +261,18 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             )
             return
 
+        redis_url = current_app.config.get("CACHE_REDIS_URL")
+        r = StrictRedis.from_url(redis_url)
+
         for author in self.get("authors", []):
             author_signature_block = signature_blocks.get(author["full_name"])
             if author_signature_block:
                 author["signature_block"] = author_signature_block
+                r.zadd(
+                    "author_phonetic_blocks",
+                    {author_signature_block: datetime.datetime.utcnow().timestamp()},
+                    nx=True,
+                )
             if "uuid" not in author:
                 author["uuid"] = str(uuid.uuid4())
 
