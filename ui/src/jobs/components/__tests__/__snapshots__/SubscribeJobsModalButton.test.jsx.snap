@@ -1,0 +1,162 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
+<Fragment>
+  <LinkLikeButton
+    icon="mail"
+    onClick={[Function]}
+  >
+    <Icon
+      type="mail"
+    />
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
+  </LinkLikeButton>
+  <Modal
+    confirmLoading={false}
+    maskTransitionName="fade"
+    okButtonProps={
+      Object {
+        "disabled": true,
+      }
+    }
+    okText="Subscribe"
+    okType="primary"
+    onCancel={[Function]}
+    onOk={[Function]}
+    title="Subscribe to the INSPIRE job mailing list"
+    transitionName="zoom"
+    visible={false}
+    width={520}
+  >
+    <div>
+      <div
+        className="mb3"
+      >
+        <Alert
+          description="Could not subscribe, please try again."
+          showIcon={true}
+          type="error"
+        />
+      </div>
+      <div>
+        To be notified via email of new jobs in High Energy Physics, please fill in the following information:
+      </div>
+      <div
+        className="mt3"
+      >
+        <Input
+          disabled={false}
+          name="email"
+          onChange={[Function]}
+          placeholder="Email"
+          type="text"
+          value={null}
+        />
+      </div>
+      <div
+        className="mt3"
+      >
+        <Input
+          disabled={false}
+          name="firstName"
+          onChange={[Function]}
+          placeholder="First Name"
+          type="text"
+          value={null}
+        />
+      </div>
+      <div
+        className="mt3"
+      >
+        <Input
+          disabled={false}
+          name="lastName"
+          onChange={[Function]}
+          placeholder="Last Name"
+          type="text"
+          value={null}
+        />
+      </div>
+    </div>
+  </Modal>
+</Fragment>
+`;
+
+exports[`SubscribeJobsModalButton renders with initial state 1`] = `
+<Fragment>
+  <LinkLikeButton
+    icon="mail"
+    onClick={[Function]}
+  >
+    <Icon
+      type="mail"
+    />
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
+  </LinkLikeButton>
+  <Modal
+    confirmLoading={false}
+    maskTransitionName="fade"
+    okButtonProps={
+      Object {
+        "disabled": true,
+      }
+    }
+    okText="Subscribe"
+    okType="primary"
+    onCancel={[Function]}
+    onOk={[Function]}
+    title="Subscribe to the INSPIRE job mailing list"
+    transitionName="zoom"
+    visible={false}
+    width={520}
+  >
+    <div>
+      <div>
+        To be notified via email of new jobs in High Energy Physics, please fill in the following information:
+      </div>
+      <div
+        className="mt3"
+      >
+        <Input
+          disabled={false}
+          name="email"
+          onChange={[Function]}
+          placeholder="Email"
+          type="text"
+          value={null}
+        />
+      </div>
+      <div
+        className="mt3"
+      >
+        <Input
+          disabled={false}
+          name="firstName"
+          onChange={[Function]}
+          placeholder="First Name"
+          type="text"
+          value={null}
+        />
+      </div>
+      <div
+        className="mt3"
+      >
+        <Input
+          disabled={false}
+          name="lastName"
+          onChange={[Function]}
+          placeholder="Last Name"
+          type="text"
+          value={null}
+        />
+      </div>
+    </div>
+  </Modal>
+</Fragment>
+`;

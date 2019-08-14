@@ -12,6 +12,9 @@ import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
 import JobItem from '../components/JobItem';
+import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
+import { SUPERUSER } from '../../common/authorization';
 
 class SearchPage extends Component {
   static renderJobResultItem(result) {
@@ -20,6 +23,14 @@ class SearchPage extends Component {
         metadata={result.get('metadata')}
         created={result.get('created')}
       />
+    );
+  }
+
+  static renderSubscribeJobsModalButton() {
+    return (
+      <AuthorizedContainer authorizedRoles={SUPERUSER}>
+        <SubscribeJobsModalButton />
+      </AuthorizedContainer>
     );
   }
 
@@ -34,7 +45,10 @@ class SearchPage extends Component {
     return (
       <div className="mt3">
         <LoadingOrChildren loading={loadingAggregations}>
-          <div className="f5">Select Job Filters: </div>
+          <Row type="flex" justify="space-between">
+            <Col className="f5">Select Job Filters:</Col>
+            <Col>{SearchPage.renderSubscribeJobsModalButton()}</Col>
+          </Row>
           <AggregationFiltersContainer inline displayWhenNoResults />
         </LoadingOrChildren>
       </div>
@@ -42,9 +56,12 @@ class SearchPage extends Component {
   }
 
   renderAggregationsDrawer() {
+    const { loadingAggregations } = this.props;
     return (
       <DrawerHandle className="mt2" handleText="Filter" drawerTitle="Filter">
-        {this.renderAggregations()}
+        <LoadingOrChildren loading={loadingAggregations}>
+          <AggregationFiltersContainer inline displayWhenNoResults />
+        </LoadingOrChildren>
       </DrawerHandle>
     );
   }
@@ -62,8 +79,14 @@ class SearchPage extends Component {
           <Col xs={24} lg={16} xl={16} xxl={14}>
             <LoadingOrChildren loading={loading}>
               <Row type="flex" align="middle" justify="end">
-                <Col xs={24} lg={12}>
+                <Col xs={12} lg={12}>
                   <NumberOfResultsContainer />
+                </Col>
+                <Col className="tr" xs={12} lg={0}>
+                  <ResponsiveView
+                    max="md"
+                    render={SearchPage.renderSubscribeJobsModalButton}
+                  />
                 </Col>
                 <Col xs={12} lg={0}>
                   <ResponsiveView
