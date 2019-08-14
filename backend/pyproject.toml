@@ -6,7 +6,7 @@ authors = ["CERN <admin@inspirehep.net>"]
 license = "MIT License"
 
 [tool.poetry.dependencies]
-celery = "~=4.3.0,<4.4.0"
+celery = "~=4.2.0,<4.3.0" # until invenio 3.2 is released
 # inspirehep = {path = ".",editable = true}
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
@@ -46,7 +46,7 @@ node-semver = "<0.2.0,>=0.1.1"
 pybtex = "*"
 cryptography = "<2.6"
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
-hepcrawl = "^13.0.2"
+hepcrawl = "^13.0.1"
 python-redis-lock = "^3.3"
 # FIXME: orcid tests are failing with `4.4` because of OrderedDict changes
 lxml = "~=4.3,<4.4"
