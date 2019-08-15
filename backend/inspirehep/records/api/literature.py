@@ -15,6 +15,7 @@ from flask import current_app
 from hepcrawl.parsers import ArxivParser
 from hepcrawl.parsers.crossref import CrossrefParser
 from idutils import is_doi, normalize_doi
+from inspire_json_merger.api import merge
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from inspire_utils.record import get_value
@@ -333,6 +334,29 @@ def import_article(identifier):
 
     if not article:
         raise ImportArticleError(f"No article found for {identifier}")
+
+    if pid_type == "arxiv":
+        article = merge_article_with_crossref_data(article)
+
+    return article
+
+
+def merge_article_with_crossref_data(article):
+    doi = get_value(article, "dois[0].value")
+
+    if not doi:
+        return article
+
+    try:
+        crossref_data = import_doi(doi)
+    except (ImportConnectionError, ImportParsingError):
+        LOGGER.exception("Cannot merge submission with %r,", doi)
+        return article
+
+    merged, conflicts = merge(root={}, head=article, update=crossref_data)
+    article = merged
+    if conflicts:
+        LOGGER.debug("Ignoring conflicts while enhancing submission.\n%r", conflicts)
     return article
 
 

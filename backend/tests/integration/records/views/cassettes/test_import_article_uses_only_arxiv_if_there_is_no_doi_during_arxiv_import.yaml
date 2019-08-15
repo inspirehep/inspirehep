@@ -1,0 +1,56 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:1908.05196&metadataPrefix=arXiv
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA7VWTW/jNhC961cQuuylFuWk7iYGrUWwizYt7Dbt7qLbXAqaGlvsSqTKofzRX98h
+        ZcVO6gC+9JCAoWbevHkznIl4t2tqtgGH2ppZOs7ylIFRttRmPUs/f/p+dJO+KxLxy92Po4fFPSNr
+        g7O08r6dcr7dbjPbgpFOVXoDmFm35mTKr7Kcp73xdIf6mcP2Oppd5fmYf1nMP6oKGjnSBr00CsgL
+        9RTj5dwq6SOvS+KxS4wOeWQ7LFNKywG21iB8kB6Kq3x8O8pvRuPJp/H1dDKZTsaPgj8zCR5/d4A+
+        SLacpT+A/w2UdWXKdAnG65UGN0ut1FPpvuhNiD0d3+Y3WT4Z336Xsga8LKWXDw5WejdLo1VaHKjD
+        rrXOZ9LteldOQFeBQoxJ0Z/iRSaHQwWyBFckTBw5FK9REPzEiFyIDEHLpj1JX/DjLZkg+I8tqKKt
+        9qgVTitoR7ATfLh/xaStTkwEH1iKQYLgFxm+aKpj9qFo0eL/6KVzYdjr3w4dEzQunqtZCOWA9CqP
+        Cn4r+HAnZOcr63A4FOIr7I1soJgDCD78IVbWQThh8VNnKiv48ULwwfUlxPtKGmvOovysla0lXoYz
+        h40+D3NnSgfbC1H0+XxolFwI0J0FWMDFAOcZ/KrlpQgLac9C/CH/6sx5CP5UYa99DcUD6e70P7Hb
+        2MpJFQ8NSOwcNPT2mDbs8ZEhNaQHR+qwDsPvEqBlNUhnomI9miArWFunKWb/qtjw/k6+CGWbAI3F
+        W9bKNVDdn25ErRXQACv+09yHD8ipiWCnaqKxgVGp0Tu95LQLuBhsSKklXVMyBWOLmEugXFuz1r6j
+        bSHres/aPnUoaTwqbx1bWqTcTzKl1H0FIX1FvWugTjQyyVpnGx1F2Mo985bsaHJ7vaYUWWe0J1i/
+        ZzSLCbVXdqt9FbHu9XqNSQMBUGPDpCkDAkJYAIwqRrQQ9bIGZmDLDiMqY7/DaZSSHGimyzqWITHQ
+        hbMBv7XuK6PUO+WpfhjhSdtWOvKh+NoxudR1oBd4N5TKBiKxk5IndhWvTvU69sbjn/Pwk7HPUYKV
+        pP2CuunqF5l+gLqtABNybCDw+oakU6Fjhrh9eyFl3RHNvq2CuvS+bYdUodOMkzeUhNcEMFpKhPJN
+        34EvUicCEYHwFSCZsTC8abBHJWTb1nuKkrRUXqVbEjmIQ/1kgoGsSWwMwgT+tvNt5zG7o+zWhlaQ
+        ClOakTbSRcLj7G0SRncpHYUh0lEAZGTHlsAkLXQqUnlURBt6Ai6Wr+4abSyGOhDgdZ7nbLUcjRNf
+        SU8OdR0Q+p1J1nR36J1qND96zu/fZ7Srnnpd9MM/7K/j2goL+bB6+elCHv65KJJ/AY8CiEhWCQAA
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '1026'
+      Content-Type:
+      - text/xml
+      Date:
+      - Thu, 15 Aug 2019 13:55:50 GMT
+      Keep-Alive:
+      - timeout=5, max=100
+      Server:
+      - Apache
+      Vary:
+      - Accept-Encoding,User-Agent
+    status:
+      code: 200
+      message: OK
+version: 1

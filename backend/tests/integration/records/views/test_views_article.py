@@ -8,6 +8,7 @@
 import json
 import os
 
+import pytest
 import requests_mock
 import vcr
 from helpers.providers.faker import faker
@@ -19,6 +20,7 @@ my_vcr = vcr.VCR(
 )
 
 
+@pytest.mark.vcr()
 def test_import_article_view_400_bad_arxiv(api_client, db):
     resp = api_client.get("/literature/import/bad_arxiv:0000.0000")
 
@@ -98,17 +100,32 @@ def test_import_article_view_500_arxiv_broken_record(api_client, db):
         assert resp.status_code == 500
 
 
-def test_import_article_view_200_arxiv(api_client, db):
-    arxiv_id = "1607.06746"
-    with my_vcr.use_cassette("test_import_article_view_200_arxiv.yaml"):
-        resp = api_client.get(f"/literature/import/{arxiv_id}")
-        result = resp.json["data"]
+@pytest.mark.vcr()
+def test_import_article_uses_only_arxiv_if_there_is_no_doi_during_arxiv_import(
+    api_client, db
+):
+    arxiv_id = "1908.05196"
+    resp = api_client.get(f"/literature/import/{arxiv_id}")
+    result = resp.json["data"]
 
-        expected_title = "CP violation in the B system"
-        assert resp.status_code == 200
-        assert result["title"] == expected_title
-        assert result["arxiv_id"] == arxiv_id
-        assert result["arxiv_categories"] == ["hep-ex", "hep-ph"]
+    expected_title = (
+        "Polarization fraction measurement in ZZ scattering using deep learning"
+    )
+
+    assert resp.status_code == 200
+    assert result["title"] == expected_title
+    assert result["arxiv_id"] == arxiv_id
+    assert result["arxiv_categories"] == ["hep-ph", "hep-ex"]
+
+
+@pytest.mark.vcr()
+def test_import_article_merges_crossref_after_arxiv_import(api_client, db):
+    arxiv_id = "1607.06746"
+    resp = api_client.get(f"/literature/import/{arxiv_id}")
+    result = resp.json["data"]
+
+    assert result["journal_title"] == "Reports on Progress in Physics"
+    assert resp.status_code == 200
 
 
 def test_import_article_view_200_crossref(api_client, db):
