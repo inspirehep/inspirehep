@@ -17,6 +17,7 @@ from hepcrawl.parsers.crossref import CrossrefParser
 from idutils import is_doi, normalize_doi
 from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
+from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from redis import StrictRedis
@@ -69,6 +70,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         cls, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
     ):
         with db.session.begin_nested():
+            LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             record = super().create(data, **kwargs)
             if disable_citation_update:
                 LOGGER.info("Citation update is disabled in record.create")
@@ -78,15 +80,14 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 LOGGER.info("ORCID PUSH disabled by argument in record.create")
             else:
                 push_to_orcid(record)
-
-            record.update_authors_signature_blocks_and_uuids()
-
+            record.push_authors_phonetic_blocks_to_redis()
             return record
 
     def update(
         self, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
     ):
         with db.session.begin_nested():
+            LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             super().update(data)
             if disable_citation_update:
                 LOGGER.info("Citation update is disabled in record.update")
@@ -97,8 +98,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 LOGGER.info("ORCID PUSH disabled by argument in record.update")
             else:
                 push_to_orcid(self)
-
-            self.update_authors_signature_blocks_and_uuids()
+            self.push_authors_phonetic_blocks_to_redis()
 
     def set_files(self, documents=None, figures=None, force=False):
         """Sets new documents and figures for record.
@@ -237,7 +237,8 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))
 
-    def update_authors_signature_blocks_and_uuids(self):
+    @staticmethod
+    def update_authors_signature_blocks_and_uuids(data):
         """Assigns a phonetic block and a uuid to each signature of a record.
         Sends the phonetic blocks to redis to be consumed by the disambiguation service.
 
@@ -246,35 +247,44 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         as real names, but logging an error when that happens.
         """
 
-        if "Literature" not in self["_collections"]:
+        if "Literature" not in data["_collections"]:
             return
 
-        author_names = self.get_value("authors.full_name", default=[])
+        author_names = get_value(data, "authors.full_name", default=[])
 
         try:
             signature_blocks = get_authors_phonetic_blocks(author_names)
         except Exception as err:
             LOGGER.error(
                 "Cannot extract phonetic blocks for record %d: %s",
-                self.get("control_number"),
+                data.get("control_number"),
                 err,
             )
+            return
+
+        for author in data.get("authors", []):
+            author_signature_block = signature_blocks.get(author["full_name"])
+            if author_signature_block:
+                author["signature_block"] = author_signature_block
+            if "uuid" not in author:
+                author["uuid"] = str(uuid.uuid4())
+
+    def push_authors_phonetic_blocks_to_redis(self):
+        """Sends the phonetic blocks to redis to be consumed by the disambiguation service."""
+        if "Literature" not in self["_collections"]:
             return
 
         redis_url = current_app.config.get("CACHE_REDIS_URL")
         r = StrictRedis.from_url(redis_url)
 
         for author in self.get("authors", []):
-            author_signature_block = signature_blocks.get(author["full_name"])
+            author_signature_block = author.get("signature_block")
             if author_signature_block:
-                author["signature_block"] = author_signature_block
                 r.zadd(
                     "author_phonetic_blocks",
                     {author_signature_block: datetime.datetime.utcnow().timestamp()},
                     nx=True,
                 )
-            if "uuid" not in author:
-                author["uuid"] = str(uuid.uuid4())
 
 
 def import_article(identifier):
