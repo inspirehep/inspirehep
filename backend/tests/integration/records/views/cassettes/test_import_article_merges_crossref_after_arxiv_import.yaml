@@ -1,0 +1,109 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:1607.06746&metadataPrefix=arXiv
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA7VV32/bNhB+919x0NMGRKLkJI5j0Cq2FeuKNVjQpEWxt7N0jrhIpEpS/vHf7yhZ
+        sb02QF/2IlDH747ffXc8yje7poYNWaeMXkZZkkZAujCl0k/L6NPj7/E8epNP5F+/vI/v7/4ARmu3
+        jCrv24UQ2+02MS1ptEWlNuQSY58EQ8U0SUU0gBc7p84ctpc9bJqmmfhy9+GhqKjBWGnnURfEXk4t
+        XG/8YAr0Pa8fOQ9+BHTII9m5MuK0LLnWaEdv0VM+TbPbOJ3H2fVjNl1c3y6mt39LcQYJHl87cj5I
+        tlpG78h/pMLYMgJVkvZqrcguI4NqgfaL2oSzF9ksvUnS2c3VLIKGPJbo8d7SWu2WUY+K8gN12rXG
+        +gTtbnAVHGgaKPRn8ukv5/VMDouKsCSbT0AeOeSvUZDiBMQuTIZDY9OG9G/idBpP51IcrQxx5B9a
+        KvK22jtVuEVFbUw7KUb7K5C2OoFIMbKUowTBr2f4n6Y6Zh+K1iP+j1763jHw+t6hY4LG+bmauSws
+        sV5lUHAWpzfxlGs22mTXluPmIC87jTaJna+MdeMil8+019hQ/o5vZGW0FKNBro2lsHL5YyLF8U+K
+        0febGLV6MtZsvhvkcwKfX4kjXlh55WvKf7uHjTJ1Lx8oDb4i+BXc3nlqpBgwktUlPk1xpKE/YOyB
+        kx1ZmKbh7nP5e71RrABY2ijaAtOAj9QmcG/NE3+5jRLYTIE7fLh/pQNvoO1WtXIVlRMYZxbHH2PK
+        f0xnNdYx362co/FVcsCUQ0yO4gL3+6FBL2Cewk+hJD9DejXjhRSn3rI0Ks/SJEvnc5FdzrJ4Nru8
+        FIjX19kVXw/elbUqiOdC/k3PHDac0EbTrqg7x2MoLpXzVq0Ej1ghRwwXbcVmLHwO8Mi6thVpw+kw
+        bbOGc+UdFLYrFNZBik7zbQptXvb1QLdnFbzdw4r8lkhPGvSeLAQA8n0//PoKPdCOubixlJ+0ClpS
+        Am8tMkwVDGjJqqAq1pN2lK9Cx9FJQ8M3+SK4t2gZ3tVow19D6DpLfTEC+xB8RRVyCp1lw2SA18SJ
+        GA6tND8yAwq+dmifL2BbkaXztGm9poIDIm+0lkpVhL5Z7SfB8U+zwj26SsV36J5xi0yiqFAr1wyp
+        smjUrKgs2eeQ70MQDW0Jd6akOgmyT1hI342kHZ2nEiRcd77rCRjX9nRCx6I+KUPIpS/Z5Mh9RXtz
+        KND5qX02Q+9TmfB0fGkDOYybMDGPgzI8AYdhL06fgPE5yyf/AtucifrIBwAA
+    headers:
+      Connection:
+      - Keep-Alive
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '957'
+      Content-Type:
+      - text/xml
+      Date:
+      - Thu, 15 Aug 2019 12:59:27 GMT
+      Keep-Alive:
+      - timeout=5, max=100
+      Server:
+      - Apache
+      Vary:
+      - Accept-Encoding,User-Agent
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      User-Agent:
+      - python-requests/2.22.0
+    method: GET
+    uri: https://api.crossref.org/works/10.1088%2F1361-6633%2Faa5514
+  response:
+    body:
+      string: '{"status":"ok","message-type":"work","message-version":"1.0.0","message":{"indexed":{"date-parts":[[2019,2,16]],"date-time":"2019-02-16T18:31:45Z","timestamp":1550341905312},"reference-count":420,"publisher":"IOP
+        Publishing","issue":"4","license":[{"URL":"http:\/\/iopscience.iop.org\/info\/page\/text-and-data-mining","start":{"date-parts":[[2017,2,24]],"date-time":"2017-02-24T00:00:00Z","timestamp":1487894400000},"delay-in-days":0,"content-version":"tdm"},{"URL":"http:\/\/iopscience.iop.org\/page\/copyright","start":{"date-parts":[[2017,2,24]],"date-time":"2017-02-24T00:00:00Z","timestamp":1487894400000},"delay-in-days":0,"content-version":"vor"}],"funder":[{"DOI":"10.13039\/501100000781","name":"European
+        Research Council","doi-asserted-by":"publisher","award":["239999"]},{"DOI":"10.13039\/501100000271","name":"Science
+        and Technology Facilities Council","doi-asserted-by":"publisher","award":[]}],"content-domain":{"domain":["iopscience.iop.org"],"crossmark-restriction":true},"short-container-title":["Rep.
+        Prog. Phys."],"published-print":{"date-parts":[[2017,4,1]]},"DOI":"10.1088\/1361-6633\/aa5514","type":"journal-article","created":{"date-parts":[[2016,12,21]],"date-time":"2016-12-21T12:21:14Z","timestamp":1482322874000},"page":"046201","update-policy":"http:\/\/dx.doi.org\/10.1088\/crossmark-policy","source":"Crossref","is-referenced-by-count":4,"title":["CPviolation
+        in theBsystem"],"prefix":"10.1088","volume":"80","author":[{"given":"T","family":"Gershon","sequence":"first","affiliation":[]},{"given":"V
+        V","family":"Gligorov","sequence":"additional","affiliation":[]}],"member":"266","published-online":{"date-parts":[[2017,2,24]]},"container-title":["Reports
+        on Progress in Physics"],"original-title":[],"link":[{"URL":"http:\/\/iopscience.iop.org\/article\/10.1088\/1361-6633\/aa5514","content-type":"text\/html","content-version":"am","intended-application":"text-mining"},{"URL":"http:\/\/stacks.iop.org\/0034-4885\/80\/i=4\/a=046201\/pdf","content-type":"application\/pdf","content-version":"vor","intended-application":"text-mining"},{"URL":"http:\/\/stacks.iop.org\/0034-4885\/80\/i=4\/a=046201?key=crossref.4f443f3e40560de678bc1cc6435eac30","content-type":"text\/html","content-version":"vor","intended-application":"text-mining"},{"URL":"http:\/\/iopscience.iop.org\/article\/10.1088\/1361-6633\/aa5514\/pdf","content-type":"application\/pdf","content-version":"am","intended-application":"text-mining"},{"URL":"http:\/\/iopscience.iop.org\/article\/10.1088\/1361-6633\/aa5514\/pdf","content-type":"application\/pdf","content-version":"am","intended-application":"syndication"},{"URL":"http:\/\/stacks.iop.org\/0034-4885\/80\/i=4\/a=046201?key=crossref.4f443f3e40560de678bc1cc6435eac30","content-type":"text\/html","content-version":"vor","intended-application":"similarity-checking"},{"URL":"http:\/\/stacks.iop.org\/0034-4885\/80\/i=4\/a=046201\/pdf","content-type":"application\/pdf","content-version":"vor","intended-application":"similarity-checking"},{"URL":"http:\/\/iopscience.iop.org\/article\/10.1088\/1361-6633\/aa5514\/pdf","content-type":"application\/pdf","content-version":"am","intended-application":"similarity-checking"}],"deposited":{"date-parts":[[2018,5,18]],"date-time":"2018-05-18T14:58:52Z","timestamp":1526655532000},"score":1.0,"subtitle":[],"short-title":[],"issued":{"date-parts":[[2017,2,24]]},"references-count":420,"journal-issue":{"published-print":{"date-parts":[[2017,4,1]]},"issue":"4"},"URL":"http:\/\/dx.doi.org\/10.1088\/1361-6633\/aa5514","relation":{},"ISSN":["0034-4885","1361-6633"],"issn-type":[{"value":"0034-4885","type":"print"},{"value":"1361-6633","type":"electronic"}],"assertion":[{"value":"Reports
+        on Progress in Physics","name":"journal_title","label":"Journal title"},{"value":"rev","name":"article_type","label":"Article
+        type"},{"value":"CPviolation in theBsystem","name":"article_title","label":"Article
+        title"},{"value":"\u00a9 2017 IOP Publishing Ltd","name":"copyright_information","label":"Copyright
+        information"},{"value":"2016-07-22","name":"date_received","label":"Date received","group":{"name":"publication_dates","label":"Publication
+        dates"}},{"value":"2016-12-21","name":"date_accepted","label":"Date accepted","group":{"name":"publication_dates","label":"Publication
+        dates"}},{"value":"2017-02-24","name":"date_epub","label":"Online publication
+        date","group":{"name":"publication_dates","label":"Publication dates"}}]}}'
+    headers:
+      Access-Control-Allow-Headers:
+      - X-Requested-With
+      Access-Control-Allow-Origin:
+      - '*'
+      Connection:
+      - close
+      Content-Length:
+      - '4423'
+      Content-Type:
+      - application/json;charset=UTF-8
+      Date:
+      - Thu, 15 Aug 2019 12:59:29 GMT
+      Server:
+      - http-kit
+      Vary:
+      - Accept
+      X-Rate-Limit-Interval:
+      - 1s
+      X-Rate-Limit-Limit:
+      - '50'
+    status:
+      code: 200
+      message: OK
+version: 1
