@@ -14,9 +14,6 @@ exports[`RangeAggregation render initial state with all required props set 1`] =
   <div
     className="__RangeAggregation__"
   >
-    <div
-      className="hovered-info-container"
-    />
     <FlexibleXYPlot
       height={100}
       margin={
@@ -106,9 +103,6 @@ exports[`RangeAggregation render with sanitized min-max according to default min
   <div
     className="__RangeAggregation__"
   >
-    <div
-      className="hovered-info-container"
-    />
     <FlexibleXYPlot
       height={100}
       margin={
@@ -203,20 +197,6 @@ exports[`RangeAggregation renders with hovered bar 1`] = `
   <div
     className="__RangeAggregation__"
   >
-    <div
-      className="hovered-info-container"
-    >
-      <span
-        className="hovered-info"
-      >
-        2
-         
-        papers
-         in
-         
-        0.6
-      </span>
-    </div>
     <FlexibleXYPlot
       height={100}
       margin={
@@ -229,6 +209,22 @@ exports[`RangeAggregation renders with hovered bar 1`] = `
       }
       onMouseLeave={[Function]}
     >
+      <Hint
+        align={
+          Object {
+            "horizontal": "auto",
+            "vertical": "top",
+          }
+        }
+        format={[Function]}
+        style={Object {}}
+        value={
+          Object {
+            "x": 1,
+            "y": 2,
+          }
+        }
+      />
       <VerticalRectSeries
         className=""
         colorType="literal"
@@ -306,9 +302,6 @@ exports[`RangeAggregation renders with sanitized endpoints 1`] = `
   <div
     className="__RangeAggregation__"
   >
-    <div
-      className="hovered-info-container"
-    />
     <FlexibleXYPlot
       height={100}
       margin={

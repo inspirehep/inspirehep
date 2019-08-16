@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
+import './MultiSelectAggregation.scss';
 import SelectBox from '../SelectBox';
 import { SELECT_VALUE_TO_DISPLAY_MAPS_FOREACH_AGG } from './constants';
 
@@ -23,11 +24,11 @@ class MultiSelectAggregation extends Component {
       }))
       .toArray();
     return (
-      <div>
+      <div className="__MultiSelectAggregation__">
         <SelectBox
           className="w-100"
           mode="multiple"
-          placeholder={name}
+          placeholder={<span className="placeholder">{name}</span>}
           onChange={onChange}
           value={selections}
           options={selectOptions}

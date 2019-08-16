@@ -37,7 +37,7 @@ class AggregationFilters extends Component {
             .sort(AggregationFilters.compareAggregationEntries)
             .map(([aggregationKey, aggregation]) => (
               <Col
-                className={classnames({ 'xs-pb3': inline })}
+                className={classnames({ 'md-pb3': inline })}
                 key={aggregationKey}
                 xs={24}
                 lg={inline ? 5 : 24}

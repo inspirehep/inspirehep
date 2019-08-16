@@ -1,0 +1,55 @@
+interactions:
+- request:
+    body: <work:work xmlns:common="http://www.orcid.org/ns/common" xmlns:work="http:/www.orcid.orgsens/work"/>
+    headers:
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '100'
+      Content-Type:
+      - application/orcid+xml
+    method: POST
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work
+  response:
+    body:
+      string: '{"response-code":400,"developer-message":"400 Bad Request: There is
+        an issue with your data or the API endpoint. 405 Method Not Allowed: Endpoint
+        and method mismatch. 415 Unsupported Media Type: data must be in XML or JSON
+        format. Full validation error: javax.xml.bind.UnmarshalException\n - with
+        linked exception:\n[org.xml.sax.SAXParseException; lineNumber: 1; columnNumber:
+        101; cvc-elt.1.a: Cannot find the declaration of element ''work:work''.] (cvc-elt.1.a:
+        Cannot find the declaration of element ''work:work''.)","user-message":"ORCID
+        could not process the data, because they were invalid.","error-code":9001,"more-info":"https://members.orcid.org/api/resources/troubleshooting"}'
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '682'
+      Content-Type:
+      - application/orcid+json; qs=2;charset=UTF-8
+      Date:
+      - Tue, 06 Aug 2019 16:15:04 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.10.0
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+    status:
+      code: 400
+      message: Bad Request
+version: 1

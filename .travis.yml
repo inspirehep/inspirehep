@@ -32,6 +32,8 @@ env:
     - secure: "VbuuaQkPnie/NI4DZro0CFPxfO2ioabxgBoxfOOt56xlAWEPOhaVWMeCqcXEAEGdc7FWjU4stXViTwMOSaTPA4vy1RtrXHwG6SvRHTdr6aFLD6JMJLbglvq3fkbnln3UHfqFlqS0uc3EC8ELy532s5KnNaR0yHalKHNsHNfFVn3lXRxn3ea9ttPmECg3biVLRaeMfKJUGSqIBcL5FMJrakI1MFnfJALh1qTl88hZP9YB6GWa2TV7Tfl58jD5RIbPx9xHIOvb1mkaAZHmvsGFg9SAse1r903YQ9yD4N9bmR6YnlUQXYmtWnsmsv8HP79PxZ5zaqfPJsU4xKslbqC8idyIA2ViUoQk5UL7G1s6QxFcofpKxBLAdgEBrEp4/2H8FQoKppUq05eFclLnJX+7QlkOi25xYxyNWr3flaRUaY9w83g0El0oFf60bkVPUqltCZjfvT8qZI+QoJnInr9lvnESXxvrI/wF6YVUxKiJNluj+Uj2PLEjTyzIg1nLG5OqU7iyS55mh5RRpTJZNAKagFf1MYafLp4uOTvJb0hCQZ/LajXIvB7W3JovgDs6yp7wLwOBq393yhcdSSnBIBlYqa6BqdXPnGsQFDfPRlUyp3KjXQWbPgLWrYzr6U0U3EXjaFR8Gi3Vtk2m3hUsEM199uX3SBNuZb2SpKpWWGMoQBE="
     # DOCKERHUB_PASSWORD
     - secure: "E8kNyTHBg3jP54hU+uHa+S9U55amtIJ4UHSf0w80moVWHfdIdM4bFszskA5PKVLFhUcEwUneHwOD7hQVX5K3mcMr4awSAXoGcztvnAq8TISb7T1vg7/wNpK1xzSh6ni18z3Byolw0tDOgi5dcFnfHwz0BOfobGdrUpLR29xdr5lwpoJP5ZMv/OnI9z4S2AVusXPI/xQfOxCYHDhT3xtKjCtx0Qb5+YYw17wRJJQ48z/ENKu8n1FxAQIgq7bfH1hO8bwZDzcj32ewkjoXPD5STtDlapi4LJso3Vop1qOuERPYbEUp7Kipup7dKYoC/CU2MjqAaVvNQyu1JrqqSRBpFUaSPYcKO0kMqyRqkoQrbexC3XElk1Cnx9DrrGaSYp27w4zGhckX51fS7btps6XfTj0QWs2ytVc8/TkZVYq7tGejOt2F5TH6t5/Z14LVY9tqCifA1eQTuKOJpcJwWLQy6zAuJzmVhjQKREpW+TRGCZi8EsLELnlerKCTAcAypjyAyFr05kUMeaNk64oTpLBa4eqbc3YUBRUvHBMraXjgX5ZcsnTe6gZAa6N4aR2MHjaVp/K1G3fGoWbSPGgvGC+NjB9ayQJmYdBfyLQ/GkBvcGGt+90F3LcXyUiC7Qq+EgL8leqqh444Shjjj3CwyFfdYOJu/dPDijoCNaTG2910/DM="
+    # DEPLOY_QA_TOKEN
+    - secure: "Scyl7jiovKOX8uApj+cW/FQYwWLNA26bRVxhkGvOQdzBCicEztQ7hc+mw0O06plBG7k1C4S3WJMp9UxYNj6fW7Mkfg9Dtkulf5Bw/ybIqoVcO6/4a+4+oBibXC4EKkhrx1km8z0MRnAxJN3OAtWIdmICGo5bX/t4rPE7dqmBjuUjD10FT/CO8JBb1EpqYkEExRTx+qQoMX5XT+EimurArymebVnCkhKuccvIvaQLcW9FpgaTxOL2bYasY+5HW7VrrgHe0+CIBqqgpYNvHvadhTdrSn9jDtY2ybXieRzDsROpEC8auf6NmQz6wWqR6RzAexGoWM39lvsdHNHcX4YXpo/B7r2JZggG1ZI9mR/OsNEgTCZkCgQxbDHIKFS/Su9Vj5Lu28k5p49ehkOZ/cOG3PoQ3l1rSvXW2Yk1MKkBWsxTpA7T+MxbH+olBHcDsZjI9lcBj861c7phl2RubYPkk/k0X6dm8tqwcgJHI73YI6F0o1IFYTiNW095liPGRX17+P3V9i2hqY1ESB8UgH/zk0dKz/LBCjYETVuTLxEynsmxtXDYBRqC2sVLZtDkjF8coKD3/WAzePybqClQbAEYTYgQzeuJ1sugtLjMlUrX/IDzw5DHUeroJPNbYuOAtshmqX91YV7BXYaGBWXwl4V3JyLE/Rptyc14f32VXwI3nNU="
 cache:
   pip: true
   directories:
@@ -42,7 +44,7 @@ services:
   - docker
 
 install:
-  - if [[ "$SUITE" != "ui" ]]; then  ./scripts/bootstrap; fi
+  - if [[ "$SUITE" != "ui" ]]; then ./scripts/bootstrap; fi
 
 before_install:
   - sudo service postgresql stop
@@ -50,6 +52,7 @@ before_install:
       docker-compose -f docker-compose.travis.yml up -d;
     fi
   - if [[ "$SUITE" != "ui" ]]; then
+      cd backend;
       curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16;
       source $HOME/.poetry/env;
     fi
@@ -68,7 +71,7 @@ after_failure:
   - if [[ "$SUITE" != "ui" ]]; then poetry show; fi
 
 before_script:
-  - if [[ "$RUN_DOCKER" == "true" ]]; then ./docker/wait-for-services.sh; fi
+  - if [[ "$RUN_DOCKER" == "true" ]]; then cd ..; ./docker/wait-for-services.sh; cd backend; fi
 
 script:
     - if [[ "$SUITE" == "unit" ]]; then  ./run-code-checks.sh; fi
@@ -89,7 +92,7 @@ matrix:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: cd $TRAVIS_BUILD_DIR; ./build-docker-inspirehep-image.sh
+    script: cd $TRAVIS_BUILD_DIR; ./build-docker-backend-image.sh
     on:
       all_branches: true
       condition: $SUITE = integration && $TRAVIS_BRANCH =~ ^master|prod$

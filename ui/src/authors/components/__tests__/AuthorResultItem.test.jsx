@@ -25,6 +25,7 @@ describe('AuthorResultItem', () => {
         { institution: 'CERN3', current: 'true' },
       ],
       arxiv_categories: ['hep-th'],
+      urls: [{ value: 'https://cern.ch/1' }],
     });
     const wrapper = shallow(<AuthorResultItem metadata={metadata} />);
     expect(wrapper).toMatchSnapshot();

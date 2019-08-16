@@ -1,0 +1,47 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - application/orcid+json
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+    method: GET
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
+  response:
+    body:
+      string: "{\n  \"last-modified-date\" : null,\n  \"group\" : [ ],\n  \"path\"\
+        \ : \"/0000-0003-1134-6827/works\"\n}"
+    headers:
+      Access-Control-Allow-Origin:
+      - '*'
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/orcid+json; qs=2;charset=UTF-8
+      Date:
+      - Tue, 06 Aug 2019 16:15:27 GMT
+      Expires:
+      - '0'
+      Pragma:
+      - no-cache
+      Server:
+      - nginx/1.10.0
+      Transfer-Encoding:
+      - chunked
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-XSS-Protection:
+      - 1; mode=block
+      content-length:
+      - '91'
+    status:
+      code: 200
+      message: OK
+version: 1

@@ -21,6 +21,7 @@ class AuthorResultItem extends Component {
     );
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
+
     return (
       <ResultItem>
         <Link className="f4" to={`/authors/${recordId}`}>

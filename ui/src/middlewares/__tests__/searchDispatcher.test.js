@@ -5,7 +5,7 @@ import {
   searchForCurrentLocation,
   fetchSearchAggregationsForCurrentLocation,
 } from '../../actions/search';
-import { SUBMISSIONS, LITERATURE, AUTHORS, JOBS } from '../../common/routes';
+import { LITERATURE, AUTHORS, JOBS, SUBMISSIONS } from '../../common/routes';
 
 jest.mock('../../actions/search');
 
@@ -15,10 +15,10 @@ describe('searchDispatcher middleware', () => {
     fetchSearchAggregationsForCurrentLocation.mockClear();
   });
 
-  it('calls searchForCurrentLocation when LOCATION_CHANGE and search is present in action payload [different pathnames]', () => {
+  it('calls searchForCurrentLocation when LOCATION_CHANGE with a different pathname but same search', () => {
     const router = {
       location: {
-        pathname: '/one',
+        pathname: LITERATURE,
         search: '?filter=value',
       },
     };
@@ -29,7 +29,7 @@ describe('searchDispatcher middleware', () => {
       type: LOCATION_CHANGE,
       payload: {
         location: {
-          pathname: '/two',
+          pathname: JOBS,
           search: '?filter=value',
         },
       },
@@ -38,10 +38,10 @@ describe('searchDispatcher middleware', () => {
     expect(searchForCurrentLocation).toHaveBeenCalled();
   });
 
-  it('calls searchForCurrentLocation when LOCATION_CHANGE and search is present in action payload [if isFirstRendering]', () => {
+  it('calls searchForCurrentLocation when LOCATION_CHANGE but pathname or search has not changed if isFirstRendering', () => {
     const router = {
       location: {
-        pathname: '/one',
+        pathname: LITERATURE,
         search: '?filter=value',
       },
     };
@@ -52,7 +52,7 @@ describe('searchDispatcher middleware', () => {
       type: LOCATION_CHANGE,
       payload: {
         location: {
-          pathname: '/one',
+          pathname: LITERATURE,
           search: '?filter=value',
         },
         isFirstRendering: true,
@@ -62,10 +62,10 @@ describe('searchDispatcher middleware', () => {
     expect(searchForCurrentLocation).toHaveBeenCalled();
   });
 
-  it('calls searchForCurrentLocation when LOCATION_CHANGE and search is present in action payload [different searches]', () => {
+  it('calls searchForCurrentLocation when LOCATION_CHANGE when search has changed', () => {
     const router = {
       location: {
-        pathname: '/one',
+        pathname: AUTHORS,
         search: '?filter=value1',
       },
     };
@@ -76,7 +76,7 @@ describe('searchDispatcher middleware', () => {
       type: LOCATION_CHANGE,
       payload: {
         location: {
-          pathname: '/one',
+          pathname: AUTHORS,
           search: '?filter=value2',
         },
       },
@@ -85,10 +85,33 @@ describe('searchDispatcher middleware', () => {
     expect(searchForCurrentLocation).toHaveBeenCalled();
   });
 
-  it('does not call searchForCurrentLocation when LOCATION_CHANGE if it is a submission [different searches and pathname]', () => {
+  it('calls searchForCurrentLocation when LOCATION_CHANGE when search is empty', () => {
     const router = {
       location: {
-        pathname: '/one',
+        pathname: AUTHORS,
+        search: '?filter=value1',
+      },
+    };
+    const getState = () => ({ router });
+    const next = jest.fn();
+    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+    const action = {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: JOBS,
+          search: '',
+        },
+      },
+    };
+    dispatch(action);
+    expect(searchForCurrentLocation).toHaveBeenCalled();
+  });
+
+  it('does not call searchForCurrentLocation when LOCATION_CHANGE unless it a collection page [/submissions] even if pathname and search have changed', () => {
+    const router = {
+      location: {
+        pathname: JOBS,
         search: '?filter=value1',
       },
     };
@@ -101,6 +124,52 @@ describe('searchDispatcher middleware', () => {
         location: {
           pathname: `${SUBMISSIONS}/whatever`,
           search: '?filter=value2',
+        },
+      },
+    };
+    dispatch(action);
+    expect(searchForCurrentLocation).not.toHaveBeenCalled();
+  });
+
+  it('does not call searchForCurrentLocation when LOCATION_CHANGE with same pathname + id', () => {
+    const router = {
+      location: {
+        pathname: JOBS,
+        search: '?filter=value1',
+      },
+    };
+    const getState = () => ({ router });
+    const next = jest.fn();
+    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+    const action = {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: `${JOBS}/1234`,
+          search: '',
+        },
+      },
+    };
+    dispatch(action);
+    expect(searchForCurrentLocation).not.toHaveBeenCalled();
+  });
+
+  it('does not call searchForCurrentLocation when LOCATION_CHANGE with a different pathname + id', () => {
+    const router = {
+      location: {
+        pathname: LITERATURE,
+        search: '?filter=value1',
+      },
+    };
+    const getState = () => ({ router });
+    const next = jest.fn();
+    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+    const action = {
+      type: LOCATION_CHANGE,
+      payload: {
+        location: {
+          pathname: `${AUTHORS}/1234`,
+          search: '',
         },
       },
     };

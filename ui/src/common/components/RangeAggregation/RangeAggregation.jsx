@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { FlexibleWidthXYPlot, VerticalRectSeries } from 'react-vis';
+import { FlexibleWidthXYPlot, VerticalRectSeries, Hint } from 'react-vis';
 import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
 import pluralizeUnlessSingle, { pluckMinMaxPair, toNumbers } from '../../utils';
-import './RangeAggregation.scss';
 import AggregationBox from '../AggregationBox';
 import LinkLikeButton from '../LinkLikeButton';
 
@@ -236,31 +235,38 @@ class RangeAggregation extends Component {
   }
 
   renderResetButton() {
-    /* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, jsx-a11y/anchor-is-valid */
     return <LinkLikeButton onClick={this.onResetClick}>Reset</LinkLikeButton>;
   }
 
+  renderHint() {
+    const { hoveredBar } = this.state;
+    return (
+      hoveredBar && (
+        <Hint
+          value={hoveredBar}
+          align={{ vertical: 'top', horizontal: 'auto' }}
+          format={({ x, y }) => [
+            { title: pluralizeUnlessSingle('Paper', y), value: y },
+            { title: 'Year', value: x - HALF_BAR_WIDTH },
+          ]}
+        />
+      )
+    );
+  }
+
   render() {
-    const { max, min, data, endpoints, hoveredBar } = this.state;
+    const { max, min, data, endpoints } = this.state;
     const sliderMarks = { [max]: max, [min]: min };
     const { height, name } = this.props;
     return (
       <AggregationBox name={name} headerAction={this.renderResetButton()}>
         <div className="__RangeAggregation__">
-          <div className="hovered-info-container">
-            {hoveredBar && (
-              // TODO: move the logic for rendering the label for the hovered info so that the component stays generic
-              <span className="hovered-info">
-                {hoveredBar.y} {pluralizeUnlessSingle('paper', hoveredBar.y)} in{' '}
-                {hoveredBar.x - HALF_BAR_WIDTH}
-              </span>
-            )}
-          </div>
           <FlexibleWidthXYPlot
             height={height}
             margin={NO_MARGIN}
             onMouseLeave={this.onMouseLeaveHistogram}
           >
+            {this.renderHint()}
             <VerticalRectSeries
               colorType="literal"
               data={data}

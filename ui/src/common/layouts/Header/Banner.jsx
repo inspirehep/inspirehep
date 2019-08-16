@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import { Alert, Button } from 'antd';
 import PropTypes from 'prop-types';
 
-import {
-  SUBMISSIONS,
-} from '../../routes';
+import { isNonBetaRoute } from '../../routes';
 import { setBannerVisibility } from '../../../actions/ui';
 import ExternalLink from '../../components/ExternalLink';
 
-const BLOG_POST_LINK = 'https://blog.inspirehep.net/2019/02/introducing-inspire-beta/'
+const BLOG_POST_LINK =
+  'https://blog.inspirehep.net/2019/02/introducing-inspire-beta/';
 
 class Banner extends Component {
   constructor(props) {
@@ -23,47 +22,53 @@ class Banner extends Component {
   }
 
   render() {
-    const { shouldDisplayBanner, isSubmissionsPage } = this.props;
-    return shouldDisplayBanner && !isSubmissionsPage && (
-      <div className="banner">
-        <Alert
-          type="info"
-          banner
-          closable
-          afterClose={this.onBannerAlertClose}
-          showIcon={false}
-          message={
-            <span>
-              <strong>
-                INSPIRE beta provides a preview of new features currently under development. For more info, visit our <ExternalLink href={BLOG_POST_LINK}>blog</ExternalLink>. Try it out and let us know what you think!
-              </strong>
-              <Button
-                className="ml3"
-                type="primary"
-                target="_blank"
-                href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
-              >
-                Take the survey
-              </Button>
-            </span>
-          }
-        />
-      </div>
+    const { shouldDisplayBanner, isNonBetaPage } = this.props;
+    return (
+      shouldDisplayBanner &&
+      !isNonBetaPage && (
+        <div className="banner">
+          <Alert
+            type="info"
+            banner
+            closable
+            afterClose={this.onBannerAlertClose}
+            showIcon={false}
+            message={
+              <span>
+                <strong>
+                  INSPIRE beta provides a preview of new features currently
+                  under development. For more info, visit our{' '}
+                  <ExternalLink href={BLOG_POST_LINK}>blog</ExternalLink>. Try
+                  it out and let us know what you think!
+                </strong>
+                <Button
+                  className="ml3"
+                  type="primary"
+                  target="_blank"
+                  href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
+                >
+                  Take the survey
+                </Button>
+              </span>
+            }
+          />
+        </div>
+      )
     );
   }
 }
 
 Banner.propTypes = {
-  isSubmissionsPage: PropTypes.bool.isRequired,
+  isNonBetaPage: PropTypes.bool.isRequired,
   shouldDisplayBanner: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const stateToProps = state => ({
-  isSubmissionsPage: String(state.router.location.pathname).startsWith(SUBMISSIONS),
+  isNonBetaPage: isNonBetaRoute(String(state.router.location.pathname)),
   shouldDisplayBanner: state.ui.get('bannerVisibility'),
 });
 
-const dispatchToProps = dispatch => ({ dispatch })
+const dispatchToProps = dispatch => ({ dispatch });
 
 export default connect(stateToProps, dispatchToProps)(Banner);
