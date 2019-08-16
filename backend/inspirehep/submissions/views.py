@@ -13,7 +13,6 @@ import requests
 from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
-from inspire_json_merger.api import merge
 from inspire_schemas.builders.jobs import JobBuilder
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -25,8 +24,6 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.records.api import AuthorsRecord, JobsRecord
-from inspirehep.records.api.literature import import_doi
-from inspirehep.records.errors import ImportConnectionError, ImportParsingError
 from inspirehep.submissions.errors import RESTDataError
 
 from .loaders import job_v1 as job_loader_v1
@@ -134,23 +131,6 @@ class LiteratureSubmissionResource(BaseSubmissionsResource):
             "references": submission_data.get("references"),
         }
         payload = {"data": serialized_data, "form_data": form_data}
-
-        if submission_data.get("arxiv_id") and submission_data.get("doi"):
-            doi = submission_data["doi"]
-            try:
-                crossref_data = import_doi(doi)
-            except (ImportConnectionError, ImportParsingError):
-                LOGGER.exception("Cannot merge submission with %r,", doi)
-
-            if crossref_data:
-                merged, conflicts = merge(
-                    root={}, head=payload["data"], update=crossref_data
-                )
-                payload["data"] = merged
-                if conflicts:
-                    LOGGER.debug(
-                        "Ignoring conflicts while enhancing submission.\n%r", conflicts
-                    )
 
         response = self.send_post_request_to_inspire_next(
             "/workflows/literature", payload

@@ -8,15 +8,9 @@
 import json
 import os
 
+import pytest
 import requests_mock
-import vcr
 from helpers.providers.faker import faker
-
-my_vcr = vcr.VCR(
-    serializer="yaml",
-    cassette_library_dir=os.path.join(os.path.dirname(__file__), "cassettes"),
-    record_mode="once",
-)
 
 
 def test_import_article_view_400_bad_arxiv(api_client, db):
@@ -56,16 +50,15 @@ def test_import_article_view_409_because_article_already_exists(
     assert resp.status_code == 409
 
 
+@pytest.mark.vcr()
 def test_import_article_view_404_arxiv_not_found(api_client, db):
-    with my_vcr.use_cassette("test_import_article_view_404_arxiv_not_found.yml"):
-        resp = api_client.get("/literature/import/arXiv:0000.0000")
-        assert resp.status_code == 404
+    resp = api_client.get("/literature/import/arXiv:0000.0000")
+    assert resp.status_code == 404
 
 
 def test_import_article_view_400_doi_not_valid(api_client, db):
-    with my_vcr.use_cassette("test_import_article_view_404_doi_not_found.yml"):
-        resp = api_client.get("/literature/import/doi:notADoi")
-        assert resp.status_code == 400
+    resp = api_client.get("/literature/import/doi:notADoi")
+    assert resp.status_code == 400
 
 
 def test_import_article_arxiv_409_id_already_in_inspire(
@@ -91,33 +84,49 @@ def test_import_article_view_404_website_not_reachable(api_client, db):
         assert resp.status_code == 502
 
 
+@pytest.mark.vcr()
 def test_import_article_view_500_arxiv_broken_record(api_client, db):
     arxiv_id = "0804.1111"
-    with my_vcr.use_cassette("test_import_article_view_500_arxiv_broken_record.yml"):
-        resp = api_client.get(f"/literature/import/arXiv:{arxiv_id}")
-        assert resp.status_code == 500
+    resp = api_client.get(f"/literature/import/arXiv:{arxiv_id}")
+    assert resp.status_code == 500
 
 
-def test_import_article_view_200_arxiv(api_client, db):
+@pytest.mark.vcr()
+def test_import_article_uses_only_arxiv_if_there_is_no_doi_during_arxiv_import(
+    api_client, db
+):
+    arxiv_id = "1908.05196"
+    resp = api_client.get(f"/literature/import/{arxiv_id}")
+    result = resp.json["data"]
+
+    expected_title = (
+        "Polarization fraction measurement in ZZ scattering using deep learning"
+    )
+
+    assert resp.status_code == 200
+    assert result["title"] == expected_title
+    assert result["arxiv_id"] == arxiv_id
+    assert result["arxiv_categories"] == ["hep-ph", "hep-ex"]
+
+
+@pytest.mark.vcr()
+def test_import_article_merges_crossref_after_arxiv_import(api_client, db):
     arxiv_id = "1607.06746"
-    with my_vcr.use_cassette("test_import_article_view_200_arxiv.yaml"):
-        resp = api_client.get(f"/literature/import/{arxiv_id}")
-        result = resp.json["data"]
+    resp = api_client.get(f"/literature/import/{arxiv_id}")
+    result = resp.json["data"]
 
-        expected_title = "CP violation in the B system"
-        assert resp.status_code == 200
-        assert result["title"] == expected_title
-        assert result["arxiv_id"] == arxiv_id
-        assert result["arxiv_categories"] == ["hep-ex", "hep-ph"]
+    assert result["journal_title"] == "Reports on Progress in Physics"
+    assert resp.status_code == 200
 
 
+@pytest.mark.vcr()
 def test_import_article_view_200_crossref(api_client, db):
     doi = "10.1016/j.physletb.2012.08.020"
-    with my_vcr.use_cassette("test_import_article_view_200_crossref.yaml"):
-        resp = api_client.get(f"/literature/import/{doi}")
-        result = resp.json["data"]
 
-        expected_title = "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
-        assert resp.status_code == 200
-        assert result["title"] == expected_title
-        assert result["doi"] == doi
+    resp = api_client.get(f"/literature/import/{doi}")
+    result = resp.json["data"]
+
+    expected_title = "Observation of a new particle in the search for the Standard Model Higgs boson with the ATLAS detector at the LHC"
+    assert resp.status_code == 200
+    assert result["title"] == expected_title
+    assert result["doi"] == doi

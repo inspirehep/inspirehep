@@ -129,7 +129,7 @@ class JobForm extends Component {
                 Many institutions have agreed to set January 7 as the earliest
                 deadline which can be imposed for accepting offers of
                 postdoctoral positions.{' '}
-                <ExternalLink href="//insti.physics.sunysb.edu/itp/postdoc-agreement.html">
+                <ExternalLink href="http://insti.physics.sunysb.edu/itp/postdoc-agreement.html">
                   Learn More
                 </ExternalLink>
               </span>
