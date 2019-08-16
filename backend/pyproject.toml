@@ -17,7 +17,7 @@ python = ">=3.6,<3.7"
 inspire-dojson = "~=62.0.0,>=62.0.0"
 inspire-query-parser = "~=6.0.0"
 inspire-schemas = "~=60.0"
-inspire-utils = "~=3.0.0,>=3.0.5"
+inspire-utils = "~=3.0.0,>=3.0.8"
 inspire-service-orcid = {git = "https://github.com/drjova/inspire-service-orcid.git"}
 inspire-json-merger = "^11.0"
 
