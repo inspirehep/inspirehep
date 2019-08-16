@@ -603,6 +603,7 @@ werkzeug = "*"
 reference = "84c2633a4af55092650cb6972b126039500b39f9"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
+
 [[package]]
 category = "main"
 description = "Rate limiting for flask applications"
@@ -723,6 +724,7 @@ SQLAlchemy = ">=0.8.0"
 reference = "71abd94a1e2317a1365a25a31e719dbd9aafceea"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
+
 [[package]]
 category = "main"
 description = "HTTP security headers for Flask."
@@ -1104,13 +1106,14 @@ pkgsettings = ">=0.12.0,<1.0.0"
 reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
 type = "git"
 url = "https://github.com/drjova/inspire-service-orcid.git"
+
 [[package]]
 category = "main"
 description = "INSPIRE-specific utils."
 name = "inspire-utils"
 optional = false
 python-versions = "*"
-version = "3.0.6"
+version = "3.0.8"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -1612,10 +1615,7 @@ python-versions = "*"
 version = "0.7.1"
 
 [package.dependencies]
-Unidecode = ">=0.4.19"
 dictdiffer = ">=0.6.0"
-editdistance = ">=0.3.1"
-munkres = ">=1.0.7"
 pyrsistent = ">=0.11.13"
 six = ">=1.10.0"
 
@@ -2124,7 +2124,7 @@ category = "main"
 description = "C parser in Python"
 name = "pycparser"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.19"
 
 [[package]]
@@ -2663,7 +2663,7 @@ category = "main"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
 name = "simplejson"
 optional = false
-python-versions = "*"
+python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "3.16.0"
 
 [[package]]
@@ -3040,7 +3040,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "831de2381c04c2188ec44f31a88d6d7d789082ee14e26faa5a3a8741d3850ebd"
+content-hash = "7841d47c01d3fe5c4518878206529b945aa5bbaa2711efce25cb7eb3fd714c96"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3139,7 +3139,7 @@ inspire-json-merger = ["96a9203174044ae0c53cee5e712f722dff4ffcebfd142525abc42df2
 inspire-query-parser = ["510ab513e1dd3b4b315bee29d89a8df4b6d66ea0bd7f62135b1ca99b90eb58a7"]
 inspire-schemas = ["cc66db8fca7af2ffdb6cb3959f20630c37564156992724f16607c0f8db89993b"]
 inspire-service-orcid = []
-inspire-utils = ["7f02bb7eee949ce16067d26b8f1eba0d59aea22d6f4f724a3bd978380a4e358c"]
+inspire-utils = ["b44ddc2130ee48531af46c835262f2ba6f5ca6cb00e180b3a97454bae8b8b371"]
 intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]
 invenio-access = ["1e7439bfdb1c9a697fa41dccc79969af445baa0ddb6248f9cadc1046a2bed36f", "430225aa095e4ad11401a84fdf449566498f0e69b8b5c74e77239c1446b9e4da"]
 invenio-accounts = ["82f75c33e66fb57ec7811da22cc2225601b43c600ef303ca45ce20d40f2422cf", "b928535e4f3ffe53fcf07b2056f1f1b27b4ff8b83f57583c489f05db6dec5587"]
