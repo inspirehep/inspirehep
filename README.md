@@ -19,6 +19,7 @@ Once you have access to your local kubernetes cluster, following the instruction
 You can then start your environment using
 
 ```bash
+minikube start
 tilt up
 ```
 
