@@ -1,0 +1,125 @@
+interactions:
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+    method: POST
+    uri: https://us3.api.mailchimp.com/3.0/campaigns/074c7e5c33/actions/replicate
+  response:
+    body:
+      string: '{"id":"a05dc130f3","web_id":3612345,"type":"regular","create_time":"2019-08-23T09:40:46+00:00","archive_url":"http://eepurl.com/gBh351","long_archive_url":"https://us3.campaign-archive.com/?u=5a5c86b932d6c047e19404485&id=a05dc130f3","status":"save","emails_sent":0,"send_time":"","content_type":"template","needs_block_refresh":false,"resendable":false,"recipients":{"list_id":"94ac3f1ad8","list_name":"Inspirehep","segment_text":"","recipient_count":2},"settings":{"subject_line":"Inspirehep
+        Jobs daily","title":"Weekly jobs (copy 52)","from_name":"Inspire","reply_to":"charalampos.tzovanakis@cern.ch","use_conversation":false,"to_name":"","folder_id":"","authenticate":true,"auto_footer":false,"inline_css":false,"auto_tweet":false,"fb_comments":true,"timewarp":false,"template_id":341813,"drag_and_drop":true},"tracking":{"opens":true,"html_clicks":true,"text_clicks":true,"goal_tracking":false,"ecomm360":false,"google_analytics":"","clicktale":""},"delivery_status":{"enabled":false},"_links":[{"rel":"parent","href":"https://us3.api.mailchimp.com/3.0/campaigns","method":"GET","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/CollectionResponse.json","schema":"https://us3.api.mailchimp.com/schema/3.0/CollectionLinks/Campaigns.json"},{"rel":"self","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3","method":"GET","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Response.json"},{"rel":"delete","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3","method":"DELETE"},{"rel":"send","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/actions/send","method":"POST"},{"rel":"cancel_send","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/actions/cancel-send","method":"POST"},{"rel":"feedback","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/feedback","method":"GET","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Feedback/CollectionResponse.json"},{"rel":"content","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/content","method":"GET","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Content/Response.json"},{"rel":"send_checklist","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/send-checklist","method":"GET","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Checklist/Response.json"},{"rel":"pause","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/actions/pause","method":"POST"},{"rel":"resume","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/actions/resume","method":"POST"},{"rel":"replicate","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/actions/replicate","method":"POST"},{"rel":"create_resend","href":"https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/actions/create-resend","method":"POST"}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 23 Aug 2019 09:40:46 GMT
+      Link:
+      - <https://us3.api.mailchimp.com/schema/3.0/Campaigns/Instance.json>; rel="describedBy",
+        <https://us3.admin.mailchimp.com/campaigns/show?id=3612345>; rel="dashboard"
+      Server:
+      - openresty
+      Set-Cookie:
+      - _AVESTA_ENVIRONMENT=prod; path=/
+      - _mcid=1.5136a813717adf9be7ebef96b8558a52.78cf6c3b0e31264dfb494efe2dd571b8bf242d62e44d9ec124f715ce6e22fce3;
+        expires=Sat, 22-Aug-2020 09:40:45 GMT; Max-Age=31536000; path=/; domain=.mailchimp.com
+      Vary:
+      - Accept-Encoding
+      X-Request-Id:
+      - e9157754-5541-4bae-93c6-ef611c90add1
+      content-length:
+      - '2905'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: '{"html": "<p>Breaking news from ALIAS Investigation.</p>"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '58'
+      Content-Type:
+      - application/json
+    method: PUT
+    uri: https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/content
+  response:
+    body:
+      string: '{"plain_text":"Breaking news from ALIAS Investigation.\n\n==============================================\n*|LIST:DESCRIPTION|*\n\nUnsubscribe
+        *|EMAIL|* from this list:\n*|UNSUB|*\n\nOur mailing address is:\n*|LIST:ADDRESS|*\n\nOur
+        telephone:\n*|LIST:PHONE|*\n\nForward this email to a friend:\n*|FORWARD|*\n\nUpdate
+        your profile:\n*|UPDATE_PROFILE|*","html":"<p>Breaking news from ALIAS Investigation.</p>","archive_html":"<p>Breaking
+        news from ALIAS Investigation.</p>","_links":[{"rel":"parent","href":"https://us3.api.mailchimp.com/3.0/campaigns/3612345","method":"GET","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Response.json"},{"rel":"self","href":"https://us3.api.mailchimp.com/3.0/campaigns/3612345/content","method":"GET","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Content/Response.json"},{"rel":"create","href":"https://us3.api.mailchimp.com/3.0/campaigns/3612345/content","method":"PUT","targetSchema":"https://us3.api.mailchimp.com/schema/3.0/Definitions/Campaigns/Content/PUT.json"}]}'
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 23 Aug 2019 09:40:46 GMT
+      Link:
+      - <https://us3.api.mailchimp.com/schema/3.0/Campaigns/Content/Collection.json>;
+        rel="describedBy"
+      Server:
+      - openresty
+      Set-Cookie:
+      - _AVESTA_ENVIRONMENT=prod; path=/
+      - _mcid=1.30fa44de08e161443016c7afcd581936.f961f37fa1a47b63b392dfd4efb142ab2b4e8c6b71d68ae53acae90ff32589b6;
+        expires=Sat, 22-Aug-2020 09:40:46 GMT; Max-Age=31536000; path=/; domain=.mailchimp.com
+      Vary:
+      - Accept-Encoding
+      X-Request-Id:
+      - e5a352e9-69e5-4484-be00-6478aa4d46fd
+      content-length:
+      - '1068'
+    status:
+      code: 200
+      message: OK
+- request:
+    body: null
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '0'
+    method: POST
+    uri: https://us3.api.mailchimp.com/3.0/campaigns/a05dc130f3/actions/send
+  response:
+    body:
+      string: ''
+    headers:
+      Connection:
+      - keep-alive
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 23 Aug 2019 09:40:47 GMT
+      Server:
+      - openresty
+      Set-Cookie:
+      - _AVESTA_ENVIRONMENT=prod; path=/
+      - _mcid=1.27e8b9c48cb6d75fa5506e2b7ba62d97.5b97bded1f92ee808f07f34303ce9146abb8eca449abc0176934661c13cf2ada;
+        expires=Sat, 22-Aug-2020 09:40:46 GMT; Max-Age=31536000; path=/; domain=.mailchimp.com
+      X-Request-Id:
+      - 44fb0773-5ca6-4e6b-a1c7-42cd80ab28d4
+    status:
+      code: 204
+      message: No Content
+version: 1

@@ -1,0 +1,48 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "arxiv_categories": [
+    "astro-ph",
+    "hep-ex",
+    "hep-lat",
+    "hep-ph",
+    "nucl-ex",
+    "physics.acc-ph",
+    "physics.ins-det"
+  ],
+  "contact_details": [
+    {
+      "email": "shuli@sjtu.edu.cn",
+      "name": "Li, Shu"
+    },
+    {
+      "email": "haijun.yang@sjtu.edu.cn",
+      "name": "Yang, Haijun"
+    }
+  ],
+  "control_number": 1616162,
+  "deadline_date": "2019-09-30",
+  "description":
+    "<b>The Institute for Nuclear and Particle Physics (INPAC) at Shanghai Jiao Tong University (SJTU), China</b> invites applications for postdoctoral researcher positions to work on ATLAS experiment at LHC, CERN. We welcome highly motivated applicants who have obtained a Ph.D. degree or who are expecting one prior to starting the position, in nuclear physics, particle physics, or a related field. The initial appointment is for 2 years with possible renewal based on mutual satisfaction. INPAC@SJTU offers competitive salary commensurate with qualifications and subsidized housing options through the university. We will also encourage promising candidates in applying for the prestigious <b>\"Tsung-Dao Lee Postdoctoral Fellowship\" (see the T.D. Lee postdoc fellowship job advertisement posted separately) and “Chung-Yao Chao Postdoctoral Fellowship”</b> for additional benefits. <br><br> <b>The successful candidate will participate in ATLAS experiment at CERN and with good opportunities to be based at CERN</b>, and also has chance to travel and work in Shanghai if needed. The appointee will be expected to make major contributions to ATLAS Run2 data analysis related to property measurements of the Higgs boson, searches for new physics beyond the Standard Model, and Standard Model electroweak precision measurements, and/or to <b>participate the Phase-I/II upgrade of ATLAS Muon Spectrometer and future circular collider high granularity digital calorimeter R&amp;D. Prior hardware experience with muon spectrometer, noble liquid/gas detectors, liquid scintillator detectors, high granularity digital calorimeters will be advantageous.</b> <br><br> INPAC (<a href=\"http://inpac.physics.sjtu.edu.cn/\">http://inpac.physics.sjtu.edu.cn/</a>) has an international working environment and provides diversified culture experiences. It has about twenty faculty members and twenty postdoctoral fellows working on diverse areas of fundamental research, including nuclear theory, particle theory, particle and nuclear experiments. <b>English is the working language at the institute. Non-Chinese-speaking candidates are equally highly encouraged to apply.</b> <br><br> <b>Applicants should submit a CV, a brief research statement, a list of publications and at least three letters of recommendation to:<br> Prof. Shu LI (<a href=\"mailto:shuli@sjtu.edu.cn\">shuli@sjtu.edu.cn</a>)<br> Prof. Haijun YANG (<a href=\"mailto:haijun.yang@sjtu.edu.cn\">haijun.yang@sjtu.edu.cn</a>)<br><br>  Please put “INPAC Postdoc” as the identifier in the email subject. <br><br> For full consideration, applications should be received by Jan. 31, 2018</b>",
+  "institutions": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://labs.inspirehep.net/api/institutions/1083225"
+      },
+      "value": "Shanghai Jiaotong U., INPAC"
+    }
+  ],
+  "legacy_creation_date": "2017-08-16",
+  "legacy_version": "20190403114157.0",
+  "position": "Experimental Particle Physics",
+  "ranks": ["POSTDOC"],
+  "reference_letters": {
+    "emails": ["shuli@sjtu.edu.cn", "haijun.yang@sjtu.edu.cn"]
+  },
+  "regions": ["Asia"],
+  "self": {
+    "$ref": "https://labs.inspirehep.net/api/jobs/1616162"
+  },
+  "status": "open"
+}

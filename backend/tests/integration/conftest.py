@@ -12,6 +12,7 @@ import random
 from functools import partial
 
 import pytest
+import vcr
 from click.testing import CliRunner
 from flask import current_app
 from flask.cli import ScriptInfo
@@ -127,6 +128,7 @@ def create_record(base_app, db, es_clear):
 
     def _create_record(record_type, data=None):
         accepted_record_types = base_app.config["PID_TYPE_TO_INDEX"].keys()
+
         if record_type not in accepted_record_types:
             raise ValueError(f"{record_type} is not supported")
         index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
@@ -282,3 +284,28 @@ def redis(base_app):
     yield r
 
     r.flushall()
+
+
+@pytest.fixture(scope="session")
+def vcr_config():
+    return {
+        "decode_compressed_response": True,
+        "filter_headers": ("Authorization", "User-Agent"),
+        "ignore_hosts": (
+            "cache",
+            "db",
+            "elasticsearch",
+            "flower",
+            "indexer",
+            "localhost",
+            "mq",
+            "postgres",
+            "redis",
+            "ui",
+            "web-next",
+            "web-worker",
+            "web",
+            "worker",
+        ),
+        "record_mode": "once",
+    }

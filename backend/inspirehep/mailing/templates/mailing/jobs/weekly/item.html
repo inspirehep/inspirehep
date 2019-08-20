@@ -1,0 +1,4 @@
+<a title="{{job.position}}" href="https://labs.inspirehep.net/jobs/{{job.control_number}}">{{job.position}}</a>
+({{ job.institutions[0].value}} - {{', '.join(job.regions)}}) [Deadline:
+{{job.deadline_date}}] {{', '.join(job.ranks)}} - {{', '.join(job.arxiv_categories)}}
+(posted {{job['_created']|humanizeDateToNaturalTime }})

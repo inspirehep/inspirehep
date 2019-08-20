@@ -1,0 +1,34 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "arxiv_categories": ["hep-ex", "hep-lat", "hep-ph", "hep-th"],
+  "contact_details": [
+    {
+      "email": "xuxp@ihep.ac.cn",
+      "name": "Xu, Xinping"
+    }
+  ],
+  "control_number": 1600035,
+  "deadline_date": "2019-10-01",
+  "description":
+    "The physics department of Soochow Univ. invites applications for&nbsp;the 1000-plan young researcher program.<br> The Soochow Univ. at Suzhou is&nbsp;a fast developing university in recent years. Now more than 50 young researchers of 1000 plan successfully&nbsp;joined Soochow University. The physics department is now a member of the BESIII Collaboration and closely collaborate with the Institute of High Energy Physics(CAS, Beijing). We welcome both experimental and theoretical Chinese young&nbsp;researchers to join&nbsp;Soochow University.<br>",
+  "institutions": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://labs.inspirehep.net/api/institutions/904407"
+      },
+      "value": "Suzhou, Soochow U."
+    }
+  ],
+  "legacy_creation_date": "2017-05-18",
+  "legacy_version": "20181225100924.0",
+  "position":
+    "Recruiting Chinese Young Researchers for Particle Physics at Soochow Univ",
+  "ranks": ["SENIOR"],
+  "regions": ["Asia"],
+  "self": {
+    "$ref": "https://labs.inspirehep.net/api/jobs/1600035"
+  },
+  "status": "open"
+}
