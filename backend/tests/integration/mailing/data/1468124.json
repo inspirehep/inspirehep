@@ -1,0 +1,42 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "arxiv_categories": ["nucl-ex", "hep-ex", "physics.ins-det"],
+  "contact_details": [
+    {
+      "email": "mykijeski@ua.edu",
+      "name": "Kijeski, Michele"
+    }
+  ],
+  "control_number": 1468124,
+  "deadline_date": "2019-08-01",
+  "description":
+    "The nuclear physics group at the University of Alabama invites applications for a postdoctoral position. The group plays a role in data analysis of the ongoing EXO-200 neutrinoless double-beta decay (DBD) experiment, is responsible for the operation of its cosmic ray veto system, and is responsible for low level radioactivity measurements and Monte Carlo simulations for the next generation 136Xe DBD experiment, nEXO.<p>  Candidates should have a background in experimental nuclear or particle physics. Experience in detector operation and development (especially noble liquid detectors), data analysis (ROOT), Monte Carlo simulations (Geant4), and low background counting would be advantageous. Applications by entry level and more experienced candidates will be considered. Candidates need to have a Ph.D. in physics at the time of appointment. Ph.D. candidates should indicate when they are expecting to fulfill their Ph.D. requirements. The appointment is initially for one year with the possibility of renewal for up to three years. Apply online at <a href=\"http://facultyjobs.ua.edu/postings/40129 \">http://facultyjobs.ua.edu/postings/40129 </a>. The application should include a cover letter (addressing how you meet the job requirements), a statement of purpose (explaining your scientific goals), and a current C.V. with the following categories preferred: educational background, degree dates, GPA with scale, experience, invited presentations, publications. Please have at least two letters of reference sent directly to: Dr. Andreas Piepke, andreas@ua.edu. The cover letter needs to indicate EXO in the subject line. The position is expected to start August 1, 2017 or thereafter. A fixed contribution to the moving expenses will be paid. Applications will be accepted until the positions are filled.</p><p>  The University of Alabama is an Equal Employment/Equal Educational Opportunity Institution. All qualified applicants will receive consideration for employment without regard to race, color, religion, national origin, sex, sexual orientation, gender identity, gender expression, age, genetic information, disability, or protected veteran status, and will not be discriminated against because of their protected status. Applicants to and employees of this institution are protected under Federal law from discrimination on several bases. Follow the link below to find out more.</p><p>  “EEO is the Law” <a href=\"http://www1.eeoc.gov/employers/upload/eeoc_self_print_poster.pdf\">http://www1.eeoc.gov/employers/upload/eeoc_self_print_poster.pdf</a></p>",
+  "external_job_identifier": "0810514",
+  "institutions": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://labs.inspirehep.net/api/institutions/1273709"
+      },
+      "value": "U. Alabama, Tuscaloosa"
+    }
+  ],
+  "legacy_creation_date": "2016-06-08",
+  "legacy_version": "20190711230344.0",
+  "position": "Nuclear and Particle Physics",
+  "ranks": ["POSTDOC"],
+  "reference_letters": {
+    "emails": ["andreas@ua.edu"]
+  },
+  "regions": ["North America"],
+  "self": {
+    "$ref": "https://labs.inspirehep.net/api/jobs/1468124"
+  },
+  "status": "open",
+  "urls": [
+    {
+      "value": "http://facultyjobs.ua.edu/postings/40129"
+    }
+  ]
+}
