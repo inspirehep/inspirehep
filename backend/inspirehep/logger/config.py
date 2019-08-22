@@ -31,11 +31,9 @@ PROMETHEUS_ENABLE_EXPORTER_FLASK = False
 Enable Flask metrics, using https://github.com/rycus86/prometheus_flask_exporter
 """
 
-
 # Logging config
 # ==============
 logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
-
 
 # Structlog
 # =========

@@ -7,6 +7,7 @@
 
 import sentry_sdk
 import structlog
+from flask.logging import default_handler
 from prometheus_flask_exporter import PrometheusMetrics
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.flask import FlaskIntegration
@@ -23,6 +24,8 @@ class InspireLogger:
         self.init_sentry(app)
         self.init_prometheus_flask_exporter(app)
         app.extensions["inspirehep-logger"] = self
+        # https://flask.palletsprojects.com/en/1.0.x/logging/#removing-the-default-handler
+        app.logger.removeHandler(default_handler)
         return self
 
     def init_sentry(self, app):
