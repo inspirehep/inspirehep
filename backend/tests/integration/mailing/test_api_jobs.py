@@ -14,6 +14,7 @@ from inspirehep.mailing.api.jobs import (
     get_jobs_from_last_week,
     get_jobs_weekly_html_content,
     send_jobs_weekly_campaign,
+    subscribe_to_jobs_weekly_list,
 )
 from inspirehep.records.api import InspireRecord
 
@@ -67,3 +68,14 @@ def test_render_jobs_weekly_campaign_job_record_template_only(
     for job in jobs:
         result = render_template("mailing/jobs/weekly/item.html", job=job)
         assert result in expected_results
+
+
+@pytest.mark.vrc()
+def test_subscirbe_to_the_list(base_app, db, es_clear, vcr_cassette):
+    result = subscribe_to_jobs_weekly_list("luke@cage.com", "Luke", "Cage")
+    assert vcr_cassette.all_played
+
+
+def test_subscirbe_to_the_list_with_invalid_email(base_app, db, es_clear):
+    with pytest.raises(ValueError):
+        subscribe_to_jobs_weekly_list("luke", "Luke", "Cage")

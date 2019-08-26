@@ -9,6 +9,7 @@ MAILCHIMP_API_TOKEN = None
 MAILCHIMP_CLIENT_TIMEOUT = 10
 
 MAILCHIMP_JOBS_WEEKLY_REPLICATE_CAMPAIGN_ID = "074c7e5c33"
+MAILCHIMP_JOBS_WEEKLY_LIST_ID = "94ac3f1ad8"
 """
 The campaigns cannot be reused, hence we're replicating an existing one which
 contains all the neccessary details i.e. audience, sender, subject etc.

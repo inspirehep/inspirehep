@@ -5,8 +5,7 @@ export default function subscribeJobMailingList({
   firstName,
   lastName,
 }) {
-  // TODO: change endpoint name
-  return http.post('/mailing/subscribe/jobs', {
+  return http.post('/mailing/subscribe/jobs/weekly', {
     email,
     first_name: firstName,
     last_name: lastName,
