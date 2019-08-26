@@ -14,7 +14,7 @@ from ..errors import MailChimpMissingAPIToken
 LOGGER = structlog.getLogger()
 
 
-def get_mailchimp_client():
+def mailchimp_get_client():
     mailchimp_api_token = current_app.config.get("MAILCHIMP_API_TOKEN")
     mailchimp_client_timeout = current_app.config.get("MAILCHIMP_CLIENT_TIMEOUT", 10)
 
@@ -24,7 +24,7 @@ def get_mailchimp_client():
     return MailChimp(mc_api=mailchimp_api_token, timeout=mailchimp_client_timeout)
 
 
-def create_mailchimp_campaign(replicate_campaign_id):
+def mailchimp_create_campaign(replicate_campaign_id):
     """Create a mailchimp campaign.
 
     Args:
@@ -36,7 +36,7 @@ def create_mailchimp_campaign(replicate_campaign_id):
         The campaigns can be retrieved by running:
         > MailChimp(mc_api=MAILCHIMP_API_TOKEN).campaigns.all()
     """
-    client = get_mailchimp_client()
+    client = mailchimp_get_client()
 
     replicate_campaign_id = current_app.config[
         "MAILCHIMP_JOBS_WEEKLY_REPLICATE_CAMPAIGN_ID"
@@ -51,7 +51,7 @@ def create_mailchimp_campaign(replicate_campaign_id):
     return campaign_id
 
 
-def send_mailchimp_campaign(campaign_id, html_content, test_emails=None):
+def mailchimp_send_campaign(campaign_id, html_content, test_emails=None):
     """Send a given mailchimp campaign.
 
     Args:
@@ -62,7 +62,7 @@ def send_mailchimp_campaign(campaign_id, html_content, test_emails=None):
     Note:
         If ``tests_emails`` is set the campaign will be sent as test only.
     """
-    client = get_mailchimp_client()
+    client = mailchimp_get_client()
 
     LOGGER.info("Updating campaign content.", campaign_id=campaign_id)
     client.campaigns.content.update(
@@ -78,5 +78,40 @@ def send_mailchimp_campaign(campaign_id, html_content, test_emails=None):
             data={"test_emails": test_emails, "send_type": "html"},
         )
         return
-    client.campaigns.actions.send(campaign_id=campaign_id)
+
+    response = client.campaigns.actions.send(campaign_id=campaign_id)
     LOGGER.info("Campaign successfuly sent.", campaign_id=campaign_id)
+    return response
+
+
+def mailchimp_subscribe_user_to_list(list_id, email, first_name, last_name):
+    """Subscribe user to a list.
+
+    Args:
+        list_id (str): the list id .
+        email (str): user email.
+        first_name (str): user first name.
+        last_name (str): user last name.
+    """
+    client = mailchimp_get_client()
+
+    LOGGER.info("Adding user to the mailing list.", list_id=list_id, email=email)
+
+    response = client.lists.update_members(
+        list_id=list_id,
+        data={
+            "members": [
+                {
+                    "email_address": email,
+                    "status": "subscribed",
+                    "status_if_new": "subscribed",
+                    "merge_fields": {"FNAME": first_name, "LNAME": last_name},
+                }
+            ],
+            "update_existing": True,
+        },
+    )
+    LOGGER.info(
+        "User successfuly added to the mailing list.", list_id=list_id, email=email
+    )
+    return response
