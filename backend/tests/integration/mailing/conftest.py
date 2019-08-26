@@ -33,7 +33,7 @@ def mock_job_create_and_update_time(date, data=None):
     return record
 
 
-@pytest.fixture
+@pytest.fixture(scope="function")
 def create_jobs(base_app, db, es_clear, shared_datadir):
     now_utc = datetime.datetime.utcnow()
 

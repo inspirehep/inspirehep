@@ -13,17 +13,17 @@ from marshmallow import utils
 from inspirehep.accounts.roles import Roles
 
 
-def test_jobs_json(api_client, db, create_record_factory, datadir):
+def test_jobs_json(api_client, db, es_clear, create_record, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
 
-    record = create_record_factory("job", data=data)
-    record_control_number = record.json["control_number"]
+    record = create_record("job", data=data)
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
     expected_uuid = str(record.id)
-    expected_result = deepcopy(record.json)
+    expected_result = deepcopy(record)
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
 
@@ -41,17 +41,17 @@ def test_jobs_json(api_client, db, create_record_factory, datadir):
 
 
 def test_jobs_json_cataloger_can_edit(
-    api_client, db, create_record_factory, datadir, create_user
+    api_client, db, es_clear, create_record, datadir, create_user
 ):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
 
-    record = create_record_factory("job", data=data)
-    record_control_number = record.json["control_number"]
+    record = create_record("job", data=data)
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = deepcopy(record.json)
+    expected_result = deepcopy(record)
     expected_result["can_edit"] = True
 
     user = create_user(role=Roles.cataloger.value)
@@ -68,17 +68,17 @@ def test_jobs_json_cataloger_can_edit(
 
 
 def test_jobs_json_author_can_edit_but_random_user_cant(
-    api_client, db, create_record_factory, datadir, create_user, logout
+    api_client, db, es_clear, create_record, datadir, create_user, logout
 ):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
 
-    record = create_record_factory("job", data=data)
-    record_control_number = record.json["control_number"]
+    record = create_record("job", data=data)
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = deepcopy(record.json)
+    expected_result = deepcopy(record)
     expected_result["can_edit"] = True
 
     jobs_author = create_user(email="georgews@ntu.com")
