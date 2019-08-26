@@ -13,7 +13,7 @@ from inspirehep.mailing.errors import MailChimpMissingAPIToken
 from inspirehep.mailing.providers.mailchimp import get_mailchimp_client
 
 
-def test_mailchimp_client(appctx):
+def test_mailchimp_client(appctx, db, es_clear):
     with mock.patch.dict(appctx.config, {"MAILCHIMP_API_TOKEN": None}):
         with pytest.raises(MailChimpMissingAPIToken):
             get_mailchimp_client()
