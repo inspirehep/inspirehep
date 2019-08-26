@@ -19,7 +19,7 @@ from inspirehep.records.api import InspireRecord
 
 @pytest.mark.vcr()
 def test_send_weekly_jobs(
-    base_app, app_cli_runner, db, es_clear, create_jobs, vcr_cassette
+    app_cli_runner, base_app, db, es_clear, create_jobs, vcr_cassette
 ):
     result = app_cli_runner.invoke(mailing, ["send_weekly_jobs"])
     assert result.exit_code == 0
