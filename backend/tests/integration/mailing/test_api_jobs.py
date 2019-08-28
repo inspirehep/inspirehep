@@ -6,17 +6,18 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
-import vcr
 from flask import render_template
-from freezegun import freeze_time
+from invenio_accounts.models import User
+from invenio_oauthclient.models import UserIdentity
+from mock import patch
 
 from inspirehep.mailing.api.jobs import (
+    get_job_recipient,
     get_jobs_from_last_week,
-    get_jobs_weekly_html_content,
+    send_job_deadline_reminder,
     send_jobs_weekly_campaign,
     subscribe_to_jobs_weekly_list,
 )
-from inspirehep.records.api import InspireRecord
 
 
 def test_jobs_from_last_week(base_app, db, es_clear, create_jobs):
@@ -79,3 +80,73 @@ def test_subscirbe_to_the_list(base_app, db, es_clear, vcr_cassette):
 def test_subscirbe_to_the_list_with_invalid_email(base_app, db, es_clear):
     with pytest.raises(ValueError):
         subscribe_to_jobs_weekly_list("luke", "Luke", "Cage")
+
+
+def test_get_job_recipient_no_internal_uid(base_app, db, es_clear):
+    expected_email = "somebody@cern.ch"
+    job = {
+        "acquisition_source": {
+            "datetime": "2019-07-04T11:21:22.611086",
+            "email": expected_email,
+            "method": "submitter",
+            "orcid": "0000-0002-8672-7088",
+            "source": "submitter",
+        }
+    }
+    email = get_job_recipient(job)
+    assert email == expected_email
+
+
+def test_get_job_recipient_internal_uid(base_app, db, es_clear):
+    expected_email = "somebody@cern.ch"
+
+    user = User()
+    user.email = expected_email
+    user.active = True
+    user.id = 23
+    db.session.add(user)
+
+    test_user = UserIdentity(id='user', method='test', id_user=user.id)
+    db.session.add(test_user)
+
+    job = {
+        "acquisition_source": {
+            "datetime": "2019-07-04T11:21:22.611086",
+            "email": "email@foo.bar",
+            "internal_uid": user.id,
+            "method": "submitter",
+            "orcid": "0000-0002-8672-7088",
+            "source": "submitter",
+            "submission_number": "None"
+        }
+    }
+    email = get_job_recipient(job)
+    # The email is not the one in acquisition_source but in the user account
+    assert email == expected_email
+
+
+@patch('inspirehep.mailing.api.jobs.send_email')
+def test_send_email_to_contact_details_without_putting_it_in_cc(
+    mock_send_email, base_app, db, es_clear
+):
+    expected_recipient = "rcg6p@virginia.edu"
+    expected_cc = "rkh6j@virginia.edu"
+    job = {
+        "contact_details": [
+            {
+              "email": expected_recipient,
+              "name": "Group, Craig"
+            },
+            {
+              "email": expected_cc,
+              "name": "Haverstrom, Rich"
+            }
+        ],
+        "position": "Tester"
+    }
+    send_job_deadline_reminder(job)
+    mock_send_email.assert_called_once()
+
+    mock_call = mock_send_email.mock_calls[0][2]
+    assert mock_call["recipient"] == expected_recipient
+    assert mock_call["cc"] == [expected_cc]
