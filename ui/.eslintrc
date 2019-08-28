@@ -1,5 +1,8 @@
 {
   "parser": "babel-eslint",
+  "plugins": [
+    "react-hooks"
+  ],
   "extends": [
     "airbnb",
     "prettier",
@@ -62,7 +65,9 @@
           "any"
         ]
       }
-    ]
+    ],
+    "react-hooks/exhaustive-deps": "warn",
+    "react-hooks/rules-of-hooks": "error"
   },
   "overrides": [
     {
