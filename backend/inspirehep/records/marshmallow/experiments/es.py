@@ -24,15 +24,19 @@ class ExperimentsElasticSearchSchema(ElasticSearchBaseSchema, ExperimentsRawSche
             "experiment.short_name",
             "experiment.value",
             "institutions.value",
-            "legacy_name",
             "long_name",
             "name_variants",
         ]
-        input_values = [
-            str(input_value)
+        inputs = [
+            {"input": input_value, "weight": 1}
             for input_value in chain.from_iterable(
                 force_list(original_object.get_value(path)) for path in experiment_paths
             )
             if input_value
         ]
-        return {"input": input_values}
+
+        legacy_name = original_object.get("legacy_name")
+        if legacy_name:
+            inputs.append({"input": legacy_name, "weight": 5})
+
+        return inputs

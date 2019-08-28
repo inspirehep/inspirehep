@@ -45,44 +45,19 @@ def test_experiment_serializer_populates_experiment_suggest():
         "name_variants": ["NAME_V1", "NAME_V2", "NAME_V3"],
     }
 
-    expected_experiment_suggest = {
-        "input": [
-            "ACC",
-            "COLLABORATION",
-            "EXP SHORT NAME",
-            "Experiment value",
-            "INST_VALUE",
-            "LEGACY-NAME",
-            "{Long Name}",
-            "NAME_V1",
-            "NAME_V2",
-            "NAME_V3",
-        ]
-    }
+    expected_experiment_suggest = [
+        {"input": "ACC", "weight": 1},
+        {"input": "COLLABORATION", "weight": 1},
+        {"input": "EXP SHORT NAME", "weight": 1},
+        {"input": "Experiment value", "weight": 1},
+        {"input": "INST_VALUE", "weight": 1},
+        {"input": "{Long Name}", "weight": 1},
+        {"input": "NAME_V1", "weight": 1},
+        {"input": "NAME_V2", "weight": 1},
+        {"input": "NAME_V3", "weight": 1},
+        {"input": "LEGACY-NAME", "weight": 5},
+    ]
     experiment = ExperimentsRecord(faker.record("exp", data))
     result = schema.dump(experiment).data["experiment_suggest"]
 
     assert result == expected_experiment_suggest
-
-
-def test_experiment_suggest_have_proper_data():
-    data = {
-        "$schema": "http://foo/experiments.json",
-        "self": {"$ref": "https://localhost:5000/api/experiments/bar"},
-        "legacy_name": "foo",
-        "long_name": "foobarbaz",
-        "name_variants": ["bar", "baz"],
-        "collaboration": {"value": "D0"},
-        "accelerator": {"value": "LHC"},
-        "experiment": {"short_name": "SHINE", "value": "NA61"},
-        "institutions": [{"value": "ICN"}],
-    }
-    record = ExperimentsRecord(faker.record("exp", data))
-    marshmallow_schema = ExperimentsElasticSearchSchema()
-    result = marshmallow_schema.dump(record).data["experiment_suggest"]
-
-    expected = {
-        "input": ["LHC", "D0", "SHINE", "NA61", "ICN", "foo", "foobarbaz", "bar", "baz"]
-    }
-
-    assert expected == result

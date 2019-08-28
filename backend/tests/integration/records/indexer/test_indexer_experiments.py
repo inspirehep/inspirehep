@@ -20,17 +20,15 @@ def test_index_experiment_record(base_app, es_clear, db, datadir, create_record)
 
     expected_count = 1
     expected_metadata = deepcopy(record)
-    expected_metadata["experiment_suggest"] = {
-        "input": [
-            "LHC",
-            "ATLAS",
-            "CERN",
-            "CERN-LHC-ATLAS",
-            "{ATLAS}",
-            "ATLAS",
-            "CERN-ATLAS",
-        ]
-    }
+    expected_metadata["experiment_suggest"] = [
+            {"input": "LHC", "weight": 1},
+            {"input": "ATLAS", "weight": 1},
+            {"input": "CERN", "weight": 1},
+            {"input": "{ATLAS}", "weight": 1},
+            {"input": "ATLAS", "weight": 1},
+            {"input": "CERN-ATLAS", "weight": 1},
+            {"input": "CERN-LHC-ATLAS", "weight": 5},
+    ]
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
 

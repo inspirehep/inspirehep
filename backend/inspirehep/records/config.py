@@ -281,7 +281,7 @@ EXPERIMENTS.update(
         "suggesters": {
             "experiment": {
                 "_source": ["legacy_name", "control_number", "self"],
-                "completion": {"field": "experiment_suggest"},
+                "completion": {"field": "experiment_suggest", "size": 10},
             }
         },
         "search_serializers": {
