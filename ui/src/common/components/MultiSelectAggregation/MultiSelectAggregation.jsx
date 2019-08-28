@@ -42,7 +42,6 @@ MultiSelectAggregation.propTypes = {
   name: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   buckets: PropTypes.instanceOf(List).isRequired,
-  // eslint-disable-next-line react/no-unused-prop-types
   selections: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string,

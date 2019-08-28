@@ -44,7 +44,7 @@ class JobSubmissionPage extends Component {
 
 JobSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  error: PropTypes.instanceOf(Map),
 };
 
 const stateToProps = state => ({

@@ -189,7 +189,6 @@ class ExceptionsTable extends Component {
 }
 
 ExceptionsTable.propTypes = {
-  /* eslint-disable react/no-unused-prop-types */
   exceptions: PropTypes.arrayOf(
     PropTypes.shape({
       collection: PropTypes.string,
@@ -198,7 +197,6 @@ ExceptionsTable.propTypes = {
     })
   ).isRequired,
   loading: PropTypes.bool.isRequired,
-  /* eslint-disable react/no-unused-prop-types */
 };
 
 export default ExceptionsTable;

@@ -107,7 +107,7 @@ CitationSummaryTable.propTypes = {
   renderNumberOfCiteablePapers: PropTypes.func,
   renderNumberOfPublishedPapers: PropTypes.func,
   loading: PropTypes.bool.isRequired,
-  error: ErrorPropType, // eslint-disable-line react/require-default-props
+  error: ErrorPropType,
 };
 
 CitationSummaryTable.defaultProps = {

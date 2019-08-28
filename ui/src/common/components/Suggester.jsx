@@ -82,7 +82,6 @@ class Suggester extends Component {
 Suggester.propTypes = {
   pidType: PropTypes.string.isRequired,
   suggesterName: PropTypes.string.isRequired,
-  // eslint-disable-next-line react/require-default-props, default extractItemCompletionValue
   renderResultItem: PropTypes.func,
   extractItemCompletionValue: PropTypes.func,
 };

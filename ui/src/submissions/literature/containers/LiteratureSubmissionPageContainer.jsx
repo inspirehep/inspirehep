@@ -125,8 +125,8 @@ class LiteratureSubmissionPage extends Component {
 
 LiteratureSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
-  importedFormData: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  error: PropTypes.instanceOf(Map),
+  importedFormData: PropTypes.instanceOf(Map),
 };
 
 const stateToProps = state => ({

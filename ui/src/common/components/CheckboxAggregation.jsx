@@ -129,7 +129,6 @@ CheckboxAggregation.propTypes = {
   buckets: PropTypes.instanceOf(Immutable.List).isRequired,
   name: PropTypes.string.isRequired,
   splitDisplayName: PropTypes.bool,
-  // eslint-disable-next-line react/no-unused-prop-types
   selections: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string,

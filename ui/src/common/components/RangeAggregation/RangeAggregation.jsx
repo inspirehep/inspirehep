@@ -297,7 +297,6 @@ RangeAggregation.propTypes = {
   height: PropTypes.number,
   hoverColor: PropTypes.string,
   name: PropTypes.string.isRequired,
-  /* eslint-disable react/no-unused-prop-types */
   selections: PropTypes.string,
   selectedColor: PropTypes.string,
   deselectedColor: PropTypes.string,
@@ -306,7 +305,6 @@ RangeAggregation.propTypes = {
   countPropName: PropTypes.string,
   minRangeSize: PropTypes.number,
   maximumMax: PropTypes.number,
-  /* eslint-disable react/no-unused-prop-types */
 };
 
 RangeAggregation.defaultProps = {

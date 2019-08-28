@@ -91,7 +91,7 @@ DataImporter.propTypes = {
   onSkipClick: PropTypes.func.isRequired,
   onImportClick: PropTypes.func.isRequired,
   isImporting: PropTypes.bool.isRequired,
-  error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  error: PropTypes.instanceOf(Map),
 };
 
 export default DataImporter;

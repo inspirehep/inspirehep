@@ -167,7 +167,7 @@ class CitationsByYearGraph extends Component {
 }
 
 CitationsByYearGraph.propTypes = {
-  citationsByYear: PropTypes.objectOf(PropTypes.number).isRequired, // eslint-disable-line react/no-unused-prop-types
+  citationsByYear: PropTypes.objectOf(PropTypes.number).isRequired,
   loading: PropTypes.bool,
   error: ErrorPropType,
 };

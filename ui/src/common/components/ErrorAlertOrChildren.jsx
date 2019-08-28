@@ -18,8 +18,8 @@ class ErrorAlertOrChildren extends Component {
 }
 
 ErrorAlertOrChildren.propTypes = {
-  error: ErrorPropType, // eslint-disable-line react/require-default-props
-  children: PropTypes.node, // eslint-disable-line react/require-default-props
+  error: ErrorPropType,
+  children: PropTypes.node,
 };
 
 export default ErrorAlertOrChildren;

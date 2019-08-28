@@ -1,5 +1,3 @@
-/* eslint-disable react/prop-types */
-
 import React, { Component } from 'react';
 import { Form } from 'antd';
 import { getIn } from 'formik';

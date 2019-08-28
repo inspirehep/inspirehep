@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style, consistent-return, no-param-reassign */
 import { LOCATION_CHANGE } from 'connected-react-router';
 import { parse } from 'qs';
 
