@@ -77,7 +77,7 @@ class ArrayOf extends Component {
 
 ArrayOf.propTypes = {
   label: PropTypes.string,
-  labelCol: PropTypes.objectOf(PropTypes.any),
+  labelCol: PropTypes.object,
   extractKey: PropTypes.func,
   renderItem: PropTypes.func.isRequired, // func(itemName)
   emptyItem: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),

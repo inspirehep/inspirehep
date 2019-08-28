@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { DatePicker } from 'antd';
 import moment from 'moment';

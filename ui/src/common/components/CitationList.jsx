@@ -71,7 +71,7 @@ class CitationList extends Component {
 CitationList.propTypes = {
   total: PropTypes.number.isRequired,
   citations: PropTypes.instanceOf(List).isRequired,
-  error: ErrorPropType, // eslint-disable-line react/require-default-props
+  error: ErrorPropType,
   loading: PropTypes.bool.isRequired,
   onPageDisplay: PropTypes.func.isRequired,
 };

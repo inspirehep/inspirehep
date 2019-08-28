@@ -49,7 +49,7 @@ class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
-  value: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+  value: PropTypes.string,
   placeholder: PropTypes.string,
   onSearch: PropTypes.func,
 };

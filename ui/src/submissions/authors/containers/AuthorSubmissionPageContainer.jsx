@@ -58,7 +58,7 @@ class AuthorSubmissionPage extends Component {
 
 AuthorSubmissionPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  error: PropTypes.instanceOf(Map),
   query: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 

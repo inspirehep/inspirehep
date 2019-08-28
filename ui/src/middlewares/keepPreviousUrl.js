@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import { LOCATION_CHANGE } from 'connected-react-router';
 
 let previousUrl = '';

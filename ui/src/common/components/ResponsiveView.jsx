@@ -32,7 +32,6 @@ function ResponsiveView(props) {
   return <Media query={query} render={render} />;
 }
 
-/* eslint-disable react/require-default-props */
 ResponsiveView.propTypes = {
   min: PropTypes.oneOf(['sm', 'md', 'lg', 'xl', 'xxl']),
   max: PropTypes.oneOf(['xs', 'sm', 'md', 'lg', 'xl']),

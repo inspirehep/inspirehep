@@ -90,11 +90,11 @@ class JobUpdateSubmissionPage extends Component {
 }
 
 JobUpdateSubmissionPage.propTypes = {
-  match: PropTypes.objectOf(PropTypes.any).isRequired, // eslint-disable-line react/no-unused-prop-types
+  match: PropTypes.objectOf(PropTypes.any).isRequired,
   dispatch: PropTypes.func.isRequired,
-  error: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
-  updateFormData: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
-  updateFormDataError: PropTypes.instanceOf(Map), // eslint-disable-line react/require-default-props
+  error: PropTypes.instanceOf(Map),
+  updateFormData: PropTypes.instanceOf(Map),
+  updateFormDataError: PropTypes.instanceOf(Map),
   loadingUpdateFormData: PropTypes.bool.isRequired,
 };
 

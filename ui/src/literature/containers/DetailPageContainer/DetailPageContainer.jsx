@@ -218,7 +218,7 @@ DetailPage.propTypes = {
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
   references: PropTypes.instanceOf(List).isRequired,
-  errorReferences: ErrorPropType, // eslint-disable-line react/require-default-props
+  errorReferences: ErrorPropType,
   authors: PropTypes.instanceOf(List).isRequired,
   loadingReferences: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,

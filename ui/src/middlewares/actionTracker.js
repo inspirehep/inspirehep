@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import { Set } from 'immutable';
 
 import { USER_LOGIN_SUCCESS } from '../actions/actionTypes';

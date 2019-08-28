@@ -8,7 +8,6 @@ export const convertAllImmutablePropsToJS = WrappedComponent => wrappedComponent
   const propsAsJS = Object.keys(wrappedComponentProps).reduce(
     (newProps, key) => {
       const value = wrappedComponentProps[key];
-      // eslint-disable-next-line no-param-reassign
       newProps[key] = Iterable.isIterable(value) ? value.toJS() : value;
       return newProps;
     },

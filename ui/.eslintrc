@@ -51,6 +51,27 @@
           "**/*.test.jsx?"
         ]
       }
+    ],
+    "import/prefer-default-export": "off",
+    "react/no-unused-prop-types": "off",
+    "react/require-default-props": "off",
+    "react/forbid-prop-types": [
+      "error",
+      {
+        "forbid": [
+          "any"
+        ]
+      }
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/middlewares/*.js"
+      ],
+      "rules": {
+        "arrow-body-style": "off"
+      }
+    }
+  ]
 }
