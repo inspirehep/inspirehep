@@ -4,8 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
-
+import datetime
 import uuid
 
 import pytest
@@ -169,3 +168,31 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es
 
     with pytest.raises(AttributeError):
         record.citation_count
+
+
+def test_get_jobs_by_deadline_gets_open_expired_job(base_app, db, es_clear, create_record):
+    deadline = datetime.date(2019, 9, 27)
+    data = faker.record("job")
+    data['deadline_date'] = deadline.isoformat()
+    data['status'] = 'open'
+    expected_result = create_record("job", data=data)
+
+    results = JobsRecord.get_jobs_by_deadline(deadline)
+    assert len(results) == 1
+
+    result = results[0]
+    del result['_created']
+    del result['_updated']
+
+    assert result == expected_result
+
+
+def test_get_jobs_by_deadline_doesnt_get_pending_expired_job(base_app, db, es_clear, create_record):
+    deadline = datetime.date(2019, 9, 27)
+    data = faker.record("job")
+    data['deadline_date'] = deadline.isoformat()
+    data['status'] = 'pending'
+    create_record("job", data=data)
+
+    results = JobsRecord.get_jobs_by_deadline(deadline)
+    assert not results

@@ -37,7 +37,7 @@ def mock_job_create_and_update_time(date, data=None):
 
 
 @pytest.fixture(scope="function")
-def create_jobs(base_app, db, es_clear, shared_datadir):
+def create_jobs(base_app, db, es_clear, shared_datadir, create_record):
     now_utc = datetime.datetime.utcnow()
 
     data = json.loads((shared_datadir / "1444586.json").read_text())
@@ -59,5 +59,11 @@ def create_jobs(base_app, db, es_clear, shared_datadir):
     job_8_days_old = mock_job_create_and_update_time(
         now_utc - datetime.timedelta(days=8), data=data
     )
+
+    job_30_days_old = json.loads((shared_datadir / "1735925.json").read_text())
+    create_record("job", data=job_30_days_old)
+
+    job_60_days_old = json.loads((shared_datadir / "1745106.json").read_text())
+    create_record("job", data=job_60_days_old)
 
     es_clear.indices.refresh("records-jobs")
