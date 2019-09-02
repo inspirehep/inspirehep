@@ -84,6 +84,21 @@ def test_load_field_of_interest():
     assert loaded_data == expected_data
 
 
+def test_load_field_of_interest_skips_other_option():
+    data_to_load = {
+        **DEFAULT_DATA_DUMP,
+        "field_of_interest": ["cond-mat.dis-nn", "nlin.SI", "other"],
+    }
+
+    loaded_data = Job().load(data_to_load).data
+
+    expected_data = {
+        **DEFAULT_EXPECTED_DATA_AFTER_LOAD,
+        "arxiv_categories": ["cond-mat.dis-nn", "nlin.SI"],
+    }
+    assert loaded_data == expected_data
+
+
 def test_dump_experiments():
     data_to_load = {
         **DEFAULT_DATA_TO_DUMP,

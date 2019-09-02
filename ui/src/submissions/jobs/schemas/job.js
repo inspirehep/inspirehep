@@ -1,11 +1,8 @@
 import { string, object, array, date } from 'yup';
 import moment from 'moment';
 
-import { regionValues, statusValues } from './constants';
-import {
-  arxivCategoryValues,
-  rankValues,
-} from '../../common/schemas/constants';
+import { regionValues, statusValues, fieldOfInterestValues } from './constants';
+import { rankValues } from '../../common/schemas/constants';
 import arrayWithEmptyObjectDefault from '../../common/schemas/arrayWithEmptyObjectDefault';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import arrayWithNullDefault from '../../common/schemas/arrayWithNullDefault';
@@ -37,7 +34,7 @@ const jobSchema = object().shape({
     .required()
     .label('Rank'),
   field_of_interest: array()
-    .of(string().oneOf(arxivCategoryValues))
+    .of(string().oneOf(fieldOfInterestValues))
     .required()
     .label('Field of Interest'),
   institutions: arrayWithEmptyObjectDefault
