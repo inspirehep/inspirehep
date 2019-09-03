@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
-# Copyright (C) 2014-2017 CERN.
+# Copyright (C) 2014-2019 CERN.
 #
 # INSPIRE is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,11 +21,14 @@
 # or submit itself to any jurisdiction.
 
 """Disambiguation module."""
+import logging
 
-from __future__ import absolute_import, division, print_function
+from .app import BeardConfig  # noqa: F401
 
-from invenio_base.app import create_cli
-from .ext import InspireDisambiguation  # noqa: F401
-from .factory import create_app
+conf = BeardConfig()
 
-cli = create_cli(create_app=create_app)
+root = logging.getLogger()
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=conf["LOG_LEVEL"]
+)

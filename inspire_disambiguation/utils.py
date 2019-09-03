@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # This file is part of INSPIRE.
-# Copyright (C) 2014-2017 CERN.
+# Copyright (C) 2014-2019 CERN.
 #
 # INSPIRE is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,16 +21,23 @@
 # or submit itself to any jurisdiction.
 
 """Disambiguation utils."""
-
-from __future__ import absolute_import, division, print_function
-
 import os
 from contextlib import contextmanager
 
 
 @contextmanager
-def open_file_in_folder(filename, mode='r', buffering=-1):
-    """Open a file in a folder, creating the folder if it does not exist."""
+def open_file_in_folder(filename, mode="r", buffering=-1):
+    """Open a file in a folder, creating the folder if it does not exist.
+
+    Args:
+        filename (str): Path to open
+        mode (str): Mode in which file will be opened.
+        buffering (int): Buffering option passed to `open` function.
+
+    Returns:
+        file object: File descriptor to opened file.
+
+    """
     try:
         os.makedirs(os.path.dirname(filename))
     except OSError:

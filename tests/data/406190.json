@@ -1,0 +1,38 @@
+{
+  "keywords": [
+    {
+      "value": "book"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Theory-HEP"
+    },
+    {
+      "term": "General Physics"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "Author not curated"
+    }
+  ],
+  "control_number": 406190,
+  "titles": [
+    {
+      "title": "The Quantum theory of fields. Vol. 1: Foundations"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Weinberg, Steven",
+      "affiliations": [
+        {
+          "value": "Texas U."
+        }
+      ],
+      "signature_block": "WANBARGs",
+      "uuid": "5e550ded-e955-4a22-b906-8af5aaa9f1e2"
+    }
+  ]
+}
