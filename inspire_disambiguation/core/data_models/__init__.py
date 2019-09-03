@@ -20,4 +20,6 @@
 # granted to it by virtue of its status as an Intergovernmental Organization
 # or submit itself to any jurisdiction.
 
-"""Disambiguation core."""
+
+from inspire_disambiguation.core.data_models.publication import PublicationCache  # noqa: F401,E501
+from inspire_disambiguation.core.data_models.signature import Signature  # noqa: F401

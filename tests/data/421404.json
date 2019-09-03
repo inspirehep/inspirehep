@@ -1,0 +1,41 @@
+{
+  "keywords": [
+    {
+      "value": "thesis"
+    },
+    {
+      "value": "string model"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Theory-HEP"
+    }
+  ],
+  "abstracts": [
+    {
+      "value": "Author curated no recid"
+    }
+  ],
+  "control_number": 421404,
+  "titles": [
+    {
+      "title": "Black holes in string theory"
+    }
+  ],
+  "authors": [
+    {
+      "full_name": "Seiberg, Nana.",
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/989443"
+      },
+      "affiliations": [
+        {
+          "value": "Rutgers U., Piscataway"
+        }
+      ],
+      "signature_block": "SABARGn",
+      "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"
+    }
+  ]
+}
