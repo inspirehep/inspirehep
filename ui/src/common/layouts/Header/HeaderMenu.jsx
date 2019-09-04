@@ -22,20 +22,18 @@ class HeaderMenu extends Component {
         mode="horizontal"
         selectable={false}
       >
-        <Menu.SubMenu title="Submit">
+        <Menu.SubMenu key="submit" title="Submit">
           <Menu.Item key="submit.author">
             <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
           </Menu.Item>
-          {isUserCataloger && (
-            <Menu.Item key="submit.job">
-              <Link to={SUBMISSIONS_JOB}>Job</Link>
-            </Menu.Item>
-          )}
+          <Menu.Item key="submit.job">
+            <Link to={SUBMISSIONS_JOB}>Job</Link>
+          </Menu.Item>
           <Menu.Item key="submit.literature">
             <ExternalLink href="/literature/new">Literature</ExternalLink>
           </Menu.Item>
         </Menu.SubMenu>
-        <Menu.SubMenu title="Tools">
+        <Menu.SubMenu key="tools" title="Tools">
           {isUserCataloger && (
             <Menu.Item key="tools.holdingpen">
               <ExternalLink href="/holdingpen">Holdingpen</ExternalLink>
@@ -57,8 +55,10 @@ class HeaderMenu extends Component {
             </ExternalLink>
           </Menu.Item>
         </Menu.SubMenu>
-        <Menu.Item title="Help">
-          <ExternalLink href="//labs.inspirehep.net/help/knowledge-base/">Help</ExternalLink>
+        <Menu.Item key="help" title="Help">
+          <ExternalLink href="//labs.inspirehep.net/help/knowledge-base/">
+            Help
+          </ExternalLink>
         </Menu.Item>
         <Menu.Item key="login-logout">
           {loggedIn ? (
