@@ -12,6 +12,7 @@ import {
 
 import Loading from '../common/components/Loading';
 import SafeSwitch from '../common/components/SafeSwitch';
+import DocumentHead from '../common/components/DocumentHead';
 
 const AuthorSubmissionPage$ = Loadable({
   loader: () => import('./authors/containers/AuthorSubmissionPageContainer'),
@@ -53,47 +54,54 @@ const JobUpdateSubmissionSuccessPage$ = Loadable({
 class Submissions extends Component {
   render() {
     return (
-      <div className="w-100">
-        <SafeSwitch>
-          <Redirect exact from={SUBMISSIONS} to={SUBMISSIONS_AUTHOR} />
-          <Route
-            exact
-            path={SUBMISSIONS_AUTHOR}
-            component={AuthorSubmissionPage$}
-          />
-          <Route
-            exact
-            path={`${SUBMISSIONS_AUTHOR}/:id`}
-            component={AuthorUpdateSubmissionPage$}
-          />
-          <Redirect
-            exact
-            from={`${SUBMISSIONS_AUTHOR}/:id/success`}
-            to={SUBMISSION_SUCCESS}
-          />
-          <Route
-            exact
-            path={SUBMISSIONS_LITERATURE}
-            component={LiteratureSubmissionPage$}
-          />
-          <Route exact path={SUBMISSIONS_JOB} component={JobSubmissionPage$} />
-          <Route
-            exact
-            path={`${SUBMISSIONS_JOB}/:id`}
-            component={JobUpdateSubmissionPage$}
-          />
-          <Route
-            exact
-            path={`${SUBMISSIONS_JOB}/:id/success`}
-            component={JobUpdateSubmissionSuccessPage$}
-          />
-          <Route
-            exact
-            path={SUBMISSION_SUCCESS}
-            component={SubmissionSuccessPage$}
-          />
-        </SafeSwitch>
-      </div>
+      <>
+        <DocumentHead title="Submit" />
+        <div className="w-100">
+          <SafeSwitch>
+            <Redirect exact from={SUBMISSIONS} to={SUBMISSIONS_AUTHOR} />
+            <Route
+              exact
+              path={SUBMISSIONS_AUTHOR}
+              component={AuthorSubmissionPage$}
+            />
+            <Route
+              exact
+              path={`${SUBMISSIONS_AUTHOR}/:id`}
+              component={AuthorUpdateSubmissionPage$}
+            />
+            <Redirect
+              exact
+              from={`${SUBMISSIONS_AUTHOR}/:id/success`}
+              to={SUBMISSION_SUCCESS}
+            />
+            <Route
+              exact
+              path={SUBMISSIONS_LITERATURE}
+              component={LiteratureSubmissionPage$}
+            />
+            <Route
+              exact
+              path={SUBMISSIONS_JOB}
+              component={JobSubmissionPage$}
+            />
+            <Route
+              exact
+              path={`${SUBMISSIONS_JOB}/:id`}
+              component={JobUpdateSubmissionPage$}
+            />
+            <Route
+              exact
+              path={`${SUBMISSIONS_JOB}/:id/success`}
+              component={JobUpdateSubmissionSuccessPage$}
+            />
+            <Route
+              exact
+              path={SUBMISSION_SUCCESS}
+              component={SubmissionSuccessPage$}
+            />
+          </SafeSwitch>
+        </div>
+      </>
     );
   }
 }

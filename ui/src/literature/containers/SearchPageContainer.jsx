@@ -12,6 +12,7 @@ import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
 import LiteratureItem from '../components/LiteratureItem';
+import DocumentHead from '../../common/components/DocumentHead';
 
 class SearchPage extends Component {
   static renderLiteratureItem(result, rank) {
@@ -32,45 +33,48 @@ class SearchPage extends Component {
   render() {
     const { loading } = this.props;
     return (
-      <Row className="mt3" gutter={32} type="flex" justify="start">
-        <Col xs={0} lg={8} xl={7} xxl={5}>
-          <ResponsiveView min="lg" render={() => this.renderAggregations()} />
-        </Col>
-        <Col xs={24} lg={16} xl={16} xxl={14}>
-          <LoadingOrChildren loading={loading}>
-            <Row type="flex" align="middle" justify="end">
-              <Col xs={24} lg={12}>
-                <NumberOfResultsContainer />
-              </Col>
-              <Col xs={12} lg={0}>
-                <ResponsiveView
-                  max="md"
-                  render={() => (
-                    <DrawerHandle
-                      className="mt2"
-                      handleText="Filter"
-                      drawerTitle="Filter"
-                    >
-                      {this.renderAggregations()}
-                    </DrawerHandle>
-                  )}
-                />
-              </Col>
-              <Col className="tr" span={12}>
-                <SortByContainer />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <ResultsContainer
-                  renderItem={SearchPage.renderLiteratureItem}
-                />
-                <PaginationContainer />
-              </Col>
-            </Row>
-          </LoadingOrChildren>
-        </Col>
-      </Row>
+      <>
+        <DocumentHead title="Literature Search" />
+        <Row className="mt3" gutter={32} type="flex" justify="start">
+          <Col xs={0} lg={8} xl={7} xxl={5}>
+            <ResponsiveView min="lg" render={() => this.renderAggregations()} />
+          </Col>
+          <Col xs={24} lg={16} xl={16} xxl={14}>
+            <LoadingOrChildren loading={loading}>
+              <Row type="flex" align="middle" justify="end">
+                <Col xs={24} lg={12}>
+                  <NumberOfResultsContainer />
+                </Col>
+                <Col xs={12} lg={0}>
+                  <ResponsiveView
+                    max="md"
+                    render={() => (
+                      <DrawerHandle
+                        className="mt2"
+                        handleText="Filter"
+                        drawerTitle="Filter"
+                      >
+                        {this.renderAggregations()}
+                      </DrawerHandle>
+                    )}
+                  />
+                </Col>
+                <Col className="tr" span={12}>
+                  <SortByContainer />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <ResultsContainer
+                    renderItem={SearchPage.renderLiteratureItem}
+                  />
+                  <PaginationContainer />
+                </Col>
+              </Row>
+            </LoadingOrChildren>
+          </Col>
+        </Row>
+      </>
     );
   }
 }

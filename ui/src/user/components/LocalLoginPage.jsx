@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Card, Button, Input } from 'antd';
 import { Field, Form, Formik } from 'formik';
+import DocumentHead from '../../common/components/DocumentHead';
 
 class LocalLoginPage extends Component {
   static renderFormInput({ field, form, ...props }) {
@@ -44,15 +45,18 @@ class LocalLoginPage extends Component {
   render() {
     const { onLoginFormSubmit } = this.props;
     return (
-      <Row className="h-100" type="flex" justify="center" align="middle">
-        <Card align="middle">
-          <p>This login page is included only for dev and test environment</p>
-          <Formik
-            onSubmit={onLoginFormSubmit}
-            render={LocalLoginPage.renderLoginForm}
-          />
-        </Card>
-      </Row>
+      <>
+        <DocumentHead title="Login" />
+        <Row className="h-100" type="flex" justify="center" align="middle">
+          <Card align="middle">
+            <p>This login page is included only for dev and test environment</p>
+            <Formik
+              onSubmit={onLoginFormSubmit}
+              render={LocalLoginPage.renderLoginForm}
+            />
+          </Card>
+        </Row>
+      </>
     );
   }
 }

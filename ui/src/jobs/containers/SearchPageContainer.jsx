@@ -15,6 +15,7 @@ import JobItem from '../components/JobItem';
 import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER } from '../../common/authorization';
+import DocumentHead from '../../common/components/DocumentHead';
 
 class SearchPage extends Component {
   static renderJobResultItem(result) {
@@ -69,47 +70,53 @@ class SearchPage extends Component {
   render() {
     const { loading } = this.props;
     return (
-      <div>
-        <Row className="bg-white mb3" type="flex" justify="center">
-          <Col xs={0} lg={16} xl={16} xxl={14}>
-            <ResponsiveView min="lg" render={this.renderAggregations} />
-          </Col>
-        </Row>
-        <Row type="flex" justify="center">
-          <Col xs={24} lg={16} xl={16} xxl={14}>
-            <LoadingOrChildren loading={loading}>
-              <Row type="flex" align="middle" justify="end">
-                <Col xs={12} lg={12}>
-                  <NumberOfResultsContainer />
-                </Col>
-                <Col className="tr" xs={12} lg={0}>
-                  <ResponsiveView
-                    max="md"
-                    render={SearchPage.renderSubscribeJobsModalButton}
-                  />
-                </Col>
-                <Col xs={12} lg={0}>
-                  <ResponsiveView
-                    max="md"
-                    render={this.renderAggregationsDrawer}
-                  />
-                </Col>
-                <Col className="tr" span={12}>
-                  <SortByContainer />
-                </Col>
-              </Row>
-              <Row>
-                <Col span={24}>
-                  <ResultsContainer
-                    renderItem={SearchPage.renderJobResultItem}
-                  />
-                  <PaginationContainer />
-                </Col>
-              </Row>
-            </LoadingOrChildren>
-          </Col>
-        </Row>
-      </div>
+      <>
+        <DocumentHead
+          title="Jobs Search"
+          description="Jobs in High-Energy Physics. A listing of academic and research jobs of interest to the community in high energy physics, nuclear physics, accelerator physics and astrophysics."
+        />
+        <div>
+          <Row className="bg-white mb3" type="flex" justify="center">
+            <Col xs={0} lg={16} xl={16} xxl={14}>
+              <ResponsiveView min="lg" render={this.renderAggregations} />
+            </Col>
+          </Row>
+          <Row type="flex" justify="center">
+            <Col xs={24} lg={16} xl={16} xxl={14}>
+              <LoadingOrChildren loading={loading}>
+                <Row type="flex" align="middle" justify="end">
+                  <Col xs={12} lg={12}>
+                    <NumberOfResultsContainer />
+                  </Col>
+                  <Col className="tr" xs={12} lg={0}>
+                    <ResponsiveView
+                      max="md"
+                      render={SearchPage.renderSubscribeJobsModalButton}
+                    />
+                  </Col>
+                  <Col xs={12} lg={0}>
+                    <ResponsiveView
+                      max="md"
+                      render={this.renderAggregationsDrawer}
+                    />
+                  </Col>
+                  <Col className="tr" span={12}>
+                    <SortByContainer />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col span={24}>
+                    <ResultsContainer
+                      renderItem={SearchPage.renderJobResultItem}
+                    />
+                    <PaginationContainer />
+                  </Col>
+                </Row>
+              </LoadingOrChildren>
+            </Col>
+          </Row>
+        </div>
+      </>
     );
   }
 }
