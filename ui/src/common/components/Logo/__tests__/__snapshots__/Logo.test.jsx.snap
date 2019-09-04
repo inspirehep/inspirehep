@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo renders 1`] = `
+<Link
+  className="__Logo__"
+  replace={false}
+  to="/"
+>
+  <ReactComponent
+    className="logo"
+  />
+</Link>
+`;
