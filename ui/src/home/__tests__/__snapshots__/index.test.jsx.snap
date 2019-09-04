@@ -1,56 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home renders home page 1`] = `
-<Row
-  align="middle"
-  className="__Home__"
-  gutter={0}
-  justify="center"
-  type="flex"
->
-  <Col
-    sm={18}
-    xs={24}
+<Fragment>
+  <DocumentHead
+    title="Home"
+  />
+  <Row
+    align="middle"
+    className="__Home__"
+    gutter={0}
+    justify="center"
+    type="flex"
   >
-    <Row
-      className="pt4"
-      gutter={0}
+    <Col
+      sm={18}
+      xs={24}
     >
-      <Col>
-        <h2
-          className="f2 tc sm-f4"
-        >
-          Discover High-Energy Physics content
-        </h2>
-        <h3
-          className="f3 tc mb5 sm-f5"
-        >
-          INSPIRE beta provides a sneak preview of new features currently under development.
-        </h3>
-      </Col>
-    </Row>
-    <Row
-      gutter={0}
-    >
-      <Col>
-        <Connect(SearchBox) />
-      </Col>
-    </Row>
-    <Row
-      className="mt4"
-      gutter={0}
-      justify="center"
-      type="flex"
-    >
-      <Col
-        lg={12}
-        md={14}
-        sm={18}
-        xs={24}
+      <Row
+        className="pt4"
+        gutter={0}
       >
-        <HowToSearch />
-      </Col>
-    </Row>
-  </Col>
-</Row>
+        <Col>
+          <h2
+            className="f2 tc sm-f4"
+          >
+            Discover High-Energy Physics content
+          </h2>
+          <h3
+            className="f3 tc mb5 sm-f5"
+          >
+            INSPIRE beta provides a sneak preview of new features currently under development.
+          </h3>
+        </Col>
+      </Row>
+      <Row
+        gutter={0}
+      >
+        <Col>
+          <Connect(SearchBox) />
+        </Col>
+      </Row>
+      <Row
+        className="mt4"
+        gutter={0}
+        justify="center"
+        type="flex"
+      >
+        <Col
+          lg={12}
+          md={14}
+          sm={18}
+          xs={24}
+        >
+          <HowToSearch />
+        </Col>
+      </Row>
+    </Col>
+  </Row>
+</Fragment>
 `;

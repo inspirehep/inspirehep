@@ -18,7 +18,8 @@
     "test:unit:log": "craco test --verbose=false",
     "test:size": "bundlesize",
     "eject": "react-scripts eject",
-    "lint": "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
+    "lint":
+      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
   },
   "dependencies": {
     "@babel/runtime": "7.0.0-beta.55",
@@ -48,6 +49,7 @@
     "react": "^16.8.3",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.3",
+    "react-helmet": "^5.2.1",
     "react-latex-next": "^1.1.0",
     "react-loadable": "^5.4.0",
     "react-media": "^1.9.2",
@@ -86,10 +88,5 @@
     "redux-mock-store": "^1.5.1",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }

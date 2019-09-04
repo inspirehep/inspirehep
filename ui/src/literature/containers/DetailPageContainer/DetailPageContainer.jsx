@@ -34,6 +34,7 @@ import { ErrorPropType } from '../../../common/propTypes';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import PublicNotesList from '../../components/PublicNotesList';
+import DocumentHead from '../../../common/components/DocumentHead';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -105,110 +106,119 @@ class DetailPage extends Component {
     const canEdit = metadata.get('can_edit', false);
 
     return (
-      <Row className="__DetailPage__" type="flex" justify="center">
-        <Col className="mv3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-          <ContentBox
-            loading={loading}
-            leftActions={
-              <Fragment>
-                {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
-                <CiteModalActionContainer recordId={recordId} />
-                {canEdit && (
-                  <EditRecordAction pidType="literature" pidValue={recordId} />
-                )}
-              </Fragment>
-            }
-          >
-            <h2>
-              <LiteratureTitle title={title} />
-            </h2>
-            <div>
-              <AuthorsAndCollaborations
-                authorCount={authorCount}
-                authors={authors}
-                enableAuthorsShowAll
-                collaborations={collaborations}
-                collaborationsWithSuffix={collaborationsWithSuffix}
-              />
-            </div>
-            <LiteratureDate date={date} />
-            <div className="mt3">
-              <NumberOfPages numberOfPages={numberOfPages} />
-              <ThesisInfo thesisInfo={thesisInfo} />
-              <PublicationInfoList publicationInfo={publicationInfo} />
-              <ConferenceInfoList conferenceInfo={conferenceInfo} />
-              <IsbnList isbns={isbns} />
-              <ArxivEprintList eprints={eprints} />
-              <DOIList dois={dois} />
-              <ReportNumberList reportNumbers={reportNumbers} />
-              <AcceleratorExperimentList
-                acceleratorExperiments={acceleratorExperiments}
-              />
-              <ExternalSystemIdentifierList
-                externalSystemIdentifiers={externalSystemIdentifiers}
-              />
-            </div>
-            <Row>
-              <div className="mt3">
-                <Abstract abstract={abstract} />
+      <>
+        <DocumentHead title={title} />
+        <Row className="__DetailPage__" type="flex" justify="center">
+          <Col className="mv3" xs={24} md={21} lg={16} xl={15} xxl={14}>
+            <ContentBox
+              loading={loading}
+              leftActions={
+                <Fragment>
+                  {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
+                  <CiteModalActionContainer recordId={recordId} />
+                  {canEdit && (
+                    <EditRecordAction
+                      pidType="literature"
+                      pidValue={recordId}
+                    />
+                  )}
+                </Fragment>
+              }
+            >
+              <h2>
+                <LiteratureTitle title={title} />
+              </h2>
+              <div>
+                <AuthorsAndCollaborations
+                  authorCount={authorCount}
+                  authors={authors}
+                  enableAuthorsShowAll
+                  collaborations={collaborations}
+                  collaborationsWithSuffix={collaborationsWithSuffix}
+                />
               </div>
-            </Row>
-            {publicNotes && (
+              <LiteratureDate date={date} />
+              <div className="mt3">
+                <NumberOfPages numberOfPages={numberOfPages} />
+                <ThesisInfo thesisInfo={thesisInfo} />
+                <PublicationInfoList publicationInfo={publicationInfo} />
+                <ConferenceInfoList conferenceInfo={conferenceInfo} />
+                <IsbnList isbns={isbns} />
+                <ArxivEprintList eprints={eprints} />
+                <DOIList dois={dois} />
+                <ReportNumberList reportNumbers={reportNumbers} />
+                <AcceleratorExperimentList
+                  acceleratorExperiments={acceleratorExperiments}
+                />
+                <ExternalSystemIdentifierList
+                  externalSystemIdentifiers={externalSystemIdentifiers}
+                />
+              </div>
               <Row>
                 <div className="mt3">
-                  <PublicNotesList publicNotes={publicNotes} />
+                  <Abstract abstract={abstract} />
                 </div>
               </Row>
-            )}
-            <Row>
-              <div className="mt3">
-                <LiteratureKeywordList keywords={keywords} />
-              </div>
-            </Row>
-          </ContentBox>
-        </Col>
-        <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-          <Tabs
-            type="card"
-            tabBarStyle={{ marginBottom: 0 }}
-            className="remove-top-border-of-card-children"
-          >
-            <Tabs.TabPane
-              tab={
-                <TabNameWithCount
-                  name="References"
-                  count={numberOfReferences}
-                />
-              }
-              key="1"
+              {publicNotes && (
+                <Row>
+                  <div className="mt3">
+                    <PublicNotesList publicNotes={publicNotes} />
+                  </div>
+                </Row>
+              )}
+              <Row>
+                <div className="mt3">
+                  <LiteratureKeywordList keywords={keywords} />
+                </div>
+              </Row>
+            </ContentBox>
+          </Col>
+          <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
+            <Tabs
+              type="card"
+              tabBarStyle={{ marginBottom: 0 }}
+              className="remove-top-border-of-card-children"
             >
-              <ReferenceList
-                error={errorReferences}
-                references={references}
-                loading={loadingReferences}
-              />
-            </Tabs.TabPane>
-            <Tabs.TabPane
-              tab={
-                <TabNameWithCount
-                  name="Citations"
-                  loading={loadingCitations}
-                  count={citationCount}
+              <Tabs.TabPane
+                tab={
+                  <TabNameWithCount
+                    name="References"
+                    count={numberOfReferences}
+                  />
+                }
+                key="1"
+              >
+                <ReferenceList
+                  error={errorReferences}
+                  references={references}
+                  loading={loadingReferences}
                 />
-              }
-              key="2"
-              forceRender
-            >
-              <CitationListContainer pidType="literature" recordId={recordId} />
-            </Tabs.TabPane>
-            <Tabs.TabPane tab="Figures" key="3">
-              <ContentBox>
-                This feature is currently under development.
-              </ContentBox>
-            </Tabs.TabPane>
-          </Tabs>
-        </Col>
-      </Row>
+              </Tabs.TabPane>
+              <Tabs.TabPane
+                tab={
+                  <TabNameWithCount
+                    name="Citations"
+                    loading={loadingCitations}
+                    count={citationCount}
+                  />
+                }
+                key="2"
+                forceRender
+              >
+                <CitationListContainer
+                  pidType="literature"
+                  recordId={recordId}
+                />
+              </Tabs.TabPane>
+              <Tabs.TabPane tab="Figures" key="3">
+                <ContentBox>
+                  This feature is currently under development.
+                </ContentBox>
+              </Tabs.TabPane>
+            </Tabs>
+          </Col>
+        </Row>
+      </>
     );
   }
 }

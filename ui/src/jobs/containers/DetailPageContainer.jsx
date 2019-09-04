@@ -18,6 +18,7 @@ import DeadlineDate from '../components/DeadlineDate';
 import Contact from '../components/Contact';
 import ReferenceLettersContacts from '../components/ReferenceLettersContacts';
 import MoreInfo from '../components/MoreInfo';
+import DocumentHead from '../../common/components/DocumentHead';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -61,6 +62,7 @@ class DetailPage extends Component {
     const canEdit = metadata.get('can_edit', false);
     return (
       <>
+        <DocumentHead title={position} />
         <Row type="flex" justify="center">
           <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
             <ContentBox

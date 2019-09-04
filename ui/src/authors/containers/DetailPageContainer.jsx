@@ -33,6 +33,7 @@ import AuthorTwitterAction from '../components/AuthorTwitterAction';
 import AuthorLinkedinAction from '../components/AuthorLinkedinAction';
 import AuthorWebsitesAction from '../components/AuthorWebsitesAction';
 import AuthorOrcid from '../components/AuthorOrcid';
+import DocumentHead from '../../common/components/DocumentHead';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {
@@ -99,6 +100,7 @@ class DetailPage extends Component {
 
     return (
       <>
+        <DocumentHead title={name} />
         <Row className="mv3" type="flex" justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
             <Alert

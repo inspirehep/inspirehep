@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentHead renders with only title 1`] = `
+<HelmetWrapper
+  defer={true}
+  encodeSpecialCharacters={true}
+>
+  <title>
+    Jessica Jones
+     - INSPIRE
+  </title>
+</HelmetWrapper>
+`;
+
+exports[`DocumentHead renders with title and description 1`] = `
+<HelmetWrapper
+  defer={true}
+  encodeSpecialCharacters={true}
+>
+  <title>
+    Page Title
+     - INSPIRE
+  </title>
+  <meta
+    content="This is a test page"
+    name="description"
+  />
+</HelmetWrapper>
+`;

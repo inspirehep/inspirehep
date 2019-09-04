@@ -8,6 +8,7 @@ import PaginationContainer from '../../common/containers/PaginationContainer';
 import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
+import DocumentHead from '../../common/components/DocumentHead';
 
 class SearchPage extends Component {
   static renderAuthorItem(result) {
@@ -17,23 +18,26 @@ class SearchPage extends Component {
   render() {
     const { loading } = this.props;
     return (
-      <Row className="mt3" gutter={32} type="flex" justify="center">
-        <Col xs={24} lg={16} xl={16} xxl={14}>
-          <LoadingOrChildren loading={loading}>
-            <Row type="flex">
-              <Col>
-                <NumberOfResultsContainer />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <ResultsContainer renderItem={SearchPage.renderAuthorItem} />
-                <PaginationContainer />
-              </Col>
-            </Row>
-          </LoadingOrChildren>
-        </Col>
-      </Row>
+      <>
+        <DocumentHead title="Authors Search" />
+        <Row className="mt3" gutter={32} type="flex" justify="center">
+          <Col xs={24} lg={16} xl={16} xxl={14}>
+            <LoadingOrChildren loading={loading}>
+              <Row type="flex">
+                <Col>
+                  <NumberOfResultsContainer />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <ResultsContainer renderItem={SearchPage.renderAuthorItem} />
+                  <PaginationContainer />
+                </Col>
+              </Row>
+            </LoadingOrChildren>
+          </Col>
+        </Row>
+      </>
     );
   }
 }
