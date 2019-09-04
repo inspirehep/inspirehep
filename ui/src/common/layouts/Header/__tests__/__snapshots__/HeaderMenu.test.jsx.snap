@@ -53,6 +53,15 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
     </MenuItem>
   </SubMenu>
   <MenuItem
+    title="Help"
+  >
+    <ExternalLink
+      href="//labs.inspirehep.net/help/knowledge-base/"
+    >
+      Help
+    </ExternalLink>
+  </MenuItem>
+  <MenuItem
     key="login-logout"
   >
     <Link
@@ -117,6 +126,15 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
       </ExternalLink>
     </MenuItem>
   </SubMenu>
+  <MenuItem
+    title="Help"
+  >
+    <ExternalLink
+      href="//labs.inspirehep.net/help/knowledge-base/"
+    >
+      Help
+    </ExternalLink>
+  </MenuItem>
   <MenuItem
     key="login-logout"
   >
@@ -210,6 +228,15 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
       </ExternalLink>
     </MenuItem>
   </SubMenu>
+  <MenuItem
+    title="Help"
+  >
+    <ExternalLink
+      href="//labs.inspirehep.net/help/knowledge-base/"
+    >
+      Help
+    </ExternalLink>
+  </MenuItem>
   <MenuItem
     key="login-logout"
   >
