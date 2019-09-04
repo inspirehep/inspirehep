@@ -8,154 +8,7 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
   theme="dark"
 >
   <SubMenu
-    title="Submit"
-  >
-    <MenuItem
-      key="submit.author"
-    >
-      <Link
-        replace={false}
-        to="/submissions/authors"
-      >
-        Author
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.literature"
-    >
-      <ExternalLink
-        href="/literature/new"
-      >
-        Literature
-      </ExternalLink>
-    </MenuItem>
-  </SubMenu>
-  <SubMenu
-    title="Tools"
-  >
-    <MenuItem
-      key="tools.refextract"
-    >
-      <ExternalLink
-        href="//inspirehep.net/textmining/"
-      >
-        Reference extractor
-      </ExternalLink>
-    </MenuItem>
-    <MenuItem
-      key="tools.bibgen"
-    >
-      <ExternalLink
-        href="//inspirehep.net/info/hep/tools/bibliography_generate"
-      >
-        Bibliography generator
-      </ExternalLink>
-    </MenuItem>
-  </SubMenu>
-  <MenuItem
-    title="Help"
-  >
-    <ExternalLink
-      href="//labs.inspirehep.net/help/knowledge-base/"
-    >
-      Help
-    </ExternalLink>
-  </MenuItem>
-  <MenuItem
-    key="login-logout"
-  >
-    <Link
-      replace={false}
-      to="/user/login"
-    >
-      Login
-    </Link>
-  </MenuItem>
-</Menu>
-`;
-
-exports[`HeaderMenu does not show some tool links if logged in user is not superuser nor cataloger 1`] = `
-<Menu
-  className="__HeaderMenu__"
-  mode="horizontal"
-  selectable={false}
-  theme="dark"
->
-  <SubMenu
-    title="Submit"
-  >
-    <MenuItem
-      key="submit.author"
-    >
-      <Link
-        replace={false}
-        to="/submissions/authors"
-      >
-        Author
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.literature"
-    >
-      <ExternalLink
-        href="/literature/new"
-      >
-        Literature
-      </ExternalLink>
-    </MenuItem>
-  </SubMenu>
-  <SubMenu
-    title="Tools"
-  >
-    <MenuItem
-      key="tools.refextract"
-    >
-      <ExternalLink
-        href="//inspirehep.net/textmining/"
-      >
-        Reference extractor
-      </ExternalLink>
-    </MenuItem>
-    <MenuItem
-      key="tools.bibgen"
-    >
-      <ExternalLink
-        href="//inspirehep.net/info/hep/tools/bibliography_generate"
-      >
-        Bibliography generator
-      </ExternalLink>
-    </MenuItem>
-  </SubMenu>
-  <MenuItem
-    title="Help"
-  >
-    <ExternalLink
-      href="//labs.inspirehep.net/help/knowledge-base/"
-    >
-      Help
-    </ExternalLink>
-  </MenuItem>
-  <MenuItem
-    key="login-logout"
-  >
-    <LinkLikeButton
-      dataTestId="logout"
-      onClick={[MockFunction]}
-    >
-      Logout
-    </LinkLikeButton>
-  </MenuItem>
-</Menu>
-`;
-
-exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
-<Menu
-  className="__HeaderMenu__"
-  mode="horizontal"
-  selectable={false}
-  theme="dark"
->
-  <SubMenu
+    key="submit"
     title="Submit"
   >
     <MenuItem
@@ -189,6 +42,181 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
     </MenuItem>
   </SubMenu>
   <SubMenu
+    key="tools"
+    title="Tools"
+  >
+    <MenuItem
+      key="tools.refextract"
+    >
+      <ExternalLink
+        href="//inspirehep.net/textmining/"
+      >
+        Reference extractor
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="tools.bibgen"
+    >
+      <ExternalLink
+        href="//inspirehep.net/info/hep/tools/bibliography_generate"
+      >
+        Bibliography generator
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <MenuItem
+    key="help"
+    title="Help"
+  >
+    <ExternalLink
+      href="//labs.inspirehep.net/help/knowledge-base/"
+    >
+      Help
+    </ExternalLink>
+  </MenuItem>
+  <MenuItem
+    key="login-logout"
+  >
+    <Link
+      replace={false}
+      to="/user/login"
+    >
+      Login
+    </Link>
+  </MenuItem>
+</Menu>
+`;
+
+exports[`HeaderMenu does not show some tool links if logged in user is not superuser nor cataloger 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  mode="horizontal"
+  selectable={false}
+  theme="dark"
+>
+  <SubMenu
+    key="submit"
+    title="Submit"
+  >
+    <MenuItem
+      key="submit.author"
+    >
+      <Link
+        replace={false}
+        to="/submissions/authors"
+      >
+        Author
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.job"
+    >
+      <Link
+        replace={false}
+        to="/submissions/jobs"
+      >
+        Job
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.literature"
+    >
+      <ExternalLink
+        href="/literature/new"
+      >
+        Literature
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <SubMenu
+    key="tools"
+    title="Tools"
+  >
+    <MenuItem
+      key="tools.refextract"
+    >
+      <ExternalLink
+        href="//inspirehep.net/textmining/"
+      >
+        Reference extractor
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="tools.bibgen"
+    >
+      <ExternalLink
+        href="//inspirehep.net/info/hep/tools/bibliography_generate"
+      >
+        Bibliography generator
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <MenuItem
+    key="help"
+    title="Help"
+  >
+    <ExternalLink
+      href="//labs.inspirehep.net/help/knowledge-base/"
+    >
+      Help
+    </ExternalLink>
+  </MenuItem>
+  <MenuItem
+    key="login-logout"
+  >
+    <LinkLikeButton
+      dataTestId="logout"
+      onClick={[MockFunction]}
+    >
+      Logout
+    </LinkLikeButton>
+  </MenuItem>
+</Menu>
+`;
+
+exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  mode="horizontal"
+  selectable={false}
+  theme="dark"
+>
+  <SubMenu
+    key="submit"
+    title="Submit"
+  >
+    <MenuItem
+      key="submit.author"
+    >
+      <Link
+        replace={false}
+        to="/submissions/authors"
+      >
+        Author
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.job"
+    >
+      <Link
+        replace={false}
+        to="/submissions/jobs"
+      >
+        Job
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.literature"
+    >
+      <ExternalLink
+        href="/literature/new"
+      >
+        Literature
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
+  <SubMenu
+    key="tools"
     title="Tools"
   >
     <MenuItem
@@ -229,6 +257,7 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
     </MenuItem>
   </SubMenu>
   <MenuItem
+    key="help"
     title="Help"
   >
     <ExternalLink
