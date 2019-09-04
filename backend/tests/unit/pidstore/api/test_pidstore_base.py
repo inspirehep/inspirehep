@@ -46,6 +46,8 @@ def test_get_pid_type_from_endpoint(
     "schema,expected",
     [
         ("http://localhost:5000/schemas/record/hep.json", "lit"),
+        ("http://localhost:5000/schemas/record/jobs.json", "job"),
+        ("jobs.json", "job"),
         ("http://localhost:5000/schemas/record/jes.json", None),
         ("jes.json", None),
         (None, None),
@@ -57,7 +59,7 @@ def test_get_pid_type_from_endpoint(
 )
 @patch(
     "inspirehep.pidstore.api.PidStoreBase._get_config_pid_types_to_schema",
-    return_value={"hep": "lit"},
+    return_value={"hep": "lit", "jobs": "job"},
 )
 def test_get_pid_type_from_schema(
     mock_get_config_pid_types_to_endpointsck_get,

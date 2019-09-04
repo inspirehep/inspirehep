@@ -16,6 +16,7 @@ import requests
 import structlog
 from celery import chord, shared_task
 from celery.result import AsyncResult
+from flask import current_app
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
 from invenio_db import db
@@ -23,6 +24,7 @@ from invenio_pidstore.errors import PIDValueError
 from jsonschema import ValidationError
 
 from inspirehep.orcid.api import push_to_orcid
+from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.indexer.tasks import batch_index
 from inspirehep.records.receivers import index_after_commit
@@ -343,6 +345,14 @@ def migrate_record_from_mirror(
 
     if "$schema" in json_record:
         ensure_valid_schema(json_record)
+
+        pid_type = PidStoreBase.get_pid_type_from_schema(json_record.get("$schema"))
+        if pid_type in current_app.config.get("MIGRATION_PID_TYPE_BLACKLIST"):
+            prod_record.error = Exception(
+                f"Record: ${prod_record.recid} has blacklisted pid_type: ${pid_type} is blacklisted"
+            )
+            db.session.merge(prod_record)
+            return
 
     try:
         with db.session.begin_nested():
