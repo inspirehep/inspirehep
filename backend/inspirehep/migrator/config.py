@@ -10,3 +10,4 @@
 #: Special redis for continuous migration and ORCID token migration
 MIGRATION_REDIS_URL = None
 MIGRATION_POLLING_SLEEP = 1
+MIGRATION_PID_TYPE_BLACKLIST = []

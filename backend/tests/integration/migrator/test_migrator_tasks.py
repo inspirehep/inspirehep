@@ -9,6 +9,7 @@ import os
 
 import pkg_resources
 import pytest
+from flask import current_app
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
@@ -107,6 +108,29 @@ def test_migrate_and_insert_record_invalid_record(base_app, db, es):
     ).one()
     assert prod_record.valid is False
     assert prod_record.marcxml == raw_record
+
+
+def test_migrate_and_insert_record_blacklisted_pid(base_app, db, es):
+    raw_record = (
+        b"<record>"
+        b'  <controlfield tag="001">12345</controlfield>'
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+
+    config = {"MIGRATION_PID_TYPE_BLACKLIST": ["lit"]}
+    with patch.dict(current_app.config, config):
+        migrate_and_insert_record(raw_record)
+
+        with pytest.raises(PIDDoesNotExistError):
+            LiteratureRecord.get_record_by_pid_value("12345")
+
+        prod_record = LegacyRecordsMirror.query.filter(
+            LegacyRecordsMirror.recid == 12345
+        ).one()
+        assert prod_record.valid is False
 
 
 def test_migrate_and_insert_record_pidstore_error(base_app, db, es):
