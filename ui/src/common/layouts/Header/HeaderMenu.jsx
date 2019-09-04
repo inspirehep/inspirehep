@@ -57,6 +57,9 @@ class HeaderMenu extends Component {
             </ExternalLink>
           </Menu.Item>
         </Menu.SubMenu>
+        <Menu.Item title="Help">
+          <ExternalLink href="//labs.inspirehep.net/help/knowledge-base/">Help</ExternalLink>
+        </Menu.Item>
         <Menu.Item key="login-logout">
           {loggedIn ? (
             // TODO: create LoginLinkOrLogoutButtonContainer
