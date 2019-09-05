@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { getAuthorDisplayName } from '../utils';
 
 class AuthorName extends Component {
-  getFormattedNameValue() {
-    const { name } = this.props;
-    const nameValue = name.get('value');
-    const splittedByComma = nameValue.split(', ');
-    return splittedByComma.length === 2
-      ? `${splittedByComma[1]} ${splittedByComma[0]}`
-      : nameValue;
-  }
-
   render() {
     const { name } = this.props;
-    const displayName =
-      name.get('preferred_name') || this.getFormattedNameValue();
+    const displayName = getAuthorDisplayName(name);
 
     return <span>{displayName}</span>;
   }
