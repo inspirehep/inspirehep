@@ -7,6 +7,7 @@ import './Header.scss';
 import Logo from '../../components/Logo';
 import Banner from './Banner';
 import HeaderMenuContainer from './HeaderMenuContainer';
+import BetaRibbon from './BetaRibbon';
 
 class Header extends Component {
   render() {
@@ -14,6 +15,7 @@ class Header extends Component {
     return (
       <div className="__Header__">
         <Banner />
+        <BetaRibbon />
         <Layout.Header className="header">
           <Row type="flex" align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 12, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
