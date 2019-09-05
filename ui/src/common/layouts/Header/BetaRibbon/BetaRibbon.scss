@@ -1,0 +1,21 @@
+.__BetaRibbon__ {
+  width: 220px;
+  z-index: $zindex-header + 100;
+  background: $primary-color;
+  text-align: center;
+  line-height: 2em;
+  letter-spacing: 1px;
+  color: #fff;
+  position: fixed;
+  top: 27.5px;
+  left: -55px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+
+  @media (max-width: $screen-xs-max) {
+    position: absolute;
+    top: 25px;
+    left: -50px;
+    width: 200px;
+  }
+}
