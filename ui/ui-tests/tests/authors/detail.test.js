@@ -7,17 +7,22 @@ const {
 } = require('../../utils/screenshot');
 
 describe('Author Detail', () => {
+  let polly;
+
   beforeAll(async () => {
     await login();
   });
 
-  it('should match image snapshot for an Author', async () => {
+  beforeEach(async () => {
     await page.setRequestInterception(true);
-    const polly = createPollyInstance('AuthorDetail');
+    polly = createPollyInstance('AuthorDetail');
 
     await page.goto(routes.public.authorDetail983328, {
       waitUntil: 'networkidle0',
     });
+  });
+
+  it('should match image snapshot for an Author', async () => {
     await page.waitFor(selectors.searchResults);
 
     const desktopSS = await takeScreenShotForDesktop(page);
@@ -29,7 +34,15 @@ describe('Author Detail', () => {
 
     const mobileSS = await takeScreenShotForMobile(page);
     expect(mobileSS).toMatchImageSnapshot();
+  });
 
+  it('sets author name as document title', async () => {
+    const documentTitle = await page.title();
+
+    expect(documentTitle).toMatch(/^Edward Witten/);
+  });
+
+  afterEach(async () => {
     await polly.stop();
   });
 

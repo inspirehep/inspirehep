@@ -18,7 +18,7 @@ import {
 } from '../../actions/citations';
 import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
-import { getCurrentAffiliationsFromPositions } from '../utils';
+import { getCurrentAffiliationsFromPositions, getAuthorDisplayName } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
 import AuthorPublicationsContainer from './AuthorPublicationsContainer';
@@ -100,7 +100,7 @@ class DetailPage extends Component {
 
     return (
       <>
-        <DocumentHead title={name} />
+        <DocumentHead title={getAuthorDisplayName(name)} />
         <Row className="mv3" type="flex" justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
             <Alert
