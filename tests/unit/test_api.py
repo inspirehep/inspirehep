@@ -81,7 +81,7 @@ def test_process_clustering_output_signatures_without_author_id():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
             [
@@ -109,20 +109,25 @@ def test_process_clustering_output_signatures_without_author_id():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e54",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
         ],
         dtype=object,
     )
 
-    expected_output = {
-        (1, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"): [],
-        (1, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"): [],
-    }
+    expected_output = [
+        {
+            "signatures": [
+                (1, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
+                (1, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"),
+            ],
+            "authors": [],
+        }
+    ]
 
     output = process_clustering_output(clusterer_mock)
-    assert output == expected_output
+    assert not DeepDiff(output, expected_output, ignore_order=True)
 
 
 def test_process_clustering_output_signatures_multiple_curated_author_ids():
@@ -155,7 +160,7 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 )
             ],
             [
@@ -183,7 +188,7 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e53",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
             [
@@ -211,7 +216,7 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e54",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 )
             ],
             [
@@ -239,7 +244,7 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e55",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
             [
@@ -267,27 +272,37 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e56",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 )
             ],
         ],
         dtype=object,
     )
 
-    expected_output = {
-        (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"): [(1, True)],
-        (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"): [(1, True)],
-        (13, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"): [(3, True), (5, True)],
-        (14, "94fc2b0a-dc17-42c2-bae3-ca0024079e55"): [(3, True), (5, True)],
-        (15, "94fc2b0a-dc17-42c2-bae3-ca0024079e56"): [(3, True), (5, True)],
-    }
+    expected_output = [
+        {
+            "signatures": [
+                (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
+                (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"),
+            ],
+            "authors": [(1, True)],
+        },
+        {
+            "signatures": [
+                (13, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"),
+                (14, "94fc2b0a-dc17-42c2-bae3-ca0024079e55"),
+                (15, "94fc2b0a-dc17-42c2-bae3-ca0024079e56"),
+            ],
+            "authors": [(3, True), (5, True)],
+        },
+    ]
     output = process_clustering_output(clusterer_mock)
     assert not DeepDiff(output, expected_output, ignore_order=True)
 
 
 def test_process_clustering_output_signatures_with_non_curated_author_id():
     clusterer_mock = MagicMock()
-    clusterer_mock.clusterer.labels_ = numpy.array([0, 0, ])
+    clusterer_mock.clusterer.labels_ = numpy.array([0, 0])
     clusterer_mock.X = numpy.array(
         [
             [
@@ -315,7 +330,7 @@ def test_process_clustering_output_signatures_with_non_curated_author_id():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
             [
@@ -343,17 +358,23 @@ def test_process_clustering_output_signatures_with_non_curated_author_id():
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e53",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
         ],
         dtype=object,
     )
 
-    expected_output = {
-        (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"): [(1, False)],
-        (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"): [(1, False)],
-    }
+    expected_output = [
+        {
+            "signatures": [
+                (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
+                (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"),
+            ],
+            "authors": [(1, False)],
+        }
+    ]
+
     output = process_clustering_output(clusterer_mock)
     assert not DeepDiff(output, expected_output, ignore_order=True)
 
@@ -388,7 +409,7 @@ def test_process_clustering_output_signatures_with_curated_and_non_curated_autho
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
             [
@@ -416,7 +437,7 @@ def test_process_clustering_output_signatures_with_curated_and_non_curated_autho
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e53",
-                    is_curated_author_id=False
+                    is_curated_author_id=False,
                 )
             ],
             [
@@ -438,22 +459,29 @@ def test_process_clustering_output_signatures_with_curated_and_non_curated_autho
                         ],
                         collaborations=[],
                         keywords=["keyword"],
-                        publication_id=12,
+                        publication_id=13,
                         title="Title",
                         topics=["category"],
                     ),
                     signature_block="JOhn",
-                    signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e53",
-                    is_curated_author_id=True
+                    signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e54",
+                    is_curated_author_id=True,
                 )
             ],
         ],
         dtype=object,
     )
 
-    expected_output = {
-        (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"): [(1, True)],
-        (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"): [(1, True)],
-    }
+    expected_output = [
+        {
+            "signatures": [
+                (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
+                (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"),
+                (13, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"),
+            ],
+            "authors": [(1, True)],
+        }
+    ]
+
     output = process_clustering_output(clusterer_mock)
     assert not DeepDiff(output, expected_output, ignore_order=True)

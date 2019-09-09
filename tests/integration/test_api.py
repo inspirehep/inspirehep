@@ -23,6 +23,7 @@
 from mock import patch
 import os
 
+from inspire_disambiguation import conf
 from inspire_disambiguation.api import train_and_save_distance_model, cluster_from_redis
 
 
@@ -60,12 +61,27 @@ def test_train_and_save_distance_model(
 
 @patch("inspire_disambiguation.api.cluster")
 @patch("inspire_disambiguation.api.StrictRedis.bzpopmin")
-def test_cluster_from_redis(redis_mock, cluster_mock):
+def test_cluster_from_redis(redis_mock, cluster_mock, requests_mock):
+    requests_mock.post(conf["INSPIREHEP_DISAMBIGUATION_URL"])
     redis_mock.side_effect = [
         ("author_phonetic_blocks", "BLOCK_1", "1566893840"),
         ("author_phonetic_blocks", "BLOCK_2", "1566893841"),
         ("author_phonetic_blocks", "BLOCK_3", "1566893842"),
         None,
     ]
+    cluster_mock.side_effect = [
+        "clustering_result1",
+        "clustering_result2",
+        "clustering_result3",
+    ]
     cluster_from_redis(None, None, None)
     redis_mock.assert_called_with("author_phonetic_blocks", 60)
+    assert requests_mock.call_count == 3
+    history = requests_mock.request_history[0]
+    assert (
+        "Authorization" in history.headers
+        and f"Bearer {conf['INSPIREHEP_AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert history.url == conf["INSPIREHEP_DISAMBIGUATION_URL"]
+    assert history.json() == {"clusters": "clustering_result1"}

@@ -288,28 +288,32 @@ def process_clustering_output(clusterer):
         list: list with dicts
         Examples:
             [
-              {(publication_id, signature_uuid): [(author_id, bool to
-                  `author_has_claims`), ...]},
+              {"signatures" : [(recid, sig_uuid)], "authors": [(author_id, has_claims)]}
               ...,
             ]
 
     """
     labels = clusterer.clusterer.labels_
-    output = {}
+    output = []
     for label in numpy.unique(labels):
         signatures = clusterer.X[labels == label]
         author_ids_and_is_curated = {}
+        signatures_output = []
         for sig in signatures:
             author_id = sig[0]["author_id"]
             if sig[0]["is_curated_author_id"]:
                 author_ids_and_is_curated[author_id] = True
             elif author_id and author_id not in author_ids_and_is_curated:
                 author_ids_and_is_curated[author_id] = False
-        for sig in signatures:
-            output[(sig[0].publication["publication_id"], sig[0]["signature_uuid"])] = [
-                (author_id, is_curated)
-                for author_id, is_curated in author_ids_and_is_curated.items()
-            ]
+            signatures_output.append(
+                (sig[0].publication["publication_id"], sig[0]["signature_uuid"])
+            )
+        output.append(
+            {
+                "signatures": signatures_output,
+                "authors": list(author_ids_and_is_curated.items()),
+            }
+        )
     return output
 
 
