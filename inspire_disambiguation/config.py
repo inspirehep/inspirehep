@@ -62,6 +62,11 @@ import os
     ES_MAX_QUERY_SIZE: Maximum size for one page of results from ES.
         Note:
              By default ES allows to get 10000 results at one page at once.
+
+    INSPIREHEP_DISAMBIGUATION_URL: Inspirehep url where we post clustering results.
+
+    INSPIREHEP_AUTHENTICATION_TOKEN: Authentication token used to access
+        inspirehep endpoints.
 """
 
 
@@ -81,3 +86,5 @@ ES_TIMEOUT = 60
 ES_HOSTNAME = "localhost:9200"
 REDIS_URL = "redis://localhost:6379/0"
 ES_MAX_QUERY_SIZE = 9999
+INSPIREHEP_DISAMBIGUATION_URL = "http://web:8000/api/disambiguation"
+INSPIREHEP_AUTHENTICATION_TOKEN = "CHANGE_ME"
