@@ -23,6 +23,8 @@
 """Disambiguation API."""
 import logging
 import pprint
+import requests
+import json
 
 from inspire_disambiguation import conf
 from inspire_disambiguation.core.es.readers import get_input_clusters, get_signatures
@@ -133,13 +135,31 @@ def cluster_from_redis(ethnicity_model_path, distance_model_path, n_jobs):
             LOGGER.warning("No signature blocks in redis to process! STOP.")
             break
         signature_block = signature_block_data[1]
-        LOGGER.info("Processing '%s' signature_block", signature_block)
-        LOGGER.info(
-            "%s",
-            pprint.pformat(
-                cluster(
-                    ethnicity_model_path, distance_model_path, n_jobs, signature_block
-                ),
-                indent=4,
-            ),
+        LOGGER.info("Clustering signature_block '%s'", signature_block)
+        clusters = cluster(
+            ethnicity_model_path, distance_model_path, n_jobs, signature_block
         )
+        LOGGER.info("%s", pprint.pformat(clusters, indent=4))
+        response = send_clusters_to_inspirehep(clusters)
+
+        if response.status_code != 200:
+            LOGGER.error(
+                "Failed to post clustering output for signature block %s, error: %s, "
+                "status code: %d",
+                signature_block,
+                response.text,
+                response.status_code,
+            )
+
+
+def send_clusters_to_inspirehep(clusters):
+    headers = {
+        "Authorization": f"Bearer {conf['INSPIREHEP_AUTHENTICATION_TOKEN']}",
+        "content-type": "application/json",
+    }
+    response = requests.post(
+        conf["INSPIREHEP_DISAMBIGUATION_URL"],
+        data=json.dumps({"clusters": clusters}),
+        headers=headers,
+    )
+    return response
