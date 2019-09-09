@@ -1,10 +1,88 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header renders with search box if it is not on home 1`] = `
+exports[`Header renders with Banner and Ribbon if it is on beta page 1`] = `
 <div
   className="__Header__"
 >
   <Connect(Banner) />
+  <BetaRibbon />
+  <Adapter
+    className="header"
+  >
+    <Row
+      align="middle"
+      gutter={
+        Object {
+          "sm": 16,
+          "xs": 8,
+        }
+      }
+      type="flex"
+    >
+      <Col
+        lg={5}
+        sm={
+          Object {
+            "order": 1,
+            "span": 6,
+          }
+        }
+        xs={
+          Object {
+            "order": 1,
+            "span": 12,
+          }
+        }
+      >
+        <Logo />
+      </Col>
+      <Col
+        lg={12}
+        sm={
+          Object {
+            "order": 2,
+            "span": 14,
+          }
+        }
+        xl={13}
+        xs={
+          Object {
+            "order": 3,
+            "span": 24,
+          }
+        }
+        xxl={14}
+      >
+        <Connect(SearchBox) />
+      </Col>
+      <Col
+        lg={7}
+        sm={
+          Object {
+            "order": 3,
+            "span": 4,
+          }
+        }
+        xl={6}
+        xs={
+          Object {
+            "order": 2,
+            "span": 12,
+          }
+        }
+        xxl={5}
+      >
+        <Connect(HeaderMenu) />
+      </Col>
+    </Row>
+  </Adapter>
+</div>
+`;
+
+exports[`Header renders with search box if it is not on home or submission 1`] = `
+<div
+  className="__Header__"
+>
   <Adapter
     className="header"
   >
@@ -82,7 +160,81 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
 <div
   className="__Header__"
 >
-  <Connect(Banner) />
+  <Adapter
+    className="header"
+  >
+    <Row
+      align="middle"
+      gutter={
+        Object {
+          "sm": 16,
+          "xs": 8,
+        }
+      }
+      type="flex"
+    >
+      <Col
+        lg={5}
+        sm={
+          Object {
+            "order": 1,
+            "span": 6,
+          }
+        }
+        xs={
+          Object {
+            "order": 1,
+            "span": 12,
+          }
+        }
+      >
+        <Logo />
+      </Col>
+      <Col
+        lg={12}
+        sm={
+          Object {
+            "order": 2,
+            "span": 14,
+          }
+        }
+        xl={13}
+        xs={
+          Object {
+            "order": 3,
+            "span": 24,
+          }
+        }
+        xxl={14}
+      />
+      <Col
+        lg={7}
+        sm={
+          Object {
+            "order": 3,
+            "span": 4,
+          }
+        }
+        xl={6}
+        xs={
+          Object {
+            "order": 2,
+            "span": 12,
+          }
+        }
+        xxl={5}
+      >
+        <Connect(HeaderMenu) />
+      </Col>
+    </Row>
+  </Adapter>
+</div>
+`;
+
+exports[`Header renders without search box if it is on submission page 1`] = `
+<div
+  className="__Header__"
+>
   <Adapter
     className="header"
   >

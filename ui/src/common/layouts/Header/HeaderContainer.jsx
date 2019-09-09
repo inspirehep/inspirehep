@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { SUBMISSIONS, HOME } from '../../routes';
+import { SUBMISSIONS, HOME, isBetaRoute } from '../../routes';
 import Header from './Header';
 
 const stateToProps = state => ({
@@ -8,6 +8,7 @@ const stateToProps = state => ({
   isSubmissionsPage: String(state.router.location.pathname).startsWith(
     SUBMISSIONS
   ),
+  isBetaPage: isBetaRoute(String(state.router.location.pathname)),
 });
 
 export default connect(stateToProps)(Header);

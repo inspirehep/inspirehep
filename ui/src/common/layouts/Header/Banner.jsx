@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Alert, Button } from 'antd';
 import PropTypes from 'prop-types';
 
-import { isNonBetaRoute } from '../../routes';
 import { setBannerVisibility } from '../../../actions/ui';
 import ExternalLink from '../../components/ExternalLink';
 
@@ -22,10 +21,9 @@ class Banner extends Component {
   }
 
   render() {
-    const { shouldDisplayBanner, isNonBetaPage } = this.props;
+    const { shouldDisplayBanner } = this.props;
     return (
-      shouldDisplayBanner &&
-      !isNonBetaPage && (
+      shouldDisplayBanner && (
         <div className="banner">
           <Alert
             type="info"
@@ -59,13 +57,11 @@ class Banner extends Component {
 }
 
 Banner.propTypes = {
-  isNonBetaPage: PropTypes.bool.isRequired,
   shouldDisplayBanner: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const stateToProps = state => ({
-  isNonBetaPage: isNonBetaRoute(String(state.router.location.pathname)),
   shouldDisplayBanner: state.ui.get('bannerVisibility'),
 });
 
