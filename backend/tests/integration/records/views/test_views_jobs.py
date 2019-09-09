@@ -109,6 +109,23 @@ def test_jobs_facets_cataloger(
     assert expected_aggregations == response_aggregations
 
 
+def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
+    data = json.loads((datadir / "1735925.json").read_text())
+    record = create_record("job", data=data)
+
+    response = api_client.get("/jobs")
+    response_data = response.json
+
+    response_status_code = response.status_code
+    response_data_sort_options = response_data["sort_options"]
+
+    expected_status_code = 200
+    expected_sort_options_1 = {"value": "mostrecent", "display": "Most Recent"}
+
+    assert expected_status_code == response_status_code
+    assert expected_sort_options_1 in response_data_sort_options
+
+
 def test_jobs_accelerator_experiments(api_client, db, es_clear, create_record, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
