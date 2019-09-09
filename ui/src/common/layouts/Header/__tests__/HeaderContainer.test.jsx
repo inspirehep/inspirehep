@@ -27,6 +27,7 @@ describe('HeaderContainer', () => {
     expect(wrapper.find(Header)).toHaveProp({
       isHomePage: false,
       isSubmissionsPage: true,
+      isBetaPage: false,
     });
   });
 
@@ -48,6 +49,7 @@ describe('HeaderContainer', () => {
     expect(wrapper.find(Header)).toHaveProp({
       isHomePage: true,
       isSubmissionsPage: false,
+      isBetaPage: true,
     });
   });
 });

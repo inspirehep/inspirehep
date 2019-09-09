@@ -11,11 +11,11 @@ import BetaRibbon from './BetaRibbon';
 
 class Header extends Component {
   render() {
-    const { isHomePage, isSubmissionsPage } = this.props;
+    const { isHomePage, isSubmissionsPage, isBetaPage } = this.props;
     return (
       <div className="__Header__">
-        <Banner />
-        <BetaRibbon />
+        {isBetaPage && <Banner />}
+        {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
           <Row type="flex" align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 12, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
@@ -49,6 +49,7 @@ class Header extends Component {
 Header.propTypes = {
   isHomePage: PropTypes.bool.isRequired,
   isSubmissionsPage: PropTypes.bool.isRequired,
+  isBetaPage: PropTypes.bool.isRequired,
 };
 
 export default Header;
