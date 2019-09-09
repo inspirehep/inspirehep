@@ -513,14 +513,6 @@ RECORDS_REST_SORT_OPTIONS = {
             "order": 2,
         },
     },
-    "records-jobs": {
-        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
-        "deadline": {
-            "title": "Earliest Deadline",
-            "fields": ["deadline_date"],
-            "order": 1,
-        },
-    },
 }
 
 RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostrecent"))
