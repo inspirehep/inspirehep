@@ -13,8 +13,6 @@ import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
 import JobItem from '../components/JobItem';
 import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
-import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
-import { SUPERUSER } from '../../common/authorization';
 import DocumentHead from '../../common/components/DocumentHead';
 
 class SearchPage extends Component {
@@ -28,11 +26,7 @@ class SearchPage extends Component {
   }
 
   static renderSubscribeJobsModalButton() {
-    return (
-      <AuthorizedContainer authorizedRoles={SUPERUSER}>
-        <SubscribeJobsModalButton />
-      </AuthorizedContainer>
-    );
+    return <SubscribeJobsModalButton />;
   }
 
   constructor(props) {
