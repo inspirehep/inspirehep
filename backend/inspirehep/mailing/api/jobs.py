@@ -10,11 +10,8 @@ from flask import current_app, render_template
 
 from inspirehep.search.api import JobsSearch
 
-from ..providers.mailchimp import (
-    mailchimp_create_campaign,
-    mailchimp_send_campaign,
-    mailchimp_subscribe_user_to_list,
-)
+from ..providers.mailchimp import mailchimp_create_campaign, mailchimp_send_campaign
+from ..providers.mailtrain import mailtrain_subscribe_user_to_list
 
 
 def get_jobs_from_last_week():
@@ -36,5 +33,5 @@ def send_jobs_weekly_campaign(html_content, test_emails=None):
 
 
 def subscribe_to_jobs_weekly_list(email, first_name, last_name):
-    list_id = current_app.config["MAILCHIMP_JOBS_WEEKLY_LIST_ID"]
-    return mailchimp_subscribe_user_to_list(list_id, email, first_name, last_name)
+    list_id = current_app.config["MAILTRAIN_JOBS_WEEKLY_LIST_ID"]
+    return mailtrain_subscribe_user_to_list(list_id, email, first_name, last_name)

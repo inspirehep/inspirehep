@@ -15,3 +15,7 @@ The campaigns cannot be reused, hence we're replicating an existing one which
 contains all the neccessary details i.e. audience, sender, subject etc.
 https://us3.admin.mailchimp.com/campaigns/
 """
+
+MAILTRAIN_URL = "https://lists.labs.inspirehep.net"
+MAILTRAIN_API_TOKEN = ""
+MAILTRAIN_JOBS_WEEKLY_LIST_ID = ""

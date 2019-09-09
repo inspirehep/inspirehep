@@ -20,6 +20,9 @@ def app_config(app_config):
     # Should be in this format format and length
     # NOTE: Change this with the correct token to record new cassettes
     app_config["MAILCHIMP_API_TOKEN"] = "11111111111111111111111111111111-us3"
+    app_config["MAILTRAIN_API_TOKEN"] = "1111111111111111111111111111111111111111"
+    app_config["MAILTRAIN_URL"] = "https://lists.labs.inspirehep.net"
+    app_config["MAILTRAIN_JOBS_WEEKLY_LIST_ID"] = "xKU-qcq8U"
     return app_config
 
 

@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: FIRST_NAME=Frank&LAST_NAME=Castle&EMAIL=frank%40castle.com
+    body: FIRST_NAME=Firstname&LAST_NAME=Lastname&EMAIL=test%40email.ch
     headers:
       Accept:
       - '*/*'
@@ -9,23 +9,23 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '58'
+      - '61'
       Content-Type:
       - application/x-www-form-urlencoded
     method: POST
     uri: https://lists.labs.inspirehep.net/api/subscribe/xKU-qcq8U?access_token=1111111111111111111111111111111111111111
   response:
     body:
-      string: '{"data":{"id":"AQWqUuRCc"}}'
+      string: '{"data":{"id":"YigyZa4mO"}}'
     headers:
       Content-Length:
       - '27'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Mon, 09 Sep 2019 10:51:47 GMT
+      - Mon, 09 Sep 2019 10:51:39 GMT
       Etag:
-      - W/"1b-MJ7ZI+mTknFarqreNNZnOL7FqlI"
+      - W/"1b-E80tCatQ8nEuOw2mwZbmHezPVIQ"
       Vary:
       - Accept-Encoding
     status:
