@@ -32,4 +32,7 @@ export default {
   experiment: string(),
   abstract: string(),
   report_numbers: arrayWithNullDefault.of(string().nullable()),
+  doi: string()
+    .matches(new RegExp('^(doi:)?10\\.\\d+(\\.\\d+)?/\\S+$'))
+    .label('DOI'),
 };

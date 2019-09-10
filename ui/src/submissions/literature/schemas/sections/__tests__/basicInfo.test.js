@@ -82,4 +82,24 @@ describe('basicInfo section', () => {
     expect(isValid).toBe(true);
     done();
   });
+
+  it('validates when doi is valid', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      doi: '10.1086/307221',
+    };
+    const isValid = await schema.isValid(data);
+    expect(isValid).toBe(true);
+    done();
+  });
+
+  it('invalidates when doi is invalid', async done => {
+    const data = {
+      ...dataWithRequiredFields,
+      doi: 'not a doi',
+    };
+    const isValid = await schema.isValid(data);
+    expect(isValid).toBe(false);
+    done();
+  });
 });
