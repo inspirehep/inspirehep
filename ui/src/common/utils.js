@@ -174,3 +174,12 @@ const protocolAndWwwRegexp = new RegExp('^(?:(https?:)?//)?(?:www.)?', 'i');
 export function removeProtocolAndWwwFromUrl(url) {
   return url.replace(protocolAndWwwRegexp, '');
 }
+
+export function getRecordIdFromRef($ref) {
+  if ($ref == null) {
+    return null;
+  }
+
+  const parts = $ref.split('/');
+  return parts[parts.length - 1];
+}
