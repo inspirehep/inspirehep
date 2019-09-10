@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """Manage migrator from INSPIRE legacy instance."""
-
+import os
 import sys
 from textwrap import dedent
 from time import sleep
@@ -37,6 +37,14 @@ def halt_if_debug_mode(force):
     if not force and current_app.config.get("DEBUG"):
         click.echo(dedent(message), err=True)
         sys.exit(1)
+
+
+def touch_file(file):
+    """Updates file last modification time, creates file if it not exists."""
+    try:
+        os.utime(file)
+    except FileNotFoundError:
+        os.mknod(file)
 
 
 @click.group()
@@ -143,5 +151,8 @@ def continuously():
     handler = GracefulKiller()
 
     while not handler.kill_now():
+        liveness_file = current_app.config.get("MIGRATION_LASTRUN_FILE")
+        if liveness_file:
+            touch_file(liveness_file)
         continuous_migration()
         sleep(current_app.config.get("MIGRATION_POLLING_SLEEP", 1))
