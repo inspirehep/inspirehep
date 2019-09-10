@@ -10,7 +10,12 @@ class LinkFields extends Component {
       <>
         <Field
           name="pdf_link"
-          label="Link to PDF"
+          label={
+            <LabelWithHelp
+              label="Link to PDF"
+              help="Where can we find a PDF to check the references?"
+            />
+          }
           placeholder="https://example.com/document.pdf"
           component={TextField}
         />
@@ -19,7 +24,7 @@ class LinkFields extends Component {
           label={
             <LabelWithHelp
               label="Link to additional info"
-              help="e.g. abstract"
+              help="Link to additional information (eg. abstract): Which page should we link from INSPIRE?"
             />
           }
           placeholder="https://example.com/page.html"
