@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import ContactList from './ContactList';
 
+// TODO: Rename it to LabeledContactList or remove to use `InlineList.label`
 class Contact extends Component {
   render() {
     const { contactDetails } = this.props;

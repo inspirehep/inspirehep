@@ -32,6 +32,10 @@ class JobForm extends Component {
     return suggestion._source.legacy_name;
   }
 
+  static getSuggestionSourceNameValue(suggestion) {
+    return suggestion._source.name.value;
+  }
+
   isPostDocSubmission() {
     const { values } = this.props;
 
@@ -149,9 +153,15 @@ class JobForm extends Component {
               <Col span={11}>
                 <Field
                   onlyChild
+                  recordFieldPath={`${itemName}.record`}
                   name={`${itemName}.name`}
                   placeholder="Name"
-                  component={TextField}
+                  pidType="authors"
+                  suggesterName="author"
+                  extractItemCompletionValue={
+                    JobForm.getSuggestionSourceNameValue
+                  }
+                  component={SuggesterField}
                 />
               </Col>
               <Col span={11}>

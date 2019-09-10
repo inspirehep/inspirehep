@@ -17,6 +17,7 @@ import pluralizeUnlessSingle, {
   getFromObjectOrImmutableMap,
   pickEvenlyDistributedElements,
   removeProtocolAndWwwFromUrl,
+  getRecordIdFromRef,
 } from '../utils';
 
 describe('utils', () => {
@@ -448,6 +449,20 @@ describe('utils', () => {
       const url = 'home.cern/about';
       const expected = 'home.cern/about';
       const result = removeProtocolAndWwwFromUrl(url);
+      expect(result).toEqual(expected);
+    });
+  });
+
+  describe('getRecordIdFromRef', () => {
+    it('returns null string if no $ref is passed', () => {
+      const result = getRecordIdFromRef(undefined);
+      expect(result).toEqual(null);
+    });
+
+    it('returns recid', () => {
+      const $ref = 'https://inspirehep.net/api/authors/12345';
+      const expected = '12345';
+      const result = getRecordIdFromRef($ref);
       expect(result).toEqual(expected);
     });
   });

@@ -65,3 +65,24 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
   </ul>
 </div>
 `;
+
+exports[`ContactList renders with contacts with record and name 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul
+    className="separate-items-with-comma"
+  >
+    <li
+      key="John"
+    >
+      <Link
+        replace={false}
+        to="/authors/12345"
+      >
+        John
+      </Link>
+    </li>
+  </ul>
+</div>
+`;

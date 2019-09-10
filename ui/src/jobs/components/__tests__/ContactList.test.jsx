@@ -18,6 +18,18 @@ describe('ContactList', () => {
     const wrapper = shallow(<ContactList contacts={contactDetails} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
+
+  it('renders with contacts with record and name', () => {
+    const contactDetails = fromJS([
+      {
+        name: 'John',
+        record: { $ref: 'http://inspirehep.net/api/authors/12345' },
+      },
+    ]);
+    const wrapper = shallow(<ContactList contacts={contactDetails} />);
+    expect(wrapper.dive()).toMatchSnapshot();
+  });
+
   it('renders with contacts with only email or name', () => {
     const contactDetails = fromJS([
       {
