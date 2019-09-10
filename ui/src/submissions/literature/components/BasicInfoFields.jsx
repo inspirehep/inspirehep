@@ -73,6 +73,12 @@ class BasicInfoFields extends Component {
             <Field onlyChild name={itemName} component={TextField} />
           )}
         />
+        <Field
+          name="doi"
+          label="DOI"
+          placeholder="e.g. 10.1086/305772 or doi:10.1086/305772"
+          component={TextField}
+        />
       </>
     );
   }
