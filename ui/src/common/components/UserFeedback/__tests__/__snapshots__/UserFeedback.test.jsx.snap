@@ -39,37 +39,24 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
     visible={false}
     width={520}
   >
-    <div>
-      <div
-        className="mb4 tc f-5"
-      >
-        <Icon
-          theme="twoTone"
-          twoToneColor="#52c41a"
-          type="check-circle"
-        />
+    <ModalSuccessResult>
+      <div>
+        Thank you for your response.
       </div>
-      <div
-        className="tc f5"
-      >
-        <div>
-          Thank you for your response.
-        </div>
-        <div>
-          For further feedback, please
-           
-          <ExternalLink
-            href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
-          >
-            take our survey
-          </ExternalLink>
-          .
-        </div>
-        <div>
-          It takes around 5 minutes to complete.
-        </div>
+      <div>
+        For further feedback, please
+         
+        <ExternalLink
+          href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
+        >
+          take our survey
+        </ExternalLink>
+        .
       </div>
-    </div>
+      <div>
+        It takes around 5 minutes to complete.
+      </div>
+    </ModalSuccessResult>
   </Modal>
 </div>
 `;

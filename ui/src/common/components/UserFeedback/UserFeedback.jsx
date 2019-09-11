@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Modal, Button, Rate, Input, Alert, Icon } from 'antd';
+import { Modal, Button, Rate, Input, Alert } from 'antd';
 
 import './UserFeedback.scss';
-import styleVariables from '../../../styleVariables';
 import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
 import ExternalLink from '../ExternalLink';
 import ResponsiveView from '../ResponsiveView';
+import ModalSuccessResult from '../ModalSuccessResult';
 
 const RATE_DESCRIPTIONS = [
   'poor',
@@ -20,24 +20,15 @@ const SURVEY_LINK = 'https://goo.gl/forms/aTYSRzd7vTUhxzL43';
 class UserFeedback extends Component {
   static renderThankYou() {
     return (
-      <div>
-        <div className="mb4 tc f-5">
-          <Icon
-            type="check-circle"
-            theme="twoTone"
-            twoToneColor={styleVariables['success-color']}
-          />
+      <ModalSuccessResult>
+        <div>Thank you for your response.</div>
+        <div>
+          For further feedback, please{' '}
+          <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>
+          .
         </div>
-        <div className="tc f5">
-          <div>Thank you for your response.</div>
-          <div>
-            For further feedback, please{' '}
-            <ExternalLink href={SURVEY_LINK}>take our survey</ExternalLink>
-            .
-          </div>
-          <div>It takes around 5 minutes to complete.</div>
-        </div>
-      </div>
+        <div>It takes around 5 minutes to complete.</div>
+      </ModalSuccessResult>
     );
   }
 
@@ -176,7 +167,7 @@ class UserFeedback extends Component {
           okText="Submit"
           okButtonProps={{ disabled: isTrackerBlocked }}
           onCancel={this.onModalCancel}
-          footer={feedbackSubmitted ? null : undefined}
+          footer={feedbackSubmitted ? null : undefined} // undefined enables default footer with OK btn
           afterClose={this.afterModalClose}
         >
           {feedbackSubmitted
