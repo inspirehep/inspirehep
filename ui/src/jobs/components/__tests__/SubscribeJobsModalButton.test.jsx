@@ -29,6 +29,14 @@ describe('SubscribeJobsModalButton', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders confirmation if subscription is submitted', () => {
+    const wrapper = shallow(<SubscribeJobsModalButton />);
+
+    wrapper.setState({ isSubscriptionSubmitted: true });
+    wrapper.update();
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('calls subscribeJobMailingList with filled data on modal OK click', () => {
     const wrapper = shallow(<SubscribeJobsModalButton />);
 

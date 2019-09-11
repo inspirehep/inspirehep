@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SubscribeJobsModalButton renders confirmation if subscription is submitted 1`] = `
+<Fragment>
+  <LinkLikeButton
+    icon="mail"
+    onClick={[Function]}
+  >
+    <Icon
+      type="mail"
+    />
+    <ResponsiveView
+      min="sm"
+      render={[Function]}
+    />
+  </LinkLikeButton>
+  <Modal
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okButtonProps={
+      Object {
+        "disabled": true,
+      }
+    }
+    okText="Subscribe"
+    okType="primary"
+    onCancel={[Function]}
+    onOk={[Function]}
+    title="Subscribe to the INSPIRE job mailing list"
+    transitionName="zoom"
+    visible={false}
+    width={520}
+  >
+    <ModalSuccessResult>
+      <Paragraph>
+        You have successfully subscribed!
+      </Paragraph>
+      <Paragraph>
+        You will receive a weekly update on new INSPIRE job listings every Monday.
+      </Paragraph>
+    </ModalSuccessResult>
+  </Modal>
+</Fragment>
+`;
+
 exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
 <Fragment>
   <LinkLikeButton

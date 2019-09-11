@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalSuccessResult renders with children 1`] = `
+<div>
+  <div
+    className="mb4 tc f-5"
+  >
+    <Icon
+      theme="twoTone"
+      twoToneColor="#52c41a"
+      type="check-circle"
+    />
+  </div>
+  <div
+    className="tc f5"
+  >
+    <span>
+      Successfully did the thing
+    </span>
+  </div>
+</div>
+`;
