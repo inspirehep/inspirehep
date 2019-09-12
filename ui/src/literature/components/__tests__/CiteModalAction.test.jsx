@@ -84,6 +84,20 @@ describe('CiteModalAction', () => {
     expect(setCiteContentFor).not.toHaveBeenCalled();
   });
 
+  it('shows an alert with the error message when there is an error in setCiteContentFor', () => {
+    const initialCiteFormat = 'x-bibtex';
+    const wrapper = shallow(
+      <CiteModalAction
+        recordId={12345}
+        initialCiteFormat={initialCiteFormat}
+        onCiteFormatChange={jest.fn()}
+      />
+    );
+    const errorMessage = 'There is an error';
+    wrapper.setState({ errorMessage });
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('sets citeContent for selected format setCiteContentFor', async () => {
     const wrapper = shallow(
       <CiteModalAction

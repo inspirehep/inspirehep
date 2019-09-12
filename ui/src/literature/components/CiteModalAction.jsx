@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Row, Icon } from 'antd';
+import { Modal, Button, Row, Icon, Alert } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import citeArticle from '../citeArticle';
@@ -28,6 +28,7 @@ class CiteModalAction extends Component {
 
     this.state = {
       modalVisible: false,
+      errorMessage: null,
     };
     this.citeContentCacheByFormat = {};
   }
@@ -65,8 +66,15 @@ class CiteModalAction extends Component {
     let citeContent = this.citeContentCacheByFormat[format];
     if (!citeContent) {
       const { recordId } = this.props;
-      citeContent = await citeArticle(format, recordId);
-      this.citeContentCacheByFormat[format] = citeContent;
+      try {
+        citeContent = await citeArticle(format, recordId);
+        this.citeContentCacheByFormat[format] = citeContent;
+        this.setState({ errorMessage: null });
+      } catch (error) {
+        this.setState({
+          errorMessage: `Could not create cite text for the selected format. Caused by: ${error.message}`,
+        })
+      }
     }
 
     this.setState({ citeContent });
@@ -74,7 +82,7 @@ class CiteModalAction extends Component {
 
   render() {
     const { initialCiteFormat } = this.props;
-    const { modalVisible, citeContent } = this.state;
+    const { modalVisible, citeContent, errorMessage } = this.state;
     return (
       <>
         <ListItemAction>
@@ -92,6 +100,15 @@ class CiteModalAction extends Component {
           onCancel={this.onModalCancel}
         >
           <div>
+            {errorMessage && (
+              <div className="mb3">
+                <Alert
+                  type="error"
+                  showIcon
+                  description={errorMessage}
+                />
+              </div>
+            )}
             <Row>
               <pre>{citeContent}</pre>
             </Row>

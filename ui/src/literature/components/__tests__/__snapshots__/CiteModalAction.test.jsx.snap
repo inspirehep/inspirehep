@@ -114,3 +114,127 @@ exports[`CiteModalAction renders with all props 1`] = `
   </Modal>
 </Fragment>
 `;
+
+exports[`CiteModalAction shows an alert with the error message when there is an error in setCiteContentFor 1`] = `
+<Fragment>
+  <ListItemAction>
+    <EventTracker
+      eventId="Cite"
+      eventPropName="onClick"
+      extractEventArgsToForward={null}
+    >
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+        onClick={[Function]}
+      >
+        <IconText
+          text="cite"
+          type="export"
+        />
+      </Button>
+    </EventTracker>
+  </ListItemAction>
+  <Modal
+    confirmLoading={false}
+    footer={null}
+    maskTransitionName="fade"
+    okType="primary"
+    onCancel={[Function]}
+    title="Cite Article"
+    transitionName="zoom"
+    visible={false}
+    width="50%"
+  >
+    <div>
+      <div
+        className="mb3"
+      >
+        <Alert
+          description="There is an error"
+          showIcon={true}
+          type="error"
+        />
+      </div>
+      <Row
+        gutter={0}
+      >
+        <pre />
+      </Row>
+      <Row
+        gutter={0}
+        justify="space-between"
+        type="flex"
+      >
+        <div>
+          <CopyToClipboard
+            onCopy={[Function]}
+          >
+            <Button
+              block={false}
+              ghost={false}
+              htmlType="button"
+              loading={false}
+              style={
+                Object {
+                  "marginRight": 12,
+                }
+              }
+            >
+              <Icon
+                type="copy"
+              />
+               Copy to Clipboard
+            </Button>
+          </CopyToClipboard>
+          <Button
+            block={false}
+            ghost={false}
+            htmlType="button"
+            loading={false}
+            onClick={[Function]}
+          >
+            <Icon
+              type="download"
+            />
+             Download
+          </Button>
+        </div>
+        <EventTracker
+          eventId="CiteFormatSelection"
+          eventPropName="onChange"
+          extractEventArgsToForward={[Function]}
+        >
+          <SelectBox
+            defaultValue="x-bibtex"
+            onChange={[Function]}
+            options={
+              Array [
+                Object {
+                  "display": "BibTex",
+                  "value": "x-bibtex",
+                },
+                Object {
+                  "display": "LaTex (EU)",
+                  "value": "vnd+inspire.latex.eu+x-latex",
+                },
+                Object {
+                  "display": "LaTex (US)",
+                  "value": "vnd+inspire.latex.us+x-latex",
+                },
+              ]
+            }
+            style={
+              Object {
+                "width": 140,
+              }
+            }
+          />
+        </EventTracker>
+      </Row>
+    </div>
+  </Modal>
+</Fragment>
+`;
