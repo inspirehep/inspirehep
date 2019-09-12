@@ -91,12 +91,18 @@ export function mergeWithConcattingArrays(destObject, ...sources) {
 }
 
 export function httpErrorToActionPayload(httpError) {
+  const { message } = httpError;
+  if (message === 'Network Error') {
+    return { status: 'network' }
+  }
+
   const { response } = httpError;
   if (response) {
     const { data, status } = response;
     return { status, ...data };
   }
-  return { status: 'network' };
+  
+  throw httpError;
 }
 
 // adapted from facebook/fbjs shallowEqual

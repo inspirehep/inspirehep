@@ -21,14 +21,22 @@ describe('citeArticle', () => {
     done();
   });
 
-  it('sends request with Accept header based on format and returns text', async done => {
+  it('returns a status code that is not 2xx without data', async done => {
     const citeUrl = '/literature/12345';
-    const format = 'x-another';
+    const format = 'x-test';
     mockHttp
       .onGet(citeUrl, null, { Accept: 'application/x-test' })
-      .replyOnce(200, 'Test');
-    const content = await citeArticle(format, 12345);
-    expect(content).toEqual('Not supported yet :(');
+      .replyOnce(500);
+    await expect(citeArticle(format, 12345)).rejects.toThrow(new Error('Request failed with status code 500'));
+    done();
+  });
+
+  it('returns a network error', async done => {
+    const citeUrl = '/literature/12345';
+    const format = 'x-test';
+    mockHttp
+      .onGet(citeUrl, null, { Accept: 'application/x-test' }).networkError();
+    await expect(citeArticle(format, 12345)).rejects.toThrow(new Error('Network Error'));
     done();
   });
 });

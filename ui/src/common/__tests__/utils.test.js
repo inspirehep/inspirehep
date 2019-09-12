@@ -328,13 +328,19 @@ describe('utils', () => {
 
     it('convert http network error', () => {
       const error = {
-        response: null,
+        message: 'Network Error',
       };
       const result = httpErrorToActionPayload(error);
       const expected = {
         status: 'network',
       };
       expect(result).toEqual(expected);
+    });
+
+    it('throw other errors', () => {
+      const error = new Error('whatever');
+      const expected = 'whatever';
+      expect(() => httpErrorToActionPayload(error)).toThrow(expected);
     });
   });
 
