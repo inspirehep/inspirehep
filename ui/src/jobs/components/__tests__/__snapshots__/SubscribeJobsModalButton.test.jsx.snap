@@ -15,6 +15,7 @@ exports[`SubscribeJobsModalButton renders confirmation if subscription is submit
     />
   </LinkLikeButton>
   <Modal
+    afterClose={[Function]}
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
@@ -59,6 +60,7 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
     />
   </LinkLikeButton>
   <Modal
+    afterClose={[Function]}
     confirmLoading={false}
     maskTransitionName="fade"
     okButtonProps={
@@ -144,6 +146,7 @@ exports[`SubscribeJobsModalButton renders with initial state 1`] = `
     />
   </LinkLikeButton>
   <Modal
+    afterClose={[Function]}
     confirmLoading={false}
     maskTransitionName="fade"
     okButtonProps={

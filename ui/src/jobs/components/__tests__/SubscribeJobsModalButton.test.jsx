@@ -37,6 +37,17 @@ describe('SubscribeJobsModalButton', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('sets isSubscriptionSubmitted false after modal is closed', () => {
+    const wrapper = shallow(<SubscribeJobsModalButton />);
+
+    wrapper.setState({ isSubscriptionSubmitted: true });
+
+    const afterModalClose = wrapper.find(Modal).prop('afterClose');
+    afterModalClose();
+
+    expect(wrapper).toHaveState({ isSubscriptionSubmitted: false });
+  });
+
   it('calls subscribeJobMailingList with filled data on modal OK click', () => {
     const wrapper = shallow(<SubscribeJobsModalButton />);
 
