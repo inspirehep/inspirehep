@@ -53,6 +53,7 @@ def send_weekly_jobs(test_emails):
 @click.option(
     "--dry-run", "--dry-run", help="Skip email sending.", is_flag=True
 )
+@with_appcontext
 def notify_expired_jobs(dry_run):
     jobs_to_notify = []
     dates = [
