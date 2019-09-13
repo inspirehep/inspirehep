@@ -38,6 +38,7 @@ export default class SubscribeJobsModalButton extends Component {
     this.onModalCancel = this.onModalCancel.bind(this);
     this.onInputChange = this.onInputChange.bind(this);
     this.onModalSubscribeClick = this.onModalSubscribeClick.bind(this);
+    this.afterModalCloase = this.afterModalCloase.bind(this);
   }
 
   onInputChange({ target }) {
@@ -67,6 +68,12 @@ export default class SubscribeJobsModalButton extends Component {
     } catch (error) {
       this.setState({ hasError: true });
     }
+  }
+
+  afterModalCloase() {
+    this.setState({
+      isSubscriptionSubmitted: false,
+    });
   }
 
   renderSubscribeForm() {
@@ -138,6 +145,7 @@ export default class SubscribeJobsModalButton extends Component {
           title="Subscribe to the INSPIRE job mailing list"
           visible={isModalVisible}
           okText="Subscribe"
+          afterClose={this.afterModalCloase}
           okButtonProps={{ disabled: isSubscribeButtonDislabed }}
           onCancel={this.onModalCancel}
           onOk={this.onModalSubscribeClick}
