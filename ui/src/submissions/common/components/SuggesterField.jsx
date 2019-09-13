@@ -31,9 +31,13 @@ class SuggesterField extends Component {
   }
 
   onSelect(_, selectedOptionComponent) {
-    const { self } = selectedOptionComponent.props.result._source;
-    const { form, recordFieldPath } = this.props;
-    form.setFieldValue(recordFieldPath, self);
+    const selectedRecordData = selectedOptionComponent.props.result._source;
+    const { form, recordFieldPath, pidType } = this.props;
+    // TODO: only send control_number to backend, and create the $ref url there.
+    const $ref = `${window.location.origin}/api/${pidType}/${
+      selectedRecordData.control_number
+    }`;
+    form.setFieldValue(recordFieldPath, { $ref });
     this.hasChangedBySuggestionSelection = true;
   }
 
