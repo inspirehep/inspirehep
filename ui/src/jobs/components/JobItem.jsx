@@ -15,7 +15,7 @@ import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import RanksList from './RanksList';
 import ExperimentList from '../../common/components/ExperimentList';
 import EditRecordAction from '../../common/components/EditRecordAction';
-
+import JobTitle from './JobTitle';
 
 class JobItem extends Component {
   render() {
@@ -29,18 +29,18 @@ class JobItem extends Component {
     const arxivCategories = metadata.get('arxiv_categories');
     const ranks = metadata.get('ranks');
     const experiments = metadata.get('accelerator_experiments');
-    const canEdit = metadata.get('can_edit', false)
-
+    const canEdit = metadata.get('can_edit', false);
+    const externalJobId = metadata.get('external_job_identifier');
     return (
       <ResultItem
         leftActions={
-          canEdit && <EditRecordAction pidType="jobs" pidValue={ recordId }/> 
+          canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} />
         }
       >
         <Row type="flex">
           <Col>
             <Link className="f5 pr1" to={`${JOBS}/${recordId}`}>
-              {position}
+              <JobTitle position={position} externalJobId={externalJobId} />
             </Link>
           </Col>
           <Col>

@@ -2,6 +2,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import SanitizedHTML from 'react-sanitized-html';
 
+const ALLOWED_ATTRIBUTES_BY_TAG = { a: ['href', 'title'] };
+const ALLOWED_HTML_TAGS = [
+  'a',
+  'b',
+  'br',
+  'em',
+  'i',
+  'li',
+  'ol',
+  'p',
+  'strong',
+  'ul',
+];
+
 class Description extends Component {
   render() {
     const { description } = this.props;
@@ -11,19 +25,8 @@ class Description extends Component {
           <strong>Job description:</strong>
         </div>
         <SanitizedHTML
-          allowedAttributes={{ a: ['href', 'title'] }}
-          allowedTags={[
-            'a',
-            'b',
-            'br',
-            'em',
-            'i',
-            'li',
-            'ol',
-            'p',
-            'strong',
-            'ul',
-          ]}
+          allowedAttributes={ALLOWED_ATTRIBUTES_BY_TAG}
+          allowedTags={ALLOWED_HTML_TAGS}
           html={description}
         />
       </div>
