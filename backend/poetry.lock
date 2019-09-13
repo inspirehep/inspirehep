@@ -1082,7 +1082,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "60.0.13"
+version = "60.0.15"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -3197,7 +3197,7 @@ influxdb = ["98ef84817d8993d9c826aa76cf7254b4ce616f3b14c1f98a705370fd5cbaa509", 
 inspire-dojson = ["d4db8a8006f1685275ff7f86ee6514bc95978a49ebb00d5b0f9045993804ed3a"]
 inspire-json-merger = ["96a9203174044ae0c53cee5e712f722dff4ffcebfd142525abc42df2d3dbd21f"]
 inspire-query-parser = ["510ab513e1dd3b4b315bee29d89a8df4b6d66ea0bd7f62135b1ca99b90eb58a7"]
-inspire-schemas = ["cc66db8fca7af2ffdb6cb3959f20630c37564156992724f16607c0f8db89993b"]
+inspire-schemas = ["fdf6cd3ec80c20550563ae07b57db007e52d6e08f9448f7fe3f0ea1474204a52"]
 inspire-service-orcid = []
 inspire-utils = ["b44ddc2130ee48531af46c835262f2ba6f5ca6cb00e180b3a97454bae8b8b371"]
 intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]

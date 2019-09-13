@@ -22,7 +22,9 @@ class UserFactory(BaseFactory):
         model = User
 
     @classmethod
-    def _create(cls, model_class, role="user", orcid=None, email=None, *args, **kwargs):
+    def _create(
+        cls, model_class, role="superuser", orcid=None, email=None, *args, **kwargs
+    ):
         ds = current_app.extensions["invenio-accounts"].datastore
         role = ds.find_or_create_role(role)
         user = ds.create_user(
