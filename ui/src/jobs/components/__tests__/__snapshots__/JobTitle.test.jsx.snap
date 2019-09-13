@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobTitle renders with only position 1`] = `
+<Fragment>
+  VP of Happiness
+</Fragment>
+`;
+
+exports[`JobTitle renders with position and external job id 1`] = `
+<Fragment>
+  VP of Happiness
+  <Connect(Authorized)
+    authorizedRoles={
+      Immutable.Set [
+        "superuser",
+        "cataloger",
+      ]
+    }
+  >
+    <span>
+       (
+      R00123
+      )
+    </span>
+  </Connect(Authorized)>
+</Fragment>
+`;

@@ -19,6 +19,7 @@ import Contact from '../components/Contact';
 import ReferenceLettersContacts from '../components/ReferenceLettersContacts';
 import MoreInfo from '../components/MoreInfo';
 import DocumentHead from '../../common/components/DocumentHead';
+import JobTitle from '../components/JobTitle';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -60,6 +61,7 @@ class DetailPage extends Component {
     const referenceLetters = metadata.get('reference_letters');
     const urls = metadata.get('urls');
     const canEdit = metadata.get('can_edit', false);
+    const externalJobId = metadata.get('external_job_identifier');
     return (
       <>
         <DocumentHead title={position} />
@@ -86,7 +88,12 @@ class DetailPage extends Component {
               )}
               <Row>
                 <Col>
-                  <h2>{position}</h2>
+                  <h2>
+                    <JobTitle
+                      position={position}
+                      externalJobId={externalJobId}
+                    />
+                  </h2>
                 </Col>
               </Row>
               <Row className="mt1">

@@ -14,7 +14,9 @@ exports[`JobItem renders full job search result item 1`] = `
         replace={false}
         to="/jobs/12345"
       >
-        Job Offer
+        <JobTitle
+          position="Job Offer"
+        />
       </Link>
     </Col>
     <Col>
