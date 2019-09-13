@@ -54,6 +54,7 @@ setup(
             "inspirehep_records = inspirehep.records.views:blueprint",
             "inspirehep_rt = inspirehep.rt.views:blueprint",
             "inspirehep_submissions = inspirehep.submissions.views:blueprint",
+            "inspirehep_disambiguation = inspirehep.disambiguation.views:blueprint",
         ],
         "invenio_config.module": [
             "inspirehep = inspirehep.config",
@@ -83,6 +84,7 @@ setup(
             "inspirehep_migrator = inspirehep.migrator.tasks",
             "inspirehep_orcid = inspirehep.orcid.tasks",
             "inspirehep_submissions = inspirehep.submissions.tasks",
+            "inspirehep.disambiguation = inspirehep.disambiguation.tasks",
         ],
     },
     classifiers=[
