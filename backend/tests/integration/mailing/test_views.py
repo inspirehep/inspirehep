@@ -15,7 +15,6 @@ from freezegun import freeze_time
 from inspirehep.mailing.api.jobs import (
     get_jobs_from_last_week,
     get_jobs_weekly_html_content,
-    send_jobs_weekly_campaign,
     subscribe_to_jobs_weekly_list,
 )
 from inspirehep.records.api import InspireRecord

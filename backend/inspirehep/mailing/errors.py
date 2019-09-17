@@ -10,9 +10,5 @@ class MailingError(Exception):
     pass
 
 
-class MailChimpMissingAPIToken(MailingError):
-    pass
-
-
 class SendGridMissingAPIToken(MailingError):
     pass

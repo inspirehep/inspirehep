@@ -15,7 +15,6 @@ from inspirehep.mailing.api.jobs import (
     get_job_recipient,
     get_jobs_from_last_week,
     send_job_deadline_reminder,
-    send_jobs_weekly_campaign,
     subscribe_to_jobs_weekly_list,
 )
 
@@ -33,23 +32,6 @@ def test_jobs_from_last_week_empty(base_app, db, es_clear):
 
     results = get_jobs_from_last_week()
     assert expected_control_numbers == []
-
-
-@pytest.mark.vcr()
-def test_send_jobs_weekly_campaign(base_app, db, es_clear, vcr_cassette):
-    content = "<p>Breaking news from ALIAS Investigation.</p>"
-
-    send_jobs_weekly_campaign(content)
-    assert vcr_cassette.all_played
-
-
-@pytest.mark.vcr()
-def test_send_jobs_weekly_campaign_with_test_emails(
-    base_app, db, es_clear, vcr_cassette
-):
-    content = "<p>Breaking news from ALIAS Investigation.</p>"
-    send_jobs_weekly_campaign(content, ["jessica@jones.com"])
-    assert vcr_cassette.all_played
 
 
 def test_render_jobs_weekly_campaign_job_record_template_only(
@@ -106,7 +88,7 @@ def test_get_job_recipient_internal_uid(base_app, db, es_clear):
     user.id = 23
     db.session.add(user)
 
-    test_user = UserIdentity(id='user', method='test', id_user=user.id)
+    test_user = UserIdentity(id="user", method="test", id_user=user.id)
     db.session.add(test_user)
 
     job = {
@@ -117,7 +99,7 @@ def test_get_job_recipient_internal_uid(base_app, db, es_clear):
             "method": "submitter",
             "orcid": "0000-0002-8672-7088",
             "source": "submitter",
-            "submission_number": "None"
+            "submission_number": "None",
         }
     }
     email = get_job_recipient(job)
@@ -125,7 +107,7 @@ def test_get_job_recipient_internal_uid(base_app, db, es_clear):
     assert email == expected_email
 
 
-@patch('inspirehep.mailing.api.jobs.send_email')
+@patch("inspirehep.mailing.api.jobs.send_email")
 def test_send_email_to_contact_details_without_putting_it_in_cc(
     mock_send_email, base_app, db, es_clear
 ):
@@ -133,16 +115,10 @@ def test_send_email_to_contact_details_without_putting_it_in_cc(
     expected_cc = "rkh6j@virginia.edu"
     job = {
         "contact_details": [
-            {
-              "email": expected_recipient,
-              "name": "Group, Craig"
-            },
-            {
-              "email": expected_cc,
-              "name": "Haverstrom, Rich"
-            }
+            {"email": expected_recipient, "name": "Group, Craig"},
+            {"email": expected_cc, "name": "Haverstrom, Rich"},
         ],
-        "position": "Tester"
+        "position": "Tester",
     }
     send_job_deadline_reminder(job)
     mock_send_email.assert_called_once()
