@@ -43,7 +43,7 @@ def test_import_article_view_409_because_article_already_exists(
 
     resp = api_client.get(f"/literature/import/arXiv:{arxiv_value}")
 
-    expected_msg = f'The article "arXiv:{arxiv_value}" already exists in Inspire'
+    expected_msg = f"The article arXiv:{arxiv_value} already exists in Inspire"
     expected_recid = str(record["control_number"])
     result_msg = json.loads(resp.data)["message"]
     result_recid = json.loads(resp.data)["recid"]

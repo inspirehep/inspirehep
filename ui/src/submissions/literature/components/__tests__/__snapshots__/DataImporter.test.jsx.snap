@@ -110,12 +110,11 @@ exports[`DataImporter renders with error with message and recid 1`] = `
             <React.Fragment>
               . 
                
-              <Link
-                replace={false}
-                to="/literature/12345"
+              <ExternalLink
+                href="http://inspirehep.net/record/12345"
               >
                 See the record
-              </Link>
+              </ExternalLink>
             </React.Fragment>
           </React.Fragment>
         }
