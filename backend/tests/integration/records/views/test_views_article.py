@@ -16,10 +16,10 @@ from helpers.providers.faker import faker
 def test_import_article_view_400_bad_arxiv(api_client, db):
     resp = api_client.get("/literature/import/bad_arxiv:0000.0000")
 
-    expected_msg = "bad_arxiv:0000.0000 is not a recognized identifier"
+    expected_msg = "bad_arxiv:0000.0000 is not a recognized identifier."
     resp_msg = json.loads(resp.data)["message"]
 
-    assert expected_msg in resp_msg
+    assert expected_msg == resp_msg
     assert resp.status_code == 400
 
 
@@ -29,7 +29,7 @@ def test_import_article_view_404_non_existing_doi(api_client, db):
     expected_msg = "No article found for 10.1016/j.physletb.2099.08.020"
     result_msg = json.loads(resp.data)["message"]
 
-    assert expected_msg in result_msg
+    assert expected_msg == result_msg
     assert resp.status_code == 404
 
 
@@ -39,14 +39,17 @@ def test_import_article_view_409_because_article_already_exists(
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     data = faker.record("lit", with_control_number=True, data=data)
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
 
     resp = api_client.get(f"/literature/import/arXiv:{arxiv_value}")
 
-    expected_msg = f"Article arXiv:{arxiv_value} already in Inspire"
+    expected_msg = f'The article "arXiv:{arxiv_value}" already exists in Inspire'
+    expected_recid = str(record["control_number"])
     result_msg = json.loads(resp.data)["message"]
+    result_recid = json.loads(resp.data)["recid"]
 
-    assert expected_msg in result_msg
+    assert expected_msg == result_msg
+    assert expected_recid == result_recid
     assert resp.status_code == 409
 
 

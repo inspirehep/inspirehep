@@ -30,6 +30,18 @@ describe('DataImporter', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders with error with message and recid', () => {
+    const wrapper = shallow(
+      <DataImporter
+        error={fromJS({ message: 'error', recid: '12345' })}
+        isImporting={false}
+        onImportClick={jest.fn()}
+        onSkipClick={jest.fn()}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders with error without a message', () => {
     const wrapper = shallow(
       <DataImporter

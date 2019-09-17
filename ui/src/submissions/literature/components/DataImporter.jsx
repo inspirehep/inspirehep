@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { Link } from 'react-router-dom';
 import { Input, Button, Alert, Row, Col, Form } from 'antd';
 
 import LinkLikeButton from '../../../common/components/LinkLikeButton';
@@ -25,6 +26,21 @@ class DataImporter extends Component {
     onImportClick(this.importValue);
   }
 
+  renderAlertMessage() {
+    const { error } = this.props;
+    const recordId = error.get('recid');
+    return (
+      <>
+        {error.get('message', DEFAULT_ERROR_MESSAGE)}
+        {recordId && (
+          <>
+            {'. '} <Link to={`/literature/${recordId}`}>See the record</Link>
+          </>
+        )}
+      </>
+    );
+  }
+
   render() {
     const { onSkipClick, isImporting, error } = this.props;
     return (
@@ -41,7 +57,7 @@ class DataImporter extends Component {
           <Row className="mb3">
             <Col>
               <Alert
-                message={error.get('message', DEFAULT_ERROR_MESSAGE)}
+                message={this.renderAlertMessage()}
                 type="error"
                 showIcon
                 closable
