@@ -349,7 +349,7 @@ def import_article(identifier):
 
     if recid:
         raise ExistingArticleError(
-            f'The article "{identifier}" already exists in Inspire', recid
+            f"The article {identifier} already exists in Inspire", recid
         )
 
     importers = {"arxiv": import_arxiv, "doi": import_doi}
