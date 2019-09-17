@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from flask_mail import Mail
+
 from .utils import humanize_date_to_natural_time
 
 
@@ -18,4 +20,8 @@ class InspireMailing:
             "humanizeDateToNaturalTime"
         ] = humanize_date_to_natural_time
         app.extensions["inspirehep-mailing"] = self
+
+        mail = Mail()
+        mail.init_app(app)
+
         return self

@@ -8,6 +8,7 @@
 import datetime
 
 import structlog
+from bs4 import BeautifulSoup
 from dateutil.parser import parse
 from humanize import naturaltime
 
@@ -35,3 +36,8 @@ def humanize_date_to_natural_time(value):
         # Report but don't break
         LOGGER.exception("Cannot parse date.", date=value)
         return ""
+
+
+def strip_html_tags(html_content):
+    soup = BeautifulSoup(html_content, features="lxml")
+    return soup.get_text()

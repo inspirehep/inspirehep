@@ -19,11 +19,12 @@ https://us3.admin.mailchimp.com/campaigns/
 MAILTRAIN_URL = "https://lists.labs.inspirehep.net"
 MAILTRAIN_API_TOKEN = ""
 MAILTRAIN_JOBS_WEEKLY_LIST_ID = ""
-SENDGRID_API_KEY = "CHANGE_ME"
-"""SendGrid api authentication key"""
 
 JOBS_DEADLINE_PASSED_SENDER_EMAIL = "jobs@inspirehep.net"
 """Email address for notifying expired jobs"""
+
+INVENIO_MAIL_SERVER = "localhost"
+"""SMTP server settings for the mail sending"""
 
 WEEKLY_JOBS_EMAIL_REDIS_KEY = "jobs_weekly_email"
 WEEKLY_JOBS_EMAIL_TITLE = "Weekly update on new job listings."

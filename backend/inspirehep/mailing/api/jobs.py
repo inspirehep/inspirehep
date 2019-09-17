@@ -10,7 +10,7 @@ from flask import current_app, render_template
 from inspire_utils.record import get_value
 from invenio_oauthclient.models import UserIdentity
 
-from inspirehep.mailing.providers.sendgrid import send_email
+from inspirehep.mailing.providers.flask_mail import send_email
 from inspirehep.search.api import JobsSearch
 
 from ..providers.mailtrain import mailtrain_subscribe_user_to_list
@@ -78,6 +78,7 @@ def send_job_deadline_reminder(job):
         subject=subject,
         content=content,
     )
+    LOGGER.info('Expired job email sent', recid=job.get('control_number'))
 
 
 def get_job_recipient(job):
