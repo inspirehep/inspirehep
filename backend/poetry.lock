@@ -581,10 +581,7 @@ version = "0.3.2"
 
 [package.dependencies]
 Flask = ">=0.10"
-
-[package.dependencies.celery]
-python = "<3.7"
-version = ">=3.1"
+celery = ">=3.1"
 
 [[package]]
 category = "main"
@@ -2159,7 +2156,7 @@ category = "main"
 description = "C parser in Python"
 name = "pycparser"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.19"
 
 [[package]]
@@ -2331,7 +2328,7 @@ version = "0.15.0"
 [package.dependencies]
 Flask = "*"
 Werkzeug = ">=0.7"
-pytest = ["*", ">=3.6", "*", ">=3.6"]
+pytest = ["*", ">=3.6"]
 
 [[package]]
 category = "dev"
@@ -2410,14 +2407,6 @@ version = "1.0.4"
 
 [[package]]
 category = "main"
-description = "HTTP REST client, simplified for Python"
-name = "python-http-client"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "3.2.1"
-
-[[package]]
-category = "main"
 description = "Lock context manager implemented via redis SETNX/BLPOP."
 name = "python-redis-lock"
 optional = false
@@ -2463,7 +2452,7 @@ category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "5.1.2"
 
 [[package]]
@@ -2663,17 +2652,6 @@ urllib3 = "*"
 
 [[package]]
 category = "main"
-description = "Twilio SendGrid library for Python"
-name = "sendgrid"
-optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "6.1.0"
-
-[package.dependencies]
-python-http-client = ">=3.2.1"
-
-[[package]]
-category = "main"
 description = "Python client for Sentry (https://getsentry.com)"
 name = "sentry-sdk"
 optional = false
@@ -2717,7 +2695,7 @@ category = "main"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
 name = "simplejson"
 optional = false
-python-versions = "*"
+python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "3.16.0"
 
 [[package]]
@@ -3119,7 +3097,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "a7108d535ce7d05be9d72f1b71cacf086c038d2efa584b7ce2291254aee021d4"
+content-hash = "2cf4f2567c389b8f1ce8426f15b55e38690b05c6fb85d3b869f8646838b4b9a8"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3332,7 +3310,6 @@ pytest-runner = ["175d3d9271332b54df0190bec59c3614676f6895ad1056aa391ed034e03f95
 pytest-vcr = ["23ee51b75abbcc43d926272773aae4f39f93aceb75ed56852d0bf618f92e1896", "2f316e0539399bea0296e8b8401145c62b6f85e9066af7e57b6151481b0d6d9c"]
 python-dateutil = ["7e6584c74aeed623791615e26efd690f29817a27c73085b78e4bad02493df2fb", "c89805f6f4d64db21ed966fda138f8a5ed7a4fdbc1a8ee329ce1b74e3c74da9e"]
 python-editor = ["1bf6e860a8ad52a14c3ee1252d5dc25b2030618ed80c022598f00176adc8367d", "51fda6bcc5ddbbb7063b2af7509e43bd84bfc32a4ff71349ec7847713882327b", "5f98b069316ea1c2ed3f67e7f5df6c0d8f10b689964a4a811ff64f0106819ec8", "c3da2053dbab6b29c94e43c486ff67206eafbe7eb52dbec7390b5e2fb05aac77", "ea87e17f6ec459e780e4221f295411462e0d0810858e055fc514684350a2f522"]
-python-http-client = ["01f58f1871612fdce6a4545df7c867a6d1457695652a7ca48d5c22e5bf57628d", "c2776054245db376ea26c859b80e9280b1a470b96ed998d60d35951f89bbbe79", "e455ae0dfd5819ac483f7fecf08ab8693048d9dc47a0a6fe0d4aebf86d9d1d17"]
 python-redis-lock = ["5316d473ce6ce86a774b9f9c110d84c3a9bd1a2abfda5d99e9c0c8a872a8e6d6", "f0649c49341fa943f19b8fbe93c3457df8a0a85006c88134465a16401fd1e553"]
 python-scrapyd-api = ["ab92d3461a81f46aaa6d82cc3de610642892c5454ddebb74d2b81fbc55e9c807", "e64f7caab23e541967fdf78926af5e6be6a863227f78d16b7ebb3a35acfc2099"]
 pytz = ["26c0b32e437e54a18161324a2fca3c4b9846b74a8dccddd843113109e1116b32", "c894d57500a4cd2d5c71114aaab77dbab5eabd9022308ce5ac9bb93a60a6f0c7"]
@@ -3355,7 +3332,6 @@ scrapy-sentry = ["4c78e0fb5a5940639f11ae2a1fb28d4ea1a41180d88289efc6d8e39e1e1422
 scrapyd = ["c722058ac3d19b7c34ae8cfab5fa55803c20d96da59bf5f3fc73dff36a7bb940"]
 scrapyd-client = ["caa0f5369c2e1efa7b79c309afb9819b2518870c5f4f2caf84d3e474cd6a9890", "e547475c5c8dbd811e2cc4141a0e7b4ba47600e9980c59df4f831bb60b94e4cb"]
 selenium = ["2d7131d7bc5a5b99a2d9b04aaf2612c411b03b8ca1b1ee8d3de5845a9be2cb3c", "deaf32b60ad91a4611b98d8002757f29e6f2c2d5fcaf202e1c9ad06d6772300d"]
-sendgrid = ["a9999878aad90e32d7b62464454adc70bcef40085c729355ea58717bb0ea0dbd", "cb0b21a83a54bc99d9befda1ea7b4f15fe8db362a152458e58abc5ce23d6d828", "f04fee009c750b47ab984f3c4a735facacc7fba902052d597f7e60b601e56bcc"]
 sentry-sdk = ["d491aa6399eaa3eded433972751a9770180730fd8b4c225b0b7f49c4fa2af70b", "d68003cdffbbfcadaa2c445b72e1050b0a44406f94199866f192986c016b23f5"]
 service-identity = ["001c0707759cb3de7e49c078a7c0c9cd12594161d3bf06b9c254fdcb1a60dc36", "0858a54aabc5b459d1aafa8a518ed2081a285087f349fe3e55197989232e2e2d"]
 sickle = ["76d66ed4607af2cd36ee15568a98e7f147d4ec3dd227bd047664a1ca88b21944", "b0aaa41d97a0c355aa6099b4dfa46c03f0bf828e6171960a15d68bd0548215ec"]
