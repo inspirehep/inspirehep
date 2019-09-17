@@ -55,7 +55,8 @@ def import_article_view(identifier):
         return jsonify({"data": literature_v1.dump(article)})
 
     except ExistingArticleError as e:
-        return jsonify(message=str(e)), 409
+        message, recid = e.args
+        return jsonify(message=str(message), recid=str(recid)), 409
 
     except ImportArticleError as e:
         return jsonify(message=str(e)), 404

@@ -22,6 +22,7 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
 from redis import StrictRedis
+from sqlalchemy.orm import aliased
 
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
@@ -301,7 +302,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 def import_article(identifier):
     """Import a new article from arXiv or Crossref based on the identifier.
 
-    This function attempts to parse  and normalize the identifier as a valid
+    This function attempts to parse and normalize the identifier as a valid
     arXiv id or DOI. If the identifier is valid and there is no record in
     Inspire matching the ID, it queries the arXiv/CrossRef APIs and parses
     the record to make it inspire compliant.
@@ -330,14 +331,27 @@ def import_article(identifier):
     else:
         raise UnknownImportIdentifierError(identifier)
 
-    pid = PersistentIdentifier.query.filter_by(
-        pid_type=pid_type, pid_value=pid_value
-    ).one_or_none()
+    ext_pid = aliased(PersistentIdentifier)
+    recid_pid = aliased(PersistentIdentifier)
 
-    if pid:
-        raise ExistingArticleError(
-            f"Article {identifier} already in Inspire. UUID: {pid.object_uuid}"
+    recid = (
+        db.session.query(recid_pid.pid_value)
+        .filter(
+            recid_pid.object_uuid == ext_pid.object_uuid,
+            recid_pid.object_type == ext_pid.object_type,
+            ext_pid.object_type == "rec",
+            ext_pid.pid_type == pid_type,
+            ext_pid.pid_value == pid_value,
+            recid_pid.pid_provider == "recid",
         )
+        .scalar()
+    )
+
+    if recid:
+        raise ExistingArticleError(
+            f'The article "{identifier}" already exists in Inspire', recid
+        )
+
     importers = {"arxiv": import_arxiv, "doi": import_doi}
     importer = importers.get(pid_type, UnknownImportIdentifierError)
     article = importer(pid_value)
