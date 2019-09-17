@@ -51,7 +51,6 @@ node-semver = "<0.2.0,>=0.1.1"
 pybtex = "*"
 cryptography = "<2.6"
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
-hepcrawl = "^13.0.1"
 python-redis-lock = "^3.3"
 # FIXME: orcid tests are failing with `4.4` because of OrderedDict changes
 lxml = "~=4.3,<4.4"
@@ -71,6 +70,7 @@ mailchimp3 = "^3.0"
 humanize = "^0.5.1"
 feedgen = "^0.8.0"
 flask-mail = "^0.9.1"
+hepcrawl = "^13.0"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
