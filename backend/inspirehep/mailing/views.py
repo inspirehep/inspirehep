@@ -8,7 +8,8 @@
 import structlog
 from flask import Blueprint, jsonify, request
 
-from .api.jobs import subscribe_to_jobs_weekly_list
+from inspirehep.mailing.api.jobs import subscribe_to_jobs_weekly_list
+
 from .loaders import JobsWeeklySubscribeSchema
 
 LOGGER = structlog.getLogger()

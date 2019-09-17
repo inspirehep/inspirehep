@@ -13,7 +13,6 @@ from invenio_oauthclient.models import UserIdentity
 from inspirehep.mailing.providers.sendgrid import send_email
 from inspirehep.search.api import JobsSearch
 
-from ..providers.mailchimp import mailchimp_create_campaign, mailchimp_send_campaign
 from ..providers.mailtrain import mailtrain_subscribe_user_to_list
 
 LOGGER = structlog.getLogger()
@@ -30,21 +29,19 @@ def get_jobs_weekly_html_content(jobs):
     return render_template("mailing/jobs/weekly/base.html", jobs=jobs)
 
 
-def send_jobs_weekly_campaign(html_content, test_emails=None):
-    campaign_id = mailchimp_create_campaign(
-        current_app.config["MAILCHIMP_JOBS_WEEKLY_REPLICATE_CAMPAIGN_ID"]
-    )
-    return mailchimp_send_campaign(campaign_id, html_content, test_emails=test_emails)
-
-
 def subscribe_to_jobs_weekly_list(email, first_name, last_name):
     list_id = current_app.config["MAILTRAIN_JOBS_WEEKLY_LIST_ID"]
     return mailtrain_subscribe_user_to_list(list_id, email, first_name, last_name)
 
 
 def get_jobs_deadline_reminder_html_content(job, recipient):
-    host = current_app.config['SERVER_NAME']
-    return render_template("mailing/jobs/deadline_passed/base.html", job=job, host=host, recipient=recipient)
+    host = current_app.config["SERVER_NAME"]
+    return render_template(
+        "mailing/jobs/deadline_passed/base.html",
+        job=job,
+        host=host,
+        recipient=recipient,
+    )
 
 
 def send_job_deadline_reminder(job):
@@ -60,15 +57,16 @@ def send_job_deadline_reminder(job):
 
     if not recipient:
         LOGGER.error(
-            'Cannot send deadline email: no recipient found',
-            recid=job['control_number']
+            "Cannot send deadline email: no recipient found",
+            recid=job["control_number"],
         )
         return
 
     sender = current_app.config["JOBS_DEADLINE_PASSED_SENDER_EMAIL"]
     cc_addresses = [
-        cd.get('email') for cd in job.get('contact_details')
-        if cd.get('email') != recipient
+        cd.get("email")
+        for cd in job.get("contact_details")
+        if cd.get("email") != recipient
     ]
     subject = f"Expired deadline for your INSPIRE job: {job['position']}"
     content = get_jobs_deadline_reminder_html_content(job, recipient)
@@ -98,13 +96,13 @@ def get_job_recipient(job):
         string: the email for contacting the job author. It can be None.
     """
     recipient = None
-    if 'acquisition_source' in job:
-        user_id = get_value(job, 'acquisition_source.internal_uid')
+    if "acquisition_source" in job:
+        user_id = get_value(job, "acquisition_source.internal_uid")
 
         if user_id:
             identity = UserIdentity.query.filter_by(id_user=user_id).one_or_none()
             if identity:
                 recipient = identity.user.email
     else:
-        recipient = get_value(job, 'contact_details[0].email')
-    return recipient or get_value(job, 'acquisition_source.email')
+        recipient = get_value(job, "contact_details.email[0]")
+    return recipient or get_value(job, "acquisition_source.email")
