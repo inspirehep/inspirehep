@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title type="text">Weekly HEP jobs - INSPIRE</title>
+  <id>http://localhost:5000/mailing/rss/jobs/weekly</id>
+  <updated>2019-09-18T06:58:07.583032Z</updated>
+  <link href="http://localhost:5000/" />
+  <link href="http://localhost:5000/mailing/rss/jobs/weekly" rel="self" />
+  <generator>Werkzeug</generator>
+  <entry xml:base="http://localhost:5000/mailing/rss/jobs/weekly">
+    <title type="text">New HEP positions opened last week</title>
+    <id>1568789887.583032</id>
+    <updated>2019-09-18T06:58:07.583032Z</updated>
+    <published>2019-09-18T06:58:07.583032Z</published>
+    <author>
+      <name>inspirehep.net</name>
+    </author>
+    <content type="html">HEP Jobs</content>
+  </entry>
+</feed>

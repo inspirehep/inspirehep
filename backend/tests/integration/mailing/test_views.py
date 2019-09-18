@@ -11,6 +11,7 @@ import pytest
 import vcr
 from flask import render_template
 from freezegun import freeze_time
+from mock import patch
 
 from inspirehep.mailing.api.jobs import (
     get_jobs_from_last_week,
@@ -75,3 +76,22 @@ def test_view_subscribe_to_list_with_missing_data(api_client, db, es_clear):
     assert expected_status_code == result_status_code
     assert expected_message == result_message
     assert expected_errors == result_errors
+
+
+def test_get_weekly_jobs_rss(app, api_client, redis, shared_datadir):
+    with patch.dict(app.config, {"WEEKLY_JOBS_EMAIL_REDIS_KEY": "weekly_jobs_email"}):
+        entry = {
+            "title": "New HEP positions opened last week",
+            "timestamp": 1568789887.583032,
+            "html": "HEP Jobs",
+        }
+
+        redis.hmset("weekly_jobs_email", entry)
+        response = api_client.get(
+            "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
+        )
+        rss_data = response.data.decode("UTF-8")
+        expected_data = (shared_datadir / "rss.xml").read_text()
+
+        assert response.status_code == 200
+        assert rss_data == expected_data
