@@ -297,23 +297,27 @@ def process_clustering_output(clusterer):
     output = []
     for label in numpy.unique(labels):
         signatures = clusterer.X[labels == label]
-        author_ids_and_is_curated = {}
+        author_id_to_is_curated = {}
         signatures_output = []
         for sig in signatures:
             author_id = sig[0]["author_id"]
             if sig[0]["is_curated_author_id"]:
-                author_ids_and_is_curated[author_id] = True
-            elif author_id and author_id not in author_ids_and_is_curated:
-                author_ids_and_is_curated[author_id] = False
-            signatures_output.append(
-                (sig[0].publication["publication_id"], sig[0]["signature_uuid"])
-            )
-        output.append(
-            {
-                "signatures": signatures_output,
-                "authors": list(author_ids_and_is_curated.items()),
-            }
-        )
+                author_id_to_is_curated[author_id] = True
+            elif author_id and author_id not in author_id_to_is_curated:
+                author_id_to_is_curated[author_id] = False
+
+            signatures_output.append({
+                "publication_id": sig[0].publication["publication_id"],
+                "signature_uuid": sig[0]["signature_uuid"]
+            })
+        authors_output = [
+            {"author_id": author_id, "has_claims": author_id_to_is_curated[author_id]}
+            for author_id in author_id_to_is_curated
+        ]
+        output.append({
+            "signatures": signatures_output,
+            "authors": authors_output,
+        })
     return output
 
 

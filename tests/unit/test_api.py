@@ -119,8 +119,14 @@ def test_process_clustering_output_signatures_without_author_id():
     expected_output = [
         {
             "signatures": [
-                (1, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
-                (1, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"),
+                {
+                    "publication_id": 1,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                },
+                {
+                    "publication_id": 1,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54",
+                }
             ],
             "authors": [],
         }
@@ -282,18 +288,36 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
     expected_output = [
         {
             "signatures": [
-                (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
-                (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"),
+                {
+                    "publication_id": 11,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                },
+                {
+                    "publication_id": 12,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53"
+                }
             ],
-            "authors": [(1, True)],
+            "authors": [{"author_id": 1, "has_claims": True}],
         },
         {
             "signatures": [
-                (13, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"),
-                (14, "94fc2b0a-dc17-42c2-bae3-ca0024079e55"),
-                (15, "94fc2b0a-dc17-42c2-bae3-ca0024079e56"),
+                {
+                    "publication_id": 13,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54"
+                },
+                {
+                    "publication_id": 14,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e55"
+                },
+                {
+                    "publication_id": 15,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e56"
+                },
             ],
-            "authors": [(3, True), (5, True)],
+            "authors": [
+                {"author_id": 3, "has_claims": True},
+                {"author_id": 5, "has_claims": True}
+            ],
         },
     ]
     output = process_clustering_output(clusterer_mock)
@@ -368,10 +392,16 @@ def test_process_clustering_output_signatures_with_non_curated_author_id():
     expected_output = [
         {
             "signatures": [
-                (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
-                (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"),
+                {
+                    "publication_id": 11,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                },
+                {
+                    "publication_id": 12,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53"
+                },
             ],
-            "authors": [(1, False)],
+            "authors": [{"author_id": 1, "has_claims": False}],
         }
     ]
 
@@ -475,11 +505,20 @@ def test_process_clustering_output_signatures_with_curated_and_non_curated_autho
     expected_output = [
         {
             "signatures": [
-                (11, "94fc2b0a-dc17-42c2-bae3-ca0024079e52"),
-                (12, "94fc2b0a-dc17-42c2-bae3-ca0024079e53"),
-                (13, "94fc2b0a-dc17-42c2-bae3-ca0024079e54"),
+                {
+                    "publication_id": 11,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                },
+                {
+                    "publication_id": 12,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53"
+                },
+                {
+                    "publication_id": 13,
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54"
+                },
             ],
-            "authors": [(1, True)],
+            "authors": [{"author_id": 1, "has_claims": True}],
         }
     ]
 
