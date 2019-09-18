@@ -37,6 +37,32 @@ def test_update_weekly_jobs(app_cli_runner, base_app, db, es_clear, create_jobs,
     assert redis_content[2].startswith(expected_redis_content[2])
 
 
+@freeze_time(datetime(2019, 9, 17, 6, 0, 0))
+def test_update_weekly_jobs_populates_rss_feed(
+    app_cli_runner, app, db, es_clear, create_jobs, redis, api_client
+):
+    config = {
+        "WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY",
+        "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
+    }
+    with mock.patch.dict(app.config, config):
+        result = app_cli_runner.invoke(mailing, ["update_weekly_jobs"])
+        assert result.exit_code == 0
+        assert "Campaign updated" in result.output
+
+        expected_redis_content = [
+            str(datetime(2019, 9, 17, 6, 0, 0).timestamp()),
+            "Weekly jobs",
+            '<!doctype html>\n<html xmlns="http://www.w3.org/1999/xhtml"',
+        ]
+
+        response = api_client.get(
+            "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
+        )
+        rss_data = response.data.decode("UTF-8")
+        assert '<title type="text">Weekly jobs</title>' in rss_data
+
+
 def test_update_weekly_jobs_with_no_jobs(app_cli_runner, db, es_clear):
     result = app_cli_runner.invoke(mailing, ["update_weekly_jobs"])
     assert result.exit_code == 0
