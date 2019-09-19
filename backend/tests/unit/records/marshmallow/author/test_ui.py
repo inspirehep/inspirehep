@@ -215,3 +215,47 @@ def test_author_orcid():
     result_orcid = result_data.get("orcid")
 
     assert expected_orcid == result_orcid
+
+
+def test_only_public_and_current_emails():
+    schema = AuthorsDetailSchema()
+    data = {
+        "email_addresses": [
+            {"value": "current-private@mail.cern", "current": True, "hidden": True},
+            {"value": "current-public@mail.cern", "current": True, "hidden": False},
+            {"value": "outdated-public@mail.cern", "current": False, "hidden": False},
+            {"value": "outdated-private@mail.cern", "current": False, "hidden": True},
+        ]
+    }
+    author = faker.record("aut", data=data)
+    expected_email_addresses = [
+        {"value": "current-public@mail.cern", "current": True, "hidden": False}
+    ]
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+    result_email_addresses = result_data.get("email_addresses")
+
+    assert expected_email_addresses == result_email_addresses
+
+
+def test_only_public_and_current_emails():
+    schema = AuthorsDetailSchema()
+    data = {
+        "email_addresses": [
+            {"value": "current-private@mail.cern", "current": True, "hidden": True},
+            {"value": "current-public@mail.cern", "current": True, "hidden": False},
+            {"value": "outdated-public@mail.cern", "current": False, "hidden": False},
+            {"value": "outdated-private@mail.cern", "current": False, "hidden": True},
+        ]
+    }
+    author = faker.record("aut", data=data)
+    expected_email_addresses = [
+        {"value": "current-public@mail.cern", "current": True, "hidden": False}
+    ]
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+    result_email_addresses = result_data.get("email_addresses")
+
+    assert expected_email_addresses == result_email_addresses
