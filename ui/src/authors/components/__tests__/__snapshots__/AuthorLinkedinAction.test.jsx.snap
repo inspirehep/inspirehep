@@ -2,12 +2,22 @@
 
 exports[`AuthorLinkedinAction renders with linkedin 1`] = `
 <ListItemAction>
-  <ExternalLink
-    href="//linkedin.com/in/harunurhan"
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    title="LinkedIn"
+    transitionName="zoom-big-fast"
   >
-    <Icon
-      type="linkedin"
-    />
-  </ExternalLink>
+    <ExternalLink
+      href="//linkedin.com/in/harunurhan"
+    >
+      <Icon
+        type="linkedin"
+      />
+    </ExternalLink>
+  </Tooltip>
 </ListItemAction>
 `;

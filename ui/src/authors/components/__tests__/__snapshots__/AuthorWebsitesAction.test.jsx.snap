@@ -2,25 +2,45 @@
 
 exports[`AuthorWebsitesAction renders only a url 1`] = `
 <ListItemAction>
-  <ExternalLink
-    href="www.descriptionless.com/url"
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    title="Personal website"
+    transitionName="zoom-big-fast"
   >
-    <Icon
-      type="link"
-    />
-  </ExternalLink>
+    <ExternalLink
+      href="www.descriptionless.com/url"
+    >
+      <Icon
+        type="link"
+      />
+    </ExternalLink>
+  </Tooltip>
 </ListItemAction>
 `;
 
 exports[`AuthorWebsitesAction renders only blog 1`] = `
 <ListItemAction>
-  <ExternalLink
-    href="https://author.wordpress.com"
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    title="Personal website"
+    transitionName="zoom-big-fast"
   >
-    <Icon
-      type="link"
-    />
-  </ExternalLink>
+    <ExternalLink
+      href="https://author.wordpress.com"
+    >
+      <Icon
+        type="link"
+      />
+    </ExternalLink>
+  </Tooltip>
 </ListItemAction>
 `;
 
@@ -28,16 +48,26 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
 <ListItemAction>
   <DropdownMenu
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Personal websites"
+        transitionName="zoom-big-fast"
       >
-        <Icon
-          type="link"
-        />
-      </Button>
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <Icon
+            type="link"
+          />
+        </Button>
+      </Tooltip>
     }
   >
     <MenuItem

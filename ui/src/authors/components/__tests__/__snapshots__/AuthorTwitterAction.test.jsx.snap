@@ -2,12 +2,22 @@
 
 exports[`AuthorTwitterAction renders with twitter 1`] = `
 <ListItemAction>
-  <ExternalLink
-    href="//twitter.com/harunurhan"
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    title="Twitter"
+    transitionName="zoom-big-fast"
   >
-    <Icon
-      type="twitter"
-    />
-  </ExternalLink>
+    <ExternalLink
+      href="//twitter.com/harunurhan"
+    >
+      <Icon
+        type="twitter"
+      />
+    </ExternalLink>
+  </Tooltip>
 </ListItemAction>
 `;
