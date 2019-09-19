@@ -29,13 +29,18 @@ def link_signature_to_author(signature_data, author_control_number):
         ),
         None,
     )
-    if not signature:
+    if not signature or ("record" in signature and signature.get("curated_relation")):
         return None
-    if signature.get(
-        "curated_relation"
-    ) and not LiteratureRecord.get_linked_records_from_dict_field(signature, "record"):
+
+    if signature.get("curated_relation") and "record" not in signature:
         signature["curated_relation"] = False
-    signature["record"] = get_record_ref(author_control_number, "authors")
+
+    new_author_record = get_record_ref(author_control_number, "authors")
+    if new_author_record == signature.get("record"):
+        # no changes, avoid creating a new useless version of the record
+        return None
+
+    signature["record"] = new_author_record
     record.update(dict(record))
     return signature
 

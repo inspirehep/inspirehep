@@ -39,6 +39,50 @@ def test_link_signature_to_author(base_app, db, es_clear, create_record, redis):
     assert expected_signatures == record["authors"]
 
 
+def test_link_signature_to_author_with_no_change(
+    base_app, db, es_clear, create_record, redis
+):
+    data = {
+        "authors": [
+            {
+                "full_name": "Doe, John",
+                "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",
+                "signature_block": "Dj",
+                "record": {"$ref": "http://localhost:5000/api/authors/123"},
+            }
+        ]
+    }
+    record = create_record("lit", data=data)
+    signature_data = {
+        "publication_id": record["control_number"],
+        "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",
+    }
+    signature = link_signature_to_author(signature_data, 123)
+    assert signature is None
+
+
+def test_link_signature_to_author_with_curated_signature_and_ref(
+    base_app, db, es_clear, create_record, redis
+):
+    data = {
+        "authors": [
+            {
+                "full_name": "Doe, John",
+                "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",
+                "curated_relation": True,
+                "record": {"$ref": "http://localhost:5000/api/authors/42"},
+            }
+        ]
+    }
+    record = create_record("lit", data=data)
+    signature_data = {
+        "publication_id": record["control_number"],
+        "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",
+    }
+    signature = link_signature_to_author(signature_data, 123)
+    assert signature is None
+
+
 def test_link_signature_to_author_with_curated_signature_but_no_ref(
     base_app, db, es_clear, create_record, redis
 ):
