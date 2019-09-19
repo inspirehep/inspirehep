@@ -72,7 +72,6 @@ import os
 
 instance_path = os.path.dirname(os.path.abspath(__file__))
 disambiguation_base_path = os.path.join(instance_path, "disambiguation")
-BASE_PATH = disambiguation_base_path
 ETHNICITY_DATA_PATH = os.path.join(disambiguation_base_path, "ethnicity.csv")
 ETHNICITY_MODEL_PATH = os.path.join(disambiguation_base_path, "ethnicity.pkl")
 DISTANCE_MODEL_PATH = os.path.join(disambiguation_base_path, "distance.pkl")
