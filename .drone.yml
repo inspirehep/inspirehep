@@ -1,0 +1,31 @@
+kind: pipeline
+name: build
+steps:
+  - name: kaniko
+    image: banzaicloud/drone-kaniko
+    settings:
+      username:
+        from_secret: docker-username
+      password:
+        from_secret: docker-password
+      repo: 'inspirehep/disambiguation'
+      context: 'dir:////drone/src/backend'
+      tags:
+        - '${DRONE_COMMIT_SHA}'
+
+---
+kind: pipeline
+name: test
+clone:
+  disable: true
+depends_on:
+  - build
+steps:
+  - name: flake8
+    image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
+    commands:
+      - poetry run flake8
+  - name: pytest
+    image: 'inspirehep/hep:${DRONE_COMMIT_SHA}'
+    commands:
+      - poetry run py.test tests

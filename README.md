@@ -1,4 +1,3 @@
-
 # inspire-disambiguation
 Disambiguation for Inspire Authors using Beard
 
@@ -19,5 +18,3 @@ and just run inspire-disambiguation
 ```bash
 $ poetry run inspire-disambiguation --help
 ```
-
-

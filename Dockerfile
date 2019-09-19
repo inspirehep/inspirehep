@@ -5,7 +5,12 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-**/__pycache__
-*.egg*
-.idea
-disambiguation
+FROM inspirehep/poetry:1.0.0b1
+
+CMD [ "run", "inspire-disambiguation", "cluster" ]
+
+WORKDIR /opt/disambiguation
+
+COPY . .
+
+RUN poetry install
