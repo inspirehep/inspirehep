@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <Icon
+          type="mail"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      key="dude@email.cern"
+    >
+      <ExternalLink
+        href="mailto:dude@email.cern"
+      >
+        dude@email.cern
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="other-dude@email.cern"
+    >
+      <ExternalLink
+        href="mailto:other-dude@email.cern"
+      >
+        other-dude@email.cern
+      </ExternalLink>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`AuthorEmailsAction renders single email 1`] = `
+<ListItemAction>
+  <ExternalLink
+    href="mailto:dude@email.cern"
+  >
+    <Icon
+      type="mail"
+    />
+  </ExternalLink>
+</ListItemAction>
+`;
