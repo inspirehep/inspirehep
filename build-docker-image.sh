@@ -6,7 +6,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+<<<<<<< HEAD
 IMAGE="inspirehep/disambiguation"
+=======
+IMAGE="inspirehep/author-disambiguation"
+>>>>>>> 5629392... docker: Add docker-compose
 TAG="$(git describe --always)"
 
 retry() {
