@@ -7,10 +7,11 @@
 
 from datetime import datetime
 
+import pytz
 import structlog
-from flask import Blueprint, current_app, jsonify, request
+from feedgen.feed import FeedGenerator
+from flask import Blueprint, Response, current_app, jsonify, request
 from redis import StrictRedis
-from werkzeug.contrib.atom import AtomFeed
 
 from inspirehep.mailing.api.jobs import subscribe_to_jobs_weekly_list
 
@@ -56,20 +57,20 @@ def get_weekly_jobs_rss():
     title = raw_email_entry[b"title"].decode("UTF-8")
     content = raw_email_entry[b"html"].decode("UTF-8")
     timestamp = float(raw_email_entry[b"timestamp"])
-    date = datetime.utcfromtimestamp(timestamp)
+    date = datetime.fromtimestamp(timestamp, tz=pytz.UTC)
 
-    feed = AtomFeed(
-        title="Weekly HEP jobs - INSPIRE", feed_url=request.url, url=request.url_root
-    )
+    feed = FeedGenerator()
+    feed.link(href=request.url_root)
+    feed.title("INSPIRE Weekly HEP Jobs")
+    feed.author({"name": "inspirehep.net"})
+    feed.description("Feed for weekly HEP jobs from INSPIRE")
+    feed.pubDate(date)
+    feed.lastBuildDate(date)
 
-    feed.add(
-        id=str(timestamp),
-        title=title,
-        content=content,
-        content_type="html",
-        author="inspirehep.net",
-        updated=date,
-        published=date,
-    )
+    entry = feed.add_entry()
+    entry.id(str(timestamp))
+    entry.title(title)
+    entry.content(content)
+    entry.published(date)
 
-    return feed.get_response()
+    return Response(response=feed.rss_str(), mimetype="application/rss+xml")

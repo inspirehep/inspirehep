@@ -468,6 +468,18 @@ six = ">=1.10"
 text-unidecode = "1.3"
 
 [[package]]
+category = "main"
+description = "Feed Generator (ATOM, RSS, Podcasts)"
+name = "feedgen"
+optional = false
+python-versions = "*"
+version = "0.8.0"
+
+[package.dependencies]
+lxml = "*"
+python-dateutil = "*"
+
+[[package]]
 category = "dev"
 description = "the modular source code checker: pep8, pyflakes and co"
 name = "flake8"
@@ -569,7 +581,10 @@ version = "0.3.2"
 
 [package.dependencies]
 Flask = ">=0.10"
-celery = ">=3.1"
+
+[package.dependencies.celery]
+python = "<3.7"
+version = ">=3.1"
 
 [[package]]
 category = "main"
@@ -602,6 +617,7 @@ werkzeug = "*"
 reference = "84c2633a4af55092650cb6972b126039500b39f9"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
+
 [[package]]
 category = "main"
 description = "Rate limiting for flask applications"
@@ -722,6 +738,7 @@ SQLAlchemy = ">=0.8.0"
 reference = "71abd94a1e2317a1365a25a31e719dbd9aafceea"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
+
 [[package]]
 category = "main"
 description = "HTTP security headers for Flask."
@@ -1111,6 +1128,7 @@ pkgsettings = ">=0.12.0,<1.0.0"
 reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
 type = "git"
 url = "https://github.com/drjova/inspire-service-orcid.git"
+
 [[package]]
 category = "main"
 description = "INSPIRE-specific utils."
@@ -1619,10 +1637,7 @@ python-versions = "*"
 version = "0.7.1"
 
 [package.dependencies]
-Unidecode = ">=0.4.19"
 dictdiffer = ">=0.6.0"
-editdistance = ">=0.3.1"
-munkres = ">=1.0.7"
 pyrsistent = ">=0.11.13"
 six = ">=1.10.0"
 
@@ -2144,7 +2159,7 @@ category = "main"
 description = "C parser in Python"
 name = "pycparser"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+python-versions = "*"
 version = "2.19"
 
 [[package]]
@@ -2316,7 +2331,7 @@ version = "0.15.0"
 [package.dependencies]
 Flask = "*"
 Werkzeug = ">=0.7"
-pytest = ["*", ">=3.6"]
+pytest = ["*", ">=3.6", "*", ">=3.6"]
 
 [[package]]
 category = "dev"
@@ -2448,7 +2463,7 @@ category = "main"
 description = "YAML parser and emitter for Python"
 name = "pyyaml"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+python-versions = "*"
 version = "5.1.2"
 
 [[package]]
@@ -2702,7 +2717,7 @@ category = "main"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
 name = "simplejson"
 optional = false
-python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
+python-versions = "*"
 version = "3.16.0"
 
 [[package]]
@@ -3104,7 +3119,7 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "67351f8941cdbd4518bc9a92b06a65bfd45287f84f8d60a780c74a02b96600ad"
+content-hash = "a7108d535ce7d05be9d72f1b71cacf086c038d2efa584b7ce2291254aee021d4"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3155,6 +3170,7 @@ elasticsearch-dsl = ["197246ddd556b4b7d2738dfa9e4831068c9b5cb21706f6aca035136d42
 entrypoints = ["589f874b313739ad35be6e0cd7efde2a4e9b6fea91edcc34e58ecbb8dbe56d19", "c70dd71abe5a8c85e55e12c19bd91ccfeec11a6e99044204511f9ed547d48451"]
 factory-boy = ["6f25cc4761ac109efd503f096e2ad99421b1159f01a29dbb917359dcd68e08ca", "d552cb872b310ae78bd7429bf318e42e1e903b1a109e899a523293dfa762ea4f"]
 faker = ["45cc9cca3de8beba5a2da3bd82a6e5544f53da1a702645c8485f682366c15026", "a6459ff518d1fc6ee2238a7209e6c899517872c7e1115510279033ffe6fe8ef3"]
+feedgen = ["26557304284007a3c2d772c376a48c0a8ec8e24371c4471455ea89cf568fa114"]
 flake8 = ["19241c1cbc971b9962473e4438a2ca19749a7dd002dd1a946eaba171b4114548", "8e9dfa3cecb2400b3738a42c54c3043e821682b9c840b0448c0503f781130696"]
 flask = ["13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52", "45eb5a6fd193d6cf7e0cf5d8a5b31f83d5faae0293695626f539a823e93b13f6"]
 flask-admin = ["ca0be6ec11a6913b73f656c65c444ae5be416c57c75638dd3199376ce6bc7422"]

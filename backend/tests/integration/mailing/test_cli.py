@@ -60,7 +60,7 @@ def test_update_weekly_jobs_populates_rss_feed(
             "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
         )
         rss_data = response.data.decode("UTF-8")
-        assert '<title type="text">Weekly jobs</title>' in rss_data
+        assert "<title>Weekly jobs</title>" in rss_data
 
 
 def test_update_weekly_jobs_with_no_jobs(app_cli_runner, db, es_clear):
