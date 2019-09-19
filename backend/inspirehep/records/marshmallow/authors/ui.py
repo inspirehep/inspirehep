@@ -29,6 +29,7 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
     twitter = fields.Method("get_twitter", dump_only=True)
     linkedin = fields.Method("get_linkedin", dump_only=True)
     orcid = fields.Method("get_orcid", dump_only=True)
+    email_addresses = fields.Method("get_current_public_emails", dump_only=True)
 
     def get_facet_author_name(self, data):
         facet_author_name = data.get("facet_author_name")
@@ -44,6 +45,15 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
 
     def get_orcid(self, data):
         return self.get_id_for_schema(data, "ORCID")
+
+    @staticmethod
+    def get_current_public_emails(data):
+        emails = data.get("email_addresses")
+        return emails and [
+            email
+            for email in emails
+            if not email.get("hidden") and email.get("current")
+        ]
 
     @staticmethod
     def get_id_for_schema(data, schema):

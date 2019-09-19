@@ -18,7 +18,10 @@ import {
 } from '../../actions/citations';
 import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
-import { getCurrentAffiliationsFromPositions, getAuthorDisplayName } from '../utils';
+import {
+  getCurrentAffiliationsFromPositions,
+  getAuthorDisplayName,
+} from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
 import AuthorPublicationsContainer from './AuthorPublicationsContainer';
@@ -34,6 +37,7 @@ import AuthorLinkedinAction from '../components/AuthorLinkedinAction';
 import AuthorWebsitesAction from '../components/AuthorWebsitesAction';
 import AuthorOrcid from '../components/AuthorOrcid';
 import DocumentHead from '../../common/components/DocumentHead';
+import AuthorEmailsAction from '../components/AuthorEmailsAction';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {
@@ -97,6 +101,7 @@ class DetailPage extends Component {
     const linkedin = metadata.get('linkedin');
     const urls = metadata.get('urls');
     const orcid = metadata.get('orcid');
+    const emails = metadata.get('email_addresses');
 
     return (
       <>
@@ -125,6 +130,7 @@ class DetailPage extends Component {
                   className="sm-pb3"
                   leftActions={
                     <>
+                      {emails && <AuthorEmailsAction emails={emails} />}
                       {twitter && <AuthorTwitterAction twitter={twitter} />}
                       {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                       {urls && <AuthorWebsitesAction websites={urls} />}
