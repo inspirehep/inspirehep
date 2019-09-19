@@ -10,9 +10,9 @@ import IconText from '../../common/components/IconText';
 import EventTracker from '../../common/components/EventTracker';
 
 const FORMAT_SELECT_OPTIONS = [
-  { value: 'x-bibtex', display: 'BibTex' },
-  { value: 'vnd+inspire.latex.eu+x-latex', display: 'LaTex (EU)' },
-  { value: 'vnd+inspire.latex.us+x-latex', display: 'LaTex (US)' },
+  { value: 'x-bibtex', display: 'BibTeX' },
+  { value: 'vnd+inspire.latex.eu+x-latex', display: 'LaTeX (EU)' },
+  { value: 'vnd+inspire.latex.us+x-latex', display: 'LaTeX (US)' },
 ];
 export const FORMAT_SELECT_VALUES = FORMAT_SELECT_OPTIONS.map(
   option => option.value
@@ -72,8 +72,10 @@ class CiteModalAction extends Component {
         this.setState({ errorMessage: null });
       } catch (error) {
         this.setState({
-          errorMessage: `Could not create cite text for the selected format. Caused by: ${error.message}`,
-        })
+          errorMessage: `Could not create cite text for the selected format. Caused by: ${
+            error.message
+          }`,
+        });
       }
     }
 
@@ -102,11 +104,7 @@ class CiteModalAction extends Component {
           <div>
             {errorMessage && (
               <div className="mb3">
-                <Alert
-                  type="error"
-                  showIcon
-                  description={errorMessage}
-                />
+                <Alert type="error" showIcon description={errorMessage} />
               </div>
             )}
             <Row>

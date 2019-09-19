@@ -89,15 +89,15 @@ exports[`CiteModalAction renders with all props 1`] = `
             options={
               Array [
                 Object {
-                  "display": "BibTex",
+                  "display": "BibTeX",
                   "value": "x-bibtex",
                 },
                 Object {
-                  "display": "LaTex (EU)",
+                  "display": "LaTeX (EU)",
                   "value": "vnd+inspire.latex.eu+x-latex",
                 },
                 Object {
-                  "display": "LaTex (US)",
+                  "display": "LaTeX (US)",
                   "value": "vnd+inspire.latex.us+x-latex",
                 },
               ]
@@ -213,15 +213,15 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
             options={
               Array [
                 Object {
-                  "display": "BibTex",
+                  "display": "BibTeX",
                   "value": "x-bibtex",
                 },
                 Object {
-                  "display": "LaTex (EU)",
+                  "display": "LaTeX (EU)",
                   "value": "vnd+inspire.latex.eu+x-latex",
                 },
                 Object {
-                  "display": "LaTex (US)",
+                  "display": "LaTeX (US)",
                   "value": "vnd+inspire.latex.us+x-latex",
                 },
               ]
