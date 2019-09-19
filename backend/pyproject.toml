@@ -70,6 +70,7 @@ structlog-sentry = "^1.1"
 mailchimp3 = "^3.0"
 humanize = "^0.5.1"
 sendgrid = "^6.0"
+feedgen = "^0.8.0"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
