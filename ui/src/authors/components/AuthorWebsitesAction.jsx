@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Map } from 'immutable';
-import { Button, Menu, Icon } from 'antd';
+import { Button, Menu, Icon, Tooltip } from 'antd';
 
 import ListItemAction from '../../common/components/ListItemAction';
 import DropdownMenu from '../../common/components/DropdownMenu';
@@ -45,15 +45,19 @@ class AuthorWebsitesAction extends Component {
       .sortBy(pair => pair.get('display'), sortBlogFirst);
     return (
       <DropdownMenu
-        title={<Button>{AuthorWebsitesAction.renderIcon()}</Button>}
+        title={
+          <Tooltip title="Personal websites">
+            <Button>{AuthorWebsitesAction.renderIcon()}</Button>
+          </Tooltip>
+        }
       >
-        {hrefDisplayPairs.map(pair => (
-          <Menu.Item key={pair.get('href')}>
-            <ExternalLink href={pair.get('href')}>
-              {pair.get('display')}
-            </ExternalLink>
-          </Menu.Item>
-        ))}
+          {hrefDisplayPairs.map(pair => (
+            <Menu.Item key={pair.get('href')}>
+              <ExternalLink href={pair.get('href')}>
+                {pair.get('display')}
+              </ExternalLink>
+            </Menu.Item>
+          ))}
       </DropdownMenu>
     );
   }
@@ -61,9 +65,11 @@ class AuthorWebsitesAction extends Component {
   renderOne() {
     const { websites } = this.props;
     return (
-      <ExternalLink href={websites.getIn(['0', 'value'])}>
-        {AuthorWebsitesAction.renderIcon()}
-      </ExternalLink>
+      <Tooltip title="Personal website">
+        <ExternalLink href={websites.getIn(['0', 'value'])}>
+          {AuthorWebsitesAction.renderIcon()}
+        </ExternalLink>
+      </Tooltip>
     );
   }
 

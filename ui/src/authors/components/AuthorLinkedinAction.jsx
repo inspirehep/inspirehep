@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import { Icon, Tooltip } from 'antd';
 
 import ListItemAction from '../../common/components/ListItemAction';
 import ExternalLink from '../../common/components/ExternalLink';
@@ -11,9 +11,11 @@ class AuthorLinkedinAction extends Component {
     const href = `//linkedin.com/in/${linkedin}`;
     return (
       <ListItemAction>
-        <ExternalLink href={href}>
-          <Icon type="linkedin" />
-        </ExternalLink>
+        <Tooltip title="LinkedIn">
+          <ExternalLink href={href}>
+            <Icon type="linkedin" />
+          </ExternalLink>
+        </Tooltip>
       </ListItemAction>
     );
   }
