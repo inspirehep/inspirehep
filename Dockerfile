@@ -5,11 +5,12 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM jonatkinson/python-poetry:3.6
+FROM inspirehep/poetry:1.0.0b1
 
-RUN mkdir -p /opt/disambiguation
+CMD [ "run", "inspire-disambiguation", "cluster" ]
+
 WORKDIR /opt/disambiguation
-COPY poetry.lock poetry.lock
-COPY pyproject.toml pyproject.toml
+
 COPY . .
+
 RUN poetry install
