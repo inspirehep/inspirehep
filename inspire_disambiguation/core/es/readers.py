@@ -36,7 +36,10 @@ class LiteratureSearch(Search):
     simplifies querying on Literature records"""
 
     connection = connections.create_connection(
-        hosts=[conf["ES_HOSTNAME"]], timeout=conf["ES_TIMEOUT"]
+        hosts=[conf["ES_HOSTNAME"]],
+        timeout=conf["ES_TIMEOUT"],
+        ca_certs=conf["CA_CERTS"],
+        http_auth=(conf["ES_USERNAME"], conf["ES_PASSWORD"])
     )
 
     def __init__(self, **kwargs):
