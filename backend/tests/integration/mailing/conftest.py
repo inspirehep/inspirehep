@@ -45,6 +45,16 @@ def create_jobs(base_app, db, es_clear, shared_datadir, create_record):
         now_utc - datetime.timedelta(days=5), data=data
     )
 
+    data = json.loads((shared_datadir / "1234567.json").read_text())
+    job_5_days_old_pending = mock_job_create_and_update_time(
+        now_utc - datetime.timedelta(days=5), data=data
+    )
+
+    data = json.loads((shared_datadir / "1234568.json").read_text())
+    job_5_days_old_closed = mock_job_create_and_update_time(
+        now_utc - datetime.timedelta(days=5), data=data
+    )
+
     data = json.loads((shared_datadir / "1468124.json").read_text())
     job_6_days_old = mock_job_create_and_update_time(
         now_utc - datetime.timedelta(days=6), data=data
