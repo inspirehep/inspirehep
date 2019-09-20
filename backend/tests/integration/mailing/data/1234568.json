@@ -1,0 +1,36 @@
+{
+  "$schema": "https://labs.inspirehep.net/schemas/records/jobs.json",
+  "_collections": ["Jobs"],
+  "arxiv_categories": ["hep-ex", "physics.ins-det"],
+  "contact_details": [
+    {
+      "email": "shixin@ihep.ac.cn",
+      "name": "Shi, Xin"
+    }
+  ],
+  "control_number": 1234568,
+  "deadline_date": "2019-09-01",
+  "description":
+    "The Institute of High Energy Physics (IHEP) of the Chinese Academy of Sciences in Beijing invites applications for a postdoctoral fellow position in experimental particle physics with the ATLAS experiment at the CERN Large Hadron Collider in Geneva, Switzerland.<p>   The IHEP ATLAS group is leading a broader Chines effort in the construction of the inner tracker (ITk) strip detector as part of the ATLAS Phase-II upgrade. The successful candidate will be expected to take a leading role in this project. She/He will spend most of her/his time working on tasks associated with the fabrication and testing of ITk silicon sensor modules. The candidate will have opportunities to participate in physics analysis depending on the schedule and background. </p><p>  A recent PhD in experimental particle physics with sufficient hardware and analysis skill is essential. Candidates with experience of the detector technologies relevant to the silicon tracker are particularly encouraged to apply. </p><p>  The successful candidate will be based at RAL in UK during the first one or two years. Annual travel to IHEP Beijing is expected to facilitate the local infrastructure setup. </p><p>  IHEP is a national lab and the premier high energy physics center in China. The BEPC collider is located on the IHEP campus. IHEP is the Worldwide LHC Computing Tier‐2 Grid site; its computing center provides excellent computing resources and support to researchers.  IHEP is located in western Beijing with easy access to the city subway and bus‐ lines to all areas of Beijing. Beijing is served by a modern airport and by high speed trains to major Chinese cities and significant destinations. The city of Beijing offers rich historic sites, a great variety of cultural, culinary and entertainment opportunities, as well the benefits of a modern city.</p><p>  The review of applications will begin as soon as the application material is complete. It is preferable to be ready before  December 31, 2018 when the “Chung-Yao Chao Fellowship” will most likely to started. Interested candidates should send the curriculum vitae, a statement of research interests, a list of publications and arrange three letters of recommendation to be sent directly to Professor Xin Shi (<a href=\"shixin@ihep.ac.cn\">shixin@ihep.ac.cn</a>) with a subject title Postdoc Search 201812.</p>",
+  "institutions": [
+    {
+      "curated_relation": true,
+      "record": {
+        "$ref": "https://labs.inspirehep.net/api/institutions/903123"
+      },
+      "value": "Beijing, Inst. High Energy Phys."
+    }
+  ],
+  "legacy_creation_date": "2016-04-08",
+  "legacy_version": "20190108184318.0",
+  "position": "Experimental Particle Physics",
+  "ranks": ["POSTDOC"],
+  "reference_letters": {
+    "emails": ["shixin@ihep.ac.cn", "xingth@ihep.ac.cn"]
+  },
+  "regions": ["Asia"],
+  "self": {
+    "$ref": "https://labs.inspirehep.net/api/jobs/1444586"
+  },
+  "status": "closed"
+}

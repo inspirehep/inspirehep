@@ -20,7 +20,9 @@ LOGGER = structlog.getLogger()
 
 def get_jobs_from_last_week():
     """Jobs created the last 7 days."""
-    query = Q("range", **{"_created": {"gte": "now-7d/d", "lt": "now/d"}})
+    query = Q("range", **{"_created": {"gte": "now-7d/d", "lt": "now/d"}}) & Q(
+        "match", **{"status": "open"}
+    )
     search = JobsSearch().query(query).sort("-_created")
     return search.execute().hits
 
@@ -78,7 +80,7 @@ def send_job_deadline_reminder(job):
         subject=subject,
         content=content,
     )
-    LOGGER.info('Expired job email sent', recid=job.get('control_number'))
+    LOGGER.info("Expired job email sent", recid=job.get("control_number"))
 
 
 def get_job_recipient(job):
