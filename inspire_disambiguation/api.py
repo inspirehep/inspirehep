@@ -139,7 +139,7 @@ def cluster_from_redis(ethnicity_model_path, distance_model_path, n_jobs):
         clusters = cluster(
             ethnicity_model_path, distance_model_path, n_jobs, signature_block
         )
-        LOGGER.info("%s", pprint.pformat(clusters, indent=4))
+        LOGGER.debug("%s", clusters)
         response = send_clusters_to_inspirehep(clusters)
 
         if response.status_code != 200:
