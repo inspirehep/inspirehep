@@ -93,6 +93,35 @@ def test_hard_delete_record(base_app, db, create_record_factory, create_pidstore
     assert record_identifier is None
 
 
+def test_regression_hard_delete_record_with_string_pid_value(
+    base_app, db, es_clear, create_record_factory, create_pidstore
+):
+    record_factory = create_record_factory("lit", with_indexing=True)
+    create_pidstore(record_factory.id, "pid1", "STRING")
+
+    pid_value_rec = record_factory.json["control_number"]
+    record_uuid = record_factory.id
+    record = InspireRecord.get_record(record_uuid)
+    record_pids = PersistentIdentifier.query.filter_by(object_uuid=record.id).all()
+
+    assert 2 == len(record_pids)
+    assert record_factory.json == record
+
+    record.hard_delete()
+
+    record = RecordMetadata.query.filter_by(id=record_uuid).one_or_none()
+    record_pids = PersistentIdentifier.query.filter_by(
+        object_uuid=record_uuid
+    ).one_or_none()
+    record_identifier = RecordIdentifier.query.filter_by(
+        recid=pid_value_rec
+    ).one_or_none()
+
+    assert record is None
+    assert record_pids is None
+    assert record_identifier is None
+
+
 def test_get_records_by_pids(base_app, db, es, create_record_factory):
     records = [
         create_record_factory("lit"),
