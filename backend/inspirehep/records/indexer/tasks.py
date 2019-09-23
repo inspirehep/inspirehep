@@ -63,7 +63,6 @@ def index_record(self, uuid, record_version=None, force_delete=None):
         record_version (int): Version of the record to reindex (will be checked).
         force_delete (bool): if set to True will delete record from es even if
             metadata says that record is not deleted.
-
     Returns:
         list(dict): Statistics from processing references.
     """

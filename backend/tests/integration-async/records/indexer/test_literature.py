@@ -88,6 +88,34 @@ def test_lit_record_removed_form_es_when_deleted(
     retry_until_matched(steps)
 
 
+def test_lit_record_removed_form_es_when_hard_deleted(
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
+):
+    data = faker.record("lit")
+    rec = LiteratureRecord.create(data)
+    db.session.commit()
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+        },
+    ]
+    retry_until_matched(steps)
+    rec.hard_delete()
+    db.session.commit()
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {
+            "step": es.search,
+            "args": ["records-hep"],
+            "expected_result": {"expected_key": "hits.total", "expected_result": 0},
+        },
+    ]
+    retry_until_matched(steps)
+
+
 def test_index_record_manually(
     app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):

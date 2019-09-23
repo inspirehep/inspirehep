@@ -33,7 +33,7 @@ def index_after_commit(sender, changes):
                 pid_type = PidStoreBase.get_pid_type_from_schema(
                     model_instance.json.get("$schema")
                 )
-                delete = "delete" in changes
+                delete = "delete" == change
                 arguments = InspireRecord.get_subclasses()[pid_type]._record_index(
                     model_instance.json, _id=str(model_instance.id), force_delete=delete
                 )

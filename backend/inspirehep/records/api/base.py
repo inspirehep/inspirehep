@@ -11,6 +11,7 @@ import uuid
 from datetime import datetime
 
 import structlog
+from elasticsearch import NotFoundError
 from flask_celeryext.app import current_celery_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
@@ -335,9 +336,14 @@ class InspireRecord(Record):
                 PersistentIdentifier.object_uuid == self.id
             ).all()
             for pid in pids:
-                RecordIdentifier.query.filter_by(recid=pid.pid_value).delete()
+                if pid.pid_provider == "recid":
+                    RecordIdentifier.query.filter_by(recid=pid.pid_value).delete()
                 db.session.delete(pid)
             db.session.delete(self.model)
+            try:
+                InspireRecordIndexer().delete(self)
+            except NotFoundError:
+                LOGGER.info("Record not found in ES", recid=recid, uuid=self.id)
         LOGGER.info("Record hard deleted", recid=recid)
 
     def get_enhanced_es_data(self, serializer=None):
@@ -348,7 +354,6 @@ class InspireRecord(Record):
             dict: Data serialized/enhanced by serializer.
         Raises:
             MissingSerializerError: If no serializer is set
-
         """
         if not self.es_serializer and not serializer:
             raise MissingSerializerError(
@@ -370,7 +375,6 @@ class InspireRecord(Record):
 
         Returns:
             dict: ES info about indexing
-
         """
         if self._schema_type != self.pid_type:
             LOGGER.warning(
