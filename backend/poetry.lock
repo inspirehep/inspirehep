@@ -4,7 +4,7 @@ description = "A database migration tool for SQLAlchemy."
 name = "alembic"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "1.1.0"
+version = "1.2.0"
 
 [package.dependencies]
 Mako = "*"
@@ -614,7 +614,6 @@ werkzeug = "*"
 reference = "84c2633a4af55092650cb6972b126039500b39f9"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
-
 [[package]]
 category = "main"
 description = "Rate limiting for flask applications"
@@ -735,7 +734,6 @@ SQLAlchemy = ">=0.8.0"
 reference = "71abd94a1e2317a1365a25a31e719dbd9aafceea"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
-
 [[package]]
 category = "main"
 description = "HTTP security headers for Flask."
@@ -830,10 +828,10 @@ description = "URL manipulation made simple."
 name = "furl"
 optional = false
 python-versions = "*"
-version = "2.0.0"
+version = "2.1.0"
 
 [package.dependencies]
-orderedmultidict = ">=1.0"
+orderedmultidict = ">=1.0.1"
 six = ">=1.8.0"
 
 [[package]]
@@ -1125,7 +1123,6 @@ pkgsettings = ">=0.12.0,<1.0.0"
 reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
 type = "git"
 url = "https://github.com/drjova/inspire-service-orcid.git"
-
 [[package]]
 category = "main"
 description = "INSPIRE-specific utils."
@@ -1204,16 +1201,16 @@ description = "WSGI, Celery and CLI applications for Invenio flavours."
 name = "invenio-app"
 optional = false
 python-versions = "*"
-version = "1.1.1"
+version = "1.2.2"
 
 [package.dependencies]
 flask-celeryext = ">=0.2.2"
-flask-limiter = ">=0.9.4"
+flask-limiter = ">=1.0.1"
 flask-shell-ipython = ">=0.3.1"
 flask-talisman = ">=0.3.2,<0.5.1"
-invenio-base = ">=1.0.0,<1.1.0"
-invenio-cache = ">=1.0.0,<1.1.0"
-invenio-config = ">=1.0.0,<1.1.0"
+invenio-base = ">=1.1.0"
+invenio-cache = ">=1.0.0"
+invenio-config = ">=1.0.0"
 
 [[package]]
 category = "main"
@@ -1221,7 +1218,7 @@ description = "Base package for building Invenio application factories."
 name = "invenio-base"
 optional = false
 python-versions = "*"
-version = "1.0.2"
+version = "1.2.0"
 
 [package.dependencies]
 Flask = ">=0.11.1"
@@ -1634,7 +1631,10 @@ python-versions = "*"
 version = "0.7.1"
 
 [package.dependencies]
+Unidecode = ">=0.4.19"
 dictdiffer = ">=0.6.0"
+editdistance = ">=0.3.1"
+munkres = ">=1.0.7"
 pyrsistent = ">=0.11.13"
 six = ">=1.10.0"
 
@@ -2156,7 +2156,7 @@ category = "main"
 description = "C parser in Python"
 name = "pycparser"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+python-versions = "*"
 version = "2.19"
 
 [[package]]
@@ -2695,7 +2695,7 @@ category = "main"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
 name = "simplejson"
 optional = false
-python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
+python-versions = "*"
 version = "3.16.0"
 
 [[package]]
@@ -3006,7 +3006,7 @@ description = "The comprehensive WSGI web application library."
 name = "werkzeug"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
-version = "0.15.6"
+version = "0.16.0"
 
 [[package]]
 category = "main"
@@ -3097,13 +3097,13 @@ version = "4.6.0"
 setuptools = "*"
 
 [metadata]
-content-hash = "2cf4f2567c389b8f1ce8426f15b55e38690b05c6fb85d3b869f8646838b4b9a8"
+content-hash = "b4c16416e5b07e387e5f76b8d3b3184e48665dfdb78320feb5f8c5a889218e4e"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
 Flask-KVSession = []
 Flask-SQLAlchemy = []
-alembic = ["4a4811119efbdc5259d1f4c8f6de977b36ad3bcc919f59a29c2960c5ef9149e4"]
+alembic = ["5609afbb2ab142a991b15ae436347c475f8a517f1610f2fd1b09cdca7c311f3f"]
 amqp = ["19a917e260178b8d410122712bac69cb3e6db010d68f6101e7307508aded5e68", "19d851b879a471fcfdcf01df9936cff924f422baa77653289f7095dedd5fb26a"]
 appdirs = ["9e5896d1372858f8dd3344faf4e5014d21849c756c8d5701f78f8a103b372d92", "d8b24664561d0d34ddfaec54636d502d7cea6e29c3eaf68f3df6180863e2166e"]
 appnope = ["5b26757dc6f79a3b7dc9fab95359328d5747fcb2409d331ea66d0272b90ab2a0", "8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"]
@@ -3174,7 +3174,7 @@ freezegun = ["2a4d9c8cd3c04a201e20c313caf8b6338f1cfa4cda43f46a94cc4a9fd13ea5e7",
 fs = ["ba2cca8773435a7c86059d57cb4b8ea30fda40f8610941f7822d1ce3ffd36197"]
 ftfy = ["3c0066db64a98436e751e56414f03f1cdea54f29364c0632c141c36cca6a5d94"]
 ftputil = ["374b01e174079e91babe2a462fbd6f6c00dbfbfa299dec04239ca4229fbf8762"]
-furl = ["f7e90e9f85ef3f2e64485f04c2a80b50af6133942812fd87a44d45305b079018", "fdcaedc1fb19a63d7d875b0105b0a5b496dd0989330d454a42bcb401fa5454ec"]
+furl = ["c0e0231a1feee2acd256574b7033df3144775451c610cb587060d6a0d7e0b621", "f4d6f1e5479c376a5b7bdc62795d736d8c1b2a754f366a2ad2816e46e946e22e"]
 future = ["67045236dcfd6816dc439556d009594abf643e5eb48992e36beac09c2ca659b8"]
 fuzzy = ["6b240e630235f183730b27fcb70fdd0d409bee2c3a4e7a964eeae093a28c4f38"]
 gunicorn = ["aa8e0b40b4157b36a5df5e599f45c9c76d6af43845ba3b3b0efe2c70473c2471", "fa2662097c66f920f53f70621c6c58ca4a3c4d3434205e608e121b5b3b71f4f3"]
@@ -3202,8 +3202,8 @@ inspire-utils = ["b44ddc2130ee48531af46c835262f2ba6f5ca6cb00e180b3a97454bae8b8b3
 intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]
 invenio-access = ["1e7439bfdb1c9a697fa41dccc79969af445baa0ddb6248f9cadc1046a2bed36f", "430225aa095e4ad11401a84fdf449566498f0e69b8b5c74e77239c1446b9e4da"]
 invenio-accounts = ["82f75c33e66fb57ec7811da22cc2225601b43c600ef303ca45ce20d40f2422cf", "b928535e4f3ffe53fcf07b2056f1f1b27b4ff8b83f57583c489f05db6dec5587"]
-invenio-app = ["a77aee57118d06909d2187a3e25f3d0a299189e06bb43b4d7404a689119ae75a", "df15a9ef65758f82f75f8b392456793c2fc36e9984d15113c852a7d8fd2c52dd"]
-invenio-base = ["6e532854a43e4f54fc7d9b1cbda720ce4ce6383b00cee6ba5f7e86ef78f12fe2", "f972e10b69a68a80c342f0bcf6b3b02a6a67af4fb6e8e347ce8b482fcb47e973"]
+invenio-app = ["5affafa8bd12077b07a62a4a8a6241fcae9c41f769c7bc14a3525720d0f19acb", "662af1120e2234774aff28ce7f7f4965a630fbd8c3290cd12bf98c8de69ef620"]
+invenio-base = ["0e50b3ad17352f8b8569603f3fe18db189545d77a630de3f0561a34f3404d0e1", "9cad510d7aceb738c800a1cabbfbc3dea57b9a7ec25bff8b0b74d650a0972779"]
 invenio-cache = ["8431d8b68dbb737cd7035f6467fec18dd29ad9ac35e20405d52af6c2d294557a", "f3620bb842f9084ddd5dc81f0fe234f58228c33f59e6771483fd09cb127201cc"]
 invenio-celery = ["22cda704fa8abaa885a327539899887a939832beda7de0d1f1d5d84b4ac153b1", "d102dcf3e94cfa11b0973626852f5fd6cac8fa3ba364c42fcec8ecc0b533d838"]
 invenio-config = ["84f67b7fc45095800aacbad4bf23f7498d03eab9f2f2fad3a367f2c56bf1b9e4", "885e092f98aaf50a0bb6ecfd667e239346bb1eb6fc6762d52493842f497664d0"]
@@ -3366,7 +3366,7 @@ watchdog = ["965f658d0732de3188211932aeb0bb457587f04f63ab4c1e33eab878e9de961d"]
 wcwidth = ["3df37372226d6e63e1b1e1eda15c594bca98a22d33a23832a90998faa96bc65e", "f4ebe71925af7b40a864553f761ed559b43544f8f71746c2d756c7fe788ade7c"]
 webargs = ["97b94d375196422a7037971a0a7e0b405a15b06099635dddcb3ecad48872f073", "d23e57ebcaf44722349d7d3b235479d329fcc91b7db2f1df7fab950d7ade54f8", "e0ece4ce48e880b16dc764e613972314acb4fb99f9043b7cbf5776f3a6a4b531"]
 webencodings = ["a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78", "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"]
-werkzeug = ["00d32beac38fcd48d329566f80d39f10ec2ed994efbecfb8dd4b320062d05902", "0a24d43be6a7dce81bae05292356176d6c46d63e42a0dd3f9504b210a9cfaa43"]
+werkzeug = ["7280924747b5733b246fe23972186c6b348f9ae29724135a6dfc1e53cea433e7", "e5f4a1f98b52b18a93da705a7458e55afb26f32bff83ff5d19189f92462d65c4"]
 whichcraft = ["acdbb91b63d6a15efbd6430d1d7b2d36e44a71697e93e19b7ded477afd9fce87", "deda9266fbb22b8c64fd3ee45c050d61139cd87419765f588e37c8d23e236dd9"]
 wrapt = ["565a021fd19419476b9362b05eeaa094178de64f8361e44468f9e9d7843901e1"]
 wtforms = ["0cdbac3e7f6878086c334aa25dc5a33869a3954e9d1e015130d65a69309b3b61", "e3ee092c827582c50877cdbd49e9ce6d2c5c1f6561f849b3b068c1b8029626f1"]
