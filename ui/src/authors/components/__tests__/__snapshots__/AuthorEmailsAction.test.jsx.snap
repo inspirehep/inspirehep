@@ -4,16 +4,26 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
 <ListItemAction>
   <DropdownMenu
     title={
-      <Button
-        block={false}
-        ghost={false}
-        htmlType="button"
-        loading={false}
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="Contact author"
+        transitionName="zoom-big-fast"
       >
-        <Icon
-          type="mail"
-        />
-      </Button>
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+        >
+          <Icon
+            type="mail"
+          />
+        </Button>
+      </Tooltip>
     }
   >
     <MenuItem
@@ -40,12 +50,22 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
 
 exports[`AuthorEmailsAction renders single email 1`] = `
 <ListItemAction>
-  <ExternalLink
-    href="mailto:dude@email.cern"
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    title="Contact author"
+    transitionName="zoom-big-fast"
   >
-    <Icon
-      type="mail"
-    />
-  </ExternalLink>
+    <ExternalLink
+      href="mailto:dude@email.cern"
+    >
+      <Icon
+        type="mail"
+      />
+    </ExternalLink>
+  </Tooltip>
 </ListItemAction>
 `;
