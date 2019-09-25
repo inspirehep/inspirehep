@@ -592,3 +592,27 @@ def test_literature_detail_serializes_conference_info(
 
     assert response_status_code == expected_status_code
     assert response_data_conference_info == expected_conference_info
+
+
+def test_regression_not_throw_on_collaboration_in_reference_without_record(
+    api_client, db, es, create_record
+):
+    expected_response_metadata = {
+        "references": [{"collaborations": [{"value": "CMS"}], "label": "1"}]
+    }
+
+    data = {
+        "references": [
+            {
+                "record": {"$ref": f"http://localhost:5000/api/literature/999"},
+                "reference": {"label": "1", "collaborations": ["CMS"]},
+            }
+        ]
+    }
+    rec = create_record("lit", data=data)
+    headers = {"Accept": "application/json"}
+    response = api_client.get(
+        f"/literature/{rec['control_number']}/references", headers=headers
+    )
+    assert response.status_code == 200
+    assert response.json["metadata"] == expected_response_metadata

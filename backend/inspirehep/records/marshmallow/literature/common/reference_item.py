@@ -10,7 +10,6 @@ from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 from marshmallow import Schema, fields, missing, post_dump, pre_dump
 
-from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.fields import (
     ListWithLimit,
     NestedWithoutEmptyObjects,
@@ -82,9 +81,9 @@ class ReferenceItemSchemaV1(Schema):
 
     def get_resolved_references_by_control_number(self, data):
         data = force_list(data)
-        resolved_records = InspireRecord.get_linked_records_from_dict_field(
-            data, "record"
-        )
+        from inspirehep.records.api.literature import LiteratureRecord
+
+        resolved_records = LiteratureRecord.get_es_linked_references(data)
 
         return {record["control_number"]: record.dumps() for record in resolved_records}
 

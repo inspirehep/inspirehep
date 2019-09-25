@@ -145,6 +145,22 @@ class LiteratureSearch(InspireSearch):
         )
         return citations_search.execute().hits
 
+    @staticmethod
+    def get_records_by_pids(pids, source=None, size=10000):
+        if not pids:
+            return []
+        should = []
+        for pid in pids:
+            should.append(Q("match", **{"control_number": pid[-1]}))
+        results = (
+            LiteratureSearch()
+            .query(Q("bool", should=should, minimum_should_match=1))
+            .params(size=size)
+        )
+        if source:
+            results = results.params(_source=source)
+        return results.execute().hits
+
 
 class AuthorsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Authors database."""
