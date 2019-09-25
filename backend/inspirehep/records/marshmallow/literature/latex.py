@@ -34,7 +34,9 @@ class LatexSchema(Schema):
             return missing
 
         author_names = (
-            format_name(author["full_name"], initials_only=True) for author in authors
+            format_name(author["full_name"], initials_only=True)
+            for author in authors
+            if "supervisor" not in author.get("inspire_roles", [])
         )
         return [name.replace(". ", ".~") for name in author_names]
 
