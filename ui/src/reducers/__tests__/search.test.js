@@ -102,19 +102,39 @@ describe('search reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  it('SEARCH_AGGREGATIONS_SUCCESS', () => {
+  it('SEARCH_AGGREGATIONS_SUCCESS when initialAggregations is empty', () => {
     const payload = {
       aggregations: {
         agg1: {},
       },
     };
-    const state = reducer(Map(), {
+    const state = reducer(fromJS({ initialAggregations: {} }), {
+      type: types.SEARCH_AGGREGATIONS_SUCCESS,
+      payload,
+    });
+    const expected = fromJS({
+      loadingAggregations: false,
+      initialAggregations: payload.aggregations,
+      aggregations: payload.aggregations,
+      aggregationsError: initialState.get('aggregationsError'),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('SEARCH_AGGREGATIONS_SUCCESS when initialAggregations is not empty', () => {
+    const payload = {
+      aggregations: {
+        agg1: {},
+      },
+    };
+    const state = reducer(fromJS({ initialAggregations: { initAgg: {} } }), {
       type: types.SEARCH_AGGREGATIONS_SUCCESS,
       payload,
     });
     const expected = fromJS({
       loadingAggregations: false,
       aggregations: payload.aggregations,
+      initialAggregations: { initAgg: {} },
       aggregationsError: initialState.get('aggregationsError'),
     });
     expect(state).toEqual(expected);

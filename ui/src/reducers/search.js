@@ -9,6 +9,7 @@ import {
   SEARCH_AGGREGATIONS_REQUEST,
   SEARCH_AGGREGATIONS_SUCCESS,
   SEARCH_AGGREGATIONS_ERROR,
+  NEW_SEARCH_REQUEST,
 } from '../actions/actionTypes';
 import { AUTHORS, JOBS } from '../common/routes';
 
@@ -43,6 +44,7 @@ export const initialState = fromJS({
   error: null,
   sortOptions: null,
   aggregations: {},
+  initialAggregations: {},
   loadingAggregations: false,
   aggregationsError: null,
 });
@@ -79,7 +81,19 @@ const searchReducer = (state = initialState, action) => {
       return state.set('loading', false).set('error', fromJS(action.payload));
     case SEARCH_AGGREGATIONS_REQUEST:
       return state.set('loadingAggregations', true);
+    case NEW_SEARCH_REQUEST:
+      return state.set(
+        'initialAggregations',
+        initialState.get('initialAggregations')
+      );
     case SEARCH_AGGREGATIONS_SUCCESS:
+      if (state.get('initialAggregations').isEmpty()) {
+        // eslint-disable-next-line no-param-reassign
+        state = state.set(
+          'initialAggregations',
+          fromJS(action.payload.aggregations)
+        );
+      }
       return state
         .set('loadingAggregations', false)
         .set('aggregations', fromJS(action.payload.aggregations))

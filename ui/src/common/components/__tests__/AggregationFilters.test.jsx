@@ -36,11 +36,27 @@ describe('AggregationFilters', () => {
         },
       },
     });
+    const initialAggregations = fromJS({
+      agg1: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: '[Range] Aggregation 1',
+          order: 1,
+          type: 'range',
+        },
+      },
+    });
     const query = { agg1: 'foo' };
     const wrapper = shallow(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
+        initialAggregations={initialAggregations}
         numberOfResults={2}
         onAggregationChange={jest.fn()}
       />
@@ -78,12 +94,28 @@ describe('AggregationFilters', () => {
         },
       },
     });
+    const initialAggregations = fromJS({
+      agg1: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: '[Range] Aggregation 1',
+          order: 1,
+          type: 'range',
+        },
+      },
+    });
     const query = { agg1: 'foo' };
     const wrapper = shallow(
       <AggregationFilters
         inline
         query={query}
         aggregations={aggregations}
+        initialAggregations={initialAggregations}
         numberOfResults={2}
         onAggregationChange={jest.fn()}
       />
@@ -110,11 +142,27 @@ describe('AggregationFilters', () => {
         },
       },
     });
+    const initialAggregations = fromJS({
+      agg1: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: '[Range] Aggregation 1',
+          order: 1,
+          type: 'range',
+        },
+      },
+    });
     const query = {};
     const wrapper = shallow(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
+        initialAggregations={initialAggregations}
         numberOfResults={2}
         onAggregationChange={jest.fn()}
       />
@@ -146,11 +194,27 @@ describe('AggregationFilters', () => {
         },
       },
     });
+    const initialAggregations = fromJS({
+      agg1: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: '[Range] Aggregation 1',
+          order: 1,
+          type: 'range',
+        },
+      },
+    });
     const query = {};
     const wrapper = shallow(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
+        initialAggregations={initialAggregations}
         numberOfResults={0}
         onAggregationChange={jest.fn()}
       />
@@ -182,12 +246,28 @@ describe('AggregationFilters', () => {
         },
       },
     });
+    const initialAggregations = fromJS({
+      agg1: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: '[Range] Aggregation 1',
+          order: 1,
+          type: 'range',
+        },
+      },
+    });
     const query = {};
     const onAggregationChange = jest.fn();
     const wrapper = shallow(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
+        initialAggregations={initialAggregations}
         numberOfResults={2}
         onAggregationChange={onAggregationChange}
       />
@@ -215,11 +295,27 @@ describe('AggregationFilters', () => {
         },
       },
     });
+    const initialAggregations = fromJS({
+      agg1: {
+        buckets: [
+          {
+            key: 'foo',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: '[Range] Aggregation 1',
+          order: 1,
+          type: 'range',
+        },
+      },
+    });
     const query = {};
     const wrapper = shallow(
       <AggregationFilters
         query={query}
         aggregations={aggregations}
+        initialAggregations={initialAggregations}
         numberOfResults={0}
         onAggregationChange={jest.fn()}
         displayWhenNoResults

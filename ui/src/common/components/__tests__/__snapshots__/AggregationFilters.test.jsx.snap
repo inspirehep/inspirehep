@@ -28,6 +28,14 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
             Immutable.Map {},
           ]
         }
+        initialBuckets={
+          Immutable.List [
+            Immutable.Map {
+              "key": "foo",
+              "doc_count": 1,
+            },
+          ]
+        }
         name="Aggregation 1"
         onChange={[Function]}
       />
@@ -102,6 +110,14 @@ exports[`AggregationFilters renders with all props set [inline] 1`] = `
             },
           ]
         }
+        initialBuckets={
+          Immutable.List [
+            Immutable.Map {
+              "key": "foo",
+              "doc_count": 1,
+            },
+          ]
+        }
         name="[Range] Aggregation 1"
         onChange={[Function]}
         selections="foo"
@@ -161,6 +177,14 @@ exports[`AggregationFilters renders with all props set 1`] = `
       <AggregationFilter
         aggregationType="range"
         buckets={
+          Immutable.List [
+            Immutable.Map {
+              "key": "foo",
+              "doc_count": 1,
+            },
+          ]
+        }
+        initialBuckets={
           Immutable.List [
             Immutable.Map {
               "key": "foo",

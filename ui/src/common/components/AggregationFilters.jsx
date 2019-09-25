@@ -22,6 +22,7 @@ class AggregationFilters extends Component {
       onAggregationChange,
       inline,
       displayWhenNoResults,
+      initialAggregations,
     } = this.props;
     const rowClassName = classnames('bg-white', {
       pa3: !inline,
@@ -51,6 +52,10 @@ class AggregationFilters extends Component {
                     aggregationType={aggregation.getIn(['meta', 'type'])}
                     name={aggregation.getIn(['meta', 'title'])}
                     buckets={aggregation.get('buckets')}
+                    initialBuckets={initialAggregations.getIn([
+                      aggregationKey,
+                      'buckets',
+                    ])}
                     splitDisplayName={aggregation.getIn(['meta', 'split'])}
                     selections={query[aggregationKey]}
                     onChange={selections => {
@@ -70,6 +75,7 @@ AggregationFilters.propTypes = {
   inline: PropTypes.bool,
   onAggregationChange: PropTypes.func.isRequired,
   aggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
+  initialAggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
   query: PropTypes.objectOf(PropTypes.any).isRequired,
   numberOfResults: PropTypes.number.isRequired,
   displayWhenNoResults: PropTypes.bool,

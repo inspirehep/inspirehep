@@ -9,6 +9,7 @@ import {
   SEARCH_AGGREGATIONS_REQUEST,
   SEARCH_AGGREGATIONS_SUCCESS,
   SEARCH_AGGREGATIONS_ERROR,
+  NEW_SEARCH_REQUEST,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -74,6 +75,12 @@ export function searchForCurrentLocation() {
   };
 }
 
+function newSearch() {
+  return {
+    type: NEW_SEARCH_REQUEST,
+  };
+}
+
 function fetchingSearchAggregations() {
   return {
     type: SEARCH_AGGREGATIONS_REQUEST,
@@ -108,6 +115,7 @@ export function fetchSearchAggregationsForCurrentLocation(
     const url = `${location.pathname}/facets${
       useLocationQuery ? `?${searchQueryString}` : ''
     }`;
+
     try {
       const response = await http.get(url);
       dispatch(searchAggregationsSuccess(response.data));
@@ -119,6 +127,8 @@ export function fetchSearchAggregationsForCurrentLocation(
 
 // triggers LOCATION_CHANGE which then triggers search request via `middlewares/searchDispatcher`
 export function pushQueryToLocation(query, clearLocationQuery = false) {
+  // TODO: clearLocationQuery is set to true only if query has `q` so, remove the param
+  // and use something `isNewSearch(query)` instead.
   return async (dispatch, getState) => {
     const state = getState();
     const locationQuery = clearLocationQuery ? {} : state.router.location.query;
@@ -130,6 +140,10 @@ export function pushQueryToLocation(query, clearLocationQuery = false) {
 
     if (Object.keys(newQuery).length > 0) {
       dispatch(push(url));
+      if (clearLocationQuery) {
+        // TODO: dispatch also when pathname (scope) changes
+        dispatch(newSearch());
+      }
     }
   };
 }

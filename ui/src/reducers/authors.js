@@ -29,6 +29,7 @@ export const initialState = fromJS({
     results: [],
     error: null,
     aggregations: {},
+    initialAggregations: {},
     loadingAggregations: false,
   },
 });
@@ -91,6 +92,13 @@ const authorsReducer = (state = initialState, action) => {
         .setIn(['publications', 'loadingAggregations'], true)
         .setIn(['publications', 'query'], fromJS(action.payload));
     case AUTHOR_PUBLICATIONS_FACETS_SUCCESS:
+      if (state.getIn(['publications', 'initialAggregations']).isEmpty()) {
+        // eslint-disable-next-line no-param-reassign
+        state = state.setIn(
+          ['publications', 'initialAggregations'],
+          fromJS(action.payload.aggregations)
+        );
+      }
       return state
         .setIn(['publications', 'loadingAggregations'], false)
         .setIn(
