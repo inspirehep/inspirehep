@@ -9,6 +9,10 @@ import { convertSomeImmutablePropsToJS } from '../../common/immutableToJS';
 
 const stateToProps = state => ({
   aggregations: state.authors.getIn(['publications', 'aggregations']),
+  initialAggregations: state.authors.getIn([
+    'publications',
+    'initialAggregations',
+  ]),
   loadingAggregations: state.authors.getIn([
     'publications',
     'loadingAggregations',

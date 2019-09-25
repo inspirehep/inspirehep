@@ -20,11 +20,22 @@ describe('AggregationFilter', () => {
         doc_count: 2,
       },
     ]);
+    const initialBuckets = fromJS([
+      {
+        key: '2011',
+        doc_count: 111,
+      },
+      {
+        key: '2012',
+        doc_count: 12,
+      },
+    ]);
 
     const wrapper = shallow(
       <AggregationFilter
         onChange={jest.fn()}
         buckets={buckets}
+        initialBuckets={initialBuckets}
         name="Test"
         selections="2011--2012"
         aggregationType="range"

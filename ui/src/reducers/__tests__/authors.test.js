@@ -152,17 +152,43 @@ describe('authors reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  it('AUTHOR_PUBLICATIONS_FACETS_SUCCESS', () => {
+  it('AUTHOR_PUBLICATIONS_FACETS_SUCCESS when initialAggregations is empty', () => {
     const payload = {
       aggregations: { agg1: { foo: 'bar' } },
     };
-    const state = reducer(Map(), {
-      type: AUTHOR_PUBLICATIONS_FACETS_SUCCESS,
-      payload,
-    });
+    const state = reducer(
+      fromJS({ publications: { initialAggregations: {} } }),
+      {
+        type: AUTHOR_PUBLICATIONS_FACETS_SUCCESS,
+        payload,
+      }
+    );
     const expected = fromJS({
       publications: {
-        aggregations: { agg1: { foo: 'bar' } },
+        aggregations: payload.aggregations,
+        initialAggregations: payload.aggregations,
+        error: initialState.getIn(['publications', 'error']),
+        loadingAggregations: false,
+      },
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('AUTHOR_PUBLICATIONS_FACETS_SUCCESS when initialAggregations is not empty', () => {
+    const payload = {
+      aggregations: { agg1: { foo: 'bar' } },
+    };
+    const state = reducer(
+      fromJS({ publications: { initialAggregations: { initAgg: {} } } }),
+      {
+        type: AUTHOR_PUBLICATIONS_FACETS_SUCCESS,
+        payload,
+      }
+    );
+    const expected = fromJS({
+      publications: {
+        aggregations: payload.aggregations,
+        initialAggregations: { initAgg: {} },
         error: initialState.getIn(['publications', 'error']),
         loadingAggregations: false,
       },

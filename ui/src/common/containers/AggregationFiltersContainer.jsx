@@ -5,6 +5,7 @@ import AggregationFilters from '../components/AggregationFilters';
 
 const stateToProps = state => ({
   aggregations: state.search.get('aggregations'),
+  initialAggregations: state.search.get('initialAggregations'),
   query: state.router.location.query,
   numberOfResults: state.search.get('total'),
 });

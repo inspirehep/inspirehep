@@ -63,16 +63,21 @@ exports[`AggregationFilter renders RangeAggregation if aggregation type is range
       },
     ]
   }
-  countPropName="doc_count"
-  deselectedColor="#fff"
-  height={100}
-  hoverColor="#69c0ff"
-  keyPropName="key_as_string"
+  initialBuckets={
+    Immutable.List [
+      Immutable.Map {
+        "key": "2011",
+        "doc_count": 111,
+      },
+      Immutable.Map {
+        "key": "2012",
+        "doc_count": 12,
+      },
+    ]
+  }
   maximumMax={2018}
-  minRangeSize={50}
   name="Test"
   onChange={[MockFunction]}
-  selectedColor="#91d5ff"
   selections="2011--2012"
 />
 `;
