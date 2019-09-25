@@ -15,10 +15,7 @@ from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSch
 
 
 @mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_from_dict_field"
-    )
+    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
 def test_abstract_source_full(mockget_linked_records_from_dict_field):
     schema = LiteratureElasticSearchSchema
@@ -45,10 +42,7 @@ def test_abstract_source_full(mockget_linked_records_from_dict_field):
 
 
 @mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_from_dict_field"
-    )
+    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
 def test_abstract_source_one_missing_source(mockget_linked_records_from_dict_field):
     schema = LiteratureElasticSearchSchema
@@ -73,10 +67,7 @@ def test_abstract_source_one_missing_source(mockget_linked_records_from_dict_fie
 
 
 @mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_from_dict_field"
-    )
+    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
 def test_abstract_source_missing(mockget_linked_records_from_dict_field):
     schema = LiteratureElasticSearchSchema
@@ -87,10 +78,7 @@ def test_abstract_source_missing(mockget_linked_records_from_dict_field):
 
 
 @mock.patch(
-    (
-        "inspirehep.records.marshmallow.literature.common.reference_item"
-        ".InspireRecord.get_linked_records_from_dict_field"
-    )
+    ("inspirehep.records.api.literature.LiteratureRecord.get_es_linked_references")
 )
 def test_abstract_source_one_only(mockget_linked_records_from_dict_field):
     schema = LiteratureElasticSearchSchema
