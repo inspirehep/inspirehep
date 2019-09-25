@@ -18,6 +18,8 @@ class CollaborationSchemaV1(Schema):
 
     @pre_dump
     def filter(self, data):
+        if isinstance(data, str):
+            data = {"value": data}
         if re.match(self.REGEX_COLLABORATIONS_WITH_SUFFIX, data.get("value")):
             return {}
         return data
