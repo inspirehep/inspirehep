@@ -4,9 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
-
 import datetime
+import json
 import uuid
 
 import requests
@@ -39,6 +38,7 @@ from inspirehep.records.utils import (
     get_authors_phonetic_blocks,
     get_literature_earliest_date,
 )
+from inspirehep.search.api import LiteratureSearch
 
 from .base import InspireRecord
 
@@ -88,6 +88,52 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 push_to_orcid(record)
             record.push_authors_phonetic_blocks_to_redis()
             return record
+
+    @classmethod
+    def get_es_linked_references(cls, data):
+        """Return the generator of linked records from specified path for records in ES.
+
+        Args:
+            data (dict): data from which records should be extracted
+            path (str): the path of the linked records.
+        Yields:
+            InspireRecord: the linked records.
+        Examples:
+            >>> data = {
+                'references': [
+                    {
+                        'record': {
+                            '$ref': 'http://localhost/literature/1'
+                        }
+                    }
+                ]
+            }
+            >>>  records = LiteratureRecord.get_linked_records_from_field(
+                data, "references.record")
+            >>> list(records)
+            [
+                {
+                    '$schema': 'http://localhost/schemas/records/hep.json'
+                    'control_number': 1,
+                    'authors': [(...)],
+                    'arxiv_eprints':  [(...)],
+                    'collaborations': [(...)],
+                }
+            ]
+        """
+        pids = cls._get_linked_pids_from_field(data, "record")
+        if pids:
+            results = LiteratureSearch.get_records_by_pids(pids, source=["_ui_display"])
+            for result in results:
+                try:
+                    rec_data = json.loads(result._ui_display)
+                except AttributeError:
+                    LOGGER.exception(
+                        "Record does not have _ui_display field!", record=result.meta.id
+                    )
+                    continue
+                yield LiteratureRecord(rec_data)
+        return []
 
     def update(
         self, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
