@@ -36,7 +36,7 @@ def test_set_mailtrain_campaign_in_redis(base_app, db, redis):
         expected_keys = ["timestamp", "title", "html"]
         expected_values = [
             str(datetime(2019, 9, 17, 6, 0, 0).timestamp()),
-            "Weekly update on new job listings.",
+            "INSPIRE Jobs listing",
             html_content,
         ]
 
