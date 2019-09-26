@@ -4,7 +4,12 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 import { Set } from 'immutable';
 
-import { SUBMISSIONS_AUTHOR, USER_LOGIN, SUBMISSIONS_JOB } from '../../routes';
+import {
+  SUBMISSIONS_AUTHOR,
+  USER_LOGIN,
+  SUBMISSIONS_JOB,
+  SUBMISSIONS_LITERATURE,
+} from '../../routes';
 import ExternalLink from '../../components/ExternalLink';
 import LinkLikeButton from '../../components/LinkLikeButton';
 import { isCataloger } from '../../authorization';
@@ -30,7 +35,7 @@ class HeaderMenu extends Component {
             <Link to={SUBMISSIONS_JOB}>Job</Link>
           </Menu.Item>
           <Menu.Item key="submit.literature">
-            <ExternalLink href="/literature/new">Literature</ExternalLink>
+            <Link to={SUBMISSIONS_LITERATURE}>Literature</Link>
           </Menu.Item>
         </Menu.SubMenu>
         <Menu.SubMenu key="tools" title="Tools">
