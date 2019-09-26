@@ -27,4 +27,4 @@ INVENIO_MAIL_SERVER = "localhost"
 """SMTP server settings for the mail sending"""
 
 WEEKLY_JOBS_EMAIL_REDIS_KEY = "jobs_weekly_email"
-WEEKLY_JOBS_EMAIL_TITLE = "Weekly update on new job listings."
+WEEKLY_JOBS_EMAIL_TITLE = "INSPIRE Jobs listing"

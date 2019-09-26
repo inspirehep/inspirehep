@@ -55,9 +55,7 @@ def mailtrain_update_weekly_campaign_content(html_content):
     redis_url = current_app.config.get("CACHE_REDIS_URL")
     redis = StrictRedis.from_url(redis_url, decode_responses=True)
     date = datetime.datetime.utcnow().timestamp()
-    title = current_app.config.get(
-        "WEEKLY_JOBS_EMAIL_TITLE", "Weekly update on new job listings."
-    )
+    title = current_app.config.get("WEEKLY_JOBS_EMAIL_TITLE", "INSPIRE Jobs listing")
     data = {"timestamp": date, "title": title, "html": html_content}
     result = redis.hmset(mailtrain_key, data)
     if not result:

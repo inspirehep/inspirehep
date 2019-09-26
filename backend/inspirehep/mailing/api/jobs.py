@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import structlog
 from elasticsearch_dsl.query import Q
 from flask import current_app, render_template
@@ -23,7 +24,7 @@ def get_jobs_from_last_week():
     query = Q("range", **{"_created": {"gte": "now-7d/d", "lt": "now/d"}}) & Q(
         "match", **{"status": "open"}
     )
-    search = JobsSearch().query(query).sort("-_created")
+    search = JobsSearch().query(query).params(size=10000).sort("-_created")
     return search.execute().hits
 
 
