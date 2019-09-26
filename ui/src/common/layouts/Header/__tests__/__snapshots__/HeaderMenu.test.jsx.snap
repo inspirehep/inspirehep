@@ -34,11 +34,12 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
     <MenuItem
       key="submit.literature"
     >
-      <ExternalLink
-        href="/literature/new"
+      <Link
+        replace={false}
+        to="/submissions/literature"
       >
         Literature
-      </ExternalLink>
+      </Link>
     </MenuItem>
   </SubMenu>
   <SubMenu
@@ -121,11 +122,12 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
     <MenuItem
       key="submit.literature"
     >
-      <ExternalLink
-        href="/literature/new"
+      <Link
+        replace={false}
+        to="/submissions/literature"
       >
         Literature
-      </ExternalLink>
+      </Link>
     </MenuItem>
   </SubMenu>
   <SubMenu
@@ -208,11 +210,12 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
     <MenuItem
       key="submit.literature"
     >
-      <ExternalLink
-        href="/literature/new"
+      <Link
+        replace={false}
+        to="/submissions/literature"
       >
         Literature
-      </ExternalLink>
+      </Link>
     </MenuItem>
   </SubMenu>
   <SubMenu
