@@ -134,7 +134,7 @@ def create_record(base_app, db, es_clear):
         index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
         record_data = faker.record(record_type, data=data)
         record = InspireRecord.create(record_data)
-        record._indexing = record._index()
+        record._indexing = record.index(delay=False)
         es_clear.indices.refresh(index)
         return record
 

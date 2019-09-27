@@ -81,28 +81,6 @@ def test_get_records_pid_from_field():
     assert InspireRecord._get_linked_pids_from_field(data, path_3) == expected_3
 
 
-def test_on_not_deleted_record_index_on_InspireRecord():
-    record = {"control_number": 1234, "deleted": False}
-    expected = {"uuid": "1", "force_delete": False}
-    expected_force_deleted = {"uuid": "1", "force_delete": True}
-
-    assert InspireRecord._record_index(record, _id=1) == expected
-    assert InspireRecord._record_index(record, _id=1, force_delete=False) == expected
-    assert (
-        InspireRecord._record_index(record, _id=1, force_delete=True)
-        == expected_force_deleted
-    )
-
-
-def test_on_deleted_record_index_on_InspireRecord():
-    record = {"control_number": 4321, "deleted": True}
-    expected = {"uuid": "1", "force_delete": True}
-
-    assert InspireRecord._record_index(record, _id=1) == expected
-    assert InspireRecord._record_index(record, _id=1, force_delete=False) == expected
-    assert InspireRecord._record_index(record, _id=1, force_delete=True) == expected
-
-
 def test_get_subclasses():
     subclasses = InspireRecord.get_subclasses()
     expected_subclasses = {
@@ -153,32 +131,6 @@ def test_finding_proper_class_in_get_record_aut(
     expected_record_type = AuthorsRecord
 
     assert type(created_record) == expected_record_type
-
-
-def test_record_index_static_method():
-    data = {"control_number": 123}
-
-    expected_1 = {"uuid": "1", "force_delete": False}
-
-    expected_1_deleted = {"uuid": "1", "force_delete": True}
-
-    assert expected_1 == InspireRecord._record_index(data, _id=1)
-    assert expected_1_deleted == InspireRecord._record_index(
-        data, _id=1, force_delete=True
-    )
-
-
-def test_record_deleted_index_static_method():
-    data = {"control_number": 123, "deleted": True}
-
-    expected_1 = {"uuid": "1", "force_delete": True}
-
-    expected_1_deleted = {"uuid": "1", "force_delete": True}
-
-    assert expected_1 == InspireRecord._record_index(data, _id=1)
-    assert expected_1_deleted == InspireRecord._record_index(
-        data, _id=1, force_delete=False
-    )
 
 
 @mock.patch("inspirehep.records.api.base.InspireRecord._get_records_ids_by_pids")

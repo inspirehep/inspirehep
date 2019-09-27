@@ -542,7 +542,7 @@ def test_literature_citation_annual_summary(
             data={"preprint_date": "2010-01-01"},
         ),
     )
-    literature._index()  # Index again after citation was added
+    literature.index(delay=False)  # Index again after citation was added
 
     request_param = {
         "author": literature.serialize_for_es()["facet_author_name"][0],
@@ -592,8 +592,8 @@ def test_literature_citation_annual_summary_for_many_records(
             data={"preprint_date": "2013-01-01"},
         ),
     )
-    literature1._index()
-    literature2._index()
+    literature1.index(delay=False)
+    literature2.index(delay=False)
     request_param = {"facet_name": "citations-by-year"}
 
     es_clear.indices.refresh("records-hep")
