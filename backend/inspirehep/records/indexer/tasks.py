@@ -66,7 +66,6 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     Returns:
         list(dict): Statistics from processing references.
     """
-
     try:
         record = get_record(uuid, record_version)
     except (NoResultFound, StaleDataError) as e:
@@ -90,12 +89,12 @@ def index_record(self, uuid, record_version=None, force_delete=None):
 
     if force_delete or deleted:
         try:
-            record._index(force_delete=force_delete)
+            InspireRecordIndexer().delete(record)
             LOGGER.debug("Record removed from ES", uuid=str(uuid))
         except NotFoundError:
             LOGGER.debug("Record to delete not found", uuid=str(uuid))
     else:
-        record._index()
+        InspireRecordIndexer().index(record)
 
     if isinstance(record, LiteratureRecord):
         process_references_for_record(record=record)

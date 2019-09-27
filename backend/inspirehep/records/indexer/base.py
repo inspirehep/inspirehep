@@ -114,7 +114,7 @@ class InspireRecordIndexer(RecordIndexer):
             if record.get("deleted", False):
                 try:
                     # When record is not in es then dsl is throwing TransportError(404)
-                    record._index(force_delete=True)
+                    record.index(delay=False, force_delete=True)
                 except TransportError:
                     LOGGER.warning("Record not found in ES!", uuid=str(record.id))
                 return None

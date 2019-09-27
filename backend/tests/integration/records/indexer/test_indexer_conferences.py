@@ -33,7 +33,7 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     record = create_record("con", data=data)
 
     record["deleted"] = True
-    record._index()
+    record.index(delay=False)
     es_clear.indices.refresh("records-conferences")
 
     expected_records_count = 0

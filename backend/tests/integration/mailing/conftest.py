@@ -32,7 +32,7 @@ def mock_job_create_and_update_time(date, data=None):
     mock_datetime = mock.PropertyMock(return_value=date)
     type(record).created = mock_datetime
     type(record).updated = mock_datetime
-    record._index()
+    record.index(delay=False)
     return record
 
 

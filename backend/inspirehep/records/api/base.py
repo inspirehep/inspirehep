@@ -12,14 +12,12 @@ from datetime import datetime
 
 import structlog
 from elasticsearch import NotFoundError
-from flask_celeryext.app import current_celery_app
 from inspire_dojson.utils import strip_empty_values
 from inspire_schemas.api import validate as schema_validate
 from inspire_utils.record import get_value
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
-from invenio_records.errors import MissingModelError
 from invenio_records.models import RecordMetadata
 from invenio_records_files.api import Record
 from sqlalchemy import tuple_
@@ -364,79 +362,27 @@ class InspireRecord(Record):
 
         return serializer().dump(self).data
 
-    def _index(self, force_delete=None):
-        """Runs index in current process.
-
-            This is main logic for indexing. Runs in current thread/worker.
-            This method can index not committed record. Use with caution!
-
-        Args:
-            force_delete: set to True if record should be deleted from ES
-
-        Returns:
-            dict: ES info about indexing
-        """
-        if self._schema_type != self.pid_type:
-            LOGGER.warning(
-                f"Record {self.id} is wrapped in {self.__class__.__name__}"
-                "class {self.pid_type} type, but $schema says that this is"
-                "'{self._schema_type}' type object"
-            )
-        if force_delete or self.get("deleted", False):
-            result = InspireRecordIndexer().delete(self)
-        else:
-            result = InspireRecordIndexer().index(self)
-        LOGGER.info(
-            "Record indexed",
-            recid=self.get("control_number"),
-            uuid=str(self.id),
-            result=result.get("result"),
-        )
-        return result
-
-    def index(self, force_delete=None):
-        """Index record in ES
-
-        This method do not have any important logic.
-        It just runs self._index() with proper arguments in separate worker.
-
-        To properly index data it requires to fully commit the record first!
-        It won't index outdated record.
+    def index(self, force_delete=None, delay=True):
+        """Index record in ES.
 
         Args:
             force_delete: set to True if record has to be deleted,
                 If not set, tries to determine automatically if record should be deleted
-        Returns:
-            celery.result.AsyncResult: Task itself
+            delay: if True will start the index task async otherwise async.
         """
-        indexing_args = self._record_index(self, force_delete=force_delete)
-        indexing_args["record_version"] = self.model.version_id
-        task = current_celery_app.send_task(
-            "inspirehep.records.indexer.tasks.index_record", kwargs=indexing_args
-        )
+        from inspirehep.records.indexer.tasks import index_record
+
+        arguments = {
+            "uuid": str(self.id),
+            "record_version": self.model.version_id,
+            "force_delete": force_delete,
+        }
         LOGGER.info(
             "Record indexing", recid=self.get("control_number"), uuid=str(self.id)
         )
-        return task
-
-    @staticmethod
-    def _record_index(record, _id=None, force_delete=None):
-        """Helper function for indexer:
-            Prepare dictionary for indexer
-        Returns:
-            dict: proper dict required by the indexer
-        """
-        if isinstance(record, InspireRecord):
-            uuid = record.id
-        elif _id:
-            uuid = _id
-        else:
-            raise MissingModelError
-        arguments_for_indexer = {
-            "uuid": str(uuid),
-            "force_delete": force_delete or record.get("deleted", False),
-        }
-        return arguments_for_indexer
+        if delay:
+            return index_record.delay(**arguments)
+        return index_record(**arguments)
 
     @property
     def _previous_version(self):
