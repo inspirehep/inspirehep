@@ -16,10 +16,10 @@
   }
 
   $separator-padding: 0.25em;
-  @mixin separte-items-with($seperator, $padding-left: 0) {
-    // For every not empty `li`, add separator before all the not empty `li` that come after it
-    & > li:not(:empty) ~ li:not(:empty):before {
-      content: $seperator;
+  @mixin separte-items-with($separator, $padding-left: 0) {
+    // Add separator after all the non-empty `li` except the last one
+    & > li:not(:empty):not(:last-child):after {
+      content: $separator;
       padding-right: $separator-padding;
       padding-left: $padding-left;
     }
