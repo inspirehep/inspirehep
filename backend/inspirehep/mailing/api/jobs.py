@@ -79,7 +79,7 @@ def send_job_deadline_reminder(job):
         recipient=recipient,
         cc=cc_addresses,
         subject=subject,
-        content=content,
+        body=content,
     )
     LOGGER.info("Expired job email sent", recid=job.get("control_number"))
 
