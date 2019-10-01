@@ -28,7 +28,7 @@ def test_citation_summary_facet(api_client, db, es, create_record_factory):
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
+        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
     )
 
     expected_citation_summary_aggregation = {
@@ -123,7 +123,7 @@ def test_h_index_with_more_papers_than_citations(
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
+        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
     )
 
     expected_h_index = {"value": {"all": 2, "published": 2}}
@@ -149,7 +149,7 @@ def test_h_index_with_as_many_papers_as_citations(
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
+        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
     )
 
     expected_h_index = {"value": {"all": 5, "published": 5}}
@@ -182,7 +182,7 @@ def test_citation_summary_facet_filters(api_client, db, es, create_record_factor
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&doc_type=book%20chapter"
+        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&doc_type=book%20chapter"
     )
 
     expected_citation_summary_aggregation = {
@@ -284,7 +284,7 @@ def test_citation_summary_facet_excluded_filters(
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
+        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
     )
     response_data = json.loads(response.data)
     response_status_code = response.status_code

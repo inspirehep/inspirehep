@@ -23,6 +23,7 @@ def test_import_article_view_400_bad_arxiv(api_client, db):
     assert resp.status_code == 400
 
 
+@pytest.mark.vcr()
 def test_import_article_view_404_non_existing_doi(api_client, db):
     resp = api_client.get("/literature/import/10.1016/j.physletb.2099.08.020")
 

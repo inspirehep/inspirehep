@@ -7,8 +7,9 @@
 
 from invenio_app.factory import app_class, instance_path
 from invenio_base.app import create_app_factory
-from invenio_base.wsgi import create_wsgi_factory, wsgi_proxyfix
+from invenio_base.wsgi import wsgi_proxyfix
 from invenio_config import create_config_loader
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
 
 from . import config
 
@@ -20,6 +21,37 @@ def config_loader(app, **kwargs_config):
     result = invenio_config_loader(app, **kwargs_config)
     app.url_map.strict_slashes = False
     return result
+
+
+class DispatcherMiddlewareWithMatchingHostNameAndServerName(DispatcherMiddleware):
+    """WSGI middleware without checking hostname.
+
+    It will override the request ``HOST`` to always match
+    the ``SERVER_NAME``.
+    """
+
+    def __init__(self, app, mounts=None, server_name=None):
+        self.app = app
+        self.mounts = mounts or {}
+        self.server_name = server_name
+        super().__init__(app, mounts)
+
+    def __call__(self, environ, start_response):
+        if self.server_name:
+            environ["HTTP_HOST"] = self.server_name
+        return super().__call__(environ, start_response)
+
+
+def create_wsgi_factory(mounts_factories):
+    def create_wsgi(app, **kwargs):
+        mounts = {
+            mount: factory(**kwargs) for mount, factory in mounts_factories.items()
+        }
+        return DispatcherMiddlewareWithMatchingHostNameAndServerName(
+            app.wsgi_app, mounts, app.config["SERVER_NAME"]
+        )
+
+    return create_wsgi
 
 
 create_api = create_app_factory(
@@ -41,7 +73,7 @@ create_app = create_app_factory(
     blueprint_entry_points=["invenio_base.api_blueprints"],
     extension_entry_points=["invenio_base.api_apps"],
     converter_entry_points=["invenio_base.api_converters"],
-    wsgi_factory=create_wsgi_factory({"/api": create_api}),
+    wsgi_factory=wsgi_proxyfix(create_wsgi_factory({"/api": create_api})),
     instance_path=instance_path,
     app_class=app_class(),
 )

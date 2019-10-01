@@ -49,6 +49,7 @@ setup(
             "institutions_minter = inspirehep.pidstore.minters.control_number:InstitutionsMinter.mint",
         ],
         "invenio_base.api_blueprints": [
+            "inspirehep = inspirehep.views:blueprint",
             "inspirehep_mailing = inspirehep.mailing.views:blueprint",
             "inspirehep_migrator = inspirehep.migrator.views:blueprint",
             "inspirehep_records = inspirehep.records.views:blueprint",
