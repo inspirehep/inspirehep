@@ -133,7 +133,7 @@ SQLALCHEMY_DATABASE_URI = (
 # JSONSchemas
 # ===========
 #: Hostname used in URLs for local JSONSchemas.
-JSONSCHEMAS_HOST = "localhost:5000"
+JSONSCHEMAS_HOST = "localhost:8000"
 
 # Flask configuration
 # ===================

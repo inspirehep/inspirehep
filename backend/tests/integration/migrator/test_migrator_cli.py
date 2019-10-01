@@ -192,11 +192,11 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
     es_clear.indices.refresh("records-hep")
     es_clear.indices.refresh("records-authors")
 
-    search_response = api_client.get("literature?q=")
+    search_response = api_client.get("/literature?q=")
 
     assert search_response.json["hits"]["total"] == 1
 
-    facets_response = api_client.get("literature/facets?q=")
+    facets_response = api_client.get("/literature/facets?q=")
 
     authors = [
         author.get("key")
