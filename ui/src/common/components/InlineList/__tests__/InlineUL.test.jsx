@@ -32,4 +32,16 @@ describe('InlineUL', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('does not render null children', () => {
+    const wrapper = shallow(
+      <InlineUL>
+        <div>First div</div>
+        {null}
+        <div>Third div</div>
+        {null}
+      </InlineUL>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });

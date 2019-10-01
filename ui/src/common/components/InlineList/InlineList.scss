@@ -16,9 +16,8 @@
   }
 
   $separator-padding: 0.25em;
-  @mixin separte-items-with($separator, $padding-left: 0) {
-    // Add separator after all the non-empty `li` except the last one
-    & > li:not(:empty):not(:last-child):after {
+  @mixin separate-items-with($separator, $padding-left: 0) {
+    & > li:not(:last-child):after {
       content: $separator;
       padding-right: $separator-padding;
       padding-left: $padding-left;
@@ -26,15 +25,15 @@
   }
 
   ul.separate-items-with-semicolon {
-    @include separte-items-with(';');
+    @include separate-items-with(';');
   }
   ul.separate-items-with-comma {
-    @include separte-items-with(',');
+    @include separate-items-with(',');
   }
   ul.separate-items-with-and {
-    @include separte-items-with('and', $separator-padding);
+    @include separate-items-with('and', $separator-padding);
   }
   ul.separate-items-with-middledot {
-    @include separte-items-with('\2022', $separator-padding);
+    @include separate-items-with('\2022', $separator-padding);
   }
 }
