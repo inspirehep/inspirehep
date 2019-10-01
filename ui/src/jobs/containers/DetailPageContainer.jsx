@@ -99,7 +99,9 @@ class DetailPage extends Component {
               <Row className="mt1">
                 <Col>
                   <InlineUL separateItemsClassName="separate-items-with-middledot">
-                    <InstitutionsList institutions={institutions} />
+                    {institutions && (
+                      <InstitutionsList institutions={institutions} />
+                    )}
                     <RegionsList regions={regions} />
                   </InlineUL>
                 </Col>
@@ -114,8 +116,10 @@ class DetailPage extends Component {
                     separateItemsClassName="separate-items-with-middledot"
                     wrapperClassName="di"
                   >
-                    <RanksList ranks={ranks} />
-                    <ExperimentList experiments={experiments} />
+                    {ranks && <RanksList ranks={ranks} />}
+                    {experiments && (
+                      <ExperimentList experiments={experiments} />
+                    )}
                   </InlineUL>
                 </Col>
               </Row>

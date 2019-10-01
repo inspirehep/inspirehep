@@ -16,8 +16,8 @@ class ReferenceLettersContacts extends Component {
         <div>
           <strong>Letters of Reference should be sent to: </strong>
           <InlineUL wrapperClassName="di">
-            <EmailList emails={emails} />
-            <URLList urls={urls} />
+            {emails && <EmailList emails={emails} />}
+            {urls && <URLList urls={urls} />}
           </InlineUL>
         </div>
       )

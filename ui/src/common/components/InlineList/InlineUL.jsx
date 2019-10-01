@@ -13,7 +13,7 @@ class InlineUL extends Component {
     return (
       <div className={classnames('__InlineList__', wrapperClassName)}>
         <ul className={separateItemsClassName}>
-          {React.Children.map(children, child => <li>{child}</li>)}
+          {React.Children.map(children, child => child && <li>{child}</li>)}
         </ul>
       </div>
     );

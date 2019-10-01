@@ -48,7 +48,7 @@ class JobItem extends Component {
               wrapperClassName="di"
               separateItemsClassName="separate-items-with-middledot"
             >
-              <InstitutionsList institutions={institutions} />
+              {institutions && <InstitutionsList institutions={institutions} />}
               <RegionsList regions={regions} />
             </InlineUL>)
           </Col>
@@ -63,8 +63,8 @@ class JobItem extends Component {
               separateItemsClassName="separate-items-with-middledot"
               wrapperClassName="di"
             >
-              <ExperimentList experiments={experiments} />
-              <RanksList ranks={ranks} />
+              {experiments && <ExperimentList experiments={experiments} />}
+              {ranks && <RanksList ranks={ranks} />}
             </InlineUL>
           </Col>
         </Row>
