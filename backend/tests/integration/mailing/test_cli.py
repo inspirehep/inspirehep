@@ -109,7 +109,7 @@ def test_get_jobs_by_deadline_gets_job_expired_30_and_60_days_ago_and_send_email
     call1 = mock_send_emails.mock_calls[0][2]
     assert call1["sender"] == "jobs@inspirehep.info"
     assert call1["recipient"] == "somebody@virginia.edu"
-    assert call1["content"]
+    assert call1["body"]
     assert call1["cc"] == ["rcg6p@virginia.edu", "rkh6j@virginia.edu"]
     assert (
         call1["subject"]
@@ -119,7 +119,7 @@ def test_get_jobs_by_deadline_gets_job_expired_30_and_60_days_ago_and_send_email
     call2 = mock_send_emails.mock_calls[1][2]
     assert call2["sender"] == "jobs@inspirehep.info"
     assert call2["recipient"] == "georgews@ntu.com"
-    assert call2["content"]
+    assert call2["body"]
     assert (
         call2["subject"]
         == "Expired deadline for your INSPIRE job: Postdocs in Belle, CMS and Particle Astrophysics"

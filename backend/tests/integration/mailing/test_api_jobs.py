@@ -126,3 +126,5 @@ def test_send_email_to_contact_details_without_putting_it_in_cc(
     mock_call = mock_send_email.mock_calls[0][2]
     assert mock_call["recipient"] == expected_recipient
     assert mock_call["cc"] == [expected_cc]
+    assert mock_call["body"]
+    assert mock_call["subject"] == "Expired deadline for your INSPIRE job: Tester"
