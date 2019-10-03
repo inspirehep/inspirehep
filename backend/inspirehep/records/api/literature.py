@@ -73,7 +73,10 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
     ):
         with db.session.begin_nested():
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
+
             record = super().create(data, **kwargs)
+            record.add_files()
+
             if disable_citation_update:
                 LOGGER.info(
                     "Record citation update disabled", recid=record["control_number"]
@@ -141,6 +144,7 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         with db.session.begin_nested():
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             super().update(data)
+            self.add_files()
             if disable_citation_update:
                 LOGGER.info(
                     "Record citation update disabled",
@@ -160,93 +164,42 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 push_to_orcid(self)
             self.push_authors_phonetic_blocks_to_redis()
 
-    def set_files(self, documents=None, figures=None, force=False):
-        """Sets new documents and figures for record.
-
-        Every figure or document not listed in arguments will be removed from record.
-        If you want to only add new documents, use `add_files`
-
-        Args:
-            documents (list[dict]): List of documents which should be set to this record
-            figures (list[dict]): List of figures which should be set to this record
-
-            Documents and figures are lists of dicts.
-            Most obscure dict which should work is:
-            {
-                'url': 'http:// or /api/file/bucket_id/file_key'
-            }
-
-        Returns:
-            list: list of keys of all documents and figures in this record
-
-        """
-        if not documents and not figures and not force:
-            raise TypeError("No files passed, at least one is needed")
-
-        self.pop("figures", None)
-        self.pop("documents", None)
-        files = []
-        if documents or figures:
-            files = self.add_files(documents=documents, figures=figures)
+    def add_files(self):
+        """Sets the ``documents`` and ``figures`` for record."""
         if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
-            return []
-        keys = [file_metadata["key"] for file_metadata in files]
-        for key in list(self.files.keys):
-            if key not in keys:
-                del self.files[key]
-        return keys
+            return
 
-    def add_files(self, documents=None, figures=None):
-        """Public method for adding documents and figures
+        documents = self.pop("documents", [])
+        figures = self.pop("figures", [])
 
-        Args:
-            documents (list[dict]): List of documents which should be added to this
-            record
-            figures (list[dict]): List of figures which should be added to this record
+        keys = []
+        builder = LiteratureBuilder(record=dict(self))
+        for document in documents:
+            file_data = self.add_file(document=True, **document)
+            document.update(file_data)
+            if "hidden" not in document:
+                document["hidden"] = False
+            if "fulltext" not in document:
+                document["fulltext"] = True
 
-            Documents and figures are lists of dicts.
-            Most obscure dict which whould be provided for each file is:
-            {
-                'url': 'http:// or /api/file/bucket_id/file_key'
-                'is_document': True or False(default)
-            }
+            builder.add_document(**document)
+            keys.append(document["key"])
+            if "documents" in builder.record:
+                self["documents"] = builder.record["documents"]
 
+        for figure in figures:
+            file_data = self.add_file(**figure)
+            figure.update(file_data)
+            builder.add_figure(**figure)
+            keys.append(figure["key"])
 
-        Returns:
-             list: list of added keys
-        """
-        if not documents and not figures:
-            raise TypeError("No files passed, at least one is needed")
+            if "figures" in builder.record:
+                self["figures"] = builder.record["figures"]
 
-        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
-            if figures:
-                self.setdefault("figures", []).extend(figures)
-
-            if documents:
-                self.setdefault("documents", []).extend(documents)
-            return []
-        files = []
-        builder = LiteratureBuilder(record=self)
-        if documents:
-            doc_keys = [
-                doc_metadata["key"] for doc_metadata in self.get("documents", [])
-            ]
-            for doc in documents:
-                metadata = self._add_file(document=True, **doc)
-                if metadata["key"] not in doc_keys:
-                    builder.add_document(**metadata)
-                files.append(metadata)
-        if figures:
-            fig_keys = [fig_metadata["key"] for fig_metadata in self.get("figures", [])]
-            for fig in figures:
-                metadata = self._add_file(**fig)
-                if metadata["key"] not in fig_keys:
-                    builder.add_figure(**metadata)
-                files.append(metadata)
-        # FIXME: this is wrong every time it goes to ``update``` function
-        # which means update refs, pidstore etc..
-        super().update(builder.record.dumps())
-        return files
+        if self.files:
+            for key in list(self.files.keys):
+                if key not in keys:
+                    del self.files[key]
 
     def get_modified_references(self):
         """Return the ids of the references diff between the latest and the

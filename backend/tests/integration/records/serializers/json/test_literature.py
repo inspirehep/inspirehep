@@ -93,6 +93,7 @@ def test_literature_json_without_login(api_client, db, es, create_record):
         "publication_info": [{"pubinfo_freetext": "A public publication info"}],
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
         "documents": [{"key": "public", "url": "https://url.to/public/document"}],
+        "_bucket": str(record._bucket),
     }
     expected_id = record["control_number"]
 
@@ -170,6 +171,7 @@ def test_literature_json_with_logged_in_cataloger(
             },
             {"key": "public", "url": "https://url.to/public/document"},
         ],
+        "_bucket": str(record._bucket),
     }
 
     response = api_client.get(f"/literature/{record_control_number}", headers=headers)
@@ -225,6 +227,7 @@ def test_literature_search_json_without_login(api_client, db, es, create_record)
         "documents": [{"key": "public", "url": "https://url.to/public/document"}],
         "citation_count": 0,
         "author_count": 0,
+        "_bucket": str(record._bucket),
     }
     expected_result_len = 1
     expected_id = record["control_number"]
@@ -307,6 +310,7 @@ def test_literature_search_json_with_cataloger_login(
         ],
         "citation_count": 0,
         "author_count": 0,
+        "_bucket": str(record._bucket),
     }
     expected_result_len = 1
 
@@ -338,6 +342,7 @@ def test_literature_detail(api_client, db, es, create_record):
         "titles": record_titles,
         "preprint_date": "2001-01-01",
         "date": "Jan 1, 2001",
+        "_bucket": str(record._bucket),
     }
     response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 

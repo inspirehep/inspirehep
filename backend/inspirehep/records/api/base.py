@@ -20,6 +20,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
 from invenio_records.models import RecordMetadata
 from invenio_records_files.api import Record
+from invenio_records_files.models import RecordsBuckets
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
 
@@ -329,6 +330,7 @@ class InspireRecord(Record):
             RecordCitations.query.filter_by(citer_id=self.id).delete()
             # Removing references to this record from RecordCitations table
             RecordCitations.query.filter_by(cited_id=self.id).delete()
+            RecordsBuckets.query.filter_by(record_id=self.id).delete()
 
             pids = PersistentIdentifier.query.filter(
                 PersistentIdentifier.object_uuid == self.id
@@ -338,10 +340,12 @@ class InspireRecord(Record):
                     RecordIdentifier.query.filter_by(recid=pid.pid_value).delete()
                 db.session.delete(pid)
             db.session.delete(self.model)
+
             try:
                 InspireRecordIndexer().delete(self)
             except NotFoundError:
                 LOGGER.info("Record not found in ES", recid=recid, uuid=self.id)
+
         LOGGER.info("Record hard deleted", recid=recid)
 
     def get_enhanced_es_data(self, serializer=None):

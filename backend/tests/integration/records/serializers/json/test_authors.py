@@ -199,7 +199,7 @@ def test_authors_only_control_number(api_client, db, create_record_factory, data
     assert expected_result == response_data_metadata
 
 
-def test_authors_search_json(api_client, db, create_record, datadir):
+def test_authors_search_json(api_client, db, es, create_record, datadir):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -224,6 +224,7 @@ def test_authors_search_json(api_client, db, create_record, datadir):
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
         "email_addresses": [{"value": "public@urhan.ch"}],
+        "_bucket": str(record._bucket),
     }
     expected_id = record_control_number
     response = api_client.get("/authors", headers=headers)

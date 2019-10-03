@@ -34,6 +34,8 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     result_ui_display = json.loads(result.pop("_ui_display"))
     result_authors = result.pop("authors")
     result_facet_author_name = result.pop("facet_author_name")
+    result.pop("_bucket")
+    result_ui_display.pop("_bucket")
     del result["_created"]
     del result["_updated"]
     assert response["hits"]["total"] == expected_count
