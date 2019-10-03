@@ -204,13 +204,15 @@ def test_link_signatures_to_author_missing_uuid(
 
 @freeze_time("2019-02-15")
 def test_create_new_empty_author(base_app, db, es_clear):
+    author = create_new_empty_author()
+    author.pop("control_number")
     expected_data = {
         "name": {"value": "BEARD STUB"},
         "_collections": ["Authors"],
         "stub": True,
         "acquisition_source": {"method": "beard", "datetime": "2019-02-15T00:00:00"},
         "$schema": "http://localhost:5000/schemas/records/authors.json",
+        "_bucket": str(author._bucket),
     }
-    author = create_new_empty_author()
-    author.pop("control_number")
+
     assert expected_data == author

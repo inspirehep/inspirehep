@@ -11,17 +11,6 @@ import pytest
 from fs.errors import ResourceNotFoundError
 from mock import MagicMock, patch
 
-from inspirehep.records.fixtures import (
-    init_default_storage_path,
-    init_records_files_storage_path,
-)
-
-
-@pytest.fixture(scope="function")
-def init_files_db(db):
-    init_default_storage_path()
-    init_records_files_storage_path()
-
 
 @pytest.fixture(scope="function")
 def fsopen_mock():

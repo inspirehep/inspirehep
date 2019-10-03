@@ -514,7 +514,7 @@ RECORDS_REST_SORT_OPTIONS = {
         },
     },
     "records-jobs": {
-        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
+        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1}
     },
 }
 
@@ -532,3 +532,5 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
     ]
 }
 LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {"application/json": ["_ui_display"]}
+
+FILES_REST_PERMISSION_FACTORY = allow_all

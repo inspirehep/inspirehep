@@ -71,6 +71,7 @@ def test_disambiguate_signatures_cluster_with_0_authors(
     author_pids = PersistentIdentifier.query.filter_by(pid_type="aut").all()
     assert len(author_pids) == 1
     pid_value = author_pids[0].pid_value
+    author = AuthorsRecord.get_record_by_pid_value(pid_value)
     expected_author = {
         "name": {"value": "Doe, John"},
         "_collections": ["Authors"],
@@ -79,8 +80,9 @@ def test_disambiguate_signatures_cluster_with_0_authors(
         "$schema": "http://localhost:5000/schemas/records/authors.json",
     }
     expected_ref = f"http://localhost:5000/api/authors/{pid_value}"
-    author = AuthorsRecord.get_record_by_pid_value(pid_value)
+
     author.pop("control_number")
+    author.pop("_bucket")
     assert expected_author == author
     assert expected_ref == record["authors"][0]["record"]["$ref"]
 

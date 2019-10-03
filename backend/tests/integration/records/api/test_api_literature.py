@@ -193,7 +193,9 @@ def test_literature_on_delete_through_metadata_update(base_app, db, es_clear):
     assert PIDStatus.DELETED == record_lit_pid.status
 
 
-def test_literature_create_with_existing_control_number(base_app, db, create_pidstore):
+def test_literature_create_with_existing_control_number(
+    base_app, db, es, create_pidstore
+):
     data = faker.record("lit", with_control_number=True)
     existing_object_uuid = uuid4()
 
@@ -361,244 +363,7 @@ def test_literature_create_or_update_with_existing_record(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-@pytest.mark.xfail(reason="Files handling on literature is wrong.")
-def test_literature_create_with_documents_and_figures(
-    fsopen_mock, base_app, db, init_files_db, enable_files
-):
-    figure_expected_filename = "file.png"
-    document_excpected_filename = "file_name.pdf"
-
-    data = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": "key",
-            }
-        ],
-        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
-    }
-
-    data = faker.record("lit", data=data)
-
-    record = LiteratureRecord.create(data)
-    assert len(record.files.keys) == 2
-
-    files_filenames = [f["filename"] for f in record["_files"]]
-    assert document_excpected_filename in files_filenames
-    assert figure_expected_filename in files_filenames
-
-    assert "documents" in record
-    assert "figures" in record
-
-    assert len(record["documents"]) == 1
-    assert len(record["figures"]) == 1
-
-
-@pytest.mark.xfail(reason="Files handling on literature is wrong.")
-def test_add_and_remove_figs_and_docs(
-    fsopen_mock, base_app, db, init_files_db, enable_files
-):
-    files = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": "key",
-            }
-        ],
-        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
-    }
-
-    figure_expected_filename = "file.png"
-    document_excpected_filename = "file_name.pdf"
-
-    data = faker.record("lit")
-    record = LiteratureRecord.create(data)
-
-    record.add_files(**files)
-    # added 2 records, should be two
-    assert len(record.files.keys) == 2
-
-    files_filenames = [f["filename"] for f in record["_files"]]
-    assert document_excpected_filename in files_filenames
-    assert figure_expected_filename in files_filenames
-
-    assert "documents" in record
-    assert "figures" in record
-
-    assert len(record["documents"]) == 1
-    assert len(record["figures"]) == 1
-
-    record.set_files(documents=files["documents"])
-    # when set only documents, figures should be removed
-    assert len(record.files.keys) == 1
-
-    files_filenames = [f["filename"] for f in record["_files"]]
-    assert document_excpected_filename in files_filenames
-    assert figure_expected_filename not in files_filenames
-
-    assert "documents" in record
-    assert "figures" not in record
-
-    assert len(record["documents"]) == 1
-
-    record.set_files(figures=files["figures"])
-    # When set only figures, documents should be removed
-    assert len(record.files.keys) == 1
-
-    files_filenames = [f["filename"] for f in record["_files"]]
-    assert document_excpected_filename not in files_filenames
-    assert figure_expected_filename in files_filenames
-
-    assert "documents" not in record
-    assert "figures" in record
-
-    assert len(record["figures"]) == 1
-
-    record.add_files(**files)
-    # when added all files again, only documents should be added and figures left
-    # as they are here already
-
-    assert len(record.files.keys) == 2
-
-    files_filenames = [f["filename"] for f in record["_files"]]
-    assert document_excpected_filename in files_filenames
-    assert figure_expected_filename in files_filenames
-
-    assert "documents" in record
-    assert "figures" in record
-
-    assert len(record["documents"]) == 1
-    assert len(record["figures"]) == 1
-
-
-@pytest.mark.xfail(reason="Files handling on literature is wrong.")
-def test_removing_docs_and_figures(
-    fsopen_mock, base_app, db, init_files_db, enable_files
-):
-    files = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": "key",
-            }
-        ],
-        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
-    }
-
-    data = faker.record("lit")
-    record = LiteratureRecord.create(data)
-
-    record.set_files(**files)
-    assert len(record.files.keys) == 2
-    assert "documents" in record
-    assert "figures" in record
-
-    with pytest.raises(TypeError):
-        record.set_files()
-    with pytest.raises(TypeError):
-        record.add_files()
-
-    record.set_files(force=True)
-    assert len(record.files.keys) == 0
-    assert "documents" not in record
-    assert "figures" not in record
-
-
-@pytest.mark.xfail(reason="Files handling on literature is wrong.")
-def test_delete_record_with_files(
-    fsopen_mock, base_app, db, init_files_db, enable_files
-):
-    data = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": "key",
-            }
-        ],
-        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
-    }
-
-    data = faker.record("lit", data=data)
-    record = LiteratureRecord.create(data)
-
-    assert len(record.files.keys) == 2
-    assert "documents" in record
-    assert "figures" in record
-
-    record.delete()
-
-    assert len(record.files.keys) == 0
-    assert "documents" not in record
-    assert "figures" not in record
-
-
-@pytest.mark.xfail(
-    reason="Files handling is not correct, it updates too many times the record and triggers orcid, citation calculation etc."
-)
-def test_update_record_files(fsopen_mock, base_app, db, init_files_db, enable_files):
-    data = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": "key",
-            }
-        ],
-        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
-    }
-
-    new_data = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": "key",
-            },
-            {"url": "http://figure_url.cern.ch/figure2.pdf", "key": "file_name2.pdf"},
-        ],
-        "figures": [{"url": "http://figure_url.cern.ch/figure2.pdf", "key": "key"}],
-    }
-
-    figure_expected_filename = "file.png"
-    document_excpected_filename = "file_name.pdf"
-    second_figure_filename = "figure2.pdf"
-    second_document_filename = "file_name2.pdf"
-
-    data = faker.record("lit", with_control_number=True, data=data)
-    record = LiteratureRecord.create(data)
-
-    assert len(record.files.keys) == 2
-
-    files_filenames = [f["filename"] for f in record["_files"]]
-    assert document_excpected_filename in files_filenames
-    assert figure_expected_filename in files_filenames
-    assert second_figure_filename not in files_filenames
-    assert second_document_filename not in files_filenames
-
-    assert document_excpected_filename not in record.files.keys
-    assert figure_expected_filename not in record.files.keys
-    assert second_figure_filename not in record.files.keys
-    assert second_document_filename not in record.files.keys
-
-    data.update(**new_data)
-    record.update(data)
-
-    record_updated_db = LiteratureRecord.get_record_by_pid_value(
-        record["control_number"]
-    )
-    assert len(record_updated_db.files.keys) == 2
-
-    files_filenames = [f["filename"] for f in record_updated_db["_files"]]
-    assert document_excpected_filename in files_filenames
-    assert figure_expected_filename not in files_filenames
-    assert second_figure_filename in files_filenames
-
-
-def test_subclasses_for_literature():
+def test_subclasses_for_literature(base_app, db, es):
     expected = {"lit": LiteratureRecord}
     assert expected == LiteratureRecord.get_subclasses()
 
@@ -635,101 +400,6 @@ def test_dump_for_es(base_app, db, es):
     assert record["control_number"] == ui_field["control_number"]
 
 
-@pytest.mark.xfail(reason="Files handling on literature is wrong.")
-def test_literature_create_with_documents_and_figures_files_flag_disabled(
-    fsopen_mock, base_app, db, init_files_db, disable_files
-):
-
-    expected_doc_filename = "document_file"
-    expected_fig_filename = "figure_file"
-    data = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": expected_doc_filename,
-            }
-        ],
-        "figures": [
-            {"url": "http://figure_url.cern.ch/file.png", "key": expected_fig_filename}
-        ],
-    }
-
-    data = faker.record("lit", data=data)
-
-    record = LiteratureRecord.create(data)
-    assert len(record.files.keys) == 0
-
-    with pytest.raises(KeyError):
-        record["_files"]
-
-    assert "documents" in record
-    assert "figures" in record
-
-    assert len(record["documents"]) == 1
-    assert len(record["figures"]) == 1
-
-    assert record["documents"][0]["key"] == expected_doc_filename
-    assert record["figures"][0]["key"] == expected_fig_filename
-
-
-@pytest.mark.xfail(reason="Files handling on literature is wrong.")
-def test_add_and_remove_figs_and_docs_when_files_flag_disabled(
-    fsopen_mock, base_app, db, init_files_db, disable_files
-):
-    expected_doc_filename = "document_file"
-    expected_fig_filename = "figure_file"
-
-    files = {
-        "documents": [
-            {
-                "url": "http://document_url.cern.ch/file.pdf",
-                "filename": "file_name.pdf",
-                "key": expected_doc_filename,
-            }
-        ],
-        "figures": [
-            {"url": "http://figure_url.cern.ch/file.png", "key": expected_fig_filename}
-        ],
-    }
-
-    data = faker.record("lit")
-    record = LiteratureRecord.create(data)
-
-    record.add_files(**files)
-    # added 2 records, should be 0
-    assert len(record.files.keys) == 0
-
-    with pytest.raises(KeyError):
-        record["_files"]
-
-    assert "documents" in record
-    assert "figures" in record
-
-    assert len(record["documents"]) == 1
-    assert len(record["figures"]) == 1
-
-    assert record["documents"][0]["key"] == expected_doc_filename
-    assert record["figures"][0]["key"] == expected_fig_filename
-
-    record.set_files(documents=files["documents"])
-    # when set only documents, figures should be removed
-
-    with pytest.raises(KeyError):
-        record["_files"]
-
-    assert "documents" in record
-    assert "figures" not in record
-
-    assert len(record.files.keys) == 0
-
-    assert len(record["documents"]) == 1
-    with pytest.raises(KeyError):
-        record["figures"]
-
-    assert record["documents"][0]["key"] == expected_doc_filename
-
-
 def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("lit")
     record = InspireRecord.create(data)
@@ -754,12 +424,12 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db,
     assert record.pid_type == "lit"
 
 
-def test_import_article_bad_arxiv_id(base_app):
+def test_import_article_bad_arxiv_id(base_app, db, es):
     with pytest.raises(UnknownImportIdentifierError):
         import_article("bad_arXiv:1207.7214")
 
 
-def test_import_article_bad_doi(base_app):
+def test_import_article_bad_doi(base_app, db, es):
     with pytest.raises(UnknownImportIdentifierError):
         import_article("doi:Th1s1s/n0taD01")
 
@@ -933,7 +603,7 @@ def test_literature_citation_count_property(base_app, db, es):
 
 
 def test_literature_without_literature_collection_cannot_cite_record_which_can_be_cited(
-    base_app, db
+    base_app, db, es
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1)
@@ -976,7 +646,7 @@ def test_record_create_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
     "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
-    citation_recalculate_mock, base_app, db
+    citation_recalculate_mock, base_app, db, es
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1, disable_citation_update=True)
@@ -987,7 +657,7 @@ def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
     "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_create_runs_citation_recalculate_on_default(
-    citation_recalculate_mock, base_app, db
+    citation_recalculate_mock, base_app, db, es
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1)
@@ -996,7 +666,7 @@ def test_record_create_runs_citation_recalculate_on_default(
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
 def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
-    orcid_mock, base_app, db
+    orcid_mock, base_app, db, es
 ):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
@@ -1031,7 +701,7 @@ def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
     "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_update_runs_citation_recalculate_on_default(
-    citation_recalculate_mock, base_app, db
+    citation_recalculate_mock, base_app, db, es
 ):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
@@ -1048,7 +718,6 @@ def test_get_modified_references(base_app, db, es_clear):
         "lit", literature_citations=[cited_record_1["control_number"]]
     )
     citing_record = LiteratureRecord.create(citing_data)
-    db.session.commit()
 
     assert citing_record.get_modified_references() == [cited_record_1.id]
 
@@ -1063,12 +732,10 @@ def test_get_modified_references(base_app, db, es_clear):
         }
     ]
     citing_record.update(citing_data)
-    db.session.commit()
 
     assert citing_record.get_modified_references() == [cited_record_2.id]
 
     citing_record.delete()
-    db.session.commit()
 
     assert citing_record.get_modified_references() == [cited_record_2.id]
 
@@ -1268,6 +935,7 @@ def test_phonetic_blocks_keep_order_in_redis_based_on_timestamp(
         author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
         data = faker.record("lit", data=author_data)
         InspireRecord.create(data)
+
     with freeze_time(datetime.datetime(2015, 8, 18, 9, 51, 50)):
         author_data2 = {"authors": [{"full_name": "Jimmy"}]}
         data2 = faker.record("lit", data=author_data2)
@@ -1289,3 +957,287 @@ def test_phonetic_blocks_not_updated_when_record_does_not_have_lit_collection(
     expected_result_authors = [{"full_name": "Ellis, John Richard"}]
     assert expected_result_authors == record["authors"]
     assert [] == redis.zpopmin("author_phonetic_blocks")
+
+
+def test_literature_create_with_documents_and_figures(
+    fsopen_mock, base_app, db, es, enable_files
+):
+
+    data = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
+    }
+
+    data = faker.record("lit", data=data)
+
+    record = LiteratureRecord.create(data)
+    assert len(record.files.keys) == 2
+
+    expected_figure_filename = "file.png"
+    expected_document_filename = "file_name.pdf"
+    expected_files_len = 2
+
+    files_filenames = [file_["filename"] for file_ in record["_files"]]
+    assert expected_document_filename in files_filenames
+    assert expected_figure_filename in files_filenames
+
+    assert "documents" in record
+    assert "figures" in record
+
+    assert len(record["documents"]) == 1
+    assert len(record["figures"]) == 1
+    assert expected_files_len == len(record["_files"])
+
+
+def test_literature_update_documents_and_figures(
+    fsopen_mock, base_app, db, es, enable_files
+):
+    files = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
+    }
+
+    data = faker.record("lit", with_control_number=True, data=files)
+    record = LiteratureRecord.create(data)
+
+    updated_files = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/figure2.pdf", "key": "key"}],
+    }
+
+    data.update(updated_files)
+    record.update(data)
+
+    expected_document_filename = "file_name.pdf"
+    expected_figure_filename = "figure2.pdf"
+    expected_files_len = 2
+
+    files_filenames = [f["filename"] for f in record["_files"]]
+    assert expected_document_filename in files_filenames
+    assert expected_figure_filename in files_filenames
+
+    assert len(record["documents"]) == 1
+    assert len(record["figures"]) == 1
+    assert expected_files_len == len(record["_files"])
+
+
+def test_literature_update_documents_without_figures(
+    fsopen_mock, base_app, db, es, enable_files
+):
+    files = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
+    }
+
+    data = faker.record("lit", with_control_number=True, data=files)
+    record = LiteratureRecord.create(data)
+
+    del record["figures"]
+    record.update(dict(record))
+
+    expected_document_filename = "file_name.pdf"
+    expected_files_len = 1
+
+    files_filenames = [f["filename"] for f in record["_files"]]
+
+    assert expected_document_filename in files_filenames
+    assert len(record["documents"]) == 1
+    assert "figures" not in record
+    assert expected_files_len == len(record["_files"])
+
+
+def test_literature_update_documents_without_documents(
+    fsopen_mock, base_app, db, es, enable_files
+):
+    files = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
+    }
+
+    data = faker.record("lit", with_control_number=True, data=files)
+    record = LiteratureRecord.create(data)
+    del record["documents"]
+    record.update(dict(record))
+
+    expected_figure_filename = "file.png"
+    expected_files_len = 1
+
+    files_filenames = [f["filename"] for f in record["_files"]]
+
+    assert expected_figure_filename in files_filenames
+    assert len(record["figures"]) == 1
+    assert "documents" not in record
+    assert expected_files_len == len(record["_files"])
+
+
+def test_literature_update_documents_without_documents_and_figures(
+    fsopen_mock, base_app, db, es, enable_files
+):
+    files = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
+    }
+
+    data = faker.record("lit", with_control_number=True, data=files)
+    record = LiteratureRecord.create(data)
+    del record["documents"]
+    del record["figures"]
+
+    record.update(dict(record))
+
+    expected_figure_filename = "file.png"
+    expected_files_len = 0
+
+    assert "figures" not in record
+    assert "documents" not in record
+    assert expected_files_len == len(record["_files"])
+
+
+def test_literature_documents_and_figures_are_accessible_from_any_user(
+    fsopen_mock, api_client, db, es, enable_files
+):
+
+    data = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
+    }
+
+    data = faker.record("lit", data=data)
+
+    record = LiteratureRecord.create(data)
+    document_file_key = record["documents"][0]["key"]
+    figures_file_key = record["figures"][0]["key"]
+
+    response_document = api_client.get(
+        f"/api/files/{record._bucket}/{document_file_key}"
+    )
+    expected_document_status_code = 200
+    assert expected_document_status_code == response_document.status_code
+
+    response_figure = api_client.get(f"/api/files/{record._bucket}/{figures_file_key}")
+    expected_figure_status = 200
+    assert expected_figure_status == response_figure.status_code
+
+
+def test_add_document_and_figures_default_parameters(
+    fsopen_mock, base_app, db, enable_files
+):
+    data = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+            }
+        ],
+        "figures": [{"url": "http://figure_url.cern.ch/file.png", "key": "key"}],
+    }
+
+    data = faker.record("lit", data=data)
+
+    record = LiteratureRecord.create(data)
+    data_document = record["documents"][0]
+    data_document_key = data_document["key"]
+    data_figure = record["figures"][0]
+    data_figure_key = data_figure["key"]
+
+    expected_document_filename = "file_name.pdf"
+    expected_document_original_url = "http://document_url.cern.ch/file.pdf"
+    expected_document_url = (
+        f"/api/files/{record.files[data_document_key].bucket_id}/{data_document_key}"
+    )
+
+    expected_figure_filename = "file.png"
+    expected_figure_original_url = "http://figure_url.cern.ch/file.png"
+    expected_figure_url = (
+        f"/api/files/{record.files[data_figure_key].bucket_id}/{data_figure_key}"
+    )
+
+    assert data_document["filename"] == expected_document_filename
+    assert data_document["key"] in record.files.keys
+    assert "hidden" not in data_document
+    assert data_document["fulltext"] is True
+    assert data_document["original_url"] == expected_document_original_url
+    assert data_document["url"] == expected_document_url
+
+    assert data_figure["filename"] == expected_figure_filename
+    assert data_figure["key"] in record.files.keys
+    assert data_figure["original_url"] == expected_figure_original_url
+    assert data_figure["url"] == expected_figure_url
+
+
+def test_add_documents_changed_parameters(
+    fsopen_mock, base_app, db, create_record, enable_files
+):
+    data = {
+        "documents": [
+            {
+                "url": "http://document_url.cern.ch/file.pdf",
+                "filename": "file_name.pdf",
+                "key": "key",
+                "fulltext": False,
+                "hidden": True,
+            }
+        ]
+    }
+
+    data = faker.record("lit", data=data)
+
+    record = LiteratureRecord.create(data)
+
+    data_document = record["documents"][0]
+    data_document_key = data_document["key"]
+    expected_document_filename = "file_name.pdf"
+    expected_document_original_url = "http://document_url.cern.ch/file.pdf"
+    expected_document_url = (
+        f"/api/files/{record.files[data_document_key].bucket_id}/{data_document_key}"
+    )
+
+    assert data_document["filename"] == expected_document_filename
+    assert data_document["key"] in record.files.keys
+    assert data_document["hidden"] is True
+    assert "fulltext" not in data_document
+    assert data_document["original_url"] == expected_document_original_url
+    assert data_document["url"] == expected_document_url
