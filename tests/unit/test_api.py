@@ -121,12 +121,12 @@ def test_process_clustering_output_signatures_without_author_id():
             "signatures": [
                 {
                     "publication_id": 1,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52",
                 },
                 {
                     "publication_id": 1,
                     "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54",
-                }
+                },
             ],
             "authors": [],
         }
@@ -290,12 +290,12 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
             "signatures": [
                 {
                     "publication_id": 11,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52",
                 },
                 {
                     "publication_id": 12,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53"
-                }
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53",
+                },
             ],
             "authors": [{"author_id": 1, "has_claims": True}],
         },
@@ -303,20 +303,20 @@ def test_process_clustering_output_signatures_multiple_curated_author_ids():
             "signatures": [
                 {
                     "publication_id": 13,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54",
                 },
                 {
                     "publication_id": 14,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e55"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e55",
                 },
                 {
                     "publication_id": 15,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e56"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e56",
                 },
             ],
             "authors": [
                 {"author_id": 3, "has_claims": True},
-                {"author_id": 5, "has_claims": True}
+                {"author_id": 5, "has_claims": True},
             ],
         },
     ]
@@ -394,11 +394,11 @@ def test_process_clustering_output_signatures_with_non_curated_author_id():
             "signatures": [
                 {
                     "publication_id": 11,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52",
                 },
                 {
                     "publication_id": 12,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53",
                 },
             ],
             "authors": [{"author_id": 1, "has_claims": False}],
@@ -507,15 +507,15 @@ def test_process_clustering_output_signatures_with_curated_and_non_curated_autho
             "signatures": [
                 {
                     "publication_id": 11,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52",
                 },
                 {
                     "publication_id": 12,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e53",
                 },
                 {
                     "publication_id": 13,
-                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54"
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54",
                 },
             ],
             "authors": [{"author_id": 1, "has_claims": True}],

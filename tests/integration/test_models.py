@@ -117,7 +117,7 @@ def test_distance_estimator_load_data(scan_mock, es_record_with_many_curated_aut
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e53",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 ),
             ],
             [
@@ -145,7 +145,7 @@ def test_distance_estimator_load_data(scan_mock, es_record_with_many_curated_aut
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e54",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 ),
                 Signature(
                     author_affiliation="Rutgers U., Piscataway",
@@ -171,7 +171,7 @@ def test_distance_estimator_load_data(scan_mock, es_record_with_many_curated_aut
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e55",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 ),
             ],
             [
@@ -199,7 +199,7 @@ def test_distance_estimator_load_data(scan_mock, es_record_with_many_curated_aut
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e56",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 ),
                 Signature(
                     author_affiliation="Rutgers U., Piscataway",
@@ -225,7 +225,7 @@ def test_distance_estimator_load_data(scan_mock, es_record_with_many_curated_aut
                     ),
                     signature_block="Jana",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e57",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 ),
             ],
             [
@@ -253,7 +253,7 @@ def test_distance_estimator_load_data(scan_mock, es_record_with_many_curated_aut
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 ),
                 Signature(
                     author_affiliation="Rutgers U., Piscataway",
@@ -279,7 +279,7 @@ def test_distance_estimator_load_data(scan_mock, es_record_with_many_curated_aut
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e54",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 ),
             ],
         ],
@@ -323,7 +323,7 @@ def test_clusterer_load_data(
                     ),
                     signature_block="JOhn",
                     signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-                    is_curated_author_id=True
+                    is_curated_author_id=True,
                 )
             ],
             [
