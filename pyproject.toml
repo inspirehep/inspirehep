@@ -7,7 +7,7 @@ license = "MIT License"
 
 
 [tool.poetry.dependencies]
-python = ">=3.6"
+python = ">=3.6,<4"
 attrs = '~=19.0,>=19.1.0'
 beard = '~=0.0,>=0.2'
 click = "*"
@@ -19,7 +19,8 @@ elasticsearch_dsl = ">=5.0.0,<6.0.0"
 inspire-utils = "^3.0"
 inspire-schemas = "^60.0"
 deepdiff = "^4.0"
-
+structlog = "^19.1"
+structlog-sentry = "^1.1"
 
 
 [tool.poetry.dev-dependencies]

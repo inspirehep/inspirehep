@@ -62,7 +62,7 @@ def test_get_signatures_for_all(
             ),
             signature_block="SABARGn",
             signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-            is_curated_author_id=True
+            is_curated_author_id=True,
         ),
         Signature(
             author_affiliation="UAIC",
@@ -96,7 +96,7 @@ def test_get_signatures_for_all(
             ),
             signature_block="WANBARGs",
             signature_uuid="5e550ded-e955-4a22-b906-8af5aaa9f1e2",
-            is_curated_author_id=False
+            is_curated_author_id=False,
         ),
         Signature(
             author_affiliation="Rutgers U., Piscataway",
@@ -113,7 +113,7 @@ def test_get_signatures_for_all(
             ),
             signature_block="SABARGn",
             signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e51",
-            is_curated_author_id=False
+            is_curated_author_id=False,
         ),
     ]
     assert sorted(signatures, key=itemgetter("signature_uuid")) == sorted(
@@ -143,7 +143,7 @@ def test_get_signatures_for_signature_block(
             ),
             signature_block="JANa",
             signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e55",
-            is_curated_author_id=True
+            is_curated_author_id=True,
         )
     ]
 
@@ -176,7 +176,7 @@ def test_get_signatures_for_signature_block_only_curated(
             ),
             signature_block="SABARGn",
             signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-            is_curated_author_id=True
+            is_curated_author_id=True,
         )
     ]
 
@@ -216,7 +216,7 @@ def test_get_signatures_only_curated(
             ),
             signature_block="SABARGn",
             signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-            is_curated_author_id=True
+            is_curated_author_id=True,
         ),
         Signature(
             author_affiliation="UAIC",
@@ -233,7 +233,7 @@ def test_get_signatures_only_curated(
             ),
             signature_block="JANa",
             signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e55",
-            is_curated_author_id=True
+            is_curated_author_id=True,
         ),
     ]
 
@@ -244,14 +244,9 @@ def test_get_signatures_only_curated(
 
 @patch("inspire_disambiguation.core.es.readers.LiteratureSearch.scan")
 def test_publication_cache_invalidated_after_get_signatures(
-    scan_mock,
-    es_record_with_2_curated_authors,
+    scan_mock, es_record_with_2_curated_authors
 ):
-    scan_mock.side_effect = [
-        [
-            es_record_with_2_curated_authors,
-        ]
-    ]
+    scan_mock.side_effect = [[es_record_with_2_curated_authors]]
     get_signatures(only_curated=True)
 
     assert PublicationCache.cache == {}

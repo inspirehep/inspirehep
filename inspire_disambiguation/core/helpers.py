@@ -306,18 +306,17 @@ def process_clustering_output(clusterer):
             elif author_id and author_id not in author_id_to_is_curated:
                 author_id_to_is_curated[author_id] = False
 
-            signatures_output.append({
-                "publication_id": sig[0].publication["publication_id"],
-                "signature_uuid": sig[0]["signature_uuid"]
-            })
+            signatures_output.append(
+                {
+                    "publication_id": sig[0].publication["publication_id"],
+                    "signature_uuid": sig[0]["signature_uuid"],
+                }
+            )
         authors_output = [
             {"author_id": author_id, "has_claims": author_id_to_is_curated[author_id]}
             for author_id in author_id_to_is_curated
         ]
-        output.append({
-            "signatures": signatures_output,
-            "authors": authors_output,
-        })
+        output.append({"signatures": signatures_output, "authors": authors_output})
     return output
 
 
