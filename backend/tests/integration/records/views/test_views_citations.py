@@ -12,7 +12,7 @@ def test_citation_summary_facet(api_client, db, es, create_record_factory):
     unpublished_paper_data = {
         "refereed": False,
         "citation_count": 8,
-        "facet_author_name": "BAI_N. Girard",
+        "facet_author_name": "NOREC_N. Girard",
         "citeable": True,
     }
     create_record_factory("lit", data=unpublished_paper_data, with_indexing=True)
@@ -22,13 +22,13 @@ def test_citation_summary_facet(api_client, db, es, create_record_factory):
         data = {
             "refereed": True,
             "citation_count": count,
-            "facet_author_name": "BAI_N. Girard",
+            "facet_author_name": "NOREC_N. Girard",
             "citeable": True,
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary"
+        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
     )
 
     expected_citation_summary_aggregation = {
@@ -117,13 +117,13 @@ def test_h_index_with_more_papers_than_citations(
         data = {
             "refereed": True,
             "citation_count": count,
-            "facet_author_name": "BAI_N. Girard",
+            "facet_author_name": "NOREC_N. Girard",
             "citeable": True,
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary"
+        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
     )
 
     expected_h_index = {"value": {"all": 2, "published": 2}}
@@ -143,13 +143,13 @@ def test_h_index_with_as_many_papers_as_citations(
         data = {
             "refereed": True,
             "citation_count": count,
-            "facet_author_name": "BAI_N. Girard",
+            "facet_author_name": "NOREC_N. Girard",
             "citeable": True,
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary"
+        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary"
     )
 
     expected_h_index = {"value": {"all": 5, "published": 5}}
@@ -165,7 +165,7 @@ def test_citation_summary_facet_filters(api_client, db, es, create_record_factor
     book_chapter_paper = {
         "refereed": False,
         "citation_count": 8,
-        "facet_author_name": "BAI_N. Girard",
+        "facet_author_name": "NOREC_N. Girard",
         "citeable": True,
         "facet_inspire_doc_type": ["book chapter"],
     }
@@ -176,13 +176,13 @@ def test_citation_summary_facet_filters(api_client, db, es, create_record_factor
         data = {
             "refereed": True,
             "citation_count": count,
-            "facet_author_name": "BAI_N. Girard",
+            "facet_author_name": "NOREC_N. Girard",
             "citeable": True,
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary&doc_type=book%20chapter"
+        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&doc_type=book%20chapter"
     )
 
     expected_citation_summary_aggregation = {
@@ -268,7 +268,7 @@ def test_citation_summary_facet_excluded_filters(
     non_refereed_paper = {
         "refereed": False,
         "citation_count": 8,
-        "facet_author_name": "BAI_N. Girard",
+        "facet_author_name": "NOREC_N. Girard",
         "citeable": True,
     }
     create_record_factory("lit", data=non_refereed_paper, with_indexing=True)
@@ -278,13 +278,13 @@ def test_citation_summary_facet_excluded_filters(
         data = {
             "refereed": True,
             "citation_count": count,
-            "facet_author_name": "BAI_N. Girard",
+            "facet_author_name": "NOREC_N. Girard",
             "citeable": True,
         }
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "literature/facets?author=BAI_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
+        "literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&refereed=True&citeable=False&citation_count=500--505"
     )
     response_data = json.loads(response.data)
     response_status_code = response.status_code

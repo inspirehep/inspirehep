@@ -202,7 +202,7 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
         author.get("key")
         for author in facets_response.json["aggregations"]["author"]["buckets"]
     ]
-    assert "F.Pastawski.1_Fernando Pastawski" in authors
+    assert "1607957_Fernando Pastawski" in authors
 
 
 @patch(
