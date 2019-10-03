@@ -18,7 +18,7 @@ def test_should_display_positions_without_positions():
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
     }
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
 
     expected_result = False
 
@@ -36,7 +36,7 @@ def test_should_display_positions_with_multiple_positions():
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
         "positions": [{"institution": "CERN"}, {"institution": "DESY"}],
     }
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
 
     expected_result = True
 
@@ -54,7 +54,7 @@ def test_should_display_positions_with_multiple_positions_with_rank():
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
         "positions": [{"institution": "CERN", "rank": "PHD", "current": True}],
     }
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
 
     expected_result = True
 
@@ -72,7 +72,7 @@ def test_should_display_positions_with_multiple_positions_with_start_date():
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
         "positions": [{"institution": "CERN", "start_date": "2015", "current": True}],
     }
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
 
     expected_result = True
 
@@ -90,7 +90,7 @@ def test_should_display_positions_with_multiple_positions_if_is_not_current():
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
         "positions": [{"institution": "CERN", "current": False}],
     }
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
 
     expected_result = True
 
@@ -108,7 +108,7 @@ def test_returns_should_display_position_false_if_position_is_current():
         "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
         "positions": [{"institution": "CERN", "current": True}],
     }
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
 
     expected_result = False
 
@@ -119,15 +119,15 @@ def test_returns_should_display_position_false_if_position_is_current():
     assert expected_result == result_should_display_positions
 
 
-def test_facet_author_name_with_preferred_name_and_ids():
+def test_facet_author_name_with_preferred_name_and_control_number():
     schema = AuthorsDetailSchema()
     data = {
         "name": {"value": "Doe, John", "preferred_name": "J Doe"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
+        "control_number": 1,
     }
     author = faker.record("aut", data=data)
 
-    expected_result = "John.Doe.1_J Doe"
+    expected_result = "1_J Doe"
 
     result = schema.dumps(author).data
     result_data = json.loads(result)
@@ -138,26 +138,10 @@ def test_facet_author_name_with_preferred_name_and_ids():
 
 def test_facet_author_name_without_preferred_name():
     schema = AuthorsDetailSchema()
-    data = {
-        "name": {"value": "Doe, John"},
-        "ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}],
-    }
+    data = {"name": {"value": "Doe, John"}, "control_number": 1}
     author = faker.record("aut", data=data)
 
-    expected_result = "John.Doe.1_John Doe"
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_facet_author_name = result_data.get("facet_author_name")
-
-    assert expected_result == result_facet_author_name
-
-
-def test_facet_author_name_without_ids():
-    schema = AuthorsDetailSchema()
-    data = {"name": {"value": "Doe, John"}}
-    author = faker.record("aut", data=data)
-    expected_result = "BAI_John Doe"
+    expected_result = "1_John Doe"
 
     result = schema.dumps(author).data
     result_data = json.loads(result)
@@ -169,7 +153,7 @@ def test_facet_author_name_without_ids():
 def test_author_twitter():
     schema = AuthorsDetailSchema()
     data = {"ids": [{"value": "harunurhan", "schema": "TWITTER"}]}
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
     expected_twitter = "harunurhan"
 
     result = schema.dumps(author).data
@@ -182,7 +166,7 @@ def test_author_twitter():
 def test_author_linkedin():
     schema = AuthorsDetailSchema()
     data = {"ids": [{"value": "harunurhan", "schema": "LINKEDIN"}]}
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
     expected_linkedin = "harunurhan"
 
     result = schema.dumps(author).data
@@ -194,7 +178,7 @@ def test_author_linkedin():
 
 def test_author_does_not_have_id_fields():
     schema = AuthorsDetailSchema()
-    author = faker.record("aut")
+    author = faker.record("aut", with_control_number=True)
 
     result = schema.dumps(author).data
     result_data = json.loads(result)
@@ -207,7 +191,7 @@ def test_author_does_not_have_id_fields():
 def test_author_orcid():
     schema = AuthorsDetailSchema()
     data = {"ids": [{"value": "0000-0001-8058-0014", "schema": "ORCID"}]}
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
     expected_orcid = "0000-0001-8058-0014"
 
     result = schema.dumps(author).data
@@ -227,29 +211,7 @@ def test_only_public_and_current_emails():
             {"value": "outdated-private@mail.cern", "current": False, "hidden": True},
         ]
     }
-    author = faker.record("aut", data=data)
-    expected_email_addresses = [
-        {"value": "current-public@mail.cern", "current": True, "hidden": False}
-    ]
-
-    result = schema.dumps(author).data
-    result_data = json.loads(result)
-    result_email_addresses = result_data.get("email_addresses")
-
-    assert expected_email_addresses == result_email_addresses
-
-
-def test_only_public_and_current_emails():
-    schema = AuthorsDetailSchema()
-    data = {
-        "email_addresses": [
-            {"value": "current-private@mail.cern", "current": True, "hidden": True},
-            {"value": "current-public@mail.cern", "current": True, "hidden": False},
-            {"value": "outdated-public@mail.cern", "current": False, "hidden": False},
-            {"value": "outdated-private@mail.cern", "current": False, "hidden": True},
-        ]
-    }
-    author = faker.record("aut", data=data)
+    author = faker.record("aut", data=data, with_control_number=True)
     expected_email_addresses = [
         {"value": "current-public@mail.cern", "current": True, "hidden": False}
     ]

@@ -35,7 +35,7 @@ def test_authors_detail(api_client, db, create_record_factory, datadir):
         "control_number": 999_108,
         "deleted": False,
         "email_addresses": [{"current": True, "value": "malda@ias.edu"}],
-        "facet_author_name": "J.M.Maldacena.1_Juan Martin Maldacena",
+        "facet_author_name": "999108_Juan Martin Maldacena",
         "ids": [
             {"schema": "INSPIRE ID", "value": "INSPIRE-00304313"},
             {"schema": "INSPIRE BAI", "value": "J.M.Maldacena.1"},

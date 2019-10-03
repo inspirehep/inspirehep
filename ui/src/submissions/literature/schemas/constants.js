@@ -23,7 +23,7 @@ export const subjectOptions = [
   { value: 'Experiment-Nucl' },
   { value: 'General Physics' },
   { value: 'Gravitation and Cosmology' },
-  { value: 'Instumentation' },
+  { value: 'Instrumentation' },
   { value: 'Lattice' },
   { value: 'Math and Math Physics' },
   { value: 'Other' },

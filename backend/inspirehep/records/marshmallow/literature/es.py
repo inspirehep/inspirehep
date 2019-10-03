@@ -93,7 +93,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
 
         for author in authors_without_record:
             result.append(
-                "BAI_{}".format(get_display_name_for_author_name(author["full_name"]))
+                "NOREC_{}".format(get_display_name_for_author_name(author["full_name"]))
             )
 
         return result

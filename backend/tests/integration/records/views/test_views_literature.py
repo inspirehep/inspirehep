@@ -49,7 +49,7 @@ def test_literature_search_application_json_get(
 
 
 def test_literature_search_application_json_ui_get(
-    api_client, db, create_record, es_clear
+    api_client, db, es_clear, create_record
 ):
     data = {
         "control_number": 666,
@@ -88,7 +88,7 @@ def test_literature_application_json_get(api_client, db, es_clear, create_record
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put(api_client, db, es, create_record):
+def test_literature_application_json_put(api_client, db, es_clear, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -99,7 +99,7 @@ def test_literature_application_json_put(api_client, db, es, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_delete(api_client, db, es, create_record):
+def test_literature_application_json_delete(api_client, db, es_clear, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -160,7 +160,7 @@ def test_literature_citations(api_client, db, es_clear, create_record):
 
 
 def test_literature_citations_with_superseded_citing_records(
-    api_client, db, create_record, es_clear
+    api_client, db, es_clear, create_record
 ):
     record = create_record("lit")
     record_control_number = record["control_number"]
@@ -227,7 +227,7 @@ def test_literature_citations_with_superseded_citing_records(
 
 
 def test_literature_citations_with_non_citeable_collection(
-    api_client, db, create_record, es_clear
+    api_client, db, es_clear, create_record
 ):
     record = create_record("lit")
     record_control_number = record["control_number"]
@@ -278,7 +278,7 @@ def test_literature_citations_with_non_citeable_collection(
     ]
 
 
-def test_literature_citations_empty(api_client, db, create_record, es_clear):
+def test_literature_citations_empty(api_client, db, es_clear, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -303,7 +303,7 @@ def test_literature_citations_missing_pids(api_client, db, es_clear):
     assert expected_status_code == response_status_code
 
 
-def test_literature_facets(api_client, db, create_record, es_clear):
+def test_literature_facets(api_client, db, es_clear, create_record):
     record = create_record("lit")
 
     response = api_client.get("/literature/facets")
@@ -334,7 +334,7 @@ def test_literature_facets(api_client, db, create_record, es_clear):
         "with custom fields that are used for facets, hence we cannot test the facets."
     )
 )
-def test_literature_facets_with_selected_facet(api_client, db, create_record, es_clear):
+def test_literature_facets_with_selected_facet(api_client, db, es_clear, create_record):
     record_1 = create_record("lit")
     data = {"document_type": ["Thesis"]}
     record_2 = create_record("lit", data=data)
@@ -381,7 +381,7 @@ def test_literature_facets_author_count_does_not_have_empty_bucket(
     """
 )
 def test_literature_facets_author_count_returns_non_empty_bucket(
-    api_client, db, create_record, es_clear, redis
+    api_client, db, es_clear, create_record, redis
 ):
     create_record("lit", data={"authors": [{"full_name": "Harun Urhan"}]})
     response = api_client.get("/literature/facets")
@@ -392,7 +392,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(
     assert buckets[0]["doc_count"] == 1
 
 
-def test_literature_facets_arxiv(api_client, db, create_record, es_clear):
+def test_literature_facets_arxiv(api_client, db, es_clear, create_record):
     record = create_record("lit")
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
@@ -420,7 +420,7 @@ def test_literature_facets_arxiv(api_client, db, create_record, es_clear):
         assert expected_data_hits_source == source["_source"]
 
 
-def test_literature_facets_collaboration(api_client, db, create_record, es_clear):
+def test_literature_facets_collaboration(api_client, db, es_clear, create_record):
     data_1 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "document_type": ["article"],
@@ -460,7 +460,7 @@ def test_literature_facets_collaboration(api_client, db, create_record, es_clear
 
 
 def test_literature_search_citation_count_filter(
-    api_client, db, es, create_record_factory
+    api_client, db, es_clear, create_record_factory
 ):
     paper_with_requested_number_of_citations = create_record_factory(
         "lit", data={"citation_count": 101}, with_indexing=True
@@ -470,7 +470,7 @@ def test_literature_search_citation_count_filter(
     for count in papers_citation_count:
         create_record_factory("lit", data={"citation_count": count}, with_indexing=True)
 
-    response = api_client.get("literature?citation_count=101--102")
+    response = api_client.get("/literature?citation_count=101--102")
 
     response_data = json.loads(response.data)
     response_status_code = response.status_code
@@ -482,14 +482,16 @@ def test_literature_search_citation_count_filter(
     )
 
 
-def test_literature_search_refereed_filter(api_client, db, es, create_record_factory):
+def test_literature_search_refereed_filter(
+    api_client, db, es_clear, create_record_factory
+):
     refereed_paper = create_record_factory(
         "lit", data={"refereed": True}, with_indexing=True
     )
 
     create_record_factory("lit", data={"refereed": False}, with_indexing=True)
 
-    response = api_client.get("literature?refereed=true")
+    response = api_client.get("/literature?refereed=true")
     response_data = json.loads(response.data)
     response_status_code = response.status_code
     assert response_status_code == 200
@@ -500,14 +502,16 @@ def test_literature_search_refereed_filter(api_client, db, es, create_record_fac
     )
 
 
-def test_literature_search_citeable_filter(api_client, db, es, create_record_factory):
+def test_literature_search_citeable_filter(
+    api_client, db, es_clear, create_record_factory
+):
     citeable_paper = create_record_factory(
         "lit", data={"citeable": True}, with_indexing=True
     )
 
     create_record_factory("lit", data={"citeable": False}, with_indexing=True)
 
-    response = api_client.get("literature?citeable=true")
+    response = api_client.get("/literature?citeable=true")
     response_data = json.loads(response.data)
     response_status_code = response.status_code
     assert response_status_code == 200
@@ -550,7 +554,7 @@ def test_literature_citation_annual_summary(
     }
     es_clear.indices.refresh("records-hep")
 
-    response = api_client.get(f"literature/facets/?{urlencode(request_param)}")
+    response = api_client.get(f"/literature/facets/?{urlencode(request_param)}")
 
     assert response.json["aggregations"]["citations_by_year"] == expected_response
 
@@ -598,7 +602,7 @@ def test_literature_citation_annual_summary_for_many_records(
 
     es_clear.indices.refresh("records-hep")
 
-    response = api_client.get(f"literature/facets/?{urlencode(request_param)}")
+    response = api_client.get(f"/literature/facets/?{urlencode(request_param)}")
 
     expected_response = {"value": {"2013": 2, "2012": 1, "2010": 1}}
     assert response.json["aggregations"]["citations_by_year"] == expected_response
