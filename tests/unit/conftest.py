@@ -44,7 +44,7 @@ def curated_signature():
         ),
         signature_block="SABARGn",
         signature_uuid="94fc2b0a-dc17-42c2-bae3-ca0024079e52",
-        is_curated_author_id=True
+        is_curated_author_id=True,
     )
     return signature
 

@@ -22,7 +22,7 @@
 from inspire_disambiguation.core.data_models import Signature
 from inspire_disambiguation.core.data_models.publication import (
     Publication,
-    PublicationCache
+    PublicationCache,
 )
 
 
