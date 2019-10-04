@@ -1,5 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
 import axios from 'axios';
+import { push, goBack } from 'connected-react-router';
 
 import { getStore } from '../../fixtures/store';
 import {
@@ -9,6 +10,7 @@ import {
 } from '../actionTypes';
 import { userLogin, userLogout } from '../user';
 import loginInNewTab from '../../user/loginInNewTab';
+import { HOME } from '../../common/routes';
 
 jest.mock('../../user/loginInNewTab');
 
@@ -42,7 +44,11 @@ describe('user - async action creator', () => {
   it('successful logout creates USER_LOGOUT_SUCCESS', async done => {
     mockHttp.onGet('/logout').replyOnce(200);
 
-    const expectedActions = [{ type: USER_LOGOUT_SUCCESS }];
+    const expectedActions = [
+      { type: USER_LOGOUT_SUCCESS },
+      push(HOME),
+      goBack(),
+    ];
 
     const store = getStore();
     await store.dispatch(userLogout());
