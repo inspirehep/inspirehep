@@ -28,8 +28,6 @@ import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
 import NumberOfCiteablePapersContainer from './NumberOfCiteablePapersContainer';
 import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer';
-import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
-import { SUPERUSER_OR_BETAUSER_OR_CATALOGER } from '../../common/authorization';
 import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import AuthorTwitterAction from '../components/AuthorTwitterAction';
@@ -165,41 +163,33 @@ class DetailPage extends Component {
                   </Row>
                 </ContentBox>
               </Col>
-              <AuthorizedContainer
-                authorizedRoles={SUPERUSER_OR_BETAUSER_OR_CATALOGER}
-              >
-                <Col xs={24} md={12} lg={8}>
-                  <ContentBox loading={loading}>
-                    <CitationSummaryTableContainer
-                      renderNumberOfCiteablePapers={
-                        DetailPage.renderNumberOfCiteablePapers
-                      }
-                      renderNumberOfPublishedPapers={
-                        DetailPage.renderNumberOfPublishedPapers
-                      }
-                    />
-                  </ContentBox>
-                </Col>
-              </AuthorizedContainer>
+              <Col xs={24} md={12} lg={8}>
+                <ContentBox loading={loading}>
+                  <CitationSummaryTableContainer
+                    renderNumberOfCiteablePapers={
+                      DetailPage.renderNumberOfCiteablePapers
+                    }
+                    renderNumberOfPublishedPapers={
+                      DetailPage.renderNumberOfPublishedPapers
+                    }
+                  />
+                </ContentBox>
+              </Col>
             </Row>
           </Col>
         </Row>
         <Row className="mb3" type="flex" justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
-            <AuthorizedContainer
-              authorizedRoles={SUPERUSER_OR_BETAUSER_OR_CATALOGER}
-            >
-              <ContentBox subTitle="Citation Summary">
-                <Row gutter={{ xs: 0, lg: 32 }}>
-                  <Col xs={24} md={24} lg={7}>
-                    <CitationsByYearGraphContainer />
-                  </Col>
-                  <Col xs={24} md={24} lg={17}>
-                    <CitationSummaryGraphContainer />
-                  </Col>
-                </Row>
-              </ContentBox>
-            </AuthorizedContainer>
+            <ContentBox subTitle="Citation Summary">
+              <Row gutter={{ xs: 0, lg: 32 }}>
+                <Col xs={24} md={24} lg={7}>
+                  <CitationsByYearGraphContainer />
+                </Col>
+                <Col xs={24} md={24} lg={17}>
+                  <CitationSummaryGraphContainer />
+                </Col>
+              </Row>
+            </ContentBox>
           </Col>
         </Row>
         <Row type="flex" justify="center">
