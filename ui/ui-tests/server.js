@@ -6,10 +6,7 @@ const proxy = require('http-proxy-middleware');
 const app = express();
 
 // necessary for recording api responses when running tests locally (for the first time or ondemand)
-const {
-  UI_TESTS_HOST = 'localhost:8081',
-  UI_TESTS_HTTP_SCHEME = 'http',
-} = process.env;
+const { UI_TESTS_HOST, UI_TESTS_HTTP_SCHEME } = process.env;
 app.use(
   '/api',
   proxy({

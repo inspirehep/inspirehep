@@ -8,6 +8,8 @@ import CheckboxItem from './CheckboxItem';
 import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
+import HelpIconTooltip from './HelpIconTooltip';
+import ExternalLink from './ExternalLink';
 
 const BUCKET_CHUNK_SIZE = 10;
 export const BUCKET_NAME_SPLITTER = '_';
@@ -69,6 +71,31 @@ class CheckboxAggregation extends Component {
     });
   }
 
+  static renderBucketHelpTooltip(bucketHelpKey) {
+    if (!bucketHelpKey) {
+      return null;
+    }
+
+    const bucketText = bucketHelpKey.get('text');
+    const bucketLink = bucketHelpKey.get('link');
+
+    return (
+      <>
+        {' '}
+        <HelpIconTooltip
+          help={
+            <>
+              {bucketText}{' '}
+              {bucketLink && (
+                <ExternalLink href={bucketLink}>Learn More</ExternalLink>
+              )}
+            </>
+          }
+        />
+      </>
+    );
+  }
+
   renderShowMore() {
     const { buckets } = this.props;
     const { maxBucketCountToDisplay } = this.state;
@@ -88,9 +115,9 @@ class CheckboxAggregation extends Component {
 
   renderBucket(bucket) {
     const { selectionMap } = this.state;
-    const { splitDisplayName } = this.props;
-
+    const { splitDisplayName, bucketHelp } = this.props;
     const bucketKey = bucket.get('key');
+
     return (
       <Row className="mb2" type="flex" justify="space-between" key={bucketKey}>
         <Col>
@@ -103,6 +130,10 @@ class CheckboxAggregation extends Component {
             {splitDisplayName
               ? bucketKey.split(BUCKET_NAME_SPLITTER)[1]
               : bucketKey}
+            {bucketHelp &&
+              CheckboxAggregation.renderBucketHelpTooltip(
+                bucketHelp.get(bucketKey)
+              )}
           </CheckboxItem>
         </Col>
         <Col>
@@ -129,6 +160,7 @@ CheckboxAggregation.propTypes = {
   buckets: PropTypes.instanceOf(Immutable.List).isRequired,
   name: PropTypes.string.isRequired,
   splitDisplayName: PropTypes.bool,
+  bucketHelp: PropTypes.object,
   selections: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.string),
     PropTypes.string,

@@ -409,7 +409,17 @@ HEP_COMMON_AGGS = {
     },
     "doc_type": {
         "terms": {"field": "facet_inspire_doc_type", "size": 20},
-        "meta": {"title": "Document Type", "order": 6, "type": "checkbox"},
+        "meta": {
+            "title": "Document Type",
+            "order": 6,
+            "type": "checkbox",
+            "bucket_help": {
+                "published": {
+                    "text": "Published papers are believed to have undergone rigorous peer review.",
+                    "link": "https://inspirehep.net/info/faq/general#published",
+                }
+            },
+        },
     },
     "author_count": {
         "range": {
@@ -514,7 +524,7 @@ RECORDS_REST_SORT_OPTIONS = {
         },
     },
     "records-jobs": {
-        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
+        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1}
     },
 }
 

@@ -35,6 +35,27 @@ describe('AggregationFilters', () => {
           type: 'checkbox',
         },
       },
+      agg3: {
+        buckets: [
+          {
+            key: 'foo_3',
+            doc_count: 1,
+          },
+        ],
+        meta: {
+          title: 'Aggregation 3',
+          order: 3,
+          split: true,
+          type: 'checkbox',
+          bucket_help: {
+            published: {
+              text:
+                'Published papers are believed to have undergone rigorous peer review.',
+              link: 'https://inspirehep.net/info/faq/general#published',
+            },
+          },
+        },
+      },
     });
     const initialAggregations = fromJS({
       agg1: {

@@ -226,5 +226,41 @@ exports[`AggregationFilters renders with all props set 1`] = `
       />
     </EventTracker>
   </Col>
+  <Col
+    className=""
+    gutter={32}
+    key="agg3"
+    lg={24}
+    xs={24}
+  >
+    <EventTracker
+      eventId="Facet-Aggregation 3"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <AggregationFilter
+        aggregationType="checkbox"
+        bucketHelp={
+          Immutable.Map {
+            "published": Immutable.Map {
+              "text": "Published papers are believed to have undergone rigorous peer review.",
+              "link": "https://inspirehep.net/info/faq/general#published",
+            },
+          }
+        }
+        buckets={
+          Immutable.List [
+            Immutable.Map {
+              "key": "foo_3",
+              "doc_count": 1,
+            },
+          ]
+        }
+        name="Aggregation 3"
+        onChange={[Function]}
+        splitDisplayName={true}
+      />
+    </EventTracker>
+  </Col>
 </Row>
 `;

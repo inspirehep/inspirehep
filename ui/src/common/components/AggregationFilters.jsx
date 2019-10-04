@@ -57,6 +57,7 @@ class AggregationFilters extends Component {
                       'buckets',
                     ])}
                     splitDisplayName={aggregation.getIn(['meta', 'split'])}
+                    bucketHelp={aggregation.getIn(['meta', 'bucket_help'])}
                     selections={query[aggregationKey]}
                     onChange={selections => {
                       onAggregationChange(aggregationKey, selections);

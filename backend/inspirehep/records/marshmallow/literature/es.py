@@ -62,7 +62,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         result.extend(record.get("document_type", []))
         result.extend(record.get("publication_type", []))
         if "refereed" in record and record["refereed"]:
-            result.append("peer reviewed")
+            result.append("published")
         return result
 
     def get_facet_author_name(self, record):

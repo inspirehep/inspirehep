@@ -420,6 +420,29 @@ def test_literature_facets_arxiv(api_client, db, es_clear, create_record):
         assert expected_data_hits_source == source["_source"]
 
 
+def test_literature_facets_doc_type_has_bucket_help(
+    api_client, db, es_clear, create_record
+):
+    response = api_client.get("/literature/facets")
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_facet_bucket_help = (
+        response_data.get("aggregations").get("doc_type").get("meta").get("bucket_help")
+    )
+
+    expected_status_code = 200
+    expected_text = (
+        "Published papers are believed to have undergone rigorous peer review."
+    )
+    expected_link = "https://inspirehep.net/info/faq/general#published"
+
+    assert expected_status_code == response_status_code
+    assert "published" in response_data_facet_bucket_help
+    assert expected_text == response_data_facet_bucket_help["published"]["text"]
+    assert expected_link == response_data_facet_bucket_help["published"]["link"]
+    assert len(response_data["hits"]["hits"]) == 0
+
+
 def test_literature_facets_collaboration(api_client, db, es_clear, create_record):
     data_1 = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
