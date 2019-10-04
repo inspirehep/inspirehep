@@ -31,6 +31,51 @@ describe('CheckboxAggregation', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('render initial state with bucketHelp', () => {
+    const keyBucket1 = `prefix${BUCKET_NAME_SPLITTER}bucket1`;
+    const keyBucket2 = `prefix${BUCKET_NAME_SPLITTER}bucket2`;
+    const keyBucket3 = `prefix${BUCKET_NAME_SPLITTER}bucket3`;
+    const buckets = fromJS([
+      {
+        key: keyBucket1,
+        doc_count: 1,
+      },
+      {
+        key: keyBucket2,
+        doc_count: 2,
+      },
+      {
+        key: keyBucket3,
+        doc_count: 3,
+      },
+    ]);
+    const bucketHelp = fromJS({
+      [keyBucket1]: {
+        text:
+          'Published papers are believed to have undergone rigorous peer review.',
+        link: 'https://inspirehep.net/info/faq/general#published',
+      },
+      [keyBucket2]: {
+        text:
+          'Published papers are believed to have undergone rigorous peer review.',
+      },
+      [keyBucket3]: {
+        link: 'https://inspirehep.net/info/faq/general#published',
+      },
+    });
+    const wrapper = shallow(
+      <CheckboxAggregation
+        onChange={jest.fn()}
+        buckets={buckets}
+        bucketHelp={bucketHelp}
+        name="Test"
+        selections="bucket1"
+        splitDisplayName
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('render initial state without splitDisplayName', () => {
     const buckets = fromJS([
       {
