@@ -27,5 +27,8 @@ export const subjectOptions = [
   { value: 'Lattice' },
   { value: 'Math and Math Physics' },
   { value: 'Other' },
+  { value: 'Phenomenology-HEP' },
+  { value: 'Theory-HEP' },
+  { value: 'Theory-Nucl' },
 ];
 export const subjectValues = subjectOptions.map(getValue);
