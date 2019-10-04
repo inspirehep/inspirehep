@@ -300,6 +300,24 @@ def test_dump_institution():
     assert result == expected
 
 
+def test_load_language():
+    form = {**DEFAULT_DATA_TO_LOAD, "language": "fr"}
+
+    expected = {**DEFAULT_LOAD, "languages": ["fr"]}
+    result = Literature().load(form).data
+
+    assert result == expected
+
+
+def test_load_language_ignores_en():
+    form = {**DEFAULT_DATA_TO_LOAD, "language": "en"}
+
+    expected = {**DEFAULT_LOAD}
+    result = Literature().load(form).data
+
+    assert result == expected
+
+
 def test_load_document_type():
     form = {**DEFAULT_DATA_TO_LOAD, "document_type": "book"}
 
