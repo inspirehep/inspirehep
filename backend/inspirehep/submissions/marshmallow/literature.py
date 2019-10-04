@@ -169,7 +169,10 @@ class Literature(Schema):
         literature.add_url(data.get("additional_link"))
 
         literature.add_title(data["title"], source="submitter")
-        literature.add_language(data.get("language"))
+
+        language = data.get("language")
+        literature.add_language(language if language != "en" else None)
+
         literature.add_inspire_categories(data.get("subjects"))
 
         for author in data.get("authors", []):
