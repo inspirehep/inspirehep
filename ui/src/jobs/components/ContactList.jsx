@@ -45,6 +45,7 @@ class ContactList extends Component {
       <InlineList
         items={contacts}
         renderItem={ContactList.renderContact}
+        separateItemsClassName="separate-items-with-semicolon"
         wrapperClassName={wrapperClassName}
         extractKey={ContactList.contactEmailOrName}
       />

@@ -5,7 +5,7 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
   className="__InlineList__"
 >
   <ul
-    className="separate-items-with-comma"
+    className="separate-items-with-semicolon"
   >
     <li
       key="johndoe@yahoo.com"
@@ -44,7 +44,7 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
   className="__InlineList__"
 >
   <ul
-    className="separate-items-with-comma"
+    className="separate-items-with-semicolon"
   >
     <li
       key="johndoe@yahoo.com"
@@ -71,7 +71,7 @@ exports[`ContactList renders with contacts with record and name 1`] = `
   className="__InlineList__"
 >
   <ul
-    className="separate-items-with-comma"
+    className="separate-items-with-semicolon"
   >
     <li
       key="John"
