@@ -3,11 +3,16 @@ import datetime
 import structlog
 from flask import url_for
 from inspire_dojson.utils import get_record_ref
+from prometheus_client import Counter
 
 from inspirehep.records.api.authors import AuthorsRecord
 from inspirehep.records.api.literature import LiteratureRecord
 
 LOGGER = structlog.getLogger()
+
+disambiguation_changed_signatures_total = Counter(
+    "disambiguation_changed_signatures_total", "How many signatures were modified."
+)
 
 
 def link_signature_to_author(signature_data, author_control_number):
@@ -59,7 +64,12 @@ def link_signatures_to_author(signatures_data, author_control_number):
         link_signature_to_author(signature_data, author_control_number)
         for signature_data in signatures_data
     )
-    return [signature for signature in linked_signatures if signature is not None]
+    linked_signatures = [
+        signature for signature in linked_signatures if signature is not None
+    ]
+    if len(linked_signatures) > 0:
+        disambiguation_changed_signatures_total.inc(len(linked_signatures))
+    return linked_signatures
 
 
 def create_new_empty_author():

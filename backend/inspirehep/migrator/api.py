@@ -39,7 +39,7 @@ def continuous_migration():
         try:
             migrated_records = None
             num_of_records = r.llen("legacy_records")
-            LOGGER.info(f"Starting migration of {num_of_records} records.")
+            LOGGER.info("Starting migration of records.", records_total=num_of_records)
 
             while r.llen("legacy_records"):
                 raw_record = r.lrange("legacy_records", 0, 0)
@@ -47,7 +47,11 @@ def continuous_migration():
                     migrated_records = insert_into_mirror(
                         [zlib.decompress(raw_record[0])]
                     )
-                    LOGGER.debug(f"Migrated {len(migrated_records)} records.")
+                    migrated_records_len = len(migrated_records)
+                    LOGGER.debug(
+                        "Finished migrating records.",
+                        records_total=migrated_records_len,
+                    )
                 r.lpop("legacy_records")
         finally:
             if migrated_records:
