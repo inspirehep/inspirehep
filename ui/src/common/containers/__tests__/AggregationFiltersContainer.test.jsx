@@ -21,6 +21,21 @@ describe('AggregationFiltersContainer', () => {
     const store = getStoreWithState({
       router: { location: { query: { agg1: 'agg1-selected' } } },
       search: fromJS({
+        initialAggregations: {
+          agg1: {
+            buckets: [
+              {
+                key: 'agg1key',
+                doc_count: 1,
+              },
+            ],
+            meta: {
+              title: 'Jessica Jones',
+              order: 1,
+              type: 'checkbox',
+            },
+          },
+        },
         aggregations: {
           agg1: {
             buckets: [
@@ -62,6 +77,7 @@ describe('AggregationFiltersContainer', () => {
 
     expect(wrapper.find(AggregationFilters)).toHaveProp({
       aggregations: searchState.get('aggregations'),
+      initialAggregations: searchState.get('initialAggregations'),
       numberOfResults: searchState.get('total'),
       query: locationState.query,
     });

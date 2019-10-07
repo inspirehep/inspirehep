@@ -1,3 +1,4 @@
+import { push, goBack } from 'connected-react-router';
 import {
   USER_LOGIN_ERROR,
   USER_LOGIN_SUCCESS,
@@ -6,6 +7,7 @@ import {
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
 import logout from '../user/logout';
+import { HOME } from '../common/routes';
 
 export function userLoginSuccess(user) {
   return {
@@ -54,6 +56,10 @@ export function userLogout() {
     try {
       await logout();
       dispatch(userLogutSuccess());
+
+      // Hack to reload current page for logged out user
+      dispatch(push(HOME));
+      dispatch(goBack());
     } catch (error) {
       // TODO: dispatch logout error?
     }

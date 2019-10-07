@@ -24,7 +24,7 @@ from helpers.factories.models.user_access_token import AccessTokenFactory, UserF
 from helpers.providers.faker import faker
 from redis import StrictRedis
 
-from inspirehep.factory import create_api as inspire_create_app
+from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.records.api import InspireRecord
 
 
@@ -33,7 +33,6 @@ def app_config(app_config):
     # add extra global config if you would like to customize the config
     # for a specific test you can chagne create fixture per-directory
     # using ``conftest.py`` or per-file.
-
     app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
     app_config["SERVER_NAME"] = "localhost:5000"

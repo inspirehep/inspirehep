@@ -1,0 +1,9 @@
+.__RangeAggregation__ {
+  .highlight-bar-on-hover {
+    $hover-color: #69c0ff;
+    rect:hover {
+      fill: $hover-color !important;
+      stroke: $hover-color !important;
+    }
+  }
+}

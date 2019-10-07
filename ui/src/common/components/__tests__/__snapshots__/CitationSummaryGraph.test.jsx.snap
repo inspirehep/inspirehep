@@ -68,7 +68,7 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
               />
               <VerticalBarSeries
                 barWidth={0.5}
-                className="series-bar"
+                className="pointer"
                 colorType="literal"
                 data={
                   Array [
@@ -167,7 +167,7 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
               />
               <VerticalBarSeries
                 barWidth={0.5}
-                className="series-bar"
+                className="pointer"
                 colorType="literal"
                 data={
                   Array [
@@ -366,7 +366,7 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
               />
               <VerticalBarSeries
                 barWidth={0.5}
-                className="series-bar"
+                className="pointer"
                 colorType="literal"
                 data={
                   Array [
@@ -465,7 +465,7 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
               />
               <VerticalBarSeries
                 barWidth={0.5}
-                className="series-bar"
+                className="pointer"
                 colorType="literal"
                 data={
                   Array [
@@ -664,7 +664,7 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
               />
               <VerticalBarSeries
                 barWidth={0.5}
-                className="series-bar"
+                className="pointer"
                 colorType="literal"
                 data={
                   Array [
@@ -763,7 +763,7 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
               />
               <VerticalBarSeries
                 barWidth={0.5}
-                className="series-bar"
+                className="pointer"
                 colorType="literal"
                 data={
                   Array [

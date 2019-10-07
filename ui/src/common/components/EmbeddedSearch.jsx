@@ -47,12 +47,14 @@ class EmbeddedSearch extends Component {
       numberOfResults,
       loadingAggregations,
       aggregations,
+      initialAggregations,
     } = this.props;
     return (
       <LoadingOrChildren loading={loadingAggregations}>
         <AggregationFilters
           query={query}
           aggregations={aggregations}
+          initialAggregations={initialAggregations}
           numberOfResults={numberOfResults}
           onAggregationChange={this.onAggregationChange}
         />
@@ -139,6 +141,7 @@ EmbeddedSearch.propTypes = {
   onQueryChange: PropTypes.func,
   results: PropTypes.instanceOf(List),
   aggregations: PropTypes.instanceOf(Map),
+  initialAggregations: PropTypes.instanceOf(Map),
   sortOptions: SelectOptionsPropType,
   numberOfResults: PropTypes.number,
   loadingResults: PropTypes.bool,
@@ -152,6 +155,7 @@ EmbeddedSearch.defaultProps = {
   sortOptions: null,
   results: List(),
   aggregations: Map(),
+  initialAggregations: Map(),
   numberOfResults: 0,
   loadingResults: false,
   loadingAggregations: false,

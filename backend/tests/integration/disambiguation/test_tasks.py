@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import json
 import re
 
 import pytest
@@ -82,6 +83,42 @@ def test_disambiguate_signatures_cluster_with_0_authors(
     author.pop("control_number")
     assert expected_author == author
     assert expected_ref == record["authors"][0]["record"]["$ref"]
+
+
+def test_disambiguate_signatures_cluster_creates_author_with_facet_author_name(
+    base_app, db, es_clear, create_record, redis, api_client
+):
+    data = {
+        "authors": [
+            {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
+        ]
+    }
+    record = create_record("lit", data=data)
+    clusters = [
+        {
+            "signatures": [
+                {
+                    "publication_id": record["control_number"],
+                    "signature_uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51",
+                }
+            ],
+            "authors": [],
+        }
+    ]
+    disambiguate_signatures(clusters)
+    author_pids = PersistentIdentifier.query.filter_by(pid_type="aut").all()
+    assert len(author_pids) == 1
+    pid_value = author_pids[0].pid_value
+    author = AuthorsRecord.get_record_by_pid_value(pid_value)
+    author_control_number = author.pop("control_number")
+    expected_facet_author_name = f"{author_control_number}_John Doe"
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    response = api_client.get(f"/authors/{author_control_number}", headers=headers)
+    author_details_json = json.loads(response.data)
+    assert (
+        expected_facet_author_name
+        == author_details_json["metadata"]["facet_author_name"]
+    )
 
 
 def test_disambiguate_signatures_cluster_with_more_than_1_authors(

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { FlexibleWidthXYPlot, VerticalRectSeries, Hint } from 'react-vis';
 import { Slider } from 'antd';
@@ -7,7 +7,8 @@ import { MathInterval } from 'math-interval-2';
 
 import pluralizeUnlessSingle, { pluckMinMaxPair, toNumbers } from '../../utils';
 import AggregationBox from '../AggregationBox';
-import LinkLikeButton from '../LinkLikeButton';
+import styleVariables from '../../../styleVariables';
+import './RangeAggregation.scss';
 
 export const HALF_BAR_WIDTH = 0.4;
 const NO_MARGIN = {
@@ -16,308 +17,279 @@ const NO_MARGIN = {
   top: 0,
   bottom: 0,
 };
-
 const SELECTION_SEPARATOR = '--';
+const KEY_PROP_NAME = 'key_as_string';
+const COUNT_PROP_NAME = 'doc_count';
+const SELECTED_COLOR = '#91d5ff';
+const DESELECTED_COLOR = styleVariables['gray-6'];
+const MIN_DISPLAY_RANGE_SIZE = 30;
+const HEIGHT = 100;
 
-class RangeAggregation extends Component {
-  static getDerivedStateFromProps(nextProps, prevState) {
-    const { selections } = nextProps;
-    const { prevSelections } = prevState;
+function getInitialHistogramData(initialBuckets, [min, max]) {
+  const data = initialBuckets
+    .map(item => {
+      const key = Number(item.get(KEY_PROP_NAME));
+      return {
+        x0: key - HALF_BAR_WIDTH,
+        x: key + HALF_BAR_WIDTH,
+        y: item.get(COUNT_PROP_NAME),
+        color: DESELECTED_COLOR,
+      };
+    })
+    .toArray();
 
-    // getDerivedStateFromProps called when state is changed too after v16.4
-    if (selections === prevSelections) {
-      return prevState;
-    }
+  const rangeSize = max - min;
+  if (rangeSize < MIN_DISPLAY_RANGE_SIZE) {
+    const fakeBucketKey = min + MIN_DISPLAY_RANGE_SIZE;
+    data.push({
+      x0: fakeBucketKey - HALF_BAR_WIDTH,
+      x: fakeBucketKey + HALF_BAR_WIDTH,
+      y: 0,
+    });
+  }
+  return data;
+}
 
-    const prevBuckets = prevState.buckets;
-    const nextBuckets = nextProps.buckets;
-    const selectionsAsString =
-      nextProps.selections && nextProps.selections.split(SELECTION_SEPARATOR);
-    const selectionsAsNumber = toNumbers(selectionsAsString);
-    const prevEndpoints = prevState.endpoints || [];
-    const { keyPropName } = nextProps;
-
-    let { min, max } = prevState;
-    if (nextBuckets !== prevBuckets) {
-      [min, max] = pluckMinMaxPair(nextBuckets, bucket =>
-        Number(bucket.get(keyPropName))
-      );
-    }
-
-    const unsafeEndpoints = selectionsAsNumber || prevEndpoints;
-    const endpoints = RangeAggregation.sanitizeEndpoints(unsafeEndpoints, [
-      min,
-      max,
-    ]);
-
-    // TODO: perhaps add more checks for other props
-    let { data } = prevState;
-    if (nextBuckets !== prevBuckets) {
-      const { minRangeSize, maximumMax } = nextProps;
-      [min, max] = RangeAggregation.sanitizeMinMaxPairForMinRangeSize(
-        [min, max],
-        minRangeSize,
-        maximumMax
-      );
-      data = RangeAggregation.getHistogramData(
-        nextBuckets,
-        endpoints,
-        nextProps,
-        [min, max]
-      );
-    }
-
+function getHistogramData(initialData, keyToCountForBuckets, [lower, upper]) {
+  const endpointsInterval = MathInterval.closed(lower, upper);
+  const data = initialData.map(item => {
+    const { x0, x } = item;
+    const bucketKey = x - HALF_BAR_WIDTH;
+    const color = endpointsInterval.contains(bucketKey)
+      ? SELECTED_COLOR
+      : DESELECTED_COLOR;
     return {
-      ...prevState,
-      prevSelections: selections,
-      buckets: nextBuckets,
-      endpoints,
-      min,
-      max,
-      data,
+      x0,
+      x,
+      y: keyToCountForBuckets[bucketKey] || 0,
+      color,
     };
-  }
+  });
+  return data;
+}
 
-  static sanitizeMinMaxPairForMinRangeSize(
-    minMaxPair,
-    minRangeSize,
-    maximumMax
-  ) {
-    let [min, max] = minMaxPair;
-    const rangeSize = max - min;
-    if (rangeSize < minRangeSize) {
-      const remainingToMinRangeSize = Math.floor(
-        (minRangeSize - rangeSize) / 2
+function pluckMinMaxPairFromBuckets(buckets) {
+  return pluckMinMaxPair(buckets, bucket => Number(bucket.get(KEY_PROP_NAME)));
+}
+
+function getKeyToCountMapFromBuckets(buckets) {
+  return buckets.reduce((map, item) => {
+    map[item.get(KEY_PROP_NAME)] = item.get(COUNT_PROP_NAME);
+    return map;
+  }, {});
+}
+
+function sanitizeEndpoints(endpoints, [min, max]) {
+  let [lower, upper] = endpoints;
+  const bounds = MathInterval.closed(min, max);
+  if (lower === undefined || !bounds.contains(lower)) {
+    lower = min;
+  }
+  if (upper === undefined || !bounds.contains(upper)) {
+    upper = max;
+  }
+  return [lower, upper];
+}
+
+function getSanitizedEndpointsFromSelections(selections, minMaxPair) {
+  const selectionsAsString =
+    selections && selections.split(SELECTION_SEPARATOR);
+  const unsafeEndpoints = toNumbers(selectionsAsString) || [];
+  return sanitizeEndpoints(unsafeEndpoints, minMaxPair);
+}
+
+function getSliderMarks([lower, upper], [min, max]) {
+  const totalRange = max - min;
+  const selectionRange = upper - lower;
+  const selectionPercentage = selectionRange / totalRange * 100;
+  const areEndpointsTooClose =
+    selectionPercentage < 20 && selectionPercentage > 0;
+
+  const isLowerOnTheEdge = lower === min;
+  const isUpperOnTheEdge = upper === max;
+
+  return {
+    [lower]: {
+      label: lower,
+      style: {
+        transform:
+          areEndpointsTooClose && !isLowerOnTheEdge
+            ? `translateX(-${100 - selectionPercentage}%)`
+            : 'translateX(-50%)',
+      },
+    },
+    [upper]: {
+      label: upper,
+      style: {
+        transform:
+          areEndpointsTooClose && !isUpperOnTheEdge
+            ? `translateX(-${selectionPercentage}%)`
+            : 'translateX(-50%)',
+      },
+    },
+  };
+}
+
+function RangeAggregation({
+  name,
+  initialBuckets,
+  buckets,
+  selections,
+  onChange,
+}) {
+  const [hoveredBar, setHoveredBar] = useState(null);
+
+  const [initialMin, initialMax] = useMemo(
+    () => pluckMinMaxPairFromBuckets(initialBuckets),
+    [initialBuckets]
+  );
+  const initialFakeMax = Math.max(
+    initialMin + MIN_DISPLAY_RANGE_SIZE,
+    initialMax
+  );
+  const initialData = useMemo(
+    () => getInitialHistogramData(initialBuckets, [initialMin, initialMax]),
+    [initialBuckets, initialMin, initialMax]
+  );
+  const keyToCountForInitialBuckets = useMemo(
+    () => getKeyToCountMapFromBuckets(initialBuckets),
+    [initialBuckets]
+  );
+
+  const [min, max] = useMemo(() => pluckMinMaxPairFromBuckets(buckets), [
+    buckets,
+  ]);
+  const sliderEndpointsFromProps = useMemo(
+    () => getSanitizedEndpointsFromSelections(selections, [min, max]),
+    [selections, min, max]
+  );
+  const [sliderEndpoints, setSliderEndpoints] = useState(
+    sliderEndpointsFromProps
+  );
+  const sliderMarks = useMemo(
+    () => getSliderMarks(sliderEndpoints, [initialMin, initialFakeMax]),
+    [sliderEndpoints, initialMin, initialFakeMax]
+  );
+  const keyToCountForBuckets = useMemo(
+    () => getKeyToCountMapFromBuckets(buckets),
+    [buckets]
+  );
+  const dataFromProps = useMemo(
+    () => getHistogramData(initialData, keyToCountForBuckets, sliderEndpoints),
+    [initialData, keyToCountForBuckets, sliderEndpoints]
+  );
+  const [data, setData] = useState(dataFromProps); // FIXME: data won't update if props change but component is not destroyed
+
+  const onSliderAfterChange = useCallback(
+    (endpoints = sliderEndpoints) => {
+      const rangeSelectionString = endpoints.join(SELECTION_SEPARATOR);
+      onChange(rangeSelectionString);
+    },
+    [onChange, sliderEndpoints]
+  );
+
+  const onSliderChange = useCallback(
+    unsafeEndpoints => {
+      const sanitizedSliderEndpoints = sanitizeEndpoints(unsafeEndpoints, [
+        initialMin,
+        initialMax,
+      ]);
+      setSliderEndpoints(sanitizedSliderEndpoints);
+      setData(
+        getHistogramData(
+          initialData,
+          keyToCountForBuckets,
+          sanitizedSliderEndpoints
+        )
       );
+    },
+    [initialData, keyToCountForBuckets, initialMin, initialMax]
+  );
 
-      min -= remainingToMinRangeSize;
-      max += remainingToMinRangeSize;
+  const onBarMouseOut = useCallback(() => {
+    setHoveredBar(null);
+  }, []);
 
-      if (max > maximumMax) {
-        const extraForMin = max - maximumMax;
-        max = maximumMax;
-        min -= extraForMin;
-      }
-    }
-    return [min, max];
-  }
+  const onBarMouseHover = useCallback(bar => setHoveredBar(bar), []);
 
-  static sanitizeEndpoints(endpoints, [min, max]) {
-    let [lower, upper] = endpoints;
-    const bounds = MathInterval.closed(min, max);
-    if (lower === undefined || !bounds.contains(lower)) {
-      lower = min;
-    }
-    if (upper === undefined || !bounds.contains(upper)) {
-      upper = max;
-    }
-    return [lower, upper];
-  }
+  const onBarClick = useCallback(
+    ({ x }) => {
+      const bucketKey = x - HALF_BAR_WIDTH;
+      const endpoints = [bucketKey, bucketKey];
+      onSliderChange(endpoints);
+      onSliderAfterChange(endpoints);
+    },
+    [onSliderChange, onSliderAfterChange]
+  );
 
-  static getHistogramData(buckets, endpoints, props, [min, max]) {
-    const [lower, upper] = endpoints;
-    const interval = MathInterval.closed(lower, upper);
-
-    const {
-      keyPropName,
-      countPropName,
-      selectedColor,
-      deselectedColor,
-    } = props;
-    const data = buckets
-      .map(item => {
-        const x = Number(item.get(keyPropName));
-        const color = interval.contains(x) ? selectedColor : deselectedColor;
-        return {
-          x0: x - HALF_BAR_WIDTH,
-          x: x + HALF_BAR_WIDTH,
-          y: item.get(countPropName),
-          color,
-        };
-      })
-      .toArray();
-    // add fake min and max data if necessary.
-    if (min !== lower) {
-      data.push({
-        x0: min - HALF_BAR_WIDTH,
-        x: min + HALF_BAR_WIDTH,
-        y: 0,
-      });
-    }
-    if (max !== upper) {
-      data.push({
-        x0: max - HALF_BAR_WIDTH,
-        x: max + HALF_BAR_WIDTH,
-        y: 0,
-      });
-    }
-    return data;
-  }
-
-  constructor(props) {
-    super(props);
-    this.onBarClick = this.onBarClick.bind(this);
-    this.onBarMouseHover = this.onBarMouseHover.bind(this);
-    this.onBarMouseOut = this.onBarMouseOut.bind(this);
-    this.onNearestBar = this.onNearestBar.bind(this);
-    this.onSliderChange = this.onSliderChange.bind(this);
-    this.onAfterChange = this.onAfterChange.bind(this);
-    this.onResetClick = this.onResetClick.bind(this);
-    this.onMouseLeaveHistogram = this.onMouseLeaveHistogram.bind(this);
-    this.state = {};
-    this.prevNearestBar = null;
-  }
-
-  onBarClick(datapoint) {
-    let { x } = datapoint;
-    x -= HALF_BAR_WIDTH;
-    const endpoints = [x, x];
-    this.onSliderChange(endpoints);
-    this.onAfterChange(endpoints);
-  }
-
-  onBarMouseHover(hoveredBar) {
-    this.setState({ hoveredBar });
-  }
-
-  onBarMouseOut() {
-    this.setState({ hoveredBar: null });
-  }
-
-  onNearestBar(_, { index }) {
-    const { data } = this.state;
-
-    if (this.prevNearestBar !== null) {
-      data[this.prevNearestBar.index].color = this.prevNearestBar.color;
-    }
-
-    const previousColor = data[index].color;
-    const { hoverColor } = this.props;
-    data[index].color = hoverColor;
-    this.setState({ data });
-
-    this.prevNearestBar = { index, color: previousColor };
-  }
-
-  onMouseLeaveHistogram() {
-    const { data } = this.state;
-    if (this.prevNearestBar !== null) {
-      data[this.prevNearestBar.index].color = this.prevNearestBar.color;
-      this.prevNearestBar = null;
-      this.setState({ data });
-    }
-  }
-
-  onResetClick() {
-    const { min, max } = this.state;
-    this.onSliderChange([min, max]);
-    const { onChange } = this.props;
-    onChange(undefined);
-  }
-
-  onSliderChange(endpoints) {
-    const { buckets, min, max } = this.state;
-    const data = RangeAggregation.getHistogramData(
-      buckets,
-      endpoints,
-      this.props,
-      [min, max]
-    );
-    this.setState({ endpoints, data });
-    this.prevNearestBar = null;
-  }
-
-  // eslint-disable-next-line react/destructuring-assignment
-  onAfterChange(endpoints = this.state.endpoints) {
-    const rangeSelectionString = endpoints.join(SELECTION_SEPARATOR);
-    const { onChange } = this.props;
-    onChange(rangeSelectionString);
-  }
-
-  renderResetButton() {
-    return <LinkLikeButton onClick={this.onResetClick}>Reset</LinkLikeButton>;
-  }
-
-  renderHint() {
-    const { hoveredBar } = this.state;
-    return (
-      hoveredBar && (
-        <Hint
-          value={hoveredBar}
-          align={{ vertical: 'top', horizontal: 'auto' }}
-          format={({ x, y }) => [
-            { title: pluralizeUnlessSingle('Paper', y), value: y },
-            { title: 'Year', value: x - HALF_BAR_WIDTH },
-          ]}
-        />
-      )
-    );
-  }
-
-  render() {
-    const { max, min, data, endpoints } = this.state;
-    const sliderMarks = { [max]: max, [min]: min };
-    const { height, name } = this.props;
-    return (
-      <AggregationBox name={name} headerAction={this.renderResetButton()}>
-        <div className="__RangeAggregation__">
-          <FlexibleWidthXYPlot
-            height={height}
-            margin={NO_MARGIN}
-            onMouseLeave={this.onMouseLeaveHistogram}
-          >
-            {this.renderHint()}
-            <VerticalRectSeries
-              colorType="literal"
-              data={data}
-              onValueClick={this.onBarClick}
-              onNearestX={this.onNearestBar}
-              onValueMouseOver={this.onBarMouseHover}
-              onValueMouseOut={this.onBarMouseOut}
-            />
-          </FlexibleWidthXYPlot>
-          <Slider
-            range
-            onChange={this.onSliderChange}
-            onAfterChange={this.onAfterChange}
-            value={endpoints}
-            min={min}
-            max={max}
-            marks={sliderMarks}
-            included={max !== min}
+  return (
+    <AggregationBox name={name}>
+      <div className="__RangeAggregation__">
+        <FlexibleWidthXYPlot height={HEIGHT} margin={NO_MARGIN}>
+          <VerticalRectSeries
+            className="pointer"
+            colorType="literal"
+            data={initialData}
+            onValueClick={onBarClick}
+            onValueMouseOver={onBarMouseHover}
+            onValueMouseOut={onBarMouseOut}
           />
-        </div>
-      </AggregationBox>
-    );
-  }
+          {hoveredBar && (
+            <Hint
+              value={hoveredBar}
+              align={{ vertical: 'top', horizontal: 'auto' }}
+              format={({ x }) => {
+                const bucketKey = x - HALF_BAR_WIDTH;
+                const count = keyToCountForBuckets[bucketKey];
+                const initialCount = keyToCountForInitialBuckets[bucketKey];
+                return [
+                  // FIXME: awkward x, y titles for a generic range filter
+                  {
+                    title: pluralizeUnlessSingle('Paper', count),
+                    value: `${count} out of ${initialCount}`,
+                  },
+                  { title: 'Year', value: bucketKey },
+                ];
+              }}
+            />
+          )}
+          <VerticalRectSeries
+            className="pointer highlight-bar-on-hover"
+            colorType="literal"
+            data={data}
+            onValueClick={onBarClick}
+            onValueMouseOver={onBarMouseHover}
+            onValueMouseOut={onBarMouseOut}
+          />
+        </FlexibleWidthXYPlot>
+        <Slider
+          range
+          onChange={onSliderChange}
+          onAfterChange={onSliderAfterChange}
+          value={sliderEndpoints}
+          min={initialMin}
+          max={initialFakeMax}
+          marks={sliderMarks}
+          included
+          tooltipVisible={false}
+        />
+      </div>
+    </AggregationBox>
+  );
 }
 
 RangeAggregation.propTypes = {
   onChange: PropTypes.func.isRequired,
-  height: PropTypes.number,
-  hoverColor: PropTypes.string,
   name: PropTypes.string.isRequired,
   selections: PropTypes.string,
-  selectedColor: PropTypes.string,
-  deselectedColor: PropTypes.string,
   buckets: PropTypes.instanceOf(List),
-  keyPropName: PropTypes.string,
-  countPropName: PropTypes.string,
-  minRangeSize: PropTypes.number,
-  maximumMax: PropTypes.number,
+  initialBuckets: PropTypes.instanceOf(List),
 };
 
 RangeAggregation.defaultProps = {
   selections: null,
   buckets: List(),
-  keyPropName: 'key_as_string',
-  countPropName: 'doc_count',
-  height: 100,
-  selectedColor: '#91d5ff',
-  deselectedColor: '#fff',
-  hoverColor: '#69c0ff',
-  minRangeSize: 50,
-  maximumMax: new Date().getFullYear(), // FIXME: awkward default for a generic range filter
+  initialBuckets: List(),
 };
 
 export default RangeAggregation;

@@ -217,7 +217,7 @@ class CitationSummaryGraph extends Component {
                       onValueClick={this.onCiteableBarClick}
                       onValueMouseOut={this.onBarMouseOut}
                       data-test-id="citeable-bar-series"
-                      className="series-bar"
+                      className="pointer"
                     />
                     <LabelSeries
                       data={citeableSeriesData}
@@ -232,7 +232,7 @@ class CitationSummaryGraph extends Component {
                       onValueClick={this.onPublishedBarClick}
                       onValueMouseOut={this.onBarMouseOut}
                       data-test-id="published-bar-series"
-                      className="series-bar"
+                      className="pointer"
                     />
                     <LabelSeries
                       data={publishedSeriesData}

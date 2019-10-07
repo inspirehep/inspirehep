@@ -25,7 +25,7 @@ def test_literature_suggesters_book_title(api_client, db, es, create_record, red
     }
     lit = create_record("lit", data=data)
 
-    resp = api_client.get("literature/_suggest?book_title=su")
+    resp = api_client.get("/literature/_suggest?book_title=su")
 
     result = _get_suggester_source(resp, "book_title")
     assert result["control_number"] == lit["control_number"]
@@ -43,7 +43,7 @@ def test_literature_suggesters_abstract_source(api_client, db, es, create_record
     }
     lit = create_record("lit", data=data)
 
-    resp = api_client.get("literature/_suggest?abstract_source=ws")
+    resp = api_client.get("/literature/_suggest?abstract_source=ws")
 
     result = _get_suggester_source(resp, "abstract_source")
     assert result["control_number"] == lit["control_number"]
@@ -56,7 +56,7 @@ def test_literature_suggesters_abstract_source(api_client, db, es, create_record
 def test_literature_suggesters_empty_result(api_client, db, es, create_record):
     lit = create_record("lit", data={"titles": [{"title": "Suggested title"}]})
 
-    resp = api_client.get("literature/_suggest?book_title=nope")
+    resp = api_client.get("/literature/_suggest?book_title=nope")
 
     result = resp.json["book_title"][0]["options"]
     expected = []
@@ -74,7 +74,7 @@ def test_author_suggesters(api_client, db, es, create_record):
     }
     auth = create_record("aut", data=data)
 
-    resp = api_client.get("authors/_suggest?author=mal")
+    resp = api_client.get("/authors/_suggest?author=mal")
 
     result_rec_id = _get_suggester_source(resp, "author")["control_number"]
     expected_rec_id = auth["control_number"]

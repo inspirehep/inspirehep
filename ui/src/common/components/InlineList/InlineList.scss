@@ -16,25 +16,24 @@
   }
 
   $separator-padding: 0.25em;
-  @mixin separte-items-with($seperator, $padding-left: 0) {
-    // For every not empty `li`, add separator before all the not empty `li` that come after it
-    & > li:not(:empty) ~ li:not(:empty):before {
-      content: $seperator;
+  @mixin separate-items-with($separator, $padding-left: 0) {
+    & > li:not(:last-child):after {
+      content: $separator;
       padding-right: $separator-padding;
       padding-left: $padding-left;
     }
   }
 
   ul.separate-items-with-semicolon {
-    @include separte-items-with(';');
+    @include separate-items-with(';');
   }
   ul.separate-items-with-comma {
-    @include separte-items-with(',');
+    @include separate-items-with(',');
   }
   ul.separate-items-with-and {
-    @include separte-items-with('and', $separator-padding);
+    @include separate-items-with('and', $separator-padding);
   }
   ul.separate-items-with-middledot {
-    @include separte-items-with('\2022', $separator-padding);
+    @include separate-items-with('\2022', $separator-padding);
   }
 }

@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_utils.name import ParsedName
-from inspire_utils.record import get_value, get_values_for_schema
+from inspire_utils.record import get_value
 
 
 def get_display_name_for_author_name(author_name):
@@ -15,14 +15,10 @@ def get_display_name_for_author_name(author_name):
 
 
 def get_facet_author_name_for_author(author):
-    author_ids = author.get("ids", [])
-    author_bai = get_values_for_schema(author_ids, "INSPIRE BAI")
-    bai = author_bai[0] if author_bai else "BAI"
+    author_control_number = author["control_number"]
     author_preferred_name = get_value(author, "name.preferred_name")
 
     if author_preferred_name:
-        return "{}_{}".format(bai, author_preferred_name)
+        return f"{author_control_number}_{author_preferred_name}"
 
-    return "{}_{}".format(
-        bai, get_display_name_for_author_name(get_value(author, "name.value"))
-    )
+    return f"{author_control_number}_{get_display_name_for_author_name(get_value(author, 'name.value'))}"

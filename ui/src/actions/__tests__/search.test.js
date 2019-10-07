@@ -175,12 +175,15 @@ describe('search - action creators', () => {
       done();
     });
 
-    it('excludes location query if flag is set then pushes new location url to history', async done => {
+    it('excludes location query and displatches a new search if flag is set then pushes new location url to history', async done => {
       const expectedUrl = '/test?filter2=value2';
       const expectedActions = [
         {
           type: CALL_HISTORY_METHOD,
           payload: { args: [expectedUrl], method: 'push' },
+        },
+        {
+          type: types.NEW_SEARCH_REQUEST,
         },
       ];
 

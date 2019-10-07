@@ -47,7 +47,7 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
         For further feedback, please
          
         <ExternalLink
-          href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
+          href="https://forms.gle/CMgi3UsbpMuXxAfr6"
         >
           take our survey
         </ExternalLink>
@@ -188,7 +188,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
             To send us your feedback, please disable your adblocker or DoNotTrack and refresh the page or send us your feedback using the
              
             <ExternalLink
-              href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
+              href="https://forms.gle/CMgi3UsbpMuXxAfr6"
             >
               feedback form
             </ExternalLink>

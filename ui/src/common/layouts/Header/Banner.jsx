@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 
 import { setBannerVisibility } from '../../../actions/ui';
 import ExternalLink from '../../components/ExternalLink';
+import { SURVEY_LINK } from '../../constants';
 
 const BLOG_POST_LINK =
   'https://blog.inspirehep.net/2019/02/introducing-inspire-beta/';
@@ -43,7 +44,7 @@ class Banner extends Component {
                   className="ml3"
                   type="primary"
                   target="_blank"
-                  href="https://goo.gl/forms/aTYSRzd7vTUhxzL43"
+                  href={SURVEY_LINK}
                 >
                   Take the survey
                 </Button>
