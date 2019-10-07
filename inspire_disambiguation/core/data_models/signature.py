@@ -56,13 +56,13 @@ class Signature(object):
                 "author_id": author_id,
                 "author_name": author["full_name"],
                 "publication": PublicationCache.build(
-                    identifier=record['control_number'],
-                    record=record,
+                    identifier=record["control_number"], record=record
                 ),
                 "signature_block": author.get("signature_block"),
                 "signature_uuid": author["uuid"],
-                "is_curated_author_id": True if author_id is not None
-                and author.get("curated_relation") else False
+                "is_curated_author_id": True
+                if author_id is not None and author.get("curated_relation")
+                else False,
             }
         )
 

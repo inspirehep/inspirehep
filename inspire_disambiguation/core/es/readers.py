@@ -21,6 +21,10 @@
 # or submit itself to any jurisdiction.
 
 """Disambiguation core ES readers."""
+from datetime import datetime
+
+import structlog
+
 from collections import defaultdict
 
 from elasticsearch_dsl import Q, Search
@@ -30,16 +34,20 @@ from inspire_disambiguation import conf
 from inspire_disambiguation.core.data_models import Signature
 from inspire_disambiguation.core.data_models import PublicationCache
 
+LOGGER = structlog.getLogger()
+
 
 class LiteratureSearch(Search):
     """Simple wrapper for ES Search class which
     simplifies querying on Literature records"""
 
+    auth = (conf["ES_USERNAME"], conf["ES_PASSWORD"])
+    auth = None if None in auth else auth
     connection = connections.create_connection(
         hosts=[conf["ES_HOSTNAME"]],
         timeout=conf["ES_TIMEOUT"],
         ca_certs=conf["CA_CERTS"],
-        http_auth=(conf["ES_USERNAME"], conf["ES_PASSWORD"])
+        http_auth=auth,
     )
 
     def __init__(self, **kwargs):
@@ -110,6 +118,8 @@ def get_signatures(signature_block=None, only_curated=False):
         >>> get_signatures("ABDa", True)
         [Signature(...), Signature(...), Signature(...)]
     """
+    LOGGER.info("get_signatures", signature_block=signature_block or "all")
+    start_time = datetime.now()
     query = get_literature_records_query(signature_block, only_curated)
     results = []
     for record in query.scan():
@@ -125,6 +135,11 @@ def get_signatures(signature_block=None, only_curated=False):
                 continue
             results.append(signature)
     PublicationCache.clear()
+    LOGGER.info(
+        "get_signatures",
+        total_runtime=str(datetime.now() - start_time),
+        signature_block=signature_block or "all",
+    )
     return results
 
 

@@ -21,10 +21,12 @@
 # or submit itself to any jurisdiction
 
 """Disambiguation API."""
-import logging
-import pprint
+from datetime import datetime
+
 import requests
 import json
+
+import structlog
 
 from inspire_disambiguation import conf
 from inspire_disambiguation.core.es.readers import get_input_clusters, get_signatures
@@ -37,7 +39,7 @@ from inspire_disambiguation.core.ml.models import (
 from inspire_disambiguation.core.ml.sampling import sample_signature_pairs
 from redis import StrictRedis
 
-LOGGER = logging.getLogger(__file__)
+LOGGER = structlog.getLogger()
 
 
 def train_and_save_ethnicity_model(load_data_path, save_model_path):
@@ -47,11 +49,22 @@ def train_and_save_ethnicity_model(load_data_path, save_model_path):
         load_data_path (str): Full path to training data for ethnicity estimator.
         save_model_path (str): Full path where trained ethnicity model will be saved.
     """
+    start_time = datetime.now()
     estimator = EthnicityEstimator()
     estimator.load_data(load_data_path)
+    load_time = datetime.now()
     LOGGER.info("Training EthnicityEstimator. May take a while...")
     estimator.fit()
+    training_time = datetime.now()
     estimator.save_model(save_model_path)
+    save_time = datetime.now()
+    LOGGER.info(
+        "Training ethnicity model",
+        load_data_runtime=str(load_time - start_time),
+        training_model_runtime=str(training_time - load_time),
+        save_model_runtime=str(save_time - training_time),
+        total_runtime=str(save_time - start_time),
+    )
 
 
 def train_and_save_distance_model(
@@ -68,21 +81,39 @@ def train_and_save_distance_model(
                 Must be multiple of 12.
     """
     LOGGER.info("Pulling training data from ES")
+    start_time = datetime.now()
     curated_signatures = get_signatures(only_curated=True)
     input_clusters = get_input_clusters(curated_signatures)
+    prepare_intput_time = datetime.now()
     LOGGER.info(
-        "Preparing %s pairs from sampled data for training.", sampled_pairs_size
+        "Preparing pairs from sampled data for training.",
+        pairs_count=sampled_pairs_size,
     )
     pairs = list(
         sample_signature_pairs(curated_signatures, input_clusters, sampled_pairs_size)
     )
+    prepare_pairs_time = datetime.now()
 
     ethnicity_estimator = EthnicityEstimator(ethnicity_model_path)
     distance_estimator = DistanceEstimator(ethnicity_estimator)
+    prepare_estimators_time = datetime.now()
     distance_estimator.load_data(curated_signatures, pairs, sampled_pairs_size)
+    load_data_to_model_time = datetime.now()
     LOGGER.info("Training DistanceEstimator...")
     distance_estimator.fit()
+    training_model_time = datetime.now()
     distance_estimator.save_model(save_distance_model_path)
+    save_model_time = datetime.now()
+    LOGGER.info(
+        "Train distance model",
+        prepare_input_runtime=str(prepare_intput_time - start_time),
+        prepare_pairs_runtime=str(prepare_pairs_time - prepare_intput_time),
+        prepare_estimators_runtime=str(prepare_estimators_time - prepare_pairs_time),
+        load_data_runtime=str(load_data_to_model_time - prepare_estimators_time),
+        training_model_runtime=str(training_model_time - load_data_to_model_time),
+        save_model_runtime=str(save_model_time - training_model_time),
+        total_runtime=str(save_model_time - start_time),
+    )
 
 
 def cluster(ethnicity_model_path, distance_model_path, n_jobs, signature_block=None):
@@ -95,23 +126,45 @@ def cluster(ethnicity_model_path, distance_model_path, n_jobs, signature_block=N
         signature_block (str): Signature block indicating which block should be
             clustered. If set to None, clustering will run on all blocks.
     """
-    LOGGER.info("Pulling signatures for block '%s' from ES", signature_block)
-
+    start_time = datetime.now()
     signatures = get_signatures(signature_block=signature_block)
     input_clusters = get_input_clusters(signatures)
-    LOGGER.debug(
-        "Got %s signature_blocks and %s input_clusters",
-        len(signatures),
-        len(input_clusters),
+    LOGGER.info(
+        "Input data",
+        signature_block=signature_block,
+        signatures_count=len(signatures),
+        curated_signatures_count=len(
+            [sig for sig in signatures if sig.get("is_curated_author_id")]
+        ),
+        input_clusters_count=len(input_clusters),
+        input_clusters=input_clusters,
     )
+    load_data_time = datetime.now()
+
     distance_estimator = DistanceEstimator.get(
         ethnicity_model_path, distance_model_path
     )
-
     clusterer = Clusterer(distance_estimator)
     clusterer.load_data(signatures, input_clusters)
-    LOGGER.info("Starting clustering")
+    prepare_clusterer_time = datetime.now()
+    LOGGER.info("Clustering", signature_block=signature_block)
     clusterer.fit(n_jobs=n_jobs)
+    fit_time = datetime.now()
+    for phonetic_block, cluster in clusterer.clusterer.clusterers_.items():
+        LOGGER.info(
+            "Clustering stats",
+            load_data_runtime=str(load_data_time - start_time),
+            prepare_clusterer_runtime=str(prepare_clusterer_time - load_data_time),
+            clustering_runtime=str(fit_time - prepare_clusterer_time),
+            total_runtime=str(fit_time - start_time),
+            threshold=getattr(
+                cluster, "best_threshold_", clusterer.clusterer.base_estimator.threshold
+            ),
+            signature_block=phonetic_block,
+            B3_f_score=cluster.supervised_scoring(clusterer.y, cluster.labels_)
+            if hasattr(cluster, "supervised_scoring")
+            else None,
+        )
 
     return process_clustering_output(clusterer)
 
@@ -135,20 +188,19 @@ def cluster_from_redis(ethnicity_model_path, distance_model_path, n_jobs):
             LOGGER.warning("No signature blocks in redis to process! STOP.")
             break
         signature_block = signature_block_data[1]
-        LOGGER.info("Clustering signature_block '%s'", signature_block)
+        LOGGER.info("Clustering signature_block", signature_block=signature_block)
         clusters = cluster(
             ethnicity_model_path, distance_model_path, n_jobs, signature_block
         )
-        LOGGER.debug("%s", clusters)
+        LOGGER.info("Output", output_clusters=clusters, signature_block=signature_block)
         response = send_clusters_to_inspirehep(clusters)
 
         if response.status_code != 200:
             LOGGER.error(
-                "Failed to post clustering output for signature block %s, error: %s, "
-                "status code: %d",
-                signature_block,
-                response.text,
-                response.status_code,
+                "Failed to post clustering output for signature block.",
+                signature_block=signature_block,
+                error_msg=response.text,
+                status_code=response.status_code,
             )
 
 
