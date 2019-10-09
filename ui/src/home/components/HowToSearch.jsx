@@ -72,7 +72,7 @@ const DATA = [
   {
     key: '9',
     searchBy: 'Citation number',
-    useOperators: 'topcite,topcit, cited',
+    useOperators: 'topcite, topcit, cited',
     example: 'topcite 1000+',
   },
   {
@@ -90,13 +90,13 @@ const DATA = [
   {
     key: '11',
     searchBy: 'Number of authors',
-    useOperators: 'ac,author-count, authorcount',
+    useOperators: 'ac, authorcount',
     example: 'ac 1->10',
   },
   {
     key: '12',
     searchBy: 'Report number',
-    useOperators: 'r,reportnumber, report-num, report, rept, rn',
+    useOperators: 'r, reportnumber, report-num, report, rept, rn',
     example: 'r ATLAS-CONF-2011-084',
   },
   {

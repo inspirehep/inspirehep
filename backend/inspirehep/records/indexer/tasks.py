@@ -8,6 +8,13 @@
 import structlog
 from celery import shared_task
 from elasticsearch import NotFoundError
+from sqlalchemy.exc import (
+    DisconnectionError,
+    OperationalError,
+    ResourceClosedError,
+    TimeoutError,
+    UnboundExecutionError,
+)
 from sqlalchemy.orm.exc import NoResultFound, StaleDataError
 
 from inspirehep.records.api import LiteratureRecord
@@ -15,6 +22,17 @@ from inspirehep.records.indexer.base import InspireRecordIndexer
 from inspirehep.records.indexer.utils import get_record
 
 LOGGER = structlog.getLogger()
+
+
+CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS = (
+    NoResultFound,
+    StaleDataError,
+    DisconnectionError,
+    TimeoutError,
+    UnboundExecutionError,
+    ResourceClosedError,
+    OperationalError,
+)
 
 
 @shared_task(ignore_result=False, bind=True)
@@ -53,7 +71,13 @@ def process_references_for_record(record):
     LOGGER.info("No references changed", uuid=str(record.id))
 
 
-@shared_task(ignore_result=False, bind=True, max_retries=6)
+@shared_task(
+    ignore_result=False,
+    bind=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=CELERY_INDEX_RECORD_RETRY_ON_EXCEPTIONS,
+)
 def index_record(self, uuid, record_version=None, force_delete=None):
     """Record indexing.
 
@@ -66,23 +90,8 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     Returns:
         list(dict): Statistics from processing references.
     """
-    try:
-        record = get_record(uuid, record_version)
-    except (NoResultFound, StaleDataError) as e:
-        LOGGER.debug(
-            "Record not yet at version on DB", uuid=str(uuid), version=record_version
-        )
-        backoff = 2 ** (self.request.retries + 1)
-        if self.max_retries < self.request.retries + 1:
-            LOGGER.debug(
-                "Record not yet at version on DB - Too many retries",
-                uuid=str(uuid),
-                version=record_version,
-                attempts=self.max_retries,
-            )
-        raise self.retry(countdown=backoff, exc=e)
-
     LOGGER.debug("Indexing record", uuid=str(uuid), version=record_version)
+    record = get_record(uuid, record_version)
 
     if not force_delete:
         deleted = record.get("deleted", False)

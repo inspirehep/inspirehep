@@ -14,6 +14,7 @@ LOGGER = logging.getLogger(__name__)
 
 
 def get_record(uuid, record_version=None):
+    # TODO: Move this into InspireRecord
     record = InspireRecord.get_record(uuid, with_deleted=True)
 
     if record_version and record.model.version_id < record_version:

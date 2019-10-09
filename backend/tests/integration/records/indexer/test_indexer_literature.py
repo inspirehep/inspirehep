@@ -7,14 +7,15 @@
 
 import json
 
+import pytest
 from invenio_search import current_search_client as es
 from mock import patch
+from sqlalchemy.exc import DisconnectionError
 
-from inspirehep.search.api import LiteratureSearch
+from inspirehep.records.indexer.tasks import index_record
 
 
 def test_index_literature_record(es_clear, db, datadir, create_record):
-
     author_data = json.loads((datadir / "1032336.json").read_text())
     author = create_record("aut", data=author_data)
 
