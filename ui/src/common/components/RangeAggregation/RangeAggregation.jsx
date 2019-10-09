@@ -5,7 +5,7 @@ import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
-import pluralizeUnlessSingle, { pluckMinMaxPair, toNumbers } from '../../utils';
+import { pluckMinMaxPair, toNumbers } from '../../utils';
 import AggregationBox from '../AggregationBox';
 import styleVariables from '../../../styleVariables';
 import './RangeAggregation.scss';
@@ -240,13 +240,18 @@ function RangeAggregation({
               align={{ vertical: 'top', horizontal: 'auto' }}
               format={({ x }) => {
                 const bucketKey = x - HALF_BAR_WIDTH;
-                const count = keyToCountForBuckets[bucketKey];
-                const initialCount = keyToCountForInitialBuckets[bucketKey];
+                const count = keyToCountForBuckets[bucketKey] || 0;
+                const initialCount =
+                  keyToCountForInitialBuckets[bucketKey] || 0;
                 return [
                   // FIXME: awkward x, y titles for a generic range filter
                   {
-                    title: pluralizeUnlessSingle('Paper', count),
-                    value: `${count} out of ${initialCount}`,
+                    title: 'Selected Papers',
+                    value: count,
+                  },
+                  {
+                    title: 'Total Papers',
+                    value: initialCount,
                   },
                   { title: 'Year', value: bucketKey },
                 ];

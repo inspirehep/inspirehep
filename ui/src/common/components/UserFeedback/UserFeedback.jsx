@@ -6,6 +6,7 @@ import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
 import ExternalLink from '../ExternalLink';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
+import { SURVEY_LINK } from '../../constants';
 
 const RATE_DESCRIPTIONS = [
   'poor',
@@ -14,8 +15,6 @@ const RATE_DESCRIPTIONS = [
   'good',
   'excellent',
 ];
-
-const SURVEY_LINK = 'https://goo.gl/forms/aTYSRzd7vTUhxzL43';
 
 class UserFeedback extends Component {
   static renderThankYou() {

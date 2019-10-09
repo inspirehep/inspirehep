@@ -124,7 +124,6 @@ describe('literature submissions', () => {
       },
     ]);
     expect(metadata.authors).toEqual([{ full_name: 'Urhan, Harun' }]);
-    expect(metadata.languages).toEqual(['en']);
     expect(metadata.inspire_categories).toEqual([{ term: 'Accelerators' }]);
     expect(metadata.imprints).toEqual([
       {
@@ -197,7 +196,6 @@ describe('literature submissions', () => {
         inspire_roles: ['supervisor'],
       },
     ]);
-    expect(metadata.languages).toEqual(['en']);
     expect(metadata.inspire_categories).toEqual([
       { term: 'Accelerators' },
       { term: 'Experiment-HEP' },
@@ -270,7 +268,6 @@ describe('literature submissions', () => {
       { affiliations: [{ value: 'CERN' }], full_name: 'Urhan, Harun' },
       { full_name: 'Urhan, Ahmet' },
     ]);
-    expect(metadata.languages).toEqual(['en']);
     expect(metadata.inspire_categories).toEqual([
       { term: 'Accelerators' },
       { term: 'Experiment-Nucl' },

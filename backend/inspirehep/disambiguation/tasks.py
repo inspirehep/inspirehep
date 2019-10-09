@@ -1,6 +1,7 @@
 import structlog
 from celery import shared_task
 from invenio_db import db
+from prometheus_client import Counter
 
 from inspirehep.disambiguation.utils import (
     create_new_empty_author,
@@ -9,6 +10,14 @@ from inspirehep.disambiguation.utils import (
 )
 
 LOGGER = structlog.getLogger()
+
+disambiguation_assigned_clusters_total = Counter(
+    "disambiguation_assigned_clusters_total", "Assigned clusters", ["num_authors"]
+)
+disambiguation_created_authors_total = Counter(
+    "disambiguation_created_authors_total",
+    "How many authors were created during disambiguation.",
+)
 
 
 @shared_task(ignore_result=False, bind=True)
@@ -24,6 +33,7 @@ def disambiguate_signatures(self, clusters):
     for cluster in clusters:
         authors = cluster["authors"]
         if len(authors) == 1:
+            disambiguation_assigned_clusters_total.labels(num_authors=1).inc()
             LOGGER.debug(
                 "Received cluster with 1 author.",
                 author=cluster["authors"][0],
@@ -35,6 +45,7 @@ def disambiguate_signatures(self, clusters):
                 )
 
         elif len(authors) == 0:
+            disambiguation_assigned_clusters_total.labels(num_authors=0).inc()
             with db.session.begin_nested():
                 LOGGER.debug(
                     "Received cluster with 0 authors.", signatures=cluster["signatures"]
@@ -46,8 +57,10 @@ def disambiguate_signatures(self, clusters):
                 if not linked_signatures:
                     author.hard_delete()
                 else:
+                    disambiguation_created_authors_total.inc()
                     update_author_names(author, linked_signatures)
 
         else:
+            disambiguation_assigned_clusters_total.labels(num_authors="2+").inc()
             LOGGER.debug("Received cluster with more than 1 author.")
     db.session.commit()
