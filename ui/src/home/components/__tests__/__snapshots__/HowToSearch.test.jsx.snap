@@ -107,7 +107,7 @@ exports[`HowToSearch renders the components 1`] = `
                   "example": "topcite 1000+",
                   "key": "9",
                   "searchBy": "Citation number",
-                  "useOperators": "topcite,topcit, cited",
+                  "useOperators": "topcite, topcit, cited",
                 },
                 Object {
                   "example": "cn babar",
@@ -125,13 +125,13 @@ exports[`HowToSearch renders the components 1`] = `
                   "example": "ac 1->10",
                   "key": "11",
                   "searchBy": "Number of authors",
-                  "useOperators": "ac,author-count, authorcount",
+                  "useOperators": "ac, authorcount",
                 },
                 Object {
                   "example": "r ATLAS-CONF-2011-084",
                   "key": "12",
                   "searchBy": "Report number",
-                  "useOperators": "r,reportnumber, report-num, report, rept, rn",
+                  "useOperators": "r, reportnumber, report-num, report, rept, rn",
                 },
                 Object {
                   "example": "refersto:recid:193978",
