@@ -9,6 +9,7 @@ import os
 
 import jinja2
 from invenio_records_rest.serializers.json import MarshmallowMixin, PreprocessorMixin
+from invenio_records_rest.serializers.response import search_responsify
 
 from ..marshmallow.literature.latex import LatexSchema
 from .response import record_responsify
@@ -79,6 +80,9 @@ latex_response_eu = record_responsify(
 latex_response_us = record_responsify(
     latex_US, "application/vnd+inspire.latex.us+x-latex"
 )
-# NOTE: many result doesn't work
-# latex_search_response_eu = search_responsify(latex_EU, "application/vnd.eu+x-latex")
-# latex_search_response_us = search_responsify(latex_US, "application/vnd.us+x-latex")
+literature_latex_eu_response_search = search_responsify(
+    latex_EU, "application/vnd+inspire.latex.eu+x-latex"
+)
+literature_latex_us_response_search = search_responsify(
+    latex_US, "application/vnd+inspire.latex.us+x-latex"
+)

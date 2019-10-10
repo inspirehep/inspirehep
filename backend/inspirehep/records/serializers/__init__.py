@@ -29,4 +29,9 @@ from .json import (
     literature_json_response_search,
     literature_references_json_response,
 )
-from .latex import latex_response_eu, latex_response_us
+from .latex import (
+    latex_response_eu,
+    latex_response_us,
+    literature_latex_eu_response_search,
+    literature_latex_us_response_search,
+)

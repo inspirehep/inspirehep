@@ -2,10 +2,11 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { Modal, Button } from 'antd';
 
-import CiteModalAction, { FORMAT_SELECT_VALUES } from '../CiteModalAction';
+import CiteModalAction from '../CiteModalAction';
 import citeArticle from '../../citeArticle';
 import SelectBox from '../../../common/components/SelectBox';
 import ListItemAction from '../../../common/components/ListItemAction';
+import { CITE_FORMAT_VALUES } from '../../constants';
 
 jest.mock('../../citeArticle');
 
@@ -32,14 +33,12 @@ describe('CiteModalAction', () => {
     const wrapper = shallow(
       <CiteModalAction
         recordId={12345}
-        initialCiteFormat={FORMAT_SELECT_VALUES[0]}
+        initialCiteFormat={CITE_FORMAT_VALUES[0]}
         onCiteFormatChange={onCiteFormatChangeProp}
       />
     );
-    wrapper.find(SelectBox).prop('onChange')(FORMAT_SELECT_VALUES[1]);
-    expect(onCiteFormatChangeProp).toHaveBeenCalledWith(
-      FORMAT_SELECT_VALUES[1]
-    );
+    wrapper.find(SelectBox).prop('onChange')(CITE_FORMAT_VALUES[1]);
+    expect(onCiteFormatChangeProp).toHaveBeenCalledWith(CITE_FORMAT_VALUES[1]);
   });
 
   it('sets modalVisible true on cite click and calls setCiteContentFor with initialCiteFormat if first time', () => {

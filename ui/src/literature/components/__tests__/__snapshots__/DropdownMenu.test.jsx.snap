@@ -2,10 +2,38 @@
 
 exports[`DropdownMenu renders 1`] = `
 <Dropdown
+  disabled={false}
   mouseEnterDelay={0.15}
   mouseLeaveDelay={0.1}
   overlay={
     <Menu>
+      <MenuItem>
+        <li>
+          test
+        </li>
+      </MenuItem>
+      <MenuItem>
+        <li>
+          test2
+        </li>
+      </MenuItem>
+    </Menu>
+  }
+  placement="bottomLeft"
+>
+  title
+</Dropdown>
+`;
+
+exports[`DropdownMenu renders with all props set 1`] = `
+<Dropdown
+  disabled={true}
+  mouseEnterDelay={0.15}
+  mouseLeaveDelay={0.1}
+  overlay={
+    <Menu
+      onClick={[MockFunction]}
+    >
       <MenuItem>
         <li>
           test

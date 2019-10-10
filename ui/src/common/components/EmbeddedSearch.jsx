@@ -12,6 +12,10 @@ import SearchPagination from './SearchPagination';
 import ResponsiveView from './ResponsiveView';
 import DrawerHandle from './DrawerHandle';
 import { SelectOptionsPropType } from '../propTypes';
+import CiteAllActionContainer from '../../literature/containers/CiteAllActionContainer';
+import VerticalDivider from '../../literature/components/VerticalDivider';
+import { SUPERUSER } from '../authorization';
+import AuthorizedContainer from '../containers/AuthorizedContainer';
 
 class EmbeddedSearch extends Component {
   constructor(props) {
@@ -88,6 +92,10 @@ class EmbeddedSearch extends Component {
               <Row type="flex" align="middle" justify="space-between">
                 <Col xs={24} lg={12}>
                   <NumberOfResults numberOfResults={numberOfResults} />
+                  <AuthorizedContainer authorizedRoles={SUPERUSER}>
+                    <VerticalDivider />
+                    <CiteAllActionContainer />
+                  </AuthorizedContainer>
                 </Col>
                 <ResponsiveView
                   max="md"

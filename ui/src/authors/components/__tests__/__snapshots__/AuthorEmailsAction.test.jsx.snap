@@ -3,6 +3,7 @@
 exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = `
 <ListItemAction>
   <DropdownMenu
+    disabled={false}
     title={
       <Tooltip
         arrowPointAtCenter={false}
