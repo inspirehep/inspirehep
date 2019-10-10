@@ -6,11 +6,11 @@ import {
   USER_LOGOUT_SUCCESS,
   USER_SET_PREFERRED_CITE_FORMAT,
 } from '../actions/actionTypes';
-import { FORMAT_SELECT_VALUES } from '../literature/components/CiteModalAction';
+import { CITE_FORMAT_VALUES } from '../literature/constants';
 
 export const initialState = fromJS({
   loggedIn: false,
-  preferredCiteFormat: FORMAT_SELECT_VALUES[0],
+  preferredCiteFormat: CITE_FORMAT_VALUES[0],
   data: {
     roles: [],
   },

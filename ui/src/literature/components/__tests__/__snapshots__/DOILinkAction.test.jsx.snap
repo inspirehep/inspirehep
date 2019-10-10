@@ -16,6 +16,7 @@ exports[`DOILinkAction renders with a doi id 1`] = `
 exports[`DOILinkAction renders with multiple doi ids 1`] = `
 <ListItemAction>
   <DropdownMenu
+    disabled={false}
     title={
       <Button
         block={false}
@@ -61,6 +62,7 @@ exports[`DOILinkAction renders with multiple doi ids 1`] = `
 exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
 <ListItemAction>
   <DropdownMenu
+    disabled={false}
     title={
       <Button
         block={false}

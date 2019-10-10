@@ -47,6 +47,7 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
 exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
 <ListItemAction>
   <DropdownMenu
+    disabled={false}
     title={
       <Tooltip
         arrowPointAtCenter={false}

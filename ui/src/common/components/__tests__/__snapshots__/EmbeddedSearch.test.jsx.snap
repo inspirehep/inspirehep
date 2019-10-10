@@ -35,6 +35,16 @@ exports[`EmbeddedSearch renders with all props set except error 1`] = `
           <NumberOfResults
             numberOfResults={5}
           />
+          <Connect(Authorized)
+            authorizedRoles={
+              Immutable.Set [
+                "superuser",
+              ]
+            }
+          >
+            <VerticalDivider />
+            <Connect(CiteAllAction) />
+          </Connect(Authorized)>
         </Col>
         <ResponsiveView
           max="md"
@@ -124,6 +134,16 @@ exports[`EmbeddedSearch renders with only required props 1`] = `
           <NumberOfResults
             numberOfResults={0}
           />
+          <Connect(Authorized)
+            authorizedRoles={
+              Immutable.Set [
+                "superuser",
+              ]
+            }
+          >
+            <VerticalDivider />
+            <Connect(CiteAllAction) />
+          </Connect(Authorized)>
         </Col>
         <ResponsiveView
           max="md"

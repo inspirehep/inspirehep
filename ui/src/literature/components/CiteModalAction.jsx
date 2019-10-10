@@ -3,20 +3,12 @@ import PropTypes from 'prop-types';
 import { Modal, Button, Row, Icon, Alert } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import citeArticle from '../citeArticle';
 import SelectBox from '../../common/components/SelectBox';
 import ListItemAction from '../../common/components/ListItemAction';
 import IconText from '../../common/components/IconText';
 import EventTracker from '../../common/components/EventTracker';
-
-const FORMAT_SELECT_OPTIONS = [
-  { value: 'x-bibtex', display: 'BibTeX' },
-  { value: 'vnd+inspire.latex.eu+x-latex', display: 'LaTeX (EU)' },
-  { value: 'vnd+inspire.latex.us+x-latex', display: 'LaTeX (US)' },
-];
-export const FORMAT_SELECT_VALUES = FORMAT_SELECT_OPTIONS.map(
-  option => option.value
-);
+import { CITE_FORMAT_OPTIONS, CITE_FORMAT_VALUES } from '../constants';
+import citeArticle from '../citeArticle';
 
 class CiteModalAction extends Component {
   constructor(props) {
@@ -130,7 +122,7 @@ class CiteModalAction extends Component {
                   style={{ width: 140 }}
                   defaultValue={initialCiteFormat}
                   onChange={this.onFormatChange}
-                  options={FORMAT_SELECT_OPTIONS}
+                  options={CITE_FORMAT_OPTIONS}
                 />
               </EventTracker>
             </Row>
@@ -143,7 +135,7 @@ class CiteModalAction extends Component {
 
 CiteModalAction.propTypes = {
   recordId: PropTypes.number.isRequired,
-  initialCiteFormat: PropTypes.oneOf(FORMAT_SELECT_VALUES).isRequired,
+  initialCiteFormat: PropTypes.oneOf(CITE_FORMAT_VALUES).isRequired,
   onCiteFormatChange: PropTypes.func.isRequired,
 };
 

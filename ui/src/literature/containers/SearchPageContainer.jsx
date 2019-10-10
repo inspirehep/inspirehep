@@ -13,6 +13,10 @@ import ResponsiveView from '../../common/components/ResponsiveView';
 import DrawerHandle from '../../common/components/DrawerHandle';
 import LiteratureItem from '../components/LiteratureItem';
 import DocumentHead from '../../common/components/DocumentHead';
+import CiteAllActionContainer from './CiteAllActionContainer';
+import VerticalDivider from '../components/VerticalDivider';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
+import { SUPERUSER } from '../../common/authorization';
 
 class SearchPage extends Component {
   static renderLiteratureItem(result, rank) {
@@ -44,6 +48,10 @@ class SearchPage extends Component {
               <Row type="flex" align="middle" justify="end">
                 <Col xs={24} lg={12}>
                   <NumberOfResultsContainer />
+                  <AuthorizedContainer authorizedRoles={SUPERUSER}>
+                    <VerticalDivider />
+                    <CiteAllActionContainer />
+                  </AuthorizedContainer>
                 </Col>
                 <Col xs={12} lg={0}>
                   <ResponsiveView

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerticalDivider renders 1`] = `
+<Divider
+  className="__VerticalDivider__"
+  type="vertical"
+/>
+`;

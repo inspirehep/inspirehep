@@ -84,9 +84,8 @@ LITERATURE.update(
             "application/json": f"{INSPIRE_SERIALIZERS}:literature_json_response_search",
             "application/vnd+inspire.record.ui+json": f"{INSPIRE_SERIALIZERS}:literature_json_list_response",
             "application/x-bibtex": f"{INSPIRE_SERIALIZERS}:literature_bibtex_response_search",
-            # NOTE: the don't work for search results, doesn't make sense to eanble them
-            # "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_eu",
-            # "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:latex_search_response_us",
+            "application/vnd+inspire.latex.eu+x-latex": f"{INSPIRE_SERIALIZERS}:literature_latex_eu_response_search",
+            "application/vnd+inspire.latex.us+x-latex": f"{INSPIRE_SERIALIZERS}:literature_latex_us_response_search",
         },
         "list_route": "/literature/",
         "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
