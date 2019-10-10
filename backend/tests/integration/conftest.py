@@ -58,12 +58,18 @@ def db_uri(instance_path):
 
 @pytest.fixture(scope="function")
 def enable_files(base_app):
+    original_value = base_app.config.get("FEATURE_FLAG_ENABLE_FILES")
     base_app.config["FEATURE_FLAG_ENABLE_FILES"] = True
+    yield base_app
+    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = original_value
 
 
 @pytest.fixture(scope="function")
 def disable_files(base_app):
+    original_value = base_app.config.get("FEATURE_FLAG_ENABLE_FILES")
     base_app.config["FEATURE_FLAG_ENABLE_FILES"] = False
+    yield base_app
+    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = original_value
 
 
 @pytest.fixture(scope="module")
