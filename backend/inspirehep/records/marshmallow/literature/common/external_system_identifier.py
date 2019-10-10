@@ -55,7 +55,8 @@ class ExternalSystemIdentifierSchemaV1(Schema):
             return kekscan_link
         return "{}{}".format(url_prefix, value)
 
-    def get_link_for_kekscan_schema(self, external_system_id_value):
+    @classmethod
+    def get_link_for_kekscan_schema(cls, external_system_id_value):
         extid = external_system_id_value.replace("-", "")
         if (
             len(extid) == 7
@@ -69,7 +70,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
         else:
             return None
         yymm = extid[:4]
-        kekscan_url_prefix = self.schema_to_url_link_prefix_map["kekscan"]
+        kekscan_url_prefix = cls.schema_to_url_link_prefix_map["kekscan"]
         return "{}{}/{}/{}.pdf".format(kekscan_url_prefix, year, yymm, extid)
 
     @post_dump(pass_many=True)

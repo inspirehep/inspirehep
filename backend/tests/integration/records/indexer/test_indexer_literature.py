@@ -7,12 +7,8 @@
 
 import json
 
-import pytest
 from invenio_search import current_search_client as es
 from mock import patch
-from sqlalchemy.exc import DisconnectionError
-
-from inspirehep.records.indexer.tasks import index_record
 
 
 def test_index_literature_record(es_clear, db, datadir, create_record):
@@ -72,3 +68,116 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     hits_total = response["hits"]["total"]
 
     assert hits_total == expected_total
+
+
+@patch("inspirehep.records.api.literature.LiteratureRecord.add_files")
+def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
+    mocked_add_files, base_app, es_clear, db, create_record, enable_files
+):
+    expected_fulltext_links = [
+        {"description": "arXiv", "value": "https://arxiv.org/pdf/hep-ph/9404247"},
+        {
+            "description": "KEK scanned document",
+            "value": "https://lib-extopc.kek.jp/preprints/PDF/1994/9407/9407219.pdf",
+        },
+        {"description": "fulltext", "value": "http://localhost:8000/some_url.pdf"},
+    ]
+
+    data = {
+        "external_system_identifiers": [
+            {"schema": "OSTI", "value": "7224300"},
+            {"schema": "ADS", "value": "1994PhRvD..50.4491S"},
+            {"schema": "KEKSCAN", "value": "94-07-219"},
+            {"schema": "SPIRES", "value": "SPIRES-2926342"},
+        ],
+        "arxiv_eprints": [{"categories": ["hep-ph"], "value": "hep-ph/9404247"}],
+        "documents": [
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": "arXiv:nucl-th_9310030.pdf",
+                "url": "http://localhost:8000/some_url.pdf",
+            },
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://localhost:8000/some_url2.pdf",
+            },
+        ],
+    }
+    create_record("lit", data=data)
+    response = es.search("records-hep")
+
+    result = response["hits"]["hits"][0]["_source"]
+    result_ui_display = json.loads(result.pop("_ui_display"))
+
+    assert result_ui_display["fulltext_links"] == expected_fulltext_links
+
+
+def test_indexer_creates_proper_fulltext_links_in_ui_display_files_disabled(
+    base_app, es_clear, db, create_record, disable_files
+):
+    expected_fulltext_links = [
+        {"description": "arXiv", "value": "https://arxiv.org/pdf/hep-ph/9404247"},
+        {
+            "description": "KEK scanned document",
+            "value": "https://lib-extopc.kek.jp/preprints/PDF/1994/9407/9407219.pdf",
+        },
+    ]
+
+    data = {
+        "external_system_identifiers": [
+            {"schema": "OSTI", "value": "7224300"},
+            {"schema": "ADS", "value": "1994PhRvD..50.4491S"},
+            {"schema": "KEKSCAN", "value": "94-07-219"},
+            {"schema": "SPIRES", "value": "SPIRES-2926342"},
+        ],
+        "arxiv_eprints": [{"categories": ["hep-ph"], "value": "hep-ph/9404247"}],
+        "documents": [
+            {
+                "source": "arxiv",
+                "fulltext": True,
+                "key": "arXiv:nucl-th_9310030.pdf",
+                "url": "http://localhost:8000/some_url.pdf",
+            },
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://localhost:8000/some_url2.pdf",
+            },
+        ],
+    }
+    create_record("lit", data=data)
+    response = es.search("records-hep")
+
+    result = response["hits"]["hits"][0]["_source"]
+    result_ui_display = json.loads(result.pop("_ui_display"))
+
+    assert result_ui_display["fulltext_links"] == expected_fulltext_links
+
+
+def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(
+    base_app, es_clear, db, create_record
+):
+
+    data = {
+        "external_system_identifiers": [
+            {"schema": "OSTI", "value": "7224300"},
+            {"schema": "ADS", "value": "1994PhRvD..50.4491S"},
+            {"schema": "SPIRES", "value": "SPIRES-2926342"},
+        ],
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://localhost:8000/some_url2.pdf",
+            }
+        ],
+    }
+    create_record("lit", data=data)
+    response = es.search("records-hep")
+
+    result = response["hits"]["hits"][0]["_source"]
+    result_ui_display = json.loads(result.pop("_ui_display"))
+
+    assert "fulltext_links" not in result_ui_display

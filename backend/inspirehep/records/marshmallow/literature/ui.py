@@ -7,6 +7,7 @@
 
 import json
 
+from flask import current_app
 from inspire_utils.date import format_date
 from inspire_utils.record import get_value
 from marshmallow import fields, missing
@@ -83,6 +84,7 @@ class LiteratureDetailSchema(LiteraturePublicSchema):
     external_system_identifiers = fields.Nested(
         ExternalSystemIdentifierSchemaV1, dump_only=True, many=True
     )
+    fulltext_links = fields.Method("get_fulltext_links", dump_only=True)
     isbns = fields.List(fields.Nested(IsbnSchemaV1, dump_only=True))
     number_of_authors = fields.Method("get_number_of_authors")
     number_of_references = fields.Method("get_number_of_references")
@@ -96,6 +98,49 @@ class LiteratureDetailSchema(LiteraturePublicSchema):
         if earliest_date is None:
             return missing
         return format_date(earliest_date)
+
+    def get_fulltext_links(self, data):
+        field_data = []
+        fields_to_include = {
+            "arxiv_eprints": self.get_arxiv_fulltext_link,
+            "external_system_identifiers": self.get_kek_fulltext_link,
+            "documents": self.get_internal_fulltext_link,
+        }
+        for field, process_method in fields_to_include.items():
+            for item in data.get(field, []):
+                field_data.append(process_method(item))
+        return field_data
+
+    def get_kek_fulltext_link(self, data):
+        description = "KEK scanned document"
+        kek_id = data.get("value")
+        if kek_id and data.get("schema", "") == "KEKSCAN":
+            return {
+                "description": description,
+                "value": ExternalSystemIdentifierSchemaV1.get_link_for_kekscan_schema(
+                    kek_id
+                ),
+            }
+        return missing
+
+    def get_arxiv_fulltext_link(self, data):
+        description = "arXiv"
+        arxiv_id = data.get("value")
+        if arxiv_id:
+            return {
+                "description": description,
+                "value": "https://arxiv.org/pdf/%s" % arxiv_id,
+            }
+        return missing
+
+    def get_internal_fulltext_link(self, data):
+        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES"):
+            return missing
+        description = data.get("description") or "fulltext"
+        url = data.get("url")
+        if url and not data.get("hidden", False) and data.get("fulltext"):
+            return {"description": description, "value": url}
+        return missing
 
     def get_number_of_authors(self, data):
         authors = data.get("authors")

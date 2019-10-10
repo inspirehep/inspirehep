@@ -621,3 +621,35 @@ def test_regression_not_throw_on_collaboration_in_reference_without_record(
     )
     assert response.status_code == 200
     assert response.json["metadata"] == expected_response_metadata
+
+
+def test_record_fulllinks_in_detail_view(api_client, db, es, create_record):
+    expected_response_metadata = [
+        {"description": "arXiv", "value": "https://arxiv.org/pdf/nucl-th/9310030"},
+        {
+            "description": "KEK scanned document",
+            "value": "https://lib-extopc.kek.jp/preprints/PDF/1994/9407/9407219.pdf",
+        },
+    ]
+    data = {
+        "arxiv_eprints": [{"categories": ["nucl-th"], "value": "nucl-th/9310030"}],
+        "external_system_identifiers": [{"schema": "KEKSCAN", "value": "94-07-219"}],
+    }
+
+    rec = create_record("lit", data=data)
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    response = api_client.get(f"/literature/{rec['control_number']}", headers=headers)
+    assert response.status_code == 200
+    assert response.json["metadata"]["fulltext_links"] == expected_response_metadata
+
+
+def test_record_no_fulllinks_in_detail_view_when_no_fulltext_links(
+    api_client, db, es, create_record
+):
+    data = {}
+
+    rec = create_record("lit", data=data)
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    response = api_client.get(f"/literature/{rec['control_number']}", headers=headers)
+    assert response.status_code == 200
+    assert "fulltext_links" not in response.json["metadata"]
