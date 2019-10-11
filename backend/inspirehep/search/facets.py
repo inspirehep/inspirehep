@@ -48,6 +48,23 @@ def hep_author_publications():
     }
 
 
+def hep_author_publications_cataloger():
+    publications = hep_author_publications()
+    publications["aggs"].update(
+        {
+            "subject": {
+                "terms": {"field": "facet_inspire_categories", "size": 20},
+                "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
+            },
+            "arxiv_categories": {
+                "terms": {"field": "facet_arxiv_categories", "size": 20},
+                "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
+            },
+        }
+    )
+    return publications
+
+
 def citation_summary():
     excluded_filters = ["citeable", "refereed", "citation_count"]
     filters = {
