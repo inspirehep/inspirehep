@@ -7,7 +7,7 @@ import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
-import ArxivPdfDownloadAction from './ArxivPdfDownloadAction';
+import FullTextLinksAction from './FullTextLinksAction';
 import DOILinkAction from './DOILinkAction';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
@@ -28,7 +28,7 @@ class LiteratureItem extends Component {
     const title = metadata.getIn(['titles', 0]);
     const authors = metadata.get('authors');
 
-    const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
+    const fullTextLinks = metadata.get('fulltext_links');
     const dois = metadata.get('dois');
     const recordId = metadata.get('control_number');
     const citationCount = metadata.get('citation_count', 0);
@@ -46,7 +46,9 @@ class LiteratureItem extends Component {
       <ResultItem
         leftActions={
           <Fragment>
-            {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
+            {fullTextLinks && (
+              <FullTextLinksAction fullTextLinks={fullTextLinks} />
+            )}
             {dois && <DOILinkAction dois={dois} />}
             <CiteModalActionContainer recordId={recordId} />
             {canEdit && (

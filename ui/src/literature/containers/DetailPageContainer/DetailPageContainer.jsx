@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
-import { Map, List } from 'immutable';
+import { Map, List, fromJS } from 'immutable';
 
 import './DetailPage.scss';
 import {
@@ -12,7 +12,7 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import ArxivPdfDownloadAction from '../../components/ArxivPdfDownloadAction';
+import FullTextLinksAction from '../../components/FullTextLinksAction';
 import EditRecordAction from '../../../common/components/EditRecordAction';
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
@@ -95,7 +95,13 @@ class DetailPage extends Component {
     );
     const acceleratorExperiments = metadata.get('accelerator_experiments');
     const abstract = metadata.getIn(['abstracts', 0]);
-    const arxivId = metadata.getIn(['arxiv_eprints', 0, 'value']);
+    const fullTextLinks = metadata.get(
+      'fulltext_links',
+      fromJS([
+        { description: 'dude', value: 'https://dude.com' },
+        { value: 'https://dude.com/shitface.pdf' },
+      ])
+    );
     const collaborations = metadata.get('collaborations');
     const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
 
@@ -114,7 +120,9 @@ class DetailPage extends Component {
               loading={loading}
               leftActions={
                 <Fragment>
-                  {arxivId && <ArxivPdfDownloadAction arxivId={arxivId} />}
+                  {fullTextLinks && (
+                    <FullTextLinksAction fullTextLinks={fullTextLinks} />
+                  )}
                   <CiteModalActionContainer recordId={recordId} />
                   {canEdit && (
                     <EditRecordAction
