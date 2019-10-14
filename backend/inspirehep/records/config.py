@@ -34,6 +34,7 @@ from inspirehep.search.facets import (
     citation_summary,
     citations_by_year,
     hep_author_publications,
+    hep_author_publications_cataloger,
     must_match_all_filter,
     range_author_count_filter,
 )
@@ -505,6 +506,10 @@ CATALOGER_RECORDS_REST_FACETS["records-jobs"]["aggs"]["status"] = {
     "terms": {"field": "status"},
     "meta": {"order": 4, "type": "multiselect", "title": "Status"},
 }
+
+CATALOGER_RECORDS_REST_FACETS[
+    "hep-author-publication"
+] = hep_author_publications_cataloger
 
 
 RECORDS_REST_SORT_OPTIONS = {
