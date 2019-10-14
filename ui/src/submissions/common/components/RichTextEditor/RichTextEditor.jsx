@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
-import QuillEditor from 'react-quill';
+import QuillEditor, { Quill } from 'react-quill';
 
 import 'react-quill/dist/quill.snow.css';
 import './RichTextEditor.scss';
 import EditorToolbar from './EditorToolbar';
+
+// change default text default (`P`)
+const Block = Quill.import('blots/block');
+Block.tagName = 'DIV';
+Quill.register(Block, true);
 
 const QUILL_MODULES = {
   toolbar: '#toolbar',
