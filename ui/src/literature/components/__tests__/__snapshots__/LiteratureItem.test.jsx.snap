@@ -156,8 +156,14 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
 <ResultItem
   leftActions={
     <React.Fragment>
-      <ArxivPdfDownloadAction
-        arxivId="1234567890"
+      <FullTextLinksAction
+        fullTextLinks={
+          Immutable.List [
+            Immutable.Map {
+              "value": "https://fulltext.cern/pdf/1",
+            },
+          ]
+        }
       />
       <Connect(CiteModalAction)
         recordId={12345}

@@ -11,6 +11,7 @@ describe('LiteratureItem', () => {
       titles: [{ title: 'test' }],
       authors: [{ full_name: 'Test, Author' }],
       arxiv_eprints: [{ value: '1234567890' }],
+      fulltext_links: [{ value: 'https://fulltext.cern/pdf/1' }],
       control_number: 12345,
       citation_count: 1,
       publication_info: [{ journal_title: 'Test Jornal' }],
