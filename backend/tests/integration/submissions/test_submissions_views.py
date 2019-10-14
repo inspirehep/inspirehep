@@ -795,3 +795,36 @@ def test_update_job_remove_not_compulsory_fields(
     assert "url" not in response3.json["data"]
     assert "contacts" not in response3.json["data"]
     assert "reference_letters" not in response3.json["data"]
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_regression_update_job_without_acquisition_source_doesnt_give_500(
+    ticket_mock, app, api_client, create_user, create_record
+):
+    data = {
+        'status': 'open',
+        '_collections': ['Jobs'],
+        'control_number': 1,
+        'deadline_date': '2019-12-31',
+        'description': 'nice job',
+        'position': 'junior',
+        'regions': ['Europe'],
+    }
+    create_record('job', data=data)
+    pid_value = data['control_number']
+    job_record = JobsRecord.get_record_by_pid_value(pid_value)
+
+    assert 'acquisition_source' not in job_record
+
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    data["title"] = "New Title"
+    record_url = url_for(
+        "inspirehep_submissions.job_submission_view",
+        pid_value=pid_value
+    )
+
+    response = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response.status_code == 403

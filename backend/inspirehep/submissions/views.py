@@ -263,7 +263,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
     def user_can_edit(self, record):
         if is_superuser_or_cataloger_logged_in():
             return True
-        acquisition_source = record.get("acquisition_source")
+        acquisition_source = record.get("acquisition_source", {})
         if (
             acquisition_source.get("orcid") == self.get_user_orcid()
             and acquisition_source.get("email") == current_user.email
