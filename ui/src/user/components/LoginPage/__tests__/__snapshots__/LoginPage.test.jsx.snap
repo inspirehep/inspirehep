@@ -14,7 +14,22 @@ exports[`LoginPage renders page 1`] = `
     <p
       className="f4"
     >
-      Please sign in to INSPIRE
+      Please sign in to 
+      <strong>
+        iN
+      </strong>
+      SPIRE
+    </p>
+    <p
+      className="pb2"
+    >
+      To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at
+       
+      <ExternalLink
+        href="https://orcid.org/register!"
+      >
+        https://orcid.org/register
+      </ExternalLink>
     </p>
     <Button
       block={false}
@@ -33,14 +48,12 @@ exports[`LoginPage renders page 1`] = `
         Login with ORCID
       </strong>
     </Button>
-    <a
+    <ExternalLink
       className="db pt3"
       href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid/"
-      rel="noreferrer noopener"
-      target="_blank"
     >
       What is ORCID?
-    </a>
+    </ExternalLink>
   </Card>
 </Row>
 `;
