@@ -1,7 +1,6 @@
 import MockAdapter from 'axios-mock-adapter';
-import { fromJS } from 'immutable';
 
-import { getStore, getStoreWithState } from '../../fixtures/store';
+import { getStore } from '../../fixtures/store';
 import http from '../../common/http';
 import * as types from '../actionTypes';
 import {
@@ -54,7 +53,7 @@ describe('citations - async action creator', () => {
   it('creates CITATIONS_SUMMARY_SUCCESS if successful', async done => {
     mockHttp
       .onGet(
-        '/literature/facets?author=J.M.Maxson.1_Jared&facet_name=citation-summary'
+        '/literature/facets?author=12345_Jared&facet_name=citation-summary'
       )
       .replyOnce(200, { foo: 'bar' });
 
@@ -64,9 +63,7 @@ describe('citations - async action creator', () => {
     ];
 
     const store = getStore();
-    await store.dispatch(
-      fetchCitationSummary({ author: ['J.M.Maxson.1_Jared'] })
-    );
+    await store.dispatch(fetchCitationSummary({ author: ['12345_Jared'] }));
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
@@ -93,7 +90,7 @@ describe('citations - async action creator', () => {
   it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async done => {
     mockHttp
       .onGet(
-        '/literature/facets?author=J.M.Maxson.1_Jared&facet_name=citations-by-year'
+        '/literature/facets?author=12345_Jared&facet_name=citations-by-year'
       )
       .replyOnce(200, { foo: 'bar' });
 
@@ -105,7 +102,7 @@ describe('citations - async action creator', () => {
     const store = getStore();
     await store.dispatch(
       fetchCitationsByYear({
-        author: ['J.M.Maxson.1_Jared'],
+        author: ['12345_Jared'],
       })
     );
     expect(store.getActions()).toEqual(expectedActions);

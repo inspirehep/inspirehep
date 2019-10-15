@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List, fromJS } from 'immutable';
+import classNames from 'classnames';
 
 import './DetailPage.scss';
 import {
@@ -35,6 +36,8 @@ import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import PublicNotesList from '../../components/PublicNotesList';
 import DocumentHead from '../../../common/components/DocumentHead';
+import { fetchCitationsByYear } from '../../../actions/citations';
+import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -59,6 +62,7 @@ class DetailPage extends Component {
     dispatch(fetchLiterature(this.recordId));
     dispatch(fetchLiteratureReferences(this.recordId));
     dispatch(fetchLiteratureAuthors(this.recordId));
+    dispatch(fetchCitationsByYear({ q: `recid:${this.recordId}` }));
   }
 
   render() {
@@ -75,7 +79,7 @@ class DetailPage extends Component {
 
     const metadata = record.get('metadata');
     if (!metadata) {
-      return null;
+      return null; // FIXME: `loading` is state is never rendered
     }
 
     const title = metadata.getIn(['titles', 0]);
@@ -115,115 +119,132 @@ class DetailPage extends Component {
       <>
         <DocumentHead title={title.get('title')} />
         <Row className="__DetailPage__" type="flex" justify="center">
-          <Col className="mv3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-            <ContentBox
-              loading={loading}
-              leftActions={
-                <Fragment>
-                  {fullTextLinks && (
-                    <FullTextLinksAction fullTextLinks={fullTextLinks} />
-                  )}
-                  <CiteModalActionContainer recordId={recordId} />
-                  {canEdit && (
-                    <EditRecordAction
-                      pidType="literature"
-                      pidValue={recordId}
-                    />
-                  )}
-                </Fragment>
-              }
+          <Col xs={24} md={22} lg={21} xxl={18}>
+            <Row
+              className="mv3"
+              type="flex"
+              justify="center"
+              gutter={{ xs: 0, lg: 16, xl: 32 }}
             >
-              <h2>
-                <LiteratureTitle title={title} />
-              </h2>
-              <div>
-                <AuthorsAndCollaborations
-                  authorCount={authorCount}
-                  authors={authors}
-                  enableAuthorsShowAll
-                  collaborations={collaborations}
-                  collaborationsWithSuffix={collaborationsWithSuffix}
-                />
-              </div>
-              <LiteratureDate date={date} />
-              <div className="mt3">
-                <NumberOfPages numberOfPages={numberOfPages} />
-                <ThesisInfo thesisInfo={thesisInfo} />
-                <PublicationInfoList publicationInfo={publicationInfo} />
-                <ConferenceInfoList conferenceInfo={conferenceInfo} />
-                <IsbnList isbns={isbns} />
-                <ArxivEprintList eprints={eprints} />
-                <DOIList dois={dois} />
-                <ReportNumberList reportNumbers={reportNumbers} />
-                <AcceleratorExperimentList
-                  acceleratorExperiments={acceleratorExperiments}
-                />
-                <ExternalSystemIdentifierList
-                  externalSystemIdentifiers={externalSystemIdentifiers}
-                />
-              </div>
-              <Row>
-                <div className="mt3">
-                  <Abstract abstract={abstract} />
-                </div>
-              </Row>
-              {publicNotes && (
-                <Row>
+              <Col xs={24} lg={16}>
+                <ContentBox
+                  className="md-pb3"
+                  loading={loading}
+                  leftActions={
+                    <Fragment>
+                      {fullTextLinks && (
+                        <FullTextLinksAction fullTextLinks={fullTextLinks} />
+                      )}
+                      <CiteModalActionContainer recordId={recordId} />
+                      {canEdit && (
+                        <EditRecordAction
+                          pidType="literature"
+                          pidValue={recordId}
+                        />
+                      )}
+                    </Fragment>
+                  }
+                >
+                  <h2>
+                    <LiteratureTitle title={title} />
+                  </h2>
+                  <div>
+                    <AuthorsAndCollaborations
+                      authorCount={authorCount}
+                      authors={authors}
+                      enableAuthorsShowAll
+                      collaborations={collaborations}
+                      collaborationsWithSuffix={collaborationsWithSuffix}
+                    />
+                  </div>
+                  <LiteratureDate date={date} />
                   <div className="mt3">
+                    <NumberOfPages numberOfPages={numberOfPages} />
+                    <ThesisInfo thesisInfo={thesisInfo} />
+                    <PublicationInfoList publicationInfo={publicationInfo} />
+                    <ConferenceInfoList conferenceInfo={conferenceInfo} />
+                    <IsbnList isbns={isbns} />
+                    <ArxivEprintList eprints={eprints} />
+                    <DOIList dois={dois} />
+                    <ReportNumberList reportNumbers={reportNumbers} />
+                    <AcceleratorExperimentList
+                      acceleratorExperiments={acceleratorExperiments}
+                    />
+                    <ExternalSystemIdentifierList
+                      externalSystemIdentifiers={externalSystemIdentifiers}
+                    />
+                  </div>
+                </ContentBox>
+              </Col>
+              <Col xs={24} lg={8}>
+                <ContentBox subTitle="Citations">
+                  <CitationsByYearGraphContainer />
+                </ContentBox>
+              </Col>
+            </Row>
+            <Row>
+              <Col span={24}>
+                <ContentBox>
+                  <div>
+                    <Abstract abstract={abstract} />
+                  </div>
+                  <div
+                    className={classNames({ mt3: publicNotes, mb3: keywords })}
+                  >
                     <PublicNotesList publicNotes={publicNotes} />
                   </div>
-                </Row>
-              )}
-              <Row>
-                <div className="mt3">
-                  <LiteratureKeywordList keywords={keywords} />
-                </div>
-              </Row>
-            </ContentBox>
-          </Col>
-          <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
-            <Tabs
-              type="card"
-              tabBarStyle={{ marginBottom: 0 }}
-              className="remove-top-border-of-card-children"
-            >
-              <Tabs.TabPane
-                tab={
-                  <TabNameWithCount
-                    name="References"
-                    count={numberOfReferences}
-                  />
-                }
-                key="1"
-              >
-                <ReferenceList
-                  error={errorReferences}
-                  references={references}
-                  loading={loadingReferences}
-                />
-              </Tabs.TabPane>
-              <Tabs.TabPane
-                tab={
-                  <TabNameWithCount
-                    name="Citations"
-                    loading={loadingCitations}
-                    count={citationCount}
-                  />
-                }
-                key="2"
-                forceRender
-              >
-                <CitationListContainer
-                  pidType="literature"
-                  recordId={recordId}
-                />
-              </Tabs.TabPane>
-              <Tabs.TabPane tab="Figures" key="3">
-                <ContentBox>
-                  This feature is currently under development.
+                  <div>
+                    <LiteratureKeywordList keywords={keywords} />
+                  </div>
                 </ContentBox>
-              </Tabs.TabPane>
-            </Tabs>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="mt3 mb3" span={24}>
+                <Tabs
+                  type="card"
+                  tabBarStyle={{ marginBottom: 0 }}
+                  className="remove-top-border-of-card-children"
+                >
+                  <Tabs.TabPane
+                    tab={
+                      <TabNameWithCount
+                        name="References"
+                        count={numberOfReferences}
+                      />
+                    }
+                    key="1"
+                  >
+                    <ReferenceList
+                      error={errorReferences}
+                      references={references}
+                      loading={loadingReferences}
+                    />
+                  </Tabs.TabPane>
+                  <Tabs.TabPane
+                    tab={
+                      <TabNameWithCount
+                        name="Citations"
+                        loading={loadingCitations}
+                        count={citationCount}
+                      />
+                    }
+                    key="2"
+                    forceRender
+                  >
+                    <CitationListContainer
+                      pidType="literature"
+                      recordId={recordId}
+                    />
+                  </Tabs.TabPane>
+                  <Tabs.TabPane tab="Figures" key="3">
+                    <ContentBox>
+                      This feature is currently under development.
+                    </ContentBox>
+                  </Tabs.TabPane>
+                </Tabs>
+              </Col>
+            </Row>
           </Col>
         </Row>
       </>

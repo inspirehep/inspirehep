@@ -133,7 +133,7 @@ class DetailPage extends Component {
             <Row
               className="mt3"
               type="flex"
-              gutter={{ xs: 0, md: 16, lg: 32 }}
+              gutter={{ xs: 0, md: 16, xl: 32 }}
               justify="space-between"
             >
               <Col xs={24} md={12} lg={16}>
