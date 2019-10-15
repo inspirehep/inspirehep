@@ -5,10 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM inspirehep/poetry:1.0.0a5
+FROM inspirehep/poetry:1.0.0b2
 WORKDIR /opt/inspire
 
-CMD ["run", "inspirehep", "shell"]
+ENTRYPOINT ["poetry", "run", "inspirehep"]
+CMD ["shell"]
 
 COPY poetry.lock pyproject.toml ./
 RUN poetry install --no-root -Exrootd
