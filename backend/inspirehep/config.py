@@ -171,6 +171,12 @@ RECORDS_DEFAULT_FILE_LOCATION_NAME = "records"
 RECORDS_DEFAULT_STORAGE_CLASS = "S"
 """Default storage class for record files."""
 
+FILES_REST_STORAGE_PATH_SPLIT_LENGTH = 0
+"""Length of the filename that should be taken to create its root dir."""
+
+FILES_REST_STORAGE_PATH_DIMENSIONS = 0
+"""Number of directory levels created for the storage."""
+
 # Pidstore
 # ========
 PIDSTORE_RECID_FIELD = "control_number"
