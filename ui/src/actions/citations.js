@@ -11,7 +11,6 @@ import {
   CITATIONS_BY_YEAR_ERROR,
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
-import { LITERATURE, AUTHORS } from '../common/routes';
 
 function fetchingCitations() {
   return {
@@ -68,26 +67,12 @@ export function fetchCitations(pidType, recordId, paginationOptions) {
   };
 }
 
-function getCitationsQuery(state) {
-  const { pathname } = state.router.location;
-
-  if (pathname.startsWith(LITERATURE)) {
-    return state.router.location.query;
-  }
-
-  if (pathname.startsWith(AUTHORS)) {
-    return state.authors.getIn(['publications', 'query']).toJS();
-  }
-
-  throw Error(`Can not get citations query for pathname: "${pathname}"`);
-}
-
-export function fetchCitationSummary() {
+export function fetchCitationSummary(literatureSearchQuery) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingCitationsSummary());
     try {
       const query = {
-        ...getCitationsQuery(getState()),
+        ...literatureSearchQuery,
         facet_name: 'citation-summary',
       };
       const queryString = stringify(query, { indices: false });
@@ -121,12 +106,12 @@ function fetchCitationsByYearError(error) {
   };
 }
 
-export function fetchCitationsByYear() {
+export function fetchCitationsByYear(literatureSearchQuery) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingCitationsByYear());
     try {
       const query = {
-        ...getCitationsQuery(getState()),
+        ...literatureSearchQuery,
         facet_name: 'citations-by-year',
       };
       const queryString = stringify(query, { indices: false });
