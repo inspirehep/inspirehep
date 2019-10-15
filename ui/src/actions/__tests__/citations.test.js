@@ -51,7 +51,7 @@ describe('citations - async action creator', () => {
     done();
   });
 
-  it('creates CITATIONS_SUMMARY_SUCCESS if successful [authors]', async done => {
+  it('creates CITATIONS_SUMMARY_SUCCESS if successful', async done => {
     mockHttp
       .onGet(
         '/literature/facets?author=J.M.Maxson.1_Jared&facet_name=citation-summary'
@@ -63,24 +63,15 @@ describe('citations - async action creator', () => {
       { type: types.CITATIONS_SUMMARY_SUCCESS, payload: { foo: 'bar' } },
     ];
 
-    const store = getStoreWithState({
-      router: {
-        location: { pathname: '/authors/12345' },
-      },
-      authors: fromJS({
-        publications: {
-          query: {
-            author: ['J.M.Maxson.1_Jared'],
-          },
-        },
-      }),
-    });
-    await store.dispatch(fetchCitationSummary());
+    const store = getStore();
+    await store.dispatch(
+      fetchCitationSummary({ author: ['J.M.Maxson.1_Jared'] })
+    );
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful [literature]', async done => {
+  it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async done => {
     mockHttp
       .onGet('/literature/facets?q=stuff&facet_name=citation-summary')
       .replyOnce(404, { message: 'Error' });
@@ -93,20 +84,13 @@ describe('citations - async action creator', () => {
       },
     ];
 
-    const store = getStoreWithState({
-      router: {
-        location: {
-          pathname: '/literature?q=stuff',
-          query: { q: 'stuff' },
-        },
-      },
-    });
-    await store.dispatch(fetchCitationSummary());
+    const store = getStore();
+    await store.dispatch(fetchCitationSummary({ q: 'stuff' }));
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('creates CITATIONS_BY_YEAR_SUCCESS if successful [authors]', async done => {
+  it('creates CITATIONS_BY_YEAR_SUCCESS if successful', async done => {
     mockHttp
       .onGet(
         '/literature/facets?author=J.M.Maxson.1_Jared&facet_name=citations-by-year'
@@ -118,24 +102,17 @@ describe('citations - async action creator', () => {
       { type: types.CITATIONS_BY_YEAR_SUCCESS, payload: { foo: 'bar' } },
     ];
 
-    const store = getStoreWithState({
-      router: {
-        location: { pathname: '/authors/12345' },
-      },
-      authors: fromJS({
-        publications: {
-          query: {
-            author: ['J.M.Maxson.1_Jared'],
-          },
-        },
-      }),
-    });
-    await store.dispatch(fetchCitationsByYear());
+    const store = getStore();
+    await store.dispatch(
+      fetchCitationsByYear({
+        author: ['J.M.Maxson.1_Jared'],
+      })
+    );
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
-  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful [literature]', async done => {
+  it('creates CITATIONS_BY_YEAR_ERROR if unsuccessful', async done => {
     mockHttp
       .onGet('/literature/facets?q=stuff&facet_name=citations-by-year')
       .replyOnce(404, { message: 'Error' });
@@ -148,15 +125,12 @@ describe('citations - async action creator', () => {
       },
     ];
 
-    const store = getStoreWithState({
-      router: {
-        location: {
-          pathname: '/literature?q=stuff',
-          query: { q: 'stuff' },
-        },
-      },
-    });
-    await store.dispatch(fetchCitationsByYear());
+    const store = getStore();
+    await store.dispatch(
+      fetchCitationsByYear({
+        q: 'stuff',
+      })
+    );
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });

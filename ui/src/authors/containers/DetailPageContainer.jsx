@@ -53,29 +53,43 @@ class DetailPage extends Component {
   }
 
   componentDidMount() {
-    this.dispatchFetchAuthorResources();
+    this.dispatchFetchAuthor();
   }
 
   componentDidUpdate(prevProps) {
     const { match } = this.props;
     const recordId = match.params.id;
     const prevRecordId = prevProps.match.params.id;
+
     if (recordId !== prevRecordId) {
-      this.dispatchFetchAuthorResources();
+      this.dispatchFetchAuthor();
       window.scrollTo(0, 0);
+    }
+
+    const { record } = this.props;
+    const prevRecord = prevProps.record;
+
+    // check is not empty, because author is set to empty while loading the new one.
+    if (!record.isEmpty() && record !== prevRecord) {
+      this.dispatchAuthorPublicationsAndCitations();
     }
   }
 
-  async dispatchFetchAuthorResources() {
+  dispatchFetchAuthor() {
     const { match, dispatch } = this.props;
     const recordId = match.params.id;
-    await dispatch(fetchAuthor(recordId));
+    dispatch(fetchAuthor(recordId));
+  }
+
+  dispatchAuthorPublicationsAndCitations() {
+    const { dispatch, publicationsQuery } = this.props;
 
     dispatch(fetchAuthorPublications());
     dispatch(fetchAuthorPublicationsFacets());
 
-    dispatch(fetchCitationSummary());
-    dispatch(fetchCitationsByYear());
+    const query = publicationsQuery.toJS();
+    dispatch(fetchCitationSummary(query));
+    dispatch(fetchCitationsByYear(query));
   }
 
   render() {
@@ -215,12 +229,14 @@ DetailPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
+  publicationsQuery: PropTypes.instanceOf(Map).isRequired,
   loading: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
   loading: state.authors.get('loading'),
   record: state.authors.get('data'),
+  publicationsQuery: state.authors.getIn(['publications', 'query']),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 
