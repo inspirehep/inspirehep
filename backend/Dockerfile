@@ -11,7 +11,7 @@ WORKDIR /opt/inspire
 CMD ["run", "inspirehep", "shell"]
 
 COPY poetry.lock pyproject.toml ./
-RUN poetry install --no-root --no-dev -Exrootd
+RUN poetry install --no-root -Exrootd
 
 COPY setup.py ./
 COPY inspirehep inspirehep/
