@@ -14,7 +14,7 @@ const routes = {
     literatureSearch: `${appBaseUrl}/literature`,
     literatureDetail1472986: `${appBaseUrl}/literature/1472986`,
     authorSearch: `${appBaseUrl}/authors`,
-    authorDetail983328: `${appBaseUrl}/authors/983328`,
+    authorDetail1274753: `${appBaseUrl}/authors/1274753`,
     jobsSearch: `${appBaseUrl}/jobs`,
     jobDetail1727456: `${appBaseUrl}/jobs/1727456`,
   },
