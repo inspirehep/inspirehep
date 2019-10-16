@@ -1,4 +1,5 @@
 import { stringify } from 'qs';
+import { Set } from 'immutable';
 
 import {
   AUTHOR_REQUEST,
@@ -13,6 +14,7 @@ import {
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
+import { isCataloger } from '../common/authorization';
 
 function fetchingAuthor(recordId) {
   return {
@@ -51,9 +53,11 @@ export function fetchAuthor(recordId) {
   };
 }
 
-function getAuthorPublicationsQuery(authorsState, newQuery) {
+function getAuthorPublicationsQuery(authorsState, newQuery, user) {
+  const userIsCataloger = isCataloger(Set(user.getIn(['data', 'roles'])));
   return {
     ...authorsState.getIn(['publications', 'query']).toJS(),
+    ...(userIsCataloger ? { size: 100 } : {}),
     ...newQuery,
   };
 }
@@ -81,9 +85,9 @@ function fetchAuthorPublicationsError(error) {
 
 export function fetchAuthorPublications(newQuery = {}) {
   return async (dispatch, getState, http) => {
-    const { authors } = getState();
+    const { authors, user } = getState();
 
-    const query = getAuthorPublicationsQuery(authors, newQuery);
+    const query = getAuthorPublicationsQuery(authors, newQuery, user);
     dispatch(fetchingAuthorPublications(query));
 
     const queryString = stringify(query, { indices: false });
@@ -124,9 +128,9 @@ function fetchAuthorPublicationsFacetsError(error) {
 const FACET_NAME = 'hep-author-publication';
 export function fetchAuthorPublicationsFacets(newQuery = {}) {
   return async (dispatch, getState, http) => {
-    const { authors } = getState();
+    const { authors, user } = getState();
 
-    const query = getAuthorPublicationsQuery(authors, newQuery);
+    const query = getAuthorPublicationsQuery(authors, newQuery, user);
 
     dispatch(fetchingAuthorPublicationsFacets(query));
 

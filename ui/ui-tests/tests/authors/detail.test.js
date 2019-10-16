@@ -17,7 +17,7 @@ describe('Author Detail', () => {
     await page.setRequestInterception(true);
     polly = createPollyInstance('AuthorDetail');
 
-    await page.goto(routes.public.authorDetail983328, {
+    await page.goto(routes.public.authorDetail1274753, {
       waitUntil: 'networkidle0',
     });
   });
@@ -39,7 +39,7 @@ describe('Author Detail', () => {
   it('sets author name as document title', async () => {
     const documentTitle = await page.title();
 
-    expect(documentTitle).toMatch(/^Edward Witten/);
+    expect(documentTitle).toMatch(/^Grit Hotzel/);
   });
 
   afterEach(async () => {

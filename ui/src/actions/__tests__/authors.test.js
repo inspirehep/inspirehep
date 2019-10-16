@@ -96,6 +96,42 @@ describe('AUTHOR - async action creators', () => {
       done();
     });
 
+    it('but uses size=100 when user is cataloger and creates AUTHOR_PUBLICATIONS_SUCCESS if successful', async done => {
+      mockHttp
+        .onGet('/literature?author=Harun&size=100&page=1')
+        .replyOnce(200, { foo: 'bar' });
+
+      const expectedActions = [
+        {
+          type: AUTHOR_PUBLICATIONS_REQUEST,
+          payload: { size: 100, page: 1, author: ['Harun'] },
+        },
+        { type: AUTHOR_PUBLICATIONS_SUCCESS, payload: { foo: 'bar' } },
+      ];
+
+      const store = getStoreWithState({
+        authors: fromJS({
+          data: {
+            metadata: {
+              facet_author_name: 'Harun',
+            },
+          },
+          publications: {
+            query: { author: ['Harun'] },
+          },
+        }),
+        user: fromJS({
+          loggedIn: true,
+          data: {
+            roles: ['cataloger'],
+          },
+        }),
+      });
+      await store.dispatch(fetchAuthorPublications({ page: 1 }));
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+
     it('and creates AUTHOR_PUBLICATIONS_ERROR if NOT successful', async done => {
       mockHttp
         .onGet('/literature?size=5&page=3&author=Harun&q=test')
