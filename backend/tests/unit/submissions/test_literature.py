@@ -41,6 +41,16 @@ def test_dump_arxiv_id():
     assert result == expected
 
 
+def test_dump_prerint_date():
+    data = {**DEFAULT_DATA_TO_DUMP, "preprint_date": "2019-10-15"}
+    record = faker.record("lit", data=data)
+
+    result = Literature().dump(record).data
+    expected = {**DEFAULT_DUMP, "preprint_date": "2019-10-15"}
+
+    assert result == expected
+
+
 def test_dump_doi():
     doi = faker.doi()
     data = {**DEFAULT_DATA_TO_DUMP, "dois": [{"value": doi}]}
@@ -313,6 +323,15 @@ def test_load_language_ignores_en():
     form = {**DEFAULT_DATA_TO_LOAD, "language": "en"}
 
     expected = {**DEFAULT_LOAD}
+    result = Literature().load(form).data
+
+    assert result == expected
+
+
+def test_load_preprint_date():
+    form = {**DEFAULT_DATA_TO_LOAD, "preprint_date": "2019-10-15"}
+
+    expected = {**DEFAULT_LOAD, "preprint_date": "2019-10-15"}
     result = Literature().load(form).data
 
     assert result == expected
