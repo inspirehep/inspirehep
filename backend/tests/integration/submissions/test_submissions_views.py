@@ -343,6 +343,7 @@ def test_new_literature_submit_no_merge(app, api_client, create_user, requests_m
                 "data": {
                     "arxiv_id": "1701.00006",
                     "arxiv_categories": ["hep-th"],
+                    "preprint_date": "2019-10-15",
                     "document_type": "article",
                     "authors": [{"full_name": "Urhan, Harun"}],
                     "title": "Discovery of cool stuff",
@@ -373,6 +374,7 @@ def test_new_literature_submit_no_merge(app, api_client, create_user, requests_m
                 "source": "submitter",
                 "datetime": "2019-06-17T00:00:00",
             },
+            "preprint_date": "2019-10-15",
             "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
             "authors": [{"full_name": "Urhan, Harun"}],
             "citeable": True,
