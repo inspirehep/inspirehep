@@ -14,11 +14,13 @@ def test_hep_author_publications_facets(base_app):
             "size": 20,
         },
     }
-    with base_app.test_request_context("?exclude_author_value=Jones, Jessica"):
+    with base_app.test_request_context("?author_recid=Jones, Jessica"):
         result = hep_author_publications()
         assert expect == result["aggs"]["author"]
-        assert "subject" not in result["aggs"]
-        assert "arxiv_categories" not in result["aggs"]
+        assert all(
+            agg not in result["aggs"]
+            for agg in ["subject", "arxiv_categories", "self_author"]
+        )
 
 
 def test_hep_author_publications_facets_without_exclude(base_app):
@@ -29,8 +31,10 @@ def test_hep_author_publications_facets_without_exclude(base_app):
     with base_app.test_request_context():
         result = hep_author_publications()
         assert expect == result["aggs"]["author"]
-        assert "subject" not in result["aggs"]
-        assert "arxiv_categories" not in result["aggs"]
+        assert all(
+            agg not in result["aggs"]
+            for agg in ["subject", "arxiv_categories", "self_author"]
+        )
 
 
 def test_hep_author_publications_cataloger_facets(base_app):
@@ -50,12 +54,32 @@ def test_hep_author_publications_cataloger_facets(base_app):
         "terms": {"field": "facet_arxiv_categories", "size": 20},
         "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
     }
-    with base_app.test_request_context("?exclude_author_value=Jones, Jessica"):
+    self_affiliations = {
+        "terms": {"field": "authors.affiliations.value", "size": 20},
+        "meta": {"title": "Affiliations", "order": 8, "type": "checkbox"},
+    }
+    self_author_names = {
+        "terms": {"field": "authors.full_name.raw", "size": 20},
+        "meta": {"title": "Name variations", "order": 9, "type": "checkbox"},
+    }
+    with base_app.test_request_context("?author_recid=Jones, Jessica"):
         result = hep_author_publications_cataloger()
         assert author == result["aggs"]["author"]
         assert subject == result["aggs"]["subject"]
         assert arxiv_categories == result["aggs"]["arxiv_categories"]
-
+        assert "self_author" in result["aggs"]
+        assert (
+            self_affiliations
+            == result["aggs"]["self_author"]["aggs"]["nested"]["aggs"][
+                "self_affiliations"
+            ]
+        )
+        assert (
+            self_author_names
+            == result["aggs"]["self_author"]["aggs"]["nested"]["aggs"][
+                "self_author_names"
+            ]
+        )
 
 def test_hep_conference_contributions_facets(base_app):
     expected_subject = {

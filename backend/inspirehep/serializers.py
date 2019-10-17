@@ -82,4 +82,26 @@ class JSONSerializerFacets(InvenioJSONSerializer):
             facets. This is used with
             ``inspirehep.search.factories.search.search_factory_only_with_aggs``.
         """
+
+        search_result["aggregations"] = self._unnest_aggregations(
+            search_result.get("aggregations", {})
+        )
+
         return json.dumps(search_result)
+
+    @staticmethod
+    def _unnest_aggregations(aggregations):
+        """Flatten the aggregation dict in case there are nested aggregations."""
+
+        new_aggs = {}
+
+        for agg_key, agg_value in aggregations.items():
+            if "nested" in agg_value:
+                nested = agg_value["nested"]
+                for nested_key in nested:
+                    if nested_key != "doc_count":
+                        new_aggs[nested_key] = nested[nested_key]
+            else:
+                new_aggs[agg_key] = agg_value
+
+        return new_aggs

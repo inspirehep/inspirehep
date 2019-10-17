@@ -23,7 +23,13 @@
           "record": {
             "$ref": "http://labs.inspirehep.net/api/institutions/903139"
           },
-          "value": "Princeton U."
+          "value": "Princeton, Inst. Advanced Study"
+        },
+        {
+          "record": {
+            "$ref": "http://labs.inspirehep.net/api/institutions/903140"
+          },
+          "value": "Harvard U."
         }
       ],
       "curated_relation": true,

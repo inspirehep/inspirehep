@@ -19,11 +19,7 @@ describe('Literature Detail', () => {
 
   it('should match image snapshot for a literature', async () => {
     const desktopSS = await takeScreenShotForDesktop(page);
-    // FIXME: citations by year graph is rendered incorrectly sometimes, therefore `failureThreshold`
-    expect(desktopSS).toMatchImageSnapshot({
-      failureThreshold: '0.04',
-      failureThresholdType: 'percent',
-    });
+    expect(desktopSS).toMatchImageSnapshot();
 
     const mobileSS = await takeScreenShotForMobile(page);
     expect(mobileSS).toMatchImageSnapshot();

@@ -23,6 +23,7 @@ const routes = {
 const selectors = {
   searchResults: '[data-test-id="search-results"]',
   loadingIndicator: '[data-test-id="loading"]',
+  citationsByYearGraph: '[data-test-id="citations-by-year-graph"]',
 };
 
 module.exports = {

@@ -174,7 +174,7 @@ describe('AUTHOR - async action creators', () => {
     it('and creates AUTHOR_PUBLICATIONS_FACETS_SUCCESS if successful', async done => {
       mockHttp
         .onGet(
-          '/literature/facets?facet_name=hep-author-publication&exclude_author_value=Harun&size=5&page=3&author=Harun&q=test'
+          '/literature/facets?facet_name=hep-author-publication&author_recid=Harun&size=5&page=3&author=Harun&q=test'
         )
         .replyOnce(200, { foo: 'bar' });
 
@@ -208,7 +208,7 @@ describe('AUTHOR - async action creators', () => {
     it('and creates AUTHOR_PUBLICATIONS_FACETS_ERROR if NOT successful', async done => {
       mockHttp
         .onGet(
-          '/literature/facets?facet_name=hep-author-publication&exclude_author_value=Harun&size=5&page=3&author=Harun&q=test'
+          '/literature/facets?facet_name=hep-author-publication&author_recid=Harun&size=5&page=3&author=Harun&q=test'
         )
         .replyOnce(500, { message: 'Error' });
 
