@@ -1,20 +1,19 @@
 import hashlib
-import re
 import uuid
 from io import BytesIO
 
 import structlog
-from fs.errors import ResourceNotFoundError
+from flask import current_app
 from fs.opener import fsopen
 from invenio_db import db
-from invenio_files_rest.models import ObjectVersion
+from invenio_files_rest.models import Bucket, ObjectVersion
+from invenio_records.errors import MissingModelError
 from sqlalchemy import func
 
+from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.models import RecordCitations
 
 LOGGER = structlog.getLogger()
-
-FILES_API_PREFIX = "/api/files"
 
 
 class CitationMixin:
@@ -114,242 +113,134 @@ class CitationMixin:
 
 
 class FilesMixin:
-    def add_file(self, url, original_url=None, filename=None, **kwargs):
-        """Downloads file from url and saves it with `filename` as a proper name.
+    @classmethod
+    def create_bucket(cls, data):
+        location = current_app.config["RECORDS_DEFAULT_FILE_LOCATION_NAME"]
+        storage_class = current_app.config["RECORDS_DEFAULT_STORAGE_CLASS"]
+        return Bucket.create(location=location, storage_class=storage_class)
 
-        If filename is not provided ti will be resolved in the following way:
-            - Use filename if it's provided
-            - Check if key looks as proper filename, if yes then use it.
-            - if original_url is provided and last part of it (after last `/`)
-              looks like proper filename then use it
-            - as last resort use last part of `url` (after last `/`)
+    @property
+    def files(self):
+        if self.model is None:
+            raise MissingModelError()
+        bucket = self.get_bucket()
+        return self.files_iter_cls(self, bucket=bucket, file_cls=self.file_cls)
 
-        Args:
-            url (string): Url to a file, or to local api
-            filename (string): Proper name of the file.
-            original_url (string): URL from which this document was downloaded
+    def add_file(self, url, original_url=None, key=None, filename=None, **kwargs):
 
-        Keyword Args:
-            description (string): works for documents and figures
-            fulltext (bool): works for documents only
-            hidden (bool): works for documents only
-            material (string): works for documents and figures
-            caption (string): works for facets only
-            key (string): Can contain name of the file (compatibility with inspire-next)
+        if self.local_url(url):
+            LOGGER.debug("Local url trying to copy existing file", url=url)
+            bucket, key = self.find_bucket_and_key_from_local_url(url)
+            key = self.add_local_file(key, bucket)
+            if not key and original_url:
+                LOGGER.debug(
+                    "Failed to match the local file, trying to download file from original_url",
+                    url=url,
+                    original_url=original_url,
+                )
+                key = self.add_file_from_url(original_url)
+        else:
+            LOGGER.debug("Downloading external url", url=url)
+            key = self.add_file_from_url(url)
 
-        Returns:
-            dict: Metadata for file
-        """
-        key = self.find_and_add_file(url, original_url)
         if not key:
-            raise FileNotFoundError(f"File `{url}|{original_url}` not found")
+            raise DownloadFileError(f"{url} cannot be downloaded")
 
         if not filename:
-            LOGGER.debug("filename not provided", url=url)
-            original_key = kwargs.get("key")
+            filename = self.get_filiname_from_original_url_or_url_or_key(
+                original_url, url, key
+            )
 
-            if original_key and self.is_filename(original_key):
-                LOGGER.debug("Using original key as filename")
-                filename = original_key
-
-            if not filename and original_url:
-                LOGGER.debug(
-                    "Processing original_url to resolve filename", url=original_url
-                )
-                try:
-                    filename = self.split_url(original_url)["file"]
-                except ValueError:
-                    pass
-
-            if not filename:
-                LOGGER.debug("Processing url to resolve filename", url=url)
-                try:
-                    filename = self.split_url(url)["file"]
-                except ValueError:
-                    LOGGER.warning("Cannot resolve filename, using key instead")
-                    filename = key
-
-        LOGGER.debug(f"Using {filename} as filename")
         self.files[key]["filename"] = filename
+        self.files.flush()
 
         return {
             "key": key,
             "filename": filename,
             "original_url": url if not original_url else original_url,
-            "url": f"{FILES_API_PREFIX}/{self.files[key].bucket_id}/{key}",
+            "url": self.get_file_url(key),
         }
 
-    def find_and_add_file(self, url, original_url=None):
-        """Finds proper url (url or original_url) and method to download file.
+    def add_local_file(self, key, bucket=None):
+        file_object = self.get_file_object(key, bucket)
 
-        Args:
-            url (str): Local or remote path to a file
-            original_url (str): Local or remote path to a file
-
-        Returns:
-            str: Key of downloaded file, or `None` if file was not found
-        """
-        urls = [_url for _url in [url, original_url] if _url]
-        key = None
-        for _url in urls:
-            try:
-                if _url.startswith(FILES_API_PREFIX):
-                    LOGGER.debug("file is local", url=url)
-                    key = self.download_file_from_local_storage(_url)
-            except FileNotFoundError:
-                LOGGER.warning("Cannot copy from local storage", url=url)
-        if not key:
-            for _url in urls:
-                try:
-                    if _url.startswith("http"):
-                        LOGGER.debug("file is web based.", url=url)
-                        key = self.download_file_from_url(_url)
-                except ResourceNotFoundError:
-                    LOGGER.warning("Cannot download file", url=url)
-        return key
-
-    def download_file_from_local_storage(self, url, **kwargs):
-        """Opens local file with ObjectVersion API.
-        Callculates it's hash and returns hash of the file.
-
-        Args:
-            url (str): Local url which starts with /api/files/
-
-        Returns:
-            str: key(sha-1) of downloaded file
-
-        Examples:
-            >>> url = '/api/files/261926f6-4923-458e-adb0/207611e7bf8a83f0739bb2e'
-            >>> self.download_file_from_local_storage(url)
-                '207611e7bf8a83f0739bb2e'
-        """
-        url_splited = self.split_url(url)
-        try:
-            file_ = self.find_local_file(
-                key=url_splited["file"], bucket_id=url_splited["bucket"]
-            )
-        except ValueError:
-            LOGGER.exception("Cannot download file from local storage", url=url_splited)
-            file_ = None
-
-        if not file_:
-            raise FileNotFoundError(f"{url} is not a valid file in local storage!")
-        file_hash = None
-        if self.is_hash(url_splited["file"]):
-            file_hash = url_splited["file"]
-        return self.copy_local_file(file_, file_hash)
-
-    def download_file_from_url(self, url):
-        """Downloads file and calculates hash for it
-
-        If everything is ok then adds it to files in current record.
-        If file with same hash already found in db, tries to use this one
-        instead of creating duplicate (uses `ObjectVersion.copy()` method)
-
-        Args:
-            url (str): Local or remote url/filepath
-
-        Returns:
-            str: key(sha-1) of downloaded file
-
-        Raises:
-            ValueError: can be raised in `self.hash_data` method if no data is provided
-
-        Example:
-            >>> self.download_file_from_url('http://example.com/url_to_file.pdf')
-            '207611e7bf8a83f0739bb2e16a1a7cf0d585fb5f'
-        """
-        stream = fsopen(url, mode="rb")
-        # TODO: change to stream.read() when fs will be updated to >= 2.0
-        # As HTTPOpener is not working with size = -1
-        # (and read() method sets this size as default)
-        # This is workaround until we will update to fs >2.0
-        data = stream._f.wrapped_file.read()
-        key = self.hash_data(data=data)
-        if key in self.files.keys:
-            LOGGER.debug("File already attached to record", key=key, uuid=self.id)
-            return key
-
-        file_ = self.find_local_file(key=key)
-        new_key = None
-
-        if file_:
-            LOGGER.debug("Same file found locally, trying to copy", uuid=self.id)
-            try:
-                new_key = self.copy_local_file(file_, key)
-            except (ValueError, AttributeError):
-                pass
-        if not new_key:
-            LOGGER.debug("Adding file to record", key=key, uuid=self.id)
-            self.files[key] = BytesIO(data)
-        return key
-
-    def find_local_file(self, key, bucket_id=None):
-        """Tries to find proper file.
-
-        If `key` is a proper hash and there is no bucket_id it will take first one.
-        Allows to search for same files and prevents of creating duplicates.
-
-        Args:
-            key (str): filename or hash
-            bucket_id: proper bucket uuid
-
-        Returns:
-            ObjectVersion: found file, or none if not found.
-        """
-        if not bucket_id and not self.is_hash(key):
+        if not file_object:
+            LOGGER.debug("Local file not found", key=key, bucket=bucket)
             return None
+
+        key_hashed = key if self.is_hash(key) else None
+
+        if not self.verify_hash_of_files(file_object, key_hashed):
+            key_hashed = self.hash_data(file_instance=file_object)
+
+        if key_hashed not in self.files.keys:
+            file_object.copy(bucket=self.files.bucket.id, key=key_hashed)
+
+        self.files.flush()
+        return key_hashed
+
+    def add_file_from_url(self, url):
+        stream = fsopen(url, mode="rb")
+        data = stream._f.wrapped_file.read()
+        key_hashed = self.hash_data(data=data)
+
+        if key_hashed in self.files.keys:
+            LOGGER.debug("File already exists.", key=key_hashed)
+            return key_hashed
+
+        local_file_key_hashed = self.add_local_file(key_hashed)
+
+        if not local_file_key_hashed:
+            self.files[key_hashed] = BytesIO(data)
+        return key_hashed
+
+    def get_file_url(self, key):
+        api_prefix = current_app.config["FILES_API_PREFIX"]
+        return f"{api_prefix}/{self.files[key].bucket_id}/{key}"
+
+    def get_file_object(self, key, bucket_id=None):
         if not bucket_id:
             return ObjectVersion.query.filter(
                 ObjectVersion.key == key, ObjectVersion.is_head.is_(True)
             ).first()
+
         return ObjectVersion.get(bucket=bucket_id, key=key)
 
-    def verify_file(self, file_, file_hash):
-        """Verifies if `file` instance is correct for specified `hash`.
+    def get_filiname_from_original_url_or_url_or_key(self, original_url, url, key):
+        filename = None
+        if original_url:
+            filename = self.find_filename_from_url(original_url)
+        elif url:
+            filename = self.find_filename_from_url(url)
+        return filename or key
 
-        Args:
-            file (ObjectVersion): File to verify
-            file_hash (str): Hash of the file
+    def get_bucket(self):
+        if self.bucket:
+            return self.bucket
+        return self.create_bucket()
 
-        Returns:
-            str: Returns hash itself it it's matching the file, None otherwise
-        """
-        calculated_hash = self.hash_data(file_instance=file_)
-        if calculated_hash == file_hash:
-            return file_hash
-        return None
+    def verify_hash_of_files(self, file_object, file_hash):
+        calculated_hash = self.hash_data(file_instance=file_object)
+        return calculated_hash == file_hash
 
-    def copy_local_file(self, file_, original_key=None):
-        """Copies file from local storage from `file` to this record.
+    @staticmethod
+    def find_bucket_and_key_from_local_url(url):
+        bucket, key = url.split("/")[-2:]
+        if not FilesMixin.is_bucket_uuid(bucket) or not key:
+            raise ValueError(f"{url} Not a valid local url.")
+        return bucket, key
 
-        Verifies current hash with the `original_key` it is provided.
+    @staticmethod
+    def find_filename_from_url(url):
+        try:
+            return url.split("/")[-1]
+        except AttributeError:
+            return None
 
-        Args:
-            file (ObjectVersion): file instance form which data should be copied
-            original_key (str): hash to verify
-
-        Returns:
-            str: hash for copied file
-
-        Raises:
-            ValueError: when hash to verify was provided and
-                it didn't match to file hash
-        """
-        if original_key:
-            key = self.verify_file(file_, original_key)
-            if not key:
-                raise ValueError("File verifiaction failed! Hashes do not match!")
-        else:  # Compatibility with old way of holding files
-            key = self.hash_data(file_instance=file_)
-
-        if key not in self.files.keys:
-            LOGGER.debug("Adding file to record", key=key, uuid=self.id)
-            file_.copy(bucket=self.files.bucket.id, key=key)
-            self["_files"] = self.files.dumps()
-        else:
-            LOGGER.debug("File already attached to record", key=key, uuid=self.id)
-        return key
+    @staticmethod
+    def local_url(url):
+        api_prefix = current_app.config["FILES_API_PREFIX"]
+        return url.startswith(api_prefix)
 
     @staticmethod
     def hash_data(data=None, file_instance=None):
@@ -375,106 +266,17 @@ class FilesMixin:
         if data:
             return hashlib.sha1(data).hexdigest()
 
-        raise ValueError("Data for hashing cannot be empty!")
-
-    @staticmethod
-    def is_filename(test_str):
-        """Checks if provided string looks like proper filename.
-
-        Args:
-            test_str: String for testing
-
-        Returns:
-            bool: True if filename looks valid, False otherwise.
-
-        Raises:
-            re.error: from re.match
-        """
-        match = re.match(
-            r"^([a-zA-Z0-9_]+)\.(?!\.)([a-zA-Z0-9]{1,5})(?<!\.)$", test_str
-        )
-        if match and match.start() == 0:
-            return True
-        return False
-
-    @staticmethod
-    def is_hash(test_str):
-        """Very naive hash check.
-
-        Args:
-            test_str (str): tested string
-
-        Returns:
-            bool: True if 'test_str' looks like hash, False otherwise.
-
-        Raises:
-            TypeError: from len() function
-        """
-        if test_str and len(test_str) == 40:
-            return True
-        return False
+        raise ValueError("Data for hashing cannot be empty")
 
     @staticmethod
     def is_bucket_uuid(test_str):
-        """Naive method to check if `test_str` can be ``bucket_uuid``.
-
-        It just wraps uuid.UUID('uuid_str') class to be sure that no exception is thrown.
-
-        Args:
-            test_str (str): string to test
-
-        Returns:
-            bool: `True` if `test_str` looks like bucket_uuid, False otherwise.
-        """
+        """Naive method to check if `test_str` can be ``bucket_uuid``."""
         try:
             uuid.UUID(test_str)
             return True
         except (ValueError, TypeError):
             return False
 
-    @classmethod
-    def split_url(cls, url):
-        """Tries to split url to grab `bucket_id` and `filename` / `file_hash`.
-
-        Args:
-            url (str): Url
-
-        Returns:
-            dict: dictionary containing:
-                ``bucket`` (str): id of the bucket
-                ``file`` (str): filename or hash
-        Raises:
-            ValueError: When it's not possible to parse url properly
-
-        Examples:
-            >>> InspireRecord.split_url('/api/files/261926f6-4923-458e-adb0/
-                207611e7bf8a83f0739bb2e')
-            {
-                'bucket': '261926f6-4923-458e-adb0',
-                'file': '207611e7bf8a83f0739bb2e',
-            }
-            >>> InspireRecord.split_url('https://some_url.com/some/path/to/file.txt')
-            {
-                'bucket': None,
-                'file': 'file.txt'
-            }
-        """
-
-        url_splited = url.split("://")[-1].split("/")
-        if len(url_splited) < 2:
-            raise ValueError(f"{url} does not contain bucket and/or file part")
-
-        if cls.is_hash(url_splited[-1]) or cls.is_filename(url_splited[-1]):
-            file_ = url_splited[-1]
-        else:
-            raise ValueError(f"{url} does not contain filename or file hash")
-
-        if not url.startswith("http"):
-            if url.startswith(FILES_API_PREFIX) and cls.is_bucket_uuid(url_splited[-2]):
-                bucket = url_splited[-2]
-            else:
-                raise ValueError("Missing bucket id")
-        else:
-            bucket = None
-
-        return {"bucket": bucket, "file": file_}
+    @staticmethod
+    def is_hash(test_str):
+        return test_str and len(test_str) == 40

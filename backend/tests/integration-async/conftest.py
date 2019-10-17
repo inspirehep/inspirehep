@@ -20,7 +20,7 @@ from invenio_db import db
 from invenio_search import current_search_client as es
 from redis import StrictRedis
 
-from inspirehep.factory import create_api as inspire_create_app
+from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.fixtures import (
     init_default_storage_path,

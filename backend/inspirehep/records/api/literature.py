@@ -7,6 +7,7 @@
 import datetime
 import json
 import uuid
+from copy import copy
 
 import requests
 import structlog
@@ -72,24 +73,12 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         cls, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
     ):
         with db.session.begin_nested():
-            LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
-
             record = super().create(data, **kwargs)
-            record.add_files()
-
-            if disable_citation_update:
-                LOGGER.info(
-                    "Record citation update disabled", recid=record["control_number"]
-                )
-            else:
-                record.update_refs_in_citation_table()
-            if disable_orcid_push:
-                LOGGER.info(
-                    "Record ORCID PUSH disabled", recid=record["control_number"]
-                )
-            else:
-                push_to_orcid(record)
-            record.push_authors_phonetic_blocks_to_redis()
+            record.update(
+                dict(record),
+                disable_orcid_push=disable_orcid_push,
+                disable_citation_update=disable_citation_update,
+            )
             return record
 
     @classmethod
@@ -143,8 +132,9 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
     ):
         with db.session.begin_nested():
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
+            data = self.add_files(data)
             super().update(data)
-            self.add_files()
+
             if disable_citation_update:
                 LOGGER.info(
                     "Record citation update disabled",
@@ -162,18 +152,22 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 )
             else:
                 push_to_orcid(self)
+
             self.push_authors_phonetic_blocks_to_redis()
 
-    def add_files(self):
-        """Sets the ``documents`` and ``figures`` for record."""
+    def add_files(self, data):
         if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
-            return
+            return data
 
-        documents = self.pop("documents", [])
-        figures = self.pop("figures", [])
+        if "deleted" in data and data["deleted"]:
+            return data
+
+        documents = data.pop("documents", [])
+        figures = data.pop("figures", [])
 
         keys = []
-        builder = LiteratureBuilder(record=dict(self))
+        builder = LiteratureBuilder(record=data)
+
         for document in documents:
             file_data = self.add_file(document=True, **document)
             document.update(file_data)
@@ -184,8 +178,9 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
             builder.add_document(**document)
             keys.append(document["key"])
-            if "documents" in builder.record:
-                self["documents"] = builder.record["documents"]
+
+        if "documents" in builder.record:
+            data["documents"] = builder.record["documents"]
 
         for figure in figures:
             file_data = self.add_file(**figure)
@@ -193,13 +188,16 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
             builder.add_figure(**figure)
             keys.append(figure["key"])
 
-            if "figures" in builder.record:
-                self["figures"] = builder.record["figures"]
+        if "figures" in builder.record:
+            data["figures"] = builder.record["figures"]
 
         if self.files:
             for key in list(self.files.keys):
                 if key not in keys:
                     del self.files[key]
+        if "_files" in self:
+            data["_files"] = copy(self["_files"])
+        return data
 
     def get_modified_references(self):
         """Return the ids of the references diff between the latest and the

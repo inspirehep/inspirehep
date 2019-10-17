@@ -13,7 +13,7 @@ def test_bibtex(api_client, db, es, create_record):
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_etag = '"application/x-bibtex@v0"'
+    expected_etag = '"application/x-bibtex@v1"'
     expected_result = '@article{637275237,\n    title = "This is a title."\n}\n'
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers

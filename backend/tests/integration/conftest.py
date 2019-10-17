@@ -12,7 +12,6 @@ import random
 from functools import partial
 
 import pytest
-import vcr
 from click.testing import CliRunner
 from flask import current_app
 from flask.cli import ScriptInfo
@@ -124,6 +123,7 @@ def db_(database):
 @pytest.fixture(scope="function")
 def db(db_):
     init_default_storage_path()
+    init_records_files_storage_path()
     yield db_
 
 
@@ -298,28 +298,3 @@ def redis(base_app):
     r.flushall()
 
     yield r
-
-
-@pytest.fixture(scope="session")
-def vcr_config():
-    return {
-        "decode_compressed_response": True,
-        "filter_headers": ("Authorization", "User-Agent"),
-        "ignore_hosts": (
-            "cache",
-            "db",
-            "elasticsearch",
-            "flower",
-            "indexer",
-            "localhost",
-            "mq",
-            "postgres",
-            "redis",
-            "ui",
-            "web-next",
-            "web-worker",
-            "web",
-            "worker",
-        ),
-        "record_mode": "once",
-    }

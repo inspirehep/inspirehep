@@ -5,84 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 import pytest
 
 from inspirehep.records.api.mixins import FilesMixin
-
-
-def test_split_url_from_http_with_filename():
-    request = "http://some_url.com/some_api/filename.txt"
-    expected_response = {"file": "filename.txt", "bucket": None}
-    assert FilesMixin.split_url(request) == expected_response
-
-
-def test_split_url_from_http_with_filename_and_fake_bucket_id():
-    request = "https://some_url.com/1b6d53a5-0d96-431f-bee6-1e07c59c0fbb/file.txt"
-    expected_response = {"file": "file.txt", "bucket": None}
-
-    assert FilesMixin.split_url(request) == expected_response
-
-
-def test_split_url_from_local_api_with_old_filename():
-    request = "/api/files/1b6d53a5-0d96-431f-bee6-1e07c59c0fbb/different_filename.pdf"
-    expected_response = {
-        "file": "different_filename.pdf",
-        "bucket": "1b6d53a5-0d96-431f-bee6-1e07c59c0fbb",
-    }
-
-    assert FilesMixin.split_url(request) == expected_response
-
-
-def test_split_url_from_local_api_with_new_file_key():
-    request = (
-        "/api/files/980e0985-be35-4301-af3d-e1ec6a1208e2/"
-        "5b9cc946ba36be6a60d25708a81bb2c105f04c1f"
-    )
-    expected_response = {
-        "file": "5b9cc946ba36be6a60d25708a81bb2c105f04c1f",
-        "bucket": "980e0985-be35-4301-af3d-e1ec6a1208e2",
-    }
-
-    assert FilesMixin.split_url(request) == expected_response
-
-
-def test_split_url_from_http_without_filename_and_hash():
-    request = "http://some_url.com"
-    with pytest.raises(ValueError):
-        FilesMixin.split_url(request)
-
-
-def test_split_url_from_local_api_without_filename_and_hash():
-    request = "/api/files"
-    with pytest.raises(ValueError):
-        FilesMixin.split_url(request)
-
-
-def test_split_url_from_local_api_with_wrong_file_hash():
-    request = (
-        "/api/1b6d53a5-0d96-431f-bee6-1e07c59c0fbb/"
-        "5b9cc946ba36be6a60d25708a81bb2c105f04c1"
-    )
-    with pytest.raises(ValueError):
-        FilesMixin.split_url(request)
-
-
-def test_split_url_from_local_api_with_wrong_bucket_id():
-    request = "/api/1b6d53a5-0d96-431f-bee6-e07c59c0fb/correct_file.txt"
-    with pytest.raises(ValueError):
-        FilesMixin.split_url(request)
-
-
-def test_split_url_from_http_with_wrong_filename():
-    request = "https://980e0985-be35-4301-af3d-e1ec6a1208e2/file_without_dot"
-    with pytest.raises(ValueError):
-        FilesMixin.split_url(request)
-
-
-def test_split_url_from_local_api_without_filename():
-    request = "/api/980e0985-be35-4301-af3d-e1ec6a1208e2"
-    with pytest.raises(ValueError):
-        FilesMixin.split_url(request)
 
 
 def test_hash_check():
@@ -122,23 +48,43 @@ def test_bucket_uuid_check():
         assert FilesMixin.is_bucket_uuid(wrong_uuid) is False
 
 
-def test_filenames_check():
-    correct_filenames = ["filename.txt", "file.pdf", "some_name.png"]
-
-    wrong_filenames = [
-        "file/name.txt",
-        "file_name",
-        "file name",
-        "some_file_name.more_letters",
-        "^%&$RGFE#.#@$",
-    ]
-
-    for name in correct_filenames:
-        assert FilesMixin.is_filename(name) is True
-    for wrong_name in wrong_filenames:
-        assert FilesMixin.is_filename(wrong_name) is False
+@mock.patch("inspirehep.records.api.mixins.current_app")
+def test_is_local_url(mock_current_app):
+    mock_current_app.config = {"FILES_API_PREFIX": "/api/files"}
+    url = "/api/files/blabla"
+    assert FilesMixin.local_url(url)
 
 
-def test_empty_data_for_hashing():
+@mock.patch("inspirehep.records.api.mixins.current_app")
+def test_is_local_url_with_external(mock_current_app):
+    mock_current_app.config = {"FILES_API_PREFIX": "/api/files"}
+    url = "http://jessicajones.com"
+    assert not FilesMixin.local_url(url)
+
+
+def test_filename_from_external():
+    url = "http://marvel.com/jessicajones.txt"
+    expected = "jessicajones.txt"
+
+    assert expected == FilesMixin.find_filename_from_url(url)
+
+
+def test_filename_from_external_with_invalid_url():
+    url = ""
+    expected = ""
+
+    assert expected == FilesMixin.find_filename_from_url(url)
+
+
+def test_filename_from_local():
+    url = "/api/files/1b6d53a5-0d96-431f-bee6-1e07c59c0fbb/different_filename.pdf"
+    expected = ["1b6d53a5-0d96-431f-bee6-1e07c59c0fbb", "different_filename.pdf"]
+
+    assert expected == FilesMixin.find_bucket_and_key_from_local_url(url)
+
+
+def test_filename_from_local():
+    url = "/api/files/1b6d53a5-0d96-431f-bee6-1e07c59c0fbbdsdsadsadsadas/different_filename.pdf"
+    expected = ["1b6d53a5-0d96-431f-bee6-1e07c59c0fbb", "different_filename.pdf"]
     with pytest.raises(ValueError):
-        FilesMixin.hash_data(data=None)
+        FilesMixin.find_bucket_and_key_from_local_url(url)

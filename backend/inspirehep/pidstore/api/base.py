@@ -41,7 +41,12 @@ class PidStoreBase(object):
         pid_base = cls(object_uuid, data)
         pid_base.delete_external_pids()
         for minter in cls.minters:
-            minter.delete(object_uuid, data)
+            try:
+                minter.delete(object_uuid, data)
+            except PIDDoesNotExistError:
+                LOGGER.warning(
+                    "Pid is missing or already deleted", object_uuid=object_uuid
+                )
 
     def delete_external_pids(self):
         try:

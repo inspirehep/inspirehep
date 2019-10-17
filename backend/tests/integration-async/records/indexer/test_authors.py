@@ -96,7 +96,7 @@ def test_record_created_through_api_is_indexed(
     headers = {"Authorization": f"Bearer {token.access_token}"}
     content_type = "application/json"
     response = app.test_client().post(
-        f"authors", json=data, headers=headers, content_type=content_type
+        "/api/authors", json=data, headers=headers, content_type=content_type
     )
     assert response.status_code == 201
 

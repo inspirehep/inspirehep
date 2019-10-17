@@ -19,7 +19,7 @@ def test_record_versioning(app, clear_environment):
         "_collections": ["Literature"],
     }
 
-    expected_version_created = 1
+    expected_version_created = 2
     expected_count_created = 1
     record = LiteratureRecord.create(data)
     record_control_number = record["control_number"]
@@ -30,7 +30,7 @@ def test_record_versioning(app, clear_environment):
     with pytest.raises(AttributeError):
         record._previous_version
 
-    expected_version_updated = 2
+    expected_version_updated = 3
     expected_count_updated = 2
     record_updated = LiteratureRecord.get_record_by_pid_value(record_control_number)
     record_updated.update(dict(record_updated))
