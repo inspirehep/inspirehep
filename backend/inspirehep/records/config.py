@@ -37,6 +37,7 @@ from inspirehep.search.facets import (
     hep_author_publications_cataloger,
     hep_conference_contributions,
     must_match_all_filter,
+    must_match_all_filter_nested,
     range_author_count_filter,
 )
 
@@ -374,6 +375,12 @@ HEP_COMMON_FILTERS = {
     "collaboration": must_match_all_filter("facet_collaborations"),
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),
+    "self_affiliations": must_match_all_filter_nested(
+        "authors", "authors.affiliations.value"
+    ),
+    "self_author_names": must_match_all_filter_nested(
+        "authors", "authors.full_name.raw"
+    ),
 }
 
 HEP_FILTERS = {

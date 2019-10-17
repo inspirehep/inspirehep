@@ -26,11 +26,7 @@ describe('Author Detail', () => {
     await page.waitFor(selectors.searchResults);
 
     const desktopSS = await takeScreenShotForDesktop(page);
-    // FIXME: citations by year graph is rendered incorrectly sometimes, therefore `failureThreshold`
-    expect(desktopSS).toMatchImageSnapshot({
-      failureThreshold: '0.071',
-      failureThresholdType: 'percent',
-    });
+    expect(desktopSS).toMatchImageSnapshot();
 
     const mobileSS = await takeScreenShotForMobile(page);
     expect(mobileSS).toMatchImageSnapshot();

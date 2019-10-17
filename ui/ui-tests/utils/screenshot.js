@@ -1,3 +1,5 @@
+/* eslint-disable no-await-in-loop, no-restricted-syntax */
+
 const { selectors } = require('./constants');
 
 async function fastForwardAnimations(page) {
@@ -26,9 +28,18 @@ async function waitForLoadingIndicatorsToDisappear(page) {
 async function takeScreenShotForDesktop(page) {
   await fastForwardAnimations(page);
   await page.setViewport({ width: 1366, height: 768 });
-
   await disableBlinkingInputCursor(page);
   await waitForLoadingIndicatorsToDisappear(page);
+
+  // FIXME:
+  // LineSeries plots (even on the production) are rendered inconsistently with different
+  // width and then go back to original/expected width once they are clicked
+  const plot = await page.$(selectors.citationsByYearGraph);
+  if (plot) {
+    await plot.click();
+    await page.click('body');
+  }
+
   return page.screenshot({ fullPage: true });
 }
 

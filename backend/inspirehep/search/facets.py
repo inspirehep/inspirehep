@@ -22,16 +22,26 @@ def must_match_all_filter(field):
     """Bool filter containing a list of must matches."""
 
     def inner(values):
-        filters = []
-        for value in values:
-            filters.append(Q("match", **{field: value}))
+        filters = [Q("match", **{field: value}) for value in values]
         return Q("bool", must=filters)
 
     return inner
 
 
+def must_match_all_filter_nested(nested_path, match_field):
+    """Bool filter containing a list of must matches for nested queries."""
+
+    def inner(values):
+        filters = [Q("match", **{match_field: value}) for value in values]
+        return Q(
+            "bool", must=Q("nested", path=nested_path, query=Q("bool", must=filters))
+        )
+
+    return inner
+
+
 def hep_author_publications():
-    exclude_value = request.values.get("exclude_author_value", "", type=str)
+    author_recid = request.values.get("author_recid", "", type=str)
     return {
         "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
         "aggs": {
@@ -40,7 +50,7 @@ def hep_author_publications():
                 "terms": {
                     "field": "facet_author_name",
                     "size": 20,
-                    "exclude": exclude_value,
+                    "exclude": author_recid,
                 },
                 "meta": {"title": "Collaborators", "order": 3, "split": True},
             },
@@ -68,6 +78,7 @@ def hep_conference_contributions():
 
 
 def hep_author_publications_cataloger():
+    author_recid = request.values.get("author_recid", "", type=str)
     publications = hep_author_publications()
     publications["aggs"].update(
         {
@@ -78,6 +89,37 @@ def hep_author_publications_cataloger():
             "arxiv_categories": {
                 "terms": {"field": "facet_arxiv_categories", "size": 20},
                 "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
+            },
+            "self_author": {
+                "nested": {"path": "authors"},
+                "aggs": {
+                    "nested": {
+                        "filter": {
+                            "term": {"authors.recid": author_recid.split("_")[0]}
+                        },
+                        "aggs": {
+                            "self_affiliations": {
+                                "terms": {
+                                    "field": "authors.affiliations.value",
+                                    "size": 20,
+                                },
+                                "meta": {
+                                    "title": "Affiliations",
+                                    "order": 8,
+                                    "type": "checkbox",
+                                },
+                            },
+                            "self_author_names": {
+                                "terms": {"field": "authors.full_name.raw", "size": 20},
+                                "meta": {
+                                    "title": "Name variations",
+                                    "order": 9,
+                                    "type": "checkbox",
+                                },
+                            },
+                        },
+                    }
+                },
             },
         }
     )

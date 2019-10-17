@@ -142,7 +142,7 @@ export function fetchAuthorPublicationsFacets(newQuery = {}) {
     const queryString = stringify(query, { indices: false });
     try {
       const response = await http.get(
-        `/literature/facets?facet_name=${FACET_NAME}&exclude_author_value=${authorFacetValue}&${queryString}`
+        `/literature/facets?facet_name=${FACET_NAME}&author_recid=${authorFacetValue}&${queryString}`
       );
       dispatch(fetchAuthorPublicationsFacetsSuccess(response.data));
     } catch (error) {

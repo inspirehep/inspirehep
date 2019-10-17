@@ -145,23 +145,25 @@ class CitationsByYearGraph extends Component {
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
           <EmptyOrChildren data={citationsByYear} description="0 Citations">
-            <FlexibleWidthXYPlot
-              onMouseLeave={this.onGraphMouseOut}
-              className="__CitationsByYearGraph__"
-              height={GRAPH_HEIGHT}
-              margin={GRAPH_MARGIN}
-              yDomain={[0, yDomainMax]}
-            >
-              {this.renderXAxis()}
-              {this.renderYAxis()}
-              <LineSeries
-                sizeType="literal"
-                onNearestX={this.onGraphMouseOver}
-                data={seriesData}
-                color={BLUE}
-              />
-              {this.renderHint()}
-            </FlexibleWidthXYPlot>
+            <div data-test-id="citations-by-year-graph">
+              <FlexibleWidthXYPlot
+                onMouseLeave={this.onGraphMouseOut}
+                className="__CitationsByYearGraph__"
+                height={GRAPH_HEIGHT}
+                margin={GRAPH_MARGIN}
+                yDomain={[0, yDomainMax]}
+              >
+                {this.renderXAxis()}
+                {this.renderYAxis()}
+                <LineSeries
+                  sizeType="literal"
+                  onNearestX={this.onGraphMouseOver}
+                  data={seriesData}
+                  color={BLUE}
+                />
+                {this.renderHint()}
+              </FlexibleWidthXYPlot>
+            </div>
           </EmptyOrChildren>
         </ErrorAlertOrChildren>
       </LoadingOrChildren>
