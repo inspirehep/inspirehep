@@ -85,7 +85,9 @@ def test_continuous_migration(
     assert cited_control_number == result_cited_control_number
 
     with app.test_client() as client:
-        result = client.get(f"/literature/{result_cited_control_number}/citations").json
+        result = client.get(
+            f"/api/literature/{result_cited_control_number}/citations"
+        ).json
         result_citation_count = result["metadata"]["citation_count"]
 
         assert 1 == result_citation_count
@@ -179,7 +181,9 @@ def test_continuous_migration_with_an_invalid_record(
     assert cited_control_number == result_cited_control_number
 
     with app.test_client() as client:
-        result = client.get(f"/literature/{result_cited_control_number}/citations").json
+        result = client.get(
+            f"/api/literature/{result_cited_control_number}/citations"
+        ).json
         result_citation_count = result["metadata"]["citation_count"]
 
         assert 1 == result_citation_count
@@ -277,7 +281,9 @@ def test_continuous_migration_with_different_type_of_records(
     assert author_control_number == result_author_control_number
 
     with app.test_client() as client:
-        result = client.get(f"/literature/{result_cited_control_number}/citations").json
+        result = client.get(
+            f"/api/literature/{result_cited_control_number}/citations"
+        ).json
         result_citation_count = result["metadata"]["citation_count"]
 
         assert 1 == result_citation_count

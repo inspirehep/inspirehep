@@ -51,3 +51,7 @@ class WrongOperationOnRecordError(RecordsError):
 
 class WrongRecordSubclass(RecordsError):
     pass
+
+
+class DownloadFileError(Exception):
+    pass

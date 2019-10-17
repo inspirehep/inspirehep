@@ -68,8 +68,7 @@ def test_regression_index_literature_record_with_related_records(
 def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
-
-    record["deleted"] = True
+    record.delete()
     record.index(delay=False)
     es_clear.indices.refresh("records-hep")
 
@@ -81,18 +80,10 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     assert hits_total == expected_total
 
 
-@patch("inspirehep.records.api.literature.LiteratureRecord.add_files")
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
-    mocked_add_files, base_app, es_clear, db, create_record, enable_files
+    fsopen_mock, base_app, es_clear, db, create_record, enable_files
 ):
-    expected_fulltext_links = [
-        {"description": "arXiv", "value": "https://arxiv.org/pdf/hep-ph/9404247"},
-        {
-            "description": "KEK scanned document",
-            "value": "https://lib-extopc.kek.jp/preprints/PDF/1994/9407/9407219.pdf",
-        },
-        {"description": "fulltext", "value": "http://localhost:8000/some_url.pdf"},
-    ]
+    expected_fulltext_links = ["arXiv", "KEK scanned document", "fulltext"]
 
     data = {
         "external_system_identifiers": [
@@ -107,22 +98,23 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
                 "source": "arxiv",
                 "fulltext": True,
                 "key": "arXiv:nucl-th_9310030.pdf",
-                "url": "http://localhost:8000/some_url.pdf",
+                "url": "http://document_url.cern.ch/file.pdf",
             },
             {
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://localhost:8000/some_url2.pdf",
+                "url": "http://figure_url.cern.ch/figure2.pdf",
             },
         ],
     }
-    create_record("lit", data=data)
+    record = create_record("lit", data=data)
     response = es.search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = json.loads(result.pop("_ui_display"))
-
-    assert result_ui_display["fulltext_links"] == expected_fulltext_links
+    for link in result_ui_display["fulltext_links"]:
+        assert link["value"]
+        assert link["description"] in expected_fulltext_links
 
 
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_disabled(

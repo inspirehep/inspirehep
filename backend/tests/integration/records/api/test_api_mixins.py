@@ -16,266 +16,183 @@ from io import BytesIO
 import pytest
 from flask import current_app
 from fs.errors import ResourceNotFoundError
+from invenio_files_rest.models import Bucket, FileInstance, ObjectVersion
 from invenio_records.errors import MissingModelError
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.fixtures import init_storage_path
 
 
-def test_download_files(fsopen_mock, base_app, db, create_record):
-
+@pytest.mark.vcr()
+def test_add_external_file(base_app, db, es, create_record, enable_files):
     record = create_record("lit")
-    record2 = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
 
+    expected_size = 1
+    expected_checksum = "md5:a5bf966e8196d9f9339291583adda61a"
+    expected_key = "b25ae02034a6ac608a408fd992cc99c7ac386408"
+    expected_filename = "S1-2D-Lambda-Kappa-Tkappa.png"
+
+    result_file = record["_files"][0]
+    result_file_len = len(record["_files"])
+    result_file_checksum = result_file["checksum"]
+    result_file_key = result_file["key"]
+    result_file_filename = result_file["filename"]
+
+    assert expected_size == result_file_len
+    assert expected_checksum == result_file_checksum
+    assert expected_key == result_file_key
+    assert expected_filename == result_file_filename
+
+
+@pytest.mark.vcr()
+def test_add_local_file(base_app, db, es, create_record, enable_files):
+    record = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
+
+    record_bucket = record.bucket_id
+    record_file_key = record["_files"][0]["key"]
+
+    record_local = create_record("lit")
+    record_local.add_file(f"/api/files/{record.bucket_id}/{record_file_key}")
+
+    assert record.bucket.objects[0].file_id == record_local.bucket.objects[0].file_id
+
+    expected_size = 1
+    expected_checksum = "md5:a5bf966e8196d9f9339291583adda61a"
+    expected_key = "b25ae02034a6ac608a408fd992cc99c7ac386408"
+    expected_filename = "b25ae02034a6ac608a408fd992cc99c7ac386408"
+
+    result_file = record_local["_files"][0]
+    result_file_len = len(record_local["_files"])
+    result_file_checksum = result_file["checksum"]
+    result_file_key = result_file["key"]
+    result_file_filename = result_file["filename"]
+
+    assert expected_size == result_file_len
+    assert expected_checksum == result_file_checksum
+    assert expected_key == result_file_key
+    assert expected_filename == result_file_filename
+
+
+@pytest.mark.vcr()
+def test_add_local_file_which_does_not_exist_and_should_download_from_original_url(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    record.add_file(
+        "/api/files/153aecf2-0661-4834-a66d-95f4e7b56197/b25ae02034a6ac608a408fd992cc99c7ac386408",
+        original_url="http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
+    )
+
+    expected_size = 1
+    expected_checksum = "md5:a5bf966e8196d9f9339291583adda61a"
+    expected_key = "b25ae02034a6ac608a408fd992cc99c7ac386408"
+    expected_filename = "S1-2D-Lambda-Kappa-Tkappa.png"
+
+    result_file = record["_files"][0]
+    result_file_len = len(record["_files"])
+    result_file_checksum = result_file["checksum"]
+    result_file_key = result_file["key"]
+    result_file_filename = result_file["filename"]
+
+    assert expected_size == result_file_len
+    assert expected_checksum == result_file_checksum
+    assert expected_key == result_file_key
+    assert expected_filename == result_file_filename
+
+
+@pytest.mark.vcr()
+def test_add_local_file_which_does_not_exist_without_original_url(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    with pytest.raises(DownloadFileError):
+        record.add_file(
+            "/api/files/153aecf2-0661-4834-a66d-95f4e7b56197/b25ae02034a6ac608a408fd992cc99c7ac386408"
+        )
+
+
+@pytest.mark.vcr()
+def test_add_external_file_twice_and_only_store_it_once(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
+
+    record_2 = create_record("lit")
+    record_2.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
+    assert record.bucket.objects[0].file_id == record_2.bucket.objects[0].file_id
+
+
+@pytest.mark.vcr()
+def test_add_external_file_with_filename(base_app, db, es, create_record, enable_files):
+    record = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
+        filename="jessicajones.pdf",
+    )
+    expected_filename = "jessicajones.pdf"
+
+    filename = record["_files"][0]["filename"]
+
+    assert expected_filename == filename
+
+
+@pytest.mark.vcr()
+def test_add_external_file_with_original_url(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
+        original_url="http://inspirehep.net/record/1759621/files/jessicajones.pdf",
+    )
+    expected_filename = "jessicajones.pdf"
+
+    filename = record["_files"][0]["filename"]
+
+    assert expected_filename == filename
+
+
+@pytest.mark.vcr()
+def test_add_external_file_with_url(base_app, db, es, create_record, enable_files):
+    record = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
+    expected_filename = "S1-2D-Lambda-Kappa-Tkappa.png"
+
+    filename = record["_files"][0]["filename"]
+
+    assert expected_filename == filename
+
+
+@pytest.mark.vcr()
+def test_add_external_file_with_url(base_app, db, es, create_record, enable_files):
+    record = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
+    expected_filename = "S1-2D-Lambda-Kappa-Tkappa.png"
+
+    filename = record["_files"][0]["filename"]
+
+    assert expected_filename == filename
+
+
+@pytest.mark.vcr()
+def test_add_external_which_is_404(base_app, db, es, create_record, enable_files):
+    record = create_record("lit")
     with pytest.raises(ResourceNotFoundError):
-        record.download_file_from_url(url="http://missing_url.com")
-    with pytest.raises(FileNotFoundError):
-        record.download_file_from_local_storage(
-            url=f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash').hexdigest()}"
-        )
-
-    key = record.download_file_from_url("http://document_url.cern.ch/file.pdf")
-    assert key is not None
-    assert isinstance(key, str)
-    assert key in record.files.keys
-
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    expected_file_data = open(
-        f"{dir_path}/../test_data/test_document.pdf", mode="rb"
-    ).read()
-
-    expected_hash = hashlib.sha1(expected_file_data).hexdigest()
-
-    file_data = record.files[key].obj.file.storage().open().read()
-
-    assert expected_hash == key
-    assert expected_file_data == file_data
-
-    bucket_id = record.files[key].bucket_id
-    local_uri = f"/api/files/{bucket_id}/{key}"
-
-    key2 = record2.download_file_from_local_storage(url=local_uri)
-    assert key2 is not None
-    assert key2 in record2.files.keys
-    assert expected_hash == key2
-
-    file_data2 = record2.files[key].obj.file.storage().open().read()
-    assert expected_file_data == file_data2
-
-
-def test_resolving_download_method(fsopen_mock, base_app, db, create_record):
-    record = create_record("lit")
-    record2 = create_record("lit")
-
-    assert record.find_and_add_file("http://missing_url.com") is None
-    assert (
-        record.find_and_add_file(
-            f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash').hexdigest()}"
-        )
-        is None
-    )
-
-    key = record.find_and_add_file(
-        url=f"/api/files/{uuid.uuid4()}/{hashlib.sha1(b'test-hash').hexdigest()}",
-        original_url="http://document_url.cern.ch/file.pdf",
-    )
-
-    assert key is not None
-    assert key in record.files.keys
-
-    bucket_id = record.files[key].bucket_id
-    local_uri = f"/api/files/{bucket_id}/{key}"
-
-    key2 = record2.find_and_add_file(url=local_uri)
-
-    assert key2 is not None
-    assert key2 == key
-    assert key2 in record2.files.keys
-
-
-def test_add_file_default_parameters(fsopen_mock, base_app, db, create_record):
-    record = create_record("lit")
-
-    expected_filename = "file.pdf"
-    expected_original_url = "http://document_url.cern.ch/file.pdf"
-
-    with pytest.raises(FileNotFoundError):
-        record.add_file(url="http://wrong-url")
-    file_metadata = record.add_file(expected_original_url)
-    assert file_metadata is not None
-    assert file_metadata["filename"] == expected_filename
-    assert file_metadata["key"] in record.files.keys
-    assert file_metadata["original_url"] == expected_original_url
-
-    key = file_metadata["key"]
-    expected_url = f"/api/files/{record.files[key].bucket_id}/{key}"
-    assert file_metadata["url"] == expected_url
-
-
-def test_add_file_changed_parameters(fsopen_mock, base_app, db, create_record):
-    record = create_record("lit")
-
-    expected_filename = "file_name_for_file.pdf"
-    expected_original_url = "http://document_url.cern.ch/file.pdf"
-
-    file_metadata = record.add_file(
-        url="http://figure_url.cern.ch/file.png",
-        original_url=expected_original_url,
-        fulltext=False,
-        hidden=True,
-        filename=expected_filename,
-    )
-    assert file_metadata is not None
-    assert file_metadata["filename"] == expected_filename
-    assert file_metadata["key"] in record.files.keys
-    assert file_metadata["original_url"] == expected_original_url
-
-    expected_filename = "file.pdf"
-    file_metadata = record.add_file(
-        url="http://no-file/file.png", original_url=expected_original_url
-    )
-
-    assert file_metadata is not None
-    assert file_metadata["filename"] == expected_filename
-
-
-def test_resolving_filename(fsopen_mock, base_app, db, create_record):
-    record = create_record("lit")
-    expected_filename = "file.png"
-
-    file_metadata = record.add_file(
-        url="http://figure_url.cern.ch/file.png", key=expected_filename
-    )
-
-    assert expected_filename == file_metadata["filename"]
-
-    file_metadata = record.add_file(
-        url="http://figure_url.cern.ch/file.png",
-        original_url=f"http://some_path/{expected_filename}",
-    )
-
-    assert expected_filename == file_metadata["filename"]
-
-    file_metadata = record.add_file(
-        url=f"http://figure_url.cern.ch/{expected_filename}",
-        original_url=f"http://some_path/not.proper.filename",
-    )
-
-    assert expected_filename == file_metadata["filename"]
-
-    file_metadata = record.add_file(
-        url=f"http://figure_url.cern.ch/some_strange_path",
-        original_url=f"http://some_path/not.proper.filename",
-    )
-
-    assert file_metadata["key"] == file_metadata["filename"]
-
-
-def test_add_file_already_attached(fsopen_mock, base_app, db, create_record):
-    record = create_record("lit")
-    expected_filename = "file.png"
-
-    file_metadata = record.add_file(
-        url="http://figure_url.cern.ch/file.png", key=expected_filename
-    )
-
-    file_metadata2 = record.add_file(url="http://figure_url.cern.ch/file.png")
-
-    assert file_metadata["key"] == file_metadata2["key"]
-    assert len(record.files.keys) == 1
-
-    record2 = create_record("lit")
-
-    assert record.id != record2.id
-
-    file_metadata3 = record2.add_file(url="http://figure_url.cern.ch/file.png")
-
-    assert file_metadata["key"] == file_metadata3["key"]
-
-    file1_obj = record.files[file_metadata["key"]].obj
-    file3_obj = record2.files[file_metadata3["key"]].obj
-
-    assert file1_obj.bucket_id != file3_obj.bucket_id
-    assert file1_obj.file_id == file3_obj.file_id
-
-    url = f"/api/files/{record2.files.bucket.id}/{file3_obj.key}"
-
-    file_metadata4 = record2.add_file(url=url)
-
-    assert file_metadata4 is not None
-
-
-def test_delete_record_with_files(
-    fsopen_mock, base_app, db, create_record, enable_files
-):
-    record_metadata = create_record("lit")
-    record = InspireRecord.get_record(record_metadata.id)
-    file_metadata = record.add_file(url="http://figure_url.cern.ch/file.png")
-    record_metadata2 = create_record("lit")
-    record2 = InspireRecord.get_record(record_metadata2.id)
-
-    assert record.id != record2.id
-
-    file_metadata2 = record2.add_file(url="http://figure_url.cern.ch/file.png")
-    file1_obj = record.files[file_metadata["key"]].obj
-    file2_obj = record2.files[file_metadata2["key"]].obj
-
-    assert file1_obj.file_id == file2_obj.file_id
-
-    record.delete()
-
-    assert len(record.files.keys) == 0
-    assert file1_obj.is_head is False
-
-    file1_versions = file1_obj.get_versions(file1_obj.bucket_id, file1_obj.key)
-    file1_updated = [file for file in file1_versions if file.is_head is True][0]
-
-    assert file1_updated.is_head is True
-    assert file1_updated.deleted is True
-
-    assert file1_updated.file_id is None
-
-    assert file2_obj.is_head is True
-    assert file2_obj.deleted is False
-    assert file2_obj.file_id is not None
-
-
-def test_copy_local_file_with_failed_hash_verification(
-    fsopen_mock, base_app, db, create_record
-):
-    record = create_record("lit")
-    file_metadata = record.add_file(url="http://figure_url.cern.ch/file.png")
-    record.files[file_metadata["key"]] = BytesIO(b"different file content")
-
-    record2 = create_record("lit")
-    file_metadata2 = record2.add_file(url="http://figure_url.cern.ch/file.png")
-    assert file_metadata is not None
-
-    file1_obj = record.files[file_metadata["key"]].obj
-    file2_obj = record2.files[file_metadata2["key"]].obj
-
-    assert file1_obj.file_id != file2_obj.file_id
-
-
-def test_copy_file_with_old_type_key(fsopen_mock, base_app, db, create_record):
-    record = create_record("lit")
-    record.files["file_name.txt"] = BytesIO(b"Some file content")
-    record2 = create_record("lit")
-
-    url = f"/api/files/{record.files.bucket.id}/file_name.txt"
-
-    key = record2.download_file_from_local_storage(url=url)
-    assert key is not None
-    assert key != "file_name.txt"
-
-    file1_obj = record.files["file_name.txt"].obj
-    file2_obj = record2.files[key]
-
-    assert file1_obj.file_id == file2_obj.file_id
-    assert file1_obj.bucket_id != file2_obj.bucket_id
-
-
-def testfind_local_file_with_null_parameters(fsopen_mock, base_app, db, create_record):
-    record = create_record("lit")
-    assert record.find_local_file(key=None, bucket_id=None) is None
+        record.add_file("http://whatever/404")
