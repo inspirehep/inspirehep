@@ -13,9 +13,11 @@ $ curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry
 ### How to run
 
 First you will need a working kubernetes cluster.
-On Mac OS, we recommend using [docker-desktop](https://www.docker.com/products/docker-desktop).
+On Mac OS, you can use [docker-desktop](https://www.docker.com/products/docker-desktop) but due to [docker/for-mac/issue#2990](https://github.com/docker/for-mac/issues/2990), [minikube](https://minikube.sigs.k8s.io/docs/start/macos/) is recommended also for Mac.
 On Linux, you can use [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/).
 Once you have access to your local kubernetes cluster, following the instructions to install [Tilt](https://docs.tilt.dev/install.html).
+Make sure that you have set up ssh for gitlab (https://docs.gitlab.com/ee/ssh/)
+Make sure you have `kustomize` version at least `3`
 You can then start your environment using
 
 ```bash
