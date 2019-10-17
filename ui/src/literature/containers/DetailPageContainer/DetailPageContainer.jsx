@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
-import { Map, List, fromJS } from 'immutable';
+import { Map, List } from 'immutable';
 import classNames from 'classnames';
 
 import './DetailPage.scss';
@@ -99,13 +99,7 @@ class DetailPage extends Component {
     );
     const acceleratorExperiments = metadata.get('accelerator_experiments');
     const abstract = metadata.getIn(['abstracts', 0]);
-    const fullTextLinks = metadata.get(
-      'fulltext_links',
-      fromJS([
-        { description: 'dude', value: 'https://dude.com' },
-        { value: 'https://dude.com/shitface.pdf' },
-      ])
-    );
+    const fullTextLinks = metadata.get('fulltext_links');
     const collaborations = metadata.get('collaborations');
     const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
 
