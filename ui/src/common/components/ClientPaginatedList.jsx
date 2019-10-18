@@ -48,7 +48,7 @@ class ClientPaginatedList extends Component {
   }
 
   render() {
-    const { renderItem, pageSize, title, items, loading } = this.props;
+    const { renderItem, pageSize, title, items, loading, grid } = this.props;
     const { pageItems, total, page } = this.state;
     return (
       items.size > 0 && (
@@ -61,6 +61,7 @@ class ClientPaginatedList extends Component {
           onPageChange={this.onPageChange}
           total={total}
           loading={loading}
+          grid={grid}
         />
       )
     );
@@ -73,6 +74,7 @@ ClientPaginatedList.propTypes = {
   renderItem: PropTypes.func.isRequired,
   loading: PropTypes.bool,
   pageSize: PropTypes.number,
+  grid: PropTypes.bool,
 };
 
 ClientPaginatedList.defaultProps = {

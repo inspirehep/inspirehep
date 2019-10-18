@@ -43,6 +43,20 @@ describe('ClientPaginatedList', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders in grid mode', () => {
+    const items = Range(1, 100).toList();
+    const wrapper = shallow(
+      <ClientPaginatedList
+        loading
+        items={items}
+        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        pageSize={10}
+        grid
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders the new page on page change', () => {
     const items = Range(1, 100).toList();
     const page = 2;

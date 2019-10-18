@@ -13,7 +13,9 @@ class TabNameWithCount extends Component {
           <span>{name}</span>
           <span className="ml1">
             {loading ? (
-              <Icon className="ml1" type="loading" spin />
+              <span data-test-id="loading">
+                <Icon className="ml1" type="loading" spin />
+              </span>
             ) : (
               count != null && <span>({count})</span>
             )}

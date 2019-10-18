@@ -11,6 +11,7 @@ exports[`Loading render loading component 1`] = `
   <Col>
     <div
       className="tc pa4"
+      data-test-id="loading"
     >
       <Spin
         size="default"

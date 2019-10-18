@@ -46,7 +46,6 @@ class LiteratureDetailSchema(LiteraturePublicSchema):
             "curated",
             "editions",
             "energy_ranges",
-            "figures",
             "funding_info",
             "legacy_creation_date",
             "legacy_version",

@@ -29,4 +29,5 @@ module.exports = {
   'page-content-padding': '0 2.85rem',
   'zindex-dropdown': 1050,
   'zindex-header': 1051,
+  'header-min-height': '64px',
 };
