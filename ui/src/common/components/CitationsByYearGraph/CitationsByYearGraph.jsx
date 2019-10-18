@@ -12,6 +12,7 @@ import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import pluralizeUnlessSingle, {
   pickEvenlyDistributedElements,
 } from '../../utils';
+import EmptyOrChildren from '../EmptyOrChildren';
 
 const BLUE = styleVariables['primary-color'];
 const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
@@ -136,30 +137,32 @@ class CitationsByYearGraph extends Component {
   }
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error, citationsByYear } = this.props;
     const { seriesData } = this.state;
     const yDomainMax =
       (seriesData.length !== 0 && maxBy(seriesData, 'y').y) || 0;
     return (
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
-          <FlexibleWidthXYPlot
-            onMouseLeave={this.onGraphMouseOut}
-            className="__CitationsByYearGraph__"
-            height={GRAPH_HEIGHT}
-            margin={GRAPH_MARGIN}
-            yDomain={[0, yDomainMax]}
-          >
-            {this.renderXAxis()}
-            {this.renderYAxis()}
-            <LineSeries
-              sizeType="literal"
-              onNearestX={this.onGraphMouseOver}
-              data={seriesData}
-              color={BLUE}
-            />
-            {this.renderHint()}
-          </FlexibleWidthXYPlot>
+          <EmptyOrChildren data={citationsByYear} description="0 Citations">
+            <FlexibleWidthXYPlot
+              onMouseLeave={this.onGraphMouseOut}
+              className="__CitationsByYearGraph__"
+              height={GRAPH_HEIGHT}
+              margin={GRAPH_MARGIN}
+              yDomain={[0, yDomainMax]}
+            >
+              {this.renderXAxis()}
+              {this.renderYAxis()}
+              <LineSeries
+                sizeType="literal"
+                onNearestX={this.onGraphMouseOver}
+                data={seriesData}
+                color={BLUE}
+              />
+              {this.renderHint()}
+            </FlexibleWidthXYPlot>
+          </EmptyOrChildren>
         </ErrorAlertOrChildren>
       </LoadingOrChildren>
     );
