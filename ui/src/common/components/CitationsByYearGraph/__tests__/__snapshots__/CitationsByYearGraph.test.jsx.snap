@@ -7,80 +7,89 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
+    <EmptyOrChildren
+      data={
         Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
+          "1999": 10,
         }
       }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          10,
-        ]
-      }
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={
-          Array [
-            1997,
-            1998,
-            1999,
-          ]
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
         }
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={
+        onMouseLeave={[Function]}
+        yDomain={
           Array [
             0,
             10,
           ]
         }
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={
-          Array [
-            Object {
-              "x": 1997,
-              "y": 0,
-            },
-            Object {
-              "x": 1998,
-              "y": 0,
-            },
-            Object {
-              "x": 1999,
-              "y": 10,
-            },
-          ]
-        }
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-    </FlexibleXYPlot>
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={
+            Array [
+              1997,
+              1998,
+              1999,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={
+            Array [
+              0,
+              10,
+            ]
+          }
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1997,
+                "y": 0,
+              },
+              Object {
+                "x": 1998,
+                "y": 0,
+              },
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
@@ -92,85 +101,97 @@ exports[`CitationsByYearGraph renders citations for less than 5 different citati
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
+    <EmptyOrChildren
+      data={
         Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
+          "1999": 10,
+          "2000": 10,
+          "2001": 5,
+          "2002": 5,
         }
       }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          10,
-        ]
-      }
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={
-          Array [
-            1999,
-            2000,
-            2001,
-            2002,
-          ]
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
         }
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={
+        onMouseLeave={[Function]}
+        yDomain={
           Array [
+            0,
             10,
-            5,
           ]
         }
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={
-          Array [
-            Object {
-              "x": 1999,
-              "y": 10,
-            },
-            Object {
-              "x": 2000,
-              "y": 10,
-            },
-            Object {
-              "x": 2001,
-              "y": 5,
-            },
-            Object {
-              "x": 2002,
-              "y": 5,
-            },
-          ]
-        }
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-    </FlexibleXYPlot>
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={
+            Array [
+              1999,
+              2000,
+              2001,
+              2002,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={
+            Array [
+              10,
+              5,
+            ]
+          }
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 10,
+              },
+              Object {
+                "x": 2001,
+                "y": 5,
+              },
+              Object {
+                "x": 2002,
+                "y": 5,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
@@ -182,87 +203,99 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
+    <EmptyOrChildren
+      data={
         Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
+          "1999": 10,
+          "2000": 5,
+          "2001": 56,
+          "2002": 33,
         }
       }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          56,
-        ]
-      }
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={
-          Array [
-            1999,
-            2000,
-            2001,
-            2002,
-          ]
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
         }
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={
+        onMouseLeave={[Function]}
+        yDomain={
           Array [
-            10,
-            5,
+            0,
             56,
-            33,
           ]
         }
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={
-          Array [
-            Object {
-              "x": 1999,
-              "y": 10,
-            },
-            Object {
-              "x": 2000,
-              "y": 5,
-            },
-            Object {
-              "x": 2001,
-              "y": 56,
-            },
-            Object {
-              "x": 2002,
-              "y": 33,
-            },
-          ]
-        }
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-    </FlexibleXYPlot>
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={
+            Array [
+              1999,
+              2000,
+              2001,
+              2002,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={
+            Array [
+              10,
+              5,
+              56,
+              33,
+            ]
+          }
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 5,
+              },
+              Object {
+                "x": 2001,
+                "y": 56,
+              },
+              Object {
+                "x": 2002,
+                "y": 33,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
@@ -274,136 +307,147 @@ exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
+    <EmptyOrChildren
+      data={
         Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
+          "2000": 10,
+          "2014": 43,
+          "2015": 5,
         }
       }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          43,
-        ]
-      }
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={
-          Array [
-            2000,
-            2004,
-            2008,
-            2012,
-            2015,
-          ]
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
         }
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={
+        onMouseLeave={[Function]}
+        yDomain={
           Array [
-            10,
             0,
             43,
-            5,
           ]
         }
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={
-          Array [
-            Object {
-              "x": 2000,
-              "y": 10,
-            },
-            Object {
-              "x": 2001,
-              "y": 0,
-            },
-            Object {
-              "x": 2002,
-              "y": 0,
-            },
-            Object {
-              "x": 2003,
-              "y": 0,
-            },
-            Object {
-              "x": 2004,
-              "y": 0,
-            },
-            Object {
-              "x": 2005,
-              "y": 0,
-            },
-            Object {
-              "x": 2006,
-              "y": 0,
-            },
-            Object {
-              "x": 2007,
-              "y": 0,
-            },
-            Object {
-              "x": 2008,
-              "y": 0,
-            },
-            Object {
-              "x": 2009,
-              "y": 0,
-            },
-            Object {
-              "x": 2010,
-              "y": 0,
-            },
-            Object {
-              "x": 2011,
-              "y": 0,
-            },
-            Object {
-              "x": 2012,
-              "y": 0,
-            },
-            Object {
-              "x": 2013,
-              "y": 0,
-            },
-            Object {
-              "x": 2014,
-              "y": 43,
-            },
-            Object {
-              "x": 2015,
-              "y": 5,
-            },
-          ]
-        }
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-    </FlexibleXYPlot>
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={
+            Array [
+              2000,
+              2004,
+              2008,
+              2012,
+              2015,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={
+            Array [
+              10,
+              0,
+              43,
+              5,
+            ]
+          }
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 2000,
+                "y": 10,
+              },
+              Object {
+                "x": 2001,
+                "y": 0,
+              },
+              Object {
+                "x": 2002,
+                "y": 0,
+              },
+              Object {
+                "x": 2003,
+                "y": 0,
+              },
+              Object {
+                "x": 2004,
+                "y": 0,
+              },
+              Object {
+                "x": 2005,
+                "y": 0,
+              },
+              Object {
+                "x": 2006,
+                "y": 0,
+              },
+              Object {
+                "x": 2007,
+                "y": 0,
+              },
+              Object {
+                "x": 2008,
+                "y": 0,
+              },
+              Object {
+                "x": 2009,
+                "y": 0,
+              },
+              Object {
+                "x": 2010,
+                "y": 0,
+              },
+              Object {
+                "x": 2011,
+                "y": 0,
+              },
+              Object {
+                "x": 2012,
+                "y": 0,
+              },
+              Object {
+                "x": 2013,
+                "y": 0,
+              },
+              Object {
+                "x": 2014,
+                "y": 43,
+              },
+              Object {
+                "x": 2015,
+                "y": 5,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
@@ -415,97 +459,108 @@ exports[`CitationsByYearGraph renders hovered info in a tooltip on line series h
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
+    <EmptyOrChildren
+      data={
         Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
+          "1999": 10,
+          "2000": 5,
+          "2001": 56,
         }
       }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          56,
-        ]
-      }
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={
-          Array [
-            1999,
-            2000,
-            2001,
-          ]
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
         }
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={
+        onMouseLeave={[Function]}
+        yDomain={
           Array [
-            10,
-            5,
+            0,
             56,
           ]
         }
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={
-          Array [
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={
+            Array [
+              1999,
+              2000,
+              2001,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={
+            Array [
+              10,
+              5,
+              56,
+            ]
+          }
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 5,
+              },
+              Object {
+                "x": 2001,
+                "y": 56,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+        <Hint
+          align={
+            Object {
+              "horizontal": "auto",
+              "vertical": "top",
+            }
+          }
+          format={[Function]}
+          style={Object {}}
+          value={
             Object {
               "x": 1999,
               "y": 10,
-            },
-            Object {
-              "x": 2000,
-              "y": 5,
-            },
-            Object {
-              "x": 2001,
-              "y": 56,
-            },
-          ]
-        }
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-      <Hint
-        align={
-          Object {
-            "horizontal": "auto",
-            "vertical": "top",
+            }
           }
-        }
-        format={[Function]}
-        style={Object {}}
-        value={
-          Object {
-            "x": 1999,
-            "y": 10,
-          }
-        }
-      />
-    </FlexibleXYPlot>
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
@@ -517,93 +572,108 @@ exports[`CitationsByYearGraph renders more than 5 different citation counts with
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
+    <EmptyOrChildren
+      data={
         Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
+          "1999": 10,
+          "2000": 5,
+          "2001": 50,
+          "2002": 7,
+          "2003": 51,
+          "2004": 56,
+          "2005": 14,
         }
       }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          56,
-        ]
-      }
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
+        }
+        onMouseLeave={[Function]}
+        yDomain={
           Array [
-            1999,
-            2001,
-            2003,
-            2005,
-            2005,
+            0,
+            56,
           ]
         }
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={null}
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={
-          Array [
-            Object {
-              "x": 1999,
-              "y": 10,
-            },
-            Object {
-              "x": 2000,
-              "y": 5,
-            },
-            Object {
-              "x": 2001,
-              "y": 50,
-            },
-            Object {
-              "x": 2002,
-              "y": 7,
-            },
-            Object {
-              "x": 2003,
-              "y": 51,
-            },
-            Object {
-              "x": 2004,
-              "y": 56,
-            },
-            Object {
-              "x": 2005,
-              "y": 14,
-            },
-          ]
-        }
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-    </FlexibleXYPlot>
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={
+            Array [
+              1999,
+              2001,
+              2003,
+              2005,
+              2005,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={null}
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 5,
+              },
+              Object {
+                "x": 2001,
+                "y": 50,
+              },
+              Object {
+                "x": 2002,
+                "y": 7,
+              },
+              Object {
+                "x": 2003,
+                "y": 51,
+              },
+              Object {
+                "x": 2004,
+                "y": 56,
+              },
+              Object {
+                "x": 2005,
+                "y": 14,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
@@ -615,133 +685,156 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
+    <EmptyOrChildren
+      data={
         Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
+          "1999": 10,
+          "2000": 5,
+          "2001": 5,
+          "2002": 7,
+          "2003": 5,
+          "2004": 56,
+          "2005": 14,
+          "2006": 123,
+          "2007": 112,
+          "2008": 89,
+          "2009": 30,
+          "2010": 100,
+          "2011": 38,
+          "2014": 43,
+          "2015": 5,
         }
       }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          123,
-        ]
-      }
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
+        }
+        onMouseLeave={[Function]}
+        yDomain={
           Array [
-            1999,
-            2003,
-            2007,
-            2011,
-            2015,
+            0,
+            123,
           ]
         }
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={null}
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={
-          Array [
-            Object {
-              "x": 1999,
-              "y": 10,
-            },
-            Object {
-              "x": 2000,
-              "y": 5,
-            },
-            Object {
-              "x": 2001,
-              "y": 5,
-            },
-            Object {
-              "x": 2002,
-              "y": 7,
-            },
-            Object {
-              "x": 2003,
-              "y": 5,
-            },
-            Object {
-              "x": 2004,
-              "y": 56,
-            },
-            Object {
-              "x": 2005,
-              "y": 14,
-            },
-            Object {
-              "x": 2006,
-              "y": 123,
-            },
-            Object {
-              "x": 2007,
-              "y": 112,
-            },
-            Object {
-              "x": 2008,
-              "y": 89,
-            },
-            Object {
-              "x": 2009,
-              "y": 30,
-            },
-            Object {
-              "x": 2010,
-              "y": 100,
-            },
-            Object {
-              "x": 2011,
-              "y": 38,
-            },
-            Object {
-              "x": 2012,
-              "y": 0,
-            },
-            Object {
-              "x": 2013,
-              "y": 0,
-            },
-            Object {
-              "x": 2014,
-              "y": 43,
-            },
-            Object {
-              "x": 2015,
-              "y": 5,
-            },
-          ]
-        }
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-    </FlexibleXYPlot>
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={
+            Array [
+              1999,
+              2003,
+              2007,
+              2011,
+              2015,
+            ]
+          }
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={null}
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={
+            Array [
+              Object {
+                "x": 1999,
+                "y": 10,
+              },
+              Object {
+                "x": 2000,
+                "y": 5,
+              },
+              Object {
+                "x": 2001,
+                "y": 5,
+              },
+              Object {
+                "x": 2002,
+                "y": 7,
+              },
+              Object {
+                "x": 2003,
+                "y": 5,
+              },
+              Object {
+                "x": 2004,
+                "y": 56,
+              },
+              Object {
+                "x": 2005,
+                "y": 14,
+              },
+              Object {
+                "x": 2006,
+                "y": 123,
+              },
+              Object {
+                "x": 2007,
+                "y": 112,
+              },
+              Object {
+                "x": 2008,
+                "y": 89,
+              },
+              Object {
+                "x": 2009,
+                "y": 30,
+              },
+              Object {
+                "x": 2010,
+                "y": 100,
+              },
+              Object {
+                "x": 2011,
+                "y": 38,
+              },
+              Object {
+                "x": 2012,
+                "y": 0,
+              },
+              Object {
+                "x": 2013,
+                "y": 0,
+              },
+              Object {
+                "x": 2014,
+                "y": 43,
+              },
+              Object {
+                "x": 2015,
+                "y": 5,
+              },
+            ]
+          }
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
@@ -753,54 +846,59 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
   <ErrorAlertOrChildren
     error={null}
   >
-    <FlexibleXYPlot
-      className="__CitationsByYearGraph__"
-      height={250}
-      margin={
-        Object {
-          "bottom": 40,
-          "left": 40,
-          "right": 20,
-          "top": 10,
-        }
-      }
-      onMouseLeave={[Function]}
-      yDomain={
-        Array [
-          0,
-          0,
-        ]
-      }
+    <EmptyOrChildren
+      data={Object {}}
+      description="0 Citations"
     >
-      <XAxis
-        attr="x"
-        attrAxis="y"
-        orientation="bottom"
-        tickFormat={[Function]}
-        tickValues={Array []}
-      />
-      <YAxis
-        attr="y"
-        attrAxis="x"
-        orientation="left"
-        tickFormat={[Function]}
-        tickTotal={5}
-        tickValues={Array []}
-      />
-      <LineSeries
-        className=""
-        color="#1890ff"
-        curve={null}
-        data={Array []}
-        getNull={[Function]}
-        onNearestX={[Function]}
-        opacity={1}
-        sizeType="literal"
-        stack={false}
-        strokeStyle="solid"
-        style={Object {}}
-      />
-    </FlexibleXYPlot>
+      <FlexibleXYPlot
+        className="__CitationsByYearGraph__"
+        height={250}
+        margin={
+          Object {
+            "bottom": 40,
+            "left": 40,
+            "right": 20,
+            "top": 10,
+          }
+        }
+        onMouseLeave={[Function]}
+        yDomain={
+          Array [
+            0,
+            0,
+          ]
+        }
+      >
+        <XAxis
+          attr="x"
+          attrAxis="y"
+          orientation="bottom"
+          tickFormat={[Function]}
+          tickValues={Array []}
+        />
+        <YAxis
+          attr="y"
+          attrAxis="x"
+          orientation="left"
+          tickFormat={[Function]}
+          tickTotal={5}
+          tickValues={Array []}
+        />
+        <LineSeries
+          className=""
+          color="#1890ff"
+          curve={null}
+          data={Array []}
+          getNull={[Function]}
+          onNearestX={[Function]}
+          opacity={1}
+          sizeType="literal"
+          stack={false}
+          strokeStyle="solid"
+          style={Object {}}
+        />
+      </FlexibleXYPlot>
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </LoadingOrChildren>
 `;
