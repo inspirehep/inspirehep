@@ -136,8 +136,10 @@ class BibTexSerializer:
     def serialize_search(
         self, pid_fetcher, search_result, links=None, item_links_factory=None
     ):
-        records = [hit["_source"] for hit in search_result["hits"]["hits"]]
-        return self.create_bibliography(records)
+        records = [
+            hit["_source"]["_bibtex_display"] for hit in search_result["hits"]["hits"]
+        ]
+        return "\n".join(records)
 
 
 literature_bibtex = BibTexSerializer(BibTexCommonSchema)

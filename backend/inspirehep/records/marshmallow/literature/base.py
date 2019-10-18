@@ -26,6 +26,9 @@ FIELDS_TO_EXCLUDE = [
     "citations_by_year",
     "id",
     "_ui_display",
+    "_latex_us_display",
+    "_latex_eu_display",
+    "_bibtex_display",
 ]
 
 

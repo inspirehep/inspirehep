@@ -382,11 +382,13 @@ def test_dump_for_es(base_app, db, es):
     }
     data = faker.record("lit", data=additional_fields)
     expected_document_type = ["article"]
-
     record = LiteratureRecord.create(data)
     dump = record.serialize_for_es()
 
     assert "_ui_display" in dump
+    assert "_latex_us_display" in dump
+    assert "_latex_eu_display" in dump
+    assert "_bibtex_display" in dump
     assert "control_number" in dump
     assert record["control_number"] == dump["control_number"]
     assert "id" in dump
@@ -398,6 +400,43 @@ def test_dump_for_es(base_app, db, es):
     assert "document_type" in ui_field
     assert record["titles"] == ui_field["titles"]
     assert record["control_number"] == ui_field["control_number"]
+
+
+@freeze_time("1994-12-19")
+def test_dump_for_es_adds_latex_and_bibtex_displays(base_app, db, es):
+    additional_fields = {
+        "texkeys": ["a123bx"],
+        "titles": [{"title": "Jessica Jones"}],
+        "authors": [
+            {"full_name": "Castle, Frank"},
+            {"full_name": "Smith, John"},
+            {"full_name": "Black, Joe Jr."},
+            {"full_name": "Jimmy"},
+        ],
+        "collaborations": [{"value": "LHCb"}],
+        "dois": [{"value": "10.1088/1361-6633/aa5514"}],
+        "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
+        "publication_info": [
+            {
+                "journal_title": "Phys.Rev.A",
+                "journal_volume": "58",
+                "page_start": "500",
+                "page_end": "593",
+                "artid": "17920",
+                "year": 2014,
+            }
+        ],
+        "report_numbers": [{"value": "DESY-17-036"}],
+    }
+    data = faker.record("lit", data=additional_fields)
+    record = LiteratureRecord.create(data)
+    dump = record.serialize_for_es()
+    expected_latex_eu_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys.\\ Rev.\\ A \\textbf{58} (2014), 500-593\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_latex_us_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys.\\ Rev.\\ A \\textbf{58}, 500-593 (2014)\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_bibtex_display = '@article{a123bx,\n    author = "Castle, Frank and Smith, John and Black, Joe Jr. and Jimmy",\n    archivePrefix = "arXiv",\n    collaboration = "LHCb",\n    doi = "10.1088/1361-6633/aa5514",\n    eprint = "1607.06746",\n    journal = "Phys.Rev.A",\n    pages = "17920",\n    primaryClass = "hep-th",\n    reportNumber = "DESY-17-036",\n    title = "Jessica Jones",\n    volume = "58",\n    year = "2014"\n}\n'
+    assert expected_latex_eu_display == dump["_latex_eu_display"]
+    assert expected_latex_us_display == dump["_latex_us_display"]
+    assert expected_bibtex_display == dump["_bibtex_display"]
 
 
 def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):

@@ -31,6 +31,9 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     """Elasticsearch serialzier"""
 
     _ui_display = fields.Method("get_ui_display", dump_only=True)
+    _latex_us_display = fields.Method("get_latex_us_display", dump_only=True)
+    _latex_eu_display = fields.Method("get_latex_eu_display", dump_only=True)
+    _bibtex_display = fields.Method("get_bibtex_display", dump_only=True)
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
     authors = fields.Nested(AuthorsInfoSchemaForES, dump_only=True, many=True)
@@ -43,6 +46,25 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
 
     def get_ui_display(self, record):
         return json.dumps(LiteratureDetailSchema().dump(record).data)
+
+    def get_latex_us_display(self, record):
+        from inspirehep.records.serializers.latex import latex_US
+
+        return latex_US.latex_template().render(
+            data=latex_US.dump(record), format=latex_US.format
+        )
+
+    def get_latex_eu_display(self, record):
+        from inspirehep.records.serializers.latex import latex_EU
+
+        return latex_EU.latex_template().render(
+            data=latex_EU.dump(record), format=latex_EU.format
+        )
+
+    def get_bibtex_display(self, record):
+        from inspirehep.records.serializers.bibtex import literature_bibtex
+
+        return literature_bibtex.create_bibliography([record])
 
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""

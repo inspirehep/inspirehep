@@ -7,10 +7,12 @@
 
 import json
 
+from freezegun import freeze_time
 from invenio_search import current_search_client as es
 from mock import patch
 
 
+@freeze_time("1994-12-19")
 def test_index_literature_record(es_clear, db, datadir, create_record):
     author_data = json.loads((datadir / "1032336.json").read_text())
     author = create_record("aut", data=author_data)
@@ -21,6 +23,9 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     expected_count = 1
     expected_metadata = json.loads((datadir / "es_1630825.json").read_text())
     expected_metadata_ui_display = json.loads(expected_metadata.pop("_ui_display"))
+    expected_metadata_latex_us_display = expected_metadata.pop("_latex_us_display")
+    expected_metadata_latex_eu_display = expected_metadata.pop("_latex_eu_display")
+    expected_metadata_bibtex_display = expected_metadata.pop("_bibtex_display")
     expected_facet_author_name = expected_metadata.pop("facet_author_name")
     expected_metadata.pop("authors")
 
@@ -28,6 +33,9 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
 
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = json.loads(result.pop("_ui_display"))
+    result_latex_us_display = result.pop("_latex_us_display")
+    result_latex_eu_display = result.pop("_latex_eu_display")
+    result_bibtex_display = result.pop("_bibtex_display")
     result_authors = result.pop("authors")
     result_facet_author_name = result.pop("facet_author_name")
     result.pop("_bucket")
@@ -37,6 +45,9 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     assert response["hits"]["total"] == expected_count
     assert result == expected_metadata
     assert result_ui_display == expected_metadata_ui_display
+    assert result_latex_us_display == expected_metadata_latex_us_display
+    assert result_latex_eu_display == expected_metadata_latex_eu_display
+    assert result_bibtex_display == expected_metadata_bibtex_display
     assert len(record.get("authors")) == len(result_facet_author_name)
     assert sorted(result_facet_author_name) == sorted(expected_facet_author_name)
 

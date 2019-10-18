@@ -6,11 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_bibtex(api_client, db, es, create_record_factory):
+def test_bibtex(api_client, db, es, create_record):
     headers = {"Accept": "application/x-bibtex"}
     data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
-    record = create_record_factory("lit", data=data, with_indexing=True)
-    record_control_number = record.json["control_number"]
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
     expected_etag = '"application/x-bibtex@v0"'
@@ -29,9 +29,7 @@ def test_bibtex(api_client, db, es, create_record_factory):
     assert expected_result == response_data
 
 
-def test_bibtex_returns_all_expected_fields(
-    api_client, db, es, create_record_factory, redis
-):
+def test_bibtex_returns_all_expected_fields(api_client, db, es, create_record, redis):
     headers = {"Accept": "application/x-bibtex"}
     data = {
         "_collections": ["Literature"],
@@ -44,10 +42,8 @@ def test_bibtex_returns_all_expected_fields(
         "document_type": ["conference paper"],
         "texkeys": ["Smith:2019abc"],
     }
-    record = create_record_factory(
-        "lit", data=data, with_indexing=True, with_validation=True
-    )
-    record_control_number = record.json["control_number"]
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
 
     expected_status_code = 200
     expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "This is a title.",\n    title = "This is a title."\n}\n'
@@ -61,12 +57,12 @@ def test_bibtex_returns_all_expected_fields(
     assert expected_result == response_data
 
 
-def test_bibtex_search(api_client, db, es, create_record_factory):
+def test_bibtex_search(api_client, db, es, create_record):
     headers = {"Accept": "application/x-bibtex"}
     data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     data_2 = {"control_number": 637275232, "titles": [{"title": "Yet another title."}]}
-    record_1 = create_record_factory("lit", data=data_1, with_indexing=True)
-    record_2 = create_record_factory("lit", data=data_2, with_indexing=True)
+    create_record("lit", data=data_1)
+    create_record("lit", data=data_2)
 
     expected_status_code = 200
     expected_result_1 = "@article{637275237,\n" '    title = "This is a title."\n' "}\n"

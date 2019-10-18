@@ -40,7 +40,7 @@ class BibTexCommonSchema(Schema):
     reportNumber = fields.Method("get_report_number")
     school = fields.Method("get_school")
     series = fields.Method("get_series")
-    texkey = fields.Raw()
+    texkey = fields.Method("get_texkey")
     title = fields.Method("get_title")
     type_ = fields.Method("get_type", attribute="type", dump_to="type")
     url = fields.Method("get_url")
@@ -150,6 +150,10 @@ class BibTexCommonSchema(Schema):
         date = BibTexCommonSchema.get_date(data, doc_type)
         if date:
             return date.year
+
+    def get_texkey(self, data):
+        control_number = str(data.get("control_number"))
+        return get_value(data, "texkeys[0]", default=control_number)
 
     def get_note(self, data):
         notices = ("erratum", "addendum")
@@ -277,7 +281,8 @@ class BibTexCommonSchema(Schema):
 
     @pre_dump
     def filter_data(self, data):
-        control_number = str(data.get("control_number"))
-        data["doc_type"] = BibTexCommonSchema.get_bibtex_document_type(data)
-        data["texkey"] = get_value(data, "texkeys[0]", default=control_number)
-        return data
+        processed_data = data.copy()
+        processed_data["doc_type"] = BibTexCommonSchema.get_bibtex_document_type(
+            processed_data
+        )
+        return processed_data

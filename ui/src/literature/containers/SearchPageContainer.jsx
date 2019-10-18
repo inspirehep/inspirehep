@@ -14,9 +14,9 @@ import DrawerHandle from '../../common/components/DrawerHandle';
 import LiteratureItem from '../components/LiteratureItem';
 import DocumentHead from '../../common/components/DocumentHead';
 import CiteAllActionContainer from './CiteAllActionContainer';
-import VerticalDivider from '../components/VerticalDivider';
 import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
 import { SUPERUSER } from '../../common/authorization';
+import VerticalDivider from '../../common/VerticalDivider';
 
 class SearchPage extends Component {
   static renderLiteratureItem(result, rank) {
