@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { List, Pagination } from 'antd';
 import Immutable from 'immutable';
 
+const GRID_CONFIG = {
+  gutter: 16,
+  xs: 1,
+  sm: 2,
+  lg: 3,
+  xl: 4,
+};
+
 /**
  * Only displays given page items at once and pagination ui
  * does not paginate.
@@ -14,9 +22,10 @@ class ListWithPagination extends Component {
   }
 
   renderPagination() {
-    const { pageSize, loading, total, page, onPageChange } = this.props;
+    const { pageSize, loading, total, page, onPageChange, grid } = this.props;
     return (
       <Pagination
+        className={{ 'ant-col-24': grid }}
         hideOnSinglePage
         current={page}
         onChange={onPageChange}
@@ -29,10 +38,16 @@ class ListWithPagination extends Component {
   }
 
   render() {
-    const { renderItem, title, pageItems, page } = this.props;
+    const { renderItem, title, pageItems, page, pageSize, grid } = this.props;
     return (
-      <List header={title} footer={this.renderPagination()}>
-        {pageItems.map((item, index) => renderItem(item, index, page))}
+      <List
+        header={title}
+        footer={this.renderPagination()}
+        grid={grid ? GRID_CONFIG : undefined}
+      >
+        {pageItems.map((item, index) =>
+          renderItem(item, (page - 1) * pageSize + index)
+        )}
       </List>
     );
   }
@@ -47,6 +62,7 @@ ListWithPagination.propTypes = {
   page: PropTypes.number.isRequired,
   title: PropTypes.node,
   loading: PropTypes.bool,
+  grid: PropTypes.bool,
 };
 
 ListWithPagination.defaultProps = {

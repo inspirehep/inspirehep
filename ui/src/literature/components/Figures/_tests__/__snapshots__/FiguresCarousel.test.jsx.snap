@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FiguresCarousel renders with all props 1`] = `
+<Modal
+  centered={true}
+  confirmLoading={false}
+  footer={null}
+  maskTransitionName="fade"
+  okType="primary"
+  onCancel={[MockFunction]}
+  title="Figures"
+  transitionName="zoom"
+  visible={true}
+  width={520}
+>
+  <Carousel
+    arrows={true}
+    dots={true}
+    draggable={false}
+    lazyLoad="progressive"
+  >
+    <div
+      className="ph3"
+      key="test_FiguresCarousel_1"
+    >
+      <div
+        className="pb3"
+      >
+        <Figure
+          figure={
+            Immutable.Map {
+              "url": "https://picsum.photos/200/300",
+              "key": "test_FiguresCarousel_1",
+            }
+          }
+        />
+      </div>
+    </div>
+  </Carousel>
+</Modal>
+`;

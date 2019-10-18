@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Figure renders figure with label and caption and all props 1`] = `
+<div
+  className="__Figure__"
+>
+  <div
+    className="image-container ba mh3"
+  >
+    <Img
+      className="h5 pa1"
+      container={[Function]}
+      decode={true}
+      loader={
+        <Spin
+          size="default"
+          spinning={true}
+          style={
+            Object {
+              "display": "block",
+              "margin": "auto",
+              "padding": "2rem 0",
+            }
+          }
+          wrapperClassName=""
+        />
+      }
+      onClick={[MockFunction]}
+      src="https://picsum.photos/200/300"
+      unloader={false}
+    />
+  </div>
+  <div
+    className="tc pt1"
+  >
+    <h4>
+      Test Figure 01
+    </h4>
+  </div>
+</div>
+`;
+
+exports[`Figure renders figure without label and caption 1`] = `
+<div
+  className="__Figure__"
+>
+  <div
+    className="image-container ba mh3"
+  >
+    <Img
+      className="pa1"
+      container={[Function]}
+      decode={true}
+      loader={
+        <Spin
+          size="default"
+          spinning={true}
+          style={
+            Object {
+              "display": "block",
+              "margin": "auto",
+              "padding": "2rem 0",
+            }
+          }
+          wrapperClassName=""
+        />
+      }
+      src="https://picsum.photos/200/300"
+      unloader={false}
+    />
+  </div>
+  <div
+    className="tc pt1"
+  >
+    <h4>
+      No Legend
+    </h4>
+  </div>
+</div>
+`;

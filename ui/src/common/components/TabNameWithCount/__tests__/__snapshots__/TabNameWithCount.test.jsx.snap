@@ -36,11 +36,15 @@ exports[`TabNameWithCount does not display count if loading is true 1`] = `
     <span
       className="ml1"
     >
-      <Icon
-        className="ml1"
-        spin={true}
-        type="loading"
-      />
+      <span
+        data-test-id="loading"
+      >
+        <Icon
+          className="ml1"
+          spin={true}
+          type="loading"
+        />
+      </span>
     </span>
   </span>
 </EventTracker>
@@ -59,11 +63,15 @@ exports[`TabNameWithCount renders when loading true 1`] = `
     <span
       className="ml1"
     >
-      <Icon
-        className="ml1"
-        spin={true}
-        type="loading"
-      />
+      <span
+        data-test-id="loading"
+      >
+        <Icon
+          className="ml1"
+          spin={true}
+          type="loading"
+        />
+      </span>
     </span>
   </span>
 </EventTracker>

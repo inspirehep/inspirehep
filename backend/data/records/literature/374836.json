@@ -1,13 +1,32 @@
 {
   "$schema": "https://labs.inspirehep.net/schemas/records/hep.json",
   "_collections": ["Literature"],
-  "_desy_bookkeeping": [{ "identifier": "D94-20716" }],
+  "_desy_bookkeeping": [
+    {
+      "identifier": "D94-20716"
+    }
+  ],
   "_private_notes": [
-    { "source": "SPIRES-HIDDEN", "value": "Title standardized on 12/13/2005" },
-    { "source": "SPIRES-HIDDEN", "value": "doi from CrossRef" },
-    { "source": "SPIRES-HIDDEN", "value": "rdupok" },
-    { "source": "SPIRES-HIDDEN", "value": "desy-keyword change 10.30.10 sul" },
-    { "source": "CERN", "value": "CDS-266139" }
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "Title standardized on 12/13/2005"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "doi from CrossRef"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "rdupok"
+    },
+    {
+      "source": "SPIRES-HIDDEN",
+      "value": "desy-keyword change 10.30.10 sul"
+    },
+    {
+      "source": "CERN",
+      "value": "CDS-266139"
+    }
   ],
   "abstracts": [
     {
@@ -21,7 +40,12 @@
         "We study the vacuum structure and dyon spectrum of N=2 supersymmetric gauge theory in four dimensions, with gauge group SU(2). The theory turns out to have remarkably rich and physical properties which can nonetheless be described precisely/ exact formulas can be obtained, for instance, for electron and dyon masses and the metric on the moduli space of vacua. The description involves a version of Olive-Montonen electric-magnetic duality. The ``strongly coupled'' vacuum turns out to be a weakly coupled theory of monopoles, and with a suitable perturbation confinement is described by monopole condensation."
     }
   ],
-  "arxiv_eprints": [{ "categories": ["hep-th"], "value": "hep-th/9407087" }],
+  "arxiv_eprints": [
+    {
+      "categories": ["hep-th"],
+      "value": "hep-th/9407087"
+    }
+  ],
   "authors": [
     {
       "affiliations": [
@@ -41,10 +65,18 @@
       "curated_relation": true,
       "full_name": "Seiberg, N.",
       "ids": [
-        { "schema": "INSPIRE ID", "value": "INSPIRE-00124997" },
-        { "schema": "INSPIRE BAI", "value": "N.Seiberg.1" }
+        {
+          "schema": "INSPIRE ID",
+          "value": "INSPIRE-00124997"
+        },
+        {
+          "schema": "INSPIRE BAI",
+          "value": "N.Seiberg.1"
+        }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/authors/989440" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/989440"
+      },
       "signature_block": "SABARGn",
       "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"
     },
@@ -60,10 +92,18 @@
       "curated_relation": true,
       "full_name": "Witten, Edward",
       "ids": [
-        { "schema": "INSPIRE ID", "value": "INSPIRE-00136372" },
-        { "schema": "INSPIRE BAI", "value": "E.Witten.1" }
+        {
+          "schema": "INSPIRE ID",
+          "value": "INSPIRE-00136372"
+        },
+        {
+          "schema": "INSPIRE BAI",
+          "value": "E.Witten.1"
+        }
       ],
-      "record": { "$ref": "http://labs.inspirehep.net/api/authors/983328" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/authors/983328"
+      },
       "signature_block": "WATANe",
       "uuid": "1bde7adf-b85a-4e24-be19-c57eeafc0985"
     }
@@ -71,7 +111,9 @@
   "citeable": true,
   "control_number": 374836,
   "copyright": [
-    { "statement": "Copyright @ unknown. Published by Elsevier B.V." }
+    {
+      "statement": "Copyright @ unknown. Published by Elsevier B.V."
+    }
   ],
   "core": true,
   "curated": true,
@@ -93,7 +135,9 @@
     }
   ],
   "dois": [
-    { "value": "10.1016/0550-3213(94)90124-4" },
+    {
+      "value": "10.1016/0550-3213(94)90124-4"
+    },
     {
       "material": "erratum",
       "source": "bibmatch",
@@ -101,29 +145,119 @@
     }
   ],
   "external_system_identifiers": [
-    { "schema": "MSNET", "value": "1293681" },
-    { "schema": "ADS", "value": "1994NuPhB.426...19S" },
-    { "schema": "SPIRES", "value": "SPIRES-2964414" }
+    {
+      "schema": "MSNET",
+      "value": "1293681"
+    },
+    {
+      "schema": "ADS",
+      "value": "1994NuPhB.426...19S"
+    },
+    {
+      "schema": "SPIRES",
+      "value": "SPIRES-2964414"
+    }
   ],
-  "inspire_categories": [{ "term": "Theory-HEP" }],
+  "figures": [
+    {
+      "key": "3_1Layers_contour_map",
+      "caption":
+        "Light-intensity contour maps for different painting patterns of the octagonal screen (color online). The color code is the same as in Fig. ???. Magenta dotted lines refer to the painting pattern (see also text for details). Black arrows indicate the light-injection edge. Measurements were taken in correspondence with the black dots.",
+      "url":
+        "https://inspirehep.net/record/1759384/files/3_1Layers_contour_map.png"
+    },
+    {
+      "key": "Waves",
+      "caption":
+        "Example of PMT traces induced by the flasher. The traces were collected in a single position over the screen, and the signal was integrated over a 60 ns window.",
+      "url": "https://inspirehep.net/record/1759384/files/Waves.png"
+    },
+    {
+      "key": "screen_flasher",
+      "caption":
+        "(a) bottom view of the assembly of the flasher box containing the LED electronic card, the fishtail light guide, and the final version of the screen; (b) front view of the camera focal plane with the SPE calibration system in parking position on the bottom-right corner (different colors are used to distinguish the PMT modules); (c) simplified lateral view of the front of the camera, showing the screen in a possible position during a camera scan: the emitting side is facing the PMTs, while the reflective one is looking at the mirror dish of the telescope. Two distances are reported: the distance between the entrance of the Winston cone and the edge of the screen facing the mirrors (25.6 mm), and the minimum distance between the camera window (gray band) and the screen (190 mm).",
+      "url": "https://inspirehep.net/record/1759384/files/screen_flasher.png"
+    },
+    {
+      "key": "Sideview",
+      "caption":
+        "(a) bottom view of the assembly of the flasher box containing the LED electronic card, the fishtail light guide, and the final version of the screen; (b) front view of the camera focal plane with the SPE calibration system in parking position on the bottom-right corner (different colors are used to distinguish the PMT modules); (c) simplified lateral view of the front of the camera, showing the screen in a possible position during a camera scan: the emitting side is facing the PMTs, while the reflective one is looking at the mirror dish of the telescope. Two distances are reported: the distance between the entrance of the Winston cone and the edge of the screen facing the mirrors (25.6 mm), and the minimum distance between the camera window (gray band) and the screen (190 mm).",
+      "url": "https://inspirehep.net/record/1759384/files/Sideview.png"
+    },
+    {
+      "key": "spe_bright_log",
+      "caption":
+        "SPE spectra recorded at three different light intensity points of the screen: (a) high, (b) medium, and (c) low. The corresponding positions on the screen are marked in Fig. ???. The spectra were acquired by using all 12 LEDs at 12.5 V, with the filter OD=2 mounted in the flasher, and setting the PMT high-voltage at 1200 V.",
+      "url": "https://inspirehep.net/record/1759384/files/spe_bright_log.png"
+    },
+    {
+      "key": "squared_profiles",
+      "caption":
+        "Light-intensity profiles measured along the central axis of the square screen. Measurements were taken at a distance of 5, 10, and 15 cm from the injection edge, and are expressed in analog-to-digital counts (ADC). Measurements were taken switching on 1 LED at 8 V, with a filter of OD=0.5, and setting the PMT high-voltage at 1000 V (solid line). For configuration 6, measurements were taken in higher luminosity conditions: 1 LED at 10.3 V, without OD filter, and PMT high-voltage set at 1200 V (green dotted line)",
+      "url": "https://inspirehep.net/record/1759384/files/squared_profiles.png"
+    }
+  ],
+  "inspire_categories": [
+    {
+      "term": "Theory-HEP"
+    }
+  ],
   "keywords": [
-    { "schema": "INSPIRE", "value": "gauge field theory: SU(2)" },
-    { "schema": "INSPIRE", "value": "supersymmetry" },
-    { "schema": "INSPIRE", "value": "field theory: dyon" },
-    { "schema": "INSPIRE", "value": "vacuum state" },
-    { "schema": "INSPIRE", "value": "magnetic monopole: condensation" },
-    { "schema": "INSPIRE", "value": "confinement" },
-    { "schema": "INSPIRE", "value": "duality" },
-    { "schema": "INSPIRE", "value": "effective action" },
-    { "schema": "INSPIRE", "value": "approximation: semiclassical" },
-    { "schema": "INSPIRE", "value": "moduli space" },
-    { "schema": "INSPIRE", "value": "geometry: algebra" }
+    {
+      "schema": "INSPIRE",
+      "value": "gauge field theory: SU(2)"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "supersymmetry"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "field theory: dyon"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "vacuum state"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "magnetic monopole: condensation"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "confinement"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "duality"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "effective action"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "approximation: semiclassical"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "moduli space"
+    },
+    {
+      "schema": "INSPIRE",
+      "value": "geometry: algebra"
+    }
   ],
   "legacy_creation_date": "1994-07-19",
   "legacy_version": "20180611222645.0",
   "number_of_pages": 44,
   "preprint_date": "1994-06",
-  "public_notes": [{ "source": "arXiv", "value": "45pp, harvmac" }],
+  "public_notes": [
+    {
+      "source": "arXiv",
+      "value": "45pp, harvmac"
+    }
+  ],
   "publication_info": [
     {
       "journal_title": "Nucl.Phys.B",
@@ -145,7 +279,9 @@
   "references": [
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/358851" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/358851"
+      },
       "reference": {
         "arxiv_eprint": "hep-ph/9309335",
         "publication_info": {
@@ -158,7 +294,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/371563" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/371563"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9402044",
         "publication_info": {
@@ -171,7 +309,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/372475" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/372475"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9403198",
         "publication_info": {
@@ -184,7 +324,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/371471" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/371471"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9402005",
         "publication_info": {
@@ -197,7 +339,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/229240" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/229240"
+      },
       "reference": {
         "publication_info": {
           "artid": "456",
@@ -209,7 +353,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/313953" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/313953"
+      },
       "reference": {
         "publication_info": {
           "artid": "571",
@@ -221,7 +367,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/267473" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/267473"
+      },
       "reference": {
         "publication_info": {
           "artid": "169",
@@ -233,7 +381,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/260815" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/260815"
+      },
       "reference": {
         "publication_info": {
           "artid": "353",
@@ -245,7 +395,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/372769" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/372769"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9403195",
         "publication_info": {
@@ -258,7 +410,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/2575" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/2575"
+      },
       "reference": {
         "publication_info": {
           "artid": "760",
@@ -270,7 +424,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/101280" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/101280"
+      },
       "reference": {
         "publication_info": {
           "artid": "449",
@@ -282,7 +438,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/6563" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/6563"
+      },
       "reference": {
         "publication_info": {
           "artid": "97",
@@ -294,7 +452,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/121372" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/121372"
+      },
       "reference": {
         "publication_info": {
           "artid": "117",
@@ -306,7 +466,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/111435" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/111435"
+      },
       "reference": {
         "publication_info": {
           "artid": "1",
@@ -318,7 +480,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/7497" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/7497"
+      },
       "reference": {
         "publication_info": {
           "artid": "321",
@@ -330,7 +494,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/10807" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/10807"
+      },
       "reference": {
         "publication_info": {
           "artid": "1",
@@ -342,7 +508,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/11225" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/11225"
+      },
       "reference": {
         "publication_info": {
           "artid": "17",
@@ -354,7 +522,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/265546" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/265546"
+      },
       "reference": {
         "publication_info": {
           "artid": "669",
@@ -366,7 +536,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/298367" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/298367"
+      },
       "reference": {
         "publication_info": {
           "artid": "35",
@@ -378,7 +550,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/371468" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/371468"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9402002",
         "publication_info": {
@@ -391,7 +565,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/38317" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/38317"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9406128",
         "publication_info": {
@@ -404,7 +580,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/23243" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/23243"
+      },
       "reference": {
         "publication_info": {
           "artid": "75",
@@ -416,7 +594,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/202378" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/202378"
+      },
       "reference": {
         "publication_info": {
           "artid": "89",
@@ -428,7 +608,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/317342" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/317342"
+      },
       "reference": {
         "publication_info": {
           "artid": "2175",
@@ -440,7 +622,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/26953" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/26953"
+      },
       "reference": {
         "publication_info": {
           "artid": "163",
@@ -452,7 +636,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/295485" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/295485"
+      },
       "reference": {
         "publication_info": {
           "artid": "455",
@@ -464,7 +650,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/333920" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/333920"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9204102",
         "publication_info": {
@@ -477,7 +665,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/341338" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/341338"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9211097",
         "publication_info": {
@@ -490,7 +680,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/371476" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/371476"
+      },
       "reference": {
         "arxiv_eprint": "hep-th/9401139",
         "publication_info": {
@@ -503,7 +695,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/142191" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/142191"
+      },
       "reference": {
         "publication_info": {
           "artid": "283",
@@ -515,7 +709,9 @@
     },
     {
       "curated_relation": false,
-      "record": { "$ref": "http://labs.inspirehep.net/api/literature/11722" },
+      "record": {
+        "$ref": "http://labs.inspirehep.net/api/literature/11722"
+      },
       "reference": {
         "publication_info": {
           "artid": "253",
@@ -526,15 +722,26 @@
       }
     }
   ],
-  "report_numbers": [{ "value": "RU-94-52" }, { "value": "IASSNS-HEP-94-43" }],
-  "self": { "$ref": "http://labs.inspirehep.net/api/literature/374836" },
+  "report_numbers": [
+    {
+      "value": "RU-94-52"
+    },
+    {
+      "value": "IASSNS-HEP-94-43"
+    }
+  ],
+  "self": {
+    "$ref": "http://labs.inspirehep.net/api/literature/374836"
+  },
   "texkeys": ["Seiberg:1994rs"],
   "titles": [
     {
       "title":
         "Electric - magnetic duality, monopole condensation, and confinement in N=2 supersymmetric Yang-Mills theory"
     },
-    { "title": "ELECTRIC MAGNETIC" },
+    {
+      "title": "ELECTRIC MAGNETIC"
+    },
     {
       "source": "arXiv",
       "title":

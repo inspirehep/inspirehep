@@ -10,7 +10,7 @@
   }
   .header {
     padding: $header-padding;
-    min-height: 64px;
+    min-height: $header-min-height;
     height: initial;
     @media (max-width: $screen-xs-max) {
       line-height: 56px;

@@ -38,6 +38,7 @@ import PublicNotesList from '../../components/PublicNotesList';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { fetchCitationsByYear } from '../../../actions/citations';
 import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
+import Figures from '../../components/Figures';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -108,6 +109,8 @@ class DetailPage extends Component {
 
     const numberOfReferences = metadata.get('number_of_references', 0);
     const canEdit = metadata.get('can_edit', false);
+
+    const figures = metadata.get('figures');
 
     return (
       <>
@@ -231,9 +234,17 @@ class DetailPage extends Component {
                       recordId={recordId}
                     />
                   </Tabs.TabPane>
-                  <Tabs.TabPane tab="Figures" key="3">
+                  <Tabs.TabPane
+                    tab={
+                      <TabNameWithCount
+                        name="Figures"
+                        count={figures ? figures.size : 0}
+                      />
+                    }
+                    key="3"
+                  >
                     <ContentBox>
-                      This feature is currently under development.
+                      <Figures figures={figures} />
                     </ContentBox>
                   </Tabs.TabPane>
                 </Tabs>

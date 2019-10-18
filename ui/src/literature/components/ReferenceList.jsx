@@ -9,11 +9,12 @@ import ErrorAlertOrChildren from '../../common/components/ErrorAlertOrChildren';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 
 class ReferenceList extends Component {
-  static renderReferenceItem(reference, index, page) {
+  static renderReferenceItem(reference, index) {
     return (
       // reference data model doesn't have any identifier, thus we have hack for `key`
+      // FIXME: find an proper key for reference item as index might cause bugs
       <ReferenceItem
-        key={reference.getIn(['titles', 0, 'title']) || String(index * page)}
+        key={reference.getIn(['titles', 0, 'title']) || String(index)}
         reference={reference}
       />
     );
