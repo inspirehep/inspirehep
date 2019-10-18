@@ -543,8 +543,18 @@ LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
         "control_number",
         "_created",
         "_updated",
+    ],
+    "application/vnd+inspire.latex.us+x-latex": ["_latex_us_display"],
+    "application/vnd+inspire.latex.eu+x-latex": ["_latex_eu_display"],
+    "application/x-bibtex": ["_bibtex_display"],
+}
+LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
+    "application/json": [
+        "_ui_display",
+        "_latex_us_display",
+        "_latex_eu_display",
+        "_bibtex_display",
     ]
 }
-LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {"application/json": ["_ui_display"]}
 
 FILES_REST_PERMISSION_FACTORY = allow_all

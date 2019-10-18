@@ -64,12 +64,11 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
         Returns:
             str: serialized search result(s)
         """
-        records = (self.dump(hit["_source"]) for hit in search_result["hits"]["hits"])
-        templates = [
-            self.latex_template().render(data=data, format=self.format)
-            for data in records
+        records = [
+            hit["_source"][f"_latex_{self.format.lower()}_display"]
+            for hit in search_result["hits"]["hits"]
         ]
-        return "\n\n".join(templates)
+        return "\n\n".join(records)
 
 
 latex_EU = LatexSerializer("EU", schema_class=LatexSchema)

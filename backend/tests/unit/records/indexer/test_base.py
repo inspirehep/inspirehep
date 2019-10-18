@@ -11,12 +11,27 @@ from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.indexer.base import InspireRecordIndexer
 
 
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_bibtex_display"
+)
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_eu_display"
+)
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_us_display"
+)
 @mock.patch("flask_sqlalchemy._QueryProperty.__get__")
 @mock.patch("inspirehep.records.indexer.base.before_record_index")
 @mock.patch("inspirehep.records.indexer.base.current_app")
 @mock.patch("inspirehep.records.api.base.RecordMetadata")
 def test_indexer_prepare_record(
-    record_metadata_mock, current_app_mock, receiver_mock, query_mock
+    record_metadata_mock,
+    current_app_mock,
+    receiver_mock,
+    query_mock,
+    mock_latex_us_display,
+    mock_latex_eu_display,
+    mock_bibtex_display,
 ):
     query_mock.return_value.filter_by.return_value.count.return_value = 1
     record = LiteratureRecord({})

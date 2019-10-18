@@ -77,6 +77,21 @@
           "index": false,
           "doc_values": false
         },
+        "_latex_us_display": {
+          "type": "keyword",
+          "index": false,
+          "doc_values": false
+        },
+        " _latex_eu_display": {
+          "type": "keyword",
+          "index": false,
+          "doc_values": false
+        },
+        "_bibtex_display": {
+          "type": "keyword",
+          "index": false,
+          "doc_values": false
+        },
         "abstracts": {
           "properties": {
             "abstract_source_suggest": {

@@ -41,7 +41,7 @@ class LatexSchema(Schema):
         return [name.replace(". ", ".~") for name in author_names]
 
     def get_publication_info(self, data):
-        publication_info = BibTexCommonSchema.get_best_publication_info(data)
+        publication_info = BibTexCommonSchema.get_best_publication_info(data).copy()
         if publication_info == {}:
             return missing
 
