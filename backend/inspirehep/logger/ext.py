@@ -5,6 +5,8 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import os
+
 import sentry_sdk
 import structlog
 from flask.logging import default_handler
@@ -40,6 +42,7 @@ class InspireLogger:
             dsn=sentry_dsn,
             integrations=[FlaskIntegration(), CeleryIntegration()],
             send_default_pii=send_default_pii,
+            release=os.environ.get("VERSION"),
         )
 
         LOGGER.debug("Sentry is initialized.")
