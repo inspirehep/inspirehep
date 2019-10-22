@@ -8,6 +8,7 @@
 import json
 from itertools import chain
 
+import structlog
 from inspire_utils.helpers import force_list
 from marshmallow import fields, missing
 
@@ -25,6 +26,8 @@ from ..base import ElasticSearchBaseSchema
 from ..utils import get_display_name_for_author_name, get_facet_author_name_for_author
 from .base import LiteratureRawSchema
 from .ui import LiteratureDetailSchema
+
+LOGGER = structlog.getLogger()
 
 
 class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema):
@@ -50,21 +53,33 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     def get_latex_us_display(self, record):
         from inspirehep.records.serializers.latex import latex_US
 
-        return latex_US.latex_template().render(
-            data=latex_US.dump(record), format=latex_US.format
-        )
+        try:
+            return latex_US.latex_template().render(
+                data=latex_US.dump(record), format=latex_US.format
+            )
+        except Exception:
+            LOGGER.exception("Cannot get latex us display", record=record)
+            return " "
 
     def get_latex_eu_display(self, record):
         from inspirehep.records.serializers.latex import latex_EU
 
-        return latex_EU.latex_template().render(
-            data=latex_EU.dump(record), format=latex_EU.format
-        )
+        try:
+            return latex_EU.latex_template().render(
+                data=latex_EU.dump(record), format=latex_EU.format
+            )
+        except Exception:
+            LOGGER.exception("Cannot get latex eu display", record=record)
+            return " "
 
     def get_bibtex_display(self, record):
         from inspirehep.records.serializers.bibtex import literature_bibtex
 
-        return literature_bibtex.create_bibliography([record])
+        try:
+            return literature_bibtex.create_bibliography([record])
+        except Exception:
+            LOGGER.exception("Cannot get bibtex display", record=record)
+            return " "
 
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""

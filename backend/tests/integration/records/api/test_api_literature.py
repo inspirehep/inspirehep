@@ -439,6 +439,17 @@ def test_dump_for_es_adds_latex_and_bibtex_displays(base_app, db, es):
     assert expected_bibtex_display == dump["_bibtex_display"]
 
 
+@mock.patch(
+    "inspirehep.records.serializers.bibtex.literature_bibtex.create_bibliography"
+)
+def test_dump_for_es_catches_bibtex_exception(mock_bibtex, base_app, db, es):
+    mock_bibtex.side_effect = Exception
+    data = faker.record("lit")
+    record = LiteratureRecord.create(data)
+    dump = record.serialize_for_es()
+    assert " " == dump["_bibtex_display"]
+
+
 def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     data = faker.record("lit")
     record = InspireRecord.create(data)
