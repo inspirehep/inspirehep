@@ -17,6 +17,7 @@ import { getConfigFor } from './common/config';
 
 Sentry.init({
   dsn: getConfigFor('REACT_APP_SENTRY_DSN'),
+  release: process.env.REACT_APP_VERSION,
 });
 
 const store = createStore();
