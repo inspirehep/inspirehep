@@ -5,6 +5,7 @@ node_js:
 - 6.9.1
 - node
 sudo: false
+dist: trusty
 before_script:
 - npm run lint
 - npm run build
