@@ -8,6 +8,7 @@ from fs.opener import fsopen
 from invenio_db import db
 from invenio_files_rest.models import Bucket, ObjectVersion
 from invenio_records.errors import MissingModelError
+from invenio_records_files.models import RecordsBuckets
 from sqlalchemy import func
 
 from inspirehep.records.errors import DownloadFileError
@@ -114,10 +115,20 @@ class CitationMixin:
 
 class FilesMixin:
     @classmethod
-    def create_bucket(cls, data):
-        location = current_app.config["RECORDS_DEFAULT_FILE_LOCATION_NAME"]
-        storage_class = current_app.config["RECORDS_DEFAULT_STORAGE_CLASS"]
+    def create_bucket(cls, data=None, location=None, storage_class=None):
+        if not location:
+            location = current_app.config["RECORDS_DEFAULT_FILE_LOCATION_NAME"]
+        if not storage_class:
+            storage_class = current_app.config["RECORDS_DEFAULT_STORAGE_CLASS"]
         return Bucket.create(location=location, storage_class=storage_class)
+
+    def create_bucket_and_link_to_record(self):
+        bucket = self.create_bucket()
+        if bucket:
+            self.dump_bucket(self, bucket)
+            RecordsBuckets.create(record=self.model, bucket=bucket)
+            self._bucket = bucket
+        return bucket
 
     @property
     def files(self):
@@ -127,7 +138,6 @@ class FilesMixin:
         return self.files_iter_cls(self, bucket=bucket, file_cls=self.file_cls)
 
     def add_file(self, url, original_url=None, key=None, filename=None, **kwargs):
-
         if self.local_url(url):
             LOGGER.debug("Local url trying to copy existing file", url=url)
             bucket, key = self.find_bucket_and_key_from_local_url(url)
@@ -175,7 +185,6 @@ class FilesMixin:
 
         if key_hashed not in self.files.keys:
             file_object.copy(bucket=self.files.bucket.id, key=key_hashed)
-
         self.files.flush()
         return key_hashed
 
@@ -192,6 +201,7 @@ class FilesMixin:
 
         if not local_file_key_hashed:
             self.files[key_hashed] = BytesIO(data)
+        self.files.flush()
         return key_hashed
 
     def get_file_url(self, key):
@@ -217,7 +227,7 @@ class FilesMixin:
     def get_bucket(self):
         if self.bucket:
             return self.bucket
-        return self.create_bucket()
+        return self.create_bucket_and_link_to_record()
 
     def verify_hash_of_files(self, file_object, file_hash):
         calculated_hash = self.hash_data(file_instance=file_object)

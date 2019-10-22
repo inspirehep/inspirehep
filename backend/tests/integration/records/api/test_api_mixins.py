@@ -13,10 +13,11 @@ import os
 import uuid
 from io import BytesIO
 
+import mock
 import pytest
 from flask import current_app
 from fs.errors import ResourceNotFoundError
-from invenio_files_rest.models import Bucket, FileInstance, ObjectVersion
+from invenio_files_rest.models import Bucket, FileInstance, Location, ObjectVersion
 from invenio_records.errors import MissingModelError
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -196,3 +197,52 @@ def test_add_external_which_is_404(base_app, db, es, create_record, enable_files
     record = create_record("lit")
     with pytest.raises(ResourceNotFoundError):
         record.add_file("http://whatever/404")
+
+
+@pytest.mark.vcr()
+def test_regression_create_record_without_bucket(
+    base_app, db, es, create_record_factory
+):
+    record = create_record_factory("lit", with_validation=True)
+    record_control_number = record.json["control_number"]
+    with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert "_bucket" not in record_from_db
+        assert record_from_db._bucket is None
+
+        record_from_db.add_file(
+            "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+        )
+        expected_filename = "S1-2D-Lambda-Kappa-Tkappa.png"
+        filename = record_from_db["_files"][0]["filename"]
+        assert "_bucket" in record_from_db
+        assert record_from_db._bucket
+        assert expected_filename == filename
+
+
+def test_regression_create_record_without_bucket_and_calling_files_should_create_a_bucket(
+    base_app, db, es, create_record_factory
+):
+    record = create_record_factory("lit", with_validation=True)
+    record_control_number = record.json["control_number"]
+    with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert "_bucket" not in record_from_db
+        assert record_from_db._bucket is None
+        record_from_db.files
+        assert "_bucket" in record_from_db
+        assert record_from_db._bucket
+
+
+def test_regression_create_bucket_with_different_location(
+    base_app, db, es, create_record_factory
+):
+    record = create_record_factory("lit", with_validation=True)
+    record_control_number = record.json["control_number"]
+
+    with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        bucket = record_from_db.create_bucket(location="default", storage_class="A")
+        expected_location = Location.get_by_name("default").uri
+        assert expected_location == bucket.location.uri
+        assert "A" == bucket.default_storage_class
