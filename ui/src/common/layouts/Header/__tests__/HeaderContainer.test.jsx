@@ -9,6 +9,12 @@ import { SUBMISSIONS, HOME } from '../../../routes';
 import Header from '../Header';
 
 describe('HeaderContainer', () => {
+  global.CONFIG = {
+    REACT_APP_INTERVENTION_BANNER: {
+      message: 'Maintenance in progress',
+      link: 'https://inspirehep.net',
+    },
+  };
   it('passes props from state when submissions page', () => {
     const store = getStoreWithState({
       router: {
@@ -20,7 +26,7 @@ describe('HeaderContainer', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <HeaderContainer />
+          <HeaderContainer onHeightChange={jest.fn()} />
         </MemoryRouter>
       </Provider>
     );
@@ -42,7 +48,7 @@ describe('HeaderContainer', () => {
     const wrapper = mount(
       <Provider store={store}>
         <MemoryRouter>
-          <HeaderContainer />
+          <HeaderContainer onHeightChange={jest.fn()} />
         </MemoryRouter>
       </Provider>
     );

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
@@ -60,41 +60,39 @@ const Errors$ = Loadable({
   loading: Loading,
 });
 
-class App extends Component {
-  componentDidMount() {
+function App({ userRoles }) {
+  const [headerHeight, setHeaderHeight] = useState(0);
+
+  useEffect(() => {
     Loadable.preloadAll();
+  }, []);
 
-    const { userRoles } = this.props;
-    setUserCategoryFromRoles(userRoles);
-  }
+  useEffect(
+    () => {
+      setUserCategoryFromRoles(userRoles);
+    },
+    [userRoles]
+  );
 
-  render() {
-    const { isBannerVisible, isBetaPage } = this.props;
-    const contentMarginTop =
-      isBannerVisible && isBetaPage ? 112 : undefined;
-    return (
-      <Layout className="__App__">
-        <Header />
-        <Layout.Content
-          className="content"
-          style={{ marginTop: contentMarginTop }}
-        >
-          <SafeSwitch id="main">
-            <Route exact path={HOME} component={Home$} />
-            <Route path={USER} component={User$} />
-            <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
-            <Route path={LITERATURE} component={Literature$} />
-            <Route path={AUTHORS} component={Authors$} />
-            <Route path={JOBS} component={Jobs$} />
-            <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
-            <Route path={ERRORS} component={Errors$} />
-          </SafeSwitch>
-          <UserFeedback />
-        </Layout.Content>
-        <Footer />
-      </Layout>
-    );
-  }
+  return (
+    <Layout className="__App__">
+      <Header onHeightChange={setHeaderHeight} />
+      <Layout.Content className="content" style={{ marginTop: headerHeight }}>
+        <SafeSwitch id="main">
+          <Route exact path={HOME} component={Home$} />
+          <Route path={USER} component={User$} />
+          <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
+          <Route path={LITERATURE} component={Literature$} />
+          <Route path={AUTHORS} component={Authors$} />
+          <Route path={JOBS} component={Jobs$} />
+          <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
+          <Route path={ERRORS} component={Errors$} />
+        </SafeSwitch>
+        <UserFeedback />
+      </Layout.Content>
+      <Footer />
+    </Layout>
+  );
 }
 
 App.propTypes = {
