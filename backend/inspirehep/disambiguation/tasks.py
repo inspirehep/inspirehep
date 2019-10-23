@@ -11,11 +11,11 @@ from inspirehep.disambiguation.utils import (
 
 LOGGER = structlog.getLogger()
 
-disambiguation_assigned_clusters_total = Counter(
-    "disambiguation_assigned_clusters_total", "Assigned clusters", ["num_authors"]
+disambiguation_assigned_clusters = Counter(
+    "disambiguation_assigned_clusters", "Assigned clusters", ["num_authors"]
 )
-disambiguation_created_authors_total = Counter(
-    "disambiguation_created_authors_total",
+disambiguation_created_authors = Counter(
+    "disambiguation_created_authors",
     "How many authors were created during disambiguation.",
 )
 
@@ -33,7 +33,7 @@ def disambiguate_signatures(self, clusters):
     for cluster in clusters:
         authors = cluster["authors"]
         if len(authors) == 1:
-            disambiguation_assigned_clusters_total.labels(num_authors=1).inc()
+            disambiguation_assigned_clusters.labels("1").inc()
             LOGGER.debug(
                 "Received cluster with 1 author.",
                 author=cluster["authors"][0],
@@ -45,7 +45,7 @@ def disambiguate_signatures(self, clusters):
                 )
 
         elif len(authors) == 0:
-            disambiguation_assigned_clusters_total.labels(num_authors=0).inc()
+            disambiguation_assigned_clusters.labels("0").inc()
             with db.session.begin_nested():
                 LOGGER.debug(
                     "Received cluster with 0 authors.", signatures=cluster["signatures"]
@@ -57,10 +57,10 @@ def disambiguate_signatures(self, clusters):
                 if not linked_signatures:
                     author.hard_delete()
                 else:
-                    disambiguation_created_authors_total.inc()
+                    disambiguation_created_authors.inc()
                     update_author_names(author, linked_signatures)
 
         else:
-            disambiguation_assigned_clusters_total.labels(num_authors="2+").inc()
+            disambiguation_assigned_clusters.labels("2+").inc()
             LOGGER.debug("Received cluster with more than 1 author.")
     db.session.commit()
