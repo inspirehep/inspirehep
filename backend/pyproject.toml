@@ -78,6 +78,7 @@ hepcrawl = "13.0.5"
 xrootdpyfs = {git = "https://github.com/inspirehep/xrootdpyfs.git", branch = "python3", optional = true}
 invenio-xrootd = {git = "https://github.com/inveniosoftware/invenio-xrootd.git", optional = true}
 xrootd = {version = "^4.11", optional = true}
+prometheus_client = "^0.7.1"
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"
