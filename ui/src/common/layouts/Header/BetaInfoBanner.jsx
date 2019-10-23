@@ -10,7 +10,7 @@ import { SURVEY_LINK } from '../../constants';
 const BLOG_POST_LINK =
   'https://blog.inspirehep.net/2019/02/introducing-inspire-beta/';
 
-class Banner extends Component {
+class BetaInfoBanner extends Component {
   constructor(props) {
     super(props);
     this.onBannerAlertClose = this.onBannerAlertClose.bind(this);
@@ -57,7 +57,7 @@ class Banner extends Component {
   }
 }
 
-Banner.propTypes = {
+BetaInfoBanner.propTypes = {
   shouldDisplayBanner: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
 };
@@ -68,4 +68,4 @@ const stateToProps = state => ({
 
 const dispatchToProps = dispatch => ({ dispatch });
 
-export default connect(stateToProps, dispatchToProps)(Banner);
+export default connect(stateToProps, dispatchToProps)(BetaInfoBanner);

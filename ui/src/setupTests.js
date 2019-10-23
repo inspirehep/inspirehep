@@ -15,6 +15,9 @@ global.MutationObserver = class {
   constructor(callback) {}
   disconnect() {}
   observe(element, initObject) {}
-  takeRecords() {return []}
+  takeRecords() {
+    return [];
+  }
 };
-global.document.getSelection = function() {}
+global.document.getSelection = function() {};
+global.CONFIG = {};
