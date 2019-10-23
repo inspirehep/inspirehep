@@ -1049,7 +1049,7 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "62.1.0"
+version = "62.1.1"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
@@ -3245,7 +3245,7 @@ importlib-resources = ["6e2783b2538bd5a14678284a3962b0660c715e5a0f10243fd5e00a4b
 incremental = ["717e12246dddf231a349175f48d74d93e2897244939173b01974ab6661406b9f", "7b751696aaf36eebfab537e458929e194460051ccad279c72b755a167eebd4b3"]
 infinity = ["dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"]
 influxdb = ["270ec1ec9cf1927a38cf5ec808e76f364482977577eb8c335f6aed5fcdc4cb25", "30276c7e04bf7659424c733b239ba2f0804d7a1f3c59ec5dd3f88c56176c8d36"]
-inspire-dojson = ["58b93f526f9db7fb723bdf0575eccd682d23430a08787679d1a1da2a7edf855d"]
+inspire-dojson = ["27c9e6e94595d50a14dbdf69aaff3974aec6f8d4cc553d0766647366e4f422e8"]
 inspire-json-merger = ["96a9203174044ae0c53cee5e712f722dff4ffcebfd142525abc42df2d3dbd21f"]
 inspire-query-parser = ["510ab513e1dd3b4b315bee29d89a8df4b6d66ea0bd7f62135b1ca99b90eb58a7"]
 inspire-schemas = ["a92f998b148cd1132a671501e4f50f82793061fa353040c97d724914ffd345d5"]
