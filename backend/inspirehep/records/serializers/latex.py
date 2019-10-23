@@ -65,7 +65,7 @@ class LatexSerializer(MarshmallowMixin, PreprocessorMixin):
             str: serialized search result(s)
         """
         records = [
-            hit["_source"][f"_latex_{self.format.lower()}_display"]
+            hit["_source"].get(f"_latex_{self.format.lower()}_display", "")
             for hit in search_result["hits"]["hits"]
         ]
         return "\n\n".join(records)
