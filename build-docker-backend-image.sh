@@ -24,7 +24,11 @@ login() {
 buildPush() {
 
   echo "Building docker image"
-  retry docker build -t "${IMAGE}:${TAG}" -t "${IMAGE}" "${DOCKER_CONTEXT}"
+  retry docker build \
+    --build-arg VERSION="${TAG}" \
+    -t "${IMAGE}:${TAG}" \
+    -t "${IMAGE}" \
+    "${DOCKER_CONTEXT}"
 
   echo "Pushing image to ${IMAGE}:${TAG}"
   retry docker push "${IMAGE}:${TAG}"
