@@ -7,6 +7,7 @@ import ContentBox from './ContentBox';
 import CitationItem from './CitationItem';
 import { ErrorPropType } from '../propTypes';
 import ErrorAlertOrChildren from './ErrorAlertOrChildren';
+import EmptyOrChildren from './EmptyOrChildren';
 
 export const PAGE_SIZE = 25;
 
@@ -57,11 +58,13 @@ class CitationList extends Component {
   }
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error, citations } = this.props;
     return (
       <ContentBox loading={loading}>
         <ErrorAlertOrChildren error={error}>
-          {this.renderList()}
+          <EmptyOrChildren data={citations} description="0 Citations">
+            {this.renderList()}
+          </EmptyOrChildren>
         </ErrorAlertOrChildren>
       </ContentBox>
     );

@@ -11,7 +11,18 @@ exports[`CitationList does not render the list if total 0 1`] = `
 >
   <ErrorAlertOrChildren
     error={null}
-  />
+  >
+    <EmptyOrChildren
+      data={
+        Immutable.List [
+          Immutable.Map {
+            "control_number": 170,
+          },
+        ]
+      }
+      description="0 Citations"
+    />
+  </ErrorAlertOrChildren>
 </ContentBox>
 `;
 
@@ -27,22 +38,33 @@ exports[`CitationList renders 1`] = `
   <ErrorAlertOrChildren
     error={null}
   >
-    <ListWithPagination
-      loading={false}
-      onPageChange={[Function]}
-      page={1}
-      pageItems={
+    <EmptyOrChildren
+      data={
         Immutable.List [
           Immutable.Map {
             "control_number": 170,
           },
         ]
       }
-      pageSize={25}
-      renderItem={[Function]}
-      title={null}
-      total={1}
-    />
+      description="0 Citations"
+    >
+      <ListWithPagination
+        loading={false}
+        onPageChange={[Function]}
+        page={1}
+        pageItems={
+          Immutable.List [
+            Immutable.Map {
+              "control_number": 170,
+            },
+          ]
+        }
+        pageSize={25}
+        renderItem={[Function]}
+        title={null}
+        total={1}
+      />
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </ContentBox>
 `;
@@ -62,6 +84,11 @@ exports[`CitationList renders with error 1`] = `
         "message": "error",
       }
     }
-  />
+  >
+    <EmptyOrChildren
+      data={Immutable.List []}
+      description="0 Citations"
+    />
+  </ErrorAlertOrChildren>
 </ContentBox>
 `;
