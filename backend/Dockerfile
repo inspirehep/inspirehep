@@ -20,3 +20,6 @@ COPY tests tests/
 COPY scripts scripts/
 COPY data data/
 RUN poetry install
+
+ARG VERSION
+ENV VERSION="${VERSION}"
