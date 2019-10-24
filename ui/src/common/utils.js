@@ -93,7 +93,7 @@ export function mergeWithConcattingArrays(destObject, ...sources) {
 export function httpErrorToActionPayload(httpError) {
   const { message } = httpError;
   if (message === 'Network Error') {
-    return { status: 'network' }
+    return { status: 'network' };
   }
 
   const { response } = httpError;
@@ -101,7 +101,7 @@ export function httpErrorToActionPayload(httpError) {
     const { data, status } = response;
     return { status, ...data };
   }
-  
+
   throw httpError;
 }
 
@@ -188,4 +188,8 @@ export function getRecordIdFromRef($ref) {
 
   const parts = $ref.split('/');
   return parts[parts.length - 1];
+}
+
+export function requireOneOf(markup, dependencies) {
+  return dependencies.some(Boolean) ? markup : null;
 }
