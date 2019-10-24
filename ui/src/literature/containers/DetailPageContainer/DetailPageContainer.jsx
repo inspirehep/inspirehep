@@ -39,6 +39,7 @@ import DocumentHead from '../../../common/components/DocumentHead';
 import { fetchCitationsByYear } from '../../../actions/citations';
 import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
 import Figures from '../../components/Figures';
+import { requireOneOf } from '../../../common/utils';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -181,19 +182,25 @@ class DetailPage extends Component {
             </Row>
             <Row>
               <Col span={24}>
-                <ContentBox>
-                  <div>
-                    <Abstract abstract={abstract} />
-                  </div>
-                  <div
-                    className={classNames({ mt3: publicNotes, mb3: keywords })}
-                  >
-                    <PublicNotesList publicNotes={publicNotes} />
-                  </div>
-                  <div>
-                    <LiteratureKeywordList keywords={keywords} />
-                  </div>
-                </ContentBox>
+                {requireOneOf(
+                  <ContentBox>
+                    <div>
+                      <Abstract abstract={abstract} />
+                    </div>
+                    <div
+                      className={classNames({
+                        mt3: publicNotes,
+                        mb3: keywords,
+                      })}
+                    >
+                      <PublicNotesList publicNotes={publicNotes} />
+                    </div>
+                    <div>
+                      <LiteratureKeywordList keywords={keywords} />
+                    </div>
+                  </ContentBox>,
+                  [keywords, publicNotes, keywords]
+                )}
               </Col>
             </Row>
             <Row>
