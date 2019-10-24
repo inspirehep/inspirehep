@@ -138,30 +138,30 @@
   .slick-arrow {
     height: 24px !important;
     width: 24px !important;
-  }
 
-  .slick-prev {
-    left: -15px !important;
-  }
+    &::before {
+      display: inline-block;
+      border-right: 4px solid $secondary-color;
+      border-bottom: 4px solid $secondary-color;
+      width: 24px;
+      height: 24px;
+    }
 
-  .slick-next {
-    right: -15px !important;
-  }
+    &.slick-prev {
+      left: -15px !important;
 
-  .slick-arrow::before {
-    display: inline-block;
-    border-right: 4px solid $secondary-color;
-    border-bottom: 4px solid $secondary-color;
-    width: 24px;
-    height: 24px;
-  }
+      &::before {
+        transform: rotate(-225deg);
+      }
+    }
 
-  .slick-prev::before {
-    transform: rotate(-225deg);
-  }
+    &.slick-next {
+      right: -15px !important;
 
-  .slick-next::before {
-    transform: rotate(-45deg);
+      &::before {
+        transform: rotate(-45deg);
+      }
+    }
   }
 }
 

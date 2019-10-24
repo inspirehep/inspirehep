@@ -8,11 +8,7 @@ import Figure from './Figure';
 function FigureListItem({ figure, onClick }) {
   return (
     <List.Item>
-      <Figure
-        className="h5 db center pointer"
-        onClick={onClick}
-        figure={figure}
-      />
+      <Figure className="h5" onClick={onClick} figure={figure} />
     </List.Item>
   );
 }

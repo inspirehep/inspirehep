@@ -8,7 +8,7 @@ exports[`Figure renders figure with label and caption and all props 1`] = `
     className="image-container ba mh3"
   >
     <Img
-      className="h5 pa1"
+      className="h5 pa1 db center pointer"
       container={[Function]}
       decode={true}
       loader={
@@ -48,7 +48,7 @@ exports[`Figure renders figure without label and caption 1`] = `
     className="image-container ba mh3"
   >
     <Img
-      className="pa1"
+      className="pa1 db center"
       container={[Function]}
       decode={true}
       loader={
