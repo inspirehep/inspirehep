@@ -13,7 +13,9 @@ function Figure({ figure, className, onClick }) {
       <div className="image-container ba mh3">
         <Image
           onClick={onClick}
-          className={classNames(className, 'pa1')}
+          className={classNames(className, 'pa1 db center', {
+            pointer: onClick,
+          })}
           src={figure.get('url')}
           loader={
             <Spin
