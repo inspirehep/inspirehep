@@ -9,3 +9,5 @@ exports[`RequireFeatureFlag renders children if flag is set 1`] = `
 exports[`RequireFeatureFlag renders null if flag is false 1`] = `""`;
 
 exports[`RequireFeatureFlag renders null if flag is not set 1`] = `""`;
+
+exports[`RequireFeatureFlag renders whenDisabled if flag is not set and whenDisabled is 1`] = `"Almost there, this feature is WIP"`;

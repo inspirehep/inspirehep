@@ -1,20 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Figures renders with figures 1`] = `
-<EmptyOrChildren
-  data={
-    Immutable.List [
-      Immutable.Map {
-        "url": "https://picsum.photos/200/300",
-        "key": "test_1",
-      },
-    ]
-  }
-  description="0 Figures"
+<RequireFeatureFlag
+  flag="FIGURES_FEATURE_FLAG"
+  whenDisabled="This feature is currently under development."
 >
-  <ClientPaginatedList
-    grid={true}
-    items={
+  <EmptyOrChildren
+    data={
       Immutable.List [
         Immutable.Map {
           "url": "https://picsum.photos/200/300",
@@ -22,27 +14,40 @@ exports[`Figures renders with figures 1`] = `
         },
       ]
     }
-    loading={false}
-    pageSize={12}
-    renderItem={[Function]}
-    title={null}
-  />
-  <FiguresCarousel
-    carouselRef={
-      Object {
-        "current": undefined,
+    description="0 Figures"
+  >
+    <ClientPaginatedList
+      grid={true}
+      items={
+        Immutable.List [
+          Immutable.Map {
+            "url": "https://picsum.photos/200/300",
+            "key": "test_1",
+          },
+        ]
       }
-    }
-    figures={
-      Immutable.List [
-        Immutable.Map {
-          "url": "https://picsum.photos/200/300",
-          "key": "test_1",
-        },
-      ]
-    }
-    onCancel={[Function]}
-    visible={false}
-  />
-</EmptyOrChildren>
+      loading={false}
+      pageSize={12}
+      renderItem={[Function]}
+      title={null}
+    />
+    <FiguresCarousel
+      carouselRef={
+        Object {
+          "current": undefined,
+        }
+      }
+      figures={
+        Immutable.List [
+          Immutable.Map {
+            "url": "https://picsum.photos/200/300",
+            "key": "test_1",
+          },
+        ]
+      }
+      onCancel={[Function]}
+      visible={false}
+    />
+  </EmptyOrChildren>
+</RequireFeatureFlag>
 `;

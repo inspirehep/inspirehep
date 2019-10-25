@@ -27,6 +27,18 @@ describe('RequireFeatureFlag', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders whenDisabled if flag is not set and whenDisabled is', () => {
+    const wrapper = shallow(
+      <RequireFeatureFlag
+        flag="A_WIP_FEATURE"
+        whenDisabled="Almost there, this feature is WIP"
+      >
+        <div>a WIP Feature</div>
+      </RequireFeatureFlag>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders children if flag is set', () => {
     global.CONFIG = { A_WIP_FEATURE: true };
     const wrapper = shallow(
