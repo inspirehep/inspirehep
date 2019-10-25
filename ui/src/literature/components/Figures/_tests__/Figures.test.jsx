@@ -8,6 +8,10 @@ import FigureListItem from '../FigureListItem';
 import FiguresCarousel from '../FiguresCarousel';
 
 describe('Figures', () => {
+  beforeAll(() => {
+    window.CONFIG = { FIGURES_FEATURE_FLAG: true };
+  });
+
   it('renders with figures', () => {
     const figures = fromJS([
       {
