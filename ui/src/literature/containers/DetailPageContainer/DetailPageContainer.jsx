@@ -39,7 +39,7 @@ import DocumentHead from '../../../common/components/DocumentHead';
 import { fetchCitationsByYear } from '../../../actions/citations';
 import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
 import Figures from '../../components/Figures';
-import { requireOneOf } from '../../../common/utils';
+import RequireOneOf from '../../../common/components/RequireOneOf';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -182,7 +182,7 @@ class DetailPage extends Component {
             </Row>
             <Row>
               <Col span={24}>
-                {requireOneOf(
+                <RequireOneOf dependencies={[abstract, publicNotes, keywords]}>
                   <ContentBox>
                     <div>
                       <Abstract abstract={abstract} />
@@ -198,9 +198,8 @@ class DetailPage extends Component {
                     <div>
                       <LiteratureKeywordList keywords={keywords} />
                     </div>
-                  </ContentBox>,
-                  [keywords, publicNotes, keywords]
-                )}
+                  </ContentBox>
+                </RequireOneOf>
               </Col>
             </Row>
             <Row>

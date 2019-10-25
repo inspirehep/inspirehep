@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RequireOneOf renders children if dependency is 0 1`] = `
+<div>
+  I depend on 
+  0
+</div>
+`;
+
+exports[`RequireOneOf renders children if dependency is false 1`] = `
+<div>
+  I depend on 
+</div>
+`;
+
+exports[`RequireOneOf renders children if one dependency is there 1`] = `
+<div>
+  I depend on 
+  dep1
+   and 
+</div>
+`;
+
+exports[`RequireOneOf renders null if all dependencies are missing 1`] = `""`;
+
+exports[`RequireOneOf renders null if dependency is an empty string 1`] = `""`;

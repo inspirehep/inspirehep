@@ -18,7 +18,6 @@ import pluralizeUnlessSingle, {
   pickEvenlyDistributedElements,
   removeProtocolAndWwwFromUrl,
   getRecordIdFromRef,
-  requireOneOf,
 } from '../utils';
 
 describe('utils', () => {
@@ -470,26 +469,6 @@ describe('utils', () => {
       const $ref = 'https://inspirehep.net/api/authors/12345';
       const expected = '12345';
       const result = getRecordIdFromRef($ref);
-      expect(result).toEqual(expected);
-    });
-  });
-
-  describe('requireOneOf', () => {
-    it('returns null if none of the required is present', () => {
-      const dep1 = null;
-      const dep2 = null;
-      const result = requireOneOf(`A thing depends on: ${dep1}, ${dep2}`, [
-        dep1,
-        dep2,
-      ]);
-      expect(result).toEqual(null);
-    });
-
-    it('returns self if some of the required is present', () => {
-      const dep1 = null;
-      const dep2 = 'dep2';
-      const expected = `A thing depends on: ${dep1}, ${dep2}`;
-      const result = requireOneOf(expected, [dep1, dep2]);
       expect(result).toEqual(expected);
     });
   });
