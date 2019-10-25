@@ -189,7 +189,3 @@ export function getRecordIdFromRef($ref) {
   const parts = $ref.split('/');
   return parts[parts.length - 1];
 }
-
-export function requireOneOf(markup, dependencies) {
-  return dependencies.some(Boolean) ? markup : null;
-}
