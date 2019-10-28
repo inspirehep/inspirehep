@@ -4749,7 +4749,7 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Mon, 28 Oct 2019 15:49:56 GMT
+      - Mon, 28 Oct 2019 15:51:16 GMT
       ETag:
       - '"7ef68b84-41bb7-57f08c50d4380"'
       Keep-Alive:
@@ -4760,7 +4760,7 @@ interactions:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=c96f924f93e878cf9277311113203f4c; path=/; HttpOnly
+      - INVENIOSESSION=1290d154f36363dcfe4c49146d736adb; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:
@@ -5084,7 +5084,7 @@ interactions:
       Content-Type:
       - image/png
       Date:
-      - Mon, 28 Oct 2019 15:50:33 GMT
+      - Mon, 28 Oct 2019 15:51:47 GMT
       ETag:
       - '"1209b940-40e0-5952b9e07d8c0"'
       Keep-Alive:
@@ -5095,7 +5095,7 @@ interactions:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=526814f37358d896a8716cfd6a27ae16; path=/; HttpOnly
+      - INVENIOSESSION=3766735624dcdd474d98d2e0032828ed; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control
     status:
@@ -17523,7 +17523,7 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Mon, 28 Oct 2019 15:50:34 GMT
+      - Mon, 28 Oct 2019 15:51:48 GMT
       ETag:
       - '"7f046e70-ac7ed-583d5233c9980"'
       Keep-Alive:
@@ -17534,7 +17534,7 @@ interactions:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=e120ec766579f8f75b92fb954e1f6aca; path=/; HttpOnly
+      - INVENIOSESSION=deb29f469a3aa834f8247b6a59aedeaf; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:
@@ -17878,7 +17878,7 @@ interactions:
       Content-Type:
       - image/png
       Date:
-      - Mon, 28 Oct 2019 15:50:56 GMT
+      - Mon, 28 Oct 2019 15:52:19 GMT
       ETag:
       - '"70dc82b8-4541-49237437d8a00"'
       Keep-Alive:
@@ -17889,7 +17889,7 @@ interactions:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=d9924e20b2ab7a462e7db75adcb0b2c6; path=/; HttpOnly
+      - INVENIOSESSION=017ee902c88856cdcc6052dc95618da3; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control
     status:

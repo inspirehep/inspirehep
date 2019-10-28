@@ -2,10 +2,12 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
     uri: http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf
   response:
@@ -4739,7 +4741,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="20_slac-tn-63-050.pdf"
       Content-Length:
@@ -4747,16 +4749,18 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Sun, 20 Oct 2019 15:25:24 GMT
+      - Mon, 28 Oct 2019 15:52:26 GMT
       ETag:
       - '"7ef68b84-41bb7-57f08c50d4380"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Wed, 09 Jan 2019 16:15:26 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=25f0c7e6a96870d4add7b96cdefe12f0; path=/; HttpOnly
+      - INVENIOSESSION=e3fcd8d20c05f2d06a0e8ab96374bf7b; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:
@@ -4765,12 +4769,14 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/1759380/files/channelxi3.png
+    uri: https://inspirehep.net/record/1759380/files/channelxi3.png
   response:
     body:
       string: !!binary |
@@ -5070,7 +5076,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="channelxi3.png"
       Content-Length:
@@ -5078,16 +5084,18 @@ interactions:
       Content-Type:
       - image/png
       Date:
-      - Sun, 20 Oct 2019 15:25:25 GMT
+      - Mon, 28 Oct 2019 15:52:45 GMT
       ETag:
       - '"1209b940-40e0-5952b9e07d8c0"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Fri, 18 Oct 2019 09:04:11 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=495d2b872e53a3081c39c9dcd193a3ea; path=/; HttpOnly
+      - INVENIOSESSION=351ee0480164a3b2a7217835aa145d9c; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control
     status:
@@ -5096,10 +5104,12 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
     uri: http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf
   response:
@@ -17505,7 +17515,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="fermilab-pub-10-255-e.pdf"
       Content-Length:
@@ -17513,16 +17523,18 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Sun, 20 Oct 2019 15:25:25 GMT
+      - Mon, 28 Oct 2019 15:52:48 GMT
       ETag:
       - '"7f046e70-ac7ed-583d5233c9980"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Mon, 11 Mar 2019 17:45:26 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=e6e223ed4ee43f17d38dca0d14acea49; path=/; HttpOnly
+      - INVENIOSESSION=e8c5f301c129f02b13053d8cbe2c96b3; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:

@@ -133,7 +133,8 @@ def test_add_external_file_twice_and_only_store_it_once(
     record_2.add_file(
         "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
     )
-    assert record.bucket.objects[0].file_id == record_2.bucket.objects[0].file_id
+    assert record_2["_files"][0]["file_id"] == record["_files"][0]["file_id"]
+    assert record_2.bucket.objects[0].file_id == record.bucket.objects[0].file_id
 
 
 @pytest.mark.vcr()
@@ -246,3 +247,24 @@ def test_regression_create_bucket_with_different_location(
         expected_location = Location.get_by_name("default").uri
         assert expected_location == bucket.location.uri
         assert "A" == bucket.default_storage_class
+
+
+@pytest.mark.vcr()
+def test_add_delete_and_add_again_the_same_file(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    added_file_metadata = record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
+    file_id = str(record.bucket.objects[0].file_id)
+
+    key = record["_files"][0]["key"]
+    del record.files[key]
+
+    record.add_file(
+        added_file_metadata["url"],
+        original_url="http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
+    )
+    result_file_id = record["_files"][0]["file_id"]
+    assert file_id != result_file_id

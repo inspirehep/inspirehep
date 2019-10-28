@@ -2,10 +2,12 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
     uri: http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf
   response:
@@ -4739,7 +4741,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="20_slac-tn-63-050.pdf"
       Content-Length:
@@ -4747,16 +4749,18 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Sun, 20 Oct 2019 15:25:01 GMT
+      - Mon, 28 Oct 2019 15:54:17 GMT
       ETag:
       - '"7ef68b84-41bb7-57f08c50d4380"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Wed, 09 Jan 2019 16:15:26 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=6a9196fd839e6683bb57d42543776bfa; path=/; HttpOnly
+      - INVENIOSESSION=37779c36809542c094a18d1b66f6b9e2; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:
@@ -4765,12 +4769,14 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/1759380/files/channelxi3.png
+    uri: https://inspirehep.net/record/1759380/files/channelxi3.png
   response:
     body:
       string: !!binary |
@@ -5070,7 +5076,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="channelxi3.png"
       Content-Length:
@@ -5078,16 +5084,18 @@ interactions:
       Content-Type:
       - image/png
       Date:
-      - Sun, 20 Oct 2019 15:25:02 GMT
+      - Mon, 28 Oct 2019 15:54:30 GMT
       ETag:
       - '"1209b940-40e0-5952b9e07d8c0"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Fri, 18 Oct 2019 09:04:11 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=47d07b2dfddf51873b39b5b9d54a876c; path=/; HttpOnly
+      - INVENIOSESSION=ac281cc2f4b9a638fcdc49d31fdb87b0; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control
     status:
@@ -5096,10 +5104,12 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
     uri: http://inspirehep.net/record/863300/files/WZ_fig4.png
   response:
@@ -5421,7 +5431,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="WZ_fig4.png"
       Content-Length:
@@ -5429,16 +5439,18 @@ interactions:
       Content-Type:
       - image/png
       Date:
-      - Sun, 20 Oct 2019 15:25:02 GMT
+      - Mon, 28 Oct 2019 15:54:33 GMT
       ETag:
       - '"70dc82b8-4541-49237437d8a00"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Sat, 09 Oct 2010 23:12:40 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=1e68feb98d749e7857c6d589b3f3b9e5; path=/; HttpOnly
+      - INVENIOSESSION=a2d9a43d7b40f044e77780665e47212a; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control
     status:

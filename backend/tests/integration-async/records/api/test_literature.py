@@ -389,3 +389,232 @@ def test_literature_add_documents_and_figures_and_then_delete(app, clear_environ
         assert "_files" in record_from_db
         assert "documents" in record_from_db
         assert "figures" in record_from_db
+
+
+@pytest.mark.vcr()
+def test_literature_add_documents_with_hidden_document_and_figures(
+    app, clear_environment
+):
+    with mock.patch.dict(app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        data = {
+            "documents": [
+                {
+                    "url": "http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf",
+                    "filename": "file_name.pdf",
+                    "key": "key",
+                },
+                {
+                    "url": "https://arxiv.org/pdf/1910.11662.pdf",
+                    "filename": "hidden_filename.pdf",
+                    "key": "key",
+                    "hidden": True,
+                },
+            ],
+            "figures": [
+                {
+                    "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                    "key": "key",
+                }
+            ],
+        }
+
+        data = faker.record("lit", data=data)
+        record = LiteratureRecord.create(data)
+        record_control_number = record["control_number"]
+        record_bucket = record.bucket
+        db.session.commit()
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
+        expected_files_length = 2
+        result_files_filenames = [
+            file_["filename"] for file_ in record_from_db["_files"]
+        ]
+        result_files_length = len(record_from_db["_files"])
+
+        assert "hidden_filename.pdf" not in result_files_filenames
+        assert "channelxi3.png" in result_files_filenames
+        assert "file_name.pdf" in result_files_filenames
+        assert expected_files_length == result_files_length
+
+        result_documents_filenames = [
+            document["filename"] for document in record_from_db["documents"]
+        ]
+        result_documents_length = len(record_from_db["documents"])
+        expected_documents_length = 2
+
+        assert "hidden_filename.pdf" in result_documents_filenames
+        assert "file_name.pdf" in result_documents_filenames
+        assert expected_documents_length == expected_documents_length
+
+        result_figures_filenames = [
+            figure["filename"] for figure in record_from_db["figures"]
+        ]
+        result_figures_length = len(record_from_db["figures"])
+        expected_figures_length = 1
+
+        assert "channelxi3.png" in result_figures_filenames
+        assert expected_figures_length == result_figures_length
+
+
+@pytest.mark.vcr()
+def test_literature_update_documents_with_hidden_document_and_figures(
+    app, clear_environment
+):
+    with mock.patch.dict(app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        data = {
+            "documents": [
+                {
+                    "url": "http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf",
+                    "filename": "file_name.pdf",
+                    "key": "key",
+                }
+            ],
+            "figures": [
+                {
+                    "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                    "key": "key",
+                }
+            ],
+        }
+
+        data = faker.record("lit", data=data)
+        record = LiteratureRecord.create(data)
+        record_control_number = record["control_number"]
+        record_bucket = record.bucket
+        db.session.commit()
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
+        data_updated = {
+            "documents": [
+                {
+                    "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                    "filename": "jessica_jones.pdf",
+                    "key": "key",
+                },
+                {
+                    "url": "https://arxiv.org/pdf/1910.11662.pdf",
+                    "filename": "hidden_filename.pdf",
+                    "key": "key",
+                    "hidden": True,
+                },
+            ],
+            "figures": [
+                {
+                    "url": "http://inspirehep.net/record/863300/files/WZ_fig4.png",
+                    "key": "key",
+                }
+            ],
+        }
+
+        record_from_db["documents"] = data_updated["documents"]
+        record_from_db["figures"] = data_updated["figures"]
+        record_from_db.update(dict(record_from_db))
+        db.session.commit()
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
+        expected_files_length = 2
+        result_files_filenames = [
+            file_["filename"] for file_ in record_from_db["_files"]
+        ]
+        result_files_length = len(record_from_db["_files"])
+
+        assert "hidden_filename.pdf" not in result_files_filenames
+        assert "WZ_fig4.png" in result_files_filenames
+        assert "jessica_jones.pdf" in result_files_filenames
+        assert expected_files_length == result_files_length
+
+        result_documents_filenames = [
+            document["filename"] for document in record_from_db["documents"]
+        ]
+        result_documents_length = len(record_from_db["documents"])
+        expected_documents_length = 2
+
+        assert "hidden_filename.pdf" in result_documents_filenames
+        assert "jessica_jones.pdf" in result_documents_filenames
+        assert expected_documents_length == expected_documents_length
+
+        result_figures_filenames = [
+            figure["filename"] for figure in record_from_db["figures"]
+        ]
+        result_figures_length = len(record_from_db["figures"])
+        expected_figures_length = 1
+
+        assert "WZ_fig4.png" in result_figures_filenames
+        assert expected_figures_length == result_figures_length
+
+
+@pytest.mark.vcr()
+def test_literature_update_only_documents_with_hidden_document(app, clear_environment):
+    with mock.patch.dict(app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        data = {
+            "documents": [
+                {
+                    "url": "http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf",
+                    "filename": "file_name.pdf",
+                    "key": "key",
+                }
+            ],
+            "figures": [
+                {
+                    "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                    "key": "key",
+                }
+            ],
+        }
+
+        data = faker.record("lit", data=data)
+        record = LiteratureRecord.create(data)
+        record_control_number = record["control_number"]
+        record_bucket = record.bucket
+        db.session.commit()
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
+        data_updated = {
+            "documents": [
+                {
+                    "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                    "filename": "hidden_jessica_jones.pdf",
+                    "key": "key",
+                    "hidden": True,
+                }
+            ]
+        }
+
+        record_from_db["documents"] = data_updated["documents"]
+        del record_from_db["figures"]
+        record_from_db.update(dict(record_from_db))
+        db.session.commit()
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
+        expected_files_length = 0
+        result_files_length = len(record_from_db["_files"])
+
+        assert expected_files_length == result_files_length
+
+        result_documents_filenames = [
+            document["filename"] for document in record_from_db["documents"]
+        ]
+        result_documents_length = len(record_from_db["documents"])
+        expected_documents_length = 1
+
+        assert "hidden_jessica_jones.pdf" in result_documents_filenames
+        assert expected_documents_length == expected_documents_length
