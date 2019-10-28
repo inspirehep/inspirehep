@@ -157,13 +157,18 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
     def add_files(self, data):
         if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
+            LOGGER.info("Feature flag ``FEATURE_FLAG_ENABLE_FILES`` is disabled")
             return data
 
         if "deleted" in data and data["deleted"]:
+            LOGGER.info("Record is deleted", uuid=self.id)
             return data
 
         documents = data.pop("documents", [])
         figures = data.pop("figures", [])
+
+        self.pop("documents", None)
+        self.pop("figures", None)
 
         keys = []
         builder = LiteratureBuilder(record=data)
@@ -191,12 +196,15 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         if "figures" in builder.record:
             data["figures"] = builder.record["figures"]
 
+        if "_files" in self:
+            data["_files"] = copy(self["_files"])
+        if "_bucket" in self:
+            data["_bucket"] = self["_bucket"]
+
         if self.files:
             for key in list(self.files.keys):
                 if key not in keys:
                     del self.files[key]
-        if "_files" in self:
-            data["_files"] = copy(self["_files"])
         return data
 
     def get_modified_references(self):

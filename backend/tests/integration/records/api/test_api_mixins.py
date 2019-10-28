@@ -16,9 +16,9 @@ from io import BytesIO
 import mock
 import pytest
 from flask import current_app
-from fs.errors import ResourceNotFoundError
 from invenio_files_rest.models import Bucket, FileInstance, Location, ObjectVersion
 from invenio_records.errors import MissingModelError
+from requests.exceptions import ConnectionError
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -195,7 +195,7 @@ def test_add_external_file_with_url(base_app, db, es, create_record, enable_file
 @pytest.mark.vcr()
 def test_add_external_which_is_404(base_app, db, es, create_record, enable_files):
     record = create_record("lit")
-    with pytest.raises(ResourceNotFoundError):
+    with pytest.raises(ConnectionError):
         record.add_file("http://whatever/404")
 
 

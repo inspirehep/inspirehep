@@ -2,10 +2,12 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
     uri: http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf
   response:
@@ -4739,7 +4741,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="20_slac-tn-63-050.pdf"
       Content-Length:
@@ -4747,16 +4749,18 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Sun, 20 Oct 2019 15:25:14 GMT
+      - Mon, 28 Oct 2019 14:41:34 GMT
       ETag:
       - '"7ef68b84-41bb7-57f08c50d4380"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Wed, 09 Jan 2019 16:15:26 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=5fb956fe96fc3b8358341ffda786993e; path=/; HttpOnly
+      - INVENIOSESSION=60e36925349d1300772e60f208b904bc; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:
@@ -4765,12 +4769,14 @@ interactions:
 - request:
     body: null
     headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
       Connection:
-      - close
-      Host:
-      - inspirehep.net
+      - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/1759380/files/channelxi3.png
+    uri: https://inspirehep.net/record/1759380/files/channelxi3.png
   response:
     body:
       string: !!binary |
@@ -5070,7 +5076,7 @@ interactions:
       Cache-Control:
       - public, max-age=3600, no-cache="set-cookie"
       Connection:
-      - close
+      - Keep-Alive
       Content-Disposition:
       - inline; filename="channelxi3.png"
       Content-Length:
@@ -5078,16 +5084,18 @@ interactions:
       Content-Type:
       - image/png
       Date:
-      - Sun, 20 Oct 2019 15:25:14 GMT
+      - Mon, 28 Oct 2019 14:41:44 GMT
       ETag:
       - '"1209b940-40e0-5952b9e07d8c0"'
+      Keep-Alive:
+      - timeout=15, max=100
       Last-Modified:
       - Fri, 18 Oct 2019 09:04:11 GMT
       Server:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=95a568fad962424b80c9aa50e66389a1; path=/; HttpOnly
+      - INVENIOSESSION=6c5b47e9a0a60e7cf046505f96e2a6b9; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control
     status:
