@@ -169,43 +169,47 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
         self.pop("documents", None)
         self.pop("figures", None)
+        added_files_keys = []
 
-        keys = []
-        builder = LiteratureBuilder(record=data)
+        added_documents = self.add_documents(documents)
+        if added_documents:
+            data["documents"] = added_documents
+            added_files_keys = [document["key"] for document in data["documents"]]
 
+        added_figures = self.add_figures(figures)
+        if added_figures:
+            data["figures"] = added_figures
+            added_files_keys = added_files_keys + [
+                figure["key"] for figure in data["figures"]
+            ]
+
+        self.delete_removed_files(added_files_keys)
+
+        if "_files" in self:
+            data["_files"] = copy(self["_files"])
+        data["_bucket"] = self["_bucket"]
+        return data
+
+    def add_documents(self, documents):
+        builder = LiteratureBuilder()
         for document in documents:
+            if document.get("hidden", False):
+                builder.add_document(**document)
+                continue
             file_data = self.add_file(document=True, **document)
             document.update(file_data)
-            if "hidden" not in document:
-                document["hidden"] = False
             if "fulltext" not in document:
                 document["fulltext"] = True
-
             builder.add_document(**document)
-            keys.append(document["key"])
+        return builder.record.get("documents")
 
-        if "documents" in builder.record:
-            data["documents"] = builder.record["documents"]
-
+    def add_figures(self, figures):
+        builder = LiteratureBuilder()
         for figure in figures:
             file_data = self.add_file(**figure)
             figure.update(file_data)
             builder.add_figure(**figure)
-            keys.append(figure["key"])
-
-        if "figures" in builder.record:
-            data["figures"] = builder.record["figures"]
-
-        if "_files" in self:
-            data["_files"] = copy(self["_files"])
-        if "_bucket" in self:
-            data["_bucket"] = self["_bucket"]
-
-        if self.files:
-            for key in list(self.files.keys):
-                if key not in keys:
-                    del self.files[key]
-        return data
+        return builder.record.get("figures")
 
     def get_modified_references(self):
         """Return the ids of the references diff between the latest and the

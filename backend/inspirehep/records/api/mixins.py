@@ -17,6 +17,14 @@ from inspirehep.records.models import RecordCitations
 LOGGER = structlog.getLogger()
 
 
+def requests_retry_session(retries=3):
+    session = requests.Session()
+    adapter = requests.adapters.HTTPAdapter(max_retries=retries)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
+
+
 class CitationMixin:
     def _citation_query(self):
         """Prepares query with all records which cited this one
@@ -130,6 +138,20 @@ class FilesMixin:
             self._bucket = bucket
         return bucket
 
+    def delete_removed_files(self, keys):
+        for key in list(self.files.keys):
+            if key not in keys:
+                try:
+                    del self.files[key]
+                except KeyError:
+                    LOGGER.error(
+                        "Key is already deleted",
+                        uuid=self.id,
+                        key=key,
+                        files_keys=self.files.key,
+                    )
+        self.files.flush()
+
     @property
     def files(self):
         if self.model is None:
@@ -189,7 +211,8 @@ class FilesMixin:
         return key_hashed
 
     def add_file_from_url(self, url):
-        data = requests.get(url).content
+        max_retries = current_app.config.get("FILES_DOWNLOAD_MAX_RETRIES", 3)
+        data = requests_retry_session(retries=max_retries).get(url, stream=True).content
         key_hashed = self.hash_data(data=data)
         if key_hashed in self.files.keys:
             LOGGER.debug("File already exists", key=key_hashed)
@@ -208,9 +231,12 @@ class FilesMixin:
 
     def get_file_object(self, key, bucket_id=None):
         if not bucket_id:
-            return ObjectVersion.query.filter(
+            obj = ObjectVersion.query.filter(
                 ObjectVersion.key == key, ObjectVersion.is_head.is_(True)
             ).first()
+            if obj and not obj.deleted:
+                return obj
+            return None
 
         return ObjectVersion.get(bucket=bucket_id, key=key)
 

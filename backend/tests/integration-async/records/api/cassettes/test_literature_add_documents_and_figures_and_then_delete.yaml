@@ -4749,7 +4749,7 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Mon, 28 Oct 2019 14:41:34 GMT
+      - Mon, 28 Oct 2019 15:45:55 GMT
       ETag:
       - '"7ef68b84-41bb7-57f08c50d4380"'
       Keep-Alive:
@@ -4760,7 +4760,7 @@ interactions:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=60e36925349d1300772e60f208b904bc; path=/; HttpOnly
+      - INVENIOSESSION=2ab3f409c8ece06fb2272601f5213d86; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:
@@ -5084,7 +5084,7 @@ interactions:
       Content-Type:
       - image/png
       Date:
-      - Mon, 28 Oct 2019 14:41:44 GMT
+      - Mon, 28 Oct 2019 15:46:11 GMT
       ETag:
       - '"1209b940-40e0-5952b9e07d8c0"'
       Keep-Alive:
@@ -5095,7 +5095,7 @@ interactions:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=6c5b47e9a0a60e7cf046505f96e2a6b9; path=/; HttpOnly
+      - INVENIOSESSION=4a9875e90f2658eb60bd4e9207ea5a30; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control
     status:
