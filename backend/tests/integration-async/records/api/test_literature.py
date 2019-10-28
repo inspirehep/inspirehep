@@ -78,6 +78,9 @@ def test_literature_add_documents_and_figures(app, clear_environment):
         assert record_from_db["_files"]
         assert len(record_from_db["_files"]) == 2
 
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
         document = record_from_db["documents"][0]
         assert "fulltext" in document
         assert expected_document_filename == document["filename"]
@@ -121,6 +124,8 @@ def test_literature_update_documents_and_figures(app, clear_environment):
         db.session.commit()
 
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
 
         data_updated = {
             "documents": [
@@ -147,6 +152,9 @@ def test_literature_update_documents_and_figures(app, clear_environment):
         db.session.commit()
 
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
 
         expected_figure_filename = "WZ_fig4.png"
         expected_figure_original_url = data_updated["figures"][0]["url"]
@@ -197,6 +205,10 @@ def test_literature_update_only_documents(app, clear_environment):
         db.session.commit()
 
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
         data_updated = {
             "documents": [
                 {
@@ -215,6 +227,9 @@ def test_literature_update_only_documents(app, clear_environment):
 
         db.session.commit()
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
 
         assert record_from_db["_files"]
         assert len(record_from_db["_files"]) == 1
@@ -256,6 +271,8 @@ def test_literature_update_only_figures(app, clear_environment):
         db.session.commit()
 
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
 
         data_updated = {
             "figures": [
@@ -274,6 +291,8 @@ def test_literature_update_only_figures(app, clear_environment):
 
         db.session.commit()
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
 
         assert record_from_db["_files"]
         assert len(record_from_db["_files"]) == 1
@@ -312,13 +331,19 @@ def test_literature_update_without_documents_and_figures(app, clear_environment)
         db.session.commit()
 
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
-        record_bucket = record.bucket
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
         del record_from_db["documents"]
         del record_from_db["figures"]
         record_from_db.update(dict(record_from_db))
 
         db.session.commit()
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
 
         assert [] == record_from_db["_files"]
         assert "documents" not in record_from_db
@@ -350,42 +375,17 @@ def test_literature_add_documents_and_figures_and_then_delete(app, clear_environ
         record_control_number = record["control_number"]
         db.session.commit()
 
-        record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
+
         record.delete()
         db.session.commit()
 
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
-        assert "_files" not in record_from_db["_files"]
+        assert record_from_db.bucket
+        assert "_bucket" in record_from_db
 
-
-@pytest.mark.vcr()
-def test_literature_add_documents_and_figures_without_bucket(app, clear_environment):
-    data = faker.record("lit")
-    record = LiteratureRecord.create(data)
-    record_control_number = record["control_number"]
-
-    with mock.patch.dict(app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
-        data = {
-            "documents": [
-                {
-                    "url": "http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf",
-                    "filename": "file_name.pdf",
-                    "key": "key",
-                }
-            ],
-            "figures": [
-                {
-                    "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
-                    "key": "key",
-                }
-            ],
-        }
-        record = LiteratureRecord.get_record_by_pid_value(record_control_number)
-        record["documents"] = data["documents"]
-        record["figures"] = data["figures"]
-        record_bucket = record.bucket
-
-        db.session.commit()
-
-        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
-        assert "_files" not in record_from_db
+        assert "_files" in record_from_db
+        assert "documents" in record_from_db
+        assert "figures" in record_from_db

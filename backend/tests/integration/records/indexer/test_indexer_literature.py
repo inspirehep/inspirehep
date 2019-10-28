@@ -7,6 +7,7 @@
 
 import json
 
+import pytest
 from freezegun import freeze_time
 from invenio_search import current_search_client as es
 from mock import patch
@@ -80,8 +81,9 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     assert hits_total == expected_total
 
 
+@pytest.mark.vcr()
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
-    fsopen_mock, base_app, es_clear, db, create_record, enable_files
+    base_app, es_clear, db, create_record, enable_files
 ):
     expected_fulltext_links = ["arXiv", "KEK scanned document", "fulltext"]
 
@@ -98,12 +100,12 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
                 "source": "arxiv",
                 "fulltext": True,
                 "key": "arXiv:nucl-th_9310030.pdf",
-                "url": "http://document_url.cern.ch/file.pdf",
+                "url": "https://arxiv.org/pdf/1910.11662.pdf",
             },
             {
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://figure_url.cern.ch/figure2.pdf",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
             },
         ],
     }

@@ -2,9 +2,9 @@ import hashlib
 import uuid
 from io import BytesIO
 
+import requests
 import structlog
 from flask import current_app
-from fs.opener import fsopen
 from invenio_db import db
 from invenio_files_rest.models import Bucket, ObjectVersion
 from invenio_records.errors import MissingModelError
@@ -139,7 +139,7 @@ class FilesMixin:
 
     def add_file(self, url, original_url=None, key=None, filename=None, **kwargs):
         if self.local_url(url):
-            LOGGER.debug("Local url trying to copy existing file", url=url)
+            LOGGER.info("Local url trying to copy existing file", uuid=self.id, url=url)
             bucket, key = self.find_bucket_and_key_from_local_url(url)
             key = self.add_local_file(key, bucket)
             if not key and original_url:
@@ -150,7 +150,7 @@ class FilesMixin:
                 )
                 key = self.add_file_from_url(original_url)
         else:
-            LOGGER.debug("Downloading external url", url=url)
+            LOGGER.info("Downloading external url", uuid=self.id, url=url)
             key = self.add_file_from_url(url)
 
         if not key:
@@ -175,7 +175,7 @@ class FilesMixin:
         file_object = self.get_file_object(key, bucket)
 
         if not file_object:
-            LOGGER.debug("Local file not found", key=key, bucket=bucket)
+            LOGGER.info("Local file not found", uuid=self.id, key=key, bucket=bucket)
             return None
 
         key_hashed = key if self.is_hash(key) else None
@@ -189,12 +189,10 @@ class FilesMixin:
         return key_hashed
 
     def add_file_from_url(self, url):
-        stream = fsopen(url, mode="rb")
-        data = stream._f.wrapped_file.read()
+        data = requests.get(url).content
         key_hashed = self.hash_data(data=data)
-
         if key_hashed in self.files.keys:
-            LOGGER.debug("File already exists.", key=key_hashed)
+            LOGGER.debug("File already exists", key=key_hashed)
             return key_hashed
 
         local_file_key_hashed = self.add_local_file(key_hashed)

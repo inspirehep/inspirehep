@@ -1007,3 +1007,53 @@ def test_phonetic_blocks_not_updated_when_record_does_not_have_lit_collection(
     expected_result_authors = [{"full_name": "Ellis, John Richard"}]
     assert expected_result_authors == record["authors"]
     assert [] == redis.zpopmin("author_phonetic_blocks")
+
+
+@pytest.mark.vcr()
+def test_regression_update_record_without_losing_the_bucket(
+    base_app, db, es, create_record_factory
+):
+
+    data_files = {
+        "_files": [
+            {
+                "key": "050e8ca41b808a48110fb32bf0d79bd3033bb36b",
+                "size": 234_963,
+                "bucket": "aa4a76dd-dc41-4c45-9163-925a3ed71161",
+                "file_id": "923b5782-9fa2-4b97-aa70-f9a79e49c5b9",
+                "checksum": "md5:635694cf6829382854d7fc84b72f2d8d",
+                "filename": "arXiv%3A0809.3951.pdf%3B2",
+                "version_id": "068e8343-5b71-4344-bb83-ec48429b050c",
+            }
+        ],
+        "documents": [
+            {
+                "key": "050e8ca41b808a48110fb32bf0d79bd3033bb36b",
+                "url": "https://arxiv.org/pdf/0809.3951.pdf",
+                "source": "arxiv",
+                "filename": "arXiv%3A0809.3951.pdf%3B2",
+                "fulltext": True,
+                "original_url": "https://arxiv.org/pdf/0809.3951.pdf",
+            }
+        ],
+    }
+
+    record = create_record_factory("lit", data=data_files, with_validation=True)
+    record_control_number = record.json["control_number"]
+
+    with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        record_from_db.update(dict(record_from_db))
+
+        assert record_from_db.bucket
+        assert "_files" in record_from_db
+        assert "_bucket" in record_from_db
+        assert "documents" in record_from_db
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        record_from_db.update(dict(record_from_db))
+
+        assert record_from_db.bucket
+        assert "_files" in record_from_db
+        assert "_bucket" in record_from_db
+        assert "documents" in record_from_db
