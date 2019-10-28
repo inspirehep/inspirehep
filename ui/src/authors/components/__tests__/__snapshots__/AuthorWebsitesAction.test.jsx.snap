@@ -2,45 +2,45 @@
 
 exports[`AuthorWebsitesAction renders only a url 1`] = `
 <ListItemAction>
-  <Tooltip
-    arrowPointAtCenter={false}
-    autoAdjustOverflow={true}
-    mouseEnterDelay={0.1}
-    mouseLeaveDelay={0.1}
-    placement="top"
-    title="Personal website"
-    transitionName="zoom-big-fast"
+  <ExternalLink
+    href="www.descriptionless.com/url"
   >
-    <ExternalLink
-      href="www.descriptionless.com/url"
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="top"
+      title="Personal website"
+      transitionName="zoom-big-fast"
     >
       <Icon
         type="link"
       />
-    </ExternalLink>
-  </Tooltip>
+    </Tooltip>
+  </ExternalLink>
 </ListItemAction>
 `;
 
 exports[`AuthorWebsitesAction renders only blog 1`] = `
 <ListItemAction>
-  <Tooltip
-    arrowPointAtCenter={false}
-    autoAdjustOverflow={true}
-    mouseEnterDelay={0.1}
-    mouseLeaveDelay={0.1}
-    placement="top"
-    title="Personal website"
-    transitionName="zoom-big-fast"
+  <ExternalLink
+    href="https://author.wordpress.com"
   >
-    <ExternalLink
-      href="https://author.wordpress.com"
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="top"
+      title="Personal website"
+      transitionName="zoom-big-fast"
     >
       <Icon
         type="link"
       />
-    </ExternalLink>
-  </Tooltip>
+    </Tooltip>
+  </ExternalLink>
 </ListItemAction>
 `;
 
@@ -49,26 +49,26 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
   <DropdownMenu
     disabled={false}
     title={
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title="Personal websites"
-        transitionName="zoom-big-fast"
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title="Personal website"
+          transitionName="zoom-big-fast"
         >
           <Icon
             type="link"
           />
-        </Button>
-      </Tooltip>
+        </Tooltip>
+      </Button>
     }
   >
     <MenuItem

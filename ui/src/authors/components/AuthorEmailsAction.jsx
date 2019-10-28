@@ -1,63 +1,44 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Button, Menu, Icon, Tooltip } from 'antd';
+import { Menu, Icon, Tooltip } from 'antd';
 
-import ListItemAction from '../../common/components/ListItemAction';
-import DropdownMenu from '../../common/components/DropdownMenu';
 import ExternalLink from '../../common/components/ExternalLink';
+import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 
-const TOOLTIP_TITLE = 'Contact author';
+function getHrefForEmail(email) {
+  return `mailto:${email.get('value')}`;
+}
 
-class AuthorEmailsAction extends Component {
-  static renderIcon() {
-    return <Icon type="mail" />;
-  }
+function renderEmailsDropdownAction(email) {
+  return (
+    <Menu.Item key={email.get('value')}>
+      <ExternalLink href={getHrefForEmail(email)}>
+        {email.get('value')}
+      </ExternalLink>
+    </Menu.Item>
+  );
+}
 
-  static getHrefForEmail(email) {
-    return `mailto:${email.get('value')}`;
-  }
+function renderEmailAction(email, title) {
+  return <ExternalLink href={getHrefForEmail(email)}>{title}</ExternalLink>;
+}
 
-  renderDropdown() {
-    const { emails } = this.props;
-    return (
-      <DropdownMenu
-        title={
-          <Tooltip title={TOOLTIP_TITLE}>
-            <Button>{AuthorEmailsAction.renderIcon()}</Button>
-          </Tooltip>
-        }
-      >
-        {emails.map(email => (
-          <Menu.Item key={email.get('value')}>
-            <ExternalLink href={AuthorEmailsAction.getHrefForEmail(email)}>
-              {email.get('value')}
-            </ExternalLink>
-          </Menu.Item>
-        ))}
-      </DropdownMenu>
-    );
-  }
+const ACTION_TITLE = (
+  <Tooltip title="Contact author">
+    <Icon type="mail" />
+  </Tooltip>
+);
 
-  renderOne() {
-    const { emails } = this.props;
-    return (
-      <Tooltip title={TOOLTIP_TITLE}>
-        <ExternalLink href={AuthorEmailsAction.getHrefForEmail(emails.first())}>
-          {AuthorEmailsAction.renderIcon()}
-        </ExternalLink>
-      </Tooltip>
-    );
-  }
-
-  render() {
-    const { emails } = this.props;
-    return (
-      <ListItemAction>
-        {emails.size > 1 ? this.renderDropdown() : this.renderOne()}
-      </ListItemAction>
-    );
-  }
+function AuthorEmailsAction({ emails }) {
+  return (
+    <ActionsDropdownOrAction
+      values={emails}
+      renderAction={renderEmailAction}
+      renderDropdownAction={renderEmailsDropdownAction}
+      title={ACTION_TITLE}
+    />
+  );
 }
 
 AuthorEmailsAction.propTypes = {

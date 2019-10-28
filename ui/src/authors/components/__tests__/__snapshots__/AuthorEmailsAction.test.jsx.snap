@@ -5,26 +5,26 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
   <DropdownMenu
     disabled={false}
     title={
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title="Contact author"
-        transitionName="zoom-big-fast"
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
       >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title="Contact author"
+          transitionName="zoom-big-fast"
         >
           <Icon
             type="mail"
           />
-        </Button>
-      </Tooltip>
+        </Tooltip>
+      </Button>
     }
   >
     <MenuItem
@@ -51,22 +51,22 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
 
 exports[`AuthorEmailsAction renders single email 1`] = `
 <ListItemAction>
-  <Tooltip
-    arrowPointAtCenter={false}
-    autoAdjustOverflow={true}
-    mouseEnterDelay={0.1}
-    mouseLeaveDelay={0.1}
-    placement="top"
-    title="Contact author"
-    transitionName="zoom-big-fast"
+  <ExternalLink
+    href="mailto:dude@email.cern"
   >
-    <ExternalLink
-      href="mailto:dude@email.cern"
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="top"
+      title="Contact author"
+      transitionName="zoom-big-fast"
     >
       <Icon
         type="mail"
       />
-    </ExternalLink>
-  </Tooltip>
+    </Tooltip>
+  </ExternalLink>
 </ListItemAction>
 `;

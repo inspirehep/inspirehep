@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ActionsDropdownOrAction renders with multiple values 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        Dude URL
+      </Button>
+    }
+  >
+    <MenuItem
+      key="dude.com/1"
+    >
+      <ExternalLink
+        href="dude.com/1"
+      >
+        dude.com/1
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="dude.com/2"
+    >
+      <ExternalLink
+        href="dude.com/2"
+      >
+        dude.com/2
+      </ExternalLink>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`ActionsDropdownOrAction renders with single value 1`] = `
+<ListItemAction>
+  <ExternalLink
+    href="dude.com/1"
+  >
+    Dude URL
+  </ExternalLink>
+</ListItemAction>
+`;
