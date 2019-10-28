@@ -1,58 +1,39 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Button, Menu } from 'antd';
+import { Menu } from 'antd';
 
-import ListItemAction from '../../common/components/ListItemAction';
-import DropdownMenu from '../../common/components/DropdownMenu';
 import IconText from '../../common/components/IconText';
 import DOILink from './DOILink';
 import DOIMaterial from './DOIMaterial';
+import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 
-class DOILinkAction extends Component {
-  static renderIconTextForDOI() {
-    return <IconText text="DOI" type="link" />;
-  }
-
-  renderDOIDropdownItems() {
-    const { dois } = this.props;
-    return dois.map(doi => (
-      <Menu.Item key={doi.get('value')}>
-        <DOILink doi={doi.get('value')}>
-          {doi.get('value')}
-          <DOIMaterial material={doi.get('material')} />
-        </DOILink>
-      </Menu.Item>
-    ));
-  }
-
-  renderDOIDropdown() {
-    return (
-      <DropdownMenu
-        title={<Button>{DOILinkAction.renderIconTextForDOI()}</Button>}
-      >
-        {this.renderDOIDropdownItems()}
-      </DropdownMenu>
-    );
-  }
-
-  renderDoiLink() {
-    const { dois } = this.props;
-    return (
-      <DOILink doi={dois.getIn([0, 'value'])}>
-        {DOILinkAction.renderIconTextForDOI()}
+function renderDOIDropdownAction(doi) {
+  return (
+    <Menu.Item key={doi.get('value')}>
+      <DOILink doi={doi.get('value')}>
+        {doi.get('value')}
+        <DOIMaterial material={doi.get('material')} />
       </DOILink>
-    );
-  }
+    </Menu.Item>
+  );
+}
 
-  render() {
-    const { dois } = this.props;
-    return (
-      <ListItemAction>
-        {dois.size > 1 ? this.renderDOIDropdown() : this.renderDoiLink()}
-      </ListItemAction>
-    );
-  }
+function renderDOIAction(doi, title) {
+  return <DOILink doi={doi.get('value')}>{title}</DOILink>;
+}
+
+const TITLE = <IconText text="DOI" type="link" />;
+
+function DOILinkAction({ dois }) {
+  return (
+    <ActionsDropdownOrAction
+      values={dois}
+      renderAction={renderDOIAction}
+      renderDropdownAction={renderDOIDropdownAction}
+      title={TITLE}
+    />
+  );
 }
 
 DOILinkAction.propTypes = {

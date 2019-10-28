@@ -16,7 +16,7 @@ describe('FullTextLinksAction', () => {
     const wrapper = shallow(
       <FullTextLinksAction fullTextLinks={fullTextLinks} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 
   it('renders single', () => {
@@ -29,6 +29,6 @@ describe('FullTextLinksAction', () => {
     const wrapper = shallow(
       <FullTextLinksAction fullTextLinks={fullTextLinks} />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 });

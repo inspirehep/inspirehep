@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { List, Map } from 'immutable';
-import { Button, Menu, Icon, Tooltip } from 'antd';
+import { List } from 'immutable';
+import { Menu, Icon, Tooltip } from 'antd';
 
-import ListItemAction from '../../common/components/ListItemAction';
-import DropdownMenu from '../../common/components/DropdownMenu';
 import ExternalLink from '../../common/components/ExternalLink';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
+import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 
-const BLOG_DISPLAY = 'Blog';
+function isBlog(website) {
+  return website.get('description', '').toLowerCase() === 'blog';
+}
+
 function websiteToHrefDisplayPair(website) {
   const href = website.get('value');
-  const description = website.get('description', '').toLowerCase();
-  const display =
-    description === 'blog' ? BLOG_DISPLAY : removeProtocolAndWwwFromUrl(href);
-  return Map({ href, display });
+  const display = isBlog(website) ? 'Blog' : removeProtocolAndWwwFromUrl(href);
+  return [href, display];
 }
 
 function sortBlogFirst(a, b) {
@@ -22,65 +22,48 @@ function sortBlogFirst(a, b) {
     return 0;
   }
 
-  if (a === 'Blog') {
+  if (isBlog(a)) {
     return -1;
   }
 
-  if (b === 'Blog') {
+  if (isBlog(b)) {
     return 1;
   }
 
   return 0;
 }
 
-class AuthorWebsitesAction extends Component {
-  static renderIcon() {
-    return <Icon type="link" />;
-  }
+function renderWebsitesDropdownAction(website) {
+  const [href, display] = websiteToHrefDisplayPair(website);
+  return (
+    <Menu.Item key={href}>
+      <ExternalLink href={href}>{display}</ExternalLink>
+    </Menu.Item>
+  );
+}
 
-  renderDropdown() {
-    const { websites } = this.props;
-    const hrefDisplayPairs = websites
-      .map(websiteToHrefDisplayPair)
-      .sortBy(pair => pair.get('display'), sortBlogFirst);
-    return (
-      <DropdownMenu
-        title={
-          <Tooltip title="Personal websites">
-            <Button>{AuthorWebsitesAction.renderIcon()}</Button>
-          </Tooltip>
-        }
-      >
-          {hrefDisplayPairs.map(pair => (
-            <Menu.Item key={pair.get('href')}>
-              <ExternalLink href={pair.get('href')}>
-                {pair.get('display')}
-              </ExternalLink>
-            </Menu.Item>
-          ))}
-      </DropdownMenu>
-    );
-  }
+function renderWebsiteAction(website, title) {
+  return <ExternalLink href={website.get('value')}>{title}</ExternalLink>;
+}
 
-  renderOne() {
-    const { websites } = this.props;
-    return (
-      <Tooltip title="Personal website">
-        <ExternalLink href={websites.getIn(['0', 'value'])}>
-          {AuthorWebsitesAction.renderIcon()}
-        </ExternalLink>
-      </Tooltip>
-    );
-  }
+const ACTION_TITLE = (
+  <Tooltip title="Personal website">
+    <Icon type="link" />
+  </Tooltip>
+);
 
-  render() {
-    const { websites } = this.props;
-    return (
-      <ListItemAction>
-        {websites.size > 1 ? this.renderDropdown() : this.renderOne()}
-      </ListItemAction>
-    );
-  }
+function AuthorWebsitesAction({ websites }) {
+  const sortedWebsites = useMemo(() => websites.sort(sortBlogFirst), [
+    websites,
+  ]);
+  return (
+    <ActionsDropdownOrAction
+      values={sortedWebsites}
+      renderAction={renderWebsiteAction}
+      renderDropdownAction={renderWebsitesDropdownAction}
+      title={ACTION_TITLE}
+    />
+  );
 }
 
 AuthorWebsitesAction.propTypes = {

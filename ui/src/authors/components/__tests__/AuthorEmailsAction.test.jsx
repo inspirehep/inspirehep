@@ -11,12 +11,12 @@ describe('AuthorEmailsAction', () => {
       { value: 'other-dude@email.cern' },
     ]);
     const wrapper = shallow(<AuthorEmailsAction emails={emails} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 
   it('renders single email', () => {
     const emails = fromJS([{ value: 'dude@email.cern' }]);
     const wrapper = shallow(<AuthorEmailsAction emails={emails} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 });

@@ -1,64 +1,51 @@
-import React, { Component } from 'react';
-import { Map, List } from 'immutable';
+import React from 'react';
+import { List } from 'immutable';
 import PropTypes from 'prop-types';
-import { Button, Menu } from 'antd';
+import { Menu } from 'antd';
 
-import ListItemAction from '../../common/components/ListItemAction';
 import IconText from '../../common/components/IconText';
 import EventTracker from '../../common/components/EventTracker';
 import ExternalLink from '../../common/components/ExternalLink';
-import DropdownMenu from '../../common/components/DropdownMenu';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
+import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 
 function fullTextLinkToHrefDisplayPair(fullTextLink) {
   const href = fullTextLink.get('value');
   const description = fullTextLink.get('description');
   const display = description || removeProtocolAndWwwFromUrl(href);
-  return Map({ href, display });
+  return [href, display];
 }
 
-class FullTextLinksAction extends Component {
-  static renderIcon() {
-    return <IconText text="pdf" type="download" />;
-  }
-
-  renderDropdown() {
-    const { fullTextLinks } = this.props;
-    const hrefDisplayPairs = fullTextLinks.map(fullTextLinkToHrefDisplayPair);
-    return (
-      <DropdownMenu title={<Button>{FullTextLinksAction.renderIcon()}</Button>}>
-        {hrefDisplayPairs.map(pair => (
-          <Menu.Item key={pair.get('href')}>
-            <EventTracker eventId="PdfDownload">
-              <ExternalLink href={pair.get('href')}>
-                {pair.get('display')}
-              </ExternalLink>
-            </EventTracker>
-          </Menu.Item>
-        ))}
-      </DropdownMenu>
-    );
-  }
-
-  renderOne() {
-    const { fullTextLinks } = this.props;
-    return (
+function renderFullTextsDropdownAction(fullTextLink) {
+  const [href, display] = fullTextLinkToHrefDisplayPair(fullTextLink);
+  return (
+    <Menu.Item key={href}>
       <EventTracker eventId="PdfDownload">
-        <ExternalLink href={fullTextLinks.getIn([0, 'value'])}>
-          {FullTextLinksAction.renderIcon()}
-        </ExternalLink>
+        <ExternalLink href={href}>{display}</ExternalLink>
       </EventTracker>
-    );
-  }
+    </Menu.Item>
+  );
+}
 
-  render() {
-    const { fullTextLinks } = this.props;
-    return (
-      <ListItemAction>
-        {fullTextLinks.size > 1 ? this.renderDropdown() : this.renderOne()}
-      </ListItemAction>
-    );
-  }
+function renderFullTextAction(fullTextLink, title) {
+  return (
+    <EventTracker eventId="PdfDownload">
+      <ExternalLink href={fullTextLink.get('value')}>{title}</ExternalLink>
+    </EventTracker>
+  );
+}
+
+const ACTION_TITLE = <IconText text="pdf" type="download" />;
+
+function FullTextLinksAction({ fullTextLinks }) {
+  return (
+    <ActionsDropdownOrAction
+      values={fullTextLinks}
+      renderAction={renderFullTextAction}
+      renderDropdownAction={renderFullTextsDropdownAction}
+      title={ACTION_TITLE}
+    />
+  );
 }
 
 FullTextLinksAction.propTypes = {

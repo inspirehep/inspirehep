@@ -12,7 +12,7 @@ describe('AuthorWebsitesAction', () => {
       { value: 'www.descriptionless.com/url' },
     ]);
     const wrapper = shallow(<AuthorWebsitesAction websites={websites} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 
   it('renders only blog', () => {
@@ -20,12 +20,12 @@ describe('AuthorWebsitesAction', () => {
       { description: 'blog', value: 'https://author.wordpress.com' },
     ]);
     const wrapper = shallow(<AuthorWebsitesAction websites={websites} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 
   it('renders only a url', () => {
     const websites = fromJS([{ value: 'www.descriptionless.com/url' }]);
     const wrapper = shallow(<AuthorWebsitesAction websites={websites} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 });
