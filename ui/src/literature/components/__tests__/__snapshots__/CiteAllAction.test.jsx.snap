@@ -1,55 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CiteAllAction calls window open with correct data 1`] = `
-<ListItemAction>
-  <DropdownMenu
-    disabled={false}
-    onClick={[Function]}
-    title={
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title={null}
-        transitionName="zoom-big-fast"
-      >
-        <Button
-          block={false}
-          disabled={false}
-          ghost={false}
-          htmlType="button"
-          icon={null}
-          loading={false}
-        >
-          <IconText
-            text="cite all"
-            type="export"
-          />
-        </Button>
-      </Tooltip>
-    }
-  >
-    <MenuItem
-      key="x-bibtex"
-    >
-      BibTeX
-    </MenuItem>
-    <MenuItem
-      key="vnd+inspire.latex.eu+x-latex"
-    >
-      LaTeX (EU)
-    </MenuItem>
-    <MenuItem
-      key="vnd+inspire.latex.us+x-latex"
-    >
-      LaTeX (US)
-    </MenuItem>
-  </DropdownMenu>
-</ListItemAction>
-`;
-
 exports[`CiteAllAction renders with disabled 1`] = `
 <ListItemAction>
   <DropdownMenu
@@ -62,7 +12,7 @@ exports[`CiteAllAction renders with disabled 1`] = `
         mouseEnterDelay={0.1}
         mouseLeaveDelay={0.1}
         placement="top"
-        title="Only up to 500 results can be exported."
+        title="Only up to 1000 results can be exported."
         transitionName="zoom-big-fast"
       >
         <Button
@@ -100,7 +50,7 @@ exports[`CiteAllAction renders with disabled 1`] = `
 </ListItemAction>
 `;
 
-exports[`CiteAllAction renders with less than 500 results 1`] = `
+exports[`CiteAllAction renders with less than max citeable records results 1`] = `
 <ListItemAction>
   <DropdownMenu
     disabled={false}
