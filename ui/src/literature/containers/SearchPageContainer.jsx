@@ -35,7 +35,7 @@ class SearchPage extends Component {
   }
 
   render() {
-    const { loading } = this.props;
+    const { loading, numberOfResults } = this.props;
     return (
       <>
         <DocumentHead title="Literature Search" />
@@ -48,10 +48,12 @@ class SearchPage extends Component {
               <Row type="flex" align="middle" justify="end">
                 <Col xs={24} lg={12}>
                   <NumberOfResultsContainer />
-                  <AuthorizedContainer authorizedRoles={SUPERUSER}>
-                    <VerticalDivider />
-                    <CiteAllActionContainer />
-                  </AuthorizedContainer>
+                  {numberOfResults > 0 && (
+                    <AuthorizedContainer authorizedRoles={SUPERUSER}>
+                      <VerticalDivider />
+                      <CiteAllActionContainer />
+                    </AuthorizedContainer>
+                  )}
                 </Col>
                 <Col xs={12} lg={0}>
                   <ResponsiveView
@@ -90,11 +92,13 @@ class SearchPage extends Component {
 SearchPage.propTypes = {
   loading: PropTypes.bool.isRequired,
   loadingAggregations: PropTypes.bool.isRequired,
+  numberOfResults: PropTypes.number.isRequired,
 };
 
 const stateToProps = state => ({
   loading: state.search.get('loading'),
   loadingAggregations: state.search.get('loadingAggregations'),
+  numberOfResults: state.search.get('total'),
 });
 
 export default connect(stateToProps)(SearchPage);

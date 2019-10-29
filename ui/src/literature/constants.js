@@ -7,4 +7,4 @@ export const CITE_FORMAT_VALUES = CITE_FORMAT_OPTIONS.map(
   option => option.value
 );
 
-export const MAX_CITEABLE_RECORDS = 500;
+export const MAX_CITEABLE_RECORDS = 1000;

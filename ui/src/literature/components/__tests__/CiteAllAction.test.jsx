@@ -4,12 +4,15 @@ import { shallow } from 'enzyme';
 
 import CiteAllAction from '../CiteAllAction';
 import DropdownMenu from '../../../common/components/DropdownMenu';
-import { CITE_FORMAT_VALUES } from '../../constants';
+import { CITE_FORMAT_VALUES, MAX_CITEABLE_RECORDS } from '../../constants';
 import http from '../../../common/http';
+import { downloadTextAsFile } from '../../../common/utils';
+
+jest.mock('../../../common/utils');
 
 const mockHttp = new MockAdapter(http);
 describe('CiteAllAction', () => {
-  it('renders with less than 500 results', () => {
+  it('renders with less than max citeable records results', () => {
     const wrapper = shallow(
       <CiteAllAction numberOfResults={12} query={{ q: 'ac>2000' }} />
     );
@@ -18,7 +21,10 @@ describe('CiteAllAction', () => {
 
   it('renders with disabled', () => {
     const wrapper = shallow(
-      <CiteAllAction numberOfResults={502} query={{ q: 'ac>2000' }} />
+      <CiteAllAction
+        numberOfResults={MAX_CITEABLE_RECORDS + 1}
+        query={{ q: 'ac>2000' }}
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -33,35 +39,66 @@ describe('CiteAllAction', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls OnCiteClick when option clicked', () => {
-    const originalOnCiteClick = CiteAllAction.prototype.onCiteClick;
-    CiteAllAction.prototype.onCiteClick = jest.fn();
+  it('calls downloadTextAsFile with correct data when option is clicked', async () => {
+    mockHttp
+      .onGet(
+        `/literature?sort=mostcited&q=query&size=${MAX_CITEABLE_RECORDS}`,
+        null,
+        {
+          Accept: `application/${CITE_FORMAT_VALUES[1]}`,
+        }
+      )
+      .replyOnce(200, 'Test');
     const wrapper = shallow(
-      <CiteAllAction numberOfResults={12} query={{ q: 'ac>2000' }} />
+      <CiteAllAction
+        numberOfResults={12}
+        query={{ q: 'query', sort: 'mostcited' }}
+      />
     );
-    wrapper.find(DropdownMenu).prop('onClick')(CITE_FORMAT_VALUES[1]);
-    expect(CiteAllAction.prototype.onCiteClick).toBeCalledWith(
-      CITE_FORMAT_VALUES[1]
-    );
-    CiteAllAction.prototype.onCiteClick = originalOnCiteClick;
+    await wrapper.find(DropdownMenu).prop('onClick')({
+      key: CITE_FORMAT_VALUES[1],
+    });
+    expect(downloadTextAsFile).toHaveBeenCalledWith('Test');
   });
 
-  // remove `calls OnCiteClick when option clicked` case, after this is enabled.
-  // openCallCount stays 0 and toBeCalledWith doesn't work
-  xit('calls window open with correct data', () => {
+  it('calls downloadTextAsFile with correct data with default sort when option is clicked', async () => {
     mockHttp
-      .onGet('/literature?q=query&size=500', null, {
-        Accept: 'application/x-bibtex',
-      })
+      .onGet(
+        `/literature?sort=mostrecent&q=query&size=${MAX_CITEABLE_RECORDS}`,
+        null,
+        {
+          Accept: `application/${CITE_FORMAT_VALUES[1]}`,
+        }
+      )
       .replyOnce(200, 'Test');
-    let openCallCount = 0;
-    global.window.open = () => {
-      openCallCount += 1;
-    };
     const wrapper = shallow(
       <CiteAllAction numberOfResults={12} query={{ q: 'query' }} />
     );
-    wrapper.find(DropdownMenu).prop('onClick')({ key: 'x-bibtex' });
-    expect(openCallCount).toBe(1);
+    await wrapper.find(DropdownMenu).prop('onClick')({
+      key: CITE_FORMAT_VALUES[1],
+    });
+    expect(downloadTextAsFile).toHaveBeenCalledWith('Test');
+  });
+
+  it('calls downloadTextAsFile with correct data omitting page and size when option is clicked', async () => {
+    mockHttp
+      .onGet(
+        `/literature?sort=mostrecent&q=query&size=${MAX_CITEABLE_RECORDS}`,
+        null,
+        {
+          Accept: `application/${CITE_FORMAT_VALUES[1]}`,
+        }
+      )
+      .replyOnce(200, 'Test');
+    const wrapper = shallow(
+      <CiteAllAction
+        numberOfResults={12}
+        query={{ q: 'query', page: 10, size: 100 }}
+      />
+    );
+    await wrapper.find(DropdownMenu).prop('onClick')({
+      key: CITE_FORMAT_VALUES[1],
+    });
+    expect(downloadTextAsFile).toHaveBeenCalledWith('Test');
   });
 });

@@ -3,12 +3,14 @@ import { stringify } from 'qs';
 import React, { Component } from 'react';
 import { Button, Menu, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
-
+import omit from 'lodash.omit';
 import ListItemAction from '../../common/components/ListItemAction';
 import IconText from '../../common/components/IconText';
 import DropdownMenu from '../../common/components/DropdownMenu';
 import { CITE_FORMAT_OPTIONS, MAX_CITEABLE_RECORDS } from '../constants';
 import http from '../../common/http';
+import { searchScopes } from '../../reducers/search';
+import { downloadTextAsFile } from '../../common/utils';
 
 class CiteAllAction extends Component {
   constructor(props) {
@@ -21,7 +23,12 @@ class CiteAllAction extends Component {
 
   async onCiteClick({ key }) {
     const { query } = this.props;
-    const queryString = stringify(query, { indices: false });
+    const citeQuery = {
+      // set default `sort` in case there is no `sort` in the query
+      sort: searchScopes.getIn(['literature', 'query', 'sort']),
+      ...omit(query, ['size', 'page']),
+    };
+    const queryString = stringify(citeQuery, { indices: false });
     try {
       this.setState({ loading: true });
       const response = await http.get(
@@ -33,10 +40,7 @@ class CiteAllAction extends Component {
         }
       );
       this.setState({ loading: false });
-      window.open(
-        `data:application/txt,${encodeURIComponent(response.data)}`,
-        '_self'
-      );
+      downloadTextAsFile(response.data);
     } catch (error) {
       this.setState({ loading: false });
     }

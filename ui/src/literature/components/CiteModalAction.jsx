@@ -9,6 +9,7 @@ import IconText from '../../common/components/IconText';
 import EventTracker from '../../common/components/EventTracker';
 import { CITE_FORMAT_OPTIONS, CITE_FORMAT_VALUES } from '../constants';
 import citeArticle from '../citeArticle';
+import { downloadTextAsFile } from '../../common/utils';
 
 class CiteModalAction extends Component {
   constructor(props) {
@@ -38,10 +39,7 @@ class CiteModalAction extends Component {
 
   onDownloadClick() {
     const { citeContent } = this.state;
-    window.open(
-      `data:application/txt,${encodeURIComponent(citeContent)}`,
-      '_self'
-    );
+    downloadTextAsFile(citeContent);
   }
 
   onModalCancel() {

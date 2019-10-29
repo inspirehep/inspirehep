@@ -92,13 +92,15 @@ class EmbeddedSearch extends Component {
               <Row type="flex" align="middle" justify="space-between">
                 <Col xs={24} lg={12}>
                   <NumberOfResults numberOfResults={numberOfResults} />
-                  <AuthorizedContainer authorizedRoles={SUPERUSER}>
-                    <VerticalDivider />
-                    <CiteAllAction
-                      query={query}
-                      numberOfResults={numberOfResults}
-                    />
-                  </AuthorizedContainer>
+                  {numberOfResults > 0 && (
+                    <AuthorizedContainer authorizedRoles={SUPERUSER}>
+                      <VerticalDivider />
+                      <CiteAllAction
+                        query={query}
+                        numberOfResults={numberOfResults}
+                      />
+                    </AuthorizedContainer>
+                  )}
                 </Col>
                 <ResponsiveView
                   max="md"

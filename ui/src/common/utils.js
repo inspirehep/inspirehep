@@ -189,3 +189,7 @@ export function getRecordIdFromRef($ref) {
   const parts = $ref.split('/');
   return parts[parts.length - 1];
 }
+
+export function downloadTextAsFile(text) {
+  window.open(`data:application/txt,${encodeURIComponent(text)}`, '_self');
+}
