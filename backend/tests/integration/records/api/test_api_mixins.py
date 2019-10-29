@@ -268,3 +268,27 @@ def test_add_delete_and_add_again_the_same_file(
     )
     result_file_id = record["_files"][0]["file_id"]
     assert file_id != result_file_id
+
+
+@pytest.mark.vcr()
+def test_regression_do_not_add_original_url_if_it_is_not_external(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    added_file_metadata = record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
+        original_url="/api/files/2aea253b-7d39-4cc6-8271-527f72c93f35/Lambda_11",
+    )
+    assert "original_url" not in added_file_metadata
+
+
+@pytest.mark.vcr()
+def test_regression_add_original_url_if_it_is_external(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    added_file_metadata = record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
+        original_url="http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
+    )
+    assert "original_url" in added_file_metadata
