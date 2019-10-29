@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 from functools import partial
 
 import pytest
+import sqlalchemy
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.providers.faker import faker
@@ -57,9 +58,13 @@ def clear_environment(app):
     from sqlalchemy_utils.functions import create_database, database_exists
 
     with app.app_context():
-
+        db_.session.commit()
         db_.session.remove()
-        db_.drop_all()
+        try:
+            db_.drop_all()
+        except sqlalchemy.exc.OperationalError:
+            # Prevent deadlocks on dropping table
+            db_.drop_all()
         if not database_exists(str(db_.engine.url)):
             create_database(str(db_.engine.url))
         db_.create_all()

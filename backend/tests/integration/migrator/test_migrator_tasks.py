@@ -24,7 +24,7 @@ from inspirehep.migrator.tasks import (
     migrate_from_mirror,
     populate_mirror_from_file,
     process_references_in_records,
-    recalculate_citations,
+    update_relations,
 )
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import LiteratureSearch

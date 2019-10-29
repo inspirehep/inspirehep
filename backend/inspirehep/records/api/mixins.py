@@ -17,7 +17,11 @@ from invenio_records_files.models import RecordsBuckets
 from sqlalchemy import func
 
 from inspirehep.records.errors import DownloadFileError
-from inspirehep.records.models import RecordCitations
+from inspirehep.records.models import (
+    ConferenceLiterature,
+    ConferenceToLiteratureRelationshipType,
+    RecordCitations,
+)
 
 LOGGER = structlog.getLogger()
 
@@ -128,6 +132,18 @@ class CitationMixin:
             recid=self.get("control_number"),
             uuid=str(self.id),
         )
+
+    def update(self, data, disable_relations_update=False, *args, **kwargs):
+        super().update(data, disable_relations_update, *args, **kwargs)
+
+        if disable_relations_update:
+            LOGGER.info(
+                "Record citation update disabled",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+            )
+        else:
+            self.update_refs_in_citation_table()
 
 
 class FilesMixin:
@@ -322,3 +338,50 @@ class FilesMixin:
     @staticmethod
     def is_hash(test_str):
         return test_str and len(test_str) == 40
+
+
+class ConferencePaperAndProceedingsMixin:
+    def clean_conference_literature_relation(self):
+        ConferenceLiterature.query.filter_by(literature_uuid=self.id).delete()
+
+    def create_conferences_relations(self, document_type):
+        conferences_pids = self.get_linked_pids_from_field(
+            "publication_info.conference_record"
+        )
+        conferences = self.get_records_by_pids(conferences_pids)
+        for conference in conferences:
+            if conference.get("deleted") is not True:
+                db.session.add(
+                    ConferenceLiterature(
+                        conference_uuid=conference.id,
+                        literature_uuid=self.id,
+                        relationship_type=ConferenceToLiteratureRelationshipType(
+                            document_type
+                        ),
+                    )
+                )
+
+    def update_conference_paper_and_proccedings(self):
+        self.clean_conference_literature_relation()
+        document_types = set(self.get("document_type"))
+        allowed_types = set(
+            [option.value for option in list(ConferenceToLiteratureRelationshipType)]
+        )
+        relationship_types = allowed_types.intersection(document_types)
+        if relationship_types and self.get("deleted") is not True:
+            self.create_conferences_relations(relationship_types.pop())
+
+    def hard_delete(self):
+        self.clean_conference_literature_relation()
+        super().hard_delete()
+
+    def update(self, data, disable_relations_update=False, *args, **kwargs):
+        super().update(data, disable_relations_update, *args, **kwargs)
+        if not disable_relations_update:
+            self.update_conference_paper_and_proccedings()
+        else:
+            LOGGER.info(
+                "Record conference papaers and proccedings update disabled",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+            )

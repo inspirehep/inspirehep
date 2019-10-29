@@ -25,10 +25,10 @@ from inspirehep.migrator.tasks import (
     migrate_recids_from_mirror,
     populate_mirror_from_file,
     process_references_in_records,
-    recalculate_citations,
+    update_relations,
 )
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.models import RecordCitations
+from inspirehep.records.models import ConferenceLiterature, RecordCitations
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import InspireSearch
 
@@ -134,22 +134,32 @@ def test_process_references_in_records_with_different_type_of_records_doesnt_thr
     )
 
 
-def test_recalculate_citations(app, celery_app_with_context, celery_session_worker):
+def test_update_relations(app, celery_app_with_context, celery_session_worker):
+    conference_data = faker.record("con", with_control_number=True)
+    conference_record = InspireRecord.create(conference_data)
+
     data_cited = faker.record("lit", with_control_number=True)
-    record_cited = InspireRecord.create(data_cited, disable_citation_update=True)
+    record_cited = InspireRecord.create(data_cited, disable_relations_update=True)
     db.session.commit()
     record_cited_control_number = record_cited["control_number"]
 
-    data_citing = faker.record(
+    conference_control_number = conference_record["control_number"]
+    conf_ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    data = faker.record(
         "lit",
         literature_citations=[record_cited_control_number],
         with_control_number=True,
     )
-    record_citing = InspireRecord.create(data_citing, disable_citation_update=True)
+
+    data["publication_info"] = [{"conference_record": {"$ref": conf_ref}}]
+    data["document_type"] = ["conference paper"]
+
+    record = InspireRecord.create(data, disable_relations_update=True)
     db.session.commit()
 
-    uuids = [record_cited.id, record_citing.id]
-    task = recalculate_citations.delay(uuids)
+    uuids = [record_cited.id, record.id]
+    task = update_relations.delay(uuids)
 
     task.get(timeout=5)
 
@@ -157,20 +167,26 @@ def test_recalculate_citations(app, celery_app_with_context, celery_session_work
         cited_id=record_cited.id
     ).one()
 
-    assert record_citing.id == result_record_cited.citer_id
+    assert record.id == result_record_cited.citer_id
 
     record_cited = InspireRecord.get_record_by_pid_value(
         record_cited_control_number, "lit"
     )
-    record_cited_citation_count = 1
-    assert record_cited_citation_count == record_cited.citation_count
+    expected_record_cited_citation_count = 1
+    assert expected_record_cited_citation_count == record_cited.citation_count
+
+    conf_paper = ConferenceLiterature.query.filter_by(
+        conference_uuid=conference_record.id
+    ).one()
+
+    assert conf_paper.literature_uuid == record.id
 
 
-def test_recalculate_citations_with_different_type_of_records_doesnt_throw_an_exception(
+def test_update_relations_recalculate_citations_with_different_type_of_records_doesnt_throw_an_exception(
     app, celery_app_with_context, celery_session_worker, create_record
 ):
     data_cited = faker.record("lit", with_control_number=True)
-    record_cited = InspireRecord.create(data_cited, disable_citation_update=True)
+    record_cited = InspireRecord.create(data_cited, disable_relations_update=True)
     db.session.commit()
     record_cited_control_number = record_cited["control_number"]
 
@@ -179,7 +195,7 @@ def test_recalculate_citations_with_different_type_of_records_doesnt_throw_an_ex
         literature_citations=[record_cited_control_number],
         with_control_number=True,
     )
-    record_citing = InspireRecord.create(data_citing, disable_citation_update=True)
+    record_citing = InspireRecord.create(data_citing, disable_relations_update=True)
     db.session.commit()
 
     records = [
@@ -194,7 +210,7 @@ def test_recalculate_citations_with_different_type_of_records_doesnt_throw_an_ex
 
     uuids = [record.id for record in records] + [record_cited.id, record_citing.id]
 
-    task = recalculate_citations.delay(uuids)
+    task = update_relations.delay(uuids)
     results = task.get(timeout=5)
 
     uuids = [str(uuid) for uuid in uuids]

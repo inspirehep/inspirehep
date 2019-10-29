@@ -28,7 +28,7 @@ from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.indexer.tasks import batch_index
 from inspirehep.records.receivers import index_after_commit
-from inspirehep.records.tasks import recalculate_record_citations
+from inspirehep.records.tasks import update_records_relations
 
 from .models import LegacyRecordsMirror
 from .utils import ensure_valid_schema
@@ -161,7 +161,7 @@ def migrate_recids_from_mirror(
     """
     migration_steps = [
         create_records_from_mirror_recids,
-        recalculate_citations,
+        update_relations,
         index_records,
     ]
     if not disable_orcid_push:
@@ -238,15 +238,16 @@ def create_records_from_mirror_recids(recids):
 
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
-def recalculate_citations(uuids):
-    """Task which updates records_citations table with references of this record.
+def update_relations(uuids):
+    """Task which updates records_citations and conference_literature tables tabls with
+    relations of proper literature record.
 
     Args:
-        uuids: records uuids for which references should be reprocessed
+        uuids: records uuids for which relations should be reprocessed
     Returns:
         set: set of properly processed records uuids
     """
-    return recalculate_record_citations(uuids)
+    return update_records_relations(uuids)
 
 
 @shared_task(ignore_results=False, queue="migrator", acks_late=True)
@@ -315,18 +316,18 @@ def insert_into_mirror(raw_records):
 
 
 def migrate_and_insert_record(
-    raw_record, disable_orcid_push=False, disable_citation_update=False
+    raw_record, disable_orcid_push=False, disable_relations_update=False
 ):
     """Migrate a record and insert it if valid, or log otherwise."""
     prod_record = LegacyRecordsMirror.from_marcxml(raw_record)
     db.session.merge(prod_record)
     return migrate_record_from_mirror(
-        prod_record, disable_orcid_push, disable_citation_update
+        prod_record, disable_orcid_push, disable_relations_update
     )
 
 
 def migrate_record_from_mirror(
-    prod_record, disable_orcid_push=True, disable_citation_update=True
+    prod_record, disable_orcid_push=True, disable_relations_update=True
 ):
     """Migrate a mirrored legacy record into an Inspire record.
     Args:
@@ -366,7 +367,7 @@ def migrate_record_from_mirror(
             record = cls.create_or_update(
                 json_record,
                 disable_orcid_push=disable_orcid_push,
-                disable_citation_update=disable_citation_update,
+                disable_relations_update=disable_relations_update,
             )
     except ValidationError as exc:
         path = ".".join(exc.schema_path)

@@ -12,6 +12,18 @@ from sqlalchemy import text
 def test_downgrade(base_app, db, es):
     alembic = Alembic(base_app)
 
+    alembic.downgrade("e5e43ad8f861")
+    assert "enum_conference_to_literature_relationship_type" not in _get_custom_enums(
+        db
+    )
+    assert "conference_literature" not in _get_table_names(db)
+    assert "ix_conference_literature_literature_uuid" not in _get_indexes(
+        "conference_literature", db
+    )
+    assert "ix_conference_literature_conference_uuid" not in _get_indexes(
+        "conference_literature", db
+    )
+
     alembic.downgrade(target="788a3a61a635")
     assert "ix_files_object_key_head" not in _get_indexes("files_object", db)
 
@@ -150,6 +162,17 @@ def test_upgrade(base_app, db, es):
     alembic.upgrade(target="e5e43ad8f861")
     assert "ix_files_object_key_head" in _get_indexes("files_object", db)
 
+    alembic.upgrade(target="f563233434cd")
+
+    assert "conference_literature" in _get_table_names(db)
+    assert "ix_conference_literature_literature_uuid" in _get_indexes(
+        "conference_literature", db
+    )
+    assert "ix_conference_literature_conference_uuid" in _get_indexes(
+        "conference_literature", db
+    )
+    assert "enum_conference_to_literature_relationship_type" in _get_custom_enums(db)
+
 
 def _get_indexes(tablename, db):
     query = text(
@@ -177,3 +200,12 @@ def _get_sequences(db):
 
 def _get_table_names(db):
     return db.engine.table_names()
+
+
+def _get_custom_enums(db):
+    query = """ SELECT pg_type.typname AS enumtype,  
+        pg_enum.enumlabel AS enumlabel 
+        FROM pg_type  
+        JOIN pg_enum  
+            ON pg_enum.enumtypid = pg_type.oid;"""
+    return set([a[0] for a in db.session.execute(query)])

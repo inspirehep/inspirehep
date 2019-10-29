@@ -26,7 +26,11 @@ from sqlalchemy.orm import aliased
 
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
-from inspirehep.records.api.mixins import CitationMixin, FilesMixin
+from inspirehep.records.api.mixins import (
+    CitationMixin,
+    ConferencePaperAndProceedingsMixin,
+    FilesMixin,
+)
 from inspirehep.records.errors import (
     ExistingArticleError,
     ImportArticleError,
@@ -57,7 +61,9 @@ ARXIV_URL = (
 CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 
 
-class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
+class LiteratureRecord(
+    FilesMixin, CitationMixin, ConferencePaperAndProceedingsMixin, InspireRecord
+):
     """Literature Record."""
 
     es_serializer = LiteratureElasticSearchSchema
@@ -69,16 +75,10 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
         return get_literature_earliest_date(self)
 
     @classmethod
-    def create(
-        cls, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
-    ):
+    def create(cls, data, disable_orcid_push=False, *args, **kwargs):
         with db.session.begin_nested():
             record = super().create(data, **kwargs)
-            record.update(
-                dict(record),
-                disable_orcid_push=disable_orcid_push,
-                disable_citation_update=disable_citation_update,
-            )
+            record.update(dict(record), disable_orcid_push=disable_orcid_push, **kwargs)
             return record
 
     @classmethod
@@ -127,22 +127,11 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 yield LiteratureRecord(rec_data)
         return []
 
-    def update(
-        self, data, disable_orcid_push=False, disable_citation_update=False, **kwargs
-    ):
+    def update(self, data, disable_orcid_push=False, *args, **kwargs):
         with db.session.begin_nested():
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             data = self.add_files(data)
-            super().update(data)
-
-            if disable_citation_update:
-                LOGGER.info(
-                    "Record citation update disabled",
-                    recid=self.get("control_number"),
-                    uuid=str(self.id),
-                )
-            else:
-                self.update_refs_in_citation_table()
+            super().update(data, *args, **kwargs)
 
             if disable_orcid_push:
                 LOGGER.info(
@@ -152,7 +141,6 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
                 )
             else:
                 push_to_orcid(self)
-
             self.push_authors_phonetic_blocks_to_redis()
 
     def add_files(self, data):
