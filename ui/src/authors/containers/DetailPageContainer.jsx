@@ -7,16 +7,11 @@ import { Map, List } from 'immutable';
 import ContentBox from '../../common/components/ContentBox';
 import AuthorName from '../components/AuthorName';
 import ExperimentList from '../../common/components/ExperimentList';
-import {
-  fetchAuthor,
-  fetchAuthorPublications,
-  fetchAuthorPublicationsFacets,
-} from '../../actions/authors';
+import { fetchAuthor } from '../../actions/authors';
 import {
   fetchCitationSummary,
   fetchCitationsByYear,
 } from '../../actions/citations';
-import LiteratureItem from '../../literature/components/LiteratureItem';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import {
   getCurrentAffiliationsFromPositions,
@@ -24,7 +19,6 @@ import {
 } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
-import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
 import NumberOfCiteablePapersContainer from './NumberOfCiteablePapersContainer';
 import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer';
@@ -36,6 +30,7 @@ import AuthorWebsitesAction from '../components/AuthorWebsitesAction';
 import AuthorOrcid from '../components/AuthorOrcid';
 import DocumentHead from '../../common/components/DocumentHead';
 import AuthorEmailsAction from '../components/AuthorEmailsAction';
+import AuthorPublications from '../components/AuthorPublications';
 
 class DetailPage extends Component {
   static renderNumberOfCiteablePapers(value) {
@@ -84,8 +79,8 @@ class DetailPage extends Component {
   dispatchAuthorPublicationsAndCitations() {
     const { dispatch, publicationsQuery } = this.props;
 
-    dispatch(fetchAuthorPublications());
-    dispatch(fetchAuthorPublicationsFacets());
+    // dispatch(fetchAuthorPublications());
+    // dispatch(fetchAuthorPublicationsFacets());
 
     const query = publicationsQuery.toJS();
     dispatch(fetchCitationSummary(query));
@@ -105,6 +100,7 @@ class DetailPage extends Component {
     const positions = metadata.get('positions', List());
     const currentPositions = getCurrentAffiliationsFromPositions(positions);
     const shouldDisplayPositions = metadata.get('should_display_positions');
+    const authorFacetName = metadata.get('facet_author_name');
 
     const arxivCategories = metadata.get('arxiv_categories');
     const experiments = metadata.get('project_membership');
@@ -208,16 +204,11 @@ class DetailPage extends Component {
         </Row>
         <Row type="flex" justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
-            <ContentBox>
-              <AuthorPublicationsContainer
-                renderResultItem={(result, rank) => (
-                  <LiteratureItem
-                    metadata={result.get('metadata')}
-                    searchRank={rank}
-                  />
-                )}
-              />
-            </ContentBox>
+            {authorFacetName && (
+              <ContentBox>
+                <AuthorPublications authorFacetName={authorFacetName} />
+              </ContentBox>
+            )}
           </Col>
         </Row>
       </>

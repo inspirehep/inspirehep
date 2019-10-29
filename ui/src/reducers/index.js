@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import search from './search';
+import embeddedSearch from './embeddedSearch';
 import literature from './literature';
 import exceptions from './exceptions';
 import inspect from './inspect';
@@ -20,6 +21,7 @@ export default function createRootReducer(history) {
     literature,
     user,
     search,
+    embeddedSearch,
     submissions,
     citations,
     authors,
