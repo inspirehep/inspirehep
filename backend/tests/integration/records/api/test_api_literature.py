@@ -1057,3 +1057,72 @@ def test_regression_update_record_without_losing_the_bucket(
         assert "_files" in record_from_db
         assert "_bucket" in record_from_db
         assert "documents" in record_from_db
+
+
+def test_regression_use_always_the_proper_bucket_and_associated_files(
+    base_app, db, es, create_record_factory
+):
+
+    data_files = {
+        "_files": [
+            {
+                "key": "48f13394e1528cbf0538ccd911c324e7530b772c",
+                "size": 182_075,
+                "bucket": "99bbf6da-853d-4900-a225-3a3e0f7b51b8",
+                "file_id": "48c7b64c-074e-48b2-9ef0-99fcfc437bcd",
+                "checksum": "md5:7502141f344da126dd1e1d6646759e64",
+                "filename": "arXiv%3A0905.1057.pdf%3B2",
+                "version_id": "4938250d-f0fe-49bd-8dc6-e17b8199df1f",
+            },
+            {
+                "key": "37da48e89899a083dce2cd62229b735f15da42e5",
+                "size": 9862,
+                "bucket": "99bbf6da-853d-4900-a225-3a3e0f7b51b8",
+                "file_id": "63700598-caa7-4cfb-b2da-eb38f4c67d5c",
+                "checksum": "md5:f49798d86d8e4f5391d68e4bb8e4ebb4",
+                "filename": "istog_c28_end.png%3B1",
+                "version_id": "4e214c52-99a6-4ad1-aa9f-91f93ce92b0a",
+            },
+        ],
+        "documents": [
+            {
+                "key": "onetowother",
+                "source": "arxiv",
+                "filename": "arXiv%3A0905.1057.pdf%3B2",
+                "fulltext": True,
+                "url": "http://inspire-afs-web.cern.ch/var/data/files/g0/8050/arXiv%3A0905.1057.pdf%3B2",
+            }
+        ],
+        "figures": [
+            {
+                "key": "37da48e89899a083dce2cd62229b735f15da42e5",
+                "source": "arxiv",
+                "caption": "{\\it Left panel}: Histograms of the scatter from the linear regression for HSB and LSB in the $ V_c - {\\sigma}_0$ plane (Fig. \\ref{fig:logs_logv}). We can note that our LSB data points mostly lies only in the negative side of the distribution indicating that these galaxies follow a different relation. {\\it Right panel}: As left panel in the $ V_c - V_{{\\sigma},C28}$ plane. Again, LSB show adifferent distribution.",
+                "filename": "istog_c28_end.png%3B1",
+                "url": "http://inspire-afs-web.cern.ch/var/data/files/g11/234091/istog_c28_end.png%3B1",
+            }
+        ],
+    }
+
+    record = create_record_factory("lit", data=data_files, with_validation=True)
+    record_control_number = record.json["control_number"]
+
+    bucket = LiteratureRecord(dict(record.json), model=record).create_bucket()
+
+    with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+
+        record_from_db.update(dict(record_from_db))
+
+        assert record_from_db.bucket
+        assert "_files" in record_from_db
+        assert "_bucket" in record_from_db
+        assert "documents" in record_from_db
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        record_from_db.update(dict(record_from_db))
+
+        assert record_from_db.bucket
+        assert "_files" in record_from_db
+        assert "_bucket" in record_from_db
+        assert "documents" in record_from_db

@@ -1,5 +1,6 @@
 import hashlib
 import uuid
+from collections import OrderedDict
 from io import BytesIO
 
 import requests
@@ -8,6 +9,7 @@ from flask import current_app
 from invenio_db import db
 from invenio_files_rest.models import Bucket, ObjectVersion
 from invenio_records.errors import MissingModelError
+from invenio_records_files.api import FilesIterator as InvenioFilesIterator
 from invenio_records_files.models import RecordsBuckets
 from sqlalchemy import func
 
@@ -121,7 +123,21 @@ class CitationMixin:
         )
 
 
+class FilesIterator(InvenioFilesIterator):
+    def __init__(self, record, bucket=None, file_cls=None):
+        super().__init__(record, bucket=bucket, file_cls=file_cls)
+        if self.bucket:
+            objects = ObjectVersion.get_by_bucket(self.bucket).all()
+            self.filesmap = OrderedDict(
+                [(f.key, self.file_cls(objects[0], {}).dumps()) for f in objects]
+            )
+        else:
+            self.filesmap = OrderedDict([])
+
+
 class FilesMixin:
+    files_iter_cls = FilesIterator
+
     @classmethod
     def create_bucket(cls, data=None, location=None, storage_class=None):
         if not location:
@@ -230,11 +246,12 @@ class FilesMixin:
 
     def get_file_object(self, key, bucket_id=None):
         if not bucket_id:
-            obj = ObjectVersion.query.filter(
-                ObjectVersion.key == key, ObjectVersion.is_head.is_(True)
+            return ObjectVersion.query.filter(
+                ObjectVersion.key == key,
+                ObjectVersion.is_head.is_(True),
+                ObjectVersion.file_id.isnot(None),
             ).first()
-            if obj and not obj.deleted:
-                return obj
+
             return None
 
         return ObjectVersion.get(bucket=bucket_id, key=key)
