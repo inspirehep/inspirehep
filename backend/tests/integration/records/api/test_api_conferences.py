@@ -16,6 +16,7 @@ from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
 from inspirehep.records.api import ConferencesRecord, InspireRecord
+from inspirehep.records.models import ConferenceLiterature
 
 
 def test_conferences_create(base_app, db, es):
@@ -169,3 +170,39 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es
 
     with pytest.raises(AttributeError):
         record.citation_count
+
+
+def test_deleted_conference_clears_entries_in_conference_literature_table(
+    base_app, db, es_clear, create_record
+):
+    conference = create_record("con")
+    conference_control_number = conference["control_number"]
+    ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["conference paper"],
+    }
+    rec = create_record("lit", rec_data)
+    assert ConferenceLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    conference.delete()
+
+    assert ConferenceLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_hard_delete_conference_clears_entries_in_conference_literature_table(
+    base_app, db, es_clear, create_record
+):
+    conference = create_record("con")
+    conference_control_number = conference["control_number"]
+    ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["conference paper"],
+    }
+    rec = create_record("lit", rec_data)
+    assert ConferenceLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    conference.hard_delete()
+
+    assert ConferenceLiterature.query.filter_by(literature_uuid=rec.id).count() == 0

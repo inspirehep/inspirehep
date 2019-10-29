@@ -7,20 +7,27 @@
 
 from helpers.providers.faker import faker
 
-from inspirehep.records.models import RecordCitations
-from inspirehep.records.tasks import recalculate_record_citations
+from inspirehep.records.models import ConferenceLiterature, RecordCitations
+from inspirehep.records.tasks import update_records_relations
 
 
-def test_recalculate_record_citations(base_app, db, es_clear, create_record):
-    data_cited_record_1 = faker.record("lit")
-    cited_record_1 = create_record("lit", data=data_cited_record_1)
-
-    data_cited_record_2 = faker.record("lit")
-    cited_record_2 = create_record("lit", data=data_cited_record_2)
+def test_update_records_relations(base_app, db, es_clear, create_record):
+    conference = create_record("con")
+    conf_ref = f"http://localhost:8000/api/conferences/{conference['control_number']}"
+    conference_lit_data = {
+        "publication_info": [{"conference_record": {"$ref": conf_ref}}],
+        "document_type": ["conference paper"],
+    }
+    cited_record_1 = create_record("lit", data=conference_lit_data)
+    cited_record_2 = create_record("lit")
 
     data_citing_record_1 = faker.record(
         "lit", literature_citations=[cited_record_1["control_number"]]
     )
+    data_citing_record_1["publication_info"] = [
+        {"conference_record": {"$ref": conf_ref}}
+    ]
+    data_citing_record_1["document_type"] = ["conference paper"]
 
     citing_record_1 = create_record("lit", data=data_citing_record_1)
 
@@ -40,7 +47,7 @@ def test_recalculate_record_citations(base_app, db, es_clear, create_record):
         citing_record_2.id,
     ]
 
-    result = recalculate_record_citations(record_uuids)
+    result = update_records_relations(record_uuids)
 
     assert record_uuids == result
 
@@ -63,13 +70,16 @@ def test_recalculate_record_citations(base_app, db, es_clear, create_record):
         == result_citation_count_for_cited_record_2
     )
 
+    assert ConferenceLiterature.query.count() == 2
 
-def test_recalculate_record_citations_with_no_literatrure_records(
+
+def test_update_records_relations_with_no_literatrure_records(
     base_app, db, es_clear, create_record
 ):
+    record_con = create_record("con")
     record_aut = create_record("aut")
     record_job = create_record("job")
 
-    record_uuids = [record_aut.id, record_job.id]
-    result = recalculate_record_citations(record_uuids)
+    record_uuids = [record_aut.id, record_job.id, record_con.id]
+    result = update_records_relations(record_uuids)
     assert record_uuids == result

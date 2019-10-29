@@ -699,7 +699,7 @@ def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
     citation_recalculate_mock, base_app, db, es
 ):
     data1 = faker.record("lit")
-    record1 = InspireRecord.create(data1, disable_citation_update=True)
+    record1 = InspireRecord.create(data1, disable_relations_update=True)
     assert citation_recalculate_mock.call_count == 0
 
 
@@ -742,8 +742,8 @@ def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
 ):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
-    record1 = InspireRecord.create(data1, disable_citation_update=True)
-    record1.update(data2, disable_citation_update=True)
+    record1 = InspireRecord.create(data1, disable_relations_update=True)
+    record1.update(data2, disable_relations_update=True)
     assert citation_recalculate_mock.call_count == 0
 
 

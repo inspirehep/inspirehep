@@ -17,7 +17,7 @@ from invenio_db import db
 
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
-from inspirehep.records.tasks import batch_recalculate
+from inspirehep.records.tasks import batch_relations_update
 
 LOGGER = logging.getLogger(__name__)
 
@@ -119,24 +119,22 @@ def citations():
     """Command for citations"""
 
 
-@citations.command(help="Recalculate citations.")
+@citations.command(help="Update records references.")
 @click.option("-s", "--batch-size", default=200)
 @click.option("-q", "--queue-name", default="indexer_task")
 @with_appcontext
-def recalculate(batch_size, queue_name):
+def update_relations(batch_size, queue_name):
     query = get_query_records_to_index(["lit", "dat"])
     all_tasks = []
     uuid_records_per_tasks = {}
     with click.progressbar(
-        query.yield_per(2000),
-        length=query.count(),
-        label="Scheduling recalculate tasks",
+        query.yield_per(2000), length=query.count(), label="Scheduling tasks"
     ) as items:
         batch = next_batch(items, batch_size)
 
         while batch:
             uuids = [str(item[0]) for item in batch]
-            indexer_task = batch_recalculate.apply_async(
+            indexer_task = batch_relations_update.apply_async(
                 kwargs={"records_uuids": uuids}, queue=queue_name
             )
 
@@ -145,7 +143,7 @@ def recalculate(batch_size, queue_name):
             batch = next_batch(items, batch_size)
 
     with click.progressbar(
-        length=len(all_tasks), label="Recalculating citations"
+        length=len(all_tasks), label="Updating references"
     ) as progressbar:
 
         def _finished_tasks_count():
@@ -173,10 +171,10 @@ def recalculate(batch_size, queue_name):
 
     color = "red" if failures or batch_errors else "green"
     click.secho(
-        f"Citations recalculated!\n{successes} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
+        f"References updated!\n{successes} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
         fg=color,
     )
     if failures:
-        LOGGER.warning(f"Got {len(failures)} failures during the recalculation process")
+        LOGGER.warning(f"Got {len(failures)} failures during the updating process")
         for failure in failures:
             LOGGER.warning(failure)

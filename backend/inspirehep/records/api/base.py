@@ -129,10 +129,10 @@ class InspireRecord(Record):
         return record_class
 
     @classmethod
-    def create(cls, data, id_=None, **kwargs):
+    def create(cls, data, id_=None, *args, **kwargs):
         record_class = cls.get_class_for_record(data)
         if record_class != cls:
-            return record_class.create(data, **kwargs)
+            return record_class.create(data, *args, **kwargs)
 
         data = cls.strip_empty_values(data)
 
@@ -143,7 +143,7 @@ class InspireRecord(Record):
                 if not deleted:
                     cls.pidstore_handler.mint(id_, data)
             kwargs.pop("disable_orcid_push", None)
-            kwargs.pop("disable_citation_update", None)
+            kwargs.pop("disable_relations_update", None)
             record = super().create(data, id_=id_, **kwargs)
             record.update_model_created_with_legacy_creation_date()
         return record
@@ -285,9 +285,7 @@ class InspireRecord(Record):
         This method does nothing, instead all the work is done in ``update``.
         """
 
-    def update(self, data, **kwargs):
-        kwargs.pop("disable_orcid_push", None)
-        kwargs.pop("disable_citation_update", None)
+    def update(self, data, *args, **kwargs):
         with db.session.begin_nested():
             self.clear()
             super().update(data)
