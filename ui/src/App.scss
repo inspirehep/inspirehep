@@ -20,7 +20,7 @@
 
   .content {
     display: flex;
-    margin-top: 64px;
+    margin-top: $header-min-height;
 
     // :fist-child to avoid setting padding for `UserFeedback`
     & > *:first-child:not(.__Jobs__) {
@@ -125,6 +125,46 @@
   }
 }
 
+.ant-carousel {
+  .slick-dots li button {
+    background: $secondary-color !important;
+    height: 6px !important;
+  }
+
+  .slick-dots li.slick-active button {
+    background: $primary-color !important;
+  }
+
+  .slick-arrow {
+    height: 24px !important;
+    width: 24px !important;
+
+    &::before {
+      display: inline-block;
+      border-right: 4px solid $secondary-color;
+      border-bottom: 4px solid $secondary-color;
+      width: 24px;
+      height: 24px;
+    }
+
+    &.slick-prev {
+      left: -15px !important;
+
+      &::before {
+        transform: rotate(-225deg);
+      }
+    }
+
+    &.slick-next {
+      right: -15px !important;
+
+      &::before {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}
+
 .ant-tooltip a {
   color: white;
   text-decoration: underline;
@@ -148,4 +188,8 @@
 
 body {
   overflow-y: scroll;
+}
+
+.ant-modal-wrap {
+  padding-top: $header-min-height;
 }

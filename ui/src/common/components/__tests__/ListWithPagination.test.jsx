@@ -38,6 +38,22 @@ describe('ListWithPagination', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders in grid mode', () => {
+    const pageItems = Range(1, 25).toList();
+    const wrapper = shallow(
+      <ListWithPagination
+        pageItems={pageItems}
+        pageSize={50}
+        page={1}
+        total={100}
+        onPageChange={jest.fn()}
+        renderItem={item => <List.Item key={item}>{item}</List.Item>}
+        grid
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('sets props.onPageChange to Pagination.onChange', () => {
     const pageItems = Range(1, 25).toList();
     const onPageChange = jest.fn();

@@ -460,7 +460,7 @@ describe('utils', () => {
   });
 
   describe('getRecordIdFromRef', () => {
-    it('returns null string if no $ref is passed', () => {
+    it('returns null if no $ref is passed', () => {
       const result = getRecordIdFromRef(undefined);
       expect(result).toEqual(null);
     });

@@ -6,13 +6,15 @@ import ClientPaginatedList from '../../common/components/ClientPaginatedList';
 import ContentBox from '../../common/components/ContentBox';
 import ReferenceItem from './ReferenceItem';
 import ErrorAlertOrChildren from '../../common/components/ErrorAlertOrChildren';
+import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 
 class ReferenceList extends Component {
-  static renderReferenceItem(reference, index, page) {
+  static renderReferenceItem(reference, index) {
     return (
       // reference data model doesn't have any identifier, thus we have hack for `key`
+      // FIXME: find an proper key for reference item as index might cause bugs
       <ReferenceItem
-        key={reference.getIn(['titles', 0, 'title']) || String(index * page)}
+        key={reference.getIn(['titles', 0, 'title']) || String(index)}
         reference={reference}
       />
     );
@@ -31,11 +33,13 @@ class ReferenceList extends Component {
   }
 
   render() {
-    const { loading, error } = this.props;
+    const { loading, error, references } = this.props;
     return (
       <ContentBox loading={loading}>
         <ErrorAlertOrChildren error={error}>
-          {this.renderList()}
+          <EmptyOrChildren data={references} description="0 References">
+            {this.renderList()}
+          </EmptyOrChildren>
         </ErrorAlertOrChildren>
       </ContentBox>
     );

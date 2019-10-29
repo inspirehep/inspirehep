@@ -137,7 +137,8 @@ class BibTexSerializer:
         self, pid_fetcher, search_result, links=None, item_links_factory=None
     ):
         records = [
-            hit["_source"]["_bibtex_display"] for hit in search_result["hits"]["hits"]
+            hit["_source"].get("_bibtex_display", "")
+            for hit in search_result["hits"]["hits"]
         ]
         return "\n".join(records)
 

@@ -356,3 +356,36 @@ def test_literature_add_documents_and_figures_and_then_delete(app, clear_environ
 
         record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
         assert "_files" not in record_from_db["_files"]
+
+
+@pytest.mark.vcr()
+def test_literature_add_documents_and_figures_without_bucket(app, clear_environment):
+    data = faker.record("lit")
+    record = LiteratureRecord.create(data)
+    record_control_number = record["control_number"]
+
+    with mock.patch.dict(app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
+        data = {
+            "documents": [
+                {
+                    "url": "http://inspirehep.net/record/20/files/20_slac-tn-63-050.pdf",
+                    "filename": "file_name.pdf",
+                    "key": "key",
+                }
+            ],
+            "figures": [
+                {
+                    "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                    "key": "key",
+                }
+            ],
+        }
+        record = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        record["documents"] = data["documents"]
+        record["figures"] = data["figures"]
+        record_bucket = record.bucket
+
+        db.session.commit()
+
+        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
+        assert "_files" not in record_from_db

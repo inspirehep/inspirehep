@@ -11,7 +11,12 @@ exports[`ReferenceList does not render without references 1`] = `
 >
   <ErrorAlertOrChildren
     error={null}
-  />
+  >
+    <EmptyOrChildren
+      data={null}
+      description="0 References"
+    />
+  </ErrorAlertOrChildren>
 </ContentBox>
 `;
 
@@ -27,13 +32,18 @@ exports[`ReferenceList renders as loading if set 1`] = `
   <ErrorAlertOrChildren
     error={null}
   >
-    <ClientPaginatedList
-      items={Immutable.List []}
-      loading={false}
-      pageSize={25}
-      renderItem={[Function]}
-      title={null}
-    />
+    <EmptyOrChildren
+      data={Immutable.List []}
+      description="0 References"
+    >
+      <ClientPaginatedList
+        items={Immutable.List []}
+        loading={false}
+        pageSize={25}
+        renderItem={[Function]}
+        title={null}
+      />
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </ContentBox>
 `;
@@ -54,8 +64,8 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
         <ErrorAlertOrChildren
           error={null}
         >
-          <ClientPaginatedList
-            items={
+          <EmptyOrChildren
+            data={
               Immutable.List [
                 Immutable.Map {
                   "publication_info": Immutable.List [
@@ -73,11 +83,33 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
                 },
               ]
             }
-            loading={false}
-            pageSize={25}
-            renderItem={[Function]}
-            title={null}
-          />
+            description="0 References"
+          >
+            <ClientPaginatedList
+              items={
+                Immutable.List [
+                  Immutable.Map {
+                    "publication_info": Immutable.List [
+                      Immutable.Map {
+                        "journal_title": "Journal 1",
+                      },
+                    ],
+                  },
+                  Immutable.Map {
+                    "authors": Immutable.List [
+                      Immutable.Map {
+                        "full_name": "Author 2",
+                      },
+                    ],
+                  },
+                ]
+              }
+              loading={false}
+              pageSize={25}
+              renderItem={[Function]}
+              title={null}
+            />
+          </EmptyOrChildren>
         </ErrorAlertOrChildren>
       </div>
     </div>
@@ -110,13 +142,18 @@ exports[`ReferenceList renders with error 1`] = `
       }
     }
   >
-    <ClientPaginatedList
-      items={Immutable.List []}
-      loading={false}
-      pageSize={25}
-      renderItem={[Function]}
-      title={null}
-    />
+    <EmptyOrChildren
+      data={Immutable.List []}
+      description="0 References"
+    >
+      <ClientPaginatedList
+        items={Immutable.List []}
+        loading={false}
+        pageSize={25}
+        renderItem={[Function]}
+        title={null}
+      />
+    </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </ContentBox>
 `;
@@ -137,8 +174,8 @@ exports[`ReferenceList renders with references 1`] = `
         <ErrorAlertOrChildren
           error={null}
         >
-          <ClientPaginatedList
-            items={
+          <EmptyOrChildren
+            data={
               Immutable.List [
                 Immutable.Map {
                   "titles": Immutable.List [
@@ -156,11 +193,33 @@ exports[`ReferenceList renders with references 1`] = `
                 },
               ]
             }
-            loading={false}
-            pageSize={25}
-            renderItem={[Function]}
-            title={null}
-          />
+            description="0 References"
+          >
+            <ClientPaginatedList
+              items={
+                Immutable.List [
+                  Immutable.Map {
+                    "titles": Immutable.List [
+                      Immutable.Map {
+                        "title": "Reference 1",
+                      },
+                    ],
+                  },
+                  Immutable.Map {
+                    "titles": Immutable.List [
+                      Immutable.Map {
+                        "title": "Reference 2",
+                      },
+                    ],
+                  },
+                ]
+              }
+              loading={false}
+              pageSize={25}
+              renderItem={[Function]}
+              title={null}
+            />
+          </EmptyOrChildren>
         </ErrorAlertOrChildren>
       </div>
     </div>

@@ -95,6 +95,33 @@ exports[`ClientPaginatedList renders first page with custom pageSize 1`] = `
 />
 `;
 
+exports[`ClientPaginatedList renders in grid mode 1`] = `
+<ListWithPagination
+  grid={true}
+  loading={true}
+  onPageChange={[Function]}
+  page={1}
+  pageItems={
+    Immutable.List [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+    ]
+  }
+  pageSize={10}
+  renderItem={[Function]}
+  title={null}
+  total={99}
+/>
+`;
+
 exports[`ClientPaginatedList renders the new page on page change 1`] = `
 <ListWithPagination
   loading={false}

@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FigureListItem renders figure list item 1`] = `
+<Item>
+  <Figure
+    className="h5"
+    figure={
+      Immutable.Map {
+        "url": "https://picsum.photos/200/300",
+        "key": "test_FigureListItem_1",
+      }
+    }
+    onClick={[MockFunction]}
+  />
+</Item>
+`;
