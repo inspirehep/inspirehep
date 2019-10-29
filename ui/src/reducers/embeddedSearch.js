@@ -9,8 +9,7 @@ import {
   EMBEDDED_SEARCH_AGGREGATIONS_ERROR,
   UPDATE_EMBEDDED_SEARCH_QUERY,
   CLEAR_STATE,
-  EMBEDDED_SEARCH_SET_PID_TYPE,
-  EMBEDDED_SEARCH_SET_BASE_AGGREGATIONS_QUERY,
+  EMBEDDED_SEARCH_SET_OPTIONS,
 } from '../actions/actionTypes';
 
 const baseQuery = {
@@ -23,8 +22,8 @@ export const initialState = fromJS({
   loading: false,
   total: 0,
   baseAggregationsQuery: {},
-  pidType: null,
   query: baseQuery,
+  pidType: null,
   error: null,
   sortOptions: null,
   aggregations: {},
@@ -37,10 +36,13 @@ const embeddedSearchReducer = (state = initialState, action) => {
   switch (action.type) {
     case CLEAR_STATE:
       return initialState;
-    case EMBEDDED_SEARCH_SET_BASE_AGGREGATIONS_QUERY:
-      return state.set('baseAggregationsQuery', fromJS(action.payload.query));
-    case EMBEDDED_SEARCH_SET_PID_TYPE:
-      return state.set('pidType', action.payload.pidType);
+    case EMBEDDED_SEARCH_SET_OPTIONS:
+      return state
+        .set(
+          'baseAggregationsQuery',
+          fromJS(action.payload.baseAggregationsQuery)
+        )
+        .set('pidType', fromJS(action.payload.pidType));
     case UPDATE_EMBEDDED_SEARCH_QUERY:
       return state.mergeIn(['query'], fromJS(action.payload.query));
     case EMBEDDED_SEARCH_REQUEST:

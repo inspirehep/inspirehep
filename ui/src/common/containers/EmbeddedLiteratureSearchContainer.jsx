@@ -2,11 +2,7 @@ import { connect } from 'react-redux';
 
 import EmbeddedLiteratureSearch from '../components/EmbeddedLiteratureSearch';
 import { convertSomeImmutablePropsToJS } from '../immutableToJS';
-import {
-  search,
-  setBaseAggregationsQuery,
-  setPidType,
-} from '../../actions/embeddedSearch';
+import { search, setOptions } from '../../actions/embeddedSearch';
 
 const stateToProps = state => ({
   aggregations: state.embeddedSearch.get('aggregations'),
@@ -24,9 +20,8 @@ export const dispatchToProps = (dispatch, ownProps) => ({
   onQueryChange(queryChange) {
     dispatch(search(queryChange));
   },
-  onInit() {
-    dispatch(setPidType('literature'));
-    dispatch(setBaseAggregationsQuery(ownProps.baseAggregationsQuery));
+  onOptionsChange(options) {
+    dispatch(setOptions(options));
     dispatch(search(ownProps.baseQuery));
   },
 });

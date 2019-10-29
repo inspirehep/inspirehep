@@ -8,8 +8,7 @@ import {
   EMBEDDED_SEARCH_AGGREGATIONS_SUCCESS,
   EMBEDDED_SEARCH_AGGREGATIONS_ERROR,
   UPDATE_EMBEDDED_SEARCH_QUERY,
-  EMBEDDED_SEARCH_SET_BASE_AGGREGATIONS_QUERY,
-  EMBEDDED_SEARCH_SET_PID_TYPE,
+  EMBEDDED_SEARCH_SET_OPTIONS,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -121,16 +120,9 @@ export function search(newQuery) {
   };
 }
 
-export function setBaseAggregationsQuery(query) {
+export function setOptions(options) {
   return {
-    type: EMBEDDED_SEARCH_SET_BASE_AGGREGATIONS_QUERY,
-    payload: { query },
-  };
-}
-
-export function setPidType(pidType) {
-  return {
-    type: EMBEDDED_SEARCH_SET_PID_TYPE,
-    payload: { pidType },
+    type: EMBEDDED_SEARCH_SET_OPTIONS,
+    payload: options,
   };
 }
