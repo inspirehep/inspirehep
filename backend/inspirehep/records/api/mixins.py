@@ -148,7 +148,7 @@ class FilesMixin:
                         "Key is already deleted",
                         uuid=self.id,
                         key=key,
-                        files_keys=self.files.key,
+                        files_keys=self.files.keys,
                     )
         self.files.flush()
 
@@ -186,12 +186,11 @@ class FilesMixin:
         self.files[key]["filename"] = filename
         self.files.flush()
 
-        return {
-            "key": key,
-            "filename": filename,
-            "original_url": url if not original_url else original_url,
-            "url": self.get_file_url(key),
-        }
+        data = {"key": key, "filename": filename, "url": self.get_file_url(key)}
+        original_url = url if not original_url else original_url
+        if not self.local_url(original_url):
+            data["original_url"] = original_url
+        return data
 
     def add_local_file(self, key, bucket=None):
         file_object = self.get_file_object(key, bucket)

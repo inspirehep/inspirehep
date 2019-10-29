@@ -169,8 +169,8 @@ class LiteratureRecord(FilesMixin, CitationMixin, InspireRecord):
 
         self.pop("documents", None)
         self.pop("figures", None)
-        added_files_keys = []
 
+        added_files_keys = []
         added_documents = self.add_documents(documents)
         if added_documents:
             data["documents"] = added_documents
