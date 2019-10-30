@@ -85,7 +85,7 @@ describe('job submissions', () => {
         emails: ['references@yahoo.com'],
         urls: [{ value: 'https://uploadReferences.com' }],
       },
-      description: 'This is my description',
+      description: '<div>This is my description</div>',
     };
     const { metadata } = await jobResponse.json();
 
