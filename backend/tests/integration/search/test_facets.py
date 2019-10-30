@@ -1,6 +1,7 @@
 from inspirehep.search.facets import (
     hep_author_publications,
     hep_author_publications_cataloger,
+    hep_conference_contributions,
 )
 
 
@@ -54,3 +55,18 @@ def test_hep_author_publications_cataloger_facets(base_app):
         assert author == result["aggs"]["author"]
         assert subject == result["aggs"]["subject"]
         assert arxiv_categories == result["aggs"]["arxiv_categories"]
+
+
+def test_hep_conference_contributions_facets(base_app):
+    expected_subject = {
+        "terms": {"field": "facet_inspire_categories", "size": 20},
+        "meta": {"title": "Subject", "order": 1, "type": "checkbox"},
+    }
+    expected_collaboration = {
+        "terms": {"field": "facet_collaborations", "size": 20},
+        "meta": {"title": "Collaboration", "order": 2, "type": "checkbox"},
+    }
+    with base_app.test_request_context():
+        result = hep_conference_contributions()
+        assert expected_subject == result["aggs"]["subject"]
+        assert expected_collaboration == result["aggs"]["collaboration"]

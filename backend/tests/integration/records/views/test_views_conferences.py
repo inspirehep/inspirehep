@@ -68,3 +68,21 @@ def test_conference_record_search_results(api_client, db, es_clear, create_recor
 
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
+
+
+def test_conferences_contribution_facets(api_client, db, es_clear, create_record):
+    create_record("lit")
+    response = api_client.get(
+        "/literature/facets?facet_name=hep-conference-contribution"
+    )
+    response_data = response.json
+    response_status_code = response.status_code
+    response_data_facet_keys = list(response_data.get("aggregations").keys())
+
+    expected_status_code = 200
+    expected_facet_keys = ["subject", "collaboration"]
+    expected_facet_keys.sort()
+    response_data_facet_keys.sort()
+    assert expected_status_code == response_status_code
+    assert expected_facet_keys == response_data_facet_keys
+    assert len(response_data["hits"]["hits"]) == 0
