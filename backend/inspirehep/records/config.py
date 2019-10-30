@@ -35,6 +35,7 @@ from inspirehep.search.facets import (
     citations_by_year,
     hep_author_publications,
     hep_author_publications_cataloger,
+    hep_conference_contributions,
     must_match_all_filter,
     range_author_count_filter,
 )
@@ -444,6 +445,7 @@ HEP_COMMON_AGGS = {
 
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
+    "hep-conference-contribution": hep_conference_contributions,
     "citation-summary": citation_summary,
     "citations-by-year": citations_by_year,
     "records-hep": {

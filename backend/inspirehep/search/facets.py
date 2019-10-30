@@ -48,6 +48,25 @@ def hep_author_publications():
     }
 
 
+def hep_conference_contributions():
+    return {
+        "filters": {
+            "subject": must_match_all_filter("facet_inspire_categories"),
+            "collaboration": must_match_all_filter("facet_collaborations"),
+        },
+        "aggs": {
+            "subject": {
+                "terms": {"field": "facet_inspire_categories", "size": 20},
+                "meta": {"title": "Subject", "order": 1, "type": "checkbox"},
+            },
+            "collaboration": {
+                "terms": {"field": "facet_collaborations", "size": 20},
+                "meta": {"title": "Collaboration", "order": 2, "type": "checkbox"},
+            },
+        },
+    }
+
+
 def hep_author_publications_cataloger():
     publications = hep_author_publications()
     publications["aggs"].update(
