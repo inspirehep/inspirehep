@@ -7,6 +7,7 @@ const ALLOWED_HTML_TAGS = [
   'a',
   'b',
   'br',
+  'div',
   'em',
   'i',
   'li',
