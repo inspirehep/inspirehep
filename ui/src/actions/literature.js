@@ -1,3 +1,4 @@
+import { stringify } from 'qs';
 import {
   LITERATURE_ERROR,
   LITERATURE_REQUEST,
@@ -34,9 +35,10 @@ function fetchLiteratureError(error) {
   };
 }
 
-function fetchingLiteratureReferences() {
+function fetchingLiteratureReferences(query) {
   return {
     type: LITERATURE_REFERENCES_REQUEST,
+    payload: query,
   };
 }
 
@@ -89,11 +91,19 @@ export function fetchLiterature(recordId) {
   };
 }
 
-export function fetchLiteratureReferences(recordId) {
+export function fetchLiteratureReferences(recordId, newQuery = {}) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingLiteratureReferences());
+    const { literature } = getState();
+    const query = {
+      ...literature.get('queryReferences').toJS(),
+      ...newQuery,
+    };
+    dispatch(fetchingLiteratureReferences(query));
+    const queryString = stringify(query, { indices: false });
     try {
-      const response = await http.get(`/literature/${recordId}/references`);
+      const response = await http.get(
+        `/literature/${recordId}/references?${queryString}`
+      );
       dispatch(fetchLiteratureReferencesSuccess(response.data));
     } catch (error) {
       const payload = httpErrorToActionPayload(error);

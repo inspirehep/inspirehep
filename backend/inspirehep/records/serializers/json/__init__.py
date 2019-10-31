@@ -24,5 +24,4 @@ from .literature import (
     literature_json_list_response,
     literature_json_response,
     literature_json_response_search,
-    literature_references_json_response,
 )

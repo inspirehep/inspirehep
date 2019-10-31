@@ -8,8 +8,8 @@ import classNames from 'classnames';
 import './DetailPage.scss';
 import {
   fetchLiterature,
-  fetchLiteratureReferences,
   fetchLiteratureAuthors,
+  fetchLiteratureReferences,
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
@@ -22,7 +22,6 @@ import ContentBox from '../../../common/components/ContentBox';
 import LiteratureDate from '../../components/LiteratureDate';
 import LiteratureKeywordList from '../../components/LiteratureKeywordList';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
-import ReferenceList from '../../components/ReferenceList';
 import ReportNumberList from '../../components/ReportNumberList';
 import ThesisInfo from '../../components/ThesisInfo';
 import IsbnList from '../../components/IsbnList';
@@ -31,7 +30,6 @@ import NumberOfPages from '../../components/NumberOfPages';
 import CitationListContainer from '../../../common/containers/CitationListContainer';
 import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
-import { ErrorPropType } from '../../../common/propTypes';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import PublicNotesList from '../../components/PublicNotesList';
@@ -40,6 +38,7 @@ import { fetchCitationsByYear } from '../../../actions/citations';
 import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
 import Figures from '../../components/Figures';
 import RequireOneOf from '../../../common/components/RequireOneOf';
+import ReferenceListContainer from '../../../common/containers/ReferenceListContainer';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -70,13 +69,11 @@ class DetailPage extends Component {
   render() {
     const {
       authors,
-      references,
-      loadingReferences,
-      errorReferences,
       citationCount,
       loadingCitations,
       record,
       loading,
+      referencesCount,
     } = this.props;
 
     const metadata = record.get('metadata');
@@ -108,7 +105,6 @@ class DetailPage extends Component {
     const keywords = metadata.get('keywords');
     const authorCount = metadata.get('author_count');
 
-    const numberOfReferences = metadata.get('number_of_references', 0);
     const canEdit = metadata.get('can_edit', false);
 
     const figures = metadata.get('figures');
@@ -213,16 +209,12 @@ class DetailPage extends Component {
                     tab={
                       <TabNameWithCount
                         name="References"
-                        count={numberOfReferences}
+                        count={referencesCount}
                       />
                     }
                     key="1"
                   >
-                    <ReferenceList
-                      error={errorReferences}
-                      references={references}
-                      loading={loadingReferences}
-                    />
+                    <ReferenceListContainer recordId={recordId} />
                   </Tabs.TabPane>
                   <Tabs.TabPane
                     tab={
@@ -267,12 +259,11 @@ DetailPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   match: PropTypes.objectOf(PropTypes.any).isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
-  references: PropTypes.instanceOf(List).isRequired,
-  errorReferences: ErrorPropType,
   authors: PropTypes.instanceOf(List).isRequired,
-  loadingReferences: PropTypes.bool.isRequired,
   loading: PropTypes.bool.isRequired,
   citationCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
+  referencesCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   loadingCitations: PropTypes.bool.isRequired,
 };
@@ -280,11 +271,9 @@ DetailPage.propTypes = {
 const mapStateToProps = state => ({
   loading: state.literature.get('loading'),
   record: state.literature.get('data'),
-  references: state.literature.get('references'),
-  loadingReferences: state.literature.get('loadingReferences'),
-  errorReferences: state.literature.get('errorReferences'),
   authors: state.literature.get('authors'),
   citationCount: state.citations.get('total'),
+  referencesCount: state.literature.get('totalReferences'),
   loadingCitations: state.citations.get('loading'),
 });
 const dispatchToProps = dispatch => ({ dispatch });

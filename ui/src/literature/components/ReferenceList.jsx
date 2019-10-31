@@ -1,61 +1,77 @@
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { List, Map } from 'immutable';
+import { List } from 'immutable';
 
-import ClientPaginatedList from '../../common/components/ClientPaginatedList';
 import ContentBox from '../../common/components/ContentBox';
 import ReferenceItem from './ReferenceItem';
 import ErrorAlertOrChildren from '../../common/components/ErrorAlertOrChildren';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
+import { ErrorPropType } from '../../common/propTypes';
+import ListWithPagination from '../../common/components/ListWithPagination';
 
-class ReferenceList extends Component {
-  static renderReferenceItem(reference, index) {
-    return (
+function ReferenceList({
+  total,
+  references,
+  error,
+  loading,
+  onQueryChange,
+  query,
+}) {
+  const renderReferenceItem = useCallback(
+    (reference, index) => (
       // reference data model doesn't have any identifier, thus we have hack for `key`
       // FIXME: find an proper key for reference item as index might cause bugs
       <ReferenceItem
         key={reference.getIn(['titles', 0, 'title']) || String(index)}
         reference={reference}
       />
-    );
-  }
+    ),
+    []
+  );
 
-  renderList() {
-    const { references } = this.props;
-    return (
-      references && (
-        <ClientPaginatedList
-          items={references}
-          renderItem={ReferenceList.renderReferenceItem}
+  const onPageChange = useCallback(page => onQueryChange({ page }), [
+    onQueryChange,
+  ]);
+
+  const renderList = useCallback(
+    () =>
+      total > 0 && (
+        <ListWithPagination
+          renderItem={renderReferenceItem}
+          pageItems={references}
+          onPageChange={onPageChange}
+          total={total}
+          page={query.page}
+          pageSize={query.size}
         />
-      )
-    );
-  }
+      ),
+    [
+      query.page,
+      query.size,
+      total,
+      references,
+      renderReferenceItem,
+      onPageChange,
+    ]
+  );
 
-  render() {
-    const { loading, error, references } = this.props;
-    return (
-      <ContentBox loading={loading}>
-        <ErrorAlertOrChildren error={error}>
-          <EmptyOrChildren data={references} description="0 References">
-            {this.renderList()}
-          </EmptyOrChildren>
-        </ErrorAlertOrChildren>
-      </ContentBox>
-    );
-  }
+  return (
+    <ContentBox loading={loading}>
+      <ErrorAlertOrChildren error={error}>
+        <EmptyOrChildren data={references} description="0 References">
+          {renderList()}
+        </EmptyOrChildren>
+      </ErrorAlertOrChildren>
+    </ContentBox>
+  );
 }
-
 ReferenceList.propTypes = {
-  references: PropTypes.instanceOf(List),
-  error: PropTypes.instanceOf(Map),
-  loading: PropTypes.bool,
-};
-
-ReferenceList.defaultProps = {
-  references: null,
-  error: null,
-  loading: false,
+  total: PropTypes.number.isRequired,
+  references: PropTypes.instanceOf(List).isRequired,
+  error: ErrorPropType,
+  loading: PropTypes.bool.isRequired,
+  onQueryChange: PropTypes.func.isRequired,
+  query: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default ReferenceList;

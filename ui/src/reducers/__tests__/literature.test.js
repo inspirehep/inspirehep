@@ -67,8 +67,14 @@ describe('literature reducer', () => {
   });
 
   it('LITERATURE_REFERENCES_REQUEST', () => {
-    const state = reducer(Map(), { type: LITERATURE_REFERENCES_REQUEST });
-    const expected = Map({ loadingReferences: true });
+    const state = reducer(Map(), {
+      type: LITERATURE_REFERENCES_REQUEST,
+      payload: { page: 1, size: 25 },
+    });
+    const expected = fromJS({
+      loadingReferences: true,
+      queryReferences: { page: 1, size: 25 },
+    });
     expect(state).toEqual(expected);
   });
 
@@ -81,6 +87,7 @@ describe('literature reducer', () => {
     const payload = {
       metadata: {
         references,
+        references_count: 100,
       },
     };
     const state = reducer(Map(), {
@@ -91,6 +98,7 @@ describe('literature reducer', () => {
       loadingReferences: false,
       references,
       errorReferences: initialState.get('errorReferences'),
+      totalReferences: 100,
     });
     expect(state).toEqual(expected);
   });
@@ -104,6 +112,7 @@ describe('literature reducer', () => {
       loadingReferences: false,
       errorReferences: { message: 'error' },
       references: initialState.get('references'),
+      totalReferences: initialState.get('totalReferences'),
     });
     expect(state).toEqual(expected);
   });

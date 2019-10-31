@@ -116,22 +116,6 @@ LITERATURE_FACETS.update(
         },
     }
 )
-LITERATURE_REFERENCES = deepcopy(LITERATURE)
-LITERATURE_REFERENCES.update(
-    {
-        "default_endpoint_prefix": False,
-        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
-        "pid_type": "lit",
-        "list_route": "/literature/references/",
-        "item_route": '/literature/<pid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>/references',
-        "record_serializers": {
-            "application/json": f"{INSPIRE_SERIALIZERS}:literature_references_json_response"
-        },
-        "search_serializers": {
-            "application/json": "invenio_records_rest.serializers:json_v1_search"
-        },
-    }
-)
 LITERATURE_AUTHORS = deepcopy(LITERATURE)
 LITERATURE_AUTHORS.update(
     {
@@ -369,7 +353,6 @@ RECORDS_REST_ENDPOINTS = {
     "literature_facets": LITERATURE_FACETS,
     "literature_arxiv": LITERATURE_ARXIV,
     "literature_authors": LITERATURE_AUTHORS,
-    "literature_references": LITERATURE_REFERENCES,
     "doi": DOI,
     "authors": AUTHORS,
     "authors_orcid": AUTHORS_ORCID,

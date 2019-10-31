@@ -41,6 +41,7 @@ AUTHENTICATION_TOKEN = "CHANGE_ME"
 INSPIRE_NEXT_URL = "http://web-next:5000"
 LEGACY_BASE_URL = "http://inspirehep.net"
 LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
+MAX_API_RESULTS = 10000
 
 # Helpers
 # =======

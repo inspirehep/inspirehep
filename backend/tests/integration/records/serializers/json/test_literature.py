@@ -9,8 +9,10 @@ import json
 from uuid import UUID
 
 import mock
+from flask import current_app
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
+from invenio_records_rest.errors import MaxResultWindowRESTError
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
@@ -473,7 +475,8 @@ def test_literature_references_json(api_client, db, es, create_record):
                 "titles": record_referenced_titles,
                 "label": "2",
             },
-        ]
+        ],
+        "references_count": 2,
     }
 
     response = api_client.get(
@@ -483,6 +486,159 @@ def test_literature_references_json(api_client, db, es, create_record):
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
 
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+def test_literature_references_pagination(api_client, db, es, create_record):
+    record1 = create_record("lit", data=faker.record("lit"))
+    record2 = create_record("lit", data=faker.record("lit"))
+    record3 = create_record("lit", data=faker.record("lit"))
+    record4 = create_record("lit", data=faker.record("lit"))
+
+    data = faker.record(
+        "lit",
+        literature_citations=[
+            record1["control_number"],
+            record2["control_number"],
+            record3["control_number"],
+            record4["control_number"],
+        ],
+    )
+    record_with_references = create_record("lit", data=data)
+    headers = {"Accept": "application/json"}
+    response = api_client.get(
+        f"/literature/{record_with_references['control_number']}/references?page=2&size=2",
+        headers=headers,
+    )
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+    expected_result = {
+        "references": [
+            {"control_number": record3["control_number"], "titles": record3["titles"]},
+            {"control_number": record4["control_number"], "titles": record4["titles"]},
+        ],
+        "references_count": 4,
+    }
+    expected_status_code = 200
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+def test_literature_references_pagination_with_size_more_than_results(
+    api_client, db, es, create_record
+):
+    record1 = create_record("lit", data=faker.record("lit"))
+    record2 = create_record("lit", data=faker.record("lit"))
+    record3 = create_record("lit", data=faker.record("lit"))
+    record4 = create_record("lit", data=faker.record("lit"))
+
+    data = faker.record(
+        "lit",
+        literature_citations=[
+            record1["control_number"],
+            record2["control_number"],
+            record3["control_number"],
+            record4["control_number"],
+        ],
+    )
+    record_with_references = create_record("lit", data=data)
+    headers = {"Accept": "application/json"}
+    response = api_client.get(
+        f"/literature/{record_with_references['control_number']}/references?page=1&size=100",
+        headers=headers,
+    )
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+    expected_result = {
+        "references": [
+            {"control_number": record1["control_number"], "titles": record1["titles"]},
+            {"control_number": record2["control_number"], "titles": record2["titles"]},
+            {"control_number": record3["control_number"], "titles": record3["titles"]},
+            {"control_number": record4["control_number"], "titles": record4["titles"]},
+        ],
+        "references_count": 4,
+    }
+    expected_status_code = 200
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+def test_literature_references_pagination_with_page_with_no_results(
+    api_client, db, es, create_record
+):
+    record1 = create_record("lit", data=faker.record("lit"))
+    record2 = create_record("lit", data=faker.record("lit"))
+    record3 = create_record("lit", data=faker.record("lit"))
+    record4 = create_record("lit", data=faker.record("lit"))
+
+    data = faker.record(
+        "lit",
+        literature_citations=[
+            record1["control_number"],
+            record2["control_number"],
+            record3["control_number"],
+            record4["control_number"],
+        ],
+    )
+    record_with_references = create_record("lit", data=data)
+    headers = {"Accept": "application/json"}
+    response = api_client.get(
+        f"/literature/{record_with_references['control_number']}/references?page=100&size=100",
+        headers=headers,
+    )
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+    expected_result = {"references": [], "references_count": 4}
+    expected_status_code = 200
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+def test_literature_references_with_invalid_size(api_client, db, es, create_record):
+    record = create_record("lit", data=faker.record("lit"))
+    headers = {"Accept": "application/json"}
+    response = api_client.get(
+        f"/literature/{record['control_number']}/references?size=0", headers=headers
+    )
+    response_status_code = response.status_code
+    expected_status_code = 400
+    assert expected_status_code == response_status_code
+
+
+def test_literature_references_with_size_bigger_than_maximum(
+    api_client, db, es, create_record
+):
+    record = create_record("lit", data=faker.record("lit"))
+    headers = {"Accept": "application/json"}
+    config = {"MAX_API_RESULTS": 3}
+    with mock.patch.dict(current_app.config, config):
+        response = api_client.get(
+            f"/literature/{record['control_number']}/references?size=5", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = json.loads(response.get_data())
+    expected_status_code = 400
+    expected_response = MaxResultWindowRESTError().description
+    assert expected_status_code == response_status_code
+    assert expected_response == response_data["message"]
+
+
+def test_literature_references_no_references(api_client, db, es, create_record):
+    record = create_record("lit", data=faker.record("lit"))
+    headers = {"Accept": "application/json"}
+    response = api_client.get(
+        f"/literature/{record['control_number']}/references?page=1&size=100",
+        headers=headers,
+    )
+    response_status_code = response.status_code
+    response_data = json.loads(response.data)
+    response_data_metadata = response_data["metadata"]
+    expected_result = {"references": [], "references_count": 0}
+    expected_status_code = 200
     assert expected_status_code == response_status_code
     assert expected_result == response_data_metadata
 
@@ -603,7 +759,8 @@ def test_regression_not_throw_on_collaboration_in_reference_without_record(
     api_client, db, es, create_record
 ):
     expected_response_metadata = {
-        "references": [{"collaborations": [{"value": "CMS"}], "label": "1"}]
+        "references": [{"collaborations": [{"value": "CMS"}], "label": "1"}],
+        "references_count": 1,
     }
 
     data = {

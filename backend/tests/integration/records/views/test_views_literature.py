@@ -9,9 +9,12 @@ import json
 from copy import deepcopy
 from urllib.parse import urlencode
 
+import mock
 import pytest
+from flask import current_app
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
+from invenio_records_rest.errors import MaxResultWindowRESTError
 
 from inspirehep.accounts.roles import Roles
 
@@ -303,6 +306,24 @@ def test_literature_citations_missing_pids(api_client, db, es_clear):
     expected_status_code = 404
 
     assert expected_status_code == response_status_code
+
+
+def test_literature_citations_with_size_bigger_than_maximum(
+    api_client, db, es_clear, create_record
+):
+    record = create_record("lit", data=faker.record("lit"))
+    headers = {"Accept": "application/json"}
+    config = {"MAX_API_RESULTS": 3}
+    with mock.patch.dict(current_app.config, config):
+        response = api_client.get(
+            f"/literature/{record['control_number']}/citations?size=5", headers=headers
+        )
+    response_status_code = response.status_code
+    response_data = json.loads(response.get_data())
+    expected_status_code = 400
+    expected_response = MaxResultWindowRESTError().description
+    assert expected_status_code == response_status_code
+    assert expected_response == response_data["message"]
 
 
 def test_literature_facets(api_client, db, es_clear, create_record):
