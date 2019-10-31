@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ReferenceList does not render without references 1`] = `
+exports[`ReferenceList does not render the list if total 0 1`] = `
 <ContentBox
   className=""
   leftActions={null}
@@ -13,18 +13,28 @@ exports[`ReferenceList does not render without references 1`] = `
     error={null}
   >
     <EmptyOrChildren
-      data={null}
+      data={
+        Immutable.List [
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Reference 1",
+              },
+            ],
+          },
+        ]
+      }
       description="0 References"
     />
   </ErrorAlertOrChildren>
 </ContentBox>
 `;
 
-exports[`ReferenceList renders as loading if set 1`] = `
+exports[`ReferenceList renders items with (page * index) key if title is absent 1`] = `
 <ContentBox
   className=""
   leftActions={null}
-  loading={true}
+  loading={false}
   rightActions={null}
   subTitle={null}
   title={null}
@@ -33,97 +43,56 @@ exports[`ReferenceList renders as loading if set 1`] = `
     error={null}
   >
     <EmptyOrChildren
-      data={Immutable.List []}
+      data={
+        Immutable.List [
+          Immutable.Map {
+            "publication_info": Immutable.List [
+              Immutable.Map {
+                "journal_title": "Journal 1",
+              },
+            ],
+          },
+          Immutable.Map {
+            "authors": Immutable.List [
+              Immutable.Map {
+                "full_name": "Author 2",
+              },
+            ],
+          },
+        ]
+      }
       description="0 References"
     >
-      <ClientPaginatedList
-        items={Immutable.List []}
+      <ListWithPagination
         loading={false}
+        onPageChange={[Function]}
+        page={1}
+        pageItems={
+          Immutable.List [
+            Immutable.Map {
+              "publication_info": Immutable.List [
+                Immutable.Map {
+                  "journal_title": "Journal 1",
+                },
+              ],
+            },
+            Immutable.Map {
+              "authors": Immutable.List [
+                Immutable.Map {
+                  "full_name": "Author 2",
+                },
+              ],
+            },
+          ]
+        }
         pageSize={25}
         renderItem={[Function]}
         title={null}
+        total={1}
       />
     </EmptyOrChildren>
   </ErrorAlertOrChildren>
 </ContentBox>
-`;
-
-exports[`ReferenceList renders items with (page * index) key if title is absent 1`] = `
-<div
-  className="__ContentBox__ h-100 "
->
-  <Card
-    className="h-100"
-    loading={false}
-    title={null}
-  >
-    <div
-      className="pa2"
-    >
-      <div>
-        <ErrorAlertOrChildren
-          error={null}
-        >
-          <EmptyOrChildren
-            data={
-              Immutable.List [
-                Immutable.Map {
-                  "publication_info": Immutable.List [
-                    Immutable.Map {
-                      "journal_title": "Journal 1",
-                    },
-                  ],
-                },
-                Immutable.Map {
-                  "authors": Immutable.List [
-                    Immutable.Map {
-                      "full_name": "Author 2",
-                    },
-                  ],
-                },
-              ]
-            }
-            description="0 References"
-          >
-            <ClientPaginatedList
-              items={
-                Immutable.List [
-                  Immutable.Map {
-                    "publication_info": Immutable.List [
-                      Immutable.Map {
-                        "journal_title": "Journal 1",
-                      },
-                    ],
-                  },
-                  Immutable.Map {
-                    "authors": Immutable.List [
-                      Immutable.Map {
-                        "full_name": "Author 2",
-                      },
-                    ],
-                  },
-                ]
-              }
-              loading={false}
-              pageSize={25}
-              renderItem={[Function]}
-              title={null}
-            />
-          </EmptyOrChildren>
-        </ErrorAlertOrChildren>
-      </div>
-    </div>
-    <Row
-      className="actions ph2"
-      gutter={0}
-      justify="space-between"
-      type="flex"
-    >
-      <Col />
-      <Col />
-    </Row>
-  </Card>
-</div>
 `;
 
 exports[`ReferenceList renders with error 1`] = `
@@ -138,100 +107,79 @@ exports[`ReferenceList renders with error 1`] = `
   <ErrorAlertOrChildren
     error={
       Immutable.Map {
-        "message": "Error",
+        "message": "error",
       }
     }
   >
     <EmptyOrChildren
       data={Immutable.List []}
       description="0 References"
-    >
-      <ClientPaginatedList
-        items={Immutable.List []}
-        loading={false}
-        pageSize={25}
-        renderItem={[Function]}
-        title={null}
-      />
-    </EmptyOrChildren>
+    />
   </ErrorAlertOrChildren>
 </ContentBox>
 `;
 
 exports[`ReferenceList renders with references 1`] = `
-<div
-  className="__ContentBox__ h-100 "
+<ContentBox
+  className=""
+  leftActions={null}
+  loading={false}
+  rightActions={null}
+  subTitle={null}
+  title={null}
 >
-  <Card
-    className="h-100"
-    loading={false}
-    title={null}
+  <ErrorAlertOrChildren
+    error={null}
   >
-    <div
-      className="pa2"
+    <EmptyOrChildren
+      data={
+        Immutable.List [
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Reference 1",
+              },
+            ],
+          },
+          Immutable.Map {
+            "titles": Immutable.List [
+              Immutable.Map {
+                "title": "Reference 2",
+              },
+            ],
+          },
+        ]
+      }
+      description="0 References"
     >
-      <div>
-        <ErrorAlertOrChildren
-          error={null}
-        >
-          <EmptyOrChildren
-            data={
-              Immutable.List [
+      <ListWithPagination
+        loading={false}
+        onPageChange={[Function]}
+        page={1}
+        pageItems={
+          Immutable.List [
+            Immutable.Map {
+              "titles": Immutable.List [
                 Immutable.Map {
-                  "titles": Immutable.List [
-                    Immutable.Map {
-                      "title": "Reference 1",
-                    },
-                  ],
+                  "title": "Reference 1",
                 },
+              ],
+            },
+            Immutable.Map {
+              "titles": Immutable.List [
                 Immutable.Map {
-                  "titles": Immutable.List [
-                    Immutable.Map {
-                      "title": "Reference 2",
-                    },
-                  ],
+                  "title": "Reference 2",
                 },
-              ]
-            }
-            description="0 References"
-          >
-            <ClientPaginatedList
-              items={
-                Immutable.List [
-                  Immutable.Map {
-                    "titles": Immutable.List [
-                      Immutable.Map {
-                        "title": "Reference 1",
-                      },
-                    ],
-                  },
-                  Immutable.Map {
-                    "titles": Immutable.List [
-                      Immutable.Map {
-                        "title": "Reference 2",
-                      },
-                    ],
-                  },
-                ]
-              }
-              loading={false}
-              pageSize={25}
-              renderItem={[Function]}
-              title={null}
-            />
-          </EmptyOrChildren>
-        </ErrorAlertOrChildren>
-      </div>
-    </div>
-    <Row
-      className="actions ph2"
-      gutter={0}
-      justify="space-between"
-      type="flex"
-    >
-      <Col />
-      <Col />
-    </Row>
-  </Card>
-</div>
+              ],
+            },
+          ]
+        }
+        pageSize={25}
+        renderItem={[Function]}
+        title={null}
+        total={1}
+      />
+    </EmptyOrChildren>
+  </ErrorAlertOrChildren>
+</ContentBox>
 `;

@@ -20,6 +20,11 @@ export const initialState = fromJS({
   loadingReferences: false,
   errorReferences: null,
   references: [],
+  totalReferences: 0,
+  queryReferences: {
+    page: 1,
+    size: 25,
+  },
   loadingAuthors: false,
   errorAuthors: null,
   authors: [],
@@ -39,17 +44,21 @@ const literatureReducer = (state = initialState, action) => {
         .set('data', fromJS({}))
         .set('error', fromJS(action.payload));
     case LITERATURE_REFERENCES_REQUEST:
-      return state.set('loadingReferences', true);
+      return state
+        .set('loadingReferences', true)
+        .set('queryReferences', fromJS(action.payload));
     case LITERATURE_REFERENCES_SUCCESS:
       return state
         .set('loadingReferences', false)
         .set('references', fromJS(action.payload.metadata.references))
-        .set('errorReferences', initialState.get('errorReferences'));
+        .set('errorReferences', initialState.get('errorReferences'))
+        .set('totalReferences', action.payload.metadata.references_count);
     case LITERATURE_REFERENCES_ERROR:
       return state
         .set('loadingReferences', false)
         .set('errorReferences', fromJS(action.payload))
-        .set('references', initialState.get('references'));
+        .set('references', initialState.get('references'))
+        .set('totalReferences', initialState.get('totalReferences'));
     case LITERATURE_AUTHORS_REQUEST:
       return state.set('loadingAuthors', true);
     case LITERATURE_AUTHORS_SUCCESS:

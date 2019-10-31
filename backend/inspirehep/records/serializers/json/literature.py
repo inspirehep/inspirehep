@@ -16,7 +16,6 @@ from inspirehep.records.marshmallow.literature import (
     LiteratureDetailSchema,
     LiteratureListWrappedSchema,
     LiteraturePublicSchema,
-    LiteratureReferencesSchema,
 )
 from inspirehep.records.serializers.response import record_responsify
 from inspirehep.serializers import (
@@ -62,12 +61,4 @@ literature_authors_json = JSONSerializer(
 
 literature_authors_json_response = record_responsify(
     literature_authors_json, "application/json"
-)
-# Literature References
-literature_references_json = JSONSerializer(
-    wrap_schema_class_with_metadata(LiteratureReferencesSchema)
-)
-
-literature_references_json_response = record_responsify(
-    literature_references_json, "application/json"
 )

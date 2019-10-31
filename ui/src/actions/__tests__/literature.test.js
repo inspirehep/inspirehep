@@ -1,6 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
+import { fromJS } from 'immutable';
 
-import { getStore } from '../../fixtures/store';
+import { getStore, getStoreWithState } from '../../fixtures/store';
 import http from '../../common/http';
 import {
   LITERATURE_ERROR,
@@ -60,26 +61,55 @@ describe('literature - async action creators', () => {
 
   describe('literature references', () => {
     it('happy - creates LITERATURE_REFERENCES_SUCCESS', async done => {
-      mockHttp.onGet('/literature/123/references').replyOnce(200, {});
+      mockHttp
+        .onGet('/literature/123/references?page=1&size=10')
+        .replyOnce(200, {});
 
       const expectedActions = [
-        { type: LITERATURE_REFERENCES_REQUEST },
+        { type: LITERATURE_REFERENCES_REQUEST, payload: { page: 1, size: 10 } },
         { type: LITERATURE_REFERENCES_SUCCESS, payload: {} },
       ];
 
       const store = getStore();
-      await store.dispatch(fetchLiteratureReferences(123));
+      await store.dispatch(
+        fetchLiteratureReferences(123, { page: 1, size: 10 })
+      );
+      expect(store.getActions()).toEqual(expectedActions);
+      done();
+    });
+
+    it('fetches references with merging the given query into the existing one ', async done => {
+      mockHttp
+        .onGet(
+          '/literature/123/references?size=10&page=10&q=dude&sort=mostrecent'
+        )
+        .replyOnce(200, {});
+
+      const expectedActions = [
+        {
+          type: LITERATURE_REFERENCES_REQUEST,
+          payload: { size: 10, page: 10, q: 'dude', sort: 'mostrecent' },
+        },
+        { type: LITERATURE_REFERENCES_SUCCESS, payload: {} },
+      ];
+
+      const store = getStoreWithState({
+        literature: fromJS({
+          queryReferences: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+        }),
+      });
+      await store.dispatch(fetchLiteratureReferences(123, { page: 10 }));
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
 
     it('unhappy - creates LITERATURE_REFERENCES_ERROR', async done => {
       mockHttp
-        .onGet('/literature/123/references')
+        .onGet('/literature/123/references?page=1&size=10')
         .replyOnce(404, { message: 'Not found' });
 
       const expectedActions = [
-        { type: LITERATURE_REFERENCES_REQUEST },
+        { type: LITERATURE_REFERENCES_REQUEST, payload: { page: 1, size: 10 } },
         {
           type: LITERATURE_REFERENCES_ERROR,
           payload: { status: 404, message: 'Not found' },
@@ -87,7 +117,9 @@ describe('literature - async action creators', () => {
       ];
 
       const store = getStore();
-      await store.dispatch(fetchLiteratureReferences(123));
+      await store.dispatch(
+        fetchLiteratureReferences(123, { page: 1, size: 10 })
+      );
       expect(store.getActions()).toEqual(expectedActions);
       done();
     });
