@@ -439,7 +439,7 @@ def test_get_school_empty():
 def test_get_address():
     record = {
         "document_type": ["book"],
-        "address": [{"cities": ["Tokyo"], "country_code": "JP"}],
+        "addresses": [{"cities": ["Tokyo"], "country_code": "JP"}],
     }
     expected_address = "Tokyo, jp"
     schema = BibTexCommonSchema()

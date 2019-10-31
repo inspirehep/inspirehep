@@ -888,7 +888,7 @@ description = "Scrapy project for feeds into INSPIRE-HEP (http://inspirehep.net)
 name = "hepcrawl"
 optional = false
 python-versions = "*"
-version = "13.0.5"
+version = "13.0.7"
 
 [package.dependencies]
 LinkHeader = ">=0.4.3"
@@ -897,12 +897,12 @@ Sickle = ">=0.6.2,<1.0"
 Twisted = ">=18.9.0,<19.0"
 amqp = ">2.2.0,<2.3.0 || >2.3.0,<3.0"
 autosemver = ">=0.2,<1.0"
-celery = ">=4.2,<5.0"
+celery = ">=4.1"
 ftputil = ">=3.3.1"
 furl = ">=0.4.95"
 harvestingkit = ">=0.6.12"
-inspire-dojson = ">=62.0.0,<63.0"
-inspire-schemas = ">=60.0.1,<61.0"
+inspire-dojson = ">=63.0,<64.0"
+inspire-schemas = ">=61.0,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 pyasn1 = ">=0.1.8"
 python-dateutil = ">=2.7.0,<3.0"
@@ -1049,13 +1049,13 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "62.1.1"
+version = "63.0.0"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
 IDUtils = ">=1.0.1,<2.0"
 dojson = ">=1.3.1,<2.0"
-inspire-schemas = ">=60.1.0,<61.0"
+inspire-schemas = ">=61.0,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 isbnid_fork = ">=0.5.2,<1.0"
 langdetect = ">=1.0.7,<2.0"
@@ -1067,10 +1067,10 @@ description = "INSPIRE-specific configuration of the JSON Merger."
 name = "inspire-json-merger"
 optional = false
 python-versions = "*"
-version = "11.0.0"
+version = "11.0.1"
 
 [package.dependencies]
-inspire-schemas = ">=60.0.1,<61.0"
+inspire-schemas = ">=61.0,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 json-merger = ">=0.6.0,<1.0"
 munkres = "1.0.12"
@@ -1082,10 +1082,10 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.2"
+version = "6.0.3"
 
 [package.dependencies]
-inspire-schemas = ">=60.0.1,<61.0"
+inspire-schemas = ">=61.0,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 pypeg2 = ">=2.15.2,<3.0"
 python-dateutil = ">=2.6.1,<3.0"
@@ -1097,7 +1097,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "60.1.2"
+version = "61.0.0"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -2179,7 +2179,7 @@ category = "main"
 description = "C parser in Python"
 name = "pycparser"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "2.19"
 
 [[package]]
@@ -2718,7 +2718,7 @@ category = "main"
 description = "Simple, fast, extensible JSON encoder/decoder for Python"
 name = "simplejson"
 optional = false
-python-versions = "*"
+python-versions = ">=2.5, !=3.0.*, !=3.1.*, !=3.2.*"
 version = "3.16.0"
 
 [[package]]
@@ -3146,7 +3146,7 @@ setuptools = "*"
 xrootd = ["xrootd", "xrootdpyfs", "invenio-xrootd"]
 
 [metadata]
-content-hash = "3995be6b78258ec907cb01d5a9e625727d871d46d3e4030adc68c3187e03c534"
+content-hash = "263e8af202db5a4bd3d1e6c3cb0449efb89e4c2140802373fda4cc2133e723d1"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3228,7 +3228,7 @@ future = ["6142ef79e2416e432931d527452a1cab3aa4a754a0a53d25b2589f79e1106f34"]
 fuzzy = ["6b240e630235f183730b27fcb70fdd0d409bee2c3a4e7a964eeae093a28c4f38"]
 gunicorn = ["aa8e0b40b4157b36a5df5e599f45c9c76d6af43845ba3b3b0efe2c70473c2471", "fa2662097c66f920f53f70621c6c58ca4a3c4d3434205e608e121b5b3b71f4f3"]
 harvestingkit = ["7568b336334a1b42f7c2f3573857700481a2a58ca296c8cee2af834f42982ef6"]
-hepcrawl = ["1d670cc4cd5c8491795f885b855dfbb73c6b5c5a251fd6d97ee0e67718fc12ec"]
+hepcrawl = ["270bf196a60278f9821def0a1376cafa827a4ea290d553e8b4a698035971acae"]
 html5lib = ["20b159aa3badc9d5ee8f5c647e5efd02ed2a66ab8d354930bd9ff139fc1dc0a3", "66cb0dcfdbbc4f9c3ba1a63fdb511ffdbd4f513b2b6d81b80cd26ce6b3fb3736"]
 htmlparser = ["c5681d3d8642767739e4c08b1b19b3ff44263280ff1923b1c5424052bedb2087"]
 httpretty = ["66216f26b9d2c52e81808f3e674a6fb65d4bf719721394a1a9be926177e55fbe"]
@@ -3242,10 +3242,10 @@ importlib-resources = ["6e2783b2538bd5a14678284a3962b0660c715e5a0f10243fd5e00a4b
 incremental = ["717e12246dddf231a349175f48d74d93e2897244939173b01974ab6661406b9f", "7b751696aaf36eebfab537e458929e194460051ccad279c72b755a167eebd4b3"]
 infinity = ["dc4aa138d7e366fc00d2e741e32c78a0fecd16b74f8daeb3f7408b459668005c"]
 influxdb = ["270ec1ec9cf1927a38cf5ec808e76f364482977577eb8c335f6aed5fcdc4cb25", "30276c7e04bf7659424c733b239ba2f0804d7a1f3c59ec5dd3f88c56176c8d36"]
-inspire-dojson = ["27c9e6e94595d50a14dbdf69aaff3974aec6f8d4cc553d0766647366e4f422e8"]
-inspire-json-merger = ["96a9203174044ae0c53cee5e712f722dff4ffcebfd142525abc42df2d3dbd21f"]
-inspire-query-parser = ["5b501f7d98870907c49708828d673766c2e5155e85d21238fd4ed34c384f9ba6"]
-inspire-schemas = ["0f499f7d8888d36c0430127682835ba3c248b47aa646bd8a1e73b995798f973a"]
+inspire-dojson = ["72372b9a369ab116028d014dbd59e697a864bdab4fc0b51e878a91f931a50e64"]
+inspire-json-merger = ["34bd45e7dcb288209db414d1bd894540bb35e1615160d65b71be8c1066829923"]
+inspire-query-parser = ["aef6938550b35c92fa248b2caa947cdba90a89d618df0381198d7fc08c72540d"]
+inspire-schemas = ["7dd84b5eb521752ec35de11519cd33fddec6a6d3f31808860de944bfa125e5b8"]
 inspire-service-orcid = []
 inspire-utils = ["b44ddc2130ee48531af46c835262f2ba6f5ca6cb00e180b3a97454bae8b8b371"]
 intervals = ["37921da1407a5e9384e8e1350cfb8500f8d0d69fc43d03d01a4fdc6e7a7c7166"]
