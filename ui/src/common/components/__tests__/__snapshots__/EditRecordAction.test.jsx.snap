@@ -1,9 +1,26 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`EditRecordAction renders edit button with pidType conferences and pidValue 1`] = `
+<ListItemAction>
+  <EventTracker
+    eventId="Edit"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <ExternalLink
+      href="/editor/record/conferences/1"
+    >
+      <IconText
+        text="edit"
+        type="edit"
+      />
+    </ExternalLink>
+  </EventTracker>
+</ListItemAction>
+`;
+
 exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`] = `
-<span
-  className="__ListItemAction__"
->
+<ListItemAction>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
@@ -18,13 +35,30 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`]
       />
     </ExternalLink>
   </EventTracker>
-</span>
+</ListItemAction>
+`;
+
+exports[`EditRecordAction renders edit button with pidType jobs and pidValue 2`] = `
+<ListItemAction>
+  <EventTracker
+    eventId="Edit"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <ExternalLink
+      href="/submissions/authors/1"
+    >
+      <IconText
+        text="edit"
+        type="edit"
+      />
+    </ExternalLink>
+  </EventTracker>
+</ListItemAction>
 `;
 
 exports[`EditRecordAction renders edit button with pidType literature and pidValue 1`] = `
-<span
-  className="__ListItemAction__"
->
+<ListItemAction>
   <EventTracker
     eventId="Edit"
     eventPropName="onClick"
@@ -39,5 +73,5 @@ exports[`EditRecordAction renders edit button with pidType literature and pidVal
       />
     </ExternalLink>
   </EventTracker>
-</span>
+</ListItemAction>
 `;

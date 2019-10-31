@@ -15,6 +15,7 @@ import Errors from '../errors';
 import Authors from '../authors';
 import { setUserCategoryFromRoles } from '../tracker';
 import Jobs from '../jobs';
+import Conferences from '../conferences';
 
 jest.mock('../tracker');
 
@@ -107,6 +108,17 @@ describe('App', () => {
       </Provider>
     );
     expect(wrapper.find(Authors)).toExist();
+  });
+
+  it('navigates to Conferences when /conferences', () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter initialEntries={['/conferences']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    expect(wrapper.find(Conferences)).toExist();
   });
 
   it('navigates to Submissions when /submissions if logged in', () => {

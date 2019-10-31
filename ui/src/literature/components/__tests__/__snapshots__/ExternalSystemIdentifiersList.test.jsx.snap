@@ -4,7 +4,9 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     View in
     : 
   </span>

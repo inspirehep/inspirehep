@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceTitle renders with also subtitle 1`] = `
+<span>
+  Conference Title
+  <span>
+    <span>
+       : 
+    </span>
+    Sub
+  </span>
+</span>
+`;
+
+exports[`ConferenceTitle renders with everything 1`] = `
+<span>
+  Conference Title
+  <span>
+    <span>
+       : 
+    </span>
+    Sub
+  </span>
+  <span>
+     (
+    CTest
+    )
+  </span>
+</span>
+`;
+
+exports[`ConferenceTitle renders with only title 1`] = `
+<span>
+  Conference Title
+</span>
+`;

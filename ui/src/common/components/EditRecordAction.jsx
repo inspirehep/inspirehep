@@ -6,23 +6,30 @@ import IconText from './IconText';
 import EventTracker from './EventTracker';
 import ExternalLink from './ExternalLink';
 
-import { EDIT_LITERATURE, EDIT_JOB } from '../routes';
-
+import {
+  EDIT_LITERATURE,
+  EDIT_JOB,
+  EDIT_CONFERENCE,
+  EDIT_AUTHOR,
+} from '../routes';
 
 const pidTypeToEditRoutePrefix = {
   literature: EDIT_LITERATURE,
   jobs: EDIT_JOB,
-}
+  conferences: EDIT_CONFERENCE,
+  authors: EDIT_AUTHOR,
+};
 
 class EditRecordAction extends Component {
-
   render() {
     const { pidType, pidValue } = this.props;
 
     return (
       <ListItemAction>
         <EventTracker eventId="Edit">
-          <ExternalLink href={`${pidTypeToEditRoutePrefix[pidType]}/${pidValue}`}>
+          <ExternalLink
+            href={`${pidTypeToEditRoutePrefix[pidType]}/${pidValue}`}
+          >
             <IconText text="edit" type="edit" />
           </ExternalLink>
         </EventTracker>
@@ -32,8 +39,9 @@ class EditRecordAction extends Component {
 }
 
 EditRecordAction.propTypes = {
-    pidType: PropTypes.oneOf(['literature', 'jobs']).isRequired,
-    pidValue: PropTypes.number.isRequired,
+  pidType: PropTypes.oneOf(['literature', 'jobs', 'conferences', 'authors'])
+    .isRequired,
+  pidValue: PropTypes.number.isRequired,
 };
 
 export default EditRecordAction;

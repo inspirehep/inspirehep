@@ -4,7 +4,9 @@ exports[`AcceleratorExperimentList renders with accelerator experiments 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Accelerator experiments
     : 
   </span>

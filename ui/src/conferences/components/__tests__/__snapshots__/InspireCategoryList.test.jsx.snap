@@ -1,15 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`LiteratureKeywordList renders with keywords 1`] = `
+exports[`InspireCategoryList renders with categories 1`] = `
 <ExpandableInlineList
   extractKey={[Function]}
   items={
     Immutable.List [
       Immutable.Map {
-        "value": "CMS",
+        "value": "Accelerators",
       },
       Immutable.Map {
-        "value": "LHC-B",
+        "value": "Lattice",
       },
     ]
   }

@@ -23,6 +23,7 @@ import {
   ERRORS,
   JOBS,
   isBetaRoute,
+  CONFERENCES,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles } from './tracker';
@@ -41,6 +42,10 @@ const Authors$ = Loadable({
 });
 const Jobs$ = Loadable({
   loader: () => import('./jobs'),
+  loading: Loading,
+});
+const Conferences$ = Loadable({
+  loader: () => import('./conferences'),
   loading: Loading,
 });
 const Home$ = Loadable({
@@ -85,6 +90,7 @@ function App({ userRoles }) {
           <Route path={LITERATURE} component={Literature$} />
           <Route path={AUTHORS} component={Authors$} />
           <Route path={JOBS} component={Jobs$} />
+          <Route path={CONFERENCES} component={Conferences$} />
           <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
           <Route path={ERRORS} component={Errors$} />
         </SafeSwitch>

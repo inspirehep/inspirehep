@@ -4,7 +4,9 @@ exports[`PublicNotesList renders public notes 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Note
     : 
   </span>

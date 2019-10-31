@@ -2,8 +2,14 @@
 
 exports[`ContactList renders with contacts with both email and name 1`] = `
 <div
-  className="__InlineList__"
+  className="__InlineList__ di"
 >
+  <span
+    className="b"
+  >
+    Contact
+    : 
+  </span>
   <ul
     className="separate-items-with-semicolon"
   >
@@ -41,8 +47,14 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
 
 exports[`ContactList renders with contacts with only email or name 1`] = `
 <div
-  className="__InlineList__"
+  className="__InlineList__ di"
 >
+  <span
+    className="b"
+  >
+    Contact
+    : 
+  </span>
   <ul
     className="separate-items-with-semicolon"
   >
@@ -68,8 +80,14 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
 
 exports[`ContactList renders with contacts with record and name 1`] = `
 <div
-  className="__InlineList__"
+  className="__InlineList__ di"
 >
+  <span
+    className="b"
+  >
+    Contact
+    : 
+  </span>
   <ul
     className="separate-items-with-semicolon"
   >

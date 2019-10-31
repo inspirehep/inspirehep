@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import ExternalLink from '../../common/components/ExternalLink';
-import InlineList from '../../common/components/InlineList';
-import { getRecordIdFromRef } from '../../common/utils';
-import { AUTHORS } from '../../common/routes';
+import ExternalLink from './ExternalLink';
+import InlineList from './InlineList';
+import { getRecordIdFromRef } from '../utils';
+import { AUTHORS } from '../routes';
 
 class ContactList extends Component {
   static renderContactName(contact) {
@@ -39,14 +39,16 @@ class ContactList extends Component {
   }
 
   render() {
-    const { contacts, wrapperClassName } = this.props;
+    const { contacts } = this.props;
 
     return (
       <InlineList
+        label="Contact"
         items={contacts}
         renderItem={ContactList.renderContact}
         separateItemsClassName="separate-items-with-semicolon"
-        wrapperClassName={wrapperClassName}
+        wrapperClassName="di"
+        labelClassName="b"
         extractKey={ContactList.contactEmailOrName}
       />
     );
@@ -55,12 +57,10 @@ class ContactList extends Component {
 
 ContactList.propTypes = {
   contacts: PropTypes.instanceOf(List),
-  wrapperClassName: PropTypes.string,
 };
 
 ContactList.defaultProps = {
   contacts: null,
-  wrapperClassName: null,
 };
 
 export default ContactList;

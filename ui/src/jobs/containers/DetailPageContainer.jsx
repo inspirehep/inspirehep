@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'antd';
 import { Map } from 'immutable';
+
 import fetchJob from '../../actions/jobs';
 import ContentBox from '../../common/components/ContentBox';
 import Description from '../components/Description';
@@ -15,7 +16,7 @@ import InstitutionsList from '../components/InstitutionsList';
 import RanksList from '../components/RanksList';
 import InlineUL from '../../common/components/InlineList/InlineUL';
 import DeadlineDate from '../components/DeadlineDate';
-import Contact from '../components/Contact';
+import ContactList from '../../common/components/ContactList';
 import ReferenceLettersContacts from '../components/ReferenceLettersContacts';
 import MoreInfo from '../components/MoreInfo';
 import DocumentHead from '../../common/components/DocumentHead';
@@ -57,7 +58,7 @@ class DetailPage extends Component {
     const deadlineDate = metadata.get('deadline_date');
     const description = metadata.get('description');
     const status = metadata.get('status');
-    const contactDetails = metadata.get('contact_details');
+    const contacts = metadata.get('contact_details');
     const referenceLetters = metadata.get('reference_letters');
     const urls = metadata.get('urls');
     const canEdit = metadata.get('can_edit', false);
@@ -135,7 +136,7 @@ class DetailPage extends Component {
               </Row>
               <Row className="mt4">
                 <Col>
-                  <Contact contactDetails={contactDetails} />
+                  <ContactList contacts={contacts} />
                   <ReferenceLettersContacts
                     referenceLetters={referenceLetters}
                   />
