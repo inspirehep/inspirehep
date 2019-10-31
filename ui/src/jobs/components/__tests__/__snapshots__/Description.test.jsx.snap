@@ -21,6 +21,7 @@ exports[`Description renders with description 1`] = `
         "a",
         "b",
         "br",
+        "div",
         "em",
         "i",
         "li",
