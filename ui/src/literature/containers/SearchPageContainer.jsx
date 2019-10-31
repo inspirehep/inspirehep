@@ -14,8 +14,6 @@ import DrawerHandle from '../../common/components/DrawerHandle';
 import LiteratureItem from '../components/LiteratureItem';
 import DocumentHead from '../../common/components/DocumentHead';
 import CiteAllActionContainer from './CiteAllActionContainer';
-import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
-import { SUPERUSER } from '../../common/authorization';
 import VerticalDivider from '../../common/VerticalDivider';
 
 class SearchPage extends Component {
@@ -49,10 +47,10 @@ class SearchPage extends Component {
                 <Col xs={24} lg={12}>
                   <NumberOfResultsContainer />
                   {numberOfResults > 0 && (
-                    <AuthorizedContainer authorizedRoles={SUPERUSER}>
+                    <>
                       <VerticalDivider />
                       <CiteAllActionContainer />
-                    </AuthorizedContainer>
+                    </>
                   )}
                 </Col>
                 <Col xs={12} lg={0}>

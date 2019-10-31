@@ -35,26 +35,18 @@ exports[`EmbeddedSearch renders with all props set except error 1`] = `
           <NumberOfResults
             numberOfResults={5}
           />
-          <Connect(Authorized)
-            authorizedRoles={
-              Immutable.Set [
-                "superuser",
-              ]
-            }
-          >
-            <VerticalDivider />
-            <CiteAllAction
-              numberOfResults={5}
-              query={
-                Object {
-                  "doc_type": "article",
-                  "page": 2,
-                  "size": 2,
-                  "sort": "mostrecent",
-                }
+          <VerticalDivider />
+          <CiteAllAction
+            numberOfResults={5}
+            query={
+              Object {
+                "doc_type": "article",
+                "page": 2,
+                "size": 2,
+                "sort": "mostrecent",
               }
-            />
-          </Connect(Authorized)>
+            }
+          />
         </Col>
         <ResponsiveView
           max="md"

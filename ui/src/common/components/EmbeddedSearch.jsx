@@ -13,8 +13,6 @@ import ResponsiveView from './ResponsiveView';
 import DrawerHandle from './DrawerHandle';
 import { SelectOptionsPropType } from '../propTypes';
 import VerticalDivider from '../VerticalDivider';
-import { SUPERUSER } from '../authorization';
-import AuthorizedContainer from '../containers/AuthorizedContainer';
 import CiteAllAction from '../../literature/components/CiteAllAction';
 
 class EmbeddedSearch extends Component {
@@ -93,13 +91,13 @@ class EmbeddedSearch extends Component {
                 <Col xs={24} lg={12}>
                   <NumberOfResults numberOfResults={numberOfResults} />
                   {numberOfResults > 0 && (
-                    <AuthorizedContainer authorizedRoles={SUPERUSER}>
+                    <>
                       <VerticalDivider />
                       <CiteAllAction
                         query={query}
                         numberOfResults={numberOfResults}
                       />
-                    </AuthorizedContainer>
+                    </>
                   )}
                 </Col>
                 <ResponsiveView
