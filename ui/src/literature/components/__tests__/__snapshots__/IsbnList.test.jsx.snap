@@ -4,7 +4,9 @@ exports[`IsbnList renders isbns with medium and without medium 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     ISBN
     : 
   </span>

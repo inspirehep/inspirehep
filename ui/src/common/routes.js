@@ -6,6 +6,8 @@ export const AUTHORS = '/authors';
 
 export const JOBS = '/jobs';
 
+export const CONFERENCES = '/conferences';
+
 export const USER = '/user';
 export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;
@@ -31,6 +33,7 @@ export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 export const EDIT_LITERATURE = '/workflows/edit_article';
 export const EDIT_AUTHOR = '/submissions/authors';
 export const EDIT_JOB = '/submissions/jobs';
+export const EDIT_CONFERENCE = '/editor/record/conferences';
 
 export function isBetaRoute(locationPathname) {
   return !(

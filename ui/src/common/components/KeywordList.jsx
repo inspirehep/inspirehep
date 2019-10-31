@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import LiteratureKeyword from './LiteratureKeyword';
-import ExpandableInlineList from '../../common/components/ExpandableInlineList';
+import ExpandableInlineList from './ExpandableInlineList';
+import UnclickableTag from './UnclickableTag';
 
-class LiteratureKeywordList extends Component {
+function renderKeyword(keyword) {
+  const keywordValue = keyword.get('value');
+  return <UnclickableTag color="blue">{keywordValue}</UnclickableTag>;
+}
+
+class KeywordList extends Component {
   render() {
     const { keywords } = this.props;
     return (
@@ -14,18 +19,18 @@ class LiteratureKeywordList extends Component {
         wrapperClassName="di"
         items={keywords}
         extractKey={keyword => keyword.get('value')}
-        renderItem={keyword => <LiteratureKeyword keyword={keyword} />}
+        renderItem={renderKeyword}
       />
     );
   }
 }
 
-LiteratureKeywordList.propTypes = {
+KeywordList.propTypes = {
   keywords: PropTypes.instanceOf(List),
 };
 
-LiteratureKeywordList.defaultProps = {
+KeywordList.defaultProps = {
   keywords: null,
 };
 
-export default LiteratureKeywordList;
+export default KeywordList;

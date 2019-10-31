@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 import { getPageDisplay } from '../../literature/utils';
+import JournalInfo from './JournalInfo';
 
 class PublicationInfo extends Component {
   getPageOrArtidDisplay() {
@@ -25,12 +26,7 @@ class PublicationInfo extends Component {
     if (info.has('journal_title')) {
       return (
         <span>
-          <i>{info.get('journal_title')}</i>
-          {info.has('journal_volume') && (
-            <span> {info.get('journal_volume')}</span>
-          )}
-          {info.has('year') && <span> ({info.get('year')})</span>}
-          {journalIssue && <span> {journalIssue}</span>}
+          <JournalInfo info={info} />
           {pageOrArtidDisplay && journalIssue && <span>,</span>}
           {pageOrArtidDisplay && <span> {pageOrArtidDisplay}</span>}
           {material && material !== 'publication' && <span> ({material})</span>}

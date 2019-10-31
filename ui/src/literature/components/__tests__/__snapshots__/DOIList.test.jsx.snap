@@ -4,7 +4,9 @@ exports[`DOIList renders with dois 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     DOI
     : 
   </span>

@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import LiteratureKeywordList from '../LiteratureKeywordList';
+import KeywordList from '../KeywordList';
 
-describe('LiteratureKeywordList', () => {
+describe('KeywordList', () => {
   it('renders with keywords', () => {
     const keywords = fromJS([
       {
@@ -14,7 +14,7 @@ describe('LiteratureKeywordList', () => {
         value: 'LHC-B',
       },
     ]);
-    const wrapper = shallow(<LiteratureKeywordList keywords={keywords} />);
+    const wrapper = shallow(<KeywordList keywords={keywords} />);
     // FIXME: we need to .dive().dive() to be able test list items
     expect(wrapper).toMatchSnapshot();
   });

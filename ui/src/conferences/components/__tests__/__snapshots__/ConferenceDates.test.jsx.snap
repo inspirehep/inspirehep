@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceDates renders only of the dates if opening and closing are same 1`] = `"2 May 2019"`;
+
+exports[`ConferenceDates renders only opening date  1`] = `"12 May 2019"`;
+
+exports[`ConferenceDates renders only opening date with missing day 1`] = `"May 2019"`;
+
+exports[`ConferenceDates renders when opening and closing has only (same) year 1`] = `"2019"`;
+
+exports[`ConferenceDates renders when opening and closing in different months of the same year 1`] = `"29 April-5 May 2019"`;
+
+exports[`ConferenceDates renders when opening and closing in different months of the same year and day is missing 1`] = `"April-July 2019"`;
+
+exports[`ConferenceDates renders when opening and closing is completely different 1`] = `"30 December 2019-5 January 2020"`;
+
+exports[`ConferenceDates renders when opening and closing on different dates of the same month 1`] = `"2-5 May 2019"`;

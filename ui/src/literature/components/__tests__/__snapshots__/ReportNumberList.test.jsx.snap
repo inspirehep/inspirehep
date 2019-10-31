@@ -4,7 +4,9 @@ exports[`ReportNumberList renders with report numbers 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Report number
     : 
   </span>

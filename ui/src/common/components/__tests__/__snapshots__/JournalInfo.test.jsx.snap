@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JournalInfo renders with journal_title and all other fields 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+  <span>
+     
+    TV
+  </span>
+  <span>
+     (
+    2015
+    )
+  </span>
+  <span>
+     
+    2
+  </span>
+</span>
+`;
+
+exports[`JournalInfo renders with only journal_title 1`] = `
+<span>
+  <i>
+    Test Journal
+  </i>
+</span>
+`;

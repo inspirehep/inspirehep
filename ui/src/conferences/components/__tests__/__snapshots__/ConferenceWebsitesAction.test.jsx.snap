@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceWebsitesAction renders single url 1`] = `
+<ListItemAction>
+  <ExternalLink
+    href="https://author.wordpress.com"
+  >
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="top"
+      title="Conference website"
+      transitionName="zoom-big-fast"
+    >
+      <Icon
+        type="link"
+      />
+    </Tooltip>
+  </ExternalLink>
+</ListItemAction>
+`;
+
+exports[`ConferenceWebsitesAction renders urls with and without description 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <Tooltip
+          arrowPointAtCenter={false}
+          autoAdjustOverflow={true}
+          mouseEnterDelay={0.1}
+          mouseLeaveDelay={0.1}
+          placement="top"
+          title="Conference website"
+          transitionName="zoom-big-fast"
+        >
+          <Icon
+            type="link"
+          />
+        </Tooltip>
+      </Button>
+    }
+  >
+    <MenuItem
+      key="https://www.whatever.com/conference"
+    >
+      <ExternalLink
+        href="https://www.whatever.com/conference"
+      >
+        Whatever
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="www.descriptionless.com/url"
+    >
+      <ExternalLink
+        href="www.descriptionless.com/url"
+      >
+        descriptionless.com/url
+      </ExternalLink>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;

@@ -4,7 +4,9 @@ exports[`PublicationInfoList renders with publicationInfo 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Published in
     : 
   </span>

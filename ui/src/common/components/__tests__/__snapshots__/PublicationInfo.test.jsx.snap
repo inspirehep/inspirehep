@@ -2,33 +2,43 @@
 
 exports[`PublicationInfo does not display a comma when page info or artid is not available 1`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
-  <span>
-     
-    2
-  </span>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+        "journal_issue": 2,
+      }
+    }
+  />
 </span>
 `;
 
 exports[`PublicationInfo does not render material if it is publication 1`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+        "material": "publication",
+      }
+    }
+  />
 </span>
 `;
 
 exports[`PublicationInfo renders either page start/end or artid 1`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
-  <span>
-     
-    2
-  </span>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+        "page_start": 1,
+        "page_end": 10,
+        "artid": 123,
+        "journal_issue": 2,
+      }
+    }
+  />
   <span>
     ,
   </span>
@@ -41,13 +51,16 @@ exports[`PublicationInfo renders either page start/end or artid 1`] = `
 
 exports[`PublicationInfo renders only page_start when page_end is not available 1`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
-  <span>
-     
-    2
-  </span>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+        "page_start": 1,
+        "artid": 123,
+        "journal_issue": 2,
+      }
+    }
+  />
   <span>
     ,
   </span>
@@ -60,18 +73,18 @@ exports[`PublicationInfo renders only page_start when page_end is not available 
 
 exports[`PublicationInfo renders with journal_title and alll others fields 1`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
-  <span>
-     
-    TV
-  </span>
-  <span>
-     (
-    2016
-    )
-  </span>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+        "journal_volume": "TV",
+        "year": 2016,
+        "page_start": "1",
+        "page_end": "2",
+        "artid": "012345",
+      }
+    }
+  />
   <span>
      
     1-2
@@ -81,18 +94,19 @@ exports[`PublicationInfo renders with journal_title and alll others fields 1`] =
 
 exports[`PublicationInfo renders with journal_title and alll others fields 2`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
-  <span>
-     
-    TV
-  </span>
-  <span>
-     (
-    2016
-    )
-  </span>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+        "journal_volume": "TV",
+        "year": 2016,
+        "page_start": "1",
+        "page_end": "2",
+        "artid": "012345",
+        "pubinfo_freetext": "Test. Pub. Info. Freetext",
+      }
+    }
+  />
   <span>
      
     1-2
@@ -102,17 +116,26 @@ exports[`PublicationInfo renders with journal_title and alll others fields 2`] =
 
 exports[`PublicationInfo renders with journal_title present 1`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+      }
+    }
+  />
 </span>
 `;
 
 exports[`PublicationInfo renders with material 1`] = `
 <span>
-  <i>
-    Test Journal
-  </i>
+  <JournalInfo
+    info={
+      Immutable.Map {
+        "journal_title": "Test Journal",
+        "material": "erratum",
+      }
+    }
+  />
   <span>
      (
     erratum

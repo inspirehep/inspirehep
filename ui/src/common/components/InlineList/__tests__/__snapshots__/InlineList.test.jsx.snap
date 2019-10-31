@@ -85,7 +85,9 @@ exports[`InlineList renders with all props set (array) 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Test
     : 
   </span>
@@ -117,7 +119,9 @@ exports[`InlineList renders with all props set 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Test
     : 
   </span>

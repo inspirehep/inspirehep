@@ -4,7 +4,9 @@ exports[`ExperimentList renders arxiv categories 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Experiments
     : 
   </span>

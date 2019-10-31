@@ -4,7 +4,9 @@ exports[`ConferenceInfoList renders conference link 1`] = `
 <div
   className="__InlineList__"
 >
-  <span>
+  <span
+    className=""
+  >
     Contribution to
     : 
   </span>

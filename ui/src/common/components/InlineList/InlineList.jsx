@@ -21,12 +21,15 @@ class InlineList extends Component {
       separateItems,
       separateItemsClassName,
       wrapperClassName,
+      labelClassName,
     } = this.props;
     return (
       items &&
       getSizeOfArrayOrImmutableList(items) > 0 && (
         <div className={classnames('__InlineList__', wrapperClassName)}>
-          {label && <span>{label}: </span>}
+          {label && (
+            <span className={classnames(labelClassName)}>{label}: </span>
+          )}
           <ul
             className={classnames({ [separateItemsClassName]: separateItems })}
           >
@@ -51,6 +54,7 @@ InlineList.propTypes = {
   separateItemsClassName: PropTypes.oneOf(SEPARATE_ITEMS_CLASSNAMES),
   suffix: PropTypes.node,
   wrapperClassName: PropTypes.string,
+  labelClassName: PropTypes.string,
 };
 
 InlineList.defaultProps = {

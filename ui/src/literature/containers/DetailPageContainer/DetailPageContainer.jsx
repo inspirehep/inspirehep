@@ -20,7 +20,7 @@ import AuthorsAndCollaborations from '../../../common/components/AuthorsAndColla
 import ExternalSystemIdentifierList from '../../components/ExternalSystemIdentifierList';
 import ContentBox from '../../../common/components/ContentBox';
 import LiteratureDate from '../../components/LiteratureDate';
-import LiteratureKeywordList from '../../components/LiteratureKeywordList';
+import KeywordList from '../../../common/components/KeywordList';
 import PublicationInfoList from '../../../common/components/PublicationInfoList';
 import ReportNumberList from '../../components/ReportNumberList';
 import ThesisInfo from '../../components/ThesisInfo';
@@ -32,13 +32,13 @@ import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
-import PublicNotesList from '../../components/PublicNotesList';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { fetchCitationsByYear } from '../../../actions/citations';
 import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
 import Figures from '../../components/Figures';
 import RequireOneOf from '../../../common/components/RequireOneOf';
 import ReferenceListContainer from '../../../common/containers/ReferenceListContainer';
+import PublicNotesList from '../../../common/components/PublicNotesList';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -192,7 +192,7 @@ class DetailPage extends Component {
                       <PublicNotesList publicNotes={publicNotes} />
                     </div>
                     <div>
-                      <LiteratureKeywordList keywords={keywords} />
+                      <KeywordList keywords={keywords} />
                     </div>
                   </ContentBox>
                 </RequireOneOf>
