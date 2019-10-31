@@ -17,9 +17,9 @@ click = "<7.0.0"
 Flask = ">=1.0.2"
 
 python = ">=3.6,<3.7"
-inspire-dojson = "~=62.0,>=62.1.0"
+inspire-dojson = "~=63.0"
 inspire-query-parser = "~=6.0.0"
-inspire-schemas = "~=60.0,>=60.1.0"
+inspire-schemas = "~=61.0"
 inspire-utils = "~=3.0.0,>=3.0.8"
 inspire-service-orcid = {git = "https://github.com/drjova/inspire-service-orcid.git"}
 inspire-json-merger = "^11.0"
@@ -73,7 +73,7 @@ mailchimp3 = "^3.0"
 humanize = "^0.5.1"
 feedgen = "^0.8.0"
 flask-mail = "^0.9.1"
-hepcrawl = "13.0.5"
+hepcrawl = "^13.0.7"
 
 xrootdpyfs = {git = "https://github.com/inspirehep/xrootdpyfs.git", branch = "python3", optional = true}
 invenio-xrootd = {git = "https://github.com/inveniosoftware/invenio-xrootd.git", optional = true}

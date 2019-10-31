@@ -1,7 +1,7 @@
 {
   "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
   "_collections": ["Conferences"],
-  "address": [{ "cities": ["Tokyo"], "country_code": "JP" }],
+  "addresses": [{ "cities": ["Tokyo"], "country_code": "JP" }],
   "closing_date": "1999-11-19",
   "cnum": "C99-11-16.1",
   "contact_details": [{ "email": "birth@phys.s.u-tokyo.ac.jp" }],
