@@ -12,6 +12,10 @@ jest.mock('../../../common/utils');
 
 const mockHttp = new MockAdapter(http);
 describe('CiteAllAction', () => {
+  beforeEach(() => {
+    downloadTextAsFile.mockClear();
+  });
+
   it('renders with less than max citeable records results', () => {
     const wrapper = shallow(
       <CiteAllAction numberOfResults={12} query={{ q: 'ac>2000' }} />
@@ -42,7 +46,7 @@ describe('CiteAllAction', () => {
   it('calls downloadTextAsFile with correct data when option is clicked', async () => {
     mockHttp
       .onGet(
-        `/literature?sort=mostcited&q=query&size=${MAX_CITEABLE_RECORDS}`,
+        `/literature?sort=mostcited&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`,
         null,
         {
           Accept: `application/${CITE_FORMAT_VALUES[1]}`,
@@ -52,27 +56,8 @@ describe('CiteAllAction', () => {
     const wrapper = shallow(
       <CiteAllAction
         numberOfResults={12}
-        query={{ q: 'query', sort: 'mostcited' }}
+        query={{ sort: 'mostcited', q: 'query' }}
       />
-    );
-    await wrapper.find(DropdownMenu).prop('onClick')({
-      key: CITE_FORMAT_VALUES[1],
-    });
-    expect(downloadTextAsFile).toHaveBeenCalledWith('Test');
-  });
-
-  it('calls downloadTextAsFile with correct data with default sort when option is clicked', async () => {
-    mockHttp
-      .onGet(
-        `/literature?sort=mostrecent&q=query&size=${MAX_CITEABLE_RECORDS}`,
-        null,
-        {
-          Accept: `application/${CITE_FORMAT_VALUES[1]}`,
-        }
-      )
-      .replyOnce(200, 'Test');
-    const wrapper = shallow(
-      <CiteAllAction numberOfResults={12} query={{ q: 'query' }} />
     );
     await wrapper.find(DropdownMenu).prop('onClick')({
       key: CITE_FORMAT_VALUES[1],
@@ -83,7 +68,7 @@ describe('CiteAllAction', () => {
   it('calls downloadTextAsFile with correct data omitting page and size when option is clicked', async () => {
     mockHttp
       .onGet(
-        `/literature?sort=mostrecent&q=query&size=${MAX_CITEABLE_RECORDS}`,
+        `/literature?sort=mostrecent&q=query&page=1&size=${MAX_CITEABLE_RECORDS}`,
         null,
         {
           Accept: `application/${CITE_FORMAT_VALUES[1]}`,
@@ -93,7 +78,7 @@ describe('CiteAllAction', () => {
     const wrapper = shallow(
       <CiteAllAction
         numberOfResults={12}
-        query={{ q: 'query', page: 10, size: 100 }}
+        query={{ sort: 'mostrecent', q: 'query', page: 10, size: 100 }}
       />
     );
     await wrapper.find(DropdownMenu).prop('onClick')({

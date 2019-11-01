@@ -6,26 +6,28 @@ import { fromJS } from 'immutable';
 import { getStoreWithState } from '../../../fixtures/store';
 import CiteAllActionContainer from '../CiteAllActionContainer';
 import CiteAllAction from '../../components/CiteAllAction';
+import { LITERATURE_NS } from '../../../reducers/search';
 
 describe('CiteAllActionContainer', () => {
-  it('passes location query and number of results', () => {
+  it('passes literature namespace query and number of results', () => {
+    const namespace = LITERATURE_NS;
     const store = getStoreWithState({
-      router: {
-        location: {
-          query: { sort: 'mostcited', q: 'query' },
-        },
-      },
       search: fromJS({
-        total: 11,
+        namespaces: {
+          [namespace]: {
+            query: { sort: 'mostcited', q: 'query' },
+            total: 11,
+          },
+        },
       }),
     });
     const wrapper = mount(
       <Provider store={store}>
-        <CiteAllActionContainer />
+        <CiteAllActionContainer namespace={namespace} />
       </Provider>
     );
     expect(wrapper.find(CiteAllAction)).toHaveProp({
-      query: { q: 'query', sort: 'mostcited' },
+      query: { sort: 'mostcited', q: 'query' },
     });
     expect(wrapper.find(CiteAllAction)).toHaveProp({ numberOfResults: 11 });
   });

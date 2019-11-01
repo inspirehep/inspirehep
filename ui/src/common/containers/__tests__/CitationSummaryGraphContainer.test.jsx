@@ -6,14 +6,11 @@ import { Provider } from 'react-redux';
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import CitationSummaryGraphContainer from '../CitationSummaryGraphContainer';
 import CitationSummaryGraph from '../../components/CitationSummaryGraph/CitationSummaryGraph';
-import {
-  fetchAuthorPublications,
-  fetchAuthorPublicationsFacets,
-} from '../../../actions/authors';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
+import { AUTHOR_PUBLICATIONS_NS } from '../../../reducers/search';
+import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
 
 jest.mock('../../../actions/citations');
-jest.mock('../../../actions/authors');
 
 const mockCiteableData = [
   {
@@ -122,16 +119,6 @@ const mockCitationsState = fromJS({
 });
 
 describe('CitationSummaryGraphContainer', () => {
-  beforeAll(() => {
-    fetchAuthorPublications.mockReturnValue(async () => {});
-    fetchAuthorPublicationsFacets.mockReturnValue(async () => {});
-  });
-
-  afterEach(() => {
-    fetchAuthorPublications.mockClear();
-    fetchAuthorPublicationsFacets.mockClear();
-  });
-
   it('passes props from state', () => {
     const store = getStoreWithState({
       citations: mockCitationsState,
@@ -150,7 +137,7 @@ describe('CitationSummaryGraphContainer', () => {
     });
   });
 
-  it('dispatches fetch author publications and facets with clean query when onSelectBarChange called with null', () => {
+  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with clean query when onSelectBarChange called with null', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
@@ -162,16 +149,21 @@ describe('CitationSummaryGraphContainer', () => {
       .prop('onSelectBarChange');
     onSelectBarChange(null);
 
-    const barQuery = {
+    const query = {
       citation_count: undefined,
       citeable: undefined,
       refereed: undefined,
     };
-    expect(fetchAuthorPublications).toHaveBeenCalledWith(barQuery);
-    expect(fetchAuthorPublicationsFacets).toHaveBeenCalledWith(barQuery);
+    const expectedActions = [
+      {
+        type: SEARCH_QUERY_UPDATE,
+        payload: { namespace: AUTHOR_PUBLICATIONS_NS, query },
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('dispatches fetch author publications and facets with citeable query when onSelectBarChange called with citeable bar', () => {
+  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with citeable query when onSelectBarChange called with citeable bar', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
@@ -182,16 +174,21 @@ describe('CitationSummaryGraphContainer', () => {
       xValue: '0--0',
       type: CITEABLE_BAR_TYPE,
     });
-    const barQuery = {
+    const query = {
       citation_count: '0--0',
       citeable: true,
       refereed: undefined,
     };
-    expect(fetchAuthorPublications).toHaveBeenCalledWith(barQuery);
-    expect(fetchAuthorPublicationsFacets).toHaveBeenCalledWith(barQuery);
+    const expectedActions = [
+      {
+        type: SEARCH_QUERY_UPDATE,
+        payload: { namespace: AUTHOR_PUBLICATIONS_NS, query },
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('dispatches fetch author publications and facets with published query when onSelectBarChange called with published bar', () => {
+  it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with published query when onSelectBarChange called with published bar', () => {
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
@@ -202,17 +199,24 @@ describe('CitationSummaryGraphContainer', () => {
       xValue: '0--0',
       type: PUBLISHED_BAR_TYPE,
     });
-    const barQuery = { citation_count: '0--0', citeable: true, refereed: true };
-    expect(fetchAuthorPublications).toHaveBeenCalledWith(barQuery);
-    expect(fetchAuthorPublicationsFacets).toHaveBeenCalledWith(barQuery);
+    const query = { citation_count: '0--0', citeable: true, refereed: true };
+    const expectedActions = [
+      {
+        type: SEARCH_QUERY_UPDATE,
+        payload: { namespace: AUTHOR_PUBLICATIONS_NS, query },
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('sets selectedBar prop from state for a citable bar', () => {
+  it('sets selectedBar prop from author publications namespace state for a citable bar', () => {
     const store = getStoreWithState({
       citations: mockCitationsState,
-      authors: fromJS({
-        publications: {
-          query: { citeable: true, citation_count: '500--250' },
+      search: fromJS({
+        namespaces: {
+          [AUTHOR_PUBLICATIONS_NS]: {
+            query: { citeable: true, citation_count: '500--250' },
+          },
         },
       }),
     });
@@ -229,12 +233,14 @@ describe('CitationSummaryGraphContainer', () => {
     });
   });
 
-  it('sets selectedBar prop from state for a published bar', () => {
+  it('sets selectedBar prop from author publications namespace state for a published bar', () => {
     const store = getStoreWithState({
       citations: mockCitationsState,
-      authors: fromJS({
-        publications: {
-          query: { citeable: true, citation_count: '0--0', refereed: 'true' },
+      search: fromJS({
+        namespaces: {
+          [AUTHOR_PUBLICATIONS_NS]: {
+            query: { citeable: true, citation_count: '0--0', refereed: 'true' },
+          },
         },
       }),
     });

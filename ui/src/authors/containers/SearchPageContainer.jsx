@@ -9,6 +9,7 @@ import ResultsContainer from '../../common/containers/ResultsContainer';
 import NumberOfResultsContainer from '../../common/containers/NumberOfResultsContainer';
 import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import DocumentHead from '../../common/components/DocumentHead';
+import { AUTHORS_NS } from '../../reducers/search';
 
 class SearchPage extends Component {
   static renderAuthorItem(result) {
@@ -25,13 +26,16 @@ class SearchPage extends Component {
             <LoadingOrChildren loading={loading}>
               <Row type="flex">
                 <Col>
-                  <NumberOfResultsContainer />
+                  <NumberOfResultsContainer namespace={AUTHORS_NS} />
                 </Col>
               </Row>
               <Row>
                 <Col span={24}>
-                  <ResultsContainer renderItem={SearchPage.renderAuthorItem} />
-                  <PaginationContainer />
+                  <ResultsContainer
+                    namespace={AUTHORS_NS}
+                    renderItem={SearchPage.renderAuthorItem}
+                  />
+                  <PaginationContainer namespace={AUTHORS_NS} />
                 </Col>
               </Row>
             </LoadingOrChildren>
@@ -47,7 +51,7 @@ SearchPage.propTypes = {
 };
 
 const stateToProps = state => ({
-  loading: state.search.get('loading'),
+  loading: state.search.getIn(['namespaces', AUTHORS_NS, 'loading']),
 });
 
 export default connect(stateToProps)(SearchPage);

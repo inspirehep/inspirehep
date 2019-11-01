@@ -1,19 +1,17 @@
 import { connect } from 'react-redux';
-import { pushQueryToLocation } from '../../actions/search';
+import { searchQueryUpdate } from '../../actions/search';
 
 import SortBy from '../components/SortBy';
 import { convertAllImmutablePropsToJS } from '../immutableToJS';
 
-const stateToProps = state => ({
-  sort:
-    state.router.location.query.sort ||
-    state.search.getIn(['scope', 'query', 'sort']),
-  sortOptions: state.search.get('sortOptions'),
+const stateToProps = (state, { namespace }) => ({
+  sort: state.search.getIn(['namespaces', namespace, 'query', 'sort']),
+  sortOptions: state.search.getIn(['namespaces', namespace, 'sortOptions']),
 });
 
-export const dispatchToProps = dispatch => ({
+export const dispatchToProps = (dispatch, { namespace }) => ({
   onSortChange(sort) {
-    dispatch(pushQueryToLocation({ sort, page: 1 }));
+    dispatch(searchQueryUpdate(namespace, { sort, page: '1' }));
   },
 });
 

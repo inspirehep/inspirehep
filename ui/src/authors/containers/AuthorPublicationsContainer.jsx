@@ -1,37 +1,48 @@
+import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Set } from 'immutable';
 
-import {
-  fetchAuthorPublications,
-  fetchAuthorPublicationsFacets,
-} from '../../actions/authors';
-import EmbeddedSearch from '../../common/components/EmbeddedSearch';
-import { convertSomeImmutablePropsToJS } from '../../common/immutableToJS';
+import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
+import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
+import { isCataloger } from '../../common/authorization';
+
+function AuthorPublications({ authorFacetName, isCatalogerLoggedIn }) {
+  const baseQuery = useMemo(
+    () => ({
+      author: [authorFacetName],
+      size: isCatalogerLoggedIn ? 100 : 10, // TODO: move sizes to constants file
+    }),
+    [authorFacetName, isCatalogerLoggedIn]
+  );
+  const baseAggregationsQuery = useMemo(
+    () => ({
+      author_recid: authorFacetName,
+    }),
+    [authorFacetName]
+  );
+
+  return (
+    <LiteratureSearchContainer
+      namespace={AUTHOR_PUBLICATIONS_NS}
+      baseQuery={baseQuery}
+      baseAggregationsQuery={baseAggregationsQuery}
+    />
+  );
+}
+
+AuthorPublications.propTypes = {
+  authorFacetName: PropTypes.string.isRequired,
+  isCatalogerLoggedIn: PropTypes.bool.isRequired,
+};
 
 const stateToProps = state => ({
-  aggregations: state.authors.getIn(['publications', 'aggregations']),
-  initialAggregations: state.authors.getIn([
-    'publications',
-    'initialAggregations',
+  authorFacetName: state.authors.getIn([
+    'data',
+    'metadata',
+    'facet_author_name',
   ]),
-  loadingAggregations: state.authors.getIn([
-    'publications',
-    'loadingAggregations',
-  ]),
-  query: state.authors.getIn(['publications', 'query']),
-  results: state.authors.getIn(['publications', 'results']),
-  sortOptions: state.authors.getIn(['publications', 'sortOptions']),
-  loadingResults: state.authors.getIn(['publications', 'loadingResults']),
-  numberOfResults: state.authors.getIn(['publications', 'total']),
-  error: state.authors.getIn(['publications', 'error']),
+  isCatalogerLoggedIn: isCataloger(Set(state.user.getIn(['data', 'roles']))),
 });
 
-export const dispatchToProps = dispatch => ({
-  onQueryChange(queryChange) {
-    dispatch(fetchAuthorPublications(queryChange));
-    dispatch(fetchAuthorPublicationsFacets(queryChange));
-  },
-});
-
-export default connect(stateToProps, dispatchToProps)(
-  convertSomeImmutablePropsToJS(EmbeddedSearch, ['query', 'sortOptions'])
-);
+export default connect(stateToProps)(AuthorPublications);

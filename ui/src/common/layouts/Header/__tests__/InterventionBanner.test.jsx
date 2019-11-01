@@ -13,6 +13,14 @@ describe('InterventionBanner', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('does not render when REACT_APP_INTERVENTION_BANNER is set to null', () => {
+    global.CONFIG = {
+      REACT_APP_INTERVENTION_BANNER: null,
+    };
+    const wrapper = shallow(<InterventionBanner />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders with the content of REACT_APP_INTERVENTION_BANNER set in config', () => {
     global.CONFIG = {
       REACT_APP_INTERVENTION_BANNER: {
