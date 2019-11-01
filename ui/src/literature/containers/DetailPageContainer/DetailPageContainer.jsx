@@ -82,7 +82,7 @@ class DetailPage extends Component {
 
     const metadata = record.get('metadata');
     if (!metadata) {
-      return null; // FIXME: `loading` is state is never rendered
+      return null; // FIXME: `loading` is state is never rendered also for other detail pages
     }
 
     const title = metadata.getIn(['titles', 0]);

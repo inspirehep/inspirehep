@@ -3,13 +3,11 @@ import { stringify } from 'qs';
 import React, { Component } from 'react';
 import { Button, Menu, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
-import omit from 'lodash.omit';
 import ListItemAction from '../../common/components/ListItemAction';
 import IconText from '../../common/components/IconText';
 import DropdownMenu from '../../common/components/DropdownMenu';
 import { CITE_FORMAT_OPTIONS, MAX_CITEABLE_RECORDS } from '../constants';
 import http from '../../common/http';
-import { searchScopes } from '../../reducers/search';
 import { downloadTextAsFile } from '../../common/utils';
 
 class CiteAllAction extends Component {
@@ -24,21 +22,18 @@ class CiteAllAction extends Component {
   async onCiteClick({ key }) {
     const { query } = this.props;
     const citeQuery = {
-      // set default `sort` in case there is no `sort` in the query
-      sort: searchScopes.getIn(['literature', 'query', 'sort']),
-      ...omit(query, ['size', 'page']),
+      ...query,
+      page: 1,
+      size: MAX_CITEABLE_RECORDS,
     };
     const queryString = stringify(citeQuery, { indices: false });
     try {
       this.setState({ loading: true });
-      const response = await http.get(
-        `/literature?${queryString}&size=${MAX_CITEABLE_RECORDS}`,
-        {
-          headers: {
-            Accept: `application/${key}`,
-          },
-        }
-      );
+      const response = await http.get(`/literature?${queryString}`, {
+        headers: {
+          Accept: `application/${key}`,
+        },
+      });
       this.setState({ loading: false });
       downloadTextAsFile(response.data);
     } catch (error) {

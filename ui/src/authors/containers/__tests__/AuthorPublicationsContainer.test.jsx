@@ -5,86 +5,41 @@ import { Provider } from 'react-redux';
 
 import { getStoreWithState } from '../../../fixtures/store';
 import AuthorPublicationsContainer from '../AuthorPublicationsContainer';
-import EmbeddedSearch from '../../../common/components/EmbeddedSearch';
-import {
-  AUTHOR_PUBLICATIONS_REQUEST,
-  AUTHOR_PUBLICATIONS_FACETS_REQUEST,
-} from '../../../actions/actionTypes';
+import LiteratureSearchContainer from '../../../literature/containers/LiteratureSearchContainer';
+import { AUTHOR_PUBLICATIONS_NS } from '../../../reducers/search';
 
 describe('AuthorPublicationsContainer', () => {
-  it('passes all props to embedded search', () => {
+  it('passes all props to LiteratureSearchContainer', () => {
     const store = getStoreWithState({
       authors: fromJS({
-        publications: {
-          query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
-          results: [{ control_number: 1 }, { control_number: 2 }],
-          aggregations: { agg1: { foo: 'bar' } },
-          sortOptions: [{ value: 'mostrecent', display: 'Most Recent' }],
-          loadingResults: true,
-          loadingAggregations: true,
-          total: 50,
-          error: { message: 'Error' },
+        data: {
+          metadata: {
+            facet_author_name: '1234_ThatDude',
+          },
+        },
+      }),
+      user: fromJS({
+        loggedIn: true,
+        data: {
+          roles: ['cataloger'],
         },
       }),
     });
     const wrapper = mount(
       <Provider store={store}>
-        <AuthorPublicationsContainer renderResultItem={jest.fn()} />
+        <AuthorPublicationsContainer />
       </Provider>
     );
 
-    expect(wrapper.find(EmbeddedSearch)).toHaveProp({
-      query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
-      results: fromJS([{ control_number: 1 }, { control_number: 2 }]),
-      aggregations: fromJS({ agg1: { foo: 'bar' } }),
-      sortOptions: [{ value: 'mostrecent', display: 'Most Recent' }],
-      loadingResults: true,
-      loadingAggregations: true,
-      numberOfResults: 50,
-      error: fromJS({ message: 'Error' }),
-    });
-  });
-
-  // FIXME: avoid also testing that actions merging newQuery and state query
-  it('dispatches fetch author publications and facets onQueryChange', () => {
-    const existingQuery = {
-      page: 3,
-      size: 10,
-      author: ['Harun'],
-      sort: 'mostrecent',
-    };
-    const queryChange = { sort: 'mostcited' };
-    const newQuery = {
-      page: 3,
-      size: 10,
-      sort: 'mostcited',
-      author: ['Harun'],
-    };
-    const store = getStoreWithState({
-      authors: fromJS({
-        publications: {
-          query: existingQuery,
-        },
-      }),
-    });
-    const wrapper = mount(
-      <Provider store={store}>
-        <AuthorPublicationsContainer renderResultItem={jest.fn()} />
-      </Provider>
-    );
-    wrapper.find(EmbeddedSearch).prop('onQueryChange')(queryChange);
-
-    const expectedActions = [
-      {
-        type: AUTHOR_PUBLICATIONS_REQUEST,
-        payload: newQuery,
+    expect(wrapper.find(LiteratureSearchContainer)).toHaveProp({
+      namespace: AUTHOR_PUBLICATIONS_NS,
+      baseQuery: {
+        author: ['1234_ThatDude'],
+        size: 100,
       },
-      {
-        type: AUTHOR_PUBLICATIONS_FACETS_REQUEST,
-        payload: newQuery,
+      baseAggregationsQuery: {
+        author_recid: '1234_ThatDude',
       },
-    ];
-    const actions = store.getActions().slice(0, 3); // slice to assert only REQUEST actions
-    expect(actions).toEqual(expectedActions);
+    });
   });
 });

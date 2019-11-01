@@ -3,15 +3,13 @@ import { connect } from 'react-redux';
 import SearchResults from '../components/SearchResults';
 import { castPropToNumber } from '../utils';
 
-const stateToProps = state => ({
-  results: state.search.get('results'),
+const stateToProps = (state, { namespace }) => ({
+  results: state.search.getIn(['namespaces', namespace, 'results']),
   page: castPropToNumber(
-    state.router.location.query.page ||
-      state.search.getIn(['scope', 'query', 'page'])
+    state.search.getIn(['namespaces', namespace, 'query', 'page'])
   ),
   pageSize: castPropToNumber(
-    state.router.location.query.size ||
-      state.search.getIn(['scope', 'query', 'size'])
+    state.search.getIn(['namespaces', namespace, 'query', 'size'])
   ),
 });
 

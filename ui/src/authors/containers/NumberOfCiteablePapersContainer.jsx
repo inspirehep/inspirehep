@@ -1,16 +1,13 @@
 import { connect } from 'react-redux';
 
-import {
-  fetchAuthorPublications,
-  fetchAuthorPublicationsFacets,
-} from '../../actions/authors';
 import LinkLikeButton from '../../common/components/LinkLikeButton';
 import { CITEABLE_QUERY } from '../../common/constants';
+import { searchQueryUpdate } from '../../actions/search';
+import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
 
 export const dispatchToProps = dispatch => ({
   onClick() {
-    dispatch(fetchAuthorPublications(CITEABLE_QUERY));
-    dispatch(fetchAuthorPublicationsFacets(CITEABLE_QUERY));
+    dispatch(searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, CITEABLE_QUERY));
   },
 });
 

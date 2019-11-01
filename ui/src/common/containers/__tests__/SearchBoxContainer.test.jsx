@@ -1,41 +1,58 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
+import { fromJS } from 'immutable';
 
-import { pushQueryToLocation } from '../../../actions/search';
-import { getStoreWithState, getStore } from '../../../fixtures/store';
+import { getStoreWithState } from '../../../fixtures/store';
 import SearchBoxContainer from '../SearchBoxContainer';
 import SearchBox from '../../components/SearchBox';
-
-jest.mock('../../../actions/search');
-
-pushQueryToLocation.mockReturnValue(async () => {});
+import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
 
 describe('SearchBoxContainer', () => {
-  afterEach(() => {
-    pushQueryToLocation.mockClear();
-  });
-
-  it('passes url query q param to SearchBox', () => {
+  it('passes namespace query q param to SearchBox', () => {
+    const searchBoxNamespace = 'literature';
     const store = getStoreWithState({
-      router: { location: { query: { q: 'test' } } },
+      search: fromJS({
+        searchBoxNamespace,
+        namespaces: {
+          [searchBoxNamespace]: {
+            query: { q: 'test' },
+          },
+        },
+      }),
     });
     const wrapper = mount(
       <Provider store={store}>
         <SearchBoxContainer />
       </Provider>
     );
-    expect(wrapper.find(SearchBox)).toHaveProp({ value: 'test' });
+    expect(wrapper.find(SearchBox)).toHaveProp({
+      value: 'test',
+      namespace: searchBoxNamespace,
+    });
   });
 
-  it('calls pushQueryToLocation onSearch', async () => {
+  it('calls SEARCH_QUERY_UPDATE on search', async () => {
+    const searchBoxNamespace = 'literature';
+    const store = getStoreWithState({
+      search: fromJS({
+        searchBoxNamespace,
+      }),
+    });
     const wrapper = mount(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <SearchBoxContainer />
       </Provider>
     );
     const onSearch = wrapper.find(SearchBox).prop('onSearch');
-    onSearch('test');
-    expect(pushQueryToLocation).toHaveBeenCalledWith({ q: 'test' }, true);
+    onSearch(searchBoxNamespace, 'test');
+
+    const expectedActions = [
+      {
+        type: SEARCH_QUERY_UPDATE,
+        payload: { query: { q: 'test' }, namespace: searchBoxNamespace },
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });

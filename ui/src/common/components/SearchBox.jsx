@@ -21,6 +21,7 @@ class SearchBox extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
     this.state = {};
   }
 
@@ -29,8 +30,13 @@ class SearchBox extends Component {
     this.setState({ draftValue: value });
   }
 
+  onSearch(value) {
+    const { onSearch, namespace } = this.props;
+    onSearch(namespace, value);
+  }
+
   render() {
-    const { placeholder, onSearch } = this.props;
+    const { placeholder } = this.props;
     const { draftValue } = this.state;
     return (
       <Input.Search
@@ -41,7 +47,7 @@ class SearchBox extends Component {
         value={draftValue}
         onChange={this.onChange}
         size="large"
-        onSearch={onSearch}
+        onSearch={this.onSearch}
         enterButton
       />
     );
@@ -49,15 +55,15 @@ class SearchBox extends Component {
 }
 
 SearchBox.propTypes = {
+  namespace: PropTypes.string.isRequired,
+  onSearch: PropTypes.func.isRequired,
   value: PropTypes.string,
   placeholder: PropTypes.string,
-  onSearch: PropTypes.func,
 };
 
 SearchBox.defaultProps = {
   value: null,
   placeholder: null,
-  onSearch: null,
 };
 
 export default SearchBox;
