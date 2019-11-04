@@ -1,7 +1,7 @@
 {
   "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
   "_collections": ["Conferences"],
-  "address": [
+  "addresses": [
     {
       "cities": ["Kyoto"],
       "country_code": "JP"

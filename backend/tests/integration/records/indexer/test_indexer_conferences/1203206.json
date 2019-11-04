@@ -21,7 +21,7 @@
   "_collections": ["Conferences"],
   "deleted": false,
   "cnum": "C14-07-02",
-  "address": [
+  "addresses": [
     {
       "cities": ["Valencia"],
       "country_code": "ES"
