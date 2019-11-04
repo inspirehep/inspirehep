@@ -6,7 +6,12 @@ import requests
 import structlog
 from flask import current_app
 from invenio_db import db
-from invenio_files_rest.models import Bucket, ObjectVersion
+from invenio_files_rest.models import (
+    Bucket,
+    ObjectVersion,
+    Timestamp,
+    timestamp_before_update,
+)
 from invenio_records.errors import MissingModelError
 from invenio_records_files.models import RecordsBuckets
 from sqlalchemy import func
@@ -15,6 +20,10 @@ from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.models import RecordCitations
 
 LOGGER = structlog.getLogger()
+
+# We need to turn this odd as updating many files at the same time by many workers
+# is causing deadlocks due to updating "update" column in invenio files_files
+db.event.remove(Timestamp, "before_update", timestamp_before_update)
 
 
 def requests_retry_session(retries=3):
