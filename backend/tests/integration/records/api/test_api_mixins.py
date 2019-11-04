@@ -292,3 +292,20 @@ def test_regression_add_original_url_if_it_is_external(
         original_url="http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png",
     )
     assert "original_url" in added_file_metadata
+
+
+@pytest.mark.vcr()
+def test_add_same_file_twice_do_not_update_updated_column_on_file_instance_table(
+    base_app, db, es, create_record, enable_files
+):
+    record = create_record("lit")
+    record.add_file(
+        "http://inspirehep.net/record/1759621/files/S1-2D-Lambda-Kappa-Tkappa.png"
+    )
+    first_update_time = FileInstance.query.one().updated
+    record_file_key = record["_files"][0]["key"]
+
+    record_local = create_record("lit")
+    record_local.add_file(f"/api/files/{record.bucket_id}/{record_file_key}")
+
+    assert first_update_time == FileInstance.query.one().updated
