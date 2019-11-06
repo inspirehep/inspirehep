@@ -69,7 +69,7 @@ def send_job_deadline_reminder(job):
     cc_addresses = [
         cd.get("email")
         for cd in job.get("contact_details")
-        if cd.get("email") != recipient
+        if cd.get("email") and cd.get("email") != recipient
     ]
     subject = f"Expired deadline for your INSPIRE job: {job['position']}"
     content = get_jobs_deadline_reminder_html_content(job, recipient)

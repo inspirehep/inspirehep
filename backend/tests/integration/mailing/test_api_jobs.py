@@ -128,3 +128,26 @@ def test_send_email_to_contact_details_without_putting_it_in_cc(
     assert mock_call["cc"] == [expected_cc]
     assert mock_call["body"]
     assert mock_call["subject"] == "Expired deadline for your INSPIRE job: Tester"
+
+
+@patch("inspirehep.mailing.api.jobs.send_email")
+def test_regression_send_email_doesnt_fail_when_contact_details_has_no_email(
+    mock_send_email, base_app, db, es_clear
+):
+    expected_recipient = "rcg6p@virginia.edu"
+    expected_cc = []
+    job = {
+        "contact_details": [
+            {"email": expected_recipient, "name": "Group, Craig"},
+            {"name": "Haverstrom, Rich"},
+        ],
+        "position": "Tester",
+    }
+    send_job_deadline_reminder(job)
+    mock_send_email.assert_called_once()
+
+    mock_call = mock_send_email.mock_calls[0][2]
+    assert mock_call["cc"] == expected_cc
+    assert mock_call["recipient"] == expected_recipient
+    assert mock_call["body"]
+    assert mock_call["subject"] == "Expired deadline for your INSPIRE job: Tester"
