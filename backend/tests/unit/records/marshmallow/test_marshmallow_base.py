@@ -8,7 +8,7 @@
 from datetime import datetime
 from unittest.mock import Mock
 
-from marshmallow import fields
+from marshmallow import Schema, fields
 
 from inspirehep.records.marshmallow.base import (
     ElasticSearchBaseSchema,
@@ -84,7 +84,7 @@ def test_base_schema_with_exclude_and_custom_method():
 
 
 def test_elastic_search_base_schema():
-    class TestSchema(ElasticSearchBaseSchema):
+    class TestSchema(ElasticSearchBaseSchema, Schema):
         pass
 
     created_date_time = datetime.strptime("2019-01-01", "%Y-%m-%d")
@@ -103,7 +103,7 @@ def test_elastic_search_base_schema():
 
 
 def test_elastic_search_base_schema_with_extra_fields():
-    class TestSchema(ElasticSearchBaseSchema):
+    class TestSchema(ElasticSearchBaseSchema, Schema):
         data = fields.Raw()
 
     created_date_time = datetime.strptime("2019-01-01", "%Y-%m-%d")

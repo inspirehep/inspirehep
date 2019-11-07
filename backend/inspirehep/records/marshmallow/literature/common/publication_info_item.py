@@ -20,12 +20,9 @@ class PublicationInfoItemSchemaV1(Schema):
     year = fields.Raw()
 
     @pre_dump
-    def empty_if_display_fields_missing_or_is_conference(self, data):
+    def empty_if_display_fields_missing(self, data):
         journal_title = data.get("journal_title")
         pubinfo_freetext = data.get("pubinfo_freetext")
-        conference_record = data.get("conference_record")
-        if (
-            journal_title is None and pubinfo_freetext is None
-        ) or conference_record is not None:
+        if journal_title is None and pubinfo_freetext is None:
             return {}
         return data
