@@ -10,6 +10,7 @@ import submissions from './submissions';
 import citations from './citations';
 import authors from './authors';
 import jobs from './jobs';
+import conferences from './conferences';
 import ui, { initialState as uiInitialState } from './ui';
 
 export default function createRootReducer(history) {
@@ -25,6 +26,7 @@ export default function createRootReducer(history) {
     authors,
     ui,
     jobs,
+    conferences,
   });
 }
 
