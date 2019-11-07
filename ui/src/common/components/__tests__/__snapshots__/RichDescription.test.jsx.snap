@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RichDescription renders with description 1`] = `
+<SanitizedHTML
+  allowedAttributes={
+    Object {
+      "a": Array [
+        "href",
+        "title",
+      ],
+    }
+  }
+  allowedTags={
+    Array [
+      "a",
+      "b",
+      "br",
+      "div",
+      "em",
+      "i",
+      "li",
+      "ol",
+      "p",
+      "strong",
+      "ul",
+    ]
+  }
+  html="description"
+/>
+`;

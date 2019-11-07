@@ -193,3 +193,18 @@ export function getRecordIdFromRef($ref) {
 export function downloadTextAsFile(text) {
   window.open(`data:application/txt,${encodeURIComponent(text)}`, '_self');
 }
+
+export function addOrdinalSuffix(i) {
+  const lastDigit = i % 10;
+  const lastTwoDigits = i % 100;
+  if (lastDigit === 1 && lastTwoDigits !== 11) {
+    return `${i}st`;
+  }
+  if (lastDigit === 2 && lastTwoDigits !== 12) {
+    return `${i}nd`;
+  }
+  if (lastDigit === 3 && lastTwoDigits !== 13) {
+    return `${i}rd`;
+  }
+  return `${i}th`;
+}

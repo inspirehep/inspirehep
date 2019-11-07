@@ -10,6 +10,7 @@ import { initialState as exceptions } from '../reducers/exceptions';
 import { initialState as authors } from '../reducers/authors';
 import { initialState as ui } from '../reducers/ui';
 import { initialState as jobs } from '../reducers/jobs';
+import { initialState as conferences } from '../reducers/conferences';
 
 import { thunkMiddleware } from '../store';
 
@@ -33,6 +34,7 @@ export function getState() {
     authors,
     ui,
     jobs,
+    conferences,
   };
 }
 

@@ -17,6 +17,8 @@ const routes = {
     authorDetail1274753: `${appBaseUrl}/authors/1274753`,
     jobsSearch: `${appBaseUrl}/jobs`,
     jobDetail1727456: `${appBaseUrl}/jobs/1727456`,
+    conferenceSearch: `${appBaseUrl}/conferences`,
+    conferenceDetail1203206: `${appBaseUrl}/conferences/1203206`,
   },
 };
 
