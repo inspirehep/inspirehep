@@ -4,9 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
-
 import uuid
+from operator import itemgetter
 
 import pytest
 from helpers.providers.faker import faker
@@ -206,3 +205,115 @@ def test_hard_delete_conference_clears_entries_in_conference_literature_table(
     conference.hard_delete()
 
     assert ConferenceLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_number_of_contributions_query(base_app, db, create_record):
+    conference = create_record("con")
+    conference_control_number = conference["control_number"]
+    ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    expected_contributions_number = 0
+    assert expected_contributions_number == conference.number_of_contributions
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["conference paper"],
+    }
+    rec1 = create_record("lit", rec_data)
+
+    expected_contributions_number = 1
+    assert expected_contributions_number == conference.number_of_contributions
+
+    rec2 = create_record("lit", rec_data)
+
+    expected_contributions_number = 2
+    assert expected_contributions_number == conference.number_of_contributions
+
+    rec1.delete()
+
+    expected_contributions_number = 1
+    assert expected_contributions_number == conference.number_of_contributions
+
+
+def test_proceedings_query(base_app, db, create_record):
+    conference = create_record("con")
+    conference_control_number = conference["control_number"]
+    ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    expected_proceedings_count = 0
+    expected_proceedings = []
+    assert expected_proceedings_count == len(conference.proceedings)
+    assert expected_proceedings == conference.proceedings
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["proceedings"],
+    }
+    rec1 = create_record("lit", rec_data)
+
+    expected_proceedings_count = 1
+    expected_proceedings = [dict(rec1)]
+    assert expected_proceedings_count == len(conference.proceedings)
+    assert expected_proceedings == sorted(
+        conference.proceedings, key=itemgetter("control_number")
+    )
+
+    rec2 = create_record("lit", rec_data)
+
+    expected_proceedings_count = 2
+    expected_proceedings = [dict(rec1), dict(rec2)]
+    assert expected_proceedings_count == len(conference.proceedings)
+    assert expected_proceedings == sorted(
+        conference.proceedings, key=itemgetter("control_number")
+    )
+
+    rec1.delete()
+
+    expected_proceedings_count = 1
+    expected_proceedings = [dict(rec2)]
+    assert expected_proceedings_count == len(conference.proceedings)
+    assert expected_proceedings == sorted(
+        conference.proceedings, key=itemgetter("control_number")
+    )
+
+
+def test_proceedings_query_after_hard_delete(base_app, db, create_record):
+    conference = create_record("con")
+    conference_control_number = conference["control_number"]
+    ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["proceedings"],
+    }
+    rec1 = create_record("lit", rec_data)
+
+    expected_proceedings_count = 1
+    expected_proceedings = [dict(rec1)]
+    assert expected_proceedings_count == len(conference.proceedings)
+    assert expected_proceedings == conference.proceedings
+
+    rec1.hard_delete()
+
+    expected_proceedings_count = 0
+    assert expected_proceedings_count == len(conference.proceedings)
+
+
+def test_number_of_contributions_query_after_hard_delete(base_app, db, create_record):
+    conference = create_record("con")
+    conference_control_number = conference["control_number"]
+    ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["conference paper"],
+    }
+    rec1 = create_record("lit", rec_data)
+
+    expected_contributions_number = 1
+    assert expected_contributions_number == conference.number_of_contributions
+
+    rec1.delete()
+
+    expected_contributions_number = 0
+    assert expected_contributions_number == conference.number_of_contributions

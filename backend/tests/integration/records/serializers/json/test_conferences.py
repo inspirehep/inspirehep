@@ -43,6 +43,8 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
     record = create_record("con", data=data)
 
     expected_result = deepcopy(record)
+    expected_result["number_of_contributions"] = record.number_of_contributions
+
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
 
