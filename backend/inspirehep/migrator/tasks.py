@@ -26,12 +26,18 @@ from jsonschema import ValidationError
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.indexer.tasks import batch_index
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.records.tasks import update_records_relations
 
 from .models import LegacyRecordsMirror
-from .utils import ensure_valid_schema
+from .utils import (
+    cache_afs_file_locations,
+    ensure_valid_schema,
+    remove_cached_afs_file_locations,
+    replace_afs_file_locations_with_local,
+)
 
 LOGGER = structlog.getLogger()
 CHUNK_SIZE = 100
@@ -364,11 +370,13 @@ def migrate_record_from_mirror(
                 deleted_record.pidstore_handler(
                     deleted_record.id, deleted_record
                 ).delete_external_pids()
+            original_urls = replace_afs_file_locations_with_local(json_record)
             record = cls.create_or_update(
                 json_record,
                 disable_orcid_push=disable_orcid_push,
                 disable_relations_update=disable_relations_update,
             )
+            cache_afs_file_locations(record)
     except ValidationError as exc:
         path = ".".join(exc.schema_path)
         logger.warn(
@@ -379,6 +387,15 @@ def migrate_record_from_mirror(
         )
         prod_record.error = exc
         db.session.merge(prod_record)
+    except DownloadFileError:
+        removed_cached_files = remove_cached_afs_file_locations(original_urls)
+        if not removed_cached_files:
+            raise
+        return migrate_record_from_mirror(
+            prod_record=prod_record,
+            disable_orcid_push=disable_orcid_push,
+            disable_relations_update=disable_relations_update,
+        )
     except PIDValueError as exc:
         message = f"pid_type:'{exc.pid_type}', pid_value:'{exc.pid_value}'"
         logger.exception("PIDValueError while migrate from mirror", msg=message)

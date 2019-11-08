@@ -8,11 +8,13 @@
 """Migrator utils."""
 
 import signal
+from itertools import chain
 
 import structlog
 from dojson.contrib.marc21.utils import create_record
-from flask import url_for
+from flask import current_app, url_for
 from inspire_utils.helpers import force_list
+from redis import StrictRedis
 
 LOGGER = structlog.getLogger()
 
@@ -62,6 +64,57 @@ def ensure_valid_schema(record):
             schema_path=f"records/{schema}",
             _external=True,
         )
+
+
+def cache_afs_file_locations(record):
+    """Cache the local location of the files on AFS."""
+    redis = StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"])
+    afs_prefix = (
+        current_app.config.get("LABS_AFS_HTTP_SERVICE")
+        or "file:///afs/cern.ch/project/inspire/PROD"
+    )
+    documents_and_figures = chain(
+        record.get("documents", []), record.get("figures", [])
+    )
+    mapping = {
+        doc["original_url"]: doc["url"]
+        for doc in documents_and_figures
+        if doc.get("original_url", "").startswith(afs_prefix)
+    }
+    if mapping:
+        redis.hmset("afs_file_locations", mapping)
+
+
+def replace_afs_file_locations_with_local(record):
+    """Replace AFS file location with locally cached copy if possible.
+
+    Returns:
+        list: the original AFS URLs that were replaced by local ones.
+    """
+    redis = StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"])
+    afs_prefix = (
+        current_app.config.get("LABS_AFS_HTTP_SERVICE")
+        or "file:///afs/cern.ch/project/inspire/PROD"
+    )
+    documents_and_figures = chain(
+        record.get("documents", []), record.get("figures", [])
+    )
+    original_urls = []
+
+    for doc in documents_and_figures:
+        if not doc["url"].startswith(afs_prefix):
+            continue
+        new_url = redis.hget("afs_file_locations", doc["url"])
+        if new_url:
+            original_urls.append(doc["url"])
+            doc["url"] = new_url.decode()
+
+    return original_urls
+
+
+def remove_cached_afs_file_locations(original_urls):
+    redis = StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"])
+    return redis.hdel("afs_file_locations", *original_urls)
 
 
 class GracefulKiller:
