@@ -12,9 +12,10 @@ import {
 } from './actionTypes';
 import { httpErrorToActionPayload } from '../common/utils';
 
-function fetchingCitations() {
+function fetchingCitations(query) {
   return {
     type: CITATIONS_REQUEST,
+    payload: query,
   };
 }
 
@@ -52,12 +53,17 @@ function fetchCitationsSummaryError(error) {
   };
 }
 
-export function fetchCitations(pidType, recordId, paginationOptions) {
+export function fetchCitations(recordId, newQuery = {}) {
   return async (dispatch, getState, http) => {
-    const { page, pageSize } = paginationOptions;
-    dispatch(fetchingCitations());
+    const { citations } = getState();
+    const query = {
+      ...citations.get('query').toJS(),
+      ...newQuery,
+    };
+    dispatch(fetchingCitations(query));
+    const queryString = stringify(query, { indices: false });
     try {
-      const citationsApiUrl = `/${pidType}/${recordId}/citations?page=${page}&size=${pageSize}`;
+      const citationsApiUrl = `/literature/${recordId}/citations?${queryString}`;
       const response = await http.get(citationsApiUrl);
       dispatch(fetchCitationsSuccess(response.data));
     } catch (error) {

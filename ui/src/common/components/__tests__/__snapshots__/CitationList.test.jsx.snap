@@ -26,7 +26,7 @@ exports[`CitationList does not render the list if total 0 1`] = `
 </ContentBox>
 `;
 
-exports[`CitationList renders 1`] = `
+exports[`CitationList renders with citations 1`] = `
 <ContentBox
   className=""
   leftActions={null}
@@ -44,6 +44,9 @@ exports[`CitationList renders 1`] = `
           Immutable.Map {
             "control_number": 170,
           },
+          Immutable.Map {
+            "control_number": 171,
+          },
         ]
       }
       description="0 Citations"
@@ -56,6 +59,9 @@ exports[`CitationList renders 1`] = `
           Immutable.List [
             Immutable.Map {
               "control_number": 170,
+            },
+            Immutable.Map {
+              "control_number": 171,
             },
           ]
         }
