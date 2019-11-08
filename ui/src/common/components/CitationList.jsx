@@ -1,82 +1,63 @@
-import React, { Component } from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
+import CitationItem from './CitationItem';
 import ListWithPagination from './ListWithPagination';
 import ContentBox from './ContentBox';
-import CitationItem from './CitationItem';
-import { ErrorPropType } from '../propTypes';
 import ErrorAlertOrChildren from './ErrorAlertOrChildren';
 import EmptyOrChildren from './EmptyOrChildren';
+import { ErrorPropType } from '../propTypes';
 
-export const PAGE_SIZE = 25;
+function renderCitationItem(citation) {
+  return (
+    <CitationItem key={citation.get('control_number')} citation={citation} />
+  );
+}
+function CitationList({
+  total,
+  citations,
+  error,
+  loading,
+  onQueryChange,
+  query,
+}) {
+  const onPageChange = useCallback(page => onQueryChange({ page }), [
+    onQueryChange,
+  ]);
 
-class CitationList extends Component {
-  static renderCitationItem(citation) {
-    return (
-      <CitationItem key={citation.get('control_number')} citation={citation} />
-    );
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 1,
-    };
-    this.onPageChange = this.onPageChange.bind(this);
-  }
-
-  componentDidMount() {
-    this.onPageDisplay(1);
-  }
-
-  onPageChange(page) {
-    this.setState({ page });
-    this.onPageDisplay(page);
-  }
-
-  onPageDisplay(page) {
-    const { onPageDisplay } = this.props;
-    onPageDisplay({ pageSize: PAGE_SIZE, page });
-  }
-
-  renderList() {
-    const { total, citations } = this.props;
-    const { page } = this.state;
-    return (
+  const renderList = useCallback(
+    () =>
       total > 0 && (
         <ListWithPagination
-          renderItem={CitationList.renderCitationItem}
+          renderItem={renderCitationItem}
           pageItems={citations}
-          onPageChange={this.onPageChange}
+          onPageChange={onPageChange}
           total={total}
-          page={page}
-          pageSize={PAGE_SIZE}
+          page={query.page}
+          pageSize={query.size}
         />
-      )
-    );
-  }
+      ),
+    [query.page, query.size, total, citations, onPageChange]
+  );
 
-  render() {
-    const { loading, error, citations } = this.props;
-    return (
-      <ContentBox loading={loading}>
-        <ErrorAlertOrChildren error={error}>
-          <EmptyOrChildren data={citations} description="0 Citations">
-            {this.renderList()}
-          </EmptyOrChildren>
-        </ErrorAlertOrChildren>
-      </ContentBox>
-    );
-  }
+  return (
+    <ContentBox loading={loading}>
+      <ErrorAlertOrChildren error={error}>
+        <EmptyOrChildren data={citations} description="0 Citations">
+          {renderList()}
+        </EmptyOrChildren>
+      </ErrorAlertOrChildren>
+    </ContentBox>
+  );
 }
-
 CitationList.propTypes = {
   total: PropTypes.number.isRequired,
   citations: PropTypes.instanceOf(List).isRequired,
   error: ErrorPropType,
   loading: PropTypes.bool.isRequired,
-  onPageDisplay: PropTypes.func.isRequired,
+  onQueryChange: PropTypes.func.isRequired,
+  query: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default CitationList;

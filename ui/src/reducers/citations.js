@@ -17,6 +17,10 @@ export const initialState = fromJS({
   data: [],
   total: 0,
   error: null,
+  query: {
+    page: 1,
+    size: 25,
+  },
   loadingCitationSummary: false,
   citationSummary: null,
   errorCitationSummary: null,
@@ -28,7 +32,7 @@ export const initialState = fromJS({
 const citationsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CITATIONS_REQUEST:
-      return state.set('loading', true);
+      return state.set('loading', true).set('query', fromJS(action.payload));
     case CITATIONS_SUCCESS:
       return state
         .set('loading', false)

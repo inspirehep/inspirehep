@@ -2,10 +2,9 @@ import React from 'react';
 import { mount } from 'enzyme';
 import { fromJS } from 'immutable';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
 
 import CitationListContainer from '../CitationListContainer';
-import { getStoreWithState, getStore } from '../../../fixtures/store';
+import { getStoreWithState } from '../../../fixtures/store';
 import { fetchCitations } from '../../../actions/citations';
 import CitationList from '../../components/CitationList';
 
@@ -25,18 +24,16 @@ describe('CitationListContainer', () => {
     const citationsData = fromJS([]);
     const store = getStoreWithState({
       citations: fromJS({
+        query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
         loading: false,
         error: null,
         data: citationsData,
         total: 1,
       }),
     });
-    // TODO: add utility to mount with router and provider and use it everywhere else
     const wrapper = mount(
       <Provider store={store}>
-        <MemoryRouter>
-          <CitationListContainer pidType="test" recordId={123} />
-        </MemoryRouter>
+        <CitationListContainer recordId={123} />
       </Provider>
     );
     expect(wrapper.find(CitationList)).toHaveProp({
@@ -48,17 +45,24 @@ describe('CitationListContainer', () => {
   });
 
   it('calls fetchCitations on page display', () => {
-    const store = getStore();
+    const citationsData = fromJS([]);
+    const store = getStoreWithState({
+      citations: fromJS({
+        query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+        loading: false,
+        error: null,
+        data: citationsData,
+        total: 1,
+      }),
+    });
     const wrapper = mount(
       <Provider store={store}>
-        <CitationListContainer pidType="test" recordId={123} />
+        <CitationListContainer recordId={123} />
       </Provider>
     );
-    const onPageDisplay = wrapper.find(CitationList).prop('onPageDisplay');
-    onPageDisplay({ page: 1, pageSize: 10 });
-    expect(fetchCitations).toHaveBeenCalledWith('test', 123, {
-      page: 1,
-      pageSize: 10,
-    });
+    const onQueryChange = wrapper.find(CitationList).prop('onQueryChange');
+    const query = { page: 3 };
+    onQueryChange(query);
+    expect(fetchCitations).toHaveBeenCalledWith(123, query);
   });
 });

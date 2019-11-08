@@ -10,8 +10,15 @@ describe('citations reducer', () => {
   });
 
   it('CITATIONS_REQUEST', () => {
-    const state = reducer(Map(), { type: types.CITATIONS_REQUEST });
-    expect(state.get('loading')).toEqual(true);
+    const state = reducer(Map(), {
+      type: types.CITATIONS_REQUEST,
+      payload: { page: 1, size: 25 },
+    });
+    const expected = fromJS({
+      loading: true,
+      query: { page: 1, size: 25 },
+    });
+    expect(state).toEqual(expected);
   });
 
   it('CITATIONS_SUCCESS', () => {
