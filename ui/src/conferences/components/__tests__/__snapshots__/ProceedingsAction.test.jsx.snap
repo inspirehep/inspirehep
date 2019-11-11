@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProceedingsAction renders proceedings 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <IconText
+          text="proceedings"
+          type="book"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      key="https://localhost:3000/api/literature/12345"
+    >
+      <ExternalLink
+        href="https://localhost:3000/api/literature/12345"
+      >
+        <span>
+          Proceedings 
+          1
+        </span>
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="https://localhost:3000/api/literature/54321"
+    >
+      <ExternalLink
+        href="https://localhost:3000/api/literature/54321"
+      >
+        <JournalInfo
+          info={
+            Immutable.Map {
+              "journal_title": "Journal 1",
+            }
+          }
+        />
+      </ExternalLink>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`ProceedingsAction renders single item 1`] = `
+<ListItemAction>
+  <ExternalLink
+    href="https://localhost:3000/literature/12345"
+  >
+    <IconText
+      text="proceedings"
+      type="book"
+    />
+  </ExternalLink>
+</ListItemAction>
+`;

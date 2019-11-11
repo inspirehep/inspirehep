@@ -7,7 +7,7 @@ import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
 import AuthorsAndCollaborations from '../../common/components/AuthorsAndCollaborations';
 import PublicationInfoList from '../../common/components/PublicationInfoList';
-import FullTextLinksAction from './FullTextLinksAction';
+import UrlsAction from './UrlsAction';
 import DOILinkAction from './DOILinkAction';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
@@ -47,7 +47,12 @@ class LiteratureItem extends Component {
         leftActions={
           <Fragment>
             {fullTextLinks && (
-              <FullTextLinksAction fullTextLinks={fullTextLinks} />
+              <UrlsAction
+                urls={fullTextLinks}
+                iconType="download"
+                iconText="pdf"
+                trackerEventId="PdfDownload"
+              />
             )}
             {dois && <DOILinkAction dois={dois} />}
             <CiteModalActionContainer recordId={recordId} />

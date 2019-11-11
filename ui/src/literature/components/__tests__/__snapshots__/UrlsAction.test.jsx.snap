@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UrlsAction renders multiple, with and without description 1`] = `
+<ListItemAction>
+  <DropdownMenu
+    disabled={false}
+    title={
+      <Button
+        block={false}
+        ghost={false}
+        htmlType="button"
+        loading={false}
+      >
+        <IconText
+          text="pdf"
+          type="download"
+        />
+      </Button>
+    }
+  >
+    <MenuItem
+      key="https://www.whatever.com/pdfs/fulltext.pdf"
+    >
+      <EventTracker
+        eventId="PdfDownload"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <ExternalLink
+          href="https://www.whatever.com/pdfs/fulltext.pdf"
+        >
+          Whatever
+        </ExternalLink>
+      </EventTracker>
+    </MenuItem>
+    <MenuItem
+      key="www.descriptionless.com/fulltext.pdf"
+    >
+      <EventTracker
+        eventId="PdfDownload"
+        eventPropName="onClick"
+        extractEventArgsToForward={null}
+      >
+        <ExternalLink
+          href="www.descriptionless.com/fulltext.pdf"
+        >
+          descriptionless.com/fulltext.pdf
+        </ExternalLink>
+      </EventTracker>
+    </MenuItem>
+  </DropdownMenu>
+</ListItemAction>
+`;
+
+exports[`UrlsAction renders single 1`] = `
+<ListItemAction>
+  <EventTracker
+    eventId="PdfDownload"
+    eventPropName="onClick"
+    extractEventArgsToForward={null}
+  >
+    <ExternalLink
+      href="https://www.whatever.com/pdfs/fulltext.pdf"
+    >
+      <IconText
+        text="pdf"
+        type="download"
+      />
+    </ExternalLink>
+  </EventTracker>
+</ListItemAction>
+`;

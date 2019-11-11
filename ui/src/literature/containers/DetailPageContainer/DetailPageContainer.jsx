@@ -13,7 +13,6 @@ import {
 } from '../../../actions/literature';
 import Abstract from '../../components/Abstract';
 import ArxivEprintList from '../../components/ArxivEprintList';
-import FullTextLinksAction from '../../components/FullTextLinksAction';
 import EditRecordAction from '../../../common/components/EditRecordAction';
 import DOIList from '../../components/DOIList';
 import AuthorsAndCollaborations from '../../../common/components/AuthorsAndCollaborations';
@@ -42,6 +41,7 @@ import Figures from '../../components/Figures';
 import RequireOneOf from '../../../common/components/RequireOneOf';
 import ReferenceListContainer from '../../../common/containers/ReferenceListContainer';
 import PublicNotesList from '../../../common/components/PublicNotesList';
+import UrlsAction from '../../components/UrlsAction';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -103,6 +103,7 @@ class DetailPage extends Component {
     const acceleratorExperiments = metadata.get('accelerator_experiments');
     const abstract = metadata.getIn(['abstracts', 0]);
     const fullTextLinks = metadata.get('fulltext_links');
+    const urls = metadata.get('urls');
     const collaborations = metadata.get('collaborations');
     const collaborationsWithSuffix = metadata.get('collaborations_with_suffix');
 
@@ -131,7 +132,20 @@ class DetailPage extends Component {
                   leftActions={
                     <Fragment>
                       {fullTextLinks && (
-                        <FullTextLinksAction fullTextLinks={fullTextLinks} />
+                        <UrlsAction
+                          urls={fullTextLinks}
+                          iconText="pdf"
+                          iconType="download"
+                          trackerEventId="PdfDownload"
+                        />
+                      )}
+                      {urls && (
+                        <UrlsAction
+                          urls={urls}
+                          iconText="links"
+                          iconType="link"
+                          trackerEventId="LiteratureFileLink"
+                        />
                       )}
                       <CiteModalActionContainer recordId={recordId} />
                       {canEdit && (
