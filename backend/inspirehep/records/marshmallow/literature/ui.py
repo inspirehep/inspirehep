@@ -53,7 +53,6 @@ class LiteratureDetailSchema(LiteraturePublicSchema):
             "record_affiliations",
             "refereed",
             "references",
-            "urls",
             "withdrawn",
         ]
 
