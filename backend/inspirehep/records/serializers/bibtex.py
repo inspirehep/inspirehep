@@ -4,13 +4,15 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+import structlog
 from invenio_records_rest.serializers.response import search_responsify
 from pybtex.database import BibliographyData, Entry, Person
 from pybtex.database.output.bibtex import Writer
 
 from ..marshmallow.literature.bibtex import BibTexCommonSchema
 from .response import record_responsify
+
+LOGGER = structlog.getLogger()
 
 
 class BibtexWriter(Writer):
@@ -120,18 +122,24 @@ class BibTexSerializer:
         data_bibtex = (texkey, data_entry)
         return data_bibtex
 
-    def create_bibliography(self, record_list):
-        bib_dict = {}
-        for record in record_list:
-            texkey, entries = self.create_bibliography_entry(record)
-            bib_dict[texkey] = entries
+    def create_bibliography(self, record):
+        texkey, entries = self.create_bibliography_entry(record)
+        data = {texkey: entries}
 
-        bib_data = BibliographyData(bib_dict)
+        bib_data = BibliographyData(data)
         writer = BibtexWriter()
         return writer.to_string(bib_data)
 
     def serialize(self, pid, record, links_factory=None):
-        return self.create_bibliography([record])
+        try:
+            return self.create_bibliography(record)
+        except Exception as e:
+            LOGGER.exception(
+                "Bibtex serialization error",
+                recid=record.get("control_number"),
+                error=e,
+            )
+            return f"% Bibtex generation failed for record {record.get('control_number','')}"
 
     def serialize_search(
         self, pid_fetcher, search_result, links=None, item_links_factory=None
