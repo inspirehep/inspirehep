@@ -446,8 +446,11 @@ def test_dump_for_es_catches_bibtex_exception(mock_bibtex, base_app, db, es):
     mock_bibtex.side_effect = Exception
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
+    expected_result = (
+        f"% Bibtex generation failed for record {record.get('control_number')}"
+    )
     dump = record.serialize_for_es()
-    assert " " == dump["_bibtex_display"]
+    assert expected_result == dump["_bibtex_display"]
 
 
 def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
