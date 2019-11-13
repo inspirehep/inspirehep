@@ -17,6 +17,9 @@ import EditRecordAction from '../../common/components/EditRecordAction';
 import ProceedingsAction from '../components/ProceedingsAction';
 import ConferenceWebsitesAction from '../components/ConferenceWebsitesAction';
 import ConferenceLocation from '../components/ConferenceLocation';
+import ConferenceContributions from '../components/ConferenceContributions';
+import { newSearch } from '../../actions/search';
+import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
 
 function DetailPage({ loading, match, dispatch, record }) {
   const recordId = match.params.id;
@@ -24,6 +27,8 @@ function DetailPage({ loading, match, dispatch, record }) {
   useEffect(
     () => {
       dispatch(fetchConference(recordId));
+      dispatch(newSearch(CONFERENCE_CONTRIBUTIONS_NS));
+      window.scrollTo(0, 0);
     },
     [dispatch, recordId]
   );
@@ -124,6 +129,13 @@ function DetailPage({ loading, match, dispatch, record }) {
                 <KeywordList keywords={keywords} />
               </Col>
             </Row>
+          </ContentBox>
+        </Col>
+      </Row>
+      <Row type="flex" justify="center">
+        <Col xs={24} md={22} lg={21} xxl={18}>
+          <ContentBox>
+            <ConferenceContributions conferenceRecordId={recordId} />
           </ContentBox>
         </Col>
       </Row>
