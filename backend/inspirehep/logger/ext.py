@@ -9,12 +9,21 @@ import os
 
 import sentry_sdk
 import structlog
+from flask import request, request_started, request_tearing_down
 from flask.logging import default_handler
 from prometheus_flask_exporter import PrometheusMetrics
 from sentry_sdk.integrations.celery import CeleryIntegration
 from sentry_sdk.integrations.flask import FlaskIntegration
 
 LOGGER = structlog.getLogger()
+
+
+def log_request_info(*args, **kwargs):
+    structlog.threadlocal.bind_threadlocal(request_path=request.path)
+
+
+def remove_request_logging(*args, **kwargs):
+    structlog.threadlocal.clear_threadlocal()
 
 
 class InspireLogger:
@@ -25,6 +34,7 @@ class InspireLogger:
     def init_app(self, app):
         self.init_sentry(app)
         self.init_prometheus_flask_exporter(app)
+        self.init_flask_structlog(app)
         app.extensions["inspirehep-logger"] = self
         # https://flask.palletsprojects.com/en/1.0.x/logging/#removing-the-default-handler
         app.logger.removeHandler(default_handler)
@@ -60,3 +70,7 @@ class InspireLogger:
         metrics_flask = PrometheusMetrics(app=None, defaults_prefix=prefix)
         metrics_flask.init_app(app)
         LOGGER.debug(f"Prometheus Flask exporter is initialized with prefix {prefix}.")
+
+    def init_flask_structlog(self, app):
+        request_started.connect(log_request_info, app)
+        request_tearing_down.connect(remove_request_logging, app)
