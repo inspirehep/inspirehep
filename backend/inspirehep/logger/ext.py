@@ -26,6 +26,14 @@ def remove_request_logging(*args, **kwargs):
     structlog.threadlocal.clear_threadlocal()
 
 
+def url_rule(request):
+    # Pretty-printing adapted from werkzeug.routing.Route.__repr__
+    return "".join(
+        f"<{data}>" if is_dynamic else data
+        for (is_dynamic, data) in request.url_rule._trace
+    ).lstrip("|")
+
+
 class InspireLogger:
     def __init__(self, app=None):
         if app:
@@ -67,7 +75,9 @@ class InspireLogger:
             return
 
         prefix = app.name
-        metrics_flask = PrometheusMetrics(app=None, defaults_prefix=prefix)
+        metrics_flask = PrometheusMetrics(
+            app=None, defaults_prefix=prefix, group_by=url_rule
+        )
         metrics_flask.init_app(app)
         LOGGER.debug(f"Prometheus Flask exporter is initialized with prefix {prefix}.")
 
