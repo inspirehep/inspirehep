@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceContributions renders 1`] = `
+<Connect(LiteratureSearch)
+  baseQuery={
+    Object {
+      "q": "publication_info.conference_record.$ref:12345",
+    }
+  }
+  namespace="conferenceContributions"
+/>
+`;

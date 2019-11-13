@@ -19,6 +19,7 @@ export const AUTHORS_NS = 'authors';
 export const LITERATURE_NS = 'literature';
 export const JOBS_NS = 'jobs';
 export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
+export const CONFERENCE_CONTRIBUTIONS_NS = 'conferenceContributions';
 
 const initialBaseQuery = {
   sort: 'mostrecent',
@@ -80,6 +81,25 @@ export const initialState = fromJS({
       },
       baseAggregationsQuery: {
         facet_name: 'hep-author-publication',
+      },
+    },
+    [CONFERENCE_CONTRIBUTIONS_NS]: {
+      ...initialNamespaceState,
+      pathname: LITERATURE,
+      embedded: true,
+      aggregationsFetchMode: FETCH_MODE_ALWAYS,
+      baseQuery: {
+        ...initialBaseQuery,
+        doc_type: 'conference paper',
+        size: '10',
+      },
+      query: {
+        ...initialBaseQuery,
+        doc_type: 'conference paper',
+        size: '10',
+      },
+      baseAggregationsQuery: {
+        facet_name: 'hep-conference-contribution',
       },
     },
   },
