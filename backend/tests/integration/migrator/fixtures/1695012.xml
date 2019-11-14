@@ -1,0 +1,51 @@
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+<controlfield tag="001">1695012</controlfield>
+<controlfield tag="005">20190509002114.0</controlfield>
+<datafield tag="856" ind1="4" ind2=" ">
+<subfield code="u">
+https://uchicago.wd5.myworkdayjobs.com/en-US/External/job/Hyde-Park-Campus/Research-Assistant---Gaarder-and-Pouliot_JR02913
+</subfield>
+</datafield>
+<datafield tag="909" ind1="C" ind2="O">
+<subfield code="o">oai:inspirehep.net:1695012</subfield>
+<subfield code="q">INSPIRE:Jobs</subfield>
+</datafield>
+<datafield tag="961" ind1=" " ind2=" ">
+<subfield code="x">2018-09-21</subfield>
+<subfield code="c">2019-05-09</subfield>
+</datafield>
+<datafield tag="980" ind1=" " ind2=" ">
+<subfield code="a">JOBHIDDEN</subfield>
+</datafield>
+<datafield tag="520" ind1=" " ind2=" ">
+<subfield code="a">
+The Becker Friedman Institute for Economics (BFI) is seeking a Research Assistant to work under the guidance of Professors Ingvil Gaarder and Guillaume A. Pouliot. The research assistant will split their time between both Professors, who work on distinct projects. <br /><br /> Professor Gaarder is looking for a research assistant for a project on the incidence and distributional effects of sales taxes in the US. Tasks will include collection, manipulation and analysis of large datasets. In addition to cleaning data, analyzing data, and programming, the Research Assistant will contribute to writing, proofreading, and fact-checking papers, reports, and presentations. <br /><br /> Professor Pouliot works on econometric methodology. He is particularly interested in improving computational methods in econometrics and introducing machine learning methodology in econometric estimation problems such as those of causal inference. Tasks will include programming simulations, production-level programming of estimators, and preparation of reports requiring a deep conceptual understanding of the methods at hand. <br /><br /> Technical Knowledge or Skills: <br />* Knowledge of Stata, and R required. <br />* Knowledge of Python, Matlab, C++ appreciated. <br />* Knowledge of LaTeX preferred. <br /><br /> For further information, and to apply, please see the url below.
+</subfield>
+</datafield>
+<datafield tag="110" ind1=" " ind2=" ">
+<subfield code="a">Chicago U.</subfield>
+<subfield code="z">902729</subfield>
+</datafield>
+<datafield tag="650" ind1="1" ind2="7">
+<subfield code="a">cs</subfield>
+</datafield>
+<datafield tag="650" ind1="1" ind2="7">
+<subfield code="a">physics</subfield>
+</datafield>
+<datafield tag="046" ind1=" " ind2=" ">
+<subfield code="i">2018-12-31</subfield>
+</datafield>
+<datafield tag="656" ind1=" " ind2=" ">
+<subfield code="a">Staff</subfield>
+</datafield>
+<datafield tag="043" ind1=" " ind2=" ">
+<subfield code="a">North America</subfield>
+</datafield>
+<datafield tag="245" ind1=" " ind2=" ">
+<subfield code="a">
+Applying machine learning and computational statistics to Economics
+</subfield>
+</datafield>
+</record>
+</collection>
