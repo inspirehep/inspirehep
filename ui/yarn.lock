@@ -10597,6 +10597,11 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
+use-async-effect@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/use-async-effect/-/use-async-effect-2.2.1.tgz#6b7c598df86b98b4bfa3481aaf9f01da08da7467"
+  integrity sha512-nPsDhym63uBWMRwWwcBclUWb3aPRYEwMIgXDylytQjM3r0BvzsqtRwuuxiNi5EBUa5bmo4Q206xr2LlmBWmd/g==
+
 use-resize-observer@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/use-resize-observer/-/use-resize-observer-4.0.0.tgz#9976763c37658e84d6e4f1172e7c146816907ece"
