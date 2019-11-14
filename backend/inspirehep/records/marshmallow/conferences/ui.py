@@ -8,13 +8,13 @@ from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
 from inspirehep.records.marshmallow.conferences import ConferencesPublicSchema
 
 
-class ConferenceBaseSchema(CatalogerCanEditMixin, ConferencesPublicSchema):
+class ConferencesBaseSchema(CatalogerCanEditMixin, ConferencesPublicSchema):
     pass
 
 
-class ConferenceDetailSchema(ConferenceBaseSchema):
+class ConferencesDetailSchema(ConferencesBaseSchema):
     pass
 
 
-class ConferenceListSchema(ConferenceBaseSchema):
+class ConferencesListSchema(ConferencesBaseSchema):
     pass

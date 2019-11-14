@@ -10,6 +10,9 @@ from invenio_db import db
 from invenio_search import current_search_client as es
 
 from inspirehep.records.api import ConferencesRecord, LiteratureRecord
+from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
+    ProceedingInfoItemSchemaV1,
+)
 
 
 def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
@@ -42,7 +45,9 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
     record = LiteratureRecord.create(faker.record("lit", data))
 
     data = {
-        "publication_info": [{"conference_record": {"$ref": ref_1}}],
+        "publication_info": [
+            {"conference_record": {"$ref": ref_1}, "journal_title": "nice title"}
+        ],
         "document_type": ["proceedings"],
     }
     record2 = LiteratureRecord.create(faker.record("lit", data))
@@ -60,9 +65,20 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
         },
     ]
 
-    expected_proceedings = 1
+    retry_until_matched(steps)
 
-    response = retry_until_matched(steps)
-    assert expected_proceedings == len(
-        response["hits"]["hits"][0]["_source"]["proceedings"]
-    )
+    expected_proceedings = [ProceedingInfoItemSchemaV1().dump(record2).data]
+
+    steps = [
+        {"step": es.indices.refresh, "args": ["records-conferences"]},
+        {
+            "step": es.search,
+            "args": ["records-conferences"],
+            "expected_result": {
+                "expected_key": "hits.hits[0]._source.proceedings",
+                "expected_result": expected_proceedings,
+            },
+        },
+    ]
+
+    retry_until_matched(steps)

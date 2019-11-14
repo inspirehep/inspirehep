@@ -81,6 +81,7 @@ def test_hep_author_publications_cataloger_facets(base_app):
             ]
         )
 
+
 def test_hep_conference_contributions_facets(base_app):
     expected_subject = {
         "terms": {"field": "facet_inspire_categories", "size": 20},
@@ -94,3 +95,4 @@ def test_hep_conference_contributions_facets(base_app):
         result = hep_conference_contributions()
         assert expected_subject == result["aggs"]["subject"]
         assert expected_collaboration == result["aggs"]["collaboration"]
+        assert "doc_type" in result["filters"]

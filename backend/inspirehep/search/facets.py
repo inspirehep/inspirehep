@@ -63,6 +63,7 @@ def hep_conference_contributions():
         "filters": {
             "subject": must_match_all_filter("facet_inspire_categories"),
             "collaboration": must_match_all_filter("facet_collaborations"),
+            "doc_type": must_match_all_filter("facet_inspire_doc_type"),
         },
         "aggs": {
             "subject": {

@@ -4,6 +4,9 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from invenio_accounts.testutils import login_user_via_session
+
+from inspirehep.accounts.roles import Roles
 
 
 def test_conferences_application_json_get(api_client, db, es, create_record_factory):
@@ -57,7 +60,11 @@ def test_conferences_search_json_get(api_client, db, es, create_record_factory):
     assert expected_status_code == response_status_code
 
 
-def test_conference_record_search_results(api_client, db, es_clear, create_record):
+def test_conference_record_search_results(
+    api_client, db, create_user, es, create_record
+):
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
     record = create_record("con")
     expected_metadata = record.serialize_for_es()
 
@@ -70,7 +77,7 @@ def test_conference_record_search_results(api_client, db, es_clear, create_recor
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
 
 
-def test_conferences_contribution_facets(api_client, db, es_clear, create_record):
+def test_conferences_contribution_facets(api_client, db, es, create_record):
     create_record("lit")
     response = api_client.get(
         "/literature/facets?facet_name=hep-conference-contribution"
@@ -86,3 +93,25 @@ def test_conferences_contribution_facets(api_client, db, es_clear, create_record
     assert expected_status_code == response_status_code
     assert expected_facet_keys == response_data_facet_keys
     assert len(response_data["hits"]["hits"]) == 0
+
+
+def test_conferences_contribution_filters(api_client, db, es, create_record):
+    book_chapter_paper = {
+        "inspire_categories": [{"term": "Accelerators"}],
+        "document_type": ["book chapter"],
+    }
+    create_record("lit", data=book_chapter_paper)
+    conference_paper = {
+        "inspire_categories": [{"term": "Computing"}],
+        "document_type": ["conference paper"],
+    }
+    create_record("lit", data=conference_paper)
+    response = api_client.get(
+        "/literature/facets?facet_name=hep-conference-contribution&doc_type=conference%20paper"
+    )
+    response_subject_aggregation_buckets = response.json["aggregations"]["subject"][
+        "buckets"
+    ]
+    expected_subject_aggregation_buckets = [{"key": "Computing", "doc_count": 1}]
+
+    assert expected_subject_aggregation_buckets == response_subject_aggregation_buckets
