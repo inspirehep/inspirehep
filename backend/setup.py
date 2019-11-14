@@ -74,6 +74,10 @@ setup(
             "inspirehep_records = inspirehep.records:InspireRecords",
             "inspirehep_rt = inspirehep.rt:InspireRtExt",
         ],
+        "invenio_base.api_converters": [
+            "doipath = inspirehep.pidstore.converters:DOIPathConverter",
+            "arxivpath = inspirehep.pidstore.converters:ArXivPathConverter",
+        ],
         "invenio_jsonschemas.schemas": ["inspirehep_records_schemas = inspire_schemas"],
         "invenio_search.mappings": ["records = inspirehep.search.mappings"],
         "invenio_db.models": [
