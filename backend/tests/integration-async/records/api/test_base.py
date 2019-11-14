@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pytest
+from helpers.providers.faker import faker
 from invenio_db import db
 
 from inspirehep.records.api import LiteratureRecord

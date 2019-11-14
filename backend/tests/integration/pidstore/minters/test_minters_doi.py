@@ -108,3 +108,41 @@ def test_mitner_dois_missing_schema(base_app, db, es, create_record_factory):
 
     with pytest.raises(MissingSchema):
         DoiMinter.mint(record_id, record_data)
+
+
+def test_new_doi_converted_to_lowercase(base_app, db, create_record):
+    expected_doi = "10.1109/tpel.2019.2900393"
+    doi_value = "10.1109/TPEL.2019.2900393"
+    data = {"dois": [{"value": doi_value}]}
+    create_record("lit", data=data)
+    doi = PersistentIdentifier.query.filter_by(pid_type="doi").first()
+    assert expected_doi == doi.pid_value
+
+
+def test_adding_same_doi_different_case_raises_pid_already_exists(
+    base_app, db, create_record
+):
+    doi_value_1 = "10.1109/tpel.2019.2900393"
+    doi_value_2 = "10.1109/TPEL.2019.2900393"
+    data_1 = {"dois": [{"value": doi_value_1}]}
+    data_2 = {"dois": [{"value": doi_value_2}]}
+    create_record("lit", data=data_1)
+    with pytest.raises(PIDAlreadyExists):
+        create_record("lit", data=data_2)
+
+
+def test_adding_record_with_duplicated_dois_different_case(base_app, db, create_record):
+    doi_value_1 = "10.1109/tpel.2019.2900393"
+    doi_value_2 = "10.1109/TPEL.2019.2900393"
+
+    expected_doi = "10.1109/tpel.2019.2900393"
+    expected_dois_count = 1
+
+    expected_dois_in_record = [{"value": doi_value_1}, {"value": doi_value_2}]
+    data = {"dois": [{"value": doi_value_1}, {"value": doi_value_2}]}
+    record = create_record("lit", data=data)
+    pids = PersistentIdentifier.query.filter_by(pid_type="doi").all()
+
+    assert record["dois"] == expected_dois_in_record
+    assert expected_dois_count == len(pids)
+    assert expected_doi == pids[0].pid_value

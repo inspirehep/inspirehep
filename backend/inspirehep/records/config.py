@@ -137,7 +137,7 @@ LITERATURE_ARXIV = deepcopy(LITERATURE)
 LITERATURE_ARXIV.update(
     {
         "pid_type": "arxiv",
-        "item_route": '/arxiv/<pid(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "item_route": '/arxiv/<arxivpath(arxiv,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
     }
 )
 
@@ -146,7 +146,7 @@ DOI = deepcopy(LITERATURE)
 DOI.update(
     {
         "pid_type": "doi",
-        "item_route": '/doi/<pidpath(doi,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
+        "item_route": '/doi/<doipath(doi,record_class="inspirehep.records.api.InspireRecord"):pid_value>',
     }
 )
 
