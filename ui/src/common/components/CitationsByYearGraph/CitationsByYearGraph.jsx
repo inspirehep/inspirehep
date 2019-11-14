@@ -144,7 +144,7 @@ class CitationsByYearGraph extends Component {
     return (
       <LoadingOrChildren loading={loading}>
         <ErrorAlertOrChildren error={error}>
-          <EmptyOrChildren data={citationsByYear} description="0 Citations">
+          <EmptyOrChildren data={citationsByYear} title="0 Citations">
             <div data-test-id="citations-by-year-graph">
               <FlexibleWidthXYPlot
                 onMouseLeave={this.onGraphMouseOut}

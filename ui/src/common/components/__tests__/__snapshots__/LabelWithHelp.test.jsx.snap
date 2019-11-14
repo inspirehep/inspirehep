@@ -3,7 +3,7 @@
 exports[`LabelWithHelp renders label with help 1`] = `
 <span>
   Label
-   
+   
   <HelpIconTooltip
     help="This is the help"
   />

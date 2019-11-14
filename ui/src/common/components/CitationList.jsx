@@ -44,7 +44,7 @@ function CitationList({
   return (
     <ContentBox loading={loading}>
       <ErrorAlertOrChildren error={error}>
-        <EmptyOrChildren data={citations} description="0 Citations">
+        <EmptyOrChildren data={citations} title="0 Citations">
           {renderList()}
         </EmptyOrChildren>
       </ErrorAlertOrChildren>

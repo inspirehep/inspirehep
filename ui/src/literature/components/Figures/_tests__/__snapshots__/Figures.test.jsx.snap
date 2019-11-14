@@ -14,7 +14,7 @@ exports[`Figures renders with figures 1`] = `
         },
       ]
     }
-    description="0 Figures"
+    title="0 Figures"
   >
     <ClientPaginatedList
       grid={true}

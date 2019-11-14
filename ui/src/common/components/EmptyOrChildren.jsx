@@ -13,9 +13,11 @@ function isEmptyCollection(data) {
 
 class EmptyOrChildren extends Component {
   render() {
-    const { data, children, description } = this.props;
+    const { data, children, title, description } = this.props;
     return isEmptyCollection(data) ? (
-      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={description} />
+      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description={title}>
+        {description}
+      </Empty>
     ) : (
       children
     );
@@ -29,7 +31,8 @@ EmptyOrChildren.propTypes = {
     PropTypes.instanceOf(List),
     PropTypes.instanceOf(Map),
   ]),
-  description: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.node,
   children: PropTypes.node,
 };
 

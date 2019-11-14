@@ -12,7 +12,7 @@ function SearchPage() {
       <DocumentHead title="Literature Search" />
       <Row>
         <Col xs={24} lg={22} xl={20} xxl={18}>
-          <LiteratureSearchContainer namespace={LITERATURE_NS} />;
+          <LiteratureSearchContainer namespace={LITERATURE_NS} />
         </Col>
       </Row>
     </>

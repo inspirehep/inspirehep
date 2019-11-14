@@ -94,4 +94,16 @@ describe('EmptyOrChildren', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
+
+  it('does not render children and shows title and description', () => {
+    const data = null;
+    const title = 'title';
+    const description = <div>this is a rich description</div>;
+    const wrapper = shallow(
+      <EmptyOrChildren data={data} title={title} description={description}>
+        <div>{typeof data}</div>
+      </EmptyOrChildren>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
 });
