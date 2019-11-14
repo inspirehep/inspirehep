@@ -28,11 +28,14 @@ def must_match_all_filter(field):
     return inner
 
 
-def must_match_all_filter_nested(nested_path, match_field):
+def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None):
     """Bool filter containing a list of must matches for nested queries."""
 
     def inner(values):
         filters = [Q("match", **{match_field: value}) for value in values]
+        if explicit_filter:
+            e_f_field, e_f_value = explicit_filter
+            filters.append(Q("match", **{e_f_field: e_f_value}))
         return Q(
             "bool", must=Q("nested", path=nested_path, query=Q("bool", must=filters))
         )
@@ -41,17 +44,13 @@ def must_match_all_filter_nested(nested_path, match_field):
 
 
 def hep_author_publications():
-    author_recid = request.values.get("author_recid", "", type=str)
+    author = request.values.get("author_recid", "", type=str)
     return {
         "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
         "aggs": {
             **current_app.config["HEP_COMMON_AGGS"],
             "author": {
-                "terms": {
-                    "field": "facet_author_name",
-                    "size": 20,
-                    "exclude": author_recid,
-                },
+                "terms": {"field": "facet_author_name", "size": 20, "exclude": author},
                 "meta": {"title": "Collaborators", "order": 3, "split": True},
             },
         },
@@ -77,8 +76,22 @@ def hep_conference_contributions():
     }
 
 
+def nested_filters(author_recid):
+    return {
+        "self_affiliations": must_match_all_filter_nested(
+            "authors",
+            "authors.affiliations.value",
+            ("authors.record.$ref", author_recid),
+        ),
+        "self_author_names": must_match_all_filter_nested(
+            "authors", "authors.full_name.raw", ("authors.record.$ref", author_recid)
+        ),
+    }
+
+
 def hep_author_publications_cataloger():
-    author_recid = request.values.get("author_recid", "", type=str)
+    """author_recid is a query parameter and it looks like 0000_Name%20Surname, thus the splitting."""
+    author_recid = request.values.get("author_recid", "", type=str).split("_")[0]
     publications = hep_author_publications()
     publications["aggs"].update(
         {
@@ -94,9 +107,7 @@ def hep_author_publications_cataloger():
                 "nested": {"path": "authors"},
                 "aggs": {
                     "nested": {
-                        "filter": {
-                            "term": {"authors.recid": author_recid.split("_")[0]}
-                        },
+                        "filter": {"term": {"authors.record.$ref": author_recid}},
                         "aggs": {
                             "self_affiliations": {
                                 "terms": {
@@ -123,7 +134,40 @@ def hep_author_publications_cataloger():
             },
         }
     )
+    publications["filters"].update(nested_filters(author_recid))
     return publications
+
+
+def records_hep():
+    """author is a query parameter and it looks like 1234_Name%20Surname, thus the splitting."""
+    author_recid = request.values.get("author", "", type=str).split("_")[0]
+    return {
+        "filters": {
+            **current_app.config["HEP_COMMON_FILTERS"],
+            **current_app.config["HEP_FILTERS"],
+            **nested_filters(author_recid),
+        },
+        "aggs": {
+            **current_app.config["HEP_COMMON_AGGS"],
+            "author": {
+                "terms": {"field": "facet_author_name", "size": 20},
+                "meta": {
+                    "title": "Author",
+                    "order": 3,
+                    "split": True,
+                    "type": "checkbox",
+                },
+            },
+            "subject": {
+                "terms": {"field": "facet_inspire_categories", "size": 20},
+                "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
+            },
+            "arxiv_categories": {
+                "terms": {"field": "facet_arxiv_categories", "size": 20},
+                "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
+            },
+        },
+    }
 
 
 def citation_summary():

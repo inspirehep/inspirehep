@@ -37,8 +37,8 @@ from inspirehep.search.facets import (
     hep_author_publications_cataloger,
     hep_conference_contributions,
     must_match_all_filter,
-    must_match_all_filter_nested,
     range_author_count_filter,
+    records_hep,
 )
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
@@ -375,12 +375,6 @@ HEP_COMMON_FILTERS = {
     "collaboration": must_match_all_filter("facet_collaborations"),
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),
-    "self_affiliations": must_match_all_filter_nested(
-        "authors", "authors.affiliations.value"
-    ),
-    "self_author_names": must_match_all_filter_nested(
-        "authors", "authors.full_name.raw"
-    ),
 }
 
 HEP_FILTERS = {
@@ -438,29 +432,7 @@ RECORDS_REST_FACETS = {
     "hep-conference-contribution": hep_conference_contributions,
     "citation-summary": citation_summary,
     "citations-by-year": citations_by_year,
-    "records-hep": {
-        "filters": {**HEP_COMMON_FILTERS, **HEP_FILTERS},
-        "aggs": {
-            **HEP_COMMON_AGGS,
-            "author": {
-                "terms": {"field": "facet_author_name", "size": 20},
-                "meta": {
-                    "title": "Author",
-                    "order": 3,
-                    "split": True,
-                    "type": "checkbox",
-                },
-            },
-            "subject": {
-                "terms": {"field": "facet_inspire_categories", "size": 20},
-                "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
-            },
-            "arxiv_categories": {
-                "terms": {"field": "facet_arxiv_categories", "size": 20},
-                "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
-            },
-        },
-    },
+    "records-hep": records_hep,
     "records-jobs": {
         "filters": {
             "field_of_interest": terms_filter("arxiv_categories"),
