@@ -1,16 +1,14 @@
 import { connect } from 'react-redux';
 import { convertAllImmutablePropsToJS } from '../immutableToJS';
 import {
-  fetchAuthorPublications,
-  fetchAuthorPublicationsFacets,
-} from '../../actions/authors';
-import {
   CITEABLE_QUERY,
   PUBLISHED_QUERY,
   CITEABLE_BAR_TYPE,
   PUBLISHED_BAR_TYPE,
 } from '../constants';
 import CitationSummaryGraph from '../components/CitationSummaryGraph';
+import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
+import { searchQueryUpdate } from '../../actions/search';
 
 const CLEAR_QUERY = {
   citeable: undefined,
@@ -66,15 +64,16 @@ const stateToProps = state => ({
     'buckets',
   ]),
   error: state.citations.get('errorCitationSummary'),
-  selectedBar: queryToBar(state.authors.getIn(['publications', 'query'])),
+  selectedBar: queryToBar(
+    state.search.getIn(['namespaces', AUTHOR_PUBLICATIONS_NS, 'query'])
+  ),
 });
 
 const dispatchToProps = dispatch => ({
   // TODO: rename to onSelectedBarChange
   onSelectBarChange(bar) {
     const query = barToQuery(bar);
-    dispatch(fetchAuthorPublications(query));
-    dispatch(fetchAuthorPublicationsFacets(query));
+    dispatch(searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, query));
   },
 });
 

@@ -75,11 +75,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     def get_bibtex_display(self, record):
         from inspirehep.records.serializers.bibtex import literature_bibtex
 
-        try:
-            return literature_bibtex.create_bibliography([record])
-        except Exception:
-            LOGGER.exception("Cannot get bibtex display", record=record)
-            return " "
+        return literature_bibtex.serialize(None, record)
 
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""

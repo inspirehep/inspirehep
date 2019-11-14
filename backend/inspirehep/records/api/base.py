@@ -27,7 +27,6 @@ from sqlalchemy.orm.attributes import flag_modified
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
 from inspirehep.records.indexer.base import InspireRecordIndexer
-from inspirehep.records.models import RecordCitations
 
 LOGGER = structlog.getLogger()
 
@@ -324,10 +323,6 @@ class InspireRecord(Record):
     def hard_delete(self):
         recid = self["control_number"]
         with db.session.begin_nested():
-            # Removing citations from RecordCitations table
-            RecordCitations.query.filter_by(citer_id=self.id).delete()
-            # Removing references to this record from RecordCitations table
-            RecordCitations.query.filter_by(cited_id=self.id).delete()
             RecordsBuckets.query.filter_by(record_id=self.id).delete()
 
             pids = PersistentIdentifier.query.filter(

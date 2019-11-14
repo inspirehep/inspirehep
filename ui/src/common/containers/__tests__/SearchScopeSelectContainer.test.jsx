@@ -3,26 +3,18 @@ import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 import { fromJS } from 'immutable';
 
-import { changeSearchScope } from '../../../actions/search';
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import SearchScopeSelectContainer from '../SearchScopeSelectContainer';
 import SearchScopeSelect from '../../components/SearchScopeSelect';
-
-jest.mock('../../../actions/search');
-
-changeSearchScope.mockReturnValue(async () => {});
+import { CHANGE_SEARCH_BOX_NAMESPACE } from '../../../actions/actionTypes';
+import { AUTHORS_NS } from '../../../reducers/search';
 
 describe('SearchScopeSelectContainer', () => {
-  afterEach(() => {
-    changeSearchScope.mockClear();
-  });
-
   it('passes url query q param to SearchBox', () => {
+    const searchBoxNamespace = AUTHORS_NS;
     const store = getStoreWithState({
       search: fromJS({
-        scope: {
-          name: 'authors',
-        },
+        searchBoxNamespace,
       }),
     });
     const wrapper = mount(
@@ -31,20 +23,28 @@ describe('SearchScopeSelectContainer', () => {
       </Provider>
     );
     expect(wrapper.find(SearchScopeSelect)).toHaveProp({
-      searchScopeName: 'authors',
+      searchScopeName: searchBoxNamespace,
     });
   });
 
-  it('calls changeSearchScope onSearchScopeChange', async () => {
+  it('dispatches CHANGE_SEARCH_BOX_NAMESPACE on change', async () => {
+    const searchBoxNamespace = AUTHORS_NS;
+    const store = getStore();
     const wrapper = mount(
-      <Provider store={getStore()}>
+      <Provider store={store}>
         <SearchScopeSelectContainer />
       </Provider>
     );
     const onSearchScopeChange = wrapper
       .find(SearchScopeSelect)
       .prop('onSearchScopeChange');
-    onSearchScopeChange('test');
-    expect(changeSearchScope).toHaveBeenCalledWith('test');
+    onSearchScopeChange(searchBoxNamespace);
+    const expectedActions = [
+      {
+        type: CHANGE_SEARCH_BOX_NAMESPACE,
+        payload: { searchBoxNamespace },
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });

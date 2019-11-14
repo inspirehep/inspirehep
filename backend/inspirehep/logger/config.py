@@ -9,6 +9,7 @@ import logging
 import sys
 
 import structlog
+from celery.signals import setup_logging, task_postrun, task_prerun
 from structlog_sentry import SentryJsonProcessor
 
 # Sentry
@@ -39,6 +40,7 @@ logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
 # =========
 structlog.configure(
     processors=[
+        structlog.threadlocal.merge_threadlocal_context,
         structlog.stdlib.filter_by_level,
         structlog.stdlib.add_logger_name,
         structlog.stdlib.add_log_level,
@@ -55,3 +57,19 @@ structlog.configure(
     wrapper_class=structlog.stdlib.BoundLogger,
     cache_logger_on_first_use=True,
 )
+
+# Celery logging
+# ==============
+@task_prerun.connect()
+def log_task_context(sender, task_id, task, *args, **kwargs):
+    structlog.threadlocal.bind_threadlocal(task_id=task_id, task=task.name)
+
+
+@task_postrun.connect()
+def remove_task_context_logging(*args, **kwargs):
+    structlog.threadlocal.clear_threadlocal()
+
+
+@setup_logging.connect()
+def setup_basic_logging(*args, **kwargs):
+    logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)

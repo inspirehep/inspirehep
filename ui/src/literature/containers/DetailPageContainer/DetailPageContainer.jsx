@@ -32,7 +32,10 @@ import AcceleratorExperimentList from '../../components/AcceleratorExperimentLis
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
 import DocumentHead from '../../../common/components/DocumentHead';
-import { fetchCitationsByYear } from '../../../actions/citations';
+import {
+  fetchCitationsByYear,
+  fetchCitations,
+} from '../../../actions/citations';
 import CitationsByYearGraphContainer from '../../../common/containers/CitationsByYearGraphContainer';
 import Figures from '../../components/Figures';
 import RequireOneOf from '../../../common/components/RequireOneOf';
@@ -62,6 +65,7 @@ class DetailPage extends Component {
     const { dispatch } = this.props;
     dispatch(fetchLiterature(this.recordId));
     dispatch(fetchLiteratureReferences(this.recordId));
+    dispatch(fetchCitations(this.recordId));
     dispatch(fetchLiteratureAuthors(this.recordId));
     dispatch(fetchCitationsByYear({ q: `recid:${this.recordId}` }));
   }
@@ -78,7 +82,7 @@ class DetailPage extends Component {
 
     const metadata = record.get('metadata');
     if (!metadata) {
-      return null; // FIXME: `loading` is state is never rendered
+      return null; // FIXME: `loading` is state is never rendered also for other detail pages
     }
 
     const title = metadata.getIn(['titles', 0]);
@@ -241,10 +245,7 @@ class DetailPage extends Component {
                     key="2"
                     forceRender
                   >
-                    <CitationListContainer
-                      pidType="literature"
-                      recordId={recordId}
-                    />
+                    <CitationListContainer recordId={recordId} />
                   </Tabs.TabPane>
                   <Tabs.TabPane
                     tab={

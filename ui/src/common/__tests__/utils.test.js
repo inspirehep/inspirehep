@@ -19,6 +19,7 @@ import pluralizeUnlessSingle, {
   removeProtocolAndWwwFromUrl,
   getRecordIdFromRef,
   downloadTextAsFile,
+  addOrdinalSuffix,
 } from '../utils';
 
 describe('utils', () => {
@@ -564,6 +565,43 @@ describe('utils', () => {
         'data:application/txt,Test',
         '_self'
       );
+    });
+  });
+
+  describe('addOrdinalSuffix', () => {
+    it('generates the correct suffix for single digit numbers', () => {
+      const input = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+      const expectedOutput = [
+        '1st',
+        '2nd',
+        '3rd',
+        '4th',
+        '5th',
+        '6th',
+        '7th',
+        '8th',
+        '9th',
+      ];
+      const output = input.map(addOrdinalSuffix);
+      expect(output).toEqual(expectedOutput);
+    });
+
+    it('generates the correct suffix for multiple digit numbers', () => {
+      const input = [10, 11, 12, 13, 14, 100, 1001, 2162, 35693, 5474];
+      const expectedOutput = [
+        '10th',
+        '11th',
+        '12th',
+        '13th',
+        '14th',
+        '100th',
+        '1001st',
+        '2162nd',
+        '35693rd',
+        '5474th',
+      ];
+      const output = input.map(addOrdinalSuffix);
+      expect(output).toEqual(expectedOutput);
     });
   });
 });

@@ -14,7 +14,7 @@ from invenio_files_rest.models import (
 )
 from invenio_records.errors import MissingModelError
 from invenio_records_files.models import RecordsBuckets
-from sqlalchemy import func
+from sqlalchemy import func, or_
 
 from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.models import (
@@ -68,6 +68,19 @@ class CitationMixin:
         )
         db_query = db_query.group_by("year").order_by("year")
         return [{"year": r.year.year, "count": r.sum} for r in db_query.all() if r.year]
+
+    def hard_delete(self):
+        with db.session.begin_nested():
+            LOGGER.warning("Hard Deleting citations")
+            # Removing citations from RecordCitations table and
+            # Removing references to this record from RecordCitations table
+            RecordCitations.query.filter(
+                or_(
+                    RecordCitations.citer_id == self.id,
+                    RecordCitations.cited_id == self.id,
+                )
+            ).delete()
+        super().hard_delete()
 
     def is_superseded(self):
         """Checks if record is superseded
@@ -381,7 +394,49 @@ class ConferencePaperAndProceedingsMixin:
             self.update_conference_paper_and_proccedings()
         else:
             LOGGER.info(
-                "Record conference papaers and proccedings update disabled",
+                "Record conference papers and proceedings update disabled",
                 recid=self.get("control_number"),
                 uuid=str(self.id),
             )
+
+    def get_newest_linked_conferences_uuid(self):
+        """Returns referenced conferences for which perspective this record has changed
+        """
+        try:
+            prev_version = self._previous_version
+        except AttributeError:
+            prev_version = {}
+
+        changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
+            "deleted", False
+        )
+        pids_latest = self.get_linked_pids_from_field(
+            "publication_info.conference_record"
+        )
+
+        if changed_deleted_status:
+            return list(self.get_records_ids_by_pids(pids_latest))
+
+        doc_type_previous = set(prev_version.get("document_type", []))
+        doc_type_latest = set(self.get("document_type", []))
+        doc_type_diff = doc_type_previous.symmetric_difference(doc_type_latest)
+        allowed_types = set(
+            [option.value for option in list(ConferenceToLiteratureRelationshipType)]
+        )
+        type_changed = True if doc_type_diff.intersection(allowed_types) else False
+
+        try:
+            pids_previous = set(
+                self._previous_version.get_linked_pids_from_field(
+                    "publication_info.conference_record"
+                )
+            )
+        except AttributeError:
+            pids_previous = []
+        if type_changed:
+            pids_changed = set(pids_latest)
+            pids_changed.update(pids_previous)
+        else:
+            pids_changed = set.symmetric_difference(set(pids_latest), pids_previous)
+
+        return list(self.get_records_ids_by_pids(list(pids_changed)))

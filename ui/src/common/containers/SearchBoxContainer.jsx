@@ -1,15 +1,21 @@
 import { connect } from 'react-redux';
 
 import SearchBox from '../components/SearchBox';
-import { pushQueryToLocation } from '../../actions/search';
+import { searchQueryUpdate } from '../../actions/search';
 
 const stateToProps = state => ({
-  value: state.router.location.query.q,
+  value: state.search.getIn([
+    'namespaces',
+    state.search.get('searchBoxNamespace'),
+    'query',
+    'q',
+  ]),
+  namespace: state.search.get('searchBoxNamespace'),
 });
 
 export const dispatchToProps = dispatch => ({
-  onSearch(value) {
-    dispatch(pushQueryToLocation({ q: value }, true));
+  onSearch(namespace, value) {
+    dispatch(searchQueryUpdate(namespace, { q: value }));
   },
 });
 

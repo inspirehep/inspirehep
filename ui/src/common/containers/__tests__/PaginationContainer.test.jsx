@@ -5,34 +5,26 @@ import { Provider } from 'react-redux';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import PaginationContainer from '../PaginationContainer';
-import { pushQueryToLocation } from '../../../actions/search';
 import SearchPagination from '../../components/SearchPagination';
-
-jest.mock('../../../actions/search');
-pushQueryToLocation.mockReturnValue(async () => {});
+import { LITERATURE_NS } from '../../../reducers/search';
+import { SEARCH_QUERY_UPDATE } from '../../../actions/actionTypes';
 
 describe('PaginationContainer', () => {
-  afterEach(() => {
-    pushQueryToLocation.mockClear();
-  });
-
-  it('passes page, size and total from state', () => {
+  it('passes page, size and total from search namespace state', () => {
+    const namespace = LITERATURE_NS;
     const store = getStoreWithState({
-      router: {
-        location: {
-          query: {
-            size: '10',
-            page: '2',
+      search: fromJS({
+        namespaces: {
+          [namespace]: {
+            query: { page: '2', size: '10' },
+            total: 100,
           },
         },
-      },
-      search: fromJS({
-        total: 100,
       }),
     });
     const wrapper = mount(
       <Provider store={store}>
-        <PaginationContainer />
+        <PaginationContainer namespace={namespace} />
       </Provider>
     );
     expect(wrapper.find(SearchPagination)).toHaveProp({
@@ -43,14 +35,24 @@ describe('PaginationContainer', () => {
   });
 
   it('calls pushQueryToLocation onPageChange', () => {
+    const store = getStore();
+    const namespace = LITERATURE_NS;
     const wrapper = mount(
-      <Provider store={getStore()}>
-        <PaginationContainer />
+      <Provider store={store}>
+        <PaginationContainer namespace={namespace} />
       </Provider>
     );
     const onPageChange = wrapper.find(SearchPagination).prop('onPageChange');
     const page = 3;
+
     onPageChange(page);
-    expect(pushQueryToLocation).toHaveBeenCalledWith({ page });
+
+    const expectedActions = [
+      {
+        type: SEARCH_QUERY_UPDATE,
+        payload: { namespace, query: { page: '3' } },
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });

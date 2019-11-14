@@ -21,6 +21,7 @@ def test_index_conference_record(base_app, es_clear, db, datadir, create_record)
     expected_metadata = deepcopy(record)
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
+    expected_metadata["number_of_contributions"] = record.number_of_contributions
 
     response = es.search("records-conferences")
 

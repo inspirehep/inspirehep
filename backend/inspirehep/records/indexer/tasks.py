@@ -52,8 +52,11 @@ def batch_index(self, records_uuids, request_timeout=None):
 
 
 def process_references_for_record(record):
-    """Tries to find differences in record references and forces to reindex
-    records which reference changed to update their citation statistics.
+    """Tries to find differences in record references.
+
+    Gets all references from  reference field and publication_info.conference_record
+    field and forces to reindex records which reference changed to update
+    their statistics.
 
     Args:
         record: Record object in which references has changed.
@@ -63,6 +66,8 @@ def process_references_for_record(record):
         list(str): Statistics from the job.
     """
     uuids = record.get_modified_references()
+    uuids.extend(record.get_newest_linked_conferences_uuid())
+    uuids = list(set(uuids))
     if uuids:
         LOGGER.info(
             f"Found {len(uuids)} references changed, indexing them", uuid=str(record.id)

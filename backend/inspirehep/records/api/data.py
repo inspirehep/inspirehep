@@ -11,7 +11,7 @@ from ...pidstore.api import PidStoreData
 from .base import InspireRecord
 
 
-class DataRecord(InspireRecord, CitationMixin):
+class DataRecord(CitationMixin, InspireRecord):
     """Data Record."""
 
     es_serializer = DataElasticSearchSchema

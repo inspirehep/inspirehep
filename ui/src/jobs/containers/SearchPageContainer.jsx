@@ -14,6 +14,7 @@ import DrawerHandle from '../../common/components/DrawerHandle';
 import JobItem from '../components/JobItem';
 import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
 import DocumentHead from '../../common/components/DocumentHead';
+import { JOBS_NS } from '../../reducers/search';
 
 class SearchPage extends Component {
   static renderJobResultItem(result) {
@@ -44,7 +45,11 @@ class SearchPage extends Component {
             <Col className="f5">Select Job Filters:</Col>
             <Col>{SearchPage.renderSubscribeJobsModalButton()}</Col>
           </Row>
-          <AggregationFiltersContainer inline displayWhenNoResults />
+          <AggregationFiltersContainer
+            inline
+            displayWhenNoResults
+            namespace={JOBS_NS}
+          />
         </LoadingOrChildren>
       </div>
     );
@@ -55,12 +60,17 @@ class SearchPage extends Component {
     return (
       <DrawerHandle className="mt2" handleText="Filter" drawerTitle="Filter">
         <LoadingOrChildren loading={loadingAggregations}>
-          <AggregationFiltersContainer inline displayWhenNoResults />
+          <AggregationFiltersContainer
+            inline
+            displayWhenNoResults
+            namespace={JOBS_NS}
+          />
         </LoadingOrChildren>
       </DrawerHandle>
     );
   }
 
+  // TODO: investigate if it is better to use `Context` to pass namespace rather than props
   render() {
     const { loading } = this.props;
     return (
@@ -80,7 +90,7 @@ class SearchPage extends Component {
               <LoadingOrChildren loading={loading}>
                 <Row type="flex" align="middle" justify="end">
                   <Col xs={12} lg={12}>
-                    <NumberOfResultsContainer />
+                    <NumberOfResultsContainer namespace={JOBS_NS} />
                   </Col>
                   <Col className="tr" xs={12} lg={0}>
                     <ResponsiveView
@@ -95,15 +105,16 @@ class SearchPage extends Component {
                     />
                   </Col>
                   <Col className="tr" span={12}>
-                    <SortByContainer />
+                    <SortByContainer namespace={JOBS_NS} />
                   </Col>
                 </Row>
                 <Row>
                   <Col span={24}>
                     <ResultsContainer
+                      namespace={JOBS_NS}
                       renderItem={SearchPage.renderJobResultItem}
                     />
-                    <PaginationContainer />
+                    <PaginationContainer namespace={JOBS_NS} />
                   </Col>
                 </Row>
               </LoadingOrChildren>
@@ -121,8 +132,12 @@ SearchPage.propTypes = {
 };
 
 const stateToProps = state => ({
-  loading: state.search.get('loading'),
-  loadingAggregations: state.search.get('loadingAggregations'),
+  loading: state.search.getIn(['namespaces', JOBS_NS, 'loading']),
+  loadingAggregations: state.search.getIn([
+    'namespaces',
+    JOBS_NS,
+    'loadingAggregations',
+  ]),
 });
 
 export default connect(stateToProps)(SearchPage);

@@ -6,7 +6,7 @@ import { Map } from 'immutable';
 
 import fetchJob from '../../actions/jobs';
 import ContentBox from '../../common/components/ContentBox';
-import Description from '../components/Description';
+import RichDescription from '../../common/components/RichDescription';
 import DateFromNow from '../components/DateFromNow';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
@@ -131,7 +131,8 @@ class DetailPage extends Component {
               </Row>
               <Row className="mt4">
                 <Col>
-                  <Description description={description} />
+                  <strong>Job description:</strong>
+                  <RichDescription>{description}</RichDescription>
                 </Col>
               </Row>
               <Row className="mt4">

@@ -31,7 +31,7 @@ class EnvelopeSchema(RecordSchemaJSONV1):
     uuid = fields.String(dump_only=True, attribute="pid.object_uuid")
 
 
-class ElasticSearchBaseSchema(Schema):
+class ElasticSearchBaseSchema:
     """ElasticSearch specific extra response data."""
 
     _created = fields.DateTime(dump_only=True, attribute="created")

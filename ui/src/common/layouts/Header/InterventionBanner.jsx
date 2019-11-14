@@ -6,8 +6,7 @@ import { getConfigFor } from '../../config';
 
 class InterventionBanner extends Component {
   render() {
-    const interventionConfig =
-      getConfigFor('REACT_APP_INTERVENTION_BANNER') || null;
+    const interventionConfig = getConfigFor('REACT_APP_INTERVENTION_BANNER');
     return (
       interventionConfig && (
         <div className="intervention-banner">

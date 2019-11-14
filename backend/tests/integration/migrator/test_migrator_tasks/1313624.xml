@@ -1,0 +1,1568 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim">
+<record>
+  <controlfield tag="001">1313624</controlfield>
+  <controlfield tag="005">20150211190210.0</controlfield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">INSPIRETeX</subfield>
+    <subfield code="a">Moskovic:2014aga</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">DESY</subfield>
+    <subfield code="z">DA14-kp42b</subfield>
+  </datafield>
+  <datafield tag="035" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">oai:arXiv.org:1409.0794</subfield>
+  </datafield>
+  <datafield tag="037" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">arXiv:1409.0794</subfield>
+    <subfield code="c">hep-th</subfield>
+  </datafield>
+  <datafield tag="100" ind1=" " ind2=" ">
+    <subfield code="a">Moskovic, Micha</subfield>
+    <subfield code="u">Brussels U.</subfield>
+    <subfield code="w">M.Moskovic.1</subfield>
+    <subfield code="x">1259096</subfield>
+    <subfield code="y">1</subfield>
+    <subfield code="z">902695</subfield>
+  </datafield>
+  <datafield tag="245" ind1=" " ind2=" ">
+    <subfield code="a">Holographic backgrounds from D-brane probes</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="246" ind1=" " ind2=" ">
+    <subfield code="9">arXiv</subfield>
+    <subfield code="a">Holographic backgrounds from D-brane probes</subfield>
+  </datafield>
+  <datafield tag="269" ind1=" " ind2=" ">
+    <subfield code="c">2014-09-02</subfield>
+  </datafield>
+  <datafield tag="300" ind1=" " ind2=" ">
+    <subfield code="a">162</subfield>
+  </datafield>
+  <datafield tag="500" ind1=" " ind2=" ">
+    <subfield code="a">Ph.D. Thesis, Universit\'e Libre de Bruxelles, May 2014, 162 pages; v2: additional references and small modifications</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="502" ind1=" " ind2=" ">
+    <subfield code="b">PhD</subfield>
+    <subfield code="c">Brussels U.</subfield>
+    <subfield code="d">2014</subfield>
+    <subfield code="z">902695</subfield>
+  </datafield>
+  <datafield tag="520" ind1=" " ind2=" ">
+    <subfield code="a">This thesis focuses on the derivation of holographic backgrounds from the field theory side, without using any supergravity equations of motion. Instead, we rely on the addition of probe D-branes to the stack of D-branes generating the background. From the field theory description of the probe branes, one can compute an effective action for the probes (in a suitable low-energy/near-horizon limit) by integrating out the background branes. Comparing this action with the generic probe D-brane action then allows to determine the holographic background dual to the considered field theory vacuum. In the first part, the required pre-requisites of field and string theory are recalled and this strategy to derive holographic backgrounds is explained in more detail on the basic case of D3-branes in flat space probed by a small number of D-instantons. The second part contains our original results, which have already appeared in arXiv:1301.3738, arXiv:1301.7062 and arXiv:1312.0621. We first derive the duals to three continuous deformations (Coulomb branch, $\beta$ and non-commutative deformations) of N=4 super-Yang-Mills. We then derive the enhan\c{c}on mechanism in a simple N=2 quiver gauge theory setup by using a fractional D-instanton as a probe and exploiting recent exact results on the Coulomb branch of N=2 quivers. Finally, we obtain the near-horizon D4-brane geometry by probing the D4-branes with a small number of D0-branes.</subfield>
+    <subfield code="9">arXiv</subfield>
+  </datafield>
+  <datafield tag="540" ind1=" " ind2=" ">
+    <subfield code="b">arXiv</subfield>
+    <subfield code="u">http://arxiv.org/licenses/nonexclusive-distrib/1.0/</subfield>
+  </datafield>
+  <datafield tag="541" ind1=" " ind2=" ">
+    <subfield code="a">arxiv</subfield>
+    <subfield code="c">OAI</subfield>
+  </datafield>
+  <datafield tag="595" ind1=" " ind2="D">
+    <subfield code="a">Q</subfield>
+    <subfield code="d">2014-09-11</subfield>
+    <subfield code="s">abs</subfield>
+  </datafield>
+  <datafield tag="595" ind1=" " ind2="D">
+    <subfield code="a">Q</subfield>
+    <subfield code="d">2014-09-16</subfield>
+    <subfield code="s">printed</subfield>
+  </datafield>
+  <datafield tag="595" ind1=" " ind2="D">
+    <subfield code="d">2014-10-16</subfield>
+    <subfield code="s">final</subfield>
+  </datafield>
+  <datafield tag="595" ind1=" " ind2=" ">
+    <subfield code="9">CERN</subfield>
+    <subfield code="a">CDS-1753286</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="7">
+    <subfield code="2">arXiv</subfield>
+    <subfield code="a">hep-th</subfield>
+  </datafield>
+  <datafield tag="650" ind1="1" ind2="7">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">Theory-HEP</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">field equations: supergravity</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">deformation: noncommutative</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">gauge field theory: quiver</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">instanton: fractional</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">supersymmetry: 4</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">D-brane</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">holography</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">membrane model</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">duality</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">Coulomb</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">effective action</subfield>
+  </datafield>
+  <datafield tag="695" ind1=" " ind2=" ">
+    <subfield code="2">INSPIRE</subfield>
+    <subfield code="a">string model</subfield>
+  </datafield>
+  <datafield tag="701" ind1=" " ind2=" ">
+    <subfield code="a">Ferrari,  Frank</subfield>
+  </datafield>
+  <datafield tag="856" ind1="4" ind2=" ">
+    <subfield code="s">1899357</subfield>
+    <subfield code="u">http://inspirehep.net/record/1313624/files/arXiv:1409.0794.pdf</subfield>
+  </datafield>
+  <datafield tag="909" ind1="C" ind2="O">
+    <subfield code="o">oai:inspirehep.net:1313624</subfield>
+    <subfield code="p">INSPIRE:HEP</subfield>
+  </datafield>
+  <datafield tag="961" ind1=" " ind2=" ">
+    <subfield code="x">2014-09-03</subfield>
+    <subfield code="c">2015-01-12</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">Thesis</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">CORE</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">arXiv</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">Citeable</subfield>
+  </datafield>
+  <datafield tag="980" ind1=" " ind2=" ">
+    <subfield code="a">HEP</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="6">
+    <subfield code="a">0-0-0-1-1-0-0</subfield>
+    <subfield code="t">2014-09-09 22:02:13</subfield>
+    <subfield code="v">Invenio/1.1.2.1260-aa76f refextract/1.5.44</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1211214</subfield>
+    <subfield code="9">CURATOR</subfield>
+    <subfield code="h">F. Ferrari, M. Moskovic, and A. Rovai</subfield>
+    <subfield code="o">I</subfield>
+    <subfield code="r">arXiv:1301.3738</subfield>
+    <subfield code="s">Nucl.Phys.,B872,184</subfield>
+    <subfield code="t">Examples of Emergent Type IIB Backgrounds from Matrices</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1216914</subfield>
+    <subfield code="9">CURATOR</subfield>
+    <subfield code="h">F. Ferrari and M. Moskovic</subfield>
+    <subfield code="o">II</subfield>
+    <subfield code="r">arXiv:1301.7062</subfield>
+    <subfield code="s">Phys.Lett.,B723,455</subfield>
+    <subfield code="t">Emergent D4-Brane Background from D-Particles</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1267236</subfield>
+    <subfield code="9">CURATOR</subfield>
+    <subfield code="h">E. Conde and M. Moskovic</subfield>
+    <subfield code="m">JHEP 1404</subfield>
+    <subfield code="o">III</subfield>
+    <subfield code="r">arXiv:1312.0621</subfield>
+    <subfield code="t">D-instanton probe and the enhançon mechanism from a quiver gauge theory</subfield>
+    <subfield code="y">2014</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">81239</subfield>
+    <subfield code="h">K. Wilson and J. B. Kogut</subfield>
+    <subfield code="o">1</subfield>
+    <subfield code="s">Phys.Rept.,12,75</subfield>
+    <subfield code="t">The Renormalization group and the epsilon expansion</subfield>
+    <subfield code="y">1974</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">114952</subfield>
+    <subfield code="h">S. Hawking</subfield>
+    <subfield code="o">2</subfield>
+    <subfield code="s">Phys.Rev.,D14,2460</subfield>
+    <subfield code="t">Breakdown of Predictability in Gravitational Collapse</subfield>
+    <subfield code="y">1976</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">451647</subfield>
+    <subfield code="h">J. M. Maldacena</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">3</subfield>
+    <subfield code="r">hep-th/9711200</subfield>
+    <subfield code="s">Adv.Theor.Math.Phys.,2,231</subfield>
+    <subfield code="t">The Large N Limit of Superconformal Field Theories and Supergravity</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">36137</subfield>
+    <subfield code="m">G. ’t Hooft arXiv:</subfield>
+    <subfield code="o">4</subfield>
+    <subfield code="r">gr-qc/9310026</subfield>
+    <subfield code="t">Dimensional reduction in quantum gravity</subfield>
+    <subfield code="y">1993</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">376940</subfield>
+    <subfield code="h">L. Susskind</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">5</subfield>
+    <subfield code="r">hep-th/9409089</subfield>
+    <subfield code="s">J.Math.Phys.,36,6377-6396</subfield>
+    <subfield code="t">The World as a hologram</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">467400</subfield>
+    <subfield code="h">E. Witten</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">6</subfield>
+    <subfield code="r">hep-th/9802150</subfield>
+    <subfield code="s">Adv.Theor.Math.Phys.,2,253-291</subfield>
+    <subfield code="t">Anti-de Sitter Space and Holography</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">467202</subfield>
+    <subfield code="h">S. Gubser, I. R. Klebanov, and A. M. Polyakov</subfield>
+    <subfield code="o">7</subfield>
+    <subfield code="r">hep-th/9802109</subfield>
+    <subfield code="s">Phys.Lett.,B428,105</subfield>
+    <subfield code="t">Gauge Theory Correlators from Noncritical String Theory</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">711505</subfield>
+    <subfield code="h">S. Ryu and T. Takayanagi</subfield>
+    <subfield code="o">8</subfield>
+    <subfield code="r">hep-th/0603001</subfield>
+    <subfield code="s">Phys.Rev.Lett.,96,181602</subfield>
+    <subfield code="t">Holographic derivation of entanglement entropy from AdS/CFT</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1228721</subfield>
+    <subfield code="h">A. Lewkowycz and J. Maldacena</subfield>
+    <subfield code="o">9</subfield>
+    <subfield code="r">arXiv:1304.4926</subfield>
+    <subfield code="s">JHEP,1308,090</subfield>
+    <subfield code="t">Generalized gravitational entropy</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1121150</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="o">10</subfield>
+    <subfield code="r">arXiv:1207.0886</subfield>
+    <subfield code="s">Nucl.Phys.,B869,31</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1262118</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="o">11</subfield>
+    <subfield code="r">arXiv:1310.6788</subfield>
+    <subfield code="t">Gauge Theories, D-Branes and Holography</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">508266</subfield>
+    <subfield code="h">R. C. Myers</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">12</subfield>
+    <subfield code="r">hep-th/9910053</subfield>
+    <subfield code="s">JHEP,9912,022</subfield>
+    <subfield code="t">Dielectric Branes</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1225896</subfield>
+    <subfield code="h">F. Ferrari and A. Rovai</subfield>
+    <subfield code="o">13</subfield>
+    <subfield code="r">arXiv:1303.7254</subfield>
+    <subfield code="s">Phys.Lett.,B724,121</subfield>
+    <subfield code="t">Emergent D5-brane Background from D-strings</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">A. Rovai</subfield>
+    <subfield code="m">PhD thesis. Université Libre de Bruxelles</subfield>
+    <subfield code="o">14</subfield>
+    <subfield code="t">Emergent Geometry from D-Branes</subfield>
+    <subfield code="u">http://theses.ulb.ac.be/ETD-db/collection/available/ULBetd-08072013-181617/</subfield>
+    <subfield code="y">2013</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">3821</subfield>
+    <subfield code="m">G. ’t Hooft</subfield>
+    <subfield code="o">15</subfield>
+    <subfield code="s">Phys.Rev.,D14,3432</subfield>
+    <subfield code="t">Computation of the Quantum Effects Due to a Four-Dimensional Pseudoparticle</subfield>
+    <subfield code="y">1976</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">101400</subfield>
+    <subfield code="h">A. Belavin, A. M. Polyakov, A. Schwartz, and Y. Tyupkin</subfield>
+    <subfield code="o">16</subfield>
+    <subfield code="s">Phys.Lett.,B59,85</subfield>
+    <subfield code="t">Pseudoparticle Solutions of the Yang-Mills Equations</subfield>
+    <subfield code="y">1975</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">53056</subfield>
+    <subfield code="h">M. Atiyah and I. Singer</subfield>
+    <subfield code="o">17</subfield>
+    <subfield code="s">Annals Math.,87,484</subfield>
+    <subfield code="t">The Index of elliptic operators. 1</subfield>
+    <subfield code="y">1968</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">779351</subfield>
+    <subfield code="h">S. Vandoren and P. van Nieuwenhuizen</subfield>
+    <subfield code="o">18</subfield>
+    <subfield code="r">arXiv:0802.1862</subfield>
+    <subfield code="t">Lectures on instantons</subfield>
+    <subfield code="y">2008</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">125044</subfield>
+    <subfield code="h">M. Atiyah and R. Ward</subfield>
+    <subfield code="o">19</subfield>
+    <subfield code="s">Commun.Math.Phys.,55,117</subfield>
+    <subfield code="t">Instantons and Algebraic Geometry</subfield>
+    <subfield code="y">1977</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">134505</subfield>
+    <subfield code="h">M. Atiyah, V. Drinfeld, N. J. Hitchin, and Y. Manin</subfield>
+    <subfield code="o">20</subfield>
+    <subfield code="s">Phys.Lett.,A65,185</subfield>
+    <subfield code="t">Construction of Instantons</subfield>
+    <subfield code="y">1978</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">468820</subfield>
+    <subfield code="h">V. V. Khoze, M. P. Mattis, and M. J. Slater</subfield>
+    <subfield code="o">21</subfield>
+    <subfield code="r">hep-th/9804009</subfield>
+    <subfield code="s">Nucl.Phys.,B536,69</subfield>
+    <subfield code="t">The Instanton Hunter’s guide to supersymmetric SU(N) gauge theories</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">588064</subfield>
+    <subfield code="h">N. Dorey, T. J. Hollowood, V. V. Khoze, and M. P. Mattis</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">22</subfield>
+    <subfield code="r">hep-th/0206063</subfield>
+    <subfield code="s">Phys.Rept.,371,231</subfield>
+    <subfield code="t">The Calculus of Many Instantons</subfield>
+    <subfield code="y">2002</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">129689</subfield>
+    <subfield code="h">E. Corrigan, D. Fairlie, S. Templeton, and P. Goddard</subfield>
+    <subfield code="o">23</subfield>
+    <subfield code="s">Nucl.Phys.,B140,31</subfield>
+    <subfield code="t">A Green’s Function for the General Selfdual Gauge Field</subfield>
+    <subfield code="y">1978</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">10202</subfield>
+    <subfield code="h">H. Osborn</subfield>
+    <subfield code="o">24</subfield>
+    <subfield code="s">Annals Phys.,135,373</subfield>
+    <subfield code="t">Semiclassical Functional Integrals for Selfdual Gauge Fields</subfield>
+    <subfield code="y">1981</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">90850</subfield>
+    <subfield code="h">R. Haag, J. T. Łopuszanski, and M. Sohnius</subfield>
+    <subfield code="o">25</subfield>
+    <subfield code="s">Nucl.Phys.,B88,257</subfield>
+    <subfield code="t">All Possible Generators of Supersymmetries of the S Matrix</subfield>
+    <subfield code="y">1975</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">222335</subfield>
+    <subfield code="h">M. Sohnius</subfield>
+    <subfield code="o">26</subfield>
+    <subfield code="s">Phys.Rept.,128,39</subfield>
+    <subfield code="t">Introducing Supersymmetry</subfield>
+    <subfield code="y">1985</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">552017</subfield>
+    <subfield code="h">A. Bilal</subfield>
+    <subfield code="m">(2001). arXiv:</subfield>
+    <subfield code="o">27</subfield>
+    <subfield code="r">hep-th/0101055</subfield>
+    <subfield code="t">INTRODUCTION TO SUPERSYMMETRY</subfield>
+    <subfield code="y">1986</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">111553</subfield>
+    <subfield code="h">L. Brink, J. H. Schwarz, and J. Scherk</subfield>
+    <subfield code="o">28</subfield>
+    <subfield code="s">Nucl.Phys.,B121,77</subfield>
+    <subfield code="t">Supersymmetric Yang-Mills Theories</subfield>
+    <subfield code="y">1977</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">179486</subfield>
+    <subfield code="h">S. Mandelstam</subfield>
+    <subfield code="o">29</subfield>
+    <subfield code="s">Nucl.Phys.,B213,149</subfield>
+    <subfield code="t">Light Cone Superspace and the Ultraviolet Finiteness of the N=4 Model</subfield>
+    <subfield code="y">1983</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">374836</subfield>
+    <subfield code="h">N. Seiberg and E. Witten</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">30</subfield>
+    <subfield code="r">hep-th/9407087</subfield>
+    <subfield code="s">Nucl.Phys.,B426,19</subfield>
+    <subfield code="t">Electric - magnetic duality, monopole condensation, and confinement in N=2 supersymmetric Yang-Mills theory</subfield>
+    <subfield code="y">1994</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">192068</subfield>
+    <subfield code="h">V. Novikov, M. A. Shifman, A. Vainshtein, and V. I. Zakharov</subfield>
+    <subfield code="o">31</subfield>
+    <subfield code="s">Nucl.Phys.,B229,381</subfield>
+    <subfield code="t">Exact Gell-Mann-Low Function of Supersymmetric Yang-Mills Theories from Instanton Calculus</subfield>
+    <subfield code="y">1983</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">445632</subfield>
+    <subfield code="h">N. Arkani-Hamed and H. Murayama</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">32</subfield>
+    <subfield code="r">hep-th/9707133</subfield>
+    <subfield code="s">JHEP,0006,030</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">M. B. Green, J. Schwarz, and E. Witten</subfield>
+    <subfield code="m">Cambridge Monographs on Mathematical Physics. Cambridge University Press</subfield>
+    <subfield code="o">33</subfield>
+    <subfield code="t">SUPERSTRING THEORY. VOL. 1: INTRODUCTION</subfield>
+    <subfield code="y">1987</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">M. B. Green, J. Schwarz, and E. Witten</subfield>
+    <subfield code="m">Cambridge Monographs on Mathematical Physics. Cambridge University Press</subfield>
+    <subfield code="o">34</subfield>
+    <subfield code="t">SUPERSTRING THEORY. VOL. 2: LOOP AMPLITUDES, ANOMALIES AND PHENOMENOLOGY</subfield>
+    <subfield code="y">1987</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">J. Polchinski</subfield>
+    <subfield code="m">Cambridge University Press,. isbn-0521633036</subfield>
+    <subfield code="o">35</subfield>
+    <subfield code="t">String theory. Vol. 1: An introduction to the bosonic string</subfield>
+    <subfield code="y">1998</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">J. Polchinski</subfield>
+    <subfield code="m">Cambridge University Press,. isbn-0521633044</subfield>
+    <subfield code="o">36</subfield>
+    <subfield code="t">String theory. Vol. 2: Superstring theory and beyond</subfield>
+    <subfield code="y">1998</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">693512</subfield>
+    <subfield code="h">D. Tong</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">37</subfield>
+    <subfield code="r">hep-th/0509216</subfield>
+    <subfield code="t">TASI lectures on solitons: Instantons, monopoles, vortices and kinks</subfield>
+    <subfield code="y">2005</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1188034</subfield>
+    <subfield code="h">E. Witten</subfield>
+    <subfield code="o">38</subfield>
+    <subfield code="r">arXiv:1209.5461</subfield>
+    <subfield code="t">Superstring Perturbation Theory Revisited</subfield>
+    <subfield code="y">2012</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">17727</subfield>
+    <subfield code="h">L. Romans</subfield>
+    <subfield code="o">39</subfield>
+    <subfield code="s">Phys.Lett.,B169,374</subfield>
+    <subfield code="t">Massive N=2a Supergravity in Ten-Dimensions</subfield>
+    <subfield code="y">1986</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">417064</subfield>
+    <subfield code="h">M. R. Douglas and G. W. Moore</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">40</subfield>
+    <subfield code="r">hep-th/9603167</subfield>
+    <subfield code="t">D-branes, quivers, and ALE instantons</subfield>
+    <subfield code="y">1996</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">132127</subfield>
+    <subfield code="h">T. Eguchi and A. J. Hanson</subfield>
+    <subfield code="o">41</subfield>
+    <subfield code="s">Annals Phys.,120,82</subfield>
+    <subfield code="t">Selfdual Solutions to Euclidean Gravity</subfield>
+    <subfield code="y">1979</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">426102</subfield>
+    <subfield code="h">P. S. Aspinwall</subfield>
+    <subfield code="m">421-540, arXiv:</subfield>
+    <subfield code="o">42</subfield>
+    <subfield code="r">hep-th/9611137</subfield>
+    <subfield code="t">K3 surfaces and string duality</subfield>
+    <subfield code="y">1996</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">528861</subfield>
+    <subfield code="h">D. Marolf</subfield>
+    <subfield code="m">312-320. arXiv:</subfield>
+    <subfield code="o">43</subfield>
+    <subfield code="r">hep-th/0006117</subfield>
+    <subfield code="t">Chern-Simons terms and the three notions of charge</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">426191</subfield>
+    <subfield code="h">M. Cederwall, A. von Gussich, B. E. Nilsson, P. Sundell, and A. Westerberg</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">44</subfield>
+    <subfield code="r">hep-th/9611159</subfield>
+    <subfield code="s">Nucl.Phys.,B490,179</subfield>
+    <subfield code="t">The Dirichlet super p-branes in ten-dimensional type IIA and IIB supergravity</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">426246</subfield>
+    <subfield code="h">E. Bergshoeff and P. Townsend</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">45</subfield>
+    <subfield code="r">hep-th/9611173</subfield>
+    <subfield code="s">Nucl.Phys.,B490,145</subfield>
+    <subfield code="t">Super D-branes</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">425338</subfield>
+    <subfield code="h">M. Aganagic, C. Popescu, and J. H. Schwarz</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">46</subfield>
+    <subfield code="r">hep-th/9610249</subfield>
+    <subfield code="s">Phys.Lett.,B393,311</subfield>
+    <subfield code="t">D-brane actions with local kappa symmetry</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">400204</subfield>
+    <subfield code="h">J. Polchinski</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">47</subfield>
+    <subfield code="r">hep-th/9510017</subfield>
+    <subfield code="s">Phys.Rev.Lett.,75,4724</subfield>
+    <subfield code="t">Dirichlet Branes and Ramond-Ramond charges</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">26399</subfield>
+    <subfield code="h">R. Leigh</subfield>
+    <subfield code="o">48</subfield>
+    <subfield code="s">Mod.Phys.Lett.,A4,2767</subfield>
+    <subfield code="t">Dirac-Born-Infeld Action from Dirichlet Sigma Model</subfield>
+    <subfield code="y">1989</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">400967</subfield>
+    <subfield code="h">E. Witten</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">49</subfield>
+    <subfield code="r">hep-th/9510135</subfield>
+    <subfield code="s">Nucl.Phys.,B460,335-350</subfield>
+    <subfield code="t">Bound states of strings and p-branes</subfield>
+    <subfield code="y">1996</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">403476</subfield>
+    <subfield code="h">M. R. Douglas</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">50</subfield>
+    <subfield code="r">hep-th/9512077</subfield>
+    <subfield code="t">Branes within branes</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">523538</subfield>
+    <subfield code="h">M. B. Green and M. Gutperle</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">51</subfield>
+    <subfield code="r">hep-th/0002011</subfield>
+    <subfield code="s">JHEP,0002,014</subfield>
+    <subfield code="t">D-Instanton Induced Interactions on a D3-Brane</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">603119</subfield>
+    <subfield code="h">M. Billó, M. Frau, F. Fucito, A. Lerda, A. Liccardo, and I. Pesando</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">52</subfield>
+    <subfield code="r">hep-th/0211250</subfield>
+    <subfield code="s">JHEP,0302,045</subfield>
+    <subfield code="y">2003</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">508265</subfield>
+    <subfield code="h">W. Taylor and M. Van Raamsdonk</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">53</subfield>
+    <subfield code="r">hep-th/9910052</subfield>
+    <subfield code="s">Nucl.Phys.,B573,703</subfield>
+    <subfield code="t">Multiple Dp-branes in weak background fields</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">439767</subfield>
+    <subfield code="h">A. A. Tseytlin</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">54</subfield>
+    <subfield code="r">hep-th/9701125</subfield>
+    <subfield code="s">Nucl.Phys.,B501,41</subfield>
+    <subfield code="t">On Nonabelian Generalization of Born-Infeld Action in String Theory</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">505610</subfield>
+    <subfield code="h">A. A. Tseytlin</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">55</subfield>
+    <subfield code="r">hep-th/9908105</subfield>
+    <subfield code="t">Born-Infeld Action, Supersymmetry and String Theory</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">441667</subfield>
+    <subfield code="h">A. Hashimoto and W. Taylor</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">56</subfield>
+    <subfield code="r">hep-th/9703217</subfield>
+    <subfield code="s">Nucl.Phys.,B503,193</subfield>
+    <subfield code="t">Fluctuation spectra of tilted and intersecting D-branes from the Born-Infeld action</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">507571</subfield>
+    <subfield code="h">P. Bain</subfield>
+    <subfield code="m">313-317, arXiv:</subfield>
+    <subfield code="o">57</subfield>
+    <subfield code="r">hep-th/9909154</subfield>
+    <subfield code="t">On the Nonabelian Born-Infeld Action</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">561872</subfield>
+    <subfield code="h">P. Koerber and A. Sevrin</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">58</subfield>
+    <subfield code="r">hep-th/0108169</subfield>
+    <subfield code="s">JHEP,0110,003</subfield>
+    <subfield code="t">The NonAbelian Born-Infeld action through order alpha-prime 3</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">592058</subfield>
+    <subfield code="h">P. Koerber and A. Sevrin</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">59</subfield>
+    <subfield code="r">hep-th/0208044</subfield>
+    <subfield code="s">JHEP,0210,046</subfield>
+    <subfield code="t">The NonAbelian D-brane effective action through order alpha-prime**4</subfield>
+    <subfield code="y">2002</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">586874</subfield>
+    <subfield code="h">A. Collinucci, M. De Roo, and M. Eenink</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">60</subfield>
+    <subfield code="r">hep-th/0205150</subfield>
+    <subfield code="s">JHEP,0206,024</subfield>
+    <subfield code="t">Supersymmetric Yang-Mills theory at order alpha-prime**3</subfield>
+    <subfield code="y">2002</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">832958</subfield>
+    <subfield code="h">M. Movshev and A. Schwarz</subfield>
+    <subfield code="o">61</subfield>
+    <subfield code="r">arXiv:0910.0620</subfield>
+    <subfield code="s">JHEP,1209,136</subfield>
+    <subfield code="t">Supersymmetric Deformations of Maximally Supersymmetric Gauge Theories</subfield>
+    <subfield code="y">2012</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">926310</subfield>
+    <subfield code="h">M. Cederwall and A. Karlsson</subfield>
+    <subfield code="o">62</subfield>
+    <subfield code="r">arXiv:1109.0809</subfield>
+    <subfield code="s">JHEP,1111,134</subfield>
+    <subfield code="t">Pure spinor superfields and Born-Infeld theory</subfield>
+    <subfield code="y">2011</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">467562</subfield>
+    <subfield code="h">S. Kachru and E. Silverstein</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">63</subfield>
+    <subfield code="r">hep-th/9802183</subfield>
+    <subfield code="s">Phys.Rev.Lett.,80,4855-4858</subfield>
+    <subfield code="t">4-D conformal theories and strings on orbifolds</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">467729</subfield>
+    <subfield code="h">A. E. Lawrence, N. Nekrasov, and C. Vafa</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">64</subfield>
+    <subfield code="r">hep-th/9803015</subfield>
+    <subfield code="s">Nucl.Phys.,B533,199-209</subfield>
+    <subfield code="t">On conformal field theories in four-dimensions</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">452847</subfield>
+    <subfield code="h">D.-E. Diaconescu, M. R. Douglas, and J. Gomis</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">65</subfield>
+    <subfield code="r">hep-th/9712230</subfield>
+    <subfield code="s">JHEP,9802,013</subfield>
+    <subfield code="t">Fractional branes and wrapped branes</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">615369</subfield>
+    <subfield code="h">M. Bertolini</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">66</subfield>
+    <subfield code="r">hep-th/0303160</subfield>
+    <subfield code="s">Int.J.Mod.Phys.,A18,5647</subfield>
+    <subfield code="t">Four lectures on the gauge / gravity correspondence</subfield>
+    <subfield code="y">2003</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">29494</subfield>
+    <subfield code="h">G. T. Horowitz and A. Strominger</subfield>
+    <subfield code="o">67</subfield>
+    <subfield code="s">Nucl.Phys.,B360,197</subfield>
+    <subfield code="t">Black Strings and P-Branes</subfield>
+    <subfield code="y">1991</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">80491</subfield>
+    <subfield code="m">G. ’t Hooft</subfield>
+    <subfield code="o">68</subfield>
+    <subfield code="s">Nucl.Phys.,B72,461</subfield>
+    <subfield code="t">A Planar Diagram Theory for Strong Interactions</subfield>
+    <subfield code="y">1974</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">505947</subfield>
+    <subfield code="h">N. Seiberg and E. Witten</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">69</subfield>
+    <subfield code="r">hep-th/9908142</subfield>
+    <subfield code="s">JHEP,9909,032</subfield>
+    <subfield code="t">String Theory and Noncommutative Geometry</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">557835</subfield>
+    <subfield code="h">M. R. Douglas and N. A. Nekrasov</subfield>
+    <subfield code="m">arXiv:hep- th/0106048</subfield>
+    <subfield code="o">70</subfield>
+    <subfield code="s">Rev.Mod.Phys.,73,977-1029</subfield>
+    <subfield code="t">Noncommutative Field Theory</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">504203</subfield>
+    <subfield code="h">A. Hashimoto and N. Itzhaki</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">71</subfield>
+    <subfield code="r">hep-th/9907166</subfield>
+    <subfield code="s">Phys.Lett.,B465,142</subfield>
+    <subfield code="t">Non-Commutative Yang-Mills and the AdS/CFT Correspondence</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">505780</subfield>
+    <subfield code="h">J. M. Maldacena and J. G. Russo</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">72</subfield>
+    <subfield code="r">hep-th/9908134</subfield>
+    <subfield code="s">JHEP,9909,025</subfield>
+    <subfield code="t">Large N Limit of Non-Commutative Gauge Theories</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">393564</subfield>
+    <subfield code="h">R. G. Leigh and M. J. Strassler</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">73</subfield>
+    <subfield code="r">hep-th/9503121</subfield>
+    <subfield code="s">Nucl.Phys.,B447,95-136</subfield>
+    <subfield code="t">Exactly Marginal Operators and Duality in Four-Dimensional N = 1 Supersymmetric Gauge Theory</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">679125</subfield>
+    <subfield code="h">S. Frolov</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">74</subfield>
+    <subfield code="r">hep-th/0503201</subfield>
+    <subfield code="s">JHEP,0505,069</subfield>
+    <subfield code="t">Lax Pair for Strings in Lunin-Maldacena Background</subfield>
+    <subfield code="y">2005</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">743894</subfield>
+    <subfield code="h">S. Ananth, S. Kovacs, and H. Shimada</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">75</subfield>
+    <subfield code="r">hep-th/0702020</subfield>
+    <subfield code="s">Nucl.Phys.,B783,227</subfield>
+    <subfield code="t">Proof of Ultra-Violet Finiteness for a Planar Non-Supersymmetric Yang-Mills Theory</subfield>
+    <subfield code="y">2007</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">726780</subfield>
+    <subfield code="h">S. Ananth, S. Kovacs, and H. Shimada</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">76</subfield>
+    <subfield code="r">hep-th/0609149</subfield>
+    <subfield code="s">JHEP,0701,046</subfield>
+    <subfield code="y">2007</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">676359</subfield>
+    <subfield code="h">O. Lunin and J. M. Maldacena</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">77</subfield>
+    <subfield code="r">hep-th/0502086</subfield>
+    <subfield code="s">JHEP,0505,033</subfield>
+    <subfield code="y">2005</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">710545</subfield>
+    <subfield code="h">G. Georgiou and V. V. Khoze</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">78</subfield>
+    <subfield code="r">hep-th/0602141</subfield>
+    <subfield code="s">JHEP,0604,049</subfield>
+    <subfield code="t">Instanton Calculations in the Beta-Deformed AdS/CFT Correspondence</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">719123</subfield>
+    <subfield code="h">C. Durnford, G. Georgiou, and V. V. Khoze</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">79</subfield>
+    <subfield code="r">hep-th/0606111</subfield>
+    <subfield code="s">JHEP,0609,005</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">478620</subfield>
+    <subfield code="h">N. Dorey, T. J. Hollowood, V. V. Khoze, M. P. Mattis, and S. Vandoren</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">80</subfield>
+    <subfield code="r">hep-th/9810243</subfield>
+    <subfield code="s">JHEP,9906,023</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">494464</subfield>
+    <subfield code="h">N. Dorey, T. J. Hollowood, V. V. Khoze, M. P. Mattis, and S. Vandoren</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">81</subfield>
+    <subfield code="r">hep-th/9901128</subfield>
+    <subfield code="s">Nucl.Phys.,B552,88</subfield>
+    <subfield code="t">Multi-Instanton Calculus and the AdS/CFT Correspondence in N = 4 Superconformal Field Theory</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">505087</subfield>
+    <subfield code="h">T. J. Hollowood and V. V. Khoze</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">82</subfield>
+    <subfield code="r">hep-th/9908035</subfield>
+    <subfield code="s">Nucl.Phys.,B575,78-106</subfield>
+    <subfield code="t">ADHM and D-Instantons in Orbifold AdS/CFT Duality</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">506279</subfield>
+    <subfield code="h">T. J. Hollowood</subfield>
+    <subfield code="m">JHEP 9911 , [012]. arXiv:</subfield>
+    <subfield code="o">83</subfield>
+    <subfield code="r">hep-th/9908201</subfield>
+    <subfield code="t">Instantons, Finite N = 2 Sp(N) Theories and the AdS/CFT Correspondence</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">508661</subfield>
+    <subfield code="h">T. J. Hollowood, V. V. Khoze, and M. P. Mattis</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">84</subfield>
+    <subfield code="r">hep-th/9910118</subfield>
+    <subfield code="s">Adv.Theor.Math.Phys.,4,545-569</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">714340</subfield>
+    <subfield code="h">H.-Y. Chen and D. Tong</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">85</subfield>
+    <subfield code="r">hep-th/0604090</subfield>
+    <subfield code="s">JHEP,0606,017</subfield>
+    <subfield code="y">2006</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="9">CURATOR</subfield>
+    <subfield code="h">E. T. Akhmedov</subfield>
+    <subfield code="o">86</subfield>
+    <subfield code="r">hep-th/9812038</subfield>
+    <subfield code="s">Phys.Rev.,D59,101901</subfield>
+    <subfield code="t">D-instantons probing D3-branes and the AdS/CFT correspondence</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="0">480540</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1211175</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="o">87</subfield>
+    <subfield code="r">arXiv:1301.3722</subfield>
+    <subfield code="s">Nucl.Phys.,B871,181-221</subfield>
+    <subfield code="t">On Matrix Geometry and Effective Actions</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">468167</subfield>
+    <subfield code="h">K. Stelle</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">88</subfield>
+    <subfield code="r">hep-th/9803116</subfield>
+    <subfield code="t">BPS Branes in Supergravity</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">664835</subfield>
+    <subfield code="h">N. Berkovits</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">89</subfield>
+    <subfield code="r">hep-th/0411170</subfield>
+    <subfield code="s">JHEP,0503,041</subfield>
+    <subfield code="y">2005</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">470230</subfield>
+    <subfield code="h">R. Kallosh and A. Rajaraman</subfield>
+    <subfield code="m">"Vacua of M-Theory and String Theory arXiv:</subfield>
+    <subfield code="o">90</subfield>
+    <subfield code="r">hep-th/9805041</subfield>
+    <subfield code="s">Phys.Rev.,D58,125003</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">469693</subfield>
+    <subfield code="h">T. Banks and M. B. Green</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">91</subfield>
+    <subfield code="r">hep-th/9804170</subfield>
+    <subfield code="s">JHEP,9805,002</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">467066</subfield>
+    <subfield code="h">N. Nekrasov and A. S. Schwarz</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">92</subfield>
+    <subfield code="r">hep-th/9802068</subfield>
+    <subfield code="s">Commun.Math.Phys.,198,689-703</subfield>
+    <subfield code="t">Instantons on Noncommutative R 4 and (2,0) Superconformal Six-Dimensional Theory</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">473137</subfield>
+    <subfield code="h">I. R. Klebanov and E. Witten</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">93</subfield>
+    <subfield code="r">hep-th/9807080</subfield>
+    <subfield code="s">Nucl.Phys.,B536,199</subfield>
+    <subfield code="t">Superconformal field theory on three-branes at a Calabi-Yau singularity</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">530835</subfield>
+    <subfield code="h">I. R. Klebanov and M. J. Strassler</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">94</subfield>
+    <subfield code="r">hep-th/0007191</subfield>
+    <subfield code="s">JHEP,0008,052</subfield>
+    <subfield code="t">Supergravity and a confining gauge theory: Duality cascades and chi SB resolution of naked singularities</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">536663</subfield>
+    <subfield code="h">M. Bertolini, P. Di Vecchia, M. Frau, A. Lerda, R. Marotta, and I. Pesando</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">95</subfield>
+    <subfield code="r">hep-th/0011077</subfield>
+    <subfield code="s">JHEP,0102,014</subfield>
+    <subfield code="t">Fractional D-branes and their gauge duals</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">537274</subfield>
+    <subfield code="h">J. Polchinski</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">96</subfield>
+    <subfield code="r">hep-th/0011193</subfield>
+    <subfield code="s">Int.J.Mod.Phys.,A16,707</subfield>
+    <subfield code="t">N=2 Gauge / gravity duals</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">510092</subfield>
+    <subfield code="h">I. R. Klebanov and N. A. Nekrasov</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">97</subfield>
+    <subfield code="r">hep-th/9911096</subfield>
+    <subfield code="s">Nucl.Phys.,B574,263-274</subfield>
+    <subfield code="t">Gravity duals of fractional branes and logarithmic RG flow</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">539550</subfield>
+    <subfield code="h">O. Aharony</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">98</subfield>
+    <subfield code="r">hep-th/0101013</subfield>
+    <subfield code="s">JHEP,0103,012</subfield>
+    <subfield code="t">A Note on the holographic interpretation of string theory backgrounds with varying flux</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">554979</subfield>
+    <subfield code="h">M. Petrini, R. Russo, and A. Zaffaroni</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">99</subfield>
+    <subfield code="r">hep-th/0104026</subfield>
+    <subfield code="s">Nucl.Phys.,B608,145-161</subfield>
+    <subfield code="t">N=2 gauge theories and systems with fractional branes</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">557197</subfield>
+    <subfield code="h">M. Billo, L. Gallot, and A. Liccardo</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">100</subfield>
+    <subfield code="r">hep-th/0105258</subfield>
+    <subfield code="s">Nucl.Phys.,B614,254-278</subfield>
+    <subfield code="t">Classical geometry and gauge duals for fractional branes on ALE orbifolds</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">802542</subfield>
+    <subfield code="h">F. Benini, M. Bertolini, C. Closset, and S. Cremonesi</subfield>
+    <subfield code="o">101</subfield>
+    <subfield code="r">arXiv:0811.2207</subfield>
+    <subfield code="s">Phys.Rev.,D79,066012</subfield>
+    <subfield code="t">The N=2 cascade revisited and the enhancon bearings</subfield>
+    <subfield code="y">2009</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">416557</subfield>
+    <subfield code="h">P. C. Argyres, M. R. Plesser, and N. Seiberg</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">102</subfield>
+    <subfield code="r">hep-th/9603042</subfield>
+    <subfield code="s">Nucl.Phys.,B471,159-194</subfield>
+    <subfield code="t">The Moduli space of vacua of N=2 SUSY QCD and duality in N=1 SUSY QCD</subfield>
+    <subfield code="y">1996</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">396912</subfield>
+    <subfield code="h">R. Kallosh and A. D. Linde</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">103</subfield>
+    <subfield code="r">hep-th/9507022</subfield>
+    <subfield code="s">Phys.Rev.,D52,7137</subfield>
+    <subfield code="t">Exact supersymmetric massive and massless white holes</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">397738</subfield>
+    <subfield code="h">M. Cvetic and D. Youm</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">104</subfield>
+    <subfield code="r">hep-th/9507160</subfield>
+    <subfield code="s">Phys.Lett.,B359,87</subfield>
+    <subfield code="t">Singular BPS saturated states and enhanced symmetries of four-dimensional N=4 supersymmetric string vacua</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">396309</subfield>
+    <subfield code="h">K. Behrndt</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">105</subfield>
+    <subfield code="r">hep-th/9506106</subfield>
+    <subfield code="s">Nucl.Phys.,B455,188</subfield>
+    <subfield code="t">About a class of exact string backgrounds</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">510560</subfield>
+    <subfield code="h">C. V. Johnson, A. W. Peet, and J. Polchinski</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">106</subfield>
+    <subfield code="r">hep-th/9911161</subfield>
+    <subfield code="s">Phys.Rev.,D61,086001</subfield>
+    <subfield code="t">Gauge theory and the excision of repulson singularities</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">817999</subfield>
+    <subfield code="h">S. Cremonesi</subfield>
+    <subfield code="m">J. Phys. A42 , [325401]</subfield>
+    <subfield code="o">107</subfield>
+    <subfield code="r">arXiv:0904.2277</subfield>
+    <subfield code="t">Transmutation of N=2 fractional D3 branes into twisted sector fluxes</subfield>
+    <subfield code="y">2009</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">747898</subfield>
+    <subfield code="h">R. Argurio, M. Bertolini, G. Ferretti, A. Lerda, and C. Petersson</subfield>
+    <subfield code="m">JHEP 0706 , [067]</subfield>
+    <subfield code="o">108</subfield>
+    <subfield code="r">arXiv:0704.0262</subfield>
+    <subfield code="t">Stringy instantons at orbifold singularities</subfield>
+    <subfield code="y">2007</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">781354</subfield>
+    <subfield code="h">R. Argurio, G. Ferretti, and C. Petersson</subfield>
+    <subfield code="m">JHEP 0807 , [123]</subfield>
+    <subfield code="o">109</subfield>
+    <subfield code="r">arXiv:0803.2041</subfield>
+    <subfield code="t">Instantons and Toric Quiver Gauge Theories</subfield>
+    <subfield code="y">2008</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1199300</subfield>
+    <subfield code="h">R. Argurio, D. Forcella, A. Mariotti, D. Musso, and C. Petersson</subfield>
+    <subfield code="o">110</subfield>
+    <subfield code="r">arXiv:1211.1884</subfield>
+    <subfield code="s">JHEP,1302,002</subfield>
+    <subfield code="t">Field Theory Interpretation of N=2 Stringy Instantons</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1118613</subfield>
+    <subfield code="h">M. Billo, M. Frau, F. Fucito, L. Giacone, A. Lerda, J. Morales, and D. Ricci Pacifici</subfield>
+    <subfield code="o">111</subfield>
+    <subfield code="r">arXiv:1206.3914</subfield>
+    <subfield code="s">JHEP,1208,166</subfield>
+    <subfield code="t">Non-perturbative gauge/gravity correspondence in N=2 theories</subfield>
+    <subfield code="y">2012</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1202318</subfield>
+    <subfield code="h">N. Nekrasov and V. Pestun</subfield>
+    <subfield code="o">112</subfield>
+    <subfield code="r">arXiv:1211.2240</subfield>
+    <subfield code="t">Seiberg-Witten geometry of four dimensional N=2 quiver gauge theories</subfield>
+    <subfield code="y">2012</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1190540</subfield>
+    <subfield code="h">F. Fucito, J. F. Morales, and D. Ricci Pacifici</subfield>
+    <subfield code="o">113</subfield>
+    <subfield code="r">arXiv:1210.3580</subfield>
+    <subfield code="s">JHEP,1301,091</subfield>
+    <subfield code="t">Deformed Seiberg-Witten Curves for ADE Quivers</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">442767</subfield>
+    <subfield code="h">J. D. Blum and K. A. Intriligator</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">114</subfield>
+    <subfield code="r">hep-th/9705030</subfield>
+    <subfield code="s">Nucl.Phys.,B506,223</subfield>
+    <subfield code="t">Consistency conditions for branes at orbifold singularities</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">393687</subfield>
+    <subfield code="h">M. R. Douglas and S. H. Shenker</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">115</subfield>
+    <subfield code="r">hep-th/9503163</subfield>
+    <subfield code="s">Nucl.Phys.,B447,271</subfield>
+    <subfield code="t">Dynamics of SU(N) supersymmetric gauge theory</subfield>
+    <subfield code="y">1995</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">752732</subfield>
+    <subfield code="h">F. Benini, F. Canoura, S. Cremonesi, C. Nuñez, and A. V. Ramallo</subfield>
+    <subfield code="o">116</subfield>
+    <subfield code="r">arXiv:0706.1238</subfield>
+    <subfield code="s">JHEP,0709,109</subfield>
+    <subfield code="t">Backreacting flavors in the Klebanov-Strassler background</subfield>
+    <subfield code="y">2007</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1123930</subfield>
+    <subfield code="h">L. Martucci, J. F. Morales, and D. Ricci Pacifici</subfield>
+    <subfield code="o">117</subfield>
+    <subfield code="r">arXiv:1207.6120</subfield>
+    <subfield code="s">JHEP,1301,145</subfield>
+    <subfield code="t">Branes, U-folds and hyperelliptic fibrations</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">441476</subfield>
+    <subfield code="h">E. Witten</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">118</subfield>
+    <subfield code="r">hep-th/9703166</subfield>
+    <subfield code="s">Nucl.Phys.,B500,3</subfield>
+    <subfield code="t">Solutions of four-dimensional field theories via M theory</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">558723</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">119</subfield>
+    <subfield code="r">hep-th/0106192</subfield>
+    <subfield code="s">Nucl.Phys.,B612,151</subfield>
+    <subfield code="t">The Large N limit of N=2 superYang-Mills, fractional instantons and infrared divergences</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">445371</subfield>
+    <subfield code="h">O. Aharony, M. Berkooz, S. Kachru, N. Seiberg, and E. Silverstein</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">120</subfield>
+    <subfield code="r">hep-th/9707079</subfield>
+    <subfield code="s">Adv.Theor.Math.Phys.,1,148</subfield>
+    <subfield code="t">Matrix description of interacting theories in six-dimensions</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">503640</subfield>
+    <subfield code="h">M. Berkooz and H. L. Verlinde</subfield>
+    <subfield code="m">JHEP 9911 , [037]. arXiv:</subfield>
+    <subfield code="o">121</subfield>
+    <subfield code="r">hep-th/9907100</subfield>
+    <subfield code="t">Matrix theory, AdS / CFT and Higgs-Coulomb equivalence</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">466929</subfield>
+    <subfield code="h">N. Itzhaki, J. M. Maldacena, J. Sonnenschein, and S. Yankielowicz</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">122</subfield>
+    <subfield code="r">hep-th/9802042</subfield>
+    <subfield code="s">Phys.Rev.,D58,046004</subfield>
+    <subfield code="t">Supergravity and the Large N Limit of Theories with Sixteen Supercharges</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">S. R. Coleman</subfield>
+    <subfield code="m">In: Aspects of Symmetry. Cambridge University Press,. isbn-0521318270</subfield>
+    <subfield code="o">123</subfield>
+    <subfield code="t">1/N</subfield>
+    <subfield code="y">1985</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">478354</subfield>
+    <subfield code="h">J. Zinn-Justin</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">124</subfield>
+    <subfield code="r">hep-th/9810198</subfield>
+    <subfield code="t">Vector Models in the Large N Limit: a Few Applications</subfield>
+    <subfield code="y">1998</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">525047</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">125</subfield>
+    <subfield code="r">hep-th/0003142</subfield>
+    <subfield code="s">Phys.Lett.,B496,212</subfield>
+    <subfield code="t">Nonsupersymmetric Cousins of Supersymmetric Gauge Theories: Quantum Space of Parameters and Double Scaling Limits</subfield>
+    <subfield code="y">2000</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">552887</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="o">126</subfield>
+    <subfield code="r">hep-th/0102041</subfield>
+    <subfield code="s">JHEP,0106,057</subfield>
+    <subfield code="t">A Model for Gauge Theories with Higgs Fields</subfield>
+    <subfield code="y">2001</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">582498</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="m">JHEP 0205 , [044]. arXiv: (cit. on 119, 120)</subfield>
+    <subfield code="o">127</subfield>
+    <subfield code="r">hep-th/0202002</subfield>
+    <subfield code="t">Large N and Double Scaling Limits in Two-Dimensions</subfield>
+    <subfield code="y">2002</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">1264818</subfield>
+    <subfield code="h">F. Ferrari</subfield>
+    <subfield code="o">128</subfield>
+    <subfield code="r">arXiv:1311.4520</subfield>
+    <subfield code="t">D-Brane Probes in the Matrix Model</subfield>
+    <subfield code="y">2013</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">444118</subfield>
+    <subfield code="h">D.-E. Diaconescu and R. Entin</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">129</subfield>
+    <subfield code="r">hep-th/9706059</subfield>
+    <subfield code="s">Phys.Rev.,D56,8045</subfield>
+    <subfield code="t">A Nonrenormalization theorem for the d = 1, N=8 vector multiplet</subfield>
+    <subfield code="y">1997</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">498267</subfield>
+    <subfield code="h">W. Taylor and M. Van Raamsdonk</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">130</subfield>
+    <subfield code="r">hep-th/9904095</subfield>
+    <subfield code="s">Nucl.Phys.,B558,63</subfield>
+    <subfield code="t">Multiple D0-branes in weakly curved backgrounds</subfield>
+    <subfield code="y">1999</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">J. Wess and J. Bagger</subfield>
+    <subfield code="m">Princeton University Press,, isbn-0691025304</subfield>
+    <subfield code="o">131</subfield>
+    <subfield code="t">Supersymmetry and supergravity</subfield>
+    <subfield code="y">1992</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">588642</subfield>
+    <subfield code="h">N. A. Nekrasov</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">132</subfield>
+    <subfield code="r">hep-th/0206161</subfield>
+    <subfield code="s">Adv.Theor.Math.Phys.,7,831</subfield>
+    <subfield code="t">Seiberg-Witten prepotential from instanton counting</subfield>
+    <subfield code="y">2004</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="0">622076</subfield>
+    <subfield code="h">N. Nekrasov and A. Okounkov</subfield>
+    <subfield code="m">arXiv:</subfield>
+    <subfield code="o">133</subfield>
+    <subfield code="r">hep-th/0306238</subfield>
+    <subfield code="t">Seiberg-Witten theory and random partitions</subfield>
+    <subfield code="y">2003</subfield>
+    <subfield code="z">1</subfield>
+  </datafield>
+  <datafield tag="999" ind1="C" ind2="5">
+    <subfield code="h">(F. W. Olver, D. W. Lozier, R. F. Boisvert, and C. W. Clark (eds.))</subfield>
+    <subfield code="m">NIST Handbook of Mathematical Functions. Cambridge University Press</subfield>
+    <subfield code="o">134</subfield>
+    <subfield code="u">http://dlmf.nist.gov/</subfield>
+    <subfield code="y">2010</subfield>
+  </datafield>
+  <datafield tag="FFT" ind1=" " ind2=" ">
+    <subfield code="a">/opt/cds-invenio/var/data/files/g97/1940001/content.pdf;2</subfield>
+    <subfield code="d"></subfield>
+    <subfield code="f">.pdf</subfield>
+    <subfield code="n">arXiv:1409.0794</subfield>
+    <subfield code="r"></subfield>
+    <subfield code="s">2015-01-12 03:41:58</subfield>
+    <subfield code="t">arXiv</subfield>
+    <subfield code="v">2</subfield>
+    <subfield code="z"></subfield>
+  </datafield>
+</record>
+
+</collection>

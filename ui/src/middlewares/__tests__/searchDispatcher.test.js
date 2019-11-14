@@ -1,378 +1,154 @@
-import { LOCATION_CHANGE } from 'connected-react-router';
+import { fromJS } from 'immutable';
 
 import middleware from '../searchDispatcher';
 import {
-  searchForCurrentLocation,
-  fetchSearchAggregationsForCurrentLocation,
+  searchForCurrentQuery,
+  fetchSearchAggregationsForCurrentQuery,
+  newSearch,
 } from '../../actions/search';
-import { LITERATURE, AUTHORS, JOBS, SUBMISSIONS } from '../../common/routes';
+import { LITERATURE_NS } from '../../reducers/search';
+import {
+  SEARCH_QUERY_UPDATE,
+  SEARCH_BASE_QUERIES_UPDATE,
+} from '../../actions/actionTypes';
 
 jest.mock('../../actions/search');
 
 describe('searchDispatcher middleware', () => {
+  let dispatch;
+  const namespace = LITERATURE_NS;
+
+  beforeEach(() => {
+    const baseQuery = fromJS({ sort: 'mostrecent', author: ['Dude_1234'] });
+    let search = fromJS({
+      namespaces: {
+        [namespace]: {
+          query: baseQuery,
+          baseQuery,
+          baseAggregationsQuery: {},
+        },
+      },
+    });
+    const getState = () => ({ search });
+    // FIXME: too much mocking, to imitate search reducer
+    // consider `store` integration tests for these cases
+    const next = action => {
+      search = search
+        .mergeIn(
+          ['namespaces', namespace, 'baseQuery'],
+          action.payload.baseQuery
+        )
+        .mergeIn(['namespaces', namespace, 'query'], action.payload.query)
+        .mergeIn(
+          ['namespaces', namespace, 'baseAggregationsQuery'],
+          action.payload.baseAggregationsQuery
+        );
+    };
+    dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+  });
+
   afterEach(() => {
-    searchForCurrentLocation.mockClear();
-    fetchSearchAggregationsForCurrentLocation.mockClear();
+    searchForCurrentQuery.mockClear();
+    fetchSearchAggregationsForCurrentQuery.mockClear();
+    newSearch.mockClear();
   });
 
-  it('calls searchForCurrentLocation when LOCATION_CHANGE with a different pathname but same search', () => {
-    const router = {
-      location: {
-        pathname: LITERATURE,
-        search: '?filter=value',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+  it('dispatches search and fetch aggregations when initial SEARCH_QUERY_UPDATE with empty query', () => {
     const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: JOBS,
-          search: '?filter=value',
-        },
-      },
+      type: SEARCH_QUERY_UPDATE,
+      payload: { namespace, query: {} },
     };
     dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-  });
-
-  it('calls searchForCurrentLocation when LOCATION_CHANGE but pathname or search has not changed if isFirstRendering', () => {
-    const router = {
-      location: {
-        pathname: LITERATURE,
-        search: '?filter=value',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: LITERATURE,
-          search: '?filter=value',
-        },
-        isFirstRendering: true,
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-  });
-
-  it('calls searchForCurrentLocation when LOCATION_CHANGE when search has changed', () => {
-    const router = {
-      location: {
-        pathname: AUTHORS,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: AUTHORS,
-          search: '?filter=value2',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-  });
-
-  it('calls searchForCurrentLocation when LOCATION_CHANGE when search is empty', () => {
-    const router = {
-      location: {
-        pathname: AUTHORS,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: JOBS,
-          search: '',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-  });
-
-  it('does not call searchForCurrentLocation when LOCATION_CHANGE unless it a collection page [/submissions] even if pathname and search have changed', () => {
-    const router = {
-      location: {
-        pathname: JOBS,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${SUBMISSIONS}/whatever`,
-          search: '?filter=value2',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).not.toHaveBeenCalled();
-  });
-
-  it('does not call searchForCurrentLocation when LOCATION_CHANGE with same pathname + id', () => {
-    const router = {
-      location: {
-        pathname: JOBS,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${JOBS}/1234`,
-          search: '',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).not.toHaveBeenCalled();
-  });
-
-  it('does not call searchForCurrentLocation when LOCATION_CHANGE with a different pathname + id', () => {
-    const router = {
-      location: {
-        pathname: LITERATURE,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${AUTHORS}/1234`,
-          search: '',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).not.toHaveBeenCalled();
-  });
-
-  it('does not call aggregation fetch when LOCATION_CHANGE if it is for author page', () => {
-    const router = {
-      location: {
-        pathname: `${LITERATURE}`,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${AUTHORS}`,
-          search: '?filter=value2',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-    expect(fetchSearchAggregationsForCurrentLocation).not.toHaveBeenCalled();
-  });
-
-  it('does not call aggregation fetch when LOCATION_CHANGE if location remains in jobs page', () => {
-    const router = {
-      location: {
-        pathname: `${JOBS}`,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${JOBS}`,
-          search: '?filter=value2',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-    expect(fetchSearchAggregationsForCurrentLocation).not.toHaveBeenCalled();
-  });
-
-  it('calls aggregation fetch with useLocationQuery false when LOCATION_CHANGE if location just changed to jobs page', () => {
-    const router = {
-      location: {
-        pathname: `${LITERATURE}`,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-
-    const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${JOBS}`,
-          search: '?filter=value1',
-        },
-      },
-    };
-    dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-    expect(fetchSearchAggregationsForCurrentLocation).toHaveBeenCalledWith(
-      false
+    expect(searchForCurrentQuery).toHaveBeenCalledWith(namespace);
+    expect(fetchSearchAggregationsForCurrentQuery).toHaveBeenCalledWith(
+      namespace
     );
   });
 
-  it('calls aggregation fetch with useLocationQuery false when LOCATION_CHANGE if isFirstRendering', () => {
-    const router = {
-      location: {
-        pathname: `${JOBS}`,
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+  it('dispatches search and fetch aggregations when SEARCH_QUERY_UPDATE changes query', () => {
     const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${JOBS}`,
-          search: '?filter=value1',
-        },
-        isFirstRendering: true,
-      },
+      type: SEARCH_QUERY_UPDATE,
+      payload: { namespace, query: { doc_type: 'book' } },
     };
     dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-    expect(fetchSearchAggregationsForCurrentLocation).toHaveBeenCalledWith(
-      false
+    expect(searchForCurrentQuery).toHaveBeenCalledWith(namespace);
+    expect(fetchSearchAggregationsForCurrentQuery).toHaveBeenCalledWith(
+      namespace
     );
   });
 
-  it('does not call aggregation fetch if only sort changed', () => {
-    const router = {
-      location: {
-        pathname: `${LITERATURE}`,
-        search: '?filter=value1&sort=mostcited',
-        query: { sort: 'mostcited', filter: 'value1' },
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+  it('dispatches only search when SEARCH_QUERY_UPDATE changes page in query', () => {
     const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${LITERATURE}`,
-          search: '?filter=value1&sort=deadline',
-          query: { sort: 'deadline', filter: 'value1' },
-        },
-      },
+      type: SEARCH_QUERY_UPDATE,
+      payload: { namespace, query: { page: 2 } },
     };
     dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-    expect(fetchSearchAggregationsForCurrentLocation).not.toHaveBeenCalled();
+    expect(searchForCurrentQuery).toHaveBeenCalledWith(namespace);
+    expect(fetchSearchAggregationsForCurrentQuery).not.toHaveBeenCalled();
   });
 
-  it('does not call aggregation fetch if only page changed', () => {
-    const router = {
-      location: {
-        pathname: `${LITERATURE}`,
-        search: '?filter=value1&page=1',
-        query: { page: '1', filter: 'value1' },
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+  it('dispatches only search when SEARCH_QUERY_UPDATE changes sort in query', () => {
     const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${LITERATURE}`,
-          search: '?filter=value1&page=2',
-          query: { page: '2', filter: 'value1' },
-        },
-      },
+      type: SEARCH_QUERY_UPDATE,
+      payload: { namespace, query: { sort: 'mostcited' } },
     };
     dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-    expect(fetchSearchAggregationsForCurrentLocation).not.toHaveBeenCalled();
+    expect(searchForCurrentQuery).toHaveBeenCalledWith(namespace);
+    expect(fetchSearchAggregationsForCurrentQuery).not.toHaveBeenCalled();
   });
 
-  it('calls aggregation fetch if more than page/sort have changed in query', () => {
-    const router = {
-      location: {
-        pathname: `${LITERATURE}`,
-        search: '?filter=value1&page=1',
-        query: { page: '1', filter: 'value1' },
-      },
-    };
-    const getState = () => ({ router });
-    const next = jest.fn();
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
-
+  it('dispatches newSearch when query update has different `q` then current ', () => {
     const action = {
-      type: LOCATION_CHANGE,
-      payload: {
-        location: {
-          pathname: `${LITERATURE}`,
-          search: '?filter=value2&page=2',
-          query: { page: '2', filter: 'value2' },
-        },
-      },
+      type: SEARCH_QUERY_UPDATE,
+      payload: { namespace, query: { sort: 'mostcited', q: 'dude' } },
     };
     dispatch(action);
-    expect(searchForCurrentLocation).toHaveBeenCalled();
-    expect(fetchSearchAggregationsForCurrentLocation).toHaveBeenCalled();
+    expect(newSearch).toHaveBeenCalledWith(namespace);
+  });
+
+  it('does not dispatch newSearch when query update without q', () => {
+    const action = {
+      type: SEARCH_QUERY_UPDATE,
+      payload: { namespace, query: { page: '2' } },
+    };
+    dispatch(action);
+    expect(newSearch).not.toHaveBeenCalled();
+  });
+
+  it('dispatches search and fetch aggregations when SEARCH_BASE_QUERIES_UPDATE changes base query', () => {
+    const action = {
+      type: SEARCH_BASE_QUERIES_UPDATE,
+      payload: { namespace, baseQuery: { author: ['1234_Dude'] } },
+    };
+    dispatch(action);
+    expect(searchForCurrentQuery).toHaveBeenCalledWith(namespace);
+    expect(fetchSearchAggregationsForCurrentQuery).toHaveBeenCalledWith(
+      namespace
+    );
+  });
+
+  it('dispatches search and fetch aggregations when SEARCH_BASE_QUERIES_UPDATE changes base aggregations query', () => {
+    const action = {
+      type: SEARCH_BASE_QUERIES_UPDATE,
+      payload: { namespace, baseAggregationsQuery: { facet_name: 'test' } },
+    };
+    dispatch(action);
+    expect(searchForCurrentQuery).not.toHaveBeenCalled();
+    expect(fetchSearchAggregationsForCurrentQuery).toHaveBeenCalledWith(
+      namespace
+    );
   });
 
   it('returns next(action) for any action', () => {
-    const router = {
-      location: {
-        pathname: '/one',
-        search: '?filter=value1',
-      },
-    };
-    const getState = () => ({ router });
+    // custom one is created to be able to mock `next`
+    const getState = () => {};
     const next = jest.fn(() => 'NEXT');
-    const dispatch = middleware({ getState, dispatch: jest.fn() })(next);
+    const customDispatch = middleware({ getState, dispatch: jest.fn() })(next);
     const action = {
       type: 'WHATEVER',
       payload: {},
     };
-    const result = dispatch(action);
+    const result = customDispatch(action);
     expect(next).toHaveBeenCalledWith(action);
     expect(result).toEqual('NEXT');
   });

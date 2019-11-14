@@ -13,6 +13,7 @@ from inspire_utils.record import get_value
 from marshmallow import fields, missing
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
+from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
 from inspirehep.records.utils import get_literature_earliest_date
 
 from ..base import EnvelopeSchema
@@ -32,7 +33,7 @@ from .common import (
 )
 
 
-class LiteratureDetailSchema(LiteraturePublicSchema):
+class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
     """Schema for Literature records to displayed on UI"""
 
     class Meta:
@@ -55,10 +56,6 @@ class LiteratureDetailSchema(LiteraturePublicSchema):
             "references",
             "withdrawn",
         ]
-
-    def __init__(self, *args, **kwargs):
-        super().__init__()
-        self.post_dumps.append(self.set_can_edit)
 
     accelerator_experiments = fields.Nested(
         AcceleratorExperimentSchemaV1, dump_only=True, many=True
@@ -157,12 +154,6 @@ class LiteratureDetailSchema(LiteraturePublicSchema):
         if maybe_none_list is None:
             return missing
         return len(maybe_none_list)
-
-    @staticmethod
-    def set_can_edit(data, orginal_data):
-        if is_superuser_or_cataloger_logged_in():
-            data["can_edit"] = True
-        return data
 
 
 class LiteratureListWrappedSchema(EnvelopeSchema):

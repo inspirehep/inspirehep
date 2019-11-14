@@ -1,6 +1,7 @@
 import MockAdapter from 'axios-mock-adapter';
+import { fromJS } from 'immutable';
 
-import { getStore } from '../../fixtures/store';
+import { getStore, getStoreWithState } from '../../fixtures/store';
 import http from '../../common/http';
 import * as types from '../actionTypes';
 import {
@@ -22,30 +23,49 @@ describe('citations - async action creator', () => {
       .replyOnce(200, { foo: 'bar' });
 
     const expectedActions = [
-      { type: types.CITATIONS_REQUEST },
+      { type: types.CITATIONS_REQUEST, payload: { page: 1, size: 10 } },
       { type: types.CITATIONS_SUCCESS, payload: { foo: 'bar' } },
     ];
 
     const store = getStore();
-    await store.dispatch(
-      fetchCitations('literature', 123, { page: 1, pageSize: 10 })
-    );
+    await store.dispatch(fetchCitations(123, { page: 1, size: 10 }));
+    expect(store.getActions()).toEqual(expectedActions);
+    done();
+  });
+
+  it('fetches citations with merging the given query into the existing one ', async done => {
+    mockHttp
+      .onGet('/literature/123/citations?size=10&page=10&q=dude&sort=mostrecent')
+      .replyOnce(200, {});
+
+    const expectedActions = [
+      {
+        type: types.CITATIONS_REQUEST,
+        payload: { size: 10, page: 10, q: 'dude', sort: 'mostrecent' },
+      },
+      { type: types.CITATIONS_SUCCESS, payload: {} },
+    ];
+
+    const store = getStoreWithState({
+      citations: fromJS({
+        query: { size: 10, page: 2, q: 'dude', sort: 'mostrecent' },
+      }),
+    });
+    await store.dispatch(fetchCitations(123, { page: 10 }));
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
   it('creates CITATIONS_ERROR if unsuccessful', async done => {
-    mockHttp.onGet('/authors/123/citations?page=2&size=10').replyOnce(500);
+    mockHttp.onGet('/literature/123/citations?page=2&size=10').replyOnce(500);
 
     const expectedActions = [
-      { type: types.CITATIONS_REQUEST },
+      { type: types.CITATIONS_REQUEST, payload: { page: 2, size: 10 } },
       { type: types.CITATIONS_ERROR, payload: { status: 500 } },
     ];
 
     const store = getStore();
-    await store.dispatch(
-      fetchCitations('authors', 123, { page: 2, pageSize: 10 })
-    );
+    await store.dispatch(fetchCitations(123, { page: 2, size: 10 }));
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
