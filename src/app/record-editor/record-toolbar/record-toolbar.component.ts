@@ -20,10 +20,12 @@
  * as an Intergovernmental Organization or submit itself to any jurisdiction.
  */
 
-import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, OnInit } from '@angular/core';
 
-import { SavePreviewModalService, GlobalAppStateService } from '../../core/services';
-import { SubscriberComponent } from '../../shared/classes';
+import { GlobalAppStateService, RecordApiService, RecordCleanupService, DomUtilsService } from '../../core/services';
+import { SubscriberComponent, ApiError } from '../../shared/classes';
+import { ToastrService } from 'ngx-toastr';
+import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 
 @Component({
   selector: 're-record-toolbar',
@@ -46,8 +48,11 @@ export class RecordToolbarComponent extends SubscriberComponent implements OnIni
   private hasAnyValidationProblem = false;
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-    private savePreviewModalService: SavePreviewModalService,
-    private globalAppStateService: GlobalAppStateService) {
+    private apiService: RecordApiService,
+    private recordCleanupService: RecordCleanupService,
+    private globalAppStateService: GlobalAppStateService,
+    private domUtilsService: DomUtilsService,
+    private toastrService: ToastrService) {
     super();
   }
 
@@ -90,7 +95,34 @@ export class RecordToolbarComponent extends SubscriberComponent implements OnIni
   }
 
   onSaveClick() {
-    this.savePreviewModalService.displayModal({ record: this.record });
+    const references = this.record['references'];
+    this.apiService.getLinkedReferences(references)
+      .then(linkedReferences => {
+        this.record['references'] = linkedReferences;
+        const recordWithLinkedReferences = Object.assign({}, this.record);
+        this.globalAppStateService.jsonBeingEdited$.next(recordWithLinkedReferences);
+        this.cleanupAndSaveRecord(recordWithLinkedReferences);
+      }).catch(() => {
+        this.cleanupAndSaveRecord(this.record);
+      });
+  }
+
+  private cleanupAndSaveRecord(record) {
+    this.recordCleanupService.cleanup(record);
+    this.apiService.saveRecord(record)
+      .subscribe(() => this.onSaveSuccess(), error => this.onSaveError(error));
+  }
+
+  private onSaveSuccess() {
+    this.domUtilsService.unregisterBeforeUnloadPrompt();
+  }
+
+  private onSaveError(error: ApiError) {
+    if (error.message) {
+      this.toastrService.error(error.message, 'Error', HOVER_TO_DISMISS_INDEFINITE_TOAST);
+    } else {
+      this.toastrService.error('Could not save the record', 'Error');
+    }
   }
 
   get saveButtonDisabledAttribute(): string {

@@ -21,7 +21,7 @@
  */
 
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-
+import { Observable } from 'rxjs/Observable';
 import { ToastrService } from 'ngx-toastr';
 
 import { CommonApiService, GlobalAppStateService } from '../../../core/services';
@@ -51,12 +51,17 @@ export class TicketsComponent extends SubscriberComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.globalAppStateService.pidValueBeingEdited$
+    Observable.combineLatest(
+      this.globalAppStateService.pidTypeBeingEdited$,
+      this.globalAppStateService.pidValueBeingEdited$,
+      (pidType, pidValue) => ({ pidType, pidValue }))
       .takeUntil(this.isDestroyed)
-      .filter(recordId => recordId)
-      .subscribe((recordId) => {
-        this.recordId = recordId;
-        this.fetchTickets();
+      .filter(({ pidValue }) => Boolean(pidValue))
+      .subscribe(({ pidType, pidValue }) => {
+        this.recordId = pidValue;
+        if (pidType === 'literature') {
+          this.fetchTickets();
+        }
       });
   }
 
