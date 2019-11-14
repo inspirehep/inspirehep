@@ -12,7 +12,6 @@ from datetime import datetime, timedelta
 from functools import partial
 
 import pytest
-import sqlalchemy
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.providers.faker import faker
@@ -58,17 +57,17 @@ def clear_environment(app):
     from sqlalchemy_utils.functions import create_database, database_exists
 
     with app.app_context():
-        db_.session.commit()
-        db_.session.remove()
-        try:
-            db_.drop_all()
-        except sqlalchemy.exc.OperationalError:
-            # Prevent deadlocks on dropping table
-            db_.drop_all()
         if not database_exists(str(db_.engine.url)):
             create_database(str(db_.engine.url))
         db_.create_all()
-
+        db_.session.rollback()
+        db_.session.remove()
+        all_tables = db_.metadata.tables
+        for table_name, table_object in all_tables.items():
+            db_.session.execute(f"ALTER TABLE {table_name} DISABLE TRIGGER ALL;")
+            db_.session.execute(table_object.delete())
+            db_.session.execute(f"ALTER TABLE {table_name} ENABLE TRIGGER ALL;")
+        db.session.commit()
         _es = app.extensions["invenio-search"]
         list(_es.delete(ignore=[404]))
         list(_es.create(ignore=[400]))

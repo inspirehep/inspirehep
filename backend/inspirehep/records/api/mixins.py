@@ -362,9 +362,10 @@ class ConferencePaperAndProceedingsMixin:
             "publication_info.conference_record"
         )
         conferences = self.get_records_by_pids(conferences_pids)
+        conference_literature_relations_waiting_for_commit = []
         for conference in conferences:
             if conference.get("deleted") is not True:
-                db.session.add(
+                conference_literature_relations_waiting_for_commit.append(
                     ConferenceLiterature(
                         conference_uuid=conference.id,
                         literature_uuid=self.id,
@@ -373,6 +374,18 @@ class ConferencePaperAndProceedingsMixin:
                         ),
                     )
                 )
+        if len(conference_literature_relations_waiting_for_commit) > 0:
+            db.session.bulk_save_objects(
+                conference_literature_relations_waiting_for_commit
+            )
+            LOGGER.info(
+                "Conferecnce-literature relation set",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+                records_attached=len(
+                    conference_literature_relations_waiting_for_commit
+                ),
+            )
 
     def update_conference_paper_and_proccedings(self):
         self.clean_conference_literature_relation()
