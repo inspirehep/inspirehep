@@ -19,15 +19,13 @@ from redis import StrictRedis
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
     create_records_from_mirror_recids,
-    index_records,
     migrate_and_insert_record,
     migrate_from_file,
     migrate_from_mirror,
     populate_mirror_from_file,
     process_references_in_records,
-    update_relations,
 )
-from inspirehep.records.api import InspireRecord, LiteratureRecord
+from inspirehep.records.api import InspireRecord, JobsRecord, LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
 
@@ -543,3 +541,13 @@ def test_create_records_from_mirror_recids_with_different_types_of_record(
 
     with pytest.raises(PIDDoesNotExistError):
         InspireRecord.get_record_by_pid_value(667, "lit")
+
+
+def test_migrate_from_mirror_doesnt_raise_on_job_records(base_app, db, es_clear):
+    record_fixture_path = pkg_resources.resource_filename(
+        __name__, os.path.join("fixtures", "1695012.xml")
+    )
+    migrate_from_file(record_fixture_path)
+    job_rec = LegacyRecordsMirror.query.filter(LegacyRecordsMirror.recid==1695012).one()
+
+    assert job_rec.valid

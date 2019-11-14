@@ -19,10 +19,18 @@ from celery.result import AsyncResult
 from flask import current_app
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
+from inspire_dojson.errors import NotSupportedError
 from invenio_db import db
 from invenio_pidstore.errors import PIDValueError
 from jsonschema import ValidationError
 
+from inspirehep.migrator.models import LegacyRecordsMirror
+from inspirehep.migrator.utils import (
+    cache_afs_file_locations,
+    ensure_valid_schema,
+    remove_cached_afs_file_locations,
+    replace_afs_file_locations_with_local,
+)
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -30,14 +38,6 @@ from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.indexer.tasks import batch_index
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.records.tasks import update_records_relations
-
-from .models import LegacyRecordsMirror
-from .utils import (
-    cache_afs_file_locations,
-    ensure_valid_schema,
-    remove_cached_afs_file_locations,
-    replace_afs_file_locations_with_local,
-)
 
 LOGGER = structlog.getLogger()
 CHUNK_SIZE = 100
@@ -344,11 +344,16 @@ def migrate_record_from_mirror(
     logger = LOGGER.bind(recid=prod_record.recid)
     try:
         json_record = marcxml2record(prod_record.marcxml)
+    except NotSupportedError as exc:
+        logger.warning(str(exc), recid=prod_record.recid)
+        prod_record.valid = True
+        db.session.merge(prod_record)
+        return
     except Exception as exc:
         logger.exception("Error converting from marcxml")
         prod_record.error = exc
         db.session.merge(prod_record)
-        return None
+        return
 
     if "$schema" in json_record:
         ensure_valid_schema(json_record)
