@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
 
 import SearchScopeSelect from '../components/SearchScopeSelect';
-import { changeSearchScope } from '../../actions/search';
+import { changeSearchBoxNamespace } from '../../actions/search';
 
 const stateToProps = state => ({
-  searchScopeName: state.search.getIn(['scope', 'name']),
+  searchScopeName: state.search.get('searchBoxNamespace'),
 });
 
 export const dispatchToProps = dispatch => ({
   onSearchScopeChange(scope) {
-    dispatch(changeSearchScope(scope));
+    dispatch(changeSearchBoxNamespace(scope));
   },
 });
 
+// TODO: rename it SearchBoxNamespaceSelect (and the props)
 export default connect(stateToProps, dispatchToProps)(SearchScopeSelect);

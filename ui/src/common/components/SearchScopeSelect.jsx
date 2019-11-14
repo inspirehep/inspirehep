@@ -2,12 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import SelectBox from './SelectBox';
-import { searchScopes } from '../../reducers/search';
+import { SEARCH_BOX_NAMESPACES } from '../../reducers/search';
 
-const SCOPE_OPTIONS = searchScopes
-  .keySeq()
-  .map(scope => ({ value: scope }))
-  .toJS();
+const SCOPE_OPTIONS = SEARCH_BOX_NAMESPACES.map(value => ({ value }));
 
 class SearchScopeSelect extends Component {
   render() {

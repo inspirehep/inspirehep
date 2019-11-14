@@ -21,3 +21,4 @@ global.MutationObserver = class {
 };
 global.document.getSelection = function() {};
 global.CONFIG = {};
+global.scrollTo = () => {};

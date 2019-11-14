@@ -1,149 +1,179 @@
-import { push } from 'connected-react-router';
 import { stringify } from 'qs';
+import { push } from 'connected-react-router';
 
 import {
   SEARCH_REQUEST,
   SEARCH_ERROR,
   SEARCH_SUCCESS,
-  CHANGE_SEARCH_SCOPE,
   SEARCH_AGGREGATIONS_REQUEST,
   SEARCH_AGGREGATIONS_SUCCESS,
   SEARCH_AGGREGATIONS_ERROR,
+  SEARCH_QUERY_UPDATE,
   NEW_SEARCH_REQUEST,
+  CHANGE_SEARCH_BOX_NAMESPACE,
+  SEARCH_BASE_QUERIES_UPDATE,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
+import { FETCH_MODE_NEVER, FETCH_MODE_INITIAL } from '../reducers/search';
 
-export function changeSearchScope(scope) {
-  return {
-    type: CHANGE_SEARCH_SCOPE,
-    payload: scope,
-  };
+function getQueryForCurrentState(namespace, state) {
+  const { search } = state;
+  return search.getIn(['namespaces', namespace, 'query']).toJS();
 }
 
-function getSearchQueryStringForCurrentState(state) {
-  const {
-    router: { location },
-    search,
-  } = state;
-  const baseQueryForCurrentSearchScope = search
-    .getIn(['scope', 'query'])
-    .toJS();
-  return stringify(
-    { ...baseQueryForCurrentSearchScope, ...location.query },
-    { indices: false }
-  );
+function getPathnameForNamespace(namespace, state) {
+  const { search } = state;
+  return search.getIn(['namespaces', namespace, 'pathname']);
 }
 
-function searching() {
+function searching(namespace) {
   return {
     type: SEARCH_REQUEST,
+    payload: { namespace },
   };
 }
 
-function searchSuccess(result) {
+function searchSuccess(namespace, data) {
   return {
     type: SEARCH_SUCCESS,
-    payload: result,
+    payload: { namespace, data },
   };
 }
 
-function searchError(error) {
+function searchError(namespace, error) {
   return {
     type: SEARCH_ERROR,
-    payload: error,
+    payload: { namespace, error },
     meta: { redirectableError: true },
   };
 }
 
-export function searchForCurrentLocation() {
+function shouldPushQueryToUrl(namespace, state) {
+  const { search } = state;
+  return !search.getIn(['namespaces', namespace, 'embedded']);
+}
+
+export function searchForCurrentQuery(namespace) {
   return async (dispatch, getState, http) => {
-    dispatch(searching());
+    dispatch(searching(namespace));
     const state = getState();
-    const searchQueryString = getSearchQueryStringForCurrentState(state);
-    const {
-      router: { location },
-    } = state;
-    const url = `${location.pathname}?${searchQueryString}`;
+    const query = getQueryForCurrentState(namespace, state);
+    const queryString = stringify(query, { indices: false });
+    const pathname = getPathnameForNamespace(namespace, state);
+    const url = `${pathname}?${queryString}`;
+
+    if (shouldPushQueryToUrl(namespace, state)) {
+      dispatch(push(url));
+    }
+
     try {
       const response = await http.get(url, UI_SERIALIZER_REQUEST_OPTIONS);
-      dispatch(searchSuccess(response.data));
+      dispatch(searchSuccess(namespace, response.data));
     } catch (error) {
-      const payload = httpErrorToActionPayload(error);
-      dispatch(searchError(payload));
+      const errorPayload = httpErrorToActionPayload(error);
+      dispatch(searchError(namespace, errorPayload));
     }
   };
 }
 
-function newSearch() {
-  return {
-    type: NEW_SEARCH_REQUEST,
-  };
-}
-
-function fetchingSearchAggregations() {
+function fetchingSearchAggregations(namespace) {
   return {
     type: SEARCH_AGGREGATIONS_REQUEST,
+    payload: { namespace },
   };
 }
 
-function searchAggregationsSuccess(result) {
+function searchAggregationsSuccess(namespace, data) {
   return {
     type: SEARCH_AGGREGATIONS_SUCCESS,
-    payload: result,
+    payload: { data, namespace },
   };
 }
 
-function searchAggregationsError(error) {
+function searchAggregationsError(namespace, error) {
   return {
     type: SEARCH_AGGREGATIONS_ERROR,
-    payload: error,
+    payload: { error, namespace },
   };
 }
 
-export function fetchSearchAggregationsForCurrentLocation(
-  useLocationQuery = true
-) {
+export function fetchSearchAggregationsForCurrentQuery(namespace) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingSearchAggregations());
-
     const state = getState();
-    const searchQueryString = getSearchQueryStringForCurrentState(state);
-    const {
-      router: { location },
-    } = state;
-    const url = `${location.pathname}/facets${
-      useLocationQuery ? `?${searchQueryString}` : ''
-    }`;
+    const aggregationsFetchMode = state.search.getIn([
+      'namespaces',
+      namespace,
+      'aggregationsFetchMode',
+    ]);
+
+    const isAggregationsEmpty = state.search
+      .getIn(['namespaces', namespace, 'aggregations'])
+      .isEmpty();
+
+    if (
+      aggregationsFetchMode === FETCH_MODE_NEVER ||
+      (aggregationsFetchMode === FETCH_MODE_INITIAL && !isAggregationsEmpty)
+    ) {
+      return;
+    }
+
+    dispatch(fetchingSearchAggregations(namespace));
+
+    const searchQuery =
+      aggregationsFetchMode === FETCH_MODE_INITIAL
+        ? {}
+        : getQueryForCurrentState(namespace, state);
+    const baseAggregationsQuery = state.search
+      .getIn(['namespaces', namespace, 'baseAggregationsQuery'])
+      .toJS();
+    const aggregationsQuery = {
+      ...searchQuery,
+      ...baseAggregationsQuery,
+    };
+    const queryString = stringify(aggregationsQuery, { indices: false });
+    const pathname = getPathnameForNamespace(namespace, state);
+    const url = `${pathname}/facets?${queryString}`;
 
     try {
       const response = await http.get(url);
-      dispatch(searchAggregationsSuccess(response.data));
+      dispatch(searchAggregationsSuccess(namespace, response.data));
     } catch (error) {
-      dispatch(searchAggregationsError(error.response && error.response.data));
+      const errorPayload = httpErrorToActionPayload(error);
+      dispatch(searchAggregationsError(namespace, errorPayload));
     }
   };
 }
 
-// triggers LOCATION_CHANGE which then triggers search request via `middlewares/searchDispatcher`
-export function pushQueryToLocation(query, clearLocationQuery = false) {
-  // TODO: clearLocationQuery is set to true only if query has `q` so, remove the param
-  // and use something `isNewSearch(query)` instead.
-  return async (dispatch, getState) => {
-    const state = getState();
-    const locationQuery = clearLocationQuery ? {} : state.router.location.query;
-    const newQuery = { ...locationQuery, ...query };
+// this then MAY trigger search and aggregations request in `searchDispatcher.js`
+export function searchQueryUpdate(namespace, query) {
+  return {
+    type: SEARCH_QUERY_UPDATE,
+    payload: { query, namespace },
+  };
+}
 
-    const pathname = state.search.getIn(['scope', 'pathname']);
-    const queryString = stringify(newQuery, { indices: false });
-    const url = `/${pathname}?${queryString}`;
+export function newSearch(namespace) {
+  return {
+    type: NEW_SEARCH_REQUEST,
+    payload: { namespace },
+  };
+}
 
-    if (Object.keys(newQuery).length > 0) {
-      dispatch(push(url));
-      if (clearLocationQuery) {
-        // TODO: dispatch also when pathname (scope) changes
-        dispatch(newSearch());
-      }
-    }
+// this then MAY trigger search and aggregations request in `searchDispatcher.js`
+export function searchBaseQueriesUpdate(
+  namespace,
+  { baseQuery, baseAggregationsQuery }
+) {
+  return {
+    type: SEARCH_BASE_QUERIES_UPDATE,
+    payload: { namespace, baseQuery, baseAggregationsQuery },
+  };
+}
+
+export function changeSearchBoxNamespace(searchBoxNamespace) {
+  return {
+    type: CHANGE_SEARCH_BOX_NAMESPACE,
+    payload: { searchBoxNamespace },
   };
 }

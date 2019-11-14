@@ -6,9 +6,11 @@ import { Provider } from 'react-redux';
 import { getStoreWithState } from '../../../fixtures/store';
 import ResultsContainer from '../ResultsContainer';
 import SearchResults from '../../components/SearchResults';
+import { JOBS_NS } from '../../../reducers/search';
 
 describe('ResultsContainer', () => {
   it('passes results from state', () => {
+    const namespace = JOBS_NS;
     const results = fromJS([
       {
         id: 1,
@@ -21,11 +23,10 @@ describe('ResultsContainer', () => {
     ]);
     const store = getStoreWithState({
       search: fromJS({
-        results,
-        scope: {
-          query: {
-            page: 1,
-            size: 25,
+        namespaces: {
+          [namespace]: {
+            results,
+            query: { page: 1, size: 25 },
           },
         },
       }),
@@ -34,7 +35,7 @@ describe('ResultsContainer', () => {
 
     const wrapper = mount(
       <Provider store={store}>
-        <ResultsContainer renderItem={renderItem} />
+        <ResultsContainer namespace={namespace} renderItem={renderItem} />
       </Provider>
     );
     expect(wrapper.find(SearchResults)).toHaveProp({

@@ -305,6 +305,18 @@ CONFERENCES.update(
                 "completion": {"field": "conferenceautocomplete"},
             }
         },
+        "update_permission_factory_imp": api_access_permission_check,
+        "search_serializers": {
+            "application/json": INSPIRE_SERIALIZERS
+            + ":conferences_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":conferences_json_list_response",
+        },
+        "record_serializers": {
+            "application/json": INSPIRE_SERIALIZERS + ":conferences_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":conferences_json_detail_response",
+        },
     }
 )
 

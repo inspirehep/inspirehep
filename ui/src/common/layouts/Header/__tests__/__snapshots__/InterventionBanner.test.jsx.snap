@@ -2,6 +2,8 @@
 
 exports[`InterventionBanner does not render when REACT_APP_INTERVENTION_BANNER is not set in config 1`] = `""`;
 
+exports[`InterventionBanner does not render when REACT_APP_INTERVENTION_BANNER is set to null 1`] = `""`;
+
 exports[`InterventionBanner renders with the content of REACT_APP_INTERVENTION_BANNER set in config (only message) 1`] = `
 <div
   className="intervention-banner"
