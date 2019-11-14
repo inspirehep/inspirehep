@@ -13,7 +13,7 @@ exports[`CitationsByYearGraph renders citations for less than 3 years with dummy
           "1999": 10,
         }
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"
@@ -114,7 +114,7 @@ exports[`CitationsByYearGraph renders citations for less than 5 different citati
           "2002": 5,
         }
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"
@@ -220,7 +220,7 @@ exports[`CitationsByYearGraph renders citations for more than 3 less than 8 year
           "2002": 33,
         }
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"
@@ -327,7 +327,7 @@ exports[`CitationsByYearGraph renders filling missing years with 0 1`] = `
           "2015": 5,
         }
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"
@@ -483,7 +483,7 @@ exports[`CitationsByYearGraph renders hovered info in a tooltip on line series h
           "2001": 56,
         }
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"
@@ -604,7 +604,7 @@ exports[`CitationsByYearGraph renders more than 5 different citation counts with
           "2005": 14,
         }
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"
@@ -729,7 +729,7 @@ exports[`CitationsByYearGraph renders more than 8 years without explicit tickVal
           "2015": 5,
         }
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"
@@ -876,7 +876,7 @@ exports[`CitationsByYearGraph renders without citations 1`] = `
   >
     <EmptyOrChildren
       data={Object {}}
-      description="0 Citations"
+      title="0 Citations"
     >
       <div
         data-test-id="citations-by-year-graph"

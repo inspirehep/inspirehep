@@ -37,7 +37,7 @@ function Figures({ figures }) {
       flag="FIGURES_FEATURE_FLAG"
       whenDisabled="This feature is currently under development."
     >
-      <EmptyOrChildren data={figures} description="0 Figures">
+      <EmptyOrChildren data={figures} title="0 Figures">
         <ClientPaginatedList
           items={figures}
           renderItem={renderListItem}

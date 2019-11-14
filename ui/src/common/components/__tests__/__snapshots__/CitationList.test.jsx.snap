@@ -20,7 +20,7 @@ exports[`CitationList does not render the list if total 0 1`] = `
           },
         ]
       }
-      description="0 Citations"
+      title="0 Citations"
     />
   </ErrorAlertOrChildren>
 </ContentBox>
@@ -49,7 +49,7 @@ exports[`CitationList renders with citations 1`] = `
           },
         ]
       }
-      description="0 Citations"
+      title="0 Citations"
     >
       <ListWithPagination
         loading={false}
@@ -93,7 +93,7 @@ exports[`CitationList renders with error 1`] = `
   >
     <EmptyOrChildren
       data={Immutable.List []}
-      description="0 Citations"
+      title="0 Citations"
     />
   </ErrorAlertOrChildren>
 </ContentBox>

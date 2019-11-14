@@ -58,7 +58,7 @@ function ReferenceList({
   return (
     <ContentBox loading={loading}>
       <ErrorAlertOrChildren error={error}>
-        <EmptyOrChildren data={references} description="0 References">
+        <EmptyOrChildren data={references} title="0 References">
           {renderList()}
         </EmptyOrChildren>
       </ErrorAlertOrChildren>

@@ -24,7 +24,7 @@ exports[`ReferenceList does not render the list if total 0 1`] = `
           },
         ]
       }
-      description="0 References"
+      title="0 References"
     />
   </ErrorAlertOrChildren>
 </ContentBox>
@@ -61,7 +61,7 @@ exports[`ReferenceList renders items with (page * index) key if title is absent 
           },
         ]
       }
-      description="0 References"
+      title="0 References"
     >
       <ListWithPagination
         loading={false}
@@ -113,7 +113,7 @@ exports[`ReferenceList renders with error 1`] = `
   >
     <EmptyOrChildren
       data={Immutable.List []}
-      description="0 References"
+      title="0 References"
     />
   </ErrorAlertOrChildren>
 </ContentBox>
@@ -150,7 +150,7 @@ exports[`ReferenceList renders with references 1`] = `
           },
         ]
       }
-      description="0 References"
+      title="0 References"
     >
       <ListWithPagination
         loading={false}
