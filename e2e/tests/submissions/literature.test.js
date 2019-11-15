@@ -224,6 +224,9 @@ describe('literature submissions', () => {
       ],
       experiment: 'CERN-LEP-L3',
       journal_title: 'Cool Journal',
+      volume: 'Vol.1',
+      issue: '20',
+      year: '2014',
     });
 
     await formSubmitter.waitForSubmissionSuccess();
@@ -272,8 +275,13 @@ describe('literature submissions', () => {
       { term: 'Accelerators' },
       { term: 'Experiment-Nucl' },
     ]);
-    expect(metadata.public_notes).toEqual([
-      { value: 'Submitted to Cool Journal' },
+    expect(metadata.publication_info).toEqual([
+      {
+        journal_title: 'Cool Journal',
+        journal_volume: 'Vol.1',
+        journal_issue: '20',
+        year: 2014,
+      },
     ]);
     expect(metadata.accelerator_experiments).toEqual([
       { legacy_name: 'CERN-LEP-L3' },
