@@ -14,6 +14,7 @@ import TextAreaField from '../../common/components/TextAreaField';
 import SuggesterField from '../../common/components/SuggesterField';
 import ConferenceSuggestion from './ConferenceSuggestion';
 import JournalSuggestion from './JournalSuggestion';
+import NumberField from '../../common/components/NumberField';
 
 const OPEN_SECTIONS = ['basic_info', 'links', 'publication_info'];
 
@@ -65,7 +66,7 @@ class ArticleForm extends Component {
             />
             <Field name="volume" label="Volume" component={TextField} />
             <Field name="issue" label="Issue" component={TextField} />
-            <Field name="year" label="Year" component={TextField} />
+            <Field name="year" label="Year" component={NumberField} />
             <Field
               name="page_range"
               label="Page Range/Article ID"
