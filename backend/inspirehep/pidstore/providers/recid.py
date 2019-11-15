@@ -46,7 +46,7 @@ class InspireRecordIdProvider(BaseProvider):
                 LOGGER.info("Control number from legacy", recid=kwargs["pid_value"])
                 RecordIdentifier.insert(kwargs["pid_value"])
             else:
-                kwargs["pid_value"] = RecordIdentifier.next()
+                kwargs["pid_value"] = str(RecordIdentifier.next())
                 LOGGER.info(
                     "Control number from RecordIdentifier", recid=kwargs["pid_value"]
                 )

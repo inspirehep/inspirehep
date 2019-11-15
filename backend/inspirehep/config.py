@@ -159,8 +159,6 @@ SERVER_NAME = "localhost:8000"
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
 
-PIDSTORE_RECID_FIELD = "control_number"
-
 # Files
 # =====
 BASE_FILES_LOCATION = os.path.join(sys.prefix, "var/data")
@@ -181,6 +179,7 @@ FILES_REST_STORAGE_PATH_DIMENSIONS = 0
 # Pidstore
 # ========
 PIDSTORE_RECID_FIELD = "control_number"
+PIDSTORE_APP_LOGGER_HANDLERS = False
 
 # Invenio-App
 # ===========
