@@ -52,9 +52,7 @@ class PidStoreBase(object):
         try:
             LOGGER.info("Deleting external PIDs", uuid=str(self.object_uuid))
             return PersistentIdentifier.query.filter_by(
-                object_type="rec",
-                object_uuid=str(self.object_uuid),
-                pid_provider="external",
+                object_type="rec", object_uuid=self.object_uuid, pid_provider="external"
             ).delete()
         except PIDDoesNotExistError:
             LOGGER.warning("Pids ``external`` not found", uuid=str(self.object_uuid))
