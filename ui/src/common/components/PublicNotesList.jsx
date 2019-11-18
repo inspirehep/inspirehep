@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from './InlineList';
+import InlineList, { SEPARATOR_MIDDLEDOT } from './InlineList';
 
 class PublicNotesList extends Component {
   static getValue(note) {
@@ -17,7 +17,7 @@ class PublicNotesList extends Component {
         items={publicNotes}
         extractKey={note => PublicNotesList.getValue(note)}
         renderItem={note => <span>{PublicNotesList.getValue(note)}</span>}
-        separateItemsClassName="separate-items-with-middledot"
+        separator={SEPARATOR_MIDDLEDOT}
       />
     );
   }

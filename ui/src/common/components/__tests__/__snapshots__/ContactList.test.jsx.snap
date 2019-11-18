@@ -10,9 +10,7 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
     Contact
     : 
   </span>
-  <ul
-    className="separate-items-with-semicolon"
-  >
+  <ul>
     <li
       key="johndoe@yahoo.com"
     >
@@ -26,6 +24,7 @@ exports[`ContactList renders with contacts with both email and name 1`] = `
         johndoe@yahoo.com
       </ExternalLink>
       )
+      ; 
     </li>
     <li
       key="johndoe2@yahoo.com"
@@ -55,9 +54,7 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
     Contact
     : 
   </span>
-  <ul
-    className="separate-items-with-semicolon"
-  >
+  <ul>
     <li
       key="johndoe@yahoo.com"
     >
@@ -66,6 +63,7 @@ exports[`ContactList renders with contacts with only email or name 1`] = `
       >
         johndoe@yahoo.com
       </ExternalLink>
+      ; 
     </li>
     <li
       key="John2"
@@ -88,9 +86,7 @@ exports[`ContactList renders with contacts with record and name 1`] = `
     Contact
     : 
   </span>
-  <ul
-    className="separate-items-with-semicolon"
-  >
+  <ul>
     <li
       key="John"
     >

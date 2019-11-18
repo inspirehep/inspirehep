@@ -14,13 +14,16 @@ import EditRecordAction from '../../common/components/EditRecordAction';
 import RegionsList from '../components/RegionsList';
 import InstitutionsList from '../components/InstitutionsList';
 import RanksList from '../components/RanksList';
-import InlineUL from '../../common/components/InlineList/InlineUL';
 import DeadlineDate from '../components/DeadlineDate';
 import ContactList from '../../common/components/ContactList';
 import ReferenceLettersContacts from '../components/ReferenceLettersContacts';
 import MoreInfo from '../components/MoreInfo';
 import DocumentHead from '../../common/components/DocumentHead';
 import JobTitle from '../components/JobTitle';
+import {
+  InlineUL,
+  SEPARATOR_MIDDLEDOT,
+} from '../../common/components/InlineList';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -99,7 +102,7 @@ class DetailPage extends Component {
               </Row>
               <Row className="mt1">
                 <Col>
-                  <InlineUL separateItemsClassName="separate-items-with-middledot">
+                  <InlineUL separator={SEPARATOR_MIDDLEDOT}>
                     {institutions && (
                       <InstitutionsList institutions={institutions} />
                     )}
@@ -114,7 +117,7 @@ class DetailPage extends Component {
                     wrapperClassName="di"
                   />
                   <InlineUL
-                    separateItemsClassName="separate-items-with-middledot"
+                    separator={SEPARATOR_MIDDLEDOT}
                     wrapperClassName="di"
                   >
                     {ranks && <RanksList ranks={ranks} />}

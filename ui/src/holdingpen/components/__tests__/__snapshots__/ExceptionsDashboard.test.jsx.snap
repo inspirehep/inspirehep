@@ -28,7 +28,7 @@ exports[`ExceptionsDashboard renders with all props set 1`] = `
       label="Collections"
       renderItem={[Function]}
       separateItems={false}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName={null}
     />
@@ -86,7 +86,7 @@ exports[`ExceptionsDashboard renders with all props set and loading set to true 
       label="Collections"
       renderItem={[Function]}
       separateItems={false}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName={null}
     />

@@ -13,7 +13,7 @@ exports[`ConferenceInfo renders with acronyms 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />
@@ -32,7 +32,7 @@ exports[`ConferenceInfo renders with acronyms and start and end page 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />
@@ -55,7 +55,7 @@ exports[`ConferenceInfo renders with only page end 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />
@@ -74,7 +74,7 @@ exports[`ConferenceInfo renders with only page start 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />

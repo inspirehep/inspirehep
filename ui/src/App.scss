@@ -170,18 +170,6 @@
   text-decoration: underline;
 }
 
-// TODO: remove and replace usages with `InlineUL`
-.bulleted-list {
-  padding: 0;
-  margin: 0;
-
-  & > li:not(:first-of-type) {
-    &:before {
-      content: '\2022 ';
-    }
-  }
-}
-
 .header-dropdown {
   z-index: $zindex-header + 1 !important;
 }

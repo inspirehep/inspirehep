@@ -14,16 +14,4 @@ describe('ArxivEprintList', () => {
     const wrapper = shallow(<ArxivEprintList eprints={eprints} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
-
-  it('renders with wrapperClassName', () => {
-    const eprints = fromJS([
-      {
-        value: '123.12345',
-      },
-    ]);
-    const wrapper = shallow(
-      <ArxivEprintList eprints={eprints} wrapperClassName="test" />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
 });

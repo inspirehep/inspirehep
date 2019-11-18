@@ -10,9 +10,7 @@ exports[`PublicationInfoList renders with publicationInfo 1`] = `
     Published in
     : 
   </span>
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="Test Journal"
     >
@@ -41,9 +39,9 @@ exports[`PublicationInfoList renders with wrapperClassName 1`] = `
   label="Published in"
   renderItem={[Function]}
   separateItems={true}
-  separateItemsClassName="separate-items-with-comma"
+  separator=", "
   suffix={null}
-  wrapperClassName="test"
+  wrapperClassName={null}
 />
 `;
 
@@ -60,7 +58,7 @@ exports[`PublicationInfoList renders without label if labeled false 1`] = `
   label={null}
   renderItem={[Function]}
   separateItems={true}
-  separateItemsClassName="separate-items-with-comma"
+  separator=", "
   suffix={null}
   wrapperClassName={null}
 />

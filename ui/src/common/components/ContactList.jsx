@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import ExternalLink from './ExternalLink';
-import InlineList from './InlineList';
+import InlineList, { SEPARATOR_SEMICOLON } from './InlineList';
 import { getRecordIdFromRef } from '../utils';
 import { AUTHORS } from '../routes';
 
@@ -46,7 +46,7 @@ class ContactList extends Component {
         label="Contact"
         items={contacts}
         renderItem={ContactList.renderContact}
-        separateItemsClassName="separate-items-with-semicolon"
+        separator={SEPARATOR_SEMICOLON}
         wrapperClassName="di"
         labelClassName="b"
         extractKey={ContactList.contactEmailOrName}

@@ -2,13 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from './InlineList';
+import InlineList, { SEPARATOR_AND } from './InlineList';
 
 class AuthorAffiliationList extends Component {
   static renderAffiliation(affiliation) {
-    return (
-      <span>{affiliation}</span>
-    );
+    return <span>{affiliation}</span>;
   }
 
   render() {
@@ -17,7 +15,7 @@ class AuthorAffiliationList extends Component {
       return (
         <InlineList
           wrapperClassName="di"
-          separateItemsClassName="separate-items-with-and"
+          separator={SEPARATOR_AND}
           items={affiliations}
           renderItem={AuthorAffiliationList.renderAffiliation}
         />

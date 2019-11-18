@@ -11,6 +11,10 @@ import DOIList from './DOIList';
 import { LITERATURE } from '../../common/routes';
 import LiteratureTitle from '../../common/components/LiteratureTitle';
 import URLList from '../../common/components/URLList';
+import {
+  InlineUL,
+  SEPARATOR_MIDDLEDOT,
+} from '../../common/components/InlineList';
 
 class ReferenceItem extends Component {
   static renderLabel(reference) {
@@ -82,35 +86,20 @@ class ReferenceItem extends Component {
                     collaborations={collaborations}
                     collaborationsWithSuffix={collaborationsWithSuffix}
                   />
-                  <ul className="bulleted-list secondary-container">
+                  <InlineUL
+                    separator={SEPARATOR_MIDDLEDOT}
+                    wrapperClassName="secondary-container"
+                  >
                     {publicationInfo && (
-                      <li className="dib mr1">
-                        <PublicationInfoList
-                          publicationInfo={publicationInfo}
-                          labeled={false}
-                          wrapperClassName="di"
-                        />
-                      </li>
+                      <PublicationInfoList
+                        publicationInfo={publicationInfo}
+                        labeled={false}
+                      />
                     )}
-                    {arxivEprint && (
-                      <li className="dib mr1">
-                        <ArxivEprintList
-                          eprints={arxivEprint}
-                          wrapperClassName="di"
-                        />
-                      </li>
-                    )}
-                    {dois && (
-                      <li className="dib mr1">
-                        <DOIList dois={dois} wrapperClassName="di" />
-                      </li>
-                    )}
-                    {urls && (
-                      <li className="dib mr1">
-                        <URLList urls={urls} wrapperClassName="di" />
-                      </li>
-                    )}
-                  </ul>
+                    {arxivEprint && <ArxivEprintList eprints={arxivEprint} />}
+                    {dois && <DOIList dois={dois} />}
+                    {urls && <URLList urls={urls} />}
+                  </InlineUL>
                 </Fragment>
               }
             />

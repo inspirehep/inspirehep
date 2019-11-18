@@ -10,13 +10,12 @@ exports[`AcceleratorExperimentList renders with accelerator experiments 1`] = `
     Accelerator experiments
     : 
   </span>
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="CERN-LHC-CMS"
     >
       CERN-LHC-CMS
+      , 
     </li>
     <li
       key="FNAL-123-456"

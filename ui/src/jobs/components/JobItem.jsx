@@ -8,7 +8,6 @@ import ResultItem from '../../common/components/ResultItem';
 import DateFromNow from './DateFromNow';
 import { JOBS } from '../../common/routes';
 import DeadlineDate from './DeadlineDate';
-import InlineUL from '../../common/components/InlineList/InlineUL';
 import InstitutionsList from './InstitutionsList';
 import RegionsList from './RegionsList';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
@@ -16,6 +15,10 @@ import RanksList from './RanksList';
 import ExperimentList from '../../common/components/ExperimentList';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import JobTitle from './JobTitle';
+import {
+  InlineUL,
+  SEPARATOR_MIDDLEDOT,
+} from '../../common/components/InlineList';
 
 class JobItem extends Component {
   render() {
@@ -44,10 +47,7 @@ class JobItem extends Component {
             </Link>
           </Col>
           <Col>
-            (<InlineUL
-              wrapperClassName="di"
-              separateItemsClassName="separate-items-with-middledot"
-            >
+            (<InlineUL wrapperClassName="di" separator={SEPARATOR_MIDDLEDOT}>
               {institutions && <InstitutionsList institutions={institutions} />}
               <RegionsList regions={regions} />
             </InlineUL>)
@@ -59,10 +59,7 @@ class JobItem extends Component {
               arxivCategories={arxivCategories}
               wrapperClassName="di"
             />
-            <InlineUL
-              separateItemsClassName="separate-items-with-middledot"
-              wrapperClassName="di"
-            >
+            <InlineUL separator={SEPARATOR_MIDDLEDOT} wrapperClassName="di">
               {experiments && <ExperimentList experiments={experiments} />}
               {ranks && <RanksList ranks={ranks} />}
             </InlineUL>

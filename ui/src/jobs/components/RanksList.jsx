@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import InlineList from '../../common/components/InlineList';
+import InlineList, {
+  SEPARATOR_MIDDLEDOT,
+} from '../../common/components/InlineList';
 import { RANK_VALUE_TO_DISPLAY } from '../../common/constants';
 
 class RanksList extends Component {
@@ -16,7 +18,7 @@ class RanksList extends Component {
       <InlineList
         items={ranks}
         renderItem={RanksList.renderRank}
-        separateItemsClassName="separate-items-with-middledot"
+        separator={SEPARATOR_MIDDLEDOT}
       />
     );
   }

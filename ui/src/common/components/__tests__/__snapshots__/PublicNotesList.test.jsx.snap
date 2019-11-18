@@ -10,15 +10,14 @@ exports[`PublicNotesList renders public notes 1`] = `
     Note
     : 
   </span>
-  <ul
-    className="separate-items-with-middledot"
-  >
+  <ul>
     <li
       key="note1"
     >
       <span>
         note1
       </span>
+       • 
     </li>
     <li
       key="note2"

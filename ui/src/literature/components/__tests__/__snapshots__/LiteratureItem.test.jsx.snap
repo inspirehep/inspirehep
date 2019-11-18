@@ -69,8 +69,9 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   <div
     className="mt1"
   >
-    <ul
-      className="bulleted-list"
+    <InlineUL
+      separator=" • "
+      wrapperClassName={null}
     />
   </div>
 </ResultItem>
@@ -145,8 +146,9 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
   <div
     className="mt1"
   >
-    <ul
-      className="bulleted-list"
+    <InlineUL
+      separator=" • "
+      wrapperClassName={null}
     />
   </div>
 </ResultItem>
@@ -256,61 +258,48 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   <div
     className="mt1"
   >
-    <ul
-      className="bulleted-list"
+    <InlineUL
+      separator=" • "
+      wrapperClassName={null}
     >
-      <li
-        className="dib mr1"
-      >
-        <PublicationInfoList
-          labeled={true}
-          publicationInfo={
-            Immutable.List [
-              Immutable.Map {
-                "journal_title": "Test Jornal",
-              },
-            ]
-          }
-          wrapperClassName="di"
-        />
-      </li>
-      <li
-        className="dib mr1"
-      >
-        <ConferenceInfoList
-          conferenceInfo={
-            Immutable.List [
-              Immutable.Map {
-                "acronyms": Immutable.List [
-                  "MG15",
-                  "SAP16",
-                ],
-                "titles": Immutable.List [
-                  Immutable.Map {
-                    "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
-                  },
-                ],
-              },
-            ]
-          }
-          wrapperClassName="di"
-        />
-      </li>
-      <li
-        className="dib mr1"
-      >
-        <ArxivEprintList
-          eprints={
-            Immutable.List [
-              Immutable.Map {
-                "value": "1234567890",
-              },
-            ]
-          }
-          wrapperClassName="di"
-        />
-      </li>
-    </ul>
+      <PublicationInfoList
+        labeled={true}
+        publicationInfo={
+          Immutable.List [
+            Immutable.Map {
+              "journal_title": "Test Jornal",
+            },
+          ]
+        }
+      />
+      <ConferenceInfoList
+        conferenceInfo={
+          Immutable.List [
+            Immutable.Map {
+              "acronyms": Immutable.List [
+                "MG15",
+                "SAP16",
+              ],
+              "titles": Immutable.List [
+                Immutable.Map {
+                  "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
+                },
+              ],
+            },
+          ]
+        }
+        wrapperClassName={null}
+      />
+      <ArxivEprintList
+        eprints={
+          Immutable.List [
+            Immutable.Map {
+              "value": "1234567890",
+            },
+          ]
+        }
+      />
+    </InlineUL>
   </div>
 </ResultItem>
 `;

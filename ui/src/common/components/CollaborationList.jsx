@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import CollaborationLink from './CollaborationLink';
-import InlineList from './InlineList';
+import InlineList, { SEPARATOR_AND } from './InlineList';
 
 class CollaborationList extends Component {
   static renderCollaboration(collaboration) {
@@ -17,7 +17,7 @@ class CollaborationList extends Component {
       <Fragment>
         <InlineList
           wrapperClassName="di"
-          separateItemsClassName="separate-items-with-and"
+          separator={SEPARATOR_AND}
           items={collaborations}
           suffix={
             collaborations.size > 0 && (
@@ -33,7 +33,7 @@ class CollaborationList extends Component {
           !collaborationsWithSuffix.isEmpty() && <span> and </span>}
         <InlineList
           wrapperClassName="di"
-          separateItemsClassName="separate-items-with-and"
+          separator={SEPARATOR_AND}
           items={collaborationsWithSuffix}
           extractKey={collaboration => collaboration.get('value')}
           renderItem={CollaborationList.renderCollaboration}

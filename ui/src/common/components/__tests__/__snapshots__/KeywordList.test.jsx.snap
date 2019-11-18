@@ -17,7 +17,7 @@ exports[`KeywordList renders with keywords 1`] = `
   limit={10}
   renderItem={[Function]}
   separateItems={false}
-  separateItemsClassName="separate-items-with-comma"
+  separator=", "
   suffix={null}
   wrapperClassName="di"
 />

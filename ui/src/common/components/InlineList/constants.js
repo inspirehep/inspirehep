@@ -1,7 +1,13 @@
-export const DEFAULT_SEPARATE_ITEMS_CLASS = 'separate-items-with-comma';
-export const SEPARATE_ITEMS_CLASSNAMES = [
-  'separate-items-with-semicolon',
-  'separate-items-with-comma',
-  'separate-items-with-and',
-  'separate-items-with-middledot',
+export const SEPARATOR_SEMICOLON = '; ';
+export const SEPARATOR_COMMA = ', ';
+export const SEPARATOR_AND = ' and ';
+export const SEPARATOR_MIDDLEDOT = ' \u2022 ';
+
+export const SEPARATOR_TYPES = [
+  SEPARATOR_SEMICOLON,
+  SEPARATOR_COMMA,
+  SEPARATOR_AND,
+  SEPARATOR_MIDDLEDOT,
 ];
+
+export const DEFAULT_SEPARATOR_TYPE = SEPARATOR_COMMA;

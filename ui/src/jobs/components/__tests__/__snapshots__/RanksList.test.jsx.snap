@@ -4,13 +4,12 @@ exports[`RanksList renders ranks 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-middledot"
-  >
+  <ul>
     <li
       key="POSTDOC"
     >
       PostDoc
+       • 
     </li>
     <li
       key="PHD"

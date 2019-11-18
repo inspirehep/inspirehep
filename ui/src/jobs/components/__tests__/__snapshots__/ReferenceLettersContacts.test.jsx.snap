@@ -6,7 +6,7 @@ exports[`ReferenceLettersContacts renders with referenceLetters 1`] = `
     Letters of Reference should be sent to: 
   </strong>
   <InlineUL
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     wrapperClassName="di"
   >
     <EmailList

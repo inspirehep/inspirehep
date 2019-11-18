@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map, List } from 'immutable';
-import InlineList from '../../common/components/InlineList';
+import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
 import { getPageDisplay } from '../utils';
 
 class ConferenceInfo extends Component {
@@ -10,7 +10,7 @@ class ConferenceInfo extends Component {
     return (
       <InlineList
         wrapperClassName="di"
-        separateItemsClassName="separate-items-with-and"
+        separator={SEPARATOR_AND}
         items={conferenceInfo.get('acronyms')}
         renderItem={acronym => <span>{acronym}</span>}
       />

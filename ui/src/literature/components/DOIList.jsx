@@ -19,11 +19,10 @@ class DOIList extends Component {
   }
 
   render() {
-    const { dois, wrapperClassName } = this.props;
+    const { dois } = this.props;
 
     return (
       <InlineList
-        wrapperClassName={wrapperClassName}
         label="DOI"
         items={dois}
         extractKey={doi => doi.get('value')}
@@ -35,12 +34,10 @@ class DOIList extends Component {
 
 DOIList.propTypes = {
   dois: PropTypes.instanceOf(List),
-  wrapperClassName: PropTypes.string,
 };
 
 DOIList.defaultProps = {
   dois: null,
-  wrapperClassName: null,
 };
 
 export default DOIList;
