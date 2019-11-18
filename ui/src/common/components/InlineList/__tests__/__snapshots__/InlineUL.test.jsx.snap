@@ -4,20 +4,23 @@ exports[`InlineUL does not render null children 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key=".0"
     >
-      <div>
+      <div
+        key=".0"
+      >
         First div
       </div>
+      , 
     </li>
     <li
       key=".2"
     >
-      <div>
+      <div
+        key=".2"
+      >
         Third div
       </div>
     </li>
@@ -29,20 +32,23 @@ exports[`InlineUL renders children seperated by default 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key=".0"
     >
-      <div>
+      <div
+        key=".0"
+      >
         First div
       </div>
+      , 
     </li>
     <li
       key=".1"
     >
-      <div>
+      <div
+        key=".1"
+      >
         Second div
       </div>
     </li>
@@ -54,20 +60,23 @@ exports[`InlineUL renders children with class 1`] = `
 <div
   className="__InlineList__ di"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key=".0"
     >
-      <div>
+      <div
+        key=".0"
+      >
         First div
       </div>
+      , 
     </li>
     <li
       key=".1"
     >
-      <div>
+      <div
+        key=".1"
+      >
         Second div
       </div>
     </li>
@@ -75,24 +84,27 @@ exports[`InlineUL renders children with class 1`] = `
 </div>
 `;
 
-exports[`InlineUL renders with separateItemsClassName passed 1`] = `
+exports[`InlineUL renders with separator passed 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-middledot"
-  >
+  <ul>
     <li
       key=".0"
     >
-      <div>
+      <div
+        key=".0"
+      >
         First div
       </div>
+       • 
     </li>
     <li
       key=".1"
     >
-      <div>
+      <div
+        key=".1"
+      >
         Second div
       </div>
     </li>

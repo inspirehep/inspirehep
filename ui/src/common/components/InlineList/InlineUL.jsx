@@ -2,18 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import './InlineList.scss';
-import {
-  SEPARATE_ITEMS_CLASSNAMES,
-  DEFAULT_SEPARATE_ITEMS_CLASS,
-} from './constants';
+import { SEPARATOR_TYPES, DEFAULT_SEPARATOR_TYPE } from './constants';
 
 class InlineUL extends Component {
   render() {
-    const { children, separateItemsClassName, wrapperClassName } = this.props;
+    const { children, separator, wrapperClassName } = this.props;
     return (
       <div className={classnames('__InlineList__', wrapperClassName)}>
-        <ul className={separateItemsClassName}>
-          {React.Children.map(children, child => child && <li>{child}</li>)}
+        <ul>
+          {React.Children.toArray(children).map(
+            (child, index, array) =>
+              child && (
+                <li key={child.key}>
+                  {child}
+                  {index < array.length - 1 && separator}
+                </li>
+              )
+          )}
         </ul>
       </div>
     );
@@ -22,12 +27,12 @@ class InlineUL extends Component {
 
 InlineUL.propTypes = {
   children: PropTypes.node.isRequired,
-  separateItemsClassName: PropTypes.oneOf(SEPARATE_ITEMS_CLASSNAMES),
+  separator: PropTypes.oneOf(SEPARATOR_TYPES),
   wrapperClassName: PropTypes.string,
 };
 
 InlineUL.defaultProps = {
-  separateItemsClassName: DEFAULT_SEPARATE_ITEMS_CLASS,
+  separator: DEFAULT_SEPARATOR_TYPE,
   wrapperClassName: null,
 };
 

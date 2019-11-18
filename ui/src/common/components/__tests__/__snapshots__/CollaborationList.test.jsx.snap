@@ -14,7 +14,7 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={
       <span>
          Collaboration
@@ -28,7 +28,7 @@ exports[`CollaborationList renders with collaboration without suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />
@@ -58,7 +58,7 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={
       <span>
          Collaborations
@@ -90,7 +90,7 @@ exports[`CollaborationList renders with collaborations with and without suffix 1
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />
@@ -105,7 +105,7 @@ exports[`CollaborationList renders with collaborations with suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={false}
     wrapperClassName="di"
   />
@@ -133,7 +133,7 @@ exports[`CollaborationList renders with collaborations with suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />
@@ -157,7 +157,7 @@ exports[`CollaborationList renders with collaborations without suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={
       <span>
          Collaborations
@@ -171,7 +171,7 @@ exports[`CollaborationList renders with collaborations without suffix 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-and"
+    separator=" and "
     suffix={null}
     wrapperClassName="di"
   />

@@ -22,7 +22,7 @@ exports[`JobItem renders full job search result item 1`] = `
     <Col>
       (
       <InlineUL
-        separateItemsClassName="separate-items-with-middledot"
+        separator=" • "
         wrapperClassName="di"
       >
         <InstitutionsList
@@ -59,7 +59,7 @@ exports[`JobItem renders full job search result item 1`] = `
         wrapperClassName="di"
       />
       <InlineUL
-        separateItemsClassName="separate-items-with-middledot"
+        separator=" • "
         wrapperClassName="di"
       >
         <ExperimentList

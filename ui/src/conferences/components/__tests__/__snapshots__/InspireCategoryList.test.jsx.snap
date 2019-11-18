@@ -17,7 +17,7 @@ exports[`InspireCategoryList renders with categories 1`] = `
   limit={10}
   renderItem={[Function]}
   separateItems={false}
-  separateItemsClassName="separate-items-with-comma"
+  separator=", "
   suffix={null}
   wrapperClassName="di"
 />

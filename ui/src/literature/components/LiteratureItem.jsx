@@ -20,6 +20,10 @@ import ResponsiveView from '../../common/components/ResponsiveView';
 import CiteModalActionContainer from '../containers/CiteModalActionContainer';
 import ConferenceInfoList from './ConferenceInfoList';
 import pluralizeUnlessSingle from '../../common/utils';
+import {
+  InlineUL,
+  SEPARATOR_MIDDLEDOT,
+} from '../../common/components/InlineList';
 
 class LiteratureItem extends Component {
   render() {
@@ -108,29 +112,15 @@ class LiteratureItem extends Component {
           )}
         </div>
         <div className="mt1">
-          <ul className="bulleted-list">
+          <InlineUL separator={SEPARATOR_MIDDLEDOT}>
             {publicationInfo && (
-              <li className="dib mr1">
-                <PublicationInfoList
-                  wrapperClassName="di"
-                  publicationInfo={publicationInfo}
-                />
-              </li>
+              <PublicationInfoList publicationInfo={publicationInfo} />
             )}
             {conferenceInfo && (
-              <li className="dib mr1">
-                <ConferenceInfoList
-                  wrapperClassName="di"
-                  conferenceInfo={conferenceInfo}
-                />
-              </li>
+              <ConferenceInfoList conferenceInfo={conferenceInfo} />
             )}
-            {eprints && (
-              <li className="dib mr1">
-                <ArxivEprintList wrapperClassName="di" eprints={eprints} />
-              </li>
-            )}
-          </ul>
+            {eprints && <ArxivEprintList eprints={eprints} />}
+          </InlineUL>
         </div>
       </ResultItem>
     );

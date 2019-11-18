@@ -5,10 +5,7 @@ import { List } from 'immutable';
 
 import { getSizeOfArrayOrImmutableList } from '../../utils';
 import './InlineList.scss';
-import {
-  DEFAULT_SEPARATE_ITEMS_CLASS,
-  SEPARATE_ITEMS_CLASSNAMES,
-} from './constants';
+import { SEPARATOR_TYPES, DEFAULT_SEPARATOR_TYPE } from './constants';
 
 class InlineList extends Component {
   render() {
@@ -19,7 +16,7 @@ class InlineList extends Component {
       suffix,
       extractKey,
       separateItems,
-      separateItemsClassName,
+      separator,
       wrapperClassName,
       labelClassName,
     } = this.props;
@@ -30,11 +27,12 @@ class InlineList extends Component {
           {label && (
             <span className={classnames(labelClassName)}>{label}: </span>
           )}
-          <ul
-            className={classnames({ [separateItemsClassName]: separateItems })}
-          >
-            {items.map(item => (
-              <li key={extractKey(item)}>{renderItem(item)}</li>
+          <ul>
+            {items.map((item, index) => (
+              <li key={extractKey(item)}>
+                {renderItem(item)}
+                {separateItems && index < items.size - 1 && separator}
+              </li>
             ))}
           </ul>
           {suffix}
@@ -50,8 +48,7 @@ InlineList.propTypes = {
   label: PropTypes.string,
   renderItem: PropTypes.func,
   separateItems: PropTypes.bool,
-  // TODO: move the `sperate...` prefix to this component
-  separateItemsClassName: PropTypes.oneOf(SEPARATE_ITEMS_CLASSNAMES),
+  separator: PropTypes.oneOf(SEPARATOR_TYPES),
   suffix: PropTypes.node,
   wrapperClassName: PropTypes.string,
   labelClassName: PropTypes.string,
@@ -63,7 +60,7 @@ InlineList.defaultProps = {
   items: null,
   label: null,
   separateItems: true,
-  separateItemsClassName: DEFAULT_SEPARATE_ITEMS_CLASS,
+  separator: DEFAULT_SEPARATOR_TYPE,
   suffix: null,
   wrapperClassName: null,
 };

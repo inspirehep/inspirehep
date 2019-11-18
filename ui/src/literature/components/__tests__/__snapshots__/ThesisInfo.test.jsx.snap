@@ -20,7 +20,7 @@ exports[`ThesisInfo renders full thesis info 1`] = `
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName="di"
     />
@@ -44,7 +44,7 @@ exports[`ThesisInfo renders with date and without defense date 1`] = `
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName="di"
     />
@@ -68,7 +68,7 @@ exports[`ThesisInfo renders with defense date 1`] = `
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName="di"
     />
@@ -98,7 +98,7 @@ exports[`ThesisInfo renders without any date 1`] = `
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName="di"
     />

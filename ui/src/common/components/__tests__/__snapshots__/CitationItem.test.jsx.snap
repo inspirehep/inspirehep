@@ -26,7 +26,6 @@ exports[`CitationItem renders with full citation 1`] = `
               },
             ]
           }
-          wrapperClassName={null}
         />
       </React.Fragment>
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import InlineUL from '../InlineUL';
+import { InlineUL } from '..';
+import { SEPARATOR_MIDDLEDOT } from '../constants';
 
 describe('InlineUL', () => {
   it('renders children seperated by default', () => {
@@ -23,9 +24,9 @@ describe('InlineUL', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders with separateItemsClassName passed', () => {
+  it('renders with separator passed', () => {
     const wrapper = shallow(
-      <InlineUL separateItemsClassName="separate-items-with-middledot">
+      <InlineUL separator={SEPARATOR_MIDDLEDOT}>
         <div>First div</div>
         <div>Second div</div>
       </InlineUL>

@@ -22,8 +22,9 @@ exports[`ReferenceItem does not render misc if title present 1`] = `
               collaborationsWithSuffix={Immutable.List []}
               enableAuthorsShowAll={false}
             />
-            <ul
-              className="bulleted-list secondary-container"
+            <InlineUL
+              separator=" • "
+              wrapperClassName="secondary-container"
             />
           </React.Fragment>
         }
@@ -71,8 +72,9 @@ exports[`ReferenceItem renders misc if present 1`] = `
               collaborationsWithSuffix={Immutable.List []}
               enableAuthorsShowAll={false}
             />
-            <ul
-              className="bulleted-list secondary-container"
+            <InlineUL
+              separator=" • "
+              wrapperClassName="secondary-container"
             />
           </React.Fragment>
         }
@@ -123,53 +125,40 @@ exports[`ReferenceItem renders unlinked reference (no control_number) 1`] = `
               }
               enableAuthorsShowAll={false}
             />
-            <ul
-              className="bulleted-list secondary-container"
+            <InlineUL
+              separator=" • "
+              wrapperClassName="secondary-container"
             >
-              <li
-                className="dib mr1"
-              >
-                <PublicationInfoList
-                  labeled={false}
-                  publicationInfo={
-                    Immutable.List [
-                      Immutable.Map {
-                        "journal_title": "Journal",
-                      },
-                    ]
-                  }
-                  wrapperClassName="di"
-                />
-              </li>
-              <li
-                className="dib mr1"
-              >
-                <DOIList
-                  dois={
-                    Immutable.List [
-                      Immutable.Map {
-                        "value": "123456.12345",
-                      },
-                    ]
-                  }
-                  wrapperClassName="di"
-                />
-              </li>
-              <li
-                className="dib mr1"
-              >
-                <URLList
-                  urls={
-                    Immutable.List [
-                      Immutable.Map {
-                        "value": "https://dude.guy",
-                      },
-                    ]
-                  }
-                  wrapperClassName="di"
-                />
-              </li>
-            </ul>
+              <PublicationInfoList
+                labeled={false}
+                publicationInfo={
+                  Immutable.List [
+                    Immutable.Map {
+                      "journal_title": "Journal",
+                    },
+                  ]
+                }
+              />
+              <DOIList
+                dois={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "123456.12345",
+                    },
+                  ]
+                }
+              />
+              <URLList
+                urls={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "https://dude.guy",
+                    },
+                  ]
+                }
+                wrapperClassName={null}
+              />
+            </InlineUL>
           </React.Fragment>
         }
         title={
@@ -237,53 +226,40 @@ exports[`ReferenceItem renders with full reference 1`] = `
               }
               enableAuthorsShowAll={false}
             />
-            <ul
-              className="bulleted-list secondary-container"
+            <InlineUL
+              separator=" • "
+              wrapperClassName="secondary-container"
             >
-              <li
-                className="dib mr1"
-              >
-                <PublicationInfoList
-                  labeled={false}
-                  publicationInfo={
-                    Immutable.List [
-                      Immutable.Map {
-                        "journal_title": "Journal",
-                      },
-                    ]
-                  }
-                  wrapperClassName="di"
-                />
-              </li>
-              <li
-                className="dib mr1"
-              >
-                <DOIList
-                  dois={
-                    Immutable.List [
-                      Immutable.Map {
-                        "value": "123456.12345",
-                      },
-                    ]
-                  }
-                  wrapperClassName="di"
-                />
-              </li>
-              <li
-                className="dib mr1"
-              >
-                <URLList
-                  urls={
-                    Immutable.List [
-                      Immutable.Map {
-                        "value": "https://dude.guy",
-                      },
-                    ]
-                  }
-                  wrapperClassName="di"
-                />
-              </li>
-            </ul>
+              <PublicationInfoList
+                labeled={false}
+                publicationInfo={
+                  Immutable.List [
+                    Immutable.Map {
+                      "journal_title": "Journal",
+                    },
+                  ]
+                }
+              />
+              <DOIList
+                dois={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "123456.12345",
+                    },
+                  ]
+                }
+              />
+              <URLList
+                urls={
+                  Immutable.List [
+                    Immutable.Map {
+                      "value": "https://dude.guy",
+                    },
+                  ]
+                }
+                wrapperClassName={null}
+              />
+            </InlineUL>
           </React.Fragment>
         }
         title={

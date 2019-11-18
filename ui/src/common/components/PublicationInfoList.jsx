@@ -7,11 +7,10 @@ import PublicationInfo from './PublicationInfo';
 
 class PublicationInfoList extends Component {
   render() {
-    const { publicationInfo, labeled, wrapperClassName } = this.props;
+    const { publicationInfo, labeled } = this.props;
     const label = labeled ? 'Published in' : null;
     return (
       <InlineList
-        wrapperClassName={wrapperClassName}
         label={label}
         items={publicationInfo}
         extractKey={info =>
@@ -26,13 +25,11 @@ class PublicationInfoList extends Component {
 PublicationInfoList.propTypes = {
   publicationInfo: PropTypes.instanceOf(List),
   labeled: PropTypes.bool,
-  wrapperClassName: PropTypes.string,
 };
 
 PublicationInfoList.defaultProps = {
   publicationInfo: null,
   labeled: true,
-  wrapperClassName: null,
 };
 
 export default PublicationInfoList;

@@ -4,9 +4,7 @@ exports[`EmailList renders with emails 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="johndoe@yahoo.com"
     >
@@ -15,6 +13,7 @@ exports[`EmailList renders with emails 1`] = `
       >
         johndoe@yahoo.com
       </ExternalLink>
+      , 
     </li>
     <li
       key="johndoe2@yahoo.com"

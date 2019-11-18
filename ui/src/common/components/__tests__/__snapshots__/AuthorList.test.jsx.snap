@@ -4,9 +4,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 1 supervisor is passed 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="Test, Guy 1"
     >
@@ -26,9 +24,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="Test, Guy 1"
     >
@@ -39,6 +35,7 @@ exports[`AuthorList prefixes \`Supervisor\` when 2 or more supervisors are passe
           }
         }
       />
+      , 
     </li>
     <li
       key="Test, Guy 2"
@@ -72,7 +69,7 @@ exports[`AuthorList renders all authors if they are less than the limit without 
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     suffix={null}
     wrapperClassName={null}
   />
@@ -102,7 +99,7 @@ exports[`AuthorList renders all authors if they are less than the limit without 
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName={null}
     />
@@ -114,9 +111,7 @@ exports[`AuthorList renders authors by using AuthorLink 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="Test, Guy 1"
     >
@@ -158,7 +153,7 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     suffix={
       <span>
          et al.
@@ -204,7 +199,7 @@ exports[`AuthorList renders only 5 authors and suffixes "et al." if passed more 
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName={null}
     />
@@ -238,7 +233,7 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     suffix={
       <div
         className="di pl1"
@@ -292,7 +287,7 @@ exports[`AuthorList renders only 5 authors and suffixes "show all" if passed mor
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName={null}
     />
@@ -317,7 +312,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     suffix={
       <span>
          et al.
@@ -354,7 +349,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "et all." i
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName={null}
     />
@@ -379,7 +374,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     suffix={
       <div
         className="di pl1"
@@ -424,7 +419,7 @@ exports[`AuthorList renders only limited (prop) authors and suffixes "show all."
       label={null}
       renderItem={[Function]}
       separateItems={true}
-      separateItemsClassName="separate-items-with-comma"
+      separator=", "
       suffix={null}
       wrapperClassName={null}
     />
@@ -456,7 +451,7 @@ exports[`AuthorList should display \`authors\` in modal title by default 1`] = `
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     suffix={null}
     wrapperClassName={null}
   />
@@ -487,7 +482,7 @@ exports[`AuthorList should show \`supervisors\` in modal title if supervisors ar
     label={null}
     renderItem={[Function]}
     separateItems={true}
-    separateItemsClassName="separate-items-with-comma"
+    separator=", "
     suffix={null}
     wrapperClassName={null}
   />

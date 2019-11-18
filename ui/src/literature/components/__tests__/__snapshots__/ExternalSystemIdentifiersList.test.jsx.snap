@@ -10,9 +10,7 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
     View in
     : 
   </span>
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="https://cds.cern.ch/record/12345"
     >
@@ -21,6 +19,7 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
       >
         CERN Document Server
       </a>
+      , 
     </li>
     <li
       key="http://adsabs.harvard.edu/abs/123.1234"

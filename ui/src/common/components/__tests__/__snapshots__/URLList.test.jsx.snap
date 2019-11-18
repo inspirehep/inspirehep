@@ -16,7 +16,7 @@ exports[`URLList renders with urls 1`] = `
   label={null}
   renderItem={[Function]}
   separateItems={true}
-  separateItemsClassName="separate-items-with-comma"
+  separator=", "
   suffix={null}
   wrapperClassName={null}
 />

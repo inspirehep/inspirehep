@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import InlineUL from '../../common/components/InlineList/InlineUL';
 import URLList from '../../common/components/URLList';
 import EmailList from './EmailList';
+import { InlineUL } from '../../common/components/InlineList';
 
 class ReferenceLettersContacts extends Component {
   render() {

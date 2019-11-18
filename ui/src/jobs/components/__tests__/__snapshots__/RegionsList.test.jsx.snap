@@ -4,13 +4,12 @@ exports[`RegionsList renders regions 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="Asia"
     >
       Asia
+      , 
     </li>
     <li
       key="North America"

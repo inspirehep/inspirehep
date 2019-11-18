@@ -4,13 +4,12 @@ exports[`InstitutionsList renders institutions 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="Map { \\"value\\": \\"UC, Berkeley\\" }"
     >
       UC, Berkeley
+      , 
     </li>
     <li
       key="Map { \\"value\\": \\"CERN\\" }"

@@ -4,15 +4,14 @@ exports[`AuthorAffiliationList renders author with multiple affiliations 1`] = `
 <div
   className="__InlineList__ di"
 >
-  <ul
-    className="separate-items-with-and"
-  >
+  <ul>
     <li
       key="Affiliation1"
     >
       <span>
         Affiliation1
       </span>
+       and 
     </li>
     <li
       key="Affiliation2"
@@ -29,9 +28,7 @@ exports[`AuthorAffiliationList renders author with one affiliation 1`] = `
 <div
   className="__InlineList__ di"
 >
-  <ul
-    className="separate-items-with-and"
-  >
+  <ul>
     <li
       key="Affiliation"
     >

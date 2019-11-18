@@ -10,9 +10,7 @@ exports[`ConferenceInfoList renders conference link 1`] = `
     Contribution to
     : 
   </span>
-  <ul
-    className="separate-items-with-comma"
-  >
+  <ul>
     <li
       key="111111"
     >
@@ -28,6 +26,7 @@ exports[`ConferenceInfoList renders conference link 1`] = `
           }
         }
       />
+      , 
     </li>
     <li
       key="222222"

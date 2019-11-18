@@ -5,35 +5,14 @@
     padding: 0;
   }
   li {
-    display: inline-block;
+    display: inline;
     & > * {
-      display: inline-block;
+      display: inline;
     }
 
     & > .ant-tag {
+      display: inline-block;
       margin-top: 0.35em;
     }
-  }
-
-  $separator-padding: 0.25em;
-  @mixin separate-items-with($separator, $padding-left: 0) {
-    & > li:not(:last-child):after {
-      content: $separator;
-      padding-right: $separator-padding;
-      padding-left: $padding-left;
-    }
-  }
-
-  ul.separate-items-with-semicolon {
-    @include separate-items-with(';');
-  }
-  ul.separate-items-with-comma {
-    @include separate-items-with(',');
-  }
-  ul.separate-items-with-and {
-    @include separate-items-with('and', $separator-padding);
-  }
-  ul.separate-items-with-middledot {
-    @include separate-items-with('\2022', $separator-padding);
   }
 }

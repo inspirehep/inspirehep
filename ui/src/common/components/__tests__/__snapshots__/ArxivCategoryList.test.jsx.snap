@@ -4,9 +4,7 @@ exports[`ArxivCategoryList renders arxiv categories 1`] = `
 <div
   className="__InlineList__"
 >
-  <ul
-    className=""
-  >
+  <ul>
     <li
       key="hep-ex"
     >
