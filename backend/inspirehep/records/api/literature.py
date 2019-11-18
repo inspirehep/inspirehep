@@ -206,9 +206,9 @@ class LiteratureRecord(
         The diff includes references added or deleted. Changes in a
         reference's content won't be detected.
 
-        Also, it detects if record was deleted/un-deleted compared to the
-        previous version and, in such cases, returns the full list of
-        references.
+        Also, it detects if record was deleted/un-deleted or
+        superseded/un-superseded compared to the previous version and, in such
+        cases, returns the full list of references.
 
         References not linked to any record will be ignored.
 
@@ -216,8 +216,7 @@ class LiteratureRecord(
         previous version.
 
         Returns:
-            List: uuids of references changed from the previous
-            version.
+            List: uuids of references changed from the previous version.
         """
         try:
             prev_version = self._previous_version
@@ -228,13 +227,17 @@ class LiteratureRecord(
             "deleted", False
         )
 
+        is_superseded = get_value(self, "related_records[0].relation", "") == "successor"
+        was_superseded = get_value(prev_version, "related_records[0].relation", "") == "successor"
+        changed_superseded_status = is_superseded ^ was_superseded
+
         changed_earliest_date = (
             self.earliest_date != LiteratureRecord(prev_version).earliest_date
         )
 
         pids_latest = self.get_linked_pids_from_field("references.record")
 
-        if changed_deleted_status or changed_earliest_date:
+        if changed_deleted_status or changed_earliest_date or changed_superseded_status:
             return list(self.get_records_ids_by_pids(pids_latest))
 
         try:
