@@ -64,7 +64,7 @@ function LiteratureSearch({
             title="0 results"
             description={
               <em>
-                Oops! Your might want to check out our{' '}
+                Oops! You might want to check out our{' '}
                 <ExternalLink href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search/">
                   search tips
                 </ExternalLink>
