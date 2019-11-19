@@ -10,6 +10,7 @@ from os import makedirs, path
 from time import sleep
 
 import click
+import structlog
 from click import UsageError
 from flask import current_app
 from flask.cli import with_appcontext
@@ -20,7 +21,7 @@ from invenio_search.cli import index
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.indexer.tasks import batch_index
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 def next_batch(iterator, batch_size):

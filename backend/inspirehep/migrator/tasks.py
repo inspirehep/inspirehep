@@ -229,15 +229,19 @@ def create_records_from_mirror_recids(recids):
                 record = migrate_record_from_mirror(
                     LegacyRecordsMirror.query.get(recid)
                 )
+            if record:
+                processed_records.add(str(record.id))
+            else:
+                LOGGER.warning("Record is empty", recid=recid)
         except Exception:
             LOGGER.exception("Cannot migrate record", recid=recid)
             continue
-
-        if record:
-            processed_records.add(str(record.id))
-        else:
-            LOGGER.warning("Record is empty", recid=recid)
-    db.session.commit()
+    try:
+        db.session.commit()
+    except Exception:
+        LOGGER.exception(
+            "Cannot commit migrated records", processed_records=list(processed_records)
+        )
     models_committed.connect(index_after_commit)
 
     return list(processed_records)

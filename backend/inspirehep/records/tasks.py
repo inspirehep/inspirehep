@@ -5,14 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
 
+import structlog
 from celery import shared_task
 from invenio_db import db
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 def update_records_relations(uuids):

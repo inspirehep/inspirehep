@@ -9,7 +9,7 @@ import logging
 import sys
 
 import structlog
-from celery.signals import setup_logging, task_postrun, task_prerun
+from celery.signals import setup_logging, task_failure, task_postrun, task_prerun
 from structlog_sentry import SentryJsonProcessor
 
 # Sentry
@@ -69,16 +69,36 @@ root_logger.setLevel(logging.INFO)
 
 # Celery logging
 # ==============
-@task_prerun.connect()
+@task_prerun.connect
 def log_task_context(sender, task_id, task, *args, **kwargs):
     structlog.threadlocal.bind_threadlocal(task_id=task_id, task=task.name)
 
 
-@task_postrun.connect()
+@task_postrun.connect
 def remove_task_context_logging(*args, **kwargs):
     structlog.threadlocal.clear_threadlocal()
 
 
-@setup_logging.connect()
+@setup_logging.connect
 def setup_basic_logging(*args, **kwargs):
     logging.basicConfig(format="%(message)s", stream=sys.stdout, level=logging.INFO)
+
+
+@task_failure.connect
+def log_error(
+    task_id=None,
+    exception=None,
+    args=None,
+    kwargs=None,
+    traceback=None,
+    einfo=None,
+    *signal_args,
+    **signal_kwargs
+):
+    structlog.error(
+        "Celery task failed",
+        task_id=task_id,
+        exc_info=(type(exception), exception, traceback),
+        task_args=args,
+        task_kwargs=kwargs,
+    )

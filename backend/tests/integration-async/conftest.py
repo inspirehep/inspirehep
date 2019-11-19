@@ -5,13 +5,13 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-import logging
 import time
 from copy import deepcopy
 from datetime import datetime, timedelta
 from functools import partial
 
 import pytest
+import structlog
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.providers.faker import faker
@@ -27,7 +27,7 @@ from inspirehep.records.fixtures import (
     init_records_files_storage_path,
 )
 
-logger = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 @pytest.fixture(scope="session")
