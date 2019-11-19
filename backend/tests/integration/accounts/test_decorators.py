@@ -9,7 +9,7 @@
 
 import pytest
 from mock import Mock, patch
-from werkzeug.exceptions import Unauthorized
+from werkzeug.exceptions import Forbidden, Unauthorized
 
 from inspirehep.accounts.decorators import login_required_with_roles
 
@@ -65,6 +65,6 @@ def test_login_required_with_roles_unauthorized(
 ):
     func = Mock()
     decorated_func = login_required_with_roles(["role_a"])(func)
-    with pytest.raises(Unauthorized):
+    with pytest.raises(Forbidden):
         decorated_func()
         assert func.called

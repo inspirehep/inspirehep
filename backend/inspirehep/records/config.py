@@ -19,7 +19,10 @@ from invenio_indexer.api import RecordIndexer
 from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
-from inspirehep.access_control import api_access_permission_check
+from inspirehep.access_control import (
+    api_access_permission_check,
+    session_cataloger_permission_factory,
+)
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
@@ -305,7 +308,7 @@ CONFERENCES.update(
                 "completion": {"field": "conferenceautocomplete"},
             }
         },
-        "update_permission_factory_imp": api_access_permission_check,
+        "update_permission_factory_imp": session_cataloger_permission_factory,
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS
             + ":conferences_json_response_search",
