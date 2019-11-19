@@ -37,7 +37,7 @@ def login_required_with_roles(roles=None):
                 user_roles = {role.name for role in current_user.roles}
                 has_access = user_roles & set(roles)
                 if not has_access:
-                    abort(401)
+                    abort(403)
             return func(*args, **kwargs)
 
         return wrapped_function
