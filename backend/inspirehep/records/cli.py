@@ -6,12 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
-import logging
 import os
 from time import sleep
 
 import click
 import requests
+import structlog
 from flask.cli import with_appcontext
 from invenio_db import db
 
@@ -19,7 +19,7 @@ from inspirehep.records.api import InspireRecord
 from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
 from inspirehep.records.tasks import batch_relations_update
 
-LOGGER = logging.getLogger(__name__)
+LOGGER = structlog.getLogger()
 
 
 def _create_record(data):
