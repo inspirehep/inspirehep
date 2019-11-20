@@ -26,10 +26,7 @@ describe('author submissions', () => {
       alternate_name: 'Santos, Diego Martinez',
       status: 'retired',
       arxiv_categories: ['hep-ex', 'hep-ph'],
-      emails: [
-        { value: 'private@martinez.ch', hidden: true },
-        { value: 'public@martinez.ch' },
-      ],
+      emails: [{ value: 'private@martinez.ch', hidden: true }],
       positions: [
         {
           institution: 'CERN',
@@ -68,7 +65,6 @@ describe('author submissions', () => {
     expect(metadata.arxiv_categories).toEqual(['hep-ex', 'hep-ph']);
     expect(metadata.email_addresses).toEqual([
       { value: 'private@martinez.ch', hidden: true },
-      { value: 'public@martinez.ch' },
     ]);
     expect(metadata.status).toEqual('retired');
     expect(metadata.positions).toEqual([

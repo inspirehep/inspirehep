@@ -1,9 +1,8 @@
 import authorSchema from '../author';
+import { authorStatusValues } from '../constants';
 import {
-  authorStatusValues,
-} from '../constants';
-import {
-  degreeTypeValues, arxivCategoryValues,
+  degreeTypeValues,
+  arxivCategoryValues,
   rankValues,
 } from '../../../common/schemas/constants';
 
@@ -136,10 +135,10 @@ describe('authorSchema', () => {
     done();
   });
 
-  it('validates when websites are null', async done => {
+  it('validates when websites are empty string', async done => {
     const data = {
       ...dataWithRequiredFields,
-      websites: [null],
+      websites: [''],
     };
     const isValid = await authorSchema.isValid(data);
     expect(isValid).toBe(true);

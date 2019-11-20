@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col, Alert } from 'antd';
-import { Formik } from 'formik';
+import { Formik, yupToFormErrors } from 'formik';
 import useAsyncEffect from 'use-async-effect';
 
 import articleSchema from '../schemas/article';
@@ -66,11 +66,19 @@ function LiteratureSubmission({
     [defaultData, initialFormData]
   );
 
-  const [isInitilValid, setInitialValid] = useState(false);
+  const [initialErrors, setInitialErrors] = useState();
 
   useAsyncEffect(
     async () => {
-      setInitialValid(await schema.isValid(initialValues));
+      try {
+        const hasImportedData = Boolean(initialFormData);
+        if (hasImportedData) {
+          await schema.validate(initialValues);
+        }
+      } catch (yupErrors) {
+        const errors = yupToFormErrors(yupErrors);
+        setInitialErrors(errors);
+      }
     },
     [initialValues, schema]
   );
@@ -103,11 +111,10 @@ function LiteratureSubmission({
         <Col>
           <Formik
             enableReinitialize
-            isInitialValid={isInitilValid}
+            initialErrors={initialErrors}
             initialValues={initialValues}
             validationSchema={schema}
             validateOnChange={false}
-            validateOnMount
             onSubmit={onFormikSubmit}
             component={component}
           />

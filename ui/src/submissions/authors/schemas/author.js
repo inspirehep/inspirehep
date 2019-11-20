@@ -9,8 +9,6 @@ import {
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import orcid from '../../common/schemas/orcid';
 import year from '../../common/schemas/year';
-import arrayWithNullDefault from '../../common/schemas/arrayWithNullDefault';
-import arrayWithEmptyObjectDefault from '../../common/schemas/arrayWithEmptyObjectDefault';
 
 const yearSchema = year().label('Year');
 
@@ -29,62 +27,73 @@ const authorSchema = object().shape({
     .label('Display Name'),
   alternate_name: string(),
   native_name: string(),
-  emails: arrayWithEmptyObjectDefault.of(
-    emptyObjectOrShapeOf({
-      value: string()
-        .email()
-        .required()
-        .label('Email'),
-      hidden: boolean(),
-    })
-  ),
+  emails: array()
+    .default([{}])
+    .of(
+      emptyObjectOrShapeOf({
+        value: string()
+          .email()
+          .required()
+          .label('Email'),
+        hidden: boolean(),
+      })
+    ),
   status: string()
     .oneOf(authorStatusValues)
     .required()
     .default(authorStatusValues[0]),
   orcid: orcid(),
-  websites: arrayWithNullDefault.of(
-    string()
-      .nullable()
-      .url()
-      .label('Website')
-  ),
+  websites: array()
+    .default([''])
+    .of(
+      string()
+        .trim()
+        .nullable()
+        .url()
+        .label('Website')
+    ),
   blog: string().url(),
   linkedin: string(),
   twitter: string(),
   arxiv_categories: array().of(string().oneOf(arxivCategoryValues)),
-  positions: arrayWithEmptyObjectDefault.of(
-    emptyObjectOrShapeOf({
-      institution: string()
-        .trim()
-        .required()
-        .label('Institution name'),
-      rank: string().oneOf(rankValues),
-      start_date: yearSchema,
-      end_date: yearSchema,
-      current: boolean(),
-    })
-  ),
-  project_membership: arrayWithEmptyObjectDefault.of(
-    emptyObjectOrShapeOf({
-      name: string()
-        .trim()
-        .required()
-        .label('Experiment name'),
-      start_date: yearSchema,
-      end_date: yearSchema,
-      current: boolean(),
-    })
-  ),
-  advisors: arrayWithEmptyObjectDefault.of(
-    emptyObjectOrShapeOf({
-      name: string()
-        .trim()
-        .required()
-        .label('Advisor name'),
-      degree_type: string().oneOf(degreeTypeValues),
-    })
-  ),
+  positions: array()
+    .default([{}])
+    .of(
+      emptyObjectOrShapeOf({
+        institution: string()
+          .trim()
+          .required()
+          .label('Institution name'),
+        rank: string().oneOf(rankValues),
+        start_date: yearSchema,
+        end_date: yearSchema,
+        current: boolean(),
+      })
+    ),
+  project_membership: array()
+    .default([{}])
+    .of(
+      emptyObjectOrShapeOf({
+        name: string()
+          .trim()
+          .required()
+          .label('Experiment name'),
+        start_date: yearSchema,
+        end_date: yearSchema,
+        current: boolean(),
+      })
+    ),
+  advisors: array()
+    .default([{}])
+    .of(
+      emptyObjectOrShapeOf({
+        name: string()
+          .trim()
+          .required()
+          .label('Advisor name'),
+        degree_type: string().oneOf(degreeTypeValues),
+      })
+    ),
   comments: string(),
   bai: string(),
 });

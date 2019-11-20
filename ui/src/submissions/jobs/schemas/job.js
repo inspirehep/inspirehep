@@ -3,9 +3,7 @@ import moment from 'moment';
 
 import { regionValues, statusValues, fieldOfInterestValues } from './constants';
 import { rankValues } from '../../common/schemas/constants';
-import arrayWithEmptyObjectDefault from '../../common/schemas/arrayWithEmptyObjectDefault';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
-import arrayWithNullDefault from '../../common/schemas/arrayWithNullDefault';
 import OR from '../../common/schemas/OR';
 
 export function isValidDeadlineDate(value) {
@@ -37,7 +35,8 @@ const jobSchema = object().shape({
     .of(string().oneOf(fieldOfInterestValues))
     .required()
     .label('Field of Interest'),
-  institutions: arrayWithEmptyObjectDefault
+  institutions: array()
+    .default([{}])
     .of(
       object().shape({
         value: string()
@@ -48,26 +47,30 @@ const jobSchema = object().shape({
     )
     .required()
     .label('Institution'),
-  experiments: arrayWithEmptyObjectDefault.of(
-    emptyObjectOrShapeOf({
-      legacy_name: string()
-        .trim()
-        .required()
-        .label('Experiment'),
-    })
-  ),
-  contacts: arrayWithEmptyObjectDefault.of(
-    object().shape({
-      name: string()
-        .trim()
-        .required()
-        .label('Contact name'),
-      email: string()
-        .email()
-        .required()
-        .label('Contact email'),
-    })
-  ),
+  experiments: array()
+    .default([{}])
+    .of(
+      emptyObjectOrShapeOf({
+        legacy_name: string()
+          .trim()
+          .required()
+          .label('Experiment'),
+      })
+    ),
+  contacts: array()
+    .default([{}])
+    .of(
+      object().shape({
+        name: string()
+          .trim()
+          .required()
+          .label('Contact name'),
+        email: string()
+          .email()
+          .required()
+          .label('Contact email'),
+      })
+    ),
   deadline_date: date().when('status', {
     is: 'closed',
     then: date(),
@@ -87,19 +90,21 @@ const jobSchema = object().shape({
   url: string()
     .url()
     .label('URL'),
-  reference_letters: arrayWithNullDefault.of(
-    OR(
-      [
-        string()
-          .nullable()
-          .url(),
-        string()
-          .nullable()
-          .email(),
-      ],
-      'Must be a url or an email'
-    )
-  ),
+  reference_letters: array()
+    .default([''])
+    .of(
+      OR(
+        [
+          string()
+            .nullable()
+            .url(),
+          string()
+            .nullable()
+            .email(),
+        ],
+        'Must be a url or an email'
+      )
+    ),
 });
 
 export default jobSchema;

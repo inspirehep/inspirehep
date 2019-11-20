@@ -63,10 +63,10 @@ describe('basicInfo section', () => {
     done();
   });
 
-  it('validates when report_numbers contain null item', async done => {
+  it('validates when report_numbers contain empty item', async done => {
     const data = {
       ...dataWithRequiredFields,
-      report_numbers: [null],
+      report_numbers: [''],
     };
     const isValid = await schema.isValid(data);
     expect(isValid).toBe(true);

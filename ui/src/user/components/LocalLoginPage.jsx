@@ -50,10 +50,9 @@ class LocalLoginPage extends Component {
         <Row className="h-100" type="flex" justify="center" align="middle">
           <Card align="middle">
             <p>This login page is included only for dev and test environment</p>
-            <Formik
-              onSubmit={onLoginFormSubmit}
-              render={LocalLoginPage.renderLoginForm}
-            />
+            <Formik onSubmit={onLoginFormSubmit} initialValues={{}}>
+              {LocalLoginPage.renderLoginForm}
+            </Formik>
           </Card>
         </Row>
       </>
