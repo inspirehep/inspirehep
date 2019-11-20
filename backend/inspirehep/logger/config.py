@@ -42,13 +42,18 @@ shared_processors = [
     structlog.processors.TimeStamper(fmt="iso"),
     structlog.processors.StackInfoRenderer(),
     structlog.processors.format_exc_info,
-    SentryJsonProcessor(level=logging.ERROR, tag_keys="__all__"),
     structlog.processors.UnicodeDecoder(),
 ]
+
+structlog_post_processors = [
+    SentryJsonProcessor(level=logging.ERROR, tag_keys="__all__"),
+    structlog.stdlib.ProcessorFormatter.wrap_for_formatter,
+]
+
 structlog.configure(
     processors=[structlog.stdlib.filter_by_level]
     + shared_processors
-    + [structlog.stdlib.ProcessorFormatter.wrap_for_formatter],
+    + structlog_post_processors,
     context_class=dict,
     logger_factory=structlog.stdlib.LoggerFactory(),
     wrapper_class=structlog.stdlib.BoundLogger,
