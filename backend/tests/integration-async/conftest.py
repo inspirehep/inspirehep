@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
 import time
 from copy import deepcopy
 from datetime import datetime, timedelta
@@ -14,6 +13,7 @@ import pytest
 import structlog
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
+from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value
 from invenio_db import db
@@ -54,27 +54,14 @@ def celery_worker_parameters():
 @pytest.fixture(scope="function", autouse=True)
 def clear_environment(app):
     from invenio_db import db as db_
-    from sqlalchemy_utils.functions import create_database, database_exists
 
     with app.app_context():
-        if not database_exists(str(db_.engine.url)):
-            create_database(str(db_.engine.url))
-        db_.create_all()
-        db_.session.rollback()
-        db_.session.remove()
-        all_tables = db_.metadata.tables
-        for table_name, table_object in all_tables.items():
-            db_.session.execute(f"ALTER TABLE {table_name} DISABLE TRIGGER ALL;")
-            db_.session.execute(table_object.delete())
-            db_.session.execute(f"ALTER TABLE {table_name} ENABLE TRIGGER ALL;")
-        db.session.commit()
-        _es = app.extensions["invenio-search"]
-        list(_es.delete(ignore=[404]))
-        list(_es.create(ignore=[400]))
+        db_cleanup(db_)
+        es_cleanup(es)
+
         init_default_storage_path()
         init_records_files_storage_path()
-        es.indices.refresh("records-hep")
-        es.indices.refresh("records-authors")
+        es.indices.refresh()
 
 
 @pytest.fixture(scope="session")

@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-
+import datetime
 import os
 import random
 from functools import partial
@@ -15,6 +15,7 @@ import pytest
 from click.testing import CliRunner
 from flask import current_app
 from flask.cli import ScriptInfo
+from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
@@ -76,6 +77,16 @@ def create_app():
     return inspire_create_app
 
 
+@pytest.fixture(scope="module")
+def database(appctx):
+    """Setup database."""
+    from invenio_db import db as db_
+
+    db_cleanup(db_)
+    yield db_
+    db_.session.remove()
+
+
 @pytest.fixture(scope="function")
 def db_(database):
     """Creates a new database session for a test.
@@ -113,7 +124,6 @@ def db_(database):
     database.session = session
 
     yield database
-
     session.remove()
     transaction.rollback()
     connection.close()
@@ -125,6 +135,12 @@ def db(db_):
     init_default_storage_path()
     init_records_files_storage_path()
     yield db_
+
+
+@pytest.fixture(scope="function")
+def es_clear(es):
+    es_cleanup(es)
+    yield es
 
 
 @pytest.fixture(scope="function")
