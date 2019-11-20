@@ -31,12 +31,17 @@ class FormSubmitter {
 
   async submit(data) {
     await this.fill(data);
+    await this.page.waitFor(
+      selector => !document.querySelector(selector).disabled,
+      {},
+      SUBMIT_BUTTON_SELECTOR
+    );
     await this.page.click(SUBMIT_BUTTON_SELECTOR);
   }
 
   async fill(data) {
     await this.fillAnyField(null, data);
-    await this.page.click('body');
+    await this.page.click('form');
   }
 
   async fillAnyField(path, data) {
@@ -96,11 +101,14 @@ class FormSubmitter {
 
   async fillArrayField(path, items) {
     for (const [i, itemData] of items.entries()) {
+      const itemPath = joinPaths(path, i);
+
       if (i !== 0) {
         await this.addNewItemToField(path);
+        const itemContainerSelector = `[${ID_ATTRIBUTE}="container-${itemPath}"]`;
+        await this.page.waitFor(itemContainerSelector);
       }
 
-      const itemPath = joinPaths(path, i);
       await this.fillAnyField(itemPath, itemData);
     }
   }

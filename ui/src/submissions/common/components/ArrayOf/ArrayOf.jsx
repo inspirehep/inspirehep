@@ -41,7 +41,11 @@ class ArrayOf extends Component {
                 {items &&
                   items.length > 0 &&
                   items.map((item, index) => (
-                    <Row key={extractKey(item, index)} className="item">
+                    <Row
+                      key={extractKey(item, index)}
+                      className="item"
+                      data-test-id={`container-${name}.${index}`}
+                    >
                       <Col span={22}>{renderItem(`${name}.${index}`)}</Col>
                       {items.length > 1 && (
                         <Col span={1} offset={1}>

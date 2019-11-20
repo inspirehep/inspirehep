@@ -1,8 +1,6 @@
 import { string, array, object } from 'yup';
 
 import { languageValues, subjectValues } from '../constants';
-import arrayWithEmptyObjectDefault from '../../../common/schemas/arrayWithEmptyObjectDefault';
-import arrayWithNullDefault from '../../../common/schemas/arrayWithNullDefault';
 
 export default {
   title: string()
@@ -16,7 +14,8 @@ export default {
     .min(1)
     .required()
     .label('Subject'),
-  authors: arrayWithEmptyObjectDefault
+  authors: array()
+    .default([{}])
     .of(
       object().shape({
         full_name: string()
@@ -31,7 +30,9 @@ export default {
   collaboration: string(),
   experiment: string(),
   abstract: string(),
-  report_numbers: arrayWithNullDefault.of(string().nullable()),
+  report_numbers: array()
+    .default([''])
+    .of(string().nullable()),
   doi: string()
     .matches(new RegExp('^(doi:)?10\\.\\d+(\\.\\d+)?/\\S+$'))
     .label('DOI'),

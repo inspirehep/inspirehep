@@ -30,7 +30,7 @@ exports[`ArticleForm renders all props 1`] = `
       header="Publication Info"
       key="publication_info"
     >
-      <C
+      <Field
         component={[Function]}
         extractItemCompletionValue={[Function]}
         label="Journal Title"
@@ -40,22 +40,22 @@ exports[`ArticleForm renders all props 1`] = `
         renderResultItem={[Function]}
         suggesterName="journal_title"
       />
-      <C
+      <Field
         component={[Function]}
         label="Volume"
         name="volume"
       />
-      <C
+      <Field
         component={[Function]}
         label="Issue"
         name="issue"
       />
-      <C
+      <Field
         component={[Function]}
         label="Year"
         name="year"
       />
-      <C
+      <Field
         component={[Function]}
         label="Page Range/Article ID"
         name="page_range"
@@ -66,7 +66,7 @@ exports[`ArticleForm renders all props 1`] = `
       header="Conference Info"
       key="conference_info"
     >
-      <C
+      <Field
         component={[Function]}
         extractItemCompletionValue={[Function]}
         label="Conference Info"
@@ -82,7 +82,7 @@ exports[`ArticleForm renders all props 1`] = `
       header="Proceedings Info (if not published in a journal)"
       key="proceedings_info"
     >
-      <C
+      <Field
         component={[Function]}
         label="Proceedings"
         name="proceedings_info"

@@ -1,7 +1,6 @@
-import { string, object } from 'yup';
+import { string, object, array } from 'yup';
 
 import { degreeTypeValues } from '../../../common/schemas/constants';
-import arrayWithEmptyObjectDefault from '../../../common/schemas/arrayWithEmptyObjectDefault';
 import date from '../../../common/schemas/date';
 
 export default {
@@ -9,10 +8,12 @@ export default {
   submission_date: date(),
   defense_date: date(),
   institution: string(),
-  supervisors: arrayWithEmptyObjectDefault.of(
-    object().shape({
-      full_name: string(),
-      affiliation: string(),
-    })
-  ),
+  supervisors: array()
+    .default([{}])
+    .of(
+      object().shape({
+        full_name: string(),
+        affiliation: string(),
+      })
+    ),
 };
