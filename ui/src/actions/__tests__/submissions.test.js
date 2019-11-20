@@ -9,6 +9,7 @@ import {
   INITIAL_FORM_DATA_ERROR,
   INITIAL_FORM_DATA_REQUEST,
   INITIAL_FORM_DATA_SUCCESS,
+  SUBMIT_REQUEST,
 } from '../actionTypes';
 import {
   submit,
@@ -28,15 +29,20 @@ describe('submissions - async action creator', () => {
     it('creates SUBMIT_SUCCESS and pushes /submissions/success to history if successful', async done => {
       const submissionUrl = '/submissions/authors';
       const data = { field: 'value' };
-      mockHttp.onPost(submissionUrl, { data }).replyOnce(200, {});
+      mockHttp.onPost(submissionUrl, { data }).replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
+        { type: SUBMIT_REQUEST },
         {
           type: SUBMIT_SUCCESS,
+          payload: { foo: 'bar' },
         },
         {
           type: CALL_HISTORY_METHOD,
-          payload: { args: ['/submissions/success'], method: 'push' },
+          payload: {
+            args: ['/submissions/authors/new/success'],
+            method: 'push',
+          },
         },
       ];
 
@@ -51,6 +57,7 @@ describe('submissions - async action creator', () => {
       mockHttp.onPost(submissionUrl).replyOnce(400, { message: 'Error' });
 
       const expectedActions = [
+        { type: SUBMIT_REQUEST },
         {
           type: SUBMIT_ERROR,
           payload: { message: 'Error', status: 400 },
@@ -68,11 +75,13 @@ describe('submissions - async action creator', () => {
     it('creates SUBMIT_SUCCESS and pushes /submissions/:type/:id/success to history if successful', async done => {
       const submissionUrl = '/submissions/jobs/123';
       const data = { field: 'value' };
-      mockHttp.onPut(submissionUrl, { data }).replyOnce(200, {});
+      mockHttp.onPut(submissionUrl, { data }).replyOnce(200, { foo: 'bar' });
 
       const expectedActions = [
+        { type: SUBMIT_REQUEST },
         {
           type: SUBMIT_SUCCESS,
+          payload: { foo: 'bar' },
         },
         {
           type: CALL_HISTORY_METHOD,
@@ -91,6 +100,7 @@ describe('submissions - async action creator', () => {
       mockHttp.onPut(submissionUrl).replyOnce(400, { message: 'Error' });
 
       const expectedActions = [
+        { type: SUBMIT_REQUEST },
         {
           type: SUBMIT_ERROR,
           payload: { message: 'Error', status: 400 },

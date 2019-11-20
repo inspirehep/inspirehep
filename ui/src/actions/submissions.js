@@ -6,13 +6,21 @@ import {
   INITIAL_FORM_DATA_REQUEST,
   INITIAL_FORM_DATA_ERROR,
   INITIAL_FORM_DATA_SUCCESS,
+  SUBMIT_REQUEST,
 } from './actionTypes';
-import { SUBMISSION_SUCCESS, SUBMISSIONS } from '../common/routes';
+import { SUBMISSIONS } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
 
-function submitSuccess() {
+function submitSuccess(payload) {
   return {
     type: SUBMIT_SUCCESS,
+    payload,
+  };
+}
+
+function submitRequest() {
+  return {
+    type: SUBMIT_REQUEST,
   };
 }
 
@@ -46,10 +54,11 @@ function fetchInitialFormDataSuccess(data) {
 
 export function submit(pidType, data) {
   return async (dispatch, getState, http) => {
+    dispatch(submitRequest());
     try {
-      await http.post(`${SUBMISSIONS}/${pidType}`, { data });
-      dispatch(submitSuccess());
-      dispatch(push(SUBMISSION_SUCCESS));
+      const response = await http.post(`${SUBMISSIONS}/${pidType}`, { data });
+      dispatch(submitSuccess(response.data));
+      dispatch(push(`/submissions/${pidType}/new/success`));
     } catch (error) {
       dispatch(submitError(httpErrorToActionPayload(error)));
     }
@@ -58,9 +67,12 @@ export function submit(pidType, data) {
 
 export function submitUpdate(pidType, pidValue, data) {
   return async (dispatch, getState, http) => {
+    dispatch(submitRequest());
     try {
-      await http.put(`${SUBMISSIONS}/${pidType}/${pidValue}`, { data });
-      dispatch(submitSuccess());
+      const response = await http.put(`${SUBMISSIONS}/${pidType}/${pidValue}`, {
+        data,
+      });
+      dispatch(submitSuccess(response.data));
       dispatch(push(`/submissions/${pidType}/${pidValue}/success`));
     } catch (error) {
       dispatch(submitError(httpErrorToActionPayload(error)));

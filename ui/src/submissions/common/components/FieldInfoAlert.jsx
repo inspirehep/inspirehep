@@ -7,7 +7,7 @@ class FieldInfoAlert extends Component {
   render() {
     const { description } = this.props;
     return (
-      <Row>
+      <Row className="mb1">
         <Col span={WRAPPER_COL.span} offset={LABEL_COL.span}>
           <Alert type="info" description={description} showIcon />
         </Col>
