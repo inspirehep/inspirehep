@@ -217,6 +217,16 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
         Literature
       </Link>
     </MenuItem>
+    <MenuItem
+      key="submit.conference"
+    >
+      <Link
+        replace={false}
+        to="/submissions/conferences"
+      >
+        Conference
+      </Link>
+    </MenuItem>
   </SubMenu>
   <SubMenu
     key="tools"

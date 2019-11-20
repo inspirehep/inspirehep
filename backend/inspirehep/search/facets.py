@@ -28,6 +28,30 @@ def must_match_all_filter(field):
     return inner
 
 
+def date_range_contains_conferences_filter():
+    def inner(values):
+        opening_date, closing_date = values[0].split("--")
+        closing_date_in_range = Range(
+            **{"closing_date": {"gte": opening_date, "lte": closing_date}}
+        )
+        opening_date_in_range = Range(
+            **{"opening_date": {"gte": opening_date, "lte": closing_date}}
+        )
+        contains_range = Q(
+            "bool",
+            must=[
+                Range(**{"opening_date": {"lt": opening_date}}),
+                Range(**{"closing_date": {"gt": closing_date}}),
+            ],
+        )
+        return Q(
+            "bool",
+            should=[closing_date_in_range, opening_date_in_range, contains_range],
+        )
+
+    return inner
+
+
 def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None):
     """Bool filter containing a list of must matches for nested queries."""
 

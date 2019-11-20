@@ -36,6 +36,7 @@ from inspirehep.search.api import (
 from inspirehep.search.facets import (
     citation_summary,
     citations_by_year,
+    date_range_contains_conferences_filter,
     hep_author_publications,
     hep_author_publications_cataloger,
     hep_conference_contributions,
@@ -489,6 +490,7 @@ RECORDS_REST_FACETS = {
         "filters": {
             "subject": must_match_all_filter("inspire_categories.term"),
             "start_date": range_filter("opening_date"),
+            "contains": date_range_contains_conferences_filter(),
         },
         "aggs": {
             "subject": {

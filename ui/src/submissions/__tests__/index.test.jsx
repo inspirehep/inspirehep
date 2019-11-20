@@ -14,6 +14,8 @@ import LiteratureSubmissionPageContainer from '../literature/containers/Literatu
 import JobUpdateSubmissionPageContainer from '../jobs/containers/JobUpdateSubmissionPageContainer';
 import JobSubmissionPageContainer from '../jobs/containers/JobSubmissionPageContainer';
 import JobUpdateSubmissionSuccessPage from '../jobs/components/JobUpdateSubmissionSuccessPage';
+import ConferenceSubmissionSuccessPageContainer from '../conferences/containers/ConferenceSubmissionSuccessPageContainer';
+import ConferenceSubmissionPageContainer from '../conferences/containers/ConferenceSubmissionPageContainer';
 
 describe('Submissions', () => {
   let element;
@@ -106,6 +108,25 @@ describe('Submissions', () => {
     wrapper.detach();
   });
 
+  it('navigates to ConferenceSubmissionPageContainer when /submissions/conferences', async () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/conferences']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>,
+      { attachTo: element }
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(ConferenceSubmissionPageContainer)).toExist();
+    wrapper.detach();
+  });
+
   it('navigates to JobUpdateSubmissionPageContainer when /submissions/jobs/:id', async () => {
     const wrapper = mount(
       <Provider store={getStore()}>
@@ -127,6 +148,57 @@ describe('Submissions', () => {
       <Provider store={getStore()}>
         <MemoryRouter
           initialEntries={['/submissions/success']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(SubmissionSuccessPage)).toExist();
+  });
+
+  it('navigates to SubmissionSuccessPage when /submissions/literature/new/success', async () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/literature/new/success']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(SubmissionSuccessPage)).toExist();
+  });
+
+  it('navigates to ConferenceSubmissionSuccessPageContainer when /submissions/conferences/new/success', async () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/conferences/new/success']}
+          initialIndex={0}
+        >
+          <Submissions />
+        </MemoryRouter>
+      </Provider>
+    );
+    await Loadable.preloadAll();
+    wrapper.update();
+
+    expect(wrapper.find(ConferenceSubmissionSuccessPageContainer)).toExist();
+  });
+
+  it('navigates to SubmissionSuccessPage when /submissions/athors/new/success', async () => {
+    const wrapper = mount(
+      <Provider store={getStore()}>
+        <MemoryRouter
+          initialEntries={['/submissions/authors/new/success']}
           initialIndex={0}
         >
           <Submissions />

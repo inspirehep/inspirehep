@@ -6,9 +6,11 @@ import {
   INITIAL_FORM_DATA_REQUEST,
   INITIAL_FORM_DATA_SUCCESS,
   INITIAL_FORM_DATA_ERROR,
+  SUBMIT_REQUEST,
 } from '../actions/actionTypes';
 
 export const initialState = fromJS({
+  successData: null,
   submitError: null,
   loadingInitialData: false,
   initialData: null,
@@ -17,8 +19,12 @@ export const initialState = fromJS({
 
 const submissionsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SUBMIT_REQUEST:
+      return state
+        .set('submitError', initialState.get('submitError'))
+        .set('successData', initialState.get('successData'));
     case SUBMIT_SUCCESS:
-      return state.set('submitError', initialState.get('submitError'));
+      return state.set('successData', fromJS(action.payload));
     case SUBMIT_ERROR:
       return state.set('submitError', fromJS(action.payload));
     case INITIAL_FORM_DATA_REQUEST:
