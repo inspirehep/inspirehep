@@ -27,6 +27,8 @@ def remove_request_logging(*args, **kwargs):
 
 
 def url_rule(request):
+    if not request.url_rule:
+        return "NOT_FOUND"
     # Pretty-printing adapted from werkzeug.routing.Route.__repr__
     return "".join(
         f"<{data}>" if is_dynamic else data
