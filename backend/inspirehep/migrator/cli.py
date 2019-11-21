@@ -20,6 +20,7 @@ from inspirehep.migrator.utils import GracefulKiller
 
 from .tasks import (
     migrate_from_mirror,
+    migrate_from_mirror_run_step,
     migrate_record_from_legacy,
     populate_mirror_from_file,
     wait_for_all_tasks,
@@ -117,11 +118,7 @@ def migrate_file(file_name, mirror_only=False, force=False, wait=False):
     help="Force the task to run even in debug mode.",
 )
 @click.option(
-    "-w",
-    "--wait",
-    is_flag=True,
-    default=False,
-    help="Wait for all subtasks to finish. (No progress bar will be available still)",
+    "-w", "--wait", is_flag=True, default=False, help="Wait for all subtasks to finish."
 )
 @with_appcontext
 def mirror(also_migrate=None, force=False, wait=False):
@@ -156,3 +153,37 @@ def continuously():
             touch_file(liveness_file)
         continuous_migration()
         sleep(current_app.config.get("MIGRATION_POLLING_SLEEP", 1))
+
+
+@migrate.command()
+@click.option(
+    "-f",
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Force the task to run even in debug mode.",
+)
+@click.option(
+    "-w", "--wait", is_flag=True, default=False, help="Wait for all subtasks to finish."
+)
+@click.option(
+    "-s",
+    "--step",
+    default=0,
+    type=int,
+    help="""
+    1 - Migrate from mirror table
+    2 - Recalculate citations proceedings etc.
+    3 - Reindex
+    """,
+)
+@with_appcontext
+def mirror_step(force=False, wait=False, step=0):
+    """Migrate records step by step
+
+    (Re)Migrates only records marked as valid
+    """
+    halt_if_debug_mode(force=force)
+    task = migrate_from_mirror_run_step(step_no=step - 1)
+    if wait:
+        wait_for_all_tasks(task)
