@@ -42,7 +42,8 @@ conferences_json_detail_response = record_responsify(
 )
 
 conferences_json_list = JSONSerializer(
-    wrap_schema_class_with_metadata(ConferencesListSchema)
+    wrap_schema_class_with_metadata(ConferencesListSchema),
+    index_name="records-conferences",
 )
 conferences_json_list_response = search_responsify(
     conferences_json_list, "application/vnd+inspire.record.ui+json"

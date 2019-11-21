@@ -23,19 +23,23 @@ class AggregationFilters extends Component {
       inline,
       displayWhenNoResults,
       initialAggregations,
+      staticAggregations,
     } = this.props;
     const rowClassName = classnames('bg-white', {
       pa3: !inline,
       pv3: inline,
     });
+    const aggregationsToDisplay = aggregations
+      .entrySeq()
+      .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
+      .sort(AggregationFilters.compareAggregationEntries);
     return (
       aggregations &&
       (numberOfResults > 0 || displayWhenNoResults) && (
         <Row className={rowClassName} type="flex" justify="space-between">
-          {aggregations
+          {staticAggregations
             .entrySeq()
-            .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
-            .sort(AggregationFilters.compareAggregationEntries)
+            .concat(aggregationsToDisplay)
             .map(([aggregationKey, aggregation]) => (
               <Col
                 className={classnames({ 'md-pb3': inline })}
@@ -76,6 +80,7 @@ AggregationFilters.propTypes = {
   inline: PropTypes.bool,
   onAggregationChange: PropTypes.func.isRequired,
   aggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
+  staticAggregations: PropTypes.instanceOf(Immutable.Map),
   initialAggregations: PropTypes.instanceOf(Immutable.Map).isRequired,
   query: PropTypes.objectOf(PropTypes.any).isRequired,
   numberOfResults: PropTypes.number.isRequired,
@@ -85,6 +90,7 @@ AggregationFilters.propTypes = {
 AggregationFilters.defaultProps = {
   inline: false,
   displayWhenNoResults: false,
+  staticAggregations: Immutable.Map(),
 };
 
 export default AggregationFilters;

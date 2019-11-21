@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Menu, Icon, Tooltip } from 'antd';
+import { Menu } from 'antd';
 
 import ExternalLink from '../../common/components/ExternalLink';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
+import IconText from '../../common/components/IconText';
 
 function renderWebsitesDropdownAction(website) {
   const href = website.get('value');
@@ -22,11 +23,7 @@ function renderWebsiteAction(website, title) {
   return <ExternalLink href={website.get('value')}>{title}</ExternalLink>;
 }
 
-const ACTION_TITLE = (
-  <Tooltip title="Conference website">
-    <Icon type="link" />
-  </Tooltip>
-);
+const ACTION_TITLE = <IconText type="link" text="website" />;
 
 function ConferenceWebsitesAction({ websites }) {
   return (

@@ -144,7 +144,6 @@ LITERATURE_ARXIV.update(
     }
 )
 
-
 DOI = deepcopy(LITERATURE)
 DOI.update(
     {
@@ -323,6 +322,18 @@ CONFERENCES.update(
     }
 )
 
+CONFERENCES_FACETS = deepcopy(CONFERENCES)
+CONFERENCES_FACETS.update(
+    {
+        "default_endpoint_prefix": False,
+        "search_factory_imp": "inspirehep.search.factories.search:search_factory_only_with_aggs",
+        "list_route": "/conferences/facets/",
+        "search_serializers": {
+            "application/json": f"{INSPIRE_SERIALIZERS}:facets_json_response_search"
+        },
+    }
+)
+
 DATA = deepcopy(RECORD)
 DATA.update(
     {
@@ -377,6 +388,7 @@ RECORDS_REST_ENDPOINTS = {
     "journals": JOURNALS,
     "experiments": EXPERIMENTS,
     "conferences": CONFERENCES,
+    "conferences_facets": CONFERENCES_FACETS,
     "data": DATA,
     "institutions": INSTITUTIONS,
 }
@@ -473,6 +485,18 @@ RECORDS_REST_FACETS = {
             },
         },
     },
+    "records-conferences": {
+        "filters": {
+            "subject": must_match_all_filter("inspire_categories.term"),
+            "start_date": range_filter("opening_date"),
+        },
+        "aggs": {
+            "subject": {
+                "terms": {"field": "inspire_categories.term", "size": 20},
+                "meta": {"title": "Subject", "order": 1, "type": "checkbox"},
+            }
+        },
+    },
 }
 """Introduce searching facets."""
 
@@ -489,7 +513,6 @@ CATALOGER_RECORDS_REST_FACETS["records-jobs"]["aggs"]["status"] = {
 CATALOGER_RECORDS_REST_FACETS[
     "hep-author-publication"
 ] = hep_author_publications_cataloger
-
 
 RECORDS_REST_SORT_OPTIONS = {
     "records-hep": {
@@ -509,11 +532,13 @@ RECORDS_REST_SORT_OPTIONS = {
     "records-jobs": {
         "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1}
     },
+    "records-conferences": {
+        "mostrecent": {"title": "Most Recent", "fields": ["-opening_date"], "order": 1}
+    },
 }
 
 RECORDS_REST_DEFAULT_SORT = dict(records=dict(query="bestmatch", noquery="mostrecent"))
 """Set default sorting options."""
-
 
 LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE = {
     "application/vnd+inspire.record.ui+json": [

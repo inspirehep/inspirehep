@@ -9,6 +9,7 @@ import { pluckMinMaxPair, toNumbers } from '../../utils';
 import AggregationBox from '../AggregationBox';
 import styleVariables from '../../../styleVariables';
 import './RangeAggregation.scss';
+import { RANGE_AGGREGATION_SELECTION_SEPARATOR } from '../../constants';
 
 export const HALF_BAR_WIDTH = 0.4;
 const NO_MARGIN = {
@@ -17,7 +18,6 @@ const NO_MARGIN = {
   top: 0,
   bottom: 0,
 };
-const SELECTION_SEPARATOR = '--';
 const KEY_PROP_NAME = 'key_as_string';
 const COUNT_PROP_NAME = 'doc_count';
 const SELECTED_COLOR = '#91d5ff';
@@ -93,7 +93,7 @@ function sanitizeEndpoints(endpoints, [min, max]) {
 
 function getSanitizedEndpointsFromSelections(selections, minMaxPair) {
   const selectionsAsString =
-    selections && selections.split(SELECTION_SEPARATOR);
+    selections && selections.split(RANGE_AGGREGATION_SELECTION_SEPARATOR);
   const unsafeEndpoints = toNumbers(selectionsAsString) || [];
   return sanitizeEndpoints(unsafeEndpoints, minMaxPair);
 }
@@ -182,7 +182,9 @@ function RangeAggregation({
 
   const onSliderAfterChange = useCallback(
     (endpoints = sliderEndpoints) => {
-      const rangeSelectionString = endpoints.join(SELECTION_SEPARATOR);
+      const rangeSelectionString = endpoints.join(
+        RANGE_AGGREGATION_SELECTION_SEPARATOR
+      );
       onChange(rangeSelectionString);
     },
     [onChange, sliderEndpoints]

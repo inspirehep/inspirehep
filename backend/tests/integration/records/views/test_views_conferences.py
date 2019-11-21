@@ -159,3 +159,62 @@ def test_conferences_application_json_put_with_cataloger_logged_in(
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
+
+
+def test_conferences_sort_options(api_client, db, es, create_record):
+    create_record("con")
+
+    response = api_client.get(
+        "/conferences", headers={"Accept": "application/vnd+inspire.record.ui+json"}
+    )
+    response_data = response.json
+
+    response_status_code = response.status_code
+    response_data_sort_options = response_data["sort_options"]
+
+    expected_status_code = 200
+    expected_sort_options_1 = {"value": "mostrecent", "display": "Most Recent"}
+
+    assert expected_status_code == response_status_code
+    assert expected_sort_options_1 in response_data_sort_options
+
+
+def test_conferences_facets(api_client, db, es, create_record):
+    create_record("con")
+    response = api_client.get("/conferences/facets")
+    response_data = response.json
+    response_status_code = response.status_code
+    response_data_facet_keys = list(response_data.get("aggregations").keys())
+
+    expected_status_code = 200
+    expected_facet_keys = ["subject"]
+    assert expected_status_code == response_status_code
+    assert expected_facet_keys == response_data_facet_keys
+    assert len(response_data["hits"]["hits"]) == 0
+
+
+def test_conferences_filters(api_client, db, es, create_record):
+    conference1 = {
+        "opening_date": "2019-11-21",
+        "inspire_categories": [{"term": "Accelerators"}],
+    }
+    expected_record = create_record("con", data=conference1)
+    conference2 = {
+        "inspire_categories": [{"term": "Computing"}],
+        "opening_date": "2019-11-21",
+    }
+    create_record("con", data=conference2)
+    conference3 = {
+        "inspire_categories": [{"term": "Accelerators"}],
+        "opening_date": "2019-11-19",
+    }
+    create_record("con", data=conference3)
+    response = api_client.get(
+        "/conferences?subject=Accelerators&start_date=2019-11-21--2019-11-24"
+    )
+    response_data = response.json
+    assert len(response_data["hits"]["hits"]) == 1
+    assert (
+        response_data["hits"]["hits"][0]["metadata"]["control_number"]
+        == expected_record["control_number"]
+    )

@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <React.Fragment>
+      <ConferenceWebsitesAction
+        websites={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <ProceedingsAction
+        proceedings={
+          Immutable.List [
+            Immutable.Map {
+              "publication_info": Immutable.List [
+                Immutable.Map {
+                  "year": 2015,
+                  "journal_title": "title",
+                },
+              ],
+            },
+          ]
+        }
+      />
+      <EditRecordAction
+        pidType="conferences"
+        pidValue={12345}
+      />
+    </React.Fragment>
+  }
+>
+  <Row
+    gutter={0}
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="f5"
+        replace={false}
+        to="/conferences/12345"
+      >
+        <ConferenceTitle
+          acronym="acronym"
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <ConferenceDates
+        closingDate="2019-11-28"
+        openingDate="2019-11-21"
+      />
+      . 
+      <ConferenceLocation
+        location={
+          Immutable.Map {
+            "cities": Immutable.List [
+              "Liverpool",
+            ],
+            "country_code": "USA",
+            "country": "country",
+          }
+        }
+      />
+       (C05-09-16.1)
+    </Col>
+  </Row>
+  <Row
+    className="mt2"
+    gutter={0}
+  >
+    <Col>
+      3 contributions
+    </Col>
+  </Row>
+  <Row
+    className="mt2"
+    gutter={0}
+  >
+    <Col>
+      <InspireCategoryList
+        categories={
+          Immutable.List [
+            Immutable.Map {
+              "term": "physics",
+            },
+          ]
+        }
+        wrapperClassName="di"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`ConferenceItem renders with only needed props 1`] = `
+<ResultItem
+  leftActions={<React.Fragment />}
+>
+  <Row
+    gutter={0}
+    type="flex"
+  >
+    <Col>
+      <Link
+        className="f5"
+        replace={false}
+        to="/conferences/12345"
+      >
+        <ConferenceTitle
+          title={
+            Immutable.Map {
+              "title": "test",
+            }
+          }
+        />
+      </Link>
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <ConferenceDates
+        openingDate="2019-11-21"
+      />
+    </Col>
+  </Row>
+  <Row
+    className="mt2"
+    gutter={0}
+  >
+    <Col>
+      <InspireCategoryList
+        wrapperClassName="di"
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
