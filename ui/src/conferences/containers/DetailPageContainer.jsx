@@ -43,9 +43,9 @@ function DetailPage({ loading, match, dispatch, record }) {
   const acronym = metadata.getIn(['acronyms', 0]);
   const openingDate = metadata.get('opening_date');
   const closingDate = metadata.get('closing_date');
-  const location = metadata.getIn(['address', 0]);
+  const location = metadata.getIn(['addresses', 0]);
   const cnum = metadata.get('cnum');
-  const description = metadata.get('description');
+  const description = metadata.getIn(['short_description', 'value']);
   const inspireCategories = metadata.get('inspire_categories');
   const series = metadata.getIn(['series', 0]);
   const contacts = metadata.get('contact_details');

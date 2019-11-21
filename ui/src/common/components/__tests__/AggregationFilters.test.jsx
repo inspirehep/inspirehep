@@ -30,7 +30,7 @@ describe('AggregationFilters', () => {
         ],
         meta: {
           title: 'Aggregation 2',
-          order: 2,
+          order: 3,
           split: true,
           type: 'checkbox',
         },
@@ -44,7 +44,7 @@ describe('AggregationFilters', () => {
         ],
         meta: {
           title: 'Aggregation 3',
-          order: 3,
+          order: 2,
           split: true,
           type: 'checkbox',
           bucket_help: {
@@ -54,6 +54,14 @@ describe('AggregationFilters', () => {
               link: 'https://inspirehep.net/info/faq/general#published',
             },
           },
+        },
+      },
+    });
+    const staticAggregations = fromJS({
+      filter1: {
+        meta: {
+          title: 'Date Range Aggregation 1',
+          type: 'date-range',
         },
       },
     });
@@ -80,6 +88,7 @@ describe('AggregationFilters', () => {
         initialAggregations={initialAggregations}
         numberOfResults={2}
         onAggregationChange={jest.fn()}
+        staticAggregations={staticAggregations}
       />
     );
     expect(wrapper).toMatchSnapshot();

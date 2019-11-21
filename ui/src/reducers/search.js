@@ -1,6 +1,7 @@
 import { fromJS } from 'immutable';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
+import moment from 'moment';
 import {
   SEARCH_REQUEST,
   SEARCH_ERROR,
@@ -13,13 +14,18 @@ import {
   SEARCH_QUERY_UPDATE,
   SEARCH_BASE_QUERIES_UPDATE,
 } from '../actions/actionTypes';
-import { AUTHORS, JOBS, LITERATURE } from '../common/routes';
+import { AUTHORS, JOBS, LITERATURE, CONFERENCES } from '../common/routes';
+import {
+  DATE_RANGE_FORMAT,
+  RANGE_AGGREGATION_SELECTION_SEPARATOR,
+} from '../common/constants';
 
 export const AUTHORS_NS = 'authors';
 export const LITERATURE_NS = 'literature';
 export const JOBS_NS = 'jobs';
 export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
 export const CONFERENCE_CONTRIBUTIONS_NS = 'conferenceContributions';
+export const CONFERENCES_NS = 'conferences';
 
 const initialBaseQuery = {
   sort: 'mostrecent',
@@ -44,6 +50,8 @@ const initialNamespaceState = {
 export const FETCH_MODE_NEVER = 'never';
 export const FETCH_MODE_ALWAYS = 'always';
 export const FETCH_MODE_INITIAL = 'only-initial-without-query';
+
+const today = moment.utc().format(DATE_RANGE_FORMAT);
 
 export const initialState = fromJS({
   searchBoxNamespace: LITERATURE_NS,
@@ -102,6 +110,20 @@ export const initialState = fromJS({
         facet_name: 'hep-conference-contribution',
       },
     },
+    [CONFERENCES_NS]: {
+      ...initialNamespaceState,
+      pathname: CONFERENCES,
+      embedded: false,
+      baseQuery: {
+        ...initialBaseQuery,
+        start_date: `${today}${RANGE_AGGREGATION_SELECTION_SEPARATOR}`,
+      },
+      query: {
+        ...initialBaseQuery,
+        start_date: `${today}${RANGE_AGGREGATION_SELECTION_SEPARATOR}`,
+      },
+      aggregationsFetchMode: FETCH_MODE_ALWAYS,
+    },
   },
 });
 // TODO: maybe move all static things into config so that we can easily add new collection
@@ -123,15 +145,13 @@ export const SEARCH_BOX_NAMESPACES = nonEmbeddedNamespaces
 
 function getNamespaceForLocationChangeAction(action) {
   const { location } = action.payload;
-  if (location.pathname.indexOf(AUTHORS) > -1) {
-    return AUTHORS_NS;
-  }
-
-  if (location.pathname.indexOf(JOBS) > -1) {
-    return JOBS_NS;
-  }
-
-  return LITERATURE_NS;
+  return (
+    initialState
+      .get('namespaces')
+      .findKey(namespace =>
+        location.pathname.startsWith(namespace.get('pathname'))
+      ) || LITERATURE_NS
+  );
 }
 
 // TODO: maybe implement selector functions that returns the path, ex: pathFor(namespace, 'loading')

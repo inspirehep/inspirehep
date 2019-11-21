@@ -165,6 +165,25 @@ exports[`AggregationFilters renders with all props set 1`] = `
   <Col
     className=""
     gutter={32}
+    key="filter1"
+    lg={24}
+    xs={24}
+  >
+    <EventTracker
+      eventId="Facet-Date Range Aggregation 1"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <AggregationFilter
+        aggregationType="date-range"
+        name="Date Range Aggregation 1"
+        onChange={[Function]}
+      />
+    </EventTracker>
+  </Col>
+  <Col
+    className=""
+    gutter={32}
     key="agg1"
     lg={24}
     xs={24}
@@ -201,34 +220,6 @@ exports[`AggregationFilters renders with all props set 1`] = `
   <Col
     className=""
     gutter={32}
-    key="agg2"
-    lg={24}
-    xs={24}
-  >
-    <EventTracker
-      eventId="Facet-Aggregation 2"
-      eventPropName="onChange"
-      extractEventArgsToForward={null}
-    >
-      <AggregationFilter
-        aggregationType="checkbox"
-        buckets={
-          Immutable.List [
-            Immutable.Map {
-              "key": "foo_2",
-              "doc_count": 1,
-            },
-          ]
-        }
-        name="Aggregation 2"
-        onChange={[Function]}
-        splitDisplayName={true}
-      />
-    </EventTracker>
-  </Col>
-  <Col
-    className=""
-    gutter={32}
     key="agg3"
     lg={24}
     xs={24}
@@ -257,6 +248,34 @@ exports[`AggregationFilters renders with all props set 1`] = `
           ]
         }
         name="Aggregation 3"
+        onChange={[Function]}
+        splitDisplayName={true}
+      />
+    </EventTracker>
+  </Col>
+  <Col
+    className=""
+    gutter={32}
+    key="agg2"
+    lg={24}
+    xs={24}
+  >
+    <EventTracker
+      eventId="Facet-Aggregation 2"
+      eventPropName="onChange"
+      extractEventArgsToForward={null}
+    >
+      <AggregationFilter
+        aggregationType="checkbox"
+        buckets={
+          Immutable.List [
+            Immutable.Map {
+              "key": "foo_2",
+              "doc_count": 1,
+            },
+          ]
+        }
+        name="Aggregation 2"
         onChange={[Function]}
         splitDisplayName={true}
       />
