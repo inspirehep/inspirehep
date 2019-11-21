@@ -194,12 +194,12 @@ const searchReducer = (state = initialState, action) => {
           baseAggregationsQuery
         );
     case SEARCH_QUERY_UPDATE:
-      return state
-        .mergeIn(
-          ['namespaces', namespace, 'query'],
-          state.getIn(['namespaces', namespace, 'baseQuery'])
-        )
-        .mergeIn(['namespaces', namespace, 'query'], query);
+      // eslint-disable-next-line no-case-declarations
+      const fullQuery = state
+        .getIn(['namespaces', namespace, 'baseQuery'])
+        .merge(state.getIn(['namespaces', namespace, 'query']))
+        .merge(query);
+      return state.setIn(['namespaces', namespace, 'query'], fullQuery);
     case SEARCH_REQUEST:
       return state.setIn(['namespaces', namespace, 'loading'], true);
     case SEARCH_SUCCESS:

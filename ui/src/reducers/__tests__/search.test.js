@@ -90,7 +90,7 @@ describe('search reducer', () => {
     const initialReducerState = fromJS({
       namespaces: {
         [namespace]: {
-          baseQuery: { sort: 'mostrecent' },
+          baseQuery: { sort: 'mostrecent', q: '' },
           query: { q: 'test', page: 2 },
         },
       },
@@ -105,7 +105,7 @@ describe('search reducer', () => {
     const expected = fromJS({
       namespaces: {
         [namespace]: {
-          baseQuery: { sort: 'mostrecent' },
+          baseQuery: { sort: 'mostrecent', q: '' },
           query: {
             q: 'test',
             page: 1,
