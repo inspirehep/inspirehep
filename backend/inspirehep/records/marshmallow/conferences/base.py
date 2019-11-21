@@ -6,12 +6,15 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import pycountry
+import structlog
 from marshmallow import fields
 
 from inspirehep.records.marshmallow.base import RecordBaseSchema
 from inspirehep.records.marshmallow.conferences.common.proceeding_info_item import (
     ProceedingInfoItemSchemaV1,
 )
+
+LOGGER = structlog.getLogger()
 
 
 class ConferencesRawSchema(RecordBaseSchema):
@@ -23,9 +26,16 @@ class ConferencesRawSchema(RecordBaseSchema):
         addresses = record.get("addresses", [])
         for address in addresses:
             if "country_code" in address:
-                address["country"] = pycountry.countries.get(
-                    alpha_2=address["country_code"]
-                ).name
+                try:
+                    address["country"] = pycountry.countries.get(
+                        alpha_2=address["country_code"]
+                    ).name
+                except KeyError:
+                    LOGGER.warning(
+                        "Wrong Country code",
+                        country_code=address["country_code"],
+                        recid=record.get("control_number"),
+                    )
         return addresses
 
 

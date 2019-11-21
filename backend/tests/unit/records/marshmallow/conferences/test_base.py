@@ -11,7 +11,7 @@ from inspirehep.records.marshmallow.conferences.base import (
 )
 
 
-def test_base_schema_contrinution_number():
+def test_base_schema_contribution_number():
     expected_result = {"number_of_contributions": 0}
     data = {"number_of_contributions": 0}
     result = ConferencesRawSchema().dump(data).data
@@ -25,6 +25,14 @@ def test_base_schema_addresses():
         ]
     }
     data = {"addresses": [{"cities": ["Beatenberg"], "country_code": "CH"}]}
+
+    result = ConferencesRawSchema().dump(data).data
+    assert expected_result == result
+
+
+def test_base_schema_addresses_wrong_country_code():
+    expected_result = {"addresses": [{"cities": ["City Name"], "country_code": "CS"}]}
+    data = {"addresses": [{"cities": ["City Name"], "country_code": "CS"}]}
 
     result = ConferencesRawSchema().dump(data).data
     assert expected_result == result
