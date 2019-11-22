@@ -3,6 +3,7 @@ import {
   CONFERENCE_SUCCESS,
   CONFERENCE_ERROR,
 } from './actionTypes';
+import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
 
 function fetchingConference(recordId) {
@@ -31,7 +32,10 @@ function fetchConference(recordId) {
   return async (dispatch, getState, http) => {
     dispatch(fetchingConference(recordId));
     try {
-      const response = await http.get(`/conferences/${recordId}`);
+      const response = await http.get(
+        `/conferences/${recordId}`,
+        UI_SERIALIZER_REQUEST_OPTIONS
+      );
       dispatch(fetchConferenceSuccess(response.data));
     } catch (error) {
       const payload = httpErrorToActionPayload(error);
