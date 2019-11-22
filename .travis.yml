@@ -43,6 +43,7 @@ cache:
   directories:
     - "$HOME/.cache/pypoetry"
     - "$HOME/.cache/pre-commit"
+    - "$HOME/virtualenv/"
 
 services:
   - docker
