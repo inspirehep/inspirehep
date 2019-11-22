@@ -533,7 +533,7 @@ RECORDS_REST_SORT_OPTIONS = {
         "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1}
     },
     "records-conferences": {
-        "mostrecent": {"title": "Most Recent", "fields": ["-opening_date"], "order": 1}
+        "mostrecent": {"title": "Most Recent", "fields": ["opening_date"], "order": 1}
     },
 }
 

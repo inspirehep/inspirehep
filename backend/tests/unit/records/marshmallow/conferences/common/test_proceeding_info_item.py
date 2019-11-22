@@ -11,7 +11,7 @@ from inspirehep.records.marshmallow.conferences.common.proceeding_info_item impo
 
 def test_proceeding_info_item():
     expected_result = {
-        "record": {"$ref": "http://labs.inspirehep.net/api/literature/601055"},
+        "control_number": "601055",
         "publication_info": [
             {
                 "pubinfo_freetext": "Geneva, Switzerland: CERN (2002) 401 p",
@@ -22,6 +22,7 @@ def test_proceeding_info_item():
     }
 
     data = {
+        "control_number": "601055",
         "core": True,
         "self": {"$ref": "http://labs.inspirehep.net/api/literature/601055"},
         "publication_info": [
