@@ -127,7 +127,7 @@ def retry_until_matched():
                 try:
                     result = _fun(*_args, **_kwargs)
                 except:
-                    pass
+                    break
                 _current_result = deepcopy(result)
                 if _expected_result:
                     if (
