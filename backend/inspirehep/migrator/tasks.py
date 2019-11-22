@@ -121,8 +121,10 @@ def migrate_from_mirror_run_step(
         ).filter(LegacyRecordsMirror.valid.is_(True))
         recids_chunked = chunker(str(res.recid) for res in query.yield_per(CHUNK_SIZE))
     elif 0 < step_no < 3:
-        query = PersistentIdentifier.query.with_entities(
-            PersistentIdentifier.object_uuid
+        query = (
+            PersistentIdentifier.query.with_entities(PersistentIdentifier.object_uuid)
+            .filter_by(pid_provider="recid")
+            .distinct()
         )
         recids_chunked = chunker(
             str(res.object_uuid) for res in query.yield_per(CHUNK_SIZE)
