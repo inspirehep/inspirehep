@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col } from 'antd';
+import { Row, Col, Empty } from 'antd';
 import { connect } from 'react-redux';
 import { List } from 'immutable';
 
@@ -16,8 +16,6 @@ import LiteratureItem from '../components/LiteratureItem';
 import CiteAllActionContainer from './CiteAllActionContainer';
 import VerticalDivider from '../../common/VerticalDivider';
 import { searchBaseQueriesUpdate } from '../../actions/search';
-import ExternalLink from '../../common/components/ExternalLink';
-import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 
 function renderLiteratureItem(result, rank) {
   return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;
@@ -31,6 +29,8 @@ function LiteratureSearch({
   baseAggregationsQuery,
   onBaseQueriesChange,
   results,
+  noResultsTitle,
+  noResultsDescription,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -53,62 +53,63 @@ function LiteratureSearch({
     [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]
   );
   return (
-    <Row className="mt3" gutter={32} type="flex" justify="start">
-      <Col xs={0} lg={7}>
-        <ResponsiveView min="lg" render={renderAggregations} />
-      </Col>
-      <Col xs={24} lg={17}>
-        <LoadingOrChildren loading={loading}>
-          <EmptyOrChildren
-            data={results}
-            title="0 results"
-            description={
-              <em>
-                Oops! You might want to check out our{' '}
-                <ExternalLink href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search/">
-                  search tips
-                </ExternalLink>
-                .
-              </em>
-            }
-          >
-            <Row type="flex" align="middle" justify="end">
-              <Col xs={24} lg={12}>
-                <NumberOfResultsContainer namespace={namespace} />
-                <VerticalDivider />
-                <CiteAllActionContainer namespace={namespace} />
-              </Col>
-              <Col xs={12} lg={0}>
-                <ResponsiveView
-                  max="md"
-                  render={() => (
-                    <DrawerHandle
-                      className="mt2"
-                      handleText="Filter"
-                      drawerTitle="Filter"
-                    >
-                      {renderAggregations()}
-                    </DrawerHandle>
-                  )}
-                />
-              </Col>
-              <Col className="tr" span={12}>
-                <SortByContainer namespace={namespace} />
-              </Col>
-            </Row>
-            <Row>
-              <Col span={24}>
-                <ResultsContainer
-                  namespace={namespace}
-                  renderItem={renderLiteratureItem}
-                />
-                <PaginationContainer namespace={namespace} />
-              </Col>
-            </Row>
-          </EmptyOrChildren>
-        </LoadingOrChildren>
-      </Col>
-    </Row>
+    <>
+      {results && results.size === 0 ? (
+        <Row className="mt3" gutter={32} type="flex" justify="center">
+          <Col>
+            <Empty
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              description={noResultsTitle}
+            >
+              {noResultsDescription}
+            </Empty>
+          </Col>
+        </Row>
+      ) : (
+        <Row className="mt3" gutter={32} type="flex" justify="start">
+          <Col xs={0} lg={7}>
+            <ResponsiveView min="lg" render={renderAggregations} />
+          </Col>
+          <Col xs={24} lg={17}>
+            <LoadingOrChildren loading={loading}>
+              <Row type="flex" align="middle" justify="end">
+                <Col xs={24} lg={12}>
+                  <NumberOfResultsContainer namespace={namespace} />
+                  <VerticalDivider />
+                  <CiteAllActionContainer namespace={namespace} />
+                </Col>
+                <Col xs={12} lg={0}>
+                  <ResponsiveView
+                    max="md"
+                    render={() => (
+                      <DrawerHandle
+                        className="mt2"
+                        handleText="Filter"
+                        drawerTitle="Filter"
+                      >
+                        {renderAggregations()}
+                      </DrawerHandle>
+                    )}
+                  />
+                </Col>
+                <Col className="tr" span={12}>
+                  <SortByContainer namespace={namespace} />
+                </Col>
+              </Row>
+              <Row>
+                <Col span={24}>
+                  <ResultsContainer
+                    namespace={namespace}
+                    renderItem={renderLiteratureItem}
+                  />
+                  <PaginationContainer namespace={namespace} />
+                </Col>
+              </Row>
+            </LoadingOrChildren>
+          </Col>
+        </Row>
+      )}
+    </>
   );
 }
 
@@ -120,6 +121,8 @@ LiteratureSearch.propTypes = {
   baseQuery: PropTypes.object,
   baseAggregationsQuery: PropTypes.object,
   results: PropTypes.instanceOf(List),
+  noResultsTitle: PropTypes.string,
+  noResultsDescription: PropTypes.node,
 };
 
 const stateToProps = (state, { namespace }) => ({
