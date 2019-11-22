@@ -34,6 +34,7 @@ function ConferenceSearchPage({ loading, loadingAggregations }) {
     () => (
       <LoadingOrChildren loading={loadingAggregations}>
         <AggregationFiltersContainer
+          displayWhenNoResults
           namespace={CONFERENCES_NS}
           staticAggregations={STATIC_AGGREGATIONS}
         />
