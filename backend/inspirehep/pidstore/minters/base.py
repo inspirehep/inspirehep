@@ -9,9 +9,9 @@ import structlog
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
 
-from ..errors import MissingSchema
-from ..providers.external import InspireExternalIdProvider
-from ..providers.recid import InspireRecordIdProvider
+from inspirehep.pidstore.errors import MissingSchema
+from inspirehep.pidstore.providers.external import InspireExternalIdProvider
+from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
 
 LOGGER = structlog.getLogger()
 
