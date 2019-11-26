@@ -383,7 +383,7 @@ class InspireRecord(Record):
 
     @property
     def _previous_version(self):
-        """Allows to easily acces previous version of the record"""
+        """Returns the previous version of the record"""
         data = (
             self.model.versions.filter_by(version_id=self.model.version_id)
             .one()

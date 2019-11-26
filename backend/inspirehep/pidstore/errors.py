@@ -16,3 +16,7 @@ class MissingSchema(BaseInspirePidStoreError):
 
 class MissingControlNumber(BaseInspirePidStoreError):
     pass
+
+
+class CNUMChanged(BaseInspirePidStoreError):
+    pass

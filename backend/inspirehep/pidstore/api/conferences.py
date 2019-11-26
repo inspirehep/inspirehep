@@ -6,10 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-from ..minters.control_number import ConferencesMinter
-from .base import PidStoreBase
+from inspirehep.pidstore.api.base import PidStoreBase
+from inspirehep.pidstore.minters.cnum import CNUMMinter
+from inspirehep.pidstore.minters.control_number import ConferencesMinter
 
 
 class PidStoreConferences(PidStoreBase):
 
-    minters = [ConferencesMinter]
+    minters = [ConferencesMinter, CNUMMinter]
