@@ -29,7 +29,7 @@
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.4.0",
-    "formik": "^1.0.2",
+    "formik": "^2.0.0",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "is-valid-orcid": "^1.2.0",

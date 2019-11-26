@@ -45,7 +45,7 @@ def test_base_schema_proceedings():
                 "publication_info": [
                     {"pubinfo_freetext": "Geneva, Switzerland: CERN (2002) 401 p"}
                 ],
-                "record": {"$ref": "http://labs.inspirehep.net/api/literature/601055"},
+                "control_number": "601055",
             }
         ]
     }
@@ -54,6 +54,7 @@ def test_base_schema_proceedings():
         "proceedings": [
             {
                 "self": {"$ref": "http://labs.inspirehep.net/api/literature/601055"},
+                "control_number": "601055",
                 "publication_info": [
                     {
                         "cnum": "C01-08-26",

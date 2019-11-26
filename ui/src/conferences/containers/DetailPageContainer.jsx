@@ -68,10 +68,7 @@ function DetailPage({ loading, match, dispatch, record }) {
                 {urls && <ConferenceWebsitesAction websites={urls} />}
                 {proceedings && <ProceedingsAction proceedings={proceedings} />}
                 {canEdit && (
-                  <EditRecordAction
-                    pidType="conferences"
-                    pidValue={this.recordId}
-                  />
+                  <EditRecordAction pidType="conferences" pidValue={recordId} />
                 )}
               </>
             }

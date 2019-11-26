@@ -30,7 +30,7 @@ exports[`BookChapterForm renders all props 1`] = `
       header="Publication Info"
       key="publication_info"
     >
-      <C
+      <Field
         component={[Function]}
         extractItemCompletionValue={[Function]}
         label="Book Title"
@@ -40,12 +40,12 @@ exports[`BookChapterForm renders all props 1`] = `
         renderResultItem={[Function]}
         suggesterName="book_title"
       />
-      <C
+      <Field
         component={[Function]}
         label="Start Page"
         name="start_page"
       />
-      <C
+      <Field
         component={[Function]}
         label="End Page"
         name="end_page"

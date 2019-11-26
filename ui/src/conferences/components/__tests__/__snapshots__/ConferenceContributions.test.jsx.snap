@@ -8,5 +8,6 @@ exports[`ConferenceContributions renders 1`] = `
     }
   }
   namespace="conferenceContributions"
+  noResultsTitle="0 Contributions"
 />
 `;

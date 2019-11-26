@@ -19,10 +19,10 @@ exports[`ProceedingsAction renders proceedings 1`] = `
     }
   >
     <MenuItem
-      key="https://localhost:3000/api/literature/12345"
+      key="12345"
     >
       <ExternalLink
-        href="https://localhost:3000/api/literature/12345"
+        href="/literature/12345"
       >
         <span>
           Proceedings 
@@ -31,10 +31,10 @@ exports[`ProceedingsAction renders proceedings 1`] = `
       </ExternalLink>
     </MenuItem>
     <MenuItem
-      key="https://localhost:3000/api/literature/54321"
+      key="54321"
     >
       <ExternalLink
-        href="https://localhost:3000/api/literature/54321"
+        href="/literature/54321"
       >
         <JournalInfo
           info={
@@ -52,7 +52,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
 exports[`ProceedingsAction renders single item 1`] = `
 <ListItemAction>
   <ExternalLink
-    href="https://localhost:3000/literature/12345"
+    href="/literature/12345"
   >
     <IconText
       text="proceedings"

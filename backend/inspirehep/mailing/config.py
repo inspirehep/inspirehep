@@ -5,17 +5,6 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-MAILCHIMP_API_TOKEN = None
-MAILCHIMP_CLIENT_TIMEOUT = 10
-
-MAILCHIMP_JOBS_WEEKLY_REPLICATE_CAMPAIGN_ID = "074c7e5c33"
-MAILCHIMP_JOBS_WEEKLY_LIST_ID = "94ac3f1ad8"
-"""
-The campaigns cannot be reused, hence we're replicating an existing one which
-contains all the neccessary details i.e. audience, sender, subject etc.
-https://us3.admin.mailchimp.com/campaigns/
-"""
-
 MAILTRAIN_URL = "https://lists.labs.inspirehep.net"
 MAILTRAIN_API_TOKEN = ""
 MAILTRAIN_JOBS_WEEKLY_LIST_ID = ""

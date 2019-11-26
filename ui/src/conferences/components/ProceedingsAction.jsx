@@ -7,13 +7,18 @@ import ExternalLink from '../../common/components/ExternalLink';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
 import IconText from '../../common/components/IconText';
 import JournalInfo from '../../common/components/JournalInfo';
+import { LITERATURE } from '../../common/routes';
+
+function getProceedingHref(recordId) {
+  return `${LITERATURE}/${recordId}`;
+}
 
 function renderProceedingsDropdownAction(proceeding, index) {
-  const href = proceeding.getIn(['record', '$ref']);
+  const recordId = proceeding.get('control_number');
   const publicationInfo = proceeding.getIn(['publication_info', 0], Map());
   return (
-    <Menu.Item key={href}>
-      <ExternalLink href={href}>
+    <Menu.Item key={recordId}>
+      <ExternalLink href={getProceedingHref(recordId)}>
         {publicationInfo.has('journal_title') ? (
           <JournalInfo info={publicationInfo} />
         ) : (
@@ -25,8 +30,10 @@ function renderProceedingsDropdownAction(proceeding, index) {
 }
 
 function renderProceedingAction(proceeding, title) {
-  const href = proceeding.getIn(['record', '$ref']);
-  return <ExternalLink href={href}>{title}</ExternalLink>;
+  const recordId = proceeding.get('control_number');
+  return (
+    <ExternalLink href={getProceedingHref(recordId)}>{title}</ExternalLink>
+  );
 }
 
 const ACTION_TITLE = <IconText text="proceedings" type="book" />;

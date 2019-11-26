@@ -32,3 +32,13 @@ def vcr_config():
         ),
         "record_mode": "once",
     }
+
+
+@pytest.fixture(scope="module")
+def es(appctx):
+    """Setup all registered Elasticsearch indices."""
+    from invenio_search import current_search, current_search_client
+
+    list(current_search.create(ignore=[400]))
+    list(current_search.put_templates(ignore=[400]))
+    yield current_search_client

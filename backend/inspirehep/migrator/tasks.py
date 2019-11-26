@@ -16,12 +16,14 @@ import requests
 import structlog
 from celery import chord, shared_task
 from celery.result import AsyncResult
+from click import echo
 from flask import current_app
 from flask_sqlalchemy import models_committed
 from inspire_dojson import marcxml2record
 from inspire_dojson.errors import NotSupportedError
 from invenio_db import db
 from invenio_pidstore.errors import PIDValueError
+from invenio_pidstore.models import PersistentIdentifier
 from jsonschema import ValidationError
 
 from inspirehep.migrator.models import LegacyRecordsMirror
@@ -92,7 +94,7 @@ def read_file(source):
     elif source.endswith(".tar"):  # assuming prodsync tarball
         with closing(tarfile.open(source)) as tar:
             for file_ in tar:
-                print(f"Processing {file_.name}")
+                echo(f"Processing {file_.name}")
                 unzipped = gzip.GzipFile(fileobj=tar.extractfile(file_), mode="rb")
                 for line in unzipped:
                     yield line
@@ -107,6 +109,39 @@ def migrate_record_from_legacy(recid):
     response.raise_for_status()
     migrate_and_insert_record(next(split_blob(response.text)))
     db.session.commit()
+
+
+def migrate_from_mirror_run_step(
+    disable_orcid_push=True, disable_references_processing=True, step_no=1
+):
+    """Allows to easily run step by step migration only for valid records """
+    if step_no == 0:
+        query = LegacyRecordsMirror.query.with_entities(
+            LegacyRecordsMirror.recid
+        ).filter(LegacyRecordsMirror.valid.is_(True))
+        recids_chunked = chunker(str(res.recid) for res in query.yield_per(CHUNK_SIZE))
+    elif 0 < step_no < 3:
+        query = (
+            PersistentIdentifier.query.with_entities(PersistentIdentifier.object_uuid)
+            .filter_by(pid_provider="recid")
+            .distinct()
+        )
+        recids_chunked = chunker(
+            str(res.object_uuid) for res in query.yield_per(CHUNK_SIZE)
+        )
+    else:
+        echo("Wrong step number!")
+        return
+
+    task = migrate_recids_from_mirror(
+        list(recids_chunked),
+        disable_orcid_push=disable_orcid_push,
+        disable_references_processing=disable_references_processing,
+        step_no=step_no,
+        one_step=True,
+    )
+    echo("All migration tasks has been scheduled.")
+    return task
 
 
 def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
@@ -140,7 +175,7 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
         disable_orcid_push=disable_orcid_push,
         disable_references_processing=disable_references_processing,
     )
-    print("All migration tasks has been scheduled.")
+    echo("All migration tasks has been scheduled.")
     return task
 
 
@@ -150,6 +185,7 @@ def migrate_recids_from_mirror(
     step_no=0,
     disable_orcid_push=True,
     disable_references_processing=False,
+    one_step=False,
 ):
     """Task to migrate a chunked list of recids from the mirror.
 
@@ -190,14 +226,26 @@ def migrate_recids_from_mirror(
     logger.info(f"Processing {all_recs} records in this migration step")
     step = migration_steps[step_no]
     header = (step.s(r) for r in recids_chunks)
-    chord_task = chord(header)(
-        migrate_recids_from_mirror.s(
+    if one_step:
+        callback = stop_after_one_step.s()
+    else:
+        callback = migrate_recids_from_mirror.s(
             step_no=step_no + 1,
             disable_orcid_push=disable_orcid_push,
             disable_references_processing=disable_references_processing,
         )
-    )
+    chord_task = chord(header)(callback.on_error(fail_info.s()))
     return str(chord_task.id)
+
+
+@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+def stop_after_one_step():
+    LOGGER.info("Only one step was requested. Stopping next steps")
+
+
+@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+def fail_info(*args, **kwargs):
+    LOGGER.error("Migration callback failed", args=args, kwargs=kwargs)
 
 
 def migrate_from_file(source):
@@ -209,7 +257,7 @@ def populate_mirror_from_file(source):
     for i, chunk in enumerate(chunker(split_stream(read_file(source)), CHUNK_SIZE)):
         insert_into_mirror(chunk)
         inserted_records = i * CHUNK_SIZE + len(chunk)
-        print(f"Inserted {inserted_records} records into mirror")
+        echo(f"Inserted {inserted_records} records into mirror")
 
 
 @shared_task(ignore_result=False, queue="migrator", acks_late=True)
