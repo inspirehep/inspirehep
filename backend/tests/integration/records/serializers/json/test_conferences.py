@@ -45,6 +45,7 @@ def test_conferences_json_without_login(api_client, db, create_record, datadir):
             }
         ],
         "_bucket": str(record.bucket),
+        "number_of_contributions": 0,
     }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
@@ -87,6 +88,7 @@ def test_conferences_json_with_logged_in_cataloger(
         "_private_notes": [{"value": "A private note"}],
         "control_number": 1,
         "titles": [{"title": "Great conference for HEP"}],
+        "number_of_contributions": 0,
     }
 
     response = api_client.get(f"/conferences/{record_control_number}", headers=headers)
@@ -129,6 +131,7 @@ def test_conferences_detail(api_client, db, create_record, datadir):
             }
         ],
         "_bucket": str(record.bucket),
+        "number_of_contributions": 0,
     }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
@@ -193,3 +196,36 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
     assert expected_result == response_metadata
     assert expected_created == response_created
     assert expected_updated == response_updated
+
+
+def test_proceedings_in_detail_page(api_client, db, create_record):
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+
+    conference = create_record("con")
+    conference_control_number = conference["control_number"]
+    ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["proceedings"],
+    }
+    proceeding = create_record("lit", rec_data)
+
+    rec_data = {
+        "publication_info": [{"conference_record": {"$ref": ref}}],
+        "document_type": ["conference paper"],
+    }
+    create_record("lit", rec_data)
+
+    expected_metadata = {
+        "number_of_contributions": 1,
+        "$schema": "http://localhost:5000/schemas/records/conferences.json",
+        "control_number": conference["control_number"],
+        "_bucket": str(conference.bucket),
+        "proceedings": [{"control_number": proceeding["control_number"]}],
+    }
+    response = api_client.get(
+        f"/conferences/{conference_control_number}", headers=headers
+    )
+    response_metadata = response.json["metadata"]
+    assert expected_metadata == response_metadata

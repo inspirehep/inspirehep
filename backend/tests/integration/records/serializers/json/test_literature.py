@@ -96,6 +96,7 @@ def test_literature_json_without_login(api_client, db, es, create_record):
         "report_numbers": [{"value": "PUBLIC", "hidden": False}],
         "documents": [{"key": "public", "url": "https://url.to/public/document"}],
         "_bucket": str(record._bucket),
+        "citation_count": 0,
     }
     expected_id = record["control_number"]
 
@@ -174,6 +175,7 @@ def test_literature_json_with_logged_in_cataloger(
             {"key": "public", "url": "https://url.to/public/document"},
         ],
         "_bucket": str(record._bucket),
+        "citation_count": 0,
     }
 
     response = api_client.get(f"/literature/{record_control_number}", headers=headers)
@@ -345,6 +347,7 @@ def test_literature_detail(api_client, db, es, create_record):
         "preprint_date": "2001-01-01",
         "date": "Jan 1, 2001",
         "_bucket": str(record._bucket),
+        "citation_count": 0,
     }
     response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 

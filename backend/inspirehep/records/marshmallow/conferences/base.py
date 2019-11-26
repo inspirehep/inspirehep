@@ -18,6 +18,8 @@ LOGGER = structlog.getLogger()
 
 
 class ConferencesRawSchema(RecordBaseSchema):
+    # These are attributes on a mixin that is used by ConferenceRecord class
+    # therefore can't be included by default RecordBaseSchema.include_original_fields
     number_of_contributions = fields.Raw()
     proceedings = fields.Nested(ProceedingInfoItemSchemaV1, many=True, dump_only=True)
     addresses = fields.Method("get_addresses")

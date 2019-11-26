@@ -7,6 +7,7 @@
 
 import json
 
+import pytz
 from flask import current_app
 from invenio_records_rest.serializers.json import (
     JSONSerializer as InvenioJSONSerializer,
@@ -17,6 +18,25 @@ class JSONSerializer(InvenioJSONSerializer):
     def __init__(self, schema_class=None, index_name=None, **kwargs):
         self.index_name = index_name
         super().__init__(schema_class, **kwargs)
+
+    def preprocess_record(self, pid, record, links_factory=None, **kwargs):
+        """Prepare a record and persistent identifier for serialization.
+        We are overriding it to put the actual record in the metadata instead of a dict."""
+        return dict(
+            pid=pid,
+            metadata=record,
+            revision=record.revision_id,
+            created=(
+                pytz.utc.localize(record.created).isoformat()
+                if record.created
+                else None
+            ),
+            updated=(
+                pytz.utc.localize(record.updated).isoformat()
+                if record.updated
+                else None
+            ),
+        )
 
     def serialize_search(
         self, pid_fetcher, search_result, links=None, item_links_factory=None, **kwargs
