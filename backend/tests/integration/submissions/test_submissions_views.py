@@ -6,14 +6,16 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
+from copy import deepcopy
 
 from flask import url_for
 from freezegun import freeze_time
+from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
 
 from inspirehep.accounts.roles import Roles
-from inspirehep.records.api import JobsRecord
+from inspirehep.records.api import ConferencesRecord, JobsRecord
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
 
@@ -830,3 +832,98 @@ def test_regression_update_job_without_acquisition_source_doesnt_give_500(
         record_url, content_type="application/json", data=json.dumps({"data": data})
     )
     assert response.status_code == 403
+
+
+CONFERENCE_FORM_DATA = {
+    "name": "College on Computational Physics",
+    "subtitle": "the best conference ever",
+    "description": "lorem ipsum",
+    "dates": ["1993-05-17", "1993-05-20"],
+    "addresses": [
+        {
+            "city": "Trieste",
+            "country": "Italy",
+        }
+    ],
+    "series_name": "ICFA Seminar on Future Perspectives in High-Energy Physics",
+    "series_number": 11,
+    "contacts": [
+        {"email": "somebody@email.com", "name": "somebody"},
+        {"email": "somebodyelse@email.com"}
+    ],
+    "field_of_interest": ["Accelerators"],
+    "acronyms": ["foo", "bar"],
+    "websites": ["http://somebody.example.com"],
+    "additional_info": "UPDATED",
+    "keywords": ["black hole: mass"]
+}
+
+
+def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fields_correct(app, api_client, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": CONFERENCE_FORM_DATA}),
+    )
+    assert response.status_code == 201
+
+    payload = json.loads(response.data)
+    conference_id = payload["pid_value"]
+    conference_cnum = payload["cnum"]
+
+    conference_rec = ConferencesRecord.get_record_by_pid_value(conference_id)
+    assert conference_cnum == conference_rec["cnum"]
+    assert get_value(conference_rec, "titles[0].title") == CONFERENCE_FORM_DATA["name"]
+    assert get_value(conference_rec, "titles[0].subtitle") == CONFERENCE_FORM_DATA["subtitle"]
+    assert get_value(conference_rec, "short_description.value") == CONFERENCE_FORM_DATA["description"]
+    assert get_value(conference_rec, "opening_date") == CONFERENCE_FORM_DATA["dates"][0]
+    assert get_value(conference_rec, "closing_date") == CONFERENCE_FORM_DATA["dates"][1]
+    assert get_value(conference_rec, "series[0].name") == CONFERENCE_FORM_DATA["series_name"]
+    assert get_value(conference_rec, "series[0].number") == CONFERENCE_FORM_DATA["series_number"]
+    assert get_value(conference_rec, "contact_details[0].email") == CONFERENCE_FORM_DATA["contacts"][0]["email"]
+    assert get_value(conference_rec, "contact_details[0].name") == CONFERENCE_FORM_DATA["contacts"][0]["name"]
+    assert get_value(conference_rec, "contact_details[1].email") == CONFERENCE_FORM_DATA["contacts"][1]["email"]
+    assert get_value(conference_rec, "acronyms") == CONFERENCE_FORM_DATA["acronyms"]
+    assert get_value(conference_rec, "urls[0].value") == CONFERENCE_FORM_DATA["websites"][0]
+    assert get_value(conference_rec, "inspire_categories[0].term") == CONFERENCE_FORM_DATA["field_of_interest"][0]
+    assert get_value(conference_rec, "public_notes[0].value") == CONFERENCE_FORM_DATA["additional_info"]
+    assert get_value(conference_rec, "keywords[0].value") == CONFERENCE_FORM_DATA["keywords"][0]
+    assert get_value(conference_rec, "addresses[0].country_code") == "IT"
+    assert get_value(conference_rec, "addresses[0].cities[0]") == CONFERENCE_FORM_DATA["addresses"][0]["city"]
+
+
+def test_new_user_conference_submission_missing_dates_has_no_cnum(app, api_client, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    form_data = deepcopy(CONFERENCE_FORM_DATA)
+    form_data.pop("dates")
+
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    payload = json.loads(response.data)
+    conference_id = payload["pid_value"]
+    conference_cnum = payload["cnum"]
+    conference_record = ConferencesRecord.get_record_by_pid_value(conference_id)
+
+    assert response.status_code == 201
+    assert conference_cnum is None
+    assert "cnum" not in conference_record
+
+
+def test_non_logged_in_user_tries_to_submit(app, api_client):
+    form_data = deepcopy(CONFERENCE_FORM_DATA)
+
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    assert response.status_code == 401

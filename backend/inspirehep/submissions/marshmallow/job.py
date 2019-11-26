@@ -65,7 +65,7 @@ class Job(Schema):
         return processed_data
 
     @post_load
-    def build_job(self, data):
+    def build_job(self, data) -> dict:
         """Process data from the form and build record data form it.
 
         Args:
