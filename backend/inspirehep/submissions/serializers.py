@@ -14,7 +14,7 @@ from inspirehep.accounts.api import get_current_user_orcid
 from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
 from inspirehep.submissions.marshmallow.job import Job
 
-from .marshmallow import Author, Literature, SameAuthor
+from .marshmallow import Author, Conference, Literature, SameAuthor
 
 
 def does_current_user_own_author_record(author):
@@ -30,3 +30,4 @@ author_v1 = ConditionalMultiSchemaJSONSerializer(
     [(does_current_user_own_author_record, SameAuthor), (None, Author)]
 )
 job_v1 = JSONSerializer(Job)
+conference_v1 = JSONSerializer(Conference)
