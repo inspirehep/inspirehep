@@ -9,5 +9,6 @@
 """Schemas for submissions"""
 
 from .author import Author, SameAuthor
+from .conferences import Conference
 from .job import Job
 from .literature import Literature

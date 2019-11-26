@@ -12,7 +12,7 @@ from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
 from inspirehep.submissions.errors import RESTDataError
 
-from .marshmallow import Job
+from .marshmallow import Conference, Job
 
 
 def inspire_submission_marshmallow_loader(schema_class):
@@ -40,4 +40,5 @@ def inspire_submission_marshmallow_loader(schema_class):
     return json_loader
 
 
+conference_v1 = inspire_submission_marshmallow_loader(Conference)
 job_v1 = inspire_submission_marshmallow_loader(Job)

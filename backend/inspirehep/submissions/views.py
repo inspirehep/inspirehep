@@ -13,7 +13,7 @@ import structlog
 from flask import Blueprint, abort, current_app, jsonify, request, url_for
 from flask.views import MethodView
 from flask_login import current_user
-from inspire_schemas.builders.jobs import JobBuilder
+from inspire_schemas.builders import JobBuilder
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from jsonschema import SchemaError, ValidationError
@@ -23,9 +23,10 @@ from inspirehep.accounts.api import (
     is_superuser_or_cataloger_logged_in,
 )
 from inspirehep.accounts.decorators import login_required_with_roles
-from inspirehep.records.api import AuthorsRecord, JobsRecord
+from inspirehep.records.api import AuthorsRecord, ConferencesRecord, JobsRecord
 from inspirehep.submissions.errors import RESTDataError
 
+from .loaders import conference_v1 as conference_loader_v1
 from .loaders import job_v1 as job_loader_v1
 from .marshmallow import Author, Literature
 from .serializers import author_v1, job_v1  # TODO: use literature_v1 from serializers
@@ -114,6 +115,23 @@ class AuthorSubmissionsResource(BaseSubmissionsResource):
             serialized_data["control_number"] = int(control_number)
 
         return serialized_data
+
+
+class ConferenceSubmissionsResource(BaseSubmissionsResource):
+    decorators = [login_required_with_roles()]
+
+    def post(self):
+        """Adds new conference record"""
+        data = conference_loader_v1()
+        record = ConferencesRecord.create(data)
+        db.session.commit()
+        # TODO: if not is_superuser_or_cataloger_logged_in(): self.create_ticket(record, "rt/new_conferences.html")
+        return jsonify(
+            {
+                "pid_value": record["control_number"],
+                "cnum": record.get("cnum"),
+            }
+        ), 201
 
 
 class LiteratureSubmissionResource(BaseSubmissionsResource):
@@ -314,4 +332,10 @@ blueprint.add_url_rule("/jobs", view_func=job_submission_view)
 blueprint.add_url_rule(
     '/jobs/<pid(job,record_class="inspirehep.records.api.JobsRecord"):pid_value>',
     view_func=job_submission_view,
+)
+conference_submission_view = ConferenceSubmissionsResource.as_view("conference_submissions_view")
+blueprint.add_url_rule("/conferences", view_func=conference_submission_view)
+blueprint.add_url_rule(
+    '/conferences/<pid(conference,record_class="inspirehep.records.api.ConferencesRecord"):pid_value>',
+    view_func=conference_submission_view,
 )
