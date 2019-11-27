@@ -55,7 +55,7 @@ def test_hep_author_publications_cataloger_facets(base_app):
         "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
     }
     self_affiliations = {
-        "terms": {"field": "authors.affiliations.value", "size": 20},
+        "terms": {"field": "authors.affiliations.value.raw", "size": 20},
         "meta": {"title": "Affiliations", "order": 8, "type": "checkbox"},
     }
     self_author_names = {

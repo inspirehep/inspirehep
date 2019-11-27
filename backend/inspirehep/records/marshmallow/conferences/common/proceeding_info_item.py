@@ -11,4 +11,4 @@ from inspirehep.records.marshmallow.literature.common import PublicationInfoItem
 
 class ProceedingInfoItemSchemaV1(Schema):
     publication_info = fields.Nested(PublicationInfoItemSchemaV1, many=True)
-    control_number = fields.Raw(attribute="control_number")
+    control_number = fields.Raw()
