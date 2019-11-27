@@ -27,7 +27,7 @@ function AuthorPublications({ authorFacetName, isCatalogerLoggedIn }) {
       namespace={AUTHOR_PUBLICATIONS_NS}
       baseQuery={baseQuery}
       baseAggregationsQuery={baseAggregationsQuery}
-      noResultsTitle="0 Publications"
+      noResultsTitle="0 Research works"
     />
   );
 }
