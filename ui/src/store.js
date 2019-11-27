@@ -20,6 +20,7 @@ import clearStateDispatcher from './middlewares/clearStateDispatcher';
 import redirectToErrorPageMiddleware from './middlewares/redirectToErrorPage';
 import actionTrackerMiddleware from './middlewares/actionTracker';
 import syncLocationWithSearch from './middlewares/syncLocationWithSearch';
+import logoutUserOn401 from './middlewares/logoutUserOn401';
 
 export const thunkMiddleware = thunk.withExtraArgument(http);
 
@@ -39,6 +40,7 @@ const PROD_MIDDLEWARES = [
   actionTrackerMiddleware,
   thunkMiddleware,
   syncLocationWithSearch,
+  logoutUserOn401,
 ];
 
 const DEV_MIDDLEWARES = [...PROD_MIDDLEWARES, createLogger()];
