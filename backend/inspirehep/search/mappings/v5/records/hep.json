@@ -215,6 +215,11 @@
                   "type": "object"
                 },
                 "value": {
+                  "fields": {
+                    "raw": {
+                      "type": "keyword"
+                    }
+                  },
                   "include_in_all": true,
                   "normalizer": "lowercase_normalizer",
                   "type": "keyword"

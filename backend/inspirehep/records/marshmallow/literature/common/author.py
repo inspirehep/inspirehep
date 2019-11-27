@@ -23,7 +23,7 @@ class AuthorSchemaV1(Schema):
     full_name = fields.Raw()
     ids = fields.Raw()
     inspire_roles = fields.Raw()
-    raw_affilitaions = fields.Raw()
+    raw_affiliations = fields.Raw()
     record = fields.Raw()
     signature_block = fields.Raw()
     uuid = fields.Raw()
