@@ -1,4 +1,4 @@
-import { push } from 'connected-react-router';
+import { replace } from 'connected-react-router';
 import { ERRORS } from '../common/routes';
 
 export default function({ dispatch }) {
@@ -6,7 +6,7 @@ export default function({ dispatch }) {
     const { meta } = action;
     if (meta && meta.redirectableError) {
       const { status } = action.payload;
-      dispatch(push(`${ERRORS}/${status}`));
+      dispatch(replace(`${ERRORS}/${status}`));
     }
     return next(action);
   };

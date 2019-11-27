@@ -1,4 +1,4 @@
-import { push } from 'connected-react-router';
+import { replace } from 'connected-react-router';
 
 import middleware from '../redirectToErrorPage';
 import { ERRORS } from '../../common/routes';
@@ -22,7 +22,7 @@ describe('redirectToErrorPage middleware', () => {
     };
     const result = dispatch(action);
     expect(result).toBe(action);
-    expect(mockDispatch).toHaveBeenCalledWith(push(`${ERRORS}/500`));
+    expect(mockDispatch).toHaveBeenCalledWith(replace(`${ERRORS}/500`));
   });
 
   it('only returns result of next(action) when not a redirectable error', () => {
@@ -32,6 +32,6 @@ describe('redirectToErrorPage middleware', () => {
     };
     const result = dispatch(action);
     expect(result).toBe(action);
-    expect(mockDispatch).not.toHaveBeenCalledWith(push(`${ERRORS}/500`));
+    expect(mockDispatch).not.toHaveBeenCalledWith(replace(`${ERRORS}/500`));
   });
 });
