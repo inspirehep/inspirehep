@@ -16,7 +16,7 @@ while test $# -gt 0; do
         --ci)
             # We are probably inside travis, check for env variables
             if [ "$REQUIREMENTS" == "prod" ]; then
-                flags=("--no-interaction" "--no-ansi")
+                flags=("--no-interaction" "--no-ansi" "--no-dev")
             fi
             shift
             ;;

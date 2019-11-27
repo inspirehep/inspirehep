@@ -105,6 +105,14 @@ version = ">=1.4.0,<1.5"
 
 [[package]]
 category = "dev"
+description = "Asynchronous WSGI and WebSocket server based on asyncore module"
+name = "asyncore-wsgi"
+optional = false
+python-versions = "*"
+version = "0.0.9"
+
+[[package]]
+category = "dev"
 description = "Atomic file writes."
 name = "atomicwrites"
 optional = false
@@ -241,6 +249,14 @@ name = "blinker"
 optional = false
 python-versions = "*"
 version = "1.4"
+
+[[package]]
+category = "dev"
+description = "Fast and simple WSGI-framework for small web-applications."
+name = "bottle"
+optional = false
+python-versions = "*"
+version = "0.12.17"
 
 [[package]]
 category = "main"
@@ -2993,6 +3009,18 @@ python-versions = "*"
 version = "0.1.7"
 
 [[package]]
+category = "dev"
+description = "Web interface for Python's built-in PDB debugger"
+name = "web-pdb"
+optional = false
+python-versions = "*"
+version = "1.5.1"
+
+[package.dependencies]
+asyncore-wsgi = ">=0.0.4"
+bottle = "*"
+
+[[package]]
 category = "main"
 description = "Declarative parsing and validation of HTTP request objects, with built-in support for popular web frameworks, including Flask, Django, Bottle, Tornado, Pyramid, webapp2, Falcon, and aiohttp."
 name = "webargs"
@@ -3135,7 +3163,7 @@ setuptools = "*"
 xrootd = ["xrootd", "xrootdpyfs", "invenio-xrootd"]
 
 [metadata]
-content-hash = "8fba29960413170e3279a551e10f788cfaacf149906fef2d6f41c69a3a09e678"
+content-hash = "64e13fe7e513c9e62e2a8c64b8984d80119283f682e84500027f4049ac1dd5bc"
 python-versions = ">=3.6,<3.7"
 
 [metadata.hashes]
@@ -3151,6 +3179,7 @@ arrow = ["10257c5daba1a88db34afa284823382f4963feca7733b9107956bed041aff24f", "c2
 asn1crypto = ["5abe83e773026162e4869f4ac16edf7554f661e8cc0bb6d2be3bc6915456731b", "8f3f9470d4ba7aa53afb00278dc26aac22dc3a0d4ed1335fd772f034e094401e"]
 "aspy.yaml" = ["463372c043f70160a9ec950c3f1e4c3a82db5fca01d334b6bc89c7164d744bdc", "e7c742382eff2caed61f87a39d13f99109088e5e93f04d76eb8d4b28aa143f45"]
 astroid = ["98c665ad84d10b18318c5ab7c3d203fe11714cbad2a4aef4f44651f415392754", "b7546ffdedbf7abcfbff93cd1de9e9980b1ef744852689decc5aeada324238c6"]
+asyncore-wsgi = ["27ddeecdc4d79c98a687e899c5b7d2df38bb9538b65c92abddd2009f961835a8", "de043ee1544ae1a2602ef6f8cde41b7bd9f9b29d459e1c1514fa1c655aa7c841"]
 atomicwrites = ["03472c30eb2c5d1ba9227e4c2ca66ab8287fbfbbda3888aa93dc2e28fc6811b4", "75a9445bac02d8d058d5e1fe689654ba5a6556a1dfd8ce6ec55a0ed79866cfa6"]
 attrs = ["08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c", "f7b7ce16570fe9965acd6d30101a28f62fb4a7f9e926b3bbc9b61f8b04247e72"]
 automat = ["cbd78b83fa2d81fe2a4d23d258e1661dd7493c9a50ee2f1a5b2cac61c1793b0e", "fdccab66b68498af9ecfa1fa43693abe546014dd25cf28543cbe9d1334916a58"]
@@ -3164,6 +3193,7 @@ binaryornot = ["359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061
 black = ["817243426042db1d36617910df579a54f1afd659adb96fc5032fcf4b36209739", "e030a9a28f542debc08acceb273f228ac422798e5215ba2a791a6ddeaaca22a5"]
 bleach = ["213336e49e102af26d9cde77dd2d0397afabc5a6bf2fed985dc35b5d1e285a16", "3fdf7f77adcf649c9911387df51254b813185e32b2c6619f690b593a617e19fa"]
 blinker = ["471aee25f3992bd325afa3772f1063dbdbbca947a041b8b89466dc00d606f8b6"]
+bottle = ["1896a33b2c7c5be07491e6789e341f2e9593a0ff024cc0374615118587c81647", "e9eaa412a60cc3d42ceb42f58d15864d9ed1b92e9d630b8130c871c5bb16107c"]
 celery = ["373d6544c8d6ee66b9c1c9ba61ec4c74334c9a861306002662252bd5fd0ff6a1", "b1b7da98be6b4082abfa6e18282ece450271f366bce81d0d521342a0db862506"]
 certifi = ["e4f3620cfea4f83eedc95b24abd9cd56f3c4b146dd0177e83a21b4eb49e21e50", "fd7c7c74727ddcf00e9acd26bba8da604ffec95bf1c2144e67aff7a8b50e6cef"]
 cffi = ["08f99e8b38d5134d504aa7e486af8e4fde66a2f388bbecc270cdd1e00fa09ff8", "1112d2fc92a867a6103bce6740a549e74b1d320cf28875609f6e93857eee4f2d", "1b9ab50c74e075bd2ae489853c5f7f592160b379df53b7f72befcbe145475a36", "24eff2997436b6156c2f30bed215c782b1d8fd8c6a704206053c79af95962e45", "2eff642fbc9877a6449026ad66bf37c73bf4232505fb557168ba5c502f95999b", "362e896cea1249ed5c2a81cf6477fabd9e1a5088aa7ea08358a4c6b0998294d2", "40eddb3589f382cb950f2dcf1c39c9b8d7bd5af20665ce273815b0d24635008b", "5ed40760976f6b8613d4a0db5e423673ca162d4ed6c9ed92d1f4e58a47ee01b5", "632c6112c1e914c486f06cfe3f0cc507f44aa1e00ebf732cedb5719e6aa0466a", "64d84f0145e181f4e6cc942088603c8db3ae23485c37eeda71cb3900b5e67cb4", "6cb4edcf87d0e7f5bdc7e5c1a0756fbb37081b2181293c5fdf203347df1cd2a2", "6f19c9df4785305669335b934c852133faed913c0faa63056248168966f7a7d5", "719537b4c5cd5218f0f47826dd705fb7a21d83824920088c4214794457113f3f", "7b0e337a70e58f1a36fb483fd63880c9e74f1db5c532b4082bceac83df1523fa", "853376efeeb8a4ae49a737d5d30f5db8cdf01d9319695719c4af126488df5a6a", "85bbf77ffd12985d76a69d2feb449e35ecdcb4fc54a5f087d2bd54158ae5bb0c", "8978115c6f0b0ce5880bc21c967c65058be8a15f1b81aa5fdbdcbea0e03952d1", "8f7eec920bc83692231d7306b3e311586c2e340db2dc734c43c37fbf9c981d24", "8fe230f612c18af1df6f348d02d682fe2c28ca0a6c3856c99599cdacae7cf226", "92068ebc494b5f9826b822cec6569f1f47b9a446a3fef477e1d11d7fac9ea895", "b57e1c8bcdd7340e9c9d09613b5e7fdd0c600be142f04e2cc1cc8cb7c0b43529", "ba956c9b44646bc1852db715b4a252e52a8f5a4009b57f1dac48ba3203a7bde1", "ca42034c11eb447497ea0e7b855d87ccc2aebc1e253c22e7d276b8599c112a27", "dc9b2003e9a62bbe0c84a04c61b0329e86fccd85134a78d7aca373bbbf788165", "dd308802beb4b2961af8f037becbdf01a1e85009fdfc14088614c1b3c383fae5", "e77cd105b19b8cd721d101687fcf665fd1553eb7b57556a1ef0d453b6fc42faa", "f56dff1bd81022f1c980754ec721fb8da56192b026f17f0f99b965da5ab4fbd2", "fa4cc13c03ea1d0d37ce8528e0ecc988d2365e8ac64d8d86cafab4038cb4ce89", "fa8cf1cb974a9f5911d2a0303f6adc40625c05578d8e7ff5d313e1e27850bd59", "fb003019f06d5fc0aa4738492ad8df1fa343b8a37cbcf634018ad78575d185df", "fd409b7778167c3bcc836484a8f49c0e0b93d3e745d975749f83aa5d18a5822f", "fe5d65a3ee38122003245a82303d11ac05ff36531a8f5ce4bc7d4bbc012797e1"]
@@ -3402,6 +3432,7 @@ virtualenv = ["6aebaf4dd2568a0094225ebbca987859e369e3e5c22dc7d52e5406d504890417"
 w3lib = ["847704b837b2b973cddef6938325d466628e6078266bc2e1f7ac49ba85c34823", "8b1854fef570b5a5fc84d960e025debd110485d73fd283580376104762774315"]
 watchdog = ["965f658d0732de3188211932aeb0bb457587f04f63ab4c1e33eab878e9de961d"]
 wcwidth = ["3df37372226d6e63e1b1e1eda15c594bca98a22d33a23832a90998faa96bc65e", "f4ebe71925af7b40a864553f761ed559b43544f8f71746c2d756c7fe788ade7c"]
+web-pdb = ["03bc8a94913644fd2d5d83799416fa3379f6916e0c3c4f139eb4aff6aab5eb52", "5f9603a9065c8cbd71431dbd6ed8daa6bcee2e4f506842b8910fc12e80310701"]
 webargs = ["3beca296598067cec24a0b6f91c0afcc19b6e3c4d84ab026b931669628bb47b4", "3f9dc15de183d356c9a0acc159c100ea0506c0c240c1e6f1d8b308c5fed4dbbd", "fa4ad3ad9b38bedd26c619264fdc50d7ae014b49186736bca851e5b5228f2a1b"]
 webencodings = ["a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78", "b36a1c245f2d304965eb4e0a82848379241dc04b865afcc4aab16748587e1923"]
 werkzeug = ["7280924747b5733b246fe23972186c6b348f9ae29724135a6dfc1e53cea433e7", "e5f4a1f98b52b18a93da705a7458e55afb26f32bff83ff5d19189f92462d65c4"]
