@@ -81,7 +81,7 @@ def nested_filters(author_recid):
     return {
         "self_affiliations": must_match_all_filter_nested(
             "authors",
-            "authors.affiliations.value",
+            "authors.affiliations.value.raw",
             ("authors.record.$ref", author_recid),
         ),
         "self_author_names": must_match_all_filter_nested(
@@ -112,7 +112,7 @@ def hep_author_publications_cataloger():
                         "aggs": {
                             "self_affiliations": {
                                 "terms": {
-                                    "field": "authors.affiliations.value",
+                                    "field": "authors.affiliations.value.raw",
                                     "size": 20,
                                 },
                                 "meta": {
