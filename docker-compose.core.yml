@@ -56,8 +56,9 @@ services:
       service: app
     ports:
      - "8000:8000"
+     - "7777:7777"
     entrypoint: gunicorn
-    command: --reload -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application
+    command: --reload -t 99999 -b 0.0.0.0:8000  --access-logfile "-" --error-logfile - inspirehep.wsgi:application
   worker:
     extends:
       file: docker-compose.services.yml
