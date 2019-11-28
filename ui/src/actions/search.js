@@ -1,5 +1,5 @@
 import { stringify } from 'qs';
-import { push } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 
 import {
   SEARCH_REQUEST,
@@ -49,9 +49,22 @@ function searchError(namespace, error) {
   };
 }
 
-function shouldPushQueryToUrl(namespace, state) {
+function isCurrentUrlOnlyMissingBaseQuery(namespace, state, nextSearchString) {
+  const {
+    router: { location },
+    search,
+  } = state;
+  const baseQuery = search.getIn(['namespaces', namespace, 'baseQuery']).toJS();
+  const currentSearchStringWithBaseQuery = stringify(
+    { ...baseQuery, ...location.query },
+    { indices: false }
+  );
+  return currentSearchStringWithBaseQuery === nextSearchString;
+}
+
+function isEmbedded(namespace, state) {
   const { search } = state;
-  return !search.getIn(['namespaces', namespace, 'embedded']);
+  return search.getIn(['namespaces', namespace, 'embedded']);
 }
 
 export function searchForCurrentQuery(namespace) {
@@ -63,8 +76,12 @@ export function searchForCurrentQuery(namespace) {
     const pathname = getPathnameForNamespace(namespace, state);
     const url = `${pathname}?${queryString}`;
 
-    if (shouldPushQueryToUrl(namespace, state)) {
-      dispatch(push(url));
+    if (!isEmbedded(namespace, state)) {
+      if (isCurrentUrlOnlyMissingBaseQuery(namespace, state, queryString)) {
+        dispatch(replace(url));
+      } else {
+        dispatch(push(url));
+      }
     }
 
     try {
