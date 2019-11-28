@@ -6,6 +6,7 @@ import { LITERATURE_NS } from '../../reducers/search';
 import {
   SEARCH_QUERY_UPDATE,
   NEW_SEARCH_REQUEST,
+  SEARCH_QUERY_RESET,
 } from '../../actions/actionTypes';
 import { LITERATURE } from '../../common/routes';
 
@@ -44,6 +45,42 @@ describe('syncLocationWithSearch middleware', () => {
       expect(mockDispatch).toHaveBeenCalledWith({
         type: SEARCH_QUERY_UPDATE,
         payload: { namespace, query: location.query },
+      });
+    });
+
+    it('dispatches SEARCH_QUERY_RESET if there is a POP (back) but pathname has not changed', () => {
+      // TODO: extract this repetitive part to a function to make test cases less verbose
+      const namespace = LITERATURE_NS;
+      const location = {
+        pathname: LITERATURE,
+        search: '?size=10&q=guy',
+        query: { size: 10, q: 'guy' },
+      };
+      const router = { location };
+      const search = fromJS({
+        namespaces: {
+          [namespace]: {
+            query: { size: 10, q: 'dude' },
+          },
+        },
+      });
+      const getState = () => ({ search, router });
+      const mockNextFuncThatMirrors = action => action;
+      const mockDispatch = jest.fn();
+      const testMiddleware = middleware({ getState, dispatch: mockDispatch })(
+        mockNextFuncThatMirrors
+      );
+
+      const action = {
+        type: LOCATION_CHANGE,
+        payload: { location, action: 'POP' },
+      };
+      const resultAction = testMiddleware(action);
+
+      expect(resultAction).toEqual(action);
+      expect(mockDispatch).toHaveBeenCalledWith({
+        type: SEARCH_QUERY_RESET,
+        payload: { namespace },
       });
     });
 

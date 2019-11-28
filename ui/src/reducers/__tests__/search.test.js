@@ -118,6 +118,31 @@ describe('search reducer', () => {
     expect(state).toEqual(expected);
   });
 
+  it('SEARCH_QUERY_RESET', () => {
+    const namespace = LITERATURE_NS;
+    const initialReducerState = fromJS({
+      namespaces: {
+        [namespace]: {
+          query: { q: 'test', page: 2 },
+        },
+      },
+    });
+
+    const state = reducer(initialReducerState, {
+      type: types.SEARCH_QUERY_RESET,
+      payload: { namespace },
+    });
+
+    const expected = fromJS({
+      namespaces: {
+        [namespace]: {
+          query: initialState.getIn(['namespaces', namespace, 'query']),
+        },
+      },
+    });
+    expect(state).toEqual(expected);
+  });
+
   it('SEARCH_BASE_QUERIES_UPDATE', () => {
     const namespace = LITERATURE_NS;
     const initialReducerState = fromJS({

@@ -28,7 +28,7 @@ const mockHttp = new MockAdapter(http);
 
 describe('search - action creators', () => {
   describe('searchForCurrentQuery', () => {
-    it('creates SEARCH_REQUEST SEARCH_SUCCESS if search request is successful and pushes search url to history if search namespace is not embedded', async () => {
+    it('creates SEARCH_REQUEST and SEARCH_SUCCESS if search request is successful and pushes search url to history if search namespace is not embedded', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
       const store = getStoreWithState({
@@ -57,7 +57,7 @@ describe('search - action creators', () => {
       expect(store.getActions()).toEqual(expectedActions);
     });
 
-    it('creates SEARCH_REQUEST SEARCH_SUCCESS if search request is successful and replaces search url in history when only difference between current url and searcn query is the baseQuery, if search namespace is embeded,', async () => {
+    it('creates SEARCH_REQUEST and SEARCH_SUCCESS if search request is successful and replaces search url in history when only difference between current url and searcn query is the baseQuery, if search namespace is embeded,', async () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
       const store = getStoreWithState({

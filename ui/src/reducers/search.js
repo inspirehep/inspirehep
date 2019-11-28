@@ -13,6 +13,7 @@ import {
   NEW_SEARCH_REQUEST,
   SEARCH_QUERY_UPDATE,
   SEARCH_BASE_QUERIES_UPDATE,
+  SEARCH_QUERY_RESET,
 } from '../actions/actionTypes';
 import { AUTHORS, JOBS, LITERATURE, CONFERENCES } from '../common/routes';
 import {
@@ -193,6 +194,11 @@ const searchReducer = (state = initialState, action) => {
           ['namespaces', namespace, 'baseAggregationsQuery'],
           baseAggregationsQuery
         );
+    case SEARCH_QUERY_RESET:
+      return state.setIn(
+        ['namespaces', namespace, 'query'],
+        initialState.getIn(['namespaces', namespace, 'query'])
+      );
     case SEARCH_QUERY_UPDATE:
       // eslint-disable-next-line no-case-declarations
       const fullQuery = state

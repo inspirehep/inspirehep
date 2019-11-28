@@ -12,6 +12,7 @@ import {
   NEW_SEARCH_REQUEST,
   CHANGE_SEARCH_BOX_NAMESPACE,
   SEARCH_BASE_QUERIES_UPDATE,
+  SEARCH_QUERY_RESET,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
 import { httpErrorToActionPayload } from '../common/utils';
@@ -167,6 +168,13 @@ export function searchQueryUpdate(namespace, query) {
   return {
     type: SEARCH_QUERY_UPDATE,
     payload: { query, namespace },
+  };
+}
+
+export function searchQueryReset(namespace) {
+  return {
+    type: SEARCH_QUERY_RESET,
+    payload: { namespace },
   };
 }
 
