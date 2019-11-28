@@ -6,9 +6,15 @@ import { getAuthorDisplayName } from '../utils';
 class AuthorName extends Component {
   render() {
     const { name } = this.props;
+    const nativeName = name.getIn(['native_names', 0]);
     const displayName = getAuthorDisplayName(name);
 
-    return <span>{displayName}</span>;
+    return (
+      <span>
+        {displayName}
+        {nativeName && <span> ({nativeName})</span>}
+      </span>
+    );
   }
 }
 

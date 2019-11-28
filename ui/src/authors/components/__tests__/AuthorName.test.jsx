@@ -11,6 +11,15 @@ describe('AuthorName', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders with native_name', () => {
+    const name = fromJS({
+      preferred_name: 'Harun Urhan',
+      native_names: ['赵新丽'],
+    });
+    const wrapper = shallow(<AuthorName name={name} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('renders with formatted value if preffered_name is not present and value is comma separated', () => {
     const name = fromJS({ value: 'Urhan, Harun' });
     const wrapper = shallow(<AuthorName name={name} />);
