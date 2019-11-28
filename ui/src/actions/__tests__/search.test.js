@@ -1,4 +1,4 @@
-import { push } from 'connected-react-router';
+import { push, replace } from 'connected-react-router';
 import MockAdapter from 'axios-mock-adapter';
 import { fromJS } from 'immutable';
 
@@ -52,6 +52,40 @@ describe('search - action creators', () => {
       const expectedActions = [
         { type: types.SEARCH_REQUEST, payload: { namespace } },
         push(url),
+        { type: types.SEARCH_SUCCESS, payload: { namespace, data } },
+      ];
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+
+    it('creates SEARCH_REQUEST SEARCH_SUCCESS if search request is successful and replaces search url in history when only difference between current url and searcn query is the baseQuery, if search namespace is embeded,', async () => {
+      const namespace = LITERATURE_NS;
+      const pathname = LITERATURE;
+      const store = getStoreWithState({
+        router: {
+          location: {
+            query: { q: 'test' },
+          },
+        },
+        search: fromJS({
+          namespaces: {
+            [namespace]: {
+              pathname,
+              query: { page: 1, size: 10, q: 'test' },
+              baseQuery: { page: 1, size: 10 },
+              embedded: false,
+            },
+          },
+        }),
+      });
+      const data = { foo: 'bar' };
+      const url = `${pathname}?page=1&size=10&q=test`;
+      mockHttp.onGet(url).replyOnce(200, data);
+
+      await store.dispatch(searchForCurrentQuery(namespace));
+
+      const expectedActions = [
+        { type: types.SEARCH_REQUEST, payload: { namespace } },
+        replace(url),
         { type: types.SEARCH_SUCCESS, payload: { namespace, data } },
       ];
       expect(store.getActions()).toEqual(expectedActions);
