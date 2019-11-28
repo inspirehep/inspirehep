@@ -438,7 +438,10 @@ HEP_COMMON_AGGS = {
     "author_count": {
         "range": {
             "field": "author_count",
-            "ranges": [{"key": "10 authors or less", "from": 1, "to": 11}],
+            "ranges": [
+                {"key": "Single author", "from": 1, "to": 2},
+                {"key": "10 authors or less", "from": 1, "to": 11},
+            ],
         },
         "meta": {"title": "Number of authors", "order": 2, "type": "checkbox"},
         "aggs": {

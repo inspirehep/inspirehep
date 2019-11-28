@@ -13,10 +13,16 @@ from invenio_records_rest.facets import range_filter
 
 
 def range_author_count_filter(field):
-    """Range filter for returning record only with 1 <= authors <= 10."""
+    """Range filter for returning records within the corresponding range(s)."""
+
+    range_for_option = {
+        "Single author": {"gte": 1, "lte": 1},
+        "10 authors or less": {"gte": 1, "lte": 10},
+    }
 
     def inner(values):
-        return Range(**{field: {"gte": 1, "lte": 10}})
+        ranges = [Q("range", **{field: range_for_option[value]}) for value in values]
+        return Q("bool", filter=ranges)
 
     return inner
 
@@ -26,7 +32,7 @@ def must_match_all_filter(field):
 
     def inner(values):
         filters = [Q("match", **{field: value}) for value in values]
-        return Q("bool", must=filters)
+        return Q("bool", filter=filters)
 
     return inner
 
@@ -82,7 +88,8 @@ def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None)
             e_f_field, e_f_value = explicit_filter
             filters.append(Q("match", **{e_f_field: e_f_value}))
         return Q(
-            "bool", must=Q("nested", path=nested_path, query=Q("bool", must=filters))
+            "bool",
+            filter=Q("nested", path=nested_path, query=Q("bool", filter=filters)),
         )
 
     return inner
