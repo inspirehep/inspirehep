@@ -19,15 +19,8 @@ exports[`SubscribeJobsModalButton renders confirmation if subscription is submit
     confirmLoading={false}
     footer={null}
     maskTransitionName="fade"
-    okButtonProps={
-      Object {
-        "disabled": true,
-      }
-    }
-    okText="Subscribe"
     okType="primary"
     onCancel={[Function]}
-    onOk={[Function]}
     title="Subscribe to the INSPIRE job mailing list"
     transitionName="zoom"
     visible={false}
@@ -62,16 +55,10 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
   <Modal
     afterClose={[Function]}
     confirmLoading={false}
+    footer={null}
     maskTransitionName="fade"
-    okButtonProps={
-      Object {
-        "disabled": true,
-      }
-    }
-    okText="Subscribe"
     okType="primary"
     onCancel={[Function]}
-    onOk={[Function]}
     title="Subscribe to the INSPIRE job mailing list"
     transitionName="zoom"
     visible={false}
@@ -87,45 +74,14 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
           type="error"
         />
       </div>
-      <div>
+      <div
+        className="mb3"
+      >
         To be notified via email of new jobs in High Energy Physics, please fill in the following information:
       </div>
-      <div
-        className="mt3"
-      >
-        <Input
-          disabled={false}
-          name="email"
-          onChange={[Function]}
-          placeholder="Email"
-          type="text"
-          value={null}
-        />
-      </div>
-      <div
-        className="mt3"
-      >
-        <Input
-          disabled={false}
-          name="firstName"
-          onChange={[Function]}
-          placeholder="First Name"
-          type="text"
-          value={null}
-        />
-      </div>
-      <div
-        className="mt3"
-      >
-        <Input
-          disabled={false}
-          name="lastName"
-          onChange={[Function]}
-          placeholder="Last Name"
-          type="text"
-          value={null}
-        />
-      </div>
+      <SubscribeJobsForm
+        onSubmit={[Function]}
+      />
     </div>
   </Modal>
 </Fragment>
@@ -148,61 +104,24 @@ exports[`SubscribeJobsModalButton renders with initial state 1`] = `
   <Modal
     afterClose={[Function]}
     confirmLoading={false}
+    footer={null}
     maskTransitionName="fade"
-    okButtonProps={
-      Object {
-        "disabled": true,
-      }
-    }
-    okText="Subscribe"
     okType="primary"
     onCancel={[Function]}
-    onOk={[Function]}
     title="Subscribe to the INSPIRE job mailing list"
     transitionName="zoom"
     visible={false}
     width={520}
   >
     <div>
-      <div>
+      <div
+        className="mb3"
+      >
         To be notified via email of new jobs in High Energy Physics, please fill in the following information:
       </div>
-      <div
-        className="mt3"
-      >
-        <Input
-          disabled={false}
-          name="email"
-          onChange={[Function]}
-          placeholder="Email"
-          type="text"
-          value={null}
-        />
-      </div>
-      <div
-        className="mt3"
-      >
-        <Input
-          disabled={false}
-          name="firstName"
-          onChange={[Function]}
-          placeholder="First Name"
-          type="text"
-          value={null}
-        />
-      </div>
-      <div
-        className="mt3"
-      >
-        <Input
-          disabled={false}
-          name="lastName"
-          onChange={[Function]}
-          placeholder="Last Name"
-          type="text"
-          value={null}
-        />
-      </div>
+      <SubscribeJobsForm
+        onSubmit={[Function]}
+      />
     </div>
   </Modal>
 </Fragment>

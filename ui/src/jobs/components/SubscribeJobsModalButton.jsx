@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Modal, Input, Icon, Alert, Typography } from 'antd';
+import { Modal, Icon, Alert, Typography } from 'antd';
 import LinkLikeButton from '../../common/components/LinkLikeButton';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import subscribeJobMailingList from '../subscribeJobMailingList';
 import ModalSuccessResult from '../../common/components/ModalSuccessResult';
+import SubscribeJobsForm from './SubscribeJobsForm';
 
 const MODAL_AUTO_CLOSE_TIMEOUT_AFTER_SUBMISSION = 4000;
 
@@ -28,23 +29,13 @@ export default class SubscribeJobsModalButton extends Component {
     this.state = {
       isModalVisible: false,
       hasError: false,
-      email: null,
-      firstName: null,
-      lastName: null,
       isSubscriptionSubmitted: false,
     };
 
     this.onClick = this.onClick.bind(this);
     this.onModalCancel = this.onModalCancel.bind(this);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.onModalSubscribeClick = this.onModalSubscribeClick.bind(this);
+    this.onFormSubmit = this.onFormSubmit.bind(this);
     this.afterModalCloase = this.afterModalCloase.bind(this);
-  }
-
-  onInputChange({ target }) {
-    this.setState({
-      [target.name]: target.value,
-    });
   }
 
   onModalCancel() {
@@ -55,11 +46,9 @@ export default class SubscribeJobsModalButton extends Component {
     this.setState({ isModalVisible: true });
   }
 
-  async onModalSubscribeClick() {
-    const { email, firstName, lastName } = this.state;
-
+  async onFormSubmit(data) {
     try {
-      await subscribeJobMailingList({ email, firstName, lastName });
+      await subscribeJobMailingList(data);
       this.setState({ hasError: false, isSubscriptionSubmitted: true });
 
       setTimeout(() => {
@@ -77,7 +66,7 @@ export default class SubscribeJobsModalButton extends Component {
   }
 
   renderSubscribeForm() {
-    const { email, firstName, lastName, hasError } = this.state;
+    const { hasError } = this.state;
     return (
       <div>
         {hasError && (
@@ -89,47 +78,17 @@ export default class SubscribeJobsModalButton extends Component {
             />
           </div>
         )}
-        <div>
+        <div className="mb3">
           To be notified via email of new jobs in High Energy Physics, please
           fill in the following information:
         </div>
-        <div className="mt3">
-          <Input
-            name="email"
-            placeholder="Email"
-            value={email}
-            onChange={this.onInputChange}
-          />
-        </div>
-        <div className="mt3">
-          <Input
-            name="firstName"
-            placeholder="First Name"
-            value={firstName}
-            onChange={this.onInputChange}
-          />
-        </div>
-        <div className="mt3">
-          <Input
-            name="lastName"
-            placeholder="Last Name"
-            value={lastName}
-            onChange={this.onInputChange}
-          />
-        </div>
+        <SubscribeJobsForm onSubmit={this.onFormSubmit} />
       </div>
     );
   }
 
   render() {
-    const {
-      isModalVisible,
-      email,
-      firstName,
-      lastName,
-      isSubscriptionSubmitted,
-    } = this.state;
-    const isSubscribeButtonDislabed = !(email && firstName && lastName);
+    const { isModalVisible, isSubscriptionSubmitted } = this.state;
     return (
       <>
         <LinkLikeButton icon="mail" onClick={this.onClick}>
@@ -144,12 +103,9 @@ export default class SubscribeJobsModalButton extends Component {
         <Modal
           title="Subscribe to the INSPIRE job mailing list"
           visible={isModalVisible}
-          okText="Subscribe"
           afterClose={this.afterModalCloase}
-          okButtonProps={{ disabled: isSubscribeButtonDislabed }}
           onCancel={this.onModalCancel}
-          onOk={this.onModalSubscribeClick}
-          footer={isSubscriptionSubmitted ? null : undefined} // undefined enables default footer with OK btn
+          footer={null}
         >
           {isSubscriptionSubmitted
             ? SubscribeJobsModalButton.renderConfirmation()
