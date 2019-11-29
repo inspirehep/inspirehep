@@ -5,6 +5,7 @@ import { Modal } from 'antd';
 import SubscribeJobsModalButton from '../SubscribeJobsModalButton';
 import subscribeJobMailingList from '../../subscribeJobMailingList';
 import LinkLikeButton from '../../../common/components/LinkLikeButton';
+import SubscribeJobsForm from '../SubscribeJobsForm';
 
 jest.mock('../../subscribeJobMailingList');
 
@@ -48,27 +49,19 @@ describe('SubscribeJobsModalButton', () => {
     expect(wrapper).toHaveState({ isSubscriptionSubmitted: false });
   });
 
-  it('calls subscribeJobMailingList with filled data on modal OK click', () => {
+  it('calls subscribeJobMailingList on SubscribeJobsFrom submit', () => {
     const wrapper = shallow(<SubscribeJobsModalButton />);
 
-    wrapper.find('Input[name="email"]').prop('onChange')({
-      target: { name: 'email', value: 'harun@cern.ch' },
-    });
-    wrapper.find('Input[name="firstName"]').prop('onChange')({
-      target: { name: 'firstName', value: 'Harun' },
-    });
-    wrapper.find('Input[name="lastName"]').prop('onChange')({
-      target: { name: 'lastName', value: 'Urhan' },
-    });
-
-    const onModalOKClick = wrapper.find(Modal).prop('onOk');
-    onModalOKClick();
-
-    expect(subscribeJobMailingList).toHaveBeenCalledWith({
+    const onSubscribeFormSubmit = wrapper
+      .find(SubscribeJobsForm)
+      .prop('onSubmit');
+    const data = {
       email: 'harun@cern.ch',
-      firstName: 'Harun',
-      lastName: 'Urhan',
-    });
+      first_name: 'Harun',
+      last_name: 'Urhan',
+    };
+    onSubscribeFormSubmit(data);
+    expect(subscribeJobMailingList).toHaveBeenCalledWith(data);
     expect(wrapper.find(Modal).prop('visible')).toBe(false);
   });
 });
