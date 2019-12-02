@@ -90,17 +90,4 @@ describe('AggregationFilter', () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
-
-  it('renders DateRangeAggregation if aggregation type is date-range', () => {
-    const wrapper = shallow(
-      <AggregationFilter
-        onChange={jest.fn()}
-        buckets={null}
-        selections="2019-11-21--2019-11-22"
-        aggregationType="date-range"
-        name="Test"
-      />
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
 });
