@@ -5,8 +5,11 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from datetime import datetime
+
 from elasticsearch_dsl.query import Q, Range
 from flask import current_app, request
+from invenio_records_rest.facets import range_filter
 
 
 def range_author_count_filter(field):
@@ -28,7 +31,7 @@ def must_match_all_filter(field):
     return inner
 
 
-def date_range_contains_conferences_filter():
+def conferences_date_range_contains_other_conferences():
     def inner(values):
         opening_date, closing_date = values[0].split("--")
         closing_date_in_range = Range(
@@ -48,6 +51,24 @@ def date_range_contains_conferences_filter():
             "bool",
             should=[closing_date_in_range, opening_date_in_range, contains_range],
         )
+
+    return inner
+
+
+def conferences_start_date_range_filter():
+    date_range_filter = range_filter("opening_date")
+
+    def inner(values):
+        value = values and values[0]
+
+        if value == "upcoming":
+            today = datetime.utcnow().strftime("%Y-%m-%d")
+            return Range(**{"opening_date": {"gte": today}})
+
+        if value == "all":
+            return Q()
+
+        return date_range_filter(values)
 
     return inner
 

@@ -5,7 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import json
+from datetime import datetime
 
+from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
@@ -220,7 +222,9 @@ def test_conferences_filters(api_client, db, es, create_record):
     )
 
 
-def test_date_range_contains_conferences_filter(api_client, db, es, create_record):
+def test_conferences_date_range_contains_other_conferences(
+    api_client, db, es, create_record
+):
     conference_during_april_first_week = {
         "control_number": 1,
         "opening_date": "2019-04-01",
@@ -264,3 +268,114 @@ def test_date_range_contains_conferences_filter(api_client, db, es, create_recor
     assert 1 in found_recids
     assert 2 in found_recids
     assert 3 in found_recids
+
+
+@freeze_time("2019-9-15")
+def test_conferences_start_date_range_filter_all(api_client, db, es, create_record):
+    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    upcoming_conference_january_2020 = {
+        "control_number": 3,
+        "opening_date": "2020-01-15",
+    }
+    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
+    create_record("con", data=conference_in_april_2019)
+    create_record("con", data=upcoming_conference_april_2020)
+    create_record("con", data=upcoming_conference_january_2020)
+    create_record("con", data=conference_in_february_2019)
+
+    all_response = api_client.get(f"/conferences?start_date=all")
+    all_data = all_response.json
+    assert all_data["hits"]["total"] == 4
+    all_recids = sorted(
+        [record["metadata"]["control_number"] for record in all_data["hits"]["hits"]]
+    )
+    assert all_recids == [1, 2, 3, 4]
+
+
+@freeze_time("2019-9-15")
+def test_conferences_start_date_range_filter_upcoming(
+    api_client, db, es, create_record
+):
+    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    upcoming_conference_january_2020 = {
+        "control_number": 3,
+        "opening_date": "2020-01-15",
+    }
+    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
+    create_record("con", data=conference_in_april_2019)
+    create_record("con", data=upcoming_conference_april_2020)
+    create_record("con", data=upcoming_conference_january_2020)
+    create_record("con", data=conference_in_february_2019)
+
+    upcoming_response = api_client.get(f"/conferences?start_date=upcoming")
+    upcoming_data = upcoming_response.json
+    assert upcoming_data["hits"]["total"] == 2
+    upcoming_recids = sorted(
+        [
+            record["metadata"]["control_number"]
+            for record in upcoming_data["hits"]["hits"]
+        ]
+    )
+    assert upcoming_recids == [2, 3]
+
+
+@freeze_time("2019-9-15")
+def test_conferences_start_date_range_filter_with_only_single_date(
+    api_client, db, es, create_record
+):
+    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    upcoming_conference_january_2020 = {
+        "control_number": 3,
+        "opening_date": "2020-01-15",
+    }
+    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
+    create_record("con", data=conference_in_april_2019)
+    create_record("con", data=upcoming_conference_april_2020)
+    create_record("con", data=upcoming_conference_january_2020)
+    create_record("con", data=conference_in_february_2019)
+
+    after_march_2019_response = api_client.get(f"/conferences?start_date=2019-03-01--")
+    after_march_2019_data = after_march_2019_response.json
+    assert after_march_2019_data["hits"]["total"] == 3
+    after_march_2019_recids = sorted(
+        [
+            record["metadata"]["control_number"]
+            for record in after_march_2019_data["hits"]["hits"]
+        ]
+    )
+    assert after_march_2019_recids == [1, 2, 3]
+
+
+@freeze_time("2019-9-15")
+def test_conferences_start_date_range_filter_with_both_dates(
+    api_client, db, es, create_record
+):
+    conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
+    upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
+    upcoming_conference_january_2020 = {
+        "control_number": 3,
+        "opening_date": "2020-01-15",
+    }
+    conference_in_february_2019 = {"control_number": 4, "opening_date": "2019-02-15"}
+    create_record("con", data=conference_in_april_2019)
+    create_record("con", data=upcoming_conference_april_2020)
+    create_record("con", data=upcoming_conference_january_2020)
+    create_record("con", data=conference_in_february_2019)
+
+    between_march_2019_and_february_2020_response = api_client.get(
+        f"/conferences?start_date=2019-03-01--2020-02-01"
+    )
+    between_march_2019_and_february_2020_data = (
+        between_march_2019_and_february_2020_response.json
+    )
+    assert between_march_2019_and_february_2020_data["hits"]["total"] == 2
+    between_march_2019_and_february_2020_recids = sorted(
+        [
+            record["metadata"]["control_number"]
+            for record in between_march_2019_and_february_2020_data["hits"]["hits"]
+        ]
+    )
+    assert between_march_2019_and_february_2020_recids == [1, 3]
