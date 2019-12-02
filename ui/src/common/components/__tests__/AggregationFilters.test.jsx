@@ -57,14 +57,6 @@ describe('AggregationFilters', () => {
         },
       },
     });
-    const staticAggregations = fromJS({
-      filter1: {
-        meta: {
-          title: 'Date Range Aggregation 1',
-          type: 'date-range',
-        },
-      },
-    });
     const initialAggregations = fromJS({
       agg1: {
         buckets: [
@@ -88,7 +80,6 @@ describe('AggregationFilters', () => {
         initialAggregations={initialAggregations}
         numberOfResults={2}
         onAggregationChange={jest.fn()}
-        staticAggregations={staticAggregations}
       />
     );
     expect(wrapper).toMatchSnapshot();
