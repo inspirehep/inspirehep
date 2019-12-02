@@ -100,7 +100,8 @@ def log_error(
     *signal_args,
     **signal_kwargs
 ):
-    structlog.error(
+    logger = structlog.get_logger()
+    logger.error(
         "Celery task failed",
         task_id=task_id,
         exc_info=(type(exception), exception, traceback),
