@@ -1,8 +1,8 @@
 import { string, object, array, date } from 'yup';
 import moment from 'moment';
 
-import { regionValues, statusValues } from './constants';
-import { rankValues, fieldOfInterestValues } from '../../common/schemas/constants';
+import { regionValues, statusValues, fieldOfInterestValues } from './constants';
+import { rankValues } from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 import OR from '../../common/schemas/OR';
 

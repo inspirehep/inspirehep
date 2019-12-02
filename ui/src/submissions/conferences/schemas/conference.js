@@ -1,7 +1,7 @@
 import { string, object, array, date, number } from 'yup';
 
 import { countryValues } from './constants';
-import { fieldOfInterestValues } from '../../common/schemas/constants';
+import { inspireCategoryValues } from '../../common/schemas/constants';
 import emptyObjectOrShapeOf from '../../common/schemas/emptyObjectOrShapeOf';
 
 const conferenceSchema = object().shape({
@@ -40,7 +40,7 @@ const conferenceSchema = object().shape({
     .required()
     .label('Address'),
   field_of_interest: array()
-    .of(string().oneOf(fieldOfInterestValues))
+    .of(string().oneOf(inspireCategoryValues))
     .required()
     .label('Field of Interest'),
   websites: array()

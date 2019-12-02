@@ -1,6 +1,7 @@
 import { string, array, object } from 'yup';
 
-import { languageValues, subjectValues } from '../constants';
+import { languageValues } from '../constants';
+import { inspireCategoryValues } from '../../../common/schemas/constants';
 
 export default {
   title: string()
@@ -10,7 +11,7 @@ export default {
     .oneOf(languageValues)
     .default(languageValues[0]),
   subjects: array()
-    .of(string().oneOf(subjectValues))
+    .of(string().oneOf(inspireCategoryValues))
     .min(1)
     .required()
     .label('Subject'),

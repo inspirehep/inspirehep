@@ -13,22 +13,3 @@ export const languageOptions = [
   { value: 'oth', display: 'Other' },
 ];
 export const languageValues = languageOptions.map(getValue);
-
-export const subjectOptions = [
-  { value: 'Accelerators' },
-  { value: 'Astrophysics' },
-  { value: 'Computing' },
-  { value: 'Data Analysis and Statistics' },
-  { value: 'Experiment-HEP' },
-  { value: 'Experiment-Nucl' },
-  { value: 'General Physics' },
-  { value: 'Gravitation and Cosmology' },
-  { value: 'Instrumentation' },
-  { value: 'Lattice' },
-  { value: 'Math and Math Physics' },
-  { value: 'Other' },
-  { value: 'Phenomenology-HEP' },
-  { value: 'Theory-HEP' },
-  { value: 'Theory-Nucl' },
-];
-export const subjectValues = subjectOptions.map(getValue);
