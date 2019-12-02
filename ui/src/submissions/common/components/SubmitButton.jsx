@@ -1,22 +1,31 @@
-import React, { Component } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'antd';
+import usePrevious from '../../../common/hooks/usePrevious';
 
-class SubmitButton extends Component {
-  render() {
-    const { isSubmitting, isValid, isValidating } = this.props;
+function SubmitButton({ isSubmitting, isValidating, isValid }) {
+  const previousIsSubmitting = usePrevious(isSubmitting);
 
-    return (
-      <Button
-        type="primary"
-        htmlType="submit"
-        loading={isSubmitting || isValidating}
-        disabled={!isValid}
-      >
-        Submit
-      </Button>
-    );
-  }
+  useEffect(
+    () => {
+      const hasTriedToSubmitInvalidForm =
+        previousIsSubmitting && !isSubmitting && !isValid;
+      if (hasTriedToSubmitInvalidForm) {
+        window.scrollTo(0, 0);
+      }
+    },
+    [isSubmitting, isValid, previousIsSubmitting]
+  );
+
+  return (
+    <Button
+      type="primary"
+      htmlType="submit"
+      loading={isSubmitting || isValidating}
+    >
+      Submit
+    </Button>
+  );
 }
 
 SubmitButton.propTypes = {
