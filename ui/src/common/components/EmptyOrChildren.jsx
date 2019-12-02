@@ -5,9 +5,9 @@ import { Empty } from 'antd';
 
 function isEmptyCollection(data) {
   return (
-    data == null ||
-    Object.keys(data).length === 0 || // object/array
-    data.size === 0 // Map/List
+    data != null &&
+    (Object.keys(data).length === 0 || // object/array
+      data.size === 0) // Map/List
   );
 }
 
