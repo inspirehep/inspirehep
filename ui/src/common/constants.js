@@ -19,6 +19,7 @@ export const RANK_VALUE_TO_DISPLAY = {
 export const AUTHORS_PID_TYPE = 'authors';
 export const LITERATURE_PID_TYPE = 'literature';
 export const JOBS_PID_TYPE = 'jobs';
+export const CONFERENCES_PID_TYPE = 'conferences';
 
 export const SURVEY_LINK = 'https://forms.gle/CMgi3UsbpMuXxAfr6';
 

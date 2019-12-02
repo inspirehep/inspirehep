@@ -4,10 +4,11 @@ import Loadable from 'react-loadable';
 
 import {
   SUBMISSIONS_AUTHOR,
-  SUBMISSION_SUCCESS,
   SUBMISSIONS_JOB,
   SUBMISSIONS,
   SUBMISSIONS_LITERATURE,
+  SUBMISSIONS_CONFERENCE,
+  SUBMISSION_SUCCESS,
 } from '../common/routes';
 
 import Loading from '../common/components/Loading';
@@ -51,6 +52,18 @@ const JobUpdateSubmissionSuccessPage$ = Loadable({
   loading: Loading,
 });
 
+const ConferenceSubmissionPage$ = Loadable({
+  loader: () =>
+    import('./conferences/containers/ConferenceSubmissionPageContainer'),
+  loading: Loading,
+});
+
+const ConferenceSubmissionsSuccessPage$ = Loadable({
+  loader: () =>
+    import('./conferences/containers/ConferenceSubmissionSuccessPageContainer'),
+  loading: Loading,
+});
+
 class Submissions extends Component {
   render() {
     return (
@@ -69,11 +82,7 @@ class Submissions extends Component {
               path={`${SUBMISSIONS_AUTHOR}/:id`}
               component={AuthorUpdateSubmissionPage$}
             />
-            <Redirect
-              exact
-              from={`${SUBMISSIONS_AUTHOR}/:id/success`}
-              to={SUBMISSION_SUCCESS}
-            />
+
             <Route
               exact
               path={SUBMISSIONS_LITERATURE}
@@ -91,9 +100,40 @@ class Submissions extends Component {
             />
             <Route
               exact
+              path={SUBMISSIONS_CONFERENCE}
+              component={ConferenceSubmissionPage$}
+            />
+            <Redirect
+              exact
+              from={`${SUBMISSIONS_AUTHOR}/:id/success`}
+              to={SUBMISSION_SUCCESS}
+            />
+            <Redirect
+              exact
+              from={`${SUBMISSIONS_AUTHOR}/new/success`}
+              to={SUBMISSION_SUCCESS}
+            />
+            <Redirect
+              exact
+              from={`${SUBMISSIONS_LITERATURE}/new/success`}
+              to={SUBMISSION_SUCCESS}
+            />
+            <Redirect
+              exact
+              from={`${SUBMISSIONS_JOB}/new/success`}
+              to={SUBMISSION_SUCCESS}
+            />
+            <Route
+              exact
               path={`${SUBMISSIONS_JOB}/:id/success`}
               component={JobUpdateSubmissionSuccessPage$}
             />
+            <Route
+              exact
+              path={`${SUBMISSIONS_CONFERENCE}/new/success`}
+              component={ConferenceSubmissionsSuccessPage$}
+            />
+
             <Route
               exact
               path={SUBMISSION_SUCCESS}

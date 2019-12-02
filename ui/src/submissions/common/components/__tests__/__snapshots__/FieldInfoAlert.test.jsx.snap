@@ -2,6 +2,7 @@
 
 exports[`FieldInfoAlert renders with alert description 1`] = `
 <Row
+  className="mb1"
   gutter={0}
 >
   <Col

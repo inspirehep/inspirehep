@@ -218,3 +218,49 @@ def test_conferences_filters(api_client, db, es, create_record):
         response_data["hits"]["hits"][0]["metadata"]["control_number"]
         == expected_record["control_number"]
     )
+
+
+def test_date_range_contains_conferences_filter(api_client, db, es, create_record):
+    conference_during_april_first_week = {
+        "control_number": 1,
+        "opening_date": "2019-04-01",
+        "closing_date": "2019-04-07",
+    }
+    conference_during_april_third_week = {
+        "control_number": 2,
+        "opening_date": "2019-04-14",
+        "closing_date": "2019-04-21",
+    }
+    conference_during_whole_april = {
+        "control_number": 3,
+        "opening_date": "2019-04-01",
+        "closing_date": "2019-04-30",
+    }
+    conference_during_january = {
+        "control_number": 4,
+        "opening_date": "2019-01-01",
+        "closing_date": "2019-01-30",
+    }
+    conference_during_june = {
+        "control_number": 5,
+        "opening_date": "2019-06-01",
+        "closing_date": "2019-06-30",
+    }
+    create_record("con", data=conference_during_april_first_week)
+    create_record("con", data=conference_during_april_third_week)
+    create_record("con", data=conference_during_whole_april)
+    create_record("con", data=conference_during_january)
+    create_record("con", data=conference_during_june)
+
+    from_april_5_to_15 = "2019-04-05--2019-04-15"
+    response = api_client.get(f"/conferences?contains={from_april_5_to_15}")
+    response_data = response.json
+
+    assert response_data["hits"]["total"] == 3
+
+    found_recids = [
+        record["metadata"]["control_number"] for record in response_data["hits"]["hits"]
+    ]
+    assert 1 in found_recids
+    assert 2 in found_recids
+    assert 3 in found_recids

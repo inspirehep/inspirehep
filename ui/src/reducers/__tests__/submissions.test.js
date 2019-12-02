@@ -7,6 +7,7 @@ import {
   INITIAL_FORM_DATA_REQUEST,
   INITIAL_FORM_DATA_SUCCESS,
   INITIAL_FORM_DATA_ERROR,
+  SUBMIT_REQUEST,
 } from '../../actions/actionTypes';
 
 describe('submissions reducer', () => {
@@ -14,6 +15,7 @@ describe('submissions reducer', () => {
     const state = reducer(undefined, {});
     const expected = fromJS({
       submitError: null,
+      successData: null,
       loadingInitialData: false,
       initialData: null,
       initialDataError: null,
@@ -30,13 +32,29 @@ describe('submissions reducer', () => {
     expect(state.get('submitError')).toEqual(fromJS(submitError));
   });
 
+  it('SUBMIT_REQUEST', () => {
+    const submitError = { message: 'Error' };
+    const successData = { foo: 'bar' };
+    const stateWithErrorAndData = fromJS({
+      submitError,
+      successData,
+    });
+    const state = reducer(stateWithErrorAndData, { type: SUBMIT_REQUEST });
+    expect(state.get('successData')).toEqual(initialState.get('successData'));
+    expect(state.get('submitError')).toEqual(initialState.get('submitError'));
+  });
+
   it('SUBMIT_SUCCESS', () => {
     const submitError = { message: 'Error' };
     const stateWithError = fromJS({
       submitError,
     });
-    const state = reducer(stateWithError, { type: SUBMIT_SUCCESS });
-    expect(state.get('submitError')).toEqual(initialState.get('submitError'));
+    const data = { cnum: 'C2019-10-10' };
+    const state = reducer(stateWithError, {
+      type: SUBMIT_SUCCESS,
+      payload: data,
+    });
+    expect(state.get('successData')).toEqual(fromJS(data));
   });
 
   it('INITIAL_FORM_DATA_REQUEST', () => {
