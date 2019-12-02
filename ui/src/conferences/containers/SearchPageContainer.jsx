@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
-import { fromJS } from 'immutable';
 
 import AggregationFiltersContainer from '../../common/containers/AggregationFiltersContainer';
 import PaginationContainer from '../../common/containers/PaginationContainer';
@@ -20,15 +19,6 @@ function renderConferenceItem(result) {
   return <ConferenceItem metadata={result.get('metadata')} />;
 }
 
-const STATIC_AGGREGATIONS = fromJS({
-  start_date: {
-    meta: {
-      title: 'Start Date',
-      type: 'date-range',
-    },
-  },
-});
-
 function ConferenceSearchPage({ loading, loadingAggregations }) {
   const renderAggregations = useCallback(
     () => (
@@ -36,7 +26,6 @@ function ConferenceSearchPage({ loading, loadingAggregations }) {
         <AggregationFiltersContainer
           displayWhenNoResults
           namespace={CONFERENCES_NS}
-          staticAggregations={STATIC_AGGREGATIONS}
         />
       </LoadingOrChildren>
     ),

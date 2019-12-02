@@ -165,25 +165,6 @@ exports[`AggregationFilters renders with all props set 1`] = `
   <Col
     className=""
     gutter={32}
-    key="filter1"
-    lg={24}
-    xs={24}
-  >
-    <EventTracker
-      eventId="Facet-Date Range Aggregation 1"
-      eventPropName="onChange"
-      extractEventArgsToForward={null}
-    >
-      <AggregationFilter
-        aggregationType="date-range"
-        name="Date Range Aggregation 1"
-        onChange={[Function]}
-      />
-    </EventTracker>
-  </Col>
-  <Col
-    className=""
-    gutter={32}
     key="agg1"
     lg={24}
     xs={24}

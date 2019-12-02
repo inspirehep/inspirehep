@@ -25,15 +25,6 @@ exports[`AggregationFilter renders CheckboxAggregation if aggregation type is ch
 />
 `;
 
-exports[`AggregationFilter renders DateRangeAggregation if aggregation type is date-range 1`] = `
-<DateRangeAggregation
-  buckets={null}
-  name="Test"
-  onChange={[MockFunction]}
-  selections="2019-11-21--2019-11-22"
-/>
-`;
-
 exports[`AggregationFilter renders MultiSelectAggregation if aggregation type is multiselect 1`] = `
 <MultiSelectAggregation
   buckets={
