@@ -1,6 +1,6 @@
 const { ResponseInterceptor } = require('../../utils/interceptors');
 const { login } = require('../../utils/user');
-const { FormSubmitter, SUBMIT_BUTTON_SELECTOR } = require('../../utils/form');
+const { FormSubmitter } = require('../../utils/form');
 const routes = require('../../utils/routes');
 
 describe('author submissions', () => {
@@ -100,12 +100,6 @@ describe('author submissions', () => {
       linkEl => linkEl.href
     );
 
-    const isSubmitButtonDisabled = await page.$eval(
-      SUBMIT_BUTTON_SELECTOR,
-      submitButton => submitButton.disabled
-    );
-
     expect(authorUpdateLink).toEqual(`${routes.AUTHOR_SUBMISSION}/999108`);
-    expect(isSubmitButtonDisabled).toBe(true);
   });
 });
