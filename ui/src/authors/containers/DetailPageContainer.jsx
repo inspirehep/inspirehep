@@ -33,6 +33,7 @@ import AuthorEmailsAction from '../components/AuthorEmailsAction';
 import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
 import { newSearch } from '../../actions/search';
+import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -46,7 +47,14 @@ function renderNumberOfPublishedPapers(value) {
   );
 }
 
-function DetailPage({ record, loading, dispatch, match, publicationsQuery }) {
+function DetailPage({
+  record,
+  loading,
+  dispatch,
+  match,
+  publicationsQuery,
+  publications,
+}) {
   useEffect(
     () => {
       dispatch(fetchAuthor(match.params.id));
@@ -151,10 +159,14 @@ function DetailPage({ record, loading, dispatch, match, publicationsQuery }) {
             </Col>
             <Col xs={24} md={12} lg={8}>
               <ContentBox loading={loading}>
-                <CitationSummaryTableContainer
-                  renderNumberOfCiteablePapers={renderNumberOfCiteablePapers}
-                  renderNumberOfPublishedPapers={renderNumberOfPublishedPapers}
-                />
+                <EmptyOrChildren data={publications} title="0 Research works">
+                  <CitationSummaryTableContainer
+                    renderNumberOfCiteablePapers={renderNumberOfCiteablePapers}
+                    renderNumberOfPublishedPapers={
+                      renderNumberOfPublishedPapers
+                    }
+                  />
+                </EmptyOrChildren>
               </ContentBox>
             </Col>
           </Row>
@@ -163,14 +175,16 @@ function DetailPage({ record, loading, dispatch, match, publicationsQuery }) {
       <Row className="mb3" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <ContentBox subTitle="Citation Summary">
-            <Row gutter={{ xs: 0, lg: 32 }}>
-              <Col xs={24} md={24} lg={7}>
-                <CitationsByYearGraphContainer />
-              </Col>
-              <Col xs={24} md={24} lg={17}>
-                <CitationSummaryGraphContainer />
-              </Col>
-            </Row>
+            <EmptyOrChildren data={publications} title="0 Research works">
+              <Row gutter={{ xs: 0, lg: 32 }}>
+                <Col xs={24} md={24} lg={7}>
+                  <CitationsByYearGraphContainer />
+                </Col>
+                <Col xs={24} md={24} lg={17}>
+                  <CitationSummaryGraphContainer />
+                </Col>
+              </Row>
+            </EmptyOrChildren>
           </ContentBox>
         </Col>
       </Row>
@@ -191,6 +205,7 @@ DetailPage.propTypes = {
   record: PropTypes.instanceOf(Map).isRequired,
   publicationsQuery: PropTypes.instanceOf(Map).isRequired,
   loading: PropTypes.bool.isRequired,
+  publications: PropTypes.instanceOf(List),
 };
 
 const mapStateToProps = state => ({
@@ -200,6 +215,11 @@ const mapStateToProps = state => ({
     'namespaces',
     AUTHOR_PUBLICATIONS_NS,
     'query',
+  ]),
+  publications: state.search.getIn([
+    'namespaces',
+    AUTHOR_PUBLICATIONS_NS,
+    'results',
   ]),
 });
 const dispatchToProps = dispatch => ({ dispatch });
