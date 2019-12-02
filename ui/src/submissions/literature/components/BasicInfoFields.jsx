@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Field } from 'formik';
 import PropTypes from 'prop-types';
 
-import { languageOptions, subjectOptions } from '../schemas/constants';
+import { languageOptions } from '../schemas/constants';
 import TextField from '../../common/components/TextField';
 import ArrayOf from '../../common/components/ArrayOf';
 import SelectField from '../../common/components/SelectField';
 import TextAreaField from '../../common/components/TextAreaField';
 import SuggesterField from '../../common/components/SuggesterField';
 import LiteratureAuthorsField from './LiteratureAuthorsField';
+import { inspireCategoryOptions } from '../../common/schemas/constants';
 
 class BasicInfoFields extends Component {
   static getSuggestionSourceLegacyName(suggestion) {
@@ -31,7 +32,7 @@ class BasicInfoFields extends Component {
           name="subjects"
           label="* Subjects"
           mode="multiple"
-          options={subjectOptions}
+          options={inspireCategoryOptions}
           component={SelectField}
         />
         <LiteratureAuthorsField

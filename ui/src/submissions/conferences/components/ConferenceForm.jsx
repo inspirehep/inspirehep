@@ -8,7 +8,7 @@ import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
 import SuggesterField from '../../common/components/SuggesterField';
 import SubmitButton from '../../common/components/SubmitButton';
-import { fieldOfInterestOptions } from '../../common/schemas/constants';
+import { inspireCategoryOptions } from '../../common/schemas/constants';
 import RichTextField from '../../common/components/RichTextField';
 import NumberField from '../../common/components/NumberField';
 import { countryOptions } from '../schemas/constants';
@@ -96,7 +96,7 @@ function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
         name="field_of_interest"
         label="* Field of Interest"
         mode="multiple"
-        options={fieldOfInterestOptions}
+        options={inspireCategoryOptions}
         component={SelectField}
       />
       <ArrayOf

@@ -9,11 +9,8 @@ import SelectField from '../../common/components/SelectField';
 import ArrayOf from '../../common/components/ArrayOf';
 import SuggesterField from '../../common/components/SuggesterField';
 import SubmitButton from '../../common/components/SubmitButton';
-import { regionOptions } from '../schemas/constants';
-import {
-  rankOptions,
-  fieldOfInterestOptions,
-} from '../../common/schemas/constants';
+import { regionOptions, fieldOfInterestOptions } from '../schemas/constants';
+import { rankOptions } from '../../common/schemas/constants';
 import DateField from '../../common/components/DateField';
 import RichTextField from '../../common/components/RichTextField';
 import StatusFieldContainer from '../containers/StatusFieldContainer';
