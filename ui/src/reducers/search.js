@@ -1,7 +1,7 @@
-import { fromJS } from 'immutable';
+/* eslint-disable no-case-declarations */
+import { fromJS, Map } from 'immutable';
 import { LOCATION_CHANGE } from 'connected-react-router';
 
-import moment from 'moment';
 import {
   SEARCH_REQUEST,
   SEARCH_ERROR,
@@ -16,10 +16,7 @@ import {
   SEARCH_QUERY_RESET,
 } from '../actions/actionTypes';
 import { AUTHORS, JOBS, LITERATURE, CONFERENCES } from '../common/routes';
-import {
-  DATE_RANGE_FORMAT,
-  RANGE_AGGREGATION_SELECTION_SEPARATOR,
-} from '../common/constants';
+import { START_DATE_UPCOMING } from '../common/constants';
 
 export const AUTHORS_NS = 'authors';
 export const LITERATURE_NS = 'literature';
@@ -45,14 +42,13 @@ const initialNamespaceState = {
   aggregationsError: null,
   baseQuery: initialBaseQuery,
   query: initialBaseQuery,
+  persistedQueryParamsDuringNewSearch: [],
   baseAggregationsQuery: {},
 };
 
 export const FETCH_MODE_NEVER = 'never';
 export const FETCH_MODE_ALWAYS = 'always';
 export const FETCH_MODE_INITIAL = 'only-initial-without-query';
-
-const today = moment.utc().format(DATE_RANGE_FORMAT);
 
 export const initialState = fromJS({
   searchBoxNamespace: LITERATURE_NS,
@@ -117,12 +113,13 @@ export const initialState = fromJS({
       embedded: false,
       baseQuery: {
         ...initialBaseQuery,
-        start_date: `${today}${RANGE_AGGREGATION_SELECTION_SEPARATOR}`,
+        start_date: START_DATE_UPCOMING,
       },
       query: {
         ...initialBaseQuery,
-        start_date: `${today}${RANGE_AGGREGATION_SELECTION_SEPARATOR}`,
+        start_date: START_DATE_UPCOMING,
       },
+      persistedQueryParamsDuringNewSearch: ['start_date'],
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
     },
   },
@@ -177,6 +174,19 @@ const searchReducer = (state = initialState, action) => {
     case CHANGE_SEARCH_BOX_NAMESPACE:
       return state.set('searchBoxNamespace', searchBoxNamespace);
     case NEW_SEARCH_REQUEST:
+      const persistedQueryParams = state.getIn([
+        'namespaces',
+        namespace,
+        'persistedQueryParamsDuringNewSearch',
+      ]);
+      const persistedQuery = persistedQueryParams.reduce(
+        (persistedMap, param) =>
+          persistedMap.set(
+            param,
+            state.getIn(['namespaces', namespace, 'query', param])
+          ),
+        Map()
+      );
       return state
         .setIn(
           ['namespaces', namespace, 'initialAggregations'],
@@ -184,7 +194,9 @@ const searchReducer = (state = initialState, action) => {
         )
         .setIn(
           ['namespaces', namespace, 'query'],
-          initialState.getIn(['namespaces', namespace, 'query'])
+          initialState
+            .getIn(['namespaces', namespace, 'query'])
+            .merge(persistedQuery)
         );
     case SEARCH_BASE_QUERIES_UPDATE:
       return state
@@ -200,7 +212,6 @@ const searchReducer = (state = initialState, action) => {
         initialState.getIn(['namespaces', namespace, 'query'])
       );
     case SEARCH_QUERY_UPDATE:
-      // eslint-disable-next-line no-case-declarations
       const fullQuery = state
         .getIn(['namespaces', namespace, 'baseQuery'])
         .merge(state.getIn(['namespaces', namespace, 'query']))
