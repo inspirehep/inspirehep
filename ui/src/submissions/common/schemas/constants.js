@@ -175,13 +175,24 @@ export const arxivCategoryValues = arxivCategoryOptions
   .map(getValue)
   .concat(otherSchemaArxivCategoryValues);
 
-const OTHER_OPTION_VALUE = 'other';
-export const fieldOfInterestOptions = arxivCategoryOptions.concat({
-  value: OTHER_OPTION_VALUE,
-});
-export const fieldOfInterestValues = arxivCategoryValues.concat(
-  OTHER_OPTION_VALUE
-);
+export const inspireCategoryOptions = [
+  { value: 'Accelerators' },
+  { value: 'Astrophysics' },
+  { value: 'Computing' },
+  { value: 'Data Analysis and Statistics' },
+  { value: 'Experiment-HEP' },
+  { value: 'Experiment-Nucl' },
+  { value: 'General Physics' },
+  { value: 'Gravitation and Cosmology' },
+  { value: 'Instrumentation' },
+  { value: 'Lattice' },
+  { value: 'Math and Math Physics' },
+  { value: 'Other' },
+  { value: 'Phenomenology-HEP' },
+  { value: 'Theory-HEP' },
+  { value: 'Theory-Nucl' },
+];
+export const inspireCategoryValues = inspireCategoryOptions.map(getValue);
 
 export const rankOptions = Object.keys(RANK_VALUE_TO_DISPLAY).map(key => ({
   value: key,

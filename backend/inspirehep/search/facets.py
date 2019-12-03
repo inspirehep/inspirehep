@@ -5,15 +5,24 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+from datetime import datetime
+
 from elasticsearch_dsl.query import Q, Range
 from flask import current_app, request
+from invenio_records_rest.facets import range_filter
 
 
 def range_author_count_filter(field):
-    """Range filter for returning record only with 1 <= authors <= 10."""
+    """Range filter for returning records within the corresponding range(s)."""
+
+    range_for_option = {
+        "Single author": {"gte": 1, "lte": 1},
+        "10 authors or less": {"gte": 1, "lte": 10},
+    }
 
     def inner(values):
-        return Range(**{field: {"gte": 1, "lte": 10}})
+        ranges = [Q("range", **{field: range_for_option[value]}) for value in values]
+        return Q("bool", filter=ranges)
 
     return inner
 
@@ -23,12 +32,12 @@ def must_match_all_filter(field):
 
     def inner(values):
         filters = [Q("match", **{field: value}) for value in values]
-        return Q("bool", must=filters)
+        return Q("bool", filter=filters)
 
     return inner
 
 
-def date_range_contains_conferences_filter():
+def conferences_date_range_contains_other_conferences():
     def inner(values):
         opening_date, closing_date = values[0].split("--")
         closing_date_in_range = Range(
@@ -52,6 +61,24 @@ def date_range_contains_conferences_filter():
     return inner
 
 
+def conferences_start_date_range_filter():
+    date_range_filter = range_filter("opening_date")
+
+    def inner(values):
+        value = values and values[0]
+
+        if value == "upcoming":
+            today = datetime.utcnow().strftime("%Y-%m-%d")
+            return Range(**{"opening_date": {"gte": today}})
+
+        if value == "all":
+            return Q()
+
+        return date_range_filter(values)
+
+    return inner
+
+
 def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None):
     """Bool filter containing a list of must matches for nested queries."""
 
@@ -61,7 +88,8 @@ def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None)
             e_f_field, e_f_value = explicit_filter
             filters.append(Q("match", **{e_f_field: e_f_value}))
         return Q(
-            "bool", must=Q("nested", path=nested_path, query=Q("bool", must=filters))
+            "bool",
+            filter=Q("nested", path=nested_path, query=Q("bool", filter=filters)),
         )
 
     return inner

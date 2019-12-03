@@ -1,4 +1,8 @@
 import getValue from '../../common/getValue';
+import {
+  arxivCategoryOptions,
+  arxivCategoryValues,
+} from '../../common/schemas/constants';
 
 export const regionOptions = [
   { value: 'Africa' },
@@ -10,6 +14,14 @@ export const regionOptions = [
   { value: 'South America' },
 ];
 export const regionValues = regionOptions.map(getValue);
+
+const OTHER_OPTION_VALUE = 'other';
+export const fieldOfInterestOptions = arxivCategoryOptions.concat({
+  value: OTHER_OPTION_VALUE,
+});
+export const fieldOfInterestValues = arxivCategoryValues.concat(
+  OTHER_OPTION_VALUE
+);
 
 export const unAuthorizedStatusOptions = [
   { value: 'open' },

@@ -36,7 +36,8 @@ from inspirehep.search.api import (
 from inspirehep.search.facets import (
     citation_summary,
     citations_by_year,
-    date_range_contains_conferences_filter,
+    conferences_date_range_contains_other_conferences,
+    conferences_start_date_range_filter,
     hep_author_publications,
     hep_author_publications_cataloger,
     hep_conference_contributions,
@@ -437,7 +438,10 @@ HEP_COMMON_AGGS = {
     "author_count": {
         "range": {
             "field": "author_count",
-            "ranges": [{"key": "10 authors or less", "from": 1, "to": 11}],
+            "ranges": [
+                {"key": "Single author", "from": 1, "to": 2},
+                {"key": "10 authors or less", "from": 1, "to": 11},
+            ],
         },
         "meta": {"title": "Number of authors", "order": 2, "type": "checkbox"},
         "aggs": {
@@ -489,8 +493,8 @@ RECORDS_REST_FACETS = {
     "records-conferences": {
         "filters": {
             "subject": must_match_all_filter("inspire_categories.term"),
-            "start_date": range_filter("opening_date"),
-            "contains": date_range_contains_conferences_filter(),
+            "start_date": conferences_start_date_range_filter(),
+            "contains": conferences_date_range_contains_other_conferences(),
         },
         "aggs": {
             "subject": {

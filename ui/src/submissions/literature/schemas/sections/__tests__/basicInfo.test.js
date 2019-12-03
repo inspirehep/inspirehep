@@ -1,7 +1,7 @@
 import { object } from 'yup';
 
 import basicInfo from '../basicInfo';
-import { subjectValues } from '../../constants';
+import { inspireCategoryValues } from '../../../../common/schemas/constants';
 
 const schema = object().shape(basicInfo);
 
@@ -13,7 +13,7 @@ const dataWithRequiredFields = {
       affilation: 'CERN',
     },
   ],
-  subjects: [subjectValues[0]],
+  subjects: [inspireCategoryValues[0]],
 };
 
 describe('basicInfo section', () => {

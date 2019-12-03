@@ -1,11 +1,11 @@
 import conferenceSchema from '../conference';
-import { fieldOfInterestValues } from '../../../common/schemas/constants';
+import { inspireCategoryValues } from '../../../common/schemas/constants';
 
 const dataWithRequiredFields = {
   name: 'International Cool Conf 2020',
   dates: ['2020-06-01', '2020-06-10'],
   addresses: [{ city: 'Geneva', country: 'Switzerland' }],
-  field_of_interest: [fieldOfInterestValues[0]],
+  field_of_interest: [inspireCategoryValues[0]],
 };
 
 describe('conferenceSchema', () => {
@@ -132,7 +132,7 @@ describe('conferenceSchema', () => {
   it('invalidates when field_of_interest has invalid value', async () => {
     const data = {
       ...dataWithRequiredFields,
-      field_of_interest: [fieldOfInterestValues[0], 'not a field'],
+      field_of_interest: [inspireCategoryValues[0], 'not a field'],
     };
     const isValid = await conferenceSchema.isValid(data);
     expect(isValid).toBe(false);

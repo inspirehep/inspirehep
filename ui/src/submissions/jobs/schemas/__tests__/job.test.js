@@ -1,16 +1,17 @@
 import moment from 'moment';
 import jobSchema from '../job';
-import { regionValues, statusValues } from '../constants';
 import {
-  rankValues,
-  arxivCategoryValues,
-} from '../../../common/schemas/constants';
+  regionValues,
+  statusValues,
+  fieldOfInterestValues,
+} from '../constants';
+import { rankValues } from '../../../common/schemas/constants';
 
 const dataWithRequiredFields = {
   title: 'Director',
   regions: [regionValues[0]],
   ranks: [rankValues[0]],
-  field_of_interest: [arxivCategoryValues[0]],
+  field_of_interest: [fieldOfInterestValues[0]],
   institutions: [
     { value: 'CERN', record: { $ref: 'http://to/institutions/1' } },
   ],
@@ -137,7 +138,7 @@ describe('jobSchema', () => {
   it('invalidates when field of interest are not all one of selectable values', async done => {
     const data = {
       ...dataWithRequiredFields,
-      field_of_interest: ['not a field of interest', arxivCategoryValues[1]],
+      field_of_interest: ['not a field of interest', fieldOfInterestValues[1]],
     };
     const isValid = await jobSchema.isValid(data);
     expect(isValid).toBe(false);
