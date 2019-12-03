@@ -14,6 +14,7 @@ import DrawerHandle from '../../common/components/DrawerHandle';
 import DocumentHead from '../../common/components/DocumentHead';
 import { CONFERENCES_NS } from '../../reducers/search';
 import ConferenceItem from '../components/ConferenceItem';
+import ConferenceStartDateFilterContainer from './ConferenceStartDateFilterContainer';
 
 function renderConferenceItem(result) {
   return <ConferenceItem metadata={result.get('metadata')} />;
@@ -22,12 +23,15 @@ function renderConferenceItem(result) {
 function ConferenceSearchPage({ loading, loadingAggregations }) {
   const renderAggregations = useCallback(
     () => (
-      <LoadingOrChildren loading={loadingAggregations}>
-        <AggregationFiltersContainer
-          displayWhenNoResults
-          namespace={CONFERENCES_NS}
-        />
-      </LoadingOrChildren>
+      <>
+        <ConferenceStartDateFilterContainer />
+        <LoadingOrChildren loading={loadingAggregations}>
+          <AggregationFiltersContainer
+            displayWhenNoResults
+            namespace={CONFERENCES_NS}
+          />
+        </LoadingOrChildren>
+      </>
     ),
     [loadingAggregations]
   );
