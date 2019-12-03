@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DateRangeFilter renders DateRangeFilter with all props set 1`] = `
+<div>
+  <Row
+    className="mb1"
+    gutter={0}
+  >
+    From:
+  </Row>
+  <Row
+    className="mb2"
+    gutter={0}
+  >
+    <PickerWrapper
+      className="w-100"
+      data-test-id="start-date-picker"
+      disabledDate={[Function]}
+      format="YYYY-MM-D"
+      locale={Object {}}
+      onChange={[Function]}
+      onOk={[Function]}
+      onOpenChange={[Function]}
+      popupStyle={Object {}}
+      transitionName="slide-up"
+      value={"2019-11-21T00:00:00.000Z"}
+    />
+  </Row>
+  <Row
+    className="mb1"
+    gutter={0}
+  >
+    To:
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <PickerWrapper
+      className="w-100"
+      data-test-id="end-date-picker"
+      disabledDate={[Function]}
+      format="YYYY-MM-D"
+      locale={Object {}}
+      onChange={[Function]}
+      onOk={[Function]}
+      onOpenChange={[Function]}
+      popupStyle={Object {}}
+      transitionName="slide-up"
+      value={"2019-11-22T00:00:00.000Z"}
+    />
+  </Row>
+</div>
+`;
+
+exports[`DateRangeFilter renders DateRangeFilter without range 1`] = `
+<div>
+  <Row
+    className="mb1"
+    gutter={0}
+  >
+    From:
+  </Row>
+  <Row
+    className="mb2"
+    gutter={0}
+  >
+    <PickerWrapper
+      className="w-100"
+      data-test-id="start-date-picker"
+      disabledDate={[Function]}
+      format="YYYY-MM-D"
+      locale={Object {}}
+      onChange={[Function]}
+      onOk={[Function]}
+      onOpenChange={[Function]}
+      popupStyle={Object {}}
+      transitionName="slide-up"
+      value={null}
+    />
+  </Row>
+  <Row
+    className="mb1"
+    gutter={0}
+  >
+    To:
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <PickerWrapper
+      className="w-100"
+      data-test-id="end-date-picker"
+      disabledDate={[Function]}
+      format="YYYY-MM-D"
+      locale={Object {}}
+      onChange={[Function]}
+      onOk={[Function]}
+      onOpenChange={[Function]}
+      popupStyle={Object {}}
+      transitionName="slide-up"
+      value={null}
+    />
+  </Row>
+</div>
+`;

@@ -26,3 +26,7 @@ export const SURVEY_LINK = 'https://forms.gle/CMgi3UsbpMuXxAfr6';
 export const DATE_RANGE_FORMAT = 'YYYY-MM-D';
 
 export const RANGE_AGGREGATION_SELECTION_SEPARATOR = '--';
+
+export const START_DATE_ALL = 'all';
+export const START_DATE_UPCOMING = 'upcoming';
+

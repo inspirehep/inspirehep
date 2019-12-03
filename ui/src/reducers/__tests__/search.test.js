@@ -63,6 +63,7 @@ describe('search reducer', () => {
         [namespace]: {
           initialAggregations: { initAggs: {} },
           query: { q: 'dude', page: 3 },
+          persistedQueryParamsDuringNewSearch: [],
         },
       },
     });
@@ -79,6 +80,42 @@ describe('search reducer', () => {
             'initialAggregations',
           ]),
           query: initialState.getIn(['namespaces', namespace, 'query']),
+          persistedQueryParamsDuringNewSearch: [],
+        },
+      },
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('NEW_SEARCH_REQUEST with persistedQueryParamsDuringNewSearch', () => {
+    const namespace = AUTHOR_PUBLICATIONS_NS;
+    const initialReducerState = fromJS({
+      namespaces: {
+        [namespace]: {
+          initialAggregations: { initAggs: {} },
+          query: { q: 'dude', page: 3, a: '1', b: '2' },
+          persistedQueryParamsDuringNewSearch: ['a', 'b'],
+        },
+      },
+    });
+    const state = reducer(initialReducerState, {
+      type: types.NEW_SEARCH_REQUEST,
+      payload: { namespace },
+    });
+    const expected = fromJS({
+      namespaces: {
+        [namespace]: {
+          initialAggregations: initialState.getIn([
+            'namespaces',
+            namespace,
+            'initialAggregations',
+          ]),
+          query: {
+            ...initialState.getIn(['namespaces', namespace, 'query']).toJS(),
+            a: '1',
+            b: '2',
+          },
+          persistedQueryParamsDuringNewSearch: ['a', 'b'],
         },
       },
     });
