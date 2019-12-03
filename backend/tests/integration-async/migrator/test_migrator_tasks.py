@@ -78,6 +78,44 @@ def test_process_references_in_records(
     )
 
 
+def test_process_references_in_records_reindexes_conferences_when_pub_info_changes(
+    app, celery_app_with_context, celery_session_worker
+):
+    # disconnect this signal so records don't get indexed
+    models_committed.disconnect(index_after_commit)
+
+    conference_data = faker.record("con", with_control_number=True)
+    conference_record = InspireRecord.create(conference_data)
+
+    conference_control_number = conference_record["control_number"]
+    conf_ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
+
+    data = faker.record("lit", with_control_number=True)
+
+    data["publication_info"] = [{"conference_record": {"$ref": conf_ref}}]
+    data["document_type"] = ["conference paper"]
+
+    record = InspireRecord.create(data)
+    db.session.commit()
+
+    # reconnect signal before we call process_references_in_records
+    models_committed.connect(index_after_commit)
+
+    uuids = [record.id]
+
+    task = process_references_in_records.delay(uuids)
+
+    result = task.get(timeout=5)
+
+    conference_record_es = InspireSearch.get_record_data_from_es(conference_record)
+    expected_number_of_contributions = 1
+
+    assert (
+        expected_number_of_contributions
+        == conference_record_es["number_of_contributions"]
+    )
+
+
 def test_process_references_in_records_with_different_type_of_records_doesnt_throw_an_exception(
     app, celery_app_with_context, celery_session_worker, create_record
 ):
