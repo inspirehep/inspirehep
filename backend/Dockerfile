@@ -12,7 +12,7 @@ ENTRYPOINT ["poetry", "run", "inspirehep"]
 CMD ["shell"]
 
 COPY poetry.lock pyproject.toml ./
-RUN poetry install --no-root -Exrootd
+RUN poetry install --no-root
 
 COPY setup.py ./
 COPY inspirehep inspirehep/
