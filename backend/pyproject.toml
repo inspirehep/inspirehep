@@ -5,9 +5,6 @@ description = "NSPIRE is the leading information platform for High Energy Physic
 authors = ["CERN <admin@inspirehep.net>"]
 license = "MIT License"
 
-[tool.poetry.extras]
-xrootd = ["xrootd", "xrootdpyfs", "invenio-xrootd"]
-
 [tool.poetry.dependencies]
 celery = "~=4.2.0,<4.3.0"
 # inspirehep = {path = ".",editable = true}
@@ -33,7 +30,7 @@ invenio-config= ">=1.0.2,<1.1.0"
 invenio-db = {version = "~=1.0.0,<1.1.0", extras = [ "postgresql", "versioning"]}
 invenio-indexer = ">=1.0.1,<1.0.2"
 invenio-jsonschemas = ">=1.0.0,<1.1.0"
-invenio-oauth2server= ">=1.0.3,<1.1.0"
+invenio-oauth2server= {git = "https://github.com/inspirehep/invenio-oauth2server.git"}
 invenio-oauthclient= ">=1.1.3,<1.2.0"
 invenio-pidstore= ">=1.0.0,<1.1.0"
 invenio-records = ">=1.0.0,<1.1.0"
@@ -72,10 +69,6 @@ humanize = "^0.5.1"
 feedgen = "^0.8.0"
 flask-mail = "^0.9.1"
 hepcrawl = "^13.0.7"
-
-xrootdpyfs = {git = "https://github.com/inspirehep/xrootdpyfs.git", branch = "python3", optional = true}
-invenio-xrootd = {git = "https://github.com/inveniosoftware/invenio-xrootd.git", optional = true}
-xrootd = {version = "^4.11", optional = true}
 prometheus_client = "^0.7.1"
 inspire-dojson = "^63.0"
 
