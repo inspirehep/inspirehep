@@ -12,7 +12,8 @@ function ConferencesExistOnDatesAlert({ dates }) {
   const [openingDate, closingDate] = dates;
   const [numberOfConferences, setNumberOfConferences] = useState(null);
   const searchLink = useMemo(
-    () => `${CONFERENCES}?contains=${openingDate}--${closingDate}`,
+    () =>
+      `${CONFERENCES}?contains=${openingDate}--${closingDate}&start_date=all`,
     [openingDate, closingDate]
   );
 
