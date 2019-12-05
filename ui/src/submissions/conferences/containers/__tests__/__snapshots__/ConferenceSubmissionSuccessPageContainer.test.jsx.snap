@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceSubmissionSuccessPageContainer ConferenceSubmissionSucessPage renders 1`] = `
+<SubmissionSuccess
+  message={
+    <span>
+      Successfully submitted, thank you for the submission! See the conference (
+      C19-02-01
+      )
+       
+      <Link
+        replace={false}
+        to="/conferences/12345"
+      >
+        here
+      </Link>
+      .
+    </span>
+  }
+/>
+`;

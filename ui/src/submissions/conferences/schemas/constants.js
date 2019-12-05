@@ -6,7 +6,7 @@ export const countryOptions = [
   { value: 'Albania' },
   { value: 'Algeria' },
   { value: 'American Samoa' },
-  { value: 'AndorrA' },
+  { value: 'Andorra' },
   { value: 'Angola' },
   { value: 'Anguilla' },
   { value: 'Antarctica' },
