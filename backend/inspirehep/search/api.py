@@ -185,14 +185,6 @@ class ConferencesSearch(InspireSearch):
         index = "records-conferences"
         doc_types = "conferences"
 
-    def query_from_iq(self, query_string):
-        """Initialize ES DSL object using INSPIRE query parser.
-        :param query_string: Query string as a user would input in INSPIRE's search box.
-        :type query_string: string
-        :returns: Elasticsearch DSL search class
-        """
-        return self.query(IQ(query_string, self))
-
 
 class JobsSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Jobs database."""
@@ -210,7 +202,7 @@ class JobsSearch(InspireSearch):
         if not is_superuser_or_cataloger_logged_in():
             user_query = Q(IQ(query_string, self) & Q("term", status="open"))
             return self.query(user_query)
-        return self.query(IQ(query_string, self))
+        return super().query_from_iq(query_string)
 
 
 class InstitutionsSearch(InspireSearch):
@@ -219,14 +211,6 @@ class InstitutionsSearch(InspireSearch):
     class Meta:
         index = "records-institutions"
         doc_types = "institutions"
-
-    def query_from_iq(self, query_string):
-        """Initialize ES DSL object using INSPIRE query parser.
-        :param query_string: Query string as a user would input in INSPIRE's search box.
-        :type query_string: string
-        :returns: Elasticsearch DSL search class
-        """
-        return self.query(IQ(query_string, self))
 
 
 class ExperimentsSearch(InspireSearch):
