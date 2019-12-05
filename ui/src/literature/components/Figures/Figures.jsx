@@ -60,7 +60,7 @@ Figures.propTypes = {
 };
 
 Figures.defaultProps = {
-  figures: null,
+  figures: List(),
 };
 
 export default Figures;

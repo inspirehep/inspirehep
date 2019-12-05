@@ -103,7 +103,12 @@ def hep_author_publications():
             **current_app.config["HEP_COMMON_AGGS"],
             "author": {
                 "terms": {"field": "facet_author_name", "size": 20, "exclude": author},
-                "meta": {"title": "Collaborators", "order": 3, "split": True},
+                "meta": {
+                    "title": "Collaborators",
+                    "order": 3,
+                    "type": "checkbox",
+                    "split": True,
+                },
             },
         },
     }

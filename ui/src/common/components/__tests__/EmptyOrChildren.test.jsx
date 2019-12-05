@@ -45,7 +45,7 @@ describe('EmptyOrChildren', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders empty if data is null', () => {
+  it('renders children if data is null', () => {
     const data = null;
     const wrapper = shallow(
       <EmptyOrChildren data={data}>
@@ -96,8 +96,8 @@ describe('EmptyOrChildren', () => {
   });
 
   it('does not render children and shows title and description', () => {
-    const data = null;
-    const title = 'title';
+    const data = [];
+    const title = 'this is a title';
     const description = <div>this is a rich description</div>;
     const wrapper = shallow(
       <EmptyOrChildren data={data} title={title} description={description}>

@@ -183,6 +183,7 @@ class CitationSummaryGraph extends Component {
       publishedSeriesData.length !== 0 && maxBy(publishedSeriesData, 'y').y,
       citeableSeriesData.length !== 0 && maxBy(citeableSeriesData, 'y').y
     );
+
     return (
       <div className="__CitationSummaryGraph__" ref={this.graphRef}>
         <LoadingOrChildren loading={loading}>

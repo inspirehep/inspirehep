@@ -2,7 +2,7 @@
 
 exports[`AggregationBox renders AggreagationBox with action 1`] = `
 <div
-  className="w-100 mb4 br1"
+  className="w-100 br1"
 >
   <Row
     gutter={0}
@@ -35,7 +35,7 @@ exports[`AggregationBox renders AggreagationBox with action 1`] = `
 
 exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
 <div
-  className="w-100 mb4 br1"
+  className="w-100 br1"
 >
   <Row
     gutter={0}
@@ -66,7 +66,7 @@ exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
 
 exports[`AggregationBox renders AggreagationBox without action 1`] = `
 <div
-  className="w-100 mb4 br1"
+  className="w-100 br1"
 >
   <Row
     gutter={0}
@@ -95,7 +95,7 @@ exports[`AggregationBox renders AggreagationBox without action 1`] = `
 
 exports[`AggregationBox renders AggreagationBox without children and with action 1`] = `
 <div
-  className="w-100 mb4 br1"
+  className="w-100 br1"
 >
   <Row
     gutter={0}
@@ -124,7 +124,7 @@ exports[`AggregationBox renders AggreagationBox without children and with action
 
 exports[`AggregationBox renders AggreagationBox without children and without action 1`] = `
 <div
-  className="w-100 mb4 br1"
+  className="w-100 br1"
 >
   <Row
     gutter={0}
