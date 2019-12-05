@@ -6,6 +6,7 @@ exports[`ConferenceStartDateFilter renders with selection: a date range 1`] = `
   gutter={0}
 >
   <AggregationBox
+    className="mb3"
     headerAction={null}
     name="Start Date"
   >
@@ -40,6 +41,7 @@ exports[`ConferenceStartDateFilter renders with selection: all 1`] = `
   gutter={0}
 >
   <AggregationBox
+    className="mb3"
     headerAction={null}
     name="Start Date"
   >
@@ -74,6 +76,7 @@ exports[`ConferenceStartDateFilter renders with selection: upcoming 1`] = `
   gutter={0}
 >
   <AggregationBox
+    className="mb3"
     headerAction={null}
     name="Start Date"
   >
@@ -108,6 +111,7 @@ exports[`ConferenceStartDateFilter renders without selection 1`] = `
   gutter={0}
 >
   <AggregationBox
+    className="mb3"
     headerAction={null}
     name="Start Date"
   >
