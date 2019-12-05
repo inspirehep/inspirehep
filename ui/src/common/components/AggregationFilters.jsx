@@ -2,10 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { Row, Col } from 'antd';
-import classnames from 'classnames';
+import className from 'classnames';
 
 import AggregationFilter from './AggregationFilter';
 import EventTracker from './EventTracker';
+
+function getClassNameForAggregation(isInline, isLast) {
+  return className({
+    'md-pb3': isInline,
+    mb4: !isInline && !isLast,
+    mb3: !isInline && isLast,
+  });
+}
 
 class AggregationFilters extends Component {
   static compareAggregationEntries([, aggregation1], [, aggregation2]) {
@@ -24,21 +32,24 @@ class AggregationFilters extends Component {
       displayWhenNoResults,
       initialAggregations,
     } = this.props;
-    const rowClassName = classnames('bg-white', {
+    const rowClassName = className('bg-white', {
       pa3: !inline,
       pv3: inline,
     });
+    const aggregationEntries = aggregations && aggregations.entrySeq();
     return (
-      aggregations &&
+      aggregationEntries &&
       (numberOfResults > 0 || displayWhenNoResults) && (
         <Row className={rowClassName} type="flex" justify="space-between">
-          {aggregations
-            .entrySeq()
+          {aggregationEntries
             .filter(([, aggregation]) => aggregation.get('buckets').size > 0)
             .sort(AggregationFilters.compareAggregationEntries)
-            .map(([aggregationKey, aggregation]) => (
+            .map(([aggregationKey, aggregation], index) => (
               <Col
-                className={classnames({ 'md-pb3': inline })}
+                className={getClassNameForAggregation(
+                  inline,
+                  index === aggregationEntries.size - 1
+                )}
                 key={aggregationKey}
                 xs={24}
                 lg={inline ? 5 : 24}
