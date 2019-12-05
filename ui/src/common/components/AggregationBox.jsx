@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Col, Row } from 'antd';
+import classNames from 'classnames';
 
 class AggregationBox extends Component {
   render() {
-    const { name, headerAction, children } = this.props;
+    const { name, headerAction, children, className } = this.props;
     return (
-      <div className="w-100 mb4 br1">
+      <div className={classNames('w-100 br1', className)}>
         <Row type="flex" justify="space-between">
           <Col>
             <h3 className="pb1">{name}</h3>
@@ -23,6 +24,7 @@ AggregationBox.propTypes = {
   headerAction: PropTypes.node,
   name: PropTypes.string.isRequired,
   children: PropTypes.node,
+  className: PropTypes.string,
 };
 
 AggregationBox.defaultProps = {

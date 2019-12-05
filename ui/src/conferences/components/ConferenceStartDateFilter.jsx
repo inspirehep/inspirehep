@@ -1,17 +1,11 @@
-import React, {
-  useCallback,
-  useState,
-  useRef,
-  useEffect,
-} from 'react';
+import React, { useCallback, useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Switch, Col } from 'antd';
 
+// TODO: rename AggregationBox to FilterBox, since it is used for this (Filter) and AggregationFilter
 import AggregationBox from '../../common/components/AggregationBox';
 import DateRangeFilter from '../../common/components/DateRangeFilter';
 import { START_DATE_UPCOMING, START_DATE_ALL } from '../../common/constants';
-
-
 
 function ConferenceStartDateFilter({ onChange, selection = '' }) {
   const [isUpcoming, setUpcoming] = useState(selection === START_DATE_UPCOMING);
@@ -23,7 +17,8 @@ function ConferenceStartDateFilter({ onChange, selection = '' }) {
     [selection]
   );
 
-  const isDateRangeSelected = selection !== START_DATE_UPCOMING && selection !== START_DATE_ALL;
+  const isDateRangeSelected =
+    selection !== START_DATE_UPCOMING && selection !== START_DATE_ALL;
   const selectedRange = isDateRangeSelected ? selection : '';
 
   const onChangeCalledAfterChangeRef = useRef(false);
@@ -51,7 +46,7 @@ function ConferenceStartDateFilter({ onChange, selection = '' }) {
 
   return (
     <Row className="pa3 bg-white mb3">
-      <AggregationBox name="Start Date">
+      <AggregationBox name="Start Date" className="mb3">
         <Row className="mb3" type="flex" align="middle" gutter={8}>
           <Col>
             <Switch
