@@ -69,6 +69,7 @@ function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
                 onlyChild
                 name={`${itemName}.country`}
                 placeholder="* Country"
+                showSearch
                 options={countryOptions}
                 component={SelectField}
               />
