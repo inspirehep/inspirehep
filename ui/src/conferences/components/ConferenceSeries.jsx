@@ -16,7 +16,9 @@ function ConferenceSeries({ series }) {
         <span>Conference</span>
       )}
       {' in the '}
-      <Link to={`${CONFERENCES}?q=series.name:${name}`}>{name}</Link>
+      <Link to={`${CONFERENCES}?q=series.name:${name}&start_date=all`}>
+        {name}
+      </Link>
       {' series'}
     </span>
   );

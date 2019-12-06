@@ -9,7 +9,7 @@ exports[`ConferenceSeries renders with name and number 1`] = `
    in the 
   <Link
     replace={false}
-    to="/conferences?q=series.name:Conference Name"
+    to="/conferences?q=series.name:Conference Name&start_date=all"
   >
     Conference Name
   </Link>
@@ -25,7 +25,7 @@ exports[`ConferenceSeries renders with only name 1`] = `
    in the 
   <Link
     replace={false}
-    to="/conferences?q=series.name:Conference Name"
+    to="/conferences?q=series.name:Conference Name&start_date=all"
   >
     Conference Name
   </Link>
