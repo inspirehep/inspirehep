@@ -307,6 +307,12 @@ CONFERENCES.update(
                     "self",
                 ],
                 "completion": {"field": "conferenceautocomplete"},
+            },
+            "series_name": {
+                "_source": [
+                    "control_number",
+                ],
+                "completion": {"field": "seriesautocomplete"},
             }
         },
         "update_permission_factory_imp": session_cataloger_permission_factory,
