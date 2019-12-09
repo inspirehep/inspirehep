@@ -177,6 +177,7 @@
         "series": {
           "properties": {
             "name": {
+              "copy_to": "seriesautocomplete",
               "type": "string"
             },
             "number": {
@@ -184,6 +185,9 @@
             }
           },
           "type": "object"
+        },
+        "seriesautocomplete": {
+          "type": "completion"
         },
         "short_description": {
           "properties": {
