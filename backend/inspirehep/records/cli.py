@@ -16,7 +16,7 @@ import structlog
 from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_records.api import RecordMetadata
-from sqlalchemy import DateTime, Text, cast, not_, or_, type_coerce
+from sqlalchemy import DateTime, not_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
 from inspirehep.records.api import InspireRecord, JobsRecord
