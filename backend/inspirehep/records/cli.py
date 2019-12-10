@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import datetime
 import json
 import os
 from time import sleep
@@ -14,8 +15,11 @@ import requests
 import structlog
 from flask.cli import with_appcontext
 from invenio_db import db
+from invenio_records.api import RecordMetadata
+from sqlalchemy import DateTime, Text, cast, not_, or_, type_coerce
+from sqlalchemy.dialects.postgresql import JSONB
 
-from inspirehep.records.api import InspireRecord
+from inspirehep.records.api import InspireRecord, JobsRecord
 from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
 from inspirehep.records.tasks import batch_relations_update
 
@@ -178,3 +182,45 @@ def update_relations(batch_size, queue_name):
         LOGGER.warning(f"Got {len(failures)} failures during the updating process")
         for failure in failures:
             LOGGER.warning(failure)
+
+
+@click.group()
+def jobs():
+    """Command for jobs"""
+
+
+@jobs.command(help="Closes jobs with deadline before the given date.")
+@click.option(
+    "--deadline-before-date",
+    help="Date with the format YYYY-MM-DD. All jobs with deadline date before this date "
+    "will be closed.",
+    type=str,
+    default=str(datetime.datetime.utcnow().date()),
+    show_default=True,
+)
+@with_appcontext
+def close_before(deadline_before_date):
+    datetime.datetime.strptime(deadline_before_date, "%Y-%m-%d")
+
+    before_deadline_date = (
+        type_coerce(RecordMetadata.json, JSONB)["deadline_date"].astext.cast(DateTime)
+        < deadline_before_date
+    )
+    only_jobs_collection = type_coerce(RecordMetadata.json, JSONB)[
+        "_collections"
+    ].contains(["Jobs"])
+    only_not_closed = not_(
+        type_coerce(RecordMetadata.json, JSONB)["status"].astext == "closed"
+    )
+    expired_jobs = RecordMetadata.query.filter(
+        before_deadline_date, only_jobs_collection, only_not_closed
+    ).all()
+
+    with db.session.begin_nested():
+        for job in expired_jobs:
+            record = JobsRecord(job.json, model=job)
+            record["status"] = "closed"
+            record.update(dict(record))
+    db.session.commit()
+    click.echo(f"Closed {len(expired_jobs)} jobs")
+    LOGGER.info(f"Closed {len(expired_jobs)} jobs")
