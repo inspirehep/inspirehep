@@ -13,12 +13,13 @@ from inspirehep.factory import create_app
 from inspirehep.fixtures import fixtures
 from inspirehep.mailing.cli import mailing
 from inspirehep.orcid.cli import orcid
-from inspirehep.records.cli import citations, importer
+from inspirehep.records.cli import citations, importer, jobs
 
 cli = create_cli(create_app=create_app)
 
 cli.add_command(fixtures)
 cli.add_command(importer)
+cli.add_command(jobs)
 cli.add_command(citations)
 cli.add_command(orcid)
 cli.add_command(mailing)
