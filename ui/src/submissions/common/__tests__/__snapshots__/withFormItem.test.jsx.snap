@@ -11,16 +11,38 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
       Error
     </span>
   }
-  label="Test Label"
+  label={
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="top"
+      title="Test Label"
+      transitionName="zoom-big-fast"
+    >
+      Test Label
+    </Tooltip>
+  }
   labelCol={
     Object {
-      "span": 5,
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
   validateStatus="error"
   wrapperCol={
     Object {
-      "span": 19,
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
 >
@@ -54,16 +76,38 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
 <FormItem
   className=""
   hasFeedback={false}
-  label="Test Label"
+  label={
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="top"
+      title="Test Label"
+      transitionName="zoom-big-fast"
+    >
+      Test Label
+    </Tooltip>
+  }
   labelCol={
     Object {
-      "span": 5,
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
   validateStatus=""
   wrapperCol={
     Object {
-      "span": 19,
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
 >
@@ -95,7 +139,19 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
 <FormItem
   className=""
   hasFeedback={false}
-  label="Test Label"
+  label={
+    <Tooltip
+      arrowPointAtCenter={false}
+      autoAdjustOverflow={true}
+      mouseEnterDelay={0.1}
+      mouseLeaveDelay={0.1}
+      placement="top"
+      title="Test Label"
+      transitionName="zoom-big-fast"
+    >
+      Test Label
+    </Tooltip>
+  }
   labelCol={
     Object {
       "offset": 2,

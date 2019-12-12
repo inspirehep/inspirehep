@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { Input, Button, Alert, Row, Col, Form } from 'antd';
+import { Input, Button, Alert, Row, Col, Form, Tooltip } from 'antd';
 import ExternalLink from '../../../common/components/ExternalLink';
 
 import LinkLikeButton from '../../../common/components/LinkLikeButton';
@@ -69,7 +69,7 @@ class DataImporter extends Component {
           </Row>
         )}
         <Form.Item
-          label="From arXiv or DOI"
+          label={<Tooltip title="From arXiv or DOI">From arXiv or DOI</Tooltip>}
           labelCol={LABEL_COL}
           wrapperCol={WRAPPER_COL}
         >

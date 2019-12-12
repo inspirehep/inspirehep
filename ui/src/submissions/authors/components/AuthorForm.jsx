@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Field, Form } from 'formik';
-import { Col, Row } from 'antd';
+import { Col, Row, Tooltip } from 'antd';
 
 import { authorStatusOptions } from '../schemas/constants';
 import {
@@ -117,7 +117,11 @@ class AuthorForm extends Component {
               addonBefore="orcid.org/"
               label={
                 <LabelWithHelp
-                  label="ORCID"
+                  label={
+                    <Tooltip title="ORCID provides a persistent digital identifier that distinguishes you from other researchers">
+                      ORCID
+                    </Tooltip>
+                  }
                   help="ORCID provides a persistent digital identifier that distinguishes you from other researchers"
                 />
               }

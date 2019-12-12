@@ -32,15 +32,37 @@ exports[`DataImporter renders with error with a message 1`] = `
   </Row>
   <FormItem
     hasFeedback={false}
-    label="From arXiv or DOI"
+    label={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="From arXiv or DOI"
+        transitionName="zoom-big-fast"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
     labelCol={
       Object {
-        "span": 5,
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
     wrapperCol={
       Object {
-        "span": 19,
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
   >
@@ -125,15 +147,37 @@ exports[`DataImporter renders with error with message and recid 1`] = `
   </Row>
   <FormItem
     hasFeedback={false}
-    label="From arXiv or DOI"
+    label={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="From arXiv or DOI"
+        transitionName="zoom-big-fast"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
     labelCol={
       Object {
-        "span": 5,
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
     wrapperCol={
       Object {
-        "span": 19,
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
   >
@@ -209,15 +253,37 @@ exports[`DataImporter renders with error without a message 1`] = `
   </Row>
   <FormItem
     hasFeedback={false}
-    label="From arXiv or DOI"
+    label={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="From arXiv or DOI"
+        transitionName="zoom-big-fast"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
     labelCol={
       Object {
-        "span": 5,
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
     wrapperCol={
       Object {
-        "span": 19,
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
   >
@@ -276,15 +342,37 @@ exports[`DataImporter renders without error while importing 1`] = `
   </Row>
   <FormItem
     hasFeedback={false}
-    label="From arXiv or DOI"
+    label={
+      <Tooltip
+        arrowPointAtCenter={false}
+        autoAdjustOverflow={true}
+        mouseEnterDelay={0.1}
+        mouseLeaveDelay={0.1}
+        placement="top"
+        title="From arXiv or DOI"
+        transitionName="zoom-big-fast"
+      >
+        From arXiv or DOI
+      </Tooltip>
+    }
     labelCol={
       Object {
-        "span": 5,
+        "md": Object {
+          "span": 5,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
     wrapperCol={
       Object {
-        "span": 19,
+        "md": Object {
+          "span": 19,
+        },
+        "sm": Object {
+          "span": 24,
+        },
       }
     }
   >

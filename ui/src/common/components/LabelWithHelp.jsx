@@ -14,7 +14,7 @@ class LabelWithHelp extends Component {
 }
 
 LabelWithHelp.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.node.isRequired,
   help: PropTypes.node.isRequired,
 };
 
