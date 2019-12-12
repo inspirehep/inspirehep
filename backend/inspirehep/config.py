@@ -124,6 +124,16 @@ CELERY_BEAT_SCHEDULE = {
     # },
 }
 
+
+class Annotator:
+    def annotate(self, task):
+        if task.acks_late:
+            # avoid failing tasks when worker gets killed
+            return {"reject_on_worker_lost": True}
+
+
+CELERY_TASK_ANNOTATIONS = [Annotator()]
+
 # Database
 # ========
 #: Database URI including user and password
