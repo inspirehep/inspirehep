@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FieldArray } from 'formik';
-import { Button, Icon, Form, Col, Row } from 'antd';
+import { Button, Icon, Form, Col, Row, Tooltip } from 'antd';
 
 import './ArrayOf.scss';
+import { LABEL_COL } from '../../withFormItem';
 
 class ArrayOf extends Component {
   constructor(props) {
@@ -33,9 +34,15 @@ class ArrayOf extends Component {
         <FieldArray
           name={name}
           render={({ push, remove }) => (
-            <Form.Item label={label} labelCol={labelCol}>
+            <Form.Item
+              label={label && <Tooltip title={label}>{label}</Tooltip>}
+              labelCol={labelCol}
+            >
               <Form.Item
-                wrapperCol={{ span: 24 - labelCol.span }}
+                wrapperCol={{
+                  sm: { span: 24 },
+                  md: { span: 24 - labelCol.md.span },
+                }}
                 className="items-container"
               >
                 {items &&
@@ -60,7 +67,10 @@ class ArrayOf extends Component {
                   ))}
               </Form.Item>
               <Form.Item
-                wrapperCol={{ span: 24 - labelCol.span, push: labelCol.span }}
+                wrapperCol={{
+                  sm: { span: 24 },
+                  md: { span: 24 - labelCol.md.span, push: labelCol.md.span },
+                }}
                 className="add-button"
               >
                 <Button
@@ -91,7 +101,7 @@ ArrayOf.defaultProps = {
   extractKey: (item, index) => index,
   label: null,
   emptyItem: null,
-  labelCol: { span: 5 },
+  labelCol: LABEL_COL,
 };
 
 export default ArrayOf;

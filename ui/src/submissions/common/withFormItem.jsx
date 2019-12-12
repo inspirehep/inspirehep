@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import { Form } from 'antd';
+import { Form, Tooltip } from 'antd';
 import { getIn } from 'formik';
 import classNames from 'classnames';
 
 import { getWrappedComponentDisplayName } from '../../common/utils';
 
-export const LABEL_COL = { span: 5 };
-export const WRAPPER_COL = { span: 19 };
+export const LABEL_COL = { sm: { span: 24 }, md: { span: 5 } };
+export const WRAPPER_COL = {
+  sm: { span: 24 },
+  md: { span: 24 - LABEL_COL.md.span },
+};
 
 /**
  * Wraps component with From.Item to provide error display, label.
@@ -21,8 +24,7 @@ export default function withFormItem(FormInputComponent) {
     getWrapperColForOnlyChild() {
       const { label, labelCol } = this.props;
       if (label && labelCol) {
-        const span = 24 - labelCol.span;
-        return { span };
+        return WRAPPER_COL;
       }
       return { span: 24 };
     }
@@ -57,7 +59,7 @@ export default function withFormItem(FormInputComponent) {
           hasFeedback={renderedError != null}
           validateStatus={renderedError ? 'error' : ''}
           help={renderedError}
-          label={label}
+          label={label && <Tooltip title={label}>{label}</Tooltip>}
           labelCol={label ? labelCol : null}
           wrapperCol={onlyChild ? this.getWrapperColForOnlyChild() : wrapperCol}
         >

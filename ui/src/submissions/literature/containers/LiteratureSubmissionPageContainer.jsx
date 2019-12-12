@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { Row, Col, Form } from 'antd';
+import { Row, Col, Form, Tooltip } from 'antd';
 
 import { submit } from '../../../actions/submissions';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
@@ -75,7 +75,11 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
             <Row className="mb3 ph3 pt3 bg-white">
               <Col>
                 <Form.Item
-                  label="Type of the document"
+                  label={
+                    <Tooltip title="Type of the document">
+                      Type of the document
+                    </Tooltip>
+                  }
                   labelCol={LABEL_COL}
                   wrapperCol={WRAPPER_COL}
                 >

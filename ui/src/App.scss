@@ -181,3 +181,13 @@ body {
 .ant-modal-wrap {
   padding-top: $header-min-height;
 }
+
+.ant-form-item-label {
+  text-overflow: ellipsis;
+  z-index: 1;
+  padding-right: 8px !important;
+}
+
+.ant-form-item-label > label::after {
+  margin-right: 0 !important;
+}

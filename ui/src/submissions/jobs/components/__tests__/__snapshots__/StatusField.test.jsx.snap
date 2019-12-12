@@ -5,7 +5,12 @@ exports[`StatusField renders if not update submissions and not cataloger 1`] = `
   disabled={true}
   labelCol={
     Object {
-      "span": 5,
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
   options={
@@ -20,7 +25,12 @@ exports[`StatusField renders if not update submissions and not cataloger 1`] = `
   }
   wrapperCol={
     Object {
-      "span": 19,
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
 />
@@ -31,7 +41,12 @@ exports[`StatusField renders if not update submissions but cataloger 1`] = `
   disabled={false}
   labelCol={
     Object {
-      "span": 5,
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
   options={
@@ -49,7 +64,12 @@ exports[`StatusField renders if not update submissions but cataloger 1`] = `
   }
   wrapperCol={
     Object {
-      "span": 19,
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
 />
@@ -60,7 +80,12 @@ exports[`StatusField renders if update submissions and cataloger 1`] = `
   disabled={false}
   labelCol={
     Object {
-      "span": 5,
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
   options={
@@ -78,7 +103,12 @@ exports[`StatusField renders if update submissions and cataloger 1`] = `
   }
   wrapperCol={
     Object {
-      "span": 19,
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
 />
@@ -89,7 +119,12 @@ exports[`StatusField renders if update submissions but not cataloger 1`] = `
   disabled={false}
   labelCol={
     Object {
-      "span": 5,
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
   options={
@@ -104,7 +139,12 @@ exports[`StatusField renders if update submissions but not cataloger 1`] = `
   }
   wrapperCol={
     Object {
-      "span": 19,
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
     }
   }
 />

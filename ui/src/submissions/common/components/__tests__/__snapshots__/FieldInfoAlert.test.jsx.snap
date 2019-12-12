@@ -6,8 +6,17 @@ exports[`FieldInfoAlert renders with alert description 1`] = `
   gutter={0}
 >
   <Col
-    offset={5}
-    span={19}
+    md={
+      Object {
+        "offset": 5,
+        "span": 19,
+      }
+    }
+    sm={
+      Object {
+        "span": 24,
+      }
+    }
   >
     <Alert
       description={
