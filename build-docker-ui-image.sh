@@ -41,12 +41,14 @@ logout() {
 }
 
 deployQA() {
-  curl -X POST \
-     -F token=${DEPLOY_QA_TOKEN} \
-     -F ref=master \
-     -F variables[IMAGE_NAME]=inspirehep/ui \
-     -F variables[NEW_TAG]=${TAG} \
-     https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
+  if [ -z "${TRAVIS_TAG}" ]; then
+    curl -X POST \
+      -F token=${DEPLOY_QA_TOKEN} \
+      -F ref=master \
+      -F variables[IMAGE_NAME]=inspirehep/ui \
+      -F variables[NEW_TAG]=${TAG} \
+      https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
+  fi
 }
 
 main() {
