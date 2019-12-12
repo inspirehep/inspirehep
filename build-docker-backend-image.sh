@@ -40,7 +40,7 @@ logout() {
 }
 
 deployQA() {
-  if [ -z ${TRAVIS_TAG+x} ]; then
+  if [ -z "${TRAVIS_TAG}" ]; then
     curl -X POST \
       -F token=${DEPLOY_QA_TOKEN} \
       -F ref=master \
