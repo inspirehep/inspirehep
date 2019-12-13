@@ -6,7 +6,7 @@ authors = ["CERN <admin@inspirehep.net>"]
 license = "MIT License"
 
 [tool.poetry.dependencies]
-celery = "~=4.2.0,<4.3.0"
+celery = "~=4.4.0,<4.5.0"
 # inspirehep = {path = ".",editable = true}
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
