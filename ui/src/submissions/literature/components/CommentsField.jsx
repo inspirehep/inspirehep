@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Field } from 'formik';
+import { Tooltip } from 'antd';
 
 import TextAreaField from '../../common/components/TextAreaField';
 import LabelWithHelp from '../../../common/components/LabelWithHelp';
@@ -11,7 +12,11 @@ class CommentsField extends Component {
         name="comments"
         label={
           <LabelWithHelp
-            label="Comments"
+            label={
+              <Tooltip title="Why is this content relevant to INSPIRE?">
+                Comments
+              </Tooltip>
+            }
             help="Why is this content relevant to INSPIRE?"
           />
         }
