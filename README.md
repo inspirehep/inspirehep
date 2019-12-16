@@ -7,7 +7,7 @@
 install `poetry` https://poetry.eustace.io/docs/
 
 ```bash
-$ curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16
+$ curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python -
 ```
 
 ### How to run

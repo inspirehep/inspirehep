@@ -100,5 +100,5 @@ vcrpy = "^2.1.0"
 web-pdb = "^1.5"
 
 [build-system]
-requires = ["poetry==0.12.16"]
+requires = ["poetry>=1.0.0"]
 build-backend = "poetry.masonry.api"

@@ -58,7 +58,7 @@ before_install:
     fi
   - if [[ "$SUITE" != "ui" ]]; then
       cd backend;
-      curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 0.12.16;
+      curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python - --version 1.0.0;
       source $HOME/.poetry/env;
     fi
   - travis_retry pip install twine wheel coveralls
