@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map, List } from 'immutable';
+import { Link } from 'react-router-dom';
 import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
 import { getPageDisplay } from '../utils';
 
@@ -21,10 +22,13 @@ class ConferenceInfo extends Component {
     const { conferenceInfo } = this.props;
     const title = conferenceInfo.getIn(['titles', 0, 'title']);
     const acronyms = conferenceInfo.get('acronyms', List());
+    const controlNumber = conferenceInfo.get('control_number');
 
     return (
       <span>
-        {acronyms.size > 0 ? this.renderAcronyms() : title}
+        <Link to={`/conferences/${controlNumber}`}>
+          {acronyms.size > 0 ? this.renderAcronyms() : title}
+        </Link>
         {getPageDisplay(conferenceInfo) && (
           <span>, {getPageDisplay(conferenceInfo)}</span>
         )}

@@ -2,40 +2,50 @@
 
 exports[`ConferenceInfo renders with acronyms 1`] = `
 <span>
-  <InlineList
-    extractKey={[Function]}
-    items={
-      Immutable.List [
-        "MG15",
-        "SAP16",
-      ]
-    }
-    label={null}
-    renderItem={[Function]}
-    separateItems={true}
-    separator=" and "
-    suffix={null}
-    wrapperClassName="di"
-  />
+  <Link
+    replace={false}
+    to="/conferences/1639582"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "MG15",
+          "SAP16",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=" and "
+      suffix={null}
+      wrapperClassName="di"
+    />
+  </Link>
 </span>
 `;
 
 exports[`ConferenceInfo renders with acronyms and start and end page 1`] = `
 <span>
-  <InlineList
-    extractKey={[Function]}
-    items={
-      Immutable.List [
-        "MG15",
-      ]
-    }
-    label={null}
-    renderItem={[Function]}
-    separateItems={true}
-    separator=" and "
-    suffix={null}
-    wrapperClassName="di"
-  />
+  <Link
+    replace={false}
+    to="/conferences/1639582"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "MG15",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=" and "
+      suffix={null}
+      wrapperClassName="di"
+    />
+  </Link>
   <span>
     , 
     1-20
@@ -45,39 +55,49 @@ exports[`ConferenceInfo renders with acronyms and start and end page 1`] = `
 
 exports[`ConferenceInfo renders with only page end 1`] = `
 <span>
-  <InlineList
-    extractKey={[Function]}
-    items={
-      Immutable.List [
-        "MG15",
-      ]
-    }
-    label={null}
-    renderItem={[Function]}
-    separateItems={true}
-    separator=" and "
-    suffix={null}
-    wrapperClassName="di"
-  />
+  <Link
+    replace={false}
+    to="/conferences/1639582"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "MG15",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=" and "
+      suffix={null}
+      wrapperClassName="di"
+    />
+  </Link>
 </span>
 `;
 
 exports[`ConferenceInfo renders with only page start 1`] = `
 <span>
-  <InlineList
-    extractKey={[Function]}
-    items={
-      Immutable.List [
-        "MG15",
-      ]
-    }
-    label={null}
-    renderItem={[Function]}
-    separateItems={true}
-    separator=" and "
-    suffix={null}
-    wrapperClassName="di"
-  />
+  <Link
+    replace={false}
+    to="/conferences/1639582"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "MG15",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=" and "
+      suffix={null}
+      wrapperClassName="di"
+    />
+  </Link>
   <span>
     , 
     1
@@ -87,6 +107,11 @@ exports[`ConferenceInfo renders with only page start 1`] = `
 
 exports[`ConferenceInfo renders without acronyms present 1`] = `
 <span>
-  15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories
+  <Link
+    replace={false}
+    to="/conferences/1639582"
+  >
+    15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories
+  </Link>
 </span>
 `;
