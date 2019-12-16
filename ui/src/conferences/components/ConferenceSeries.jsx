@@ -1,21 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Map } from 'immutable';
+import { List } from 'immutable';
 import { addOrdinalSuffix } from '../../common/utils';
 import { CONFERENCES } from '../../common/routes';
+import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
 
-function ConferenceSeries({ series }) {
-  const name = series.get('name');
-  const number = series.get('number');
+function renderSeries(singleSeries, index) {
+  const name = singleSeries.get('name');
+  const number = singleSeries.get('number');
   return (
     <span>
       {number ? (
-        <span>{addOrdinalSuffix(number)} conference</span>
+        <span>{addOrdinalSuffix(number)} conference in the </span>
       ) : (
-        <span>Conference</span>
+        <span>{index === 0 ? 'P' : 'p'}art of the </span>
       )}
-      {' in the '}
       <Link to={`${CONFERENCES}?q=series.name:${name}&start_date=all`}>
         {name}
       </Link>
@@ -24,8 +24,18 @@ function ConferenceSeries({ series }) {
   );
 }
 
+function ConferenceSeries({ series }) {
+  return (
+    <InlineList
+      items={series}
+      separator={SEPARATOR_AND}
+      renderItem={renderSeries}
+    />
+  );
+}
+
 ConferenceSeries.propTypes = {
-  series: PropTypes.instanceOf(Map).isRequired,
+  series: PropTypes.instanceOf(List).isRequired,
 };
 
 export default ConferenceSeries;
