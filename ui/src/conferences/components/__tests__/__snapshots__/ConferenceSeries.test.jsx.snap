@@ -1,34 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ConferenceSeries renders several series 1`] = `
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "name": "Conference 1",
+      },
+      Immutable.Map {
+        "name": "Conference 2",
+        "number": 10,
+      },
+      Immutable.Map {
+        "name": "Conference 3",
+      },
+    ]
+  }
+  label={null}
+  renderItem={[Function]}
+  separateItems={true}
+  separator=" and "
+  suffix={null}
+  wrapperClassName={null}
+/>
+`;
+
 exports[`ConferenceSeries renders with name and number 1`] = `
-<span>
-  <span>
-    10th
-     conference
-  </span>
-   in the 
-  <Link
-    replace={false}
-    to="/conferences?q=series.name:Conference Name&start_date=all"
-  >
-    Conference Name
-  </Link>
-   series
-</span>
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "name": "Conference Name",
+        "number": 10,
+      },
+    ]
+  }
+  label={null}
+  renderItem={[Function]}
+  separateItems={true}
+  separator=" and "
+  suffix={null}
+  wrapperClassName={null}
+/>
 `;
 
 exports[`ConferenceSeries renders with only name 1`] = `
-<span>
-  <span>
-    Conference
-  </span>
-   in the 
-  <Link
-    replace={false}
-    to="/conferences?q=series.name:Conference Name&start_date=all"
-  >
-    Conference Name
-  </Link>
-   series
-</span>
+<InlineList
+  extractKey={[Function]}
+  items={
+    Immutable.List [
+      Immutable.Map {
+        "name": "Conference Name",
+      },
+    ]
+  }
+  label={null}
+  renderItem={[Function]}
+  separateItems={true}
+  separator=" and "
+  suffix={null}
+  wrapperClassName={null}
+/>
 `;
