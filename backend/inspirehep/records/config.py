@@ -44,6 +44,7 @@ from inspirehep.search.facets import (
     must_match_all_filter,
     range_author_count_filter,
     records_hep,
+    records_hep_cataloger,
 )
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
@@ -309,11 +310,9 @@ CONFERENCES.update(
                 "completion": {"field": "conferenceautocomplete"},
             },
             "series_name": {
-                "_source": [
-                    "control_number",
-                ],
+                "_source": ["control_number"],
                 "completion": {"field": "seriesautocomplete"},
-            }
+            },
         },
         "update_permission_factory_imp": session_cataloger_permission_factory,
         "search_serializers": {
@@ -410,6 +409,7 @@ HEP_COMMON_FILTERS = {
     "collaboration": must_match_all_filter("facet_collaborations"),
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),
+    "collection": must_match_all_filter("_collections"),
 }
 
 HEP_FILTERS = {
@@ -525,6 +525,8 @@ CATALOGER_RECORDS_REST_FACETS["records-jobs"]["aggs"]["status"] = {
 CATALOGER_RECORDS_REST_FACETS[
     "hep-author-publication"
 ] = hep_author_publications_cataloger
+
+CATALOGER_RECORDS_REST_FACETS["records-hep"] = records_hep_cataloger
 
 RECORDS_REST_SORT_OPTIONS = {
     "records-hep": {

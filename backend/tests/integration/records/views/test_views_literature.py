@@ -351,6 +351,38 @@ def test_literature_facets(api_client, db, es_clear, create_record):
     assert len(response_data["hits"]["hits"]) == 0
 
 
+def test_literature_cataloger_facets(
+    api_client, db, create_record, create_user, es_clear
+):
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
+
+    create_record("lit")
+
+    response = api_client.get("/literature/facets")
+
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_facet_keys = list(response_data.get("aggregations").keys())
+
+    expected_status_code = 200
+    expected_facet_keys = [
+        "arxiv_categories",
+        "author",
+        "author_count",
+        "doc_type",
+        "earliest_date",
+        "subject",
+        "collaboration",
+        "collection",
+    ]
+    expected_facet_keys.sort()
+    response_data_facet_keys.sort()
+    assert expected_status_code == response_status_code
+    assert expected_facet_keys == response_data_facet_keys
+    assert len(response_data["hits"]["hits"]) == 0
+
+
 @pytest.mark.xfail(
     reason=(
         "Indexing for tests needs to be fixed so that elasticsearch is populated "
