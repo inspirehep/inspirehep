@@ -95,25 +95,6 @@ def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None)
     return inner
 
 
-def hep_author_publications():
-    author = request.values.get("author_recid", "", type=str)
-    return {
-        "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
-        "aggs": {
-            **current_app.config["HEP_COMMON_AGGS"],
-            "author": {
-                "terms": {"field": "facet_author_name", "size": 20, "exclude": author},
-                "meta": {
-                    "title": "Collaborators",
-                    "order": 3,
-                    "type": "checkbox",
-                    "split": True,
-                },
-            },
-        },
-    }
-
-
 def hep_conference_contributions():
     return {
         "filters": {
@@ -144,6 +125,25 @@ def nested_filters(author_recid):
         "self_author_names": must_match_all_filter_nested(
             "authors", "authors.full_name.raw", ("authors.record.$ref", author_recid)
         ),
+    }
+
+
+def hep_author_publications():
+    author = request.values.get("author_recid", "", type=str)
+    return {
+        "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
+        "aggs": {
+            **current_app.config["HEP_COMMON_AGGS"],
+            "author": {
+                "terms": {"field": "facet_author_name", "size": 20, "exclude": author},
+                "meta": {
+                    "title": "Collaborators",
+                    "order": 3,
+                    "type": "checkbox",
+                    "split": True,
+                },
+            },
+        },
     }
 
 
@@ -190,6 +190,10 @@ def hep_author_publications_cataloger():
                     }
                 },
             },
+            "collection": {
+                "terms": {"field": "_collections", "size": 20},
+                "meta": {"title": "Collection", "order": 10, "type": "checkbox"},
+            },
         }
     )
     publications["filters"].update(nested_filters(author_recid))
@@ -197,13 +201,10 @@ def hep_author_publications_cataloger():
 
 
 def records_hep():
-    """author is a query parameter and it looks like 1234_Name%20Surname, thus the splitting."""
-    author_recid = request.values.get("author", "", type=str).split("_")[0]
     return {
         "filters": {
             **current_app.config["HEP_COMMON_FILTERS"],
             **current_app.config["HEP_FILTERS"],
-            **nested_filters(author_recid),
         },
         "aggs": {
             **current_app.config["HEP_COMMON_AGGS"],
@@ -226,6 +227,20 @@ def records_hep():
             },
         },
     }
+
+
+def records_hep_cataloger():
+    records = records_hep()
+    records["filters"].update({"collection": must_match_all_filter("_collections")})
+    records["aggs"].update(
+        {
+            "collection": {
+                "terms": {"field": "_collections", "size": 20},
+                "meta": {"title": "Collection", "order": 10, "type": "checkbox"},
+            }
+        }
+    )
+    return records
 
 
 def citation_summary():
