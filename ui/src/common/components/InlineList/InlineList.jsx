@@ -30,7 +30,7 @@ class InlineList extends Component {
           <ul>
             {items.map((item, index) => (
               <li key={extractKey(item)}>
-                {renderItem(item)}
+                {renderItem(item, index)}
                 {separateItems && index < items.size - 1 && separator}
               </li>
             ))}
