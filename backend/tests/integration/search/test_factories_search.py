@@ -87,7 +87,7 @@ def test_search_factory_with_query(base_app):
     with base_app.test_request_context("?q=foo"):
         search = InspireSearch()
         expected_query_string = "foo"
-        expected_search_to_dict = {"query": {"match": {"_all": "foo"}}}
+        expected_search_to_dict = {"query": {"query_string": {"query": "foo"}}}
         query_string, search = inspire_search_factory(None, search)
         search_to_dict = search.to_dict()
 
@@ -115,7 +115,7 @@ def test_search_factory_with_aggs_with_query(base_app):
         "filters": {"type": mock_filter("type")},
         "post_filters": {"type": mock_post_filter("type")},
     }
-    config = {"RECORDS_REST_FACETS": {"_all": facets}}
+    config = {"RECORDS_REST_FACETS": {"*": facets}}
     with patch.dict(base_app.config, config), base_app.test_request_context(
         "?q=foo&type=bar"
     ):
@@ -141,7 +141,7 @@ def test_search_factory_with_aggs_without_query(base_app):
         "filters": {"type": mock_filter("type")},
         "post_filters": {"type": mock_post_filter("type")},
     }
-    config = {"RECORDS_REST_FACETS": {"_all": facets}}
+    config = {"RECORDS_REST_FACETS": {"*": facets}}
     with patch.dict(base_app.config, config), base_app.test_request_context(""):
         search = InspireSearch()
         search, urlkwargs = search_factory_with_aggs(None, search)
@@ -160,7 +160,7 @@ def test_search_factory_without_aggs_with_query(base_app):
         "filters": {"type": mock_filter("type")},
         "post_filters": {"type": mock_post_filter("type")},
     }
-    config = {"RECORDS_REST_FACETS": {"_all": facets}}
+    config = {"RECORDS_REST_FACETS": {"*": facets}}
     with patch.dict(base_app.config, config), base_app.test_request_context(
         "?q=foo&type=bar"
     ):
@@ -186,7 +186,7 @@ def test_search_factory_without_aggs_without_query(base_app):
         "filters": {"type": mock_filter("type")},
         "post_filters": {"type": mock_post_filter("type")},
     }
-    config = {"RECORDS_REST_FACETS": {"_all": facets}}
+    config = {"RECORDS_REST_FACETS": {"*": facets}}
     with patch.dict(base_app.config, config), base_app.test_request_context(""):
         search = InspireSearch()
         search, urlkwargs = search_factory_without_aggs(None, search)
@@ -205,7 +205,7 @@ def test_search_factory_only_with_aggs(base_app):
         "filters": {"type": mock_filter("type")},
         "post_filters": {"type": mock_post_filter("type")},
     }
-    config = {"RECORDS_REST_FACETS": {"_all": facets}}
+    config = {"RECORDS_REST_FACETS": {"*": facets}}
     with patch.dict(base_app.config, config), base_app.test_request_context(
         "?q=foo&type=bar"
     ):
@@ -231,7 +231,7 @@ def test_search_factory_only_with_aggs_without_query(base_app):
         "filters": {"type": mock_filter("type")},
         "post_filters": {"type": mock_post_filter("type")},
     }
-    config = {"RECORDS_REST_FACETS": {"_all": facets}}
+    config = {"RECORDS_REST_FACETS": {"*": facets}}
     with patch.dict(base_app.config, config), base_app.test_request_context(""):
         search = InspireSearch()
         search, urlkwargs = search_factory_only_with_aggs(None, search)

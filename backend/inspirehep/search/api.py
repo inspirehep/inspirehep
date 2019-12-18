@@ -33,7 +33,7 @@ class SearchMixin(object):
         """
         if not query_string:
             return self.query()
-        return self.query("match", _all=query_string)
+        return self.query("query_string", query=query_string)
 
     def get_source(self, uuid, **kwargs):
         """Get source from a given uuid.
@@ -43,9 +43,7 @@ class SearchMixin(object):
         :type uuid: UUID
         :returns: dict
         """
-        return es.get_source(
-            index=self.Meta.index, doc_type=self.Meta.doc_types, id=uuid, **kwargs
-        )
+        return es.get_source(index=self.Meta.index, id=uuid, **kwargs)
 
     def mget(self, uuids, **kwargs):
         """Get source from a list of uuids.
@@ -94,7 +92,7 @@ class LiteratureSearch(InspireSearch):
 
     class Meta:
         index = "records-hep"
-        doc_types = "hep"
+        doc_types = "_doc"
         default_filter = DefaultFilter(Q())
 
     def query_from_iq(self, query_string):
@@ -167,7 +165,7 @@ class AuthorsSearch(InspireSearch):
 
     class Meta:
         index = "records-authors"
-        doc_types = "authors"
+        doc_types = "_doc"
 
 
 class DataSearch(InspireSearch):
@@ -175,7 +173,7 @@ class DataSearch(InspireSearch):
 
     class Meta:
         index = "records-data"
-        doc_types = "data"
+        doc_types = "_doc"
 
 
 class ConferencesSearch(InspireSearch):
@@ -183,15 +181,7 @@ class ConferencesSearch(InspireSearch):
 
     class Meta:
         index = "records-conferences"
-        doc_types = "conferences"
-
-    def query_from_iq(self, query_string):
-        """Initialize ES DSL object using INSPIRE query parser.
-        :param query_string: Query string as a user would input in INSPIRE's search box.
-        :type query_string: string
-        :returns: Elasticsearch DSL search class
-        """
-        return self.query(IQ(query_string, self))
+        doc_types = "_doc"
 
 
 class JobsSearch(InspireSearch):
@@ -199,7 +189,7 @@ class JobsSearch(InspireSearch):
 
     class Meta:
         index = "records-jobs"
-        doc_types = "jobs"
+        doc_types = "_doc"
 
     def query_from_iq(self, query_string):
         """Initialize ES DSL object using INSPIRE query parser.
@@ -208,9 +198,14 @@ class JobsSearch(InspireSearch):
         :returns: Elasticsearch DSL search class
         """
         if not is_superuser_or_cataloger_logged_in():
-            user_query = Q(IQ(query_string, self) & Q("term", status="open"))
+            if not query_string:
+                user_query = Q("term", status="open")
+            else:
+                user_query = Q(
+                    Q("query_string", query=query_string) & Q("term", status="open")
+                )
             return self.query(user_query)
-        return self.query(IQ(query_string, self))
+        return super().query_from_iq(query_string)
 
 
 class InstitutionsSearch(InspireSearch):
@@ -218,15 +213,7 @@ class InstitutionsSearch(InspireSearch):
 
     class Meta:
         index = "records-institutions"
-        doc_types = "institutions"
-
-    def query_from_iq(self, query_string):
-        """Initialize ES DSL object using INSPIRE query parser.
-        :param query_string: Query string as a user would input in INSPIRE's search box.
-        :type query_string: string
-        :returns: Elasticsearch DSL search class
-        """
-        return self.query(IQ(query_string, self))
+        doc_types = "_doc"
 
 
 class ExperimentsSearch(InspireSearch):
@@ -234,7 +221,7 @@ class ExperimentsSearch(InspireSearch):
 
     class Meta:
         index = "records-experiments"
-        doc_types = "experiments"
+        doc_types = "_doc"
 
 
 class JournalsSearch(InspireSearch):
@@ -242,4 +229,4 @@ class JournalsSearch(InspireSearch):
 
     class Meta:
         index = "records-journals"
-        doc_types = "journals"
+        doc_types = "_doc"

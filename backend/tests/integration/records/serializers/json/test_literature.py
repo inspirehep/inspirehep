@@ -12,9 +12,9 @@ import mock
 from flask import current_app
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
-from invenio_records_rest.errors import MaxResultWindowRESTError
 
 from inspirehep.accounts.roles import Roles
+from inspirehep.records.errors import MaxResultWindowRESTError
 from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
@@ -98,7 +98,7 @@ def test_literature_json_without_login(api_client, db, es, create_record):
         "_bucket": str(record._bucket),
         "citation_count": 0,
     }
-    expected_id = record["control_number"]
+    expected_id = str(record["control_number"])
 
     response = api_client.get(f"/literature/{record_control_number}", headers=headers)
 
@@ -150,7 +150,7 @@ def test_literature_json_with_logged_in_cataloger(
 
     expected_status_code = 200
     expected_uuid = str(record.id)
-    expected_id = record["control_number"]
+    expected_id = str(record["control_number"])
     expected_result = {
         "$schema": "http://inspire/schemas/records/hep.json",
         "_collections": ["Literature"],
@@ -234,7 +234,7 @@ def test_literature_search_json_without_login(api_client, db, es, create_record)
         "_bucket": str(record._bucket),
     }
     expected_result_len = 1
-    expected_id = record["control_number"]
+    expected_id = str(record["control_number"])
 
     response = api_client.get("/literature", headers=headers)
 
@@ -339,7 +339,7 @@ def test_literature_detail(api_client, db, es, create_record):
 
     expected_status_code = 200
     expected_uuid = str(record.id)
-    expected_id = record["control_number"]
+    expected_id = str(record["control_number"])
     expected_result_metadata = {
         "control_number": record_control_number,
         "document_type": ["article"],
@@ -371,7 +371,7 @@ def test_literature_list(api_client, db, es, create_record):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit", data={"preprint_date": "2001-01-01"})
 
-    expected_id = record["control_number"]
+    expected_id = str(record["control_number"])
     expected_status_code = 200
     expected_title = record["titles"][0]["title"]
     expected_date = "Jan 1, 2001"

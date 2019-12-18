@@ -258,9 +258,10 @@ def citation_summary():
                 "aggs": {
                     "h-index": {
                         "scripted_metric": {
-                            "init_script": "params._agg.citations_non_refereed = []; params._agg.citations_refereed = []",
-                            "map_script": "if (doc.refereed[0]) { params._agg.citations_refereed.add(doc.citation_count[0]) } else { params._agg.citations_non_refereed.add(doc.citation_count[0]) }",
-                            "reduce_script": "def flattened_all = []; def flattened_refereed = []; int i = 0; int j = 0; for (a in params._aggs) { flattened_all.addAll(a.citations_non_refereed); flattened_refereed.addAll(a.citations_refereed) } flattened_refereed.sort(Comparator.reverseOrder()); while ( i < flattened_refereed.size() && i < flattened_refereed[i]) { i++ } flattened_all.addAll(flattened_refereed); flattened_all.sort(Comparator.reverseOrder()); while ( j < flattened_all.size() && j < flattened_all[j]) { j++ } return ['published': i, 'all': j]",
+                            "init_script": "state.citations_non_refereed = []; state.citations_refereed = []",
+                            "map_script": "if (doc['refereed'].length >0 && doc['refereed'][0]) { state.citations_refereed.add(doc.citation_count[0]) } else { state.citations_non_refereed.add(doc.citation_count[0]) }",
+                            "combine_script": "return state",
+                            "reduce_script": "def flattened_all = []; def flattened_refereed = []; int i = 0; int j = 0; for (a in states) { flattened_all.addAll(a.citations_non_refereed); flattened_refereed.addAll(a.citations_refereed) } flattened_refereed.sort(Comparator.reverseOrder()); while ( i < flattened_refereed.size() && i < flattened_refereed[i]) { i++ } flattened_all.addAll(flattened_refereed); flattened_all.sort(Comparator.reverseOrder()); while ( j < flattened_all.size() && j < flattened_all[j]) { j++ } return ['published': i, 'all': j]",
                         }
                     },
                     "citations": {
@@ -315,9 +316,10 @@ def citations_by_year():
         "aggs": {
             "citations_by_year": {
                 "scripted_metric": {
-                    "init_script": "params._agg._agg_yearly_cit=[:]",
-                    "map_script": "def years=params._source.citations_by_year != null ? params._source.citations_by_year : [] ; for(element in years){params._agg._agg_yearly_cit[element.year.toString()]=params._agg._agg_yearly_cit.getOrDefault(element.year.toString(), 0)+element.count}",
-                    "reduce_script": "def results=[:]; for(result in params._aggs){for(key in result['_agg_yearly_cit'].keySet()){if(result['_agg_yearly_cit'][key] != null){results[key]=results.getOrDefault(key,0)+result['_agg_yearly_cit'][key]}}} return results",
+                    "init_script": "state._agg_yearly_cit=[:]",
+                    "map_script": "def years=params._source.citations_by_year != null ? params._source.citations_by_year : [] ; for(element in years){state._agg_yearly_cit[element.year.toString()]=state._agg_yearly_cit.getOrDefault(element.year.toString(), 0)+element.count}",
+                    "combine_script": "return state",
+                    "reduce_script": "def results=[:]; for(result in states){for(key in result['_agg_yearly_cit'].keySet()){if(result['_agg_yearly_cit'][key] != null){results[key]=results.getOrDefault(key,0)+result['_agg_yearly_cit'][key]}}} return results",
                 }
             }
         },

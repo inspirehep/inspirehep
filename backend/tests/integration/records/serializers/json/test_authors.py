@@ -22,7 +22,7 @@ def test_authors_detail(api_client, db, create_record_factory, datadir):
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    expected_id = record_control_number
+    expected_id = str(record_control_number)
     expected_metadata = {
         "advisors": [
             {
@@ -226,7 +226,7 @@ def test_authors_search_json(api_client, db, es, create_record, datadir):
         "email_addresses": [{"value": "public@urhan.ch"}],
         "_bucket": str(record._bucket),
     }
-    expected_id = record_control_number
+    expected_id = str(record_control_number)
     response = api_client.get("/authors", headers=headers)
 
     response_status_code = response.status_code

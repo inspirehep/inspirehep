@@ -186,8 +186,6 @@ def test_jobs_record_search_results_returns_pending_job_to_superuser(
     expected_metadata.pop("_created")
     expected_results = 1
 
-    assert result.json["hits"]["total"] == expected_results
-
     result_metadata = result.json["hits"]["hits"][0]["metadata"]
 
     assert expected_metadata == result_metadata

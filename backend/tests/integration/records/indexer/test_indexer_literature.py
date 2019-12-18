@@ -43,7 +43,7 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     result_ui_display.pop("_bucket")
     del result["_created"]
     del result["_updated"]
-    assert response["hits"]["total"] == expected_count
+    assert response["hits"]["total"]["value"] == expected_count
     assert result == expected_metadata
     assert result_ui_display == expected_metadata_ui_display
     assert result_latex_us_display == expected_metadata_latex_us_display
@@ -76,7 +76,7 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     expected_total = 0
 
     response = es.search("records-hep")
-    hits_total = response["hits"]["total"]
+    hits_total = response["hits"]["total"]["value"]
 
     assert hits_total == expected_total
 

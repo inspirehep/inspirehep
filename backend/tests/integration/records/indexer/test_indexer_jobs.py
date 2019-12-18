@@ -23,7 +23,7 @@ def test_index_job_record(base_app, es_clear, db, datadir, create_record):
 
     response = es.search("records-jobs")
     response_source = response["hits"]["hits"][0]["_source"]
-    response_total = response["hits"]["total"]
+    response_total = response["hits"]["total"]["value"]
 
     assert expected_total == response_total
     assert expected_source == response_source

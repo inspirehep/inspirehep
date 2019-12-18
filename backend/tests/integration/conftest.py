@@ -210,11 +210,7 @@ def create_record_factory(base_app, db, es_clear):
         if with_indexing:
             index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
             record._index = es_clear.index(
-                index=index,
-                id=str(record.id),
-                doc_type=index.split("-")[-1],
-                body=record.json,
-                params={},
+                index=index, id=str(record.id), body=record.json, params={}
             )
             es_clear.indices.refresh(index)
         return record

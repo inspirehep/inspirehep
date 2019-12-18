@@ -28,7 +28,10 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
         {
             "step": es.search,
             "args": ["records-conferences"],
-            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
         },
     ]
     response = retry_until_matched(steps)

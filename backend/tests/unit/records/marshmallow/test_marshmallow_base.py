@@ -142,7 +142,7 @@ def test_envelope_schema():
     expected_data = {
         "updated": "2019-01-02 00:00:00",
         "created": "2019-01-01 00:00:00",
-        "id": 666,
+        "id": "666",
         "uuid": "0000-0000-0000-0000",
     }
 
@@ -169,7 +169,7 @@ def test_envelope_schema_with_extra_fields():
         "updated": "2019-01-02 00:00:00",
         "created": "2019-01-01 00:00:00",
         "data": {"title": "This is a title"},
-        "id": 666,
+        "id": "666",
         "uuid": "0000-0000-0000-0000",
     }
 
@@ -219,14 +219,13 @@ def test_wrap_schema_class_with_metadata_with_extra_fields():
         },
         "created": "2019-01-01 00:00:00",
         "updated": "2019-01-02 00:00:00",
-        "id": 666,
+        "id": "666",
         "uuid": "0000-0000-0000-0000",
     }
 
     schema = wrap_schema_class_with_metadata(TestSchema)
 
     result = schema().dump(data).data
-
     assert expected_data == result
 
 
@@ -256,7 +255,7 @@ def test_wrap_schema_class_with_metadata_with_extra_fields_and_exclude():
         },
         "created": "2019-01-01 00:00:00",
         "updated": "2019-01-02 00:00:00",
-        "id": 666,
+        "id": "666",
         "uuid": "0000-0000-0000-0000",
     }
 

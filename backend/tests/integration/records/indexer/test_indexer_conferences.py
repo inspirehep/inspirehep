@@ -25,7 +25,7 @@ def test_index_conference_record(base_app, es_clear, db, datadir, create_record)
 
     response = es.search("records-conferences")
 
-    assert response["hits"]["total"] == expected_count
+    assert response["hits"]["total"]["value"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
 
 

@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-FROM elasticsearch:5.6
+FROM elasticsearch:7.5.0
 
 RUN bin/elasticsearch-plugin install -b analysis-icu && \
     bin/elasticsearch-plugin install -b analysis-phonetic && \

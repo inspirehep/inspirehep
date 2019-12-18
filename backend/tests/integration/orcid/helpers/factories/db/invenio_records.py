@@ -101,10 +101,7 @@ class TestRecordMetadata(TestBaseModel):
 
         if index_name:
             instance.es_index_result = es.index(
-                index=index_name,
-                doc_type=index_name.split("-")[-1],
-                body=instance.record_metadata.json,
-                params={},
+                index=index_name, body=instance.record_metadata.json, params={}
             )
             instance.es_refresh_result = es.indices.refresh(index_name)
         if not disable_persistent_identifier:

@@ -51,7 +51,10 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
         {
             "step": es.search,
             "args": ["records-hep"],
-            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
         },
         {
             "step": es.search,

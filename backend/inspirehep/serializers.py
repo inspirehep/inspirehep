@@ -58,7 +58,7 @@ class JSONSerializer(InvenioJSONSerializer):
                         )
                         for hit in search_result["hits"]["hits"]
                     ],
-                    total=search_result["hits"]["total"],
+                    total=search_result["hits"]["total"]["value"],
                 ),
                 links=links or {},
                 sort_options=self._get_sort_options(),
