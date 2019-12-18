@@ -47,7 +47,7 @@ function DetailPage({ loading, match, dispatch, record }) {
   const cnum = metadata.get('cnum');
   const description = metadata.getIn(['short_description', 'value']);
   const inspireCategories = metadata.get('inspire_categories');
-  const series = metadata.getIn(['series', 0]);
+  const series = metadata.get('series');
   const contacts = metadata.get('contact_details');
   const publicNotes = metadata.get('public_notes');
   const keywords = metadata.get('keywords');
