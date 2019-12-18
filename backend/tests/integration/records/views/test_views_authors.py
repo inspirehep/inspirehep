@@ -63,6 +63,7 @@ def test_author_cataloger_facets(api_client, db, create_record, create_user, es_
         "arxiv_categories",
         "self_affiliations",
         "self_author_names",
+        "collection",
     ]
     expected_facet_keys.sort()
     response_data_facet_keys.sort()
