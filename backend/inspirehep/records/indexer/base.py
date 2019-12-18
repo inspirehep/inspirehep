@@ -6,14 +6,16 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
-from elasticsearch import TransportError
+from elasticsearch import RequestError, TransportError
 from elasticsearch.helpers import bulk
 from flask import current_app
 from inspire_schemas.errors import SchemaKeyNotFound, SchemaNotFound
 from invenio_indexer.api import RecordIndexer
 from invenio_indexer.signals import before_record_index
+from invenio_indexer.utils import _es7_expand_action
 from invenio_search import current_search_client as es
 from jsonschema.exceptions import SchemaError, ValidationError
+from kombu.exceptions import EncodeError
 from sqlalchemy.orm.exc import NoResultFound
 
 LOGGER = structlog.getLogger()
@@ -22,7 +24,8 @@ LOGGER = structlog.getLogger()
 class InspireRecordIndexer(RecordIndexer):
     """Extend Invenio indexer to properly index Inspire records"""
 
-    def _prepare_record(self, record, index, doc_type):
+    @staticmethod
+    def _prepare_record(record, index, doc_type="_doc", arguments=None, **kwargs):
         data = record.serialize_for_es()
         before_record_index.send(
             current_app._get_current_object(),
@@ -30,6 +33,8 @@ class InspireRecordIndexer(RecordIndexer):
             record=record,
             index=index,
             doc_type=doc_type,
+            arguments={} if arguments is None else arguments,
+            **kwargs
         )
         return data
 
@@ -55,8 +60,6 @@ class InspireRecordIndexer(RecordIndexer):
 
         """
         index_from_record, doc_type_from_record = self.record_to_index(record)
-        if not doc_type:
-            doc_type = doc_type_from_record
         if not index:
             index = index_from_record
         return {
@@ -90,6 +93,7 @@ class InspireRecordIndexer(RecordIndexer):
             request_timeout=request_timeout,
             raise_on_error=False,
             raise_on_exception=False,
+            expand_action_callback=(_es7_expand_action),
         )
 
         return {
@@ -123,3 +127,9 @@ class InspireRecordIndexer(RecordIndexer):
             LOGGER.exception("Record failed to load", uuid=str(record_uuid))
         except (SchemaNotFound, SchemaKeyNotFound, SchemaError, ValidationError):
             LOGGER.exception("Record validation error", uuid=str(record_uuid))
+        except RequestError:
+            LOGGER.exception("Cannot process request on ES", uuid=str(record_uuid))
+        except EncodeError:
+            LOGGER.exception(
+                "Kombu is not able to process response!", uuid=str(record_uuid)
+            )

@@ -27,11 +27,12 @@ def assert_citation_count(retry_until_matched):
                 "args": [cited_record],
                 "expected_result": {
                     "expected_key": "citation_count",
-                    "expected_result": expected_count
+                    "expected_result": expected_count,
                 },
             },
         ]
         retry_until_matched(steps)
+
     return _assert_citation_count
 
 
@@ -44,12 +45,13 @@ def assert_es_hits_count(retry_until_matched):
                 "step": es.search,
                 "args": ["records-hep"],
                 "expected_result": {
-                    "expected_key": "hits.total",
-                    "expected_result": expected_hits_count
+                    "expected_key": "hits.total.value",
+                    "expected_result": expected_hits_count,
                 },
             },
         ]
         return retry_until_matched(steps)
+
     return _assert_es_hits_count
 
 

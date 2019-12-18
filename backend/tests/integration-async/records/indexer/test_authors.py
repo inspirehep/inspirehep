@@ -24,7 +24,10 @@ def test_aut_record_appear_in_es_when_created(
         {
             "step": es.search,
             "args": ["records-authors"],
-            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
         },
     ]
     response = retry_until_matched(steps)
@@ -48,7 +51,10 @@ def test_aut_record_update_when_changed(
         {
             "step": es.search,
             "args": ["records-authors"],
-            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
         },
     ]
     resp = retry_until_matched(steps)["hits"]["hits"]
@@ -66,7 +72,10 @@ def test_aut_record_removed_form_es_when_deleted(
         {
             "step": es.search,
             "args": ["records-authors"],
-            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
         },
     ]
     retry_until_matched(steps)
@@ -77,7 +86,10 @@ def test_aut_record_removed_form_es_when_deleted(
         {
             "step": es.search,
             "args": ["records-authors"],
-            "expected_result": {"expected_key": "hits.total", "expected_result": 0},
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 0,
+            },
         },
     ]
     retry_until_matched(steps)
@@ -106,7 +118,10 @@ def test_record_created_through_api_is_indexed(
         {
             "step": es.search,
             "args": ["records-authors"],
-            "expected_result": {"expected_key": "hits.total", "expected_result": 1},
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": 1,
+            },
         },
     ]
     retry_until_matched(steps)

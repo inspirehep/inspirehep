@@ -806,26 +806,25 @@ def test_regression_update_job_without_acquisition_source_doesnt_give_500(
     ticket_mock, app, api_client, create_user, create_record
 ):
     data = {
-        'status': 'open',
-        '_collections': ['Jobs'],
-        'control_number': 1,
-        'deadline_date': '2019-12-31',
-        'description': 'nice job',
-        'position': 'junior',
-        'regions': ['Europe'],
+        "status": "open",
+        "_collections": ["Jobs"],
+        "control_number": 1,
+        "deadline_date": "2019-12-31",
+        "description": "nice job",
+        "position": "junior",
+        "regions": ["Europe"],
     }
-    create_record('job', data=data)
-    pid_value = data['control_number']
+    create_record("job", data=data)
+    pid_value = data["control_number"]
     job_record = JobsRecord.get_record_by_pid_value(pid_value)
 
-    assert 'acquisition_source' not in job_record
+    assert "acquisition_source" not in job_record
 
     user = create_user()
     login_user_via_session(api_client, email=user.email)
     data["title"] = "New Title"
     record_url = url_for(
-        "inspirehep_submissions.job_submission_view",
-        pid_value=pid_value
+        "inspirehep_submissions.job_submission_view", pid_value=pid_value
     )
 
     response = api_client.put(
@@ -839,27 +838,24 @@ CONFERENCE_FORM_DATA = {
     "subtitle": "the best conference ever",
     "description": "lorem ipsum",
     "dates": ["1993-05-17", "1993-05-20"],
-    "addresses": [
-        {
-            "city": "Trieste",
-            "country": "Italy",
-        }
-    ],
+    "addresses": [{"city": "Trieste", "country": "Italy"}],
     "series_name": "ICFA Seminar on Future Perspectives in High-Energy Physics",
     "series_number": 11,
     "contacts": [
         {"email": "somebody@email.com", "name": "somebody"},
-        {"email": "somebodyelse@email.com"}
+        {"email": "somebodyelse@email.com"},
     ],
     "field_of_interest": ["Accelerators"],
     "acronyms": ["foo", "bar"],
     "websites": ["http://somebody.example.com"],
     "additional_info": "UPDATED",
-    "keywords": ["black hole: mass"]
+    "keywords": ["black hole: mass"],
 }
 
 
-def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fields_correct(app, api_client, create_user):
+def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fields_correct(
+    app, api_client, create_user
+):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
     response = api_client.post(
@@ -876,25 +872,63 @@ def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fi
     conference_rec = ConferencesRecord.get_record_by_pid_value(conference_id)
     assert conference_cnum == conference_rec["cnum"]
     assert get_value(conference_rec, "titles[0].title") == CONFERENCE_FORM_DATA["name"]
-    assert get_value(conference_rec, "titles[0].subtitle") == CONFERENCE_FORM_DATA["subtitle"]
-    assert get_value(conference_rec, "short_description.value") == CONFERENCE_FORM_DATA["description"]
+    assert (
+        get_value(conference_rec, "titles[0].subtitle")
+        == CONFERENCE_FORM_DATA["subtitle"]
+    )
+    assert (
+        get_value(conference_rec, "short_description.value")
+        == CONFERENCE_FORM_DATA["description"]
+    )
     assert get_value(conference_rec, "opening_date") == CONFERENCE_FORM_DATA["dates"][0]
     assert get_value(conference_rec, "closing_date") == CONFERENCE_FORM_DATA["dates"][1]
-    assert get_value(conference_rec, "series[0].name") == CONFERENCE_FORM_DATA["series_name"]
-    assert get_value(conference_rec, "series[0].number") == CONFERENCE_FORM_DATA["series_number"]
-    assert get_value(conference_rec, "contact_details[0].email") == CONFERENCE_FORM_DATA["contacts"][0]["email"]
-    assert get_value(conference_rec, "contact_details[0].name") == CONFERENCE_FORM_DATA["contacts"][0]["name"]
-    assert get_value(conference_rec, "contact_details[1].email") == CONFERENCE_FORM_DATA["contacts"][1]["email"]
+    assert (
+        get_value(conference_rec, "series[0].name")
+        == CONFERENCE_FORM_DATA["series_name"]
+    )
+    assert (
+        get_value(conference_rec, "series[0].number")
+        == CONFERENCE_FORM_DATA["series_number"]
+    )
+    assert (
+        get_value(conference_rec, "contact_details[0].email")
+        == CONFERENCE_FORM_DATA["contacts"][0]["email"]
+    )
+    assert (
+        get_value(conference_rec, "contact_details[0].name")
+        == CONFERENCE_FORM_DATA["contacts"][0]["name"]
+    )
+    assert (
+        get_value(conference_rec, "contact_details[1].email")
+        == CONFERENCE_FORM_DATA["contacts"][1]["email"]
+    )
     assert get_value(conference_rec, "acronyms") == CONFERENCE_FORM_DATA["acronyms"]
-    assert get_value(conference_rec, "urls[0].value") == CONFERENCE_FORM_DATA["websites"][0]
-    assert get_value(conference_rec, "inspire_categories[0].term") == CONFERENCE_FORM_DATA["field_of_interest"][0]
-    assert get_value(conference_rec, "public_notes[0].value") == CONFERENCE_FORM_DATA["additional_info"]
-    assert get_value(conference_rec, "keywords[0].value") == CONFERENCE_FORM_DATA["keywords"][0]
+    assert (
+        get_value(conference_rec, "urls[0].value")
+        == CONFERENCE_FORM_DATA["websites"][0]
+    )
+    assert (
+        get_value(conference_rec, "inspire_categories[0].term")
+        == CONFERENCE_FORM_DATA["field_of_interest"][0]
+    )
+    assert (
+        get_value(conference_rec, "public_notes[0].value")
+        == CONFERENCE_FORM_DATA["additional_info"]
+    )
+    assert (
+        get_value(conference_rec, "keywords[0].value")
+        == CONFERENCE_FORM_DATA["keywords"][0]
+    )
     assert get_value(conference_rec, "addresses[0].country_code") == "IT"
-    assert get_value(conference_rec, "addresses[0].cities[0]") == CONFERENCE_FORM_DATA["addresses"][0]["city"]
+    assert (
+        get_value(conference_rec, "addresses[0].cities[0]")
+        == CONFERENCE_FORM_DATA["addresses"][0]["city"]
+    )
 
 
-def test_new_user_conference_submission_missing_dates_has_no_cnum(app, api_client, create_user):
+def test_new_user_conference_submission_missing_dates_has_no_cnum(
+    app, api_client, create_user
+):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 

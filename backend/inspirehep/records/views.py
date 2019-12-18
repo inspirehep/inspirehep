@@ -7,7 +7,6 @@
 
 from flask import Blueprint, abort, current_app, jsonify, request
 from flask.views import MethodView
-from invenio_records_rest.errors import MaxResultWindowRESTError
 from invenio_records_rest.views import pass_record
 
 from inspirehep.records.api.literature import import_article
@@ -16,6 +15,7 @@ from inspirehep.records.errors import (
     ImportArticleError,
     ImportConnectionError,
     ImportParsingError,
+    MaxResultWindowRESTError,
     UnknownImportIdentifierError,
 )
 from inspirehep.records.marshmallow.literature.references import (
@@ -40,10 +40,10 @@ class LiteratureCitationsResource(MethodView):
             abort(400)
 
         if size > current_app.config["MAX_API_RESULTS"]:
-            raise MaxResultWindowRESTError()
+            raise MaxResultWindowRESTError
 
         citing_records_results = LiteratureSearch.citations(record, page, size)
-        citing_records_count = citing_records_results.total
+        citing_records_count = citing_records_results.total["value"]
         citing_records = [citation.to_dict() for citation in citing_records_results]
 
         data = {

@@ -4,10 +4,13 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from itertools import chain
 
 import elasticsearch
-from elasticsearch import ConflictError
-from pytest_invenio.fixtures import _es_create_indexes, _es_delete_indexes
+import invenio_search
+from elasticsearch import ConflictError, NotFoundError, RequestError
+from invenio_search.errors import IndexAlreadyExistsError
+from pytest_invenio.fixtures import _es_create_indexes
 from sqlalchemy_utils import create_database, database_exists
 
 
@@ -21,25 +24,29 @@ def es_cleanup(es):
     After upgrading to invenio 1.2 we will be able
     to remove only specified index
     """
-    from invenio_search import current_search, current_search_client
+    from invenio_search import current_search
 
     es.indices.refresh()
-    existing_mappings = set(es.indices.stats()["indices"].keys())
+    existing_mappings_nested = (
+        x["aliases"].keys() for x in es.indices.get_alias("*").values()
+    )
+    existing_mappings = set(chain.from_iterable(existing_mappings_nested))
     required_mappings = set(current_search.mappings.keys())
     missing_mappings = required_mappings.difference(existing_mappings)
-    if len(missing_mappings):
-        _es_create_indexes(current_search, current_search_client)
-
     try:
-        for index in es.indices.stats()["indices"].keys():
+        if len(missing_mappings):
+            _es_create_indexes(current_search, es)
+        for index in required_mappings:
             try:
-                es.delete_by_query(index, "{}")
+                es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
             except ConflictError:
                 # Retry as there might be some delay on ES side
-                es.delete_by_query(index, "{}")
-    except elasticsearch.exceptions.RequestError:
-        _es_delete_indexes(current_search)
-        _es_create_indexes(current_search, current_search_client)
+                es.indices.refresh()
+                es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
+    except (RequestError, NotFoundError, IndexAlreadyExistsError) as e:
+        es.indices.delete(index="*", allow_no_indices=True, expand_wildcards="all")
+        es.indices.refresh()
+        _es_create_indexes(current_search, es)
     es.indices.refresh()
 
 

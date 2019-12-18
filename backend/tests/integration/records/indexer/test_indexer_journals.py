@@ -53,7 +53,7 @@ def test_index_journal_record(base_app, es_clear, db, datadir, create_record):
 
     response = es.search("records-journals")
 
-    assert response["hits"]["total"] == expected_count
+    assert response["hits"]["total"]["value"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
 
 

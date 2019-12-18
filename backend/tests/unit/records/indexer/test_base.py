@@ -91,7 +91,7 @@ def test_process_bulk_record_for_index_default_values(
     expected_data = {
         "_op_type": "index",
         "_index": "test_index",
-        "_type": "test_type",
+        "_type": None,
         "_id": str(record.id),
         "_version": record.revision_id,
         "_version_type": "external_gte",

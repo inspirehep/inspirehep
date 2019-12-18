@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from invenio_records.errors import RecordsError
+from invenio_rest.errors import RESTException
 from marshmallow import ValidationError
 
 
@@ -55,3 +56,7 @@ class WrongRecordSubclass(RecordsError):
 
 class DownloadFileError(Exception):
     pass
+
+
+class MaxResultWindowRESTError(RESTException):
+    code = 400

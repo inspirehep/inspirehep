@@ -6,4 +6,4 @@
 # the terms of the MIT License; see LICENSE file for more details.
 # flake8: noqa
 
-"""Mappings for Elasticsearch 5.x."""
+"""Mappings for Elasticsearch 7.x."""

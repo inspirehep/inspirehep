@@ -14,9 +14,9 @@ import pytest
 from flask import current_app
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
-from invenio_records_rest.errors import MaxResultWindowRESTError
 
 from inspirehep.accounts.roles import Roles
+from inspirehep.records.errors import MaxResultWindowRESTError
 
 
 def test_literature_search_application_json_get(
