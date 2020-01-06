@@ -97,13 +97,13 @@ matrix:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: cd $TRAVIS_BUILD_DIR; ./build-docker-backend-image.sh ; ./build-docker-ui-image.sh
+    script: cd $TRAVIS_BUILD_DIR; ./build-and-deploy.sh
     on:
       branch: master
       condition: $SUITE = unit
   - provider: script
     skip_cleanup: true
-    script: cd $TRAVIS_BUILD_DIR; ./build-docker-backend-image.sh ; ./build-docker-ui-image.sh
+    script: cd $TRAVIS_BUILD_DIR; ./build-and-deploy.sh
     on:
       tags: true
       condition: $SUITE = unit
