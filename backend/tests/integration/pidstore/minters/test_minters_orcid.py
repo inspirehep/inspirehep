@@ -8,10 +8,9 @@
 
 import pytest
 from helpers.providers.faker import faker
-from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
-from inspirehep.pidstore.errors import MissingSchema
+from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
 from inspirehep.pidstore.minters.orcid import OrcidMinter
 
 

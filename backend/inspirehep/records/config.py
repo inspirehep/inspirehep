@@ -65,7 +65,6 @@ RECORD = {
         "application/json": "invenio_records_rest.serializers:json_v1_search"
     },
     "max_result_window": 10000,
-    "error_handlers": dict(),
     "create_permission_factory_imp": deny_all,
     "read_permission_factory_imp": allow_all,
     "update_permission_factory_imp": deny_all,
