@@ -853,8 +853,9 @@ CONFERENCE_FORM_DATA = {
 }
 
 
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fields_correct(
-    app, api_client, create_user
+    ticket_mock, app, api_client, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -924,10 +925,12 @@ def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fi
         get_value(conference_rec, "addresses[0].cities[0]")
         == CONFERENCE_FORM_DATA["addresses"][0]["city"]
     )
+    ticket_mock.delay.assert_called_once()
 
 
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_user_conference_submission_missing_dates_has_no_cnum(
-    app, api_client, create_user
+    ticket_mock, app, api_client, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -950,8 +953,11 @@ def test_new_user_conference_submission_missing_dates_has_no_cnum(
     assert conference_cnum is None
     assert "cnum" not in conference_record
 
+    ticket_mock.delay.assert_called_once()
 
-def test_non_logged_in_user_tries_to_submit(app, api_client):
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_non_logged_in_user_tries_to_submit(ticket_mock, app, api_client):
     form_data = deepcopy(CONFERENCE_FORM_DATA)
 
     response = api_client.post(
@@ -961,3 +967,39 @@ def test_non_logged_in_user_tries_to_submit(app, api_client):
     )
 
     assert response.status_code == 401
+
+    ticket_mock.delay.assert_not_called()
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_rt_ticket_when_cataloger_submits_conference(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
+    form_data = deepcopy(CONFERENCE_FORM_DATA)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    assert response.status_code == 201
+    ticket_mock.delay.assert_not_called()
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_rt_ticket_when_superuser_submits_conference(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user(role=Roles.superuser.value)
+    login_user_via_session(api_client, email=user.email)
+    form_data = deepcopy(CONFERENCE_FORM_DATA)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    assert response.status_code == 201
+    ticket_mock.delay.assert_not_called()

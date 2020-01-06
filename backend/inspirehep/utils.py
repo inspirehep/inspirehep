@@ -12,3 +12,9 @@ def include_table_check(object, name, type_, *args, **kwargs):
     if type_ == "table" and name in current_app.config.get("ALEMBIC_SKIP_TABLES"):
         return False
     return True
+
+
+def get_inspirehep_url():
+    PROTOCOL = current_app.config["PREFERRED_URL_SCHEME"]
+    SERVER = current_app.config["SERVER_NAME"]
+    return f"{PROTOCOL}://{SERVER}"

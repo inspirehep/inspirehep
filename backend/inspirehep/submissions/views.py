@@ -25,6 +25,7 @@ from inspirehep.accounts.api import (
 from inspirehep.accounts.decorators import login_required_with_roles
 from inspirehep.records.api import AuthorsRecord, ConferencesRecord, JobsRecord
 from inspirehep.submissions.errors import RESTDataError
+from inspirehep.utils import get_inspirehep_url
 
 from .loaders import conference_v1 as conference_loader_v1
 from .loaders import job_v1 as job_loader_v1
@@ -125,13 +126,41 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
         data = conference_loader_v1()
         record = ConferencesRecord.create(data)
         db.session.commit()
-        # TODO: if not is_superuser_or_cataloger_logged_in(): self.create_ticket(record, "rt/new_conferences.html")
-        return jsonify(
-            {
-                "pid_value": record["control_number"],
-                "cnum": record.get("cnum"),
-            }
-        ), 201
+        if not is_superuser_or_cataloger_logged_in():
+            self.create_ticket(record, "rt/new_conference.html")
+        return (
+            jsonify(
+                {"pid_value": record["control_number"], "cnum": record.get("cnum")}
+            ),
+            201,
+        )
+
+    def create_ticket(self, record, rt_template):
+        control_number = record["control_number"]
+
+        INSPIREHEP_URL = get_inspirehep_url()
+        CONFERENCE_DETAILS = f"{INSPIREHEP_URL}/conferences/{control_number}"
+        CONFERENCE_EDIT = f"{INSPIREHEP_URL}/submissions/conferences/{control_number}"
+
+        rt_queue = "CONF_add_user"
+        requestor = (
+            (current_user.is_authenticated and current_user.email)
+            or record["contact_details"]["email"]
+            or record["contact_details"].get("name", "UNKNOWN")
+        )
+        rt_template_context = {
+            "conference_url": CONFERENCE_DETAILS,
+            "conference_url_edit": CONFERENCE_EDIT,
+            "hep_url": INSPIREHEP_URL,
+        }
+        async_create_ticket_with_template.delay(
+            rt_queue,
+            requestor,
+            rt_template,
+            rt_template_context,
+            f"New Conference Submission {control_number}.",
+            control_number,
+        )
 
 
 class LiteratureSubmissionResource(BaseSubmissionsResource):
@@ -293,9 +322,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
 
-        PROTOCOL = current_app.config["PREFERRED_URL_SCHEME"]
-        SERVER = current_app.config["SERVER_NAME"]
-        INSPIREHEP_URL = f"{PROTOCOL}://{SERVER}"
+        INSPIREHEP_URL = get_inspirehep_url()
         JOB_DETAILS = f"{INSPIREHEP_URL}/jobs/{control_number}"
         JOB_EDIT = f"{INSPIREHEP_URL}/submissions/jobs/{control_number}"
 
@@ -333,7 +360,9 @@ blueprint.add_url_rule(
     '/jobs/<pid(job,record_class="inspirehep.records.api.JobsRecord"):pid_value>',
     view_func=job_submission_view,
 )
-conference_submission_view = ConferenceSubmissionsResource.as_view("conference_submissions_view")
+conference_submission_view = ConferenceSubmissionsResource.as_view(
+    "conference_submissions_view"
+)
 blueprint.add_url_rule("/conferences", view_func=conference_submission_view)
 blueprint.add_url_rule(
     '/conferences/<pid(conference,record_class="inspirehep.records.api.ConferencesRecord"):pid_value>',
