@@ -739,6 +739,7 @@ werkzeug = "*"
 reference = "84c2633a4af55092650cb6972b126039500b39f9"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
+
 [[package]]
 category = "main"
 description = "Rate limiting for flask applications"
@@ -870,6 +871,7 @@ SQLAlchemy = ">=0.8.0"
 reference = "71abd94a1e2317a1365a25a31e719dbd9aafceea"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
+
 [[package]]
 category = "main"
 description = "HTTP security headers for Flask."
@@ -1273,7 +1275,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.3"
+version = "6.0.4"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -1327,6 +1329,7 @@ pkgsettings = ">=0.12.0,<1.0.0"
 reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
 type = "git"
 url = "https://github.com/drjova/inspire-service-orcid.git"
+
 [[package]]
 category = "main"
 description = "INSPIRE-specific utils."
@@ -3786,7 +3789,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "896571d7004aed5e7c8bae70b820f9b49c5ab7154e0108f9ce900a6439e18039"
+content-hash = "f4ea4c26845b5106c02a4d867a09bd2a73a602b536180d90fe940b2acf7c703c"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
@@ -4260,7 +4263,7 @@ inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.3.tar.gz", hash = "sha256:aef6938550b35c92fa248b2caa947cdba90a89d618df0381198d7fc08c72540d"},
+    {file = "inspire-query-parser-6.0.4.tar.gz", hash = "sha256:9fc3d1a312e525bbd40f4987c47043bc51516d803f2a278eff7c3cd63cbe89ec"},
 ]
 inspire-schemas = [
     {file = "inspire-schemas-61.0.2.tar.gz", hash = "sha256:1a62ad32aae1b911cbc709420e4ab62996ec4f84f773c0cccd0d1712283dcc59"},

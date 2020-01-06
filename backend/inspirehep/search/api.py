@@ -134,6 +134,7 @@ class LiteratureSearch(InspireSearch):
             Q("match", **{"references.record.$ref": record["control_number"]})
             & Q("match", **{"_collections": "Literature"})
             & ~Q("match", **{"related_records.relation": "successor"})
+            & ~Q("match", **{"control_number": record["control_number"]})
         )
         citations_search = (
             LiteratureSearch()

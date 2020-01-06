@@ -111,14 +111,20 @@ class CitationMixin:
                 uuid=str(self.id),
             )
             return
+        current_record_control_number = str(self.get("control_number"))
         records_pids = self.get_linked_pids_from_field("references.record")
         # Limit records to literature and data as only this types can be cited
-        proper_records_pids = [
-            rec_pid for rec_pid in records_pids if rec_pid[0] in ["lit", "dat"]
-        ]
+        proper_records_pids = []
+        for pid_type, pid_value in records_pids:
+            if pid_type not in ["lit", "dat"]:
+                continue
+            if pid_value == current_record_control_number:
+                continue
+            proper_records_pids.append((pid_type, pid_value))
+
         LOGGER.info(
             f"Record has {len(proper_records_pids)} linked references",
-            recid=self.get("control_number"),
+            recid=current_record_control_number,
             uuid=str(self.id),
         )
         records_uuids = self.get_records_ids_by_pids(proper_records_pids)
@@ -142,7 +148,7 @@ class CitationMixin:
             db.session.bulk_save_objects(references_waiting_for_commit)
         LOGGER.info(
             "Record citations updated",
-            recid=self.get("control_number"),
+            recid=current_record_control_number,
             uuid=str(self.id),
         )
 

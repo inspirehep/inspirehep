@@ -6,6 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 
+from helpers.providers.faker import faker
+
 from inspirehep.search.api import LiteratureSearch
 
 
@@ -124,3 +126,21 @@ def test_conferences_search_with_parameter(api_client, db, es_clear, create_reco
         record1_control_number
         == response.json["hits"]["hits"][0]["metadata"]["control_number"]
     )
+
+
+def test_citations_query_result(api_client, db, es_clear, create_record):
+    record_control_number = 12345
+    # create self_citation
+    record_cited = create_record(
+        "lit",
+        data={"control_number": record_control_number},
+        literature_citations=[record_control_number],
+    )
+    # create correct citation
+    record_citing = create_record("lit", literature_citations=[record_control_number])
+
+    response = api_client.get(f"api/literature/{record_control_number}/citations")
+
+    assert response.json["metadata"]["citation_count"] == 1
+    citation = response.json["metadata"]["citations"][0]
+    assert citation["control_number"] == record_citing["control_number"]

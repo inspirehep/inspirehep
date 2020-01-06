@@ -1060,3 +1060,13 @@ def test_regression_update_record_without_losing_the_bucket(
         assert "_files" in record_from_db
         assert "_bucket" in record_from_db
         assert "documents" in record_from_db
+
+
+def test_record_cannot_cite_itself(base_app, db, create_record):
+    record_control_number = 12345
+    record_cited = create_record(
+        "lit",
+        data={"control_number": record_control_number},
+        literature_citations=[record_control_number],
+    )
+    assert record_cited.citation_count == 0
