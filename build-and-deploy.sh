@@ -6,9 +6,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-IMAGE="inspirehep/hep"
-DOCKER_CONTEXT='backend'
-TAG="$(git describe --always)"
+TAG="${TRAVIS_TAG:-$(git describe --always --tags)}"
+
+IMAGE_UI = 'inspirehep/ui'
+IMAGE_BACKEND = 'inspirehep/backend'
 
 retry() {
     "${@}" || "${@}" || exit 2
@@ -21,17 +22,30 @@ login() {
       "--password=${DOCKERHUB_PASSWORD}"
 }
 
-buildPush() {
-  echo "Building docker image"
+buildPushUI() {
+  echo "Building docker image for ui"
   retry docker build \
     --build-arg VERSION="${TAG}" \
-    -t "${IMAGE}:${TAG}" \
-    -t "${IMAGE}" \
-    "${DOCKER_CONTEXT}"
+    -t "${IMAGE_UI}:${TAG}" \
+    -t "${IMAGE_UI}" \
+    ui
 
-  echo "Pushing image to ${IMAGE}:${TAG}"
-  retry docker push "${IMAGE}:${TAG}"
-  retry docker push "${IMAGE}"
+  echo "Pushing image to ${IMAGE_UI}:${TAG}"
+  retry docker push "${IMAGE_UI}:${TAG}"
+  retry docker push "${IMAGE_UI}"
+}
+
+buildPushBackend() {
+  echo "Building docker image for backend"
+  retry docker build \
+    --build-arg VERSION="${TAG}" \
+    -t "${IMAGE_BACKEND}:${TAG}" \
+    -t "${IMAGE_BACKEND}" \
+    backend
+
+  echo "Pushing image to ${IMAGE_BACKEND}:${TAG}"
+  retry docker push "${IMAGE_BACKEND}:${TAG}"
+  retry docker push "${IMAGE_BACKEND}"
 }
 
 logout() {
@@ -44,7 +58,7 @@ deployQA() {
     curl -X POST \
       -F token=${DEPLOY_QA_TOKEN} \
       -F ref=master \
-      -F variables[IMAGE_NAME]=inspirehep/hep \
+      -F variables[IMAGE_NAME]=inspirehep/ui \
       -F variables[NEW_TAG]=${TAG} \
       https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
   fi
@@ -52,7 +66,8 @@ deployQA() {
 
 main() {
   login
-  buildPush
+  buildPushUI
+  buildPushBackend
   logout
   deployQA
 }
