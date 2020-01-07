@@ -56,7 +56,7 @@ deployQA() {
 main() {
   login
   buildPush "ui" "inspirehep/ui"
-  buildPush "hep" "inspirehep/backend"
+  buildPush "backend" "inspirehep/hep"
   logout
   deployQA
 }
