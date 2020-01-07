@@ -22,30 +22,19 @@ login() {
       "--password=${DOCKERHUB_PASSWORD}"
 }
 
-buildPushUI() {
-  echo "Building docker image for ui"
+buildPush() {
+  context="${1}"
+  image="${2}"
+  echo "Building docker image for ${context}"
   retry docker build \
     --build-arg VERSION="${TAG}" \
-    -t "${IMAGE_UI}:${TAG}" \
-    -t "${IMAGE_UI}" \
-    ui
+    -t "${image}:${TAG}" \
+    -t "${image}" \
+    "${context}"
 
-  echo "Pushing image to ${IMAGE_UI}:${TAG}"
-  retry docker push "${IMAGE_UI}:${TAG}"
-  retry docker push "${IMAGE_UI}"
-}
-
-buildPushBackend() {
-  echo "Building docker image for backend"
-  retry docker build \
-    --build-arg VERSION="${TAG}" \
-    -t "${IMAGE_BACKEND}:${TAG}" \
-    -t "${IMAGE_BACKEND}" \
-    backend
-
-  echo "Pushing image to ${IMAGE_BACKEND}:${TAG}"
-  retry docker push "${IMAGE_BACKEND}:${TAG}"
-  retry docker push "${IMAGE_BACKEND}"
+  echo "Pushing image to ${image}:${TAG}"
+  retry docker push "${image}:${TAG}"
+  retry docker push "${image}"
 }
 
 logout() {
@@ -66,8 +55,8 @@ deployQA() {
 
 main() {
   login
-  buildPushUI
-  buildPushBackend
+  buildPush "ui" "inspirehep/ui"
+  buildPush "hep" "inspirehep/backend"
   logout
   deployQA
 }
