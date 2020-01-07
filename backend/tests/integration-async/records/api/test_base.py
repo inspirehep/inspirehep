@@ -28,8 +28,7 @@ def test_record_versioning(app, clear_environment):
 
     assert expected_version_created == record.model.version_id
     assert expected_count_created == record.model.versions.count()
-    with pytest.raises(AttributeError):
-        record._previous_version
+    assert LiteratureRecord({}) == record._previous_version
 
     expected_version_updated = 3
     expected_count_updated = 2

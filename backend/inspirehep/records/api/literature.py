@@ -218,17 +218,18 @@ class LiteratureRecord(
         Returns:
             List: uuids of references changed from the previous version.
         """
-        try:
-            prev_version = self._previous_version
-        except AttributeError:
-            prev_version = {}
+        prev_version = self._previous_version
 
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
             "deleted", False
         )
 
-        is_superseded = get_value(self, "related_records[0].relation", "") == "successor"
-        was_superseded = get_value(prev_version, "related_records[0].relation", "") == "successor"
+        is_superseded = (
+            get_value(self, "related_records[0].relation", "") == "successor"
+        )
+        was_superseded = (
+            get_value(prev_version, "related_records[0].relation", "") == "successor"
+        )
         changed_superseded_status = is_superseded ^ was_superseded
 
         changed_earliest_date = (
@@ -240,12 +241,9 @@ class LiteratureRecord(
         if changed_deleted_status or changed_earliest_date or changed_superseded_status:
             return list(self.get_records_ids_by_pids(pids_latest))
 
-        try:
-            pids_oldest = set(
-                self._previous_version.get_linked_pids_from_field("references.record")
-            )
-        except AttributeError:
-            pids_oldest = []
+        pids_oldest = set(
+            self._previous_version.get_linked_pids_from_field("references.record")
+        )
 
         pids_changed = set.symmetric_difference(set(pids_latest), pids_oldest)
 
