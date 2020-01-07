@@ -94,6 +94,8 @@ class InspireRecordIndexer(RecordIndexer):
             raise_on_error=False,
             raise_on_exception=False,
             expand_action_callback=(_es7_expand_action),
+            max_retries=5,  # Retires on Error 429
+            initial_backoff=10,  # wait for initial_backoff * 2^retry_number
         )
 
         return {
