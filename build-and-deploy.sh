@@ -8,8 +8,8 @@
 
 TAG="${TRAVIS_TAG:-$(git describe --always --tags)}"
 
-IMAGE_UI = 'inspirehep/ui'
-IMAGE_BACKEND = 'inspirehep/backend'
+IMAGE_UI="inspirehep/ui"
+IMAGE_BACKEND="inspirehep/backend"
 
 retry() {
     "${@}" || "${@}" || exit 2
