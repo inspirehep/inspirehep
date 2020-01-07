@@ -384,11 +384,11 @@ class InspireRecord(Record):
     @property
     def _previous_version(self):
         """Returns the previous version of the record"""
-        data = (
-            self.model.versions.filter_by(version_id=self.model.version_id)
-            .one()
-            .previous.json
-        )
+        current = self.model.versions.filter_by(version_id=self.model.version_id).one()
+        if current.previous:
+            data = current.previous.json
+        else:
+            data = {}
         return type(self)(data=data)
 
     @property

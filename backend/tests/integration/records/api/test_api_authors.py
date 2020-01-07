@@ -173,3 +173,25 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db,
     record = InspireRecord.create_or_update(data)
     assert type(record) == AuthorsRecord
     assert record.pid_type == "aut"
+
+
+def test_get_author_papers(base_app, db, es_clear, create_record):
+    author = create_record("aut")
+
+    author_cn = author["control_number"]
+    lit_data = {
+        "authors": [
+            {
+                "record": {
+                    "$ref": f"https://labs.inspirehep.net/api/authors/{author_cn}"
+                },
+                "full_name": author["name"]["value"],
+            }
+        ]
+    }
+    lit_1 = create_record("lit", data=lit_data)
+    lit_2 = create_record("lit")
+
+    author_papers = author.get_papers_uuids()
+    assert str(lit_1.id) in author_papers
+    assert str(lit_2.id) not in author_papers
