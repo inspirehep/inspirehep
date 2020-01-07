@@ -7,7 +7,7 @@
         "type": "keyword"
       },
       "_all": {
-        "type": "keyword"
+        "type": "text"
       },
       "_collections": {
         "normalizer": "lowercase_normalizer",
