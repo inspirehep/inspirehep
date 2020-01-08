@@ -41,14 +41,17 @@ logout() {
 
 deployQA() {
   if [ -z "${TRAVIS_TAG}" ]; then
-    # deploy ui
+    echo "Deploying inspirehep/ui"
     curl -X POST \
       -F token=${DEPLOY_QA_TOKEN} \
       -F ref=master \
       -F variables[IMAGE_NAME]=inspirehep/ui \
       -F variables[NEW_TAG]=${TAG} \
       https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
-    # deploy hep
+
+    sleep 1
+
+    echo "Deploying inspirehep/hep"
     curl -X POST \
       -F token=${DEPLOY_QA_TOKEN} \
       -F ref=master \
