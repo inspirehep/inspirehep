@@ -2,8 +2,8 @@ const ID_ATTRIBUTE = 'data-test-id';
 const TYPE_ATTRIBUTE = 'data-test-type';
 
 async function selectFromSelectBox(page, selectId, value) {
-  const selectSelector = `[${ID_ATTRIBUTE}=${selectId}]`;
-  const selectOptionSelector = `[${ID_ATTRIBUTE}=${selectId}-option-${value}]`;
+  const selectSelector = `[${ID_ATTRIBUTE}="${selectId}"]`;
+  const selectOptionSelector = `[${ID_ATTRIBUTE}="${selectId}-option-${value}"]`;
 
   // click selecbox to render options into DOM incase not there
   await page.click(selectSelector);

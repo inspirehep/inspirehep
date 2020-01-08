@@ -35,9 +35,11 @@ function ConferencesExistOnDatesAlert({ dates }) {
       <FieldInfoAlert
         description={
           <span>
-            <strong>{numberOfConferences}</strong> other{' '}
-            {pluralizeUnlessSingle('conference', numberOfConferences)} found in
-            these dates.{' '}
+            <strong data-test-id="conferences-exist-alert-number">
+              {numberOfConferences}
+            </strong>{' '}
+            other {pluralizeUnlessSingle('conference', numberOfConferences)}{' '}
+            found in these dates.{' '}
             <a target="_blank" href={searchLink}>
               See here
             </a>
