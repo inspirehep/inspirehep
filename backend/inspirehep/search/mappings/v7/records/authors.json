@@ -19,12 +19,12 @@
             "type": "boolean"
           },
           "end_date": {
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date"
           },
           "start_date": {
             "type": "date",
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd"
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy"
           },
           "name": {
             "type": "text"
@@ -126,7 +126,7 @@
         "type": "text"
       },
       "birth_date": {
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "conferences": {
@@ -142,7 +142,7 @@
         "type": "integer"
       },
       "death_date": {
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "deleted": {
@@ -237,7 +237,7 @@
         "type": "object"
       },
       "legacy_creation_date": {
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "name": {
@@ -294,7 +294,7 @@
             "type": "text"
           },
           "end_date": {
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date"
           },
           "institution": {
@@ -307,7 +307,7 @@
             "type": "keyword"
           },
           "start_date": {
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date"
           }
         },
@@ -345,7 +345,7 @@
       "source": {
         "properties": {
           "date_verified": {
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date"
           },
           "name": {
