@@ -16,7 +16,7 @@
       "_desy_bookkeeping": {
         "properties": {
           "date": {
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date"
           },
           "expert": {
@@ -474,7 +474,7 @@
         "type": "object"
       },
       "earliest_date": {
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "editions": {
@@ -564,7 +564,7 @@
           },
           "date": {
             "copy_to": "_all",
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date"
           },
           "place": {
@@ -630,7 +630,7 @@
         "type": "keyword"
       },
       "legacy_creation_date": {
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "license": {
@@ -688,7 +688,7 @@
       },
       "preprint_date": {
         "copy_to": "_all",
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "public_notes": {
@@ -915,7 +915,7 @@
               "imprint": {
                 "properties": {
                   "date": {
-                    "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+                    "format": "yyyy-MM-dd||yyyy-MM||yyyy",
                     "type": "date"
                   },
                   "place": {
@@ -1099,12 +1099,12 @@
       "thesis_info": {
         "properties": {
           "date": {
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date",
             "copy_to": "_all"
           },
           "defense_date": {
-            "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+            "format": "yyyy-MM-dd||yyyy-MM||yyyy",
             "type": "date",
             "copy_to": "_all"
           },

@@ -65,7 +65,7 @@
         "type": "object"
       },
       "closing_date": {
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "cnum": {
@@ -127,7 +127,7 @@
         "type": "object"
       },
       "legacy_creation_date": {
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "new_recid": {
@@ -144,7 +144,7 @@
       },
       "opening_date": {
         "copy_to": "conferenceautocomplete",
-        "format": "yyyy||yyyy-MM||yyyy-MM-dd",
+        "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
       "public_notes": {
