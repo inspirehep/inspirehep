@@ -23,9 +23,12 @@ class FormSubmitter {
 
   async waitForSubmissionSuccess() {
     await this.page.waitFor(
-      SUBMISSIONS_SUCCESS => document.location.href === SUBMISSIONS_SUCCESS,
+      HOME =>
+        document.location.href.match(
+          new RegExp(`${HOME}/submissions(/.+)*/success`)
+        ),
       {},
-      routes.SUBMISSIONS_SUCCESS
+      routes.HOME
     );
   }
 
@@ -68,6 +71,9 @@ class FormSubmitter {
         break;
       case 'date-picker':
         await this.fillDateField(path, data);
+        break;
+      case 'date-range-picker':
+        await this.fillDateRangeField(path, data);
         break;
       case 'rich-text':
         await this.fillRichTextField(path, data);
@@ -151,14 +157,23 @@ class FormSubmitter {
     }
   }
 
+  async selectDateOnActivePicker(date) {
+    const dateSelector = `[title="${moment(date).format('MMMM D, YYYY')}"]`;
+    await this.page.waitFor(dateSelector);
+    await this.page.click(dateSelector);
+  }
+
   async fillDateField(path, value) {
     const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
     await this.page.click(fieldSelector);
-    const datePickerDaySelector = `[title="${moment(value).format(
-      'MMMM D, YYYY'
-    )}"]`;
-    await this.page.waitFor(datePickerDaySelector);
-    await this.page.click(datePickerDaySelector);
+    await this.selectDateOnActivePicker(value);
+  }
+
+  async fillDateRangeField(path, [startDate, endDate]) {
+    const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
+    await this.page.click(fieldSelector);
+    await this.selectDateOnActivePicker(startDate);
+    await this.selectDateOnActivePicker(endDate);
   }
 
   async fillRichTextField(path, value) {

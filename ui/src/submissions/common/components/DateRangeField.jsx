@@ -28,13 +28,15 @@ function DateRangeField({ value = [], ...props }) {
   );
 
   return (
-    <DatePicker.RangePicker
-      {...props}
-      value={valueAsMoment}
-      onBlur={onBlur}
-      onChange={onChange}
-      className="w-100"
-    />
+    <div data-test-type="date-range-picker" data-test-id={name}>
+      <DatePicker.RangePicker
+        {...props}
+        value={valueAsMoment}
+        onBlur={onBlur}
+        onChange={onChange}
+        className="w-100"
+      />
+    </div>
   );
 }
 
