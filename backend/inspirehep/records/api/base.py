@@ -285,6 +285,8 @@ class InspireRecord(Record):
         """
 
     def update(self, data, *args, **kwargs):
+        if "control_number" not in data:
+            raise ValueError("Missing contorl Number in record update")
         with db.session.begin_nested():
             self.clear()
             super().update(data)
