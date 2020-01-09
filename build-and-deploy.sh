@@ -49,7 +49,7 @@ deployQA() {
       -F variables[NEW_TAG]=${TAG} \
       https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
 
-    sleep 1
+    sleep 5
 
     echo "Deploying inspirehep/hep"
     curl -X POST \
