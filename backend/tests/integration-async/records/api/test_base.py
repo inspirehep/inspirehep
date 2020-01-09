@@ -72,7 +72,10 @@ def test_get_modified_references_returns_all_references_when_earliest_date_chang
 
     assert citing_record.get_modified_references() == [cited_record.id]
 
-    data_update = {"preprint_date": "2018-06-28"}
+    data_update = {
+        "preprint_date": "2018-06-28",
+        "control_number": citing_record["control_number"],
+    }
     citing_data.update(data_update)
     citing_record.update(citing_data)
     db.session.commit()
@@ -111,7 +114,10 @@ def test_get_modified_references_returns_no_references_when_non_impacting_metada
 
     assert citing_record.get_modified_references() == [cited_record.id]
 
-    data_update = {"titles": [{"title": "updated title"}]}
+    data_update = {
+        "titles": [{"title": "updated title"}],
+        "control_number": citing_record["control_number"],
+    }
     citing_data.update(data_update)
     citing_record.update(citing_data)
     db.session.commit()

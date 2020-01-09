@@ -35,7 +35,12 @@ def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
     assert "uuid" in db_record["authors"][0]
 
     expected_signature_block = "ELj"
-    data.update({"authors": [{"full_name": "Ellis, Jane"}]})
+    data.update(
+        {
+            "authors": [{"full_name": "Ellis, Jane"}],
+            "control_number": record["control_number"],
+        }
+    )
     record.update(data)
     db.session.commit()
     record_updated = LiteratureRecord.get_record_by_pid_value(record_control_number)

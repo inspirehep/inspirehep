@@ -338,6 +338,7 @@ def test_record_create_and_update_with_legacy_creation_date(app, db):
     assert result_record_model_created == "2000-01-01 00:00:00"
 
     data["legacy_creation_date"] = "2000-01-02"
+    data["control_number"] = record["control_number"]
     record.update(data)
 
     result_record_model_updated = RecordMetadata.query.filter_by(id=record.id).one()
@@ -351,3 +352,11 @@ def test_update_record_without_control_number(app, db, create_record):
     del data["control_number"]
     with pytest.raises(ValueError):
         rec.update(data)
+
+
+def test_update_record_with_different_control_number(app, db, create_record):
+    data1 = faker.record("lit")
+    data2 = faker.record("lit")
+    record = InspireRecord.create(data1)
+    with pytest.raises(ValueError):
+        record.update(data2)

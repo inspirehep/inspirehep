@@ -153,6 +153,7 @@ def test_conferences_application_json_put_with_cataloger_logged_in(
         content_type="application/json",
         data=json.dumps(
             {
+                "control_number": record_control_number,
                 "$schema": "http://localhost:5000/schemas/records/conferences.json",
                 "_collections": ["Conferences"],
             }
