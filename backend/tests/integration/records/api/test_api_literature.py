@@ -108,11 +108,12 @@ def test_literature_create_with_mutliple_updated_pids(base_app, db, create_pidst
     arxiv_value_new = faker.arxiv()
     data.update(
         {
+            "control_number": record["control_number"],
             "arxiv_eprints": [{"value": arxiv_value_new}],
             "dois": [{"value": doi_value_new}],
         }
     )
-    record.clear()
+
     record.update(data)
 
     expected_pid_lit_value = str(data["control_number"])
@@ -724,6 +725,7 @@ def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record1 = InspireRecord.create(data1, disable_orcid_push=True)
+    data2["control_number"] = record1["control_number"]
     record1.update(data2, disable_orcid_push=True)
     assert orcid_mock.call_count == 0
 
@@ -733,6 +735,7 @@ def test_record_update_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record1 = InspireRecord.create(data1)
+    data2["control_number"] = record1["control_number"]
     record1.update(data2)
     assert orcid_mock.call_count == 2
 
@@ -746,6 +749,7 @@ def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record1 = InspireRecord.create(data1, disable_relations_update=True)
+    data2["control_number"] = record1["control_number"]
     record1.update(data2, disable_relations_update=True)
     assert citation_recalculate_mock.call_count == 0
 
@@ -759,6 +763,7 @@ def test_record_update_runs_citation_recalculate_on_default(
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record1 = InspireRecord.create(data1)
+    data2["control_number"] = record1["control_number"]
     record1.update(data2)
     assert citation_recalculate_mock.call_count == 2
 
@@ -784,6 +789,7 @@ def test_get_modified_references(base_app, db, es_clear):
             }
         }
     ]
+    citing_data["control_number"] = citing_record["control_number"]
     citing_record.update(citing_data)
 
     assert citing_record.get_modified_references() == [cited_record_2.id]
@@ -913,7 +919,6 @@ def test_updating_record_updates_authors_signature_blocks_and_uuids(
     author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
     data = faker.record("lit", data=author_data)
     record = LiteratureRecord.create(data)
-
     expected_result_create = [
         {
             "full_name": "Ellis, John Richard",
@@ -926,6 +931,7 @@ def test_updating_record_updates_authors_signature_blocks_and_uuids(
 
     mock_uuid4.return_value = UUID("e14955b0-7e57-41a0-90a8-f4c64eb8f4e9")
     data.update({"authors": [{"full_name": "Jimmy"}]})
+    data["control_number"] = record["control_number"]
     record.update(data)
     expected_result_update = [
         {
@@ -977,6 +983,7 @@ def test_update_record_sends_phonetic_blocks_to_redis(base_app, db, es, redis):
     record = LiteratureRecord.create(data)
     author_data_updated = {"authors": [{"full_name": "Ellis, John Richard"}]}
     data.update(author_data_updated)
+    data["control_number"] = record["control_number"]
     record.update(data)
     assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
 

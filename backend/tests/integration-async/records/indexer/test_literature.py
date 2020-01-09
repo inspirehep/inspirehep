@@ -77,6 +77,7 @@ def test_lit_record_update_when_changed(
     db.session.commit()
     expected_title = "Updated title"
     data["titles"][0]["title"] = expected_title
+    data["control_number"] = rec["control_number"]
     rec.update(data)
     db.session.commit()
 
@@ -161,7 +162,9 @@ def test_lit_record_updates_references_when_record_is_deleted(
 
     assert_citation_count(cited_record, 1)
 
-    data_citing_record.update({"deleted": True})
+    data_citing_record.update(
+        {"deleted": True, "control_number": citing_record["control_number"]}
+    )
     citing_record.update(data_citing_record)
     db.session.commit()
 
@@ -185,6 +188,8 @@ def test_lit_record_updates_references_when_reference_is_deleted(
     assert_citation_count(cited_record, 0)
 
     del data_citing_record["references"]
+    data_citing_record["control_number"] = citing_record["control_number"]
+
     citing_record.update(data_citing_record)
     db.session.commit()
 
@@ -211,6 +216,7 @@ def test_lit_record_updates_references_when_reference_is_added(
             }
         }
     ]
+    data_citing_record["control_number"] = citing_record["control_number"]
     citing_record.update(data_citing_record)
     db.session.commit()
 
@@ -245,6 +251,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
     retry_until_matched(steps)
 
     data_citing_record["preprint_date"] = "2019-06-28"
+    data_citing_record["control_number"] = citing_record["control_number"]
     citing_record.update(data_citing_record)
     db.session.commit()
 

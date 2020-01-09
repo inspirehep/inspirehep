@@ -285,8 +285,19 @@ class InspireRecord(Record):
         """
 
     def update(self, data, *args, **kwargs):
-        if "control_number" not in data:
-            raise ValueError("Missing contorl Number in record update")
+        if not self.get("deleted", False):
+            if "control_number" not in data:
+                raise ValueError("Missing contorl number in record update.")
+            # Currently Invenio is clearing record in put method in invenio_records_rest/views.py
+            # this is called just before `record.update()` so here record is already empty
+            # it means that it's not possible to verify if control_number is correct in here.
+            if (
+                "control_number" in self
+                and data["control_number"] != self["control_number"]
+            ):
+                raise ValueError(
+                    "Control number in data update do not match one in the record."
+                )
         with db.session.begin_nested():
             self.clear()
             super().update(data)

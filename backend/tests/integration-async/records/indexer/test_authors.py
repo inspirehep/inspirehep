@@ -44,6 +44,7 @@ def test_aut_record_update_when_changed(
     db.session.commit()
     expected_death_date = "1900-01-01"
     data["death_date"] = expected_death_date
+    data["control_number"] = rec["control_number"]
     rec.update(data)
     db.session.commit()
 
