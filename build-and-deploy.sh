@@ -40,22 +40,13 @@ logout() {
 }
 
 deployQA() {
+  image="${1}"
   if [ -z "${TRAVIS_TAG}" ]; then
-    echo "Deploying inspirehep/ui"
+    echo "Deploying ${image} ..."
     curl -X POST \
       -F token=${DEPLOY_QA_TOKEN} \
       -F ref=master \
-      -F variables[IMAGE_NAME]=inspirehep/ui \
-      -F variables[NEW_TAG]=${TAG} \
-      https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
-
-    sleep 5
-
-    echo "Deploying inspirehep/hep"
-    curl -X POST \
-      -F token=${DEPLOY_QA_TOKEN} \
-      -F ref=master \
-      -F variables[IMAGE_NAME]=inspirehep/hep \
+      -F variables[IMAGE_NAME]=${image} \
       -F variables[NEW_TAG]=${TAG} \
       https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
   fi
@@ -66,6 +57,7 @@ main() {
   buildPush "ui" "inspirehep/ui"
   buildPush "backend" "inspirehep/hep"
   logout
-  deployQA
+  deployQA "inspirehep/ui"
+  deployQA "inspirehep/hep"
 }
 main
