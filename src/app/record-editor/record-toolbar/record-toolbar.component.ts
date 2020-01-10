@@ -39,6 +39,7 @@ import { HOVER_TO_DISMISS_INDEFINITE_TOAST } from '../../shared/constants';
 export class RecordToolbarComponent extends SubscriberComponent implements OnInit {
   // `undefined` if there is no record being edited
   record: object;
+  pidType: string;
 
   displayingRevision = false;
 
@@ -71,6 +72,13 @@ export class RecordToolbarComponent extends SubscriberComponent implements OnIni
       .subscribe(jsonBeingEdited => {
         this.record = jsonBeingEdited;
         this.changeDetectorRef.markForCheck();
+      });
+
+    this.globalAppStateService
+      .pidTypeBeingEdited$
+      .takeUntil(this.isDestroyed)
+      .subscribe(pidTypeBeingEdited => {
+        this.pidType = pidTypeBeingEdited;
       });
   }
 
@@ -115,6 +123,13 @@ export class RecordToolbarComponent extends SubscriberComponent implements OnIni
 
   private onSaveSuccess() {
     this.domUtilsService.unregisterBeforeUnloadPrompt();
+
+    if (this.pidType === 'conferences') {
+      // direct assignment to window.location  doesn't compile with this version of TS
+      window.location.href = `/conferences/${this.record['control_number']}`;
+    } else {
+      this.toastrService.success('Changes are saved', 'Success');
+    }
   }
 
   private onSaveError(error: ApiError) {
