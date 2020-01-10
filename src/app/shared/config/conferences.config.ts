@@ -23,6 +23,7 @@
 import { JsonEditorConfig } from 'ng2-json-editor';
 import { customValidationForDateTypes } from './commons';
 import { environment } from '../../../environments/environment';
+import { ISO_COUNTRY_MAP } from '../constants';
 
 export const conferences: JsonEditorConfig = {
   customFormatValidation: customValidationForDateTypes,
@@ -111,6 +112,15 @@ export const conferences: JsonEditorConfig = {
           order: [
             'term'
           ]
+        }
+      },
+      addresses: {
+        items: {
+          properties: {
+            country_code: {
+              enumDisplayValueMap: ISO_COUNTRY_MAP
+            }
+          }
         }
       },
       cnum: {
