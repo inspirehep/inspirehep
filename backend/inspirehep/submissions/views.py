@@ -193,7 +193,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
     user_allowed_status_changes = {
         "pending": ["pending"],
         "open": ["open", "closed"],
-        "closed": ["closed"],
+        "closed": ["open", "closed"],
     }
 
     def get(self, pid_value):
@@ -204,12 +204,23 @@ class JobSubmissionsResource(BaseSubmissionsResource):
             abort(404)
 
         serialized_record = job_v1.dump(record)
-        return jsonify({"data": serialized_record})
+        deadline = serialized_record.get("deadline_date")
+
+        can_modify_status = is_superuser_or_cataloger_logged_in() or not self.has_30_days_passed_after_deadline(
+            deadline
+        )
+        return jsonify(
+            {
+                "data": serialized_record,
+                "meta": {"can_modify_status": can_modify_status},
+            }
+        )
 
     def post(self):
         """Adds new job record"""
         data = job_loader_v1()
-        data = self.prepare_data(data)
+        builder = self.get_builder_with_new_record(data)
+        data = self.get_valid_record_data_from_builder(builder)
         record = JobsRecord.create(data)
         db.session.commit()
         self.create_ticket(record, "rt/new_job.html")
@@ -230,7 +241,11 @@ class JobSubmissionsResource(BaseSubmissionsResource):
                 )
         except PIDDoesNotExistError:
             abort(404)
-        data = self.prepare_data(data, record)
+
+        self.raise_if_user_can_not_modify_status(data, record)
+
+        builder = self.get_builder_with_updated_record(data, record)
+        data = self.get_valid_record_data_from_builder(builder)
         record.update(data)
         db.session.commit()
 
@@ -239,7 +254,29 @@ class JobSubmissionsResource(BaseSubmissionsResource):
 
         return jsonify({"pid_value": record["control_number"]})
 
-    def prepare_new_record(self, data):
+    def raise_if_user_can_not_modify_status(self, data, existing_record):
+        if is_superuser_or_cataloger_logged_in():
+            return
+
+        old_status = existing_record.get("status", "pending")
+        new_status = data.get("status", old_status)
+        deadline = data.get("deadline_date")
+
+        has_status_changed = new_status != old_status
+        is_change_to_new_status_allowed = (
+            new_status in self.user_allowed_status_changes[old_status]
+        )
+        can_change_status = (
+            is_change_to_new_status_allowed
+            and not self.has_30_days_passed_after_deadline(deadline)
+        )
+
+        if has_status_changed and not can_change_status:
+            raise RESTDataError(
+                f"Only curator can change status from '{old_status}' to '{new_status}'."
+            )
+
+    def get_builder_with_new_record(self, data):
         if "$schema" not in data:
             data["$schema"] = url_for(
                 "invenio_jsonschemas.get_schema",
@@ -255,7 +292,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
             builder.add_acquisition_source(**acquisition_source)
         return builder
 
-    def prepare_update_record(self, data, record):
+    def get_builder_with_updated_record(self, data, record):
         # This contains all fields which can be removed from record (they are optional)
         # if new value sent from the form is None, or empty in any other way
         # (after de-serialization if it's missing from input data)
@@ -268,16 +305,6 @@ class JobSubmissionsResource(BaseSubmissionsResource):
             "reference_letters",
         ]
 
-        if not is_superuser_or_cataloger_logged_in():
-            old_status = record.get("status", "pending")
-            new_status = data.get("status", old_status)
-            if (
-                new_status != old_status
-                and new_status not in self.user_allowed_status_changes[old_status]
-            ):
-                raise RESTDataError(
-                    f"Only curator can change status from '{old_status}' to '{new_status}'."
-                )
         record_data = dict(record)
         for key in additional_fields:
             if key not in data and key in record_data:
@@ -286,16 +313,12 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         builder = JobBuilder(record=record_data)
         return builder
 
-    def prepare_data(self, data, record=None):
-        """Prepares data received from form.
-        As jobs do not have any 'workflows' it's required to set all the logic
-        for updating record from data provided by the user somewhere..."""
+    def has_30_days_passed_after_deadline(self, deadline):
+        deadline_date = datetime.datetime.strptime(deadline, "%Y-%m-%d").date()
+        days_after_deadline = (datetime.date.today() - deadline_date).days
+        return days_after_deadline >= 30
 
-        if record:
-            builder = self.prepare_update_record(data, record)
-        else:
-            builder = self.prepare_new_record(data)
-
+    def get_valid_record_data_from_builder(self, builder):
         try:
             builder.validate_record()
         except ValidationError as e:

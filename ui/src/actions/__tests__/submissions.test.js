@@ -118,7 +118,8 @@ describe('submissions - async action creator', () => {
     it('creates INITIAL_FORM_DATA_SUCCESS', async done => {
       const submissionUrl = '/submissions/authors/123';
       const data = { field: 'value' };
-      mockHttp.onGet(submissionUrl, { data }).replyOnce(200, data);
+      const meta = { can_access: true };
+      mockHttp.onGet(submissionUrl).replyOnce(200, { data, meta });
 
       const expectedActions = [
         {
@@ -130,7 +131,7 @@ describe('submissions - async action creator', () => {
         },
         {
           type: INITIAL_FORM_DATA_SUCCESS,
-          payload: data,
+          payload: { data, meta },
         },
       ];
 

@@ -15,6 +15,7 @@ export const initialState = fromJS({
   loadingInitialData: false,
   initialData: null,
   initialDataError: null,
+  initialMeta: null,
 });
 
 const submissionsReducer = (state = initialState, action) => {
@@ -33,12 +34,14 @@ const submissionsReducer = (state = initialState, action) => {
       return state
         .set('loadingInitialData', false)
         .set('initialData', fromJS(action.payload.data))
+        .set('initialMeta', fromJS(action.payload.meta))
         .set('initialDataError', initialState.get('initialDataError'));
     case INITIAL_FORM_DATA_ERROR:
       return state
         .set('loadingInitialData', false)
         .set('initialDataError', fromJS(action.payload))
-        .set('initialData', initialState.get('initialData'));
+        .set('initialData', initialState.get('initialData'))
+        .set('initialMeta', initialState.get('initialMeta'));
     default:
       return state;
   }

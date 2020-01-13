@@ -462,7 +462,7 @@ def test_new_literature_submit_with_workflows_api_error(
 
 
 DEFAULT_EXAMPLE_JOB_DATA = {
-    "deadline_date": "2019-01-01",
+    "deadline_date": "2030-01-01",
     "description": "description",
     "field_of_interest": ["q-bio"],
     "reference_letter_contact": {},
@@ -720,6 +720,65 @@ def test_update_job_status_from_open(ticket_mock, app, api_client, create_user):
     assert record["status"] == "closed"
 
 
+@freeze_time("2019-01-31")
+def test_job_update_data_30_days_after_deadline(app, api_client, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-01"}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+
+    response = api_client.get(record_url).json
+    assert response["meta"]["can_modify_status"] == False
+
+
+@freeze_time("2019-01-31")
+def test_job_update_data_30_days_after_deadline_with_cataloger(
+    app, api_client, create_user
+):
+    cataloger = create_user(role="cataloger")
+    login_user_via_session(api_client, email=cataloger.email)
+
+    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-01"}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+
+    response = api_client.get(record_url).json
+    assert response["meta"]["can_modify_status"] == True
+
+
+@freeze_time("2019-01-31")
+def test_job_update_data_less_than_30_days_after_deadline(app, api_client, create_user):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-02"}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+
+    response = api_client.get(record_url).json
+    assert response["meta"]["can_modify_status"] == True
+
+
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_from_closed_by_user(ticket_mock, app, api_client, create_user):
     user = create_user()
@@ -751,6 +810,41 @@ def test_update_job_from_closed_by_user(ticket_mock, app, api_client, create_use
     assert response3.status_code == 403
     record = api_client.get(record_url).json["data"]
     assert record["title"] == DEFAULT_EXAMPLE_JOB_DATA["title"]
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_job_status_update_30_days_after_deadline_by_user(
+    ticket_mock, app, api_client, create_user
+):
+    user = create_user()
+    curator = create_user(role="cataloger")
+    login_user_via_session(api_client, email=user.email)
+    data = {**DEFAULT_EXAMPLE_JOB_DATA}
+    response = api_client.post(
+        "/submissions/jobs",
+        content_type="application/json",
+        data=json.dumps({"data": data}),
+    )
+    assert response.status_code == 201
+    pid_value = response.json["pid_value"]
+    record_url = url_for(".job_submission_view", pid_value=pid_value)
+    #  Login as curator to update job status
+    login_user_via_session(api_client, email=curator.email)
+    data["status"] = "closed"
+    response2 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+    assert response2.status_code == 200
+    #  Login as user again to update job title
+    login_user_via_session(api_client, email=user.email)
+    data["status"] = "open"
+    response3 = api_client.put(
+        record_url, content_type="application/json", data=json.dumps({"data": data})
+    )
+
+    assert response3.status_code == 403
+    record = api_client.get(record_url).json["data"]
+    assert record["status"] == "closed"
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
