@@ -110,7 +110,7 @@ def process_author_papers_if_author_changed_name(record):
 
 
 @shared_task(
-    ignore_result=False,
+    ignore_result=True,
     bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
