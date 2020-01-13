@@ -378,8 +378,9 @@ class InspireRecord(Record):
             "Record indexing", recid=self.get("control_number"), uuid=str(self.id)
         )
         if delay:
-            return index_record.delay(**arguments)
-        return index_record(**arguments)
+            index_record.delay(**arguments)
+            return
+        index_record(**arguments)
 
     @property
     def _previous_version(self):
