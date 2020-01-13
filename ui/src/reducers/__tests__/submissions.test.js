@@ -19,6 +19,7 @@ describe('submissions reducer', () => {
       loadingInitialData: false,
       initialData: null,
       initialDataError: null,
+      initialMeta: null,
     });
     expect(state).toEqual(expected);
   });
@@ -65,14 +66,18 @@ describe('submissions reducer', () => {
   });
 
   it('INITIAL_FORM_DATA_SUCCESS', () => {
-    const data = fromJS({
+    const data = {
       control_number: 123,
-    });
+    };
+    const meta = {
+      can_modify_status: true,
+    };
     const state = reducer(Map(), {
       type: INITIAL_FORM_DATA_SUCCESS,
-      payload: { data },
+      payload: { data, meta },
     });
-    expect(state.get('initialData')).toEqual(data);
+    expect(state.get('initialData').toJS()).toEqual(data);
+    expect(state.get('initialMeta').toJS()).toEqual(meta);
     expect(state.get('loadingInitialData')).toBe(false);
     expect(state.get('initialDataError')).toEqual(
       initialState.get('initialDataError')

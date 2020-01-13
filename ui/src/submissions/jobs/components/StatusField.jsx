@@ -6,13 +6,8 @@ import { statusOptions, unAuthorizedStatusOptions } from '../schemas/constants';
 
 class StatusField extends Component {
   render() {
-    const {
-      isCatalogerLoggedIn,
-      isUpdateSubmission,
-      ...selectFieldProps
-    } = this.props;
+    const { isCatalogerLoggedIn, canModify, ...selectFieldProps } = this.props;
 
-    const disabled = !isUpdateSubmission && !isCatalogerLoggedIn;
     const options = isCatalogerLoggedIn
       ? statusOptions
       : unAuthorizedStatusOptions;
@@ -20,7 +15,7 @@ class StatusField extends Component {
     return (
       <SelectField
         {...selectFieldProps}
-        disabled={disabled}
+        disabled={!canModify}
         options={options}
       />
     );
@@ -28,8 +23,8 @@ class StatusField extends Component {
 }
 
 StatusField.propTypes = {
-  isUpdateSubmission: PropTypes.bool.isRequired,
   isCatalogerLoggedIn: PropTypes.bool.isRequired,
+  canModify: PropTypes.bool.isRequired,
 };
 
 export default StatusField;

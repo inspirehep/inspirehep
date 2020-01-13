@@ -1,122 +1,83 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`StatusField renders if not update submissions and not cataloger 1`] = `
+exports[`StatusField renders if can modify and cataloger logged in 1`] = `
+<WithFormItem(SelectField)
+  disabled={false}
+  labelCol={
+    Object {
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+  options={
+    Array [
+      Object {
+        "value": "pending",
+      },
+      Object {
+        "value": "open",
+      },
+      Object {
+        "value": "closed",
+      },
+    ]
+  }
+  wrapperCol={
+    Object {
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+/>
+`;
+
+exports[`StatusField renders if can modify but not cataloger logged in 1`] = `
+<WithFormItem(SelectField)
+  disabled={false}
+  labelCol={
+    Object {
+      "md": Object {
+        "span": 5,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+  options={
+    Array [
+      Object {
+        "value": "open",
+      },
+      Object {
+        "value": "closed",
+      },
+    ]
+  }
+  wrapperCol={
+    Object {
+      "md": Object {
+        "span": 19,
+      },
+      "sm": Object {
+        "span": 24,
+      },
+    }
+  }
+/>
+`;
+
+exports[`StatusField renders if can not modify and not cataloger logged in 1`] = `
 <WithFormItem(SelectField)
   disabled={true}
-  labelCol={
-    Object {
-      "md": Object {
-        "span": 5,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-  options={
-    Array [
-      Object {
-        "value": "open",
-      },
-      Object {
-        "value": "closed",
-      },
-    ]
-  }
-  wrapperCol={
-    Object {
-      "md": Object {
-        "span": 19,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-/>
-`;
-
-exports[`StatusField renders if not update submissions but cataloger 1`] = `
-<WithFormItem(SelectField)
-  disabled={false}
-  labelCol={
-    Object {
-      "md": Object {
-        "span": 5,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-  options={
-    Array [
-      Object {
-        "value": "pending",
-      },
-      Object {
-        "value": "open",
-      },
-      Object {
-        "value": "closed",
-      },
-    ]
-  }
-  wrapperCol={
-    Object {
-      "md": Object {
-        "span": 19,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-/>
-`;
-
-exports[`StatusField renders if update submissions and cataloger 1`] = `
-<WithFormItem(SelectField)
-  disabled={false}
-  labelCol={
-    Object {
-      "md": Object {
-        "span": 5,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-  options={
-    Array [
-      Object {
-        "value": "pending",
-      },
-      Object {
-        "value": "open",
-      },
-      Object {
-        "value": "closed",
-      },
-    ]
-  }
-  wrapperCol={
-    Object {
-      "md": Object {
-        "span": 19,
-      },
-      "sm": Object {
-        "span": 24,
-      },
-    }
-  }
-/>
-`;
-
-exports[`StatusField renders if update submissions but not cataloger 1`] = `
-<WithFormItem(SelectField)
-  disabled={false}
   labelCol={
     Object {
       "md": Object {
