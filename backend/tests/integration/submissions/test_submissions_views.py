@@ -1003,3 +1003,57 @@ def test_rt_ticket_when_superuser_submits_conference(
 
     assert response.status_code == 201
     ticket_mock.delay.assert_not_called()
+
+
+@patch("inspirehep.submissions.views.send_conference_confirmation_email")
+def test_confirmation_email_not_sent_when_user_is_superuser(
+    mock_send_confirmation_email, app, api_client, create_user
+):
+    user = create_user(role=Roles.superuser.value)
+    login_user_via_session(api_client, email=user.email)
+    form_data = deepcopy(CONFERENCE_FORM_DATA)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    assert response.status_code == 201
+    mock_send_confirmation_email.assert_not_called()
+
+
+@patch("inspirehep.submissions.views.send_conference_confirmation_email")
+def test_confirmation_email_not_sent_when_user_is_cataloger(
+    mock_send_confirmation_email, app, api_client, create_user
+):
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
+    form_data = deepcopy(CONFERENCE_FORM_DATA)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    assert response.status_code == 201
+    mock_send_confirmation_email.assert_not_called()
+
+
+@patch("inspirehep.submissions.views.send_conference_confirmation_email")
+def test_confirmation_email_sent_for_regular_user(
+    mock_send_confirmation_email, app, api_client, create_user
+):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    form_data = deepcopy(CONFERENCE_FORM_DATA)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": form_data}),
+    )
+
+    conference_rec = ConferencesRecord.get_record_by_pid_value(
+        response.json["pid_value"]
+    )
+    assert response.status_code == 201
+    mock_send_confirmation_email.assert_called_once_with(user.email, conference_rec)
