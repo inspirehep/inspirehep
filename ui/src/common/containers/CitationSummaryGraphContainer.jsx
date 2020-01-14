@@ -73,7 +73,9 @@ const dispatchToProps = dispatch => ({
   // TODO: rename to onSelectedBarChange
   onSelectBarChange(bar) {
     const query = barToQuery(bar);
-    dispatch(searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, query));
+    dispatch(
+      searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { page: '1', ...query })
+    );
   },
 });
 
