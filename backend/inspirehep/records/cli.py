@@ -19,6 +19,7 @@ from invenio_records.api import RecordMetadata
 from sqlalchemy import DateTime, cast, not_, or_, type_coerce
 from sqlalchemy.dialects.postgresql import JSONB
 
+from inspirehep.mailing.api.jobs import send_job_deadline_reminder
 from inspirehep.records.api import InspireRecord, JobsRecord
 from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
 from inspirehep.records.tasks import batch_relations_update
@@ -189,23 +190,21 @@ def jobs():
     """Command for jobs"""
 
 
-@jobs.command(help="Closes jobs with deadline before the given date.")
+@jobs.command(help="Closes expired jobs")
 @click.option(
-    "--deadline-before-date",
-    help="Date with the format YYYY-MM-DD. All jobs with deadline date before this date "
-    "will be closed.",
-    type=str,
-    default=str(datetime.datetime.utcnow().date()),
+    "--notify",
+    help="It will notify the job poster via email that their job has been closed",
+    is_flag=True,
+    default=False,
     show_default=True,
 )
 @with_appcontext
-def close_before(deadline_before_date):
-    datetime.datetime.strptime(deadline_before_date, "%Y-%m-%d")
+def close_expired_jobs(notify):
+    now = datetime.datetime.utcnow()
+    today = now.strftime("%Y-%m-%d")
 
     record_json = type_coerce(RecordMetadata.json, JSONB)
-    before_deadline_date = (
-        record_json["deadline_date"].astext.cast(DateTime) < deadline_before_date
-    )
+    before_deadline_date = record_json["deadline_date"].astext.cast(DateTime) < today
     only_jobs_collection = record_json["_collections"].contains(["Jobs"])
     only_not_closed = not_(record_json["status"].astext == "closed")
     only_not_deleted = or_(
@@ -215,11 +214,15 @@ def close_before(deadline_before_date):
     expired_jobs = RecordMetadata.query.filter(
         only_jobs_collection, only_not_deleted, only_not_closed, before_deadline_date
     ).all()
-
-    for job in expired_jobs:
-        record = JobsRecord(job.json, model=job)
-        record["status"] = "closed"
-        record.update(dict(record))
+    expired_job_records = [JobsRecord(job.json, model=job) for job in expired_jobs]
+    for job_record in expired_job_records:
+        job_record["status"] = "closed"
+        job_record.update(dict(job_record))
 
     db.session.commit()
-    LOGGER.info("Closed expired jobs", num_records=len(expired_jobs))
+
+    if notify:
+        for job_record in expired_job_records:
+            send_job_deadline_reminder(dict(job_record))
+
+    LOGGER.info("Closed expired jobs", notify=notify, num_records=len(expired_jobs))
