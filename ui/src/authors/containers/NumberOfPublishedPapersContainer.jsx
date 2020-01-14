@@ -7,7 +7,12 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
 
 export const dispatchToProps = dispatch => ({
   onClick() {
-    dispatch(searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, PUBLISHED_QUERY));
+    dispatch(
+      searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, {
+        page: '1',
+        ...PUBLISHED_QUERY,
+      })
+    );
   },
 });
 

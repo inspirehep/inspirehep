@@ -153,6 +153,7 @@ describe('CitationSummaryGraphContainer', () => {
       citation_count: undefined,
       citeable: undefined,
       refereed: undefined,
+      page: '1',
     };
     const expectedActions = [
       {
@@ -178,6 +179,7 @@ describe('CitationSummaryGraphContainer', () => {
       citation_count: '0--0',
       citeable: true,
       refereed: undefined,
+      page: '1',
     };
     const expectedActions = [
       {
@@ -199,7 +201,12 @@ describe('CitationSummaryGraphContainer', () => {
       xValue: '0--0',
       type: PUBLISHED_BAR_TYPE,
     });
-    const query = { citation_count: '0--0', citeable: true, refereed: true };
+    const query = {
+      citation_count: '0--0',
+      citeable: true,
+      refereed: true,
+      page: '1',
+    };
     const expectedActions = [
       {
         type: SEARCH_QUERY_UPDATE,
