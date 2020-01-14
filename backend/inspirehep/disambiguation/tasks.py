@@ -20,7 +20,7 @@ disambiguation_created_authors = Counter(
 )
 
 
-@shared_task(ignore_result=False, bind=True)
+@shared_task(ignore_result=True, bind=True)
 def disambiguate_signatures(self, clusters):
     """Task which performs author disambiguation according to the given clusters.
     If the cluster has no authors, it creates a new author using the data from all the signatures

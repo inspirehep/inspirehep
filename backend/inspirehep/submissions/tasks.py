@@ -11,7 +11,7 @@ from celery import shared_task
 from inspirehep.rt.tickets import CreateTicketException, create_ticket_with_template
 
 
-@shared_task(ignore_result=False, max_retries=5)
+@shared_task(ignore_result=True, max_retries=5)
 def async_create_ticket_with_template(
     queue, requestor, template_path, template_context, title, recid=None
 ):

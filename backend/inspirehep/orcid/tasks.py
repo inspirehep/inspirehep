@@ -191,7 +191,7 @@ def _register_user(name, email, orcid, token):
 # in order to schedule a retry).
 # Race conditions between the 2 limits are possible, but the orcid push
 # operation is idempotent.
-@shared_task(bind=True, soft_time_limit=10 * 60, time_limit=11 * 60)
+@shared_task(ignore_result=True, bind=True, soft_time_limit=10 * 60, time_limit=11 * 60)
 @time_execution
 def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
     """Celery task to push a record to ORCID.
@@ -220,7 +220,7 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         pusher = domain_models.OrcidPusher(
             orcid, rec_id, oauth_token, **kwargs_to_pusher
         )
-        putcode = pusher.push()
+        pusher.push()
         LOGGER.info("Orcid_push task successfully completed", recid=rec_id, orcid=orcid)
     except (RequestException, SoftTimeLimitExceeded) as exc:
         # Trigger a retry only in case of network-related issues.
@@ -259,7 +259,6 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
     except Exception:
         LOGGER.warning("Orcid_push task failed", recid=rec_id, orcid=orcid)
         raise
-    return putcode
 
 
 def _find_user_matching(orcid, email):

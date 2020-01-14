@@ -179,7 +179,7 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
     return task
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(ignore_result=False, queue="migrator", acks_late=True)
 def migrate_recids_from_mirror(
     recids_chunks,
     step_no=0,
@@ -238,12 +238,12 @@ def migrate_recids_from_mirror(
     return str(chord_task.id)
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(ignore_result=False, queue="migrator", acks_late=True)
 def stop_after_one_step():
     LOGGER.info("Only one step was requested. Stopping next steps")
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(ignore_result=False, queue="migrator", acks_late=True)
 def fail_info(*args, **kwargs):
     LOGGER.error("Migration callback failed", args=args, kwargs=kwargs)
 
@@ -295,7 +295,7 @@ def create_records_from_mirror_recids(recids):
     return list(processed_records)
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(ignore_result=False, queue="migrator", acks_late=True)
 def update_relations(uuids):
     """Task which updates records_citations and conference_literature tables tabls with
     relations of proper literature record.
@@ -308,7 +308,7 @@ def update_relations(uuids):
     return update_records_relations(uuids)
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(ignore_result=False, queue="migrator", acks_late=True)
 def process_references_in_records(uuids):
     references_to_reindex = []
     try:
@@ -335,7 +335,7 @@ def process_references_in_records(uuids):
     return uuids
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(ignore_result=False, queue="migrator", acks_late=True)
 def index_records(uuids):
     """Task which Indexes specified records in ElasticSearch
 
@@ -351,7 +351,7 @@ def index_records(uuids):
     return uuids
 
 
-@shared_task(ignore_results=False, queue="migrator", acks_late=True)
+@shared_task(ignore_result=False, queue="migrator", acks_late=True)
 def run_orcid_push(uuids):
     for uuid in uuids:
         try:
