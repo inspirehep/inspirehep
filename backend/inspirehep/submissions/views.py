@@ -23,6 +23,7 @@ from inspirehep.accounts.api import (
     is_superuser_or_cataloger_logged_in,
 )
 from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.mailing.api.conferences import send_conference_confirmation_email
 from inspirehep.records.api import AuthorsRecord, ConferencesRecord, JobsRecord
 from inspirehep.submissions.errors import RESTDataError
 from inspirehep.utils import get_inspirehep_url
@@ -128,6 +129,7 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
         db.session.commit()
         if not is_superuser_or_cataloger_logged_in():
             self.create_ticket(record, "rt/new_conference.html")
+            send_conference_confirmation_email(current_user.email, record)
         return (
             jsonify(
                 {"pid_value": record["control_number"], "cnum": record.get("cnum")}
