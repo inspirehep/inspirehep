@@ -62,7 +62,6 @@ def notify_expired_jobs(dry_run):
     dates = [
         datetime.date.today(),
         (datetime.date.today() - datetime.timedelta(days=30)),
-        (datetime.date.today() - datetime.timedelta(days=60)),
     ]
 
     for d in dates:
