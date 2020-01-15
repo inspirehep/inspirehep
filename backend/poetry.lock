@@ -3789,7 +3789,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "f4ea4c26845b5106c02a4d867a09bd2a73a602b536180d90fe940b2acf7c703c"
+content-hash = "cba8d5abb04c054fe442141f6bea9437355460ffa44449b63aaf30f1eab468e5"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
