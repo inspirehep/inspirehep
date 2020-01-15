@@ -46,7 +46,8 @@ export const conferences: JsonEditorConfig = {
       '_private_notes',
       'alternative_titles',
       'inspire_categories',
-      'keywords'
+      'keywords',
+      'deleted'
     ],
     order: [
       'titles',
