@@ -214,3 +214,50 @@ def test_jobs_search_permissions(
     response = api_client.get("/jobs")
     response_data = json.loads(response.data)
     assert response_data["hits"]["total"] == 1
+
+
+def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
+    data = json.loads((datadir / "1735925.json").read_text())
+    record = create_record("job", data=data)
+
+    response = api_client.get("/jobs")
+    response_data = response.json
+
+    response_status_code = response.status_code
+    response_data_sort_options = response_data["sort_options"]
+
+    expected_status_code = 200
+    expected_sort_options_1 = {"value": "mostrecent", "display": "Most Recent"}
+    expected_sort_options_2 = {"value": "deadline", "display": "Earliest Deadline"}
+
+    assert expected_status_code == response_status_code
+    assert expected_sort_options_1 in response_data_sort_options
+    assert expected_sort_options_2 in response_data_sort_options
+
+
+def test_jobs_sort_by_deadline(api_client, db, es_clear, create_record, datadir):
+    data = json.loads((datadir / "1735925.json").read_text())
+    create_record("job", data=data)
+    data["deadline_date"] = "2020-12-31"
+    data["control_number"] = 1_735_926
+    create_record("job", data=data)
+    expected_first_control_number = 1_735_925
+    expected_second_control_number = 1_735_926
+
+    response = api_client.get("/jobs?sort=deadline")
+
+    response_data = response.json
+    response_first_control_number = response_data["hits"]["hits"][0]["metadata"][
+        "control_number"
+    ]
+    response_second_control_nubmer = response_data["hits"]["hits"][1]["metadata"][
+        "control_number"
+    ]
+
+    response_status_code = response.status_code
+
+    expected_status_code = 200
+
+    assert expected_status_code == response_status_code
+    assert expected_first_control_number == response_first_control_number
+    assert expected_second_control_number == response_second_control_nubmer

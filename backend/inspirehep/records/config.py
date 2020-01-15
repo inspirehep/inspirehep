@@ -543,7 +543,12 @@ RECORDS_REST_SORT_OPTIONS = {
         },
     },
     "records-jobs": {
-        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1}
+        "mostrecent": {"title": "Most Recent", "fields": ["-_created"], "order": 1},
+        "deadline": {
+            "title": "Earliest Deadline",
+            "fields": ["deadline_date"],
+            "order": 2,
+        },
     },
     "records-conferences": {
         "dateasc": {"title": "Date ascending", "fields": ["opening_date"], "order": 1},
