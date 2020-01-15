@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 from datetime import datetime
+from operator import itemgetter
 
 from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
@@ -176,10 +177,15 @@ def test_conferences_sort_options(api_client, db, es, create_record):
     response_data_sort_options = response_data["sort_options"]
 
     expected_status_code = 200
-    expected_sort_options_1 = {"value": "mostrecent", "display": "Most Recent"}
+    expected_sort_options = [
+        {"display": "Date ascending", "value": "dateasc"},
+        {"display": "Date descending", "value": "datedesc"},
+    ]
 
     assert expected_status_code == response_status_code
-    assert expected_sort_options_1 in response_data_sort_options
+    assert expected_sort_options == sorted(
+        response_data_sort_options, key=itemgetter("value")
+    )
 
 
 def test_conferences_facets(api_client, db, es, create_record):
