@@ -168,6 +168,17 @@ class AuthorsSearch(InspireSearch):
         index = "records-authors"
         doc_types = "_doc"
 
+    @staticmethod
+    def get_author_papers(author, source=None, size=10000):
+        if not author:
+            return []
+        author_query = {"authors.recid": author["control_number"]}
+        query = Q("nested", path="authors", query=Q("match", **author_query))
+        results = LiteratureSearch().query(query).params(size=size)
+        if source:
+            results = results.params(_source=source)
+        return results
+
 
 class DataSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Data database."""

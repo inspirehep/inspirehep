@@ -4,13 +4,14 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import time
 
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
 from invenio_db import db
 from invenio_search import current_search_client as es
 
-from inspirehep.records.api import AuthorsRecord
+from inspirehep.records.api import AuthorsRecord, LiteratureRecord
 
 
 def test_aut_record_appear_in_es_when_created(
@@ -43,6 +44,7 @@ def test_aut_record_update_when_changed(
     db.session.commit()
     expected_death_date = "1900-01-01"
     data["death_date"] = expected_death_date
+    data["control_number"] = rec["control_number"]
     rec.update(data)
     db.session.commit()
 
@@ -125,3 +127,72 @@ def test_record_created_through_api_is_indexed(
         },
     ]
     retry_until_matched(steps)
+
+
+def test_indexer_updates_authors_papers_when_name_changes(
+    app, celery_app_with_context, celery_session_worker, retry_until_matched
+):
+    SLEEP_TIME = 2
+    author_data = faker.record("aut")
+    author = AuthorsRecord.create(author_data)
+    db.session.commit()
+    es.indices.refresh("records-authors")
+    author_cn = author["control_number"]
+
+    lit_data = {
+        "authors": [
+            {
+                "record": {
+                    "$ref": f"https://labs.inspirehep.net/api/authors/{author_cn}"
+                },
+                "full_name": author["name"]["value"],
+            }
+        ]
+    }
+    lit_data = faker.record("lit", data=lit_data)
+
+    lit_1 = LiteratureRecord.create(lit_data)
+    db.session.commit()
+
+    time.sleep(SLEEP_TIME)
+    es.indices.refresh("*")
+    results = es.search("records-hep")
+    expected_hits = 1
+
+    assert results["hits"]["total"]["value"] == expected_hits
+
+    expected_facet_author_name_count = 1
+    expected_facet_author_name = f"{author['control_number']}_{author['name']['value']}"
+    results = es.search("records-hep")
+
+    assert (
+        len(results["hits"]["hits"][0]["_source"]["facet_author_name"])
+        == expected_facet_author_name_count
+    )
+    assert (
+        results["hits"]["hits"][0]["_source"]["facet_author_name"][0]
+        == expected_facet_author_name
+    )
+
+    data = dict(author)
+    data["name"]["value"] = "Some other name"
+    author.update(data)
+    db.session.commit()
+
+    time.sleep(SLEEP_TIME)
+    es.indices.refresh("*")
+    results = es.search("records-hep")
+
+    assert results["hits"]["total"]["value"] == expected_hits
+
+    expected_facet_author_name = f"{author['control_number']}_Some other name"
+    results = es.search("records-hep")
+
+    assert (
+        len(results["hits"]["hits"][0]["_source"]["facet_author_name"])
+        == expected_facet_author_name_count
+    )
+    assert (
+        results["hits"]["hits"][0]["_source"]["facet_author_name"][0]
+        == expected_facet_author_name
+    )

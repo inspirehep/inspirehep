@@ -9,6 +9,7 @@
 
 
 import json
+from copy import copy
 
 import pytest
 from helpers.providers.faker import faker
@@ -337,8 +338,25 @@ def test_record_create_and_update_with_legacy_creation_date(app, db):
     assert result_record_model_created == "2000-01-01 00:00:00"
 
     data["legacy_creation_date"] = "2000-01-02"
+    data["control_number"] = record["control_number"]
     record.update(data)
 
     result_record_model_updated = RecordMetadata.query.filter_by(id=record.id).one()
     result_record_model_updated_created = str(result_record_model.created)
     assert result_record_model_updated_created == "2000-01-02 00:00:00"
+
+
+def test_update_record_without_control_number(app, db, create_record):
+    rec = create_record("lit")
+    data = copy(rec)
+    del data["control_number"]
+    with pytest.raises(ValueError):
+        rec.update(data)
+
+
+def test_update_record_with_different_control_number(app, db, create_record):
+    data1 = faker.record("lit")
+    data2 = faker.record("lit")
+    record = InspireRecord.create(data1)
+    with pytest.raises(ValueError):
+        record.update(data2)

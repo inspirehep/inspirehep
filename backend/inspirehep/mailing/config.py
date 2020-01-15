@@ -12,6 +12,9 @@ MAILTRAIN_JOBS_WEEKLY_LIST_ID = ""
 JOBS_DEADLINE_PASSED_SENDER_EMAIL = "jobs@inspirehep.net"
 """Email address for notifying expired jobs"""
 
+CONFERENCES_CONFIRMATION_EMAIL_ADDRESS = "conf@inspirehep.net"
+"""Email address for sending confirmation email for conferences"""
+
 INVENIO_MAIL_SERVER = "localhost"
 """SMTP server settings for the mail sending"""
 

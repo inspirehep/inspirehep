@@ -8,10 +8,13 @@
 import structlog
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
+from invenio_pidstore.errors import PIDAlreadyExists
 
 from inspirehep.pidstore.errors import MissingSchema
 from inspirehep.pidstore.providers.external import InspireExternalIdProvider
 from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
+
+from ..errors import PIDAlreadyExistsError
 
 LOGGER = structlog.getLogger()
 
@@ -53,12 +56,15 @@ class Minter:
             object_type=self.object_type,
             object_uuid=str(self.object_uuid),
         )
-        return self.provider.create(
-            pid_type=self.pid_type,
-            pid_value=pid_value,
-            object_type=self.object_type,
-            object_uuid=self.object_uuid,
-        )
+        try:
+            return self.provider.create(
+                pid_type=self.pid_type,
+                pid_value=pid_value,
+                object_type=self.object_type,
+                object_uuid=self.object_uuid,
+            )
+        except PIDAlreadyExists as e:
+            raise PIDAlreadyExistsError(e.pid_type, e.pid_value) from e
 
     @classmethod
     def mint(cls, object_uuid, data):

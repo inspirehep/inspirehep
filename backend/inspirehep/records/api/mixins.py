@@ -421,10 +421,7 @@ class ConferencePaperAndProceedingsMixin:
     def get_newest_linked_conferences_uuid(self):
         """Returns referenced conferences for which perspective this record has changed
         """
-        try:
-            prev_version = self._previous_version
-        except AttributeError:
-            prev_version = {}
+        prev_version = self._previous_version
 
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
             "deleted", False
@@ -444,14 +441,11 @@ class ConferencePaperAndProceedingsMixin:
         )
         type_changed = True if doc_type_diff.intersection(allowed_types) else False
 
-        try:
-            pids_previous = set(
-                self._previous_version.get_linked_pids_from_field(
-                    "publication_info.conference_record"
-                )
+        pids_previous = set(
+            self._previous_version.get_linked_pids_from_field(
+                "publication_info.conference_record"
             )
-        except AttributeError:
-            pids_previous = []
+        )
         if type_changed:
             pids_changed = set(pids_latest)
             pids_changed.update(pids_previous)
