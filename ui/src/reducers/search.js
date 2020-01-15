@@ -114,10 +114,12 @@ export const initialState = fromJS({
       baseQuery: {
         ...initialBaseQuery,
         start_date: START_DATE_UPCOMING,
+        sort: 'dateasc',
       },
       query: {
         ...initialBaseQuery,
         start_date: START_DATE_UPCOMING,
+        sort: 'dateasc',
       },
       persistedQueryParamsDuringNewSearch: ['start_date'],
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
