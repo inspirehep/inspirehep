@@ -9,6 +9,7 @@ import AuthorAffiliationList from '../../common/components/AuthorAffiliationList
 import { getCurrentAffiliationsFromPositions } from '../utils';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import ExperimentList from '../../common/components/ExperimentList';
+import EditRecordAction from '../../common/components/EditRecordAction';
 
 class AuthorResultItem extends Component {
   render() {
@@ -23,7 +24,9 @@ class AuthorResultItem extends Component {
     const experiments = metadata.get('project_membership');
 
     return (
-      <ResultItem>
+      <ResultItem
+        leftActions={<EditRecordAction pidType="authors" pidValue={recordId} />}
+      >
         <Link className="f4" to={`/authors/${recordId}`}>
           <AuthorName name={name} />
         </Link>
