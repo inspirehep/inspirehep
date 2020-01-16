@@ -18,9 +18,7 @@ class LoginPage extends Component {
         align="middle"
       >
         <Card align="middle">
-          <p className="f4">
-            Please sign in to <strong>iN</strong>SPIRE
-          </p>
+          <p className="f4">Please sign in to INSPIRE</p>
           <p className="pb2">
             To suggest content to INSPIRE, an ORCID is required. Registration is
             free, quick, and open to all! Sign up at{' '}

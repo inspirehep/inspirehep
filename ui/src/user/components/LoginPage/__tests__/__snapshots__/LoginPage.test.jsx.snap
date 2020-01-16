@@ -14,11 +14,7 @@ exports[`LoginPage renders page 1`] = `
     <p
       className="f4"
     >
-      Please sign in to 
-      <strong>
-        iN
-      </strong>
-      SPIRE
+      Please sign in to INSPIRE
     </p>
     <p
       className="pb2"
