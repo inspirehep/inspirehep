@@ -334,6 +334,7 @@ zstd = ["zstandard"]
 reference = "642f864eaab41268f13e26684d7b73c6346c5666"
 type = "git"
 url = "https://github.com/michamos/celery.git"
+
 [[package]]
 category = "main"
 description = "Python package for providing Mozilla's CA Bundle."
@@ -747,6 +748,7 @@ werkzeug = "*"
 reference = "84c2633a4af55092650cb6972b126039500b39f9"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
+
 [[package]]
 category = "main"
 description = "Rate limiting for flask applications"
@@ -878,6 +880,7 @@ SQLAlchemy = ">=0.8.0"
 reference = "71abd94a1e2317a1365a25a31e719dbd9aafceea"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
+
 [[package]]
 category = "main"
 description = "HTTP security headers for Flask."
@@ -1300,7 +1303,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.0.2"
+version = "61.0.3"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -1335,6 +1338,7 @@ pkgsettings = ">=0.12.0,<1.0.0"
 reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
 type = "git"
 url = "https://github.com/drjova/inspire-service-orcid.git"
+
 [[package]]
 category = "main"
 description = "INSPIRE-specific utils."
@@ -4267,7 +4271,7 @@ inspire-query-parser = [
     {file = "inspire-query-parser-6.0.4.tar.gz", hash = "sha256:9fc3d1a312e525bbd40f4987c47043bc51516d803f2a278eff7c3cd63cbe89ec"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.0.2.tar.gz", hash = "sha256:1a62ad32aae1b911cbc709420e4ab62996ec4f84f773c0cccd0d1712283dcc59"},
+    {file = "inspire-schemas-61.0.3.tar.gz", hash = "sha256:5d6a02c25f20e81c837a78fbf13e6e59a3bf5b1cd64964a2aef91c5f0eefc8ce"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
