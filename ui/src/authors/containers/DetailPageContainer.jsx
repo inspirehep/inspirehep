@@ -34,6 +34,7 @@ import AuthorPublicationsContainer from './AuthorPublicationsContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
 import { newSearch } from '../../actions/search';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
+import EditRecordAction from '../../common/components/EditRecordAction';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -84,6 +85,7 @@ function DetailPage({
   }
 
   const name = metadata.get('name');
+  const recordId = metadata.get('control_number');
 
   const positions = metadata.get('positions', List());
   const currentPositions = getCurrentAffiliationsFromPositions(positions);
@@ -128,6 +130,7 @@ function DetailPage({
                     {twitter && <AuthorTwitterAction twitter={twitter} />}
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
+                    <EditRecordAction pidType="authors" pidValue={recordId} />
                   </>
                 }
               >
