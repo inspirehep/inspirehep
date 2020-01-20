@@ -13,7 +13,6 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
-
 import os
 import sys
 

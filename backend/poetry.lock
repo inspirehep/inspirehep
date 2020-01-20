@@ -386,14 +386,19 @@ pyro = ["pyro4"]
 redis = ["redis (>=3.2.0)"]
 riak = ["riak (>=2.0)"]
 s3 = ["boto3 (>=1.9.125)"]
-slmq = ["softlayer-messaging (>=1.0.3)"]
+slmq = ["softlayer_messaging (>=1.0.3)"]
 solar = ["ephem"]
 sqlalchemy = ["sqlalchemy"]
-sqs = ["boto3 (>=1.9.125)", "pycurl"]
+sqs = ["boto3 (>=1.9.125)", "pycurl (7.43.0.2)"]
 tblib = ["tblib (>=1.3.0)", "tblib (>=1.5.0)"]
 yaml = ["PyYAML (>=3.10)"]
 zookeeper = ["kazoo (>=1.3.1)"]
 zstd = ["zstandard"]
+
+[package.source]
+reference = "54bac44e5f0366cfe6a867377f7f9456ee37ba6d"
+type = "git"
+url = "https://github.com/michamos/celery.git"
 
 [[package]]
 category = "main"
@@ -750,22 +755,6 @@ dotenv = ["python-dotenv"]
 
 [[package]]
 category = "main"
-description = "Simple and extensible admin interface framework for Flask"
-name = "flask-admin"
-optional = false
-python-versions = "*"
-version = "1.5.4"
-
-[package.dependencies]
-Flask = ">=0.7"
-wtforms = "*"
-
-[package.extras]
-aws = ["boto"]
-azure = ["azure-storage-blob"]
-
-[[package]]
-category = "main"
 description = "Flask extension to integrate Alembic migrations"
 name = "flask-alembic"
 optional = false
@@ -869,6 +858,7 @@ werkzeug = "*"
 reference = "84c2633a4af55092650cb6972b126039500b39f9"
 type = "git"
 url = "https://github.com/inspirehep/flask-kvsession.git"
+
 [[package]]
 category = "main"
 description = "Rate limiting for flask applications"
@@ -1000,6 +990,7 @@ SQLAlchemy = ">=0.8.0"
 reference = "71abd94a1e2317a1365a25a31e719dbd9aafceea"
 type = "git"
 url = "https://github.com/inspirehep/flask-sqlalchemy.git"
+
 [[package]]
 category = "main"
 description = "HTTP security headers for Flask."
@@ -1457,6 +1448,7 @@ pkgsettings = ">=0.12.0,<1.0.0"
 reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
 type = "git"
 url = "https://github.com/drjova/inspire-service-orcid.git"
+
 [[package]]
 category = "main"
 description = "INSPIRE-specific utils."
@@ -1523,7 +1515,6 @@ version = "1.1.1"
 
 [package.dependencies]
 Flask = ">=0.11.1"
-Flask-Admin = ">=1.3.0"
 Flask-BabelEx = ">=0.9.3"
 Flask-Breadcrumbs = ">=0.3.0"
 Flask-CeleryExt = ">=0.3.1"
@@ -1537,21 +1528,29 @@ SQLAlchemy-Utils = ">=0.31.0"
 cryptography = ">=2.1.4"
 future = ">=0.16.0"
 invenio-i18n = ">=1.0.0"
+invenio-rest = ">=1.1.0"
 maxminddb-geolite2 = ">=2017.404"
 passlib = ">=1.7.1"
 pyjwt = ">=1.5.0"
 redis = ">=2.10.5"
 simplekv = ">=0.11.2"
 ua-parser = ">=0.7.3"
+werkzeug = ">=0.14.1"
 
 [package.extras]
-all = ["Sphinx (>=1.4.2,<1.6)", "celery (>=3.1.0,<4.0)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)", "selenium (>=3.0.1)"]
+admin = ["Flask-Admin (>=1.3.0)"]
+all = ["Flask-Admin (>=1.3.0)", "celery (>=3.1.0,<4.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)", "Flask-Admin (>=1.3.0)", "celery (>=3.1.0,<4.0)", "Sphinx (>=1.4.2,<1.6)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 celery = ["celery (>=3.1.0,<4.0)"]
 docs = ["Sphinx (>=1.4.2,<1.6)"]
 mysql = ["invenio-db (>=1.0.0)"]
 postgresql = ["invenio-db (>=1.0.0)"]
 sqlite = ["invenio-db (>=1.0.0)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)", "selenium (>=3.0.1)"]
+tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
+
+[package.source]
+reference = "a44c058d8a1a59a7b132133686c557c49d3ef361"
+type = "git"
+url = "https://github.com/inveniosoftware/invenio-accounts.git"
 
 [[package]]
 category = "main"
@@ -1846,13 +1845,18 @@ uritools = ">=1.0.1"
 
 [package.extras]
 admin = ["invenio-admin (>=1.0.0)"]
-all = ["github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "invenio-admin (>=1.0.0)", "Sphinx (>=1.5.1)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)"]
+all = ["invenio-admin (>=1.0.0)", "Sphinx (>=1.5.1)", "github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)", "invenio-admin (>=1.0.0)", "Sphinx (>=1.5.1)", "github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)"]
 docs = ["Sphinx (>=1.5.1)"]
 github = ["github3.py (>=1.0.0a4)", "uritemplate.py (>=0.2.0,<2.0)"]
 mysql = ["invenio-db (>=1.0.0)"]
 postgresql = ["invenio-db (>=1.0.0)"]
 sqlite = ["invenio-db (>=1.0.0)"]
-tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)"]
+tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "httpretty (>=0.8.14)", "invenio-accounts (>=1.0.0)", "invenio-userprofiles (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.3)", "simplejson (>=3.8)"]
+
+[package.source]
+reference = "a3a6535cddf5265e39ec32a3932cc2b4f73d325e"
+type = "git"
+url = "https://github.com/inveniosoftware/invenio-oauthclient.git"
 
 [[package]]
 category = "main"
@@ -3818,7 +3822,7 @@ description = "Python Data Validation for Humans™."
 name = "validators"
 optional = false
 python-versions = "*"
-version = "0.14.1"
+version = "0.14.2"
 
 [package.dependencies]
 decorator = ">=3.4.0"
@@ -4084,7 +4088,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "717b4fad1784cb84e2b9061135a90a09bbd7cdb7d54b1a8f727e326ca2b615ad"
+content-hash = "91ce0fae199a216f5093fc2e7bc8097058e93a1218475b91177ef89b577f81c7"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
@@ -4205,10 +4209,7 @@ bottle = [
     {file = "bottle-0.12.18-py3-none-any.whl", hash = "sha256:43157254e88f32c6be16f8d9eb1f1d1472396a4e174ebd2bf62544854ecf37e7"},
     {file = "bottle-0.12.18.tar.gz", hash = "sha256:0819b74b145a7def225c0e83b16a4d5711fde751cd92bae467a69efce720f69e"},
 ]
-celery = [
-    {file = "celery-4.4.0-py2.py3-none-any.whl", hash = "sha256:7c544f37a84a5eadc44cab1aa8c9580dff94636bb81978cdf9bf8012d9ea7d8f"},
-    {file = "celery-4.4.0.tar.gz", hash = "sha256:d3363bb5df72d74420986a435449f3c3979285941dff57d5d97ecba352a0e3e2"},
-]
+celery = []
 certifi = [
     {file = "certifi-2019.11.28-py2.py3-none-any.whl", hash = "sha256:017c25db2a153ce562900032d5bc68e9f191e44e9a0f762f373977de9df1fbb3"},
     {file = "certifi-2019.11.28.tar.gz", hash = "sha256:25b64c7da4cd7479594d035c08c2d809eb4aab3a26e5a990ea98cc450c320f1f"},
@@ -4433,9 +4434,6 @@ flask = [
     {file = "Flask-1.1.1-py2.py3-none-any.whl", hash = "sha256:45eb5a6fd193d6cf7e0cf5d8a5b31f83d5faae0293695626f539a823e93b13f6"},
     {file = "Flask-1.1.1.tar.gz", hash = "sha256:13f9f196f330c7c2c5d7a5cf91af894110ca0215ac051b5844701f2bfd934d52"},
 ]
-flask-admin = [
-    {file = "Flask-Admin-1.5.4.tar.gz", hash = "sha256:ed7b256471dba0f3af74f1a315733c3b36244592f2002c3bbdc65fd7c2aa807a"},
-]
 flask-alembic = [
     {file = "Flask-Alembic-2.0.1.tar.gz", hash = "sha256:05a1e6f4148dbfcc9280a393373bfbd250af6f9f4f0ca9f744ef8f7376a3deec"},
     {file = "Flask_Alembic-2.0.1-py2.py3-none-any.whl", hash = "sha256:7e67740b0b08d58dcae0c701d56b56e60f5fa4af907bb82b4cb0469229ba94ff"},
@@ -4610,10 +4608,7 @@ invenio-access = [
     {file = "invenio-access-1.1.0.tar.gz", hash = "sha256:1e7439bfdb1c9a697fa41dccc79969af445baa0ddb6248f9cadc1046a2bed36f"},
     {file = "invenio_access-1.1.0-py2.py3-none-any.whl", hash = "sha256:430225aa095e4ad11401a84fdf449566498f0e69b8b5c74e77239c1446b9e4da"},
 ]
-invenio-accounts = [
-    {file = "invenio-accounts-1.1.1.tar.gz", hash = "sha256:b928535e4f3ffe53fcf07b2056f1f1b27b4ff8b83f57583c489f05db6dec5587"},
-    {file = "invenio_accounts-1.1.1-py2.py3-none-any.whl", hash = "sha256:82f75c33e66fb57ec7811da22cc2225601b43c600ef303ca45ce20d40f2422cf"},
-]
+invenio-accounts = []
 invenio-app = [
     {file = "invenio-app-1.2.3.tar.gz", hash = "sha256:c58a51699a27768ad36006ff41900c2b769c76493ee67d5d213d62d842ac9d33"},
     {file = "invenio_app-1.2.3-py2.py3-none-any.whl", hash = "sha256:3cd980498a4312d50b71f73ab82b6b4ae914ba3eb526ec77f908435c8fdf962a"},
@@ -4661,10 +4656,7 @@ invenio-oauth2server = [
     {file = "invenio-oauth2server-1.0.4.tar.gz", hash = "sha256:46c4832156924a356a62ce1d1bac3433d69c82ae11767c98d09de5c07110fd84"},
     {file = "invenio_oauth2server-1.0.4-py2.py3-none-any.whl", hash = "sha256:f802b70d8c85b4d1c4cfa5e91320bfbfc3293f96280815a8d5cf2e551e9fdacc"},
 ]
-invenio-oauthclient = [
-    {file = "invenio-oauthclient-1.1.3.tar.gz", hash = "sha256:1ec836adce24a686029c15a40c3aeb887d1e9431a5189132b3235d34325b4329"},
-    {file = "invenio_oauthclient-1.1.3-py2.py3-none-any.whl", hash = "sha256:7e107b4554bf724fecba8b7108a9021982b7b4974fcaa6a4cd4620521a6bf31a"},
-]
+invenio-oauthclient = []
 invenio-pidstore = [
     {file = "invenio-pidstore-1.0.0.tar.gz", hash = "sha256:582b28e7e2bdf4df93e5398a0e147b2eb08690ede339249dd3a8c92b713e6f00"},
     {file = "invenio_pidstore-1.0.0-py2.py3-none-any.whl", hash = "sha256:77f59075dfa34564b913e5d58f37d55b2c78d7b4fa1eeaa5f8c42576848bb06d"},
@@ -5520,7 +5512,7 @@ urllib3 = [
     {file = "urllib3-1.25.8.tar.gz", hash = "sha256:87716c2d2a7121198ebcb7ce7cccf6ce5e9ba539041cfbaeecfb641dc0bf6acc"},
 ]
 validators = [
-    {file = "validators-0.14.1.tar.gz", hash = "sha256:0bfe836a1af37bb266d71ec1e98b530c38ce11bc7fbe0c4c96ef7b1532d019e5"},
+    {file = "validators-0.14.2.tar.gz", hash = "sha256:b192e6bde7d617811d59f50584ed240b580375648cd032d106edeb3164099508"},
 ]
 vcrpy = [
     {file = "vcrpy-2.1.1-py2.py3-none-any.whl", hash = "sha256:3203170a13fe26407183768fab48af10086fa22d487b3887859c89fd47e69935"},
