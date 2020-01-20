@@ -3,9 +3,8 @@ const { createPollyInstance } = require('./polly');
 
 async function login() {
   const page = await browser.newPage();
-  await page.setRequestInterception(true);
 
-  const polly = createPollyInstance('Login', page);
+  const polly = await createPollyInstance('Login', page);
 
   await page.goto(routes.localLogin, {
     waitUntil: 'networkidle0',
@@ -22,6 +21,7 @@ async function login() {
 
 async function logout() {
   const page = await browser.newPage();
+
   await page.goto(routes.public.home, {
     waitUntil: 'networkidle0',
   });
@@ -29,6 +29,7 @@ async function logout() {
     document.querySelector('[data-test-id=logout]').click();
   });
   await page.waitFor(() => !document.querySelector('[data-test-id=logout]'));
+
   await page.close();
 }
 

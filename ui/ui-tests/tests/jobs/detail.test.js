@@ -12,8 +12,7 @@ describe('Job Detail', () => {
   beforeEach(async () => {
     await mockPageDateForNextNavigation(page, '2019-07-07');
 
-    await page.setRequestInterception(true); // TODO: move to createPollyInstance
-    polly = createPollyInstance('JobDetail'); // TODO: rename to `Recorder`
+    polly = await createPollyInstance('JobDetail'); // TODO: rename to `Recorder`
 
     await page.goto(routes.public.jobDetail1727456, {
       waitUntil: 'networkidle0',

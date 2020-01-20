@@ -1,5 +1,6 @@
 const { routes } = require('../../utils/constants');
 const { login, logout } = require('../../utils/user');
+const { createPollyInstance } = require('../../utils/polly');
 const { takeScreenShotForDesktop } = require('../../utils/screenshot');
 
 async function selectDocType(page, docType) {
@@ -26,7 +27,8 @@ describe('Literature Submission', () => {
   });
 
   it('matches screenshot for article submission form', async () => {
-    const page = await browser.newPage();
+    const polly = await createPollyInstance('ArticleSubmission');
+
     await page.goto(routes.private.literatureSubmission, {
       waitUntil: 'networkidle0',
     });
@@ -35,9 +37,13 @@ describe('Literature Submission', () => {
 
     const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
+
+    await polly.stop();
   });
 
   it('matches screenshot for thesis submission form', async () => {
+    const polly = await createPollyInstance('ThesisSubmission');
+
     await page.goto(routes.private.literatureSubmission, {
       waitUntil: 'networkidle0',
     });
@@ -46,9 +52,13 @@ describe('Literature Submission', () => {
 
     const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
+
+    await polly.stop();
   });
 
   it('matches screenshot for book submission form', async () => {
+    const polly = await createPollyInstance('BookSubmission');
+
     await page.goto(routes.private.literatureSubmission, {
       waitUntil: 'networkidle0',
     });
@@ -57,9 +67,13 @@ describe('Literature Submission', () => {
 
     const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
+
+    await polly.stop();
   });
 
   it('matches screenshot for book chapter submission form', async () => {
+    const polly = await createPollyInstance('BookChapterSubmission');
+
     await page.goto(routes.private.literatureSubmission, {
       waitUntil: 'networkidle0',
     });
@@ -68,6 +82,8 @@ describe('Literature Submission', () => {
 
     const image = await takeScreenShotForDesktop(page);
     expect(image).toMatchImageSnapshot();
+
+    await polly.stop();
   });
 
   afterAll(async () => {

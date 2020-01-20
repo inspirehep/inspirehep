@@ -56,6 +56,7 @@ setup(
             "inspirehep_rt = inspirehep.rt.views:blueprint",
             "inspirehep_submissions = inspirehep.submissions.views:blueprint",
             "inspirehep_disambiguation = inspirehep.disambiguation.views:blueprint",
+            "inspirehep_accounts = inspirehep.accounts.views:blueprint",
         ],
         "invenio_config.module": [
             "inspirehep = inspirehep.config",

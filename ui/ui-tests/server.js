@@ -7,17 +7,17 @@ const app = express();
 
 // necessary for recording api responses when running tests locally (for the first time or ondemand)
 const { UI_TESTS_HOST, UI_TESTS_HTTP_SCHEME } = process.env;
-app.use(
-  '/api',
-  proxy({
-    target: `${UI_TESTS_HTTP_SCHEME}://${UI_TESTS_HOST}`,
-    secure: false,
-    onProxyReq: proxyReq => {
-      proxyReq.removeHeader('Host');
-      proxyReq.setHeader('Host', UI_TESTS_HOST);
-    },
-  })
-);
+const proxyForRecording = proxy({
+  target: `${UI_TESTS_HTTP_SCHEME}://${UI_TESTS_HOST}`,
+  secure: false,
+  onProxyReq: proxyReq => {
+    proxyReq.removeHeader('Host');
+    proxyReq.setHeader('Host', UI_TESTS_HOST);
+  },
+});
+
+app.use('/api', proxyForRecording);
+app.use('/logout', proxyForRecording);
 
 // serve static files of production build
 app.use(express.static(path.join(__dirname, '../build')));

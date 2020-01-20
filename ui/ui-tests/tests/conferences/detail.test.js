@@ -14,8 +14,7 @@ describe('Conference Detail', () => {
   });
 
   beforeEach(async () => {
-    await page.setRequestInterception(true);
-    polly = createPollyInstance('ConferenceDetail');
+    polly = await createPollyInstance('ConferenceDetail');
 
     await page.goto(routes.public.conferenceDetail1203206, {
       waitUntil: 'networkidle0',

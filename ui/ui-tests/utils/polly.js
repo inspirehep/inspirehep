@@ -2,7 +2,8 @@ const { Polly } = require('@pollyjs/core');
 const PuppeteerAdapter = require('@pollyjs/adapter-puppeteer');
 const FSPersister = require('@pollyjs/persister-fs');
 
-function createPollyInstance(recordingName, puppeteerPage = page) {
+async function createPollyInstance(recordingName, puppeteerPage = page) {
+  await puppeteerPage.setRequestInterception(true);
   const polly = new Polly(recordingName, {
     recordFailedRequests: true,
     matchRequestsBy: {

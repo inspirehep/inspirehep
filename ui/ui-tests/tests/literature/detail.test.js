@@ -9,8 +9,7 @@ describe('Literature Detail', () => {
   let polly;
 
   beforeEach(async () => {
-    await page.setRequestInterception(true);
-    polly = createPollyInstance('LiteratureDetail');
+    polly = await createPollyInstance('LiteratureDetail');
 
     await page.goto(routes.public.literatureDetail1472986, {
       waitUntil: 'networkidle0',

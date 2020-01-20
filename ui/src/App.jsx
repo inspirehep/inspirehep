@@ -27,6 +27,7 @@ import {
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles } from './tracker';
+import { fetchLoggedInUser } from './actions/user';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -65,12 +66,19 @@ const Errors$ = Loadable({
   loading: Loading,
 });
 
-function App({ userRoles }) {
+function App({ userRoles, dispatch }) {
   const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(() => {
     Loadable.preloadAll();
   }, []);
+
+  useEffect(
+    () => {
+      dispatch(fetchLoggedInUser());
+    },
+    [dispatch]
+  );
 
   useEffect(
     () => {
@@ -105,6 +113,7 @@ App.propTypes = {
   isBannerVisible: PropTypes.bool.isRequired,
   isBetaPage: PropTypes.bool.isRequired,
   userRoles: PropTypes.instanceOf(Set).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const stateToProps = state => ({
@@ -113,4 +122,8 @@ const stateToProps = state => ({
   userRoles: Set(state.user.getIn(['data', 'roles'])),
 });
 
-export default connect(stateToProps)(App);
+const dispatchToProps = dispatch => ({
+  dispatch,
+});
+
+export default connect(stateToProps, dispatchToProps)(App);
