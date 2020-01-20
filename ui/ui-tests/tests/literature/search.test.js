@@ -7,8 +7,7 @@ const {
 
 describe('Literature Search', () => {
   it('should match image snapshot for empty literature search', async () => {
-    await page.setRequestInterception(true);
-    const polly = createPollyInstance('LiteratureSearch');
+    const polly = await createPollyInstance('LiteratureSearch');
 
     await page.goto(`${routes.public.literatureSearch}?q=`, {
       waitUntil: 'networkidle0',

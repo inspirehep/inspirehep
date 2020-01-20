@@ -4,6 +4,7 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT_SUCCESS,
   USER_SET_PREFERRED_CITE_FORMAT,
+  LOGGED_IN_USER_REQUEST,
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
 import logout from '../user/logout';
@@ -23,6 +24,18 @@ function userLoginError(error) {
   };
 }
 
+function userLogoutSuccess() {
+  return {
+    type: USER_LOGOUT_SUCCESS,
+  };
+}
+
+function fetchingLoggedInUser() {
+  return {
+    type: LOGGED_IN_USER_REQUEST,
+  };
+}
+
 export function userLogin() {
   return async dispatch => {
     try {
@@ -30,6 +43,19 @@ export function userLogin() {
       dispatch(userLoginSuccess(user));
     } catch (error) {
       dispatch(userLoginError(error));
+    }
+  };
+}
+
+export function fetchLoggedInUser() {
+  return async (dispatch, getState, http) => {
+    dispatch(fetchingLoggedInUser());
+    try {
+      const response = await http.get('/accounts/me');
+      dispatch(userLoginSuccess(response.data));
+    } catch (error) {
+      // TODO: differentiate between 401 and other errors
+      dispatch(userLogoutSuccess());
     }
   };
 }
@@ -45,17 +71,11 @@ export function userLocalLogin(credentials) {
   };
 }
 
-function userLogutSuccess() {
-  return {
-    type: USER_LOGOUT_SUCCESS,
-  };
-}
-
 export function userLogout() {
   return async dispatch => {
     try {
       await logout();
-      dispatch(userLogutSuccess());
+      dispatch(userLogoutSuccess());
 
       // Hack to reload current page for logged out user
       dispatch(push(HOME));

@@ -7,8 +7,7 @@ const {
 
 describe('Author Search', () => {
   it('should match image snapshot for empty author search', async () => {
-    await page.setRequestInterception(true);
-    const polly = createPollyInstance('AuthorSearch');
+    const polly = await createPollyInstance('AuthorSearch');
 
     await page.goto(`${routes.public.authorSearch}?q=`, {
       waitUntil: 'networkidle0',

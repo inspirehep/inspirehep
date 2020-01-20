@@ -12,8 +12,7 @@ describe('Job Search', () => {
   });
 
   it('should match image snapshot for empty Job search', async () => {
-    await page.setRequestInterception(true);
-    const polly = createPollyInstance('JobSearch');
+    const polly = await createPollyInstance('JobSearch');
 
     await page.goto(`${routes.public.jobsSearch}?q=`, {
       waitUntil: 'networkidle0',

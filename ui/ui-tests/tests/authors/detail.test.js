@@ -14,8 +14,7 @@ describe('Author Detail', () => {
   });
 
   beforeEach(async () => {
-    await page.setRequestInterception(true);
-    polly = createPollyInstance('AuthorDetail');
+    polly = await createPollyInstance('AuthorDetail');
 
     await page.goto(routes.public.authorDetail1274753, {
       waitUntil: 'networkidle0',

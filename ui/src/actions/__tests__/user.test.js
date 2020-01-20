@@ -7,16 +7,45 @@ import {
   USER_LOGIN_ERROR,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT_SUCCESS,
+  LOGGED_IN_USER_REQUEST,
 } from '../actionTypes';
-import { userLogin, userLogout } from '../user';
+import { userLogin, userLogout, fetchLoggedInUser } from '../user';
 import loginInNewTab from '../../user/loginInNewTab';
+import http from '../../common/http';
 import { HOME } from '../../common/routes';
 
 jest.mock('../../user/loginInNewTab');
 
-const mockHttp = new MockAdapter(axios);
+const mockHttp = new MockAdapter(http);
 
 describe('user - async action creator', () => {
+  it('successful logged in user fetch creates USER_LOGIN_SUCCESS', async () => {
+    const user = { data: { email: 'test@testemail.thing' } };
+    mockHttp.onGet('/accounts/me').replyOnce(200, user);
+
+    const expectedActions = [
+      { type: LOGGED_IN_USER_REQUEST },
+      { type: USER_LOGIN_SUCCESS, payload: user },
+    ];
+
+    const store = getStore();
+    await store.dispatch(fetchLoggedInUser());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('unsuccessful logged in user fetch creates USER_LOGOUT_SUCCESS', async () => {
+    mockHttp.onGet('/acconts/me').replyOnce(401);
+
+    const expectedActions = [
+      { type: LOGGED_IN_USER_REQUEST },
+      { type: USER_LOGOUT_SUCCESS },
+    ];
+
+    const store = getStore();
+    await store.dispatch(fetchLoggedInUser());
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
   it('successful login creates USER_LOGIN_SUCCESS', async done => {
     const user = { data: { username: 'test' } };
     loginInNewTab.mockReturnValueOnce(Promise.resolve(user));
@@ -42,7 +71,10 @@ describe('user - async action creator', () => {
   });
 
   it('successful logout creates USER_LOGOUT_SUCCESS', async done => {
-    mockHttp.onGet('/logout').replyOnce(200);
+    // mock axios directly since it's using axios instead of http client wrapper
+    const mockAxios = new MockAdapter(axios);
+
+    mockAxios.onGet('/logout').replyOnce(200);
 
     const expectedActions = [
       { type: USER_LOGOUT_SUCCESS },
@@ -54,7 +86,8 @@ describe('user - async action creator', () => {
     await store.dispatch(userLogout());
     expect(store.getActions()).toEqual(expectedActions);
 
-    mockHttp.reset();
+    // needs to restore in order not to mess with other tests cases which uses `http` client mock
+    mockAxios.restore();
     done();
   });
 });

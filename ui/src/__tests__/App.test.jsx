@@ -16,6 +16,7 @@ import Authors from '../authors';
 import { setUserCategoryFromRoles } from '../tracker';
 import Jobs from '../jobs';
 import Conferences from '../conferences';
+import { LOGGED_IN_USER_REQUEST } from '../actions/actionTypes';
 
 jest.mock('../tracker');
 
@@ -43,6 +44,23 @@ describe('App', () => {
     expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
       Set(['cataloger'])
     );
+  });
+
+  it('dispatches LOGGED_IN_USER_REQUEST on mount', () => {
+    const store = getStore();
+    mount(
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']} initialIndex={0}>
+          <App />
+        </MemoryRouter>
+      </Provider>
+    );
+    const expectedActions = [
+      {
+        type: LOGGED_IN_USER_REQUEST,
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('navigates to Holdingpen when /holdingpen if logged in', () => {
