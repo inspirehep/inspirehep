@@ -11,6 +11,7 @@ celery = {git = "https://github.com/michamos/celery.git", branch = "fix-redis-co
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
 click = "<7.0.0"
+elasticsearch = "<7.2.0"
 Flask = ">=1.0.2"
 
 python = ">=3.6,<3.7"
