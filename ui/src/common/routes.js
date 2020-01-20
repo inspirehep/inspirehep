@@ -11,6 +11,7 @@ export const CONFERENCES = '/conferences';
 export const USER = '/user';
 export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;
+export const USER_SIGNUP = `${USER}/signup`;
 export const USER_LOCAL_LOGIN = `${USER_LOGIN}/local`;
 
 export const HOLDINGPEN = '/holdingpen';

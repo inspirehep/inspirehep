@@ -3,12 +3,15 @@ import {
   USER_LOGIN_ERROR,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT_SUCCESS,
+  USER_SIGN_UP_REQUEST,
+  USER_SIGN_UP_ERROR,
+  USER_SIGN_UP_SUCCESS,
   USER_SET_PREFERRED_CITE_FORMAT,
   LOGGED_IN_USER_REQUEST,
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
 import logout from '../user/logout';
-import { HOME } from '../common/routes';
+import { HOME, USER_SIGNUP } from '../common/routes';
 
 export function userLoginSuccess(user) {
   return {
@@ -17,9 +20,23 @@ export function userLoginSuccess(user) {
   };
 }
 
+export function userSignUpSuccess(user) {
+  return {
+    type: USER_SIGN_UP_SUCCESS,
+    payload: user,
+  };
+}
+
 function userLoginError(error) {
   return {
     type: USER_LOGIN_ERROR,
+    payload: error,
+  };
+}
+
+function userSignUpError(error) {
+  return {
+    type: USER_SIGN_UP_ERROR,
     payload: error,
   };
 }
@@ -36,11 +53,33 @@ function fetchingLoggedInUser() {
   };
 }
 
+function userSignUpRequest() {
+  return {
+    type: USER_SIGN_UP_REQUEST,
+  };
+}
+
+export function userSignUp(userEmail) {
+  return async (dispatch, getState, http) => {
+    dispatch(userSignUpRequest());
+    try {
+      const response = await http.post('/accounts/signup', userEmail);
+      dispatch(userSignUpSuccess(response.data));
+    } catch (error) {
+      dispatch(userSignUpError(error.response));
+    }
+  };
+}
+
 export function userLogin() {
   return async dispatch => {
     try {
       const user = await loginInNewTab();
-      dispatch(userLoginSuccess(user));
+      if (user.user_needs_sign_up) {
+        dispatch(push(USER_SIGNUP));
+      } else {
+        dispatch(userLoginSuccess(user));
+      }
     } catch (error) {
       dispatch(userLoginError(error));
     }

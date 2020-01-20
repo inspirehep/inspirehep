@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignUpPage renders page 1`] = `
+<Fragment>
+  <DocumentHead
+    title="Sign up"
+  />
+  <Row
+    align="middle"
+    className="h-100"
+    gutter={0}
+    justify="center"
+    type="flex"
+  >
+    <Card>
+      <p>
+        Please let us know your e-mail address so that we can contact you about your suggestions. You only need to do this once.
+      </p>
+      <SingUpForm
+        loading={false}
+        onSubmit={[MockFunction]}
+      />
+    </Card>
+  </Row>
+</Fragment>
+`;
+
+exports[`SignUpPage renders page with errors 1`] = `
+<Fragment>
+  <DocumentHead
+    title="Sign up"
+  />
+  <Row
+    align="middle"
+    className="h-100"
+    gutter={0}
+    justify="center"
+    type="flex"
+  >
+    <Card>
+      <p>
+        Please let us know your e-mail address so that we can contact you about your suggestions. You only need to do this once.
+      </p>
+      <SingUpForm
+        loading={false}
+        onSubmit={[MockFunction]}
+      />
+    </Card>
+  </Row>
+</Fragment>
+`;
+
+exports[`SignUpPage renders page with loading 1`] = `
+<Fragment>
+  <DocumentHead
+    title="Sign up"
+  />
+  <Row
+    align="middle"
+    className="h-100"
+    gutter={0}
+    justify="center"
+    type="flex"
+  >
+    <Card>
+      <p>
+        Please let us know your e-mail address so that we can contact you about your suggestions. You only need to do this once.
+      </p>
+      <SingUpForm
+        loading={true}
+        onSubmit={[MockFunction]}
+      />
+    </Card>
+  </Row>
+</Fragment>
+`;
