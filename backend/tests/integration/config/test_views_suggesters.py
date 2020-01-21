@@ -100,13 +100,15 @@ def test_experiments_suggesters():
 def test_conferences_suggesters_using_series_name(api_client, db, es, create_record):
     expected_series = "ICFA_cool series"
     data = {
-         '$schema': 'https://labs.inspirehep.net/schemas/records/conferences.json',
-         '_collections': ['Conferences'],
-         'cnum': 'C06-06-25.2',
-         'external_system_identifiers': [{'schema': 'SPIRES', 'value': 'CONF-516198'}],
-         'opening_date': '2006-06-25',
-         'series': [{'name': expected_series, 'number': 11}],
-         'titles': [{'title': 'SciDAC 2006: Scientific Discovery through Advanced Computing'}],
+        "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
+        "_collections": ["Conferences"],
+        "cnum": "C06-06-25.2",
+        "external_system_identifiers": [{"schema": "SPIRES", "value": "CONF-516198"}],
+        "opening_date": "2006-06-25",
+        "series": [{"name": expected_series, "number": 11}],
+        "titles": [
+            {"title": "SciDAC 2006: Scientific Discovery through Advanced Computing"}
+        ],
     }
     create_record("con", data=data)
     resp = api_client.get("/conferences/_suggest?series_name=ICFA")
@@ -118,6 +120,35 @@ def test_conferences_suggesters_using_series_name(api_client, db, es, create_rec
 
     assert resp.status_code == 200
     assert resp.json["series_name"][0]["options"] == []
+
+
+def test_conferences_suggesters_using_series_name_ignores_duplicates(
+    api_client, db, es, create_record
+):
+    expected_series_count = 2
+    data = {
+        "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
+        "_collections": ["Conferences"],
+        "cnum": "C06-06-25.2",
+        "external_system_identifiers": [{"schema": "SPIRES", "value": "CONF-516198"}],
+        "opening_date": "2006-06-25",
+        "series": [{"name": "ICFA_cool series", "number": 11}],
+        "titles": [
+            {"title": "SciDAC 2006: Scientific Discovery through Advanced Computing"}
+        ],
+    }
+    create_record("con", data=data)
+
+    data["cnum"] = "C06-06-25.3"
+    create_record("con", data=data)
+
+    data["cnum"] = "C06-06-25.4"
+    data["series"] = [{"name": "ICFA_other series", "number": 12}]
+    create_record("con", data=data)
+    resp = api_client.get("/conferences/_suggest?series_name=ICFA")
+
+    assert resp.status_code == 200
+    assert len(resp.json["series_name"][0]["options"]) == expected_series_count
 
 
 @pytest.mark.xfail

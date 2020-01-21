@@ -310,7 +310,7 @@ CONFERENCES.update(
             },
             "series_name": {
                 "_source": ["control_number"],
-                "completion": {"field": "seriesautocomplete"},
+                "completion": {"field": "seriesautocomplete", "skip_duplicates": True},
             },
         },
         "update_permission_factory_imp": session_cataloger_permission_factory,
