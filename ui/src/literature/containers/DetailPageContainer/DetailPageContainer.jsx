@@ -189,7 +189,7 @@ class DetailPage extends Component {
                 </ContentBox>
               </Col>
               <Col xs={24} lg={8}>
-                <ContentBox subTitle="Citations">
+                <ContentBox subTitle="Citations per year">
                   <CitationsByYearGraphContainer />
                 </ContentBox>
               </Col>
