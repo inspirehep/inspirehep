@@ -9,8 +9,8 @@ import json
 
 from flask import current_app
 from inspire_utils.date import format_date
-from inspire_utils.record import get_value
-from marshmallow import fields, missing
+from inspire_utils.record import get_value, get_values_for_schema
+from marshmallow import fields, missing, pre_dump
 
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.records.marshmallow.common.mixins import CatalogerCanEditMixin
@@ -154,6 +154,19 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
         if maybe_none_list is None:
             return missing
         return len(maybe_none_list)
+
+    @pre_dump
+    def add_ads_links_for_arxiv_papers(self, data):
+        arxiv_id = get_value(data, "arxiv_eprints[0].value")
+
+        external_system_ids = get_value(data, "external_system_identifiers", default=[])
+        ads_ids = get_values_for_schema(external_system_ids, "ADS")
+
+        if arxiv_id and not ads_ids:
+            external_system_ids.append({"schema": "ADS", "value": f"arXiv:{arxiv_id}"})
+            data["external_system_identifiers"] = external_system_ids
+
+        return data
 
 
 class LiteratureListWrappedSchema(EnvelopeSchema):
