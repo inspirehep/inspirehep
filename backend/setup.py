@@ -77,6 +77,7 @@ setup(
         "invenio_base.api_converters": [
             "doipath = inspirehep.pidstore.converters:DOIPathConverter",
             "arxivpath = inspirehep.pidstore.converters:ArXivPathConverter",
+            "inspirepid = inspirehep.pidstore.converters:InspirePIDConverter",
         ],
         "invenio_jsonschemas.schemas": ["inspirehep_records_schemas = inspire_schemas"],
         "invenio_search.mappings": ["records = inspirehep.search.mappings"],
