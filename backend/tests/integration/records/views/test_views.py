@@ -8,6 +8,7 @@
 import json
 
 from helpers.providers.faker import faker
+from invenio_accounts.testutils import login_user_via_session
 
 
 def test_error_message_on_pid_already_exists(
@@ -31,3 +32,37 @@ def test_error_message_on_pid_already_exists(
     expected_message = "PIDAlreadyExists: pid_type:'lit', pid_value:'666'."
     assert expected_status_code == response_status_code
     assert expected_message == response_message
+
+
+def test_does_not_return_deleted_pid_error_if_cataloger(
+    api_client, db, es_clear, create_record, create_user
+):
+    cataloger = create_user(role="cataloger")
+    record = create_record("con")
+    record.delete()
+
+    login_user_via_session(api_client, email=cataloger.email)
+
+    response = api_client.get(f"/conferences/{record['control_number']}")
+
+    response_status_code = response.status_code
+    response_json = response.json
+
+    assert response_status_code == 200
+
+
+def test_returns_deleted_pid_error_if_not_cataloger(
+    api_client, db, es_clear, create_record, create_user
+):
+    user = create_user(role="user")
+    record = create_record("con")
+    record.delete()
+
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.get(f"/conferences/{record['control_number']}")
+
+    response_status_code = response.status_code
+    response_json = response.json
+
+    assert response_status_code == 410
