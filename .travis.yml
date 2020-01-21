@@ -64,7 +64,7 @@ before_install:
   - travis_retry pip install twine wheel coveralls
 
 after_script:
- -  if [[ "$RUN_DOCKER" == "true" ] && ]; then
+ -  if [ "$RUN_DOCKER" == "true" ]; then
       docker-compose kill -s SIGTERM;
       docker-compose rm -f;
     fi
