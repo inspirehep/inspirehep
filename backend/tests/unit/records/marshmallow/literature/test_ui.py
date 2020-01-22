@@ -171,7 +171,7 @@ def test_arxiv_paper_without_ads_id_gets_ads_link_with_arxiv():
     expected_data = [
         {
             "url_name": "ADS Abstract Service",
-            "url_link": "http://adsabs.harvard.edu/abs/arXiv:1909.07643",
+            "url_link": "https://ui.adsabs.harvard.edu/abs/arXiv:1909.07643",
         }
     ]
 
@@ -189,7 +189,7 @@ def test_arxiv_paper_with_ads_id_does_not_get_ads_link_with_arxiv():
     expected_data = [
         {
             "url_name": "ADS Abstract Service",
-            "url_link": "http://adsabs.harvard.edu/abs/2019MNRAS.490.1678C",
+            "url_link": "https://ui.adsabs.harvard.edu/abs/2019MNRAS.490.1678C",
         }
     ]
 

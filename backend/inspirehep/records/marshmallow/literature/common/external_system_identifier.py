@@ -25,7 +25,7 @@ class ExternalSystemIdentifierSchemaV1(Schema):
     }
 
     schema_to_url_link_prefix_map = {
-        "ads": "http://adsabs.harvard.edu/abs/",
+        "ads": "https://ui.adsabs.harvard.edu/abs/",
         "cds": "http://cds.cern.ch/record/",
         "euclid": "http://projecteuclid.org/",
         "hal": "https://hal.archives-ouvertes.fr/",

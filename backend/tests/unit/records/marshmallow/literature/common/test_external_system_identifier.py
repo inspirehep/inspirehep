@@ -35,7 +35,7 @@ def test_all_schema_types_except_kekscan():
     expected = {
         "external_system_identifiers": [
             {
-                "url_link": "http://adsabs.harvard.edu/abs/ads-id",
+                "url_link": "https://ui.adsabs.harvard.edu/abs/ads-id",
                 "url_name": "ADS Abstract Service",
             },
             {
@@ -86,7 +86,7 @@ def test_takes_first_id_foreach_url_name():
     expected = {
         "external_system_identifiers": [
             {
-                "url_link": "http://adsabs.harvard.edu/abs/ads-id-1",
+                "url_link": "https://ui.adsabs.harvard.edu/abs/ads-id-1",
                 "url_name": "ADS Abstract Service",
             }
         ]
@@ -113,7 +113,7 @@ def test_takes_ids_that_have_configured_url():
     expected = {
         "external_system_identifiers": [
             {
-                "url_link": "http://adsabs.harvard.edu/abs/ads-id",
+                "url_link": "https://ui.adsabs.harvard.edu/abs/ads-id",
                 "url_name": "ADS Abstract Service",
             }
         ]
@@ -222,7 +222,7 @@ def test_works_without_many_is_true():
 
     expected = {
         "external_system_identifier": {
-            "url_link": "http://adsabs.harvard.edu/abs/ads-id",
+            "url_link": "https://ui.adsabs.harvard.edu/abs/ads-id",
             "url_name": "ADS Abstract Service",
         }
     }
