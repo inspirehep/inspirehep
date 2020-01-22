@@ -7,6 +7,8 @@
 
 from copy import deepcopy
 
+from helpers.utils import es_search
+from invenio_search import current_search
 from invenio_search import current_search_client as es
 from marshmallow import utils
 
@@ -21,7 +23,7 @@ def test_index_job_record(base_app, es_clear, db, datadir, create_record):
     expected_source["_created"] = utils.isoformat(record.created)
     expected_source["_updated"] = utils.isoformat(record.updated)
 
-    response = es.search("records-jobs")
+    response = es_search("records-jobs")
     response_source = response["hits"]["hits"][0]["_source"]
     response_total = response["hits"]["total"]["value"]
 
@@ -34,7 +36,7 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
 
     record["deleted"] = True
     record.index(delay=False)
-    es_clear.indices.refresh("records-jobs")
+    current_search.flush_and_refresh("records-jobs")
 
     expected_records_count = 0
 

@@ -12,6 +12,7 @@ from flask import current_app
 from invenio_records_rest.serializers.json import (
     JSONSerializer as InvenioJSONSerializer,
 )
+from invenio_search.utils import build_alias_name
 
 
 class JSONSerializer(InvenioJSONSerializer):
@@ -67,10 +68,11 @@ class JSONSerializer(InvenioJSONSerializer):
         )
 
     def _get_sort_options(self):
-        sort_options = current_app.config["RECORDS_REST_SORT_OPTIONS"].get(
-            self.index_name
-        )
-
+        alias_name = None
+        if self.index_name:
+            alias_name = build_alias_name(self.index_name, app=current_app)
+        all_options = current_app.config["RECORDS_REST_SORT_OPTIONS"]
+        sort_options = all_options.get(alias_name) or all_options.get(self.index_name)
         if sort_options is None:
             return None
         return [

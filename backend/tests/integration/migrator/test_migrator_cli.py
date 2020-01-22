@@ -11,6 +11,7 @@ import os
 import pkg_resources
 import pytest
 from flask import current_app
+from invenio_search import current_search
 from mock import patch
 
 from inspirehep.migrator.cli import migrate
@@ -189,8 +190,8 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
 
     result = app_cli_runner.invoke(migrate, ["mirror"])
     assert result.exit_code == 0
-    es_clear.indices.refresh("records-hep")
-    es_clear.indices.refresh("records-authors")
+    current_search.flush_and_refresh("records-hep")
+    current_search.flush_and_refresh("records-authors")
 
     search_response = api_client.get("/literature?q=")
 

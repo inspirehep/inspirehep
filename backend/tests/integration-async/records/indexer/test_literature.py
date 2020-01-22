@@ -9,7 +9,9 @@ import pytest
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
+from helpers.utils import es_search
 from invenio_db import db
+from invenio_search import current_search
 from invenio_search import current_search_client as es
 
 from inspirehep.records.api import LiteratureRecord
@@ -21,7 +23,7 @@ from inspirehep.search.api import LiteratureSearch
 def assert_citation_count(retry_until_matched):
     def _assert_citation_count(cited_record, expected_count):
         steps = [
-            {"step": es.indices.refresh, "args": ["records-hep"]},
+            {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
             {
                 "step": LiteratureSearch.get_record_data_from_es,
                 "args": [cited_record],
@@ -40,9 +42,9 @@ def assert_citation_count(retry_until_matched):
 def assert_es_hits_count(retry_until_matched):
     def _assert_es_hits_count(expected_hits_count):
         steps = [
-            {"step": es.indices.refresh, "args": ["records-hep"]},
+            {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
             {
-                "step": es.search,
+                "step": es_search,
                 "args": ["records-hep"],
                 "expected_result": {
                     "expected_key": "hits.total.value",
@@ -238,7 +240,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
     db.session.commit()
 
     steps = [
-        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
         {
             "step": LiteratureSearch.get_record_data_from_es,
             "args": [cited_record],
@@ -255,10 +257,10 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
     citing_record.update(data_citing_record)
     db.session.commit()
 
-    es.indices.refresh("records-hep")
+    current_search.flush_and_refresh("records-hep")
 
     steps = [
-        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
         {
             "step": LiteratureSearch.get_record_data_from_es,
             "args": [cited_record],
@@ -278,7 +280,7 @@ def test_many_records_in_one_commit(
         data = faker.record("lit")
         LiteratureRecord.create(data)
     db.session.commit()
-    es.indices.refresh("records-hep")
+    current_search.flush_and_refresh("records-hep")
 
     assert_es_hits_count(10)
 

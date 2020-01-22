@@ -62,6 +62,8 @@ class InspireRecordIndexer(RecordIndexer):
         index_from_record, doc_type_from_record = self.record_to_index(record)
         if not index:
             index = index_from_record
+
+        index, doc_type = self._prepare_index(index, doc_type or doc_type_from_record)
         return {
             "_op_type": "index",
             "_index": index,

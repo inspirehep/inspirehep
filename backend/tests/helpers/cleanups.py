@@ -6,9 +6,8 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from itertools import chain
 
-import elasticsearch
-import invenio_search
 from elasticsearch import ConflictError, NotFoundError, RequestError
+from helpers.utils import get_index_alias
 from invenio_search.errors import IndexAlreadyExistsError
 from pytest_invenio.fixtures import _es_create_indexes
 from sqlalchemy_utils import create_database, database_exists
@@ -26,12 +25,14 @@ def es_cleanup(es):
     """
     from invenio_search import current_search
 
-    es.indices.refresh()
+    current_search.flush_and_refresh("*")
     existing_mappings_nested = (
         x["aliases"].keys() for x in es.indices.get_alias("*").values()
     )
     existing_mappings = set(chain.from_iterable(existing_mappings_nested))
-    required_mappings = set(current_search.mappings.keys())
+    required_mappings = {
+        get_index_alias(index) for index in current_search.mappings.keys()
+    }
     missing_mappings = required_mappings.difference(existing_mappings)
     try:
         if len(missing_mappings):
@@ -41,13 +42,13 @@ def es_cleanup(es):
                 es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
             except ConflictError:
                 # Retry as there might be some delay on ES side
-                es.indices.refresh()
+                current_search.flush_and_refresh("*")
                 es.delete_by_query(index, '{"query" : {"match_all" : {} }}')
     except (RequestError, NotFoundError, IndexAlreadyExistsError) as e:
         es.indices.delete(index="*", allow_no_indices=True, expand_wildcards="all")
-        es.indices.refresh()
+        current_search.flush_and_refresh("*")
         _es_create_indexes(current_search, es)
-    es.indices.refresh()
+    current_search.flush_and_refresh("*")
 
 
 def db_cleanup(db_):
