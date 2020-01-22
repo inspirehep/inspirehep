@@ -10,18 +10,17 @@ import BetaInfoBanner from './BetaInfoBanner';
 import InterventionBanner from './InterventionBanner';
 import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';
-import usePrevious from '../../hooks/usePrevious';
 
 function Header(props) {
   const { onHeightChange } = props;
   const [ref, , height] = useResizeObserver();
-  const previousHeight = usePrevious(height);
 
-  useEffect(() => {
-    if (height !== previousHeight) {
+  useEffect(
+    () => {
       onHeightChange(height);
-    }
-  });
+    },
+    [height, onHeightChange]
+  );
 
   const { isHomePage, isSubmissionsPage, isBetaPage } = props;
   return (
