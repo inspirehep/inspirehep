@@ -23,6 +23,8 @@ from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
+from helpers.utils import get_index_alias
+from invenio_search import current_search
 from moto import mock_s3
 from redis import StrictRedis
 
@@ -205,7 +207,7 @@ def create_record(base_app, db, es_clear):
         record_data = faker.record(record_type, data=data, **kwargs)
         record = InspireRecord.create(record_data)
         record._indexing = record.index(delay=False)
-        es_clear.indices.refresh(index)
+        current_search.flush_and_refresh(index)
         return record
 
     return _create_record
@@ -249,9 +251,12 @@ def create_record_factory(base_app, db, es_clear):
         if with_indexing:
             index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
             record._index = es_clear.index(
-                index=index, id=str(record.id), body=record.json, params={}
+                index=get_index_alias(index),
+                id=str(record.id),
+                body=record.json,
+                params={},
             )
-            es_clear.indices.refresh(index)
+            current_search.flush_and_refresh(index)
         return record
 
     return _create_record_factory

@@ -1,12 +1,21 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2019 CERN.
+# Copyright (C) 2020 CERN.
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
-
 import mock
+from flask import current_app
+from invenio_search import current_search
+from invenio_search.utils import build_alias_name
+
+
+def es_search(index):
+    return current_search.client.search(get_index_alias(index))
+
+
+def get_index_alias(index):
+    return build_alias_name(index, app=current_app)
 
 
 def override_config(**kwargs):

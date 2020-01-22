@@ -8,6 +8,8 @@
 import json
 from copy import deepcopy
 
+from helpers.utils import es_search
+from invenio_search import current_search
 from invenio_search import current_search_client as es
 from marshmallow import utils
 
@@ -34,7 +36,7 @@ def test_index_institutions_record(base_app, es_clear, db, datadir, create_recor
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
 
-    response = es.search("records-institutions")
+    response = es_search("records-institutions")
 
     assert response["hits"]["total"]["value"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
@@ -46,7 +48,7 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
 
     record["deleted"] = True
     record.index(delay=False)
-    es_clear.indices.refresh("records-institutions")
+    current_search.flush_and_refresh("records-institutions")
 
     expected_records_count = 0
 

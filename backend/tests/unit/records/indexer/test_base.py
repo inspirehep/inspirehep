@@ -45,6 +45,7 @@ def test_indexer_prepare_record(
     assert expected == processed
 
 
+@mock.patch("invenio_indexer.api.build_alias_name", return_value="prefixed-index")
 @mock.patch(
     "inspirehep.records.indexer.base.InspireRecordIndexer._prepare_record",
     return_value={},
@@ -53,12 +54,14 @@ def test_indexer_prepare_record(
     "inspirehep.records.indexer.base.InspireRecordIndexer.record_to_index",
     return_value=(None, None),
 )
-def test_process_bulk_record_for_index(record_to_index_mock, prepare_record_mock):
+def test_process_bulk_record_for_index(
+    record_to_index_mock, prepare_record_mock, build_alias_mocked
+):
     record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
     expected_data = {
         "_op_type": "index",
-        "_index": "index_name",
+        "_index": "prefixed-index",
         "_type": "document_type",
         "_id": str(record.id),
         "_version": record.revision_id,
@@ -75,6 +78,7 @@ def test_process_bulk_record_for_index(record_to_index_mock, prepare_record_mock
     assert expected_data == bulk_data
 
 
+@mock.patch("invenio_indexer.api.build_alias_name", return_value="prefixed-index")
 @mock.patch(
     "inspirehep.records.indexer.base.InspireRecordIndexer._prepare_record",
     return_value={},
@@ -84,14 +88,14 @@ def test_process_bulk_record_for_index(record_to_index_mock, prepare_record_mock
     return_value=("test_index", "test_type"),
 )
 def test_process_bulk_record_for_index_default_values(
-    record_to_index_mock, prepare_record_mock
+    record_to_index_mock, prepare_record_mock, build_alias_mocked
 ):
     record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
     expected_data = {
         "_op_type": "index",
-        "_index": "test_index",
-        "_type": None,
+        "_index": "prefixed-index",
+        "_type": "test_type",
         "_id": str(record.id),
         "_version": record.revision_id,
         "_version_type": "external_gte",

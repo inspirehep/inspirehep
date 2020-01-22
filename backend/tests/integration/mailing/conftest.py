@@ -11,6 +11,7 @@ import json
 import mock
 import pytest
 from helpers.providers.faker import faker
+from invenio_search import current_search
 
 from inspirehep.records.api import InspireRecord
 
@@ -75,4 +76,4 @@ def create_jobs(base_app, db, es_clear, shared_datadir, create_record):
     job_60_days_old = json.loads((shared_datadir / "1745106.json").read_text())
     create_record("job", data=job_60_days_old)
 
-    es_clear.indices.refresh("records-jobs")
+    current_search.flush_and_refresh("records-jobs")

@@ -13,6 +13,7 @@ from flask import current_app
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_search import current_search
 from mock import patch
 from redis import StrictRedis
 
@@ -321,7 +322,7 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear
     )
     migrate_from_file(record_fixture_path)
     migrate_from_file(record_fixture_path_deleted)
-    es_clear.indices.refresh("records-hep")
+    current_search.flush_and_refresh("records-hep")
 
     expected_record_lit_es_len = 1
 
@@ -351,7 +352,7 @@ def test_migrate_from_mirror_removes_record_from_es(
     )
 
     migrate_from_file(record_deleted_fixture_path)
-    es_clear.indices.refresh("records-hep")
+    current_search.flush_and_refresh("records-hep")
 
     expected_record_lit_es_len = 0
     record_lit_uuid = LiteratureRecord.get_uuid_from_pid_value(12345)
@@ -548,6 +549,8 @@ def test_migrate_from_mirror_doesnt_raise_on_job_records(base_app, db, es_clear)
         __name__, os.path.join("fixtures", "1695012.xml")
     )
     migrate_from_file(record_fixture_path)
-    job_rec = LegacyRecordsMirror.query.filter(LegacyRecordsMirror.recid==1695012).one()
+    job_rec = LegacyRecordsMirror.query.filter(
+        LegacyRecordsMirror.recid == 1695012
+    ).one()
 
     assert job_rec.valid

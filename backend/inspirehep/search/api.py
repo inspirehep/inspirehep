@@ -24,6 +24,14 @@ IQ = inspire_query_factory()
 class SearchMixin(object):
     """Mixin that adds helper functions to ElasticSearch DSL classes."""
 
+    @property
+    def base_index(self):
+        return self._original_index[0]
+
+    @property
+    def alias(self):
+        return self._index[0]
+
     def query_from_iq(self, query_string):
         """Initialize ES DSL object using INSPIRE query parser.
 
@@ -43,7 +51,7 @@ class SearchMixin(object):
         :type uuid: UUID
         :returns: dict
         """
-        return es.get_source(index=self.Meta.index, id=uuid, **kwargs)
+        return es.get_source(index=self.alias, id=uuid, **kwargs)
 
     def mget(self, uuids, **kwargs):
         """Get source from a list of uuids.
@@ -55,7 +63,7 @@ class SearchMixin(object):
 
         try:
             documents = es.mget(
-                index=self.Meta.index,
+                index=self.alias,
                 doc_type=self.Meta.doc_types,
                 body={"ids": uuids},
                 **kwargs

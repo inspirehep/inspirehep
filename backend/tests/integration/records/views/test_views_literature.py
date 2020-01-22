@@ -14,6 +14,7 @@ import pytest
 from flask import current_app
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
+from invenio_search import current_search
 
 from inspirehep.accounts.roles import Roles
 from inspirehep.records.errors import MaxResultWindowRESTError
@@ -632,7 +633,7 @@ def test_literature_citation_annual_summary(
         "author": literature.serialize_for_es()["facet_author_name"][0],
         "facet_name": "citations-by-year",
     }
-    es_clear.indices.refresh("records-hep")
+    current_search.flush_and_refresh("records-hep")
 
     response = api_client.get(f"/literature/facets/?{urlencode(request_param)}")
 
@@ -680,7 +681,7 @@ def test_literature_citation_annual_summary_for_many_records(
     literature2.index(delay=False)
     request_param = {"facet_name": "citations-by-year"}
 
-    es_clear.indices.refresh("records-hep")
+    current_search.flush_and_refresh("records-hep")
 
     response = api_client.get(f"/literature/facets/?{urlencode(request_param)}")
 

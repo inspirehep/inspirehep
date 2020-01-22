@@ -8,8 +8,10 @@
 import json
 
 from helpers.providers.faker import faker
+from helpers.utils import es_search
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier
+from invenio_search import current_search
 from invenio_search import current_search_client as es
 
 from inspirehep.disambiguation.tasks import disambiguate_signatures
@@ -47,9 +49,9 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
     expected_facet_author_name = [f"{author_control_number}_John Doe"]
 
     steps = [
-        {"step": es.indices.refresh, "args": ["records-hep"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
         {
-            "step": es.search,
+            "step": es_search,
             "args": ["records-hep"],
             "expected_result": {
                 "expected_key": "hits.total.value",
@@ -57,7 +59,7 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
             },
         },
         {
-            "step": es.search,
+            "step": es_search,
             "args": ["records-hep"],
             "expected_result": {
                 "expected_key": "hits.hits[0]._source.facet_author_name",
