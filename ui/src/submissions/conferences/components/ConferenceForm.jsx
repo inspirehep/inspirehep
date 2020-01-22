@@ -13,7 +13,7 @@ import RichTextField from '../../common/components/RichTextField';
 import NumberField from '../../common/components/NumberField';
 import { countryOptions } from '../schemas/constants';
 import DateRangeField from '../../common/components/DateRangeField';
-import ConferencesExistOnDatesAlert from './ConferencesExistOnDatesAlert';
+import ExistingConferencesAlertContainer from '../containers/ExistingConferencesAlertContainer';
 
 // TODO: move them somewhere common to share with `AuthorForm`
 function getSuggestionSourceNameValue(suggestion) {
@@ -47,7 +47,9 @@ function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
         label="Series Number"
         component={NumberField}
       />
-      {values.dates && <ConferencesExistOnDatesAlert dates={values.dates} />}
+      {values.dates && (
+        <ExistingConferencesAlertContainer dates={values.dates} />
+      )}
       <Field name="dates" label="* Dates" component={DateRangeField} />
       <ArrayOf
         values={values}

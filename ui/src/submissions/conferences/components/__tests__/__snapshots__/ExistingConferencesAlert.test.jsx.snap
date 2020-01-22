@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExistingConferencesAlert renders alert and drawer 1`] = `
+<Fragment>
+  <FieldInfoAlert
+    description={
+      <span>
+        <strong
+          data-test-id="conferences-exist-alert-number"
+        >
+          5
+        </strong>
+         
+        other 
+        conferences
+         
+        found in these dates.
+        <Button
+          block={false}
+          ghost={false}
+          htmlType="button"
+          loading={false}
+          onClick={[Function]}
+          size="small"
+          type="link"
+        >
+          Show more
+        </Button>
+      </span>
+    }
+  />
+  <ExistingConferencesDrawer
+    numberOfConferences={5}
+    onDrawerClose={[Function]}
+    visible={false}
+  />
+</Fragment>
+`;
