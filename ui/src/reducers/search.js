@@ -16,7 +16,7 @@ import {
   SEARCH_QUERY_RESET,
 } from '../actions/actionTypes';
 import { AUTHORS, JOBS, LITERATURE, CONFERENCES } from '../common/routes';
-import { START_DATE_UPCOMING } from '../common/constants';
+import { START_DATE_UPCOMING, START_DATE_ALL } from '../common/constants';
 
 export const AUTHORS_NS = 'authors';
 export const LITERATURE_NS = 'literature';
@@ -24,6 +24,7 @@ export const JOBS_NS = 'jobs';
 export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
 export const CONFERENCE_CONTRIBUTIONS_NS = 'conferenceContributions';
 export const CONFERENCES_NS = 'conferences';
+export const EXISTING_CONFERENCES_NS = 'existingConferences';
 
 const initialBaseQuery = {
   sort: 'mostrecent',
@@ -123,6 +124,25 @@ export const initialState = fromJS({
       },
       persistedQueryParamsDuringNewSearch: ['start_date'],
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
+    },
+    [EXISTING_CONFERENCES_NS]: {
+      ...initialNamespaceState,
+      pathname: CONFERENCES,
+      embedded: true,
+      baseQuery: {
+        ...initialBaseQuery,
+        start_date: START_DATE_ALL,
+        sort: 'dateasc',
+        size: '10',
+      },
+      query: {
+        ...initialBaseQuery,
+        start_date: START_DATE_ALL,
+        sort: 'dateasc',
+        size: '10',
+      },
+      persistedQueryParamsDuringNewSearch: ['start_date'],
+      aggregationsFetchMode: FETCH_MODE_NEVER,
     },
   },
 });

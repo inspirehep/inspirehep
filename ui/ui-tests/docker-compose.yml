@@ -2,7 +2,7 @@ version: '3.1'
 
 services:
   node:
-    image: alekzonder/puppeteer
+    image: alekzonder/puppeteer:1.8.0-0
     
     command: bash -c "cd /opt/app/ui-tests && yarn && yarn test"
     volumes:
