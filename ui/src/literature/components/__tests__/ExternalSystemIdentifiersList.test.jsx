@@ -12,7 +12,7 @@ describe('ExternalSystemIdentifierList', () => {
         url_name: 'CERN Document Server',
       },
       {
-        url_link: 'http://adsabs.harvard.edu/abs/123.1234',
+        url_link: 'https://ui.adsabs.harvard.edu/abs/123.1234',
         url_name: 'ADS Abstract Service',
       },
     ]);

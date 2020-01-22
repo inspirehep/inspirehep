@@ -22,10 +22,10 @@ exports[`ExternalSystemIdentifierList renders with external system identifiers 1
       , 
     </li>
     <li
-      key="http://adsabs.harvard.edu/abs/123.1234"
+      key="https://ui.adsabs.harvard.edu/abs/123.1234"
     >
       <a
-        href="http://adsabs.harvard.edu/abs/123.1234"
+        href="https://ui.adsabs.harvard.edu/abs/123.1234"
       >
         ADS Abstract Service
       </a>
