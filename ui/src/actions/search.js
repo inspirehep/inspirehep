@@ -79,6 +79,7 @@ export function searchForCurrentQuery(namespace) {
 
     if (!isEmbedded(namespace, state)) {
       if (isCurrentUrlOnlyMissingBaseQuery(namespace, state, queryString)) {
+        // in order to allow going out of redirect loop of url <=> url + base query
         dispatch(replace(url));
       } else {
         dispatch(push(url));
@@ -138,6 +139,7 @@ export function fetchSearchAggregationsForCurrentQuery(namespace) {
 
     dispatch(fetchingSearchAggregations(namespace));
 
+    // do a search with empty query if FETCH_MODE_INITIAL
     const searchQuery =
       aggregationsFetchMode === FETCH_MODE_INITIAL
         ? {}

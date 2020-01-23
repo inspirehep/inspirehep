@@ -18,8 +18,8 @@ function TestAsyncButton({ asyncOnClick }) {
   return <button onClick={onClick}>Test Async</button>;
 }
 
-describe('usePrevious', () => {
-  it('renders previous and current value', () => {
+describe('useIsMounted', () => {
+  it('does not call onClick when unmounted', () => {
     const asyncOnClick = jest.fn().mockResolvedValue();
     const wrapper = mount(<TestAsyncButton asyncOnClick={asyncOnClick} />);
     wrapper.find('button').simulate('click');

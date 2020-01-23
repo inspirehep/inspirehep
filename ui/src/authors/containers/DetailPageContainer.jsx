@@ -184,7 +184,9 @@ function DetailPage({
                   <CitationsByYearGraphContainer />
                 </Col>
                 <Col xs={24} md={24} lg={17}>
-                  <CitationSummaryGraphContainer />
+                  <CitationSummaryGraphContainer
+                    namespace={AUTHOR_PUBLICATIONS_NS}
+                  />
                 </Col>
               </Row>
             </EmptyOrChildren>

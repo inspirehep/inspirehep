@@ -10,6 +10,7 @@ import {
 } from 'react-vis';
 import PropTypes from 'prop-types';
 import { Row, Col, Tooltip } from 'antd';
+
 import './CitationSummaryGraph.scss';
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
@@ -18,7 +19,7 @@ import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
 import styleVariables from '../../../styleVariables';
-import { shallowEqual } from '../../utils';
+import { shallowEqual, abbreviateNumber } from '../../utils';
 import { browser } from '../../browser';
 
 const BAR_WIDTH = 0.5;
@@ -209,7 +210,7 @@ class CitationSummaryGraph extends Component {
                       xPercent={0.92}
                       yPercent={0.73}
                     />
-                    <YAxis title="Papers" />
+                    <YAxis title="Papers" tickFormat={abbreviateNumber} />
                     <VerticalBarSeries
                       colorType="literal"
                       data={citeableSeriesData}

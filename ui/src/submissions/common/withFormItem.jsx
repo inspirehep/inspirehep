@@ -3,7 +3,7 @@ import { Form, Tooltip } from 'antd';
 import { getIn } from 'formik';
 import classNames from 'classnames';
 
-import { getWrappedComponentDisplayName } from '../../common/utils';
+import { getWrapperComponentDisplayName } from '../../common/utils';
 
 export const LABEL_COL = { sm: { span: 24 }, md: { span: 5 } };
 export const WRAPPER_COL = {
@@ -80,7 +80,7 @@ export default function withFormItem(FormInputComponent) {
     wrapperCol: WRAPPER_COL,
   };
 
-  WithFormItem.displayName = getWrappedComponentDisplayName(
+  WithFormItem.displayName = getWrapperComponentDisplayName(
     'WithFormItem',
     FormInputComponent
   );
