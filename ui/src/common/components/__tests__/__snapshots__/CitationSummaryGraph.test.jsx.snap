@@ -64,6 +64,7 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
                 attr="y"
                 attrAxis="x"
                 orientation="left"
+                tickFormat={[Function]}
                 title="Papers"
               />
               <VerticalBarSeries
@@ -362,6 +363,7 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
                 attr="y"
                 attrAxis="x"
                 orientation="left"
+                tickFormat={[Function]}
                 title="Papers"
               />
               <VerticalBarSeries
@@ -660,6 +662,7 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
                 attr="y"
                 attrAxis="x"
                 orientation="left"
+                tickFormat={[Function]}
                 title="Papers"
               />
               <VerticalBarSeries

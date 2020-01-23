@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CitationSummarySwitch renders checked 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="top"
+  title="Hide Citation Summary"
+  transitionName="zoom-big-fast"
+>
+  <Switch
+    checked={true}
+    checkedChildren={
+      <Icon
+        type="bar-chart"
+      />
+    }
+    onChange={[MockFunction]}
+    unCheckedChildren={
+      <Icon
+        type="bar-chart"
+      />
+    }
+  />
+</Tooltip>
+`;
+
+exports[`CitationSummarySwitch renders unchecked 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="top"
+  title="Show Citation Summary"
+  transitionName="zoom-big-fast"
+>
+  <Switch
+    checked={false}
+    checkedChildren={
+      <Icon
+        type="bar-chart"
+      />
+    }
+    onChange={[MockFunction]}
+    unCheckedChildren={
+      <Icon
+        type="bar-chart"
+      />
+    }
+  />
+</Tooltip>
+`;

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { LineSeries, FlexibleWidthXYPlot, YAxis, XAxis, Hint } from 'react-vis';
-import NumberAbbreviator from 'number-abbreviate';
 
 import 'react-vis/dist/style.css';
 import maxBy from 'lodash.maxby';
@@ -11,6 +10,7 @@ import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import pluralizeUnlessSingle, {
   pickEvenlyDistributedElements,
+  abbreviateNumber,
 } from '../../utils';
 import EmptyOrChildren from '../EmptyOrChildren';
 
@@ -21,12 +21,6 @@ const GRAPH_HEIGHT = 250;
 const MIN_NUMBER_OF_DATAPOINTS = 3;
 const MAX_NUMBER_OF_TICKS_AT_X = 5;
 const MAX_NUMBER_OF_TICKS_AT_Y = 5;
-
-const numberAbbreviator = new NumberAbbreviator(['K', 'M', 'B', 'T']);
-
-function getNumberOfFractionsForValue(value) {
-  return value < 10000 ? 1 : 0;
-}
 
 class CitationsByYearGraph extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -126,12 +120,7 @@ class CitationsByYearGraph extends Component {
       <YAxis
         tickValues={tickValuesAtY}
         tickTotal={MAX_NUMBER_OF_TICKS_AT_Y}
-        tickFormat={value =>
-          numberAbbreviator.abbreviate(
-            value,
-            getNumberOfFractionsForValue(value)
-          )
-        }
+        tickFormat={abbreviateNumber}
       />
     );
   }

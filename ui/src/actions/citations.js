@@ -33,9 +33,10 @@ function fetchCitationsError(error) {
   };
 }
 
-function fetchingCitationsSummary() {
+function fetchingCitationsSummary(query) {
   return {
     type: CITATIONS_SUMMARY_REQUEST,
+    payload: { query },
   };
 }
 
@@ -75,7 +76,7 @@ export function fetchCitations(recordId, newQuery = {}) {
 
 export function fetchCitationSummary(literatureSearchQuery) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingCitationsSummary());
+    dispatch(fetchingCitationsSummary(literatureSearchQuery));
     try {
       const query = {
         ...literatureSearchQuery,

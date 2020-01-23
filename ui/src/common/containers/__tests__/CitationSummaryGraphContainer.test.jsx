@@ -120,12 +120,13 @@ const mockCitationsState = fromJS({
 
 describe('CitationSummaryGraphContainer', () => {
   it('passes props from state', () => {
+    const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStoreWithState({
       citations: mockCitationsState,
     });
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryGraphContainer />
+        <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
     expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
@@ -138,10 +139,11 @@ describe('CitationSummaryGraphContainer', () => {
   });
 
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with clean query when onSelectBarChange called with null', () => {
+    const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryGraphContainer />
+        <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
     const onSelectBarChange = wrapper
@@ -158,17 +160,18 @@ describe('CitationSummaryGraphContainer', () => {
     const expectedActions = [
       {
         type: SEARCH_QUERY_UPDATE,
-        payload: { namespace: AUTHOR_PUBLICATIONS_NS, query },
+        payload: { namespace, query },
       },
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with citeable query when onSelectBarChange called with citeable bar', () => {
+    const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryGraphContainer />
+        <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
     wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')({
@@ -191,10 +194,11 @@ describe('CitationSummaryGraphContainer', () => {
   });
 
   it('dispatches SEARCH_QUERY_UPDATE for author publication namespace with published query when onSelectBarChange called with published bar', () => {
+    const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStore();
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryGraphContainer />
+        <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
     wrapper.find(CitationSummaryGraph).prop('onSelectBarChange')({
@@ -217,11 +221,12 @@ describe('CitationSummaryGraphContainer', () => {
   });
 
   it('sets selectedBar prop from author publications namespace state for a citable bar', () => {
+    const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStoreWithState({
       citations: mockCitationsState,
       search: fromJS({
         namespaces: {
-          [AUTHOR_PUBLICATIONS_NS]: {
+          [namespace]: {
             query: { citeable: true, citation_count: '500--250' },
           },
         },
@@ -229,7 +234,7 @@ describe('CitationSummaryGraphContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryGraphContainer />
+        <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
     expect(wrapper.find(CitationSummaryGraph)).toHaveProp({
@@ -241,11 +246,12 @@ describe('CitationSummaryGraphContainer', () => {
   });
 
   it('sets selectedBar prop from author publications namespace state for a published bar', () => {
+    const namespace = AUTHOR_PUBLICATIONS_NS;
     const store = getStoreWithState({
       citations: mockCitationsState,
       search: fromJS({
         namespaces: {
-          [AUTHOR_PUBLICATIONS_NS]: {
+          [namespace]: {
             query: { citeable: true, citation_count: '0--0', refereed: 'true' },
           },
         },
@@ -253,7 +259,7 @@ describe('CitationSummaryGraphContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryGraphContainer />
+        <CitationSummaryGraphContainer namespace={namespace} />
       </Provider>
     );
     expect(wrapper.find(CitationSummaryGraph)).toHaveProp({

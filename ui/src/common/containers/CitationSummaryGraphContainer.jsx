@@ -7,7 +7,6 @@ import {
   PUBLISHED_BAR_TYPE,
 } from '../constants';
 import CitationSummaryGraph from '../components/CitationSummaryGraph';
-import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
 import { searchQueryUpdate } from '../../actions/search';
 
 const CLEAR_QUERY = {
@@ -45,7 +44,7 @@ export function queryToBar(query) {
   return null;
 }
 
-const stateToProps = state => ({
+const stateToProps = (state, { namespace }) => ({
   loading: state.citations.get('loadingCitationSummary'),
   citeableData: state.citations.getIn([
     'citationSummary',
@@ -65,17 +64,15 @@ const stateToProps = state => ({
   ]),
   error: state.citations.get('errorCitationSummary'),
   selectedBar: queryToBar(
-    state.search.getIn(['namespaces', AUTHOR_PUBLICATIONS_NS, 'query'])
+    state.search.getIn(['namespaces', namespace, 'query'])
   ),
 });
 
-const dispatchToProps = dispatch => ({
+const dispatchToProps = (dispatch, { namespace }) => ({
   // TODO: rename to onSelectedBarChange
   onSelectBarChange(bar) {
     const query = barToQuery(bar);
-    dispatch(
-      searchQueryUpdate(AUTHOR_PUBLICATIONS_NS, { page: '1', ...query })
-    );
+    dispatch(searchQueryUpdate(namespace, { page: '1', ...query }));
   },
 });
 

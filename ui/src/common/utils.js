@@ -1,6 +1,7 @@
 import mergeWith from 'lodash.mergewith';
 import cloneDeep from 'lodash.clonedeep';
 import { Map } from 'immutable';
+import NumberAbbreviator from 'number-abbreviate';
 
 export function forceArray(maybeArray) {
   return maybeArray === undefined || Array.isArray(maybeArray)
@@ -53,9 +54,14 @@ export function getFromObjectOrImmutableMap(objectOrMap, key) {
   return Map.isMap(objectOrMap) ? objectOrMap.get(key) : objectOrMap[key];
 }
 
-export function getWrappedComponentDisplayName(wrapperHocName, ComponentClass) {
+export function getWrapperComponentDisplayName(
+  wrapperHocName,
+  WrappedComponentClass
+) {
   const componentDisplayName =
-    ComponentClass.displayName || ComponentClass.name || 'Component';
+    WrappedComponentClass.displayName ||
+    WrappedComponentClass.name ||
+    'Component';
   return `${wrapperHocName}(${componentDisplayName})`;
 }
 
@@ -207,4 +213,10 @@ export function addOrdinalSuffix(i) {
     return `${i}rd`;
   }
   return `${i}th`;
+}
+
+const numberAbbreviator = new NumberAbbreviator(['K', 'M', 'B', 'T']);
+export function abbreviateNumber(number) {
+  const numberOfFractionDigits = number < 10000 ? 1 : 0;
+  return numberAbbreviator.abbreviate(number, numberOfFractionDigits);
 }

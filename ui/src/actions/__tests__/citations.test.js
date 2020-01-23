@@ -71,6 +71,7 @@ describe('citations - async action creator', () => {
   });
 
   it('creates CITATIONS_SUMMARY_SUCCESS if successful', async done => {
+    const literatureQuery = { author: ['12345_Jared'] };
     mockHttp
       .onGet(
         '/literature/facets?author=12345_Jared&facet_name=citation-summary'
@@ -78,23 +79,30 @@ describe('citations - async action creator', () => {
       .replyOnce(200, { foo: 'bar' });
 
     const expectedActions = [
-      { type: types.CITATIONS_SUMMARY_REQUEST },
+      {
+        type: types.CITATIONS_SUMMARY_REQUEST,
+        payload: { query: literatureQuery },
+      },
       { type: types.CITATIONS_SUMMARY_SUCCESS, payload: { foo: 'bar' } },
     ];
 
     const store = getStore();
-    await store.dispatch(fetchCitationSummary({ author: ['12345_Jared'] }));
+    await store.dispatch(fetchCitationSummary(literatureQuery));
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });
 
   it('creates CITATIONS_SUMMARY_ERROR if unsuccessful', async done => {
+    const literatureQuery = { q: 'stuff' };
     mockHttp
       .onGet('/literature/facets?q=stuff&facet_name=citation-summary')
       .replyOnce(404, { message: 'Error' });
 
     const expectedActions = [
-      { type: types.CITATIONS_SUMMARY_REQUEST },
+      {
+        type: types.CITATIONS_SUMMARY_REQUEST,
+        payload: { query: literatureQuery },
+      },
       {
         type: types.CITATIONS_SUMMARY_ERROR,
         payload: { status: 404, message: 'Error' },
@@ -102,7 +110,7 @@ describe('citations - async action creator', () => {
     ];
 
     const store = getStore();
-    await store.dispatch(fetchCitationSummary({ q: 'stuff' }));
+    await store.dispatch(fetchCitationSummary(literatureQuery));
     expect(store.getActions()).toEqual(expectedActions);
     done();
   });

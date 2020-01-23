@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
@@ -17,6 +17,8 @@ import CiteAllActionContainer from './CiteAllActionContainer';
 import VerticalDivider from '../../common/VerticalDivider';
 import { searchBaseQueriesUpdate } from '../../actions/search';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
+import CitationSummaryBoxContainer from './CitationSummaryBoxContainer';
+import CitationSummarySwitch from '../components/CitationSummarySwitch';
 
 function renderLiteratureItem(result, rank) {
   return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;
@@ -32,6 +34,7 @@ function LiteratureSearch({
   results,
   noResultsTitle,
   noResultsDescription,
+  isMainLiteratureSearch,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -53,6 +56,11 @@ function LiteratureSearch({
     },
     [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]
   );
+
+  const [isCitationSummaryVisible, setCitationSummaryVisible] = useState(false);
+  const onCitationSummarySwitchChange = useCallback(checked => {
+    setCitationSummaryVisible(checked);
+  }, []);
   return (
     <Row className="mt3" gutter={32} type="flex" justify="center">
       <EmptyOrChildren
@@ -66,29 +74,40 @@ function LiteratureSearch({
         <Col xs={24} lg={17}>
           <LoadingOrChildren loading={loading}>
             <Row type="flex" align="middle" justify="end">
-              <Col xs={24} lg={12}>
+              <Col xs={24} lg={8}>
                 <NumberOfResultsContainer namespace={namespace} />
                 <VerticalDivider />
                 <CiteAllActionContainer namespace={namespace} />
               </Col>
-              <Col xs={12} lg={0}>
+              <Col xs={8} lg={0}>
                 <ResponsiveView
                   max="md"
                   render={() => (
-                    <DrawerHandle
-                      className="mt2"
-                      handleText="Filter"
-                      drawerTitle="Filter"
-                    >
+                    <DrawerHandle handleText="Filter" drawerTitle="Filter">
                       {renderAggregations()}
                     </DrawerHandle>
                   )}
                 />
               </Col>
-              <Col className="tr" span={12}>
+              <Col className="tr" span={16}>
+                {isMainLiteratureSearch && (
+                  <span className="mr2">
+                    <CitationSummarySwitch
+                      checked={isCitationSummaryVisible}
+                      onChange={onCitationSummarySwitchChange}
+                    />
+                  </span>
+                )}
                 <SortByContainer namespace={namespace} />
               </Col>
             </Row>
+            {isCitationSummaryVisible && (
+              <Row className="mt2">
+                <Col span={24}>
+                  <CitationSummaryBoxContainer />
+                </Col>
+              </Row>
+            )}
             <Row>
               <Col span={24}>
                 <ResultsContainer
@@ -115,6 +134,7 @@ LiteratureSearch.propTypes = {
   results: PropTypes.instanceOf(List),
   noResultsTitle: PropTypes.string,
   noResultsDescription: PropTypes.node,
+  isMainLiteratureSearch: PropTypes.bool.isRequired,
 };
 
 const stateToProps = (state, { namespace }) => ({
@@ -125,6 +145,11 @@ const stateToProps = (state, { namespace }) => ({
     'loadingAggregations',
   ]),
   results: state.search.getIn(['namespaces', namespace, 'results']),
+  isMainLiteratureSearch: !state.search.getIn([
+    'namespaces',
+    namespace,
+    'embedded',
+  ]),
 });
 
 const dispatchToProps = dispatch => ({
