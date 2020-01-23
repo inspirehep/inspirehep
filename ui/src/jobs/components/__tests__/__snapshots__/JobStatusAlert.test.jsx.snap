@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobStatusAlert does not render with status open 1`] = `""`;
+
+exports[`JobStatusAlert renders alert with status closed and correct type and message 1`] = `
+<div
+  className="mb2"
+>
+  <Alert
+    message={
+      <span>
+        This job is 
+        closed
+        !
+      </span>
+    }
+    showIcon={false}
+    type="error"
+  />
+</div>
+`;
+
+exports[`JobStatusAlert renders alert with status pending and correct type and message 1`] = `
+<div
+  className="mb2"
+>
+  <Alert
+    message={
+      <span>
+        This job is 
+        pending
+        !
+      </span>
+    }
+    showIcon={false}
+    type="warning"
+  />
+</div>
+`;
