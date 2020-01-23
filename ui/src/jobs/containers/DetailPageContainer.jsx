@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'antd';
+import { Row, Col } from 'antd';
 import { Map } from 'immutable';
 
 import fetchJob from '../../actions/jobs';
@@ -24,6 +24,7 @@ import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
+import JobStatusAlert from '../components/JobStatusAlert';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -79,17 +80,11 @@ class DetailPage extends Component {
                 )
               }
             >
-              {status === 'closed' && (
-                <Row className="mb2">
-                  <Col>
-                    <Alert
-                      type="error"
-                      message={<span>This job is closed!</span>}
-                      showIcon={false}
-                    />
-                  </Col>
-                </Row>
-              )}
+              <Row>
+                <Col>
+                  <JobStatusAlert status={status} />
+                </Col>
+              </Row>
               <Row>
                 <Col>
                   <h2>
