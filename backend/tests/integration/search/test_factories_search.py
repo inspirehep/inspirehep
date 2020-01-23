@@ -87,7 +87,10 @@ def test_search_factory_with_query(base_app):
     with base_app.test_request_context("?q=foo"):
         search = InspireSearch()
         expected_query_string = "foo"
-        expected_search_to_dict = {"query": {"query_string": {"query": "foo"}}}
+        expected_search_to_dict = {
+            "query": {"query_string": {"query": "foo"}},
+            "track_total_hits": True,
+        }
         query_string, search = inspire_search_factory(None, search)
         search_to_dict = search.to_dict()
 
@@ -99,7 +102,7 @@ def test_search_factory_without_query(base_app):
     with base_app.test_request_context(""):
         search = InspireSearch()
         expected_query_string = ""
-        expected_search_to_dict = {"query": {"match_all": {}}}
+        expected_search_to_dict = {"query": {"match_all": {}}, "track_total_hits": True}
         query_string, search = inspire_search_factory(None, search)
         search_to_dict = search.to_dict()
 

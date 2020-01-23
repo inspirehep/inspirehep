@@ -70,6 +70,10 @@ class SearchMixin(object):
 class InspireSearch(RecordsSearch, SearchMixin):
     """Base Inspire search classs."""
 
+    def __init__(self, **kwargs):
+        kwargs["extra"] = {"track_total_hits": True}
+        super().__init__(**kwargs)
+
     @staticmethod
     def get_record_data_from_es(record):
         """Queries Elastic Search for this record and returns it as dictionary
