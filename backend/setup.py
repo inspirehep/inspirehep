@@ -66,6 +66,7 @@ setup(
             "inspirehep_orcid = inspirehep.orcid.config",
             "inspirehep_records = inspirehep.records.config",
             "inspirehep_rt = inspirehep.rt.config",
+            "inspirehep_files = inspirehep.files.config",
         ],
         "invenio_base.api_apps": [
             "inspirehep_logger = inspirehep.logger:InspireLogger",
@@ -74,6 +75,7 @@ setup(
             "inspirehep_orcid = inspirehep.orcid:InspireOrcid",
             "inspirehep_records = inspirehep.records:InspireRecords",
             "inspirehep_rt = inspirehep.rt:InspireRtExt",
+            "inspirehep_s3 = inspirehep.files:InspireS3",
         ],
         "invenio_base.api_converters": [
             "doipath = inspirehep.pidstore.converters:DOIPathConverter",

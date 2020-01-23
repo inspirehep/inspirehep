@@ -11,6 +11,7 @@ import os
 import random
 from functools import partial
 
+import boto3
 import pytest
 from click.testing import CliRunner
 from flask import current_app
@@ -22,9 +23,12 @@ from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
 from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
 from helpers.providers.faker import faker
+from moto import mock_s3
 from redis import StrictRedis
 
 from inspirehep.factory import create_app as inspire_create_app
+from inspirehep.files.api.s3 import S3
+from inspirehep.files.ext import InspireS3
 from inspirehep.records.api import InspireRecord
 from inspirehep.records.fixtures import (
     init_default_storage_path,
@@ -141,6 +145,41 @@ def db(db_):
 def es_clear(es):
     es_cleanup(es)
     yield es
+
+
+@pytest.fixture()
+def s3(base_app):
+    mock = mock_s3()
+    mock.start()
+    client = boto3.client("s3")
+    resource = boto3.resource("s3")
+    s3 = S3(client, resource)
+
+    class MockedInspireS3:
+        s3_instance = s3
+
+    real_inspirehep_s3 = base_app.extensions["inspirehep-s3"]
+    base_app.extensions["inspirehep-s3"] = MockedInspireS3
+
+    yield s3
+    mock.stop()
+    base_app.extensions["inspirehep-s3"] = real_inspirehep_s3
+
+
+@pytest.fixture(scope="function")
+def create_s3_bucket(s3):
+    def _create_bucket(bucket):
+        s3.client.create_bucket(Bucket=bucket)
+
+    return _create_bucket
+
+
+@pytest.fixture(scope="function")
+def create_s3_file(s3):
+    def _create_file(bucket, key, data, metadata={}):
+        s3.client.put_object(Bucket=bucket, Key=key, Body=data, Metadata=metadata)
+
+    return _create_file
 
 
 @pytest.fixture(scope="function")
