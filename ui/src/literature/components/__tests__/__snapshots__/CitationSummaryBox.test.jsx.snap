@@ -28,6 +28,7 @@ exports[`CitationSummaryBox renders 1`] = `
       xs={24}
     >
       <Connect(toAllJS(CitationSummaryGraph))
+        displayHintOnBarHover={true}
         namespace="literature"
       />
     </Col>
