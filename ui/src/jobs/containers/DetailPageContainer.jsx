@@ -25,6 +25,7 @@ import {
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
 import JobStatusAlert from '../components/JobStatusAlert';
+import DeletedAlert from '../../common/components/DeletedAlert';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -67,6 +68,8 @@ class DetailPage extends Component {
     const urls = metadata.get('urls');
     const canEdit = metadata.get('can_edit', false);
     const externalJobId = metadata.get('external_job_identifier');
+    const deleted = metadata.get('deleted', false);
+
     return (
       <>
         <DocumentHead title={position} />
@@ -80,6 +83,9 @@ class DetailPage extends Component {
                 )
               }
             >
+              <Row>
+                <Col>{deleted && <DeletedAlert />}</Col>
+              </Row>
               <Row>
                 <Col>
                   <JobStatusAlert status={status} />

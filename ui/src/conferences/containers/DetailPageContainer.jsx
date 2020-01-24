@@ -20,6 +20,7 @@ import ConferenceLocation from '../components/ConferenceLocation';
 import ConferenceContributions from '../components/ConferenceContributions';
 import { newSearch } from '../../actions/search';
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
+import DeletedAlert from '../../common/components/DeletedAlert';
 
 function DetailPage({ loading, match, dispatch, record }) {
   const recordId = match.params.id;
@@ -52,8 +53,9 @@ function DetailPage({ loading, match, dispatch, record }) {
   const publicNotes = metadata.get('public_notes');
   const keywords = metadata.get('keywords');
   const urls = metadata.get('urls');
-  const proceedings = metadata.get('proceedings'); // TODO: check exact format after INSPIR-2850
+  const proceedings = metadata.get('proceedings');
   const canEdit = metadata.get('can_edit', false);
+  const deleted = metadata.get('deleted', false);
 
   return (
     <>
@@ -73,6 +75,9 @@ function DetailPage({ loading, match, dispatch, record }) {
               </>
             }
           >
+            <Row>
+              <Col>{deleted && <DeletedAlert />}</Col>
+            </Row>
             <Row>
               <Col>
                 <h2>

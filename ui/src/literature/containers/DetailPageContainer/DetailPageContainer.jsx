@@ -42,6 +42,7 @@ import RequireOneOf from '../../../common/components/RequireOneOf';
 import ReferenceListContainer from '../../../common/containers/ReferenceListContainer';
 import PublicNotesList from '../../../common/components/PublicNotesList';
 import UrlsAction from '../../components/UrlsAction';
+import DeletedAlert from '../../../common/components/DeletedAlert';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -114,6 +115,8 @@ class DetailPage extends Component {
 
     const figures = metadata.get('figures');
 
+    const deleted = metadata.get('deleted', false);
+
     return (
       <>
         <DocumentHead title={title.get('title')} />
@@ -157,6 +160,9 @@ class DetailPage extends Component {
                     </Fragment>
                   }
                 >
+                  <Row>
+                    <Col>{deleted && <DeletedAlert />}</Col>
+                  </Row>
                   <h2>
                     <LiteratureTitle title={title} />
                   </h2>
