@@ -35,6 +35,7 @@ import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
 import { newSearch } from '../../actions/search';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import EditRecordAction from '../../common/components/EditRecordAction';
+import DeletedAlert from '../../common/components/DeletedAlert';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -99,6 +100,8 @@ function DetailPage({
   const urls = metadata.get('urls');
   const orcid = metadata.get('orcid');
   const emails = metadata.get('email_addresses');
+  const deleted = metadata.get('deleted', false);
+
   return (
     <>
       <DocumentHead title={getAuthorDisplayName(name)} />
@@ -134,6 +137,9 @@ function DetailPage({
                   </>
                 }
               >
+                <Row>
+                  <Col>{deleted && <DeletedAlert />}</Col>
+                </Row>
                 <h2>
                   <AuthorName name={name} />
                   {currentPositions.size > 0 && (
