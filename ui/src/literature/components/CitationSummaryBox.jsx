@@ -22,7 +22,10 @@ function CitationSummaryBox({ query, onQueryChange }) {
           <CitationSummaryTableContainer />
         </Col>
         <Col xs={24} lg={17}>
-          <CitationSummaryGraphContainer namespace={LITERATURE_NS} />
+          <CitationSummaryGraphContainer
+            namespace={LITERATURE_NS}
+            displayHintOnBarHover
+          />
         </Col>
       </Row>
     </ContentBox>
