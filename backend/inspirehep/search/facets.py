@@ -11,6 +11,8 @@ from elasticsearch_dsl.query import Q, Range
 from flask import current_app, request
 from invenio_records_rest.facets import range_filter
 
+from inspirehep.search.utils import minify_painless
+
 
 def range_author_count_filter(field):
     """Range filter for returning records within the corresponding range(s)."""
@@ -250,6 +252,33 @@ def citation_summary():
         for key, val in current_app.config["HEP_COMMON_FILTERS"].items()
         if key not in excluded_filters
     }
+    map_script = """
+        if (doc.refereed.length >0 && doc.refereed[0]) {
+            state.citations_refereed.add(doc.citation_count[0])
+        } else {
+            state.citations_non_refereed.add(doc.citation_count[0])
+        }
+    """
+    reduce_script = """
+        def flattened_all = [];
+        def flattened_refereed = [];
+        int i = 0;
+        int j = 0;
+        for (a in states) {
+            flattened_all.addAll(a.citations_non_refereed);
+            flattened_refereed.addAll(a.citations_refereed)
+        }
+        flattened_refereed.sort(Comparator.reverseOrder());
+        while (i < flattened_refereed.size() && i < flattened_refereed[i]) {
+            i++
+        }
+        flattened_all.addAll(flattened_refereed);
+        flattened_all.sort(Comparator.reverseOrder());
+        while (j < flattened_all.size() && j < flattened_all[j]) {
+            j++
+        }
+        return ['published': i, 'all': j]
+    """
     return {
         "filters": {**filters, **current_app.config["HEP_FILTERS"]},
         "aggs": {
@@ -259,9 +288,9 @@ def citation_summary():
                     "h-index": {
                         "scripted_metric": {
                             "init_script": "state.citations_non_refereed = []; state.citations_refereed = []",
-                            "map_script": "if (doc['refereed'].length >0 && doc['refereed'][0]) { state.citations_refereed.add(doc.citation_count[0]) } else { state.citations_non_refereed.add(doc.citation_count[0]) }",
+                            "map_script": minify_painless(map_script),
                             "combine_script": "return state",
-                            "reduce_script": "def flattened_all = []; def flattened_refereed = []; int i = 0; int j = 0; for (a in states) { flattened_all.addAll(a.citations_non_refereed); flattened_refereed.addAll(a.citations_refereed) } flattened_refereed.sort(Comparator.reverseOrder()); while ( i < flattened_refereed.size() && i < flattened_refereed[i]) { i++ } flattened_all.addAll(flattened_refereed); flattened_all.sort(Comparator.reverseOrder()); while ( j < flattened_all.size() && j < flattened_all[j]) { j++ } return ['published': i, 'all': j]",
+                            "reduce_script": minify_painless(reduce_script),
                         }
                     },
                     "citations": {
@@ -310,16 +339,36 @@ def citations_by_year():
         for key, val in current_app.config["HEP_COMMON_FILTERS"].items()
         if key not in excluded_filters
     }
+    map_script = """
+        def add(def x, def y) {
+            x + y
+        }
+        def years = params._source.citations_by_year != null ? params._source.citations_by_year : [];
+        for (element in years) {
+            state.merge(element.year.toString(), element.count, this::add)
+        }
+    """
+    reduce_script = """
+        def add(def x, def y) {
+            x + y
+        }
+        def results=[:];
+        for (result in states) {
+            result.forEach(
+                (year, count) -> results.merge(year, count, this::add)
+            )
+        }
+        return results
+    """
     return {
         "filters": {**filters, **current_app.config["HEP_FILTERS"]},
         "filter": {"term": {"citeable": "true"}},
         "aggs": {
             "citations_by_year": {
                 "scripted_metric": {
-                    "init_script": "state._agg_yearly_cit=[:]",
-                    "map_script": "def years=params._source.citations_by_year != null ? params._source.citations_by_year : [] ; for(element in years){state._agg_yearly_cit[element.year.toString()]=state._agg_yearly_cit.getOrDefault(element.year.toString(), 0)+element.count}",
+                    "map_script": minify_painless(map_script),
                     "combine_script": "return state",
-                    "reduce_script": "def results=[:]; for(result in states){for(key in result['_agg_yearly_cit'].keySet()){if(result['_agg_yearly_cit'][key] != null){results[key]=results.getOrDefault(key,0)+result['_agg_yearly_cit'][key]}}} return results",
+                    "reduce_script": minify_painless(reduce_script),
                 }
             }
         },
