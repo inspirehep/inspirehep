@@ -340,22 +340,16 @@ def citations_by_year():
         if key not in excluded_filters
     }
     map_script = """
-        def add(def x, def y) {
-            x + y
-        }
         def years = params._source.citations_by_year != null ? params._source.citations_by_year : [];
         for (element in years) {
-            state.merge(element.year.toString(), element.count, this::add)
+            state.merge(element.year.toString(), element.count, (x, y) -> x + y)
         }
     """
     reduce_script = """
-        def add(def x, def y) {
-            x + y
-        }
         def results=[:];
         for (result in states) {
             result.forEach(
-                (year, count) -> results.merge(year, count, this::add)
+                (year, count) -> results.merge(year, count, (x, y) -> x + y)
             )
         }
         return results
