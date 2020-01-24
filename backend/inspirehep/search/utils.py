@@ -40,3 +40,8 @@ def get_facet_configuration(search_index):
     if callable(facet):
         facet = facet()
     return facet
+
+
+def minify_painless(script):
+    """Remove unneeded whitespace from script."""
+    return " ".join(script.split())
