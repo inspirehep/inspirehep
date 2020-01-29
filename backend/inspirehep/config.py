@@ -151,7 +151,7 @@ SECRET_KEY = "CHANGE_ME"
 #: It should be changed before deploying.
 MAX_CONTENT_LENGTH = 100 * 1024 * 1024  # 100 MiB
 #: Max upload size for form data via application/mulitpart-formdata.
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = False
 #: Sets cookie with the secure flag by default
 DEBUG = True
 SERVER_NAME = "localhost:8000"

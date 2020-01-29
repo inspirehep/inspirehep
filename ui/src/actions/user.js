@@ -10,7 +10,6 @@ import {
   LOGGED_IN_USER_REQUEST,
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
-import logout from '../user/logout';
 import { HOME, USER_SIGNUP } from '../common/routes';
 
 export function userLoginSuccess(user) {
@@ -102,7 +101,7 @@ export function fetchLoggedInUser() {
 export function userLocalLogin(credentials) {
   return async (dispatch, getState, http) => {
     try {
-      const response = await http.post('/login', credentials);
+      const response = await http.post('/accounts/login', credentials);
       dispatch(userLoginSuccess(response.data));
     } catch (error) {
       dispatch(userLoginError(error));
@@ -111,9 +110,9 @@ export function userLocalLogin(credentials) {
 }
 
 export function userLogout() {
-  return async dispatch => {
+  return async (dispatch, getState, http) => {
     try {
-      await logout();
+      await http.get('/accounts/logout');
       dispatch(userLogoutSuccess());
 
       // Hack to reload current page for logged out user

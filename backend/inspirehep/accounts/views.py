@@ -5,7 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
+from flask_security.utils import login_user, logout_user, verify_password
+from invenio_accounts.models import User
 from invenio_oauthclient import current_oauthclient
 from sqlalchemy.exc import IntegrityError
 
@@ -49,3 +51,24 @@ def sign_up_user():
     else:
         data_current_user = get_current_user_email_and_roles()
         return jsonify(data_current_user), 200
+
+
+@blueprint.route("/login", methods=["POST"])
+def login():
+    body = request.get_json()
+    email = body["email"]
+    password = body["password"]
+    user = User.query.filter_by(email=email).one_or_none()
+    if user and verify_password(password, user.password):
+        login_user(user)
+        return jsonify(
+            {"data": {"email": user.email, "roles": [role.name for role in user.roles]}}
+        )
+    return jsonify({"message": "Email or password is incorrect"}), 422
+
+
+@blueprint.route("/logout")
+@login_required
+def logout():
+    logout_user()
+    return jsonify({"message": "Successfully logged out"}), 200

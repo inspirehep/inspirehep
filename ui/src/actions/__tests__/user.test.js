@@ -1,5 +1,4 @@
 import MockAdapter from 'axios-mock-adapter';
-import axios from 'axios';
 import { push, goBack } from 'connected-react-router';
 
 import { getStore } from '../../fixtures/store';
@@ -71,10 +70,7 @@ describe('user - async action creator', () => {
   });
 
   it('successful logout creates USER_LOGOUT_SUCCESS', async done => {
-    // mock axios directly since it's using axios instead of http client wrapper
-    const mockAxios = new MockAdapter(axios);
-
-    mockAxios.onGet('/logout').replyOnce(200);
+    mockHttp.onGet('/accounts/logout').replyOnce(200);
 
     const expectedActions = [
       { type: USER_LOGOUT_SUCCESS },
@@ -85,9 +81,6 @@ describe('user - async action creator', () => {
     const store = getStore();
     await store.dispatch(userLogout());
     expect(store.getActions()).toEqual(expectedActions);
-
-    // needs to restore in order not to mess with other tests cases which uses `http` client mock
-    mockAxios.restore();
     done();
   });
 });
