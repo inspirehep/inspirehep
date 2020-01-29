@@ -17,7 +17,6 @@ const proxyForRecording = proxy({
 });
 
 app.use('/api', proxyForRecording);
-app.use('/logout', proxyForRecording);
 
 // serve static files of production build
 app.use(express.static(path.join(__dirname, '../build')));
