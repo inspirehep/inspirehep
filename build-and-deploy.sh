@@ -46,7 +46,7 @@ deployQA() {
     curl -X POST \
       -F token=${DEPLOY_QA_TOKEN} \
       -F ref=master \
-      -F variables[DIRECTORY]='hep/environment/qa'
+      -F variables[DIRECTORY]='hep/environment/qa' \
       -F variables[NEW_TAG]=${TAG} \
       https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
   fi
