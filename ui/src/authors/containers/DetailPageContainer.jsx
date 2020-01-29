@@ -67,10 +67,12 @@ function DetailPage({
   );
 
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
+  const metadata = record.get('metadata');
+
   useEffect(
     () => {
       // check if author is fetched and author facet name is added to query of AUTHOR_PUBLICATIONS_NS.
-      if (authorFacetName) {
+      if (metadata && authorFacetName) {
         const query = publicationsQuery.toJS();
         dispatch(fetchCitationSummary(query));
         dispatch(fetchCitationsByYear(query));
@@ -78,8 +80,6 @@ function DetailPage({
     },
     [dispatch, authorFacetName] // eslint-disable-line react-hooks/exhaustive-deps
   );
-
-  const metadata = record.get('metadata');
 
   if (!metadata) {
     return null;
