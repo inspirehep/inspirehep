@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 
 import { LITERATURE_NS } from '../../reducers/search';
 import CitationSummaryBox from '../components/CitationSummaryBox';
-import { convertAllImmutablePropsToJS } from '../../common/immutableToJS';
 import { fetchCitationSummary } from '../../actions/citations';
 
 const stateToProps = state => ({
@@ -11,10 +10,8 @@ const stateToProps = state => ({
 
 const dispatchToProps = dispatch => ({
   onQueryChange(query) {
-    dispatch(fetchCitationSummary(query));
+    dispatch(fetchCitationSummary(query.toJS()));
   },
 });
 
-export default connect(stateToProps, dispatchToProps)(
-  convertAllImmutablePropsToJS(CitationSummaryBox)
-);
+export default connect(stateToProps, dispatchToProps)(CitationSummaryBox);

@@ -11,11 +11,12 @@ import { CITATIONS_SUMMARY_REQUEST } from '../../../actions/actionTypes';
 
 describe('CitationSummaryBoxContainer', () => {
   it('passes literature query', () => {
+    const query = fromJS({ sort: 'mostcited', q: 'query' });
     const store = getStoreWithState({
       search: fromJS({
         namespaces: {
           [LITERATURE_NS]: {
-            query: { sort: 'mostcited', q: 'query' },
+            query,
           },
         },
       }),
@@ -26,7 +27,7 @@ describe('CitationSummaryBoxContainer', () => {
       </Provider>
     );
     expect(wrapper.find(CitationSummaryBox)).toHaveProp({
-      query: { sort: 'mostcited', q: 'query' },
+      query,
     });
   });
 
@@ -52,7 +53,7 @@ describe('CitationSummaryBoxContainer', () => {
     const onQueryChange = wrapper
       .find(CitationSummaryBox)
       .prop('onQueryChange');
-    onQueryChange(newQuery);
+    onQueryChange(fromJS(newQuery));
 
     const expectedActions = [
       {
