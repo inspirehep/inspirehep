@@ -212,7 +212,6 @@ def test_create_new_empty_author(base_app, db, es_clear):
         "stub": True,
         "acquisition_source": {"method": "beard", "datetime": "2019-02-15T00:00:00"},
         "$schema": "http://localhost:5000/schemas/records/authors.json",
-        "_bucket": str(author._bucket),
     }
 
     assert expected_data == author

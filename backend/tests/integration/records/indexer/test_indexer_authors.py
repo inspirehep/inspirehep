@@ -29,9 +29,6 @@ def test_index_author_record(base_app, es_clear, db, datadir, create_record):
 
     response = es_search("records-authors")
 
-    response_hits_source = response["hits"]["hits"][0]["_source"]
-    response_hits_source.pop("_bucket")
-
     assert response["hits"]["total"]["value"] == expected_count
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
 

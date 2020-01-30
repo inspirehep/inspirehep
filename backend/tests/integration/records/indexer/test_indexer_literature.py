@@ -41,8 +41,6 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     result_bibtex_display = result.pop("_bibtex_display")
     result_authors = result.pop("authors")
     result_facet_author_name = result.pop("facet_author_name")
-    result.pop("_bucket")
-    result_ui_display.pop("_bucket")
     del result["_created"]
     del result["_updated"]
     assert response["hits"]["total"]["value"] == expected_count
@@ -85,8 +83,10 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
 
 @pytest.mark.vcr()
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
-    base_app, es_clear, db, create_record, enable_files
+    base_app, es_clear, db, create_record, enable_files, s3, create_s3_bucket
 ):
+    create_s3_bucket("1")
+    create_s3_bucket("f")
     expected_fulltext_links = ["arXiv", "KEK scanned document", "fulltext"]
 
     data = {

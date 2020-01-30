@@ -44,7 +44,6 @@ def test_conferences_json_without_login(api_client, db, create_record, datadir):
                 "value": "http://tpweb2.phys.konan-u.ac.jp/~FirstStar4/",
             }
         ],
-        "_bucket": str(record.bucket),
         "number_of_contributions": 0,
     }
     expected_created = utils.isoformat(record.created)
@@ -83,7 +82,6 @@ def test_conferences_json_with_logged_in_cataloger(
 
     expected_metadata = {
         "$schema": "https://inspire/schemas/records/conferences.json",
-        "_bucket": str(record.bucket),
         "_collections": ["Conferences"],
         "_private_notes": [{"value": "A private note"}],
         "control_number": 1,
@@ -130,7 +128,6 @@ def test_conferences_detail(api_client, db, create_record, datadir):
                 "value": "http://tpweb2.phys.konan-u.ac.jp/~FirstStar4/",
             }
         ],
-        "_bucket": str(record.bucket),
         "number_of_contributions": 0,
     }
     expected_created = utils.isoformat(record.created)
@@ -179,7 +176,6 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
                 "value": "http://tpweb2.phys.konan-u.ac.jp/~FirstStar4/",
             }
         ],
-        "_bucket": str(record.bucket),
     }
 
     expected_created = utils.isoformat(record.created)
@@ -221,7 +217,6 @@ def test_proceedings_in_detail_page(api_client, db, create_record):
         "number_of_contributions": 1,
         "$schema": "http://localhost:5000/schemas/records/conferences.json",
         "control_number": conference["control_number"],
-        "_bucket": str(conference.bucket),
         "proceedings": [{"control_number": proceeding["control_number"]}],
     }
     response = api_client.get(

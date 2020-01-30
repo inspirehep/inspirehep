@@ -82,7 +82,6 @@ def test_disambiguate_signatures_cluster_with_0_authors(
     expected_ref = f"http://localhost:5000/api/authors/{pid_value}"
 
     author.pop("control_number")
-    author.pop("_bucket")
     assert expected_author == author
     assert expected_ref == record["authors"][0]["record"]["$ref"]
 

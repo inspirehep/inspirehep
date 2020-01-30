@@ -224,7 +224,6 @@ def test_authors_search_json(api_client, db, es, create_record, datadir):
         "name": {"value": "Urhan, Harun"},
         "deleted": False,
         "email_addresses": [{"value": "public@urhan.ch"}],
-        "_bucket": str(record._bucket),
     }
     expected_id = str(record_control_number)
     response = api_client.get("/authors", headers=headers)

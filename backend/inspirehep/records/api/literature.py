@@ -7,8 +7,9 @@
 import datetime
 import json
 import uuid
-from copy import copy
+from io import BytesIO
 
+import magic
 import requests
 import structlog
 from flask import current_app
@@ -24,12 +25,12 @@ from invenio_pidstore.models import PersistentIdentifier
 from redis import StrictRedis
 from sqlalchemy.orm import aliased
 
+from inspirehep.files.api import current_s3_instance
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import (
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
-    FilesMixin,
 )
 from inspirehep.records.errors import (
     ExistingArticleError,
@@ -40,8 +41,10 @@ from inspirehep.records.errors import (
 )
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
 from inspirehep.records.utils import (
+    download_file_from_url,
     get_authors_phonetic_blocks,
     get_literature_earliest_date,
+    hash_data,
 )
 from inspirehep.search.api import LiteratureSearch
 
@@ -62,7 +65,7 @@ CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 
 
 class LiteratureRecord(
-    FilesMixin, CitationMixin, ConferencePaperAndProceedingsMixin, InspireRecord
+    CitationMixin, ConferencePaperAndProceedingsMixin, InspireRecord
 ):
     """Literature Record."""
 
@@ -142,62 +145,6 @@ class LiteratureRecord(
             else:
                 push_to_orcid(self)
             self.push_authors_phonetic_blocks_to_redis()
-
-    def add_files(self, data):
-        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
-            LOGGER.info("Feature flag ``FEATURE_FLAG_ENABLE_FILES`` is disabled")
-            return data
-
-        if "deleted" in data and data["deleted"]:
-            LOGGER.info("Record is deleted", uuid=self.id)
-            return data
-
-        documents = data.pop("documents", [])
-        figures = data.pop("figures", [])
-
-        self.pop("documents", None)
-        self.pop("figures", None)
-
-        added_files_keys = []
-        added_documents = self.add_documents(documents)
-        if added_documents:
-            data["documents"] = added_documents
-            added_files_keys = [document["key"] for document in data["documents"]]
-
-        added_figures = self.add_figures(figures)
-        if added_figures:
-            data["figures"] = added_figures
-            added_files_keys = added_files_keys + [
-                figure["key"] for figure in data["figures"]
-            ]
-
-        self.delete_removed_files(added_files_keys)
-
-        if "_files" in self:
-            data["_files"] = copy(self["_files"])
-        data["_bucket"] = self["_bucket"]
-        return data
-
-    def add_documents(self, documents):
-        builder = LiteratureBuilder()
-        for document in documents:
-            if document.get("hidden", False):
-                builder.add_document(**document)
-                continue
-            file_data = self.add_file(document=True, **document)
-            document.update(file_data)
-            if "fulltext" not in document:
-                document["fulltext"] = True
-            builder.add_document(**document)
-        return builder.record.get("documents")
-
-    def add_figures(self, figures):
-        builder = LiteratureBuilder()
-        for figure in figures:
-            file_data = self.add_file(**figure)
-            figure.update(file_data)
-            builder.add_figure(**figure)
-        return builder.record.get("figures")
 
     def get_modified_references(self):
         """Return the ids of the references diff between the latest and the
@@ -295,6 +242,97 @@ class LiteratureRecord(
                     {author_signature_block: datetime.datetime.utcnow().timestamp()},
                     nx=True,
                 )
+
+    def add_files(self, data):
+        if not current_app.config.get("FEATURE_FLAG_ENABLE_FILES", False):
+            LOGGER.info("Files are disabled")
+            return data
+
+        if "deleted" in data and data["deleted"]:
+            LOGGER.info("Record is deleted, skipping files.", uuid=self.id)
+            return data
+
+        documents = data.pop("documents", [])
+        figures = data.pop("figures", [])
+
+        added_documents = self.add_documents(documents)
+        if added_documents:
+            data["documents"] = added_documents
+
+        added_figures = self.add_figures(figures)
+        if added_figures:
+            data["figures"] = added_figures
+
+        return data
+
+    def add_documents(self, documents):
+        builder = LiteratureBuilder()
+        for document in documents:
+            if not document.get("hidden", False):
+                new_file_data = self.add_file(**document)
+                document.update(new_file_data)
+            try:
+                builder.add_document(**document)
+            except ValueError:
+                LOGGER.exception(
+                    "Duplicated document found",
+                    recid=self["control_number"],
+                    uuid=self.id,
+                    document=document.get("key"),
+                )
+        return builder.record.get("documents")
+
+    def add_figures(self, figures):
+        builder = LiteratureBuilder()
+        for figure in figures:
+            new_file_data = self.add_file(**figure)
+            figure.update(new_file_data)
+            try:
+                builder.add_figure(**figure)
+            except ValueError:
+                LOGGER.exception(
+                    "Duplicated figure found",
+                    recid=self["control_number"],
+                    uuid=self.id,
+                    figure=figure.get("key"),
+                )
+        return builder.record.get("figures")
+
+    def add_file(
+        self, url, original_url=None, key=None, filename=None, *args, **kwargs
+    ):
+        file_data = download_file_from_url(url)
+        new_key = hash_data(file_data)
+        mimetype = magic.from_buffer(file_data, mime=True)
+        size = len(file_data)
+        filename = filename or key
+        acl = current_app.config["S3_FILE_ACL"]
+        if current_s3_instance.file_exists(new_key):
+            LOGGER.info(
+                "Replacing file metadata",
+                key=new_key,
+                recid=self["control_number"],
+                uuid=self.id,
+            )
+            current_s3_instance.replace_file_metadata(new_key, filename, mimetype, acl)
+        else:
+            LOGGER.info(
+                "Uploading file to s3",
+                key=new_key,
+                recid=self["control_number"],
+                uuid=self.id,
+            )
+            current_s3_instance.upload_file(
+                BytesIO(file_data), new_key, filename, mimetype, acl
+            )
+        return {
+            "key": new_key,
+            "original_url": original_url or url,
+            "filename": filename,
+            "url": current_s3_instance.get_file_url(new_key),
+            "mimetype": mimetype,
+            "size": size,
+        }
 
 
 def import_article(identifier):
