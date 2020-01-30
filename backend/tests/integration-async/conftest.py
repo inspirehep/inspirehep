@@ -17,6 +17,7 @@ from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value
 from invenio_db import db
+from invenio_search import current_search
 from invenio_search import current_search_client as es
 from redis import StrictRedis
 
@@ -61,7 +62,7 @@ def clear_environment(app):
 
         init_default_storage_path()
         init_records_files_storage_path()
-        es.indices.refresh()
+        current_search.flush_and_refresh("*")
 
 
 @pytest.fixture(scope="session")
@@ -97,7 +98,7 @@ def retry_until_matched():
         Examples:
             >>> steps = [
                     {
-                        'step': es.indices.refresh,
+                        'step': current_search.flush_and_refresh,
                         'args': ["records-hep"],
                         'kwargs': {},
                         'expected_result': 'some_data'

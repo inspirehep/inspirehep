@@ -13,7 +13,6 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
-
 import os
 import sys
 
@@ -202,6 +201,7 @@ INDEXER_DEFAULT_INDEX = "records-hep"
 INDEXER_DEFAULT_DOC_TYPE = "_doc"
 INDEXER_BULK_REQUEST_TIMEOUT = 900
 INDEXER_REPLACE_REFS = False
+SEARCH_INDEX_PREFIX = None
 
 # Alembic
 # =======

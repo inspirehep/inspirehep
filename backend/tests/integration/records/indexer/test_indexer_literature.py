@@ -9,6 +9,8 @@ import json
 
 import pytest
 from freezegun import freeze_time
+from helpers.utils import es_search
+from invenio_search import current_search
 from invenio_search import current_search_client as es
 from mock import patch
 
@@ -30,7 +32,7 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     expected_facet_author_name = expected_metadata.pop("facet_author_name")
     expected_metadata.pop("authors")
 
-    response = es.search("records-hep")
+    response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = json.loads(result.pop("_ui_display"))
@@ -59,7 +61,7 @@ def test_regression_index_literature_record_with_related_records(
     data = json.loads((datadir / "1503270.json").read_text())
     record = create_record("lit", data=data)
 
-    response = es.search("records-hep")
+    response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
 
@@ -71,11 +73,11 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
     record = create_record("lit", data=data)
     record.delete()
     record.index(delay=False)
-    es_clear.indices.refresh("records-hep")
+    current_search.flush_and_refresh("records-hep")
 
     expected_total = 0
 
-    response = es.search("records-hep")
+    response = es_search("records-hep")
     hits_total = response["hits"]["total"]["value"]
 
     assert hits_total == expected_total
@@ -110,7 +112,7 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
         ],
     }
     record = create_record("lit", data=data)
-    response = es.search("records-hep")
+    response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = json.loads(result.pop("_ui_display"))
@@ -153,7 +155,7 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_disabled(
         ],
     }
     create_record("lit", data=data)
-    response = es.search("records-hep")
+    response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = json.loads(result.pop("_ui_display"))
@@ -180,7 +182,7 @@ def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(
         ],
     }
     create_record("lit", data=data)
-    response = es.search("records-hep")
+    response = es_search("records-hep")
 
     result = response["hits"]["hits"][0]["_source"]
     result_ui_display = json.loads(result.pop("_ui_display"))

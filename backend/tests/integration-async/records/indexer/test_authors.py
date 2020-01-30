@@ -8,7 +8,9 @@ import time
 
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
+from helpers.utils import es_search
 from invenio_db import db
+from invenio_search import current_search
 from invenio_search import current_search_client as es
 
 from inspirehep.records.api import AuthorsRecord, LiteratureRecord
@@ -21,9 +23,9 @@ def test_aut_record_appear_in_es_when_created(
     rec = AuthorsRecord.create(data)
     db.session.commit()
     steps = [
-        {"step": es.indices.refresh, "args": ["records-authors"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-authors"]},
         {
-            "step": es.search,
+            "step": es_search,
             "args": ["records-authors"],
             "expected_result": {
                 "expected_key": "hits.total.value",
@@ -49,9 +51,9 @@ def test_aut_record_update_when_changed(
     db.session.commit()
 
     steps = [
-        {"step": es.indices.refresh, "args": ["records-authors"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-authors"]},
         {
-            "step": es.search,
+            "step": es_search,
             "args": ["records-authors"],
             "expected_result": {
                 "expected_key": "hits.total.value",
@@ -70,9 +72,9 @@ def test_aut_record_removed_form_es_when_deleted(
     rec = AuthorsRecord.create(data)
     db.session.commit()
     steps = [
-        {"step": es.indices.refresh, "args": ["records-authors"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-authors"]},
         {
-            "step": es.search,
+            "step": es_search,
             "args": ["records-authors"],
             "expected_result": {
                 "expected_key": "hits.total.value",
@@ -84,9 +86,9 @@ def test_aut_record_removed_form_es_when_deleted(
     rec.delete()
     db.session.commit()
     steps = [
-        {"step": es.indices.refresh, "args": ["records-authors"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-authors"]},
         {
-            "step": es.search,
+            "step": es_search,
             "args": ["records-authors"],
             "expected_result": {
                 "expected_key": "hits.total.value",
@@ -114,11 +116,11 @@ def test_record_created_through_api_is_indexed(
     )
     assert response.status_code == 201
 
-    es.indices.refresh("records-authors")
+    current_search.flush_and_refresh("records-authors")
     steps = [
-        {"step": es.indices.refresh, "args": ["records-authors"]},
+        {"step": current_search.flush_and_refresh, "args": ["records-authors"]},
         {
-            "step": es.search,
+            "step": es_search,
             "args": ["records-authors"],
             "expected_result": {
                 "expected_key": "hits.total.value",
@@ -136,7 +138,7 @@ def test_indexer_updates_authors_papers_when_name_changes(
     author_data = faker.record("aut")
     author = AuthorsRecord.create(author_data)
     db.session.commit()
-    es.indices.refresh("records-authors")
+    current_search.flush_and_refresh("records-authors")
     author_cn = author["control_number"]
 
     lit_data = {
@@ -155,15 +157,15 @@ def test_indexer_updates_authors_papers_when_name_changes(
     db.session.commit()
 
     time.sleep(SLEEP_TIME)
-    es.indices.refresh("*")
-    results = es.search("records-hep")
+    current_search.flush_and_refresh("*")
+    results = es_search("records-hep")
     expected_hits = 1
 
     assert results["hits"]["total"]["value"] == expected_hits
 
     expected_facet_author_name_count = 1
     expected_facet_author_name = f"{author['control_number']}_{author['name']['value']}"
-    results = es.search("records-hep")
+    results = es_search("records-hep")
 
     assert (
         len(results["hits"]["hits"][0]["_source"]["facet_author_name"])
@@ -180,13 +182,13 @@ def test_indexer_updates_authors_papers_when_name_changes(
     db.session.commit()
 
     time.sleep(SLEEP_TIME)
-    es.indices.refresh("*")
-    results = es.search("records-hep")
+    current_search.flush_and_refresh("*")
+    results = es_search("records-hep")
 
     assert results["hits"]["total"]["value"] == expected_hits
 
     expected_facet_author_name = f"{author['control_number']}_Some other name"
-    results = es.search("records-hep")
+    results = es_search("records-hep")
 
     assert (
         len(results["hits"]["hits"][0]["_source"]["facet_author_name"])

@@ -8,6 +8,7 @@
 import pytest
 from flask import current_app
 from helpers.factories.db.invenio_records import TestRecordMetadata
+from helpers.utils import get_index_alias
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from mock import patch
@@ -25,6 +26,7 @@ from inspirehep.orcid.tasks import (
 )
 
 # The tests are written in a specific order, disable random
+
 pytestmark = mark.random_order(disabled=True)
 
 SAMPLE_USER = {
@@ -156,7 +158,7 @@ def inspire_record_literature():
     factory_literature = TestRecordMetadata.create_from_file(
         __name__,
         "test_orcid_tasks_import_legacy_tokens_TestImportLegacyOrcidTokens_literature.json",
-        index_name="records-hep",
+        index_name=get_index_alias("records-hep"),
     )
     return factory_literature.inspire_record
 

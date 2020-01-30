@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Col, Row } from 'antd';
 import PropTypes from 'prop-types';
+import { Map } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
 import { LITERATURE_NS } from '../../reducers/search';
@@ -33,7 +34,7 @@ function CitationSummaryBox({ query, onQueryChange }) {
 }
 
 CitationSummaryBox.propTypes = {
-  query: PropTypes.object.isRequired,
+  query: PropTypes.instanceOf(Map),
   onQueryChange: PropTypes.func.isRequired,
 };
 

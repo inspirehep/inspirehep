@@ -6,10 +6,12 @@ import { Redirect } from 'react-router-dom';
 import RouteOrRedirect from '../common/components/RouteOrRedirect';
 import LoginPageContainer from './containers/LoginPageContainer';
 import ProfilePage from './components/ProfilePage';
+import SignUpPageContainer from './containers/SignUpPageContainer';
 import PrivateRoute from '../common/PrivateRoute';
 import LocalLoginPageContainer from './containers/LocalLoginPageContainer';
 import {
   USER_LOGIN,
+  USER_SIGNUP,
   USER_LOCAL_LOGIN,
   USER_PROFILE,
   USER,
@@ -29,6 +31,13 @@ class User extends Component {
             condition={!loggedIn}
             component={LoginPageContainer}
             redirectTo={previousUrl}
+          />
+          <RouteOrRedirect
+            exact
+            path={USER_SIGNUP}
+            condition={!loggedIn}
+            component={SignUpPageContainer}
+            redirectTo="/"
           />
           <RouteOrRedirect
             exact

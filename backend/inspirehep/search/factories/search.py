@@ -39,7 +39,7 @@ def inspire_search_factory(self, search):
 
 def search_factory_with_aggs(self, search):
     query_string, search = inspire_search_factory(self, search)
-    search_index = search._index[0]
+    search_index = search.base_index
     # facets, filter, sort
     search, urlkwargs = inspire_facets_factory(search, search_index)
     search, urlkwargs = inspire_filter_factory(search, search_index)
@@ -56,7 +56,7 @@ def search_factory_with_aggs(self, search):
 
 def search_factory_without_aggs(self, search):
     query_string, search = inspire_search_factory(self, search)
-    search_index = search._index[0]
+    search_index = search.base_index
 
     search, urlkwargs = inspire_filter_factory(search, search_index)
     search, sortkwargs = default_sorter_factory(search, search_index)
@@ -72,7 +72,7 @@ def search_factory_without_aggs(self, search):
 
 def search_factory_only_with_aggs(self, search):
     query_string, search = inspire_search_factory(self, search)
-    search_index = search._index[0]
+    search_index = search.base_index
     search, urlkwargs = inspire_facets_factory(search, search_index)
     search, urlkwargs = inspire_filter_factory(search, search_index)
 
