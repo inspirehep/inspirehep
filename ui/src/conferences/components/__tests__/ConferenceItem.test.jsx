@@ -35,7 +35,9 @@ describe('ConferenceItem', () => {
       number_of_contributions: 3,
     });
 
-    const wrapper = shallow(<ConferenceItem metadata={metadata} />);
+    const wrapper = shallow(
+      <ConferenceItem metadata={metadata} openDetailInNewTab />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 

@@ -17,7 +17,7 @@ import pluralizeUnlessSingle from '../../common/utils';
 
 class ConferenceItem extends Component {
   render() {
-    const { metadata } = this.props;
+    const { metadata, openDetailInNewTab } = this.props;
 
     const title = metadata.getIn(['titles', 0]);
     const acronym = metadata.getIn(['acronyms', 0]);
@@ -46,7 +46,11 @@ class ConferenceItem extends Component {
       >
         <Row type="flex">
           <Col>
-            <Link className="f5" to={`${CONFERENCES}/${recordId}`}>
+            <Link
+              className="f5"
+              to={`${CONFERENCES}/${recordId}`}
+              target={openDetailInNewTab ? '_blank' : null}
+            >
               <ConferenceTitle title={title} acronym={acronym} />
             </Link>
           </Col>
@@ -91,6 +95,7 @@ class ConferenceItem extends Component {
 
 ConferenceItem.propTypes = {
   metadata: PropTypes.instanceOf(Map).isRequired,
+  openDetailInNewTab: PropTypes.bool,
 };
 
 export default ConferenceItem;

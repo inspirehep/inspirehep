@@ -9,7 +9,9 @@ import PaginationContainer from '../../../common/containers/PaginationContainer'
 import pluralizeUnlessSingle from '../../../common/utils';
 
 function renderConferenceItem(result) {
-  return <ConferenceItem metadata={result.get('metadata')} />;
+  return (
+    <ConferenceItem metadata={result.get('metadata')} openDetailInNewTab />
+  );
 }
 
 function ExistingConferencesDrawer({
