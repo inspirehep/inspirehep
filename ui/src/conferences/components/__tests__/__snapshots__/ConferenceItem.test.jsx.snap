@@ -42,6 +42,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
       <Link
         className="f5"
         replace={false}
+        target="_blank"
         to="/conferences/12345"
       >
         <ConferenceTitle
@@ -118,6 +119,7 @@ exports[`ConferenceItem renders with only needed props 1`] = `
       <Link
         className="f5"
         replace={false}
+        target={null}
         to="/conferences/12345"
       >
         <ConferenceTitle
