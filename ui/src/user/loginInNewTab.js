@@ -32,7 +32,7 @@ function loginInNewTab(externalLoginUrl) {
   });
 }
 
-const ORCID_OAUTH_URL = '/oauth/login/orcid';
+const ORCID_OAUTH_URL = '/api/oauth/login/orcid';
 export default function() {
   return loginInNewTab(ORCID_OAUTH_URL);
 }
