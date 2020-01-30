@@ -111,7 +111,7 @@ class S3:
         """
         try:
             object_head = self.client.head_object(Bucket=self.get_bucket(key), Key=key)
-            return object_head["Metadata"]
+            return object_head
         except ClientError as e:
             LOGGER.warning(exc=e, key=key)
             raise

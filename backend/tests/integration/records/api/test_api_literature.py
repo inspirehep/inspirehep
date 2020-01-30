@@ -11,6 +11,7 @@ from uuid import UUID, uuid4
 
 import mock
 import pytest
+import requests_mock
 from freezegun import freeze_time
 from helpers.providers.faker import faker
 from invenio_pidstore.errors import PIDAlreadyExists
@@ -18,10 +19,16 @@ from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
+from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
-from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentifierError
+from inspirehep.records.errors import (
+    DownloadFileError,
+    ExistingArticleError,
+    UnknownImportIdentifierError,
+)
 from inspirehep.records.models import RecordCitations
+from inspirehep.records.utils import download_file_from_url
 
 
 def test_literature_create(base_app, db, es):
@@ -1019,56 +1026,6 @@ def test_phonetic_blocks_not_updated_when_record_does_not_have_lit_collection(
     assert [] == redis.zpopmin("author_phonetic_blocks")
 
 
-@pytest.mark.vcr()
-def test_regression_update_record_without_losing_the_bucket(
-    base_app, db, es, create_record_factory
-):
-
-    data_files = {
-        "_files": [
-            {
-                "key": "050e8ca41b808a48110fb32bf0d79bd3033bb36b",
-                "size": 234_963,
-                "bucket": "aa4a76dd-dc41-4c45-9163-925a3ed71161",
-                "file_id": "923b5782-9fa2-4b97-aa70-f9a79e49c5b9",
-                "checksum": "md5:635694cf6829382854d7fc84b72f2d8d",
-                "filename": "arXiv%3A0809.3951.pdf%3B2",
-                "version_id": "068e8343-5b71-4344-bb83-ec48429b050c",
-            }
-        ],
-        "documents": [
-            {
-                "key": "050e8ca41b808a48110fb32bf0d79bd3033bb36b",
-                "url": "https://arxiv.org/pdf/0809.3951.pdf",
-                "source": "arxiv",
-                "filename": "arXiv%3A0809.3951.pdf%3B2",
-                "fulltext": True,
-                "original_url": "https://arxiv.org/pdf/0809.3951.pdf",
-            }
-        ],
-    }
-
-    record = create_record_factory("lit", data=data_files, with_validation=True)
-    record_control_number = record.json["control_number"]
-
-    with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_FILES": True}):
-        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
-        record_from_db.update(dict(record_from_db))
-
-        assert record_from_db.bucket
-        assert "_files" in record_from_db
-        assert "_bucket" in record_from_db
-        assert "documents" in record_from_db
-
-        record_from_db = LiteratureRecord.get_record_by_pid_value(record_control_number)
-        record_from_db.update(dict(record_from_db))
-
-        assert record_from_db.bucket
-        assert "_files" in record_from_db
-        assert "_bucket" in record_from_db
-        assert "documents" in record_from_db
-
-
 def test_record_cannot_cite_itself(base_app, db, create_record):
     record_control_number = 12345
     record_cited = create_record(
@@ -1077,3 +1034,463 @@ def test_record_cannot_cite_itself(base_app, db, create_record):
         literature_citations=[record_control_number],
     )
     assert record_cited.citation_count == 0
+
+
+@pytest.mark.vcr()
+def test_add_record_with_documents_and_figures(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_figure_key)
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            }
+        ],
+        "figures": [
+            {
+                "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                "key": "key",
+                "original_url": "http://original-url.com/3",
+                "filename": "channel.png",
+            }
+        ],
+    }
+    record = create_record("lit", data=data)
+    expected_documents = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "original_url": "http://original-url.com/2",
+            "filename": "fermilab.pdf",
+        }
+    ]
+    expected_figures = [
+        {
+            "key": expected_figure_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_figure_key)}/{expected_figure_key}",
+            "filename": "channel.png",
+            "original_url": "http://original-url.com/3",
+        }
+    ]
+    assert record["figures"] == expected_figures
+    assert record["documents"] == expected_documents
+    assert s3.file_exists(expected_figure_key) is True
+    assert s3.file_exists(expected_document_key) is True
+    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert (
+        metadata_document["ContentDisposition"]
+        == f'attachment; filename="fermilab.pdf"'
+    )
+    assert metadata_document["ContentType"] == "application/pdf"
+    metadata_figure = s3.get_file_metadata(expected_figure_key)
+    assert (
+        metadata_figure["ContentDisposition"] == f'attachment; filename="channel.png"'
+    )
+    assert metadata_figure["ContentType"] == "image/png"
+
+
+@pytest.mark.vcr()
+def test_adding_record_with_documents_skips_hidden(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    expected_hidden_document_key = "b88e6b880b32d8ed06b9b740cfb6eb2a"
+    create_s3_bucket(expected_document_key)
+    create_s3_bucket(expected_hidden_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+                "original_url": "http://original-url.com/2",
+                "filename": "myhiddenfile.pdf",
+                "hidden": True,
+            },
+            {
+                "source": "arxiv",
+                "key": "key",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            },
+        ]
+    }
+    record = create_record("lit", data=data)
+    expected_hidden_document = {
+        "source": "arxiv",
+        "key": "arXiv:nucl-th_9310031.pdf",
+        "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+        "original_url": "http://original-url.com/2",
+        "filename": "myhiddenfile.pdf",
+        "hidden": True,
+    }
+    expected_document = {
+        "source": "arxiv",
+        "key": expected_document_key,
+        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+        "original_url": "http://original-url.com/2",
+        "filename": "fermilab.pdf",
+    }
+    assert expected_document in record["documents"]
+    assert expected_hidden_document in record["documents"]
+    assert s3.file_exists(expected_document_key) is True
+    assert s3.file_exists(expected_hidden_document_key) is False
+
+
+@pytest.mark.vcr()
+def test_adding_record_with_duplicated_documents_and_figures(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_figure_key)
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            },
+            {
+                "source": "arxiv",
+                "key": "key2",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/1",
+                "filename": "fermilab2.pdf",
+            },
+        ],
+        "figures": [
+            {
+                "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                "key": "key",
+                "original_url": "http://original-url.com/3",
+                "filename": "channel.jpg",
+            },
+            {
+                "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                "key": "key2",
+                "original_url": "http://original-url.com/4",
+                "filename": "channel2.jpg",
+            },
+        ],
+    }
+    record = create_record("lit", data=data)
+    expected_documents = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "original_url": "http://original-url.com/2",
+            "filename": "fermilab.pdf",
+        }
+    ]
+    expected_figures = [
+        {
+            "key": expected_figure_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_figure_key)}/{expected_figure_key}",
+            "filename": "channel.jpg",
+            "original_url": "http://original-url.com/3",
+        }
+    ]
+    assert record["figures"] == expected_figures
+    assert record["documents"] == expected_documents
+    assert s3.file_exists(expected_figure_key) is True
+    assert s3.file_exists(expected_document_key) is True
+
+
+@pytest.mark.vcr()
+def test_adding_record_with_document_without_filename(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "key",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/2",
+            }
+        ]
+    }
+    record = create_record("lit", data=data)
+    expected_documents = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "original_url": "http://original-url.com/2",
+            "filename": "key",
+        }
+    ]
+    assert expected_documents == record["documents"]
+    assert s3.file_exists(expected_document_key) is True
+    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert metadata_document["ContentDisposition"] == f'attachment; filename="key"'
+
+
+@pytest.mark.vcr()
+def test_adding_record_with_documents_with_existing_file_updates_metadata(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "key",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "file1.pdf",
+            }
+        ]
+    }
+    create_record("lit", data=data)
+    assert s3.file_exists(expected_document_key) is True
+    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert (
+        metadata_document["ContentDisposition"] == f'attachment; filename="file1.pdf"'
+    )
+    data["documents"][0]["filename"] = "file2.pdf"
+    create_record("lit", data=data)
+    assert s3.file_exists(expected_document_key) is True
+    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert (
+        metadata_document["ContentDisposition"] == f'attachment; filename="file2.pdf"'
+    )
+
+
+@pytest.mark.vcr()
+def test_adding_record_with_documents_without_original_url(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "key",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "filename": "file1.pdf",
+            }
+        ]
+    }
+    record = create_record("lit", data=data)
+    expected_documents = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "original_url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+            "filename": "file1.pdf",
+        }
+    ]
+    assert s3.file_exists(expected_document_key) is True
+    assert expected_documents == record["documents"]
+
+
+@pytest.mark.vcr()
+def test_adding_deleted_record_with_documents_does_not_add_files(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_document_key)
+    data = {
+        "deleted": True,
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "key",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "filename": "file1.pdf",
+            }
+        ],
+    }
+    create_record("lit", data=data)
+    assert s3.file_exists(expected_document_key) is False
+
+
+@pytest.mark.vcr()
+def test_update_record_with_documents_and_figures(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_figure_key)
+    create_s3_bucket(expected_document_key)
+    record = create_record("lit")
+    data = dict(record)
+    data.update(
+        {
+            "documents": [
+                {
+                    "source": "arxiv",
+                    "key": "arXiv:nucl-th_9310031.pdf",
+                    "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                    "original_url": "http://original-url.com/2",
+                    "filename": "fermilab.pdf",
+                }
+            ],
+            "figures": [
+                {
+                    "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                    "key": "key",
+                    "original_url": "http://original-url.com/3",
+                    "filename": "channel.png",
+                }
+            ],
+        }
+    )
+    record.update(data)
+    expected_documents = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "original_url": "http://original-url.com/2",
+            "filename": "fermilab.pdf",
+        }
+    ]
+    expected_figures = [
+        {
+            "key": expected_figure_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_figure_key)}/{expected_figure_key}",
+            "filename": "channel.png",
+            "original_url": "http://original-url.com/3",
+        }
+    ]
+    assert record["figures"] == expected_figures
+    assert record["documents"] == expected_documents
+    assert s3.file_exists(expected_figure_key) is True
+    assert s3.file_exists(expected_document_key) is True
+    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert (
+        metadata_document["ContentDisposition"]
+        == f'attachment; filename="fermilab.pdf"'
+    )
+    assert metadata_document["ContentType"] == "application/pdf"
+    metadata_figure = s3.get_file_metadata(expected_figure_key)
+    assert (
+        metadata_figure["ContentDisposition"] == f'attachment; filename="channel.png"'
+    )
+    assert metadata_figure["ContentType"] == "image/png"
+
+
+@pytest.mark.vcr()
+def test_update_record_remove_documents_and_figures(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
+    expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_figure_key)
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            }
+        ],
+        "figures": [
+            {
+                "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                "key": "key",
+                "original_url": "http://original-url.com/3",
+                "filename": "channel.png",
+            }
+        ],
+    }
+    record = create_record("lit", data)
+    data = dict(record)
+    del data["documents"]
+    del data["figures"]
+    record.update(data)
+
+    assert "figures" not in record
+    assert "documents" not in record
+
+
+@pytest.mark.vcr()
+def test_update_record_add_more_documents(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_document_key = "b88e6b880b32d8ed06b9b740cfb6eb2a"
+    expected_updated_document_key = "f276b50c9e6401b5e212785a496efa4e"
+    create_s3_bucket(expected_document_key)
+    create_s3_bucket(expected_updated_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+                "original_url": "http://original-url.com/2",
+                "filename": "myfile.pdf",
+            }
+        ]
+    }
+    record = create_record("lit", data)
+    data = dict(record)
+    data_with_added_document = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+                "original_url": "http://original-url.com/2",
+                "filename": "myfile.pdf",
+            },
+            {
+                "source": "arxiv",
+                "key": "key",
+                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "original_url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            },
+        ]
+    }
+    data.update(data_with_added_document)
+    record.update(data)
+    expected_document_old = {
+        "source": "arxiv",
+        "key": expected_document_key,
+        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+        "original_url": "http://original-url.com/2",
+        "filename": "myfile.pdf",
+    }
+    expected_document_new = {
+        "source": "arxiv",
+        "key": expected_updated_document_key,
+        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_updated_document_key)}/{expected_updated_document_key}",
+        "original_url": "http://original-url.com/2",
+        "filename": "fermilab.pdf",
+    }
+    assert expected_document_old in record["documents"]
+    assert expected_document_new in record["documents"]
+    assert s3.file_exists(expected_updated_document_key) is True
+    assert s3.file_exists(expected_document_key) is True
+    metadata_document = s3.get_file_metadata(expected_updated_document_key)
+    assert (
+        metadata_document["ContentDisposition"]
+        == f'attachment; filename="fermilab.pdf"'
+    )
+    assert metadata_document["ContentType"] == "application/pdf"

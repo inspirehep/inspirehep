@@ -3151,6 +3151,14 @@ pycryptodome = ["pycryptodome (>=3.3.1,<4.0.0)", "pyasn1"]
 
 [[package]]
 category = "main"
+description = "File type identification using libmagic"
+name = "python-magic"
+optional = false
+python-versions = "*"
+version = "0.4.15"
+
+[[package]]
+category = "main"
 description = "Lock context manager implemented via redis SETNX/BLPOP."
 name = "python-redis-lock"
 optional = false
@@ -4088,7 +4096,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "91ce0fae199a216f5093fc2e7bc8097058e93a1218475b91177ef89b577f81c7"
+content-hash = "16f00190d49d16a7eadefc4c9c67cb4613a678c28e350ecf61c1ac4134b80d35"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
@@ -5209,6 +5217,10 @@ python-editor = [
 python-jose = [
     {file = "python-jose-3.1.0.tar.gz", hash = "sha256:8484b7fdb6962e9d242cce7680469ecf92bda95d10bbcbbeb560cacdff3abfce"},
     {file = "python_jose-3.1.0-py2.py3-none-any.whl", hash = "sha256:1ac4caf4bfebd5a70cf5bd82702ed850db69b0b6e1d0ae7368e5f99ac01c9571"},
+]
+python-magic = [
+    {file = "python-magic-0.4.15.tar.gz", hash = "sha256:f3765c0f582d2dfc72c15f3b5a82aecfae9498bd29ca840d72f37d7bd38bfcd5"},
+    {file = "python_magic-0.4.15-py2.py3-none-any.whl", hash = "sha256:f2674dcfad52ae6c49d4803fa027809540b130db1dec928cfbb9240316831375"},
 ]
 python-redis-lock = [
     {file = "python-redis-lock-3.5.0.tar.gz", hash = "sha256:06f28f63bf4ea3d739ff5c472e76563e24aa5c887002a85cbdb7a5b13aa05897"},

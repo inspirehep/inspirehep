@@ -13,9 +13,6 @@ You overwrite and set instance-specific configuration by either:
 - Environment variables: ``APP_<variable name>``
 """
 
-import os
-import sys
-
 from inspirehep.utils import include_table_check
 
 # INSPIRE configuration
@@ -167,23 +164,6 @@ SERVER_NAME = "localhost:8000"
 
 #: Switches off incept of redirects by Flask-DebugToolbar.
 DEBUG_TB_INTERCEPT_REDIRECTS = False
-
-# Files
-# =====
-BASE_FILES_LOCATION = os.path.join(sys.prefix, "var/data")
-"""Root path to all files direcotries"""
-
-RECORDS_DEFAULT_FILE_LOCATION_NAME = "records"
-"""Name of default records Location reference."""
-
-RECORDS_DEFAULT_STORAGE_CLASS = "S"
-"""Default storage class for record files."""
-
-FILES_REST_STORAGE_PATH_SPLIT_LENGTH = 0
-"""Length of the filename that should be taken to create its root dir."""
-
-FILES_REST_STORAGE_PATH_DIMENSIONS = 0
-"""Number of directory levels created for the storage."""
 
 # Pidstore
 # ========

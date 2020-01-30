@@ -30,12 +30,7 @@ from redis import StrictRedis
 
 from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.files.api.s3 import S3
-from inspirehep.files.ext import InspireS3
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.fixtures import (
-    init_default_storage_path,
-    init_records_files_storage_path,
-)
 
 
 @pytest.fixture(scope="module")
@@ -138,8 +133,6 @@ def db_(database):
 
 @pytest.fixture(scope="function")
 def db(db_):
-    init_default_storage_path()
-    init_records_files_storage_path()
     yield db_
 
 
@@ -169,9 +162,9 @@ def s3(base_app):
 
 
 @pytest.fixture(scope="function")
-def create_s3_bucket(s3):
-    def _create_bucket(bucket):
-        s3.client.create_bucket(Bucket=bucket)
+def create_s3_bucket(base_app, s3):
+    def _create_bucket(key):
+        s3.client.create_bucket(Bucket=s3.get_bucket(key))
 
     return _create_bucket
 

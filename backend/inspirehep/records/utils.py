@@ -5,13 +5,19 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import hashlib
 from itertools import chain
 
 import numpy as np
+import requests
 from beard.clustering import block_phonetic
+from flask import current_app
 from inspire_utils.date import earliest_date
 from inspire_utils.helpers import force_list
 from inspire_utils.record import get_value
+
+from inspirehep.records.errors import DownloadFileError
+from inspirehep.utils import get_inspirehep_url
 
 
 def get_literature_earliest_date(data):
@@ -61,3 +67,28 @@ def get_authors_phonetic_blocks(full_names, phonetic_algorithm="nysiis"):
     )
 
     return dict(zip(full_names, phonetic_blocks))
+
+
+def requests_retry_session(retries=3):
+    session = requests.Session()
+    adapter = requests.adapters.HTTPAdapter(max_retries=retries)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
+
+
+def download_file_from_url(url):
+    download_url = url if url.startswith("http") else f"{get_inspirehep_url()}{url}"
+    max_retries = current_app.config.get("FILES_DOWNLOAD_MAX_RETRIES", 3)
+    request = requests_retry_session(retries=max_retries).get(download_url, stream=True)
+    if not request:
+        raise DownloadFileError(
+            f"Cannot download file from url {download_url}. Status_code: {request.status_code}. Reason: {request.reason}"
+        )
+    return request.content
+
+
+def hash_data(data):
+    if data:
+        return hashlib.md5(data).hexdigest()
+    raise ValueError("Data for hashing cannot be empty")
