@@ -20,7 +20,8 @@ SubmissionSuccess.propTypes = {
 };
 
 SubmissionSuccess.defaultProps = {
-  message: 'Successfully submitted, thank you for the submission!',
+  message:
+    'Successfully submitted, thank you! Your submission will be visible upon approval from the INSPIRE team.',
 };
 
 export default SubmissionSuccess;
