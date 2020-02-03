@@ -61,8 +61,9 @@ def test_continuous_migration(
 
     cache.rpush("legacy_records", zlib.compress(raw_record_citer))
     cache.rpush("legacy_records", zlib.compress(raw_record_cited))
+    cache.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 2
+    assert cache.llen("legacy_records") == 3
 
     continuous_migration()
 
@@ -154,8 +155,9 @@ def test_continuous_migration_with_an_invalid_record(
     cache.rpush("legacy_records", zlib.compress(raw_record_citer))
     cache.rpush("legacy_records", zlib.compress(raw_record_invalid))
     cache.rpush("legacy_records", zlib.compress(raw_record_cited))
+    cache.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 3
+    assert cache.llen("legacy_records") == 4
 
     continuous_migration()
 
@@ -251,8 +253,9 @@ def test_continuous_migration_with_different_type_of_records(
     cache.rpush("legacy_records", zlib.compress(raw_record_citer))
     cache.rpush("legacy_records", zlib.compress(raw_author))
     cache.rpush("legacy_records", zlib.compress(raw_record_cited))
+    cache.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 3
+    assert cache.llen("legacy_records") == 4
 
     continuous_migration()
 
@@ -335,19 +338,14 @@ def test_continuous_migration_with_invalid_control_number(
 
     cache.rpush("legacy_records", zlib.compress(raw_record_citer))
     cache.rpush("legacy_records", zlib.compress(raw_record_cited))
+    cache.rpush("legacy_records", b"END")
 
-    assert cache.llen("legacy_records") == 2
+    assert cache.llen("legacy_records") == 3
 
     with pytest.raises(ValueError):
         continuous_migration()
 
-    record_citer = InspireRecord.get_record_by_pid_value(citer_control_number, "lit")
-    record_citer_es = InspireSearch.get_record_data_from_es(record_citer)
-    result_citer_control_number = record_citer_es["control_number"]
-
-    assert citer_control_number == result_citer_control_number
-
     # I don't like timeouts, it's the only way to wait for this chain
     time.sleep(5)
 
-    assert cache.llen("legacy_records") == 1
+    assert cache.llen("legacy_records") == 2
