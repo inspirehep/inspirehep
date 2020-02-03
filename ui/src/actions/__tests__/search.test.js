@@ -32,6 +32,9 @@ describe('search - action creators', () => {
       const namespace = LITERATURE_NS;
       const pathname = LITERATURE;
       const store = getStoreWithState({
+        router: {
+          location: { hash: '#hash' }
+        },
         search: fromJS({
           namespaces: {
             [namespace]: {
@@ -51,7 +54,7 @@ describe('search - action creators', () => {
 
       const expectedActions = [
         { type: types.SEARCH_REQUEST, payload: { namespace } },
-        push(url),
+        push(`${url}#hash`),
         { type: types.SEARCH_SUCCESS, payload: { namespace, data } },
       ];
       expect(store.getActions()).toEqual(expectedActions);
@@ -64,6 +67,7 @@ describe('search - action creators', () => {
         router: {
           location: {
             query: { q: 'test' },
+            hash: ''
           },
         },
         search: fromJS({

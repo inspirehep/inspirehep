@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Row, Col } from 'antd';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import VerticalDivider from '../../common/VerticalDivider';
 import { searchBaseQueriesUpdate } from '../../actions/search';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import CitationSummaryBoxContainer from './CitationSummaryBoxContainer';
-import CitationSummarySwitch from '../components/CitationSummarySwitch';
+import CitationSummarySwitchContainer, { isCitationSummaryEnabled } from './CitationSummarySwitchContainer';
 
 function renderLiteratureItem(result, rank) {
   return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;
@@ -35,6 +35,7 @@ function LiteratureSearch({
   noResultsTitle,
   noResultsDescription,
   isMainLiteratureSearch,
+  isCitationSummaryVisible,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -57,10 +58,6 @@ function LiteratureSearch({
     [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]
   );
 
-  const [isCitationSummaryVisible, setCitationSummaryVisible] = useState(false);
-  const onCitationSummarySwitchChange = useCallback(checked => {
-    setCitationSummaryVisible(checked);
-  }, []);
   return (
     <Row className="mt3" gutter={32} type="flex" justify="center">
       <EmptyOrChildren
@@ -92,10 +89,7 @@ function LiteratureSearch({
               <Col className="tr" span={16}>
                 {isMainLiteratureSearch && (
                   <span className="mr2">
-                    <CitationSummarySwitch
-                      checked={isCitationSummaryVisible}
-                      onChange={onCitationSummarySwitchChange}
-                    />
+                    <CitationSummarySwitchContainer />
                   </span>
                 )}
                 <SortByContainer namespace={namespace} />
@@ -135,6 +129,7 @@ LiteratureSearch.propTypes = {
   noResultsTitle: PropTypes.string,
   noResultsDescription: PropTypes.node,
   isMainLiteratureSearch: PropTypes.bool.isRequired,
+  isCitationSummaryVisible: PropTypes.bool.isRequired,
 };
 
 const stateToProps = (state, { namespace }) => ({
@@ -150,6 +145,7 @@ const stateToProps = (state, { namespace }) => ({
     namespace,
     'embedded',
   ]),
+  isCitationSummaryVisible: isCitationSummaryEnabled(state),
 });
 
 const dispatchToProps = dispatch => ({
