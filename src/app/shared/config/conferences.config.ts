@@ -120,7 +120,19 @@ export const conferences: JsonEditorConfig = {
           properties: {
             country_code: {
               enumDisplayValueMap: ISO_COUNTRY_MAP
-            }
+            },
+            postal_code: {
+              hidden: true,
+            },
+            postal_address: {
+              hidden: true,
+            },
+            longitude: {
+              hidden: true,
+            },
+            latitude: {
+              hidden: true,
+            },
           }
         }
       },
