@@ -11,7 +11,6 @@ import re
 import tarfile
 from contextlib import closing
 
-import click
 import requests
 import structlog
 from celery import chord, shared_task
@@ -140,7 +139,7 @@ def migrate_from_mirror_run_step(
         step_no=step_no,
         one_step=True,
     )
-    echo("All migration tasks has been scheduled.")
+    echo("All migration tasks have been scheduled.")
     return task
 
 
@@ -175,7 +174,7 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
         disable_orcid_push=disable_orcid_push,
         disable_references_processing=disable_references_processing,
     )
-    echo("All migration tasks has been scheduled.")
+    LOGGER.info("All migration tasks have been scheduled.")
     return task
 
 
@@ -473,7 +472,7 @@ def migrate_record_from_mirror(
 def wait_for_all_tasks(task):
     if not task:
         return None
-    click.echo(f"Waiting for {task}.")
+    LOGGER.info(f"Waiting for task completion.", waiting_task_id=task)
     next_task = AsyncResult(task).get()
     if next_task:
         return wait_for_all_tasks(next_task)
