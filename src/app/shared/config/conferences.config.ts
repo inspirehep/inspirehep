@@ -82,6 +82,8 @@ export const conferences: JsonEditorConfig = {
           ],
           order: [
             'title',
+            'subtitle',
+            'source'
           ]
         }
       },
@@ -91,7 +93,8 @@ export const conferences: JsonEditorConfig = {
             'name'
           ],
           order: [
-            'name'
+            'name',
+            'number',
           ],
           properties: {
             name: {
@@ -117,6 +120,12 @@ export const conferences: JsonEditorConfig = {
       },
       addresses: {
         items: {
+          order: [
+            'cities',
+            'country_code',
+            'place_name',
+            'state',
+          ],
           properties: {
             country_code: {
               enumDisplayValueMap: ISO_COUNTRY_MAP
@@ -134,6 +143,57 @@ export const conferences: JsonEditorConfig = {
               hidden: true,
             },
           }
+        }
+      },
+      urls: {
+        items: {
+          order: [
+            'value',
+            'description',
+          ]
+        }
+      },
+      contact_details: {
+        items: {
+          order: [
+            'email',
+            'name',
+            'curated_relation',
+            'hidden',
+          ]
+        }
+      },
+      short_description: {
+        order: ['value']
+      },
+      public_notes: {
+        items: {
+          order: ['value']
+        }
+      },
+      _private_notes: {
+        items: {
+          order: ['value']
+        }
+      },
+      alternative_titles: {
+        items: {
+          alwaysShow: [
+            'title',
+          ],
+          order: [
+            'title',
+            'subtitle',
+            'source'
+          ]
+        }
+      },
+      keywords: {
+        items: {
+          order: [
+            'value',
+            'schema'
+          ]
         }
       },
       cnum: {
