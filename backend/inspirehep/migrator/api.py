@@ -19,6 +19,12 @@ from inspirehep.migrator.tasks import (
 )
 
 LOGGER = structlog.getLogger()
+QUEUE = "legacy_records"
+
+
+def _next_message(redis_client):
+    maybe_message = redis_client.lrange(QUEUE, 0, 0)
+    return maybe_message[0] if maybe_message else None
 
 
 def continuous_migration():
@@ -33,7 +39,7 @@ def continuous_migration():
     r = StrictRedis.from_url(redis_url)
     lock = Lock(r, "continuous_migration", expire=120, auto_renewal=True)
 
-    message = r.lrange("legacy_records", 0, 0)
+    message = _next_message(r)
     if not message:
         LOGGER.debug("No records to migrate.")
         return
@@ -43,21 +49,21 @@ def continuous_migration():
         return
 
     try:
-        num_of_records = r.llen("legacy_records")
+        num_of_records = r.llen(QUEUE)
         LOGGER.info("Starting migration of records.", records_total=num_of_records)
 
         while message:
-            if message[0] == b"END":
-                r.lpop("legacy_records")
+            if message == b"END":
+                r.lpop(QUEUE)
                 task = migrate_from_mirror(disable_orcid_push=False)
                 wait_for_all_tasks(task)
                 LOGGER.info("Migration finished.")
                 break
-            raw_record = zlib.decompress(message[0])
+            raw_record = zlib.decompress(message)
             (recid,) = insert_into_mirror([raw_record])
             LOGGER.debug("Inserted record into mirror.", recid=recid)
-            r.lpop("legacy_records")
-            message = r.lrange("legacy_records", 0, 0)
+            r.lpop(QUEUE)
+            message = _next_message(r)
         else:
             LOGGER.info("Waiting for more records...")
     finally:
