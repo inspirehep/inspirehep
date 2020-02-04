@@ -1,8 +1,44 @@
 # Inspirehep
 
-### Installation
+## Pre requirements
 
-#### poetry (optional)
+### Python
+
+#### Debian / Ubuntu
+
+```bash
+$ sudo apt-get install python3 build-essential python3-dev
+```
+
+#### MacOS
+
+```bash
+$ brew install python
+```
+
+### nodejs & npm using nvm
+
+Please follow the instructions https://github.com/nvm-sh/nvm#installing-and-updating
+
+We're using `v10.14.0` (first version we install is the default)
+
+```
+$ nvm install 10.14.0
+```
+
+### yarn
+
+#### Debian / Ubuntu
+
+Please folow the instructions https://classic.yarnpkg.com/en/docs/install/#debian-stable
+
+#### MacOS
+
+```bash
+$ brew install yarn
+```
+
+### poetry
 
 install `poetry` https://poetry.eustace.io/docs/
 
@@ -10,40 +46,129 @@ install `poetry` https://poetry.eustace.io/docs/
 $ curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python -
 ```
 
-### How to run
+### pre-commit
 
-First you will need a working kubernetes cluster.
-On Mac OS, you can use [docker-desktop](https://www.docker.com/products/docker-desktop) but due to [docker/for-mac/issue#2990](https://github.com/docker/for-mac/issues/2990), [minikube](https://minikube.sigs.k8s.io/docs/start/macos/) is recommended also for Mac.
-On Linux, you can use [minikube](https://kubernetes.io/docs/setup/learning-environment/minikube/).
-Once you have access to your local kubernetes cluster, following the instructions to install [Tilt](https://docs.tilt.dev/install.html).
-Make sure that you have set up ssh for gitlab (https://docs.gitlab.com/ee/ssh/)
-Make sure you have `kustomize` version at least `3`
-You can then start your environment using
+install `pre-commit` https://pre-commit.com/
 
 ```bash
-minikube start
-tilt up
+$ curl https://pre-commit.com/install-local.py | python -
 ```
 
-#### Without Docker (Only inspirehep Without The UI)
+And run
 
 ```bash
-$ ./scripts/bootstrap
-$ ./docker-inspire up -d
+$ pre-commit install
+```
+
+### nginx
+
+#### Debian / Ubuntu
+
+Please follow the instractions https://www.nginx.com/resources/wiki/start/topics/tutorials/install/
+
+```bash
+$ apt-get update
+$ apt-get install nginx
+```
+
+#### macOS:
+
+```bash
+$ brew install nginx
+```
+
+Add the following configuration:
+
+```nginx
+server {
+  listen 8080 default_server;
+  server_name  _;
+
+  location / {
+    proxy_pass  http://localhost:3000/api;
+    proxy_set_header Host localhost:3000;
+    proxy_http_version 1.1;
+  }
+
+  location /api {
+    proxy_pass         http://localhost:8000/api;
+    proxy_set_header Host localhost:8000;
+    proxy_http_version 1.1;
+  }
+}
+```
+
+* On macOS `/usr/local/etc/nginx/nginx.conf`
+* On Debian / Ubuntu `/etc/nginx/conf.d/default.conf`
+
+And reload `nginx`
+
+```bash
+$ nginx -s reload
+```
+
+### Docker & Docker Compose
+
+Follow the guide https://docs.docker.com/compose/install/
+
+---
+
+## Installation
+
+### Backend
+
+```bash
+$ cd backend
+$ poetry install
+```
+
+### UI
+
+```bash
+$ cd ui
+$ yarn install
+```
+
+---
+
+## Setup
+
+First you need to start all the services (postgreSQL, Redis, ElasticSearch, RabbitMQ)
+
+```bash
+$ docker-compose -f docker-compose.travis.yml up -d
+```
+
+And initialize database and ES
+
+```bash
+$ cd backend
 $ ./scripts/setup
-$ ./scripts/server
-$ firefox localhost:5000
 ```
 
-#### Without Docker Only The UI
+---
+
+## Run
+
+### Backend
+
+You can visit Backend http://localhost:8000
 
 ```bash
-$ cd ui/
-$ yarn start
-$ firefox localhost:3000
+$ cd backend
+$ ./scripts/server
 ```
 
-You can proxy a server by changing the `ui/package.json`
+### UI
+
+You can visit UI http://localhost:3000
+
+```bash
+$ cd ui
+$ yarn start
+```
+
+You can also connect UI to another environment by changing the proxy a server by changing the `ui/package.json`
 
 ```json
 {
@@ -53,58 +178,25 @@ You can proxy a server by changing the `ui/package.json`
 }
 ```
 
-### Import records
+Both backend and UI are accessible http://localhost:8080
 
-There is a command `inspirehep importer records` which accepts url `-u`, a directory of `JSON` files `-d` and `JSON` files `-f`.
-A selection of demo records can be found in `data` directory and they are structure based on the record type (i.e. `literature`). Examples:
+---
 
-#### With url
+## How to test
 
-```bash
-# Local
-$ inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
-# Docker
-$ ./docker-inspire run --rm web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
-```
-
-#### With directory
+### Backend
 
 ```bash
-# Local
-$ inspirehep importer records -d data/literature
-# Docker
-$ ./docker-inspire run --rm web poetry run inspirehep importer records -d data/literature
-```
-
-#### With files
-
-```bash
-# Local
-$ inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
-# Docker
-$ ./docker-inspire run --rm web poetry run inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
-```
-
-### How to test
-
-#### python (unit and integration suites)
-
-```bash
-$ ./docker-inspire up -d
+$ cd backend
 $ ./run-tests.sh
 ```
 
-#### js (unit and ui-tests)
+Or you can run specific tests:
 
 ```bash
-yarn # if you haven't install the dependencies
-yarn test # in ui folder
-```
-
-#### e2e
-
-```bash
-./run-e2e.sh
+$ poetry run py.test tests/unit
+$ poetry run py.test tests/integration
+$ poetry run py.test tests/integration-async
 ```
 
 #### Run Code Checks
@@ -115,22 +207,56 @@ Run `isort` and `flake8` checks.
 $ ./run-code-checks.sh
 ```
 
-#### Use git pre-commit hooks
-
-Use `pre-commit`
+### UI tests (unit and ui-tests)
 
 ```bash
-$ poetry run pre-commit install
+$ cd ui
+$ yarn test # in ui folder
 ```
 
-### How to login
+### e2e
 
-For developement, we are using local login for our service.
+```bash
+$ ./run-e2e.sh
+```
 
-#### UI
+---
 
-For the UI you can login http://localhost:8081/user/login/local
+## How to import records
 
-#### Backend
+First make sure that you are running:
 
-If you want to test inspirehep and backend API you should login http://localhost:5000/login/?next=/&local=1
+```bash
+$ cd backend
+$ ./scripts/server
+```
+
+There is a command `inspirehep importer records` which accepts url `-u`, a directory of `JSON` files `-d` and `JSON` files `-f`.
+A selection of demo records can be found in `data` directory and they are structure based on the record type (i.e. `literature`). Examples:
+
+#### With url
+
+```bash
+# Local
+$ poetry inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+# Docker
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+```
+
+#### With directory
+
+```bash
+# Local
+$ poerty inspirehep importer records -d data/literature
+# Docker
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -d data/literature
+```
+
+#### With files
+
+```bash
+# Local
+$ poetry inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
+# Docker
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
+```
