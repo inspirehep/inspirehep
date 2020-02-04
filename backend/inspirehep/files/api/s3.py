@@ -18,14 +18,28 @@ class S3:
         self.resource = resource
 
     @staticmethod
-    def get_bucket(key):
+    def get_bucket_for_file_key(key):
         """Return the bucket for the given file key.
 
         :param key: the file key
         :return: bucket: The corresponding bucket.
         """
-        bucket = f"{current_app.config.get('S3_BUCKET_PREFIX')}{key[0]}"
-        return bucket
+        return S3.get_prefixed_bucket(key[0])
+
+    @staticmethod
+    def get_prefixed_bucket(bucket_without_prefix):
+        """Returns prefixed bucket for given bucket"""
+
+        return f"{current_app.config.get('S3_BUCKET_PREFIX')}{bucket_without_prefix}"
+
+    @staticmethod
+    def is_s3_url(url):
+        """Checks if the url is an S3 url.
+
+        :param url: the given url.
+        :return: boolean
+        """
+        return url.startswith(current_app.config.get("S3_HOSTNAME"))
 
     def upload_file(self, data, key, filename, mimetype, acl):
         """Upload a file in s3 bucket with the given metadata
@@ -40,7 +54,7 @@ class S3:
         try:
             response = self.client.upload_fileobj(
                 data,
-                self.get_bucket(key),
+                self.get_bucket_for_file_key(key),
                 key,
                 ExtraArgs={
                     "ContentType": mimetype,
@@ -60,7 +74,9 @@ class S3:
         :return: dict
         """
         try:
-            response = self.client.delete_object(Bucket=self.get_bucket(key), Key=key)
+            response = self.client.delete_object(
+                Bucket=self.get_bucket_for_file_key(key), Key=key
+            )
             return response
         except ClientError as e:
             LOGGER.warning(exc=e, key=key)
@@ -73,7 +89,7 @@ class S3:
         :param key: the key of the file.
         :return: string: the s3 link for the file
         """
-        return f"{current_app.config.get('S3_HOSTNAME')}/{S3.get_bucket(key)}/{key}"
+        return f"{current_app.config.get('S3_HOSTNAME')}/{S3.get_bucket_for_file_key(key)}/{key}"
 
     @staticmethod
     def get_content_disposition(filename):
@@ -91,9 +107,9 @@ class S3:
         try:
             response = self.client.copy_object(
                 ACL=acl,
-                Bucket=self.get_bucket(key),
+                Bucket=self.get_bucket_for_file_key(key),
                 Key=key,
-                CopySource={"Bucket": self.get_bucket(key), "Key": key},
+                CopySource={"Bucket": self.get_bucket_for_file_key(key), "Key": key},
                 ContentDisposition=self.get_content_disposition(filename),
                 ContentType=mimetype,
                 MetadataDirective="REPLACE",
@@ -110,7 +126,9 @@ class S3:
         :return: the metadata of the file.
         """
         try:
-            object_head = self.client.head_object(Bucket=self.get_bucket(key), Key=key)
+            object_head = self.client.head_object(
+                Bucket=self.get_bucket_for_file_key(key), Key=key
+            )
             return object_head
         except ClientError as e:
             LOGGER.warning(exc=e, key=key)
@@ -123,7 +141,7 @@ class S3:
         :return: boolean
         """
         try:
-            self.client.head_object(Bucket=self.get_bucket(key), Key=key)
+            self.client.head_object(Bucket=self.get_bucket_for_file_key(key), Key=key)
             return True
         except ClientError as e:
             if e.response["Error"]["Code"] == "404":
@@ -132,11 +150,8 @@ class S3:
                 LOGGER.warning(exc=e, key=key)
                 raise
 
-    @staticmethod
-    def is_s3_url(url):
-        """Checks if the url is an S3 url.
-
-        :param url: the given url.
-        :return: boolean
-        """
-        return url.startswith(current_app.config.get("S3_HOSTNAME"))
+    def create_bucket(self, bucket):
+        return self.client.create_bucket(
+            Bucket=self.get_prefixed_bucket(bucket),
+            ACL=current_app.config.get("S3_FILE_ACL"),
+        )

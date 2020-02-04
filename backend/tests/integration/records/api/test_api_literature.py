@@ -1063,7 +1063,7 @@ def test_add_record_with_documents_and_figures(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1071,7 +1071,7 @@ def test_add_record_with_documents_and_figures(
     expected_figures = [
         {
             "key": expected_figure_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_figure_key)}/{expected_figure_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
             "filename": "channel.png",
             "original_url": "http://original-url.com/3",
         }
@@ -1132,7 +1132,7 @@ def test_adding_record_with_documents_skips_hidden(
     expected_document = {
         "source": "arxiv",
         "key": expected_document_key,
-        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
         "original_url": "http://original-url.com/2",
         "filename": "fermilab.pdf",
     }
@@ -1187,7 +1187,7 @@ def test_adding_record_with_duplicated_documents_and_figures(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1195,7 +1195,7 @@ def test_adding_record_with_duplicated_documents_and_figures(
     expected_figures = [
         {
             "key": expected_figure_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_figure_key)}/{expected_figure_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
             "filename": "channel.jpg",
             "original_url": "http://original-url.com/3",
         }
@@ -1227,7 +1227,7 @@ def test_adding_record_with_document_without_filename(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "key",
         }
@@ -1291,7 +1291,7 @@ def test_adding_record_with_documents_with_full_url_without_original_url(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
             "filename": "file1.pdf",
         }
@@ -1327,7 +1327,7 @@ def test_adding_record_with_documents_with_relative_url_without_original_url(
             {
                 "source": "arxiv",
                 "key": expected_document_key,
-                "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+                "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
                 "filename": "file1.pdf",
             }
         ]
@@ -1392,7 +1392,7 @@ def test_update_record_with_documents_and_figures(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1400,7 +1400,7 @@ def test_update_record_with_documents_and_figures(
     expected_figures = [
         {
             "key": expected_figure_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_figure_key)}/{expected_figure_key}",
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
             "filename": "channel.png",
             "original_url": "http://original-url.com/3",
         }
@@ -1503,14 +1503,14 @@ def test_update_record_add_more_documents(
     expected_document_old = {
         "source": "arxiv",
         "key": expected_document_key,
-        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
         "original_url": "http://original-url.com/2",
         "filename": "myfile.pdf",
     }
     expected_document_new = {
         "source": "arxiv",
         "key": expected_updated_document_key,
-        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_updated_document_key)}/{expected_updated_document_key}",
+        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_updated_document_key)}/{expected_updated_document_key}",
         "original_url": "http://original-url.com/2",
         "filename": "fermilab.pdf",
     }

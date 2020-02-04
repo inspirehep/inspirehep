@@ -164,7 +164,7 @@ def s3(base_app):
 @pytest.fixture(scope="function")
 def create_s3_bucket(base_app, s3):
     def _create_bucket(key):
-        s3.client.create_bucket(Bucket=s3.get_bucket(key))
+        s3.client.create_bucket(Bucket=s3.get_bucket_for_file_key(key))
 
     return _create_bucket
 
