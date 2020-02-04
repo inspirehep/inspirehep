@@ -56,7 +56,7 @@ describe('user reducer', () => {
 
   it('USER_SIGN_UP_ERROR', () => {
     const payload = {
-      data: { message: 'Error here' },
+      error: { message: 'Error here' },
     };
     const state = reducer(Map(), {
       type: USER_SIGN_UP_ERROR,

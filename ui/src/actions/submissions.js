@@ -60,7 +60,8 @@ export function submit(pidType, data) {
       dispatch(submitSuccess(response.data));
       dispatch(push(`/submissions/${pidType}/new/success`));
     } catch (error) {
-      dispatch(submitError(httpErrorToActionPayload(error)));
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(submitError(errorPayload));
     }
   };
 }
@@ -75,7 +76,8 @@ export function submitUpdate(pidType, pidValue, data) {
       dispatch(submitSuccess(response.data));
       dispatch(push(`/submissions/${pidType}/${pidValue}/success`));
     } catch (error) {
-      dispatch(submitError(httpErrorToActionPayload(error)));
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(submitError(errorPayload));
     }
   };
 }
@@ -87,7 +89,8 @@ export function fetchUpdateFormData(pidType, pidValue) {
       const response = await http.get(`${SUBMISSIONS}/${pidType}/${pidValue}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
-      dispatch(fetchInitialFormDataError(httpErrorToActionPayload(error)));
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(fetchInitialFormDataError(errorPayload));
     }
   };
 }
@@ -99,7 +102,8 @@ export function importExternalLiterature(id) {
       const response = await http.get(`/literature/import/${id}`);
       dispatch(fetchInitialFormDataSuccess(response.data));
     } catch (error) {
-      dispatch(fetchInitialFormDataError(httpErrorToActionPayload(error)));
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(fetchInitialFormDataError(errorPayload));
     }
   };
 }

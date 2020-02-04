@@ -27,7 +27,7 @@ const submissionsReducer = (state = initialState, action) => {
     case SUBMIT_SUCCESS:
       return state.set('successData', fromJS(action.payload));
     case SUBMIT_ERROR:
-      return state.set('submitError', fromJS(action.payload));
+      return state.set('submitError', fromJS(action.payload.error));
     case INITIAL_FORM_DATA_REQUEST:
       return state.set('loadingInitialData', true);
     case INITIAL_FORM_DATA_SUCCESS:
@@ -39,7 +39,7 @@ const submissionsReducer = (state = initialState, action) => {
     case INITIAL_FORM_DATA_ERROR:
       return state
         .set('loadingInitialData', false)
-        .set('initialDataError', fromJS(action.payload))
+        .set('initialDataError', fromJS(action.payload.error))
         .set('initialData', initialState.get('initialData'))
         .set('initialMeta', initialState.get('initialMeta'));
     default:

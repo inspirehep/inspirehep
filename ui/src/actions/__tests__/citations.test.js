@@ -61,7 +61,7 @@ describe('citations - async action creator', () => {
 
     const expectedActions = [
       { type: types.CITATIONS_REQUEST, payload: { page: 2, size: 10 } },
-      { type: types.CITATIONS_ERROR, payload: { status: 500 } },
+      { type: types.CITATIONS_ERROR, payload: { error: { status: 500 } } },
     ];
 
     const store = getStore();
@@ -105,7 +105,9 @@ describe('citations - async action creator', () => {
       },
       {
         type: types.CITATIONS_SUMMARY_ERROR,
-        payload: { status: 404, message: 'Error' },
+        payload: {
+          error: { status: 404, message: 'Error' },
+        }
       },
     ];
 
@@ -146,7 +148,9 @@ describe('citations - async action creator', () => {
       { type: types.CITATIONS_BY_YEAR_REQUEST },
       {
         type: types.CITATIONS_BY_YEAR_ERROR,
-        payload: { status: 404, message: 'Error' },
+        payload: {
+          error: { status: 404, message: 'Error' },
+        }
       },
     ];
 

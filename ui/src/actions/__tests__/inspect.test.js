@@ -27,11 +27,17 @@ describe('inspect dashboard - async action creator', () => {
   });
 
   it('unsuccessful - creates INSPECT_ERROR', async done => {
-    mockHttp.onGet('/workflows/inspect_merge/123').replyOnce(500, {});
+    mockHttp.onGet('/workflows/inspect_merge/123').replyOnce(404, {});
 
     const expectedActions = [
       { type: types.INSPECT_REQUEST, payload: { id: 123 } },
-      { type: types.INSPECT_ERROR, payload: undefined },
+      {
+        type: types.INSPECT_ERROR,
+        payload: {
+          error: { status: 404 }
+        },
+        meta: { redirectableError: true }
+      },
     ];
 
     const store = getStore();

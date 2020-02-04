@@ -55,7 +55,9 @@ describe('authors reducer', () => {
   it('AUTHOR_ERROR', () => {
     const state = reducer(Map(), {
       type: AUTHOR_ERROR,
-      payload: { message: 'error' },
+      payload: {
+        error: { message: 'error' }
+      },
     });
     const expected = fromJS({
       loading: false,

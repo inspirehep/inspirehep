@@ -17,7 +17,9 @@ describe('redirectToErrorPage middleware', () => {
   it('dispatches push to error page when redirectable error and returns result of next(action)', () => {
     const action = {
       type: 'SOME_ERROR',
-      payload: { status: 500 },
+      payload: {
+        error: { status: 500 }
+      },
       meta: { redirectableError: true },
     };
     const result = dispatch(action);
@@ -28,7 +30,9 @@ describe('redirectToErrorPage middleware', () => {
   it('only returns result of next(action) when not a redirectable error', () => {
     const action = {
       type: 'SOME_ERROR',
-      payload: { status: 500 },
+      payload: {
+        error: { status: 500 }
+      },
     };
     const result = dispatch(action);
     expect(result).toBe(action);

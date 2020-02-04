@@ -34,7 +34,11 @@ describe('AUTHOR - async action creators', () => {
         { type: AUTHOR_REQUEST, payload: { recordId: 123 } },
         {
           type: AUTHOR_ERROR,
-          payload: { message: 'Error', status: 500 },
+          payload: {
+            error: {
+              message: 'Error', status: 500
+            }
+          },
           meta: { redirectableError: true },
         },
       ];

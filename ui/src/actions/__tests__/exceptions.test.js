@@ -31,7 +31,13 @@ describe('exceptions dashboard - async action creator', () => {
 
     const expectedActions = [
       { type: types.EXCEPTIONS_REQUEST },
-      { type: types.EXCEPTIONS_ERROR, payload: undefined },
+      {
+        type: types.EXCEPTIONS_ERROR,
+        payload: {
+          error: { status: 500 }
+        },
+        meta: { redirectableError: true }
+      },
     ];
 
     const store = getStore();

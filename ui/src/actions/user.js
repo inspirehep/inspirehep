@@ -11,6 +11,7 @@ import {
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
 import { HOME, USER_SIGNUP } from '../common/routes';
+import { httpErrorToActionPayload } from '../common/utils';
 
 export function userLoginSuccess(user) {
   return {
@@ -65,7 +66,8 @@ export function userSignUp(userEmail) {
       const response = await http.post('/accounts/signup', userEmail);
       dispatch(userSignUpSuccess(response.data));
     } catch (error) {
-      dispatch(userSignUpError(error.response));
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(userSignUpError(errorPayload));
     }
   };
 }
@@ -104,7 +106,8 @@ export function userLocalLogin(credentials) {
       const response = await http.post('/accounts/login', credentials);
       dispatch(userLoginSuccess(response.data));
     } catch (error) {
-      dispatch(userLoginError(error));
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(userLoginError(errorPayload));
     }
   };
 }

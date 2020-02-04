@@ -5,8 +5,8 @@ export default function({ dispatch }) {
   return next => action => {
     const { meta } = action;
     if (meta && meta.redirectableError) {
-      const { status } = action.payload;
-      dispatch(replace(`${ERRORS}/${status}`));
+      const { error } = action.payload;
+      dispatch(replace(`${ERRORS}/${error.status}`));
     }
     return next(action);
   };

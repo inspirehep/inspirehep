@@ -48,7 +48,7 @@ describe('literature - async action creators', () => {
       { type: LITERATURE_REQUEST, payload: { recordId: 123 } },
       {
         type: LITERATURE_ERROR,
-        payload: { status: 500 },
+        payload: { error: { status: 500 } },
         meta: { redirectableError: true },
       },
     ];
@@ -112,7 +112,7 @@ describe('literature - async action creators', () => {
         { type: LITERATURE_REFERENCES_REQUEST, payload: { page: 1, size: 10 } },
         {
           type: LITERATURE_REFERENCES_ERROR,
-          payload: { status: 404, message: 'Not found' },
+          payload: { error: { status: 404, message: 'Not found' } },
         },
       ];
 
@@ -145,7 +145,12 @@ describe('literature - async action creators', () => {
 
       const expectedActions = [
         { type: LITERATURE_AUTHORS_REQUEST },
-        { type: LITERATURE_AUTHORS_ERROR },
+        {
+          type: LITERATURE_AUTHORS_ERROR,
+          payload: {
+            error: { status: 500 }
+          }
+        },
       ];
 
       const store = getStore();

@@ -42,7 +42,7 @@ const literatureReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('data', fromJS({}))
-        .set('error', fromJS(action.payload));
+        .set('error', fromJS(action.payload.error));
     case LITERATURE_REFERENCES_REQUEST:
       return state
         .set('loadingReferences', true)
@@ -56,7 +56,7 @@ const literatureReducer = (state = initialState, action) => {
     case LITERATURE_REFERENCES_ERROR:
       return state
         .set('loadingReferences', false)
-        .set('errorReferences', fromJS(action.payload))
+        .set('errorReferences', fromJS(action.payload.error))
         .set('references', initialState.get('references'))
         .set('totalReferences', initialState.get('totalReferences'));
     case LITERATURE_AUTHORS_REQUEST:
@@ -69,7 +69,7 @@ const literatureReducer = (state = initialState, action) => {
     case LITERATURE_AUTHORS_ERROR:
       return state
         .set('loadingAuthors', false)
-        .set('errorAuthors', fromJS(action.payload))
+        .set('errorAuthors', fromJS(action.payload.error))
         .set('authors', initialState.get('authors'));
     default:
       return state;

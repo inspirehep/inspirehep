@@ -29,7 +29,7 @@ const userReducer = (state = initialState, action) => {
         .set('signUpError', initialState.get('signUpError'));
     case USER_SIGN_UP_ERROR:
       return state
-        .set('signUpError', fromJS(action.payload.data))
+        .set('signUpError', fromJS(action.payload.error))
         .set('isSigningUp', initialState.get('isSigningUp'));
     case USER_LOGIN_ERROR:
     case USER_LOGOUT_SUCCESS:

@@ -51,7 +51,9 @@ describe('conferences reducer', () => {
   it('CONFERENCE_ERROR', () => {
     const state = reducer(Map(), {
       type: CONFERENCE_ERROR,
-      payload: { message: 'error' },
+      payload: {
+        error: { message: 'error' }
+      },
     });
     const expected = fromJS({
       loading: false,

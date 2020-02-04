@@ -42,10 +42,10 @@ function searchSuccess(namespace, data) {
   };
 }
 
-function searchError(namespace, error) {
+function searchError(namespace, errorPayload) {
   return {
     type: SEARCH_ERROR,
-    payload: { namespace, error },
+    payload: { ...errorPayload, namespace },
     meta: { redirectableError: true },
   };
 }
@@ -112,10 +112,10 @@ function searchAggregationsSuccess(namespace, data) {
   };
 }
 
-function searchAggregationsError(namespace, error) {
+function searchAggregationsError(namespace, errorPayload) {
   return {
     type: SEARCH_AGGREGATIONS_ERROR,
-    payload: { error, namespace },
+    payload: { ...errorPayload, namespace },
   };
 }
 

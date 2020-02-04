@@ -69,9 +69,10 @@ function fetchLiteratureAuthorsSuccess(result) {
   };
 }
 
-function fetchLiteratureAuthorsError() {
+function fetchLiteratureAuthorsError(errorPayload) {
   return {
     type: LITERATURE_AUTHORS_ERROR,
+    payload: errorPayload
   };
 }
 
@@ -119,7 +120,8 @@ export function fetchLiteratureAuthors(recordId) {
       const response = await http.get(`/literature/${recordId}/authors`);
       dispatch(fetchLiteratureAuthorsSuccess(response.data));
     } catch (error) {
-      dispatch(fetchLiteratureAuthorsError());
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(fetchLiteratureAuthorsError(errorPayload));
     }
   };
 }
