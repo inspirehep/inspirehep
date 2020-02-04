@@ -362,7 +362,7 @@ def import_article(identifier):
 
     elif is_doi(identifier):
         pid_type = "doi"
-        pid_value = normalize_doi(identifier)
+        pid_value = normalize_doi(identifier).lower()
 
     else:
         raise UnknownImportIdentifierError(identifier)
