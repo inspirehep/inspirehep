@@ -276,7 +276,7 @@ class LiteratureRecord(
             except ValueError:
                 LOGGER.exception(
                     "Duplicated document found",
-                    recid=self["control_number"],
+                    recid=self.get("control_number"),
                     uuid=self.id,
                     document=document.get("key"),
                 )
@@ -292,7 +292,7 @@ class LiteratureRecord(
             except ValueError:
                 LOGGER.exception(
                     "Duplicated figure found",
-                    recid=self["control_number"],
+                    recid=self.get("control_number"),
                     uuid=self.id,
                     figure=figure.get("key"),
                 )
@@ -311,7 +311,7 @@ class LiteratureRecord(
             LOGGER.info(
                 "Replacing file metadata",
                 key=new_key,
-                recid=self["control_number"],
+                recid=self.get("control_number"),
                 uuid=self.id,
             )
             current_s3_instance.replace_file_metadata(new_key, filename, mimetype, acl)
@@ -319,7 +319,7 @@ class LiteratureRecord(
             LOGGER.info(
                 "Uploading file to s3",
                 key=new_key,
-                recid=self["control_number"],
+                recid=self.get("control_number"),
                 uuid=self.id,
             )
             current_s3_instance.upload_file(
