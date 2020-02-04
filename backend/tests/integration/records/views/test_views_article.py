@@ -54,6 +54,24 @@ def test_import_article_view_409_because_article_already_exists(
     assert resp.status_code == 409
 
 
+def test_import_article_view_409_because_doi_already_exists(
+    api_client, base_app, db, create_record
+):
+    doi_value = "10.1109/TaSc.2017.2721959"
+    data = {"dois": [{"value": doi_value}]}
+    data = faker.record("lit", with_control_number=True, data=data)
+    create_record("lit", data=data)
+
+    resp = api_client.get(f"/literature/import/doi:{doi_value}")
+    assert resp.status_code == 409
+
+    resp = api_client.get(f"/literature/import/doi:{doi_value.upper()}")
+    assert resp.status_code == 409
+
+    resp = api_client.get(f"/literature/import/doi:{doi_value.lower()}")
+    assert resp.status_code == 409
+
+
 @pytest.mark.vcr()
 def test_import_article_view_404_arxiv_not_found(api_client, db):
     resp = api_client.get("/literature/import/arXiv:0000.0000")
