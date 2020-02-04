@@ -51,7 +51,9 @@ describe('jobs reducer', () => {
   it('JOB_ERROR', () => {
     const state = reducer(Map(), {
       type: JOB_ERROR,
-      payload: { message: 'error' },
+      payload: {
+        error: { message: 'error' }
+      },
     });
     const expected = fromJS({
       loading: false,

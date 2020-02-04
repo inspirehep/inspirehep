@@ -3,6 +3,7 @@ import {
   EXCEPTIONS_SUCCESS,
   EXCEPTIONS_ERROR,
 } from './actionTypes';
+import { httpErrorToActionPayload } from '../common/utils';
 
 function fetching() {
   return {
@@ -21,6 +22,7 @@ function fetchError(error) {
   return {
     type: EXCEPTIONS_ERROR,
     payload: error,
+    meta: { redirectableError: true }
   };
 }
 
@@ -31,7 +33,8 @@ export default function fetch() {
       const response = await http.get('/migrator/errors');
       dispatch(fetchSuccess(response.data));
     } catch (error) {
-      dispatch(fetchError(error.data));
+      const errorPayload = httpErrorToActionPayload(error)
+      dispatch(fetchError(errorPayload));
     }
   };
 }

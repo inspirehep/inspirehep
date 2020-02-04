@@ -60,7 +60,9 @@ describe('submissions - async action creator', () => {
         { type: SUBMIT_REQUEST },
         {
           type: SUBMIT_ERROR,
-          payload: { message: 'Error', status: 400 },
+          payload: {
+            error: { message: 'Error', status: 400 }
+          },
         },
       ];
 
@@ -103,7 +105,9 @@ describe('submissions - async action creator', () => {
         { type: SUBMIT_REQUEST },
         {
           type: SUBMIT_ERROR,
-          payload: { message: 'Error', status: 400 },
+          payload: {
+            error: { message: 'Error', status: 400 }
+          },
         },
       ];
 
@@ -155,7 +159,9 @@ describe('submissions - async action creator', () => {
         },
         {
           type: INITIAL_FORM_DATA_ERROR,
-          payload: { message: 'Error', status: 404 },
+          payload: {
+            error: { message: 'Error', status: 404 }
+          },
         },
       ];
 
@@ -191,7 +197,7 @@ describe('submissions - async action creator', () => {
       done();
     });
 
-    it('creates INITIAL_FORM_DATA_ERROR if not successful', async done => {
+    it('creates INITIAL_FORM_DATA_ERROR if not successful', async () => {
       const id = '1234.5678';
       mockHttp
         .onGet(`/literature/import/${id}`)
@@ -200,20 +206,19 @@ describe('submissions - async action creator', () => {
       const expectedActions = [
         {
           type: INITIAL_FORM_DATA_REQUEST,
-          payload: {
-            id,
-          },
+          payload: { id },
         },
         {
           type: INITIAL_FORM_DATA_ERROR,
-          payload: { message: 'Error', status: 404 },
+          payload: {
+            error: { message: 'Error', status: 404 }
+          },
         },
       ];
 
       const store = getStore();
       await store.dispatch(importExternalLiterature(id));
       expect(store.getActions()).toEqual(expectedActions);
-      done();
     });
   });
 });

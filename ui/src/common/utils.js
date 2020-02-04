@@ -99,13 +99,17 @@ export function mergeWithConcattingArrays(destObject, ...sources) {
 export function httpErrorToActionPayload(httpError) {
   const { message } = httpError;
   if (message === 'Network Error') {
-    return { status: 'network' };
+    return {
+      error: { status: 'network' }
+    };
   }
 
   const { response } = httpError;
   if (response) {
     const { data, status } = response;
-    return { status, ...data };
+    return {
+      error: { status, ...data }
+    };
   }
 
   throw httpError;

@@ -25,7 +25,7 @@ const inspectReducer = (state = initialState, action) => {
       return state
         .set('loading', false)
         .set('data', fromJS({}))
-        .set('error', fromJS(action.payload));
+        .set('error', fromJS(action.payload.error));
     default:
       return state;
   }

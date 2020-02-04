@@ -28,7 +28,7 @@ describe('submissions reducer', () => {
     const submitError = { message: 'Error' };
     const state = reducer(Map(), {
       type: SUBMIT_ERROR,
-      payload: submitError,
+      payload: { error: submitError },
     });
     expect(state.get('submitError')).toEqual(fromJS(submitError));
   });
@@ -85,14 +85,14 @@ describe('submissions reducer', () => {
   });
 
   it('INITIAL_FORM_DATA_ERROR', () => {
-    const error = fromJS({
+    const error = {
       message: 'Error',
-    });
+    };
     const state = reducer(Map(), {
       type: INITIAL_FORM_DATA_ERROR,
-      payload: error,
+      payload: { error },
     });
-    expect(state.get('initialDataError')).toEqual(error);
+    expect(state.get('initialDataError')).toEqual(fromJS(error));
     expect(state.get('loadingInitialData')).toBe(false);
     expect(state.get('initialData')).toEqual(initialState.get('initialData'));
   });

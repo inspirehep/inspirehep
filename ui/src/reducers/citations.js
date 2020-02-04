@@ -42,7 +42,7 @@ const citationsReducer = (state = initialState, action) => {
     case CITATIONS_ERROR:
       return state
         .set('loading', false)
-        .set('error', fromJS(action.payload))
+        .set('error', fromJS(action.payload.error))
         .set('data', initialState.get('data'))
         .set('total', initialState.get('total'));
     case CITATIONS_SUMMARY_REQUEST:
@@ -58,7 +58,7 @@ const citationsReducer = (state = initialState, action) => {
     case CITATIONS_SUMMARY_ERROR:
       return state
         .set('loadingCitationSummary', false)
-        .set('errorCitationSummary', fromJS(action.payload))
+        .set('errorCitationSummary', fromJS(action.payload.error))
         .set('citationSummary', initialState.get('citationSummary'));
     case CITATIONS_BY_YEAR_REQUEST:
       return state.set('loadingCitationsByYear', true);
@@ -74,7 +74,7 @@ const citationsReducer = (state = initialState, action) => {
       return state
         .set('loadingCitationsByYear', false)
         .set('byYear', initialState.get('byYear'))
-        .set('errorCitationsByYear', fromJS(action.payload));
+        .set('errorCitationsByYear', fromJS(action.payload.error));
     default:
       return state;
   }

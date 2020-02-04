@@ -26,7 +26,7 @@ const conferencesReducer = (state = initialState, action) => {
     case CONFERENCE_ERROR:
       return state
         .set('loading', false)
-        .set('error', fromJS(action.payload))
+        .set('error', fromJS(action.payload.error))
         .set('data', initialState.get('data'));
     default:
       return state;

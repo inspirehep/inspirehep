@@ -309,8 +309,10 @@ describe('utils', () => {
       };
       const result = httpErrorToActionPayload(error);
       const expected = {
-        status: 500,
-        foo: 'bar',
+        error: {
+          status: 500,
+          foo: 'bar',
+        }
       };
       expect(result).toEqual(expected);
     });
@@ -323,7 +325,9 @@ describe('utils', () => {
       };
       const result = httpErrorToActionPayload(error);
       const expected = {
-        status: 500,
+        error: {
+          status: 500,
+        }
       };
       expect(result).toEqual(expected);
     });
@@ -334,7 +338,9 @@ describe('utils', () => {
       };
       const result = httpErrorToActionPayload(error);
       const expected = {
-        status: 'network',
+        error: {
+          status: 'network',
+        }
       };
       expect(result).toEqual(expected);
     });

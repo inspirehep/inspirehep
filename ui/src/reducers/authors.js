@@ -27,7 +27,7 @@ const authorsReducer = (state = initialState, action) => {
     case AUTHOR_ERROR:
       return state
         .set('loading', false)
-        .set('error', fromJS(action.payload))
+        .set('error', fromJS(action.payload.error))
         .set('data', initialState.get('data'));
     default:
       return state;

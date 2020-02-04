@@ -56,7 +56,9 @@ describe('literature reducer', () => {
   it('LITERATURE_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_ERROR,
-      payload: { message: 'error' },
+      payload: { 
+        error: { message: 'error' }
+      },
     });
     const expected = fromJS({
       loading: false,
@@ -106,7 +108,9 @@ describe('literature reducer', () => {
   it('LITERATURE_REFERENCES_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_REFERENCES_ERROR,
-      payload: { message: 'error' },
+      payload: { 
+        error: { message: 'error' }
+      },
     });
     const expected = fromJS({
       loadingReferences: false,
@@ -149,7 +153,9 @@ describe('literature reducer', () => {
   it('LITERATURE_AUTHORS_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_AUTHORS_ERROR,
-      payload: { message: 'error' },
+      payload: {
+        error: { message: 'error' }
+      },
     });
     const expected = fromJS({
       loadingAuthors: false,

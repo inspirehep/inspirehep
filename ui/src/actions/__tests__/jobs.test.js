@@ -34,7 +34,9 @@ describe('jobs - async action creators', () => {
         { type: JOB_REQUEST, payload: { recordId: 123 } },
         {
           type: JOB_ERROR,
-          payload: { message: 'Error', status: 500 },
+          payload: {
+            error: { message: 'Error', status: 500 }
+          },
           meta: { redirectableError: true },
         },
       ];

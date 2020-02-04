@@ -43,14 +43,16 @@ describe('citations reducer', () => {
   });
 
   it('CITATIONS_ERROR', () => {
-    const payload = { message: 'error' };
+    const payload = {
+      error: { message: 'error' }
+    };
     const state = reducer(Map(), {
       type: types.CITATIONS_ERROR,
       payload,
     });
     const expected = fromJS({
       loading: false,
-      error: payload,
+      error: payload.error,
       data: initialState.get('data'),
       total: initialState.get('total'),
     });
@@ -83,14 +85,16 @@ describe('citations reducer', () => {
   });
 
   it('CITATIONS_SUMMARY_ERROR', () => {
-    const payload = { message: 'error' };
+    const payload = {
+      error: { message: 'error' }
+    };
     const state = reducer(Map(), {
       type: types.CITATIONS_SUMMARY_ERROR,
       payload,
     });
     const expected = fromJS({
       loadingCitationSummary: false,
-      errorCitationSummary: payload,
+      errorCitationSummary: payload.error,
       citationSummary: initialState.get('citationSummary'),
     });
     expect(state).toEqual(expected);
@@ -128,14 +132,14 @@ describe('citations reducer', () => {
   });
 
   it('CITATIONS_BY_YEAR_ERROR', () => {
-    const payload = { message: 'error' };
+    const payload = { error: { message: 'error' } };
     const state = reducer(Map(), {
       type: types.CITATIONS_BY_YEAR_ERROR,
       payload,
     });
     const expected = fromJS({
       loadingCitationsByYear: false,
-      errorCitationsByYear: payload,
+      errorCitationsByYear: payload.error,
       byYear: initialState.get('byYear'),
     });
     expect(state).toEqual(expected);
