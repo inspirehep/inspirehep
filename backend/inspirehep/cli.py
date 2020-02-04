@@ -10,6 +10,7 @@
 from invenio_base.app import create_cli
 
 from inspirehep.factory import create_app
+from inspirehep.files.cli import files
 from inspirehep.fixtures import fixtures
 from inspirehep.mailing.cli import mailing
 from inspirehep.orcid.cli import orcid
@@ -23,3 +24,4 @@ cli.add_command(jobs)
 cli.add_command(citations)
 cli.add_command(orcid)
 cli.add_command(mailing)
+cli.add_command(files)

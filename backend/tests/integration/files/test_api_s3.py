@@ -28,11 +28,13 @@ def test_upload_file(base_app, appctx, s3, create_s3_bucket):
     )
     with open(record_fixture_path, "rb") as data:
         current_s3_instance.upload_file(data, KEY, filename, mimetype, acl)
-    result = current_s3_instance.client.head_object(Bucket=s3.get_bucket(KEY), Key=KEY)
+    result = current_s3_instance.client.head_object(
+        Bucket=s3.get_bucket_for_file_key(KEY), Key=KEY
+    )
     assert result["ContentDisposition"] == f'attachment; filename="{filename}"'
     assert result["ContentType"] == mimetype
     content = (
-        current_s3_instance.resource.Object(s3.get_bucket(KEY), KEY)
+        current_s3_instance.resource.Object(s3.get_bucket_for_file_key(KEY), KEY)
         .get()["Body"]
         .read()
         .decode("utf-8")
@@ -42,21 +44,25 @@ def test_upload_file(base_app, appctx, s3, create_s3_bucket):
 
 def test_delete_file(base_app, appctx, s3, create_s3_bucket, create_s3_file):
     create_s3_bucket(KEY)
-    create_s3_file(s3.get_bucket(KEY), KEY, "this is my data")
+    create_s3_file(s3.get_bucket_for_file_key(KEY), KEY, "this is my data")
     current_s3_instance.delete_file(KEY)
     with pytest.raises(ClientError):
-        current_s3_instance.client.head_object(Bucket=s3.get_bucket(KEY), Key=KEY)
+        current_s3_instance.client.head_object(
+            Bucket=s3.get_bucket_for_file_key(KEY), Key=KEY
+        )
 
 
 def test_replace_file_metadata(base_app, appctx, s3, create_s3_bucket, create_s3_file):
     metadata = {"foo": "bar"}
     create_s3_bucket(KEY)
-    create_s3_file(s3.get_bucket(KEY), KEY, "this is my data", metadata)
+    create_s3_file(s3.get_bucket_for_file_key(KEY), KEY, "this is my data", metadata)
     filename = "file.txt"
     mimetype = "text/*"
     acl = "public-read"
     current_s3_instance.replace_file_metadata(KEY, filename, mimetype, acl)
-    result = current_s3_instance.client.head_object(Bucket=s3.get_bucket(KEY), Key=KEY)
+    result = current_s3_instance.client.head_object(
+        Bucket=s3.get_bucket_for_file_key(KEY), Key=KEY
+    )
     assert result["ContentDisposition"] == f'attachment; filename="{filename}"'
     assert result["ContentType"] == mimetype
     assert result["Metadata"] == {}
@@ -65,7 +71,9 @@ def test_replace_file_metadata(base_app, appctx, s3, create_s3_bucket, create_s3
 def test_get_file_metadata(base_app, appctx, s3, create_s3_bucket, create_s3_file):
     expected_metadata = {"foo": "bar"}
     create_s3_bucket(KEY)
-    create_s3_file(s3.get_bucket(KEY), KEY, "this is my data", expected_metadata)
+    create_s3_file(
+        s3.get_bucket_for_file_key(KEY), KEY, "this is my data", expected_metadata
+    )
     metadata = current_s3_instance.get_file_metadata(KEY)["Metadata"]
     assert metadata == expected_metadata
 
@@ -91,7 +99,7 @@ def test_file_exists_when_file_is_there(
 ):
     expected_result = True
     create_s3_bucket(KEY)
-    create_s3_file(s3.get_bucket(KEY), KEY, "this is my data")
+    create_s3_file(s3.get_bucket_for_file_key(KEY), KEY, "this is my data")
     result = current_s3_instance.file_exists(KEY)
     assert result == expected_result
 
@@ -99,7 +107,7 @@ def test_file_exists_when_file_is_there(
 def test_get_bucket(base_app, appctx):
     key = "e50c2ea2d26571e0c5a3411e320586289fd715c2"
     expected_result = "inspire-files-e"
-    result = current_s3_instance.get_bucket(key)
+    result = current_s3_instance.get_bucket_for_file_key(key)
     assert result == expected_result
 
 
