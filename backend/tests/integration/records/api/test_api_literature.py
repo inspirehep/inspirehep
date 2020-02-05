@@ -22,13 +22,8 @@ from jsonschema import ValidationError
 from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
-from inspirehep.records.errors import (
-    DownloadFileError,
-    ExistingArticleError,
-    UnknownImportIdentifierError,
-)
+from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentifierError
 from inspirehep.records.models import RecordCitations
-from inspirehep.records.utils import download_file_from_url
 
 
 def test_literature_create(base_app, db, es):
@@ -1276,7 +1271,7 @@ def test_adding_record_with_documents_with_existing_file_updates_metadata(
 
 
 @pytest.mark.vcr()
-def test_adding_record_with_documents_without_original_url(
+def test_adding_record_with_documents_with_full_url_without_original_url(
     base_app, db, es, create_record, enable_files, s3, create_s3_bucket
 ):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
@@ -1303,6 +1298,41 @@ def test_adding_record_with_documents_without_original_url(
     ]
     assert s3.file_exists(expected_document_key) is True
     assert expected_documents == record["documents"]
+
+
+def test_adding_record_with_documents_with_relative_url_without_original_url(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    with requests_mock.Mocker() as mocker:
+        mocker.get(
+            "http://localhost:5000/api/files/file1.pdf",
+            status_code=200,
+            content=b"This is a file",
+        )
+
+        expected_document_key = "5276effc61dd44a9fe1d5354bf2ad9c4"
+        create_s3_bucket(expected_document_key)
+        data = {
+            "documents": [
+                {
+                    "source": "arxiv",
+                    "key": "key",
+                    "url": "/api/files/file1.pdf",
+                    "filename": "file1.pdf",
+                }
+            ]
+        }
+        record = create_record("lit", data=data)
+        expected_documents = [
+            {
+                "source": "arxiv",
+                "key": expected_document_key,
+                "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket(expected_document_key)}/{expected_document_key}",
+                "filename": "file1.pdf",
+            }
+        ]
+        assert s3.file_exists(expected_document_key) is True
+        assert expected_documents == record["documents"]
 
 
 @pytest.mark.vcr()

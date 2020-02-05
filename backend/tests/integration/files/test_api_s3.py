@@ -77,14 +77,13 @@ def test_file_exists_when_file_is_missing(base_app, appctx, s3, create_s3_bucket
     assert result == expected_result
 
 
-def test_file_exists_when_error_occurs(base_app, appctx):
-    with patch.object(current_s3_instance, "resource") as mock_resource:
-        error_response = {"Error": {"Code": "500", "Message": "Error"}}
-        mock_resource.Object(
-            current_s3_instance.get_bucket(KEY), KEY
-        ).load.side_effect = ClientError(error_response, "load")
-        with pytest.raises(ClientError):
-            current_s3_instance.file_exists(KEY)
+@patch(
+    "inspirehep.files.api.current_s3_instance.client.head_object",
+    side_effect=ClientError({"Error": {"Code": "500", "Message": "Error"}}, "load"),
+)
+def test_file_exists_when_error_occurs(mock_client_head_object, base_app, appctx):
+    with pytest.raises(ClientError):
+        current_s3_instance.file_exists(KEY)
 
 
 def test_file_exists_when_file_is_there(

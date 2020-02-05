@@ -325,14 +325,20 @@ class LiteratureRecord(
             current_s3_instance.upload_file(
                 BytesIO(file_data), new_key, filename, mimetype, acl
             )
-        return {
+        result = {
             "key": new_key,
-            "original_url": original_url or url,
             "filename": filename,
             "url": current_s3_instance.get_file_url(new_key),
             "mimetype": mimetype,
             "size": size,
         }
+        if (
+            url.startswith("http")
+            and not current_s3_instance.is_s3_url(url)
+            and not original_url
+        ):
+            result["original_url"] = url
+        return result
 
 
 def import_article(identifier):

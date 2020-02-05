@@ -131,3 +131,12 @@ class S3:
             else:
                 LOGGER.warning(exc=e, key=key)
                 raise
+
+    @staticmethod
+    def is_s3_url(url):
+        """Checks if the url is an S3 url.
+
+        :param url: the given url.
+        :return: boolean
+        """
+        return url.startswith(current_app.config.get("S3_HOSTNAME"))

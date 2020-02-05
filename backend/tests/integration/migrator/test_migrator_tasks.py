@@ -497,3 +497,54 @@ def test_migrate_from_mirror_doesnt_raise_on_job_records(base_app, db, es_clear)
     ).one()
 
     assert job_rec.valid
+
+
+@pytest.mark.vcr()
+def test_migrate_record_from_mirror_uses_local_cache_for_afs_files(
+    base_app, db, es_clear, datadir, enable_files, s3, create_s3_bucket
+):
+    expected_key = "f43f40833edfd8227c4deb9ad05b321e"
+    create_s3_bucket(expected_key)
+    with patch.dict(
+        current_app.config, {"LABS_AFS_HTTP_SERVICE": "http://inspire-afs-web.cern.ch/"}
+    ):
+        redis = StrictRedis.from_url(base_app.config["CACHE_REDIS_URL"])
+        redis.delete("afs_file_locations")
+        raw_record_path = (datadir / "1313624.xml").as_posix()
+
+        migrate_from_file(raw_record_path)
+        assert redis.hlen("afs_file_locations") > 0
+
+        migrate_from_file(raw_record_path)
+        record = LiteratureRecord.get_record_by_pid_value("1313624")
+        # No original_url as source is local file
+        assert "original_url" not in record["documents"][0]
+
+
+@pytest.mark.vcr()
+def test_migrate_record_from_mirror_invalidates_local_file_cache_if_no_local_file(
+    base_app, db, es_clear, datadir, enable_files, s3, create_s3_bucket
+):
+    expected_key = "f43f40833edfd8227c4deb9ad05b321e"
+    create_s3_bucket(expected_key)
+    with patch.dict(
+        current_app.config, {"LABS_AFS_HTTP_SERVICE": "http://inspire-afs-web.cern.ch/"}
+    ):
+        redis = StrictRedis.from_url(base_app.config["CACHE_REDIS_URL"])
+        redis.delete("afs_file_locations")
+        # populate cache with invalid file path
+        redis.hset(
+            "afs_file_locations",
+            "http://inspire-afs-web.cern.ch/var/data/files/g97/1940001/content.pdf%3B2",
+            "/api/files/ddb1a354-1d2a-40b6-9cc4-2e823b6bef81/0000000000000000000000000000000000000000",
+        )
+        raw_record_path = (datadir / "1313624.xml").as_posix()
+
+        migrate_from_file(raw_record_path)
+        record = LiteratureRecord.get_record_by_pid_value("1313624")
+
+        assert redis.hlen("afs_file_locations") > 0
+        assert (
+            record["documents"][0]["original_url"]
+            == "http://inspire-afs-web.cern.ch/var/data/files/g97/1940001/content.pdf%3B2"
+        )

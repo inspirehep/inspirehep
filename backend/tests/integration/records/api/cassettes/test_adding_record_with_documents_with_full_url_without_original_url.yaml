@@ -12421,7 +12421,7 @@ interactions:
       Content-Type:
       - application/pdf
       Date:
-      - Tue, 28 Jan 2020 11:28:43 GMT
+      - Wed, 05 Feb 2020 14:24:37 GMT
       ETag:
       - '"7f046e70-ac7ed-583d5233c9980"'
       Keep-Alive:
@@ -12432,7 +12432,7 @@ interactions:
       - Apache
       Set-Cookie:
       - INVENIOSESSIONstub=NO; path=/; HttpOnly
-      - INVENIOSESSION=483c924fb94167cfcd8e7533eb002352; path=/; HttpOnly
+      - INVENIOSESSION=24c622fddd5ca68c5c128b172a998509; path=/; HttpOnly
       Vary:
       - Cookie,ETag,Cache-Control,User-Agent
     status:
