@@ -165,14 +165,15 @@ export const coreHep: JsonEditorConfig = {
       },
       accelerator_experiments: {
         items: {
-          alwaysShow: ['experiment'],
-          order: ['institution', 'accelerator', 'experiment', 'legacy_name'],
+          alwaysShow: ['legacy_name', 'accelerator'],
+          order: ['legacy_name', 'institution', 'accelerator', 'experiment'],
           properties: {
-            experiment: {
+            legacy_name: {
               autocompletionConfig: {
                 url: `${environment.baseUrl}/api/experiments/_suggest?experiment=`,
                 path: '/experiment/0/options',
                 size: 10,
+                optionField: '/_source/legacy_name',
                 onCompletionSelect: setRecordRefAndCuratedOnCompletionSelect,
               }
             },
