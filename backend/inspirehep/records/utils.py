@@ -80,10 +80,14 @@ def requests_retry_session(retries=3):
 def download_file_from_url(url):
     download_url = url if url.startswith("http") else f"{get_inspirehep_url()}{url}"
     max_retries = current_app.config.get("FILES_DOWNLOAD_MAX_RETRIES", 3)
-    request = requests_retry_session(retries=max_retries).get(download_url, stream=True)
-    if not request:
+    try:
+        request = requests_retry_session(retries=max_retries).get(
+            download_url, stream=True
+        )
+        request.raise_for_status()
+    except requests.exceptions.RequestException as exc:
         raise DownloadFileError(
-            f"Cannot download file from url {download_url}. Status_code: {request.status_code}. Reason: {request.reason}"
+            f"Cannot download file from url {download_url}. Reason: {exc}"
         )
     return request.content
 

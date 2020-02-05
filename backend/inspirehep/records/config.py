@@ -583,9 +583,3 @@ LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE = {
         "_bibtex_display",
     ]
 }
-
-FILES_REST_PERMISSION_FACTORY = allow_all
-
-FILES_API_PREFIX = "/api/files"
-
-FILES_DOWNLOAD_MAX_RETRIES = 2
