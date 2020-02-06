@@ -22,6 +22,7 @@ after_success: npm run coveralls
 deploy:
 - provider: npm
   skip_cleanup: true
+  edge: true
   email: admin@inspirehep.net
   api_key:
     secure: OVIKb2O/kbHkuVS08xzW1uD1s5s8zJVIGgVK+g54ZJo8kdowtE1hXlWfqQMcNEOO6mPvknC2VysGMipOauosoaBPzY14TsOHv/9f+TlVdzrsPS9NBtxoBDheqCHLSc5fjl7I74jjxAZo+kl3MEHZ8VcPIg3AzzUnsm189cAu183sNJmGh3v4pZ5R6J8T7IxRd2yClBjN4n5RGySHUpy0mUtYVOkaOxZQ8xSLXSHpp9m6FWTljQ0sxxUudq2y3pe7SyuPEmo2iY+ww9buNZ+CIXvxALHDDm93YGAkHdC+KifEpsBLf0DjPXPvLPEVSHu5I3I8z2Pztc060DzDPYzaUBOwK8vRfZSd9vpjuSNYUoea2LPGx7a9ZBAv6BoIoqkfa2oyX44Jy6u0mr24rwEphm73517nCIB4JXs0Ti5nomZS57HsbGyBN2GQ2FS/iiVPOeTkyQ3HtbLx44bJS1Naa+JQAfKrfSRpG2iNQHRQOPSjvDPs7UpvQBKp7Qy03WuWkzQKDdPo819awvCRkOKRG1JQ087CgFhra9OuNbZYpi0CG7LcNmfrgDB1bBUfbK3IE9z//EOrMjtfOc3buJ6x+8zal4UcENicM7emwhNOZs6oe30jNWSTFJi0FvGUl88krtG/cTFeP0fTOJS7MUMCyhwB2r4pcuXtepXJmHICRPo=
@@ -32,6 +33,7 @@ deploy:
     all_branches: true
     node: 6.9.1
 - provider: npm
+  edge: true
   skip_cleanup: true
   email: admin@inspirehep.net
   api_key:
