@@ -86,7 +86,6 @@ class CiteModalAction extends Component {
         </ListItemAction>
         <Modal
           title="Cite Article"
-          width="50%"
           visible={modalVisible}
           footer={null}
           onCancel={this.onModalCancel}

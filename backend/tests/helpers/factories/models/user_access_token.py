@@ -12,7 +12,7 @@ from helpers.factories.models.base import BaseFactory
 from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauth2server.models import Token
-from invenio_oauthclient.models import UserIdentity
+from invenio_oauthclient.models import RemoteAccount, UserIdentity
 
 fake = Factory.create()
 
@@ -23,7 +23,14 @@ class UserFactory(BaseFactory):
 
     @classmethod
     def _create(
-        cls, model_class, role="superuser", orcid=None, email=None, *args, **kwargs
+        cls,
+        model_class,
+        role="superuser",
+        orcid=None,
+        email=None,
+        allow_push=None,
+        *args,
+        **kwargs
     ):
         ds = current_app.extensions["invenio-accounts"].datastore
         role = ds.find_or_create_role(role)
@@ -40,6 +47,14 @@ class UserFactory(BaseFactory):
                 id=orcid, method="orcid", id_user=user.get_id()
             )
             db.session.add(user_orcid_id)
+
+            remote_account = RemoteAccount(
+                user_id=user.get_id(),
+                client_id="orcid",
+                extra_data={"orcid": orcid, "allow_push": allow_push},
+            )
+            db.session.add(remote_account)
+
         return user
 
 

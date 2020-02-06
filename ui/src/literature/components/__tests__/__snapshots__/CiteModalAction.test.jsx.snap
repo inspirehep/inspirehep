@@ -31,7 +31,7 @@ exports[`CiteModalAction renders with all props 1`] = `
     title="Cite Article"
     transitionName="zoom"
     visible={false}
-    width="50%"
+    width={520}
   >
     <div>
       <Row
@@ -146,7 +146,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
     title="Cite Article"
     transitionName="zoom"
     visible={false}
-    width="50%"
+    width={520}
   >
     <div>
       <div

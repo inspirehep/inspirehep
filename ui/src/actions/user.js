@@ -8,6 +8,9 @@ import {
   USER_SIGN_UP_SUCCESS,
   USER_SET_PREFERRED_CITE_FORMAT,
   LOGGED_IN_USER_REQUEST,
+  USER_SET_ORCID_PUSH_SETTING_REQUEST,
+  USER_SET_ORCID_PUSH_SETTING_SUCCESS,
+  USER_SET_ORCID_PUSH_SETTING_ERROR,
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
 import { HOME, USER_SIGNUP } from '../common/routes';
@@ -66,7 +69,7 @@ export function userSignUp(userEmail) {
       const response = await http.post('/accounts/signup', userEmail);
       dispatch(userSignUpSuccess(response.data));
     } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
+      const errorPayload = httpErrorToActionPayload(error);
       dispatch(userSignUpError(errorPayload));
     }
   };
@@ -106,7 +109,7 @@ export function userLocalLogin(credentials) {
       const response = await http.post('/accounts/login', credentials);
       dispatch(userLoginSuccess(response.data));
     } catch (error) {
-      const errorPayload = httpErrorToActionPayload(error)
+      const errorPayload = httpErrorToActionPayload(error);
       dispatch(userLoginError(errorPayload));
     }
   };
@@ -131,5 +134,39 @@ export function setPreferredCiteFormat(format) {
   return {
     type: USER_SET_PREFERRED_CITE_FORMAT,
     payload: { format },
+  };
+}
+
+function updatingOrcidPushSetting(value) {
+  return {
+    type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
+    payload: { value },
+  };
+}
+
+function updateOrcidPushSettingSuccess(value) {
+  return {
+    type: USER_SET_ORCID_PUSH_SETTING_SUCCESS,
+    payload: { value },
+  };
+}
+
+function updateOrcidPushSettingError(errorPayload) {
+  return {
+    type: USER_SET_ORCID_PUSH_SETTING_ERROR,
+    payload: errorPayload,
+  };
+}
+
+export function updateOrcidPushSetting(value) {
+  return async (dispatch, getState, http) => {
+    dispatch(updatingOrcidPushSetting(value));
+    try {
+      await http.put('/accounts/settings/orcid-push', { value });
+      dispatch(updateOrcidPushSettingSuccess(value));
+    } catch (error) {
+      const errorPayload = httpErrorToActionPayload(error);
+      dispatch(updateOrcidPushSettingError(errorPayload));
+    }
   };
 }

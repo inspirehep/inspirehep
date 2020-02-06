@@ -43,6 +43,7 @@ def test_authors_detail(api_client, db, create_record_factory, datadir):
             {"schema": "SPIRES", "value": "HEPNAMES-193534"},
         ],
         "orcid": "0000-0002-9127-1687",
+        "bai": "J.M.Maldacena.1",
         "name": {
             "name_variants": ["Maldacena, Juan Martin"],
             "preferred_name": "Juan Martin Maldacena",

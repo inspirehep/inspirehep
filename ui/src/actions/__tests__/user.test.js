@@ -7,8 +7,16 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT_SUCCESS,
   LOGGED_IN_USER_REQUEST,
+  USER_SET_ORCID_PUSH_SETTING_SUCCESS,
+  USER_SET_ORCID_PUSH_SETTING_REQUEST,
+  USER_SET_ORCID_PUSH_SETTING_ERROR,
 } from '../actionTypes';
-import { userLogin, userLogout, fetchLoggedInUser } from '../user';
+import {
+  userLogin,
+  userLogout,
+  fetchLoggedInUser,
+  updateOrcidPushSetting,
+} from '../user';
 import loginInNewTab from '../../user/loginInNewTab';
 import http from '../../common/http';
 import { HOME } from '../../common/routes';
@@ -82,5 +90,46 @@ describe('user - async action creator', () => {
     await store.dispatch(userLogout());
     expect(store.getActions()).toEqual(expectedActions);
     done();
+  });
+
+  it('successful update orcid push settings creates USER_SET_ORCID_PUSH_SETTING_SUCCESS', async () => {
+    mockHttp.onPut('/accounts/settings/orcid-push').replyOnce(200);
+
+    const orcidPushValue = true;
+    const expectedActions = [
+      {
+        type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
+        payload: { value: orcidPushValue },
+      },
+      {
+        type: USER_SET_ORCID_PUSH_SETTING_SUCCESS,
+        payload: { value: orcidPushValue },
+      },
+    ];
+
+    const store = getStore();
+    await store.dispatch(updateOrcidPushSetting(orcidPushValue));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('unsuccessful update orcid push settings creates USER_SET_ORCID_PUSH_SETTING_ERROR', async () => {
+    mockHttp
+      .onPut('/accounts/settings/orcid-push')
+      .replyOnce(500, { message: 'Error' });
+    const orcidPushValue = false;
+    const expectedActions = [
+      {
+        type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
+        payload: { value: orcidPushValue },
+      },
+      {
+        type: USER_SET_ORCID_PUSH_SETTING_ERROR,
+        payload: { error: { message: 'Error', status: 500 } },
+      },
+    ];
+
+    const store = getStore();
+    await store.dispatch(updateOrcidPushSetting(orcidPushValue));
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });
