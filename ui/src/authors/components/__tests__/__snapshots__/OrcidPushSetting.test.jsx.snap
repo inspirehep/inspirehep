@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrcidPushSetting renders when disabled 1`] = `
+<Fragment>
+  <div
+    className="mb3"
+  >
+    <span
+      className="mr2"
+    >
+      Export your INSPIRE works to ORCID
+    </span>
+    <Popconfirm
+      disabled={false}
+      icon={
+        <Icon
+          theme="filled"
+          type="exclamation-circle"
+        />
+      }
+      okType="primary"
+      onConfirm={[Function]}
+      placement="top"
+      title={
+        <React.Fragment>
+          <p>
+            Your INSPIRE
+             
+            <ExternalLink
+              href="//inspirehep.net/author/claim/Author.E.1"
+            >
+              claimed
+            </ExternalLink>
+             
+            works will be exported to your ORCID account.
+          </p>
+          <span>
+            Are you sure?
+          </span>
+        </React.Fragment>
+      }
+      transitionName="zoom-big"
+      trigger="click"
+    >
+      <Switch
+        checked={false}
+        loading={false}
+      />
+    </Popconfirm>
+  </div>
+  <div>
+    <Connect(OrcidPushSettingMessage) />
+  </div>
+</Fragment>
+`;
+
+exports[`OrcidPushSetting renders when enabled 1`] = `
+<Fragment>
+  <div
+    className="mb3"
+  >
+    <span
+      className="mr2"
+    >
+      Export your INSPIRE works to ORCID
+    </span>
+    <Popconfirm
+      disabled={false}
+      icon={
+        <Icon
+          theme="filled"
+          type="exclamation-circle"
+        />
+      }
+      okType="primary"
+      onConfirm={[Function]}
+      placement="top"
+      title={
+        <React.Fragment>
+          <p>
+            Your INSPIRE works will no longer be exported to your ORCID account.
+          </p>
+          <span>
+            Are you sure?
+          </span>
+        </React.Fragment>
+      }
+      transitionName="zoom-big"
+      trigger="click"
+    >
+      <Switch
+        checked={true}
+        loading={false}
+      />
+    </Popconfirm>
+  </div>
+  <div>
+    <Connect(OrcidPushSettingMessage) />
+  </div>
+</Fragment>
+`;

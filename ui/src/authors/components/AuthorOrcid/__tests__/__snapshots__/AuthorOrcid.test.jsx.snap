@@ -10,14 +10,14 @@ exports[`AuthorOrcid renders with orcid 1`] = `
   title="ORCID"
   transitionName="zoom-big-fast"
 >
-  <ExternalLink
+  <OrcidProfileLink
     className="__AuthorOrcid__"
-    href="//orcid.org/0000-0001-8058-0014"
+    orcid="0000-0001-8058-0014"
   >
     <img
       alt="ORCID"
       src="orcid.svg"
     />
-  </ExternalLink>
+  </OrcidProfileLink>
 </Tooltip>
 `;

@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OrcidProfileLink renders with all props set 1`] = `
+<ExternalLink
+  className="test"
+  href="//orcid.org/0000-0001-8058-0014"
+>
+  Orcid: 
+  <strong>
+    0000-0001-8058-0014
+  </strong>
+</ExternalLink>
+`;
+
+exports[`OrcidProfileLink renders with only orcid 1`] = `
+<ExternalLink
+  href="//orcid.org/0000-0001-8058-0014"
+>
+  0000-0001-8058-0014
+</ExternalLink>
+`;

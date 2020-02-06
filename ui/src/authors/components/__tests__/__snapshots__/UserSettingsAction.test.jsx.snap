@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserSettingsAction renders 1`] = `
+<Fragment>
+  <ListItemAction>
+    <Button
+      block={false}
+      ghost={false}
+      htmlType="button"
+      loading={false}
+      onClick={[Function]}
+    >
+      <IconText
+        text="settings"
+        type="setting"
+      />
+    </Button>
+  </ListItemAction>
+  <UserSettingsModal
+    onCancel={[Function]}
+    visible={false}
+  />
+</Fragment>
+`;

@@ -8,6 +8,9 @@ import {
   USER_SIGN_UP_SUCCESS,
   USER_SIGN_UP_ERROR,
   USER_SET_PREFERRED_CITE_FORMAT,
+  USER_SET_ORCID_PUSH_SETTING_REQUEST,
+  USER_SET_ORCID_PUSH_SETTING_ERROR,
+  USER_SET_ORCID_PUSH_SETTING_SUCCESS,
 } from '../../actions/actionTypes';
 
 describe('user reducer', () => {
@@ -90,6 +93,61 @@ describe('user reducer', () => {
     });
     const expected = fromJS({
       preferredCiteFormat: format,
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('USER_SET_ORCID_PUSH_SETTING_REQUEST', () => {
+    const state = reducer(Map(), {
+      type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
+      payload: { value: true },
+    });
+    const expected = fromJS({
+      isUpdatingOrcidPushSetting: true,
+      updateOrcidPushSettingError: initialState.get(
+        'updateOrcidPushSettingError'
+      ),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('USER_SET_ORCID_PUSH_SETTING_ERROR', () => {
+    const state = reducer(Map(), {
+      type: USER_SET_ORCID_PUSH_SETTING_ERROR,
+      payload: { error: { message: 'Error' } },
+    });
+    const expected = fromJS({
+      isUpdatingOrcidPushSetting: false,
+      updateOrcidPushSettingError: { message: 'Error' },
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('USER_SET_ORCID_PUSH_SETTING_SUCCESS', () => {
+    const settingValue = true;
+    const state = reducer(Map(), {
+      type: USER_SET_ORCID_PUSH_SETTING_SUCCESS,
+      payload: { value: settingValue },
+    });
+    const expected = fromJS({
+      isUpdatingOrcidPushSetting: false,
+      data: {
+        allow_orcid_push: settingValue,
+      },
+      updateOrcidPushSettingError: initialState.get(
+        'updateOrcidPushSettingError'
+      ),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('USER_SET_ORCID_PUSH_SETTING_REQUEST', () => {
+    const state = reducer(Map(), { type: USER_SET_ORCID_PUSH_SETTING_REQUEST });
+    const expected = fromJS({
+      isUpdatingOrcidPushSetting: true,
+      updateOrcidPushSettingError: initialState.get(
+        'updateOrcidPushSettingError'
+      ),
     });
     expect(state).toEqual(expected);
   });
