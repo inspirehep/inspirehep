@@ -32,13 +32,21 @@ buildPush() {
     --cache-from "${image}:build-stage" \
     --target "build-stage" 
     retry docker push "${image}:build-stage"
+    retry docker build \
+      --build-arg VERSION="${TAG}" \
+      -t "${image}:${TAG}" \
+      -t "${image}" \
+      "${context}" \
+      --cache-from "${image}:build-stage" \
+      --cache-from "${image}"
+  else
+    retry docker build \
+      --build-arg VERSION="${TAG}" \
+      -t "${image}:${TAG}" \
+      -t "${image}" \
+      "${context}" \
+      --cache-from "${image}"
   fi
-  retry docker build \
-    --build-arg VERSION="${TAG}" \
-    -t "${image}:${TAG}" \
-    -t "${image}" \
-    "${context}" \
-    --cache-from "${image}"
 
   echo "Pushing image to ${image}:${TAG}"
   retry docker push "${image}:${TAG}"
