@@ -10,7 +10,6 @@ import zlib
 import structlog
 from flask import current_app
 from redis import StrictRedis
-from redis_lock import Lock
 
 from inspirehep.migrator.tasks import (
     insert_into_mirror,
@@ -37,34 +36,26 @@ def continuous_migration():
     LOGGER.debug("Connected to REDIS", redis_url=redis_url)
 
     r = StrictRedis.from_url(redis_url)
-    lock = Lock(r, "continuous_migration", expire=120, auto_renewal=True)
 
     message = _next_message(r)
     if not message:
         LOGGER.debug("No records to migrate.")
         return
 
-    if not lock.acquire(blocking=False):
-        LOGGER.info("Continuous_migration already executed. Skipping.")
-        return
+    num_of_records = r.llen(QUEUE)
+    LOGGER.info("Starting migration of records.", records_total=num_of_records)
 
-    try:
-        num_of_records = r.llen(QUEUE)
-        LOGGER.info("Starting migration of records.", records_total=num_of_records)
-
-        while message:
-            if message == b"END":
-                r.lpop(QUEUE)
-                task = migrate_from_mirror(disable_orcid_push=False)
-                wait_for_all_tasks(task)
-                LOGGER.info("Migration finished.")
-                break
-            raw_record = zlib.decompress(message)
-            (recid,) = insert_into_mirror([raw_record])
-            LOGGER.debug("Inserted record into mirror.", recid=recid)
+    while message:
+        if message == b"END":
             r.lpop(QUEUE)
-            message = _next_message(r)
-        else:
-            LOGGER.info("Waiting for more records...")
-    finally:
-        lock.release()
+            task = migrate_from_mirror(disable_orcid_push=False)
+            wait_for_all_tasks(task)
+            LOGGER.info("Migration finished.")
+            break
+        raw_record = zlib.decompress(message)
+        (recid,) = insert_into_mirror([raw_record])
+        LOGGER.debug("Inserted record into mirror.", recid=recid)
+        r.lpop(QUEUE)
+        message = _next_message(r)
+    else:
+        LOGGER.info("Waiting for more records...")
