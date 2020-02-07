@@ -6,7 +6,7 @@ import { trackEvent, checkIsTrackerBlocked } from '../../../tracker';
 import ExternalLink from '../ExternalLink';
 import ResponsiveView from '../ResponsiveView';
 import ModalSuccessResult from '../ModalSuccessResult';
-import { SURVEY_LINK } from '../../constants';
+import { SURVEY_LINK, FEEDBACK_EMAIL } from '../../constants';
 
 const RATE_DESCRIPTIONS = [
   'poor',
@@ -100,12 +100,22 @@ class UserFeedback extends Component {
               showIcon
               message="AdBlock detected"
               description={
-                <span>
-                  To send us your feedback, please disable your adblocker or
-                  DoNotTrack and refresh the page or send us your feedback using
-                  the{' '}
-                  <ExternalLink href={SURVEY_LINK}>feedback form</ExternalLink>
-                </span>
+                <>
+                  <p>
+                    To send us your feedback, please disable your adblocker or
+                    DoNotTrack and refresh the page.
+                  </p>
+                  <p>
+                    Alternatively, you could send us your feedback using the{' '}
+                    <ExternalLink href={SURVEY_LINK}>
+                      feedback form
+                    </ExternalLink>{' '}
+                    or by email at{' '}
+                    <ExternalLink href={`mailto:${FEEDBACK_EMAIL}`}>
+                      {FEEDBACK_EMAIL}
+                    </ExternalLink>.
+                  </p>
+                </>
               }
             />
           </div>

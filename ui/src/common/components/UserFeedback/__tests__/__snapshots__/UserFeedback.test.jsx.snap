@@ -184,15 +184,29 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
     >
       <Alert
         description={
-          <span>
-            To send us your feedback, please disable your adblocker or DoNotTrack and refresh the page or send us your feedback using the
-             
-            <ExternalLink
-              href="https://forms.gle/CMgi3UsbpMuXxAfr6"
-            >
-              feedback form
-            </ExternalLink>
-          </span>
+          <React.Fragment>
+            <p>
+              To send us your feedback, please disable your adblocker or DoNotTrack and refresh the page.
+            </p>
+            <p>
+              Alternatively, you could send us your feedback using the
+               
+              <ExternalLink
+                href="https://forms.gle/CMgi3UsbpMuXxAfr6"
+              >
+                feedback form
+              </ExternalLink>
+               
+              or by email at
+               
+              <ExternalLink
+                href="mailto:feedback@inspirehep.net"
+              >
+                feedback@inspirehep.net
+              </ExternalLink>
+              .
+            </p>
+          </React.Fragment>
         }
         message="AdBlock detected"
         showIcon={true}
