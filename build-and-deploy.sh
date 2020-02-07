@@ -52,6 +52,13 @@ deployQA() {
   fi
 }
 
+sentryQA() {
+  export SENTRY_AUTH_TOKEN=${SENTRY_QA_AUTH_TOKEN}
+  export SENTRY_URL="https://sentry.inspirebeta.net"
+  export SENTRY_ORG="inspire-qa"
+  sentry-cli releases set-commits --auto ${TAG}
+}
+
 main() {
   login
   buildPush "ui" "inspirehep/ui"
@@ -59,5 +66,6 @@ main() {
   logout
   deployQA "ui"
   deployQA "hep"
+  sentryQA
 }
 main
