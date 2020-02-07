@@ -56,6 +56,7 @@ sentryQA() {
   export SENTRY_AUTH_TOKEN=${SENTRY_QA_AUTH_TOKEN}
   export SENTRY_URL="https://sentry.inspirebeta.net"
   export SENTRY_ORG="inspire-qa"
+  sentry-cli releases new -p "ui" -p "hep" ${TAG}
   sentry-cli releases set-commits --auto ${TAG}
 }
 
