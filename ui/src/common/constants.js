@@ -22,6 +22,7 @@ export const JOBS_PID_TYPE = 'jobs';
 export const CONFERENCES_PID_TYPE = 'conferences';
 
 export const SURVEY_LINK = 'https://forms.gle/CMgi3UsbpMuXxAfr6';
+export const FEEDBACK_EMAIL = 'feedback@inspirehep.net';
 
 export const DATE_RANGE_FORMAT = 'YYYY-MM-DD';
 
