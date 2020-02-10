@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import structlog
+from boto3.s3.transfer import TransferConfig
 from botocore.exceptions import ClientError
 from flask import current_app
 
@@ -13,9 +14,12 @@ LOGGER = structlog.getLogger()
 
 
 class S3:
-    def __init__(self, client, resource):
+    def __init__(self, client, resource, config=None):
         self.client = client
         self.resource = resource
+        if not config:
+            config = TransferConfig(max_concurrency=1, use_threads=False)
+        self.config = config
 
     @staticmethod
     def get_bucket_for_file_key(key):
@@ -61,6 +65,7 @@ class S3:
                     "ACL": acl,
                     "ContentDisposition": self.get_content_disposition(filename),
                 },
+                Config=self.config,
             )
             return response
         except ClientError as e:
