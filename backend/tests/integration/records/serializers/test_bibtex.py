@@ -29,24 +29,86 @@ def test_bibtex(api_client, db, es, create_record):
     assert expected_result == response_data
 
 
-def test_bibtex_returns_all_expected_fields(api_client, db, es, create_record, redis):
+def test_bibtex_returns_all_expected_fields_for_conference_papers(
+    api_client, db, es, create_record, redis
+):
     headers = {"Accept": "application/x-bibtex"}
-    data = {
+
+    conference_data = {
+        "_collections": ["Conferences"],
+        "control_number": 73415311,
+        "titles": [{"title": "This is the parent conference title"}],
+    }
+    create_record("con", data=conference_data)
+
+    conf_paper_data = {
         "_collections": ["Literature"],
         "authors": [
             {"full_name": "Smith, John", "inspire_roles": ["editor"]},
             {"full_name": "Rossi, Maria", "inspire_roles": ["author"]},
         ],
-        "control_number": 637275237,
-        "titles": [{"title": "This is a title."}],
+        "control_number": 1203999,
+        "titles": [{"title": "This is a conference paper title"}],
         "document_type": ["conference paper"],
         "texkeys": ["Smith:2019abc"],
+        "publication_info": [
+            {
+                "conference_record": {
+                    "$ref": "http://labs.inspirehep.net/api/conferences/73415311"
+                }
+            }
+        ],
     }
-    record = create_record("lit", data=data)
+    record = create_record("lit", data=conf_paper_data)
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "This is a title.",\n    title = "This is a title."\n}\n'
+    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "This is the parent conference title",\n    title = "This is a conference paper title"\n}\n'
+    response = api_client.get(
+        "/literature/{}".format(record_control_number), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+def test_bibtex_returns_all_expected_fields_for_book_chapters(
+    api_client, db, es, create_record, redis
+):
+    headers = {"Accept": "application/x-bibtex"}
+
+    book_data = {
+        "_collections": ["Literature"],
+        "control_number": 98141514,
+        "titles": [{"title": "This is the parent book title"}],
+    }
+    create_record("lit", data=book_data)
+
+    book_chapter_data = {
+        "_collections": ["Literature"],
+        "authors": [
+            {"full_name": "Smith, John", "inspire_roles": ["editor"]},
+            {"full_name": "Rossi, Maria", "inspire_roles": ["author"]},
+        ],
+        "control_number": 4454431,
+        "titles": [{"title": "This is a book chapter title"}],
+        "document_type": ["book chapter"],
+        "texkeys": ["Smith:2019abc"],
+        "publication_info": [
+            {
+                "parent_record": {
+                    "$ref": "http://labs.inspirehep.net/api/literature/98141514"
+                }
+            }
+        ],
+    }
+    record = create_record("lit", data=book_chapter_data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "This is the parent book title",\n    title = "This is a book chapter title"\n}\n'
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )

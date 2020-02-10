@@ -16,6 +16,8 @@ from isbn import ISBNError
 from marshmallow import Schema, fields, pre_dump
 from six import text_type
 
+from inspirehep.records.api import InspireRecord
+
 
 class BibTexCommonSchema(Schema):
     address = fields.Method("get_address")
@@ -246,9 +248,19 @@ class BibTexCommonSchema(Schema):
         return get_value(data, "book_series.title[0]")
 
     def get_book_title(self, data):
-        book_series_title = get_value(data, "book_series.title[0]")
-        conference_record_title = get_value(data, "titles.title[0]")
-        return book_series_title or conference_record_title
+        book_records = InspireRecord.get_linked_records_from_dict_field(
+            data, "publication_info.parent_record"
+        )
+        book_record = next(book_records, {})
+        book_title = self.get_title(book_record)
+
+        conference_records = InspireRecord.get_linked_records_from_dict_field(
+            data, "publication_info.conference_record"
+        )
+        conference_record = next(conference_records, {})
+        conference_title = self.get_title(conference_record)
+
+        return book_title or conference_title
 
     def get_volume(self, data):
         publication_volume = BibTexCommonSchema.get_best_publication_info(data).get(
