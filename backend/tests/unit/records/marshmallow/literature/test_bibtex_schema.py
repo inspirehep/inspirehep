@@ -8,6 +8,7 @@
 
 from helpers.providers.faker import faker
 from inspire_schemas.api import load_schema, validate
+from mock import patch
 
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
@@ -357,13 +358,16 @@ def test_get_page():
     assert expected_pages == result_pages
 
 
-def test_get_book_title_with_book_series():
+@patch(
+    "inspirehep.records.marshmallow.literature.bibtex.InspireRecord.get_linked_records_from_dict_field",
+    return_value=iter([{"titles": [{"title": "Parent title"}]}]),
+)
+def test_get_book_title_with_parent_record(mock_get_linked_records):
     record = {
         "titles": [{"title": "This is the main title"}],
         "document_type": ["book"],
-        "book_series": [{"title": "This is a book title"}],
     }
-    expected_book_title = "This is a book title"
+    expected_book_title = "Parent title"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
@@ -372,12 +376,16 @@ def test_get_book_title_with_book_series():
     assert expected_book_title == result_book_title
 
 
-def test_get_book_title_without_book_series():
+@patch(
+    "inspirehep.records.marshmallow.literature.bibtex.InspireRecord.get_linked_records_from_dict_field",
+    return_value=iter([]),
+)
+def test_get_book_title_without_parent_record(mock_get_linked_records):
     record = {
         "titles": [{"title": "This is the main title"}],
         "document_type": ["book"],
     }
-    expected_book_title = "This is the main title"
+    expected_book_title = None
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data

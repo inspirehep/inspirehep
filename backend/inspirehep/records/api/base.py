@@ -227,7 +227,7 @@ class InspireRecord(Record):
         pids = cls._get_linked_pids_from_field(data, path)
         if pids:
             return cls.get_records_by_pids(pids)
-        return []
+        return iter([])
 
     def get_linked_pids_from_field(self, path):
         """Return a list of (pid_type, pid_value) tuples for all records referenced

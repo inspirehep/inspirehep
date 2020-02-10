@@ -84,6 +84,7 @@ class BibTexSerializer:
             "publisher",
             "author",
             "series",
+            "booktitle",
             "number",
             "volume",
             "edition",
