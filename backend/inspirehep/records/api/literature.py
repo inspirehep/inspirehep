@@ -305,6 +305,7 @@ class LiteratureRecord(
         new_key = hash_data(file_data)
         mimetype = magic.from_buffer(file_data, mime=True)
         size = len(file_data)
+        file_data = BytesIO(file_data)
         filename = filename or key
         acl = current_app.config["S3_FILE_ACL"]
         if current_s3_instance.file_exists(new_key):
@@ -322,9 +323,7 @@ class LiteratureRecord(
                 recid=self.get("control_number"),
                 uuid=self.id,
             )
-            current_s3_instance.upload_file(
-                BytesIO(file_data), new_key, filename, mimetype, acl
-            )
+            current_s3_instance.upload_file(file_data, new_key, filename, mimetype, acl)
         result = {
             "key": new_key,
             "filename": filename,
