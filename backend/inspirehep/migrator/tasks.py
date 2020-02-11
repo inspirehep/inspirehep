@@ -444,15 +444,18 @@ def migrate_record_from_mirror(
         )
         prod_record.error = exc
         db.session.merge(prod_record)
-    except DownloadFileError:
+    except DownloadFileError as exc:
         removed_cached_files = remove_cached_afs_file_locations(original_urls)
         if not removed_cached_files:
-            raise
-        return migrate_record_from_mirror(
-            prod_record=prod_record,
-            disable_orcid_push=disable_orcid_push,
-            disable_relations_update=disable_relations_update,
-        )
+            logger.exception("DownloadFileError while migrate from mirror")
+            prod_record.error = exc
+            db.session.merge(prod_record)
+        else:
+            return migrate_record_from_mirror(
+                prod_record=prod_record,
+                disable_orcid_push=disable_orcid_push,
+                disable_relations_update=disable_relations_update,
+            )
     except PIDValueError as exc:
         message = f"pid_type:'{exc.pid_type}', pid_value:'{exc.pid_value}'"
         logger.exception("PIDValueError while migrate from mirror", msg=message)
