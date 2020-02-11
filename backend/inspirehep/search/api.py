@@ -41,7 +41,7 @@ class SearchMixin(object):
         """
         if not query_string:
             return self.query()
-        return self.query("query_string", query=query_string)
+        return self.query("query_string", query=query_string, default_operator="AND")
 
     def get_source(self, uuid, **kwargs):
         """Get source from a given uuid.
