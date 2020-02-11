@@ -1,5 +1,5 @@
 import React from 'react';
-import { fromJS, Set } from 'immutable';
+import { fromJS, List } from 'immutable';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
 
@@ -17,7 +17,7 @@ describe('AuthorizedContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <AuthorizedContainer authorizedRoles={Set(['superuser', 'cataloger'])}>
+        <AuthorizedContainer authorizedRoles={List(['superuser', 'cataloger'])}>
           <div>SECRET DIV [work in progress]</div>
         </AuthorizedContainer>
       </Provider>
@@ -35,7 +35,7 @@ describe('AuthorizedContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <AuthorizedContainer authorizedRoles={Set(['superuser'])}>
+        <AuthorizedContainer authorizedRoles={List(['superuser'])}>
           <div>SECRET DIV [work in progress]</div>
         </AuthorizedContainer>
       </Provider>

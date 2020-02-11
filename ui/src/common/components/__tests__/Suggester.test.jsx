@@ -97,10 +97,10 @@ describe('Suggester', () => {
       <Suggester pidType="literature" suggesterName="abstract_source" />
     );
     await wrapper.instance().onSearch('test');
-    await wait(REQUEST_DEBOUNCE_MS - 1);
+    await wait(REQUEST_DEBOUNCE_MS - 25);
     wrapper.update();
     expect(wrapper).toMatchSnapshot();
-    await wait(1); // TODO: investigate how this effects the next one without waiting here
+    await wait(30); // TODO: investigate how this effects the next one without waiting here
   });
 
   it('renders results with custom result template', async () => {

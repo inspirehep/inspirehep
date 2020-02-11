@@ -1,4 +1,4 @@
-import { fromJS, Set } from 'immutable';
+import { fromJS, List } from 'immutable';
 
 import middleware from '../actionTracker';
 import { USER_LOGIN_SUCCESS } from '../../actions/actionTypes';
@@ -34,7 +34,7 @@ describe('actionTracker middleware', () => {
     dispatch(action);
     expect(next).toHaveBeenLastCalledWith(action);
     expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
-      Set(['cataloger'])
+      List(['cataloger'])
     );
   });
 

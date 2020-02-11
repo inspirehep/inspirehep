@@ -1,18 +1,18 @@
-import { Set } from 'immutable';
+import { Set, List } from 'immutable';
 
 import { doSetsHaveCommonItem } from './utils';
 
-export const SUPERUSER_OR_BETAUSER_OR_CATALOGER = Set([
+export const SUPERUSER_OR_BETAUSER_OR_CATALOGER = List([
   'superuser',
   'betauser',
   'cataloger',
 ]);
-export const SUPERUSER_OR_CATALOGER = Set(['superuser', 'cataloger']);
-export const SUPERUSER = Set(['superuser']);
-const SUPERUSER_OR_BETAUSER = Set(['superuser', 'betauser']);
+export const SUPERUSER_OR_CATALOGER = List(['superuser', 'cataloger']);
+export const SUPERUSER = List(['superuser']);
+const SUPERUSER_OR_BETAUSER = List(['superuser', 'betauser']);
 
 export function isAuthorized(userRoles, authorizedRoles) {
-  return doSetsHaveCommonItem(userRoles, authorizedRoles);
+  return doSetsHaveCommonItem(Set(userRoles), Set(authorizedRoles));
 }
 
 export function isCataloger(userRoles) {

@@ -11,7 +11,7 @@ exports[`JobTitle renders with position and external job id 1`] = `
   VP of Happiness
   <Connect(Authorized)
     authorizedRoles={
-      Immutable.Set [
+      Immutable.List [
         "superuser",
         "cataloger",
       ]

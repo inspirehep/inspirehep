@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { fromJS, Set } from 'immutable';
+import { fromJS, List } from 'immutable';
 import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Switch } from 'react-router-dom';
 
@@ -12,6 +12,9 @@ describe('PrivateRoute', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
+        data: {
+          roles: [],
+        },
       }),
     });
     const Private = () => <div>Private Page</div>;
@@ -33,6 +36,9 @@ describe('PrivateRoute', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
+        data: {
+          roles: ['user'],
+        },
       }),
     });
     const Private = () => <div>Private Page</div>;
@@ -67,7 +73,7 @@ describe('PrivateRoute', () => {
             <PrivateRoute
               exact
               path="/authorized"
-              authorizedRoles={Set(['authorizeduser'])}
+              authorizedRoles={List(['authorizeduser'])}
               component={Authorized}
             />
           </Switch>
@@ -94,7 +100,7 @@ describe('PrivateRoute', () => {
             <PrivateRoute
               exact
               path="/authorized"
-              authorizedRoles={Set(['authorizeduser'])}
+              authorizedRoles={List(['authorizeduser'])}
               component={Authorized}
             />
           </Switch>
