@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Layout } from 'antd';
 import Loadable from 'react-loadable';
 import PropTypes from 'prop-types';
-import { Set } from 'immutable';
+import { List } from 'immutable';
 
 import './App.scss';
 import Header from './common/layouts/Header';
@@ -112,14 +112,14 @@ function App({ userRoles, dispatch }) {
 App.propTypes = {
   isBannerVisible: PropTypes.bool.isRequired,
   isBetaPage: PropTypes.bool.isRequired,
-  userRoles: PropTypes.instanceOf(Set).isRequired,
+  userRoles: PropTypes.instanceOf(List).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const stateToProps = state => ({
   isBannerVisible: state.ui.get('bannerVisibility'),
   isBetaPage: isBetaRoute(String(state.router.location.pathname)),
-  userRoles: Set(state.user.getIn(['data', 'roles'])),
+  userRoles: state.user.getIn(['data', 'roles']),
 });
 
 const dispatchToProps = dispatch => ({

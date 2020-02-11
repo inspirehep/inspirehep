@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
-import { fromJS, Set } from 'immutable';
+import { fromJS, List } from 'immutable';
 
 import { getStore, getStoreWithState } from '../fixtures/store';
 import App from '../App';
@@ -42,7 +42,7 @@ describe('App', () => {
       </Provider>
     );
     expect(setUserCategoryFromRoles).toHaveBeenLastCalledWith(
-      Set(['cataloger'])
+      List(['cataloger'])
     );
   });
 
@@ -67,6 +67,9 @@ describe('App', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
+        data: {
+          roles: ['user'],
+        },
       }),
     });
     const wrapper = mount(
@@ -83,6 +86,9 @@ describe('App', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
+        data: {
+          roles: [],
+        },
       }),
     });
     const wrapper = mount(
@@ -143,6 +149,9 @@ describe('App', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
+        data: {
+          roles: ['user'],
+        },
       }),
     });
     const wrapper = mount(
@@ -159,6 +168,9 @@ describe('App', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
+        data: {
+          roles: [],
+        },
       }),
     });
     const wrapper = mount(

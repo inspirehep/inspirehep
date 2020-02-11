@@ -1,5 +1,3 @@
-import { Set } from 'immutable';
-
 import { USER_LOGIN_SUCCESS } from '../actions/actionTypes';
 import { setUserCategoryFromRoles } from '../tracker';
 
@@ -11,7 +9,7 @@ export default ({ getState }) => {
 
     if (action.type === USER_LOGIN_SUCCESS) {
       const state = getState();
-      const userRoles = Set(state.user.getIn(['data', 'roles']));
+      const userRoles = state.user.getIn(['data', 'roles']);
       setUserCategoryFromRoles(userRoles);
     }
     return result;

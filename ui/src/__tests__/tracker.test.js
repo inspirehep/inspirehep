@@ -1,5 +1,5 @@
 import Piwik from 'react-piwik';
-import { Set } from 'immutable';
+import { List } from 'immutable';
 
 import { setUserCategoryFromRoles } from '../tracker';
 
@@ -24,7 +24,7 @@ describe('tracker', () => {
 
   describe('setUserCategoryFromRoles', () => {
     it('sets Superuser if user has superuser role', async () => {
-      await setUserCategoryFromRoles(Set(['superuser', 'cataloger']));
+      await setUserCategoryFromRoles(List(['superuser', 'cataloger']));
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomVariable',
         1,
@@ -34,7 +34,7 @@ describe('tracker', () => {
     });
 
     it('sets Cataloger if user has cataloger role', async () => {
-      await setUserCategoryFromRoles(Set(['cataloger', 'another']));
+      await setUserCategoryFromRoles(List(['cataloger', 'another']));
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomVariable',
         1,
@@ -44,7 +44,7 @@ describe('tracker', () => {
     });
 
     it('sets User if user does not have superuser or cataloger role', async () => {
-      await setUserCategoryFromRoles(Set(['another']));
+      await setUserCategoryFromRoles(List(['another']));
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomVariable',
         1,
@@ -54,7 +54,7 @@ describe('tracker', () => {
     });
 
     it('sets User if user does not have any role', async () => {
-      await setUserCategoryFromRoles(Set([]));
+      await setUserCategoryFromRoles(List([]));
       expect(Piwik.push).toHaveBeenCalledWith([
         'setCustomVariable',
         1,

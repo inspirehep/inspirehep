@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Set } from 'immutable';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
@@ -43,7 +42,7 @@ const stateToProps = state => ({
     'metadata',
     'facet_author_name',
   ]),
-  isCatalogerLoggedIn: isCataloger(Set(state.user.getIn(['data', 'roles']))),
+  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(AuthorPublications);

@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Set } from 'immutable';
+import { List } from 'immutable';
 
 import { isAuthorized } from '../authorization';
 
@@ -19,13 +19,13 @@ class Authorized extends Component {
 }
 
 Authorized.propTypes = {
-  authorizedRoles: PropTypes.instanceOf(Set).isRequired,
-  userRoles: PropTypes.instanceOf(Set).isRequired,
+  authorizedRoles: PropTypes.instanceOf(List).isRequired,
+  userRoles: PropTypes.instanceOf(List).isRequired,
   children: PropTypes.node.isRequired,
 };
 
 const stateToProps = state => ({
-  userRoles: Set(state.user.getIn(['data', 'roles'])),
+  userRoles: state.user.getIn(['data', 'roles']),
 });
 
 export default connect(stateToProps)(Authorized);

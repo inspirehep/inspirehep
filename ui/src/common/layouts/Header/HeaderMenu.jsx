@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
-import { Set } from 'immutable';
+import { List } from 'immutable';
 
 import {
   SUBMISSIONS_AUTHOR,
@@ -89,7 +89,7 @@ class HeaderMenu extends Component {
 HeaderMenu.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
   onLogoutClick: PropTypes.func.isRequired,
-  userRoles: PropTypes.instanceOf(Set).isRequired,
+  userRoles: PropTypes.instanceOf(List).isRequired,
 };
 
 export default HeaderMenu;

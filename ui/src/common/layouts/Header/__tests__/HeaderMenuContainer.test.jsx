@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { fromJS, Set } from 'immutable';
+import { fromJS, List } from 'immutable';
 
 import { getStoreWithState } from '../../../../fixtures/store';
 import HeaderMenuContainer from '../HeaderMenuContainer';
@@ -24,7 +24,7 @@ describe('HeaderMenuContainer', () => {
     );
     expect(wrapper.find(HeaderMenu)).toHaveProp({
       loggedIn: true,
-      userRoles: Set(['superuser']),
+      userRoles: List(['superuser']),
     });
   });
 });

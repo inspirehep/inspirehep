@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Set } from 'immutable';
+import { List } from 'immutable';
 
 import HeaderMenu from '../HeaderMenu';
 import LinkLikeButton from '../../../components/LinkLikeButton';
@@ -10,7 +10,7 @@ describe('HeaderMenu', () => {
     const wrapper = shallow(
       <HeaderMenu
         loggedIn
-        userRoles={Set(['betauser'])}
+        userRoles={List(['betauser'])}
         onLogoutClick={jest.fn()}
       />
     );
@@ -22,7 +22,7 @@ describe('HeaderMenu', () => {
     const wrapper = shallow(
       <HeaderMenu
         loggedIn
-        userRoles={Set(['cataloger'])}
+        userRoles={List(['cataloger'])}
         onLogoutClick={jest.fn()}
       />
     );
@@ -34,7 +34,7 @@ describe('HeaderMenu', () => {
     const wrapper = shallow(
       <HeaderMenu
         loggedIn={false}
-        userRoles={Set()}
+        userRoles={List()}
         onLogoutClick={jest.fn()}
       />
     );
@@ -46,7 +46,7 @@ describe('HeaderMenu', () => {
     const wrapper = shallow(
       <HeaderMenu
         loggedIn
-        userRoles={Set(['betauser'])}
+        userRoles={List(['betauser'])}
         onLogoutClick={onLogoutClick}
       />
     );

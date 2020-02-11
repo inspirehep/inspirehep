@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Set } from 'immutable';
+import { List } from 'immutable';
 
 import RouteOrRedirect from './components/RouteOrRedirect';
 import { isAuthorized } from './authorization';
@@ -32,8 +32,8 @@ class PrivateRoute extends Component {
 
 PrivateRoute.propTypes = {
   loggedIn: PropTypes.bool.isRequired,
-  userRoles: PropTypes.instanceOf(Set).isRequired,
-  authorizedRoles: PropTypes.instanceOf(Set),
+  userRoles: PropTypes.instanceOf(List).isRequired,
+  authorizedRoles: PropTypes.instanceOf(List),
 };
 
 PrivateRoute.defaultProps = {
@@ -42,7 +42,7 @@ PrivateRoute.defaultProps = {
 
 const stateToProps = state => ({
   loggedIn: state.user.get('loggedIn'),
-  userRoles: Set(state.user.getIn(['data', 'roles'])),
+  userRoles: state.user.getIn(['data', 'roles']),
 });
 
 export default connect(stateToProps)(PrivateRoute);
