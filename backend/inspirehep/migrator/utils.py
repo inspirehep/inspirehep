@@ -114,6 +114,8 @@ def replace_afs_file_locations_with_local(record):
 
 def remove_cached_afs_file_locations(original_urls):
     redis = StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"])
+    if not original_urls:
+        return None
     return redis.hdel("afs_file_locations", *original_urls)
 
 

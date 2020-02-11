@@ -9,6 +9,7 @@ import os
 
 import pkg_resources
 import pytest
+import requests_mock
 from flask import current_app
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -27,6 +28,7 @@ from inspirehep.migrator.tasks import (
     process_references_in_records,
 )
 from inspirehep.records.api import InspireRecord, JobsRecord, LiteratureRecord
+from inspirehep.records.errors import DownloadFileError
 from inspirehep.search.api import LiteratureSearch
 
 
@@ -548,3 +550,24 @@ def test_migrate_record_from_mirror_invalidates_local_file_cache_if_no_local_fil
             record["documents"][0]["original_url"]
             == "http://inspire-afs-web.cern.ch/var/data/files/g97/1940001/content.pdf%3B2"
         )
+
+
+def test_migrate_record_from_mirror_with_download_file_error_not_caused_by_invalid_cache(
+    base_app, db, es_clear, datadir, enable_files
+):
+    with patch.dict(
+        current_app.config, {"LABS_AFS_HTTP_SERVICE": "http://inspire-afs-web.cern.ch/"}
+    ):
+        redis = StrictRedis.from_url(base_app.config["CACHE_REDIS_URL"])
+        redis.delete("afs_file_locations")
+        raw_record_path = (datadir / "1313624.xml").as_posix()
+        with requests_mock.Mocker() as mocker:
+            mocker.get(
+                "http://inspire-afs-web.cern.ch/var/data/files/g97/1940001/content.pdf%3B2",
+                status_code=404,
+            )
+            migrate_from_file(raw_record_path)
+            record_mirror = LegacyRecordsMirror.query.filter(
+                LegacyRecordsMirror.recid == 1313624
+            ).one()
+            assert record_mirror.error.startswith("DownloadFileError")
