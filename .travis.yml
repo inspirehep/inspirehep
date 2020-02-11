@@ -1,48 +1,41 @@
 notifications:
   email: false
 language: node_js
+
 node_js:
-- 6.9.1
-- node
+  - 6.9.1
+  - node
+
 sudo: false
 dist: trusty
-before_script:
-- npm run lint
-- npm run build
-before_install:
-- npm install buffer-shims
-- export CHROME_BIN=chromium-browser
-- export DISPLAY=:99.0
-- sh -e /etc/init.d/xvfb start
-- npm install
-before_deploy:
-- node ./write-version.js
-- npm run build
-after_success: npm run coveralls
-deploy:
-- provider: npm
-  skip_cleanup: true
-  edge: true
-  email: admin@inspirehep.net
-  api_key:
-    secure: OVIKb2O/kbHkuVS08xzW1uD1s5s8zJVIGgVK+g54ZJo8kdowtE1hXlWfqQMcNEOO6mPvknC2VysGMipOauosoaBPzY14TsOHv/9f+TlVdzrsPS9NBtxoBDheqCHLSc5fjl7I74jjxAZo+kl3MEHZ8VcPIg3AzzUnsm189cAu183sNJmGh3v4pZ5R6J8T7IxRd2yClBjN4n5RGySHUpy0mUtYVOkaOxZQ8xSLXSHpp9m6FWTljQ0sxxUudq2y3pe7SyuPEmo2iY+ww9buNZ+CIXvxALHDDm93YGAkHdC+KifEpsBLf0DjPXPvLPEVSHu5I3I8z2Pztc060DzDPYzaUBOwK8vRfZSd9vpjuSNYUoea2LPGx7a9ZBAv6BoIoqkfa2oyX44Jy6u0mr24rwEphm73517nCIB4JXs0Ti5nomZS57HsbGyBN2GQ2FS/iiVPOeTkyQ3HtbLx44bJS1Naa+JQAfKrfSRpG2iNQHRQOPSjvDPs7UpvQBKp7Qy03WuWkzQKDdPo819awvCRkOKRG1JQ087CgFhra9OuNbZYpi0CG7LcNmfrgDB1bBUfbK3IE9z//EOrMjtfOc3buJ6x+8zal4UcENicM7emwhNOZs6oe30jNWSTFJi0FvGUl88krtG/cTFeP0fTOJS7MUMCyhwB2r4pcuXtepXJmHICRPo=
 
-  on:
-    tags: true
-    repo: inspirehep/record-editor
-    all_branches: true
-    node: 6.9.1
-- provider: npm
-  edge: true
-  skip_cleanup: true
-  email: admin@inspirehep.net
-  api_key:
-    secure: OVIKb2O/kbHkuVS08xzW1uD1s5s8zJVIGgVK+g54ZJo8kdowtE1hXlWfqQMcNEOO6mPvknC2VysGMipOauosoaBPzY14TsOHv/9f+TlVdzrsPS9NBtxoBDheqCHLSc5fjl7I74jjxAZo+kl3MEHZ8VcPIg3AzzUnsm189cAu183sNJmGh3v4pZ5R6J8T7IxRd2yClBjN4n5RGySHUpy0mUtYVOkaOxZQ8xSLXSHpp9m6FWTljQ0sxxUudq2y3pe7SyuPEmo2iY+ww9buNZ+CIXvxALHDDm93YGAkHdC+KifEpsBLf0DjPXPvLPEVSHu5I3I8z2Pztc060DzDPYzaUBOwK8vRfZSd9vpjuSNYUoea2LPGx7a9ZBAv6BoIoqkfa2oyX44Jy6u0mr24rwEphm73517nCIB4JXs0Ti5nomZS57HsbGyBN2GQ2FS/iiVPOeTkyQ3HtbLx44bJS1Naa+JQAfKrfSRpG2iNQHRQOPSjvDPs7UpvQBKp7Qy03WuWkzQKDdPo819awvCRkOKRG1JQ087CgFhra9OuNbZYpi0CG7LcNmfrgDB1bBUfbK3IE9z//EOrMjtfOc3buJ6x+8zal4UcENicM7emwhNOZs6oe30jNWSTFJi0FvGUl88krtG/cTFeP0fTOJS7MUMCyhwB2r4pcuXtepXJmHICRPo=
-  tag: dev
-  on:
-    repo: inspirehep/record-editor
-    branch: dev-release
-    node: 6.9.1
+before_script:
+  - npm run lint
+  - npm run build
+
+before_install:
+  - npm install buffer-shims
+  - export CHROME_BIN=chromium-browser
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - npm install
+
+before_deploy:
+  - node ./write-version.js
+  - npm run build
+
+after_success: npm run coveralls
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: cd $TRAVIS_BUILD_DIR; ./build-and-deploy.sh
+    on:
+      branch: master
+
 env:
   global:
-    secure: mK3rPSEzCLX4LONWTXlvVm3BtdqoKNJziJnsNiy4FPoxPn8XX8GpNreN+l6+y1/Uq8AjI56CsGbDlXkrPO5+wkCBAUdtI8bjfAXsQ+TSoBbizBMR6Y/4DNHh5+tlLbL0QnAos053+Obi21LP7Oxqih5zu5OectHzL8Vos+Z+mDho0gqOtZxl4d2P2/lG8vmW+4whwqQ+C0LraSP+uuAcWh3MWUaaVyIeNYQs5RbfSoLyGNueUTpG68YZhQ/uv+Ov2dyozRxGETTW8YZ3tjuxdqcY62Gb6cMRSeghIxjsiqBDWmOw50wJma4GonOZmwj/rl3ba3Mf/Ogc+Xv6Q2onj4d7zDHCU4XbwNymSjyHgnc7vbpvb5xy/609c3TaBxkIhz2lNWFyQXjl+GEqi5Bq/u7JV4UjDroBRBugpq96WghRhbxcDgOHDaDMT7Qjoyx4JhfqJmX7ZtdV209hGdIDFdjCR+sIimeWRjMhKfv1AI5GQvpGMv3QW3ddLCU6/9S2Cmw+cqtSCGgj9YPyN8qb4rYRtG4IFPsXbZNuxY1Vc24+kBqSAuTxYST+N5IlWd1XXSM5kHdTaSTwxcF76pJn9lLIPfikUK+pcvG/tgLG/hbCuYKXj1J2e5ObZU39sl6gExqZkrMgQ8mdOUkSVna5tJpeI/Moh/eDUmjadIxYg5o=
+  # DOCKERHUB_USER
+  - secure: mN3WSX1M7gLg140H0fwg3LjSAS8jtcAm8gLUcPc65BBO/BFnD1g6JNSFo4SMXTJpX2z0Bx5tNd+rKfqkQXjhfRXmS0RZwNyUgx/EtcQ38CH8sZa0+HKinwZu5O88ktHJ8avOJ/ebSKRAUgyXAmU6wNoTHT5f8OCkDi3dtWIYGFKAQfq9EjtfWV8h4cY3OOYqAdbpJNhUzkHgQ/WiNuFxghAcku6t3QztqsSTP0Q9xYIFx03gZgSztnDoQZfgxVpwj5gIsK9heu6EcJh5S9dYSsyoeqoT7vEZujLxF1g3t1G5bREcCCsLYxYdmsTrgDm3cexWxHxERH2i40YsT7DVuKL4yvWT55nkNJlkqMwWCGJSrdoxqb6c750yW4t/lvU3HVjxS2MI7oS1sPlSB3KVyvd5A0+G/yykJRZocJo0iyZ+WvbNuz6/9Q9wGJH7IgXJjarZgwPAblUZ991MUVO8O/zSMCpNg3VK49FHLwYoAIJGW4IPL25XDQuI+3ObWVpBzUg43J46Cij3ZEDXmVCvRd8lpiBoU7NGZkGE18Bxrl5yvaQJssM8KvBuBNDi005FT+5esPd+yJQSXdf5pXyxMlOhO0eYCkf9XX6DDh/U6DgTT73XK7TU7T5SH9LS2PDS6qL8Exry0UpY3sTjkcxDO1cDO3+ivkO2v/TIy15Avp4=
+  # DOCKERHUB_PASSWORD
+  - secure: DzyMXU4E26NlSVVwe2oC2NMOi9Pe0rIDnQKAwPQFX3xOXLqJNpj++RYpc2y1xeXQP1DgDSYT/zWx/DN/hqp8Wcg19ky/7knVaheyJG1aw35d0j4ls0mikt1M9ipFab/vx/uCUvie/M14FA/2YI654ZcZa332CGXfosqUKFL+EFoCupRPvSb0PhZ80vPx1liTaj3NhrMTcSin0C+vlNCI+oj2nWdrRo5rduLEu3NbBmX7O5YyslR5c+IYyFREioH3/HzT1DZL28I3ad8nWidqYIG09tHVNDRI4aoO6ykZrygZ7ciAAsCZOEpQJZbBKZTCpo6Voewm4r0MpCOODcK717hW025YaBJcOJ1Qm7rluCLbgHmzHC8hiZSSnFodpaDW4JlfpSS0PWkCzJ0cXN2DzGfmZlD/s9gzr/t0/XL1WWHKf/wDUFtFXIwFfyLlcdMKAuBr1cpC6l3nVmyaaBY2jazpOQpBoGcilvrJpweuncRs3ZufCGL/79w3Tx3v/3RjwebKMwCJNx8Kz1kuSOn6fSizt4+XdsKJUmkNNbmWn1162jk+FolHEGMjPqV6XEkcJBOiZreKEtxTQB0pARBZKz8zsXs/4LyiapitiwLxs/kj/VW3KPYeHClDC4zrDp4bqw7VLuMQEdqbDINL04ec8khsNpkFDCdZmQy/y9/hKJM=

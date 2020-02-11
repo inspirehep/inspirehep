@@ -16,7 +16,7 @@
       "tsconfig": "tsconfig.json",
       "prefix": "re",
       "mobile": false,
-      "deployUrl": "/oldui/node_modules/record-editor/dist/",
+      "deployUrl": "/editor/dist/",
       "styles": [
         "styles.scss",
         "../node_modules/font-awesome/css/font-awesome.css",

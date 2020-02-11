@@ -16,7 +16,7 @@
   "angular-cli": {},
   "scripts": {
     "start": "ng build --watch --progress --extract-css",
-    "build": "ng build --prod --sourcemaps --output-hashing none",
+    "build": "ng build --prod --sourcemaps",
     "lint": "tslint --project ./src/tsconfig.json \"src/**/*.ts\"",
     "test": "ng test --watch=false",
     "pree2e": "webdriver-manager update",
