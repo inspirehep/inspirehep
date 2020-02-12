@@ -9,7 +9,7 @@ import ResultItem from '../../common/components/ResultItem';
 import { CONFERENCES } from '../../common/routes';
 import ConferenceTitle from './ConferenceTitle';
 import ConferenceDates from './ConferenceDates';
-import ConferenceLocation from './ConferenceLocation';
+import ConferenceAddressList from './ConferenceAddressList';
 import InspireCategoryList from './InspireCategoryList';
 import ConferenceWebsitesAction from './ConferenceWebsitesAction';
 import ProceedingsAction from './ProceedingsAction';
@@ -23,7 +23,7 @@ class ConferenceItem extends Component {
     const acronym = metadata.getIn(['acronyms', 0]);
     const openingDate = metadata.get('opening_date');
     const closingDate = metadata.get('closing_date');
-    const location = metadata.getIn(['addresses', 0]);
+    const addresses = metadata.get('addresses');
     const cnum = metadata.get('cnum');
     const recordId = metadata.get('control_number');
     const canEdit = metadata.get('can_edit', false);
@@ -61,10 +61,10 @@ class ConferenceItem extends Component {
               openingDate={openingDate}
               closingDate={closingDate}
             />
-            {location && (
+            {addresses && (
               <>
                 {'. '}
-                <ConferenceLocation location={location} />
+                <ConferenceAddressList addresses={addresses} />
               </>
             )}
             {cnum && ` (${cnum})`}

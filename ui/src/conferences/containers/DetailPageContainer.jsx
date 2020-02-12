@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Map } from 'immutable';
 import { Row, Col } from 'antd';
 import DocumentHead from '../../common/components/DocumentHead';
 import ConferenceTitle from '../components/ConferenceTitle';
@@ -16,7 +17,7 @@ import KeywordList from '../../common/components/KeywordList';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ProceedingsAction from '../components/ProceedingsAction';
 import ConferenceWebsitesAction from '../components/ConferenceWebsitesAction';
-import ConferenceLocation from '../components/ConferenceLocation';
+import ConferenceAddressList from '../components/ConferenceAddressList';
 import ConferenceContributions from '../components/ConferenceContributions';
 import { newSearch } from '../../actions/search';
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
@@ -44,7 +45,7 @@ function DetailPage({ loading, match, dispatch, record }) {
   const acronym = metadata.getIn(['acronyms', 0]);
   const openingDate = metadata.get('opening_date');
   const closingDate = metadata.get('closing_date');
-  const location = metadata.getIn(['addresses', 0]);
+  const addresses = metadata.get('addresses');
   const cnum = metadata.get('cnum');
   const description = metadata.getIn(['short_description', 'value']);
   const inspireCategories = metadata.get('inspire_categories');
@@ -91,10 +92,10 @@ function DetailPage({ loading, match, dispatch, record }) {
                   openingDate={openingDate}
                   closingDate={closingDate}
                 />
-                {location && (
+                {addresses && (
                   <>
                     {'. '}
-                    <ConferenceLocation location={location} />
+                    <ConferenceAddressList addresses={addresses} />
                   </>
                 )}
                 {cnum && ` (${cnum})`}
