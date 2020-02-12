@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceAddress renders all 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <span>
+      CERN
+    </span>
+    <span>
+      Meyrin
+    </span>
+    <span>
+      Geneva
+    </span>
+    <span>
+      Switzerland
+    </span>
+  </InlineUL>
+</span>
+`;
+
+exports[`ConferenceAddress renders empty 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  />
+</span>
+`;
+
+exports[`ConferenceAddress renders with city and country 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <span>
+      Geneva
+    </span>
+    <span>
+      Switzerland
+    </span>
+  </InlineUL>
+</span>
+`;
+
+exports[`ConferenceAddress renders with only city 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <span>
+      Geneva
+    </span>
+  </InlineUL>
+</span>
+`;
+
+exports[`ConferenceAddress renders with only country 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <span>
+      Switzerland
+    </span>
+  </InlineUL>
+</span>
+`;
+
+exports[`ConferenceAddress renders with only place name 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <span>
+      CERN
+    </span>
+  </InlineUL>
+</span>
+`;
