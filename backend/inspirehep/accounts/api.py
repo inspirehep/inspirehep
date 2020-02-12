@@ -7,7 +7,7 @@
 
 
 from flask_login import current_user
-from invenio_oauthclient.models import UserIdentity
+from invenio_oauthclient.models import RemoteAccount, UserIdentity
 from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.accounts.roles import Roles
@@ -37,3 +37,7 @@ def get_current_user_orcid():
         return orcid
     except NoResultFound:
         return None
+
+
+def get_current_user_remote_orcid_account():
+    return RemoteAccount.query.filter_by(user_id=current_user.get_id()).one_or_none()

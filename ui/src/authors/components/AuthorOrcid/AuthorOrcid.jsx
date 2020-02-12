@@ -4,17 +4,16 @@ import { Tooltip } from 'antd';
 
 import './AuthorOrcid.scss';
 import orcidLogo from '../../../common/orcid.svg';
-import ExternalLink from '../../../common/components/ExternalLink';
+import OrcidProfileLink from '../../../common/components/OrcidProfileLink';
 
 class AuthorOrcid extends Component {
   render() {
     const { orcid } = this.props;
-    const href = `//orcid.org/${orcid}`;
     return (
       <Tooltip title="ORCID">
-        <ExternalLink className="__AuthorOrcid__" href={href}>
+        <OrcidProfileLink className="__AuthorOrcid__" orcid={orcid}>
           <img src={orcidLogo} alt="ORCID" />
-        </ExternalLink>
+        </OrcidProfileLink>
       </Tooltip>
     );
   }

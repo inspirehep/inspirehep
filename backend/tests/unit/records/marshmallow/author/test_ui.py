@@ -186,6 +186,20 @@ def test_author_does_not_have_id_fields():
     assert "linkedin" not in result_data
     assert "twitter" not in result_data
     assert "orcid" not in result_data
+    assert "bai" not in result_data
+
+
+def test_author_bai():
+    schema = AuthorsDetailSchema()
+    data = {"ids": [{"schema": "INSPIRE BAI", "value": "John.Doe.1"}]}
+    author = faker.record("aut", data=data, with_control_number=True)
+    expected_bai = "John.Doe.1"
+
+    result = schema.dumps(author).data
+    result_data = json.loads(result)
+    result_bai = result_data.get("bai")
+
+    assert expected_bai == result_bai
 
 
 def test_author_orcid():

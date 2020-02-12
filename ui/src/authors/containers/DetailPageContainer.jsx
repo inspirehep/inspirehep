@@ -36,6 +36,7 @@ import { newSearch } from '../../actions/search';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
+import UserSettingsAction from '../components/UserSettingsAction';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -56,6 +57,7 @@ function DetailPage({
   match,
   publicationsQuery,
   publications,
+  userOrcid,
 }) {
   useEffect(
     () => {
@@ -134,6 +136,7 @@ function DetailPage({
                     {linkedin && <AuthorLinkedinAction linkedin={linkedin} />}
                     {urls && <AuthorWebsitesAction websites={urls} />}
                     <EditRecordAction pidType="authors" pidValue={recordId} />
+                    {orcid && orcid === userOrcid && <UserSettingsAction />}
                   </>
                 }
               >
@@ -217,6 +220,7 @@ DetailPage.propTypes = {
   publicationsQuery: PropTypes.instanceOf(Map).isRequired,
   loading: PropTypes.bool.isRequired,
   publications: PropTypes.instanceOf(List),
+  userOrcid: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
@@ -232,6 +236,7 @@ const mapStateToProps = state => ({
     AUTHOR_PUBLICATIONS_NS,
     'results',
   ]),
+  userOrcid: state.user.getIn(['data', 'orcid']),
 });
 const dispatchToProps = dispatch => ({ dispatch });
 
