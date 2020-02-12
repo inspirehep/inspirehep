@@ -14,8 +14,10 @@ from invenio_db import db
 from sqlalchemy.exc import SQLAlchemyError
 
 from inspirehep.orcid import push_access_tokens
+from inspirehep.orcid.api import push_to_orcid
 from inspirehep.orcid.tasks import _register_user, legacy_orcid_arrays, orcid_push
 from inspirehep.orcid.utils import get_literature_recids_for_orcid
+from inspirehep.records.api import LiteratureRecord
 
 
 @click.group()
@@ -27,14 +29,14 @@ def orcid():
 @with_appcontext
 def import_legacy_orcid_tokens():
     """Import ORCID tokens from legacy."""
-    secho('Import of OAUTH ORCID tokens started.', fg='green')
+    secho("Import of OAUTH ORCID tokens started.", fg="green")
     _import_legacy_orcid_tokens()
-    secho('Import of OAUTH ORCID tokens terminated.', fg='green')
+    secho("Import of OAUTH ORCID tokens terminated.", fg="green")
 
 
 def _import_legacy_orcid_tokens():
     if get_value(current_app.config, "ORCID_APP_CREDENTIALS.consumer_key") is None:
-        secho('consumer key for ORCID_APP_CREDENTIALS is None.', fg='yellow')
+        secho("consumer key for ORCID_APP_CREDENTIALS is None.", fg="yellow")
         return
 
     for user_data in legacy_orcid_arrays():
@@ -42,7 +44,7 @@ def _import_legacy_orcid_tokens():
         try:
             orcid, token, email, name = user_data
             if push_access_tokens.is_access_token_invalid(token):
-                secho(f"Token {token} is invalid. Skipping push.", fg='yellow')
+                secho(f"Token {token} is invalid. Skipping push.", fg="yellow")
                 continue
             orcid_to_push = _register_user(name, email, orcid, token)
             if orcid_to_push:
@@ -51,7 +53,9 @@ def _import_legacy_orcid_tokens():
                     secho("No records to push.")
                     continue
                 for recid in recids:
-                    secho(f"Pushing orcid: {orcid_push}\trecid: {recid}\t token: {token}")
+                    secho(
+                        f"Pushing orcid: {orcid_push}\trecid: {recid}\t token: {token}"
+                    )
                     orcid_push.apply_async(
                         queue="orcid_push_legacy_tokens",
                         kwargs={
@@ -61,9 +65,19 @@ def _import_legacy_orcid_tokens():
                         },
                     )
             else:
-                secho("Cannot link user and token.", fg='yellow')
+                secho("Cannot link user and token.", fg="yellow")
         except SQLAlchemyError as ex:
-            secho(str(ex), fg='red')
+            secho(str(ex), fg="red")
 
-    secho('No more data to process.')
+    secho("No more data to process.")
     db.session.commit()
+
+
+@orcid.command("push-records")
+@click.argument("recids", nargs=-1, required=True)
+@with_appcontext
+def push_records(recids):
+    """Manually trigger the push of the given records."""
+    for recid in recids:
+        push_to_orcid(LiteratureRecord.get_record_by_pid_value(recid))
+    secho(f"Scheduled ORCID push of {len(recids)} records.")
