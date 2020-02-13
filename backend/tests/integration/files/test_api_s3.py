@@ -116,3 +116,9 @@ def test_get_file_url(base_app, appctx):
     expected_result = f"https://s3.cern.ch/inspire-files-e/{key}"
     result = current_s3_instance.get_file_url(key)
     assert result == expected_result
+
+
+def test_get_content_disposition_with_broken_filename(base_app, appctx):
+    expected_content_disposition = 'attachment; filename="Mass_mm_.s"'
+    result = current_s3_instance.get_content_disposition("Mass_mm\n.s\n")
+    assert result == expected_content_disposition

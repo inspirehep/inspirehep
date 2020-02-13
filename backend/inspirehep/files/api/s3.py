@@ -9,6 +9,7 @@ import structlog
 from boto3.s3.transfer import TransferConfig
 from botocore.exceptions import ClientError
 from flask import current_app
+from werkzeug import secure_filename
 
 LOGGER = structlog.getLogger()
 
@@ -98,7 +99,7 @@ class S3:
 
     @staticmethod
     def get_content_disposition(filename):
-        return f'attachment; filename="{filename}"'
+        return f'attachment; filename="{secure_filename(filename)}"'
 
     def replace_file_metadata(self, key, filename, mimetype, acl):
         """Updates the metadata of the given file.
