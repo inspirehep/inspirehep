@@ -6,6 +6,10 @@ import { addOrdinalSuffix } from '../../common/utils';
 import { CONFERENCES } from '../../common/routes';
 import InlineList, { SEPARATOR_AND } from '../../common/components/InlineList';
 
+function extractKeyFromSeriesItem(seriesItem) {
+  return seriesItem.get('name');
+}
+
 function renderSeries(singleSeries, index) {
   const name = singleSeries.get('name');
   const number = singleSeries.get('number');
@@ -16,7 +20,7 @@ function renderSeries(singleSeries, index) {
       ) : (
         <span>{index === 0 ? 'P' : 'p'}art of the </span>
       )}
-      <Link to={`${CONFERENCES}?q=series.name:${name}&start_date=all`}>
+      <Link to={`${CONFERENCES}?q=series.name:"${name}"&start_date=all`}>
         {name}
       </Link>
       {' series'}
@@ -30,6 +34,7 @@ function ConferenceSeries({ series }) {
       items={series}
       separator={SEPARATOR_AND}
       renderItem={renderSeries}
+      extractKey={extractKeyFromSeriesItem}
     />
   );
 }
