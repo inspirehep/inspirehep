@@ -21,9 +21,7 @@ from inspire_schemas.builders import LiteratureBuilder
 from inspire_schemas.utils import is_arxiv, normalize_arxiv
 from inspire_utils.record import get_value
 from invenio_db import db
-from invenio_pidstore.models import PersistentIdentifier
 from redis import StrictRedis
-from sqlalchemy.orm import aliased
 
 from inspirehep.files.api import current_s3_instance
 from inspirehep.orcid.api import push_to_orcid
@@ -44,6 +42,8 @@ from inspirehep.records.utils import (
     download_file_from_url,
     get_authors_phonetic_blocks,
     get_literature_earliest_date,
+    get_pid_for_pid,
+    get_ref_from_pid,
     hash_data,
 )
 from inspirehep.search.api import LiteratureSearch
@@ -130,9 +130,25 @@ class LiteratureRecord(
                 yield LiteratureRecord(rec_data)
         return []
 
+    @staticmethod
+    def update_refs_to_conferences(data):
+        """Assign $ref to every publication_info which cnum we have in PIDStore
+        """
+        for conference in data.get("publication_info", []):
+            cnum = conference.get("cnum")
+            if not cnum:
+                continue
+            pid = get_pid_for_pid("cnum", cnum, "recid")
+            if not pid:
+                LOGGER.info(f"CNUM: {cnum} is missing in PIDStore")
+                continue
+            conference["conference_record"] = get_ref_from_pid("con", pid)
+
     def update(self, data, disable_orcid_push=False, *args, **kwargs):
         with db.session.begin_nested():
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
+            LiteratureRecord.update_refs_to_conferences(data)
+
             data = self.add_files(data)
             super().update(data, *args, **kwargs)
 
@@ -372,21 +388,7 @@ def import_article(identifier):
     else:
         raise UnknownImportIdentifierError(identifier)
 
-    ext_pid = aliased(PersistentIdentifier)
-    recid_pid = aliased(PersistentIdentifier)
-
-    recid = (
-        db.session.query(recid_pid.pid_value)
-        .filter(
-            recid_pid.object_uuid == ext_pid.object_uuid,
-            recid_pid.object_type == ext_pid.object_type,
-            ext_pid.object_type == "rec",
-            ext_pid.pid_type == pid_type,
-            ext_pid.pid_value == pid_value,
-            recid_pid.pid_provider == "recid",
-        )
-        .scalar()
-    )
+    recid = get_pid_for_pid(pid_type, pid_value, provider="recid")
 
     if recid:
         raise ExistingArticleError(
