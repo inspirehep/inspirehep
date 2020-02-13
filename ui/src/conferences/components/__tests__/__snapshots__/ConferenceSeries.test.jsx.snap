@@ -1,66 +1,115 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ConferenceSeries renders several series 1`] = `
-<InlineList
-  extractKey={[Function]}
-  items={
-    Immutable.List [
-      Immutable.Map {
-        "name": "Conference 1",
-      },
-      Immutable.Map {
-        "name": "Conference 2",
-        "number": 10,
-      },
-      Immutable.Map {
-        "name": "Conference 3",
-      },
-    ]
-  }
-  label={null}
-  renderItem={[Function]}
-  separateItems={true}
-  separator=" and "
-  suffix={null}
-  wrapperClassName={null}
-/>
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Conference 1"
+    >
+      <span>
+        <span>
+          P
+          art of the 
+        </span>
+        <Link
+          replace={false}
+          to="/conferences?q=series.name:\\"Conference 1\\"&start_date=all"
+        >
+          Conference 1
+        </Link>
+         series
+      </span>
+       and 
+    </li>
+    <li
+      key="Conference 2"
+    >
+      <span>
+        <span>
+          10th
+           conference in the 
+        </span>
+        <Link
+          replace={false}
+          to="/conferences?q=series.name:\\"Conference 2\\"&start_date=all"
+        >
+          Conference 2
+        </Link>
+         series
+      </span>
+       and 
+    </li>
+    <li
+      key="Conference 3"
+    >
+      <span>
+        <span>
+          p
+          art of the 
+        </span>
+        <Link
+          replace={false}
+          to="/conferences?q=series.name:\\"Conference 3\\"&start_date=all"
+        >
+          Conference 3
+        </Link>
+         series
+      </span>
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`ConferenceSeries renders with name and number 1`] = `
-<InlineList
-  extractKey={[Function]}
-  items={
-    Immutable.List [
-      Immutable.Map {
-        "name": "Conference Name",
-        "number": 10,
-      },
-    ]
-  }
-  label={null}
-  renderItem={[Function]}
-  separateItems={true}
-  separator=" and "
-  suffix={null}
-  wrapperClassName={null}
-/>
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Conference Name"
+    >
+      <span>
+        <span>
+          10th
+           conference in the 
+        </span>
+        <Link
+          replace={false}
+          to="/conferences?q=series.name:\\"Conference Name\\"&start_date=all"
+        >
+          Conference Name
+        </Link>
+         series
+      </span>
+    </li>
+  </ul>
+</div>
 `;
 
 exports[`ConferenceSeries renders with only name 1`] = `
-<InlineList
-  extractKey={[Function]}
-  items={
-    Immutable.List [
-      Immutable.Map {
-        "name": "Conference Name",
-      },
-    ]
-  }
-  label={null}
-  renderItem={[Function]}
-  separateItems={true}
-  separator=" and "
-  suffix={null}
-  wrapperClassName={null}
-/>
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Conference Name"
+    >
+      <span>
+        <span>
+          P
+          art of the 
+        </span>
+        <Link
+          replace={false}
+          to="/conferences?q=series.name:\\"Conference Name\\"&start_date=all"
+        >
+          Conference Name
+        </Link>
+         series
+      </span>
+    </li>
+  </ul>
+</div>
 `;

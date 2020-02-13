@@ -8,12 +8,12 @@ describe('ConferenceSeries', () => {
   it('renders with only name', () => {
     const series = fromJS([{ name: 'Conference Name' }]);
     const wrapper = shallow(<ConferenceSeries series={series} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
   it('renders with name and number', () => {
     const series = fromJS([{ name: 'Conference Name', number: 10 }]);
     const wrapper = shallow(<ConferenceSeries series={series} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
   it('renders several series', () => {
     const series = fromJS([
@@ -22,6 +22,6 @@ describe('ConferenceSeries', () => {
       { name: 'Conference 3' },
     ]);
     const wrapper = shallow(<ConferenceSeries series={series} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.dive()).toMatchSnapshot();
   });
 });
