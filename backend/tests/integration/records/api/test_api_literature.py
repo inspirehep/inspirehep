@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
 import datetime
 import json
 from uuid import UUID, uuid4
@@ -1524,3 +1523,88 @@ def test_update_record_add_more_documents(
         == f'attachment; filename="fermilab.pdf"'
     )
     assert metadata_document["ContentType"] == "application/pdf"
+
+
+def test_literature_updates_refs_to_known_conferences(base_app, db, create_record):
+    con1 = create_record("con", {"opening_date": "2013-01-01"})
+    con2 = create_record("con", {"opening_date": "2020-12-12"})
+
+    lit_data = {"publication_info": [{"cnum": con1["cnum"]}, {"cnum": con2["cnum"]}]}
+
+    expected_publication_info = [
+        {
+            "cnum": con1["cnum"],
+            "conference_record": {
+                "$ref": f"http://localhost:5000/api/conferences/{con1['control_number']}"
+            },
+        },
+        {
+            "cnum": con2["cnum"],
+            "conference_record": {
+                "$ref": f"http://localhost:5000/api/conferences/{con2['control_number']}"
+            },
+        },
+    ]
+    lit = create_record("lit", data=lit_data)
+
+    assert expected_publication_info == lit["publication_info"]
+
+
+def test_literature_updates_refs_to_known_and_unknown_conference(
+    base_app, db, create_record
+):
+    con = create_record("con", {"opening_date": "2013-01-01"})
+
+    lit_data = {"publication_info": [{"cnum": con["cnum"]}, {"cnum": "C99-11-11.111"}]}
+
+    expected_publication_info = [
+        {
+            "cnum": con["cnum"],
+            "conference_record": {
+                "$ref": f"http://localhost:5000/api/conferences/{con['control_number']}"
+            },
+        },
+        {"cnum": "C99-11-11.111"},
+    ]
+    lit = create_record("lit", data=lit_data)
+
+    assert expected_publication_info == lit["publication_info"]
+
+
+def test_literature_updates_refs_to_known_and_unknown_conference_when_ref_already_exists(
+    base_app, db, create_record
+):
+    con = create_record("con", {"opening_date": "2013-01-01"})
+
+    lit_data = {
+        "publication_info": [
+            {
+                "cnum": con["cnum"],
+                "conference_record": {
+                    "$ref": f"http://localhost:5000/api/conferences/123"
+                },
+            },
+            {
+                "cnum": "C99-11-11.111",
+                "conference_record": {
+                    "$ref": f"http://localhost:5000/api/conferences/123"
+                },
+            },
+        ]
+    }
+
+    expected_publication_info = [
+        {
+            "cnum": con["cnum"],
+            "conference_record": {
+                "$ref": f"http://localhost:5000/api/conferences/{con['control_number']}"
+            },
+        },
+        {
+            "cnum": "C99-11-11.111",
+            "conference_record": {"$ref": "http://localhost:5000/api/conferences/123"},
+        },
+    ]
+    lit = create_record("lit", data=lit_data)
+
+    assert expected_publication_info == lit["publication_info"]

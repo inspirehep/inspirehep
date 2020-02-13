@@ -9,7 +9,7 @@ import pytest
 import requests_mock
 
 from inspirehep.records.errors import DownloadFileError
-from inspirehep.records.utils import download_file_from_url
+from inspirehep.records.utils import download_file_from_url, get_pid_for_pid
 
 
 def test_download_file_from_url_with_relative_url(base_app, db):
@@ -47,3 +47,11 @@ def test_download_file_from_url_fails(base_app, db):
         )
         with pytest.raises(DownloadFileError):
             download_file_from_url(url)
+
+
+def test_get_pids_for_one_pid(base_app, db, create_record):
+    data = {"opening_date": "2020-12-11"}
+    rec = create_record("con", data)
+    expected_recid = str(rec["control_number"])
+    recid = get_pid_for_pid("cnum", rec["cnum"], "recid")
+    assert expected_recid == recid
