@@ -21,7 +21,7 @@ describe('Conference Detail', () => {
     });
   });
 
-  xit('should match image snapshot for a Conference', async () => {
+  it('should match image snapshot for a Conference', async () => {
     await page.waitFor(selectors.searchResults);
 
     const desktopSS = await takeScreenShotForDesktop(page);
@@ -31,7 +31,7 @@ describe('Conference Detail', () => {
     expect(mobileSS).toMatchImageSnapshot();
   });
 
-  xit('sets conference name as document title', async () => {
+  it('sets conference name as document title', async () => {
     const documentTitle = await page.title();
 
     expect(documentTitle).toMatch(

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConferenceAddressList renders with addresses 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul>
+    <li
+      key="Map { \\"place_name\\": \\"CERN\\" }"
+    >
+      <ConferenceAddress
+        address={
+          Immutable.Map {
+            "place_name": "CERN",
+          }
+        }
+      />
+       • 
+    </li>
+    <li
+      key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }"
+    >
+      <ConferenceAddress
+        address={
+          Immutable.Map {
+            "cities": Immutable.List [
+              "Geneva",
+            ],
+            "country": "Switzerland",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

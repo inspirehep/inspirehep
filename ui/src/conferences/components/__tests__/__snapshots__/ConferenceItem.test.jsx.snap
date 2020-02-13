@@ -65,15 +65,17 @@ exports[`ConferenceItem renders with all props set 1`] = `
         openingDate="2019-11-21"
       />
       . 
-      <ConferenceLocation
-        location={
-          Immutable.Map {
-            "cities": Immutable.List [
-              "Liverpool",
-            ],
-            "country_code": "USA",
-            "country": "country",
-          }
+      <ConferenceAddressList
+        addresses={
+          Immutable.List [
+            Immutable.Map {
+              "cities": Immutable.List [
+                "Liverpool",
+              ],
+              "country_code": "USA",
+              "country": "country",
+            },
+          ]
         }
       />
        (C05-09-16.1)
