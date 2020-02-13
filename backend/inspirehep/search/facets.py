@@ -232,8 +232,15 @@ def records_hep():
 
 
 def records_hep_cataloger():
+    """author is a query parameter and it looks like 1234_Name%20Surname, thus the splitting."""
+    author_recid = request.values.get("author", "", type=str).split("_")[0]
     records = records_hep()
-    records["filters"].update({"collection": must_match_all_filter("_collections")})
+    records["filters"].update(
+        {
+            "collection": must_match_all_filter("_collections"),
+            **nested_filters(author_recid),
+        }
+    )
     records["aggs"].update(
         {
             "collection": {
