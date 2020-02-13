@@ -158,9 +158,11 @@ def test_records_hep_cataloger_facets(base_app):
         "terms": {"field": "_collections", "size": 20},
         "meta": {"title": "Collection", "order": 10, "type": "checkbox"},
     }
+    filters = ["collection", "self_affiliations", "self_author_names"]
     with base_app.test_request_context("?author_recid=Jones, Jessica"):
         result = records_hep_cataloger()
         assert author == result["aggs"]["author"]
         assert subject == result["aggs"]["subject"]
         assert arxiv_categories == result["aggs"]["arxiv_categories"]
         assert collection == result["aggs"]["collection"]
+        assert all(filter in result["filters"] for filter in filters)
