@@ -7,7 +7,6 @@
 
 
 import structlog
-from celery import shared_task
 from invenio_db import db
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
@@ -36,8 +35,3 @@ def update_records_relations(uuids):
 
     db.session.commit()
     return uuids
-
-
-@shared_task(ignore_result=False, bind=True)
-def batch_relations_update(self, record_uuids):
-    return update_records_relations(record_uuids)
