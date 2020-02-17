@@ -142,7 +142,8 @@ def test_sign_up_user_error_on_unexpected_error(api_client, create_user):
     assert expected_data == response.json
 
 
-def test_disable_orcid_push(api_client, create_user):
+@mock.patch("inspirehep.accounts.views.push_account_literature_to_orcid")
+def test_disable_orcid_push(mock_push_account_literature, api_client, create_user):
     user = create_user(role="user", orcid="0000-0001-8829-5461")
     login_user_via_session(api_client, email=user.email)
 
@@ -159,9 +160,14 @@ def test_disable_orcid_push(api_client, create_user):
 
     assert orcid_account.extra_data["allow_push"] == False
 
+    mock_push_account_literature.apply_async.assert_not_called()
 
-def test_enable_orcid_push(api_client, create_user):
-    user = create_user(role="user", orcid="0000-0001-8829-5461")
+
+@mock.patch("inspirehep.accounts.views.push_account_literature_to_orcid")
+def test_enable_orcid_push(mock_push_account_literature, api_client, create_user):
+    orcid = "0000-0001-8829-5461"
+    token = "test-orcid-token"
+    user = create_user(role="user", orcid=orcid, token=token)
     login_user_via_session(api_client, email=user.email)
 
     response = api_client.put(
@@ -176,6 +182,10 @@ def test_enable_orcid_push(api_client, create_user):
     orcid_account = RemoteAccount.query.filter_by(user_id=user.get_id()).one_or_none()
 
     assert orcid_account.extra_data["allow_push"] == True
+
+    mock_push_account_literature.apply_async.assert_called_with(
+        kwargs={"orcid": orcid, "token": token}
+    )
 
 
 def test_orcid_push_setting_without_user(api_client):

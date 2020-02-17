@@ -12,6 +12,8 @@ from invenio_db import db
 from invenio_oauthclient import current_oauthclient
 from sqlalchemy.exc import IntegrityError
 
+from inspirehep.orcid.tasks import push_account_literature_to_orcid
+
 from .api import get_current_user_remote_orcid_account
 from .decorators import login_required
 from .handlers import get_current_user_data
@@ -87,5 +89,18 @@ def set_orcid_push_setting():
 
     db.session.add(orcid_account)
     db.session.commit()
+
+    if allow_push is True:
+        orcid = orcid_account.extra_data["orcid"]
+        tokens = orcid_account.remote_tokens
+
+        if len(tokens) != 1:
+            raise ValueError(
+                f"One token per remote account is expected, but found {len(tokens)} for {orcid}"
+            )
+
+        push_account_literature_to_orcid.apply_async(
+            kwargs={"orcid": orcid, "token": tokens[0].access_token}
+        )
 
     return jsonify({"message": "Successfully changed orcid push setting"}), 200

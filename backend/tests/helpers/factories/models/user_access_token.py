@@ -12,7 +12,7 @@ from helpers.factories.models.base import BaseFactory
 from invenio_accounts.models import User
 from invenio_db import db
 from invenio_oauth2server.models import Token
-from invenio_oauthclient.models import RemoteAccount, UserIdentity
+from invenio_oauthclient.models import RemoteToken, UserIdentity
 
 fake = Factory.create()
 
@@ -29,6 +29,7 @@ class UserFactory(BaseFactory):
         orcid=None,
         email=None,
         allow_push=None,
+        token=None,
         *args,
         **kwargs
     ):
@@ -48,12 +49,13 @@ class UserFactory(BaseFactory):
             )
             db.session.add(user_orcid_id)
 
-            remote_account = RemoteAccount(
+            RemoteToken.create(
                 user_id=user.get_id(),
                 client_id="orcid",
+                token=token,
+                secret=None,
                 extra_data={"orcid": orcid, "allow_push": allow_push},
             )
-            db.session.add(remote_account)
 
         return user
 

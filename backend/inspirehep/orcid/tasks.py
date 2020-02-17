@@ -24,6 +24,7 @@ from sqlalchemy.orm.exc import FlushError
 from time_execution import time_execution
 
 from inspirehep.orcid import exceptions as domain_exceptions
+from inspirehep.orcid.utils import get_literature_recids_for_orcid
 
 from . import domain_models
 
@@ -268,3 +269,13 @@ def _find_user_matching(orcid, email):
     if user_identity:
         return user_identity.user
     return User.query.filter_by(email=email).one_or_none()
+
+
+@shared_task
+def push_account_literature_to_orcid(orcid, token):
+    recids = get_literature_recids_for_orcid(orcid)
+    for recid in recids:
+        orcid_push.apply_async(
+            queue="orcid_push_legacy_tokens",
+            kwargs={"orcid": orcid, "rec_id": recid, "oauth_token": token},
+        )
