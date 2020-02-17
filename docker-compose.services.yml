@@ -49,7 +49,7 @@ services:
     image: rabbitmq:3-management
     restart: "always"
   es:
-    build: ./docker/elasticsearch
+    image: inspirehep/elasticsearch:7.1.1
     restart: "always"
     environment:
       - bootstrap.memory_lock=true

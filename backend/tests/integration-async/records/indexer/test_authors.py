@@ -134,7 +134,7 @@ def test_record_created_through_api_is_indexed(
 def test_indexer_updates_authors_papers_when_name_changes(
     app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):
-    SLEEP_TIME = 2
+    SLEEP_TIME = 3
     author_data = faker.record("aut")
     author = AuthorsRecord.create(author_data)
     db.session.commit()
