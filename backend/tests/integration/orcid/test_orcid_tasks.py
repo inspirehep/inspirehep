@@ -27,7 +27,11 @@ from invenio_db import db
 from invenio_oauthclient.errors import AlreadyLinkedError
 from invenio_oauthclient.models import RemoteToken, User, UserIdentity
 
-from inspirehep.orcid.tasks import RemoteTokenOrcidMismatch, _link_user_and_token
+from inspirehep.orcid.tasks import (
+    RemoteTokenOrcidMismatch,
+    _link_user_and_token,
+    push_account_literature_to_orcid,
+)
 
 # The tests are written in a specific order, disable random
 pytestmark = pytest.mark.random_order(disabled=True)
@@ -120,3 +124,21 @@ class TestLinkUserAndToken(object):
 
         with pytest.raises(RemoteTokenOrcidMismatch):
             _link_user_and_token(self.user, self.name, self.orcid, self.token)
+
+
+@mock.patch("inspirehep.orcid.tasks.get_literature_recids_for_orcid")
+@mock.patch("inspirehep.orcid.tasks.orcid_push")
+def test_push_account_literature_to_orcid(
+    mock_orcid_push, mock_get_literature_recids_for_orcid, create_user
+):
+    mock_get_literature_recids_for_orcid.return_value = [1]
+    orcid = "0000-0001-8829-5461"
+    token = "user-orcid-token"
+    user = create_user(role="user", orcid=orcid, allow_push=True, token=token)
+
+    push_account_literature_to_orcid(orcid, token)
+
+    mock_orcid_push.apply_async.assert_called_with(
+        queue="orcid_push_legacy_tokens",
+        kwargs={"orcid": orcid, "rec_id": 1, "oauth_token": token},
+    )
