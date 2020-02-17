@@ -27,12 +27,7 @@ exports[`FiguresCarousel renders with all props 1`] = `
         className="pb3"
       >
         <Figure
-          figure={
-            Immutable.Map {
-              "url": "https://picsum.photos/200/300",
-              "key": "test_FiguresCarousel_1",
-            }
-          }
+          url="https://picsum.photos/200/300"
         />
       </div>
     </div>

@@ -3,20 +3,19 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Image from 'react-image';
 import { Spin } from 'antd';
-import { Map } from 'immutable';
 
 import './Figure.scss';
 
-function Figure({ figure, className, onClick }) {
+function Figure({ url, className, onClick }) {
   return (
     <div className="__Figure__">
-      <div className="image-container ba mh3">
+      <div className="image-container mh3 ba">
         <Image
           onClick={onClick}
-          className={classNames(className, 'pa1 db center', {
+          className={classNames(className, 'pa1 db center w-auto h-auto', {
             pointer: onClick,
           })}
-          src={figure.get('url')}
+          src={url}
           loader={
             <Spin
               style={{ margin: 'auto', display: 'block', padding: '2rem 0' }}
@@ -24,15 +23,12 @@ function Figure({ figure, className, onClick }) {
           }
         />
       </div>
-      <div className="tc pt1">
-        <h4>{figure.get('label') || 'No Legend'}</h4>
-      </div>
     </div>
   );
 }
 
 Figure.propTypes = {
-  figure: PropTypes.instanceOf(Map).isRequired,
+  url: PropTypes.string.isRequired,
   className: PropTypes.string,
   onClick: PropTypes.func,
 };

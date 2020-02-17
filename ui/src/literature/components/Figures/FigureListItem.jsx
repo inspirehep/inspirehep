@@ -8,7 +8,7 @@ import Figure from './Figure';
 function FigureListItem({ figure, onClick }) {
   return (
     <List.Item>
-      <Figure className="h5" onClick={onClick} figure={figure} />
+      <Figure className="mhi5" onClick={onClick} url={figure.get('url')} />
     </List.Item>
   );
 }

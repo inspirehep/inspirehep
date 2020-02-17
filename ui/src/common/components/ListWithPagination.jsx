@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List, Pagination } from 'antd';
 import Immutable from 'immutable';
+import classNames from 'classnames';
 
 const GRID_CONFIG = {
   gutter: 16,
@@ -25,7 +26,7 @@ class ListWithPagination extends Component {
     const { pageSize, loading, total, page, onPageChange, grid } = this.props;
     return (
       <Pagination
-        className={{ 'ant-col-24': grid }}
+        className={classNames({ 'ant-col-24': grid })}
         hideOnSinglePage
         current={page}
         onChange={onPageChange}
@@ -37,6 +38,7 @@ class ListWithPagination extends Component {
     );
   }
 
+  // wrap `
   render() {
     const { renderItem, title, pageItems, page, pageSize, grid } = this.props;
     return (
@@ -45,9 +47,17 @@ class ListWithPagination extends Component {
         footer={this.renderPagination()}
         grid={grid ? GRID_CONFIG : undefined}
       >
-        {pageItems.map((item, index) =>
-          renderItem(item, (page - 1) * pageSize + index)
-        )}
+        <div
+          className={
+            classNames({
+              'ant-row-flex': grid,
+            }) /* to workaround ant-design/issues/14407 */
+          }
+        >
+          {pageItems.map((item, index) =>
+            renderItem(item, (page - 1) * pageSize + index)
+          )}
+        </div>
       </List>
     );
   }
