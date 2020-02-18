@@ -220,6 +220,17 @@ $ yarn test # in ui folder
 $ ./run-e2e.sh
 ```
 
+### script tests
+
+For script tests we're using cypress https://docs.cypress.io/
+
+```bash
+$ cd smoke-tests
+$ yarn install
+$ yarn run cypress:open # UI
+$ yarn run cypress:run  # cmd interface
+```
+
 ---
 
 ## How to import records

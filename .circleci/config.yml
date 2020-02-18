@@ -2,14 +2,11 @@ version: 2
 jobs:
   e2e:
     machine: true
-   
     working_directory: ~/inspirehep
-
     steps:
       - checkout
-      - run: sudo chown -R 999 e2e 
+      - run: sudo chown -R 999 e2e
       - run: sh run-e2e.sh
-
 workflows:
   version: 2
   workflow:
