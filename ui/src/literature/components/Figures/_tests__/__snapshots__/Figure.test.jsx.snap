@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Figure renders figure with label and caption and all props 1`] = `
+exports[`Figure renders figure with all props 1`] = `
 <div
   className="__Figure__"
 >
   <div
-    className="image-container ba mh3"
+    className="image-container mh3 ba"
   >
     <Img
-      className="h5 pa1 db center pointer"
+      className="h5 pa1 db center w-auto h-auto pointer"
       container={[Function]}
       decode={true}
       loader={
@@ -30,25 +30,18 @@ exports[`Figure renders figure with label and caption and all props 1`] = `
       unloader={false}
     />
   </div>
-  <div
-    className="tc pt1"
-  >
-    <h4>
-      Test Figure 01
-    </h4>
-  </div>
 </div>
 `;
 
-exports[`Figure renders figure without label and caption 1`] = `
+exports[`Figure renders figure with only url 1`] = `
 <div
   className="__Figure__"
 >
   <div
-    className="image-container ba mh3"
+    className="image-container mh3 ba"
   >
     <Img
-      className="pa1 db center"
+      className="pa1 db center w-auto h-auto"
       container={[Function]}
       decode={true}
       loader={
@@ -68,13 +61,6 @@ exports[`Figure renders figure without label and caption 1`] = `
       src="https://picsum.photos/200/300"
       unloader={false}
     />
-  </div>
-  <div
-    className="tc pt1"
-  >
-    <h4>
-      No Legend
-    </h4>
   </div>
 </div>
 `;

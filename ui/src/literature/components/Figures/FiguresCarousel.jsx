@@ -19,7 +19,7 @@ function FiguresCarousel({ figures, visible, onCancel, carouselRef }) {
         {figures.map(figure => (
           <div key={figure.get('key')} className="ph3">
             <div className="pb3">
-              <Figure figure={figure} />
+              <Figure url={figure.get('url')} />
             </div>
             {figure.has('caption') && (
               <div className="pb3">
