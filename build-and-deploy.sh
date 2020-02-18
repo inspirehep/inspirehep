@@ -8,6 +8,9 @@
 
 TAG="${TRAVIS_TAG:-$(git describe --always --tags)}"
 
+LATEST_COMMIT=$(git rev-parse HEAD)
+LATEST_COMMIT_IN_SMOKE_TESTS=$(git log -1 --format=format:%H --full-diff smoke-tests)
+
 retry() {
     "${@}" || "${@}" || exit 2
 }
@@ -30,7 +33,7 @@ buildPush() {
     -t "${image}:build-stage" \
     "${context}" \
     --cache-from "${image}:build-stage" \
-    --target "build-stage" 
+    --target "build-stage"
     retry docker push "${image}:build-stage"
     retry docker build \
       --build-arg VERSION="${TAG}" \
@@ -79,13 +82,32 @@ sentryQA() {
   sentry-cli releases set-commits --auto ${TAG}
 }
 
+maybeBuildSmokeTests() {
+  if [ $LATEST_COMMIT = $LATEST_COMMIT_IN_SMOKE_TESTS ]; then
+    buildPush "smoke-tests" "inspirehep/smoke-tests"
+  else
+    echo "Nothing changed on smoke-tests/"
+  fi
+}
+
+maybeDeploySmokeTestsQA() {
+  if [ $LATEST_COMMIT = $LATEST_COMMIT_IN_SMOKE_TESTS ]; then
+    # FIXME: smoke tests will replace e2e tests
+    deployQA "e2e"
+  else
+    echo "Nothing changed on smoke-tests/"
+  fi
+}
+
 main() {
   login
   buildPush "ui" "inspirehep/ui"
   buildPush "backend" "inspirehep/hep"
+  maybeBuildSmokeTests
   logout
   deployQA "ui"
   deployQA "hep"
   sentryQA
+  maybeDeploySmokeTestsQA
 }
 main
