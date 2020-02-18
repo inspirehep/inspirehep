@@ -33,6 +33,19 @@ exports[`ConferenceItem renders with all props set 1`] = `
       />
     </React.Fragment>
   }
+  rightActions={
+    <ListItemAction>
+      <Link
+        replace={false}
+        to="/literature?q=publication_info.conference_record.$ref:12345&doc_type=conference%20paper"
+      >
+        <IconText
+          text="3 contributions"
+          type="login"
+        />
+      </Link>
+    </ListItemAction>
+  }
 >
   <Row
     gutter={0}
@@ -86,14 +99,6 @@ exports[`ConferenceItem renders with all props set 1`] = `
     gutter={0}
   >
     <Col>
-      3 contributions
-    </Col>
-  </Row>
-  <Row
-    className="mt2"
-    gutter={0}
-  >
-    <Col>
       <InspireCategoryList
         categories={
           Immutable.List [
@@ -112,6 +117,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
 exports[`ConferenceItem renders with only needed props 1`] = `
 <ResultItem
   leftActions={<React.Fragment />}
+  rightActions={false}
 >
   <Row
     gutter={0}

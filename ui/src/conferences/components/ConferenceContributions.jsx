@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
+import { getContributionsQueryString } from '../utils';
 
 function ConferenceContributions({ conferenceRecordId }) {
   const baseQuery = useMemo(
     () => ({
-      q: `publication_info.conference_record.$ref:${conferenceRecordId}`,
+      q: getContributionsQueryString(conferenceRecordId),
     }),
     [conferenceRecordId]
   );
