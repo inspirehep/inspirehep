@@ -191,7 +191,7 @@ class OrcidPusher(object):
                 response = self.client.put_updated_work(xml_element, putcode)
             else:
                 response = self.client.post_new_work(xml_element)
-        LOGGER.info("POST/PUT ORCID work", response=response, recid=self.recid)
+        LOGGER.info("POST/PUT ORCID work", recid=self.recid)
         response.raise_for_result()
         return response["putcode"]
 
