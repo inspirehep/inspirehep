@@ -6,7 +6,7 @@ import { Map } from 'immutable';
 import { Row, Col } from 'antd';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ResultItem from '../../common/components/ResultItem';
-import { CONFERENCES } from '../../common/routes';
+import { CONFERENCES, LITERATURE } from '../../common/routes';
 import ConferenceTitle from './ConferenceTitle';
 import ConferenceDates from './ConferenceDates';
 import ConferenceAddressList from './ConferenceAddressList';
@@ -14,6 +14,9 @@ import InspireCategoryList from './InspireCategoryList';
 import ConferenceWebsitesAction from './ConferenceWebsitesAction';
 import ProceedingsAction from './ProceedingsAction';
 import pluralizeUnlessSingle from '../../common/utils';
+import IconText from '../../common/components/IconText';
+import ListItemAction from '../../common/components/ListItemAction';
+import { getContributionsQueryString } from '../utils';
 
 class ConferenceItem extends Component {
   render() {
@@ -43,6 +46,25 @@ class ConferenceItem extends Component {
             )}
           </>
         }
+        rightActions={
+          contributionsCount !== 0 && (
+            <ListItemAction>
+              <Link
+                to={`${LITERATURE}?q=${getContributionsQueryString(
+                  recordId
+                )}&doc_type=conference%20paper`}
+              >
+                <IconText
+                  text={`${contributionsCount} ${pluralizeUnlessSingle(
+                    'contribution',
+                    contributionsCount
+                  )}`}
+                  type="login"
+                />
+              </Link>
+            </ListItemAction>
+          )
+        }
       >
         <Row type="flex">
           <Col>
@@ -70,16 +92,6 @@ class ConferenceItem extends Component {
             {cnum && ` (${cnum})`}
           </Col>
         </Row>
-        {contributionsCount !== 0 && (
-          <Row className="mt2">
-            <Col>
-              {`${contributionsCount} ${pluralizeUnlessSingle(
-                'contribution',
-                contributionsCount
-              )}`}
-            </Col>
-          </Row>
-        )}
         <Row className="mt2">
           <Col>
             <InspireCategoryList
