@@ -16,6 +16,7 @@ from flask import current_app
 from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
+from invenio_search import current_search
 from invenio_search.cli import index
 
 from inspirehep.records.api import InspireRecord
@@ -239,3 +240,60 @@ def reindex_records(
         )
         for failure in failures:
             LOGGER.warning(failure)
+
+
+@index.command(
+    "remap",
+    help="Remaps specified indexes. Removes all data from index during this process.",
+)
+@click.option("--yes-i-know", is_flag=True)
+@click.option(
+    "--index",
+    "-i",
+    "indexes",
+    multiple=True,
+    default=None,
+    help="Specify indexes which you want to remap (ignore prefix and postfix)",
+)
+@click.option(
+    "--ignore-checks",
+    is_flag=True,
+    help="Do not check if old index was deleted. WARNING: this may lead to one alias pointing to many indexes!",
+)
+@with_appcontext
+@click.pass_context
+def remap_indexes(ctx, yes_i_know, indexes, ignore_checks):
+    if not yes_i_know:
+        click.confirm(
+            "This operation will irreversibly remove data from selected indexes in ES, do you want to continue?",
+            abort=True,
+        )
+    if not indexes:
+        click.echo("You should specify indexes which you want to remap")
+        click.echo(
+            f"Available indexes are: {', '.join(current_search.mappings.keys())}"
+        )
+        ctx.exit(1)
+    wrong_indexes = list(set(indexes) - set(current_search.mappings.keys()))
+    if not ignore_checks and len(wrong_indexes) > 0:
+        click.echo(f"Indexes {', '.join(wrong_indexes)} not recognized.")
+        click.echo(
+            f"Available indexes are: {', '.join(current_search.mappings.keys())}"
+        )
+        ctx.exit(1)
+
+    click.echo(f"Deleting indexes: {', '.join(indexes)}")
+
+    deleted_indexes = list(current_search.delete(index_list=indexes))
+    if not ignore_checks and len(deleted_indexes) != len(indexes):
+        click.echo(
+            f"Number of deleted indexes ({len(deleted_indexes)} is different than requested ones ({len(indexes)}",
+            err=True,
+        )
+        click.echo("deleted indexes %s" % [i[0] for i in deleted_indexes])
+        ctx.exit(1)
+
+    created_indexes = list(
+        current_search.create(ignore_existing=True, index_list=indexes)
+    )
+    click.echo("remapped indexes %s" % [i[0] for i in created_indexes])
