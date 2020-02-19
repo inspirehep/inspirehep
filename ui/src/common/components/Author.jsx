@@ -21,7 +21,7 @@ class Author extends Component {
   getAuthorRecid() {
     const { author } = this.props;
     const ref = author.getIn(['record', '$ref']);
-    
+
     if (!ref) {
       return null;
     }
@@ -33,10 +33,6 @@ class Author extends Component {
   renderRoleSuffix() {
     const { author } = this.props;
     const roles = author.get('inspire_roles', []);
-
-    if (roles.indexOf('supervisor') > -1) {
-      return <Tooltip title="supervisor">(supervisor)</Tooltip>;
-    }
 
     if (roles.indexOf('editor') > -1) {
       return <Tooltip title="editor">(ed.)</Tooltip>;
@@ -66,9 +62,9 @@ class Author extends Component {
   renderAuthorName() {
     const recid = this.getAuthorRecid();
     if (recid != null) {
-      return <Link to={`${AUTHORS}/${recid}`}>{this.getAuthorName()}</Link>
+      return <Link to={`${AUTHORS}/${recid}`}>{this.getAuthorName()}</Link>;
     }
-    return <span>{this.getAuthorName()}</span>
+    return <span>{this.getAuthorName()}</span>;
   }
 
   render() {

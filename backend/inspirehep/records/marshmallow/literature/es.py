@@ -10,7 +10,7 @@ from itertools import chain
 
 import structlog
 from inspire_utils.helpers import force_list
-from marshmallow import fields, missing
+from marshmallow import fields, missing, pre_dump
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord
@@ -80,13 +80,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     def get_author_count(self, record):
         """Prepares record for ``author_count`` field."""
         authors = record.get("authors", [])
-
-        authors_excluding_supervisors = [
-            author
-            for author in authors
-            if "supervisor" not in author.get("inspire_roles", [])
-        ]
-        return len(authors_excluding_supervisors)
+        return len(authors)
 
     def get_inspire_document_type(self, record):
         """Prepare record for ``facet_inspire_doc_type`` field."""
@@ -148,3 +142,13 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         input_values = [el for el in input_values if el]
 
         return {"input": input_values}
+
+    @pre_dump
+    def remove_supervisors_from_authors(self, data):
+        if "authors" in data:
+            data["authors"] = [
+                author
+                for author in data["authors"]
+                if "supervisor" not in author.get("inspire_roles", [])
+            ]
+        return data

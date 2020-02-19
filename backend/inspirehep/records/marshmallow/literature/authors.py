@@ -10,11 +10,15 @@ from marshmallow import Schema, fields, post_dump
 
 from ..fields import NestedWithoutEmptyObjects
 from .common import AuthorSchemaV1
+from .common.author import SupervisorSchema
 
 
 class LiteratureAuthorsSchema(Schema):
     authors = NestedWithoutEmptyObjects(
-        AuthorSchemaV1, default=[], dump_only=True, many=True
+        AuthorSchemaV1, default=[], dump_only=True, many=True, attribute="authors"
+    )
+    supervisors = NestedWithoutEmptyObjects(
+        SupervisorSchema, default=[], dump_only=True, many=True, attribute="authors"
     )
     collaborations = fields.Raw(default=[], dump_only=True)
 

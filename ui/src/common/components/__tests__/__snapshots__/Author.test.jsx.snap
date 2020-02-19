@@ -179,16 +179,5 @@ exports[`Author renders supervisor 1`] = `
   <span>
     Name, Full
   </span>
-  <Tooltip
-    arrowPointAtCenter={false}
-    autoAdjustOverflow={true}
-    mouseEnterDelay={0.1}
-    mouseLeaveDelay={0.1}
-    placement="top"
-    title="supervisor"
-    transitionName="zoom-big-fast"
-  >
-    (supervisor)
-  </Tooltip>
 </div>
 `;

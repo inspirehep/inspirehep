@@ -11,6 +11,7 @@ from inspirehep.records.marshmallow.literature.common import (
     AuthorSchemaV1,
     AuthorsInfoSchemaForES,
 )
+from inspirehep.records.marshmallow.literature.common.author import SupervisorSchema
 
 
 def test_author():
@@ -125,3 +126,33 @@ def test_author_es_enchancement_without_last_name():
     assert sorted(result["name_variations"]) == expected_name_variations
     assert "input" in result["name_suggest"]
     assert sorted(result["name_suggest"]["input"]) == expected_name_suggest
+
+
+def test_author_schema_returns_empty_for_supervisor():
+    schema = AuthorSchemaV1()
+    dump = {"full_name": "Smith, John", "inspire_roles": ["supervisor"]}
+    result = schema.dumps(dump).data
+
+    assert json.loads(result) == {}
+
+
+def test_supervisor_schema():
+    schema = SupervisorSchema()
+    dump = {"full_name": "Smith, John", "inspire_roles": ["supervisor"]}
+    expected = {
+        "full_name": "Smith, John",
+        "first_name": "John",
+        "last_name": "Smith",
+        "inspire_roles": ["supervisor"],
+    }
+    result = schema.dumps(dump).data
+
+    assert expected == json.loads(result)
+
+
+def test_supervisor_schema_returns_empty_for_non_supervisor():
+    schema = SupervisorSchema()
+    dump = {"full_name": "Smith, John", "inspire_roles": ["author"]}
+    result = schema.dumps(dump).data
+
+    assert json.loads(result) == {}
