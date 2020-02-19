@@ -4,12 +4,14 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from copy import copy
 
 import pytest
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from jsonschema.exceptions import ValidationError
 
+from inspirehep.pidstore.minters.cnum import CNUMMinter
 from inspirehep.records.api import ConferencesRecord
 
 
@@ -166,3 +168,24 @@ def test_minter_mints_cnum_from_partial_date_doesnt_happen_because_partial_date_
     }
     with pytest.raises(ValidationError):
         create_record("con", data=data)
+
+
+def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(
+    base_app, db, create_record
+):
+    rec = create_record("con")
+    record_cnums_count = PersistentIdentifier.query.filter_by(
+        pid_type="cnum", object_uuid=str(rec.id)
+    ).count()
+    assert 0 == record_cnums_count
+    data = dict(rec)
+    data["cnum"] = "C05-01-01"
+    rec.update(data)
+
+    record_cnums = PersistentIdentifier.query.filter_by(
+        pid_type="cnum", object_uuid=str(rec.id)
+    ).all()
+
+    expected_cnum = "C05-01-01"
+    assert 1 == len(record_cnums)
+    assert record_cnums[0].pid_value == expected_cnum
