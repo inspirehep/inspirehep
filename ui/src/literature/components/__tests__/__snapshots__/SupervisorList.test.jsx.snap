@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SupervisorList renders with multiple supervisors 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Supervisors
+    : 
+  </span>
+  <ul>
+    <li>
+      <Author
+        author={
+          Immutable.Map {
+            "full_name": "John Doe",
+          }
+        }
+      />
+      , 
+    </li>
+    <li>
+      <Author
+        author={
+          Immutable.Map {
+            "full_name": "Jane Doe",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`SupervisorList renders with one supervisor 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Supervisor
+    : 
+  </span>
+  <ul>
+    <li>
+      <Author
+        author={
+          Immutable.Map {
+            "full_name": "John Doe",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

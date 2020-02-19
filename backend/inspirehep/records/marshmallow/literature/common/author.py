@@ -9,7 +9,7 @@ from unicodedata import normalize
 
 from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import generate_name_variations
-from marshmallow import Schema, fields, missing
+from marshmallow import Schema, fields, missing, pre_dump
 
 
 class AuthorSchemaV1(Schema):
@@ -52,6 +52,12 @@ class AuthorSchemaV1(Schema):
             return get_recid_from_ref(data["record"])
         return missing
 
+    @pre_dump
+    def filter(self, data):
+        if "supervisor" in data.get("inspire_roles", []):
+            return {}
+        return data
+
 
 class AuthorAutocompleteSchema(Schema):
     input_field = fields.Method(
@@ -83,3 +89,11 @@ class AuthorsInfoSchemaForES(AuthorSchemaV1):
             name_variations = generate_name_variations(full_name)
 
         return name_variations
+
+
+class SupervisorSchema(AuthorSchemaV1):
+    @pre_dump
+    def filter(self, data):
+        if "supervisor" not in data.get("inspire_roles", []):
+            return {}
+        return data

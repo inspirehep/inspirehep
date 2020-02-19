@@ -43,6 +43,7 @@ import ReferenceListContainer from '../../../common/containers/ReferenceListCont
 import PublicNotesList from '../../../common/components/PublicNotesList';
 import UrlsAction from '../../components/UrlsAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
+import SupervisorList from '../../components/SupervisorList';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -79,6 +80,7 @@ class DetailPage extends Component {
       record,
       loading,
       referencesCount,
+      supervisors,
     } = this.props;
 
     const metadata = record.get('metadata');
@@ -178,6 +180,7 @@ class DetailPage extends Component {
                   <LiteratureDate date={date} />
                   <div className="mt3">
                     <NumberOfPages numberOfPages={numberOfPages} />
+                    <SupervisorList supervisors={supervisors} />
                     <ThesisInfo thesisInfo={thesisInfo} />
                     <PublicationInfoList publicationInfo={publicationInfo} />
                     <ConferenceInfoList conferenceInfo={conferenceInfo} />
@@ -287,12 +290,14 @@ DetailPage.propTypes = {
   referencesCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     .isRequired,
   loadingCitations: PropTypes.bool.isRequired,
+  supervisors: PropTypes.instanceOf(List),
 };
 
 const mapStateToProps = state => ({
   loading: state.literature.get('loading'),
   record: state.literature.get('data'),
   authors: state.literature.get('authors'),
+  supervisors: state.literature.get('supervisors'),
   citationCount: state.citations.get('total'),
   referencesCount: state.literature.get('totalReferences'),
   loadingCitations: state.citations.get('loading'),

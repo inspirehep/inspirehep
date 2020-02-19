@@ -38,11 +38,13 @@ def test_authors_schema():
                 "last_name": "Black",
                 "inspire_roles": ["editor"],
             },
+        ],
+        "supervisors": [
             {
                 "full_name": "Jimmy",
                 "first_name": "Jimmy",
                 "inspire_roles": ["supervisor"],
-            },
+            }
         ],
         "collaborations": [{"value": "LHCb"}],
     }
@@ -65,6 +67,6 @@ def test_authors_schema_without_authors():
 def test_authors_schema_without_authors_and_collaborations():
     schema = LiteratureAuthorsSchema()
     data = faker.record("lit")
-    expected = {"authors": [], "collaborations": []}
+    expected = {"authors": [], "collaborations": [], "supervisors": []}
     result = json.loads(schema.dumps(data).data)
     assert expected == result

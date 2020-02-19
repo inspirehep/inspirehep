@@ -188,3 +188,24 @@ def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(
     result_ui_display = json.loads(result.pop("_ui_display"))
 
     assert "fulltext_links" not in result_ui_display
+
+
+def test_indexer_removes_supervisors_from_authors_for_ui_display_field(
+    base_app, es_clear, db, create_record
+):
+    authors = [
+        {"full_name": "Frank Castle"},
+        {"full_name": "Jimmy", "inspire_roles": ["supervisor"]},
+    ]
+    data = {"authors": authors}
+    create_record("lit", data=data)
+    response = es_search("records-hep")
+
+    expected_author_full_name = "Frank Castle"
+    result = response["hits"]["hits"][0]["_source"]
+    result_ui_display = json.loads(result.pop("_ui_display"))
+    result_authors = result["authors"]
+    assert len(result_ui_display["authors"]) == 1
+    assert result_ui_display["authors"][0]["full_name"] == expected_author_full_name
+    assert len(result_authors) == 1
+    assert result_authors[0]["full_name"] == expected_author_full_name

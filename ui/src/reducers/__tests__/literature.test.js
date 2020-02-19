@@ -56,8 +56,8 @@ describe('literature reducer', () => {
   it('LITERATURE_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_ERROR,
-      payload: { 
-        error: { message: 'error' }
+      payload: {
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({
@@ -108,8 +108,8 @@ describe('literature reducer', () => {
   it('LITERATURE_REFERENCES_ERROR', () => {
     const state = reducer(Map(), {
       type: LITERATURE_REFERENCES_ERROR,
-      payload: { 
-        error: { message: 'error' }
+      payload: {
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({
@@ -133,9 +133,15 @@ describe('literature reducer', () => {
         full_name: 'Jessica Jones',
       },
     ];
+    const supervisors = [
+      {
+        full_name: 'John Doe',
+      },
+    ];
     const payload = {
       metadata: {
         authors,
+        supervisors,
       },
     };
     const state = reducer(Map(), {
@@ -145,6 +151,7 @@ describe('literature reducer', () => {
     const expected = fromJS({
       loadingAuthors: false,
       authors,
+      supervisors,
       errorAuthors: initialState.get('errorAuthors'),
     });
     expect(state).toEqual(expected);
@@ -154,7 +161,7 @@ describe('literature reducer', () => {
     const state = reducer(Map(), {
       type: LITERATURE_AUTHORS_ERROR,
       payload: {
-        error: { message: 'error' }
+        error: { message: 'error' },
       },
     });
     const expected = fromJS({
