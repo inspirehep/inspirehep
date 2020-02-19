@@ -70,10 +70,11 @@ class CNUMMinter(Minter):
         Returns:
             None
         """
-        cnum_pid = PersistentIdentifier.query\
-            .filter_by(pid_type="cnum")\
-            .filter_by(object_uuid=object_uuid)\
+        cnum_pid = (
+            PersistentIdentifier.query.filter_by(pid_type="cnum")
+            .filter_by(object_uuid=object_uuid)
             .one_or_none()
+        )
 
         if cnum_pid:
             if cnum_pid.pid_value != data["cnum"]:
@@ -81,6 +82,8 @@ class CNUMMinter(Minter):
 
             if cnum_pid.status == PIDStatus.DELETED:
                 cnum_pid.status = PIDStatus.REGISTERED  # un-delete pid
+        else:
+            cls.mint(object_uuid, data)
 
     @classmethod
     def delete(cls, object_uuid, data):
