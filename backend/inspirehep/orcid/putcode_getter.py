@@ -69,7 +69,7 @@ class OrcidPutcodeGetter(object):
         An embedded recid is a recid written as external-identifier.
         """
         response = self.client.get_all_works_summary()
-        LOGGER.info("Get ORCID work summary", response=response, orcid=self.orcid)
+        LOGGER.info("Get ORCID work summary", orcid=self.orcid)
         try:
             response.raise_for_result()
         except (
@@ -109,9 +109,7 @@ class OrcidPutcodeGetter(object):
         # authors), 8 calls would be performed with a total data transfer > 0.5 Gb.
         chained = []
         for response in self.client.get_bulk_works_details_iter(putcodes):
-            # Note: this log can be large. Consider removing it when this part
-            # is considered mature.
-            LOGGER.info("ORCID work details", response=response, orcid=self.orcid)
+            LOGGER.info("ORCID work details", orcid=self.orcid)
             try:
                 response.raise_for_result()
             except orcid_client_exceptions.BaseOrcidClientJsonException as exc:
