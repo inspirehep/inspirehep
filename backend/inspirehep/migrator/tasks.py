@@ -39,6 +39,7 @@ from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.indexer.tasks import batch_index
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.records.tasks import update_records_relations
+from inspirehep.utils import chunker
 
 LOGGER = structlog.getLogger()
 CHUNK_SIZE = 100
@@ -46,17 +47,6 @@ LARGE_CHUNK_SIZE = 2000
 
 
 split_marc = re.compile("<record.*?>.*?</record>", re.DOTALL)
-
-
-def chunker(iterable, chunksize=CHUNK_SIZE):
-    buf = []
-    for elem in iterable:
-        buf.append(elem)
-        if len(buf) == chunksize:
-            yield buf
-            buf = []
-    if buf:
-        yield buf
 
 
 def split_blob(blob):
@@ -118,7 +108,9 @@ def migrate_from_mirror_run_step(
         query = LegacyRecordsMirror.query.with_entities(
             LegacyRecordsMirror.recid
         ).filter(LegacyRecordsMirror.valid.is_(True))
-        recids_chunked = chunker(str(res.recid) for res in query.yield_per(CHUNK_SIZE))
+        recids_chunked = chunker(
+            (str(res.recid) for res in query.yield_per(CHUNK_SIZE)), CHUNK_SIZE
+        )
     elif 0 < step_no < 3:
         query = (
             PersistentIdentifier.query.with_entities(PersistentIdentifier.object_uuid)
@@ -126,7 +118,7 @@ def migrate_from_mirror_run_step(
             .distinct()
         )
         recids_chunked = chunker(
-            str(res.object_uuid) for res in query.yield_per(CHUNK_SIZE)
+            (str(res.object_uuid) for res in query.yield_per(CHUNK_SIZE)), CHUNK_SIZE
         )
     else:
         echo("Wrong step number!")
@@ -167,7 +159,9 @@ def migrate_from_mirror(also_migrate=None, disable_orcid_push=True):
     else:
         raise ValueError('"also_migrate" should be either None, "all" or "broken"')
 
-    recids_chunked = chunker(res.recid for res in query.yield_per(CHUNK_SIZE))
+    recids_chunked = chunker(
+        (res.recid for res in query.yield_per(CHUNK_SIZE)), CHUNK_SIZE
+    )
 
     task = migrate_recids_from_mirror(
         list(recids_chunked),

@@ -15,6 +15,7 @@ from inspirehep.fixtures import fixtures
 from inspirehep.mailing.cli import mailing
 from inspirehep.orcid.cli import orcid
 from inspirehep.records.cli import citations, importer, jobs
+from inspirehep.sitemap.cli import sitemap
 
 cli = create_cli(create_app=create_app)
 
@@ -25,3 +26,4 @@ cli.add_command(citations)
 cli.add_command(orcid)
 cli.add_command(mailing)
 cli.add_command(files)
+cli.add_command(sitemap)

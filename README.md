@@ -238,7 +238,7 @@ A selection of demo records can be found in `data` directory and they are struct
 
 ```bash
 # Local
-$ poetry inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
+$ poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
 # Docker
 $ ./docker-inspire run --rm web poetry run inspirehep importer records -u https://labs.inspirehep.net/api/literature/20 -u https://labs.inspirehep.net/api/literature/1726642
 ```
@@ -247,16 +247,16 @@ $ ./docker-inspire run --rm web poetry run inspirehep importer records -u https:
 
 ```bash
 # Local
-$ poerty inspirehep importer records -d data/literature
+$ poetry run inspirehep importer records -d data/records/literature
 # Docker
-$ ./docker-inspire run --rm web poetry run inspirehep importer records -d data/literature
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -d data/records/literature
 ```
 
 #### With files
 
 ```bash
 # Local
-$ poetry inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
+$ poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 # Docker
-$ ./docker-inspire run --rm web poetry run inspirehep importer records -f data/literature/374836.json -f data/authors/999108.json
+$ ./docker-inspire run --rm web poetry run inspirehep importer records -f data/records/literature/374836.json -f data/records/authors/999108.json
 ```

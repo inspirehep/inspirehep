@@ -18,3 +18,14 @@ def get_inspirehep_url():
     PROTOCOL = current_app.config["PREFERRED_URL_SCHEME"]
     SERVER = current_app.config["SERVER_NAME"]
     return f"{PROTOCOL}://{SERVER}"
+
+
+def chunker(iterable, chunksize):
+    buf = []
+    for elem in iterable:
+        buf.append(elem)
+        if len(buf) == chunksize:
+            yield buf
+            buf = []
+    if buf:
+        yield buf
