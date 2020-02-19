@@ -22,7 +22,7 @@ LOGGER = structlog.getLogger()
 def get_jobs_from_last_week():
     """Jobs created the last 7 days."""
     query = Q("range", **{"_created": {"gte": "now-7d/d", "lt": "now/d"}}) & Q(
-        "match", **{"status": "open"}
+        "term", status="open"
     )
     search = JobsSearch().query(query).params(size=10000).sort("-_created")
     return search.execute().hits
