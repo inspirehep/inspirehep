@@ -13,6 +13,7 @@
       "_private_notes": {
         "properties": {
           "source": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "value": {
@@ -23,15 +24,18 @@
       },
       "acronyms": {
         "copy_to": "conferenceautocomplete",
+        "normalizer": "lowercase_normalizer",
         "type": "keyword"
       },
       "addresses": {
         "properties": {
           "cities": {
             "copy_to": "conferenceautocomplete",
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "country_code": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "place_name": {
@@ -53,6 +57,7 @@
       "alternative_titles": {
         "properties": {
           "source": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "subtitle": {
@@ -70,6 +75,7 @@
       },
       "cnum": {
         "copy_to": "conferenceautocomplete",
+        "normalizer": "lowercase_normalizer",
         "type": "keyword"
       },
       "conferenceautocomplete": {
@@ -107,9 +113,11 @@
       "external_system_identifiers": {
         "properties": {
           "schema": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "value": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           }
         },
@@ -118,9 +126,11 @@
       "inspire_categories": {
         "properties": {
           "source": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "term": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           }
         },
@@ -150,6 +160,7 @@
       "public_notes": {
         "properties": {
           "source": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "value": {
@@ -174,6 +185,7 @@
         "properties": {
           "name": {
             "copy_to": "seriesautocomplete",
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "number": {
@@ -188,6 +200,7 @@
       "short_description": {
         "properties": {
           "source": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "value": {
@@ -199,6 +212,7 @@
       "titles": {
         "properties": {
           "source": {
+            "normalizer": "lowercase_normalizer",
             "type": "keyword"
           },
           "subtitle": {
