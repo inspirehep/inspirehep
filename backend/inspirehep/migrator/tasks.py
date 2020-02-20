@@ -9,6 +9,7 @@
 import gzip
 import re
 import tarfile
+from concurrent.futures import TimeoutError as ThreadsTimeoutError
 from contextlib import closing
 
 import requests
@@ -270,6 +271,7 @@ def populate_mirror_from_file(source):
         OperationalError,
         InvalidRequestError,
         StatementError,
+        ThreadsTimeoutError,
     ),
 )
 def create_records_from_mirror_recids(self, recids):
@@ -293,9 +295,9 @@ def create_records_from_mirror_recids(self, recids):
             else:
                 LOGGER.warning("Record is empty", recid=recid)
         db.session.commit()
-    except (InvalidRequestError, OperationalError, StatementError):
+    except (InvalidRequestError, OperationalError, StatementError, ThreadsTimeoutError):
         LOGGER.exception(
-            "Cannot process whole record batch. Retrying.",
+            "Error during batch processing. Retrying.",
             processed_records=list(processed_records),
             recids=recids,
         )
@@ -480,6 +482,8 @@ def migrate_record_from_mirror(
         exc.args = (message,)
         prod_record.error = exc
         db.session.merge(prod_record)
+    except ThreadsTimeoutError:
+        raise
     except Exception as exc:
         logger.exception("Error while migrating record into mirror")
         prod_record.error = exc

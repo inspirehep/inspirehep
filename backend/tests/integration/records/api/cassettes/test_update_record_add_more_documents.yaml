@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1
+    uri: http://old.inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1
   response:
     body:
       string: !!binary |
@@ -13059,7 +13059,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1
+    uri: http://old.inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1
   response:
     body:
       string: !!binary |
@@ -26109,7 +26109,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf
+    uri: http://old.inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf
   response:
     body:
       string: !!binary |

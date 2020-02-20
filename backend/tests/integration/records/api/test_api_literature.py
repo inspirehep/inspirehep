@@ -1154,27 +1154,27 @@ def test_adding_record_with_duplicated_documents_and_figures(
             {
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "url": "http://old.inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
                 "original_url": "http://original-url.com/2",
                 "filename": "fermilab.pdf",
             },
             {
                 "source": "arxiv",
                 "key": "key2",
-                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "url": "http://old.inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
                 "original_url": "http://original-url.com/1",
                 "filename": "fermilab2.pdf",
             },
         ],
         "figures": [
             {
-                "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                "url": "https://old.inspirehep.net/record/1759380/files/channelxi3.png",
                 "key": "key",
                 "original_url": "http://original-url.com/3",
                 "filename": "channel.jpg",
             },
             {
-                "url": "https://inspirehep.net/record/1759380/files/channelxi3.png",
+                "url": "https://old.inspirehep.net/record/1759380/files/channelxi3.png",
                 "key": "key2",
                 "original_url": "http://original-url.com/4",
                 "filename": "channel2.jpg",
@@ -1182,7 +1182,7 @@ def test_adding_record_with_duplicated_documents_and_figures(
         ],
     }
     record = create_record("lit", data=data)
-    expected_documents = [
+    expected_documents1 = [
         {
             "source": "arxiv",
             "key": expected_document_key,
@@ -1191,7 +1191,18 @@ def test_adding_record_with_duplicated_documents_and_figures(
             "filename": "fermilab.pdf",
         }
     ]
-    expected_figures = [
+
+    expected_documents2 = [
+        {
+            "source": "arxiv",
+            "key": expected_document_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "original_url": "http://original-url.com/1",
+            "filename": "fermilab2.pdf",
+        }
+    ]
+
+    expected_figures1 = [
         {
             "key": expected_figure_key,
             "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
@@ -1199,8 +1210,24 @@ def test_adding_record_with_duplicated_documents_and_figures(
             "original_url": "http://original-url.com/3",
         }
     ]
-    assert record["figures"] == expected_figures
-    assert record["documents"] == expected_documents
+
+    expected_figures2 = [
+        {
+            "key": expected_figure_key,
+            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "filename": "channel2.jpg",
+            "original_url": "http://original-url.com/4",
+        }
+    ]
+
+    # Depending on which thread will be picked up first we can get one of 2 documents and one of 2 figures
+    assert (
+        record["figures"] == expected_figures1 or record["figures"] == expected_figures2
+    )
+    assert (
+        record["documents"] == expected_documents1
+        or record["documents"] == expected_documents2
+    )
     assert s3.file_exists(expected_figure_key) is True
     assert s3.file_exists(expected_document_key) is True
 
@@ -1471,7 +1498,7 @@ def test_update_record_add_more_documents(
             {
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+                "url": "http://old.inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
                 "original_url": "http://original-url.com/2",
                 "filename": "myfile.pdf",
             }
@@ -1484,14 +1511,14 @@ def test_update_record_add_more_documents(
             {
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
-                "url": "http://inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
+                "url": "http://old.inspirehep.net/record/212819/files/slac-pub-3557.pdf?version=1",
                 "original_url": "http://original-url.com/2",
                 "filename": "myfile.pdf",
             },
             {
                 "source": "arxiv",
                 "key": "key",
-                "url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
+                "url": "http://old.inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
                 "original_url": "http://original-url.com/2",
                 "filename": "fermilab.pdf",
             },

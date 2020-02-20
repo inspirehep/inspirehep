@@ -9,7 +9,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf
+    uri: http://old.inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf
   response:
     body:
       string: !!binary |
@@ -12448,7 +12448,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf
+    uri: http://old.inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf
   response:
     body:
       string: !!binary |
@@ -24887,7 +24887,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://inspirehep.net/record/1759380/files/channelxi3.png
+    uri: https://old.inspirehep.net/record/1759380/files/channelxi3.png
   response:
     body:
       string: !!binary |
@@ -25225,7 +25225,7 @@ interactions:
       Connection:
       - keep-alive
     method: GET
-    uri: https://inspirehep.net/record/1759380/files/channelxi3.png
+    uri: https://old.inspirehep.net/record/1759380/files/channelxi3.png
   response:
     body:
       string: !!binary |
