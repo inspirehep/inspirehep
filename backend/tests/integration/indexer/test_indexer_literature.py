@@ -101,6 +101,7 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
             {
                 "source": "arxiv",
                 "fulltext": True,
+                "hidden": True,
                 "key": "arXiv:nucl-th_9310030.pdf",
                 "url": "https://arxiv.org/pdf/1910.11662.pdf",
             },

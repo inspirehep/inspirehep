@@ -6,10 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 import os
+from time import sleep
 
 import pkg_resources
 import pytest
 import requests_mock
+from celery.exceptions import Retry
 from flask import current_app
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
@@ -27,8 +29,7 @@ from inspirehep.migrator.tasks import (
     populate_mirror_from_file,
     process_references_in_records,
 )
-from inspirehep.records.api import InspireRecord, JobsRecord, LiteratureRecord
-from inspirehep.records.errors import DownloadFileError
+from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.search.api import LiteratureSearch
 
 
@@ -571,3 +572,45 @@ def test_migrate_record_from_mirror_with_download_file_error_not_caused_by_inval
                 LegacyRecordsMirror.recid == 1313624
             ).one()
             assert record_mirror.error.startswith("DownloadFileError")
+
+
+@patch(
+    "inspirehep.migrator.tasks.create_records_from_mirror_recids.retry",
+    side_effect=Retry,
+)
+def test_create_record_from_mirror_recids_retries_on_timeout_error(
+    retry_mock, api_client, db, enable_files, s3
+):
+    raw_record_literature = (
+        b"<record>"
+        b'  <controlfield tag="001">666</controlfield>'
+        b'  <datafield tag="245" ind1=" " ind2=" ">'
+        b'    <subfield code="a">On the validity of INSPIRE records</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="980" ind1=" " ind2=" ">'
+        b'    <subfield code="a">HEP</subfield>'
+        b"  </datafield>"
+        b'  <datafield tag="FFT" ind1=" " ind2=" ">'
+        b'    <subfield code="a">/opt/cds-invenio/var/data/files/g97/1940001/content.pdf;2</subfield>'
+        b'    <subfield code="d"></subfield>'
+        b'    <subfield code="f">.pdf</subfield>'
+        b'    <subfield code="n">arXiv:1409.0794</subfield>'
+        b'    <subfield code="r"></subfield>'
+        b'    <subfield code="s">2015-01-12 03:41:58</subfield>'
+        b'    <subfield code="v">2</subfield>'
+        b'    <subfield code="z"></subfield>'
+        b"  </datafield>"
+        b"</record>"
+    )
+    record_literature = LegacyRecordsMirror.from_marcxml(raw_record_literature)
+    db.session.add(record_literature)
+    with patch.dict(
+        current_app.config, {"FILES_UPLOAD_THREAD_TIMEOUT": 1}
+    ), patch.object(s3, "is_s3_url") as is_s3_url_mock:
+
+        def sleep_2s(*args):
+            sleep(2)
+
+        is_s3_url_mock.side_effect = sleep_2s
+        with pytest.raises(Retry):
+            create_records_from_mirror_recids([666])

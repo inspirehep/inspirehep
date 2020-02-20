@@ -6,7 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import datetime
 import json
+import threading
 import uuid
+from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from io import BytesIO
 
 import magic
@@ -278,95 +280,165 @@ class LiteratureRecord(
         added_figures = self.add_figures(figures)
         if added_figures:
             data["figures"] = added_figures
-
         return data
+
+    def _generate_and_submit_files_tasks(self, files, executor):
+        """Generates task for processing files and submits them to executor"""
+        tasks = {}
+        for idx, file_data in enumerate(files):
+            tasks.update(
+                {
+                    executor.submit(
+                        self.add_file,
+                        current_app.app_context(),
+                        control_number=self.get("control_number"),
+                        uuid=self.id,
+                        **file_data,
+                    ): idx
+                }
+            )
+        return tasks
+
+    def _update_file_entry(self, file_data, add_file_func):
+        try:
+            add_file_func(**file_data)
+        except ValueError:
+            LOGGER.exception(
+                "Duplicated file found",
+                recid=self.get("control_number"),
+                uuid=self.id,
+                file=file_data.get("key"),
+            )
+
+    def _process_tasks_results(self, tasks, files):
+        try:
+            for future in as_completed(
+                tasks, timeout=current_app.config.get("FILES_UPLOAD_THREAD_TIMEOUT", 30)
+            ):
+                idx = tasks[future]
+                new_file_data = future.result()
+                files[idx].update(new_file_data)
+        except TimeoutError:
+            LOGGER.exception(
+                "Threads didn't return results on time",
+                recid=self.get("control_number"),
+                uuid=self.id,
+            )
+            raise
+        return files
 
     def add_documents(self, documents):
         builder = LiteratureBuilder()
-        for document in documents:
-            if not document.get("hidden", False):
-                new_file_data = self.add_file(**document)
-                document.update(new_file_data)
-            try:
-                builder.add_document(**document)
-            except ValueError:
-                LOGGER.exception(
-                    "Duplicated document found",
-                    recid=self.get("control_number"),
-                    uuid=self.id,
-                    document=document.get("key"),
-                )
+        documents_hidden = list(filter(lambda x: x.get("hidden", False), documents))
+        documents_to_process = list(
+            filter(lambda x: not x.get("hidden", False), documents)
+        )
+
+        for document in documents_hidden:
+            self._update_file_entry(document, builder.add_document)
+
+        with ThreadPoolExecutor(
+            max_workers=current_app.config.get("FILES_MAX_UPLOAD_THREADS", 5)
+        ) as executor:
+            tasks = self._generate_and_submit_files_tasks(
+                documents_to_process, executor
+            )
+            processed_documents = self._process_tasks_results(
+                tasks, documents_to_process
+            )
+        if processed_documents:
+            for document in processed_documents:
+                self._update_file_entry(document, builder.add_document)
         return builder.record.get("documents")
 
     def add_figures(self, figures):
         builder = LiteratureBuilder()
-        for figure in figures:
-            new_file_data = self.add_file(**figure)
-            figure.update(new_file_data)
-            try:
-                builder.add_figure(**figure)
-            except ValueError:
-                LOGGER.exception(
-                    "Duplicated figure found",
-                    recid=self.get("control_number"),
-                    uuid=self.id,
-                    figure=figure.get("key"),
-                )
+
+        with ThreadPoolExecutor(
+            max_workers=current_app.config.get("FILES_MAX_UPLOAD_THREADS", 5)
+        ) as executor:
+            tasks = self._generate_and_submit_files_tasks(figures, executor)
+            processed_figures = self._process_tasks_results(tasks, figures)
+        if processed_figures:
+            for document in processed_figures:
+                self._update_file_entry(document, builder.add_figure)
         return builder.record.get("figures")
 
+    @staticmethod
     def add_file(
-        self, url, original_url=None, key=None, filename=None, *args, **kwargs
+        app_context,
+        control_number,
+        uuid,
+        url,
+        original_url=None,
+        key=None,
+        filename=None,
+        *args,
+        **kwargs,
     ):
-        if current_s3_instance.is_s3_url(url) and not current_app.config.get(
-            "UPDATE_S3_FILES_METADATA", False
-        ):
-            result = {}
-            if key not in url:
-                filename = filename or key
-                key = url.split("/")[-1]
-                result.update({"key": key, "filename": filename})
-            LOGGER.info(
-                "File already on S3 - Skipping",
-                url=url,
-                key=key,
-                recid=self.get("control_number"),
-                uuid=self.id,
-            )
+        """Adds files to s3.
+
+        Args:
+            app_context: Original app context should be passed here if running in separate thread
+        """
+        with app_context.app.app_context():
+            if current_s3_instance.is_s3_url(url) and not current_app.config.get(
+                "UPDATE_S3_FILES_METADATA", False
+            ):
+                result = {}
+                if key not in url:
+                    filename = filename or key
+                    key = url.split("/")[-1]
+                    result.update({"key": key, "filename": filename})
+                LOGGER.info(
+                    "File already on S3 - Skipping",
+                    url=url,
+                    key=key,
+                    recid=control_number,
+                    uuid=uuid,
+                    thread=threading.get_ident(),
+                )
+                return result
+            file_data = download_file_from_url(url)
+            new_key = hash_data(file_data)
+            mimetype = magic.from_buffer(file_data, mime=True)
+            file_data = BytesIO(file_data)
+            filename = filename or key
+            acl = current_app.config["S3_FILE_ACL"]
+            if current_s3_instance.file_exists(new_key):
+                LOGGER.info(
+                    "Replacing file metadata",
+                    key=new_key,
+                    recid=control_number,
+                    uuid=uuid,
+                    thread=threading.get_ident(),
+                )
+                current_s3_instance.replace_file_metadata(
+                    new_key, filename, mimetype, acl
+                )
+            else:
+                LOGGER.info(
+                    "Uploading file to s3",
+                    key=new_key,
+                    recid=control_number,
+                    uuid=uuid,
+                    thread=threading.get_ident(),
+                )
+                current_s3_instance.upload_file(
+                    file_data, new_key, filename, mimetype, acl
+                )
+            result = {
+                "key": new_key,
+                "filename": filename,
+                "url": current_s3_instance.get_file_url(new_key),
+            }
+            if (
+                url.startswith("http")
+                and not current_s3_instance.is_s3_url(url)
+                and not original_url
+            ):
+                result["original_url"] = url
             return result
-        file_data = download_file_from_url(url)
-        new_key = hash_data(file_data)
-        mimetype = magic.from_buffer(file_data, mime=True)
-        file_data = BytesIO(file_data)
-        filename = filename or key
-        acl = current_app.config["S3_FILE_ACL"]
-        if current_s3_instance.file_exists(new_key):
-            LOGGER.info(
-                "Replacing file metadata",
-                key=new_key,
-                recid=self.get("control_number"),
-                uuid=self.id,
-            )
-            current_s3_instance.replace_file_metadata(new_key, filename, mimetype, acl)
-        else:
-            LOGGER.info(
-                "Uploading file to s3",
-                key=new_key,
-                recid=self.get("control_number"),
-                uuid=self.id,
-            )
-            current_s3_instance.upload_file(file_data, new_key, filename, mimetype, acl)
-        result = {
-            "key": new_key,
-            "filename": filename,
-            "url": current_s3_instance.get_file_url(new_key),
-        }
-        if (
-            url.startswith("http")
-            and not current_s3_instance.is_s3_url(url)
-            and not original_url
-        ):
-            result["original_url"] = url
-        return result
 
 
 def import_article(identifier):
