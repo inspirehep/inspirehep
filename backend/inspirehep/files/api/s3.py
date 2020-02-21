@@ -8,49 +8,43 @@
 import structlog
 from boto3.s3.transfer import TransferConfig
 from botocore.exceptions import ClientError
+from flask import current_app
 from werkzeug import secure_filename
 
 LOGGER = structlog.getLogger()
 
 
 class S3:
-    def __init__(
-        self,
-        client,
-        resource,
-        config=None,
-        s3_bucket_prefix=None,
-        s3_hostname=None,
-        s3_file_acl=None,
-    ):
+    def __init__(self, client, resource, config=None):
         self.client = client
         self.resource = resource
         if not config:
             config = TransferConfig(max_concurrency=1, use_threads=False)
         self.config = config
-        self.s3_bucket_prefix = s3_bucket_prefix
-        self.s3_hostname = s3_hostname
-        self.s3_file_acl = s3_file_acl
 
-    def get_bucket_for_file_key(self, key):
+    @staticmethod
+    def get_bucket_for_file_key(key):
         """Return the bucket for the given file key.
 
         :param key: the file key
         :return: bucket: The corresponding bucket.
         """
-        return self.get_prefixed_bucket(key[0])
+        return S3.get_prefixed_bucket(key[0])
 
-    def get_prefixed_bucket(self, bucket_without_prefix):
+    @staticmethod
+    def get_prefixed_bucket(bucket_without_prefix):
         """Returns prefixed bucket for given bucket"""
-        return f"{self.s3_bucket_prefix}{bucket_without_prefix}"
 
-    def is_s3_url(self, url):
+        return f"{current_app.config.get('S3_BUCKET_PREFIX')}{bucket_without_prefix}"
+
+    @staticmethod
+    def is_s3_url(url):
         """Checks if the url is an S3 url.
 
         :param url: the given url.
         :return: boolean
         """
-        return url.startswith(self.s3_hostname)
+        return url.startswith(current_app.config.get("S3_HOSTNAME"))
 
     def upload_file(self, data, key, filename, mimetype, acl):
         """Upload a file in s3 bucket with the given metadata
@@ -94,13 +88,14 @@ class S3:
             LOGGER.warning(exc=e, key=key)
             raise
 
-    def get_file_url(self, key):
+    @staticmethod
+    def get_file_url(key):
         """Returns the S3 link for the file.
 
         :param key: the key of the file.
         :return: string: the s3 link for the file
         """
-        return f"{self.s3_hostname}/{self.get_bucket_for_file_key(key)}/{key}"
+        return f"{current_app.config.get('S3_HOSTNAME')}/{S3.get_bucket_for_file_key(key)}/{key}"
 
     @staticmethod
     def get_content_disposition(filename):
@@ -163,5 +158,6 @@ class S3:
 
     def create_bucket(self, bucket):
         return self.client.create_bucket(
-            Bucket=self.get_prefixed_bucket(bucket), ACL=self.s3_file_acl
+            Bucket=self.get_prefixed_bucket(bucket),
+            ACL=current_app.config.get("S3_FILE_ACL"),
         )

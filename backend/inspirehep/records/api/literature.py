@@ -6,12 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import datetime
 import json
+import threading
 import uuid
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from concurrent.futures._base import TimeoutError
+from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from io import BytesIO
 
-import boto3
 import magic
 import requests
 import structlog
@@ -26,7 +25,7 @@ from inspire_utils.record import get_value
 from invenio_db import db
 from redis import StrictRedis
 
-from inspirehep.files.api.s3 import S3
+from inspirehep.files.api import current_s3_instance
 from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import (
@@ -286,26 +285,34 @@ class LiteratureRecord(
 
     def add_documents(self, documents):
         builder = LiteratureBuilder()
-        aws_session_params = {
-            "aws_access_key_id": current_app.config.get("S3_ACCESS_KEY"),
-            "aws_secret_access_key": current_app.config.get("S3_SECRET_KEY"),
-        }
-        with ThreadPoolExecutor() as executor:
-            tasks = {
-                executor.submit(
-                    self.add_file,
-                    aws_session_params,
-                    current_app.config.get("S3_BUCKET_PREFIX"),
-                    current_app.config.get("S3_HOSTNAME"),
-                    current_app.config.get("S3_FILE_ACL"),
-                    force_upload=current_app.config.get("POC_FORCE_UPLOAD", False),
-                    **document,
-                ): idx
-                for idx, document in enumerate(documents)
-                if not document.get("hidden", False)
-            }
+        with ThreadPoolExecutor(
+            max_workers=current_app.config.get("FILES_MAX_UPLOAD_THREADS", 5)
+        ) as executor:
+            tasks = {}
+            for idx, document in enumerate(documents):
+                if not document.get("hidden", False):
+                    tasks.update(
+                        {
+                            executor.submit(
+                                self.add_file, current_app.app_context(), **document
+                            ): idx
+                        }
+                    )
+                else:
+                    try:
+                        builder.add_document(**document)
+                    except ValueError:
+                        LOGGER.exception(
+                            "Duplicated document found",
+                            recid=self.get("control_number"),
+                            uuid=self.id,
+                            document=document.get("key"),
+                        )
             try:
-                for future in as_completed(tasks, timeout=30):
+                for future in as_completed(
+                    tasks,
+                    timeout=current_app.config.get("FILES_UPLOAD_THREAD_TIMEOUT", 30),
+                ):
                     idx = tasks[future]
                     new_file_data = future.result()
                     documents[idx].update(new_file_data)
@@ -328,25 +335,18 @@ class LiteratureRecord(
 
     def add_figures(self, figures):
         builder = LiteratureBuilder()
-        aws_session_params = {
-            "aws_access_key_id": current_app.config.get("S3_ACCESS_KEY"),
-            "aws_secret_access_key": current_app.config.get("S3_SECRET_KEY"),
-        }
-        with ThreadPoolExecutor() as executor:
+        with ThreadPoolExecutor(
+            max_workers=current_app.config.get("FILES_MAX_UPLOAD_THREADS", 5)
+        ) as executor:
             tasks = {
-                executor.submit(
-                    self.add_file,
-                    aws_session_params,
-                    current_app.config.get("S3_BUCKET_PREFIX"),
-                    current_app.config.get("S3_HOSTNAME"),
-                    current_app.config.get("S3_FILE_ACL"),
-                    force_upload=current_app.config.get("POC_FORCE_UPLOAD", False),
-                    **figure,
-                ): idx
+                executor.submit(self.add_file, current_app.app_context(), **figure): idx
                 for idx, figure in enumerate(figures)
             }
             try:
-                for future in as_completed(tasks, timeout=30):
+                for future in as_completed(
+                    tasks,
+                    timeout=current_app.config.get("FILES_UPLOAD_THREAD_TIMEOUT", 30),
+                ):
                     idx = tasks[future]
                     new_file_data = future.result()
                     figures[idx].update(new_file_data)
@@ -369,69 +369,57 @@ class LiteratureRecord(
 
     @staticmethod
     def add_file(
-        aws_session_params,
-        s3_bucket_prefix,
-        s3_hostname,
-        s3_acl,
-        url,
-        original_url=None,
-        key=None,
-        filename=None,
-        force_upload=False,
-        *args,
-        **kwargs,
+        app_context, url, original_url=None, key=None, filename=None, *args, **kwargs
     ):
         """Adds files to s3. Should be called in separate thread
 
             aws_session_params (dict): requires
         """
-        session = boto3.session.Session(**aws_session_params)
-        s3_client = session.client("s3", endpoint_url=s3_hostname, **aws_session_params)
-        s3_instance = S3(
-            client=s3_client,
-            resource=None,
-            s3_bucket_prefix=s3_bucket_prefix,
-            s3_hostname=s3_hostname,
-            s3_file_acl=s3_acl,
-        )
-
-        file_data = download_file_from_url(url)
-        new_key = hash_data(file_data)
-        mimetype = magic.from_buffer(file_data, mime=True)
-        size = len(file_data)
-        file_data = BytesIO(file_data)
-        filename = filename or key
-        acl = s3_acl
-        if not force_upload and s3_instance.file_exists(new_key):
-            LOGGER.info(
-                "Replacing file metadata",
-                key=new_key,
-                recid=kwargs.get("control_number"),
-                uuid=kwargs.get("id"),
-            )
-            s3_instance.replace_file_metadata(new_key, filename, mimetype, acl)
-        else:
-            LOGGER.info(
-                "Uploading file to s3",
-                key=new_key,
-                recid=kwargs.get("control_number"),
-                uuid=kwargs.get("id"),
-            )
-            s3_instance.upload_file(file_data, new_key, filename, mimetype, acl)
-        result = {
-            "key": new_key,
-            "filename": filename,
-            "url": s3_instance.get_file_url(new_key),
-            "mimetype": mimetype,
-            "size": size,
-        }
-        if (
-            url.startswith("http")
-            and not s3_instance.is_s3_url(url)
-            and not original_url
-        ):
-            result["original_url"] = url
-        return result
+        with app_context.app.app_context():
+            force_upload = current_app.config.get("FILES_FORCE_UPLOAD", False)
+            file_data = download_file_from_url(url)
+            new_key = hash_data(file_data)
+            mimetype = magic.from_buffer(file_data, mime=True)
+            size = len(file_data)
+            file_data = BytesIO(file_data)
+            filename = filename or key
+            acl = current_app.config["S3_FILE_ACL"]
+            if not force_upload and current_s3_instance.file_exists(new_key):
+                LOGGER.info(
+                    "Replacing file metadata",
+                    key=new_key,
+                    recid=kwargs.get("control_number"),
+                    uuid=kwargs.get("id"),
+                    thread=threading.get_ident(),
+                )
+                current_s3_instance.replace_file_metadata(
+                    new_key, filename, mimetype, acl
+                )
+            else:
+                LOGGER.info(
+                    "Uploading file to s3",
+                    key=new_key,
+                    recid=kwargs.get("control_number"),
+                    uuid=kwargs.get("id"),
+                    thread=threading.get_ident(),
+                )
+                current_s3_instance.upload_file(
+                    file_data, new_key, filename, mimetype, acl
+                )
+            result = {
+                "key": new_key,
+                "filename": filename,
+                "url": current_s3_instance.get_file_url(new_key),
+                "mimetype": mimetype,
+                "size": size,
+            }
+            if (
+                url.startswith("http")
+                and not current_s3_instance.is_s3_url(url)
+                and not original_url
+            ):
+                result["original_url"] = url
+            return result
 
 
 def import_article(identifier):
