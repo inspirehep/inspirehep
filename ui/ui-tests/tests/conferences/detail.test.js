@@ -1,6 +1,6 @@
 const { routes, selectors } = require('../../utils/constants');
 const { createPollyInstance } = require('../../utils/polly');
-const { login, logout } = require('../../utils/user');
+const { getMetaDescription } = require('../../utils/dom');
 const {
   takeScreenShotForDesktop,
   takeScreenShotForMobile,
@@ -9,14 +9,10 @@ const {
 describe('Conference Detail', () => {
   let polly;
 
-  beforeAll(async () => {
-    await login();
-  });
-
   beforeEach(async () => {
     polly = await createPollyInstance('ConferenceDetail');
 
-    await page.goto(routes.public.conferenceDetail1203206, {
+    await page.goto(routes.public.conferenceDetail1339293, {
       waitUntil: 'networkidle0',
     });
   });
@@ -35,15 +31,16 @@ describe('Conference Detail', () => {
     const documentTitle = await page.title();
 
     expect(documentTitle).toMatch(
-      /^37th International Conference on High Energy Physics/
+      /^4th International Conference on Micro Pattern Gaseous Detectors/
     );
+  });
+
+  it('sets conference short description as meta description', async () => {
+    const metaDescription = await getMetaDescription(page);
+    expect(metaDescription).toMatchSnapshot();
   });
 
   afterEach(async () => {
     await polly.stop();
-  });
-
-  afterAll(async () => {
-    await logout();
   });
 });

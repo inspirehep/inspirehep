@@ -16,6 +16,7 @@ import AuthorAffiliationList from '../../common/components/AuthorAffiliationList
 import {
   getCurrentAffiliationsFromPositions,
   getAuthorDisplayName,
+  getAuthorMetaDescription,
 } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
@@ -104,9 +105,11 @@ function DetailPage({
   const emails = metadata.get('email_addresses');
   const deleted = metadata.get('deleted', false);
 
+  // TODO: maybe memoize (in other detail pages too) after "if (!metadata)" condition above is removed
+  const metaDescription = getAuthorMetaDescription(metadata);
   return (
     <>
-      <DocumentHead title={getAuthorDisplayName(name)} />
+      <DocumentHead title={getAuthorDisplayName(name)} description={metaDescription}/>
       <Row className="mv3" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Alert

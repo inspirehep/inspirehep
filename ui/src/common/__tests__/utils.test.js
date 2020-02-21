@@ -20,6 +20,7 @@ import pluralizeUnlessSingle, {
   getRecordIdFromRef,
   downloadTextAsFile,
   addOrdinalSuffix,
+  makeCompliantMetaDescription,
 } from '../utils';
 
 describe('utils', () => {
@@ -608,6 +609,26 @@ describe('utils', () => {
       ];
       const output = input.map(addOrdinalSuffix);
       expect(output).toEqual(expectedOutput);
+    });
+  });
+
+  describe('makeCompliantMetaDescription', () => {
+    it('strips html tags and truncates to 160 chars', () => {
+      const input = 'Lorem <strong>ipsum</strong> dolor sit <a href="/link">amet</a>, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+      const expectedOutput = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos...'
+      const output = makeCompliantMetaDescription(input)
+      expect(output).toEqual(expectedOutput);
+    });
+
+    it('does not do anything if input does not include any html tags and shorter than 160 chars', () => {
+      const input = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+      const output = makeCompliantMetaDescription(input)
+      expect(output).toEqual(input);
+    });
+
+    it('returns empty if undefine is passed', () => {
+      const output = makeCompliantMetaDescription(undefined)
+      expect(output).toEqual('');
     });
   });
 });

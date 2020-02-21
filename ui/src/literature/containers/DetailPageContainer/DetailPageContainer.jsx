@@ -44,6 +44,7 @@ import PublicNotesList from '../../../common/components/PublicNotesList';
 import UrlsAction from '../../components/UrlsAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
 import SupervisorList from '../../components/SupervisorList';
+import { makeCompliantMetaDescription } from '../../../common/utils';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -114,14 +115,14 @@ class DetailPage extends Component {
     const authorCount = metadata.get('author_count');
 
     const canEdit = metadata.get('can_edit', false);
-
     const figures = metadata.get('figures');
-
     const deleted = metadata.get('deleted', false);
+
+    const metaDescription = makeCompliantMetaDescription(abstract.get('value'));
 
     return (
       <>
-        <DocumentHead title={title.get('title')} />
+        <DocumentHead title={title.get('title')} description={metaDescription}/>
         <Row className="__DetailPage__" type="flex" justify="center">
           <Col xs={24} md={22} lg={21} xxl={18}>
             <Row

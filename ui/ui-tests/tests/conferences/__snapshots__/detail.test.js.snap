@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Conference Detail sets conference short description as meta description 1`] = `"The modern photolithographic technology on flexible and standard PCB supports has allowed the invention and development of novel and very robust Micro-Patter..."`;

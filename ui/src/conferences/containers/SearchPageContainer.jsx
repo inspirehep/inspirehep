@@ -16,6 +16,9 @@ import { CONFERENCES_NS } from '../../reducers/search';
 import ConferenceItem from '../components/ConferenceItem';
 import ConferenceStartDateFilterContainer from './ConferenceStartDateFilterContainer';
 
+const META_DESCRIPTION = "Find conferences in High Energy Physics"
+const TITLE = "Conferences Search"
+
 function renderConferenceItem(result) {
   return <ConferenceItem metadata={result.get('metadata')} />;
 }
@@ -38,7 +41,7 @@ function ConferenceSearchPage({ loading, loadingAggregations }) {
 
   return (
     <>
-      <DocumentHead title="Conferences Search" />
+      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row>
         <Col xs={24} lg={22} xl={20} xxl={18}>
           <Row className="mt3" gutter={32} type="flex" justify="start">

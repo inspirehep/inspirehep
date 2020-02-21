@@ -1,5 +1,6 @@
 const { routes } = require('../../utils/constants');
 const { createPollyInstance } = require('../../utils/polly');
+const { getMetaDescription } = require('../../utils/dom');
 const {
   takeScreenShotForDesktop,
   takeScreenShotForMobile,
@@ -28,6 +29,11 @@ describe('Literature Detail', () => {
     const documentTitle = await page.title();
 
     expect(documentTitle).toMatch(/^Estimating/);
+  });
+
+  it('sets abstract as meta description', async () => {
+    const metaDescription = await getMetaDescription(page);
+    expect(metaDescription).toMatchSnapshot();
   });
 
   afterEach(async () => {

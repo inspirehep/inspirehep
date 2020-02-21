@@ -1,5 +1,6 @@
 const { routes, selectors } = require('../../utils/constants');
 const { createPollyInstance } = require('../../utils/polly');
+const { getMetaDescription } = require('../../utils/dom');
 const { login, logout } = require('../../utils/user');
 const {
   takeScreenShotForDesktop,
@@ -35,6 +36,11 @@ describe('Author Detail', () => {
     const documentTitle = await page.title();
 
     expect(documentTitle).toMatch(/^Grit Hotzel/);
+  });
+
+  it('sets "author brief" as meta description', async () => {
+    const metaDescription = await getMetaDescription(page);
+    expect(metaDescription).toMatchSnapshot();
   });
 
   afterEach(async () => {

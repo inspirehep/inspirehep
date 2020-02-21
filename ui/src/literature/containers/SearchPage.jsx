@@ -6,11 +6,14 @@ import { LITERATURE_NS } from '../../reducers/search';
 import DocumentHead from '../../common/components/DocumentHead';
 import ExternalLink from '../../common/components/ExternalLink';
 
+const META_DESCRIPTION = "Find articles, conference papers, proceedings, books, theses, reviews, lectures and reports in High Energy Physics"
+const TITLE = "Literature Search"
+
 // TODO: move it out from containers
 function SearchPage() {
   return (
     <>
-      <DocumentHead title="Literature Search" />
+      <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row>
         <Col xs={24} lg={22} xl={20} xxl={18}>
           <LiteratureSearchContainer
