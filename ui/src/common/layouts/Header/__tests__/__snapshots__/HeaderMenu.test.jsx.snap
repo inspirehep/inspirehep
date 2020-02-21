@@ -41,6 +41,16 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
         Literature
       </Link>
     </MenuItem>
+    <MenuItem
+      key="submit.conference"
+    >
+      <Link
+        replace={false}
+        to="/submissions/conferences"
+      >
+        Conference
+      </Link>
+    </MenuItem>
   </SubMenu>
   <SubMenu
     key="tools"
@@ -127,6 +137,16 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
         to="/submissions/literature"
       >
         Literature
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.conference"
+    >
+      <Link
+        replace={false}
+        to="/submissions/conferences"
+      >
+        Conference
       </Link>
     </MenuItem>
   </SubMenu>

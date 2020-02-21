@@ -40,6 +40,7 @@ export const EDIT_CONFERENCE = '/editor/record/conferences';
 export function isBetaRoute(locationPathname) {
   return !(
     locationPathname.startsWith(SUBMISSIONS) ||
-    locationPathname.startsWith(JOBS)
+    locationPathname.startsWith(JOBS) ||
+    locationPathname.startsWith(CONFERENCES)
   );
 }
