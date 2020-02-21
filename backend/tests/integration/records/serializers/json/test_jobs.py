@@ -7,6 +7,7 @@
 import json
 from copy import deepcopy
 
+from freezegun import freeze_time
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
 
@@ -83,7 +84,6 @@ def test_jobs_json_author_can_edit_but_random_user_cant(
 
     jobs_author = create_user(email="georgews@ntu.com")
     login_user_via_session(api_client, email=jobs_author.email)
-
     response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
@@ -99,6 +99,62 @@ def test_jobs_json_author_can_edit_but_random_user_cant(
 
     response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
     response_data_metadata = json.loads(response.data)["metadata"]
+
+    assert "can_edit" not in response_data_metadata
+
+
+@freeze_time("2020-02-01")
+def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadline(
+    api_client, db, es_clear, create_record, datadir, create_user, logout
+):
+    headers = {"Accept": "application/json"}
+
+    data = json.loads((datadir / "955427.json").read_text())
+    data["deadline_date"] = "2020-01-15"
+    data["status"] = "closed"
+
+    record = create_record("job", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = deepcopy(record)
+    expected_result["can_edit"] = True
+
+    jobs_author = create_user(email="georgews@ntu.com")
+    login_user_via_session(api_client, email=jobs_author.email)
+    response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
+    response_status_code = response.status_code
+    response_data_metadata = json.loads(response.data)["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
+
+
+@freeze_time("2020-02-01")
+def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_deadline(
+    api_client, db, es_clear, create_record, datadir, create_user, logout
+):
+    headers = {"Accept": "application/json"}
+
+    data = json.loads((datadir / "955427.json").read_text())
+    data["deadline_date"] = "2019-06-01"
+    data["status"] = "closed"
+    record = create_record("job", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = deepcopy(record)
+
+    jobs_author = create_user(email="georgews@ntu.com")
+    login_user_via_session(api_client, email=jobs_author.email)
+
+    response = api_client.get(f"/jobs/{record_control_number}", headers=headers)
+
+    response_status_code = response.status_code
+    response_data_metadata = json.loads(response.data)["metadata"]
+
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data_metadata
 
     assert "can_edit" not in response_data_metadata
 

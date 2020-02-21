@@ -27,7 +27,7 @@ class Job(Schema):
     description = fields.Raw()
 
     @pre_dump
-    def before_dump(self, data) -> dict:
+    def before_dump(self, data):
         """Process JobRecord for serializer.
 
         Args:
@@ -65,7 +65,7 @@ class Job(Schema):
         return processed_data
 
     @post_load
-    def build_job(self, data) -> dict:
+    def build_job(self, data):
         """Process data from the form and build record data form it.
 
         Args:
