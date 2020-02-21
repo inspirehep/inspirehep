@@ -33,6 +33,7 @@ from .loaders import job_v1 as job_loader_v1
 from .marshmallow import Author, Literature
 from .serializers import author_v1, job_v1  # TODO: use literature_v1 from serializers
 from .tasks import async_create_ticket_with_template
+from .utils import has_30_days_passed_after_deadline
 
 blueprint = Blueprint("inspirehep_submissions", __name__, url_prefix="/submissions")
 
@@ -208,7 +209,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         serialized_record = job_v1.dump(record)
         deadline = serialized_record.get("deadline_date")
 
-        can_modify_status = is_superuser_or_cataloger_logged_in() or not self.has_30_days_passed_after_deadline(
+        can_modify_status = is_superuser_or_cataloger_logged_in() or not has_30_days_passed_after_deadline(
             deadline
         )
         return jsonify(
@@ -270,7 +271,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         )
         can_change_status = (
             is_change_to_new_status_allowed
-            and not self.has_30_days_passed_after_deadline(deadline)
+            and not has_30_days_passed_after_deadline(deadline)
         )
 
         if has_status_changed and not can_change_status:
@@ -314,11 +315,6 @@ class JobSubmissionsResource(BaseSubmissionsResource):
         record_data.update(data)
         builder = JobBuilder(record=record_data)
         return builder
-
-    def has_30_days_passed_after_deadline(self, deadline):
-        deadline_date = datetime.datetime.strptime(deadline, "%Y-%m-%d").date()
-        days_after_deadline = (datetime.date.today() - deadline_date).days
-        return days_after_deadline >= 30
 
     def get_valid_record_data_from_builder(self, builder):
         try:

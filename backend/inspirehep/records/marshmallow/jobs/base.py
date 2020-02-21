@@ -14,6 +14,7 @@ from inspirehep.accounts.api import (
 )
 from inspirehep.records.marshmallow.base import RecordBaseSchema
 from inspirehep.records.marshmallow.common import AcceleratorExperimentSchemaV1
+from inspirehep.submissions.utils import has_30_days_passed_after_deadline
 
 
 class JobsRawSchema(RecordBaseSchema):
@@ -49,8 +50,19 @@ class JobsRawSchema(RecordBaseSchema):
         """
         if is_superuser_or_cataloger_logged_in():
             return True
+
         email = get_value(data, "acquisition_source.email")
-        return data.get("status") != "closed" and is_loggedin_user_email(email)
+        if not is_loggedin_user_email(email):
+            return False
+
+        status = get_value(data, "status")
+        if status != "closed":
+            return True
+
+        deadline = get_value(data, "deadline_date")
+        if status == "closed" and not has_30_days_passed_after_deadline(deadline):
+            return True
+        return False
 
 
 class JobsAdminSchema(JobsRawSchema):
