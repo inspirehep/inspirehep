@@ -22,6 +22,7 @@ import ConferenceContributions from '../components/ConferenceContributions';
 import { newSearch } from '../../actions/search';
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
 import DeletedAlert from '../../common/components/DeletedAlert';
+import { makeCompliantMetaDescription } from '../../common/utils';
 
 function DetailPage({ loading, match, dispatch, record }) {
   const recordId = match.params.id;
@@ -58,9 +59,11 @@ function DetailPage({ loading, match, dispatch, record }) {
   const canEdit = metadata.get('can_edit', false);
   const deleted = metadata.get('deleted', false);
 
+  const metaDescription = makeCompliantMetaDescription(description);
+
   return (
     <>
-      <DocumentHead title={title.get('title')} />
+      <DocumentHead title={title.get('title')} description={metaDescription} />
       <Row type="flex" justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox

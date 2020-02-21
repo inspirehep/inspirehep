@@ -1,4 +1,5 @@
 const { routes } = require('../../utils/constants');
+const { getMetaDescription } = require('../../utils/dom');
 const { createPollyInstance } = require('../../utils/polly');
 const { mockPageDateForNextNavigation } = require('../../utils/date');
 const {
@@ -31,6 +32,11 @@ describe('Job Detail', () => {
     const documentTitle = await page.title();
 
     expect(documentTitle).toMatch(/^Director-General/);
+  });
+
+  it('sets job description as meta description', async () => {
+    const metaDescription = await getMetaDescription(page);
+    expect(metaDescription).toMatchSnapshot();
   });
 
   afterEach(async () => {

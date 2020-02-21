@@ -16,6 +16,10 @@ import SubscribeJobsModalButton from '../components/SubscribeJobsModalButton';
 import DocumentHead from '../../common/components/DocumentHead';
 import { JOBS_NS } from '../../reducers/search';
 
+
+const META_DESCRIPTION = "Jobs in High-Energy Physics. A listing of academic and research jobs of interest to the community in high energy physics, nuclear physics, accelerator physics and astrophysics."
+const TITLE = "Jobs Search"
+
 class SearchPage extends Component {
   static renderJobResultItem(result) {
     return (
@@ -75,10 +79,7 @@ class SearchPage extends Component {
     const { loading } = this.props;
     return (
       <>
-        <DocumentHead
-          title="Jobs Search"
-          description="Jobs in High-Energy Physics. A listing of academic and research jobs of interest to the community in high energy physics, nuclear physics, accelerator physics and astrophysics."
-        />
+        <DocumentHead title={TITLE} description={META_DESCRIPTION} />
         <div>
           <Row className="bg-white mb3" type="flex" justify="center">
             <Col xs={0} lg={16} xl={16} xxl={14}>

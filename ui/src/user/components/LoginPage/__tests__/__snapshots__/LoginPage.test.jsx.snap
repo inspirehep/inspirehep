@@ -1,55 +1,61 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`LoginPage renders page 1`] = `
-<Row
-  align="middle"
-  className="__LoginPage__ h-100"
-  gutter={0}
-  justify="center"
-  type="flex"
->
-  <Card
+<Fragment>
+  <DocumentHead
+    description="Log in to your INSPIRE account. Log in with ORCID"
+    title="Login"
+  />
+  <Row
     align="middle"
+    className="__LoginPage__ h-100"
+    gutter={0}
+    justify="center"
+    type="flex"
   >
-    <p
-      className="f4"
+    <Card
+      align="middle"
     >
-      Please sign in to INSPIRE
-    </p>
-    <p
-      className="pb2"
-    >
-      To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at
-       
-      <ExternalLink
-        href="https://orcid.org/register!"
+      <p
+        className="f4"
       >
-        https://orcid.org/register
+        Please sign in to INSPIRE
+      </p>
+      <p
+        className="pb2"
+      >
+        To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at
+         
+        <ExternalLink
+          href="https://orcid.org/register!"
+        >
+          https://orcid.org/register
+        </ExternalLink>
+      </p>
+      <Button
+        block={false}
+        className="login-button h3"
+        ghost={false}
+        htmlType="button"
+        loading={false}
+        onClick={[MockFunction]}
+      >
+        <img
+          alt="ORCID"
+          className="logo mr2"
+          src="orcid.svg"
+        />
+        <strong>
+          Login with ORCID
+        </strong>
+      </Button>
+      <ExternalLink
+        className="db pt3"
+        href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid/"
+      >
+        What is ORCID?
       </ExternalLink>
-    </p>
-    <Button
-      block={false}
-      className="login-button h3"
-      ghost={false}
-      htmlType="button"
-      loading={false}
-      onClick={[MockFunction]}
-    >
-      <img
-        alt="ORCID"
-        className="logo mr2"
-        src="orcid.svg"
-      />
-      <strong>
-        Login with ORCID
-      </strong>
-    </Button>
-    <ExternalLink
-      className="db pt3"
-      href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid/"
-    >
-      What is ORCID?
-    </ExternalLink>
-  </Card>
-</Row>
+    </Card>
+  </Row>
+</Fragment>
 `;

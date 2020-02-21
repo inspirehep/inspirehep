@@ -26,6 +26,7 @@ import {
 } from '../../common/components/InlineList';
 import JobStatusAlert from '../components/JobStatusAlert';
 import DeletedAlert from '../../common/components/DeletedAlert';
+import { makeCompliantMetaDescription } from '../../common/utils';
 
 class DetailPage extends Component {
   componentDidMount() {
@@ -70,9 +71,11 @@ class DetailPage extends Component {
     const externalJobId = metadata.get('external_job_identifier');
     const deleted = metadata.get('deleted', false);
 
+    const metaDescription = makeCompliantMetaDescription(description);
+
     return (
       <>
-        <DocumentHead title={position} />
+        <DocumentHead title={position} description={metaDescription} />
         <Row type="flex" justify="center">
           <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
             <ContentBox
