@@ -1,4 +1,5 @@
 import structlog
+from inspire_utils.date import fill_missing_date_parts
 from invenio_db import db
 from sqlalchemy import func, or_
 
@@ -103,7 +104,7 @@ class CitationMixin:
         records_uuids = self.get_records_ids_by_pids(proper_records_pids)
         referenced_records = set()
         references_waiting_for_commit = []
-        citation_date = self.earliest_date
+        citation_date = fill_missing_date_parts(self.earliest_date)
         for reference in records_uuids:
             if reference not in referenced_records:
                 referenced_records.add(reference)

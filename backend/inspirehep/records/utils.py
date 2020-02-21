@@ -26,8 +26,7 @@ from inspirehep.utils import get_inspirehep_url
 
 
 def get_literature_earliest_date(data):
-    """Returns earliest date. If earliest date is missing month or day
-    it's set as 1 as DB does not accept date without day or month
+    """Returns earliest date.
 
     Returns:
         str: earliest date represented in a string
@@ -49,7 +48,7 @@ def get_literature_earliest_date(data):
     ]
 
     if dates:
-        result = earliest_date(dates, full_date=True)
+        result = earliest_date(dates)
         if result:
             return result
 
