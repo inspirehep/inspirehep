@@ -298,6 +298,7 @@ class LiteratureRecord(
                     current_app.config.get("S3_BUCKET_PREFIX"),
                     current_app.config.get("S3_HOSTNAME"),
                     current_app.config.get("S3_FILE_ACL"),
+                    force_upload=current_app.config.get("POC_FORCE_UPLOAD", False),
                     **document,
                 ): idx
                 for idx, document in enumerate(documents)
@@ -339,6 +340,7 @@ class LiteratureRecord(
                     current_app.config.get("S3_BUCKET_PREFIX"),
                     current_app.config.get("S3_HOSTNAME"),
                     current_app.config.get("S3_FILE_ACL"),
+                    force_upload=current_app.config.get("POC_FORCE_UPLOAD", False),
                     **figure,
                 ): idx
                 for idx, figure in enumerate(figures)
@@ -375,6 +377,7 @@ class LiteratureRecord(
         original_url=None,
         key=None,
         filename=None,
+        force_upload=False,
         *args,
         **kwargs,
     ):
@@ -399,7 +402,7 @@ class LiteratureRecord(
         file_data = BytesIO(file_data)
         filename = filename or key
         acl = s3_acl
-        if s3_instance.file_exists(new_key):
+        if not force_upload and s3_instance.file_exists(new_key):
             LOGGER.info(
                 "Replacing file metadata",
                 key=new_key,
