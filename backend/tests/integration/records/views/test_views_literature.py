@@ -148,7 +148,7 @@ def test_literature_citations(api_client, db, es_clear, create_record):
                 {
                     "control_number": record_citing_control_number,
                     "titles": record_citing_titles,
-                    "earliest_date": "2019-01-01",
+                    "earliest_date": "2019",
                     "publication_info": [{"year": 2019}],
                 }
             ],
@@ -215,7 +215,7 @@ def test_literature_citations_with_superseded_citing_records(
     expected_count = 1
     expected_citation_citing = {
         "control_number": record_citing_control_number,
-        "earliest_date": "2019-01-01",
+        "earliest_date": "2019",
         "publication_info": [{"year": 2019}],
         "titles": record_citing_titles,
     }
