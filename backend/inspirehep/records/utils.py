@@ -87,7 +87,9 @@ def download_file_from_url(url):
     max_retries = current_app.config.get("FILES_DOWNLOAD_MAX_RETRIES", 3)
     try:
         request = requests_retry_session(retries=max_retries).get(
-            download_url, stream=True
+            download_url,
+            stream=True,
+            timeout=current_app.config.get("FILES_DOWNLOAD_TIMEOUT", 60),
         )
         request.raise_for_status()
     except requests.exceptions.RequestException as exc:

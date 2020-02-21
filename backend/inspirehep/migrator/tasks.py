@@ -13,6 +13,7 @@ from contextlib import closing
 
 import requests
 import structlog
+from billiard.exceptions import SoftTimeLimitExceeded
 from celery import chord, shared_task
 from celery.result import AsyncResult
 from click import echo
@@ -259,8 +260,18 @@ def populate_mirror_from_file(source):
         echo(f"Inserted {inserted_records} records into mirror")
 
 
-@shared_task(ignore_result=False, queue="migrator", acks_late=True)
-def create_records_from_mirror_recids(recids):
+@shared_task(
+    ignore_result=False,
+    queue="migrator",
+    acks_late=True,
+    soft_time_limit=60 * 60,
+    time_limit=120 * 60,
+    bind=True,
+    retry_backoff=2,
+    retry_kwargs={"max_retries": 6},
+    autoretry_for=(SoftTimeLimitExceeded,),
+)
+def create_records_from_mirror_recids(self, recids):
     """Task which migrates records
     Args:
         recids: records uuids to remigrate
