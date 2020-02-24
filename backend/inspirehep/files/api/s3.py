@@ -4,6 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import datetime
+import threading
 
 import structlog
 from boto3.s3.transfer import TransferConfig
@@ -56,6 +58,10 @@ class S3:
         :param acl: the access control list for the file.
         :return: dict
         """
+        LOGGER.info(
+            "Uploading file", key=key, filename=filename, thread=threading.get_ident()
+        )
+        _start_time = datetime.now()
         try:
             response = self.client.upload_fileobj(
                 data,
@@ -68,9 +74,18 @@ class S3:
                 },
                 Config=self.config,
             )
+            _time = (datetime.now() - _start_time).total_seconds()
+            LOGGER.info(
+                "Upload finished",
+                key=key,
+                filename=filename,
+                thread=threading.get_ident(),
+                took=_time,
+            )
             return response
         except ClientError as e:
-            LOGGER.warning(exc=e, key=key)
+            _time = (datetime.now() - _start_time).total_seconds()
+            LOGGER.warning(exc=e, key=key, took=_time, thread=threading.get_ident())
             raise
 
     def delete_file(self, key):
@@ -146,6 +161,7 @@ class S3:
         :param key: the key of the file.
         :return: boolean
         """
+        LOGGER.info("Checking if file exists", key=key)
         try:
             self.client.head_object(Bucket=self.get_bucket_for_file_key(key), Key=key)
             return True

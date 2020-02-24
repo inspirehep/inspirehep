@@ -6,10 +6,13 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import hashlib
+import threading
+from datetime import datetime
 from itertools import chain
 
 import numpy as np
 import requests
+import structlog
 from beard.clustering import block_phonetic
 from flask import current_app
 from inspire_dojson.utils import get_record_ref
@@ -23,6 +26,8 @@ from sqlalchemy.orm import aliased
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import DownloadFileError
 from inspirehep.utils import get_inspirehep_url
+
+LOGGER = structlog.getLogger()
 
 
 def get_literature_earliest_date(data):
@@ -85,7 +90,9 @@ def requests_retry_session(retries=3):
 def download_file_from_url(url):
     download_url = url if url.startswith("http") else f"{get_inspirehep_url()}{url}"
     max_retries = current_app.config.get("FILES_DOWNLOAD_MAX_RETRIES", 3)
+    _start_time = datetime.now()
     try:
+        LOGGER.info("Downloading file", url=url, thread=threading.get_ident())
         request = requests_retry_session(retries=max_retries).get(
             download_url,
             stream=True,
@@ -93,9 +100,14 @@ def download_file_from_url(url):
         )
         request.raise_for_status()
     except requests.exceptions.RequestException as exc:
+        _time = (datetime.now() - _start_time).total_seconds()
         raise DownloadFileError(
-            f"Cannot download file from url {download_url}. Reason: {exc}"
+            f"Cannot download file from url {download_url}. Reason: {exc}", took=_time
         )
+    _time = (datetime.now() - _start_time).total_seconds()
+    LOGGER.info(
+        "Downloaded successfully", url=url, thread=threading.get_ident(), took=_time
+    )
     return request.content
 
 
