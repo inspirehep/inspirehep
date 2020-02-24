@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
@@ -23,25 +23,11 @@ import { newSearch } from '../../actions/search';
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
+import withRouteDataFetcher from '../../common/withRouteDataFetcher';
 
-function DetailPage({ loading, match, dispatch, record }) {
-  const recordId = match.params.id;
-
-  useEffect(
-    () => {
-      dispatch(fetchConference(recordId));
-      dispatch(newSearch(CONFERENCE_CONTRIBUTIONS_NS));
-      window.scrollTo(0, 0);
-    },
-    [dispatch, recordId]
-  );
-
+function DetailPage({ record }) {
   const metadata = record.get('metadata');
-
-  if (!metadata) {
-    return null;
-  }
-
+  const controlNumber = metadata.get('control_number');
   const title = metadata.getIn(['titles', 0]);
   const acronym = metadata.getIn(['acronyms', 0]);
   const openingDate = metadata.get('opening_date');
@@ -67,14 +53,16 @@ function DetailPage({ loading, match, dispatch, record }) {
       <Row type="flex" justify="center">
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
-            loading={loading}
             className="sm-pb3"
             leftActions={
               <>
                 {urls && <ConferenceWebsitesAction websites={urls} />}
                 {proceedings && <ProceedingsAction proceedings={proceedings} />}
                 {canEdit && (
-                  <EditRecordAction pidType="conferences" pidValue={recordId} />
+                  <EditRecordAction
+                    pidType="conferences"
+                    pidValue={controlNumber}
+                  />
                 )}
               </>
             }
@@ -141,7 +129,7 @@ function DetailPage({ loading, match, dispatch, record }) {
       <Row type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <ContentBox>
-            <ConferenceContributions conferenceRecordId={recordId} />
+            <ConferenceContributions conferenceRecordId={controlNumber} />
           </ContentBox>
         </Col>
       </Row>
@@ -150,16 +138,18 @@ function DetailPage({ loading, match, dispatch, record }) {
 }
 
 DetailPage.propTypes = {
-  match: PropTypes.objectOf(PropTypes.any).isRequired,
-  dispatch: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
 };
 
 const mapStateToProps = state => ({
-  loading: state.conferences.get('loading'),
   record: state.conferences.get('data'),
 });
-const dispatchToProps = dispatch => ({ dispatch });
+const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
-export default connect(mapStateToProps, dispatchToProps)(DetailPage);
+export default withRouteDataFetcher(DetailPageContainer, {
+  routeParamsToFetchActions: ({ id }) => [
+    fetchConference(id),
+    newSearch(CONFERENCE_CONTRIBUTIONS_NS),
+  ],
+  stateToLoading: state => !state.conferences.hasIn(['data', 'metadata']),
+});
