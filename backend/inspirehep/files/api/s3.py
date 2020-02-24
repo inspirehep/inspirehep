@@ -4,8 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import datetime
 import threading
+from datetime import datetime
 
 import structlog
 from boto3.s3.transfer import TransferConfig
