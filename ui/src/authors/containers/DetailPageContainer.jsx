@@ -38,6 +38,7 @@ import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import UserSettingsAction from '../components/UserSettingsAction';
+import withRouteDataFetcher from '../../common/withRouteDataFetcher';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -53,40 +54,27 @@ function renderNumberOfPublishedPapers(value) {
 
 function DetailPage({
   record,
-  loading,
-  dispatch,
-  match,
   publicationsQuery,
   publications,
   userOrcid,
+  loadingCitationSummary,
+  dispatch,
 }) {
-  useEffect(
-    () => {
-      dispatch(fetchAuthor(match.params.id));
-      dispatch(newSearch(AUTHOR_PUBLICATIONS_NS));
-      window.scrollTo(0, 0);
-    },
-    [dispatch, match.params.id]
-  );
-
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
   const metadata = record.get('metadata');
 
   useEffect(
     () => {
       // check if author is fetched and author facet name is added to query of AUTHOR_PUBLICATIONS_NS.
-      if (metadata && authorFacetName) {
+      if (authorFacetName) {
         const query = publicationsQuery.toJS();
+        // FIXME: localize dispatch(action) to relevant components, instead of dispatching in parent detail page
         dispatch(fetchCitationSummary(query));
         dispatch(fetchCitationsByYear(query));
       }
     },
     [dispatch, authorFacetName] // eslint-disable-line react-hooks/exhaustive-deps
   );
-
-  if (!metadata) {
-    return null;
-  }
 
   const name = metadata.get('name');
   const recordId = metadata.get('control_number');
@@ -109,7 +97,10 @@ function DetailPage({
   const metaDescription = getAuthorMetaDescription(metadata);
   return (
     <>
-      <DocumentHead title={getAuthorDisplayName(name)} description={metaDescription}/>
+      <DocumentHead
+        title={getAuthorDisplayName(name)}
+        description={metaDescription}
+      />
       <Row className="mv3" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Alert
@@ -130,7 +121,6 @@ function DetailPage({
           >
             <Col xs={24} md={12} lg={16}>
               <ContentBox
-                loading={loading}
                 className="sm-pb3"
                 leftActions={
                   <>
@@ -173,7 +163,7 @@ function DetailPage({
               </ContentBox>
             </Col>
             <Col xs={24} md={12} lg={8}>
-              <ContentBox loading={loading}>
+              <ContentBox loading={loadingCitationSummary}>
                 <EmptyOrChildren data={publications} title="0 Research works">
                   <CitationSummaryTableContainer
                     renderNumberOfCiteablePapers={renderNumberOfCiteablePapers}
@@ -217,17 +207,15 @@ function DetailPage({
 }
 
 DetailPage.propTypes = {
+  loadingCitationSummary: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
-  match: PropTypes.objectOf(PropTypes.any).isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
   publicationsQuery: PropTypes.instanceOf(Map).isRequired,
-  loading: PropTypes.bool.isRequired,
   publications: PropTypes.instanceOf(List),
   userOrcid: PropTypes.string,
 };
 
 const mapStateToProps = state => ({
-  loading: state.authors.get('loading'),
   record: state.authors.get('data'),
   publicationsQuery: state.search.getIn([
     'namespaces',
@@ -239,8 +227,18 @@ const mapStateToProps = state => ({
     AUTHOR_PUBLICATIONS_NS,
     'results',
   ]),
+  loadingCitationSummary: state.citations.get('loadingCitationSummary'),
   userOrcid: state.user.getIn(['data', 'orcid']),
 });
 const dispatchToProps = dispatch => ({ dispatch });
+const DetailPageContainer = connect(mapStateToProps, dispatchToProps)(
+  DetailPage
+);
 
-export default connect(mapStateToProps, dispatchToProps)(DetailPage);
+export default withRouteDataFetcher(DetailPageContainer, {
+  routeParamsToFetchActions: ({ id }) => [
+    fetchAuthor(id),
+    newSearch(AUTHOR_PUBLICATIONS_NS),
+  ],
+  stateToLoading: state => !state.authors.hasIn(['data', 'metadata']),
+});
