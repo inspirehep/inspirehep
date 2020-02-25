@@ -6,7 +6,7 @@ authors = ["CERN <admin@inspirehep.net>"]
 license = "MIT License"
 
 [tool.poetry.dependencies]
-celery = {git = "https://github.com/michamos/celery.git", branch = "fix-redis-connection-result-consumer"}
+celery = {git = "https://github.com/inspirehep/celery.git", branch = "fix-redis-connection-result-consumer"}
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
 click = "<7.0.0"
