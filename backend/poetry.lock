@@ -398,7 +398,7 @@ zstd = ["zstandard"]
 [package.source]
 reference = "54bac44e5f0366cfe6a867377f7f9456ee37ba6d"
 type = "git"
-url = "https://github.com/michamos/celery.git"
+url = "https://github.com/inspirehep/celery.git"
 
 [[package]]
 category = "main"
@@ -4100,7 +4100,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "f8f9297ee3eda0584be21aaf36eb074225c6a0310fc96549038df47e1151b404"
+content-hash = "8c8ce17fd6bf2b10d4760e89833076e19cc9c946144ed3bfd9620be714ff52fd"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
