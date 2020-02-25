@@ -1553,7 +1553,7 @@ tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock
 [package.source]
 reference = "f4e8192f12883eb6065c9866c443a9e86b7181f4"
 type = "git"
-url = "https://github.com/inveniosoftware/invenio-accounts.git"
+url = "https://github.com/inspirehep/invenio-accounts.git"
 
 [[package]]
 category = "main"
@@ -1860,7 +1860,7 @@ tests = ["SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage 
 [package.source]
 reference = "a3a6535cddf5265e39ec32a3932cc2b4f73d325e"
 type = "git"
-url = "https://github.com/inveniosoftware/invenio-oauthclient.git"
+url = "https://github.com/inspirehep/invenio-oauthclient.git"
 
 [[package]]
 category = "main"
@@ -4100,7 +4100,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "c8de4c44a9423a66eb2a1a9fdce53389bd5122c68438e019b70604535b5b9ab3"
+content-hash = "e437423f6c10d2289687bc17508643283216f3e5b8d6c2c0ed8a0727810f7f4b"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
