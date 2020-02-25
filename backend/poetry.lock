@@ -1450,7 +1450,7 @@ pkgsettings = ">=0.12.0,<1.0.0"
 [package.source]
 reference = "c856461eb4698a62db3da2ee31f2d35d660a05c0"
 type = "git"
-url = "https://github.com/drjova/inspire-service-orcid.git"
+url = "https://github.com/inspirehep/inspire-service-orcid.git"
 
 [[package]]
 category = "main"
@@ -4100,7 +4100,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "e437423f6c10d2289687bc17508643283216f3e5b8d6c2c0ed8a0727810f7f4b"
+content-hash = "f8f9297ee3eda0584be21aaf36eb074225c6a0310fc96549038df47e1151b404"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
