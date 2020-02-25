@@ -23,7 +23,7 @@ import { newSearch } from '../../actions/search';
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
-import withRouteDataFetcher from '../../common/withRouteDataFetcher';
+import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -146,10 +146,11 @@ const mapStateToProps = state => ({
 });
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
-export default withRouteDataFetcher(DetailPageContainer, {
-  routeParamsToFetchActions: ({ id }) => [
+export default withRouteActionsDispatcher(DetailPageContainer, {
+  routeParamSelector: ({ id }) => id,
+  routeActions: id => [
     fetchConference(id),
     newSearch(CONFERENCE_CONTRIBUTIONS_NS),
   ],
-  stateToLoading: state => !state.conferences.hasIn(['data', 'metadata']),
+  loadingStateSelector: state => !state.conferences.hasIn(['data', 'metadata']),
 });

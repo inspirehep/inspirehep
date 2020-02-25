@@ -5,19 +5,20 @@ import { withRouter } from 'react-router-dom';
 import { getWrapperComponentDisplayName } from './utils';
 import LoadingOrChildren from './components/LoadingOrChildren';
 
-export default function withRouteDataFetcher(
+// used to dispatch actions when route has changed
+export default function withRouteActionsDispatcher(
   DetailPage,
-  { routeParamsToFetchActions, stateToLoading }
+  { routeParamSelector, routeActions, loadingStateSelector }
 ) {
-  const Wrapper = ({ match, dispatch, state, ...props }) => {
+  const Wrapper = ({ match, dispatch, loading, ...props }) => {
+    const selectedParam = routeParamSelector(match.params);
     useEffect(
       () => {
-        routeParamsToFetchActions(match.params).forEach(dispatch);
+        routeActions(selectedParam).forEach(dispatch);
       },
-      [match.params, dispatch]
+      [selectedParam, dispatch]
     );
 
-    const loading = stateToLoading(state);
     return (
       <LoadingOrChildren loading={loading}>
         <DetailPage {...props} />
@@ -26,14 +27,14 @@ export default function withRouteDataFetcher(
   };
 
   const ConnectedWrapper = connect(
-    state => ({ state }),
+    state => ({ loading: loadingStateSelector(state) }),
     dispatch => ({ dispatch })
   )(Wrapper);
 
   const ConnectedWrapperWithRouter = withRouter(ConnectedWrapper);
 
   ConnectedWrapperWithRouter.displayName = getWrapperComponentDisplayName(
-    'withRouteDataFetcher',
+    'withRouteActionsDispatcher',
     DetailPage
   );
   return ConnectedWrapperWithRouter;

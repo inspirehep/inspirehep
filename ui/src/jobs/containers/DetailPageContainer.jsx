@@ -27,7 +27,7 @@ import {
 import JobStatusAlert from '../components/JobStatusAlert';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
-import withRouteDataFetcher from '../../common/withRouteDataFetcher';
+import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -142,7 +142,8 @@ const mapStateToProps = state => ({
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
-export default withRouteDataFetcher(DetailPageContainer, {
-  routeParamsToFetchActions: ({ id }) => [fetchJob(id)],
-  stateToLoading: state => !state.jobs.hasIn(['data', 'metadata']),
+export default withRouteActionsDispatcher(DetailPageContainer, {
+  routeParamSelector: ({ id }) => id,
+  routeActions: id => [fetchJob(id)],
+  loadingStateSelector: state => !state.jobs.hasIn(['data', 'metadata']),
 });

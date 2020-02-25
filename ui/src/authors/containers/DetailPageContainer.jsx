@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'antd';
@@ -38,7 +38,7 @@ import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import UserSettingsAction from '../components/UserSettingsAction';
-import withRouteDataFetcher from '../../common/withRouteDataFetcher';
+import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -57,7 +57,6 @@ function DetailPage({
   publicationsQuery,
   publications,
   userOrcid,
-  loadingCitationSummary,
   dispatch,
 }) {
   const authorFacetName = publicationsQuery.getIn(['author', 0]);
@@ -65,7 +64,8 @@ function DetailPage({
 
   useEffect(
     () => {
-      // check if author is fetched and author facet name is added to query of AUTHOR_PUBLICATIONS_NS.
+      // check if author is fetched and author facet name is added to query of AUTHOR_PUBLICATIONS_NS
+      // by AuthorPublicationsContainer.
       if (authorFacetName) {
         const query = publicationsQuery.toJS();
         // FIXME: localize dispatch(action) to relevant components, instead of dispatching in parent detail page
@@ -80,7 +80,10 @@ function DetailPage({
   const recordId = metadata.get('control_number');
 
   const positions = metadata.get('positions', List());
-  const currentPositions = getCurrentAffiliationsFromPositions(positions);
+  const currentPositions = useMemo(
+    () => getCurrentAffiliationsFromPositions(positions),
+    [positions]
+  );
   const shouldDisplayPositions = metadata.get('should_display_positions');
 
   const arxivCategories = metadata.get('arxiv_categories');
@@ -93,8 +96,9 @@ function DetailPage({
   const emails = metadata.get('email_addresses');
   const deleted = metadata.get('deleted', false);
 
-  // TODO: maybe memoize (in other detail pages too) after "if (!metadata)" condition above is removed
-  const metaDescription = getAuthorMetaDescription(metadata);
+  const metaDescription = useMemo(() => getAuthorMetaDescription(metadata), [
+    metadata,
+  ]);
   return (
     <>
       <DocumentHead
@@ -163,7 +167,7 @@ function DetailPage({
               </ContentBox>
             </Col>
             <Col xs={24} md={12} lg={8}>
-              <ContentBox loading={loadingCitationSummary}>
+              <ContentBox>
                 <EmptyOrChildren data={publications} title="0 Research works">
                   <CitationSummaryTableContainer
                     renderNumberOfCiteablePapers={renderNumberOfCiteablePapers}
@@ -207,7 +211,6 @@ function DetailPage({
 }
 
 DetailPage.propTypes = {
-  loadingCitationSummary: PropTypes.bool.isRequired,
   dispatch: PropTypes.func.isRequired,
   record: PropTypes.instanceOf(Map).isRequired,
   publicationsQuery: PropTypes.instanceOf(Map).isRequired,
@@ -227,7 +230,6 @@ const mapStateToProps = state => ({
     AUTHOR_PUBLICATIONS_NS,
     'results',
   ]),
-  loadingCitationSummary: state.citations.get('loadingCitationSummary'),
   userOrcid: state.user.getIn(['data', 'orcid']),
 });
 const dispatchToProps = dispatch => ({ dispatch });
@@ -235,10 +237,8 @@ const DetailPageContainer = connect(mapStateToProps, dispatchToProps)(
   DetailPage
 );
 
-export default withRouteDataFetcher(DetailPageContainer, {
-  routeParamsToFetchActions: ({ id }) => [
-    fetchAuthor(id),
-    newSearch(AUTHOR_PUBLICATIONS_NS),
-  ],
-  stateToLoading: state => !state.authors.hasIn(['data', 'metadata']),
+export default withRouteActionsDispatcher(DetailPageContainer, {
+  routeParamSelector: ({ id }) => id,
+  routeActions: id => [fetchAuthor(id), newSearch(AUTHOR_PUBLICATIONS_NS)],
+  loadingStateSelector: state => !state.authors.hasIn(['data', 'metadata']),
 });
