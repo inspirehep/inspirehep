@@ -45,7 +45,7 @@ import UrlsAction from '../../components/UrlsAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
 import SupervisorList from '../../components/SupervisorList';
 import { makeCompliantMetaDescription } from '../../../common/utils';
-import withRouteDataFetcher from '../../../common/withRouteDataFetcher';
+import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
 
 function DetailPage({
   authors,
@@ -268,13 +268,14 @@ const mapStateToProps = state => ({
 
 const DetailPageContainer = connect(mapStateToProps)(DetailPage);
 
-export default withRouteDataFetcher(DetailPageContainer, {
-  routeParamsToFetchActions: ({ id }) => [
+export default withRouteActionsDispatcher(DetailPageContainer, {
+  routeParamSelector: ({ id }) => id,
+  routeActions: id => [
     fetchLiterature(id),
     fetchLiteratureReferences(id),
     fetchCitations(id),
     fetchLiteratureAuthors(id),
     fetchCitationsByYear({ q: `recid:${id}` }),
   ],
-  stateToLoading: state => !state.literature.hasIn(['data', 'metadata']),
+  loadingStateSelector: state => !state.literature.hasIn(['data', 'metadata']),
 });
