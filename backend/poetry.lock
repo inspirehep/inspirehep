@@ -816,14 +816,17 @@ description = "Flask-CeleryExt is a simple integration layer between Celery and 
 name = "flask-celeryext"
 optional = false
 python-versions = "*"
-version = "0.3.2"
+version = "0.3.4"
 
 [package.dependencies]
 Flask = ">=0.10"
-celery = ">=3.1"
+
+[package.dependencies.celery]
+python = "<3.7"
+version = ">=3.1"
 
 [package.extras]
-all = ["Sphinx (>=1.4.2)", "celery (>=3.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.4)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)", "pytest-mock (>=1.6.0)", "celery (>=4.3)"]
+all = ["Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.4)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)", "pytest-mock (>=1.6.0)"]
 docs = ["Sphinx (>=1.4.2)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.4)", "pydocstyle (>=1.0.0)", "pytest-cache (>=1.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)", "pytest-mock (>=1.6.0)"]
 
@@ -1350,13 +1353,13 @@ description = "INSPIRE-specific rules to transform from MARCXML to JSON and back
 name = "inspire-dojson"
 optional = false
 python-versions = "*"
-version = "63.0.3"
+version = "63.0.5"
 
 [package.dependencies]
 Flask = ">=0.12.3,<2.0.0"
 IDUtils = ">=1.0.1,<2.0"
 dojson = ">=1.3.1,<2.0"
-inspire-schemas = ">=61.1,<62.0"
+inspire-schemas = ">=61.0,<62.0"
 inspire-utils = ">=3.0.0,<4.0"
 isbnid_fork = ">=0.5.2,<1.0"
 langdetect = ">=1.0.7,<2.0"
@@ -1548,7 +1551,7 @@ sqlite = ["invenio-db (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.3.0)", "mock (>=2.0.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-flask (>=0.10.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)", "selenium (>=3.0.1)"]
 
 [package.source]
-reference = "a44c058d8a1a59a7b132133686c557c49d3ef361"
+reference = "f4e8192f12883eb6065c9866c443a9e86b7181f4"
 type = "git"
 url = "https://github.com/inveniosoftware/invenio-accounts.git"
 
@@ -1616,18 +1619,19 @@ description = "Celery module for Invenio."
 name = "invenio-celery"
 optional = false
 python-versions = "*"
-version = "1.1.0"
+version = "1.1.2"
 
 [package.dependencies]
 Flask = ">=0.11"
-Flask-CeleryExt = ">=0.3.0"
-msgpack = ">=0.5.2"
+Flask-CeleryExt = ">=0.3.4"
+celery = ">=4.4.0"
+msgpack = ">=0.6.2"
 redis = ">=2.10.0"
 
 [package.extras]
-all = ["Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)", "Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)"]
+all = ["Sphinx (>=1.4.2)", "check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)"]
 docs = ["Sphinx (>=1.4.2)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=2.8.0)"]
+tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "isort (>=4.2.2)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.8.0,<5.0.0)"]
 
 [[package]]
 category = "main"
@@ -4096,7 +4100,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "16f00190d49d16a7eadefc4c9c67cb4613a678c28e350ecf61c1ac4134b80d35"
+content-hash = "c8de4c44a9423a66eb2a1a9fdce53389bd5122c68438e019b70604535b5b9ab3"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
@@ -4458,8 +4462,8 @@ flask-caching = [
     {file = "Flask_Caching-1.8.0-py2.py3-none-any.whl", hash = "sha256:54b6140bb7b9f3e63d009ff08b03bacd84eefb1af1d30af06b4a6bc3c16fa3b2"},
 ]
 flask-celeryext = [
-    {file = "Flask-CeleryExt-0.3.2.tar.gz", hash = "sha256:8b72cab1af721f39953dd547f6143f51f15f584bab6decf84f3190751217de67"},
-    {file = "Flask_CeleryExt-0.3.2-py2.py3-none-any.whl", hash = "sha256:68bd3bda8a721199df0c69663f9ff92dd79a5023833ffa2ac2cd7169630ab68a"},
+    {file = "Flask-CeleryExt-0.3.4.tar.gz", hash = "sha256:47d5d18daebad300b215faca0d1c6da24625f333020482e27591634c05792c98"},
+    {file = "Flask_CeleryExt-0.3.4-py2.py3-none-any.whl", hash = "sha256:1c84b35462d41d1317800d256b2ce30031b7d3d20dd8dc680ce4f4cc88029867"},
 ]
 flask-cors = [
     {file = "Flask-Cors-3.0.8.tar.gz", hash = "sha256:72170423eb4612f0847318afff8c247b38bd516b7737adfc10d1c2cdbb382d16"},
@@ -4594,7 +4598,7 @@ influxdb = [
     {file = "influxdb-5.2.3.tar.gz", hash = "sha256:30276c7e04bf7659424c733b239ba2f0804d7a1f3c59ec5dd3f88c56176c8d36"},
 ]
 inspire-dojson = [
-    {file = "inspire-dojson-63.0.3.tar.gz", hash = "sha256:0fa1c3dbf9f4ea6c761badbef26cb3bed01f37d8f62f1f671c8660bd7ee0d6cc"},
+    {file = "inspire-dojson-63.0.5.tar.gz", hash = "sha256:ae0bde7dfad687df0b7abf5de86bb7b01d33b907a73631a202036fdb38a1a6c1"},
 ]
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
@@ -4630,8 +4634,8 @@ invenio-cache = [
     {file = "invenio_cache-1.0.0-py2.py3-none-any.whl", hash = "sha256:8431d8b68dbb737cd7035f6467fec18dd29ad9ac35e20405d52af6c2d294557a"},
 ]
 invenio-celery = [
-    {file = "invenio-celery-1.1.0.tar.gz", hash = "sha256:5ca9e2254dec78a58801ca749a22a379b0d81e02bfd28d7b3345613cc900d4ca"},
-    {file = "invenio_celery-1.1.0-py2.py3-none-any.whl", hash = "sha256:cf6c40adbf11ba972c6c349dc5b87ae30c5894f0fa058f5856d8a91ca022501e"},
+    {file = "invenio-celery-1.1.2.tar.gz", hash = "sha256:11e8c52b9a4281a5a61f6d4b0ed660d242e92a2eab5eb5b4de48fe37e8574ace"},
+    {file = "invenio_celery-1.1.2-py2.py3-none-any.whl", hash = "sha256:21b2a98f153734075eb8e05184fdca21e74d696332e18f0b04477b3327c4703e"},
 ]
 invenio-config = [
     {file = "invenio-config-1.0.2.tar.gz", hash = "sha256:885e092f98aaf50a0bb6ecfd667e239346bb1eb6fc6762d52493842f497664d0"},
