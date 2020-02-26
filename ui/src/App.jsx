@@ -28,50 +28,25 @@ import {
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles } from './tracker';
 import { fetchLoggedInUser } from './actions/user';
+import Home from './home';
+import Literature from './literature';
+import Conferences from './conferences';
+import Authors from './authors';
+import Jobs from './jobs';
+import User from './user';
+import Errors from './errors';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
-  loading: Loading,
-});
-const Literature$ = Loadable({
-  loader: () => import('./literature'),
-  loading: Loading,
-});
-const Authors$ = Loadable({
-  loader: () => import('./authors'),
-  loading: Loading,
-});
-const Jobs$ = Loadable({
-  loader: () => import('./jobs'),
-  loading: Loading,
-});
-const Conferences$ = Loadable({
-  loader: () => import('./conferences'),
-  loading: Loading,
-});
-const Home$ = Loadable({
-  loader: () => import('./home'),
-  loading: Loading,
-});
-const User$ = Loadable({
-  loader: () => import('./user'),
   loading: Loading,
 });
 const Submissions$ = Loadable({
   loader: () => import('./submissions'),
   loading: Loading,
 });
-const Errors$ = Loadable({
-  loader: () => import('./errors'),
-  loading: Loading,
-});
 
 function App({ userRoles, dispatch }) {
   const [headerHeight, setHeaderHeight] = useState(0);
-
-  useEffect(() => {
-    Loadable.preloadAll();
-  }, []);
 
   useEffect(
     () => {
@@ -92,15 +67,15 @@ function App({ userRoles, dispatch }) {
       <Header onHeightChange={setHeaderHeight} />
       <Layout.Content className="content" style={{ marginTop: headerHeight }}>
         <SafeSwitch id="main">
-          <Route exact path={HOME} component={Home$} />
-          <Route path={USER} component={User$} />
+          <Route exact path={HOME} component={Home} />
+          <Route path={USER} component={User} />
           <PrivateRoute path={HOLDINGPEN} component={Holdingpen$} />
-          <Route path={LITERATURE} component={Literature$} />
-          <Route path={AUTHORS} component={Authors$} />
-          <Route path={JOBS} component={Jobs$} />
-          <Route path={CONFERENCES} component={Conferences$} />
+          <Route path={LITERATURE} component={Literature} />
+          <Route path={AUTHORS} component={Authors} />
+          <Route path={JOBS} component={Jobs} />
+          <Route path={CONFERENCES} component={Conferences} />
           <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
-          <Route path={ERRORS} component={Errors$} />
+          <Route path={ERRORS} component={Errors} />
         </SafeSwitch>
         <UserFeedback />
       </Layout.Content>

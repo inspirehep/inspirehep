@@ -6,7 +6,7 @@
   "bundlesize": [
     {
       "path": "./build/**/*.js",
-      "maxSize": "375 kB"
+      "maxSize": "900 kB"
     }
   ],
   "scripts": {
@@ -17,6 +17,7 @@
     "test:unit": "craco test",
     "test:unit:log": "craco test --verbose=false",
     "test:size": "bundlesize",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
     "lint":
       "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
@@ -89,6 +90,7 @@
     "react-test-renderer": "^16.2.0",
     "redux-logger": "^3.0.6",
     "redux-mock-store": "^1.5.1",
+    "source-map-explorer": "^2.3.1",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]

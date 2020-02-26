@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { mount } from 'enzyme';
 import { fromJS, List } from 'immutable';
+import Loadable from 'react-loadable';
 
 import { getStore, getStoreWithState } from '../fixtures/store';
 import App from '../App';
@@ -63,7 +64,7 @@ describe('App', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('navigates to Holdingpen when /holdingpen if logged in', () => {
+  it('navigates to Holdingpen when /holdingpen if logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -79,10 +80,12 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
+    await Loadable.preloadAll();
+    wrapper.update();
     expect(wrapper.find(Holdingpen)).toExist();
   });
 
-  it('does not navigate to Holdingpen when /holdingpen if not logged in', () => {
+  it('does not navigate to Holdingpen when /holdingpen if not logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
@@ -98,6 +101,8 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
+    await Loadable.preloadAll();
+    wrapper.update();
     expect(wrapper.find(Holdingpen)).not.toExist();
   });
 
@@ -145,7 +150,7 @@ describe('App', () => {
     expect(wrapper.find(Conferences)).toExist();
   });
 
-  it('navigates to Submissions when /submissions if logged in', () => {
+  it('navigates to Submissions when /submissions if logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
@@ -161,10 +166,12 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
+    await Loadable.preloadAll();
+    wrapper.update();
     expect(wrapper.find(Submissions)).toExist();
   });
 
-  it('navigates to Submissions when /submissions if not logged in', () => {
+  it('navigates to Submissions when /submissions if not logged in', async () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: false,
@@ -180,6 +187,8 @@ describe('App', () => {
         </MemoryRouter>
       </Provider>
     );
+    await Loadable.preloadAll();
+    wrapper.update();
     expect(wrapper.find(Submissions)).not.toExist();
   });
 
