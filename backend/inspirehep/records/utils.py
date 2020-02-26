@@ -101,8 +101,11 @@ def download_file_from_url(url):
         request.raise_for_status()
     except requests.exceptions.RequestException as exc:
         _time = (datetime.now() - _start_time).total_seconds()
+        LOGGER.info(
+            "Download failed", took=_time, url=url, thread=threading.get_ident()
+        )
         raise DownloadFileError(
-            f"Cannot download file from url {download_url}. Reason: {exc}", took=_time
+            f"Cannot download file from url {download_url}. Reason: {exc}"
         )
     _time = (datetime.now() - _start_time).total_seconds()
     LOGGER.info(
