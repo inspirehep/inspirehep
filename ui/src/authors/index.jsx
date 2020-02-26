@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Loadable from 'react-loadable';
 
 import { AUTHORS } from '../common/routes';
-import Loading from '../common/components/Loading';
 import './index.scss';
-
-const SearchPage$ = Loadable({
-  loader: () => import('./containers/SearchPageContainer'),
-  loading: Loading,
-});
-const DetailPage$ = Loadable({
-  loader: () => import('./containers/DetailPageContainer'),
-  loading: Loading,
-});
+import SearchPageContainer from './containers/SearchPageContainer';
+import DetailPageContainer from './containers/DetailPageContainer';
 
 class Authors extends Component {
   render() {
     return (
       <div className="__Authors__">
-        <Route exact path={AUTHORS} component={SearchPage$} />
-        <Route exact path={`${AUTHORS}/:id`} component={DetailPage$} />
+        <Route exact path={AUTHORS} component={SearchPageContainer} />
+        <Route exact path={`${AUTHORS}/:id`} component={DetailPageContainer} />
       </div>
     );
   }

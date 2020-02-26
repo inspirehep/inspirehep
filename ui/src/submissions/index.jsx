@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import Loadable from 'react-loadable';
 
 import {
   SUBMISSIONS_AUTHOR,
@@ -11,58 +10,17 @@ import {
   SUBMISSION_SUCCESS,
 } from '../common/routes';
 
-import Loading from '../common/components/Loading';
 import SafeSwitch from '../common/components/SafeSwitch';
 import DocumentHead from '../common/components/DocumentHead';
-
-const AuthorSubmissionPage$ = Loadable({
-  loader: () => import('./authors/containers/AuthorSubmissionPageContainer'),
-  loading: Loading,
-});
-
-const AuthorUpdateSubmissionPage$ = Loadable({
-  loader: () =>
-    import('./authors/containers/AuthorUpdateSubmissionPageContainer'),
-  loading: Loading,
-});
-
-const LiteratureSubmissionPage$ = Loadable({
-  loader: () =>
-    import('./literature/containers/LiteratureSubmissionPageContainer'),
-  loading: Loading,
-});
-
-const JobSubmissionPage$ = Loadable({
-  loader: () => import('./jobs/containers/JobSubmissionPageContainer'),
-  loading: Loading,
-});
-
-const JobUpdateSubmissionPage$ = Loadable({
-  loader: () => import('./jobs/containers/JobUpdateSubmissionPageContainer'),
-  loading: Loading,
-});
-
-const SubmissionSuccessPage$ = Loadable({
-  loader: () => import('./common/components/SubmissionSuccessPage'),
-  loading: Loading,
-});
-
-const JobUpdateSubmissionSuccessPage$ = Loadable({
-  loader: () => import('./jobs/components/JobUpdateSubmissionSuccessPage'),
-  loading: Loading,
-});
-
-const ConferenceSubmissionPage$ = Loadable({
-  loader: () =>
-    import('./conferences/containers/ConferenceSubmissionPageContainer'),
-  loading: Loading,
-});
-
-const ConferenceSubmissionsSuccessPage$ = Loadable({
-  loader: () =>
-    import('./conferences/containers/ConferenceSubmissionSuccessPageContainer'),
-  loading: Loading,
-});
+import AuthorSubmissionPageContainer from './authors/containers/AuthorSubmissionPageContainer';
+import AuthorUpdateSubmissionPageContainer from './authors/containers/AuthorUpdateSubmissionPageContainer';
+import LiteratureSubmissionPageContainer from './literature/containers/LiteratureSubmissionPageContainer';
+import JobSubmissionPageContainer from './jobs/containers/JobSubmissionPageContainer';
+import JobUpdateSubmissionPageContainer from './jobs/containers/JobUpdateSubmissionPageContainer';
+import ConferenceSubmissionPageContainer from './conferences/containers/ConferenceSubmissionPageContainer';
+import JobUpdateSubmissionSuccessPage from './jobs/components/JobUpdateSubmissionSuccessPage';
+import ConferenceSubmissionSuccessPageContainer from './conferences/containers/ConferenceSubmissionSuccessPageContainer';
+import SubmissionSuccessPage from './common/components/SubmissionSuccessPage';
 
 class Submissions extends Component {
   render() {
@@ -75,33 +33,33 @@ class Submissions extends Component {
             <Route
               exact
               path={SUBMISSIONS_AUTHOR}
-              component={AuthorSubmissionPage$}
+              component={AuthorSubmissionPageContainer}
             />
             <Route
               exact
               path={`${SUBMISSIONS_AUTHOR}/:id`}
-              component={AuthorUpdateSubmissionPage$}
+              component={AuthorUpdateSubmissionPageContainer}
             />
 
             <Route
               exact
               path={SUBMISSIONS_LITERATURE}
-              component={LiteratureSubmissionPage$}
+              component={LiteratureSubmissionPageContainer}
             />
             <Route
               exact
               path={SUBMISSIONS_JOB}
-              component={JobSubmissionPage$}
+              component={JobSubmissionPageContainer}
             />
             <Route
               exact
               path={`${SUBMISSIONS_JOB}/:id`}
-              component={JobUpdateSubmissionPage$}
+              component={JobUpdateSubmissionPageContainer}
             />
             <Route
               exact
               path={SUBMISSIONS_CONFERENCE}
-              component={ConferenceSubmissionPage$}
+              component={ConferenceSubmissionPageContainer}
             />
             <Redirect
               exact
@@ -126,18 +84,18 @@ class Submissions extends Component {
             <Route
               exact
               path={`${SUBMISSIONS_JOB}/:id/success`}
-              component={JobUpdateSubmissionSuccessPage$}
+              component={JobUpdateSubmissionSuccessPage}
             />
             <Route
               exact
               path={`${SUBMISSIONS_CONFERENCE}/new/success`}
-              component={ConferenceSubmissionsSuccessPage$}
+              component={ConferenceSubmissionSuccessPageContainer}
             />
 
             <Route
               exact
               path={SUBMISSION_SUCCESS}
-              component={SubmissionSuccessPage$}
+              component={SubmissionSuccessPage}
             />
           </SafeSwitch>
         </div>
