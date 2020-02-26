@@ -13,7 +13,7 @@ click = "<7.0.0"
 elasticsearch = "<7.2.0"
 Flask = ">=1.0.2"
 
-python = ">=3.6,<3.7"
+python = ">=3.6,<3.9"
 inspire-query-parser = "~=6.0.0,>=6.0.4"
 inspire-schemas = "~=61.0"
 inspire-utils = "~=3.0.0,>=3.0.8"
@@ -53,7 +53,7 @@ cryptography = "<2.6"
 flask-kvsession = {git = "https://github.com/inspirehep/flask-kvsession.git"}
 python-redis-lock = "^3.3"
 # FIXME: orcid tests are failing with `4.4` because of OrderedDict changes
-lxml = "~=4.3,<4.4"
+lxml = "~=4.4"
 fqn-decorators = "~=1.2,>=1.2.3"
 editdistance = "^0.5.3"
 munkres = "^1.0"
