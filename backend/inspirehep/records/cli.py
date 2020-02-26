@@ -8,7 +8,6 @@
 import datetime
 import json
 import os
-from time import sleep
 
 import click
 import requests
@@ -21,8 +20,6 @@ from sqlalchemy.dialects.postgresql import JSONB
 
 from inspirehep.mailing.api.jobs import send_job_deadline_reminder
 from inspirehep.records.api import InspireRecord, JobsRecord
-from inspirehep.records.indexer.cli import get_query_records_to_index, next_batch
-from inspirehep.records.tasks import batch_relations_update
 
 LOGGER = structlog.getLogger()
 
@@ -122,67 +119,6 @@ def records(urls, directory, files):
 @click.group()
 def citations():
     """Command for citations"""
-
-
-@citations.command(help="Update records references.")
-@click.option("-s", "--batch-size", default=200)
-@click.option("-q", "--queue-name", default="indexer_task")
-@with_appcontext
-def update_relations(batch_size, queue_name):
-    query = get_query_records_to_index(["lit", "dat"])
-    all_tasks = []
-    uuid_records_per_tasks = {}
-    with click.progressbar(
-        query.yield_per(2000), length=query.count(), label="Scheduling tasks"
-    ) as items:
-        batch = next_batch(items, batch_size)
-
-        while batch:
-            uuids = [str(item[0]) for item in batch]
-            indexer_task = batch_relations_update.apply_async(
-                kwargs={"records_uuids": uuids}, queue=queue_name
-            )
-
-            uuid_records_per_tasks[indexer_task.id] = uuids
-            all_tasks.append(indexer_task)
-            batch = next_batch(items, batch_size)
-
-    with click.progressbar(
-        length=len(all_tasks), label="Updating references"
-    ) as progressbar:
-
-        def _finished_tasks_count():
-            return len([task for task in all_tasks if task.ready()])
-
-        while len(all_tasks) != _finished_tasks_count():
-            sleep(0.5)
-            # this is so click doesn't divide by 0:
-            progressbar.pos = _finished_tasks_count() or 1
-            progressbar.update(0)
-
-    failures = []
-    failures_count = 0
-    successes = 0
-    batch_errors = []
-
-    for task in all_tasks:
-        result = task.result
-        if task.failed():
-            batch_errors.append({"task_id": task.id, "error": result})
-        else:
-            successes += result["success"]
-            failures += result["failures"]
-            failures_count += result["failures_count"]
-
-    color = "red" if failures or batch_errors else "green"
-    click.secho(
-        f"References updated!\n{successes} succeeded\n{failures_count} failed\n{len(batch_errors)} entire batches failed",
-        fg=color,
-    )
-    if failures:
-        LOGGER.warning(f"Got {len(failures)} failures during the updating process")
-        for failure in failures:
-            LOGGER.warning(failure)
 
 
 @click.group()
