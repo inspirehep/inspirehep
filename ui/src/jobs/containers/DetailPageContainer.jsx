@@ -34,6 +34,7 @@ function DetailPage({ record }) {
   const created = record.get('created');
   const updated = record.get('updated');
   const position = metadata.get('position');
+  const controlNumber = metadata.get('control_number');
   const institutions = metadata.get('institutions');
   const regions = metadata.get('regions');
   const arxivCategories = metadata.get('arxiv_categories');
@@ -59,7 +60,7 @@ function DetailPage({ record }) {
           <ContentBox
             leftActions={
               canEdit && (
-                <EditRecordAction pidType="jobs" pidValue={this.recordId} />
+                <EditRecordAction pidType="jobs" pidValue={controlNumber} />
               )
             }
           >
