@@ -20,6 +20,7 @@ from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier, RecordIdentifier
 from invenio_records.api import Record
 from invenio_records.models import RecordMetadata
+from invenio_records_files.models import RecordsBuckets
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
 
@@ -344,6 +345,7 @@ class InspireRecord(Record):
                 db.session.delete(pid)
             db.session.delete(self.model)
 
+            RecordsBuckets.query.filter(RecordsBuckets.record_id == uuid).delete()
             try:
                 InspireRecordIndexer().delete(self)
             except NotFoundError:
