@@ -30,7 +30,7 @@ function isLocationSyncedWithSearchQuery(namespace, state) {
 
 // TODO: move pathnameToNamespace logic to reducer (probably)
 function pathnameToSearchNamespace(pathname) {
-  return pathname.substring(1);
+  return pathname.split('/')[1];
 }
 
 // FIXME: this can be moved to reducer?
