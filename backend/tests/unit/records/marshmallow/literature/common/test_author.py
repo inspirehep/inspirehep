@@ -38,6 +38,24 @@ def test_author_without_last_name():
     assert expected == json.loads(result)
 
 
+def test_author_with_bai():
+    schema = AuthorSchemaV1()
+
+    dump = {
+        "full_name": "Frank Castle",
+        "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
+    }
+    expected = {
+        "full_name": "Frank Castle",
+        "first_name": "Frank Castle",
+        "bai": "Frank.Castle.1",
+        "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
+    }
+    result = schema.dumps(dump).data
+
+    assert expected == json.loads(result)
+
+
 def test_author_with_with_inspire_roles():
     schema = AuthorSchemaV1()
     dump = {"full_name": "Smith, John", "inspire_roles": ["author"]}

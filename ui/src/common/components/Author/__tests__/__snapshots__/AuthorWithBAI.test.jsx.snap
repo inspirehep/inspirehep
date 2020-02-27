@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorWithBAI renders 1`] = `
+<Tooltip
+  arrowPointAtCenter={false}
+  autoAdjustOverflow={true}
+  mouseEnterDelay={0.1}
+  mouseLeaveDelay={0.1}
+  placement="top"
+  title={
+    <React.Fragment>
+      <div>
+        The author does not have an INSPIRE profile
+      </div>
+      <div>
+        <ExternalLink
+          href="/submissions/authors?bai=Name.Full.1"
+        >
+          Create profile
+        </ExternalLink>
+      </div>
+    </React.Fragment>
+  }
+  transitionName="zoom-big-fast"
+>
+  <Link
+    replace={false}
+    style={
+      Object {
+        "textDecoration": "underline dashed",
+      }
+    }
+    to="/literature?q=a%20Name.Full.1"
+  >
+    Name, Full
+  </Link>
+</Tooltip>
+`;

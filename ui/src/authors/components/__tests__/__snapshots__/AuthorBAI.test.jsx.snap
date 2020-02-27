@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorBAI renders 1`] = `
+<span>
+  Author Identifier:
+   
+  <Link
+    replace={false}
+    to="/literature?q=a%20F.Marchetto.1"
+  >
+    F.Marchetto.1
+  </Link>
+</span>
+`;

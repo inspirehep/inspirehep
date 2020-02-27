@@ -2,6 +2,7 @@ import mergeWith from 'lodash.mergewith';
 import cloneDeep from 'lodash.clonedeep';
 import { Map } from 'immutable';
 import NumberAbbreviator from 'number-abbreviate';
+import { LITERATURE } from './routes';
 
 export function forceArray(maybeArray) {
   return maybeArray === undefined || Array.isArray(maybeArray)
@@ -100,7 +101,7 @@ export function httpErrorToActionPayload(httpError) {
   const { message } = httpError;
   if (message === 'Network Error') {
     return {
-      error: { status: 'network' }
+      error: { status: 'network' },
     };
   }
 
@@ -108,7 +109,7 @@ export function httpErrorToActionPayload(httpError) {
   if (response) {
     const { data, status } = response;
     return {
-      error: { status, ...data }
+      error: { status, ...data },
     };
   }
 
@@ -225,8 +226,8 @@ export function abbreviateNumber(number) {
   return numberAbbreviator.abbreviate(number, numberOfFractionDigits);
 }
 
-const HTML_TAG_REGEXP = /(<([^>]+)>)/ig;
-const MAX_DESCRIPTION_LENGTH = 160
+const HTML_TAG_REGEXP = /(<([^>]+)>)/gi;
+const MAX_DESCRIPTION_LENGTH = 160;
 export function makeCompliantMetaDescription(description = '') {
   const withoutHtml = description.replace(HTML_TAG_REGEXP, '');
 
@@ -236,4 +237,17 @@ export function makeCompliantMetaDescription(description = '') {
   }
 
   return withoutHtml;
+}
+
+export function getLiteratureSearchUrlForAuthorBAI(bai) {
+  return `${LITERATURE}?q=${encodeURIComponent(`a ${bai}`)}`;
+}
+
+export function getAuthorName(author) {
+  if (author.has('first_name')) {
+    const firstName = author.get('first_name');
+    const lastName = author.get('last_name', '');
+    return `${firstName} ${lastName}`;
+  }
+  return author.get('full_name');
 }

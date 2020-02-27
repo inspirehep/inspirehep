@@ -39,6 +39,7 @@ import EditRecordAction from '../../common/components/EditRecordAction';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import UserSettingsAction from '../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
+import AuthorBAI from '../components/AuthorBAI';
 
 function renderNumberOfCiteablePapers(value) {
   return (
@@ -95,6 +96,7 @@ function DetailPage({
   const orcid = metadata.get('orcid');
   const emails = metadata.get('email_addresses');
   const deleted = metadata.get('deleted', false);
+  const bai = metadata.get('bai');
 
   const metaDescription = useMemo(() => getAuthorMetaDescription(metadata), [
     metadata,
@@ -157,6 +159,7 @@ function DetailPage({
                   <Col xs={24} lg={12} className="mb3">
                     <ArxivCategoryList arxivCategories={arxivCategories} />
                     <ExperimentList experiments={experiments} />
+                    {bai && <AuthorBAI bai={bai} />}
                   </Col>
                   <Col xs={24} lg={12}>
                     {shouldDisplayPositions && (

@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from inspire_utils.name import ParsedName
-from inspire_utils.record import get_value
+from inspire_utils.record import get_value, get_values_for_schema
 
 
 def get_display_name_for_author_name(author_name):
@@ -22,3 +22,9 @@ def get_facet_author_name_for_author(author):
         return f"{author_control_number}_{author_preferred_name}"
 
     return f"{author_control_number}_{get_display_name_for_author_name(get_value(author, 'name.value'))}"
+
+
+def get_id_for_schema(data, schema):
+    ids = data.get("ids", [])
+    ids_for_schema = get_values_for_schema(ids, schema)
+    return ids_for_schema[0] if ids_for_schema else None
