@@ -21,6 +21,7 @@ import pluralizeUnlessSingle, {
   downloadTextAsFile,
   addOrdinalSuffix,
   makeCompliantMetaDescription,
+  getAuthorName,
 } from '../utils';
 
 describe('utils', () => {
@@ -313,7 +314,7 @@ describe('utils', () => {
         error: {
           status: 500,
           foo: 'bar',
-        }
+        },
       };
       expect(result).toEqual(expected);
     });
@@ -328,7 +329,7 @@ describe('utils', () => {
       const expected = {
         error: {
           status: 500,
-        }
+        },
       };
       expect(result).toEqual(expected);
     });
@@ -341,7 +342,7 @@ describe('utils', () => {
       const expected = {
         error: {
           status: 'network',
-        }
+        },
       };
       expect(result).toEqual(expected);
     });
@@ -614,21 +615,51 @@ describe('utils', () => {
 
   describe('makeCompliantMetaDescription', () => {
     it('strips html tags and truncates to 160 chars', () => {
-      const input = 'Lorem <strong>ipsum</strong> dolor sit <a href="/link">amet</a>, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
-      const expectedOutput = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos...'
-      const output = makeCompliantMetaDescription(input)
+      const input =
+        'Lorem <strong>ipsum</strong> dolor sit <a href="/link">amet</a>, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.';
+      const expectedOutput =
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nos...';
+      const output = makeCompliantMetaDescription(input);
       expect(output).toEqual(expectedOutput);
     });
 
     it('does not do anything if input does not include any html tags and shorter than 160 chars', () => {
       const input = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
-      const output = makeCompliantMetaDescription(input)
+      const output = makeCompliantMetaDescription(input);
       expect(output).toEqual(input);
     });
 
     it('returns empty if undefine is passed', () => {
-      const output = makeCompliantMetaDescription(undefined)
+      const output = makeCompliantMetaDescription(undefined);
       expect(output).toEqual('');
+    });
+  });
+
+  describe('getAuthorName', () => {
+    it('returns first name and last name', () => {
+      const author = fromJS({
+        full_name: 'Name, Full',
+        first_name: 'Full',
+        last_name: 'Name',
+      });
+      const output = getAuthorName(author);
+      expect(output).toEqual('Full Name');
+    });
+    it('returns full name if first name is missing', () => {
+      const author = fromJS({
+        full_name: 'Name, Full',
+        last_name: 'Name',
+      });
+      const output = getAuthorName(author);
+      expect(output).toEqual('Name, Full');
+    });
+    it('returns first name if last name is missing', () => {
+      const author = fromJS({
+        full_name: 'Name, Full',
+        first_name: 'Name',
+      });
+      const output = getAuthorName(author);
+      expect(output).toEqual('Name ');
     });
   });
 });

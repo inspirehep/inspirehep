@@ -5,10 +5,9 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from inspire_utils.record import get_values_for_schema
 from marshmallow import fields
 
-from ..utils import get_facet_author_name_for_author
+from ..utils import get_facet_author_name_for_author, get_id_for_schema
 from .base import AuthorsPublicSchema
 from .common import PositionSchemaV1
 
@@ -38,17 +37,21 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
             return get_facet_author_name_for_author(data)
         return facet_author_name
 
-    def get_twitter(self, data):
-        return self.get_id_for_schema(data, "TWITTER")
+    @staticmethod
+    def get_twitter(data):
+        return get_id_for_schema(data, "TWITTER")
 
-    def get_linkedin(self, data):
-        return self.get_id_for_schema(data, "LINKEDIN")
+    @staticmethod
+    def get_linkedin(data):
+        return get_id_for_schema(data, "LINKEDIN")
 
-    def get_orcid(self, data):
-        return self.get_id_for_schema(data, "ORCID")
+    @staticmethod
+    def get_orcid(data):
+        return get_id_for_schema(data, "ORCID")
 
-    def get_bai(self, data):
-        return self.get_id_for_schema(data, "INSPIRE BAI")
+    @staticmethod
+    def get_bai(data):
+        return get_id_for_schema(data, "INSPIRE BAI")
 
     @staticmethod
     def get_current_public_emails(data):
@@ -58,12 +61,6 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
             for email in emails
             if not email.get("hidden") and email.get("current")
         ]
-
-    @staticmethod
-    def get_id_for_schema(data, schema):
-        ids = data.get("ids", [])
-        ids_for_schema = get_values_for_schema(ids, schema)
-        return ids_for_schema[0] if ids_for_schema else None
 
     @staticmethod
     def get_should_display_positions(data):

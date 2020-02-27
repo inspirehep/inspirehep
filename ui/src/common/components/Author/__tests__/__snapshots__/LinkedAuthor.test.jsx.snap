@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AuthorWithBAI renders 1`] = `
+<Link
+  replace={false}
+  to="/authors/12345"
+>
+  Name, Full
+</Link>
+`;

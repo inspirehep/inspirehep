@@ -11,6 +11,8 @@ from inspire_dojson.utils import get_recid_from_ref
 from inspire_utils.name import generate_name_variations
 from marshmallow import Schema, fields, missing, pre_dump
 
+from inspirehep.records.marshmallow.utils import get_id_for_schema
+
 
 class AuthorSchemaV1(Schema):
 
@@ -29,6 +31,11 @@ class AuthorSchemaV1(Schema):
     uuid = fields.Raw()
     first_name = fields.Method("get_first_name", default=missing)
     last_name = fields.Method("get_last_name", default=missing)
+    bai = fields.Method("get_bai", dump_only=True)
+
+    @staticmethod
+    def get_bai(data):
+        return get_id_for_schema(data, "INSPIRE BAI") or missing
 
     def get_first_name(self, data):
         names = data.get("full_name", "").split(",", 1)
