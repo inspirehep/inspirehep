@@ -1029,11 +1029,12 @@ description = "Simple integration of Flask and WTForms."
 name = "flask-wtf"
 optional = false
 python-versions = "*"
-version = "0.14.2"
+version = "0.14.3"
 
 [package.dependencies]
 Flask = "*"
 WTForms = "*"
+itsdangerous = "*"
 
 [[package]]
 category = "main"
@@ -1053,18 +1054,6 @@ version = "0.3.14"
 
 [package.dependencies]
 python-dateutil = ">=1.0,<2.0 || >2.0"
-six = "*"
-
-[[package]]
-category = "main"
-description = "Filesystem abstraction layer"
-name = "fs"
-optional = false
-python-versions = "*"
-version = "0.5.4"
-
-[package.dependencies]
-setuptools = "*"
 six = "*"
 
 [[package]]
@@ -1682,36 +1671,6 @@ versioning = ["SQLAlchemy-Continuum (>=1.3.6)"]
 
 [[package]]
 category = "main"
-description = "Files download/upload REST API similar to S3 for Invenio."
-name = "invenio-files-rest"
-optional = false
-python-versions = "*"
-version = "1.0.5"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-Flask-CeleryExt = ">=0.3.1"
-Flask-Login = ">=0.3.2"
-Flask-WTF = ">=0.13.1"
-SQLAlchemy-Utils = ">=0.31.0"
-WTForms = ">=2.0"
-fs = ">=0.5.4,<2.0"
-simplejson = ">=3.0.0"
-
-[package.dependencies.invenio-rest]
-extras = ["cors"]
-version = ">=1.1.2"
-
-[package.extras]
-all = ["Sphinx (>=1.5.1)", "sphinxcontrib-httpdomain (>=1.4.0)", "Flask-BabelEx (>=0.9.3)", "Flask-Menu (>=0.5.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "invenio-access (>=1.0.0)", "invenio-accounts (>=1.0.0)", "invenio-admin (>=1.0.0)", "invenio-celery (>=1.0.0)", "isort (>=4.3.4)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)"]
-docs = ["Sphinx (>=1.5.1)", "sphinxcontrib-httpdomain (>=1.4.0)"]
-mysql = ["invenio-db (>=1.0.0)"]
-postgresql = ["invenio-db (>=1.0.0)"]
-sqlite = ["invenio-db (>=1.0.0)"]
-tests = ["Flask-BabelEx (>=0.9.3)", "Flask-Menu (>=0.5.0)", "SQLAlchemy-Continuum (>=1.2.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "invenio-access (>=1.0.0)", "invenio-accounts (>=1.0.0)", "invenio-admin (>=1.0.0)", "invenio-celery (>=1.0.0)", "isort (>=4.3.4)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.0.0,<5.0.0)"]
-
-[[package]]
-category = "main"
 description = "Invenio internationalization module."
 name = "invenio-i18n"
 optional = false
@@ -1910,27 +1869,6 @@ pidstore = ["invenio-pidstore (>=1.0.0)"]
 postgresql = ["invenio-db (>=1.0.0)"]
 sqlite = ["invenio-db (>=1.0.0)"]
 tests = ["check-manifest (>=0.25)", "coverage (>=4.5.3)", "Flask-Menu (>=0.4.0)", "invenio-admin (>=1.0.0)", "isort (>=4.3.0)", "mock (>=1.0.0)", "pydocstyle (>=3.0.0)", "pytest-cov (>=2.7.1)", "pytest-pep8 (>=1.0.6)", "pytest (>=4.6.4,<5.0.0)"]
-
-[[package]]
-category = "main"
-description = "Invenio modules that integrates records and files."
-name = "invenio-records-files"
-optional = false
-python-versions = "*"
-version = "1.1.1"
-
-[package.dependencies]
-Flask = ">=0.11.1"
-invenio-files-rest = ">=1.0.0"
-invenio-records = ">=1.0.0"
-
-[package.extras]
-all = ["Sphinx (>=1.5.1)", "check-manifest (>=0.25)", "coverage (>=4.0)", "invenio-indexer (>=1.0.0)", "invenio-records-rest (>=1.4.2)", "invenio-search (>=1.0.0)", "isort (>=4.3.4)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.7.0)"]
-docs = ["Sphinx (>=1.5.1)"]
-mysql = ["invenio-db (>=1.0.0)"]
-postgresql = ["invenio-db (>=1.0.0)"]
-sqlite = ["invenio-db (>=1.0.0)"]
-tests = ["check-manifest (>=0.25)", "coverage (>=4.0)", "invenio-indexer (>=1.0.0)", "invenio-records-rest (>=1.4.2)", "invenio-search (>=1.0.0)", "isort (>=4.3.4)", "mock (>=1.3.0)", "pydocstyle (>=1.0.0)", "pytest-cov (>=1.8.0)", "pytest-pep8 (>=1.0.6)", "pytest (>=3.7.0)"]
 
 [[package]]
 category = "main"
@@ -2781,7 +2719,7 @@ version = "2.8.4"
 [[package]]
 category = "main"
 description = "Run a subprocess in a pseudo terminal"
-marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\""
+marker = "python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\" or python_version >= \"3.4\" and sys_platform != \"win32\" and (python_version >= \"3.4\" and sys_platform != \"win32\" or sys_platform != \"win32\")"
 name = "ptyprocess"
 optional = false
 python-versions = "*"
@@ -4100,7 +4038,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "8c8ce17fd6bf2b10d4760e89833076e19cc9c946144ed3bfd9620be714ff52fd"
+content-hash = "29cdcf35fa47f4254a302d7b85331b464756c3339e273f36435e2af10641c12a"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
@@ -4510,8 +4448,8 @@ flask-webpackext = [
     {file = "flask_webpackext-1.0.0-py2.py3-none-any.whl", hash = "sha256:92569ae05b6799a9eba791cc7877a39f1d5545cabd0d4c2cc5bfb5964dbf4958"},
 ]
 flask-wtf = [
-    {file = "Flask-WTF-0.14.2.tar.gz", hash = "sha256:5d14d55cfd35f613d99ee7cba0fc3fbbe63ba02f544d349158c14ca15561cc36"},
-    {file = "Flask_WTF-0.14.2-py2.py3-none-any.whl", hash = "sha256:d9a9e366b32dcbb98ef17228e76be15702cd2600675668bca23f63a7947fd5ac"},
+    {file = "Flask-WTF-0.14.3.tar.gz", hash = "sha256:d417e3a0008b5ba583da1763e4db0f55a1269d9dd91dcc3eb3c026d3c5dbd720"},
+    {file = "Flask_WTF-0.14.3-py2.py3-none-any.whl", hash = "sha256:57b3faf6fe5d6168bda0c36b0df1d05770f8e205e18332d0376ddb954d17aef2"},
 ]
 fqn-decorators = [
     {file = "fqn-decorators-1.2.5.tar.gz", hash = "sha256:643ab526c1e4e762141e59345b06ba790ff2e00506c78923dca9812ad8021773"},
@@ -4519,9 +4457,6 @@ fqn-decorators = [
 freezegun = [
     {file = "freezegun-0.3.14-py2.py3-none-any.whl", hash = "sha256:10336fc80a235847c64033f9727f3847f37db4bd549be1d9f3b5ae0279256c69"},
     {file = "freezegun-0.3.14.tar.gz", hash = "sha256:6262de2f4bab671f7189bb8a0b9d8751da69a53f0b9813fb8f412681662d872a"},
-]
-fs = [
-    {file = "fs-0.5.4.tar.gz", hash = "sha256:ba2cca8773435a7c86059d57cb4b8ea30fda40f8610941f7822d1ce3ffd36197"},
 ]
 ftfy = [
     {file = "ftfy-4.4.3.tar.gz", hash = "sha256:3c0066db64a98436e751e56414f03f1cdea54f29364c0632c141c36cca6a5d94"},
@@ -4645,10 +4580,6 @@ invenio-db = [
     {file = "invenio-db-1.0.4.tar.gz", hash = "sha256:610e9a812527469403806a112ae98bd3579a65b93f8a0ed0842c6db07398edf6"},
     {file = "invenio_db-1.0.4-py2.py3-none-any.whl", hash = "sha256:6c61e40ec7487eba01e1e29b43946c996a44855dd3083d7e7bec8426c0e195b4"},
 ]
-invenio-files-rest = [
-    {file = "invenio-files-rest-1.0.5.tar.gz", hash = "sha256:83cb5cff7a1dd65085b15472bd5206f32442f58ae288e53c9c4219a37fbd09f2"},
-    {file = "invenio_files_rest-1.0.5-py2.py3-none-any.whl", hash = "sha256:d0bc93d29096b760180387aed7d508c845685b43e3aea078d486810198f82214"},
-]
 invenio-i18n = [
     {file = "invenio-i18n-1.1.1.tar.gz", hash = "sha256:69513d531ccffdfa47cec1e7cd701c72966573d2e9c4e24c96607cb7324dce48"},
     {file = "invenio_i18n-1.1.1-py2.py3-none-any.whl", hash = "sha256:b591d753cd79a98bbef98a0ac5d9abf105f5cb8af94614dbf92688782a7b77b0"},
@@ -4676,10 +4607,6 @@ invenio-pidstore = [
 invenio-records = [
     {file = "invenio-records-1.0.2.tar.gz", hash = "sha256:c500e7f8c6cee77ed818e7ce13f610e6dd9f96762369d9a99afdaed4e13aa1b7"},
     {file = "invenio_records-1.0.2-py2.py3-none-any.whl", hash = "sha256:5818e2dcef2de1d0b3e827b60c13588ce24f60f368a73b8d70ab75d7275eef63"},
-]
-invenio-records-files = [
-    {file = "invenio-records-files-1.1.1.tar.gz", hash = "sha256:476491b011d233262f71d0bfb301d17a8596e5024d3c2bb9bc8593e6b596ce4f"},
-    {file = "invenio_records_files-1.1.1-py2.py3-none-any.whl", hash = "sha256:3f2653bc2a1d1c8367e649337fb0c98f10a63b0e3f44ebd0e2f4a2bba029ae0a"},
 ]
 invenio-records-rest = [
     {file = "invenio-records-rest-1.6.4.tar.gz", hash = "sha256:3b88511d14182ef385123f04e8f3680600a4035dd80586ff46aeab2edf8f57d7"},

@@ -7,7 +7,6 @@
 
 """Add index for ObjectVersion.key"""
 
-from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "e5e43ad8f861"
@@ -18,11 +17,9 @@ depends_on = None
 
 def upgrade():
     """Upgrade database."""
-    op.create_index(
-        "ix_files_object_key_head", "files_object", ["key", "is_head"], unique=False
-    )
+    pass
 
 
 def downgrade():
     """Downgrade database."""
-    op.drop_index("ix_files_object_key_head", table_name="files_object")
+    pass

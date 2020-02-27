@@ -24,7 +24,6 @@ def test_downgrade(base_app, database):
     )
 
     alembic.downgrade(target="788a3a61a635")
-    assert "ix_files_object_key_head" not in _get_indexes("files_object", database)
 
     assert "idx_pid_provider" not in _get_indexes("pidstore_pid", database)
 
@@ -62,83 +61,11 @@ def test_downgrade(base_app, database):
 
     assert "record_citations" not in _get_table_names(database)
 
-    # test 7be4c8b5c5e8
-    alembic.downgrade(target="b5be5fda2ee7")
-    alembic.downgrade(1)
-
-    assert "ix_records_metadata_json_referenced_records_2_0" not in _get_indexes(
-        "records_metadata", database
-    )
-
-    assert "workflows_record_sources" not in _get_table_names(database)
-    assert "workflows_pending_record" not in _get_table_names(database)
-    assert "crawler_workflows_object" not in _get_table_names(database)
-    assert "crawler_job" not in _get_table_names(database)
-    assert "workflows_audit_logging" not in _get_table_names(database)
-    assert "workflows_buckets" not in _get_table_names(database)
-    assert "workflows_object" not in _get_table_names(database)
-    assert "workflows_workflow" not in _get_table_names(database)
-
-    assert "ix_crawler_job_job_id" not in _get_indexes("crawler_job", database)
-    assert "ix_crawler_job_scheduled" not in _get_indexes("crawler_job", database)
-    assert "ix_crawler_job_spider" not in _get_indexes("crawler_job", database)
-    assert "ix_crawler_job_workflow" not in _get_indexes("crawler_job", database)
-    assert "ix_workflows_audit_logging_object_id" not in _get_indexes(
-        "workflows_audit_logging", database
-    )
-    assert "ix_workflows_audit_logging_user_id" not in _get_indexes(
-        "workflows_audit_logging", database
-    )
-    assert "ix_workflows_object_data_type" not in _get_indexes(
-        "workflows_object", database
-    )
-    assert "ix_workflows_object_id_parent" not in _get_indexes(
-        "workflows_object", database
-    )
-    assert "ix_workflows_object_id_workflow" not in _get_indexes(
-        "workflows_object", database
-    )
-    assert "ix_workflows_object_status" not in _get_indexes(
-        "workflows_object", database
-    )
-
 
 def test_upgrade(base_app, database):
     alembic = Alembic(base_app)
     # go down to first migration
     alembic.downgrade(target="b5be5fda2ee7")
-
-    alembic.upgrade(target="7be4c8b5c5e8")
-
-    assert "workflows_record_sources" in _get_table_names(database)
-    assert "workflows_pending_record" in _get_table_names(database)
-    assert "crawler_workflows_object" in _get_table_names(database)
-    assert "crawler_job" in _get_table_names(database)
-    assert "workflows_audit_logging" in _get_table_names(database)
-    assert "workflows_buckets" in _get_table_names(database)
-    assert "workflows_object" in _get_table_names(database)
-    assert "workflows_workflow" in _get_table_names(database)
-
-    assert "ix_crawler_job_job_id" in _get_indexes("crawler_job", database)
-    assert "ix_crawler_job_scheduled" in _get_indexes("crawler_job", database)
-    assert "ix_crawler_job_spider" in _get_indexes("crawler_job", database)
-    assert "ix_crawler_job_workflow" in _get_indexes("crawler_job", database)
-    assert "ix_workflows_audit_logging_object_id" in _get_indexes(
-        "workflows_audit_logging", database
-    )
-    assert "ix_workflows_audit_logging_user_id" in _get_indexes(
-        "workflows_audit_logging", database
-    )
-    assert "ix_workflows_object_data_type" in _get_indexes("workflows_object", database)
-    assert "ix_workflows_object_id_parent" in _get_indexes("workflows_object", database)
-    assert "ix_workflows_object_id_workflow" in _get_indexes(
-        "workflows_object", database
-    )
-    assert "ix_workflows_object_status" in _get_indexes("workflows_object", database)
-
-    assert "ix_records_metadata_json_referenced_records_2_0" in _get_indexes(
-        "records_metadata", database
-    )
 
     alembic.upgrade(target="b646d3592dd5")
 
@@ -173,9 +100,6 @@ def test_upgrade(base_app, database):
     alembic.upgrade(target="788a3a61a635")
 
     assert "idx_pid_provider" not in _get_indexes("pidstore_pid", database)
-
-    alembic.upgrade(target="e5e43ad8f861")
-    assert "ix_files_object_key_head" in _get_indexes("files_object", database)
 
     alembic.upgrade(target="f563233434cd")
 
