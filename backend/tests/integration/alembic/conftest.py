@@ -24,6 +24,9 @@ def clean_db(db):
 
 def setup_db(app):
     alembic = Alembic(app)
+    alembic.upgrade(target="f563233434cd")
+    # Skip 42a5817ca169
+    alembic.stamp(target="42a5817ca169")
     alembic.upgrade()
 
 

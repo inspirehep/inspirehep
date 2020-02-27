@@ -114,6 +114,9 @@ def test_upgrade(base_app, database):
         database
     )
 
+    alembic.stamp(target="42a5817ca169")
+    # Skip 42a5817ca169
+
 
 def _get_indexes(tablename, db_alembic):
     query = text(
