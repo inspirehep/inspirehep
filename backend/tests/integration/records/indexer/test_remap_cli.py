@@ -11,7 +11,7 @@ from invenio_search import current_search
 from invenio_search.utils import build_index_name
 from mock import patch
 
-from inspirehep.records.indexer.cli import index
+from inspirehep.indexer.cli import index
 
 
 def test_remap_one_index(base_app, es_clear, script_info):

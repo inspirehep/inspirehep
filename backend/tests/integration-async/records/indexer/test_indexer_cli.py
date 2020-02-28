@@ -9,6 +9,7 @@ import pytest
 from invenio_records.models import RecordMetadata
 from mock import patch
 
+from inspirehep.indexer.cli import get_query_records_to_index, reindex_records
 from inspirehep.records.api import (
     AuthorsRecord,
     ConferencesRecord,
@@ -19,7 +20,6 @@ from inspirehep.records.api import (
     JournalsRecord,
     LiteratureRecord,
 )
-from inspirehep.records.indexer.cli import get_query_records_to_index, reindex_records
 
 
 @pytest.fixture
@@ -68,7 +68,7 @@ def test_reindex_record_lit_fails_with_invalid_record(
     check_n_records_reindex_for_pidtype,
 ):
     broken_field = {"_desy_bookkeeping": {"date": '"2013-01-14_final'}}
-    with patch("inspirehep.records.indexer.base.InspireRecordIndexer"):
+    with patch("inspirehep.indexer.base.InspireRecordIndexer"):
         with patch("inspirehep.records.api.base.schema_validate"):
             generate_records(count=1, data=broken_field, skip_validation=True)
 
@@ -84,7 +84,7 @@ def test_reindex_record_lit_fails_with_invalid_field_content(
 ):
     invalid_field = {"titles": ["i am not an object"]}
 
-    with patch("inspirehep.records.indexer.base.InspireRecordIndexer"):
+    with patch("inspirehep.indexer.base.InspireRecordIndexer"):
         with patch("inspirehep.records.api.base.schema_validate"):
             generate_records(count=1, data=invalid_field, skip_validation=True)
 
@@ -101,7 +101,7 @@ def test_reindex_records_lit_one_fails_and_two_ok(
     invalid_field = {"titles": ["i am not an object"]}
 
     generate_records(count=2)
-    with patch("inspirehep.records.indexer.base.InspireRecordIndexer"):
+    with patch("inspirehep.indexer.base.InspireRecordIndexer"):
         with patch("inspirehep.records.api.base.schema_validate"):
             generate_records(count=1, data=invalid_field, skip_validation=True)
 
