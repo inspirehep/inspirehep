@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { Menu } from 'antd';
+import { LinkOutlined } from '@ant-design/icons';
 
 import ExternalLink from '../../common/components/ExternalLink';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
@@ -23,7 +24,7 @@ function renderWebsiteAction(website, title) {
   return <ExternalLink href={website.get('value')}>{title}</ExternalLink>;
 }
 
-const ACTION_TITLE = <IconText type="link" text="website" />;
+const ACTION_TITLE = <IconText icon={<LinkOutlined />} text="website" />;
 
 function ConferenceWebsitesAction({ websites }) {
   return (

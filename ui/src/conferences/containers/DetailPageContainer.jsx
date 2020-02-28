@@ -92,37 +92,51 @@ function DetailPage({ record }) {
                 {cnum && ` (${cnum})`}
               </Col>
             </Row>
-            <Row className="mt2">
-              <Col>
-                <InspireCategoryList
-                  categories={inspireCategories}
-                  wrapperClassName="di"
-                />
-              </Col>
-            </Row>
-            <Row className="mt3">
-              <Col>
-                <RichDescription>{description}</RichDescription>
-              </Col>
-            </Row>
-            <Row className="mt3">
-              <Col>{series && <ConferenceSeries series={series} />}</Col>
-            </Row>
-            <Row className="mt2">
-              <Col>
-                <ContactList contacts={contacts} />
-              </Col>
-            </Row>
-            <Row className="mt2">
-              <Col>
-                <PublicNotesList publicNotes={publicNotes} />
-              </Col>
-            </Row>
-            <Row className="mt2">
-              <Col>
-                <KeywordList keywords={keywords} />
-              </Col>
-            </Row>
+            {inspireCategories && (
+              <Row className="mt2">
+                <Col>
+                  <InspireCategoryList
+                    categories={inspireCategories}
+                    wrapperClassName="di"
+                  />
+                </Col>
+              </Row>
+            )}
+            {description && (
+              <Row className="mt3">
+                <Col>
+                  <RichDescription>{description}</RichDescription>
+                </Col>
+              </Row>
+            )}
+            {series && (
+              <Row className="mt3">
+                <Col>
+                  <ConferenceSeries series={series} />
+                </Col>
+              </Row>
+            )}
+            {contacts && (
+              <Row className="mt2">
+                <Col>
+                  <ContactList contacts={contacts} />
+                </Col>
+              </Row>
+            )}
+            {publicNotes && (
+              <Row className="mt2">
+                <Col>
+                  <PublicNotesList publicNotes={publicNotes} />
+                </Col>
+              </Row>
+            )}
+            {keywords && (
+              <Row className="mt2">
+                <Col>
+                  <KeywordList keywords={keywords} />
+                </Col>
+              </Row>
+            )}
           </ContentBox>
         </Col>
       </Row>

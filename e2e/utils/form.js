@@ -1,13 +1,21 @@
 /* eslint-disable no-await-in-loop, no-restricted-syntax */
 const moment = require('moment');
+
 const routes = require('./routes');
 const { selectFromSelectBox, ID_ATTRIBUTE, TYPE_ATTRIBUTE } = require('./dom');
+
+const SUBMIT_BUTTON_SELECTOR = 'button[type=submit]';
+const DATE_FORMAT = 'YYYY-MM-DD';
 
 function joinPaths(...paths) {
   return paths.filter(path => path != null).join('.');
 }
 
-const SUBMIT_BUTTON_SELECTOR = 'button[type=submit]';
+async function fillDateInputElement(element, dateValue) {
+  const dateMoment = moment(dateValue);
+  const formattedDate = dateMoment.format(DATE_FORMAT);
+  await element.type(formattedDate);
+}
 
 class FormSubmitter {
   constructor(page) {
@@ -43,6 +51,7 @@ class FormSubmitter {
   }
 
   async fill(data) {
+    await this.page.waitFor('form');
     await this.fillAnyField(null, data);
     await this.page.click('form');
   }
@@ -62,6 +71,9 @@ class FormSubmitter {
       case 'number':
       case 'string':
         await this.fillNumberOrStringField(path, data);
+        break;
+      case 'suggester':
+        await this.fillSuggesterField(path, data);
         break;
       case 'single-select':
         await this.fillSingleSelectField(path, data);
@@ -142,6 +154,12 @@ class FormSubmitter {
     }
   }
 
+  async fillSuggesterField(path, value) {
+    const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
+    const innerInputSelector = `${fieldSelector} input`;
+    await this.page.type(innerInputSelector, value);
+  }
+
   async fillNumberOrStringField(path, value) {
     const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
     await this.page.type(fieldSelector, value);
@@ -157,23 +175,22 @@ class FormSubmitter {
     }
   }
 
-  async selectDateOnActivePicker(date) {
-    const dateSelector = `[title="${moment(date).format('MMMM D, YYYY')}"]`;
-    await this.page.waitFor(dateSelector);
-    await this.page.click(dateSelector);
-  }
-
   async fillDateField(path, value) {
     const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
-    await this.page.click(fieldSelector);
-    await this.selectDateOnActivePicker(value);
+    const fieldElement = await this.page.$(fieldSelector);
+    await fillDateInputElement(fieldElement, value);
   }
 
   async fillDateRangeField(path, [startDate, endDate]) {
     const fieldSelector = `[${ID_ATTRIBUTE}="${path}"]`;
-    await this.page.click(fieldSelector);
-    await this.selectDateOnActivePicker(startDate);
-    await this.selectDateOnActivePicker(endDate);
+    const inputsSelector = `${fieldSelector} input`;
+  
+    const [startDateInputElement, endDateInputElement] = await this.page.$$(inputsSelector);
+
+    await fillDateInputElement(startDateInputElement, startDate);
+    await fillDateInputElement(endDateInputElement, endDate);
+
+    await endDateInputElement.press('Enter');
   }
 
   async fillRichTextField(path, value) {
@@ -185,4 +202,5 @@ class FormSubmitter {
 module.exports = {
   FormSubmitter,
   SUBMIT_BUTTON_SELECTOR,
+  DATE_FORMAT,
 };

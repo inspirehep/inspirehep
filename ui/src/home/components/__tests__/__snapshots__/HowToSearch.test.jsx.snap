@@ -31,9 +31,6 @@ exports[`HowToSearch renders the components 1`] = `
           className="pa3"
         >
           <Table
-            bordered={false}
-            childrenColumnName="children"
-            className=""
             columns={
               Array [
                 Object {
@@ -159,20 +156,9 @@ exports[`HowToSearch renders the components 1`] = `
                 },
               ]
             }
-            indentSize={20}
-            loading={false}
-            locale={Object {}}
             pagination={false}
             rowKey="key"
-            showHeader={true}
             size="small"
-            sortDirections={
-              Array [
-                "ascend",
-                "descend",
-              ]
-            }
-            useFixedHeader={false}
           />
         </div>
       </TabPane>
@@ -227,10 +213,7 @@ exports[`HowToSearch renders the components 1`] = `
           onClick={[Function]}
           shape="circle"
         >
-          <Icon
-            theme="twoTone"
-            type="info-circle"
-          />
+          <ForwardRef(InfoCircleTwoTone) />
         </Button>
       </Tooltip>
     }

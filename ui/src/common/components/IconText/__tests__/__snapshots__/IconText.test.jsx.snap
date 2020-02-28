@@ -4,10 +4,11 @@ exports[`IconText renders with all props set 1`] = `
 <span
   className="__IconText__"
 >
-  <Icon
+  <span
     className="icon"
-    type="info"
-  />
+  >
+    <ForwardRef(InfoOutlined) />
+  </span>
   Test
 </span>
 `;

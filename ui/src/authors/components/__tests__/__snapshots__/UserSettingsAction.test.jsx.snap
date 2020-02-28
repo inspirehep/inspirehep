@@ -11,8 +11,8 @@ exports[`UserSettingsAction renders 1`] = `
       onClick={[Function]}
     >
       <IconText
+        icon={<ForwardRef(SettingOutlined) />}
         text="settings"
-        type="setting"
       />
     </Button>
   </ListItemAction>

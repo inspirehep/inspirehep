@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Button } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
 
 import ListItemAction from '../../common/components/ListItemAction';
 import IconText from '../../common/components/IconText';
@@ -18,7 +19,7 @@ function UserSettingsAction() {
     <>
       <ListItemAction>
         <Button onClick={onClick}>
-          <IconText text="settings" type="setting" />
+          <IconText text="settings" icon={<SettingOutlined />} />
         </Button>
       </ListItemAction>
       <UserSettingsModal

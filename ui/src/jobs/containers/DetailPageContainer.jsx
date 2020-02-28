@@ -28,6 +28,7 @@ import JobStatusAlert from '../components/JobStatusAlert';
 import DeletedAlert from '../../common/components/DeletedAlert';
 import { makeCompliantMetaDescription } from '../../common/utils';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
+import RequireOneOf from '../../common/components/RequireOneOf';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -79,28 +80,37 @@ function DetailPage({ record }) {
                 </h2>
               </Col>
             </Row>
-            <Row className="mt1">
-              <Col>
-                <InlineUL separator={SEPARATOR_MIDDLEDOT}>
-                  {institutions && (
-                    <InstitutionsList institutions={institutions} />
-                  )}
-                  <RegionsList regions={regions} />
-                </InlineUL>
-              </Col>
-            </Row>
-            <Row className="mt2">
-              <Col>
-                <ArxivCategoryList
-                  arxivCategories={arxivCategories}
-                  wrapperClassName="di"
-                />
-                <InlineUL separator={SEPARATOR_MIDDLEDOT} wrapperClassName="di">
-                  {ranks && <RanksList ranks={ranks} />}
-                  {experiments && <ExperimentList experiments={experiments} />}
-                </InlineUL>
-              </Col>
-            </Row>
+            <RequireOneOf dependencies={[institutions, regions]}>
+              <Row className="mt1">
+                <Col>
+                  <InlineUL separator={SEPARATOR_MIDDLEDOT}>
+                    {institutions && (
+                      <InstitutionsList institutions={institutions} />
+                    )}
+                    <RegionsList regions={regions} />
+                  </InlineUL>
+                </Col>
+              </Row>
+            </RequireOneOf>
+            <RequireOneOf dependencies={[arxivCategories, ranks, experiments]}>
+              <Row className="mt2">
+                <Col>
+                  <ArxivCategoryList
+                    arxivCategories={arxivCategories}
+                    wrapperClassName="di"
+                  />
+                  <InlineUL
+                    separator={SEPARATOR_MIDDLEDOT}
+                    wrapperClassName="di"
+                  >
+                    {ranks && <RanksList ranks={ranks} />}
+                    {experiments && (
+                      <ExperimentList experiments={experiments} />
+                    )}
+                  </InlineUL>
+                </Col>
+              </Row>
+            </RequireOneOf>
             <Row className="mt3">
               <Col>
                 <DeadlineDate deadlineDate={deadlineDate} />

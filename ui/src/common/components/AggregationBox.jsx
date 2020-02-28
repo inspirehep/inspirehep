@@ -9,12 +9,14 @@ class AggregationBox extends Component {
     return (
       <div className={classNames('w-100 br1', className)}>
         <Row type="flex" justify="space-between">
-          <Col>
+          <Col flex="auto">
             <h3 className="pb1">{name}</h3>
           </Col>
           <Col>{headerAction}</Col>
         </Row>
-        <Row className="w-100">{children}</Row>
+        <Row className="w-100">
+          <Col flex="auto">{children}</Col>
+        </Row>
       </div>
     );
   }

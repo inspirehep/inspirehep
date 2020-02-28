@@ -20,9 +20,7 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
           title="Contact author"
           transitionName="zoom-big-fast"
         >
-          <Icon
-            type="mail"
-          />
+          <ForwardRef(MailOutlined) />
         </Tooltip>
       </Button>
     }
@@ -63,9 +61,7 @@ exports[`AuthorEmailsAction renders single email 1`] = `
       title="Contact author"
       transitionName="zoom-big-fast"
     >
-      <Icon
-        type="mail"
-      />
+      <ForwardRef(MailOutlined) />
     </Tooltip>
   </ExternalLink>
 </ListItemAction>

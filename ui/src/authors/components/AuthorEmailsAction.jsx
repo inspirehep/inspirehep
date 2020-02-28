@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Menu, Icon, Tooltip } from 'antd';
+import { MailOutlined } from '@ant-design/icons';
+import { Menu, Tooltip } from 'antd';
 
 import ExternalLink from '../../common/components/ExternalLink';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
@@ -26,7 +27,7 @@ function renderEmailAction(email, title) {
 
 const ACTION_TITLE = (
   <Tooltip title="Contact author">
-    <Icon type="mail" />
+    <MailOutlined />
   </Tooltip>
 );
 

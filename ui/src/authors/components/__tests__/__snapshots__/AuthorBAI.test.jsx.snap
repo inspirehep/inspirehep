@@ -5,7 +5,6 @@ exports[`AuthorBAI renders 1`] = `
   Author Identifier:
    
   <Link
-    replace={false}
     to="/literature?q=a%20F.Marchetto.1"
   >
     F.Marchetto.1

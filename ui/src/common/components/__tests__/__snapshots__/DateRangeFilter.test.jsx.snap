@@ -12,17 +12,12 @@ exports[`DateRangeFilter renders DateRangeFilter with all props set 1`] = `
     className="mb2"
     gutter={0}
   >
-    <PickerWrapper
+    <Picker
       className="w-100"
       data-test-id="start-date-picker"
       disabledDate={[Function]}
       format="YYYY-MM-DD"
-      locale={Object {}}
       onChange={[Function]}
-      onOk={[Function]}
-      onOpenChange={[Function]}
-      popupStyle={Object {}}
-      transitionName="slide-up"
       value={"2019-11-21T00:00:00.000Z"}
     />
   </Row>
@@ -35,17 +30,12 @@ exports[`DateRangeFilter renders DateRangeFilter with all props set 1`] = `
   <Row
     gutter={0}
   >
-    <PickerWrapper
+    <Picker
       className="w-100"
       data-test-id="end-date-picker"
       disabledDate={[Function]}
       format="YYYY-MM-DD"
-      locale={Object {}}
       onChange={[Function]}
-      onOk={[Function]}
-      onOpenChange={[Function]}
-      popupStyle={Object {}}
-      transitionName="slide-up"
       value={"2019-11-22T00:00:00.000Z"}
     />
   </Row>
@@ -64,17 +54,12 @@ exports[`DateRangeFilter renders DateRangeFilter without range 1`] = `
     className="mb2"
     gutter={0}
   >
-    <PickerWrapper
+    <Picker
       className="w-100"
       data-test-id="start-date-picker"
       disabledDate={[Function]}
       format="YYYY-MM-DD"
-      locale={Object {}}
       onChange={[Function]}
-      onOk={[Function]}
-      onOpenChange={[Function]}
-      popupStyle={Object {}}
-      transitionName="slide-up"
       value={null}
     />
   </Row>
@@ -87,17 +72,12 @@ exports[`DateRangeFilter renders DateRangeFilter without range 1`] = `
   <Row
     gutter={0}
   >
-    <PickerWrapper
+    <Picker
       className="w-100"
       data-test-id="end-date-picker"
       disabledDate={[Function]}
       format="YYYY-MM-DD"
-      locale={Object {}}
       onChange={[Function]}
-      onOk={[Function]}
-      onOpenChange={[Function]}
-      popupStyle={Object {}}
-      transitionName="slide-up"
       value={null}
     />
   </Row>

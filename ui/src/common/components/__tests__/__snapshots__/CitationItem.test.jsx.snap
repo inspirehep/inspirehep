@@ -30,8 +30,7 @@ exports[`CitationItem renders with full citation 1`] = `
       </React.Fragment>
     }
     title={
-      <Link
-        replace={false}
+      <ForwardRef
         to="/literature/12345"
       >
         <LiteratureTitle
@@ -41,7 +40,7 @@ exports[`CitationItem renders with full citation 1`] = `
             }
           }
         />
-      </Link>
+      </ForwardRef>
     }
   />
 </Item>

@@ -43,16 +43,16 @@ class JobSubmission extends Component {
       ...initialFormData,
     };
     return (
-      <Row>
+      <div>
         {error && (
           <Row className="mb3">
-            <Col>
+            <Col span={24}>
               <Alert message={error.message} type="error" showIcon closable />
             </Col>
           </Row>
         )}
         <Row>
-          <Col>
+          <Col span={24}>
             <Formik
               initialValues={initialValues}
               validationSchema={jobSchema.concat(extendSchema)}
@@ -62,7 +62,7 @@ class JobSubmission extends Component {
             />
           </Col>
         </Row>
-      </Row>
+      </div>
     );
   }
 }

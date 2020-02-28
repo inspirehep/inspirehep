@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { Button } from 'antd';
+import { ExpandOutlined } from '@ant-design/icons';
 
 import IconText from '../../IconText';
 import ListItemAction from '../ListItemAction';
@@ -10,7 +11,7 @@ describe('ListItemAction', () => {
     const wrapper = shallow(
       <ListItemAction>
         <Button>
-          <IconText text="cite" type="export" />
+          <IconText text="cite" icon={<ExpandOutlined />} />
         </Button>
       </ListItemAction>
     );

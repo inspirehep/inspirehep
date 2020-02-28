@@ -16,7 +16,7 @@ function linkToHrefDisplayPair(link) {
   return [href, display];
 }
 
-function UrlsAction({ urls, iconText, iconType, trackerEventId }) {
+function UrlsAction({ urls, iconText, icon, trackerEventId }) {
   const renderUrlsAction = useCallback(
     (url, title) => (
       <EventTracker eventId={trackerEventId}>
@@ -40,7 +40,7 @@ function UrlsAction({ urls, iconText, iconType, trackerEventId }) {
     [trackerEventId]
   );
 
-  const ACTION_TITLE = <IconText text={iconText} type={iconType} />;
+  const ACTION_TITLE = <IconText text={iconText} icon={icon} />;
 
   return (
     <ActionsDropdownOrAction
@@ -55,7 +55,7 @@ function UrlsAction({ urls, iconText, iconType, trackerEventId }) {
 UrlsAction.propTypes = {
   urls: PropTypes.instanceOf(List).isRequired,
   iconText: PropTypes.string.isRequired,
-  iconType: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
   trackerEventId: PropTypes.string.isRequired,
 };
 

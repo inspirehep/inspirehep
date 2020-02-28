@@ -15,7 +15,6 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
       key="submit.author"
     >
       <Link
-        replace={false}
         to="/submissions/authors"
       >
         Author
@@ -25,7 +24,6 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
       key="submit.job"
     >
       <Link
-        replace={false}
         to="/submissions/jobs"
       >
         Job
@@ -35,7 +33,6 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
       key="submit.literature"
     >
       <Link
-        replace={false}
         to="/submissions/literature"
       >
         Literature
@@ -45,7 +42,6 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
       key="submit.conference"
     >
       <Link
-        replace={false}
         to="/submissions/conferences"
       >
         Conference
@@ -89,7 +85,6 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
     key="login-logout"
   >
     <Link
-      replace={false}
       to="/user/login"
     >
       Login
@@ -113,7 +108,6 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
       key="submit.author"
     >
       <Link
-        replace={false}
         to="/submissions/authors"
       >
         Author
@@ -123,7 +117,6 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
       key="submit.job"
     >
       <Link
-        replace={false}
         to="/submissions/jobs"
       >
         Job
@@ -133,7 +126,6 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
       key="submit.literature"
     >
       <Link
-        replace={false}
         to="/submissions/literature"
       >
         Literature
@@ -143,7 +135,6 @@ exports[`HeaderMenu does not show some tool links if logged in user is not super
       key="submit.conference"
     >
       <Link
-        replace={false}
         to="/submissions/conferences"
       >
         Conference
@@ -211,7 +202,6 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
       key="submit.author"
     >
       <Link
-        replace={false}
         to="/submissions/authors"
       >
         Author
@@ -221,7 +211,6 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
       key="submit.job"
     >
       <Link
-        replace={false}
         to="/submissions/jobs"
       >
         Job
@@ -231,7 +220,6 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
       key="submit.literature"
     >
       <Link
-        replace={false}
         to="/submissions/literature"
       >
         Literature
@@ -241,7 +229,6 @@ exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
       key="submit.conference"
     >
       <Link
-        replace={false}
         to="/submissions/conferences"
       >
         Conference

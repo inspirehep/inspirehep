@@ -12,12 +12,7 @@ exports[`OrcidPushSetting renders when disabled 1`] = `
     </span>
     <Popconfirm
       disabled={false}
-      icon={
-        <Icon
-          theme="filled"
-          type="exclamation-circle"
-        />
-      }
+      icon={<ForwardRef(ExclamationCircleFilled) />}
       okType="primary"
       onConfirm={[Function]}
       placement="top"
@@ -66,12 +61,7 @@ exports[`OrcidPushSetting renders when enabled 1`] = `
     </span>
     <Popconfirm
       disabled={false}
-      icon={
-        <Icon
-          theme="filled"
-          type="exclamation-circle"
-        />
-      }
+      icon={<ForwardRef(ExclamationCircleFilled) />}
       okType="primary"
       onConfirm={[Function]}
       placement="top"

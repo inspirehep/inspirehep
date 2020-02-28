@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
-import { Menu, Icon, Tooltip } from 'antd';
+import { LinkOutlined } from '@ant-design/icons';
+import { Menu, Tooltip } from 'antd';
 
 import ExternalLink from '../../common/components/ExternalLink';
 import { removeProtocolAndWwwFromUrl } from '../../common/utils';
@@ -48,7 +49,7 @@ function renderWebsiteAction(website, title) {
 
 const ACTION_TITLE = (
   <Tooltip title="Personal website">
-    <Icon type="link" />
+    <LinkOutlined />
   </Tooltip>
 );
 

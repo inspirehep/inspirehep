@@ -11,8 +11,8 @@ import LoadingOrChildren from '../../common/components/LoadingOrChildren';
 import DocumentHead from '../../common/components/DocumentHead';
 import { AUTHORS_NS } from '../../reducers/search';
 
-const META_DESCRIPTION = "Find authors in High Energy Physics"
-const TITLE = "Authors Search"
+const META_DESCRIPTION = 'Find authors in High Energy Physics';
+const TITLE = 'Authors Search';
 
 class SearchPage extends Component {
   static renderAuthorItem(result) {
@@ -27,7 +27,7 @@ class SearchPage extends Component {
         <Row className="mt3" gutter={32} type="flex" justify="center">
           <Col xs={24} lg={16} xl={16} xxl={14}>
             <LoadingOrChildren loading={loading}>
-              <Row type="flex">
+              <Row>
                 <Col>
                   <NumberOfResultsContainer namespace={AUTHORS_NS} />
                 </Col>

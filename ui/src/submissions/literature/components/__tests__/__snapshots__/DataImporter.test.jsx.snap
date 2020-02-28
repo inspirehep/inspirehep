@@ -6,7 +6,9 @@ exports[`DataImporter renders with error with a message 1`] = `
     className="mb3"
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <Alert
         message="Fill in the field to automatically import more data from arXiv or DOI"
         type="info"
@@ -31,7 +33,6 @@ exports[`DataImporter renders with error with a message 1`] = `
     </Col>
   </Row>
   <FormItem
-    hasFeedback={false}
     label={
       <Tooltip
         arrowPointAtCenter={false}
@@ -68,7 +69,6 @@ exports[`DataImporter renders with error with a message 1`] = `
   >
     <Input
       data-test-id="import-input"
-      disabled={false}
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
@@ -112,7 +112,9 @@ exports[`DataImporter renders with error with message and recid 1`] = `
     className="mb3"
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <Alert
         message="Fill in the field to automatically import more data from arXiv or DOI"
         type="info"
@@ -146,7 +148,6 @@ exports[`DataImporter renders with error with message and recid 1`] = `
     </Col>
   </Row>
   <FormItem
-    hasFeedback={false}
     label={
       <Tooltip
         arrowPointAtCenter={false}
@@ -183,7 +184,6 @@ exports[`DataImporter renders with error with message and recid 1`] = `
   >
     <Input
       data-test-id="import-input"
-      disabled={false}
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
@@ -227,7 +227,9 @@ exports[`DataImporter renders with error without a message 1`] = `
     className="mb3"
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <Alert
         message="Fill in the field to automatically import more data from arXiv or DOI"
         type="info"
@@ -252,7 +254,6 @@ exports[`DataImporter renders with error without a message 1`] = `
     </Col>
   </Row>
   <FormItem
-    hasFeedback={false}
     label={
       <Tooltip
         arrowPointAtCenter={false}
@@ -289,7 +290,6 @@ exports[`DataImporter renders with error without a message 1`] = `
   >
     <Input
       data-test-id="import-input"
-      disabled={false}
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"
@@ -333,7 +333,9 @@ exports[`DataImporter renders without error while importing 1`] = `
     className="mb3"
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <Alert
         message="Fill in the field to automatically import more data from arXiv or DOI"
         type="info"
@@ -341,7 +343,6 @@ exports[`DataImporter renders without error while importing 1`] = `
     </Col>
   </Row>
   <FormItem
-    hasFeedback={false}
     label={
       <Tooltip
         arrowPointAtCenter={false}
@@ -378,7 +379,6 @@ exports[`DataImporter renders without error while importing 1`] = `
   >
     <Input
       data-test-id="import-input"
-      disabled={false}
       onChange={[Function]}
       onPressEnter={[Function]}
       placeholder="hep-th/9711200 or 1207.7235 or arXiv:1001.4538 or 10.1086/305772 or doi:10.1086/305772"

@@ -21,7 +21,9 @@ exports[`Home renders home page 1`] = `
         className="pt4"
         gutter={0}
       >
-        <Col>
+        <Col
+          flex="auto"
+        >
           <h2
             className="f2 tc sm-f4"
           >
@@ -37,7 +39,9 @@ exports[`Home renders home page 1`] = `
       <Row
         gutter={0}
       >
-        <Col>
+        <Col
+          flex="auto"
+        >
           <Connect(SearchBox) />
         </Col>
       </Row>

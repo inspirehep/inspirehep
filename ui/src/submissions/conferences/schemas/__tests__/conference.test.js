@@ -75,6 +75,15 @@ describe('conferenceSchema', () => {
     expect(isValid).toBe(false);
   });
 
+  it('invalidates when only one of the dates is present', async () => {
+    const data = {
+      ...dataWithRequiredFields,
+      dates: ['2020-06-01', ''],
+    };
+    const isValid = await conferenceSchema.isValid(data);
+    expect(isValid).toBe(false);
+  });
+
   it('invalidates when dates have only single date', async () => {
     const data = {
       ...dataWithRequiredFields,

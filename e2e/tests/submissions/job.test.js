@@ -1,7 +1,7 @@
 const moment = require('moment');
 const { ResponseInterceptor } = require('../../utils/interceptors');
 const { login } = require('../../utils/user');
-const { FormSubmitter } = require('../../utils/form');
+const { FormSubmitter, DATE_FORMAT } = require('../../utils/form');
 const routes = require('../../utils/routes');
 
 describe('job submissions', () => {
@@ -70,7 +70,7 @@ describe('job submissions', () => {
       urls: [{ value: 'https://someinfo.com' }],
       deadline_date: moment()
         .add(1, 'day')
-        .format('YYYY-MM-DD'),
+        .format(DATE_FORMAT),
       contact_details: [
         {
           name: 'John Doe',

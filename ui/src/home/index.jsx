@@ -6,8 +6,9 @@ import HowToSearch from './components/HowToSearch';
 import './index.scss';
 import DocumentHead from '../common/components/DocumentHead';
 
-const META_DESCRIPTION = "INSPIRE is the leading information platform for High Energy Physics (HEP) literature which provides users with high quality, curated content covering the entire corpus of HEP literature, authors, data, jobs, conferences, institutions and experiments."
-const TITLE = "Home"
+const META_DESCRIPTION =
+  'INSPIRE is the leading information platform for High Energy Physics (HEP) literature which provides users with high quality, curated content covering the entire corpus of HEP literature, authors, data, jobs, conferences, institutions and experiments.';
+const TITLE = 'Home';
 
 class Home extends Component {
   render() {
@@ -17,7 +18,7 @@ class Home extends Component {
         <Row className="__Home__" type="flex" justify="center" align="middle">
           <Col xs={24} sm={18}>
             <Row className="pt4">
-              <Col>
+              <Col flex="auto">
                 <h2 className="f2 tc sm-f4">
                   Discover High-Energy Physics content
                 </h2>
@@ -28,7 +29,7 @@ class Home extends Component {
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col flex="auto">
                 <SearchBoxContainer />
               </Col>
             </Row>

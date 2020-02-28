@@ -32,16 +32,18 @@ class AuthorSubmissionPage extends Component {
       <Row type="flex" justify="center">
         <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
           <Row className="mb3 pa3 bg-white">
-            <h3>Suggest author</h3>
-            This form allows you to create the profile of a new author. All
-            modifications are transferred to{' '}
-            <ExternalLink href="//inspirehep.net/hepnames">
-              inspirehep.net/hepnames
-            </ExternalLink>{' '}
-            upon approval.
+            <Col span={24}>
+              <h3>Suggest author</h3>
+              This form allows you to create the profile of a new author. All
+              modifications are transferred to{' '}
+              <ExternalLink href="//inspirehep.net/hepnames">
+                inspirehep.net/hepnames
+              </ExternalLink>{' '}
+              upon approval.
+            </Col>
           </Row>
           <Row>
-            <Col>
+            <Col span={24}>
               <AuthorSubmission
                 error={error}
                 onSubmit={this.onSubmit}

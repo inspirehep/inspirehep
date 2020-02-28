@@ -10,7 +10,9 @@ exports[`ErrorPage renders with all props 1`] = `
   <Row
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <h3
         className="f2 sm-f3"
       >
@@ -21,7 +23,9 @@ exports[`ErrorPage renders with all props 1`] = `
   <Row
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <h3
         className="f3 normal sm-f4"
       >
@@ -34,7 +38,9 @@ exports[`ErrorPage renders with all props 1`] = `
   <Row
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <img
         alt="ERROR"
         src="image_src"
@@ -54,7 +60,9 @@ exports[`ErrorPage renders with default detail 1`] = `
   <Row
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <h3
         className="f2 sm-f3"
       >
@@ -65,7 +73,9 @@ exports[`ErrorPage renders with default detail 1`] = `
   <Row
     gutter={0}
   >
-    <Col>
+    <Col
+      span={24}
+    >
       <img
         alt="ERROR"
         src="image_src"

@@ -9,7 +9,9 @@ exports[`AggregationBox renders AggreagationBox with action 1`] = `
     justify="space-between"
     type="flex"
   >
-    <Col>
+    <Col
+      flex="auto"
+    >
       <h3
         className="pb1"
       >
@@ -26,9 +28,13 @@ exports[`AggregationBox renders AggreagationBox with action 1`] = `
     className="w-100"
     gutter={0}
   >
-    <div>
-      Defenders
-    </div>
+    <Col
+      flex="auto"
+    >
+      <div>
+        Defenders
+      </div>
+    </Col>
   </Row>
 </div>
 `;
@@ -42,7 +48,9 @@ exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
     justify="space-between"
     type="flex"
   >
-    <Col>
+    <Col
+      flex="auto"
+    >
       <h3
         className="pb1"
       />
@@ -57,9 +65,13 @@ exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
     className="w-100"
     gutter={0}
   >
-    <div>
-      Defenders
-    </div>
+    <Col
+      flex="auto"
+    >
+      <div>
+        Defenders
+      </div>
+    </Col>
   </Row>
 </div>
 `;
@@ -73,7 +85,9 @@ exports[`AggregationBox renders AggreagationBox without action 1`] = `
     justify="space-between"
     type="flex"
   >
-    <Col>
+    <Col
+      flex="auto"
+    >
       <h3
         className="pb1"
       >
@@ -86,9 +100,13 @@ exports[`AggregationBox renders AggreagationBox without action 1`] = `
     className="w-100"
     gutter={0}
   >
-    <div>
-      Defenders
-    </div>
+    <Col
+      flex="auto"
+    >
+      <div>
+        Defenders
+      </div>
+    </Col>
   </Row>
 </div>
 `;
@@ -102,7 +120,9 @@ exports[`AggregationBox renders AggreagationBox without children and with action
     justify="space-between"
     type="flex"
   >
-    <Col>
+    <Col
+      flex="auto"
+    >
       <h3
         className="pb1"
       >
@@ -118,7 +138,11 @@ exports[`AggregationBox renders AggreagationBox without children and with action
   <Row
     className="w-100"
     gutter={0}
-  />
+  >
+    <Col
+      flex="auto"
+    />
+  </Row>
 </div>
 `;
 
@@ -131,7 +155,9 @@ exports[`AggregationBox renders AggreagationBox without children and without act
     justify="space-between"
     type="flex"
   >
-    <Col>
+    <Col
+      flex="auto"
+    >
       <h3
         className="pb1"
       >
@@ -143,6 +169,10 @@ exports[`AggregationBox renders AggreagationBox without children and without act
   <Row
     className="w-100"
     gutter={0}
-  />
+  >
+    <Col
+      flex="auto"
+    />
+  </Row>
 </div>
 `;

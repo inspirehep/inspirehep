@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
 
 import './IconText.scss';
 
 class IconText extends Component {
   render() {
-    const { type, text } = this.props;
+    const { icon, text } = this.props;
     return (
       <span className="__IconText__">
-        <Icon className="icon" type={type} />
+        <span className="icon">{icon}</span>
         {text}
       </span>
     );
@@ -17,7 +16,7 @@ class IconText extends Component {
 }
 
 IconText.propTypes = {
-  type: PropTypes.string.isRequired,
+  icon: PropTypes.node.isRequired,
   text: PropTypes.string.isRequired,
 };
 

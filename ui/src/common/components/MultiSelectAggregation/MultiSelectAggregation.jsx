@@ -28,7 +28,7 @@ class MultiSelectAggregation extends Component {
         <SelectBox
           className="w-100"
           mode="multiple"
-          placeholder={<span className="placeholder">{name}</span>}
+          placeholder={name}
           onChange={onChange}
           value={selections}
           options={selectOptions}

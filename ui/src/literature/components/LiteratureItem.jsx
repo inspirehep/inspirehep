@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { LoginOutlined, DownloadOutlined } from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
@@ -53,7 +54,7 @@ class LiteratureItem extends Component {
             {fullTextLinks && (
               <UrlsAction
                 urls={fullTextLinks}
-                iconType="download"
+                icon={<DownloadOutlined />}
                 iconText="pdf"
                 trackerEventId="PdfDownload"
               />
@@ -76,7 +77,7 @@ class LiteratureItem extends Component {
                         'citation',
                         citationCount
                       )}`}
-                      type="login"
+                      icon={<LoginOutlined />}
                     />
                   </Link>
                 </EventTracker>

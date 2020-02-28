@@ -35,15 +35,14 @@ exports[`ConferenceItem renders with all props set 1`] = `
   }
   rightActions={
     <ListItemAction>
-      <Link
-        replace={false}
+      <ForwardRef
         to="/literature?q=publication_info.conference_record.$ref:12345&doc_type=conference%20paper"
       >
         <IconText
+          icon={<ForwardRef(LoginOutlined) />}
           text="3 contributions"
-          type="login"
         />
-      </Link>
+      </ForwardRef>
     </ListItemAction>
   }
 >
@@ -54,7 +53,6 @@ exports[`ConferenceItem renders with all props set 1`] = `
     <Col>
       <Link
         className="f5"
-        replace={false}
         target="_blank"
         to="/conferences/12345"
       >
@@ -126,7 +124,6 @@ exports[`ConferenceItem renders with only needed props 1`] = `
     <Col>
       <Link
         className="f5"
-        replace={false}
         target={null}
         to="/conferences/12345"
       >

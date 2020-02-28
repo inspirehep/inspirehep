@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { LoginOutlined } from '@ant-design/icons';
 
 import { Row, Col } from 'antd';
 import EditRecordAction from '../../common/components/EditRecordAction';
@@ -59,7 +60,7 @@ class ConferenceItem extends Component {
                     'contribution',
                     contributionsCount
                   )}`}
-                  type="login"
+                  icon={<LoginOutlined />}
                 />
               </Link>
             </ListItemAction>

@@ -11,8 +11,8 @@ exports[`ListItemAction renders 1`] = `
     loading={false}
   >
     <IconText
+      icon={<ForwardRef(ExpandOutlined) />}
       text="cite"
-      type="export"
     />
   </Button>
 </span>
