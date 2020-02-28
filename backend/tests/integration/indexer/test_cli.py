@@ -4,14 +4,63 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+
 import random
 
 from click.testing import CliRunner
-from invenio_search import current_search
+from helpers.providers.faker import faker
+from invenio_search import current_search, current_search_client
 from invenio_search.utils import build_index_name
 from mock import patch
 
-from inspirehep.indexer.cli import index
+from inspirehep.indexer.cli import indexer
+from inspirehep.search.api import (
+    AuthorsSearch,
+    ConferencesSearch,
+    JobsSearch,
+    LiteratureSearch,
+)
+
+
+def test_reindex_all_types_records(
+    base_app, db, es_clear, create_record_factory, script_info
+):
+    runner = CliRunner()
+
+    record_lit = create_record_factory("lit")
+    record_aut = create_record_factory("aut")
+    record_job = create_record_factory("job")
+    record_con = create_record_factory("con")
+
+    result = runner.invoke(indexer, ["reindex", "--all"], obj=script_info)
+    current_search.flush_and_refresh("*")
+    results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]
+    results_aut_uuid = AuthorsSearch().execute().hits.hits[0]["_id"]
+    results_con_uuid = ConferencesSearch().execute().hits.hits[0]["_id"]
+    results_job_uuid = JobsSearch().execute().hits.hits[0]["_id"]
+
+    assert str(record_lit.id) == results_lit_uuid
+    assert str(record_aut.id) == results_aut_uuid
+    assert str(record_con.id) == results_con_uuid
+    assert str(record_job.id) == results_job_uuid
+
+
+def test_reindex_one_type_of_record(
+    base_app, db, es_clear, create_record_factory, script_info
+):
+    runner = CliRunner()
+
+    record_lit = create_record_factory("lit")
+    record_aut = create_record_factory("aut")
+
+    result = runner.invoke(indexer, ["reindex", "-p", "lit"], obj=script_info)
+    current_search.flush_and_refresh("*")
+    expected_aut_len = 0
+    results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]
+    results_aut_len = len(AuthorsSearch().execute().hits.hits)
+
+    assert str(record_lit.id) == results_lit_uuid
+    assert expected_aut_len == results_aut_len
 
 
 def test_remap_one_index(base_app, es_clear, script_info):
@@ -20,7 +69,7 @@ def test_remap_one_index(base_app, es_clear, script_info):
     # Generate new suffix to distinguish new indexes easier
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     result = runner.invoke(
-        index, ["remap", "--index", "records-hep", "--yes-i-know"], obj=script_info
+        indexer, ["remap", "--index", "records-hep", "--yes-i-know"], obj=script_info
     )
     current_search.flush_and_refresh("*")
     assert result.exit_code == 0
@@ -36,7 +85,7 @@ def test_remap_two_indexex(base_app, es_clear, script_info):
     indexes_before = set(current_search.client.indices.get("*").keys())
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     result = runner.invoke(
-        index,
+        indexer,
         [
             "remap",
             "--index",
@@ -66,7 +115,7 @@ def test_remap_index_with_wrong_name(base_app, es_clear, script_info):
 
     indexes_before = set(current_search.client.indices.get("*").keys())
     result = runner.invoke(
-        index, ["remap", "--index", "records-author", "--yes-i-know"], obj=script_info
+        indexer, ["remap", "--index", "records-author", "--yes-i-know"], obj=script_info
     )
     current_search.flush_and_refresh("*")
 
@@ -84,7 +133,7 @@ def test_remap_index_which_is_missing_in_es(base_app, es_clear, script_info):
     with patch.dict(base_app.config, config):
         indexes_before = set(current_search.client.indices.get("*").keys())
         result = runner.invoke(
-            index,
+            indexer,
             ["remap", "--index", "records-authors", "--yes-i-know"],
             obj=script_info,
         )
@@ -107,7 +156,7 @@ def test_remap_index_which_is_missing_in_es_but_ignore_checks(
     with patch.dict(base_app.config, config):
         indexes_before = set(current_search.client.indices.get("*").keys())
         result = runner.invoke(
-            index,
+            indexer,
             ["remap", "--index", "records-authors", "--yes-i-know", "--ignore-checks"],
             obj=script_info,
         )
@@ -133,7 +182,7 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     indexes_before = set(current_search.client.indices.get("*").keys())
     result = runner.invoke(
-        index, ["remap", "--index", "records-data", "--yes-i-know"], obj=script_info
+        indexer, ["remap", "--index", "records-data", "--yes-i-know"], obj=script_info
     )
     current_search.flush_and_refresh("*")
 
@@ -155,7 +204,7 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     indexes_before = set(current_search.client.indices.get("*").keys())
     result = runner.invoke(
-        index,
+        indexer,
         ["remap", "--index", "records-data", "--yes-i-know", "--ignore-checks"],
         obj=script_info,
     )

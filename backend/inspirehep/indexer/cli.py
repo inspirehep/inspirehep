@@ -17,12 +17,16 @@ from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
-from invenio_search.cli import index
 
+from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api import InspireRecord
-from inspirehep.records.indexer.tasks import batch_index
 
 LOGGER = structlog.getLogger()
+
+
+@click.group()
+def indexer():
+    """Command group Inspire indexing & remap operations. (DO NOT USE ``index`` from Invenio)"""
 
 
 def next_batch(iterator, batch_size):
@@ -68,7 +72,7 @@ def _prepare_logdir(log_path):
         makedirs(path.dirname(log_path))
 
 
-@index.command("reindex")
+@indexer.command("reindex")
 @click.option("--all", is_flag=True, help="Reindex all the records.", show_default=True)
 @click.option(
     "-p",
@@ -242,7 +246,7 @@ def reindex_records(
             LOGGER.warning(failure)
 
 
-@index.command(
+@indexer.command(
     "remap",
     help="Remaps specified indexes. Removes all data from index during this process.",
 )
