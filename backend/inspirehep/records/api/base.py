@@ -22,6 +22,7 @@ from invenio_records.api import Record
 from invenio_records.models import RecordMetadata
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
+from sqlalchemy.orm.exc import NoResultFound
 
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
@@ -395,11 +396,20 @@ class InspireRecord(Record):
     @property
     def _previous_version(self):
         """Returns the previous version of the record"""
-        current = self.model.versions.filter_by(version_id=self.model.version_id).one()
-        if current.previous:
-            data = current.previous.json
-        else:
-            data = {}
+        data = {}
+        try:
+            current = self.model.versions.filter_by(
+                version_id=self.model.version_id
+            ).one()
+            if current.previous:
+                data = current.previous.json
+        except NoResultFound:
+            LOGGER.warning(
+                "Record previous version is not found",
+                version_id=self.model.version_id,
+                uuid=self.id,
+            )
+
         return type(self)(data=data)
 
     @property

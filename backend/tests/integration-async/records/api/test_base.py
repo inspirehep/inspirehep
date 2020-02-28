@@ -41,6 +41,23 @@ def test_record_versioning(app, clear_environment):
     assert record._previous_version
 
 
+def test_record_previous_version_doesnt_fail_if_previous_version_missing(
+    app, clear_environment
+):
+    data = {
+        "$schema": "http://localhost:5000/schemas/records/hep.json",
+        "titles": [{"title": "Test a valid record"}],
+        "document_type": ["article"],
+        "_collections": ["Literature"],
+    }
+
+    expected_version_created = 1
+    expected_count_created = 1
+    record = LiteratureRecord.create(data)
+    record_control_number = record["control_number"]
+    assert LiteratureRecord({}) == record._previous_version
+
+
 def test_get_modified_references_returns_all_references_when_earliest_date_changed(
     app, clear_environment
 ):
