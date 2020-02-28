@@ -23,9 +23,9 @@ from invenio_records.models import RecordMetadata
 from sqlalchemy import tuple_
 from sqlalchemy.orm.attributes import flag_modified
 
+from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
-from inspirehep.records.indexer.base import InspireRecordIndexer
 
 LOGGER = structlog.getLogger()
 
@@ -377,7 +377,7 @@ class InspireRecord(Record):
                 If not set, tries to determine automatically if record should be deleted
             delay: if True will start the index task async otherwise async.
         """
-        from inspirehep.records.indexer.tasks import index_record
+        from inspirehep.indexer.tasks import index_record
 
         arguments = {
             "uuid": str(self.id),

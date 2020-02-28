@@ -210,7 +210,7 @@ def test_migrate_and_insert_record_invalid_record_update_regression(base_app, db
         b"</record>"
     )
 
-    with patch("inspirehep.records.indexer.base.InspireRecordIndexer") as mock_indexer:
+    with patch("inspirehep.indexer.base.InspireRecordIndexer") as mock_indexer:
         migrate_and_insert_record(raw_record)
 
         prod_record = LegacyRecordsMirror.query.filter(

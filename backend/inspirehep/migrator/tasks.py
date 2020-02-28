@@ -26,6 +26,7 @@ from invenio_pidstore.errors import PIDValueError
 from invenio_pidstore.models import PersistentIdentifier
 from jsonschema import ValidationError
 
+from inspirehep.indexer.tasks import batch_index
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.utils import (
     cache_afs_file_locations,
@@ -37,7 +38,6 @@ from inspirehep.orcid.api import push_to_orcid
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.errors import DownloadFileError
-from inspirehep.records.indexer.tasks import batch_index
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.records.tasks import update_records_relations
 from inspirehep.utils import chunker

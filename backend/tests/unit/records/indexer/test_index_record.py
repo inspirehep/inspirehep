@@ -16,13 +16,11 @@ from sqlalchemy.exc import (
     UnboundExecutionError,
 )
 
-from inspirehep.records.indexer.tasks import index_record
+from inspirehep.indexer.tasks import index_record
 
 
-@mock.patch(
-    "inspirehep.records.indexer.tasks.get_record", side_effect=DisconnectionError
-)
-@mock.patch("inspirehep.records.indexer.tasks.index_record.retry", side_effect=Retry)
+@mock.patch("inspirehep.indexer.tasks.get_record", side_effect=DisconnectionError)
+@mock.patch("inspirehep.indexer.tasks.index_record.retry", side_effect=Retry)
 def test_indexer_restarts_when_db_exception_DisconnectionError_occurs(
     retry_mock, get_record_mock
 ):
@@ -33,8 +31,8 @@ def test_indexer_restarts_when_db_exception_DisconnectionError_occurs(
     retry_mock.assert_called_once()
 
 
-@mock.patch("inspirehep.records.indexer.tasks.get_record", side_effect=TimeoutError)
-@mock.patch("inspirehep.records.indexer.tasks.index_record.retry", side_effect=Retry)
+@mock.patch("inspirehep.indexer.tasks.get_record", side_effect=TimeoutError)
+@mock.patch("inspirehep.indexer.tasks.index_record.retry", side_effect=Retry)
 def test_indexer_restarts_when_db_exception_TimeoutError_occurs(
     retry_mock, get_record_mock
 ):
@@ -45,10 +43,8 @@ def test_indexer_restarts_when_db_exception_TimeoutError_occurs(
     retry_mock.assert_called_once()
 
 
-@mock.patch(
-    "inspirehep.records.indexer.tasks.get_record", side_effect=InvalidatePoolError
-)
-@mock.patch("inspirehep.records.indexer.tasks.index_record.retry", side_effect=Retry)
+@mock.patch("inspirehep.indexer.tasks.get_record", side_effect=InvalidatePoolError)
+@mock.patch("inspirehep.indexer.tasks.index_record.retry", side_effect=Retry)
 def test_indexer_restarts_when_db_exception_InvalidatePoolError_occurs(
     retry_mock, get_record_mock
 ):
@@ -59,10 +55,8 @@ def test_indexer_restarts_when_db_exception_InvalidatePoolError_occurs(
     retry_mock.assert_called_once()
 
 
-@mock.patch(
-    "inspirehep.records.indexer.tasks.get_record", side_effect=UnboundExecutionError
-)
-@mock.patch("inspirehep.records.indexer.tasks.index_record.retry", side_effect=Retry)
+@mock.patch("inspirehep.indexer.tasks.get_record", side_effect=UnboundExecutionError)
+@mock.patch("inspirehep.indexer.tasks.index_record.retry", side_effect=Retry)
 def test_indexer_restarts_when_db_exception_UnboundExecutionError_occurs(
     retry_mock, get_record_mock
 ):
@@ -73,10 +67,8 @@ def test_indexer_restarts_when_db_exception_UnboundExecutionError_occurs(
     retry_mock.assert_called_once()
 
 
-@mock.patch(
-    "inspirehep.records.indexer.tasks.get_record", side_effect=ResourceClosedError
-)
-@mock.patch("inspirehep.records.indexer.tasks.index_record.retry", side_effect=Retry)
+@mock.patch("inspirehep.indexer.tasks.get_record", side_effect=ResourceClosedError)
+@mock.patch("inspirehep.indexer.tasks.index_record.retry", side_effect=Retry)
 def test_indexer_restarts_when_db_exception_ResourceClosedError_occurs(
     retry_mock, get_record_mock
 ):
@@ -87,9 +79,9 @@ def test_indexer_restarts_when_db_exception_ResourceClosedError_occurs(
     retry_mock.assert_called_once()
 
 
-@mock.patch("inspirehep.records.indexer.tasks.get_record")
-@mock.patch("inspirehep.records.indexer.tasks.index_record.retry")
-@mock.patch("inspirehep.records.indexer.tasks.InspireRecordIndexer")
+@mock.patch("inspirehep.indexer.tasks.get_record")
+@mock.patch("inspirehep.indexer.tasks.index_record.retry")
+@mock.patch("inspirehep.indexer.tasks.InspireRecordIndexer")
 def test_indexer_do_not_restarts_when_no_exception(
     indexer_mock, retry_mock, get_record_mock
 ):

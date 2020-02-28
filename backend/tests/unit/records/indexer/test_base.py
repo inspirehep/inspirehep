@@ -7,8 +7,8 @@
 
 import mock
 
+from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.records.api import LiteratureRecord
-from inspirehep.records.indexer.base import InspireRecordIndexer
 
 
 @mock.patch(
@@ -21,8 +21,8 @@ from inspirehep.records.indexer.base import InspireRecordIndexer
     "inspirehep.records.marshmallow.literature.es.LiteratureElasticSearchSchema.get_latex_us_display"
 )
 @mock.patch("flask_sqlalchemy._QueryProperty.__get__")
-@mock.patch("inspirehep.records.indexer.base.before_record_index")
-@mock.patch("inspirehep.records.indexer.base.current_app")
+@mock.patch("inspirehep.indexer.base.before_record_index")
+@mock.patch("inspirehep.indexer.base.current_app")
 @mock.patch("inspirehep.records.api.base.RecordMetadata")
 def test_indexer_prepare_record(
     record_metadata_mock,
@@ -47,11 +47,10 @@ def test_indexer_prepare_record(
 
 @mock.patch("invenio_indexer.api.build_alias_name", return_value="prefixed-index")
 @mock.patch(
-    "inspirehep.records.indexer.base.InspireRecordIndexer._prepare_record",
-    return_value={},
+    "inspirehep.indexer.base.InspireRecordIndexer._prepare_record", return_value={}
 )
 @mock.patch(
-    "inspirehep.records.indexer.base.InspireRecordIndexer.record_to_index",
+    "inspirehep.indexer.base.InspireRecordIndexer.record_to_index",
     return_value=(None, None),
 )
 def test_process_bulk_record_for_index(
@@ -80,11 +79,10 @@ def test_process_bulk_record_for_index(
 
 @mock.patch("invenio_indexer.api.build_alias_name", return_value="prefixed-index")
 @mock.patch(
-    "inspirehep.records.indexer.base.InspireRecordIndexer._prepare_record",
-    return_value={},
+    "inspirehep.indexer.base.InspireRecordIndexer._prepare_record", return_value={}
 )
 @mock.patch(
-    "inspirehep.records.indexer.base.InspireRecordIndexer.record_to_index",
+    "inspirehep.indexer.base.InspireRecordIndexer.record_to_index",
     return_value=("test_index", "test_type"),
 )
 def test_process_bulk_record_for_index_default_values(
