@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Tooltip } from 'antd';
+
+import { Tooltip, Form } from 'antd';
 import { getIn } from 'formik';
 import classNames from 'classnames';
 
@@ -55,7 +56,7 @@ export default function withFormItem(FormInputComponent) {
       const renderedError = this.renderError();
       return (
         <Form.Item
-          className={classNames({ 'mb4-important': onlyChild })}
+          className={classNames({ 'mb2-important': onlyChild })}
           hasFeedback={renderedError != null}
           validateStatus={renderedError ? 'error' : ''}
           help={renderedError}
@@ -69,7 +70,7 @@ export default function withFormItem(FormInputComponent) {
             {...props}
             form={form}
           />
-          {suffixText && <span className="ant-form-text">{suffixText}</span>}
+          {suffixText && <span className="pl2">{suffixText}</span>}
         </Form.Item>
       );
     }

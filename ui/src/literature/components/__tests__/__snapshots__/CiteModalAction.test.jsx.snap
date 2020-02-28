@@ -16,8 +16,8 @@ exports[`CiteModalAction renders with all props 1`] = `
         onClick={[Function]}
       >
         <IconText
+          icon={<ForwardRef(ExportOutlined) />}
           text="cite"
-          type="export"
         />
       </Button>
     </EventTracker>
@@ -59,9 +59,7 @@ exports[`CiteModalAction renders with all props 1`] = `
                 }
               }
             >
-              <Icon
-                type="copy"
-              />
+              <ForwardRef(CopyOutlined) />
                Copy to Clipboard
             </Button>
           </CopyToClipboard>
@@ -72,9 +70,7 @@ exports[`CiteModalAction renders with all props 1`] = `
             loading={false}
             onClick={[Function]}
           >
-            <Icon
-              type="download"
-            />
+            <ForwardRef(DownloadOutlined) />
              Download
           </Button>
         </div>
@@ -131,8 +127,8 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
         onClick={[Function]}
       >
         <IconText
+          icon={<ForwardRef(ExportOutlined) />}
           text="cite"
-          type="export"
         />
       </Button>
     </EventTracker>
@@ -183,9 +179,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
                 }
               }
             >
-              <Icon
-                type="copy"
-              />
+              <ForwardRef(CopyOutlined) />
                Copy to Clipboard
             </Button>
           </CopyToClipboard>
@@ -196,9 +190,7 @@ exports[`CiteModalAction shows an alert with the error message when there is an 
             loading={false}
             onClick={[Function]}
           >
-            <Icon
-              type="download"
-            />
+            <ForwardRef(DownloadOutlined) />
              Download
           </Button>
         </div>

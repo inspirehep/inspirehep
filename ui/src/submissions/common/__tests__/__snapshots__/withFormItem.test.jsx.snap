@@ -65,7 +65,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
     normalProp2="np2"
   />
   <span
-    className="ant-form-text"
+    className="pl2"
   >
     Test Suffix
   </span>
@@ -128,7 +128,7 @@ exports[`withFormItem passes all props correctly to Form.Item and wrapped Input 
     normalProp2="np2"
   />
   <span
-    className="ant-form-text"
+    className="pl2"
   >
     Test Suffix
   </span>
@@ -186,7 +186,7 @@ exports[`withFormItem passes props correctly to Form.Item and wrapped Input comp
 
 exports[`withFormItem passes props correctly to Form.Item and wrapped Input component (without error and only child) 1`] = `
 <FormItem
-  className="mb4-important"
+  className="mb2-important"
   hasFeedback={false}
   labelCol={null}
   validateStatus=""

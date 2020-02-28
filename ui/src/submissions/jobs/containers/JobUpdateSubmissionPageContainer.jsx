@@ -59,7 +59,7 @@ class JobUpdateSubmissionPage extends Component {
       <Row type="flex" justify="center">
         <Col className="mt3 mb3" xs={24} md={21} lg={16} xl={15} xxl={14}>
           <Row className="mb3 pa3 bg-white">
-            <Col>
+            <Col span={24}>
               <h3>Update a job opening</h3>
               All modifications will appear immediately.
             </Col>

@@ -4,6 +4,8 @@ import moment from 'moment';
 
 import withFormItem from '../withFormItem';
 
+const BOTH_TRUE = [true, true];
+
 function DateRangeField({ value = [], ...props }) {
   const { form, name } = props;
 
@@ -28,15 +30,16 @@ function DateRangeField({ value = [], ...props }) {
   );
 
   return (
-    <div data-test-type="date-range-picker" data-test-id={name}>
-      <DatePicker.RangePicker
-        {...props}
-        value={valueAsMoment}
-        onBlur={onBlur}
-        onChange={onChange}
-        className="w-100"
-      />
-    </div>
+    <DatePicker.RangePicker
+      {...props}
+      // set BOTH_TRUE for e2e, it is validate via schema any case.
+      allowEmpty={BOTH_TRUE}
+      data-test-type="date-range-picker"
+      value={valueAsMoment}
+      onBlur={onBlur}
+      onChange={onChange}
+      className="w-100"
+    />
   );
 }
 

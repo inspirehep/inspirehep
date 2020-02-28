@@ -99,16 +99,16 @@ function LiteratureSubmission({
     [onSubmit, isMounted]
   );
   return (
-    <Row>
+    <div>
       {error && (
         <Row className="mb3">
-          <Col>
+          <Col span={24}>
             <Alert message={error.message} type="error" showIcon closable />
           </Col>
         </Row>
       )}
       <Row>
-        <Col>
+        <Col span={24}>
           <Formik
             enableReinitialize
             initialErrors={initialErrors}
@@ -120,7 +120,7 @@ function LiteratureSubmission({
           />
         </Col>
       </Row>
-    </Row>
+    </div>
   );
 }
 

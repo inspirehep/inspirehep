@@ -17,6 +17,7 @@ const conferenceSchema = object().shape({
   series_number: number().label('Series Number'),
   dates: array()
     .of(date())
+    .compact()
     .min(2)
     .max(2)
     .required()

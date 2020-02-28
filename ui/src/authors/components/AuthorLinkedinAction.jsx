@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon, Tooltip } from 'antd';
+import { LinkedinOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
 
 import ListItemAction from '../../common/components/ListItemAction';
 import ExternalLink from '../../common/components/ExternalLink';
@@ -13,7 +14,7 @@ class AuthorLinkedinAction extends Component {
       <ListItemAction>
         <Tooltip title="LinkedIn">
           <ExternalLink href={href}>
-            <Icon type="linkedin" />
+            <LinkedinOutlined />
           </ExternalLink>
         </Tooltip>
       </ListItemAction>

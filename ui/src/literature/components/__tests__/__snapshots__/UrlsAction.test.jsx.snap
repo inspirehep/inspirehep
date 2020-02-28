@@ -12,8 +12,8 @@ exports[`UrlsAction renders multiple, with and without description 1`] = `
         loading={false}
       >
         <IconText
-          text="pdf"
-          type="download"
+          icon={<ForwardRef(DownloadOutlined) />}
+          text="download"
         />
       </Button>
     }
@@ -63,8 +63,8 @@ exports[`UrlsAction renders single 1`] = `
       href="https://www.whatever.com/pdfs/fulltext.pdf"
     >
       <IconText
+        icon={<ForwardRef(DownloadOutlined) />}
         text="pdf"
-        type="download"
       />
     </ExternalLink>
   </EventTracker>

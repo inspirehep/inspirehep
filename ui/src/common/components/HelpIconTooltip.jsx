@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Tooltip, Icon } from 'antd';
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 
 class HelpIconTooltip extends Component {
@@ -7,7 +8,7 @@ class HelpIconTooltip extends Component {
     const { help } = this.props;
     return (
       <Tooltip title={help}>
-        <Icon type="question-circle-o" />
+        <QuestionCircleOutlined />
       </Tooltip>
     );
   }

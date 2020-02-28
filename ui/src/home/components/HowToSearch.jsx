@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Icon, Button, Modal, Table, Tabs, Tooltip } from 'antd';
+import { InfoCircleTwoTone } from '@ant-design/icons';
+import { Card, Button, Modal, Table, Tabs, Tooltip } from 'antd';
 import ExternalLink from '../../common/components/ExternalLink';
 import LinkWithEncodedLiteratureQuery from './LinkWithEncodedLiteratureQuery';
 
@@ -152,7 +153,7 @@ class HowToSearch extends Component {
     return (
       <Tooltip title="Search Tips">
         <Button shape="circle" onClick={this.onModalOpen}>
-          <Icon type="info-circle" theme="twoTone" />
+          <InfoCircleTwoTone />
         </Button>
       </Tooltip>
     );

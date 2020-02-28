@@ -14,9 +14,7 @@ exports[`AuthorTwitterAction renders with twitter 1`] = `
     <ExternalLink
       href="//twitter.com/harunurhan"
     >
-      <Icon
-        type="twitter"
-      />
+      <ForwardRef(TwitterOutlined) />
     </ExternalLink>
   </Tooltip>
 </ListItemAction>

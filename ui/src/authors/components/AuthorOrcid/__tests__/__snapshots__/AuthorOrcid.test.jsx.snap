@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`AuthorOrcid renders with orcid 1`] = `
-<Tooltip
-  arrowPointAtCenter={false}
-  autoAdjustOverflow={true}
-  mouseEnterDelay={0.1}
-  mouseLeaveDelay={0.1}
-  placement="top"
-  title="ORCID"
-  transitionName="zoom-big-fast"
+<OrcidProfileLink
+  className="__AuthorOrcid__"
+  orcid="0000-0001-8058-0014"
 >
-  <OrcidProfileLink
-    className="__AuthorOrcid__"
-    orcid="0000-0001-8058-0014"
+  <Tooltip
+    arrowPointAtCenter={false}
+    autoAdjustOverflow={true}
+    mouseEnterDelay={0.1}
+    mouseLeaveDelay={0.1}
+    placement="top"
+    title="ORCID"
+    transitionName="zoom-big-fast"
   >
     <img
       alt="ORCID"
       src="orcid.svg"
     />
-  </OrcidProfileLink>
-</Tooltip>
+  </Tooltip>
+</OrcidProfileLink>
 `;

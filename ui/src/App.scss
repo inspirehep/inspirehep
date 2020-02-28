@@ -46,10 +46,6 @@
     }
   }
 
-  .mb4-important {
-    margin-bottom: 4px !important;
-  }
-
   .secondary-color {
     color: $secondary-color;
   }
@@ -117,6 +113,10 @@
   @media (max-width: $screen-md-max) {
     padding-bottom: 1rem;
   }
+}
+
+.mb2-important {
+  margin-bottom: 0.5rem !important;
 }
 
 .ant-drawer-body {

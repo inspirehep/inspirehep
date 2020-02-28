@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Modal, Button, Row, Icon, Alert } from 'antd';
+import {
+  CopyOutlined,
+  DownloadOutlined,
+  ExportOutlined,
+} from '@ant-design/icons';
+import { Modal, Button, Row, Alert } from 'antd';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import SelectBox from '../../common/components/SelectBox';
@@ -80,7 +85,7 @@ class CiteModalAction extends Component {
         <ListItemAction>
           <EventTracker eventId="Cite">
             <Button onClick={this.onCiteClick}>
-              <IconText text="cite" type="export" />
+              <IconText text="cite" icon={<ExportOutlined />} />
             </Button>
           </EventTracker>
         </ListItemAction>
@@ -103,11 +108,11 @@ class CiteModalAction extends Component {
               <div>
                 <CopyToClipboard text={citeContent} onCopy={this.onModalCancel}>
                   <Button style={{ marginRight: 12 }}>
-                    <Icon type="copy" /> Copy to Clipboard
+                    <CopyOutlined /> Copy to Clipboard
                   </Button>
                 </CopyToClipboard>
                 <Button onClick={this.onDownloadClick}>
-                  <Icon type="download" /> Download
+                  <DownloadOutlined /> Download
                 </Button>
               </div>
               <EventTracker

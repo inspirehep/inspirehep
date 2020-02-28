@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, Icon, Alert, Typography } from 'antd';
+import { MailOutlined } from '@ant-design/icons';
+import { Modal, Alert, Typography } from 'antd';
 import LinkLikeButton from '../../common/components/LinkLikeButton';
 import ResponsiveView from '../../common/components/ResponsiveView';
 import subscribeJobMailingList from '../subscribeJobMailingList';
@@ -92,7 +93,7 @@ export default class SubscribeJobsModalButton extends Component {
     return (
       <>
         <LinkLikeButton icon="mail" onClick={this.onClick}>
-          <Icon type="mail" />
+          <MailOutlined />
           <ResponsiveView
             min="sm"
             render={() => (

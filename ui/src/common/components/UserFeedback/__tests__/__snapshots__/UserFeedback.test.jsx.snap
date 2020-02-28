@@ -9,7 +9,7 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
     className="feedback-button"
     ghost={false}
     htmlType="button"
-    icon="message"
+    icon={<ForwardRef(MessageOutlined) />}
     loading={false}
     onClick={[Function]}
     size="large"
@@ -70,7 +70,7 @@ exports[`UserFeedback renders 1`] = `
     className="feedback-button"
     ghost={false}
     htmlType="button"
-    icon="message"
+    icon={<ForwardRef(MessageOutlined) />}
     loading={false}
     onClick={[Function]}
     size="large"
@@ -109,12 +109,7 @@ exports[`UserFeedback renders 1`] = `
       </div>
       <div>
         <Rate
-          character={
-            <Icon
-              theme="filled"
-              type="star"
-            />
-          }
+          character={<ForwardRef(StarFilled) />}
           onChange={[Function]}
           value={0}
         />
@@ -150,7 +145,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
     className="feedback-button"
     ghost={false}
     htmlType="button"
-    icon="message"
+    icon={<ForwardRef(MessageOutlined) />}
     loading={false}
     onClick={[Function]}
     size="large"
@@ -223,12 +218,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
       </div>
       <div>
         <Rate
-          character={
-            <Icon
-              theme="filled"
-              type="star"
-            />
-          }
+          character={<ForwardRef(StarFilled) />}
           disabled={true}
           onChange={[Function]}
           value={0}

@@ -6,9 +6,7 @@ exports[`SubscribeJobsModalButton renders confirmation if subscription is submit
     icon="mail"
     onClick={[Function]}
   >
-    <Icon
-      type="mail"
-    />
+    <ForwardRef(MailOutlined) />
     <ResponsiveView
       min="sm"
       render={[Function]}
@@ -44,9 +42,7 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
     icon="mail"
     onClick={[Function]}
   >
-    <Icon
-      type="mail"
-    />
+    <ForwardRef(MailOutlined) />
     <ResponsiveView
       min="sm"
       render={[Function]}
@@ -93,9 +89,7 @@ exports[`SubscribeJobsModalButton renders with initial state 1`] = `
     icon="mail"
     onClick={[Function]}
   >
-    <Icon
-      type="mail"
-    />
+    <ForwardRef(MailOutlined) />
     <ResponsiveView
       min="sm"
       render={[Function]}

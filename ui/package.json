@@ -2,7 +2,7 @@
   "name": "inspire-next-react",
   "license": "GPL-2.0",
   "version": "0.1.19",
-  "proxy": "localhost:8000",
+  "proxy": "http://localhost:8000",
   "bundlesize": [
     {
       "path": "./build/**/*.js",
@@ -23,10 +23,11 @@
       "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
   },
   "dependencies": {
+    "@ant-design/icons": "^4.0.0",
     "@babel/runtime": "7.0.0-beta.55",
     "@craco/craco": "^3.1.0",
     "@sentry/browser": "^4.3.0",
-    "antd": "^3.4.1",
+    "antd": "^4.0.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
     "connected-react-router": "^6.4.0",
@@ -58,7 +59,7 @@
     "react-piwik": "^1.6.0",
     "react-quill": "^1.3.3",
     "react-redux": "^6.0.0",
-    "react-router-dom": "^4.2.2",
+    "react-router-dom": "^5.1.0",
     "react-sanitized-html": "^2.0.0",
     "react-scripts": "2.0.3",
     "react-vis": "^1.9.2",

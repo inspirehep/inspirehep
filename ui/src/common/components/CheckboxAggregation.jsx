@@ -117,6 +117,9 @@ class CheckboxAggregation extends Component {
     const { selectionMap } = this.state;
     const { splitDisplayName, bucketHelp } = this.props;
     const bucketKey = bucket.get('key');
+    const bucketDisplay = splitDisplayName
+      ? bucketKey.split(BUCKET_NAME_SPLITTER)[1]
+      : bucketKey;
 
     return (
       <Row className="mb2" type="flex" justify="space-between" key={bucketKey}>
@@ -127,9 +130,7 @@ class CheckboxAggregation extends Component {
               this.onSelectionChange(bucketKey, checked);
             }}
           >
-            {splitDisplayName
-              ? bucketKey.split(BUCKET_NAME_SPLITTER)[1]
-              : bucketKey}
+            {bucketDisplay}
             {bucketHelp &&
               CheckboxAggregation.renderBucketHelpTooltip(
                 bucketHelp.get(bucketKey)

@@ -24,7 +24,6 @@ exports[`AuthorWithBAI renders 1`] = `
   transitionName="zoom-big-fast"
 >
   <Link
-    replace={false}
     style={
       Object {
         "textDecoration": "underline dashed",

@@ -53,7 +53,6 @@ class AggregationFilters extends Component {
                 key={aggregationKey}
                 xs={24}
                 lg={inline ? 5 : 24}
-                gutter={32}
               >
                 <EventTracker
                   eventId={`Facet-${aggregation.getIn(['meta', 'title'])}`}

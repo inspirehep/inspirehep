@@ -65,12 +65,11 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
                 help={
                   <span>
                     The h-index is defined as the number of papers with citation number higher or equal to h. 
-                    <Link
-                      replace={false}
+                    <ForwardRef
                       to="/literature/690567"
                     >
                       Learn more
-                    </Link>
+                    </ForwardRef>
                   </span>
                 }
                 label="h-index"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
+import { DownloadOutlined } from '@ant-design/icons';
 
 import UrlsAction from '../UrlsAction';
 
@@ -16,8 +17,8 @@ describe('UrlsAction', () => {
     const wrapper = shallow(
       <UrlsAction
         urls={links}
-        iconText="pdf"
-        iconType="download"
+        icon={<DownloadOutlined />}
+        iconText="download"
         trackerEventId="PdfDownload"
       />
     );
@@ -35,7 +36,7 @@ describe('UrlsAction', () => {
       <UrlsAction
         urls={links}
         iconText="pdf"
-        iconType="download"
+        icon={<DownloadOutlined />}
         trackerEventId="PdfDownload"
       />
     );

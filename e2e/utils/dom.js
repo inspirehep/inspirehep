@@ -4,9 +4,10 @@ const TYPE_ATTRIBUTE = 'data-test-type';
 async function selectFromSelectBox(page, selectId, value) {
   const selectSelector = `[${ID_ATTRIBUTE}="${selectId}"]`;
   const selectOptionSelector = `[${ID_ATTRIBUTE}="${selectId}-option-${value}"]`;
+  const optionSearchSelector = `${selectSelector} input`;
 
-  // click selecbox to render options into DOM incase not there
-  await page.click(selectSelector);
+  // type optio to selecbox to make sure it is rendered into DOM
+  await page.type(optionSearchSelector, value);
   await page.waitFor(selectOptionSelector);
 
   // close it because puppeteer sometimes clicks on other option accidentally

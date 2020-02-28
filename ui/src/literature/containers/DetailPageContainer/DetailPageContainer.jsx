@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Row, Col, Tabs } from 'antd';
 import { Map, List } from 'immutable';
 import classNames from 'classnames';
+import { DownloadOutlined, LinkOutlined } from '@ant-design/icons';
 
 import './DetailPage.scss';
 import {
@@ -108,7 +109,7 @@ function DetailPage({
                       <UrlsAction
                         urls={fullTextLinks}
                         iconText="pdf"
-                        iconType="download"
+                        icon={<DownloadOutlined />}
                         trackerEventId="PdfDownload"
                       />
                     )}
@@ -116,7 +117,7 @@ function DetailPage({
                       <UrlsAction
                         urls={urls}
                         iconText="links"
-                        iconType="link"
+                        icon={<LinkOutlined />}
                         trackerEventId="LiteratureFileLink"
                       />
                     )}

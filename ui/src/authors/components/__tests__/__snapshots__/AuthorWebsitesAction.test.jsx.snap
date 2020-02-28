@@ -14,9 +14,7 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
       title="Personal website"
       transitionName="zoom-big-fast"
     >
-      <Icon
-        type="link"
-      />
+      <ForwardRef(LinkOutlined) />
     </Tooltip>
   </ExternalLink>
 </ListItemAction>
@@ -36,9 +34,7 @@ exports[`AuthorWebsitesAction renders only blog 1`] = `
       title="Personal website"
       transitionName="zoom-big-fast"
     >
-      <Icon
-        type="link"
-      />
+      <ForwardRef(LinkOutlined) />
     </Tooltip>
   </ExternalLink>
 </ListItemAction>
@@ -64,9 +60,7 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
           title="Personal website"
           transitionName="zoom-big-fast"
         >
-          <Icon
-            type="link"
-          />
+          <ForwardRef(LinkOutlined) />
         </Tooltip>
       </Button>
     }

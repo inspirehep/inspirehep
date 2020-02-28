@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
+import { LoadingOutlined } from '@ant-design/icons';
 
 import EventTracker from '../EventTracker';
 
@@ -14,7 +14,7 @@ class TabNameWithCount extends Component {
           <span className="ml1">
             {loading ? (
               <span data-test-id="loading">
-                <Icon className="ml1" type="loading" spin />
+                <LoadingOutlined className="ml1" spin />
               </span>
             ) : (
               count != null && <span>({count})</span>

@@ -1,171 +1,116 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Suggester does not render results onSearch without waiting for debounce 1`] = `
-<AutoComplete
-  choiceTransitionName="zoom"
-  dataSource={Array []}
-  filterOption={false}
+<ForwardRef(AutoComplete)
   onSearch={[Function]}
-  optionLabelProp="value"
-  showSearch={false}
-  transitionName="slide-up"
->
-  <Input
-    disabled={false}
-    type="text"
-  />
-</AutoComplete>
+/>
 `;
 
 exports[`Suggester renders empty if request fails 1`] = `
-<AutoComplete
-  choiceTransitionName="zoom"
-  dataSource={Array []}
-  filterOption={false}
+<ForwardRef(AutoComplete)
   onSearch={[Function]}
-  optionLabelProp="value"
-  showSearch={false}
-  transitionName="slide-up"
->
-  <Input
-    disabled={false}
-    type="text"
-  />
-</AutoComplete>
+/>
 `;
 
 exports[`Suggester renders results onSearch 1`] = `
-<AutoComplete
-  choiceTransitionName="zoom"
-  dataSource={
-    Array [
-      <Option
-        result={
-          Object {
-            "text": "Result 1",
-          }
-        }
-        value="Result 1"
-      >
-        Result 1
-      </Option>,
-      <Option
-        result={
-          Object {
-            "text": "Result 2",
-          }
-        }
-        value="Result 2"
-      >
-        Result 2
-      </Option>,
-    ]
-  }
-  filterOption={false}
+<ForwardRef(AutoComplete)
   onSearch={[Function]}
-  optionLabelProp="value"
-  showSearch={false}
-  transitionName="slide-up"
 >
-  <Input
-    disabled={false}
-    type="text"
-  />
-</AutoComplete>
+  <Option
+    key="Result 1"
+    result={
+      Object {
+        "text": "Result 1",
+      }
+    }
+    value="Result 1"
+  >
+    Result 1
+  </Option>
+  <Option
+    key="Result 2"
+    result={
+      Object {
+        "text": "Result 2",
+      }
+    }
+    value="Result 2"
+  >
+    Result 2
+  </Option>
+</ForwardRef(AutoComplete)>
 `;
 
 exports[`Suggester renders results with custom completion value 1`] = `
-<AutoComplete
-  choiceTransitionName="zoom"
-  dataSource={
-    Array [
-      <Option
-        result={
-          Object {
-            "extra": "Extra 1",
-            "text": "Result 1",
-          }
-        }
-        value="Result 1 - Extra 1"
-      >
-        Result 1 - Extra 1
-      </Option>,
-      <Option
-        result={
-          Object {
-            "extra": "Extra 2",
-            "text": "Result 2",
-          }
-        }
-        value="Result 2 - Extra 2"
-      >
-        Result 2 - Extra 2
-      </Option>,
-    ]
-  }
-  filterOption={false}
+<ForwardRef(AutoComplete)
   onSearch={[Function]}
-  optionLabelProp="value"
-  showSearch={false}
-  transitionName="slide-up"
 >
-  <Input
-    disabled={false}
-    type="text"
-  />
-</AutoComplete>
+  <Option
+    key="Result 1 - Extra 1"
+    result={
+      Object {
+        "extra": "Extra 1",
+        "text": "Result 1",
+      }
+    }
+    value="Result 1 - Extra 1"
+  >
+    Result 1 - Extra 1
+  </Option>
+  <Option
+    key="Result 2 - Extra 2"
+    result={
+      Object {
+        "extra": "Extra 2",
+        "text": "Result 2",
+      }
+    }
+    value="Result 2 - Extra 2"
+  >
+    Result 2 - Extra 2
+  </Option>
+</ForwardRef(AutoComplete)>
 `;
 
 exports[`Suggester renders results with custom result template 1`] = `
-<AutoComplete
-  choiceTransitionName="zoom"
-  dataSource={
-    Array [
-      <Option
-        result={
-          Object {
-            "extra": "Extra 1",
-            "text": "Result 1",
-          }
-        }
-        value="Result 1"
-      >
-        <span>
-          Result 1
-           
-          <em>
-            Extra 1
-          </em>
-        </span>
-      </Option>,
-      <Option
-        result={
-          Object {
-            "extra": "Extra 2",
-            "text": "Result 2",
-          }
-        }
-        value="Result 2"
-      >
-        <span>
-          Result 2
-           
-          <em>
-            Extra 2
-          </em>
-        </span>
-      </Option>,
-    ]
-  }
-  filterOption={false}
+<ForwardRef(AutoComplete)
   onSearch={[Function]}
-  optionLabelProp="value"
-  showSearch={false}
-  transitionName="slide-up"
 >
-  <Input
-    disabled={false}
-    type="text"
-  />
-</AutoComplete>
+  <Option
+    key="Result 1"
+    result={
+      Object {
+        "extra": "Extra 1",
+        "text": "Result 1",
+      }
+    }
+    value="Result 1"
+  >
+    <span>
+      Result 1
+       
+      <em>
+        Extra 1
+      </em>
+    </span>
+  </Option>
+  <Option
+    key="Result 2"
+    result={
+      Object {
+        "extra": "Extra 2",
+        "text": "Result 2",
+      }
+    }
+    value="Result 2"
+  >
+    <span>
+      Result 2
+       
+      <em>
+        Extra 2
+      </em>
+    </span>
+  </Option>
+</ForwardRef(AutoComplete)>
 `;

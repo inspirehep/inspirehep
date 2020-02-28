@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List, Map } from 'immutable';
 import { Menu } from 'antd';
+import { BookOutlined } from '@ant-design/icons';
 
 import ExternalLink from '../../common/components/ExternalLink';
 import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
@@ -36,7 +37,7 @@ function renderProceedingAction(proceeding, title) {
   );
 }
 
-const ACTION_TITLE = <IconText text="proceedings" type="book" />;
+const ACTION_TITLE = <IconText text="proceedings" icon={<BookOutlined />} />;
 
 function ProceedingsAction({ proceedings }) {
   return (

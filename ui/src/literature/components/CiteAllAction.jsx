@@ -1,4 +1,5 @@
 import { stringify } from 'qs';
+import { ExportOutlined } from '@ant-design/icons';
 
 import React, { Component } from 'react';
 import { Button, Menu, Tooltip } from 'antd';
@@ -51,8 +52,8 @@ class CiteAllAction extends Component {
             : null
         }
       >
-        <Button icon={loading ? 'loading' : null} disabled={disabled}>
-          <IconText text="cite all" type="export" />
+        <Button loading={loading} disabled={disabled}>
+          <IconText text="cite all" icon={<ExportOutlined />} />
         </Button>
       </Tooltip>
     );

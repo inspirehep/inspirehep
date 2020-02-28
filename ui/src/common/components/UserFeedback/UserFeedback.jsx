@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { MessageOutlined } from '@ant-design/icons';
 import { Modal, Button, Rate, Input, Alert } from 'antd';
 
 import './UserFeedback.scss';
@@ -163,7 +164,7 @@ class UserFeedback extends Component {
             className="feedback-button"
             type="primary"
             size="large"
-            icon="message"
+            icon={<MessageOutlined />}
             onClick={this.onFeedbackClick}
           >
             <ResponsiveView min="sm" render={() => <span>Feedback</span>} />

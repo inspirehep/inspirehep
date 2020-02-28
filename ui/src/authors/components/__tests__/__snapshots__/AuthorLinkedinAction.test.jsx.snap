@@ -14,9 +14,7 @@ exports[`AuthorLinkedinAction renders with linkedin 1`] = `
     <ExternalLink
       href="//linkedin.com/in/harunurhan"
     >
-      <Icon
-        type="linkedin"
-      />
+      <ForwardRef(LinkedinOutlined) />
     </ExternalLink>
   </Tooltip>
 </ListItemAction>

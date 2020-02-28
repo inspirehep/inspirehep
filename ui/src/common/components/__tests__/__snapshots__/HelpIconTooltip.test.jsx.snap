@@ -10,8 +10,6 @@ exports[`HelpIconTooltip renders with help 1`] = `
   title="This is the help"
   transitionName="zoom-big-fast"
 >
-  <Icon
-    type="question-circle-o"
-  />
+  <ForwardRef(QuestionCircleOutlined) />
 </Tooltip>
 `;

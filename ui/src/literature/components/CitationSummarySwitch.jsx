@@ -1,7 +1,8 @@
 import React from 'react';
-import { Icon, Switch, Tooltip } from 'antd';
+import { BarChartOutlined } from '@ant-design/icons';
+import { Switch, Tooltip } from 'antd';
 
-const CHART_ICON = <Icon type="bar-chart" />;
+const CHART_ICON = <BarChartOutlined />;
 
 function CitationSummarySwitch(props) {
   const { checked } = props;

@@ -39,10 +39,9 @@ exports[`TabNameWithCount does not display count if loading is true 1`] = `
       <span
         data-test-id="loading"
       >
-        <Icon
+        <ForwardRef(LoadingOutlined)
           className="ml1"
           spin={true}
-          type="loading"
         />
       </span>
     </span>
@@ -66,10 +65,9 @@ exports[`TabNameWithCount renders when loading true 1`] = `
       <span
         data-test-id="loading"
       >
-        <Icon
+        <ForwardRef(LoadingOutlined)
           className="ml1"
           spin={true}
-          type="loading"
         />
       </span>
     </span>

@@ -3,7 +3,6 @@
 exports[`Logo renders 1`] = `
 <Link
   className="__Logo__"
-  replace={false}
   to="/"
 >
   <ReactComponent

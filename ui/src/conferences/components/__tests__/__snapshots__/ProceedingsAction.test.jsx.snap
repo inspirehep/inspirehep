@@ -12,8 +12,8 @@ exports[`ProceedingsAction renders proceedings 1`] = `
         loading={false}
       >
         <IconText
+          icon={<ForwardRef(BookOutlined) />}
           text="proceedings"
-          type="book"
         />
       </Button>
     }
@@ -55,8 +55,8 @@ exports[`ProceedingsAction renders single item 1`] = `
     href="/literature/12345"
   >
     <IconText
+      icon={<ForwardRef(BookOutlined) />}
       text="proceedings"
-      type="book"
     />
   </ExternalLink>
 </ListItemAction>

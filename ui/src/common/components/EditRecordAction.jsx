@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { EditOutlined } from '@ant-design/icons';
 
 import ListItemAction from './ListItemAction';
 import IconText from './IconText';
@@ -30,7 +31,7 @@ class EditRecordAction extends Component {
           <ExternalLink
             href={`${pidTypeToEditRoutePrefix[pidType]}/${pidValue}`}
           >
-            <IconText text="edit" type="edit" />
+            <IconText text="edit" icon={<EditOutlined />} />
           </ExternalLink>
         </EventTracker>
       </ListItemAction>

@@ -2,7 +2,6 @@
 
 exports[`CollaborationLink renders with collaboration 1`] = `
 <Link
-  replace={false}
   to="/literature?q=collaboration:Alias Investigations"
 >
   Alias Investigations

@@ -3,8 +3,8 @@
 exports[`DeadlineDate renders with deadlineDate 1`] = `
 <strong>
   <IconText
+    icon={<ForwardRef(ClockCircleOutlined) />}
     text="Deadline on Mar 12, 2003"
-    type="clock-circle"
   />
 </strong>
 `;

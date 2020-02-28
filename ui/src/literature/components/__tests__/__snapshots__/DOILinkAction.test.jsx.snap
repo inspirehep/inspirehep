@@ -6,8 +6,8 @@ exports[`DOILinkAction renders with a doi id 1`] = `
     doi="10.1007/s11182-019-01606-1"
   >
     <IconText
+      icon={<ForwardRef(LinkOutlined) />}
       text="DOI"
-      type="link"
     />
   </DOILink>
 </ListItemAction>
@@ -25,8 +25,8 @@ exports[`DOILinkAction renders with multiple doi ids 1`] = `
         loading={false}
       >
         <IconText
+          icon={<ForwardRef(LinkOutlined) />}
           text="DOI"
-          type="link"
         />
       </Button>
     }
@@ -71,8 +71,8 @@ exports[`DOILinkAction renders with multiple doi ids and material 1`] = `
         loading={false}
       >
         <IconText
+          icon={<ForwardRef(LinkOutlined) />}
           text="DOI"
-          type="link"
         />
       </Button>
     }

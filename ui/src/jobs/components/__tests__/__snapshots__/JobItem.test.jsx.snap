@@ -11,7 +11,6 @@ exports[`JobItem renders full job search result item 1`] = `
     <Col>
       <Link
         className="f5 pr1"
-        replace={false}
         to="/jobs/12345"
       >
         <JobTitle

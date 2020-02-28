@@ -14,7 +14,6 @@ exports[`ConferenceSeries renders several series 1`] = `
           art of the 
         </span>
         <Link
-          replace={false}
           to="/conferences?q=series.name:\\"Conference 1\\"&start_date=all"
         >
           Conference 1
@@ -32,7 +31,6 @@ exports[`ConferenceSeries renders several series 1`] = `
            conference in the 
         </span>
         <Link
-          replace={false}
           to="/conferences?q=series.name:\\"Conference 2\\"&start_date=all"
         >
           Conference 2
@@ -50,7 +48,6 @@ exports[`ConferenceSeries renders several series 1`] = `
           art of the 
         </span>
         <Link
-          replace={false}
           to="/conferences?q=series.name:\\"Conference 3\\"&start_date=all"
         >
           Conference 3
@@ -76,7 +73,6 @@ exports[`ConferenceSeries renders with name and number 1`] = `
            conference in the 
         </span>
         <Link
-          replace={false}
           to="/conferences?q=series.name:\\"Conference Name\\"&start_date=all"
         >
           Conference Name
@@ -102,7 +98,6 @@ exports[`ConferenceSeries renders with only name 1`] = `
           art of the 
         </span>
         <Link
-          replace={false}
           to="/conferences?q=series.name:\\"Conference Name\\"&start_date=all"
         >
           Conference Name

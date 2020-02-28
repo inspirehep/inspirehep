@@ -20,13 +20,7 @@ exports[`MultiSelectAggregation renders 1`] = `
         },
       ]
     }
-    placeholder={
-      <span
-        className="placeholder"
-      >
-        Test
-      </span>
-    }
+    placeholder="Test"
     value={
       Array [
         "bucket1",
@@ -56,13 +50,7 @@ exports[`MultiSelectAggregation renders with custom display values if configured
         },
       ]
     }
-    placeholder={
-      <span
-        className="placeholder"
-      >
-        Test
-      </span>
-    }
+    placeholder="Test"
     value={
       Array [
         "bucket1",

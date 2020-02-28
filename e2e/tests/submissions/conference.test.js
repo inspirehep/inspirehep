@@ -1,7 +1,7 @@
 const moment = require('moment');
 const { ResponseInterceptor } = require('../../utils/interceptors');
 const { login } = require('../../utils/user');
-const { FormSubmitter } = require('../../utils/form');
+const { FormSubmitter, DATE_FORMAT } = require('../../utils/form');
 const routes = require('../../utils/routes');
 
 describe('conference submissions', () => {
@@ -49,7 +49,6 @@ describe('conference submissions', () => {
       additional_info: 'This is some additional info',
       keywords: ['keyword1', 'keyword2'],
     });
-
     await formSubmitter.waitForSubmissionSuccess();
 
     const submitResponse = interceptor.getFirstResponseByUrl(
@@ -70,8 +69,8 @@ describe('conference submissions', () => {
           country_code: 'CH',
         },
       ],
-      opening_date: startDateMoment.format('YYYY-MM-DD'),
-      closing_date: endDateMoment.format('YYYY-MM-DD'),
+      opening_date: startDateMoment.format(DATE_FORMAT),
+      closing_date: endDateMoment.format(DATE_FORMAT),
       inspire_categories: [{ term: 'Accelerators' }],
       keywords: [{ value: 'keyword1' }, { value: 'keyword2' }],
       public_notes: [{ value: 'This is some additional info' }],
@@ -107,11 +106,11 @@ describe('conference submissions', () => {
 
     await formSubmitter.fill({
       name: 'Please come to my conference',
-      dates: [moment().add(20, 'day'), moment().add(24, 'day')],
+      dates: [moment().add(10, 'day'), moment().add(11, 'day')],
       addresses: [
         {
           city: 'Stockholm',
-          country: 'Sweden',
+          country: 'Switzerland',
         },
       ],
       field_of_interest: ['Computing'],

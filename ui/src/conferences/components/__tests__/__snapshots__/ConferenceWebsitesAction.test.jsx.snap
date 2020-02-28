@@ -6,8 +6,8 @@ exports[`ConferenceWebsitesAction renders single url 1`] = `
     href="https://author.wordpress.com"
   >
     <IconText
+      icon={<ForwardRef(LinkOutlined) />}
       text="website"
-      type="link"
     />
   </ExternalLink>
 </ListItemAction>
@@ -25,8 +25,8 @@ exports[`ConferenceWebsitesAction renders urls with and without description 1`] 
         loading={false}
       >
         <IconText
+          icon={<ForwardRef(LinkOutlined) />}
           text="website"
-          type="link"
         />
       </Button>
     }

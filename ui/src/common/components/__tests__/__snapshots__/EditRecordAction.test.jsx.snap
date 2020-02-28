@@ -11,8 +11,8 @@ exports[`EditRecordAction renders edit button with pidType conferences and pidVa
       href="/editor/record/conferences/1"
     >
       <IconText
+        icon={<ForwardRef(EditOutlined) />}
         text="edit"
-        type="edit"
       />
     </ExternalLink>
   </EventTracker>
@@ -30,8 +30,8 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`]
       href="/submissions/jobs/1"
     >
       <IconText
+        icon={<ForwardRef(EditOutlined) />}
         text="edit"
-        type="edit"
       />
     </ExternalLink>
   </EventTracker>
@@ -49,8 +49,8 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 2`]
       href="/submissions/authors/1"
     >
       <IconText
+        icon={<ForwardRef(EditOutlined) />}
         text="edit"
-        type="edit"
       />
     </ExternalLink>
   </EventTracker>
@@ -68,8 +68,8 @@ exports[`EditRecordAction renders edit button with pidType literature and pidVal
       href="/workflows/edit_article/1"
     >
       <IconText
+        icon={<ForwardRef(EditOutlined) />}
         text="edit"
-        type="edit"
       />
     </ExternalLink>
   </EventTracker>

@@ -2,7 +2,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Map } from 'immutable';
-import { Row, Col, Form, Tooltip } from 'antd';
+import { Row, Col, Tooltip, Form } from 'antd';
 
 import { submit } from '../../../actions/submissions';
 import { LABEL_COL, WRAPPER_COL } from '../../common/withFormItem';
@@ -66,14 +66,14 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
           and transfer it to INSPIRE.
         </Row>
         <Row className="mb3 pa3 bg-white">
-          <Col>
+          <Col span={24}>
             <DataImporterContainer onSkipClick={onDataImportSkipClick} />
           </Col>
         </Row>
         {shouldDisplayForm && (
           <>
             <Row className="mb3 ph3 pt3 bg-white">
-              <Col>
+              <Col span={24}>
                 <Form.Item
                   label={
                     <Tooltip title="Type of the document">
@@ -94,7 +94,7 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
               </Col>
             </Row>
             <Row>
-              <Col>
+              <Col span={24}>
                 <LiteratureSubmission
                   initialFormData={importedFormData}
                   error={error}

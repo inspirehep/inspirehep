@@ -8,7 +8,6 @@ exports[`Holdingpen renders initial state 1`] = `
     <Redirect
       exact={true}
       from="/holdingpen"
-      push={false}
       to="/holdingpen/dashboard"
     />
     <Route

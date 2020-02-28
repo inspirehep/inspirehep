@@ -10,11 +10,11 @@ class AuthorOrcid extends Component {
   render() {
     const { orcid } = this.props;
     return (
-      <Tooltip title="ORCID">
-        <OrcidProfileLink className="__AuthorOrcid__" orcid={orcid}>
+      <OrcidProfileLink className="__AuthorOrcid__" orcid={orcid}>
+        <Tooltip title="ORCID">
           <img src={orcidLogo} alt="ORCID" />
-        </OrcidProfileLink>
-      </Tooltip>
+        </Tooltip>
+      </OrcidProfileLink>
     );
   }
 }

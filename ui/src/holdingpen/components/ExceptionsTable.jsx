@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Table, Icon } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { Table } from 'antd';
 import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
 import './ExceptionsTable.scss';
@@ -145,7 +146,7 @@ class ExceptionsTable extends Component {
             focused={isErrorFilterFocused}
           />
         ),
-        filterIcon: <Icon type="search" />,
+        filterIcon: <SearchOutlined />,
         filterDropdownVisible: isErrorFilterDropdownVisible,
         onFilterDropdownVisibleChange: this.onErrorFilterDropdownVisibleChange,
         width: '70%',
@@ -161,7 +162,7 @@ class ExceptionsTable extends Component {
             focused={isRecidFilterFocused}
           />
         ),
-        filterIcon: <Icon type="search" />,
+        filterIcon: <SearchOutlined />,
         filterDropdownVisible: isRecidFilterDropdownVisible,
         onFilterDropdownVisibleChange: this.onRecidFilterDropdownVisibleChange,
         render: text => {

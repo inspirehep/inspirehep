@@ -8,19 +8,19 @@ class ErrorPage extends Component {
     return (
       <Col className="mt3 mb3" span={14} justify="center" align="middle">
         <Row>
-          <Col>
+          <Col span={24}>
             <h3 className="f2 sm-f3">{message}</h3>
           </Col>
         </Row>
         {detail && (
           <Row>
-            <Col>
+            <Col span={24}>
               <h3 className="f3 normal sm-f4">{detail}</h3>
             </Col>
           </Row>
         )}
         <Row>
-          <Col>
+          <Col span={24}>
             <img src={imageSrc} alt="ERROR" />
           </Col>
         </Row>

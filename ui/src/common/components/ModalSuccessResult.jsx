@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Icon } from 'antd';
+import { CheckCircleTwoTone } from '@ant-design/icons';
 import PropTypes from 'prop-types';
 
 import styleVariables from '../../styleVariables';
@@ -11,11 +11,7 @@ class ModalSuccessResult extends Component {
     return (
       <div>
         <div className="mb4 tc f-5">
-          <Icon
-            type="check-circle"
-            theme="twoTone"
-            twoToneColor={styleVariables['success-color']}
-          />
+          <CheckCircleTwoTone twoToneColor={styleVariables['success-color']} />
         </div>
         <div className="tc f5">{children}</div>
       </div>

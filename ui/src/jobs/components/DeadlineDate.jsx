@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { ClockCircleOutlined } from '@ant-design/icons';
 import moment from 'moment';
+
 import IconText from '../../common/components/IconText';
 
 class DeadlineDate extends Component {
@@ -10,7 +12,7 @@ class DeadlineDate extends Component {
     return (
       <strong>
         <IconText
-          type="clock-circle"
+          icon={<ClockCircleOutlined />}
           text={`Deadline on ${formattedDeadlineDate}`}
         />
       </strong>

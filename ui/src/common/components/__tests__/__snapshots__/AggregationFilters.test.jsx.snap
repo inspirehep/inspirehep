@@ -11,7 +11,6 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
 >
   <Col
     className="mb4"
-    gutter={32}
     key="agg1"
     lg={24}
     xs={24}
@@ -53,7 +52,6 @@ exports[`AggregationFilters renders aggregations when numberOfResults is 0 and d
 >
   <Col
     className="mb3"
-    gutter={32}
     key="agg"
     lg={24}
     xs={24}
@@ -90,7 +88,6 @@ exports[`AggregationFilters renders with all props set [inline] 1`] = `
 >
   <Col
     className="md-pb3"
-    gutter={32}
     key="agg1"
     lg={5}
     xs={24}
@@ -126,7 +123,6 @@ exports[`AggregationFilters renders with all props set [inline] 1`] = `
   </Col>
   <Col
     className="md-pb3"
-    gutter={32}
     key="agg2"
     lg={5}
     xs={24}
@@ -164,7 +160,6 @@ exports[`AggregationFilters renders with all props set 1`] = `
 >
   <Col
     className="mb4"
-    gutter={32}
     key="agg1"
     lg={24}
     xs={24}
@@ -200,7 +195,6 @@ exports[`AggregationFilters renders with all props set 1`] = `
   </Col>
   <Col
     className="mb4"
-    gutter={32}
     key="agg3"
     lg={24}
     xs={24}
@@ -236,7 +230,6 @@ exports[`AggregationFilters renders with all props set 1`] = `
   </Col>
   <Col
     className="mb3"
-    gutter={32}
     key="agg2"
     lg={24}
     xs={24}

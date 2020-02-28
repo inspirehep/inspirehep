@@ -19,7 +19,6 @@ exports[`DropdownMenu renders 1`] = `
       </MenuItem>
     </Menu>
   }
-  placement="bottomLeft"
 >
   title
 </Dropdown>
@@ -46,7 +45,6 @@ exports[`DropdownMenu renders with all props set 1`] = `
       </MenuItem>
     </Menu>
   }
-  placement="bottomLeft"
 >
   title
 </Dropdown>
