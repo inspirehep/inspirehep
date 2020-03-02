@@ -17,27 +17,35 @@ fake = Faker()
 
 
 class RecordProvider(BaseProvider):
-    def control_number(self):
+    @staticmethod
+    def control_number():
         return fake.random_number(digits=8, fix_len=True)
 
-    def doi(self):
+    @staticmethod
+    def doi():
         return "10.{}/{}".format(
             fake.random_number(digits=4, fix_len=True),
             fake.random_number(digits=8, fix_len=True),
         )
 
-    def arxiv(self):
+    @staticmethod
+    def arxiv():
         return "20{}.{}".format(
             fake.random_number(digits=2, fix_len=True),
             fake.random_number(digits=5, fix_len=True),
         )
 
-    def orcid(self):
+    @staticmethod
+    def orcid():
         return "0000-{}-{}-{}".format(
             fake.random_number(digits=4, fix_len=True),
             fake.random_number(digits=4, fix_len=True),
             fake.random_number(digits=4, fix_len=True),
         )
+
+    @staticmethod
+    def bai():
+        return f"{fake.name().replace(' ', '.')}.{fake.random_number(digits=1)}"
 
     @staticmethod
     def hep_record():
@@ -48,8 +56,8 @@ class RecordProvider(BaseProvider):
             "_collections": ["Literature"],
         }
 
-    @staticmethod
-    def author_record():
+    @classmethod
+    def author_record(cls):
         return {
             "$schema": "http://localhost:5000/schemas/records/authors.json",
             "name": {"value": fake.name()},
@@ -124,6 +132,18 @@ class RecordProvider(BaseProvider):
             )
         return {"references": data}
 
+    @classmethod
+    def add_other_pids(cls, pids):
+        if not pids:
+            return
+        ids = []
+        for pid in pids:
+            if pid == "orcid":
+                ids.append({"schema": "ORCID", "value": cls.orcid()})
+            if pid == "bai":
+                ids.append({"schema": "INSPIRE BAI", "value": cls.bai()})
+        return ids
+
     def record(
         self,
         record_type,
@@ -132,6 +152,7 @@ class RecordProvider(BaseProvider):
         literature_citations=[],  # TODO: call `literature_references`
         data_citations=[],
         skip_validation=False,
+        other_pids=[],
     ):
         if record_type == "lit":
             record = self.hep_record()
@@ -149,7 +170,6 @@ class RecordProvider(BaseProvider):
             record = self.data_record()
         elif record_type == "ins":
             record = self.institutions_record()
-
         if with_control_number:
             record["control_number"] = self.control_number()
         if data:
@@ -158,6 +178,10 @@ class RecordProvider(BaseProvider):
             record.update(self.add_citations(literature_citations))
         if data_citations:
             record.update(self.add_data_citations(data_citations))
+        if other_pids:
+            ids = record.get("ids", [])
+            ids.extend(self.add_other_pids(other_pids))
+            record["ids"] = ids
         if not skip_validation:
             schema_validate(record)
         return record
