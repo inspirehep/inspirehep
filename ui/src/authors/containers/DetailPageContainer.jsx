@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'antd';
+import { Row, Col } from 'antd';
 import { Map, List } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
@@ -109,16 +109,6 @@ function DetailPage({
       />
       <Row className="mv3" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
-          <Alert
-            type="info"
-            showIcon
-            message={
-              <span>
-                The author profile is currently under development. More features
-                coming soon!
-              </span>
-            }
-          />
           <Row
             className="mt3"
             type="flex"
