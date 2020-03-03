@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
+import { Link } from 'react-router-dom';
 
 import './CitationSummaryTable.scss';
 import ExternalLink from '../ExternalLink';
@@ -9,12 +10,19 @@ import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { ErrorPropType } from '../../propTypes';
 
-const CITABLE_HELP_MESSAGE = (
+const PUBLISHED_HELP_MESSAGE = (
   <span>
     Published papers are believed to have undergone rigorous peer review.{' '}
     <ExternalLink href="http://inspirehep.net/info/faq/general#published">
       Learn More
     </ExternalLink>
+  </span>
+);
+
+const H_INDEX_HELP_MESSAGE = (
+  <span>
+    The h-index is defined as the number of papers with citation number higher
+    or equal to h. <Link to="/literature/690567">Learn more</Link>
   </span>
 );
 
@@ -47,7 +55,7 @@ class CitationSummaryTable extends Component {
                   <th>
                     <LabelWithHelp
                       label="Published"
-                      help={CITABLE_HELP_MESSAGE}
+                      help={PUBLISHED_HELP_MESSAGE}
                     />
                   </th>
                 </tr>
@@ -74,7 +82,12 @@ class CitationSummaryTable extends Component {
                   <td>{publishedBucket.getIn(['citations_count', 'value'])}</td>
                 </tr>
                 <tr>
-                  <th>h-index</th>
+                  <th>
+                    <LabelWithHelp
+                      label="h-index"
+                      help={H_INDEX_HELP_MESSAGE}
+                    />
+                  </th>
                   <td>{hIndex.get('all')}</td>
                   <td>{hIndex.get('published')}</td>
                 </tr>
