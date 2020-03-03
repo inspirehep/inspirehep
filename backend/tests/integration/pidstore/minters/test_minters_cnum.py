@@ -189,3 +189,43 @@ def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(
     expected_cnum = "C05-01-01"
     assert 1 == len(record_cnums)
     assert record_cnums[0].pid_value == expected_cnum
+
+
+def test_generate_cnum_when_holes_in_cnums_sequence(base_app, db, create_record):
+    data = {"opening_date": "2020-01-01"}
+    expected_cnum = "C20-01-01.2"
+    rec1 = create_record("con", data)
+    rec2 = create_record("con", data)
+    rec1.hard_delete()
+    rec3 = create_record("con", data)
+    assert rec3.get("cnum") == expected_cnum
+
+
+def test_generate_cnum_when_holes_in_cnums_sequence_and_weird_creation_order(
+    base_app, db, create_record
+):
+    data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.2"}
+    rec1 = create_record("con", data)
+    data["cnum"] = "C20-01-01.1"
+    rec2 = create_record("con", data)
+    data["cnum"] = "C20-01-01"
+    rec3 = create_record("con", data)
+    del data["cnum"]
+    rec2.hard_delete()
+    rec4 = create_record("con", data)
+    assert rec4["cnum"] == "C20-01-01.3"
+
+
+def test_generate_cnum_when_holes_in_cnums_sequence_and_big_holes(
+    base_app, db, create_record
+):
+    data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.20"}
+    rec1 = create_record("con", data)
+    data["cnum"] = "C20-01-01.31"
+    rec2 = create_record("con", data)
+    data["cnum"] = "C20-01-01.3"
+    rec3 = create_record("con", data)
+    del data["cnum"]
+    rec2.hard_delete()
+    rec4 = create_record("con", data)
+    assert rec4["cnum"] == "C20-01-01.21"

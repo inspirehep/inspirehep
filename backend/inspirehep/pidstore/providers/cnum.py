@@ -16,6 +16,7 @@ LOGGER = structlog.getLogger()
 
 class InspireCNUMProvider(BaseProvider):
     """CNUM identifier provider."""
+
     pid_type = None
     pid_provider = "cnum"
     default_status = PIDStatus.RESERVED
@@ -50,15 +51,27 @@ class InspireCNUMProvider(BaseProvider):
         opening_date = data.get("opening_date")
         if not opening_date:
             return
-
         adjusted_date = datetime.strptime(opening_date, "%Y-%m-%d").strftime("%y-%m-%d")
         cnum = f"C{adjusted_date}"
-        cnums_count = PersistentIdentifier.query\
-            .filter(PersistentIdentifier.pid_value.like(f"{cnum}%"))\
-            .filter(PersistentIdentifier.pid_type == "cnum")\
-            .count()
+        all_postfixes = []
+        all_cnums = (
+            PersistentIdentifier.query.with_for_update()
+            .filter(PersistentIdentifier.pid_value.like(f"{cnum}%"))
+            .filter(PersistentIdentifier.pid_type == "cnum")
+            .all()
+        )
+        if not all_cnums:
+            return cnum
 
-        if cnums_count > 0:
-            cnum = f"{cnum}.{cnums_count}"
+        for cnum_entry in all_cnums:
+            cnum_value = cnum_entry.pid_value.split(".")
+            if len(cnum_value) > 1:
+                all_postfixes.append(int(cnum_value[-1]))
+        if all_postfixes:
+            postfix = sorted(all_postfixes)[-1] + 1
+        else:
+            postfix = 1
 
-        return cnum
+        full_cnum = f"{cnum}.{postfix}"
+
+        return full_cnum
