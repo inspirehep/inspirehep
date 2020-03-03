@@ -61,7 +61,20 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
           </tr>
           <tr>
             <th>
-              h-index
+              <LabelWithHelp
+                help={
+                  <span>
+                    The h-index is defined as the number of papers with citation number higher or equal to h. 
+                    <Link
+                      replace={false}
+                      to="/literature/690567"
+                    >
+                      Learn more
+                    </Link>
+                  </span>
+                }
+                label="h-index"
+              />
             </th>
             <td />
             <td />
