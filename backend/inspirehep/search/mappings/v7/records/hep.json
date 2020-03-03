@@ -9,6 +9,12 @@
       "_all": {
         "type": "text"
       },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
       "_collections": {
         "normalizer": "lowercase_normalizer",
         "type": "keyword"

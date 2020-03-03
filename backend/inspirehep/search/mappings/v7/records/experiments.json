@@ -6,6 +6,12 @@
       "$schema": {
         "type": "keyword"
       },
+      "_created": {
+        "type": "date"
+      },
+      "_updated": {
+        "type": "date"
+      },
       "_collections": {
         "normalizer": "lowercase_normalizer",
         "type": "keyword"
