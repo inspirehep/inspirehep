@@ -18,7 +18,7 @@ const Footer = () => (
           <Col>
             <ExternalLink
               className="footer-link"
-              href="//inspirehep.net/info/general/privacy-policy"
+              href="//labs.inspirehep.net/help/knowledge-base/privacy-policy"
             >
               Privacy Policy
             </ExternalLink>
@@ -26,7 +26,7 @@ const Footer = () => (
           <Col>
             <ExternalLink
               className="footer-link"
-              href="//inspirehep.net/info/general/terms-of-use"
+              href="//labs.inspirehep.net/help/knowledge-base/terms-of-use"
             >
               Terms of Use
             </ExternalLink>
