@@ -11,6 +11,23 @@ from elasticsearch_dsl.query import Q, Range
 from flask import current_app, request
 from invenio_records_rest.facets import range_filter
 
+from inspirehep.search.aggregations import (
+    conf_subject_aggregation,
+    hep_arxiv_categories_aggregation,
+    hep_author_aggregation,
+    hep_author_count_aggregation,
+    hep_collaboration_aggregation,
+    hep_collection_aggregation,
+    hep_doc_type_aggregation,
+    hep_earliest_date_aggregation,
+    hep_self_author_affiliations_aggregation,
+    hep_self_author_names_aggregation,
+    hep_subject_aggregation,
+    jobs_field_of_interest_aggregation,
+    jobs_rank_aggregation,
+    jobs_region_aggregation,
+    jobs_status_aggregation,
+)
 from inspirehep.search.utils import minify_painless
 
 
@@ -81,6 +98,10 @@ def conferences_start_date_range_filter():
     return inner
 
 
+def get_filters_without_excluded(filters, excluded_filters):
+    return {key: val for key, val in filters.items() if key not in excluded_filters}
+
+
 def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None):
     """Bool filter containing a list of must matches for nested queries."""
 
@@ -97,26 +118,6 @@ def must_match_all_filter_nested(nested_path, match_field, explicit_filter=None)
     return inner
 
 
-def hep_conference_contributions():
-    return {
-        "filters": {
-            "subject": must_match_all_filter("facet_inspire_categories"),
-            "collaboration": must_match_all_filter("facet_collaborations"),
-            "doc_type": must_match_all_filter("facet_inspire_doc_type"),
-        },
-        "aggs": {
-            "subject": {
-                "terms": {"field": "facet_inspire_categories", "size": 20},
-                "meta": {"title": "Subject", "order": 1, "type": "checkbox"},
-            },
-            "collaboration": {
-                "terms": {"field": "facet_collaborations", "size": 20},
-                "meta": {"title": "Collaboration", "order": 2, "type": "checkbox"},
-            },
-        },
-    }
-
-
 def nested_filters(author_recid):
     return {
         "self_affiliations": must_match_all_filter_nested(
@@ -130,135 +131,61 @@ def nested_filters(author_recid):
     }
 
 
+def hep_filters():
+    """Parameter author looks like 1234_Name%20Surname, thus the splitting."""
+    filters = {**current_app.config["HEP_FILTERS"]}
+    if request:
+        author_recid = request.values.get("author", "", type=str).split("_")[0]
+        filters.update(**nested_filters(author_recid))
+    return filters
+
+
 def hep_author_publications():
-    author = request.values.get("author_recid", "", type=str)
+    author = request.values.get("author", "", type=str)
+    author_recid = author.split("_")[0]
     return {
-        "filters": {**current_app.config["HEP_COMMON_FILTERS"]},
+        "filters": hep_filters(),
         "aggs": {
-            **current_app.config["HEP_COMMON_AGGS"],
-            "author": {
-                "terms": {"field": "facet_author_name", "size": 20, "exclude": author},
-                "meta": {
-                    "title": "Collaborators",
-                    "order": 3,
-                    "type": "checkbox",
-                    "split": True,
-                },
-            },
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_author_aggregation(order=3, author=author, title="Collaborators"),
+            **hep_doc_type_aggregation(order=4),
+            **hep_collaboration_aggregation(order=5),
+            **hep_self_author_affiliations_aggregation(
+                order=6, author_recid=author_recid
+            ),
         },
     }
 
 
-def hep_author_publications_cataloger():
-    """author_recid is a query parameter and it looks like 0000_Name%20Surname, thus the splitting."""
-    author_recid = request.values.get("author_recid", "", type=str).split("_")[0]
-    publications = hep_author_publications()
-    publications["aggs"].update(
-        {
-            "subject": {
-                "terms": {"field": "facet_inspire_categories", "size": 20},
-                "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
-            },
-            "arxiv_categories": {
-                "terms": {"field": "facet_arxiv_categories", "size": 20},
-                "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
-            },
-            "self_author": {
-                "nested": {"path": "authors"},
-                "aggs": {
-                    "nested": {
-                        "filter": {"term": {"authors.record.$ref": author_recid}},
-                        "aggs": {
-                            "self_affiliations": {
-                                "terms": {
-                                    "field": "authors.affiliations.value.raw",
-                                    "size": 20,
-                                },
-                                "meta": {
-                                    "title": "Affiliations",
-                                    "order": 8,
-                                    "type": "checkbox",
-                                },
-                            },
-                            "self_author_names": {
-                                "terms": {"field": "authors.full_name.raw", "size": 20},
-                                "meta": {
-                                    "title": "Name variations",
-                                    "order": 9,
-                                    "type": "checkbox",
-                                },
-                            },
-                        },
-                    }
-                },
-            },
-            "collection": {
-                "terms": {"field": "_collections", "size": 20},
-                "meta": {"title": "Collection", "order": 10, "type": "checkbox"},
-            },
-        }
-    )
-    publications["filters"].update(nested_filters(author_recid))
-    return publications
+def hep_conference_contributions():
+    return {
+        "filters": hep_filters(),
+        "aggs": {
+            **hep_subject_aggregation(order=1),
+            **hep_collaboration_aggregation(order=2),
+        },
+    }
 
 
 def records_hep():
     return {
-        "filters": {
-            **current_app.config["HEP_COMMON_FILTERS"],
-            **current_app.config["HEP_FILTERS"],
-        },
+        "filters": hep_filters(),
         "aggs": {
-            **current_app.config["HEP_COMMON_AGGS"],
-            "author": {
-                "terms": {"field": "facet_author_name", "size": 20},
-                "meta": {
-                    "title": "Author",
-                    "order": 3,
-                    "split": True,
-                    "type": "checkbox",
-                },
-            },
-            "subject": {
-                "terms": {"field": "facet_inspire_categories", "size": 20},
-                "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
-            },
-            "arxiv_categories": {
-                "terms": {"field": "facet_arxiv_categories", "size": 20},
-                "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
-            },
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_author_aggregation(order=3),
+            **hep_subject_aggregation(order=4),
+            **hep_arxiv_categories_aggregation(order=5),
+            **hep_doc_type_aggregation(order=6),
+            **hep_collaboration_aggregation(order=7),
         },
     }
-
-
-def records_hep_cataloger():
-    """author is a query parameter and it looks like 1234_Name%20Surname, thus the splitting."""
-    author_recid = request.values.get("author", "", type=str).split("_")[0]
-    records = records_hep()
-    records["filters"].update(
-        {
-            "collection": must_match_all_filter("_collections"),
-            **nested_filters(author_recid),
-        }
-    )
-    records["aggs"].update(
-        {
-            "collection": {
-                "terms": {"field": "_collections", "size": 20},
-                "meta": {"title": "Collection", "order": 10, "type": "checkbox"},
-            }
-        }
-    )
-    return records
 
 
 def citation_summary():
     excluded_filters = ["citeable", "refereed", "citation_count"]
-    filters = {
-        key: val
-        for key, val in current_app.config["HEP_COMMON_FILTERS"].items()
-        if key not in excluded_filters
-    }
+    filters = get_filters_without_excluded(hep_filters(), excluded_filters)
     map_script = """
         if (doc.refereed.length >0 && doc.refereed[0]) {
             state.citations_refereed.add(doc.citation_count[0])
@@ -287,7 +214,7 @@ def citation_summary():
         return ['published': i, 'all': j]
     """
     return {
-        "filters": {**filters, **current_app.config["HEP_FILTERS"]},
+        "filters": {**filters},
         "aggs": {
             "citation_summary": {
                 "filter": {"term": {"citeable": "true"}},
@@ -341,11 +268,7 @@ def citations_by_year():
         "earliest_date",
         "collaboration",
     ]
-    filters = {
-        key: val
-        for key, val in current_app.config["HEP_COMMON_FILTERS"].items()
-        if key not in excluded_filters
-    }
+    filters = get_filters_without_excluded(hep_filters(), excluded_filters)
     map_script = """
         def years = params._source.citations_by_year != null ? params._source.citations_by_year : [];
         for (element in years) {
@@ -362,7 +285,7 @@ def citations_by_year():
         return results
     """
     return {
-        "filters": {**filters, **current_app.config["HEP_FILTERS"]},
+        "filters": {**filters},
         "filter": {"term": {"citeable": "true"}},
         "aggs": {
             "citations_by_year": {
@@ -374,3 +297,47 @@ def citations_by_year():
             }
         },
     }
+
+
+def records_jobs():
+    return {
+        "filters": {**current_app.config["JOBS_FILTERS"]},
+        "aggs": {
+            **jobs_field_of_interest_aggregation(order=1),
+            **jobs_rank_aggregation(order=2),
+            **jobs_region_aggregation(order=3),
+        },
+    }
+
+
+def records_conferences():
+    return {
+        "filters": {**current_app.config["CONFERENCES_FILTERS"]},
+        "aggs": {**conf_subject_aggregation(order=1)},
+    }
+
+
+def records_hep_cataloger():
+    records = records_hep()
+    records["aggs"].update({**hep_collection_aggregation(order=8)})
+    return records
+
+
+def hep_author_publications_cataloger():
+    author_recid = request.values.get("author", "", type=str).split("_")[0]
+    records = hep_author_publications()
+    records["aggs"].update(
+        {
+            **hep_subject_aggregation(order=7),
+            **hep_arxiv_categories_aggregation(order=8),
+            **hep_self_author_names_aggregation(order=9, author_recid=author_recid),
+            **hep_collection_aggregation(order=10),
+        }
+    )
+    return records
+
+
+def records_jobs_cataloger():
+    records = records_jobs()
+    records["aggs"].update({**jobs_status_aggregation(order=4)})
+    return records

@@ -382,43 +382,6 @@ def test_literature_cataloger_facets(
     assert len(response_data["hits"]["hits"]) == 0
 
 
-@pytest.mark.xfail(
-    reason=(
-        "Indexing for tests needs to be fixed so that elasticsearch is populated "
-        "with custom fields that are used for facets, hence we cannot test the facets."
-    )
-)
-def test_literature_facets_with_selected_facet(api_client, db, es_clear, create_record):
-    record_1 = create_record("lit")
-    data = {"document_type": ["Thesis"]}
-    record_2 = create_record("lit", data=data)
-
-    response = api_client.get("/literature/facets/?doc_type=article")
-    response_data = json.loads(response.data)
-    response_data_hits = response_data["hits"]["hits"]
-    response_status_code = response.status_code
-    response_data_facet_keys = list(response_data.get("aggregations").keys())
-
-    expected_status_code = 200
-    expected_facet_keys = [
-        "arxiv_categories",
-        "author",
-        "author_count",
-        "doc_type",
-        "earliest_date",
-        "subject",
-        "collaboration",
-    ]
-
-    expected_result_hits = {}
-
-    expected_facet_keys.sort()
-    response_data_facet_keys.sort()
-    assert expected_status_code == response_status_code
-    assert expected_facet_keys == response_data_facet_keys
-    assert expected_result_hits == response_data_hits
-
-
 def test_literature_facets_author_count_does_not_have_empty_bucket(
     api_client, db, es_clear
 ):
@@ -428,16 +391,13 @@ def test_literature_facets_author_count_does_not_have_empty_bucket(
     assert author_count_agg["buckets"] == []
 
 
-@pytest.mark.xfail(
-    reason="""Indexing for tests needs to be fixed so that elasticsearch is populated
-    with custom fields that are used for facets. Since for now all facets have only
-    empty buckets, this test can not be enabled.
-    """
-)
 def test_literature_facets_author_count_returns_non_empty_bucket(
     api_client, db, es_clear, create_record, redis
 ):
-    create_record("lit", data={"authors": [{"full_name": "Harun Urhan"}]})
+    create_record(
+        "lit",
+        data={"authors": [{"full_name": "Harun Urhan"}, {"full_name": "John Doe"}]},
+    )
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
@@ -495,45 +455,6 @@ def test_literature_facets_doc_type_has_bucket_help(
     assert expected_text == response_data_facet_bucket_help["published"]["text"]
     assert expected_link == response_data_facet_bucket_help["published"]["link"]
     assert len(response_data["hits"]["hits"]) == 0
-
-
-def test_literature_facets_collaboration(api_client, db, es_clear, create_record):
-    data_1 = {
-        "$schema": "http://localhost:5000/schemas/records/hep.json",
-        "document_type": ["article"],
-        "control_number": 12345,
-        "titles": [{"title": "A Title"}],
-        "collaborations": [{"value": "Alice"}, {"value": "Collab"}],
-    }
-    record_1 = create_record("lit", data=data_1)
-    data_2 = {"collaborations": [{"value": "Alice"}]}
-    record_2 = create_record("lit", data=data_2)
-
-    response = api_client.get("/literature/facets")
-    response_data = json.loads(response.data)
-    response_status_code = response.status_code
-    response_data_collaboration_buckets = response_data["aggregations"][
-        "collaboration"
-    ]["buckets"]
-
-    expected_status_code = 200
-    expected_collaboration_buckets = [
-        {"key": "Alice", "doc_count": 2},
-        {"key": "Collab", "doc_count": 1},
-    ]
-
-    expected_data = deepcopy(data_1)
-    expected_data.update(citation_count=0, author_count=0)
-
-    assert expected_status_code == response_status_code
-    assert expected_collaboration_buckets == response_data_collaboration_buckets
-
-    response = api_client.get("/literature?collaboration=Collab")
-    response_data = json.loads(response.data)
-    response_status_code = response.status_code
-
-    assert expected_status_code == response_status_code
-    assert expected_data == response_data["hits"]["hits"][0]["metadata"]
 
 
 def test_literature_search_citation_count_filter(

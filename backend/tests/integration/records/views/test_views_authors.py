@@ -30,6 +30,7 @@ def test_author_facets(api_client, db, create_record, es_clear):
         "doc_type",
         "earliest_date",
         "collaboration",
+        "self_affiliations",
     ]
     expected_facet_keys.sort()
     response_data_facet_keys.sort()
