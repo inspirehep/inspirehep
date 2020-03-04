@@ -1,33 +1,21 @@
-from inspirehep.search.facets import (
-    hep_author_publications,
-    hep_author_publications_cataloger,
-    hep_conference_contributions,
-    records_hep,
-    records_hep_cataloger,
+from inspirehep.search.aggregations import (
+    conf_subject_aggregation,
+    hep_arxiv_categories_aggregation,
+    hep_author_aggregation,
+    hep_author_count_aggregation,
+    hep_collaboration_aggregation,
+    hep_collection_aggregation,
+    hep_doc_type_aggregation,
+    hep_earliest_date_aggregation,
+    hep_self_author_affiliations_aggregation,
+    hep_self_author_names_aggregation,
+    hep_subject_aggregation,
+    jobs_field_of_interest_aggregation,
+    jobs_rank_aggregation,
+    jobs_region_aggregation,
+    jobs_status_aggregation,
 )
-
-
-def test_hep_author_publications_facets(base_app):
-    expect = {
-        "meta": {
-            "order": 3,
-            "title": "Collaborators",
-            "type": "checkbox",
-            "split": True,
-        },
-        "terms": {
-            "exclude": "Jones, Jessica",
-            "field": "facet_author_name",
-            "size": 20,
-        },
-    }
-    with base_app.test_request_context("?author_recid=Jones, Jessica"):
-        result = hep_author_publications()
-        assert expect == result["aggs"]["author"]
-        assert all(
-            agg not in result["aggs"]
-            for agg in ["subject", "arxiv_categories", "self_author", "collection"]
-        )
+from inspirehep.search.facets import hep_author_publications
 
 
 def test_hep_author_publications_facets_without_exclude(base_app):
@@ -38,7 +26,7 @@ def test_hep_author_publications_facets_without_exclude(base_app):
             "type": "checkbox",
             "split": True,
         },
-        "terms": {"exclude": "", "field": "facet_author_name", "size": 20},
+        "terms": {"field": "facet_author_name", "size": 20},
     }
     with base_app.test_request_context():
         result = hep_author_publications()
@@ -49,120 +37,326 @@ def test_hep_author_publications_facets_without_exclude(base_app):
         )
 
 
-def test_hep_author_publications_cataloger_facets(base_app):
-    author = {
-        "meta": {
-            "order": 3,
-            "title": "Collaborators",
-            "type": "checkbox",
-            "split": True,
-        },
-        "terms": {
-            "exclude": "Jones, Jessica",
-            "field": "facet_author_name",
-            "size": 20,
-        },
-    }
-    subject = {
-        "terms": {"field": "facet_inspire_categories", "size": 20},
-        "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
-    }
-    arxiv_categories = {
-        "terms": {"field": "facet_arxiv_categories", "size": 20},
-        "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
-    }
-    self_affiliations = {
-        "terms": {"field": "authors.affiliations.value.raw", "size": 20},
-        "meta": {"title": "Affiliations", "order": 8, "type": "checkbox"},
-    }
-    self_author_names = {
-        "terms": {"field": "authors.full_name.raw", "size": 20},
-        "meta": {"title": "Name variations", "order": 9, "type": "checkbox"},
-    }
-    collection = {
-        "terms": {"field": "_collections", "size": 20},
-        "meta": {"title": "Collection", "order": 10, "type": "checkbox"},
-    }
-    with base_app.test_request_context("?author_recid=Jones, Jessica"):
-        result = hep_author_publications_cataloger()
-        assert author == result["aggs"]["author"]
-        assert subject == result["aggs"]["subject"]
-        assert arxiv_categories == result["aggs"]["arxiv_categories"]
-        assert "self_author" in result["aggs"]
+def test_hep_author_publications_facets(base_app):
+    author = "1111_ Jones"
+    author_recid = "1111"
+    with base_app.test_request_context(f"?author={author}"):
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_author_aggregation(order=3, author=author, title="Collaborators"),
+            **hep_doc_type_aggregation(order=4),
+            **hep_collaboration_aggregation(order=5),
+            **hep_self_author_affiliations_aggregation(
+                order=6, author_recid=author_recid
+            ),
+        }
         assert (
-            self_affiliations
-            == result["aggs"]["self_author"]["aggs"]["nested"]["aggs"][
-                "self_affiliations"
-            ]
+            base_app.config["RECORDS_REST_FACETS"]["hep-author-publication"]()[
+                "filters"
+            ].keys()
+            == expected_filters
         )
         assert (
-            self_author_names
-            == result["aggs"]["self_author"]["aggs"]["nested"]["aggs"][
-                "self_author_names"
-            ]
+            base_app.config["RECORDS_REST_FACETS"]["hep-author-publication"]()["aggs"]
+            == expected_aggregations
         )
-        assert collection == result["aggs"]["collection"]
-
-
-def test_hep_conference_contributions_facets(base_app):
-    expected_subject = {
-        "terms": {"field": "facet_inspire_categories", "size": 20},
-        "meta": {"title": "Subject", "order": 1, "type": "checkbox"},
-    }
-    expected_collaboration = {
-        "terms": {"field": "facet_collaborations", "size": 20},
-        "meta": {"title": "Collaboration", "order": 2, "type": "checkbox"},
-    }
-    with base_app.test_request_context():
-        result = hep_conference_contributions()
-        assert expected_subject == result["aggs"]["subject"]
-        assert expected_collaboration == result["aggs"]["collaboration"]
-        assert "doc_type" in result["filters"]
 
 
 def test_records_hep_facets(base_app):
-    author = {
-        "meta": {"order": 3, "title": "Author", "type": "checkbox", "split": True},
-        "terms": {"field": "facet_author_name", "size": 20},
-    }
-    subject = {
-        "terms": {"field": "facet_inspire_categories", "size": 20},
-        "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
-    }
-    arxiv_categories = {
-        "terms": {"field": "facet_arxiv_categories", "size": 20},
-        "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
-    }
     with base_app.test_request_context():
-        result = records_hep()
-        assert author == result["aggs"]["author"]
-        assert subject == result["aggs"]["subject"]
-        assert arxiv_categories == result["aggs"]["arxiv_categories"]
-        assert "collection" not in result["aggs"]
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_author_aggregation(order=3),
+            **hep_subject_aggregation(order=4),
+            **hep_arxiv_categories_aggregation(order=5),
+            **hep_doc_type_aggregation(order=6),
+            **hep_collaboration_aggregation(order=7),
+        }
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["records-hep"]()["filters"].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["records-hep"]()["aggs"]
+            == expected_aggregations
+        )
+
+
+def test_hep_conference_contributions_facets(base_app):
+    with base_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+        }
+        expected_aggregations = {
+            **hep_subject_aggregation(order=1),
+            **hep_collaboration_aggregation(order=2),
+        }
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["hep-conference-contribution"]()[
+                "filters"
+            ].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["hep-conference-contribution"]()[
+                "aggs"
+            ]
+            == expected_aggregations
+        )
+
+
+def test_citation_summary_facets(base_app):
+    with base_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "collaboration",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+        }
+        expected_aggregations = {"citation_summary"}
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["citation-summary"]()[
+                "filters"
+            ].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["citation-summary"]()["aggs"].keys()
+            == expected_aggregations
+        )
+
+
+def test_citations_by_year_facets(base_app):
+    with base_app.test_request_context():
+        expected_filters = {
+            "author",
+            "doc_type",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+        }
+        expected_aggregations = {"citations_by_year"}
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["citations-by-year"]()[
+                "filters"
+            ].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["citations-by-year"]()["aggs"].keys()
+            == expected_aggregations
+        )
+
+
+def test_records_jobs_facets(base_app):
+    with base_app.test_request_context():
+        expected_filters = {"field_of_interest", "rank", "region", "status"}
+        expected_aggregations = {
+            **jobs_field_of_interest_aggregation(order=1),
+            **jobs_rank_aggregation(order=2),
+            **jobs_region_aggregation(order=3),
+        }
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["records-jobs"]()["filters"].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["records-jobs"]()["aggs"]
+            == expected_aggregations
+        )
+
+
+def test_records_conferences_facets(base_app):
+    with base_app.test_request_context():
+        expected_filters = {"subject", "start_date", "contains"}
+        expected_aggregations = {**conf_subject_aggregation(order=1)}
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["records-conferences"]()[
+                "filters"
+            ].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["RECORDS_REST_FACETS"]["records-conferences"]()["aggs"]
+            == expected_aggregations
+        )
+
+
+def test_hep_author_publications_cataloger_facets(base_app):
+    author = "1111_Jones"
+    author_recid = "1111"
+    with base_app.test_request_context(f"?author={author}"):
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_author_aggregation(order=3, author=author, title="Collaborators"),
+            **hep_doc_type_aggregation(order=4),
+            **hep_collaboration_aggregation(order=5),
+            **hep_self_author_affiliations_aggregation(
+                order=6, author_recid=author_recid
+            ),
+            **hep_subject_aggregation(order=7),
+            **hep_arxiv_categories_aggregation(order=8),
+            **hep_self_author_names_aggregation(order=9, author_recid=author_recid),
+            **hep_collection_aggregation(order=10),
+        }
+        assert (
+            base_app.config["CATALOGER_RECORDS_REST_FACETS"][
+                "hep-author-publication"
+            ]()["filters"].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["CATALOGER_RECORDS_REST_FACETS"][
+                "hep-author-publication"
+            ]()["aggs"]
+            == expected_aggregations
+        )
 
 
 def test_records_hep_cataloger_facets(base_app):
-    author = {
-        "meta": {"order": 3, "title": "Author", "type": "checkbox", "split": True},
-        "terms": {"field": "facet_author_name", "size": 20},
-    }
-    subject = {
-        "terms": {"field": "facet_inspire_categories", "size": 20},
-        "meta": {"title": "Subject", "order": 4, "type": "checkbox"},
-    }
-    arxiv_categories = {
-        "terms": {"field": "facet_arxiv_categories", "size": 20},
-        "meta": {"title": "arXiv Category", "order": 5, "type": "checkbox"},
-    }
-    collection = {
-        "terms": {"field": "_collections", "size": 20},
-        "meta": {"title": "Collection", "order": 10, "type": "checkbox"},
-    }
-    filters = ["collection", "self_affiliations", "self_author_names"]
-    with base_app.test_request_context("?author_recid=Jones, Jessica"):
-        result = records_hep_cataloger()
-        assert author == result["aggs"]["author"]
-        assert subject == result["aggs"]["subject"]
-        assert arxiv_categories == result["aggs"]["arxiv_categories"]
-        assert collection == result["aggs"]["collection"]
-        assert all(filter in result["filters"] for filter in filters)
+    with base_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_author_count_aggregation(order=2),
+            **hep_author_aggregation(order=3),
+            **hep_subject_aggregation(order=4),
+            **hep_arxiv_categories_aggregation(order=5),
+            **hep_doc_type_aggregation(order=6),
+            **hep_collaboration_aggregation(order=7),
+            **hep_collection_aggregation(order=8),
+        }
+        assert (
+            base_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-hep"]()[
+                "filters"
+            ].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-hep"]()["aggs"]
+            == expected_aggregations
+        )
+
+
+def test_records_jobs_cataloger_facets(base_app):
+    with base_app.test_request_context():
+        expected_filters = {"field_of_interest", "rank", "region", "status"}
+        expected_aggregations = {
+            **jobs_field_of_interest_aggregation(order=1),
+            **jobs_rank_aggregation(order=2),
+            **jobs_region_aggregation(order=3),
+            **jobs_status_aggregation(order=4),
+        }
+        assert (
+            base_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-jobs"]()[
+                "filters"
+            ].keys()
+            == expected_filters
+        )
+        assert (
+            base_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-jobs"]()["aggs"]
+            == expected_aggregations
+        )
+
+
+def test_all_facets_have_a_corresponding_filter_for_every_aggregation(base_app):
+    excluded_aggregations = ["citation_summary", "citations_by_year"]
+    with base_app.test_request_context():
+        for facet in base_app.config["RECORDS_REST_FACETS"].values():
+            aggregations = [
+                agg
+                for agg in facet()["aggs"].keys()
+                if agg not in excluded_aggregations
+            ]
+            filters = list(facet()["filters"].keys())
+            assert set(aggregations).issubset(filters)
+        for facet in base_app.config["CATALOGER_RECORDS_REST_FACETS"].values():
+            aggregations = [
+                agg
+                for agg in facet()["aggs"].keys()
+                if agg not in excluded_aggregations
+            ]
+            filters = list(facet()["filters"].keys())
+            assert set(aggregations).issubset(filters)

@@ -43,8 +43,11 @@ from inspirehep.search.facets import (
     hep_conference_contributions,
     must_match_all_filter,
     range_author_count_filter,
+    records_conferences,
     records_hep,
     records_hep_cataloger,
+    records_jobs,
+    records_jobs_cataloger,
 )
 
 INSPIRE_SERIALIZERS = "inspirehep.records.serializers"
@@ -399,7 +402,7 @@ RECORDS_REST_ENDPOINTS = {
     "institutions": INSTITUTIONS,
 }
 
-HEP_COMMON_FILTERS = {
+HEP_FILTERS = {
     "author": must_match_all_filter("facet_author_name"),
     "author_count": range_author_count_filter("author_count"),
     "doc_type": must_match_all_filter("facet_inspire_doc_type"),
@@ -409,59 +412,21 @@ HEP_COMMON_FILTERS = {
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),
     "collection": must_match_all_filter("_collections"),
-}
-
-HEP_FILTERS = {
     "subject": must_match_all_filter("facet_inspire_categories"),
     "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
 }
 
-HEP_COMMON_AGGS = {
-    "earliest_date": {
-        "date_histogram": {
-            "field": "earliest_date",
-            "interval": "year",
-            "format": "yyyy",
-            "min_doc_count": 1,
-        },
-        "meta": {"title": "Date", "order": 1, "type": "range"},
-    },
-    "doc_type": {
-        "terms": {"field": "facet_inspire_doc_type", "size": 20},
-        "meta": {
-            "title": "Document Type",
-            "order": 6,
-            "type": "checkbox",
-            "bucket_help": {
-                "published": {
-                    "text": "Published papers are believed to have undergone rigorous peer review.",
-                    "link": "https://inspirehep.net/info/faq/general#published",
-                }
-            },
-        },
-    },
-    "author_count": {
-        "range": {
-            "field": "author_count",
-            "ranges": [
-                {"key": "Single author", "from": 1, "to": 2},
-                {"key": "10 authors or less", "from": 1, "to": 11},
-            ],
-        },
-        "meta": {"title": "Number of authors", "order": 2, "type": "checkbox"},
-        "aggs": {
-            "doc_count_bucket_filter": {
-                "bucket_selector": {
-                    "buckets_path": {"count": "_count"},
-                    "script": "params.count > 0",
-                }
-            }
-        },
-    },
-    "collaboration": {
-        "terms": {"field": "facet_collaborations", "size": 20},
-        "meta": {"title": "Collaboration", "order": 7, "type": "checkbox"},
-    },
+JOBS_FILTERS = {
+    "field_of_interest": terms_filter("arxiv_categories"),
+    "rank": terms_filter("ranks"),
+    "region": terms_filter("regions"),
+    "status": terms_filter("status"),
+}
+
+CONFERENCES_FILTERS = {
+    "subject": must_match_all_filter("inspire_categories.term"),
+    "start_date": conferences_start_date_range_filter(),
+    "contains": conferences_date_range_contains_other_conferences(),
 }
 
 RECORDS_REST_FACETS = {
@@ -470,63 +435,17 @@ RECORDS_REST_FACETS = {
     "citation-summary": citation_summary,
     "citations-by-year": citations_by_year,
     "records-hep": records_hep,
-    "records-jobs": {
-        "filters": {
-            "field_of_interest": terms_filter("arxiv_categories"),
-            "rank": terms_filter("ranks"),
-            "region": terms_filter("regions"),
-        },
-        "aggs": {
-            "field_of_interest": {
-                "terms": {"field": "arxiv_categories", "missing": "Other", "size": 500},
-                "meta": {
-                    "order": 1,
-                    "type": "multiselect",
-                    "title": "Field of Interest",
-                },
-            },
-            "rank": {
-                "terms": {"field": "ranks"},
-                "meta": {"order": 2, "type": "multiselect", "title": "Rank"},
-            },
-            "region": {
-                "terms": {"field": "regions"},
-                "meta": {"order": 3, "type": "multiselect", "title": "Region"},
-            },
-        },
-    },
-    "records-conferences": {
-        "filters": {
-            "subject": must_match_all_filter("inspire_categories.term"),
-            "start_date": conferences_start_date_range_filter(),
-            "contains": conferences_date_range_contains_other_conferences(),
-        },
-        "aggs": {
-            "subject": {
-                "terms": {"field": "inspire_categories.term", "size": 20},
-                "meta": {"title": "Subject", "order": 1, "type": "checkbox"},
-            }
-        },
-    },
+    "records-jobs": records_jobs,
+    "records-conferences": records_conferences,
 }
-"""Introduce searching facets."""
-
 CATALOGER_RECORDS_REST_FACETS = deepcopy(RECORDS_REST_FACETS)
-CATALOGER_RECORDS_REST_FACETS["records-jobs"]["filters"]["status"] = terms_filter(
-    "status"
+CATALOGER_RECORDS_REST_FACETS.update(
+    {
+        "hep-author-publication": hep_author_publications_cataloger,
+        "records-hep": records_hep_cataloger,
+        "records-jobs": records_jobs_cataloger,
+    }
 )
-
-CATALOGER_RECORDS_REST_FACETS["records-jobs"]["aggs"]["status"] = {
-    "terms": {"field": "status"},
-    "meta": {"order": 4, "type": "multiselect", "title": "Status"},
-}
-
-CATALOGER_RECORDS_REST_FACETS[
-    "hep-author-publication"
-] = hep_author_publications_cataloger
-
-CATALOGER_RECORDS_REST_FACETS["records-hep"] = records_hep_cataloger
-
 RECORDS_REST_SORT_OPTIONS = {
     "records-hep": {
         "mostrecent": {
