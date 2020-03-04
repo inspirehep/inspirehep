@@ -278,7 +278,8 @@ class BibTexCommonSchema(Schema):
         return get_value(data, "editions[0]")
 
     def get_journal(self, data):
-        return BibTexCommonSchema.get_best_publication_info(data).get("journal_title")
+        return BibTexCommonSchema.get_best_publication_info(data).get(
+            "journal_title").replace(".", ".\\ ").rstrip('\\ ')
 
     def get_isbn(self, data):
         def hyphenate_if_possible(no_hyphens):
