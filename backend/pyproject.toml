@@ -6,13 +6,14 @@ authors = ["CERN <admin@inspirehep.net>"]
 license = "MIT License"
 
 [tool.poetry.dependencies]
-celery = {git = "https://github.com/inspirehep/celery.git", branch = "fix-redis-connection-result-consumer"}
+celery = "==4.4.1"
 # Click in version 7 have broken progressbar in python 3
 # waiting for this PR to be merged https://github.com/pallets/click/pull/1163
 click = "<7.0.0"
 elasticsearch = "<7.2.0"
 Flask = ">=1.0.2"
 werkzeug  = ">=0.16.1,<1.0.0"
+msgpack = "==0.6.2"
 
 python = ">=3.6,<3.8"
 inspire-query-parser = "~=6.0.0,>=6.0.4"
@@ -25,7 +26,7 @@ invenio-access= "==1.1.0"
 invenio-app= "==1.2.3"
 invenio-base= "==1.2.0"
 invenio-cache= "==1.0.0"
-invenio-celery = "1.1.2"
+invenio-celery = "==1.1.2"
 invenio-config= "==1.0.2"
 invenio-db = {version = "==1.0.4", extras = [ "postgresql", "versioning"]}
 invenio-i18n = "==1.1.1"
@@ -78,7 +79,7 @@ python-magic = "^0.4.15"
 freezegun = "*"
 coverage = ">=4.4.1"
 isort = ">=4.3"
-mock = ">=2.0.0"
+mock = ">=3.0.0,<4.0.0"
 pydocstyle = ">=2.0.0"
 pytest = ">=3.3.1,<4.0.0"
 pytest-cov = "==2.6.1"
