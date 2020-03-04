@@ -138,7 +138,7 @@ def test_get_journal():
         "document_type": ["article"],
         "publication_info": [{"journal_title": "Rhys.Rev."}],
     }
-    expected_journal = "Rhys.Rev."
+    expected_journal = "Rhys.\\ Rev."
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
