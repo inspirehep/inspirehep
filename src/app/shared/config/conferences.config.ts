@@ -120,12 +120,7 @@ export const conferences: JsonEditorConfig = {
       },
       addresses: {
         items: {
-          order: [
-            'cities',
-            'country_code',
-            'place_name',
-            'state',
-          ],
+          order: ['cities', 'state', 'country_code', 'place_name'],
           properties: {
             country_code: {
               enumDisplayValueMap: ISO_COUNTRY_MAP
