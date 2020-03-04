@@ -110,7 +110,6 @@ function DetailPage({
       <Row className="mv3" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Row
-            className="mt3"
             type="flex"
             gutter={{ xs: 0, md: 16, xl: 32 }}
             justify="space-between"
