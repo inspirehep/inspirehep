@@ -8,6 +8,7 @@
 """INSPIRE module that adds more fun to the platform."""
 
 import random
+import re
 
 from faker import Faker
 from faker.providers import BaseProvider
@@ -45,7 +46,7 @@ class RecordProvider(BaseProvider):
 
     @staticmethod
     def bai():
-        return f"{fake.name().replace(' ', '.')}.{fake.random_number(digits=1)}"
+        return f"{re.sub('[ .]+', '.', fake.name())}.{fake.random_number(digits=1)}"
 
     @staticmethod
     def hep_record():

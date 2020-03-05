@@ -14,7 +14,7 @@ def test_bibtex(api_client, db, es, create_record):
 
     expected_status_code = 200
     expected_etag = '"application/x-bibtex@v1"'
-    expected_result = '@article{637275237,\n    title = "This is a title."\n}\n'
+    expected_result = '@article{637275237,\n    title = "{This is a title.}"\n}\n'
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )
@@ -63,7 +63,7 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "This is the parent conference title",\n    title = "This is a conference paper title"\n}\n'
+    expected_result = '@inproceedings{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent conference title}",\n    title = "{This is a conference paper title}"\n}\n'
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )
@@ -108,7 +108,7 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    expected_result = '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "This is the parent book title",\n    title = "This is a book chapter title"\n}\n'
+    expected_result = '@inbook{Smith:2019abc,\n    author = "Rossi, Maria",\n    editor = "Smith, John",\n    booktitle = "{This is the parent book title}",\n    title = "{This is a book chapter title}"\n}\n'
     response = api_client.get(
         "/literature/{}".format(record_control_number), headers=headers
     )
@@ -127,9 +127,9 @@ def test_bibtex_search(api_client, db, es, create_record):
     create_record("lit", data=data_2)
 
     expected_status_code = 200
-    expected_result_1 = "@article{637275237,\n" '    title = "This is a title."\n' "}\n"
+    expected_result_1 = "@article{637275237,\n" '    title = "{This is a title.}"\n' "}\n"
     expected_result_2 = (
-        "@article{637275232,\n" '    title = "Yet another title."\n' "}\n"
+        "@article{637275232,\n" '    title = "{Yet another title.}"\n' "}\n"
     )
 
     response = api_client.get("/literature", headers=headers)

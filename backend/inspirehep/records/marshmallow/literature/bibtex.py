@@ -194,9 +194,9 @@ class BibTexCommonSchema(Schema):
         title_dict = get_value(data, "titles[0]")
         if not title_dict:
             return None
-        title = title_dict["title"]
+        title = f'{{{title_dict["title"]}}}'
         if "subtitle" in title_dict:
-            title = f"{title}: {title_dict['subtitle']}"
+            title = f"{title}: {{{title_dict['subtitle']}}}"
         return title
 
     def get_url(self, data):
