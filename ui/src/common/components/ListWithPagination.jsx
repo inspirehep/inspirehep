@@ -12,6 +12,7 @@ const GRID_CONFIG = {
   xl: 4,
 };
 
+
 /**
  * Only displays given page items at once and pagination ui
  * does not paginate.
@@ -20,6 +21,12 @@ const GRID_CONFIG = {
 class ListWithPagination extends Component {
   static getPaginationRangeInfo(total, range) {
     return `${range[0]}-${range[1]} of ${total}`;
+  }
+
+  constructor(props) {
+    super(props);
+
+    this.renderItem = this.renderItem.bind(this)
   }
 
   renderPagination() {
@@ -38,27 +45,22 @@ class ListWithPagination extends Component {
     );
   }
 
-  // wrap `
+  renderItem(item, index) {
+    const { renderItem, pageSize, page } = this.props;
+    const absoluteIndex = (page - 1) * pageSize + index;
+    return renderItem(item, absoluteIndex)
+  }
+
   render() {
-    const { renderItem, title, pageItems, page, pageSize, grid } = this.props;
+    const { title, grid, pageItems } = this.props;
     return (
       <List
         header={title}
         footer={this.renderPagination()}
         grid={grid ? GRID_CONFIG : undefined}
-      >
-        <div
-          className={
-            classNames({
-              'ant-row-flex': grid,
-            }) /* to workaround ant-design/issues/14407 */
-          }
-        >
-          {pageItems.map((item, index) =>
-            renderItem(item, (page - 1) * pageSize + index)
-          )}
-        </div>
-      </List>
+        dataSource={pageItems}
+        renderItem={this.renderItem}
+      />
     );
   }
 }
