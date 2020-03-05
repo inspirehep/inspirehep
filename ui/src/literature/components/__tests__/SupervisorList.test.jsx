@@ -7,9 +7,11 @@ describe('SupervisorList', () => {
   it('renders with multiple supervisors', () => {
     const supervisors = fromJS([
       {
+        uuid: '123',
         full_name: 'John Doe',
       },
       {
+        uuid: '456',
         full_name: 'Jane Doe',
       },
     ]);
@@ -20,6 +22,7 @@ describe('SupervisorList', () => {
   it('renders with one supervisor', () => {
     const supervisors = fromJS([
       {
+        uuid: '123',
         full_name: 'John Doe',
       },
     ]);

@@ -11,20 +11,26 @@ exports[`SupervisorList renders with multiple supervisors 1`] = `
     : 
   </span>
   <ul>
-    <li>
+    <li
+      key="123"
+    >
       <Author
         author={
           Immutable.Map {
+            "uuid": "123",
             "full_name": "John Doe",
           }
         }
       />
       , 
     </li>
-    <li>
+    <li
+      key="456"
+    >
       <Author
         author={
           Immutable.Map {
+            "uuid": "456",
             "full_name": "Jane Doe",
           }
         }
@@ -45,10 +51,13 @@ exports[`SupervisorList renders with one supervisor 1`] = `
     : 
   </span>
   <ul>
-    <li>
+    <li
+      key="123"
+    >
       <Author
         author={
           Immutable.Map {
+            "uuid": "123",
             "full_name": "John Doe",
           }
         }
