@@ -367,7 +367,7 @@ def test_get_book_title_with_parent_record(mock_get_linked_records):
         "titles": [{"title": "This is the main title"}],
         "document_type": ["book"],
     }
-    expected_book_title = "Parent title"
+    expected_book_title = "{Parent title}"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
@@ -471,7 +471,7 @@ def test_get_address_with_imprint_place():
 
 def test_get_title():
     record = {"document_type": ["article"], "titles": [{"title": "This is a title"}]}
-    expected_title = "This is a title"
+    expected_title = "{This is a title}"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data
@@ -485,7 +485,7 @@ def test_get_title_with_subtitle():
         "document_type": ["article"],
         "titles": [{"title": "This is a title", "subtitle": "with a subtitle"}],
     }
-    expected_title = "This is a title: with a subtitle"
+    expected_title = "{This is a title}: {with a subtitle}"
     schema = BibTexCommonSchema()
 
     result = schema.dump(record).data

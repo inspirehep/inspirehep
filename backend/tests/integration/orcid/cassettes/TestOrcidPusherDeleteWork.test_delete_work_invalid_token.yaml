@@ -18,21 +18,17 @@ interactions:
       Access-Control-Allow-Origin:
       - '*'
       Cache-Control:
-      - no-cache, no-store, max-age=0, must-revalidate
       - no-store
       Connection:
       - keep-alive
       Content-Type:
       - application/orcid+json;charset=UTF-8
       Date:
-      - Tue, 06 Aug 2019 16:15:34 GMT
-      Expires:
-      - '0'
+      - Fri, 06 Mar 2020 11:02:25 GMT
       Pragma:
       - no-cache
-      - no-cache
       Server:
-      - nginx/1.10.0
+      - nginx/1.16.1
       Transfer-Encoding:
       - chunked
       WWW-Authenticate:

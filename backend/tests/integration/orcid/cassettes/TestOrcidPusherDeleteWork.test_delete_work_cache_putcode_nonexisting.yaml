@@ -29,13 +29,13 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Tue, 06 Aug 2019 16:15:31 GMT
+      - Fri, 06 Mar 2020 11:02:23 GMT
       Expires:
       - '0'
       Pragma:
       - no-cache
       Server:
-      - nginx/1.10.0
+      - nginx/1.16.1
       Transfer-Encoding:
       - chunked
       X-Content-Type-Options:

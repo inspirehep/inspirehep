@@ -47,15 +47,15 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Tue, 13 Aug 2019 10:01:28 GMT
+      - Fri, 06 Mar 2020 11:02:15 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/orcid-api-web/v2.0/0000-0003-1134-6827/work/60484640
+      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/70140194
       Pragma:
       - no-cache
       Server:
-      - nginx/1.10.0
+      - nginx/1.16.1
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -67,10 +67,10 @@ interactions:
       message: Created
 - request:
     body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\" put-code=\"60484640\"><work:title><common:title>Some\
+      http://www.orcid.org/ns/work\" put-code=\"70140194\"><work:title><common:title>Some\
       \ Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{999,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.9999/test.orcid.push\",\n   \
-      \ title = \"Some Results Arising from the Study of ORCID push\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>999</common:external-id-value><common:external-id-url>http://inspirehep.net/record/999</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.9999/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.9999/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/999</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
+      \ title = \"{Some Results Arising from the Study of ORCID push}\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>999</common:external-id-value><common:external-id-url>http://inspirehep.net/record/999</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.9999/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.9999/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/999</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
       \ A.</work:credit-name><work:contributor-attributes><work:contributor-sequence>first</work:contributor-sequence><work:contributor-role>author</work:contributor-role></work:contributor-attributes></work:contributor></work:contributors></work:work>"
     headers:
       Accept:
@@ -80,27 +80,27 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '1570'
+      - '1572'
       Content-Type:
       - application/orcid+xml
     method: PUT
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/60484640
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/70140194
   response:
     body:
-      string: "{\n  \"created-date\" : {\n    \"value\" : 1565690488089\n  },\n  \"\
-        last-modified-date\" : {\n    \"value\" : 1565690488703\n  },\n  \"source\"\
+      string: "{\n  \"created-date\" : {\n    \"value\" : 1583492535253\n  },\n  \"\
+        last-modified-date\" : {\n    \"value\" : 1583492536084\n  },\n  \"source\"\
         \ : {\n    \"source-orcid\" : null,\n    \"source-client-id\" : {\n      \"\
         uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \"path\" :\
         \ \"0000-0001-8607-8906\",\n      \"host\" : \"orcid.org\"\n    },\n    \"\
         source-name\" : {\n      \"value\" : \"INSPIRE-HEP\"\n    }\n  },\n  \"put-code\"\
-        \ : 60484640,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
+        \ : 70140194,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
         \    \"value\" : \"Some Results Arising from the Study of ORCID push\"\n \
         \   },\n    \"subtitle\" : null,\n    \"translated-title\" : null\n  },\n\
         \  \"journal-title\" : null,\n  \"short-description\" : null,\n  \"citation\"\
         \ : {\n    \"citation-type\" : \"BIBTEX\",\n    \"citation-value\" : \"@article{999,\\\
         n    author = \\\"Rossoni, A.\\\",\\n    doi = \\\"10.9999/test.orcid.push\\\
-        \",\\n    title = \\\"Some Results Arising from the Study of ORCID push\\\"\
-        \\n}\\n\"\n  },\n  \"type\" : \"JOURNAL_ARTICLE\",\n  \"publication-date\"\
+        \",\\n    title = \\\"{Some Results Arising from the Study of ORCID push}\\\
+        \"\\n}\\n\"\n  },\n  \"type\" : \"JOURNAL_ARTICLE\",\n  \"publication-date\"\
         \ : null,\n  \"external-ids\" : {\n    \"external-id\" : [ {\n      \"external-id-type\"\
         \ : \"other-id\",\n      \"external-id-value\" : \"999\",\n      \"external-id-url\"\
         \ : {\n        \"value\" : \"http://inspirehep.net/record/999\"\n      },\n\
@@ -125,13 +125,13 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Tue, 13 Aug 2019 10:01:28 GMT
+      - Fri, 06 Mar 2020 11:02:16 GMT
       Expires:
       - '0'
       Pragma:
       - no-cache
       Server:
-      - nginx/1.10.0
+      - nginx/1.16.1
       Transfer-Encoding:
       - chunked
       X-Content-Type-Options:
@@ -141,7 +141,7 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       content-length:
-      - '1893'
+      - '1895'
     status:
       code: 200
       message: OK
