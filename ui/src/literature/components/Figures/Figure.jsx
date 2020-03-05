@@ -6,23 +6,35 @@ import { Spin } from 'antd';
 
 import './Figure.scss';
 
+function renderWithContainer(children) {
+  return (
+    <div className="image-container mh3 ba">
+      {children}
+    </div>
+  )
+}
+
+function renderWithoutContainer(children) {
+  return children;
+}
+
 function Figure({ url, className, onClick }) {
   return (
     <div className="__Figure__">
-      <div className="image-container mh3 ba">
         <Image
           onClick={onClick}
           className={classNames(className, 'pa1 db center w-auto h-auto', {
             pointer: onClick,
           })}
           src={url}
+          container={renderWithContainer}
+          unloaderContainer={renderWithoutContainer}
           loader={
             <Spin
               style={{ margin: 'auto', display: 'block', padding: '2rem 0' }}
             />
           }
         />
-      </div>
     </div>
   );
 }
