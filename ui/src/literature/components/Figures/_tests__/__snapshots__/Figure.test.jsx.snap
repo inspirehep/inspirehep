@@ -4,32 +4,29 @@ exports[`Figure renders figure with all props 1`] = `
 <div
   className="__Figure__"
 >
-  <div
-    className="image-container mh3 ba"
-  >
-    <Img
-      className="h5 pa1 db center w-auto h-auto pointer"
-      container={[Function]}
-      decode={true}
-      loader={
-        <Spin
-          size="default"
-          spinning={true}
-          style={
-            Object {
-              "display": "block",
-              "margin": "auto",
-              "padding": "2rem 0",
-            }
+  <Img
+    className="h5 pa1 db center w-auto h-auto pointer"
+    container={[Function]}
+    decode={true}
+    loader={
+      <Spin
+        size="default"
+        spinning={true}
+        style={
+          Object {
+            "display": "block",
+            "margin": "auto",
+            "padding": "2rem 0",
           }
-          wrapperClassName=""
-        />
-      }
-      onClick={[MockFunction]}
-      src="https://picsum.photos/200/300"
-      unloader={false}
-    />
-  </div>
+        }
+        wrapperClassName=""
+      />
+    }
+    onClick={[MockFunction]}
+    src="https://picsum.photos/200/300"
+    unloader={false}
+    unloaderContainer={[Function]}
+  />
 </div>
 `;
 
@@ -37,30 +34,27 @@ exports[`Figure renders figure with only url 1`] = `
 <div
   className="__Figure__"
 >
-  <div
-    className="image-container mh3 ba"
-  >
-    <Img
-      className="pa1 db center w-auto h-auto"
-      container={[Function]}
-      decode={true}
-      loader={
-        <Spin
-          size="default"
-          spinning={true}
-          style={
-            Object {
-              "display": "block",
-              "margin": "auto",
-              "padding": "2rem 0",
-            }
+  <Img
+    className="pa1 db center w-auto h-auto"
+    container={[Function]}
+    decode={true}
+    loader={
+      <Spin
+        size="default"
+        spinning={true}
+        style={
+          Object {
+            "display": "block",
+            "margin": "auto",
+            "padding": "2rem 0",
           }
-          wrapperClassName=""
-        />
-      }
-      src="https://picsum.photos/200/300"
-      unloader={false}
-    />
-  </div>
+        }
+        wrapperClassName=""
+      />
+    }
+    src="https://picsum.photos/200/300"
+    unloader={false}
+    unloaderContainer={[Function]}
+  />
 </div>
 `;
