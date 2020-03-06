@@ -25,6 +25,7 @@ from invenio_db import db
 from invenio_pidstore.errors import PIDValueError
 from invenio_pidstore.models import PersistentIdentifier
 from jsonschema import ValidationError
+from psycopg2._psycopg import OperationalError
 
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.migrator.models import LegacyRecordsMirror
@@ -263,7 +264,7 @@ def populate_mirror_from_file(source):
     bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(SoftTimeLimitExceeded,),
+    autoretry_for=(SoftTimeLimitExceeded, OperationalError),
 )
 def create_records_from_mirror_recids(self, recids):
     """Task which migrates records
@@ -285,6 +286,9 @@ def create_records_from_mirror_recids(self, recids):
                 processed_records.add(str(record.id))
             else:
                 LOGGER.warning("Record is empty", recid=recid)
+        except OperationalError:
+            LOGGER.exception("Got operational error", recid=recid)
+            raise
         except Exception:
             LOGGER.exception("Cannot migrate record", recid=recid)
             continue
