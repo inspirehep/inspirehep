@@ -12,6 +12,11 @@ from sqlalchemy import text
 def test_downgrade(base_app, database):
     alembic = Alembic(base_app)
     alembic.downgrade("e5e43ad8f861")
+
+    assert "idx_pidstore_pid_pid_value" not in _get_indexes("pidstore_pid", database)
+
+    alembic.downgrade(target="f563233434cd")
+
     assert "enum_conference_to_literature_relationship_type" not in _get_custom_enums(
         database
     )
@@ -113,6 +118,10 @@ def test_upgrade(base_app, database):
     assert "enum_conference_to_literature_relationship_type" in _get_custom_enums(
         database
     )
+
+    alembic.upgrade(target="b0cdab232269")
+
+    assert "idx_pidstore_pid_pid_value" in _get_indexes("pidstore_pid", database)
 
 
 def _get_indexes(tablename, db_alembic):
