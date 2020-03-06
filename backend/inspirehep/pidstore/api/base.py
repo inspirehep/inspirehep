@@ -142,3 +142,30 @@ class PidStoreBase(object):
         except IndexError:
             return None
         return pid_type, pid_value
+
+    @staticmethod
+    def get_pid_type_from_recid(recid):
+        """Returns the ``pid_type`` of the provided ``recid``.
+
+        Args:
+            recid (str): the ``recid``
+        Returns:
+            The ``pid_type`` if found. None otherwise.
+        """
+        return (
+            PersistentIdentifier.query.with_entities(PersistentIdentifier.pid_type)
+            .filter_by(pid_value=recid, pid_provider="recid")
+            .scalar()
+        )
+
+    @staticmethod
+    def get_endpoint_for_recid(recid):
+        """Returns the endpoint name for the provided ``recid``.
+
+        Args:
+            recid (str): the ``recid``
+        Returns:
+            The endpoint name if found (e.g. ``literature``, ``author``). None otherwise.
+        """
+        pid_type = PidStoreBase.get_pid_type_from_recid(recid)
+        return PidStoreBase.get_endpoint_from_pid_type(pid_type)
