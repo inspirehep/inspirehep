@@ -107,8 +107,7 @@ class LiteratureItem extends Component {
           {date && (
             <>
               {' ('}
-              <LiteratureDate date={date} />
-              {')'}
+              <LiteratureDate date={date} />)
             </>
           )}
         </div>

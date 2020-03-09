@@ -9,7 +9,6 @@ import * as Sentry from '@sentry/browser';
 import { unregister as unregisterServiceWorker } from './registerServiceWorker';
 import createStore, { history } from './store';
 import App from './App';
-import './theme.less';
 import ErrorAppCrash from './errors/components/ErrorAppCrash';
 import ErrorBoundary from './common/components/ErrorBoundary';
 import { injectTrackerToHistory } from './tracker';
