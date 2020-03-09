@@ -1,7 +1,7 @@
 const { ESLINT_MODES } = require('@craco/craco');
 const path = require('path');
 const SassRuleRewirer = require('react-app-rewire-sass-rule');
-const LessPlugin = require('craco-less');
+const CracoAntDesignPlugin = require('craco-antd');
 const FilterWarningsPlugin = require('webpack-filter-warnings-plugin');
 
 const styleVariables = require('./src/styleVariables');
@@ -33,6 +33,17 @@ function withFilterWarningsPluginForCssImportOrderConflict({ webpackConfig }) {
   return webpackConfig;
 }
 
+// to workaround https://github.com/DocSpring/craco-less/issues/34
+function appendLoaderOptionsIntoUseForSassRule({ webpackConfig }) {
+  const oneOfRule = webpackConfig.module.rules.find(rule => rule.oneOf);
+  const sassRule = oneOfRule.oneOf.find(
+    rule => rule.test && rule.test.toString().includes("scss|sass")
+  );
+  sassRule.use = [...(sassRule.use || []), ...sassRule.loader];
+  delete sassRule.loader;
+  return webpackConfig;
+}
+
 function makeOverrideWebpackPlugin(overrideFunction) {
   return {
     plugin: {
@@ -50,19 +61,17 @@ module.exports = {
     makeOverrideWebpackPlugin(
       withFilterWarningsPluginForCssImportOrderConflict
     ),
+    makeOverrideWebpackPlugin(appendLoaderOptionsIntoUseForSassRule),
     {
-      plugin: LessPlugin,
+      plugin: CracoAntDesignPlugin,
       options: {
-        lessLoaderOptions: {
-          javascriptEnabled: true,
-          modifyVars: Object.entries(styleVariables)
-            .map(([name, value]) => [`@${name}`, value])
-            .reduce((lessVars, [name, value]) => {
-              lessVars[name] = value;
-              return lessVars;
-            }),
-        },
-      },
+        customizeTheme: Object.entries(styleVariables)
+          .map(([name, value]) => [`@${name}`, value])
+          .reduce((lessVars, [name, value]) => {
+            lessVars[name] = value;
+            return lessVars;
+          }),
+      }
     },
   ],
 };
