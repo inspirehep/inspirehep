@@ -14,7 +14,7 @@ elasticsearch = "<7.2.0"
 Flask = ">=1.0.2"
 
 python = ">=3.6,<3.7"
-inspire-query-parser = "~=6.0.0,>=6.0.4"
+inspire-query-parser = {git = "https://github.com/drjova/inspire-query-parser.git"}
 inspire-schemas = "~=61.0"
 inspire-utils = "~=3.0.0,>=3.0.8"
 inspire-service-orcid = {git = "https://github.com/inspirehep/inspire-service-orcid.git"}
