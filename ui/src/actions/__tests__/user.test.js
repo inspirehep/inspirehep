@@ -10,16 +10,19 @@ import {
   USER_SET_ORCID_PUSH_SETTING_SUCCESS,
   USER_SET_ORCID_PUSH_SETTING_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_ERROR,
+  USER_SET_PREFERENCE,
 } from '../actionTypes';
 import {
   userLogin,
   userLogout,
   fetchLoggedInUser,
   updateOrcidPushSetting,
+  setPreference,
 } from '../user';
 import loginInNewTab from '../../user/loginInNewTab';
 import http from '../../common/http';
 import { HOME } from '../../common/routes';
+import { CITATION_SUMMARY_ENABLING_PREFERENCE } from '../../reducers/user';
 
 jest.mock('../../user/loginInNewTab');
 
@@ -130,6 +133,21 @@ describe('user - async action creator', () => {
 
     const store = getStore();
     await store.dispatch(updateOrcidPushSetting(orcidPushValue));
+    expect(store.getActions()).toEqual(expectedActions);
+  });
+
+  it('setPreference creates USER_SET_PREFERENCE', async () => {
+    const name = CITATION_SUMMARY_ENABLING_PREFERENCE;
+    const value = true;
+    const expectedActions = [
+      {
+        type: USER_SET_PREFERENCE,
+        payload: { name, value },
+      },
+    ];
+
+    const store = getStore();
+    await store.dispatch(setPreference(name, value));
     expect(store.getActions()).toEqual(expectedActions);
   });
 });

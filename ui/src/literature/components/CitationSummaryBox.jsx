@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import { Map } from 'immutable';
 
 import ContentBox from '../../common/components/ContentBox';
-import { LITERATURE_NS } from '../../reducers/search';
 import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
 import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
 
-function CitationSummaryBox({ query, onQueryChange }) {
+function CitationSummaryBox({ query, onQueryChange, namespace }) {
   useEffect(
     () => {
       onQueryChange(query);
@@ -19,14 +18,11 @@ function CitationSummaryBox({ query, onQueryChange }) {
   return (
     <ContentBox subTitle="Citation Summary">
       <Row gutter={{ xs: 0, lg: 32 }}>
-        <Col xs={24} lg={7}>
+        <Col span={24}>
           <CitationSummaryTableContainer />
         </Col>
-        <Col xs={24} lg={17}>
-          <CitationSummaryGraphContainer
-            namespace={LITERATURE_NS}
-            displayHintOnBarHover
-          />
+        <Col span={24}>
+          <CitationSummaryGraphContainer namespace={namespace} />
         </Col>
       </Row>
     </ContentBox>
@@ -36,6 +32,7 @@ function CitationSummaryBox({ query, onQueryChange }) {
 CitationSummaryBox.propTypes = {
   query: PropTypes.instanceOf(Map),
   onQueryChange: PropTypes.func.isRequired,
+  namespace: PropTypes.string.isRequired,
 };
 
 export default CitationSummaryBox;

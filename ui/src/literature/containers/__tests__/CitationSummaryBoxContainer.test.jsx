@@ -23,7 +23,7 @@ describe('CitationSummaryBoxContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryBoxContainer />
+        <CitationSummaryBoxContainer namespace={LITERATURE_NS} />
       </Provider>
     );
     expect(wrapper.find(CitationSummaryBox)).toHaveProp({
@@ -44,7 +44,7 @@ describe('CitationSummaryBoxContainer', () => {
     });
     const wrapper = mount(
       <Provider store={store}>
-        <CitationSummaryBoxContainer />
+        <CitationSummaryBoxContainer namespace={LITERATURE_NS} />
       </Provider>
     );
     store.clearActions(); // to clear initial CITATIONS_SUMMARY_REQUEST that is dispatched on mount

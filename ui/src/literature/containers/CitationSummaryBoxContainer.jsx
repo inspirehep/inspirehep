@@ -1,11 +1,10 @@
 import { connect } from 'react-redux';
 
-import { LITERATURE_NS } from '../../reducers/search';
 import CitationSummaryBox from '../components/CitationSummaryBox';
 import { fetchCitationSummary } from '../../actions/citations';
 
-const stateToProps = state => ({
-  query: state.search.getIn(['namespaces', LITERATURE_NS, 'query']),
+const stateToProps = (state, { namespace }) => ({
+  query: state.search.getIn(['namespaces', namespace, 'query']),
 });
 
 const dispatchToProps = dispatch => ({

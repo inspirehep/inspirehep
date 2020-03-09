@@ -9,7 +9,7 @@ describe('Literature Search', () => {
   it('should match image snapshot for empty literature search', async () => {
     const polly = await createPollyInstance('LiteratureSearch');
 
-    await page.goto(`${routes.public.literatureSearch}?q=`, {
+    await page.goto(`${routes.public.literatureSearch}`, {
       waitUntil: 'networkidle0',
     });
     await page.waitFor(selectors.searchResults);

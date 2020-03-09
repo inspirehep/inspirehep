@@ -79,7 +79,7 @@ export function searchForCurrentQuery(namespace) {
 
     if (!isEmbedded(namespace, state)) {
       // for search pages, hash is used to carry UI state in search urls, like citation summary visibility
-      const urlWithHash = `${url}${state.router.location.hash}`
+      const urlWithHash = `${url}${state.router.location.hash}`;
       if (isCurrentUrlOnlyMissingBaseQuery(namespace, state, queryString)) {
         // in order to allow going out of redirect loop of url <=> url + base query
         dispatch(replace(urlWithHash));

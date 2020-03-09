@@ -18,17 +18,14 @@ exports[`CitationSummaryBox renders 1`] = `
     }
   >
     <Col
-      lg={7}
-      xs={24}
+      span={24}
     >
       <Connect(CitationSummaryTable) />
     </Col>
     <Col
-      lg={17}
-      xs={24}
+      span={24}
     >
       <Connect(toAllJS(CitationSummaryGraph))
-        displayHintOnBarHover={true}
         namespace="literature"
       />
     </Col>

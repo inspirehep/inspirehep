@@ -19,11 +19,6 @@ import {
   getAuthorMetaDescription,
 } from '../utils';
 import PositionsTimeline from '../components/PositionsTimeline';
-import CitationSummaryTableContainer from '../../common/containers/CitationSummaryTableContainer';
-import CitationSummaryGraphContainer from '../../common/containers/CitationSummaryGraphContainer';
-import NumberOfCiteablePapersContainer from './NumberOfCiteablePapersContainer';
-import NumberOfPublishedPapersContainer from './NumberOfPublishedPapersContainer';
-import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
 import ArxivCategoryList from '../../common/components/ArxivCategoryList';
 import AuthorTwitterAction from '../components/AuthorTwitterAction';
 import AuthorLinkedinAction from '../components/AuthorLinkedinAction';
@@ -40,18 +35,7 @@ import DeletedAlert from '../../common/components/DeletedAlert';
 import UserSettingsAction from '../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import AuthorBAI from '../components/AuthorBAI';
-
-function renderNumberOfCiteablePapers(value) {
-  return (
-    <NumberOfCiteablePapersContainer>{value}</NumberOfCiteablePapersContainer>
-  );
-}
-
-function renderNumberOfPublishedPapers(value) {
-  return (
-    <NumberOfPublishedPapersContainer>{value}</NumberOfPublishedPapersContainer>
-  );
-}
+import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
 
 function DetailPage({
   record,
@@ -159,36 +143,13 @@ function DetailPage({
               </ContentBox>
             </Col>
             <Col xs={24} md={12} lg={8}>
-              <ContentBox>
+              <ContentBox subTitle="Citations per year">
                 <EmptyOrChildren data={publications} title="0 Research works">
-                  <CitationSummaryTableContainer
-                    renderNumberOfCiteablePapers={renderNumberOfCiteablePapers}
-                    renderNumberOfPublishedPapers={
-                      renderNumberOfPublishedPapers
-                    }
-                  />
+                  <CitationsByYearGraphContainer />
                 </EmptyOrChildren>
               </ContentBox>
             </Col>
           </Row>
-        </Col>
-      </Row>
-      <Row className="mb3" type="flex" justify="center">
-        <Col xs={24} md={22} lg={21} xxl={18}>
-          <ContentBox subTitle="Citation Summary">
-            <EmptyOrChildren data={publications} title="0 Research works">
-              <Row gutter={{ xs: 0, lg: 32 }}>
-                <Col xs={24} md={24} lg={7}>
-                  <CitationsByYearGraphContainer />
-                </Col>
-                <Col xs={24} md={24} lg={17}>
-                  <CitationSummaryGraphContainer
-                    namespace={AUTHOR_PUBLICATIONS_NS}
-                  />
-                </Col>
-              </Row>
-            </EmptyOrChildren>
-          </ContentBox>
         </Col>
       </Row>
       <Row type="flex" justify="center">
