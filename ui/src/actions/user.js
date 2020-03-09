@@ -6,11 +6,11 @@ import {
   USER_SIGN_UP_REQUEST,
   USER_SIGN_UP_ERROR,
   USER_SIGN_UP_SUCCESS,
-  USER_SET_PREFERRED_CITE_FORMAT,
   LOGGED_IN_USER_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_SUCCESS,
   USER_SET_ORCID_PUSH_SETTING_ERROR,
+  USER_SET_PREFERENCE,
 } from './actionTypes';
 import loginInNewTab from '../user/loginInNewTab';
 import { HOME, USER_SIGNUP } from '../common/routes';
@@ -130,10 +130,10 @@ export function userLogout() {
   };
 }
 
-export function setPreferredCiteFormat(format) {
+export function setPreference(name, value) {
   return {
-    type: USER_SET_PREFERRED_CITE_FORMAT,
-    payload: { format },
+    type: USER_SET_PREFERENCE,
+    payload: { name, value },
   };
 }
 

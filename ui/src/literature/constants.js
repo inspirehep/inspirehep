@@ -8,3 +8,5 @@ export const CITE_FORMAT_VALUES = CITE_FORMAT_OPTIONS.map(
 );
 
 export const MAX_CITEABLE_RECORDS = 1000;
+
+export const WITH_CITATION_SUMMARY = '#with-citation-summary';

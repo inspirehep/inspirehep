@@ -1,16 +1,19 @@
 import { Map, fromJS } from 'immutable';
 
-import reducer, { initialState } from '../user';
+import reducer, {
+  initialState,
+  CITATION_SUMMARY_ENABLING_PREFERENCE,
+} from '../user';
 import {
   USER_LOGIN_ERROR,
   USER_LOGOUT_SUCCESS,
   USER_LOGIN_SUCCESS,
   USER_SIGN_UP_SUCCESS,
   USER_SIGN_UP_ERROR,
-  USER_SET_PREFERRED_CITE_FORMAT,
   USER_SET_ORCID_PUSH_SETTING_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_ERROR,
   USER_SET_ORCID_PUSH_SETTING_SUCCESS,
+  USER_SET_PREFERENCE,
 } from '../../actions/actionTypes';
 
 describe('user reducer', () => {
@@ -85,18 +88,6 @@ describe('user reducer', () => {
     expect(state).toEqual(expected);
   });
 
-  it('USER_SET_PREFERRED_CITE_FORMAT', () => {
-    const format = 'vnd+inspire.latex.eu+x-latex';
-    const state = reducer(Map(), {
-      type: USER_SET_PREFERRED_CITE_FORMAT,
-      payload: { format },
-    });
-    const expected = fromJS({
-      preferredCiteFormat: format,
-    });
-    expect(state).toEqual(expected);
-  });
-
   it('USER_SET_ORCID_PUSH_SETTING_REQUEST', () => {
     const state = reducer(Map(), {
       type: USER_SET_ORCID_PUSH_SETTING_REQUEST,
@@ -148,6 +139,19 @@ describe('user reducer', () => {
       updateOrcidPushSettingError: initialState.get(
         'updateOrcidPushSettingError'
       ),
+    });
+    expect(state).toEqual(expected);
+  });
+
+  it('USER_SET_PREFERENCE', () => {
+    const state = reducer(Map(), {
+      type: USER_SET_PREFERENCE,
+      payload: { name: CITATION_SUMMARY_ENABLING_PREFERENCE, value: true },
+    });
+    const expected = fromJS({
+      preferences: {
+        [CITATION_SUMMARY_ENABLING_PREFERENCE]: true,
+      },
     });
     expect(state).toEqual(expected);
   });

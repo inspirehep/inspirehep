@@ -33,7 +33,7 @@ describe('search - action creators', () => {
       const pathname = LITERATURE;
       const store = getStoreWithState({
         router: {
-          location: { hash: '#hash' }
+          location: { hash: '#hash' },
         },
         search: fromJS({
           namespaces: {
@@ -67,7 +67,7 @@ describe('search - action creators', () => {
         router: {
           location: {
             query: { q: 'test' },
-            hash: ''
+            hash: '',
           },
         },
         search: fromJS({

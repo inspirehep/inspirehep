@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
 import CitationSummaryBox from '../CitationSummaryBox';
+import { LITERATURE_NS } from '../../../reducers/search';
 
 describe('CitationSummaryBox', () => {
   it('renders', () => {
@@ -10,6 +11,7 @@ describe('CitationSummaryBox', () => {
       <CitationSummaryBox
         query={fromJS({ q: 'cern' })}
         onQueryChange={jest.fn()}
+        namespace={LITERATURE_NS}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -20,7 +22,11 @@ describe('CitationSummaryBox', () => {
     const onQueryChange = jest.fn();
     const initialQuery = fromJS({ q: 'cern' });
     const wrapper = shallow(
-      <CitationSummaryBox query={initialQuery} onQueryChange={onQueryChange} />
+      <CitationSummaryBox
+        query={initialQuery}
+        onQueryChange={onQueryChange}
+        namespace={LITERATURE_NS}
+      />
     );
     const newQuery = fromJS({ experiment: 'cms' });
 

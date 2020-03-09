@@ -7,12 +7,16 @@ import {
   USER_SIGN_UP_REQUEST,
   USER_SIGN_UP_SUCCESS,
   USER_SIGN_UP_ERROR,
-  USER_SET_PREFERRED_CITE_FORMAT,
   USER_SET_ORCID_PUSH_SETTING_REQUEST,
   USER_SET_ORCID_PUSH_SETTING_ERROR,
   USER_SET_ORCID_PUSH_SETTING_SUCCESS,
+  USER_SET_PREFERENCE,
 } from '../actions/actionTypes';
 import { CITE_FORMAT_VALUES } from '../literature/constants';
+
+export const CITE_FORMAT_PREFERENCE = 'preferredCiteFormat';
+export const CITATION_SUMMARY_ENABLING_PREFERENCE =
+  'preferredCitationSummaryEnabling';
 
 export const initialState = fromJS({
   loggedIn: false,
@@ -20,7 +24,10 @@ export const initialState = fromJS({
   signUpError: null,
   isUpdatingOrcidPushSetting: false,
   updateOrcidPushSettingError: null,
-  preferredCiteFormat: CITE_FORMAT_VALUES[0],
+  preferences: {
+    [CITE_FORMAT_PREFERENCE]: CITE_FORMAT_VALUES[0],
+    [CITATION_SUMMARY_ENABLING_PREFERENCE]: false,
+  },
   data: {
     roles: [],
     orcid: null,
@@ -50,8 +57,11 @@ const userReducer = (state = initialState, action) => {
         .set('signUpError', initialState.get('signUpError'))
         .set('isSigningUp', initialState.get('isSigningUp'))
         .set('data', fromJS(action.payload.data));
-    case USER_SET_PREFERRED_CITE_FORMAT:
-      return state.set('preferredCiteFormat', action.payload.format);
+    case USER_SET_PREFERENCE:
+      return state.setIn(
+        ['preferences', action.payload.name],
+        action.payload.value
+      );
     case USER_SET_ORCID_PUSH_SETTING_REQUEST:
       return state
         .set('isUpdatingOrcidPushSetting', true)

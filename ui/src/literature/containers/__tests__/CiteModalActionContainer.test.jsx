@@ -5,24 +5,27 @@ import { Provider } from 'react-redux';
 
 import { getStoreWithState, getStore } from '../../../fixtures/store';
 import CiteModalActionContainer from '../CiteModalActionContainer';
-import { setPreferredCiteFormat } from '../../../actions/user';
 import CiteModalAction from '../../components/CiteModalAction';
+import { setPreference } from '../../../actions/user';
+import { CITE_FORMAT_PREFERENCE } from '../../../reducers/user';
 
 jest.mock('../../../actions/user');
 
 describe('CiteModalActionContainer', () => {
   beforeAll(() => {
-    setPreferredCiteFormat.mockReturnValue(async () => {});
+    setPreference.mockReturnValue(async () => {});
   });
 
   afterEach(() => {
-    setPreferredCiteFormat.mockClear();
+    setPreference.mockClear();
   });
 
   it('passes user preferred cite format as initialCiteFormat', () => {
     const store = getStoreWithState({
       user: fromJS({
-        preferredCiteFormat: 'x-bibtex',
+        preferences: {
+          [CITE_FORMAT_PREFERENCE]: 'x-bibtex',
+        },
       }),
     });
     const wrapper = mount(
@@ -48,6 +51,6 @@ describe('CiteModalActionContainer', () => {
       .find(CiteModalAction)
       .prop('onCiteFormatChange');
     onCiteFormatChange(format);
-    expect(setPreferredCiteFormat).toHaveBeenCalledWith(format);
+    expect(setPreference).toHaveBeenCalledWith(CITE_FORMAT_PREFERENCE, format);
   });
 });

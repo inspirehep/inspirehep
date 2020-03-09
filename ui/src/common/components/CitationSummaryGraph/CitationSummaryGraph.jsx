@@ -7,7 +7,6 @@ import {
   FlexibleWidthXYPlot,
   DiscreteColorLegend,
   ChartLabel,
-  Hint,
 } from 'react-vis';
 import PropTypes from 'prop-types';
 import { Row, Col, Tooltip } from 'antd';
@@ -20,10 +19,7 @@ import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { CITEABLE_BAR_TYPE, PUBLISHED_BAR_TYPE } from '../../constants';
 import styleVariables from '../../../styleVariables';
-import pluralizeUnlessSingle, {
-  shallowEqual,
-  abbreviateNumber,
-} from '../../utils';
+import { shallowEqual, abbreviateNumber } from '../../utils';
 import { browser } from '../../browser';
 
 const BAR_WIDTH = 0.5;
@@ -72,7 +68,6 @@ class CitationSummaryGraph extends Component {
     this.state = {
       hoveredBar: null,
       graphWidth: 0,
-      hoveredDatapoint: null,
     };
   }
 
@@ -113,7 +108,7 @@ class CitationSummaryGraph extends Component {
       xValue: datapoint.x,
       type: CITEABLE_BAR_TYPE,
     };
-    this.onBarMouseHover(datapoint, bar);
+    this.onBarMouseHover(bar);
   }
 
   onPublishedBarHover(datapoint) {
@@ -121,15 +116,15 @@ class CitationSummaryGraph extends Component {
       xValue: datapoint.x,
       type: PUBLISHED_BAR_TYPE,
     };
-    this.onBarMouseHover(datapoint, bar);
+    this.onBarMouseHover(bar);
   }
 
-  onBarMouseHover(hoveredDatapoint, hoveredBar) {
-    this.setState({ hoveredBar, hoveredDatapoint });
+  onBarMouseHover(hoveredBar) {
+    this.setState({ hoveredBar });
   }
 
   onBarMouseOut() {
-    this.setState({ hoveredBar: null, hoveredDatapoint: null });
+    this.setState({ hoveredBar: null });
   }
 
   getBarColor(bar) {
@@ -178,29 +173,8 @@ class CitationSummaryGraph extends Component {
     return shallowEqual(bar, selectedBar);
   }
 
-  renderHint() {
-    const { hoveredDatapoint } = this.state;
-    return (
-      hoveredDatapoint && (
-        <Hint
-          align={{ vertical: 'top', horizontal: 'auto' }}
-          value={hoveredDatapoint}
-          format={({ y }) => [
-            { title: pluralizeUnlessSingle('Paper', y), value: y },
-          ]}
-        />
-      )
-    );
-  }
-
   render() {
-    const {
-      citeableData,
-      publishedData,
-      loading,
-      error,
-      displayHintOnBarHover,
-    } = this.props;
+    const { citeableData, publishedData, loading, error } = this.props;
     const publishedSeriesData = publishedData.map(b =>
       this.toSeriesData(b, PUBLISHED_BAR_TYPE)
     );
@@ -239,7 +213,6 @@ class CitationSummaryGraph extends Component {
                       yPercent={0.73}
                     />
                     <YAxis title="Papers" tickFormat={abbreviateNumber} />
-                    {displayHintOnBarHover && this.renderHint()}
                     <VerticalBarSeries
                       colorType="literal"
                       data={citeableSeriesData}
@@ -250,13 +223,11 @@ class CitationSummaryGraph extends Component {
                       data-test-id="citeable-bar-series"
                       className="pointer"
                     />
-                    {!displayHintOnBarHover && (
-                      <LabelSeries
-                        data={citeableSeriesData}
-                        labelAnchorY={LABEL_ANCHOR_AT_Y}
-                        labelAnchorX="middle"
-                      />
-                    )}
+                    <LabelSeries
+                      data={citeableSeriesData}
+                      labelAnchorY={LABEL_ANCHOR_AT_Y}
+                      labelAnchorX="middle"
+                    />
                     <VerticalBarSeries
                       colorType="literal"
                       data={publishedSeriesData}
@@ -267,13 +238,11 @@ class CitationSummaryGraph extends Component {
                       data-test-id="published-bar-series"
                       className="pointer"
                     />
-                    {!displayHintOnBarHover && (
-                      <LabelSeries
-                        data={publishedSeriesData}
-                        labelAnchorY={LABEL_ANCHOR_AT_Y}
-                        labelAnchorX="middle"
-                      />
-                    )}
+                    <LabelSeries
+                      data={publishedSeriesData}
+                      labelAnchorY={LABEL_ANCHOR_AT_Y}
+                      labelAnchorX="middle"
+                    />
                     <DiscreteColorLegend
                       className="legend"
                       items={LEGENDS}
@@ -300,8 +269,6 @@ CitationSummaryGraph.propTypes = {
     type: PropTypes.string.isRequired,
     xValue: PropTypes.string.isRequired,
   }),
-  // TODO: remove this after "A/B" testing and properly implement tests
-  displayHintOnBarHover: PropTypes.bool,
 };
 
 CitationSummaryGraph.defaultProps = {
@@ -310,7 +277,6 @@ CitationSummaryGraph.defaultProps = {
   loading: false,
   error: null,
   selectedBar: null,
-  displayHintOnBarHover: false,
 };
 
 export default CitationSummaryGraph;

@@ -18,7 +18,9 @@ import VerticalDivider from '../../common/VerticalDivider';
 import { searchBaseQueriesUpdate } from '../../actions/search';
 import EmptyOrChildren from '../../common/components/EmptyOrChildren';
 import CitationSummaryBoxContainer from './CitationSummaryBoxContainer';
-import CitationSummarySwitchContainer, { isCitationSummaryEnabled } from './CitationSummarySwitchContainer';
+import CitationSummarySwitchContainer, {
+  isCitationSummaryEnabled,
+} from './CitationSummarySwitchContainer';
 
 function renderLiteratureItem(result, rank) {
   return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;
@@ -34,7 +36,6 @@ function LiteratureSearch({
   results,
   noResultsTitle,
   noResultsDescription,
-  isMainLiteratureSearch,
   isCitationSummaryVisible,
 }) {
   const renderAggregations = useCallback(
@@ -87,18 +88,16 @@ function LiteratureSearch({
                 />
               </Col>
               <Col className="tr" span={16}>
-                {isMainLiteratureSearch && (
-                  <span className="mr2">
-                    <CitationSummarySwitchContainer />
-                  </span>
-                )}
+                <span className="mr2">
+                  <CitationSummarySwitchContainer />
+                </span>
                 <SortByContainer namespace={namespace} />
               </Col>
             </Row>
             {isCitationSummaryVisible && (
               <Row className="mt2">
                 <Col span={24}>
-                  <CitationSummaryBoxContainer />
+                  <CitationSummaryBoxContainer namespace={namespace} />
                 </Col>
               </Row>
             )}
@@ -128,7 +127,6 @@ LiteratureSearch.propTypes = {
   results: PropTypes.instanceOf(List),
   noResultsTitle: PropTypes.string,
   noResultsDescription: PropTypes.node,
-  isMainLiteratureSearch: PropTypes.bool.isRequired,
   isCitationSummaryVisible: PropTypes.bool.isRequired,
 };
 
@@ -140,11 +138,6 @@ const stateToProps = (state, { namespace }) => ({
     'loadingAggregations',
   ]),
   results: state.search.getIn(['namespaces', namespace, 'results']),
-  isMainLiteratureSearch: !state.search.getIn([
-    'namespaces',
-    namespace,
-    'embedded',
-  ]),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
 });
 
