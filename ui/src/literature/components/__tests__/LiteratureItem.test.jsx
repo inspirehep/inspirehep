@@ -12,6 +12,7 @@ describe('LiteratureItem', () => {
       authors: [{ full_name: 'Test, Author' }],
       arxiv_eprints: [{ value: '1234567890' }],
       fulltext_links: [{ value: 'https://fulltext.cern/pdf/1' }],
+      urls: [{ value: 'http://lss.fnal.gov/conf/C8206282/pg209.pdf' }],
       control_number: 12345,
       citation_count: 1,
       publication_info: [{ journal_title: 'Test Jornal' }],

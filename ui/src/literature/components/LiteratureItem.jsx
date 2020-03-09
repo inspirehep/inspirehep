@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { LoginOutlined, FilePdfOutlined } from '@ant-design/icons';
+import { LoginOutlined, FilePdfOutlined, LinkOutlined } from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
@@ -34,6 +34,7 @@ class LiteratureItem extends Component {
     const authors = metadata.get('authors');
 
     const fullTextLinks = metadata.get('fulltext_links');
+    const urls = metadata.get('urls');
     const dois = metadata.get('dois');
     const recordId = metadata.get('control_number');
     const citationCount = metadata.get('citation_count', 0);
@@ -57,6 +58,14 @@ class LiteratureItem extends Component {
                 icon={<FilePdfOutlined />}
                 iconText="pdf"
                 trackerEventId="PdfDownload"
+              />
+            )}
+            {urls && (
+              <UrlsAction
+                urls={urls}
+                iconText="links"
+                icon={<LinkOutlined />}
+                trackerEventId="LiteratureFileLink"
               />
             )}
             {dois && <DOILinkAction dois={dois} />}
