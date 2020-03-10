@@ -39,7 +39,7 @@ function appendLoaderOptionsIntoUseForSassRule({ webpackConfig }) {
   const sassRule = oneOfRule.oneOf.find(
     rule => rule.test && rule.test.toString().includes("scss|sass")
   );
-  sassRule.use = [...(sassRule.use || []), ...sassRule.loader];
+  sassRule.use = [...(sassRule.use || []), ...(sassRule.loader || [])];
   delete sassRule.loader;
   return webpackConfig;
 }
