@@ -49,6 +49,21 @@ class BibTexCommonSchema(Schema):
     volume = fields.Method("get_volume")
     year = fields.Method("get_year")
 
+    document_type_map = {
+        "article": "article",
+        "book": "book",
+        "book chapter": "inbook",
+        "proceedings": "proceedings",
+        "report": "techreport",
+        "note": "article",
+        "conference paper": lambda data: "article"
+        if get_value(data, "publication_info.journal_title")
+        else "inproceedings",
+        "thesis": lambda data: "phdthesis"
+        if get_value(data, "thesis_info.degree_type") in ("phd", "habilitation",)
+        else "mastersthesis",
+    }
+
     @staticmethod
     def get_date(data, doc_type):
         publication_year = BibTexCommonSchema.get_best_publication_info(data).get(
@@ -75,25 +90,9 @@ class BibTexCommonSchema(Schema):
 
     @staticmethod
     def get_document_type(data, doc_type):
-        DOCUMENT_TYPE_MAP = {
-            "article": "article",
-            "book": "book",
-            "book chapter": "inbook",
-            "conference paper": "inproceedings",
-            "proceedings": "proceedings",
-            "report": "techreport",
-            "note": "article",
-        }
-
-        if doc_type in DOCUMENT_TYPE_MAP:
-            return DOCUMENT_TYPE_MAP[doc_type]
-        elif doc_type == "thesis" and get_value(data, "thesis_info.degree_type") in (
-            "phd",
-            "habilitation",
-        ):
-            return "phdthesis"
-        elif doc_type == "thesis":
-            return "mastersthesis"
+        if doc_type in BibTexCommonSchema.document_type_map:
+            doc_type_value = BibTexCommonSchema.document_type_map[doc_type]
+            return doc_type_value(data) if callable(doc_type_value) else doc_type_value
         return "misc"
 
     @staticmethod
@@ -278,8 +277,12 @@ class BibTexCommonSchema(Schema):
         return get_value(data, "editions[0]")
 
     def get_journal(self, data):
-        return BibTexCommonSchema.get_best_publication_info(data).get(
-            "journal_title").replace(".", ".\\ ").rstrip('\\ ')
+        return (
+            BibTexCommonSchema.get_best_publication_info(data)
+            .get("journal_title")
+            .replace(".", ".\\ ")
+            .rstrip("\\ ")
+        )
 
     def get_isbn(self, data):
         def hyphenate_if_possible(no_hyphens):

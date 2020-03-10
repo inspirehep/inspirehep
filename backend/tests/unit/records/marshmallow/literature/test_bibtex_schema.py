@@ -492,3 +492,19 @@ def test_get_title_with_subtitle():
     result_title = result["title"]
 
     assert expected_title == result_title
+
+
+def test_bibtex_document_type_conference_paper_with_journal_title():
+    record = {
+        "document_type": ["conference paper"],
+        "publication_info": [
+            {"pubinfo_freetext": "Geneva, Switzerland: CERN (2002) 401 p"},
+            {
+                "pubinfo_freetext": "Geneva, Switzerland: CERN (2002) 401 p",
+                "journal_title": "Nucl.Part.Phys.Proc.",
+            },
+        ],
+    }
+    expected = "article"
+    result = BibTexCommonSchema.get_bibtex_document_type(record)
+    assert expected == result
