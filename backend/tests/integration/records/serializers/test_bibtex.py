@@ -4,6 +4,7 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import pytest
 
 
 def test_bibtex(api_client, db, es, create_record):
@@ -127,7 +128,9 @@ def test_bibtex_search(api_client, db, es, create_record):
     create_record("lit", data=data_2)
 
     expected_status_code = 200
-    expected_result_1 = "@article{637275237,\n" '    title = "{This is a title.}"\n' "}\n"
+    expected_result_1 = (
+        "@article{637275237,\n" '    title = "{This is a title.}"\n' "}\n"
+    )
     expected_result_2 = (
         "@article{637275232,\n" '    title = "{Yet another title.}"\n' "}\n"
     )
@@ -139,3 +142,54 @@ def test_bibtex_search(api_client, db, es, create_record):
     assert expected_status_code == response_status_code
     assert expected_result_1 in response_data
     assert expected_result_2 in response_data
+
+
+def test_bibtex_doesnt_encode_math_environments(api_client, db, es, create_record):
+    headers = {"Accept": "application/x-bibtex"}
+    data = {
+        "control_number": 637275237,
+        "titles": [
+            {
+                "title": "Low-energy theorem for $\\gamma\\to 3\\pi$: Σ surface terms against $\\pi a_1$-mixing"
+            }
+        ],
+    }
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = '@article{637275237,\n    title = "{Low-energy theorem for $\\gamma\\to 3\\pi$: $\\Sigma$ surface terms against $\\pi a_1$-mixing}"\n}\n'
+    response = api_client.get(
+        "/literature/{}".format(record_control_number), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
+
+
+@pytest.mark.xfail(reason="latexcodec doesn't know about the special characters")
+def test_bibtex_encodes_unicode_outside_of_math_environments(
+    api_client, db, es, create_record
+):
+    headers = {"Accept": "application/x-bibtex"}
+    data = {
+        "control_number": 637275237,
+        "titles": [
+            {"title": "Core polarization effects up to 12ℏω in 7Li and 10B nuclei"}
+        ],
+    }
+    record = create_record("lit", data=data)
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    expected_result = '@article{637275237,\n    title = "{Core polarization effects up to 12$\hbar\omega$ in 7Li and 10B nuclei}"\n}\n'
+    response = api_client.get(
+        "/literature/{}".format(record_control_number), headers=headers
+    )
+
+    response_status_code = response.status_code
+    response_data = response.get_data(as_text=True)
+    assert expected_status_code == response_status_code
+    assert expected_result == response_data
