@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from datetime import datetime
+from itertools import count
 
 from elasticsearch_dsl.query import Q, Range
 from flask import current_app, request
@@ -140,45 +141,53 @@ def hep_filters():
     return filters
 
 
-def hep_author_publications():
+def hep_author_publications(order=None):
+    if order is None:
+        order = count(start=1)
     author = request.values.get("author", "", type=str)
     author_recid = author.split("_")[0]
     return {
         "filters": hep_filters(),
         "aggs": {
-            **hep_earliest_date_aggregation(order=1),
-            **hep_author_count_aggregation(order=2),
-            **hep_author_aggregation(order=3, author=author, title="Collaborators"),
-            **hep_doc_type_aggregation(order=4),
-            **hep_collaboration_aggregation(order=5),
+            **hep_earliest_date_aggregation(order=next(order)),
+            **hep_author_count_aggregation(order=next(order)),
+            **hep_doc_type_aggregation(order=next(order)),
+            **hep_author_aggregation(
+                order=next(order), author=author, title="Collaborators"
+            ),
+            **hep_collaboration_aggregation(order=next(order)),
             **hep_self_author_affiliations_aggregation(
-                order=6, author_recid=author_recid
+                order=next(order), author_recid=author_recid
             ),
         },
     }
 
 
-def hep_conference_contributions():
+def hep_conference_contributions(order=None):
+    if order is None:
+        order = count(start=1)
     return {
         "filters": hep_filters(),
         "aggs": {
-            **hep_subject_aggregation(order=1),
-            **hep_collaboration_aggregation(order=2),
+            **hep_subject_aggregation(order=next(order)),
+            **hep_collaboration_aggregation(order=next(order)),
         },
     }
 
 
-def records_hep():
+def records_hep(order=None):
+    if order is None:
+        order = count(start=1)
     return {
         "filters": hep_filters(),
         "aggs": {
-            **hep_earliest_date_aggregation(order=1),
-            **hep_author_count_aggregation(order=2),
-            **hep_author_aggregation(order=3),
-            **hep_subject_aggregation(order=4),
-            **hep_arxiv_categories_aggregation(order=5),
-            **hep_doc_type_aggregation(order=6),
-            **hep_collaboration_aggregation(order=7),
+            **hep_earliest_date_aggregation(order=next(order)),
+            **hep_author_count_aggregation(order=next(order)),
+            **hep_doc_type_aggregation(order=next(order)),
+            **hep_author_aggregation(order=next(order)),
+            **hep_subject_aggregation(order=next(order)),
+            **hep_arxiv_categories_aggregation(order=next(order)),
+            **hep_collaboration_aggregation(order=next(order)),
         },
     }
 
@@ -299,45 +308,57 @@ def citations_by_year():
     }
 
 
-def records_jobs():
+def records_jobs(order=None):
+    if order is None:
+        order = count(start=1)
     return {
         "filters": {**current_app.config["JOBS_FILTERS"]},
         "aggs": {
-            **jobs_field_of_interest_aggregation(order=1),
-            **jobs_rank_aggregation(order=2),
-            **jobs_region_aggregation(order=3),
+            **jobs_field_of_interest_aggregation(order=next(order)),
+            **jobs_rank_aggregation(order=next(order)),
+            **jobs_region_aggregation(order=next(order)),
         },
     }
 
 
-def records_conferences():
+def records_conferences(order=None):
+    if order is None:
+        order = count(start=1)
     return {
         "filters": {**current_app.config["CONFERENCES_FILTERS"]},
-        "aggs": {**conf_subject_aggregation(order=1)},
+        "aggs": {**conf_subject_aggregation(order=next(order))},
     }
 
 
-def records_hep_cataloger():
-    records = records_hep()
-    records["aggs"].update({**hep_collection_aggregation(order=8)})
+def records_hep_cataloger(order=None):
+    if order is None:
+        order = count(start=1)
+    records = records_hep(order=order)
+    records["aggs"].update({**hep_collection_aggregation(order=next(order))})
     return records
 
 
-def hep_author_publications_cataloger():
+def hep_author_publications_cataloger(order=None):
+    if order is None:
+        order = count(start=1)
     author_recid = request.values.get("author", "", type=str).split("_")[0]
-    records = hep_author_publications()
+    records = hep_author_publications(order=order)
     records["aggs"].update(
         {
-            **hep_subject_aggregation(order=7),
-            **hep_arxiv_categories_aggregation(order=8),
-            **hep_self_author_names_aggregation(order=9, author_recid=author_recid),
-            **hep_collection_aggregation(order=10),
+            **hep_subject_aggregation(order=next(order)),
+            **hep_arxiv_categories_aggregation(order=next(order)),
+            **hep_self_author_names_aggregation(
+                order=next(order), author_recid=author_recid
+            ),
+            **hep_collection_aggregation(order=next(order)),
         }
     )
     return records
 
 
-def records_jobs_cataloger():
-    records = records_jobs()
-    records["aggs"].update({**jobs_status_aggregation(order=4)})
+def records_jobs_cataloger(order=None):
+    if order is None:
+        order = count(start=1)
+    records = records_jobs(order=order)
+    records["aggs"].update({**jobs_status_aggregation(order=next(order))})
     return records
