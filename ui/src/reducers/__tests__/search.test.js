@@ -149,6 +149,7 @@ describe('search reducer', () => {
             sort: 'mostrecent',
             size: 99,
           },
+          hasQueryBeenUpdatedAtLeastOnce: true,
         },
       },
     });

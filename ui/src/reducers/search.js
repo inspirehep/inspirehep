@@ -45,6 +45,7 @@ const initialNamespaceState = {
   query: initialBaseQuery,
   persistedQueryParamsDuringNewSearch: [],
   baseAggregationsQuery: {},
+  hasQueryBeenUpdatedAtLeastOnce: false,
 };
 
 export const FETCH_MODE_NEVER = 'never';
@@ -238,7 +239,9 @@ const searchReducer = (state = initialState, action) => {
         .getIn(['namespaces', namespace, 'baseQuery'])
         .merge(state.getIn(['namespaces', namespace, 'query']))
         .merge(query);
-      return state.setIn(['namespaces', namespace, 'query'], fullQuery);
+      return state
+        .setIn(['namespaces', namespace, 'query'], fullQuery)
+        .setIn(['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce'], true)
     case SEARCH_REQUEST:
       return state.setIn(['namespaces', namespace, 'loading'], true);
     case SEARCH_SUCCESS:
