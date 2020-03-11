@@ -8,10 +8,7 @@ import ContentBox from '../../common/components/ContentBox';
 import AuthorName from '../components/AuthorName';
 import ExperimentList from '../../common/components/ExperimentList';
 import { fetchAuthor } from '../../actions/authors';
-import {
-  fetchCitationSummary,
-  fetchCitationsByYear,
-} from '../../actions/citations';
+import { fetchCitationsByYear } from '../../actions/citations';
 import AuthorAffiliationList from '../../common/components/AuthorAffiliationList';
 import {
   getCurrentAffiliationsFromPositions,
@@ -54,7 +51,6 @@ function DetailPage({
       if (authorFacetName) {
         const query = publicationsQuery.toJS();
         // FIXME: localize dispatch(action) to relevant components, instead of dispatching in parent detail page
-        dispatch(fetchCitationSummary(query));
         dispatch(fetchCitationsByYear(query));
       }
     },
