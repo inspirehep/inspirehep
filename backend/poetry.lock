@@ -1400,7 +1400,7 @@ all = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.6.
 tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.6.0)", "pytest (>=3.2.2,<4.0)"]
 
 [package.source]
-reference = "b3276f95334812a3a603d433ea35e42fff489180"
+reference = "af9f92e724e90a67e2aa038d17df2fd90aa3d84c"
 type = "git"
 url = "https://github.com/drjova/inspire-query-parser.git"
 [[package]]
