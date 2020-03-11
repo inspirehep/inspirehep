@@ -1,5 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
+import { connect } from 'react-redux';
 
 import LiteratureSearchContainer from './LiteratureSearchContainer';
 import { LITERATURE_NS } from '../../reducers/search';
@@ -10,29 +11,35 @@ const META_DESCRIPTION = "Find articles, conference papers, proceedings, books, 
 const TITLE = "Literature Search"
 
 // TODO: move it out from containers
-function SearchPage() {
+function SearchPage({ shouldDisplayLiteratureSearch }) {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row>
         <Col xs={24} lg={22} xl={20} xxl={18}>
-          <LiteratureSearchContainer
-            namespace={LITERATURE_NS}
-            noResultsTitle="0 Results"
-            noResultsDescription={
-              <em>
-                Oops! You might want to check out our{' '}
-                <ExternalLink href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search/">
-                  search tips
+          {shouldDisplayLiteratureSearch &&
+            < LiteratureSearchContainer
+              namespace={LITERATURE_NS}
+              noResultsTitle="0 Results"
+              noResultsDescription={
+                <em>
+                  Oops! You might want to check out our{' '}
+                  <ExternalLink href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search/">
+                    search tips
                 </ExternalLink>
-                .
+                  .
               </em>
-            }
-          />
+              }
+            />
+          }
         </Col>
       </Row>
     </>
   );
 }
 
-export default SearchPage;
+const stateToProps = (state) => ({
+  shouldDisplayLiteratureSearch: state.search.getIn(['namespaces', LITERATURE_NS, 'hasQueryBeenUpdatedAtLeastOnce']),
+})
+
+export default connect(stateToProps)(SearchPage);
