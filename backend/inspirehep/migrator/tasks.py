@@ -26,6 +26,7 @@ from invenio_pidstore.errors import PIDValueError
 from invenio_pidstore.models import PersistentIdentifier
 from jsonschema import ValidationError
 from psycopg2._psycopg import OperationalError
+from sqlalchemy.exc import InvalidRequestError, StatementError
 
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.migrator.models import LegacyRecordsMirror
@@ -264,7 +265,12 @@ def populate_mirror_from_file(source):
     bind=True,
     retry_backoff=2,
     retry_kwargs={"max_retries": 6},
-    autoretry_for=(SoftTimeLimitExceeded, OperationalError),
+    autoretry_for=(
+        SoftTimeLimitExceeded,
+        OperationalError,
+        InvalidRequestError,
+        StatementError,
+    ),
 )
 def create_records_from_mirror_recids(self, recids):
     """Task which migrates records
@@ -275,8 +281,8 @@ def create_records_from_mirror_recids(self, recids):
     """
     models_committed.disconnect(index_after_commit)
     processed_records = set()
-    for recid in recids:
-        try:
+    try:
+        for recid in recids:
             LOGGER.info("Migrate record from mirror", recid=recid)
             with db.session.begin_nested():
                 record = migrate_record_from_mirror(
@@ -286,19 +292,22 @@ def create_records_from_mirror_recids(self, recids):
                 processed_records.add(str(record.id))
             else:
                 LOGGER.warning("Record is empty", recid=recid)
-        except OperationalError:
-            LOGGER.exception("Got operational error", recid=recid)
-            raise
-        except Exception:
-            LOGGER.exception("Cannot migrate record", recid=recid)
-            continue
-    try:
         db.session.commit()
+    except (InvalidRequestError, OperationalError, StatementError):
+        LOGGER.exception(
+            "Cannot process whole record batch. Retrying.",
+            processed_records=list(processed_records),
+            recids=recids,
+        )
+        raise
     except Exception:
         LOGGER.exception(
-            "Cannot commit migrated records", processed_records=list(processed_records)
+            "Got unexpected exception. Ignoring",
+            processed_records=list(processed_records),
+            recids=recids,
         )
-    models_committed.connect(index_after_commit)
+    finally:
+        models_committed.connect(index_after_commit)
 
     return list(processed_records)
 
