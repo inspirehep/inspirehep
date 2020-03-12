@@ -1,6 +1,5 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import { connect } from 'react-redux';
 
 import LiteratureSearchContainer from './LiteratureSearchContainer';
 import { LITERATURE_NS } from '../../reducers/search';
@@ -11,13 +10,12 @@ const META_DESCRIPTION = "Find articles, conference papers, proceedings, books, 
 const TITLE = "Literature Search"
 
 // TODO: move it out from containers
-function SearchPage({ shouldDisplayLiteratureSearch }) {
+function SearchPage() {
   return (
     <>
       <DocumentHead title={TITLE} description={META_DESCRIPTION} />
       <Row>
         <Col xs={24} lg={22} xl={20} xxl={18}>
-          {shouldDisplayLiteratureSearch &&
             < LiteratureSearchContainer
               namespace={LITERATURE_NS}
               noResultsTitle="0 Results"
@@ -31,15 +29,11 @@ function SearchPage({ shouldDisplayLiteratureSearch }) {
               </em>
               }
             />
-          }
         </Col>
       </Row>
     </>
   );
 }
 
-const stateToProps = (state) => ({
-  shouldDisplayLiteratureSearch: state.search.getIn(['namespaces', LITERATURE_NS, 'hasQueryBeenUpdatedAtLeastOnce']),
-})
 
-export default connect(stateToProps)(SearchPage);
+export default SearchPage;

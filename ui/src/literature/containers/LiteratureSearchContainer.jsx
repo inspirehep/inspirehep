@@ -37,6 +37,7 @@ function LiteratureSearch({
   noResultsTitle,
   noResultsDescription,
   isCitationSummaryVisible,
+  hasQueryBeenUpdatedAtLeastOnce,
 }) {
   const renderAggregations = useCallback(
     () => (
@@ -59,7 +60,7 @@ function LiteratureSearch({
     [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]
   );
 
-  return (
+  return hasQueryBeenUpdatedAtLeastOnce && (
     <Row className="mt3" gutter={32} type="flex" justify="center">
       <EmptyOrChildren
         data={results}
@@ -128,6 +129,7 @@ LiteratureSearch.propTypes = {
   noResultsTitle: PropTypes.string,
   noResultsDescription: PropTypes.node,
   isCitationSummaryVisible: PropTypes.bool.isRequired,
+  hasQueryBeenUpdatedAtLeastOnce: PropTypes.bool.isRequired,
 };
 
 const stateToProps = (state, { namespace }) => ({
@@ -139,6 +141,7 @@ const stateToProps = (state, { namespace }) => ({
   ]),
   results: state.search.getIn(['namespaces', namespace, 'results']),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
+  hasQueryBeenUpdatedAtLeastOnce: state.search.getIn(['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce']),
 });
 
 const dispatchToProps = dispatch => ({
