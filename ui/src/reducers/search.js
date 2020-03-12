@@ -45,6 +45,7 @@ const initialNamespaceState = {
   query: initialBaseQuery,
   persistedQueryParamsDuringNewSearch: [],
   baseAggregationsQuery: {},
+  // necessary to avoid using search query before it's ready
   hasQueryBeenUpdatedAtLeastOnce: false,
 };
 
@@ -228,7 +229,7 @@ const searchReducer = (state = initialState, action) => {
         .mergeIn(
           ['namespaces', namespace, 'baseAggregationsQuery'],
           baseAggregationsQuery
-        );
+        ).setIn(['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce'], true)
     case SEARCH_QUERY_RESET:
       return state.setIn(
         ['namespaces', namespace, 'query'],

@@ -209,6 +209,7 @@ describe('search reducer', () => {
             sort: 'mostcited',
             page: 1,
           },
+          hasQueryBeenUpdatedAtLeastOnce: true
         },
       },
     });
