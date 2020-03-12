@@ -71,7 +71,7 @@ prometheus_client = "^0.7.1"
 inspire-dojson = "^63.0"
 boto3 = "^1.11.5"
 python-magic = "^0.4.15"
-inspire-query-parser = "^6.0.4"
+inspire-query-parser = {git = "https://github.com/drjova/inspire-query-parser.git"}
 
 [tool.poetry.dev-dependencies]
 freezegun = "*"

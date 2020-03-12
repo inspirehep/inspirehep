@@ -1386,7 +1386,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.4"
+version = "6.0.6"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -1399,6 +1399,10 @@ six = ">=1.11.0,<2.0"
 all = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.6.0)", "pytest (>=3.2.2,<4.0)", "flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.6.0)", "pytest (>=3.2.2,<4.0)"]
 tests = ["flake8 (>=3.5.0,<4.0)", "mock (>=2.0.0,<3.0)", "pytest-cov (>=2.0,<=2.6.0)", "pytest (>=3.2.2,<4.0)"]
 
+[package.source]
+reference = "af9f92e724e90a67e2aa038d17df2fd90aa3d84c"
+type = "git"
+url = "https://github.com/drjova/inspire-query-parser.git"
 [[package]]
 category = "main"
 description = "Inspire JSON schemas and utilities to use them."
@@ -4038,7 +4042,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "32597b07bccd0c0cabe657f54b2beefb17442ff770d8ac54c5afb33ddc6be977"
+content-hash = "3e893f41c904a68ff67728192305676f1a61d9e36d23e90fffe8c835cbebd982"
 python-versions = ">=3.6,<3.7"
 
 [metadata.files]
@@ -4538,9 +4542,7 @@ inspire-dojson = [
 inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
 ]
-inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.4.tar.gz", hash = "sha256:9fc3d1a312e525bbd40f4987c47043bc51516d803f2a278eff7c3cd63cbe89ec"},
-]
+inspire-query-parser = []
 inspire-schemas = [
     {file = "inspire-schemas-61.1.2.tar.gz", hash = "sha256:49226b875b1791f13d0d7678c63cd4b03ce54bb7a9ffcae319daca240b308ed0"},
 ]
