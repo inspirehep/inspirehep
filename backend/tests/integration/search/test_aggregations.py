@@ -41,7 +41,7 @@ def test_hep_earliest_date_aggregation_and_filter(
 
         response = api_client.get("/literature/facets").json
         earliest_date_aggregation = {
-            "meta": {"title": "Date", "type": "range", "order": 1},
+            "meta": {"title": "Papers per year", "type": "range", "order": 1},
             "buckets": [
                 {"doc_count": 1, "key": 1420070400000, "key_as_string": "2015"},
                 {"doc_count": 1, "key": 1546300800000, "key_as_string": "2019"},

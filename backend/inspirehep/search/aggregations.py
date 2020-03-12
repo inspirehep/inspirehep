@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def hep_earliest_date_aggregation(order, title="Date", agg_type="range"):
+def hep_earliest_date_aggregation(order, title="Papers per year", agg_type="range"):
     return {
         "earliest_date": {
             "date_histogram": {
