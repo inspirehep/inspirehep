@@ -253,6 +253,28 @@
             },
             "type": "text"
           },
+          "first_name": {
+            "type": "text",
+            "analyzer": "names_analyzer",
+            "index_prefixes": {
+              "min_chars": 1,
+              "max_chars": 5
+            },
+            "fields": {
+              "raw": {
+                "type": "text"
+              }
+            }
+          },
+          "last_name": {
+            "type": "text",
+            "analyzer": "names_analyzer",
+            "fields": {
+              "raw": {
+                "type": "text"
+              }
+            }
+          },
           "full_name_unicode_normalized": {
             "type": "keyword",
             "copy_to": "_all"
@@ -1244,6 +1266,20 @@
         },
         "recid_analyzer": {
           "tokenizer": "recid_tokenizer"
+        },
+        "names_analyzer": {
+          "filter": ["ascii_normalizer", "lowercase_normalizer"],
+          "tokenizer": "names_tokenizer",
+          "type": "custom"
+        },
+        "names_initials_analyzer": {
+          "filter": [
+            "ascii_normalizer",
+            "initial_normalizer",
+            "lowercase_normalizer"
+          ],
+          "tokenizer": "names_tokenizer",
+          "type": "custom"
         }
       },
       "normalizer": {
@@ -1272,6 +1308,11 @@
         },
         "lowercase_normalizer": {
           "type": "lowercase"
+        },
+        "initial_normalizer": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 1
         }
       },
       "tokenizer": {
@@ -1279,6 +1320,10 @@
           "type": "pattern",
           "pattern": "(\\d+)",
           "group": 1
+        },
+        "names_tokenizer": {
+          "type": "char_group",
+          "tokenize_on_chars": ["whitespace", "."]
         }
       }
     }
