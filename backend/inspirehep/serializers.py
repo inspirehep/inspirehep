@@ -105,15 +105,15 @@ class JSONSerializerFacets(InvenioJSONSerializer):
             ``inspirehep.search.factories.search.search_factory_only_with_aggs``.
         """
 
-        search_result["aggregations"] = self._unnest_aggregations(
+        search_result["aggregations"] = self.flatten_aggregations(
             search_result.get("aggregations", {})
         )
 
         return json.dumps(search_result)
 
     @staticmethod
-    def _unnest_aggregations(aggregations):
-        """Flatten the aggregation dict in case there are nested aggregations."""
+    def flatten_aggregations(aggregations):
+        """Flatten the aggregation dict in case there are nested or filters aggregations."""
 
         new_aggs = {}
 
@@ -123,6 +123,16 @@ class JSONSerializerFacets(InvenioJSONSerializer):
                 for nested_key in nested:
                     if nested_key != "doc_count":
                         new_aggs[nested_key] = nested[nested_key]
+            elif agg_value.get("meta", {}).get("is_filter_aggregation"):
+                agg_value["buckets"] = [
+                    {
+                        "key": bucket_key,
+                        "doc_count": agg_value["buckets"][bucket_key]["doc_count"],
+                    }
+                    for bucket_key in agg_value["buckets"].keys()
+                    if agg_value["buckets"][bucket_key]["doc_count"] != 0
+                ]
+                new_aggs[agg_key] = agg_value
             else:
                 new_aggs[agg_key] = agg_value
 

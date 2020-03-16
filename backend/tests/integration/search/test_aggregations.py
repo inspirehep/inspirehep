@@ -10,6 +10,7 @@ from inspirehep.search.aggregations import (
     hep_collection_aggregation,
     hep_doc_type_aggregation,
     hep_earliest_date_aggregation,
+    hep_rpp,
     hep_self_author_affiliations_aggregation,
     hep_self_author_names_aggregation,
     hep_subject_aggregation,
@@ -19,6 +20,43 @@ from inspirehep.search.aggregations import (
     jobs_status_aggregation,
 )
 from inspirehep.search.facets import hep_filters
+
+
+def test_hep_rpp_aggregation_and_filter(
+    base_app, db, es_clear, create_record, api_client
+):
+    config = {
+        "RECORDS_REST_FACETS": {
+            "records-hep": {"filters": hep_filters(), "aggs": {**hep_rpp(1)}}
+        }
+    }
+
+    with patch.dict(base_app.config, config):
+        data = {"titles": [{"title": "This is my title"}]}
+        expected_record = create_record("lit", data)
+        data = {"titles": [{"title": "RPP"}]}
+        create_record("lit", data)
+
+        response = api_client.get("/literature/facets").json
+        expected_aggregation = {
+            "meta": {
+                "title": "Exclude RPP",
+                "type": "checkbox",
+                "order": 1,
+                "is_filter_aggregation": True,
+            },
+            "buckets": [{"doc_count": 1, "key": "Exclude Review Of Particle Physics"}],
+        }
+        assert response["aggregations"]["rpp"] == expected_aggregation
+
+        response = api_client.get(
+            "/literature?rpp=Exclude%20Review%20Of%20Particle%20Physics"
+        ).json
+        assert len(response["hits"]["hits"]) == 1
+        assert (
+            response["hits"]["hits"][0]["metadata"]["control_number"]
+            == expected_record["control_number"]
+        )
 
 
 def test_hep_earliest_date_aggregation_and_filter(

@@ -21,6 +21,7 @@ from inspirehep.search.aggregations import (
     hep_collection_aggregation,
     hep_doc_type_aggregation,
     hep_earliest_date_aggregation,
+    hep_rpp,
     hep_self_author_affiliations_aggregation,
     hep_self_author_names_aggregation,
     hep_subject_aggregation,
@@ -52,6 +53,16 @@ def must_match_all_filter(field):
 
     def inner(values):
         filters = [Q("match", **{field: value}) for value in values]
+        return Q("bool", filter=filters)
+
+    return inner
+
+
+def filter_from_filters_aggregation(agg):
+    def inner(values):
+        filters = [
+            list(agg.values())[0]["filters"]["filters"][value] for value in values
+        ]
         return Q("bool", filter=filters)
 
     return inner
@@ -151,6 +162,7 @@ def hep_author_publications(order=None):
         "aggs": {
             **hep_earliest_date_aggregation(order=next(order)),
             **hep_author_count_aggregation(order=next(order)),
+            **hep_rpp(order=next(order)),
             **hep_doc_type_aggregation(order=next(order)),
             **hep_author_aggregation(
                 order=next(order), author=author, title="Collaborators"
@@ -183,6 +195,7 @@ def records_hep(order=None):
         "aggs": {
             **hep_earliest_date_aggregation(order=next(order)),
             **hep_author_count_aggregation(order=next(order)),
+            **hep_rpp(order=next(order)),
             **hep_doc_type_aggregation(order=next(order)),
             **hep_author_aggregation(order=next(order)),
             **hep_subject_aggregation(order=next(order)),
