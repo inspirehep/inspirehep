@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollectionsMenu renders 1`] = `
+<Row
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <CollectionLink
+      to="/literature"
+    >
+      Literature
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      to="/authors"
+    >
+      Authors
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      to="/jobs"
+    >
+      Jobs
+    </CollectionLink>
+  </Col>
+  <Col>
+    <CollectionLink
+      to="/conferences"
+    >
+      Conferences
+    </CollectionLink>
+  </Col>
+</Row>
+`;

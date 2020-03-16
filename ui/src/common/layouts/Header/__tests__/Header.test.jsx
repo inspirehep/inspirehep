@@ -10,7 +10,6 @@ describe('Header', () => {
         isSubmissionsPage={false}
         isHomePage={false}
         isBetaPage={false}
-        onHeightChange={jest.fn()}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -22,7 +21,6 @@ describe('Header', () => {
         isSubmissionsPage={false}
         isHomePage
         isBetaPage={false}
-        onHeightChange={jest.fn()}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -34,7 +32,6 @@ describe('Header', () => {
         isSubmissionsPage
         isHomePage={false}
         isBetaPage={false}
-        onHeightChange={jest.fn()}
       />
     );
     expect(wrapper).toMatchSnapshot();
@@ -46,7 +43,6 @@ describe('Header', () => {
         isSubmissionsPage={false}
         isHomePage={false}
         isBetaPage
-        onHeightChange={jest.fn()}
       />
     );
     expect(wrapper).toMatchSnapshot();
