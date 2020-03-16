@@ -66,17 +66,20 @@ class BibTexCommonSchema(Schema):
 
     @staticmethod
     def get_date(data, doc_type):
+
         publication_year = BibTexCommonSchema.get_best_publication_info(data).get(
             "year"
         )
         thesis_date = get_value(data, "thesis_info.date")
         imprint_date = get_value(data, "imprints.date[0]")
-
-        if doc_type.endswith("thesis"):
-            date_choice = thesis_date or publication_year or imprint_date
-        else:
-            date_choice = publication_year or thesis_date or imprint_date
-
+        earliest_date = data.earliest_date
+        date_map = {
+            "mastersthesis": thesis_date,
+            "phdthesis": thesis_date,
+            "book": imprint_date,
+            "inbook": imprint_date,
+        }
+        date_choice = date_map.get(doc_type) or publication_year or earliest_date
         if date_choice:
             return PartialDate.loads(str(date_choice))
 
@@ -142,13 +145,13 @@ class BibTexCommonSchema(Schema):
 
     def get_month(self, data):
         doc_type = data.get("doc_type")
-        date = BibTexCommonSchema.get_date(data, doc_type)
+        date = self.get_date(data, doc_type)
         if date:
             return date.month
 
     def get_year(self, data):
         doc_type = data.get("doc_type")
-        date = BibTexCommonSchema.get_date(data, doc_type)
+        date = self.get_date(data, doc_type)
         if date:
             return date.year
 

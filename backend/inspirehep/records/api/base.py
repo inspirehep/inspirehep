@@ -230,6 +230,13 @@ class InspireRecord(Record):
             return cls.get_records_by_pids(pids)
         return iter([])
 
+    def copy(self):
+        """Copy the record metadata.
+
+            This is needed because the default ``dict.copy`` always returns a ``dict``.
+        """
+        return type(self)(self)
+
     def get_linked_pids_from_field(self, path):
         """Return a list of (pid_type, pid_value) tuples for all records referenced
         in the field at the given path
