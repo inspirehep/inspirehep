@@ -23,6 +23,7 @@ from inspirehep.access_control import (
     api_access_permission_check,
     session_cataloger_permission_factory,
 )
+from inspirehep.search.aggregations import hep_rpp
 from inspirehep.search.api import (
     AuthorsSearch,
     ConferencesSearch,
@@ -38,6 +39,7 @@ from inspirehep.search.facets import (
     citations_by_year,
     conferences_date_range_contains_other_conferences,
     conferences_start_date_range_filter,
+    filter_from_filters_aggregation,
     hep_author_publications,
     hep_author_publications_cataloger,
     hep_conference_contributions,
@@ -414,6 +416,7 @@ HEP_FILTERS = {
     "collection": must_match_all_filter("_collections"),
     "subject": must_match_all_filter("facet_inspire_categories"),
     "arxiv_categories": must_match_all_filter("facet_arxiv_categories"),
+    "rpp": filter_from_filters_aggregation(hep_rpp(order=1)),
 }
 
 JOBS_FILTERS = {

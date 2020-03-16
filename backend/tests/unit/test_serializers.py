@@ -4,7 +4,10 @@ from invenio_pidstore.models import PersistentIdentifier
 from marshmallow import Schema, fields
 
 from inspirehep.records.api import InspireRecord
-from inspirehep.serializers import ConditionalMultiSchemaJSONSerializer
+from inspirehep.serializers import (
+    ConditionalMultiSchemaJSONSerializer,
+    JSONSerializerFacets,
+)
 
 
 def test_uses_first_schema_that_returns_true_for_condition_that_uses_data():
@@ -63,3 +66,48 @@ def test_first_conditionless_schema_if_others_do_not_return_true():
     )
 
     assert serialized["metadata"] == {"field2": "value2"}
+
+
+def test_flatten_aggregations_for_filter_aggregation():
+    aggregation = {
+        "rpp": {
+            "meta": {"title": "Agg title", "is_filter_aggregation": True},
+            "buckets": {"Exclude RPP": {"doc_count": 7}},
+        }
+    }
+    expected_result = {
+        "rpp": {
+            "meta": {"title": "Agg title", "is_filter_aggregation": True},
+            "buckets": [{"key": "Exclude RPP", "doc_count": 7}],
+        }
+    }
+    result = JSONSerializerFacets.flatten_aggregations(aggregation)
+    assert expected_result == result
+
+
+def test_flatten_aggregations_doesnt_change_aggregation_if_it_isnt_filter_or_nested_aggregation():
+    aggregation = {
+        "rpp": {
+            "meta": {"title": "Agg title"},
+            "buckets": {"Exclude RPP": {"doc_count": 7}},
+        }
+    }
+    result = JSONSerializerFacets.flatten_aggregations(aggregation)
+    assert aggregation == result
+
+
+def test_flatten_aggregations_doesnt_add_buckets_with_doc_count_0_for_filter_aggregations():
+    aggregation = {
+        "rpp": {
+            "meta": {"title": "Agg title", "is_filter_aggregation": True},
+            "buckets": {"Exclude RPP": {"doc_count": 0}},
+        }
+    }
+    expected_result = {
+        "rpp": {
+            "meta": {"title": "Agg title", "is_filter_aggregation": True},
+            "buckets": [],
+        }
+    }
+    result = JSONSerializerFacets.flatten_aggregations(aggregation)
+    assert expected_result == result

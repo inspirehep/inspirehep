@@ -202,3 +202,34 @@ def hep_collection_aggregation(order, title="Collection", agg_type="checkbox"):
             "meta": {"title": title, "order": order, "type": agg_type},
         }
     }
+
+
+def hep_rpp(order, title="Exclude RPP", agg_type="checkbox"):
+    return {
+        "rpp": {
+            "filters": {
+                "filters": {
+                    "Exclude Review Of Particle Physics": {
+                        "bool": {
+                            "must_not": [
+                                {
+                                    "match": {
+                                        "titles.full_title": {
+                                            "query": "RPP",
+                                            "operator": "and",
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "meta": {
+                "title": title,
+                "order": order,
+                "type": agg_type,
+                "is_filter_aggregation": True,
+            },
+        }
+    }

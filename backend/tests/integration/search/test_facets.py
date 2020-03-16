@@ -7,6 +7,7 @@ from inspirehep.search.aggregations import (
     hep_collection_aggregation,
     hep_doc_type_aggregation,
     hep_earliest_date_aggregation,
+    hep_rpp,
     hep_self_author_affiliations_aggregation,
     hep_self_author_names_aggregation,
     hep_subject_aggregation,
@@ -21,7 +22,7 @@ from inspirehep.search.facets import hep_author_publications
 def test_hep_author_publications_facets_without_exclude(base_app):
     expect = {
         "meta": {
-            "order": 4,
+            "order": 5,
             "title": "Collaborators",
             "type": "checkbox",
             "split": True,
@@ -55,15 +56,17 @@ def test_hep_author_publications_facets(base_app):
             "arxiv_categories",
             "self_affiliations",
             "self_author_names",
+            "rpp",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
             **hep_author_count_aggregation(order=2),
-            **hep_doc_type_aggregation(order=3),
-            **hep_author_aggregation(order=4, author=author, title="Collaborators"),
-            **hep_collaboration_aggregation(order=5),
+            **hep_rpp(order=3),
+            **hep_doc_type_aggregation(order=4),
+            **hep_author_aggregation(order=5, author=author, title="Collaborators"),
+            **hep_collaboration_aggregation(order=6),
             **hep_self_author_affiliations_aggregation(
-                order=6, author_recid=author_recid
+                order=7, author_recid=author_recid
             ),
         }
         filters = base_app.config["RECORDS_REST_FACETS"]["hep-author-publication"]()[
@@ -92,15 +95,17 @@ def test_records_hep_facets(base_app):
             "arxiv_categories",
             "self_affiliations",
             "self_author_names",
+            "rpp",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
             **hep_author_count_aggregation(order=2),
-            **hep_doc_type_aggregation(order=3),
-            **hep_author_aggregation(order=4),
-            **hep_subject_aggregation(order=5),
-            **hep_arxiv_categories_aggregation(order=6),
-            **hep_collaboration_aggregation(order=7),
+            **hep_rpp(order=3),
+            **hep_doc_type_aggregation(order=4),
+            **hep_author_aggregation(order=5),
+            **hep_subject_aggregation(order=6),
+            **hep_arxiv_categories_aggregation(order=7),
+            **hep_collaboration_aggregation(order=8),
         }
         filters = base_app.config["RECORDS_REST_FACETS"]["records-hep"]()[
             "filters"
@@ -126,6 +131,7 @@ def test_hep_conference_contributions_facets(base_app):
             "arxiv_categories",
             "self_affiliations",
             "self_author_names",
+            "rpp",
         }
         expected_aggregations = {
             **hep_subject_aggregation(order=1),
@@ -155,6 +161,7 @@ def test_citation_summary_facets(base_app):
             "arxiv_categories",
             "self_affiliations",
             "self_author_names",
+            "rpp",
         }
         expected_aggregations = {"citation_summary"}
 
@@ -178,6 +185,7 @@ def test_citations_by_year_facets(base_app):
             "arxiv_categories",
             "self_affiliations",
             "self_author_names",
+            "rpp",
         }
         expected_aggregations = {"citations_by_year"}
 
@@ -241,20 +249,22 @@ def test_hep_author_publications_cataloger_facets(base_app):
             "arxiv_categories",
             "self_affiliations",
             "self_author_names",
+            "rpp",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
             **hep_author_count_aggregation(order=2),
-            **hep_doc_type_aggregation(order=3),
-            **hep_author_aggregation(order=4, author=author, title="Collaborators"),
-            **hep_collaboration_aggregation(order=5),
+            **hep_rpp(order=3),
+            **hep_doc_type_aggregation(order=4),
+            **hep_author_aggregation(order=5, author=author, title="Collaborators"),
+            **hep_collaboration_aggregation(order=6),
             **hep_self_author_affiliations_aggregation(
-                order=6, author_recid=author_recid
+                order=7, author_recid=author_recid
             ),
-            **hep_subject_aggregation(order=7),
-            **hep_arxiv_categories_aggregation(order=8),
-            **hep_self_author_names_aggregation(order=9, author_recid=author_recid),
-            **hep_collection_aggregation(order=10),
+            **hep_subject_aggregation(order=8),
+            **hep_arxiv_categories_aggregation(order=9),
+            **hep_self_author_names_aggregation(order=10, author_recid=author_recid),
+            **hep_collection_aggregation(order=11),
         }
 
         filters = base_app.config["CATALOGER_RECORDS_REST_FACETS"][
@@ -283,16 +293,18 @@ def test_records_hep_cataloger_facets(base_app):
             "arxiv_categories",
             "self_affiliations",
             "self_author_names",
+            "rpp",
         }
         expected_aggregations = {
             **hep_earliest_date_aggregation(order=1),
             **hep_author_count_aggregation(order=2),
-            **hep_doc_type_aggregation(order=3),
-            **hep_author_aggregation(order=4),
-            **hep_subject_aggregation(order=5),
-            **hep_arxiv_categories_aggregation(order=6),
-            **hep_collaboration_aggregation(order=7),
-            **hep_collection_aggregation(order=8),
+            **hep_rpp(order=3),
+            **hep_doc_type_aggregation(order=4),
+            **hep_author_aggregation(order=5),
+            **hep_subject_aggregation(order=6),
+            **hep_arxiv_categories_aggregation(order=7),
+            **hep_collaboration_aggregation(order=8),
+            **hep_collection_aggregation(order=9),
         }
         filters = base_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-hep"]()[
             "filters"

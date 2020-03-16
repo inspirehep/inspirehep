@@ -342,6 +342,7 @@ def test_literature_facets(api_client, db, es_clear, create_record):
         "earliest_date",
         "subject",
         "collaboration",
+        "rpp",
     ]
     expected_facet_keys.sort()
     response_data_facet_keys.sort()
@@ -374,6 +375,7 @@ def test_literature_cataloger_facets(
         "subject",
         "collaboration",
         "collection",
+        "rpp",
     ]
     expected_facet_keys.sort()
     response_data_facet_keys.sort()
@@ -404,34 +406,6 @@ def test_literature_facets_author_count_returns_non_empty_bucket(
     buckets = author_count_agg["buckets"]
     assert len(buckets) == 1
     assert buckets[0]["doc_count"] == 1
-
-
-def test_literature_facets_arxiv(api_client, db, es_clear, create_record):
-    record = create_record("lit")
-    response = api_client.get("/literature/facets")
-    response_data = json.loads(response.data)
-    response_status_code = response.status_code
-    response_data_facet_keys = list(response_data["aggregations"].keys())
-    response_data_hits = response_data["hits"]["hits"]
-
-    expected_status_code = 200
-    expected_data_hits_source = {}
-    expected_facet_keys = [
-        "arxiv_categories",
-        "author",
-        "author_count",
-        "doc_type",
-        "earliest_date",
-        "subject",
-        "collaboration",
-    ]
-    expected_facet_keys.sort()
-    response_data_facet_keys.sort()
-
-    assert expected_status_code == response_status_code
-    assert expected_facet_keys == response_data_facet_keys
-    for source in response_data_hits:
-        assert expected_data_hits_source == source["_source"]
 
 
 def test_literature_facets_doc_type_has_bucket_help(
