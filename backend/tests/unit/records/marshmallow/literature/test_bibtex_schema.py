@@ -119,20 +119,6 @@ def test_bibtex_document_type_prefers_article():
     assert expected == result
 
 
-def test_get_year_from_thesis_when_pubinfo_present():
-    record = {
-        "document_type": ["thesis"],
-        "thesis_info": {"degree_type": "master", "date": "1996-09"},
-    }
-    expected_year = 1996
-    schema = BibTexCommonSchema()
-
-    result = schema.dump(record).data
-    result_year = result["year"]
-
-    assert expected_year == result_year
-
-
 def test_get_journal():
     record = {
         "document_type": ["article"],

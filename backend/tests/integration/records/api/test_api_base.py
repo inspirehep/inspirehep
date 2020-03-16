@@ -18,6 +18,7 @@ from invenio_records.models import RecordMetadata
 
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
+from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
 
 def test_base_get_record(base_app, db, es, create_record_factory):
@@ -360,3 +361,67 @@ def test_update_record_with_different_control_number(app, db, create_record):
     record = InspireRecord.create(data1)
     with pytest.raises(ValueError):
         record.update(data2)
+
+
+def test_get_year_from_more_fields(app, db, create_record):
+    data = {
+        "document_type": ["book"],
+        "preprint_date": "2000-01-01",
+        "legacy_creation_date": "2000-03-01",
+    }
+    record = create_record("lit", data)
+    expected_year = 2000
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_year = result["year"]
+
+    assert expected_year == result_year
+
+
+def test_get_year_from_thesis_when_pubinfo_present(app, db, create_record):
+    data = {
+        "document_type": ["thesis"],
+        "thesis_info": {"degree_type": "master", "date": "1996-09"},
+        "preprint_date": "1995-12-01",
+    }
+    record = create_record("lit", data)
+    expected_year = 1996
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_year = result["year"]
+
+    assert expected_year == result_year
+
+
+def test_get_year_from_book_when_pubinfo_present(app, db, create_record):
+    data = {
+        "document_type": ["book"],
+        "imprints": [{"date": "2015-07-27"}],
+        "preprint_date": "2014-01-01",
+    }
+    record = create_record("lit", data)
+    expected_year = 2015
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_year = result["year"]
+
+    assert expected_year == result_year
+
+
+def test_get_year_from_book_chapter_when_pubinfo_present(app, db, create_record):
+    data = {
+        "document_type": ["book chapter"],
+        "imprints": [{"date": "1993-07-27"}],
+        "preprint_date": "1992-01-01",
+    }
+    record = create_record("lit", data)
+    expected_year = 1993
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_year = result["year"]
+
+    assert expected_year == result_year
