@@ -18,6 +18,7 @@ import SuggesterField from '../../common/components/SuggesterField';
 import TextAreaField from '../../common/components/TextAreaField';
 import LabelWithHelp from '../../../common/components/LabelWithHelp';
 import SubmitButton from '../../common/components/SubmitButton';
+import DateField from '../../common/components/DateField';
 
 const OPEN_SECTIONS = [
   'personal_info',
@@ -198,7 +199,8 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.start_date`}
                       placeholder="Start year"
-                      component={TextField}
+                      component={DateField}
+                      picker="year"
                     />
                   </Col>
                   <Col span={11}>
@@ -206,7 +208,8 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.end_date`}
                       placeholder="End year"
-                      component={TextField}
+                      component={DateField}
+                      picker="year"
                     />
                   </Col>
                   <Col span={11}>
@@ -255,7 +258,8 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.start_date`}
                       placeholder="Start year"
-                      component={TextField}
+                      component={DateField}
+                      picker="year"
                     />
                   </Col>
                   <Col span={11}>
@@ -263,7 +267,8 @@ class AuthorForm extends Component {
                       onlyChild
                       name={`${itemName}.end_date`}
                       placeholder="End year"
-                      component={TextField}
+                      component={DateField}
+                      picker="year"
                     />
                   </Col>
                 </Row>
