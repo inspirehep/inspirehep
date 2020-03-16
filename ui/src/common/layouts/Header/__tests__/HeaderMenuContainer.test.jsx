@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Provider } from 'react-redux';
-import { fromJS, List } from 'immutable';
+import { fromJS } from 'immutable';
 
 import { getStoreWithState } from '../../../../fixtures/store';
 import HeaderMenuContainer from '../HeaderMenuContainer';
@@ -12,9 +12,6 @@ describe('HeaderMenuContainer', () => {
     const store = getStoreWithState({
       user: fromJS({
         loggedIn: true,
-        data: {
-          roles: ['superuser'],
-        },
       }),
     });
     const wrapper = mount(
@@ -24,7 +21,6 @@ describe('HeaderMenuContainer', () => {
     );
     expect(wrapper.find(HeaderMenu)).toHaveProp({
       loggedIn: true,
-      userRoles: List(['superuser']),
     });
   });
 });

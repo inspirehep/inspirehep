@@ -2,70 +2,108 @@
 
 exports[`Footer renders 1`] = `
 <Footer
+  bottom={
+    <Row
+      gutter={0}
+      justify="space-between"
+    >
+      <Col>
+        <ExternalLink
+          href="//invenio-software.org"
+        >
+          Powered by Invenio
+        </ExternalLink>
+      </Col>
+      <Col>
+        Made with 
+        <span
+          className="red"
+        >
+          ❤
+        </span>
+         by INSPIRE Team
+      </Col>
+    </Row>
+  }
   className="__Footer__"
->
-  <Row
-    align="bottom"
-    gutter={0}
-    justify="space-between"
-    type="flex"
-  >
-    <Col>
-      <ExternalLink
-        className="footer-link"
-        href="//invenio-software.org/"
-      >
-        Powered by Invenio
-      </ExternalLink>
-    </Col>
-    <Col>
-      <Row
-        gutter={0}
-        justify="start"
-        type="flex"
-      >
-        <Col>
-          <ExternalLink
-            className="footer-link"
-            href="//labs.inspirehep.net/help/knowledge-base/privacy-policy"
-          >
-            Privacy Policy
-          </ExternalLink>
-        </Col>
-        <Col>
-          <ExternalLink
-            className="footer-link"
-            href="//labs.inspirehep.net/help/knowledge-base/terms-of-use"
-          >
-            Terms of Use
-          </ExternalLink>
-        </Col>
-        <Col>
-          <ExternalLink
-            className="footer-link"
-            href="mailto:feedback@inspirehep.net"
-          >
-            Contact
-          </ExternalLink>
-        </Col>
-        <Col>
-          <ExternalLink
-            className="footer-link"
-            href="https://twitter.com/inspirehep"
-          >
-            Twitter
-          </ExternalLink>
-        </Col>
-        <Col>
-          <ExternalLink
-            className="footer-link"
-            href="//blog.inspirehep.net"
-          >
-            Blog
-          </ExternalLink>
-        </Col>
-      </Row>
-    </Col>
-  </Row>
-</Footer>
+  columns={
+    Array [
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": true,
+            "title": "About INSPIRE",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/about-inspire",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Content Policy",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/conent-policy",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Privacy Policy",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/privacy-policy",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Terms of Use",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/terms-of-use",
+          },
+        ],
+        "title": "INSPIRE",
+      },
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": true,
+            "title": "FAQ",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/faq",
+          },
+          Object {
+            "openExternal": true,
+            "title": "INSPIRE Help",
+            "url": "https://labs.inspirehep.net/help",
+          },
+        ],
+        "title": "Help",
+      },
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": true,
+            "title": "Holdingpen",
+            "url": "/holdingpen",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Author list",
+            "url": "/toos/authorlist",
+          },
+        ],
+        "title": "Tools",
+      },
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": true,
+            "title": "Blog",
+            "url": "https://blog.inspirehep.net",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Twitter",
+            "url": "https://twitter.com/inspirehep",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Contact",
+            "url": "mailto:feedback@inspirehep.net",
+          },
+        ],
+        "title": "Community",
+      },
+    ]
+  }
+/>
 `;

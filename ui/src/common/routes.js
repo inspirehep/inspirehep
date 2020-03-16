@@ -14,6 +14,7 @@ export const USER_LOGIN = `${USER}/login`;
 export const USER_SIGNUP = `${USER}/signup`;
 export const USER_LOCAL_LOGIN = `${USER_LOGIN}/local`;
 
+// TODO: rename `holdingpen` to `admin`
 export const HOLDINGPEN = '/holdingpen';
 export const HOLDINGPEN_DASHBOARD = `${HOLDINGPEN}/dashboard`;
 export const HOLDINGPEN_EXCEPTIONS = `${HOLDINGPEN}/exceptions`;

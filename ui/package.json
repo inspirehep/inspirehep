@@ -19,7 +19,8 @@
     "test:size": "bundlesize",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "eject": "react-scripts eject",
-    "lint": "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
+    "lint":
+      "./node_modules/eslint/bin/eslint.js ./src --ext .js,.jsx --config .eslintrc"
   },
   "dependencies": {
     "@ant-design/icons": "^4.0.0",
@@ -48,6 +49,7 @@
     "moment": "^2.24.0",
     "number-abbreviate": "^2.0.0",
     "qs": "^6.5.1",
+    "rc-footer": "^0.6.2",
     "react": "^16.8.3",
     "react-copy-to-clipboard": "^5.0.1",
     "react-dom": "^16.8.3",
@@ -93,10 +95,5 @@
     "source-map-explorer": "^2.3.1",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
 }

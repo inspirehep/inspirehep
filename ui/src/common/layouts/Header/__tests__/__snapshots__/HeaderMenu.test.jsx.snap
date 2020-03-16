@@ -1,12 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HeaderMenu displays Login link instead of My Account if user is not logged in 1`] = `
+exports[`HeaderMenu renders when logged in 1`] = `
 <Menu
   className="__HeaderMenu__"
   mode="horizontal"
   selectable={false}
   theme="dark"
 >
+  <MenuItem
+    key="search-tips"
+  >
+    <ExternalLink
+      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+    >
+      Search Tips
+    </ExternalLink>
+  </MenuItem>
   <SubMenu
     key="submit"
     title="Submit"
@@ -48,39 +57,76 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
       </Link>
     </MenuItem>
   </SubMenu>
-  <SubMenu
-    key="tools"
-    title="Tools"
-  >
-    <MenuItem
-      key="tools.refextract"
-    >
-      <ExternalLink
-        href="//inspirehep.net/textmining/"
-      >
-        Reference extractor
-      </ExternalLink>
-    </MenuItem>
-    <MenuItem
-      key="tools.bibgen"
-    >
-      <ExternalLink
-        href="//inspirehep.net/info/hep/tools/bibliography_generate"
-      >
-        Bibliography generator
-      </ExternalLink>
-    </MenuItem>
-  </SubMenu>
   <MenuItem
-    key="help"
-    title="Help"
+    key="login-logout"
+  >
+    <LinkLikeButton
+      dataTestId="logout"
+      onClick={[MockFunction]}
+    >
+      Logout
+    </LinkLikeButton>
+  </MenuItem>
+</Menu>
+`;
+
+exports[`HeaderMenu renders when not logged in 1`] = `
+<Menu
+  className="__HeaderMenu__"
+  mode="horizontal"
+  selectable={false}
+  theme="dark"
+>
+  <MenuItem
+    key="search-tips"
   >
     <ExternalLink
-      href="//labs.inspirehep.net/help/knowledge-base/"
+      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
     >
-      Help
+      Search Tips
     </ExternalLink>
   </MenuItem>
+  <SubMenu
+    key="submit"
+    title="Submit"
+  >
+    <MenuItem
+      key="submit.author"
+    >
+      <Link
+        to="/submissions/authors"
+      >
+        Author
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.job"
+    >
+      <Link
+        to="/submissions/jobs"
+      >
+        Job
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.literature"
+    >
+      <Link
+        to="/submissions/literature"
+      >
+        Literature
+      </Link>
+    </MenuItem>
+    <MenuItem
+      key="submit.conference"
+    >
+      <Link
+        to="/submissions/conferences"
+      >
+        Conference
+      </Link>
+    </MenuItem>
+  </SubMenu>
   <MenuItem
     key="login-logout"
   >
@@ -89,212 +135,6 @@ exports[`HeaderMenu displays Login link instead of My Account if user is not log
     >
       Login
     </Link>
-  </MenuItem>
-</Menu>
-`;
-
-exports[`HeaderMenu does not show some tool links if logged in user is not superuser nor cataloger 1`] = `
-<Menu
-  className="__HeaderMenu__"
-  mode="horizontal"
-  selectable={false}
-  theme="dark"
->
-  <SubMenu
-    key="submit"
-    title="Submit"
-  >
-    <MenuItem
-      key="submit.author"
-    >
-      <Link
-        to="/submissions/authors"
-      >
-        Author
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.job"
-    >
-      <Link
-        to="/submissions/jobs"
-      >
-        Job
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.literature"
-    >
-      <Link
-        to="/submissions/literature"
-      >
-        Literature
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.conference"
-    >
-      <Link
-        to="/submissions/conferences"
-      >
-        Conference
-      </Link>
-    </MenuItem>
-  </SubMenu>
-  <SubMenu
-    key="tools"
-    title="Tools"
-  >
-    <MenuItem
-      key="tools.refextract"
-    >
-      <ExternalLink
-        href="//inspirehep.net/textmining/"
-      >
-        Reference extractor
-      </ExternalLink>
-    </MenuItem>
-    <MenuItem
-      key="tools.bibgen"
-    >
-      <ExternalLink
-        href="//inspirehep.net/info/hep/tools/bibliography_generate"
-      >
-        Bibliography generator
-      </ExternalLink>
-    </MenuItem>
-  </SubMenu>
-  <MenuItem
-    key="help"
-    title="Help"
-  >
-    <ExternalLink
-      href="//labs.inspirehep.net/help/knowledge-base/"
-    >
-      Help
-    </ExternalLink>
-  </MenuItem>
-  <MenuItem
-    key="login-logout"
-  >
-    <LinkLikeButton
-      dataTestId="logout"
-      onClick={[MockFunction]}
-    >
-      Logout
-    </LinkLikeButton>
-  </MenuItem>
-</Menu>
-`;
-
-exports[`HeaderMenu shows all tool links if logged in user is cataloger 1`] = `
-<Menu
-  className="__HeaderMenu__"
-  mode="horizontal"
-  selectable={false}
-  theme="dark"
->
-  <SubMenu
-    key="submit"
-    title="Submit"
-  >
-    <MenuItem
-      key="submit.author"
-    >
-      <Link
-        to="/submissions/authors"
-      >
-        Author
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.job"
-    >
-      <Link
-        to="/submissions/jobs"
-      >
-        Job
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.literature"
-    >
-      <Link
-        to="/submissions/literature"
-      >
-        Literature
-      </Link>
-    </MenuItem>
-    <MenuItem
-      key="submit.conference"
-    >
-      <Link
-        to="/submissions/conferences"
-      >
-        Conference
-      </Link>
-    </MenuItem>
-  </SubMenu>
-  <SubMenu
-    key="tools"
-    title="Tools"
-  >
-    <MenuItem
-      key="tools.holdingpen"
-    >
-      <ExternalLink
-        href="/holdingpen"
-      >
-        Holdingpen
-      </ExternalLink>
-    </MenuItem>
-    <MenuItem
-      key="tools.authorlist"
-    >
-      <ExternalLink
-        href="/tools/authorlist"
-      >
-        Author list
-      </ExternalLink>
-    </MenuItem>
-    <MenuItem
-      key="tools.refextract"
-    >
-      <ExternalLink
-        href="//inspirehep.net/textmining/"
-      >
-        Reference extractor
-      </ExternalLink>
-    </MenuItem>
-    <MenuItem
-      key="tools.bibgen"
-    >
-      <ExternalLink
-        href="//inspirehep.net/info/hep/tools/bibliography_generate"
-      >
-        Bibliography generator
-      </ExternalLink>
-    </MenuItem>
-  </SubMenu>
-  <MenuItem
-    key="help"
-    title="Help"
-  >
-    <ExternalLink
-      href="//labs.inspirehep.net/help/knowledge-base/"
-    >
-      Help
-    </ExternalLink>
-  </MenuItem>
-  <MenuItem
-    key="login-logout"
-  >
-    <LinkLikeButton
-      dataTestId="logout"
-      onClick={[MockFunction]}
-    >
-      Logout
-    </LinkLikeButton>
   </MenuItem>
 </Menu>
 `;
