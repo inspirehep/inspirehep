@@ -51,7 +51,7 @@ exports[`LoginPage renders page 1`] = `
       </Button>
       <ExternalLink
         className="db pt3"
-        href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid/"
+        href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid"
       >
         What is ORCID?
       </ExternalLink>

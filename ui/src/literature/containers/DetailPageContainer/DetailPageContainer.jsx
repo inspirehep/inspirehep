@@ -195,7 +195,7 @@ function DetailPage({
             </Col>
           </Row>
           <Row>
-            <Col className="mt3 mb3" span={24}>
+            <Col className="mt3" span={24}>
               <Tabs
                 type="card"
                 tabBarStyle={{ marginBottom: 0 }}

@@ -7,9 +7,10 @@ import orcidLogo from '../../../common/orcid.svg';
 import './LoginPage.scss';
 import ExternalLink from '../../../common/components/ExternalLink';
 import DocumentHead from '../../../common/components/DocumentHead';
+import { WHAT_IS_ORCID_URL } from '../../../common/constants';
 
-const META_DESCRIPTION = "Log in to your INSPIRE account. Log in with ORCID"
-const TITLE = "Login"
+const META_DESCRIPTION = 'Log in to your INSPIRE account. Log in with ORCID';
+const TITLE = 'Login';
 
 class LoginPage extends Component {
   render() {
@@ -26,26 +27,22 @@ class LoginPage extends Component {
           <Card align="middle">
             <p className="f4">Please sign in to INSPIRE</p>
             <p className="pb2">
-              To suggest content to INSPIRE, an ORCID is required. Registration is
-            free, quick, and open to all! Sign up at{' '}
+              To suggest content to INSPIRE, an ORCID is required. Registration
+              is free, quick, and open to all! Sign up at{' '}
               <ExternalLink href="https://orcid.org/register!">
                 https://orcid.org/register
-            </ExternalLink>
+              </ExternalLink>
             </p>
             <Button className="login-button h3" onClick={onLoginClick}>
               <img className="logo mr2" src={orcidLogo} alt="ORCID" />
               <strong>Login with ORCID</strong>
             </Button>
-            <ExternalLink
-              href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid/"
-              className="db pt3"
-            >
+            <ExternalLink href={WHAT_IS_ORCID_URL} className="db pt3">
               What is ORCID?
-          </ExternalLink>
+            </ExternalLink>
           </Card>
         </Row>
       </>
-
     );
   }
 }

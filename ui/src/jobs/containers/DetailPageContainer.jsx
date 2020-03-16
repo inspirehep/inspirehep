@@ -57,7 +57,7 @@ function DetailPage({ record }) {
     <>
       <DocumentHead title={position} description={metaDescription} />
       <Row type="flex" justify="center">
-        <Col className="mv3" xs={24} md={21} lg={19} xl={18}>
+        <Col className="mt3" xs={24} md={21} lg={19} xl={18}>
           <ContentBox
             leftActions={
               canEdit && (

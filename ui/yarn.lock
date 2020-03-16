@@ -8377,6 +8377,13 @@ rc-field-form@~1.0.0:
     rc-util "^4.17.0"
     warning "^4.0.3"
 
+rc-footer@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/rc-footer/-/rc-footer-0.6.2.tgz#215c9bada63376da0120b3b5a08ad61ce2b97a12"
+  integrity sha512-r7qKHfcyvl7q4CIuvqizWWjZZZhenINCdeQprRBTZTj8X9lI1qdDwvqVI5bfATV8tnPkqhKoXpa9XellX+DEgw==
+  dependencies:
+    classnames "^2.2.1"
+
 rc-hammerjs@~0.6.0:
   version "0.6.9"
   resolved "https://registry.yarnpkg.com/rc-hammerjs/-/rc-hammerjs-0.6.9.tgz#9a4ddbda1b2ec8f9b9596091a6a989842a243907"

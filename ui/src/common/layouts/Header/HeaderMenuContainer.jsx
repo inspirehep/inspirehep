@@ -5,7 +5,6 @@ import HeaderMenu from './HeaderMenu';
 
 const stateToProps = state => ({
   loggedIn: state.user.get('loggedIn'),
-  userRoles: state.user.getIn(['data', 'roles']),
 });
 
 const dispatchToProps = dispatch => ({
