@@ -66,7 +66,7 @@ class JobUpdateSubmissionPage extends Component {
           </Row>
           <LoadingOrChildren loading={loadingUpdateFormData}>
             <Row>
-              <Col>
+              <Col span={24}>
                 {updateFormDataError ? (
                   <Alert
                     message={updateFormDataError.get('message')}
