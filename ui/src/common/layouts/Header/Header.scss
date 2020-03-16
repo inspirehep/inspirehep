@@ -1,22 +1,35 @@
 .__Header__ {
-  z-index: $zindex-header;
-  position: fixed;
-  width: 100%;
+  .sticky {
+    z-index: $zindex-header;
+    position: fixed;
+    width: 100%;
 
-  // Non sticky/fixed header for mobile
-  @media (max-width: $screen-xs-max) {
-    position: initial;
-    z-index: initial;
-  }
-  .header {
-    padding: $header-padding;
-    min-height: $header-min-height;
-    height: initial;
+    // Non sticky/fixed header for mobile
     @media (max-width: $screen-xs-max) {
-      line-height: 56px;
+      position: initial;
+      z-index: initial;
+    }
+
+    .header {
+      padding: $header-padding;
+
+      @media (max-width: $screen-xs-max) {
+        line-height: 56px;
+        height: initial; // unset height for mobile
+      }
+    }
+
+    .intervention-banner {
+      text-align: center;
     }
   }
-  .intervention-banner {
-    text-align: center;
+
+  .non-sticky {
+    background-color: $layout-header-background;
+
+    // remove the margin top for mobile
+    @media (max-width: $screen-xs-max) {
+      margin-top: 0 !important;
+    }
   }
 }

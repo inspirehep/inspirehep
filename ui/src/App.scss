@@ -20,7 +20,6 @@
 
   .content {
     display: flex;
-    margin-top: $header-min-height;
 
     // :fist-child to avoid setting padding for `UserFeedback`
     & > *:first-child:not(.__Jobs__) {
@@ -184,7 +183,7 @@ body {
 }
 
 .ant-modal-wrap {
-  padding-top: $header-min-height;
+  padding-top: $layout-header-height;
 }
 
 .ant-form-item-label {

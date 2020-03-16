@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Layout } from 'antd';
@@ -46,7 +46,6 @@ const Submissions$ = Loadable({
 });
 
 function App({ userRoles, dispatch }) {
-  const [headerHeight, setHeaderHeight] = useState(0);
 
   useEffect(
     () => {
@@ -64,8 +63,8 @@ function App({ userRoles, dispatch }) {
 
   return (
     <Layout className="__App__">
-      <Header onHeightChange={setHeaderHeight} />
-      <Layout.Content className="content" style={{ marginTop: headerHeight }}>
+      <Header />
+      <Layout.Content className="content">
         <SafeSwitch id="main">
           <Route exact path={HOME} component={Home} />
           <Route path={USER} component={User} />
