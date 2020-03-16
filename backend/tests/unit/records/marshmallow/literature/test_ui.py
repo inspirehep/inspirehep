@@ -76,8 +76,16 @@ def test_internal_fulltext_hidden(current_app_mock):
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")
-def test_internal_not_fulltext(current_app_mock):
+def test_non_fulltext_documents_appear_in_fulltext_links_field(current_app_mock):
     current_app_mock.config = {"FEATURE_FLAG_ENABLE_FILES": True}
+
+    expected_data = [
+        {
+            "description": "fulltext",
+            "value": "http://localhost:8080/api/files/url_to_file",
+        }
+    ]
+
     entry_data = {
         "documents": [
             {"fulltext": False, "url": "http://localhost:8080/api/files/url_to_file"}
@@ -86,7 +94,8 @@ def test_internal_not_fulltext(current_app_mock):
     }
     serializer = LiteratureDetailSchema()
     serialized = serializer.dump(entry_data).data
-    assert "fulltext_links" not in serialized
+    assert "fulltext_links" in serialized
+    assert serialized["fulltext_links"] == expected_data
 
 
 @mock.patch("inspirehep.records.marshmallow.literature.ui.current_app")

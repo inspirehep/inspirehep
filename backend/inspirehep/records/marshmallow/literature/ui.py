@@ -133,7 +133,7 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             return missing
         description = data.get("description") or "fulltext"
         url = data.get("url")
-        if url and not data.get("hidden", False) and data.get("fulltext"):
+        if url and not data.get("hidden", False):
             return {"description": description, "value": url}
         return missing
 
