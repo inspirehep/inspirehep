@@ -2,6 +2,7 @@
 
 exports[`OrcidProfileLink renders with all props set 1`] = `
 <ExternalLink
+  as="a"
   className="test"
   href="//orcid.org/0000-0001-8058-0014"
 >
@@ -14,6 +15,7 @@ exports[`OrcidProfileLink renders with all props set 1`] = `
 
 exports[`OrcidProfileLink renders with only orcid 1`] = `
 <ExternalLink
+  as="a"
   href="//orcid.org/0000-0001-8058-0014"
 >
   0000-0001-8058-0014

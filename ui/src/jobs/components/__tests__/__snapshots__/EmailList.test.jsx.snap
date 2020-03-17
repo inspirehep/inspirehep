@@ -9,6 +9,7 @@ exports[`EmailList renders with emails 1`] = `
       key="johndoe@yahoo.com"
     >
       <ExternalLink
+        as="a"
         href="mailto:johndoe@yahoo.com"
       >
         johndoe@yahoo.com
@@ -19,6 +20,7 @@ exports[`EmailList renders with emails 1`] = `
       key="johndoe2@yahoo.com"
     >
       <ExternalLink
+        as="a"
         href="mailto:johndoe2@yahoo.com"
       >
         johndoe2@yahoo.com

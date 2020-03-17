@@ -9,6 +9,7 @@ exports[`Footer renders 1`] = `
     >
       <Col>
         <ExternalLink
+          as="a"
           href="//invenio-software.org"
         >
           Powered by Invenio

@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { Button } from 'antd';
 
 import ExternalLink from '../ExternalLink';
 
@@ -15,6 +16,15 @@ describe('ExternalLink', () => {
     const wrapper = shallow(
       <ExternalLink href="//example.com" className="test">
         example
+      </ExternalLink>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders as custom component', () => {
+    const wrapper = shallow(
+      <ExternalLink href="//example.com" as={Button}>
+        button example
       </ExternalLink>
     );
     expect(wrapper).toMatchSnapshot();

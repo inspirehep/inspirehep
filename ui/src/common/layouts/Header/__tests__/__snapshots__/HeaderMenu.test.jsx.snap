@@ -11,6 +11,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
     key="search-tips"
   >
     <ExternalLink
+      as="a"
       href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
     >
       Search Tips
@@ -81,6 +82,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
     key="search-tips"
   >
     <ExternalLink
+      as="a"
       href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
     >
       Search Tips

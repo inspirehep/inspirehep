@@ -12,6 +12,7 @@ exports[`AuthorLinkedinAction renders with linkedin 1`] = `
     transitionName="zoom-big-fast"
   >
     <ExternalLink
+      as="a"
       href="//linkedin.com/in/harunurhan"
     >
       <ForwardRef(LinkedinOutlined) />

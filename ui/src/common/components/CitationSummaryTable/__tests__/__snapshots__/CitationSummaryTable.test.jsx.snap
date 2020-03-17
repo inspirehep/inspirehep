@@ -27,6 +27,7 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
                     Published papers are believed to have undergone rigorous peer review.
                      
                     <ExternalLink
+                      as="a"
                       href="http://inspirehep.net/info/faq/general#published"
                     >
                       Learn More

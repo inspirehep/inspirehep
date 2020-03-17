@@ -12,6 +12,7 @@ exports[`AuthorTwitterAction renders with twitter 1`] = `
     transitionName="zoom-big-fast"
   >
     <ExternalLink
+      as="a"
       href="//twitter.com/harunurhan"
     >
       <ForwardRef(TwitterOutlined) />

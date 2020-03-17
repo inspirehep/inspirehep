@@ -1,5 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`ExternalLink renders as custom component 1`] = `
+<Button
+  block={false}
+  ghost={false}
+  href="//example.com"
+  htmlType="button"
+  loading={false}
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  button example
+</Button>
+`;
+
 exports[`ExternalLink renders with only href and children 1`] = `
 <a
   href="//example.com"

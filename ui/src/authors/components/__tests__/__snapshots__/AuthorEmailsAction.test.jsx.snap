@@ -29,6 +29,7 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
       key="dude@email.cern"
     >
       <ExternalLink
+        as="a"
         href="mailto:dude@email.cern"
       >
         dude@email.cern
@@ -38,6 +39,7 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
       key="other-dude@email.cern"
     >
       <ExternalLink
+        as="a"
         href="mailto:other-dude@email.cern"
       >
         other-dude@email.cern
@@ -50,6 +52,7 @@ exports[`AuthorEmailsAction renders multiple current emails in a dropdown 1`] = 
 exports[`AuthorEmailsAction renders single email 1`] = `
 <ListItemAction>
   <ExternalLink
+    as="a"
     href="mailto:dude@email.cern"
   >
     <Tooltip

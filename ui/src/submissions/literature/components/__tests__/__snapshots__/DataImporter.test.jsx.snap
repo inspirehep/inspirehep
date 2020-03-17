@@ -135,6 +135,7 @@ exports[`DataImporter renders with error with message and recid 1`] = `
               . 
                
               <ExternalLink
+                as="a"
                 href="http://inspirehep.net/record/12345"
               >
                 See the record

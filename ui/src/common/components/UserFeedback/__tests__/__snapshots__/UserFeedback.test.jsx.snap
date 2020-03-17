@@ -47,6 +47,7 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
         For further feedback, please
          
         <ExternalLink
+          as="a"
           href="https://forms.gle/CMgi3UsbpMuXxAfr6"
         >
           take our survey
@@ -187,6 +188,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
               Alternatively, you could send us your feedback using the
                
               <ExternalLink
+                as="a"
                 href="https://forms.gle/CMgi3UsbpMuXxAfr6"
               >
                 feedback form
@@ -195,6 +197,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
               or by email at
                
               <ExternalLink
+                as="a"
                 href="mailto:feedback@inspirehep.net"
               >
                 feedback@inspirehep.net
