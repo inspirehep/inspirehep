@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RouterLinkButton renders with className 1`] = `
+<Link
+  className="ant-btn ant-btn-primary test"
+  to="/test"
+>
+  Test
+</Link>
+`;
+
+exports[`RouterLinkButton renders without className 1`] = `
+<Link
+  className="ant-btn ant-btn-primary"
+  to="/test"
+>
+  Test
+</Link>
+`;

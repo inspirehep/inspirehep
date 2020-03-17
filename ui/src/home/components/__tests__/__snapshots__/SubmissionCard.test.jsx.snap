@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubmissionCard renders with all props 1`] = `
+<Card
+  actions={
+    Array [
+      <RouterLinkButton
+        to="/submissions/literature"
+      >
+        Submit
+      </RouterLinkButton>,
+    ]
+  }
+  title="Literature"
+>
+  You can suggest us papers!
+</Card>
+`;

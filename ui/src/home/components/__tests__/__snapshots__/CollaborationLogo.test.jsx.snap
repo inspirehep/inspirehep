@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CollaborationLogo render with all props 1`] = `
+<ExternalLink
+  as="a"
+  href="https://home.cern"
+>
+  <img
+    alt="CERN"
+    src="/collab-logo-CERN.png"
+  />
+</ExternalLink>
+`;

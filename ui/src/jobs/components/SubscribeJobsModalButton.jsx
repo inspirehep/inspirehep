@@ -92,7 +92,7 @@ export default class SubscribeJobsModalButton extends Component {
     const { isModalVisible, isSubscriptionSubmitted } = this.state;
     return (
       <>
-        <LinkLikeButton icon="mail" onClick={this.onClick}>
+        <LinkLikeButton onClick={this.onClick}>
           <MailOutlined />
           <ResponsiveView
             min="sm"

@@ -17,17 +17,29 @@ exports[`Home renders home page 1`] = `
       span={24}
     >
       <HomePageSection
-        description="INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics"
+        description="INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics."
         title="Discover High-Energy Physics content"
       >
         <Connect(SearchBox) />
       </HomePageSection>
       <HomePageSection
         className="bg-white"
-        description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for search papers"
+        description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for search papers."
         title="How to Search"
       >
         <HowToSearch />
+      </HomePageSection>
+      <HomePageSection
+        description="INSPIRE systematically adds content from various sources. Anyone can also submit new content by logging in with their ORCID."
+        title="How to Submit"
+      >
+        <HowToSubmit />
+      </HomePageSection>
+      <HomePageSection
+        className="bg-white"
+        title="INSPIRECollaboration"
+      >
+        <CollaborationLogos />
       </HomePageSection>
     </Col>
   </Row>

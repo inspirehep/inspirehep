@@ -8,7 +8,7 @@ function HomePageSection({ title, description, children, className }) {
     <Row className={classNames('pv4 ph2', className)} justify="center">
       <Col>
         <h2 className="tc f2 sm-f4">{title}</h2>
-        <p className="tc">{description}</p>
+        {description && <p className="tc">{description}</p>}
         <div className="mt4">{children}</div>
       </Col>
     </Row>
@@ -17,7 +17,7 @@ function HomePageSection({ title, description, children, className }) {
 
 HomePageSection.propTypes = {
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
 };

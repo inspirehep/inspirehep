@@ -3,7 +3,6 @@
 exports[`SubscribeJobsModalButton renders confirmation if subscription is submitted 1`] = `
 <Fragment>
   <LinkLikeButton
-    icon="mail"
     onClick={[Function]}
   >
     <ForwardRef(MailOutlined) />
@@ -39,7 +38,6 @@ exports[`SubscribeJobsModalButton renders confirmation if subscription is submit
 exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
 <Fragment>
   <LinkLikeButton
-    icon="mail"
     onClick={[Function]}
   >
     <ForwardRef(MailOutlined) />
@@ -86,7 +84,6 @@ exports[`SubscribeJobsModalButton renders with error alert if hasError 1`] = `
 exports[`SubscribeJobsModalButton renders with initial state 1`] = `
 <Fragment>
   <LinkLikeButton
-    icon="mail"
     onClick={[Function]}
   >
     <ForwardRef(MailOutlined) />
