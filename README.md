@@ -4,6 +4,8 @@
 
 ### Python
 
+Python `3.6`, `3.7`
+
 #### Debian / Ubuntu
 
 ```bash
