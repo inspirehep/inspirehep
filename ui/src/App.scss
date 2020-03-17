@@ -28,12 +28,16 @@
       }
     }
 
-    @media (max-width: $screen-lg-max) {
-      padding: $header-padding;
-    }
-
     & > *:first-child:not(.__Home__) {
       margin-bottom: 1rem;
+
+      @media (max-width: $screen-lg-max) {
+        padding: $header-padding;
+      }
+    }
+
+    & > *:first-child.__Home__ {
+      padding: 0;
     }
   }
 

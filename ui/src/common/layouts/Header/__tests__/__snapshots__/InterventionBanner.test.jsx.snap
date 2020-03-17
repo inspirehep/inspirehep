@@ -34,6 +34,7 @@ exports[`InterventionBanner renders with the content of REACT_APP_INTERVENTION_B
           .
            
           <ExternalLink
+            as="a"
             href="https://inspirehep.net"
           >
             More info

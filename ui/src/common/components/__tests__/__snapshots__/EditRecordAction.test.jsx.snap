@@ -8,6 +8,7 @@ exports[`EditRecordAction renders edit button with pidType conferences and pidVa
     extractEventArgsToForward={null}
   >
     <ExternalLink
+      as="a"
       href="/editor/record/conferences/1"
     >
       <IconText
@@ -27,6 +28,7 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 1`]
     extractEventArgsToForward={null}
   >
     <ExternalLink
+      as="a"
       href="/submissions/jobs/1"
     >
       <IconText
@@ -46,6 +48,7 @@ exports[`EditRecordAction renders edit button with pidType jobs and pidValue 2`]
     extractEventArgsToForward={null}
   >
     <ExternalLink
+      as="a"
       href="/submissions/authors/1"
     >
       <IconText
@@ -65,6 +68,7 @@ exports[`EditRecordAction renders edit button with pidType literature and pidVal
     extractEventArgsToForward={null}
   >
     <ExternalLink
+      as="a"
       href="/workflows/edit_article/1"
     >
       <IconText

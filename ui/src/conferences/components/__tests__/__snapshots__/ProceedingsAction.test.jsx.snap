@@ -22,6 +22,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
       key="12345"
     >
       <ExternalLink
+        as="a"
         href="/literature/12345"
       >
         <span>
@@ -34,6 +35,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
       key="54321"
     >
       <ExternalLink
+        as="a"
         href="/literature/54321"
       >
         <JournalInfo
@@ -52,6 +54,7 @@ exports[`ProceedingsAction renders proceedings 1`] = `
 exports[`ProceedingsAction renders single item 1`] = `
 <ListItemAction>
   <ExternalLink
+    as="a"
     href="/literature/12345"
   >
     <IconText

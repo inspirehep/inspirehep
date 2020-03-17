@@ -27,6 +27,7 @@ exports[`LoginPage renders page 1`] = `
         To suggest content to INSPIRE, an ORCID is required. Registration is free, quick, and open to all! Sign up at
          
         <ExternalLink
+          as="a"
           href="https://orcid.org/register!"
         >
           https://orcid.org/register
@@ -50,6 +51,7 @@ exports[`LoginPage renders page 1`] = `
         </strong>
       </Button>
       <ExternalLink
+        as="a"
         className="db pt3"
         href="https://labs.inspirehep.net/help/knowledge-base/what-is-orcid"
       >

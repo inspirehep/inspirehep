@@ -3,6 +3,7 @@
 exports[`AuthorWebsitesAction renders only a url 1`] = `
 <ListItemAction>
   <ExternalLink
+    as="a"
     href="www.descriptionless.com/url"
   >
     <Tooltip
@@ -23,6 +24,7 @@ exports[`AuthorWebsitesAction renders only a url 1`] = `
 exports[`AuthorWebsitesAction renders only blog 1`] = `
 <ListItemAction>
   <ExternalLink
+    as="a"
     href="https://author.wordpress.com"
   >
     <Tooltip
@@ -69,6 +71,7 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
       key="https://author.wordpress.com"
     >
       <ExternalLink
+        as="a"
         href="https://author.wordpress.com"
       >
         Blog
@@ -78,6 +81,7 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
       key="https://www.whatever.com/author"
     >
       <ExternalLink
+        as="a"
         href="https://www.whatever.com/author"
       >
         whatever.com/author
@@ -87,6 +91,7 @@ exports[`AuthorWebsitesAction renders with a blog and urls in a dropdown 1`] = `
       key="www.descriptionless.com/url"
     >
       <ExternalLink
+        as="a"
         href="www.descriptionless.com/url"
       >
         descriptionless.com/url

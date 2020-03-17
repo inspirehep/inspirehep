@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FreetextExamples renders 1`] = `
+<List
+  bordered={true}
+  className="bg-white"
+  dataSource={
+    Array [
+      "n=2 pedestrians tachikawa",
+      "superconformal field theories Maldacena 1997",
+      "1207.7214",
+    ]
+  }
+  loading={false}
+  pagination={false}
+  renderItem={[Function]}
+  size="small"
+  split={true}
+/>
+`;

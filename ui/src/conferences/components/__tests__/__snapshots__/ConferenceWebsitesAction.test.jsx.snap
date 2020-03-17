@@ -3,6 +3,7 @@
 exports[`ConferenceWebsitesAction renders single url 1`] = `
 <ListItemAction>
   <ExternalLink
+    as="a"
     href="https://author.wordpress.com"
   >
     <IconText
@@ -35,6 +36,7 @@ exports[`ConferenceWebsitesAction renders urls with and without description 1`] 
       key="https://www.whatever.com/conference"
     >
       <ExternalLink
+        as="a"
         href="https://www.whatever.com/conference"
       >
         Whatever
@@ -44,6 +46,7 @@ exports[`ConferenceWebsitesAction renders urls with and without description 1`] 
       key="www.descriptionless.com/url"
     >
       <ExternalLink
+        as="a"
         href="www.descriptionless.com/url"
       >
         descriptionless.com/url

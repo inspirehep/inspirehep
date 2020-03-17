@@ -7,6 +7,7 @@ exports[`ArxivEprintLink renders with arXiv id 1`] = `
   extractEventArgsToForward={null}
 >
   <ExternalLink
+    as="a"
     href="//arxiv.org/abs/123.123456"
   >
     123.123456

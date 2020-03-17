@@ -1,275 +1,81 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HowToSearch renders the components 1`] = `
-<Fragment>
-  <Modal
-    confirmLoading={false}
-    destroyOnClose={true}
-    footer={false}
-    maskTransitionName="fade"
-    okType="primary"
-    onCancel={[Function]}
-    title="Search Tips"
-    transitionName="zoom"
-    visible={false}
-    width={1000}
+exports[`HowToSearch renders freetext examples after freetext radio option is selected 1`] = `
+<div>
+  <div
+    className="mb3 tc"
   >
-    <p>
-      INSPIRE beta supports the most popular SPIRES syntax operators and free text searches.
-    </p>
-    <Tabs
-      hideAdd={false}
-      tabPosition="top"
-      type="card"
+    <RadioGroup
+      buttonStyle="outline"
+      onChange={[Function]}
+      value="freetext"
     >
-      <TabPane
-        key="1"
-        placeholder={null}
-        tab="SPIRES style search"
+      <RadioButton
+        value="spires"
       >
-        <div
-          className="pa3"
-        >
-          <Table
-            columns={
-              Array [
-                Object {
-                  "dataIndex": "searchBy",
-                  "title": "Search by",
-                },
-                Object {
-                  "dataIndex": "useOperators",
-                  "title": "Use operators",
-                },
-                Object {
-                  "dataIndex": "example",
-                  "render": [Function],
-                  "title": "Example",
-                },
-              ]
-            }
-            dataSource={
-              Array [
-                Object {
-                  "example": "a witten",
-                  "key": "1",
-                  "searchBy": "Author name",
-                  "useOperators": "a, au, author, name",
-                },
-                Object {
-                  "example": "a J.M.Maldacena.1",
-                  "key": "2",
-                  "searchBy": "Author BAI",
-                  "useOperators": "a, au, author, name",
-                },
-                Object {
-                  "example": "t A First Course in String Theory",
-                  "key": "3",
-                  "searchBy": "Title",
-                  "useOperators": "t, title, ti",
-                },
-                Object {
-                  "example": "eprint 1605.03630",
-                  "key": "4",
-                  "searchBy": "Eprint",
-                  "useOperators": "eprint",
-                },
-                Object {
-                  "example": "ea ellis, j",
-                  "key": "5",
-                  "searchBy": "Exact author name",
-                  "useOperators": "ea, exactauthor, exact-author",
-                },
-                Object {
-                  "example": "tc t",
-                  "key": "6",
-                  "searchBy": <React.Fragment>
-                    Document type
-                     
-                    <ExternalLink
-                      href="http://inspirehep.net/info/hep/search-tips#tc"
-                    >
-                      (type-code)
-                    </ExternalLink>
-                  </React.Fragment>,
-                  "useOperators": "tc, type-code, type, ty",
-                },
-                Object {
-                  "example": "d 2015+",
-                  "key": "8",
-                  "searchBy": "Date",
-                  "useOperators": "d, date, year",
-                },
-                Object {
-                  "example": "topcite 1000+",
-                  "key": "9",
-                  "searchBy": "Citation number",
-                  "useOperators": "topcite, topcit, cited",
-                },
-                Object {
-                  "example": "cn babar",
-                  "key": "8",
-                  "searchBy": "Collaboration",
-                  "useOperators": "cn, collaboration",
-                },
-                Object {
-                  "example": "j Nucl.Phys.,B164,171",
-                  "key": "10",
-                  "searchBy": "Journal",
-                  "useOperators": "j, journal, coden, published_in",
-                },
-                Object {
-                  "example": "ac 1->10",
-                  "key": "11",
-                  "searchBy": "Number of authors",
-                  "useOperators": "ac, authorcount",
-                },
-                Object {
-                  "example": "r ATLAS-CONF-2011-084",
-                  "key": "12",
-                  "searchBy": "Report number",
-                  "useOperators": "r, reportnumber, report-num, report, rept, rn",
-                },
-                Object {
-                  "example": "refersto:recid:193978",
-                  "key": "13",
-                  "searchBy": "Citations of a record",
-                  "useOperators": "refersto:recid",
-                },
-                Object {
-                  "example": "texkey Lutz:2003jw",
-                  "key": "14",
-                  "searchBy": "Texkey",
-                  "useOperators": "texkey",
-                },
-                Object {
-                  "example": "doi 10.1088/1475-7516/2013/05/009",
-                  "key": "15",
-                  "searchBy": "DOI",
-                  "useOperators": "doi",
-                },
-                Object {
-                  "example": "recid:193978",
-                  "key": "16",
-                  "searchBy": "Record id",
-                  "useOperators": "recid, control_number",
-                },
-              ]
-            }
-            pagination={false}
-            rowKey="key"
-            size="small"
-          />
-        </div>
-      </TabPane>
-      <TabPane
-        key="2"
-        placeholder={null}
-        tab="Free text search (under development)"
+        spires
+      </RadioButton>
+      <RadioButton
+        value="freetext"
       >
-        <div
-          className="pa3"
-        >
-          <p>
-            Users can also type free text searches using any combination of author names, title, dates etc. (feature under development).
-          </p>
-          <ul>
-            <li>
-              <LinkWithEncodedLiteratureQuery
-                query="n=2 pedestrians tachikawa"
-              />
-            </li>
-            <li>
-              <LinkWithEncodedLiteratureQuery
-                query="superconformal field theories Maldacena 1997"
-              />
-            </li>
-            <li>
-              <LinkWithEncodedLiteratureQuery
-                query="1207.7214"
-              />
-            </li>
-          </ul>
-        </div>
-      </TabPane>
-    </Tabs>
-  </Modal>
-  <Card
-    extra={
-      <Tooltip
-        arrowPointAtCenter={false}
-        autoAdjustOverflow={true}
-        mouseEnterDelay={0.1}
-        mouseLeaveDelay={0.1}
-        placement="top"
-        title="Search Tips"
-        transitionName="zoom-big-fast"
-      >
-        <Button
-          block={false}
-          ghost={false}
-          htmlType="button"
-          loading={false}
-          onClick={[Function]}
-          shape="circle"
-        >
-          <ForwardRef(InfoCircleTwoTone) />
-        </Button>
-      </Tooltip>
-    }
-    title="How to search"
+        free text
+      </RadioButton>
+    </RadioGroup>
+  </div>
+  <div>
+    <FreetextExamples />
+  </div>
+  <div
+    className="tc"
   >
-    <h4>
-      SPIRES style search examples:
-    </h4>
-    <ul>
-      <li>
-        Author name: 
-        <LinkWithEncodedLiteratureQuery
-          query="a witten"
-        />
-      </li>
-      <li>
-        Title:
-         
-        <LinkWithEncodedLiteratureQuery
-          query="t A First Course in String Theory"
-        />
-      </li>
-      <li>
-        Exact author name:
-         
-        <LinkWithEncodedLiteratureQuery
-          query="ea ellis, j"
-        />
-      </li>
-      <li>
-        Date: 
-        <LinkWithEncodedLiteratureQuery
-          query="d 2015+"
-        />
-      </li>
-    </ul>
-    <h4>
-      Free text search examples:
-    </h4>
-    <ul>
-      <li>
-        <LinkWithEncodedLiteratureQuery
-          query="n=2 pedestrians tachikawa"
-        />
-      </li>
-      <li>
-        <LinkWithEncodedLiteratureQuery
-          query="superconformal field theories Maldacena 1997"
-        />
-      </li>
-      <li>
-        <LinkWithEncodedLiteratureQuery
-          query="1207.7214"
-        />
-      </li>
-    </ul>
-  </Card>
-</Fragment>
+    <ExternalLink
+      as={[Function]}
+      className="mt3"
+      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+      type="primary"
+    >
+      Learn more
+    </ExternalLink>
+  </div>
+</div>
+`;
+
+exports[`HowToSearch renders with spires examples by default 1`] = `
+<div>
+  <div
+    className="mb3 tc"
+  >
+    <RadioGroup
+      buttonStyle="outline"
+      onChange={[Function]}
+      value="spires"
+    >
+      <RadioButton
+        value="spires"
+      >
+        spires
+      </RadioButton>
+      <RadioButton
+        value="freetext"
+      >
+        free text
+      </RadioButton>
+    </RadioGroup>
+  </div>
+  <div>
+    <SpiresExamples />
+  </div>
+  <div
+    className="tc"
+  >
+    <ExternalLink
+      as={[Function]}
+      className="mt3"
+      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+      type="primary"
+    >
+      Learn more
+    </ExternalLink>
+  </div>
+</div>
 `;

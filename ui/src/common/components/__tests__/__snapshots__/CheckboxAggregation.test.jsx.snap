@@ -75,6 +75,7 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
               Published papers are believed to have undergone rigorous peer review.
                
               <ExternalLink
+                as="a"
                 href="https://inspirehep.net/info/faq/general#published"
               >
                 Learn More
@@ -139,6 +140,7 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
             <React.Fragment>
                
               <ExternalLink
+                as="a"
                 href="https://inspirehep.net/info/faq/general#published"
               >
                 Learn More

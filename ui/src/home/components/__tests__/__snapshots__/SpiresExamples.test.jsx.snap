@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SpiresExamples renders 1`] = `
+<Table
+  bordered={true}
+  columns={
+    Array [
+      Object {
+        "dataIndex": "searchBy",
+        "title": "Search by",
+      },
+      Object {
+        "dataIndex": "useOperators",
+        "title": "Use operators",
+      },
+      Object {
+        "dataIndex": "example",
+        "render": [Function],
+        "title": "Example",
+      },
+    ]
+  }
+  dataSource={
+    Array [
+      Object {
+        "example": "a witten",
+        "key": "a",
+        "searchBy": "Author name",
+        "useOperators": "a, au, author, name",
+      },
+      Object {
+        "example": "a J.M.Maldacena.1",
+        "key": "a(BAI)",
+        "searchBy": "Author BAI",
+        "useOperators": "a, au, author, name",
+      },
+      Object {
+        "example": "cn babar",
+        "key": "cn",
+        "searchBy": "Collaboration",
+        "useOperators": "cn, collaboration",
+      },
+      Object {
+        "example": "ac 1->10",
+        "key": "ac",
+        "searchBy": "Number of authors",
+        "useOperators": "ac, authorcount",
+      },
+    ]
+  }
+  pagination={false}
+  rowKey="key"
+  size="small"
+/>
+`;

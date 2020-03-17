@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePageSection renders with all props 1`] = `
+<Row
+  className="pv4 ph2 white-background"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <h2
+      className="tc f2 sm-f4"
+    >
+      Section
+    </h2>
+    <p
+      className="tc"
+    >
+      This is the description of this section
+    </p>
+    <div
+      className="mt4"
+    >
+      <span>
+        Content
+      </span>
+    </div>
+  </Col>
+</Row>
+`;
+
+exports[`HomePageSection renders with only required props 1`] = `
+<Row
+  className="pv4 ph2"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <h2
+      className="tc f2 sm-f4"
+    >
+      Section
+    </h2>
+    <p
+      className="tc"
+    >
+      This is the description of this section
+    </p>
+    <div
+      className="mt4"
+    >
+      <span>
+        Content
+      </span>
+    </div>
+  </Col>
+</Row>
+`;

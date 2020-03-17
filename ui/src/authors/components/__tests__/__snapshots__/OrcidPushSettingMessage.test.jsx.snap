@@ -27,6 +27,7 @@ exports[`OrcidPushSettingMessage renders when disabled 1`] = `
         </p>
         <p>
           <ExternalLink
+            as="a"
             href="//inspirehep.net/info/HepNames/connect_orcid#hide1"
           >
             Instructions on cleaning your profile
@@ -41,6 +42,7 @@ exports[`OrcidPushSettingMessage renders when disabled 1`] = `
           Once your profile is clean, you need to confirm that the
            
           <ExternalLink
+            as="a"
             href="//inspirehep.net/author/claim/Author.E.1"
           >
             listed works
@@ -69,6 +71,7 @@ exports[`OrcidPushSettingMessage renders when disabled 1`] = `
     If you have questions or need assistance during any steps of this process, don’t hesitate to send a message to
      
     <ExternalLink
+      as="a"
       href="mailto:authors@inspirehep.net"
     >
       authors@inspirehep.net
@@ -89,6 +92,7 @@ exports[`OrcidPushSettingMessage renders when enabled 1`] = `
     Your
      
     <ExternalLink
+      as="a"
       href="//inspirehep.net/author/claim/Author.E.1"
     >
       claimed
