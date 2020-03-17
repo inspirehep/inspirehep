@@ -22,8 +22,8 @@ import styleVariables from '../../../styleVariables';
 import { shallowEqual, abbreviateNumber } from '../../utils';
 import { browser } from '../../browser';
 
-const BAR_WIDTH = 0.5;
-const GRAPH_MARGIN = { left: 40, right: 20, top: 10, bottom: 40 };
+const BAR_WIDTH = 0.75;
+const GRAPH_MARGIN = { left: 42, right: 10, top: 30, bottom: 40 };
 const GRAPH_HEIGHT = 250;
 const LABEL_ANCHOR_AT_Y = browser.isSafari() ? 'text-top' : 'text-after-edge';
 
@@ -53,7 +53,7 @@ const typeToColors = {
   [PUBLISHED_BAR_TYPE]: { color: ORANGE, hoveredColor: HOVERED_ORANGE },
 };
 
-export const LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH = 0.016;
+export const LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH = 0.025;
 
 class CitationSummaryGraph extends Component {
   constructor() {
@@ -138,6 +138,12 @@ class CitationSummaryGraph extends Component {
     return GRAY;
   }
 
+  static getCountLabel(docCount) {
+    if (docCount === 0) return null;
+    if (docCount < 10000) return docCount.toString();
+    return abbreviateNumber(docCount).toString();
+  }
+
   updateGraphWidth() {
     const { graphWidth } = this.state;
     const currentWidth = this.graphRef.current.getBoundingClientRect().width;
@@ -149,7 +155,6 @@ class CitationSummaryGraph extends Component {
   toSeriesData(bucket, type) {
     const { graphWidth } = this.state;
     const docCount = bucket.doc_count;
-    const countLabel = docCount !== 0 ? docCount.toString() : null;
     const xOffset =
       type === CITEABLE_BAR_TYPE
         ? -LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH * graphWidth
@@ -157,7 +162,7 @@ class CitationSummaryGraph extends Component {
     return {
       x: bucket.key,
       y: docCount,
-      label: countLabel,
+      label: CitationSummaryGraph.getCountLabel(docCount),
       color: this.getBarColor({ xValue: bucket.key, type }),
       xOffset,
     };
@@ -201,7 +206,7 @@ class CitationSummaryGraph extends Component {
                     height={GRAPH_HEIGHT}
                     margin={GRAPH_MARGIN}
                     xType="ordinal"
-                    yDomain={[0, yDomainMax * 1.4]}
+                    yDomain={[0, yDomainMax * 1.15]}
                   >
                     <XAxis
                       className="x-axis"
@@ -209,10 +214,11 @@ class CitationSummaryGraph extends Component {
                     />
                     <ChartLabel
                       text="Citations"
-                      xPercent={0.92}
-                      yPercent={0.73}
+                      xPercent={0.91}
+                      yPercent={0.82}
                     />
-                    <YAxis title="Papers" tickFormat={abbreviateNumber} />
+                    <YAxis tickFormat={abbreviateNumber} />
+                    <ChartLabel text="Papers" yPercent={-0.08} />
                     <VerticalBarSeries
                       colorType="literal"
                       data={citeableSeriesData}

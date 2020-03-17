@@ -437,4 +437,38 @@ describe('CitationSummaryGraph', () => {
     const expectedOffsetCiteable = -LABEL_OFFSET_RATIO_TO_GRAPH_WIDTH * 1000;
     expect(dataCiteable.xOffset).toEqual(expectedOffsetCiteable);
   });
+
+  it('abbreviates the numbers when they are bigger than 9999', () => {
+    const wrapper = shallow(
+      <CitationSummaryGraph
+        publishedData={mockPublishedData}
+        citeableData={mockCiteableData}
+        loadingCitationSummary={false}
+        error={null}
+        onSelectBarChange={jest.fn()}
+      />
+    );
+    const bucketLower = {
+      key: '0--0',
+      from: 0,
+      to: 1,
+      doc_count: 9999,
+    };
+    const bucketHigher = {
+      key: '0--0',
+      from: 0,
+      to: 1,
+      doc_count: 12769,
+    };
+    const dataLower = wrapper
+      .instance()
+      .toSeriesData(bucketLower, PUBLISHED_BAR_TYPE);
+    const dataHigher = wrapper
+      .instance()
+      .toSeriesData(bucketHigher, PUBLISHED_BAR_TYPE);
+    const expectedLowerLabel = '9999';
+    const expectedHigherLabel = '13K';
+    expect(dataLower.label).toEqual(expectedLowerLabel);
+    expect(dataHigher.label).toEqual(expectedHigherLabel);
+  });
 });

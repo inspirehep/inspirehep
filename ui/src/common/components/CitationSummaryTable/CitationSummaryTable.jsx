@@ -93,8 +93,14 @@ class CitationSummaryTable extends Component {
                       help={H_INDEX_HELP_MESSAGE}
                     />
                   </th>
-                  <td>{hIndex.get('all')}</td>
-                  <td>{hIndex.get('published')}</td>
+                  <td>
+                    <FormattedNumber>{hIndex.get('all', 0)}</FormattedNumber>
+                  </td>
+                  <td>
+                    <FormattedNumber>
+                      {hIndex.get('published', 0)}
+                    </FormattedNumber>
+                  </td>
                 </tr>
                 <tr>
                   <th>Citations/paper (avg)</th>

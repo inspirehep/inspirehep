@@ -5,31 +5,45 @@
   }
   .x-axis .rv-xy-plot__axis__tick__text {
     @media (max-width: $screen-sm-max) {
-      transform: translate(0px, 15px) rotate(-45deg) !important;
+      transform: translate(0px, 20px) rotate(-45deg) !important;
     }
   }
   .rv-discrete-color-legend-item {
     color: $secondary-color;
+    font-size: 0.88rem;
   }
 
   .rv-xy-plot__axis__title {
     text {
       fill: $secondary-color;
+      font-size: 0.88rem;
     }
   }
 
   .rv-xy-plot__series--label-text {
     color: $text-color;
-    font-size: 0.68rem;
+    font-size: 0.81rem;
+    font-weight: bold;
   }
 
   .legend {
     position: absolute;
     left: 60px;
-    top: 10px;
+    top: 0px;
+  }
+
+  .rv-discrete-color-legend-item__title {
+    display: inline !important;
+    margin-left: 5px !important;
   }
 
   .rv-xy-plot__axis__title {
+    @media (max-width: $screen-sm-max) {
+      display: none;
+    }
+  }
+
+  .rv-xy-plot__series--label-text {
     @media (max-width: $screen-sm-max) {
       display: none;
     }
