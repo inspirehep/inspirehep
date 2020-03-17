@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HowToSubmit renders 1`] = `
+<Row
+  gutter={
+    Array [
+      Object {
+        "md": 32,
+        "xl": 64,
+        "xs": 0,
+      },
+      Object {
+        "lg": 0,
+        "xs": 16,
+      },
+    ]
+  }
+  justify="center"
+>
+  <Col
+    lg={6}
+    md={12}
+    xs={24}
+  >
+    <SubmissionCard
+      formLink="/submissions/literature"
+      title="Literature"
+    >
+      <p>
+        Suggest missing aticles.
+      </p>
+      <p>
+        All submissions will be visible upon approval.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    lg={6}
+    md={12}
+    xs={24}
+  >
+    <SubmissionCard
+      formLink="/submissions/authors"
+      title="Author"
+    >
+      <p>
+        Create the profile of a new author.
+      </p>
+      <p>
+        All submissions will be visible upon apporval.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    lg={6}
+    md={12}
+    xs={24}
+  >
+    <SubmissionCard
+      formLink="/submissions/jobs"
+      title="Job"
+    >
+      <p>
+        Submit a new job.
+      </p>
+      <p>
+        All submissions will be visible upon apporval.
+      </p>
+    </SubmissionCard>
+  </Col>
+  <Col
+    lg={6}
+    md={12}
+    xs={24}
+  >
+    <SubmissionCard
+      formLink="/submissions/conferences"
+      title="Conferece"
+    >
+      <p>
+        Submit a new conference.
+      </p>
+      <p>
+        All submissions will be visible immediately.
+      </p>
+    </SubmissionCard>
+  </Col>
+</Row>
+`;

@@ -6,9 +6,11 @@ import HowToSearch from './components/HowToSearch';
 import './index.scss';
 import DocumentHead from '../common/components/DocumentHead';
 import HomePageSection from './components/HomePageSection';
+import HowToSubmit from './components/HowToSubmit';
+import CollaborationLogos from './components/CollaborationLogos';
 
 const INSPIRE_DESCRIPTION =
-  'INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics';
+  'INSPIRE is a trusted community hub that helps researchers to share and find accurate scholarly information in high energy physics.';
 const META_DESCRIPTION =
   'INSPIRE is the leading information platform for High Energy Physics (HEP) literature which provides users with high quality, curated content covering the entire corpus of HEP literature, authors, data, jobs, conferences, institutions and experiments.';
 const TITLE = 'Home';
@@ -28,9 +30,18 @@ function Home() {
           <HomePageSection
             className="bg-white"
             title="How to Search"
-            description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for search papers"
+            description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for search papers."
           >
             <HowToSearch />
+          </HomePageSection>
+          <HomePageSection
+            title="How to Submit"
+            description="INSPIRE systematically adds content from various sources. Anyone can also submit new content by logging in with their ORCID."
+          >
+            <HowToSubmit />
+          </HomePageSection>
+          <HomePageSection className="bg-white" title="INSPIRECollaboration">
+            <CollaborationLogos />
           </HomePageSection>
         </Col>
       </Row>
