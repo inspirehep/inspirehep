@@ -242,6 +242,7 @@ class TestOrcidPushTask(object):
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
         ):
             orcid_push(self.orcid, self.recid, self.oauth_token)
+
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
     def test_push_new_work_invalid_data_orcid(self):
