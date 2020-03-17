@@ -1608,3 +1608,166 @@ def test_literature_updates_refs_to_known_and_unknown_conference_when_ref_alread
     lit = create_record("lit", data=lit_data)
 
     assert expected_publication_info == lit["publication_info"]
+
+
+def test_do_not_add_files_which_are_already_on_s3(
+    base_app, db, es, create_record, enable_files, s3
+):
+    data = {
+        "documents": [
+            {
+                "filename": "1905.03764.pdf",
+                "key": "some_document_key_on_s3",
+                "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771224/content.pdf%3B2",
+                "source": "arxiv",
+                "url": "https://s3.cern.ch/inspire-qa-files-s/some_document_key_on_s3",
+            }
+        ],
+        "figures": [
+            {
+                "caption": "some caption",
+                "filename": "Global_noH3_EW_couplings_flat.png",
+                "key": "some_figure_key_on_s3",
+                "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771220/content.png%3B2",
+                "source": "arxiv",
+                "url": "https://s3.cern.ch/inspire-qa-files-s/some_figure_key_on_s3",
+            }
+        ],
+    }
+    with mock.patch.object(s3, "replace_file_metadata") as mocked_s3_replace_metadata:
+        record = create_record("lit", data=data)
+        mocked_s3_replace_metadata.assert_not_called()
+    expected_documents = [
+        {
+            "filename": "1905.03764.pdf",
+            "key": "some_document_key_on_s3",
+            "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771224/content.pdf%3B2",
+            "source": "arxiv",
+            "url": "https://s3.cern.ch/inspire-qa-files-s/some_document_key_on_s3",
+        }
+    ]
+    expected_figures = [
+        {
+            "caption": "some caption",
+            "filename": "Global_noH3_EW_couplings_flat.png",
+            "key": "some_figure_key_on_s3",
+            "original_url": "http://inspire-afs-web.cern.ch/var/data/files/g188/3771220/content.png%3B2",
+            "source": "arxiv",
+            "url": "https://s3.cern.ch/inspire-qa-files-s/some_figure_key_on_s3",
+        }
+    ]
+    assert record["figures"] == expected_figures
+    assert record["documents"] == expected_documents
+
+
+def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_figure_key = "cb071d80d1a54f21c8867a038f6a6c66"
+    expected_document_key = "fdc3bdefb79cec8eb8211d2499e04704"
+    create_s3_bucket(expected_figure_key)
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "url": "http://original-url.com/2",
+                "filename": "fermilab.pdf",
+            }
+        ],
+        "figures": [{"url": "http://original-url.com/3", "key": "channel.png"}],
+    }
+
+    figure_content = b"figure"
+    document_content = b"document"
+    with requests_mock.Mocker() as mocker:
+        mocker.get(
+            "http://original-url.com/2", status_code=200, content=document_content
+        )
+        mocker.get("http://original-url.com/3", status_code=200, content=figure_content)
+        mocker.get(
+            s3.get_file_url(expected_document_key),
+            status_code=200,
+            content=document_content,
+        )
+        mocker.get(
+            s3.get_file_url(expected_figure_key),
+            status_code=200,
+            content=figure_content,
+        )
+
+        record = create_record("lit", data=data)
+
+        record_data = dict(record)
+        files_count = 2
+        with mock.patch.dict(base_app.config, {"UPDATE_S3_FILES_METADATA": True}):
+            with mock.patch.object(
+                s3, "replace_file_metadata"
+            ) as mocked_s3_replace_metadata:
+                record.update(record_data)
+                assert mocked_s3_replace_metadata.call_count == files_count
+
+
+def test_adding_files_with_s3_url_but_wrong_key(
+    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+):
+    expected_figure_key = "cb071d80d1a54f21c8867a038f6a6c66"
+    expected_document_key = "fdc3bdefb79cec8eb8211d2499e04704"
+    create_s3_bucket(expected_figure_key)
+    create_s3_bucket(expected_document_key)
+    data = {
+        "documents": [
+            {
+                "url": s3.get_file_url(expected_document_key),
+                "source": "arxiv",
+                "key": "arXiv:nucl-th_9310031.pdf",
+                "original_url": "http://original-url.com/2",
+            }
+        ],
+        "figures": [
+            {
+                "url": s3.get_file_url(expected_figure_key),
+                "original_url": "http://original-url.com/3",
+                "key": "channel.png",
+            }
+        ],
+    }
+
+    expected_documents = [
+        {
+            "url": s3.get_file_url(expected_document_key),
+            "source": "arxiv",
+            "filename": "arXiv:nucl-th_9310031.pdf",
+            "original_url": "http://original-url.com/2",
+            "key": expected_document_key,
+        }
+    ]
+
+    expected_figures = [
+        {
+            "url": s3.get_file_url(expected_figure_key),
+            "original_url": "http://original-url.com/3",
+            "filename": "channel.png",
+            "key": expected_figure_key,
+        }
+    ]
+
+    figure_content = b"figure"
+    document_content = b"document"
+    with requests_mock.Mocker() as mocker:
+        mocker.get(
+            s3.get_file_url(expected_document_key),
+            status_code=200,
+            content=document_content,
+        )
+        mocker.get(
+            s3.get_file_url(expected_figure_key),
+            status_code=200,
+            content=figure_content,
+        )
+
+        record = create_record("lit", data=data)
+
+        assert record["figures"] == expected_figures
+        assert record["documents"] == expected_documents
