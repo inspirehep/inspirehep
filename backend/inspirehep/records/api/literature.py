@@ -317,10 +317,25 @@ class LiteratureRecord(
     def add_file(
         self, url, original_url=None, key=None, filename=None, *args, **kwargs
     ):
+        if current_s3_instance.is_s3_url(url) and not current_app.config.get(
+            "UPDATE_S3_FILES_METADATA", False
+        ):
+            result = {}
+            if key not in url:
+                filename = filename or key
+                key = url.split("/")[-1]
+                result.update({"key": key, "filename": filename})
+            LOGGER.info(
+                "File already on S3 - Skipping",
+                url=url,
+                key=key,
+                recid=self.get("control_number"),
+                uuid=self.id,
+            )
+            return result
         file_data = download_file_from_url(url)
         new_key = hash_data(file_data)
         mimetype = magic.from_buffer(file_data, mime=True)
-        size = len(file_data)
         file_data = BytesIO(file_data)
         filename = filename or key
         acl = current_app.config["S3_FILE_ACL"]
@@ -344,8 +359,6 @@ class LiteratureRecord(
             "key": new_key,
             "filename": filename,
             "url": current_s3_instance.get_file_url(new_key),
-            "mimetype": mimetype,
-            "size": size,
         }
         if (
             url.startswith("http")
