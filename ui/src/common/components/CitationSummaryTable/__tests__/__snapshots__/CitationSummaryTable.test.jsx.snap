@@ -84,8 +84,16 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
                 label="h-index"
               />
             </th>
-            <td />
-            <td />
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
           </tr>
           <tr>
             <th>

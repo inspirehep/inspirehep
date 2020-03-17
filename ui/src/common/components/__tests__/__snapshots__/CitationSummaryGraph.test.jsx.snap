@@ -32,16 +32,16 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
               margin={
                 Object {
                   "bottom": 40,
-                  "left": 40,
-                  "right": 20,
-                  "top": 10,
+                  "left": 42,
+                  "right": 10,
+                  "top": 30,
                 }
               }
               xType="ordinal"
               yDomain={
                 Array [
                   0,
-                  5.6,
+                  4.6,
                 ]
               }
             >
@@ -57,18 +57,25 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
                 includeMargin={true}
                 style={Object {}}
                 text="Citations"
-                xPercent={0.92}
-                yPercent={0.73}
+                xPercent={0.91}
+                yPercent={0.82}
               />
               <YAxis
                 attr="y"
                 attrAxis="x"
                 orientation="left"
                 tickFormat={[Function]}
-                title="Papers"
+              />
+              <ChartLabel
+                className=""
+                includeMargin={true}
+                style={Object {}}
+                text="Papers"
+                xPercent={0}
+                yPercent={-0.08}
               />
               <VerticalBarSeries
-                barWidth={0.5}
+                barWidth={0.75}
                 className="pointer"
                 colorType="literal"
                 data={
@@ -167,7 +174,7 @@ exports[`CitationSummaryGraph renders graph with selectedBar 1`] = `
                 style={Object {}}
               />
               <VerticalBarSeries
-                barWidth={0.5}
+                barWidth={0.75}
                 className="pointer"
                 colorType="literal"
                 data={
@@ -331,16 +338,16 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
               margin={
                 Object {
                   "bottom": 40,
-                  "left": 40,
-                  "right": 20,
-                  "top": 10,
+                  "left": 42,
+                  "right": 10,
+                  "top": 30,
                 }
               }
               xType="ordinal"
               yDomain={
                 Array [
                   0,
-                  5.6,
+                  4.6,
                 ]
               }
             >
@@ -356,18 +363,25 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
                 includeMargin={true}
                 style={Object {}}
                 text="Citations"
-                xPercent={0.92}
-                yPercent={0.73}
+                xPercent={0.91}
+                yPercent={0.82}
               />
               <YAxis
                 attr="y"
                 attrAxis="x"
                 orientation="left"
                 tickFormat={[Function]}
-                title="Papers"
+              />
+              <ChartLabel
+                className=""
+                includeMargin={true}
+                style={Object {}}
+                text="Papers"
+                xPercent={0}
+                yPercent={-0.08}
               />
               <VerticalBarSeries
-                barWidth={0.5}
+                barWidth={0.75}
                 className="pointer"
                 colorType="literal"
                 data={
@@ -466,7 +480,7 @@ exports[`CitationSummaryGraph renders graph without SelectedBar 1`] = `
                 style={Object {}}
               />
               <VerticalBarSeries
-                barWidth={0.5}
+                barWidth={0.75}
                 className="pointer"
                 colorType="literal"
                 data={
@@ -630,16 +644,16 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
               margin={
                 Object {
                   "bottom": 40,
-                  "left": 40,
-                  "right": 20,
-                  "top": 10,
+                  "left": 42,
+                  "right": 10,
+                  "top": 30,
                 }
               }
               xType="ordinal"
               yDomain={
                 Array [
                   0,
-                  5.6,
+                  4.6,
                 ]
               }
             >
@@ -655,18 +669,25 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
                 includeMargin={true}
                 style={Object {}}
                 text="Citations"
-                xPercent={0.92}
-                yPercent={0.73}
+                xPercent={0.91}
+                yPercent={0.82}
               />
               <YAxis
                 attr="y"
                 attrAxis="x"
                 orientation="left"
                 tickFormat={[Function]}
-                title="Papers"
+              />
+              <ChartLabel
+                className=""
+                includeMargin={true}
+                style={Object {}}
+                text="Papers"
+                xPercent={0}
+                yPercent={-0.08}
               />
               <VerticalBarSeries
-                barWidth={0.5}
+                barWidth={0.75}
                 className="pointer"
                 colorType="literal"
                 data={
@@ -765,7 +786,7 @@ exports[`CitationSummaryGraph renders with hovered bar 1`] = `
                 style={Object {}}
               />
               <VerticalBarSeries
-                barWidth={0.5}
+                barWidth={0.75}
                 className="pointer"
                 colorType="literal"
                 data={
