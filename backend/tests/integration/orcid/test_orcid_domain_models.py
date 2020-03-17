@@ -33,6 +33,7 @@ from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_oauthclient import TestRemoteToken
 from helpers.factories.db.invenio_records import TestRecordMetadata
 from helpers.utils import override_config
+from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
 from lxml import etree
 
@@ -250,16 +251,18 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
             pusher.push()
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_push_new_work_already_existing_putcode_exception(self):
-        pusher = domain_models.OrcidPusher(
-            self.orcid, self.conflicting_recid, self.oauth_token
-        )
+    def test_push_new_work_already_existing_duplicated_external_identifier_exception(
+        self,
+    ):
         # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
+        self.recid = self.conflicting_recid
         with override_config(
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
-        ), pytest.raises(exceptions.PutcodeNotFoundInOrcidException):
+        ), pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
+            pusher = domain_models.OrcidPusher(
+                self.orcid, self.conflicting_recid, self.oauth_token
+            )
             pusher.push()
-        self.recid = self.conflicting_recid
         assert self.cache.has_work_content_changed(self.conflicting_inspire_record)
 
 
@@ -273,22 +276,45 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         self.recid = factory.record_metadata.json["control_number"]
         self.inspire_record = factory.inspire_record
 
-        self.putcode = self.add_work("test_orcid_domain_models_TestOrcidPusher.xml")
-        self.cache.write_work_putcode(self.putcode)
-
         # Disable logging.
         logging.getLogger("inspirehep.orcid.domain_models").disabled = logging.CRITICAL
 
     def test_push_updated_work_happy_flow(self):
-        pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+        self.putcode = self.add_work("test_orcid_domain_models_TestOrcidPusher.xml")
+        self.cache.write_work_putcode(self.putcode)
 
+        pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
         result_putcode = pusher.push()
-        assert result_putcode == int(self.putcode)
+
+        assert int(result_putcode) == self.putcode
+        assert not self.cache.has_work_content_changed(self.inspire_record)
+
+    def test_push_updated_work_invalid_data_putcode(self):
+        self.cache.write_work_putcode("00000")
+        # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
+        with override_config(
+            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
+        ):
+            pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+            result_putcode = pusher.push()
+        # don't care to check the value, it's pain to keep it with
+        # repeatability of the tests
+        assert result_putcode
+        assert not self.cache.has_work_content_changed(self.inspire_record)
+
+    def test_push_updated_work_no_cache(self):
+        self.cache.delete_work_putcode()
+        # ORCID_APP_CREDENTIALS is required because ORCID adds it as source_client_id_path.
+        with override_config(
+            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
+        ):
+            pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+            result_putcode = pusher.push()
+            self.cache.write_work_putcode(result_putcode)
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
     def test_push_updated_work_invalid_data_orcid(self):
         self.orcid = "0000-0002-0000-XXXX"
-        self.cache.write_work_putcode(self.putcode)
         access_token = "tokeninvalid"
         TestRemoteToken.create_for_orcid(self.orcid, access_token=access_token)
 
@@ -304,15 +330,6 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
             pusher.push()
         assert not push_access_tokens.get_access_tokens([self.orcid])
         assert push_access_tokens.is_access_token_invalid(access_token)
-
-    def test_push_updated_work_invalid_data_putcode(self):
-        self.cache.write_work_putcode("00000")
-        self.orcid = self.ORCID_2
-        pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
-        result_putcode = pusher.push()
-        # don't care to check the value, it's pain to keep it with
-        # repeatability of the tests
-        assert result_putcode
 
 
 @pytest.mark.usefixtures("base_app", "db", "es")
@@ -342,7 +359,7 @@ class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
         assert not pusher.push()
 
     def test_delete_work_cache_putcode_nonexisting(self):
-        self.recid = "000000"
+        self.recid = "-11111"
         TestRecordMetadata.create_from_kwargs(
             json={"control_number": self.recid, "deleted": True}
         )
@@ -455,20 +472,23 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
             TimeLimitExceeded
         ):
             apply_celery_task_with_retry_mock.side_effect = TimeLimitExceeded
-            pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+            pusher = domain_models.OrcidPusher(
+                self.orcid, self.clashing_recid, self.oauth_token
+            )
             pusher.push()
 
     def test_duplicated_external_identifier_pusher_exception(self):
         self.factory_clashing.record_metadata.json["titles"] = [
             {"source": "submitter", "title": "title1"}
         ]
-
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
         ), pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
-            pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+            pusher = domain_models.OrcidPusher(
+                self.orcid, self.clashing_recid, self.oauth_token
+            )
             pusher.push()
 
 
@@ -491,7 +511,7 @@ class TestOrcidPusherRecordDBVersion(TestOrcidPusherBase):
         assert result_putcode
 
     def test_record_non_existing(self):
-        self.recid = "doesnotexists"
+        self.recid = "-98765"
         with pytest.raises(exceptions.RecordNotFoundException):
             domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
 

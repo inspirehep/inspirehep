@@ -2,10 +2,10 @@ interactions:
 - request:
     body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
       http://www.orcid.org/ns/work\"><work:title><common:title>Some Results Arising\
-      \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n\
-      \    author = \"Rossoni, A.\",\n    doi = \"10.1111/test.orcid.push\",\n   \
+      \ from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{999,\n\
+      \    author = \"Rossoni, A.\",\n    doi = \"10.9999/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
-      \ push}\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>45</common:external-id-value><common:external-id-url>http://inspirehep.net/record/45</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.1111/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.1111/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/45</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
+      \ push}\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>999</common:external-id-value><common:external-id-url>http://inspirehep.net/record/999</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.9999/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.9999/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/999</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
       \ A.</work:credit-name><work:contributor-attributes><work:contributor-sequence>first</work:contributor-sequence><work:contributor-role>author</work:contributor-role></work:contributor-attributes></work:contributor></work:contributors></work:work>"
     headers:
       Accept:
@@ -15,7 +15,7 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '1584'
+      - '1588'
       Content-Type:
       - application/orcid+xml
     method: POST
@@ -24,7 +24,7 @@ interactions:
     body:
       string: '{"response-code":409,"developer-message":"409 Conflict: You have already
         added this activity (matched by external identifiers), please see element
-        with put-code 71114492. If you are trying to edit the item, please use PUT
+        with put-code 71156708. If you are trying to edit the item, please use PUT
         instead of POST.","user-message":"There was an error when updating the record.
         Please try again. If the error persists, please contact INSPIRE-HEP for assistance.","error-code":9021,"more-info":"https://members.orcid.org/api/resources/troubleshooting"}'
     headers:
@@ -39,7 +39,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:23 GMT
+      - Fri, 27 Mar 2020 11:22:13 GMT
       Expires:
       - '0'
       Pragma:
@@ -68,19 +68,19 @@ interactions:
     uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
   response:
     body:
-      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1585235178756\n  },\n\
-        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1585235178756\n\
+      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1585308127085\n  },\n\
+        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1585308127085\n\
         \    },\n    \"external-ids\" : {\n      \"external-id\" : [ {\n        \"\
-        external-id-type\" : \"other-id\",\n        \"external-id-value\" : \"45\"\
-        ,\n        \"external-id-url\" : {\n          \"value\" : \"http://inspirehep.net/record/45\"\
+        external-id-type\" : \"other-id\",\n        \"external-id-value\" : \"999\"\
+        ,\n        \"external-id-url\" : {\n          \"value\" : \"http://inspirehep.net/record/999\"\
         \n        },\n        \"external-id-relationship\" : \"SELF\"\n      }, {\n\
         \        \"external-id-type\" : \"doi\",\n        \"external-id-value\" :\
-        \ \"10.1111/test.orcid.push\",\n        \"external-id-url\" : {\n        \
-        \  \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\n        },\n\
+        \ \"10.9999/test.orcid.push\",\n        \"external-id-url\" : {\n        \
+        \  \"value\" : \"http://dx.doi.org/10.9999/test.orcid.push\"\n        },\n\
         \        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n    \"\
-        work-summary\" : [ {\n      \"put-code\" : 71114492,\n      \"created-date\"\
-        \ : {\n        \"value\" : 1585235178756\n      },\n      \"last-modified-date\"\
-        \ : {\n        \"value\" : 1585235178756\n      },\n      \"source\" : {\n\
+        work-summary\" : [ {\n      \"put-code\" : 71156708,\n      \"created-date\"\
+        \ : {\n        \"value\" : 1585308125350\n      },\n      \"last-modified-date\"\
+        \ : {\n        \"value\" : 1585308127085\n      },\n      \"source\" : {\n\
         \        \"source-orcid\" : null,\n        \"source-client-id\" : {\n    \
         \      \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \
         \    \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\
@@ -90,14 +90,14 @@ interactions:
         \       },\n        \"subtitle\" : null,\n        \"translated-title\" : null\n\
         \      },\n      \"external-ids\" : {\n        \"external-id\" : [ {\n   \
         \       \"external-id-type\" : \"other-id\",\n          \"external-id-value\"\
-        \ : \"45\",\n          \"external-id-url\" : {\n            \"value\" : \"\
-        http://inspirehep.net/record/45\"\n          },\n          \"external-id-relationship\"\
+        \ : \"999\",\n          \"external-id-url\" : {\n            \"value\" : \"\
+        http://inspirehep.net/record/999\"\n          },\n          \"external-id-relationship\"\
         \ : \"SELF\"\n        }, {\n          \"external-id-type\" : \"doi\",\n  \
-        \        \"external-id-value\" : \"10.1111/test.orcid.push\",\n          \"\
-        external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\
+        \        \"external-id-value\" : \"10.9999/test.orcid.push\",\n          \"\
+        external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.9999/test.orcid.push\"\
         \n          },\n          \"external-id-relationship\" : \"SELF\"\n      \
         \  } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\"\
-        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/71114492\"\
+        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/71156708\"\
         ,\n      \"display-index\" : \"0\"\n    } ]\n  } ],\n  \"path\" : \"/0000-0003-1134-6827/works\"\
         \n}"
     headers:
@@ -110,15 +110,13 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:23 GMT
+      - Fri, 27 Mar 2020 11:22:14 GMT
       Expires:
       - '0'
       Pragma:
       - no-cache
       Server:
       - nginx/1.16.1
-      Transfer-Encoding:
-      - chunked
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
@@ -126,17 +124,17 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       content-length:
-      - '2175'
+      - '2179'
     status:
       code: 200
       message: OK
 - request:
     body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\" put-code=\"71114492\"><work:title><common:title>Some\
-      \ Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{45,\n\
-      \    author = \"Rossoni, A.\",\n    doi = \"10.1111/test.orcid.push\",\n   \
+      http://www.orcid.org/ns/work\" put-code=\"71156708\"><work:title><common:title>Some\
+      \ Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{999,\n\
+      \    author = \"Rossoni, A.\",\n    doi = \"10.9999/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
-      \ push}\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>45</common:external-id-value><common:external-id-url>http://inspirehep.net/record/45</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.1111/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.1111/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/45</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
+      \ push}\",\n    year = \"2017\"\n}\n</work:citation-value></work:citation><work:type>journal-article</work:type><common:external-ids><common:external-id><common:external-id-type>other-id</common:external-id-type><common:external-id-value>999</common:external-id-value><common:external-id-url>http://inspirehep.net/record/999</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id><common:external-id><common:external-id-type>doi</common:external-id-type><common:external-id-value>10.9999/test.orcid.push</common:external-id-value><common:external-id-url>http://dx.doi.org/10.9999/test.orcid.push</common:external-id-url><common:external-id-relationship>self</common:external-id-relationship></common:external-id></common:external-ids><work:url>http://inspirehep.net/record/999</work:url><work:contributors><work:contributor><work:credit-name>Rossoni,\
       \ A.</work:credit-name><work:contributor-attributes><work:contributor-sequence>first</work:contributor-sequence><work:contributor-role>author</work:contributor-role></work:contributor-attributes></work:contributor></work:contributors></work:work>"
     headers:
       Accept:
@@ -146,36 +144,36 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '1604'
+      - '1608'
       Content-Type:
       - application/orcid+xml
     method: PUT
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/71114492
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/71156708
   response:
     body:
-      string: "{\n  \"created-date\" : {\n    \"value\" : 1585235178756\n  },\n  \"\
-        last-modified-date\" : {\n    \"value\" : 1585235178756\n  },\n  \"source\"\
+      string: "{\n  \"created-date\" : {\n    \"value\" : 1585308125350\n  },\n  \"\
+        last-modified-date\" : {\n    \"value\" : 1585308127085\n  },\n  \"source\"\
         \ : {\n    \"source-orcid\" : null,\n    \"source-client-id\" : {\n      \"\
         uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \"path\" :\
         \ \"0000-0001-8607-8906\",\n      \"host\" : \"orcid.org\"\n    },\n    \"\
         source-name\" : {\n      \"value\" : \"INSPIRE-HEP\"\n    }\n  },\n  \"put-code\"\
-        \ : 71114492,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
+        \ : 71156708,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
         \    \"value\" : \"Some Results Arising from the Study of ORCID push\"\n \
         \   },\n    \"subtitle\" : null,\n    \"translated-title\" : null\n  },\n\
         \  \"journal-title\" : null,\n  \"short-description\" : null,\n  \"citation\"\
-        \ : {\n    \"citation-type\" : \"BIBTEX\",\n    \"citation-value\" : \"@article{45,\\\
-        n    author = \\\"Rossoni, A.\\\",\\n    doi = \\\"10.1111/test.orcid.push\\\
+        \ : {\n    \"citation-type\" : \"BIBTEX\",\n    \"citation-value\" : \"@article{999,\\\
+        n    author = \\\"Rossoni, A.\\\",\\n    doi = \\\"10.9999/test.orcid.push\\\
         \",\\n    month = \\\"5\\\",\\n    title = \\\"{Some Results Arising from\
         \ the Study of ORCID push}\\\",\\n    year = \\\"2017\\\"\\n}\\n\"\n  },\n\
         \  \"type\" : \"JOURNAL_ARTICLE\",\n  \"publication-date\" : null,\n  \"external-ids\"\
         \ : {\n    \"external-id\" : [ {\n      \"external-id-type\" : \"other-id\"\
-        ,\n      \"external-id-value\" : \"45\",\n      \"external-id-url\" : {\n\
-        \        \"value\" : \"http://inspirehep.net/record/45\"\n      },\n     \
-        \ \"external-id-relationship\" : \"SELF\"\n    }, {\n      \"external-id-type\"\
-        \ : \"doi\",\n      \"external-id-value\" : \"10.1111/test.orcid.push\",\n\
-        \      \"external-id-url\" : {\n        \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\
+        ,\n      \"external-id-value\" : \"999\",\n      \"external-id-url\" : {\n\
+        \        \"value\" : \"http://inspirehep.net/record/999\"\n      },\n    \
+        \  \"external-id-relationship\" : \"SELF\"\n    }, {\n      \"external-id-type\"\
+        \ : \"doi\",\n      \"external-id-value\" : \"10.9999/test.orcid.push\",\n\
+        \      \"external-id-url\" : {\n        \"value\" : \"http://dx.doi.org/10.9999/test.orcid.push\"\
         \n      },\n      \"external-id-relationship\" : \"SELF\"\n    } ]\n  },\n\
-        \  \"url\" : {\n    \"value\" : \"http://inspirehep.net/record/45\"\n  },\n\
+        \  \"url\" : {\n    \"value\" : \"http://inspirehep.net/record/999\"\n  },\n\
         \  \"contributors\" : {\n    \"contributor\" : [ {\n      \"contributor-orcid\"\
         \ : null,\n      \"credit-name\" : {\n        \"value\" : \"Rossoni, A.\"\n\
         \      },\n      \"contributor-email\" : null,\n      \"contributor-attributes\"\
@@ -192,7 +190,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:06:24 GMT
+      - Fri, 27 Mar 2020 11:22:15 GMT
       Expires:
       - '0'
       Pragma:
@@ -208,8 +206,8 @@ interactions:
       X-XSS-Protection:
       - 1; mode=block
       content-length:
-      - '1933'
+      - '1937'
     status:
       code: 200
       message: OK
-version: 1
+

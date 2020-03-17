@@ -34,11 +34,11 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Mon, 16 Mar 2020 17:18:10 GMT
+      - Thu, 26 Mar 2020 15:19:12 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/70665049
+      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/71115035
       Pragma:
       - no-cache
       Server:
@@ -54,7 +54,7 @@ interactions:
       message: Created
 - request:
     body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\" put-code=\"70665049\"><work:title><common:title>Some\
+      http://www.orcid.org/ns/work\" put-code=\"71115035\"><work:title><common:title>Some\
       \ Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{999,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.1111/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
@@ -72,12 +72,12 @@ interactions:
       Content-Type:
       - application/orcid+xml
     method: PUT
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/70665049
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/71115035
   response:
     body:
       string: '{"response-code":409,"developer-message":"409 Conflict: You have already
         added this activity (matched by external identifiers), please see element
-        with put-code 70665047. If you are trying to edit the item, please use PUT
+        with put-code 71115034. If you are trying to edit the item, please use PUT
         instead of POST.","user-message":"There was an error when updating the record.
         Please try again. If the error persists, please contact INSPIRE-HEP for assistance.","error-code":9021,"more-info":"https://members.orcid.org/api/resources/troubleshooting"}'
     headers:
@@ -92,7 +92,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Mon, 16 Mar 2020 17:18:11 GMT
+      - Thu, 26 Mar 2020 15:19:13 GMT
       Expires:
       - '0'
       Pragma:
@@ -121,8 +121,8 @@ interactions:
     uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
   response:
     body:
-      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1584379090631\n  },\n\
-        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1584379089093\n\
+      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1585235952944\n  },\n\
+        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1585235951990\n\
         \    },\n    \"external-ids\" : {\n      \"external-id\" : [ {\n        \"\
         external-id-type\" : \"other-id\",\n        \"external-id-value\" : \"666\"\
         ,\n        \"external-id-url\" : {\n          \"value\" : \"http://inspirehep.net/record/666\"\
@@ -131,9 +131,9 @@ interactions:
         \ \"10.1111/test.orcid.push\",\n        \"external-id-url\" : {\n        \
         \  \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\n        },\n\
         \        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n    \"\
-        work-summary\" : [ {\n      \"put-code\" : 70665047,\n      \"created-date\"\
-        \ : {\n        \"value\" : 1584379089093\n      },\n      \"last-modified-date\"\
-        \ : {\n        \"value\" : 1584379089093\n      },\n      \"source\" : {\n\
+        work-summary\" : [ {\n      \"put-code\" : 71115034,\n      \"created-date\"\
+        \ : {\n        \"value\" : 1585235951990\n      },\n      \"last-modified-date\"\
+        \ : {\n        \"value\" : 1585235951990\n      },\n      \"source\" : {\n\
         \        \"source-orcid\" : null,\n        \"source-client-id\" : {\n    \
         \      \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \
         \    \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\
@@ -150,16 +150,16 @@ interactions:
         external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\
         \n          },\n          \"external-id-relationship\" : \"SELF\"\n      \
         \  } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\"\
-        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/70665047\"\
+        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/71115034\"\
         ,\n      \"display-index\" : \"0\"\n    } ]\n  }, {\n    \"last-modified-date\"\
-        \ : {\n      \"value\" : 1584379090631\n    },\n    \"external-ids\" : {\n\
+        \ : {\n      \"value\" : 1585235952944\n    },\n    \"external-ids\" : {\n\
         \      \"external-id\" : [ {\n        \"external-id-type\" : \"other-id\"\
         ,\n        \"external-id-value\" : \"999\",\n        \"external-id-url\" :\
         \ {\n          \"value\" : \"http://inspirehep.net/record/999\"\n        },\n\
         \        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n    \"\
-        work-summary\" : [ {\n      \"put-code\" : 70665049,\n      \"created-date\"\
-        \ : {\n        \"value\" : 1584379090631\n      },\n      \"last-modified-date\"\
-        \ : {\n        \"value\" : 1584379090631\n      },\n      \"source\" : {\n\
+        work-summary\" : [ {\n      \"put-code\" : 71115035,\n      \"created-date\"\
+        \ : {\n        \"value\" : 1585235952944\n      },\n      \"last-modified-date\"\
+        \ : {\n        \"value\" : 1585235952944\n      },\n      \"source\" : {\n\
         \        \"source-orcid\" : null,\n        \"source-client-id\" : {\n    \
         \      \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \
         \    \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\
@@ -173,7 +173,7 @@ interactions:
         http://inspirehep.net/record/999\"\n          },\n          \"external-id-relationship\"\
         \ : \"SELF\"\n        } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\"\
         ,\n      \"publication-date\" : null,\n      \"visibility\" : \"PUBLIC\",\n\
-        \      \"path\" : \"/0000-0003-1134-6827/work/70665049\",\n      \"display-index\"\
+        \      \"path\" : \"/0000-0003-1134-6827/work/71115035\",\n      \"display-index\"\
         \ : \"0\"\n    } ]\n  } ],\n  \"path\" : \"/0000-0003-1134-6827/works\"\n}"
     headers:
       Access-Control-Allow-Origin:
@@ -185,7 +185,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Mon, 16 Mar 2020 17:18:13 GMT
+      - Thu, 26 Mar 2020 15:19:14 GMT
       Expires:
       - '0'
       Pragma:
@@ -218,8 +218,8 @@ interactions:
     uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/works
   response:
     body:
-      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1584379090631\n  },\n\
-        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1584379089093\n\
+      string: "{\n  \"last-modified-date\" : {\n    \"value\" : 1585235952944\n  },\n\
+        \  \"group\" : [ {\n    \"last-modified-date\" : {\n      \"value\" : 1585235951990\n\
         \    },\n    \"external-ids\" : {\n      \"external-id\" : [ {\n        \"\
         external-id-type\" : \"other-id\",\n        \"external-id-value\" : \"666\"\
         ,\n        \"external-id-url\" : {\n          \"value\" : \"http://inspirehep.net/record/666\"\
@@ -228,9 +228,9 @@ interactions:
         \ \"10.1111/test.orcid.push\",\n        \"external-id-url\" : {\n        \
         \  \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\n        },\n\
         \        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n    \"\
-        work-summary\" : [ {\n      \"put-code\" : 70665047,\n      \"created-date\"\
-        \ : {\n        \"value\" : 1584379089093\n      },\n      \"last-modified-date\"\
-        \ : {\n        \"value\" : 1584379089093\n      },\n      \"source\" : {\n\
+        work-summary\" : [ {\n      \"put-code\" : 71115034,\n      \"created-date\"\
+        \ : {\n        \"value\" : 1585235951990\n      },\n      \"last-modified-date\"\
+        \ : {\n        \"value\" : 1585235951990\n      },\n      \"source\" : {\n\
         \        \"source-orcid\" : null,\n        \"source-client-id\" : {\n    \
         \      \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \
         \    \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\
@@ -247,16 +247,16 @@ interactions:
         external-id-url\" : {\n            \"value\" : \"http://dx.doi.org/10.1111/test.orcid.push\"\
         \n          },\n          \"external-id-relationship\" : \"SELF\"\n      \
         \  } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\",\n      \"publication-date\"\
-        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/70665047\"\
+        \ : null,\n      \"visibility\" : \"PUBLIC\",\n      \"path\" : \"/0000-0003-1134-6827/work/71115034\"\
         ,\n      \"display-index\" : \"0\"\n    } ]\n  }, {\n    \"last-modified-date\"\
-        \ : {\n      \"value\" : 1584379090631\n    },\n    \"external-ids\" : {\n\
+        \ : {\n      \"value\" : 1585235952944\n    },\n    \"external-ids\" : {\n\
         \      \"external-id\" : [ {\n        \"external-id-type\" : \"other-id\"\
         ,\n        \"external-id-value\" : \"999\",\n        \"external-id-url\" :\
         \ {\n          \"value\" : \"http://inspirehep.net/record/999\"\n        },\n\
         \        \"external-id-relationship\" : \"SELF\"\n      } ]\n    },\n    \"\
-        work-summary\" : [ {\n      \"put-code\" : 70665049,\n      \"created-date\"\
-        \ : {\n        \"value\" : 1584379090631\n      },\n      \"last-modified-date\"\
-        \ : {\n        \"value\" : 1584379090631\n      },\n      \"source\" : {\n\
+        work-summary\" : [ {\n      \"put-code\" : 71115035,\n      \"created-date\"\
+        \ : {\n        \"value\" : 1585235952944\n      },\n      \"last-modified-date\"\
+        \ : {\n        \"value\" : 1585235952944\n      },\n      \"source\" : {\n\
         \        \"source-orcid\" : null,\n        \"source-client-id\" : {\n    \
         \      \"uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \
         \    \"path\" : \"0000-0001-8607-8906\",\n          \"host\" : \"orcid.org\"\
@@ -270,7 +270,7 @@ interactions:
         http://inspirehep.net/record/999\"\n          },\n          \"external-id-relationship\"\
         \ : \"SELF\"\n        } ]\n      },\n      \"type\" : \"JOURNAL_ARTICLE\"\
         ,\n      \"publication-date\" : null,\n      \"visibility\" : \"PUBLIC\",\n\
-        \      \"path\" : \"/0000-0003-1134-6827/work/70665049\",\n      \"display-index\"\
+        \      \"path\" : \"/0000-0003-1134-6827/work/71115035\",\n      \"display-index\"\
         \ : \"0\"\n    } ]\n  } ],\n  \"path\" : \"/0000-0003-1134-6827/works\"\n}"
     headers:
       Access-Control-Allow-Origin:
@@ -282,7 +282,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Mon, 16 Mar 2020 17:18:14 GMT
+      - Thu, 26 Mar 2020 15:19:15 GMT
       Expires:
       - '0'
       Pragma:
@@ -316,7 +316,7 @@ interactions:
       Content-Type:
       - application/orcid+json
     method: DELETE
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/70665047
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/71115034
   response:
     body:
       string: ''
@@ -330,7 +330,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Mon, 16 Mar 2020 17:18:15 GMT
+      - Thu, 26 Mar 2020 15:19:16 GMT
       Expires:
       - '0'
       Pragma:
@@ -348,7 +348,7 @@ interactions:
       message: No Content
 - request:
     body: "<work:work xmlns:common=\"http://www.orcid.org/ns/common\" xmlns:work=\"\
-      http://www.orcid.org/ns/work\" put-code=\"70665049\"><work:title><common:title>Some\
+      http://www.orcid.org/ns/work\" put-code=\"71115035\"><work:title><common:title>Some\
       \ Results Arising from the Study of ORCID push</common:title></work:title><work:citation><work:citation-type>bibtex</work:citation-type><work:citation-value>@article{999,\n\
       \    author = \"Rossoni, A.\",\n    doi = \"10.1111/test.orcid.push\",\n   \
       \ month = \"5\",\n    title = \"{Some Results Arising from the Study of ORCID\
@@ -366,16 +366,16 @@ interactions:
       Content-Type:
       - application/orcid+xml
     method: PUT
-    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/70665049
+    uri: https://api.orcid.org/v2.0/0000-0003-1134-6827/work/71115035
   response:
     body:
-      string: "{\n  \"created-date\" : {\n    \"value\" : 1584379090631\n  },\n  \"\
-        last-modified-date\" : {\n    \"value\" : 1584379096250\n  },\n  \"source\"\
+      string: "{\n  \"created-date\" : {\n    \"value\" : 1585235952944\n  },\n  \"\
+        last-modified-date\" : {\n    \"value\" : 1585235957009\n  },\n  \"source\"\
         \ : {\n    \"source-orcid\" : null,\n    \"source-client-id\" : {\n      \"\
         uri\" : \"http://orcid.org/client/0000-0001-8607-8906\",\n      \"path\" :\
         \ \"0000-0001-8607-8906\",\n      \"host\" : \"orcid.org\"\n    },\n    \"\
         source-name\" : {\n      \"value\" : \"INSPIRE-HEP\"\n    }\n  },\n  \"put-code\"\
-        \ : 70665049,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
+        \ : 71115035,\n  \"path\" : null,\n  \"title\" : {\n    \"title\" : {\n  \
         \    \"value\" : \"Some Results Arising from the Study of ORCID push\"\n \
         \   },\n    \"subtitle\" : null,\n    \"translated-title\" : null\n  },\n\
         \  \"journal-title\" : null,\n  \"short-description\" : null,\n  \"citation\"\
@@ -408,7 +408,7 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Mon, 16 Mar 2020 17:18:16 GMT
+      - Thu, 26 Mar 2020 15:19:17 GMT
       Expires:
       - '0'
       Pragma:

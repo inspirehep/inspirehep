@@ -29,13 +29,13 @@ class OrcidPusher(object):
         orcid,
         recid,
         oauth_token,
-        do_fail_if_duplicated_identifier=False,
+        pushing_duplicated_identifier=False,
         record_db_version=None,
     ):
         self.orcid = orcid
-        self.recid = recid
+        self.recid = str(recid)
         self.oauth_token = oauth_token
-        self.do_fail_if_duplicated_identifier = do_fail_if_duplicated_identifier
+        self.pushing_duplicated_identifier = pushing_duplicated_identifier
         self.record_db_version = record_db_version
         self.inspire_record = self._get_inspire_record()
         self.cache = OrcidCache(orcid, recid)
@@ -96,7 +96,7 @@ class OrcidPusher(object):
                 return True
         return self.inspire_record.get("deleted", False)
 
-    @time_execution
+    @time_execution  # noqa: C901
     def push(self):
         putcode = None
         if not self._do_force_cache_miss:
@@ -124,43 +124,52 @@ class OrcidPusher(object):
         try:
             putcode = self._post_or_put_work(putcode)
         except orcid_client_exceptions.WorkAlreadyExistsException:
-            # We POSTed the record as new work, but it failed because the work
-            # already exists (identified by the external identifiers).
-            # This means we do not have the putcode, thus we cache all
-            # author's putcodes and PUT the work again.
-            try:
-                if self.do_fail_if_duplicated_identifier:
+            # We POSTed the record as new work, but it failed because
+            # a work with the same identifier is already in ORCID.
+            # This can mean two things:
+            # 1. the record itself is already in ORCID, but we don't have the putcode;
+            # 2. a different record with the same external identifier is already in ORCID.
+            # We first try to fix 1. by caching all author's putcodes and PUT the work again.
+            # If the putcode wasn't found we are probably facing case 2.
+            # so we try to push once again works with clashing identifiers
+            # to update them and resolve the potential conflict.
+            if self.pushing_duplicated_identifier:
+                raise exceptions.DuplicatedExternalIdentifierPusherException
+            putcode = self._cache_all_author_putcodes()
+            if not putcode:
+                try:
+                    self._push_work_with_clashing_identifier()
+                    putcode = self._post_or_put_work(putcode)
+                except orcid_client_exceptions.WorkAlreadyExistsException:
+                    # The PUT/POST failed despite pushing works with clashing identifiers
+                    # and we can't do anything about this.
                     raise exceptions.DuplicatedExternalIdentifierPusherException
-                self._push_work_with_clashing_identifier()
-                putcode = self._post_or_put_work(putcode)
-            except orcid_client_exceptions.WorkAlreadyExistsException:
-                putcode = self._cache_all_author_putcodes()
-                if not putcode:
-                    msg = (
-                        "No putcode was found in ORCID API for orcid={} and recid={}."
-                        " And the POST has previously failed for the same recid because"
-                        " the work had already existed".format(self.orcid, self.recid)
-                    )
-                    raise exceptions.PutcodeNotFoundInOrcidException(msg)
-                putcode = self._post_or_put_work(putcode)
+            else:
+                self._post_or_put_work(putcode)
         except orcid_client_exceptions.DuplicatedExternalIdentifierException:
             # We PUT a record changing its identifier, but there is another work
             # in ORCID with the same identifier. We need to find out the recid
             # of the clashing work in ORCID and push a fresh version of that
             # record.
             # This scenario might be triggered by a merge of 2 records in Inspire.
-            if self.do_fail_if_duplicated_identifier:
+            if self.pushing_duplicated_identifier:
                 raise exceptions.DuplicatedExternalIdentifierPusherException
             self._push_work_with_clashing_identifier()
             putcode = self._post_or_put_work(putcode)
         except orcid_client_exceptions.PutcodeNotFoundPutException:
+            # We try to push the work with invalid putcode, so we delete
+            # its putcode and push it without any putcode.
+            # If it turns out that the record already exists
+            # in ORCID we search for the putcode by caching
+            # all author's putcodes and PUT the work again.
             self.cache.delete_work_putcode()
             self.converter = OrcidConverter(
                 record=self.inspire_record,
                 url_pattern=current_app.config["LEGACY_RECORD_URL_PATTERN"],
                 put_code=None,
             )
-            putcode = self._post_or_put_work()
+            putcode = self._cache_all_author_putcodes()
+            self._post_or_put_work(putcode)
         except (
             orcid_client_exceptions.TokenInvalidException,
             orcid_client_exceptions.TokenMismatchException,
@@ -205,7 +214,7 @@ class OrcidPusher(object):
 
         putcode = None
         for fetched_putcode, fetched_recid in putcodes_recids:
-            if fetched_recid == str(self.recid):
+            if fetched_recid == self.recid:
                 putcode = int(fetched_putcode)
             cache = OrcidCache(self.orcid, fetched_recid)
             cache.write_work_putcode(fetched_putcode)
@@ -275,7 +284,7 @@ class OrcidPusher(object):
                     # Set `do_fail_if_duplicated_identifier` to avoid an
                     # infinite recursive calls chain.
                     "kwargs_to_pusher": dict(
-                        do_fail_if_duplicated_identifier=True,
+                        pushing_duplicated_identifier=True,
                         record_db_version=self.record_db_version,
                     ),
                 },

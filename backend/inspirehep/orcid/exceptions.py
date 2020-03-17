@@ -43,14 +43,6 @@ class InputDataInvalidException(BaseOrcidPusherException):
     pass
 
 
-class PutcodeNotFoundInOrcidException(BaseOrcidPusherException):
-    """
-    No putcode was found in ORCID API.
-    """
-
-    pass
-
-
 class PutcodeNotFoundInCacheAfterCachingAllPutcodes(BaseOrcidPusherException):
     """
     No putcode was found in cache after having cached all author putcodes.
