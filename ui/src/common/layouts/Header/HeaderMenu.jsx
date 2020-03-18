@@ -29,7 +29,11 @@ class HeaderMenu extends Component {
         <Menu.Item key="search-tips">
           <ExternalLink href={PAPER_SEARCH_URL}>Search Tips</ExternalLink>
         </Menu.Item>
-        <Menu.SubMenu key="submit" title="Submit">
+        <Menu.SubMenu
+          key="submit"
+          title="Submit"
+          popupClassName="header-submenu"
+        >
           <Menu.Item key="submit.author">
             <Link to={SUBMISSIONS_AUTHOR}>Author</Link>
           </Menu.Item>

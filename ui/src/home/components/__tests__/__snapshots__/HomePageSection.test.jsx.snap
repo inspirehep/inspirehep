@@ -18,7 +18,7 @@ exports[`HomePageSection renders with all props 1`] = `
       This is the description of this section
     </p>
     <div
-      className="mt4"
+      className="mt5"
     >
       <span>
         Content
@@ -46,7 +46,7 @@ exports[`HomePageSection renders with only required props 1`] = `
       This is the description of this section
     </p>
     <div
-      className="mt4"
+      className="mt5"
     >
       <span>
         Content

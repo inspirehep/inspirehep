@@ -5,9 +5,12 @@ exports[`Footer renders 1`] = `
   bottom={
     <Row
       gutter={0}
-      justify="space-between"
     >
-      <Col>
+      <Col
+        className="tl sm-tc"
+        md={12}
+        xs={24}
+      >
         <ExternalLink
           as="a"
           href="//invenio-software.org"
@@ -15,7 +18,11 @@ exports[`Footer renders 1`] = `
           Powered by Invenio
         </ExternalLink>
       </Col>
-      <Col>
+      <Col
+        className="tr sm-tc"
+        md={12}
+        xs={24}
+      >
         Made with 
         <span
           className="red"

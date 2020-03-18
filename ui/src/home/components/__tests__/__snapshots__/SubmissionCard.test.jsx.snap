@@ -11,6 +11,16 @@ exports[`SubmissionCard renders with all props 1`] = `
       </RouterLinkButton>,
     ]
   }
+  bodyStyle={
+    Object {
+      "textAlign": "center",
+    }
+  }
+  headStyle={
+    Object {
+      "textAlign": "center",
+    }
+  }
   title="Literature"
 >
   You can suggest us papers!
