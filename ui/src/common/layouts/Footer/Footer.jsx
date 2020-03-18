@@ -99,11 +99,11 @@ const COLUMNS = [
 ];
 
 const BOTTOM = (
-  <Row justify="space-between">
-    <Col>
+  <Row>
+    <Col className="tl sm-tc" xs={24} md={12}>
       <ExternalLink href={INVENIO_URL}>Powered by Invenio</ExternalLink>
     </Col>
-    <Col>
+    <Col className="tr sm-tc" xs={24} md={12}>
       Made with <span className="red">❤</span> by INSPIRE Team
     </Col>
   </Row>

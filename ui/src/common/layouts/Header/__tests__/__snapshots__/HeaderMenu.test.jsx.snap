@@ -19,6 +19,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
   </MenuItem>
   <SubMenu
     key="submit"
+    popupClassName="header-submenu"
     title="Submit"
   >
     <MenuItem
@@ -90,6 +91,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
   </MenuItem>
   <SubMenu
     key="submit"
+    popupClassName="header-submenu"
     title="Submit"
   >
     <MenuItem

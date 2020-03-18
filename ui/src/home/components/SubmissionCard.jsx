@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Card } from 'antd';
 import RouterLinkButton from '../../common/components/RouterLinkButton';
 
+const TEXT_CENTER = { textAlign: 'center' };
+
 function SubmissionCard({ title, children, formLink }) {
   const actions = useMemo(
     () => [
@@ -13,7 +15,12 @@ function SubmissionCard({ title, children, formLink }) {
     [formLink]
   );
   return (
-    <Card title={title} actions={actions}>
+    <Card
+      title={title}
+      actions={actions}
+      headStyle={TEXT_CENTER}
+      bodyStyle={TEXT_CENTER}
+    >
       {children}
     </Card>
   );

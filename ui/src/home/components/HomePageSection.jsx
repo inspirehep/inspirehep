@@ -9,7 +9,7 @@ function HomePageSection({ title, description, children, className }) {
       <Col>
         <h2 className="tc f2 sm-f4">{title}</h2>
         {description && <p className="tc">{description}</p>}
-        <div className="mt4">{children}</div>
+        <div className="mt5">{children}</div>
       </Col>
     </Row>
   );

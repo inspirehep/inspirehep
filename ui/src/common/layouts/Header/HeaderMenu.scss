@@ -1,3 +1,17 @@
 .__HeaderMenu__ {
   text-align: right;
 }
+
+// `header-submenu` is not nested inside `__HeaderMenu`
+// because submenu dropdown is inserted outside of the menu's inner DOM.
+.header-submenu,
+.__HeaderMenu__ {
+  .ant-menu-item a,
+  .ant-menu-submenu-title {
+    color: white;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

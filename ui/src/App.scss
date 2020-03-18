@@ -112,9 +112,9 @@
   }
 }
 
-.md-pb3 {
-  @media (max-width: $screen-md-max) {
-    padding-bottom: 1rem;
+.sm-tc {
+  @media (max-width: $screen-sm-max) {
+    text-align: center;
   }
 }
 
