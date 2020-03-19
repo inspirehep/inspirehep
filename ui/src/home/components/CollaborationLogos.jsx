@@ -6,7 +6,7 @@ const GUTTER = [32, 16];
 
 function CollaborationLogos() {
   return (
-    <Row justify="center" gutter={GUTTER}>
+    <Row justify="center" align="middle" gutter={GUTTER}>
       <Col>
         <CollaborationLogo name="CERN" href="https://home.cern" />
       </Col>

@@ -23,6 +23,7 @@ function FreetextExamples() {
       className="bg-white"
       bordered
       size="small"
+      header="Users can also type free text searches using any combination of author names, title, dates etc."
       dataSource={EXAMPLES}
       renderItem={renderExample}
     />

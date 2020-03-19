@@ -44,6 +44,12 @@ const TABLE_DATA = [
     useOperators: 'ac, authorcount',
     example: 'ac 1->10',
   },
+  {
+    key: 'topcite',
+    searchBy: 'Citation number',
+    useOperators: 'topcite, topcit, cited',
+    example: 'topcite 1000+',
+  },
 ];
 
 function SpiresExamples() {
