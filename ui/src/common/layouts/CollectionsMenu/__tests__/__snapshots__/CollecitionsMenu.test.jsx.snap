@@ -1,38 +1,253 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CollectionsMenu renders 1`] = `
+exports[`CollectionsMenu renders when authors page 1`] = `
 <Row
+  activeCollection="authors"
   className="__CollectionsMenu__"
   gutter={0}
   justify="center"
 >
   <Col>
-    <CollectionLink
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
       to="/literature"
     >
       Literature
-    </CollectionLink>
+    </Link>
   </Col>
   <Col>
-    <CollectionLink
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white active"
       to="/authors"
     >
       Authors
-    </CollectionLink>
+    </Link>
   </Col>
   <Col>
-    <CollectionLink
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
       to="/jobs"
     >
       Jobs
-    </CollectionLink>
+    </Link>
   </Col>
   <Col>
-    <CollectionLink
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
       to="/conferences"
     >
       Conferences
-    </CollectionLink>
+    </Link>
+  </Col>
+</Row>
+`;
+
+exports[`CollectionsMenu renders when conferences page 1`] = `
+<Row
+  activeCollection="conferences"
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/literature"
+    >
+      Literature
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/authors"
+    >
+      Authors
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/jobs"
+    >
+      Jobs
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white active"
+      to="/conferences"
+    >
+      Conferences
+    </Link>
+  </Col>
+</Row>
+`;
+
+exports[`CollectionsMenu renders when home page 1`] = `
+<Row
+  activeCollection=""
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/literature"
+    >
+      Literature
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/authors"
+    >
+      Authors
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/jobs"
+    >
+      Jobs
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/conferences"
+    >
+      Conferences
+    </Link>
+  </Col>
+</Row>
+`;
+
+exports[`CollectionsMenu renders when jobs page 1`] = `
+<Row
+  activeCollection="jobs"
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/literature"
+    >
+      Literature
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/authors"
+    >
+      Authors
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white active"
+      to="/jobs"
+    >
+      Jobs
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/conferences"
+    >
+      Conferences
+    </Link>
+  </Col>
+</Row>
+`;
+
+exports[`CollectionsMenu renders when literature page 1`] = `
+<Row
+  activeCollection="literature"
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white active"
+      to="/literature"
+    >
+      Literature
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/authors"
+    >
+      Authors
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/jobs"
+    >
+      Jobs
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/conferences"
+    >
+      Conferences
+    </Link>
+  </Col>
+</Row>
+`;
+
+exports[`CollectionsMenu renders when submissions page 1`] = `
+<Row
+  activeCollection="submissions"
+  className="__CollectionsMenu__"
+  gutter={0}
+  justify="center"
+>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/literature"
+    >
+      Literature
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/authors"
+    >
+      Authors
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/jobs"
+    >
+      Jobs
+    </Link>
+  </Col>
+  <Col>
+    <Link
+      className="collection-link mh4 sm-mh2 f5 white"
+      to="/conferences"
+    >
+      Conferences
+    </Link>
   </Col>
 </Row>
 `;

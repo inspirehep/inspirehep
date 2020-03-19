@@ -255,3 +255,7 @@ export function getAuthorName(author) {
 export function addCommasToNumber(number) {
   return number && Number(number).toLocaleString('en-US');
 }
+
+export function getRootOfLocationPathname(pathname) {
+  return pathname.split('/')[1];
+}
