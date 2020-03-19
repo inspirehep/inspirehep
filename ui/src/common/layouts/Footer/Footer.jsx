@@ -104,7 +104,7 @@ const BOTTOM = (
       <ExternalLink href={INVENIO_URL}>Powered by Invenio</ExternalLink>
     </Col>
     <Col className="tr sm-tc" xs={24} md={12}>
-      Made with <span className="red">❤</span> by INSPIRE Team
+      Made with <span className="red">❤</span> by the INSPIRE Team
     </Col>
   </Row>
 );

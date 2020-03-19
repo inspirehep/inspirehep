@@ -1,6 +1,6 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import './CollectionsMenu.scss';
 import { LITERATURE, AUTHORS, JOBS, CONFERENCES } from '../../routes';
@@ -8,12 +8,11 @@ import { LITERATURE, AUTHORS, JOBS, CONFERENCES } from '../../routes';
 // eslint-disable-next-line react/prop-types
 function CollectionLink({ to, children }) {
   return (
-    <Link className="collection-link mh4 f4 white" to={to}>
+    <Link className="collection-link mh4 sm-mh2 f5 white" to={to}>
       {children}
     </Link>
   );
 }
-
 
 function CollectionsMenu() {
   return (
@@ -31,7 +30,7 @@ function CollectionsMenu() {
         <CollectionLink to={CONFERENCES}>Conferences</CollectionLink>
       </Col>
     </Row>
-  )
+  );
 }
 
 export default CollectionsMenu;

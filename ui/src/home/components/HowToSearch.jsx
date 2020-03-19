@@ -19,7 +19,7 @@ function HowToSearch() {
     <div>
       <div className="mb3 tc">
         <Radio.Group value={selectedRadio} onChange={onRadioChange}>
-          <Radio.Button value={SPIRES_RADIO}>spires</Radio.Button>
+          <Radio.Button value={SPIRES_RADIO}>SPIRES</Radio.Button>
           <Radio.Button value={FREETEXT_RADIO}>free text</Radio.Button>
         </Radio.Group>
       </div>

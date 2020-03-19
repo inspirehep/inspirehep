@@ -30,7 +30,7 @@ function Home() {
           <HomePageSection
             className="bg-white"
             title="How to Search"
-            description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for search papers."
+            description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for searching papers."
           >
             <HowToSearch />
           </HomePageSection>
@@ -40,7 +40,7 @@ function Home() {
           >
             <HowToSubmit />
           </HomePageSection>
-          <HomePageSection className="bg-white" title="INSPIRECollaboration">
+          <HomePageSection className="bg-white" title="INSPIRE Collaboration">
             <CollaborationLogos />
           </HomePageSection>
         </Col>

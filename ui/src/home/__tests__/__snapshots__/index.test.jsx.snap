@@ -24,7 +24,7 @@ exports[`Home renders home page 1`] = `
       </HomePageSection>
       <HomePageSection
         className="bg-white"
-        description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for search papers."
+        description="INSPIRE supports the most popular SPIRES syntax operators and free text searches for searching papers."
         title="How to Search"
       >
         <HowToSearch />
@@ -37,7 +37,7 @@ exports[`Home renders home page 1`] = `
       </HomePageSection>
       <HomePageSection
         className="bg-white"
-        title="INSPIRECollaboration"
+        title="INSPIRE Collaboration"
       >
         <CollaborationLogos />
       </HomePageSection>

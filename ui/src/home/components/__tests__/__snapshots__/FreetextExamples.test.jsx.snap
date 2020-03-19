@@ -11,6 +11,7 @@ exports[`FreetextExamples renders 1`] = `
       "1207.7214",
     ]
   }
+  header="Users can also type free text searches using any combination of author names, title, dates etc."
   loading={false}
   pagination={false}
   renderItem={[Function]}

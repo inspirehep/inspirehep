@@ -46,6 +46,12 @@ exports[`SpiresExamples renders 1`] = `
         "searchBy": "Number of authors",
         "useOperators": "ac, authorcount",
       },
+      Object {
+        "example": "topcite 1000+",
+        "key": "topcite",
+        "searchBy": "Citation number",
+        "useOperators": "topcite, topcit, cited",
+      },
     ]
   }
   pagination={false}

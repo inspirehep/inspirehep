@@ -11,6 +11,7 @@ exports[`HowToSubmit renders 1`] = `
       },
       Object {
         "lg": 0,
+        "md": 16,
         "xs": 16,
       },
     ]
@@ -27,7 +28,7 @@ exports[`HowToSubmit renders 1`] = `
       title="Literature"
     >
       <p>
-        Suggest missing aticles.
+        Suggest missing articles.
       </p>
       <p>
         All submissions will be visible upon approval.
@@ -47,7 +48,7 @@ exports[`HowToSubmit renders 1`] = `
         Create the profile of a new author.
       </p>
       <p>
-        All submissions will be visible upon apporval.
+        All submissions will be visible upon approval.
       </p>
     </SubmissionCard>
   </Col>
@@ -64,7 +65,7 @@ exports[`HowToSubmit renders 1`] = `
         Submit a new job.
       </p>
       <p>
-        All submissions will be visible upon apporval.
+        All submissions will be visible upon approval.
       </p>
     </SubmissionCard>
   </Col>
@@ -75,7 +76,7 @@ exports[`HowToSubmit renders 1`] = `
   >
     <SubmissionCard
       formLink="/submissions/conferences"
-      title="Conferece"
+      title="Conference"
     >
       <p>
         Submit a new conference.

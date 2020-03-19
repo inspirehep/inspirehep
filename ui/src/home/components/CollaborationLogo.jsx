@@ -8,7 +8,7 @@ function CollaborationLogo({ href, name }) {
   const src = `/collab-logo-${name}.png`;
   return (
     <ExternalLink href={href}>
-      <img src={src} alt={name} />
+      <img height={60} src={src} alt={name} />
     </ExternalLink>
   );
 }

@@ -1,9 +1,9 @@
 .__CollectionsMenu__ {
   width: 100%;
-  padding-bottom: 0.35rem;
+  padding-bottom: 0.3em;
 
   .collection-link {
-    padding-bottom: 0.35rem;
+    padding-bottom: 0.2em;
 
     &:hover,
     &:active {
@@ -11,7 +11,7 @@
       color: $color;
 
       @media (min-width: $screen-xs-max) {
-        border-bottom: solid 0.2rem $color;
+        border-bottom: solid 0.15em $color;
       }
     }
   }
