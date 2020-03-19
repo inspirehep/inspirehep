@@ -5,7 +5,7 @@ import { Slider } from 'antd';
 import { List } from 'immutable';
 import { MathInterval } from 'math-interval-2';
 
-import { pluckMinMaxPair, toNumbers } from '../../utils';
+import { pluckMinMaxPair, toNumbers, addCommasToNumber } from '../../utils';
 import AggregationBox from '../AggregationBox';
 import styleVariables from '../../../styleVariables';
 import './RangeAggregation.scss';
@@ -249,11 +249,11 @@ function RangeAggregation({
                   // FIXME: awkward x, y titles for a generic range filter
                   {
                     title: 'Selected Papers',
-                    value: count,
+                    value: addCommasToNumber(count),
                   },
                   {
                     title: 'Total Papers',
-                    value: initialCount,
+                    value: addCommasToNumber(initialCount),
                   },
                   { title: 'Year', value: bucketKey },
                 ];

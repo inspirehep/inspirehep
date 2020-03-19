@@ -7,9 +7,9 @@ import CitationSummaryTable from '../CitationSummaryTable';
 describe('CitationSummaryTable', () => {
   it('renders table without render props', () => {
     const citeableBucket = fromJS({
-      doc_count: 29,
+      doc_count: 29000,
       citations_count: {
-        value: 2,
+        value: 29128,
       },
       average_citations: {
         value: 4.12345,
@@ -18,7 +18,7 @@ describe('CitationSummaryTable', () => {
     const publishedBucket = fromJS({
       doc_count: 0,
       citations_count: {
-        value: 20,
+        value: 20723,
       },
       average_citations: {
         value: 9,
@@ -26,7 +26,7 @@ describe('CitationSummaryTable', () => {
     });
     const hIndex = fromJS({
       value: {
-        all: 8,
+        all: 1067,
         published: 9,
       },
     });
@@ -42,7 +42,7 @@ describe('CitationSummaryTable', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('calls render props if number is greater than 0', () => {
+  it('calls render props', () => {
     const citeableBucket = fromJS({
       doc_count: 29,
       citations_count: {
@@ -81,6 +81,6 @@ describe('CitationSummaryTable', () => {
       />
     );
     expect(renderNumberOfCiteablePapers).toHaveBeenCalledWith(29);
-    expect(renderNumberOfPublishedPapers).not.toHaveBeenCalled();
+    expect(renderNumberOfPublishedPapers).toHaveBeenCalledWith(0);
   });
 });

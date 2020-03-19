@@ -11,6 +11,7 @@ import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import pluralizeUnlessSingle, {
   pickEvenlyDistributedElements,
   abbreviateNumber,
+  addCommasToNumber,
 } from '../../utils';
 import EmptyOrChildren from '../EmptyOrChildren';
 
@@ -85,7 +86,10 @@ class CitationsByYearGraph extends Component {
           align={{ vertical: 'top', horizontal: 'auto' }}
           value={hoveredDatapoint}
           format={({ x, y }) => [
-            { title: pluralizeUnlessSingle('Citation', y), value: y },
+            {
+              title: pluralizeUnlessSingle('Citation', y),
+              value: addCommasToNumber(y),
+            },
             { title: 'Year', value: x },
           ]}
         />

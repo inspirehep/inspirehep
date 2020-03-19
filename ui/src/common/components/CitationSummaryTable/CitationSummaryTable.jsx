@@ -9,6 +9,7 @@ import LabelWithHelp from '../LabelWithHelp';
 import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { ErrorPropType } from '../../propTypes';
+import FormattedNumber from '../FormattedNumber';
 
 const PUBLISHED_HELP_MESSAGE = (
   <span>
@@ -62,24 +63,28 @@ class CitationSummaryTable extends Component {
                 <tr>
                   <th>Papers</th>
                   <td>
-                    {!citeableBucket.get('doc_count')
-                      ? '0'
-                      : renderNumberOfCiteablePapers(
-                          citeableBucket.get('doc_count')
-                        )}
+                    {renderNumberOfCiteablePapers(
+                      citeableBucket.get('doc_count', 0)
+                    )}
                   </td>
                   <td>
-                    {!publishedBucket.get('doc_count')
-                      ? '0'
-                      : renderNumberOfPublishedPapers(
-                          publishedBucket.get('doc_count')
-                        )}
+                    {renderNumberOfPublishedPapers(
+                      publishedBucket.get('doc_count', 0)
+                    )}
                   </td>
                 </tr>
                 <tr>
                   <th>Citations</th>
-                  <td>{citeableBucket.getIn(['citations_count', 'value'])}</td>
-                  <td>{publishedBucket.getIn(['citations_count', 'value'])}</td>
+                  <td>
+                    <FormattedNumber>
+                      {citeableBucket.getIn(['citations_count', 'value'], 0)}
+                    </FormattedNumber>
+                  </td>
+                  <td>
+                    <FormattedNumber>
+                      {publishedBucket.getIn(['citations_count', 'value'], 0)}
+                    </FormattedNumber>
+                  </td>
                 </tr>
                 <tr>
                   <th>
@@ -94,14 +99,18 @@ class CitationSummaryTable extends Component {
                 <tr>
                   <th>Citations/paper (avg)</th>
                   <td>
-                    {(
-                      citeableBucket.getIn(['average_citations', 'value']) || 0
-                    ).toFixed(1)}
+                    <FormattedNumber>
+                      {citeableBucket
+                        .getIn(['average_citations', 'value'], 0)
+                        .toFixed(1)}
+                    </FormattedNumber>
                   </td>
                   <td>
-                    {(
-                      publishedBucket.getIn(['average_citations', 'value']) || 0
-                    ).toFixed(1)}
+                    <FormattedNumber>
+                      {publishedBucket
+                        .getIn(['average_citations', 'value'], 0)
+                        .toFixed(1)}
+                    </FormattedNumber>
                   </td>
                 </tr>
               </tbody>
@@ -127,8 +136,12 @@ CitationSummaryTable.defaultProps = {
   publishedBucket: Map(),
   citeableBucket: Map(),
   hIndex: Map(),
-  renderNumberOfCiteablePapers: value => value,
-  renderNumberOfPublishedPapers: value => value,
+  renderNumberOfCiteablePapers: value => (
+    <FormattedNumber>{value}</FormattedNumber>
+  ),
+  renderNumberOfPublishedPapers: value => (
+    <FormattedNumber>{value}</FormattedNumber>
+  ),
 };
 
 export default CitationSummaryTable;

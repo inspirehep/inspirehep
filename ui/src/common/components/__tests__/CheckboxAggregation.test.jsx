@@ -12,7 +12,7 @@ describe('CheckboxAggregation', () => {
     const buckets = fromJS([
       {
         key: `prefix${BUCKET_NAME_SPLITTER}bucket1`,
-        doc_count: 1,
+        doc_count: 1000000,
       },
       {
         key: `prefix${BUCKET_NAME_SPLITTER}bucket2`,

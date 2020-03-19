@@ -22,7 +22,9 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        1
+        <FormattedNumber>
+          1000000
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -43,7 +45,9 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -87,7 +91,9 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        1
+        <FormattedNumber>
+          1
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -117,7 +123,9 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -152,7 +160,9 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        3
+        <FormattedNumber>
+          3
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -181,7 +191,9 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
     </Col>
     <Col>
       <UnclickableTag>
-        1
+        <FormattedNumber>
+          1
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -202,7 +214,9 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -231,7 +245,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        1
+        <FormattedNumber>
+          1
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -252,7 +268,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -273,7 +291,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        3
+        <FormattedNumber>
+          3
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -294,7 +314,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        4
+        <FormattedNumber>
+          4
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -315,7 +337,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -336,7 +360,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -357,7 +383,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -378,7 +406,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -399,7 +429,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -420,7 +452,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -441,7 +475,9 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -470,7 +506,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        1
+        <FormattedNumber>
+          1
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -491,7 +529,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -512,7 +552,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        3
+        <FormattedNumber>
+          3
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -533,7 +575,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        4
+        <FormattedNumber>
+          4
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -554,7 +598,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -575,7 +621,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -596,7 +644,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -617,7 +667,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -638,7 +690,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>
@@ -659,7 +713,9 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
     </Col>
     <Col>
       <UnclickableTag>
-        2
+        <FormattedNumber>
+          2
+        </FormattedNumber>
       </UnclickableTag>
     </Col>
   </Row>

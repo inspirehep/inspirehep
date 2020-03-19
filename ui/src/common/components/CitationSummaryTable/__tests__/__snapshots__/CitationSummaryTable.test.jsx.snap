@@ -43,10 +43,14 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
               Papers
             </th>
             <td>
-              29
+              <FormattedNumber>
+                29000
+              </FormattedNumber>
             </td>
             <td>
-              0
+              <FormattedNumber>
+                0
+              </FormattedNumber>
             </td>
           </tr>
           <tr>
@@ -54,10 +58,14 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
               Citations
             </th>
             <td>
-              2
+              <FormattedNumber>
+                29128
+              </FormattedNumber>
             </td>
             <td>
-              20
+              <FormattedNumber>
+                20723
+              </FormattedNumber>
             </td>
           </tr>
           <tr>
@@ -84,10 +92,14 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
               Citations/paper (avg)
             </th>
             <td>
-              4.1
+              <FormattedNumber>
+                4.1
+              </FormattedNumber>
             </td>
             <td>
-              9.0
+              <FormattedNumber>
+                9.0
+              </FormattedNumber>
             </td>
           </tr>
         </tbody>
