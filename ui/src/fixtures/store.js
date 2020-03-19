@@ -20,6 +20,7 @@ export function getState() {
     literature,
     router: {
       location: {
+        pathname: '/',
         query: {
           size: 25,
         },

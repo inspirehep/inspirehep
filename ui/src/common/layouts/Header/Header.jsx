@@ -10,7 +10,7 @@ import BetaInfoBanner from './BetaInfoBanner';
 import InterventionBanner from './InterventionBanner';
 import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';
-import CollectionsMenu from '../CollectionsMenu/CollectionsMenu';
+import CollectionsMenu from '../CollectionsMenu';
 
 function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
   const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();

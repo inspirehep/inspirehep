@@ -1,3 +1,3 @@
-import CollectionsMenu from './CollectionsMenu';
+import CollectionsMenuContainer from './CollectionsMenuContainer';
 
-export default CollectionsMenu;
+export default CollectionsMenuContainer;

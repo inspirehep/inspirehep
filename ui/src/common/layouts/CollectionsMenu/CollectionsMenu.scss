@@ -6,13 +6,10 @@
     padding-bottom: 0.2em;
 
     &:hover,
-    &:active {
+    &.active {
       $color: white;
       color: $color;
-
-      @media (min-width: $screen-xs-max) {
-        border-bottom: solid 0.15em $color;
-      }
+      border-bottom: solid 0.15em $color;
     }
   }
 }

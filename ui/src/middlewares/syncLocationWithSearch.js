@@ -7,6 +7,7 @@ import {
   searchQueryReset,
 } from '../actions/search';
 import { SEARCHABLE_COLLECTION_PATHNAMES } from '../reducers/search';
+import { getRootOfLocationPathname } from '../common/utils';
 
 const idInUrlRegExp = new RegExp('/\\d+');
 function isSearchPage(location) {
@@ -28,11 +29,6 @@ function isLocationSyncedWithSearchQuery(namespace, state) {
   return searchQueryString === locationQueryStirng;
 }
 
-// TODO: move pathnameToNamespace logic to reducer (probably)
-function pathnameToSearchNamespace(pathname) {
-  return pathname.split('/')[1];
-}
-
 // FIXME: this can be moved to reducer?
 export default function({ dispatch, getState }) {
   return next => action => {
@@ -51,12 +47,12 @@ export default function({ dispatch, getState }) {
         prevLocation.pathname !== nextLocation.pathname &&
         isSearchPage(prevLocation)
       ) {
-        const prevNamespace = pathnameToSearchNamespace(prevLocation.pathname);
+        const prevNamespace = getRootOfLocationPathname(prevLocation.pathname);
         dispatch(newSearch(prevNamespace));
       }
 
       if (isSearchPage(nextLocation)) {
-        const nextNamespace = pathnameToSearchNamespace(nextLocation.pathname);
+        const nextNamespace = getRootOfLocationPathname(nextLocation.pathname);
 
         const { isFirstRendering } = action.payload;
         if (
