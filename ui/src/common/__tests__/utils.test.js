@@ -22,6 +22,7 @@ import pluralizeUnlessSingle, {
   addOrdinalSuffix,
   makeCompliantMetaDescription,
   getAuthorName,
+  addCommasToNumber,
 } from '../utils';
 
 describe('utils', () => {
@@ -428,6 +429,22 @@ describe('utils', () => {
       const count = 1;
       const result = pluralizeUnlessSingle(word, count);
       expect(result).toEqual(word);
+    });
+  });
+
+  describe('addCommasToNumber', () => {
+    it('adds comma to number', () => {
+      const number = 2162571;
+      const expected = '2,162,571';
+      const result = addCommasToNumber(number);
+      expect(result).toEqual(expected);
+    });
+
+    it('adds comma to non integer number ', () => {
+      const number = 2162571.1234;
+      const expected = '2,162,571.123';
+      const result = addCommasToNumber(number);
+      expect(result).toEqual(expected);
     });
   });
 

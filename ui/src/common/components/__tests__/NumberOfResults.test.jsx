@@ -5,7 +5,7 @@ import NumberOfResults from '../NumberOfResults';
 
 describe('NumberOfResults', () => {
   it('renders with plural suffix if it is more than 1', () => {
-    const wrapper = shallow(<NumberOfResults numberOfResults={2} />);
+    const wrapper = shallow(<NumberOfResults numberOfResults={27276} />);
     expect(wrapper).toMatchSnapshot();
   });
 

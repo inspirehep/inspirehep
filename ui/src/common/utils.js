@@ -251,3 +251,7 @@ export function getAuthorName(author) {
   }
   return author.get('full_name');
 }
+
+export function addCommasToNumber(number) {
+  return number && Number(number).toLocaleString('en-US');
+}

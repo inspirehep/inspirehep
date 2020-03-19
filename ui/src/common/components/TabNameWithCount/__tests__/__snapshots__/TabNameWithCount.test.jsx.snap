@@ -15,7 +15,9 @@ exports[`TabNameWithCount displays count if loading is false 1`] = `
     >
       <span>
         (
-        10
+        <FormattedNumber>
+          10
+        </FormattedNumber>
         )
       </span>
     </span>

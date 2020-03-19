@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { LoadingOutlined } from '@ant-design/icons';
 
 import EventTracker from '../EventTracker';
+import FormattedNumber from '../FormattedNumber';
 
 class TabNameWithCount extends Component {
   render() {
@@ -17,7 +18,11 @@ class TabNameWithCount extends Component {
                 <LoadingOutlined className="ml1" spin />
               </span>
             ) : (
-              count != null && <span>({count})</span>
+              count != null && (
+                <span>
+                  (<FormattedNumber>{count}</FormattedNumber>)
+                </span>
+              )
             )}
           </span>
         </span>

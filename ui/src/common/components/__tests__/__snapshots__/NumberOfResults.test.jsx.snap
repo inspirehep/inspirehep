@@ -2,7 +2,9 @@
 
 exports[`NumberOfResults renders with plural suffix if it is 0 1`] = `
 <span>
-  0
+  <FormattedNumber>
+    0
+  </FormattedNumber>
    
   results
 </span>
@@ -10,7 +12,9 @@ exports[`NumberOfResults renders with plural suffix if it is 0 1`] = `
 
 exports[`NumberOfResults renders with plural suffix if it is more than 1 1`] = `
 <span>
-  2
+  <FormattedNumber>
+    27276
+  </FormattedNumber>
    
   results
 </span>
@@ -18,7 +22,9 @@ exports[`NumberOfResults renders with plural suffix if it is more than 1 1`] = `
 
 exports[`NumberOfResults renders with singular suffix if it is 1 1`] = `
 <span>
-  1
+  <FormattedNumber>
+    1
+  </FormattedNumber>
    
   result
 </span>

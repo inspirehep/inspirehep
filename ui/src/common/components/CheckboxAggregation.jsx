@@ -10,6 +10,7 @@ import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
 import HelpIconTooltip from './HelpIconTooltip';
 import ExternalLink from './ExternalLink';
+import FormattedNumber from './FormattedNumber';
 
 const BUCKET_CHUNK_SIZE = 10;
 export const BUCKET_NAME_SPLITTER = '_';
@@ -138,7 +139,9 @@ class CheckboxAggregation extends Component {
           </CheckboxItem>
         </Col>
         <Col>
-          <UnclickableTag>{bucket.get('doc_count')}</UnclickableTag>
+          <UnclickableTag>
+            <FormattedNumber>{bucket.get('doc_count')}</FormattedNumber>
+          </UnclickableTag>
         </Col>
       </Row>
     );

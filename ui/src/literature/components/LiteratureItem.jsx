@@ -2,7 +2,11 @@ import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { LoginOutlined, FilePdfOutlined, LinkOutlined } from '@ant-design/icons';
+import {
+  LoginOutlined,
+  FilePdfOutlined,
+  LinkOutlined,
+} from '@ant-design/icons';
 
 import ArxivEprintList from './ArxivEprintList';
 import LiteratureDate from './LiteratureDate';
@@ -25,6 +29,7 @@ import {
   InlineUL,
   SEPARATOR_MIDDLEDOT,
 } from '../../common/components/InlineList';
+import FormattedNumber from '../../common/components/FormattedNumber';
 
 class LiteratureItem extends Component {
   render() {
@@ -82,10 +87,12 @@ class LiteratureItem extends Component {
                 <EventTracker eventId="Citations:Search">
                   <Link to={`${LITERATURE}?q=refersto:recid:${recordId}`}>
                     <IconText
-                      text={`${citationCount} ${pluralizeUnlessSingle(
-                        'citation',
-                        citationCount
-                      )}`}
+                      text={
+                        <>
+                          <FormattedNumber>{citationCount}</FormattedNumber>{' '}
+                          {pluralizeUnlessSingle('citation', citationCount)}
+                        </>
+                      }
                       icon={<LoginOutlined />}
                     />
                   </Link>

@@ -17,7 +17,7 @@ class IconText extends Component {
 
 IconText.propTypes = {
   icon: PropTypes.node.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.node.isRequired,
 };
 
 export default IconText;

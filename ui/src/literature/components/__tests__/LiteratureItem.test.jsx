@@ -14,7 +14,7 @@ describe('LiteratureItem', () => {
       fulltext_links: [{ value: 'https://fulltext.cern/pdf/1' }],
       urls: [{ value: 'http://lss.fnal.gov/conf/C8206282/pg209.pdf' }],
       control_number: 12345,
-      citation_count: 1,
+      citation_count: 12435,
       publication_info: [{ journal_title: 'Test Jornal' }],
       collaborations: [{ value: 'CMS' }],
       collaborations_with_suffix: [{ value: 'CMS Group' }],
