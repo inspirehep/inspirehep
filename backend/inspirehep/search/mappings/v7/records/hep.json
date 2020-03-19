@@ -263,6 +263,10 @@
             "fields": {
               "raw": {
                 "type": "text"
+              },
+              "initials": {
+                "type": "text",
+                "analyzer": "names_initials_analyzer"
               }
             }
           },
