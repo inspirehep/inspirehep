@@ -15,7 +15,7 @@
 
       @media (max-width: $screen-xs-max) {
         line-height: 56px;
-        height: initial; // unset height for mobile
+        height: auto; // unset height for mobile
       }
     }
 
@@ -28,8 +28,10 @@
     background-color: $layout-header-background;
 
     // remove the margin top for mobile
+    // because .sticky is not stick anymore
     @media (max-width: $screen-xs-max) {
-      margin-top: 0 !important;
+      margin-top: -1px !important;
+      padding-top: 1px;
     }
   }
 }

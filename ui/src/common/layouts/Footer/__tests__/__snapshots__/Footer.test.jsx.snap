@@ -46,7 +46,7 @@ exports[`Footer renders 1`] = `
           Object {
             "openExternal": true,
             "title": "Content Policy",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/conent-policy",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/content-policy",
           },
           Object {
             "openExternal": true,
@@ -86,7 +86,7 @@ exports[`Footer renders 1`] = `
           Object {
             "openExternal": true,
             "title": "Author list",
-            "url": "/toos/authorlist",
+            "url": "/tools/authorlist",
           },
         ],
         "title": "Tools",
