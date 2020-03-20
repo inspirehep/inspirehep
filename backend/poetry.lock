@@ -358,7 +358,7 @@ description = "Distributed Task Queue."
 name = "celery"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*,"
-version = "4.4.1"
+version = "4.4.2"
 
 [package.dependencies]
 billiard = ">=3.6.3.0,<4.0"
@@ -3948,7 +3948,7 @@ test = ["zope.event"]
 testing = ["coverage", "nose", "zope.event"]
 
 [metadata]
-content-hash = "9c66833949d8e4fe325038e654fb219d2976ab3442843811f953dcb5ed6f29c3"
+content-hash = "b1f1695e274ed7660655f1af8b64ecbffecf82abaaffea9a8f8587d6a3e93bb0"
 python-versions = ">=3.6,<3.8"
 
 [metadata.files]
@@ -4070,8 +4070,8 @@ bottle = [
     {file = "bottle-0.12.18.tar.gz", hash = "sha256:0819b74b145a7def225c0e83b16a4d5711fde751cd92bae467a69efce720f69e"},
 ]
 celery = [
-    {file = "celery-4.4.1-py2.py3-none-any.whl", hash = "sha256:3c5fcd6bfcf9a6323cb742cfc121d1790d50cfeddf300ba723cfa0b356413f07"},
-    {file = "celery-4.4.1.tar.gz", hash = "sha256:a650525303ee866fb0c62c82f68681fcc2183eebbfafae552c27d30125fe518b"},
+    {file = "celery-4.4.2-py2.py3-none-any.whl", hash = "sha256:5b4b37e276033fe47575107a2775469f0b721646a08c96ec2c61531e4fe45f2a"},
+    {file = "celery-4.4.2.tar.gz", hash = "sha256:108a0bf9018a871620936c33a3ee9f6336a89f8ef0a0f567a9001f4aa361415f"},
 ]
 certifi = [
     {file = "certifi-2019.11.28-py2.py3-none-any.whl", hash = "sha256:017c25db2a153ce562900032d5bc68e9f191e44e9a0f762f373977de9df1fbb3"},
