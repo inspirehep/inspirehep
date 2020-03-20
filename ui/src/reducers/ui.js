@@ -1,17 +1,15 @@
 import { fromJS } from 'immutable';
 
-import {
-  UI_SET_BANNER_VISIBILITY
-} from '../actions/actionTypes';
+import { UI_CLOSE_BANNER } from '../actions/actionTypes';
 
 export const initialState = fromJS({
-  bannerVisibility: true,
+  closedBannersById: {},
 });
 
 const uiReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UI_SET_BANNER_VISIBILITY:
-      return state.set('bannerVisibility', action.payload.visibility)
+    case UI_CLOSE_BANNER:
+      return state.setIn(['closedBannersById', action.payload.id], true);
     default:
       return state;
   }

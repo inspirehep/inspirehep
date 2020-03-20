@@ -1,10 +1,8 @@
-import {
-  UI_SET_BANNER_VISIBILITY,
-} from './actionTypes';
+import { UI_CLOSE_BANNER } from './actionTypes';
 
-export function setBannerVisibility(visibility) {
+export function closeBanner(id) {
   return {
-    type: UI_SET_BANNER_VISIBILITY,
-    payload: { visibility }
+    type: UI_CLOSE_BANNER,
+    payload: { id },
   };
 }

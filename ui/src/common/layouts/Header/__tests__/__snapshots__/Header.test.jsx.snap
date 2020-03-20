@@ -7,8 +7,7 @@ exports[`Header renders with Banner and Ribbon if it is on beta page 1`] = `
   <div
     className="sticky"
   >
-    <InterventionBanner />
-    <Connect(BetaInfoBanner) />
+    <Banners />
     <BetaRibbon />
     <Header
       className="header"
@@ -101,7 +100,7 @@ exports[`Header renders with search box if it is not on home or submission 1`] =
   <div
     className="sticky"
   >
-    <InterventionBanner />
+    <Banners />
     <Header
       className="header"
     >
@@ -193,7 +192,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
   <div
     className="sticky"
   >
-    <InterventionBanner />
+    <Banners />
     <Header
       className="header"
     >
@@ -283,7 +282,7 @@ exports[`Header renders without search box if it is on submission page 1`] = `
   <div
     className="sticky"
   >
-    <InterventionBanner />
+    <Banners />
     <Header
       className="header"
     >

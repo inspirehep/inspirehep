@@ -8,6 +8,8 @@ export const JOBS = '/jobs';
 
 export const CONFERENCES = '/conferences';
 
+export const INSTITUTIONS = '/institutions';
+
 export const USER = '/user';
 export const USER_PROFILE = `${USER}/profile`;
 export const USER_LOGIN = `${USER}/login`;
@@ -39,9 +41,5 @@ export const EDIT_JOB = '/submissions/jobs';
 export const EDIT_CONFERENCE = '/editor/record/conferences';
 
 export function isBetaRoute(locationPathname) {
-  return !(
-    locationPathname.startsWith(SUBMISSIONS) ||
-    locationPathname.startsWith(JOBS) ||
-    locationPathname.startsWith(CONFERENCES)
-  );
+  return locationPathname.startsWith(INSTITUTIONS);
 }

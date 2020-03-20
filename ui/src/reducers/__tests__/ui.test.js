@@ -1,17 +1,15 @@
 import { fromJS } from 'immutable';
 
 import reducer from '../ui';
-import {
-  UI_SET_BANNER_VISIBILITY
-} from '../../actions/actionTypes';
+import { UI_CLOSE_BANNER } from '../../actions/actionTypes';
 
 describe('ui reducer', () => {
-  it('UI_SET_BANNER_VISIBILITY', () => {
+  it('UI_CLOSE_BANNER', () => {
     const currentState = fromJS({
-      bannerVisibility: false,
+      closedBannersById: {},
     });
-    const action = { type: UI_SET_BANNER_VISIBILITY, payload: { visibility: true } };
+    const action = { type: UI_CLOSE_BANNER, payload: { id: 'test' } };
     const state = reducer(currentState, action);
-    expect(state.get('bannerVisibility')).toEqual(true);
+    expect(state.getIn(['closedBannersById', 'test'])).toEqual(true);
   });
 });
