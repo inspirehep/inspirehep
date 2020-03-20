@@ -2,7 +2,6 @@
 
 exports[`CollectionsMenu renders when authors page 1`] = `
 <Row
-  activeCollection="authors"
   className="__CollectionsMenu__"
   gutter={0}
   justify="center"
@@ -44,7 +43,6 @@ exports[`CollectionsMenu renders when authors page 1`] = `
 
 exports[`CollectionsMenu renders when conferences page 1`] = `
 <Row
-  activeCollection="conferences"
   className="__CollectionsMenu__"
   gutter={0}
   justify="center"
@@ -86,7 +84,6 @@ exports[`CollectionsMenu renders when conferences page 1`] = `
 
 exports[`CollectionsMenu renders when home page 1`] = `
 <Row
-  activeCollection=""
   className="__CollectionsMenu__"
   gutter={0}
   justify="center"
@@ -128,7 +125,6 @@ exports[`CollectionsMenu renders when home page 1`] = `
 
 exports[`CollectionsMenu renders when jobs page 1`] = `
 <Row
-  activeCollection="jobs"
   className="__CollectionsMenu__"
   gutter={0}
   justify="center"
@@ -170,7 +166,6 @@ exports[`CollectionsMenu renders when jobs page 1`] = `
 
 exports[`CollectionsMenu renders when literature page 1`] = `
 <Row
-  activeCollection="literature"
   className="__CollectionsMenu__"
   gutter={0}
   justify="center"
@@ -212,7 +207,6 @@ exports[`CollectionsMenu renders when literature page 1`] = `
 
 exports[`CollectionsMenu renders when submissions page 1`] = `
 <Row
-  activeCollection="submissions"
   className="__CollectionsMenu__"
   gutter={0}
   justify="center"
