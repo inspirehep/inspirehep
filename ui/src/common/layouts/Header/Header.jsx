@@ -27,7 +27,7 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
         )}
         <Layout.Header className="header">
           <Row type="flex" align="middle" gutter={{ xs: 8, sm: 16 }}>
-            <Col xs={{ span: 12, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
+            <Col xs={{ span: 13, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
               <Logo />
             </Col>
             <Col
@@ -40,7 +40,7 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
               {!isHomePage && !isSubmissionsPage && <SearchBoxContainer />}
             </Col>
             <Col
-              xs={{ span: 12, order: 2 }}
+              xs={{ span: 11, order: 2 }}
               sm={{ span: 4, order: 3 }}
               lg={7}
               xl={6}

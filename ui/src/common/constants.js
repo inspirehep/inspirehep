@@ -23,7 +23,7 @@ export const CONFERENCES_PID_TYPE = 'conferences';
 
 export const INVENIO_URL = '//invenio-software.org';
 export const HOLDINGPEN_URL = '/holdingpen';
-export const AUTHORLIST_TOOL_URL = '/toos/authorlist';
+export const AUTHORLIST_TOOL_URL = '/tools/authorlist';
 export const INSPIRE_TWITTER_ACCOUNT = 'https://twitter.com/inspirehep';
 export const SURVEY_LINK = 'https://forms.gle/CMgi3UsbpMuXxAfr6';
 export const FEEDBACK_EMAIL = 'feedback@inspirehep.net';
@@ -32,7 +32,7 @@ export const HELP_BLOG_URL = 'https://labs.inspirehep.net/help';
 export const KNOWLEDGE_BASE_URL = `${HELP_BLOG_URL}/knowledge-base`;
 export const ABOUT_INSPIRE_URL = `${KNOWLEDGE_BASE_URL}/about-inspire`;
 export const WHAT_IS_ORCID_URL = `${KNOWLEDGE_BASE_URL}/what-is-orcid`;
-export const CONTENT_POLICY_URL = `${KNOWLEDGE_BASE_URL}/conent-policy`;
+export const CONTENT_POLICY_URL = `${KNOWLEDGE_BASE_URL}/content-policy`;
 export const PRIVACY_POLICY_URL = `${KNOWLEDGE_BASE_URL}/privacy-policy`;
 export const TERMS_OF_USE_URL = `${KNOWLEDGE_BASE_URL}/terms-of-use`;
 export const FAQ_URL = `${KNOWLEDGE_BASE_URL}/faq`;
@@ -44,3 +44,5 @@ export const RANGE_AGGREGATION_SELECTION_SEPARATOR = '--';
 
 export const START_DATE_ALL = 'all';
 export const START_DATE_UPCOMING = 'upcoming';
+
+export const SEARCH_PAGE_GUTTER = { xs: 0, lg: 32 };

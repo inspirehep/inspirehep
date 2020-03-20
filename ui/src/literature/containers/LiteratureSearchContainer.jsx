@@ -21,6 +21,7 @@ import CitationSummaryBoxContainer from './CitationSummaryBoxContainer';
 import CitationSummarySwitchContainer, {
   isCitationSummaryEnabled,
 } from './CitationSummarySwitchContainer';
+import { SEARCH_PAGE_GUTTER } from '../../common/constants';
 
 function renderLiteratureItem(result, rank) {
   return <LiteratureItem metadata={result.get('metadata')} searchRank={rank} />;
@@ -60,61 +61,68 @@ function LiteratureSearch({
     [namespace, baseQuery, baseAggregationsQuery, onBaseQueriesChange]
   );
 
-  return hasQueryBeenUpdatedAtLeastOnce && (
-    <Row className="mt3" gutter={32} type="flex" justify="center">
-      <EmptyOrChildren
-        data={results}
-        title={noResultsTitle}
-        description={noResultsDescription}
+  return (
+    hasQueryBeenUpdatedAtLeastOnce && (
+      <Row
+        className="mt3"
+        gutter={SEARCH_PAGE_GUTTER}
+        type="flex"
+        justify="center"
       >
-        <Col xs={0} lg={7}>
-          <ResponsiveView min="lg" render={renderAggregations} />
-        </Col>
-        <Col xs={24} lg={17}>
-          <LoadingOrChildren loading={loading}>
-            <Row type="flex" align="middle" justify="end">
-              <Col xs={24} lg={8}>
-                <NumberOfResultsContainer namespace={namespace} />
-                <VerticalDivider />
-                <CiteAllActionContainer namespace={namespace} />
-              </Col>
-              <Col xs={8} lg={0}>
-                <ResponsiveView
-                  max="md"
-                  render={() => (
-                    <DrawerHandle handleText="Filter" drawerTitle="Filter">
-                      {renderAggregations()}
-                    </DrawerHandle>
-                  )}
-                />
-              </Col>
-              <Col className="tr" span={16}>
-                <span className="mr2">
-                  <CitationSummarySwitchContainer />
-                </span>
-                <SortByContainer namespace={namespace} />
-              </Col>
-            </Row>
-            {isCitationSummaryVisible && (
-              <Row className="mt2">
-                <Col span={24}>
-                  <CitationSummaryBoxContainer namespace={namespace} />
+        <EmptyOrChildren
+          data={results}
+          title={noResultsTitle}
+          description={noResultsDescription}
+        >
+          <Col xs={0} lg={7}>
+            <ResponsiveView min="lg" render={renderAggregations} />
+          </Col>
+          <Col xs={24} lg={17}>
+            <LoadingOrChildren loading={loading}>
+              <Row type="flex" align="middle" justify="end">
+                <Col xs={24} lg={8}>
+                  <NumberOfResultsContainer namespace={namespace} />
+                  <VerticalDivider />
+                  <CiteAllActionContainer namespace={namespace} />
+                </Col>
+                <Col xs={8} lg={0}>
+                  <ResponsiveView
+                    max="md"
+                    render={() => (
+                      <DrawerHandle handleText="Filter" drawerTitle="Filter">
+                        {renderAggregations()}
+                      </DrawerHandle>
+                    )}
+                  />
+                </Col>
+                <Col className="tr" span={16}>
+                  <span className="mr2">
+                    <CitationSummarySwitchContainer />
+                  </span>
+                  <SortByContainer namespace={namespace} />
                 </Col>
               </Row>
-            )}
-            <Row>
-              <Col span={24}>
-                <ResultsContainer
-                  namespace={namespace}
-                  renderItem={renderLiteratureItem}
-                />
-                <PaginationContainer namespace={namespace} />
-              </Col>
-            </Row>
-          </LoadingOrChildren>
-        </Col>
-      </EmptyOrChildren>
-    </Row>
+              {isCitationSummaryVisible && (
+                <Row className="mt2">
+                  <Col span={24}>
+                    <CitationSummaryBoxContainer namespace={namespace} />
+                  </Col>
+                </Row>
+              )}
+              <Row>
+                <Col span={24}>
+                  <ResultsContainer
+                    namespace={namespace}
+                    renderItem={renderLiteratureItem}
+                  />
+                  <PaginationContainer namespace={namespace} />
+                </Col>
+              </Row>
+            </LoadingOrChildren>
+          </Col>
+        </EmptyOrChildren>
+      </Row>
+    )
   );
 }
 
@@ -141,7 +149,11 @@ const stateToProps = (state, { namespace }) => ({
   ]),
   results: state.search.getIn(['namespaces', namespace, 'results']),
   isCitationSummaryVisible: isCitationSummaryEnabled(state),
-  hasQueryBeenUpdatedAtLeastOnce: state.search.getIn(['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce']),
+  hasQueryBeenUpdatedAtLeastOnce: state.search.getIn([
+    'namespaces',
+    namespace,
+    'hasQueryBeenUpdatedAtLeastOnce',
+  ]),
 });
 
 const dispatchToProps = dispatch => ({

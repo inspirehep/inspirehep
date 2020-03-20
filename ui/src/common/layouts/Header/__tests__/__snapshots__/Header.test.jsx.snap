@@ -34,7 +34,7 @@ exports[`Header renders with Banner and Ribbon if it is on beta page 1`] = `
           xs={
             Object {
               "order": 1,
-              "span": 12,
+              "span": 13,
             }
           }
         >
@@ -71,7 +71,7 @@ exports[`Header renders with Banner and Ribbon if it is on beta page 1`] = `
           xs={
             Object {
               "order": 2,
-              "span": 12,
+              "span": 11,
             }
           }
           xxl={5}
@@ -126,7 +126,7 @@ exports[`Header renders with search box if it is not on home or submission 1`] =
           xs={
             Object {
               "order": 1,
-              "span": 12,
+              "span": 13,
             }
           }
         >
@@ -163,7 +163,7 @@ exports[`Header renders with search box if it is not on home or submission 1`] =
           xs={
             Object {
               "order": 2,
-              "span": 12,
+              "span": 11,
             }
           }
           xxl={5}
@@ -218,7 +218,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
           xs={
             Object {
               "order": 1,
-              "span": 12,
+              "span": 13,
             }
           }
         >
@@ -253,7 +253,7 @@ exports[`Header renders without search box if it is on homepage \`/\` 1`] = `
           xs={
             Object {
               "order": 2,
-              "span": 12,
+              "span": 11,
             }
           }
           xxl={5}
@@ -308,7 +308,7 @@ exports[`Header renders without search box if it is on submission page 1`] = `
           xs={
             Object {
               "order": 1,
-              "span": 12,
+              "span": 13,
             }
           }
         >
@@ -343,7 +343,7 @@ exports[`Header renders without search box if it is on submission page 1`] = `
           xs={
             Object {
               "order": 2,
-              "span": 12,
+              "span": 11,
             }
           }
           xxl={5}
