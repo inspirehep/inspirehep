@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Banner does not render when it is closed 1`] = `""`;
+
+exports[`Banner does not render when pathname is not a match 1`] = `""`;
+
+exports[`Banner renders when it is not closed 1`] = `
+<Alert
+  afterClose={[Function]}
+  banner={true}
+  className=""
+  closable={true}
+  message={
+    <span>
+      <SanitizedHTML
+        allowedAttributes={
+          Object {
+            "a": Array [
+              "href",
+              "target",
+              "rel",
+            ],
+          }
+        }
+        allowedTags={
+          Array [
+            "a",
+            "p",
+            "em",
+            "strong",
+          ]
+        }
+        className="di"
+        html="<strong>Welcome to the new INSPIRE! <a href=\\"/release\\">learn more</a></strong>"
+      />
+    </span>
+  }
+  showIcon={false}
+  type="info"
+/>
+`;
+
+exports[`Banner renders when pathname is a match 1`] = `
+<Alert
+  afterClose={[Function]}
+  banner={true}
+  className=""
+  closable={true}
+  message={
+    <span>
+      <SanitizedHTML
+        allowedAttributes={
+          Object {
+            "a": Array [
+              "href",
+              "target",
+              "rel",
+            ],
+          }
+        }
+        allowedTags={
+          Array [
+            "a",
+            "p",
+            "em",
+            "strong",
+          ]
+        }
+        className="di"
+        html="We have a new literature feature"
+      />
+    </span>
+  }
+  showIcon={false}
+  type="info"
+/>
+`;
+
+exports[`Banner renders with custom style 1`] = `
+<Alert
+  afterClose={[Function]}
+  banner={true}
+  className="tc"
+  closable={false}
+  message={
+    <span>
+      <SanitizedHTML
+        allowedAttributes={
+          Object {
+            "a": Array [
+              "href",
+              "target",
+              "rel",
+            ],
+          }
+        }
+        allowedTags={
+          Array [
+            "a",
+            "p",
+            "em",
+            "strong",
+          ]
+        }
+        className="di mr3"
+        html="We have problem with our storage."
+      />
+      <Button
+        block={false}
+        ghost={false}
+        href="https://status.inspirehep.net"
+        htmlType="button"
+        loading={false}
+        target="_blank"
+        type="primary"
+      >
+        Learn more
+      </Button>
+    </span>
+  }
+  showIcon={false}
+  type="warning"
+/>
+`;

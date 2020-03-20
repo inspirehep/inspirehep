@@ -6,11 +6,10 @@ import useResizeObserver from 'use-resize-observer';
 import SearchBoxContainer from '../../containers/SearchBoxContainer';
 import './Header.scss';
 import Logo from '../../components/Logo';
-import BetaInfoBanner from './BetaInfoBanner';
-import InterventionBanner from './InterventionBanner';
 import HeaderMenuContainer from './HeaderMenuContainer';
 import BetaRibbon from './BetaRibbon';
 import CollectionsMenu from '../CollectionsMenu';
+import Banners from './Banners';
 
 function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
   const [stickyContainerRef, , stickyContainerHeight] = useResizeObserver();
@@ -18,13 +17,8 @@ function Header({ isHomePage, isSubmissionsPage, isBetaPage }) {
   return (
     <div className="__Header__">
       <div ref={stickyContainerRef} className="sticky">
-        <InterventionBanner />
-        {isBetaPage && (
-          <>
-            <BetaInfoBanner />
-            <BetaRibbon />
-          </>
-        )}
+        <Banners />
+        {isBetaPage && <BetaRibbon />}
         <Layout.Header className="header">
           <Row type="flex" align="middle" gutter={{ xs: 8, sm: 16 }}>
             <Col xs={{ span: 13, order: 1 }} sm={{ span: 6, order: 1 }} lg={5}>
