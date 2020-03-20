@@ -23,11 +23,7 @@ function CollectionsMenu({ currentPathname }) {
   );
 
   return (
-    <Row
-      className="__CollectionsMenu__"
-      activeCollection={activeCollection}
-      justify="center"
-    >
+    <Row className="__CollectionsMenu__" justify="center">
       <Col>
         <Link
           className={classNames(COLLECTION_LINK_CLASSNAME, {

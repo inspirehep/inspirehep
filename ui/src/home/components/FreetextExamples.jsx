@@ -1,7 +1,7 @@
 import React from 'react';
-import { List } from 'antd';
 
 import LinkWithEncodedLiteratureQuery from './LinkWithEncodedLiteratureQuery';
+import ContentBox from '../../common/components/ContentBox';
 
 const EXAMPLES = [
   'n=2 pedestrians tachikawa',
@@ -11,22 +11,21 @@ const EXAMPLES = [
 
 function renderExample(freetextSearch) {
   return (
-    <List.Item>
+    <div key={freetextSearch}>
       <LinkWithEncodedLiteratureQuery query={freetextSearch} />
-    </List.Item>
+    </div>
   );
 }
 
 function FreetextExamples() {
   return (
-    <List
-      className="bg-white"
-      bordered
-      size="small"
-      header="Users can also type free text searches using any combination of author names, title, dates etc."
-      dataSource={EXAMPLES}
-      renderItem={renderExample}
-    />
+    <ContentBox>
+      <p>
+        Users can also type free text searches using any combination of author
+        names, title, dates etc.
+      </p>
+      {EXAMPLES.map(renderExample)}
+    </ContentBox>
   );
 }
 

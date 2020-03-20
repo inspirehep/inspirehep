@@ -1,21 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`FreetextExamples renders 1`] = `
-<List
-  bordered={true}
-  className="bg-white"
-  dataSource={
-    Array [
-      "n=2 pedestrians tachikawa",
-      "superconformal field theories Maldacena 1997",
-      "1207.7214",
-    ]
-  }
-  header="Users can also type free text searches using any combination of author names, title, dates etc."
+<ContentBox
+  className=""
+  leftActions={null}
   loading={false}
-  pagination={false}
-  renderItem={[Function]}
-  size="small"
-  split={true}
-/>
+  rightActions={null}
+  subTitle={null}
+  title={null}
+>
+  <p>
+    Users can also type free text searches using any combination of author names, title, dates etc.
+  </p>
+  <div
+    key="n=2 pedestrians tachikawa"
+  >
+    <LinkWithEncodedLiteratureQuery
+      query="n=2 pedestrians tachikawa"
+    />
+  </div>
+  <div
+    key="superconformal field theories Maldacena 1997"
+  >
+    <LinkWithEncodedLiteratureQuery
+      query="superconformal field theories Maldacena 1997"
+    />
+  </div>
+  <div
+    key="1207.7214"
+  >
+    <LinkWithEncodedLiteratureQuery
+      query="1207.7214"
+    />
+  </div>
+</ContentBox>
 `;
