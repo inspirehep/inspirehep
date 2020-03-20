@@ -1273,7 +1273,7 @@
         },
         "names_analyzer": {
           "filter": ["ascii_normalizer", "lowercase_normalizer"],
-          "tokenizer": "names_tokenizer",
+          "tokenizer": "standard",
           "type": "custom"
         },
         "names_initials_analyzer": {
@@ -1282,7 +1282,7 @@
             "initial_normalizer",
             "lowercase_normalizer"
           ],
-          "tokenizer": "names_tokenizer",
+          "tokenizer": "standard",
           "type": "custom"
         }
       },
@@ -1324,10 +1324,6 @@
           "type": "pattern",
           "pattern": "(\\d+)",
           "group": 1
-        },
-        "names_tokenizer": {
-          "type": "char_group",
-          "tokenize_on_chars": ["whitespace", "."]
         }
       }
     }
