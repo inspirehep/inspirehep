@@ -29,10 +29,10 @@ exports[`SpiresExamples renders 1`] = `
         "useOperators": "a, au, author, name",
       },
       Object {
-        "example": "a J.M.Maldacena.1",
-        "key": "a(BAI)",
-        "searchBy": "Author BAI",
-        "useOperators": "a, au, author, name",
+        "example": "t A First Course in String Theory",
+        "key": "t",
+        "searchBy": "Title",
+        "useOperators": "t, title, ti",
       },
       Object {
         "example": "cn babar",
