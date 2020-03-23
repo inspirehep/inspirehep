@@ -41,22 +41,22 @@ exports[`Footer renders when cataloger 1`] = `
           Object {
             "openExternal": true,
             "title": "About INSPIRE",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/about-inspire",
+            "url": "https://inspirehep.net/help/knowledge-base/about-inspire",
           },
           Object {
             "openExternal": true,
             "title": "Content Policy",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/content-policy",
+            "url": "https://inspirehep.net/help/knowledge-base/content-policy",
           },
           Object {
             "openExternal": true,
             "title": "Privacy Policy",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/privacy-policy",
+            "url": "https://inspirehep.net/help/knowledge-base/privacy-policy",
           },
           Object {
             "openExternal": true,
             "title": "Terms of Use",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/terms-of-use",
+            "url": "https://inspirehep.net/help/knowledge-base/terms-of-use",
           },
         ],
         "title": "INSPIRE",
@@ -66,12 +66,12 @@ exports[`Footer renders when cataloger 1`] = `
           Object {
             "openExternal": true,
             "title": "FAQ",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/faq",
+            "url": "https://inspirehep.net/help/knowledge-base/faq",
           },
           Object {
             "openExternal": true,
             "title": "INSPIRE Help",
-            "url": "https://labs.inspirehep.net/help",
+            "url": "https://inspirehep.net/help",
           },
         ],
         "title": "Help",
@@ -158,22 +158,22 @@ exports[`Footer renders when not cataloger 1`] = `
           Object {
             "openExternal": true,
             "title": "About INSPIRE",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/about-inspire",
+            "url": "https://inspirehep.net/help/knowledge-base/about-inspire",
           },
           Object {
             "openExternal": true,
             "title": "Content Policy",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/content-policy",
+            "url": "https://inspirehep.net/help/knowledge-base/content-policy",
           },
           Object {
             "openExternal": true,
             "title": "Privacy Policy",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/privacy-policy",
+            "url": "https://inspirehep.net/help/knowledge-base/privacy-policy",
           },
           Object {
             "openExternal": true,
             "title": "Terms of Use",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/terms-of-use",
+            "url": "https://inspirehep.net/help/knowledge-base/terms-of-use",
           },
         ],
         "title": "INSPIRE",
@@ -183,12 +183,12 @@ exports[`Footer renders when not cataloger 1`] = `
           Object {
             "openExternal": true,
             "title": "FAQ",
-            "url": "https://labs.inspirehep.net/help/knowledge-base/faq",
+            "url": "https://inspirehep.net/help/knowledge-base/faq",
           },
           Object {
             "openExternal": true,
             "title": "INSPIRE Help",
-            "url": "https://labs.inspirehep.net/help",
+            "url": "https://inspirehep.net/help",
           },
         ],
         "title": "Help",
