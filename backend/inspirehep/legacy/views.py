@@ -44,7 +44,7 @@ def redirect_query():
     }
 
     legacy_collection = request.args.get("cc", "HEP")
-    query = request.args.get("p")
+    query = request.args.get("p", "")
 
     collection = collection_equivalence.get(legacy_collection)
     if collection:
