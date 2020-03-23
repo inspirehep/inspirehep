@@ -10,7 +10,10 @@ import LiteratureSubmission from '../components/LiteratureSubmission';
 import ExternalLink from '../../../common/components/ExternalLink';
 import SelectBox from '../../../common/components/SelectBox';
 import DataImporterContainer from './DataImporterContainer';
-import { LITERATURE_PID_TYPE } from '../../../common/constants';
+import {
+  LITERATURE_PID_TYPE,
+  CONTENT_POLICY_URL,
+} from '../../../common/constants';
 
 const DOC_TYPE_OPTIONS = [
   {
@@ -61,7 +64,7 @@ function LiteratureSubmissionPage({ error, importedFormData, onSubmit }) {
             This form allows you to suggest a preprint, an article, a book, a
             conference proceeding or a thesis you would like to see added to
             INSPIRE. We will check your suggestion with our{' '}
-            <ExternalLink href="//inspirehep.net/info/hep/collection-policy">
+            <ExternalLink href={CONTENT_POLICY_URL}>
               selection policy
             </ExternalLink>{' '}
             and transfer it to INSPIRE.
