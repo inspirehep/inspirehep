@@ -27,7 +27,7 @@ def test_hep_author_publications_facets_without_exclude(base_app):
             "type": "checkbox",
             "split": True,
         },
-        "terms": {"field": "facet_author_name", "size": 20},
+        "terms": {"field": "facet_author_name", "size": 100},
     }
     with base_app.test_request_context():
         result = hep_author_publications()
