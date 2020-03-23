@@ -68,6 +68,20 @@ def test_redirects_query_from_legacy_url(api_client, db, es_clear, create_record
     assert response_location_header.endswith(expected_redirect_path)
 
 
+def test_redirects_query_from_legacy_url_with_empty_query(
+    api_client, db, es_clear, create_record
+):
+    response = api_client.get("/search?cc=HEP")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 301
+    expected_redirect_path = "/literature?q="
+    assert expected_status_code == response_status_code
+    assert response_location_header.endswith(expected_redirect_path)
+
+
 def test_redirects_query_from_legacy_url_not_in_labs(
     api_client, db, es_clear, create_record, base_app
 ):
