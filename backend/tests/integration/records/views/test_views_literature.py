@@ -670,3 +670,36 @@ def test_literature_search_permissions(
         response_data["hits"]["hits"][0]["metadata"]["control_number"]
         == rec_literature["control_number"]
     )
+
+
+def test_literature_hidden_collection_as_anonymous_user(api_client, db, create_record):
+    expected_status_code = 401
+    rec = create_record("lit", data={"_collections": ["Fermilab"]})
+    response = api_client.get(f"/literature/{rec['control_number']}")
+    assert response.status_code == expected_status_code
+
+
+def test_literature_hidden_collection_as_cataloger(
+    api_client, db, create_record, create_user
+):
+    expected_status_code = 200
+    rec = create_record("lit", data={"_collections": ["Fermilab"]})
+
+    user = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.get(f"/literature/{rec['control_number']}")
+    assert response.status_code == expected_status_code
+
+
+def test_literature_hidden_collection_as_logged_in_user_not_cataloger(
+    api_client, db, create_record, create_user
+):
+    expected_status_code = 403
+    rec = create_record("lit", data={"_collections": ["Fermilab"]})
+
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    response = api_client.get(f"/literature/{rec['control_number']}")
+    assert response.status_code == expected_status_code
