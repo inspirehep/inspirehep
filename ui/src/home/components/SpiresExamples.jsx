@@ -27,10 +27,10 @@ const TABLE_DATA = [
     example: 'a witten',
   },
   {
-    key: 'a(BAI)',
-    searchBy: 'Author BAI',
-    useOperators: 'a, au, author, name',
-    example: 'a J.M.Maldacena.1',
+    key: 't',
+    searchBy: 'Title',
+    useOperators: 't, title, ti',
+    example: 't A First Course in String Theory',
   },
   {
     key: 'cn',
