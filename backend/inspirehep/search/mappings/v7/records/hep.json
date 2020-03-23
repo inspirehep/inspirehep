@@ -1273,6 +1273,7 @@
         },
         "names_analyzer": {
           "filter": ["ascii_normalizer", "lowercase_normalizer"],
+          "char_filter": ["dot_to_whitespace_normalizer"],
           "tokenizer": "standard",
           "type": "custom"
         },
@@ -1282,6 +1283,7 @@
             "initial_normalizer",
             "lowercase_normalizer"
           ],
+          "char_filter": ["dot_to_whitespace_normalizer"],
           "tokenizer": "standard",
           "type": "custom"
         }
@@ -1303,6 +1305,11 @@
           "pattern": "\\$[^$]+\\$",
           "replacement": "",
           "type": "pattern_replace"
+        },
+        "dot_to_whitespace_normalizer": {
+          "type": "pattern_replace",
+          "pattern": "\\.",
+          "replacement": " "
         }
       },
       "filter": {
