@@ -6,11 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 import json
-from copy import deepcopy
 from urllib.parse import urlencode
 
 import mock
-import pytest
 from flask import current_app
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
@@ -81,7 +79,7 @@ def test_literature_search_application_json_ui_get(
     assert expected_data == response_data_metadata
 
 
-def test_literature_application_json_get(api_client, db, es_clear, create_record):
+def test_literature_application_json_get(api_client, db, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -92,7 +90,7 @@ def test_literature_application_json_get(api_client, db, es_clear, create_record
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put(api_client, db, es_clear, create_record):
+def test_literature_application_json_put_without_token(api_client, db, create_record):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -103,7 +101,9 @@ def test_literature_application_json_put(api_client, db, es_clear, create_record
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_delete(api_client, db, es_clear, create_record):
+def test_literature_application_json_delete_without_token(
+    api_client, db, create_record
+):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -114,9 +114,59 @@ def test_literature_application_json_delete(api_client, db, es_clear, create_rec
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_post(api_client, db):
+def test_literature_application_json_post_without_token(api_client, db):
     expected_status_code = 401
     response = api_client.post("/literature")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_literature_application_json_put_with_token(
+    api_client, db, create_record, create_user_and_token
+):
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+    token = create_user_and_token()
+
+    expected_status_code = 200
+
+    headers = {"Authorization": "BEARER " + token.access_token}
+    response = api_client.put(
+        "/literature/{}".format(record_control_number), headers=headers, json=record
+    )
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_literature_application_json_delete_with_token(
+    api_client, db, create_record, create_user_and_token
+):
+    record = create_record("lit")
+    record_control_number = record["control_number"]
+    token = create_user_and_token()
+
+    expected_status_code = 403
+
+    headers = {"Authorization": "BEARER " + token.access_token}
+    response = api_client.delete(
+        "/literature/{}".format(record_control_number), headers=headers
+    )
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_literature_application_json_post_with_token(
+    api_client, db, create_user_and_token
+):
+    expected_status_code = 201
+    token = create_user_and_token()
+    headers = {"Authorization": "BEARER " + token.access_token}
+    rec_data = faker.record("lit")
+
+    response = api_client.post("/literature", headers=headers, json=rec_data)
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code

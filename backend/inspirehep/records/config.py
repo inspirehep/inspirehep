@@ -20,9 +20,9 @@ from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from inspirehep.access_control import (
+    APIAccessPermissionCheck,
     LiteraturePermissionCheck,
-    api_access_permission_check,
-    session_cataloger_permission_factory,
+    SessionCatalogerPermission,
 )
 from inspirehep.search.aggregations import hep_rpp
 from inspirehep.search.api import (
@@ -104,8 +104,8 @@ LITERATURE.update(
         "list_route": "/literature/",
         "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
         "read_permission_factory_imp": LiteraturePermissionCheck,
-        "create_permission_factory_imp": api_access_permission_check,
-        "update_permission_factory_imp": api_access_permission_check,
+        "create_permission_factory_imp": APIAccessPermissionCheck,
+        "update_permission_factory_imp": APIAccessPermissionCheck,
         "suggesters": {
             "abstract_source": {
                 "completion": {"field": "abstracts.abstract_source_suggest"}
@@ -190,8 +190,8 @@ AUTHORS.update(
         "item_route": '/authors/<inspirepid(aut,record_class="inspirehep.records.api:AuthorsRecord"):pid_value>',
         "record_class": "inspirehep.records.api:AuthorsRecord",
         "search_factory_imp": "inspirehep.search.factories.search:search_factory_with_aggs",
-        "create_permission_factory_imp": api_access_permission_check,
-        "update_permission_factory_imp": api_access_permission_check,
+        "create_permission_factory_imp": APIAccessPermissionCheck,
+        "update_permission_factory_imp": APIAccessPermissionCheck,
     }
 )
 
@@ -320,7 +320,7 @@ CONFERENCES.update(
                 "completion": {"field": "seriesautocomplete", "skip_duplicates": True},
             },
         },
-        "update_permission_factory_imp": session_cataloger_permission_factory,
+        "update_permission_factory_imp": SessionCatalogerPermission,
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS
             + ":conferences_json_response_search",
