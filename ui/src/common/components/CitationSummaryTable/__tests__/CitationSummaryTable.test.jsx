@@ -42,6 +42,48 @@ describe('CitationSummaryTable', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('renders table with only required props', () => {
+    const wrapper = shallow(<CitationSummaryTable loading={false} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders table with null numbers', () => {
+    const citeableBucket = fromJS({
+      doc_count: null,
+      citations_count: {
+        value: null,
+      },
+      average_citations: {
+        value: null,
+      },
+    });
+    const publishedBucket = fromJS({
+      doc_count: null,
+      citations_count: {
+        value: null,
+      },
+      average_citations: {
+        value: null,
+      },
+    });
+    const hIndex = fromJS({
+      value: {
+        all: 1067,
+        published: 9,
+      },
+    });
+    const wrapper = shallow(
+      <CitationSummaryTable
+        publishedBucket={publishedBucket}
+        citeableBucket={citeableBucket}
+        hIndex={hIndex}
+        loading={false}
+        error={null}
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('calls render props', () => {
     const citeableBucket = fromJS({
       doc_count: 29,

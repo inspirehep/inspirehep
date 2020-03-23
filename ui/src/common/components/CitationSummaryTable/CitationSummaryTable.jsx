@@ -27,6 +27,10 @@ const H_INDEX_HELP_MESSAGE = (
   </span>
 );
 
+function toFixedNumber(numberOrNull) {
+  return numberOrNull == null ? 0 : numberOrNull.toFixed(1);
+}
+
 class CitationSummaryTable extends Component {
   render() {
     const {
@@ -106,16 +110,16 @@ class CitationSummaryTable extends Component {
                   <th>Citations/paper (avg)</th>
                   <td>
                     <FormattedNumber>
-                      {citeableBucket
-                        .getIn(['average_citations', 'value'], 0)
-                        .toFixed(1)}
+                      {toFixedNumber(
+                        citeableBucket.getIn(['average_citations', 'value'], 0)
+                      )}
                     </FormattedNumber>
                   </td>
                   <td>
                     <FormattedNumber>
-                      {publishedBucket
-                        .getIn(['average_citations', 'value'], 0)
-                        .toFixed(1)}
+                      {toFixedNumber(
+                        publishedBucket.getIn(['average_citations', 'value'], 0)
+                      )}
                     </FormattedNumber>
                   </td>
                 </tr>
