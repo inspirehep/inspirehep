@@ -12,6 +12,7 @@ from mock import Mock, patch
 from werkzeug.exceptions import Forbidden, Unauthorized
 
 from inspirehep.accounts.decorators import login_required_with_roles
+from inspirehep.accounts.roles import Roles
 
 
 class MockUserWithRoleA:
@@ -20,6 +21,10 @@ class MockUserWithRoleA:
 
 class MockUserWithRoleB:
     name = "role_b"
+
+
+class MockUserWithSuperuser:
+    name = Roles.superuser.value
 
 
 @patch(
@@ -68,3 +73,17 @@ def test_login_required_with_roles_unauthorized(
     with pytest.raises(Forbidden):
         decorated_func()
         assert func.called
+
+
+@patch(
+    "inspirehep.accounts.decorators.current_user",
+    is_authenticated=True,
+    roles=[MockUserWithSuperuser],
+)
+def test_login_required_role_a_superuser_always_allowed(
+    mock_is_authenticated, base_app, db, es
+):
+    func = Mock()
+    decorated_func = login_required_with_roles(["role_a"])(func)
+    decorated_func()
+    assert func.called

@@ -10,6 +10,8 @@ from functools import wraps
 from flask import abort
 from flask_login import current_user
 
+from inspirehep.accounts.roles import Roles
+
 
 def login_required(func):
     @wraps(func)
@@ -34,6 +36,8 @@ def login_required_with_roles(roles=None):
                 abort(401)
 
             if roles:
+                # superuser can do everything
+                roles.append(Roles.superuser.value)
                 user_roles = {role.name for role in current_user.roles}
                 has_access = user_roles & set(roles)
                 if not has_access:
