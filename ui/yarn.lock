@@ -8482,7 +8482,19 @@ rc-resize-observer@^0.1.0, rc-resize-observer@^0.1.2:
     rc-util "^4.13.0"
     resize-observer-polyfill "^1.5.1"
 
-rc-select@^10.0.0, rc-select@~10.0.0:
+rc-select@10.1.0, rc-select@~10.0.0:
+  version "10.1.0"
+  resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-10.1.0.tgz#6b251ec6d7497170f18460c0d478876a74586e3f"
+  integrity sha512-OxnTjpDza1mnR41nlOuGQdMMKf1nVoWhCJrNDl1eC2Z6vjDuiDF52Qd5Qr2LwXC1yi8XXzvXb1Iv4RGIn6Ooag==
+  dependencies:
+    classnames "2.x"
+    rc-animate "^2.10.0"
+    rc-trigger "^4.0.0"
+    rc-util "^4.20.0"
+    rc-virtual-list "^1.1.0"
+    warning "^4.0.3"
+
+rc-select@^10.0.0:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/rc-select/-/rc-select-10.0.1.tgz#5a41641347bdf2e200dc9c248222c0191ff08b48"
   integrity sha512-DrBXl0pvNwiRssgHqJTgS61NPYlbkgNI6MAqJfd9qzm3RPQEHjSLFEU2hwRRJG1pzo46Dg7J94b+XbzWMDYo9Q==
@@ -8633,6 +8645,14 @@ rc-virtual-list@^1.0.0, rc-virtual-list@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/rc-virtual-list/-/rc-virtual-list-1.0.0.tgz#34a755c48e9c6e50ac6d0155017134859af8f0b0"
   integrity sha512-t6q0/GiH5qp5k2VRDeIrrS1Z2r8ey0fnVQN5HIu6ildvXqRfgm4MbNnUeoUywNt+et4XhDFBGmiEhRvIs6vujQ==
+  dependencies:
+    classnames "^2.2.6"
+    rc-util "^4.8.0"
+
+rc-virtual-list@^1.1.0:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/rc-virtual-list/-/rc-virtual-list-1.1.1.tgz#824a2c210729ca738e041b8da9e3347cc6650e40"
+  integrity sha512-1l2DFqvGMnCm6N5+zKaRnF294r3GKGvejdLIivdqbgMKwX+c1H+SftymdSKY92i6mDe7F0xg/JS6Q6Anu5/1pw==
   dependencies:
     classnames "^2.2.6"
     rc-util "^4.8.0"
