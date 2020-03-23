@@ -20,6 +20,7 @@ from invenio_records_rest.facets import range_filter, terms_filter
 from invenio_records_rest.utils import allow_all, deny_all
 
 from inspirehep.access_control import (
+    LiteraturePermissionCheck,
     api_access_permission_check,
     session_cataloger_permission_factory,
 )
@@ -102,6 +103,7 @@ LITERATURE.update(
         },
         "list_route": "/literature/",
         "item_route": '/literature/<inspirepid(lit,record_class="inspirehep.records.api.LiteratureRecord"):pid_value>',
+        "read_permission_factory_imp": LiteraturePermissionCheck,
         "create_permission_factory_imp": api_access_permission_check,
         "update_permission_factory_imp": api_access_permission_check,
         "suggesters": {

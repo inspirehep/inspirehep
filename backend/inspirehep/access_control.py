@@ -43,3 +43,13 @@ class SessionCatalogerPermission:
 
 def session_cataloger_permission_factory(*args, **kwargs):
     return SessionCatalogerPermission()
+
+
+class LiteraturePermissionCheck:
+    def __init__(self, record, *args, **kwargs):
+        self.record = record
+
+    def can(self):
+        if "Literature" not in self.record.get("_collections", []):
+            return SessionCatalogerPermission().can()
+        return True
