@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Footer renders 1`] = `
+exports[`Footer renders when cataloger 1`] = `
 <Footer
   bottom={
     <Row
@@ -89,7 +89,109 @@ exports[`Footer renders 1`] = `
             "url": "/tools/authorlist",
           },
         ],
+        "onlyCatalogers": true,
         "title": "Tools",
+      },
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": true,
+            "title": "Blog",
+            "url": "https://blog.inspirehep.net",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Twitter",
+            "url": "https://twitter.com/inspirehep",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Contact",
+            "url": "mailto:feedback@inspirehep.net",
+          },
+        ],
+        "title": "Community",
+      },
+    ]
+  }
+/>
+`;
+
+exports[`Footer renders when not cataloger 1`] = `
+<Footer
+  bottom={
+    <Row
+      gutter={0}
+    >
+      <Col
+        className="tl sm-tc"
+        md={12}
+        xs={24}
+      >
+        <ExternalLink
+          as="a"
+          href="//invenio-software.org"
+        >
+          Powered by Invenio
+        </ExternalLink>
+      </Col>
+      <Col
+        className="tr sm-tc"
+        md={12}
+        xs={24}
+      >
+        Made with 
+        <span
+          className="red"
+        >
+          ❤
+        </span>
+         by the INSPIRE Team
+      </Col>
+    </Row>
+  }
+  className="__Footer__"
+  columns={
+    Array [
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": true,
+            "title": "About INSPIRE",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/about-inspire",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Content Policy",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/content-policy",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Privacy Policy",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/privacy-policy",
+          },
+          Object {
+            "openExternal": true,
+            "title": "Terms of Use",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/terms-of-use",
+          },
+        ],
+        "title": "INSPIRE",
+      },
+      Object {
+        "items": Array [
+          Object {
+            "openExternal": true,
+            "title": "FAQ",
+            "url": "https://labs.inspirehep.net/help/knowledge-base/faq",
+          },
+          Object {
+            "openExternal": true,
+            "title": "INSPIRE Help",
+            "url": "https://labs.inspirehep.net/help",
+          },
+        ],
+        "title": "Help",
       },
       Object {
         "items": Array [

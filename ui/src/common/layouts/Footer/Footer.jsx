@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import RcFooter from 'rc-footer';
 import 'rc-footer/assets/index.css';
 import { Row, Col } from 'antd';
+import PropTypes from 'prop-types';
 
 import './Footer.scss';
 import {
@@ -63,6 +64,7 @@ const COLUMNS = [
   },
   {
     title: 'Tools',
+    onlyCatalogers: true,
     items: [
       {
         title: 'Holdingpen',
@@ -109,8 +111,19 @@ const BOTTOM = (
   </Row>
 );
 
-function Footer() {
-  return <RcFooter className="__Footer__" bottom={BOTTOM} columns={COLUMNS} />;
+function Footer({ isCatalogerLoggedIn }) {
+  const columns = useMemo(
+    () =>
+      isCatalogerLoggedIn
+        ? COLUMNS
+        : COLUMNS.filter(column => !column.onlyCatalogers),
+    [isCatalogerLoggedIn]
+  );
+  return <RcFooter className="__Footer__" bottom={BOTTOM} columns={columns} />;
 }
+
+Footer.propTypes = {
+  isCatalogerLoggedIn: PropTypes.bool.isRequired,
+};
 
 export default Footer;
