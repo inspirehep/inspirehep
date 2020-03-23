@@ -74,7 +74,7 @@ def hep_collaboration_aggregation(order, title="Collaboration", agg_type="checkb
 def hep_author_aggregation(order, author=None, title="Author", agg_type="checkbox"):
     aggregation = {
         "author": {
-            "terms": {"field": "facet_author_name", "size": 20},
+            "terms": {"field": "facet_author_name", "size": 100},
             "meta": {"title": title, "order": order, "type": agg_type, "split": True},
         }
     }
