@@ -1,5 +1,229 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`CitationSummaryTable renders table with null numbers 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren
+    error={null}
+  >
+    <div
+      className="__CitationTable__"
+    >
+      <table>
+        <tbody>
+          <tr>
+            <th />
+            <th>
+              <LabelWithHelp
+                help="Citeable papers have metadata that allow us to reliably track their citations."
+                label="Citeable"
+              />
+            </th>
+            <th>
+              <LabelWithHelp
+                help={
+                  <span>
+                    Published papers are believed to have undergone rigorous peer review.
+                     
+                    <ExternalLink
+                      as="a"
+                      href="http://inspirehep.net/info/faq/general#published"
+                    >
+                      Learn More
+                    </ExternalLink>
+                  </span>
+                }
+                label="Published"
+              />
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Papers
+            </th>
+            <td>
+              <FormattedNumber />
+            </td>
+            <td>
+              <FormattedNumber />
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Citations
+            </th>
+            <td>
+              <FormattedNumber />
+            </td>
+            <td>
+              <FormattedNumber />
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <LabelWithHelp
+                help={
+                  <span>
+                    The h-index is defined as the number of papers with citation number higher or equal to h. 
+                    <ForwardRef
+                      to="/literature/690567"
+                    >
+                      Learn more
+                    </ForwardRef>
+                  </span>
+                }
+                label="h-index"
+              />
+            </th>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Citations/paper (avg)
+            </th>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
+exports[`CitationSummaryTable renders table with only required props 1`] = `
+<LoadingOrChildren
+  loading={false}
+>
+  <ErrorAlertOrChildren>
+    <div
+      className="__CitationTable__"
+    >
+      <table>
+        <tbody>
+          <tr>
+            <th />
+            <th>
+              <LabelWithHelp
+                help="Citeable papers have metadata that allow us to reliably track their citations."
+                label="Citeable"
+              />
+            </th>
+            <th>
+              <LabelWithHelp
+                help={
+                  <span>
+                    Published papers are believed to have undergone rigorous peer review.
+                     
+                    <ExternalLink
+                      as="a"
+                      href="http://inspirehep.net/info/faq/general#published"
+                    >
+                      Learn More
+                    </ExternalLink>
+                  </span>
+                }
+                label="Published"
+              />
+            </th>
+          </tr>
+          <tr>
+            <th>
+              Papers
+            </th>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Citations
+            </th>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              <LabelWithHelp
+                help={
+                  <span>
+                    The h-index is defined as the number of papers with citation number higher or equal to h. 
+                    <ForwardRef
+                      to="/literature/690567"
+                    >
+                      Learn more
+                    </ForwardRef>
+                  </span>
+                }
+                label="h-index"
+              />
+            </th>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+            <td>
+              <FormattedNumber>
+                0
+              </FormattedNumber>
+            </td>
+          </tr>
+          <tr>
+            <th>
+              Citations/paper (avg)
+            </th>
+            <td>
+              <FormattedNumber>
+                0.0
+              </FormattedNumber>
+            </td>
+            <td>
+              <FormattedNumber>
+                0.0
+              </FormattedNumber>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ErrorAlertOrChildren>
+</LoadingOrChildren>
+`;
+
 exports[`CitationSummaryTable renders table without render props 1`] = `
 <LoadingOrChildren
   loading={false}
