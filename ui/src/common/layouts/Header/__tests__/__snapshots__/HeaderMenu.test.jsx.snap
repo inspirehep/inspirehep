@@ -17,7 +17,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
     >
       <ExternalLink
         as="a"
-        href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+        href="https://inspirehep.net/help/knowledge-base/inspire-paper-search"
       >
         Search Tips
       </ExternalLink>
@@ -34,7 +34,7 @@ exports[`HeaderMenu renders when logged in 1`] = `
     >
       <ExternalLink
         as="a"
-        href="https://labs.inspirehep.net/help"
+        href="https://inspirehep.net/help"
       >
         Help Center
       </ExternalLink>
@@ -112,7 +112,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
     >
       <ExternalLink
         as="a"
-        href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+        href="https://inspirehep.net/help/knowledge-base/inspire-paper-search"
       >
         Search Tips
       </ExternalLink>
@@ -129,7 +129,7 @@ exports[`HeaderMenu renders when not logged in 1`] = `
     >
       <ExternalLink
         as="a"
-        href="https://labs.inspirehep.net/help"
+        href="https://inspirehep.net/help"
       >
         Help Center
       </ExternalLink>

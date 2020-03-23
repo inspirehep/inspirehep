@@ -31,7 +31,7 @@ exports[`HowToSearch renders freetext examples after freetext radio option is se
     <ExternalLink
       as={[Function]}
       className="mt3"
-      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+      href="https://inspirehep.net/help/knowledge-base/inspire-paper-search"
       type="primary"
     >
       Learn more
@@ -71,7 +71,7 @@ exports[`HowToSearch renders with spires examples by default 1`] = `
     <ExternalLink
       as={[Function]}
       className="mt3"
-      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+      href="https://inspirehep.net/help/knowledge-base/inspire-paper-search"
       type="primary"
     >
       Learn more
