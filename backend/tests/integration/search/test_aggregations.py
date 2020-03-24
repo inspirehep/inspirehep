@@ -117,7 +117,7 @@ def test_hep_doc_type_aggregation_and_filter(
             "meta": {
                 "bucket_help": {
                     "published": {
-                        "link": "https://inspirehep.net/info/faq/general#published",
+                        "link": "https://inspirehep.net/help/knowledge-base/faq/#faq-published",
                         "text": "Published papers are believed to have undergone rigorous peer review.",
                     }
                 },

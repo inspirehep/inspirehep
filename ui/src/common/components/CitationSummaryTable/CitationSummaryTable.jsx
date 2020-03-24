@@ -10,13 +10,12 @@ import LoadingOrChildren from '../LoadingOrChildren';
 import ErrorAlertOrChildren from '../ErrorAlertOrChildren';
 import { ErrorPropType } from '../../propTypes';
 import FormattedNumber from '../FormattedNumber';
+import { PUBLISHED_URL } from '../../constants';
 
 const PUBLISHED_HELP_MESSAGE = (
   <span>
     Published papers are believed to have undergone rigorous peer review.{' '}
-    <ExternalLink href="http://inspirehep.net/info/faq/general#published">
-      Learn More
-    </ExternalLink>
+    <ExternalLink href={PUBLISHED_URL}>Learn More</ExternalLink>
   </span>
 );
 
