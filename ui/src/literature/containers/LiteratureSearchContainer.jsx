@@ -39,14 +39,18 @@ function LiteratureSearch({
   noResultsDescription,
   isCitationSummaryVisible,
   hasQueryBeenUpdatedAtLeastOnce,
+  embedded,
 }) {
   const renderAggregations = useCallback(
     () => (
       <LoadingOrChildren loading={loadingAggregations}>
-        <AggregationFiltersContainer namespace={namespace} />
+        <AggregationFiltersContainer
+          namespace={namespace}
+          embedded={embedded}
+        />
       </LoadingOrChildren>
     ),
-    [loadingAggregations, namespace]
+    [loadingAggregations, namespace, embedded]
   );
 
   useEffect(
@@ -138,6 +142,7 @@ LiteratureSearch.propTypes = {
   noResultsDescription: PropTypes.node,
   isCitationSummaryVisible: PropTypes.bool.isRequired,
   hasQueryBeenUpdatedAtLeastOnce: PropTypes.bool.isRequired,
+  embedded: PropTypes.bool,
 };
 
 const stateToProps = (state, { namespace }) => ({

@@ -7,6 +7,7 @@ exports[`ConferenceContributions renders 1`] = `
       "q": "publication_info.conference_record.$ref:12345",
     }
   }
+  embedded={true}
   namespace="conferenceContributions"
   noResultsTitle="0 Contributions"
 />
