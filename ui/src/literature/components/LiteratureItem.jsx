@@ -102,41 +102,49 @@ class LiteratureItem extends Component {
           </Fragment>
         }
       >
-        <div className="flex flex-nowrap">
-          <div className="flex-grow-1">
-            <Link className="f5" to={`${LITERATURE}/${recordId}`}>
-              <LiteratureTitle title={title} />
-            </Link>
+        <div data-test-id="literature-result-item">
+          <div className="flex flex-nowrap">
+            <div className="flex-grow-1">
+              <Link
+                data-test-id="literature-result-title-link"
+                className="f5"
+                to={`${LITERATURE}/${recordId}`}
+              >
+                <LiteratureTitle title={title} />
+              </Link>
+            </div>
+            <ResponsiveView
+              min="sm"
+              render={() => (
+                <div className="light-silver pl2">#{searchRank}</div>
+              )}
+            />
           </div>
-          <ResponsiveView
-            min="sm"
-            render={() => <div className="light-silver pl2">#{searchRank}</div>}
-          />
-        </div>
-        <div className="mt1">
-          <AuthorsAndCollaborations
-            authorCount={authorCount}
-            authors={authors}
-            collaborations={collaborations}
-            collaborationsWithSuffix={collaborationsWithSuffix}
-          />
-          {date && (
-            <>
-              {' ('}
-              <LiteratureDate date={date} />)
-            </>
-          )}
-        </div>
-        <div className="mt1">
-          <InlineUL separator={SEPARATOR_MIDDLEDOT}>
-            {publicationInfo && (
-              <PublicationInfoList publicationInfo={publicationInfo} />
+          <div className="mt1">
+            <AuthorsAndCollaborations
+              authorCount={authorCount}
+              authors={authors}
+              collaborations={collaborations}
+              collaborationsWithSuffix={collaborationsWithSuffix}
+            />
+            {date && (
+              <>
+                {' ('}
+                <LiteratureDate date={date} />)
+              </>
             )}
-            {conferenceInfo && (
-              <ConferenceInfoList conferenceInfo={conferenceInfo} />
-            )}
-            {eprints && <ArxivEprintList eprints={eprints} />}
-          </InlineUL>
+          </div>
+          <div className="mt1">
+            <InlineUL separator={SEPARATOR_MIDDLEDOT}>
+              {publicationInfo && (
+                <PublicationInfoList publicationInfo={publicationInfo} />
+              )}
+              {conferenceInfo && (
+                <ConferenceInfoList conferenceInfo={conferenceInfo} />
+              )}
+              {eprints && <ArxivEprintList eprints={eprints} />}
+            </InlineUL>
+          </div>
         </div>
       </ResultItem>
     );

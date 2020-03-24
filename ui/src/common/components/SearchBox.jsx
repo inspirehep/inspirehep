@@ -41,6 +41,7 @@ class SearchBox extends Component {
     return (
       <Input.Search
         autoFocus
+        data-test-id="search-box-input"
         style={{ verticalAlign: 'middle' }}
         addonBefore={<SearchScopeSelectContainer />}
         placeholder={placeholder}

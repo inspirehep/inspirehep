@@ -1,25 +1,23 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add('selectFromDropdown', (dropdownId, option) => {
+  const dropdownSelector = `[data-test-id="${dropdownId}"]`;
+  const optionSelector = `[data-test-id="${dropdownId}-option-${option}"]`;
+  cy.get(dropdownSelector).click();
+  cy.get(optionSelector).click();
+});
+
+Cypress.Commands.add('text', { prevSubject: true }, subject => {
+  return subject.text();
+});
+
+Cypress.Commands.overwrite('visit', (originalVisit, relativeUrl, options) => {
+  const baseUrl = Cypress.env('inspirehep_url');
+  const absoluteUrl = `${baseUrl}${relativeUrl}`;
+  return originalVisit(absoluteUrl, options);
+});
+
+Cypress.Commands.add('useDesktop', () => {
+  cy.viewport(
+    Cypress.env('desktop_viewport_width'),
+    Cypress.env('desktop_viewport_height')
+  );
+});

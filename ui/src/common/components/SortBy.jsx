@@ -10,6 +10,7 @@ class SortBy extends Component {
     return (
       sortOptions && (
         <SelectBox
+          data-test-id="sort-by-select"
           onChange={onSortChange}
           defaultValue={sort}
           options={sortOptions}

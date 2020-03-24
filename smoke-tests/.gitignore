@@ -1,6 +1,7 @@
 # dependencies
 **/node_modules
-**/__image_snapshots__/__diff_output__
+cypress/__videos__
+cypress/__screenshots__
 
 # misc
 .DS_Store

@@ -17,7 +17,11 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket1
+        <span
+          data-test-id="checkbox-aggregation-option-bucket1"
+        >
+          bucket1
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -40,7 +44,11 @@ exports[`CheckboxAggregation render initial state with all props set 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket2
+        <span
+          data-test-id="checkbox-aggregation-option-bucket2"
+        >
+          bucket2
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -71,22 +79,26 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket1
-         
-        <HelpIconTooltip
-          help={
-            <React.Fragment>
-              Published papers are believed to have undergone rigorous peer review.
-               
-              <ExternalLink
-                as="a"
-                href="https://inspirehep.net/info/faq/general#published"
-              >
-                Learn More
-              </ExternalLink>
-            </React.Fragment>
-          }
-        />
+        <span
+          data-test-id="checkbox-aggregation-option-bucket1"
+        >
+          bucket1
+           
+          <HelpIconTooltip
+            help={
+              <React.Fragment>
+                Published papers are believed to have undergone rigorous peer review.
+                 
+                <ExternalLink
+                  as="a"
+                  href="https://inspirehep.net/info/faq/general#published"
+                >
+                  Learn More
+                </ExternalLink>
+              </React.Fragment>
+            }
+          />
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -109,16 +121,20 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket2
-         
-        <HelpIconTooltip
-          help={
-            <React.Fragment>
-              Published papers are believed to have undergone rigorous peer review.
-               
-            </React.Fragment>
-          }
-        />
+        <span
+          data-test-id="checkbox-aggregation-option-bucket2"
+        >
+          bucket2
+           
+          <HelpIconTooltip
+            help={
+              <React.Fragment>
+                Published papers are believed to have undergone rigorous peer review.
+                 
+              </React.Fragment>
+            }
+          />
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -141,21 +157,25 @@ exports[`CheckboxAggregation render initial state with bucketHelp 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket3
-         
-        <HelpIconTooltip
-          help={
-            <React.Fragment>
-               
-              <ExternalLink
-                as="a"
-                href="https://inspirehep.net/info/faq/general#published"
-              >
-                Learn More
-              </ExternalLink>
-            </React.Fragment>
-          }
-        />
+        <span
+          data-test-id="checkbox-aggregation-option-bucket3"
+        >
+          bucket3
+           
+          <HelpIconTooltip
+            help={
+              <React.Fragment>
+                 
+                <ExternalLink
+                  as="a"
+                  href="https://inspirehep.net/info/faq/general#published"
+                >
+                  Learn More
+                </ExternalLink>
+              </React.Fragment>
+            }
+          />
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -186,7 +206,11 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
         checked={true}
         onChange={[Function]}
       >
-        bucket1
+        <span
+          data-test-id="checkbox-aggregation-option-bucket1"
+        >
+          bucket1
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -209,7 +233,11 @@ exports[`CheckboxAggregation render initial state without splitDisplayName 1`] =
         checked={false}
         onChange={[Function]}
       >
-        bucket2
+        <span
+          data-test-id="checkbox-aggregation-option-bucket2"
+        >
+          bucket2
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -240,7 +268,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={true}
         onChange={[Function]}
       >
-        bucket1
+        <span
+          data-test-id="checkbox-aggregation-option-bucket1"
+        >
+          bucket1
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -263,7 +295,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket2
+        <span
+          data-test-id="checkbox-aggregation-option-bucket2"
+        >
+          bucket2
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -286,7 +322,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket3
+        <span
+          data-test-id="checkbox-aggregation-option-bucket3"
+        >
+          bucket3
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -309,7 +349,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket4
+        <span
+          data-test-id="checkbox-aggregation-option-bucket4"
+        >
+          bucket4
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -332,7 +376,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket5
+        <span
+          data-test-id="checkbox-aggregation-option-bucket5"
+        >
+          bucket5
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -355,7 +403,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket6
+        <span
+          data-test-id="checkbox-aggregation-option-bucket6"
+        >
+          bucket6
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -378,7 +430,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket7
+        <span
+          data-test-id="checkbox-aggregation-option-bucket7"
+        >
+          bucket7
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -401,7 +457,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket8
+        <span
+          data-test-id="checkbox-aggregation-option-bucket8"
+        >
+          bucket8
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -424,7 +484,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket9
+        <span
+          data-test-id="checkbox-aggregation-option-bucket9"
+        >
+          bucket9
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -447,7 +511,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket10
+        <span
+          data-test-id="checkbox-aggregation-option-bucket10"
+        >
+          bucket10
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -470,7 +538,11 @@ exports[`CheckboxAggregation render more than 10 after show more clicked 1`] = `
         checked={false}
         onChange={[Function]}
       >
-        bucket11
+        <span
+          data-test-id="checkbox-aggregation-option-bucket11"
+        >
+          bucket11
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -501,7 +573,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={true}
         onChange={[Function]}
       >
-        bucket1
+        <span
+          data-test-id="checkbox-aggregation-option-bucket1"
+        >
+          bucket1
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -524,7 +600,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket2
+        <span
+          data-test-id="checkbox-aggregation-option-bucket2"
+        >
+          bucket2
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -547,7 +627,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket3
+        <span
+          data-test-id="checkbox-aggregation-option-bucket3"
+        >
+          bucket3
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -570,7 +654,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket4
+        <span
+          data-test-id="checkbox-aggregation-option-bucket4"
+        >
+          bucket4
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -593,7 +681,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket5
+        <span
+          data-test-id="checkbox-aggregation-option-bucket5"
+        >
+          bucket5
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -616,7 +708,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket6
+        <span
+          data-test-id="checkbox-aggregation-option-bucket6"
+        >
+          bucket6
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -639,7 +735,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket7
+        <span
+          data-test-id="checkbox-aggregation-option-bucket7"
+        >
+          bucket7
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -662,7 +762,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket8
+        <span
+          data-test-id="checkbox-aggregation-option-bucket8"
+        >
+          bucket8
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -685,7 +789,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket9
+        <span
+          data-test-id="checkbox-aggregation-option-bucket9"
+        >
+          bucket9
+        </span>
       </CheckboxItem>
     </Col>
     <Col>
@@ -708,7 +816,11 @@ exports[`CheckboxAggregation renders with show more button if buckets are more t
         checked={false}
         onChange={[Function]}
       >
-        bucket10
+        <span
+          data-test-id="checkbox-aggregation-option-bucket10"
+        >
+          bucket10
+        </span>
       </CheckboxItem>
     </Col>
     <Col>

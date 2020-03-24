@@ -8,6 +8,7 @@ import { AUTHORS } from '../../routes';
 function LinkedAuthor({ author }) {
   return (
     <Link
+      data-test-id="author-link"
       to={`${AUTHORS}/${getRecordIdFromRef(author.getIn(['record', '$ref']))}`}
     >
       {getAuthorName(author)}

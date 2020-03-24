@@ -4,6 +4,7 @@ exports[`SortBy does not render if sortOptions missing 1`] = `""`;
 
 exports[`SortBy renders with all props set 1`] = `
 <SelectBox
+  data-test-id="sort-by-select"
   defaultValue="mostrecent"
   onChange={[MockFunction]}
   options={
