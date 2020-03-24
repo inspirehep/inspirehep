@@ -472,7 +472,7 @@ def test_literature_facets_doc_type_has_bucket_help(
     expected_text = (
         "Published papers are believed to have undergone rigorous peer review."
     )
-    expected_link = "https://inspirehep.net/info/faq/general#published"
+    expected_link = "https://inspirehep.net/help/knowledge-base/faq/#faq-published"
 
     assert expected_status_code == response_status_code
     assert "published" in response_data_facet_bucket_help

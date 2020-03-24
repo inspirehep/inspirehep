@@ -31,7 +31,7 @@ def hep_doc_type_aggregation(order, title="Document Type", agg_type="checkbox"):
                 "bucket_help": {
                     "published": {
                         "text": "Published papers are believed to have undergone rigorous peer review.",
-                        "link": "https://inspirehep.net/info/faq/general#published",
+                        "link": "https://inspirehep.net/help/knowledge-base/faq/#faq-published",
                     }
                 },
             },

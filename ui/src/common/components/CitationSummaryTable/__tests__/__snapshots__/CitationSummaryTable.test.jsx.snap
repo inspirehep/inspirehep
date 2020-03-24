@@ -28,7 +28,7 @@ exports[`CitationSummaryTable renders table with null numbers 1`] = `
                      
                     <ExternalLink
                       as="a"
-                      href="http://inspirehep.net/info/faq/general#published"
+                      href="https://labs.inspirehep.net/help/knowledge-base/faq/#faq-published"
                     >
                       Learn More
                     </ExternalLink>
@@ -135,7 +135,7 @@ exports[`CitationSummaryTable renders table with only required props 1`] = `
                      
                     <ExternalLink
                       as="a"
-                      href="http://inspirehep.net/info/faq/general#published"
+                      href="https://labs.inspirehep.net/help/knowledge-base/faq/#faq-published"
                     >
                       Learn More
                     </ExternalLink>
@@ -252,7 +252,7 @@ exports[`CitationSummaryTable renders table without render props 1`] = `
                      
                     <ExternalLink
                       as="a"
-                      href="http://inspirehep.net/info/faq/general#published"
+                      href="https://labs.inspirehep.net/help/knowledge-base/faq/#faq-published"
                     >
                       Learn More
                     </ExternalLink>
