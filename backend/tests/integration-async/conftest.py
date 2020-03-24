@@ -106,49 +106,61 @@ def retry_until_matched():
                             'expected_key': 'expected_key_name',
                             'expected_result': 'expected_result_data'
                         }
-                    }
+                    },
+                    {
+                        'step': None,  # If step is None it means reuse result fom previous step command (you can ignore `step` key)
+                        # expected_result dict can be skipped if expected_key will be provided.
+                        'expected_key': "a.b[0].c",
+                        'expected_result': "some value",
+                    },
                 ]
         """
         start = datetime.now()
         finished = False
         _current_result = None
+        _last_error = None
         while not finished:
             for step in steps:
+                if (datetime.now() - start) > timedelta(seconds=timeout):
+                    if _last_error:
+                        raise _last_error
+                    raise TimeoutError(
+                        f"timeout exceeded during checks on step{_fun} "
+                        f"{(datetime.now() - start)}"
+                    )
                 _args = step.get("args", [])
                 _kwargs = step.get("kwargs", {})
                 _expected_result = step.get("expected_result")
                 _fun = step.get("step")
-                _expected_key = None
+                _expected_key = step.get("expected_key")
                 try:
-                    result = _fun(*_args, **_kwargs)
-                except:
+                    if _fun:
+                        _current_result = _fun(*_args, **_kwargs)
+                except Exception as e:
+                    _last_error = e
                     break
-                _current_result = deepcopy(result)
                 if _expected_result:
                     if (
-                        isinstance(_expected_result, dict)
+                        not _expected_key
+                        and isinstance(_expected_result, dict)
                         and "expected_key" in _expected_result
                         and "expected_result" in _expected_result
                     ):
                         _expected_key = _expected_result["expected_key"]
                         _expected_result = _expected_result["expected_result"]
-                        result = get_value(result, _expected_key)
-
-                    if result == _expected_result:
-                        finished = True
+                    if _expected_key:
+                        result = get_value(_current_result, _expected_key)
                     else:
+                        result = _current_result
 
+                    try:
+                        assert result == _expected_result
+                        finished = True
+                    except AssertionError as e:
+                        _last_error = e
                         finished = False
-                        time.sleep(1)
-                        if (datetime.now() - start) > timedelta(seconds=timeout):
-                            assert result == _expected_result
+                        time.sleep(0.3)
                         break
-                else:
-                    if (datetime.now() - start) > timedelta(seconds=timeout):
-                        raise TimeoutError(
-                            f"timeout exceeded during checks on step{_fun} "
-                            f"{(datetime.now() - start)}"
-                        )
         return _current_result
 
     return _check
