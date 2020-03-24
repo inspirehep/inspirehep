@@ -47,7 +47,7 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
     author_control_number = author.pop("control_number")
 
     expected_facet_author_name = [f"{author_control_number}_John Doe"]
-
+    expected_record_ref = f"http://localhost:5000/api/authors/{pid_value}"
     steps = [
         {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
         {
@@ -59,17 +59,12 @@ def test_signature_linked_by_disambiguation_has_correct_facet_author_name(
             },
         },
         {
-            "step": es_search,
-            "args": ["records-hep"],
-            "expected_result": {
-                "expected_key": "hits.hits[0]._source.facet_author_name",
-                "expected_result": expected_facet_author_name,
-            },
+            "expected_key": "hits.hits[0]._source.facet_author_name",
+            "expected_result": expected_facet_author_name,
+        },
+        {
+            "expected_key": "hits.hits[0]._source.authors[0].record.$ref",
+            "expected_result": expected_record_ref,
         },
     ]
-    response = retry_until_matched(steps)
-
-    assert (
-        response["hits"]["hits"][0]["_source"]["authors"][0]["record"]["$ref"]
-        == f"http://localhost:5000/api/authors/{pid_value}"
-    )
+    retry_until_matched(steps)

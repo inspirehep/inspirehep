@@ -40,7 +40,7 @@ def assert_citation_count(retry_until_matched):
 
 @pytest.fixture
 def assert_es_hits_count(retry_until_matched):
-    def _assert_es_hits_count(expected_hits_count):
+    def _assert_es_hits_count(expected_hits_count, additional_steps=None):
         steps = [
             {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
             {
@@ -52,6 +52,8 @@ def assert_es_hits_count(retry_until_matched):
                 },
             },
         ]
+        if additional_steps:
+            steps.extend(additional_steps)
         return retry_until_matched(steps)
 
     return _assert_es_hits_count
@@ -64,9 +66,11 @@ def test_lit_record_appear_in_es_when_created(
     rec = LiteratureRecord.create(data)
     db.session.commit()
 
-    response = assert_es_hits_count(1)
+    additional_step = [
+        {"expected_key": "hits.hits[0]._id", "expected_result": str(rec.id)}
+    ]
+    response = assert_es_hits_count(1, additional_steps=additional_step)
 
-    assert response["hits"]["hits"][0]["_id"] == str(rec.id)
     assert response["hits"]["hits"][0]["_source"]["_ui_display"] is not None
 
 
@@ -82,9 +86,13 @@ def test_lit_record_update_when_changed(
     data["control_number"] = rec["control_number"]
     rec.update(data)
     db.session.commit()
-
-    resp = assert_es_hits_count(1)
-    assert resp["hits"]["hits"][0]["_source"]["titles"][0]["title"] == expected_title
+    additional_step = [
+        {
+            "expected_key": "hits.hits[0]._source.titles[0].title",
+            "expected_result": expected_title,
+        }
+    ]
+    assert_es_hits_count(1, additional_steps=additional_step)
 
 
 def test_lit_record_removed_form_es_when_deleted(

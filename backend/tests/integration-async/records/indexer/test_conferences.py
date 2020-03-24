@@ -24,7 +24,7 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
     conference_1_control_number = conference_1["control_number"]
     ref_1 = f"http://localhost:8000/api/conferences/{conference_1_control_number}"
     db.session.commit()
-
+    expected_contributions_count = 0
     steps = [
         {"step": current_search.flush_and_refresh, "args": ["records-conferences"]},
         {
@@ -35,19 +35,22 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
                 "expected_result": 1,
             },
         },
+        {
+            "step": es_search,
+            "args": ["records-conferences"],
+            "expected_result": {
+                "expected_key": "hits.hits[0]._source.number_of_contributions",
+                "expected_result": expected_contributions_count,
+            },
+        },
     ]
-    response = retry_until_matched(steps)
-    expected_contributions_count = 0
-    assert (
-        response["hits"]["hits"][0]["_source"]["number_of_contributions"]
-        == expected_contributions_count
-    )
+    retry_until_matched(steps)
 
     data = {
         "publication_info": [{"conference_record": {"$ref": ref_1}}],
         "document_type": ["conference paper"],
     }
-    record = LiteratureRecord.create(faker.record("lit", data))
+    LiteratureRecord.create(faker.record("lit", data))
 
     data = {
         "publication_info": [
@@ -57,7 +60,7 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
     }
     record2 = LiteratureRecord.create(faker.record("lit", data))
     db.session.commit()
-
+    expected_contributions_count = 1
     steps = [
         {"step": current_search.flush_and_refresh, "args": ["records-conferences"]},
         {
@@ -65,7 +68,7 @@ def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
             "args": ["records-conferences"],
             "expected_result": {
                 "expected_key": "hits.hits[0]._source.number_of_contributions",
-                "expected_result": 1,
+                "expected_result": expected_contributions_count,
             },
         },
     ]

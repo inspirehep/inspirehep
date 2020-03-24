@@ -22,6 +22,7 @@ def test_aut_record_appear_in_es_when_created(
     data = faker.record("aut")
     rec = AuthorsRecord.create(data)
     db.session.commit()
+    expected_id = str(rec.id)
     steps = [
         {"step": current_search.flush_and_refresh, "args": ["records-authors"]},
         {
@@ -32,10 +33,16 @@ def test_aut_record_appear_in_es_when_created(
                 "expected_result": 1,
             },
         },
+        {
+            "step": es_search,
+            "args": ["records-authors"],
+            "expected_result": {
+                "expected_key": "hits.hits[0]._id",
+                "expected_result": expected_id,
+            },
+        },
     ]
-    response = retry_until_matched(steps)
-
-    assert response["hits"]["hits"][0]["_id"] == str(rec.id)
+    retry_until_matched(steps)
 
 
 def test_aut_record_update_when_changed(
@@ -60,9 +67,16 @@ def test_aut_record_update_when_changed(
                 "expected_result": 1,
             },
         },
+        {
+            "step": es_search,
+            "args": ["records-authors"],
+            "expected_result": {
+                "expected_key": "hits.hits[0]._source.death_date",
+                "expected_result": expected_death_date,
+            },
+        },
     ]
-    resp = retry_until_matched(steps)["hits"]["hits"]
-    assert resp[0]["_source"]["death_date"] == expected_death_date
+    retry_until_matched(steps)["hits"]["hits"]
 
 
 def test_aut_record_removed_form_es_when_deleted(
@@ -134,7 +148,6 @@ def test_record_created_through_api_is_indexed(
 def test_indexer_updates_authors_papers_when_name_changes(
     app, celery_app_with_context, celery_session_worker, retry_until_matched
 ):
-    SLEEP_TIME = 3
     author_data = faker.record("aut")
     author = AuthorsRecord.create(author_data)
     db.session.commit()
@@ -156,24 +169,29 @@ def test_indexer_updates_authors_papers_when_name_changes(
     lit_1 = LiteratureRecord.create(lit_data)
     db.session.commit()
 
-    time.sleep(SLEEP_TIME)
-    current_search.flush_and_refresh("*")
-    results = es_search("records-hep")
     expected_hits = 1
-
-    assert results["hits"]["total"]["value"] == expected_hits
-
     expected_facet_author_name_count = 1
     expected_facet_author_name = f"{author['control_number']}_{author['name']['value']}"
-    results = es_search("records-hep")
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["*"]},
+        {
+            "step": es_search,
+            "args": ["records-hep"],
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": expected_hits,
+            },
+        },
+        {
+            "expected_key": "hits.hits[0]._source.facet_author_name[0]",
+            "expected_result": expected_facet_author_name,
+        },
+    ]
+    results = retry_until_matched(steps)
 
     assert (
         len(results["hits"]["hits"][0]["_source"]["facet_author_name"])
         == expected_facet_author_name_count
-    )
-    assert (
-        results["hits"]["hits"][0]["_source"]["facet_author_name"][0]
-        == expected_facet_author_name
     )
 
     data = dict(author)
@@ -181,20 +199,26 @@ def test_indexer_updates_authors_papers_when_name_changes(
     author.update(data)
     db.session.commit()
 
-    time.sleep(SLEEP_TIME)
-    current_search.flush_and_refresh("*")
-    results = es_search("records-hep")
-
-    assert results["hits"]["total"]["value"] == expected_hits
-
     expected_facet_author_name = f"{author['control_number']}_Some other name"
-    results = es_search("records-hep")
+
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["*"]},
+        {
+            "step": es_search,
+            "args": ["records-hep"],
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": expected_hits,
+            },
+        },
+        {
+            "expected_key": "hits.hits[0]._source.facet_author_name[0]",
+            "expected_result": expected_facet_author_name,
+        },
+    ]
+    results = retry_until_matched(steps)
 
     assert (
         len(results["hits"]["hits"][0]["_source"]["facet_author_name"])
         == expected_facet_author_name_count
-    )
-    assert (
-        results["hits"]["hits"][0]["_source"]["facet_author_name"][0]
-        == expected_facet_author_name
     )
