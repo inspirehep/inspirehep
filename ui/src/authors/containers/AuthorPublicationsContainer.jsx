@@ -27,6 +27,7 @@ function AuthorPublications({ authorFacetName, isCatalogerLoggedIn }) {
       baseQuery={baseQuery}
       baseAggregationsQuery={baseAggregationsQuery}
       noResultsTitle="0 Research works"
+      embedded
     />
   );
 }

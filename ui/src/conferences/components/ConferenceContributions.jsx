@@ -18,6 +18,7 @@ function ConferenceContributions({ conferenceRecordId }) {
       namespace={CONFERENCE_CONTRIBUTIONS_NS}
       baseQuery={baseQuery}
       noResultsTitle="0 Contributions"
+      embedded
     />
   );
 }

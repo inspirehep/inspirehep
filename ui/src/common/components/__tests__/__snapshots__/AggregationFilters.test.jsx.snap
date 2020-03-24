@@ -4,7 +4,7 @@ exports[`AggregationFilters does not render aggregations when numberOfResults is
 
 exports[`AggregationFilters does not render aggregations with empty buckets 1`] = `
 <Row
-  className="bg-white pa3"
+  className="bg-white ph3 pt3"
   gutter={0}
   justify="space-between"
   type="flex"
@@ -45,7 +45,7 @@ exports[`AggregationFilters does not render aggregations with empty buckets 1`] 
 
 exports[`AggregationFilters renders aggregations when numberOfResults is 0 and displayWhenNoResults is true 1`] = `
 <Row
-  className="bg-white pa3"
+  className="bg-white ph3 pt3"
   gutter={0}
   justify="space-between"
   type="flex"
@@ -153,7 +153,7 @@ exports[`AggregationFilters renders with all props set [inline] 1`] = `
 
 exports[`AggregationFilters renders with all props set 1`] = `
 <Row
-  className="bg-white pa3"
+  className="bg-white ph3 pt3"
   gutter={0}
   justify="space-between"
   type="flex"

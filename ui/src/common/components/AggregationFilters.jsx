@@ -31,9 +31,11 @@ class AggregationFilters extends Component {
       inline,
       displayWhenNoResults,
       initialAggregations,
+      embedded,
     } = this.props;
     const rowClassName = className('bg-white', {
-      pa3: !inline,
+      ph3: !inline,
+      pt3: !inline && !embedded,
       pv3: inline,
     });
     const aggregationEntries = aggregations && aggregations.entrySeq();
@@ -90,11 +92,13 @@ AggregationFilters.propTypes = {
   query: PropTypes.objectOf(PropTypes.any).isRequired,
   numberOfResults: PropTypes.number.isRequired,
   displayWhenNoResults: PropTypes.bool,
+  embedded: PropTypes.bool,
 };
 
 AggregationFilters.defaultProps = {
   inline: false,
   displayWhenNoResults: false,
+  embedded: false,
 };
 
 export default AggregationFilters;
