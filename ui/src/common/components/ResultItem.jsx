@@ -20,10 +20,4 @@ ResultItem.propTypes = {
   children: PropTypes.node,
 };
 
-ResultItem.defaultProps = {
-  leftActions: undefined,
-  rightActions: undefined,
-  children: undefined,
-};
-
 export default ResultItem;

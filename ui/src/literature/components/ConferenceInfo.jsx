@@ -26,7 +26,10 @@ class ConferenceInfo extends Component {
 
     return (
       <span>
-        <Link to={`/conferences/${controlNumber}`}>
+        <Link
+          data-test-id="literature-conference-link"
+          to={`/conferences/${controlNumber}`}
+        >
           {acronyms.size > 0 ? this.renderAcronyms() : title}
         </Link>
         {getPageDisplay(conferenceInfo) && (

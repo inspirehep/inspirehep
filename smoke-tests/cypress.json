@@ -1,10 +1,10 @@
 {
   "projectId": "439or1",
+  "videosFolder": "cypress/__videos__",
+  "screenshotsFolder": "cypress/__screenshots__",
   "env": {
     "inspirehep_url": "http://localhost:3000",
-    "email": "test@user.com",
-    "password": "123456",
-    "viewport_width": 1920,
-    "viewport_height": 1080
+    "desktop_viewport_width": 1920,
+    "desktop_viewport_height": 1080
   }
 }

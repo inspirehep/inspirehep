@@ -2,6 +2,7 @@
 
 exports[`AuthorWithBAI renders 1`] = `
 <Link
+  data-test-id="author-link"
   to="/authors/12345"
 >
   Name, Full

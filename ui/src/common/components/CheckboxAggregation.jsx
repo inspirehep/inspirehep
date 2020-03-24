@@ -131,11 +131,13 @@ class CheckboxAggregation extends Component {
               this.onSelectionChange(bucketKey, checked);
             }}
           >
-            {bucketDisplay}
-            {bucketHelp &&
-              CheckboxAggregation.renderBucketHelpTooltip(
-                bucketHelp.get(bucketKey)
-              )}
+            <span data-test-id={`checkbox-aggregation-option-${bucketDisplay}`}>
+              {bucketDisplay}
+              {bucketHelp &&
+                CheckboxAggregation.renderBucketHelpTooltip(
+                  bucketHelp.get(bucketKey)
+                )}
+            </span>
           </CheckboxItem>
         </Col>
         <Col>

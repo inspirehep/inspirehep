@@ -39,46 +39,51 @@ exports[`LiteratureItem does not arxiv pdf download action if there is no eprint
   }
 >
   <div
-    className="flex flex-nowrap"
+    data-test-id="literature-result-item"
   >
     <div
-      className="flex-grow-1"
+      className="flex flex-nowrap"
     >
-      <Link
-        className="f5"
-        to="/literature/12345"
+      <div
+        className="flex-grow-1"
       >
-        <LiteratureTitle
-          title={
-            Immutable.Map {
-              "title": "test",
+        <Link
+          className="f5"
+          data-test-id="literature-result-title-link"
+          to="/literature/12345"
+        >
+          <LiteratureTitle
+            title={
+              Immutable.Map {
+                "title": "test",
+              }
             }
-          }
-        />
-      </Link>
+          />
+        </Link>
+      </div>
+      <ResponsiveView
+        min="sm"
+        render={[Function]}
+      />
     </div>
-    <ResponsiveView
-      min="sm"
-      render={[Function]}
-    />
-  </div>
-  <div
-    className="mt1"
-  >
-    <AuthorsAndCollaborations
-      authors={Immutable.List []}
-      collaborations={Immutable.List []}
-      collaborationsWithSuffix={Immutable.List []}
-      enableAuthorsShowAll={false}
-    />
-  </div>
-  <div
-    className="mt1"
-  >
-    <InlineUL
-      separator=" • "
-      wrapperClassName={null}
-    />
+    <div
+      className="mt1"
+    >
+      <AuthorsAndCollaborations
+        authors={Immutable.List []}
+        collaborations={Immutable.List []}
+        collaborationsWithSuffix={Immutable.List []}
+        enableAuthorsShowAll={false}
+      />
+    </div>
+    <div
+      className="mt1"
+    >
+      <InlineUL
+        separator=" • "
+        wrapperClassName={null}
+      />
+    </div>
   </div>
 </ResultItem>
 `;
@@ -122,46 +127,51 @@ exports[`LiteratureItem renders 0 citations if it does not exist 1`] = `
   }
 >
   <div
-    className="flex flex-nowrap"
+    data-test-id="literature-result-item"
   >
     <div
-      className="flex-grow-1"
+      className="flex flex-nowrap"
     >
-      <Link
-        className="f5"
-        to="/literature/12345"
+      <div
+        className="flex-grow-1"
       >
-        <LiteratureTitle
-          title={
-            Immutable.Map {
-              "title": "test",
+        <Link
+          className="f5"
+          data-test-id="literature-result-title-link"
+          to="/literature/12345"
+        >
+          <LiteratureTitle
+            title={
+              Immutable.Map {
+                "title": "test",
+              }
             }
-          }
-        />
-      </Link>
+          />
+        </Link>
+      </div>
+      <ResponsiveView
+        min="sm"
+        render={[Function]}
+      />
     </div>
-    <ResponsiveView
-      min="sm"
-      render={[Function]}
-    />
-  </div>
-  <div
-    className="mt1"
-  >
-    <AuthorsAndCollaborations
-      authors={Immutable.List []}
-      collaborations={Immutable.List []}
-      collaborationsWithSuffix={Immutable.List []}
-      enableAuthorsShowAll={false}
-    />
-  </div>
-  <div
-    className="mt1"
-  >
-    <InlineUL
-      separator=" • "
-      wrapperClassName={null}
-    />
+    <div
+      className="mt1"
+    >
+      <AuthorsAndCollaborations
+        authors={Immutable.List []}
+        collaborations={Immutable.List []}
+        collaborationsWithSuffix={Immutable.List []}
+        enableAuthorsShowAll={false}
+      />
+    </div>
+    <div
+      className="mt1"
+    >
+      <InlineUL
+        separator=" • "
+        wrapperClassName={null}
+      />
+    </div>
   </div>
 </ResultItem>
 `;
@@ -229,107 +239,112 @@ exports[`LiteratureItem renders with all props set, including sub props 1`] = `
   }
 >
   <div
-    className="flex flex-nowrap"
+    data-test-id="literature-result-item"
   >
     <div
-      className="flex-grow-1"
+      className="flex flex-nowrap"
     >
-      <Link
-        className="f5"
-        to="/literature/12345"
+      <div
+        className="flex-grow-1"
       >
-        <LiteratureTitle
-          title={
-            Immutable.Map {
-              "title": "test",
+        <Link
+          className="f5"
+          data-test-id="literature-result-title-link"
+          to="/literature/12345"
+        >
+          <LiteratureTitle
+            title={
+              Immutable.Map {
+                "title": "test",
+              }
             }
+          />
+        </Link>
+      </div>
+      <ResponsiveView
+        min="sm"
+        render={[Function]}
+      />
+    </div>
+    <div
+      className="mt1"
+    >
+      <AuthorsAndCollaborations
+        authors={
+          Immutable.List [
+            Immutable.Map {
+              "full_name": "Test, Author",
+            },
+          ]
+        }
+        collaborations={
+          Immutable.List [
+            Immutable.Map {
+              "value": "CMS",
+            },
+          ]
+        }
+        collaborationsWithSuffix={
+          Immutable.List [
+            Immutable.Map {
+              "value": "CMS Group",
+            },
+          ]
+        }
+        enableAuthorsShowAll={false}
+      />
+       (
+      <LiteratureDate
+        date="Jun 7, 1993"
+      />
+      )
+    </div>
+    <div
+      className="mt1"
+    >
+      <InlineUL
+        separator=" • "
+        wrapperClassName={null}
+      >
+        <PublicationInfoList
+          labeled={true}
+          publicationInfo={
+            Immutable.List [
+              Immutable.Map {
+                "journal_title": "Test Jornal",
+              },
+            ]
           }
         />
-      </Link>
+        <ConferenceInfoList
+          conferenceInfo={
+            Immutable.List [
+              Immutable.Map {
+                "acronyms": Immutable.List [
+                  "MG15",
+                  "SAP16",
+                ],
+                "titles": Immutable.List [
+                  Immutable.Map {
+                    "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
+                  },
+                ],
+              },
+            ]
+          }
+          wrapperClassName={null}
+        />
+        <ArxivEprintList
+          eprints={
+            Immutable.List [
+              Immutable.Map {
+                "value": "1234567890",
+              },
+            ]
+          }
+        />
+      </InlineUL>
     </div>
-    <ResponsiveView
-      min="sm"
-      render={[Function]}
-    />
-  </div>
-  <div
-    className="mt1"
-  >
-    <AuthorsAndCollaborations
-      authors={
-        Immutable.List [
-          Immutable.Map {
-            "full_name": "Test, Author",
-          },
-        ]
-      }
-      collaborations={
-        Immutable.List [
-          Immutable.Map {
-            "value": "CMS",
-          },
-        ]
-      }
-      collaborationsWithSuffix={
-        Immutable.List [
-          Immutable.Map {
-            "value": "CMS Group",
-          },
-        ]
-      }
-      enableAuthorsShowAll={false}
-    />
-     (
-    <LiteratureDate
-      date="Jun 7, 1993"
-    />
-    )
-  </div>
-  <div
-    className="mt1"
-  >
-    <InlineUL
-      separator=" • "
-      wrapperClassName={null}
-    >
-      <PublicationInfoList
-        labeled={true}
-        publicationInfo={
-          Immutable.List [
-            Immutable.Map {
-              "journal_title": "Test Jornal",
-            },
-          ]
-        }
-      />
-      <ConferenceInfoList
-        conferenceInfo={
-          Immutable.List [
-            Immutable.Map {
-              "acronyms": Immutable.List [
-                "MG15",
-                "SAP16",
-              ],
-              "titles": Immutable.List [
-                Immutable.Map {
-                  "title": "15th Marcel Grossmann Meeting on Recent Developments in Theoretical and Experimental General Relativity, Astrophysics, and Relativistic Field Theories",
-                },
-              ],
-            },
-          ]
-        }
-        wrapperClassName={null}
-      />
-      <ArxivEprintList
-        eprints={
-          Immutable.List [
-            Immutable.Map {
-              "value": "1234567890",
-            },
-          ]
-        }
-      />
-    </InlineUL>
   </div>
 </ResultItem>
 `;
