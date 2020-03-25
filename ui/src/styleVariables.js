@@ -29,6 +29,9 @@ module.exports = {
   'page-content-padding': '0 2.85rem',
   'zindex-dropdown': 1050,
   'zindex-header': 1051,
+  'zindex-footer': 1040,
+  'zindex-modal': 1041,
+  'zindex-drawer': 1041,
   'layout-header-height': '64px',
   'layout-header-background': '#001529',
 };

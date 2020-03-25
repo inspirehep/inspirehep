@@ -195,7 +195,11 @@ body {
 
 .ant-modal-wrap {
   padding-top: $layout-header-height;
-  z-index: $zindex-header + 1 !important;
+  z-index: $zindex-modal !important;
+}
+
+.ant-drawer {
+  z-index: $zindex-drawer !important;
 }
 
 .ant-form-item-label {
