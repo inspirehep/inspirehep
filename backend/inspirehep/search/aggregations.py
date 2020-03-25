@@ -209,7 +209,7 @@ def hep_rpp(order, title="Exclude RPP", agg_type="checkbox"):
         "rpp": {
             "filters": {
                 "filters": {
-                    "Exclude Review Of Particle Physics": {
+                    "Exclude Review of Particle Physics": {
                         "bool": {
                             "must_not": [
                                 {

@@ -45,12 +45,12 @@ def test_hep_rpp_aggregation_and_filter(
                 "order": 1,
                 "is_filter_aggregation": True,
             },
-            "buckets": [{"doc_count": 1, "key": "Exclude Review Of Particle Physics"}],
+            "buckets": [{"doc_count": 1, "key": "Exclude Review of Particle Physics"}],
         }
         assert response["aggregations"]["rpp"] == expected_aggregation
 
         response = api_client.get(
-            "/literature?rpp=Exclude%20Review%20Of%20Particle%20Physics"
+            "/literature?rpp=Exclude%20Review%20of%20Particle%20Physics"
         ).json
         assert len(response["hits"]["hits"]) == 1
         assert (
