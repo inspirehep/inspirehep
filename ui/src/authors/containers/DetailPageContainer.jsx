@@ -109,7 +109,7 @@ function DetailPage({
                 }
               >
                 <Row>
-                  <Col>{deleted && <DeletedAlert />}</Col>
+                  <Col span={24}>{deleted && <DeletedAlert />}</Col>
                 </Row>
                 <h2>
                   <AuthorName name={name} />
