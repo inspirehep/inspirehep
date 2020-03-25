@@ -66,10 +66,10 @@ function DetailPage({ record }) {
             }
           >
             <Row>
-              <Col>{deleted && <DeletedAlert />}</Col>
+              <Col span={24}>{deleted && <DeletedAlert />}</Col>
             </Row>
             <Row>
-              <Col>
+              <Col span={24}>
                 <JobStatusAlert status={status} />
               </Col>
             </Row>
