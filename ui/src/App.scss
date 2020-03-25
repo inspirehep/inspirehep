@@ -95,6 +95,12 @@
     }
   }
 
+  .md-pb3 {
+    @media (max-width: $screen-md-max) {
+      padding-bottom: 1rem;
+    }
+  }
+
   .sm-mh2 {
     @media (max-width: $screen-sm-max) {
       margin-left: 0.5rem;
