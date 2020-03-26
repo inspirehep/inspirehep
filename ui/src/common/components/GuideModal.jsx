@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Carousel, Modal, Spin } from 'antd';
 import Image from 'react-image';
@@ -35,18 +35,32 @@ const IMAGE_LOADER = (
 
 function GuideModal({ visible, onCancel }) {
   const isMobile = useResponsiveCheck({ max: 'md' });
+  const carouselRef = useRef();
   const modalWidth = isMobile ? '100%' : '65%';
   const guideSteps = isMobile ? GUIDE_STEPS_MOBILE : GUIDE_STEPS_DESKTOP;
+  const onModalCancel = useCallback(
+    () => {
+      carouselRef.current.goTo(0, false);
+      onCancel();
+    },
+    [onCancel]
+  );
   return (
     <Modal
       width={modalWidth}
       title="Welcome to the new INSPIRE. Take the tour!"
       visible={visible}
-      onCancel={onCancel}
+      onCancel={onModalCancel}
       footer={null}
       centered
     >
-      <Carousel arrows dots={false} infinite={false} lazyLoad="progressive">
+      <Carousel
+        ref={carouselRef}
+        arrows
+        dots={false}
+        infinite={false}
+        lazyLoad="progressive"
+      >
         {guideSteps.map(step => (
           <Image
             key={step}
