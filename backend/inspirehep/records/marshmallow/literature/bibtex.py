@@ -54,13 +54,13 @@ class BibTexCommonSchema(Schema):
         "book": "book",
         "book chapter": "inbook",
         "proceedings": "proceedings",
-        "report": "techreport",
+        "report": "article",
         "note": "article",
         "conference paper": lambda data: "article"
         if get_value(data, "publication_info.journal_title")
         else "inproceedings",
         "thesis": lambda data: "phdthesis"
-        if get_value(data, "thesis_info.degree_type") in ("phd", "habilitation",)
+        if get_value(data, "thesis_info.degree_type") in ("phd", "habilitation")
         else "mastersthesis",
     }
 

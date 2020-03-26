@@ -319,7 +319,7 @@ def test_get_editions():
     assert expected_edition == result_edition
 
 
-def test_get_number_with_differennt_publication_info_material():
+def test_get_number_with_different_publication_info_material():
     record = {
         "document_type": ["article"],
         "publication_info": [{"material": "foo", "journal_issue": "12"}],
@@ -492,5 +492,12 @@ def test_bibtex_document_type_conference_paper_with_journal_title():
         ],
     }
     expected = "article"
+    result = BibTexCommonSchema.get_bibtex_document_type(record)
+    assert expected == result
+
+
+def test_bibtex_document_type_conference_paper():
+    record = {"document_type": ["conference paper"]}
+    expected = "inproceedings"
     result = BibTexCommonSchema.get_bibtex_document_type(record)
     assert expected == result
