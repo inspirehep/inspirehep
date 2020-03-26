@@ -14,7 +14,8 @@ import ExternalLink from '../../components/ExternalLink';
 import LinkLikeButton from '../../components/LinkLikeButton';
 
 import './HeaderMenu.scss';
-import { PAPER_SEARCH_URL } from '../../constants';
+import { PAPER_SEARCH_URL, HELP_BLOG_URL } from '../../constants';
+import DisplayGuideButtonContainer from '../../containers/DisplayGuideButtonContainer';
 
 class HeaderMenu extends Component {
   render() {
@@ -26,9 +27,20 @@ class HeaderMenu extends Component {
         mode="horizontal"
         selectable={false}
       >
-        <Menu.Item key="search-tips">
-          <ExternalLink href={PAPER_SEARCH_URL}>Search Tips</ExternalLink>
-        </Menu.Item>
+        <Menu.SubMenu key="help" title="Help" popupClassName="header-submenu">
+          <Menu.Item key="help.search-tips">
+            <ExternalLink href={PAPER_SEARCH_URL}>Search Tips</ExternalLink>
+          </Menu.Item>
+          <Menu.Item key="help.tour">
+            <DisplayGuideButtonContainer>
+              Take the tour
+            </DisplayGuideButtonContainer>
+          </Menu.Item>
+          <Menu.Item key="help.help-center">
+            <ExternalLink href={HELP_BLOG_URL}>Help Center</ExternalLink>
+          </Menu.Item>
+        </Menu.SubMenu>
+
         <Menu.SubMenu
           key="submit"
           title="Submit"

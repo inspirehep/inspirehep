@@ -7,16 +7,39 @@ exports[`HeaderMenu renders when logged in 1`] = `
   selectable={false}
   theme="dark"
 >
-  <MenuItem
-    key="search-tips"
+  <SubMenu
+    key="help"
+    popupClassName="header-submenu"
+    title="Help"
   >
-    <ExternalLink
-      as="a"
-      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+    <MenuItem
+      key="help.search-tips"
     >
-      Search Tips
-    </ExternalLink>
-  </MenuItem>
+      <ExternalLink
+        as="a"
+        href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+      >
+        Search Tips
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="help.tour"
+    >
+      <Connect(LinkLikeButton)>
+        Take the tour
+      </Connect(LinkLikeButton)>
+    </MenuItem>
+    <MenuItem
+      key="help.help-center"
+    >
+      <ExternalLink
+        as="a"
+        href="https://labs.inspirehep.net/help"
+      >
+        Help Center
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
   <SubMenu
     key="submit"
     popupClassName="header-submenu"
@@ -79,16 +102,39 @@ exports[`HeaderMenu renders when not logged in 1`] = `
   selectable={false}
   theme="dark"
 >
-  <MenuItem
-    key="search-tips"
+  <SubMenu
+    key="help"
+    popupClassName="header-submenu"
+    title="Help"
   >
-    <ExternalLink
-      as="a"
-      href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+    <MenuItem
+      key="help.search-tips"
     >
-      Search Tips
-    </ExternalLink>
-  </MenuItem>
+      <ExternalLink
+        as="a"
+        href="https://labs.inspirehep.net/help/knowledge-base/inspire-paper-search"
+      >
+        Search Tips
+      </ExternalLink>
+    </MenuItem>
+    <MenuItem
+      key="help.tour"
+    >
+      <Connect(LinkLikeButton)>
+        Take the tour
+      </Connect(LinkLikeButton)>
+    </MenuItem>
+    <MenuItem
+      key="help.help-center"
+    >
+      <ExternalLink
+        as="a"
+        href="https://labs.inspirehep.net/help"
+      >
+        Help Center
+      </ExternalLink>
+    </MenuItem>
+  </SubMenu>
   <SubMenu
     key="submit"
     popupClassName="header-submenu"
