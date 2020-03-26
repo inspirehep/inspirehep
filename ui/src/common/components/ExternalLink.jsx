@@ -13,7 +13,7 @@ function ExternalLink({ as, ...linkProps }) {
 ExternalLink.propTypes = {
   href: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
-  as: PropTypes.oneOfType([PropTypes.node, PropTypes.string]),
+  as: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
 };
 
 ExternalLink.defaultProps = {

@@ -5,6 +5,7 @@
     REACT_APP_SENTRY_DSN: null,
     FIGURES_FEATURE_FLAG: true,
     BANNERS: null,
+    DISPLAY_GUIDE_ON_START: false,
     /* Example:
     BANNERS: [
       {

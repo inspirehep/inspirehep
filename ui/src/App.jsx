@@ -22,7 +22,6 @@ import {
   SUBMISSIONS,
   ERRORS,
   JOBS,
-  isBetaRoute,
   CONFERENCES,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
@@ -35,6 +34,9 @@ import Authors from './authors';
 import Jobs from './jobs';
 import User from './user';
 import Errors from './errors';
+import GuideModalContainer from './common/containers/GuideModalContainer';
+import { changeGuideModalVisibility } from './actions/ui';
+import { getConfigFor } from './common/config';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -45,13 +47,25 @@ const Submissions$ = Loadable({
   loading: Loading,
 });
 
-function App({ userRoles, dispatch }) {
-
+function App({ userRoles, dispatch, guideModalVisibility }) {
   useEffect(
     () => {
       dispatch(fetchLoggedInUser());
     },
     [dispatch]
+  );
+
+  useEffect(
+    () => {
+      const hasGuideModalBeenDisplayed = guideModalVisibility != null;
+      const shouldDisplayGuideOnStart = getConfigFor('DISPLAY_GUIDE_ON_START');
+      if (!hasGuideModalBeenDisplayed && shouldDisplayGuideOnStart) {
+        setTimeout(() => {
+          dispatch(changeGuideModalVisibility(true));
+        }, 3000);
+      }
+    },
+    [guideModalVisibility, dispatch]
   );
 
   useEffect(
@@ -77,6 +91,7 @@ function App({ userRoles, dispatch }) {
           <Route path={ERRORS} component={Errors} />
         </SafeSwitch>
         <UserFeedback />
+        <GuideModalContainer />
       </Layout.Content>
       <Footer />
     </Layout>
@@ -84,15 +99,13 @@ function App({ userRoles, dispatch }) {
 }
 
 App.propTypes = {
-  isBannerVisible: PropTypes.bool.isRequired,
-  isBetaPage: PropTypes.bool.isRequired,
+  guideModalVisibility: PropTypes.bool.isRequired,
   userRoles: PropTypes.instanceOf(List).isRequired,
   dispatch: PropTypes.func.isRequired,
 };
 
 const stateToProps = state => ({
-  isBannerVisible: state.ui.get('bannerVisibility'),
-  isBetaPage: isBetaRoute(String(state.router.location.pathname)),
+  guideModalVisibility: state.ui.get('guideModalVisibility'),
   userRoles: state.user.getIn(['data', 'roles']),
 });
 
