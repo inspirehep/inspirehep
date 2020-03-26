@@ -24,14 +24,14 @@ import { anchorBuilder } from './commons';
 
 describe('Config Commons', () => {
   describe('anchorBuilder', () => {
-    it('should return de pluralised display with link to legacy if not literature', () => {
+    it('should return de pluralised display with link to legacy when collection is only on legacy', () => {
       const url = 'https://labs.inspirehep.net/api/experiments/1108642';
       const result = anchorBuilder(url);
       expect(result.display).toEqual('View experiment');
-      expect(result.href).toEqual('//inspirehep.net/record/1108642');
+      expect(result.href).toEqual('//old.inspirehep.net/record/1108642');
     });
 
-    it('should return display and link without "api" part', () => {
+    it('should return display and link without "api" part when collection is in labs', () => {
       const url = 'https://labs.inspirehep.net/api/literature/1108642';
       const result = anchorBuilder(url);
       expect(result.display).toEqual('View literature');
