@@ -200,7 +200,8 @@ body {
 }
 
 .ant-modal-wrap {
-  padding-top: $layout-header-height;
+  // HACK: to fix big modals like: figures/guide
+  padding: $layout-header-height * 2 0;
   z-index: $zindex-modal !important;
 }
 
