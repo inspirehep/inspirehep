@@ -36,7 +36,7 @@ const IMAGE_LOADER = (
 function GuideModal({ visible, onCancel }) {
   const isMobile = useResponsiveCheck({ max: 'md' });
   const carouselRef = useRef();
-  const modalWidth = isMobile ? '100%' : '65%';
+  const modalWidth = isMobile ? '100%' : '60%';
   const guideSteps = isMobile ? GUIDE_STEPS_MOBILE : GUIDE_STEPS_DESKTOP;
   const onModalCancel = useCallback(
     () => {
