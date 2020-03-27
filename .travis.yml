@@ -25,6 +25,11 @@ deploy:
   script: cd $TRAVIS_BUILD_DIR; ./build-and-deploy.sh
   on:
     branch: master
+- provider: script
+  skip_cleanup: true
+  script: cd $TRAVIS_BUILD_DIR; ./build-and-deploy.sh
+  on:
+    tags: true
 env:
   global:
   - secure: mN3WSX1M7gLg140H0fwg3LjSAS8jtcAm8gLUcPc65BBO/BFnD1g6JNSFo4SMXTJpX2z0Bx5tNd+rKfqkQXjhfRXmS0RZwNyUgx/EtcQ38CH8sZa0+HKinwZu5O88ktHJ8avOJ/ebSKRAUgyXAmU6wNoTHT5f8OCkDi3dtWIYGFKAQfq9EjtfWV8h4cY3OOYqAdbpJNhUzkHgQ/WiNuFxghAcku6t3QztqsSTP0Q9xYIFx03gZgSztnDoQZfgxVpwj5gIsK9heu6EcJh5S9dYSsyoeqoT7vEZujLxF1g3t1G5bREcCCsLYxYdmsTrgDm3cexWxHxERH2i40YsT7DVuKL4yvWT55nkNJlkqMwWCGJSrdoxqb6c750yW4t/lvU3HVjxS2MI7oS1sPlSB3KVyvd5A0+G/yykJRZocJo0iyZ+WvbNuz6/9Q9wGJH7IgXJjarZgwPAblUZ991MUVO8O/zSMCpNg3VK49FHLwYoAIJGW4IPL25XDQuI+3ObWVpBzUg43J46Cij3ZEDXmVCvRd8lpiBoU7NGZkGE18Bxrl5yvaQJssM8KvBuBNDi005FT+5esPd+yJQSXdf5pXyxMlOhO0eYCkf9XX6DDh/U6DgTT73XK7TU7T5SH9LS2PDS6qL8Exry0UpY3sTjkcxDO1cDO3+ivkO2v/TIy15Avp4=
