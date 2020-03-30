@@ -32,6 +32,9 @@ module.exports = {
   'zindex-footer': 1040,
   'zindex-modal': 1041,
   'zindex-drawer': 1041,
+  'zindex-carousel': 1060,
   'layout-header-height': '64px',
   'layout-header-background': '#001529',
+  'modal-mask-bg': 'rgba(0, 0, 0, 0.45)',
+  'disabled-color': 'rgba(0, 0, 0, 0.25)',
 };

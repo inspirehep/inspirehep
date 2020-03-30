@@ -1,0 +1,69 @@
+.__CarouselModal__ {
+  outline: none;
+
+  .action {
+    position: fixed;
+    z-index: $zindex-carousel + 1;
+    margin: 0.5rem;
+
+    &.close {
+      top: 0;
+      right: 0;
+    }
+
+    &.next {
+      right: 0;
+      top: 50%;
+      bottom: 50%;
+    }
+
+    &.previous {
+      left: 0;
+      top: 50%;
+      bottom: 50%;
+    }
+  }
+
+  .max-h-90 {
+    max-height: 90%;
+  }
+
+  .carousel {
+    .slick-dots {
+      bottom: 0;
+      position: fixed;
+    }
+
+    .slick-dots li button {
+      height: 0.5rem;
+    }
+
+    .slick-dots li.slick-active button {
+      background: $primary-color;
+    }
+
+    .slick-track {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+
+.__CarouselModal__overlay {
+  z-index: $zindex-carousel;
+  background-color: $modal-mask-bg;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.__CarouselModal__body-open {
+  overflow: hidden;
+}
