@@ -141,46 +141,6 @@
   }
 }
 
-.ant-carousel {
-  .slick-dots li button {
-    background: $secondary-color !important;
-    height: 6px !important;
-  }
-
-  .slick-dots li.slick-active button {
-    background: $primary-color !important;
-  }
-
-  .slick-arrow {
-    height: 24px !important;
-    width: 24px !important;
-
-    &::before {
-      display: inline-block;
-      border-right: 4px solid $secondary-color;
-      border-bottom: 4px solid $secondary-color;
-      width: 24px;
-      height: 24px;
-    }
-
-    &.slick-prev {
-      left: -15px !important;
-
-      &::before {
-        transform: rotate(-225deg);
-      }
-    }
-
-    &.slick-next {
-      right: -15px !important;
-
-      &::before {
-        transform: rotate(-45deg);
-      }
-    }
-  }
-}
-
 // height version of tachyons' `mw5` class
 .mhi5 {
   max-height: 16rem;
@@ -200,8 +160,7 @@ body {
 }
 
 .ant-modal-wrap {
-  // HACK: to fix big modals like: figures/guide
-  padding: $layout-header-height * 2 0;
+  padding: $layout-header-height 0;
   z-index: $zindex-modal !important;
 }
 
