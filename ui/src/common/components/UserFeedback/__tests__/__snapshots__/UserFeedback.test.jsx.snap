@@ -48,7 +48,7 @@ exports[`UserFeedback calls trackEvent with feedback on modal Ok and renders tha
          
         <ExternalLink
           as="a"
-          href="https://forms.gle/CMgi3UsbpMuXxAfr6"
+          href="https://forms.gle/ZQi31GvXXHcsgXgM6"
         >
           take our survey
         </ExternalLink>
@@ -189,7 +189,7 @@ exports[`UserFeedback renders when tracker is blocked 1`] = `
                
               <ExternalLink
                 as="a"
-                href="https://forms.gle/CMgi3UsbpMuXxAfr6"
+                href="https://forms.gle/ZQi31GvXXHcsgXgM6"
               >
                 feedback form
               </ExternalLink>
