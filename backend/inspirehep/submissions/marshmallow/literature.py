@@ -168,8 +168,12 @@ class Literature(Schema):
         literature.add_preprint_date(data.get("preprint_date"))
         literature.add_doi(data.get("doi"))
 
-        # TODO: pdf_link has to be passed somehow to the workflow unfortunately
-        literature.add_url(data.get("additional_link"))
+        pdf_link = data.get("pdf_link")
+        additional_link = data.get("additional_link")
+        if pdf_link and "arxiv.org" not in pdf_link:
+            literature.add_url(data.get("pdf_link"))
+        if additional_link and "arxiv.org" not in additional_link:
+            literature.add_url(data.get("additional_link"))
 
         literature.add_title(data["title"], source="submitter")
 
