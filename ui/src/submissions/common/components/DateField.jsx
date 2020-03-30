@@ -21,7 +21,9 @@ class DateField extends Component {
   }
 
   render() {
-    const { value, ...otherProps } = this.props;
+    // HACK: not passing `name` in order to disable browser autocompletion
+    // until https://github.com/ant-design/ant-design/issues/22499 is resolved
+    const { value, name, ...otherProps } = this.props;
     return (
       <DatePicker
         className="w-100"
