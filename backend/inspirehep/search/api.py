@@ -180,6 +180,19 @@ class AuthorsSearch(InspireSearch):
         index = "records-authors"
         doc_types = "_doc"
 
+    def query_from_iq(self, query_string):
+        if not query_string:
+            return self.query()
+
+        names_analyzed_query = Q("match", names_analyzed=query_string)
+        names_analyzed_initials_query = Q("match", names_analyzed_initials=query_string)
+        query_string = Q("query_string", query=query_string)
+        query = Q(
+            "bool",
+            should=[names_analyzed_query, names_analyzed_initials_query, query_string],
+        )
+        return self.query(query)
+
     @staticmethod
     def get_author_papers(author, source=None, size=10000):
         if not author:

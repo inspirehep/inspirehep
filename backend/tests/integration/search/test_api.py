@@ -9,7 +9,7 @@ import json
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
 
-from inspirehep.search.api import LiteratureSearch
+from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
 
 def test_literature_get_records_by_pids_returns_correct_record(
@@ -79,6 +79,31 @@ def test_authors_search_with_parameter(api_client, db, es_clear, create_record):
         record1_control_number
         == response.json["hits"]["hits"][0]["metadata"]["control_number"]
     )
+
+
+def test_empty_authors_search_query(api_client, db, es_clear, create_record):
+    query_to_dict = AuthorsSearch().query_from_iq("").to_dict()
+
+    expexted_query = {"query": {"match_all": {}}, "track_total_hits": True}
+    assert expexted_query == query_to_dict
+
+
+def test_authors_search_query(api_client, db, es_clear, create_record):
+    query_to_dict = AuthorsSearch().query_from_iq("J Ellis").to_dict()
+
+    expexted_query = {
+        "query": {
+            "bool": {
+                "should": [
+                    {"match": {"names_analyzed": "J Ellis"}},
+                    {"match": {"names_analyzed_initials": "J Ellis"}},
+                    {"query_string": {"query": "J Ellis"}},
+                ]
+            }
+        },
+        "track_total_hits": True,
+    }
+    assert expexted_query == query_to_dict
 
 
 def test_empty_jobs_search(api_client, db, es_clear, create_record):
