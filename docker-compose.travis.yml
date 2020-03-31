@@ -26,13 +26,9 @@ services:
       service: mq
     ports:
      - "5672:5672"
-  elasticsearch:
+  es:
     extends:
       file: docker-compose.services.yml
       service: es
     ports:
      - "9200:9200"
-  kibana:
-    image: kibana:7.1.1
-    ports:
-     - "5601:5601"
