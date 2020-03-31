@@ -246,26 +246,48 @@
         "format": "yyyy-MM-dd||yyyy-MM||yyyy",
         "type": "date"
       },
+      "names_analyzed_initials": {
+        "type": "text",
+        "analyzer": "names_initials_analyzer"
+      },
+      "names_analyzed": {
+        "type": "text",
+        "analyzer": "names_analyzer"
+      },
       "name": {
         "properties": {
           "numeration": {
             "type": "keyword"
           },
           "preferred_name": {
-            "type": "text"
+            "type": "text",
+            "copy_to": [
+              "authorautocomplete",
+              "names_analyzed_initials",
+              "names_analyzed"
+            ]
           },
           "title": {
             "type": "keyword"
           },
           "value": {
-            "copy_to": "authorautocomplete",
+            "copy_to": [
+              "authorautocomplete",
+              "names_analyzed_initials",
+              "names_analyzed"
+            ],
             "type": "text"
           }
         },
         "type": "object"
       },
       "native_name": {
-        "type": "text"
+        "type": "text",
+        "copy_to": [
+          "authorautocomplete",
+          "names_analyzed_initials",
+          "names_analyzed"
+        ]
       },
       "new_recid": {
         "type": "integer"
@@ -280,7 +302,12 @@
         "type": "object"
       },
       "other_names": {
-        "type": "text"
+        "type": "text",
+        "copy_to": [
+          "authorautocomplete",
+          "names_analyzed_initials",
+          "names_analyzed"
+        ]
       },
       "name_variations": {
         "type": "keyword"
@@ -384,6 +411,22 @@
       "analyzer": {
         "recid_analyzer": {
           "tokenizer": "recid_tokenizer"
+        },
+        "names_analyzer": {
+          "filter": ["ascii_normalizer", "lowercase_normalizer"],
+          "char_filter": ["dot_to_whitespace_normalizer"],
+          "tokenizer": "standard",
+          "type": "custom"
+        },
+        "names_initials_analyzer": {
+          "filter": [
+            "ascii_normalizer",
+            "initial_normalizer",
+            "lowercase_normalizer"
+          ],
+          "char_filter": ["dot_to_whitespace_normalizer"],
+          "tokenizer": "standard",
+          "type": "custom"
         }
       },
       "normalizer": {
@@ -398,6 +441,27 @@
           "type": "pattern",
           "pattern": "(\\d+)",
           "group": 1
+        }
+      },
+      "char_filter": {
+        "dot_to_whitespace_normalizer": {
+          "type": "pattern_replace",
+          "pattern": "\\.",
+          "replacement": " "
+        }
+      },
+      "filter": {
+        "ascii_normalizer": {
+          "preserve_original": true,
+          "type": "asciifolding"
+        },
+        "lowercase_normalizer": {
+          "type": "lowercase"
+        },
+        "initial_normalizer": {
+          "type": "edge_ngram",
+          "min_gram": 1,
+          "max_gram": 1
         }
       }
     }
