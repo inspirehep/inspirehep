@@ -1,8 +1,11 @@
-import React, { useRef, useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, Modal, Spin } from 'antd';
+import { Spin } from 'antd';
 import Image from 'react-image';
 import useResponsiveCheck from '../hooks/useResponsiveCheck';
+import CarouselModal from './CarouselModal';
+import ExternalLink from './ExternalLink';
+import { BLOG_URL } from '../constants';
 
 const GUIDE_STEPS_DESKTOP = [
   'guide-step-1-desktop',
@@ -35,48 +38,34 @@ const IMAGE_LOADER = (
 
 function GuideModal({ visible, onCancel }) {
   const isMobile = useResponsiveCheck({ max: 'md' });
-  const carouselRef = useRef();
-  const modalWidth = isMobile ? '100%' : '60%';
   const guideSteps = isMobile ? GUIDE_STEPS_MOBILE : GUIDE_STEPS_DESKTOP;
-  const onModalCancel = useCallback(
-    () => {
-      carouselRef.current.goTo(0, false);
-      onCancel();
-    },
-    [onCancel]
-  );
   return (
-    <Modal
-      width={modalWidth}
-      title="Welcome to the new INSPIRE. Take the tour!"
-      visible={visible}
-      onCancel={onModalCancel}
-      footer={null}
-      centered
-    >
-      <Carousel
-        ref={carouselRef}
-        arrows
-        dots={false}
-        infinite={false}
-        lazyLoad="progressive"
-      >
-        {guideSteps.map(step => (
-          <Image
-            key={step}
-            className="ph3"
-            loader={IMAGE_LOADER}
-            alt={step}
-            src={`/${step}.png`}
-          />
-        ))}
-      </Carousel>
-    </Modal>
+    <CarouselModal visible={visible} onCancel={onCancel}>
+      <div className="f2 tc bg-white pa5">
+        <p>Welcome to INSPIRE!</p>
+        <p className="mb0">Take the tour to discover new INSPIRE features.</p>
+      </div>
+      {guideSteps.map(step => (
+        <Image
+          key={step}
+          loader={IMAGE_LOADER}
+          alt={step}
+          src={`/${step}.png`}
+        />
+      ))}
+      <div className="f2 tc bg-white pa5">
+        <p>Thanks for taking the tour of the new INSPIRE.!</p>
+        <p className="mb0">
+          Visit <ExternalLink href={BLOG_URL}>our blog</ExternalLink> for more
+          info.
+        </p>
+      </div>
+    </CarouselModal>
   );
 }
 
 GuideModal.propTypes = {
-  visible: PropTypes.bool.isRequired,
+  visible: PropTypes.bool,
   onCancel: PropTypes.func.isRequired,
 };
 
