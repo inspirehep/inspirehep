@@ -352,6 +352,73 @@ def test_new_literature_submit_no_merge(app, api_client, create_user, requests_m
                     "subjects": ["Other"],
                     "pdf_link": "https://cern.ch/coolstuff.pdf",
                     "references": "[1] Dude",
+                    "additional_link": "https://cern.ch/other_stuff.pdf",
+                }
+            }
+        ),
+    )
+    assert response.status_code == 200
+    assert requests_mock.call_count == 1
+    history = requests_mock.request_history[0]
+    post_data = history.json()
+    assert (
+        "Authorization" in history.headers
+        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        == history.headers["Authorization"]
+    )
+    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    expected_data = {
+        "data": {
+            "_collections": ["Literature"],
+            "acquisition_source": {
+                "email": user.email,
+                "internal_uid": user.id,
+                "method": "submitter",
+                "source": "submitter",
+                "datetime": "2019-06-17T00:00:00",
+            },
+            "preprint_date": "2019-10-15",
+            "arxiv_eprints": [{"categories": ["hep-th"], "value": "1701.00006"}],
+            "authors": [{"full_name": "Urhan, Harun"}],
+            "citeable": True,
+            "curated": False,
+            "document_type": ["article"],
+            "inspire_categories": [{"term": "Other"}],
+            "titles": [{"source": "submitter", "title": "Discovery of cool stuff"}],
+            "urls": [
+                {"value": "https://cern.ch/coolstuff.pdf"},
+                {"value": "https://cern.ch/other_stuff.pdf"},
+            ],
+        },
+        "form_data": {"references": "[1] Dude", "url": "https://cern.ch/coolstuff.pdf"},
+    }
+    assert post_data == expected_data
+
+
+@freeze_time("2019-06-17")
+def test_new_literature_submit_arxiv_urls(app, api_client, create_user, requests_mock):
+    requests_mock.post(
+        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        json={"workflow_object_id": 30},
+    )
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    response = api_client.post(
+        "/submissions/literature",
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "data": {
+                    "arxiv_id": "1701.00006",
+                    "arxiv_categories": ["hep-th"],
+                    "preprint_date": "2019-10-15",
+                    "document_type": "article",
+                    "authors": [{"full_name": "Urhan, Harun"}],
+                    "title": "Discovery of cool stuff",
+                    "subjects": ["Other"],
+                    "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                    "references": "[1] Dude",
+                    "additional_link": "https://arxiv.org/other_stuff.pdf",
                 }
             }
         ),
@@ -385,7 +452,10 @@ def test_new_literature_submit_no_merge(app, api_client, create_user, requests_m
             "inspire_categories": [{"term": "Other"}],
             "titles": [{"source": "submitter", "title": "Discovery of cool stuff"}],
         },
-        "form_data": {"references": "[1] Dude", "url": "https://cern.ch/coolstuff.pdf"},
+        "form_data": {
+            "references": "[1] Dude",
+            "url": "https://arxiv.org/coolstuff.pdf",
+        },
     }
     assert post_data == expected_data
 
