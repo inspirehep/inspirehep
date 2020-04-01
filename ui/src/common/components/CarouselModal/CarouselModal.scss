@@ -24,8 +24,9 @@
     }
   }
 
-  .max-h-90 {
+  .carousel-container {
     max-height: 90%;
+    overflow-y: scroll;
   }
 
   .carousel {
@@ -41,12 +42,6 @@
     .slick-dots li.slick-active button {
       background: $primary-color;
     }
-
-    .slick-track {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
   }
 }
 
@@ -58,10 +53,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .__CarouselModal__body-open {

@@ -82,7 +82,7 @@ const CarouselModal = forwardRef(
       <Modal
         appElement={rootElement}
         isOpen={visible} // TODO: animate on visibility change?
-        className="__CarouselModal__ overflow-y-hidden"
+        className="__CarouselModal__ h-100"
         overlayClassName="__CarouselModal__overlay"
         bodyOpenClassName="__CarouselModal__body-open"
         onRequestClose={onModalClose}
@@ -106,19 +106,19 @@ const CarouselModal = forwardRef(
             icon={<LeftOutlined />}
           />
         )}
-        <Row onClick={onModalContentClick} justify="center">
-          <Col
-            className="max-h-90 overflow-y-scroll"
-            xs={24}
-            md={20}
-            lg={18}
-            xxl={12}
-          >
+        <Row
+          className="h-100"
+          onClick={onModalContentClick}
+          justify="center"
+          align="middle"
+        >
+          <Col className="carousel-container" xs={24} md={20} lg={18} xxl={12}>
             <Carousel
               className="carousel"
               infinite={false}
               ref={carouselRef}
               lazyLoad="progressive"
+              adaptiveHeight
               beforeChange={onCourselIndexChange}
             >
               {children}
