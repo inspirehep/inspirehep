@@ -16,8 +16,8 @@ import PublicNotesList from '../../common/components/PublicNotesList';
 import KeywordList from '../../common/components/KeywordList';
 import EditRecordAction from '../../common/components/EditRecordAction';
 import ProceedingsAction from '../components/ProceedingsAction';
-import ConferenceWebsitesAction from '../components/ConferenceWebsitesAction';
-import ConferenceAddressList from '../components/ConferenceAddressList';
+import ConferenceWebsitesAction from '../../common/components/WebsitesAction';
+import AddressList from '../../common/components/AddressList';
 import ConferenceContributions from '../components/ConferenceContributions';
 import { newSearch } from '../../actions/search';
 import { CONFERENCE_CONTRIBUTIONS_NS } from '../../reducers/search';
@@ -86,7 +86,7 @@ function DetailPage({ record }) {
                 {addresses && (
                   <>
                     {'. '}
-                    <ConferenceAddressList addresses={addresses} />
+                    <AddressList addresses={addresses} />
                   </>
                 )}
                 {cnum && ` (${cnum})`}

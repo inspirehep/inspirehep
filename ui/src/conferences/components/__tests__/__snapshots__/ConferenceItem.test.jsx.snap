@@ -4,7 +4,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
 <ResultItem
   leftActions={
     <React.Fragment>
-      <ConferenceWebsitesAction
+      <WebsitesAction
         websites={
           Immutable.List [
             Immutable.Map {
@@ -76,7 +76,7 @@ exports[`ConferenceItem renders with all props set 1`] = `
         openingDate="2019-11-21"
       />
       . 
-      <ConferenceAddressList
+      <AddressList
         addresses={
           Immutable.List [
             Immutable.Map {

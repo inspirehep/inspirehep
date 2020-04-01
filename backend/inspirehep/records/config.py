@@ -44,6 +44,7 @@ from inspirehep.search.facets import (
     hep_author_publications,
     hep_author_publications_cataloger,
     hep_conference_contributions,
+    hep_institution_papers,
     must_match_all_filter,
     range_author_count_filter,
     records_conferences,
@@ -380,10 +381,14 @@ INSTITUTIONS.update(
         },
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS
-            + ":institutions_json_response_search"
+            + ":institutions_json_response_search",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":institutions_json_list_response",
         },
         "record_serializers": {
-            "application/json": INSPIRE_SERIALIZERS + ":institutions_json_response"
+            "application/json": INSPIRE_SERIALIZERS + ":institutions_json_response",
+            "application/vnd+inspire.record.ui+json": INSPIRE_SERIALIZERS
+            + ":institutions_json_detail_response",
         },
     }
 )
@@ -437,6 +442,7 @@ CONFERENCES_FILTERS = {
 RECORDS_REST_FACETS = {
     "hep-author-publication": hep_author_publications,
     "hep-conference-contribution": hep_conference_contributions,
+    "hep-institution-papers": hep_institution_papers,
     "citation-summary": citation_summary,
     "citations-by-year": citations_by_year,
     "records-hep": records_hep,

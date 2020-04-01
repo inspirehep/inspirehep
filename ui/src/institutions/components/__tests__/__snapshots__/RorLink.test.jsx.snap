@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RorLink renders 1`] = `
+<span>
+  ROR Record: 
+  <ExternalLink
+    as="a"
+    href="https://ror123.org"
+  >
+    https://ror123.org
+  </ExternalLink>
+</span>
+`;

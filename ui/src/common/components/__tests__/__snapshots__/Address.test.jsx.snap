@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConferenceAddress renders all 1`] = `
+exports[`Address renders all 1`] = `
 <span>
   <InlineUL
     separator=", "
@@ -22,7 +22,7 @@ exports[`ConferenceAddress renders all 1`] = `
 </span>
 `;
 
-exports[`ConferenceAddress renders empty 1`] = `
+exports[`Address renders empty 1`] = `
 <span>
   <InlineUL
     separator=", "
@@ -31,7 +31,7 @@ exports[`ConferenceAddress renders empty 1`] = `
 </span>
 `;
 
-exports[`ConferenceAddress renders with city and country 1`] = `
+exports[`Address renders with city and country 1`] = `
 <span>
   <InlineUL
     separator=", "
@@ -47,7 +47,7 @@ exports[`ConferenceAddress renders with city and country 1`] = `
 </span>
 `;
 
-exports[`ConferenceAddress renders with only city 1`] = `
+exports[`Address renders with only city 1`] = `
 <span>
   <InlineUL
     separator=", "
@@ -60,7 +60,7 @@ exports[`ConferenceAddress renders with only city 1`] = `
 </span>
 `;
 
-exports[`ConferenceAddress renders with only country 1`] = `
+exports[`Address renders with only country 1`] = `
 <span>
   <InlineUL
     separator=", "
@@ -73,7 +73,7 @@ exports[`ConferenceAddress renders with only country 1`] = `
 </span>
 `;
 
-exports[`ConferenceAddress renders with only place name 1`] = `
+exports[`Address renders with only place name 1`] = `
 <span>
   <InlineUL
     separator=", "

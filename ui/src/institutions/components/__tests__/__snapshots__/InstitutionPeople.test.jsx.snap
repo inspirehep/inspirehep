@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionPeople renders 1`] = `
+<span>
+  List of
+   
+  <Link
+    to="/authors?q=positions.record.$ref:123"
+  >
+    People
+  </Link>
+</span>
+`;

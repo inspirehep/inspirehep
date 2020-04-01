@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Map } from 'immutable';
-import { InlineUL, SEPARATOR_COMMA } from '../../common/components/InlineList';
+import { InlineUL, SEPARATOR_COMMA } from './InlineList';
 
-function ConferenceAddress({ address }) {
+function Address({ address }) {
   const placeName = address.get('place_name');
   const city = address.getIn(['cities', 0]);
   const state = address.get('state');
@@ -20,8 +20,8 @@ function ConferenceAddress({ address }) {
   );
 }
 
-ConferenceAddress.propTypes = {
+Address.propTypes = {
   address: PropTypes.instanceOf(Map).isRequired,
 };
 
-export default ConferenceAddress;
+export default Address;

@@ -65,6 +65,7 @@ def test_institution_record_search_results(api_client, db, es_clear, create_reco
     expected_metadata = record.serialize_for_es()
     expected_metadata.pop("_created")
     expected_metadata.pop("_updated")
+    expected_metadata.pop("_collections")
 
     result = api_client.get("/institutions")
 

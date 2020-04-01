@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConferenceWebsitesAction renders single url 1`] = `
+exports[`WebsitesAction renders single url 1`] = `
 <ListItemAction>
   <ExternalLink
     as="a"
@@ -14,7 +14,7 @@ exports[`ConferenceWebsitesAction renders single url 1`] = `
 </ListItemAction>
 `;
 
-exports[`ConferenceWebsitesAction renders urls with and without description 1`] = `
+exports[`WebsitesAction renders urls with and without description 1`] = `
 <ListItemAction>
   <DropdownMenu
     disabled={false}

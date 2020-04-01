@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionHierarchyList renders 1`] = `
+<div
+  className="__InlineList__"
+>
+  <ul>
+    <li
+      key="Name1"
+    >
+      <span>
+        Name1
+        <span>
+           (
+          NA
+          )
+        </span>
+      </span>
+       • 
+    </li>
+    <li
+      key="Name2"
+    >
+      <span>
+        Name2
+      </span>
+    </li>
+  </ul>
+</div>
+`;

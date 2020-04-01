@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RelatedRecordsList renders with multiple records 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Subsidiary Institutions
+    : 
+  </span>
+  <ul>
+    <li
+      key="123"
+    >
+      <Link
+        to="/institutions/123"
+      >
+        Inst 1
+      </Link>
+      , 
+    </li>
+    <li
+      key="124"
+    >
+      <Link
+        to="/institutions/124"
+      >
+        Inst 3
+      </Link>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`RelatedRecordsList renders with one record 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Subsidiary Institution
+    : 
+  </span>
+  <ul>
+    <li
+      key="123"
+    >
+      <Link
+        to="/institutions/123"
+      >
+        Inst 1
+      </Link>
+    </li>
+  </ul>
+</div>
+`;

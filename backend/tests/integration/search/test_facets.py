@@ -148,6 +148,39 @@ def test_hep_conference_contributions_facets(base_app):
         assert aggregations == expected_aggregations
 
 
+def test_hep_institution_papers_facets(base_app):
+    with base_app.test_request_context():
+        expected_filters = {
+            "author",
+            "author_count",
+            "doc_type",
+            "earliest_date",
+            "citation_count",
+            "collaboration",
+            "refereed",
+            "citeable",
+            "collection",
+            "subject",
+            "arxiv_categories",
+            "self_affiliations",
+            "self_author_names",
+            "rpp",
+        }
+        expected_aggregations = {
+            **hep_earliest_date_aggregation(order=1),
+            **hep_doc_type_aggregation(order=2),
+        }
+
+        filters = base_app.config["RECORDS_REST_FACETS"]["hep-institution-papers"]()[
+            "filters"
+        ].keys()
+        aggregations = base_app.config["RECORDS_REST_FACETS"][
+            "hep-institution-papers"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
 def test_citation_summary_facets(base_app):
     with base_app.test_request_context():
         expected_filters = {

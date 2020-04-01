@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ConferenceAddressList renders with addresses 1`] = `
+exports[`AddressList renders with addresses 1`] = `
 <div
   className="__InlineList__ di"
 >
@@ -8,7 +8,7 @@ exports[`ConferenceAddressList renders with addresses 1`] = `
     <li
       key="Map { \\"place_name\\": \\"CERN\\" }"
     >
-      <ConferenceAddress
+      <Address
         address={
           Immutable.Map {
             "place_name": "CERN",
@@ -20,7 +20,7 @@ exports[`ConferenceAddressList renders with addresses 1`] = `
     <li
       key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }"
     >
-      <ConferenceAddress
+      <Address
         address={
           Immutable.Map {
             "cities": Immutable.List [

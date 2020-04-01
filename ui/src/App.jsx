@@ -23,6 +23,7 @@ import {
   ERRORS,
   JOBS,
   CONFERENCES,
+  INSTITUTIONS,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
 import { setUserCategoryFromRoles } from './tracker';
@@ -37,6 +38,8 @@ import Errors from './errors';
 import GuideModalContainer from './common/containers/GuideModalContainer';
 import { changeGuideModalVisibility } from './actions/ui';
 import { getConfigFor } from './common/config';
+import Institutions from './institutions';
+import { SUPERUSER_OR_CATALOGER } from './common/authorization';
 
 const Holdingpen$ = Loadable({
   loader: () => import('./holdingpen'),
@@ -87,6 +90,11 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
           <Route path={AUTHORS} component={Authors} />
           <Route path={JOBS} component={Jobs} />
           <Route path={CONFERENCES} component={Conferences} />
+          <PrivateRoute
+            path={INSTITUTIONS}
+            component={Institutions}
+            authorizedRoles={SUPERUSER_OR_CATALOGER}
+          />
           <PrivateRoute path={SUBMISSIONS} component={Submissions$} />
           <Route path={ERRORS} component={Errors} />
         </SafeSwitch>

@@ -4,10 +4,10 @@ import { List } from 'immutable';
 import { Menu } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
-import ExternalLink from '../../common/components/ExternalLink';
-import { removeProtocolAndWwwFromUrl } from '../../common/utils';
-import ActionsDropdownOrAction from '../../common/components/ActionsDropdownOrAction';
-import IconText from '../../common/components/IconText';
+import ExternalLink from './ExternalLink';
+import { removeProtocolAndWwwFromUrl } from '../utils';
+import ActionsDropdownOrAction from './ActionsDropdownOrAction';
+import IconText from './IconText';
 
 function renderWebsitesDropdownAction(website) {
   const href = website.get('value');
@@ -26,7 +26,7 @@ function renderWebsiteAction(website, title) {
 
 const ACTION_TITLE = <IconText icon={<LinkOutlined />} text="website" />;
 
-function ConferenceWebsitesAction({ websites }) {
+function WebsitesAction({ websites }) {
   return (
     <ActionsDropdownOrAction
       values={websites}
@@ -37,8 +37,8 @@ function ConferenceWebsitesAction({ websites }) {
   );
 }
 
-ConferenceWebsitesAction.propTypes = {
+WebsitesAction.propTypes = {
   websites: PropTypes.instanceOf(List).isRequired,
 };
 
-export default ConferenceWebsitesAction;
+export default WebsitesAction;
