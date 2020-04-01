@@ -1,43 +1,28 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import PropTypes from 'prop-types';
-import { Carousel, Modal } from 'antd';
 import { List } from 'immutable';
 
-import Latex from '../../../common/components/Latex';
 import Figure from './Figure';
+import CarouselModal from '../../../common/components/CarouselModal';
 
-function FiguresCarousel({ figures, visible, onCancel, carouselRef }) {
-  return (
-    <Modal
-      title="Figures"
-      visible={visible}
-      onCancel={onCancel}
-      footer={null}
-      centered
-    >
-      <Carousel ref={carouselRef} arrows lazyLoad="progressive">
-        {figures.map(figure => (
-          <div key={figure.get('key')} className="ph3">
-            <div className="pb3">
-              <Figure url={figure.get('url')} />
-            </div>
-            {figure.has('caption') && (
-              <div className="pb3">
-                <Latex>{figure.get('caption')}</Latex>
-              </div>
-            )}
-          </div>
-        ))}
-      </Carousel>
-    </Modal>
-  );
-}
+const FiguresCarousel = forwardRef(({ figures, visible, onCancel }, ref) => (
+  <CarouselModal visible={visible} onCancel={onCancel} ref={ref}>
+    {figures.map(figure => (
+      <Figure
+        key={figure.get('url')}
+        url={figure.get('url')}
+        caption={figure.get('caption')}
+      />
+    ))}
+  </CarouselModal>
+));
 
 FiguresCarousel.propTypes = {
   figures: PropTypes.instanceOf(List),
   visible: PropTypes.bool.isRequired,
   onCancel: PropTypes.func.isRequired,
-  carouselRef: PropTypes.object,
 };
+
+FiguresCarousel.displayName = 'FiguresCarousel';
 
 export default FiguresCarousel;

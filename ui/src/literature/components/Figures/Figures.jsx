@@ -21,11 +21,11 @@ function Figures({ figures }) {
       <FigureListItem
         key={figure.get('key')}
         figure={figure}
-        // TODO: use useCallback for onClick
         onClick={() => {
           setCarouselVisible(true);
+          // TODO: setTimeout only if needed
           // wait for the carousel to be in dom
-          setTimeout(() => carouselRef.current.goTo(index, false));
+          setTimeout(() => carouselRef.current.goTo(index, true));
         }}
       />
     ),
@@ -45,7 +45,7 @@ function Figures({ figures }) {
           grid
         />
         <FiguresCarousel
-          carouselRef={carouselRef}
+          ref={carouselRef}
           figures={figures}
           visible={isCarouselVisible}
           onCancel={onCarouselCancel}
