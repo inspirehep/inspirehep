@@ -6,14 +6,21 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+from marshmallow import fields
+
 from inspirehep.records.marshmallow.base import RecordBaseSchema
+from inspirehep.records.marshmallow.utils import get_adresses_with_country
 
 
 class InstitutionsRawSchema(RecordBaseSchema):
-    pass
+    addresses = fields.Method("get_addresses")
+
+    @staticmethod
+    def get_addresses(record):
+        return get_adresses_with_country(record)
 
 
-# Fields that are needed to be indexed but exluded from API responses
+# Fields that are needed to be indexed but excluded from API responses
 FIELDS_TO_EXCLUDE = ["affiliation_suggest"]
 
 
@@ -24,4 +31,4 @@ class InstitutionsAdminSchema(InstitutionsRawSchema):
 
 class InstitutionsPublicSchema(InstitutionsRawSchema):
     class Meta:
-        exclude = FIELDS_TO_EXCLUDE
+        exclude = FIELDS_TO_EXCLUDE + ["_private_notes", "_collections"]

@@ -7,7 +7,7 @@
 
 from marshmallow import fields
 
-from ..utils import get_facet_author_name_for_author, get_id_for_schema
+from ..utils import get_facet_author_name_for_author, get_first_value_for_schema
 from .base import AuthorsPublicSchema
 from .common import PositionSchemaV1
 
@@ -39,19 +39,19 @@ class AuthorsDetailSchema(AuthorsBaseSchema):
 
     @staticmethod
     def get_twitter(data):
-        return get_id_for_schema(data, "TWITTER")
+        return get_first_value_for_schema(data.get("ids", []), "TWITTER")
 
     @staticmethod
     def get_linkedin(data):
-        return get_id_for_schema(data, "LINKEDIN")
+        return get_first_value_for_schema(data.get("ids", []), "LINKEDIN")
 
     @staticmethod
     def get_orcid(data):
-        return get_id_for_schema(data, "ORCID")
+        return get_first_value_for_schema(data.get("ids", []), "ORCID")
 
     @staticmethod
     def get_bai(data):
-        return get_id_for_schema(data, "INSPIRE BAI")
+        return get_first_value_for_schema(data.get("ids", []), "INSPIRE BAI")
 
     @staticmethod
     def get_current_public_emails(data):

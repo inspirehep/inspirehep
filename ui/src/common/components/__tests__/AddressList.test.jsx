@@ -2,9 +2,9 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import ConferenceAddressList from '../ConferenceAddressList';
+import AddressList from '../AddressList';
 
-describe('ConferenceAddressList', () => {
+describe('AddressList', () => {
   it('renders with addresses', () => {
     const addresses = fromJS([
       {
@@ -15,7 +15,7 @@ describe('ConferenceAddressList', () => {
         country: 'Switzerland',
       },
     ]);
-    const wrapper = shallow(<ConferenceAddressList addresses={addresses} />);
+    const wrapper = shallow(<AddressList addresses={addresses} />);
     expect(wrapper.dive()).toMatchSnapshot();
   });
 });

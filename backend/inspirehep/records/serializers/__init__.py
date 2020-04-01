@@ -20,6 +20,8 @@ from .json import (
     experiments_json_response,
     experiments_json_response_search,
     facets_json_response_search,
+    institutions_json_detail_response,
+    institutions_json_list_response,
     institutions_json_response,
     institutions_json_response_search,
     jobs_json_response,

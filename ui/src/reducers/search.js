@@ -15,7 +15,13 @@ import {
   SEARCH_BASE_QUERIES_UPDATE,
   SEARCH_QUERY_RESET,
 } from '../actions/actionTypes';
-import { AUTHORS, JOBS, LITERATURE, CONFERENCES } from '../common/routes';
+import {
+  AUTHORS,
+  JOBS,
+  LITERATURE,
+  CONFERENCES,
+  INSTITUTIONS,
+} from '../common/routes';
 import { START_DATE_UPCOMING, START_DATE_ALL } from '../common/constants';
 
 export const AUTHORS_NS = 'authors';
@@ -25,6 +31,8 @@ export const AUTHOR_PUBLICATIONS_NS = 'authorPublications';
 export const CONFERENCE_CONTRIBUTIONS_NS = 'conferenceContributions';
 export const CONFERENCES_NS = 'conferences';
 export const EXISTING_CONFERENCES_NS = 'existingConferences';
+export const INSTITUTIONS_NS = 'institutions';
+export const INSTITUTION_PAPERS_NS = 'institutionPapers';
 
 const initialBaseQuery = {
   sort: 'mostrecent',
@@ -61,18 +69,21 @@ export const initialState = fromJS({
       pathname: LITERATURE,
       embedded: false,
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
+      order: 1,
     },
     [AUTHORS_NS]: {
       ...initialNamespaceState,
       pathname: AUTHORS,
       embedded: false,
       aggregationsFetchMode: FETCH_MODE_NEVER,
+      order: 2,
     },
     [JOBS_NS]: {
       ...initialNamespaceState,
       pathname: JOBS,
       embedded: false,
       aggregationsFetchMode: FETCH_MODE_INITIAL,
+      order: 3,
     },
     [AUTHOR_PUBLICATIONS_NS]: {
       ...initialNamespaceState,
@@ -126,6 +137,7 @@ export const initialState = fromJS({
       },
       persistedQueryParamsDuringNewSearch: ['start_date'],
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
+      order: 4,
     },
     [EXISTING_CONFERENCES_NS]: {
       ...initialNamespaceState,
@@ -146,6 +158,29 @@ export const initialState = fromJS({
       persistedQueryParamsDuringNewSearch: ['start_date'],
       aggregationsFetchMode: FETCH_MODE_NEVER,
     },
+    [INSTITUTIONS_NS]: {
+      ...initialNamespaceState,
+      pathname: INSTITUTIONS,
+      embedded: false,
+      aggregationsFetchMode: FETCH_MODE_NEVER,
+    },
+    [INSTITUTION_PAPERS_NS]: {
+      ...initialNamespaceState,
+      pathname: LITERATURE,
+      embedded: true,
+      aggregationsFetchMode: FETCH_MODE_ALWAYS,
+      baseQuery: {
+        ...initialBaseQuery,
+        size: '10',
+      },
+      query: {
+        ...initialBaseQuery,
+        size: '10',
+      },
+      baseAggregationsQuery: {
+        facet_name: 'hep-institution-papers',
+      },
+    },
   },
 });
 // TODO: maybe move all static things into config so that we can easily add new collection
@@ -161,18 +196,18 @@ export const SEARCHABLE_COLLECTION_PATHNAMES = nonEmbeddedNamespaces
   .toArray();
 
 export const SEARCH_BOX_NAMESPACES = nonEmbeddedNamespaces
+  .sortBy(namespace => namespace.get('order'))
   .map((_, namespace) => namespace)
+  .filter(namespace => namespace !== INSTITUTIONS_NS)
   .valueSeq()
   .toArray();
 
 function getNamespaceForLocationChangeAction(action) {
   const { location } = action.payload;
   return (
-    initialState
-      .get('namespaces')
-      .findKey(namespace =>
-        location.pathname.startsWith(namespace.get('pathname'))
-      ) || LITERATURE_NS
+    nonEmbeddedNamespaces.findKey(namespace =>
+      location.pathname.startsWith(namespace.get('pathname'))
+    ) || LITERATURE_NS
   );
 }
 
@@ -229,7 +264,11 @@ const searchReducer = (state = initialState, action) => {
         .mergeIn(
           ['namespaces', namespace, 'baseAggregationsQuery'],
           baseAggregationsQuery
-        ).setIn(['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce'], true)
+        )
+        .setIn(
+          ['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce'],
+          true
+        );
     case SEARCH_QUERY_RESET:
       return state.setIn(
         ['namespaces', namespace, 'query'],
@@ -242,7 +281,10 @@ const searchReducer = (state = initialState, action) => {
         .merge(query);
       return state
         .setIn(['namespaces', namespace, 'query'], fullQuery)
-        .setIn(['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce'], true)
+        .setIn(
+          ['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce'],
+          true
+        );
     case SEARCH_REQUEST:
       return state.setIn(['namespaces', namespace, 'loading'], true);
     case SEARCH_SUCCESS:

@@ -2,28 +2,28 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { fromJS } from 'immutable';
 
-import ConferenceAddress from '../ConferenceAddress';
+import Address from '../Address';
 
-describe('ConferenceAddress', () => {
+describe('Address', () => {
   it('renders with only city', () => {
     const address = fromJS({
       cities: ['Geneva', 'Ignored'],
     });
-    const wrapper = shallow(<ConferenceAddress address={address} />);
+    const wrapper = shallow(<Address address={address} />);
     expect(wrapper).toMatchSnapshot();
   });
   it('renders with only country', () => {
     const address = fromJS({
       country: 'Switzerland',
     });
-    const wrapper = shallow(<ConferenceAddress address={address} />);
+    const wrapper = shallow(<Address address={address} />);
     expect(wrapper).toMatchSnapshot();
   });
   it('renders with only place name', () => {
     const address = fromJS({
       place_name: 'CERN',
     });
-    const wrapper = shallow(<ConferenceAddress address={address} />);
+    const wrapper = shallow(<Address address={address} />);
     expect(wrapper).toMatchSnapshot();
   });
   it('renders with city and country', () => {
@@ -31,7 +31,7 @@ describe('ConferenceAddress', () => {
       cities: ['Geneva', 'Ignored'],
       country: 'Switzerland',
     });
-    const wrapper = shallow(<ConferenceAddress address={address} />);
+    const wrapper = shallow(<Address address={address} />);
     expect(wrapper).toMatchSnapshot();
   });
   it('renders all', () => {
@@ -41,12 +41,12 @@ describe('ConferenceAddress', () => {
       state: 'Geneva',
       place_name: 'CERN',
     });
-    const wrapper = shallow(<ConferenceAddress address={address} />);
+    const wrapper = shallow(<Address address={address} />);
     expect(wrapper).toMatchSnapshot();
   });
   it('renders empty', () => {
     const address = fromJS({});
-    const wrapper = shallow(<ConferenceAddress address={address} />);
+    const wrapper = shallow(<Address address={address} />);
     expect(wrapper).toMatchSnapshot();
   });
 });

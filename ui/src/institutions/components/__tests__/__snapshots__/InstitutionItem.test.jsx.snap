@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionItem renders with all props set 1`] = `
+<ResultItem
+  leftActions={
+    <WebsitesAction
+      websites={
+        Immutable.List [
+          Immutable.Map {
+            "value": "http://url.com",
+          },
+        ]
+      }
+    />
+  }
+  rightActions={
+    <ListItemAction>
+      <ForwardRef
+        to="/literature?q=authors.affiliations.record.$ref:1234"
+      >
+        <IconText
+          icon={<ForwardRef(LoginOutlined) />}
+          text="papers"
+        />
+      </ForwardRef>
+    </ListItemAction>
+  }
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <Link
+        className="f5"
+        to="/institutions/1234"
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <InstitutionHierarchyList
+        hierarchies={
+          Immutable.List [
+            Immutable.Map {
+              "name": "Department of Physics",
+            },
+          ]
+        }
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <AddressList
+        addresses={
+          Immutable.List [
+            Immutable.Map {
+              "cities": Immutable.List [
+                "Liverpool",
+              ],
+              "country_code": "USA",
+              "country": "country",
+            },
+          ]
+        }
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;
+
+exports[`InstitutionItem renders with only needed props 1`] = `
+<ResultItem
+  rightActions={
+    <ListItemAction>
+      <ForwardRef
+        to="/literature?q=authors.affiliations.record.$ref:123"
+      >
+        <IconText
+          icon={<ForwardRef(LoginOutlined) />}
+          text="papers"
+        />
+      </ForwardRef>
+    </ListItemAction>
+  }
+>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <Link
+        className="f5"
+        to="/institutions/123"
+      />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <InstitutionHierarchyList />
+    </Col>
+  </Row>
+  <Row
+    gutter={0}
+  >
+    <Col>
+      <AddressList
+        addresses={null}
+      />
+    </Col>
+  </Row>
+</ResultItem>
+`;

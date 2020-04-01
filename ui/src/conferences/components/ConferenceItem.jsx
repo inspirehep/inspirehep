@@ -10,9 +10,9 @@ import ResultItem from '../../common/components/ResultItem';
 import { CONFERENCES, LITERATURE } from '../../common/routes';
 import ConferenceTitle from './ConferenceTitle';
 import ConferenceDates from './ConferenceDates';
-import ConferenceAddressList from './ConferenceAddressList';
+import AddressList from '../../common/components/AddressList';
 import InspireCategoryList from './InspireCategoryList';
-import ConferenceWebsitesAction from './ConferenceWebsitesAction';
+import WebsitesAction from '../../common/components/WebsitesAction';
 import ProceedingsAction from './ProceedingsAction';
 import pluralizeUnlessSingle from '../../common/utils';
 import IconText from '../../common/components/IconText';
@@ -40,7 +40,7 @@ class ConferenceItem extends Component {
       <ResultItem
         leftActions={
           <>
-            {urls && <ConferenceWebsitesAction websites={urls} />}
+            {urls && <WebsitesAction websites={urls} />}
             {proceedings && <ProceedingsAction proceedings={proceedings} />}
             {canEdit && (
               <EditRecordAction pidType="conferences" pidValue={recordId} />
@@ -87,7 +87,7 @@ class ConferenceItem extends Component {
             {addresses && (
               <>
                 {'. '}
-                <ConferenceAddressList addresses={addresses} />
+                <AddressList addresses={addresses} />
               </>
             )}
             {cnum && ` (${cnum})`}

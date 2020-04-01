@@ -187,6 +187,18 @@ def hep_conference_contributions(order=None):
     }
 
 
+def hep_institution_papers(order=None):
+    if order is None:
+        order = count(start=1)
+    return {
+        "filters": hep_filters(),
+        "aggs": {
+            **hep_earliest_date_aggregation(order=next(order)),
+            **hep_doc_type_aggregation(order=next(order)),
+        },
+    }
+
+
 def records_hep(order=None):
     if order is None:
         order = count(start=1)

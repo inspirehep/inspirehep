@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GridLink renders 1`] = `
+<span>
+  GRID Record: 
+  <ExternalLink
+    as="a"
+    href="//grid.ac/institutes/grid123"
+  >
+    grid123
+  </ExternalLink>
+</span>
+`;

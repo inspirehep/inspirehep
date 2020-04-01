@@ -1,0 +1,80 @@
+{
+  "ICN": ["OEAW, Vienna, HEPHY"],
+  "core": true,
+  "self": {
+    "$ref": "https://inspirebeta.net/api/institutions/903324"
+  },
+  "urls": [
+    {
+      "value": "http://www.hephy.at/en/"
+    },
+    {
+      "value": "https://twitter.com/HEPHY3",
+      "description": "TWITTER"
+    }
+  ],
+  "$schema": "https://inspirebeta.net/schemas/records/institutions.json",
+  "addresses": [
+    {
+      "cities": ["Vienna"],
+      "latitude": 48.1873833,
+      "longitude": 16.3622593,
+      "postal_code": "1050",
+      "country_code": "AT",
+      "postal_address": ["Nikolsdorfer Gasse 18", "A-1050 Wien"]
+    }
+  ],
+  "legacy_ICN": "Vienna, OAW",
+  "extra_words": ["OAW", "inst. en., phys. acad., sci."],
+  "_collections": ["Institutions"],
+  "name_variants": [
+    {
+      "value": "Institute of High Energy Physics, Austrian Academy of Sciences"
+    }
+  ],
+  "_private_notes": [
+    {
+      "value": "grid.450258.e from Springer"
+    },
+    {
+      "value": "https://ror.org/039shy520 from grid.450258.e"
+    }
+  ],
+  "control_number": 903324,
+  "legacy_version": "20200206154027.0",
+  "related_records": [
+    {
+      "record": {
+        "$ref": "https://inspirebeta.net/api/institutions/1441143"
+      },
+      "relation": "parent",
+      "curated_relation": true
+    }
+  ],
+  "institution_type": ["Research Center"],
+  "legacy_creation_date": "1989-12-11",
+  "institution_hierarchy": [
+    {
+      "name": "Institut für Hochenergiephysik",
+      "acronym": "HEPHY"
+    },
+    {
+      "name": "Österreichische Akademie der Wissenschaft",
+      "acronym": "OEAW"
+    }
+  ],
+  "external_system_identifiers": [
+    {
+      "value": "grid.450258.e",
+      "schema": "GRID"
+    },
+    {
+      "value": "https://ror.org/039shy520",
+      "schema": "ROR"
+    },
+    {
+      "value": "INST-7536",
+      "schema": "SPIRES"
+    }
+  ]
+}
