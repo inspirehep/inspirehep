@@ -107,7 +107,7 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
 }
 
 App.propTypes = {
-  guideModalVisibility: PropTypes.bool.isRequired,
+  guideModalVisibility: PropTypes.bool,
   userRoles: PropTypes.instanceOf(List).isRequired,
   dispatch: PropTypes.func.isRequired,
 };

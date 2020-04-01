@@ -32,11 +32,6 @@ exports[`Figures renders with figures 1`] = `
       title={null}
     />
     <FiguresCarousel
-      carouselRef={
-        Object {
-          "current": undefined,
-        }
-      }
       figures={
         Immutable.List [
           Immutable.Map {
