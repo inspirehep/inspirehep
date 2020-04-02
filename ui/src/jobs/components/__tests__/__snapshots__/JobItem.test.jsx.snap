@@ -5,12 +5,13 @@ exports[`JobItem renders full job search result item 1`] = `
   leftActions={false}
 >
   <Row
+    align="middle"
     gutter={0}
     type="flex"
   >
     <Col>
       <Link
-        className="f5 pr1"
+        className="result-item-title pr1"
         to="/jobs/12345"
       >
         <JobTitle

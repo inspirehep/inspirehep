@@ -40,9 +40,9 @@ class JobItem extends Component {
           canEdit && <EditRecordAction pidType="jobs" pidValue={recordId} />
         }
       >
-        <Row type="flex">
+        <Row type="flex" align="middle">
           <Col>
-            <Link className="f5 pr1" to={`${JOBS}/${recordId}`}>
+            <Link className="result-item-title pr1" to={`${JOBS}/${recordId}`}>
               <JobTitle position={position} externalJobId={externalJobId} />
             </Link>
           </Col>

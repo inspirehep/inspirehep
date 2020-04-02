@@ -10,7 +10,7 @@ class AggregationBox extends Component {
       <div className={classNames('w-100 br1', className)}>
         <Row type="flex" justify="space-between">
           <Col flex="auto">
-            <h3 className="pb1">{name}</h3>
+            <h3 className="pb1 fw4">{name}</h3>
           </Col>
           <Col>{headerAction}</Col>
         </Row>

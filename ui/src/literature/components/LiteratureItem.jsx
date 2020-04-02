@@ -107,7 +107,7 @@ class LiteratureItem extends Component {
             <div className="flex-grow-1">
               <Link
                 data-test-id="literature-result-title-link"
-                className="f5"
+                className="result-item-title"
                 to={`${LITERATURE}/${recordId}`}
               >
                 <LiteratureTitle title={title} />

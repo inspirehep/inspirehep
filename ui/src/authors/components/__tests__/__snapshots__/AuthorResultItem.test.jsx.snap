@@ -10,7 +10,7 @@ exports[`AuthorResultItem renders full author result 1`] = `
   }
 >
   <Link
-    className="f4"
+    className="result-item-title"
     to="/authors/12345"
   >
     <AuthorName
@@ -69,7 +69,7 @@ exports[`AuthorResultItem renders with only name 1`] = `
   }
 >
   <Link
-    className="f4"
+    className="result-item-title"
     to="/authors/12345"
   >
     <AuthorName
