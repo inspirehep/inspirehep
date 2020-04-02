@@ -34,7 +34,10 @@ function InstitutionItem({ metadata }) {
     >
       <Row>
         <Col>
-          <Link className="f5" to={`${INSTITUTIONS}/${recordId}`}>
+          <Link
+            className="result-item-title"
+            to={`${INSTITUTIONS}/${recordId}`}
+          >
             {legacyIcn}
           </Link>
         </Col>

@@ -13,7 +13,7 @@ exports[`AggregationBox renders AggreagationBox with action 1`] = `
       flex="auto"
     >
       <h3
-        className="pb1"
+        className="pb1 fw4"
       >
         Jessica Jones
       </h3>
@@ -52,7 +52,7 @@ exports[`AggregationBox renders AggreagationBox with empty string name 1`] = `
       flex="auto"
     >
       <h3
-        className="pb1"
+        className="pb1 fw4"
       />
     </Col>
     <Col>
@@ -89,7 +89,7 @@ exports[`AggregationBox renders AggreagationBox without action 1`] = `
       flex="auto"
     >
       <h3
-        className="pb1"
+        className="pb1 fw4"
       >
         Jessica Jones
       </h3>
@@ -124,7 +124,7 @@ exports[`AggregationBox renders AggreagationBox without children and with action
       flex="auto"
     >
       <h3
-        className="pb1"
+        className="pb1 fw4"
       >
         Jessica Jones
       </h3>
@@ -159,7 +159,7 @@ exports[`AggregationBox renders AggreagationBox without children and without act
       flex="auto"
     >
       <h3
-        className="pb1"
+        className="pb1 fw4"
       >
         Jessica Jones
       </h3>

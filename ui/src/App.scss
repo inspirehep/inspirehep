@@ -67,6 +67,16 @@
     }
   }
 
+  .result-item-title {
+    font-weight: 500;
+    color: $heading-color;
+    font-size: 1.1rem;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+
   .ant-timeline-item-last {
     padding: 0;
   }

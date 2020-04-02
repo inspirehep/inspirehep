@@ -27,7 +27,7 @@ class AuthorResultItem extends Component {
       <ResultItem
         leftActions={<EditRecordAction pidType="authors" pidValue={recordId} />}
       >
-        <Link className="f4" to={`/authors/${recordId}`}>
+        <Link className="result-item-title" to={`/authors/${recordId}`}>
           <AuthorName name={name} />
         </Link>
         {currentPositions.size > 0 && (

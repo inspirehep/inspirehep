@@ -31,7 +31,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
   >
     <Col>
       <Link
-        className="f5"
+        className="result-item-title"
         to="/institutions/1234"
       />
     </Col>
@@ -93,7 +93,7 @@ exports[`InstitutionItem renders with only needed props 1`] = `
   >
     <Col>
       <Link
-        className="f5"
+        className="result-item-title"
         to="/institutions/123"
       />
     </Col>

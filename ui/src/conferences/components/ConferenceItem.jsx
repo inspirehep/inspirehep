@@ -70,7 +70,7 @@ class ConferenceItem extends Component {
         <Row type="flex">
           <Col>
             <Link
-              className="f5"
+              className="result-item-title"
               to={`${CONFERENCES}/${recordId}`}
               target={openDetailInNewTab ? '_blank' : null}
             >
