@@ -17,14 +17,12 @@ def test_redirects_records_from_legacy_url(api_client, db, es_clear, create_reco
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_path = "/literature/777"
+    expected_redirect_url = "http://localhost:5000/literature/777"
     assert expected_status_code == response_status_code
-    assert response_location_header.endswith(expected_redirect_path)
+    assert response_location_header == expected_redirect_url
 
 
-def test_redirects_non_existing_records_from_legacy_url(
-    api_client, db, es_clear, create_record
-):
+def test_redirects_non_existing_records_from_legacy_url(api_client, db, es_clear):
     response = api_client.get("/record/111")
 
     assert response.status_code == 404
@@ -37,63 +35,156 @@ def test_redirects_authors_from_legacy_url(api_client, db, es_clear, create_reco
     }
     create_record("aut", data=author_data)
 
+    response = api_client.get("/author/Frank.Castle.1")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 301
+    expected_redirect_url = "http://localhost:5000/authors/333"
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_redirects_author_profile_from_legacy_url(
+    api_client, db, es_clear, create_record
+):
+    author_data = {
+        "control_number": 333,
+        "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
+    }
+    create_record("aut", data=author_data)
+
     response = api_client.get("/author/profile/Frank.Castle.1")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_path = "/authors/333"
+    expected_redirect_url = "http://localhost:5000/authors/333"
     assert expected_status_code == response_status_code
-    assert response_location_header.endswith(expected_redirect_path)
+    assert response_location_header == expected_redirect_url
 
 
-def test_redirects_non_existing_authors_from_legacy_url(
-    api_client, db, es_clear, create_record
-):
+def test_redirects_non_existing_authors_from_legacy_url(api_client, db, es_clear):
     response = api_client.get("/author/profile/Little.Jimmy.1")
 
     assert response.status_code == 404
 
 
-def test_redirects_query_from_legacy_url(api_client, db, es_clear, create_record):
+def test_redirects_claims_from_legacy_url(base_app, api_client, db, es_clear):
+    response = api_client.get("/author/claim/G.Aad.1")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 302
+    expected_redirect_url = "https://old.inspirehep.net/author/claim/G.Aad.1"
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_redirects_merge_profiles_from_legacy_url(base_app, api_client, db, es_clear):
+    response = api_client.get(
+        "/author/merge_profiles?search_param=Aad&primary_profile=G.Aad.1"
+    )
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 302
+    expected_redirect_url = "https://old.inspirehep.net/author/merge_profiles?search_param=Aad&primary_profile=G.Aad.1"
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_redirects_manage_profile_from_legacy_url(base_app, api_client, db, es_clear):
+    response = api_client.get("/author/manage_profile/J.A.Bagger.1")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 302
+    expected_redirect_url = (
+        "https://old.inspirehep.net/author/manage_profile/J.A.Bagger.1"
+    )
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_redirects_query_from_legacy_url(api_client, db, es_clear):
     response = api_client.get("/search?cc=HepNames&p=witten")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_path = "/authors?q=witten"
+    expected_redirect_url = "http://localhost:5000/authors?q=witten"
     assert expected_status_code == response_status_code
-    assert response_location_header.endswith(expected_redirect_path)
+    assert response_location_header == expected_redirect_url
 
 
-def test_redirects_query_from_legacy_url_with_empty_query(
-    api_client, db, es_clear, create_record
-):
+def test_redirects_query_from_legacy_url_with_empty_query(api_client, db, es_clear):
     response = api_client.get("/search?cc=HEP")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
 
     expected_status_code = 301
-    expected_redirect_path = "/literature?q="
+    expected_redirect_url = "http://localhost:5000/literature?q="
     assert expected_status_code == response_status_code
-    assert response_location_header.endswith(expected_redirect_path)
+    assert response_location_header == expected_redirect_url
 
 
 def test_redirects_query_from_legacy_url_not_in_labs(
-    api_client, db, es_clear, create_record, base_app
+    base_app, api_client, db, es_clear
 ):
-    with patch.dict(
-        base_app.config, {"LEGACY_BASE_URL": "https://legacy.inspirehep.net"}
-    ):
-        response = api_client.get("/search?cc=Institutions&p=CERN&whatever=something")
+    response = api_client.get("/search?cc=Institutions&p=CERN&whatever=something")
 
-        response_status_code = response.status_code
-        response_location_header = response.headers.get("Location")
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
 
-        expected_status_code = 302
-        expected_redirect_url = "https://legacy.inspirehep.net/search?cc=Institutions&p=CERN&whatever=something"
-        assert expected_status_code == response_status_code
-        assert response_location_header == expected_redirect_url
+    expected_status_code = 302
+    expected_redirect_url = (
+        "https://old.inspirehep.net/search?cc=Institutions&p=CERN&whatever=something"
+    )
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_redirects_collections_from_legacy_url(api_client, db, es_clear):
+    response = api_client.get("/collection/HepNames")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 301
+    expected_redirect_url = "http://localhost:5000/authors"
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_redirects_collections_from_legacy_url_not_in_labs(
+    base_app, api_client, db, es_clear
+):
+    response = api_client.get("/collection/Institutions")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 302
+    expected_redirect_url = "https://old.inspirehep.net/collection/Institutions"
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_redirects_info_from_legacy_url(base_app, api_client, db, es_clear):
+    response = api_client.get("/info/hep/api")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_status_code = 302
+    expected_redirect_url = "https://old.inspirehep.net/info/hep/api"
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url

@@ -35,7 +35,7 @@ FEATURE_FLAG_ENABLE_DISAMBIGUATION = False
 # =====================
 AUTHENTICATION_TOKEN = "CHANGE_ME"
 INSPIRE_NEXT_URL = "http://web-next:5000"
-LEGACY_BASE_URL = "http://inspirehep.net"
+LEGACY_BASE_URL = "https://old.inspirehep.net"
 LEGACY_RECORD_URL_PATTERN = "http://inspirehep.net/record/{recid}"
 MAX_API_RESULTS = 10000
 
@@ -70,6 +70,13 @@ PID_TYPE_TO_INDEX = {
     "con": "records-conferences",
     "dat": "records-data",
     "ins": "records-institutions",
+}
+# Add here new collections as we release them in labs
+COLLECTION_EQUIVALENCE = {
+    "HEP": "literature",
+    "HepNames": "authors",
+    "Conferences": "conferences",
+    "Jobs": "jobs",
 }
 
 # Invenio and 3rd party
