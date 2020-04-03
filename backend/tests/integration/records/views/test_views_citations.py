@@ -12,6 +12,7 @@ def test_citation_summary_facet(api_client, db, es, create_record_factory):
     unpublished_paper_data = {
         "refereed": False,
         "citation_count": 8,
+        "citation_count_without_self_citations": 4,
         "facet_author_name": "NOREC_N. Girard",
         "citeable": True,
     }
@@ -22,6 +23,7 @@ def test_citation_summary_facet(api_client, db, es, create_record_factory):
         data = {
             "refereed": True,
             "citation_count": count,
+            "citation_count_without_self_citations": count / 2,
             "facet_author_name": "NOREC_N. Girard",
             "citeable": True,
         }
@@ -97,6 +99,111 @@ def test_citation_summary_facet(api_client, db, es, create_record_factory):
                         ]
                     },
                     "average_citations": {"value": 145.571_428_571_428_58},
+                },
+            }
+        },
+    }
+    response_data = json.loads(response.data)
+    response_status_code = response.status_code
+    response_data_citation_summary = response_data["aggregations"]["citation_summary"]
+    assert response_status_code == 200
+    assert response_data_citation_summary == expected_citation_summary_aggregation
+    assert len(response_data["hits"]["hits"]) == 0
+
+
+def test_citation_summary_without_self_citations_facet(
+    api_client, db, es, create_record_factory, enable_self_citations
+):
+    unpublished_paper_data = {
+        "refereed": False,
+        "citation_count": 8,
+        "citation_count_without_self_citations": 4,
+        "facet_author_name": "NOREC_N. Girard",
+        "citeable": True,
+    }
+    create_record_factory("lit", data=unpublished_paper_data, with_indexing=True)
+
+    published_papers_citation_count = [409, 83, 26, 153, 114, 97, 137]
+    for count in published_papers_citation_count:
+        data = {
+            "refereed": True,
+            "citation_count": count,
+            "citation_count_without_self_citations": count / 2,
+            "facet_author_name": "NOREC_N. Girard",
+            "citeable": True,
+        }
+        create_record_factory("lit", data=data, with_indexing=True)
+
+    response = api_client.get(
+        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&exclude-self-citations=true"
+    )
+
+    expected_citation_summary_aggregation = {
+        "doc_count": 8,
+        "h-index": {"value": {"all": 7, "published": 7}},
+        "citations": {
+            "buckets": {
+                "all": {
+                    "doc_count": 8,
+                    "citations_count": {"value": 511.0},
+                    "citation_buckets": {
+                        "buckets": [
+                            {"key": "0--0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "1--9", "from": 1.0, "to": 10.0, "doc_count": 1},
+                            {"key": "10--49", "from": 10.0, "to": 50.0, "doc_count": 3},
+                            {
+                                "key": "50--99",
+                                "from": 50.0,
+                                "to": 100.0,
+                                "doc_count": 3,
+                            },
+                            {
+                                "key": "100--249",
+                                "from": 100.0,
+                                "to": 250.0,
+                                "doc_count": 1,
+                            },
+                            {
+                                "key": "250--499",
+                                "from": 250.0,
+                                "to": 500.0,
+                                "doc_count": 0,
+                            },
+                            {"key": "500--", "from": 500.0, "doc_count": 0},
+                        ]
+                    },
+                    "average_citations": {"value": 63.875},
+                },
+                "published": {
+                    "doc_count": 7,
+                    "citations_count": {"value": 507.0},
+                    "citation_buckets": {
+                        "buckets": [
+                            {"key": "0--0", "from": 0.0, "to": 1.0, "doc_count": 0},
+                            {"key": "1--9", "from": 1.0, "to": 10.0, "doc_count": 0},
+                            {"key": "10--49", "from": 10.0, "to": 50.0, "doc_count": 3},
+                            {
+                                "key": "50--99",
+                                "from": 50.0,
+                                "to": 100.0,
+                                "doc_count": 3,
+                            },
+                            {
+                                "key": "100--249",
+                                "from": 100.0,
+                                "to": 250.0,
+                                "doc_count": 1,
+                            },
+                            {
+                                "key": "250--499",
+                                "from": 250.0,
+                                "to": 500.0,
+                                "doc_count": 0,
+                            },
+                            {"key": "500--", "from": 500.0, "doc_count": 0},
+                        ]
+                    },
+                    "average_citations": {"value": 72.428_571_428_571_43},
                 },
             }
         },

@@ -8,6 +8,7 @@
 import structlog
 from celery import shared_task
 from elasticsearch import NotFoundError
+from flask import current_app
 from sqlalchemy.exc import (
     DisconnectionError,
     OperationalError,
@@ -51,65 +52,6 @@ def batch_index(self, records_uuids, request_timeout=None):
     return InspireRecordIndexer().bulk_index(records_uuids, request_timeout)
 
 
-def process_references_for_record(record):
-    """Tries to find differences in record references.
-
-    Gets all references from  reference field and publication_info.conference_record
-    field and forces to reindex records which reference changed to update
-    their statistics.
-
-    Args:
-        record: Record object in which references has changed.
-            (not possible to pas this when called as a celery task)
-
-    Returns:
-        list(str): Statistics from the job.
-    """
-    uuids = record.get_modified_references()
-    uuids.extend(record.get_newest_linked_conferences_uuid())
-    uuids.extend(record.get_modified_institutions_uuids())
-    uuids = list(set(uuids))
-    if uuids:
-        LOGGER.info(
-            f"Found {len(uuids)} references changed, indexing them", uuid=str(record.id)
-        )
-        return batch_index(uuids)
-    LOGGER.info("No references changed", uuid=str(record.id))
-
-
-def process_author_papers_if_author_changed_name(record):
-    """Checks if author has changed his name and reindexes all his papers if he did
-
-    Checks `name` dictionary to check if name or preferred name changed.
-
-    Args:
-        record(AuthorsRecord): Author record for which name could change.
-
-    Returns:
-        list(str): Statistics from the job.
-    """
-    if record.get("name") == record._previous_version.get("name"):
-        return None
-    # This is not 100% safe as it might happen that paper will be in the middle
-    # of indexing (with author loaded before name changes) but not yet in ES.
-    # This might result in paper not re-indexed with proper data.
-    # Chances that this will happen are extremely small, but non 0.
-    # For now we should try this solution as it's faster and cheaper,
-    # but if we will notice records which are not updated,
-    # we should consider more complex way.
-    # Solution to this would be to create table similar to citations table which would
-    # hold relation between papers and authors
-    # and it would be source for papers of author.
-    uuids = record.get_papers_uuids()
-    if uuids:
-        LOGGER.info(
-            f"Found {len(uuids)} papers assigned to author whose name changed. "
-            f"Indexing all of them.",
-            uuid=str(record.id),
-        )
-        return batch_index(uuids)
-
-
 @shared_task(
     ignore_result=True,
     bind=True,
@@ -144,7 +86,19 @@ def index_record(self, uuid, record_version=None, force_delete=None):
     else:
         InspireRecordIndexer().index(record)
 
+    papers_to_reindex = []
     if isinstance(record, LiteratureRecord):
-        process_references_for_record(record=record)
+        papers_to_reindex.extend(record.get_linked_papers_if_reference_changed())
+        if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
+            papers_to_reindex.extend(
+                record.get_all_connected_papers_of_modified_authors()
+            )
+            papers_to_reindex.extend(
+                record.get_all_connected_papers_of_modified_collaborations()
+            )
     if isinstance(record, AuthorsRecord):
-        process_author_papers_if_author_changed_name(record=record)
+        papers_to_reindex.extend(
+            record.get_linked_author_papers_if_author_changed_name()
+        )
+    if papers_to_reindex:
+        batch_index(list(set(papers_to_reindex)))

@@ -16,6 +16,7 @@ class LiteratureRawSchema(RecordBaseSchema):
     # These are attributes on a mixin that is used by LiteratureRecord class
     # therefore can't be included by default RecordBaseSchema.include_original_fields
     citation_count = fields.Raw(dump_only=True)
+    citation_count_without_self_citations = fields.Raw(dump_only=True)
     citations_by_year = fields.Raw(dump_only=True)
 
 

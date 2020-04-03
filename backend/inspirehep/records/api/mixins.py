@@ -1,7 +1,16 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2019 CERN.
+#
+# inspirehep is free software; you can redistribute it and/or modify it under
+# the terms of the MIT License; see LICENSE file for more details.
+
 import structlog
+from flask import current_app
 from inspire_utils.date import fill_missing_date_parts
+from inspire_utils.record import get_values_for_schema
 from invenio_db import db
-from sqlalchemy import func, or_
+from sqlalchemy import and_, func, not_, or_, text
 
 from inspirehep.records.models import (
     AuthorSchemaType,
@@ -11,6 +20,7 @@ from inspirehep.records.models import (
     RecordCitations,
     RecordsAuthors,
 )
+from inspirehep.utils import flatten_list
 
 LOGGER = structlog.getLogger()
 
@@ -103,12 +113,17 @@ class PapersAuthorsExtensionMixin:
 
 
 class CitationMixin(PapersAuthorsExtensionMixin):
-    def _citation_query(self):
+    def _citation_query(self, exclude_self_citations=False):
         """Prepares query with all records which cited this one
+        Args:
+            exclude_self_citations (bool): excludes all self-citations from query if set to True
         Returns:
             query: Query containing all citations for this record
         """
-        return RecordCitations.query.filter_by(cited_id=self.id)
+        query = RecordCitations.query.filter_by(cited_id=self.id)
+        if exclude_self_citations:
+            query = query.filter(RecordCitations.is_self_citation.is_(False))
+        return query
 
     @property
     def citation_count(self):
@@ -120,18 +135,33 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         return self._citation_query().count()
 
     @property
-    def citations_by_year(self):
+    def citation_count_without_self_citations(self):
+        """Gives citation count number without self-citations
+        Returns:
+            int: Citation count number for this record if it is literature or data
+            record.
+        """
+        return self._citation_query(exclude_self_citations=True).count()
+
+    def _citations_by_year(self, exclude_self_citations=False):
         """Return the number of citations received per year for the current record.
+
+        Args:
+            exclude_self_citations (bool): excludes self-citations from queries if set to True
         Returns:
             dict: citation summary for this record.
         """
-        db_query = self._citation_query()
+        db_query = self._citation_query(exclude_self_citations)
         db_query = db_query.with_entities(
             func.count(RecordCitations.citation_date).label("sum"),
             func.date_trunc("year", RecordCitations.citation_date).label("year"),
         )
         db_query = db_query.group_by("year").order_by("year")
         return [{"year": r.year.year, "count": r.sum} for r in db_query.all() if r.year]
+
+    @property
+    def citations_by_year(self):
+        return self._citations_by_year()
 
     def hard_delete(self):
         with db.session.begin_nested():
@@ -179,8 +209,9 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         records_pids = self.get_linked_pids_from_field("references.record")
         # Limit records to literature and data as only this types can be cited
         proper_records_pids = []
+        allowed_types = ["lit", "dat"]
         for pid_type, pid_value in records_pids:
-            if pid_type not in ["lit", "dat"]:
+            if pid_type not in allowed_types:
                 continue
             if pid_value == current_record_control_number:
                 continue
@@ -203,6 +234,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                         citer_id=self.model.id,
                         cited_id=reference,
                         citation_date=citation_date,
+                        is_self_citation=False,
                     )
                 )
             if len(references_waiting_for_commit) >= save_every:
@@ -210,11 +242,90 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                 references_waiting_for_commit = []
         if references_waiting_for_commit:
             db.session.bulk_save_objects(references_waiting_for_commit)
+
+        if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
+            LOGGER.info("Starting self citations check")
+            self.update_self_citations()
         LOGGER.info(
             "Record citations updated",
             recid=current_record_control_number,
             uuid=str(self.id),
         )
+
+    def get_authors_bais(self):
+        return get_values_for_schema(
+            flatten_list(self.get_value("authors.ids", [])), "INSPIRE BAI"
+        )
+
+    def get_collaborations_values(self):
+        return self.get_value("collaborations.value", [])
+
+    def get_self_cited_referenced_papers(self):
+        uuid = self.model.id
+        sql_query = text(
+            f"""
+            SELECT papers_from_authors.record_id
+            FROM
+                (SELECT DISTINCT a1.record_id FROM {RecordsAuthors.__tablename__} a1, {RecordsAuthors.__tablename__} a2
+                WHERE
+                    a2.record_id = :uuid
+                    AND a1.author_id=a2.author_id
+                    AND (
+                        (a1.id_type='INSPIRE BAI' AND a2.id_type='INSPIRE BAI')
+                         OR (a1.id_type='collaboration' AND a2.id_type='collaboration')
+                    )
+                ) AS papers_from_authors,
+                (SELECT cited_id as record_id FROM
+                  {RecordCitations.__tablename__} WHERE
+                citer_id = :uuid
+                UNION
+                SELECT citer_id AS record_id
+                  FROM {RecordCitations.__tablename__}
+                WHERE cited_id = :uuid) AS cited_papers
+            WHERE
+            cited_papers.record_id=papers_from_authors.record_id
+        """
+        )
+        return [
+            row.record_id
+            for row in db.session.execute(sql_query, {"uuid": uuid}).fetchall()
+        ]
+
+    def update_self_citations(self):
+        self_citations = self.get_self_cited_referenced_papers()
+        LOGGER.info(
+            "Self-cited papers",
+            self_citations_count=len(self_citations),
+            recid=self.get("control_number"),
+        )
+        uuid = self.model.id
+        if self_citations:
+            # update self-citations
+            RecordCitations.query.filter(
+                and_(
+                    or_(
+                        and_(
+                            RecordCitations.cited_id == uuid,
+                            RecordCitations.citer_id.in_(self_citations),
+                        ),
+                        and_(
+                            RecordCitations.cited_id.in_(self_citations),
+                            RecordCitations.citer_id == uuid,
+                        ),
+                    ),
+                    RecordCitations.is_self_citation.is_(False),
+                )
+            ).update(
+                {RecordCitations.is_self_citation: True}, synchronize_session=False
+            )
+        # update not-self_citations
+        RecordCitations.query.filter(
+            and_(
+                RecordCitations.cited_id == uuid,
+                not_(RecordCitations.citer_id.in_(self_citations)),
+                RecordCitations.is_self_citation.is_(True),
+            )
+        ).update({RecordCitations.is_self_citation: False}, synchronize_session=False)
 
     def update(self, data, disable_relations_update=False, *args, **kwargs):
         super().update(data, disable_relations_update, *args, **kwargs)
@@ -227,6 +338,54 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             )
         else:
             self.update_refs_in_citation_table()
+
+    def get_all_connected_papers_of_modified_authors(self):
+        prev_version = self._previous_version
+        current_authors = set(self.get_authors_bais())
+        old_authors = set(prev_version.get_authors_bais())
+        diff = list(current_authors.symmetric_difference(old_authors))
+        differed_papers_uuids = []
+        if diff:
+            differed_papers_uuids = [
+                result.record_id
+                for result in RecordsAuthors.query.filter(
+                    RecordsAuthors.record_id != self.id
+                )
+                .filter(
+                    RecordsAuthors.author_id.in_(diff),
+                    RecordsAuthors.id_type == "INSPIRE BAI",
+                    RecordsAuthors.record_id.in_(
+                        self.get_self_cited_referenced_papers()
+                    ),
+                )
+                .distinct(RecordsAuthors.record_id)
+                .all()
+            ]
+        return differed_papers_uuids
+
+    def get_all_connected_papers_of_modified_collaborations(self):
+        prev_version = self._previous_version
+        current_collaborations = set(self.get_collaborations_values())
+        old_collaborations = set(prev_version.get_collaborations_values())
+        diff = list(current_collaborations.symmetric_difference(old_collaborations))
+        differed_papers_uuids = []
+        if diff:
+            differed_papers_uuids = [
+                result.record_id
+                for result in RecordsAuthors.query.filter(
+                    RecordsAuthors.record_id != self.id
+                )
+                .filter(
+                    and_(RecordsAuthors.author_id.in_(diff)),
+                    RecordsAuthors.id_type == "collaboration",
+                    RecordsAuthors.record_id.in_(
+                        self.get_self_cited_referenced_papers()
+                    ),
+                )
+                .distinct(RecordsAuthors.record_id)
+                .all()
+            ]
+        return differed_papers_uuids
 
 
 class ConferencePaperAndProceedingsMixin:

@@ -34,9 +34,11 @@ def test_indexer_prepare_record(
     mock_bibtex_display,
 ):
     query_mock.return_value.filter_by.return_value.count.return_value = 1
+    query_mock.return_value.filter_by.return_value.filter.return_value.count.return_value = (
+        1
+    )
     record = LiteratureRecord({})
     indexer = InspireRecordIndexer()
-
     # Assume that record methods was already tested
     expected = record.serialize_for_es()
 
