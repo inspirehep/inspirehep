@@ -270,10 +270,19 @@ const searchReducer = (state = initialState, action) => {
           true
         );
     case SEARCH_QUERY_RESET:
-      return state.setIn(
-        ['namespaces', namespace, 'query'],
-        initialState.getIn(['namespaces', namespace, 'query'])
-      );
+      return state
+        .setIn(
+          ['namespaces', namespace, 'query'],
+          initialState.getIn(['namespaces', namespace, 'query'])
+        )
+        .setIn(
+          ['namespaces', namespace, 'hasQueryBeenUpdatedAtLeastOnce'],
+          initialState.getIn([
+            'namespaces',
+            namespace,
+            'hasQueryBeenUpdatedAtLeastOnce',
+          ])
+        );
     case SEARCH_QUERY_UPDATE:
       const fullQuery = state
         .getIn(['namespaces', namespace, 'baseQuery'])

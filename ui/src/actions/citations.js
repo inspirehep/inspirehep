@@ -33,21 +33,21 @@ function fetchCitationsError(error) {
   };
 }
 
-function fetchingCitationsSummary(query) {
+function fetchingCitationSummary(query) {
   return {
     type: CITATIONS_SUMMARY_REQUEST,
     payload: { query },
   };
 }
 
-function fetchCitationsSummarySuccess(result) {
+function fetchCitationSummarySuccess(result) {
   return {
     type: CITATIONS_SUMMARY_SUCCESS,
     payload: result,
   };
 }
 
-function fetchCitationsSummaryError(error) {
+function fetchCitationSummaryError(error) {
   return {
     type: CITATIONS_SUMMARY_ERROR,
     payload: error,
@@ -76,7 +76,7 @@ export function fetchCitations(recordId, newQuery = {}) {
 
 export function fetchCitationSummary(literatureSearchQuery) {
   return async (dispatch, getState, http) => {
-    dispatch(fetchingCitationsSummary(literatureSearchQuery));
+    dispatch(fetchingCitationSummary(literatureSearchQuery));
     try {
       const query = {
         ...literatureSearchQuery,
@@ -85,10 +85,10 @@ export function fetchCitationSummary(literatureSearchQuery) {
       const queryString = stringify(query, { indices: false });
       const url = `/literature/facets?${queryString}`;
       const response = await http.get(url);
-      dispatch(fetchCitationsSummarySuccess(response.data));
+      dispatch(fetchCitationSummarySuccess(response.data));
     } catch (error) {
       const payload = httpErrorToActionPayload(error);
-      dispatch(fetchCitationsSummaryError(payload));
+      dispatch(fetchCitationSummaryError(payload));
     }
   };
 }
