@@ -41,6 +41,7 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             "$schema",
             "copyright",
             "citations_by_year",
+            "citations_by_year_without_self_citations",
             "can_edit",
             "citeable",
             "core",

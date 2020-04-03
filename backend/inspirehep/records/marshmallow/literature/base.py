@@ -16,7 +16,9 @@ class LiteratureRawSchema(RecordBaseSchema):
     # These are attributes on a mixin that is used by LiteratureRecord class
     # therefore can't be included by default RecordBaseSchema.include_original_fields
     citation_count = fields.Raw(dump_only=True)
+    citation_count_without_self_citations = fields.Raw(dump_only=True)
     citations_by_year = fields.Raw(dump_only=True)
+    citations_by_year_without_self_citations = fields.Raw(dump_only=True)
 
 
 # Fields that are needed to be indexed but exluded from API responses
@@ -24,7 +26,7 @@ FIELDS_TO_EXCLUDE = [
     "bookautocomplete",
     "facet_inspire_doc_type",
     "citations_by_year",
-    "id",
+    "citations_by_year_without_self_citations" "id",
     "_ui_display",
     "_latex_us_display",
     "_latex_eu_display",

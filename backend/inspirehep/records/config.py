@@ -37,7 +37,9 @@ from inspirehep.search.api import (
 )
 from inspirehep.search.facets import (
     citation_summary,
+    citation_summary_without_self_citations,
     citations_by_year,
+    citations_by_year_without_self_citations,
     conferences_date_range_contains_other_conferences,
     conferences_start_date_range_filter,
     filter_from_filters_aggregation,
@@ -417,6 +419,9 @@ HEP_FILTERS = {
     "doc_type": must_match_all_filter("facet_inspire_doc_type"),
     "earliest_date": range_filter("earliest_date", format="yyyy", end_date_math="/y"),
     "citation_count": range_filter("citation_count"),
+    "citation_count_without_self_citations": range_filter(
+        "citation_count_without_self_citations"
+    ),
     "collaboration": must_match_all_filter("facet_collaborations"),
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),
@@ -444,7 +449,9 @@ RECORDS_REST_FACETS = {
     "hep-conference-contribution": hep_conference_contributions,
     "hep-institution-papers": hep_institution_papers,
     "citation-summary": citation_summary,
+    "citation-summary-without-self-citations": citation_summary_without_self_citations,
     "citations-by-year": citations_by_year,
+    "citations-by-year-without-self-citations": citations_by_year_without_self_citations,
     "records-hep": records_hep,
     "records-jobs": records_jobs,
     "records-conferences": records_conferences,

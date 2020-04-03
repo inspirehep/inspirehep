@@ -218,7 +218,12 @@ def records_hep(order=None):
 
 
 def citation_summary():
-    excluded_filters = ["citeable", "refereed", "citation_count"]
+    excluded_filters = [
+        "citeable",
+        "refereed",
+        "citation_count",
+        "citation_count_without_self_citations",
+    ]
     filters = get_filters_without_excluded(hep_filters(), excluded_filters)
     map_script = """
         if (doc.refereed.length >0 && doc.refereed[0]) {
@@ -293,11 +298,102 @@ def citation_summary():
     }
 
 
-def citations_by_year():
+def citation_summary_without_self_citations():
     excluded_filters = [
         "citeable",
         "refereed",
         "citation_count",
+        "citation_count_without_self_citations",
+    ]
+    filters = get_filters_without_excluded(hep_filters(), excluded_filters)
+    map_script = """
+        if (doc.refereed.length >0 && doc.refereed[0]) {
+            state.citations_refereed.add(doc.citation_count_without_self_citations[0])
+        } else {
+            state.citations_non_refereed.add(doc.citation_count_without_self_citations[0])
+        }
+    """
+    reduce_script = """
+        def flattened_all = [];
+        def flattened_refereed = [];
+        int i = 0;
+        int j = 0;
+        for (a in states) {
+            flattened_all.addAll(a.citations_non_refereed);
+            flattened_refereed.addAll(a.citations_refereed)
+        }
+        flattened_refereed.sort(Comparator.reverseOrder());
+        while (i < flattened_refereed.size() && i < flattened_refereed[i]) {
+            i++
+        }
+        flattened_all.addAll(flattened_refereed);
+        flattened_all.sort(Comparator.reverseOrder());
+        while (j < flattened_all.size() && j < flattened_all[j]) {
+            j++
+        }
+        return ['published': i, 'all': j]
+    """
+    return {
+        "filters": {**filters},
+        "aggs": {
+            "citation_summary": {
+                "filter": {"term": {"citeable": "true"}},
+                "aggs": {
+                    "h-index": {
+                        "scripted_metric": {
+                            "init_script": "state.citations_non_refereed = []; state.citations_refereed = []",
+                            "map_script": minify_painless(map_script),
+                            "combine_script": "return state",
+                            "reduce_script": minify_painless(reduce_script),
+                        }
+                    },
+                    "citations": {
+                        "filters": {
+                            "filters": {
+                                "published": {"term": {"refereed": "true"}},
+                                "all": {"term": {"citeable": "true"}},
+                            }
+                        },
+                        "aggs": {
+                            "citation_buckets": {
+                                "range": {
+                                    "field": "citation_count_without_self_citations",
+                                    "ranges": [
+                                        {"from": 0, "to": 1, "key": "0--0"},
+                                        {"from": 1, "to": 10, "key": "1--9"},
+                                        {"from": 10, "to": 50, "key": "10--49"},
+                                        {"from": 50, "to": 100, "key": "50--99"},
+                                        {"from": 100, "to": 250, "key": "100--249"},
+                                        {"from": 250, "to": 500, "key": "250--499"},
+                                        {"from": 500, "key": "500--"},
+                                    ],
+                                }
+                            },
+                            "citations_count": {
+                                "sum": {
+                                    "field": "citation_count_without_self_citations"
+                                }
+                            },
+                            "average_citations": {
+                                "avg": {
+                                    "field": "citation_count_without_self_citations"
+                                }
+                            },
+                        },
+                    },
+                },
+            }
+        },
+    }
+
+
+def citations_by_year():
+    excluded_filters = [
+        "citeable",
+        "refereed",
+        "citations_by_year_without_self_citations",
+        "citation_count",
+        "citation_count_without_self_citations",
         "author_count",
         "earliest_date",
         "collaboration",
@@ -323,6 +419,48 @@ def citations_by_year():
         "filter": {"term": {"citeable": "true"}},
         "aggs": {
             "citations_by_year": {
+                "scripted_metric": {
+                    "map_script": minify_painless(map_script),
+                    "combine_script": "return state",
+                    "reduce_script": minify_painless(reduce_script),
+                }
+            }
+        },
+    }
+
+
+def citations_by_year_without_self_citations():
+    excluded_filters = [
+        "citeable",
+        "refereed",
+        "citations_by_year",
+        "citation_count",
+        "citation_count_without_self_citations",
+        "author_count",
+        "earliest_date",
+        "collaboration",
+    ]
+    filters = get_filters_without_excluded(hep_filters(), excluded_filters)
+    map_script = """
+        def years = params._source.citations_by_year_without_self_citations != null ? params._source.citations_by_year_without_self_citations : [];
+        for (element in years) {
+            state.merge(element.year.toString(), element.count, (x, y) -> x + y)
+        }
+    """
+    reduce_script = """
+        def results=[:];
+        for (result in states) {
+            result.forEach(
+                (year, count) -> results.merge(year, count, (x, y) -> x + y)
+            )
+        }
+        return results
+    """
+    return {
+        "filters": {**filters},
+        "filter": {"term": {"citeable": "true"}},
+        "aggs": {
+            "citations_by_year_without_self_citations": {
                 "scripted_metric": {
                     "map_script": minify_painless(map_script),
                     "combine_script": "return state",

@@ -15,6 +15,11 @@ from sqlalchemy.dialects.postgresql import ENUM
 from sqlalchemy_utils import UUIDType
 
 
+class RecordCitationType(enum.Enum):
+    citation = "citation"
+    self_citation = "self_citation"
+
+
 class RecordCitations(db.Model):
     """Adds Citation table which holds all references
        which are also eligible citations"""
@@ -48,6 +53,10 @@ class RecordCitations(db.Model):
     # Backref: List of all citations of this record.
     cited = db.relationship(
         RecordMetadata, backref="citations", foreign_keys=[cited_id]
+    )
+    citation_type = db.Column(
+        Enum(RecordCitationType, name="enum_citation_type"),
+        default=RecordCitationType.citation,
     )
 
 
