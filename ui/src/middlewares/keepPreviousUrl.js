@@ -9,6 +9,7 @@ export default () => {
       location.previousUrl = previousUrl;
 
       const { pathname, search } = location;
+      // TODO: keep #hash
       previousUrl = `${pathname}${search}`;
     }
     return next(action);

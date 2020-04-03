@@ -175,6 +175,11 @@ describe('search reducer', () => {
       namespaces: {
         [namespace]: {
           query: initialState.getIn(['namespaces', namespace, 'query']),
+          hasQueryBeenUpdatedAtLeastOnce: initialState.getIn([
+            'namespaces',
+            namespace,
+            'hasQueryBeenUpdatedAtLeastOnce',
+          ]),
         },
       },
     });
@@ -209,7 +214,7 @@ describe('search reducer', () => {
             sort: 'mostcited',
             page: 1,
           },
-          hasQueryBeenUpdatedAtLeastOnce: true
+          hasQueryBeenUpdatedAtLeastOnce: true,
         },
       },
     });
