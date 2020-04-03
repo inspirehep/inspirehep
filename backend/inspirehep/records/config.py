@@ -417,6 +417,9 @@ HEP_FILTERS = {
     "doc_type": must_match_all_filter("facet_inspire_doc_type"),
     "earliest_date": range_filter("earliest_date", format="yyyy", end_date_math="/y"),
     "citation_count": range_filter("citation_count"),
+    "citation_count_without_self_citations": range_filter(
+        "citation_count_without_self_citations"
+    ),
     "collaboration": must_match_all_filter("facet_collaborations"),
     "refereed": must_match_all_filter("refereed"),
     "citeable": must_match_all_filter("citeable"),

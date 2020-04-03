@@ -7,12 +7,19 @@
 
 from flask_alembic import Alembic
 from sqlalchemy import text
+from sqlalchemy.engine import reflection
 
 
 def test_downgrade(base_app, database):
     alembic = Alembic(base_app)
 
-    alembic.downgrade("cea5fa2e5d2c")
+    alembic.downgrade(target="595c36d68964")
+    assert (
+        _check_column_in_table(database, "records_citations", "is_self_citation")
+        is False
+    )
+
+    alembic.downgrade(target="cea5fa2e5d2c")
 
     assert "records_authors" not in _get_table_names(database)
 
@@ -170,6 +177,12 @@ def test_upgrade(base_app, database):
         "records_citations", database
     )
 
+    alembic.upgrade(target="5a0e2405b624")
+    assert (
+        _check_column_in_table(database, "records_citations", "is_self_citation")
+        is True
+    )
+
 
 def _get_indexes(tablename, db_alembic):
     query = text(
@@ -206,3 +219,8 @@ def _get_custom_enums(db_alembic):
         JOIN pg_enum
             ON pg_enum.enumtypid = pg_type.oid;"""
     return set([a[0] for a in db_alembic.session.execute(query)])
+
+
+def _check_column_in_table(db_alembic, table, column):
+    insp = reflection.Inspector.from_engine(db_alembic.engine)
+    return column in [col["name"] for col in insp.get_columns(table)]

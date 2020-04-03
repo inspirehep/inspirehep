@@ -10,7 +10,7 @@ import enum
 
 from invenio_db import db
 from invenio_records.models import RecordMetadata
-from sqlalchemy import Date, Enum, Text
+from sqlalchemy import Boolean, Date, Enum, Text
 from sqlalchemy.dialects.postgresql import ENUM
 from sqlalchemy_utils import UUIDType
 
@@ -49,6 +49,7 @@ class RecordCitations(db.Model):
     cited = db.relationship(
         RecordMetadata, backref="citations", foreign_keys=[cited_id]
     )
+    is_self_citation = db.Column(Boolean, nullable=False, default=False)
 
 
 class ConferenceToLiteratureRelationshipType(enum.Enum):

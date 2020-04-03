@@ -39,6 +39,7 @@ def test_literature_search_application_json_get(
         "titles": [{"title": "Partner walk again seek job."}],
         "citation_count": 0,
         "author_count": 0,
+        "citation_count_without_self_citations": 0,
     }
 
     response = api_client.get("/literature", headers=headers)
@@ -63,6 +64,7 @@ def test_literature_search_application_json_ui_get(
     expected_status_code = 200
     expected_data = {
         "citation_count": 0,
+        "citation_count_without_self_citations": 0,
         "control_number": 666,
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
@@ -676,6 +678,7 @@ def test_literature_search_cataloger_gets_fermilab_collection(
         "document_type": ["article"],
         "titles": [{"title": "Partner walk again seek job."}],
         "citation_count": 0,
+        "citation_count_without_self_citations": 0,
         "author_count": 0,
     }
 

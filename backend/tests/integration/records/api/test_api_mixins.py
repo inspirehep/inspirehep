@@ -403,3 +403,48 @@ def test_disable_conference_update_feature_flag_disabled(
 
     LiteratureRecord.create(record_data, disable_relations_update=False)
     update_function_mock.assert_called()
+
+
+def test_self_citations_in_detail_view_not_logged_user(
+    api_client, db, es, create_record, enable_self_citations
+):
+    author_1 = {
+        "full_name": "James T Kirk",
+        "ids": [{"schema": "INSPIRE BAI", "value": "James.T.Kirk.1"}],
+    }
+    author_2 = {
+        "full_name": "Jean-Luc Picard",
+        "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+    }
+    author_3 = {
+        "full_name": "Kathryn Janeway",
+        "ids": [{"schema": "INSPIRE BAI", "value": "K.Janeway.1"}],
+    }
+
+    data_authors_1 = {"authors": [author_1]}
+
+    data_authors_2 = {"authors": [author_1, author_2]}
+
+    data_authors_3 = {"authors": [author_2, author_3]}
+    rec1 = create_record("lit", data=data_authors_1)
+    rec2 = create_record(
+        "lit", data=data_authors_2, literature_citations=[rec1["control_number"]]
+    )
+    rec3 = create_record(
+        "lit",
+        data=data_authors_3,
+        literature_citations=[rec1["control_number"], rec2["control_number"]],
+    )
+
+    expected_citations = 2
+    expected_non_self_citations = 1
+
+    headers = {"Accept": "application/vnd+inspire.record.ui+json"}
+    response = api_client.get(f"/literature/{rec1['control_number']}", headers=headers)
+
+    assert response.status_code == 200
+    assert response.json["metadata"]["citation_count"] == expected_citations
+    assert (
+        response.json["metadata"]["citation_count_without_self_citations"]
+        == expected_non_self_citations
+    )

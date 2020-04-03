@@ -218,15 +218,25 @@ def records_hep(order=None):
 
 
 def citation_summary():
-    excluded_filters = ["citeable", "refereed", "citation_count"]
+    excluded_filters = [
+        "citeable",
+        "refereed",
+        "citation_count",
+        "citation_count_without_self_citations",
+    ]
     filters = get_filters_without_excluded(hep_filters(), excluded_filters)
-    map_script = """
-        if (doc.refereed.length >0 && doc.refereed[0]) {
-            state.citations_refereed.add(doc.citation_count[0])
-        } else {
-            state.citations_non_refereed.add(doc.citation_count[0])
-        }
-    """
+    if request.values.get("exclude-self-citations", False):
+        field = "citation_count_without_self_citations"
+    else:
+        field = "citation_count"
+
+    map_script = (
+        "if (doc.refereed.length >0 && doc.refereed[0]) {"
+        f"    state.citations_refereed.add(doc.{field}[0])"
+        "} else {"
+        f"    state.citations_non_refereed.add(doc.{field}[0])"
+        "}"
+    )
     reduce_script = """
         def flattened_all = [];
         def flattened_refereed = [];
@@ -271,7 +281,7 @@ def citation_summary():
                         "aggs": {
                             "citation_buckets": {
                                 "range": {
-                                    "field": "citation_count",
+                                    "field": field,
                                     "ranges": [
                                         {"from": 0, "to": 1, "key": "0--0"},
                                         {"from": 1, "to": 10, "key": "1--9"},
@@ -283,8 +293,8 @@ def citation_summary():
                                     ],
                                 }
                             },
-                            "citations_count": {"sum": {"field": "citation_count"}},
-                            "average_citations": {"avg": {"field": "citation_count"}},
+                            "citations_count": {"sum": {"field": field}},
+                            "average_citations": {"avg": {"field": field}},
                         },
                     },
                 },
@@ -298,17 +308,20 @@ def citations_by_year():
         "citeable",
         "refereed",
         "citation_count",
+        "citation_count_without_self_citations",
         "author_count",
         "earliest_date",
         "collaboration",
     ]
     filters = get_filters_without_excluded(hep_filters(), excluded_filters)
+
     map_script = """
         def years = params._source.citations_by_year != null ? params._source.citations_by_year : [];
         for (element in years) {
             state.merge(element.year.toString(), element.count, (x, y) -> x + y)
         }
     """
+
     reduce_script = """
         def results=[:];
         for (result in states) {

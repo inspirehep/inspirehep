@@ -73,6 +73,14 @@ def disable_files(base_app):
     base_app.config["FEATURE_FLAG_ENABLE_FILES"] = original_value
 
 
+@pytest.fixture(scope="function")
+def enable_self_citations(base_app):
+    original_value = base_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS")
+    base_app.config["FEATURE_FLAG_ENABLE_SELF_CITATIONS"] = True
+    yield base_app
+    base_app.config["FEATURE_FLAG_ENABLE_SELF_CITATIONS"] = original_value
+
+
 @pytest.fixture(scope="module")
 def create_app():
     return inspire_create_app

@@ -444,6 +444,28 @@ class LiteratureRecord(
                 result["original_url"] = url
             return result
 
+    def get_linked_papers_if_reference_changed(self):
+        """Tries to find differences in record references.
+
+        Gets all references from  reference field and publication_info.conference_record
+        field and returns records which reference changed
+
+        Returns:
+            list(uuid): List of uuids of changed references.
+        """
+        uuids = self.get_modified_references()
+        uuids.extend(self.get_newest_linked_conferences_uuid())
+        uuids.extend(self.get_modified_institutions_uuids())
+        uuids = list(set(uuids))
+        if uuids:
+            LOGGER.info(
+                f"Found {len(uuids)} references changed, indexing them",
+                uuid=str(self.id),
+            )
+            return uuids
+        LOGGER.info("No references changed", uuid=str(self.id))
+        return []
+
 
 def import_article(identifier):
     """Import a new article from arXiv or Crossref based on the identifier.
