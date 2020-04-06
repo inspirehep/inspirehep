@@ -22,10 +22,10 @@ function getBaseAggregationsQueryFromState(namespace, state) {
   return state.search.getIn(['namespaces', namespace, 'baseAggregationsQuery']);
 }
 
-function hasQueryChangedExceptSortOrPage(prevQuery, nextQuery) {
+function hasQueryChangedExceptSortAndPagination(prevQuery, nextQuery) {
   return !shallowEqual(
-    omit(prevQuery.toObject(), ['sort', 'page']),
-    omit(nextQuery.toObject(), ['sort', 'page'])
+    omit(prevQuery.toObject(), ['sort', 'page', 'size']),
+    omit(nextQuery.toObject(), ['sort', 'page', 'size'])
   );
 }
 
@@ -64,7 +64,7 @@ export default function({ getState, dispatch }) {
       }
 
       if (
-        hasQueryChangedExceptSortOrPage(prevQuery, nextQuery) ||
+        hasQueryChangedExceptSortAndPagination(prevQuery, nextQuery) ||
         isInitialQueryUpdate
       ) {
         dispatch(fetchSearchAggregationsForCurrentQuery(namespace));

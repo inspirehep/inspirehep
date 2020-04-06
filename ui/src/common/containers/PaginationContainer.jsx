@@ -18,6 +18,10 @@ export const dispatchToProps = (dispatch, { namespace }) => ({
   onPageChange(page) {
     dispatch(searchQueryUpdate(namespace, { page: String(page) }));
   },
+
+  onSizeChange(page, size) {
+    dispatch(searchQueryUpdate(namespace, { size, page: '1' }));
+  },
 });
 
 export default connect(stateToProps, dispatchToProps)(SearchPagination);

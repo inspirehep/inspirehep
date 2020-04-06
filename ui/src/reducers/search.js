@@ -40,6 +40,8 @@ const initialBaseQuery = {
   page: '1',
 };
 
+const initialPersistedQueryParamsDuringNewSearch = ['size'];
+
 const initialNamespaceState = {
   loading: false,
   total: 0,
@@ -51,7 +53,7 @@ const initialNamespaceState = {
   aggregationsError: null,
   baseQuery: initialBaseQuery,
   query: initialBaseQuery,
-  persistedQueryParamsDuringNewSearch: [],
+  persistedQueryParamsDuringNewSearch: initialPersistedQueryParamsDuringNewSearch,
   baseAggregationsQuery: {},
   // necessary to avoid using search query before it's ready
   hasQueryBeenUpdatedAtLeastOnce: false,
@@ -90,14 +92,6 @@ export const initialState = fromJS({
       pathname: LITERATURE,
       embedded: true,
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
-      baseQuery: {
-        ...initialBaseQuery,
-        size: '10',
-      },
-      query: {
-        ...initialBaseQuery,
-        size: '10',
-      },
       baseAggregationsQuery: {
         facet_name: 'hep-author-publication',
       },
@@ -110,12 +104,10 @@ export const initialState = fromJS({
       baseQuery: {
         ...initialBaseQuery,
         doc_type: 'conference paper',
-        size: '10',
       },
       query: {
         ...initialBaseQuery,
         doc_type: 'conference paper',
-        size: '10',
       },
       baseAggregationsQuery: {
         facet_name: 'hep-conference-contribution',
@@ -135,7 +127,10 @@ export const initialState = fromJS({
         start_date: START_DATE_UPCOMING,
         sort: 'dateasc',
       },
-      persistedQueryParamsDuringNewSearch: ['start_date'],
+      persistedQueryParamsDuringNewSearch: [
+        ...initialPersistedQueryParamsDuringNewSearch,
+        'start_date',
+      ],
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
       order: 4,
     },
@@ -147,15 +142,16 @@ export const initialState = fromJS({
         ...initialBaseQuery,
         start_date: START_DATE_ALL,
         sort: 'dateasc',
-        size: '10',
       },
       query: {
         ...initialBaseQuery,
         start_date: START_DATE_ALL,
         sort: 'dateasc',
-        size: '10',
       },
-      persistedQueryParamsDuringNewSearch: ['start_date'],
+      persistedQueryParamsDuringNewSearch: [
+        ...initialPersistedQueryParamsDuringNewSearch,
+        'start_date',
+      ],
       aggregationsFetchMode: FETCH_MODE_NEVER,
     },
     [INSTITUTIONS_NS]: {
@@ -169,14 +165,6 @@ export const initialState = fromJS({
       pathname: LITERATURE,
       embedded: true,
       aggregationsFetchMode: FETCH_MODE_ALWAYS,
-      baseQuery: {
-        ...initialBaseQuery,
-        size: '10',
-      },
-      query: {
-        ...initialBaseQuery,
-        size: '10',
-      },
       baseAggregationsQuery: {
         facet_name: 'hep-institution-papers',
       },

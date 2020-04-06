@@ -54,7 +54,7 @@ function GuideModal({ visible, onCancel }) {
         />
       ))}
       <div className="f2 tc bg-white pa5">
-        <p>Thanks for taking the tour of the new INSPIRE.!</p>
+        <p>Thanks for taking the tour of the new INSPIRE!</p>
         <p className="mb0">
           Visit <ExternalLink href={BLOG_URL}>our blog</ExternalLink> for more
           info.

@@ -6,6 +6,16 @@ exports[`SearchPagination renders with all props set 1`] = `
   hideOnSinglePage={true}
   onChange={[MockFunction]}
   pageSize={10}
+  pageSizeOptions={
+    Array [
+      "25",
+      "50",
+      "100",
+      "250",
+    ]
+  }
+  responsive={true}
+  showSizeChanger={true}
   style={
     Object {
       "textAlign": "center",
@@ -21,6 +31,16 @@ exports[`SearchPagination renders with only required props set 1`] = `
   hideOnSinglePage={true}
   onChange={[MockFunction]}
   pageSize={25}
+  pageSizeOptions={
+    Array [
+      "25",
+      "50",
+      "100",
+      "250",
+    ]
+  }
+  responsive={true}
+  showSizeChanger={true}
   style={
     Object {
       "textAlign": "center",
