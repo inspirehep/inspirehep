@@ -2,6 +2,7 @@
 
 exports[`SearchPagination renders with all props set 1`] = `
 <Pagination
+  className="__SearchPagination__"
   current={2}
   hideOnSinglePage={true}
   onChange={[MockFunction]}
@@ -27,6 +28,7 @@ exports[`SearchPagination renders with all props set 1`] = `
 
 exports[`SearchPagination renders with only required props set 1`] = `
 <Pagination
+  className="__SearchPagination__"
   current={1}
   hideOnSinglePage={true}
   onChange={[MockFunction]}
