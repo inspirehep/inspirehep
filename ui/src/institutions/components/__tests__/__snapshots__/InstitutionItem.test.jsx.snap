@@ -20,7 +20,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
       >
         <IconText
           icon={<ForwardRef(LoginOutlined) />}
-          text="papers"
+          text="1 paper"
         />
       </ForwardRef>
     </ListItemAction>
@@ -82,7 +82,7 @@ exports[`InstitutionItem renders with only needed props 1`] = `
       >
         <IconText
           icon={<ForwardRef(LoginOutlined) />}
-          text="papers"
+          text="0 papers"
         />
       </ForwardRef>
     </ListItemAction>

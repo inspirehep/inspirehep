@@ -33,6 +33,7 @@ def test_index_institutions_record(base_app, es_clear, db, datadir, create_recor
             "1211",
         ]
     }
+    expected_metadata["number_of_papers"] = 0
     expected_metadata["_created"] = utils.isoformat(record.created)
     expected_metadata["_updated"] = utils.isoformat(record.updated)
 

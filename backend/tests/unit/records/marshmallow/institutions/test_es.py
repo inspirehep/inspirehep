@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
+import mock
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import InstitutionsRecord
@@ -19,13 +20,16 @@ def test_institutions_serializer_should_serialize_whole_basic_record():
         "_collections": ["Institutions"],
     }
 
-    conference = InstitutionsRecord(faker.record("ins"))
-    result = schema.dump(conference).data
+    institution = faker.record("ins")
+    result = schema.dump(institution).data
 
     assert result == expected_result
 
 
-def test_institutions_serializer_populates_affiliation_suggest():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_institutions_serializer_populates_affiliation_suggest(
+    mock_institution_literature_table
+):
     schema = InstitutionsElasticSearchSchema()
     data = {
         "ICN": ["ICN_VALUE"],
@@ -53,7 +57,8 @@ def test_institutions_serializer_populates_affiliation_suggest():
     assert result == expected_result
 
 
-def test_populate_affiliation_suggest_from_icn():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_from_icn(mock_institution_literature_table):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "ICN": ["CERN, Geneva"],
@@ -69,7 +74,10 @@ def test_populate_affiliation_suggest_from_icn():
     assert expected == result
 
 
-def test_populate_affiliation_suggest_from_institution_hierarchy_acronym():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_from_institution_hierarchy_acronym(
+    mock_institution_literature_table
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "institution_hierarchy": [{"acronym": "CERN"}],
@@ -85,7 +93,10 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_acronym():
     assert expected == result
 
 
-def test_populate_affiliation_suggest_from_institution_hierarchy_name():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_from_institution_hierarchy_name(
+    mock_institution_literature_table
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "institution_hierarchy": [
@@ -103,7 +114,10 @@ def test_populate_affiliation_suggest_from_institution_hierarchy_name():
     assert expected == result
 
 
-def test_populate_affiliation_suggest_from_legacy_icn():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_from_legacy_icn(
+    mock_institution_literature_table
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "legacy_ICN": "CERN",
@@ -118,7 +132,10 @@ def test_populate_affiliation_suggest_from_legacy_icn():
     assert expected == result
 
 
-def test_populate_affiliation_suggest_from_name_variants():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_from_name_variants(
+    mock_institution_literature_table
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "legacy_ICN": "CERN",
@@ -134,7 +151,10 @@ def test_populate_affiliation_suggest_from_name_variants():
     assert expected == result
 
 
-def test_populate_affiliation_suggest_from_name_variants_with_umr():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_from_name_variants_with_umr(
+    mock_institution_literature_table
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "legacy_ICN": "CERN",
@@ -165,7 +185,10 @@ def test_populate_affiliation_suggest_from_name_variants_with_umr():
     assert expected == result
 
 
-def test_populate_affiliation_suggest_from_postal_code():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_from_postal_code(
+    mock_institution_literature_table
+):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "addresses": [{"postal_code": "1211"}],
@@ -181,7 +204,8 @@ def test_populate_affiliation_suggest_from_postal_code():
     assert expected == result
 
 
-def test_populate_affiliation_suggest_to_ref():
+@mock.patch("inspirehep.records.api.institutions.InstitutionLiterature")
+def test_populate_affiliation_suggest_to_ref(mock_institution_literature_table):
     data = {
         "$schema": "http://localhost:5000/schemas/records/institutions.json",
         "legacy_ICN": "CERN",

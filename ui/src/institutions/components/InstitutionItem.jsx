@@ -13,6 +13,7 @@ import { getPapersQueryString } from '../utils';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
+import pluralizeUnlessSingle from '../../common/utils';
 
 function InstitutionItem({ metadata }) {
   const legacyIcn = metadata.get('legacy_ICN');
@@ -20,6 +21,7 @@ function InstitutionItem({ metadata }) {
   const addresses = metadata.get('addresses');
   const urls = metadata.get('urls');
   const hierarchies = metadata.get('institution_hierarchy');
+  const papersCount = metadata.get('number_of_papers', 0);
 
   return (
     <ResultItem
@@ -27,7 +29,13 @@ function InstitutionItem({ metadata }) {
       rightActions={
         <ListItemAction>
           <Link to={`${LITERATURE}?q=${getPapersQueryString(recordId)}`}>
-            <IconText text="papers" icon={<LoginOutlined />} />
+            <IconText
+              text={`${papersCount} ${pluralizeUnlessSingle(
+                'paper',
+                papersCount
+              )}`}
+              icon={<LoginOutlined />}
+            />
           </Link>
         </ListItemAction>
       }

@@ -27,6 +27,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from inspirehep.indexer.base import InspireRecordIndexer
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclass
+from inspirehep.utils import flatten_list
 
 LOGGER = structlog.getLogger()
 
@@ -199,7 +200,7 @@ class InspireRecord(Record):
         full_path = ".".join([path, "$ref"])
         pids = [
             PidStoreBase.get_pid_from_record_uri(rec)
-            for rec in get_value(data, full_path, [])
+            for rec in flatten_list(get_value(data, full_path, []))
         ]
         return pids
 

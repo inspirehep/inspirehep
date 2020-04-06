@@ -7,7 +7,11 @@
 
 from helpers.providers.faker import faker
 
-from inspirehep.records.models import ConferenceLiterature, RecordCitations
+from inspirehep.records.models import (
+    ConferenceLiterature,
+    InstitutionLiterature,
+    RecordCitations,
+)
 from inspirehep.records.tasks import update_records_relations
 
 
@@ -71,6 +75,34 @@ def test_update_records_relations(base_app, db, es_clear, create_record):
     )
 
     assert ConferenceLiterature.query.count() == 2
+
+
+def test_update_records_relations_updated_institution_literature_relations(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    inst_ref = f"http://localhost:8000/api/institutions/{institution['control_number']}"
+    lit_data_with_institution = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [
+                    {"value": "Institution", "record": {"$ref": inst_ref}}
+                ],
+            }
+        ]
+    }
+    record = create_record("lit", data=lit_data_with_institution)
+
+    result = update_records_relations([record.id])
+
+    assert [record.id] == result
+
+    institution_literature_relation = InstitutionLiterature.query.filter_by(
+        institution_uuid=institution.id
+    ).one()
+
+    assert institution_literature_relation.literature_uuid == record.id
 
 
 def test_update_records_relations_with_no_literatrure_records(

@@ -7,6 +7,7 @@
 from inspirehep.records.marshmallow.institutions import InstitutionsElasticSearchSchema
 
 from ...pidstore.api import PidStoreInstitutions
+from ..models import InstitutionLiterature
 from .base import InspireRecord
 
 
@@ -16,3 +17,18 @@ class InstitutionsRecord(InspireRecord):
     es_serializer = InstitutionsElasticSearchSchema
     pid_type = "ins"
     pidstore_handler = PidStoreInstitutions
+
+    def delete_relations_with_literature(self):
+        InstitutionLiterature.query.filter_by(institution_uuid=self.id).delete()
+
+    def delete(self):
+        super().delete()
+        self.delete_relations_with_literature()
+
+    def hard_delete(self):
+        self.delete_relations_with_literature()
+        super().hard_delete()
+
+    @property
+    def number_of_papers(self):
+        return InstitutionLiterature.query.filter_by(institution_uuid=self.id).count()

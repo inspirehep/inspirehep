@@ -21,6 +21,7 @@ describe('InstitutionItem', () => {
           name: 'Department of Physics',
         },
       ],
+      number_of_papers: 1,
     });
 
     const wrapper = shallow(<InstitutionItem metadata={metadata} />);

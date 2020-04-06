@@ -24,6 +24,7 @@ def test_institutions_json_without_login(api_client, db, create_record, datadir,
 
     expected_metadata = deepcopy(record)
     expected_metadata["addresses"][0]["country"] = "Austria"
+    expected_metadata["number_of_papers"] = 0
     del expected_metadata["_collections"]
     del expected_metadata["_private_notes"]
     expected_created = utils.isoformat(record.created)
@@ -56,6 +57,7 @@ def test_institutions_json_with_logged_in_cataloger(
 
     expected_metadata = deepcopy(record)
     expected_metadata["addresses"][0]["country"] = "Austria"
+    expected_metadata["number_of_papers"] = 0
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
 
@@ -80,6 +82,7 @@ def test_institutions_search_json(api_client, db, create_record, datadir, es):
 
     expected_result = deepcopy(record)
     expected_result["addresses"][0]["country"] = "Austria"
+    expected_result["number_of_papers"] = 0
     del expected_result["_collections"]
     del expected_result["_private_notes"]
     expected_created = utils.isoformat(record.created)
@@ -122,6 +125,7 @@ def test_institutions_detail(api_client, db, create_record, datadir, es):
             ],
             "grid": "grid.450258.e",
             "ror": "https://ror.org/039shy520",
+            "number_of_papers": 0,
         }
     )
     del expected_metadata["_collections"]
@@ -161,7 +165,8 @@ def test_parent_institutions_in_detail_page(api_client, db, create_record_factor
                 "record": {"$ref": f"https://inspirebeta.net/api/institutions/123"},
                 "reation": "successor",
             },
-        ]
+        ],
+        "number_of_papers": 0,
     }
 
     expected_parent_institutions_data = [
@@ -231,7 +236,8 @@ def test_predecessor_institutions_in_detail_page(
                 "relation": "predecessor",
                 "curated_relation": True,
             }
-        ]
+        ],
+        "number_of_papers": 0,
     }
 
     expected_predecessor_institutions_data = [

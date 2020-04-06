@@ -31,6 +31,7 @@ from inspirehep.pidstore.api import PidStoreLiterature
 from inspirehep.records.api.mixins import (
     CitationMixin,
     ConferencePaperAndProceedingsMixin,
+    InstitutionPapersMixin,
 )
 from inspirehep.records.errors import (
     ExistingArticleError,
@@ -67,7 +68,10 @@ CROSSREF_URL = "https://api.crossref.org/works/<ID>"
 
 
 class LiteratureRecord(
-    CitationMixin, ConferencePaperAndProceedingsMixin, InspireRecord
+    CitationMixin,
+    ConferencePaperAndProceedingsMixin,
+    InstitutionPapersMixin,
+    InspireRecord,
 ):
     """Literature Record."""
 

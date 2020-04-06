@@ -11,6 +11,16 @@ from sqlalchemy import text
 
 def test_downgrade(base_app, database):
     alembic = Alembic(base_app)
+    alembic.downgrade("b0cdab232269")
+
+    assert "institution_literature" not in _get_table_names(database)
+    assert "ix_institution_literature_literature_uuid" not in _get_indexes(
+        "institution_literature", database
+    )
+    assert "ix_institution_literature_institution_uuid" not in _get_indexes(
+        "institution_literature", database
+    )
+
     alembic.downgrade("e5e43ad8f861")
 
     assert "idx_pidstore_pid_pid_value" not in _get_indexes("pidstore_pid", database)
@@ -123,6 +133,16 @@ def test_upgrade(base_app, database):
 
     assert "idx_pidstore_pid_pid_value" in _get_indexes("pidstore_pid", database)
 
+    alembic.upgrade(target="cea5fa2e5d2c")
+
+    assert "institution_literature" in _get_table_names(database)
+    assert "ix_institution_literature_literature_uuid" in _get_indexes(
+        "institution_literature", database
+    )
+    assert "ix_institution_literature_institution_uuid" in _get_indexes(
+        "institution_literature", database
+    )
+
 
 def _get_indexes(tablename, db_alembic):
     query = text(
@@ -153,9 +173,9 @@ def _get_table_names(db_alembic):
 
 
 def _get_custom_enums(db_alembic):
-    query = """ SELECT pg_type.typname AS enumtype,  
-        pg_enum.enumlabel AS enumlabel 
-        FROM pg_type  
-        JOIN pg_enum  
+    query = """ SELECT pg_type.typname AS enumtype,
+        pg_enum.enumlabel AS enumlabel
+        FROM pg_type
+        JOIN pg_enum
             ON pg_enum.enumtypid = pg_type.oid;"""
     return set([a[0] for a in db_alembic.session.execute(query)])

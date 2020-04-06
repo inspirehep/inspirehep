@@ -225,6 +225,9 @@
           }
         },
         "type": "object"
+      },
+      "number_of_papers": {
+        "type": "integer"
       }
     }
   },
