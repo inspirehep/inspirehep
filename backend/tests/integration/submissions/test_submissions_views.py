@@ -1221,3 +1221,26 @@ def test_confirmation_email_sent_for_regular_user(
     )
     assert response.status_code == 201
     mock_send_confirmation_email.assert_called_once_with(user.email, conference_rec)
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_conference_with_country_official_name(
+    ticket_mock, app, api_client, create_user
+):
+    CZECH_CONFERENCE_FORM_DATA = dict(CONFERENCE_FORM_DATA)
+    CZECH_CONFERENCE_FORM_DATA["addresses"][0]["country"] = "Czech Republic"
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": CZECH_CONFERENCE_FORM_DATA}),
+    )
+    assert response.status_code == 201
+
+    payload = json.loads(response.data)
+    conference_id = payload["pid_value"]
+
+    conference_rec = ConferencesRecord.get_record_by_pid_value(conference_id)
+    assert get_value(conference_rec, "addresses[0].country_code") == "CZ"
+    ticket_mock.delay.assert_called_once()
