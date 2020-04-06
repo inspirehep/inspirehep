@@ -13,13 +13,14 @@ import createStore, { history } from './store';
 import App from './App';
 import ErrorAppCrash from './errors/components/ErrorAppCrash';
 import ErrorBoundary from './common/components/ErrorBoundary';
-import { injectTrackerToHistory } from './tracker';
+import { injectTrackerToHistory, getClientId } from './tracker';
 import { getConfigFor } from './common/config';
 
 Sentry.init({
   dsn: getConfigFor('REACT_APP_SENTRY_DSN'),
   release: process.env.REACT_APP_VERSION,
 });
+Sentry.setUser({ id: getClientId() });
 
 const store = createStore();
 

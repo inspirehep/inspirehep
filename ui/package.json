@@ -74,6 +74,7 @@
     "use-async-effect": "^2.2.1",
     "use-media": "^1.4.0",
     "use-resize-observer": "^4.0.0",
+    "uuid": "^7.0.3",
     "yup": "^0.26.0"
   },
   "devDependencies": {

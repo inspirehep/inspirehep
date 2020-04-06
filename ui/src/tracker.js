@@ -1,4 +1,6 @@
 import Piwik from 'react-piwik';
+import { v4 as generateUUIDv4 } from 'uuid';
+
 import { isSuperUser, isCataloger } from './common/authorization';
 import { getConfigFor } from './common/config';
 
@@ -49,4 +51,20 @@ export async function setUserCategoryFromRoles(userRoles) {
 
 export function checkIsTrackerBlocked() {
   return Array.isArray(window._paq) || navigator.doNotTrack === '1'; // eslint-disable-line no-underscore-dangle
+}
+
+export function getClientId() {
+  let clientId = localStorage.getItem('clientId');
+  if (!clientId) {
+    clientId = generateUUIDv4();
+    localStorage.setItem('clientId', clientId);
+  }
+  return clientId;
+}
+
+export function setClientId() {
+  if (isTrackerConfigured()) {
+    const clientId = getClientId();
+    Piwik.push(['setUserId', clientId]);
+  }
 }
