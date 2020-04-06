@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination } from 'antd';
 
+import './SearchPagination.scss';
+
 const PAGE_SIZE_OPTIONS = ['25', '50', '100', '250'];
 
 class SearchPagination extends Component {
@@ -9,6 +11,7 @@ class SearchPagination extends Component {
     const { page, total, pageSize, onPageChange, onSizeChange } = this.props;
     return (
       <Pagination
+        className="__SearchPagination__"
         hideOnSinglePage
         style={{ textAlign: 'center' }}
         current={page}
