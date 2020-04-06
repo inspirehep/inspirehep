@@ -21,3 +21,12 @@ def test_inspire_query_parser_is_called(mock_inspire_query_parser, base_app):
         factory(query_string, search)
 
         mock_inspire_query_parser.assert_called_once_with(query_string)
+
+
+def test_inspire_query_parser_max_recursion_on_complicated_queries(base_app):
+    query_string = "find a name" + " or a name" * 250
+    with base_app.test_request_context():
+        factory = inspire_query_factory()
+        search = Search()
+
+        factory(query_string, search)

@@ -219,3 +219,5 @@ ALEMBIC_SKIP_TABLES = [
     "workflows_record_sources",
     "workflows_workflow",
 ]
+
+SEARCH_MAX_RECURSION_LIMIT = 5000

@@ -4,11 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
-
+import pytest
 from mock import Mock, patch
 
-from inspirehep.search.utils import get_facet_configuration
+from inspirehep.search.utils import RecursionLimit, get_facet_configuration
 
 
 @patch("inspirehep.records.config.RECORDS_REST_ENDPOINTS")
@@ -96,3 +95,17 @@ def test_facet_configuration_with_fallback_to_default_facet(base_app):
         with patch.dict(base_app.config, config):
             result = get_facet_configuration("records-hep")
             assert expected == result
+
+
+def test_setting_recursion_limit():
+    def recursion_test(max_depth, current_level=1):
+        level = current_level
+        if current_level < max_depth:
+            level = recursion_test(max_depth, current_level + 1)
+        return level
+
+    assert recursion_test(100) == 100
+    with pytest.raises(RecursionError):
+        with RecursionLimit(50):
+            recursion_test(100)
+    assert recursion_test(100) == 100
