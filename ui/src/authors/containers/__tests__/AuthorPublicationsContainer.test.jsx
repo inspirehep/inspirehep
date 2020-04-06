@@ -18,12 +18,6 @@ describe('AuthorPublicationsContainer', () => {
           },
         },
       }),
-      user: fromJS({
-        loggedIn: true,
-        data: {
-          roles: ['cataloger'],
-        },
-      }),
     });
     const wrapper = mount(
       <Provider store={store}>
@@ -35,7 +29,6 @@ describe('AuthorPublicationsContainer', () => {
       namespace: AUTHOR_PUBLICATIONS_NS,
       baseQuery: {
         author: ['1234_ThatDude'],
-        size: 100,
       },
       baseAggregationsQuery: {
         author_recid: '1234_ThatDude',

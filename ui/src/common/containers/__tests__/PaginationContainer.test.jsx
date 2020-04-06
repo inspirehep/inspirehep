@@ -55,4 +55,27 @@ describe('PaginationContainer', () => {
     ];
     expect(store.getActions()).toEqual(expectedActions);
   });
+
+  it('calls pushQueryToLocation onSizeChange', () => {
+    const store = getStore();
+    const namespace = LITERATURE_NS;
+    const wrapper = mount(
+      <Provider store={store}>
+        <PaginationContainer namespace={namespace} />
+      </Provider>
+    );
+    const onSizeChange = wrapper.find(SearchPagination).prop('onSizeChange');
+    const page = 2;
+    const size = 20;
+
+    onSizeChange(page, size);
+
+    const expectedActions = [
+      {
+        type: SEARCH_QUERY_UPDATE,
+        payload: { namespace, query: { size, page: '1' } },
+      },
+    ];
+    expect(store.getActions()).toEqual(expectedActions);
+  });
 });

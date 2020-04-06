@@ -4,15 +4,13 @@ import PropTypes from 'prop-types';
 
 import LiteratureSearchContainer from '../../literature/containers/LiteratureSearchContainer';
 import { AUTHOR_PUBLICATIONS_NS } from '../../reducers/search';
-import { isCataloger } from '../../common/authorization';
 
-function AuthorPublications({ authorFacetName, isCatalogerLoggedIn }) {
+function AuthorPublications({ authorFacetName }) {
   const baseQuery = useMemo(
     () => ({
       author: [authorFacetName],
-      size: isCatalogerLoggedIn ? 100 : 10, // TODO: move sizes to constants file
     }),
-    [authorFacetName, isCatalogerLoggedIn]
+    [authorFacetName]
   );
   const baseAggregationsQuery = useMemo(
     () => ({
@@ -34,7 +32,6 @@ function AuthorPublications({ authorFacetName, isCatalogerLoggedIn }) {
 
 AuthorPublications.propTypes = {
   authorFacetName: PropTypes.string.isRequired,
-  isCatalogerLoggedIn: PropTypes.bool.isRequired,
 };
 
 const stateToProps = state => ({
@@ -43,7 +40,6 @@ const stateToProps = state => ({
     'metadata',
     'facet_author_name',
   ]),
-  isCatalogerLoggedIn: isCataloger(state.user.getIn(['data', 'roles'])),
 });
 
 export default connect(stateToProps)(AuthorPublications);
