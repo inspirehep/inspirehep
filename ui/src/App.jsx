@@ -26,7 +26,7 @@ import {
   INSTITUTIONS,
 } from './common/routes';
 import UserFeedback from './common/components/UserFeedback';
-import { setUserCategoryFromRoles } from './tracker';
+import { setUserCategoryFromRoles, setClientId } from './tracker';
 import { fetchLoggedInUser } from './actions/user';
 import Home from './home';
 import Literature from './literature';
@@ -77,6 +77,10 @@ function App({ userRoles, dispatch, guideModalVisibility }) {
     },
     [userRoles]
   );
+
+  useEffect(() => {
+    setClientId();
+  }, []);
 
   return (
     <Layout className="__App__">
