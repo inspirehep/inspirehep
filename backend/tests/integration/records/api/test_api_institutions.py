@@ -16,6 +16,7 @@ from invenio_records.models import RecordMetadata
 from jsonschema import ValidationError
 
 from inspirehep.records.api import InspireRecord, InstitutionsRecord
+from inspirehep.records.models import InstitutionLiterature
 
 
 def test_institutions_create(base_app, db, es):
@@ -171,3 +172,81 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es
 
     with pytest.raises(AttributeError):
         record.citation_count
+
+
+def test_deleted_institution_deletes_relations_in_institution_literature_table(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    institution.delete()
+
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_hard_delete_institution_deletes_relations_in_institution_literature_table(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    institution.hard_delete()
+
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_number_of_papers_query(base_app, db, create_record):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    expected_number_of_papers = 0
+    assert expected_number_of_papers == institution.number_of_papers
+
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+    rec1 = create_record("lit", rec_data)
+
+    expected_number_of_papers = 1
+    assert expected_number_of_papers == institution.number_of_papers
+
+    rec2 = create_record("lit", rec_data)
+
+    expected_number_of_papers = 2
+    assert expected_number_of_papers == institution.number_of_papers
+
+    rec1.delete()
+
+    expected_number_of_papers = 1
+    assert expected_number_of_papers == institution.number_of_papers

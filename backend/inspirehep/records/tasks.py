@@ -15,7 +15,7 @@ LOGGER = structlog.getLogger()
 
 
 def update_records_relations(uuids):
-    """Task which updates records_citations and conference_literature tables with
+    """Task which updates records_citations, institution_literature and conference_literature tables with
     relation to proper literature records.
 
     Args:
@@ -30,6 +30,7 @@ def update_records_relations(uuids):
                 if isinstance(record, LiteratureRecord):
                     record.update_refs_in_citation_table()
                     record.update_conference_paper_and_proccedings()
+                    record.update_institution_relations()
         except Exception:
             LOGGER.exception("Cannot recalculate relations", uuid=str(uuid))
 

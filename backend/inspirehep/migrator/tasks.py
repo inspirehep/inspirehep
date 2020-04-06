@@ -337,6 +337,7 @@ def process_references_in_records(uuids):
                 if isinstance(record, LiteratureRecord):
                     references = record.get_modified_references()
                     references.extend(record.get_newest_linked_conferences_uuid())
+                    references.extend(record.get_modified_institutions_uuids())
                     LOGGER.info(
                         f"Reindexing {len(references)} references",
                         recid=record["control_number"],

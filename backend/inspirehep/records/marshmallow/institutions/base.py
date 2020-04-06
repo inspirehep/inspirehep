@@ -14,6 +14,7 @@ from inspirehep.records.marshmallow.utils import get_adresses_with_country
 
 class InstitutionsRawSchema(RecordBaseSchema):
     addresses = fields.Method("get_addresses")
+    number_of_papers = fields.Raw()
 
     @staticmethod
     def get_addresses(record):

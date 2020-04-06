@@ -67,6 +67,7 @@ def process_references_for_record(record):
     """
     uuids = record.get_modified_references()
     uuids.extend(record.get_newest_linked_conferences_uuid())
+    uuids.extend(record.get_modified_institutions_uuids())
     uuids = list(set(uuids))
     if uuids:
         LOGGER.info(

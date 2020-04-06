@@ -97,3 +97,38 @@ class ConferenceLiterature(db.Model):
     conference_document = db.relationship(
         RecordMetadata, backref="conferences", foreign_keys=[literature_uuid]
     )
+
+
+class InstitutionLiterature(db.Model):
+    """Keeps track of papers linked to a Institution Records."""
+
+    __tablename__ = "institution_literature"
+    __table_args__ = (
+        db.Index("ix_institution_literature_institution_uuid", "institution_uuid"),
+        db.Index("ix_institution_literature_literature_uuid", "literature_uuid"),
+    )
+
+    institution_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey(
+            "records_metadata.id", name="fk_institution_literature_institution_uuid"
+        ),
+        nullable=False,
+        primary_key=True,
+    )
+    literature_uuid = db.Column(
+        UUIDType,
+        db.ForeignKey(
+            "records_metadata.id", name="fk_institution_literature_literature_uuid"
+        ),
+        nullable=False,
+        primary_key=True,
+    )
+
+    institution = db.relationship(
+        RecordMetadata, backref="institution_papers", foreign_keys=[institution_uuid]
+    )
+
+    institution_paper = db.relationship(
+        RecordMetadata, backref="institutions", foreign_keys=[literature_uuid]
+    )

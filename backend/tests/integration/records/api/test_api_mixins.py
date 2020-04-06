@@ -13,6 +13,7 @@ import pytest
 from helpers.providers.faker import faker
 
 from inspirehep.records.api import LiteratureRecord
+from inspirehep.records.models import InstitutionLiterature
 
 
 def test_records_links_correctly_with_conference(base_app, db, es_clear, create_record):
@@ -42,6 +43,173 @@ def test_records_links_correctly_with_conference(base_app, db, es_clear, create_
     assert proceedings_record.id in conf_docs_uuids
     assert conf_paper_record.id in conf_docs_uuids
     assert rec_without_correct_type.id not in conf_docs_uuids
+
+
+def test_creating_lit_record_with_linked_institution_populates_institution_relation_table(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+
+
+def test_updating_record_updates_institution_relations(
+    base_app, db, es_clear, create_record
+):
+    institution_1 = create_record("ins")
+    institution_1_control_number = institution_1["control_number"]
+    ref_1 = f"http://localhost:8000/api/institutions/{institution_1_control_number}"
+
+    institution_2 = create_record("ins")
+    institution_2_control_number = institution_2["control_number"]
+    ref_2 = f"http://localhost:8000/api/institutions/{institution_2_control_number}"
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref_1}}],
+            }
+        ]
+    }
+
+    rec = create_record("lit", rec_data)
+
+    rec_data = deepcopy(dict(rec))
+    rec_data["authors"] = [
+        {
+            "full_name": "John Doe",
+            "affiliations": [{"value": "Institution", "record": {"$ref": ref_2}}],
+        }
+    ]
+    rec.update(rec_data)
+
+    institution_1_papers = institution_1.model.institution_papers
+    institution_2_papers = institution_2.model.institution_papers
+    lit_record_institutions = rec.model.institutions
+
+    assert len(institution_1_papers) == 0
+    assert len(institution_2_papers) == 1
+    assert len(lit_record_institutions) == 1
+    assert lit_record_institutions[0].institution_uuid == institution_2.id
+
+
+def test_record_with_institutions_adds_only_linked_ones_in_institution_lit_table(
+    base_app, db, es_clear, create_record
+):
+    ref = "http://localhost:8000/api/institutions/1234"
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+    rec = create_record("lit", rec_data)
+
+    assert len(rec.model.institutions) == 0
+
+
+def test_record_with_institutions_doesnt_add_deleted_institutions_in_institution_lit_table(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+    institution.delete()
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert len(rec.model.institutions) == 0
+
+
+def test_deleted_record_deletes_relations_in_institution_literature_table(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    rec.delete()
+
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+def test_hard_delete_record_deletes_relations_in_institution_literature_table(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    rec_data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+
+    rec = create_record("lit", rec_data)
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
+    rec.hard_delete()
+
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
+
+
+@mock.patch.object(LiteratureRecord, "update_institution_relations")
+def test_institution_literature_table_is_not_updated_when_feature_flag_is_disabled(
+    update_function_mock, base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_control_number = institution["control_number"]
+    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    data = {
+        "authors": [
+            {
+                "full_name": "John Doe",
+                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+            }
+        ]
+    }
+    record_data = faker.record("lit", data)
+    LiteratureRecord.create(record_data, disable_relations_update=True)
+    update_function_mock.assert_not_called()
+
+    LiteratureRecord.create(record_data, disable_relations_update=False)
+    update_function_mock.assert_called()
 
 
 def test_record_links_when_correct_type_is_not_first_document_type_conference(

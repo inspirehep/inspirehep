@@ -6,6 +6,7 @@ from sqlalchemy import func, or_
 from inspirehep.records.models import (
     ConferenceLiterature,
     ConferenceToLiteratureRelationshipType,
+    InstitutionLiterature,
     RecordCitations,
 )
 
@@ -231,5 +232,75 @@ class ConferencePaperAndProceedingsMixin:
             pids_changed.update(pids_previous)
         else:
             pids_changed = set.symmetric_difference(set(pids_latest), pids_previous)
+
+        return list(self.get_records_ids_by_pids(list(pids_changed)))
+
+
+class InstitutionPapersMixin:
+    def clean_institution_literature_relations(self):
+        InstitutionLiterature.query.filter_by(literature_uuid=self.id).delete()
+
+    def create_institution_relations(self):
+        institutions = self.get_linked_records_from_field("authors.affiliations.record")
+        institution_literature_relations_waiting_for_commit = []
+
+        for institution in institutions:
+            if institution.get("deleted") is not True:
+                institution_literature_relations_waiting_for_commit.append(
+                    InstitutionLiterature(
+                        institution_uuid=institution.id, literature_uuid=self.id
+                    )
+                )
+        if len(institution_literature_relations_waiting_for_commit) > 0:
+            db.session.bulk_save_objects(
+                institution_literature_relations_waiting_for_commit
+            )
+            LOGGER.info(
+                "Adding institution-literature relations",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+                records_attached=len(
+                    institution_literature_relations_waiting_for_commit
+                ),
+            )
+
+    def update_institution_relations(self):
+        self.clean_institution_literature_relations()
+        if self.get("deleted") is not True:
+            self.create_institution_relations()
+
+    def hard_delete(self):
+        self.clean_institution_literature_relations()
+        super().hard_delete()
+
+    def update(self, data, disable_relations_update=False, *args, **kwargs):
+        super().update(data, disable_relations_update, *args, **kwargs)
+        if not disable_relations_update:
+            self.update_institution_relations()
+        else:
+            LOGGER.info(
+                "Record institution papers update disabled",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+            )
+
+    def get_modified_institutions_uuids(self):
+        prev_version = self._previous_version
+
+        changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
+            "deleted", False
+        )
+        pids_latest = self.get_linked_pids_from_field("authors.affiliations.record")
+
+        if changed_deleted_status:
+            return list(self.get_records_ids_by_pids(pids_latest))
+
+        pids_previous = set(
+            self._previous_version.get_linked_pids_from_field(
+                "authors.affiliations.record"
+            )
+        )
+
+        pids_changed = set.symmetric_difference(set(pids_latest), pids_previous)
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))

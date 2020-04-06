@@ -29,3 +29,11 @@ def chunker(iterable, chunksize):
             buf = []
     if buf:
         yield buf
+
+
+def flatten_list(input_list):
+    if isinstance(input_list, list):
+        return [
+            element for innerList in input_list for element in flatten_list(innerList)
+        ]
+    return [input_list]

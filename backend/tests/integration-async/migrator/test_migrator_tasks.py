@@ -28,7 +28,11 @@ from inspirehep.migrator.tasks import (
     update_relations,
 )
 from inspirehep.records.api import InspireRecord, LiteratureRecord
-from inspirehep.records.models import ConferenceLiterature, RecordCitations
+from inspirehep.records.models import (
+    ConferenceLiterature,
+    InstitutionLiterature,
+    RecordCitations,
+)
 from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import InspireSearch
 
@@ -114,6 +118,43 @@ def test_process_references_in_records_reindexes_conferences_when_pub_info_chang
         expected_number_of_contributions
         == conference_record_es["number_of_contributions"]
     )
+
+
+def test_process_references_in_records_reindexes_institutions_when_linked_institutions_change(
+    app, celery_app_with_context, celery_session_worker
+):
+    # disconnect this signal so records don't get indexed
+    models_committed.disconnect(index_after_commit)
+
+    institution_data = faker.record("ins", with_control_number=True)
+    institution = InspireRecord.create(institution_data)
+
+    institution_control_number = institution["control_number"]
+    inst_ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    data = faker.record("lit", with_control_number=True)
+
+    data["authors"] = [
+        {
+            "full_name": "John Doe",
+            "affiliations": [{"value": "Institution", "record": {"$ref": inst_ref}}],
+        }
+    ]
+
+    record = InspireRecord.create(data)
+    db.session.commit()
+
+    # reconnect signal before we call process_references_in_records
+    models_committed.connect(index_after_commit)
+
+    task = process_references_in_records.delay([record.id])
+
+    task.get(timeout=5)
+
+    institution_record_es = InspireSearch.get_record_data_from_es(institution)
+    expected_number_of_paper = 1
+
+    assert expected_number_of_paper == institution_record_es["number_of_papers"]
 
 
 def test_process_references_in_records_with_different_type_of_records_doesnt_throw_an_exception(
@@ -218,6 +259,39 @@ def test_update_relations(app, celery_app_with_context, celery_session_worker):
     ).one()
 
     assert conf_paper.literature_uuid == record.id
+
+
+def test_update_relations_with_modified_institutions(
+    app, celery_app_with_context, celery_session_worker
+):
+    institution_data = faker.record("ins", with_control_number=True)
+    institution = InspireRecord.create(institution_data)
+    db.session.commit()
+
+    institution_control_number = institution["control_number"]
+    inst_ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+
+    data = faker.record("lit", with_control_number=True)
+
+    data["authors"] = [
+        {
+            "full_name": "John Doe",
+            "affiliations": [{"value": "Institution", "record": {"$ref": inst_ref}}],
+        }
+    ]
+
+    record = InspireRecord.create(data, disable_relations_update=True)
+    db.session.commit()
+
+    task = update_relations.delay([record.id])
+
+    task.get(timeout=5)
+
+    institution_literature_relation = InstitutionLiterature.query.filter_by(
+        institution_uuid=institution.id
+    ).one()
+
+    assert institution_literature_relation.literature_uuid == record.id
 
 
 def test_update_relations_recalculate_citations_with_different_type_of_records_doesnt_throw_an_exception(
