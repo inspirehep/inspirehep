@@ -4,6 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import sys
+from contextlib import AbstractContextManager
 
 from flask import current_app, request
 from six import string_types
@@ -45,3 +47,16 @@ def get_facet_configuration(search_index):
 def minify_painless(script):
     """Remove unneeded whitespace from script."""
     return " ".join(script.split())
+
+
+class RecursionLimit(AbstractContextManager):
+    def __init__(self, limit):
+        self.limit = limit
+        self.original_limit = sys.getrecursionlimit()
+
+    def __enter__(self):
+        sys.setrecursionlimit(self.limit)
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        sys.setrecursionlimit(self.original_limit)
