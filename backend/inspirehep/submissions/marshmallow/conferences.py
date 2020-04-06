@@ -43,16 +43,18 @@ class Conference(Schema):
         builder = ConferenceBuilder()
         builder.add_title(title=data.get("name"), subtitle=data.get("subtitle"))
         builder.set_short_description(value=data.get("description", ""))
-        builder.set_opening_date(get_value(data, 'dates[0]'))
-        builder.set_closing_date(get_value(data, 'dates[1]'))
+        builder.set_opening_date(get_value(data, "dates[0]"))
+        builder.set_closing_date(get_value(data, "dates[1]"))
         builder.add_inspire_categories(data.get("field_of_interest", []))
         builder.add_public_note(value=data.get("additional_info", ""))
         builder.add_series(
-            name=data.get("series_name"),
-            number=data.get("series_number")
+            name=data.get("series_name"), number=data.get("series_number")
         )
         for address in data.get("addresses"):
-            country = pycountry.countries.get(name=address.get("country"))
+            try:
+                country = pycountry.countries.get(name=address.get("country"))
+            except KeyError:
+                country = pycountry.countries.get(official_name=address.get("country"))
 
             builder.add_address(
                 cities=[address.get("city")],
