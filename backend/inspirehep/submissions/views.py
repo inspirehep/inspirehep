@@ -28,10 +28,12 @@ from inspirehep.records.api import AuthorsRecord, ConferencesRecord, JobsRecord
 from inspirehep.submissions.errors import RESTDataError
 from inspirehep.utils import get_inspirehep_url
 
+from .errors import WorkflowStartError
+from .loaders import author_v1 as authors_loader_v1
 from .loaders import conference_v1 as conference_loader_v1
 from .loaders import job_v1 as job_loader_v1
-from .marshmallow import Author, Literature
-from .serializers import author_v1, job_v1  # TODO: use literature_v1 from serializers
+from .loaders import literature_v1 as literature_loader_v1
+from .serializers import author_v1, job_v1
 from .tasks import async_create_ticket_with_template
 from .utils import has_30_days_passed_after_deadline
 
@@ -41,7 +43,13 @@ LOGGER = structlog.getLogger()
 
 
 class BaseSubmissionsResource(MethodView):
+    decorators = [login_required_with_roles()]
+
+    def load_data_from_request(self):
+        return request.get_json()
+
     def send_post_request_to_inspire_next(self, endpoint, data):
+
         headers = {
             "content-type": "application/json",
             "Authorization": f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}",
@@ -51,7 +59,9 @@ class BaseSubmissionsResource(MethodView):
             data=json.dumps(data),
             headers=headers,
         )
-        return response
+        if response.status_code == 200:
+            return response.content
+        raise WorkflowStartError
 
     def get_acquisition_source(self):
         acquisition_source = dict(
@@ -65,7 +75,6 @@ class BaseSubmissionsResource(MethodView):
         orcid = self.get_user_orcid()
         if orcid:
             acquisition_source["orcid"] = orcid
-
         return acquisition_source
 
     # TODO: remove this and directly use `get_current_user_orcid`
@@ -74,58 +83,38 @@ class BaseSubmissionsResource(MethodView):
 
 
 class AuthorSubmissionsResource(BaseSubmissionsResource):
-    decorators = [login_required_with_roles()]
-
     def get(self, pid_value):
         try:
             record = AuthorsRecord.get_record_by_pid_value(pid_value)
         except PIDDoesNotExistError:
             abort(404)
-
         serialized_record = author_v1.dump(record)
         return jsonify({"data": serialized_record})
 
     def post(self):
-        submission_data = request.get_json()
-        return self.start_workflow_for_submission(submission_data["data"])
+        return self.start_workflow_for_submission()
 
     def put(self, pid_value):
-        submission_data = request.get_json()
-        return self.start_workflow_for_submission(submission_data["data"], pid_value)
+        return self.start_workflow_for_submission(pid_value)
 
-    def start_workflow_for_submission(self, submission_data, control_number=None):
+    def load_data_from_request(self):
+        return authors_loader_v1()
 
-        serialized_data = self.populate_and_serialize_data_for_submission(
-            submission_data, control_number
-        )
-        data = {"data": serialized_data}
-        response = self.send_post_request_to_inspire_next("/workflows/authors", data)
-
-        if response.status_code == 200:
-            return response.content
-        else:
-            abort(503)
-
-    def populate_and_serialize_data_for_submission(
-        self, submission_data, control_number=None
-    ):
+    def start_workflow_for_submission(self, control_number=None):
+        submission_data = self.load_data_from_request()
         submission_data["acquisition_source"] = self.get_acquisition_source()
-
-        # TODO: create and use loader instead of directly using schema
-        serialized_data = Author().load(submission_data).data
-
         if control_number:
-            serialized_data["control_number"] = int(control_number)
-
-        return serialized_data
+            submission_data["control_number"] = int(control_number)
+        payload = {"data": submission_data}
+        return self.send_post_request_to_inspire_next("/workflows/authors", payload)
 
 
 class ConferenceSubmissionsResource(BaseSubmissionsResource):
-    decorators = [login_required_with_roles()]
-
     def post(self):
         """Adds new conference record"""
-        data = conference_loader_v1()
+
+        data = self.load_data_from_request()
+
         record = ConferencesRecord.create(data)
         db.session.commit()
         if not is_superuser_or_cataloger_logged_in():
@@ -137,6 +126,9 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
             ),
             201,
         )
+
+    def load_data_from_request(self):
+        return conference_loader_v1()
 
     def create_ticket(self, record, rt_template):
         control_number = record["control_number"]
@@ -167,32 +159,29 @@ class ConferenceSubmissionsResource(BaseSubmissionsResource):
 
 
 class LiteratureSubmissionResource(BaseSubmissionsResource):
-    decorators = [login_required_with_roles()]
-
     def post(self):
-        submission_data = request.get_json()
-        return self.start_workflow_for_submission(submission_data["data"])
+        return self.start_workflow_for_submission()
 
-    def start_workflow_for_submission(self, submission_data, control_number=None):
-        serialized_data = Literature().load(submission_data).data
-        serialized_data["acquisition_source"] = self.get_acquisition_source()
+    def load_data_from_request(self):
+        return literature_loader_v1()
+
+    def start_workflow_for_submission(self, control_number=None):
+        submission_data = self.load_data_from_request()
+        # FIXME: we get the request data twice
+        request_submission_data = request.get_json()["data"]
         form_data = {
-            "url": submission_data.get("pdf_link"),
-            "references": submission_data.get("references"),
+            "url": request_submission_data.get("pdf_link"),
+            "references": request_submission_data.get("references"),
         }
-        payload = {"data": serialized_data, "form_data": form_data}
-
-        response = self.send_post_request_to_inspire_next(
-            "/workflows/literature", payload
-        )
-
-        if response.status_code == 200:
-            return response.content
-        abort(503)
+        submission_data["acquisition_source"] = self.get_acquisition_source()
+        payload = {"data": submission_data, "form_data": form_data}
+        return self.send_post_request_to_inspire_next("/workflows/literature", payload)
 
 
 class JobSubmissionsResource(BaseSubmissionsResource):
-    decorators = [login_required_with_roles()]
+
+    data_loader_from_request = job_loader_v1
+
     user_allowed_status_changes = {
         "pending": ["pending"],
         "open": ["open", "closed"],
@@ -221,7 +210,7 @@ class JobSubmissionsResource(BaseSubmissionsResource):
 
     def post(self):
         """Adds new job record"""
-        data = job_loader_v1()
+        data = self.load_data_from_request()
         builder = self.get_builder_with_new_record(data)
         data = self.get_valid_record_data_from_builder(builder)
         record = JobsRecord.create(data)
@@ -231,7 +220,8 @@ class JobSubmissionsResource(BaseSubmissionsResource):
 
     def put(self, pid_value):
         """Updates existing record in db"""
-        data = job_loader_v1()
+        data = self.load_data_from_request()
+
         try:
             pid, _ = pid_value.data
             record = JobsRecord.get_record_by_pid_value(pid.pid_value)
@@ -256,6 +246,9 @@ class JobSubmissionsResource(BaseSubmissionsResource):
             self.create_ticket(record, "rt/update_job.html")
 
         return jsonify({"pid_value": record["control_number"]})
+
+    def load_data_from_request(self):
+        return job_loader_v1()
 
     def raise_if_user_can_not_modify_status(self, data, existing_record):
         if is_superuser_or_cataloger_logged_in():
