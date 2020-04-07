@@ -1080,15 +1080,10 @@ def test_add_record_with_documents_and_figures(
     assert s3.file_exists(expected_figure_key) is True
     assert s3.file_exists(expected_document_key) is True
     metadata_document = s3.get_file_metadata(expected_document_key)
-    assert (
-        metadata_document["ContentDisposition"]
-        == f'attachment; filename="fermilab.pdf"'
-    )
+    assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
     metadata_figure = s3.get_file_metadata(expected_figure_key)
-    assert (
-        metadata_figure["ContentDisposition"] == f'attachment; filename="channel.png"'
-    )
+    assert metadata_figure["ContentDisposition"] == f'inline; filename="channel.png"'
     assert metadata_figure["ContentType"] == "image/png"
 
 
@@ -1261,7 +1256,7 @@ def test_adding_record_with_document_without_filename(
     assert expected_documents == record["documents"]
     assert s3.file_exists(expected_document_key) is True
     metadata_document = s3.get_file_metadata(expected_document_key)
-    assert metadata_document["ContentDisposition"] == f'attachment; filename="key"'
+    assert metadata_document["ContentDisposition"] == f'inline; filename="key"'
 
 
 @pytest.mark.vcr()
@@ -1284,16 +1279,12 @@ def test_adding_record_with_documents_with_existing_file_updates_metadata(
     create_record("lit", data=data)
     assert s3.file_exists(expected_document_key) is True
     metadata_document = s3.get_file_metadata(expected_document_key)
-    assert (
-        metadata_document["ContentDisposition"] == f'attachment; filename="file1.pdf"'
-    )
+    assert metadata_document["ContentDisposition"] == f'inline; filename="file1.pdf"'
     data["documents"][0]["filename"] = "file2.pdf"
     create_record("lit", data=data)
     assert s3.file_exists(expected_document_key) is True
     metadata_document = s3.get_file_metadata(expected_document_key)
-    assert (
-        metadata_document["ContentDisposition"] == f'attachment; filename="file2.pdf"'
-    )
+    assert metadata_document["ContentDisposition"] == f'inline; filename="file2.pdf"'
 
 
 @pytest.mark.vcr()
@@ -1436,15 +1427,10 @@ def test_update_record_with_documents_and_figures(
     assert s3.file_exists(expected_figure_key) is True
     assert s3.file_exists(expected_document_key) is True
     metadata_document = s3.get_file_metadata(expected_document_key)
-    assert (
-        metadata_document["ContentDisposition"]
-        == f'attachment; filename="fermilab.pdf"'
-    )
+    assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
     metadata_figure = s3.get_file_metadata(expected_figure_key)
-    assert (
-        metadata_figure["ContentDisposition"] == f'attachment; filename="channel.png"'
-    )
+    assert metadata_figure["ContentDisposition"] == f'inline; filename="channel.png"'
     assert metadata_figure["ContentType"] == "image/png"
 
 
@@ -1545,10 +1531,7 @@ def test_update_record_add_more_documents(
     assert s3.file_exists(expected_updated_document_key) is True
     assert s3.file_exists(expected_document_key) is True
     metadata_document = s3.get_file_metadata(expected_updated_document_key)
-    assert (
-        metadata_document["ContentDisposition"]
-        == f'attachment; filename="fermilab.pdf"'
-    )
+    assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
 
 

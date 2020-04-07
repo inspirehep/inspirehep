@@ -99,7 +99,7 @@ class S3:
 
     @staticmethod
     def get_content_disposition(filename):
-        return f'attachment; filename="{secure_filename(filename)}"'
+        return f'inline; filename="{secure_filename(filename)}"'
 
     def replace_file_metadata(self, key, filename, mimetype, acl):
         """Updates the metadata of the given file.
