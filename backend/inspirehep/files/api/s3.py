@@ -99,7 +99,21 @@ class S3:
 
     @staticmethod
     def get_content_disposition(filename):
-        return f'inline; filename="{secure_filename(filename)}"'
+        without_subformat = S3.remove_subformat(filename)
+        return f'inline; filename="{secure_filename(without_subformat)}"'
+
+    @staticmethod
+    def remove_subformat(filename):
+        parts = filename.split(".")
+
+        if len(parts) == 0:
+            return filename
+
+        ext = parts.pop()
+        ext_without_subformat = ext.split(";")[0]
+        filename = ".".join(parts)
+
+        return f"{filename}.{ext_without_subformat}"
 
     def replace_file_metadata(self, key, filename, mimetype, acl):
         """Updates the metadata of the given file.
