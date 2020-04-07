@@ -1227,7 +1227,7 @@ def test_confirmation_email_sent_for_regular_user(
 def test_conference_with_country_official_name(
     ticket_mock, app, api_client, create_user
 ):
-    CZECH_CONFERENCE_FORM_DATA = dict(CONFERENCE_FORM_DATA)
+    CZECH_CONFERENCE_FORM_DATA = deepcopy(CONFERENCE_FORM_DATA)
     CZECH_CONFERENCE_FORM_DATA["addresses"][0]["country"] = "Czech Republic"
     user = create_user()
     login_user_via_session(api_client, email=user.email)
