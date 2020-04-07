@@ -12,6 +12,10 @@ from sqlalchemy import text
 def test_downgrade(base_app, database):
     alembic = Alembic(base_app)
 
+    alembic.downgrade(target="595c36d68964")
+    assert (
+        _check_column_in_table(database, "records_citations", "citation_type") == False
+    
     alembic.downgrade("cea5fa2e5d2c")
 
     assert "records_authors" not in _get_table_names(database)
@@ -168,6 +172,10 @@ def test_upgrade(base_app, database):
     )
     assert "ix_records_citations_cited_id_citer_id" in _get_indexes(
         "records_citations", database
+    
+    alembic.upgrade(target="5a0e2405b624")
+    assert (
+        _check_column_in_table(database, "records_citations", "citation_type") == True
     )
 
 
@@ -200,9 +208,14 @@ def _get_table_names(db_alembic):
 
 
 def _get_custom_enums(db_alembic):
-    query = """ SELECT pg_type.typname AS enumtype,
-        pg_enum.enumlabel AS enumlabel
-        FROM pg_type
-        JOIN pg_enum
+    query = """ SELECT pg_type.typname AS enumtype,  
+        pg_enum.enumlabel AS enumlabel 
+        FROM pg_type  
+        JOIN pg_enum  
             ON pg_enum.enumtypid = pg_type.oid;"""
     return set([a[0] for a in db_alembic.session.execute(query)])
+
+
+def _check_column_in_table(db_alembic, table, column):
+    insp = reflection.Inspector.from_engine(db_alembic.engine)
+    return column in [col["name"] for col in insp.get_columns(table)]
