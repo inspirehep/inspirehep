@@ -120,5 +120,17 @@ def test_get_file_url(base_app, appctx):
 
 def test_get_content_disposition_with_broken_filename(base_app, appctx):
     expected_content_disposition = 'inline; filename="Mass_mm_.s"'
-    result = current_s3_instance.get_content_disposition("Mass_mm\n.s\n")
+    result = current_s3_instance.get_content_disposition("Mass_mm\n.s;b\n")
+    assert result == expected_content_disposition
+
+
+def test_get_content_disposition_with_subformat(base_app, appctx):
+    expected_content_disposition = 'inline; filename="file.fulltext.pdf"'
+    result = current_s3_instance.get_content_disposition("file.full;text.pdf;pdfa;a")
+    assert result == expected_content_disposition
+
+
+def test_get_content_disposition_without_extension(base_app, appctx):
+    expected_content_disposition = 'inline; filename="file"'
+    result = current_s3_instance.get_content_disposition("file")
     assert result == expected_content_disposition
