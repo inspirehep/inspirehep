@@ -31,7 +31,7 @@ def test_upload_file(base_app, appctx, s3, create_s3_bucket):
     result = current_s3_instance.client.head_object(
         Bucket=s3.get_bucket_for_file_key(KEY), Key=KEY
     )
-    assert result["ContentDisposition"] == f'attachment; filename="{filename}"'
+    assert result["ContentDisposition"] == f'inline; filename="{filename}"'
     assert result["ContentType"] == mimetype
     content = (
         current_s3_instance.resource.Object(s3.get_bucket_for_file_key(KEY), KEY)
@@ -63,7 +63,7 @@ def test_replace_file_metadata(base_app, appctx, s3, create_s3_bucket, create_s3
     result = current_s3_instance.client.head_object(
         Bucket=s3.get_bucket_for_file_key(KEY), Key=KEY
     )
-    assert result["ContentDisposition"] == f'attachment; filename="{filename}"'
+    assert result["ContentDisposition"] == f'inline; filename="{filename}"'
     assert result["ContentType"] == mimetype
     assert result["Metadata"] == {}
 
@@ -119,6 +119,6 @@ def test_get_file_url(base_app, appctx):
 
 
 def test_get_content_disposition_with_broken_filename(base_app, appctx):
-    expected_content_disposition = 'attachment; filename="Mass_mm_.s"'
+    expected_content_disposition = 'inline; filename="Mass_mm_.s"'
     result = current_s3_instance.get_content_disposition("Mass_mm\n.s\n")
     assert result == expected_content_disposition
