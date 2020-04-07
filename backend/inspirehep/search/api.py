@@ -17,6 +17,7 @@ from invenio_search.api import DefaultFilter, RecordsSearch
 from inspirehep.accounts.api import is_superuser_or_cataloger_logged_in
 from inspirehep.pidstore.api import PidStoreBase
 from inspirehep.search.factories import inspire_query_factory
+from inspirehep.search.utils import RecursionLimit
 
 IQ = inspire_query_factory()
 
@@ -97,6 +98,10 @@ class InspireSearch(RecordsSearch, SearchMixin):
 
     def source_for_content_type(self, content_type):
         return self
+
+    def execute(self, *args, **kwargs):
+        with RecursionLimit(current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)):
+            return super().execute(*args, **kwargs)
 
 
 class LiteratureSearch(InspireSearch):
