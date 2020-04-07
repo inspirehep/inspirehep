@@ -5,6 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import json
+import urllib
 
 from helpers.providers.faker import faker
 from invenio_accounts.testutils import login_user_via_session
@@ -170,3 +171,10 @@ def test_citations_query_result(api_client, db, es_clear, create_record):
     assert response.json["metadata"]["citation_count"] == 1
     citation = response.json["metadata"]["citations"][0]
     assert citation["control_number"] == record_citing["control_number"]
+
+
+def test_big_query_execute_without_recursion_depth_exception(api_client, db, es_clear):
+    query = {"q": "find a name" + " or a name" * 300}
+    url = "api/literature?" + urllib.parse.urlencode(query)
+    response = api_client.get(url)
+    assert response.status_code == 200
