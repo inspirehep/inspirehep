@@ -61,7 +61,7 @@ def test_author_get_requires_authentication(api_client):
 
 
 @freeze_time("2019-06-17")
-def test_new_author_submit(app, api_client, create_user, requests_mock):
+def test_new_author_submit(app, api_client, db, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
         json={"workflow_object_id": 30},
@@ -92,14 +92,13 @@ def test_new_author_submit(app, api_client, create_user, requests_mock):
         == history.headers["Authorization"]
     )
     assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
-    assert post_data == {
+    expected_data = {
         "data": {
             "_collections": ["Authors"],
             "acquisition_source": {
                 "email": user.email,
                 "method": "submitter",
                 "source": "submitter",
-                "submission_number": "None",
                 "internal_uid": user.id,
                 "datetime": "2019-06-17T00:00:00",
             },
@@ -107,10 +106,11 @@ def test_new_author_submit(app, api_client, create_user, requests_mock):
             "status": "active",
         }
     }
+    assert expected_data == post_data
 
 
 def test_new_author_submit_with_workflows_error(
-    app, api_client, create_user_and_token, requests_mock
+    app, api_client, db, create_user_and_token, requests_mock
 ):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors", status_code=500
@@ -135,7 +135,7 @@ def test_new_author_submit_with_workflows_error(
 
 
 def test_new_author_submit_works_with_session_login(
-    app, api_client, create_user, requests_mock
+    app, api_client, db, create_user, requests_mock
 ):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
@@ -159,7 +159,7 @@ def test_new_author_submit_works_with_session_login(
     assert response.status_code == 200
 
 
-def test_get_author_update_data(app, api_client, create_user, create_record_factory):
+def test_get_author_update_data(api_client, db, create_user, create_record_factory):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 
@@ -182,7 +182,6 @@ def test_get_author_update_data(app, api_client, create_user, create_record_fact
             "emails": [{"value": "public@john.ch"}],
         }
     }
-
     response = api_client.get(
         "/submissions/authors/123", headers={"Accept": "application/json"}
     )
@@ -192,7 +191,7 @@ def test_get_author_update_data(app, api_client, create_user, create_record_fact
 
 
 def test_get_author_update_data_of_same_author(
-    app, api_client, create_user, create_record_factory
+    api_client, db, create_user, create_record_factory
 ):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
@@ -231,7 +230,7 @@ def test_get_author_update_data_of_same_author(
     assert response_data == expected_data
 
 
-def test_get_author_update_data_not_found(api_client, create_user):
+def test_get_author_update_data_not_found(api_client, db, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 
@@ -251,7 +250,7 @@ def test_get_author_update_data_requires_auth(api_client):
 
 
 @freeze_time("2019-06-17")
-def test_update_author(app, api_client, create_user, requests_mock):
+def test_update_author(app, api_client, db, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
         json={"workflow_object_id": 30},
@@ -280,57 +279,30 @@ def test_update_author(app, api_client, create_user, requests_mock):
         and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
-    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
-    assert post_data == {
+
+    expected_data = {
         "data": {
             "_collections": ["Authors"],
+            "name": {"preferred_name": "John Doe", "value": "John"},
+            "status": "active",
             "acquisition_source": {
                 "email": user.email,
+                "datetime": "2019-06-17T00:00:00",
                 "method": "submitter",
                 "source": "submitter",
-                "submission_number": "None",
                 "internal_uid": user.id,
-                "datetime": "2019-06-17T00:00:00",
             },
             "control_number": 123,
-            "name": {"value": "John", "preferred_name": "John Doe"},
-            "status": "active",
         }
     }
+    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
+    assert expected_data == post_data
 
 
-@patch("inspirehep.submissions.views.current_user", email="johndoe@gmail.com")
-@patch("inspirehep.submissions.views.current_user.get_id", return_value=1)
-@patch(
-    "inspirehep.submissions.views.BaseSubmissionsResource.get_user_orcid",
-    return_value=2,
-)
 @freeze_time("2019-06-17")
-def test_populate_and_serialize_data_for_submission(
-    mock_get_user_orcid, mock_get_id, mock_current_user, app
+def test_new_literature_submit_no_merge(
+    app, api_client, db, create_user, requests_mock
 ):
-    data = {"given_name": "John", "display_name": "John Doe", "status": "active"}
-
-    expected = {
-        "_collections": ["Authors"],
-        "name": {"preferred_name": "John Doe", "value": "John"},
-        "status": "active",
-        "acquisition_source": {
-            "submission_number": "None",
-            "email": "johndoe@gmail.com",
-            "method": "submitter",
-            "source": "submitter",
-            "orcid": 2,
-            "internal_uid": 1,
-            "datetime": "2019-06-17T00:00:00",
-        },
-    }
-    data = AuthorSubmissionsResource().populate_and_serialize_data_for_submission(data)
-    assert data == expected
-
-
-@freeze_time("2019-06-17")
-def test_new_literature_submit_no_merge(app, api_client, create_user, requests_mock):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
         json={"workflow_object_id": 30},
@@ -396,7 +368,9 @@ def test_new_literature_submit_no_merge(app, api_client, create_user, requests_m
 
 
 @freeze_time("2019-06-17")
-def test_new_literature_submit_arxiv_urls(app, api_client, create_user, requests_mock):
+def test_new_literature_submit_arxiv_urls(
+    app, api_client, db, create_user, requests_mock
+):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
         json={"workflow_object_id": 30},
@@ -461,7 +435,7 @@ def test_new_literature_submit_arxiv_urls(app, api_client, create_user, requests
 
 
 def test_new_literature_submit_works_with_session_login(
-    app, api_client, create_user, requests_mock
+    app, api_client, db, create_user, requests_mock
 ):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
@@ -505,7 +479,7 @@ def test_new_literature_submit_requires_authentication(api_client):
 
 
 def test_new_literature_submit_with_workflows_api_error(
-    app, api_client, create_user_and_token, requests_mock
+    app, api_client, db, create_user_and_token, requests_mock
 ):
     requests_mock.post(
         f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature", status_code=500
@@ -572,7 +546,7 @@ def test_job_get_requires_authentication(ticket_mock, api_client):
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit_by_user(create_ticket_mock, app, api_client, create_user):
+def test_new_job_submit_by_user(create_ticket_mock, api_client, db, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
     response = api_client.post(
@@ -590,7 +564,7 @@ def test_new_job_submit_by_user(create_ticket_mock, app, api_client, create_user
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit_by_cataloger(ticket_mock, app, api_client, create_user):
+def test_new_job_submit_by_cataloger(ticket_mock, api_client, db, create_user):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -610,7 +584,7 @@ def test_new_job_submit_by_cataloger(ticket_mock, app, api_client, create_user):
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_job_submit_with_wrong_field_value(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -625,7 +599,7 @@ def test_new_job_submit_with_wrong_field_value(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_job_submit_with_wrong_status_value(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -643,7 +617,7 @@ def test_new_job_submit_with_wrong_status_value(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job(create_ticket_mock, app, api_client, create_user):
+def test_update_job(create_ticket_mock, api_client, db, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 
@@ -673,7 +647,7 @@ def test_update_job(create_ticket_mock, app, api_client, create_user):
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_pending_not_curator(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -701,7 +675,7 @@ def test_update_job_status_from_pending_not_curator(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_from_pending_curator(
-    create_ticket_mock, app, api_client, create_user
+    create_ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -735,7 +709,7 @@ def test_update_job_status_from_pending_curator(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_data_from_different_user(ticket_mock, app, api_client, create_user):
+def test_update_job_data_from_different_user(ticket_mock, api_client, db, create_user):
     user = create_user()
     user2 = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -758,7 +732,7 @@ def test_update_job_data_from_different_user(ticket_mock, app, api_client, creat
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_status_from_open(ticket_mock, app, api_client, create_user):
+def test_update_job_status_from_open(ticket_mock, api_client, db, create_user):
     user = create_user()
     curator = create_user(role="cataloger")
     login_user_via_session(api_client, email=user.email)
@@ -791,7 +765,7 @@ def test_update_job_status_from_open(ticket_mock, app, api_client, create_user):
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_30_days_after_deadline(app, api_client, create_user):
+def test_job_update_data_30_days_after_deadline(api_client, db, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 
@@ -811,7 +785,7 @@ def test_job_update_data_30_days_after_deadline(app, api_client, create_user):
 
 @freeze_time("2019-01-31")
 def test_job_update_data_30_days_after_deadline_with_cataloger(
-    app, api_client, create_user
+    api_client, db, create_user
 ):
     cataloger = create_user(role="cataloger")
     login_user_via_session(api_client, email=cataloger.email)
@@ -831,7 +805,7 @@ def test_job_update_data_30_days_after_deadline_with_cataloger(
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_less_than_30_days_after_deadline(app, api_client, create_user):
+def test_job_update_data_less_than_30_days_after_deadline(api_client, db, create_user):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 
@@ -850,7 +824,7 @@ def test_job_update_data_less_than_30_days_after_deadline(app, api_client, creat
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_from_closed_by_user(ticket_mock, app, api_client, create_user):
+def test_update_job_from_closed_by_user(ticket_mock, api_client, db, create_user):
     user = create_user()
     curator = create_user(role="cataloger")
     login_user_via_session(api_client, email=user.email)
@@ -884,7 +858,7 @@ def test_update_job_from_closed_by_user(ticket_mock, app, api_client, create_use
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_update_30_days_after_deadline_by_user(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     curator = create_user(role="cataloger")
@@ -919,7 +893,7 @@ def test_update_job_status_update_30_days_after_deadline_by_user(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_remove_not_compulsory_fields(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -967,7 +941,7 @@ def test_update_job_remove_not_compulsory_fields(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_regression_update_job_without_acquisition_source_doesnt_give_500(
-    ticket_mock, app, api_client, create_user, create_record
+    ticket_mock, api_client, db, create_user, create_record
 ):
     data = {
         "status": "open",
@@ -1019,7 +993,7 @@ CONFERENCE_FORM_DATA = {
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fields_correct(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -1094,7 +1068,7 @@ def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fi
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_user_conference_submission_missing_dates_has_no_cnum(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -1121,7 +1095,7 @@ def test_new_user_conference_submission_missing_dates_has_no_cnum(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_non_logged_in_user_tries_to_submit(ticket_mock, app, api_client):
+def test_non_logged_in_user_tries_to_submit(ticket_mock, api_client):
     form_data = deepcopy(CONFERENCE_FORM_DATA)
 
     response = api_client.post(
@@ -1137,7 +1111,7 @@ def test_non_logged_in_user_tries_to_submit(ticket_mock, app, api_client):
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_rt_ticket_when_cataloger_submits_conference(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -1154,7 +1128,7 @@ def test_rt_ticket_when_cataloger_submits_conference(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_rt_ticket_when_superuser_submits_conference(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     user = create_user(role=Roles.superuser.value)
     login_user_via_session(api_client, email=user.email)
@@ -1171,7 +1145,7 @@ def test_rt_ticket_when_superuser_submits_conference(
 
 @patch("inspirehep.submissions.views.send_conference_confirmation_email")
 def test_confirmation_email_not_sent_when_user_is_superuser(
-    mock_send_confirmation_email, app, api_client, create_user
+    mock_send_confirmation_email, api_client, db, create_user
 ):
     user = create_user(role=Roles.superuser.value)
     login_user_via_session(api_client, email=user.email)
@@ -1188,7 +1162,7 @@ def test_confirmation_email_not_sent_when_user_is_superuser(
 
 @patch("inspirehep.submissions.views.send_conference_confirmation_email")
 def test_confirmation_email_not_sent_when_user_is_cataloger(
-    mock_send_confirmation_email, app, api_client, create_user
+    mock_send_confirmation_email, api_client, db, create_user
 ):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
@@ -1205,7 +1179,7 @@ def test_confirmation_email_not_sent_when_user_is_cataloger(
 
 @patch("inspirehep.submissions.views.send_conference_confirmation_email")
 def test_confirmation_email_sent_for_regular_user(
-    mock_send_confirmation_email, app, api_client, create_user
+    mock_send_confirmation_email, api_client, db, create_user
 ):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
@@ -1225,7 +1199,7 @@ def test_confirmation_email_sent_for_regular_user(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_conference_with_country_official_name(
-    ticket_mock, app, api_client, create_user
+    ticket_mock, api_client, db, create_user
 ):
     CZECH_CONFERENCE_FORM_DATA = deepcopy(CONFERENCE_FORM_DATA)
     CZECH_CONFERENCE_FORM_DATA["addresses"][0]["country"] = "Czech Republic"
@@ -1236,6 +1210,7 @@ def test_conference_with_country_official_name(
         content_type="application/json",
         data=json.dumps({"data": CZECH_CONFERENCE_FORM_DATA}),
     )
+
     assert response.status_code == 201
 
     payload = json.loads(response.data)
@@ -1244,3 +1219,17 @@ def test_conference_with_country_official_name(
     conference_rec = ConferencesRecord.get_record_by_pid_value(conference_id)
     assert get_value(conference_rec, "addresses[0].country_code") == "CZ"
     ticket_mock.delay.assert_called_once()
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_conference_raise_loader_error(ticket_mock, api_client, db, create_user):
+    DATA = deepcopy(CONFERENCE_FORM_DATA)
+    DATA["addresses"][0]["country"] = "Graham City"
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+    response = api_client.post(
+        "/submissions/conferences",
+        content_type="application/json",
+        data=json.dumps({"data": DATA}),
+    )
+    assert response.status_code == 400

@@ -10,9 +10,9 @@
 from flask import request
 from invenio_records_rest.loaders.marshmallow import MarshmallowErrors
 
-from inspirehep.submissions.errors import RESTDataError
+from inspirehep.submissions.errors import LoaderDataError, RESTDataError
 
-from .marshmallow import Conference, Job
+from .marshmallow import Author, Conference, Job, Literature
 
 
 def inspire_submission_marshmallow_loader(schema_class):
@@ -24,15 +24,16 @@ def inspire_submission_marshmallow_loader(schema_class):
         context = {}
         pid_data = request.view_args.get("pid_value")
         if pid_data:
-            pid, _ = pid_data.data
+            pid = pid_data
             context["pid"] = pid
 
         try:
             result = schema_class(context=context).load(request_json)
         except ValueError as e:
             raise RESTDataError(e.args)
+        except Exception as e:
+            raise LoaderDataError() from e
 
-        # To return nice message when builder.validation() will fail
         if result.errors:
             raise MarshmallowErrors(result.errors)
         return result.data
@@ -40,5 +41,7 @@ def inspire_submission_marshmallow_loader(schema_class):
     return json_loader
 
 
+author_v1 = inspire_submission_marshmallow_loader(Author)
 conference_v1 = inspire_submission_marshmallow_loader(Conference)
 job_v1 = inspire_submission_marshmallow_loader(Job)
+literature_v1 = inspire_submission_marshmallow_loader(Literature)
