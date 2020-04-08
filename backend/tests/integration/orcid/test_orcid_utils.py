@@ -24,21 +24,14 @@
 import json
 import time
 
-import mock
 import pytest
 from celery import shared_task
-from celery.exceptions import MaxRetriesExceededError, TimeLimitExceeded
 from inspire_dojson.utils import get_record_ref
 from inspire_schemas.api import validate
 from invenio_pidstore.errors import PIDAlreadyExists
 from sqlalchemy.orm.exc import NoResultFound
 
-from inspirehep.orcid.utils import (
-    RetryMixin,
-    apply_celery_task_with_retry,
-    get_literature_recids_for_orcid,
-    get_orcids_for_push,
-)
+from inspirehep.orcid.utils import get_literature_recids_for_orcid, get_orcids_for_push
 from inspirehep.records.api import InspireRecord
 
 # The tests are written in a specific order, disable random
@@ -233,98 +226,3 @@ def get_full_name_test_task(
             exception = None
         raise self.retry(max_retries=3, countdown=5, exc=exception)
     return "{} {} {}".format(first_name, nick_name, last_name)
-
-
-class TestApplyCeleryTaskWithRetry(object):
-    def test_happy_flow(self):
-        args = ("a", "c")
-        kwargs = dict(nick_name="b")
-        with mock.patch(
-            "inspirehep.orcid.utils.RetryMixin.retry", wraps=RetryMixin().retry
-        ) as mock_retry:
-            result = apply_celery_task_with_retry(
-                get_full_name_test_task, args=args, kwargs=kwargs
-            )
-        assert mock_retry.call_count == 0
-        assert result == "a b c"
-
-    def test_retry(self):
-        args = ("a", "c")
-        kwargs = dict(nick_name="b", fail_until_retry_num=3)
-        with mock.patch(
-            "inspirehep.orcid.utils.RetryMixin.retry", wraps=RetryMixin().retry
-        ) as mock_retry:
-            result = apply_celery_task_with_retry(
-                get_full_name_test_task,
-                args=args,
-                kwargs=kwargs,
-                countdown=0,
-                max_retries=5,
-            )
-        assert mock_retry.call_count == 3
-        assert result == "a b c"
-
-    def test_retry_and_fail(self):
-        args = ("a", "c")
-        kwargs = dict(nick_name="b", fail_until_retry_num=100, original_exc=False)
-        with pytest.raises(MaxRetriesExceededError):
-            apply_celery_task_with_retry(
-                get_full_name_test_task,
-                args=args,
-                kwargs=kwargs,
-                countdown=0,
-                max_retries=5,
-            )
-
-    def test_retry_and_fail_original_exc(self):
-        args = ("a", "c")
-        kwargs = dict(nick_name="b", fail_until_retry_num=100)
-        with pytest.raises(AttributeError):
-            apply_celery_task_with_retry(
-                get_full_name_test_task,
-                args=args,
-                kwargs=kwargs,
-                countdown=0,
-                max_retries=5,
-            )
-
-    def test_countdown_callable(self):
-        args = ("a", "c")
-        kwargs = dict(nick_name="b", fail_until_retry_num=2)
-        backoff = mock.Mock()
-        backoff.return_value = 0
-        result = apply_celery_task_with_retry(
-            get_full_name_test_task,
-            args=args,
-            kwargs=kwargs,
-            countdown=backoff,
-            max_retries=5,
-        )
-        assert backoff.call_count == 2
-        assert result == "a b c"
-
-    def test_time_limit(self):
-        args = ("a", "c")
-        kwargs = dict(nick_name="b", sleep_time=3)
-        with pytest.raises(TimeLimitExceeded):
-            apply_celery_task_with_retry(
-                get_full_name_test_task,
-                args=args,
-                kwargs=kwargs,
-                countdown=0,
-                max_retries=5,
-                time_limit=1,
-            )
-
-    def test_time_limit_applied_on_single_attempt(self):
-        args = ("a", "c")
-        kwargs = dict(nick_name="b", sleep_time=3, sleep_until_retry_num=3)
-        result = apply_celery_task_with_retry(
-            get_full_name_test_task,
-            args=args,
-            kwargs=kwargs,
-            countdown=0,
-            max_retries=5,
-            time_limit=1,
-        )
-        assert result == "a b c"

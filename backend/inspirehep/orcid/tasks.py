@@ -26,7 +26,7 @@ from time_execution import time_execution
 from inspirehep.orcid import exceptions as domain_exceptions
 from inspirehep.orcid.utils import get_literature_recids_for_orcid
 
-from . import domain_models
+from . import domain_models, exceptions
 
 LOGGER = structlog.getLogger()
 USER_EMAIL_EMPTY_PATTERN = "{}@FAKEEMAILINSPIRE.FAKE"
@@ -250,6 +250,7 @@ def orcid_push(self, orcid, rec_id, oauth_token, kwargs_to_pusher=None):
         )
         raise self.retry(max_retries=3, countdown=backoff, exc=exc)
     except (
+        exceptions.DuplicatedExternalIdentifierPusherException,
         domain_exceptions.RecordNotFoundException,
         domain_exceptions.StaleRecordDBVersionException,
     ) as exc:

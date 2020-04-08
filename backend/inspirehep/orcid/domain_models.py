@@ -270,25 +270,12 @@ class OrcidPusher(object):
             # Local import to avoid import error.
             from inspirehep.orcid import tasks
 
-            max_retries = 3
-            # Execute the orcid_push Celery task synchronously.
-            backoff = lambda retry_count: [30, 2 * 60, 7 * 60][  # noqa: E731
-                retry_count % max_retries
-            ]
-            utils.apply_celery_task_with_retry(
-                tasks.orcid_push,
-                kwargs={
-                    "orcid": self.orcid,
-                    "rec_id": recid,
-                    "oauth_token": self.oauth_token,
-                    # Set `do_fail_if_duplicated_identifier` to avoid an
-                    # infinite recursive calls chain.
-                    "kwargs_to_pusher": dict(
-                        pushing_duplicated_identifier=True,
-                        record_db_version=self.record_db_version,
-                    ),
-                },
-                max_retries=max_retries,
-                countdown=backoff,
-                time_limit=10 * 60,
+            tasks.orcid_push(
+                self.orcid,
+                recid,
+                self.oauth_token,
+                dict(
+                    pushing_duplicated_identifier=True,
+                    record_db_version=self.record_db_version,
+                ),
             )
