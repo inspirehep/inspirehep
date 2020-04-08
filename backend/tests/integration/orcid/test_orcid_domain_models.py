@@ -461,22 +461,6 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
         assert self.putcode == result_putcode
         assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_exc_in_apply_celery_task_with_retry(self):
-        with override_config(
-            FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
-            FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
-            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
-        ), mock.patch(
-            "inspirehep.orcid.utils.apply_celery_task_with_retry"
-        ) as apply_celery_task_with_retry_mock, pytest.raises(
-            TimeLimitExceeded
-        ):
-            apply_celery_task_with_retry_mock.side_effect = TimeLimitExceeded
-            pusher = domain_models.OrcidPusher(
-                self.orcid, self.clashing_recid, self.oauth_token
-            )
-            pusher.push()
-
     def test_duplicated_external_identifier_pusher_exception(self):
         self.factory_clashing.record_metadata.json["titles"] = [
             {"source": "submitter", "title": "title1"}
