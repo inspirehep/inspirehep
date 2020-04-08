@@ -48,7 +48,7 @@ def test_full_schema():
         "dois": [{"value": "10.1088/1361-6633/aa5514"}],
         "arxiv_eprints": [{"value": "1607.06746", "categories": ["hep-th"]}],
         "publication_info": {
-            "journal_title": "Phys.\\ Rev.\\ A",
+            "journal_title": "Phys. Rev. A",
             "journal_volume": "58",
             "page_start": "500",
             "page_end": "593",
@@ -95,7 +95,7 @@ def test_publication_info_schema():
         ],
     }
     expected = {
-        "journal_title": "Phys.\\ Rev.\\ A",
+        "journal_title": "Phys. Rev. A",
         "journal_volume": "58",
         "page_start": "500",
         "page_end": "593",
@@ -122,7 +122,7 @@ def test_publication_info_does_not_generate_page_range_with_page_end():
         ],
     }
     expected = {
-        "journal_title": "Phys.\\ Rev.\\ A",
+        "journal_title": "Phys. Rev. A",
         "journal_volume": "58",
         "page_end": "500",
         "artid": "17920",
@@ -147,7 +147,7 @@ def test_publication_info_generates_page_range_with_page_start():
         ],
     }
     expected = {
-        "journal_title": "Phys.\\ Rev.\\ A",
+        "journal_title": "Phys. Rev. A",
         "journal_volume": "58",
         "page_start": "500",
         "page_range": "500",

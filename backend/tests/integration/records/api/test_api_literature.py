@@ -433,9 +433,9 @@ def test_dump_for_es_adds_latex_and_bibtex_displays(base_app, db, es):
     data = faker.record("lit", data=additional_fields)
     record = LiteratureRecord.create(data)
     dump = record.serialize_for_es()
-    expected_latex_eu_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys.\\ Rev.\\ A \\textbf{58} (2014), 500-593\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
-    expected_latex_us_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys.\\ Rev.\\ A \\textbf{58}, 500-593 (2014)\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
-    expected_bibtex_display = '@article{a123bx,\n    author = "Castle, Frank and Smith, John and Black, Joe Jr. and Jimmy",\n    archivePrefix = "arXiv",\n    collaboration = "LHCb",\n    doi = "10.1088/1361-6633/aa5514",\n    eprint = "1607.06746",\n    journal = "Phys.\\ Rev.\\ A",\n    pages = "17920",\n    primaryClass = "hep-th",\n    reportNumber = "DESY-17-036",\n    title = "{Jessica Jones}",\n    volume = "58",\n    year = "2014"\n}\n'
+    expected_latex_eu_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58} (2014), 500-593\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_latex_us_display = "%\\cite{a123bx}\n\\bibitem{a123bx}\nF.~Castle \\textit{et al.} [LHCb],\n%``Jessica Jones,''\nPhys. Rev. A \\textbf{58}, 500-593 (2014)\ndoi:10.1088/1361-6633/aa5514\n[arXiv:1607.06746 [hep-th]].\n%0 citations counted in INSPIRE as of 19 Dec 1994"
+    expected_bibtex_display = '@article{a123bx,\n    author = "Castle, Frank and Smith, John and Black, Joe Jr. and Jimmy",\n    archivePrefix = "arXiv",\n    collaboration = "LHCb",\n    doi = "10.1088/1361-6633/aa5514",\n    eprint = "1607.06746",\n    journal = "Phys. Rev. A",\n    pages = "17920",\n    primaryClass = "hep-th",\n    reportNumber = "DESY-17-036",\n    title = "{Jessica Jones}",\n    volume = "58",\n    year = "2014"\n}\n'
     assert expected_latex_eu_display == dump["_latex_eu_display"]
     assert expected_latex_us_display == dump["_latex_us_display"]
     assert expected_bibtex_display == dump["_bibtex_display"]
