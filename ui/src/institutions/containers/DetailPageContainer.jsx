@@ -21,6 +21,8 @@ import InstitutionsNameVariantsList from '../components/InstitutionNameVariantsL
 import InstitutionPeople from '../components/InstitutionPeople';
 import RelatedRecordsList from '../components/RelatedRecordsList';
 import { getInstitutionMetaDescription } from '../utils';
+import InstitutionsHistoricalDataList from '../components/InstitutionsHistoricalDataList';
+import PublicNotesList from '../../common/components/PublicNotesList';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -36,6 +38,8 @@ function DetailPage({ record }) {
   const successorInstitutitons = metadata.get('successor_institutions');
   const predecessorInstitutions = metadata.get('predecessor_institutions');
   const subsidiaryInstitutions = metadata.get('subsidiary_institutions');
+  const historicalData = metadata.get('historical_data');
+  const publicNotes = metadata.get('public_notes');
   const metaDescription = useMemo(
     () => getInstitutionMetaDescription(metadata),
     [metadata]
@@ -72,6 +76,8 @@ function DetailPage({ record }) {
                 parentInstitutions,
                 successorInstitutitons,
                 predecessorInstitutions,
+                publicNotes,
+                historicalData,
               ]}
             >
               <Row className="mt3">
@@ -87,6 +93,10 @@ function DetailPage({ record }) {
                     </Row>
                   )}
                   <InstitutionsNameVariantsList nameVariants={nameVariants} />
+                  <InstitutionsHistoricalDataList
+                    historicalData={historicalData}
+                  />
+                  <PublicNotesList publicNotes={publicNotes} />
                   <RelatedRecordsList
                     relatedRecords={parentInstitutions}
                     relationType="Parent"
