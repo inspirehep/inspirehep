@@ -6,11 +6,10 @@ export function getPapersQueryString(recordId) {
 }
 
 function getAddressText(address) {
-  const placeName = address.get('place_name');
-  const city = address.getIn(['cities', 0]);
-  const state = address.get('state');
+  const postalAddresses = address.get('postal_address', List());
   const country = address.get('country');
-  const addressElements = [placeName, city, state, country];
+  const postalAddress = postalAddresses.join(', ');
+  const addressElements = [postalAddress, country];
   const addressText = addressElements.filter(Boolean).join(', ');
   return addressText;
 }

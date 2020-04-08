@@ -7,13 +7,13 @@ import { LoginOutlined } from '@ant-design/icons';
 
 import ResultItem from '../../common/components/ResultItem';
 import { INSTITUTIONS, LITERATURE } from '../../common/routes';
-import AddressList from '../../common/components/AddressList';
 import WebsitesAction from '../../common/components/WebsitesAction';
 import { getPapersQueryString } from '../utils';
 import IconText from '../../common/components/IconText';
 import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import pluralizeUnlessSingle from '../../common/utils';
+import InstitutionAddressList from './InstitutionAddressList';
 
 function InstitutionItem({ metadata }) {
   const legacyIcn = metadata.get('legacy_ICN');
@@ -57,7 +57,7 @@ function InstitutionItem({ metadata }) {
       </Row>
       <Row>
         <Col>
-          <AddressList addresses={addresses} />
+          <InstitutionAddressList addresses={addresses} />
         </Col>
       </Row>
     </ResultItem>

@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionAddressList renders with addresses 1`] = `
+<div
+  className="__InlineList__ di"
+>
+  <ul>
+    <li
+      key="Map { \\"postal_address\\": List [ \\"Rue Einstein\\", \\"CH-1211 Genève 23\\" ], \\"cities\\": List [ \\"Meyrin\\" ], \\"country\\": \\"Switzerland\\", \\"state\\": \\"Geneva\\", \\"place_name\\": \\"CERN\\" }"
+    >
+      <InstitutionAddress
+        address={
+          Immutable.Map {
+            "postal_address": Immutable.List [
+              "Rue Einstein",
+              "CH-1211 Genève 23",
+            ],
+            "cities": Immutable.List [
+              "Meyrin",
+            ],
+            "country": "Switzerland",
+            "state": "Geneva",
+            "place_name": "CERN",
+          }
+        }
+      />
+       • 
+    </li>
+    <li
+      key="Map { \\"cities\\": List [ \\"Geneva\\" ], \\"country\\": \\"Switzerland\\" }"
+    >
+      <InstitutionAddress
+        address={
+          Immutable.Map {
+            "cities": Immutable.List [
+              "Geneva",
+            ],
+            "country": "Switzerland",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

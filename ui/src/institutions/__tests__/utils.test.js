@@ -17,6 +17,7 @@ describe('utils', () => {
         ],
         addresses: [
           {
+            postal_address: ['Rue Einstein', 'CH-1211 Genève 23'],
             cities: ['Meyrin'],
             country: 'Switzerland',
             state: 'Geneva',
@@ -28,7 +29,7 @@ describe('utils', () => {
         ],
       });
       const expected =
-        'CERN. Name1 (NA) and Name2. CERN, Meyrin, Geneva, Switzerland and France';
+        'CERN. Name1 (NA) and Name2. Rue Einstein, CH-1211 Genève 23, Switzerland and France';
       const description = getInstitutionMetaDescription(institution);
       expect(description).toEqual(expected);
     });

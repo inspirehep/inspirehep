@@ -10,7 +10,6 @@ import WebsitesAction from '../../common/components/WebsitesAction';
 import ContentBox from '../../common/components/ContentBox';
 import DocumentHead from '../../common/components/DocumentHead';
 import InstitutionHierarchyList from '../components/InstitutionHierarchyList';
-import AddressList from '../../common/components/AddressList';
 import InstitutionPapers from './InstitutionPapers';
 import { newSearch } from '../../actions/search';
 import { INSTITUTION_PAPERS_NS } from '../../reducers/search';
@@ -23,6 +22,7 @@ import RelatedRecordsList from '../components/RelatedRecordsList';
 import { getInstitutionMetaDescription } from '../utils';
 import InstitutionsHistoricalDataList from '../components/InstitutionsHistoricalDataList';
 import PublicNotesList from '../../common/components/PublicNotesList';
+import InstitutionAddressList from '../components/InstitutionAddressList';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
@@ -65,7 +65,7 @@ function DetailPage({ record }) {
             </Row>
             <Row>
               <Col>
-                <AddressList addresses={addresses} />
+                <InstitutionAddressList addresses={addresses} />
               </Col>
             </Row>
             <RequireOneOf
