@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionsHistoricalDataList renders 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Note
+    : 
+  </span>
+  <ul>
+    <li
+      key="This is my first note"
+    >
+      This is my first note
+       • 
+    </li>
+    <li
+      key="second note"
+    >
+      second note
+    </li>
+  </ul>
+</div>
+`;
