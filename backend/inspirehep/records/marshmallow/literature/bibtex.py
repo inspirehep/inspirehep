@@ -283,8 +283,8 @@ class BibTexCommonSchema(Schema):
         return (
             BibTexCommonSchema.get_best_publication_info(data)
             .get("journal_title")
-            .replace(".", ".\\ ")
-            .rstrip("\\ ")
+            .replace(".", ". ")
+            .rstrip(" ")
         )
 
     def get_isbn(self, data):

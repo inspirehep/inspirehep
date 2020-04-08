@@ -46,9 +46,9 @@ class LatexSchema(Schema):
             return missing
 
         if "journal_title" in publication_info:
-            publication_info["journal_title"] = publication_info[
-                "journal_title"
-            ].replace(".", ".\\ ")
+            publication_info["journal_title"] = (
+                publication_info["journal_title"].replace(".", ". ").rstrip(" ")
+            )
 
         if "page_start" in publication_info:
             if "page_end" in publication_info:
