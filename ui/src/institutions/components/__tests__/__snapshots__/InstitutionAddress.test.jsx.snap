@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstitutionAddress renders all 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "Rue Einstein",
+          "CH-1211 Genève 23",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=", "
+      suffix={null}
+      wrapperClassName={null}
+    />
+    <span>
+      Meyrin
+    </span>
+    <span>
+      Switzerland
+    </span>
+  </InlineUL>
+</span>
+`;
+
+exports[`InstitutionAddress renders empty 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  />
+</span>
+`;
+
+exports[`InstitutionAddress renders with city already in postal address 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "Rue Einstein",
+          "123 meyrin",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=", "
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </InlineUL>
+</span>
+`;
+
+exports[`InstitutionAddress renders with country already in postal address 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "Rue Einstein",
+          "123 SWITZERLAND",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=", "
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </InlineUL>
+</span>
+`;
+
+exports[`InstitutionAddress renders with only country 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <span>
+      Switzerland
+    </span>
+  </InlineUL>
+</span>
+`;
+
+exports[`InstitutionAddress renders with only postal address 1`] = `
+<span>
+  <InlineUL
+    separator=", "
+    wrapperClassName="di"
+  >
+    <InlineList
+      extractKey={[Function]}
+      items={
+        Immutable.List [
+          "Rue Einstein",
+          "CH-1211 Genève 23",
+        ]
+      }
+      label={null}
+      renderItem={[Function]}
+      separateItems={true}
+      separator=", "
+      suffix={null}
+      wrapperClassName={null}
+    />
+  </InlineUL>
+</span>
+`;

@@ -55,7 +55,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
     gutter={0}
   >
     <Col>
-      <AddressList
+      <InstitutionAddressList
         addresses={
           Immutable.List [
             Immutable.Map {
@@ -109,7 +109,7 @@ exports[`InstitutionItem renders with only needed props 1`] = `
     gutter={0}
   >
     <Col>
-      <AddressList
+      <InstitutionAddressList
         addresses={null}
       />
     </Col>
