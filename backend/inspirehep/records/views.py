@@ -44,7 +44,9 @@ class LiteratureCitationsResource(MethodView):
 
         citing_records_results = LiteratureSearch.citations(record, page, size)
         citing_records_count = citing_records_results.total["value"]
-        citing_records = [citation.to_dict() for citation in citing_records_results]
+        citing_records = LiteratureSearch.get_dict_results_from_hits(
+            citing_records_results
+        )
 
         data = {
             "metadata": {

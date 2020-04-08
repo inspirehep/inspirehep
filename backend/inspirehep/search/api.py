@@ -103,6 +103,10 @@ class InspireSearch(RecordsSearch, SearchMixin):
         with RecursionLimit(current_app.config.get("SEARCH_MAX_RECURSION_LIMIT", 5000)):
             return super().execute(*args, **kwargs)
 
+    @staticmethod
+    def get_dict_results_from_hits(results):
+        return [result.to_dict() for result in results]
+
 
 class LiteratureSearch(InspireSearch):
     """Elasticsearch-dsl specialized class to search in Literature database."""

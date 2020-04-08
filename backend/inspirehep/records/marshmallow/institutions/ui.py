@@ -84,9 +84,9 @@ class InstitutionsDetailSchema(InstitutionsBaseSchema):
             .query(query)
             .params(size=10000, _source=["legacy_ICN", "control_number"])
         )
-        results = [
-            query_result.to_dict() for query_result in query_results.execute().hits
-        ]
+        results = InstitutionsSearch.get_dict_results_from_hits(
+            query_results.execute().hits
+        )
         return results
 
 
