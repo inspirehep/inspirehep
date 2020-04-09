@@ -126,7 +126,14 @@ class BibTexCommonSchema(Schema):
         return self.get_authors_with_role(data.get("authors", []), "author")
 
     def get_authors_with_role_editor(self, data):
-        return self.get_authors_with_role(data.get("authors", []), "editor")
+        editors = self.get_authors_with_role(data.get("authors", []), "editor")
+        if not editors and data.get("doc_type") in [
+            "inbook",
+            "inproceedings",
+            "article",
+        ]:
+            editors = self.get_book_editors(data)
+        return editors
 
     def get_eprint(self, data):
         return get_value(data, "arxiv_eprints.value[0]", default=None)
@@ -249,20 +256,32 @@ class BibTexCommonSchema(Schema):
     def get_series(self, data):
         return get_value(data, "book_series.title[0]")
 
-    def get_book_title(self, data):
+    def get_parent_record(self, data):
+        if data.get("doc_type") == "inproceedings":
+            conference_records = InspireRecord.get_linked_records_from_dict_field(
+                data, "publication_info.conference_record"
+            )
+            conference_record = next(conference_records, {})
+            return conference_record
+
         book_records = InspireRecord.get_linked_records_from_dict_field(
             data, "publication_info.parent_record"
         )
         book_record = next(book_records, {})
-        book_title = self.get_title(book_record)
+        return book_record
 
-        conference_records = InspireRecord.get_linked_records_from_dict_field(
-            data, "publication_info.conference_record"
-        )
-        conference_record = next(conference_records, {})
-        conference_title = self.get_title(conference_record)
+    def get_book_title(self, data):
 
-        return book_title or conference_title
+        parent_record = self.get_parent_record(data)
+        parent_title = self.get_title(parent_record)
+
+        return parent_title
+
+    def get_book_editors(self, data):
+        parent_record = self.get_parent_record(data)
+        parent_editors = self.get_authors_with_role_editor(parent_record)
+
+        return parent_editors
 
     def get_volume(self, data):
         publication_volume = BibTexCommonSchema.get_best_publication_info(data).get(
