@@ -6,9 +6,9 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
+import mock
 from helpers.providers.faker import faker
 from inspire_schemas.api import load_schema, validate
-from mock import patch
 
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
@@ -344,9 +344,9 @@ def test_get_page():
     assert expected_pages == result_pages
 
 
-@patch(
-    "inspirehep.records.marshmallow.literature.bibtex.InspireRecord.get_linked_records_from_dict_field",
-    return_value=iter([{"titles": [{"title": "Parent title"}]}]),
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    return_value={"titles": [{"title": "Parent title"}]},
 )
 def test_get_book_title_with_parent_record(mock_get_linked_records):
     record = {
@@ -362,9 +362,9 @@ def test_get_book_title_with_parent_record(mock_get_linked_records):
     assert expected_book_title == result_book_title
 
 
-@patch(
-    "inspirehep.records.marshmallow.literature.bibtex.InspireRecord.get_linked_records_from_dict_field",
-    return_value=iter([]),
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    return_value={},
 )
 def test_get_book_title_without_parent_record(mock_get_linked_records):
     record = {
@@ -501,3 +501,47 @@ def test_bibtex_document_type_conference_paper():
     expected = "inproceedings"
     result = BibTexCommonSchema.get_bibtex_document_type(record)
     assert expected == result
+
+
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    create=True,
+    return_value={
+        "document_type": ["book"],
+        "authors": [{"full_name": "Kiritsis, Elias", "inspire_roles": ["editor"]}],
+    },
+)
+def test_get_editor_from_book_parent_record(mock_get_linked_records_from_dict_field):
+    record = {
+        "document_type": ["book chapter"],
+    }
+    expected_editors = ["Kiritsis, Elias"]
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_editors = result["authors_with_role_editor"]
+
+    assert expected_editors == result_editors
+
+
+@mock.patch(
+    "inspirehep.records.marshmallow.literature.bibtex.BibTexCommonSchema.get_parent_record",
+    create=True,
+    return_value={
+        "document_type": ["proceedings"],
+        "authors": [{"full_name": "Kiritsis, Elias", "inspire_roles": ["editor"]}],
+    },
+)
+def test_get_editor_from_proceedings_parent_record(
+    mock_get_linked_records_from_dict_field,
+):
+    record = {
+        "document_type": ["conference paper"],
+    }
+    expected_editors = ["Kiritsis, Elias"]
+    schema = BibTexCommonSchema()
+
+    result = schema.dump(record).data
+    result_editors = result["authors_with_role_editor"]
+
+    assert expected_editors == result_editors
