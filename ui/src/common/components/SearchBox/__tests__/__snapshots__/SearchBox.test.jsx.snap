@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBox overrides internal state with prop 1`] = `
+<span
+  className="__SearchBox__ ant-input-group"
+>
+  <span
+    className="ant-input-group-addon"
+  >
+    <Connect(SearchScopeSelect) />
+  </span>
+  <ForwardRef(AutoComplete)
+    autoFocus={true}
+    className="autocomplete"
+    dropdownClassName="header-dropdown"
+    dropdownMatchSelectWidth={true}
+    onSelect={[Function]}
+    options={Array []}
+    value="internal"
+  >
+    <Search
+      data-test-id="search-box-input"
+      enterButton={true}
+      onChange={[Function]}
+      onSearch={[Function]}
+      size="large"
+    />
+  </ForwardRef(AutoComplete)>
+</span>
+`;
+
+exports[`SearchBox render initial state with all props set 1`] = `
+<span
+  className="__SearchBox__ ant-input-group"
+>
+  <span
+    className="ant-input-group-addon"
+  >
+    <Connect(SearchScopeSelect) />
+  </span>
+  <ForwardRef(AutoComplete)
+    autoFocus={true}
+    className="autocomplete"
+    dropdownClassName="header-dropdown"
+    dropdownMatchSelectWidth={true}
+    onSelect={[Function]}
+    options={Array []}
+    value="value"
+  >
+    <Search
+      data-test-id="search-box-input"
+      enterButton={true}
+      onChange={[Function]}
+      onSearch={[Function]}
+      placeholder="placeholder"
+      size="large"
+    />
+  </ForwardRef(AutoComplete)>
+</span>
+`;
+
+exports[`SearchBox renders new value on change 1`] = `
+<span
+  className="__SearchBox__ ant-input-group"
+>
+  <span
+    className="ant-input-group-addon"
+  >
+    <Connect(SearchScopeSelect) />
+  </span>
+  <ForwardRef(AutoComplete)
+    autoFocus={true}
+    className="autocomplete"
+    dropdownClassName="header-dropdown"
+    dropdownMatchSelectWidth={true}
+    onSelect={[Function]}
+    options={Array []}
+    value="new"
+  >
+    <Search
+      data-test-id="search-box-input"
+      enterButton={true}
+      onChange={[Function]}
+      onSearch={[Function]}
+      size="large"
+    />
+  </ForwardRef(AutoComplete)>
+</span>
+`;

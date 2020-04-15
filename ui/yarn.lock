@@ -2289,6 +2289,13 @@ collection-visit@^1.0.0:
     map-visit "^1.0.0"
     object-visit "^1.0.0"
 
+collections@^5.1.10:
+  version "5.1.10"
+  resolved "https://registry.yarnpkg.com/collections/-/collections-5.1.10.tgz#a49cc0faba6d56fa05d74e8363bd73be48c95513"
+  integrity sha512-BqxJHKnbQFlz1/cA+VjnNvYxYOXf8A4xENiFjpdNhOCAjmPHynMqddb+DfmF4nZvXS9yRuJXK8MwdOmMqJleEQ==
+  dependencies:
+    weak-map "~1.0.x"
+
 color-convert@^1.9.0, color-convert@^1.9.1:
   version "1.9.3"
   resolved "https://registry.yarnpkg.com/color-convert/-/color-convert-1.9.3.tgz#bb71850690e1f136567de629d2d5471deda4c1e8"
@@ -10833,6 +10840,11 @@ wbuf@^1.1.0, wbuf@^1.7.2:
   resolved "https://registry.yarnpkg.com/wbuf/-/wbuf-1.7.3.tgz#c1d8d149316d3ea852848895cb6a0bfe887b87df"
   dependencies:
     minimalistic-assert "^1.0.0"
+
+weak-map@~1.0.x:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/weak-map/-/weak-map-1.0.5.tgz#79691584d98607f5070bd3b70a40e6bb22e401eb"
+  integrity sha1-eWkVhNmGB/UHC9O3CkDmuyLkAes=
 
 webidl-conversions@^4.0.2:
   version "4.0.2"
