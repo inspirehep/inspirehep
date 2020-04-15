@@ -1354,7 +1354,7 @@ description = "A PEG-based query parser for INSPIRE."
 name = "inspire-query-parser"
 optional = false
 python-versions = "*"
-version = "6.0.13"
+version = "6.0.15"
 
 [package.dependencies]
 inspire-schemas = ">=61.0,<62.0"
@@ -1373,7 +1373,7 @@ description = "Inspire JSON schemas and utilities to use them."
 name = "inspire-schemas"
 optional = false
 python-versions = "*"
-version = "61.1.2"
+version = "61.1.4"
 
 [package.dependencies]
 Unidecode = ">=1.0.22,<2.0"
@@ -4446,10 +4446,10 @@ inspire-json-merger = [
     {file = "inspire-json-merger-11.0.2.tar.gz", hash = "sha256:e016a713ac165655c958fa64caa81e46bb044b05cb6b2bf45c95c586a5b26288"},
 ]
 inspire-query-parser = [
-    {file = "inspire-query-parser-6.0.13.tar.gz", hash = "sha256:a3d3929670dc8247315fdb8160614f9ea349e85f8265e6d63ce364b0ec12c027"},
+    {file = "inspire-query-parser-6.0.15.tar.gz", hash = "sha256:e15105aced0ecf7add869b373429c10abb6f13b181bc598f2b1e461479e89d6b"},
 ]
 inspire-schemas = [
-    {file = "inspire-schemas-61.1.2.tar.gz", hash = "sha256:49226b875b1791f13d0d7678c63cd4b03ce54bb7a9ffcae319daca240b308ed0"},
+    {file = "inspire-schemas-61.1.4.tar.gz", hash = "sha256:4921886e47a8b8694c237e12499d34c7c1945af05293ea7bfa3e758773206ff0"},
 ]
 inspire-service-orcid = []
 inspire-utils = [
