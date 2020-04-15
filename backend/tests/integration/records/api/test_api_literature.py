@@ -22,7 +22,7 @@ from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentifierError
-from inspirehep.records.models import RecordCitations
+from inspirehep.records.models import AuthorsRecords, RecordCitations
 
 
 def test_literature_create(base_app, db, es):
@@ -1781,3 +1781,218 @@ def test_adding_files_with_s3_url_but_wrong_key(
 
         assert record["figures"] == expected_figures
         assert record["documents"] == expected_documents
+
+
+def test_creating_record_updates_entries_in_authors_records_table(
+    base_app, db, create_record
+):
+    expected_authors_entries_count = 5
+    expected_table_entries = [
+        "K.Janeway.1;INSPIRE BAI",
+        "INSPIRE-12345678;INSPIRE ID",
+        "J.T.Kirk.1;INSPIRE BAI",
+        "collaboration_1;collaboration",
+        "collaboration_2;collaboration",
+    ]
+    data = {
+        "authors": [
+            {
+                "full_name": "Kathryn Janeway",
+                "ids": [
+                    {"value": "K.Janeway.1", "schema": "INSPIRE BAI"},
+                    {"value": "INSPIRE-12345678", "schema": "INSPIRE ID"},
+                ],
+            },
+            {
+                "full_name": 'James Tiberius "Jim" Kirk',
+                "ids": [{"value": "J.T.Kirk.1", "schema": "INSPIRE BAI"}],
+            },
+        ],
+        "collaborations": [{"value": "collaboration_1"}, {"value": "collaboration_2"}],
+    }
+
+    record = create_record("lit", data=data)
+
+    authors_records_entries = AuthorsRecords.query.filter_by(record_id=record.id).all()
+    assert len(authors_records_entries) == expected_authors_entries_count
+    table_entries = [
+        f"{entry.author_id};{entry.id_type}" for entry in authors_records_entries
+    ]
+    assert sorted(table_entries) == sorted(expected_table_entries)
+
+
+def test_updating_record_updates_entries_in_authors_records_table(
+    base_app, db, create_record
+):
+    expected_authors_entries_count = 3
+    data = {
+        "authors": [
+            {
+                "full_name": "Kathryn Janeway",
+                "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
+            },
+            {
+                "full_name": 'James Tiberius "Jim" Kirk',
+                "ids": [{"value": "J.T.Kirk.1", "schema": "INSPIRE BAI"}],
+            },
+        ],
+        "collaborations": [{"value": "collaboration_1"}],
+    }
+
+    record = create_record("lit", data=data)
+
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+    data = dict(record)
+    data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Kathryn Janeway",
+                    "ids": [{"value": "INSPIRE-12345678", "schema": "INSPIRE ID"}],
+                }
+            ]
+        }
+    )
+    expected_authors_entries_count = 2
+    record.update(data)
+
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+
+    data = dict(record)
+    data.update(
+        {
+            "authors": [
+                {
+                    "full_name": "Kathryn Janeway",
+                    "ids": [
+                        {"value": "K.Janeway.1", "schema": "INSPIRE BAI"},
+                        {"value": "INSPIRE-12345678", "schema": "INSPIRE ID"},
+                    ],
+                },
+                {
+                    "full_name": 'James Tiberius "Jim" Kirk',
+                    "ids": [{"value": "J.T.Kirk.1", "schema": "INSPIRE BAI"}],
+                },
+            ],
+            "collaborations": [
+                {"value": "collaboration_1"},
+                {"value": "collaboration_2"},
+            ],
+        }
+    )
+    expected_authors_entries_count = 5
+    record.update(data)
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+
+
+def test_not_literature_collection_do_not_create_entries_in_authors_records_table(
+    base_app, db, create_record
+):
+    data = {
+        "_collections": ["ZEUS Internal Notes"],
+        "authors": [
+            {
+                "full_name": "Kathryn Janeway",
+                "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
+            }
+        ],
+    }
+
+    expected_authors_entries_count = 0
+
+    record = create_record("lit", data=data)
+
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+
+
+def test_deleted_record_do_not_create_entries_in_authors_records_table(
+    base_app, db, create_record
+):
+    data = {
+        "authors": [
+            {
+                "full_name": "Kathryn Janeway",
+                "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
+            }
+        ],
+        "deleted": True,
+    }
+
+    expected_authors_entries_count = 0
+
+    record = create_record("lit", data=data)
+
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+
+
+def test_deleting_record_removes_entries_in_authors_records_table(
+    base_app, db, create_record
+):
+    data = {
+        "authors": [
+            {
+                "full_name": "Kathryn Janeway",
+                "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
+            }
+        ]
+    }
+
+    expected_authors_entries_count = 1
+
+    record = create_record("lit", data=data)
+
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+
+    record.delete()
+    expected_authors_entries_count = 0
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+
+
+def test_hard_deleting_record_removes_entries_in_authors_records_table(
+    base_app, db, create_record
+):
+    data = {
+        "authors": [
+            {
+                "full_name": "Kathryn Janeway",
+                "ids": [{"value": "K.Janeway.1", "schema": "INSPIRE BAI"}],
+            }
+        ]
+    }
+
+    expected_authors_entries_count = 1
+
+    record = create_record("lit", data=data)
+
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )
+
+    record.hard_delete()
+    expected_authors_entries_count = 0
+    assert (
+        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        == expected_authors_entries_count
+    )

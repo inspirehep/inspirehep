@@ -11,6 +11,18 @@ from sqlalchemy import text
 
 def test_downgrade(base_app, database):
     alembic = Alembic(base_app)
+
+    alembic.downgrade("cea5fa2e5d2c")
+
+    assert "authors_records" not in _get_table_names(database)
+
+    assert "ix_records_citations_cited_id" in _get_indexes(
+        "records_citations", database
+    )
+    assert "ix_records_citations_cited_id_citer_id" not in _get_indexes(
+        "records_citations", database
+    )
+
     alembic.downgrade("b0cdab232269")
 
     assert "institution_literature" not in _get_table_names(database)
@@ -141,6 +153,21 @@ def test_upgrade(base_app, database):
     )
     assert "ix_institution_literature_institution_uuid" in _get_indexes(
         "institution_literature", database
+    )
+
+    alembic.upgrade(target="595c36d68964")
+
+    assert "authors_records" in _get_table_names(database)
+    assert "ix_authors_records_author_id_record_id" in _get_indexes(
+        "authors_records", database
+    )
+    assert "ix_authors_records_record_id" in _get_indexes("authors_records", database)
+
+    assert "ix_records_citations_cited_id" not in _get_indexes(
+        "records_citations", database
+    )
+    assert "ix_records_citations_cited_id_citer_id" in _get_indexes(
+        "records_citations", database
     )
 
 

@@ -41,6 +41,7 @@ from inspirehep.records.errors import (
     UnknownImportIdentifierError,
 )
 from inspirehep.records.marshmallow.literature import LiteratureElasticSearchSchema
+from inspirehep.records.models import AuthorsRecords
 from inspirehep.records.utils import (
     download_file_from_url,
     get_authors_phonetic_blocks,
@@ -150,10 +151,93 @@ class LiteratureRecord(
                 continue
             conference["conference_record"] = get_ref_from_pid("con", pid)
 
+    def generate_entries_for_authors_in_authors_records_table(self, data):
+        """Generates AuthorsRecords objects table based on record data for authors"""
+
+        authors_ids_field = "authors.ids"
+        table_entries_buffer = []
+        for author in get_value(data, authors_ids_field, []):
+            if author:
+                for id in author:
+                    try:
+                        table_entries_buffer.append(
+                            AuthorsRecords(
+                                author_id=id["value"],
+                                id_type=id["schema"],
+                                record_id=self.id,
+                            )
+                        )
+                    except KeyError:
+                        LOGGER.exception(
+                            "id entry is missing keys",
+                            recid=data.get("control_number"),
+                            uuid=str(self.id),
+                        )
+        return table_entries_buffer
+
+    def generate_entries_for_conferences_in_authors_records_table(self, data):
+        """Generates AuthorsRecords objects table based on record data for collaborations"""
+        collaborations_field = "collaborations.value"
+        table_entries_buffer = []
+        for collaboration in get_value(data, collaborations_field, []):
+            table_entries_buffer.append(
+                AuthorsRecords(
+                    author_id=collaboration, id_type="collaboration", record_id=self.id
+                )
+            )
+        return table_entries_buffer
+
+    def update_authors_records_table(self, data):
+        """Puts all authors ids and collaborations in authors_records table"""
+        deleted_count = self.delete_authors_records_table_entries()
+
+        # check if authors and conferencesshould be added to the table
+        if (
+            data.get("deleted", False)
+            or self.pid_type not in ["lit"]
+            or "Literature" not in data["_collections"]
+        ):
+            LOGGER.info(
+                "Not updating record entries in authors_records table. Record's is not literature.",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+            )
+            return
+        # add entries from authors and collaborations
+        table_entries_buffer = self.generate_entries_for_authors_in_authors_records_table(
+            data
+        )
+        table_entries_buffer.extend(
+            self.generate_entries_for_conferences_in_authors_records_table(data)
+        )
+
+        db.session.bulk_save_objects(table_entries_buffer)
+        LOGGER.info(
+            "authors_record table updated for record",
+            recid=data.get("control_number"),
+            uuid=str(self.id),
+            added_rows=len(table_entries_buffer),
+            deleted_rows=deleted_count,
+        )
+
+    def delete_authors_records_table_entries(self):
+        """Clean entries for this record"""
+        return AuthorsRecords.query.filter_by(record_id=self.id).delete()
+
+    def delete(self):
+        self.delete_authors_records_table_entries()
+        super().delete()
+
+    def hard_delete(self):
+        self.delete_authors_records_table_entries()
+        super().hard_delete()
+
     def update(self, data, disable_orcid_push=False, *args, **kwargs):
         with db.session.begin_nested():
             LiteratureRecord.update_authors_signature_blocks_and_uuids(data)
             LiteratureRecord.update_refs_to_conferences(data)
+
+            self.update_authors_records_table(data)
 
             data = self.add_files(data)
             super().update(data, *args, **kwargs)
