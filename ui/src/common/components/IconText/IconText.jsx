@@ -9,7 +9,7 @@ class IconText extends Component {
     return (
       <span className="__IconText__">
         <span className="icon">{icon}</span>
-        {text}
+        <span className="v-top">{text}</span>
       </span>
     );
   }

@@ -9,6 +9,10 @@ exports[`IconText renders with all props set 1`] = `
   >
     <ForwardRef(InfoOutlined) />
   </span>
-  Test
+  <span
+    className="v-top"
+  >
+    Test
+  </span>
 </span>
 `;
