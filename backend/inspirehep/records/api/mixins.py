@@ -244,20 +244,13 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         if references_waiting_for_commit:
             db.session.bulk_save_objects(references_waiting_for_commit)
         LOGGER.info("Starting self citations check")
-        _start_authors = datetime.now()
-        self.update_self_citations_authors()
-        _start_collaborations = datetime.now()
-        self.update_self_citations_collaborations()
+        _start = datetime.now()
+        self.update_self_citations()
         LOGGER.info(
             "Record citations updated",
             recid=current_record_control_number,
             uuid=str(self.id),
-            self_citations_authors=(
-                _start_collaborations - _start_authors
-            ).total_seconds(),
-            self_citations_collaborations=(
-                datetime.now() - _start_collaborations
-            ).total_seconds(),
+            self_citations_update=(datetime.now() - _start).total_seconds(),
         )
 
     def get_authors_bais(self):
@@ -268,110 +261,34 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                     authors_list.append(entry["value"])
         return authors_list
 
-    def get_referenced_papers_authors_bais(self):
+    def get_self_cited_referenced_papers(self):
         uuid = str(self.model.id)
         sql_query = f"""
-            SELECT 
-              ids->>'value' as author_id,
-              array_agg(id::VARCHAR) 
-            FROM (
-              SELECT 
-                jsonb_array_elements(jsonb_array_elements(json->'authors')->'ids') AS ids,
-                id FROM records_metadata AS m,
-                records_citations AS c 
-              WHERE 
-                (m.id=c.cited_id AND c.citer_id = '{uuid}')
-                OR (m.id=c.citer_id AND c.cited_id = '{uuid}')
-            ) AS que 
-            WHERE 
-              que.ids->>'schema'='INSPIRE BAI'
-            GROUP BY author_id
+            SELECT papers_from_authors.record_id
+            FROM 
+                (SELECT DISTINCT a1.record_id FROM authors_records_map_2 a1, authors_records_map_2 a2
+                WHERE 
+                    a2.record_id ='{uuid}'
+                    AND a1.author_id=a2.author_id
+                    AND ((a1.author_schema='INSPIRE BAI' AND a2.author_schema='INSPIRE BAI')
+                     OR a1.author_schema='collaboration' AND a2.author_schema='collaboration')
+                )AS papers_from_authors,
+                (SELECT cited_id as record_id FROM 
+                  records_citations WHERE 
+                citer_id = '{uuid}'
+                UNION 
+                SELECT citer_id AS record_id 
+                  from records_citations
+                where cited_id = '{uuid}') as cited_papers
+            WHERE
+            cited_papers.record_id=papers_from_authors.record_id
         """
-        return dict(list(db.session.execute(text(sql_query))))
+        return db.session.execute(text(sql_query))
 
-    def get_self_citations_for_authors(self):
-        self_citations = []
-        results = self.get_referenced_papers_authors_bais()
-        if results:
-            authors_list = self.get_authors_bais()
-            self_citations_authors = set(authors_list).intersection(set(results.keys()))
-            self_citations = []
-            for author in self_citations_authors:
-                self_citations.extend(results[author])
-            self_citations = list(set(self_citations))
-        return self_citations
-
-    def update_self_citations_authors(self):
-        self_citations = self.get_self_citations_for_authors()
+    def update_self_citations(self):
+        self_citations = self.get_self_cited_referenced_papers()
         LOGGER.info(
-            "Self-citations by author",
-            self_citations_count=len(self_citations),
-            recid=self.get("control_number"),
-        )
-        if self_citations:
-            uuid = str(self.model.id)
-            RecordCitations.query.filter(
-                or_(
-                    and_(
-                        RecordCitations.cited_id == uuid,
-                        RecordCitations.citer_id.in_(self_citations),
-                    ),
-                    and_(
-                        RecordCitations.cited_id.in_(self_citations),
-                        RecordCitations.citer_id == uuid,
-                    ),
-                )
-            ).update(
-                {RecordCitations.citation_type: RecordCitationType.self_citation},
-                synchronize_session=False,
-            )
-
-    def get_collaborations_values(self):
-        collaboration_list = []
-        for collaborations_values in self.get_value("collaborations.value", []):
-            for collaboration in collaborations_values:
-                collaboration_list.append(collaboration)
-        return collaboration_list
-
-    def get_recerenced_papers_collaborations(self):
-        uuid = str(self.model.id)
-        sql_query = f"""
-            SELECT
-              collaborations->>'value' AS collaboration,
-              array_agg(id::VARCHAR) 
-            FROM (
-              SELECT 
-                jsonb_array_elements(json->'collaborations') AS collaborations,
-                id 
-              FROM 
-                records_metadata AS m,
-                records_citations AS c 
-              WHERE 
-                (m.id=c.cited_id and c.citer_id = '{uuid}')
-                OR (m.id=c.citer_id and c.cited_id = '{uuid}')
-            ) as que
-            GROUP BY collaboration
-        """
-        return dict(list(db.session.execute(text(sql_query))))
-
-    def get_self_ciations_for_collaborations(self):
-        """Get self_citation for collaborations grouped by collaboration"""
-        self_citations = []
-        results = self.get_recerenced_papers_collaborations()
-        if results:
-            collaborations_list = self.get_collaborations_values()
-            self_citations_collaborations = set(collaborations_list).intersection(
-                set(results.keys())
-            )
-            for collaboration in self_citations_collaborations:
-                self_citations.extend(results[collaboration])
-            self_citations = list(set(self_citations))
-        return self_citations
-
-    def update_self_citations_collaborations(self):
-        self_citations = self.get_self_ciations_for_collaborations()
-        LOGGER.info(
-            "Self-citations by collaborations",
+            "Self-citated_papers",
             self_citations_count=len(self_citations),
             recid=self.get("control_number"),
         )
