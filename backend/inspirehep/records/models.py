@@ -10,7 +10,7 @@ import enum
 
 from invenio_db import db
 from invenio_records.models import RecordMetadata
-from sqlalchemy import Date, Enum
+from sqlalchemy import Date, Enum, Text
 from sqlalchemy_utils import UUIDType
 
 
@@ -20,7 +20,9 @@ class RecordCitations(db.Model):
 
     __tablename__ = "records_citations"
 
-    __table_args__ = (db.Index("ix_records_citations_cited_id", "cited_id"),)
+    __table_args__ = (
+        db.Index("ix_records_citations_cited_id_citer_id", "cited_id", "citer_id"),
+    )
 
     citer_id = db.Column(
         UUIDType,
@@ -131,4 +133,25 @@ class InstitutionLiterature(db.Model):
 
     institution_paper = db.relationship(
         RecordMetadata, backref="institutions", foreign_keys=[literature_uuid]
+    )
+
+
+class AuthorsRecords(db.Model):
+    __tablename__ = "authors_records"
+    __table_args__ = (
+        db.Index("ix_authors_records_record_id", "record_id"),
+        db.Index(
+            "ix_authors_records_author_id_record_id",
+            "author_id",
+            "id_type",
+            "record_id",
+        ),
+    )
+    id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(Text, nullable=False)
+    id_type = db.Column(Text, nullable=False)
+    record_id = db.Column(
+        UUIDType,
+        db.ForeignKey("records_metadata.id", name="fk_authors_records_record_id"),
+        nullable=False,
     )
