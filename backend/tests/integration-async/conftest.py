@@ -14,6 +14,7 @@ import structlog
 from click.testing import CliRunner
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
+from helpers.factories.models.user_access_token import UserFactory
 from helpers.providers.faker import faker
 from inspire_utils.record import get_value
 from invenio_db import db
@@ -41,6 +42,26 @@ def app():
 
     with app.app_context():
         yield app
+
+
+@pytest.fixture(scope="function")
+def create_user(app):
+    """Fixture to create user.
+
+    Examples:
+
+        def test_needs_user(base_app, create_user)
+            user = create_user()
+    """
+
+    def _create_user(
+        role="user", orcid=None, email=None, allow_push=True, token="token"
+    ):
+        return UserFactory(
+            role=role, orcid=orcid, email=email, allow_push=allow_push, token=token
+        )
+
+    return _create_user
 
 
 @pytest.fixture(scope="session")
