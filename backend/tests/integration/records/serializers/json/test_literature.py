@@ -437,13 +437,16 @@ def test_literature_list_has_sort_options(api_client, db, es, create_record):
     assert expected_sort_options == sort_options
 
 
-def test_literature_references_json(api_client, db, es, create_record):
+def test_literature_references_json_with_unlinked_and_duplicated_linked_records(
+    api_client, db, es, create_record
+):
     headers = {"Accept": "application/json"}
     reference_without_link_title = faker.sentence()
 
-    record_referenced = create_record("lit")
-    record_referenced_control_number = record_referenced["control_number"]
-    record_referenced_titles = record_referenced["titles"]
+    referenced_data = {
+        "arxiv_eprints": [{"value": "hep-th/0210297"}, {"value": "hep-th/7765432"}]
+    }
+    referenced_record = create_record("lit", data=referenced_data)
 
     data = {
         "references": [
@@ -455,9 +458,15 @@ def test_literature_references_json(api_client, db, es, create_record):
             },
             {
                 "record": {
-                    "$ref": f"http://localhost:5000/api/literature/{record_referenced_control_number}"
+                    "$ref": f"http://localhost:5000/api/literature/{referenced_record['control_number']}"
                 },
                 "reference": {"label": "2"},
+            },
+            {
+                "record": {
+                    "$ref": f"http://localhost:5000/api/literature/{referenced_record['control_number']}"
+                },
+                "reference": {"label": "2", "arxiv_eprint": "hep-th/0210297"},
             },
         ]
     }
@@ -469,12 +478,19 @@ def test_literature_references_json(api_client, db, es, create_record):
         "references": [
             {"label": "1", "titles": [{"title": reference_without_link_title}]},
             {
-                "control_number": record_referenced_control_number,
-                "titles": record_referenced_titles,
+                "control_number": referenced_record["control_number"],
+                "titles": referenced_record["titles"],
+                "arxiv_eprint": [referenced_data["arxiv_eprints"][0]],
+                "label": "2",
+            },
+            {
+                "control_number": referenced_record["control_number"],
+                "titles": referenced_record["titles"],
+                "arxiv_eprint": [referenced_data["arxiv_eprints"][0]],
                 "label": "2",
             },
         ],
-        "references_count": 2,
+        "references_count": 3,
     }
 
     response = api_client.get(

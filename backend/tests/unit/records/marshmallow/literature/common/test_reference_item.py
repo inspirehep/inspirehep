@@ -228,7 +228,7 @@ def test_returns_arxiv_eprints_from_the_resolved_record(
         InspireRecord(
             {
                 "control_number": 123,
-                "arxiv_eprints": [{"value": "1606.09129", "categories": "hep"}],
+                "arxiv_eprints": [{"value": "1606.09129", "categories": ["hep"]}],
             }
         )
     ]
