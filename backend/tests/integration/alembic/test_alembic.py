@@ -7,6 +7,7 @@
 
 from flask_alembic import Alembic
 from sqlalchemy import text
+from sqlalchemy.engine import reflection
 
 
 def test_downgrade(base_app, database):
@@ -14,9 +15,10 @@ def test_downgrade(base_app, database):
 
     alembic.downgrade(target="595c36d68964")
     assert (
-        _check_column_in_table(database, "records_citations", "citation_type") == False
-    
-    alembic.downgrade("cea5fa2e5d2c")
+        _check_column_in_table(database, "records_citations", "citation_type") is False
+    )
+
+    alembic.downgrade(target="cea5fa2e5d2c")
 
     assert "records_authors" not in _get_table_names(database)
 
@@ -172,10 +174,11 @@ def test_upgrade(base_app, database):
     )
     assert "ix_records_citations_cited_id_citer_id" in _get_indexes(
         "records_citations", database
-    
+    )
+
     alembic.upgrade(target="5a0e2405b624")
     assert (
-        _check_column_in_table(database, "records_citations", "citation_type") == True
+        _check_column_in_table(database, "records_citations", "citation_type") is True
     )
 
 
