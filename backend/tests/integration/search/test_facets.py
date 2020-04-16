@@ -48,6 +48,7 @@ def test_hep_author_publications_facets(base_app):
             "doc_type",
             "earliest_date",
             "citation_count",
+            "citation_count_without_self_citations",
             "collaboration",
             "refereed",
             "citeable",
@@ -87,6 +88,7 @@ def test_records_hep_facets(base_app):
             "doc_type",
             "earliest_date",
             "citation_count",
+            "citation_count_without_self_citations",
             "collaboration",
             "refereed",
             "citeable",
@@ -123,6 +125,7 @@ def test_hep_conference_contributions_facets(base_app):
             "doc_type",
             "earliest_date",
             "citation_count",
+            "citation_count_without_self_citations",
             "collaboration",
             "refereed",
             "citeable",
@@ -156,6 +159,7 @@ def test_hep_institution_papers_facets(base_app):
             "doc_type",
             "earliest_date",
             "citation_count",
+            "citation_count_without_self_citations",
             "collaboration",
             "refereed",
             "citeable",
@@ -274,6 +278,7 @@ def test_hep_author_publications_cataloger_facets(base_app):
             "doc_type",
             "earliest_date",
             "citation_count",
+            "citation_count_without_self_citations",
             "collaboration",
             "refereed",
             "citeable",
@@ -318,6 +323,7 @@ def test_records_hep_cataloger_facets(base_app):
             "doc_type",
             "earliest_date",
             "citation_count",
+            "citation_count_without_self_citations",
             "collaboration",
             "refereed",
             "citeable",
@@ -369,7 +375,11 @@ def test_records_jobs_cataloger_facets(base_app):
 
 
 def test_all_facets_have_a_corresponding_filter_for_every_aggregation(base_app):
-    excluded_aggregations = ["citation_summary", "citations_by_year"]
+    excluded_aggregations = [
+        "citation_summary",
+        "citations_by_year",
+        "citations_by_year_without_self_citations",
+    ]
     with base_app.test_request_context():
         for facet in base_app.config["RECORDS_REST_FACETS"].values():
             aggregations = [

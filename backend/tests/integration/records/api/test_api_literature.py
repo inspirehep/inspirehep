@@ -1996,3 +1996,281 @@ def test_hard_deleting_record_removes_entries_in_authors_records_table(
         RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
+
+
+def test_self_citations_on_authors_callculated_on_record_creation(
+    base_app, db, create_record
+):
+    data_authors = {
+        "authors": [
+            {
+                "full_name": "Jean-Luc Picard",
+                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+            }
+        ]
+    }
+    rec1 = create_record("lit", data=data_authors)
+    rec2_data = faker.record(
+        "lit", data=data_authors, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+    rec3_data = faker.record(
+        "lit", literature_citations=[rec1["control_number"], rec2["control_number"]]
+    )
+    rec3 = LiteratureRecord.create(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 1
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+
+def test_mixed_self_citations_on_authors_callculated_on_record_creation(
+    base_app, db, create_record
+):
+    author_1 = {
+        "full_name": "James T Kirk",
+        "ids": [{"schema": "INSPIRE BAI", "value": "James.T.Kirk.1"}],
+    }
+    author_2 = {
+        "full_name": "Jean-Luc Picard",
+        "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+    }
+    author_3 = {
+        "full_name": "Kathryn Janeway",
+        "ids": [{"schema": "INSPIRE BAI", "value": "K.Janeway.1"}],
+    }
+
+    data_authors_1 = {"authors": [author_1]}
+
+    data_authors_2 = {"authors": [author_1, author_2]}
+
+    data_authors_3 = {"authors": [author_2, author_3]}
+    rec1 = create_record("lit", data=data_authors_1)
+    rec2_data = faker.record(
+        "lit", data=data_authors_2, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+    rec3_data = faker.record(
+        "lit",
+        data=data_authors_3,
+        literature_citations=[rec1["control_number"], rec2["control_number"]],
+    )
+    rec3 = LiteratureRecord.create(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 0
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+
+def test_self_citations_on_authors_callculated_on_record_update(
+    base_app, db, create_record
+):
+    data_authors = {
+        "authors": [
+            {
+                "full_name": "Jean-Luc Picard",
+                "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+            }
+        ]
+    }
+    rec1 = create_record("lit", data=data_authors)
+    rec2_data = faker.record(
+        "lit", data=data_authors, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+    rec3_data = faker.record(
+        "lit", literature_citations=[rec1["control_number"], rec2["control_number"]]
+    )
+    rec3 = LiteratureRecord.create(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 1
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+    rec3_data = dict(rec3)
+    rec3_data["authors"] = rec1["authors"]
+    rec3.update(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 0
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 0
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+
+def test_self_citations_on_authors_callculated_on_other_record_update(
+    base_app, db, create_record
+):
+    author_1 = {
+        "full_name": "James T Kirk",
+        "ids": [{"schema": "INSPIRE BAI", "value": "James.T.Kirk.1"}],
+    }
+
+    author_2 = {
+        "full_name": "Jean-Luc Picard",
+        "ids": [{"schema": "INSPIRE BAI", "value": "Jean.L.Picard.1"}],
+    }
+    data_authors = {"authors": [author_1]}
+    rec1 = create_record("lit", data=data_authors)
+    rec2_data = faker.record(
+        "lit", data=data_authors, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+
+    assert rec1.citation_count == 1
+    assert rec1.citation_count_without_self_citations == 0
+
+    assert rec2.citation_count == 0
+    assert rec2.citation_count_without_self_citations == 0
+
+    rec1_data = dict(rec1)
+    rec1_data["authors"] = [author_2]
+    rec1.update(rec1_data)
+
+    assert rec1.citation_count == 1
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 0
+    assert rec2.citation_count_without_self_citations == 0
+
+
+def test_self_citations_on_collaborations_callculated_on_record_creation(
+    base_app, db, create_record
+):
+    data_collaborations = {"collaborations": [{"value": "COL1"}]}
+    rec1 = create_record("lit", data=data_collaborations)
+    rec2_data = faker.record(
+        "lit", data=data_collaborations, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+    rec3_data = faker.record(
+        "lit", literature_citations=[rec1["control_number"], rec2["control_number"]]
+    )
+    rec3 = LiteratureRecord.create(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 1
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+
+def test_mixed_self_citations_on_collaborations_callculated_on_record_creation(
+    base_app, db, create_record
+):
+    collaboration_1 = {"value": "COL1"}
+    collaboration_2 = {"value": "COL2"}
+    collaboration_3 = {"value": "COL3"}
+
+    data_collaborations_1 = {"collaborations": [collaboration_1]}
+
+    data_collaborations_2 = {"collaborations": [collaboration_1, collaboration_2]}
+
+    data_collaborations_3 = {"collaborations": [collaboration_2, collaboration_3]}
+    rec1 = create_record("lit", data=data_collaborations_1)
+    rec2_data = faker.record(
+        "lit", data=data_collaborations_2, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+    rec3_data = faker.record(
+        "lit",
+        data=data_collaborations_3,
+        literature_citations=[rec1["control_number"], rec2["control_number"]],
+    )
+    rec3 = LiteratureRecord.create(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 0
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+
+def test_self_citations_on_collaborations_callculated_on_record_update(
+    base_app, db, create_record
+):
+    data_collaborations = {"collaborations": [{"value": "COL1"}]}
+    rec1 = create_record("lit", data=data_collaborations)
+    rec2_data = faker.record(
+        "lit", data=data_collaborations, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+    rec3_data = faker.record(
+        "lit", literature_citations=[rec1["control_number"], rec2["control_number"]]
+    )
+    rec3 = LiteratureRecord.create(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 1
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+    rec3_data = dict(rec3)
+    rec3_data["collaborations"] = rec1["collaborations"]
+    rec3.update(rec3_data)
+
+    assert rec1.citation_count == 2
+    assert rec1.citation_count_without_self_citations == 0
+
+    assert rec2.citation_count == 1
+    assert rec2.citation_count_without_self_citations == 0
+
+    assert rec3.citation_count == 0
+    assert rec3.citation_count_without_self_citations == 0
+
+
+def test_self_citations_on_collaborations_callculated_on_other_record_update(
+    base_app, db, create_record
+):
+    collaboration_1 = {"value": "COL1"}
+    collaboration_2 = {"value": "COL2"}
+    data_collaborations = {"collaborations": [collaboration_1]}
+    rec1 = create_record("lit", data=data_collaborations)
+    rec2_data = faker.record(
+        "lit", data=data_collaborations, literature_citations=[rec1["control_number"]]
+    )
+    rec2 = LiteratureRecord.create(rec2_data)
+
+    assert rec1.citation_count == 1
+    assert rec1.citation_count_without_self_citations == 0
+
+    assert rec2.citation_count == 0
+    assert rec2.citation_count_without_self_citations == 0
+
+    rec1_data = dict(rec1)
+    rec1_data["collaborations"] = [collaboration_2]
+    rec1.update(rec1_data)
+
+    assert rec1.citation_count == 1
+    assert rec1.citation_count_without_self_citations == 1
+
+    assert rec2.citation_count == 0
+    assert rec2.citation_count_without_self_citations == 0

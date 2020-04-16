@@ -3,7 +3,7 @@ from datetime import datetime
 import structlog
 from inspire_utils.date import fill_missing_date_parts
 from invenio_db import db
-from sqlalchemy import and_, func, or_, text
+from sqlalchemy import and_, func, not_, or_, text
 
 from inspirehep.records.models import (
     AuthorSchemaType,
@@ -261,29 +261,38 @@ class CitationMixin(PapersAuthorsExtensionMixin):
                     authors_list.append(entry["value"])
         return authors_list
 
+    def get_collaborations_values(self):
+        collaboration_list = []
+        for collaborations_values in self.get_value("collaborations.value", []):
+            for collaboration in collaborations_values:
+                collaboration_list.append(collaboration)
+        return collaboration_list
+
     def get_self_cited_referenced_papers(self):
         uuid = str(self.model.id)
         sql_query = f"""
             SELECT papers_from_authors.record_id
-            FROM 
-                (SELECT DISTINCT a1.record_id FROM authors_records_map_2 a1, authors_records_map_2 a2
-                WHERE 
+            FROM
+                (SELECT DISTINCT a1.record_id FROM {AuthorsRecords.__tablename__} a1, {AuthorsRecords.__tablename__} a2
+                WHERE
                     a2.record_id ='{uuid}'
                     AND a1.author_id=a2.author_id
-                    AND ((a1.author_schema='INSPIRE BAI' AND a2.author_schema='INSPIRE BAI')
-                     OR a1.author_schema='collaboration' AND a2.author_schema='collaboration')
+                    AND (
+                        (a1.id_type='INSPIRE BAI' AND a2.id_type='INSPIRE BAI')
+                         OR (a1.id_type='collaboration' AND a2.id_type='collaboration')
+                    )
                 )AS papers_from_authors,
-                (SELECT cited_id as record_id FROM 
-                  records_citations WHERE 
+                (SELECT cited_id as record_id FROM
+                  {RecordCitations.__tablename__} WHERE
                 citer_id = '{uuid}'
-                UNION 
-                SELECT citer_id AS record_id 
-                  from records_citations
+                UNION
+                SELECT citer_id AS record_id
+                  from {RecordCitations.__tablename__}
                 where cited_id = '{uuid}') as cited_papers
             WHERE
             cited_papers.record_id=papers_from_authors.record_id
         """
-        return db.session.execute(text(sql_query))
+        return [str(row[0]) for row in db.session.execute(text(sql_query)).fetchall()]
 
     def update_self_citations(self):
         self_citations = self.get_self_cited_referenced_papers()
@@ -292,23 +301,38 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             self_citations_count=len(self_citations),
             recid=self.get("control_number"),
         )
+        uuid = str(self.model.id)
         if self_citations:
-            uuid = str(self.model.id)
+            # update self-citations
             RecordCitations.query.filter(
-                or_(
-                    and_(
-                        RecordCitations.cited_id == uuid,
-                        RecordCitations.citer_id.in_(self_citations),
+                and_(
+                    or_(
+                        and_(
+                            RecordCitations.cited_id == uuid,
+                            RecordCitations.citer_id.in_(self_citations),
+                        ),
+                        and_(
+                            RecordCitations.cited_id.in_(self_citations),
+                            RecordCitations.citer_id == uuid,
+                        ),
                     ),
-                    and_(
-                        RecordCitations.cited_id.in_(self_citations),
-                        RecordCitations.citer_id == uuid,
-                    ),
+                    RecordCitations.citation_type == RecordCitationType.citation,
                 )
             ).update(
                 {RecordCitations.citation_type: RecordCitationType.self_citation},
                 synchronize_session=False,
             )
+        # update not-self_citations
+        RecordCitations.query.filter(
+            and_(
+                RecordCitations.cited_id == uuid,
+                not_(RecordCitations.citer_id.in_(self_citations)),
+                RecordCitations.citation_type == RecordCitationType.self_citation,
+            )
+        ).update(
+            {RecordCitations.citation_type: RecordCitationType.citation},
+            synchronize_session=False,
+        )
 
     def update(self, data, disable_relations_update=False, *args, **kwargs):
         super().update(data, disable_relations_update, *args, **kwargs)
@@ -329,12 +353,17 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         diff = list(current_authors.symmetric_difference(old_authors))
         differed_papers_uuids = []
         if diff:
-            for (
-                author_bai,
-                papers_uiids,
-            ) in self.get_referenced_papers_authors_bais().items():
-                if author_bai in diff:
-                    differed_papers_uuids.extend(papers_uiids)
+            differed_papers_uuids = [
+                result.record_id
+                for result in AuthorsRecords.query.filter(
+                    AuthorsRecords.record_id != self.id
+                )
+                .filter(
+                    and_(AuthorsRecords.author_id.in_(diff)),
+                    AuthorsRecords.id_type == "INSPIRE BAI",
+                )
+                .all()
+            ]
         return differed_papers_uuids
 
     def get_all_connected_papers_of_modified_collaborations(self):
@@ -344,12 +373,17 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         diff = list(current_collaborations.symmetric_difference(old_collaborations))
         differed_papers_uuids = []
         if diff:
-            for (
-                collaboration,
-                papers_uiids,
-            ) in self.get_recerenced_papers_collaborations().items():
-                if collaboration in diff:
-                    differed_papers_uuids.extend(papers_uiids)
+            differed_papers_uuids = [
+                result.record_id
+                for result in AuthorsRecords.query.filter(
+                    AuthorsRecords.record_id != self.id
+                )
+                .filter(
+                    and_(AuthorsRecords.author_id.in_(diff)),
+                    AuthorsRecords.id_type == "collaboration",
+                )
+                .all()
+            ]
         return differed_papers_uuids
 
 
