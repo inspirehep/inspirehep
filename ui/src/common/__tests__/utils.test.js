@@ -18,7 +18,6 @@ import pluralizeUnlessSingle, {
   pickEvenlyDistributedElements,
   removeProtocolAndWwwFromUrl,
   getRecordIdFromRef,
-  downloadTextAsFile,
   addOrdinalSuffix,
   makeCompliantMetaDescription,
   getAuthorName,
@@ -580,16 +579,6 @@ describe('utils', () => {
       const expected = [1990, 1991, 1992, 1993];
       const result = pickEvenlyDistributedElements(array, numberOfElements);
       expect(result).toEqual(expected);
-    });
-  });
-  describe('downloadTextAsFile', () => {
-    it('calls window open with given content', () => {
-      global.open = jest.fn();
-      downloadTextAsFile('Test');
-      expect(global.open).toHaveBeenCalledWith(
-        'data:application/txt,Test',
-        '_self'
-      );
     });
   });
 

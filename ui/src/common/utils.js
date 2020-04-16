@@ -202,7 +202,15 @@ export function getRecordIdFromRef($ref) {
 }
 
 export function downloadTextAsFile(text) {
-  window.open(`data:application/txt,${encodeURIComponent(text)}`, '_self');
+  const blob = new Blob([text], { type: 'application/txt' });
+  // support IE & edge
+  if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+    window.navigator.msSaveOrOpenBlob(blob, 'download.txt');
+  } else {
+    const url = URL.createObjectURL(blob);
+    window.open(url, '_self');
+    URL.revokeObjectURL(url);
+  }
 }
 
 export function addOrdinalSuffix(i) {
