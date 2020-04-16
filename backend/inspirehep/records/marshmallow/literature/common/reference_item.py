@@ -44,18 +44,16 @@ class ReferenceItemSchemaV1(Schema):
     dois = fields.Method("get_dois")
 
     @pre_dump(pass_many=True)
-    def filter_references(self, data, many):
+    def resolve_and_flatten(self, data, many):
         reference_records = self.get_resolved_references_by_control_number(data)
 
         if not many:
-            return self.get_resolved_reference(data, reference_records)
+            return self.get_reference_data(data, reference_records)
 
         references = []
         for reference in data:
-            resolved_reference = self.get_resolved_reference(
-                reference, reference_records
-            )
-            references.append(resolved_reference)
+            reference_data = self.get_reference_data(reference, reference_records)
+            references.append(reference_data)
         return references
 
     @pre_dump
@@ -68,16 +66,16 @@ class ReferenceItemSchemaV1(Schema):
                 ]
         return data
 
-    def get_resolved_reference(self, data, reference_records):
-        reference_record_id = self.get_reference_record_id(data)
+    def get_reference_data(self, reference, reference_records):
+        reference_record_id = self.get_reference_record_id(reference)
         reference_record = reference_records.get(reference_record_id)
-        reference = self.get_reference_or_linked_reference_with_label(
-            data, reference_record
+        reference_data = self.get_reference_or_linked_reference_data_with_label(
+            reference, reference_record
         )
-        return reference
+        return reference_data
 
-    def get_reference_record_id(self, data):
-        return get_recid_from_ref(data.get("record"))
+    def get_reference_record_id(self, reference):
+        return get_recid_from_ref(reference.get("record"))
 
     def get_resolved_references_by_control_number(self, data):
         data = force_list(data)
@@ -87,44 +85,39 @@ class ReferenceItemSchemaV1(Schema):
 
         return {record["control_number"]: record.dumps() for record in resolved_records}
 
-    def get_reference_or_linked_reference_with_label(self, data, reference_record):
+    def get_reference_or_linked_reference_data_with_label(
+        self, reference, reference_record
+    ):
         if reference_record:
             reference_record.update(
-                {"label": data.get("reference", {}).get("label", missing)}
+                {"label": reference.get("reference", {}).get("label", missing)}
             )
             return reference_record
-        return data.get("reference")
+        return reference.get("reference")
 
     def get_titles(self, data):
-        title = data.pop("title", None)
+        title = data.get("title")
+        titles = data.get("titles")
         if title:
-            data["titles"] = force_list(title)
-        return data.get("titles", missing)
+            return [title]
+        elif titles:
+            return [titles[0]]
+        return missing
 
     def get_dois(self, data):
-        dois = data.get("dois", None)
-        control_number = data.get("control_number")
-        if dois and not control_number:
-            data["dois"] = force_list(
-                {"value": get_value(data, "dois[0]", default=missing)}
-            )
-        elif dois:
-            data["dois"] = force_list(
-                {"value": get_value(data, "dois[0].value", default=missing)}
-            )
-        return data.get("dois", missing)
+        doi = get_value(data, "dois[0].value") or get_value(data, "dois[0]")
+        if doi:
+            return [{"value": doi}]
+        return missing
 
     def get_arxiv_eprints(self, data):
-        arxiv_eprint = data.pop("arxiv_eprint", None)
+        arxiv_eprint = data.get("arxiv_eprint")
         arxiv_eprints = data.get("arxiv_eprints")
         if arxiv_eprint:
-            data["arxiv_eprint"] = force_list({"value": arxiv_eprint})
+            return [{"value": arxiv_eprint}]
         elif arxiv_eprints:
-            data["arxiv_eprint"] = force_list(
-                {"value": get_value(data, "arxiv_eprints[0].value", default=missing)}
-            )
-        data.pop("arxiv_eprints", None)
-        return data.get("arxiv_eprint", missing)
+            return [{"value": arxiv_eprints[0].get("value")}]
+        return missing
 
     def get_misc(self, data):
         titles = data.get("titles")
