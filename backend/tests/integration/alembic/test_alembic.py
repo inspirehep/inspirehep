@@ -14,7 +14,7 @@ def test_downgrade(base_app, database):
 
     alembic.downgrade("cea5fa2e5d2c")
 
-    assert "authors_records" not in _get_table_names(database)
+    assert "records_authors" not in _get_table_names(database)
 
     assert "ix_records_citations_cited_id" in _get_indexes(
         "records_citations", database
@@ -157,11 +157,11 @@ def test_upgrade(base_app, database):
 
     alembic.upgrade(target="595c36d68964")
 
-    assert "authors_records" in _get_table_names(database)
-    assert "ix_authors_records_author_id_record_id" in _get_indexes(
-        "authors_records", database
+    assert "records_authors" in _get_table_names(database)
+    assert "ix_authors_records_author_id_id_type_record_id" in _get_indexes(
+        "records_authors", database
     )
-    assert "ix_authors_records_record_id" in _get_indexes("authors_records", database)
+    assert "ix_authors_records_record_id" in _get_indexes("records_authors", database)
 
     assert "ix_records_citations_cited_id" not in _get_indexes(
         "records_citations", database

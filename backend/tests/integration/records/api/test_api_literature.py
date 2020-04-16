@@ -22,7 +22,7 @@ from inspirehep.files.api import current_s3_instance
 from inspirehep.records.api import InspireRecord, LiteratureRecord
 from inspirehep.records.api.literature import import_article
 from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentifierError
-from inspirehep.records.models import AuthorsRecords, RecordCitations
+from inspirehep.records.models import RecordCitations, RecordsAuthors
 
 
 def test_literature_create(base_app, db, es):
@@ -1788,11 +1788,11 @@ def test_creating_record_updates_entries_in_authors_records_table(
 ):
     expected_authors_entries_count = 5
     expected_table_entries = [
-        "K.Janeway.1;INSPIRE BAI",
-        "INSPIRE-12345678;INSPIRE ID",
-        "J.T.Kirk.1;INSPIRE BAI",
-        "collaboration_1;collaboration",
-        "collaboration_2;collaboration",
+        ("K.Janeway.1", "INSPIRE BAI"),
+        ("INSPIRE-12345678", "INSPIRE ID"),
+        ("J.T.Kirk.1", "INSPIRE BAI"),
+        ("collaboration_1", "collaboration"),
+        ("collaboration_2", "collaboration"),
     ]
     data = {
         "authors": [
@@ -1813,10 +1813,10 @@ def test_creating_record_updates_entries_in_authors_records_table(
 
     record = create_record("lit", data=data)
 
-    authors_records_entries = AuthorsRecords.query.filter_by(record_id=record.id).all()
+    authors_records_entries = RecordsAuthors.query.filter_by(record_id=record.id).all()
     assert len(authors_records_entries) == expected_authors_entries_count
     table_entries = [
-        f"{entry.author_id};{entry.id_type}" for entry in authors_records_entries
+        (entry.author_id, entry.id_type) for entry in authors_records_entries
     ]
     assert sorted(table_entries) == sorted(expected_table_entries)
 
@@ -1842,7 +1842,7 @@ def test_updating_record_updates_entries_in_authors_records_table(
     record = create_record("lit", data=data)
 
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
     data = dict(record)
@@ -1860,7 +1860,7 @@ def test_updating_record_updates_entries_in_authors_records_table(
     record.update(data)
 
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
 
@@ -1889,7 +1889,7 @@ def test_updating_record_updates_entries_in_authors_records_table(
     expected_authors_entries_count = 5
     record.update(data)
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
 
@@ -1912,7 +1912,7 @@ def test_not_literature_collection_do_not_create_entries_in_authors_records_tabl
     record = create_record("lit", data=data)
 
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
 
@@ -1935,7 +1935,7 @@ def test_deleted_record_do_not_create_entries_in_authors_records_table(
     record = create_record("lit", data=data)
 
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
 
@@ -1957,14 +1957,14 @@ def test_deleting_record_removes_entries_in_authors_records_table(
     record = create_record("lit", data=data)
 
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
 
     record.delete()
     expected_authors_entries_count = 0
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
 
@@ -1986,13 +1986,13 @@ def test_hard_deleting_record_removes_entries_in_authors_records_table(
     record = create_record("lit", data=data)
 
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )
 
     record.hard_delete()
     expected_authors_entries_count = 0
     assert (
-        AuthorsRecords.query.filter_by(record_id=record.id).count()
+        RecordsAuthors.query.filter_by(record_id=record.id).count()
         == expected_authors_entries_count
     )

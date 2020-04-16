@@ -4,16 +4,105 @@ from invenio_db import db
 from sqlalchemy import func, or_
 
 from inspirehep.records.models import (
+    AuthorSchemaType,
     ConferenceLiterature,
     ConferenceToLiteratureRelationshipType,
     InstitutionLiterature,
     RecordCitations,
+    RecordsAuthors,
 )
 
 LOGGER = structlog.getLogger()
 
 
-class CitationMixin:
+class PapersAuthorsExtensionMixin:
+    def generate_entries_for_authors_in_authors_records_table(self):
+        """Generates RecordsAuthors objects table based on record data for authors"""
+
+        authors_ids_field = "authors.ids"
+        table_entries_buffer = []
+        for author in self.get_value(authors_ids_field, []):
+            for id in author:
+                try:
+                    table_entries_buffer.append(
+                        RecordsAuthors(
+                            author_id=id["value"],
+                            id_type=id["schema"],
+                            record_id=self.id,
+                        )
+                    )
+                except KeyError:
+                    LOGGER.exception(
+                        "id entry is missing keys",
+                        recid=self.get("control_number"),
+                        uuid=str(self.id),
+                    )
+        return table_entries_buffer
+
+    def generate_entries_for_collaborations_in_authors_records_table(self):
+        """Generates RecordsAuthors objects table based on record data for collaborations"""
+        collaborations_field = "collaborations.value"
+        table_entries_buffer = []
+        for collaboration in self.get_value(collaborations_field, []):
+            table_entries_buffer.append(
+                RecordsAuthors(
+                    author_id=collaboration,
+                    id_type=AuthorSchemaType.collaboration.value,
+                    record_id=self.id,
+                )
+            )
+        return table_entries_buffer
+
+    def update_authors_records_table(self):
+        """Puts all authors ids and collaborations in authors_records table"""
+        deleted_count = self.delete_authors_records_table_entries()
+
+        if (
+            self.get("deleted", False)
+            or self.pid_type not in ["lit"]
+            or "Literature" not in self["_collections"]
+        ):
+            LOGGER.info(
+                f"Skipping creating entries in "
+                f"{RecordsAuthors.__tablename__} table. Record is not literature or is deleted",
+                recid=self.get("control_number"),
+                uuid=str(self.id),
+            )
+            return
+        table_entries_buffer = (
+            self.generate_entries_for_authors_in_authors_records_table()
+        )
+        table_entries_buffer.extend(
+            self.generate_entries_for_collaborations_in_authors_records_table()
+        )
+
+        db.session.bulk_save_objects(table_entries_buffer)
+        LOGGER.info(
+            "authors_record table updated for record",
+            recid=self.get("control_number"),
+            uuid=str(self.id),
+            added_rows=len(table_entries_buffer),
+            deleted_rows=deleted_count,
+        )
+
+    def delete_authors_records_table_entries(self):
+        """Clean entries for this record"""
+        return RecordsAuthors.query.filter_by(record_id=self.id).delete()
+
+    def delete(self):
+        self.delete_authors_records_table_entries()
+        super().delete()
+
+    def hard_delete(self):
+        self.delete_authors_records_table_entries()
+        super().hard_delete()
+
+    def update(self, *args, **kwargs):
+        super().update(*args, **kwargs)
+        self.update_authors_records_table()
+
+
+class CitationMixin(PapersAuthorsExtensionMixin):
     def _citation_query(self):
         """Prepares query with all records which cited this one
         Returns:

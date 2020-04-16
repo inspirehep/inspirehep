@@ -11,6 +11,7 @@ import enum
 from invenio_db import db
 from invenio_records.models import RecordMetadata
 from sqlalchemy import Date, Enum, Text
+from sqlalchemy.dialects.postgresql import ENUM
 from sqlalchemy_utils import UUIDType
 
 
@@ -136,12 +137,33 @@ class InstitutionLiterature(db.Model):
     )
 
 
-class AuthorsRecords(db.Model):
-    __tablename__ = "authors_records"
+class AuthorSchemaType(enum.Enum):
+    INSPIRE_ID = "INSPIRE ID"
+    INSPIRE_BAI = "INSPIRE BAI"
+    ORCID = "ORCID"
+    JACOW = "JACOW"
+    KAKEN = "KAKEN"
+    ARXIV = "ARXIV"
+    CERN = "CERN"
+    DESY = "DESY"
+    GOOGLESCHOLAR = "GOOGLESCHOLAR"
+    VIAF = "VIAF"
+    RESEARCHERID = "RESEARCHERID"
+    SCOPUS = "SCOPUS"
+    SPIRES = "SPIRES"
+    WIKIPEDIA = "WIKIPEDIA"
+    SLAC = "SLAC"
+    TWITTER = "TWITTER"
+    LINKEDIN = "LINKEDIN"
+    collaboration = "collaboration"
+
+
+class RecordsAuthors(db.Model):
+    __tablename__ = "records_authors"
     __table_args__ = (
         db.Index("ix_authors_records_record_id", "record_id"),
         db.Index(
-            "ix_authors_records_author_id_record_id",
+            "ix_authors_records_author_id_id_type_record_id",
             "author_id",
             "id_type",
             "record_id",
@@ -149,7 +171,10 @@ class AuthorsRecords(db.Model):
     )
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(Text, nullable=False)
-    id_type = db.Column(Text, nullable=False)
+    id_type = db.Column(
+        ENUM(*[key.value for key in AuthorSchemaType], name="enum_author_schema_type"),
+        nullable=False,
+    )
     record_id = db.Column(
         UUIDType,
         db.ForeignKey("records_metadata.id", name="fk_authors_records_record_id"),
