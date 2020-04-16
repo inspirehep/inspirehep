@@ -9,7 +9,10 @@
 
 import sqlalchemy as sa
 from alembic import op
+from sqlalchemy.dialects.postgresql import ENUM
 from sqlalchemy_utils import UUIDType
+
+from inspirehep.records.models import AuthorSchemaType
 
 revision = "595c36d68964"
 down_revision = "cea5fa2e5d2c"
@@ -20,10 +23,16 @@ depends_on = None
 def upgrade():
     """Upgrade database."""
     op.create_table(
-        "authors_records",
+        "records_authors",
         sa.Column("id", sa.Integer(), nullable=False),
         sa.Column("author_id", sa.Text(), nullable=False),
-        sa.Column("id_type", sa.Text(), nullable=False),
+        sa.Column(
+            "id_type",
+            ENUM(
+                *[key.value for key in AuthorSchemaType], name="enum_author_schema_type"
+            ),
+            nullable=False,
+        ),
         sa.Column("record_id", UUIDType, nullable=False),
         sa.ForeignKeyConstraint(
             ["record_id"], ["records_metadata.id"], name="fk_authors_records_record_id"
@@ -31,13 +40,13 @@ def upgrade():
         sa.PrimaryKeyConstraint("id", name=op.f("pk_authors_records")),
     )
     op.create_index(
-        "ix_authors_records_author_id_record_id",
-        "authors_records",
+        "ix_authors_records_author_id_id_type_record_id",
+        "records_authors",
         ["author_id", "id_type", "record_id"],
         unique=False,
     )
     op.create_index(
-        "ix_authors_records_record_id", "authors_records", ["record_id"], unique=False
+        "ix_authors_records_record_id", "records_authors", ["record_id"], unique=False
     )
     op.create_index(
         "ix_records_citations_cited_id_citer_id",
@@ -56,8 +65,9 @@ def downgrade():
     op.drop_index(
         "ix_records_citations_cited_id_citer_id", table_name="records_citations"
     )
-    op.drop_index("ix_authors_records_record_id", table_name="authors_records")
+    op.drop_index("ix_authors_records_record_id", table_name="records_authors")
     op.drop_index(
-        "ix_authors_records_author_id_record_id", table_name="authors_records"
+        "ix_authors_records_author_id_id_type_record_id", table_name="records_authors"
     )
-    op.drop_table("authors_records")
+    op.drop_table("records_authors")
+    op.execute("DROP TYPE enum_author_schema_type;")
