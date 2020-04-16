@@ -201,7 +201,6 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
 
     def test_push_new_work_invalid_data_orcid(self):
         orcid = "0000-0002-0000-XXXX"
-
         pusher = domain_models.OrcidPusher(orcid, self.recid, self.oauth_token)
         with pytest.raises(exceptions.InputDataInvalidException):
             pusher.push()
@@ -264,6 +263,19 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
             )
             pusher.push()
         assert self.cache.has_work_content_changed(self.conflicting_inspire_record)
+
+    def test_push_new_work_already_existing_and_delete_duplicated_records_different_putcodes(
+        self,
+    ):
+        with override_config(
+            ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"}
+        ):
+            self.add_work(
+                "test_orcid_domain_models_TestOrcidPusherPostNewWork_conflicting_no_recid.xml"
+            )
+            pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+            pusher.push()
+            assert not self.cache.has_work_content_changed(self.inspire_record)
 
 
 @pytest.mark.usefixtures("base_app", "db", "es")

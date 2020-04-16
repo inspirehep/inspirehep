@@ -42,6 +42,7 @@ class OrcidPusher(object):
         self.lock_name = "orcid:{}".format(self.orcid)
         self.client = OrcidClient(self.oauth_token, self.orcid)
         self.converter = None
+        self.cached_author_putcodes = {}
 
     @time_execution
     def _get_inspire_record(self):
@@ -195,6 +196,7 @@ class OrcidPusher(object):
         xml_element = self.converter.get_xml(do_add_bibtex_citation=True)
         # ORCID API allows 1 non-idempotent call only for the same orcid at
         # the same time. Using `distributed_lock` to achieve this.
+
         with utils.distributed_lock(self.lock_name, blocking=True):
             if putcode:
                 response = self.client.put_updated_work(xml_element, putcode)
@@ -204,16 +206,30 @@ class OrcidPusher(object):
         response.raise_for_result()
         return response["putcode"]
 
+    def _delete_works_with_duplicated_putcodes(self, cached_putcodes_recids):
+        unique_recids_putcodes = {}
+        for fetched_putcode, fetched_recid in cached_putcodes_recids:
+            if fetched_recid in unique_recids_putcodes:
+                self._delete_work(fetched_putcode)
+            else:
+                unique_recids_putcodes[fetched_recid] = fetched_putcode
+        return unique_recids_putcodes
+
     @time_execution
     def _cache_all_author_putcodes(self):
         LOGGER.debug("New OrcidPusher cache all author putcodes", orcid=self.orcid)
-        putcode_getter = OrcidPutcodeGetter(self.orcid, self.oauth_token)
-        putcodes_recids = list(
-            putcode_getter.get_all_inspire_putcodes_and_recids_iter()
-        )  # Can raise exceptions.InputDataInvalidException.
+
+        if not self.cached_author_putcodes:
+            putcode_getter = OrcidPutcodeGetter(self.orcid, self.oauth_token)
+            putcodes_recids = list(
+                putcode_getter.get_all_inspire_putcodes_and_recids_iter()
+            )
+            self.cached_author_putcodes = self._delete_works_with_duplicated_putcodes(
+                putcodes_recids
+            )
 
         putcode = None
-        for fetched_putcode, fetched_recid in putcodes_recids:
+        for fetched_recid, fetched_putcode in self.cached_author_putcodes.items():
             if fetched_recid == self.recid:
                 putcode = int(fetched_putcode)
             cache = OrcidCache(self.orcid, fetched_recid)
@@ -258,10 +274,14 @@ class OrcidPusher(object):
         putcode_getter = OrcidPutcodeGetter(self.orcid, self.oauth_token)
 
         ids = self.converter.added_external_identifiers
-        for (
-            putcode,
-            recid,
-        ) in putcode_getter.get_putcodes_and_recids_by_identifiers_iter(ids):
+        putcodes_recids = putcode_getter.get_putcodes_and_recids_by_identifiers_iter(
+            ids
+        )
+        updated_putcodes_recid = self._delete_works_with_duplicated_putcodes(
+            putcodes_recids
+        )
+
+        for (recid, putcode) in updated_putcodes_recid.items():
 
             if not putcode or not recid:
                 continue
