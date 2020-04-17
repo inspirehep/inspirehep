@@ -18,7 +18,7 @@ def get_index_alias(index):
     return build_alias_name(index, app=current_app)
 
 
-def override_config(**kwargs):
+def override_config(app=None, **kwargs):
     """
     Override Flask's current app configuration.
     Note: it's a CONTEXT MANAGER.
@@ -34,4 +34,6 @@ def override_config(**kwargs):
     """
     from flask import current_app
 
+    if app:
+        return mock.patch.dict(app.config, kwargs)
     return mock.patch.dict(current_app.config, kwargs)
