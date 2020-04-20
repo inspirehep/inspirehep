@@ -23,6 +23,7 @@ export const CONFERENCES_PID_TYPE = 'conferences';
 
 export const INVENIO_URL = '//invenio-software.org';
 export const HOLDINGPEN_URL = '/holdingpen';
+export const LEGACY_URL = 'https://old.inspirehep.net';
 export const AUTHORLIST_TOOL_URL = '/tools/authorlist';
 export const INSPIRE_TWITTER_ACCOUNT = 'https://twitter.com/inspirehep';
 export const SURVEY_LINK = 'https://forms.gle/ZQi31GvXXHcsgXgM6';

@@ -4,6 +4,8 @@ import { Table } from 'antd';
 import PropTypes from 'prop-types';
 import FilterDropdown from './FilterDropdown';
 import './ExceptionsTable.scss';
+import { LEGACY_URL } from '../../common/constants';
+import ExternalLink from '../../common/components/ExternalLink';
 
 class ExceptionsTable extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -166,8 +168,8 @@ class ExceptionsTable extends Component {
         filterDropdownVisible: isRecidFilterDropdownVisible,
         onFilterDropdownVisibleChange: this.onRecidFilterDropdownVisibleChange,
         render: text => {
-          const recordLink = `http://inspirehep.net/record/${text}/edit`;
-          return <a href={recordLink}>{text}</a>;
+          const recordLink = `${LEGACY_URL}/record/${text}/edit`;
+          return <ExternalLink href={recordLink}>{text}</ExternalLink>;
         },
       },
     ];
