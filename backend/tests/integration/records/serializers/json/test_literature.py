@@ -699,6 +699,7 @@ def test_literature_detail_serialize_experiments(
     create_record_factory("exp", data={"control_number": 1_110_601})
     create_record_factory("exp", data={"control_number": 1_108_514})
     dumped_record = LiteratureDetailSchema().dump(record).data
+
     assert dumped_record["accelerator_experiments"] == expected_experiment
 
 
@@ -824,3 +825,54 @@ def test_record_no_fulllinks_in_detail_view_when_no_fulltext_links(
     response = api_client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
     assert "fulltext_links" not in response.json["metadata"]
+
+
+def test_literature_search_lowercased_doi_in_references(
+    api_client, db, es, create_record
+):
+    headers = {"Accept": "application/json"}
+
+    data = {
+        "dois": [{"value": "10.1103/PhysRevLett.50.928"}],
+        "references": [{"reference": {"dois": ["10.1103/PhysRevLett.50.928"]}}],
+    }
+    record = create_record("lit", data=data)
+
+    expected_status_code = 200
+    expected_result_len = 1
+    expected_doi = "10.1103/PhysRevLett.50.928"
+
+    response1 = api_client.get(
+        "/literature?q=references.reference.dois:10.1103%2Fphysrevlett.50.928",
+        headers=headers,
+    )
+    response2 = api_client.get(
+        "/literature?q=references.reference.dois:10.1103%2FPHYSREVLETT.50.928",
+        headers=headers,
+    )
+
+    response1_status_code = response1.status_code
+    response1_data = json.loads(response1.data)
+    response1_data_hits = response1_data["hits"]["hits"]
+    response1_data_hits_len = len(response1_data_hits)
+    response1_data_hits_metadata = response1_data_hits[0]["metadata"]
+    response1_hit_dois = response1_data_hits_metadata["references"][0]["reference"][
+        "dois"
+    ][0]
+
+    response2_status_code = response2.status_code
+    response2_data = json.loads(response1.data)
+    response2_data_hits = response2_data["hits"]["hits"]
+    response2_data_hits_len = len(response2_data_hits)
+    response2_data_hits_metadata = response2_data_hits[0]["metadata"]
+    response2_hit_dois = response2_data_hits_metadata["references"][0]["reference"][
+        "dois"
+    ][0]
+
+    assert expected_status_code == response1_status_code
+    assert expected_result_len == response1_data_hits_len
+    assert expected_doi == response1_hit_dois
+
+    assert expected_status_code == response2_status_code
+    assert expected_result_len == response2_data_hits_len
+    assert expected_doi == response2_hit_dois
