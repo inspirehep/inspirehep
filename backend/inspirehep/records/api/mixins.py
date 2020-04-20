@@ -11,8 +11,8 @@ from inspirehep.records.models import (
     ConferenceToLiteratureRelationshipType,
     InstitutionLiterature,
     RecordCitations,
-    RecordsAuthors,
     RecordCitationType,
+    RecordsAuthors,
 )
 
 LOGGER = structlog.getLogger()
@@ -106,7 +106,7 @@ class PapersAuthorsExtensionMixin:
 
 
 class CitationMixin(PapersAuthorsExtensionMixin):
-    def _citation_query(self):
+    def _citation_query(self, exclude_self_citations=False):
         """Prepares query with all records which cited this one
         Returns:
             query: Query containing all citations for this record
@@ -273,7 +273,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         sql_query = f"""
             SELECT papers_from_authors.record_id
             FROM
-                (SELECT DISTINCT a1.record_id FROM {AuthorsRecords.__tablename__} a1, {AuthorsRecords.__tablename__} a2
+                (SELECT DISTINCT a1.record_id FROM {RecordsAuthors.__tablename__} a1, {RecordsAuthors.__tablename__} a2
                 WHERE
                     a2.record_id ='{uuid}'
                     AND a1.author_id=a2.author_id
@@ -355,12 +355,12 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         if diff:
             differed_papers_uuids = [
                 result.record_id
-                for result in AuthorsRecords.query.filter(
-                    AuthorsRecords.record_id != self.id
+                for result in RecordsAuthors.query.filter(
+                    RecordsAuthors.record_id != self.id
                 )
                 .filter(
-                    and_(AuthorsRecords.author_id.in_(diff)),
-                    AuthorsRecords.id_type == "INSPIRE BAI",
+                    and_(RecordsAuthors.author_id.in_(diff)),
+                    RecordsAuthors.id_type == "INSPIRE BAI",
                 )
                 .all()
             ]
@@ -375,12 +375,12 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         if diff:
             differed_papers_uuids = [
                 result.record_id
-                for result in AuthorsRecords.query.filter(
-                    AuthorsRecords.record_id != self.id
+                for result in RecordsAuthors.query.filter(
+                    RecordsAuthors.record_id != self.id
                 )
                 .filter(
-                    and_(AuthorsRecords.author_id.in_(diff)),
-                    AuthorsRecords.id_type == "collaboration",
+                    and_(RecordsAuthors.author_id.in_(diff)),
+                    RecordsAuthors.id_type == "collaboration",
                 )
                 .all()
             ]
