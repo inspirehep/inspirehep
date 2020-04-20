@@ -60,8 +60,11 @@ function SearchBox({ value, placeholder, onSearch, namespace }) {
       // since `onSelect` is called after `onSearch`, we can't do this `onSearch`.
       if (shouldSearch) {
         onSearch(namespace, inputValue);
-        HISTORY_BY_NAMESPACE[namespace].add(inputValue.trim());
-        persistHistory(HISTORY_BY_NAMESPACE);
+
+        if (inputValue) {
+          HISTORY_BY_NAMESPACE[namespace].add(inputValue.trim());
+          persistHistory(HISTORY_BY_NAMESPACE);
+        }
         setShouldSearch(false);
         setAutoCompleteOptions([]);
       }
