@@ -351,6 +351,68 @@
         },
         "type": "nested"
       },
+      "first_author": {
+        "properties": {
+          "emails": {
+            "type": "keyword"
+          },
+          "full_name": {
+            "analyzer": "author_name_analyzer",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            },
+            "type": "text"
+          },
+          "first_name": {
+            "type": "text",
+            "analyzer": "names_analyzer",
+            "fields": {
+              "raw": {
+                "type": "text"
+              },
+              "initials": {
+                "type": "text",
+                "analyzer": "names_initials_analyzer"
+              }
+            }
+          },
+          "last_name": {
+            "type": "text",
+            "analyzer": "names_analyzer",
+            "fields": {
+              "raw": {
+                "type": "text"
+              }
+            }
+          },
+          "ids": {
+            "properties": {
+              "schema": {
+                "type": "keyword"
+              },
+              "value": {
+                "fields": {
+                  "raw": {
+                    "type": "keyword"
+                  },
+                  "search": {
+                    "analyzer": "lowercase_analyzer",
+                    "type": "text"
+                  }
+                },
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "recid": {
+            "type": "integer"
+          }
+        },
+        "type": "nested"
+      },
       "bookautocomplete": {
         "type": "completion"
       },

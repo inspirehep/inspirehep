@@ -74,6 +74,7 @@ inspire-dojson = "^63.0"
 boto3 = "^1.11.5"
 python-magic = "^0.4.15"
 inspire-query-parser = "^6.0.6"
+deepdiff = "^4.3.2"
 
 
 [tool.poetry.dev-dependencies]

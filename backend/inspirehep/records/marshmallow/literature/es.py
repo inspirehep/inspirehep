@@ -17,6 +17,7 @@ from inspirehep.records.api import InspireRecord
 from inspirehep.records.marshmallow.literature.common.abstract import AbstractSource
 from inspirehep.records.marshmallow.literature.common.author import (
     AuthorsInfoSchemaForES,
+    FirstAuthorSchemaV1,
 )
 from inspirehep.records.marshmallow.literature.common.thesis_info import (
     ThesisInfoSchemaForESV1,
@@ -40,6 +41,7 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
     abstracts = fields.Nested(AbstractSource, dump_only=True, many=True)
     author_count = fields.Method("get_author_count")
     authors = fields.Nested(AuthorsInfoSchemaForES, dump_only=True, many=True)
+    first_author = fields.Nested(FirstAuthorSchemaV1, dump_only=True)
     bookautocomplete = fields.Method("get_bookautocomplete")
     earliest_date = fields.Raw(dump_only=True, default=missing)
     facet_inspire_doc_type = fields.Method("get_inspire_document_type")
@@ -144,11 +146,13 @@ class LiteratureElasticSearchSchema(ElasticSearchBaseSchema, LiteratureRawSchema
         return {"input": input_values}
 
     @pre_dump
-    def remove_supervisors_from_authors(self, data):
+    def remove_supervisors_from_authors_and_populate_first_author(self, data):
         if "authors" in data:
             data["authors"] = [
                 author
                 for author in data["authors"]
                 if "supervisor" not in author.get("inspire_roles", [])
             ]
+            if data["authors"]:
+                data["first_author"] = data["authors"][0]
         return data
