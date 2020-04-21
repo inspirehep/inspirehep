@@ -55,6 +55,8 @@ class Conference(Schema):
                 country = pycountry.countries.get(name=address.get("country"))
             except KeyError:
                 country = pycountry.countries.get(official_name=address.get("country"))
+            except KeyError:
+                country = pycountry.countries.get(common_name=address.get("country"))
 
             builder.add_address(
                 cities=[address.get("city")],
