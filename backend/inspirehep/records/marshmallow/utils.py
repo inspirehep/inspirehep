@@ -37,9 +37,8 @@ def get_adresses_with_country(record):
     for address in addresses:
         if "country_code" in address:
             try:
-                address["country"] = pycountry.countries.get(
-                    alpha_2=address["country_code"]
-                ).name
+                country = pycountry.countries.get(alpha_2=address["country_code"])
+                address["country"] = getattr(country, "common_name", country.name)
             except KeyError:
                 LOGGER.warning(
                     "Wrong Country code",
