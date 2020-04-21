@@ -8,6 +8,7 @@
 import json
 
 import pytest
+from deepdiff import DeepDiff
 from freezegun import freeze_time
 from helpers.utils import es_search
 from invenio_search import current_search
@@ -44,7 +45,7 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     del result["_created"]
     del result["_updated"]
     assert response["hits"]["total"]["value"] == expected_count
-    assert result == expected_metadata
+    assert not DeepDiff(result, expected_metadata, ignore_order=True)
     assert result_ui_display == expected_metadata_ui_display
     assert result_latex_us_display == expected_metadata_latex_us_display
     assert result_latex_eu_display == expected_metadata_latex_eu_display

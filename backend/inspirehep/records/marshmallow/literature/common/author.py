@@ -14,28 +14,14 @@ from marshmallow import Schema, fields, missing, pre_dump
 from inspirehep.records.marshmallow.utils import get_first_value_for_schema
 
 
-class AuthorSchemaV1(Schema):
+class FirstAuthorSchemaV1(Schema):
 
     recid = fields.Method("get_recid", default=missing, attribute="record")
-    affiliations = fields.Raw()
-    alternative_names = fields.Raw()
-    credit_roles = fields.Raw()
-    curated_relation = fields.Raw()
     emails = fields.Raw()
     full_name = fields.Raw()
     ids = fields.Raw()
-    inspire_roles = fields.Raw()
-    raw_affiliations = fields.Raw()
-    record = fields.Raw()
-    signature_block = fields.Raw()
-    uuid = fields.Raw()
     first_name = fields.Method("get_first_name", default=missing)
     last_name = fields.Method("get_last_name", default=missing)
-    bai = fields.Method("get_bai", dump_only=True)
-
-    @staticmethod
-    def get_bai(data):
-        return get_first_value_for_schema(data.get("ids", []), "INSPIRE BAI") or missing
 
     def get_first_name(self, data):
         names = data.get("full_name", "").split(",", 1)
@@ -58,6 +44,23 @@ class AuthorSchemaV1(Schema):
         if "record" in data:
             return get_recid_from_ref(data["record"])
         return missing
+
+
+class AuthorSchemaV1(FirstAuthorSchemaV1):
+    alternative_names = fields.Raw()
+    affiliations = fields.Raw()
+    credit_roles = fields.Raw()
+    curated_relation = fields.Raw()
+    inspire_roles = fields.Raw()
+    raw_affiliations = fields.Raw()
+    record = fields.Raw()
+    signature_block = fields.Raw()
+    uuid = fields.Raw()
+    bai = fields.Method("get_bai", dump_only=True)
+
+    @staticmethod
+    def get_bai(data):
+        return get_first_value_for_schema(data.get("ids", []), "INSPIRE BAI") or missing
 
     @pre_dump
     def filter(self, data):

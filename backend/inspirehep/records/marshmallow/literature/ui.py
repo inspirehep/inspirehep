@@ -55,6 +55,7 @@ class LiteratureDetailSchema(CatalogerCanEditMixin, LiteraturePublicSchema):
             "refereed",
             "references",
             "withdrawn",
+            "first_author",
         ]
 
     accelerator_experiments = fields.Nested(
