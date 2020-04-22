@@ -309,9 +309,6 @@
           "names_analyzed"
         ]
       },
-      "name_variations": {
-        "type": "keyword"
-      },
       "past_emails_addresses": {
         "type": "text"
       },
