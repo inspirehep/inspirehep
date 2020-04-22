@@ -3,7 +3,6 @@ import { push, goBack } from 'connected-react-router';
 
 import { getStore } from '../../fixtures/store';
 import {
-  USER_LOGIN_ERROR,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT_SUCCESS,
   LOGGED_IN_USER_REQUEST,
@@ -13,18 +12,14 @@ import {
   USER_SET_PREFERENCE,
 } from '../actionTypes';
 import {
-  userLogin,
   userLogout,
   fetchLoggedInUser,
   updateOrcidPushSetting,
   setPreference,
 } from '../user';
-import loginInNewTab from '../../user/loginInNewTab';
 import http from '../../common/http';
 import { HOME } from '../../common/routes';
 import { CITATION_SUMMARY_ENABLING_PREFERENCE } from '../../reducers/user';
-
-jest.mock('../../user/loginInNewTab');
 
 const mockHttp = new MockAdapter(http);
 
@@ -54,30 +49,6 @@ describe('user - async action creator', () => {
     const store = getStore();
     await store.dispatch(fetchLoggedInUser());
     expect(store.getActions()).toEqual(expectedActions);
-  });
-
-  it('successful login creates USER_LOGIN_SUCCESS', async done => {
-    const user = { data: { username: 'test' } };
-    loginInNewTab.mockReturnValueOnce(Promise.resolve(user));
-
-    const expectedActions = [{ type: USER_LOGIN_SUCCESS, payload: user }];
-
-    const store = getStore();
-    await store.dispatch(userLogin());
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
-  });
-
-  it('unsuccessful login creates USER_LOGIN_ERROR', async done => {
-    const error = new Error('Test');
-    loginInNewTab.mockReturnValueOnce(Promise.reject(error));
-
-    const expectedActions = [{ type: USER_LOGIN_ERROR, payload: error }];
-
-    const store = getStore();
-    await store.dispatch(userLogin());
-    expect(store.getActions()).toEqual(expectedActions);
-    done();
   });
 
   it('successful logout creates USER_LOGOUT_SUCCESS', async done => {

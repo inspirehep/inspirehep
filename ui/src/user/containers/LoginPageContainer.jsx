@@ -1,12 +1,8 @@
 import { connect } from 'react-redux';
-
-import { userLogin } from '../../actions/user';
 import LoginPage from '../components/LoginPage';
 
-export const dispatchToProps = dispatch => ({
-  onLoginClick() {
-    dispatch(userLogin());
-  },
+export const stateToProps = state => ({
+  previousUrl: state.router.location.previousUrl,
 });
 
-export default connect(null, dispatchToProps)(LoginPage);
+export default connect(stateToProps)(LoginPage);

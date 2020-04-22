@@ -8,13 +8,15 @@ import './LoginPage.scss';
 import ExternalLink from '../../../common/components/ExternalLink';
 import DocumentHead from '../../../common/components/DocumentHead';
 import { WHAT_IS_ORCID_URL } from '../../../common/constants';
+import { USER_SIGNUP } from '../../../common/routes';
 
 const META_DESCRIPTION = 'Log in to your INSPIRE account. Log in with ORCID';
 const TITLE = 'Login';
 
 class LoginPage extends Component {
   render() {
-    const { onLoginClick } = this.props;
+    const { previousUrl } = this.props;
+    const loginHref = `/api/accounts/login?next=${previousUrl}&signup_url=${USER_SIGNUP}`;
     return (
       <>
         <DocumentHead title={TITLE} description={META_DESCRIPTION} />
@@ -33,7 +35,7 @@ class LoginPage extends Component {
                 https://orcid.org/register
               </ExternalLink>
             </p>
-            <Button className="login-button h3" onClick={onLoginClick}>
+            <Button className="login-button h3" href={loginHref}>
               <img className="logo mr2" src={orcidLogo} alt="ORCID" />
               <strong>Login with ORCID</strong>
             </Button>
@@ -48,7 +50,7 @@ class LoginPage extends Component {
 }
 
 LoginPage.propTypes = {
-  onLoginClick: PropTypes.func.isRequired,
+  previousUrl: PropTypes.string.isRequired,
 };
 
 export default LoginPage;

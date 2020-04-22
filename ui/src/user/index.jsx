@@ -15,6 +15,7 @@ import {
   USER_LOCAL_LOGIN,
   USER_PROFILE,
   USER,
+  HOME,
 } from '../common/routes';
 import SafeSwitch from '../common/components/SafeSwitch';
 
@@ -37,7 +38,7 @@ class User extends Component {
             path={USER_SIGNUP}
             condition={!loggedIn}
             component={SignUpPageContainer}
-            redirectTo="/"
+            redirectTo={HOME}
           />
           <RouteOrRedirect
             exact

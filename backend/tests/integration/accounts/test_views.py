@@ -8,7 +8,7 @@
 import json
 
 import mock
-from flask import render_template
+from flask import session
 from invenio_accounts.testutils import login_user_via_session
 from invenio_oauthclient import current_oauthclient
 from invenio_oauthclient.models import RemoteAccount
@@ -35,31 +35,57 @@ def test_me_returns_user_data_if_logged_in(api_client, create_user):
     assert response.json == expected_data
 
 
-def test_login_success_returns_the_correct_template(api_client, create_user):
-    user = create_user(role="user", orcid="0000-0001-8829-5461", allow_push=False)
-    login_user_via_session(api_client, email=user.email)
-    payload = {
-        "data": {
-            "email": user.email,
-            "roles": ["user"],
-            "orcid": "0000-0001-8829-5461",
-            "allow_orcid_push": False,
-        }
-    }
+def test_login_sets_next_url_and_signup_url(api_client):
+    api_client.get("/accounts/login?next=/jobs&signup_url=/user/signup")
 
-    expected = render_template("accounts/postmessage.html", payload=payload)
-    response = api_client.get("/accounts/login_success")
-    assert expected == response.get_data(as_text=True)
+    assert session["next_url"] == "/jobs"
+    assert session["signup_url"] == "/user/signup"
 
 
-def test_sign_up_required_returns_the_correct_template(api_client, create_user):
-    user = create_user(role="user")
-    login_user_via_session(api_client, email=user.email)
-    payload = {"user_needs_sign_up": True}
+def test_login_redirects_to_oauthclient_login(api_client):
+    response = api_client.get("/accounts/login?next=/jobs&signup_url=/user/signup")
 
-    expected = render_template("accounts/postmessage.html", payload=payload)
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_redirect_url = "http://localhost:5000/api/oauth/login/orcid"
+    expected_status_code = 302
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_login_success_redirects_to_next_url(api_client):
+    next_url = "http://localhost:3000/literature?q=moskovic"
+
+    with api_client.session_transaction() as sess:
+        sess["next_url"] = next_url
+
+    response = api_client.get("/accounts/login-success")
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_redirect_url = next_url
+    expected_status_code = 302
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
+
+
+def test_sign_up_required_redirects_to_signup_form(api_client):
+    signup_form_url = "http://localhost:3000/user/signup"
+
+    with api_client.session_transaction() as sess:
+        sess["signup_url"] = signup_form_url
+
     response = api_client.get("/accounts/signup")
-    assert expected == response.get_data(as_text=True)
+
+    response_status_code = response.status_code
+    response_location_header = response.headers.get("Location")
+
+    expected_redirect_url = signup_form_url
+    expected_status_code = 302
+    assert expected_status_code == response_status_code
+    assert response_location_header == expected_redirect_url
 
 
 @mock.patch("flask_login.utils._get_user")
@@ -103,7 +129,6 @@ def test_sign_up_user_error_on_duplicate_user(api_client, create_user):
     previous_current_oauthclient_signup_handlers = current_oauthclient.signup_handlers
     current_oauthclient.signup_handlers["orcid"] = {"view": raise_error}
     user = create_user(role="user")
-    current_user = user
     response = api_client.post(
         "/accounts/signup",
         data=json.dumps({"email": user.email}),

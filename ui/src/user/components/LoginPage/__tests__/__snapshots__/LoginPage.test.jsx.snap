@@ -37,9 +37,9 @@ exports[`LoginPage renders page 1`] = `
         block={false}
         className="login-button h3"
         ghost={false}
+        href="/api/accounts/login?next=/&signup_url=/user/signup"
         htmlType="button"
         loading={false}
-        onClick={[MockFunction]}
       >
         <img
           alt="ORCID"
