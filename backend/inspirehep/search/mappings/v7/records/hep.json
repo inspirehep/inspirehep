@@ -310,9 +310,6 @@
           "name_suggest": {
             "type": "completion"
           },
-          "name_variations": {
-            "type": "keyword"
-          },
           "raw_affiliations": {
             "properties": {
               "source": {
