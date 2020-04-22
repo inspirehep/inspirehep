@@ -70,7 +70,7 @@ function ConferenceForm({ values, isSubmitting, isValid, isValidating }) {
               <Field
                 onlyChild
                 name={`${itemName}.country`}
-                placeholder="* Country"
+                placeholder="* Country/Region"
                 showSearch
                 options={countryOptions}
                 component={SelectField}
