@@ -16,10 +16,12 @@ const stateToProps = (state, { namespace }) => ({
 
 export const dispatchToProps = (dispatch, { namespace }) => ({
   onPageChange(page) {
+    window.scrollTo({ top: 0 });
     dispatch(searchQueryUpdate(namespace, { page: String(page) }));
   },
 
   onSizeChange(page, size) {
+    window.scrollTo({ top: 0 });
     dispatch(searchQueryUpdate(namespace, { size, page: '1' }));
   },
 });
