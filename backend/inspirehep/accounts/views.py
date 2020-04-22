@@ -5,7 +5,7 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, redirect, request, session
 from flask_security.utils import login_user, logout_user, verify_password
 from invenio_accounts.models import User
 from invenio_db import db
@@ -30,16 +30,14 @@ def me():
     return jsonify(data_current_user), 200
 
 
-@blueprint.route("/login_success")
+@blueprint.route("/login-success")
 def login_success():
-    payload = get_current_user_data()
-    return render_template("accounts/postmessage.html", payload=payload)
+    return redirect(session["next_url"])
 
 
 @blueprint.route("/signup", methods=["GET"])
 def sign_up_required():
-    payload = {"user_needs_sign_up": True}
-    return render_template("accounts/postmessage.html", payload=payload)
+    return redirect(session["signup_url"])
 
 
 @blueprint.route("/signup", methods=["POST"])
@@ -57,8 +55,15 @@ def sign_up_user():
         return jsonify(data_current_user), 200
 
 
-@blueprint.route("/login", methods=["POST"])
+@blueprint.route("/login", methods=["GET"])
 def login():
+    session["next_url"] = request.args.get("next")
+    session["signup_url"] = request.args.get("signup_url")
+    return redirect("/api/oauth/login/orcid")
+
+
+@blueprint.route("/login", methods=["POST"])
+def local_login():
     body = request.get_json()
     email = body["email"]
     password = body["password"]

@@ -8,14 +8,16 @@ jest.mock('../../../../actions/user');
 
 describe('LoginPage', () => {
   it('renders page', () => {
-    const wrapper = shallow(<LoginPage onLoginClick={jest.fn()} />);
+    const wrapper = shallow(
+      <LoginPage onLoginClick={jest.fn()} previousUrl="/" />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('passes onLoginClick to click event of login button', () => {
-    const onLoginClick = jest.fn();
-    const wrapper = shallow(<LoginPage onLoginClick={onLoginClick} />);
-    const onLoginButtonClick = wrapper.find(Button).prop('onClick');
-    expect(onLoginClick).toBe(onLoginButtonClick);
+  it('passes previousUrl as next query parameter', () => {
+    const previousUrl = '/jobs?q=CERN';
+    const wrapper = shallow(<LoginPage previousUrl={previousUrl} />);
+    const href = wrapper.find(Button).prop('href');
+    expect(href).toContain(previousUrl);
   });
 });

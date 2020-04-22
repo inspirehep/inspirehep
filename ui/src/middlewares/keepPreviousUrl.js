@@ -1,6 +1,7 @@
 import { LOCATION_CHANGE } from 'connected-react-router';
+import { HOME } from '../common/routes';
 
-let previousUrl = '';
+let previousUrl = HOME;
 
 export default () => {
   return next => action => {

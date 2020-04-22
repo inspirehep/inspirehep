@@ -12,8 +12,7 @@ import {
   USER_SET_ORCID_PUSH_SETTING_ERROR,
   USER_SET_PREFERENCE,
 } from './actionTypes';
-import loginInNewTab from '../user/loginInNewTab';
-import { HOME, USER_SIGNUP } from '../common/routes';
+import { HOME } from '../common/routes';
 import { httpErrorToActionPayload } from '../common/utils';
 
 export function userLoginSuccess(user) {
@@ -71,21 +70,6 @@ export function userSignUp(userEmail) {
     } catch (error) {
       const errorPayload = httpErrorToActionPayload(error);
       dispatch(userSignUpError(errorPayload));
-    }
-  };
-}
-
-export function userLogin() {
-  return async dispatch => {
-    try {
-      const user = await loginInNewTab();
-      if (user.user_needs_sign_up) {
-        dispatch(push(USER_SIGNUP));
-      } else {
-        dispatch(userLoginSuccess(user));
-      }
-    } catch (error) {
-      dispatch(userLoginError(error));
     }
   };
 }

@@ -17,7 +17,7 @@ ORCID_SANDBOX = True
 
 # ORCID sandbox ================================================================
 REMOTE_SANDBOX_REST_APP = copy.deepcopy(ORCID_REMOTE_SANDBOX_REST_APP)
-REMOTE_SANDBOX_REST_APP["authorized_redirect_url"] = "/api/accounts/login_success"
+REMOTE_SANDBOX_REST_APP["authorized_redirect_url"] = "/api/accounts/login-success"
 REMOTE_SANDBOX_REST_APP["signup_redirect_url"] = "/api/accounts/signup"
 
 REMOTE_SANDBOX_REST_APP["params"]["request_token_params"] = {
@@ -31,7 +31,7 @@ REMOTE_SANDBOX_REST_APP["signup_handler"][
 
 # ORCID production =============================================================
 REMOTE_REST_APP = copy.deepcopy(ORCID_REMOTE_REST_APP)
-REMOTE_REST_APP["authorized_redirect_url"] = "/api/accounts/login_success"
+REMOTE_REST_APP["authorized_redirect_url"] = "/api/accounts/login-success"
 REMOTE_REST_APP["signup_redirect_url"] = "/api/accounts/signup"
 REMOTE_REST_APP["params"]["request_token_params"] = {
     "scope": " ".join(["/read-limited", "/activities/update", "/person/update"]),
