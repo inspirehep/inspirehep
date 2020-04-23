@@ -79,7 +79,7 @@ def _prepare_logdir(log_path):
     "--pidtype",
     multiple=True,
     help="Reindex only the specified PIDs. "
-    'Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins"].',
+    'Allowed values are "lit", "con", "dat", "exp", "jou", "aut", "job", "ins".',
 )
 @click.option(
     "-id",
@@ -167,7 +167,9 @@ def reindex_records(
         ctx.exit(0)
 
     if not set(pidtype) <= set(allowed_pids):
-        raise ValueError(f"PIDs {pidtype} are not a subset of {allowed_pids}.")
+        raise ValueError(
+            f"PIDs {set(pidtype).difference(set(allowed_pids))} are not a subset of {allowed_pids}."
+        )
     if all:
         pidtype = allowed_pids
 
