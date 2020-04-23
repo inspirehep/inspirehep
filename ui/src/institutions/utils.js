@@ -2,7 +2,7 @@ import { List } from 'immutable';
 import { makeCompliantMetaDescription } from '../common/utils';
 
 export function getPapersQueryString(recordId) {
-  return `authors.affiliations.record.$ref:${recordId}`;
+  return `affid ${recordId}`;
 }
 
 function getAddressText(address) {

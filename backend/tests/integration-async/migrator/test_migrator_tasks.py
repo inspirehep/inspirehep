@@ -133,26 +133,50 @@ def test_process_references_in_records_reindexes_institutions_when_linked_instit
     inst_ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
 
     data = faker.record("lit", with_control_number=True)
-
-    data["authors"] = [
+    data.update(
         {
-            "full_name": "John Doe",
-            "affiliations": [{"value": "Institution", "record": {"$ref": inst_ref}}],
+            "authors": [
+                {
+                    "full_name": "John Doe",
+                    "affiliations": [
+                        {"value": "Institution", "record": {"$ref": inst_ref}}
+                    ],
+                }
+            ]
         }
-    ]
+    )
 
-    record = InspireRecord.create(data)
+    record_authors_aff = InspireRecord.create(data)
     db.session.commit()
 
+    data = faker.record("lit", with_control_number=True)
+    data.update({"thesis_info": {"institutions": [{"record": {"$ref": inst_ref}}]}})
+
+    record_thesis_info = InspireRecord.create(data)
+    db.session.commit()
+
+    data = faker.record("lit", with_control_number=True)
+    data.update(
+        {
+            "record_affiliations": [
+                {"record": {"$ref": inst_ref}, "value": "Institution"}
+            ]
+        }
+    )
+
+    record_affiliations = InspireRecord.create(data)
+    db.session.commit()
     # reconnect signal before we call process_references_in_records
     models_committed.connect(index_after_commit)
 
-    task = process_references_in_records.delay([record.id])
+    task = process_references_in_records.delay(
+        [record_authors_aff.id, record_thesis_info.id, record_affiliations.id]
+    )
 
     task.get(timeout=5)
 
     institution_record_es = InspireSearch.get_record_data_from_es(institution)
-    expected_number_of_paper = 1
+    expected_number_of_paper = 3
 
     assert expected_number_of_paper == institution_record_es["number_of_papers"]
 

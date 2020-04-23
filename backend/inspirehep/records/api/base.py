@@ -9,6 +9,7 @@
 
 import uuid
 from datetime import datetime
+from itertools import chain
 
 import structlog
 from elasticsearch import NotFoundError
@@ -38,6 +39,12 @@ class InspireRecord(Record):
     pidstore_handler = None
     pid_type = None
     es_serializer = None  # TODO: call es_schema_class
+
+    institution_fields = [
+        "authors.affiliations.record",
+        "thesis_info.institutions.record",
+        "record_affiliations.record",
+    ]
 
     @staticmethod
     def strip_empty_values(data):
@@ -423,6 +430,15 @@ class InspireRecord(Record):
     @property
     def _schema_type(self):
         return PidStoreBase.get_pid_type_from_schema(self["$schema"])
+
+    @property
+    def linked_institutions_pids(self):
+        return set(
+            chain.from_iterable(
+                self.get_linked_pids_from_field(field)
+                for field in self.institution_fields
+            )
+        )
 
     def serialize_for_es(self):
         """Prepares proper json data for es serializer

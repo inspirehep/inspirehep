@@ -89,16 +89,17 @@ class AuthorsInfoSchemaForES(AuthorSchemaV1):
     name_suggest = fields.Nested(AuthorAutocompleteSchema, attribute="full_name")
 
     def get_author_full_name_unicode_normalized(self, author):
-        full_name = str(author["full_name"])
-        return normalize("NFKC", full_name).lower()
+        full_name = author.get("full_name")
+        if full_name:
+            full_name = str(author["full_name"])
+            return normalize("NFKC", full_name).lower()
 
     def get_name_variations_for_author(self, author):
         """Generate name variations for provided author."""
         full_name = author.get("full_name")
         if full_name:
             name_variations = generate_name_variations(full_name)
-
-        return name_variations
+            return name_variations
 
 
 class SupervisorSchema(AuthorSchemaV1):
