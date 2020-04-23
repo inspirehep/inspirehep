@@ -17,16 +17,12 @@ from flask.cli import with_appcontext
 from invenio_db import db
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_search import current_search
+from invenio_search.cli import index
 
 from inspirehep.indexer.tasks import batch_index
 from inspirehep.records.api import InspireRecord
 
 LOGGER = structlog.getLogger()
-
-
-@click.group()
-def indexer():
-    """Command group Inspire indexing & remap operations. (DO NOT USE ``index`` from Invenio)"""
 
 
 def next_batch(iterator, batch_size):
@@ -72,7 +68,7 @@ def _prepare_logdir(log_path):
         makedirs(path.dirname(log_path))
 
 
-@indexer.command("reindex")
+@index.command("reindex")
 @click.option("--all", is_flag=True, help="Reindex all the records.", show_default=True)
 @click.option(
     "-p",
@@ -122,7 +118,7 @@ def _prepare_logdir(log_path):
 def reindex_records(
     ctx, all, pidtype, pid, queue_name, batch_size, db_batch_size, log_path
 ):
-    """Reindex records in ElasticSearch.
+    """(Inspire) Reindex records in ElasticSearch.
 
     This command indexes the all the records related to the given PIDs in batches, asynchronously,
     by sending celery tasks to the specified queue. Indexing errors logged to file into the `log-path` folder.
@@ -248,9 +244,9 @@ def reindex_records(
             LOGGER.warning(failure)
 
 
-@indexer.command(
+@index.command(
     "remap",
-    help="Remaps specified indexes. Removes all data from index during this process.",
+    help="(Inspire) Remaps specified indexes. Removes all data from index during this process.",
 )
 @click.option("--yes-i-know", is_flag=True)
 @click.option(
