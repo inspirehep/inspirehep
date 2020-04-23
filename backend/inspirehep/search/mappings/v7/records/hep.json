@@ -351,6 +351,148 @@
         },
         "type": "nested"
       },
+      "supervisors": {
+        "properties": {
+          "affiliations": {
+            "properties": {
+              "curated_relation": {
+                "type": "boolean"
+              },
+              "recid": {
+                "type": "integer"
+              },
+              "record": {
+                "properties": {
+                  "$ref": {
+                    "type": "text",
+                    "analyzer": "recid_analyzer"
+                  }
+                },
+                "type": "object"
+              },
+              "value": {
+                "fields": {
+                  "raw": {
+                    "type": "keyword"
+                  }
+                },
+                "normalizer": "lowercase_normalizer",
+                "copy_to": "_all",
+                "type": "keyword"
+              }
+            },
+            "type": "object"
+          },
+          "alternative_names": {
+            "copy_to": "_all",
+            "type": "text"
+          },
+          "credit_roles": {
+            "type": "text"
+          },
+          "curated_relation": {
+            "type": "boolean"
+          },
+          "emails": {
+            "type": "keyword"
+          },
+          "full_name": {
+            "copy_to": "_all",
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            },
+            "type": "text"
+          },
+          "first_name": {
+            "type": "text",
+            "fields": {
+              "raw": {
+                "type": "text"
+              },
+              "initials": {
+                "type": "text"
+              }
+            }
+          },
+          "last_name": {
+            "type": "text",
+            "fields": {
+              "raw": {
+                "type": "text"
+              }
+            }
+          },
+          "full_name_unicode_normalized": {
+            "type": "keyword",
+            "copy_to": "_all"
+          },
+          "ids": {
+            "properties": {
+              "schema": {
+                "type": "keyword"
+              },
+              "value": {
+                "copy_to": "_all",
+                "fields": {
+                  "raw": {
+                    "type": "keyword"
+                  },
+                  "search": {
+                    "analyzer": "lowercase_analyzer",
+                    "type": "text"
+                  }
+                },
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "inspire_roles": {
+            "type": "keyword"
+          },
+          "name_suggest": {
+            "type": "completion"
+          },
+          "raw_affiliations": {
+            "properties": {
+              "source": {
+                "type": "keyword"
+              },
+              "value": {
+                "copy_to": "_all",
+                "type": "text"
+              }
+            },
+            "type": "object"
+          },
+          "recid": {
+            "type": "integer"
+          },
+          "record": {
+            "properties": {
+              "$ref": {
+                "type": "text",
+                "analyzer": "recid_analyzer"
+              }
+            },
+            "type": "object"
+          },
+          "signature_block": {
+            "fields": {
+              "raw": {
+                "type": "keyword"
+              }
+            },
+            "type": "text"
+          },
+          "uuid": {
+            "type": "keyword"
+          }
+        },
+        "type": "nested"
+      },
       "first_author": {
         "properties": {
           "emails": {

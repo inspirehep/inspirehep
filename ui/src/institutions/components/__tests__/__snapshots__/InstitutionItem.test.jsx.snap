@@ -16,7 +16,7 @@ exports[`InstitutionItem renders with all props set 1`] = `
   rightActions={
     <ListItemAction>
       <ForwardRef
-        to="/literature?q=authors.affiliations.record.$ref:1234"
+        to="/literature?q=affid 1234"
       >
         <IconText
           icon={<ForwardRef(LoginOutlined) />}
@@ -78,7 +78,7 @@ exports[`InstitutionItem renders with only needed props 1`] = `
   rightActions={
     <ListItemAction>
       <ForwardRef
-        to="/literature?q=authors.affiliations.record.$ref:123"
+        to="/literature?q=affid 123"
       >
         <IconText
           icon={<ForwardRef(LoginOutlined) />}

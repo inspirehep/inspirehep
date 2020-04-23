@@ -330,7 +330,8 @@ class InstitutionPapersMixin:
         InstitutionLiterature.query.filter_by(literature_uuid=self.id).delete()
 
     def create_institution_relations(self):
-        institutions = self.get_linked_records_from_field("authors.affiliations.record")
+        institutions_pids = self.linked_institutions_pids
+        institutions = self.get_records_by_pids(institutions_pids)
         institution_literature_relations_waiting_for_commit = []
 
         for institution in institutions:
@@ -379,17 +380,13 @@ class InstitutionPapersMixin:
         changed_deleted_status = self.get("deleted", False) ^ prev_version.get(
             "deleted", False
         )
-        pids_latest = self.get_linked_pids_from_field("authors.affiliations.record")
+        pids_latest = list(self.linked_institutions_pids)
 
         if changed_deleted_status:
             return list(self.get_records_ids_by_pids(pids_latest))
 
-        pids_previous = set(
-            self._previous_version.get_linked_pids_from_field(
-                "authors.affiliations.record"
-            )
-        )
+        pids_previous = self._previous_version.linked_institutions_pids
 
-        pids_changed = set.symmetric_difference(set(pids_latest), pids_previous)
+        pids_changed = set.symmetric_difference(set(pids_latest), set(pids_previous))
 
         return list(self.get_records_ids_by_pids(list(pids_changed)))

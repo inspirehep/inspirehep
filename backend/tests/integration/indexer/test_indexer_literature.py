@@ -211,3 +211,25 @@ def test_indexer_removes_supervisors_from_authors_for_ui_display_field(
     assert result_ui_display["authors"][0]["full_name"] == expected_author_full_name
     assert len(result_authors) == 1
     assert result_authors[0]["full_name"] == expected_author_full_name
+
+
+def test_indexer_separates_supervisors_from_authors(
+    base_app, es_clear, db, create_record
+):
+    authors = [
+        {"full_name": "Frank Castle"},
+        {"full_name": "Jimmy", "inspire_roles": ["supervisor"]},
+    ]
+    data = {"authors": authors}
+    create_record("lit", data=data)
+    response = es_search("records-hep")
+
+    expected_author_full_name = "Frank Castle"
+    expected_supervisor = "Jimmy"
+    result = response["hits"]["hits"][0]["_source"]
+    result_authors = result["authors"]
+    assert len(result_authors) == 1
+    assert result_authors[0]["full_name"] == expected_author_full_name
+    result_supervisors = result["supervisors"]
+    assert len(result_supervisors) == 1
+    assert result_supervisors[0]["full_name"] == expected_supervisor

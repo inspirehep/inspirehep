@@ -45,20 +45,54 @@ def test_records_links_correctly_with_conference(base_app, db, es_clear, create_
     assert rec_without_correct_type.id not in conf_docs_uuids
 
 
-def test_creating_lit_record_with_linked_institution_populates_institution_relation_table(
+def test_creating_lit_record_with_linked_institutions_populates_institution_relation_table(
     base_app, db, es_clear, create_record
 ):
-    institution = create_record("ins")
-    institution_control_number = institution["control_number"]
-    ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
+    author_institution = create_record("ins")
+    author_institution_ref = (
+        f"http://localhost:8000/api/institutions/{author_institution['control_number']}"
+    )
+
+    thesis_institution = create_record("ins")
+    thesis_institution_ref = (
+        f"http://localhost:8000/api/institutions/{thesis_institution['control_number']}"
+    )
+
+    record_aff_institution = create_record("ins")
+    record_aff_institution_ref = f"http://localhost:8000/api/institutions/{record_aff_institution['control_number']}"
 
     rec_data = {
         "authors": [
             {
                 "full_name": "John Doe",
-                "affiliations": [{"value": "Institution", "record": {"$ref": ref}}],
+                "affiliations": [
+                    {"value": "Institution", "record": {"$ref": author_institution_ref}}
+                ],
             }
-        ]
+        ],
+        "thesis_info": {"institutions": [{"record": {"$ref": thesis_institution_ref}}]},
+        "record_affiliations": [
+            {"record": {"$ref": record_aff_institution_ref}, "value": "Institution"}
+        ],
+    }
+
+    rec = create_record("lit", rec_data)
+    assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 3
+
+
+def test_creating_lit_record_with_institution_linked_more_than_once(
+    base_app, db, es_clear, create_record
+):
+    institution = create_record("ins")
+    institution_ref = (
+        f"http://localhost:8000/api/institutions/{institution['control_number']}"
+    )
+
+    rec_data = {
+        "thesis_info": {"institutions": [{"record": {"$ref": institution_ref}}]},
+        "record_affiliations": [
+            {"record": {"$ref": institution_ref}, "value": "Institution"}
+        ],
     }
 
     rec = create_record("lit", rec_data)
@@ -87,12 +121,14 @@ def test_updating_record_updates_institution_relations(
     rec = create_record("lit", rec_data)
 
     rec_data = deepcopy(dict(rec))
-    rec_data["authors"] = [
+    rec_data.update(
         {
-            "full_name": "John Doe",
-            "affiliations": [{"value": "Institution", "record": {"$ref": ref_2}}],
+            "authors": [{"full_name": "John Doe"}],
+            "record_affiliations": [
+                {"record": {"$ref": ref_2}, "value": "Institution"}
+            ],
         }
-    ]
+    )
     rec.update(rec_data)
 
     institution_1_papers = institution_1.model.institution_papers
