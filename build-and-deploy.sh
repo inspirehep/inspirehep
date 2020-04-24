@@ -63,21 +63,27 @@ logout() {
 
 deployQA() {
   app="${1}"
-  if [ -z "${TRAVIS_TAG}" ]; then
-    echo "Deploying ${app} ..."
-    curl -X POST \
-      -F token=${DEPLOY_QA_TOKEN} \
-      -F ref=master \
-      -F variables[APP_NAME]=${app} \
-      -F variables[NEW_TAG]=${TAG} \
-      https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
-  fi
+  echo "Deploying ${app} ..."
+  curl -X POST \
+    -F token=${DEPLOY_QA_TOKEN} \
+    -F ref=master \
+    -F variables[APP_NAME]=${app} \
+    -F variables[NEW_TAG]=${TAG} \
+    https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
 }
 
 sentryQA() {
   export SENTRY_AUTH_TOKEN=${SENTRY_QA_AUTH_TOKEN}
   export SENTRY_URL="https://sentry.inspirebeta.net"
   export SENTRY_ORG="inspire-qa"
+  sentry-cli releases new -p "ui" -p "hep" ${TAG}
+  sentry-cli releases set-commits --auto ${TAG}
+}
+
+sentryPROD() {
+  export SENTRY_AUTH_TOKEN=${SENTRY_PROD_AUTH_TOKEN}
+  export SENTRY_URL="https://sentry.inspirehep.net"
+  export SENTRY_ORG="inspire-prod"
   sentry-cli releases new -p "ui" -p "hep" ${TAG}
   sentry-cli releases set-commits --auto ${TAG}
 }
@@ -105,9 +111,13 @@ main() {
   buildPush "backend" "inspirehep/hep"
   maybeBuildSmokeTests
   logout
-  deployQA "ui"
-  deployQA "hep"
-  sentryQA
-  maybeDeploySmokeTestsQA
+  if [ -z "${TRAVIS_TAG}" ]; then
+    deployQA "ui"
+    deployQA "hep"
+    sentryQA
+    maybeDeploySmokeTestsQA
+  else
+    sentryPROD
+  fi
 }
 main
