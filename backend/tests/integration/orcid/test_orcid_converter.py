@@ -25,6 +25,7 @@ import os
 
 import mock
 import pkg_resources
+from helpers.utils import create_record, create_record_factory
 from lxml import etree
 
 from inspirehep.orcid.cache import _OrcidHasher
@@ -64,10 +65,11 @@ def xml_compare(expected, result):
     return True
 
 
-def test_format_article(api_client, db, es, datadir, create_record):
+def test_format_article(inspire_app, datadir):
     data = json.loads((datadir / "4328.json").read_text())
     create_record("lit", data=data)
-    response = api_client.get("/literature/4328")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/4328")
     assert response.status_code == 200
     article = json.loads(response.data)
 
@@ -120,17 +122,15 @@ def test_format_article(api_client, db, es, datadir, create_record):
     )._hash_xml_element(result)
 
 
-def test_format_conference_paper(
-    api_client, db, es, create_record, create_record_factory, datadir
-):
+def test_format_conference_paper(inspire_app, datadir):
     data = json.loads((datadir / "524480.json").read_text())
     record = create_record("lit", data=data)
     data_conference = json.loads((datadir / "972464.json").read_text())
     record_conference = create_record_factory(
         "con", data=data_conference, with_indexing=True
     )
-
-    response = api_client.get("/literature/524480")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/524480")
     assert response.status_code == 200
     inproceedings = json.loads(response.data)
 
@@ -179,10 +179,11 @@ def test_format_conference_paper(
     )._hash_xml_element(result)
 
 
-def test_format_proceedings(api_client, db, es, create_record, datadir):
+def test_format_proceedings(inspire_app, datadir):
     data = json.loads((datadir / "701585.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/701585")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/701585")
     assert response.status_code == 200
     proceedings = json.loads(response.data)
 
@@ -241,10 +242,11 @@ def test_format_proceedings(api_client, db, es, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_thesis(api_client, db, es, create_record, datadir):
+def test_format_thesis(inspire_app, datadir):
     data = json.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1395663")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/1395663")
     assert response.status_code == 200
     phdthesis = json.loads(response.data)
 
@@ -287,10 +289,11 @@ def test_format_thesis(api_client, db, es, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_book(api_client, db, es, create_record, datadir):
+def test_format_book(inspire_app, datadir):
     data = json.loads((datadir / "736770.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/736770")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/736770")
     assert response.status_code == 200
     book = json.loads(response.data)
 
@@ -350,10 +353,11 @@ def test_format_book(api_client, db, es, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_book_chapter(api_client, db, es, create_record, datadir):
+def test_format_book_chapter(inspire_app, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1375491")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/1375491")
     assert response.status_code == 200
     inbook = json.loads(response.data)
 
@@ -425,10 +429,11 @@ def test_format_book_chapter(api_client, db, es, create_record, datadir):
     )._hash_xml_element(result)
 
 
-def test_format_thesis_with_author_orcid(api_client, db, es, create_record, datadir):
+def test_format_thesis_with_author_orcid(inspire_app, datadir):
     data = json.loads((datadir / "1395663.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1395663")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/1395663")
     assert response.status_code == 200
     phdthesis = json.loads(response.data)
 
@@ -482,10 +487,11 @@ def test_format_thesis_with_author_orcid(api_client, db, es, create_record, data
     )._hash_xml_element(result)
 
 
-def test_external_identifiers(api_client, db, es, create_record, datadir):
+def test_external_identifiers(inspire_app, datadir):
     data = json.loads((datadir / "1375491.json").read_text())
     record = create_record("lit", data=data)
-    response = api_client.get("/literature/1375491")
+    with inspire_app.test_client() as client:
+        response = client.get("/literature/1375491")
     assert response.status_code == 200
     inbook = json.loads(response.data)
 
@@ -501,7 +507,7 @@ def test_external_identifiers(api_client, db, es, create_record, datadir):
     assert converter.added_external_identifiers == expected
 
 
-def test_bibtex_do_add_bibtex_citation(base_app, db, es, create_record, datadir):
+def test_bibtex_do_add_bibtex_citation(inspire_app, datadir):
     data = json.loads(
         (datadir / "test_orcid_converter_TestBibtexCitation.json").read_text()
     )
@@ -514,7 +520,7 @@ def test_bibtex_do_add_bibtex_citation(base_app, db, es, create_record, datadir)
     assert "citation" in top_level_tags
 
 
-def test_bibtext_do_not_add_bibtex_citation(base_app, db, es, create_record, datadir):
+def test_bibtext_do_not_add_bibtex_citation(inspire_app, datadir):
     data = json.loads(
         (datadir / "test_orcid_converter_TestBibtexCitation.json").read_text()
     )

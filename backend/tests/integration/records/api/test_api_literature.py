@@ -11,8 +11,16 @@ from uuid import UUID, uuid4
 import mock
 import pytest
 import requests_mock
+from flask import current_app
 from freezegun import freeze_time
 from helpers.providers.faker import faker
+from helpers.utils import (
+    create_pidstore,
+    create_record,
+    create_s3_bucket,
+    override_config,
+)
+from invenio_db import db
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from invenio_records.models import RecordMetadata
@@ -25,7 +33,7 @@ from inspirehep.records.errors import ExistingArticleError, UnknownImportIdentif
 from inspirehep.records.models import RecordCitations, RecordsAuthors
 
 
-def test_literature_create(base_app, db, es):
+def test_literature_create(inspire_app):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
@@ -42,7 +50,7 @@ def test_literature_create(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_literature_create_does_not_mint_if_record_is_deleted(base_app, db, es):
+def test_literature_create_does_not_mint_if_record_is_deleted(inspire_app):
     data = faker.record("lit", data={"deleted": True}, with_control_number=True)
     record = LiteratureRecord.create(data)
 
@@ -58,7 +66,7 @@ def test_literature_create_does_not_mint_if_record_is_deleted(base_app, db, es):
     assert record_pid == None
 
 
-def test_literature_create_with_mutliple_pids(base_app, db, create_pidstore):
+def test_literature_create_with_mutliple_pids(inspire_app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
@@ -85,7 +93,7 @@ def test_literature_create_with_mutliple_pids(base_app, db, create_pidstore):
     assert expected_pid_doi_value == record_doi_pid.pid_value
 
 
-def test_literature_create_with_mutliple_updated_pids(base_app, db, create_pidstore):
+def test_literature_create_with_mutliple_updated_pids(inspire_app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
@@ -130,7 +138,7 @@ def test_literature_create_with_mutliple_updated_pids(base_app, db, create_pidst
     assert expected_pid_doi_value == record_doi_pid.pid_value
 
 
-def test_literature_on_delete(base_app, db, es_clear):
+def test_literature_on_delete(inspire_app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
@@ -162,7 +170,7 @@ def test_literature_on_delete(base_app, db, es_clear):
     assert PIDStatus.DELETED == record_lit_pid.status
 
 
-def test_literature_on_delete_through_metadata_update(base_app, db, es_clear):
+def test_literature_on_delete_through_metadata_update(inspire_app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
@@ -195,9 +203,7 @@ def test_literature_on_delete_through_metadata_update(base_app, db, es_clear):
     assert PIDStatus.DELETED == record_lit_pid.status
 
 
-def test_literature_create_with_existing_control_number(
-    base_app, db, es, create_pidstore
-):
+def test_literature_create_with_existing_control_number(inspire_app):
     data = faker.record("lit", with_control_number=True)
     existing_object_uuid = uuid4()
 
@@ -211,7 +217,7 @@ def test_literature_create_with_existing_control_number(
         LiteratureRecord.create(data)
 
 
-def test_literature_create_with_arxiv_eprints(base_app, db, es):
+def test_literature_create_with_arxiv_eprints(inspire_app):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     data = faker.record("lit", data=data)
@@ -235,7 +241,7 @@ def test_literature_create_with_arxiv_eprints(base_app, db, es):
     assert expected_arxiv_pid_provider == record_pid_arxiv.pid_provider
 
 
-def test_literature_create_with_dois(base_app, db, es):
+def test_literature_create_with_dois(inspire_app):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     data = faker.record("lit", data=data)
@@ -258,7 +264,7 @@ def test_literature_create_with_dois(base_app, db, es):
     assert expected_doi_pid_provider == record_pid_doi.pid_provider
 
 
-def test_literature_create_with_invalid_data(base_app, db, create_pidstore):
+def test_literature_create_with_invalid_data(inspire_app):
     data = faker.record("lit", with_control_number=True)
     data["invalid_key"] = "should throw an error"
     record_control_number = str(data["control_number"])
@@ -272,9 +278,7 @@ def test_literature_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_literature_create_with_invalid_data_and_mutliple_pids(
-    base_app, db, create_pidstore
-):
+def test_literature_create_with_invalid_data_and_mutliple_pids(inspire_app):
     doi_value = faker.doi()
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}], "dois": [{"value": doi_value}]}
@@ -302,7 +306,7 @@ def test_literature_create_with_invalid_data_and_mutliple_pids(
     assert record_doi_pid is None
 
 
-def test_literature_update(base_app, db, es):
+def test_literature_update(inspire_app):
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
 
@@ -323,7 +327,7 @@ def test_literature_update(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_literature_create_or_update_with_new_record(base_app, db, es):
+def test_literature_create_or_update_with_new_record(inspire_app):
     data = faker.record("lit")
     record = LiteratureRecord.create_or_update(data)
 
@@ -340,7 +344,7 @@ def test_literature_create_or_update_with_new_record(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_literature_create_or_update_with_existing_record(base_app, db, es):
+def test_literature_create_or_update_with_existing_record(inspire_app):
     data = faker.record("lit", with_control_number=True)
     record = LiteratureRecord.create(data)
 
@@ -365,19 +369,14 @@ def test_literature_create_or_update_with_existing_record(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_subclasses_for_literature(base_app, db, es):
-    expected = {"lit": LiteratureRecord}
-    assert expected == LiteratureRecord.get_subclasses()
-
-
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == LiteratureRecord
 
 
-def test_dump_for_es(base_app, db, es):
+def test_dump_for_es(inspire_app):
     additional_fields = {
         "preprint_date": "2016-01-01",
         "publication_info": [{"year": 2015}],
@@ -405,7 +404,7 @@ def test_dump_for_es(base_app, db, es):
 
 
 @freeze_time("1994-12-19")
-def test_dump_for_es_adds_latex_and_bibtex_displays(base_app, db, es):
+def test_dump_for_es_adds_latex_and_bibtex_displays(inspire_app):
     additional_fields = {
         "texkeys": ["a123bx"],
         "titles": [{"title": "Jessica Jones"}],
@@ -444,7 +443,7 @@ def test_dump_for_es_adds_latex_and_bibtex_displays(base_app, db, es):
 @mock.patch(
     "inspirehep.records.serializers.bibtex.literature_bibtex.create_bibliography"
 )
-def test_dump_for_es_catches_bibtex_exception(mock_bibtex, base_app, db, es):
+def test_dump_for_es_catches_bibtex_exception(mock_bibtex, inspire_app):
     mock_bibtex.side_effect = Exception
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
@@ -455,7 +454,7 @@ def test_dump_for_es_catches_bibtex_exception(mock_bibtex, base_app, db, es):
     assert expected_result == dump["_bibtex_display"]
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create(data)
     assert type(record) == LiteratureRecord
@@ -466,7 +465,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     assert record.pid_type == "lit"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create_or_update(data)
     assert type(record) == LiteratureRecord
@@ -479,17 +478,17 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db,
     assert record.pid_type == "lit"
 
 
-def test_import_article_bad_arxiv_id(base_app, db, es):
+def test_import_article_bad_arxiv_id(inspire_app):
     with pytest.raises(UnknownImportIdentifierError):
         import_article("bad_arXiv:1207.7214")
 
 
-def test_import_article_bad_doi(base_app, db, es):
+def test_import_article_bad_doi(inspire_app):
     with pytest.raises(UnknownImportIdentifierError):
         import_article("doi:Th1s1s/n0taD01")
 
 
-def test_import_article_arxiv_id_already_in_inspire(base_app, db, es):
+def test_import_article_arxiv_id_already_in_inspire(inspire_app):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     data = faker.record("lit", with_control_number=True, data=data)
@@ -499,7 +498,7 @@ def test_import_article_arxiv_id_already_in_inspire(base_app, db, es):
         import_article(f"arXiv:{arxiv_value}")
 
 
-def test_import_article_doi_already_in_inspire(base_app, db, es):
+def test_import_article_doi_already_in_inspire(inspire_app):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     data = faker.record("lit", with_control_number=True, data=data)
@@ -509,7 +508,7 @@ def test_import_article_doi_already_in_inspire(base_app, db, es):
         import_article(doi_value)
 
 
-def test_create_record_update_citation_table(base_app, db, es):
+def test_create_record_update_citation_table(inspire_app):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
@@ -523,7 +522,7 @@ def test_create_record_update_citation_table(base_app, db, es):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_update_record_update_citation_table(base_app, db, es):
+def test_update_record_update_citation_table(inspire_app):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
 
@@ -543,7 +542,7 @@ def test_update_record_update_citation_table(base_app, db, es):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_complex_records_interactions_in_citation_table(base_app, db, es):
+def test_complex_records_interactions_in_citation_table(inspire_app):
     records_list = []
     for i in range(6):
         data = faker.record(
@@ -571,7 +570,7 @@ def test_complex_records_interactions_in_citation_table(base_app, db, es):
     assert len(records_list[5].model.references) == 5
 
 
-def test_literature_can_cite_data_record(base_app, db, es):
+def test_literature_can_cite_data_record(inspire_app):
     data = faker.record("dat")
     record = InspireRecord.create(data)
 
@@ -585,7 +584,7 @@ def test_literature_can_cite_data_record(base_app, db, es):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, db, es):
+def test_literature_cannot_cite_other_than_data_and_literature_record(inspire_app):
     author = InspireRecord.create(faker.record("aut"))
     conference = InspireRecord.create(faker.record("con"))
     experiment = InspireRecord.create(faker.record("exp"))
@@ -611,7 +610,7 @@ def test_literature_cannot_cite_other_than_data_and_literature_record(base_app, 
     assert len(RecordCitations.query.all()) == 0
 
 
-def test_literature_can_cite_only_existing_records(base_app, db, es):
+def test_literature_can_cite_only_existing_records(inspire_app):
     data = faker.record("dat")
     record = InspireRecord.create(data)
 
@@ -625,7 +624,7 @@ def test_literature_can_cite_only_existing_records(base_app, db, es):
     assert len(RecordCitations.query.all()) == 1
 
 
-def test_literature_is_not_cited_by_deleted_records(base_app, db, es_clear):
+def test_literature_is_not_cited_by_deleted_records(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create(data)
 
@@ -646,7 +645,7 @@ def test_literature_is_not_cited_by_deleted_records(base_app, db, es_clear):
     assert len(RecordCitations.query.all()) == 0
 
 
-def test_literature_citation_count_property(base_app, db, es):
+def test_literature_citation_count_property(inspire_app):
     data = faker.record("lit")
     record = InspireRecord.create(data)
 
@@ -658,7 +657,7 @@ def test_literature_citation_count_property(base_app, db, es):
 
 
 def test_literature_without_literature_collection_cannot_cite_record_which_can_be_cited(
-    base_app, db, es
+    inspire_app
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1)
@@ -683,7 +682,7 @@ def test_literature_without_literature_collection_cannot_cite_record_which_can_b
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
 def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
-    orcid_mock, base_app, db
+    orcid_mock, inspire_app
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1, disable_orcid_push=True)
@@ -691,7 +690,7 @@ def test_record_create_not_run_orcid_when_passed_parameter_to_disable_orcid(
 
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
-def test_record_create_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
+def test_record_create_not_skips_orcid_on_default(orcid_mock, inspire_app):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1)
     assert orcid_mock.call_count == 1
@@ -701,7 +700,7 @@ def test_record_create_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
     "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
-    citation_recalculate_mock, base_app, db, es
+    citation_recalculate_mock, inspire_app
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1, disable_relations_update=True)
@@ -712,7 +711,7 @@ def test_record_create_skips_citation_recalculate_when_passed_parameter_to_skip(
     "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_create_runs_citation_recalculate_on_default(
-    citation_recalculate_mock, base_app, db, es
+    citation_recalculate_mock, inspire_app
 ):
     data1 = faker.record("lit")
     record1 = InspireRecord.create(data1)
@@ -721,7 +720,7 @@ def test_record_create_runs_citation_recalculate_on_default(
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
 def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
-    orcid_mock, base_app, db, es
+    orcid_mock, inspire_app
 ):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
@@ -732,7 +731,7 @@ def test_record_update_not_run_orcid_when_passed_parameter_to_disable_orcid(
 
 
 @mock.patch("inspirehep.records.api.literature.push_to_orcid")
-def test_record_update_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
+def test_record_update_not_skips_orcid_on_default(orcid_mock, inspire_app):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record1 = InspireRecord.create(data1)
@@ -745,7 +744,7 @@ def test_record_update_not_skips_orcid_on_default(orcid_mock, base_app, db, es):
     "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
-    citation_recalculate_mock, base_app, db
+    citation_recalculate_mock, inspire_app
 ):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
@@ -759,7 +758,7 @@ def test_record_update_skips_citation_recalculate_when_passed_parameter_to_skip(
     "inspirehep.records.api.literature.LiteratureRecord.update_refs_in_citation_table"
 )
 def test_record_update_runs_citation_recalculate_on_default(
-    citation_recalculate_mock, base_app, db, es
+    citation_recalculate_mock, inspire_app
 ):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
@@ -769,7 +768,7 @@ def test_record_update_runs_citation_recalculate_on_default(
     assert citation_recalculate_mock.call_count == 2
 
 
-def test_get_modified_references(base_app, db, es_clear):
+def test_get_modified_references(inspire_app):
     cited_data = faker.record("lit")
     cited_record_1 = InspireRecord.create(cited_data)
 
@@ -801,9 +800,7 @@ def test_get_modified_references(base_app, db, es_clear):
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_handles_ascii_names(
-    mock_uuid4, base_app, db, es_clear, redis
-):
+def test_update_authors_signature_blocks_handles_ascii_names(mock_uuid4, inspire_app):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
     data = faker.record("lit", data=author_data)
@@ -821,9 +818,7 @@ def test_update_authors_signature_blocks_handles_ascii_names(
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_handles_unicode_names(
-    mock_uuid4, base_app, db, es_clear, redis
-):
+def test_update_authors_signature_blocks_handles_unicode_names(mock_uuid4, inspire_app):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Páramos, Jorge"}]}
     data = faker.record("lit", data=author_data)
@@ -841,9 +836,7 @@ def test_update_authors_signature_blocks_handles_unicode_names(
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_signature_blocks_handles_jimmy(
-    mock_uuid4, base_app, db, es_clear, redis
-):
+def test_update_authors_signature_blocks_handles_jimmy(mock_uuid4, inspire_app):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Jimmy"}]}
     data = faker.record("lit", data=author_data)
@@ -862,7 +855,7 @@ def test_update_authors_signature_blocks_handles_jimmy(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_blocks_handles_two_authors_with_the_same_name(
-    mock_uuid4, base_app, db, es_clear, redis
+    mock_uuid4, inspire_app
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Jimmy"}]}
@@ -882,7 +875,7 @@ def test_update_authors_signature_blocks_handles_two_authors_with_the_same_name(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_blocks_discards_empty_signature_blocks(
-    mock_uuid4, base_app, db, es_clear, redis
+    mock_uuid4, inspire_app
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "ae"}]}
@@ -898,7 +891,7 @@ def test_update_authors_signature_blocks_discards_empty_signature_blocks(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_update_authors_signature_discards_empty_signature_blocks(
-    mock_uuid4, base_app, db, es_clear, redis
+    mock_uuid4, inspire_app
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "ae"}]}
@@ -914,7 +907,7 @@ def test_update_authors_signature_discards_empty_signature_blocks(
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
 def test_updating_record_updates_authors_signature_blocks_and_uuids(
-    mock_uuid4, base_app, db, es_clear, redis
+    mock_uuid4, inspire_app
 ):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
@@ -946,9 +939,7 @@ def test_updating_record_updates_authors_signature_blocks_and_uuids(
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_update_authors_uuids_does_not_update_existing_uuids(
-    mock_uuid4, base_app, db, es_clear, redis
-):
+def test_update_authors_uuids_does_not_update_existing_uuids(mock_uuid4, inspire_app):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     author_data = {
         "authors": [
@@ -972,14 +963,14 @@ def test_update_authors_uuids_does_not_update_existing_uuids(
     assert expected_result_create == record["authors"]
 
 
-def test_create_record_sends_phonetic_blocks_to_redis(base_app, db, es, redis):
+def test_create_record_sends_phonetic_blocks_to_redis(inspire_app, redis):
     author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
     data = faker.record("lit", data=author_data)
     LiteratureRecord.create(data)
     assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
 
 
-def test_update_record_sends_phonetic_blocks_to_redis(base_app, db, es, redis):
+def test_update_record_sends_phonetic_blocks_to_redis(inspire_app, redis):
     data = faker.record("lit")
     record = LiteratureRecord.create(data)
     author_data_updated = {"authors": [{"full_name": "Ellis, John Richard"}]}
@@ -989,9 +980,7 @@ def test_update_record_sends_phonetic_blocks_to_redis(base_app, db, es, redis):
     assert "ELj" == redis.zpopmin("author_phonetic_blocks")[0][0]
 
 
-def test_phonetic_blocks_keep_order_in_redis_based_on_timestamp(
-    base_app, db, es, redis
-):
+def test_phonetic_blocks_keep_order_in_redis_based_on_timestamp(inspire_app, redis):
     with freeze_time(datetime.datetime(2015, 8, 18, 8, 51, 50)):
         author_data = {"authors": [{"full_name": "Ellis, John Richard"}]}
         data = faker.record("lit", data=author_data)
@@ -1007,7 +996,7 @@ def test_phonetic_blocks_keep_order_in_redis_based_on_timestamp(
 
 
 def test_phonetic_blocks_not_updated_when_record_does_not_have_lit_collection(
-    base_app, db, es, redis
+    inspire_app, redis
 ):
     data = {
         "_collections": ["CDS Hidden"],
@@ -1020,7 +1009,7 @@ def test_phonetic_blocks_not_updated_when_record_does_not_have_lit_collection(
     assert [] == redis.zpopmin("author_phonetic_blocks")
 
 
-def test_record_cannot_cite_itself(base_app, db, create_record):
+def test_record_cannot_cite_itself(inspire_app):
     record_control_number = 12345
     record_cited = create_record(
         "lit",
@@ -1031,9 +1020,7 @@ def test_record_cannot_cite_itself(base_app, db, create_record):
 
 
 @pytest.mark.vcr()
-def test_add_record_with_documents_and_figures(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_add_record_with_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_figure_key)
@@ -1062,7 +1049,7 @@ def test_add_record_with_documents_and_figures(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1070,27 +1057,25 @@ def test_add_record_with_documents_and_figures(
     expected_figures = [
         {
             "key": expected_figure_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
             "filename": "channel.png",
             "original_url": "http://original-url.com/3",
         }
     ]
     assert record["figures"] == expected_figures
     assert record["documents"] == expected_documents
-    assert s3.file_exists(expected_figure_key) is True
-    assert s3.file_exists(expected_document_key) is True
-    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert current_s3_instance.file_exists(expected_figure_key) is True
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
     assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
-    metadata_figure = s3.get_file_metadata(expected_figure_key)
+    metadata_figure = current_s3_instance.get_file_metadata(expected_figure_key)
     assert metadata_figure["ContentDisposition"] == f'inline; filename="channel.png"'
     assert metadata_figure["ContentType"] == "image/png"
 
 
 @pytest.mark.vcr()
-def test_adding_record_with_documents_skips_hidden(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_adding_record_with_documents_skips_hidden(inspire_app, s3):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     expected_hidden_document_key = "b88e6b880b32d8ed06b9b740cfb6eb2a"
     create_s3_bucket(expected_document_key)
@@ -1126,20 +1111,18 @@ def test_adding_record_with_documents_skips_hidden(
     expected_document = {
         "source": "arxiv",
         "key": expected_document_key,
-        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+        "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
         "original_url": "http://original-url.com/2",
         "filename": "fermilab.pdf",
     }
     assert expected_document in record["documents"]
     assert expected_hidden_document in record["documents"]
-    assert s3.file_exists(expected_document_key) is True
-    assert s3.file_exists(expected_hidden_document_key) is False
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    assert current_s3_instance.file_exists(expected_hidden_document_key) is False
 
 
 @pytest.mark.vcr()
-def test_adding_record_with_duplicated_documents_and_figures(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_adding_record_with_duplicated_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_figure_key)
@@ -1181,7 +1164,7 @@ def test_adding_record_with_duplicated_documents_and_figures(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1191,7 +1174,7 @@ def test_adding_record_with_duplicated_documents_and_figures(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/1",
             "filename": "fermilab2.pdf",
         }
@@ -1200,7 +1183,7 @@ def test_adding_record_with_duplicated_documents_and_figures(
     expected_figures1 = [
         {
             "key": expected_figure_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
             "filename": "channel.jpg",
             "original_url": "http://original-url.com/3",
         }
@@ -1209,7 +1192,7 @@ def test_adding_record_with_duplicated_documents_and_figures(
     expected_figures2 = [
         {
             "key": expected_figure_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
             "filename": "channel2.jpg",
             "original_url": "http://original-url.com/4",
         }
@@ -1223,14 +1206,12 @@ def test_adding_record_with_duplicated_documents_and_figures(
         record["documents"] == expected_documents1
         or record["documents"] == expected_documents2
     )
-    assert s3.file_exists(expected_figure_key) is True
-    assert s3.file_exists(expected_document_key) is True
+    assert current_s3_instance.file_exists(expected_figure_key) is True
+    assert current_s3_instance.file_exists(expected_document_key) is True
 
 
 @pytest.mark.vcr()
-def test_adding_record_with_document_without_filename(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_adding_record_with_document_without_filename(inspire_app, s3):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_document_key)
     data = {
@@ -1248,20 +1229,20 @@ def test_adding_record_with_document_without_filename(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "key",
         }
     ]
     assert expected_documents == record["documents"]
-    assert s3.file_exists(expected_document_key) is True
-    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
     assert metadata_document["ContentDisposition"] == f'inline; filename="key"'
 
 
 @pytest.mark.vcr()
 def test_adding_record_with_documents_with_existing_file_updates_metadata(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+    inspire_app, s3
 ):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_document_key)
@@ -1277,19 +1258,19 @@ def test_adding_record_with_documents_with_existing_file_updates_metadata(
         ]
     }
     create_record("lit", data=data)
-    assert s3.file_exists(expected_document_key) is True
-    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
     assert metadata_document["ContentDisposition"] == f'inline; filename="file1.pdf"'
     data["documents"][0]["filename"] = "file2.pdf"
     create_record("lit", data=data)
-    assert s3.file_exists(expected_document_key) is True
-    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
     assert metadata_document["ContentDisposition"] == f'inline; filename="file2.pdf"'
 
 
 @pytest.mark.vcr()
 def test_adding_record_with_documents_with_full_url_without_original_url(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+    inspire_app, s3
 ):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_document_key)
@@ -1308,17 +1289,17 @@ def test_adding_record_with_documents_with_full_url_without_original_url(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://inspirehep.net/record/863300/files/fermilab-pub-10-255-e.pdf",
             "filename": "file1.pdf",
         }
     ]
-    assert s3.file_exists(expected_document_key) is True
+    assert current_s3_instance.file_exists(expected_document_key) is True
     assert expected_documents == record["documents"]
 
 
 def test_adding_record_with_documents_with_relative_url_without_original_url(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
+    inspire_app, s3
 ):
     with requests_mock.Mocker() as mocker:
         mocker.get(
@@ -1344,18 +1325,16 @@ def test_adding_record_with_documents_with_relative_url_without_original_url(
             {
                 "source": "arxiv",
                 "key": expected_document_key,
-                "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+                "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
                 "filename": "file1.pdf",
             }
         ]
-        assert s3.file_exists(expected_document_key) is True
+        assert current_s3_instance.file_exists(expected_document_key) is True
         assert expected_documents == record["documents"]
 
 
 @pytest.mark.vcr()
-def test_adding_deleted_record_with_documents_does_not_add_files(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_adding_deleted_record_with_documents_does_not_add_files(inspire_app, s3):
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_document_key)
     data = {
@@ -1370,13 +1349,11 @@ def test_adding_deleted_record_with_documents_does_not_add_files(
         ],
     }
     create_record("lit", data=data)
-    assert s3.file_exists(expected_document_key) is False
+    assert current_s3_instance.file_exists(expected_document_key) is False
 
 
 @pytest.mark.vcr()
-def test_update_record_with_documents_and_figures(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_update_record_with_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_figure_key)
@@ -1409,7 +1386,7 @@ def test_update_record_with_documents_and_figures(
         {
             "source": "arxiv",
             "key": expected_document_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
             "original_url": "http://original-url.com/2",
             "filename": "fermilab.pdf",
         }
@@ -1417,27 +1394,25 @@ def test_update_record_with_documents_and_figures(
     expected_figures = [
         {
             "key": expected_figure_key,
-            "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
+            "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_figure_key)}/{expected_figure_key}",
             "filename": "channel.png",
             "original_url": "http://original-url.com/3",
         }
     ]
     assert record["figures"] == expected_figures
     assert record["documents"] == expected_documents
-    assert s3.file_exists(expected_figure_key) is True
-    assert s3.file_exists(expected_document_key) is True
-    metadata_document = s3.get_file_metadata(expected_document_key)
+    assert current_s3_instance.file_exists(expected_figure_key) is True
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    metadata_document = current_s3_instance.get_file_metadata(expected_document_key)
     assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
-    metadata_figure = s3.get_file_metadata(expected_figure_key)
+    metadata_figure = current_s3_instance.get_file_metadata(expected_figure_key)
     assert metadata_figure["ContentDisposition"] == f'inline; filename="channel.png"'
     assert metadata_figure["ContentType"] == "image/png"
 
 
 @pytest.mark.vcr()
-def test_update_record_remove_documents_and_figures(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_update_record_remove_documents_and_figures(inspire_app, s3):
     expected_figure_key = "a29b7e90ba08cd1565146fe81ebbecd5"
     expected_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_figure_key)
@@ -1472,9 +1447,7 @@ def test_update_record_remove_documents_and_figures(
 
 
 @pytest.mark.vcr()
-def test_update_record_add_more_documents(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_update_record_add_more_documents(inspire_app, s3):
     expected_document_key = "b88e6b880b32d8ed06b9b740cfb6eb2a"
     expected_updated_document_key = "f276b50c9e6401b5e212785a496efa4e"
     create_s3_bucket(expected_document_key)
@@ -1515,27 +1488,29 @@ def test_update_record_add_more_documents(
     expected_document_old = {
         "source": "arxiv",
         "key": expected_document_key,
-        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
+        "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_document_key)}/{expected_document_key}",
         "original_url": "http://original-url.com/2",
         "filename": "myfile.pdf",
     }
     expected_document_new = {
         "source": "arxiv",
         "key": expected_updated_document_key,
-        "url": f"{base_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_updated_document_key)}/{expected_updated_document_key}",
+        "url": f"{current_app.config.get('S3_HOSTNAME')}/{current_s3_instance.get_bucket_for_file_key(expected_updated_document_key)}/{expected_updated_document_key}",
         "original_url": "http://original-url.com/2",
         "filename": "fermilab.pdf",
     }
     assert expected_document_old in record["documents"]
     assert expected_document_new in record["documents"]
-    assert s3.file_exists(expected_updated_document_key) is True
-    assert s3.file_exists(expected_document_key) is True
-    metadata_document = s3.get_file_metadata(expected_updated_document_key)
+    assert current_s3_instance.file_exists(expected_updated_document_key) is True
+    assert current_s3_instance.file_exists(expected_document_key) is True
+    metadata_document = current_s3_instance.get_file_metadata(
+        expected_updated_document_key
+    )
     assert metadata_document["ContentDisposition"] == f'inline; filename="fermilab.pdf"'
     assert metadata_document["ContentType"] == "application/pdf"
 
 
-def test_literature_updates_refs_to_known_conferences(base_app, db, create_record):
+def test_literature_updates_refs_to_known_conferences(inspire_app):
     con1 = create_record("con", {"opening_date": "2013-01-01"})
     con2 = create_record("con", {"opening_date": "2020-12-12"})
 
@@ -1560,9 +1535,7 @@ def test_literature_updates_refs_to_known_conferences(base_app, db, create_recor
     assert expected_publication_info == lit["publication_info"]
 
 
-def test_literature_updates_refs_to_known_and_unknown_conference(
-    base_app, db, create_record
-):
+def test_literature_updates_refs_to_known_and_unknown_conference(inspire_app):
     con = create_record("con", {"opening_date": "2013-01-01"})
 
     lit_data = {"publication_info": [{"cnum": con["cnum"]}, {"cnum": "C99-11-11.111"}]}
@@ -1582,7 +1555,7 @@ def test_literature_updates_refs_to_known_and_unknown_conference(
 
 
 def test_literature_updates_refs_to_known_and_unknown_conference_when_ref_already_exists(
-    base_app, db, create_record
+    inspire_app
 ):
     con = create_record("con", {"opening_date": "2013-01-01"})
 
@@ -1620,9 +1593,7 @@ def test_literature_updates_refs_to_known_and_unknown_conference_when_ref_alread
     assert expected_publication_info == lit["publication_info"]
 
 
-def test_do_not_add_files_which_are_already_on_s3(
-    base_app, db, es, create_record, enable_files, s3
-):
+def test_do_not_add_files_which_are_already_on_s3(inspire_app, s3):
     data = {
         "documents": [
             {
@@ -1644,7 +1615,9 @@ def test_do_not_add_files_which_are_already_on_s3(
             }
         ],
     }
-    with mock.patch.object(s3, "replace_file_metadata") as mocked_s3_replace_metadata:
+    with mock.patch.object(
+        current_s3_instance, "replace_file_metadata"
+    ) as mocked_s3_replace_metadata:
         record = create_record("lit", data=data)
         mocked_s3_replace_metadata.assert_not_called()
     expected_documents = [
@@ -1670,9 +1643,7 @@ def test_do_not_add_files_which_are_already_on_s3(
     assert record["documents"] == expected_documents
 
 
-def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(inspire_app, s3):
     expected_figure_key = "cb071d80d1a54f21c8867a038f6a6c66"
     expected_document_key = "fdc3bdefb79cec8eb8211d2499e04704"
     create_s3_bucket(expected_figure_key)
@@ -1697,12 +1668,12 @@ def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(
         )
         mocker.get("http://original-url.com/3", status_code=200, content=figure_content)
         mocker.get(
-            s3.get_file_url(expected_document_key),
+            current_s3_instance.get_file_url(expected_document_key),
             status_code=200,
             content=document_content,
         )
         mocker.get(
-            s3.get_file_url(expected_figure_key),
+            current_s3_instance.get_file_url(expected_figure_key),
             status_code=200,
             content=figure_content,
         )
@@ -1711,17 +1682,15 @@ def test_files_metadata_is_replaced_when_replacing_metadata_is_enabled(
 
         record_data = dict(record)
         files_count = 2
-        with mock.patch.dict(base_app.config, {"UPDATE_S3_FILES_METADATA": True}):
+        with override_config(**{"UPDATE_S3_FILES_METADATA": True}):
             with mock.patch.object(
-                s3, "replace_file_metadata"
+                current_s3_instance, "replace_file_metadata"
             ) as mocked_s3_replace_metadata:
                 record.update(record_data)
                 assert mocked_s3_replace_metadata.call_count == files_count
 
 
-def test_adding_files_with_s3_url_but_wrong_key(
-    base_app, db, es, create_record, enable_files, s3, create_s3_bucket
-):
+def test_adding_files_with_s3_url_but_wrong_key(inspire_app, s3):
     expected_figure_key = "cb071d80d1a54f21c8867a038f6a6c66"
     expected_document_key = "fdc3bdefb79cec8eb8211d2499e04704"
     create_s3_bucket(expected_figure_key)
@@ -1729,7 +1698,7 @@ def test_adding_files_with_s3_url_but_wrong_key(
     data = {
         "documents": [
             {
-                "url": s3.get_file_url(expected_document_key),
+                "url": current_s3_instance.get_file_url(expected_document_key),
                 "source": "arxiv",
                 "key": "arXiv:nucl-th_9310031.pdf",
                 "original_url": "http://original-url.com/2",
@@ -1737,7 +1706,7 @@ def test_adding_files_with_s3_url_but_wrong_key(
         ],
         "figures": [
             {
-                "url": s3.get_file_url(expected_figure_key),
+                "url": current_s3_instance.get_file_url(expected_figure_key),
                 "original_url": "http://original-url.com/3",
                 "key": "channel.png",
             }
@@ -1746,7 +1715,7 @@ def test_adding_files_with_s3_url_but_wrong_key(
 
     expected_documents = [
         {
-            "url": s3.get_file_url(expected_document_key),
+            "url": current_s3_instance.get_file_url(expected_document_key),
             "source": "arxiv",
             "filename": "arXiv:nucl-th_9310031.pdf",
             "original_url": "http://original-url.com/2",
@@ -1756,7 +1725,7 @@ def test_adding_files_with_s3_url_but_wrong_key(
 
     expected_figures = [
         {
-            "url": s3.get_file_url(expected_figure_key),
+            "url": current_s3_instance.get_file_url(expected_figure_key),
             "original_url": "http://original-url.com/3",
             "filename": "channel.png",
             "key": expected_figure_key,
@@ -1767,12 +1736,12 @@ def test_adding_files_with_s3_url_but_wrong_key(
     document_content = b"document"
     with requests_mock.Mocker() as mocker:
         mocker.get(
-            s3.get_file_url(expected_document_key),
+            current_s3_instance.get_file_url(expected_document_key),
             status_code=200,
             content=document_content,
         )
         mocker.get(
-            s3.get_file_url(expected_figure_key),
+            current_s3_instance.get_file_url(expected_figure_key),
             status_code=200,
             content=figure_content,
         )
@@ -1783,9 +1752,7 @@ def test_adding_files_with_s3_url_but_wrong_key(
         assert record["documents"] == expected_documents
 
 
-def test_creating_record_updates_entries_in_authors_records_table(
-    base_app, db, create_record
-):
+def test_creating_record_updates_entries_in_authors_records_table(inspire_app):
     expected_authors_entries_count = 5
     expected_table_entries = [
         ("K.Janeway.1", "INSPIRE BAI"),
@@ -1821,9 +1788,7 @@ def test_creating_record_updates_entries_in_authors_records_table(
     assert sorted(table_entries) == sorted(expected_table_entries)
 
 
-def test_updating_record_updates_entries_in_authors_records_table(
-    base_app, db, create_record
-):
+def test_updating_record_updates_entries_in_authors_records_table(inspire_app):
     expected_authors_entries_count = 3
     data = {
         "authors": [
@@ -1895,7 +1860,7 @@ def test_updating_record_updates_entries_in_authors_records_table(
 
 
 def test_not_literature_collection_do_not_create_entries_in_authors_records_table(
-    base_app, db, create_record
+    inspire_app
 ):
     data = {
         "_collections": ["ZEUS Internal Notes"],
@@ -1917,9 +1882,7 @@ def test_not_literature_collection_do_not_create_entries_in_authors_records_tabl
     )
 
 
-def test_deleted_record_do_not_create_entries_in_authors_records_table(
-    base_app, db, create_record
-):
+def test_deleted_record_do_not_create_entries_in_authors_records_table(inspire_app):
     data = {
         "authors": [
             {
@@ -1940,9 +1903,7 @@ def test_deleted_record_do_not_create_entries_in_authors_records_table(
     )
 
 
-def test_deleting_record_removes_entries_in_authors_records_table(
-    base_app, db, create_record
-):
+def test_deleting_record_removes_entries_in_authors_records_table(inspire_app):
     data = {
         "authors": [
             {
@@ -1969,9 +1930,7 @@ def test_deleting_record_removes_entries_in_authors_records_table(
     )
 
 
-def test_hard_deleting_record_removes_entries_in_authors_records_table(
-    base_app, db, create_record
-):
+def test_hard_deleting_record_removes_entries_in_authors_records_table(inspire_app):
     data = {
         "authors": [
             {
@@ -1999,7 +1958,7 @@ def test_hard_deleting_record_removes_entries_in_authors_records_table(
 
 
 def test_self_citations_on_authors_calculated_on_record_creation(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     data_authors = {
         "authors": [
@@ -2028,7 +1987,7 @@ def test_self_citations_on_authors_calculated_on_record_creation(
 
 
 def test_mixed_self_citations_on_authors_calculated_on_record_creation(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     author_1 = {
         "full_name": "James T Kirk",
@@ -2069,7 +2028,7 @@ def test_mixed_self_citations_on_authors_calculated_on_record_creation(
 
 
 def test_self_citations_on_authors_calculated_on_record_update(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     data_authors = {
         "authors": [
@@ -2111,7 +2070,7 @@ def test_self_citations_on_authors_calculated_on_record_update(
 
 
 def test_self_citations_on_authors_calculated_on_other_record_update(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     author_1 = {
         "full_name": "James T Kirk",
@@ -2146,7 +2105,7 @@ def test_self_citations_on_authors_calculated_on_other_record_update(
 
 
 def test_self_citations_on_collaborations_calculated_on_record_creation(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     data_collaborations = {"collaborations": [{"value": "COL1"}]}
     rec1 = create_record("lit", data=data_collaborations)
@@ -2168,7 +2127,7 @@ def test_self_citations_on_collaborations_calculated_on_record_creation(
 
 
 def test_mixed_self_citations_on_collaborations_calculated_on_record_creation(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     collaboration_1 = {"value": "COL1"}
     collaboration_2 = {"value": "COL2"}
@@ -2200,7 +2159,7 @@ def test_mixed_self_citations_on_collaborations_calculated_on_record_creation(
 
 
 def test_self_citations_on_collaborations_calculated_on_record_update(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     data_collaborations = {"collaborations": [{"value": "COL1"}]}
     rec1 = create_record("lit", data=data_collaborations)
@@ -2235,7 +2194,7 @@ def test_self_citations_on_collaborations_calculated_on_record_update(
 
 
 def test_self_citations_on_collaborations_calculated_on_other_record_update(
-    base_app, db, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     collaboration_1 = {"value": "COL1"}
     collaboration_2 = {"value": "COL2"}

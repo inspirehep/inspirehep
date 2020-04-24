@@ -9,60 +9,63 @@ from datetime import datetime
 from operator import itemgetter
 
 from freezegun import freeze_time
+from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_conferences_application_json_get(api_client, db, es, create_record_factory):
+def test_conferences_application_json_get(inspire_app):
     record = create_record_factory("con", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    response = api_client.get(f"/conferences/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"/conferences/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_delete(api_client, db, es, create_record_factory):
+def test_conferences_application_json_delete(inspire_app):
     record = create_record_factory("con", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = api_client.delete(f"/conferences/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.delete(f"/conferences/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_post(api_client, db):
+def test_conferences_application_json_post(inspire_app):
     expected_status_code = 401
-    response = api_client.post("/conferences")
+    with inspire_app.test_client() as client:
+        response = client.post("/conferences")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_conferences_search_json_get(api_client, db, es, create_record_factory):
+def test_conferences_search_json_get(inspire_app):
     create_record_factory("con", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/conferences")
+    with inspire_app.test_client() as client:
+        response = client.get("/conferences")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_conference_record_search_results(
-    api_client, db, create_user, es, create_record
-):
+def test_conference_record_search_results(inspire_app):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
     record = create_record("con")
     expected_metadata = record.serialize_for_es()
-
-    result = api_client.get("/conferences")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        result = client.get("/conferences")
 
     expected_metadata.pop("_created")
     expected_metadata.pop("_updated")
@@ -71,11 +74,12 @@ def test_conference_record_search_results(
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
 
 
-def test_conferences_contribution_facets(api_client, db, es, create_record):
+def test_conferences_contribution_facets(inspire_app):
     create_record("lit")
-    response = api_client.get(
-        "/literature/facets?facet_name=hep-conference-contribution"
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/literature/facets?facet_name=hep-conference-contribution"
+        )
     response_data = response.json
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data.get("aggregations").keys())
@@ -89,7 +93,7 @@ def test_conferences_contribution_facets(api_client, db, es, create_record):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_conferences_contribution_filters(api_client, db, es, create_record):
+def test_conferences_contribution_filters(inspire_app):
     book_chapter_paper = {
         "inspire_categories": [{"term": "Accelerators"}],
         "document_type": ["book chapter"],
@@ -100,9 +104,10 @@ def test_conferences_contribution_filters(api_client, db, es, create_record):
         "document_type": ["conference paper"],
     }
     create_record("lit", data=conference_paper)
-    response = api_client.get(
-        "/literature/facets?facet_name=hep-conference-contribution&doc_type=conference%20paper"
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/literature/facets?facet_name=hep-conference-contribution&doc_type=conference%20paper"
+        )
     response_subject_aggregation_buckets = response.json["aggregations"]["subject"][
         "buckets"
     ]
@@ -111,66 +116,64 @@ def test_conferences_contribution_filters(api_client, db, es, create_record):
     assert expected_subject_aggregation_buckets == response_subject_aggregation_buckets
 
 
-def test_conferences_application_json_put_without_auth(
-    api_client, db, es_clear, create_record
-):
+def test_conferences_application_json_put_without_auth(inspire_app):
     record = create_record("con")
     record_control_number = record["control_number"]
 
     expected_status_code = 401
-    response = api_client.put(f"/conferences/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.put(f"/conferences/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_put_without_cataloger_logged_in(
-    api_client, db, es_clear, create_user, create_record
-):
+def test_conferences_application_json_put_without_cataloger_logged_in(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
 
     record = create_record("con")
     record_control_number = record["control_number"]
 
     expected_status_code = 403
-    response = api_client.put(f"/conferences/{record_control_number}")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(f"/conferences/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_put_with_cataloger_logged_in(
-    api_client, db, es_clear, create_user, create_record
-):
+def test_conferences_application_json_put_with_cataloger_logged_in(inspire_app):
     cataloger = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=cataloger.email)
     record = create_record("con")
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    response = api_client.put(
-        "/conferences/{}".format(record_control_number),
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "control_number": record_control_number,
-                "$schema": "http://localhost:5000/schemas/records/conferences.json",
-                "_collections": ["Conferences"],
-            }
-        ),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.put(
+            "/conferences/{}".format(record_control_number),
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "control_number": record_control_number,
+                    "$schema": "http://localhost:5000/schemas/records/conferences.json",
+                    "_collections": ["Conferences"],
+                }
+            ),
+        )
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_conferences_sort_options(api_client, db, es, create_record):
+def test_conferences_sort_options(inspire_app):
     create_record("con")
 
-    response = api_client.get(
-        "/conferences", headers={"Accept": "application/vnd+inspire.record.ui+json"}
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/conferences", headers={"Accept": "application/vnd+inspire.record.ui+json"}
+        )
     response_data = response.json
 
     response_status_code = response.status_code
@@ -188,9 +191,10 @@ def test_conferences_sort_options(api_client, db, es, create_record):
     )
 
 
-def test_conferences_facets(api_client, db, es, create_record):
+def test_conferences_facets(inspire_app):
     create_record("con")
-    response = api_client.get("/conferences/facets")
+    with inspire_app.test_client() as client:
+        response = client.get("/conferences/facets")
     response_data = response.json
     response_status_code = response.status_code
     response_data_facet_keys = list(response_data.get("aggregations").keys())
@@ -202,7 +206,7 @@ def test_conferences_facets(api_client, db, es, create_record):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_conferences_filters(api_client, db, es, create_record):
+def test_conferences_filters(inspire_app):
     conference1 = {
         "opening_date": "2019-11-21",
         "inspire_categories": [{"term": "Accelerators"}],
@@ -218,9 +222,10 @@ def test_conferences_filters(api_client, db, es, create_record):
         "opening_date": "2019-11-19",
     }
     create_record("con", data=conference3)
-    response = api_client.get(
-        "/conferences?subject=Accelerators&start_date=2019-11-21--2019-11-24"
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/conferences?subject=Accelerators&start_date=2019-11-21--2019-11-24"
+        )
     response_data = response.json
     assert len(response_data["hits"]["hits"]) == 1
     assert (
@@ -229,9 +234,7 @@ def test_conferences_filters(api_client, db, es, create_record):
     )
 
 
-def test_conferences_date_range_contains_other_conferences(
-    api_client, db, es, create_record
-):
+def test_conferences_date_range_contains_other_conferences(inspire_app):
     conference_during_april_first_week = {
         "control_number": 1,
         "opening_date": "2019-04-01",
@@ -264,7 +267,8 @@ def test_conferences_date_range_contains_other_conferences(
     create_record("con", data=conference_during_june)
 
     from_april_5_to_15 = "2019-04-05--2019-04-15"
-    response = api_client.get(f"/conferences?contains={from_april_5_to_15}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"/conferences?contains={from_april_5_to_15}")
     response_data = response.json
 
     assert response_data["hits"]["total"] == 3
@@ -278,7 +282,7 @@ def test_conferences_date_range_contains_other_conferences(
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_all(api_client, db, es, create_record):
+def test_conferences_start_date_range_filter_all(inspire_app):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
@@ -291,7 +295,8 @@ def test_conferences_start_date_range_filter_all(api_client, db, es, create_reco
     create_record("con", data=upcoming_conference_january_2020)
     create_record("con", data=conference_in_february_2019)
 
-    all_response = api_client.get(f"/conferences?start_date=all")
+    with inspire_app.test_client() as client:
+        all_response = client.get(f"/conferences?start_date=all")
     all_data = all_response.json
     assert all_data["hits"]["total"] == 4
     all_recids = sorted(
@@ -301,9 +306,7 @@ def test_conferences_start_date_range_filter_all(api_client, db, es, create_reco
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_upcoming(
-    api_client, db, es, create_record
-):
+def test_conferences_start_date_range_filter_upcoming(inspire_app):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
@@ -316,7 +319,8 @@ def test_conferences_start_date_range_filter_upcoming(
     create_record("con", data=upcoming_conference_january_2020)
     create_record("con", data=conference_in_february_2019)
 
-    upcoming_response = api_client.get(f"/conferences?start_date=upcoming")
+    with inspire_app.test_client() as client:
+        upcoming_response = client.get(f"/conferences?start_date=upcoming")
     upcoming_data = upcoming_response.json
     assert upcoming_data["hits"]["total"] == 2
     upcoming_recids = sorted(
@@ -329,9 +333,7 @@ def test_conferences_start_date_range_filter_upcoming(
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_with_only_single_date(
-    api_client, db, es, create_record
-):
+def test_conferences_start_date_range_filter_with_only_single_date(inspire_app):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
@@ -344,8 +346,8 @@ def test_conferences_start_date_range_filter_with_only_single_date(
     create_record("con", data=upcoming_conference_january_2020)
     create_record("con", data=conference_in_february_2019)
 
-    after_march_2019_response = api_client.get(f"/conferences?start_date=2019-03-01--")
-    after_march_2019_data = after_march_2019_response.json
+    with inspire_app.test_client() as client:
+        after_march_2019_data = client.get(f"/conferences?start_date=2019-03-01--").json
     assert after_march_2019_data["hits"]["total"] == 3
     after_march_2019_recids = sorted(
         [
@@ -357,9 +359,7 @@ def test_conferences_start_date_range_filter_with_only_single_date(
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_with_both_dates(
-    api_client, db, es, create_record
-):
+def test_conferences_start_date_range_filter_with_both_dates(inspire_app):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
@@ -372,9 +372,10 @@ def test_conferences_start_date_range_filter_with_both_dates(
     create_record("con", data=upcoming_conference_january_2020)
     create_record("con", data=conference_in_february_2019)
 
-    between_march_2019_and_february_2020_response = api_client.get(
-        f"/conferences?start_date=2019-03-01--2020-02-01"
-    )
+    with inspire_app.test_client() as client:
+        between_march_2019_and_february_2020_response = client.get(
+            f"/conferences?start_date=2019-03-01--2020-02-01"
+        )
     between_march_2019_and_february_2020_data = (
         between_march_2019_and_february_2020_response.json
     )

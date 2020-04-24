@@ -4,60 +4,66 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from helpers.utils import create_record, create_record_factory
 
 
-def test_journals_application_json_get(api_client, db, es, create_record_factory):
+def test_journals_application_json_get(inspire_app):
     record = create_record_factory("jou", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    response = api_client.get(f"/journals/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"/journals/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_journals_application_json_put(api_client, db, es, create_record_factory):
+def test_journals_application_json_put(inspire_app):
     record = create_record_factory("jou", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = api_client.put(f"/journals/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.put(f"/journals/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_journals_application_json_delete(api_client, db, es, create_record_factory):
+def test_journals_application_json_delete(inspire_app):
     record = create_record_factory("jou", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = api_client.delete(f"/journals/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.delete(f"/journals/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_journals_application_json_post(api_client, db):
+def test_journals_application_json_post(inspire_app):
     expected_status_code = 401
-    response = api_client.post("/journals")
+    with inspire_app.test_client() as client:
+        response = client.post("/journals")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_journals_search_json_get(api_client, db, es, create_record_factory):
+def test_journals_search_json_get(inspire_app):
     create_record_factory("jou", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/journals")
+    with inspire_app.test_client() as client:
+        response = client.get("/journals")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_journal_record_search_results(api_client, db, es_clear, create_record):
+def test_journal_record_search_results(inspire_app):
     record = create_record("jou")
 
     expected_metadata = record.serialize_for_es()
@@ -65,7 +71,8 @@ def test_journal_record_search_results(api_client, db, es_clear, create_record):
     expected_metadata.pop("_updated")
     expected_metadata.pop("title_suggest")
 
-    result = api_client.get("/journals")
+    with inspire_app.test_client() as client:
+        result = client.get("/journals")
 
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata

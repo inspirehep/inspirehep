@@ -14,7 +14,7 @@ from invenio_pidstore.models import PIDStatus
 from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
 
 
-def test_provider_with_legacy_provider(base_app, db, es, requests_mock):
+def test_provider_with_legacy_provider(inspire_app, requests_mock):
     requests_mock.get(
         "http://someurl.com", text="1", headers={"Content-Type": "application/json"}
     )

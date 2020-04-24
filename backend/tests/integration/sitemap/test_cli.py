@@ -7,10 +7,11 @@
 from io import BytesIO
 
 from flask import render_template
+from helpers.utils import create_record, override_config
+from invenio_search import current_search
 from lxml import etree
 from mock import mock_open, patch
 
-from inspirehep.sitemap.cli import sitemap
 from inspirehep.utils import get_inspirehep_url
 
 
@@ -20,7 +21,7 @@ def validate_xml_syntax(xml):
 
 @patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
 def test_generate_multiple_sitemap_files_with_multiple_collection(
-    mocked_open, app_cli_runner, base_app, db, es, create_record
+    mocked_open, inspire_app, cli
 ):
     create_record("lit")
     create_record("con")
@@ -31,8 +32,8 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
     create_record("exp")  # excluded
 
     config = {"SITEMAP_FILES_PATH": "/tmp", "SITEMAP_PAGE_SIZE": 1}
-    with patch.dict(base_app.config, config):
-        result = app_cli_runner.invoke(sitemap, ["generate"])
+    with override_config(**config):
+        result = cli.invoke(["sitemap", "generate"])
 
         assert result.exit_code == 0
 
@@ -47,17 +48,17 @@ def test_generate_multiple_sitemap_files_with_multiple_collection(
 
 
 @patch("inspirehep.sitemap.cli.open", new_callable=mock_open)
-def test_generate_sitemap_file(
-    mocked_open, app_cli_runner, base_app, db, es, create_record
-):
+def test_generate_sitemap_file(mocked_open, inspire_app, cli):
     literature = create_record("lit")
-    literature_from_es = es.get("records-hep", literature.id)["_source"]
+    literature_from_es = current_search.client.get("records-hep", literature.id)[
+        "_source"
+    ]
     literature_recid = literature["control_number"]
     literature_updated = literature_from_es["_updated"]
 
     config = {"SITEMAP_FILES_PATH": "/tmp", "SITEMAP_PAGE_SIZE": 1}
-    with patch.dict(base_app.config, config):
-        result = app_cli_runner.invoke(sitemap, ["generate"])
+    with override_config(**config):
+        result = cli.invoke(["sitemap", "generate"])
 
         assert result.exit_code == 0
 

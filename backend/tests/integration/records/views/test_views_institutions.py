@@ -6,65 +6,69 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import json
 
+from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_institutions_application_json_get(api_client, db, es, create_record_factory):
+def test_institutions_application_json_get(inspire_app):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 200
-    response = api_client.get(f"/institutions/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_put(api_client, db, es, create_record_factory):
+def test_institutions_application_json_put(inspire_app):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = api_client.put(f"/institutions/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.put(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_delete(
-    api_client, db, es, create_record_factory
-):
+def test_institutions_application_json_delete(inspire_app):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
     expected_status_code = 401
-    response = api_client.delete(f"/institutions/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.delete(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_post(api_client, db):
+def test_institutions_application_json_post(inspire_app):
     expected_status_code = 401
-    response = api_client.post("/institutions")
+    with inspire_app.test_client() as client:
+        response = client.post("/institutions")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_search_json_get(api_client, db, es, create_record_factory):
+def test_institutions_search_json_get(inspire_app):
     create_record_factory("ins", with_indexing=True)
 
     expected_status_code = 200
-    response = api_client.get("/institutions")
+    with inspire_app.test_client() as client:
+        response = client.get("/institutions")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institution_record_search_results(api_client, db, es_clear, create_record):
+def test_institution_record_search_results(inspire_app):
     record = create_record("ins")
 
     expected_metadata = record.serialize_for_es()
@@ -72,61 +76,58 @@ def test_institution_record_search_results(api_client, db, es_clear, create_reco
     expected_metadata.pop("_updated")
     expected_metadata.pop("_collections")
 
-    result = api_client.get("/institutions")
+    with inspire_app.test_client() as client:
+        result = client.get("/institutions")
 
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
 
 
-def test_institutions_application_json_put_without_auth(
-    api_client, db, es_clear, create_record
-):
+def test_institutions_application_json_put_without_auth(inspire_app):
     record = create_record("ins")
     record_control_number = record["control_number"]
 
     expected_status_code = 401
-    response = api_client.put(f"/institutions/{record_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.put(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_put_without_cataloger_logged_in(
-    api_client, db, es_clear, create_user, create_record
-):
+def test_institutions_application_json_put_without_cataloger_logged_in(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-
     record = create_record("ins")
     record_control_number = record["control_number"]
 
     expected_status_code = 403
-    response = api_client.put(f"/institutions/{record_control_number}")
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(f"/institutions/{record_control_number}")
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_put_with_cataloger_logged_in(
-    api_client, db, es_clear, create_user, create_record
-):
+def test_institutions_application_json_put_with_cataloger_logged_in(inspire_app):
     cataloger = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=cataloger.email)
     record = create_record("ins")
     record_control_number = record["control_number"]
 
     expected_status_code = 200
-    response = api_client.put(
-        "/institutions/{}".format(record_control_number),
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "control_number": record_control_number,
-                "$schema": "http://localhost:5000/schemas/records/institutions.json",
-                "_collections": ["Institutions"],
-            }
-        ),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.put(
+            "/institutions/{}".format(record_control_number),
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "control_number": record_control_number,
+                    "$schema": "http://localhost:5000/schemas/records/institutions.json",
+                    "_collections": ["Institutions"],
+                }
+            ),
+        )
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code

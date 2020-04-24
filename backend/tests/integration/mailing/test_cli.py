@@ -4,24 +4,20 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-import json
 from datetime import datetime
 
-import mock
 from freezegun import freeze_time
-from helpers.providers.faker import faker
-
-from inspirehep.mailing.cli import mailing
+from helpers.utils import override_config
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
-def test_update_weekly_jobs(app_cli_runner, base_app, db, es_clear, create_jobs, redis):
+def test_update_weekly_jobs(inspire_app, redis, cli, create_jobs):
     config = {
         "WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY",
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
     }
-    with mock.patch.dict(base_app.config, config):
-        result = app_cli_runner.invoke(mailing, ["update_weekly_jobs"])
+    with override_config(**config):
+        result = cli.invoke(["mailing", "update_weekly_jobs"])
     assert result.exit_code == 0
     assert "Campaign updated" in result.output
 
@@ -38,15 +34,13 @@ def test_update_weekly_jobs(app_cli_runner, base_app, db, es_clear, create_jobs,
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
-def test_update_weekly_jobs_populates_rss_feed(
-    app_cli_runner, app, db, es_clear, create_jobs, redis, api_client
-):
+def test_update_weekly_jobs_populates_rss_feed(inspire_app, cli, create_jobs):
     config = {
         "WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY",
         "WEEKLY_JOBS_EMAIL_TITLE": "Weekly jobs",
     }
-    with mock.patch.dict(app.config, config):
-        result = app_cli_runner.invoke(mailing, ["update_weekly_jobs"])
+    with override_config(**config), inspire_app.test_client() as client:
+        result = cli.invoke(["mailing", "update_weekly_jobs"])
         assert result.exit_code == 0
         assert "Campaign updated" in result.output
 
@@ -55,23 +49,20 @@ def test_update_weekly_jobs_populates_rss_feed(
             "Weekly jobs",
             '<!doctype html>\n<html xmlns="http://www.w3.org/1999/xhtml"',
         ]
-
-        response = api_client.get(
+        response = client.get(
             "/mailing/rss/jobs/weekly", content_type="application/rss+xml"
         )
         rss_data = response.data.decode("UTF-8")
         assert "<title>Weekly jobs</title>" in rss_data
 
 
-def test_update_weekly_jobs_with_no_jobs(app_cli_runner, db, es_clear):
-    result = app_cli_runner.invoke(mailing, ["update_weekly_jobs"])
+def test_update_weekly_jobs_with_no_jobs(inspire_app, cli):
+    result = cli.invoke(["mailing", "update_weekly_jobs"])
     assert result.exit_code == 0
     assert "No jobs found from last week skipping" in result.output
 
 
-def test_update_weekly_jobs_api_missing_config(
-    app_cli_runner, base_app, db, es_clear, create_jobs
-):
-    with mock.patch.dict(base_app.config, {"WEEKLY_JOBS_EMAIL_REDIS_KEY": None}):
-        result = app_cli_runner.invoke(mailing, ["update_weekly_jobs"])
+def test_update_weekly_jobs_api_missing_config(inspire_app, cli, create_jobs):
+    with override_config(**{"WEEKLY_JOBS_EMAIL_REDIS_KEY": None}):
+        result = cli.invoke(["mailing", "update_weekly_jobs"])
         assert result.exit_code == -1

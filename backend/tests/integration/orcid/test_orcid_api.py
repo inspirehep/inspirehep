@@ -26,6 +26,7 @@ import os
 import mock
 import pkg_resources
 import pytest
+from flask import current_app
 from invenio_db import db
 from invenio_oauthclient.models import RemoteAccount, RemoteToken, User, UserIdentity
 from invenio_oauthclient.utils import oauth_link_external_id
@@ -54,7 +55,7 @@ def override_config(**kwargs):
 
 
 @pytest.fixture(scope="function")
-def user_with_permission(base_app, db, es):
+def user_with_permission(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
         "token": "3d25a708-dae9-48eb-b676-aaaaaaaaaaaa",
@@ -72,7 +73,7 @@ def user_with_permission(base_app, db, es):
 
 
 @pytest.fixture(scope="function")
-def two_users_with_permission(base_app, db, es):
+def two_users_with_permission(inspire_app):
     _user1_data = {
         "orcid": "0000-0001-8829-5461",
         "token": "3d25a708-dae9-48eb-b676-aaaaaaaaaaaa",
@@ -100,7 +101,7 @@ def two_users_with_permission(base_app, db, es):
 
 
 @pytest.fixture(scope="function")
-def user_without_permission(base_app, db, es):
+def user_without_permission(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
         "token": "3d25a708-dae9-48eb-b676-aaaaaaaaaaaa",
@@ -118,7 +119,7 @@ def user_without_permission(base_app, db, es):
 
 
 @pytest.fixture(scope="function")
-def user_without_token(base_app, db, es):
+def user_without_token(inspire_app):
     _user_data = {
         "orcid": "0000-0001-8829-5461",
         "email": "dummy1@email.com",
@@ -135,7 +136,7 @@ def user_without_token(base_app, db, es):
 
 
 @pytest.fixture(scope="function")
-def raw_record(base_app, db, es):
+def raw_record(inspire_app):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1608652.xml")
     )
@@ -154,8 +155,8 @@ def record(raw_record):
 
 
 @pytest.fixture
-def enable_orcid_push_feature(base_app, db, es):
-    with mock.patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
+def enable_orcid_push_feature(inspire_app):
+    with override_config(**{"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
         yield
 
 
@@ -230,7 +231,7 @@ def test_orcid_push_not_trigger_for_author_records(
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_without_allow_push(
-    mock_orcid_push_task, base_app, db, es, raw_record, user_without_permission
+    mock_orcid_push_task, inspire_app, raw_record, user_without_permission
 ):
     migrate_and_insert_record(raw_record)
 
@@ -239,7 +240,7 @@ def test_orcid_push_not_triggered_on_create_record_without_allow_push(
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_without_token(
-    mock_orcid_push_task, base_app, db, es, raw_record, user_without_token
+    mock_orcid_push_task, inspire_app, raw_record, user_without_token
 ):
     migrate_and_insert_record(raw_record)
 
@@ -249,9 +250,7 @@ def test_orcid_push_not_triggered_on_create_record_without_token(
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_create_record_with_allow_push(
     mock_orcid_push_task,
-    base_app,
-    db,
-    es,
+    inspire_app,
     raw_record,
     user_with_permission,
     enable_orcid_push_feature,
@@ -273,9 +272,7 @@ def test_orcid_push_triggered_on_create_record_with_allow_push(
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_record_update_with_allow_push(
     mock_orcid_push_task,
-    base_app,
-    db,
-    es,
+    inspire_app,
     record,
     user_with_permission,
     enable_orcid_push_feature,
@@ -297,9 +294,7 @@ def test_orcid_push_triggered_on_record_update_with_allow_push(
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_push(
     mock_orcid_push_task,
-    base_app,
-    db,
-    es,
+    inspire_app,
     raw_record,
     two_users_with_permission,
     enable_orcid_push_feature,
@@ -330,14 +325,14 @@ def test_orcid_push_triggered_on_create_record_with_multiple_authors_with_allow_
 
 @mock.patch("inspirehep.orcid.api._send_push_task")
 def test_orcid_push_not_triggered_on_create_record_no_feat_flag(
-    mocked_Task, base_app, db, es, raw_record, user_with_permission
+    mocked_Task, inspire_app, raw_record, user_with_permission
 ):
     migrate_and_insert_record(raw_record)
 
     mocked_Task.assert_not_called()
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("inspire_app")
 class TestPushToOrcid(object):
     def setup(self):
         # record 736770

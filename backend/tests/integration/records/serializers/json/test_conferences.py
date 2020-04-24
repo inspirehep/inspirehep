@@ -7,13 +7,14 @@
 
 import json
 
+from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_conferences_json_without_login(api_client, db, create_record, datadir):
+def test_conferences_json_without_login(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
@@ -27,7 +28,7 @@ def test_conferences_json_without_login(api_client, db, create_record, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1185692,
+        "control_number": 1_185_692,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
@@ -48,8 +49,8 @@ def test_conferences_json_without_login(api_client, db, create_record, datadir):
     }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get(f"/conferences/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/conferences/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -61,11 +62,8 @@ def test_conferences_json_without_login(api_client, db, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_conferences_json_with_logged_in_cataloger(
-    api_client, db, create_user, create_record, datadir
-):
+def test_conferences_json_with_logged_in_cataloger(inspire_app):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
 
@@ -88,8 +86,9 @@ def test_conferences_json_with_logged_in_cataloger(
         "titles": [{"title": "Great conference for HEP"}],
         "number_of_contributions": 0,
     }
-
-    response = api_client.get(f"/conferences/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/conferences/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -97,7 +96,7 @@ def test_conferences_json_with_logged_in_cataloger(
     assert expected_metadata == response_data_metadata
 
 
-def test_conferences_detail(api_client, db, create_record, datadir):
+def test_conferences_detail(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
@@ -111,7 +110,7 @@ def test_conferences_detail(api_client, db, create_record, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1185692,
+        "control_number": 1_185_692,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
@@ -132,8 +131,8 @@ def test_conferences_detail(api_client, db, create_record, datadir):
     }
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get(f"/conferences/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/conferences/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -145,7 +144,7 @@ def test_conferences_detail(api_client, db, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_conferences_search_json(api_client, db, create_record, datadir):
+def test_conferences_search_json(inspire_app, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
@@ -159,7 +158,7 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1185692,
+        "control_number": 1_185_692,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
@@ -180,8 +179,8 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
 
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get("/conferences", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get("/conferences", headers=headers)
 
     response_data_hit = json.loads(response.data)["hits"]["hits"][0]
 
@@ -194,7 +193,7 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_proceedings_in_detail_page(api_client, db, create_record):
+def test_proceedings_in_detail_page(inspire_app):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     conference = create_record("con")
@@ -219,8 +218,9 @@ def test_proceedings_in_detail_page(api_client, db, create_record):
         "control_number": conference["control_number"],
         "proceedings": [{"control_number": proceeding["control_number"]}],
     }
-    response = api_client.get(
-        f"/conferences/{conference_control_number}", headers=headers
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/conferences/{conference_control_number}", headers=headers
+        )
     response_metadata = response.json["metadata"]
     assert expected_metadata == response_metadata

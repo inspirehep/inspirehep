@@ -8,13 +8,14 @@
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_record_factory
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
 from inspirehep.pidstore.minters.arxiv import ArxivMinter
 
 
-def test_minter_arxiv_eprints(base_app, db, es, create_record_factory):
+def test_minter_arxiv_eprints(inspire_app):
     arxiv_value_1 = faker.arxiv()
     arxiv_value_2 = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value_1}, {"value": arxiv_value_2}]}
@@ -42,7 +43,7 @@ def test_minter_arxiv_eprints(base_app, db, es, create_record_factory):
         assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_arxiv_eprints_empty(base_app, db, es, create_record_factory):
+def test_minter_arxiv_eprints_empty(inspire_app):
     record = create_record_factory("lit", with_validation=True)
     data = record.json
 
@@ -58,7 +59,7 @@ def test_minter_arxiv_eprints_empty(base_app, db, es, create_record_factory):
     assert expected_pids_len == result_pids_len
 
 
-def test_minter_arxiv_eprints_duplicate(base_app, db, es, create_record_factory):
+def test_minter_arxiv_eprints_duplicate(inspire_app):
     arxiv_value_1 = faker.arxiv()
     data = {
         "arxiv_eprints": [
@@ -86,7 +87,7 @@ def test_minter_arxiv_eprints_duplicate(base_app, db, es, create_record_factory)
     assert epxected_pid_value == result_pid.pid_value
 
 
-def test_mitner_arxiv_eprints_already_existing(base_app, db, es, create_record_factory):
+def test_mitner_arxiv_eprints_already_existing(inspire_app):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
 
@@ -98,7 +99,7 @@ def test_mitner_arxiv_eprints_already_existing(base_app, db, es, create_record_f
         ArxivMinter.mint(record_with_existing_arxiv.id, record_with_existing_arxiv.json)
 
 
-def test_mitner_arxiv_eprints_missing_schema(base_app, db, es, create_record_factory):
+def test_mitner_arxiv_eprints_missing_schema(inspire_app):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     record = create_record_factory("lit", data=data)

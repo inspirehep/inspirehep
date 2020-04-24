@@ -32,7 +32,7 @@ class MockUserWithSuperuser:
     is_authenticated=True,
     roles=[MockUserWithRoleA],
 )
-def test_login_required_with_roles(mock_is_authenticated, base_app, db, es):
+def test_login_required_with_roles(mock_is_authenticated, inspire_app):
     func = Mock()
     decorated_func = login_required_with_roles(["role_a"])(func)
     decorated_func()
@@ -40,9 +40,7 @@ def test_login_required_with_roles(mock_is_authenticated, base_app, db, es):
 
 
 @patch("inspirehep.accounts.decorators.current_user", is_authenticated=True)
-def test_login_required_with_roles_without_roles(
-    mock_is_authenticated, base_app, db, es
-):
+def test_login_required_with_roles_without_roles(mock_is_authenticated, inspire_app):
     func = Mock()
     decorated_func = login_required_with_roles()(func)
     decorated_func()
@@ -50,9 +48,7 @@ def test_login_required_with_roles_without_roles(
 
 
 @patch("inspirehep.accounts.decorators.current_user", is_authenticated=False)
-def test_login_required_with_roles_unauthenticated(
-    mock_is_authenticated, base_app, db, es
-):
+def test_login_required_with_roles_unauthenticated(mock_is_authenticated, inspire_app):
     func = Mock()
     decorated_func = login_required_with_roles()(func)
     with pytest.raises(Unauthorized):
@@ -65,9 +61,7 @@ def test_login_required_with_roles_unauthenticated(
     is_authenticated=True,
     roles=[MockUserWithRoleB],
 )
-def test_login_required_with_roles_unauthorized(
-    mock_is_authenticated, base_app, db, es
-):
+def test_login_required_with_roles_unauthorized(mock_is_authenticated, inspire_app):
     func = Mock()
     decorated_func = login_required_with_roles(["role_a"])(func)
     with pytest.raises(Forbidden):
@@ -81,7 +75,7 @@ def test_login_required_with_roles_unauthorized(
     roles=[MockUserWithSuperuser],
 )
 def test_login_required_role_a_superuser_always_allowed(
-    mock_is_authenticated, base_app, db, es
+    mock_is_authenticated, inspire_app
 ):
     func = Mock()
     decorated_func = login_required_with_roles(["role_a"])(func)

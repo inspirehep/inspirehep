@@ -8,10 +8,11 @@
 import json
 from copy import deepcopy
 
+from helpers.utils import create_record, create_record_factory
 from marshmallow import utils
 
 
-def test_data_json(api_client, db, create_record_factory, datadir):
+def test_data_json(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1.json").read_text())
@@ -22,7 +23,8 @@ def test_data_json(api_client, db, create_record_factory, datadir):
     expected_metadata = deepcopy(record.json)
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-    response = api_client.get(f"/data/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/data/{record_control_number}", headers=headers)
 
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -34,7 +36,7 @@ def test_data_json(api_client, db, create_record_factory, datadir):
     assert expected_updated == response_updated
 
 
-def test_data_search_json(api_client, db, create_record, datadir):
+def test_data_search_json(inspire_app, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1.json").read_text())
@@ -44,8 +46,8 @@ def test_data_search_json(api_client, db, create_record, datadir):
     expected_result = deepcopy(record)
     expected_created = utils.isoformat(record.created)
     expected_updated = utils.isoformat(record.updated)
-
-    response = api_client.get("/data", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get("/data", headers=headers)
 
     response_data_hit = response.json["hits"]["hits"][0]
 

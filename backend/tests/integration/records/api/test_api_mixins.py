@@ -9,14 +9,14 @@
 from copy import deepcopy
 
 import mock
-import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_record
 
 from inspirehep.records.api import LiteratureRecord
 from inspirehep.records.models import InstitutionLiterature
 
 
-def test_records_links_correctly_with_conference(base_app, db, es_clear, create_record):
+def test_records_links_correctly_with_conference(inspire_app):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
     ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
@@ -46,7 +46,7 @@ def test_records_links_correctly_with_conference(base_app, db, es_clear, create_
 
 
 def test_creating_lit_record_with_linked_institutions_populates_institution_relation_table(
-    base_app, db, es_clear, create_record
+    inspire_app
 ):
     author_institution = create_record("ins")
     author_institution_ref = (
@@ -80,9 +80,7 @@ def test_creating_lit_record_with_linked_institutions_populates_institution_rela
     assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 3
 
 
-def test_creating_lit_record_with_institution_linked_more_than_once(
-    base_app, db, es_clear, create_record
-):
+def test_creating_lit_record_with_institution_linked_more_than_once(inspire_app):
     institution = create_record("ins")
     institution_ref = (
         f"http://localhost:8000/api/institutions/{institution['control_number']}"
@@ -99,9 +97,7 @@ def test_creating_lit_record_with_institution_linked_more_than_once(
     assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 1
 
 
-def test_updating_record_updates_institution_relations(
-    base_app, db, es_clear, create_record
-):
+def test_updating_record_updates_institution_relations(inspire_app):
     institution_1 = create_record("ins")
     institution_1_control_number = institution_1["control_number"]
     ref_1 = f"http://localhost:8000/api/institutions/{institution_1_control_number}"
@@ -142,7 +138,7 @@ def test_updating_record_updates_institution_relations(
 
 
 def test_record_with_institutions_adds_only_linked_ones_in_institution_lit_table(
-    base_app, db, es_clear, create_record
+    inspire_app
 ):
     ref = "http://localhost:8000/api/institutions/1234"
     rec_data = {
@@ -159,7 +155,7 @@ def test_record_with_institutions_adds_only_linked_ones_in_institution_lit_table
 
 
 def test_record_with_institutions_doesnt_add_deleted_institutions_in_institution_lit_table(
-    base_app, db, es_clear, create_record
+    inspire_app
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -178,9 +174,7 @@ def test_record_with_institutions_doesnt_add_deleted_institutions_in_institution
     assert len(rec.model.institutions) == 0
 
 
-def test_deleted_record_deletes_relations_in_institution_literature_table(
-    base_app, db, es_clear, create_record
-):
+def test_deleted_record_deletes_relations_in_institution_literature_table(inspire_app):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
     ref = f"http://localhost:8000/api/institutions/{institution_control_number}"
@@ -202,7 +196,7 @@ def test_deleted_record_deletes_relations_in_institution_literature_table(
 
 
 def test_hard_delete_record_deletes_relations_in_institution_literature_table(
-    base_app, db, es_clear, create_record
+    inspire_app
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -226,7 +220,7 @@ def test_hard_delete_record_deletes_relations_in_institution_literature_table(
 
 @mock.patch.object(LiteratureRecord, "update_institution_relations")
 def test_institution_literature_table_is_not_updated_when_feature_flag_is_disabled(
-    update_function_mock, base_app, db, es_clear, create_record
+    update_function_mock, inspire_app
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -249,7 +243,7 @@ def test_institution_literature_table_is_not_updated_when_feature_flag_is_disabl
 
 
 def test_record_links_when_correct_type_is_not_first_document_type_conference(
-    base_app, db, es_clear, create_record
+    inspire_app
 ):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
@@ -280,9 +274,7 @@ def test_record_links_when_correct_type_is_not_first_document_type_conference(
     assert rec_without_correct_type.id not in conf_docs_uuids
 
 
-def test_record_updates_correctly_conference_link(
-    base_app, db, es_clear, create_record
-):
+def test_record_updates_correctly_conference_link(inspire_app):
     conference_1 = create_record("con")
     conference_1_control_number = conference_1["control_number"]
     ref_1 = f"http://localhost:8000/api/conferences/{conference_1_control_number}"
@@ -311,7 +303,7 @@ def test_record_updates_correctly_conference_link(
     assert conferences_from_record[0].conference_uuid == conference_2.id
 
 
-def test_record_links_only_existing_conference(base_app, db, es_clear, create_record):
+def test_record_links_only_existing_conference(inspire_app):
     rec_data = {
         "publication_info": [
             {
@@ -327,9 +319,7 @@ def test_record_links_only_existing_conference(base_app, db, es_clear, create_re
     assert len(rec.model.conferences) == 0
 
 
-def test_conference_paper_doesnt_link_deleted_conference(
-    base_app, db, es_clear, create_record
-):
+def test_conference_paper_doesnt_link_deleted_conference(inspire_app):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
     ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
@@ -345,9 +335,7 @@ def test_conference_paper_doesnt_link_deleted_conference(
     assert len(rec.model.conferences) == 0
 
 
-def test_delete_literature_clears_entries_in_conference_literature_table(
-    base_app, db, es_clear, create_record
-):
+def test_delete_literature_clears_entries_in_conference_literature_table(inspire_app):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
     ref = f"http://localhost:8000/api/conferences/{conference_control_number}"
@@ -364,7 +352,7 @@ def test_delete_literature_clears_entries_in_conference_literature_table(
 
 
 def test_hard_delete_literature_clears_entries_in_conference_literature_table(
-    base_app, db, es_clear, create_record
+    inspire_app
 ):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
@@ -383,7 +371,7 @@ def test_hard_delete_literature_clears_entries_in_conference_literature_table(
 
 @mock.patch.object(LiteratureRecord, "update_conference_paper_and_proccedings")
 def test_disable_conference_update_feature_flag_disabled(
-    update_function_mock, base_app, db, es_clear, create_record
+    update_function_mock, inspire_app
 ):
     conference = create_record("con")
     conference_control_number = conference["control_number"]
@@ -406,7 +394,7 @@ def test_disable_conference_update_feature_flag_disabled(
 
 
 def test_self_citations_in_detail_view_not_logged_user(
-    api_client, db, es, create_record, enable_self_citations
+    inspire_app, enable_self_citations
 ):
     author_1 = {
         "full_name": "James T Kirk",
@@ -440,7 +428,8 @@ def test_self_citations_in_detail_view_not_logged_user(
     expected_non_self_citations = 1
 
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    response = api_client.get(f"/literature/{rec1['control_number']}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{rec1['control_number']}", headers=headers)
 
     assert response.status_code == 200
     assert response.json["metadata"]["citation_count"] == expected_citations

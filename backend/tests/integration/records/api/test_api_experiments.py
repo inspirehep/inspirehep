@@ -10,6 +10,7 @@ import uuid
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_pidstore
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
@@ -18,7 +19,7 @@ from jsonschema import ValidationError
 from inspirehep.records.api import ExperimentsRecord, InspireRecord
 
 
-def test_experiments_create(base_app, db, es):
+def test_experiments_create(inspire_app):
     data = faker.record("exp")
     record = ExperimentsRecord.create(data)
 
@@ -35,7 +36,7 @@ def test_experiments_create(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_experiments_create_with_existing_control_number(base_app, db, create_pidstore):
+def test_experiments_create_with_existing_control_number(inspire_app):
     data = faker.record("exp", with_control_number=True)
     existing_object_uuid = uuid.uuid4()
 
@@ -49,7 +50,7 @@ def test_experiments_create_with_existing_control_number(base_app, db, create_pi
         ExperimentsRecord.create(data)
 
 
-def test_experiments_create_with_invalid_data(base_app, db, create_pidstore):
+def test_experiments_create_with_invalid_data(inspire_app):
     data = faker.record("exp", with_control_number=True)
     data["invalid_key"] = "should throw an error"
     record_control_number = str(data["control_number"])
@@ -63,7 +64,7 @@ def test_experiments_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_experiments_update(base_app, db, es):
+def test_experiments_update(inspire_app):
     data = faker.record("exp", with_control_number=True)
     record = ExperimentsRecord.create(data)
 
@@ -84,7 +85,7 @@ def test_experiments_update(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_experiments_create_or_update_with_new_record(base_app, db, es):
+def test_experiments_create_or_update_with_new_record(inspire_app):
     data = faker.record("exp")
     record = ExperimentsRecord.create_or_update(data)
 
@@ -101,7 +102,7 @@ def test_experiments_create_or_update_with_new_record(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_experiments_create_or_update_with_existing_record(base_app, db, es):
+def test_experiments_create_or_update_with_existing_record(inspire_app):
     data = faker.record("exp", with_control_number=True)
     record = ExperimentsRecord.create(data)
 
@@ -127,19 +128,14 @@ def test_experiments_create_or_update_with_existing_record(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_subclasses_for_experiments():
-    expected = {"exp": ExperimentsRecord}
-    assert expected == ExperimentsRecord.get_subclasses()
-
-
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("exp")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == ExperimentsRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("exp")
     record = InspireRecord.create(data)
     assert type(record) == ExperimentsRecord
@@ -150,7 +146,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     assert record.pid_type == "exp"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("exp")
     record = InspireRecord.create_or_update(data)
     assert type(record) == ExperimentsRecord
@@ -163,7 +159,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db,
     assert record.pid_type == "exp"
 
 
-def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es):
+def test_aut_citation_count_property_blows_up_on_wrong_pid_type(inspire_app):
     data = faker.record("exp")
     record = ExperimentsRecord.create(data)
 

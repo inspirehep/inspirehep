@@ -12,7 +12,7 @@ from invenio_db import db
 from inspirehep.records.api import LiteratureRecord
 
 
-def test_record_versioning(app, clear_environment):
+def test_record_versioning(inspire_app, celery_app_with_context, celery_session_worker):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "titles": [{"title": "Test a valid record"}],
@@ -42,7 +42,7 @@ def test_record_versioning(app, clear_environment):
 
 
 def test_record_previous_version_doesnt_fail_if_previous_version_missing(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -59,7 +59,7 @@ def test_record_previous_version_doesnt_fail_if_previous_version_missing(
 
 
 def test_get_modified_references_returns_all_references_when_earliest_date_changed(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     cited_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -101,7 +101,7 @@ def test_get_modified_references_returns_all_references_when_earliest_date_chang
 
 
 def test_get_modified_references_returns_no_references_when_non_impacting_metadata_changed(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     cited_data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",

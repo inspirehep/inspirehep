@@ -6,31 +6,25 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 """INSPIRE module that adds more fun to the platform."""
-import datetime
 import os
-import random
 from functools import partial
 
 import boto3
 import pytest
 from click.testing import CliRunner
-from flask import current_app
 from flask.cli import ScriptInfo
 from helpers.cleanups import db_cleanup, es_cleanup
 from helpers.factories.models.base import BaseFactory
 from helpers.factories.models.migrator import LegacyRecordsMirrorFactory
 from helpers.factories.models.pidstore import PersistentIdentifierFactory
 from helpers.factories.models.records import RecordMetadataFactory
-from helpers.factories.models.user_access_token import AccessTokenFactory, UserFactory
-from helpers.providers.faker import faker
-from helpers.utils import get_index_alias
-from invenio_search import current_search
+from helpers.utils import override_config
 from moto import mock_s3
 from redis import StrictRedis
 
+from inspirehep.cli import cli as inspire_cli
 from inspirehep.factory import create_app as inspire_create_app
 from inspirehep.files.api.s3 import S3
-from inspirehep.records.api import InspireRecord
 
 
 @pytest.fixture(scope="module")
@@ -42,7 +36,7 @@ def instance_path():
 @pytest.fixture(scope="module")
 def app_config(instance_path, app_config):
     # add extra global config if you would like to customize the config
-    # for a specific test you can chagne create fixture per-directory
+    # for a specific test you can change create fixture per-directory
     # using ``conftest.py`` or per-file.
     app_config["DEBUG"] = False
     app_config["JSONSCHEMAS_HOST"] = "localhost:5000"
@@ -64,27 +58,21 @@ def db_uri(instance_path):
 
 
 @pytest.fixture(scope="function")
-def enable_files(base_app):
-    original_value = base_app.config.get("FEATURE_FLAG_ENABLE_FILES")
-    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = True
-    yield base_app
-    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = original_value
+def enable_files(inspire_app):
+    with override_config(FEATURE_FLAG_ENABLE_FILES=True):
+        yield inspire_app
 
 
 @pytest.fixture(scope="function")
-def disable_files(base_app):
-    original_value = base_app.config.get("FEATURE_FLAG_ENABLE_FILES")
-    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = False
-    yield base_app
-    base_app.config["FEATURE_FLAG_ENABLE_FILES"] = original_value
+def disable_files(inspire_app):
+    with override_config(FEATURE_FLAG_ENABLE_FILES=False):
+        yield inspire_app
 
 
 @pytest.fixture(scope="function")
-def enable_self_citations(base_app):
-    original_value = base_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS")
-    base_app.config["FEATURE_FLAG_ENABLE_SELF_CITATIONS"] = True
-    yield base_app
-    base_app.config["FEATURE_FLAG_ENABLE_SELF_CITATIONS"] = original_value
+def enable_self_citations(inspire_app):
+    with override_config(FEATURE_FLAG_ENABLE_SELF_CITATIONS=True):
+        yield inspire_app
 
 
 @pytest.fixture(scope="module")
@@ -156,8 +144,33 @@ def es_clear(es):
     yield es
 
 
+@pytest.fixture(scope="function")
+def cli(inspire_app):
+    """Click CLI runner inside the Flask application."""
+    runner = CliRunner()
+    obj = ScriptInfo(create_app=lambda info: inspire_app)
+    runner._invoke = runner.invoke
+    runner.invoke = partial(runner._invoke, inspire_cli, obj=obj)
+    yield runner
+
+
+@pytest.fixture(scope="function")
+def redis(inspire_app):
+    redis_url = inspire_app.config.get("CACHE_REDIS_URL")
+    redis = StrictRedis.from_url(redis_url, decode_responses=True)
+    redis.flushall()
+    yield redis
+    redis.flushall()
+    redis.close()
+
+
+@pytest.fixture(scope="function")
+def inspire_app(base_app, db, es_clear, vcr_config):
+    yield base_app
+
+
 @pytest.fixture()
-def s3(base_app):
+def s3(inspire_app, enable_files):
     mock = mock_s3()
     mock.start()
     client = boto3.client("s3")
@@ -167,201 +180,9 @@ def s3(base_app):
     class MockedInspireS3:
         s3_instance = s3
 
-    real_inspirehep_s3 = base_app.extensions["inspirehep-s3"]
-    base_app.extensions["inspirehep-s3"] = MockedInspireS3
+    real_inspirehep_s3 = inspire_app.extensions["inspirehep-s3"]
+    inspire_app.extensions["inspirehep-s3"] = MockedInspireS3
 
     yield s3
     mock.stop()
-    base_app.extensions["inspirehep-s3"] = real_inspirehep_s3
-
-
-@pytest.fixture(scope="function")
-def create_s3_bucket(base_app, s3):
-    def _create_bucket(key):
-        s3.client.create_bucket(Bucket=s3.get_bucket_for_file_key(key))
-
-    return _create_bucket
-
-
-@pytest.fixture(scope="function")
-def create_s3_file(s3):
-    def _create_file(bucket, key, data, metadata={}):
-        s3.client.put_object(Bucket=bucket, Key=key, Body=data, Metadata=metadata)
-
-    return _create_file
-
-
-@pytest.fixture(scope="function")
-def create_record(base_app, db, es_clear):
-    """Fixture to create record from the application level.
-
-    Examples:
-
-        def test_with_record(base_app, create_record)
-            data = {'control_number': 123}
-            record = create_record(
-                'lit',
-                data=data,
-            )
-    """
-
-    def _create_record(record_type, data=None, **kwargs):
-        accepted_record_types = base_app.config["PID_TYPE_TO_INDEX"].keys()
-
-        if record_type not in accepted_record_types:
-            raise ValueError(f"{record_type} is not supported")
-        index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
-        record_data = faker.record(record_type, data=data, **kwargs)
-        record = InspireRecord.create(record_data)
-        record._indexing = record.index(delay=False)
-        current_search.flush_and_refresh(index)
-        return record
-
-    return _create_record
-
-
-@pytest.fixture(scope="function")
-def create_record_factory(base_app, db, es_clear):
-    """Fixtures to create factory record.
-
-    Examples:
-
-        def test_with_record(base_app, create_record_factory)
-            record = create_record_factory(
-                'lit',
-                with_pid=True,
-                with_index=False,
-            )
-    """
-
-    def _create_record_factory(
-        record_type,
-        data=None,
-        with_pid=True,
-        with_indexing=False,
-        with_validation=False,
-    ):
-        control_number = random.randint(1, 2_147_483_647)
-        if with_validation:
-            data = faker.record(record_type, data)
-        record = RecordMetadataFactory(
-            record_type=record_type, data=data, control_number=control_number
-        )
-
-        if with_pid:
-            record._persistent_identifier = PersistentIdentifierFactory(
-                object_uuid=record.id,
-                pid_type=record_type,
-                pid_value=record.json["control_number"],
-            )
-
-        if with_indexing:
-            index = base_app.config["PID_TYPE_TO_INDEX"][record_type]
-            record._index = es_clear.index(
-                index=get_index_alias(index),
-                id=str(record.id),
-                body=record.json,
-                params={},
-            )
-            current_search.flush_and_refresh(index)
-        return record
-
-    return _create_record_factory
-
-
-@pytest.fixture(scope="function")
-def create_pidstore(db):
-    def _create_pidstore(object_uuid, pid_type, pid_value):
-        return PersistentIdentifierFactory(
-            object_uuid=object_uuid, pid_type=pid_type, pid_value=pid_value
-        )
-
-    return _create_pidstore
-
-
-@pytest.fixture(scope="function")
-def api_client(base_app):
-    """Test client for the base application fixture.
-    Scope: function
-    If you need the database and search indexes initialized, simply use the
-    Pytest-Flask fixture ``client`` instead. This fixture is mainly useful if
-    you need a test client without needing to initialize both the database and
-    search indexes.
-    """
-    with base_app.test_client() as client:
-        yield client
-
-
-@pytest.fixture(scope="function")
-def create_user_and_token(base_app, db, es):
-    """Fixtures to create user and authentication token for given user.
-
-    Examples:
-
-        def test_needs_authentication(base_app, create_user_and_token)
-            user = create_user_and_token()
-    """
-
-    def _create_user_and_token():
-        return AccessTokenFactory()
-
-    return _create_user_and_token
-
-
-@pytest.fixture(scope="function")
-def create_user(base_app, db, es):
-    """Fixture to create user.
-
-    Examples:
-
-        def test_needs_user(base_app, create_user)
-            user = create_user()
-    """
-
-    def _create_user(
-        role="user", orcid=None, email=None, allow_push=True, token="token"
-    ):
-        return UserFactory(
-            role=role, orcid=orcid, email=email, allow_push=allow_push, token=token
-        )
-
-    return _create_user
-
-
-@pytest.fixture
-def logout():
-    """
-    Fixture to logout the current user.
-
-    Example:
-        user = create_user('cataloger')
-        login_user_via_session(api_client, email=cataloger@cat.com)
-        . . .
-        logout(api_client)
-    """
-
-    def _logout(client):
-        with client.session_transaction() as sess:
-            if sess["user_id"]:
-                del sess["user_id"]
-
-    return _logout
-
-
-@pytest.fixture(scope="function")
-def app_cli_runner(appctx):
-    """Click CLI runner inside the Flask application."""
-    runner = CliRunner()
-    obj = ScriptInfo(create_app=lambda info: current_app)
-    runner._invoke = runner.invoke
-    runner.invoke = partial(runner.invoke, obj=obj)
-    return runner
-
-
-@pytest.fixture(scope="function")
-def redis(base_app):
-    redis_url = current_app.config.get("CACHE_REDIS_URL")
-    r = StrictRedis.from_url(redis_url, decode_responses=True)
-    r.flushall()
-
-    yield r
+    inspire_app.extensions["inspirehep-s3"] = real_inspirehep_s3

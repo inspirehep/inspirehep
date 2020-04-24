@@ -6,11 +6,12 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_http_response_with_different_host_name_and_server_name(api_client, db, es):
+def test_http_response_with_different_host_name_and_server_name(inspire_app):
     headers = {"Host": "foo.bar"}
 
     expected_status_code = 200
-    response = api_client.get("/ping", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get("/ping", headers=headers)
     response_status_code = response.status_code
 
     assert expected_status_code == response_status_code

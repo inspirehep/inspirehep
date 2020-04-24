@@ -34,7 +34,7 @@ from inspirehep.orcid.putcode_getter import OrcidPutcodeGetter
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("inspire_app")
 class TestOrcidPutcodeGetter(object):
     def setup(self):
         self.orcid = "0000-0002-6665-4934"  # ATLAS author.

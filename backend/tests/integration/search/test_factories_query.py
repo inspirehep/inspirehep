@@ -6,15 +6,16 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from elasticsearch_dsl import Search
+from flask import current_app
 from mock import patch
 
 from inspirehep.search.factories.query import inspire_query_factory
 
 
 @patch("inspirehep.search.factories.query.inspire_query_parser.parse_query")
-def test_inspire_query_parser_is_called(mock_inspire_query_parser, base_app):
+def test_inspire_query_parser_is_called(mock_inspire_query_parser, inspire_app):
     query_string = "foo"
-    with base_app.test_request_context():
+    with current_app.test_request_context():
         factory = inspire_query_factory()
         search = Search()
 
@@ -23,9 +24,9 @@ def test_inspire_query_parser_is_called(mock_inspire_query_parser, base_app):
         mock_inspire_query_parser.assert_called_once_with(query_string)
 
 
-def test_inspire_query_parser_max_recursion_on_complicated_queries(base_app):
+def test_inspire_query_parser_max_recursion_on_complicated_queries(inspire_app):
     query_string = "find a name" + " or a name" * 250
-    with base_app.test_request_context():
+    with current_app.test_request_context():
         factory = inspire_query_factory()
         search = Search()
 

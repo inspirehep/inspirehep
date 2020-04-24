@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
-from helpers.utils import es_search
+from helpers.utils import es_search, retry_until_matched
 from invenio_db import db
 from invenio_search import current_search
 from invenio_search import current_search_client as es
@@ -18,7 +18,7 @@ from inspirehep.records.marshmallow.conferences.common.proceeding_info_item impo
 
 
 def test_conference_record_updates_in_es_when_lit_rec_reffers_to_it(
-    app, celery_app_with_context, celery_session_worker, retry_until_matched
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]

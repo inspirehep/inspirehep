@@ -4,9 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from concurrent.futures import ThreadPoolExecutor
 
-import mock
 from flask import Flask, current_app
 
 from inspirehep.files import InspireS3
@@ -21,7 +20,7 @@ def test_ext():
     assert "inspirehep-s3" in app.extensions
 
 
-def test_threads_have_separate_s3_connections(base_app, appctx):
+def test_threads_have_separate_s3_connections(inspire_app):
     def thread_function(app_context):
         with app_context.app.app_context():
             return {

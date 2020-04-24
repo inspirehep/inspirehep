@@ -9,7 +9,7 @@ import pytest
 from flask_sqlalchemy import models_committed
 from helpers.factories.models.user_access_token import AccessTokenFactory
 from helpers.providers.faker import faker
-from helpers.utils import es_search
+from helpers.utils import es_search, retry_until_matched
 from invenio_db import db
 from invenio_search import current_search
 from invenio_search import current_search_client as es
@@ -19,48 +19,40 @@ from inspirehep.records.receivers import index_after_commit
 from inspirehep.search.api import LiteratureSearch
 
 
-@pytest.fixture
-def assert_citation_count(retry_until_matched):
-    def _assert_citation_count(cited_record, expected_count):
-        steps = [
-            {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-            {
-                "step": LiteratureSearch.get_record_data_from_es,
-                "args": [cited_record],
-                "expected_result": {
-                    "expected_key": "citation_count",
-                    "expected_result": expected_count,
-                },
+def assert_citation_count(cited_record, expected_count):
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": LiteratureSearch.get_record_data_from_es,
+            "args": [cited_record],
+            "expected_result": {
+                "expected_key": "citation_count",
+                "expected_result": expected_count,
             },
-        ]
-        retry_until_matched(steps)
+        },
+    ]
+    retry_until_matched(steps)
 
-    return _assert_citation_count
 
-
-@pytest.fixture
-def assert_es_hits_count(retry_until_matched):
-    def _assert_es_hits_count(expected_hits_count, additional_steps=None):
-        steps = [
-            {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
-            {
-                "step": es_search,
-                "args": ["records-hep"],
-                "expected_result": {
-                    "expected_key": "hits.total.value",
-                    "expected_result": expected_hits_count,
-                },
+def assert_es_hits_count(expected_hits_count, additional_steps=None):
+    steps = [
+        {"step": current_search.flush_and_refresh, "args": ["records-hep"]},
+        {
+            "step": es_search,
+            "args": ["records-hep"],
+            "expected_result": {
+                "expected_key": "hits.total.value",
+                "expected_result": expected_hits_count,
             },
-        ]
-        if additional_steps:
-            steps.extend(additional_steps)
-        return retry_until_matched(steps)
-
-    return _assert_es_hits_count
+        },
+    ]
+    if additional_steps:
+        steps.extend(additional_steps)
+    return retry_until_matched(steps)
 
 
 def test_lit_record_appear_in_es_when_created(
-    app, celery_app_with_context, celery_session_worker, assert_es_hits_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
@@ -75,7 +67,7 @@ def test_lit_record_appear_in_es_when_created(
 
 
 def test_lit_record_update_when_changed(
-    app, celery_app_with_context, celery_session_worker, assert_es_hits_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     data["titles"] = [{"title": "Original title"}]
@@ -96,7 +88,7 @@ def test_lit_record_update_when_changed(
 
 
 def test_lit_record_removed_form_es_when_deleted(
-    app, celery_app_with_context, celery_session_worker, assert_es_hits_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
@@ -111,7 +103,7 @@ def test_lit_record_removed_form_es_when_deleted(
 
 
 def test_lit_record_removed_form_es_when_hard_deleted(
-    app, celery_app_with_context, celery_session_worker, assert_es_hits_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
@@ -126,7 +118,7 @@ def test_lit_record_removed_form_es_when_hard_deleted(
 
 
 def test_index_record_manually(
-    app, celery_app_with_context, celery_session_worker, assert_es_hits_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
@@ -142,7 +134,7 @@ def test_index_record_manually(
 
 
 def test_lit_records_with_citations_updates(
-    app, celery_app_with_context, celery_session_worker, assert_citation_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     rec = LiteratureRecord.create(data)
@@ -159,7 +151,7 @@ def test_lit_records_with_citations_updates(
 
 
 def test_lit_record_updates_references_when_record_is_deleted(
-    app, celery_app_with_context, celery_session_worker, assert_citation_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -182,7 +174,7 @@ def test_lit_record_updates_references_when_record_is_deleted(
 
 
 def test_lit_record_updates_references_when_reference_is_deleted(
-    app, celery_app_with_context, celery_session_worker, assert_citation_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -207,7 +199,7 @@ def test_lit_record_updates_references_when_reference_is_deleted(
 
 
 def test_lit_record_updates_references_when_reference_is_added(
-    app, celery_app_with_context, celery_session_worker, assert_citation_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -234,7 +226,7 @@ def test_lit_record_updates_references_when_reference_is_added(
 
 
 def test_lit_record_reindexes_references_when_earliest_date_changed(
-    app, celery_app_with_context, celery_session_worker, retry_until_matched
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data_cited_record = faker.record("lit")
     cited_record = LiteratureRecord.create(data_cited_record)
@@ -282,7 +274,7 @@ def test_lit_record_reindexes_references_when_earliest_date_changed(
 
 
 def test_many_records_in_one_commit(
-    app, celery_app_with_context, celery_session_worker, assert_es_hits_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     for x in range(10):
         data = faker.record("lit")
@@ -294,19 +286,14 @@ def test_many_records_in_one_commit(
 
 
 def test_record_created_through_api_is_indexed(
-    app,
-    celery_app_with_context,
-    celery_session_worker,
-    retry_until_matched,
-    clear_environment,
-    assert_es_hits_count,
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     token = AccessTokenFactory()
     db.session.commit()
     headers = {"Authorization": f"Bearer {token.access_token}"}
     content_type = "application/json"
-    response = app.test_client().post(
+    response = inspire_app.test_client().post(
         "/api/literature", json=data, headers=headers, content_type=content_type
     )
     assert response.status_code == 201
@@ -314,7 +301,7 @@ def test_record_created_through_api_is_indexed(
 
 
 def test_literature_citations_superseded_status_change_and_cited_records_are_reindexed(
-    app, celery_app_with_context, celery_session_worker, assert_citation_count
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = faker.record("lit")
     record_1 = LiteratureRecord.create(data)

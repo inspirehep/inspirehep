@@ -6,10 +6,11 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from freezegun import freeze_time
+from helpers.utils import create_record, create_record_factory
 
 
 @freeze_time("1994-12-19")
-def test_latex_eu(api_client, db, es, create_record_factory):
+def test_latex_eu(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
 
@@ -24,7 +25,8 @@ def test_latex_eu(api_client, db, es, create_record_factory):
         "%``This is a title.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     etag = response.headers.get("Etag")
@@ -38,7 +40,7 @@ def test_latex_eu(api_client, db, es, create_record_factory):
 
 
 @freeze_time("1994-12-19")
-def test_latex_us(api_client, db, es, create_record_factory):
+def test_latex_us(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
 
@@ -53,7 +55,8 @@ def test_latex_us(api_client, db, es, create_record_factory):
         "%``This is a title.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     etag = response.headers.get("Etag")
@@ -67,7 +70,7 @@ def test_latex_us(api_client, db, es, create_record_factory):
 
 
 @freeze_time("1994-12-19")
-def test_latex_eu_do_not_show_supervisors(api_client, db, es, create_record):
+def test_latex_eu_do_not_show_supervisors(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
         "control_number": 637_275_237,
@@ -89,14 +92,15 @@ def test_latex_eu_do_not_show_supervisors(api_client, db, es, create_record):
 
     expected_status_code = 200
     expected_result = "%\\cite{637275237}\n\\bibitem{637275237}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
-    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     assert response.status_code == expected_status_code
     assert response.get_data(as_text=True) == expected_result
 
 
 @freeze_time("1994-12-19")
-def test_latex_us_do_not_show_supervisors(api_client, db, es, create_record):
+def test_latex_us_do_not_show_supervisors(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
         "control_number": 637_275_237,
@@ -118,17 +122,18 @@ def test_latex_us_do_not_show_supervisors(api_client, db, es, create_record):
 
     expected_status_code = 200
     expected_result = "%\\cite{637275237}\n\\bibitem{637275237}\nA.~Normal,\n%``This is a title.,''\n%0 citations counted in INSPIRE as of 19 Dec 1994"
-    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     assert response.status_code == expected_status_code
     assert response.get_data(as_text=True) == expected_result
 
 
 @freeze_time("1994-12-19")
-def test_latex_eu_search_response(api_client, db, es, create_record):
+def test_latex_eu_search_response(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
-    data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
-    data_2 = {"control_number": 637275232, "titles": [{"title": "This is a title2."}]}
+    data_1 = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
+    data_2 = {"control_number": 637_275_232, "titles": [{"title": "This is a title2."}]}
     create_record("lit", data=data_1)
     create_record("lit", data=data_2)
 
@@ -145,7 +150,8 @@ def test_latex_eu_search_response(api_client, db, es, create_record):
         "%``This is a title2.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(f"/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -155,7 +161,7 @@ def test_latex_eu_search_response(api_client, db, es, create_record):
 
 
 @freeze_time("1994-12-19")
-def test_latex_eu_search_response_full_record(api_client, db, es, create_record):
+def test_latex_eu_search_response_full_record(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.eu+x-latex"}
     data = {
         "texkeys": ["a123bx"],
@@ -194,7 +200,8 @@ def test_latex_eu_search_response_full_record(api_client, db, es, create_record)
         "[arXiv:1607.06746 [hep-th]].\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(f"/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -203,10 +210,10 @@ def test_latex_eu_search_response_full_record(api_client, db, es, create_record)
 
 
 @freeze_time("1994-12-19")
-def test_latex_us_search_response(api_client, db, es, create_record):
+def test_latex_us_search_response(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
-    data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
-    data_2 = {"control_number": 637275232, "titles": [{"title": "This is a title2."}]}
+    data_1 = {"control_number": 637_275_237, "titles": [{"title": "This is a title."}]}
+    data_2 = {"control_number": 637_275_232, "titles": [{"title": "This is a title2."}]}
     create_record("lit", data=data_1)
     create_record("lit", data=data_2)
 
@@ -223,7 +230,8 @@ def test_latex_us_search_response(api_client, db, es, create_record):
         "%``This is a title2.,''\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(f"/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)
@@ -233,7 +241,7 @@ def test_latex_us_search_response(api_client, db, es, create_record):
 
 
 @freeze_time("1994-12-19")
-def test_latex_us_search_response_full_record(api_client, db, es, create_record):
+def test_latex_us_search_response_full_record(inspire_app):
     headers = {"Accept": "application/vnd+inspire.latex.us+x-latex"}
     data = {
         "texkeys": ["a123bx"],
@@ -272,7 +280,8 @@ def test_latex_us_search_response_full_record(api_client, db, es, create_record)
         "[arXiv:1607.06746 [hep-th]].\n"
         "%0 citations counted in INSPIRE as of 19 Dec 1994"
     )
-    response = api_client.get(f"/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = response.get_data(as_text=True)

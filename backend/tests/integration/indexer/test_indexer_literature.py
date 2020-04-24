@@ -10,14 +10,14 @@ import json
 import pytest
 from deepdiff import DeepDiff
 from freezegun import freeze_time
-from helpers.utils import es_search
+from helpers.utils import create_record, create_s3_bucket, es_search
 from invenio_search import current_search
 
 from inspirehep.search.api import LiteratureSearch
 
 
 @freeze_time("1994-12-19")
-def test_index_literature_record(es_clear, db, datadir, create_record):
+def test_index_literature_record(inspire_app, datadir):
     author_data = json.loads((datadir / "1032336.json").read_text())
     author = create_record("aut", data=author_data)
 
@@ -54,9 +54,7 @@ def test_index_literature_record(es_clear, db, datadir, create_record):
     assert sorted(result_facet_author_name) == sorted(expected_facet_author_name)
 
 
-def test_regression_index_literature_record_with_related_records(
-    es_clear, db, datadir, create_record
-):
+def test_regression_index_literature_record_with_related_records(inspire_app, datadir):
     data = json.loads((datadir / "1503270.json").read_text())
     record = create_record("lit", data=data)
 
@@ -67,7 +65,7 @@ def test_regression_index_literature_record_with_related_records(
     assert data["related_records"] == result["related_records"]
 
 
-def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
+def test_indexer_deletes_record_from_es(inspire_app, datadir):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
     record.delete()
@@ -84,7 +82,7 @@ def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
 
 @pytest.mark.vcr()
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
-    base_app, es_clear, db, create_record, enable_files, s3, create_s3_bucket
+    inspire_app, s3
 ):
     create_s3_bucket("1")
     create_s3_bucket("f")
@@ -124,7 +122,7 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_enabled(
 
 
 def test_indexer_creates_proper_fulltext_links_in_ui_display_files_disabled(
-    base_app, es_clear, db, create_record, disable_files
+    inspire_app, disable_files
 ):
     expected_fulltext_links = [
         {"description": "arXiv", "value": "https://arxiv.org/pdf/hep-ph/9404247"},
@@ -165,9 +163,7 @@ def test_indexer_creates_proper_fulltext_links_in_ui_display_files_disabled(
     assert result_ui_display["fulltext_links"] == expected_fulltext_links
 
 
-def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(
-    base_app, es_clear, db, create_record
-):
+def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(inspire_app):
 
     data = {
         "external_system_identifiers": [
@@ -192,9 +188,7 @@ def test_indexer_not_fulltext_links_in_ui_display_when_no_fulltext_links(
     assert "fulltext_links" not in result_ui_display
 
 
-def test_indexer_removes_supervisors_from_authors_for_ui_display_field(
-    base_app, es_clear, db, create_record
-):
+def test_indexer_removes_supervisors_from_authors_for_ui_display_field(inspire_app):
     authors = [
         {"full_name": "Frank Castle"},
         {"full_name": "Jimmy", "inspire_roles": ["supervisor"]},
@@ -213,9 +207,7 @@ def test_indexer_removes_supervisors_from_authors_for_ui_display_field(
     assert result_authors[0]["full_name"] == expected_author_full_name
 
 
-def test_indexer_separates_supervisors_from_authors(
-    base_app, es_clear, db, create_record
-):
+def test_indexer_separates_supervisors_from_authors(inspire_app):
     authors = [
         {"full_name": "Frank Castle"},
         {"full_name": "Jimmy", "inspire_roles": ["supervisor"]},
@@ -235,9 +227,7 @@ def test_indexer_separates_supervisors_from_authors(
     assert result_supervisors[0]["full_name"] == expected_supervisor
 
 
-def test_indexer_populates_referenced_authors_bais(
-    base_app, db, create_record, es_clear
-):
+def test_indexer_populates_referenced_authors_bais(inspire_app):
     data_authors = {
         "authors": [
             {

@@ -6,8 +6,6 @@
 # the terms of the MIT License; see LICENSE file for more details.
 import copy
 
-import mock
-import pytest
 from helpers.providers.faker import faker
 from invenio_db import db
 
@@ -15,7 +13,7 @@ from inspirehep.records.api import ConferencesRecord, LiteratureRecord
 
 
 def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -49,7 +47,7 @@ def test_authors_signature_blocks_and_uuids_added_after_create_and_update(
 
 
 def test_conference_paper_get_updated_reference_when_adding_new_record(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -68,7 +66,7 @@ def test_conference_paper_get_updated_reference_when_adding_new_record(
 
 
 def test_conference_paper_get_updated_reference_when_replacing_conference(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -97,7 +95,7 @@ def test_conference_paper_get_updated_reference_when_replacing_conference(
 
 
 def test_conference_paper_get_updated_reference_conference_when_updates_one_conference(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -125,7 +123,7 @@ def test_conference_paper_get_updated_reference_conference_when_updates_one_conf
 
 
 def test_conference_paper_get_updated_reference_conference_returns_nothing_when_not_updating_conference(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -149,7 +147,7 @@ def test_conference_paper_get_updated_reference_conference_returns_nothing_when_
 
 
 def test_conference_paper_get_updated_reference_conference_returns_all_when_deleting_lit_record(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -171,7 +169,7 @@ def test_conference_paper_get_updated_reference_conference_returns_all_when_dele
 
 
 def test_conference_paper_get_updated_reference_conference_returns_nothing_when_conf_doc_type_stays_intact(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -195,7 +193,7 @@ def test_conference_paper_get_updated_reference_conference_returns_nothing_when_
 
 
 def test_conference_paper_get_updated_reference_conference_when_document_type_changes_to_non_conf_related(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]
@@ -219,7 +217,7 @@ def test_conference_paper_get_updated_reference_conference_when_document_type_ch
 
 
 def test_conference_paper_get_updated_reference_conference_when_document_type_changes_to_other_conf_related(
-    app, clear_environment
+    inspire_app, celery_app_with_context, celery_session_worker
 ):
     conference_1 = ConferencesRecord.create(faker.record("con"))
     conference_1_control_number = conference_1["control_number"]

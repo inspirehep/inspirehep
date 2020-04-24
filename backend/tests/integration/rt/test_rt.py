@@ -11,13 +11,13 @@ from inspirehep.rt.tickets import create_ticket, create_ticket_with_template
 
 
 @pytest.mark.xfail(reason="RT cannot be initialized without valid creds.")
-def test_app_extension(base_app):
-    assert base_app.extensions["inspire-rt"]
+def test_app_extension(inspire_app):
+    assert inspire_app.extensions["inspire-rt"]
 
 
 @pytest.mark.xfail(reason="RT cannot be initialized without valid creds.")
 @pytest.mark.vcr()
-def test_create_ticket_without_template(base_app, appctx):
+def test_create_ticket_without_template(inspire_app):
     control_number = 1
     rt_queue = "TEST"
     ticket_id = create_ticket(
@@ -33,7 +33,7 @@ def test_create_ticket_without_template(base_app, appctx):
 
 @pytest.mark.xfail(reason="RT cannot be initialized without valid creds.")
 @pytest.mark.vcr()
-def test_create_ticket_with_template(base_app, appctx):
+def test_create_ticket_with_template(inspire_app):
     control_number = 1
 
     rt_template = "rt/dummy.html"

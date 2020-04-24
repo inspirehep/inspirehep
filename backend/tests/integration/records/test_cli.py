@@ -10,26 +10,23 @@ import os
 
 import mock
 import pytest
-from click.testing import CliRunner
 from freezegun import freeze_time
 from helpers.providers.faker import faker
+from helpers.utils import create_record
 
 from inspirehep.records.api import AuthorsRecord, JobsRecord, LiteratureRecord
-from inspirehep.records.cli import importer, jobs
 
 
 @pytest.mark.vcr()
-def test_create_record_with_one_url(api_client, db, script_info):
-    runner = CliRunner()
+def test_create_record_with_one_url(inspire_app, cli):
     control_number = 20
-    result = runner.invoke(
-        importer,
+    result = cli.invoke(
         [
+            "importer",
             "records",
             "-u",
             f"https://labs.inspirehep.net/api/literature/{control_number}",
-        ],
-        obj=script_info,
+        ]
     )
     result_record = LiteratureRecord.get_record_by_pid_value(control_number)
 
@@ -38,20 +35,18 @@ def test_create_record_with_one_url(api_client, db, script_info):
 
 
 @pytest.mark.vcr()
-def test_create_record_with_multiple_urls(base_app, db, script_info):
-    runner = CliRunner()
+def test_create_record_with_multiple_urls(inspire_app, cli):
     control_number_literature = 20
     control_number_author = 1_013_123
-    result = runner.invoke(
-        importer,
+    result = cli.invoke(
         [
+            "importer",
             "records",
             "-u",
             f"https://labs.inspirehep.net/api/literature/{control_number_literature}",
             "-u",
             f"https://labs.inspirehep.net/api/authors/{control_number_author}",
-        ],
-        obj=script_info,
+        ]
     )
     result_record_literature = LiteratureRecord.get_record_by_pid_value(
         control_number_literature
@@ -64,12 +59,9 @@ def test_create_record_with_multiple_urls(base_app, db, script_info):
 
 
 @pytest.mark.vcr()
-def test_create_record_with_unreachable_url(base_app, db, script_info):
-    runner = CliRunner()
+def test_create_record_with_unreachable_url(inspire_app, cli):
     url_unreachable = "http://something"
-    result = runner.invoke(
-        importer, ["records", "-u", url_unreachable], obj=script_info
-    )
+    result = cli.invoke(["importer", "records", "-u", url_unreachable])
     expected_message = (
         f"Something went wrong! Cannot reach the given url {url_unreachable}."
     )
@@ -78,17 +70,15 @@ def test_create_record_with_unreachable_url(base_app, db, script_info):
 
 
 @pytest.mark.vcr()
-def test_create_record_with_not_existing_record(base_app, db, script_info):
-    runner = CliRunner()
+def test_create_record_with_not_existing_record(inspire_app, cli):
     control_number = 999_999
-    result = runner.invoke(
-        importer,
+    result = cli.invoke(
         [
+            "importer",
             "records",
             "-u",
             f"https://labs.inspirehep.net/api/literature/{control_number}",
-        ],
-        obj=script_info,
+        ]
     )
     expected_message = (
         "Something went wrong! Status code 404, "
@@ -99,47 +89,42 @@ def test_create_record_with_not_existing_record(base_app, db, script_info):
     assert expected_message in result.output
 
 
-def test_create_record_with_one_file(base_app, db, script_info):
-    runner = CliRunner()
+def test_create_record_with_one_file(inspire_app, cli):
     data = faker.record("lit", with_control_number=True)
     control_number = data["control_number"]
 
-    with runner.isolated_filesystem():
+    with cli.isolated_filesystem():
         with open(f"{control_number}.json", "w") as f:
             f.write(json.dumps(data))
 
-        result = runner.invoke(
-            importer, ["records", "-f", f"{control_number}.json"], obj=script_info
-        )
+        result = cli.invoke(["importer", "records", "-f", f"{control_number}.json"])
         result_record = LiteratureRecord.get_record_by_pid_value(control_number)
 
         assert result.exit_code == 0
         assert control_number == result_record["control_number"]
 
 
-def test_create_record_with_multiple_files(base_app, db, script_info):
-    runner = CliRunner()
+def test_create_record_with_multiple_files(inspire_app, cli):
     data_literature = faker.record("lit", with_control_number=True)
     data_author = faker.record("aut", with_control_number=True)
     control_number_literature = data_literature["control_number"]
     control_number_author = data_author["control_number"]
 
-    with runner.isolated_filesystem():
+    with cli.isolated_filesystem():
         with open(f"{control_number_literature}.json", "w") as f:
             f.write(json.dumps(data_literature))
         with open(f"{control_number_author}.json", "w") as f:
             f.write(json.dumps(data_author))
 
-        result = runner.invoke(
-            importer,
+        result = cli.invoke(
             [
+                "importer",
                 "records",
                 "-f",
                 f"{control_number_literature}.json",
                 "-f",
                 f"{control_number_author}.json",
-            ],
-            obj=script_info,
+            ]
         )
         result_record_literature = LiteratureRecord.get_record_by_pid_value(
             control_number_literature
@@ -153,23 +138,20 @@ def test_create_record_with_multiple_files(base_app, db, script_info):
         assert control_number_author == result_record_author["control_number"]
 
 
-def test_create_record_with_directory(base_app, db, script_info):
-    runner = CliRunner()
+def test_create_record_with_directory(inspire_app, cli):
     data_literature = faker.record("lit", with_control_number=True)
     data_author = faker.record("aut", with_control_number=True)
     control_number_literature = data_literature["control_number"]
     control_number_author = data_author["control_number"]
 
-    with runner.isolated_filesystem():
+    with cli.isolated_filesystem():
         os.mkdir("test_directory/")
         with open(f"test_directory/{control_number_literature}.json", "w") as f:
             f.write(json.dumps(data_literature))
         with open(f"test_directory/{control_number_author}.json", "w") as f:
             f.write(json.dumps(data_author))
 
-        result = runner.invoke(
-            importer, ["records", "-d", "test_directory"], obj=script_info
-        )
+        result = cli.invoke(["importer", "records", "-d", "test_directory"])
         result_record_literature = LiteratureRecord.get_record_by_pid_value(
             control_number_literature
         )
@@ -185,16 +167,15 @@ def test_create_record_with_directory(base_app, db, script_info):
 @freeze_time("2019-12-01")
 @mock.patch("inspirehep.records.cli.send_job_deadline_reminder")
 def test_close_expired_jobs_with_notify(
-    mock_send_job_deadline_reminder, base_app, db, es, create_record, script_info
+    mock_send_job_deadline_reminder, inspire_app, cli
 ):
-    runner = CliRunner()
     expired_record = create_record(
         "job", data={"status": "open", "deadline_date": "2019-11-01"}
     )
     not_expired_record = create_record(
         "job", data={"status": "open", "deadline_date": "2020-11-01"}
     )
-    result = runner.invoke(jobs, ["close_expired_jobs", "--notify"], obj=script_info)
+    result = cli.invoke(["jobs", "close_expired_jobs", "--notify"])
 
     expired_record = JobsRecord.get_record_by_pid_value(
         expired_record["control_number"]
@@ -205,12 +186,9 @@ def test_close_expired_jobs_with_notify(
 
 
 @freeze_time("2019-11-01")
-def test_close_expired_jobs_has_exclusive_deadline(
-    base_app, db, es, create_record, script_info
-):
-    runner = CliRunner()
+def test_close_expired_jobs_has_exclusive_deadline(inspire_app, cli):
     job = create_record("job", data={"status": "open", "deadline_date": "2019-11-01"})
-    result = runner.invoke(jobs, ["close_expired_jobs"], obj=script_info)
+    result = cli.invoke(["jobs", "close_expired_jobs"])
     job = JobsRecord.get_record_by_pid_value(job["control_number"])
 
     assert result.exit_code == 0
@@ -220,16 +198,15 @@ def test_close_expired_jobs_has_exclusive_deadline(
 @freeze_time("2019-11-02")
 @mock.patch("inspirehep.records.cli.send_job_deadline_reminder")
 def test_close_expired_jobs_without_notify(
-    mock_send_job_deadline_reminder, base_app, db, es, create_record, script_info
+    mock_send_job_deadline_reminder, inspire_app, cli
 ):
-    runner = CliRunner()
     expired_record = create_record(
         "job", data={"status": "open", "deadline_date": "2019-11-01"}
     )
     not_expired_record = create_record(
         "job", data={"status": "open", "deadline_date": "2020-11-01"}
     )
-    result = runner.invoke(jobs, ["close_expired_jobs"], obj=script_info)
+    result = cli.invoke(["jobs", "close_expired_jobs"])
     expired_record = JobsRecord.get_record_by_pid_value(
         expired_record["control_number"]
     )
@@ -245,16 +222,13 @@ def test_close_expired_jobs_without_notify(
 
 
 @freeze_time("2019-12-01")
-def test_close_expired_jobs_ignores_deleted_records(
-    base_app, db, es, create_record, script_info
-):
-    runner = CliRunner()
+def test_close_expired_jobs_ignores_deleted_records(inspire_app, cli):
     deleted_record = create_record(
         "job", data={"status": "open", "deadline_date": "2019-11-01"}
     )
     deleted_record["deleted"] = True
     deleted_record.update(dict(deleted_record))
-    result = runner.invoke(jobs, ["close_expired_jobs"], obj=script_info)
+    result = cli.invoke(["jobs", "close_expired_jobs"])
     deleted_record = JobsRecord.get_record_by_pid_value(
         deleted_record["control_number"]
     )

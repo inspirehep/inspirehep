@@ -1,14 +1,12 @@
 import json
 
-import pytest
 from flask import current_app
+from helpers.utils import create_user_and_token, override_config
 from mock import patch
 
 
 @patch("inspirehep.disambiguation.views.disambiguate_signatures")
-def test_view_disambiguate(
-    disambiguate_signatures_mock, api_client, db, es_clear, create_user_and_token
-):
+def test_view_disambiguate(disambiguate_signatures_mock, inspire_app):
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     clusters = [
@@ -23,8 +21,8 @@ def test_view_disambiguate(
         }
     ]
     config = {"FEATURE_FLAG_ENABLE_DISAMBIGUATION": True}
-    with patch.dict(current_app.config, config):
-        response = api_client.post(
+    with override_config(**config), inspire_app.test_client() as client:
+        response = client.post(
             "/disambiguation",
             content_type="application/json",
             data=json.dumps({"clusters": clusters}),
@@ -45,7 +43,7 @@ def test_view_disambiguate(
 
 @patch("inspirehep.disambiguation.views.disambiguate_signatures")
 def test_view_disambiguate_with_disambiguation_disabled(
-    disambiguate_signatures_mock, api_client, db, es_clear, create_user_and_token
+    disambiguate_signatures_mock, inspire_app
 ):
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
@@ -60,12 +58,13 @@ def test_view_disambiguate_with_disambiguation_disabled(
             "authors": [{"author_id": 100, "has_claims": True}],
         }
     ]
-    response = api_client.post(
-        "/disambiguation",
-        content_type="application/json",
-        data=json.dumps({"clusters": clusters}),
-        headers=headers,
-    )
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/disambiguation",
+            content_type="application/json",
+            data=json.dumps({"clusters": clusters}),
+            headers=headers,
+        )
     expected_message = "Disambiguation feature is disabled."
     expected_status_code = 200
 
@@ -79,7 +78,7 @@ def test_view_disambiguate_with_disambiguation_disabled(
 
 @patch("inspirehep.disambiguation.views.disambiguate_signatures")
 def test_view_disambiguate_requires_authentication(
-    disambiguate_signatures_mock, api_client, db, es_clear
+    disambiguate_signatures_mock, inspire_app
 ):
     clusters = [
         {
@@ -92,29 +91,29 @@ def test_view_disambiguate_requires_authentication(
             "authors": [{"author_id": 100, "has_claims": True}],
         }
     ]
-    response = api_client.post(
-        "/disambiguation",
-        content_type="application/json",
-        data=json.dumps({"wrong key": clusters}),
-    )
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/disambiguation",
+            content_type="application/json",
+            data=json.dumps({"wrong key": clusters}),
+        )
     expected_status_code = 401
     result_status_code = response.status_code
 
     assert expected_status_code == result_status_code
 
 
-def test_view_disambiguate_with_missing_data(
-    api_client, db, es_clear, create_user_and_token
-):
+def test_view_disambiguate_with_missing_data(inspire_app):
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     clusters = [{"authors": [{"author_id": 100, "has_claims": True}]}]
-    response = api_client.post(
-        "/disambiguation",
-        content_type="application/json",
-        data=json.dumps({"clusters": clusters}),
-        headers=headers,
-    )
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/disambiguation",
+            content_type="application/json",
+            data=json.dumps({"clusters": clusters}),
+            headers=headers,
+        )
     expected_message = "Validation Error."
     expected_status_code = 400
     expected_errors = {
