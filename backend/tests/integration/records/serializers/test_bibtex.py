@@ -5,9 +5,10 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 import pytest
+from helpers.utils import create_record
 
 
-def test_bibtex(api_client, db, es, create_record):
+def test_bibtex(api_client):
     headers = {"Accept": "application/x-bibtex"}
     data = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     record = create_record("lit", data=data)
@@ -30,9 +31,7 @@ def test_bibtex(api_client, db, es, create_record):
     assert expected_result == response_data
 
 
-def test_bibtex_returns_all_expected_fields_for_conference_papers(
-    api_client, db, es, create_record, redis
-):
+def test_bibtex_returns_all_expected_fields_for_conference_papers(api_client):
     headers = {"Accept": "application/x-bibtex"}
 
     conference_data = {
@@ -75,9 +74,7 @@ def test_bibtex_returns_all_expected_fields_for_conference_papers(
     assert expected_result == response_data
 
 
-def test_bibtex_returns_all_expected_fields_for_book_chapters(
-    api_client, db, es, create_record, redis
-):
+def test_bibtex_returns_all_expected_fields_for_book_chapters(api_client):
     headers = {"Accept": "application/x-bibtex"}
 
     book_data = {
@@ -120,7 +117,7 @@ def test_bibtex_returns_all_expected_fields_for_book_chapters(
     assert expected_result == response_data
 
 
-def test_bibtex_search(api_client, db, es, create_record):
+def test_bibtex_search(api_client):
     headers = {"Accept": "application/x-bibtex"}
     data_1 = {"control_number": 637275237, "titles": [{"title": "This is a title."}]}
     data_2 = {"control_number": 637275232, "titles": [{"title": "Yet another title."}]}
@@ -144,7 +141,7 @@ def test_bibtex_search(api_client, db, es, create_record):
     assert expected_result_2 in response_data
 
 
-def test_bibtex_doesnt_encode_math_environments(api_client, db, es, create_record):
+def test_bibtex_doesnt_encode_math_environments(api_client):
     headers = {"Accept": "application/x-bibtex"}
     data = {
         "control_number": 637275237,
@@ -170,9 +167,7 @@ def test_bibtex_doesnt_encode_math_environments(api_client, db, es, create_recor
 
 
 @pytest.mark.xfail(reason="latexcodec doesn't know about the special characters")
-def test_bibtex_encodes_unicode_outside_of_math_environments(
-    api_client, db, es, create_record
-):
+def test_bibtex_encodes_unicode_outside_of_math_environments(api_client):
     headers = {"Accept": "application/x-bibtex"}
     data = {
         "control_number": 637275237,

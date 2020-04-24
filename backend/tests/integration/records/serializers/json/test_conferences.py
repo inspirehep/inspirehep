@@ -7,13 +7,14 @@
 
 import json
 
+from helpers.utils import create_record, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_conferences_json_without_login(api_client, db, create_record, datadir):
+def test_conferences_json_without_login(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
@@ -27,7 +28,7 @@ def test_conferences_json_without_login(api_client, db, create_record, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1185692,
+        "control_number": 1_185_692,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
@@ -61,9 +62,7 @@ def test_conferences_json_without_login(api_client, db, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_conferences_json_with_logged_in_cataloger(
-    api_client, db, create_user, create_record, datadir
-):
+def test_conferences_json_with_logged_in_cataloger(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -97,7 +96,7 @@ def test_conferences_json_with_logged_in_cataloger(
     assert expected_metadata == response_data_metadata
 
 
-def test_conferences_detail(api_client, db, create_record, datadir):
+def test_conferences_detail(api_client, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
@@ -111,7 +110,7 @@ def test_conferences_detail(api_client, db, create_record, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1185692,
+        "control_number": 1_185_692,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
@@ -145,7 +144,7 @@ def test_conferences_detail(api_client, db, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_conferences_search_json(api_client, db, create_record, datadir):
+def test_conferences_search_json(api_client, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "1185692.json").read_text())
@@ -159,7 +158,7 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
         "closing_date": "2012-05-25",
         "cnum": "C12-05-21.5",
         "contact_details": [{"email": "fs4loc@konan-u.ac.jp"}],
-        "control_number": 1185692,
+        "control_number": 1_185_692,
         "deleted": False,
         "inspire_categories": [{"term": "Astrophysics"}],
         "legacy_creation_date": "2012-09-17",
@@ -194,7 +193,7 @@ def test_conferences_search_json(api_client, db, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_proceedings_in_detail_page(api_client, db, create_record):
+def test_proceedings_in_detail_page(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     conference = create_record("con")

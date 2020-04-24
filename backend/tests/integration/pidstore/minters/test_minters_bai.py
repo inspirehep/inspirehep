@@ -15,7 +15,7 @@ from inspirehep.pidstore.minters.bai import BAIMinter
 from inspirehep.records.api import AuthorsRecord
 
 
-def test_minter_bai(base_app, db, es, create_record):
+def test_minter_bai(app_clean):
     data = {"ids": [{"schema": "JACOW", "value": "JACoW-12345678"}]}
     record_data = faker.record("aut", data=data, other_pids=["bai"])
     BAIMinter.mint(None, record_data)
@@ -38,7 +38,7 @@ def test_minter_bai(base_app, db, es, create_record):
     assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_bai_empty(base_app, db, es, create_record):
+def test_minter_bai_empty(app_clean):
     record_data = faker.record("aut")
     BAIMinter.mint(None, record_data)
 
@@ -51,7 +51,7 @@ def test_minter_bai_empty(base_app, db, es, create_record):
     assert expected_pids_len == result_pids_len
 
 
-def test_minter_bai_already_existing(base_app, db, es, create_record):
+def test_minter_bai_already_existing(app_clean):
     data = faker.record("aut", other_pids=["bai"])
     BAIMinter.mint(None, data)
     data2 = {"ids": data["ids"]}
@@ -60,7 +60,7 @@ def test_minter_bai_already_existing(base_app, db, es, create_record):
         BAIMinter.mint(None, record_data2)
 
 
-def test_if_bai_is_processed_on_authors_record_creation(base_app, db, es):
+def test_if_bai_is_processed_on_authors_record_creation(app_clean):
     data = faker.record("aut", other_pids=["bai"])
     bai = data["ids"][0]["value"]
     rec = AuthorsRecord.create(data)

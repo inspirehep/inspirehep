@@ -9,6 +9,8 @@ import json
 
 import mock
 from flask import session
+from flask import render_template
+from helpers.utils import create_user
 from invenio_accounts.testutils import login_user_via_session
 from invenio_oauthclient import current_oauthclient
 from invenio_oauthclient.models import RemoteAccount
@@ -20,7 +22,7 @@ def test_me_returns_error_when_not_logged_in(api_client):
     assert response.status_code == 401
 
 
-def test_me_returns_user_data_if_logged_in(api_client, create_user):
+def test_me_returns_user_data_if_logged_in(api_client):
     user = create_user(role="user", orcid="0000-0001-8829-5461", allow_push=True)
     login_user_via_session(api_client, email=user.email)
     expected_data = {
@@ -89,7 +91,7 @@ def test_sign_up_required_redirects_to_signup_form(api_client):
 
 
 @mock.patch("flask_login.utils._get_user")
-def test_sign_up_user_success(mock_current_user, api_client, create_user):
+def test_sign_up_user_success(mock_current_user, api_client):
     """It's mocking current user because invenio handlers need a lot of things to
     setup in order to make it properly work and we don't want to test this functinality."""
 
@@ -122,7 +124,7 @@ def test_sign_up_user_success(mock_current_user, api_client, create_user):
     assert expected_data == response.json
 
 
-def test_sign_up_user_error_on_duplicate_user(api_client, create_user):
+def test_sign_up_user_error_on_duplicate_user(api_client):
     def raise_error():
         raise IntegrityError("statement", "params", "orig")
 
@@ -144,7 +146,7 @@ def test_sign_up_user_error_on_duplicate_user(api_client, create_user):
     assert expected_data == response.json
 
 
-def test_sign_up_user_error_on_unexpected_error(api_client, create_user):
+def test_sign_up_user_error_on_unexpected_error(api_client):
     def raise_error():
         raise Exception
 
@@ -168,7 +170,7 @@ def test_sign_up_user_error_on_unexpected_error(api_client, create_user):
 
 
 @mock.patch("inspirehep.accounts.views.push_account_literature_to_orcid")
-def test_disable_orcid_push(mock_push_account_literature, api_client, create_user):
+def test_disable_orcid_push(mock_push_account_literature, api_client):
     user = create_user(role="user", orcid="0000-0001-8829-5461")
     login_user_via_session(api_client, email=user.email)
 
@@ -189,7 +191,7 @@ def test_disable_orcid_push(mock_push_account_literature, api_client, create_use
 
 
 @mock.patch("inspirehep.accounts.views.push_account_literature_to_orcid")
-def test_enable_orcid_push(mock_push_account_literature, api_client, create_user):
+def test_enable_orcid_push(mock_push_account_literature, api_client):
     orcid = "0000-0001-8829-5461"
     token = "test-orcid-token"
     user = create_user(role="user", orcid=orcid, token=token)

@@ -11,6 +11,7 @@ import json
 import mock
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_record
 from invenio_search import current_search
 
 from inspirehep.records.api import InspireRecord
@@ -37,7 +38,7 @@ def mock_job_create_and_update_time(date, data=None):
 
 
 @pytest.fixture(scope="function")
-def create_jobs(base_app, db, es_clear, shared_datadir, create_record):
+def create_jobs(app_clean, shared_datadir):
     now_utc = datetime.datetime.utcnow()
 
     data = json.loads((shared_datadir / "1444586.json").read_text())

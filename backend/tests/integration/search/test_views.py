@@ -18,8 +18,8 @@ def test_query_parser(api_client):
     assert expected == response.json
 
 
-def test_query_parser_should_return_404_when_endpoint_is_disabled(base_app, api_client):
-    with override_config(app=base_app, FEATURE_FLAG_ENABLE_QUERY_PARSER_ENDPOINT=False):
+def test_query_parser_should_return_404_when_endpoint_is_disabled(api_client):
+    with override_config(FEATURE_FLAG_ENABLE_QUERY_PARSER_ENDPOINT=False):
         response = api_client.get(
             f"/search/query-parser", content_type="application/json"
         )

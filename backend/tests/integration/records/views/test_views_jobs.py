@@ -7,12 +7,13 @@
 
 import json
 
+from helpers.utils import create_record, create_user, logout
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_jobs_application_json_get(api_client, db, es, create_record):
+def test_jobs_application_json_get(api_client):
     record = create_record("job")
     record_control_number = record["control_number"]
 
@@ -23,7 +24,7 @@ def test_jobs_application_json_get(api_client, db, es, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_put(api_client, db, es, create_record):
+def test_jobs_application_json_put(api_client):
     record = create_record("job")
     record_control_number = record["control_number"]
 
@@ -34,7 +35,7 @@ def test_jobs_application_json_put(api_client, db, es, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_delete(api_client, db, es, create_record):
+def test_jobs_application_json_delete(api_client):
     record = create_record("job")
     record_control_number = record["control_number"]
 
@@ -45,7 +46,7 @@ def test_jobs_application_json_delete(api_client, db, es, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_application_json_post(api_client, db):
+def test_jobs_application_json_post(api_client):
     expected_status_code = 401
     response = api_client.post("/jobs")
     response_status_code = response.status_code
@@ -53,7 +54,7 @@ def test_jobs_application_json_post(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_search_json_get(api_client, db, es, create_record):
+def test_jobs_search_json_get(api_client):
     create_record("job")
 
     expected_status_code = 200
@@ -63,7 +64,7 @@ def test_jobs_search_json_get(api_client, db, es, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_jobs_facets(api_client, db, es_clear, create_record, datadir):
+def test_jobs_facets(api_client, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
 
@@ -84,9 +85,7 @@ def test_jobs_facets(api_client, db, es_clear, create_record, datadir):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_jobs_facets_cataloger(
-    api_client, db, es_clear, create_record, datadir, create_user
-):
+def test_jobs_facets_cataloger(api_client, datadir):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -109,7 +108,7 @@ def test_jobs_facets_cataloger(
     assert expected_aggregations == response_aggregations
 
 
-def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
+def test_jobs_sort_options(api_client, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     record = create_record("job", data=data)
 
@@ -126,7 +125,7 @@ def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
     assert expected_sort_options_1 in response_data_sort_options
 
 
-def test_jobs_accelerator_experiments(api_client, db, es_clear, create_record, datadir):
+def test_jobs_accelerator_experiments(api_client, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
     response = api_client.get("/jobs/1735925")
@@ -143,7 +142,7 @@ def test_jobs_accelerator_experiments(api_client, db, es_clear, create_record, d
 
 
 def test_jobs_record_search_results_does_not_return_pending_job_to_non_superuser(
-    api_client, db, es_clear, create_record
+    api_client
 ):
     create_record("job", data={"status": "pending"})
 
@@ -151,9 +150,7 @@ def test_jobs_record_search_results_does_not_return_pending_job_to_non_superuser
     assert result.json["hits"]["total"] == 0
 
 
-def test_jobs_record_search_results_returns_open_job_to_non_superuser(
-    api_client, db, es_clear, create_record
-):
+def test_jobs_record_search_results_returns_open_job_to_non_superuser(api_client):
     record = create_record("job", data={"status": "open"})
 
     result = api_client.get("/jobs")
@@ -171,9 +168,7 @@ def test_jobs_record_search_results_returns_open_job_to_non_superuser(
     assert expected_results == result.json["hits"]["total"]
 
 
-def test_jobs_record_search_results_returns_pending_job_to_superuser(
-    api_client, db, es_clear, create_record, create_user
-):
+def test_jobs_record_search_results_returns_pending_job_to_superuser(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -192,9 +187,7 @@ def test_jobs_record_search_results_returns_pending_job_to_superuser(
     assert expected_results == result.json["hits"]["total"]
 
 
-def test_jobs_search_permissions(
-    api_client, db, es_clear, create_record, datadir, create_user, logout
-):
+def test_jobs_search_permissions(api_client):
     create_record("job", data={"status": "pending"})
     create_record("job", data={"status": "open"})
 
@@ -216,7 +209,7 @@ def test_jobs_search_permissions(
     assert response_data["hits"]["total"] == 1
 
 
-def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
+def test_jobs_sort_options(api_client, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     record = create_record("job", data=data)
 
@@ -235,7 +228,7 @@ def test_jobs_sort_options(api_client, db, es_clear, create_record, datadir):
     assert expected_sort_options_2 in response_data_sort_options
 
 
-def test_jobs_sort_by_deadline(api_client, db, es_clear, create_record, datadir):
+def test_jobs_sort_by_deadline(api_client, datadir):
     data = json.loads((datadir / "1735925.json").read_text())
     create_record("job", data=data)
     data["deadline_date"] = "2020-12-31"

@@ -4,9 +4,10 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+from helpers.utils import create_record, create_record_factory
 
 
-def test_institutions_application_json_get(api_client, db, es, create_record_factory):
+def test_institutions_application_json_get(api_client):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -17,7 +18,7 @@ def test_institutions_application_json_get(api_client, db, es, create_record_fac
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_put(api_client, db, es, create_record_factory):
+def test_institutions_application_json_put(api_client):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -28,9 +29,7 @@ def test_institutions_application_json_put(api_client, db, es, create_record_fac
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_delete(
-    api_client, db, es, create_record_factory
-):
+def test_institutions_application_json_delete(api_client):
     record = create_record_factory("ins", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -41,7 +40,7 @@ def test_institutions_application_json_delete(
     assert expected_status_code == response_status_code
 
 
-def test_institutions_application_json_post(api_client, db):
+def test_institutions_application_json_post(api_client):
     expected_status_code = 401
     response = api_client.post("/institutions")
     response_status_code = response.status_code
@@ -49,7 +48,7 @@ def test_institutions_application_json_post(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_institutions_search_json_get(api_client, db, es, create_record_factory):
+def test_institutions_search_json_get(api_client):
     create_record_factory("ins", with_indexing=True)
 
     expected_status_code = 200
@@ -59,7 +58,7 @@ def test_institutions_search_json_get(api_client, db, es, create_record_factory)
     assert expected_status_code == response_status_code
 
 
-def test_institution_record_search_results(api_client, db, es_clear, create_record):
+def test_institution_record_search_results(api_client):
     record = create_record("ins")
 
     expected_metadata = record.serialize_for_es()

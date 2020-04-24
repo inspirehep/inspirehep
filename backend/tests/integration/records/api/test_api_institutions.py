@@ -10,6 +10,7 @@ import uuid
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_pidstore, create_record
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
@@ -19,7 +20,7 @@ from inspirehep.records.api import InspireRecord, InstitutionsRecord
 from inspirehep.records.models import InstitutionLiterature
 
 
-def test_institutions_create(base_app, db, es):
+def test_institutions_create(app_clean):
     data = faker.record("ins")
     record = InstitutionsRecord.create(data)
 
@@ -36,9 +37,7 @@ def test_institutions_create(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_institutions_create_with_existing_control_number(
-    base_app, db, create_pidstore
-):
+def test_institutions_create_with_existing_control_number(app_clean):
     data = faker.record("ins", with_control_number=True)
     existing_object_uuid = uuid.uuid4()
 
@@ -52,7 +51,7 @@ def test_institutions_create_with_existing_control_number(
         InstitutionsRecord.create(data)
 
 
-def test_institutions_create_with_invalid_data(base_app, db, create_pidstore):
+def test_institutions_create_with_invalid_data(app_clean):
     data = faker.record("ins", with_control_number=True)
     data["invalid_key"] = "should throw an error"
     record_control_number = str(data["control_number"])
@@ -66,7 +65,7 @@ def test_institutions_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_institutions_update(base_app, db, es):
+def test_institutions_update(app_clean):
     data = faker.record("ins", with_control_number=True)
     record = InstitutionsRecord.create(data)
 
@@ -87,7 +86,7 @@ def test_institutions_update(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_institutions_create_or_update_with_new_record(base_app, db, es):
+def test_institutions_create_or_update_with_new_record(app_clean):
     data = faker.record("ins")
     record = InstitutionsRecord.create_or_update(data)
 
@@ -104,7 +103,7 @@ def test_institutions_create_or_update_with_new_record(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_institutions_create_or_update_with_existing_record(base_app, db, es):
+def test_institutions_create_or_update_with_existing_record(app_clean):
     data = faker.record("ins", with_control_number=True)
     record = InstitutionsRecord.create(data)
 
@@ -130,19 +129,14 @@ def test_institutions_create_or_update_with_existing_record(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_subclasses_for_institutions():
-    expected = {"ins": InstitutionsRecord}
-    assert expected == InstitutionsRecord.get_subclasses()
-
-
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_get_record_from_db_depending_on_its_pid_type(app_clean):
     data = faker.record("ins")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == InstitutionsRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_record_from_db_depending_on_its_pid_type(app_clean):
     data = faker.record("ins")
     record = InspireRecord.create(data)
     assert type(record) == InstitutionsRecord
@@ -153,7 +147,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     assert record.pid_type == "ins"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(app_clean):
     data = faker.record("ins")
     record = InspireRecord.create_or_update(data)
     assert type(record) == InstitutionsRecord
@@ -166,7 +160,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db,
     assert record.pid_type == "ins"
 
 
-def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es):
+def test_aut_citation_count_property_blows_up_on_wrong_pid_type(app_clean):
     data = faker.record("ins")
     record = InstitutionsRecord.create(data)
 
@@ -175,7 +169,7 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es
 
 
 def test_deleted_institution_deletes_relations_in_institution_literature_table(
-    base_app, db, es_clear, create_record
+    app_clean
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -198,7 +192,7 @@ def test_deleted_institution_deletes_relations_in_institution_literature_table(
 
 
 def test_hard_delete_institution_deletes_relations_in_institution_literature_table(
-    base_app, db, es_clear, create_record
+    app_clean
 ):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
@@ -220,7 +214,7 @@ def test_hard_delete_institution_deletes_relations_in_institution_literature_tab
     assert InstitutionLiterature.query.filter_by(literature_uuid=rec.id).count() == 0
 
 
-def test_number_of_papers_query(base_app, db, create_record):
+def test_number_of_papers_query(app_clean):
     institution = create_record("ins")
     institution_control_number = institution["control_number"]
     ref = f"http://localhost:8000/api/institutions/{institution_control_number}"

@@ -8,13 +8,14 @@
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_record_factory
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
 from inspirehep.pidstore.minters.orcid import OrcidMinter
 
 
-def test_minter_orcid(base_app, db, es, create_record_factory):
+def test_minter_orcid(app_clean):
     orcid_value = faker.orcid()
     data = {
         "ids": [
@@ -47,7 +48,7 @@ def test_minter_orcid(base_app, db, es, create_record_factory):
     assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_orcid_empty(base_app, db, es, create_record_factory):
+def test_minter_orcid_empty(app_clean):
     record = create_record_factory("aut")
     data = record.json
 
@@ -63,7 +64,7 @@ def test_minter_orcid_empty(base_app, db, es, create_record_factory):
     assert expected_pids_len == result_pids_len
 
 
-def test_minter_orcid_already_existing(base_app, db, es, create_record_factory):
+def test_minter_orcid_already_existing(app_clean):
     orcid_value = faker.orcid()
     data = {"ids": [{"value": orcid_value, "schema": "ORCID"}]}
 
@@ -75,7 +76,7 @@ def test_minter_orcid_already_existing(base_app, db, es, create_record_factory):
         OrcidMinter.mint(record_with_existing_orcid.id, record_with_existing_orcid.json)
 
 
-def test_minter_orcid_missing_schema(base_app, db, es, create_record_factory):
+def test_minter_orcid_missing_schema(app_clean):
     orcid_value = faker.orcid()
     data = {"ids": [{"value": orcid_value, "schema": "ORCID"}]}
     record = create_record_factory("aut", data=data)

@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_ping_view(api_client, db, es):
+def test_ping_view(api_client):
 
     expected_status_code = 200
     response = api_client.get("/ping")

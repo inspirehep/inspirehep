@@ -7,7 +7,8 @@
 
 import random
 
-from click.testing import CliRunner
+from flask import current_app
+from helpers.utils import app_cli_runner, create_record_factory
 from invenio_search import current_search
 from invenio_search.utils import build_index_name
 from mock import patch
@@ -21,17 +22,15 @@ from inspirehep.search.api import (
 )
 
 
-def test_reindex_all_types_records(
-    base_app, db, es_clear, create_record_factory, script_info
-):
-    runner = CliRunner()
+def test_reindex_all_types_records(app_clean):
+    runner = app_cli_runner()
 
     record_lit = create_record_factory("lit")
     record_aut = create_record_factory("aut")
     record_job = create_record_factory("job")
     record_con = create_record_factory("con")
 
-    result = runner.invoke(cli, ["index", "reindex", "--all"], obj=script_info)
+    result = runner.invoke(cli, ["index", "reindex", "--all"])
     current_search.flush_and_refresh("*")
     results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]
     results_aut_uuid = AuthorsSearch().execute().hits.hits[0]["_id"]
@@ -44,15 +43,13 @@ def test_reindex_all_types_records(
     assert str(record_job.id) == results_job_uuid
 
 
-def test_reindex_one_type_of_record(
-    base_app, db, es_clear, create_record_factory, script_info
-):
-    runner = CliRunner()
+def test_reindex_one_type_of_record(app_clean):
+    runner = app_cli_runner()
 
     record_lit = create_record_factory("lit")
     record_aut = create_record_factory("aut")
 
-    result = runner.invoke(cli, ["index", "reindex", "-p", "lit"], obj=script_info)
+    result = runner.invoke(cli, ["index", "reindex", "-p", "lit"])
     current_search.flush_and_refresh("*")
     expected_aut_len = 0
     results_lit_uuid = LiteratureSearch().execute().hits.hits[0]["_id"]
@@ -62,15 +59,13 @@ def test_reindex_one_type_of_record(
     assert expected_aut_len == results_aut_len
 
 
-def test_remap_one_index(base_app, es_clear, script_info):
-    runner = CliRunner()
+def test_remap_one_index(app_clean):
+    runner = app_cli_runner()
     indexes_before = set(current_search.client.indices.get("*").keys())
     # Generate new suffix to distinguish new indexes easier
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     result = runner.invoke(
-        cli,
-        ["index", "remap", "--index", "records-hep", "--yes-i-know"],
-        obj=script_info,
+        cli, ["index", "remap", "--index", "records-hep", "--yes-i-know"]
     )
     current_search.flush_and_refresh("*")
     assert result.exit_code == 0
@@ -81,8 +76,8 @@ def test_remap_one_index(base_app, es_clear, script_info):
     current_search._current_suffix = None
 
 
-def test_remap_two_indexex(base_app, es_clear, script_info):
-    runner = CliRunner()
+def test_remap_two_indexex(app_clean):
+    runner = app_cli_runner()
     indexes_before = set(current_search.client.indices.get("*").keys())
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     result = runner.invoke(
@@ -96,7 +91,6 @@ def test_remap_two_indexex(base_app, es_clear, script_info):
             "records-authors",
             "--yes-i-know",
         ],
-        obj=script_info,
     )
     current_search.flush_and_refresh("*")
 
@@ -111,15 +105,13 @@ def test_remap_two_indexex(base_app, es_clear, script_info):
     current_search._current_suffix = None
 
 
-def test_remap_index_with_wrong_name(base_app, es_clear, script_info):
-    runner = CliRunner()
+def test_remap_index_with_wrong_name(app_clean):
+    runner = app_cli_runner()
     current_search._current_suffix = f"-{random.getrandbits(64)}"
 
     indexes_before = set(current_search.client.indices.get("*").keys())
     result = runner.invoke(
-        cli,
-        ["index", "remap", "--index", "records-author", "--yes-i-know"],
-        obj=script_info,
+        cli, ["index", "remap", "--index", "records-author", "--yes-i-know"]
     )
     current_search.flush_and_refresh("*")
 
@@ -131,15 +123,13 @@ def test_remap_index_with_wrong_name(base_app, es_clear, script_info):
     current_search._current_suffix = None
 
 
-def test_remap_index_which_is_missing_in_es(base_app, es_clear, script_info):
-    runner = CliRunner()
+def test_remap_index_which_is_missing_in_es(app_clean):
+    runner = app_cli_runner()
     config = {"SEARCH_INDEX_PREFIX": f"{random.getrandbits(64)}-"}
-    with patch.dict(base_app.config, config):
+    with patch.dict(current_app.config, config):
         indexes_before = set(current_search.client.indices.get("*").keys())
         result = runner.invoke(
-            cli,
-            ["index", "remap", "--index", "records-authors", "--yes-i-know"],
-            obj=script_info,
+            cli, ["index", "remap", "--index", "records-authors", "--yes-i-know"]
         )
     current_search.flush_and_refresh("*")
 
@@ -152,12 +142,10 @@ def test_remap_index_which_is_missing_in_es(base_app, es_clear, script_info):
     current_search._current_suffix = None
 
 
-def test_remap_index_which_is_missing_in_es_but_ignore_checks(
-    base_app, es_clear, script_info
-):
-    runner = CliRunner()
+def test_remap_index_which_is_missing_in_es_but_ignore_checks(app_clean):
+    runner = app_cli_runner()
     config = {"SEARCH_INDEX_PREFIX": f"{random.getrandbits(64)}-"}
-    with patch.dict(base_app.config, config):
+    with patch.dict(current_app.config, config):
         indexes_before = set(current_search.client.indices.get("*").keys())
         result = runner.invoke(
             cli,
@@ -169,7 +157,6 @@ def test_remap_index_which_is_missing_in_es_but_ignore_checks(
                 "--yes-i-know",
                 "--ignore-checks",
             ],
-            obj=script_info,
         )
     current_search.flush_and_refresh("*")
 
@@ -177,7 +164,7 @@ def test_remap_index_which_is_missing_in_es_but_ignore_checks(
     indexes_after = set(current_search.client.indices.get("*").keys())
     difference = sorted(indexes_after - indexes_before)
     assert len(difference) == 1
-    with patch.dict(base_app.config, config):
+    with patch.dict(current_app.config, config):
         assert build_index_name("records-authors") == difference[0]
 
     list(current_search.delete("*"))
@@ -185,17 +172,15 @@ def test_remap_index_which_is_missing_in_es_but_ignore_checks(
 
 
 def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_different_postfix(
-    base_app, es_clear, script_info
+    app_clean
 ):
-    runner = CliRunner()
+    runner = app_cli_runner()
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     list(current_search.create(ignore_existing=True, index_list="records-data"))
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     indexes_before = set(current_search.client.indices.get("*").keys())
     result = runner.invoke(
-        cli,
-        ["index", "remap", "--index", "records-data", "--yes-i-know"],
-        obj=script_info,
+        cli, ["index", "remap", "--index", "records-data", "--yes-i-know"]
     )
     current_search.flush_and_refresh("*")
 
@@ -209,9 +194,9 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
 
 
 def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_different_postfix_ignore_checks(
-    base_app, es_clear, script_info
+    app_clean
 ):
-    runner = CliRunner()
+    runner = app_cli_runner()
     current_search._current_suffix = f"-{random.getrandbits(64)}"
     list(current_search.create(ignore_existing=True, index_list="records-data"))
     current_search._current_suffix = f"-{random.getrandbits(64)}"
@@ -226,7 +211,6 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
             "--yes-i-know",
             "--ignore-checks",
         ],
-        obj=script_info,
     )
     current_search.flush_and_refresh("*")
 
@@ -238,12 +222,3 @@ def test_remap_index_when_there_are_more_than_one_indexes_with_same_name_but_dif
 
     list(current_search.delete("*"))
     current_search._current_suffix = None
-
-
-def test_inspire_commands_overwrites_invenio_ones(base_app, script_info):
-    expected_reindex_command = "(Inspire) Reindex records in ElasticSearch."
-    expected_remap_command = "(Inspire) Remaps specified indexes."
-    runner = CliRunner()
-    result = runner.invoke(cli, ["index", "--help"], obj=script_info)
-    assert expected_reindex_command in result.output
-    assert expected_remap_command in result.output

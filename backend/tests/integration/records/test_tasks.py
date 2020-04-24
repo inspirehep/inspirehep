@@ -6,6 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from helpers.providers.faker import faker
+from helpers.utils import create_record
 
 from inspirehep.records.models import (
     ConferenceLiterature,
@@ -15,7 +16,7 @@ from inspirehep.records.models import (
 from inspirehep.records.tasks import update_records_relations
 
 
-def test_update_records_relations(base_app, db, es_clear, create_record):
+def test_update_records_relations(app_clean):
     conference = create_record("con")
     conf_ref = f"http://localhost:8000/api/conferences/{conference['control_number']}"
     conference_lit_data = {
@@ -77,9 +78,7 @@ def test_update_records_relations(base_app, db, es_clear, create_record):
     assert ConferenceLiterature.query.count() == 2
 
 
-def test_update_records_relations_updated_institution_literature_relations(
-    base_app, db, es_clear, create_record
-):
+def test_update_records_relations_updated_institution_literature_relations(app_clean):
     institution = create_record("ins")
     inst_ref = f"http://localhost:8000/api/institutions/{institution['control_number']}"
     lit_data_with_institution = {
@@ -105,9 +104,7 @@ def test_update_records_relations_updated_institution_literature_relations(
     assert institution_literature_relation.literature_uuid == record.id
 
 
-def test_update_records_relations_with_no_literatrure_records(
-    base_app, db, es_clear, create_record
-):
+def test_update_records_relations_with_no_literatrure_records(app_clean):
     record_con = create_record("con")
     record_aut = create_record("aut")
     record_job = create_record("job")

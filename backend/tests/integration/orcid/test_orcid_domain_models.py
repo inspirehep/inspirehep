@@ -121,7 +121,7 @@ class TestOrcidPusherBase(object):
         TestOrcidPusherBase._delete_all_work()
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("app_clean")
 class TestOrcidPusherCache(TestOrcidPusherBase):
     def setup(self):
 
@@ -172,7 +172,7 @@ class TestOrcidPusherCache(TestOrcidPusherBase):
         mock_put_updated_work.assert_called_once_with(mock.ANY, putcode)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("app_clean")
 class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
     def setup(self):
         factory = TestRecordMetadata.create_from_file(
@@ -279,7 +279,7 @@ class TestOrcidPusherPostNewWork(TestOrcidPusherBase):
             assert not self.cache.has_work_content_changed(self.inspire_record)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("app_clean")
 class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
     def setup(self):
         factory = TestRecordMetadata.create_from_file(
@@ -345,7 +345,7 @@ class TestOrcidPusherPutUpdatedWork(TestOrcidPusherBase):
         assert push_access_tokens.is_access_token_invalid(access_token)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("app_clean")
 class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
     def setup(self):
         factory = TestRecordMetadata.create_from_file(
@@ -407,7 +407,7 @@ class TestOrcidPusherDeleteWork(TestOrcidPusherBase):
         assert push_access_tokens.is_access_token_invalid(access_token)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("app_clean")
 class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
     @property
     def cache_clashing(self):
@@ -508,7 +508,7 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
                 pusher.push()
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("app_clean")
 class TestOrcidPusherRecordDBVersion(TestOrcidPusherBase):
     def setup(self):
         factory = TestRecordMetadata.create_from_file(

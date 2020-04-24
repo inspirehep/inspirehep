@@ -7,7 +7,9 @@
 from datetime import datetime
 
 import pytest
+from flask import current_app
 from freezegun import freeze_time
+from helpers.utils import get_test_redis
 from mock import patch
 
 from inspirehep.mailing.providers.mailtrain import (
@@ -17,7 +19,7 @@ from inspirehep.mailing.providers.mailtrain import (
 
 
 @pytest.mark.vrc()
-def test_mailtrain_subscribe_user_to_list(base_app, db, es_clear, vcr_cassette):
+def test_mailtrain_subscribe_user_to_list(app_clean, vcr_cassette):
     list_id = "xKU-qcq8U"
     email = "test@email.ch"
     first_name = "Firstname"
@@ -27,9 +29,9 @@ def test_mailtrain_subscribe_user_to_list(base_app, db, es_clear, vcr_cassette):
 
 
 @freeze_time(datetime(2019, 9, 17, 6, 0, 0))
-def test_set_mailtrain_campaign_in_redis(base_app, db, redis):
+def test_set_mailtrain_campaign_in_redis(app_clean):
     config = {"WEEKLY_JOBS_EMAIL_REDIS_KEY": "MAILTRAIN_KEY"}
-    with patch.dict(base_app.config, config):
+    with patch.dict(current_app.config, config):
         html_content = "<html><a>Some HTML content</a> Blah</html>"
         mailtrain_update_weekly_campaign_content(html_content)
 
@@ -40,5 +42,5 @@ def test_set_mailtrain_campaign_in_redis(base_app, db, redis):
             html_content,
         ]
 
-        result = redis.hmget("MAILTRAIN_KEY", expected_keys)
+        result = get_test_redis().hmget("MAILTRAIN_KEY", expected_keys)
         assert result == expected_values

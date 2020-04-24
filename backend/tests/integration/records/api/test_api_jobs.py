@@ -9,6 +9,7 @@ import uuid
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_pidstore, create_record
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
@@ -17,7 +18,7 @@ from jsonschema import ValidationError
 from inspirehep.records.api import InspireRecord, JobsRecord
 
 
-def test_jobs_create(base_app, db, es):
+def test_jobs_create(app_clean):
     data = faker.record("job")
     record = JobsRecord.create(data)
 
@@ -34,7 +35,7 @@ def test_jobs_create(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_jobs_create_with_existing_control_number(base_app, db, create_pidstore):
+def test_jobs_create_with_existing_control_number(app_clean):
     data = faker.record("job", with_control_number=True)
     existing_object_uuid = uuid.uuid4()
 
@@ -48,7 +49,7 @@ def test_jobs_create_with_existing_control_number(base_app, db, create_pidstore)
         JobsRecord.create(data)
 
 
-def test_jobs_create_with_invalid_data(base_app, db, create_pidstore):
+def test_jobs_create_with_invalid_data(app_clean):
     data = faker.record("job", with_control_number=True)
     data["invalid_key"] = "should throw an error"
     record_control_number = str(data["control_number"])
@@ -62,7 +63,7 @@ def test_jobs_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_jobs_update(base_app, db, es):
+def test_jobs_update(app_clean):
     data = faker.record("job", with_control_number=True)
     record = JobsRecord.create(data)
 
@@ -83,7 +84,7 @@ def test_jobs_update(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_jobs_create_or_update_with_new_record(base_app, db, es):
+def test_jobs_create_or_update_with_new_record(app_clean):
     data = faker.record("job")
     record = JobsRecord.create_or_update(data)
 
@@ -100,7 +101,7 @@ def test_jobs_create_or_update_with_new_record(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_jobs_create_or_update_with_existing_record(base_app, db, es):
+def test_jobs_create_or_update_with_existing_record(app_clean):
     data = faker.record("job", with_control_number=True)
     record = JobsRecord.create(data)
 
@@ -126,19 +127,14 @@ def test_jobs_create_or_update_with_existing_record(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_subclasses_for_jobs():
-    expected = {"job": JobsRecord}
-    assert expected == JobsRecord.get_subclasses()
-
-
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_get_record_from_db_depending_on_its_pid_type(app_clean):
     data = faker.record("job")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == JobsRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_record_from_db_depending_on_its_pid_type(app_clean):
     data = faker.record("job")
     record = InspireRecord.create(data)
     assert type(record) == JobsRecord
@@ -149,7 +145,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     assert record.pid_type == "job"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(app_clean):
     data = faker.record("job")
     record = InspireRecord.create_or_update(data)
     assert type(record) == JobsRecord
@@ -162,7 +158,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db,
     assert record.pid_type == "job"
 
 
-def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es):
+def test_aut_citation_count_property_blows_up_on_wrong_pid_type(app_clean):
     data = faker.record("job")
     record = JobsRecord.create(data)
 
@@ -170,9 +166,7 @@ def test_aut_citation_count_property_blows_up_on_wrong_pid_type(base_app, db, es
         record.citation_count
 
 
-def test_get_jobs_by_deadline_gets_open_expired_job(
-    base_app, db, es_clear, create_record
-):
+def test_get_jobs_by_deadline_gets_open_expired_job(app_clean):
     deadline = datetime.date(2019, 9, 27)
     data = faker.record("job")
     data["deadline_date"] = deadline.isoformat()
@@ -189,9 +183,7 @@ def test_get_jobs_by_deadline_gets_open_expired_job(
     assert result == expected_result
 
 
-def test_get_jobs_by_deadline_doesnt_get_pending_expired_job(
-    base_app, db, es_clear, create_record
-):
+def test_get_jobs_by_deadline_doesnt_get_pending_expired_job(app_clean):
     deadline = datetime.date(2019, 9, 27)
     data = faker.record("job")
     data["deadline_date"] = deadline.isoformat()

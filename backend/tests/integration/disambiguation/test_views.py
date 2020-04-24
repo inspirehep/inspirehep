@@ -1,14 +1,12 @@
 import json
 
-import pytest
 from flask import current_app
+from helpers.utils import create_user_and_token
 from mock import patch
 
 
 @patch("inspirehep.disambiguation.views.disambiguate_signatures")
-def test_view_disambiguate(
-    disambiguate_signatures_mock, api_client, db, es_clear, create_user_and_token
-):
+def test_view_disambiguate(disambiguate_signatures_mock, api_client):
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     clusters = [
@@ -45,7 +43,7 @@ def test_view_disambiguate(
 
 @patch("inspirehep.disambiguation.views.disambiguate_signatures")
 def test_view_disambiguate_with_disambiguation_disabled(
-    disambiguate_signatures_mock, api_client, db, es_clear, create_user_and_token
+    disambiguate_signatures_mock, api_client
 ):
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
@@ -79,7 +77,7 @@ def test_view_disambiguate_with_disambiguation_disabled(
 
 @patch("inspirehep.disambiguation.views.disambiguate_signatures")
 def test_view_disambiguate_requires_authentication(
-    disambiguate_signatures_mock, api_client, db, es_clear
+    disambiguate_signatures_mock, api_client
 ):
     clusters = [
         {
@@ -103,9 +101,7 @@ def test_view_disambiguate_requires_authentication(
     assert expected_status_code == result_status_code
 
 
-def test_view_disambiguate_with_missing_data(
-    api_client, db, es_clear, create_user_and_token
-):
+def test_view_disambiguate_with_missing_data(api_client):
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
     clusters = [{"authors": [{"author_id": 100, "has_claims": True}]}]

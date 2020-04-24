@@ -7,12 +7,13 @@
 
 import pytest
 import requests_mock
+from helpers.utils import create_record
 
 from inspirehep.records.errors import DownloadFileError
 from inspirehep.records.utils import download_file_from_url, get_pid_for_pid
 
 
-def test_download_file_from_url_with_relative_url(base_app, db):
+def test_download_file_from_url_with_relative_url(app_clean):
     url = "/record/1759380/files/channelxi3.png"
     expected_content = b"This is the file data"
     with requests_mock.Mocker() as mocker:
@@ -25,7 +26,7 @@ def test_download_file_from_url_with_relative_url(base_app, db):
         assert result == expected_content
 
 
-def test_download_file_from_url_with_full_url(base_app, db):
+def test_download_file_from_url_with_full_url(app_clean):
     url = "https://inspirehep.net/record/1759380/files/channelxi3.png"
     expected_content = b"This is the file data"
     with requests_mock.Mocker() as mocker:
@@ -38,7 +39,7 @@ def test_download_file_from_url_with_full_url(base_app, db):
         assert result == expected_content
 
 
-def test_download_file_from_url_fails(base_app, db):
+def test_download_file_from_url_fails(app_clean):
     url = "https://inspirehep.net/record/1759380/files/channelxi3.png"
     with requests_mock.Mocker() as mocker:
         mocker.get(
@@ -49,7 +50,7 @@ def test_download_file_from_url_fails(base_app, db):
             download_file_from_url(url)
 
 
-def test_get_pids_for_one_pid(base_app, db, create_record):
+def test_get_pids_for_one_pid(app_clean):
     data = {"opening_date": "2020-12-11"}
     rec = create_record("con", data)
     expected_recid = str(rec["control_number"])

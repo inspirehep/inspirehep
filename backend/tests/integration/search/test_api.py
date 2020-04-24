@@ -8,14 +8,13 @@ import json
 import urllib
 
 from helpers.providers.faker import faker
+from helpers.utils import create_record
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
 
-def test_literature_get_records_by_pids_returns_correct_record(
-    base_app, db, es_clear, create_record
-):
+def test_literature_get_records_by_pids_returns_correct_record(app_clean):
     record1 = create_record("lit")
     record1_control_number = record1["control_number"]
     record2 = create_record("lit")
@@ -36,7 +35,7 @@ def test_literature_get_records_by_pids_returns_correct_record(
         assert rec.to_dict()["control_number"] in expected_control_numbers
 
 
-def test_empty_literature_search(api_client, db, es_clear, create_record):
+def test_empty_literature_search(api_client):
     create_record("lit")
     create_record("lit")
     response = api_client.get("api/literature")
@@ -45,7 +44,7 @@ def test_empty_literature_search(api_client, db, es_clear, create_record):
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_literature_search_with_parameter(api_client, db, es_clear, create_record):
+def test_literature_search_with_parameter(api_client):
     record1 = create_record("lit")
     create_record("lit")
     record1_control_number = record1["control_number"]
@@ -59,7 +58,7 @@ def test_literature_search_with_parameter(api_client, db, es_clear, create_recor
     )
 
 
-def test_empty_authors_search(api_client, db, es_clear, create_record):
+def test_empty_authors_search(api_client):
     create_record("aut")
     create_record("aut")
     response = api_client.get("api/authors")
@@ -68,7 +67,7 @@ def test_empty_authors_search(api_client, db, es_clear, create_record):
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_authors_search_with_parameter(api_client, db, es_clear, create_record):
+def test_authors_search_with_parameter(api_client):
     record1 = create_record("aut")
     create_record("aut")
     record1_control_number = record1["control_number"]
@@ -82,14 +81,14 @@ def test_authors_search_with_parameter(api_client, db, es_clear, create_record):
     )
 
 
-def test_empty_authors_search_query(api_client, db, es_clear, create_record):
+def test_empty_authors_search_query(app_clean):
     query_to_dict = AuthorsSearch().query_from_iq("").to_dict()
 
     expexted_query = {"query": {"match_all": {}}, "track_total_hits": True}
     assert expexted_query == query_to_dict
 
 
-def test_authors_search_query(api_client, db, es_clear, create_record):
+def test_authors_search_query(app_clean):
     query_to_dict = AuthorsSearch().query_from_iq("J Ellis").to_dict()
 
     expexted_query = {
@@ -107,7 +106,7 @@ def test_authors_search_query(api_client, db, es_clear, create_record):
     assert expexted_query == query_to_dict
 
 
-def test_empty_jobs_search(api_client, db, es_clear, create_record):
+def test_empty_jobs_search(api_client):
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "closed"})
@@ -117,7 +116,7 @@ def test_empty_jobs_search(api_client, db, es_clear, create_record):
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_jobs_search_with_parameter(api_client, db, es_clear, create_record):
+def test_jobs_search_with_parameter(api_client):
     record1 = create_record("job", data={"status": "open"})
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "closed"})
@@ -132,7 +131,7 @@ def test_jobs_search_with_parameter(api_client, db, es_clear, create_record):
     )
 
 
-def test_empty_conferences_search(api_client, db, es_clear, create_record):
+def test_empty_conferences_search(api_client):
     create_record("con")
     create_record("con")
     response = api_client.get("api/conferences")
@@ -141,7 +140,7 @@ def test_empty_conferences_search(api_client, db, es_clear, create_record):
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_conferences_search_with_parameter(api_client, db, es_clear, create_record):
+def test_conferences_search_with_parameter(api_client):
     record1 = create_record("con")
     create_record("con")
     record1_control_number = record1["control_number"]
@@ -155,7 +154,7 @@ def test_conferences_search_with_parameter(api_client, db, es_clear, create_reco
     )
 
 
-def test_citations_query_result(api_client, db, es_clear, create_record):
+def test_citations_query_result(api_client):
     record_control_number = 12345
     # create self_citation
     record_cited = create_record(
@@ -173,7 +172,7 @@ def test_citations_query_result(api_client, db, es_clear, create_record):
     assert citation["control_number"] == record_citing["control_number"]
 
 
-def test_big_query_execute_without_recursion_depth_exception(api_client, db, es_clear):
+def test_big_query_execute_without_recursion_depth_exception(api_client):
     query = {"q": "find a name" + " or a name" * 300}
     url = "api/literature?" + urllib.parse.urlencode(query)
     response = api_client.get(url)

@@ -11,10 +11,12 @@ import os
 import pkg_resources
 import pytest
 from flask import current_app
+from helpers.utils import app_cli_runner
+from invenio_db import db
 from invenio_search import current_search
 from mock import patch
 
-from inspirehep.migrator.cli import migrate
+from inspirehep.cli import cli
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import populate_mirror_from_file
 
@@ -22,40 +24,38 @@ from inspirehep.migrator.tasks import populate_mirror_from_file
 @pytest.mark.xfail(
     reason="Flaky test, the current_app configuration is not overwritten properly."
 )
-def test_migrate_file_halts_in_debug_mode(api_client, db, app_cli_runner):
+def test_migrate_file_halts_in_debug_mode(app_clean):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
         file_name = pkg_resources.resource_filename(
             __name__, os.path.join("fixtures", "1663923.xml")
         )
 
-        result = app_cli_runner.invoke(migrate, ["file", file_name])
+        result = app_cli_runner().invoke(cli, ["migrate", "file", file_name])
 
         assert result.exit_code == 1
         assert "DEBUG" in result.output
 
 
-def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(
-    api_client, db, app_cli_runner
-):
+def test_migrate_file_doesnt_halt_in_debug_mode_when_forced(app_clean):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
         file_name = pkg_resources.resource_filename(
             __name__, os.path.join("fixtures", "1663923.xml")
         )
 
-        result = app_cli_runner.invoke(migrate, ["file", "-f", file_name])
+        result = app_cli_runner().invoke(cli, ["migrate", "file", "-f", file_name])
 
         assert result.exit_code == 0
         assert "DEBUG" not in result.output
 
 
-def test_migrate_file(api_client, db, app_cli_runner):
+def test_migrate_file(api_client):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663923.xml")
     )
 
-    result = app_cli_runner.invoke(migrate, ["file", "-f", file_name])
+    result = app_cli_runner().invoke(cli, ["migrate", "file", "-f", file_name])
     response = api_client.get("/literature/1663923")
 
     assert result.exit_code == 0
@@ -63,12 +63,12 @@ def test_migrate_file(api_client, db, app_cli_runner):
     assert json.loads(response.data)["metadata"]["control_number"] == 1663923
 
 
-def test_migrate_file_mirror_only(api_client, db, app_cli_runner):
+def test_migrate_file_mirror_only(api_client):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
 
-    result = app_cli_runner.invoke(migrate, ["file", "-m", "-f", file_name])
+    result = app_cli_runner().invoke(cli, ["migrate", "file", "-m", "-f", file_name])
     prod_record = LegacyRecordsMirror.query.get(1663924)
     response = api_client.get("/literature/1663924")
 
@@ -78,33 +78,31 @@ def test_migrate_file_mirror_only(api_client, db, app_cli_runner):
 
 
 @pytest.mark.xfail(reason="Flaky test, the configuration is not overwritten properly.")
-def test_migrate_mirror_halts_in_debug_mode(api_client, db, app_cli_runner):
+def test_migrate_mirror_halts_in_debug_mode(app_clean):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
-        result = app_cli_runner.invoke(migrate, ["mirror", "-a"])
+        result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-a"])
 
         assert result.exit_code == 1
         assert "DEBUG" in result.output
 
 
-def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(
-    api_client, db, app_cli_runner
-):
+def test_migrate_mirror_doesnt_halt_in_debug_mode_when_forced(app_clean):
     config = {"DEBUG": True}
     with patch.dict(current_app.config, config):
-        result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
+        result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f"])
 
         assert result.exit_code == 0
         assert "DEBUG" not in result.output
 
 
-def test_migrate_mirror_migrates_pending(api_client, db, app_cli_runner):
+def test_migrate_mirror_migrates_pending(api_client):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
     populate_mirror_from_file(file_name)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
+    result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f"])
     response = api_client.get("/literature/1663924")
 
     assert result.exit_code == 0
@@ -112,14 +110,14 @@ def test_migrate_mirror_migrates_pending(api_client, db, app_cli_runner):
     assert json.loads(response.data)["metadata"]["control_number"] == 1663924
 
 
-def test_migrate_mirror_broken_migrates_invalid(api_client, db, app_cli_runner):
+def test_migrate_mirror_broken_migrates_invalid(api_client):
 
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663927_broken.xml")
     )
     populate_mirror_from_file(file_name)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
+    result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f"])
     response = api_client.get("/literature/1663927")
 
     assert result.exit_code == 0
@@ -132,7 +130,7 @@ def test_migrate_mirror_broken_migrates_invalid(api_client, db, app_cli_runner):
 
     db.session.merge(prod_record)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-f", "-b"])
+    result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f", "-b"])
     response = api_client.get("/literature/1663927")
 
     assert result.exit_code == 0
@@ -146,13 +144,13 @@ def test_migrate_mirror_broken_migrates_invalid(api_client, db, app_cli_runner):
     version, which fails ES indexing because of the version bug with the
     citation counts."""
 )
-def test_migrate_mirror_all_migrates_all(app_cli_runner, db, api_client):
+def test_migrate_mirror_all_migrates_all(api_client):
     file_name = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1663924.xml")
     )
     populate_mirror_from_file(file_name)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-f"])
+    result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f"])
     response = api_client.get("/literature/1663924")
 
     assert result.exit_code == 0
@@ -167,7 +165,7 @@ def test_migrate_mirror_all_migrates_all(app_cli_runner, db, api_client):
 
     db.session.merge(prod_record)
 
-    result = app_cli_runner.invoke(migrate, ["mirror", "-f", "-a"])
+    result = app_cli_runner().invoke(cli, ["migrate", "mirror", "-f", "-a"])
     response = api_client.get("/literature/1663924")
 
     assert result.exit_code == 0
@@ -178,7 +176,7 @@ def test_migrate_mirror_all_migrates_all(app_cli_runner, db, api_client):
 
 
 def test_migrate_records_correctly_with_author_and_indexes_correctly(
-    api_client, db, es_clear, datadir, app_cli_runner
+    api_client, datadir
 ):
     file_name = (datadir / "1734025.xml").as_posix()
     #  Add literature record
@@ -188,7 +186,7 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
     file_name2 = (datadir / "1607957.xml").as_posix()
     populate_mirror_from_file(file_name2)
 
-    result = app_cli_runner.invoke(migrate, ["mirror"])
+    result = app_cli_runner().invoke(cli, ["migrate", "mirror"])
     assert result.exit_code == 0
     current_search.flush_and_refresh("records-hep")
     current_search.flush_and_refresh("records-authors")
@@ -210,11 +208,11 @@ def test_migrate_records_correctly_with_author_and_indexes_correctly(
     "inspirehep.migrator.cli.GracefulKiller.kill_now", side_effect=(False, False, True)
 )
 @patch("inspirehep.migrator.cli.continuous_migration")
-def test_migrate_continuously(mock_migration, mock_handler, base_app, app_cli_runner):
+def test_migrate_continuously(mock_migration, mock_handler, app_clean):
     no_sleep_config = {"MIGRATION_POLLING_SLEEP": 0}
 
-    with patch.dict(base_app.config, no_sleep_config):
-        result = app_cli_runner.invoke(migrate, ["continuously"])
+    with patch.dict(current_app.config, no_sleep_config):
+        result = app_cli_runner().invoke(cli, ["migrate", "continuously"])
 
     assert result.exit_code == 0
     assert mock_handler.call_count == 3

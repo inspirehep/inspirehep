@@ -8,13 +8,14 @@ import json
 from copy import deepcopy
 
 from freezegun import freeze_time
+from helpers.utils import create_record, create_user, logout
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_jobs_json(api_client, db, es_clear, create_record, datadir):
+def test_jobs_json(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
@@ -41,9 +42,7 @@ def test_jobs_json(api_client, db, es_clear, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_jobs_json_cataloger_can_edit(
-    api_client, db, es_clear, create_record, datadir, create_user
-):
+def test_jobs_json_cataloger_can_edit(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
@@ -68,9 +67,7 @@ def test_jobs_json_cataloger_can_edit(
     assert expected_result == response_data_metadata
 
 
-def test_jobs_json_author_can_edit_but_random_user_cant(
-    api_client, db, es_clear, create_record, datadir, create_user, logout
-):
+def test_jobs_json_author_can_edit_but_random_user_cant(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
@@ -105,7 +102,7 @@ def test_jobs_json_author_can_edit_but_random_user_cant(
 
 @freeze_time("2020-02-01")
 def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadline(
-    api_client, db, es_clear, create_record, datadir, create_user, logout
+    api_client, datadir
 ):
     headers = {"Accept": "application/json"}
 
@@ -132,7 +129,7 @@ def test_jobs_json_author_can_edit_if_closed_and_less_than_30_days_after_deadlin
 
 @freeze_time("2020-02-01")
 def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_deadline(
-    api_client, db, es_clear, create_record, datadir, create_user, logout
+    api_client, datadir
 ):
     headers = {"Accept": "application/json"}
 
@@ -159,7 +156,7 @@ def test_jobs_json_author_cannot_edit_if_is_closed_and_more_than_30_days_after_d
     assert "can_edit" not in response_data_metadata
 
 
-def test_jobs_search_json(api_client, db, create_record, datadir):
+def test_jobs_search_json(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "955427.json").read_text())
@@ -183,7 +180,7 @@ def test_jobs_search_json(api_client, db, create_record, datadir):
     assert expected_updated == response_updated
 
 
-def test_jobs_search_json_can_edit(api_client, db, create_record, create_user):
+def test_jobs_search_json_can_edit(api_client):
     headers = {"Accept": "application/json"}
 
     user = create_user(email="harun@cern.ch")

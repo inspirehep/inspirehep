@@ -9,12 +9,13 @@ from datetime import datetime
 from operator import itemgetter
 
 from freezegun import freeze_time
+from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_conferences_application_json_get(api_client, db, es, create_record_factory):
+def test_conferences_application_json_get(api_client):
     record = create_record_factory("con", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -25,7 +26,7 @@ def test_conferences_application_json_get(api_client, db, es, create_record_fact
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_delete(api_client, db, es, create_record_factory):
+def test_conferences_application_json_delete(api_client):
     record = create_record_factory("con", with_indexing=True)
     record_control_number = record.json["control_number"]
 
@@ -36,7 +37,7 @@ def test_conferences_application_json_delete(api_client, db, es, create_record_f
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_post(api_client, db):
+def test_conferences_application_json_post(api_client):
     expected_status_code = 401
     response = api_client.post("/conferences")
     response_status_code = response.status_code
@@ -44,7 +45,7 @@ def test_conferences_application_json_post(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_conferences_search_json_get(api_client, db, es, create_record_factory):
+def test_conferences_search_json_get(api_client):
     create_record_factory("con", with_indexing=True)
 
     expected_status_code = 200
@@ -54,9 +55,7 @@ def test_conferences_search_json_get(api_client, db, es, create_record_factory):
     assert expected_status_code == response_status_code
 
 
-def test_conference_record_search_results(
-    api_client, db, create_user, es, create_record
-):
+def test_conference_record_search_results(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
     record = create_record("con")
@@ -71,7 +70,7 @@ def test_conference_record_search_results(
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
 
 
-def test_conferences_contribution_facets(api_client, db, es, create_record):
+def test_conferences_contribution_facets(api_client):
     create_record("lit")
     response = api_client.get(
         "/literature/facets?facet_name=hep-conference-contribution"
@@ -89,7 +88,7 @@ def test_conferences_contribution_facets(api_client, db, es, create_record):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_conferences_contribution_filters(api_client, db, es, create_record):
+def test_conferences_contribution_filters(api_client):
     book_chapter_paper = {
         "inspire_categories": [{"term": "Accelerators"}],
         "document_type": ["book chapter"],
@@ -111,9 +110,7 @@ def test_conferences_contribution_filters(api_client, db, es, create_record):
     assert expected_subject_aggregation_buckets == response_subject_aggregation_buckets
 
 
-def test_conferences_application_json_put_without_auth(
-    api_client, db, es_clear, create_record
-):
+def test_conferences_application_json_put_without_auth(api_client):
     record = create_record("con")
     record_control_number = record["control_number"]
 
@@ -124,9 +121,7 @@ def test_conferences_application_json_put_without_auth(
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_put_without_cataloger_logged_in(
-    api_client, db, es_clear, create_user, create_record
-):
+def test_conferences_application_json_put_without_cataloger_logged_in(api_client):
     user = create_user()
     login_user_via_session(api_client, email=user.email)
 
@@ -140,9 +135,7 @@ def test_conferences_application_json_put_without_cataloger_logged_in(
     assert expected_status_code == response_status_code
 
 
-def test_conferences_application_json_put_with_cataloger_logged_in(
-    api_client, db, es_clear, create_user, create_record
-):
+def test_conferences_application_json_put_with_cataloger_logged_in(api_client):
     cataloger = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=cataloger.email)
     record = create_record("con")
@@ -165,7 +158,7 @@ def test_conferences_application_json_put_with_cataloger_logged_in(
     assert expected_status_code == response_status_code
 
 
-def test_conferences_sort_options(api_client, db, es, create_record):
+def test_conferences_sort_options(api_client):
     create_record("con")
 
     response = api_client.get(
@@ -188,7 +181,7 @@ def test_conferences_sort_options(api_client, db, es, create_record):
     )
 
 
-def test_conferences_facets(api_client, db, es, create_record):
+def test_conferences_facets(api_client):
     create_record("con")
     response = api_client.get("/conferences/facets")
     response_data = response.json
@@ -202,7 +195,7 @@ def test_conferences_facets(api_client, db, es, create_record):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_conferences_filters(api_client, db, es, create_record):
+def test_conferences_filters(api_client):
     conference1 = {
         "opening_date": "2019-11-21",
         "inspire_categories": [{"term": "Accelerators"}],
@@ -229,9 +222,7 @@ def test_conferences_filters(api_client, db, es, create_record):
     )
 
 
-def test_conferences_date_range_contains_other_conferences(
-    api_client, db, es, create_record
-):
+def test_conferences_date_range_contains_other_conferences(api_client):
     conference_during_april_first_week = {
         "control_number": 1,
         "opening_date": "2019-04-01",
@@ -278,7 +269,7 @@ def test_conferences_date_range_contains_other_conferences(
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_all(api_client, db, es, create_record):
+def test_conferences_start_date_range_filter_all(api_client):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
@@ -301,9 +292,7 @@ def test_conferences_start_date_range_filter_all(api_client, db, es, create_reco
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_upcoming(
-    api_client, db, es, create_record
-):
+def test_conferences_start_date_range_filter_upcoming(api_client):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
@@ -329,9 +318,7 @@ def test_conferences_start_date_range_filter_upcoming(
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_with_only_single_date(
-    api_client, db, es, create_record
-):
+def test_conferences_start_date_range_filter_with_only_single_date(api_client):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {
@@ -357,9 +344,7 @@ def test_conferences_start_date_range_filter_with_only_single_date(
 
 
 @freeze_time("2019-9-15")
-def test_conferences_start_date_range_filter_with_both_dates(
-    api_client, db, es, create_record
-):
+def test_conferences_start_date_range_filter_with_both_dates(api_client):
     conference_in_april_2019 = {"control_number": 1, "opening_date": "2019-04-15"}
     upcoming_conference_april_2020 = {"control_number": 2, "opening_date": "2020-04-15"}
     upcoming_conference_january_2020 = {

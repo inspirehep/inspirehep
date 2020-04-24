@@ -10,15 +10,14 @@ import re
 
 import pytest
 from freezegun import freeze_time
+from helpers.utils import create_record
 from invenio_pidstore.models import PersistentIdentifier
 
 from inspirehep.disambiguation.tasks import disambiguate_signatures
 from inspirehep.records.api.authors import AuthorsRecord
 
 
-def test_disambiguate_signatures_cluster_with_one_author(
-    base_app, db, es_clear, create_record, redis
-):
+def test_disambiguate_signatures_cluster_with_one_author(app_clean):
     data = {
         "authors": [
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
@@ -47,9 +46,7 @@ def test_disambiguate_signatures_cluster_with_one_author(
 
 
 @freeze_time("2019-02-15")
-def test_disambiguate_signatures_cluster_with_0_authors(
-    base_app, db, es_clear, create_record, redis
-):
+def test_disambiguate_signatures_cluster_with_0_authors(app_clean):
     data = {
         "authors": [
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
@@ -87,7 +84,7 @@ def test_disambiguate_signatures_cluster_with_0_authors(
 
 
 def test_disambiguate_signatures_cluster_creates_author_with_facet_author_name(
-    base_app, db, es_clear, create_record, redis, api_client
+    api_client
 ):
     data = {
         "authors": [
@@ -122,9 +119,7 @@ def test_disambiguate_signatures_cluster_creates_author_with_facet_author_name(
     )
 
 
-def test_disambiguate_signatures_cluster_with_more_than_1_authors(
-    base_app, db, es_clear, create_record, redis
-):
+def test_disambiguate_signatures_cluster_with_more_than_1_authors(app_clean):
     data = {
         "authors": [
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
@@ -150,7 +145,7 @@ def test_disambiguate_signatures_cluster_with_more_than_1_authors(
 
 
 def test_disambiguate_signatures_cluster_with_no_authors_and_invalid_signature_uuid(
-    base_app, db, es_clear, create_record, create_pidstore, redis
+    app_clean
 ):
     data = {
         "authors": [

@@ -7,7 +7,7 @@
 
 from copy import deepcopy
 
-from helpers.utils import es_search
+from helpers.utils import create_record, es_search
 from invenio_search import current_search
 from invenio_search import current_search_client as es
 from marshmallow import utils
@@ -15,7 +15,7 @@ from marshmallow import utils
 from inspirehep.search.api import JobsSearch
 
 
-def test_index_job_record(base_app, es_clear, db, datadir, create_record):
+def test_index_job_record(app_clean):
     record = create_record("job")
 
     expected_total = 1
@@ -31,7 +31,7 @@ def test_index_job_record(base_app, es_clear, db, datadir, create_record):
     assert expected_source == response_source
 
 
-def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
+def test_indexer_deletes_record_from_es(app_clean):
     record = create_record("job")
 
     record["deleted"] = True

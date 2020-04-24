@@ -7,13 +7,13 @@
 
 import json
 
-from helpers.providers.faker import faker
+from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_authors_detail(api_client, db, create_record_factory, datadir):
+def test_authors_detail(api_client, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "999108.json").read_text())
@@ -97,7 +97,7 @@ def test_authors_detail(api_client, db, create_record_factory, datadir):
     assert response_data["updated"] is not None
 
 
-def test_authors_json_without_login(api_client, db, es, create_record_factory):
+def test_authors_json_without_login(api_client):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -135,9 +135,7 @@ def test_authors_json_without_login(api_client, db, es, create_record_factory):
     assert expected_uuid == response_uuid
 
 
-def test_authors_json_with_logged_in_cataloger(
-    api_client, db, create_user, create_record_factory
-):
+def test_authors_json_with_logged_in_cataloger(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -180,7 +178,7 @@ def test_authors_json_with_logged_in_cataloger(
     assert expected_result == response_data_metadata
 
 
-def test_authors_only_control_number(api_client, db, create_record_factory, datadir):
+def test_authors_only_control_number(api_client, datadir):
     headers = {"Accept": "application/vnd+inspire.record.control_number+json"}
 
     data = json.loads((datadir / "999108.json").read_text())
@@ -200,7 +198,7 @@ def test_authors_only_control_number(api_client, db, create_record_factory, data
     assert expected_result == response_data_metadata
 
 
-def test_authors_search_json(api_client, db, es, create_record, datadir):
+def test_authors_search_json(api_client):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -244,9 +242,7 @@ def test_authors_search_json(api_client, db, es, create_record, datadir):
     assert response_data_hits_updated is not None
 
 
-def test_authors_search_json_does_not_have_sort_options(
-    api_client, db, es, create_record
-):
+def test_authors_search_json_does_not_have_sort_options(api_client):
     headers = {"Accept": "application/json"}
     record = create_record("aut")
 
@@ -262,9 +258,7 @@ def test_authors_search_json_does_not_have_sort_options(
     assert expected_sort_options == sort_options
 
 
-def test_authors_search_json_with_logged_in_cataloger(
-    api_client, db, create_user, create_record_factory
-):
+def test_authors_search_json_with_logged_in_cataloger(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 

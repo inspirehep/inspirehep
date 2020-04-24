@@ -11,6 +11,13 @@ from urllib.parse import urlencode
 import mock
 from flask import current_app
 from helpers.providers.faker import faker
+from helpers.utils import (
+    create_record,
+    create_record_factory,
+    create_user,
+    create_user_and_token,
+    logout,
+)
 from invenio_accounts.testutils import login_user_via_session
 from invenio_search import current_search
 
@@ -18,9 +25,7 @@ from inspirehep.accounts.roles import Roles
 from inspirehep.records.errors import MaxResultWindowRESTError
 
 
-def test_literature_search_application_json_get(
-    api_client, db, es_clear, create_record, datadir
-):
+def test_literature_search_application_json_get(api_client):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "control_number": 666,
@@ -51,9 +56,7 @@ def test_literature_search_application_json_get(
     assert expected_data == response_data_metadata
 
 
-def test_literature_search_application_json_ui_get(
-    api_client, db, es_clear, create_record
-):
+def test_literature_search_application_json_ui_get(api_client):
     data = {
         "control_number": 666,
         "titles": [{"title": "Partner walk again seek job."}],
@@ -81,7 +84,7 @@ def test_literature_search_application_json_ui_get(
     assert expected_data == response_data_metadata
 
 
-def test_literature_application_json_get(api_client, db, create_record):
+def test_literature_application_json_get(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -92,7 +95,7 @@ def test_literature_application_json_get(api_client, db, create_record):
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put_without_token(api_client, db, create_record):
+def test_literature_application_json_put_without_token(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -103,9 +106,7 @@ def test_literature_application_json_put_without_token(api_client, db, create_re
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_delete_without_token(
-    api_client, db, create_record
-):
+def test_literature_application_json_delete_without_token(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -116,7 +117,7 @@ def test_literature_application_json_delete_without_token(
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_post_without_token(api_client, db):
+def test_literature_application_json_post_without_token(api_client):
     expected_status_code = 401
     response = api_client.post("/literature")
     response_status_code = response.status_code
@@ -124,9 +125,7 @@ def test_literature_application_json_post_without_token(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_put_with_token(
-    api_client, db, create_record, create_user_and_token
-):
+def test_literature_application_json_put_with_token(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
     token = create_user_and_token()
@@ -142,9 +141,7 @@ def test_literature_application_json_put_with_token(
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_delete_with_token(
-    api_client, db, create_record, create_user_and_token
-):
+def test_literature_application_json_delete_with_token(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
     token = create_user_and_token()
@@ -160,9 +157,7 @@ def test_literature_application_json_delete_with_token(
     assert expected_status_code == response_status_code
 
 
-def test_literature_application_json_post_with_token(
-    api_client, db, create_user_and_token
-):
+def test_literature_application_json_post_with_token(api_client):
     expected_status_code = 201
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
@@ -174,7 +169,7 @@ def test_literature_application_json_post_with_token(
     assert expected_status_code == response_status_code
 
 
-def test_literature_citations(api_client, db, es_clear, create_record):
+def test_literature_citations(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -215,9 +210,7 @@ def test_literature_citations(api_client, db, es_clear, create_record):
     assert expected_data == response_data
 
 
-def test_literature_citations_with_superseded_citing_records(
-    api_client, db, es_clear, create_record
-):
+def test_literature_citations_with_superseded_citing_records(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -282,9 +275,7 @@ def test_literature_citations_with_superseded_citing_records(
     assert expected_citation_citing in response_data_metadata["citations"]
 
 
-def test_literature_citations_with_non_citeable_collection(
-    api_client, db, es_clear, create_record
-):
+def test_literature_citations_with_non_citeable_collection(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -334,7 +325,7 @@ def test_literature_citations_with_non_citeable_collection(
     ]
 
 
-def test_literature_citations_empty(api_client, db, es_clear, create_record):
+def test_literature_citations_empty(api_client):
     record = create_record("lit")
     record_control_number = record["control_number"]
 
@@ -349,7 +340,7 @@ def test_literature_citations_empty(api_client, db, es_clear, create_record):
     assert expected_data == response_data
 
 
-def test_literature_citations_missing_pids(api_client, db, es_clear):
+def test_literature_citations_missing_pids(api_client):
     missing_control_number = 1
     response = api_client.get("/literature/{}/citations".format(missing_control_number))
     response_status_code = response.status_code
@@ -359,9 +350,7 @@ def test_literature_citations_missing_pids(api_client, db, es_clear):
     assert expected_status_code == response_status_code
 
 
-def test_literature_citations_with_size_bigger_than_maximum(
-    api_client, db, es_clear, create_record
-):
+def test_literature_citations_with_size_bigger_than_maximum(api_client):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     config = {"MAX_API_RESULTS": 3}
@@ -377,7 +366,7 @@ def test_literature_citations_with_size_bigger_than_maximum(
     assert expected_response == response_data["message"]
 
 
-def test_literature_facets(api_client, db, es_clear, create_record):
+def test_literature_facets(api_client):
     record = create_record("lit")
 
     response = api_client.get("/literature/facets")
@@ -403,9 +392,7 @@ def test_literature_facets(api_client, db, es_clear, create_record):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_literature_cataloger_facets(
-    api_client, db, create_record, create_user, es_clear
-):
+def test_literature_cataloger_facets(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -436,18 +423,14 @@ def test_literature_cataloger_facets(
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_literature_facets_author_count_does_not_have_empty_bucket(
-    api_client, db, es_clear
-):
+def test_literature_facets_author_count_does_not_have_empty_bucket(api_client):
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     author_count_agg = response_data.get("aggregations")["author_count"]
     assert author_count_agg["buckets"] == []
 
 
-def test_literature_facets_author_count_returns_non_empty_bucket(
-    api_client, db, es_clear, create_record, redis
-):
+def test_literature_facets_author_count_returns_non_empty_bucket(api_client):
     create_record(
         "lit",
         data={"authors": [{"full_name": "Harun Urhan"}, {"full_name": "John Doe"}]},
@@ -460,9 +443,7 @@ def test_literature_facets_author_count_returns_non_empty_bucket(
     assert buckets[0]["doc_count"] == 1
 
 
-def test_literature_facets_doc_type_has_bucket_help(
-    api_client, db, es_clear, create_record
-):
+def test_literature_facets_doc_type_has_bucket_help(api_client):
     response = api_client.get("/literature/facets")
     response_data = json.loads(response.data)
     response_status_code = response.status_code
@@ -483,9 +464,7 @@ def test_literature_facets_doc_type_has_bucket_help(
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_literature_search_citation_count_filter(
-    api_client, db, es_clear, create_record_factory
-):
+def test_literature_search_citation_count_filter(api_client):
     paper_with_requested_number_of_citations = create_record_factory(
         "lit", data={"citation_count": 101}, with_indexing=True
     )
@@ -506,9 +485,7 @@ def test_literature_search_citation_count_filter(
     )
 
 
-def test_literature_search_refereed_filter(
-    api_client, db, es_clear, create_record_factory
-):
+def test_literature_search_refereed_filter(api_client):
     refereed_paper = create_record_factory(
         "lit", data={"refereed": True}, with_indexing=True
     )
@@ -526,9 +503,7 @@ def test_literature_search_refereed_filter(
     )
 
 
-def test_literature_search_citeable_filter(
-    api_client, db, es_clear, create_record_factory
-):
+def test_literature_search_citeable_filter(api_client):
     citeable_paper = create_record_factory(
         "lit", data={"citeable": True}, with_indexing=True
     )
@@ -546,9 +521,7 @@ def test_literature_search_citeable_filter(
     )
 
 
-def test_literature_citation_annual_summary(
-    api_client, db, es_clear, create_record, redis
-):
+def test_literature_citation_annual_summary(api_client):
     author = create_record("aut", faker.record("aut"))
     authors = [
         {
@@ -583,9 +556,7 @@ def test_literature_citation_annual_summary(
     assert response.json["aggregations"]["citations_by_year"] == expected_response
 
 
-def test_literature_citation_annual_summary_for_many_records(
-    api_client, db, es_clear, create_record
-):
+def test_literature_citation_annual_summary_for_many_records(api_client):
     literature1 = create_record("lit", faker.record("lit"))
     create_record(
         "lit",
@@ -632,9 +603,7 @@ def test_literature_citation_annual_summary_for_many_records(
     assert response.json["aggregations"]["citations_by_year"] == expected_response
 
 
-def test_literature_search_user_does_not_get_fermilab_collection(
-    api_client, db, es_clear, create_record, datadir
-):
+def test_literature_search_user_does_not_get_fermilab_collection(api_client):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Fermilab"],
@@ -655,9 +624,7 @@ def test_literature_search_user_does_not_get_fermilab_collection(
     assert expected_status_code == response_status_code
 
 
-def test_literature_search_cataloger_gets_fermilab_collection(
-    api_client, db, es_clear, create_record, datadir, create_user
-):
+def test_literature_search_cataloger_gets_fermilab_collection(api_client):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
         "_collections": ["Fermilab"],
@@ -693,9 +660,7 @@ def test_literature_search_cataloger_gets_fermilab_collection(
     assert expected_data == response_data_metadata
 
 
-def test_literature_search_permissions(
-    api_client, db, es_clear, create_record, datadir, create_user, logout
-):
+def test_literature_search_permissions(api_client):
     create_record("lit", data={"_collections": ["Fermilab"]})
     rec_literature = create_record("lit", data={"_collections": ["Literature"]})
 
@@ -725,16 +690,14 @@ def test_literature_search_permissions(
     )
 
 
-def test_literature_hidden_collection_as_anonymous_user(api_client, db, create_record):
+def test_literature_hidden_collection_as_anonymous_user(api_client):
     expected_status_code = 401
     rec = create_record("lit", data={"_collections": ["Fermilab"]})
     response = api_client.get(f"/literature/{rec['control_number']}")
     assert response.status_code == expected_status_code
 
 
-def test_literature_hidden_collection_as_cataloger(
-    api_client, db, create_record, create_user
-):
+def test_literature_hidden_collection_as_cataloger(api_client):
     expected_status_code = 200
     rec = create_record("lit", data={"_collections": ["Fermilab"]})
 
@@ -745,9 +708,7 @@ def test_literature_hidden_collection_as_cataloger(
     assert response.status_code == expected_status_code
 
 
-def test_literature_hidden_collection_as_logged_in_user_not_cataloger(
-    api_client, db, create_record, create_user
-):
+def test_literature_hidden_collection_as_logged_in_user_not_cataloger(api_client):
     expected_status_code = 403
     rec = create_record("lit", data={"_collections": ["Fermilab"]})
 

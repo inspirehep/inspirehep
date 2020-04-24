@@ -11,9 +11,10 @@ import os
 import pytest
 import requests_mock
 from helpers.providers.faker import faker
+from helpers.utils import create_record
 
 
-def test_import_article_view_400_bad_arxiv(api_client, db):
+def test_import_article_view_400_bad_arxiv(api_client):
     resp = api_client.get("/literature/import/bad_arxiv:0000.0000")
 
     expected_msg = "bad_arxiv:0000.0000 is not a recognized identifier."
@@ -24,7 +25,7 @@ def test_import_article_view_400_bad_arxiv(api_client, db):
 
 
 @pytest.mark.vcr()
-def test_import_article_view_404_non_existing_doi(api_client, db):
+def test_import_article_view_404_non_existing_doi(api_client):
     resp = api_client.get("/literature/import/10.1016/j.physletb.2099.08.020")
 
     expected_msg = "No article found for 10.1016/j.physletb.2099.08.020"
@@ -34,9 +35,7 @@ def test_import_article_view_404_non_existing_doi(api_client, db):
     assert resp.status_code == 404
 
 
-def test_import_article_view_409_because_article_already_exists(
-    api_client, base_app, db, create_record
-):
+def test_import_article_view_409_because_article_already_exists(api_client):
     arxiv_value = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_value}]}
     data = faker.record("lit", with_control_number=True, data=data)
@@ -54,9 +53,7 @@ def test_import_article_view_409_because_article_already_exists(
     assert resp.status_code == 409
 
 
-def test_import_article_view_409_because_doi_already_exists(
-    api_client, base_app, db, create_record
-):
+def test_import_article_view_409_because_doi_already_exists(api_client):
     doi_value = "10.1109/TaSc.2017.2721959"
     data = {"dois": [{"value": doi_value}]}
     data = faker.record("lit", with_control_number=True, data=data)
@@ -73,19 +70,17 @@ def test_import_article_view_409_because_doi_already_exists(
 
 
 @pytest.mark.vcr()
-def test_import_article_view_404_arxiv_not_found(api_client, db):
+def test_import_article_view_404_arxiv_not_found(api_client):
     resp = api_client.get("/literature/import/arXiv:0000.0000")
     assert resp.status_code == 404
 
 
-def test_import_article_view_400_doi_not_valid(api_client, db):
+def test_import_article_view_400_doi_not_valid(api_client):
     resp = api_client.get("/literature/import/doi:notADoi")
     assert resp.status_code == 400
 
 
-def test_import_article_arxiv_409_id_already_in_inspire(
-    api_client, base_app, db, create_record
-):
+def test_import_article_arxiv_409_id_already_in_inspire(api_client):
     arxiv_id = faker.arxiv()
     data = {"arxiv_eprints": [{"value": arxiv_id}]}
     data = faker.record("lit", with_control_number=True, data=data)
@@ -95,7 +90,7 @@ def test_import_article_arxiv_409_id_already_in_inspire(
     assert resp.status_code == 409
 
 
-def test_import_article_view_404_website_not_reachable(api_client, db):
+def test_import_article_view_404_website_not_reachable(api_client):
     arxiv_id = faker.arxiv()
     with requests_mock.Mocker() as mocker:
         mocker.get(
@@ -107,7 +102,7 @@ def test_import_article_view_404_website_not_reachable(api_client, db):
 
 
 @pytest.mark.vcr()
-def test_import_article_view_500_arxiv_broken_record(api_client, db):
+def test_import_article_view_500_arxiv_broken_record(api_client):
     arxiv_id = "0804.1111"
     resp = api_client.get(f"/literature/import/arXiv:{arxiv_id}")
     assert resp.status_code == 500
@@ -115,7 +110,7 @@ def test_import_article_view_500_arxiv_broken_record(api_client, db):
 
 @pytest.mark.vcr()
 def test_import_article_uses_only_arxiv_if_there_is_no_doi_during_arxiv_import(
-    api_client, db
+    api_client
 ):
     arxiv_id = "1908.05196"
     resp = api_client.get(f"/literature/import/{arxiv_id}")
@@ -132,7 +127,7 @@ def test_import_article_uses_only_arxiv_if_there_is_no_doi_during_arxiv_import(
 
 
 @pytest.mark.vcr()
-def test_import_article_merges_crossref_after_arxiv_import(api_client, db):
+def test_import_article_merges_crossref_after_arxiv_import(api_client):
     arxiv_id = "1607.06746"
     resp = api_client.get(f"/literature/import/{arxiv_id}")
     result = resp.json["data"]
@@ -142,7 +137,7 @@ def test_import_article_merges_crossref_after_arxiv_import(api_client, db):
 
 
 @pytest.mark.vcr()
-def test_import_article_view_200_crossref(api_client, db):
+def test_import_article_view_200_crossref(api_client):
     doi = "10.1016/j.physletb.2012.08.020"
 
     resp = api_client.get(f"/literature/import/{doi}")

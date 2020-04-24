@@ -1,3 +1,5 @@
+from flask import current_app
+
 from inspirehep.search.aggregations import (
     conf_subject_aggregation,
     hep_arxiv_categories_aggregation,
@@ -19,7 +21,7 @@ from inspirehep.search.aggregations import (
 from inspirehep.search.facets import hep_author_publications
 
 
-def test_hep_author_publications_facets_without_exclude(base_app):
+def test_hep_author_publications_facets_without_exclude(app_clean):
     expect = {
         "meta": {
             "order": 5,
@@ -29,7 +31,7 @@ def test_hep_author_publications_facets_without_exclude(base_app):
         },
         "terms": {"field": "facet_author_name", "size": 100},
     }
-    with base_app.test_request_context():
+    with current_app.test_request_context():
         result = hep_author_publications()
         assert expect == result["aggs"]["author"]
         assert all(
@@ -38,10 +40,10 @@ def test_hep_author_publications_facets_without_exclude(base_app):
         )
 
 
-def test_hep_author_publications_facets(base_app):
+def test_hep_author_publications_facets(app_clean):
     author = "1111_ Jones"
     author_recid = "1111"
-    with base_app.test_request_context(f"?author={author}"):
+    with current_app.test_request_context(f"?author={author}"):
         expected_filters = {
             "author",
             "author_count",
@@ -70,18 +72,18 @@ def test_hep_author_publications_facets(base_app):
                 order=7, author_recid=author_recid
             ),
         }
-        filters = base_app.config["RECORDS_REST_FACETS"]["hep-author-publication"]()[
+        filters = current_app.config["RECORDS_REST_FACETS"]["hep-author-publication"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"][
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
             "hep-author-publication"
         ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_records_hep_facets(base_app):
-    with base_app.test_request_context():
+def test_records_hep_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {
             "author",
             "author_count",
@@ -109,16 +111,18 @@ def test_records_hep_facets(base_app):
             **hep_arxiv_categories_aggregation(order=7),
             **hep_collaboration_aggregation(order=8),
         }
-        filters = base_app.config["RECORDS_REST_FACETS"]["records-hep"]()[
+        filters = current_app.config["RECORDS_REST_FACETS"]["records-hep"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"]["records-hep"]()["aggs"]
+        aggregations = current_app.config["RECORDS_REST_FACETS"]["records-hep"]()[
+            "aggs"
+        ]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_hep_conference_contributions_facets(base_app):
-    with base_app.test_request_context():
+def test_hep_conference_contributions_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {
             "author",
             "author_count",
@@ -141,18 +145,18 @@ def test_hep_conference_contributions_facets(base_app):
             **hep_collaboration_aggregation(order=2),
         }
 
-        filters = base_app.config["RECORDS_REST_FACETS"][
+        filters = current_app.config["RECORDS_REST_FACETS"][
             "hep-conference-contribution"
         ]()["filters"].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"][
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
             "hep-conference-contribution"
         ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_hep_institution_papers_facets(base_app):
-    with base_app.test_request_context():
+def test_hep_institution_papers_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {
             "author",
             "author_count",
@@ -175,18 +179,18 @@ def test_hep_institution_papers_facets(base_app):
             **hep_doc_type_aggregation(order=2),
         }
 
-        filters = base_app.config["RECORDS_REST_FACETS"]["hep-institution-papers"]()[
+        filters = current_app.config["RECORDS_REST_FACETS"]["hep-institution-papers"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"][
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
             "hep-institution-papers"
         ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_citation_summary_facets(base_app):
-    with base_app.test_request_context():
+def test_citation_summary_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {
             "author",
             "author_count",
@@ -202,18 +206,18 @@ def test_citation_summary_facets(base_app):
         }
         expected_aggregations = {"citation_summary"}
 
-        filters = base_app.config["RECORDS_REST_FACETS"]["citation-summary"]()[
+        filters = current_app.config["RECORDS_REST_FACETS"]["citation-summary"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"]["citation-summary"]()[
+        aggregations = current_app.config["RECORDS_REST_FACETS"]["citation-summary"]()[
             "aggs"
         ].keys()
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_citations_by_year_facets(base_app):
-    with base_app.test_request_context():
+def test_citations_by_year_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {
             "author",
             "doc_type",
@@ -226,18 +230,18 @@ def test_citations_by_year_facets(base_app):
         }
         expected_aggregations = {"citations_by_year"}
 
-        filters = base_app.config["RECORDS_REST_FACETS"]["citations-by-year"]()[
+        filters = current_app.config["RECORDS_REST_FACETS"]["citations-by-year"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"]["citations-by-year"]()[
+        aggregations = current_app.config["RECORDS_REST_FACETS"]["citations-by-year"]()[
             "aggs"
         ].keys()
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_records_jobs_facets(base_app):
-    with base_app.test_request_context():
+def test_records_jobs_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {"field_of_interest", "rank", "region", "status"}
         expected_aggregations = {
             **jobs_field_of_interest_aggregation(order=1),
@@ -245,33 +249,35 @@ def test_records_jobs_facets(base_app):
             **jobs_region_aggregation(order=3),
         }
 
-        filters = base_app.config["RECORDS_REST_FACETS"]["records-jobs"]()[
+        filters = current_app.config["RECORDS_REST_FACETS"]["records-jobs"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"]["records-jobs"]()["aggs"]
-        assert filters == expected_filters
-        assert aggregations == expected_aggregations
-
-
-def test_records_conferences_facets(base_app):
-    with base_app.test_request_context():
-        expected_filters = {"subject", "start_date", "contains"}
-        expected_aggregations = {**conf_subject_aggregation(order=1)}
-
-        filters = base_app.config["RECORDS_REST_FACETS"]["records-conferences"]()[
-            "filters"
-        ].keys()
-        aggregations = base_app.config["RECORDS_REST_FACETS"]["records-conferences"]()[
+        aggregations = current_app.config["RECORDS_REST_FACETS"]["records-jobs"]()[
             "aggs"
         ]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_hep_author_publications_cataloger_facets(base_app):
+def test_records_conferences_facets(app_clean):
+    with current_app.test_request_context():
+        expected_filters = {"subject", "start_date", "contains"}
+        expected_aggregations = {**conf_subject_aggregation(order=1)}
+
+        filters = current_app.config["RECORDS_REST_FACETS"]["records-conferences"]()[
+            "filters"
+        ].keys()
+        aggregations = current_app.config["RECORDS_REST_FACETS"][
+            "records-conferences"
+        ]()["aggs"]
+        assert filters == expected_filters
+        assert aggregations == expected_aggregations
+
+
+def test_hep_author_publications_cataloger_facets(app_clean):
     author = "1111_Jones"
     author_recid = "1111"
-    with base_app.test_request_context(f"?author={author}"):
+    with current_app.test_request_context(f"?author={author}"):
         expected_filters = {
             "author",
             "author_count",
@@ -305,18 +311,18 @@ def test_hep_author_publications_cataloger_facets(base_app):
             **hep_collection_aggregation(order=11),
         }
 
-        filters = base_app.config["CATALOGER_RECORDS_REST_FACETS"][
+        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
             "hep-author-publication"
         ]()["filters"].keys()
-        aggregations = base_app.config["CATALOGER_RECORDS_REST_FACETS"][
+        aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
             "hep-author-publication"
         ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_records_hep_cataloger_facets(base_app):
-    with base_app.test_request_context():
+def test_records_hep_cataloger_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {
             "author",
             "author_count",
@@ -345,18 +351,18 @@ def test_records_hep_cataloger_facets(base_app):
             **hep_collaboration_aggregation(order=8),
             **hep_collection_aggregation(order=9),
         }
-        filters = base_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-hep"]()[
+        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-hep"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["CATALOGER_RECORDS_REST_FACETS"][
+        aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
             "records-hep"
         ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_records_jobs_cataloger_facets(base_app):
-    with base_app.test_request_context():
+def test_records_jobs_cataloger_facets(app_clean):
+    with current_app.test_request_context():
         expected_filters = {"field_of_interest", "rank", "region", "status"}
         expected_aggregations = {
             **jobs_field_of_interest_aggregation(order=1),
@@ -364,20 +370,20 @@ def test_records_jobs_cataloger_facets(base_app):
             **jobs_region_aggregation(order=3),
             **jobs_status_aggregation(order=4),
         }
-        filters = base_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-jobs"]()[
+        filters = current_app.config["CATALOGER_RECORDS_REST_FACETS"]["records-jobs"]()[
             "filters"
         ].keys()
-        aggregations = base_app.config["CATALOGER_RECORDS_REST_FACETS"][
+        aggregations = current_app.config["CATALOGER_RECORDS_REST_FACETS"][
             "records-jobs"
         ]()["aggs"]
         assert filters == expected_filters
         assert aggregations == expected_aggregations
 
 
-def test_all_facets_have_a_corresponding_filter_for_every_aggregation(base_app):
+def test_all_facets_have_a_corresponding_filter_for_every_aggregation(app_clean):
     excluded_aggregations = ["citation_summary", "citations_by_year"]
-    with base_app.test_request_context():
-        for facet in base_app.config["RECORDS_REST_FACETS"].values():
+    with current_app.test_request_context():
+        for facet in current_app.config["RECORDS_REST_FACETS"].values():
             aggregations = [
                 agg
                 for agg in facet()["aggs"].keys()
@@ -385,7 +391,7 @@ def test_all_facets_have_a_corresponding_filter_for_every_aggregation(base_app):
             ]
             filters = list(facet()["filters"].keys())
             assert set(aggregations).issubset(filters)
-        for facet in base_app.config["CATALOGER_RECORDS_REST_FACETS"].values():
+        for facet in current_app.config["CATALOGER_RECORDS_REST_FACETS"].values():
             aggregations = [
                 agg
                 for agg in facet()["aggs"].keys()

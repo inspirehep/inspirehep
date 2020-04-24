@@ -11,6 +11,7 @@ from uuid import UUID
 import mock
 from flask import current_app
 from helpers.providers.faker import faker
+from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
@@ -19,7 +20,7 @@ from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record, redis):
+def test_literature_authors_json(mock_uuid4, api_client):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     headers = {"Accept": "application/json"}
     full_name_1 = "Tanner Walker"
@@ -54,7 +55,7 @@ def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record, 
     assert expected_result == response_data_metadata
 
 
-def test_literature_json_without_login(api_client, db, es, create_record):
+def test_literature_json_without_login(api_client):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -112,9 +113,7 @@ def test_literature_json_without_login(api_client, db, es, create_record):
     assert response_data["updated"] is not None
 
 
-def test_literature_json_with_logged_in_cataloger(
-    api_client, db, es, create_user, create_record
-):
+def test_literature_json_with_logged_in_cataloger(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -191,7 +190,7 @@ def test_literature_json_with_logged_in_cataloger(
     assert response_data["updated"] is not None
 
 
-def test_literature_search_json_without_login(api_client, db, es, create_record):
+def test_literature_search_json_without_login(api_client):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -255,9 +254,7 @@ def test_literature_search_json_without_login(api_client, db, es, create_record)
     assert response_data_hits_updated is not None
 
 
-def test_literature_search_json_with_cataloger_login(
-    api_client, db, es, create_user, create_record
-):
+def test_literature_search_json_with_cataloger_login(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -331,7 +328,7 @@ def test_literature_search_json_with_cataloger_login(
     assert expected_result == response_data_hits_metadata
 
 
-def test_literature_detail(api_client, db, es, create_record):
+def test_literature_detail(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit", data={"preprint_date": "2001-01-01"})
     record_control_number = record["control_number"]
@@ -367,7 +364,7 @@ def test_literature_detail(api_client, db, es, create_record):
     assert response_data_updated is not None
 
 
-def test_literature_list(api_client, db, es, create_record):
+def test_literature_list(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit", data={"preprint_date": "2001-01-01"})
 
@@ -397,9 +394,7 @@ def test_literature_list(api_client, db, es, create_record):
     assert response_data_hits_updated is not None
 
 
-def test_literature_list_with_cataloger_can_edit(
-    api_client, db, es, create_record, create_user
-):
+def test_literature_list_with_cataloger_can_edit(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit")
 
@@ -423,7 +418,7 @@ def test_literature_list_with_cataloger_can_edit(
     assert expected_data_hits["can_edit"] is True
 
 
-def test_literature_list_has_sort_options(api_client, db, es, create_record):
+def test_literature_list_has_sort_options(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     create_record("lit")
 
@@ -443,7 +438,7 @@ def test_literature_list_has_sort_options(api_client, db, es, create_record):
 
 
 def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linked_records(
-    api_client, db, es, create_record
+    api_client
 ):
     headers = {"Accept": "application/json"}
     reference_without_link_title = faker.sentence()
@@ -510,7 +505,7 @@ def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linke
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_pagination(api_client, db, es, create_record):
+def test_literature_references_pagination(api_client):
     record1 = create_record("lit", data=faker.record("lit"))
     record2 = create_record("lit", data=faker.record("lit"))
     record3 = create_record("lit", data=faker.record("lit"))
@@ -546,9 +541,7 @@ def test_literature_references_pagination(api_client, db, es, create_record):
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_pagination_with_size_more_than_results(
-    api_client, db, es, create_record
-):
+def test_literature_references_pagination_with_size_more_than_results(api_client):
     record1 = create_record("lit", data=faker.record("lit"))
     record2 = create_record("lit", data=faker.record("lit"))
     record3 = create_record("lit", data=faker.record("lit"))
@@ -586,9 +579,7 @@ def test_literature_references_pagination_with_size_more_than_results(
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_pagination_with_page_with_no_results(
-    api_client, db, es, create_record
-):
+def test_literature_references_pagination_with_page_with_no_results(api_client):
     record1 = create_record("lit", data=faker.record("lit"))
     record2 = create_record("lit", data=faker.record("lit"))
     record3 = create_record("lit", data=faker.record("lit"))
@@ -618,7 +609,7 @@ def test_literature_references_pagination_with_page_with_no_results(
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_with_invalid_size(api_client, db, es, create_record):
+def test_literature_references_with_invalid_size(api_client):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     response = api_client.get(
@@ -629,9 +620,7 @@ def test_literature_references_with_invalid_size(api_client, db, es, create_reco
     assert expected_status_code == response_status_code
 
 
-def test_literature_references_with_size_bigger_than_maximum(
-    api_client, db, es, create_record
-):
+def test_literature_references_with_size_bigger_than_maximum(api_client):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     config = {"MAX_API_RESULTS": 3}
@@ -647,7 +636,7 @@ def test_literature_references_with_size_bigger_than_maximum(
     assert expected_response == response_data["message"]
 
 
-def test_literature_references_no_references(api_client, db, es, create_record):
+def test_literature_references_no_references(api_client):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     response = api_client.get(
@@ -663,9 +652,7 @@ def test_literature_references_no_references(api_client, db, es, create_record):
     assert expected_result == response_data_metadata
 
 
-def test_literature_detail_serialize_experiments(
-    es_clear, db, es, datadir, create_record, create_record_factory
-):
+def test_literature_detail_serialize_experiments(app_clean, datadir):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
     experiment_data = {
@@ -709,9 +696,7 @@ def test_literature_detail_serialize_experiments(
     assert dumped_record["accelerator_experiments"] == expected_experiment
 
 
-def test_literature_detail_serializes_conference_info(
-    api_client, db, es, create_record_factory
-):
+def test_literature_detail_serializes_conference_info(api_client):
     conference_data = {
         "acronyms": ["SAIP2016"],
         "control_number": 1_423_473,
@@ -776,9 +761,7 @@ def test_literature_detail_serializes_conference_info(
     assert response_data_conference_info == expected_conference_info
 
 
-def test_regression_not_throw_on_collaboration_in_reference_without_record(
-    api_client, db, es, create_record
-):
+def test_regression_not_throw_on_collaboration_in_reference_without_record(api_client):
     expected_response_metadata = {
         "references": [{"collaborations": [{"value": "CMS"}], "label": "1"}],
         "references_count": 1,
@@ -801,7 +784,7 @@ def test_regression_not_throw_on_collaboration_in_reference_without_record(
     assert response.json["metadata"] == expected_response_metadata
 
 
-def test_record_fulllinks_in_detail_view(api_client, db, es, create_record):
+def test_record_fulllinks_in_detail_view(api_client):
     expected_response_metadata = [
         {"description": "arXiv", "value": "https://arxiv.org/pdf/nucl-th/9310030"},
         {
@@ -821,9 +804,7 @@ def test_record_fulllinks_in_detail_view(api_client, db, es, create_record):
     assert response.json["metadata"]["fulltext_links"] == expected_response_metadata
 
 
-def test_record_no_fulllinks_in_detail_view_when_no_fulltext_links(
-    api_client, db, es, create_record
-):
+def test_record_no_fulllinks_in_detail_view_when_no_fulltext_links(api_client):
     data = {}
 
     rec = create_record("lit", data=data)
@@ -833,9 +814,7 @@ def test_record_no_fulllinks_in_detail_view_when_no_fulltext_links(
     assert "fulltext_links" not in response.json["metadata"]
 
 
-def test_literature_search_lowercased_doi_in_references(
-    api_client, db, es, create_record
-):
+def test_literature_search_lowercased_doi_in_references(api_client):
     headers = {"Accept": "application/json"}
 
     data = {

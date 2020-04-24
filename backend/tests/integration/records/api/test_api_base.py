@@ -13,6 +13,7 @@ from copy import copy
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_pidstore, create_record, create_record_factory
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus, RecordIdentifier
 from invenio_records.models import RecordMetadata
 
@@ -21,7 +22,7 @@ from inspirehep.records.errors import MissingSerializerError, WrongRecordSubclas
 from inspirehep.records.marshmallow.literature.bibtex import BibTexCommonSchema
 
 
-def test_base_get_record(base_app, db, es, create_record_factory):
+def test_base_get_record(app_clean):
     record = create_record_factory("lit")
 
     expected_record = InspireRecord.get_record(record.id)
@@ -29,7 +30,7 @@ def test_base_get_record(base_app, db, es, create_record_factory):
     assert expected_record == record.json
 
 
-def test_base_get_records(base_app, db, es, create_record_factory):
+def test_base_get_records(app_clean):
     records = [
         create_record_factory("lit"),
         create_record_factory("lit"),
@@ -43,7 +44,7 @@ def test_base_get_records(base_app, db, es, create_record_factory):
         assert record.json in expected_records
 
 
-def test_get_uuid_from_pid_value(base_app, db, es, create_record_factory):
+def test_get_uuid_from_pid_value(app_clean):
     record = create_record_factory("lit")
     record_uuid = record.id
     record_pid_type = record._persistent_identifier.pid_type
@@ -56,7 +57,7 @@ def test_get_uuid_from_pid_value(base_app, db, es, create_record_factory):
     assert expected_record_uuid == record_uuid
 
 
-def test_soft_delete_record(base_app, db, create_record):
+def test_soft_delete_record(app_clean):
     record_factory = create_record("lit")
     record_uuid = record_factory.id
     record = InspireRecord.get_record(record_uuid)
@@ -67,7 +68,7 @@ def test_soft_delete_record(base_app, db, create_record):
     assert PIDStatus.DELETED == record_pid.status
 
 
-def test_hard_delete_record(base_app, db, create_record_factory, create_pidstore):
+def test_hard_delete_record(app_clean):
     record_factory = create_record_factory("lit")
     create_pidstore(record_factory.id, "pid1", faker.control_number())
     create_pidstore(record_factory.id, "pid2", faker.control_number())
@@ -95,9 +96,7 @@ def test_hard_delete_record(base_app, db, create_record_factory, create_pidstore
     assert record_identifier is None
 
 
-def test_regression_hard_delete_record_with_string_pid_value(
-    base_app, db, es_clear, create_record_factory, create_pidstore
-):
+def test_regression_hard_delete_record_with_string_pid_value(app_clean):
     record_factory = create_record_factory("lit", with_indexing=True)
     create_pidstore(record_factory.id, "pid1", "STRING")
 
@@ -124,7 +123,7 @@ def test_regression_hard_delete_record_with_string_pid_value(
     assert record_identifier is None
 
 
-def test_get_records_by_pids(base_app, db, es, create_record_factory):
+def test_get_records_by_pids(app_clean):
     records = [
         create_record_factory("lit"),
         create_record_factory("lit"),
@@ -144,9 +143,7 @@ def test_get_records_by_pids(base_app, db, es, create_record_factory):
         assert record in expected_result
 
 
-def test_get_records_by_pids_with_not_existing_pids(
-    base_app, db, create_record_factory
-):
+def test_get_records_by_pids_with_not_existing_pids(app_clean):
     pids = [("lit", "123"), ("aut", "234"), ("lit", "345")]
 
     expected_result_len = 0
@@ -157,7 +154,7 @@ def test_get_records_by_pids_with_not_existing_pids(
     assert expected_result_len == len(result_uuids)
 
 
-def test_get_records_by_pids_with_empty(base_app, db, es, create_record_factory):
+def test_get_records_by_pids_with_empty(app_clean):
     pids = []
 
     expected_result_len = 0
@@ -168,7 +165,7 @@ def test_get_records_by_pids_with_empty(base_app, db, es, create_record_factory)
     assert expected_result_len == len(result_uuids)
 
 
-def test_get_linked_records_in_field(base_app, db, es, create_record_factory):
+def test_get_linked_records_in_field(app_clean):
     record_reference = create_record_factory("lit")
     record_reference_control_number = record_reference.json["control_number"]
     record_reference_uri = "http://localhost:5000/api/literature/{}".format(
@@ -191,7 +188,7 @@ def test_get_linked_records_in_field(base_app, db, es, create_record_factory):
     assert expected_result == result
 
 
-def test_get_linked_records_in_field_empty(base_app, db, es, create_record_factory):
+def test_get_linked_records_in_field_empty(app_clean):
     expected_result_len = 0
     expected_result = []
     record = InspireRecord({})
@@ -202,9 +199,7 @@ def test_get_linked_records_in_field_empty(base_app, db, es, create_record_facto
     assert expected_result == result
 
 
-def test_get_linked_records_in_field_not_existing_linked_record(
-    base_app, db, create_record_factory
-):
+def test_get_linked_records_in_field_not_existing_linked_record(app_clean):
     record_reference_uri = "http://localhost:5000/api/literature/{}".format(123)
 
     data = {"references": [{"record": {"$ref": record_reference_uri}}]}
@@ -223,9 +218,7 @@ def test_get_linked_records_in_field_not_existing_linked_record(
     assert expected_result == result
 
 
-def test_get_linked_records_in_field_with_different_pid_types(
-    base_app, db, create_record_factory
-):
+def test_get_linked_records_in_field_with_different_pid_types(app_clean):
     record_reference_lit = create_record_factory("lit")
     record_reference_lit_control_number = record_reference_lit.json["control_number"]
     record_reference_lit_uri = "http://localhost:5000/api/literature/{}".format(
@@ -260,29 +253,27 @@ def test_get_linked_records_in_field_with_different_pid_types(
         assert record in expected_result
 
 
-def test_record_throws_exception_when_serializer_is_not_set(
-    base_app, db, create_record_factory
-):
+def test_record_throws_exception_when_serializer_is_not_set(app_clean):
     record_metadata = create_record_factory("lit")
     record = InspireRecord(record_metadata.json)
     with pytest.raises(MissingSerializerError):
         record.get_enhanced_es_data()
 
 
-def test_create_record_throws_exception_if_wrong_subclass_used(base_app, db, es):
+def test_create_record_throws_exception_if_wrong_subclass_used(app_clean):
     data = faker.record("aut")
     with pytest.raises(WrongRecordSubclass):
         LiteratureRecord.create(data)
 
 
-def test_earliest_date(base_app, db, datadir):
+def test_earliest_date(app_clean, datadir):
     data = json.loads((datadir / "1366189.json").read_text())
     record = LiteratureRecord.create(data=data)
 
     assert record.earliest_date == "2015-05-05"
 
 
-def test_get_citation_annual_summary(base_app, db, create_record):
+def test_get_citation_annual_summary(app_clean):
     literature1 = create_record("lit", faker.record("lit"))
     create_record(
         "lit",
@@ -329,7 +320,7 @@ def test_get_citation_annual_summary(base_app, db, create_record):
     assert results2 == expected_response2
 
 
-def test_record_create_and_update_with_legacy_creation_date(app, db):
+def test_record_create_and_update_with_legacy_creation_date(app_clean):
     data = {"legacy_creation_date": "2000-01-01"}
     data = faker.record("lit", data=data)
     record = InspireRecord.create(data)
@@ -347,7 +338,7 @@ def test_record_create_and_update_with_legacy_creation_date(app, db):
     assert result_record_model_updated_created == "2000-01-02 00:00:00"
 
 
-def test_update_record_without_control_number(app, db, create_record):
+def test_update_record_without_control_number(app_clean):
     rec = create_record("lit")
     data = copy(rec)
     del data["control_number"]
@@ -355,7 +346,7 @@ def test_update_record_without_control_number(app, db, create_record):
         rec.update(data)
 
 
-def test_update_record_with_different_control_number(app, db, create_record):
+def test_update_record_with_different_control_number(app_clean):
     data1 = faker.record("lit")
     data2 = faker.record("lit")
     record = InspireRecord.create(data1)
@@ -363,7 +354,7 @@ def test_update_record_with_different_control_number(app, db, create_record):
         record.update(data2)
 
 
-def test_get_year_from_more_fields(app, db, create_record):
+def test_get_year_from_more_fields(app_clean):
     data = {
         "document_type": ["book"],
         "preprint_date": "2000-01-01",
@@ -379,7 +370,7 @@ def test_get_year_from_more_fields(app, db, create_record):
     assert expected_year == result_year
 
 
-def test_get_year_from_thesis_when_pubinfo_present(app, db, create_record):
+def test_get_year_from_thesis_when_pubinfo_present(app_clean):
     data = {
         "document_type": ["thesis"],
         "thesis_info": {"degree_type": "master", "date": "1996-09"},
@@ -395,7 +386,7 @@ def test_get_year_from_thesis_when_pubinfo_present(app, db, create_record):
     assert expected_year == result_year
 
 
-def test_get_year_from_book_when_pubinfo_present(app, db, create_record):
+def test_get_year_from_book_when_pubinfo_present(app_clean):
     data = {
         "document_type": ["book"],
         "imprints": [{"date": "2015-07-27"}],
@@ -411,7 +402,7 @@ def test_get_year_from_book_when_pubinfo_present(app, db, create_record):
     assert expected_year == result_year
 
 
-def test_get_year_from_book_chapter_when_pubinfo_present(app, db, create_record):
+def test_get_year_from_book_chapter_when_pubinfo_present(app_clean):
     data = {
         "document_type": ["book chapter"],
         "imprints": [{"date": "1993-07-27"}],

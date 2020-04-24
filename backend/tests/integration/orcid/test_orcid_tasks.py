@@ -23,6 +23,7 @@
 import mock
 import pytest
 from flask import current_app
+from helpers.utils import create_user
 from invenio_db import db
 from invenio_oauthclient.errors import AlreadyLinkedError
 from invenio_oauthclient.models import RemoteToken, User, UserIdentity
@@ -37,7 +38,7 @@ from inspirehep.orcid.tasks import (
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("app_clean")
 class TestLinkUserAndToken(object):
     def setup(self):
         with db.session.begin_nested():
@@ -129,7 +130,7 @@ class TestLinkUserAndToken(object):
 @mock.patch("inspirehep.orcid.tasks.get_literature_recids_for_orcid")
 @mock.patch("inspirehep.orcid.tasks.orcid_push")
 def test_push_account_literature_to_orcid(
-    mock_orcid_push, mock_get_literature_recids_for_orcid, create_user
+    mock_orcid_push, mock_get_literature_recids_for_orcid, app_clean
 ):
     mock_get_literature_recids_for_orcid.return_value = [1]
     orcid = "0000-0001-8829-5461"

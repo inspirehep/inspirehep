@@ -8,6 +8,8 @@
 """INSPIRE module that adds more fun to the platform."""
 
 
+from helpers.utils import create_record
+
 from inspirehep.pidstore.api import PidStoreBase
 
 
@@ -23,7 +25,7 @@ def test_get_config_for_schema(appctx):
     assert pids_to_endpoints is not None
 
 
-def test_doi_resolve_ignores_case(app, api_client, create_record):
+def test_doi_resolve_ignores_case(api_client):
     expected_response_code = 200
     lowercase_doi = "10.1109/tpel.2019.2900393"
     uppercase_doi = "10.1109/TPEL.2019.2900393"
@@ -39,9 +41,7 @@ def test_doi_resolve_ignores_case(app, api_client, create_record):
     assert expected_control_number == response.json["metadata"]["control_number"]
 
 
-def test_arxiv_path_converter_works_for_all_arxiv_pid_values(
-    app, api_client, create_record
-):
+def test_arxiv_path_converter_works_for_all_arxiv_pid_values(api_client):
     data = {
         "arxiv_eprints": [
             {"value": "1607.06746", "categories": ["hep-th"]},

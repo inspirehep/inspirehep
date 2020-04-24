@@ -26,6 +26,7 @@ import time
 
 import pytest
 from celery import shared_task
+from helpers.utils import create_record
 from inspire_dojson.utils import get_record_ref
 from inspire_schemas.api import validate
 from invenio_pidstore.errors import PIDAlreadyExists
@@ -39,7 +40,7 @@ pytestmark = pytest.mark.random_order(disabled=True)
 
 
 @pytest.fixture(scope="function")
-def author_in_isolated_app(base_app, db, es):
+def author_in_isolated_app(app_clean):
     record = {
         "$schema": "http://localhost:5000/schemas/records/authors.json",
         "_collections": ["Authors"],
@@ -57,7 +58,7 @@ def author_in_isolated_app(base_app, db, es):
     yield record["control_number"]
 
 
-def test_orcids_for_push_no_authors(base_app, db, es):
+def test_orcids_for_push_no_authors(app_clean):
     record = {
         "_collections": ["Literature"],
         "corporate_author": ["Corporate Author"],
@@ -69,7 +70,7 @@ def test_orcids_for_push_no_authors(base_app, db, es):
     assert list(get_orcids_for_push(record)) == []
 
 
-def test_orcids_for_push_no_orcids(base_app, db, es):
+def test_orcids_for_push_no_orcids(app_clean):
     record = {
         "_collections": ["Literature"],
         "authors": [
@@ -86,7 +87,7 @@ def test_orcids_for_push_no_orcids(base_app, db, es):
     assert list(get_orcids_for_push(record)) == []
 
 
-def test_orcids_for_push_orcid_in_paper(base_app, db, es):
+def test_orcids_for_push_orcid_in_paper(app_clean):
     record = {
         "_collections": ["Literature"],
         "authors": [
@@ -107,7 +108,7 @@ def test_orcids_for_push_orcid_in_paper(base_app, db, es):
     assert list(get_orcids_for_push(record)) == ["0000-0002-1825-0097"]
 
 
-def test_orcids_for_push_orcid_in_author_no_claim(author_in_isolated_app, db, es):
+def test_orcids_for_push_orcid_in_author_no_claim(author_in_isolated_app):
     record = {
         "_collections": ["Literature"],
         "authors": [
@@ -126,7 +127,7 @@ def test_orcids_for_push_orcid_in_author_no_claim(author_in_isolated_app, db, es
     assert list(get_orcids_for_push(record)) == []
 
 
-def test_orcids_for_push_orcid_in_author_with_claim(author_in_isolated_app, db, es):
+def test_orcids_for_push_orcid_in_author_with_claim(author_in_isolated_app):
     record = {
         "_collections": ["Literature"],
         "authors": [
@@ -146,7 +147,7 @@ def test_orcids_for_push_orcid_in_author_with_claim(author_in_isolated_app, db, 
     assert list(get_orcids_for_push(record)) == ["0000-0002-1825-0097"]
 
 
-def test_get_literature_recids_for_orcid(base_app, db, es, datadir, create_record):
+def test_get_literature_recids_for_orcid(app_clean, datadir):
     data_author = json.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data_author)
     data_literature = json.loads((datadir / "1496635.json").read_text())
@@ -157,13 +158,13 @@ def test_get_literature_recids_for_orcid(base_app, db, es, datadir, create_recor
     assert expected == result
 
 
-def test_get_literature_recids_for_orcid_raises_if_no_author_is_found(base_app, db, es):
+def test_get_literature_recids_for_orcid_raises_if_no_author_is_found(app_clean):
     with pytest.raises(NoResultFound):
         get_literature_recids_for_orcid("THIS-ORCID-DOES-NOT-EXIST")
 
 
 def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
-    base_app, db, es, datadir, create_record
+    app_clean, datadir
 ):
     data = json.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
@@ -175,7 +176,7 @@ def test_get_literature_recids_for_orcid_raises_if_two_authors_are_found(
 
 
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
-    base_app, db, es, datadir, create_record
+    app_clean, datadir
 ):
     data = json.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)
@@ -188,7 +189,7 @@ def test_get_literature_recids_for_orcid_still_works_if_author_has_no_ids(
 
 
 def test_get_literature_recids_for_orcid_still_works_if_author_has_no_orcid_id(
-    base_app, db, es, datadir, create_record
+    app_clean, datadir
 ):
     data = json.loads((datadir / "1061000.json").read_text())
     create_record("aut", data=data)

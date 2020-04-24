@@ -6,7 +6,7 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 
-def test_http_response_with_different_host_name_and_server_name(api_client, db, es):
+def test_http_response_with_different_host_name_and_server_name(api_client):
     headers = {"Host": "foo.bar"}
 
     expected_status_code = 200

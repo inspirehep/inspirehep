@@ -17,7 +17,7 @@ def test_app_extension(base_app):
 
 @pytest.mark.xfail(reason="RT cannot be initialized without valid creds.")
 @pytest.mark.vcr()
-def test_create_ticket_without_template(base_app, appctx):
+def test_create_ticket_without_template(app_clean):
     control_number = 1
     rt_queue = "TEST"
     ticket_id = create_ticket(
@@ -33,7 +33,7 @@ def test_create_ticket_without_template(base_app, appctx):
 
 @pytest.mark.xfail(reason="RT cannot be initialized without valid creds.")
 @pytest.mark.vcr()
-def test_create_ticket_with_template(base_app, appctx):
+def test_create_ticket_with_template(app_clean):
     control_number = 1
 
     rt_template = "rt/dummy.html"

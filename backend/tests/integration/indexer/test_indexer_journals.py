@@ -8,7 +8,7 @@
 import json
 from copy import deepcopy
 
-from helpers.utils import es_search
+from helpers.utils import create_record, es_search
 from invenio_search import current_search
 from invenio_search import current_search_client as es
 from marshmallow import utils
@@ -16,7 +16,7 @@ from marshmallow import utils
 from inspirehep.search.api import JournalsSearch
 
 
-def test_index_journal_record(base_app, es_clear, db, datadir, create_record):
+def test_index_journal_record(app_clean, datadir):
     data = json.loads((datadir / "1213103.json").read_text())
     record = create_record("jou", data=data)
 
@@ -59,7 +59,7 @@ def test_index_journal_record(base_app, es_clear, db, datadir, create_record):
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
 
 
-def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
+def test_indexer_deletes_record_from_es(app_clean, datadir):
     data = json.loads((datadir / "1213103.json").read_text())
     record = create_record("jou", data=data)
 

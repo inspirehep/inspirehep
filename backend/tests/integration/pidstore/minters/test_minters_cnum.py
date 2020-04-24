@@ -7,6 +7,7 @@
 from copy import copy
 
 import pytest
+from helpers.utils import create_record
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 from jsonschema.exceptions import ValidationError
@@ -15,7 +16,7 @@ from inspirehep.pidstore.minters.cnum import CNUMMinter
 from inspirehep.records.api import ConferencesRecord
 
 
-def test_minter_mint_cnum_more_than_once(base_app, db, es, create_record):
+def test_minter_mint_cnum_more_than_once(app_clean):
     opening_date = "2005-09-16"
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
@@ -55,7 +56,7 @@ def test_minter_mint_cnum_more_than_once(base_app, db, es, create_record):
         assert record["cnum"] == f"{expected_cnum}.{i}"
 
 
-def test_minter_mint_cnum_from_empty_opening_date(base_app, db, es, create_record):
+def test_minter_mint_cnum_from_empty_opening_date(app_clean):
     record = create_record("con")
 
     assert "cnum" not in record
@@ -69,7 +70,7 @@ def test_minter_mint_cnum_from_empty_opening_date(base_app, db, es, create_recor
     assert result_pids_len == expected_pids_count
 
 
-def test_minter_change_opening_date_doesnt_change_cnum(base_app, db, es):
+def test_minter_change_opening_date_doesnt_change_cnum(app_clean):
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "_collections": ["Conferences"],
@@ -90,7 +91,7 @@ def test_minter_change_opening_date_doesnt_change_cnum(base_app, db, es):
     assert updated_rec["cnum"] == expected_cnum
 
 
-def test_minter_deleting_record_removes_cnum_pid(base_app, db, es, create_record):
+def test_minter_deleting_record_removes_cnum_pid(app_clean):
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "_collections": ["Conferences"],
@@ -112,9 +113,7 @@ def test_minter_deleting_record_removes_cnum_pid(base_app, db, es, create_record
     assert pids_count == 0
 
 
-def test_minter_mints_cnum_of_migrated_record_having_already_cnum_field(
-    base_app, db, es, create_record
-):
+def test_minter_mints_cnum_of_migrated_record_having_already_cnum_field(app_clean):
     cnum = "C06-10-23"
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
@@ -132,9 +131,7 @@ def test_minter_mints_cnum_of_migrated_record_having_already_cnum_field(
     assert pid
 
 
-def test_minter_mints_cnum_of_migrated_record_fails_if_pid_already_exists(
-    base_app, db, es, create_record
-):
+def test_minter_mints_cnum_of_migrated_record_fails_if_pid_already_exists(app_clean):
     data = {
         "$schema": "https://labs.inspirehep.net/schemas/records/conferences.json",
         "_collections": ["Conferences"],
@@ -158,7 +155,7 @@ def test_minter_mints_cnum_of_migrated_record_fails_if_pid_already_exists(
 
 
 def test_minter_mints_cnum_from_partial_date_doesnt_happen_because_partial_date_is_not_valid(
-    base_app, db, es, create_record
+    app_clean
 ):
     partial_date = "05-09-16"
     data = {
@@ -170,9 +167,7 @@ def test_minter_mints_cnum_from_partial_date_doesnt_happen_because_partial_date_
         create_record("con", data=data)
 
 
-def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(
-    base_app, db, create_record
-):
+def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(app_clean):
     rec = create_record("con")
     record_cnums_count = PersistentIdentifier.query.filter_by(
         pid_type="cnum", object_uuid=str(rec.id)
@@ -191,7 +186,7 @@ def test_minter_mints_cnum_on_update_when_cnum_is_missing_in_db(
     assert record_cnums[0].pid_value == expected_cnum
 
 
-def test_generate_cnum_when_holes_in_cnums_sequence(base_app, db, create_record):
+def test_generate_cnum_when_holes_in_cnums_sequence(app_clean):
     data = {"opening_date": "2020-01-01"}
     expected_cnum = "C20-01-01.2"
     rec1 = create_record("con", data)
@@ -201,9 +196,7 @@ def test_generate_cnum_when_holes_in_cnums_sequence(base_app, db, create_record)
     assert rec3.get("cnum") == expected_cnum
 
 
-def test_generate_cnum_when_holes_in_cnums_sequence_and_weird_creation_order(
-    base_app, db, create_record
-):
+def test_generate_cnum_when_holes_in_cnums_sequence_and_weird_creation_order(app_clean):
     data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.2"}
     rec1 = create_record("con", data)
     data["cnum"] = "C20-01-01.1"
@@ -216,9 +209,7 @@ def test_generate_cnum_when_holes_in_cnums_sequence_and_weird_creation_order(
     assert rec4["cnum"] == "C20-01-01.3"
 
 
-def test_generate_cnum_when_holes_in_cnums_sequence_and_big_holes(
-    base_app, db, create_record
-):
+def test_generate_cnum_when_holes_in_cnums_sequence_and_big_holes(app_clean):
     data = {"opening_date": "2020-01-01", "cnum": "C20-01-01.20"}
     rec1 = create_record("con", data)
     data["cnum"] = "C20-01-01.31"

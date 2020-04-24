@@ -8,10 +8,11 @@
 import json
 from copy import deepcopy
 
+from helpers.utils import create_record, create_record_factory
 from marshmallow import utils
 
 
-def test_journals_json(api_client, db, create_record_factory, datadir):
+def test_journals_json(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1212042.json").read_text())
@@ -35,7 +36,7 @@ def test_journals_json(api_client, db, create_record_factory, datadir):
     assert expected_updated == response_updated
 
 
-def test_journals_search_json(api_client, db, create_record, datadir):
+def test_journals_search_json(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "1212042.json").read_text())

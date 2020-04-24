@@ -8,13 +8,14 @@
 import json
 from copy import deepcopy
 
+from helpers.utils import create_record, create_record_factory, create_user
 from invenio_accounts.testutils import login_user_via_session
 from marshmallow import utils
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_institutions_json_without_login(api_client, db, create_record, datadir, es):
+def test_institutions_json_without_login(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "903324.json").read_text())
@@ -42,9 +43,7 @@ def test_institutions_json_without_login(api_client, db, create_record, datadir,
     assert expected_updated == response_updated
 
 
-def test_institutions_json_with_logged_in_cataloger(
-    api_client, db, create_user, create_record, datadir, es
-):
+def test_institutions_json_with_logged_in_cataloger(api_client, datadir):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -73,7 +72,7 @@ def test_institutions_json_with_logged_in_cataloger(
     assert expected_updated == response_updated
 
 
-def test_institutions_search_json(api_client, db, create_record, datadir, es):
+def test_institutions_search_json(api_client, datadir):
     headers = {"Accept": "application/json"}
 
     data = json.loads((datadir / "903324.json").read_text())
@@ -101,7 +100,7 @@ def test_institutions_search_json(api_client, db, create_record, datadir, es):
     assert expected_updated == response_updated
 
 
-def test_institutions_detail(api_client, db, create_record, datadir, es):
+def test_institutions_detail(api_client, datadir):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = json.loads((datadir / "903324.json").read_text())
@@ -116,8 +115,8 @@ def test_institutions_detail(api_client, db, create_record, datadir, es):
                 {
                     "country": "Austria",
                     "cities": ["Vienna"],
-                    "latitude": 48.1873833,
-                    "longitude": 16.3622593,
+                    "latitude": 48.187_383_3,
+                    "longitude": 16.362_259_3,
                     "postal_code": "1050",
                     "country_code": "AT",
                     "postal_address": ["Nikolsdorfer Gasse 18", "A-1050 Wien"],
@@ -145,7 +144,7 @@ def test_institutions_detail(api_client, db, create_record, datadir, es):
     assert expected_updated == response_updated
 
 
-def test_parent_institutions_in_detail_page(api_client, db, create_record_factory, es):
+def test_parent_institutions_in_detail_page(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Ins Parent"}
@@ -183,9 +182,7 @@ def test_parent_institutions_in_detail_page(api_client, db, create_record_factor
     )
 
 
-def test_successor_institutions_in_detail_page(
-    api_client, db, create_record_factory, es
-):
+def test_successor_institutions_in_detail_page(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Ins Parent"}
@@ -218,9 +215,7 @@ def test_successor_institutions_in_detail_page(
     )
 
 
-def test_predecessor_institutions_in_detail_page(
-    api_client, db, create_record_factory, es
-):
+def test_predecessor_institutions_in_detail_page(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Ins Parent"}
@@ -254,7 +249,7 @@ def test_predecessor_institutions_in_detail_page(
     )
 
 
-def test_subsidiary_institutions_in_detail_page(api_client, db, create_record, es):
+def test_subsidiary_institutions_in_detail_page(api_client):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
 
     data = {"legacy_ICN": "Institution"}

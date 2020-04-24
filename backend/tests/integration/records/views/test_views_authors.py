@@ -8,12 +8,13 @@
 import json
 
 from helpers.providers.faker import faker
+from helpers.utils import create_record, create_user, create_user_and_token
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
 
 
-def test_author_facets(api_client, db, create_record, es_clear):
+def test_author_facets(api_client):
     create_record("lit")
 
     response = api_client.get(
@@ -41,7 +42,7 @@ def test_author_facets(api_client, db, create_record, es_clear):
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_author_cataloger_facets(api_client, db, create_record, create_user, es_clear):
+def test_author_cataloger_facets(api_client):
     user = create_user(role=Roles.cataloger.value)
     login_user_via_session(api_client, email=user.email)
 
@@ -76,7 +77,7 @@ def test_author_cataloger_facets(api_client, db, create_record, create_user, es_
     assert len(response_data["hits"]["hits"]) == 0
 
 
-def test_authors_application_json_put_without_token(api_client, db, create_record):
+def test_authors_application_json_put_without_token(api_client):
     record = create_record("aut")
     record_control_number = record["control_number"]
 
@@ -87,7 +88,7 @@ def test_authors_application_json_put_without_token(api_client, db, create_recor
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_delete_without_token(api_client, db, create_record):
+def test_authors_application_json_delete_without_token(api_client):
     record = create_record("aut")
     record_control_number = record["control_number"]
 
@@ -98,7 +99,7 @@ def test_authors_application_json_delete_without_token(api_client, db, create_re
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_post_without_token(api_client, db):
+def test_authors_application_json_post_without_token(api_client):
     expected_status_code = 401
     response = api_client.post("/authors")
     response_status_code = response.status_code
@@ -106,9 +107,7 @@ def test_authors_application_json_post_without_token(api_client, db):
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_put_with_token(
-    api_client, db, create_record, create_user_and_token
-):
+def test_authors_application_json_put_with_token(api_client):
     record = create_record("aut")
     record_control_number = record["control_number"]
     token = create_user_and_token()
@@ -124,9 +123,7 @@ def test_authors_application_json_put_with_token(
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_delete_with_token(
-    api_client, db, create_record, create_user_and_token
-):
+def test_authors_application_json_delete_with_token(api_client):
     record = create_record("aut")
     record_control_number = record["control_number"]
     token = create_user_and_token()
@@ -142,9 +139,7 @@ def test_authors_application_json_delete_with_token(
     assert expected_status_code == response_status_code
 
 
-def test_authors_application_json_post_with_token(
-    api_client, db, create_user_and_token
-):
+def test_authors_application_json_post_with_token(api_client):
     expected_status_code = 201
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}

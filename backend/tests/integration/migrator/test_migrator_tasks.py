@@ -13,6 +13,7 @@ import pytest
 import requests_mock
 from celery.exceptions import Retry
 from flask import current_app
+from helpers.utils import create_record, create_s3_bucket
 from invenio_db import db
 from invenio_pidstore.errors import PIDDoesNotExistError
 from invenio_pidstore.models import PersistentIdentifier
@@ -20,6 +21,7 @@ from invenio_search import current_search
 from mock import patch
 from redis import StrictRedis
 
+from inspirehep.files.api import current_s3_instance
 from inspirehep.migrator.models import LegacyRecordsMirror
 from inspirehep.migrator.tasks import (
     create_records_from_mirror_recids,
@@ -34,8 +36,8 @@ from inspirehep.search.api import LiteratureSearch
 
 
 @pytest.fixture
-def enable_orcid_push_feature(base_app, db, es):
-    with patch.dict(base_app.config, {"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
+def enable_orcid_push_feature(app_clean):
+    with patch.dict(current_app.config, {"FEATURE_FLAG_ENABLE_ORCID_PUSH": True}):
         yield
 
 
@@ -50,7 +52,7 @@ def cleanup():
     )
 
 
-def test_migrate_and_insert_record_valid_record(base_app, db, es):
+def test_migrate_and_insert_record_valid_record(app_clean):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -72,7 +74,7 @@ def test_migrate_and_insert_record_valid_record(base_app, db, es):
     assert prod_record.marcxml == raw_record
 
 
-def test_migrate_and_insert_record_dojson_error(base_app, db, es):
+def test_migrate_and_insert_record_dojson_error(app_clean):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -94,7 +96,7 @@ def test_migrate_and_insert_record_dojson_error(base_app, db, es):
     assert prod_record.marcxml == raw_record
 
 
-def test_migrate_and_insert_record_invalid_record(base_app, db, es):
+def test_migrate_and_insert_record_invalid_record(app_clean):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -113,7 +115,7 @@ def test_migrate_and_insert_record_invalid_record(base_app, db, es):
     assert prod_record.marcxml == raw_record
 
 
-def test_migrate_and_insert_record_blacklisted_pid(base_app, db, es):
+def test_migrate_and_insert_record_blacklisted_pid(app_clean):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -136,7 +138,7 @@ def test_migrate_and_insert_record_blacklisted_pid(base_app, db, es):
         assert prod_record.valid is False
 
 
-def test_migrate_and_insert_record_pidstore_error(base_app, db, es):
+def test_migrate_and_insert_record_pidstore_error(app_clean):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -186,7 +188,7 @@ def test_migrate_and_insert_record_pidstore_error(base_app, db, es):
     assert "pid_value" in prod_record.error
 
 
-def test_migrate_and_insert_record_invalid_record_update_regression(base_app, db):
+def test_migrate_and_insert_record_invalid_record_update_regression(app_clean):
     # test is not isolated so the models_committed signal fires and the indexer might be called
     raw_record = (
         b"<record>"
@@ -224,7 +226,7 @@ def test_migrate_and_insert_record_invalid_record_update_regression(base_app, db
 
 
 @patch("inspirehep.records.api.InspireRecord.create_or_update", side_effect=Exception())
-def test_migrate_and_insert_record_other_exception(base_app, db, es):
+def test_migrate_and_insert_record_other_exception(create_record_mock, app_clean):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">12345</controlfield>'
@@ -242,7 +244,7 @@ def test_migrate_and_insert_record_other_exception(base_app, db, es):
     assert prod_record.marcxml == raw_record
 
 
-def test_migrate_record_from_miror_steals_pids_from_deleted_records(base_app, db, es):
+def test_migrate_record_from_miror_steals_pids_from_deleted_records(app_clean):
     raw_record = (
         b"<record>"
         b'  <controlfield tag="001">98765</controlfield>'
@@ -289,7 +291,7 @@ def test_migrate_record_from_miror_steals_pids_from_deleted_records(base_app, db
 
 
 def test_orcid_push_disabled_on_migrate_from_mirror(
-    base_app, db, cleanup, enable_orcid_push_feature
+    app_clean, enable_orcid_push_feature
 ):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "dummy.xml")
@@ -313,10 +315,10 @@ def test_orcid_push_disabled_on_migrate_from_mirror(
     ).one()
     assert prod_record.valid
 
-    assert base_app.config["FEATURE_FLAG_ENABLE_ORCID_PUSH"]
+    assert current_app.config["FEATURE_FLAG_ENABLE_ORCID_PUSH"]
 
 
-def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear):
+def test_migrate_from_mirror_doesnt_index_deleted_records(app_clean):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "dummy.xml")
     )
@@ -338,9 +340,7 @@ def test_migrate_from_mirror_doesnt_index_deleted_records(base_app, db, es_clear
     assert expected_record_lit_es_len == record_lit_es_len
 
 
-def test_migrate_from_mirror_removes_record_from_es(
-    base_app, db, es_clear, datadir, create_record
-):
+def test_migrate_from_mirror_removes_record_from_es(app_clean, datadir):
     data = json.loads((datadir / "dummy_record.json").read_text())
     create_record("lit", data=data)
 
@@ -366,7 +366,7 @@ def test_migrate_from_mirror_removes_record_from_es(
 
 @patch("inspirehep.migrator.tasks.process_references_in_records")
 def test_migrate_records_with_all_makes_records_references_process_disabled(
-    proecess_references_mock, base_app, db, es_clear, datadir, create_record
+    proecess_references_mock, app_clean
 ):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "dummy.xml")
@@ -379,7 +379,7 @@ def test_migrate_records_with_all_makes_records_references_process_disabled(
 
 @patch("inspirehep.migrator.tasks.process_references_in_records")
 def test_migrate_records_with_all_makes_records_references_process_enabled(
-    proecess_references_mock, base_app, db, es_clear, datadir, create_record
+    proecess_references_mock, app_clean
 ):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "dummy.xml")
@@ -392,7 +392,7 @@ def test_migrate_records_with_all_makes_records_references_process_enabled(
 
 @patch("inspirehep.migrator.tasks.batch_index")
 def test_process_references_in_records_doesnt_call_batch_reindex_if_there_are_no_references(
-    batch_index_mock, base_app, db, es_clear, create_record
+    batch_index_mock, app_clean
 ):
     data = {
         "$schema": "http://localhost:5000/schemas/records/hep.json",
@@ -407,7 +407,7 @@ def test_process_references_in_records_doesnt_call_batch_reindex_if_there_are_no
 
 @patch("inspirehep.migrator.tasks.LiteratureRecord.get_modified_references")
 def test_process_references_in_records_doesnt_call_get_modified_references_for_non_lit_records(
-    get_modified_references_mock, base_app, db, es_clear, create_record
+    get_modified_references_mock, app_clean
 ):
     data = {
         "$schema": "https://inspire/schemas/records/authors.json",
@@ -429,9 +429,7 @@ def test_process_references_in_records_doesnt_call_get_modified_references_for_n
     assert get_modified_references_mock.call_count == 1
 
 
-def test_create_records_from_mirror_recids_with_different_types_of_record(
-    api_client, db, es_clear
-):
+def test_create_records_from_mirror_recids_with_different_types_of_record(app_clean):
     raw_record_literature_valid = (
         b"<record>"
         b'  <controlfield tag="001">666</controlfield>'
@@ -490,7 +488,7 @@ def test_create_records_from_mirror_recids_with_different_types_of_record(
         InspireRecord.get_record_by_pid_value(667, "lit")
 
 
-def test_migrate_from_mirror_doesnt_raise_on_job_records(base_app, db, es_clear):
+def test_migrate_from_mirror_doesnt_raise_on_job_records(app_clean):
     record_fixture_path = pkg_resources.resource_filename(
         __name__, os.path.join("fixtures", "1695012.xml")
     )
@@ -504,14 +502,14 @@ def test_migrate_from_mirror_doesnt_raise_on_job_records(base_app, db, es_clear)
 
 @pytest.mark.vcr()
 def test_migrate_record_from_mirror_uses_local_cache_for_afs_files(
-    base_app, db, es_clear, datadir, enable_files, s3, create_s3_bucket
+    app_with_s3, datadir
 ):
     expected_key = "f43f40833edfd8227c4deb9ad05b321e"
     create_s3_bucket(expected_key)
     with patch.dict(
         current_app.config, {"LABS_AFS_HTTP_SERVICE": "http://inspire-afs-web.cern.ch/"}
     ):
-        redis = StrictRedis.from_url(base_app.config["CACHE_REDIS_URL"])
+        redis = StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"])
         redis.delete("afs_file_locations")
         raw_record_path = (datadir / "1313624.xml").as_posix()
 
@@ -526,14 +524,14 @@ def test_migrate_record_from_mirror_uses_local_cache_for_afs_files(
 
 @pytest.mark.vcr()
 def test_migrate_record_from_mirror_invalidates_local_file_cache_if_no_local_file(
-    base_app, db, es_clear, datadir, enable_files, s3, create_s3_bucket
+    app_with_s3, datadir
 ):
     expected_key = "f43f40833edfd8227c4deb9ad05b321e"
     create_s3_bucket(expected_key)
     with patch.dict(
         current_app.config, {"LABS_AFS_HTTP_SERVICE": "http://inspire-afs-web.cern.ch/"}
     ):
-        redis = StrictRedis.from_url(base_app.config["CACHE_REDIS_URL"])
+        redis = StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"])
         redis.delete("afs_file_locations")
         # populate cache with invalid file path
         redis.hset(
@@ -554,12 +552,12 @@ def test_migrate_record_from_mirror_invalidates_local_file_cache_if_no_local_fil
 
 
 def test_migrate_record_from_mirror_with_download_file_error_not_caused_by_invalid_cache(
-    base_app, db, es_clear, datadir, enable_files
+    app_with_s3, datadir
 ):
     with patch.dict(
         current_app.config, {"LABS_AFS_HTTP_SERVICE": "http://inspire-afs-web.cern.ch/"}
     ):
-        redis = StrictRedis.from_url(base_app.config["CACHE_REDIS_URL"])
+        redis = StrictRedis.from_url(current_app.config["CACHE_REDIS_URL"])
         redis.delete("afs_file_locations")
         raw_record_path = (datadir / "1313624.xml").as_posix()
         with requests_mock.Mocker() as mocker:
@@ -579,7 +577,7 @@ def test_migrate_record_from_mirror_with_download_file_error_not_caused_by_inval
     side_effect=Retry,
 )
 def test_create_record_from_mirror_recids_retries_on_timeout_error(
-    retry_mock, api_client, db, enable_files, s3
+    retry_mock, app_with_s3
 ):
     raw_record_literature = (
         b"<record>"
@@ -606,7 +604,7 @@ def test_create_record_from_mirror_recids_retries_on_timeout_error(
     db.session.add(record_literature)
     with patch.dict(
         current_app.config, {"FILES_UPLOAD_THREAD_TIMEOUT": 1}
-    ), patch.object(s3, "is_s3_url") as is_s3_url_mock:
+    ), patch.object(current_s3_instance, "is_s3_url") as is_s3_url_mock:
 
         def sleep_2s(*args):
             sleep(2)

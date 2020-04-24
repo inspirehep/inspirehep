@@ -8,12 +8,16 @@
 import json
 
 from helpers.providers.faker import faker
+from helpers.utils import (
+    create_record,
+    create_record_factory,
+    create_user,
+    create_user_and_token,
+)
 from invenio_accounts.testutils import login_user_via_session
 
 
-def test_error_message_on_pid_already_exists(
-    api_client, db, es, create_record_factory, create_user_and_token
-):
+def test_error_message_on_pid_already_exists(api_client):
     create_record_factory("lit", data={"control_number": 666})
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
@@ -34,9 +38,7 @@ def test_error_message_on_pid_already_exists(
     assert expected_message == response_message
 
 
-def test_does_not_return_deleted_pid_error_if_cataloger(
-    api_client, db, es_clear, create_record, create_user
-):
+def test_does_not_return_deleted_pid_error_if_cataloger(api_client):
     cataloger = create_user(role="cataloger")
     record = create_record("con")
     record.delete()
@@ -51,9 +53,7 @@ def test_does_not_return_deleted_pid_error_if_cataloger(
     assert response_status_code == 200
 
 
-def test_returns_deleted_pid_error_if_not_cataloger(
-    api_client, db, es_clear, create_record, create_user
-):
+def test_returns_deleted_pid_error_if_not_cataloger(api_client):
     user = create_user(role="user")
     record = create_record("con")
     record.delete()
