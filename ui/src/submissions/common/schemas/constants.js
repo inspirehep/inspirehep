@@ -1,5 +1,8 @@
 import getValue from '../getValue';
-import { RANK_VALUE_TO_DISPLAY } from '../../../common/constants';
+import {
+  RANK_VALUE_TO_DISPLAY,
+  DEGREE_TYPE_TO_DISPLAY,
+} from '../../../common/constants';
 
 export const arxivCategoryOptions = [
   { value: 'astro-ph' },
@@ -200,13 +203,10 @@ export const rankOptions = Object.keys(RANK_VALUE_TO_DISPLAY).map(key => ({
 }));
 export const rankValues = rankOptions.map(getValue);
 
-export const degreeTypeOptions = [
-  { value: 'phd', display: 'PhD' },
-  { value: 'diploma', display: 'Diploma' },
-  { value: 'bachelor', display: 'Bachelor' },
-  { value: 'master', display: 'Master' },
-  { value: 'habilitation', display: 'Habilitation' },
-  { value: 'laurea', display: 'Laurea' },
-  { value: 'other', display: 'Other' },
-];
+export const degreeTypeOptions = Object.keys(DEGREE_TYPE_TO_DISPLAY).map(
+  key => ({
+    value: key,
+    display: DEGREE_TYPE_TO_DISPLAY[key],
+  })
+);
 export const degreeTypeValues = degreeTypeOptions.map(getValue);
