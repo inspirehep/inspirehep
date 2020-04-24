@@ -9,23 +9,20 @@ import zlib
 
 import mock
 import pkg_resources
-from redis import StrictRedis
 
 from inspirehep.migrator.cli import continuous_migration
 from inspirehep.migrator.models import LegacyRecordsMirror
 
 
 @mock.patch("inspirehep.migrator.api.wait_for_all_tasks")
-def test_continuous_migration_no_records(
-    mock_wait_for_all_tasks, base_app, db, es_clear, redis
-):
+def test_continuous_migration_no_records(mock_wait_for_all_tasks, inspire_app):
     continuous_migration()
     mock_wait_for_all_tasks.assert_not_called()
 
 
 @mock.patch("inspirehep.migrator.api.wait_for_all_tasks")
 def test_continuous_migration_end_in_same_run(
-    mock_wait_for_all_tasks, base_app, db, es_clear, redis
+    mock_wait_for_all_tasks, inspire_app, redis
 ):
     record_fixture = pkg_resources.resource_string(
         __name__, os.path.join("fixtures", "dummy.xml")
@@ -40,7 +37,7 @@ def test_continuous_migration_end_in_same_run(
 
 @mock.patch("inspirehep.migrator.api.wait_for_all_tasks")
 def test_continuous_migration_end_in_next_run(
-    mock_wait_for_all_tasks, base_app, db, es_clear, redis
+    mock_wait_for_all_tasks, inspire_app, redis
 ):
     record_fixture = pkg_resources.resource_string(
         __name__, os.path.join("fixtures", "dummy.xml")

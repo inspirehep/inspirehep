@@ -14,7 +14,7 @@ from invenio_pidstore.models import PIDStatus
 from inspirehep.pidstore.providers.recid import InspireRecordIdProvider
 
 
-def test_provider_without_pid_value(base_app, db, es):
+def test_provider_without_pid_value(inspire_app):
     record = RecordMetadataFactory()
 
     provide = {"object_type": "rec", "object_uuid": record.id, "pid_type": "pid"}
@@ -25,7 +25,7 @@ def test_provider_without_pid_value(base_app, db, es):
     assert PIDStatus.REGISTERED == provider.pid.status
 
 
-def test_provider_with_pid_value(base_app, db, es):
+def test_provider_with_pid_value(inspire_app):
     record = RecordMetadataFactory()
 
     provide = {

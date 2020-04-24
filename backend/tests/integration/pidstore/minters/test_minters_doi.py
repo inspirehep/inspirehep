@@ -8,13 +8,14 @@
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_record, create_record_factory
 from invenio_pidstore.models import PersistentIdentifier, PIDStatus
 
 from inspirehep.pidstore.errors import MissingSchema, PIDAlreadyExists
 from inspirehep.pidstore.minters.doi import DoiMinter
 
 
-def test_minter_dois(base_app, db, es, create_record_factory):
+def test_minter_dois(inspire_app):
     doi_value_1 = faker.doi()
     doi_value_2 = faker.doi()
     data = {"dois": [{"value": doi_value_1}, {"value": doi_value_2}]}
@@ -42,7 +43,7 @@ def test_minter_dois(base_app, db, es, create_record_factory):
         assert pid.pid_value in epxected_pids_values
 
 
-def test_minter_dois_duplicate(base_app, db, es, create_record_factory):
+def test_minter_dois_duplicate(inspire_app):
     doi_value_1 = faker.doi()
     data = {
         "dois": [
@@ -69,7 +70,7 @@ def test_minter_dois_duplicate(base_app, db, es, create_record_factory):
     assert epxected_pid_value == result_pid.pid_value
 
 
-def test_minter_dois_empty(base_app, db, es, create_record_factory):
+def test_minter_dois_empty(inspire_app):
     record = create_record_factory("lit", with_validation=True)
     data = record.json
 
@@ -85,7 +86,7 @@ def test_minter_dois_empty(base_app, db, es, create_record_factory):
     assert expected_pids_len == result_pids_len
 
 
-def test_mitner_dois_already_existing(base_app, db, es, create_record_factory):
+def test_mitner_dois_already_existing(inspire_app):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     record_with_doi = create_record_factory("lit", data=data, with_validation=True)
@@ -96,7 +97,7 @@ def test_mitner_dois_already_existing(base_app, db, es, create_record_factory):
         DoiMinter.mint(record_with_existing_doi.id, record_with_existing_doi.json)
 
 
-def test_mitner_dois_missing_schema(base_app, db, es, create_record_factory):
+def test_mitner_dois_missing_schema(inspire_app):
     doi_value = faker.doi()
     data = {"dois": [{"value": doi_value}]}
     record = create_record_factory("lit", data=data)
@@ -109,7 +110,7 @@ def test_mitner_dois_missing_schema(base_app, db, es, create_record_factory):
         DoiMinter.mint(record_id, record_data)
 
 
-def test_new_doi_converted_to_lowercase(base_app, db, create_record):
+def test_new_doi_converted_to_lowercase(inspire_app):
     expected_doi = "10.1109/tpel.2019.2900393"
     doi_value = "10.1109/TPEL.2019.2900393"
     data = {"dois": [{"value": doi_value}]}
@@ -118,9 +119,7 @@ def test_new_doi_converted_to_lowercase(base_app, db, create_record):
     assert expected_doi == doi.pid_value
 
 
-def test_adding_same_doi_different_case_raises_pid_already_exists(
-    base_app, db, create_record
-):
+def test_adding_same_doi_different_case_raises_pid_already_exists(inspire_app):
     doi_value_1 = "10.1109/tpel.2019.2900393"
     doi_value_2 = "10.1109/TPEL.2019.2900393"
     data_1 = {"dois": [{"value": doi_value_1}]}
@@ -130,7 +129,7 @@ def test_adding_same_doi_different_case_raises_pid_already_exists(
         create_record("lit", data=data_2)
 
 
-def test_adding_record_with_duplicated_dois_different_case(base_app, db, create_record):
+def test_adding_record_with_duplicated_dois_different_case(inspire_app):
     doi_value_1 = "10.1109/tpel.2019.2900393"
     doi_value_2 = "10.1109/TPEL.2019.2900393"
 

@@ -7,6 +7,7 @@
 
 import pytest
 from freezegun import freeze_time
+from helpers.utils import create_record
 
 from inspirehep.disambiguation.utils import (
     create_new_empty_author,
@@ -15,7 +16,7 @@ from inspirehep.disambiguation.utils import (
 )
 
 
-def test_link_signature_to_author(base_app, db, es_clear, create_record, redis):
+def test_link_signature_to_author(inspire_app):
     data = {
         "authors": [
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
@@ -39,9 +40,7 @@ def test_link_signature_to_author(base_app, db, es_clear, create_record, redis):
     assert expected_signatures == record["authors"]
 
 
-def test_link_signature_to_author_with_no_change(
-    base_app, db, es_clear, create_record, redis
-):
+def test_link_signature_to_author_with_no_change(inspire_app):
     data = {
         "authors": [
             {
@@ -61,9 +60,7 @@ def test_link_signature_to_author_with_no_change(
     assert signature is None
 
 
-def test_link_signature_to_author_with_curated_signature_and_ref(
-    base_app, db, es_clear, create_record, redis
-):
+def test_link_signature_to_author_with_curated_signature_and_ref(inspire_app):
     data = {
         "authors": [
             {
@@ -83,9 +80,7 @@ def test_link_signature_to_author_with_curated_signature_and_ref(
     assert signature is None
 
 
-def test_link_signature_to_author_with_curated_signature_but_no_ref(
-    base_app, db, es_clear, create_record, redis
-):
+def test_link_signature_to_author_with_curated_signature_but_no_ref(inspire_app):
     data = {
         "authors": [
             {
@@ -114,9 +109,7 @@ def test_link_signature_to_author_with_curated_signature_but_no_ref(
     assert expected_signatures == record["authors"]
 
 
-def test_link_signature_to_author_missing_uuid(
-    base_app, db, es_clear, create_record, redis
-):
+def test_link_signature_to_author_missing_uuid(inspire_app):
     data = {
         "authors": [
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e54"}
@@ -139,7 +132,7 @@ def test_link_signature_to_author_missing_uuid(
     assert expected_signatures == record["authors"]
 
 
-def test_link_signatures_to_author(base_app, db, es_clear, create_record, redis):
+def test_link_signatures_to_author(inspire_app):
     data_1 = {
         "authors": [
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e51"}
@@ -183,9 +176,7 @@ def test_link_signatures_to_author(base_app, db, es_clear, create_record, redis)
     assert expected_ref == record_2["authors"][0]["record"]["$ref"]
 
 
-def test_link_signatures_to_author_missing_uuid(
-    base_app, db, es_clear, create_record, redis
-):
+def test_link_signatures_to_author_missing_uuid(inspire_app):
     data = {
         "authors": [
             {"full_name": "Doe, John", "uuid": "94fc2b0a-dc17-42c2-bae3-ca0024079e52"}
@@ -203,7 +194,7 @@ def test_link_signatures_to_author_missing_uuid(
 
 
 @freeze_time("2019-02-15")
-def test_create_new_empty_author(base_app, db, es_clear):
+def test_create_new_empty_author(inspire_app):
     author = create_new_empty_author()
     author.pop("control_number")
     expected_data = {

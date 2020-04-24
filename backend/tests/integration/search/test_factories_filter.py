@@ -6,12 +6,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 
 from elasticsearch_dsl import Search
+from flask import current_app
+from helpers.utils import override_config
 from mock import MagicMock, patch
 
 from inspirehep.search.factories.filter import inspire_filter_factory
 
 
-def test_inspire_filter_factory(base_app):
+def test_inspire_filter_factory(inspire_app):
     index_name = "test_facet_aggs"
     mock_filter = MagicMock()
     mock_filter_wrapper = MagicMock()
@@ -27,8 +29,8 @@ def test_inspire_filter_factory(base_app):
     }
     config = {"RECORDS_REST_FACETS": {index_name: facets_filter}}
 
-    with patch.dict(base_app.config, config):
-        with base_app.test_request_context("?type=FOO&q=BAR"):
+    with override_config(**config):
+        with current_app.test_request_context("?type=FOO&q=BAR"):
 
             search = Search()
             search, urlwargs = inspire_filter_factory(search, index_name)

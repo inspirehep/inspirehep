@@ -10,6 +10,7 @@ import uuid
 
 import pytest
 from helpers.providers.faker import faker
+from helpers.utils import create_pidstore, create_record
 from invenio_pidstore.errors import PIDAlreadyExists
 from invenio_pidstore.models import PersistentIdentifier
 from invenio_records.models import RecordMetadata
@@ -18,7 +19,7 @@ from jsonschema import ValidationError
 from inspirehep.records.api import AuthorsRecord, InspireRecord
 
 
-def test_authors_create(base_app, db, es):
+def test_authors_create(inspire_app):
     data = faker.record("aut")
     record = AuthorsRecord.create(data)
 
@@ -35,7 +36,7 @@ def test_authors_create(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_authors_create_with_existing_control_number(base_app, db, create_pidstore):
+def test_authors_create_with_existing_control_number(inspire_app):
     data = faker.record("aut", with_control_number=True)
     existing_object_uuid = uuid.uuid4()
 
@@ -49,7 +50,7 @@ def test_authors_create_with_existing_control_number(base_app, db, create_pidsto
         AuthorsRecord.create(data)
 
 
-def test_authors_create_with_invalid_data(base_app, db, create_pidstore):
+def test_authors_create_with_invalid_data(inspire_app):
     data = faker.record("aut", with_control_number=True)
     data["invalid_key"] = "should throw an error"
     record_control_number = str(data["control_number"])
@@ -63,7 +64,7 @@ def test_authors_create_with_invalid_data(base_app, db, create_pidstore):
     assert record_pid is None
 
 
-def test_authors_update(base_app, db, es):
+def test_authors_update(inspire_app):
     data = faker.record("aut", with_control_number=True)
     record = AuthorsRecord.create(data)
 
@@ -90,7 +91,7 @@ def test_authors_update(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_authors_create_or_update_with_new_record(base_app, db, es):
+def test_authors_create_or_update_with_new_record(inspire_app):
     data = faker.record("aut")
     record = AuthorsRecord.create_or_update(data)
 
@@ -107,7 +108,7 @@ def test_authors_create_or_update_with_new_record(base_app, db, es):
     assert control_number == record_pid.pid_value
 
 
-def test_literature_create_or_update_with_existing_record(base_app, db, es):
+def test_literature_create_or_update_with_existing_record(inspire_app):
     data = faker.record("aut", with_control_number=True)
     record = AuthorsRecord.create(data)
 
@@ -139,19 +140,14 @@ def test_literature_create_or_update_with_existing_record(base_app, db, es):
     assert control_number == record_updated_pid.pid_value
 
 
-def test_subclasses_for_authors():
-    expected = {"aut": AuthorsRecord}
-    assert expected == AuthorsRecord.get_subclasses()
-
-
-def test_get_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_get_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("aut")
     record = InspireRecord.create(data)
     record_from_db = InspireRecord.get_record(record.id)
     assert type(record_from_db) == AuthorsRecord
 
 
-def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("aut")
     record = InspireRecord.create(data)
     assert type(record) == AuthorsRecord
@@ -162,7 +158,7 @@ def test_create_record_from_db_depending_on_its_pid_type(base_app, db, es):
     assert record.pid_type == "aut"
 
 
-def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db, es):
+def test_create_or_update_record_from_db_depending_on_its_pid_type(inspire_app):
     data = faker.record("aut")
     record = InspireRecord.create_or_update(data)
     assert type(record) == AuthorsRecord
@@ -175,7 +171,7 @@ def test_create_or_update_record_from_db_depending_on_its_pid_type(base_app, db,
     assert record.pid_type == "aut"
 
 
-def test_get_author_papers(base_app, db, es_clear, create_record):
+def test_get_author_papers(inspire_app):
     author = create_record("aut")
 
     author_cn = author["control_number"]

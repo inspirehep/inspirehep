@@ -8,8 +8,14 @@
 import json
 from copy import deepcopy
 
-from flask import url_for
+from flask import current_app, url_for
 from freezegun import freeze_time
+from helpers.utils import (
+    create_record,
+    create_record_factory,
+    create_user,
+    create_user_and_token,
+)
 from inspire_utils.record import get_value
 from invenio_accounts.testutils import login_user_via_session
 from mock import patch
@@ -19,68 +25,72 @@ from inspirehep.records.api import ConferencesRecord, JobsRecord, SeminarsRecord
 from inspirehep.submissions.views import AuthorSubmissionsResource
 
 
-def test_author_submit_requires_authentication(api_client):
-    response = api_client.post(
-        "/submissions/authors",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "given_name": "John",
-                    "display_name": "John Doe",
-                    "status": "active",
+def test_author_submit_requires_authentication(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/authors",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "given_name": "John",
+                        "display_name": "John Doe",
+                        "status": "active",
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 401
 
 
-def test_author_update_requires_authentication(api_client):
-    response = api_client.put(
-        "/submissions/authors/123",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "given_name": "John",
-                    "display_name": "John Doe",
-                    "status": "active",
+def test_author_update_requires_authentication(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/submissions/authors/123",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "given_name": "John",
+                        "display_name": "John Doe",
+                        "status": "active",
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 401
 
 
-def test_author_get_requires_authentication(api_client):
-    response = api_client.get(
-        "/submissions/authors/123", content_type="application/json"
-    )
+def test_author_get_requires_authentication(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/submissions/authors/123", content_type="application/json"
+        )
     assert response.status_code == 401
 
 
 @freeze_time("2019-06-17")
-def test_new_author_submit(app, api_client, db, create_user, requests_mock):
+def test_new_author_submit(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
         json={"workflow_object_id": 30},
     )
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/authors",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "given_name": "John",
-                    "display_name": "John Doe",
-                    "status": "active",
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/authors",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "given_name": "John",
+                        "display_name": "John Doe",
+                        "status": "active",
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
 
     assert response.status_code == 200
     assert requests_mock.call_count == 1
@@ -88,10 +98,10 @@ def test_new_author_submit(app, api_client, db, create_user, requests_mock):
     post_data = history.json()
     assert (
         "Authorization" in history.headers
-        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
-    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
+    assert history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors"
     expected_data = {
         "data": {
             "_collections": ["Authors"],
@@ -109,59 +119,56 @@ def test_new_author_submit(app, api_client, db, create_user, requests_mock):
     assert expected_data == post_data
 
 
-def test_new_author_submit_with_workflows_error(
-    app, api_client, db, create_user_and_token, requests_mock
-):
+def test_new_author_submit_with_workflows_error(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors", status_code=500
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors", status_code=500
     )
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
-    response = api_client.post(
-        "/submissions/authors",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "given_name": "John",
-                    "display_name": "John Doe",
-                    "status": "active",
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/authors",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "given_name": "John",
+                        "display_name": "John Doe",
+                        "status": "active",
+                    }
                 }
-            }
-        ),
-        headers=headers,
-    )
+            ),
+            headers=headers,
+        )
     assert response.status_code == 503
 
 
-def test_new_author_submit_works_with_session_login(
-    app, api_client, db, create_user, requests_mock
-):
+def test_new_author_submit_works_with_session_login(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
         json={"workflow_object_id": 30},
     )
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/authors",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "given_name": "John",
-                    "display_name": "John Doe",
-                    "status": "active",
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/authors",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "given_name": "John",
+                        "display_name": "John Doe",
+                        "status": "active",
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 200
 
 
-def test_get_author_update_data(api_client, db, create_user, create_record_factory):
+def test_get_author_update_data(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
 
     author_data = {
         "control_number": 123,
@@ -182,20 +189,19 @@ def test_get_author_update_data(api_client, db, create_user, create_record_facto
             "emails": [{"value": "public@john.ch"}],
         }
     }
-    response = api_client.get(
-        "/submissions/authors/123", headers={"Accept": "application/json"}
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/submissions/authors/123", headers={"Accept": "application/json"}
+        )
     response_data = json.loads(response.data)
 
     assert response_data == expected_data
 
 
-def test_get_author_update_data_of_same_author(
-    api_client, db, create_user, create_record_factory
-):
+def test_get_author_update_data_of_same_author(inspire_app):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
-    login_user_via_session(api_client, email=user.email)
 
     author_data = {
         "control_number": 123,
@@ -222,61 +228,67 @@ def test_get_author_update_data_of_same_author(
         }
     }
 
-    response = api_client.get(
-        "/submissions/authors/123", headers={"Accept": "application/json"}
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/submissions/authors/123", headers={"Accept": "application/json"}
+        )
     response_data = json.loads(response.data)
 
     assert response_data == expected_data
 
 
-def test_get_author_update_data_not_found(api_client, db, create_user):
+def test_get_author_update_data_not_found(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
 
-    response = api_client.get(
-        "/submissions/authors/1993", headers={"Accept": "application/json"}
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/submissions/authors/1993", headers={"Accept": "application/json"}
+        )
 
     assert response.status_code == 404
 
 
-def test_get_author_update_data_requires_auth(api_client):
-    response = api_client.get(
-        "/submissions/authors/1993", headers={"Accept": "application/json"}
-    )
+def test_get_author_update_data_requires_auth(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/submissions/authors/1993", headers={"Accept": "application/json"}
+        )
 
     assert response.status_code == 401
 
 
 @freeze_time("2019-06-17")
-def test_update_author(app, api_client, db, create_user, requests_mock):
+def test_update_author(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors",
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors",
         json={"workflow_object_id": 30},
     )
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.put(
-        "/submissions/authors/123",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "given_name": "John",
-                    "display_name": "John Doe",
-                    "status": "active",
+
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            "/submissions/authors/123",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "given_name": "John",
+                        "display_name": "John Doe",
+                        "status": "active",
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 200
     assert requests_mock.call_count == 1
     history = requests_mock.request_history[0]
     post_data = history.json()
     assert (
         "Authorization" in history.headers
-        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
 
@@ -295,50 +307,51 @@ def test_update_author(app, api_client, db, create_user, requests_mock):
             "control_number": 123,
         }
     }
-    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/authors"
+    assert history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/authors"
     assert expected_data == post_data
 
 
 @freeze_time("2019-06-17")
-def test_new_literature_submit_no_merge(
-    app, api_client, db, create_user, requests_mock
-):
+def test_new_literature_submit_no_merge(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
         json={"workflow_object_id": 30},
     )
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/literature",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "arxiv_id": "1701.00006",
-                    "arxiv_categories": ["hep-th"],
-                    "preprint_date": "2019-10-15",
-                    "document_type": "article",
-                    "authors": [{"full_name": "Urhan, Harun"}],
-                    "title": "Discovery of cool stuff",
-                    "subjects": ["Other"],
-                    "pdf_link": "https://cern.ch/coolstuff.pdf",
-                    "references": "[1] Dude",
-                    "additional_link": "https://cern.ch/other_stuff.pdf",
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://cern.ch/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://cern.ch/other_stuff.pdf",
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 200
     assert requests_mock.call_count == 1
     history = requests_mock.request_history[0]
     post_data = history.json()
     assert (
         "Authorization" in history.headers
-        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
-    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
     expected_data = {
         "data": {
             "_collections": ["Literature"],
@@ -368,45 +381,46 @@ def test_new_literature_submit_no_merge(
 
 
 @freeze_time("2019-06-17")
-def test_new_literature_submit_arxiv_urls(
-    app, api_client, db, create_user, requests_mock
-):
+def test_new_literature_submit_arxiv_urls(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
         json={"workflow_object_id": 30},
     )
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/literature",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "arxiv_id": "1701.00006",
-                    "arxiv_categories": ["hep-th"],
-                    "preprint_date": "2019-10-15",
-                    "document_type": "article",
-                    "authors": [{"full_name": "Urhan, Harun"}],
-                    "title": "Discovery of cool stuff",
-                    "subjects": ["Other"],
-                    "pdf_link": "https://arxiv.org/coolstuff.pdf",
-                    "references": "[1] Dude",
-                    "additional_link": "https://arxiv.org/other_stuff.pdf",
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "arxiv_id": "1701.00006",
+                        "arxiv_categories": ["hep-th"],
+                        "preprint_date": "2019-10-15",
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                        "pdf_link": "https://arxiv.org/coolstuff.pdf",
+                        "references": "[1] Dude",
+                        "additional_link": "https://arxiv.org/other_stuff.pdf",
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 200
     assert requests_mock.call_count == 1
     history = requests_mock.request_history[0]
     post_data = history.json()
     assert (
         "Authorization" in history.headers
-        and f"Bearer {app.config['AUTHENTICATION_TOKEN']}"
+        and f"Bearer {current_app.config['AUTHENTICATION_TOKEN']}"
         == history.headers["Authorization"]
     )
-    assert history.url == f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    assert (
+        history.url == f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature"
+    )
     expected_data = {
         "data": {
             "_collections": ["Literature"],
@@ -434,74 +448,74 @@ def test_new_literature_submit_arxiv_urls(
     assert post_data == expected_data
 
 
-def test_new_literature_submit_works_with_session_login(
-    app, api_client, db, create_user, requests_mock
-):
+def test_new_literature_submit_works_with_session_login(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
         json={"workflow_object_id": 30},
     )
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/literature",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "document_type": "article",
-                    "authors": [{"full_name": "Urhan, Harun"}],
-                    "title": "Discovery of cool stuff",
-                    "subjects": ["Other"],
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 200
 
 
-def test_new_literature_submit_requires_authentication(api_client):
-    response = api_client.post(
-        "/submissions/literature",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "document_type": "article",
-                    "authors": [{"full_name": "Urhan, Harun"}],
-                    "title": "Discovery of cool stuff",
-                    "subjects": ["Other"],
+def test_new_literature_submit_requires_authentication(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                    }
                 }
-            }
-        ),
-    )
+            ),
+        )
     assert response.status_code == 401
 
 
-def test_new_literature_submit_with_workflows_api_error(
-    app, api_client, db, create_user_and_token, requests_mock
-):
+def test_new_literature_submit_with_workflows_api_error(inspire_app, requests_mock):
     requests_mock.post(
-        f"{app.config['INSPIRE_NEXT_URL']}/workflows/literature", status_code=500
+        f"{current_app.config['INSPIRE_NEXT_URL']}/workflows/literature",
+        status_code=500,
     )
 
     token = create_user_and_token()
     headers = {"Authorization": "BEARER " + token.access_token}
-    response = api_client.post(
-        "/submissions/literature",
-        content_type="application/json",
-        data=json.dumps(
-            {
-                "data": {
-                    "document_type": "article",
-                    "authors": [{"full_name": "Urhan, Harun"}],
-                    "title": "Discovery of cool stuff",
-                    "subjects": ["Other"],
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/literature",
+            content_type="application/json",
+            data=json.dumps(
+                {
+                    "data": {
+                        "document_type": "article",
+                        "authors": [{"full_name": "Urhan, Harun"}],
+                        "title": "Discovery of cool stuff",
+                        "subjects": ["Other"],
+                    }
                 }
-            }
-        ),
-        headers=headers,
-    )
+            ),
+            headers=headers,
+        )
     assert response.status_code == 503
 
 
@@ -518,42 +532,45 @@ DEFAULT_EXAMPLE_JOB_DATA = {
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_job_submit_requires_authentication(ticket_mock, api_client):
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
-    )
+def test_job_submit_requires_authentication(ticket_mock, inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
+        )
+    assert response.status_code == 401
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_job_update_requires_authentication(ticket_mock, inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/jobs/1234",
+            content_type="application/json",
+            data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
+        )
 
     assert response.status_code == 401
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_job_update_requires_authentication(ticket_mock, api_client):
-    response = api_client.post(
-        "/submissions/jobs/1234",
-        content_type="application/json",
-        data=json.dumps(DEFAULT_EXAMPLE_JOB_DATA),
-    )
-
+def test_job_get_requires_authentication(ticket_mock, inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/submissions/jobs/123", content_type="application/json")
     assert response.status_code == 401
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_job_get_requires_authentication(ticket_mock, api_client):
-    response = api_client.get("/submissions/jobs/123", content_type="application/json")
-    assert response.status_code == 401
-
-
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit_by_user(create_ticket_mock, api_client, db, create_user):
+def test_new_job_submit_by_user(create_ticket_mock, inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": DEFAULT_EXAMPLE_JOB_DATA}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": DEFAULT_EXAMPLE_JOB_DATA}),
+        )
     assert response.status_code == 201
 
     job_id = json.loads(response.data)["pid_value"]
@@ -564,16 +581,17 @@ def test_new_job_submit_by_user(create_ticket_mock, api_client, db, create_user)
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit_by_cataloger(ticket_mock, api_client, db, create_user):
+def test_new_job_submit_by_cataloger(ticket_mock, inspire_app):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
 
-    post_data = {**DEFAULT_EXAMPLE_JOB_DATA, "status": "open"}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": post_data}),
-    )
+        post_data = {**DEFAULT_EXAMPLE_JOB_DATA, "status": "open"}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": post_data}),
+        )
     assert response.status_code == 201
 
     job_id = json.loads(response.data)["pid_value"]
@@ -583,354 +601,381 @@ def test_new_job_submit_by_cataloger(ticket_mock, api_client, db, create_user):
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit_with_wrong_field_value(
-    ticket_mock, api_client, db, create_user
-):
+def test_new_job_submit_with_wrong_field_value(ticket_mock, inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "some value"}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "some value"}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
     assert response.status_code == 400
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_new_job_submit_with_wrong_status_value(
-    ticket_mock, api_client, db, create_user
-):
+def test_new_job_submit_with_wrong_status_value(ticket_mock, inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    data = {**DEFAULT_EXAMPLE_JOB_DATA, "status": "closed"}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    assert response.status_code == 201
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-    record = api_client.get(record_url).json["data"]
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA, "status": "closed"}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        record = client.get(record_url).json["data"]
     assert record["status"] == "pending"
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job(create_ticket_mock, api_client, db, create_user):
+def test_update_job(create_ticket_mock, inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
 
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+
+        assert response.status_code == 201
+
+        create_ticket_mock.reset_mock()
+
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        data["title"] = "New test title"
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+
+        assert response2.status_code == 200
+        record = client.get(record_url).json["data"]
+        assert record["title"] == "New test title"
+        create_ticket_mock.delay.assert_called_once()
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_job_status_from_pending_not_curator(ticket_mock, inspire_app):
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+
+        assert response.status_code == 201
+
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        data["status"] = "open"
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+
+        assert response2.status_code == 400
+        record = client.get(record_url).json["data"]
+        assert record["status"] == "pending"
+
+
+@patch("inspirehep.submissions.views.async_create_ticket_with_template")
+def test_update_job_status_from_pending_curator(create_ticket_mock, inspire_app):
+    user = create_user()
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
 
     assert response.status_code == 201
 
     create_ticket_mock.reset_mock()
 
     pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-    data["title"] = "New test title"
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
-
-    assert response2.status_code == 200
-    record = api_client.get(record_url).json["data"]
-    assert record["title"] == "New test title"
-    create_ticket_mock.delay.assert_called_once()
-
-
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_status_from_pending_not_curator(
-    ticket_mock, api_client, db, create_user
-):
-    user = create_user()
-    login_user_via_session(api_client, email=user.email)
-
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-
-    assert response.status_code == 201
-
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-    data["status"] = "open"
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
-
-    assert response2.status_code == 400
-    record = api_client.get(record_url).json["data"]
-    assert record["status"] == "pending"
-
-
-@patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_status_from_pending_curator(
-    create_ticket_mock, api_client, db, create_user
-):
-    user = create_user()
-    login_user_via_session(api_client, email=user.email)
-
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-
-    assert response.status_code == 201
-
-    create_ticket_mock.reset_mock()
-
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
 
     curator = create_user(role="cataloger")
-    login_user_via_session(api_client, email=curator.email)
+    with inspire_app.test_client() as client:
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        login_user_via_session(client, email=curator.email)
 
-    data["status"] = "open"
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
+        data["status"] = "open"
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
 
-    assert response2.status_code == 200
-    record = api_client.get(record_url).json["data"]
+        assert response2.status_code == 200
+        record = client.get(record_url).json["data"]
     assert record["status"] == "open"
     create_ticket_mock.delay.assert_not_called()
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_data_from_different_user(ticket_mock, api_client, db, create_user):
+def test_update_job_data_from_different_user(ticket_mock, inspire_app):
     user = create_user()
     user2 = create_user()
-    login_user_via_session(api_client, email=user.email)
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
     assert response.status_code == 201
     pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-
-    login_user_via_session(api_client, email=user2.email)
-    data["title"] = "Title2"
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
+    record_url = url_for(
+        "inspirehep_submissions.job_submission_view", pid_value=pid_value
     )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user2.email)
+        data["title"] = "Title2"
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
     assert response2.status_code == 403
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_status_from_open(ticket_mock, api_client, db, create_user):
+def test_update_job_status_from_open(ticket_mock, inspire_app):
     user = create_user()
     curator = create_user(role="cataloger")
-    login_user_via_session(api_client, email=user.email)
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    assert response.status_code == 201
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-    #  Login as curator to update job status
-    login_user_via_session(api_client, email=curator.email)
-    data["status"] = "open"
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
-    assert response2.status_code == 200
-    #  Login as user again to update job from open to closed
-    login_user_via_session(api_client, email=user.email)
-    data["status"] = "closed"
-    response3 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        #  Login as curator to update job status
 
-    assert response3.status_code == 200
-    record = api_client.get(record_url).json["data"]
+        login_user_via_session(client, email=curator.email)
+        data["status"] = "open"
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+        assert response2.status_code == 200
+        #  Login as user again to update job from open to closed
+        login_user_via_session(client, email=user.email)
+        data["status"] = "closed"
+        response3 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+
+        assert response3.status_code == 200
+        record = client.get(record_url).json["data"]
     assert record["status"] == "closed"
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_30_days_after_deadline(api_client, db, create_user):
+def test_job_update_data_30_days_after_deadline(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
 
-    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-01"}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    assert response.status_code == 201
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-01"}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
 
-    response = api_client.get(record_url).json
-    assert response["meta"]["can_modify_status"] == False
+        response = client.get(record_url).json
+        assert response["meta"]["can_modify_status"] == False
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_30_days_after_deadline_with_cataloger(
-    api_client, db, create_user
-):
+def test_job_update_data_30_days_after_deadline_with_cataloger(inspire_app):
     cataloger = create_user(role="cataloger")
-    login_user_via_session(api_client, email=cataloger.email)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
 
-    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-01"}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    assert response.status_code == 201
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-01"}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
 
-    response = api_client.get(record_url).json
-    assert response["meta"]["can_modify_status"] == True
+        response = client.get(record_url).json
+        assert response["meta"]["can_modify_status"] == True
 
 
 @freeze_time("2019-01-31")
-def test_job_update_data_less_than_30_days_after_deadline(api_client, db, create_user):
+def test_job_update_data_less_than_30_days_after_deadline(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
 
-    data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-02"}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    assert response.status_code == 201
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA, "deadline_date": "2019-01-02"}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
 
-    response = api_client.get(record_url).json
-    assert response["meta"]["can_modify_status"] == True
+        response = client.get(record_url).json
+        assert response["meta"]["can_modify_status"] == True
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_from_closed_by_user(ticket_mock, api_client, db, create_user):
+def test_update_job_from_closed_by_user(ticket_mock, inspire_app):
     user = create_user()
     curator = create_user(role="cataloger")
-    login_user_via_session(api_client, email=user.email)
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    assert response.status_code == 201
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-    #  Login as curator to update job status
-    login_user_via_session(api_client, email=curator.email)
-    data["status"] = "closed"
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
-    assert response2.status_code == 200
-    #  Login as user again to update job title
-    login_user_via_session(api_client, email=user.email)
-    data["title"] = "Another Title"
-    response3 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        #  Login as curator to update job status
+        login_user_via_session(client, email=curator.email)
+        data["status"] = "closed"
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+        assert response2.status_code == 200
+        #  Login as user again to update job title
+        login_user_via_session(client, email=user.email)
+        data["title"] = "Another Title"
+        response3 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
 
-    assert response3.status_code == 403
-    record = api_client.get(record_url).json["data"]
-    assert record["title"] == DEFAULT_EXAMPLE_JOB_DATA["title"]
+        assert response3.status_code == 403
+        record = client.get(record_url).json["data"]
+        assert record["title"] == DEFAULT_EXAMPLE_JOB_DATA["title"]
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_update_job_status_update_30_days_after_deadline_by_user(
-    ticket_mock, api_client, db, create_user
+    ticket_mock, inspire_app
 ):
     user = create_user()
     curator = create_user(role="cataloger")
-    login_user_via_session(api_client, email=user.email)
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    assert response.status_code == 201
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-    #  Login as curator to update job status
-    login_user_via_session(api_client, email=curator.email)
-    data["status"] = "closed"
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
-    assert response2.status_code == 200
-    #  Login as user again to update job title
-    login_user_via_session(api_client, email=user.email)
-    data["status"] = "open"
-    response3 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        assert response.status_code == 201
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        #  Login as curator to update job status
+        login_user_via_session(client, email=curator.email)
+        data["status"] = "closed"
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
+        assert response2.status_code == 200
+        #  Login as user again to update job title
+        login_user_via_session(client, email=user.email)
+        data["status"] = "open"
+        response3 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
 
-    assert response3.status_code == 403
-    record = api_client.get(record_url).json["data"]
-    assert record["status"] == "closed"
+        assert response3.status_code == 403
+        record = client.get(record_url).json["data"]
+        assert record["status"] == "closed"
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_update_job_remove_not_compulsory_fields(
-    ticket_mock, api_client, db, create_user
-):
+def test_update_job_remove_not_compulsory_fields(ticket_mock, inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    data = {
-        **DEFAULT_EXAMPLE_JOB_DATA,
-        "external_job_identifier": "IDENTIFIER",
-        "experiments": [
-            {
-                "legacy_name": "some legacy_name",
-                "record": {"$ref": "http://url_to_record/1234"},
-            }
-        ],
-        "url": "http://something.com",
-        "contacts": [
-            {"name": "Some name", "email": "some@email.com"},
-            {"name": "some other name"},
-        ],
-        "reference_letters": [
-            "email@some.ch",
-            "http://url.com",
-            "something@somewhere.kk",
-        ],
-    }
-    response = api_client.post(
-        "/submissions/jobs",
-        content_type="application/json",
-        data=json.dumps({"data": data}),
-    )
-    pid_value = response.json["pid_value"]
-    record_url = url_for(".job_submission_view", pid_value=pid_value)
-    data = {**DEFAULT_EXAMPLE_JOB_DATA}
-    response2 = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data = {
+            **DEFAULT_EXAMPLE_JOB_DATA,
+            "external_job_identifier": "IDENTIFIER",
+            "experiments": [
+                {
+                    "legacy_name": "some legacy_name",
+                    "record": {"$ref": "http://url_to_record/1234"},
+                }
+            ],
+            "url": "http://something.com",
+            "contacts": [
+                {"name": "Some name", "email": "some@email.com"},
+                {"name": "some other name"},
+            ],
+            "reference_letters": [
+                "email@some.ch",
+                "http://url.com",
+                "something@somewhere.kk",
+            ],
+        }
+        response = client.post(
+            "/submissions/jobs",
+            content_type="application/json",
+            data=json.dumps({"data": data}),
+        )
+        pid_value = response.json["pid_value"]
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
+        data = {**DEFAULT_EXAMPLE_JOB_DATA}
+        response2 = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
 
-    assert response2.status_code == 200
-    response3 = api_client.get(record_url, content_type="application/json")
+        assert response2.status_code == 200
+        response3 = client.get(record_url, content_type="application/json")
     assert response3.status_code == 200
     assert "external_job_identifier" not in response3.json["data"]
     assert "experiments" not in response3.json["data"]
@@ -941,7 +986,7 @@ def test_update_job_remove_not_compulsory_fields(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_regression_update_job_without_acquisition_source_doesnt_give_500(
-    ticket_mock, api_client, db, create_user, create_record
+    ticket_mock, inspire_app
 ):
     data = {
         "status": "open",
@@ -959,15 +1004,16 @@ def test_regression_update_job_without_acquisition_source_doesnt_give_500(
     assert "acquisition_source" not in job_record
 
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    data["title"] = "New Title"
-    record_url = url_for(
-        "inspirehep_submissions.job_submission_view", pid_value=pid_value
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        data["title"] = "New Title"
+        record_url = url_for(
+            "inspirehep_submissions.job_submission_view", pid_value=pid_value
+        )
 
-    response = api_client.put(
-        record_url, content_type="application/json", data=json.dumps({"data": data})
-    )
+        response = client.put(
+            record_url, content_type="application/json", data=json.dumps({"data": data})
+        )
     assert response.status_code == 403
 
 
@@ -993,15 +1039,16 @@ CONFERENCE_FORM_DATA = {
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fields_correct(
-    ticket_mock, api_client, db, create_user
+    ticket_mock, inspire_app
 ):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": CONFERENCE_FORM_DATA}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": CONFERENCE_FORM_DATA}),
+        )
     assert response.status_code == 201
 
     payload = json.loads(response.data)
@@ -1068,19 +1115,20 @@ def test_new_user_conference_submission_full_form_is_in_db_and_es_and_has_all_fi
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_user_conference_submission_missing_dates_has_no_cnum(
-    ticket_mock, api_client, db, create_user
+    ticket_mock, inspire_app
 ):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
 
-    form_data = deepcopy(CONFERENCE_FORM_DATA)
-    form_data.pop("dates")
+        form_data = deepcopy(CONFERENCE_FORM_DATA)
+        form_data.pop("dates")
 
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     payload = json.loads(response.data)
     conference_id = payload["pid_value"]
@@ -1095,14 +1143,14 @@ def test_new_user_conference_submission_missing_dates_has_no_cnum(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_non_logged_in_user_tries_to_submit(ticket_mock, api_client):
+def test_non_logged_in_user_tries_to_submit(ticket_mock, inspire_app):
     form_data = deepcopy(CONFERENCE_FORM_DATA)
-
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     assert response.status_code == 401
 
@@ -1110,34 +1158,32 @@ def test_non_logged_in_user_tries_to_submit(ticket_mock, api_client):
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_rt_ticket_when_cataloger_submits_conference(
-    ticket_mock, api_client, db, create_user
-):
+def test_rt_ticket_when_cataloger_submits_conference(ticket_mock, inspire_app):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
-    form_data = deepcopy(CONFERENCE_FORM_DATA)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        form_data = deepcopy(CONFERENCE_FORM_DATA)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     assert response.status_code == 201
     ticket_mock.delay.assert_not_called()
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_rt_ticket_when_superuser_submits_conference(
-    ticket_mock, api_client, db, create_user
-):
+def test_rt_ticket_when_superuser_submits_conference(ticket_mock, inspire_app):
     user = create_user(role=Roles.superuser.value)
-    login_user_via_session(api_client, email=user.email)
-    form_data = deepcopy(CONFERENCE_FORM_DATA)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        form_data = deepcopy(CONFERENCE_FORM_DATA)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     assert response.status_code == 201
     ticket_mock.delay.assert_not_called()
@@ -1145,16 +1191,17 @@ def test_rt_ticket_when_superuser_submits_conference(
 
 @patch("inspirehep.submissions.views.send_conference_confirmation_email")
 def test_confirmation_email_not_sent_when_user_is_superuser(
-    mock_send_confirmation_email, api_client, db, create_user
+    mock_send_confirmation_email, inspire_app
 ):
     user = create_user(role=Roles.superuser.value)
-    login_user_via_session(api_client, email=user.email)
-    form_data = deepcopy(CONFERENCE_FORM_DATA)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        form_data = deepcopy(CONFERENCE_FORM_DATA)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     assert response.status_code == 201
     mock_send_confirmation_email.assert_not_called()
@@ -1162,16 +1209,17 @@ def test_confirmation_email_not_sent_when_user_is_superuser(
 
 @patch("inspirehep.submissions.views.send_conference_confirmation_email")
 def test_confirmation_email_not_sent_when_user_is_cataloger(
-    mock_send_confirmation_email, api_client, db, create_user
+    mock_send_confirmation_email, inspire_app
 ):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
-    form_data = deepcopy(CONFERENCE_FORM_DATA)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        form_data = deepcopy(CONFERENCE_FORM_DATA)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     assert response.status_code == 201
     mock_send_confirmation_email.assert_not_called()
@@ -1179,16 +1227,17 @@ def test_confirmation_email_not_sent_when_user_is_cataloger(
 
 @patch("inspirehep.submissions.views.send_conference_confirmation_email")
 def test_confirmation_email_sent_for_regular_user(
-    mock_send_confirmation_email, api_client, db, create_user
+    mock_send_confirmation_email, inspire_app
 ):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    form_data = deepcopy(CONFERENCE_FORM_DATA)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        form_data = deepcopy(CONFERENCE_FORM_DATA)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     conference_rec = ConferencesRecord.get_record_by_pid_value(
         response.json["pid_value"]
@@ -1198,18 +1247,17 @@ def test_confirmation_email_sent_for_regular_user(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_conference_with_country_official_name(
-    ticket_mock, api_client, db, create_user
-):
+def test_conference_with_country_official_name(ticket_mock, inspire_app):
     CZECH_CONFERENCE_FORM_DATA = deepcopy(CONFERENCE_FORM_DATA)
     CZECH_CONFERENCE_FORM_DATA["addresses"][0]["country"] = "Czech Republic"
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": CZECH_CONFERENCE_FORM_DATA}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": CZECH_CONFERENCE_FORM_DATA}),
+        )
 
     assert response.status_code == 201
 
@@ -1222,16 +1270,17 @@ def test_conference_with_country_official_name(
 
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
-def test_conference_raise_loader_error(ticket_mock, api_client, db, create_user):
+def test_conference_raise_loader_error(ticket_mock, inspire_app):
     DATA = deepcopy(CONFERENCE_FORM_DATA)
     DATA["addresses"][0]["country"] = "Graham City"
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
-    response = api_client.post(
-        "/submissions/conferences",
-        content_type="application/json",
-        data=json.dumps({"data": DATA}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/conferences",
+            content_type="application/json",
+            data=json.dumps({"data": DATA}),
+        )
     assert response.status_code == 400
 
 
@@ -1292,36 +1341,39 @@ SEMINAR_FORM_DATA = {
 }
 
 
-def test_get_seminar_update_data(api_client, db, create_user, create_record_factory):
+def test_get_seminar_update_data(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
 
     seminar_data = {"control_number": 123, **SEMINAR_RECORD_DATA}
     create_record_factory("sem", data=seminar_data)
     expected_data = {"data": SEMINAR_FORM_DATA}
-    response = api_client.get(
-        "/submissions/seminars/123", headers={"Accept": "application/json"}
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(
+            "/submissions/seminars/123", headers={"Accept": "application/json"}
+        )
     response_data = json.loads(response.data)
 
     assert response_data == expected_data
 
 
-def test_get_seminar_update_data_not_found(api_client, db, create_user):
+def test_get_seminar_update_data_not_found(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
 
-    response = api_client.get(
-        "/submissions/seminars/1993", headers={"Accept": "application/json"}
-    )
+        response = client.get(
+            "/submissions/seminars/1993", headers={"Accept": "application/json"}
+        )
 
     assert response.status_code == 404
 
 
-def test_get_seminar_update_data_requires_auth(api_client):
-    response = api_client.get(
-        "/submissions/seminars/1993", headers={"Accept": "application/json"}
-    )
+def test_get_seminar_update_data_requires_auth(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/submissions/seminars/1993", headers={"Accept": "application/json"}
+        )
 
     assert response.status_code == 401
 
@@ -1329,19 +1381,19 @@ def test_get_seminar_update_data_requires_auth(api_client):
 @patch("inspirehep.submissions.views.send_seminar_confirmation_email")
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_seminar_submission(
-    create_ticket_mock, send_confirmation_mock, api_client, db, create_user
+    create_ticket_mock, send_confirmation_mock, inspire_app
 ):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
-    login_user_via_session(api_client, email=user.email)
 
     form_data = deepcopy(SEMINAR_FORM_DATA)
-
-    response = api_client.post(
-        "/submissions/seminars",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.post(
+            "/submissions/seminars",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     assert response.status_code == 201
 
@@ -1363,19 +1415,19 @@ def test_new_seminar_submission(
 @patch("inspirehep.submissions.views.send_seminar_confirmation_email")
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_new_seminar_submission_with_cataloger_login(
-    create_ticket_mock, send_confirmation_mock, api_client, db, create_user
+    create_ticket_mock, send_confirmation_mock, inspire_app
 ):
     orcid = "0000-0001-5109-3700"
     cataloger = create_user(role=Roles.cataloger.value, orcid=orcid)
-    login_user_via_session(api_client, email=cataloger.email)
 
     form_data = deepcopy(SEMINAR_FORM_DATA)
-
-    response = api_client.post(
-        "/submissions/seminars",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.post(
+            "/submissions/seminars",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
 
     assert response.status_code == 201
 
@@ -1396,11 +1448,10 @@ def test_new_seminar_submission_with_cataloger_login(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_seminar_update_submission(
-    create_ticket_mock, api_client, db, create_user, create_record_factory
+    create_ticket_mock, inspire_app
 ):
     orcid = "0000-0001-5109-3700"
     user = create_user(orcid=orcid)
-    login_user_via_session(api_client, email=user.email)
 
     seminar_data = {
         "control_number": 123,
@@ -1414,12 +1465,13 @@ def test_seminar_update_submission(
 
     expected_record_data = {**SEMINAR_RECORD_DATA, "title": {"title": "New name"}}
     expected_record_data.pop("address")
-
-    response = api_client.put(
-        "/submissions/seminars/123",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            "/submissions/seminars/123",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
     assert response.status_code == 200
 
     payload = json.loads(response.data)
@@ -1437,10 +1489,9 @@ def test_seminar_update_submission(
 
 @patch("inspirehep.submissions.views.async_create_ticket_with_template")
 def test_seminar_update_submission_with_cataloger_login(
-    create_ticket_mock, api_client, db, create_user, create_record_factory
+    create_ticket_mock, inspire_app
 ):
     cataloger = create_user(role=Roles.cataloger.value, orcid="0000-0002-6665-4934")
-    login_user_via_session(api_client, email=cataloger.email)
     orcid = "0000-0001-5109-3700"
 
     seminar_data = {
@@ -1455,12 +1506,13 @@ def test_seminar_update_submission_with_cataloger_login(
 
     expected_record_data = {**SEMINAR_RECORD_DATA, "title": {"title": "New name"}}
     expected_record_data.pop("address")
-
-    response = api_client.put(
-        "/submissions/seminars/123",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=cataloger.email)
+        response = client.put(
+            "/submissions/seminars/123",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
     assert response.status_code == 200
 
     payload = json.loads(response.data)
@@ -1477,8 +1529,7 @@ def test_seminar_update_submission_with_cataloger_login(
 
     create_ticket_mock.assert_not_called()
 
-
-def test_seminar_update_submission_without_login(api_client, db, create_record_factory):
+def test_seminar_update_submission_without_login(inspire_app):
     seminar_data = {
         "control_number": 123,
         "acquisition_source": {"orcid": "0000-0001-5109-3700"},
@@ -1487,20 +1538,17 @@ def test_seminar_update_submission_without_login(api_client, db, create_record_f
     create_record_factory("sem", data=seminar_data)
 
     form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
-
-    response = api_client.put(
-        "/submissions/seminars/123",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        response = client.put(
+            "/submissions/seminars/123",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
     assert response.status_code == 401
 
 
-def test_seminar_update_submission_with_different_user(
-    api_client, db, create_user, create_record_factory
-):
+def test_seminar_update_submission_with_different_user(inspire_app):
     user = create_user()
-    login_user_via_session(api_client, email=user.email)
 
     seminar_data = {
         "control_number": 123,
@@ -1510,10 +1558,11 @@ def test_seminar_update_submission_with_different_user(
     create_record_factory("sem", data=seminar_data)
 
     form_data = deepcopy({**SEMINAR_FORM_DATA, "name": "New name"})
-
-    response = api_client.put(
-        "/submissions/seminars/123",
-        content_type="application/json",
-        data=json.dumps({"data": form_data}),
-    )
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.put(
+            "/submissions/seminars/123",
+            content_type="application/json",
+            data=json.dumps({"data": form_data}),
+        )
     assert response.status_code == 403

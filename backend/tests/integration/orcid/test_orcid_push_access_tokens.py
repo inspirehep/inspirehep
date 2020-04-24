@@ -33,7 +33,7 @@ from inspirehep.orcid import push_access_tokens
 pytestmark = pytest.mark.random_order(disabled=True)
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("inspire_app")
 class c(object):
     def test_single_token(self):
         orcid = "0000-0003-4792-9178"
@@ -89,7 +89,7 @@ class TestOrcidInvalidTokensCacheBase(object):
         push_access_tokens.CACHE_EXPIRE = self.CACHE_EXPIRE_ORIG
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("inspire_app")
 class TestOrcidInvalidTokensCache(TestOrcidInvalidTokensCacheBase):
     def test_write_invalid_token(self):
         self.cache.write_invalid_token(self.orcid)
@@ -103,7 +103,7 @@ class TestOrcidInvalidTokensCache(TestOrcidInvalidTokensCacheBase):
         assert not self.cache.does_invalid_token_exist()
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("inspire_app")
 class TestIsAccessTokenInvalid(TestOrcidInvalidTokensCacheBase):
     def test_invalid(self):
         self.cache.write_invalid_token(self.orcid)
@@ -113,7 +113,7 @@ class TestIsAccessTokenInvalid(TestOrcidInvalidTokensCacheBase):
         assert not push_access_tokens.is_access_token_invalid("nonexisting")
 
 
-@pytest.mark.usefixtures("base_app", "db", "es")
+@pytest.mark.usefixtures("inspire_app")
 class TestDeleteAccessToken(TestOrcidInvalidTokensCacheBase):
     def setup(self):
         self.orcid = "0000-0003-4792-9178"

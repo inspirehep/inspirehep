@@ -8,6 +8,7 @@
 import pytest
 from flask import render_template
 from invenio_accounts.models import User
+from invenio_db import db
 from invenio_oauthclient.models import UserIdentity
 from mock import patch
 
@@ -19,7 +20,7 @@ from inspirehep.mailing.api.jobs import (
 )
 
 
-def test_jobs_from_last_week(base_app, db, es_clear, create_jobs):
+def test_jobs_from_last_week(create_jobs):
     expected_control_numbers = [1444586, 1468124, 1616162]
 
     results = get_jobs_from_last_week()
@@ -27,16 +28,14 @@ def test_jobs_from_last_week(base_app, db, es_clear, create_jobs):
     assert expected_control_numbers == results_control_numbers
 
 
-def test_jobs_from_last_week_empty(base_app, db, es_clear):
+def test_jobs_from_last_week_empty(inspire_app):
     expected_control_numbers = []
 
     results = get_jobs_from_last_week()
     assert expected_control_numbers == []
 
 
-def test_render_jobs_weekly_campaign_job_record_template_only(
-    base_app, db, es_clear, create_jobs
-):
+def test_render_jobs_weekly_campaign_job_record_template_only(create_jobs):
     jobs = get_jobs_from_last_week()
     # Comparing strings is tricky especially with newlines, we're not going to test the whole template,
     # anyway it has a lot of extras from mailchimp and too much noise
@@ -54,17 +53,17 @@ def test_render_jobs_weekly_campaign_job_record_template_only(
 
 
 @pytest.mark.vrc()
-def test_subscirbe_to_the_list(base_app, db, es_clear, vcr_cassette):
+def test_subscirbe_to_the_list(inspire_app, vcr_cassette):
     result = subscribe_to_jobs_weekly_list("luke@cage.com", "Luke", "Cage")
     assert vcr_cassette.all_played
 
 
-def test_subscirbe_to_the_list_with_invalid_email(base_app, db, es_clear):
+def test_subscirbe_to_the_list_with_invalid_email(inspire_app):
     with pytest.raises(ValueError):
         subscribe_to_jobs_weekly_list("luke", "Luke", "Cage")
 
 
-def test_get_job_recipient_no_internal_uid(base_app, db, es_clear):
+def test_get_job_recipient_no_internal_uid(inspire_app):
     expected_email = "somebody@cern.ch"
     job = {
         "acquisition_source": {
@@ -79,7 +78,7 @@ def test_get_job_recipient_no_internal_uid(base_app, db, es_clear):
     assert email == expected_email
 
 
-def test_get_job_recipient_internal_uid(base_app, db, es_clear):
+def test_get_job_recipient_internal_uid(inspire_app):
     expected_email = "somebody@cern.ch"
 
     user = User()
@@ -109,7 +108,7 @@ def test_get_job_recipient_internal_uid(base_app, db, es_clear):
 
 @patch("inspirehep.mailing.api.jobs.send_email")
 def test_send_email_to_contact_details_without_putting_it_in_cc(
-    mock_send_email, base_app, db, es_clear
+    mock_send_email, inspire_app
 ):
     expected_recipient = "rcg6p@virginia.edu"
     expected_cc = "rkh6j@virginia.edu"
@@ -132,7 +131,7 @@ def test_send_email_to_contact_details_without_putting_it_in_cc(
 
 @patch("inspirehep.mailing.api.jobs.send_email")
 def test_regression_send_email_doesnt_fail_when_contact_details_has_no_email(
-    mock_send_email, base_app, db, es_clear
+    mock_send_email, inspire_app
 ):
     expected_recipient = "rcg6p@virginia.edu"
     expected_cc = []

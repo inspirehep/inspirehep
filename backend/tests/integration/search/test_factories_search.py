@@ -4,7 +4,8 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
+from flask import current_app
+from helpers.utils import override_config
 from mock import MagicMock, patch
 
 from inspirehep.search.api import InspireSearch, LiteratureSearch
@@ -18,7 +19,7 @@ from inspirehep.search.factories.search import (
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_headers(
-    base_app
+    inspire_app
 ):
     config = {
         "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": {
@@ -32,9 +33,7 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_head
         },
     }
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    with patch.dict(base_app.config, config), base_app.test_request_context(
-        headers=headers
-    ):
+    with override_config(**config), current_app.test_request_context(headers=headers):
         search = LiteratureSearch()
         search = get_search_with_source(search)
 
@@ -49,7 +48,7 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_defined_head
 
 
 def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_headers(
-    base_app
+    inspire_app
 ):
     config = {
         "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": {
@@ -60,9 +59,7 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_
         },
     }
     headers = {"Accept": "application/json"}
-    with patch.dict(base_app.config, config), base_app.test_request_context(
-        headers=headers
-    ):
+    with override_config(**config), current_app.test_request_context(headers=headers):
         search = LiteratureSearch()
         search = get_search_with_source(search)
 
@@ -70,12 +67,14 @@ def test_get_search_with_source_with_LiteratureSearch_instance_with_not_defined_
         assert "_source" not in search_to_dict
 
 
-def test_get_search_with_source_with_LiteratureSearch_instance_without_config(base_app):
+def test_get_search_with_source_with_LiteratureSearch_instance_without_config(
+    inspire_app
+):
     config = {
         "LITERATURE_SOURCE_INCLUDES_BY_CONTENT_TYPE": None,
         "LITERATURE_SOURCE_EXCLUDES_BY_CONTENT_TYPE": None,
     }
-    with patch.dict(base_app.config, config), base_app.test_request_context():
+    with override_config(**config), current_app.test_request_context():
         search = LiteratureSearch()
         search = get_search_with_source(search)
 
@@ -83,8 +82,8 @@ def test_get_search_with_source_with_LiteratureSearch_instance_without_config(ba
         assert "_source" not in search_to_dict
 
 
-def test_search_factory_with_query(base_app):
-    with base_app.test_request_context("?q=foo"):
+def test_search_factory_with_query(inspire_app):
+    with current_app.test_request_context("?q=foo"):
         search = InspireSearch()
         expected_query_string = "foo"
         expected_search_to_dict = {
@@ -98,8 +97,8 @@ def test_search_factory_with_query(base_app):
         assert expected_search_to_dict == search_to_dict
 
 
-def test_search_factory_with_query_has_operator_AND(base_app):
-    with base_app.test_request_context("?q=foo"):
+def test_search_factory_with_query_has_operator_AND(inspire_app):
+    with current_app.test_request_context("?q=foo"):
         search = InspireSearch()
         expected_query_string = "foo"
         expected_search_to_dict = {
@@ -113,8 +112,8 @@ def test_search_factory_with_query_has_operator_AND(base_app):
         assert expected_search_to_dict == search_to_dict
 
 
-def test_search_factory_without_query(base_app):
-    with base_app.test_request_context(""):
+def test_search_factory_without_query(inspire_app):
+    with current_app.test_request_context(""):
         search = InspireSearch()
         expected_query_string = ""
         expected_search_to_dict = {"query": {"match_all": {}}, "track_total_hits": True}
@@ -125,7 +124,7 @@ def test_search_factory_without_query(base_app):
         assert expected_search_to_dict == search_to_dict
 
 
-def test_search_factory_with_aggs_with_query(base_app):
+def test_search_factory_with_aggs_with_query(inspire_app):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -134,9 +133,7 @@ def test_search_factory_with_aggs_with_query(base_app):
         "post_filters": {"type": mock_post_filter("type")},
     }
     config = {"RECORDS_REST_FACETS": {"*": facets}}
-    with patch.dict(base_app.config, config), base_app.test_request_context(
-        "?q=foo&type=bar"
-    ):
+    with override_config(**config), current_app.test_request_context("?q=foo&type=bar"):
         search = InspireSearch()
         search, urlkwargs = search_factory_with_aggs(None, search)
         search_to_dict = search.to_dict()
@@ -151,7 +148,7 @@ def test_search_factory_with_aggs_with_query(base_app):
         assert "post_filter" in search_to_dict
 
 
-def test_search_factory_with_aggs_without_query(base_app):
+def test_search_factory_with_aggs_without_query(inspire_app):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -160,7 +157,7 @@ def test_search_factory_with_aggs_without_query(base_app):
         "post_filters": {"type": mock_post_filter("type")},
     }
     config = {"RECORDS_REST_FACETS": {"*": facets}}
-    with patch.dict(base_app.config, config), base_app.test_request_context(""):
+    with override_config(**config), current_app.test_request_context(""):
         search = InspireSearch()
         search, urlkwargs = search_factory_with_aggs(None, search)
         search_to_dict = search.to_dict()
@@ -170,7 +167,7 @@ def test_search_factory_with_aggs_without_query(base_app):
         assert "post_filter" not in search_to_dict
 
 
-def test_search_factory_without_aggs_with_query(base_app):
+def test_search_factory_without_aggs_with_query(inspire_app):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -179,9 +176,7 @@ def test_search_factory_without_aggs_with_query(base_app):
         "post_filters": {"type": mock_post_filter("type")},
     }
     config = {"RECORDS_REST_FACETS": {"*": facets}}
-    with patch.dict(base_app.config, config), base_app.test_request_context(
-        "?q=foo&type=bar"
-    ):
+    with override_config(**config), current_app.test_request_context("?q=foo&type=bar"):
         search = InspireSearch()
         search, urlkwargs = search_factory_without_aggs(None, search)
         search_to_dict = search.to_dict()
@@ -196,7 +191,7 @@ def test_search_factory_without_aggs_with_query(base_app):
         assert "post_filter" in search_to_dict
 
 
-def test_search_factory_without_aggs_without_query(base_app):
+def test_search_factory_without_aggs_without_query(inspire_app):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -205,7 +200,7 @@ def test_search_factory_without_aggs_without_query(base_app):
         "post_filters": {"type": mock_post_filter("type")},
     }
     config = {"RECORDS_REST_FACETS": {"*": facets}}
-    with patch.dict(base_app.config, config), base_app.test_request_context(""):
+    with override_config(**config), current_app.test_request_context(""):
         search = InspireSearch()
         search, urlkwargs = search_factory_without_aggs(None, search)
         search_to_dict = search.to_dict()
@@ -215,7 +210,7 @@ def test_search_factory_without_aggs_without_query(base_app):
         assert "post_filter" not in search_to_dict
 
 
-def test_search_factory_only_with_aggs(base_app):
+def test_search_factory_only_with_aggs(inspire_app):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -224,9 +219,7 @@ def test_search_factory_only_with_aggs(base_app):
         "post_filters": {"type": mock_post_filter("type")},
     }
     config = {"RECORDS_REST_FACETS": {"*": facets}}
-    with patch.dict(base_app.config, config), base_app.test_request_context(
-        "?q=foo&type=bar"
-    ):
+    with override_config(**config), current_app.test_request_context("?q=foo&type=bar"):
         search = InspireSearch()
         search, urlkwargs = search_factory_only_with_aggs(None, search)
         search_to_dict = search.to_dict()
@@ -241,7 +234,7 @@ def test_search_factory_only_with_aggs(base_app):
         assert "post_filter" in search_to_dict
 
 
-def test_search_factory_only_with_aggs_without_query(base_app):
+def test_search_factory_only_with_aggs_without_query(inspire_app):
     mock_filter = MagicMock()
     mock_post_filter = MagicMock()
     facets = {
@@ -250,7 +243,7 @@ def test_search_factory_only_with_aggs_without_query(base_app):
         "post_filters": {"type": mock_post_filter("type")},
     }
     config = {"RECORDS_REST_FACETS": {"*": facets}}
-    with patch.dict(base_app.config, config), base_app.test_request_context(""):
+    with override_config(**config), current_app.test_request_context(""):
         search = InspireSearch()
         search, urlkwargs = search_factory_only_with_aggs(None, search)
         search_to_dict = search.to_dict()

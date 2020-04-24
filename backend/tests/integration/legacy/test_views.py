@@ -5,13 +5,14 @@
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
 
-from mock import patch
+from helpers.utils import create_record
 
 
-def test_redirects_records_from_legacy_url(api_client, db, es_clear, create_record):
+def test_redirects_records_from_legacy_url(inspire_app):
     create_record("lit", data={"control_number": 777})
 
-    response = api_client.get("/record/777")
+    with inspire_app.test_client() as client:
+        response = client.get("/record/777")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -22,20 +23,21 @@ def test_redirects_records_from_legacy_url(api_client, db, es_clear, create_reco
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_non_existing_records_from_legacy_url(api_client, db, es_clear):
-    response = api_client.get("/record/111")
+def test_redirects_non_existing_records_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/record/111")
 
     assert response.status_code == 404
 
 
-def test_redirects_authors_from_legacy_url(api_client, db, es_clear, create_record):
+def test_redirects_authors_from_legacy_url(inspire_app):
     author_data = {
         "control_number": 333,
         "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
     }
     create_record("aut", data=author_data)
-
-    response = api_client.get("/author/Frank.Castle.1")
+    with inspire_app.test_client() as client:
+        response = client.get("/author/Frank.Castle.1")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -46,16 +48,14 @@ def test_redirects_authors_from_legacy_url(api_client, db, es_clear, create_reco
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_author_profile_from_legacy_url(
-    api_client, db, es_clear, create_record
-):
+def test_redirects_author_profile_from_legacy_url(inspire_app):
     author_data = {
         "control_number": 333,
         "ids": [{"schema": "INSPIRE BAI", "value": "Frank.Castle.1"}],
     }
     create_record("aut", data=author_data)
-
-    response = api_client.get("/author/profile/Frank.Castle.1")
+    with inspire_app.test_client() as client:
+        response = client.get("/author/profile/Frank.Castle.1")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -66,14 +66,16 @@ def test_redirects_author_profile_from_legacy_url(
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_non_existing_authors_from_legacy_url(api_client, db, es_clear):
-    response = api_client.get("/author/profile/Little.Jimmy.1")
+def test_redirects_non_existing_authors_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/author/profile/Little.Jimmy.1")
 
     assert response.status_code == 404
 
 
-def test_redirects_claims_from_legacy_url(base_app, api_client, db, es_clear):
-    response = api_client.get("/author/claim/G.Aad.1")
+def test_redirects_claims_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/author/claim/G.Aad.1")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -84,10 +86,11 @@ def test_redirects_claims_from_legacy_url(base_app, api_client, db, es_clear):
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_merge_profiles_from_legacy_url(base_app, api_client, db, es_clear):
-    response = api_client.get(
-        "/author/merge_profiles?search_param=Aad&primary_profile=G.Aad.1"
-    )
+def test_redirects_merge_profiles_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/author/merge_profiles?search_param=Aad&primary_profile=G.Aad.1"
+        )
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -98,8 +101,9 @@ def test_redirects_merge_profiles_from_legacy_url(base_app, api_client, db, es_c
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_manage_profile_from_legacy_url(base_app, api_client, db, es_clear):
-    response = api_client.get("/author/manage_profile/J.A.Bagger.1")
+def test_redirects_manage_profile_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/author/manage_profile/J.A.Bagger.1")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -112,8 +116,9 @@ def test_redirects_manage_profile_from_legacy_url(base_app, api_client, db, es_c
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_query_from_legacy_url(api_client, db, es_clear):
-    response = api_client.get("/search?cc=HepNames&p=witten")
+def test_redirects_query_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/search?cc=HepNames&p=witten")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -124,8 +129,9 @@ def test_redirects_query_from_legacy_url(api_client, db, es_clear):
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_query_from_legacy_url_with_empty_query(api_client, db, es_clear):
-    response = api_client.get("/search?cc=HEP")
+def test_redirects_query_from_legacy_url_with_empty_query(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/search?cc=HEP")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -136,10 +142,9 @@ def test_redirects_query_from_legacy_url_with_empty_query(api_client, db, es_cle
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_query_from_legacy_url_not_in_labs(
-    base_app, api_client, db, es_clear
-):
-    response = api_client.get("/search?cc=Institutions&p=CERN&whatever=something")
+def test_redirects_query_from_legacy_url_not_in_labs(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/search?cc=Institutions&p=CERN&whatever=something")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -152,8 +157,9 @@ def test_redirects_query_from_legacy_url_not_in_labs(
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_collections_from_legacy_url(api_client, db, es_clear):
-    response = api_client.get("/collection/HepNames")
+def test_redirects_collections_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/collection/HepNames")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -164,10 +170,9 @@ def test_redirects_collections_from_legacy_url(api_client, db, es_clear):
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_collections_from_legacy_url_not_in_labs(
-    base_app, api_client, db, es_clear
-):
-    response = api_client.get("/collection/Institutions")
+def test_redirects_collections_from_legacy_url_not_in_labs(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/collection/Institutions")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")
@@ -178,8 +183,9 @@ def test_redirects_collections_from_legacy_url_not_in_labs(
     assert response_location_header == expected_redirect_url
 
 
-def test_redirects_info_from_legacy_url(base_app, api_client, db, es_clear):
-    response = api_client.get("/info/hep/api")
+def test_redirects_info_from_legacy_url(inspire_app):
+    with inspire_app.test_client() as client:
+        response = client.get("/info/hep/api")
 
     response_status_code = response.status_code
     response_location_header = response.headers.get("Location")

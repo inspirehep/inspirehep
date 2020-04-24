@@ -7,15 +7,12 @@
 import json
 import urllib
 
-from helpers.providers.faker import faker
-from invenio_accounts.testutils import login_user_via_session
+from helpers.utils import create_record
 
 from inspirehep.search.api import AuthorsSearch, LiteratureSearch
 
 
-def test_literature_get_records_by_pids_returns_correct_record(
-    base_app, db, es_clear, create_record
-):
+def test_literature_get_records_by_pids_returns_correct_record(inspire_app):
     record1 = create_record("lit")
     record1_control_number = record1["control_number"]
     record2 = create_record("lit")
@@ -36,20 +33,22 @@ def test_literature_get_records_by_pids_returns_correct_record(
         assert rec.to_dict()["control_number"] in expected_control_numbers
 
 
-def test_empty_literature_search(api_client, db, es_clear, create_record):
+def test_empty_literature_search(inspire_app):
     create_record("lit")
     create_record("lit")
-    response = api_client.get("api/literature")
+    with inspire_app.test_client() as client:
+        response = client.get("api/literature")
 
     expected_results_count = 2
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_literature_search_with_parameter(api_client, db, es_clear, create_record):
+def test_literature_search_with_parameter(inspire_app):
     record1 = create_record("lit")
     create_record("lit")
     record1_control_number = record1["control_number"]
-    response = api_client.get(f"api/literature?q={record1_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"api/literature?q={record1_control_number}")
 
     expected_results_count = 1
     assert expected_results_count == len(response.json["hits"]["hits"])
@@ -59,20 +58,22 @@ def test_literature_search_with_parameter(api_client, db, es_clear, create_recor
     )
 
 
-def test_empty_authors_search(api_client, db, es_clear, create_record):
+def test_empty_authors_search(inspire_app):
     create_record("aut")
     create_record("aut")
-    response = api_client.get("api/authors")
+    with inspire_app.test_client() as client:
+        response = client.get("api/authors")
 
     expected_results_count = 2
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_authors_search_with_parameter(api_client, db, es_clear, create_record):
+def test_authors_search_with_parameter(inspire_app):
     record1 = create_record("aut")
     create_record("aut")
     record1_control_number = record1["control_number"]
-    response = api_client.get(f"api/authors?q={record1_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"api/authors?q={record1_control_number}")
 
     expected_results_count = 1
     assert expected_results_count == len(response.json["hits"]["hits"])
@@ -82,14 +83,14 @@ def test_authors_search_with_parameter(api_client, db, es_clear, create_record):
     )
 
 
-def test_empty_authors_search_query(api_client, db, es_clear, create_record):
+def test_empty_authors_search_query(inspire_app):
     query_to_dict = AuthorsSearch().query_from_iq("").to_dict()
 
     expexted_query = {"query": {"match_all": {}}, "track_total_hits": True}
     assert expexted_query == query_to_dict
 
 
-def test_authors_search_query(api_client, db, es_clear, create_record):
+def test_authors_search_query(inspire_app):
     query_to_dict = AuthorsSearch().query_from_iq("J Ellis").to_dict()
 
     expexted_query = {
@@ -107,22 +108,24 @@ def test_authors_search_query(api_client, db, es_clear, create_record):
     assert expexted_query == query_to_dict
 
 
-def test_empty_jobs_search(api_client, db, es_clear, create_record):
+def test_empty_jobs_search(inspire_app):
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "closed"})
-    response = api_client.get("api/jobs")
+    with inspire_app.test_client() as client:
+        response = client.get("api/jobs")
 
     expected_results_count = 2
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_jobs_search_with_parameter(api_client, db, es_clear, create_record):
+def test_jobs_search_with_parameter(inspire_app):
     record1 = create_record("job", data={"status": "open"})
     create_record("job", data={"status": "open"})
     create_record("job", data={"status": "closed"})
     record1_control_number = record1["control_number"]
-    response = api_client.get(f"api/jobs?q={record1_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"api/jobs?q={record1_control_number}")
 
     expected_results_count = 1
     assert expected_results_count == len(response.json["hits"]["hits"])
@@ -132,20 +135,22 @@ def test_jobs_search_with_parameter(api_client, db, es_clear, create_record):
     )
 
 
-def test_empty_conferences_search(api_client, db, es_clear, create_record):
+def test_empty_conferences_search(inspire_app):
     create_record("con")
     create_record("con")
-    response = api_client.get("api/conferences")
+    with inspire_app.test_client() as client:
+        response = client.get("api/conferences")
 
     expected_results_count = 2
     assert expected_results_count == len(response.json["hits"]["hits"])
 
 
-def test_conferences_search_with_parameter(api_client, db, es_clear, create_record):
+def test_conferences_search_with_parameter(inspire_app):
     record1 = create_record("con")
     create_record("con")
     record1_control_number = record1["control_number"]
-    response = api_client.get(f"api/conferences?q={record1_control_number}")
+    with inspire_app.test_client() as client:
+        response = client.get(f"api/conferences?q={record1_control_number}")
 
     expected_results_count = 1
     assert expected_results_count == len(response.json["hits"]["hits"])
@@ -155,7 +160,7 @@ def test_conferences_search_with_parameter(api_client, db, es_clear, create_reco
     )
 
 
-def test_citations_query_result(api_client, db, es_clear, create_record):
+def test_citations_query_result(inspire_app):
     record_control_number = 12345
     # create self_citation
     record_cited = create_record(
@@ -166,15 +171,17 @@ def test_citations_query_result(api_client, db, es_clear, create_record):
     # create correct citation
     record_citing = create_record("lit", literature_citations=[record_control_number])
 
-    response = api_client.get(f"api/literature/{record_control_number}/citations")
+    with inspire_app.test_client() as client:
+        response = client.get(f"api/literature/{record_control_number}/citations")
 
     assert response.json["metadata"]["citation_count"] == 1
     citation = response.json["metadata"]["citations"][0]
     assert citation["control_number"] == record_citing["control_number"]
 
 
-def test_big_query_execute_without_recursion_depth_exception(api_client, db, es_clear):
+def test_big_query_execute_without_recursion_depth_exception(inspire_app):
     query = {"q": "find a name" + " or a name" * 300}
     url = "api/literature?" + urllib.parse.urlencode(query)
-    response = api_client.get(url)
+    with inspire_app.test_client() as client:
+        response = client.get(url)
     assert response.status_code == 200

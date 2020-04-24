@@ -6,7 +6,7 @@ from inspirehep.mailing.api.conferences import send_conference_confirmation_emai
 
 
 @patch("inspirehep.mailing.api.conferences.send_email")
-def test_send_conferences_confirmation_email(mock_send_email, base_app, db, es_clear):
+def test_send_conferences_confirmation_email(mock_send_email, inspire_app):
     expected_recipient = "johndoe@gmail.com"
     conference = {"control_number": "1234"}
     expected_subject = "Your conference(1234) has been successfully submitted!"

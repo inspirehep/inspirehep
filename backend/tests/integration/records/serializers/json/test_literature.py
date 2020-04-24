@@ -11,6 +11,12 @@ from uuid import UUID
 import mock
 from flask import current_app
 from helpers.providers.faker import faker
+from helpers.utils import (
+    create_record,
+    create_record_factory,
+    create_user,
+    override_config,
+)
 from invenio_accounts.testutils import login_user_via_session
 
 from inspirehep.accounts.roles import Roles
@@ -19,7 +25,7 @@ from inspirehep.records.marshmallow.literature import LiteratureDetailSchema
 
 
 @mock.patch("inspirehep.records.api.literature.uuid.uuid4")
-def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record, redis):
+def test_literature_authors_json(mock_uuid4, inspire_app):
     mock_uuid4.return_value = UUID("727238f3-8ed6-40b6-97d2-dc3cd1429131")
     headers = {"Accept": "application/json"}
     full_name_1 = "Tanner Walker"
@@ -42,9 +48,10 @@ def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record, 
         ],
         "collaborations": [{"value": "ATLAS"}],
     }
-    response = api_client.get(
-        f"/literature/{record_control_number}/authors", headers=headers
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record_control_number}/authors", headers=headers
+        )
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -54,7 +61,7 @@ def test_literature_authors_json(mock_uuid4, api_client, db, es, create_record, 
     assert expected_result == response_data_metadata
 
 
-def test_literature_json_without_login(api_client, db, es, create_record):
+def test_literature_json_without_login(inspire_app):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -100,7 +107,8 @@ def test_literature_json_without_login(api_client, db, es, create_record):
     }
     expected_id = str(record["control_number"])
 
-    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -112,11 +120,8 @@ def test_literature_json_without_login(api_client, db, es, create_record):
     assert response_data["updated"] is not None
 
 
-def test_literature_json_with_logged_in_cataloger(
-    api_client, db, es, create_user, create_record
-):
+def test_literature_json_with_logged_in_cataloger(inspire_app):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
 
@@ -177,8 +182,9 @@ def test_literature_json_with_logged_in_cataloger(
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
     }
-
-    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -191,7 +197,7 @@ def test_literature_json_with_logged_in_cataloger(
     assert response_data["updated"] is not None
 
 
-def test_literature_search_json_without_login(api_client, db, es, create_record):
+def test_literature_search_json_without_login(inspire_app):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -235,8 +241,8 @@ def test_literature_search_json_without_login(api_client, db, es, create_record)
     }
     expected_result_len = 1
     expected_id = str(record["control_number"])
-
-    response = api_client.get("/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -255,11 +261,8 @@ def test_literature_search_json_without_login(api_client, db, es, create_record)
     assert response_data_hits_updated is not None
 
 
-def test_literature_search_json_with_cataloger_login(
-    api_client, db, es, create_user, create_record
-):
+def test_literature_search_json_with_cataloger_login(inspire_app):
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
 
     headers = {"Accept": "application/json"}
 
@@ -317,8 +320,9 @@ def test_literature_search_json_with_cataloger_login(
         "author_count": 0,
     }
     expected_result_len = 1
-
-    response = api_client.get("/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -331,7 +335,7 @@ def test_literature_search_json_with_cataloger_login(
     assert expected_result == response_data_hits_metadata
 
 
-def test_literature_detail(api_client, db, es, create_record):
+def test_literature_detail(inspire_app):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit", data={"preprint_date": "2001-01-01"})
     record_control_number = record["control_number"]
@@ -349,7 +353,8 @@ def test_literature_detail(api_client, db, es, create_record):
         "citation_count": 0,
         "citation_count_without_self_citations": 0,
     }
-    response = api_client.get(f"/literature/{record_control_number}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{record_control_number}", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -367,7 +372,7 @@ def test_literature_detail(api_client, db, es, create_record):
     assert response_data_updated is not None
 
 
-def test_literature_list(api_client, db, es, create_record):
+def test_literature_list(inspire_app):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit", data={"preprint_date": "2001-01-01"})
 
@@ -375,8 +380,8 @@ def test_literature_list(api_client, db, es, create_record):
     expected_status_code = 200
     expected_title = record["titles"][0]["title"]
     expected_date = "Jan 1, 2001"
-
-    response = api_client.get("/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
     response_data = json.loads(response.data)
 
@@ -397,9 +402,7 @@ def test_literature_list(api_client, db, es, create_record):
     assert response_data_hits_updated is not None
 
 
-def test_literature_list_with_cataloger_can_edit(
-    api_client, db, es, create_record, create_user
-):
+def test_literature_list_with_cataloger_can_edit(inspire_app):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     record = create_record("lit")
 
@@ -407,9 +410,9 @@ def test_literature_list_with_cataloger_can_edit(
     expected_title = record["titles"][0]["title"]
 
     user = create_user(role=Roles.cataloger.value)
-    login_user_via_session(api_client, email=user.email)
-
-    response = api_client.get("/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        login_user_via_session(client, email=user.email)
+        response = client.get("/literature", headers=headers)
     response_status_code = response.status_code
     response_data = json.loads(response.data)
 
@@ -423,7 +426,7 @@ def test_literature_list_with_cataloger_can_edit(
     assert expected_data_hits["can_edit"] is True
 
 
-def test_literature_list_has_sort_options(api_client, db, es, create_record):
+def test_literature_list_has_sort_options(inspire_app):
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
     create_record("lit")
 
@@ -432,7 +435,8 @@ def test_literature_list_has_sort_options(api_client, db, es, create_record):
         {"value": "mostrecent", "display": "Most Recent"},
         {"value": "mostcited", "display": "Most Cited"},
     ]
-    response = api_client.get("/literature", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get("/literature", headers=headers)
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -443,7 +447,7 @@ def test_literature_list_has_sort_options(api_client, db, es, create_record):
 
 
 def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linked_records(
-    api_client, db, es, create_record
+    inspire_app
 ):
     headers = {"Accept": "application/json"}
     reference_without_link_title = faker.sentence()
@@ -498,10 +502,10 @@ def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linke
         ],
         "references_count": 4,
     }
-
-    response = api_client.get(
-        f"/literature/{record_control_number}/references", headers=headers
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record_control_number}/references", headers=headers
+        )
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -510,7 +514,7 @@ def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linke
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_pagination(api_client, db, es, create_record):
+def test_literature_references_pagination(inspire_app):
     record1 = create_record("lit", data=faker.record("lit"))
     record2 = create_record("lit", data=faker.record("lit"))
     record3 = create_record("lit", data=faker.record("lit"))
@@ -527,10 +531,11 @@ def test_literature_references_pagination(api_client, db, es, create_record):
     )
     record_with_references = create_record("lit", data=data)
     headers = {"Accept": "application/json"}
-    response = api_client.get(
-        f"/literature/{record_with_references['control_number']}/references?page=2&size=2",
-        headers=headers,
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record_with_references['control_number']}/references?page=2&size=2",
+            headers=headers,
+        )
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -546,9 +551,7 @@ def test_literature_references_pagination(api_client, db, es, create_record):
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_pagination_with_size_more_than_results(
-    api_client, db, es, create_record
-):
+def test_literature_references_pagination_with_size_more_than_results(inspire_app):
     record1 = create_record("lit", data=faker.record("lit"))
     record2 = create_record("lit", data=faker.record("lit"))
     record3 = create_record("lit", data=faker.record("lit"))
@@ -565,10 +568,11 @@ def test_literature_references_pagination_with_size_more_than_results(
     )
     record_with_references = create_record("lit", data=data)
     headers = {"Accept": "application/json"}
-    response = api_client.get(
-        f"/literature/{record_with_references['control_number']}/references?page=1&size=100",
-        headers=headers,
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record_with_references['control_number']}/references?page=1&size=100",
+            headers=headers,
+        )
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -586,9 +590,7 @@ def test_literature_references_pagination_with_size_more_than_results(
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_pagination_with_page_with_no_results(
-    api_client, db, es, create_record
-):
+def test_literature_references_pagination_with_page_with_no_results(inspire_app):
     record1 = create_record("lit", data=faker.record("lit"))
     record2 = create_record("lit", data=faker.record("lit"))
     record3 = create_record("lit", data=faker.record("lit"))
@@ -605,10 +607,11 @@ def test_literature_references_pagination_with_page_with_no_results(
     )
     record_with_references = create_record("lit", data=data)
     headers = {"Accept": "application/json"}
-    response = api_client.get(
-        f"/literature/{record_with_references['control_number']}/references?page=100&size=100",
-        headers=headers,
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record_with_references['control_number']}/references?page=100&size=100",
+            headers=headers,
+        )
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -618,25 +621,24 @@ def test_literature_references_pagination_with_page_with_no_results(
     assert expected_result == response_data_metadata
 
 
-def test_literature_references_with_invalid_size(api_client, db, es, create_record):
+def test_literature_references_with_invalid_size(inspire_app):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
-    response = api_client.get(
-        f"/literature/{record['control_number']}/references?size=0", headers=headers
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record['control_number']}/references?size=0", headers=headers
+        )
     response_status_code = response.status_code
     expected_status_code = 400
     assert expected_status_code == response_status_code
 
 
-def test_literature_references_with_size_bigger_than_maximum(
-    api_client, db, es, create_record
-):
+def test_literature_references_with_size_bigger_than_maximum(inspire_app):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
     config = {"MAX_API_RESULTS": 3}
-    with mock.patch.dict(current_app.config, config):
-        response = api_client.get(
+    with override_config(**config), inspire_app.test_client() as client:
+        response = client.get(
             f"/literature/{record['control_number']}/references?size=5", headers=headers
         )
     response_status_code = response.status_code
@@ -647,13 +649,14 @@ def test_literature_references_with_size_bigger_than_maximum(
     assert expected_response == response_data["message"]
 
 
-def test_literature_references_no_references(api_client, db, es, create_record):
+def test_literature_references_no_references(inspire_app):
     record = create_record("lit", data=faker.record("lit"))
     headers = {"Accept": "application/json"}
-    response = api_client.get(
-        f"/literature/{record['control_number']}/references?page=1&size=100",
-        headers=headers,
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{record['control_number']}/references?page=1&size=100",
+            headers=headers,
+        )
     response_status_code = response.status_code
     response_data = json.loads(response.data)
     response_data_metadata = response_data["metadata"]
@@ -663,9 +666,7 @@ def test_literature_references_no_references(api_client, db, es, create_record):
     assert expected_result == response_data_metadata
 
 
-def test_literature_detail_serialize_experiments(
-    es_clear, db, es, datadir, create_record, create_record_factory
-):
+def test_literature_detail_serialize_experiments(inspire_app, datadir):
     data = json.loads((datadir / "1630825.json").read_text())
     record = create_record("lit", data=data)
     experiment_data = {
@@ -709,9 +710,7 @@ def test_literature_detail_serialize_experiments(
     assert dumped_record["accelerator_experiments"] == expected_experiment
 
 
-def test_literature_detail_serializes_conference_info(
-    api_client, db, es, create_record_factory
-):
+def test_literature_detail_serializes_conference_info(inspire_app):
     conference_data = {
         "acronyms": ["SAIP2016"],
         "control_number": 1_423_473,
@@ -764,9 +763,10 @@ def test_literature_detail_serializes_conference_info(
     ]
 
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    response = api_client.get(
-        "/literature/" + str(lit_record.json["control_number"]), headers=headers
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            "/literature/" + str(lit_record.json["control_number"]), headers=headers
+        )
 
     response_status_code = response.status_code
     response_data = json.loads(response.data)
@@ -776,9 +776,7 @@ def test_literature_detail_serializes_conference_info(
     assert response_data_conference_info == expected_conference_info
 
 
-def test_regression_not_throw_on_collaboration_in_reference_without_record(
-    api_client, db, es, create_record
-):
+def test_regression_not_throw_on_collaboration_in_reference_without_record(inspire_app):
     expected_response_metadata = {
         "references": [{"collaborations": [{"value": "CMS"}], "label": "1"}],
         "references_count": 1,
@@ -794,14 +792,15 @@ def test_regression_not_throw_on_collaboration_in_reference_without_record(
     }
     rec = create_record("lit", data=data)
     headers = {"Accept": "application/json"}
-    response = api_client.get(
-        f"/literature/{rec['control_number']}/references", headers=headers
-    )
+    with inspire_app.test_client() as client:
+        response = client.get(
+            f"/literature/{rec['control_number']}/references", headers=headers
+        )
     assert response.status_code == 200
     assert response.json["metadata"] == expected_response_metadata
 
 
-def test_record_fulllinks_in_detail_view(api_client, db, es, create_record):
+def test_record_fulllinks_in_detail_view(inspire_app):
     expected_response_metadata = [
         {"description": "arXiv", "value": "https://arxiv.org/pdf/nucl-th/9310030"},
         {
@@ -816,26 +815,24 @@ def test_record_fulllinks_in_detail_view(api_client, db, es, create_record):
 
     rec = create_record("lit", data=data)
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    response = api_client.get(f"/literature/{rec['control_number']}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
     assert response.json["metadata"]["fulltext_links"] == expected_response_metadata
 
 
-def test_record_no_fulllinks_in_detail_view_when_no_fulltext_links(
-    api_client, db, es, create_record
-):
+def test_record_no_fulllinks_in_detail_view_when_no_fulltext_links(inspire_app):
     data = {}
 
     rec = create_record("lit", data=data)
     headers = {"Accept": "application/vnd+inspire.record.ui+json"}
-    response = api_client.get(f"/literature/{rec['control_number']}", headers=headers)
+    with inspire_app.test_client() as client:
+        response = client.get(f"/literature/{rec['control_number']}", headers=headers)
     assert response.status_code == 200
     assert "fulltext_links" not in response.json["metadata"]
 
 
-def test_literature_search_lowercased_doi_in_references(
-    api_client, db, es, create_record
-):
+def test_literature_search_lowercased_doi_in_references(inspire_app):
     headers = {"Accept": "application/json"}
 
     data = {
@@ -847,15 +844,15 @@ def test_literature_search_lowercased_doi_in_references(
     expected_status_code = 200
     expected_result_len = 1
     expected_doi = "10.1103/PhysRevLett.50.928"
-
-    response1 = api_client.get(
-        "/literature?q=references.reference.dois:10.1103%2Fphysrevlett.50.928",
-        headers=headers,
-    )
-    response2 = api_client.get(
-        "/literature?q=references.reference.dois:10.1103%2FPHYSREVLETT.50.928",
-        headers=headers,
-    )
+    with inspire_app.test_client() as client:
+        response1 = client.get(
+            "/literature?q=references.reference.dois:10.1103%2Fphysrevlett.50.928",
+            headers=headers,
+        )
+        response2 = client.get(
+            "/literature?q=references.reference.dois:10.1103%2FPHYSREVLETT.50.928",
+            headers=headers,
+        )
 
     response1_status_code = response1.status_code
     response1_data = json.loads(response1.data)

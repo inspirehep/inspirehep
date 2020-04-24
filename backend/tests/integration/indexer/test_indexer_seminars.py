@@ -6,14 +6,14 @@
 # the terms of the MIT License; see LICENSE file for more details.
 from copy import deepcopy
 
-from helpers.utils import es_search
+from helpers.utils import create_record, es_search
 from invenio_search import current_search
 from marshmallow import utils
 
 from inspirehep.search.api import SeminarsSearch
 
 
-def test_index_seminars_record(base_app, es_clear, db, datadir, create_record):
+def test_index_seminars_record(inspire_app):
     record = create_record("sem")
 
     expected_count = 1
@@ -27,7 +27,7 @@ def test_index_seminars_record(base_app, es_clear, db, datadir, create_record):
     assert response["hits"]["hits"][0]["_source"] == expected_metadata
 
 
-def test_indexer_deletes_record_from_es(es_clear, db, datadir, create_record):
+def test_indexer_deletes_record_from_es(inspire_app):
     record = create_record("sem")
 
     record["deleted"] = True
