@@ -15,6 +15,15 @@ export const RANK_VALUE_TO_DISPLAY = {
   UNDERGRADUATE: 'Undergrad',
   OTHER: 'Other',
 };
+export const DEGREE_TYPE_TO_DISPLAY = {
+  phd: 'PhD',
+  diploma: 'Diploma',
+  bachelor: 'Bachelor',
+  master: 'Master',
+  habilitation: 'Habilitation',
+  laurea: 'Laurea',
+  other: 'Other',
+};
 
 export const AUTHORS_PID_TYPE = 'authors';
 export const LITERATURE_PID_TYPE = 'literature';

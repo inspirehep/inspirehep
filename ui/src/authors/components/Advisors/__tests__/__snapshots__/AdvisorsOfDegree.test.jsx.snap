@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AdvisorsOfDegree renders other advisors 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Advisors
+    : 
+  </span>
+  <ul>
+    <li
+      key="Yoda"
+    >
+      <Advisor
+        advisor={
+          Immutable.Map {
+            "name": "Yoda",
+          }
+        }
+      />
+      , 
+    </li>
+    <li
+      key="Another Dude"
+    >
+      <Advisor
+        advisor={
+          Immutable.Map {
+            "name": "Another Dude",
+            "degree_type": "other",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AdvisorsOfDegree renders phd advisors 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    PhD Advisors
+    : 
+  </span>
+  <ul>
+    <li
+      key="Yoda"
+    >
+      <Advisor
+        advisor={
+          Immutable.Map {
+            "name": "Yoda",
+            "degree_type": "phd",
+          }
+        }
+      />
+      , 
+    </li>
+    <li
+      key="Another Dude"
+    >
+      <Advisor
+        advisor={
+          Immutable.Map {
+            "name": "Another Dude",
+            "degree_type": "phd",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`AdvisorsOfDegree renders the master advisor 1`] = `
+<div
+  className="__InlineList__"
+>
+  <span
+    className=""
+  >
+    Master Advisor
+    : 
+  </span>
+  <ul>
+    <li
+      key="Yoda"
+    >
+      <Advisor
+        advisor={
+          Immutable.Map {
+            "name": "Yoda",
+            "degree_type": "master",
+          }
+        }
+      />
+    </li>
+  </ul>
+</div>
+`;

@@ -33,6 +33,7 @@ import UserSettingsAction from '../components/UserSettingsAction';
 import withRouteActionsDispatcher from '../../common/withRouteActionsDispatcher';
 import AuthorBAI from '../components/AuthorBAI';
 import CitationsByYearGraphContainer from '../../common/containers/CitationsByYearGraphContainer';
+import Advisors from '../components/Advisors';
 
 function DetailPage({
   record,
@@ -77,6 +78,7 @@ function DetailPage({
   const emails = metadata.get('email_addresses');
   const deleted = metadata.get('deleted', false);
   const bai = metadata.get('bai');
+  const advisors = metadata.get('advisors');
 
   const metaDescription = useMemo(() => getAuthorMetaDescription(metadata), [
     metadata,
@@ -129,6 +131,11 @@ function DetailPage({
                     <ArxivCategoryList arxivCategories={arxivCategories} />
                     <ExperimentList experiments={experiments} />
                     {bai && <AuthorBAI bai={bai} />}
+                    {advisors && (
+                      <div className="mt2">
+                        <Advisors advisors={advisors} />
+                      </div>
+                    )}
                   </Col>
                   <Col xs={24} lg={12}>
                     {shouldDisplayPositions && (

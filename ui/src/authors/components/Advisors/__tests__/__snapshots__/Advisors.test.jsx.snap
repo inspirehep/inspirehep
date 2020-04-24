@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Advisors renders advisors 1`] = `
+Array [
+  <AdvisorsOfDegree
+    advisors={
+      Immutable.List [
+        Immutable.Map {
+          "name": "Degreeless Advisor",
+        },
+        Immutable.Map {
+          "name": "Other Advisor",
+          "degree_type": "other",
+        },
+      ]
+    }
+    degreeType="other"
+  />,
+  <AdvisorsOfDegree
+    advisors={
+      Immutable.List [
+        Immutable.Map {
+          "name": "Master Advisor",
+          "degree_type": "master",
+        },
+      ]
+    }
+    degreeType="master"
+  />,
+  <AdvisorsOfDegree
+    advisors={
+      Immutable.List [
+        Immutable.Map {
+          "name": "PhD Advisor",
+          "degree_type": "phd",
+        },
+        Immutable.Map {
+          "name": "Another PhD Advisor",
+          "degree_type": "phd",
+        },
+      ]
+    }
+    degreeType="phd"
+  />,
+]
+`;
