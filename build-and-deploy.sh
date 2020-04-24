@@ -8,6 +8,7 @@
 
 TAG="${TRAVIS_TAG:-$(git describe --always --tags)}"
 
+DEPLOY_TOKEN="${DEPLOY_QA_TOKEN}"
 LATEST_COMMIT=$(git rev-parse HEAD)
 LATEST_COMMIT_IN_SMOKE_TESTS=$(git log -1 --format=format:%H --full-diff smoke-tests)
 
@@ -61,14 +62,16 @@ logout() {
   retry docker logout
 }
 
-deployQA() {
+deploy() {
   app="${1}"
-  echo "Deploying ${app} ..."
+  env="${2}"
+  echo "Deploying ${app} to ${env}..."
   curl -X POST \
-    -F token=${DEPLOY_QA_TOKEN} \
+    -F token=${DEPLOY_TOKEN} \
     -F ref=master \
     -F variables[APP_NAME]=${app} \
     -F variables[NEW_TAG]=${TAG} \
+    -F variables[ENVIRONMENT]=${env} \
     https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
 }
 
@@ -112,11 +115,13 @@ main() {
   maybeBuildSmokeTests
   logout
   if [ -z "${TRAVIS_TAG}" ]; then
-    deployQA "ui"
-    deployQA "hep"
+    deploy "ui" "qa"
+    deploy "hep" "qa"
     sentryQA
     maybeDeploySmokeTestsQA
   else
+    deploy "ui" "prod"
+    deploy "hep" "prod"
     sentryPROD
   fi
 }
