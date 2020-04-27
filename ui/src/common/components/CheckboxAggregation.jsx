@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
-import { Col, Row } from 'antd';
+import { Col, Row, Checkbox } from 'antd';
 
 import UnclickableTag from './UnclickableTag';
-import CheckboxItem from './CheckboxItem';
 import AggregationBox from './AggregationBox';
 import SecondaryButton from './SecondaryButton';
 import { forceArray } from '../utils';
@@ -125,10 +124,10 @@ class CheckboxAggregation extends Component {
     return (
       <Row className="mb2" type="flex" justify="space-between" key={bucketKey}>
         <Col>
-          <CheckboxItem
+          <Checkbox
             checked={selectionMap.get(bucketKey)}
-            onChange={checked => {
-              this.onSelectionChange(bucketKey, checked);
+            onChange={event => {
+              this.onSelectionChange(bucketKey, event.target.checked);
             }}
           >
             <span data-test-id={`checkbox-aggregation-option-${bucketDisplay}`}>
@@ -138,7 +137,7 @@ class CheckboxAggregation extends Component {
                   bucketHelp.get(bucketKey)
                 )}
             </span>
-          </CheckboxItem>
+          </Checkbox>
         </Col>
         <Col>
           <UnclickableTag>
