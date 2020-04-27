@@ -98,7 +98,9 @@ def read_file(source):
 
 
 def migrate_record_from_legacy(recid):
-    response = requests.get(f"http://inspirehep.net/record/{recid}/export/xme")
+    response = requests.get(
+        f"{current_app.config['LEGACY_BASE_URL']}/record/{recid}/export/xme"
+    )
     response.raise_for_status()
     migrate_and_insert_record(next(split_blob(response.text)))
     db.session.commit()
