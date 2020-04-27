@@ -1,11 +1,11 @@
 import React from 'react';
 import { List, fromJS } from 'immutable';
 import { shallow } from 'enzyme';
+import { Checkbox } from 'antd';
 
 import CheckboxAggregation, {
   BUCKET_NAME_SPLITTER,
 } from '../CheckboxAggregation';
-import CheckboxItem from '../CheckboxItem';
 
 describe('CheckboxAggregation', () => {
   it('render initial state with all props set', () => {
@@ -258,9 +258,13 @@ describe('CheckboxAggregation', () => {
           name="Test"
         />
       );
-      const checked = true;
-      const onCheckboxItemChange = wrapper.find(CheckboxItem).prop('onChange');
-      onCheckboxItemChange(checked);
+      const event = {
+        target: {
+          checked: true,
+        },
+      };
+      const onCheckboxItemChange = wrapper.find(Checkbox).prop('onChange');
+      onCheckboxItemChange(event);
       expect(onChange).toBeCalledWith(['bucket1']);
     });
   });
