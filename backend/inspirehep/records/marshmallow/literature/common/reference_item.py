@@ -72,7 +72,7 @@ class ReferenceItemSchemaV1(Schema):
         reference_data = self.get_reference_or_linked_reference_data_with_label(
             reference, reference_record
         )
-        return reference_data
+        return reference_data or {}
 
     def get_reference_record_id(self, reference):
         return get_recid_from_ref(reference.get("record"))
@@ -90,7 +90,7 @@ class ReferenceItemSchemaV1(Schema):
     ):
         if reference_record:
             reference_record.update(
-                {"label": reference.get("reference", {}).get("label", missing)}
+                {"label": get_value(reference, "reference.label", default=missing)}
             )
             return reference_record
         return reference.get("reference")

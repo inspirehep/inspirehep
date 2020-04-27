@@ -437,7 +437,7 @@ def test_literature_list_has_sort_options(api_client, db, es, create_record):
     assert expected_sort_options == sort_options
 
 
-def test_literature_references_json_with_unlinked_and_duplicated_linked_records(
+def test_literature_references_json_with_empty_and_unlinked_and_duplicated_linked_records(
     api_client, db, es, create_record
 ):
     headers = {"Accept": "application/json"}
@@ -456,6 +456,7 @@ def test_literature_references_json_with_unlinked_and_duplicated_linked_records(
                     "label": "1",
                 }
             },
+            {"legacy_curated": True},
             {
                 "record": {
                     "$ref": f"http://localhost:5000/api/literature/{referenced_record['control_number']}"
@@ -490,7 +491,7 @@ def test_literature_references_json_with_unlinked_and_duplicated_linked_records(
                 "label": "2",
             },
         ],
-        "references_count": 3,
+        "references_count": 4,
     }
 
     response = api_client.get(
