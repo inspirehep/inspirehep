@@ -8,6 +8,7 @@
 
 TAG="${TRAVIS_TAG:-$(git describe --always --tags)}"
 
+DEPLOY_TOKEN="${DEPLOY_QA_TOKEN}"
 LATEST_COMMIT=$(git rev-parse HEAD)
 LATEST_COMMIT_IN_SMOKE_TESTS=$(git log -1 --format=format:%H --full-diff smoke-tests)
 
@@ -61,23 +62,31 @@ logout() {
   retry docker logout
 }
 
-deployQA() {
+deploy() {
   app="${1}"
-  if [ -z "${TRAVIS_TAG}" ]; then
-    echo "Deploying ${app} ..."
-    curl -X POST \
-      -F token=${DEPLOY_QA_TOKEN} \
-      -F ref=master \
-      -F variables[APP_NAME]=${app} \
-      -F variables[NEW_TAG]=${TAG} \
-      https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
-  fi
+  env="${2}"
+  echo "Deploying ${app} to ${env}..."
+  curl -X POST \
+    -F token=${DEPLOY_TOKEN} \
+    -F ref=master \
+    -F variables[APP_NAME]=${app} \
+    -F variables[NEW_TAG]=${TAG} \
+    -F variables[ENVIRONMENT]=${env} \
+    https://gitlab.cern.ch/api/v4/projects/62928/trigger/pipeline
 }
 
 sentryQA() {
   export SENTRY_AUTH_TOKEN=${SENTRY_QA_AUTH_TOKEN}
   export SENTRY_URL="https://sentry.inspirebeta.net"
   export SENTRY_ORG="inspire-qa"
+  sentry-cli releases new -p "ui" -p "hep" ${TAG}
+  sentry-cli releases set-commits --auto ${TAG}
+}
+
+sentryPROD() {
+  export SENTRY_AUTH_TOKEN=${SENTRY_PROD_AUTH_TOKEN}
+  export SENTRY_URL="https://sentry.inspirehep.net"
+  export SENTRY_ORG="inspire-prod"
   sentry-cli releases new -p "ui" -p "hep" ${TAG}
   sentry-cli releases set-commits --auto ${TAG}
 }
@@ -105,9 +114,15 @@ main() {
   buildPush "backend" "inspirehep/hep"
   maybeBuildSmokeTests
   logout
-  deployQA "ui"
-  deployQA "hep"
-  sentryQA
-  maybeDeploySmokeTestsQA
+  if [ -z "${TRAVIS_TAG}" ]; then
+    deploy "ui" "qa"
+    deploy "hep" "qa"
+    sentryQA
+    maybeDeploySmokeTestsQA
+  else
+    deploy "ui" "prod"
+    deploy "hep" "prod"
+    sentryPROD
+  fi
 }
 main
