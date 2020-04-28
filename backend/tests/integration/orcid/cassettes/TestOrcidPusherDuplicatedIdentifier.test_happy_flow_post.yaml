@@ -35,11 +35,11 @@ interactions:
       Content-Type:
       - application/orcid+json; qs=2;charset=UTF-8
       Date:
-      - Thu, 26 Mar 2020 15:19:12 GMT
+      - Tue, 28 Apr 2020 14:30:59 GMT
       Expires:
       - '0'
       Location:
-      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/71115034
+      - http://api.orcid.org/v2.0/0000-0003-1134-6827/work/72994839
       Pragma:
       - no-cache
       Server:

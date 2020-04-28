@@ -28,7 +28,7 @@ import os
 import mock
 import pkg_resources
 import pytest
-from celery.exceptions import TimeLimitExceeded
+from celery.exceptions import Retry, TimeLimitExceeded
 from fqn_decorators.decorators import get_fqn
 from helpers.factories.db.invenio_oauthclient import TestRemoteToken
 from helpers.factories.db.invenio_records import TestRecordMetadata
@@ -36,9 +36,10 @@ from helpers.utils import override_config
 from inspire_service_orcid import exceptions as orcid_client_exceptions
 from inspire_service_orcid.client import OrcidClient
 from lxml import etree
+from pytest import raises
 
 from inspirehep.orcid import cache as cache_module
-from inspirehep.orcid import domain_models, exceptions, push_access_tokens
+from inspirehep.orcid import domain_models, exceptions, push_access_tokens, tasks
 from inspirehep.orcid.cache import OrcidCache
 
 # The tests are written in a specific order, disable random
@@ -467,25 +468,44 @@ class TestOrcidPusherDuplicatedIdentifier(TestOrcidPusherBase):
             self.factory.record_metadata.json["dois"] = dois
             self.factory_clashing.record_metadata.json["deleted"] = True
 
+            with pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
+                tasks.orcid_push.apply_async(
+                    queue="orcid_push_legacy_tokens",
+                    kwargs={
+                        "orcid": self.orcid,
+                        "rec_id": self.recid,
+                        "oauth_token": self.oauth_token,
+                    },
+                    throw=True,
+                )
+
             pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
             result_putcode = pusher.push()
 
-        assert self.putcode == result_putcode
-        assert not self.cache.has_work_content_changed(self.inspire_record)
+            assert result_putcode == self.putcode
+            assert not self.cache.has_work_content_changed(self.inspire_record)
 
-    def test_duplicated_external_identifier_pusher_exception(self):
-        self.factory_clashing.record_metadata.json["titles"] = [
-            {"source": "submitter", "title": "title1"}
-        ]
+    def test_push_unhandled_duplicated_external_identifier_pusher_exception(self):
         with override_config(
             FEATURE_FLAG_ENABLE_ORCID_PUSH=True,
             FEATURE_FLAG_ORCID_PUSH_WHITELIST_REGEX=".*",
             ORCID_APP_CREDENTIALS={"consumer_key": "0000-0001-8607-8906"},
-        ), pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
-            pusher = domain_models.OrcidPusher(
-                self.orcid, self.clashing_recid, self.oauth_token
-            )
+        ):
+            pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
             pusher.push()
+
+            self.factory_clashing.record_metadata.json["titles"] = [
+                {"source": "submitter", "title": "title1"}
+            ]
+
+            pusher = domain_models.OrcidPusher(self.orcid, self.recid, self.oauth_token)
+            pusher.push()
+
+            with pytest.raises(exceptions.DuplicatedExternalIdentifierPusherException):
+                pusher = domain_models.OrcidPusher(
+                    self.orcid, self.clashing_recid, self.oauth_token
+                )
+                pusher.push()
 
 
 @pytest.mark.usefixtures("base_app", "db", "es")

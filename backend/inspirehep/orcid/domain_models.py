@@ -153,10 +153,10 @@ class OrcidPusher(object):
             # of the clashing work in ORCID and push a fresh version of that
             # record.
             # This scenario might be triggered by a merge of 2 records in Inspire.
-            if self.pushing_duplicated_identifier:
-                raise exceptions.DuplicatedExternalIdentifierPusherException
-            self._push_work_with_clashing_identifier()
-            putcode = self._post_or_put_work(putcode)
+            if not self.pushing_duplicated_identifier:
+                self._push_work_with_clashing_identifier()
+            # Raised exception will cause retry of celery task
+            raise exceptions.DuplicatedExternalIdentifierPusherException
         except orcid_client_exceptions.PutcodeNotFoundPutException:
             # We try to push the work with invalid putcode, so we delete
             # its putcode and push it without any putcode.
