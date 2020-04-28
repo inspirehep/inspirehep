@@ -76,26 +76,9 @@ function isEmbedded(namespace, state) {
   return search.getIn(['namespaces', namespace, 'embedded']);
 }
 
-export function searchForCurrentQuery(namespace) {
+function fetchSearchResults(namespace, url) {
   return async (dispatch, getState, http) => {
     dispatch(searching(namespace));
-    const state = getState();
-    const query = getQueryForCurrentState(namespace, state);
-    const queryString = stringify(query, { indices: false });
-    const pathname = getPathnameForNamespace(namespace, state);
-    const url = `${pathname}?${queryString}`;
-
-    if (!isEmbedded(namespace, state)) {
-      // for search pages, hash is used to carry UI state in search urls, like citation summary visibility
-      const urlWithHash = `${url}${state.router.location.hash}`;
-      if (isCurrentUrlOnlyMissingBaseQuery(namespace, state, queryString)) {
-        // in order to allow going out of redirect loop of url <=> url + base query
-        dispatch(replace(urlWithHash));
-      } else {
-        dispatch(push(urlWithHash));
-      }
-    }
-
     try {
       const response = await http.get(url, UI_SERIALIZER_REQUEST_OPTIONS);
       dispatch(searchSuccess(namespace, response.data));
@@ -127,44 +110,9 @@ function searchAggregationsError(namespace, errorPayload) {
   };
 }
 
-export function fetchSearchAggregationsForCurrentQuery(namespace) {
+export function fetchSearchAggregations(namespace, url) {
   return async (dispatch, getState, http) => {
-    const state = getState();
-    const aggregationsFetchMode = state.search.getIn([
-      'namespaces',
-      namespace,
-      'aggregationsFetchMode',
-    ]);
-
-    const isAggregationsEmpty = state.search
-      .getIn(['namespaces', namespace, 'aggregations'])
-      .isEmpty();
-
-    if (
-      aggregationsFetchMode === FETCH_MODE_NEVER ||
-      (aggregationsFetchMode === FETCH_MODE_INITIAL && !isAggregationsEmpty)
-    ) {
-      return;
-    }
-
     dispatch(fetchingSearchAggregations(namespace));
-
-    // do a search with empty query if FETCH_MODE_INITIAL
-    const searchQuery =
-      aggregationsFetchMode === FETCH_MODE_INITIAL
-        ? {}
-        : getQueryForCurrentState(namespace, state);
-    const baseAggregationsQuery = state.search
-      .getIn(['namespaces', namespace, 'baseAggregationsQuery'])
-      .toJS();
-    const aggregationsQuery = {
-      ...searchQuery,
-      ...baseAggregationsQuery,
-    };
-    const queryString = stringify(aggregationsQuery, { indices: false });
-    const pathname = getPathnameForNamespace(namespace, state);
-    const url = `${pathname}/facets?${queryString}`;
-
     try {
       const response = await http.get(url);
       dispatch(searchAggregationsSuccess(namespace, response.data));
@@ -187,6 +135,29 @@ function hasQueryChangedExceptSortAndPagination(prevQuery, nextQuery) {
     omit(prevQuery.toObject(), ['sort', 'page', 'size']),
     omit(nextQuery.toObject(), ['sort', 'page', 'size'])
   );
+}
+function getSearchQueryString(namespace, state) {
+  const query = getQueryFromState(namespace, state);
+  return stringify(query.toJS(), { indices: false });
+}
+function getSearchAggregationsQueryString(namespace, state) {
+  const aggregationsFetchMode = state.search.getIn([
+    'namespaces',
+    namespace,
+    'aggregationsFetchMode',
+  ]);
+  const searchQuery =
+    aggregationsFetchMode === FETCH_MODE_INITIAL
+      ? {}
+      : getQueryForCurrentState(namespace, state);
+  const baseAggregationsQuery = state.search
+    .getIn(['namespaces', namespace, 'baseAggregationsQuery'])
+    .toJS();
+  const aggregationsQuery = {
+    ...searchQuery,
+    ...baseAggregationsQuery,
+  };
+  return stringify(aggregationsQuery, { indices: false });
 }
 export function searchQueryUpdate(namespace, query) {
   return async (dispatch, getState) => {
@@ -218,14 +189,52 @@ export function searchQueryUpdate(namespace, query) {
     );
     const hasQueryChanged = prevQuery !== nextQuery;
     if (hasQueryChanged || isInitialQueryUpdate) {
-      dispatch(searchForCurrentQuery(namespace));
+      const queryString = getSearchQueryString(namespace, nextState);
+      const pathname = getPathnameForNamespace(namespace, nextState);
+      const url = `${pathname}?${queryString}`;
+
+      if (!isEmbedded(namespace, nextState)) {
+        // for search pages, hash is used to carry UI state in search urls, like citation summary visibility
+        const urlWithHash = `${url}${nextState.router.location.hash}`;
+        if (
+          isCurrentUrlOnlyMissingBaseQuery(namespace, nextState, queryString)
+        ) {
+          // in order to allow going out of redirect loop of url <=> url + base query
+          dispatch(replace(urlWithHash));
+        } else {
+          dispatch(push(urlWithHash));
+        }
+      }
+      dispatch(fetchSearchResults(namespace, url));
     }
 
     if (
       hasQueryChangedExceptSortAndPagination(prevQuery, nextQuery) ||
       isInitialQueryUpdate
     ) {
-      dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
+      const aggregationsFetchMode = nextState.search.getIn([
+        'namespaces',
+        namespace,
+        'aggregationsFetchMode',
+      ]);
+
+      const isAggregationsEmpty = nextState.search
+        .getIn(['namespaces', namespace, 'aggregations'])
+        .isEmpty();
+
+      if (
+        aggregationsFetchMode === FETCH_MODE_NEVER ||
+        (aggregationsFetchMode === FETCH_MODE_INITIAL && !isAggregationsEmpty)
+      ) {
+        return;
+      }
+      const queryString = getSearchAggregationsQueryString(
+        namespace,
+        nextState
+      );
+      const pathname = getPathnameForNamespace(namespace, nextState);
+      const url = `${pathname}/facets?${queryString}`;
+      dispatch(fetchSearchAggregations(namespace, url));
     }
   };
 }
@@ -269,11 +278,20 @@ export function searchBaseQueriesUpdate(
       prevBaseAggregationsQuery !== nextBaseAggregationsQuery;
 
     if (hasBaseQueryChanged) {
-      dispatch(searchForCurrentQuery(namespace));
+      const queryString = getSearchQueryString(namespace, nextState);
+      const pathname = getPathnameForNamespace(namespace, nextState);
+      const url = `${pathname}?${queryString}`;
+      dispatch(fetchSearchResults(namespace, url));
     }
 
     if (hasBaseQueryChanged || hasBaseAggregationsQueryChanged) {
-      dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
+      const queryString = getSearchAggregationsQueryString(
+        namespace,
+        nextState
+      );
+      const pathname = getPathnameForNamespace(namespace, nextState);
+      const url = `${pathname}/facets?${queryString}`;
+      dispatch(fetchSearchAggregations(namespace, url));
     }
   };
 }
