@@ -9,9 +9,11 @@ describe('DocumentHead', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders with title and description', () => {
+  it('renders with title, description and children', () => {
     const wrapper = shallow(
-      <DocumentHead title="Page Title" description="This is a test page" />
+      <DocumentHead title="Page Title" description="This is a test page">
+        <meta name="citation_title" content="Page Title" />
+      </DocumentHead>
     );
     expect(wrapper).toMatchSnapshot();
   });

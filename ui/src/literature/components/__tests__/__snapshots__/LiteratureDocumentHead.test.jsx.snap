@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LiteratureDocumentHead renders full literature 1`] = `
+<DocumentHead
+  description="First abstract is important"
+  title="Test Title"
+>
+  <meta
+    content="Test Title"
+    name="citation_title"
+  />
+  <meta
+    content="2019/01/16"
+    name="citation_online_date"
+  />
+  <meta
+    content="First abstract is important"
+    name="citation_abstract"
+  />
+  <meta
+    content="1993/06/07"
+    name="citation_publication_date"
+  />
+  <meta
+    content="arXiv:1910.06344"
+    name="citation_technical_report_number"
+  />
+  <meta
+    content="12.1234/1234567890123_1234"
+    name="citation_doi"
+  />
+  <meta
+    content="https://fulltext.cern/pdf/1"
+    key="https://fulltext.cern/pdf/1"
+    name="citation_pdf_url"
+  />
+  <meta
+    content="https://fulltext.cern/pdf/2"
+    key="https://fulltext.cern/pdf/2"
+    name="citation_pdf_url"
+  />
+  <meta
+    content="Test, Author"
+    key="Test, Author"
+    name="citation_author"
+  />
+  <meta
+    content="Another, Author"
+    key="Another, Author"
+    name="citation_author"
+  />
+  <meta
+    content="Test Journal"
+    name="citation_journal_title"
+  />
+  <meta
+    content="3"
+    name="citation_volume"
+  />
+  <meta
+    content="test issue"
+    name="citation_issue"
+  />
+  <meta
+    content="12"
+    name="citation_firstpage"
+  />
+  <meta
+    content="22"
+    name="citation_lastpage"
+  />
+</DocumentHead>
+`;
+
+exports[`LiteratureDocumentHead renders with only title 1`] = `
+<DocumentHead
+  description=""
+  title="The title"
+>
+  <meta
+    content="The title"
+    name="citation_title"
+  />
+  <meta
+    content="2019/01/16"
+    name="citation_online_date"
+  />
+</DocumentHead>
+`;
+
+exports[`LiteratureDocumentHead renders with partial date (month and year) 1`] = `
+<DocumentHead
+  description=""
+  title="The title"
+>
+  <meta
+    content="The title"
+    name="citation_title"
+  />
+  <meta
+    content="2019/01/16"
+    name="citation_online_date"
+  />
+  <meta
+    content="1993/06"
+    name="citation_publication_date"
+  />
+</DocumentHead>
+`;
+
+exports[`LiteratureDocumentHead renders with partial date (only year) 1`] = `
+<DocumentHead
+  description=""
+  title="The title"
+>
+  <meta
+    content="The title"
+    name="citation_title"
+  />
+  <meta
+    content="2019/01/16"
+    name="citation_online_date"
+  />
+  <meta
+    content="1993"
+    name="citation_publication_date"
+  />
+</DocumentHead>
+`;
