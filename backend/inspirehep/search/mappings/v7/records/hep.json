@@ -585,17 +585,6 @@
         },
         "type": "object"
       },
-      "citations_by_year_without_self_citations": {
-        "properties": {
-          "year": {
-            "type": "integer"
-          },
-          "count": {
-            "type": "integer"
-          }
-        },
-        "type": "object"
-      },
       "citeable": {
         "type": "boolean"
       },

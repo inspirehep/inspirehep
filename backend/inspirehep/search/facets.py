@@ -4,7 +4,6 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
-
 from datetime import datetime
 from itertools import count
 
@@ -225,7 +224,7 @@ def citation_summary():
         "citation_count_without_self_citations",
     ]
     filters = get_filters_without_excluded(hep_filters(), excluded_filters)
-    if request.values.get("exclude-self-citations", False):
+    if "exclude-self-citations" in request.values:
         field = "citation_count_without_self_citations"
     else:
         field = "citation_count"

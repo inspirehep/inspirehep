@@ -135,7 +135,7 @@ def test_citation_summary_without_self_citations_facet(
         create_record_factory("lit", data=data, with_indexing=True)
 
     response = api_client.get(
-        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&exclude-self-citations=true"
+        "/literature/facets?author=NOREC_N.%20Girard&facet_name=citation-summary&exclude-self-citations"
     )
 
     expected_citation_summary_aggregation = {
