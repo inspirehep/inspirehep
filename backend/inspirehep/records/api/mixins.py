@@ -121,7 +121,9 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             query: Query containing all citations for this record
         """
         query = RecordCitations.query.filter_by(cited_id=self.id)
-        if exclude_self_citations:
+        if exclude_self_citations and current_app.config.get(
+            "FEATURE_FLAG_ENABLE_SELF_CITATIONS"
+        ):
             query = query.filter(RecordCitations.is_self_citation.is_(False))
         return query
 
@@ -141,9 +143,11 @@ class CitationMixin(PapersAuthorsExtensionMixin):
             int: Citation count number for this record if it is literature or data
             record.
         """
-        return self._citation_query(exclude_self_citations=True).count()
+        if current_app.config.get("FEATURE_FLAG_ENABLE_SELF_CITATIONS"):
+            return self._citation_query(exclude_self_citations=True).count()
+        return 0
 
-    def _citations_by_year(self, exclude_self_citations=False):
+    def _citations_by_year(self):
         """Return the number of citations received per year for the current record.
 
         Args:
@@ -151,7 +155,7 @@ class CitationMixin(PapersAuthorsExtensionMixin):
         Returns:
             dict: citation summary for this record.
         """
-        db_query = self._citation_query(exclude_self_citations)
+        db_query = self._citation_query()
         db_query = db_query.with_entities(
             func.count(RecordCitations.citation_date).label("sum"),
             func.date_trunc("year", RecordCitations.citation_date).label("year"),

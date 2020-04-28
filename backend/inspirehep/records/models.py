@@ -23,6 +23,16 @@ class RecordCitations(db.Model):
 
     __table_args__ = (
         db.Index("ix_records_citations_cited_id_citer_id", "cited_id", "citer_id"),
+        db.Index(
+            "ix_records_citations_cited_id_citation_type",
+            "cited_id",
+            "is_self_citation",
+        ),
+        db.Index(
+            "ix_records_citations_citer_id_citation_type",
+            "citer_id",
+            "is_self_citation",
+        ),
     )
 
     citer_id = db.Column(

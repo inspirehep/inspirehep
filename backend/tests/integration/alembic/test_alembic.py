@@ -13,6 +13,14 @@ from sqlalchemy.engine import reflection
 def test_downgrade(base_app, database):
     alembic = Alembic(base_app)
 
+    alembic.downgrade(target="5a0e2405b624")
+    assert "ix_records_citations_cited_id_citation_type" not in _get_indexes(
+        "records_citations", database
+    )
+    assert "ix_records_citations_citer_id_citation_type" not in _get_indexes(
+        "records_citations", database
+    )
+
     alembic.downgrade(target="595c36d68964")
     assert (
         _check_column_in_table(database, "records_citations", "is_self_citation")
@@ -181,6 +189,14 @@ def test_upgrade(base_app, database):
     assert (
         _check_column_in_table(database, "records_citations", "is_self_citation")
         is True
+    )
+
+    alembic.upgrade(target="8ba47044154a")
+    assert "ix_records_citations_cited_id_citation_type" in _get_indexes(
+        "records_citations", database
+    )
+    assert "ix_records_citations_citer_id_citation_type" in _get_indexes(
+        "records_citations", database
     )
 
 
