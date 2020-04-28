@@ -9,7 +9,10 @@ function Advisor({ advisor }) {
   const name = advisor.get('name');
   const $ref = advisor.getIn(['record', '$ref']);
   const recordId = getRecordIdFromRef($ref);
-  return recordId ? <Link to={`${AUTHORS}/${recordId}`}>{name}</Link> : name;
+  const profileOrSearchUrl = recordId
+    ? `${AUTHORS}/${recordId}`
+    : `${AUTHORS}?q=${encodeURIComponent(name)}`;
+  return <Link to={profileOrSearchUrl}>{name}</Link>;
 }
 
 Advisor.propTypes = {
