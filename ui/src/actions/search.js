@@ -1,5 +1,6 @@
 import { stringify } from 'qs';
 import { push, replace } from 'connected-react-router';
+import omit from 'lodash.omit';
 
 import {
   SEARCH_REQUEST,
@@ -15,7 +16,7 @@ import {
   SEARCH_QUERY_RESET,
 } from './actionTypes';
 import { UI_SERIALIZER_REQUEST_OPTIONS } from '../common/http';
-import { httpErrorToActionPayload } from '../common/utils';
+import { httpErrorToActionPayload, shallowEqual } from '../common/utils';
 import { FETCH_MODE_NEVER, FETCH_MODE_INITIAL } from '../reducers/search';
 
 function getQueryForCurrentState(namespace, state) {
@@ -47,6 +48,13 @@ function searchError(namespace, errorPayload) {
     type: SEARCH_ERROR,
     payload: { ...errorPayload, namespace },
     meta: { redirectableError: true },
+  };
+}
+
+export function newSearch(namespace) {
+  return {
+    type: NEW_SEARCH_REQUEST,
+    payload: { namespace },
   };
 }
 
@@ -167,11 +175,58 @@ export function fetchSearchAggregationsForCurrentQuery(namespace) {
   };
 }
 
-// this then MAY trigger search and aggregations request in `searchDispatcher.js`
+function getQueryFromState(namespace, state) {
+  return state.search.getIn(['namespaces', namespace, 'query']);
+}
+
+function getBaseQueryFromState(namespace, state) {
+  return state.search.getIn(['namespaces', namespace, 'baseQuery']);
+}
+function hasQueryChangedExceptSortAndPagination(prevQuery, nextQuery) {
+  return !shallowEqual(
+    omit(prevQuery.toObject(), ['sort', 'page', 'size']),
+    omit(nextQuery.toObject(), ['sort', 'page', 'size'])
+  );
+}
 export function searchQueryUpdate(namespace, query) {
-  return {
-    type: SEARCH_QUERY_UPDATE,
-    payload: { query, namespace },
+  return async (dispatch, getState) => {
+    const currentQuery = getQueryFromState(namespace, getState());
+
+    const hasQueryQParamChanged =
+      query.q != null && query.q !== currentQuery.get('q');
+    if (hasQueryQParamChanged) {
+      dispatch(newSearch(namespace));
+    }
+
+    // get prevQuery after newSearch because it might update it
+    const prevQuery = getQueryFromState(namespace, getState());
+
+    dispatch({
+      type: SEARCH_QUERY_UPDATE,
+      payload: { query, namespace },
+    });
+
+    const nextState = getState();
+    const nextQuery = getQueryFromState(namespace, nextState);
+    const nextBaseQuery = getBaseQueryFromState(namespace, nextState);
+
+    // to dispatch search when initial location change causes SEARCH_QUERY_UPDATE
+    // (via `syncLocationWithSearch.js`) with empty query or a query same as the base query
+    const isInitialQueryUpdate = shallowEqual(
+      nextBaseQuery.toObject(),
+      nextQuery.toObject()
+    );
+    const hasQueryChanged = prevQuery !== nextQuery;
+    if (hasQueryChanged || isInitialQueryUpdate) {
+      dispatch(searchForCurrentQuery(namespace));
+    }
+
+    if (
+      hasQueryChangedExceptSortAndPagination(prevQuery, nextQuery) ||
+      isInitialQueryUpdate
+    ) {
+      dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
+    }
   };
 }
 
@@ -182,21 +237,44 @@ export function searchQueryReset(namespace) {
   };
 }
 
-export function newSearch(namespace) {
-  return {
-    type: NEW_SEARCH_REQUEST,
-    payload: { namespace },
-  };
+function getBaseAggregationsQueryFromState(namespace, state) {
+  return state.search.getIn(['namespaces', namespace, 'baseAggregationsQuery']);
 }
-
-// this then MAY trigger search and aggregations request in `searchDispatcher.js`
 export function searchBaseQueriesUpdate(
   namespace,
   { baseQuery, baseAggregationsQuery }
 ) {
-  return {
-    type: SEARCH_BASE_QUERIES_UPDATE,
-    payload: { namespace, baseQuery, baseAggregationsQuery },
+  return async (dispatch, getState) => {
+    const prevState = getState();
+    const prevBaseQuery = getBaseQueryFromState(namespace, prevState);
+    const prevBaseAggregationsQuery = getBaseAggregationsQueryFromState(
+      namespace,
+      prevState
+    );
+
+    dispatch({
+      type: SEARCH_BASE_QUERIES_UPDATE,
+      payload: { namespace, baseQuery, baseAggregationsQuery },
+    });
+
+    const nextState = getState();
+    const nextBaseQuery = getBaseQueryFromState(namespace, nextState);
+    const nextBaseAggregationsQuery = getBaseAggregationsQueryFromState(
+      namespace,
+      nextState
+    );
+
+    const hasBaseQueryChanged = prevBaseQuery !== nextBaseQuery;
+    const hasBaseAggregationsQueryChanged =
+      prevBaseAggregationsQuery !== nextBaseAggregationsQuery;
+
+    if (hasBaseQueryChanged) {
+      dispatch(searchForCurrentQuery(namespace));
+    }
+
+    if (hasBaseQueryChanged || hasBaseAggregationsQueryChanged) {
+      dispatch(fetchSearchAggregationsForCurrentQuery(namespace));
+    }
   };
 }
 
