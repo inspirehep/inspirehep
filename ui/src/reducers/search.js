@@ -186,7 +186,6 @@ export const SEARCHABLE_COLLECTION_PATHNAMES = nonEmbeddedNamespaces
 export const SEARCH_BOX_NAMESPACES = nonEmbeddedNamespaces
   .sortBy(namespace => namespace.get('order'))
   .map((_, namespace) => namespace)
-  .filter(namespace => namespace !== INSTITUTIONS_NS)
   .valueSeq()
   .toArray();
 
