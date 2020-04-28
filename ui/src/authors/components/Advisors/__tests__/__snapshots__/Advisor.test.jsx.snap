@@ -8,4 +8,10 @@ exports[`Advisor renders linked 1`] = `
 </Link>
 `;
 
-exports[`Advisor renders unliked 1`] = `"Yoda"`;
+exports[`Advisor renders unliked 1`] = `
+<Link
+  to="/authors?q=Yoda"
+>
+  Yoda
+</Link>
+`;
