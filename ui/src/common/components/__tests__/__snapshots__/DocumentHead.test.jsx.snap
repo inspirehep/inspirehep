@@ -12,7 +12,7 @@ exports[`DocumentHead renders with only title 1`] = `
 </HelmetWrapper>
 `;
 
-exports[`DocumentHead renders with title and description 1`] = `
+exports[`DocumentHead renders with title, description and children 1`] = `
 <HelmetWrapper
   defer={true}
   encodeSpecialCharacters={true}
@@ -24,6 +24,10 @@ exports[`DocumentHead renders with title and description 1`] = `
   <meta
     content="This is a test page"
     name="description"
+  />
+  <meta
+    content="Page Title"
+    name="citation_title"
   />
 </HelmetWrapper>
 `;

@@ -32,7 +32,6 @@ import TabNameWithCount from '../../../common/components/TabNameWithCount';
 import AcceleratorExperimentList from '../../components/AcceleratorExperimentList';
 import LiteratureTitle from '../../../common/components/LiteratureTitle';
 import CiteModalActionContainer from '../CiteModalActionContainer';
-import DocumentHead from '../../../common/components/DocumentHead';
 import {
   fetchCitationsByYear,
   fetchCitations,
@@ -45,8 +44,8 @@ import PublicNotesList from '../../../common/components/PublicNotesList';
 import UrlsAction from '../../components/UrlsAction';
 import DeletedAlert from '../../../common/components/DeletedAlert';
 import SupervisorList from '../../components/SupervisorList';
-import { makeCompliantMetaDescription } from '../../../common/utils';
 import withRouteActionsDispatcher from '../../../common/withRouteActionsDispatcher';
+import LiteratureDocumentHead from '../../components/LiteratureDocumentHead';
 
 function DetailPage({
   authors,
@@ -85,13 +84,12 @@ function DetailPage({
   const figures = metadata.get('figures');
   const deleted = metadata.get('deleted', false);
 
-  const metaDescription = makeCompliantMetaDescription(
-    abstract && abstract.get('value')
-  );
-
   return (
     <>
-      <DocumentHead title={title.get('title')} description={metaDescription} />
+      <LiteratureDocumentHead
+        metadata={metadata}
+        created={record.get('created')}
+      />
       <Row className="__DetailPage__" type="flex" justify="center">
         <Col xs={24} md={22} lg={21} xxl={18}>
           <Row
