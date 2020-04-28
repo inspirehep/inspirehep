@@ -119,14 +119,12 @@ export class CommonApiService {
       .toPromise();
   }
 
-  // TODO: remove `recordId` param after backend refactor
-  fetchRevisionData(pidValue: number, transactionId: number, recUUID: string): Promise<Object> {
+  fetchRevisionData(transactionId: number, recUUID: string): Promise<Object> {
     return this.http
-      .get(`${editorApiUrl}/literature/${pidValue}/revision/${recUUID}/${transactionId}`)
+      .get(`${editorApiUrl}/revisions/${recUUID}/${transactionId}`)
       .map(res => res.json())
       .toPromise();
   }
-
 
   revertToRevision(pidType: string, pidValue: number, revisionId: number): Promise<void> {
     return this.http

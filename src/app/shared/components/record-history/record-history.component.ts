@@ -69,7 +69,7 @@ export class RecordHistoryComponent extends SubscriberComponent implements OnIni
   onRevisionClick(revision: RecordRevision) {
     this.selectedRevision = revision;
     this.apiService
-      .fetchRevisionData(this.pidValue, revision.transaction_id, revision.rec_uuid)
+      .fetchRevisionData(revision.transaction_id, revision.rec_uuid)
       .then(revisionData => this.revisionChange.emit(revisionData));
   }
 
