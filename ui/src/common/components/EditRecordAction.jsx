@@ -12,13 +12,22 @@ import {
   EDIT_JOB,
   EDIT_CONFERENCE,
   EDIT_AUTHOR,
+  EDIT_INSTITUTION,
 } from '../routes';
+import {
+  LITERATURE_PID_TYPE,
+  JOBS_PID_TYPE,
+  CONFERENCES_PID_TYPE,
+  AUTHORS_PID_TYPE,
+  INSTITUTIONS_PID_TYPE,
+} from '../constants';
 
 const pidTypeToEditRoutePrefix = {
   literature: EDIT_LITERATURE,
   jobs: EDIT_JOB,
   conferences: EDIT_CONFERENCE,
   authors: EDIT_AUTHOR,
+  institutions: EDIT_INSTITUTION,
 };
 
 class EditRecordAction extends Component {
@@ -40,8 +49,13 @@ class EditRecordAction extends Component {
 }
 
 EditRecordAction.propTypes = {
-  pidType: PropTypes.oneOf(['literature', 'jobs', 'conferences', 'authors'])
-    .isRequired,
+  pidType: PropTypes.oneOf([
+    LITERATURE_PID_TYPE,
+    JOBS_PID_TYPE,
+    CONFERENCES_PID_TYPE,
+    AUTHORS_PID_TYPE,
+    INSTITUTIONS_PID_TYPE,
+  ]).isRequired,
   pidValue: PropTypes.number.isRequired,
 };
 

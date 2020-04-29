@@ -379,6 +379,7 @@ INSTITUTIONS.update(
                 "completion": {"field": "affiliation_suggest"},
             }
         },
+        "update_permission_factory_imp": SessionCatalogerPermission,
         "search_serializers": {
             "application/json": INSPIRE_SERIALIZERS
             + ":institutions_json_response_search",

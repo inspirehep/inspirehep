@@ -4,6 +4,11 @@
 #
 # inspirehep is free software; you can redistribute it and/or modify it under
 # the terms of the MIT License; see LICENSE file for more details.
+import json
+
+from invenio_accounts.testutils import login_user_via_session
+
+from inspirehep.accounts.roles import Roles
 
 
 def test_institutions_application_json_get(api_client, db, es, create_record_factory):
@@ -71,3 +76,57 @@ def test_institution_record_search_results(api_client, db, es_clear, create_reco
 
     assert result.json["hits"]["total"] == 1
     assert result.json["hits"]["hits"][0]["metadata"] == expected_metadata
+
+
+def test_institutions_application_json_put_without_auth(
+    api_client, db, es_clear, create_record
+):
+    record = create_record("ins")
+    record_control_number = record["control_number"]
+
+    expected_status_code = 401
+    response = api_client.put(f"/institutions/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_institutions_application_json_put_without_cataloger_logged_in(
+    api_client, db, es_clear, create_user, create_record
+):
+    user = create_user()
+    login_user_via_session(api_client, email=user.email)
+
+    record = create_record("ins")
+    record_control_number = record["control_number"]
+
+    expected_status_code = 403
+    response = api_client.put(f"/institutions/{record_control_number}")
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code
+
+
+def test_institutions_application_json_put_with_cataloger_logged_in(
+    api_client, db, es_clear, create_user, create_record
+):
+    cataloger = create_user(role=Roles.cataloger.value)
+    login_user_via_session(api_client, email=cataloger.email)
+    record = create_record("ins")
+    record_control_number = record["control_number"]
+
+    expected_status_code = 200
+    response = api_client.put(
+        "/institutions/{}".format(record_control_number),
+        content_type="application/json",
+        data=json.dumps(
+            {
+                "control_number": record_control_number,
+                "$schema": "http://localhost:5000/schemas/records/institutions.json",
+                "_collections": ["Institutions"],
+            }
+        ),
+    )
+    response_status_code = response.status_code
+
+    assert expected_status_code == response_status_code

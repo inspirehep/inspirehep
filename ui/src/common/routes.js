@@ -36,9 +36,10 @@ export const SUBMISSIONS_CONFERENCE = `${SUBMISSIONS}/conferences`;
 export const SUBMISSION_SUCCESS = `${SUBMISSIONS}/success`;
 
 export const EDIT_LITERATURE = '/workflows/edit_article';
-export const EDIT_AUTHOR = '/submissions/authors';
-export const EDIT_JOB = '/submissions/jobs';
+export const EDIT_AUTHOR = SUBMISSIONS_AUTHOR;
+export const EDIT_JOB = SUBMISSIONS_JOB;
 export const EDIT_CONFERENCE = '/editor/record/conferences';
+export const EDIT_INSTITUTION = '/editor/record/institutions';
 
 export function isBetaRoute(locationPathname) {
   return locationPathname.startsWith(INSTITUTIONS);

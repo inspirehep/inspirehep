@@ -1,30 +1,46 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import EditRecordAction from '../EditRecordAction';
+import {
+  INSTITUTIONS_PID_TYPE,
+  JOBS_PID_TYPE,
+  CONFERENCES_PID_TYPE,
+  AUTHORS_PID_TYPE,
+  LITERATURE_PID_TYPE,
+} from '../../constants';
 
 describe('EditRecordAction', () => {
   it('renders edit button with pidType literature and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType="literature" pidValue={1} />
+      <EditRecordAction pidType={LITERATURE_PID_TYPE} pidValue={1} />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('renders edit button with pidType jobs and pidValue', () => {
-    const wrapper = shallow(<EditRecordAction pidType="jobs" pidValue={1} />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it('renders edit button with pidType jobs and pidValue', () => {
+  it('renders edit button with pidType authors and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType="authors" pidValue={1} />
+      <EditRecordAction pidType={AUTHORS_PID_TYPE} pidValue={1} />
     );
     expect(wrapper).toMatchSnapshot();
   });
 
   it('renders edit button with pidType conferences and pidValue', () => {
     const wrapper = shallow(
-      <EditRecordAction pidType="conferences" pidValue={1} />
+      <EditRecordAction pidType={CONFERENCES_PID_TYPE} pidValue={1} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders edit button with pidType jobs and pidValue', () => {
+    const wrapper = shallow(
+      <EditRecordAction pidType={JOBS_PID_TYPE} pidValue={1} />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders edit button with pidType institutions and pidValue', () => {
+    const wrapper = shallow(
+      <EditRecordAction pidType={INSTITUTIONS_PID_TYPE} pidValue={1} />
     );
     expect(wrapper).toMatchSnapshot();
   });
