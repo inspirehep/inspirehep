@@ -3,15 +3,30 @@
 exports[`InstitutionItem renders with all props set 1`] = `
 <ResultItem
   leftActions={
-    <WebsitesAction
-      websites={
-        Immutable.List [
-          Immutable.Map {
-            "value": "http://url.com",
-          },
-        ]
-      }
-    />
+    <React.Fragment>
+      <WebsitesAction
+        websites={
+          Immutable.List [
+            Immutable.Map {
+              "value": "http://url.com",
+            },
+          ]
+        }
+      />
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          pidType="institutions"
+          pidValue={1234}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
   }
   rightActions={
     <ListItemAction>
@@ -75,6 +90,23 @@ exports[`InstitutionItem renders with all props set 1`] = `
 
 exports[`InstitutionItem renders with only needed props 1`] = `
 <ResultItem
+  leftActions={
+    <React.Fragment>
+      <Connect(Authorized)
+        authorizedRoles={
+          Immutable.List [
+            "superuser",
+            "cataloger",
+          ]
+        }
+      >
+        <EditRecordAction
+          pidType="institutions"
+          pidValue={123}
+        />
+      </Connect(Authorized)>
+    </React.Fragment>
+  }
   rightActions={
     <ListItemAction>
       <ForwardRef

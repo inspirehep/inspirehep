@@ -29,6 +29,7 @@ export const AUTHORS_PID_TYPE = 'authors';
 export const LITERATURE_PID_TYPE = 'literature';
 export const JOBS_PID_TYPE = 'jobs';
 export const CONFERENCES_PID_TYPE = 'conferences';
+export const INSTITUTIONS_PID_TYPE = 'institutions';
 
 export const INVENIO_URL = '//invenio-software.org';
 export const HOLDINGPEN_URL = '/holdingpen';

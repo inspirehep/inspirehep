@@ -23,9 +23,14 @@ import { getInstitutionMetaDescription } from '../utils';
 import InstitutionsHistoricalDataList from '../components/InstitutionsHistoricalDataList';
 import PublicNotesList from '../../common/components/PublicNotesList';
 import InstitutionAddressList from '../components/InstitutionAddressList';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
+import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
+import EditRecordAction from '../../common/components/EditRecordAction';
 
 function DetailPage({ record }) {
   const metadata = record.get('metadata');
+
   const urls = metadata.get('urls');
   const controlNumber = metadata.get('control_number');
   const legacyIcn = metadata.get('legacy_ICN');
@@ -51,7 +56,17 @@ function DetailPage({ record }) {
         <Col className="mv3" xs={24} md={22} lg={21} xxl={18}>
           <ContentBox
             className="sm-pb3"
-            leftActions={<>{urls && <WebsitesAction websites={urls} />}</>}
+            leftActions={
+              <>
+                {urls && <WebsitesAction websites={urls} />}
+                <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+                  <EditRecordAction
+                    pidType={INSTITUTIONS_PID_TYPE}
+                    pidValue={controlNumber}
+                  />
+                </AuthorizedContainer>
+              </>
+            }
           >
             <Row>
               <Col>

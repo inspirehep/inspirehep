@@ -14,6 +14,10 @@ import ListItemAction from '../../common/components/ListItemAction';
 import InstitutionHierarchyList from './InstitutionHierarchyList';
 import pluralizeUnlessSingle from '../../common/utils';
 import InstitutionAddressList from './InstitutionAddressList';
+import EditRecordAction from '../../common/components/EditRecordAction';
+import AuthorizedContainer from '../../common/containers/AuthorizedContainer';
+import { SUPERUSER_OR_CATALOGER } from '../../common/authorization';
+import { INSTITUTIONS_PID_TYPE } from '../../common/constants';
 
 function InstitutionItem({ metadata }) {
   const legacyIcn = metadata.get('legacy_ICN');
@@ -25,7 +29,17 @@ function InstitutionItem({ metadata }) {
 
   return (
     <ResultItem
-      leftActions={urls && <WebsitesAction websites={urls} />}
+      leftActions={
+        <>
+          {urls && <WebsitesAction websites={urls} />}
+          <AuthorizedContainer authorizedRoles={SUPERUSER_OR_CATALOGER}>
+            <EditRecordAction
+              pidType={INSTITUTIONS_PID_TYPE}
+              pidValue={recordId}
+            />
+          </AuthorizedContainer>
+        </>
+      }
       rightActions={
         <ListItemAction>
           <Link to={`${LITERATURE}?q=${getPapersQueryString(recordId)}`}>
